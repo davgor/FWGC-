@@ -299,6 +299,11 @@ World generate(const Config& cfg) {
 
     world.spacing_m = tectonics.spacing_m * factor;
     world.effective_tpi_radius_m = tectonics.effective_tpi_radius_m * factor;
+    // Stopped HERE, where the scaling ends. It used to be stopped at the end of
+    // generate(), so it reported everything after tectonics -- 4.3 s of a 4.9 s world at
+    // size 513 -- and read as by far the most expensive thing the generator does. It is
+    // a few million multiplications and takes a handful of milliseconds.
+    world.timing_ms["scale"] = elapsed_ms(scaling_started);
 
     if (tectonics.has_sediment_budget) {
         const double volume = factor * factor * factor;
@@ -426,7 +431,6 @@ World generate(const Config& cfg) {
     }
 
     world.timing_ms["tectonics"] = tectonics_ms;
-    world.timing_ms["scale"] = elapsed_ms(scaling_started);
     world.timing_ms["total"] = elapsed_ms(started);
     return world;
 }
