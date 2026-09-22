@@ -1,5 +1,6 @@
 #include "fwg/serialize.hpp"
 
+#include <cmath>
 #include <ostream>
 
 #include "fwg/json.hpp"
@@ -37,6 +38,9 @@ void write_config(JsonWriter& json, const Config& cfg) {
     json.field("erosion_passes", cfg.erosion_passes);
     json.field("erosion_strength", cfg.erosion_strength);
     json.field("magic_enabled", cfg.magic_enabled);
+    json.field("world_recipe", cfg.world_recipe);
+    json.field("auto_parameters", cfg.auto_parameters);
+    json.field("population_profile", cfg.population_profile);
     json.field("wind_bearing", cfg.wind_bearing);
     json.field("rain_passes", cfg.rain_passes);
     json.field("rain_strength", cfg.rain_strength);
@@ -631,6 +635,163 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
         json.field("month_count", static_cast<long long>(world.seasonal_months.size()));
         json.field("method", std::string_view(
             "Monthly latitude/elevation temperature proxy; snow and water ice do not modify bedrock."));
+        json.end_object();
+    }
+
+    if (world.has_settlements) {
+        const SettlementReport& settled = world.settlements;
+        json.key("settlements");
+        json.begin_object();
+        json.field("version", 1);
+        json.field("population_profile", world.config.population_profile);
+
+        json.key("sites");
+        json.begin_array();
+        for (const SettlementSite& s : settled.sites) {
+            json.begin_object();
+            json.field("id", s.id);
+            json.field("node", s.node);
+            json.field("x", s.x);
+            json.field("z", s.z);
+            json.field("population_profile", s.population_profile);
+            json.field("parent_race_id", s.parent_race_id);
+            json.field("city_class", std::string_view(s.city_class == CityClass::Capital  ? "capital"
+                                                      : s.city_class == CityClass::Medium ? "medium"
+                                                                                          : "small"));
+            json.field("classification_reason", s.classification_reason);
+            json.field("founding_capital", s.founding_capital);
+            json.field("founding_turn", s.founding_turn);
+            json.field("founding_year", s.founding_year);
+            json.field("suitability", s.suitability);
+            json.field("height_m", s.height_m);
+            json.field("slope_degrees", s.slope_degrees);
+            json.field("temperature_c", s.temperature_c);
+            json.field("moisture", s.moisture);
+            json.field("flood_risk", s.flood_risk);
+            json.field("resource_potential", s.resource_potential);
+            // Infinity is not representable in JSON, and null is the honest reading:
+            // there is no distance to water that cannot be reached.
+            json.key("freshwater_distance_m");
+            if (std::isfinite(s.freshwater_distance_m)) {
+                json.value(s.freshwater_distance_m);
+            } else {
+                json.value_null();
+            }
+            json.field("population_estimate", s.population_estimate);
+            json.field("urban_population_estimate", s.urban_population_estimate);
+            json.field("rural_population_estimate", s.rural_population_estimate);
+            json.key("migration_source_node");
+            if (s.migration_source_node >= 0) {
+                json.value(s.migration_source_node);
+            } else {
+                json.value_null();
+            }
+            json.field("source_civilization_id", s.source_civilization_id);
+            json.field("migration_distance_m", s.migration_distance_m);
+            json.field("cultural_branch", s.cultural_branch);
+            json.field("diaspora", s.diaspora);
+            json.field("diaspora_reason", s.diaspora_reason);
+            json.end_object();
+        }
+        json.end_array();
+
+        json.key("population_budget");
+        json.begin_object();
+        json.field("world_capacity", settled.budget.world_capacity);
+        json.field("habitable_km2", settled.budget.ceiling.habitable_km2);
+        json.field("per_city_km2", settled.budget.ceiling.per_city_km2);
+        json.field("resolvable_spacing_m", settled.budget.ceiling.resolvable_spacing_m);
+        json.field("spacing_city_ceiling", settled.budget.ceiling.packing);
+        json.field("city_limit", settled.budget.city_limit);
+        json.key("allowances");
+        json.begin_object();
+        for (const auto& [people, value] : settled.budget.allowances) json.field(people, value);
+        json.end_object();
+        json.key("weighted_habitat_km2");
+        json.begin_object();
+        for (const auto& [people, value] : settled.budget.weighted_habitat_km2) json.field(people, value);
+        json.end_object();
+        json.key("requested_cities");
+        json.begin_object();
+        for (const auto& [people, value] : settled.budget.requested_cities) json.field(people, value);
+        json.end_object();
+        json.field("method", std::string_view(
+            "Capacity integrates area-weighted farming potential, climate, freshwater, slope and biome. "
+            "Overlapping peoples split each cell's capacity rather than multiplying it. Residents per "
+            "productive km2 is a provisional proxy, not a validated agricultural yield."));
+        json.end_object();
+
+        json.key("founding");
+        json.begin_object();
+        json.field("start_year", settled.founding.start_year);
+        json.field("end_year", settled.founding.end_year);
+        json.field("elapsed_years", settled.founding.elapsed_years);
+        json.field("turns", settled.founding.turns);
+        json.field("target_cities", settled.founding.target_cities);
+        json.field("placed_cities", settled.founding.placed_cities);
+        json.field("stop_reason", settled.founding.stop_reason);
+        json.key("effective_quotas");
+        json.begin_object();
+        for (const auto& [people, value] : settled.founding.effective_quotas) json.field(people, value);
+        json.end_object();
+        json.key("diaspora_bonus_used");
+        json.value(settled.founding.diaspora_bonus_used);
+        json.key("used_civilizations");
+        json.value(settled.founding.used_civilizations);
+        // The per-round record is what answers "why is this people not on the map".
+        json.key("events");
+        json.begin_array();
+        for (const FoundingEvent& e : settled.founding.events) {
+            json.begin_object();
+            json.field("turn", e.turn);
+            json.field("parent_race_id", e.parent_race_id);
+            json.field("status", e.status);
+            json.field("radius_m", e.radius_m);
+            if (e.draw_percent >= 0.0) json.field("draw_percent", e.draw_percent);
+            if (e.suitability >= 0.0) json.field("suitability", e.suitability);
+            if (e.node >= 0) json.field("node", e.node);
+            if (!e.population_profile.empty()) json.field("population_profile", e.population_profile);
+            json.end_object();
+        }
+        json.end_array();
+        json.end_object();
+        json.end_object();
+    }
+
+    if (world.has_roads) {
+        json.key("roads");
+        json.begin_object();
+        json.field("version", 1);
+        json.field("components", world.roads.components);
+        json.key("routes");
+        json.begin_array();
+        for (const Road& road : world.roads.routes) {
+            json.begin_object();
+            json.field("from", road.from);
+            json.field("to", road.to);
+            json.field("length_m", road.length_m);
+            json.field("cost", road.cost);
+            json.key("nodes");
+            json.begin_array();
+            for (const int n : road.nodes) json.value(n);
+            json.end_array();
+            json.key("river_crossings");
+            json.begin_array();
+            for (const auto& [a, b] : road.river_crossings) {
+                json.begin_array();
+                json.value(a);
+                json.value(b);
+                json.end_array();
+            }
+            json.end_array();
+            json.end_object();
+        }
+        json.end_array();
+        json.field("method", std::string_view(
+            "Minimum spanning forest of cheapest terrain-cost routes. Water and edges above a people's "
+            "own grade limit are forbidden, and a route is refused unless both ends' peoples can walk "
+            "it. River crossings are bridge candidates, not engineered bridges. Disconnected land "
+            "stays disconnected."));
         json.end_object();
     }
 

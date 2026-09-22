@@ -6,9 +6,12 @@
 #include "check.hpp"
 
 #include <map>
+#include <algorithm>
+#include <sstream>
 #include <set>
 #include <string>
 
+#include "fwg/serialize.hpp"
 #include "fwg/settlements_stage.hpp"
 #include "fwg/world.hpp"
 
@@ -140,5 +143,42 @@ TEST(a_world_with_one_people_is_settled_by_that_people_alone) {
     const World w = generate(resolve(r));
     for (const SettlementSite& s : w.settlements.sites) {
         check::equal(s.population_profile, only, "only the named people to settle");
+    }
+}
+
+TEST(the_world_document_carries_its_cities_and_roads) {
+    // Stage 10 and 11 ran for a long time without reaching the document at all, which
+    // made a generated world look empty to anything outside the process. This asserts
+    // the blocks are there and that the numbers in them agree with the world.
+    Request r;
+    r.seed = 42;
+    r.size = 33;
+    r.phase = 11;
+    const World w = generate(resolve(r));
+
+    std::ostringstream out;
+    write_world_json(out, w, false);
+    const std::string doc = out.str();
+
+    for (const char* key : {"\"settlements\"", "\"sites\"", "\"population_budget\"", "\"founding\"",
+                            "\"events\"", "\"roads\"", "\"routes\"", "\"components\"",
+                            "\"world_recipe\"", "\"population_profile\""}) {
+        check::is_true(doc.find(key) != std::string::npos,
+                       std::string("the document to carry ") + key);
+    }
+
+    // Infinity has no JSON spelling. A site with no reachable fresh water must publish
+    // null rather than a literal no parser will accept.
+    //
+    // Checked only where a NUMBER can appear -- after ':', ',' or '[' -- because the
+    // bare substring "inf" is in "rainfall" and "rainforest", and a naive search for it
+    // fails on a document that is perfectly well formed. It did.
+    for (std::size_t i = 0; i + 1 < doc.size(); ++i) {
+        if (doc[i] != ':' && doc[i] != ',' && doc[i] != '[') continue;
+        std::size_t j = i + 1;
+        while (j < doc.size() && (doc[j] == ' ' || doc[j] == '\n' || doc[j] == '-')) ++j;
+        const std::string_view rest(doc.data() + j, std::min<std::size_t>(3, doc.size() - j));
+        check::is_true(rest != "inf" && rest != "nan" && rest != "Inf" && rest != "NaN",
+                       "no non-finite literal where a number belongs, at offset " + std::to_string(j));
     }
 }
