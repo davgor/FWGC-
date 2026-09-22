@@ -100,6 +100,73 @@ TEST(the_receiver_graph_reaches_an_outlet_from_everywhere) {
     }
 }
 
+TEST(receivers_take_the_steepest_descent_on_the_spill_surface) {
+    // The priority flood leaves every node pointing at whichever neighbour happened to
+    // reach it first. That raw forest is ALREADY acyclic, ALREADY drains to an outlet
+    // from everywhere and ALREADY never runs uphill -- so the three tests above hold
+    // for it word for word, and the step that turns it into the direction water would
+    // actually run (src/water.cpp, "re-point receivers to steepest descent") is
+    // invisible to all of them. Delete that step and nothing above notices; rivers,
+    // settlement siting and sea routes all quietly read a different graph.
+    //
+    // This is the assertion that sees it. Wherever a node has any neighbour that is
+    // strictly lower on the spill surface AND settled before it -- the two conditions
+    // that make a neighbour eligible, the second being what keeps the graph acyclic --
+    // the receiver must be one of those, and none of them may be steeper.
+    const World world = build(129);
+    const auto held = sphere_grid(world.config.size, world.effective.globe_radius);
+    const SphereGrid& grid = *held;
+    const WaterRouting routed = route_water(node_heights(world, grid), grid, world.effective.sea_level);
+    check::equal(routed.order.size(), grid.node_count(), "every node to be settled");
+
+    std::vector<int> rank(grid.node_count(), 0);
+    for (std::size_t k = 0; k < routed.order.size(); ++k) {
+        rank[static_cast<std::size_t>(routed.order[k])] = static_cast<int>(k);
+    }
+
+    int with_a_choice = 0;   // nodes that had at least one eligible neighbour
+    int with_a_contest = 0;  // ... and more than one, so "steepest" is a real decision
+    for (std::size_t i = 0; i < grid.node_count(); ++i) {
+        if (routed.ocean[i]) continue;  // the sea is the root set: it drains nowhere
+        const int receiver = routed.parent[i];
+        check::is_true(receiver >= 0, "land node " + std::to_string(i) + " to have a receiver");
+
+        double steepest = 0.0;
+        int candidates = 0;
+        for (const SphereNeighbour& nb : grid.neighbours[i]) {
+            const auto j = static_cast<std::size_t>(nb.index);
+            if (nb.distance <= 0.0 || routed.level[j] >= routed.level[i] || rank[j] >= rank[i]) continue;
+            // Written exactly as the router writes it, so these compare as the same
+            // doubles and the assertion needs no tolerance to hide behind.
+            steepest = std::max(steepest, (routed.level[i] - routed.level[j]) / nb.distance);
+            ++candidates;
+        }
+        // No eligible neighbour means a filled flat, where the flood parent is the only
+        // answer there is and the re-point deliberately leaves it alone.
+        if (candidates == 0) continue;
+        ++with_a_choice;
+        if (candidates > 1) ++with_a_contest;
+
+        double chosen = -1.0;
+        for (const SphereNeighbour& nb : grid.neighbours[i]) {
+            if (nb.index != receiver || nb.distance <= 0.0) continue;
+            chosen = (routed.level[i] - routed.level[static_cast<std::size_t>(receiver)]) / nb.distance;
+        }
+        check::is_true(chosen > 0.0, "node " + std::to_string(i) +
+                                         " with somewhere lower to go to drain to a strictly lower neighbour");
+        check::is_true(chosen >= steepest, "node " + std::to_string(i) + " to take the steepest descent open to it (" +
+                                               std::to_string(chosen) + " vs " + std::to_string(steepest) + ")");
+    }
+
+    // Floors, because everything above is inside an `if`. A router that made every node
+    // ineligible would assert nothing at all and report a pass; at this size roughly
+    // every land node has somewhere lower to go, and almost all of them have a choice.
+    check::is_true(with_a_choice > 4000, "most land to have somewhere lower to drain (" +
+                                             std::to_string(with_a_choice) + " nodes)");
+    check::is_true(with_a_contest > 4000, "and more than one way down, so steepest means something (" +
+                                              std::to_string(with_a_contest) + " nodes)");
+}
+
 TEST(catchment_accumulates_downstream_and_totals_the_sphere) {
     const World world = build();
     const auto held = sphere_grid(world.config.size, world.effective.globe_radius);

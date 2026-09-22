@@ -76,6 +76,144 @@ TEST(upwind_stencil_weights_are_a_partition_of_unity) {
     }
 }
 
+TEST(rain_falls_on_the_flank_the_wind_reaches_first) {
+    // The stencil test above is algebra: the four bilinear weights sum to one for any
+    // fx and fz at all, so it holds whichever cell the stencil samples. What it cannot
+    // see is the one thing that can really be wrong -- the DIRECTION of the upwind
+    // step. Nor can any correlation test: a model that samples downwind still rains on
+    // mountains, it just rains on the wrong face, and "rain follows terrain" is true
+    // either way. Separating the two takes a world where the windward flank is not in
+    // doubt.
+    //
+    // So: one north-south ridge with flat sea either side, and a due-east wind. The
+    // elevation depends on longitude alone, which is what makes this decidable -- one
+    // step against an easterly wind is one step toward a smaller x at every latitude,
+    // so the windward flank is the smaller-x one everywhere on the globe.
+    const int n = 65;
+    const int half = 8;         // columns from the crest down to the foot
+    const double peak = 800.0;  // 100 m of rise per column: a real slope, under the rainout cap
+    const auto held = sphere_grid(n, 6000000.0);
+    const SphereGrid& grid = *held;
+    const int crest = (n - 1) / 2;
+
+    std::vector<double> surface(grid.node_count(), 0.0);
+    std::vector<char> is_water(grid.node_count(), 1);
+    for (std::size_t i = 0; i < grid.node_count(); ++i) {
+        const int d = std::abs(grid.point_x[i] - crest);
+        if (d >= half) continue;
+        surface[i] = peak * (1.0 - static_cast<double>(d) / half);
+        is_water[i] = 0;  // the ridge is land; the rest is the sea the air drinks from
+    }
+
+    // Bearing runs clockwise from north and the air is sampled one step AGAINST it, so
+    // 90 degrees is a wind running west to east.
+    const auto upwind = upwind_stencils(grid, std::numbers::pi / 2.0);
+    const MoistureField air = transport_moisture(surface, is_water, upwind, 24, 1.0);
+
+    // A step of arc is one column at the equator and 1/cos(latitude) columns away from
+    // it. Inside 50 degrees that is at most 1.56 columns, short enough that no lee
+    // cell's upwind sample can reach over the crest and find lower ground.
+    double windward_uplift = 0.0, windward_rain = 0.0, lee_rain = 0.0, worst_lee_uplift = 0.0;
+    int windward = 0, lee = 0;
+    for (std::size_t i = 0; i < grid.node_count(); ++i) {
+        const double latitude = 90.0 - 180.0 * grid.point_z[i] / (n - 1);
+        if (std::abs(latitude) > 50.0) continue;
+        const int dx = grid.point_x[i] - crest;
+        if (dx <= -half || dx >= half || dx == 0) continue;  // the two flanks, not the crest or the sea
+        if (dx < 0) {
+            windward_uplift += air.uplift[i];
+            windward_rain += air.rain[i];
+            ++windward;
+        } else {
+            lee_rain += air.rain[i];
+            worst_lee_uplift = std::max(worst_lee_uplift, air.uplift[i]);
+            ++lee;
+        }
+    }
+    check::is_true(windward > 150 && lee > 150, "both flanks to be sampled (" + std::to_string(windward) +
+                                                    " windward, " + std::to_string(lee) + " lee)");
+
+    // The ridge climbs 100 m a column, so the air arriving at a windward cell has
+    // climbed roughly that. Half of it is comfortably clear of nothing.
+    const double windward_mean_uplift = windward_uplift / windward;
+    check::is_true(windward_mean_uplift > 50.0,
+                   "the windward flank to lift the arriving air (" + std::to_string(windward_mean_uplift) + " m)");
+
+    // And the lee does not lift it at all: descending air is not wrung out, which is
+    // the dry shadow the module header sells. This is the assertion a reversed upwind
+    // step cannot survive -- it moves every metre of that uplift onto this flank.
+    check::is_true(worst_lee_uplift <= 1e-9,
+                   "no lee cell to lift the air (worst " + std::to_string(worst_lee_uplift) + " m)");
+
+    const double windward_mean_rain = windward_rain / windward;
+    const double lee_mean_rain = lee_rain / lee;
+    check::is_true(windward_mean_rain > 100.0 * lee_mean_rain,
+                   "the wind to drop its rain on the flank it reaches first (" +
+                       std::to_string(windward_mean_rain) + " windward vs " + std::to_string(lee_mean_rain) + " lee)");
+}
+
+TEST(a_generated_world_rains_on_its_windward_slopes) {
+    // The same property end to end, so the path from Request::wind_bearing through to
+    // the rainfall layer is pinned as well as the stencil.
+    //
+    // Which way is upwind is worked out here from the water_surface layer -- settled at
+    // phase 5, before the climate stage, and never revised by it -- rather than from
+    // the stencil under test. If the test asked the stencil where the air came from, a
+    // reversal would reverse both sides of the comparison and the test would pass on a
+    // backwards world.
+    for (const double bearing : {90.0, 270.0}) {
+        Request request = request_at(65);
+        request.wind_bearing = bearing;
+        const World world = generate(resolve(request));
+        const Grid& surface = world.layers.at("water_surface");
+        const Grid& rain = world.layers.at("rainfall");
+        const Grid& uplift = world.layers.at("wind_uplift");
+        const int n = surface.size();
+
+        // 90 degrees blows west to east and draws its air from the column to the west;
+        // 270 degrees is the mirror of that.
+        const int upwind_column = bearing < 180.0 ? -1 : 1;
+
+        double windward_rain = 0.0, windward_uplift = 0.0, lee_rain = 0.0, lee_uplift = 0.0;
+        int windward = 0, lee = 0;
+        for (int z = 0; z < n; ++z) {
+            // Inside 30 degrees of the equator a step of arc is at most 1.16 columns,
+            // so the neighbouring column is a fair stand-in for where the air was.
+            const double latitude = 90.0 - 180.0 * z / (n - 1);
+            if (std::abs(latitude) > 30.0) continue;
+            for (int x = 0; x < n - 1; ++x) {
+                const int from = ((x + upwind_column) % (n - 1) + (n - 1)) % (n - 1);
+                const double rise = surface.at(x, z) - surface.at(from, z);
+                if (rise > 1.0) {  // the ground climbs into the arriving air
+                    windward_rain += rain.at(x, z);
+                    windward_uplift += uplift.at(x, z);
+                    ++windward;
+                } else if (rise < -1.0) {  // it drops away behind the crest
+                    lee_rain += rain.at(x, z);
+                    lee_uplift += uplift.at(x, z);
+                    ++lee;
+                }
+            }
+        }
+        const std::string at = " at bearing " + std::to_string(static_cast<int>(bearing));
+        check::is_true(windward > 100 && lee > 100,
+                       "both kinds of slope to exist" + at + " (" + std::to_string(windward) + " rising, " +
+                           std::to_string(lee) + " falling)");
+
+        const double windward_mean_uplift = windward_uplift / windward;
+        const double lee_mean_uplift = lee_uplift / lee;
+        check::is_true(windward_mean_uplift > 20.0 * lee_mean_uplift,
+                       "uplift to land on the slopes that climb into the wind" + at + " (" +
+                           std::to_string(windward_mean_uplift) + " vs " + std::to_string(lee_mean_uplift) + ")");
+
+        const double windward_mean_rain = windward_rain / windward;
+        const double lee_mean_rain = lee_rain / lee;
+        check::is_true(windward_mean_rain > 3.0 * lee_mean_rain,
+                       "rain to follow it there" + at + " (" + std::to_string(windward_mean_rain) + " vs " +
+                           std::to_string(lee_mean_rain) + ")");
+    }
+}
+
 TEST(runoff_is_conserved_from_rainfall_to_outlets) {
     // Every cell's rainfall reaches exactly one outlet. This is the real check on the
     // leaf-to-root accumulation, and it fails loudly if the receiver graph has a cycle
