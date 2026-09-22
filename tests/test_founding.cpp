@@ -11,6 +11,9 @@
 #include <string>
 #include <vector>
 
+#include <set>
+
+#include "fwg/civilizations.hpp"
 #include "fwg/founding.hpp"
 
 using namespace fwg;
@@ -28,7 +31,7 @@ std::function<double(int, int)> line_distance() {
 // node index so the best ground is always at the far end.
 FoundingRequest two_parents() {
     FoundingRequest r;
-    r.parents = {{"alder", 100.0}, {"birch", 100.0}};
+    r.parents = {{"alder", "Alder", 100.0}, {"birch", "Birch", 100.0}};
     r.owners = {{"alder_folk", "alder"}, {"birch_folk", "birch"}};
     r.quotas = {{"alder_folk", 3}, {"birch_folk", 3}};
 
@@ -92,7 +95,7 @@ TEST(a_parent_with_nowhere_separated_to_start_is_recorded_not_retried) {
     // Three parents on a line cannot all stand ninety degrees apart. The third must be
     // told why it never founded, rather than silently failing every round.
     FoundingRequest request = two_parents();
-    request.parents.push_back({"cedar", 100.0});
+    request.parents.push_back({"cedar", "Cedar", 100.0});
     request.owners["cedar_folk"] = "cedar";
     request.quotas["cedar_folk"] = 3;
     request.candidates["cedar_folk"] = request.candidates["alder_folk"];
@@ -115,7 +118,7 @@ TEST(a_people_spreads_outward_rather_than_teleporting) {
     // a parent's second city would sit next to the global maximum instead of beside its
     // own capital.
     FoundingRequest request = two_parents();
-    request.parents = {{"alder", 100.0}};
+    request.parents = {{"alder", "Alder", 100.0}};
     request.owners = {{"alder_folk", "alder"}};
     request.quotas = {{"alder_folk", 2}};
     request.candidates.erase("birch_folk");
@@ -180,7 +183,7 @@ TEST(a_people_with_no_quota_still_reaches_the_map_when_there_is_no_ceiling) {
 TEST(the_diaspora_bonus_is_spent_once_per_parent) {
     FoundingRequest request = two_parents();
     // Two civilizations under one parent, neither with a quota.
-    request.parents = {{"alder", 100.0}};
+    request.parents = {{"alder", "Alder", 100.0}};
     request.owners = {{"alder_folk", "alder"}, {"alder_kin", "alder"}};
     request.quotas = {{"alder_folk", 0}, {"alder_kin", 0}};
     request.candidates["alder_kin"] = request.candidates["alder_folk"];
@@ -217,7 +220,7 @@ TEST(a_parent_that_never_participates_still_founds_its_capital) {
     // The opening round skips the draw on purpose. A parent at zero percent that never
     // placed a first city would not exist at all, which is not what zero means.
     FoundingRequest request = two_parents();
-    request.parents = {{"alder", 0.0}, {"birch", 100.0}};
+    request.parents = {{"alder", "Alder", 0.0}, {"birch", "Birch", 100.0}};
 
     const FoundingResult r = found_cities(42, request, line_distance());
     check::equal(count_of(r.sites, "alder_folk"), 1LL,
@@ -227,7 +230,7 @@ TEST(a_parent_that_never_participates_still_founds_its_capital) {
 
 TEST(a_declined_draw_is_recorded_with_its_number) {
     FoundingRequest request = two_parents();
-    request.parents = {{"alder", 1.0}, {"birch", 1.0}};  // almost never participate
+    request.parents = {{"alder", "Alder", 1.0}, {"birch", "Birch", 1.0}};  // almost never participate
 
     const FoundingResult r = found_cities(42, request, line_distance());
     long long declined = 0;
@@ -278,7 +281,7 @@ TEST(an_unsettled_people_is_preferred_over_a_second_city) {
     // Two civilizations under one parent. The variety the registry describes only
     // reaches the map if a people with no city yet outranks a people wanting another.
     FoundingRequest request = two_parents();
-    request.parents = {{"alder", 100.0}};
+    request.parents = {{"alder", "Alder", 100.0}};
     request.owners = {{"alder_folk", "alder"}, {"alder_kin", "alder"}};
     request.quotas = {{"alder_folk", 4}, {"alder_kin", 4}};
     request.candidates["alder_kin"] = request.candidates["alder_folk"];
@@ -296,7 +299,7 @@ TEST(an_unsettled_people_is_preferred_over_a_second_city) {
 
 TEST(a_migration_names_where_its_settlers_came_from) {
     FoundingRequest request = two_parents();
-    request.parents = {{"alder", 100.0}};
+    request.parents = {{"alder", "Alder", 100.0}};
     request.owners = {{"alder_folk", "alder"}};
     request.quotas = {{"alder_folk", 3}};
     request.candidates.erase("birch_folk");
@@ -370,4 +373,46 @@ TEST(an_interval_that_could_never_fire_is_refused) {
 
     request.rules.diaspora_interval_years = 1000;
     found_cities(42, request, line_distance());  // a multiple is accepted
+}
+
+// --- the authored tables --------------------------------------------------
+
+TEST(the_authored_parent_races_could_found_a_world) {
+    const auto races = parent_races();
+    check::is_true(!races.empty(), "at least one parent race, or nobody founds anything");
+
+    std::set<std::string_view> ids;
+    bool any_participates = false;
+    for (const ParentRace& r : races) {
+        check::is_true(ids.insert(r.id).second,
+                       "parent race id " + std::string(r.id) + " to appear once");
+        check::is_true(!r.name.empty(), "parent race " + std::string(r.id) + " to have a name");
+        check::between(r.founding_participation_percent, 0.0, 100.0,
+                       "the participation of " + std::string(r.id) + " to be a percentage");
+        if (r.founding_participation_percent > 0.0) any_participates = true;
+    }
+    check::is_true(any_participates,
+                   "some parent to expand past its capital, or every world is three cities");
+}
+
+TEST(the_authored_founding_rules_can_actually_fire_a_diaspora) {
+    // The rules are data, so this asserts the data rather than the code: an interval
+    // that is not a multiple of the round length fires on no round at all.
+    const FoundingRules r = authored_founding_rules();
+    check::is_true(r.years_per_round > 0, "a positive round length");
+    check::equal(r.diaspora_interval_years % r.years_per_round, 0LL,
+                 "the diaspora interval to land on a round boundary");
+    check::between(r.origin_min_separation_degrees, 0.0, 180.0, "a separation in degrees");
+}
+
+TEST(the_registry_defaults_name_a_people_that_exists) {
+    // registry-sections.json and civilizations.json are separate files, and nothing in
+    // the codegen makes one refer to the other. A default naming a deleted profile would
+    // otherwise only surface when a non-mixed world was generated.
+    const RegistryDefaults d = registry_defaults();
+    check::is_true(civilization_profile(d.profile_id) != nullptr,
+                   "the default profile '" + std::string(d.profile_id) + "' to be in the registry");
+    check::is_true(!d.resource_score_factor_label.empty(),
+                   "the resource factor label to be named");
+    check::between(d.medium_suitability_min, 0.0, 1.0, "the medium-city threshold to be a score");
 }

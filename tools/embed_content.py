@@ -255,6 +255,86 @@ def render_schools():
     return "\n".join(lines) + "\n"
 
 
+def load_registry_sections():
+    doc = json.loads((DATA / "registry-sections.json").read_text(encoding="utf-8"))
+    if doc.get("schema_version") != 1:
+        raise SystemExit("registry-sections.json must declare schema version 1")
+
+    races = doc["parent_races"]
+    ids = [r["id"] for r in races]
+    if len(set(ids)) != len(ids):
+        raise SystemExit("registry-sections.json has a duplicate parent race id")
+    if not races:
+        raise SystemExit("registry-sections.json has no parent race; nobody could found a city")
+    for r in races:
+        pct = r["founding_participation_percent"]
+        if not 0 <= pct <= 100:
+            raise SystemExit("parent race %s participation %r is not a percentage" % (r["id"], pct))
+
+    rules = doc["founding_rules"]
+    # The founding clock only ever lands on multiples of the round length, so an interval
+    # that is not a multiple is tested with `year % interval == 0` on no round at all: no
+    # diaspora, no error, and every people that needed the bonus quietly missing from the
+    # map. Caught here rather than at runtime, because the data is what would be wrong.
+    if rules["years_per_round"] <= 0:
+        raise SystemExit("years_per_round must be positive")
+    if rules["diaspora_interval_years"] % rules["years_per_round"] != 0:
+        raise SystemExit("diaspora_interval_years %r is not a multiple of years_per_round %r; "
+                         "it would silently never fire"
+                         % (rules["diaspora_interval_years"], rules["years_per_round"]))
+    if rules["diaspora_bonus_per_parent"] not in (0, 1):
+        raise SystemExit("diaspora_bonus_per_parent is a flag, not a count")
+    if not 0 <= rules["origin_min_separation_degrees"] <= 180:
+        raise SystemExit("origin_min_separation_degrees must be 0..180")
+    return doc
+
+
+def render_registry_sections():
+    doc = load_registry_sections()
+    races = doc["parent_races"]
+    rules = doc["founding_rules"]
+    defaults = doc["defaults"]
+    classification = doc["city_classification"]
+
+    lines = [BANNER.format(source="registry-sections.json")]
+    lines.append('#include "fwg/founding.hpp"\n')
+    lines.append("namespace fwg {\nnamespace {\n")
+    lines.append("// ORDER IS A CONTRACT. Founding rotates initiative through this table by turn,")
+    lines.append("// so reordering it changes which parent claims a contested site first.")
+    lines.append("constexpr ParentRace kParentRaces[] = {")
+    for r in races:
+        lines.append("    {%s, %s, %s},"
+                     % (cpp_string(r["id"]), cpp_string(r["name"]),
+                        cpp_double(r["founding_participation_percent"])))
+    lines.append("};\n")
+    lines.append("}  // namespace\n")
+    lines.append("std::span<const ParentRace> parent_races() { return kParentRaces; }\n")
+
+    lines.append("FoundingRules authored_founding_rules() {")
+    lines.append("    FoundingRules r;")
+    lines.append("    r.years_per_round = %d;" % rules["years_per_round"])
+    lines.append("    r.origin_min_separation_degrees = %s;"
+                 % cpp_double(rules["origin_min_separation_degrees"]))
+    lines.append("    r.diaspora_interval_years = %d;" % rules["diaspora_interval_years"])
+    lines.append("    r.diaspora_bonus_per_parent = %d;" % rules["diaspora_bonus_per_parent"])
+    lines.append("    return r;")
+    lines.append("}\n")
+
+    lines.append("RegistryDefaults registry_defaults() {")
+    lines.append("    RegistryDefaults d;")
+    lines.append("    d.profile_id = %s;" % cpp_string(defaults["profile_id"]))
+    lines.append("    d.aggregate_profile_id = %s;" % cpp_string(defaults["aggregate_profile_id"]))
+    lines.append("    d.resource_score_factor_label = %s;"
+                 % cpp_string(defaults["resource_score_factor_label"]))
+    lines.append("    d.normal_site_reason = %s;" % cpp_string(defaults["normal_site_reason"]))
+    lines.append("    d.medium_suitability_min = %s;"
+                 % cpp_double(classification["medium_suitability_min"]))
+    lines.append("    return d;")
+    lines.append("}\n")
+    lines.append("}  // namespace fwg")
+    return "\n".join(lines) + "\n"
+
+
 HABITAT_FIELDS = ("biome", "variant", "temperature", "moisture", "maritime", "landmass_area_m2",
                   "landmass_fraction", "largest_landmass", "resource", "slope", "height", "tpi",
                   "coastal_support", "abs_latitude")
@@ -494,6 +574,7 @@ TARGETS = {
     OUT / "content_schools.cpp": render_schools,
     OUT / "content_civilizations.cpp": render_civilizations,
     OUT / "content_variants.cpp": render_variants,
+    OUT / "content_registry.cpp": render_registry_sections,
     OUT / "world_options.cpp": render_world_options,
     pathlib.Path(__file__).resolve().parent.parent / "include" / "fwg" / "option_ids.hpp": render_options_header,
 }

@@ -204,14 +204,17 @@ FoundingResult found_cities(std::uint32_t seed, const FoundingRequest& request,
 
         for (const ParentRace& parent : races) {
             if (static_cast<long long>(out.sites.size()) >= target) break;
-            if (blocked_parents.count(parent.id) != 0) continue;
+            // The table is authored, so its ids are views into static storage; the
+            // records and keys below all own their strings.
+            const std::string race_id(parent.id);
+            if (blocked_parents.count(race_id) != 0) continue;
 
             std::vector<const FoundedSite*> members;
             for (const FoundedSite& s : out.sites) {
-                if (s.parent_race_id == parent.id) members.push_back(&s);
+                if (s.parent_race_id == race_id) members.push_back(&s);
             }
 
-            auto pool = available(parent.id);
+            auto pool = available(race_id);
             const double pct = parent.founding_participation_percent;
             // A parent that never participates still gets its opening round, or it
             // could not exist at all.
@@ -231,10 +234,10 @@ FoundingResult found_cities(std::uint32_t seed, const FoundingRequest& request,
                     // No corner of the world is far enough from the peoples already
                     // here. This parent never founds; say so rather than retrying it
                     // every round for another 127 turns.
-                    blocked_parents.insert(parent.id);
+                    blocked_parents.insert(race_id);
                     FoundingEvent e;
                     e.turn = turn;
-                    e.parent_race_id = parent.id;
+                    e.parent_race_id = race_id;
                     e.status = "no_separated_origin";
                     e.radius_m = request.world_reach;
                     out.report.events.push_back(std::move(e));
@@ -244,12 +247,12 @@ FoundingResult found_cities(std::uint32_t seed, const FoundingRequest& request,
             }
 
             possible = true;
-            Rng draw_rng = Rng::child(seed, "founding-" + std::to_string(turn) + "-" + parent.id);
+            Rng draw_rng = Rng::child(seed, "founding-" + std::to_string(turn) + "-" + race_id);
             const double draw = draw_rng.random() * 100.0;
             if ((turn > 1 || !members.empty()) && draw >= pct) {
                 FoundingEvent e;
                 e.turn = turn;
-                e.parent_race_id = parent.id;
+                e.parent_race_id = race_id;
                 e.status = "did_not_participate";
                 e.draw_percent = draw;
                 e.radius_m = radius;
@@ -284,7 +287,7 @@ FoundingResult found_cities(std::uint32_t seed, const FoundingRequest& request,
             if (pool.empty()) {
                 FoundingEvent e;
                 e.turn = turn;
-                e.parent_race_id = parent.id;
+                e.parent_race_id = race_id;
                 e.status = "search_radius_too_small";
                 e.radius_m = radius;
                 out.report.events.push_back(std::move(e));
@@ -305,7 +308,7 @@ FoundingResult found_cities(std::uint32_t seed, const FoundingRequest& request,
             FoundedSite record;
             record.node = best->second;
             record.population_profile = best->first;
-            record.parent_race_id = parent.id;
+            record.parent_race_id = race_id;
             record.founding_turn = turn;
             record.founding_capital = members.empty();
             record.founding_year = year_offset + (turn - 1) * request.rules.years_per_round;
@@ -330,7 +333,7 @@ FoundingResult found_cities(std::uint32_t seed, const FoundingRequest& request,
 
             FoundingEvent e;
             e.turn = turn;
-            e.parent_race_id = parent.id;
+            e.parent_race_id = race_id;
             e.status = "founded";
             e.radius_m = members.empty() ? request.world_reach : radius;
             e.suitability = score_at(record.population_profile, record.node);

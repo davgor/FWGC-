@@ -1,7 +1,7 @@
 {
  "schema": "fwg.entity-rules",
  "schema_version": 1,
- "note": "Per-civilization settlement, economy and presentation rules, resolved from the Python civilization registry at FantasyWorldGenerator b67c99b after validate_registry() passed. `terrain_settlements.add_settlements` reads `settlement` to decide where a people can live; `terrain_society` reads `economy`; `terrain_civilizations.civilization_report` reads `presentation`. ORDER IS A CONTRACT: this list is the registry's own `civilization_order`, which is what `terrain_profiles.civilization_ids()` returns, and `civilization_report` publishes each entity's position in it as `region_index`. Append, never insert. `surface_habitat` and `world_habitat` use the SAME predicate grammar as a population profile's `habitat` in civilizations.json (all/any/field with in/min/max/gt/equals, and an empty object meaning always true) -- see terrain_civilizations.matches() -- but unlike the population habitats these nest up to three levels deep. `source_identity` records the registry these came from.",
+ "note": "Per-civilization settlement, economy and presentation rules, resolved from the Python civilization registry at FantasyWorldGenerator b67c99b after validate_registry() passed. `terrain_settlements.add_settlements` reads `settlement` to decide where a people can live; `terrain_society` reads `economy`; `terrain_civilizations.civilization_report` reads `presentation`. `terrain_society.make_sky` reads `sky`: when a magically supported sky island manifests it picks that island's people with max(people, key=lambda p: -abs(temperature_ideal[p] - island_temperature) + rng.uniform(0, 8) + score_bias[p] + moisture_score_weight[p] * island_moisture), so `score_bias` is a flat additive preference for living on a sky island (negative repels; tidekin sit at -10) and `moisture_score_weight` is multiplied by the island cell's moisture, a 0..1 unit fraction, to add a damp-air preference (elves sit at 3). Both are validated to -100..100 by validate_registry and are on the same scale as the other two terms -- degrees Celsius of temperature mismatch, and a uniform 0..8 jitter -- so a zero in both fields means the choice is temperature and luck alone, which is what ten of the twelve entities carry. The draw is a max() over `people` in this file's order, so this list's order also breaks score ties. ORDER IS A CONTRACT: this list is the registry's own `civilization_order`, which is what `terrain_profiles.civilization_ids()` returns, and `civilization_report` publishes each entity's position in it as `region_index`. Append, never insert. `surface_habitat` and `world_habitat` use the SAME predicate grammar as a population profile's `habitat` in civilizations.json (all/any/field with in/min/max/gt/equals, and an empty object meaning always true) -- see terrain_civilizations.matches() -- but unlike the population habitats these nest up to three levels deep. `source_identity` records the registry these came from.",
  "source_identity": {
   "schema_version": 6,
   "revision": 12,
@@ -25,6 +25,10 @@
     "industrial_resource_min": null,
     "air_terminal_resource_min": null,
     "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
    },
    "presentation": {
     "map_color_rgb": [
@@ -63,6 +67,10 @@
     "air_terminal_resource_min": null,
     "winter_fishing_fraction": 0
    },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
    "presentation": {
     "map_color_rgb": [
      210,
@@ -99,6 +107,10 @@
     "industrial_resource_min": null,
     "air_terminal_resource_min": null,
     "winter_fishing_fraction": 0.25
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
    },
    "presentation": {
     "map_color_rgb": [
@@ -137,6 +149,10 @@
     "air_terminal_resource_min": null,
     "winter_fishing_fraction": 0
    },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
    "presentation": {
     "map_color_rgb": [
      138,
@@ -174,6 +190,10 @@
     "air_terminal_resource_min": null,
     "winter_fishing_fraction": 0
    },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
    "presentation": {
     "map_color_rgb": [
      70,
@@ -210,6 +230,10 @@
     "industrial_resource_min": null,
     "air_terminal_resource_min": null,
     "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
    },
    "presentation": {
     "map_color_rgb": [
@@ -330,6 +354,10 @@
     "air_terminal_resource_min": null,
     "winter_fishing_fraction": 0
    },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
    "presentation": {
     "map_color_rgb": [
      142,
@@ -397,6 +425,10 @@
     "air_terminal_resource_min": null,
     "winter_fishing_fraction": 0
    },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 3
+   },
    "presentation": {
     "map_color_rgb": [
      123,
@@ -436,6 +468,10 @@
     "industrial_resource_min": 0.5,
     "air_terminal_resource_min": 0.5,
     "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 4,
+    "moisture_score_weight": 0
    },
    "presentation": {
     "map_color_rgb": [
@@ -484,6 +520,10 @@
     "industrial_resource_min": null,
     "air_terminal_resource_min": null,
     "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": -10,
+    "moisture_score_weight": 0
    },
    "presentation": {
     "map_color_rgb": [
@@ -547,6 +587,10 @@
     "industrial_resource_min": null,
     "air_terminal_resource_min": null,
     "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
    },
    "presentation": {
     "map_color_rgb": [
@@ -690,6 +734,10 @@
     "industrial_resource_min": null,
     "air_terminal_resource_min": null,
     "winter_fishing_fraction": 0.15
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
    },
    "presentation": {
     "map_color_rgb": [

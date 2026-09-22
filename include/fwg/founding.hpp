@@ -16,6 +16,8 @@
 #include <functional>
 #include <map>
 #include <optional>
+#include <span>
+#include <string_view>
 #include <string>
 #include <vector>
 
@@ -23,7 +25,8 @@ namespace fwg {
 
 // A parent race: the thing that owns civilizations and takes a turn.
 struct ParentRace {
-    std::string id;
+    std::string_view id;
+    std::string_view name;
     // Chance out of 100 that this parent founds in a round. Zero means it places its
     // first city in round one and never expands -- the draw is skipped on the opening
     // round precisely so that such a parent still exists.
@@ -120,6 +123,26 @@ struct FoundingResult {
     std::vector<FoundedSite> sites;
     FoundingReport report;
 };
+
+// The authored parent races, in registry order. THE ORDER IS A CONTRACT: founding
+// rotates initiative through this table by turn, so reordering it changes which parent
+// claims a contested site first.
+std::span<const ParentRace> parent_races();
+
+// The authored founding rules.
+FoundingRules authored_founding_rules();
+
+// Registry-wide defaults that are not per-profile.
+struct RegistryDefaults {
+    std::string_view profile_id;            // the single people a non-mixed world uses
+    std::string_view aggregate_profile_id;  // the name of "every eligible people at once"
+    // The key a site's resource contribution is published under, for EVERY people --
+    // not only the one the name suggests.
+    std::string_view resource_score_factor_label;
+    std::string_view normal_site_reason;
+    double medium_suitability_min = 0.0;  // above this a city is medium rather than small
+};
+RegistryDefaults registry_defaults();
 
 // `distance` is physical metres between two nodes along the surface.
 FoundingResult found_cities(std::uint32_t seed, const FoundingRequest& request,

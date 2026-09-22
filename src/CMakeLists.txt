@@ -6,6 +6,7 @@
   config.cpp
   generated/content_biomes.cpp
   generated/content_civilizations.cpp
+  generated/content_registry.cpp
   generated/content_schools.cpp
   generated/content_variants.cpp
   generated/world_options.cpp
