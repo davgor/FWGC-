@@ -22,6 +22,7 @@
 #include "fwg/magic.hpp"
 #include "fwg/tectonics.hpp"
 #include "fwg/astrology.hpp"
+#include "fwg/nests.hpp"
 #include "fwg/roads.hpp"
 #include "fwg/settlements_stage.hpp"
 #include "fwg/biomes.hpp"
@@ -35,6 +36,10 @@ namespace fwg {
 
 // The highest stage of the sixteen-stage ladder this library implements. Stages
 // above it are accepted and reported honestly rather than silently claimed.
+// The highest CONTIGUOUS stage. Nests run at 13 and are real, but stage 12 -- hamlets,
+// fortresses, the rest of the populated regions -- is not ported, so a world cannot
+// honestly claim 13. `systems` is the channel that says what actually ran; this number
+// only ever promises that everything below it did.
 inline constexpr int kHighestImplementedStage = 11;
 
 struct SeasonalMonth {
@@ -123,6 +128,12 @@ struct World {
     // Stage 11. What the cities built between themselves.
     bool has_roads = false;
     RoadNetwork roads;
+
+    // Stage 13's first half. Animals and monsters, in two passes that never read
+    // each other.
+    bool has_wildlife = false;
+    NestBlock wildlife;
+    NestBlock beast_nests;
 
     // Which subsystems actually ran. More honest than a stage number while the
     // ladder is partial: climate can be present while stages 6 and 7 are not.

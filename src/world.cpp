@@ -273,8 +273,10 @@ World generate(const Config& cfg) {
         world.warnings.push_back(
             "Stage " + std::to_string(cfg.phase) + " requested but stages " +
             std::to_string(kHighestImplementedStage + 1) +
-            "-16 (roads, populated regions, beasts, age transitions) are not implemented; this world stops "
-            "after stage " + std::to_string(kHighestImplementedStage) + ". See docs/porting-status.md.");
+            "-16 (populated regions, age transitions, heroes and quests) are not implemented; this world "
+            "stops after stage " + std::to_string(kHighestImplementedStage) +
+            ". Some later work does run and is listed in `systems` -- wildlife and beast nests among it -- "
+            "but a stage above this number is not contiguous. See docs/porting-status.md.");
     }
 
     // Design space to metres. One factor for every seed; the config keeps the design
@@ -427,6 +429,24 @@ World generate(const Config& cfg) {
             const auto roads_started = Clock::now();
             add_roads(world);
             world.timing_ms["roads"] = elapsed_ms(roads_started);
+        }
+
+        // Stage 13's first half: what lives out there. Stage 12 -- hamlets, fortresses,
+        // the rest of the populated regions -- is not ported, so this runs on the cities
+        // alone. The nests only need somewhere people already are, to stay clear of it.
+        if (cfg.phase >= 13) {
+            const auto nests_started = Clock::now();
+            const auto held = sphere_grid(cfg.size, world.effective.globe_radius);
+            std::vector<int> settled;
+            settled.reserve(world.settlements.sites.size());
+            for (const SettlementSite& s : world.settlements.sites) settled.push_back(s.node);
+            if (auto passes = add_nests(world, *held, settled)) {
+                world.wildlife = std::move(passes->wildlife);
+                world.beast_nests = std::move(passes->beast_nests);
+                world.has_wildlife = true;
+                world.systems.push_back("wildlife");
+            }
+            world.timing_ms["nests"] = elapsed_ms(nests_started);
         }
     }
 

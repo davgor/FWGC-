@@ -797,6 +797,59 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
         json.end_object();
     }
 
+    if (world.has_wildlife) {
+        // Two blocks, never one: animals and monsters are separate passes that do not
+        // read each other, and a consumer asking "what lives here" means one or the
+        // other, not their union.
+        const auto write_nests = [&](const char* key, const NestBlock& block) {
+            json.key(key);
+            json.begin_object();
+            json.field("version", block.version);
+            json.key("sites");
+            json.begin_array();
+            for (const NestSite& s : block.sites) {
+                json.begin_object();
+                json.field("id", s.id);
+                json.field("species_id", s.species_id);
+                json.field("name", s.name);
+                json.field("family", s.family);
+                json.field("kind", s.kind);
+                json.field("size", s.size);
+                json.field("role", s.role);
+                json.field("tier", s.tier);
+                json.field("node", s.node);
+                json.field("x", s.x);
+                json.field("z", s.z);
+                json.field("biome", s.biome);
+                json.field("den", s.den);
+                json.field("real", s.real);
+                // A DIAMETER lives in the catalogue; this is the placed RADIUS, already
+                // halved. Publishing the catalogue value here would double every
+                // territory a reader draws.
+                json.field("range_m", s.range_m);
+                json.field("suitability", s.suitability);
+                json.end_object();
+            }
+            json.end_array();
+
+            json.key("saturation");
+            json.begin_array();
+            for (const NestSaturation& row : block.saturation) {
+                json.begin_object();
+                json.field("tier", row.tier);
+                json.field("cells", row.cells);
+                json.field("drawn", row.drawn);
+                json.field("placed", row.placed);
+                json.field("refused", row.refused);
+                json.end_object();
+            }
+            json.end_array();
+            json.end_object();
+        };
+        write_nests("wildlife", world.wildlife);
+        write_nests("beast_nests", world.beast_nests);
+    }
+
     if (!world.systems.empty()) {
         json.key("systems");
         json.value(world.systems);
