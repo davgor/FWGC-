@@ -39,6 +39,7 @@ output is deliberately not matched; see [determinism.md](determinism.md).
 | — | Civilization registry: profiles, habitats, eligibility | `civilization_registry`, `terrain_profiles`, `terrain_civilizations` | **done** |
 | 10 | Biome variants: the magical state of the ground | `terrain_history.add_biome_variants` | **done** |
 | — | Routing and capacity substrate | `terrain_settlements` (searches), `terrain_humans.allocate_access` | **done** |
+| — | Settlement scoring: fresh water, flood, landmass, farming, suitability | `terrain_settlements`, `terrain_humans.farming_potential`, `terrain_civilizations` | **done** |
 | 10 | Civilizations and settlements | `terrain_settlements` (siting, roads, records) | todo |
 | 11 | Civilizations | `terrain_settlements` | todo |
 | 12 | Civilizations | `terrain_settlements` | todo |

@@ -23,6 +23,7 @@
   routing.cpp
   scale.cpp
   serialize.cpp
+  settlement.cpp
   sha256.cpp
   tectonics.cpp
   water.cpp
