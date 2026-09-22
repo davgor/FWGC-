@@ -1,0 +1,14 @@
+add_executable(fwg_tests
+  main.cpp
+  test_substrate.cpp
+  test_world.cpp
+)
+
+target_link_libraries(fwg_tests PRIVATE fwg fwg_flags)
+target_include_directories(fwg_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
+add_test(NAME fwg_tests COMMAND fwg_tests)
+
+# The suite reports "no tests ran" as a failure, so an empty or mis-filtered run
+# cannot be mistaken for a green one.
+set_tests_properties(fwg_tests PROPERTIES FAIL_REGULAR_EXPRESSION "FAIL|no tests ran")
