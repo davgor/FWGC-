@@ -46,6 +46,44 @@ std::string to_json(const World& world) {
     return out.str();
 }
 
+// Latitude of grid row z, in radians. Rows are evenly spaced in latitude, which is
+// what makes the two probe fields below exactly representable on the raster.
+double row_latitude(int z, int n) {
+    const double pi = std::acos(-1.0);
+    return pi / 2.0 - pi * z / (n - 1);
+}
+
+// A constant-gradient ramp: h = gradient * radius * latitude.
+//
+// Arc length along a meridian is radius * dlat, so dh/ds is exactly `gradient`
+// everywhere and the true slope is atan(gradient) -- a number this file can work out
+// by hand. The sampling is exact too: h is linear in the row index, so the bilinear
+// interpolation `sample()` does between rows reproduces h at ANY point of the sphere
+// with no discretisation error. That is what licenses an equality assertion rather
+// than a bound.
+Grid latitude_ramp(int n, double gradient, double radius) {
+    Grid out(n);
+    for (int z = 0; z < n; ++z) {
+        const double value = gradient * radius * row_latitude(z, n);
+        for (int x = 0; x < n; ++x) out.at(x, z) = value;
+    }
+    return out;
+}
+
+// A V-shaped valley: h = |latitude| * radius, floor on the equator row.
+//
+// Piecewise linear in the row index with its only kink exactly ON a row (the grid is
+// odd-sized, so the equator is row (n-1)/2), which again makes `sample()` exact:
+// no interpolation span ever straddles the kink.
+Grid latitude_valley(int n, double radius) {
+    Grid out(n);
+    for (int z = 0; z < n; ++z) {
+        const double value = radius * std::abs(row_latitude(z, n));
+        for (int x = 0; x < n; ++x) out.at(x, z) = value;
+    }
+    return out;
+}
+
 }  // namespace
 
 // --- determinism ---------------------------------------------------------
@@ -367,6 +405,86 @@ TEST(catchment_is_at_least_a_cell_and_at_most_the_world) {
     check::is_true(largest <= sphere_m2 * 1.000001, "no catchment larger than the planet");
 }
 
+TEST(flow_accumulation_gathers_the_planet_into_its_outlets) {
+    // What the bounds above cannot see.
+    //
+    // Erosion seeds every node's discharge with its OWN cell area and then walks the
+    // receiver chain from high to low, adding each node's discharge into the node it
+    // drains to. Both bounds asserted above -- every cell positive, nothing bigger
+    // than the planet -- already hold at the seeding step, before a single addition
+    // happens. Delete the accumulation and they stay green while the catchment layer,
+    // the river mask that thresholds it and the sqrt(discharge) term in the
+    // stream-power law all change, and with them the height field itself.
+    //
+    // So assert the DISTRIBUTION. Each figure below has an exact value under "seeded
+    // but never accumulated", which is what gives the comparison teeth rather than
+    // merely a range:
+    //   * summed over nodes, catchment would be exactly the sphere's area -- every
+    //     cell's area counted once. Accumulation counts it again for every node
+    //     downstream of it, so the sum measures mean drainage path length.
+    //   * the largest catchment would be exactly the largest single node's area.
+    //   * the discharge arriving below sea level would be exactly the sea's own
+    //     area: no land would deliver anything anywhere.
+    //
+    // Size 33, not 17: at 17 the drainage network is a few cells long and the
+    // concentration factor is under three, which leaves no room between a working
+    // accumulation and a dead one.
+    const World world = build(33);
+    const Grid& catchment = world.layers.at("catchment");
+    const Grid& height = world.layers.at("height");
+    const int n = catchment.size();
+    const double sea = world.effective.sea_level;
+    const double radius = world.effective.globe_radius;
+
+    // One visit per NODE. The seam column duplicates column 0 and each pole row is one
+    // value repeated n times, so summing the raw n x n grid would count the seam twice
+    // and each pole n times. A pole node stands in for its whole cap and carries every
+    // wedge of it, which is why its area is the band wedge times (n-1).
+    double total = 0.0;
+    double largest = 0.0;
+    double largest_node = 0.0;
+    double land_area = 0.0;
+    double sea_area = 0.0;
+    double sea_catchment = 0.0;
+    const auto visit = [&](int x, int z) {
+        const double value = catchment.at(x, z);
+        const double area = band_wedge_area(z, n, radius) * ((z == 0 || z == n - 1) ? (n - 1) : 1);
+        total += value;
+        largest = std::max(largest, value);
+        largest_node = std::max(largest_node, area);
+        if (height.at(x, z) > sea) {
+            land_area += area;
+        } else {
+            sea_area += area;
+            sea_catchment += value;
+        }
+    };
+    visit(0, 0);
+    for (int z = 1; z < n - 1; ++z) {
+        for (int x = 0; x < n - 1; ++x) visit(x, z);
+    }
+    visit(0, n - 1);
+
+    // Floor first: every claim below is about how the node areas are shared out, so
+    // the enumeration that produced them has to tile the sphere exactly once.
+    const double sphere = world.area.total_km2 * 1e6;
+    check::close((land_area + sea_area) / sphere, 1.0, 1e-9, "the node areas to tile the sphere once");
+    check::is_true(land_area > 0.0, "the world to have land for its rivers to drain");
+
+    // Measured on clean code at seed 42, size 33: 1.57x, 11.6x and 0.97 against the
+    // 1.25x, 4x and 0.75 asserted. Under a deleted accumulation all three read exactly
+    // 1.0, 1.0 and 0.0 -- which is the margin these thresholds are chosen to leave.
+    check::is_true(total > 1.25 * sphere,
+                   "catchment summed over nodes to exceed the planet's own area, which is what it "
+                   "would be with nothing accumulated (" + std::to_string(total / sphere) + "x)");
+    check::is_true(largest > 4.0 * largest_node,
+                   "the largest catchment to dwarf the largest single cell (" +
+                       std::to_string(largest / largest_node) + "x)");
+    check::is_true(sea_catchment > sea_area + 0.75 * land_area,
+                   "most of the land to deliver its area to the sea (" +
+                       std::to_string((sea_catchment - sea_area) / land_area) + " of it)");
+}
+
 // --- measurement ---------------------------------------------------------
 
 TEST(a_flat_world_has_no_slope_and_no_relief) {
@@ -381,6 +499,89 @@ TEST(slope_is_reported_in_degrees) {
     const World world = build(17);
     for (const double value : world.layers.at("slope").cells()) {
         check::between(value, 0.0, 90.0, "slope in degrees");
+    }
+}
+
+TEST(a_constant_gradient_ramp_reports_the_slope_it_has_in_degrees) {
+    // The unit AND the magnitude of `slope`, pinned against a closed form.
+    //
+    // Neither test above can do that. On a constant field every formula gives zero,
+    // so `a_flat_world_has_no_slope_and_no_relief` passes whatever the gradient
+    // denominator, the azimuths or the neighbourhood radius are. And
+    // `slope_is_reported_in_degrees` asserts 0..90 on a quantity that is
+    // atan(hypot(gx, gy)) * 180/pi, which lies in [0, 90) for any finite gx and gy --
+    // it restates atan's range and its only failure mode is NaN, which
+    // `every_layer_is_finite` already covers.
+    //
+    // Slope feeds ABSOLUTE degree thresholds downstream -- exposed rock at >= 38,
+    // marsh at < 6, and the ecology and settlement cutoffs -- so its scale decides
+    // what the world is made of. Reporting radians, or halving the finite-difference
+    // baseline so every slope in every world doubles, is invisible to a bound.
+    //
+    // gradient = 1 is the anchor worth checking by hand: one metre of rise per metre
+    // of arc is 45 degrees, and 0.785 radians. Only one of those passes.
+    const int n = 33;
+    const double radius = 100000.0;
+    for (const double gradient : {0.1, 1.0}) {
+        const Grid ramp = latitude_ramp(n, gradient, radius);
+        const Relief relief = measure_globe(ramp, radius, 20000.0);
+        const double expected = std::atan(gradient) * 180.0 / std::acos(-1.0);
+        // Pole rows are excluded, not forgiven: longitude has no meaning there, so the
+        // east/south tangent frame is arbitrary and the ramp has no one-sided answer.
+        for (int z = 1; z < n - 1; ++z) {
+            for (int x = 0; x < n - 1; ++x) {
+                check::close(relief.slope.at(x, z), expected, 1e-9,
+                             "slope of a gradient-" + std::to_string(gradient) + " ramp at (" +
+                                 std::to_string(x) + "," + std::to_string(z) + ")");
+            }
+        }
+    }
+}
+
+TEST(topographic_position_is_the_mean_of_eight_points_on_one_geodesic_ring) {
+    // The `tpi` contract (measure.hpp) is a RING mean: eight interpolated samples at
+    // one geodesic radius, not a square window and not an area-weighted cap. Until
+    // now nothing exercised that ring, because the only field `measure_globe` was
+    // ever called on in a test was constant -- and the mean of any number of samples
+    // of a constant is the same constant.
+    //
+    // The probe is |latitude| * radius, a V-shaped valley whose floor is the equator
+    // row. At a floor cell the eight ring points sit at latitudes
+    // -asin(sin(ring) * sin(azimuth)): two on the floor itself (east and west), four
+    // at |sin| = 1/sqrt(2) and two at |sin| = 1. Since the field is |latitude| that
+    // gives the ring mean in closed form, and the cell's own height is zero, so
+    //
+    //     tpi = -radius * (2*asin(s) + 4*asin(s/sqrt(2))) / 8,   s = sin(ring).
+    //
+    // Halving the ring to four samples at right angles -- dropping the diagonals --
+    // reads -radius * asin(s) / 2 instead: -10000 m rather than -12047.33 m at
+    // ring = 0.2. The guard at the end of the loop keeps that gap from closing
+    // silently if the ring radius is ever retuned.
+    const int n = 33;
+    const double pi = std::acos(-1.0);
+    const double radius = 100000.0;
+    const double step = pi / (n - 1);
+    const int floor_row = (n - 1) / 2;
+    const Grid valley = latitude_valley(n, radius);
+
+    // Three neighbourhoods, and the ring radius each implies. 1000 m is below one grid
+    // step and must be floored AT one step; the other two set the ring themselves. All
+    // three answers differ, which pins the radius as well as the sample count.
+    for (const double neighbourhood : {1000.0, 20000.0, 40000.0}) {
+        const Relief relief = measure_globe(valley, radius, neighbourhood);
+        const double ring = std::min(pi / 2.0, std::max(step, neighbourhood / radius));
+        const double s = std::sin(ring);
+        const double eight = -radius * (2.0 * std::asin(s) + 4.0 * std::asin(s * std::sqrt(0.5))) / 8.0;
+        const double four = -radius * std::asin(s) / 2.0;
+
+        check::is_true(std::abs(eight - four) > 1.0,
+                       "an eight-point ring and a four-point one to be far apart at neighbourhood " +
+                           std::to_string(neighbourhood) + " (" + std::to_string(std::abs(eight - four)) + " m)");
+        for (int x = 0; x < n - 1; ++x) {
+            check::close(relief.tpi.at(x, floor_row), eight, 1e-6,
+                         "tpi on the valley floor at neighbourhood " + std::to_string(neighbourhood) +
+                             ", column " + std::to_string(x));
+        }
     }
 }
 

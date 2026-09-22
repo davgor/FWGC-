@@ -33,7 +33,7 @@ void write_config(JsonWriter& json, const Config& cfg) {
     json.field("belt_width", cfg.belt_width);
     json.field("mountain_detail", cfg.mountain_detail);
     json.field("orogeny", cfg.orogeny);
-    json.field("mountain_abundance", cfg.mountain_abundance);
+    json.field("mountain_abundance", cfg.options[Option::mountain_abundance]);
     json.field("erosion_passes", cfg.erosion_passes);
     json.field("erosion_strength", cfg.erosion_strength);
     json.field("magic_enabled", cfg.magic_enabled);

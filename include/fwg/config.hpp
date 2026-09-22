@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <optional>
 #include <string>
+#include <vector>
 #include <map>
 #include <string_view>
 
@@ -90,7 +91,6 @@ struct Config {
     // below continental platform, so raising tectonic_relief deepens basins as fast
     // as it raises peaks. This lifts orogenic belts without touching the basins.
     double orogeny = 10.0;
-    double mountain_abundance = 1.3;  // width of collision belts
 
     // --- erosion -------------------------------------------------------------
     int erosion_passes = 6;
@@ -125,6 +125,15 @@ struct Config {
     double support_reach = 1000.0;
     double culture_link_cost = 1800.0;
     double river_threshold_km2 = 0.15;
+
+    // Conditions this world nudged because the caller asked for a region that needs
+    // them. Recorded rather than silent: a world whose mountains grew because someone
+    // asked for dragons should be able to say so.
+    struct OptionBias {
+        std::string target;  // the option or field that moved
+        std::string zone;    // the region that asked for it
+    };
+    std::vector<OptionBias> option_biases;
 
     // The world-options control surface: every knob that is not a field above.
     // Ocean islands, coasts, cold, nests, nomads, the moon, the magical networks and
@@ -171,6 +180,8 @@ struct Request {
     std::optional<double> belt_width;
     std::optional<double> mountain_detail;
     std::optional<double> orogeny;
+    // Routed to world option `mountain_abundance`, which is where it lives. It is
+    // kept on Request because callers already pass it by this name.
     std::optional<double> mountain_abundance;
 
     std::optional<int> erosion_passes;

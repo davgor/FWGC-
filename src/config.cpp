@@ -58,6 +58,78 @@ std::optional<WorldSize> parse_world_size(std::string_view text) {
     return std::nullopt;
 }
 
+// Asking for a magical region biases the conditions that region needs.
+//
+// A caller who raises `draconic_occurrence` is asking for dragons, and dragons need
+// mountains -- so the world nudges `mountain_abundance` up as well. Without this the
+// request raises the region's own weight against ground that still cannot host it, and
+// the caller gets a stronger multiplier on zero.
+//
+// Two rules keep it honest. The nudge is proportional to how far past the default the
+// caller actually went, so a small request bends the world a little. And an EXPLICIT
+// setting of the target always wins: a caller who set `mountain_abundance` themselves
+// has said what they want and is not overruled by a side effect of another knob.
+//
+// Placement stays conditional either way. This bias makes a region possible, never
+// certain.
+struct Prerequisite {
+    const char* zone;
+    Option target;
+    double gain;
+};
+
+// The eight authored rules. `red_sands` pulls its target DOWNWARD, which is why the
+// gain is signed rather than a magnitude: red sands want dry ground.
+constexpr Prerequisite kPrerequisites[] = {
+    {"draconic", Option::mountain_abundance, 0.6},
+    {"demonic", Option::infernal_strength, 0.8},
+    {"haunted_sands", Option::umbral_strength, 0.8},
+    {"steampunk", Option::metal_abundance, 0.7},
+    {"dead_sea", Option::salinity, 0.6},
+    {"starlight_lakes", Option::weave_strength, 0.6},
+    {"pirate", Option::archipelago_occurrence, 0.4},
+};
+
+// `red_sands` biases `moisture_bias`, which is a Config field rather than a world
+// option, so it is applied separately below.
+constexpr double kRedSandsMoistureGain = -0.5;
+
+// How far past its default the caller pushed this zone, across both of its knobs. The
+// LARGER of the two wins rather than their sum: asking for more regions and stronger
+// regions is one wish stated twice, not two independent demands on the ground.
+double zone_demand(const std::map<std::string, double>& requested, const char* zone) {
+    double delta = 0.0;
+    for (const char* suffix : {"_occurrence", "_intensity"}) {
+        const std::string name = std::string(zone) + suffix;
+        const auto it = requested.find(name);
+        if (it == requested.end()) continue;
+        const auto option = option_by_name(name);
+        if (!option) continue;
+        delta = std::max(delta, it->second - option_spec(*option).default_value);
+    }
+    return delta;
+}
+
+void apply_prerequisites(Config& cfg, const Request& request) {
+    for (const Prerequisite& rule : kPrerequisites) {
+        const double demand = zone_demand(request.options, rule.zone);
+        if (demand <= 0.0) continue;
+        const OptionSpec& spec = option_spec(rule.target);
+        // An explicit request for the target is the caller's word and outranks this.
+        if (request.options.find(std::string(spec.name)) != request.options.end()) continue;
+        const double biased = spec.default_value + demand * rule.gain;
+        cfg.options.set(rule.target, std::max(spec.min_value, std::min(spec.max_value, biased)));
+        cfg.option_biases.push_back({std::string(spec.name), std::string(rule.zone)});
+    }
+
+    const double demand = zone_demand(request.options, "red_sands");
+    if (demand > 0.0 && !request.moisture_bias) {
+        // Red sands are dry ground, so this one pulls downward.
+        cfg.moisture_bias = std::max(-1.0, std::min(1.0, demand * kRedSandsMoistureGain));
+        cfg.option_biases.push_back({"moisture_bias", "red_sands"});
+    }
+}
+
 double circumference_for(WorldSize size) {
     switch (size) {
         case WorldSize::Small: return 200000.0;
@@ -115,7 +187,6 @@ void Config::validate() const {
     require_range("belt_width", belt_width, 0.001, 1.0, "rad");
     require_range("mountain_detail", mountain_detail, 0.0, 1.0);
     require_range("orogeny", orogeny, 0.0, 20.0);
-    require_range("mountain_abundance", mountain_abundance, 0.25, 2.0);
     require_range("erosion_strength", erosion_strength, 0.0, 1.0);
     require_range("wind_bearing", wind_bearing, 0.0, 360.0, "deg");
     require_range("rain_strength", rain_strength, 0.0, 3.0);
@@ -166,7 +237,7 @@ Config resolve(const Request& request) {
     cfg.crust_bias = pick(request.crust_bias, cfg.crust_bias);
     cfg.belt_width = pick(request.belt_width, cfg.belt_width);
     cfg.mountain_detail = pick(request.mountain_detail, cfg.mountain_detail);
-    cfg.mountain_abundance = pick(request.mountain_abundance, cfg.mountain_abundance);
+
     cfg.erosion_passes = pick(request.erosion_passes, cfg.erosion_passes);
     cfg.erosion_strength = pick(request.erosion_strength, cfg.erosion_strength);
     cfg.magic_enabled = pick(request.magic_enabled, cfg.magic_enabled);
@@ -194,6 +265,11 @@ Config resolve(const Request& request) {
         if (!option) throw std::invalid_argument("unknown world option '" + name + "'");
         cfg.options.set(*option, value);  // throws, naming the field and its bounds
     }
+    // A request for a region biases the conditions that region needs, before the
+    // combination rules are checked -- a bias must not be able to produce a config
+    // that validation would have refused.
+    apply_prerequisites(cfg, request);
+
     // And the rules that only a COMBINATION of options can break.
     cfg.options.validate();
 

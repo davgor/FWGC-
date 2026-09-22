@@ -62,7 +62,8 @@ Relief3 relief_at(double c, double distance, double conv, double div, double ci,
     // The more continental side overrides. Equal crust is a simplified tie.
     const double overriding = 0.5 + 0.5 * std::tanh(8.0 * (ci - cj));
 
-    const double spread = cfg.mountain_abundance * (1.0 + 0.25 * cfg.mountain_detail * std::tanh(across));
+    const double spread =
+        cfg.options[Option::mountain_abundance] * (1.0 + 0.25 * cfg.mountain_detail * std::tanh(across));
     const double falloff = d / spread;
     const double uplift = cfg.orogeny * 2.0 * collision * std::exp(-falloff * falloff) *
                           mountain_modulation(along, across, cfg.mountain_detail);

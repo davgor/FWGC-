@@ -292,6 +292,181 @@ TEST(perlin3_is_continuous_across_a_cell_boundary) {
     }
 }
 
+TEST(perlin3_is_pinned_by_golden_values) {
+    // Everything above this line is a property that ANY gradient-noise function has:
+    // purity, zero on the lattice, a bounded range, no crack at a cell wall. None of
+    // them touches the two things that decide what the planet actually looks like --
+    // the integer corner hash and the twelve edge gradients. noise.hpp says it plainly:
+    // "the terrain's character is entirely in this function". Change kMix by two, or
+    // swap the gradient's axis pair, or flip which bit chooses a sign, and every one of
+    // those properties still holds while every world from every seed comes out
+    // different. That is the same argument rng_stream_is_pinned_by_golden_values makes
+    // for the random stream, and perlin3 needs it more, because nothing downstream
+    // pins a world digest either.
+    //
+    // These are RECORDED OUTPUTS OF THIS IMPLEMENTATION, not independently derived
+    // truth. They cannot show that perlin3 is right; what they show is that it has not
+    // CHANGED. Regenerate them only with a deliberate, documented decision to move the
+    // terrain, and understand that doing so invalidates every world ever made.
+    //
+    // The points are chosen to spread the work: a small first cell, a negative
+    // coordinate, a coordinate large enough to exercise the wraparound in the
+    // double->uint32 corner index, fractional parts well away from 0, 0.5 and 1 (where
+    // two different fade curves would agree and hide a change), and six different
+    // seeds so the seed's path through the hash is covered too.
+    struct Point {
+        double x;
+        double y;
+        double z;
+        std::uint32_t seed;
+        const char* expected;
+    };
+    const Point points[] = {
+        {0.1, 0.2, 0.3, 42, "0.15816666695553466"},
+        {1.25, -3.5, 7.75, 42, "-0.03665393403816624"},
+        {-12.345, 6.789, -0.001, 42, "-0.12974680974063335"},
+        {100.5, -200.25, 300.125, 42, "-0.361237688307477"},
+        {0.37, 0.61, 0.89, 7, "-0.2937016069863219"},
+        {-0.25, -0.75, -0.125, 3, "-0.017716617988019538"},
+        {1000000.5, -1000000.25, 12345.678, 42, "0.2091832501391315"},
+        {2.718281828459045, 3.141592653589793, 1.4142135623730951, 1, "0.3597556503358771"},
+        {-7.2, 15.9, -22.4, 99, "0.37660576702676307"},
+        {0.999999, 1e-6, 0.5, 42, "-0.1767770488500278"},
+        {4.4, 4.4, 4.4, 42, "-0.21491111388352063"},
+        {33.33, -44.44, 55.55, 2024, "0.20188929441626657"},
+    };
+    for (const Point& point : points) {
+        const std::string what = "perlin3(" + format_double(point.x) + ", " + format_double(point.y) +
+                                 ", " + format_double(point.z) + ", " + std::to_string(point.seed) + ")";
+        check::equal(format_double(perlin3(point.x, point.y, point.z, point.seed)), std::string(point.expected),
+                     what);
+    }
+}
+
+TEST(perlin3_corner_gradients_are_pinned_across_a_swept_lattice) {
+    // Twelve points can miss. Each perlin3 call mixes eight corners, and a corruption
+    // that reaches only one of the twelve gradients -- one axis, one sign pair -- leaves
+    // about half of any given sample untouched, so a dozen literals can come back clean
+    // by luck. This is the net the literals above cannot cast: 2048 samples walked in a
+    // fixed order across four seeds and a lattice wide enough that every gradient and
+    // every hash path is hit many times, reduced to one digest. Any single sample
+    // differing in its last bit changes it.
+    //
+    // A digest and not a sum, because a sum of 2048 values loses the low bits of each
+    // one and a small enough change could hide in the rounding. Same caveat as the
+    // literals: this is pinned output, evidence of change, not of correctness. It is
+    // also the world digest the suite otherwise lacks -- grep sha256_hex in tests/ and
+    // before this there were only the FIPS vectors.
+    const std::uint32_t seeds[] = {0u, 1u, 42u, 4294967295u};
+    std::string material;
+    for (const std::uint32_t seed : seeds) {
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                for (int k = 0; k < 8; ++k) {
+                    material += format_double(perlin3(i * 2.37 - 7.0, j * 1.83 - 4.0, k * 3.11 - 11.0, seed));
+                    material += ';';
+                }
+            }
+        }
+    }
+    check::equal(sha256_hex(material),
+                 std::string("3be51878f2c4412d8bccc3b78c9e94c5aad367d072cf277ca2d169e0920f8fa5"),
+                 "digest of the swept lattice");
+}
+
+TEST(perlin3_output_amplitude_is_pinned) {
+    // perlin3_stays_bounded_and_uses_its_range accepts anything inside [-1, 1] that
+    // reaches |0.4|, and the function's real extremes are around |0.7| -- so that test
+    // admits rescaling the whole field by 1.4x, which is a 40% change to the height of
+    // every mountain, the depth of every sea and the strength of every ley field in
+    // every world. kInvRoot2 is one edit away from doing exactly that and nothing in
+    // the suite noticed.
+    //
+    // The extremes are the wrong statistic to pin: across unrelated noise seeds the max
+    // of 100k samples wanders over 0.61..0.70, seven percent, so a tight bound on it
+    // would be flaky. The RMS and the mean absolute value move by a quarter of a
+    // percent across the same seeds and scale EXACTLY linearly with the amplitude, so a
+    // three percent band round them is a dozen times wider than the noise and still
+    // catches a 1.05x rescale, never mind 1.1x. Deliberately independent of the hash:
+    // a changed hash reshuffles which gradient lands where and leaves these two numbers
+    // alone, so this test says "the amplitude moved" and means it.
+    Rng rng(4);
+    double low = 1.0;
+    double high = -1.0;
+    double sum_sq = 0.0;
+    double sum_abs = 0.0;
+    const int draws = 100000;
+    for (int i = 0; i < draws; ++i) {
+        const double v = perlin3(rng.uniform(-50, 50), rng.uniform(-50, 50), rng.uniform(-50, 50), 77);
+        low = std::min(low, v);
+        high = std::max(high, v);
+        sum_sq += v * v;
+        sum_abs += std::abs(v);
+    }
+    const double rms = std::sqrt(sum_sq / draws);
+    const double mean_abs = sum_abs / draws;
+    // Measured on the current implementation: rms 0.19046512, mean |v| 0.15542970.
+    check::between(rms, 0.18475, 0.19618, "rms of perlin3 (" + std::to_string(rms) + ")");
+    check::between(mean_abs, 0.15077, 0.16010, "mean |perlin3| (" + std::to_string(mean_abs) + ")");
+    // And the shape of the tails, loosely, so a field squashed towards its mean cannot
+    // hold the RMS by growing a few spikes.
+    check::between(high, 0.55, 0.75, "largest sample (" + std::to_string(high) + ")");
+    check::between(low, -0.75, -0.55, "smallest sample (" + std::to_string(low) + ")");
+}
+
+TEST(perlin3_blends_with_the_quintic_fade_and_not_the_cubic) {
+    // The quintic 6f^5-15f^4+10f^3 and the cubic Hermite f*f*(3-2f) are both smooth,
+    // both run 0 to 1, and both have zero FIRST derivative at each end -- so
+    // perlin3_is_continuous_across_a_cell_boundary cannot tell them apart, and neither
+    // can any sample taken at f = 0, 0.5 or 1, where the two curves agree to the bit.
+    // A test on lattice points or cell centres is therefore blind to the swap. What the
+    // quintic buys is the SECOND derivative: zero at the lattice plane where the cubic's
+    // is +/-6, which is the difference between smooth terrain and a visible crease along
+    // every integer plane of every noise-derived layer.
+    //
+    // This reads the curve back out of perlin3 rather than trusting the source. Put y
+    // and z exactly on the lattice and six of the eight corner weights vanish, leaving
+    // a one-dimensional blend of two corner gradients a and b:
+    //
+    //     V(f) = a*f + fade(f) * (b*(f-1) - a*f)
+    //
+    // a and b are measured as the limiting slopes at the two ends, where EVERY fade
+    // worth the name is 0 and 1, so the measurement does not assume the curve it is
+    // about to check. Inverting for fade(f) then gives the curve. The expected values
+    // are the quintic evaluated by hand -- unlike the pinned outputs above, these are
+    // derived, and this test would still be right if the hash and the gradients changed
+    // underneath it.
+    const double eps = 1e-6;
+    const double sample_at[] = {0.1, 0.25, 0.4, 0.6, 0.75, 0.9};
+    const double quintic[] = {0.00856, 0.103515625, 0.31744, 0.68256, 0.896484375, 0.99144};
+
+    int cells = 0;
+    for (int x0 = 0; x0 < 40; ++x0) {
+        // A cell is only invertible when both bounding gradients act along x, and the
+        // hash decides which ones do. Scanning for them rather than naming a cell is
+        // what keeps this test orthogonal to the hash.
+        const double near_low = x0 + eps;
+        const double near_high = (x0 + 1) - eps;
+        const double a = perlin3(near_low, 0.0, 0.0, 42) / (near_low - x0);
+        const double b = perlin3(near_high, 0.0, 0.0, 42) / (near_high - x0 - 1.0);
+        if (std::abs(a) < 0.5 || std::abs(b) < 0.5) continue;
+        ++cells;
+        for (int i = 0; i < 6; ++i) {
+            const double f = sample_at[i];
+            const double denominator = b * (f - 1.0) - a * f;
+            check::is_true(std::abs(denominator) > 0.1,
+                           "cell " + std::to_string(x0) + " to stay invertible at f=" + std::to_string(f));
+            const double fade = (perlin3(x0 + f, 0.0, 0.0, 42) - a * f) / denominator;
+            // 1e-7 is a hundred times the error the end-slope measurement carries and a
+            // hundred thousandth of the gap to the cubic, which is 0.019 at its closest.
+            check::close(fade, quintic[i], 1e-7,
+                         "fade(" + std::to_string(f) + ") read out of cell " + std::to_string(x0));
+        }
+    }
+    check::is_true(cells >= 5,
+                   "enough invertible cells to read the curve from (" + std::to_string(cells) + ")");
+}
+
 TEST(resolved_frequencies_drop_sub_nyquist_octaves) {
     // wavelength 100, step 10: octaves at 100, 50, 25, 12.5, 6.25 -- the first three
     // clear 2*step=20, the rest do not.

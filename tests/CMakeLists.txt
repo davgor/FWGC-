@@ -12,6 +12,7 @@
   test_magic.cpp
   test_routing.cpp
   test_settlement.cpp
+  test_options.cpp
   test_stages.cpp
   test_substrate.cpp
   test_water.cpp

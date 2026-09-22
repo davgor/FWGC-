@@ -23,6 +23,29 @@ World build(int size = 33) {
     return generate(resolve(r));
 }
 
+// A moon built by hand rather than drawn. The seeder cannot be asked for particular
+// offsets, and the fixtures below need every offset at zero so that day 0 sits exactly
+// on the turn of all three cycles and the geometry is computable with a pencil.
+Moon fixture_moon(int synodic, int spin, int nod, double tilt_degrees = 30.0) {
+    Moon m;
+    m.synodic_days = synodic;
+    m.spin_days = spin;
+    m.nod_days = nod;
+    m.tilt_max_degrees = tilt_degrees;
+    m.great_year_days = std::lcm(static_cast<long long>(synodic),
+                                 std::lcm(static_cast<long long>(spin), static_cast<long long>(nod)));
+    return m;
+}
+
+std::string school_name(int index) {
+    return std::string(magic_school_table()[static_cast<std::size_t>(index)].name);
+}
+
+int surge_count(const Almanac& year) {
+    return static_cast<int>(std::count_if(year.events.begin(), year.events.end(),
+                                          [](const AlmanacEvent& e) { return e.kind == "surge"; }));
+}
+
 }  // namespace
 
 // --- seeding --------------------------------------------------------------
@@ -330,4 +353,139 @@ TEST(lunar_sensitivity_carries_its_coastal_term_not_only_its_lakes) {
     check::is_true(sensitive_non_lakes > 0,
                    "open coast to raise lunar sensitivity above 0.5 somewhere; with the "
                    "coastal term missing this count is exactly zero");
+}
+
+// --- the solar half of the tide -------------------------------------------
+//
+// Everything above this line survives the deletion of the solar term. `tide()` ends in
+// min(1.8, max(0.5, ...)), so `between(v, 0.5, 1.8)` is a tautology: the value was just
+// clamped into exactly that interval, and the clamp does not care what it was handed.
+// Purity, great-year periodicity and the unit-vector check are all statements about the
+// moon's own geometry, which a sun-blind formula reproduces unchanged. Replace
+//
+//     const double lit = std::max(0.0, f.x * sun_x + f.z * sun_z);
+//
+// with `const double lit = 1.0;` -- delete the whole reason the tide depends on where
+// the sun is -- and not one assertion above this line moves. The three tests below are
+// the ones that do.
+
+TEST(the_tide_matches_the_specs_hand_computed_fixture) {
+    // The spec (docs/port-specs/06-astrology.md) calls this "the only self-check
+    // available to a rewrite whose numbers are allowed to differ": periods 30/40/20,
+    // every offset zero, tilt 30.
+    //
+    // At day 0 all three cycles sit on their turn, so the moon is unspun and unleaned
+    // and each school's face is just its quarter centre. The sun is at full, dead ahead
+    // at (+1, 0). So visible = lit = max(0, x) with x = cos(45 deg) * cos(quarter * 90
+    // deg), and the tide is 0.7 + 1.1 * x^2: exactly 1.25 for the two quarter-0 schools
+    // and the 0.7 floor for the six that are edge-on or turned away.
+    //
+    // This pins a VALUE, which is what nothing else here does. With the solar term
+    // gone the same two schools read 0.7 + 1.1 * cos(45 deg) = 1.478, still comfortably
+    // inside the band every other test checks. It also pins the quarter table, which is
+    // otherwise unasserted: permuting which school sits in which 90-degree quarter
+    // moves the 1.25 onto a different pair of names and changes nothing else.
+    const Moon moon = fixture_moon(30, 40, 20);
+    const int weave = magic_school_index("weave");
+    const int radiant = magic_school_index("radiant");
+
+    const auto factors = tide(moon, 0);
+    for (int s = 0; s < kKnownSchools; ++s) {
+        const bool sunward = s == weave || s == radiant;
+        check::close(factors[static_cast<std::size_t>(s)], sunward ? 1.25 : 0.7, 1e-12,
+                     "the fixture tide on " + school_name(s));
+    }
+}
+
+TEST(the_tide_moves_with_the_sun_and_not_only_with_the_moons_face) {
+    // Give the spin and the nod one shared period and every twentieth day puts the moon
+    // back in EXACTLY the attitude it had on day 0: same meridian facing the world, same
+    // hemisphere leaning in. The only thing that has moved is the phase -- where the sun
+    // is. Any difference between these days is therefore the solar term and nothing
+    // else, which is what makes this the assertion the rest of the suite was missing.
+    //
+    // A sun-blind tide has nothing left to vary with here. Hold the moon's own geometry
+    // fixed and `0.7 + 1.1 * visible * 1.0` returns the same number on all three days,
+    // so the strict inequality at the bottom is the check that dies.
+    const Moon moon = fixture_moon(30, 20, 20);
+    const int weave = magic_school_index("weave");
+    const int radiant = magic_school_index("radiant");
+
+    // The premise, asserted rather than assumed: same spin, same nod, different phase.
+    for (const long long t : {20LL, 40LL}) {
+        check::close(cycle_fraction(moon, 1, t), cycle_fraction(moon, 1, 0), 1e-15,
+                     "day " + std::to_string(t) + " to present the same meridian as day 0");
+        check::close(cycle_fraction(moon, 2, t), cycle_fraction(moon, 2, 0), 1e-15,
+                     "day " + std::to_string(t) + " to lean exactly as day 0 did");
+        check::is_true(cycle_fraction(moon, 0, t) != cycle_fraction(moon, 0, 0),
+                       "day " + std::to_string(t) + " to have moved the sun");
+    }
+
+    const auto full = tide(moon, 0);    // sun at (+1, 0): behind the world, quarter 0 lit
+    const auto swung_a = tide(moon, 20);  // sun two thirds of the way round
+    const auto swung_b = tide(moon, 40);  // and one third
+
+    for (const int s : {weave, radiant}) {
+        const std::string who = school_name(s);
+        const std::size_t i = static_cast<std::size_t>(s);
+        check::close(full[i], 1.25, 1e-12, who + " to be both turned toward the world and lit at full");
+        check::close(swung_a[i], 0.7, 1e-12, who + " to be just as visible but unlit on day 20");
+        check::close(swung_b[i], 0.7, 1e-12, who + " to be just as visible but unlit on day 40");
+        // The direction the model claims: the same face, equally turned toward the
+        // world, falls away as the sun leaves it. Delete the solar term and these three
+        // are one number.
+        check::is_true(full[i] > swung_a[i] + 0.5,
+                       who + " to fall away from the sun; with the solar term gone the moon's "
+                             "attitude is all that is read and these days are identical");
+        check::is_true(full[i] > swung_b[i] + 0.5, who + " likewise on day 40");
+    }
+}
+
+TEST(a_moon_that_leans_too_little_can_never_surge) {
+    // A quarter must be BOTH turned toward the world AND lit, so the highest tide a moon
+    // can ever reach is 0.7 + 0.55 * (1 + sin 2*tilt): 1.25 at no lean -- which is what
+    // the fixture above measures -- rising to 1.8 at a 45-degree one. That crosses
+    // kSurge = 1.6 only above about 19.77 degrees, so a moon drawn below that cliff
+    // emits exactly zero surges in any year, however long it is watched. Seed 42, the
+    // seed the rest of this file uses, leans 10.49 degrees and is one of them: its
+    // surge branch has never once run here, which is why `!events.empty()` and the
+    // `if (e.kind == "surge")` guard above prove nothing about surges.
+    //
+    // This is the solar term read a second way. Take `lit` as 1.0 and the ceiling
+    // becomes 0.7 + 1.1 * cos(45 - tilt), which clears 1.6 for every tilt the seeder can
+    // draw (10 degrees upward), so every one of these flat moons starts surging and the
+    // zero below becomes a double-digit count.
+    const double cliff = 19.77;
+    int flat = 0;
+    int steep = 0;
+    for (std::uint32_t seed = 1; seed <= 20; ++seed) {
+        const Moon moon = seed_moon(seed);
+        const int surges = surge_count(almanac(moon, 0));
+        const std::string who = "seed " + std::to_string(seed) + " (tilt " +
+                                std::to_string(moon.tilt_max_degrees) + ")";
+        if (moon.tilt_max_degrees < cliff) {
+            ++flat;
+            check::equal(surges, 0, who + " leans too little to ever reach the surge threshold");
+        } else if (moon.tilt_max_degrees > 23.0) {
+            // Above the cliff the peak is only reached when the spin and the nod line up,
+            // which integer periods need not do in any particular year -- so this arm is
+            // asserted on seeds measured to clear it, not on the cliff alone.
+            ++steep;
+            check::is_true(surges > 0, who + " to surge at least once in its first year");
+        }
+    }
+    check::is_true(flat >= 5, "several flat moons among the twenty (" + std::to_string(flat) + ")");
+    check::is_true(steep >= 5, "several steep ones too (" + std::to_string(steep) + ")");
+
+    // And a count, not merely "some". Seed 5 leans 34.85 degrees, the steepest of the
+    // twenty; its first year holds exactly thirty surges, spread over the known schools.
+    const Moon sharp = seed_moon(5);
+    check::close(sharp.tilt_max_degrees, 34.850130563790742, 1e-9, "the steepest moon of the twenty");
+    const Almanac year = almanac(sharp, 0);
+    check::equal(surge_count(year), 30, "surges in the steep moon's first year");
+    for (const AlmanacEvent& e : year.events) {
+        if (e.kind != "surge") continue;
+        check::is_true(!e.school.empty(), "a surge to name the school it lifted");
+        check::is_true(e.tide >= kSurge, "a surge to clear the threshold");
+    }
 }
