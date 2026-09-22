@@ -422,3 +422,110 @@ TEST(an_unknown_population_profile_is_refused) {
     cfg.population_profile = "mixed";
     cfg.validate();  // mixed is not a registry id but is always legal
 }
+
+// --- population and classification ----------------------------------------
+
+TEST(the_allowance_is_split_evenly_with_the_remainder_going_to_the_oldest) {
+    // 10 residents across 3 cities: 4, 3, 3. The odd one goes to the city founded first.
+    std::vector<long long> got;
+    for (long long i = 0; i < 3; ++i) got.push_back(city_population(10, 3, i).residents);
+    check::equal(got[0], 4LL, "the oldest city to carry the odd resident");
+    check::equal(got[1], 3LL, "the second city to take its even share");
+    check::equal(got[2], 3LL, "the third city to take its even share");
+    check::equal(got[0] + got[1] + got[2], 10LL, "the whole allowance to be spent");
+}
+
+TEST(no_resident_is_lost_or_invented_by_the_split) {
+    for (long long allowance : {0LL, 1LL, 7LL, 100LL, 99991LL}) {
+        for (long long count = 1; count <= 9; ++count) {
+            long long total = 0;
+            for (long long i = 0; i < count; ++i) total += city_population(allowance, count, i).residents;
+            check::equal(total, allowance,
+                         "the split of " + std::to_string(allowance) + " across " +
+                             std::to_string(count) + " cities to be exact");
+        }
+    }
+}
+
+TEST(the_urban_split_rounds_half_to_even) {
+    // 30 residents give exactly 16.5 urban. Rounding half away from zero would say 17;
+    // the rule is half-to-even, and the two disagree on about one city in eighty five.
+    const CityPopulation at_thirty = city_population(30, 1, 0);
+    check::equal(at_thirty.residents, 30LL, "thirty residents");
+    check::equal(at_thirty.urban, 16LL, "16.5 urban to round down to the even 16");
+
+    const CityPopulation at_seventy = city_population(70, 1, 0);
+    check::equal(at_seventy.urban, 38LL, "38.5 urban to round down to the even 38");
+
+    // And an ordinary case, to show the rule is not just always-down.
+    const CityPopulation at_ten = city_population(10, 1, 0);
+    check::equal(at_ten.urban, 6LL, "5.5000000000000004 urban to round up to 6");
+}
+
+TEST(urban_and_rural_always_account_for_everyone) {
+    for (long long n = 0; n < 500; ++n) {
+        const CityPopulation p = city_population(n, 1, 0);
+        check::equal(p.urban + p.rural, p.residents,
+                     "the two halves of " + std::to_string(n) + " to be the whole");
+        check::is_true(p.rural >= 0, "no negative countryside at " + std::to_string(n));
+    }
+}
+
+TEST(refugees_arrive_after_the_split_not_inside_it) {
+    // The capacity split is derived from the ground this city farms, and refugees walked
+    // in from a town that fell. Adding them inside the split would silently take the
+    // allowance away from this people's other cities.
+    const CityPopulation without = city_population(90, 3, 1);
+    const CityPopulation with = city_population(90, 3, 1, 25);
+    check::equal(with.residents, without.residents + 25, "the arrivals to be added on top");
+
+    long long total = 0;
+    for (long long i = 0; i < 3; ++i) total += city_population(90, 3, i, i == 1 ? 25 : 0).residents;
+    check::equal(total, 115LL, "the other cities' shares to be untouched");
+}
+
+TEST(a_founding_capital_stays_the_capital_even_when_outscored) {
+    // A people's first city does not stop being its capital because better ground was
+    // settled afterwards.
+    const std::vector<CityClassInput> sites{
+        {5, "elf", 0.40, true},
+        {9, "elf", 0.95, false},
+    };
+    const auto classes = classify_cities(sites, 0.65);
+    check::is_true(classes[0] == CityClass::Capital, "the founding capital to be retained");
+    check::is_true(classes[1] == CityClass::Medium, "the better-scoring city to be merely medium");
+}
+
+TEST(without_a_founding_capital_the_best_ground_takes_it) {
+    const std::vector<CityClassInput> sites{
+        {5, "elf", 0.40, false},
+        {9, "elf", 0.95, false},
+        {2, "elf", 0.20, false},
+    };
+    const auto classes = classify_cities(sites, 0.65);
+    check::is_true(classes[1] == CityClass::Capital, "the best-scoring city to be the capital");
+    check::is_true(classes[0] == CityClass::Small, "a low-scoring city to be small");
+    check::is_true(classes[2] == CityClass::Small, "a low-scoring city to be small");
+}
+
+TEST(a_tied_capital_is_decided_by_the_node_not_by_listing_order) {
+    const std::vector<CityClassInput> forward{{9, "elf", 0.5, false}, {2, "elf", 0.5, false}};
+    const std::vector<CityClassInput> backward{{2, "elf", 0.5, false}, {9, "elf", 0.5, false}};
+    const auto a = classify_cities(forward, 0.65);
+    const auto b = classify_cities(backward, 0.65);
+    check::is_true(a[1] == CityClass::Capital, "the lower node to win the tie");
+    check::is_true(b[0] == CityClass::Capital, "the lower node to win the tie either way round");
+}
+
+TEST(every_people_gets_its_own_capital) {
+    const std::vector<CityClassInput> sites{
+        {1, "elf", 0.9, false}, {2, "elf", 0.2, false},
+        {3, "dwarf", 0.3, false}, {4, "dwarf", 0.1, false},
+    };
+    const auto classes = classify_cities(sites, 0.65);
+    check::is_true(classes[0] == CityClass::Capital, "the elves to have a capital");
+    check::is_true(classes[2] == CityClass::Capital, "the dwarves to have their own capital");
+    // The dwarven capital scores below the medium threshold and is a capital anyway:
+    // classification is relative to a people, not to the world.
+    check::is_true(sites[2].suitability < 0.65, "the dwarven capital to be on poor ground");
+}

@@ -5,6 +5,7 @@
 #include <limits>
 #include <numbers>
 #include <queue>
+#include <tuple>
 
 #include "fwg/routing.hpp"
 #include "fwg/world.hpp"
@@ -251,6 +252,57 @@ void apply_city_ceiling(std::map<std::string, long long>& quotas, long long limi
         if (victim == quotas.end()) break;  // nothing left to take
         --victim->second;
     }
+}
+
+CityPopulation city_population(long long allowance, long long city_count, long long index,
+                               long long absorbed_refugees) {
+    CityPopulation out;
+    if (city_count <= 0) return out;
+    out.residents = allowance / city_count + (index < allowance % city_count ? 1 : 0);
+    out.residents += absorbed_refugees;
+
+    // Half of the population rounds to EVEN, not away from zero. This is not a
+    // cosmetic choice: 30 residents give exactly 16.5 urban, and the two rules disagree
+    // on 35752 of the first three million resident counts -- about one city in eighty
+    // five would report a different split.
+    const double urban = static_cast<double>(out.residents) * 0.55;
+    double whole = std::floor(urban);
+    const double rest = urban - whole;
+    if (rest > 0.5 || (rest == 0.5 && std::fmod(whole, 2.0) != 0.0)) whole += 1.0;
+    out.urban = static_cast<long long>(whole);
+    out.rural = out.residents - out.urban;
+    return out;
+}
+
+std::vector<CityClass> classify_cities(const std::vector<CityClassInput>& sites,
+                                       double medium_suitability_min) {
+    std::vector<CityClass> out(sites.size(), CityClass::Small);
+
+    std::map<std::string, std::size_t> capitals;
+    for (std::size_t i = 0; i < sites.size(); ++i) {
+        const auto it = capitals.find(sites[i].population_profile);
+        if (it == capitals.end()) {
+            capitals.emplace(sites[i].population_profile, i);
+            continue;
+        }
+        const CityClassInput& best = sites[it->second];
+        const CityClassInput& here = sites[i];
+        // A founding capital outranks every score. Then suitability, then the node, so
+        // the choice does not depend on the order the sites were listed in.
+        const bool better =
+            std::tuple(!here.founding_capital, -here.suitability, here.node) <
+            std::tuple(!best.founding_capital, -best.suitability, best.node);
+        if (better) it->second = i;
+    }
+
+    for (std::size_t i = 0; i < sites.size(); ++i) {
+        if (capitals.at(sites[i].population_profile) == i) {
+            out[i] = CityClass::Capital;
+        } else if (sites[i].suitability >= medium_suitability_min) {
+            out[i] = CityClass::Medium;
+        }
+    }
+    return out;
 }
 
 double site_suitability(const CivilizationTraits& t, const SiteConditions& at, bool is_water) {

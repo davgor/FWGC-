@@ -118,4 +118,40 @@ long long city_limit(long long packing, const Config& cfg, int default_settlemen
 // first and breaking ties by name — so the outcome does not depend on map order.
 void apply_city_ceiling(std::map<std::string, long long>& quotas, long long limit);
 
+// How a people's supported population is divided between its cities.
+//
+// The capacity allowance is split evenly and the remainder goes to the FIRST cities in
+// founding order, so an older city is the one that carries the odd resident.
+struct CityPopulation {
+    long long residents = 0;
+    long long urban = 0;
+    long long rural = 0;
+};
+
+// `index` is the city's position among its own people's cities, in founding order.
+// `absorbed_refugees` are people who walked in from a town that fell: the capacity split
+// cannot know about them, because it is derived from the ground THIS city farms. They are
+// added after the split, so the split stays a pure function of habitat and the arrivals
+// stay auditable on their own.
+CityPopulation city_population(long long allowance, long long city_count, long long index,
+                               long long absorbed_refugees = 0);
+
+// What a city is called, within its own people.
+enum class CityClass { Capital, Medium, Small };
+
+// One capital per people, and no forced cities.
+//
+// A founding capital is RETAINED even when a later city outscores it -- a people's first
+// city does not stop being its capital because better ground was settled afterwards.
+// Only where no founding capital survives does suitability decide, with the node index
+// breaking ties so the choice cannot depend on the order the sites were listed in.
+struct CityClassInput {
+    int node = 0;
+    std::string population_profile;
+    double suitability = 0.0;
+    bool founding_capital = false;
+};
+std::vector<CityClass> classify_cities(const std::vector<CityClassInput>& sites,
+                                       double medium_suitability_min);
+
 }  // namespace fwg
