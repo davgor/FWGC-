@@ -431,6 +431,13 @@ World generate(const Config& cfg) {
             world.timing_ms["roads"] = elapsed_ms(roads_started);
         }
 
+        // Stage 12, "Populated regions".
+        if (cfg.phase >= 12) {
+            const auto populated_started = Clock::now();
+            add_populated_regions(world);
+            world.timing_ms["populated_regions"] = elapsed_ms(populated_started);
+        }
+
         // Stage 13's first half: what lives out there. Stage 12 -- hamlets, fortresses,
         // the rest of the populated regions -- is not ported, so this runs on the cities
         // alone. The nests only need somewhere people already are, to stay clear of it.

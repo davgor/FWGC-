@@ -41,11 +41,19 @@ a generated world already exceeds it. Measured: **zero air routes at sizes 33, 6
 cruise altitude, the 8000/5000 decay and price scales and the 80 m clearance. The option's
 own maximum of 50 000 m would be needed before a single route existed.
 
-**Irrigation, everywhere.** A people's `water_reach` trait is 400–650 m and freshwater
-distances on a shipped world are kilometres, so `exp(-distance / water_reach)` underflows
-to zero at every cell. `food_potential` therefore equals `natural_food_potential` on every
-world this generator makes, and `irrigation_benefit` is identically zero. The irrigation
-rules are correct and unreachable.
+**Irrigation, very nearly.** A people's `water_reach` trait is 400–650 m against a cell
+step of 1562–6250 m, so `exp(-distance / water_reach)` underflows as soon as a cell is
+even one step from water.
+
+Measured rather than assumed, because the first version of this document said irrigation
+was *identically* zero and that is not true. It fires on 75 cells at size 33, 535 at size
+65 and 2433 at size 129 — the cells standing on or immediately beside water, where the
+distance is zero or near it. The mean gain where it fires at all is 0.0008 to 0.007, and
+the largest single gain is about 0.17.
+
+So the rule is not unreachable; it is confined to the water's edge, where the authored
+intent was a reach of several hundred metres around every watercourse. A system that was
+meant to shape a region instead decorates a shoreline.
 
 **Every hamlet's catchment is the cell it stands on.** The catchment reach is 250 road-cost
 units and one non-polar step already costs more than that. The city-node exclusion, the

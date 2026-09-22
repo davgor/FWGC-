@@ -48,6 +48,7 @@
   random.cpp
   roads.cpp
   routing.cpp
+  populated_stage.cpp
   quests.cpp
   religion.cpp
   scale.cpp

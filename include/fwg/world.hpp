@@ -22,7 +22,10 @@
 #include "fwg/magic.hpp"
 #include "fwg/tectonics.hpp"
 #include "fwg/astrology.hpp"
+#include "fwg/humans.hpp"
 #include "fwg/nests.hpp"
+#include "fwg/populated_stage.hpp"
+#include "fwg/society.hpp"
 #include "fwg/roads.hpp"
 #include "fwg/settlements_stage.hpp"
 #include "fwg/biomes.hpp"
@@ -36,11 +39,10 @@ namespace fwg {
 
 // The highest stage of the sixteen-stage ladder this library implements. Stages
 // above it are accepted and reported honestly rather than silently claimed.
-// The highest CONTIGUOUS stage. Nests run at 13 and are real, but stage 12 -- hamlets,
-// fortresses, the rest of the populated regions -- is not ported, so a world cannot
-// honestly claim 13. `systems` is the channel that says what actually ran; this number
-// only ever promises that everything below it did.
-inline constexpr int kHighestImplementedStage = 11;
+// The highest CONTIGUOUS stage. Stages 12 and 13 now both run, so this is 13; above it
+// a great deal is ported and unwired, and `systems` is the channel that says what
+// actually ran. This number only ever promises that everything below it did.
+inline constexpr int kHighestImplementedStage = 13;
 
 struct SeasonalMonth {
     Grid temperature;
@@ -134,6 +136,13 @@ struct World {
     bool has_wildlife = false;
     NestBlock wildlife;
     NestBlock beast_nests;
+
+    // Stage 12. The hinterland its cities farm, the seasons they eat through, and
+    // the harbours, fisheries and trade that grow on top.
+    bool has_humans = false;
+    HumanHinterland humans;
+    SeasonalFood seasonal_food;
+    SocietyReport society;
 
     // Which subsystems actually ran. More honest than a stage number while the
     // ladder is partial: climate can be present while stages 6 and 7 are not.

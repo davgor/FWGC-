@@ -58,6 +58,9 @@ struct SettlementSite {
     // missing one: a site can be founded away from water and pay for it.
     double freshwater_distance_m = 0.0;
 
+    // What this city is known for, from the society pass. Empty until stage 12 runs.
+    std::vector<std::string> community;
+
     long long population_estimate = 0;
     long long urban_population_estimate = 0;
     long long rural_population_estimate = 0;

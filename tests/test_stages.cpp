@@ -10,6 +10,7 @@
 //   4 erosion           8 wind and rain     12 populated       16 complete
 #include "check.hpp"
 
+#include <algorithm>
 #include <set>
 #include <string>
 
@@ -127,4 +128,67 @@ TEST(the_upper_rungs_are_distinct_worlds_not_one_world_four_times) {
     // single pass has to follow the ley fields.
     check::is_true(!has(eight, "coastal_support"), "stage 8 to have no environment yet");
     check::is_true(has(nine, "coastal_support"), "stage 9 to carry the environment");
+}
+
+TEST(stage_twelve_publishes_the_food_layers_three_subsystems_wait_on) {
+    // Beasts and nomads both read food_potential and natural_food_potential for forage,
+    // and both reported reading zero everywhere while stage 12 was unported. This is the
+    // pass that supplies them.
+    const World w = at_phase(12, 65);
+    check::is_true(w.has_humans, "stage 12 to run the hinterland");
+    for (const char* layer : {"food_potential", "natural_food_potential", "irrigation_benefit",
+                              "culture_region", "civilization_region", "hamlet_catchment",
+                              "fishing_ground_owner"}) {
+        check::is_true(has(w, layer), std::string("stage 12 to publish ") + layer);
+    }
+
+    // A floor, because a layer of zeroes would satisfy the check above and feed the
+    // forage terms exactly the nothing they had before.
+    const Grid& food = w.layers.at("food_potential");
+    long long fed = 0;
+    double best = 0.0;
+    for (int z = 0; z < w.config.size; ++z) {
+        for (int x = 0; x < w.config.size; ++x) {
+            if (food.at(x, z) > 0.0) ++fed;
+            best = std::max(best, food.at(x, z));
+        }
+    }
+    check::is_true(fed > 100, "a real food field, not a flat zero (" + std::to_string(fed) + " cells)");
+    check::is_true(best > 0.1, "somewhere worth farming, best is " + std::to_string(best));
+}
+
+TEST(irrigation_reaches_the_waters_edge_and_no_further) {
+    // Pinned because the number is wrong, not because it is right. A people's water_reach
+    // is 400-650 m against a cell step of 1562-6250 m, so the irrigation exponential
+    // underflows one step from water. It fires only where the distance is zero or nearly
+    // so -- the cells standing on the watercourse.
+    //
+    // This is NOT identically zero, which is what the first reading of it claimed. See
+    // docs/scale-defects.md. The assertion is that it fires and is confined; if someone
+    // scales water_reach, this test fails and should be rewritten rather than relaxed.
+    const World w = at_phase(12, 65);
+    const Grid& food = w.layers.at("food_potential");
+    const Grid& natural = w.layers.at("natural_food_potential");
+
+    long long irrigated = 0;
+    double total_gain = 0.0;
+    long long land = 0;
+    for (int z = 0; z < w.config.size; ++z) {
+        for (int x = 0; x < w.config.size; ++x) {
+            if (natural.at(x, z) > 0.0) ++land;
+            const double gain = food.at(x, z) - natural.at(x, z);
+            if (gain > 1e-12) {
+                ++irrigated;
+                total_gain += gain;
+            }
+            check::is_true(gain >= -1e-12, "irrigation never to make ground worse");
+        }
+    }
+    check::is_true(irrigated > 0, "irrigation to fire somewhere at all");
+    check::is_true(land > 0, "farmable ground to exist");
+    check::is_true(irrigated < land,
+                   "and to reach nowhere near all of it (" + std::to_string(irrigated) + " of " +
+                       std::to_string(land) + ")");
+    check::is_true(total_gain / static_cast<double>(irrigated) < 0.05,
+                   "the mean gain to be the shoreline trickle it is, not a regional system");
 }
