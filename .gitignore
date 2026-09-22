@@ -41,3 +41,6 @@ CMakeUserPresets.json
 # Generated worlds
 *.world.json
 world.json
+
+# Agent worktrees, created per background agent; never part of the repo.
+.claude/worktrees/
