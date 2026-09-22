@@ -209,6 +209,50 @@ FarmingPotential farming_potential(double slope_deg, double temperature_c, doubl
     return {natural, natural + 0.75 * terrain * irrigation};
 }
 
+CityCeiling city_ceiling(double habitable_km2, double settlement_spacing_m, double cell_spacing_m) {
+    CityCeiling out;
+    out.habitable_km2 = habitable_km2;
+    // Cities cannot be packed closer than the raster can separate them.
+    out.resolvable_spacing_m = std::max(settlement_spacing_m, cell_spacing_m);
+    // The area each city needs at that separation, under the densest packing of the
+    // plane -- hexagonal, sqrt(3)/2 per unit square. Not a circle: circles leave gaps
+    // and would over-count.
+    const double spacing_km = out.resolvable_spacing_m / 1000.0;
+    out.per_city_km2 = std::sqrt(3.0) / 2.0 * spacing_km * spacing_km;
+    out.packing = out.per_city_km2 > 0.0
+                      ? static_cast<long long>(std::floor(habitable_km2 / out.per_city_km2))
+                      : 0;
+    return out;
+}
+
+long long city_limit(long long packing, const Config& cfg, int default_settlement_count) {
+    // An explicit request for nothing outranks the ground.
+    if (cfg.auto_parameters == 0 && cfg.settlement_count == 0) return 0;
+    const bool asked_for_fewer = cfg.settlement_count < default_settlement_count;
+    if (cfg.infers_own_settings() && !asked_for_fewer) return packing;
+    return std::min(packing, static_cast<long long>(cfg.settlement_count));
+}
+
+void apply_city_ceiling(std::map<std::string, long long>& quotas, long long limit) {
+    if (limit < 0) limit = 0;
+    const auto total = [&] {
+        long long sum = 0;
+        for (const auto& [id, q] : quotas) sum += q;
+        return sum;
+    };
+    while (total() > limit) {
+        // Take from the largest quota, ties to the LAST name in order. A people whose
+        // quota is already zero is never chosen, so this always terminates.
+        auto victim = quotas.end();
+        for (auto it = quotas.begin(); it != quotas.end(); ++it) {
+            if (it->second <= 0) continue;
+            if (victim == quotas.end() || it->second >= victim->second) victim = it;
+        }
+        if (victim == quotas.end()) break;  // nothing left to take
+        --victim->second;
+    }
+}
+
 double site_suitability(const CivilizationTraits& t, const SiteConditions& at, bool is_water) {
     if (is_water) return 0.0;  // nobody builds on the sea
 

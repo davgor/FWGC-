@@ -9,9 +9,12 @@
 // actually settle. They are comparable within one world and meaningless outside it.
 #pragma once
 
+#include <map>
+#include <string>
 #include <vector>
 
 #include "fwg/civilizations.hpp"
+#include "fwg/config.hpp"
 #include "fwg/grid.hpp"
 
 namespace fwg {
@@ -75,5 +78,44 @@ struct SiteConditions {
 
 // A people's 0..1 opinion of one cell. Water scores zero: nobody builds on the sea.
 double site_suitability(const CivilizationTraits& traits, const SiteConditions& at, bool is_water);
+
+// How many cities the GROUND can hold, whoever wants them.
+//
+// Cities must stand a settlement spacing apart, so habitable land divided by the
+// densest packing of that separation is how many can exist at all. This is a shared
+// ceiling applied after every people has been assessed, so an early entry in the
+// registry cannot exhaust the budget before a later one is considered.
+//
+// The binding spacing is whichever is COARSER: the authored one, or one raster cell.
+// Spacing alone bounded this while the reference world was 11 km across and a cell was
+// 87 m, but a coarse grid on a large world inverts that — at a 200 km circumference a
+// size-17 grid has 12.5 km cells against an 8 km spacing, and the area ceiling then
+// admitted about 63 cities onto 289 nodes, a city every four or five cells, each going
+// on to plan a full crop.
+struct CityCeiling {
+    long long packing = 0;            // what the ground alone allows
+    double habitable_km2 = 0.0;
+    double per_city_km2 = 0.0;
+    double resolvable_spacing_m = 0.0;  // the coarser of the authored spacing and a cell
+};
+CityCeiling city_ceiling(double habitable_km2, double settlement_spacing_m, double cell_spacing_m);
+
+// How many cities this world will actually allow, from the ground ceiling and the
+// caller's request.
+//
+// Three rules, in order:
+//   * Asking for NO cities is not the same as asking for no ceiling, and it outranks the
+//     ground: a caller who wants an empty world gets one.
+//   * A world that infers its own quotas is ceilinged by its ground, not by a count the
+//     caller never set -- otherwise a recipe world silently keeps the default of 24.
+//   * A caller who LOWERS the count below the recipe default is asking for fewer cities
+//     and gets them, inferred or not. `settlement_count` is published as "Maximum surface
+//     cities", so a request for two that returns ten is a broken parameter, not a ground
+//     rule. Leaving it at the default still means "no ceiling but the ground".
+long long city_limit(long long packing, const Config& cfg, int default_settlement_count);
+
+// Reduce per-people quotas until their total fits a ceiling, taking from the largest
+// first and breaking ties by name — so the outcome does not depend on map order.
+void apply_city_ceiling(std::map<std::string, long long>& quotas, long long limit);
 
 }  // namespace fwg

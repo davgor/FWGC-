@@ -277,3 +277,148 @@ TEST(different_peoples_prefer_different_ground) {
                    "some pair of peoples to disagree about cold ground (" +
                        std::to_string(disagreements) + " pairs)");
 }
+
+// --- the city ceiling -----------------------------------------------------
+
+TEST(the_raster_binds_the_ceiling_when_cells_are_coarser) {
+    // The measured defect. A 200 km world on a size-17 grid has 12.5 km cells against
+    // an 8 km settlement spacing; honouring the spacing alone admitted about 63 cities
+    // onto 289 nodes. This is the test that would have caught it.
+    const double r = 200000.0 / (2.0 * std::acos(-1.0));
+    const double cell = 2.0 * std::acos(-1.0) * r / (17 - 1);
+    check::between(cell, 12400.0, 12600.0, "a size-17 200 km world to have 12.5 km cells");
+
+    const double habitable_km2 = 20000.0;
+    const CityCeiling bound = city_ceiling(habitable_km2, 8000.0, cell);
+    const CityCeiling unbound = city_ceiling(habitable_km2, 8000.0, 0.0);
+
+    check::equal(bound.resolvable_spacing_m, cell, "the coarser spacing to bind");
+    check::is_true(bound.packing < unbound.packing / 2,
+                   "the raster to more than halve the ceiling (" + std::to_string(bound.packing) +
+                       " against " + std::to_string(unbound.packing) + ")");
+}
+
+TEST(the_authored_spacing_binds_when_it_is_the_coarser) {
+    // The other side of the max: a fine grid does not let cities crowd past the spacing.
+    const CityCeiling fine = city_ceiling(20000.0, 8000.0, 87.0);
+    check::equal(fine.resolvable_spacing_m, 8000.0, "the authored spacing to bind on a fine grid");
+}
+
+TEST(the_ceiling_packs_hexagonally_not_squarely) {
+    // sqrt(3)/2 per unit square, the densest packing of the plane. A square packing
+    // would reserve a full spacing^2 per city and undercount what the ground holds.
+    const CityCeiling c = city_ceiling(1000.0, 1000.0, 0.0);
+    check::close(c.per_city_km2, std::sqrt(3.0) / 2.0, 1e-12, "a 1 km spacing to reserve sqrt(3)/2 km2");
+    check::equal(c.packing, 1154LL, "the packing over 1000 km2");
+    check::is_true(c.per_city_km2 < 1.0, "hexagonal packing to be denser than square");
+}
+
+TEST(a_zero_spacing_admits_no_cities_rather_than_dividing_by_zero) {
+    check::equal(city_ceiling(1000.0, 0.0, 0.0).packing, 0LL, "no cities at zero spacing");
+}
+
+TEST(the_ceiling_takes_from_the_largest_quota_first) {
+    std::map<std::string, long long> quotas{{"dwarf", 2}, {"elf", 7}, {"human", 4}};
+    apply_city_ceiling(quotas, 9);
+    check::equal(quotas["dwarf"] + quotas["elf"] + quotas["human"], 9LL, "the total to reach the limit");
+    check::equal(quotas["dwarf"], 2LL, "the smallest quota to be untouched");
+    // elf gives up three to fall level with human, then the tie breaks to the later
+    // name and human gives up the fourth.
+    check::equal(quotas["elf"], 4LL, "the largest to give up three");
+    check::equal(quotas["human"], 3LL, "the middle to give up one once it ties");
+}
+
+TEST(a_tied_quota_loses_to_the_later_name) {
+    // A tie has to break on something stable. Taking from the later name is arbitrary
+    // but it is not map order, which is what matters: the same world twice reduces the
+    // same way.
+    std::map<std::string, long long> quotas{{"alder", 3}, {"birch", 3}};
+    apply_city_ceiling(quotas, 5);
+    check::equal(quotas["alder"], 3LL, "the earlier name to keep its quota");
+    check::equal(quotas["birch"], 2LL, "the later name to give one up");
+}
+
+TEST(a_quota_already_under_the_ceiling_is_untouched) {
+    std::map<std::string, long long> quotas{{"dwarf", 2}, {"elf", 1}};
+    apply_city_ceiling(quotas, 100);
+    check::equal(quotas["dwarf"], 2LL, "a quota under the ceiling to survive");
+    check::equal(quotas["elf"], 1LL, "a quota under the ceiling to survive");
+}
+
+TEST(a_zero_ceiling_empties_every_quota) {
+    std::map<std::string, long long> quotas{{"dwarf", 5}, {"elf", 3}};
+    apply_city_ceiling(quotas, 0);
+    check::equal(quotas["dwarf"] + quotas["elf"], 0LL, "an empty world to have no cities");
+}
+
+// --- which ceiling binds --------------------------------------------------
+
+TEST(asking_for_no_cities_outranks_the_ground) {
+    Config cfg;
+    cfg.auto_parameters = 0;
+    cfg.settlement_count = 0;
+    check::equal(city_limit(500, cfg, 24), 0LL, "a caller who wants an empty world to get one");
+}
+
+TEST(a_world_that_infers_is_ceilinged_by_its_ground) {
+    // The defect this guards: a recipe world silently keeping the default 24 when its
+    // ground would hold far more.
+    Config cfg;  // recipe 3, settlement_count at the recipe default
+    check::is_true(cfg.infers_own_settings(), "a recipe world to infer its own settings");
+    check::equal(city_limit(500, cfg, 24), 500LL, "the ground alone to bind an inferring world");
+}
+
+TEST(lowering_the_requested_count_is_honoured_even_when_inferring) {
+    // settlement_count is published as "Maximum surface cities". A request for two that
+    // returns ten is a broken parameter, not a ground rule.
+    Config cfg;
+    cfg.settlement_count = 2;
+    check::equal(city_limit(500, cfg, 24), 2LL, "a lowered request to bind");
+}
+
+TEST(raising_the_requested_count_does_not_lift_the_ground) {
+    Config cfg;
+    cfg.settlement_count = 900;
+    check::equal(city_limit(500, cfg, 24), 500LL, "the ground to bind a raised request");
+}
+
+TEST(a_world_that_does_not_infer_takes_the_smaller_of_the_two) {
+    Config cfg;
+    cfg.world_recipe = 0;
+    cfg.phase = 9;
+    cfg.population_profile = std::string(civilization_ids().front());
+    check::is_true(!cfg.infers_own_settings(), "a bare experiment with one people not to infer");
+    check::equal(city_limit(500, cfg, 24), 24LL, "the request to bind when nothing is inferred");
+    check::equal(city_limit(10, cfg, 24), 10LL, "the ground to bind when it is the smaller");
+}
+
+// --- the recipe fields ----------------------------------------------------
+
+TEST(a_geometry_experiment_cannot_reach_the_civilization_stages) {
+    Config cfg;
+    cfg.world_recipe = 0;
+    cfg.phase = 16;
+    check::throws([&] { cfg.validate(); }, "recipe 0 at phase 16");
+}
+
+TEST(a_recipe_world_refuses_to_also_infer_its_parameters) {
+    // Both would claim the same field, and the world could not say which chose it.
+    Config cfg;
+    cfg.world_recipe = 3;
+    cfg.auto_parameters = 1;
+    check::throws([&] { cfg.validate(); }, "recipe 3 with auto_parameters");
+}
+
+TEST(a_retired_recipe_is_refused_rather_than_reinterpreted) {
+    Config cfg;
+    cfg.world_recipe = 2;
+    check::throws([&] { cfg.validate(); }, "a retired recipe version");
+}
+
+TEST(an_unknown_population_profile_is_refused) {
+    Config cfg;
+    cfg.population_profile = "wyrmkin";
+    check::throws([&] { cfg.validate(); }, "a people the registry does not have");
+    cfg.population_profile = "mixed";
+    cfg.validate();  // mixed is not a registry id but is always legal
+}

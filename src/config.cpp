@@ -5,6 +5,7 @@
 #include <sstream>
 #include <stdexcept>
 
+#include "fwg/civilizations.hpp"
 #include "fwg/scale.hpp"
 
 namespace fwg {
@@ -66,6 +67,10 @@ double circumference_for(WorldSize size) {
     return 200000.0;
 }
 
+bool Config::infers_own_settings() const {
+    return world_recipe != 0 || auto_parameters != 0 || population_profile == "mixed";
+}
+
 double Config::step() const { return 2.0 * kPi * globe_radius / (size - 1); }
 
 void Config::validate() const {
@@ -77,6 +82,24 @@ void Config::validate() const {
     require_int_range("erosion_passes", erosion_passes, 0, 40);
     require_int_range("rain_passes", rain_passes, 1, 128);
     require_int_range("magic_enabled", magic_enabled, 0, 1);
+    require_int_range("auto_parameters", auto_parameters, 0, 1);
+    if (world_recipe != 0 && world_recipe != 3) {
+        throw std::invalid_argument(
+            "world_recipe must be 0 (geometry experiment) or 3; retired worlds must be regenerated");
+    }
+    if (world_recipe != 0 && auto_parameters != 0) {
+        throw std::invalid_argument(
+            "world recipe 3 uses explicit defaults and overrides; auto_parameters requires world_recipe 0");
+    }
+    // A geometry experiment has no peoples, so there is nothing for stages 10-16 to run.
+    if (world_recipe == 0 && phase > 9) {
+        throw std::invalid_argument("world_recipe 0 stops at phase 9; phase " + std::to_string(phase) +
+                                    " needs recipe 3");
+    }
+    if (population_profile != "mixed" && civilization_profile(population_profile) == nullptr) {
+        throw std::invalid_argument("population_profile '" + population_profile +
+                                    "' is not a civilization in the registry");
+    }
     require_int_range("layout_variation", layout_variation, 0, 1000000);
     require_int_range("detail_variation", detail_variation, 0, 1000000);
 

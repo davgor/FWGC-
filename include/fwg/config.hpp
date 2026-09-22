@@ -48,6 +48,19 @@ struct Config {
     int size = 129;      // cells along one edge of the sphere grid
     int phase = 16;      // how far through the sixteen stages to run
     WorldSize world_size = WorldSize::Small;
+
+    // Which recipe authored these defaults. 3 is the only live one and every default
+    // in this struct is its; 0 is a bare geometry experiment that stops at stage 9 and
+    // has no civilizations to infer anything from. Retired recipes are not resurrected:
+    // a world built by one has to be regenerated.
+    int world_recipe = 3;
+    // Whether the world derives its own settings from its ground. Forbidden on recipe
+    // 3, which carries explicit defaults and overrides instead -- the two ways of
+    // choosing a setting would otherwise both claim the same field.
+    int auto_parameters = 0;
+    // Which people founds the first cities, or "mixed" to let every eligible profile
+    // compete for the same ground.
+    std::string population_profile = "mixed";
     // The width that ACTUALLY built this world, in metres. world_size above is only
     // the preset that was asked for; an explicit circumference_km or globe_radius
     // bypasses it, and a document reporting the untouched preset would name a world
@@ -117,6 +130,11 @@ struct Config {
     // Ocean islands, coasts, cold, nests, nomads, the moon, the magical networks and
     // the thirteen regions all read from here.
     WorldOptions options;
+
+    // Whether this world derives its own quotas rather than taking a caller's count.
+    // Recipe worlds and mixed populations both infer; a bare geometry experiment with
+    // an explicit profile does not.
+    bool infers_own_settings() const;
 
     // Equatorial cell spacing in design space.
     double step() const;
