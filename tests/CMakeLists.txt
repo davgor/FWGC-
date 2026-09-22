@@ -10,6 +10,7 @@
   test_founding.cpp
   test_history.cpp
   test_magic.cpp
+  test_religion.cpp
   test_routing.cpp
   test_settlement.cpp
   test_options.cpp

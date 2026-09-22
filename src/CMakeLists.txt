@@ -8,6 +8,7 @@
   generated/content_civilizations.cpp
   generated/content_entities.cpp
   generated/content_registry.cpp
+  generated/content_pantheon.cpp
   generated/content_schools.cpp
   generated/content_variants.cpp
   generated/world_options.cpp
@@ -26,6 +27,7 @@
   options.cpp
   random.cpp
   routing.cpp
+  religion.cpp
   scale.cpp
   serialize.cpp
   settlement.cpp
