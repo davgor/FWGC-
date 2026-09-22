@@ -416,6 +416,13 @@ World generate(const Config& cfg) {
             add_settlements(world);
             world.timing_ms["settlements"] = elapsed_ms(settled_started);
         }
+
+        // Stage 11, "Roads".
+        if (cfg.phase >= 11) {
+            const auto roads_started = Clock::now();
+            add_roads(world);
+            world.timing_ms["roads"] = elapsed_ms(roads_started);
+        }
     }
 
     world.timing_ms["tectonics"] = tectonics_ms;

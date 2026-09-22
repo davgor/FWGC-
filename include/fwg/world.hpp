@@ -22,6 +22,7 @@
 #include "fwg/magic.hpp"
 #include "fwg/tectonics.hpp"
 #include "fwg/astrology.hpp"
+#include "fwg/roads.hpp"
 #include "fwg/settlements_stage.hpp"
 #include "fwg/biomes.hpp"
 #include "fwg/climate.hpp"
@@ -34,7 +35,7 @@ namespace fwg {
 
 // The highest stage of the sixteen-stage ladder this library implements. Stages
 // above it are accepted and reported honestly rather than silently claimed.
-inline constexpr int kHighestImplementedStage = 10;
+inline constexpr int kHighestImplementedStage = 11;
 
 struct SeasonalMonth {
     Grid temperature;
@@ -118,6 +119,10 @@ struct World {
     // Stage 10. Cities, what they can feed, and the record of how they were founded.
     bool has_settlements = false;
     SettlementReport settlements;
+
+    // Stage 11. What the cities built between themselves.
+    bool has_roads = false;
+    RoadNetwork roads;
 
     // Which subsystems actually ran. More honest than a stage number while the
     // ladder is partial: climate can be present while stages 6 and 7 are not.

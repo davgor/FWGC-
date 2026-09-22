@@ -8,6 +8,7 @@
   generated/content_civilizations.cpp
   generated/content_entities.cpp
   generated/content_registry.cpp
+  generated/content_heritage.cpp
   generated/content_nests.cpp
   generated/content_pantheon.cpp
   generated/content_schools.cpp
@@ -20,6 +21,7 @@
   founding.cpp
   grid.cpp
   habitation.cpp
+  heritage.cpp
   history.cpp
   json.cpp
   magic.cpp
@@ -28,6 +30,7 @@
   noise.cpp
   options.cpp
   random.cpp
+  roads.cpp
   routing.cpp
   religion.cpp
   scale.cpp
