@@ -172,9 +172,14 @@ void add_settlements(World& world) {
 
         SettlementSite site;
         site.id = static_cast<int>(i);
+        // Age 0 because nothing advances the ages yet. The reference assigns this at the
+        // first age turn with setdefault, so a city founded in the first age carries
+        // exactly this shape.
+        site.uid = "surface-city-0-" + std::to_string(s.node) + "-" + s.population_profile;
         site.node = s.node;
         site.x = x;
         site.z = z;
+        site.direction = direction(x, z, cfg.size);
         site.population_profile = s.population_profile;
         site.parent_race_id = s.parent_race_id;
 

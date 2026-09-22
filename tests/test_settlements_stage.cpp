@@ -7,6 +7,7 @@
 
 #include <map>
 #include <algorithm>
+#include <cmath>
 #include <sstream>
 #include <set>
 #include <string>
@@ -225,5 +226,38 @@ TEST(a_citys_name_follows_its_node_not_its_place_in_the_list) {
     for (const SettlementSite& s : b.settlements.sites) {
         check::equal(s.name, by_node[s.node], "the city on node " + std::to_string(s.node) +
                                                   " to carry the same name both times");
+    }
+}
+
+TEST(a_citys_uid_is_keyed_on_its_node_and_not_on_its_place_in_the_list) {
+    // `id` renumbers whenever the set of cities changes, which an age advance does.
+    // Threat reports, villain claims, seats and ruin ids are all keyed on the uid, so it
+    // has to survive that -- which it does by naming the terrain node, which does not
+    // move.
+    const World w = settled();
+    check::is_true(!w.settlements.sites.empty(), "cities to key");
+
+    std::set<std::string> uids;
+    for (const SettlementSite& s : w.settlements.sites) {
+        check::is_true(!s.uid.empty(), "city " + std::to_string(s.id) + " to carry a uid");
+        check::is_true(uids.insert(s.uid).second, s.uid + " to be unique");
+        check::is_true(s.uid.find(std::to_string(s.node)) != std::string::npos,
+                       s.uid + " to name its node");
+        check::is_true(s.uid.find(s.population_profile) != std::string::npos,
+                       s.uid + " to name its people");
+    }
+}
+
+TEST(a_citys_direction_points_at_its_own_cell) {
+    const World w = settled();
+    const auto held = sphere_grid(w.effective.size, w.effective.globe_radius);
+    for (const SettlementSite& s : w.settlements.sites) {
+        const Vec3 expected = direction(s.x, s.z, w.effective.size);
+        check::close(s.direction.x, expected.x, 1e-12, s.uid + " x");
+        check::close(s.direction.y, expected.y, 1e-12, s.uid + " y");
+        check::close(s.direction.z, expected.z, 1e-12, s.uid + " z");
+        const double length = std::sqrt(s.direction.x * s.direction.x + s.direction.y * s.direction.y +
+                                        s.direction.z * s.direction.z);
+        check::close(length, 1.0, 1e-12, s.uid + " to be a unit vector");
     }
 }

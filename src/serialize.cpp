@@ -650,6 +650,7 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
         for (const SettlementSite& s : settled.sites) {
             json.begin_object();
             json.field("id", s.id);
+            json.field("uid", s.uid);
             json.field("node", s.node);
             json.field("x", s.x);
             json.field("z", s.z);

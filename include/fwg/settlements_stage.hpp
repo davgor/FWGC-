@@ -11,6 +11,7 @@
 
 #include "fwg/founding.hpp"
 #include "fwg/settlement.hpp"
+#include "fwg/vec3.hpp"
 
 namespace fwg {
 
@@ -18,10 +19,20 @@ struct World;
 
 // One settlement as the world publishes it.
 struct SettlementSite {
+    // Position in the list. RENUMBERS whenever the set changes, which an age advance
+    // does, so nothing downstream should key on it.
     int id = 0;
+    // "surface-city-<age>-<node>-<people>". The stable identity: keyed on the terrain
+    // node, so it survives the renumbering that `id` does not. Threat reports, claims,
+    // seats and ruin ids are all keyed on this.
+    std::string uid;
     int node = 0;
     int x = 0;
     int z = 0;
+    // The unit vector to this city's cell centre. Carried rather than recomputed because
+    // every consumer that measures a distance needs it and would otherwise each need the
+    // grid size to derive it.
+    Vec3 direction;
     // What its own people call it, and what the name means in their tongue. Drawn from
     // that people's heritage lexicon, so a dwarven city is named in dwarvish and the
     // gloss says why.
