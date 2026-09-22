@@ -4,59 +4,81 @@ The generator is a ladder of sixteen stages. Each stage reads the world the prev
 built and writes new blocks into it. A world reports the stage it actually reached in
 `completed_stage`, and a request above that adds a warning saying so.
 
-**Reached: stage 9 of 16, contiguously.**
+**Reached: stage 11 of 16, contiguously and WIRED.** `generate()` at phase 11 produces a
+world with terrain, water, climate, magic, settlements and roads in it.
 
-Stages 6 and 7 were the hole below stage 8; with them in, `completed_stage` is a real
-high-water mark again rather than a floor with work stacked above it. The `systems` list
-in the document still reports exactly what ran, in the order it ran.
-
-`completed_stage` reports the highest CONTIGUOUS stage, so it stays at 5 while stages 6
-and 7 are missing. The `systems` list in the document says what actually ran. Climate is
-gated on `phase >= 6` exactly as the reference gates it, and runs on the stage-5 surface
--- the same thing the reference's own `generate_base` path does when called without the
-history ladder. A world built that way carries a warning saying so.
-
-Target is **1:1 functional parity** — every system the Python generator has. Numeric
+Target is **1:1 functional parity** -- every system the Python generator has. Numeric
 output is deliberately not matched; see [determinism.md](determinism.md).
+
+A note on what "done" means in the table below, because the distinction cost a day.
+**Wired** means `generate()` calls it and the world document carries the result. **Ported**
+means the code exists, is tested, and nothing calls it yet. Stage 10 sat in the second
+state while reporting itself in the first: `completed_stage` said 10 and the world had no
+cities. Anything marked ported is not in a world until it is wired.
 
 | # | Stage | Reference modules | State |
 |---|---|---|---|
-| 1 | Plate layout | `terrain_tectonics` | **done** |
-| 2 | Hypsometric surface | `terrain_tectonics` | **done** |
-| 3 | Surface detail | `terrain_tectonics`, `terrain_globe` | **done** |
-| 4 | Erosion | `terrain_erosion` | **done** |
-| 5 | World scale, land mask, area | `terrain_area` | **done** |
-| 5 | Water: connected ocean, lake spill, receiver graph, rivers | `terrain_water` | **done** |
-| 2 | Ocean archipelagos | `terrain_ecology.shape_islands` | **done** |
-| 6 | Tectonic transition: a second epoch | `terrain_history.tectonic_transition` | **done** |
-| 7 | Relic carving: abandoned waterways | `terrain_history.carve_relics` | **done** |
-| 8 | Climate: wind, rainfall, runoff, wetness | `terrain_climate` | **done** |
-| 8 | Terrain labels: temperature, moisture, biome, landform, features | `terrain_biomes` | **done** |
-| 8 | Ecology: habitats, cold relabel, islands, seasons, regions | `terrain_ecology` | **done** |
-| 8 | Continuous height field and tile export | `terrain_detail` | **done** |
-| 9 | Leyline networks: eight schools, fields, dominance | `terrain_leyline_history`, `terrain_magic` | **done** |
-| 9 | Astrology: the moon, its tide and the almanac | `terrain_astrology` | **done** |
-| — | Civilization registry: profiles, habitats, eligibility | `civilization_registry`, `terrain_profiles`, `terrain_civilizations` | **done** |
-| 10 | Biome variants: the magical state of the ground | `terrain_history.add_biome_variants` | **done** |
-| — | Routing and capacity substrate | `terrain_settlements` (searches), `terrain_humans.allocate_access` | **done** |
-| — | Settlement scoring: fresh water, flood, landmass, farming, suitability | `terrain_settlements`, `terrain_humans.farming_potential`, `terrain_civilizations` | **done** |
-| 10 | Civilizations and settlements | `terrain_settlements` (siting, roads, records) | todo |
-| 11 | Civilizations | `terrain_settlements` | todo |
-| 12 | Civilizations | `terrain_settlements` | todo |
-| 13 | Beast nests, threat, religion | `terrain_nests`, `terrain_religion` | todo |
+| 1 | Plate layout | `terrain_tectonics` | **wired** |
+| 2 | Hypsometric surface | `terrain_tectonics` | **wired** |
+| 2 | Ocean archipelagos | `terrain_ecology.shape_islands` | **wired** |
+| 3 | Surface detail | `terrain_tectonics`, `terrain_globe` | **wired** |
+| 4 | Erosion | `terrain_erosion` | **wired** |
+| 5 | World scale, land mask, area | `terrain_area` | **wired** |
+| 5 | Water: connected ocean, lake spill, receiver graph, rivers | `terrain_water` | **wired** |
+| 6 | Tectonic transition: a second epoch | `terrain_history.tectonic_transition` | **wired** |
+| 7 | Relic carving: abandoned waterways | `terrain_history.carve_relics` | **wired** |
+| 8 | Climate: wind, rainfall, runoff, wetness | `terrain_climate` | **wired** |
+| 8 | Terrain labels: temperature, moisture, biome, landform, features | `terrain_biomes` | **wired** |
+| 9 | Leyline networks: eight schools, fields, dominance | `terrain_leyline_history`, `terrain_magic` | **wired** |
+| 9 | Astrology: the moon, its tide and the almanac | `terrain_astrology` | **wired** |
+| 9 | Ecology: habitats, cold relabel, islands, seasons, regions | `terrain_ecology` | **wired** |
+| 9 | Biome variants: the magical state of the ground | `terrain_history.add_biome_variants` | **wired** |
+| 9 | Continuous height field and tile export | `terrain_detail` | **wired** |
+| — | Civilization registry: profiles, habitats, eligibility | `civilization_registry`, `terrain_profiles`, `terrain_civilizations` | **wired** |
+| — | Routing and capacity substrate | `terrain_settlements` (searches), `terrain_humans.allocate_access` | **wired** |
+| 10 | Settlement scoring, habitation, founding, ceiling, population, classification | `terrain_settlements`, `terrain_humans`, `founding` | **wired** |
+| 11 | Roads: the spanning forest between cities | `terrain_settlements` (road pass) | **wired** |
+| — | Heritage: naming, genomes, phonology | `Sim/heritage` | ported, not wired |
+| — | City and hamlet plans, shapes, fortifications | `city_planner`, `hamlet_planner`, `city_shapes`, `city_fortifications` | ported, not wired |
+| 13 | Beast nests | `terrain_nests` | ported, not wired |
+| 13 | Religion: gods, cosmologies, faiths | `terrain_religion` | ported, not wired |
+| 12 | Populated regions: hamlets, fortresses, colleges, harbours | `terrain_humans`, `terrain_society` | in flight |
+| 13 | Beast movement and encounters | `terrain_beast_movement`, `terrain_encounters` | in flight |
+| 16 | Nomads | `terrain_nomads`, `terrain_nomad_routes`, `terrain_nomad_effects` | in flight |
+| 16 | Villains and corruption | `terrain_villains`, `terrain_corruption` | in flight |
+| 16 | Heroes and the story web | `hero_generator`, `story_web` | in flight |
+| 16 | NPCs and key locations | `npc_roster`, `key_locations` | in flight |
 | 14 | Age transition | `terrain_history.age_transition` | todo |
 | 15 | Age transition (final) | `terrain_history.age_transition` | todo |
-| 16 | Settlements, nomads, beasts, encounters, heroes, story web, NPCs, key locations | `city_planner`, `hamlet_planner`, `castle_planner`, `terrain_nomads`, `terrain_beast_movement`, `terrain_encounters`, `hero_generator`, `npc_roster`, `key_locations` | todo |
+| 16 | Time, quests, the world clock | `terrain_time`, `terrain_time_schedule`, `terrain_quest_actions` | todo |
+| 16 | Wars and visitation | `terrain_wars`, `terrain_visitation` | todo |
+| — | Castles | `castle_planner`, `castle_geometry` | todo |
 
-Also outside the numbered ladder: `terrain_society` (ports, sea routes, access
-allocation), not ported. `terrain_water` was in this position and is now done — the
-reference runs it from inside world scaling, gated on `phase >= 5`, so it belongs to
-stage 5 and is placed there.
+## What the data capture covers
 
-**Scope check.** Stages 1–5 cover 6 of 140 Python modules and roughly 820 of 28,769
-non-test lines — about 2.9%. The owner has ruled for 1:1 functional parity, so the
-remaining 134 modules are all in scope. Numerics stay free: worlds need not match, systems
-must.
+All 39 files under `data/` are extracted from the reference and verified against it,
+whether or not the stage that reads them is ported. The Python tree is being abandoned, so
+unextracted authored data would be unrecoverable. That includes five sibling packages
+outside `icarus_sim` -- heritage, heroes, key locations, NPCs, the story web -- which the
+generator imports at generation time and which an audit scoped to `icarus_sim` misses
+entirely.
+
+## Known scale defects inherited from the reference
+
+Three systems have now been caught by the same disease, so it is systemic rather than
+incidental: several authored distances are absolute metres tuned for the 11.15 km
+reference world and do not scale with the planet.
+
+- `maritime` is `exp(-distance_to_ocean / 300 m)`. On a 200 km world the first land cell
+  inland reads effectively zero, so `human_maritime`, whose habitat needs 0.3, settles no
+  world at all, and 21 authored shore nest species place nothing. Pinned by tests in
+  `test_habitation.cpp` and `test_nests.cpp`.
+- Of three authored nest distances only the ramp span scales; the clearance and spacing do
+  not, so the widest monster clearance can refuse only a settlement's own cell.
+- The reference already diagnosed and fixed exactly this for `island_habitat`, whose
+  absolute-metre floor had become unreachable, and did not sweep the rest.
+
+Fixing any of these changes every world, so they are pinned rather than corrected.
 
 ## Deliberate departures from the reference
 
