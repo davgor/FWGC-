@@ -11,6 +11,8 @@
 #include <string_view>
 #include <vector>
 
+#include "fwg/civilizations.hpp"
+#include "fwg/json.hpp"
 #include "fwg/serialize.hpp"
 #include "fwg/world.hpp"
 
@@ -22,6 +24,7 @@ void usage() {
 
 usage:
   fwg generate [options]
+  fwg registry            dump the civilization registry as JSON
 
 options:
   --seed N              master seed (default 42)
@@ -72,6 +75,127 @@ std::optional<long long> to_int(std::string_view text) {
     return value;
 }
 
+// The registry, plus a deterministic grid of habitat probes. The probes are emitted
+// here rather than kept in a test because they are what makes the eligibility rules
+// inspectable from outside the library at all -- and comparable against any other
+// implementation without either side choosing the cases.
+void dump_registry(std::ostream& out) {
+    fwg::JsonWriter json(out, true);
+    const fwg::RegistryIdentity identity = fwg::registry_identity();
+
+    json.begin_object();
+    json.field("schema", std::string_view("fwg.civilization-registry"));
+    json.key("identity");
+    json.begin_object();
+    json.field("schema_version", identity.schema_version);
+    json.field("revision", identity.revision);
+    json.field("source_sha256", identity.source_sha256);
+    json.field("sha256", identity.sha256);
+    json.end_object();
+    json.field("default_profile_id", fwg::default_profile_id());
+
+    json.key("profiles");
+    json.begin_object();
+    for (const fwg::CivilizationProfile& p : fwg::civilization_profiles()) {
+        json.key(p.id);
+        json.begin_object();
+        json.field("name", p.name);
+        json.field("kind", std::string_view(p.is_entity ? "entity" : "aggregate"));
+        json.field("allocation_group", p.allocation_group);
+        json.field("structure_blocks", p.structure_blocks);
+        json.field("priority", p.priority);
+        json.key("traits");
+        json.begin_object();
+        const fwg::CivilizationTraits& t = p.traits;
+        json.field("climate_weight", t.climate_weight);
+        json.field("college_flood_limit", t.college_flood_limit);
+        json.field("college_slope_limit", t.college_slope_limit);
+        json.field("college_suitability_min", t.college_suitability_min);
+        json.field("college_temperature_max", t.college_temperature_max);
+        json.field("college_temperature_min", t.college_temperature_min);
+        json.field("college_water_reach", t.college_water_reach);
+        json.field("difficult_fraction", t.difficult_fraction);
+        json.field("flood_penalty", t.flood_penalty);
+        json.field("food_demand", t.food_demand);
+        json.field("food_moisture_ideal", t.food_moisture_ideal);
+        json.field("food_slope_comfort", t.food_slope_comfort);
+        json.field("food_temperature_ideal", t.food_temperature_ideal);
+        json.field("food_temperature_tolerance", t.food_temperature_tolerance);
+        json.field("irrigation", t.irrigation);
+        json.field("land_per_city_km2", t.land_per_city_km2);
+        json.field("magic_penalty", t.magic_penalty);
+        json.field("minimum_founding_residents", t.minimum_founding_residents);
+        json.field("moisture_ideal", t.moisture_ideal);
+        json.field("moisture_weight", t.moisture_weight);
+        json.field("mutation_limit", t.mutation_limit);
+        json.field("resource_weight", t.resource_weight);
+        json.field("road_grade_limit", t.road_grade_limit);
+        json.field("site_slope_limit", t.site_slope_limit);
+        json.field("slope_comfort", t.slope_comfort);
+        json.field("slope_weight", t.slope_weight);
+        json.field("support_multiplier", t.support_multiplier);
+        json.field("temperature_ideal", t.temperature_ideal);
+        json.field("temperature_tolerance", t.temperature_tolerance);
+        json.field("water_reach", t.water_reach);
+        json.field("water_weight", t.water_weight);
+        json.field("work_slope_limit", t.work_slope_limit);
+        json.end_object();
+        json.key("biome_preferences");
+        json.begin_object();
+        for (const fwg::BiomeOpinion& o : p.biome_preferences) json.field(std::to_string(o.biome_id), o.value);
+        json.end_object();
+        json.key("food_biome_multipliers");
+        json.begin_object();
+        for (const fwg::BiomeOpinion& o : p.food_biome_multipliers) json.field(std::to_string(o.biome_id), o.value);
+        json.end_object();
+        json.key("magic_biome_preferences");
+        json.begin_object();
+        for (const fwg::VariantOpinion& o : p.magic_biome_preferences) json.field(o.variant_id, o.value);
+        json.end_object();
+        json.key("food_magic_biome_multipliers");
+        json.begin_object();
+        for (const fwg::VariantOpinion& o : p.food_magic_biome_multipliers) json.field(o.variant_id, o.value);
+        json.end_object();
+        json.end_object();
+    }
+    json.end_object();
+
+    json.key("habitat_probes");
+    json.begin_array();
+    for (int biome = 0; biome <= 17; ++biome) {
+        for (int temp = -30; temp <= 30; temp += 10) {
+            for (int moist = 0; moist <= 10; moist += 2) {
+                for (int maritime = 0; maritime <= 1; ++maritime) {
+                    fwg::HabitatSample s;
+                    s.biome = biome;
+                    s.temperature = temp;
+                    s.moisture = moist / 10.0;
+                    s.maritime = maritime;
+                    s.landmass_area_m2 = maritime ? 5e9 : 5e11;
+                    s.landmass_fraction = maritime ? 0.02 : 0.6;
+                    s.largest_landmass = maritime ? 0.0 : 1.0;
+                    json.begin_object();
+                    json.field("biome", biome);
+                    json.field("temperature", temp);
+                    json.field("moisture", s.moisture);
+                    json.field("maritime", maritime);
+                    json.field("landmass_area_m2", s.landmass_area_m2);
+                    json.field("landmass_fraction", s.landmass_fraction);
+                    json.field("largest_landmass", s.largest_landmass);
+                    json.key("eligible");
+                    json.begin_array();
+                    for (const std::string_view id : fwg::eligible_civilizations(s)) json.value(id);
+                    json.end_array();
+                    json.end_object();
+                }
+            }
+        }
+    }
+    json.end_array();
+    json.end_object();
+    out << '\n';
+}
+
 [[noreturn]] void fail(const std::string& message) {
     std::cerr << "fwg: " << message << '\n';
     std::exit(2);
@@ -84,6 +208,10 @@ int main(int argc, char** argv) {
     if (args.empty() || args[0] == "-h" || args[0] == "--help") {
         usage();
         return args.empty() ? 2 : 0;
+    }
+    if (args[0] == "registry") {
+        dump_registry(std::cout);
+        return 0;
     }
     if (args[0] != "generate") fail("unknown command '" + std::string(args[0]) + "'; try --help");
 

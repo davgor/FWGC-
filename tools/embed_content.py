@@ -20,6 +20,7 @@ Validation here is deliberately fail-closed and mirrors the Python loader's: a r
 that has lost a row or a name is not a smaller catalogue, it is a broken one.
 """
 import argparse
+import hashlib
 import json
 import pathlib
 import sys
@@ -254,9 +255,188 @@ def render_schools():
     return "\n".join(lines) + "\n"
 
 
+HABITAT_FIELDS = ("biome", "variant", "temperature", "moisture", "maritime", "landmass_area_m2",
+                  "landmass_fraction", "largest_landmass", "resource", "slope", "height", "tpi",
+                  "coastal_support", "abs_latitude")
+
+
+def load_civilizations():
+    doc = json.loads((DATA / "civilizations.json").read_text(encoding="utf-8"))
+    if doc.get("schema_version") != 1:
+        raise SystemExit("civilizations.json must declare schema version 1")
+    rows = doc["profiles"]
+    ids = [r["id"] for r in rows]
+    if len(set(ids)) != len(ids):
+        raise SystemExit("civilizations.json has a duplicate profile id")
+    if doc["default_profile_id"] not in ids:
+        raise SystemExit("the default profile is not in the registry")
+    if not any(r["kind"] == "entity" for r in rows):
+        raise SystemExit("civilizations.json has no entity civilization to settle the world")
+    expected = set(doc["numeric_traits"])
+    for r in rows:
+        missing = expected - set(r["traits"])
+        extra = set(r["traits"]) - expected
+        if missing or extra:
+            raise SystemExit("profile %s trait mismatch: missing %s extra %s"
+                             % (r["id"], sorted(missing), sorted(extra)))
+        for k, v in r["traits"].items():
+            if not isinstance(v, (int, float)) or isinstance(v, bool):
+                raise SystemExit("profile %s trait %s is not numeric -- named fields cannot carry it"
+                                 % (r["id"], k))
+    return doc
+
+
+def flatten_habitat(rule, nodes, numbers, texts, children, base):
+    """Append `rule` and its subtree to `nodes`; return this node's index.
+
+    Children are recorded as INDICES in a shared pool rather than as a contiguous
+    range of nodes. A range is correct only while no child has children of its own --
+    nest two levels and it sweeps in a grandchild. The data is one level deep today,
+    which is exactly why this would have gone unnoticed.
+    """
+    index = len(nodes)
+    nodes.append(None)  # reserve, so children get higher indices
+
+    if not rule:
+        nodes[index] = dict(op="always", field="none", child=(0, 0), num=(0, 0), txt=(0, 0))
+        return index
+
+    for op in ("all", "any"):
+        if op in rule:
+            kids = [flatten_habitat(c, nodes, numbers, texts, children, base) for c in rule[op]]
+            begin = len(children)
+            # RELATIVE to the profile's own first node. A profile's `habitat` span is a
+            # slice of the shared array, so a global index would read another profile's
+            # tree the moment a span did not start at zero.
+            children.extend(k - base for k in kids)
+            nodes[index] = dict(op=op, field="none", child=(begin, len(children)),
+                                num=(0, 0), txt=(0, 0))
+            return index
+
+    field = rule["field"]
+    if field not in HABITAT_FIELDS:
+        raise SystemExit("unknown habitat field %r" % field)
+    num = txt = (0, 0)
+    if "in" in rule:
+        values = rule["in"]
+        if all(isinstance(v, str) for v in values):
+            txt = (len(texts), len(texts) + len(values))
+            texts.extend(values)
+        else:
+            num = (len(numbers), len(numbers) + len(values))
+            numbers.extend(float(v) for v in values)
+    nodes[index] = dict(op="leaf", field=field, child=(0, 0), num=num, txt=txt,
+                        min=rule.get("min"), max=rule.get("max"),
+                        gt=rule.get("gt"), equals=rule.get("equals"))
+    return index
+
+
+def render_civilizations():
+    doc = load_civilizations()
+    rows = doc["profiles"]
+    traits = doc["numeric_traits"]
+
+    nodes, numbers, texts, children = [], [], [], []
+    spans = []
+    for r in rows:
+        start = len(nodes)
+        flatten_habitat(r["habitat"], nodes, numbers, texts, children, start)
+        spans.append((start, len(nodes)))
+
+    # Every child index must land inside its own profile's tree, counted from that
+    # profile's first node.
+    for (start, end), r in zip(spans, rows):
+        size = end - start
+        for n in nodes[start:end]:
+            for c in children[n["child"][0]:n["child"][1]]:
+                if not (0 <= c < size):
+                    raise SystemExit("profile %s has a habitat child outside its own tree" % r["id"])
+
+    lines = [BANNER.format(source="civilizations.json")]
+    lines.append('#include "fwg/civilizations.hpp"\n')
+    lines.append("#include <array>\n")
+    lines.append("namespace fwg {\nnamespace {\n")
+
+    lines.append("constexpr double kInNumbers[] = {%s};"
+                 % (", ".join(cpp_double(v) for v in numbers) if numbers else "0.0"))
+    lines.append("constexpr std::string_view kInTexts[] = {%s};"
+                 % (", ".join(cpp_string(v) for v in texts) if texts else '""'))
+    lines.append("constexpr std::uint32_t kHabitatChildren[] = {%s};\n"
+                 % (", ".join("%du" % v for v in children) if children else "0u"))
+
+    lines.append("// Habitat predicates, flattened. Children of a node are a contiguous range.")
+    lines.append("constexpr HabitatNode kHabitat[] = {")
+    for n in nodes:
+        lines.append("    {HabitatOp::%s, HabitatField::%s, %s, %s, %s, %s, %s, %s, %s, %s, %du, %du, %du, %du, %du, %du},"
+                     % (n["op"], n["field"],
+                        cpp_double(n.get("min") or 0.0), cpp_double(n.get("max") or 0.0),
+                        cpp_double(n.get("gt") or 0.0), cpp_double(n.get("equals") or 0.0),
+                        "true" if n.get("min") is not None else "false",
+                        "true" if n.get("max") is not None else "false",
+                        "true" if n.get("gt") is not None else "false",
+                        "true" if n.get("equals") is not None else "false",
+                        n["num"][0], n["num"][1], n["txt"][0], n["txt"][1],
+                        n["child"][0], n["child"][1]))
+    lines.append("};\n")
+
+    for key, kind in (("biome_preferences", "BiomeOpinion"), ("food_biome_multipliers", "BiomeOpinion"),
+                      ("magic_biome_preferences", "VariantOpinion"),
+                      ("food_magic_biome_multipliers", "VariantOpinion")):
+        pool, offsets = [], []
+        for r in rows:
+            offsets.append(len(pool))
+            for k in sorted(r[key]):
+                pool.append((k, r[key][k]))
+            offsets[-1] = (offsets[-1], len(pool))
+        entries = []
+        for k, v in pool:
+            entries.append("{%s, %s}" % (int(k) if kind == "BiomeOpinion" else cpp_string(k), cpp_double(v)))
+        lines.append("constexpr %s k_%s[] = {%s};" % (kind, key, ", ".join(entries) if entries else "{}"))
+        globals()["_offsets_" + key] = offsets
+    lines.append("")
+
+    lines.append("constexpr CivilizationProfile kProfiles[] = {")
+    for i, r in enumerate(rows):
+        t = ", ".join(cpp_double(r["traits"][k]) for k in traits)
+        spanish = []
+        for key in ("biome_preferences", "food_biome_multipliers",
+                    "magic_biome_preferences", "food_magic_biome_multipliers"):
+            begin, end = globals()["_offsets_" + key][i]
+            spanish.append("{k_%s + %d, %d}" % (key, begin, end - begin))
+        lines.append("    {%s, %s, %s, %s, %s, %s, %s, %s, %d, {%s}, {kHabitat + %d, %d}, %s},"
+                     % (cpp_string(r["id"]), cpp_string(r["name"]), cpp_string(r["description"]),
+                        cpp_string(r["environment"]), cpp_string(r["inspiration"] or ""),
+                        cpp_string(r["allocation_group"] or ""), cpp_string(r["structure_blocks"] or ""),
+                        "true" if r["kind"] == "entity" else "false", r["priority"], t,
+                        spans[i][0], spans[i][1] - spans[i][0], ", ".join(spanish)))
+    lines.append("};\n")
+
+    entity = [r["id"] for r in rows if r["kind"] == "entity"]
+    lines.append("constexpr std::string_view kEntityIds[] = {%s};\n"
+                 % ", ".join(cpp_string(v) for v in entity))
+
+    src = doc["source_identity"]
+    digest = hashlib.sha256(json.dumps(doc, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    lines.append("}  // namespace\n")
+    lines.append("std::span<const std::uint32_t> habitat_children() { return kHabitatChildren; }")
+    lines.append("std::span<const double> habitat_numbers() { return kInNumbers; }")
+    lines.append("std::span<const std::string_view> habitat_texts() { return kInTexts; }")
+    lines.append("std::span<const CivilizationProfile> civilization_profiles() { return kProfiles; }")
+    lines.append("std::span<const std::string_view> civilization_ids() { return kEntityIds; }")
+    lines.append("std::string_view default_profile_id() { return %s; }\n"
+                 % cpp_string(doc["default_profile_id"]))
+    lines.append("""RegistryIdentity registry_identity() {
+    return {%d, %d, %s, %s};
+}
+""" % (src["schema_version"], src["revision"], cpp_string(src["sha256"]), cpp_string(digest)))
+    lines.append("}  // namespace fwg")
+    return "\n".join(lines) + "\n"
+
+
 TARGETS = {
     OUT / "content_biomes.cpp": render_biomes,
     OUT / "content_schools.cpp": render_schools,
+    OUT / "content_civilizations.cpp": render_civilizations,
     OUT / "world_options.cpp": render_world_options,
     pathlib.Path(__file__).resolve().parent.parent / "include" / "fwg" / "option_ids.hpp": render_options_header,
 }

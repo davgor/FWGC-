@@ -58,8 +58,11 @@ void JsonWriter::end_array() {
 }
 
 void JsonWriter::key(std::string_view name) {
+    // Write the name directly rather than through value(): value() runs separator()
+    // itself, so routing the key through it emitted a second newline and indent before
+    // every single key in every document.
     separator();
-    value(name);
+    write_string(name);
     out_ << ':';
     if (pretty_) out_ << ' ';
     need_comma_ = false;
@@ -92,6 +95,11 @@ void JsonWriter::value_null() {
 
 void JsonWriter::value(std::string_view v) {
     separator();
+    write_string(v);
+    need_comma_ = true;
+}
+
+void JsonWriter::write_string(std::string_view v) {
     out_ << '"';
     for (const char ch : v) {
         switch (ch) {
@@ -111,7 +119,6 @@ void JsonWriter::value(std::string_view v) {
         }
     }
     out_ << '"';
-    need_comma_ = true;
 }
 
 void JsonWriter::value(const Grid& grid) {

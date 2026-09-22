@@ -2,6 +2,7 @@
   main.cpp
   test_astrology.cpp
   test_biomes.cpp
+  test_civilizations.cpp
   test_climate.cpp
   test_ecology.cpp
   test_history.cpp

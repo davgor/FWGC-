@@ -36,6 +36,7 @@ output is deliberately not matched; see [determinism.md](determinism.md).
 | 8 | Continuous height field and tile export | `terrain_detail` | **done** |
 | 9 | Leyline networks: eight schools, fields, dominance | `terrain_leyline_history`, `terrain_magic` | **done** |
 | 9 | Astrology: the moon, its tide and the almanac | `terrain_astrology` | **done** |
+| — | Civilization registry: profiles, habitats, eligibility | `civilization_registry`, `terrain_profiles`, `terrain_civilizations` | **done** |
 | 10 | Biome variants, civilizations | `terrain_history`, `terrain_settlements` | todo |
 | 11 | Civilizations | `terrain_settlements` | todo |
 | 12 | Civilizations | `terrain_settlements` | todo |
@@ -127,8 +128,14 @@ their missing content in each file's addenda.
   `src/generated/`, which are checked in so the build needs no Python. Run it with
   `--check` before committing a data change. `data/biomes.json` is the first;
   `civilizations.json`, `buildings.json` and the nest profiles follow the same route.
-- **Stages 10–12 and 16** need the civilization registry and the settlement catalogues. The
-  same applies: they are content, and content belongs in a file with a version on it.
+- **The civilization registry has landed.** Thirteen profiles — twelve peoples plus one
+  aggregate — with thirty-two traits each, four biome opinion maps, habitat predicates and
+  allocation-group eligibility. Verified against the Python registry exactly: zero numeric
+  disagreement across every trait, and 1,512 habitat eligibility probes agreeing.
+  `fwg registry` dumps it, which is how that comparison was made.
+- **Stage 16's planners still need the building catalogue** — structure blocks, staffing
+  and the city/hamlet plan libraries. That half of the registry is deliberately not ported
+  yet; it is consumed only by the planners and belongs with them.
 - **Stage 16** is by far the largest — nine subsystems, and in the reference roughly ten
   thousand lines. It should be sliced, not attempted whole.
 - **Hidden schools and `magic_risk_*` are deliberately absent.** The four hidden magic

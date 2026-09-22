@@ -50,6 +50,7 @@ public:
 private:
     void separator();
     void newline_indent();
+    void write_string(std::string_view v);
 
     std::ostream& out_;
     bool pretty_ = true;

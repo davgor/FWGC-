@@ -1,9 +1,11 @@
 ﻿add_library(fwg STATIC
   astrology.cpp
   biomes.cpp
+  civilizations.cpp
   climate.cpp
   config.cpp
   generated/content_biomes.cpp
+  generated/content_civilizations.cpp
   generated/content_schools.cpp
   generated/world_options.cpp
   detail.cpp
