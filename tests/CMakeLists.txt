@@ -13,6 +13,7 @@
   test_religion.cpp
   test_routing.cpp
   test_settlement.cpp
+  test_nests.cpp
   test_options.cpp
   test_settlements_stage.cpp
   test_stages.cpp

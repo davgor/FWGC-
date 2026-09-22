@@ -8,6 +8,7 @@
   generated/content_civilizations.cpp
   generated/content_entities.cpp
   generated/content_registry.cpp
+  generated/content_nests.cpp
   generated/content_pantheon.cpp
   generated/content_schools.cpp
   generated/content_variants.cpp
@@ -23,6 +24,7 @@
   json.cpp
   magic.cpp
   measure.cpp
+  nests.cpp
   noise.cpp
   options.cpp
   random.cpp
