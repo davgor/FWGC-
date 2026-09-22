@@ -19,7 +19,7 @@ World build(int size = 65) {
     Request r;
     r.seed = 42;
     r.size = size;
-    r.phase = 6;
+    r.phase = 9;  // this port's single ecology pass follows the leylines
     return generate(resolve(r));
 }
 
@@ -283,7 +283,7 @@ TEST(tiles_of_one_world_share_a_source_digest) {
     Request other;
     other.seed = 43;
     other.size = 33;
-    other.phase = 6;
+    other.phase = 9;
     const HeightTile elsewhere = export_height_tile(generate(resolve(other)), 3, 0, 0, 4);
     check::is_true(elsewhere.source_sha256 != a.source_sha256, "a different world to hash differently");
 }

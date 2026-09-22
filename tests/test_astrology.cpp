@@ -19,7 +19,7 @@ World build(int size = 33) {
     Request r;
     r.seed = 42;
     r.size = size;
-    r.phase = 6;
+    r.phase = 9;  // astrology rides stage 9, with the leylines
     return generate(resolve(r));
 }
 
@@ -305,7 +305,7 @@ TEST(the_sky_is_independent_of_world_scale) {
     Request small;
     small.seed = 42;
     small.size = 33;
-    small.phase = 6;
+    small.phase = 9;
     small.world_size = WorldSize::Small;
     Request large = small;
     large.world_size = WorldSize::Large;

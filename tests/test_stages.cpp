@@ -105,3 +105,25 @@ TEST(the_systems_list_records_what_actually_ran) {
                        std::string("a full world to record the ") + expected + " system");
     }
 }
+
+TEST(the_upper_rungs_are_distinct_worlds_not_one_world_four_times) {
+    // Stages 8, 9 and 10 were all gated on phase 6, so phases 6 through 10 differed
+    // only by the relic carving at 7. Asking for stage 8 and asking for stage 10 built
+    // the same world, and every rung above 7 was decoration.
+    const World seven = at_phase(7);
+    const World eight = at_phase(8);
+    const World nine = at_phase(9);
+
+    check::is_true(!has(seven, "temperature"), "stage 7 to have no weather yet");
+    check::is_true(has(eight, "temperature"), "stage 8 to be where wind and rain arrive");
+    check::is_true(has(eight, "moisture"), "stage 8 to carry moisture");
+
+    check::is_true(!has(eight, "ley_weave"), "stage 8 to have no leylines yet");
+    check::is_true(has(nine, "ley_weave"), "stage 9 to be where the leylines arrive");
+    check::is_true(has(nine, "biome_variant"), "stage 9 to resolve the magical biomes");
+
+    // And ecology, which this port runs at 9 rather than the reference's 8 because its
+    // single pass has to follow the ley fields.
+    check::is_true(!has(eight, "coastal_support"), "stage 8 to have no environment yet");
+    check::is_true(has(nine, "coastal_support"), "stage 9 to carry the environment");
+}

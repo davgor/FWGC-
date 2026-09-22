@@ -18,7 +18,7 @@ World build(int size = 65, int magic_enabled = 1) {
     Request r;
     r.seed = 42;
     r.size = size;
-    r.phase = 6;
+    r.phase = 9;  // "Leylines" is stage 9
     r.magic_enabled = magic_enabled;
     return generate(resolve(r));
 }
@@ -220,7 +220,7 @@ TEST(school_width_scales_with_the_world) {
     Request small;
     small.seed = 42;
     small.size = 33;
-    small.phase = 6;
+    small.phase = 9;
     small.world_size = WorldSize::Small;
     Request large = small;
     large.world_size = WorldSize::Large;

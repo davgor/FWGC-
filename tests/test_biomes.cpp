@@ -19,7 +19,7 @@ World build(int size = 65, double temperature_offset = 0.0) {
     Request r;
     r.seed = 42;
     r.size = size;
-    r.phase = 6;
+    r.phase = 9;  // biome variants need the ley fields, stage 9
     r.temperature_offset = temperature_offset;
     return generate(resolve(r));
 }

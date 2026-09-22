@@ -348,15 +348,28 @@ World generate(const Config& cfg) {
             }
         }
 
-        if (cfg.phase >= 6) {
+        // Stage 8, "Wind and rain". This was gated on phase 6 along with everything
+        // below it, which made phases 6 through 10 differ only by the relic carving at
+        // 7: asking for stage 8 and asking for stage 10 built the same world, and the
+        // ladder stopped meaning anything past 7.
+        if (cfg.phase >= 8) {
             const auto climate_started = Clock::now();
             add_climate(world);
             world.timing_ms["climate"] = elapsed_ms(climate_started);
             const auto labels_started = Clock::now();
             add_terrain_labels(world);
             world.timing_ms["terrain_labels"] = elapsed_ms(labels_started);
-            // Leylines first: ten of the thirteen magical regions read these layers,
-            // and the ecology pass is where those regions are decided.
+        }
+
+        // Stage 9, "Leylines".
+        //
+        // Ecology sits here rather than at stage 8, where the reference puts it. The
+        // reference runs environment at 8, then the networks, then a SECOND environment
+        // pass at 9 to pick up the ley fields. This port has one ecology pass, and ten
+        // of the thirteen magical regions read the ley layers, so that pass has to
+        // follow them. The cost is that a stage-8 world here has weather but no
+        // environment layers, where the reference's has both.
+        if (cfg.phase >= 9) {
             const auto ley_started = Clock::now();
             generate_networks(world);
             world.timing_ms["leylines"] = elapsed_ms(ley_started);

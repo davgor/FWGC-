@@ -23,7 +23,7 @@ Request request_at(int size) {
     Request r;
     r.seed = 42;
     r.size = size;
-    r.phase = 6;  // the reference gates climate on phase >= 6
+    r.phase = 8;  // "Wind and rain" is stage 8 of the sixteen
     return r;
 }
 
