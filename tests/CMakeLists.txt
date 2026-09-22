@@ -18,6 +18,7 @@
   test_settlement.cpp
   test_heritage.cpp
   test_nests.cpp
+  test_nomads.cpp
   test_options.cpp
   test_settlements_stage.cpp
   test_stages.cpp

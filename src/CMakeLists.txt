@@ -15,6 +15,7 @@
   generated/content_registry.cpp
   generated/content_heritage.cpp
   generated/content_nests.cpp
+  generated/content_nomads.cpp
   generated/content_pantheon.cpp
   generated/content_schools.cpp
   generated/content_variants.cpp
@@ -32,6 +33,7 @@
   magic.cpp
   measure.cpp
   nests.cpp
+  nomads.cpp
   noise.cpp
   options.cpp
   random.cpp
