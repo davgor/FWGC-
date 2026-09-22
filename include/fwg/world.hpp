@@ -22,6 +22,7 @@
 #include "fwg/magic.hpp"
 #include "fwg/tectonics.hpp"
 #include "fwg/astrology.hpp"
+#include "fwg/settlements_stage.hpp"
 #include "fwg/biomes.hpp"
 #include "fwg/climate.hpp"
 #include "fwg/detail.hpp"
@@ -113,6 +114,10 @@ struct World {
     // Twelve months of temperature, snow cover and water ice. Proxies: none of them
     // modify bedrock, and there is no weather.
     std::vector<SeasonalMonth> seasonal_months;
+
+    // Stage 10. Cities, what they can feed, and the record of how they were founded.
+    bool has_settlements = false;
+    SettlementReport settlements;
 
     // Which subsystems actually ran. More honest than a stage number while the
     // ladder is partial: climate can be present while stages 6 and 7 are not.

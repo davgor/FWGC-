@@ -29,6 +29,7 @@
   scale.cpp
   serialize.cpp
   settlement.cpp
+  settlements_stage.cpp
   sha256.cpp
   tectonics.cpp
   water.cpp

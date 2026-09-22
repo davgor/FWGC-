@@ -407,7 +407,14 @@ World generate(const Config& cfg) {
             world.terrain_detail = make_terrain_detail(cfg.seed);
             world.has_terrain_detail = true;
             world.systems.push_back("terrain_detail");
+        }
 
+        // Stage 10, "Founding". The world had been reporting completed_stage 10 with no
+        // settlements in it at all -- a stage claimed rather than run.
+        if (cfg.phase >= 10) {
+            const auto settled_started = Clock::now();
+            add_settlements(world);
+            world.timing_ms["settlements"] = elapsed_ms(settled_started);
         }
     }
 

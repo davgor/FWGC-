@@ -100,7 +100,8 @@ TEST(the_systems_list_records_what_actually_ran) {
     // stage but lists no system for it is claiming work it did not do.
     const World w = at_phase(kHighestImplementedStage);
     const std::set<std::string> systems(w.systems.begin(), w.systems.end());
-    for (const char* expected : {"tectonics", "surface_detail", "erosion", "water"}) {
+    for (const char* expected : {"tectonics", "surface_detail", "erosion", "water",
+                                 "climate", "leylines", "ecology", "settlements"}) {
         check::is_true(systems.count(expected) != 0,
                        std::string("a full world to record the ") + expected + " system");
     }

@@ -184,6 +184,9 @@ struct Request {
     // kept on Request because callers already pass it by this name.
     std::optional<double> mountain_abundance;
 
+    // Which people founds the first cities, or "mixed" for all of them at once.
+    std::optional<std::string> population_profile;
+
     std::optional<int> erosion_passes;
     std::optional<double> erosion_strength;
 

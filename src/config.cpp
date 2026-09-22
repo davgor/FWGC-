@@ -256,6 +256,7 @@ Config resolve(const Request& request) {
     cfg.hamlets_per_core = pick(request.hamlets_per_core, cfg.hamlets_per_core);
     cfg.fortress_count = pick(request.fortress_count, cfg.fortress_count);
     cfg.college_count = pick(request.college_count, cfg.college_count);
+    cfg.population_profile = pick(request.population_profile, cfg.population_profile);
 
     // World options, by published name. An unknown name or an out-of-range value is
     // REFUSED, never ignored and never clamped: a caller that misspells a control
