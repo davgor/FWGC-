@@ -4,6 +4,8 @@
 #include <chrono>
 #include <cmath>
 #include <numbers>
+#include <string>
+#include <vector>
 
 namespace fwg {
 namespace {
@@ -122,6 +124,128 @@ void add_water(World& world) {
         "evaporation and river width are not modelled.");
 }
 
+void add_climate(World& world) {
+    const Config& cfg = world.effective;
+    const int n = cfg.size;
+
+    const auto held = sphere_grid(n, cfg.globe_radius);
+    const SphereGrid& grid = *held;
+    const std::size_t count = grid.node_count();
+
+    const Grid& ground = world.layers.at("height");
+    const Grid& surface_layer = world.layers.at("water_surface");
+    const Grid& type_layer = world.layers.at("water_type");
+
+    // Air rides over a lake at its spill level, not over the basin floor: the
+    // transport reads the WATER surface, while temperature lapses from the ground.
+    std::vector<double> surface(count);
+    std::vector<char> is_water(count);
+    for (std::size_t i = 0; i < count; ++i) {
+        const int x = grid.point_x[i];
+        const int z = grid.point_z[i];
+        surface[i] = surface_layer.at(x, z);
+        is_water[i] = type_layer.at(x, z) > 0.0 ? 1 : 0;
+    }
+
+    const double bearing = cfg.wind_bearing * std::numbers::pi / 180.0;
+    const std::vector<Stencil> upwind = upwind_stencils(grid, bearing);
+    const MoistureField air =
+        transport_moisture(surface, is_water, upwind, cfg.rain_passes, cfg.rain_strength);
+
+    std::vector<double> moisture(count);
+    for (std::size_t i = 0; i < count; ++i) {
+        const int x = grid.point_x[i];
+        const int z = grid.point_z[i];
+        const double temperature =
+            surface_temperature(direction(x, z, n), ground.at(x, z), cfg.sea_level, cfg.temperature_offset);
+        const double wetness = climate_wetness(air.rain[i], temperature) + cfg.moisture_bias;
+        moisture[i] = std::max(0.0, std::min(1.0, wetness));
+    }
+
+    // Rainfall becomes runoff on the receiver graph the water stage built. 0.04 is
+    // the unit-runoff reference rate, so this is an AREA-equivalent, not a volume.
+    std::vector<double> runoff(count);
+    double input_total = 0.0;
+    for (std::size_t i = 0; i < count; ++i) {
+        runoff[i] = grid.areas[i] * air.rain[i] / 0.04;
+        input_total += runoff[i];
+    }
+
+    // Leaf-to-root accumulation: works for any acyclic receiver graph without
+    // needing the water stage's settle order, which is not kept on the World.
+    const std::vector<int>& parent = world.water.receivers;
+    std::vector<int> children(count, 0);
+    for (const int p : parent) {
+        if (p >= 0) ++children[static_cast<std::size_t>(p)];
+    }
+    std::vector<int> queue;
+    queue.reserve(count);
+    for (std::size_t i = 0; i < count; ++i) {
+        if (children[i] == 0) queue.push_back(static_cast<int>(i));
+    }
+    for (std::size_t k = 0; k < queue.size(); ++k) {
+        const auto i = static_cast<std::size_t>(queue[k]);
+        const int p = parent[i];
+        if (p < 0) continue;
+        const auto pi = static_cast<std::size_t>(p);
+        runoff[pi] += runoff[i];
+        if (--children[pi] == 0) queue.push_back(p);
+    }
+
+    const double threshold_m2 = cfg.river_threshold_km2 * 1e6;
+    std::vector<double> rain_river(count, 0.0);
+    ClimateReport report;
+    double outlet_total = 0.0;
+    for (std::size_t i = 0; i < count; ++i) {
+        if (!is_water[i] && parent[i] >= 0 && runoff[i] >= threshold_m2) {
+            rain_river[i] = 1.0;
+            report.river_segments.push_back({static_cast<int>(i), parent[i]});
+        }
+        if (parent[i] < 0) outlet_total += runoff[i];
+    }
+
+    world.layers["air_moisture"] = grid.to_grid(air.humidity);
+    world.layers["rainfall"] = grid.to_grid(air.rain);
+    world.layers["wind_uplift"] = grid.to_grid(air.uplift);
+    world.layers["climate_moisture"] = grid.to_grid(moisture);
+    world.layers["rain_runoff"] = grid.to_grid(runoff);
+    world.layers["rain_river"] = grid.to_grid(rain_river);
+
+    // A sparse sample for drawing, not a field: roughly eight by six arrows.
+    const int x_stride = std::max(1, (n - 1) / 8);
+    const int z_stride = std::max(1, (n - 1) / 6);
+    for (std::size_t i = 0; i < count; ++i) {
+        const int x = grid.point_x[i];
+        const int z = grid.point_z[i];
+        if (z == 0 || z == n - 1 || x % x_stride != 0 || z % z_stride != 0) continue;
+        const double lon = 2.0 * std::numbers::pi * x / (n - 1) - std::numbers::pi;
+        const double lat = std::numbers::pi / 2.0 - std::numbers::pi * z / (n - 1);
+        const Vec3 east{-std::sin(lon), 0.0, std::cos(lon)};
+        const Vec3 north{-std::sin(lat) * std::cos(lon), std::cos(lat), -std::sin(lat) * std::sin(lon)};
+        const double sb = std::sin(bearing);
+        const double cb = std::cos(bearing);
+        report.wind_arrows.push_back({x, z, direction(x, z, n),
+                                      {sb * east.x + cb * north.x, sb * east.y + cb * north.y,
+                                       sb * east.z + cb * north.z}});
+    }
+
+    report.residual = air.residual;
+    report.passes = cfg.rain_passes;
+    report.transport_step_m = cfg.globe_radius * 2.0 * std::numbers::pi / (n - 1);
+    report.runoff_input_m2_equivalent = input_total;
+    report.runoff_outlets_m2_equivalent = outlet_total;
+
+    world.climate = report;
+    world.has_climate = true;
+    world.systems.push_back("climate");
+
+    world.warnings.push_back(
+        "Fixed compass-bearing wind transports humidity from equilibrium ocean and lake surfaces. Rising air "
+        "loses extra moisture as rainfall, drying the lee. Relative rainfall and runoff proxies, not mm/year or "
+        "discharge. Lake volumes are not solved from this rain budget. Fixed iteration count; the residual is "
+        "the largest humidity change on the final pass, and there is no convergence guarantee.");
+}
+
 World generate(const Config& cfg) {
     cfg.validate();
 
@@ -141,6 +265,9 @@ World generate(const Config& cfg) {
     world.resolved_octaves = tectonics.resolved_octaves;
     world.warnings = tectonics.warnings;
     world.completed_stage = std::min(cfg.phase, kHighestImplementedStage);
+    world.systems = {"tectonics"};
+    if (cfg.phase >= 3) world.systems.push_back("surface_detail");
+    if (cfg.phase >= 4) world.systems.push_back("erosion");
     if (cfg.phase > kHighestImplementedStage) {
         world.warnings.push_back(
             "Stage " + std::to_string(cfg.phase) + " requested but stages " +
@@ -198,6 +325,20 @@ World generate(const Config& cfg) {
         // metres by now and the node areas have to match them, or catchment is out
         // by 1/world_scale squared and every river threshold is meaningless.
         add_water(world);
+        world.systems.push_back("water");
+
+        // The reference gates climate on phase >= 6 and the history ladder invokes it
+        // at stage 8. Stages 6 and 7 reshape the terrain first and are not written, so
+        // this runs on the stage-5 surface -- exactly what the reference's own
+        // generate_base path does when it is called with phase >= 6 and no ladder.
+        if (cfg.phase >= 6) {
+            const auto climate_started = Clock::now();
+            add_climate(world);
+            world.timing_ms["climate"] = elapsed_ms(climate_started);
+            world.warnings.push_back(
+                "Climate ran on a stage-5 surface: stages 6 (tectonic transition) and 7 (relic carving) are not "
+                "implemented and would otherwise reshape the terrain before it. See docs/porting-status.md.");
+        }
     }
 
     world.timing_ms["tectonics"] = tectonics_ms;

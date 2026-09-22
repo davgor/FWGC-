@@ -19,6 +19,7 @@
 #include "fwg/config.hpp"
 #include "fwg/grid.hpp"
 #include "fwg/tectonics.hpp"
+#include "fwg/climate.hpp"
 #include "fwg/water.hpp"
 
 namespace fwg {
@@ -72,6 +73,13 @@ struct World {
     bool has_water = false;
     WaterReport water;
 
+    bool has_climate = false;
+    ClimateReport climate;
+
+    // Which subsystems actually ran. More honest than a stage number while the
+    // ladder is partial: climate can be present while stages 6 and 7 are not.
+    std::vector<std::string> systems;
+
     std::vector<std::string> warnings;
     std::map<std::string, double> timing_ms;
 
@@ -83,6 +91,12 @@ struct World {
 // Stage 5's hydrology half. Reads `height` and the effective config; writes the
 // water_* layers, `river`, `routed_catchment` and the water report.
 void add_water(World& world);
+
+// Stage 8's climate half, gated on phase >= 6 as the reference gates it. Reads the
+// water surface and the height field; writes the rainfall layers and the climate
+// report. Runs on whatever surface exists, so inserting stages 6-7 later changes its
+// input without changing this code.
+void add_climate(World& world);
 
 World generate(const Config& cfg);
 

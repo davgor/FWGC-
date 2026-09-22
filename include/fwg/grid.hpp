@@ -83,6 +83,10 @@ struct SphereGrid {
 
     std::size_t node_count() const { return areas.size(); }
 
+    // (x, z) -> node index, with the poles collapsed to one node each and longitude
+    // wrapped. x may be negative or past the seam; z is clamped to the poles.
+    int node_index(int x, int z) const;
+
     // Scatter one value per node back into an n x n grid, closing the seam and the poles.
     Grid to_grid(const std::vector<double>& values) const;
 };

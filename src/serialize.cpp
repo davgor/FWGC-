@@ -36,6 +36,11 @@ void write_config(JsonWriter& json, const Config& cfg) {
     json.field("mountain_abundance", cfg.mountain_abundance);
     json.field("erosion_passes", cfg.erosion_passes);
     json.field("erosion_strength", cfg.erosion_strength);
+    json.field("wind_bearing", cfg.wind_bearing);
+    json.field("rain_passes", cfg.rain_passes);
+    json.field("rain_strength", cfg.rain_strength);
+    json.field("temperature_offset", cfg.temperature_offset);
+    json.field("moisture_bias", cfg.moisture_bias);
     json.field("settlement_spacing", cfg.settlement_spacing);
     json.field("support_reach", cfg.support_reach);
     json.field("culture_link_cost", cfg.culture_link_cost);
@@ -180,6 +185,60 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
             "Receivers index unique spherical nodes; -1 is an ocean outlet or the global minimum in an oceanless "
             "world. Catchment assumes uniform unit runoff."));
         json.end_object();
+    }
+
+    if (world.has_climate) {
+        json.key("climate");
+        json.begin_object();
+        json.field("version", world.climate.version);
+        json.field("passes", world.climate.passes);
+        json.field("residual", world.climate.residual);
+        json.field("transport_step_m", world.climate.transport_step_m);
+        json.field("runoff_input_m2_equivalent", world.climate.runoff_input_m2_equivalent);
+        json.field("runoff_outlets_m2_equivalent", world.climate.runoff_outlets_m2_equivalent);
+        json.field("river_segment_count", static_cast<long long>(world.climate.river_segments.size()));
+        json.key("river_segments");
+        json.begin_array();
+        for (const auto& seg : world.climate.river_segments) {
+            json.begin_array();
+            json.value(seg[0]);
+            json.value(seg[1]);
+            json.end_array();
+        }
+        json.end_array();
+        json.key("wind_arrows");
+        json.begin_array();
+        for (const WindArrow& a : world.climate.wind_arrows) {
+            json.begin_object();
+            json.field("x", a.x);
+            json.field("z", a.z);
+            json.key("direction");
+            json.begin_array();
+            json.value(a.at.x);
+            json.value(a.at.y);
+            json.value(a.at.z);
+            json.end_array();
+            json.key("wind");
+            json.begin_array();
+            json.value(a.wind.x);
+            json.value(a.wind.y);
+            json.value(a.wind.z);
+            json.end_array();
+            json.end_object();
+        }
+        json.end_array();
+        json.field("method", std::string_view(
+            "Fixed compass-bearing wind transports humidity from equilibrium ocean and lake surfaces. Rising air "
+            "loses extra moisture as rainfall, drying the lee. Relative proxies, not mm/year or discharge."));
+        json.field("convergence", std::string_view(
+            "Fixed iteration count; residual is the max humidity change on the final pass. No convergence "
+            "guarantee."));
+        json.end_object();
+    }
+
+    if (!world.systems.empty()) {
+        json.key("systems");
+        json.value(world.systems);
     }
 
     json.key("layers");

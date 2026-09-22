@@ -4,7 +4,13 @@ The generator is a ladder of sixteen stages. Each stage reads the world the prev
 built and writes new blocks into it. A world reports the stage it actually reached in
 `completed_stage`, and a request above that adds a warning saying so.
 
-**Reached: stage 5 of 16**, including its hydrology.
+**Reached: stage 5 of 16**, including its hydrology, plus stage 8's climate.
+
+`completed_stage` reports the highest CONTIGUOUS stage, so it stays at 5 while stages 6
+and 7 are missing. The `systems` list in the document says what actually ran. Climate is
+gated on `phase >= 6` exactly as the reference gates it, and runs on the stage-5 surface
+-- the same thing the reference's own `generate_base` path does when called without the
+history ladder. A world built that way carries a warning saying so.
 
 Target is **1:1 functional parity** — every system the Python generator has. Numeric
 output is deliberately not matched; see [determinism.md](determinism.md).
@@ -20,7 +26,8 @@ output is deliberately not matched; see [determinism.md](determinism.md).
 | — | Ocean archipelagos | `terrain_ecology.shape_islands` | **not ported** (see below) |
 | 6 | Tectonic transition (second epoch) | `terrain_history.tectonic_transition` | todo |
 | 7 | Relic carving (abandoned waterways) | `terrain_history.carve_relics` | todo |
-| 8 | Climate, biomes, ecology, detail | `terrain_climate`, `terrain_biomes`, `terrain_ecology`, `terrain_detail` | todo |
+| 8 | Climate: wind, rainfall, runoff, wetness | `terrain_climate` | **done** |
+| 8 | Biomes, ecology, detail | `terrain_biomes`, `terrain_ecology`, `terrain_detail` | todo |
 | 9 | Leyline networks, astrology | `terrain_leyline_history`, `terrain_astrology` | todo |
 | 10 | Biome variants, civilizations | `terrain_history`, `terrain_settlements` | todo |
 | 11 | Civilizations | `terrain_settlements` | todo |

@@ -1,4 +1,5 @@
 ﻿add_library(fwg STATIC
+  climate.cpp
   config.cpp
   erosion.cpp
   grid.cpp

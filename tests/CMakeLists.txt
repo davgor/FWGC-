@@ -1,5 +1,6 @@
 ﻿add_executable(fwg_tests
   main.cpp
+  test_climate.cpp
   test_substrate.cpp
   test_water.cpp
   test_world.cpp

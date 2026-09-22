@@ -65,6 +65,12 @@ double sample(const Grid& h, const Vec3& p) {
            ((1.0 - fx) * h.at(ix, jz) + fx * h.at(ix + 1, jz)) * fz;
 }
 
+int SphereGrid::node_index(int x, int z) const {
+    if (z <= 0) return 0;
+    if (z >= n - 1) return 1 + (n - 2) * (n - 1);
+    return 1 + (z - 1) * (n - 1) + floor_mod(x, n - 1);
+}
+
 Grid SphereGrid::to_grid(const std::vector<double>& values) const {
     Grid out(n, 0.0);
     for (std::size_t i = 0; i < values.size(); ++i) {
@@ -101,12 +107,9 @@ std::unique_ptr<SphereGrid> build_sphere_grid(int n, double radius) {
 
     const std::size_t count = g->point_x.size();
 
-    // (x, z) -> node, with the poles collapsed and longitude wrapped.
-    const auto node_at = [n](int x, int z) -> int {
-        if (z <= 0) return 0;
-        if (z >= n - 1) return static_cast<int>(1) + (n - 2) * (n - 1);
-        return 1 + (z - 1) * (n - 1) + floor_mod(x, n - 1);
-    };
+    // Same mapping SphereGrid::node_index exposes; the grid is mid-construction
+    // here but n is already set, so the member is usable.
+    const auto node_at = [&g](int x, int z) { return g->node_index(x, z); };
 
     std::vector<Vec3> vectors(count);
     for (std::size_t i = 0; i < count; ++i) {

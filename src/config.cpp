@@ -75,6 +75,7 @@ void Config::validate() const {
     require_int_range("plate_count", plate_count, 2, 64);
     require_int_range("octaves", octaves, 1, 12);
     require_int_range("erosion_passes", erosion_passes, 0, 40);
+    require_int_range("rain_passes", rain_passes, 1, 128);
     require_int_range("layout_variation", layout_variation, 0, 1000000);
     require_int_range("detail_variation", detail_variation, 0, 1000000);
 
@@ -92,6 +93,10 @@ void Config::validate() const {
     require_range("orogeny", orogeny, 0.0, 20.0);
     require_range("mountain_abundance", mountain_abundance, 0.25, 2.0);
     require_range("erosion_strength", erosion_strength, 0.0, 1.0);
+    require_range("wind_bearing", wind_bearing, 0.0, 360.0, "deg");
+    require_range("rain_strength", rain_strength, 0.0, 3.0);
+    require_range("temperature_offset", temperature_offset, -40.0, 40.0, "C");
+    require_range("moisture_bias", moisture_bias, -1.0, 1.0);
     require_range("settlement_spacing", settlement_spacing, 10.0, kReachMaxM, "m");
     require_range("support_reach", support_reach, 100.0, kReachMaxM, "m");
     require_range("culture_link_cost", culture_link_cost, 1.0, kReachMaxM, "m");
@@ -130,6 +135,11 @@ Config resolve(const Request& request) {
     cfg.mountain_abundance = pick(request.mountain_abundance, cfg.mountain_abundance);
     cfg.erosion_passes = pick(request.erosion_passes, cfg.erosion_passes);
     cfg.erosion_strength = pick(request.erosion_strength, cfg.erosion_strength);
+    cfg.wind_bearing = pick(request.wind_bearing, cfg.wind_bearing);
+    cfg.rain_passes = pick(request.rain_passes, cfg.rain_passes);
+    cfg.rain_strength = pick(request.rain_strength, cfg.rain_strength);
+    cfg.temperature_offset = pick(request.temperature_offset, cfg.temperature_offset);
+    cfg.moisture_bias = pick(request.moisture_bias, cfg.moisture_bias);
 
     // Physical width in, design-space geometry out. An explicit globe_radius bypasses
     // all of it; an explicit override of any derived term still wins.

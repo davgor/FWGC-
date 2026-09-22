@@ -80,6 +80,13 @@ struct Config {
     int erosion_passes = 6;
     double erosion_strength = 0.5;
 
+    // --- climate -------------------------------------------------------------
+    double wind_bearing = 90.0;      // degrees clockwise from north
+    int rain_passes = 48;            // fixed iteration count; NOT run to convergence
+    double rain_strength = 1.0;      // gain on orographic rainout
+    double temperature_offset = 0.0; // Celsius, applied everywhere
+    double moisture_bias = 0.0;      // added to the 0..1 wetness before clamping
+
     // --- carried for stages not yet ported -----------------------------------
     // Present so that the struct does not churn as stages land, and so a resolved
     // config already reports the scaled values. Nothing in the kernel reads them.
@@ -127,6 +134,12 @@ struct Request {
 
     std::optional<int> erosion_passes;
     std::optional<double> erosion_strength;
+
+    std::optional<double> wind_bearing;
+    std::optional<int> rain_passes;
+    std::optional<double> rain_strength;
+    std::optional<double> temperature_offset;
+    std::optional<double> moisture_bias;
 
     std::optional<double> settlement_spacing;
     std::optional<double> support_reach;
