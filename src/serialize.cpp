@@ -149,6 +149,39 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
         json.end_object();
     }
 
+    if (world.has_water) {
+        json.key("water");
+        json.begin_object();
+        json.field("version", world.water.version);
+        json.field("ocean_km2", world.water.ocean_km2);
+        json.field("lake_km2", world.water.lake_km2);
+        json.field("dry_km2", world.water.dry_km2);
+        json.field("lake_capacity_m3", world.water.lake_capacity_m3);
+        json.field("has_ocean", world.water.has_ocean);
+        json.field("river_segment_count", static_cast<long long>(world.water.river_segments.size()));
+        json.key("receivers");
+        json.begin_array();
+        for (const int r : world.water.receivers) json.value(static_cast<long long>(r));
+        json.end_array();
+        json.key("river_segments");
+        json.begin_array();
+        for (const auto& seg : world.water.river_segments) {
+            json.begin_array();
+            json.value(seg[0]);
+            json.value(seg[1]);
+            json.end_array();
+        }
+        json.end_array();
+        json.field("method", std::string_view(
+            "Largest connected below-sea component is the ocean; inland depressions are filled to their spill "
+            "levels assuming sufficient water. No rainfall budget, no time-dependent filling, no evaporation, "
+            "no river width."));
+        json.field("routing", std::string_view(
+            "Receivers index unique spherical nodes; -1 is an ocean outlet or the global minimum in an oceanless "
+            "world. Catchment assumes uniform unit runoff."));
+        json.end_object();
+    }
+
     json.key("layers");
     json.begin_object();
     for (const auto& [name, grid] : world.layers) {

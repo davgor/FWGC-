@@ -1,4 +1,4 @@
-add_library(fwg STATIC
+﻿add_library(fwg STATIC
   config.cpp
   erosion.cpp
   grid.cpp
@@ -10,6 +10,7 @@ add_library(fwg STATIC
   serialize.cpp
   sha256.cpp
   tectonics.cpp
+  water.cpp
   world.cpp
 )
 

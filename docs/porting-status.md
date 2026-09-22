@@ -4,7 +4,10 @@ The generator is a ladder of sixteen stages. Each stage reads the world the prev
 built and writes new blocks into it. A world reports the stage it actually reached in
 `completed_stage`, and a request above that adds a warning saying so.
 
-**Reached: stage 5 of 16.**
+**Reached: stage 5 of 16**, including its hydrology.
+
+Target is **1:1 functional parity** — every system the Python generator has. Numeric
+output is deliberately not matched; see [determinism.md](determinism.md).
 
 | # | Stage | Reference modules | State |
 |---|---|---|---|
@@ -13,6 +16,7 @@ built and writes new blocks into it. A world reports the stage it actually reach
 | 3 | Surface detail | `terrain_tectonics`, `terrain_globe` | **done** |
 | 4 | Erosion | `terrain_erosion` | **done** |
 | 5 | World scale, land mask, area | `terrain_area` | **done** |
+| 5 | Water: connected ocean, lake spill, receiver graph, rivers | `terrain_water` | **done** |
 | — | Ocean archipelagos | `terrain_ecology.shape_islands` | **not ported** (see below) |
 | 6 | Tectonic transition (second epoch) | `terrain_history.tectonic_transition` | todo |
 | 7 | Relic carving (abandoned waterways) | `terrain_history.carve_relics` | todo |
@@ -26,9 +30,15 @@ built and writes new blocks into it. A world reports the stage it actually reach
 | 15 | Age transition (final) | `terrain_history.age_transition` | todo |
 | 16 | Settlements, nomads, beasts, encounters, heroes, story web, NPCs, key locations | `city_planner`, `hamlet_planner`, `castle_planner`, `terrain_nomads`, `terrain_beast_movement`, `terrain_encounters`, `hero_generator`, `npc_roster`, `key_locations` | todo |
 
-Also outside the ladder and not yet ported: water routing (`terrain_water`), which the
-reference runs as part of world scaling rather than as a numbered stage, and
-`terrain_society` (ports, sea routes, access allocation).
+Also outside the numbered ladder: `terrain_society` (ports, sea routes, access
+allocation), not ported. `terrain_water` was in this position and is now done — the
+reference runs it from inside world scaling, gated on `phase >= 5`, so it belongs to
+stage 5 and is placed there.
+
+**Scope check.** Stages 1–5 cover 6 of 140 Python modules and roughly 820 of 28,769
+non-test lines — about 2.9%. The owner has ruled for 1:1 functional parity, so the
+remaining 134 modules are all in scope. Numerics stay free: worlds need not match, systems
+must.
 
 ## Deliberate departures from the reference
 

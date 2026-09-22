@@ -19,6 +19,7 @@
 #include "fwg/config.hpp"
 #include "fwg/grid.hpp"
 #include "fwg/tectonics.hpp"
+#include "fwg/water.hpp"
 
 namespace fwg {
 
@@ -66,6 +67,11 @@ struct World {
     bool has_sediment_budget = false;
     SedimentBudget sediment;
 
+    // Present from stage 5. The receiver graph here is what rivers, settlement
+    // siting and sea routes are all built on later.
+    bool has_water = false;
+    WaterReport water;
+
     std::vector<std::string> warnings;
     std::map<std::string, double> timing_ms;
 
@@ -73,6 +79,10 @@ struct World {
     // each stage contains and which are not ported yet.
     int completed_stage = 0;
 };
+
+// Stage 5's hydrology half. Reads `height` and the effective config; writes the
+// water_* layers, `river`, `routed_catchment` and the water report.
+void add_water(World& world);
 
 World generate(const Config& cfg);
 

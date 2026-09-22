@@ -53,6 +53,75 @@ AreaReport land_area(const Grid& height, double radius, double sea_level) {
     return report;
 }
 
+void add_water(World& world) {
+    const Config& cfg = world.effective;
+    const Grid& height = world.layers.at("height");
+    const int n = height.size();
+
+    const auto held = sphere_grid(n, cfg.globe_radius);
+    const SphereGrid& grid = *held;
+    const std::size_t count = grid.node_count();
+
+    std::vector<double> h(count);
+    for (std::size_t i = 0; i < count; ++i) h[i] = height.at(grid.point_x[i], grid.point_z[i]);
+
+    const WaterRouting routed = route_water(h, grid, cfg.sea_level);
+
+    std::vector<double> depth(count);
+    std::vector<double> kind(count);
+    for (std::size_t i = 0; i < count; ++i) {
+        depth[i] = std::max(0.0, routed.level[i] - h[i]);
+        kind[i] = routed.ocean[i] ? kOcean : (depth[i] > kLakeDepthEpsilon ? kLake : kDry);
+    }
+
+    // A river is a dry cell with somewhere to drain to and enough upstream area to
+    // carry a channel. The threshold is an AREA and was scaled with the world at
+    // resolve() time; left absolute, every land cell qualifies and the layer is a
+    // constant.
+    const double threshold_m2 = cfg.river_threshold_km2 * 1e6;
+    std::vector<double> river(count, 0.0);
+    for (std::size_t i = 0; i < count; ++i) {
+        const bool flows = static_cast<int>(kind[i]) == kDry && routed.parent[i] >= 0 &&
+                           routed.flow[i] >= threshold_m2;
+        river[i] = flows ? 1.0 : 0.0;
+    }
+
+    world.layers["water_type"] = grid.to_grid(kind);
+    world.layers["water_depth"] = grid.to_grid(depth);
+    world.layers["water_surface"] = grid.to_grid(routed.level);
+    world.layers["routed_catchment"] = grid.to_grid(routed.flow);
+    world.layers["river"] = grid.to_grid(river);
+
+    WaterReport report;
+    report.receivers = routed.parent;
+    for (std::size_t i = 0; i < count; ++i) {
+        if (river[i] != 0.0) {
+            report.river_segments.push_back({static_cast<int>(i), routed.parent[i]});
+        }
+        const double area = grid.areas[i];
+        switch (static_cast<int>(kind[i])) {
+            case kOcean: report.ocean_km2 += area; break;
+            case kLake:
+                report.lake_km2 += area;
+                report.lake_capacity_m3 += area * depth[i];
+                break;
+            default: report.dry_km2 += area; break;
+        }
+        if (routed.ocean[i]) report.has_ocean = true;
+    }
+    report.ocean_km2 /= 1e6;
+    report.lake_km2 /= 1e6;
+    report.dry_km2 /= 1e6;
+
+    world.water = report;
+    world.has_water = true;
+
+    world.warnings.push_back(
+        "Largest connected below-sea component is the ocean. Inland depressions are filled to their spill levels "
+        "assuming sufficient water. Water extents do not use a rainfall budget or time-dependent filling; lake "
+        "evaporation and river width are not modelled.");
+}
+
 World generate(const Config& cfg) {
     cfg.validate();
 
@@ -124,6 +193,11 @@ World generate(const Config& cfg) {
             }
         }
         world.layers["land"] = land;
+
+        // Water routes on the PHYSICAL sphere, not the design one: heights are in
+        // metres by now and the node areas have to match them, or catchment is out
+        // by 1/world_scale squared and every river threshold is meaningless.
+        add_water(world);
     }
 
     world.timing_ms["tectonics"] = tectonics_ms;
