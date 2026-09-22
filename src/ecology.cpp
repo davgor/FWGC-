@@ -12,6 +12,7 @@
 #include "fwg/content.hpp"
 #include "fwg/noise.hpp"
 #include "fwg/random.hpp"
+#include "fwg/routing.hpp"
 #include "fwg/world.hpp"
 
 namespace fwg {
@@ -226,31 +227,16 @@ void add_environment(World& world) {
     std::vector<Vec3> vectors(count);
     for (std::size_t i = 0; i < count; ++i) vectors[i] = direction(grid.point_x[i], grid.point_z[i], n);
 
-    // Distance to the open ocean, over terrain, from every ocean cell at once.
-    std::vector<double> ocean_distance(count, std::numeric_limits<double>::infinity());
-    {
-        using Entry = std::pair<double, int>;
-        std::priority_queue<Entry, std::vector<Entry>, std::greater<Entry>> queue;
-        for (std::size_t i = 0; i < count; ++i) {
-            if (water[i] == 1.0) {
-                ocean_distance[i] = 0.0;
-                queue.emplace(0.0, static_cast<int>(i));
-            }
-        }
-        while (!queue.empty()) {
-            const auto [d, i] = queue.top();
-            queue.pop();
-            const auto ui = static_cast<std::size_t>(i);
-            if (d != ocean_distance[ui]) continue;
-            for (const SphereNeighbour& nb : grid.neighbours[ui]) {
-                const auto j = static_cast<std::size_t>(nb.index);
-                const double candidate = d + nb.distance;
-                if (candidate >= ocean_distance[j]) continue;
-                ocean_distance[j] = candidate;
-                queue.emplace(candidate, nb.index);
-            }
-        }
+    // Distance to the open ocean, over terrain, from every ocean cell at once. Uses
+    // the shared allocator rather than a second Dijkstra written out here: two copies
+    // of a search are two places for a tie rule or a bound to drift apart.
+    std::vector<std::pair<int, int>> ocean_seeds;
+    for (std::size_t i = 0; i < count; ++i) {
+        if (water[i] == 1.0) ocean_seeds.emplace_back(static_cast<int>(i), 0);
     }
+    const std::vector<double> ocean_distance =
+        allocate_access(grid, ocean_seeds, [](int, int, double d) { return std::optional<double>(d); })
+            .distance;
 
     static constexpr const char* kFieldNames[] = {
         "metal_richness", "salinity", "coastal_exposure", "harbor_suitability", "fishing_productivity",

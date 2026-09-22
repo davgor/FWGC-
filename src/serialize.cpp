@@ -42,6 +42,16 @@ void write_config(JsonWriter& json, const Config& cfg) {
     json.field("rain_strength", cfg.rain_strength);
     json.field("temperature_offset", cfg.temperature_offset);
     json.field("moisture_bias", cfg.moisture_bias);
+    json.field("road_max_grade", cfg.road_max_grade);
+    json.field("bridge_cost", cfg.bridge_cost);
+    json.field("human_magic_limit", cfg.human_magic_limit);
+    json.field("stubbornness", cfg.stubbornness);
+    json.field("urban_food_demand", cfg.urban_food_demand);
+    json.field("human_adaptation", cfg.human_adaptation);
+    json.field("settlement_count", cfg.settlement_count);
+    json.field("hamlets_per_core", cfg.hamlets_per_core);
+    json.field("fortress_count", cfg.fortress_count);
+    json.field("college_count", cfg.college_count);
     json.field("settlement_spacing", cfg.settlement_spacing);
     json.field("support_reach", cfg.support_reach);
     json.field("culture_link_cost", cfg.culture_link_cost);

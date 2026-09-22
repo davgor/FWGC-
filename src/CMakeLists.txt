@@ -20,6 +20,7 @@
   noise.cpp
   options.cpp
   random.cpp
+  routing.cpp
   scale.cpp
   serialize.cpp
   sha256.cpp

@@ -98,6 +98,16 @@ void Config::validate() const {
     require_range("rain_strength", rain_strength, 0.0, 3.0);
     require_range("temperature_offset", temperature_offset, -40.0, 40.0, "C");
     require_range("moisture_bias", moisture_bias, -1.0, 1.0);
+    require_range("road_max_grade", road_max_grade, 0.01, 1.0);
+    require_range("bridge_cost", bridge_cost, 0.0, 10000.0, "m");
+    require_range("human_magic_limit", human_magic_limit, 0.0, 1.0);
+    require_range("stubbornness", stubbornness, 0.0, 1.0);
+    require_range("urban_food_demand", urban_food_demand, 0.0, 10000.0);
+    require_range("human_adaptation", human_adaptation, 0.0, 1.0);
+    require_int_range("settlement_count", settlement_count, 0, 24);
+    require_int_range("hamlets_per_core", hamlets_per_core, 0, 8);
+    require_int_range("fortress_count", fortress_count, 0, 1024);
+    require_int_range("college_count", college_count, 0, 12);
     require_range("settlement_spacing", settlement_spacing, 10.0, kReachMaxM, "m");
     require_range("support_reach", support_reach, 100.0, kReachMaxM, "m");
     require_range("culture_link_cost", culture_link_cost, 1.0, kReachMaxM, "m");
@@ -142,6 +152,16 @@ Config resolve(const Request& request) {
     cfg.rain_strength = pick(request.rain_strength, cfg.rain_strength);
     cfg.temperature_offset = pick(request.temperature_offset, cfg.temperature_offset);
     cfg.moisture_bias = pick(request.moisture_bias, cfg.moisture_bias);
+    cfg.road_max_grade = pick(request.road_max_grade, cfg.road_max_grade);
+    cfg.bridge_cost = pick(request.bridge_cost, cfg.bridge_cost);
+    cfg.human_magic_limit = pick(request.human_magic_limit, cfg.human_magic_limit);
+    cfg.stubbornness = pick(request.stubbornness, cfg.stubbornness);
+    cfg.urban_food_demand = pick(request.urban_food_demand, cfg.urban_food_demand);
+    cfg.human_adaptation = pick(request.human_adaptation, cfg.human_adaptation);
+    cfg.settlement_count = pick(request.settlement_count, cfg.settlement_count);
+    cfg.hamlets_per_core = pick(request.hamlets_per_core, cfg.hamlets_per_core);
+    cfg.fortress_count = pick(request.fortress_count, cfg.fortress_count);
+    cfg.college_count = pick(request.college_count, cfg.college_count);
 
     // World options, by published name. An unknown name or an out-of-range value is
     // REFUSED, never ignored and never clamped: a caller that misspells a control

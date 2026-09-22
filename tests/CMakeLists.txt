@@ -7,6 +7,7 @@
   test_ecology.cpp
   test_history.cpp
   test_magic.cpp
+  test_routing.cpp
   test_substrate.cpp
   test_water.cpp
   test_world.cpp

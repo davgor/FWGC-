@@ -93,6 +93,18 @@ struct Config {
     double temperature_offset = 0.0; // Celsius, applied everywhere
     double moisture_bias = 0.0;      // added to the 0..1 wetness before clamping
 
+    // --- roads and settlement ------------------------------------------------
+    double road_max_grade = 0.35;      // steepest a road may climb, as a ratio
+    double bridge_cost = 200.0;        // metres-equivalent added for a river crossing
+    double human_magic_limit = 0.45;   // magic hazard people will not live or road through
+    double stubbornness = 0.2;         // how hard a people clings to poor ground
+    double urban_food_demand = 10.0;   // food units per urban resident per month
+    double human_adaptation = 0.7;     // how far a people bends to unsuited ground
+    int settlement_count = 24;         // requested cities; a ceiling, not a target
+    int hamlets_per_core = 3;
+    int fortress_count = 1024;         // a ceiling that deliberately never binds
+    int college_count = 2;
+
     // --- carried for stages not yet ported -----------------------------------
     // Present so that the struct does not churn as stages land, and so a resolved
     // config already reports the scaled values. Nothing in the kernel reads them.
@@ -152,6 +164,17 @@ struct Request {
     std::optional<double> rain_strength;
     std::optional<double> temperature_offset;
     std::optional<double> moisture_bias;
+
+    std::optional<double> road_max_grade;
+    std::optional<double> bridge_cost;
+    std::optional<double> human_magic_limit;
+    std::optional<double> stubbornness;
+    std::optional<double> urban_food_demand;
+    std::optional<double> human_adaptation;
+    std::optional<int> settlement_count;
+    std::optional<int> hamlets_per_core;
+    std::optional<int> fortress_count;
+    std::optional<int> college_count;
 
     std::optional<double> settlement_spacing;
     std::optional<double> support_reach;

@@ -38,7 +38,8 @@ output is deliberately not matched; see [determinism.md](determinism.md).
 | 9 | Astrology: the moon, its tide and the almanac | `terrain_astrology` | **done** |
 | — | Civilization registry: profiles, habitats, eligibility | `civilization_registry`, `terrain_profiles`, `terrain_civilizations` | **done** |
 | 10 | Biome variants: the magical state of the ground | `terrain_history.add_biome_variants` | **done** |
-| 10 | Civilizations and settlements | `terrain_settlements` | todo |
+| — | Routing and capacity substrate | `terrain_settlements` (searches), `terrain_humans.allocate_access` | **done** |
+| 10 | Civilizations and settlements | `terrain_settlements` (siting, roads, records) | todo |
 | 11 | Civilizations | `terrain_settlements` | todo |
 | 12 | Civilizations | `terrain_settlements` | todo |
 | 13 | Beast nests, threat, religion | `terrain_nests`, `terrain_religion` | todo |
