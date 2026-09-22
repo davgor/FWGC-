@@ -33,7 +33,7 @@ namespace fwg {
 
 // The highest stage of the sixteen-stage ladder this library implements. Stages
 // above it are accepted and reported honestly rather than silently claimed.
-inline constexpr int kHighestImplementedStage = 9;
+inline constexpr int kHighestImplementedStage = 10;
 
 struct SeasonalMonth {
     Grid temperature;

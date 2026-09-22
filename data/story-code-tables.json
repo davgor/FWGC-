@@ -1,66 +1,7 @@
 {
- "schema": {
-  "policy_files": [
-   "tropes",
-   "constraints",
-   "weights"
-  ],
-  "trope_fields": [
-   "acts",
-   "boosts",
-   "cast",
-   "claims",
-   "examples",
-   "fits",
-   "id",
-   "name",
-   "pull",
-   "requires"
-  ],
-  "act_fields": [
-   "abandonment",
-   "completion",
-   "id",
-   "options",
-   "prompt",
-   "title"
-  ],
-  "option_fields": [
-   "delta",
-   "effect",
-   "id",
-   "text"
-  ],
-  "weight_fields": [
-   "claim_factor",
-   "famine_coverage",
-   "fit_floor",
-   "fit_gain",
-   "fits_factor",
-   "gainable_features",
-   "initiative_days",
-   "max_threads_per_act",
-   "node_intense_threshold",
-   "notes",
-   "pull_floor",
-   "revision",
-   "schema",
-   "threshold"
-  ],
-  "constraint_fields": [
-   "allowed_verbs",
-   "claim_locked",
-   "drift_locked"
-  ],
-  "casts": [
-   "dread",
-   "person"
-  ],
-  "max_delta": 0.5,
-  "acts_per_trope": 3
- },
+ "schema": "fwg.story-code-tables",
  "schema_version": 1,
- "note": "The authored story_web tables that live in Python rather than in story_web/policies/*.json.\n\n* `hero_features` -- story_web/facts.py:13 HERO_FEATURES, 82 tokens, A SECOND COPY OF hero_generator/archetypes.py:11 FEATURES held in sync by comment alone. Two registries of one fact; port them from one source or the copies will drift.\n* `world_facts`, `derived_facts`, `facts` -- facts.py:46,52,58. `facts` is the computed union (151 entries) and `derived_facts` the computed middle layer (49); they are emitted here for completeness but a port should DERIVE them rather than carry them, or it will have three things to keep in step instead of one.\n* `claim_verbs` -- facts.py:41 AND policy.py:21, DECLARED TWICE IN ONE PACKAGE, identical in both. `bond_kinds`, `tiers`, `situations` are the matching vocabularies.\n* `bind_fallback` -- bind.py:9 FALLBACK, the slot fallback phrases ('the hero', 'their rival', ...). AUTHORED PLAYER-FACING PROSE LIVING IN CODE: these strings reach the exported act text whenever a cast slot is unfilled, so an ABSENT cast member produces this English rather than an empty slot or an error. Ten entries, one of which (`lost_other`) is undocumented in the module docstring.\n* `thread_rank` -- threads.py:18 RANK {'open':0,'alignment':1,'claim':2,'feature':3}. POSITIONAL RANK, AND IT IS THE TIE-BREAK THAT DECIDES WHICH `requires` CONJUNCTION A THREAD CONDITION NAMES: threads.py:63-65 keys on (RANK[kind], len(facts)) with a STRICT <, so a lower number wins and the first conjunction wins a tie. It is also the primary key of the final thread sort at :85. Changing a number here rewrites which threads exist.\n* `never_computed` -- __init__.py:130, three facts no well emits (dread:person_shaped, ally:lost, deeds:two_schools); it drives the exported `unreachable_tropes` diagnostic. These are the same three dead preconditions hero_generator carries -- see the defect note.\n* `generic_trope_ids` -- report.py:15 ('the_court','the_reign'), TROPE IDS HARD-CODED into the calibration report, so those two ids in story-tropes.json cannot be renamed without editing code.\n* `implicit_abandonment` -- __init__.py:97, the inline list ['protagonist_dead', 'target_gone'] MERGED INTO EVERY EXPORTED ACT. Content, not mechanism.\n* `schema` -- policy.py:14-23. `trope_fields`, `act_fields`, `option_fields`, `weight_fields` and `constraint_fields` are compared with EXACT SET EQUALITY, which is what makes absence a load failure throughout story_web; `weight_fields` notably INCLUDES schema, revision and notes. `max_delta` 0.5 and `acts_per_trope` 3 are authored bounds the catalogue must satisfy.\n* `rounding` -- weights.py:31-32: the equation ROUNDS TO 4 DECIMAL PLACES and the exported breakdown must reproduce the product FROM THE ROUNDED PARTS. `report_margin` 0.1 is the report.py:18 flag default. `negation_prefix` '!' is the requires-token negation marker (predicates.py:11-13) -- note lint strips ALL leading '!' while the runtime strips exactly one, which is a live divergence.\n\nRNG INPUT: none of these is drawn from. story_web takes exactly one draw, keyed per hero as rng(seed, 'web-initiative-' + hero['uid']) (__init__.py:100), so hero iteration order changes no value.\n\nIDENTITY HASH: none. story_web contains no hashlib call.",
+ "note": "The authored story_web tables that live in Python rather than in story_web/policies/*.json.\n\n* `hero_features` -- story_web/facts.py:13 HERO_FEATURES, 82 tokens, A SECOND COPY OF hero_generator/archetypes.py:11 FEATURES held in sync by comment alone. Two registries of one fact; port them from one source or the copies will drift.\n* `world_facts`, `derived_facts`, `facts` -- facts.py:46,52,58. `facts` is the computed union (151 entries) and `derived_facts` the computed middle layer (49); they are emitted here for completeness but a port should DERIVE them rather than carry them, or it will have three things to keep in step instead of one.\n* `claim_verbs` -- facts.py:41 AND policy.py:21, DECLARED TWICE IN ONE PACKAGE, identical in both. `bond_kinds`, `tiers`, `situations` are the matching vocabularies.\n* `bind_fallback` -- bind.py:9 FALLBACK, the slot fallback phrases ('the hero', 'their rival', ...). AUTHORED PLAYER-FACING PROSE LIVING IN CODE: these strings reach the exported act text whenever a cast slot is unfilled, so an ABSENT cast member produces this English rather than an empty slot or an error. Ten entries, one of which (`lost_other`) is undocumented in the module docstring.\n* `thread_rank` -- threads.py:18 RANK {'open':0,'alignment':1,'claim':2,'feature':3}. POSITIONAL RANK, AND IT IS THE TIE-BREAK THAT DECIDES WHICH `requires` CONJUNCTION A THREAD CONDITION NAMES: threads.py:63-65 keys on (RANK[kind], len(facts)) with a STRICT <, so a lower number wins and the first conjunction wins a tie. It is also the primary key of the final thread sort at :85. Changing a number here rewrites which threads exist.\n* `never_computed` -- __init__.py:130, three facts no well emits (dread:person_shaped, ally:lost, deeds:two_schools); it drives the exported `unreachable_tropes` diagnostic. These are the same three dead preconditions hero_generator carries -- see the defect note.\n* `generic_trope_ids` -- report.py:15 ('the_court','the_reign'), TROPE IDS HARD-CODED into the calibration report, so those two ids in story-tropes.json cannot be renamed without editing code.\n* `implicit_abandonment` -- __init__.py:97, the inline list ['protagonist_dead', 'target_gone'] MERGED INTO EVERY EXPORTED ACT. Content, not mechanism.\n* `schema_field_sets` -- policy.py:14-23. `trope_fields`, `act_fields`, `option_fields`, `weight_fields` and `constraint_fields` are compared with EXACT SET EQUALITY, which is what makes absence a load failure throughout story_web; `weight_fields` notably INCLUDES schema, revision and notes. `max_delta` 0.5 and `acts_per_trope` 3 are authored bounds the catalogue must satisfy.\n* `rounding` -- weights.py:31-32: the equation ROUNDS TO 4 DECIMAL PLACES and the exported breakdown must reproduce the product FROM THE ROUNDED PARTS. `report_margin` 0.1 is the report.py:18 flag default. `negation_prefix` '!' is the requires-token negation marker (predicates.py:11-13) -- note lint strips ALL leading '!' while the runtime strips exactly one, which is a live divergence.\n\nRNG INPUT: none of these is drawn from. story_web takes exactly one draw, keyed per hero as rng(seed, 'web-initiative-' + hero['uid']) (__init__.py:100), so hero iteration order changes no value.\n\nIDENTITY HASH: none. story_web contains no hashlib call.",
  "source_identity": {
   "origin": "FantasyWorldGenerator b67c99b, Sim/story_web/",
   "source_kind": "module-level constants and in-function literals"
@@ -466,6 +407,66 @@
   "protagonist_dead",
   "target_gone"
  ],
+ "schema_field_sets": {
+  "policy_files": [
+   "tropes",
+   "constraints",
+   "weights"
+  ],
+  "trope_fields": [
+   "acts",
+   "boosts",
+   "cast",
+   "claims",
+   "examples",
+   "fits",
+   "id",
+   "name",
+   "pull",
+   "requires"
+  ],
+  "act_fields": [
+   "abandonment",
+   "completion",
+   "id",
+   "options",
+   "prompt",
+   "title"
+  ],
+  "option_fields": [
+   "delta",
+   "effect",
+   "id",
+   "text"
+  ],
+  "weight_fields": [
+   "claim_factor",
+   "famine_coverage",
+   "fit_floor",
+   "fit_gain",
+   "fits_factor",
+   "gainable_features",
+   "initiative_days",
+   "max_threads_per_act",
+   "node_intense_threshold",
+   "notes",
+   "pull_floor",
+   "revision",
+   "schema",
+   "threshold"
+  ],
+  "constraint_fields": [
+   "allowed_verbs",
+   "claim_locked",
+   "drift_locked"
+  ],
+  "casts": [
+   "dread",
+   "person"
+  ],
+  "max_delta": 0.5,
+  "acts_per_trope": 3
+ },
  "rounding": {
   "breakdown_decimal_places": 4,
   "report_margin": 0.1,

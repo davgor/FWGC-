@@ -194,6 +194,8 @@ Config resolve(const Request& request) {
         if (!option) throw std::invalid_argument("unknown world option '" + name + "'");
         cfg.options.set(*option, value);  // throws, naming the field and its bounds
     }
+    // And the rules that only a COMBINATION of options can break.
+    cfg.options.validate();
 
     // Physical width in, design-space geometry out. An explicit globe_radius bypasses
     // all of it; an explicit override of any derived term still wins.

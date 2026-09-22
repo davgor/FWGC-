@@ -33,11 +33,17 @@ Vec3 random_point(Rng& rng) {
     return {c * std::cos(lon), y, c * std::sin(lon)};
 }
 
-// Weighted pick over a cumulative distribution: one draw, whatever the weights.
+// Weighted pick over a cumulative distribution: ONE draw, whatever the weights.
+//
+// The single draw is the contract, not an implementation detail. Every cluster must
+// cost the same number of draws whether or not it ends up manifesting, or the stream
+// every later cluster reads depends on how the earlier ones turned out. An empty
+// distribution has no honest answer here, so it throws rather than returning a fixed
+// index without drawing -- and WorldOptions::validate makes that unreachable.
 std::size_t weighted_choice(Rng& rng, const double* weights, std::size_t count) {
     double total = 0.0;
     for (std::size_t i = 0; i < count; ++i) total += weights[i];
-    if (total <= 0.0) return 0;
+    if (total <= 0.0) throw std::invalid_argument("weighted_choice has no positive weight to draw from");
     const double target = rng.random() * total;
     double running = 0.0;
     for (std::size_t i = 0; i < count; ++i) {

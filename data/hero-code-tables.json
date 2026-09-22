@@ -1,62 +1,7 @@
 {
- "schema": {
-  "policy_files": [
-   "archetypes",
-   "axis_overlays",
-   "alignment",
-   "names",
-   "wells"
-  ],
-  "card_fields": [
-   "boosts",
-   "core",
-   "drift",
-   "faces",
-   "id",
-   "intensity",
-   "lines",
-   "name",
-   "pole_notes",
-   "prior",
-   "requires"
-  ],
-  "core_fields": [
-   "belief",
-   "fears",
-   "mechanic",
-   "never",
-   "tells",
-   "wants"
-  ],
-  "face_specs": [
-   null,
-   [
-    "public",
-    "true"
-   ],
-   [
-    "calm",
-    "unleashed"
-   ],
-   [
-    "first",
-    "second"
-   ]
-  ],
-  "poles": [
-   "lawful",
-   "chaotic",
-   "good",
-   "evil"
-  ],
-  "intensities": [
-   null,
-   "corner",
-   "good_axis"
-  ]
- },
+ "schema": "fwg.hero-code-tables",
  "schema_version": 1,
- "note": "The authored hero_generator tables that live in Python rather than in hero_generator/policies/*.json. Vocabularies, the fame-scoring table, the quest verbs and the prose word-maps. If the Python tree is deleted this is the only copy.\n\nREAD BY / WHY, section by section:\n* `features` -- hero_generator/archetypes.py:11 FEATURES, the CLOSED VOCABULARY of archetype precondition tokens. archetypes.eligible() tests card `requires` tokens against the person's feature set; a token outside this frozenset can never be satisfied. story_web/facts.py:13 HERO_FEATURES is a SECOND COPY of it in a sibling package, kept in sync by comment alone -- see story-code-tables.json. ORDER IS FREE (a frozenset in Python); it is emitted sorted here. NOTE: the source lists 89 entries for 82 unique tokens -- 7 are duplicated -- so a port that counts entries and a port that counts tokens disagree.\n* `alignment` -- hero_generator/alignment.py:9-11 and the inline tuples at :23, :27, :36. `threshold` 0.34 is the pole cut. LIST ORDER IS A POSITIONAL CONTRACT for all four sequences: law_names/good_names are indexed by a sign-to-index computation, and `law_codes` ('CNL') and `good_codes` ('ENG') are indexed the same way to build the two-letter alignment code that persona._line() then matches on. They run LOW TO HIGH -- chaotic/evil first. The 0.34 here is duplicated, unpinned, in story_web's weights.json `threshold`, which no code reads; this one is live.\n* `fame` -- hero_generator/fame.py:8-15, the entire fame tuning table. `tiers` IS AN ORDERED DESCENDING CUTOFF LADDER walked top-down ((24.0 legendary), (8.0 renowned), (0.0 notable)) -- REORDERING IT MISLABELS EVERY HERO. The four weight maps are keyed lookups and order-free. `seat_weight` contains a `librarian` entry that is UNREACHABLE (see the defect note).\n* `quest_verbs` -- hero_generator/hooks.py:37 VERBS, the CLOSED quest-verb vocabulary, deliberately code and not policy. It is DUPLICATED as `verbs` in npc_roster's posts.json and held in sync only by tests/test_hero_generator.py:362, which asserts LIST equality -- so the ORDER IS A CROSS-PACKAGE CONTRACT even though nothing indexes it.\n* the word maps (`class_word`, `cause_phrases`, `beast_causes`, `long_lived_families`, `companion_join`, `relic_by_cause`, `diaspora_roles`, `role_word`, `dark_families`, `site_roles`, `seat_titles`, `deed_keeper`, `self_magic_cause`, `seated`, `unsited_reasons`, `pressure_exempt`) -- authored English and authored classifications read by hero_generator/facts.py, history.py, sites.py, features.py and the six wells modules. All are keyed lookups; ORDER IS FREE.\n* `schema` -- hero_generator/policy.py:10-15. These are the JSON schemas themselves, held in code: `card_fields` is compared with EXACT SET EQUALITY against every archetype card, so it is what makes a missing field a load failure rather than a default. ORDER IS FREE (sets).\n\nRNG INPUT: none of these tables is walked by an RNG. `fame.tiers` is the one ordered traversal and it is a deterministic ladder.\n\nABSENCE THAT IS NOT EMPTINESS: `role_word` and `seat_titles` each carry a DEFAULT that is not in the map -- 'hamlet' for role_word (wells/countryside.py:15) and 'Councillor' for the seat titles (naming.py:63-64) -- so an unlisted key is a named fallback, not an error and not an empty string. `pressure_exempt` is a one-element tuple ('nest',) whose MEMBERSHIP exempts a hook kind from pressure entirely.\n\nIDENTITY HASH: none. hero_generator contains no hashlib call at all. The only identity it carries is the per-file integer `revision` mapping, hero_generator/policy.py:48-49 `{name: policies[name]['revision'] for name in POLICY_FILES}` in POLICY_FILES order, exported as `policy_revision` (__init__.py:155) and consumed by story_web/__init__.py:116 as `heroes_revision`. Current values: archetypes 4, axis_overlays 1, alignment 1, names 6, wells 6.",
+ "note": "The authored hero_generator tables that live in Python rather than in hero_generator/policies/*.json. Vocabularies, the fame-scoring table, the quest verbs and the prose word-maps. If the Python tree is deleted this is the only copy.\n\nREAD BY / WHY, section by section:\n* `features` -- hero_generator/archetypes.py:11 FEATURES, the CLOSED VOCABULARY of archetype precondition tokens. archetypes.eligible() tests card `requires` tokens against the person's feature set; a token outside this frozenset can never be satisfied. story_web/facts.py:13 HERO_FEATURES is a SECOND COPY of it in a sibling package, kept in sync by comment alone -- see story-code-tables.json. ORDER IS FREE (a frozenset in Python); it is emitted sorted here. NOTE: the source lists 89 entries for 82 unique tokens -- 7 are duplicated -- so a port that counts entries and a port that counts tokens disagree.\n* `alignment` -- hero_generator/alignment.py:9-11 and the inline tuples at :23, :27, :36. `threshold` 0.34 is the pole cut. LIST ORDER IS A POSITIONAL CONTRACT for all four sequences: law_names/good_names are indexed by a sign-to-index computation, and `law_codes` ('CNL') and `good_codes` ('ENG') are indexed the same way to build the two-letter alignment code that persona._line() then matches on. They run LOW TO HIGH -- chaotic/evil first. The 0.34 here is duplicated, unpinned, in story_web's weights.json `threshold`, which no code reads; this one is live.\n* `fame` -- hero_generator/fame.py:8-15, the entire fame tuning table. `tiers` IS AN ORDERED DESCENDING CUTOFF LADDER walked top-down ((24.0 legendary), (8.0 renowned), (0.0 notable)) -- REORDERING IT MISLABELS EVERY HERO. The four weight maps are keyed lookups and order-free. `seat_weight` contains a `librarian` entry that is UNREACHABLE (see the defect note).\n* `quest_verbs` -- hero_generator/hooks.py:37 VERBS, the CLOSED quest-verb vocabulary, deliberately code and not policy. It is DUPLICATED as `verbs` in npc_roster's posts.json and held in sync only by tests/test_hero_generator.py:362, which asserts LIST equality -- so the ORDER IS A CROSS-PACKAGE CONTRACT even though nothing indexes it.\n* the word maps (`class_word`, `cause_phrases`, `beast_causes`, `long_lived_families`, `companion_join`, `relic_by_cause`, `diaspora_roles`, `role_word`, `dark_families`, `site_roles`, `seat_titles`, `deed_keeper`, `self_magic_cause`, `seated`, `unsited_reasons`, `pressure_exempt`) -- authored English and authored classifications read by hero_generator/facts.py, history.py, sites.py, features.py and the six wells modules. All are keyed lookups; ORDER IS FREE.\n* `schema_field_sets` -- hero_generator/policy.py:10-15. These are the JSON schemas themselves, held in code: `card_fields` is compared with EXACT SET EQUALITY against every archetype card, so it is what makes a missing field a load failure rather than a default. ORDER IS FREE (sets).\n\nRNG INPUT: none of these tables is walked by an RNG. `fame.tiers` is the one ordered traversal and it is a deterministic ladder.\n\nABSENCE THAT IS NOT EMPTINESS: `role_word` and `seat_titles` each carry a DEFAULT that is not in the map -- 'hamlet' for role_word (wells/countryside.py:15) and 'Councillor' for the seat titles (naming.py:63-64) -- so an unlisted key is a named fallback, not an error and not an empty string. `pressure_exempt` is a one-element tuple ('nest',) whose MEMBERSHIP exempts a hook kind from pressure entirely.\n\nIDENTITY HASH: none. hero_generator contains no hashlib call at all. The only identity it carries is the per-file integer `revision` mapping, hero_generator/policy.py:48-49 `{name: policies[name]['revision'] for name in POLICY_FILES}` in POLICY_FILES order, exported as `policy_revision` (__init__.py:155) and consumed by story_web/__init__.py:116 as `heroes_revision`. Current values: archetypes 4, axis_overlays 1, alignment 1, names 6, wells 6.",
  "source_identity": {
   "origin": "FantasyWorldGenerator b67c99b, Sim/hero_generator/",
   "source_kind": "module-level constants and in-function literals"
@@ -324,6 +269,62 @@
  "site_roles": {
   "shrine": "keeper",
   "cult": "heresiarch"
+ },
+ "schema_field_sets": {
+  "policy_files": [
+   "archetypes",
+   "axis_overlays",
+   "alignment",
+   "names",
+   "wells"
+  ],
+  "card_fields": [
+   "boosts",
+   "core",
+   "drift",
+   "faces",
+   "id",
+   "intensity",
+   "lines",
+   "name",
+   "pole_notes",
+   "prior",
+   "requires"
+  ],
+  "core_fields": [
+   "belief",
+   "fears",
+   "mechanic",
+   "never",
+   "tells",
+   "wants"
+  ],
+  "face_specs": [
+   null,
+   [
+    "public",
+    "true"
+   ],
+   [
+    "calm",
+    "unleashed"
+   ],
+   [
+    "first",
+    "second"
+   ]
+  ],
+  "poles": [
+   "lawful",
+   "chaotic",
+   "good",
+   "evil"
+  ],
+  "intensities": [
+   null,
+   "corner",
+   "good_axis"
+  ]
  },
  "block_version": 2,
  "env_switch": "FANTASY_WORLD_HEROES",

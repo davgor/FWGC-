@@ -52,6 +52,12 @@ public:
 
     void set(Option option, double value);
 
+    // Rules that no single option can enforce, because they are about a COMBINATION.
+    // `set` can only ever check one knob against its own bounds; a rule like "at least
+    // one island character must be possible" is legal for every individual value and
+    // illegal only together. Throws std::invalid_argument naming every field involved.
+    void validate() const;
+
     // Whether this option was explicitly set rather than left at its default.
     bool overridden(Option option) const { return overridden_[static_cast<std::size_t>(option)]; }
 

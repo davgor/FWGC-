@@ -273,8 +273,8 @@ World generate(const Config& cfg) {
         world.warnings.push_back(
             "Stage " + std::to_string(cfg.phase) + " requested but stages " +
             std::to_string(kHighestImplementedStage + 1) +
-            "-16 (water, climate, biomes, history, settlements, ...) are not implemented; this world stops at the "
-            "tectonic kernel. See docs/porting-status.md.");
+            "-16 (roads, populated regions, beasts, age transitions) are not implemented; this world stops "
+            "after stage " + std::to_string(kHighestImplementedStage) + ". See docs/porting-status.md.");
     }
 
     // Design space to metres. One factor for every seed; the config keeps the design
@@ -321,7 +321,13 @@ World generate(const Config& cfg) {
             }
         }
         world.layers["land"] = land;
+    }
 
+    // Stage 5, "Connected water", and not before. This ran from phase 2, which put
+    // rivers and catchment into worlds that had not yet been eroded -- stages 3 and 4
+    // rewrite the surface those rivers were routed over, so a phase-2 world published a
+    // drainage network for a landscape it did not have.
+    if (cfg.phase >= 5) {
         // Water routes on the PHYSICAL sphere, not the design one: heights are in
         // metres by now and the node areas have to match them, or catchment is out
         // by 1/world_scale squared and every river threshold is meaningless.

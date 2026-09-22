@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <sstream>
+#include <string>
 #include <stdexcept>
 
 namespace fwg {
@@ -35,6 +36,30 @@ void WorldOptions::set(Option option, double value) {
     const auto i = static_cast<std::size_t>(option);
     values_[i] = value;
     overridden_[i] = true;
+}
+
+void WorldOptions::validate() const {
+    // Every cluster draws its character from these four weights. With all four at zero
+    // there is no distribution to draw from -- the reference refuses the combination
+    // here rather than letting the draw decide, and so does this. Left to the draw, the
+    // honest outcomes are both bad: return a fixed kind and every archipelago in the
+    // world silently becomes volcanic, or skip the draw and every later cluster reads a
+    // different random stream than it would have.
+    static constexpr Option kIslandWeights[] = {Option::volcanic_island_weight, Option::atoll_weight,
+                                                Option::continental_island_weight,
+                                                Option::cold_island_weight};
+    double island_total = 0.0;
+    for (const Option option : kIslandWeights) island_total += (*this)[option];
+    if (island_total <= 0.0) {
+        std::string message =
+            "at least one ocean island character weight must be positive; all four are zero, "
+            "so no cluster could take a character (";
+        for (std::size_t i = 0; i < std::size(kIslandWeights); ++i) {
+            if (i != 0) message += ", ";
+            message += option_spec(kIslandWeights[i]).name;
+        }
+        throw std::invalid_argument(message + ')');
+    }
 }
 
 }  // namespace fwg
