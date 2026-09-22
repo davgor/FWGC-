@@ -18,6 +18,7 @@
 
 #include "fwg/config.hpp"
 #include "fwg/grid.hpp"
+#include "fwg/history.hpp"
 #include "fwg/magic.hpp"
 #include "fwg/tectonics.hpp"
 #include "fwg/astrology.hpp"
@@ -32,7 +33,7 @@ namespace fwg {
 
 // The highest stage of the sixteen-stage ladder this library implements. Stages
 // above it are accepted and reported honestly rather than silently claimed.
-inline constexpr int kHighestImplementedStage = 5;
+inline constexpr int kHighestImplementedStage = 9;
 
 struct SeasonalMonth {
     Grid temperature;
@@ -100,6 +101,9 @@ struct World {
     bool has_astrology = false;
     Moon moon;
     Almanac lunar_almanac;
+
+    bool has_epoch = false;
+    GeologicalEpoch epoch;
 
     // The continuous height field's definition. Present from stage 8; an engine builds
     // a HeightField from the world and samples terrain anywhere.

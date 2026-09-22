@@ -328,10 +328,20 @@ World generate(const Config& cfg) {
         add_water(world);
         world.systems.push_back("water");
 
-        // The reference gates climate on phase >= 6 and the history ladder invokes it
-        // at stage 8. Stages 6 and 7 reshape the terrain first and are not written, so
-        // this runs on the stage-5 surface -- exactly what the reference's own
-        // generate_base path does when it is called with phase >= 6 and no ladder.
+        // Stage 6: a second tectonic epoch. Stage 7: the scars its draining left.
+        // Both rewrite the surface, so everything after them reads the world they made.
+        if (cfg.phase >= 6) {
+            const auto epoch_started = Clock::now();
+            const SurfaceSnapshot before = tectonic_transition(world);
+            world.timing_ms["tectonic_transition"] = elapsed_ms(epoch_started);
+
+            if (cfg.phase >= 7) {
+                const auto relics_started = Clock::now();
+                carve_relics(world, before);
+                world.timing_ms["relic_carving"] = elapsed_ms(relics_started);
+            }
+        }
+
         if (cfg.phase >= 6) {
             const auto climate_started = Clock::now();
             add_climate(world);
@@ -360,9 +370,7 @@ World generate(const Config& cfg) {
             world.terrain_detail = make_terrain_detail(cfg.seed);
             world.has_terrain_detail = true;
             world.systems.push_back("terrain_detail");
-            world.warnings.push_back(
-                "Climate ran on a stage-5 surface: stages 6 (tectonic transition) and 7 (relic carving) are not "
-                "implemented and would otherwise reshape the terrain before it. See docs/porting-status.md.");
+
         }
     }
 

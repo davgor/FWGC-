@@ -41,6 +41,25 @@ double crust_at(const Vec3& p, std::uint32_t seed, double bias);
 // the relief budget deepens basins as fast as it raises peaks.
 double continental_profile(double c);
 
+// Everything the plate model says about one cell. `structure` and `interaction` are
+// scaled by tectonic_relief; the motion terms are dimensionless and scale-invariant.
+struct PointSample {
+    double owner = 0.0;
+    double crust = 0.0;
+    double boundary_distance = 0.0;
+    double convergence = 0.0;
+    double divergence = 0.0;
+    double shear = 0.0;
+    double structure = 0.0;
+    double interaction = 0.0;
+    double volcanic = 0.0;
+};
+
+// Evaluate the plate model at one direction. Used per cell by the tectonic stage and
+// again by the second epoch at stage 6.
+PointSample layout_point(const Vec3& p, const std::vector<Plate>& plates, std::uint32_t crust_seed,
+                         const Config& cfg);
+
 struct TectonicResult {
     std::map<std::string, Grid> layers;
     std::vector<Plate> plates;

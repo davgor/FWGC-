@@ -4,10 +4,11 @@ The generator is a ladder of sixteen stages. Each stage reads the world the prev
 built and writes new blocks into it. A world reports the stage it actually reached in
 `completed_stage`, and a request above that adds a warning saying so.
 
-**Reached: stage 5 of 16**, plus all of stage 8 and all of stage 9.
+**Reached: stage 9 of 16, contiguously.**
 
-`completed_stage` still reports 5 because it is the highest CONTIGUOUS stage and 6
-and 7 are not written. The `systems` list in the document says what actually ran.
+Stages 6 and 7 were the hole below stage 8; with them in, `completed_stage` is a real
+high-water mark again rather than a floor with work stacked above it. The `systems` list
+in the document still reports exactly what ran, in the order it ran.
 
 `completed_stage` reports the highest CONTIGUOUS stage, so it stays at 5 while stages 6
 and 7 are missing. The `systems` list in the document says what actually ran. Climate is
@@ -27,8 +28,8 @@ output is deliberately not matched; see [determinism.md](determinism.md).
 | 5 | World scale, land mask, area | `terrain_area` | **done** |
 | 5 | Water: connected ocean, lake spill, receiver graph, rivers | `terrain_water` | **done** |
 | 2 | Ocean archipelagos | `terrain_ecology.shape_islands` | **done** |
-| 6 | Tectonic transition (second epoch) | `terrain_history.tectonic_transition` | todo |
-| 7 | Relic carving (abandoned waterways) | `terrain_history.carve_relics` | todo |
+| 6 | Tectonic transition: a second epoch | `terrain_history.tectonic_transition` | **done** |
+| 7 | Relic carving: abandoned waterways | `terrain_history.carve_relics` | **done** |
 | 8 | Climate: wind, rainfall, runoff, wetness | `terrain_climate` | **done** |
 | 8 | Terrain labels: temperature, moisture, biome, landform, features | `terrain_biomes` | **done** |
 | 8 | Ecology: habitats, cold relabel, islands, seasons, regions | `terrain_ecology` | **done** |

@@ -374,6 +374,43 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
         json.end_object();
     }
 
+    if (world.has_epoch) {
+        json.key("geological_history");
+        json.begin_object();
+        json.field("version", world.epoch.version);
+        json.field("elapsed_million_years", world.epoch.elapsed_million_years);
+        json.field("angular_duration", world.epoch.angular_duration);
+        for (const auto& [key, plates] :
+             {std::pair<const char*, const std::vector<Plate>*>{"plates_before", &world.epoch.plates_before},
+              std::pair<const char*, const std::vector<Plate>*>{"plates_after", &world.epoch.plates_after}}) {
+            json.key(key);
+            json.begin_array();
+            for (const Plate& plate : *plates) {
+                json.begin_object();
+                json.field("id", plate.id);
+                json.key("center");
+                json.begin_array();
+                json.value(plate.center.x);
+                json.value(plate.center.y);
+                json.value(plate.center.z);
+                json.end_array();
+                json.key("omega");
+                json.begin_array();
+                json.value(plate.omega.x);
+                json.value(plate.omega.y);
+                json.value(plate.omega.z);
+                json.end_array();
+                json.end_object();
+            }
+            json.end_array();
+        }
+        json.field("method", std::string_view(
+            "50-million-year artistic epoch: rotate the original plate centres, backtrace crust, blend "
+            "transported relief with new boundary uplift. Angular speeds are dimensionless, not calibrated "
+            "geodynamics."));
+        json.end_object();
+    }
+
     if (world.has_astrology) {
         const auto schools = magic_school_table();
         const auto tide_object = [&](JsonWriter& w, const std::array<double, kKnownSchools>& t) {

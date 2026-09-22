@@ -82,18 +82,7 @@ Relief3 relief_at(double c, double distance, double conv, double div, double ci,
             volcanic};
 }
 
-// Everything a single grid cell contributes to the tectonic layers.
-struct PointSample {
-    double owner = 0.0;
-    double crust = 0.0;
-    double boundary_distance = 0.0;
-    double convergence = 0.0;
-    double divergence = 0.0;
-    double shear = 0.0;
-    double structure = 0.0;
-    double interaction = 0.0;
-    double volcanic = 0.0;
-};
+}  // namespace
 
 PointSample layout_point(const Vec3& p, const std::vector<Plate>& plates, std::uint32_t crust_seed,
                          const Config& cfg) {
@@ -200,8 +189,6 @@ PointSample layout_point(const Vec3& p, const std::vector<Plate>& plates, std::u
 
     return out;
 }
-
-}  // namespace
 
 double crust_at(const Vec3& p, std::uint32_t seed, double bias) {
     double v = 0.5 + 1.65 * perlin3(p.x * 1.4 + 0.17, p.y * 1.4 + 0.39, p.z * 1.4 + 0.71, seed) + bias * 0.5;

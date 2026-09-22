@@ -10,6 +10,7 @@
   ecology.cpp
   erosion.cpp
   grid.cpp
+  history.cpp
   json.cpp
   magic.cpp
   measure.cpp

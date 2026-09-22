@@ -134,14 +134,22 @@ TEST(a_shorter_run_agrees_with_a_longer_one_at_the_shared_stage) {
 }
 
 TEST(each_stage_reports_what_it_actually_ran) {
-    for (int phase = 1; phase <= 5; ++phase) {
+    // Keyed on the constant, not on a number written here: the ladder advances, and a
+    // hardcoded cap turns every advance into a test failure that says nothing.
+    for (int phase = 1; phase <= kHighestImplementedStage; ++phase) {
         const World world = build(17, phase);
         check::equal(world.completed_stage, phase, "completed_stage at phase " + std::to_string(phase));
     }
     // Asking for more than is ported runs what exists and says so, rather than
     // claiming a stage nothing implemented.
-    const World beyond = build(17, 12);
-    check::equal(beyond.completed_stage, 5, "completed_stage beyond the ported ladder");
+    const World beyond = build(17, 16);
+    check::equal(beyond.completed_stage, kHighestImplementedStage,
+                 "completed_stage beyond the ported ladder");
+    const bool warned = std::any_of(beyond.warnings.begin(), beyond.warnings.end(),
+                                    [](const std::string& w) {
+                                        return w.find("not implemented") != std::string::npos;
+                                    });
+    check::is_true(warned, "a world beyond the ladder to say so in its warnings");
 }
 
 TEST(phase_one_has_plates_but_no_surface) {

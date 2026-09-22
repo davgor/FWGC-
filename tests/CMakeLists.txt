@@ -4,6 +4,7 @@
   test_biomes.cpp
   test_climate.cpp
   test_ecology.cpp
+  test_history.cpp
   test_magic.cpp
   test_substrate.cpp
   test_water.cpp
