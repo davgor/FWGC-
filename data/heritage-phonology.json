@@ -1,0 +1,347 @@
+{
+ "schema": "fwg.heritage-phonology",
+ "schema_version": 1,
+ "note": "The closed phoneme alphabet, the articulatory gates that open or shut parts of it, and the cluster tables a syllable is built from. AUTHORED DATA THAT LIVES IN PYTHON: `alphabet`/`core`/`gates` are module-level constants in Sim/heritage/phonemes.py, and `cluster_tables` plus `patronymic_by_naming_pattern` are INLINE LITERALS inside function bodies in Sim/heritage/derive.py (_clusters() and derive_genome()). The source file says outright why they are code and not data: 'this is a physical constraint, not a taste -- a people with blunt dentition cannot make an interdental fricative, and no amount of authoring should let one'. Tokens are deliberately ASCII digraphs and not IPA, because the repository hashes bytes and disables text normalisation for every provenance destination.\n\nREAD BY: heritage/phonemes.py inventory(), called from heritage/derive.py derive_genome() and heritage/policy.py lint_lexicon(); heritage/derive.py _clusters(), _template_shape(), apply_sound_changes(), _patch_inventory(); heritage/naming.py _syllable(), _nucleus(), _join(), name_table(). Everything that names anything in the world sits downstream.\n\nRNG INPUT: yes, one step removed -- these tables decide WHICH lists naming.py then draws from with draw.choice(). LIST ORDER IS A CONTRACT for `alphabet.consonants` and `alphabet.vowels`, and this is the least obvious contract in the package: phonemes.inventory() builds the kept set unordered and then re-emits it as tuple(p for p in CONSONANTS if p in kept) -- i.e. THE ALPHABET TUPLE'S ORDER, NOT THE ORDER THE GATES FIRED -- and the docstring says why ('order follows ALPHABET ... because this table is hashed into the heritage identity'). That emitted list then feeds draw.choice(genome['inventory']['onsets']) and draw.choice(simple) in naming._syllable()/_nucleus(), which index it POSITIONALLY, and naming.name_table() slices it POSITIONALLY (consonants[:12], vowels[:3]). derive._patch_inventory() re-sorts an overridden inventory into this same order. REORDERING EITHER TUPLE CHANGES EVERY NAME IN EVERY WORLD AND THE HERITAGE sha256.\nORDER IS FREE for: `core_consonants`/`core_vowels` and every gate's add/drop list (unioned into sets -- 'a phoneme removed by any gate stays removed: the forbidden set is a union, so one impossibility is not argued away by another axis that would have permitted it'); `gated_axes` (the per-axis rules commute, because adds are unioned and drops are unioned and drops are applied once at the end); and every list in `cluster_tables` (the onset and coda lists _clusters() builds are returned as tuple(sorted(set(...))), so build order is discarded). What IS a contract in cluster_tables is the PAIRING: `homorganic_nasal_stop_codas` pairs each nasal with only the stops sharing its place of articulation, and `ng` takes only the voiceless member because ng+g renders as the unreadable 'ngg'; `refused_stop_liquid_onsets` is the set of stop-liquid pairs most tongues refuse (tl, dl and their lh forms).\n\nABSENCE THAT IS NOT EMPTINESS: an axis value with an EMPTY gate rule ({} for body_scale 'compact'/'mid' and breath_capacity 'short'/'steady') means 'this value neither adds nor removes anything' -- it is not a missing rule, and phonemes.inventory() reaches it through GATES[axis].get(traits[axis], {}), so a MISSING axis value would silently behave the same way. That .get() is the one place a typo in traits.json would pass unnoticed rather than raise. `forbidden` in a resolved inventory lists every phoneme some gate ruled out; it is emitted even when empty and the kept and forbidden sets never overlap. `onsets` is the consonant list minus 'ng' -- ng is a fine coda and a poor word onset, and without that removal dwarven produced names like 'Ngukhuls'. `syllable_template_grammar` records how derive._template_shape() reads a template string: it partitions on the literal 'V', counts '(C)' before it for max_onset_cluster and '(C)' plus '(N)' after it for max_coda_cluster, so an (N) slot counts as a coda.",
+ "source_identity": {
+  "source_path": "heritage/phonemes.py + heritage/derive.py",
+  "source_kind": "module-level constants and in-function literals",
+  "origin": "FantasyWorldGenerator b67c99b, Sim/heritage/phonemes.py, derive.py"
+ },
+ "alphabet": {
+  "consonants": [
+   "p",
+   "b",
+   "t",
+   "d",
+   "k",
+   "g",
+   "q",
+   "m",
+   "n",
+   "ng",
+   "f",
+   "v",
+   "th",
+   "dh",
+   "s",
+   "z",
+   "sh",
+   "zh",
+   "kh",
+   "gh",
+   "h",
+   "ts",
+   "ch",
+   "l",
+   "lh",
+   "r",
+   "w",
+   "y"
+  ],
+  "vowels": [
+   "a",
+   "e",
+   "i",
+   "o",
+   "u",
+   "aa",
+   "ee",
+   "ii",
+   "oo",
+   "uu",
+   "ae",
+   "ao",
+   "ia",
+   "io",
+   "ua"
+  ]
+ },
+ "core_consonants": [
+  "p",
+  "b",
+  "t",
+  "d",
+  "k",
+  "g",
+  "m",
+  "n",
+  "ng",
+  "s",
+  "h",
+  "l",
+  "r"
+ ],
+ "core_vowels": [
+  "a",
+  "e",
+  "i",
+  "o",
+  "u"
+ ],
+ "digraphs": [
+  "ng",
+  "th",
+  "dh",
+  "sh",
+  "zh",
+  "kh",
+  "gh",
+  "ts",
+  "ch",
+  "lh",
+  "aa",
+  "ee",
+  "ii",
+  "oo",
+  "uu",
+  "ae",
+  "ao",
+  "ia",
+  "io",
+  "ua"
+ ],
+ "gated_axes": [
+  "dentition",
+  "vocal_tract",
+  "hearing_band",
+  "body_scale",
+  "breath_capacity"
+ ],
+ "gates": {
+  "dentition": {
+   "blunt": {
+    "drop": [
+     "th",
+     "dh"
+    ]
+   },
+   "even": {
+    "add": [
+     "th",
+     "f",
+     "v"
+    ]
+   },
+   "prominent_canine": {
+    "add": [
+     "f",
+     "v"
+    ],
+    "drop": [
+     "dh"
+    ]
+   },
+   "tusked": {
+    "drop": [
+     "f",
+     "v",
+     "th",
+     "dh"
+    ]
+   }
+  },
+  "vocal_tract": {
+   "narrow": {
+    "add": [
+     "ts",
+     "ch",
+     "sh",
+     "y"
+    ],
+    "drop": [
+     "q",
+     "kh",
+     "gh"
+    ]
+   },
+   "even": {
+    "add": [
+     "f",
+     "v",
+     "w",
+     "y"
+    ]
+   },
+   "broad": {
+    "add": [
+     "kh",
+     "gh",
+     "w"
+    ]
+   },
+   "resonant_chest": {
+    "add": [
+     "q",
+     "kh",
+     "gh",
+     "r"
+    ],
+    "drop": [
+     "y"
+    ]
+   }
+  },
+  "hearing_band": {
+   "low_weighted": {
+    "drop": [
+     "sh",
+     "zh",
+     "ts",
+     "ch",
+     "z"
+    ]
+   },
+   "flat": {
+    "add": [
+     "z"
+    ]
+   },
+   "high_weighted": {
+    "add": [
+     "s",
+     "z",
+     "sh",
+     "ts",
+     "ch"
+    ]
+   },
+   "wide": {
+    "add": [
+     "s",
+     "z",
+     "sh",
+     "ts",
+     "ch",
+     "zh"
+    ]
+   }
+  },
+  "body_scale": {
+   "small": {
+    "add": [
+     "ii"
+    ]
+   },
+   "compact": {},
+   "mid": {},
+   "tall": {
+    "add": [
+     "ae",
+     "ee"
+    ]
+   },
+   "towering": {
+    "add": [
+     "ao",
+     "uu"
+    ]
+   }
+  },
+  "breath_capacity": {
+   "short": {},
+   "steady": {},
+   "deep": {
+    "add": [
+     "aa"
+    ]
+   },
+   "sustained": {
+    "add": [
+     "aa",
+     "ee",
+     "oo",
+     "ia",
+     "io",
+     "ua"
+    ]
+   }
+  }
+ },
+ "cluster_tables": {
+  "onset_stops": [
+   "p",
+   "b",
+   "t",
+   "d",
+   "k",
+   "g",
+   "q"
+  ],
+  "voiceless_stops": [
+   "p",
+   "t",
+   "k"
+  ],
+  "liquids": [
+   "l",
+   "lh",
+   "r"
+  ],
+  "nasals": [
+   "m",
+   "n",
+   "ng"
+  ],
+  "refused_stop_liquid_onsets": [
+   [
+    "t",
+    "l"
+   ],
+   [
+    "t",
+    "lh"
+   ],
+   [
+    "d",
+    "l"
+   ],
+   [
+    "d",
+    "lh"
+   ]
+  ],
+  "homorganic_nasal_stop_codas": [
+   [
+    "m",
+    [
+     "p",
+     "b"
+    ]
+   ],
+   [
+    "n",
+    [
+     "t",
+     "d"
+    ]
+   ],
+   [
+    "ng",
+    [
+     "k"
+    ]
+   ]
+  ]
+ },
+ "syllable_template_grammar": {
+  "split_on": "V",
+  "onset_token": "(C)",
+  "coda_tokens": [
+   "(C)",
+   "(N)"
+  ],
+  "max_onset_cluster": "count of (C) before the V",
+  "max_coda_cluster": "count of (C) plus count of (N) after the V"
+ },
+ "word_onset_excludes": [
+  "ng"
+ ],
+ "patronymic_by_naming_pattern": {
+  "given_plus_father": "patronymic",
+  "given_plus_clan": "clan_name",
+  "given_plus_house": "house_name",
+  "given_plus_cohort": "cohort_name",
+  "given_plus_vessel": "vessel_name",
+  "given_plus_workshop": "workshop_name"
+ }
+}

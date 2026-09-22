@@ -17,6 +17,7 @@
   entities.cpp
   founding.cpp
   grid.cpp
+  habitation.cpp
   history.cpp
   json.cpp
   magic.cpp

@@ -1,0 +1,132 @@
+{
+ "schema": "fwg.hero-alignment",
+ "schema_version": 1,
+ "note": "Where a hero's alignment starts: a per-civilization centre, the shift each recorded deed applies, the dread baseline and its per-family shift, and the uniform jitter. Carried whole from hero_generator/policies/alignment.json.\n\nREAD BY: hero_generator/alignment.py:39-40 _shift(), :52-72 derive_person(), :75-82 derive_dread(). Entry points __init__.py:307 and :332. NOT LINTED.\n\nRNG INPUT: yes -- `jitter` (0.35) is the half-width of a draw.uniform applied to both axes -- but EVERY STRUCTURE IN THIS FILE IS ORDER-FREE, and that is worth stating positively because it is the exception in this package. civilization_bias, deed_shifts and dread_family are all reached by .get() with a zero default; the loop that consumes the RNG iterates person['deeds'] (alignment.py:56), NOT the policy, so no mapping here is ever walked in order. dread_base and jitter are scalars reached by name.\n\nABSENCE THAT IS NOT EMPTINESS -- this file is the counter-example, and the port should know it: for civilization_bias, deed_shifts and dread_family, ABSENCE IS EXACTLY EQUIVALENT TO AN AUTHORED {'law': 0, 'good': 0}, because the default is that value and it is added rather than multiplied (alignment.py:65-66). A thirteenth civilization silently centres at 0 with no error. The real traps are elsewhere: `jitter` and `dread_base` are bare indexes and their absence is a KeyError; deed keys are BUILT as ruin_heir / ruin_heir_capital / war_{kind}_{victor|defeated} (:57-60) and deed.get('kind','civil') means a war deed with no kind reads as CIVIL, not as unknown; and _bounded (:43-49) clamps a deed-decided sign to +/-0.01 rather than to 0, so jitter can never erase a sign a deed set, and the boundary value is 0.01 and not 0.0.\n\nPARSE-LEVEL RULES the loader applies and a port must keep: json.loads(text, object_pairs_hook=_pairs, parse_constant=_reject) -- DUPLICATE KEYS RAISE rather than last-wins, and NaN/Infinity RAISE rather than parse. `revision` must be an int >= 1.\n\nIDENTITY HASH: NONE. No hashlib/sha256 call anywhere in this package touches this file, and the document carries no digest of its own -- provenance is the integer `revision` alone, republished into the world block. The nearest thing that transitively covers this content is the world handle, Sim/fantasy_world_generator/world_handle.py:80-82: sha256(json.dumps(transfer_document(doc), ensure_ascii=False, sort_keys=True, separators=(',', ':'), allow_nan=False).encode('utf-8')).hexdigest()[:16], prefixed 'w_'. It hashes the GENERATED OUTPUT, never these bytes -- and because sort_keys=True sorts mapping keys but NOT list elements, every list-order contract named above is load-bearing at the handle level while every mapping-key order is not. Note the codebase has three mutually disagreeing canonical forms and you must pick per call site, not per repository: registry_identity() (civilization_registry.py:308) ensure_ascii=False + separators + NO sort_keys; castle_planner.py:39 sort_keys=True + separators + ensure_ascii DEFAULT TRUE; heritage/derive.py:330 sort_keys=True + separators + ensure_ascii=False. `source_sha256` in this file is a plain digest of the source file's raw bytes, recorded for provenance only; nothing in the Python computes it.",
+ "source_identity": {
+  "source_path": "hero_generator/policies/alignment.json",
+  "source_schema": "fantasy-world-generator.hero-alignment-policy",
+  "revision": 1,
+  "source_sha256": "27756773ccfc3c14c96abca35219ef4b44928bea23dd0240d11a8b06abb19164",
+  "source_bytes": 1756
+ },
+ "source_note": "Centres per civilization are authored flavour, not derived from the registry; deed shifts decide a sign that jitter may never flip. Values are in the -1..1 axis space.",
+ "jitter": 0.35,
+ "civilization_bias": {
+  "human_maritime": {
+   "law": -0.1,
+   "good": 0.05
+  },
+  "human_desert": {
+   "law": 0.1,
+   "good": 0.0
+  },
+  "human_cold": {
+   "law": 0.15,
+   "good": 0.05
+  },
+  "human_large_island": {
+   "law": -0.15,
+   "good": 0.05
+  },
+  "human_rainforest": {
+   "law": -0.1,
+   "good": 0.1
+  },
+  "human_heartland": {
+   "law": 0.2,
+   "good": 0.1
+  },
+  "dwarf": {
+   "law": 0.35,
+   "good": 0.05
+  },
+  "hill_dwarf": {
+   "law": 0.15,
+   "good": 0.25
+  },
+  "frosthold_dwarf": {
+   "law": 0.3,
+   "good": -0.05
+  },
+  "gnome": {
+   "law": -0.2,
+   "good": 0.1
+  },
+  "elf": {
+   "law": 0.25,
+   "good": 0.15
+  },
+  "tidekin": {
+   "law": -0.25,
+   "good": 0.0
+  }
+ },
+ "deed_shifts": {
+  "ruin_heir": {
+   "law": 0.0,
+   "good": 0.1
+  },
+  "ruin_heir_capital": {
+   "law": 0.15,
+   "good": 0.05
+  },
+  "war_civil_victor": {
+   "law": 0.25,
+   "good": -0.3
+  },
+  "war_regional_victor": {
+   "law": 0.15,
+   "good": -0.15
+  },
+  "war_international_victor": {
+   "law": 0.1,
+   "good": -0.1
+  },
+  "war_civil_defeated": {
+   "law": -0.1,
+   "good": 0.05
+  },
+  "war_regional_defeated": {
+   "law": -0.05,
+   "good": 0.05
+  },
+  "war_international_defeated": {
+   "law": 0.0,
+   "good": 0.1
+  }
+ },
+ "dread_base": {
+  "law": -0.4,
+  "good": -0.7
+ },
+ "dread_family": {
+  "draconic": {
+   "law": 0.6,
+   "good": 0.1
+  },
+  "undead": {
+   "law": 0.3,
+   "good": -0.2
+  },
+  "infernal": {
+   "law": 0.2,
+   "good": -0.25
+  },
+  "aberrant": {
+   "law": -0.5,
+   "good": 0.0
+  },
+  "fantastic": {
+   "law": 0.0,
+   "good": 0.3
+  },
+  "primordial": {
+   "law": 0.0,
+   "good": 0.4
+  },
+  "holy": {
+   "law": 0.5,
+   "good": 0.9
+  }
+ }
+}

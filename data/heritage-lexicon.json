@@ -1,0 +1,489 @@
+{
+ "schema": "fwg.heritage-lexicon",
+ "schema_version": 1,
+ "note": "The root vocabulary, the name templates and the per-branch sound changes every place name, person name and realm name in the world is built from. Carried whole from heritage/policies/lexicon.json; the source is already a clean authored catalogue, so nothing here is restructured.\n\nREAD BY: heritage/derive.py -- lexicon() (the whole document, cached), _family_for(), branch_lexicon(), derive_genome(); heritage/naming.py -- settlement_name(), _pick_elements(), _rare_patterns(), _enumerate(), name_stock(); heritage/policy.py lint_lexicon(). DOWNSTREAM, this is the file that names the world: icarus_sim/terrain_settlements.py:763-773 (_settlement_names) calls heritage.lexicon() once and heritage.settlement_name() for every founded city; npc_roster/naming.py:57,71,76 builds a name stock per people and draws every NPC from it; hero_generator/naming.py:35 draws hero names; hero_generator/realms.py:20 names each realm after its capital.\n\nRNG INPUT: yes, and LIST ORDER IS A CONTRACT in three places.\n(1) `settlement_templates` -- ORDER IS A CONTRACT. naming._weighted() is a cumulative weighted walk over the list in file order: total = sum(t['weight']); cut = draw.random() * total; running = 0.0; then for template in templates: running += template['weight']; if cut < running: return template. Weights are 5/3/2 over a total of 10, so the draw interval [0,0.5) picks terrain-site, [0.5,0.8) picks quality-terrain and [0.8,1.0) picks craft-site. Reordering this list re-maps those intervals and silently renames every settlement in every world at the same seed.\n(2) `personal_templates` -- ORDER IS A CONTRACT, by the same _weighted() walk, called from naming._pick_elements(). Weights 4/3/2/2 over a total of 11.\n(3) `families[*].branches[*].sound_changes` -- ORDER IS A HARD CONTRACT, not an RNG one. derive.apply_sound_changes() runs the rules left to right, each as one non-overlapping pass over the word, and the rules are explicitly allowed to feed each other ('rules run in order, so they may feed each other'). Each rule is a two-element [old, new] list -- that pair's order is obviously positional. Digraphs are consumed atomically during the scan, so a rule naming 's' does not fire inside 'sh'.\nORDER IS FREE for `slot_roles[*]`: every consumer sorts first -- draw.choice(sorted(options)) in settlement_name() and _pick_elements(), sorted(slot for slot in roles[...] if slot in roots) in _enumerate(), sorted(lexicon['slot_roles']) in _rare_patterns(). The one unsorted use, `terrain_slot in options` in settlement_name(), is a membership test. ORDER IS FREE for `shared_slots` (lint only, via set()) and for `families[*].roots` (always sorted before a draw).\n`forbidden_forms` is a BORDERLINE case worth stating plainly: naming._acceptable() is not any(bad in lowered for bad in forms), so the order cannot change which names are rejected. But derive_genome() copies the list verbatim into every genome as `forbidden_forms`, and sort_keys=True does not sort list elements, so REORDERING IT CHANGES THE HERITAGE sha256 WITHOUT CHANGING A SINGLE NAME. Treat it as ordered.\n`families` -- the mapping's key order is a LATENT contract. derive._family_for() returns the FIRST family whose `parent_race` matches, and nothing validates that a parent race is claimed only once. With three families and three distinct parent races the match is unique today, so the order is currently unobservable; it stops being so the moment a second family claims a race.\n\nABSENCE THAT IS NOT EMPTINESS: a civilization with no entry in `branches` is NOT an error -- branch_lexicon()/derive_genome() fall back to {'sound_changes': [], 'add_roots': {}}, so an unlisted people speaks the family roots unshifted. A branch with no `drop_roots` drops nothing (spec.get('drop_roots', ())); with no `add_roots`, coins nothing. Innovations in `add_roots` are applied AFTER the sound changes, not before, because a word the branch invented was not present when the shift ran -- roots.update(spec.get('add_roots', {})) runs last in branch_lexicon(). lint_lexicon() requires every family to carry every one of the 19 `shared_slots`, so a missing shared root is a hard error, never a default, and every root must be spellable in the phonemes its own race's soma admits.\n\nThe heritage identity hash does NOT cover these bytes. heritage.heritage_identity() (heritage/derive.py:330) hashes the RESOLVED peoples instead -- resolved = {cid: _resolve(cid, parent) for cid, parent in sorted(pairs)}, then sha256 of json.dumps(resolved, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8'). That is a THIRD serialisation scheme in this codebase, distinct from both of the two you already have: registry_identity() (icarus_sim/civilization_registry.py:308) uses ensure_ascii=False, separators=(',', ':') and NO sort_keys, and castle_planner (icarus_sim/castle_planner.py:39) uses sort_keys=True, separators=(',', ':') and the ensure_ascii=True default. heritage is sort_keys=True AND ensure_ascii=False, so it agrees with neither on a non-ASCII string. sort_keys sorts MAPPING keys only -- it does not touch list element order, so every list marked a contract below also moves this digest. For the twelve civilizations the registry ships, in terrain_civilizations.civilization_report's pair order (tuple((key, entity_rules(key)['parent_race_id']) for key in civilization_ids()), which heritage_identity then sorts), the expected value at FantasyWorldGenerator b67c99b is sha256=9b708d23e468beb4c3f775415405b5aa8991f21c7d402aa200cd6aa99a0b2189 with revision={traits:1, derivation:1, lexicon:1, overrides:1, appearance:1}. `source_sha256` in this file is a plain digest of the source file's raw bytes, recorded for provenance only; nothing in the Python computes it.",
+ "source_identity": {
+  "source_path": "heritage/policies/lexicon.json",
+  "source_schema": "fantasy-world-generator.heritage-lexicon",
+  "revision": 1,
+  "source_sha256": "eaa45c6b0042821d6d398fed132c0eb0c2abce09d73fd59bc3cfbb35ab07c715",
+  "source_bytes": 5878
+ },
+ "source_note": "One root set per family, plus ordered sound changes per branch. Sibling tongues are cognate because they share the roots; they are distinct because each branch rewrites them. That is one small table per family instead of twelve hand-written lexicons. Every root must be spellable in its family's derived inventory, which the linter checks - a root using a phoneme the soma forbids is an authoring error, not a quirk. Sound changes apply in order and may feed each other.",
+ "shared_slots": [
+  "stone",
+  "water",
+  "high",
+  "deep",
+  "wood",
+  "field",
+  "river",
+  "gate",
+  "hall",
+  "old",
+  "north",
+  "cold",
+  "fire",
+  "green",
+  "shore",
+  "wind",
+  "road",
+  "house",
+  "realm"
+ ],
+ "families": {
+  "human": {
+   "parent_race": "human",
+   "word_order": "verb_medial",
+   "affixing": "suffixing",
+   "roots": {
+    "stone": "kor",
+    "water": "dun",
+    "high": "bren",
+    "deep": "graf",
+    "wood": "hal",
+    "field": "fen",
+    "river": "lin",
+    "gate": "por",
+    "hall": "sal",
+    "old": "eld",
+    "north": "nord",
+    "cold": "fros",
+    "fire": "brand",
+    "green": "ver",
+    "shore": "strand",
+    "wind": "wen",
+    "road": "weg",
+    "house": "ham",
+    "harbour": "mar",
+    "ford": "vad",
+    "hill": "tor",
+    "new": "ner",
+    "king": "ros",
+    "salt": "sel",
+    "bridge": "brig",
+    "mill": "mel",
+    "well": "pat",
+    "sun": "sol",
+    "sand": "tam",
+    "market": "sev",
+    "realm": "mark"
+   },
+   "branches": {
+    "human_heartland": {
+     "sound_changes": [],
+     "add_roots": {}
+    },
+    "human_maritime": {
+     "sound_changes": [
+      [
+       "v",
+       "b"
+      ],
+      [
+       "th",
+       "t"
+      ],
+      [
+       "w",
+       "v"
+      ]
+     ],
+     "add_roots": {
+      "sail": "vela",
+      "bay": "gol"
+     }
+    },
+    "human_desert": {
+     "sound_changes": [
+      [
+       "p",
+       "f"
+      ],
+      [
+       "th",
+       "s"
+      ],
+      [
+       "e",
+       "i"
+      ]
+     ],
+     "add_roots": {
+      "well": "kanat",
+      "dune": "rig",
+      "glass": "sira"
+     }
+    },
+    "human_cold": {
+     "sound_changes": [
+      [
+       "v",
+       "f"
+      ],
+      [
+       "ar",
+       "or"
+      ],
+      [
+       "nd",
+       "nn"
+      ]
+     ],
+     "add_roots": {
+      "ice": "isk",
+      "hearth": "arn"
+     }
+    },
+    "human_large_island": {
+     "sound_changes": [
+      [
+       "th",
+       "t"
+      ],
+      [
+       "l",
+       "r"
+      ]
+     ],
+     "add_roots": {
+      "terrace": "dan",
+      "kiln": "yaki"
+     }
+    },
+    "human_rainforest": {
+     "sound_changes": [
+      [
+       "s",
+       "sh"
+      ],
+      [
+       "th",
+       "t"
+      ]
+     ],
+     "add_roots": {
+      "feather": "kitza",
+      "canopy": "napan"
+     }
+    }
+   }
+  },
+  "elven": {
+   "parent_race": "elf",
+   "word_order": "verb_medial",
+   "affixing": "prefixing",
+   "roots": {
+    "stone": "gond",
+    "water": "nael",
+    "high": "tael",
+    "deep": "thal",
+    "wood": "taur",
+    "field": "laen",
+    "river": "duin",
+    "gate": "annon",
+    "hall": "mereth",
+    "old": "ando",
+    "north": "fori",
+    "cold": "hela",
+    "fire": "naur",
+    "green": "lain",
+    "shore": "aeril",
+    "wind": "siria",
+    "road": "pada",
+    "house": "mar",
+    "grove": "sila",
+    "song": "aeth",
+    "leaf": "lith",
+    "star": "eiri",
+    "long": "anda",
+    "tide": "mael",
+    "foam": "vaen",
+    "light": "galad",
+    "dark": "mori",
+    "silver": "kelev",
+    "realm": "doren"
+   },
+   "branches": {
+    "elf": {
+     "sound_changes": [],
+     "add_roots": {}
+    },
+    "tidekin": {
+     "sound_changes": [
+      [
+       "th",
+       "s"
+      ],
+      [
+       "sh",
+       "s"
+      ],
+      [
+       "ts",
+       "s"
+      ],
+      [
+       "ch",
+       "s"
+      ],
+      [
+       "z",
+       "s"
+      ],
+      [
+       "nd",
+       "n"
+      ]
+     ],
+     "add_roots": {
+      "reef": "riel",
+      "salt": "sael",
+      "keel": "loa"
+     }
+    }
+   }
+  },
+  "dwarven": {
+   "parent_race": "dwarf",
+   "word_order": "verb_final",
+   "affixing": "suffixing",
+   "roots": {
+    "stone": "khas",
+    "water": "sirn",
+    "high": "tor",
+    "deep": "gund",
+    "wood": "barg",
+    "field": "mek",
+    "river": "durn",
+    "gate": "kadr",
+    "hall": "dum",
+    "old": "ulk",
+    "north": "nord",
+    "cold": "krum",
+    "fire": "nar",
+    "green": "leg",
+    "shore": "hakn",
+    "wind": "guld",
+    "road": "rak",
+    "house": "bod",
+    "forge": "bral",
+    "hold": "dorn",
+    "iron": "ang",
+    "gold": "bor",
+    "peak": "garn",
+    "king": "rik",
+    "hammer": "mund",
+    "ash": "grim",
+    "salt": "sulk",
+    "vault": "gok",
+    "ember": "mokh",
+    "realm": "rik"
+   },
+   "branches": {
+    "dwarf": {
+     "sound_changes": [],
+     "add_roots": {}
+    },
+    "frosthold_dwarf": {
+     "sound_changes": [
+      [
+       "kh",
+       "q"
+      ],
+      [
+       "nd",
+       "nt"
+      ],
+      [
+       "a",
+       "o"
+      ]
+     ],
+     "add_roots": {
+      "ice": "merk",
+      "pact": "gorn"
+     }
+    },
+    "gnome": {
+     "sound_changes": [
+      [
+       "kh",
+       "k"
+      ],
+      [
+       "q",
+       "k"
+      ],
+      [
+       "gh",
+       "g"
+      ],
+      [
+       "rn",
+       "rl"
+      ],
+      [
+       "aa",
+       "a"
+      ]
+     ],
+     "add_roots": {
+      "gear": "spril",
+      "glass": "glis",
+      "spark": "pik"
+     }
+    },
+    "hill_dwarf": {
+     "sound_changes": [
+      [
+       "kh",
+       "h"
+      ],
+      [
+       "q",
+       "k"
+      ],
+      [
+       "gh",
+       "g"
+      ],
+      [
+       "u",
+       "o"
+      ]
+     ],
+     "add_roots": {
+      "table": "born",
+      "orchard": "mel",
+      "barrow": "dolm"
+     }
+    }
+   }
+  }
+ },
+ "forbidden_forms": [
+  "person",
+  "mordor",
+  "hell",
+  "arse",
+  "damn",
+  "shit",
+  "piss",
+  "crap",
+  "slut",
+  "rape",
+  "nazi",
+  "cock",
+  "tit",
+  "fart"
+ ],
+ "personal_templates": [
+  {
+   "pattern": [
+    "quality",
+    "craft"
+   ],
+   "weight": 4
+  },
+  {
+   "pattern": [
+    "craft",
+    "quality"
+   ],
+   "weight": 3
+  },
+  {
+   "pattern": [
+    "terrain",
+    "craft"
+   ],
+   "weight": 2
+  },
+  {
+   "pattern": [
+    "quality",
+    "terrain"
+   ],
+   "weight": 2
+  }
+ ],
+ "settlement_templates": [
+  {
+   "pattern": [
+    "terrain",
+    "site"
+   ],
+   "weight": 5
+  },
+  {
+   "pattern": [
+    "quality",
+    "terrain"
+   ],
+   "weight": 3
+  },
+  {
+   "pattern": [
+    "craft",
+    "site"
+   ],
+   "weight": 2
+  }
+ ],
+ "slot_roles": {
+  "terrain": [
+   "stone",
+   "water",
+   "wood",
+   "field",
+   "river",
+   "shore",
+   "north",
+   "wind"
+  ],
+  "site": [
+   "hall",
+   "gate",
+   "house",
+   "hold",
+   "road",
+   "bridge",
+   "harbour",
+   "vault",
+   "grove",
+   "forge",
+   "well",
+   "terrace",
+   "keel",
+   "barrow",
+   "table"
+  ],
+  "quality": [
+   "high",
+   "deep",
+   "old",
+   "cold",
+   "green",
+   "long",
+   "dark",
+   "light",
+   "new"
+  ],
+  "craft": [
+   "fire",
+   "gold",
+   "iron",
+   "salt",
+   "glass",
+   "gear",
+   "silver",
+   "sail",
+   "kiln",
+   "ember",
+   "ice",
+   "spark",
+   "orchard"
+  ]
+ }
+}

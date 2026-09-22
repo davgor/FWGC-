@@ -6,6 +6,7 @@
   test_climate.cpp
   test_ecology.cpp
   test_entities.cpp
+  test_habitation.cpp
   test_founding.cpp
   test_history.cpp
   test_magic.cpp
