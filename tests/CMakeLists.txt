@@ -6,6 +6,7 @@
   test_city_plan.cpp
   test_civilizations.cpp
   test_climate.cpp
+  test_corruption.cpp
   test_ecology.cpp
   test_entities.cpp
   test_habitation.cpp
@@ -23,6 +24,7 @@
   test_settlements_stage.cpp
   test_stages.cpp
   test_substrate.cpp
+  test_villains.cpp
   test_water.cpp
   test_world.cpp
 )

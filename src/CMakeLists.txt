@@ -20,6 +20,7 @@
   generated/content_schools.cpp
   generated/content_variants.cpp
   generated/world_options.cpp
+  corruption.cpp
   detail.cpp
   ecology.cpp
   erosion.cpp
@@ -46,6 +47,7 @@
   settlements_stage.cpp
   sha256.cpp
   tectonics.cpp
+  villains.cpp
   water.cpp
   world.cpp
 )

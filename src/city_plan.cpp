@@ -965,7 +965,13 @@ private:
     std::vector<Line> lines_;
 };
 
-double great_circle_m(double radius, int n, double az, double ax, double bz, double bx) {
+// Arc between two RASTER cells, with the seam deliberately NOT wrapped.
+//
+// Named apart from villains.hpp's great_circle_m, which takes directions and does
+// wrap. Two functions of one name measuring two different things is a near miss that
+// compiles: these differ in arity today, so no call could resolve wrongly, but the
+// next one to take a matching signature would.
+double unwrapped_arc_m(double radius, int n, double az, double ax, double bz, double bx) {
     const double lat1 = kPi / 2.0 - kPi * az / (n - 1);
     const double lat2 = kPi / 2.0 - kPi * bz / (n - 1);
     // Longitude difference only, and the seam is NOT wrapped: a pair straddling it
@@ -1948,7 +1954,7 @@ CityPlan plan_city(const World& world, const SphereGrid& grid, const CitySite& s
         // skips everything and the crop bound silently switches itself off.
         if (&other == &site || other.key() == site.key()) continue;
         neighbour_half = std::min(neighbour_half,
-                                  great_circle_m(radius, n, site.z, site.x, other.z, other.x) * 0.28);
+                                  unwrapped_arc_m(radius, n, site.z, site.x, other.z, other.x) * 0.28);
     }
     const double half = program_half_m(preset, site.city_class, neighbour_half, house.plot_m,
                                        house.worker_beds);
@@ -2380,7 +2386,7 @@ HamletPlan plan_hamlet(const World& world, const SphereGrid& grid, const HamletP
     // and deliberately not scaled with the planet.
     double half = 100.0;
     const auto bound = [&](double other_x, double other_z) {
-        const double distance = great_circle_m(radius, n, pin.z, pin.x, other_z, other_x);
+        const double distance = unwrapped_arc_m(radius, n, pin.z, pin.x, other_z, other_x);
         half = std::min(half, std::max(kCell, distance * 0.5 - 8.0));
     };
     for (const CitySite& site : sites) bound(site.x, site.z);
