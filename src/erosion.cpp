@@ -65,7 +65,8 @@ Routing route(const std::vector<double>& h, const SphereGrid& grid, double sea_l
 
 ErosionResult erode(const Grid& height, double radius, double sea_level, int passes, double strength) {
     const int n = height.size();
-    const SphereGrid& grid = sphere_grid(n, radius);
+    const std::shared_ptr<const SphereGrid> held = sphere_grid(n, radius);
+    const SphereGrid& grid = *held;
     const std::size_t count = grid.node_count();
 
     std::vector<double> h(count);

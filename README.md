@@ -81,10 +81,32 @@ tracks the ladder.
   owes.
 - [docs/porting-notes.md](docs/porting-notes.md) — the traps that were expensive to find
   in the reference implementation and are invisible until they are wrong.
+- [docs/inherited-findings.md](docs/inherited-findings.md) — the Python project's pre-port
+  red team, triaged against this codebase: what still binds, what binds when a stage lands,
+  and what died with the rewrite.
+- [docs/archive/](docs/archive/) — verbatim documents inherited from the retiring Python
+  repository, and a list of what is still only there.
 
 ## Testing
 
+```bash
+ctest --test-dir build -C Release --no-tests=error
+```
+
 There is no reference implementation to diff against, so the test suite **is** the
 acceptance mechanism. It asserts properties rather than pinned numbers, and — where a
-control exists — that the metric moves when the control does. A metric that ignores its
-own knob is the measurement failing, not the model.
+control exists — that the metric moves when the control does. A metric that ignores its own
+knob is the measurement failing, not the model.
+
+Pass `--no-tests=error`. Without it `ctest` exits 0 when it selects nothing, so a filter
+typo or a `-DFWG_BUILD_TESTS=OFF` build reads as a pass.
+
+Two kinds of pinned number are deliberate and are the only two: the FIPS SHA-256 vectors,
+and the RNG golden values in `tests/test_substrate.cpp`. The latter exist because every
+other test asserts a *property* of the stream, and a changed constant satisfies all of them
+while producing a different planet from every seed. They were cross-checked against an
+independent reimplementation rather than copied out of this one.
+
+The suite has been adversarially reviewed once, which found seventeen defects in it and in
+the code it covers — including a test that could not fail. See
+[docs/inherited-findings.md](docs/inherited-findings.md).

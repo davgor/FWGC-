@@ -8,6 +8,7 @@
 // docs/determinism.md.
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
 #include <vector>
 
@@ -19,5 +20,19 @@ double perlin3(double x, double y, double z, std::uint32_t seed);
 // cells is dropped rather than aliased into the terrain. `step` is the equatorial
 // cell spacing.
 std::vector<double> resolved_frequencies(double wavelength, int octaves, double step);
+
+// Seed for octave k of a noise ladder rooted at `base`.
+//
+// This is the THIRD and last seed derivation in the library -- see the block comment
+// in random.hpp. It was an unnamed inline expression until a review pointed out that
+// an unnamed derivation is exactly what the reference implementation had four of.
+//
+// Note it is an OFFSET, not a hash: octave seeds of one field are 1013 apart, so two
+// fields whose base seeds differ by a multiple of 1013 share octaves. The bases here
+// come from sha256, so that is vanishingly unlikely rather than impossible, and it is
+// why a new noise field must take a fresh child_seed rather than base + 1.
+inline std::uint32_t octave_seed(std::uint32_t base, std::size_t k) {
+    return base + static_cast<std::uint32_t>(k) * 1013u;
+}
 
 }  // namespace fwg

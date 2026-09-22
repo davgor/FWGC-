@@ -3,12 +3,23 @@
 A world is one long chain of floating-point operations seeded by one integer. The promise
 this library makes is narrow and worth stating exactly:
 
-> **The same version of this library, built with the flags in `CMakeLists.txt`, produces
-> byte-identical world documents from the same request — on any machine, in any process.**
+> **The same version of this library, built with the flags in `CMakeLists.txt`, by the
+> same compiler against the same C runtime, produces byte-identical world documents from
+> the same request — in any process, on any machine.**
 
-Verified across separate processes at size 129: two runs, one SHA-256.
+Verified across separate processes at size 129 on MSVC 19.44 / UCRT: two runs, one SHA-256.
 
-Three things are *not* promised, and each is a deliberate limit rather than an oversight.
+**"The same C runtime" is load-bearing and was missing from an earlier draft of this
+sentence.** The generation path calls `sin`, `cos`, `exp`, `log`, `tanh`, `asin`, `atan2`
+and `hypot` — 30-odd call sites across `grid.cpp`, `tectonics.cpp`, `measure.cpp` and
+`random.cpp`, including `std::log` inside `Rng::gauss`, which puts libm inside the *random
+stream* and not merely inside the terrain arithmetic. **None of those functions is required
+to be correctly rounded**, and MSVC's UCRT, glibc and Apple's libm genuinely disagree in the
+last bit. No compiler flag fixes that; only shipping our own implementations would, and
+that has not been done. So a world is a property of the C runtime as well as of this
+source, and the promise cannot be widened until that changes.
+
+Four things are *not* promised, and each is a deliberate limit rather than an oversight.
 
 **Worlds do not match the Python FantasyWorldGenerator.** This is a clean rewrite. Seed 42
 here and seed 42 there are different planets. That was the explicit trade: the alternative
@@ -21,7 +32,12 @@ purpose is to agree with an interpreter this project no longer uses.
 erosion proxy changes every world. Worlds are disposable; the seed plus the library version
 is the world's identity, and a stored world document is a cache, not an archive.
 
-**Worlds do not survive different compiler flags.** See below.
+**Worlds do not survive different compiler flags.** See §1 below.
+
+**Worlds are not promised to match across C runtimes.** See the note above. The GCC/Clang
+half of §1 has never been executed — only one toolchain exists on the machine this was
+written on — so the non-MSVC flags are reasoned, not verified. Treat a first build on
+another platform as an experiment, not a regression.
 
 ---
 
@@ -48,6 +64,11 @@ what is needed. Passing `/fp:contract-` is silently ignored with warning D9002.
 `std::pow` is avoided in the hot path. `f*f*f` is exact and identical everywhere;
 `std::pow(f, 3)` is a libm call whose last bit is a property of the C runtime, and on
 Windows the static and shared CRTs disagree with each other by one ulp.
+
+That removes **one** libm dependency; it does not remove the class. The transcendentals
+listed at the top of this document are still libm calls and still not correctly rounded.
+Avoiding `pow` is worth doing and is not the same as being libm-independent — an earlier
+version of this section implied it was.
 
 ## 2. The random stream
 

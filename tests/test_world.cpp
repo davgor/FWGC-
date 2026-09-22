@@ -18,6 +18,8 @@
 #include <string>
 #include <utility>
 
+#include <limits>
+
 #include "fwg/json.hpp"
 #include "fwg/measure.hpp"
 #include "fwg/scale.hpp"
@@ -49,8 +51,18 @@ std::string to_json(const World& world) {
 // --- determinism ---------------------------------------------------------
 
 TEST(the_same_request_produces_the_same_world) {
-    const World a = build(17);
-    const World b = build(17);
+    // Deliberately NOT at size 17. At that raster one octave of five resolves, so a
+    // determinism proof there is a proof about a world with almost no surface detail
+    // in it -- it would pass against a generator whose entire noise ladder was dead.
+    // The non-vacuity assertion below is the point, and it is the same guard the
+    // Python gate used for the same reason.
+    const World a = build(129);
+    const World b = build(129);
+    check::is_true(a.resolved_octaves >= 3,
+                   "the proof to run on a world with terrain in it (octaves=" +
+                       std::to_string(a.resolved_octaves) + ")");
+    check::is_true(a.layers.count("noise") == 1 && a.layers.count("catchment") == 1,
+                   "the proof to cover the noise and erosion layers");
     check::equal(to_json(a).size(), to_json(b).size(), "document size");
     check::is_true(to_json(a) == to_json(b), "two generations of one seed to be byte-identical");
 }
@@ -92,6 +104,9 @@ TEST(every_layer_closes_its_seam_and_collapses_its_poles) {
 
 TEST(every_layer_is_finite) {
     const World world = build(17);
+    // Floor first: the loop below is vacuously true on an empty layer map.
+    check::is_true(world.layers.size() >= 15,
+                   "a phase-5 world to carry its layers (" + std::to_string(world.layers.size()) + ")");
     for (const auto& [name, layer] : world.layers) {
         for (const double value : layer.cells()) {
             check::is_true(std::isfinite(value), name + " to hold only finite values");
@@ -197,8 +212,25 @@ TEST(the_default_world_is_neither_all_land_nor_all_ocean) {
     // hypsometric profile or a runaway relief budget produces.
     const World world = build(33);
     check::between(world.area.land_fraction, 0.05, 0.75, "land fraction of the default world");
-    check::close(world.area.land_km2 + world.area.submerged_km2, world.area.total_km2,
-                 world.area.total_km2 * 1e-9, "land and sea to account for the sphere");
+
+    // NOT `land_km2 + submerged_km2 == total_km2`. That was here, and it is true by
+    // construction -- submerged is computed as (total - land), so the assertion holds
+    // for any land value whatsoever, including a broken one. The real control is that
+    // the integral agrees with an independent count of the cells it integrated.
+    const Grid& height = world.layers.at("height");
+    const int n = height.size();
+    double recomputed = 0.0;
+    for (int z = 0; z < n; ++z) {
+        const double weight = band_wedge_area(z, n, world.effective.globe_radius);
+        for (int x = 0; x < n - 1; ++x) {
+            if (height.at(x, z) > world.effective.sea_level) recomputed += weight;
+        }
+    }
+    check::close(recomputed / 1e6, world.area.land_km2, world.area.land_km2 * 1e-9,
+                 "the reported land area to match a direct recount");
+    check::close(world.area.total_km2, 4.0 * std::acos(-1.0) * world.effective.globe_radius *
+                                           world.effective.globe_radius / 1e6,
+                 1e-6, "total area to be the sphere's");
 }
 
 TEST(the_land_mask_agrees_with_the_height_field) {
@@ -415,13 +447,42 @@ TEST(the_document_is_structurally_well_formed) {
 }
 
 TEST(doubles_survive_the_round_trip) {
-    const double values[] = {0.0, -0.0, 1.0, 0.1, 1e-300, 1e300, 1.0 / 3.0, 3.141592653589793,
+    const double values[] = {0.0, 1.0, 0.1, 1e-300, 1e300, 1.0 / 3.0, 3.141592653589793,
                              -1234.56789012345, 0.17744123532462844};
     for (const double value : values) {
         const std::string text = format_double(value);
         const double parsed = std::strtod(text.c_str(), nullptr);
         check::is_true(parsed == value, "round trip of " + text);
     }
+
+    // -0.0 needs its own case. `parsed == value` is TRUE for +0.0 under IEEE
+    // comparison, so including it in the loop above asserted nothing about the sign --
+    // which is the part that can actually be lost.
+    const std::string negative_zero = format_double(-0.0);
+    check::equal(negative_zero, std::string("-0"), "negative zero to keep its sign");
+    check::is_true(std::signbit(std::strtod(negative_zero.c_str(), nullptr)),
+                   "negative zero to parse back negative");
+}
+
+TEST(float_formatting_is_pinned_to_its_bytes) {
+    // Round-tripping is necessary and not sufficient. `%.17g` round-trips every value
+    // in the test above and writes different bytes for nearly all of them -- so with
+    // only a round-trip test, swapping the formatter silently changes every published
+    // number and every digest downstream, and nothing goes red.
+    //
+    // These strings are the contract. Shortest round-trip, as std::to_chars produces.
+    check::equal(format_double(0.1), std::string("0.1"), "0.1");
+    check::equal(format_double(1.0), std::string("1"), "1.0");
+    check::equal(format_double(1.0 / 3.0), std::string("0.3333333333333333"), "1/3");
+    check::equal(format_double(0.17744123532462844), std::string("0.17744123532462844"), "world_scale");
+    check::equal(format_double(3.141592653589793), std::string("3.141592653589793"), "pi");
+    check::equal(format_double(1e300), std::string("1e+300"), "1e300");
+    check::equal(format_double(1e-300), std::string("1e-300"), "1e-300");
+    check::equal(format_double(-1234.56789012345), std::string("-1234.56789012345"), "negative");
+    // Non-finite values are not valid JSON numbers and must not be emitted as bare
+    // NaN/Infinity, which a naive ostream would do.
+    check::equal(format_double(std::nan("")), std::string("null"), "NaN");
+    check::equal(format_double(std::numeric_limits<double>::infinity()), std::string("1e999"), "infinity");
 }
 
 TEST(the_document_leaves_wall_clock_timings_out_by_default) {
@@ -440,6 +501,7 @@ TEST(the_document_leaves_wall_clock_timings_out_by_default) {
 TEST(the_document_carries_the_layers_it_generated) {
     const World world = build(9);
     const std::string text = to_json(world);
+    check::is_true(!world.layers.empty(), "a world to have layers to carry");
     for (const auto& [name, layer] : world.layers) {
         check::is_true(text.find("\"" + name + "\":") != std::string::npos, "the document to carry " + name);
     }

@@ -22,6 +22,14 @@ int floor_mod(int value, int modulus) {
 
 }  // namespace
 
+double band_wedge_area(int z, int n, double radius) {
+    const double step = kPi / (n - 1);
+    const double lat = kPi / 2.0 - z * step;
+    const double north = std::min(kPi / 2.0, lat + step / 2.0);
+    const double south = std::max(-kPi / 2.0, lat - step / 2.0);
+    return radius * radius * 2.0 * step * (std::sin(north) - std::sin(south));
+}
+
 Vec3 direction(int x, int z, int n) {
     if (z == 0) return {0.0, 1.0, 0.0};
     if (z == n - 1) return {0.0, -1.0, 0.0};
@@ -105,7 +113,6 @@ std::unique_ptr<SphereGrid> build_sphere_grid(int n, double radius) {
         vectors[i] = direction(g->point_x[i], g->point_z[i], n);
     }
 
-    const double step = kPi / (n - 1);
     g->areas.resize(count);
     g->neighbours.resize(count);
 
@@ -114,12 +121,8 @@ std::unique_ptr<SphereGrid> build_sphere_grid(int n, double radius) {
         const int z = g->point_z[i];
         const bool pole = (z == 0 || z == n - 1);
 
-        const double lat = kPi / 2.0 - z * step;
-        const double north = std::min(kPi / 2.0, lat + step / 2.0);
-        const double south = std::max(-kPi / 2.0, lat - step / 2.0);
-        const double area = radius * radius * 2.0 * step * (std::sin(north) - std::sin(south));
         // A pole node stands in for the whole cap, so it carries every wedge of it.
-        g->areas[i] = area * (pole ? (n - 1) : 1);
+        g->areas[i] = band_wedge_area(z, n, radius) * (pole ? (n - 1) : 1);
 
         std::set<int> ids;
         if (pole) {
@@ -146,7 +149,7 @@ std::unique_ptr<SphereGrid> build_sphere_grid(int n, double radius) {
 
 struct SphereGridCache {
     std::mutex mutex;
-    std::vector<std::unique_ptr<SphereGrid>> entries;  // bounded, most-recent first
+    std::vector<std::shared_ptr<const SphereGrid>> entries;  // bounded, most-recent first
 };
 
 SphereGridCache& cache() {
@@ -156,7 +159,7 @@ SphereGridCache& cache() {
 
 }  // namespace
 
-const SphereGrid& sphere_grid(int n, double radius) {
+std::shared_ptr<const SphereGrid> sphere_grid(int n, double radius) {
     // Rebuilt from scratch by dozens of call sites per world; at n=129 that is a
     // sixteen-thousand-node graph with an arc length per neighbour each time. Two
     // entries bound what a size-257 world can retain.
@@ -165,12 +168,12 @@ const SphereGrid& sphere_grid(int n, double radius) {
     for (std::size_t i = 0; i < c.entries.size(); ++i) {
         if (c.entries[i]->n == n && c.entries[i]->radius == radius) {
             if (i != 0) std::swap(c.entries[0], c.entries[i]);
-            return *c.entries[0];
+            return c.entries[0];
         }
     }
-    c.entries.insert(c.entries.begin(), build_sphere_grid(n, radius));
+    c.entries.insert(c.entries.begin(), std::shared_ptr<const SphereGrid>(build_sphere_grid(n, radius)));
     if (c.entries.size() > 2) c.entries.resize(2);
-    return *c.entries.front();
+    return c.entries.front();
 }
 
 }  // namespace fwg

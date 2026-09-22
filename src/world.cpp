@@ -29,16 +29,11 @@ void scale_layer(Grid& layer, double factor) {
 
 AreaReport land_area(const Grid& height, double radius, double sea_level) {
     const int n = height.size();
-    const double dlat = kPi / (n - 1);
-    const double dlon = 2.0 * kPi / (n - 1);
 
     double land = 0.0;
     double max_sample = 0.0;
     for (int z = 0; z < n; ++z) {
-        const double lat = kPi / 2.0 - z * dlat;
-        const double north = std::min(kPi / 2.0, lat + dlat / 2.0);
-        const double south = std::max(-kPi / 2.0, lat - dlat / 2.0);
-        const double weight = radius * radius * dlon * (std::sin(north) - std::sin(south));
+        const double weight = band_wedge_area(z, n, radius);
         max_sample = std::max(max_sample, weight);
         // The last column duplicates the first, so it is excluded from the count.
         int above = 0;

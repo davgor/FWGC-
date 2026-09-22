@@ -100,9 +100,17 @@ int main(int argc, char** argv) {
 
     for (std::size_t i = 1; i < args.size(); ++i) {
         const std::string_view arg = args[i];
-        const auto need_int = [&](std::string_view flag) {
+        // Range-checked BEFORE the narrowing cast. `static_cast<int>` of a parsed
+        // long long silently wraps, so --size 4294967313 became size 17 and built a
+        // world nobody asked for; the library's own validate() never saw the value
+        // the user typed. Refuse at the boundary instead.
+        const auto need_int = [&](std::string_view flag, long long low, long long high) {
             const auto v = to_int(next(i, flag));
             if (!v) fail(std::string(flag) + " needs an integer");
+            if (*v < low || *v > high) {
+                fail(std::string(flag) + " must be " + std::to_string(low) + ".." + std::to_string(high) +
+                     "; received " + std::to_string(*v));
+            }
             return *v;
         };
         const auto need_double = [&](std::string_view flag) {
@@ -111,11 +119,11 @@ int main(int argc, char** argv) {
             return *v;
         };
 
-        if (arg == "--seed") request.seed = static_cast<std::uint32_t>(need_int(arg));
-        else if (arg == "--size") request.size = static_cast<int>(need_int(arg));
-        else if (arg == "--phase") request.phase = static_cast<int>(need_int(arg));
-        else if (arg == "--plates") request.plate_count = static_cast<int>(need_int(arg));
-        else if (arg == "--erosion-passes") request.erosion_passes = static_cast<int>(need_int(arg));
+        if (arg == "--seed") request.seed = static_cast<std::uint32_t>(need_int(arg, 0, 4294967295LL));
+        else if (arg == "--size") request.size = static_cast<int>(need_int(arg, 3, 1025));
+        else if (arg == "--phase") request.phase = static_cast<int>(need_int(arg, 1, 16));
+        else if (arg == "--plates") request.plate_count = static_cast<int>(need_int(arg, 2, 64));
+        else if (arg == "--erosion-passes") request.erosion_passes = static_cast<int>(need_int(arg, 0, 40));
         else if (arg == "--erosion-strength") request.erosion_strength = need_double(arg);
         else if (arg == "--sea-level") request.sea_level = need_double(arg);
         else if (arg == "--circumference-km") request.circumference_km = need_double(arg);

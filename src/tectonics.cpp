@@ -253,7 +253,7 @@ TectonicResult generate_tectonics(const Config& cfg) {
     const double r = cfg.globe_radius;
 
     TectonicResult out;
-    out.layout_seed = child_seed(cfg.seed, "plates", cfg.layout_variation);
+    out.layout_seed = child_seed64(cfg.seed, "plates", cfg.layout_variation);
     out.crust_seed = child_seed(cfg.seed, "crust", cfg.layout_variation);
     out.detail_seed = child_seed(cfg.seed, "surface", cfg.detail_variation);
     out.plates = make_plates(out.layout_seed, cfg.plate_count);
@@ -313,7 +313,7 @@ TectonicResult generate_tectonics(const Config& cfg) {
     }
 
     // --- phase 3: surface detail -------------------------------------------
-    const double step = 2.0 * kPi * r / (n - 1);
+    const double step = cfg.step();  // one definition, in Config
     out.spacing_m = step;
     out.effective_tpi_radius_m = std::min(kPi * r / 2.0, std::max(kPi * r / (n - 1), cfg.radius));
     const std::vector<double> frequencies = resolved_frequencies(cfg.wavelength, cfg.octaves, step);
@@ -331,9 +331,8 @@ TectonicResult generate_tectonics(const Config& cfg) {
                 double gain = 1.0;
                 for (std::size_t k = 0; k < frequencies.size(); ++k) {
                     const double f = frequencies[k];
-                    const std::uint32_t octave_seed = out.detail_seed + static_cast<std::uint32_t>(k) * 1013u;
                     const double raw = perlin3(p.x * r * f + 0.173, p.y * r * f + 0.391, p.z * r * f + 0.719,
-                                               octave_seed);
+                                               octave_seed(out.detail_seed, k));
                     const double sampled = clamp_unit(raw);
                     const double ridged = 1.0 - std::abs(sampled);
                     value += cfg.amplitude * gain *

@@ -134,7 +134,11 @@ Config resolve(const Request& request) {
     // Physical width in, design-space geometry out. An explicit globe_radius bypasses
     // all of it; an explicit override of any derived term still wins.
     double circumference = request.circumference_km ? *request.circumference_km * 1000.0 : 0.0;
-    if (circumference <= 0.0 && !request.globe_radius) circumference = circumference_for(cfg.world_size);
+    if (circumference <= 0.0 && !request.globe_radius) {
+        circumference = circumference_for(cfg.world_size);
+        cfg.world_size_was_used = true;
+    }
+    cfg.circumference_m = circumference;
 
     if (circumference > 0.0) {
         const auto derived = scale::shape_overrides(

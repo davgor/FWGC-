@@ -31,19 +31,11 @@ Rng::Rng(std::uint64_t seed) : seed_(seed) {
 }
 
 Rng Rng::child(std::uint64_t master, std::string_view domain, std::int64_t variation) {
-    std::string material = "fwg-stream-v1:";
-    material += std::to_string(master);
-    material += ':';
-    material.append(domain);
-    material += ':';
-    material += std::to_string(variation);
-    const auto digest = sha256(material);
-    std::uint64_t seed = 0;
-    for (int i = 0; i < 8; ++i) seed = (seed << 8) | digest[static_cast<std::size_t>(i)];
-    return Rng(seed);
+    return Rng(child_seed64(master, domain, variation));
 }
 
 std::uint64_t Rng::next_u64() {
+    ++draws_;
     // xoshiro256++
     const std::uint64_t result = rotl(state_[0] + state_[3], 23) + state_[0];
     const std::uint64_t t = state_[1] << 17;
@@ -68,7 +60,16 @@ double Rng::uniform(double low, double high) {
 
 std::uint64_t Rng::below(std::uint64_t bound) {
     if (bound == 0) throw std::invalid_argument("Rng::below needs a positive bound");
-    if (bound == 1) return 0;
+    // There is deliberately NO `if (bound == 1) return 0` shortcut here, though it is
+    // free and obviously correct in isolation. It would make the number of stream words
+    // a call consumes depend on the VALUE of the argument, so a caller whose bound
+    // happens to reach 1 on some seeds -- the last pick of a sample, a one-candidate
+    // site -- would shift every draw after it on exactly those seeds and not others.
+    // That is the same defect class as CPython's random.sample switching algorithms on
+    // population size, which random.hpp explains this implementation exists to avoid,
+    // and it was in this function until it was found by an adversarial review.
+    // One call, one word (plus rejections). See tests/test_substrate.cpp.
+    //
     // Rejection sampling against the largest exact multiple of `bound`. Unbiased and
     // deterministic; the modulo shortcut is neither.
     const std::uint64_t limit = std::numeric_limits<std::uint64_t>::max() - (std::numeric_limits<std::uint64_t>::max() % bound) - 1;
@@ -113,6 +114,19 @@ std::vector<std::size_t> Rng::sample_indices(std::size_t population_size, std::s
         out.push_back(value);
     }
     return out;
+}
+
+std::uint64_t child_seed64(std::uint64_t master, std::string_view domain, std::int64_t variation) {
+    std::string material = "fwg-stream-v1:";
+    material += std::to_string(master);
+    material += ':';
+    material.append(domain);
+    material += ':';
+    material += std::to_string(variation);
+    const auto digest = sha256(material);
+    std::uint64_t seed = 0;
+    for (int i = 0; i < 8; ++i) seed = (seed << 8) | digest[static_cast<std::size_t>(i)];
+    return seed;
 }
 
 std::uint32_t child_seed(std::uint32_t master, std::string_view domain, std::int64_t variation,

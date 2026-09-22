@@ -45,6 +45,12 @@ struct Config {
     int size = 129;      // cells along one edge of the sphere grid
     int phase = 16;      // how far through the sixteen stages to run
     WorldSize world_size = WorldSize::Small;
+    // The width that ACTUALLY built this world, in metres. world_size above is only
+    // the preset that was asked for; an explicit circumference_km or globe_radius
+    // bypasses it, and a document reporting the untouched preset would name a world
+    // that was never built. 0 means globe_radius was set directly.
+    double circumference_m = 0.0;
+    bool world_size_was_used = false;
 
     // --- planet geometry -----------------------------------------------------
     double globe_radius = 10000.0;   // design space

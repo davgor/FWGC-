@@ -78,15 +78,41 @@ public:
 
     std::uint64_t seed() const { return seed_; }
 
+    // Words drawn from the engine since construction.
+    //
+    // Exists so tests can assert STREAM DISCIPLINE directly instead of describing it
+    // in a comment: that one call costs one word plus rejections, that gauss does not
+    // cache a spare, that no distribution short-circuits on the value of its argument.
+    // Every defect this class is built to avoid is a defect in this number.
+    std::uint64_t draws() const { return draws_; }
+
 private:
     std::uint64_t seed_;
+    std::uint64_t draws_ = 0;
     std::uint64_t state_[4];
 };
 
-// The reference's child-seed derivation, kept because it is cheap, portable and
-// already baked into the meaning of a seed: first four bytes of
-// sha256("<namespace>:<master>:<domain>:<variation>"), big-endian.
+// ---------------------------------------------------------------------------
+// Seed derivation. There are exactly THREE derivations in this library and they
+// are all named here or in noise.hpp. That is not tidiness: the reference
+// implementation had four undeclared ones, only one of which any record described,
+// and a porter who implements three of four gets a world that is correct except
+// where it is not. If you need a fourth, name it here.
+//
+//   child_seed    32-bit, for a NOISE FIELD seed (perlin3 takes a uint32)
+//   child_seed64  64-bit, for an RNG STREAM seed (what Rng::child uses)
+//   octave_seed   the per-octave offset within one noise ladder (noise.hpp)
+// ---------------------------------------------------------------------------
+
+// First four bytes of sha256("<namespace>:<master>:<domain>:<variation>"), big-endian.
+// Kept from the reference because it is cheap, portable, and already the meaning of a
+// seed for the noise fields.
 std::uint32_t child_seed(std::uint32_t master, std::string_view domain, std::int64_t variation = 0,
                          std::string_view name_space = "tectonics-v1");
+
+// First eight bytes of the same digest under this library's own namespace. This is the
+// derivation behind Rng::child; it is exposed so a caller that wants the seed without
+// the engine uses the same one rather than inventing a fourth.
+std::uint64_t child_seed64(std::uint64_t master, std::string_view domain, std::int64_t variation = 0);
 
 }  // namespace fwg

@@ -14,6 +14,9 @@ void write_config(JsonWriter& json, const Config& cfg) {
     json.field("phase", cfg.phase);
     json.key("world_size");
     json.value(std::string_view(to_string(cfg.world_size)));
+    // Whether that preset is what built the world, and the width that did.
+    json.field("world_size_was_used", cfg.world_size_was_used);
+    json.field("circumference_m", cfg.circumference_m);
     json.field("globe_radius", cfg.globe_radius);
     json.field("world_scale", cfg.world_scale);
     json.field("tectonic_relief", cfg.tectonic_relief);
@@ -86,7 +89,11 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
 
     json.key("seeds");
     json.begin_object();
-    json.field("layout", static_cast<long long>(world.layout_seed));
+    // As a STRING, not a number. It is 64-bit, and JSON numbers are doubles to most
+    // readers -- a JavaScript consumer silently rounds anything above 2^53, and a
+    // static_cast<long long> here would go negative above 2^63.
+    json.key("layout");
+    json.value(std::string_view(std::to_string(world.layout_seed)));
     json.field("crust", static_cast<long long>(world.crust_seed));
     json.field("detail", static_cast<long long>(world.detail_seed));
     json.end_object();

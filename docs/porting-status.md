@@ -51,6 +51,38 @@ The `ocean_archipelagos` block is absent until then, rather than present and emp
 **`x ** 3` is `x*x*x`.** The reference compiles that expression to a libm `pow()` call whose
 last bit is a property of the C runtime. See [determinism.md](determinism.md) §1.
 
+## How much written spec survives for the unported stages
+
+The Python repository carried a conformance record — a written acceptance spec — for 26 of
+its ~140 modules. Measured across the 19 modules behind stages 6–16:
+
+| Has a record | Source is the only spec |
+|---|---|
+| `terrain_settlements` (settlement-records) | `terrain_history` |
+| `city_planner` (settlement-records) | `terrain_climate` |
+| `hamlet_planner` (settlement-records) | `terrain_biomes` |
+| `castle_planner` (settlement-records) | `terrain_ecology` |
+| `terrain_nests` (creature-placement) | `terrain_detail` |
+| `terrain_nomads` (nomads) | `terrain_leyline_history` |
+| `terrain_encounters` (encounter-index) | `terrain_astrology` |
+| `terrain_time` (time-advance) | `terrain_religion` |
+| | `terrain_beast_movement` |
+| | `terrain_water` |
+| | `terrain_society` |
+| | *(and the rest of the 106 uncovered Sim modules)* |
+
+**Seven of nineteen are specified. Twelve are not** — including the whole of stage 8's
+climate → biome → ecology chain and stage 9's leylines and astrology.
+
+This decides something about the order of work. For the twelve, **the Python source is the
+specification**, and it stops being readable the day that repository is deleted. Either
+those stages get ported while it still exists, or the modules get extracted and archived
+first. Nothing else in this repository will tell you what `terrain_climate` did.
+
+The eight surviving records total ~3,350 lines under `docs/conformance/` in that tree and
+are not copied here. Neither are `Contracts/` — the schemas, the block registry and the
+catalogues — which are not documentation but **data stages 8–16 need at runtime**.
+
 ## What each remaining stage will need before it can be written
 
 - **Stage 8** needs the biome taxonomy as data. In the reference this is spread across

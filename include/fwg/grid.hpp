@@ -12,6 +12,7 @@
 #pragma once
 
 #include <cstddef>
+#include <memory>
 #include <vector>
 
 #include "fwg/vec3.hpp"
@@ -52,6 +53,13 @@ private:
     std::vector<double> cells_;
 };
 
+// Area of ONE longitudinal wedge of the latitude band centred on row z.
+//
+// Shared deliberately. This was written out twice -- once to weight the erosion
+// node graph, once to weight the land-area integral -- and two copies of a formula
+// that must agree is how the two silently stop agreeing.
+double band_wedge_area(int z, int n, double radius);
+
 // Bilinear sample of a height grid at an arbitrary point on the sphere.
 double sample(const Grid& h, const Vec3& p);
 
@@ -80,6 +88,11 @@ struct SphereGrid {
 };
 
 // Built once per (n, radius); the result is immutable and shared.
-const SphereGrid& sphere_grid(int n, double radius);
+//
+// Returns a shared_ptr, NOT a reference. The cache evicts, so a reference handed out
+// here dangles as soon as two other grids are requested -- which no stage does today
+// and several of stages 6-16 will. The caller holding ownership makes that impossible
+// rather than merely unlikely.
+std::shared_ptr<const SphereGrid> sphere_grid(int n, double radius);
 
 }  // namespace fwg
