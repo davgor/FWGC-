@@ -205,8 +205,58 @@ def render_options_header():
     return "\n".join(lines) + "\n"
 
 
+def load_schools():
+    doc = json.loads((DATA / "magic-schools.json").read_text(encoding="utf-8"))
+    if doc.get("schema_version") != 1:
+        raise SystemExit("magic-schools.json must declare schema version 1")
+    rows = doc["schools"]
+    names = [r["name"] for r in rows]
+    if len(set(names)) != len(names):
+        raise SystemExit("magic-schools.json has a duplicate school name")
+    # Position is a contract, and hidden schools are appended. A hidden school before a
+    # known one would renumber dominant_magic in every world ever saved.
+    seen_hidden = False
+    for r in rows:
+        if r["hidden"]:
+            seen_hidden = True
+        elif seen_hidden:
+            raise SystemExit("a known school follows a hidden one: hidden schools must be appended")
+        if len(r["color"]) != 3:
+            raise SystemExit("school %s needs an RGB triple" % r["name"])
+    if not any(not r["hidden"] for r in rows):
+        raise SystemExit("magic-schools.json hid every school")
+    return rows
+
+
+def render_schools():
+    rows = load_schools()
+    lines = [BANNER.format(source="magic-schools.json")]
+    lines.append('#include "fwg/magic.hpp"\n')
+    lines.append("namespace fwg {\nnamespace {\n")
+    lines.append("// ORDER IS A CONTRACT. dominant_magic exports an index into this table.")
+    lines.append("constexpr MagicSchool kSchools[] = {")
+    for r in rows:
+        lines.append("    {%s, %s, %s, {%d, %d, %d}, %s},"
+                     % (cpp_string(r["name"]), cpp_string(r["group"]), cpp_string(r["descriptors"]),
+                        r["color"][0], r["color"][1], r["color"][2],
+                        "true" if r["hidden"] else "false"))
+    lines.append("};\n")
+    lines.append("}  // namespace\n")
+    lines.append("std::span<const MagicSchool> magic_school_table() { return kSchools; }\n")
+    lines.append("""int magic_school_index(std::string_view name) {
+    for (std::size_t i = 0; i < std::size(kSchools); ++i) {
+        if (kSchools[i].name == name) return static_cast<int>(i);
+    }
+    return -1;
+}
+""")
+    lines.append("}  // namespace fwg")
+    return "\n".join(lines) + "\n"
+
+
 TARGETS = {
     OUT / "content_biomes.cpp": render_biomes,
+    OUT / "content_schools.cpp": render_schools,
     OUT / "world_options.cpp": render_world_options,
     pathlib.Path(__file__).resolve().parent.parent / "include" / "fwg" / "option_ids.hpp": render_options_header,
 }

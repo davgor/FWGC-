@@ -83,6 +83,9 @@ struct Config {
     int erosion_passes = 6;
     double erosion_strength = 0.5;
 
+    // --- magic ---------------------------------------------------------------
+    int magic_enabled = 1;  // 0 leaves every ley network unmanifested
+
     // --- climate -------------------------------------------------------------
     double wind_bearing = 90.0;      // degrees clockwise from north
     int rain_passes = 48;            // fixed iteration count; NOT run to convergence
@@ -143,6 +146,7 @@ struct Request {
     std::optional<int> erosion_passes;
     std::optional<double> erosion_strength;
 
+    std::optional<int> magic_enabled;
     std::optional<double> wind_bearing;
     std::optional<int> rain_passes;
     std::optional<double> rain_strength;

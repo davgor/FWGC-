@@ -4,8 +4,7 @@ The generator is a ladder of sixteen stages. Each stage reads the world the prev
 built and writes new blocks into it. A world reports the stage it actually reached in
 `completed_stage`, and a request above that adds a warning saying so.
 
-**Reached: stage 5 of 16**, including its hydrology, plus all of stage 8 except the
-leyline-dependent half of its regions.
+**Reached: stage 5 of 16**, plus all of stage 8 and the leyline half of stage 9.
 
 `completed_stage` reports the highest CONTIGUOUS stage, so it stays at 5 while stages 6
 and 7 are missing. The `systems` list in the document says what actually ran. Climate is
@@ -31,7 +30,8 @@ output is deliberately not matched; see [determinism.md](determinism.md).
 | 8 | Terrain labels: temperature, moisture, biome, landform, features | `terrain_biomes` | **done** |
 | 8 | Ecology: habitats, cold relabel, islands, seasons, regions | `terrain_ecology` | **done** |
 | 8 | Continuous height field and tile export | `terrain_detail` | **done** |
-| 9 | Leyline networks, astrology | `terrain_leyline_history`, `terrain_astrology` | todo |
+| 9 | Leyline networks: eight schools, fields, dominance | `terrain_leyline_history`, `terrain_magic` | **done** |
+| 9 | Astrology and the moon | `terrain_astrology` | todo |
 | 10 | Biome variants, civilizations | `terrain_history`, `terrain_settlements` | todo |
 | 11 | Civilizations | `terrain_settlements` | todo |
 | 12 | Civilizations | `terrain_settlements` | todo |
@@ -49,12 +49,6 @@ stage 5 and is placed there.
 non-test lines — about 2.9%. The owner has ruled for 1:1 functional parity, so the
 remaining 134 modules are all in scope. Numerics stay free: worlds need not match, systems
 must.
-
-**Ten of the thirteen magical regions cannot manifest yet.** Their eligibility reads the
-`ley_*` layers, which arrive at stage 9. Until then only `pirate`, `red_sands`, `dead_sea`
-and `steampunk` — the four that do not depend on magic — can appear. That is the
-reference's own behaviour when leylines are absent, not a stub, and the `regions` block
-reports `insufficient suitable habitat` for the rest rather than omitting them.
 
 ## Deliberate departures from the reference
 
@@ -110,6 +104,18 @@ The eight surviving records total ~3,350 lines under `docs/conformance/` in that
 are not copied here. Neither are `Contracts/` — the schemas, the block registry and the
 catalogues — which are not documentation but **data stages 8–16 need at runtime**.
 
+## The rest of the pipeline is specified
+
+[docs/port-specs/](port-specs/) holds an implementable specification for every remaining
+group — twenty-two of them, extracted from the Python before it was retired and audited
+against its source by a second reader. That was the urgent work: twelve of the nineteen
+modules behind stages 6–16 had no written specification at all, so the source *was* the
+spec and it stops being readable the day that tree goes.
+
+The specifications put the remaining implementation at roughly **50,000 lines of C++**,
+excluding tests. The audits found 46 blocking gaps in the first drafts, all recorded with
+their missing content in each file's addenda.
+
 ## What each remaining stage will need before it can be written
 
 - **Content data now has a pipeline.** `data/*.json` is the source of truth;
@@ -121,6 +127,14 @@ catalogues — which are not documentation but **data stages 8–16 need at runt
   same applies: they are content, and content belongs in a file with a version on it.
 - **Stage 16** is by far the largest — nine subsystems, and in the reference roughly ten
   thousand lines. It should be sliced, not attempted whole.
-- **Stages 14–15** need the age model. An age is 5000 years; an age turn renumbers most ids
+- **Hidden schools and `magic_risk_*` are deliberately absent.** The four hidden magic
+schools are in the taxonomy and their fields are published, but generation can never raise
+one — their occurrence is locked to zero, and only the corruption API places a node in one.
+The mechanics that run *once a hidden network has a node* (rot spreading over the node
+graph, void biting into every other school, blood and eldritch feeding on cities and nests)
+are therefore unreachable at generation and are not ported; they belong with the corruption
+API. Likewise `magic_risk_<people>`, which needs the civilization registry.
+
+**Stages 14–15** need the age model. An age is 5000 years; an age turn renumbers most ids
   in the world, so anything that keys on a settlement or plot id across an age boundary is
   wrong. Key on the terrain node.

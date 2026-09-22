@@ -36,6 +36,7 @@ void write_config(JsonWriter& json, const Config& cfg) {
     json.field("mountain_abundance", cfg.mountain_abundance);
     json.field("erosion_passes", cfg.erosion_passes);
     json.field("erosion_strength", cfg.erosion_strength);
+    json.field("magic_enabled", cfg.magic_enabled);
     json.field("wind_bearing", cfg.wind_bearing);
     json.field("rain_passes", cfg.rain_passes);
     json.field("rain_strength", cfg.rain_strength);
@@ -282,6 +283,93 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
         json.field("method", world.terrain.method);
         json.field("icons", std::string_view(
             "Sparse representative regions and prominent ridges; not unique geological objects."));
+        json.end_object();
+    }
+
+    if (world.has_magic) {
+        json.key("magic");
+        json.begin_object();
+        json.field("version", world.magic.version);
+        json.field("enabled", world.magic.enabled);
+        json.field("mutation_threshold", world.magic.mutation_threshold);
+        json.field("dominance_margin", world.magic.dominance_margin);
+        json.key("school_order");
+        json.begin_array();
+        for (const MagicSchool& s : magic_school_table()) json.value(s.name);
+        json.end_array();
+        json.key("networks");
+        json.begin_object();
+        for (const MagicSchool& school : magic_school_table()) {
+            const LeyNetwork& net = world.magic.networks.at(std::string(school.name));
+            json.key(net.name);
+            json.begin_object();
+            json.field("group", net.group);
+            json.field("descriptors", net.descriptors);
+            json.field("seed", static_cast<long long>(net.seed));
+            json.field("strength", net.strength);
+            json.field("width_m", net.width_m);
+            json.field("instability", net.instability);
+            json.field("manifested", net.manifested);
+            json.field("hidden", school.hidden);
+            json.key("color");
+            json.begin_array();
+            for (const int c : net.color) json.value(c);
+            json.end_array();
+            json.key("nodes");
+            json.begin_array();
+            for (const LeyNode& node : net.nodes) {
+                json.begin_object();
+                json.field("id", node.id);
+                json.field("intensity", node.intensity);
+                json.key("direction");
+                json.begin_array();
+                json.value(node.direction.x);
+                json.value(node.direction.y);
+                json.value(node.direction.z);
+                json.end_array();
+                json.end_object();
+            }
+            json.end_array();
+            json.key("edges");
+            json.begin_array();
+            for (const LeyEdge& e : net.edges) {
+                json.begin_object();
+                json.field("id", e.id);
+                json.field("from", e.from);
+                json.field("to", e.to);
+                json.field("intensity", e.intensity);
+                json.end_object();
+            }
+            json.end_array();
+            if (net.manifested) {
+                json.key("distribution");
+                json.begin_object();
+                json.field("version", net.distribution.version);
+                json.field("model", std::string_view("landscape_alignments"));
+                json.field("clusters", net.distribution.clusters);
+                json.field("spread", net.distribution.spread);
+                json.field("outlier_fraction", net.distribution.outlier_fraction);
+                json.field("extra_link_probability", net.distribution.extra_link_probability);
+                json.key("aligned_nodes");
+                json.begin_array();
+                for (const int a : net.distribution.aligned_nodes) json.value(a);
+                json.end_array();
+                json.end_object();
+            }
+            json.end_object();
+        }
+        json.end_object();
+        json.key("compatibility_fields");
+        json.begin_object();
+        json.field("ley_holy", std::string_view("radiant"));
+        json.field("ley_primordial", std::string_view("maximum of fire, water, earth, air"));
+        json.end_object();
+        json.field("method", std::string_view(
+            "Eight known schools as independently seeded sacred alignments with uneven clusters, scattered "
+            "outliers and variable connectivity, plus four hidden schools that generation never raises: their "
+            "occurrence is locked at zero and only the corruption API places a node in one. Node and line "
+            "intensities are editable and overlapping raw potency is preserved. Mutation requires potency at "
+            "or above the threshold and a lead over the next strongest school of at least the margin."));
         json.end_object();
     }
 

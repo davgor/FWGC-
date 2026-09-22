@@ -18,6 +18,7 @@
 
 #include "fwg/config.hpp"
 #include "fwg/grid.hpp"
+#include "fwg/magic.hpp"
 #include "fwg/tectonics.hpp"
 #include "fwg/biomes.hpp"
 #include "fwg/climate.hpp"
@@ -91,6 +92,9 @@ struct World {
 
     bool has_ecology = false;
     EcologyReport ecology;
+
+    bool has_magic = false;
+    MagicReport magic;
 
     // The continuous height field's definition. Present from stage 8; an engine builds
     // a HeightField from the world and samples terrain anywhere.

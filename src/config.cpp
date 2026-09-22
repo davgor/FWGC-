@@ -76,6 +76,7 @@ void Config::validate() const {
     require_int_range("octaves", octaves, 1, 12);
     require_int_range("erosion_passes", erosion_passes, 0, 40);
     require_int_range("rain_passes", rain_passes, 1, 128);
+    require_int_range("magic_enabled", magic_enabled, 0, 1);
     require_int_range("layout_variation", layout_variation, 0, 1000000);
     require_int_range("detail_variation", detail_variation, 0, 1000000);
 
@@ -135,6 +136,7 @@ Config resolve(const Request& request) {
     cfg.mountain_abundance = pick(request.mountain_abundance, cfg.mountain_abundance);
     cfg.erosion_passes = pick(request.erosion_passes, cfg.erosion_passes);
     cfg.erosion_strength = pick(request.erosion_strength, cfg.erosion_strength);
+    cfg.magic_enabled = pick(request.magic_enabled, cfg.magic_enabled);
     cfg.wind_bearing = pick(request.wind_bearing, cfg.wind_bearing);
     cfg.rain_passes = pick(request.rain_passes, cfg.rain_passes);
     cfg.rain_strength = pick(request.rain_strength, cfg.rain_strength);

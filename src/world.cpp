@@ -339,6 +339,12 @@ World generate(const Config& cfg) {
             const auto labels_started = Clock::now();
             add_terrain_labels(world);
             world.timing_ms["terrain_labels"] = elapsed_ms(labels_started);
+            // Leylines first: ten of the thirteen magical regions read these layers,
+            // and the ecology pass is where those regions are decided.
+            const auto ley_started = Clock::now();
+            generate_networks(world);
+            world.timing_ms["leylines"] = elapsed_ms(ley_started);
+
             const auto ecology_started = Clock::now();
             add_environment(world);
             world.timing_ms["ecology"] = elapsed_ms(ecology_started);
