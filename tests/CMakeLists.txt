@@ -12,7 +12,9 @@
   test_habitation.cpp
   test_founding.cpp
   test_history.cpp
+  test_humans.cpp
   test_magic.cpp
+  test_quests.cpp
   test_religion.cpp
   test_roads.cpp
   test_routing.cpp
@@ -22,8 +24,10 @@
   test_nomads.cpp
   test_options.cpp
   test_settlements_stage.cpp
+  test_society.cpp
   test_stages.cpp
   test_substrate.cpp
+  test_time.cpp
   test_villains.cpp
   test_water.cpp
   test_world.cpp

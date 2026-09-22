@@ -30,6 +30,7 @@
   habitation.cpp
   heritage.cpp
   history.cpp
+  humans.cpp
   json.cpp
   magic.cpp
   measure.cpp
@@ -40,13 +41,16 @@
   random.cpp
   roads.cpp
   routing.cpp
+  quests.cpp
   religion.cpp
   scale.cpp
   serialize.cpp
   settlement.cpp
   settlements_stage.cpp
   sha256.cpp
+  society.cpp
   tectonics.cpp
+  time.cpp
   villains.cpp
   water.cpp
   world.cpp
