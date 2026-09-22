@@ -433,10 +433,67 @@ def render_civilizations():
     return "\n".join(lines) + "\n"
 
 
+def render_variants():
+    biomes, names = load_biomes()
+    schools = load_schools()
+    known = [s for s in schools if not s["hidden"]]
+    hidden = [s for s in schools if s["hidden"]]
+
+    rows = []
+    # Two passes, deliberately: the known block keeps its historical positions and the
+    # hidden block is appended. A single nested loop would interleave them and renumber
+    # every variant in every saved world.
+    for block in (known, hidden):
+        for i, b in enumerate(biomes):
+            for s in block:
+                rows.append({
+                    "id": "%s.%s" % (b["core"], s["name"]),
+                    "core": b["core"],
+                    "core_biome_id": b["id"],
+                    "school": s["name"],
+                    "group": s["group"],
+                    "name": names[s["name"]][i],
+                    "asset_id": "terrain.mutation.%s.%s" % (b["core"], s["name"]),
+                    "color": s["color"],
+                    "hidden": s["hidden"],
+                })
+
+    expected = len(biomes) * len(schools)
+    if len(rows) != expected:
+        raise SystemExit("variant catalogue is %d rows, expected %d" % (len(rows), expected))
+    if len({r["id"] for r in rows}) != len(rows):
+        raise SystemExit("variant catalogue has a duplicate id")
+
+    lines = [BANNER.format(source="biomes.json and magic-schools.json")]
+    lines.append('#include "fwg/content.hpp"\n')
+    lines.append("namespace fwg {\nnamespace {\n")
+    lines.append("// POSITION IS THE CONTRACT -- biome_variant is a flat index into this.")
+    lines.append("constexpr BiomeVariant kVariants[] = {")
+    for r in rows:
+        lines.append("    {%s, %s, %d, %s, %s, %s, %s, {%d, %d, %d}, %s},"
+                     % (cpp_string(r["id"]), cpp_string(r["core"]), r["core_biome_id"],
+                        cpp_string(r["school"]), cpp_string(r["group"]), cpp_string(r["name"]),
+                        cpp_string(r["asset_id"]), r["color"][0], r["color"][1], r["color"][2],
+                        "true" if r["hidden"] else "false"))
+    lines.append("};\n")
+    lines.append("}  // namespace\n")
+    lines.append("std::span<const BiomeVariant> biome_variant_catalogue() { return kVariants; }\n")
+    lines.append("""int biome_variant_index(std::string_view core, std::string_view school) {
+    for (std::size_t i = 0; i < std::size(kVariants); ++i) {
+        if (kVariants[i].core == core && kVariants[i].magic_school == school) return static_cast<int>(i);
+    }
+    return -1;
+}
+""")
+    lines.append("}  // namespace fwg")
+    return "\n".join(lines) + "\n"
+
+
 TARGETS = {
     OUT / "content_biomes.cpp": render_biomes,
     OUT / "content_schools.cpp": render_schools,
     OUT / "content_civilizations.cpp": render_civilizations,
+    OUT / "content_variants.cpp": render_variants,
     OUT / "world_options.cpp": render_world_options,
     pathlib.Path(__file__).resolve().parent.parent / "include" / "fwg" / "option_ids.hpp": render_options_header,
 }

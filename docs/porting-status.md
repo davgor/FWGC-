@@ -37,7 +37,8 @@ output is deliberately not matched; see [determinism.md](determinism.md).
 | 9 | Leyline networks: eight schools, fields, dominance | `terrain_leyline_history`, `terrain_magic` | **done** |
 | 9 | Astrology: the moon, its tide and the almanac | `terrain_astrology` | **done** |
 | — | Civilization registry: profiles, habitats, eligibility | `civilization_registry`, `terrain_profiles`, `terrain_civilizations` | **done** |
-| 10 | Biome variants, civilizations | `terrain_history`, `terrain_settlements` | todo |
+| 10 | Biome variants: the magical state of the ground | `terrain_history.add_biome_variants` | **done** |
+| 10 | Civilizations and settlements | `terrain_settlements` | todo |
 | 11 | Civilizations | `terrain_settlements` | todo |
 | 12 | Civilizations | `terrain_settlements` | todo |
 | 13 | Beast nests, threat, religion | `terrain_nests`, `terrain_religion` | todo |

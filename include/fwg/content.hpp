@@ -31,6 +31,31 @@ std::span<const NaturalBiome> natural_biomes();
 // By identity, not position. Returns nullptr for an unknown id.
 const NaturalBiome* natural_biome(int id);
 
+// One entry of the magical biome catalogue: a natural core crossed with a school.
+//
+// POSITION IS THE CONTRACT. `biome_variant` stores a flat index into this list, so the
+// known-school block keeps the positions it has always had and hidden schools take the
+// positions after it. That is why the catalogue is built in two passes rather than as
+// one nested loop — another column anywhere would renumber every variant in every
+// saved world.
+struct BiomeVariant {
+    std::string_view id;          // "<core>.<school>"
+    std::string_view core;        // the natural biome's machine name
+    int core_biome_id;            // its identity, not its index
+    std::string_view magic_school;
+    std::string_view group;       // the school's group
+    std::string_view name;        // the school's name for this ground
+    std::string_view asset_id;    // "terrain.mutation.<core>.<school>"
+    int color[3];                 // the school's colour
+    bool hidden;                  // generation never produces one of these
+};
+
+// All cores crossed with all schools: the known block first, then the hidden one.
+std::span<const BiomeVariant> biome_variant_catalogue();
+
+// Index into that catalogue, or -1. This is the value `biome_variant` stores.
+int biome_variant_index(std::string_view core, std::string_view school);
+
 // Magic school machine names, in the order the variant table is indexed by.
 std::span<const std::string_view> magic_schools();
 

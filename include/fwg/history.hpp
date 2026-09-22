@@ -55,6 +55,14 @@ AbandonedWaterways abandoned_waterways(const SurfaceSnapshot& old, const World& 
 // Stage 7. Incises the abandoned beds, then re-routes water over the new surface.
 void carve_relics(World& world, const SurfaceSnapshot& old);
 
+// Stage 10's first half: mark every cell with the exact magical state of its ground.
+//
+// `biome_variant` is a flat index into the 156-entry magical catalogue, or -1 where no
+// school leads clearly enough to have claimed the ground. It is an INDEX, while `biome`
+// and `natural_biome` are catalogue IDENTITIES -- confusing the two silently reads a
+// different biome, which is why the world document states the contract out loud.
+void add_biome_variants(World& world);
+
 // How far the plates turn in the epoch. Dimensionless: angular speed times this is an
 // angle, and the speeds are not calibrated geodynamics.
 inline constexpr double kEpochDuration = 0.65;

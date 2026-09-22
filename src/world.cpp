@@ -365,6 +365,12 @@ World generate(const Config& cfg) {
             add_environment(world);
             world.timing_ms["ecology"] = elapsed_ms(ecology_started);
 
+            // Stage 10's first half. After ecology, because it reads the cold-relabelled
+            // natural biome, and after the leylines, because it reads their fields.
+            const auto variants_started = Clock::now();
+            add_biome_variants(world);
+            world.timing_ms["biome_variants"] = elapsed_ms(variants_started);
+
             // The continuous field is a definition, not a computation: it is derived
             // from the seed and evaluated on demand by whoever samples it.
             world.terrain_detail = make_terrain_detail(cfg.seed);

@@ -5,7 +5,11 @@
 #include <cmath>
 #include <string>
 
+#include <set>
+
+#include "fwg/content.hpp"
 #include "fwg/history.hpp"
+#include "fwg/magic.hpp"
 #include "fwg/world.hpp"
 
 using namespace fwg;
@@ -209,4 +213,96 @@ TEST(the_ladder_runs_contiguously_to_nine) {
     check::is_true(position("relic_carving") < position("climate"), "the relics before climate");
     check::is_true(position("leylines") < position("ecology"), "leylines before the regions read them");
     check::is_true(position("astrology") < position("ecology"), "the sky before ecology");
+}
+
+
+// --- stage 10: the magical state of the ground ---------------------------
+
+TEST(the_variant_catalogue_is_the_full_cross_product_in_contract_order) {
+    const auto variants = biome_variant_catalogue();
+    const auto biomes = natural_biomes();
+    const auto schools = magic_school_table();
+    check::equal(variants.size(), biomes.size() * schools.size(), "every core crossed with every school");
+
+    // The known block comes first and the hidden block is appended, so a generated
+    // world's indices all fall below the hidden boundary. A single nested loop would
+    // interleave them and renumber every variant in every saved world.
+    const std::size_t known = std::count_if(schools.begin(), schools.end(),
+                                            [](const MagicSchool& s) { return !s.hidden; });
+    const std::size_t boundary = biomes.size() * known;
+    for (std::size_t i = 0; i < variants.size(); ++i) {
+        check::equal(variants[i].hidden, i >= boundary,
+                     "variant " + std::to_string(i) + " on the right side of the boundary");
+    }
+
+    std::set<std::string_view> ids;
+    for (const BiomeVariant& v : variants) {
+        check::is_true(ids.insert(v.id).second, std::string(v.id) + " to be unique");
+        check::is_true(natural_biome(v.core_biome_id) != nullptr, "a real core biome");
+        check::is_true(!v.name.empty() && !v.asset_id.empty(), std::string(v.id) + " to be named");
+        check::equal(biome_variant_index(v.core, v.magic_school), static_cast<int>(&v - variants.data()),
+                     "lookup to agree with position");
+    }
+    check::equal(biome_variant_index("nowhere", "weave"), -1, "an unknown core");
+    check::equal(biome_variant_index("ocean", "not_a_school"), -1, "an unknown school");
+}
+
+TEST(biome_variant_is_an_index_and_never_names_hidden_ground) {
+    const World world = build(65, 9);
+    const Grid& variant = world.layers.at("biome_variant");
+    const auto variants = biome_variant_catalogue();
+
+    int mutated = 0;
+    int unowned = 0;
+    for (int z = 0; z < variant.size(); ++z) {
+        for (int x = 0; x < variant.size() - 1; ++x) {
+            const int index = static_cast<int>(variant.at(x, z));
+            if (index < 0) {
+                check::equal(index, -1, "unowned ground is exactly -1");
+                ++unowned;
+                continue;
+            }
+            check::is_true(index < static_cast<int>(variants.size()), "an index into the catalogue");
+            // Generation can never raise a hidden school, so it can never mark ground
+            // as held by one. If this fails, either the occurrence lock has slipped or
+            // the catalogue's two blocks have been interleaved.
+            check::is_true(!variants[static_cast<std::size_t>(index)].hidden,
+                           "generation never produces hidden ground");
+            ++mutated;
+        }
+    }
+    check::is_true(mutated > 0, "a magical world to have some mutated ground");
+    check::is_true(unowned > mutated, "most ground to belong to nobody, as dominance requires");
+}
+
+TEST(a_variant_names_the_core_the_cell_actually_has) {
+    const World world = build(33, 9);
+    const Grid& variant = world.layers.at("biome_variant");
+    const Grid& natural = world.layers.at("natural_biome");
+    const Grid& biome = world.layers.at("biome");
+    const auto variants = biome_variant_catalogue();
+
+    for (int z = 0; z < variant.size(); ++z) {
+        for (int x = 0; x < variant.size() - 1; ++x) {
+            // biome follows the natural ground; the variant layer carries the magic.
+            check::equal(biome.at(x, z), natural.at(x, z), "biome to follow natural_biome");
+            const int index = static_cast<int>(variant.at(x, z));
+            if (index < 0) continue;
+            check::equal(variants[static_cast<std::size_t>(index)].core_biome_id,
+                         static_cast<int>(natural.at(x, z)),
+                         "a variant to name the core its cell actually has");
+        }
+    }
+}
+
+TEST(no_magic_means_no_variants) {
+    Request r;
+    r.seed = 42;
+    r.size = 33;
+    r.phase = 9;
+    r.magic_enabled = 0;
+    const World world = generate(resolve(r));
+    for (const double v : world.layers.at("biome_variant").cells()) {
+        check::equal(v, -1.0, "unmagical ground belongs to no school");
+    }
 }

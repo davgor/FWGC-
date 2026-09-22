@@ -4,6 +4,8 @@
 #include <cmath>
 #include <vector>
 
+#include "fwg/content.hpp"
+#include "fwg/magic.hpp"
 #include "fwg/measure.hpp"
 #include "fwg/water.hpp"
 #include "fwg/world.hpp"
@@ -139,6 +141,45 @@ SurfaceSnapshot tectonic_transition(World& world) {
         "50-million-year artistic epoch: rotate the original plate centres, backtrace crust, blend transported "
         "relief with new boundary uplift. Angular speeds are dimensionless, not calibrated geodynamics.");
     return old;
+}
+
+void add_biome_variants(World& world) {
+    const int n = world.config.size;
+    const Grid& natural = world.layers.at("natural_biome");
+    const auto schools = magic_school_table();
+
+    // Hoisted: this runs once per cell per school, and a map lookup on a built string
+    // key inside that loop is 263k string builds at size 513.
+    std::vector<const Grid*> ley;
+    ley.reserve(schools.size());
+    for (const MagicSchool& s : schools) ley.push_back(&world.layers.at("ley_" + std::string(s.name)));
+
+    Grid variant(n);
+    std::vector<double> potency(schools.size());
+    for (int z = 0; z < n; ++z) {
+        for (int x = 0; x < n; ++x) {
+            for (std::size_t s = 0; s < schools.size(); ++s) potency[s] = ley[s]->at(x, z);
+            const int school = dominant_school(potency, world.magic.mutation_threshold,
+                                               world.magic.dominance_margin);
+            if (school < 0) {
+                variant.at(x, z) = -1.0;  // nobody holds this ground
+                continue;
+            }
+            const NaturalBiome* core = natural_biome(static_cast<int>(natural.at(x, z)));
+            variant.at(x, z) = core ? biome_variant_index(core->core, schools[static_cast<std::size_t>(school)].name)
+                                    : -1.0;
+        }
+    }
+
+    world.layers["biome_variant"] = variant;
+    // `biome` follows the natural ground: the variant layer carries the magical state,
+    // and duplicating it into `biome` would make two sources of truth disagree.
+    world.layers["biome"] = natural;
+    world.systems.push_back("biome_variants");
+    world.warnings.push_back(
+        "biome and natural_biome are natural catalogue IDs, never array offsets; biome_variant is a magical "
+        "catalogue INDEX or -1. Food and habitat rules use the natural core and the explicit variant id, with "
+        "independent school risk.");
 }
 
 AbandonedWaterways abandoned_waterways(const SurfaceSnapshot& old, const World& world) {
