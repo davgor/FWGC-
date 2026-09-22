@@ -29,7 +29,7 @@ usage:
 options:
   --seed N              master seed (default 42)
   --size N              grid cells along one edge, odd, 3..1025 (default 129)
-  --phase N             stop after stage N, 1..16 (default 5; see below)
+  --phase N             stop after stage N, 1..16 (default 11; see below)
   --world-size NAME     small | medium | large (default small)
   --circumference-km X  authored world width; overrides --world-size
   --relief-m X          authored relief budget (default 1667)
@@ -37,6 +37,11 @@ options:
   --erosion-passes N    0..40 (default 6)
   --erosion-strength X  0..1 (default 0.5)
   --sea-level X         design-space datum (default 0)
+  --magic-enabled N     0 leaves every ley network unmanifested (default 1)
+  --settlement-count N  maximum surface cities; 0 for an empty world
+  --population-profile  a civilization id, or "mixed" for all of them (default)
+  --option NAME=VALUE   set one of the 164 world options by its published name;
+                        repeatable. `fwg registry` lists them.
   -o, --out PATH        write JSON here (default stdout)
   --compact             one-line JSON
   --timings             include wall-clock timings in the document; off by
@@ -45,15 +50,16 @@ options:
   -h, --help            this text
 
 the sixteen-stage ladder, and where this port has reached:
-  1  plate layout           done     9  networks, astrology     todo
-  2  hypsometric surface    done    10  biome variants, civs    todo
-  3  surface detail         done    11  civilizations           todo
-  4  erosion                done    12  civilizations           todo
-  5  land mask and area     done    13  nests, religion         todo
-  6  tectonic transition    todo    14  age transition          todo
-  7  relic carving          todo    15  age transition          todo
-  8  climate, biomes        todo    16  settlements, heroes     todo
-A --phase above 5 runs what exists, reports it in completed_stage, and says so
+  1  plate layout           done     9  leylines, astrology,    done
+  2  hypsometric surface    done        ecology, biome variants
+  3  surface detail         done    10  founding: cities        done
+  4  erosion                done    11  roads                   done
+  5  land mask, water       done    12  populated regions       todo
+  6  tectonic transition    done    13  nests, beasts, religion todo
+  7  relic carving          done    14  age transition          todo
+  8  climate, biomes        done    15  age transition          todo
+                                    16  heroes, NPCs, quests    todo
+A --phase above 11 runs what exists, reports it in completed_stage, and says so
 in warnings. See docs/porting-status.md.
 )";
 }
@@ -261,6 +267,23 @@ int main(int argc, char** argv) {
             if (!parsed) fail("--world-size must be small, medium or large");
             request.world_size = *parsed;
         }
+        else if (arg == "--magic-enabled") request.magic_enabled = static_cast<int>(need_int(arg, 0, 1));
+        else if (arg == "--settlement-count") request.settlement_count = static_cast<int>(need_int(arg, 0, 100000));
+        else if (arg == "--population-profile") request.population_profile = std::string(next(i, arg));
+        else if (arg == "--option") {
+            // NAME=VALUE, repeatable. The whole 164-knob surface from the command line,
+            // rather than a flag per knob; resolve() refuses an unknown name or an
+            // out-of-range value, so a typo is an error and never a default-shaped world.
+            const std::string_view pair = next(i, arg);
+            const auto eq = pair.find('=');
+            if (eq == std::string_view::npos) fail("--option needs NAME=VALUE, got '" + std::string(pair) + "'");
+            const std::string name(pair.substr(0, eq));
+            try {
+                request.options[name] = std::stod(std::string(pair.substr(eq + 1)));
+            } catch (const std::exception&) {
+                fail("--option " + name + " needs a number, got '" + std::string(pair.substr(eq + 1)) + "'");
+            }
+        }
         else if (arg == "-o" || arg == "--out") out_path = std::string(next(i, arg));
         else if (arg == "--compact") pretty = false;
         else if (arg == "--timings") timings = true;
@@ -269,7 +292,10 @@ int main(int argc, char** argv) {
         else fail("unknown option '" + std::string(arg) + "'");
     }
 
-    if (!request.phase) request.phase = 5;
+    // The default is the highest stage that actually runs, so `fwg generate` with no
+    // arguments produces the most complete world this port can make rather than the
+    // most complete one it could make when the flag was last touched.
+    if (!request.phase) request.phase = fwg::kHighestImplementedStage;
 
     try {
         const fwg::Config cfg = fwg::resolve(request);
