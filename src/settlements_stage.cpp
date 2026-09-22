@@ -7,6 +7,7 @@
 #include <set>
 
 #include "fwg/entities.hpp"
+#include "fwg/heritage.hpp"
 #include "fwg/habitation.hpp"
 #include "fwg/routing.hpp"
 #include "fwg/world.hpp"
@@ -146,6 +147,17 @@ void add_settlements(World& world) {
     const FreshwaterAccess fresh = freshwater_access(world, grid);
     const std::vector<double> flood = flood_risk(world, grid, fresh);
 
+    // Each people names its own cities, in its own tongue. Resolving a heritage is not
+    // cheap and every city of a people shares one, so resolve once per people rather
+    // than once per city.
+    const heritage::Lexicon& lexicon = heritage::lexicon();
+    std::map<std::string, heritage::Resolved> heritages;
+    for (const SpeciesAssessment& a : assessed) {
+        const EntityRules* rules = entity_rule(a.id);
+        if (rules == nullptr) continue;
+        heritages.emplace(a.id, heritage::resolve(a.id, rules->parent_race_id));
+    }
+
     // Population is split per people, in founding order, so the oldest city carries the
     // odd resident. Count each people's cities first: the split needs the total.
     std::map<std::string, long long> city_counts;
@@ -165,6 +177,17 @@ void add_settlements(World& world) {
         site.z = z;
         site.population_profile = s.population_profile;
         site.parent_race_id = s.parent_race_id;
+
+        // Named on its NODE rather than its position in the list, so a city keeps its
+        // name when an age advance renumbers the settlements around it.
+        const auto heritage_it = heritages.find(s.population_profile);
+        if (heritage_it != heritages.end()) {
+            Rng naming = Rng::child(cfg.seed, "settlement-name-" + std::to_string(s.node));
+            auto [name, gloss] = heritage::settlement_name(heritage_it->second, lexicon, naming);
+            site.name = std::move(name);
+            site.name_gloss = std::move(gloss);
+        }
+
         site.city_class = classes[i];
         site.classification_reason =
             classes[i] == CityClass::Capital

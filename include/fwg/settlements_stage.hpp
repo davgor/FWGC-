@@ -22,6 +22,11 @@ struct SettlementSite {
     int node = 0;
     int x = 0;
     int z = 0;
+    // What its own people call it, and what the name means in their tongue. Drawn from
+    // that people's heritage lexicon, so a dwarven city is named in dwarvish and the
+    // gloss says why.
+    std::string name;
+    std::string name_gloss;
     std::string population_profile;  // the civilization
     std::string parent_race_id;
     CityClass city_class = CityClass::Small;

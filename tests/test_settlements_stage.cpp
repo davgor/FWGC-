@@ -182,3 +182,48 @@ TEST(the_world_document_carries_its_cities_and_roads) {
                        "no non-finite literal where a number belongs, at offset " + std::to_string(j));
     }
 }
+
+TEST(every_city_is_named_in_its_own_peoples_tongue) {
+    const World w = settled();
+    check::is_true(!w.settlements.sites.empty(), "cities to name");
+
+    std::map<std::string, std::set<std::string>> names_by_people;
+    for (const SettlementSite& s : w.settlements.sites) {
+        check::is_true(!s.name.empty(), "city " + std::to_string(s.id) + " to have a name");
+        check::is_true(!s.name_gloss.empty(),
+                       s.name + " to carry what it means; a name with no gloss is a noise");
+        names_by_people[s.population_profile].insert(s.name);
+    }
+
+    // Different peoples must draw from different lexicons, or the world is one culture
+    // wearing twelve hats. Compared as SETS of names: two peoples sharing a name by
+    // chance is fine, two peoples sharing every name is not.
+    check::is_true(names_by_people.size() > 1, "more than one people, or this proves nothing");
+    bool any_disjoint = false;
+    for (auto a = names_by_people.begin(); a != names_by_people.end(); ++a) {
+        for (auto b = std::next(a); b != names_by_people.end(); ++b) {
+            bool shared = false;
+            for (const std::string& n : a->second) {
+                if (b->second.count(n) != 0) shared = true;
+            }
+            if (!shared) any_disjoint = true;
+        }
+    }
+    check::is_true(any_disjoint, "some pair of peoples to name their cities differently");
+}
+
+TEST(a_citys_name_follows_its_node_not_its_place_in_the_list) {
+    // Settlement ids renumber when the set changes -- an age advance is the obvious case.
+    // A name keyed on the list position would rename every city behind any change; keyed
+    // on the node, a city keeps its name as long as it stands where it stands.
+    const World a = settled(65, 42);
+    const World b = settled(65, 42);
+    check::equal(a.settlements.sites.size(), b.settlements.sites.size(), "the same world twice");
+
+    std::map<int, std::string> by_node;
+    for (const SettlementSite& s : a.settlements.sites) by_node[s.node] = s.name;
+    for (const SettlementSite& s : b.settlements.sites) {
+        check::equal(s.name, by_node[s.node], "the city on node " + std::to_string(s.node) +
+                                                  " to carry the same name both times");
+    }
+}

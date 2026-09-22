@@ -653,6 +653,8 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
             json.field("node", s.node);
             json.field("x", s.x);
             json.field("z", s.z);
+            json.field("name", s.name);
+            json.field("name_gloss", s.name_gloss);
             json.field("population_profile", s.population_profile);
             json.field("parent_race_id", s.parent_race_id);
             json.field("city_class", std::string_view(s.city_class == CityClass::Capital  ? "capital"
