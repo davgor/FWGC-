@@ -4,7 +4,8 @@ The generator is a ladder of sixteen stages. Each stage reads the world the prev
 built and writes new blocks into it. A world reports the stage it actually reached in
 `completed_stage`, and a request above that adds a warning saying so.
 
-**Reached: stage 5 of 16**, including its hydrology, plus stage 8's climate.
+**Reached: stage 5 of 16**, including its hydrology, plus all of stage 8 except the
+leyline-dependent half of its regions.
 
 `completed_stage` reports the highest CONTIGUOUS stage, so it stays at 5 while stages 6
 and 7 are missing. The `systems` list in the document says what actually ran. Climate is
@@ -23,12 +24,13 @@ output is deliberately not matched; see [determinism.md](determinism.md).
 | 4 | Erosion | `terrain_erosion` | **done** |
 | 5 | World scale, land mask, area | `terrain_area` | **done** |
 | 5 | Water: connected ocean, lake spill, receiver graph, rivers | `terrain_water` | **done** |
-| — | Ocean archipelagos | `terrain_ecology.shape_islands` | **not ported** (see below) |
+| 2 | Ocean archipelagos | `terrain_ecology.shape_islands` | **done** |
 | 6 | Tectonic transition (second epoch) | `terrain_history.tectonic_transition` | todo |
 | 7 | Relic carving (abandoned waterways) | `terrain_history.carve_relics` | todo |
 | 8 | Climate: wind, rainfall, runoff, wetness | `terrain_climate` | **done** |
 | 8 | Terrain labels: temperature, moisture, biome, landform, features | `terrain_biomes` | **done** |
-| 8 | Ecology, detail sampler | `terrain_ecology`, `terrain_detail` | todo |
+| 8 | Ecology: habitats, cold relabel, islands, seasons, regions | `terrain_ecology` | **done** |
+| 8 | Continuous height field and tile export | `terrain_detail` | **done** |
 | 9 | Leyline networks, astrology | `terrain_leyline_history`, `terrain_astrology` | todo |
 | 10 | Biome variants, civilizations | `terrain_history`, `terrain_settlements` | todo |
 | 11 | Civilizations | `terrain_settlements` | todo |
@@ -48,6 +50,12 @@ non-test lines — about 2.9%. The owner has ruled for 1:1 functional parity, so
 remaining 134 modules are all in scope. Numerics stay free: worlds need not match, systems
 must.
 
+**Ten of the thirteen magical regions cannot manifest yet.** Their eligibility reads the
+`ley_*` layers, which arrive at stage 9. Until then only `pirate`, `red_sands`, `dead_sea`
+and `steampunk` — the four that do not depend on magic — can appear. That is the
+reference's own behaviour when leylines are absent, not a stub, and the `regions` block
+reports `insufficient suitable habitat` for the rest rather than omitting them.
+
 ## Deliberate departures from the reference
 
 Recorded here rather than discovered later.
@@ -59,10 +67,11 @@ the stage loop discards some of it. Here, stages 1–5 are the tectonic kernel a
 else. The two numbering schemes agree on what stages 1–5 *mean* and disagree on what a
 stage-5 world *contains*. Once stages 6–16 land, the ladders converge.
 
-**Ocean archipelagos are not in the kernel.** The reference calls `shape_islands` from
-inside `generate_tectonics` at phase ≥ 2, which puts an ecology module in the middle of the
-tectonics module. Here it belongs with stage 8's ecology work, where its dependencies are.
-The `ocean_archipelagos` block is absent until then, rather than present and empty.
+**Ocean archipelagos live in `ecology.cpp` but run from the tectonic stage.** The
+reference calls `shape_islands` from inside `generate_tectonics` at phase >= 2, and that
+ordering is load-bearing: islands must be raised BEFORE surface noise, erosion and
+drainage so they are eroded and drained like any other land rather than pasted onto a
+finished world. The code sits with the rest of ecology; only the call site is early.
 
 **Timings are not in the document.** See [determinism.md](determinism.md) §4.
 
