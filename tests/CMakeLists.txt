@@ -1,6 +1,7 @@
 ﻿add_executable(fwg_tests
   main.cpp
   test_astrology.cpp
+  test_beasts.cpp
   test_biomes.cpp
   test_city_plan.cpp
   test_civilizations.cpp

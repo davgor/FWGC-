@@ -1,5 +1,6 @@
 ﻿add_library(fwg STATIC
   astrology.cpp
+  beasts.cpp
   biomes.cpp
   city_plan.cpp
   civilizations.cpp
