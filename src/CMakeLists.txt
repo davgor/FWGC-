@@ -1,10 +1,14 @@
 ﻿add_library(fwg STATIC
   astrology.cpp
   biomes.cpp
+  city_plan.cpp
   civilizations.cpp
   climate.cpp
   config.cpp
   generated/content_biomes.cpp
+  generated/content_buildings.cpp
+  generated/content_city_shapes.cpp
+  generated/content_settlement_plans.cpp
   generated/content_civilizations.cpp
   generated/content_entities.cpp
   generated/content_registry.cpp
