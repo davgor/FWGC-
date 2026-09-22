@@ -65,20 +65,15 @@ entirely.
 
 ## Known scale defects inherited from the reference
 
-Three systems have now been caught by the same disease, so it is systemic rather than
-incidental: several authored distances are absolute metres tuned for the 11.15 km
-reference world and do not scale with the planet.
+The reference was authored for a world 11.15 km around; the shipped presets are 200 to
+600 km. Three distances scale with the planet and every other authored metre does not.
+Several whole systems consequently do not exist at any shipped width -- the entire air
+network never produces a route, irrigation never fires, every hamlet's catchment is the
+cell it stands on -- and nothing in the generator says so.
 
-- `maritime` is `exp(-distance_to_ocean / 300 m)`. On a 200 km world the first land cell
-  inland reads effectively zero, so `human_maritime`, whose habitat needs 0.3, settles no
-  world at all, and 21 authored shore nest species place nothing. Pinned by tests in
-  `test_habitation.cpp` and `test_nests.cpp`.
-- Of three authored nest distances only the ramp span scales; the clearance and spacing do
-  not, so the widest monster clearance can refuse only a settlement's own cell.
-- The reference already diagnosed and fixed exactly this for `island_habitat`, whose
-  absolute-metre floor had become unreachable, and did not sweep the rest.
-
-Fixing any of these changes every world, so they are pinned rather than corrected.
+The full enumeration, with measurements, is in [scale-defects.md](scale-defects.md).
+Nothing is fixed: each one changes every world it touches, so the choice is the owner's.
+What the port does is pin them with tests, so a fix cannot land silently.
 
 ## Deliberate departures from the reference
 
