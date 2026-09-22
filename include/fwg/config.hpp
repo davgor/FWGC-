@@ -15,7 +15,10 @@
 #include <cstdint>
 #include <optional>
 #include <string>
+#include <map>
 #include <string_view>
+
+#include "fwg/options.hpp"
 
 namespace fwg {
 
@@ -95,6 +98,11 @@ struct Config {
     double culture_link_cost = 1800.0;
     double river_threshold_km2 = 0.15;
 
+    // The world-options control surface: every knob that is not a field above.
+    // Ocean islands, coasts, cold, nests, nomads, the moon, the magical networks and
+    // the thirteen regions all read from here.
+    WorldOptions options;
+
     // Equatorial cell spacing in design space.
     double step() const;
 
@@ -145,6 +153,10 @@ struct Request {
     std::optional<double> support_reach;
     std::optional<double> culture_link_cost;
     std::optional<double> river_threshold_km2;
+
+    // World options by published name. An unknown name or an out-of-range value is
+    // refused by resolve(), never clamped.
+    std::map<std::string, double> options;
 };
 
 // Applies the width derivation and the reference-world reach scaling, then validates.

@@ -21,7 +21,7 @@ double elapsed_ms(Clock::time_point from) {
 // Layers that carry a length and therefore scale with the world.
 constexpr const char* kLengthLayers[] = {
     "base", "height", "structure", "interaction", "noise", "tpi", "boundary_distance",
-    "continental", "surface", "erosion", "deposition", "erosion_delta"};
+    "continental", "surface", "erosion", "deposition", "erosion_delta", "archipelago_relief"};
 
 void scale_layer(Grid& layer, double factor) {
     for (double& value : layer.cells()) value *= factor;
@@ -259,6 +259,7 @@ World generate(const Config& cfg) {
     world.config = cfg;
     world.layers = tectonics.layers;
     world.plates = tectonics.plates;
+    world.ecology.archipelagos = tectonics.archipelagos;
     world.layout_seed = tectonics.layout_seed;
     world.crust_seed = tectonics.crust_seed;
     world.detail_seed = tectonics.detail_seed;
@@ -338,6 +339,15 @@ World generate(const Config& cfg) {
             const auto labels_started = Clock::now();
             add_terrain_labels(world);
             world.timing_ms["terrain_labels"] = elapsed_ms(labels_started);
+            const auto ecology_started = Clock::now();
+            add_environment(world);
+            world.timing_ms["ecology"] = elapsed_ms(ecology_started);
+
+            // The continuous field is a definition, not a computation: it is derived
+            // from the seed and evaluated on demand by whoever samples it.
+            world.terrain_detail = make_terrain_detail(cfg.seed);
+            world.has_terrain_detail = true;
+            world.systems.push_back("terrain_detail");
             world.warnings.push_back(
                 "Climate ran on a stage-5 surface: stages 6 (tectonic transition) and 7 (relic carving) are not "
                 "implemented and would otherwise reshape the terrain before it. See docs/porting-status.md.");

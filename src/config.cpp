@@ -141,6 +141,15 @@ Config resolve(const Request& request) {
     cfg.temperature_offset = pick(request.temperature_offset, cfg.temperature_offset);
     cfg.moisture_bias = pick(request.moisture_bias, cfg.moisture_bias);
 
+    // World options, by published name. An unknown name or an out-of-range value is
+    // REFUSED, never ignored and never clamped: a caller that misspells a control
+    // otherwise gets a default-shaped world and no indication it asked for anything.
+    for (const auto& [name, value] : request.options) {
+        const auto option = option_by_name(name);
+        if (!option) throw std::invalid_argument("unknown world option '" + name + "'");
+        cfg.options.set(*option, value);  // throws, naming the field and its bounds
+    }
+
     // Physical width in, design-space geometry out. An explicit globe_radius bypasses
     // all of it; an explicit override of any derived term still wins.
     double circumference = request.circumference_km ? *request.circumference_km * 1000.0 : 0.0;

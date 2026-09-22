@@ -285,6 +285,108 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
         json.end_object();
     }
 
+    if (world.has_terrain_detail) {
+        json.key("terrain_detail");
+        json.begin_object();
+        json.field("version", world.terrain_detail.version);
+        json.field("seed", static_cast<long long>(world.terrain_detail.seed));
+        json.key("bands");
+        json.begin_array();
+        for (const DetailBand& b : world.terrain_detail.bands) {
+            json.begin_object();
+            json.field("scale_m", b.scale_m);
+            json.field("amplitude_m", b.amplitude_m);
+            json.field("seed", static_cast<long long>(b.seed));
+            json.end_object();
+        }
+        json.end_array();
+        json.field("height_reference",
+                   std::string_view("radial metres above the reference sphere; same datum as layers.height"));
+        json.field("coordinates",
+                   std::string_view("unit direction (cos(lat)cos(lon), sin(lat), cos(lat)sin(lon))"));
+        json.field("method", std::string_view(
+            "Coarse elevation plus continuous spherical gradient-noise bands, with water, shoreline, river and "
+            "flood protection. Resolved samples are authoritative; level of detail never changes the height "
+            "function."));
+        json.end_object();
+    }
+
+    if (world.has_ecology) {
+        json.key("regions");
+        json.begin_object();
+        json.key("influences");
+        json.begin_array();
+        for (const RegionInfluence& r : world.ecology.regions) {
+            json.begin_object();
+            json.field("id", r.id);
+            json.field("maximum", r.maximum);
+            json.field("area_km2", r.area_km2);
+            json.field("reason", r.reason);
+            json.key("centers");
+            json.begin_array();
+            for (const int c : r.centers) json.value(c);
+            json.end_array();
+            json.end_object();
+        }
+        json.end_array();
+        json.key("landmarks");
+        json.begin_array();
+        for (const Landmark& m : world.ecology.landmarks) {
+            json.begin_object();
+            json.field("id", m.id);
+            json.field("kind", m.kind);
+            json.field("x", m.x);
+            json.field("z", m.z);
+            json.field("layer", m.layer);
+            json.field("intensity", m.intensity);
+            json.end_object();
+        }
+        json.end_array();
+        json.field("method", std::string_view(
+            "Independent overlapping fields; low suitability can still be valuable to a specialist site."));
+        json.end_object();
+
+        json.key("ocean_archipelagos");
+        json.begin_array();
+        for (const Archipelago& a : world.ecology.archipelagos) {
+            json.begin_object();
+            json.field("id", a.id);
+            json.field("kind", a.kind);
+            json.field("eligible", a.eligible);
+            json.field("island_count", static_cast<long long>(a.islands.size()));
+            json.key("direction");
+            json.begin_array();
+            json.value(a.direction.x);
+            json.value(a.direction.y);
+            json.value(a.direction.z);
+            json.end_array();
+            json.end_object();
+        }
+        json.end_array();
+
+        json.key("habitats");
+        json.begin_object();
+        json.field("version", 1);
+        json.key("aquatic");
+        json.begin_array();
+        for (const char* name : {"reef", "lagoon", "estuary", "sheltered_bay", "rocky_coast", "kelp",
+                                 "fjord", "open_ocean"}) {
+            json.value(std::string_view(name));
+        }
+        json.end_array();
+        json.field("method", std::string_view(
+            "Depth, coast exposure, salinity and climate proxies; no tides, currents or biological reef "
+            "simulation."));
+        json.end_object();
+
+        json.key("seasonal_environment");
+        json.begin_object();
+        json.field("month_count", static_cast<long long>(world.seasonal_months.size()));
+        json.field("method", std::string_view(
+            "Monthly latitude/elevation temperature proxy; snow and water ice do not modify bedrock."));
+        json.end_object();
+    }
+
     if (!world.systems.empty()) {
         json.key("systems");
         json.value(world.systems);

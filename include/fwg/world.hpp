@@ -21,6 +21,8 @@
 #include "fwg/tectonics.hpp"
 #include "fwg/biomes.hpp"
 #include "fwg/climate.hpp"
+#include "fwg/detail.hpp"
+#include "fwg/ecology.hpp"
 #include "fwg/content.hpp"
 #include "fwg/water.hpp"
 
@@ -29,6 +31,12 @@ namespace fwg {
 // The highest stage of the sixteen-stage ladder this library implements. Stages
 // above it are accepted and reported honestly rather than silently claimed.
 inline constexpr int kHighestImplementedStage = 5;
+
+struct SeasonalMonth {
+    Grid temperature;
+    Grid snow;
+    Grid water_ice;
+};
 
 struct AreaReport {
     double land_km2 = 0.0;
@@ -81,6 +89,18 @@ struct World {
     bool has_terrain = false;
     TerrainReport terrain;
 
+    bool has_ecology = false;
+    EcologyReport ecology;
+
+    // The continuous height field's definition. Present from stage 8; an engine builds
+    // a HeightField from the world and samples terrain anywhere.
+    bool has_terrain_detail = false;
+    TerrainDetail terrain_detail;
+
+    // Twelve months of temperature, snow cover and water ice. Proxies: none of them
+    // modify bedrock, and there is no weather.
+    std::vector<SeasonalMonth> seasonal_months;
+
     // Which subsystems actually ran. More honest than a stage number while the
     // ladder is partial: climate can be present while stages 6 and 7 are not.
     std::vector<std::string> systems;
@@ -107,6 +127,11 @@ void add_climate(World& world);
 // markers. Runs from phase 2, and uses transported rainfall for moisture once climate
 // has provided it — before that, a latitude band plus seeded noise.
 void add_terrain_labels(World& world);
+
+// Coastal and marine habitats, metals, the cold relabel that actually puts boreal
+// forest, cold tundra and land ice on the map, island habitat, the seasonal months and
+// the thirteen magical regions.
+void add_environment(World& world);
 
 World generate(const Config& cfg);
 

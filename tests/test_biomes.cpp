@@ -197,8 +197,16 @@ TEST(the_biome_mix_answers_to_temperature) {
         const auto it = h.find(id);
         return it == h.end() ? 0 : it->second;
     };
-    // Snow is 6, rainforest is 7.
-    check::is_true(count(cold, 6) > count(hot, 6), "a cold world to have more snow");
+    // Count the whole COLD FAMILY, not biome 6 alone. classify() emits tundra (1) and
+    // snow (6), and then the ecology cold pass relabels almost every one of them to
+    // boreal forest (15), cold tundra (16) or land ice (17) -- which is why those two
+    // rows are tombstoned for art while keeping their identity. An earlier version of
+    // this test counted snow alone and went red the moment ecology landed, asserting a
+    // world that stops existing two stages later.
+    const auto cold_family = [&](const std::map<int, int>& h) {
+        return count(h, 1) + count(h, 6) + count(h, 15) + count(h, 16) + count(h, 17);
+    };
+    check::is_true(cold_family(cold) > cold_family(hot), "a cold world to have more cold ground");
     check::is_true(count(hot, 7) > count(cold, 7), "a hot world to have more rainforest");
 }
 

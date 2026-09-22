@@ -2,6 +2,7 @@
   main.cpp
   test_biomes.cpp
   test_climate.cpp
+  test_ecology.cpp
   test_substrate.cpp
   test_water.cpp
   test_world.cpp

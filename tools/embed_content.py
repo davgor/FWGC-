@@ -128,7 +128,88 @@ def render_biomes():
     return "\n".join(lines) + "\n"
 
 
-TARGETS = {OUT / "content_biomes.cpp": render_biomes}
+def load_world_options():
+    doc = json.loads((DATA / "world-options.json").read_text(encoding="utf-8"))
+    if doc.get("schema_version") != 1:
+        raise SystemExit("world-options.json must declare schema version 1")
+    opts = doc["options"]
+    for name, spec in opts.items():
+        if not name.replace("_", "").isalnum() or name[0].isdigit():
+            raise SystemExit("option name %r is not a C++ identifier" % name)
+        if spec["min"] > spec["max"]:
+            raise SystemExit("option %s has min above max" % name)
+        if not (spec["min"] <= spec["default"] <= spec["max"]):
+            raise SystemExit("option %s default is outside its own bounds" % name)
+        if spec["type"] not in ("number", "integer"):
+            raise SystemExit("option %s has an unknown type %r" % (name, spec["type"]))
+    return opts
+
+
+def cpp_double(v):
+    # Round-trip exactly, and keep it a double literal rather than an int.
+    text = repr(float(v))
+    return text if ("." in text or "e" in text or "E" in text or "inf" in text or "nan" in text) else text + ".0"
+
+
+def render_world_options():
+    opts = load_world_options()
+    names = sorted(opts)
+
+    lines = [BANNER.format(source="world-options.json")]
+    lines.append('#include "fwg/options.hpp"\n')
+    lines.append("#include <algorithm>\n")
+    lines.append("namespace fwg {\nnamespace {\n")
+    lines.append("// Sorted by name so option_by_name can binary-search it.")
+    lines.append("constexpr OptionSpec kOptions[] = {")
+    for name in names:
+        o = opts[name]
+        lines.append('    {%s, %s, %s, %s, %s, %s, %s},'
+                     % (cpp_string(name), cpp_double(o["default"]), cpp_double(o["min"]),
+                        cpp_double(o["max"]), "true" if o["type"] == "integer" else "false",
+                        cpp_string(o["units"]), cpp_string(o["group"])))
+    lines.append("};\n")
+    lines.append("static_assert(sizeof(kOptions) / sizeof(kOptions[0]) == kOptionCount,")
+    lines.append('              "options.hpp enum and the generated table disagree");\n')
+    lines.append("}  // namespace\n")
+    lines.append("std::span<const OptionSpec> option_specs() { return kOptions; }\n")
+    lines.append("""const OptionSpec& option_spec(Option option) {
+    return kOptions[static_cast<std::size_t>(option)];
+}
+""")
+    lines.append("""std::optional<Option> option_by_name(std::string_view name) {
+    const auto* first = std::begin(kOptions);
+    const auto* last = std::end(kOptions);
+    const auto* it = std::lower_bound(first, last, name,
+                                      [](const OptionSpec& spec, std::string_view key) { return spec.name < key; });
+    if (it == last || it->name != name) return std::nullopt;
+    return static_cast<Option>(it - first);
+}
+""")
+    lines.append("}  // namespace fwg")
+    return "\n".join(lines) + "\n"
+
+
+def render_options_header():
+    opts = load_world_options()
+    names = sorted(opts)
+    lines = [BANNER.format(source="world-options.json").replace("// GENERATED FILE", "// GENERATED ENUM")]
+    lines.append("#pragma once\n")
+    lines.append("namespace fwg {\n")
+    lines.append("// One entry per world option, in the same order as the generated table.")
+    lines.append("enum class Option : int {")
+    for i, name in enumerate(names):
+        lines.append("    %s = %d," % (name, i))
+    lines.append("};\n")
+    lines.append("inline constexpr int kOptionCount = %d;\n" % len(names))
+    lines.append("}  // namespace fwg")
+    return "\n".join(lines) + "\n"
+
+
+TARGETS = {
+    OUT / "content_biomes.cpp": render_biomes,
+    OUT / "world_options.cpp": render_world_options,
+    pathlib.Path(__file__).resolve().parent.parent / "include" / "fwg" / "option_ids.hpp": render_options_header,
+}
 
 
 def main():

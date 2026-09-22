@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "fwg/config.hpp"
+#include "fwg/ecology.hpp"
 #include "fwg/grid.hpp"
 #include "fwg/vec3.hpp"
 
@@ -43,6 +44,7 @@ double continental_profile(double c);
 struct TectonicResult {
     std::map<std::string, Grid> layers;
     std::vector<Plate> plates;
+    std::vector<Archipelago> archipelagos;
     std::uint64_t layout_seed = 0;  // an RNG stream seed, so 64-bit
     std::uint32_t crust_seed = 0;
     std::uint32_t detail_seed = 0;

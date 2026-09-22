@@ -3,11 +3,15 @@
   climate.cpp
   config.cpp
   generated/content_biomes.cpp
+  generated/world_options.cpp
+  detail.cpp
+  ecology.cpp
   erosion.cpp
   grid.cpp
   json.cpp
   measure.cpp
   noise.cpp
+  options.cpp
   random.cpp
   scale.cpp
   serialize.cpp

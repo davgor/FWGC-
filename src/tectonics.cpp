@@ -6,6 +6,7 @@
 #include <numbers>
 #include <stdexcept>
 
+#include "fwg/ecology.hpp"
 #include "fwg/erosion.hpp"
 #include "fwg/measure.hpp"
 #include "fwg/noise.hpp"
@@ -310,6 +311,14 @@ TectonicResult generate_tectonics(const Config& cfg) {
         out.layers["continental"] = continental;
         out.layers["base"] = (cfg.phase == 2) ? continental : structure;
         out.layers["height"] = structure;
+    }
+
+    // --- ocean archipelagos ------------------------------------------------
+    // Raised into the tectonic surface BEFORE the surface noise, erosion and drainage,
+    // so an island is eroded and drained like any other land rather than pasted on top
+    // of a finished world.
+    if (cfg.phase >= 2) {
+        out.archipelagos = shape_islands(out.layers, cfg);
     }
 
     // --- phase 3: surface detail -------------------------------------------
