@@ -295,3 +295,39 @@ TEST(the_sky_is_independent_of_world_scale) {
     check::equal(a.moon.tilt_max_degrees, b.moon.tilt_max_degrees, "the same tilt");
     check::equal(a.lunar_almanac.events.size(), b.lunar_almanac.events.size(), "the same events");
 }
+
+TEST(lunar_sensitivity_carries_its_coastal_term_not_only_its_lakes) {
+    // The shore term reads `coastal_exposure`, which ecology publishes. Astrology has to
+    // run before ecology -- ecology reads the leyline fields astrology's inputs depend on
+    // -- so the field is computed once with the layer absent and refreshed once it
+    // exists. Run only once, every non-lake cell silently took shore = 0 and the
+    // published layer was `0.2 + 0.5*instability` with the coastal half missing.
+    //
+    // The existing bounds test cannot see this: it exercises the lake branch, which is
+    // the hardcoded water == 2.0 arm, and the 0.2 floor. Both still hold with the whole
+    // coastal term zeroed. This is the assertion that does not.
+    Request r;
+    r.seed = 42;
+    r.size = 65;
+    r.phase = 9;
+    const World world = generate(resolve(r));
+
+    const auto& sensitivity = world.layers.at("lunar_sensitivity");
+    const auto& water = world.layers.at("water_type");
+    const auto& exposure = world.layers.at("coastal_exposure");
+
+    long long exposed_cells = 0;
+    long long sensitive_non_lakes = 0;
+    for (int z = 0; z < world.config.size; ++z) {
+        for (int x = 0; x < world.config.size; ++x) {
+            if (water.at(x, z) == 2.0) continue;  // a lake is all shore by fiat
+            if (exposure.at(x, z) > 0.5) ++exposed_cells;
+            if (sensitivity.at(x, z) >= 0.5) ++sensitive_non_lakes;
+        }
+    }
+    check::is_true(exposed_cells > 0,
+                   "this world to have exposed coast, or the term is untestable here");
+    check::is_true(sensitive_non_lakes > 0,
+                   "open coast to raise lunar sensitivity above 0.5 somewhere; with the "
+                   "coastal term missing this count is exactly zero");
+}

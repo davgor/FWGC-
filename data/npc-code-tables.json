@@ -1,0 +1,87 @@
+{
+ "schema": "fwg.npc-code-tables",
+ "schema_version": 1,
+ "note": "The authored npc_roster tables that live in Python rather than in npc_roster/policies/posts.json.\n\n* `place_sources` -- npc_roster/sites.py:176 PLACE_SOURCES, eight (block, key) pairs naming EVERY WORLD BLOCK THAT NAMES A PLACE. This is an authored catalogue of the world schema itself, and it is the thing a port most easily loses: it is how the roster finds every named site to attach NPCs to. Emitted as ordered pairs; the traversal order decides which block wins when two name the same node.\n* `site_templates` -- npc_roster/sites.py:220-227 and :159, the descriptor templates that name a site the roster invents ('the {harbour|farmstead} below {X}', 'the fortress above {X}', 'the {word} at node {n}') plus the '{name} ({node})' disambiguator.\n* `name_trim` -- sites.py:172-173, two authored naming conventions applied to an incoming world name: strip a trailing ' City' and cut at ' (Age '. The source documents the first as identity on generated worlds and live only for fixtures.\n* `vocabularies` -- policy.py:17-19 and sites.py:34. `site_kinds` IS POSITIONALLY SLICED: policy.py:88 does `for key in CLASS_CAPS + SITE_KINDS[1:]` to exclude 'city', so REORDERING site_kinds SILENTLY CHANGES WHICH CAPS ARE REQUIRED. `city_classes` is a duplicate of `class_caps` in a second module. `name_table_fields` serves only dead code.\n* `method` and `limits` are prose that SHIPS IN EVERY EXPORTED BLOCK, so they are output bytes and not commentary. `limits` is stale -- see the defect note.\n\nRNG INPUT: none. npc_roster consumes no sequential RNG stream: every draw is independently keyed as rng(seed, 'npc-name-' + uid) (__init__.py:88), so iteration order over people never changes a drawn value. The only list-order-driven RNG risk in the roster path lives in heritage.stock_name -- see heritage-name-draw.json.\n\nIDENTITY HASH: none. npc_roster contains no hashlib call. __init__.py:127-132 _registry() COPIES the world's civilizations.registry.sha256 beside the literal string 'labels_from': 'npc_roster.policies.posts' -- that is a provenance POINTER, not a digest of posts.json, and the digest it copies was produced by civilization_registry.py:308 with ensure_ascii=False, separators=(',', ':') and NO sort_keys.",
+ "source_identity": {
+  "origin": "FantasyWorldGenerator b67c99b, Sim/npc_roster/",
+  "source_kind": "module-level constants and in-function literals"
+ },
+ "place_sources": [
+  [
+   "settlements",
+   "sites"
+  ],
+  [
+   "humans",
+   "hamlets"
+  ],
+  [
+   "humans",
+   "fortresses"
+  ],
+  [
+   "fisheries",
+   "ports"
+  ],
+  [
+   "religion",
+   "sites"
+  ],
+  [
+   "heroes",
+   "camps"
+  ],
+  [
+   "magic",
+   "colleges"
+  ],
+  [
+   "beast_nests",
+   "sites"
+  ]
+ ],
+ "site_templates": {
+  "harbour_below": "the harbour below {X}",
+  "farmstead_below": "the farmstead below {X}",
+  "fortress_above": "the fortress above {X}",
+  "word_at_node": "the {word} at node {n}",
+  "disambiguator": "{name} ({node})"
+ },
+ "name_trim": {
+  "strip_suffix": " City",
+  "cut_at": " (Age "
+ },
+ "vocabularies": {
+  "site_kinds": [
+   "city",
+   "hamlet",
+   "fortress"
+  ],
+  "class_caps": [
+   "capital",
+   "medium",
+   "small"
+  ],
+  "city_classes": [
+   "capital",
+   "medium",
+   "small"
+  ],
+  "policy_files": [
+   "posts",
+   "names"
+  ],
+  "name_table_fields_DEAD": [
+   "codas",
+   "medials",
+   "nuclei",
+   "onsets",
+   "third_syllable_chance"
+  ]
+ },
+ "hero_uid_prefix": "npc-",
+ "env_switch": "FANTASY_WORLD_NPCS",
+ "block_version": 1,
+ "method": "Walk the three plan blocks. Every placed plot with a positive worker count expands into that many posts, senior first, using the policy snapshot of the building registry; the plot's own count wins when a civilization overrides the roster. Each post becomes one person, named from a seeded draw and keyed npc-<site>-<building>-<ordinal>, where the site is the stable city uid for a city and the node for a hamlet or fortress, because the ordinal plan ids renumber on every age advance. Every hero and Dread is folded in as a record cross-linked by hero_uid, alive while the cast calls them living. The earmark is authored, not rolled: every hero, plus the senior post of the highest-ranked giver buildings a site has, capped per site so the important subset stays bounded.",
+ "limits": "An index of posts, not a simulation of people: nobody here works, moves, ages or dies of anything. status is birth state -- alive for every staffed post, dead only for a hero the cast has passed into legend -- and a runtime is expected to copy the block into its own save and flip it there; nothing writes back. Names are an interim parent-race syllable draw, so nine of the twelve cultures read as their parent until the heritage language genome replaces them. A site anchored on its node reuses the key if that hamlet is abandoned and another is later founded on the same node, which points a quest at the right place with the wrong history; that is the residue of anchoring positionally, and it is much smaller than the annual renumbering it replaces. Posts are drawn from the registry roster, so they are the jobs a building needs filled, not a census: dependents, children and the unemployed are not here, and neither is anyone in a ruin, camp, college or nest."
+}

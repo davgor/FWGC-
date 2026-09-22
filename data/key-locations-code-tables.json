@@ -1,0 +1,595 @@
+{
+ "schema": "fwg.key-locations-code-tables",
+ "schema_version": 1,
+ "note": "The authored key_locations tables that live in Python rather than in catalogue.json or exteriors.json. This is the largest body of un-externalised authored content in the five packages, and two of its tables are RNG-INDEXED.\n\n* `naming.adjectives` -- core/naming.py:15-17 ADJECTIVES. HARD POSITIONAL CONTRACT: fill() does `ADJECTIVES[draw.randrange(len(ADJECTIVES))]` to resolve every `{adj}` placeholder. Reordering this tuple renames locations in every world. `naming.qualifiers` -- core/naming.py:80 QUALIFIERS, iterated IN ORDER by unique_name() to build disambiguating variants, so it too is positional. The source states they are DISJOINT FROM ADJECTIVES ON PURPOSE: an overlap silently shrinks the variant pool and only shows up as a duplicate name once a world is crowded enough to exhaust it. `naming.fallbacks` are the strings fill() substitutes when a context key is missing -- 'the waste', 'the old people', 'unquiet', 'the nameless', 'lone' -- so an ABSENT context value produces authored English, not an empty slot.\n* `composition.ordinals` -- core/composition.py:33-34 ORDINALS. POSITIONALLY INDEXED, twelve words; a chain member is named by its place in the chain.\n* `succession` -- core/succession.py. `threat_base` maps occupant to a base threat 1-4 on the SAME creature-tier scale the nest catalogue uses (deliberately, so a dungeon and a beast lair are comparable), clamped to min_threat..max_threat = 1..5. `hostile` and `untended_states` are classifications. `state_bends` and `occupant_bends` are the INLINE LITERAL bend tables inside derive_state() and derive_occupant(): the catalogue supplies the weights and this module multiplies them. The multiplications are applied in the listed order and float multiplication is not associative, so keep the order; the subsequent choose() re-sorts the weight keys (`items = sorted(weights.items())`) before its cumulative walk, so the CATALOGUE's dict order is free but THESE factors' order is not.\n* `interiors.roles` -- core/interiors.py:24-36 ROLES, 11 families x 4-6 chamber role names, and `plan_notes`, `fallback_roles`, `entrance_kinds`, `flooded_states`, `collapse_states`. `interiors.tuning` holds the biases scattered through that module.\n* `vocabularies` -- catalogue.py:12-23, the closed enums the catalogue lint enforces (states, occupants, interior_plans, tiers, domains, placements, along) plus the schema key sets. `exteriors.part_kinds`, `arrangements` and `shapes` are the same for the exterior side. These are what make an unknown value a load failure rather than a silent default.\n* `exteriors.ruin_states` -- exteriors.py:110 RUIN_STATES, state -> rubble intensity. ONLY SIX of the catalogue's eleven states are keyed, and a site in one of the other five gets NO weathering parts at all. `rubble_part_id`/`overgrown_part_id` are HARD-CODED PART IDS that must exist in exteriors.json and which nothing validates.\n* `exterior.arrangement_draws` -- core/exterior.py:69-124, the NUMBER OF RNG DRAWS each arrangement consumes per part. A port MUST match these exactly, because a wrong draw count desynchronises the whole site stream even where the geometry is unaffected. Note `row` and `courtyard` consume ZERO.\n* `placement`, `shaping`, `fields`, `tuning` -- the scoring, terrain-deformation and distance-field constants. `fields.diagonal` IS AN ORDERED 8-NEIGHBOUR STENCIL with sqrt(2) weights and its order is the order the BFS relaxes neighbours in; `golden_angle` (2.39996322972865332) and `surface_posts` (17) drive the scatter arrangement.\n\nRNG INPUT: yes -- `naming.adjectives`, `naming.qualifiers`, `composition.ordinals`, the two bend tables and `exterior.arrangement_draws` all sit directly on the draw path. `key_locations.seeds` is a pure re-export of world_geometry.seeds: sha256('tectonics-v1:{master}:{domain}:{variation}').digest()[:4] read BIG-ENDIAN into random.Random. PORT-CRITICAL: the port must reproduce CPython's Mersenne Twister random(), randint(), randrange() and shuffle() exactly, or none of the order contracts above matter.\n\nIDENTITY HASH: none. key_locations contains no hashlib call.",
+ "source_identity": {
+  "origin": "FantasyWorldGenerator b67c99b, Sim/key_locations/",
+  "source_kind": "module-level constants and in-function literals"
+ },
+ "naming": {
+  "adjectives": [
+   "old",
+   "drowned",
+   "broken",
+   "quiet",
+   "hollow",
+   "grey",
+   "low",
+   "far",
+   "bitter",
+   "long",
+   "black",
+   "dry",
+   "cold",
+   "deep",
+   "lost",
+   "crooked",
+   "silent",
+   "thin",
+   "red",
+   "high",
+   "sunken",
+   "blind",
+   "empty",
+   "pale"
+  ],
+  "qualifiers": [
+   "upper",
+   "lower",
+   "nether",
+   "outer",
+   "inner",
+   "further"
+  ],
+  "article": "the ",
+  "fallbacks": {
+   "near": "the waste",
+   "culture": "the old people",
+   "school": "unquiet",
+   "god": "the nameless",
+   "ordinal": "lone"
+  },
+  "unique_name_attempts": 6
+ },
+ "composition": {
+  "ordinals": [
+   "first",
+   "second",
+   "third",
+   "fourth",
+   "fifth",
+   "sixth",
+   "seventh",
+   "eighth",
+   "ninth",
+   "tenth",
+   "eleventh",
+   "twelfth"
+  ],
+  "los_samples": 12,
+  "search_cells_UNREFERENCED": 1.2
+ },
+ "succession": {
+  "hostile": [
+   "monsters",
+   "undead",
+   "cult",
+   "beasts"
+  ],
+  "untended_states": [
+   "natural",
+   "abandoned",
+   "ruined",
+   "sealed",
+   "buried",
+   "drowned",
+   "corrupted",
+   "reclaimed"
+  ],
+  "threat_base": {
+   "none": 1,
+   "nature": 1,
+   "builders": 1,
+   "descendants": 1,
+   "squatters": 2,
+   "beasts": 2,
+   "fae": 2,
+   "cult": 3,
+   "undead": 3,
+   "monsters": 4
+  },
+  "min_threat": 1,
+  "max_threat": 5,
+  "state_bends": {
+   "water_domains": [
+    "water",
+    "ocean",
+    "lake"
+   ],
+   "near_ruin": [
+    [
+     "ruined",
+     2.2
+    ],
+    [
+     "abandoned",
+     1.6
+    ],
+    [
+     "active",
+     0.35
+    ]
+   ],
+   "remote": [
+    [
+     "active",
+     0.5
+    ],
+    [
+     "abandoned",
+     1.4
+    ]
+   ],
+   "unstable": [
+    [
+     "corrupted",
+     2.5
+    ]
+   ],
+   "ages_at_least_2": [
+    [
+     "active",
+     0.7
+    ],
+    [
+     "ruined",
+     1.3
+    ]
+   ],
+   "ages_threshold": 2
+  },
+  "occupant_bends": {
+   "state_active": [
+    [
+     "builders",
+     2.0
+    ],
+    [
+     "descendants",
+     1.6
+    ]
+   ],
+   "state_active_hostile_factor": 0.4,
+   "state_untended": [
+    [
+     "builders",
+     0.2
+    ],
+    [
+     "descendants",
+     0.4
+    ]
+   ],
+   "state_sealed": [
+    [
+     "none",
+     1.8
+    ],
+    [
+     "squatters",
+     0.3
+    ]
+   ],
+   "state_corrupted": [
+    [
+     "cult",
+     2.0
+    ],
+    [
+     "undead",
+     1.8
+    ],
+    [
+     "monsters",
+     1.5
+    ],
+    [
+     "none",
+     0.5
+    ]
+   ],
+   "near_nest": [
+    [
+     "beasts",
+     2.0
+    ],
+    [
+     "monsters",
+     1.8
+    ],
+    [
+     "none",
+     0.6
+    ]
+   ],
+   "remote": [
+    [
+     "squatters",
+     0.5
+    ]
+   ],
+   "not_remote": [
+    [
+     "monsters",
+     0.6
+    ]
+   ]
+  },
+  "succeed_requires_ages_at_least": 1
+ },
+ "interiors": {
+  "roles": {
+   "subterranean": [
+    "gallery",
+    "sump",
+    "squeeze",
+    "chimney",
+    "grotto",
+    "rubble fall"
+   ],
+   "extractive": [
+    "gallery",
+    "stope",
+    "winze",
+    "pump house",
+    "spoil chamber",
+    "tool store"
+   ],
+   "fortification": [
+    "gatehouse",
+    "guardroom",
+    "barracks",
+    "cistern",
+    "undercroft",
+    "armoury"
+   ],
+   "funerary": [
+    "antechamber",
+    "burial cell",
+    "ossuary",
+    "offering niche",
+    "sealing stone",
+    "grave shaft"
+   ],
+   "sacred": [
+    "narthex",
+    "nave",
+    "crypt",
+    "cell",
+    "reliquary",
+    "cloister walk"
+   ],
+   "arcane": [
+    "workroom",
+    "binding floor",
+    "library",
+    "observation cell",
+    "ward ring",
+    "sink"
+   ],
+   "lair": [
+    "approach",
+    "nest floor",
+    "bone midden",
+    "hoard",
+    "bolt hole",
+    "roost"
+   ],
+   "drowned": [
+    "flooded hall",
+    "air pocket",
+    "silted room",
+    "collapsed stair",
+    "anchorage"
+   ],
+   "wonder": [
+    "approach",
+    "inner space",
+    "hollow",
+    "vantage"
+   ],
+   "curiosity": [
+    "entry room",
+    "main room",
+    "back room",
+    "store",
+    "stair"
+   ],
+   "wayside": [
+    "yard",
+    "common room",
+    "stable",
+    "cellar"
+   ]
+  },
+  "plan_notes": {
+   "linear": "One way in, one way on; depth is the only axis.",
+   "branching": "A spine with workings off it, the way anything dug for profit grows.",
+   "radial": "Built around a centre, with everything else facing it.",
+   "warren": "Dug without a plan over a long time; loops back on itself.",
+   "vault": "Shallow and wide: a few large rooms rather than a descent."
+  },
+  "fallback_roles": [
+   "chamber",
+   "passage",
+   "side room",
+   "stair"
+  ],
+  "entrance_kinds": [
+   "subterranean",
+   "extractive",
+   "funerary",
+   "drowned",
+   "lair"
+  ],
+  "default_entrance": "door",
+  "flooded_states": [
+   "drowned"
+  ],
+  "collapse_states": [
+   "ruined",
+   "buried"
+  ],
+  "chamber_size_m": [
+   3.0,
+   12.0
+  ],
+  "method": "Chamber graph only: depth, role, rough size and connections. Plans differ in how chambers attach - linear chains, branching spines, radial hubs, looping warrens, shallow vaults. State decides how much of it is flooded or fallen in."
+ },
+ "vocabularies": {
+  "states": [
+   "natural",
+   "active",
+   "occupied",
+   "abandoned",
+   "ruined",
+   "buried",
+   "drowned",
+   "sealed",
+   "corrupted",
+   "reclaimed",
+   "restored"
+  ],
+  "occupants": [
+   "none",
+   "builders",
+   "descendants",
+   "squatters",
+   "monsters",
+   "cult",
+   "undead",
+   "beasts",
+   "fae",
+   "nature"
+  ],
+  "interior_plans": [
+   "linear",
+   "branching",
+   "radial",
+   "warren",
+   "vault"
+  ],
+  "tiers": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "domains": [
+   "land",
+   "water",
+   "ocean",
+   "lake",
+   "any"
+  ],
+  "placements": [
+   "node",
+   "path",
+   "cluster"
+  ],
+  "along": [
+   "road",
+   "frontier",
+   "approach"
+  ],
+  "required": [
+   "domain",
+   "family",
+   "id",
+   "name",
+   "names",
+   "occupants",
+   "prefers",
+   "reason",
+   "states",
+   "tier"
+  ],
+  "term_keys": [
+   "above_percentile",
+   "below_percentile",
+   "equals",
+   "in",
+   "layer",
+   "max",
+   "min",
+   "not_equals"
+  ],
+  "prefer_keys": [
+   "invert",
+   "layer",
+   "weight"
+  ]
+ },
+ "exteriors": {
+  "part_kinds": [
+   "structure",
+   "terrain",
+   "opening",
+   "path"
+  ],
+  "arrangements": [
+   "single",
+   "ring",
+   "scatter",
+   "row",
+   "courtyard",
+   "terrace",
+   "mouth"
+  ],
+  "shapes": [
+   "mound",
+   "cut",
+   "rim",
+   "platform",
+   "bank",
+   "trench",
+   "level"
+  ],
+  "ruin_states": {
+   "ruined": 4,
+   "buried": 3,
+   "drowned": 2,
+   "abandoned": 2,
+   "reclaimed": 3,
+   "corrupted": 1
+  },
+  "rubble_part_id": "keyloc.part.rubble_pile",
+  "overgrown_part_id": "keyloc.part.overgrown_mound",
+  "default_spread_m": 12.0,
+  "default_count": [
+   1,
+   1
+  ],
+  "default_kind": "structure",
+  "default_phase": 0,
+  "method": "One plan per key location, in the local metre frame the city and castle planners already use. A kit resolves per archetype and falls back to its family; parts are shared across kits. Seven arrangement rules place them: a single centred part, a ring, a golden-angle scatter, a row, an inward-facing courtyard, a terrace stepped along the fall of the ground, or a mouth with its approach fanned in front. Ground elevation is sampled at each plot corner, and a location in a ruined or buried state gains rubble in proportion to how far gone it is. Parts that move the ground do so: a barrow is a mound in the terrain, a quarry is a cut, a crater is a rim with a bowl inside it, and plots are seated on the shaped ground rather than on the raw layer, so a marker standing on a barrow stands on the barrow.",
+  "limits": "Schematic footprints, not measured art: plot and dimension metres are sized for legibility and every part is a placeholder identity. Ground elevation is bilinear over the height layer, because the generator own continuous height field is not importable from a reader package - at plot scale on a multi-kilometre raster that is below one cell, so ground_elevation_m and foundation_bottom_m come out near-equal and a consumer should conform plots to its own landscape rather than trust these to describe local relief. Ground shaping is emitted twice over: as parametric primitives, which are exact and are what an engine with its own landscape should apply, and as a sampled surface grid, which is the coarse derived form for a consumer that only reads grids. Where they disagree the primitives are right.",
+  "block_version": 1
+ },
+ "exterior": {
+  "arrangements": [
+   "single",
+   "ring",
+   "scatter",
+   "row",
+   "courtyard",
+   "terrace",
+   "mouth"
+  ],
+  "golden_angle": 2.3999632297286535,
+  "surface_posts": 17,
+  "arrangement_draws_per_part": {
+   "single": 1,
+   "ring": 2,
+   "scatter": 1,
+   "row": 0,
+   "courtyard": 0,
+   "terrace": 1,
+   "mouth": "1 per part after the first"
+  },
+  "ring_jitter": 0.3,
+  "ring_radius_band": [
+   0.9,
+   0.2
+  ],
+  "mouth_fan_degrees": 28.0,
+  "mouth_radius_band": [
+   0.5,
+   0.5
+  ],
+  "terrace_lateral": 0.5,
+  "min_terrain_half_extent_m": 6.0
+ },
+ "shaping": {
+  "shapes": [
+   "mound",
+   "cut",
+   "rim",
+   "platform",
+   "bank",
+   "trench",
+   "level"
+  ],
+  "platform_edge": 0.22,
+  "crater_profile": [
+   1.4,
+   0.28,
+   0.82
+  ],
+  "default_radius_m": 1.0
+ },
+ "placement": {
+  "default_score": 0.5,
+  "jitter": 0.35
+ },
+ "fields": {
+  "diagonal_weight": 1.4142135623730951,
+  "steps": [
+   [
+    -1,
+    -1,
+    1.4142135623730951
+   ],
+   [
+    0,
+    -1,
+    1.0
+   ],
+   [
+    1,
+    -1,
+    1.4142135623730951
+   ],
+   [
+    -1,
+    0,
+    1.0
+   ],
+   [
+    1,
+    0,
+    1.0
+   ],
+   [
+    -1,
+    1,
+    1.4142135623730951
+   ],
+   [
+    0,
+    1,
+    1.0
+   ],
+   [
+    1,
+    1,
+    1.4142135623730951
+   ]
+  ],
+  "unreached": "positive infinity (float(\"inf\")) -- NOT representable in JSON, encode as your own sentinel"
+ },
+ "tuning": {
+  "near_ruin_cells": 3.0,
+  "near_nest_cells": 2.0,
+  "near_villain_cells": 3.0,
+  "remote_cells": 4.0,
+  "unstable_percentile": 0.8,
+  "reference_raster": 65
+ },
+ "seed_domain_format": "tectonics-v1:{master}:{domain}:{variation}",
+ "seed_digest": "sha256 -> first 4 bytes big-endian -> random.Random (CPython MT19937)",
+ "block_version": 2,
+ "env_switch": "FANTASY_WORLD_KEY_LOCATIONS",
+ "method": "Archetypes are catalogue data, not code. Each declares the layers it requires, the layers that make one cell better than another, how many of itself belong in a thousand square kilometres of land, and how far apart two may stand. Requirements are percentile-relative to each world own distribution with an absolute floor, so a world with no volcanism gets no lava tubes rather than its least-quiet hillside. Candidates are thinned greedily over jittered suitability with per-archetype and per-family spacing and a clearance from anywhere people already live. Ground already carrying a ruin, nest, shrine, college or landmark is left to the module that placed it. State and occupant are then derived from the surrounding record - a nearby ruin ages a site, remoteness empties it, an unstable weave corrupts it, a nest nearby fills it - and a succession pass lets something else move into what the builders left. Tier 2 sites gain an interior chamber graph.",
+ "limits": "Static proposals about ground, not a populated world. Nothing here acts, spawns, patrols, guards or holds treasure. Interiors are graphs - depth, role, rough size, connections - with no metre positions, no contents and no encounters; a real interior layout is a later phase. Tier is physical scale and how much the place still needs building out, never danger: read threat for that. T0 chain furniture (waystones, boundary stones, beacon lines) is not placed yet and arrives with the composition pass."
+}

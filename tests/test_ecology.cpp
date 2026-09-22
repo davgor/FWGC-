@@ -297,3 +297,37 @@ TEST(a_tile_outside_the_grid_is_refused) {
     check::throws([&] { export_height_tile(world, 3, -1, 0, 4); }, "a negative origin");
     check::throws([&] { export_height_tile(world, 3, 0, 8, 4); }, "a tile running off the pole");
 }
+
+TEST(the_archipelago_uplift_reaches_the_height_field) {
+    // shape_islands raises the islands into the PUBLISHED structure layer, and stage 3
+    // then rebuilds height as structure + noise. Reading a copy of structure taken
+    // before the uplift discarded every island at phase 3 and above -- which is every
+    // world built at the default phase -- while the published structure, base and
+    // archipelago_relief layers all went on describing them.
+    //
+    // Two assertions, and the second is what stops the first being vacuous: on a world
+    // with no eligible clusters, `height == structure + noise` holds trivially.
+    Request r;
+    r.seed = 42;
+    r.size = 65;
+    r.phase = 3;
+    const World world = generate(resolve(r));
+
+    const auto& height = world.layers.at("height");
+    const auto& structure = world.layers.at("structure");
+    const auto& noise = world.layers.at("noise");
+    const auto& relief = world.layers.at("archipelago_relief");
+
+    long long raised = 0;
+    for (int z = 0; z < world.config.size; ++z) {
+        for (int x = 0; x < world.config.size; ++x) {
+            if (relief.at(x, z) != 0.0) ++raised;
+            check::close(height.at(x, z), structure.at(x, z) + noise.at(x, z), 1e-9,
+                         "height at (" + std::to_string(x) + "," + std::to_string(z) +
+                             ") to be the RAISED structure plus noise");
+        }
+    }
+    check::is_true(raised > 0,
+                   "this world to raise some archipelago, or the assertion above holds "
+                   "trivially and proves nothing");
+}

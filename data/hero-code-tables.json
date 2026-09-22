@@ -1,0 +1,332 @@
+{
+ "schema": {
+  "policy_files": [
+   "archetypes",
+   "axis_overlays",
+   "alignment",
+   "names",
+   "wells"
+  ],
+  "card_fields": [
+   "boosts",
+   "core",
+   "drift",
+   "faces",
+   "id",
+   "intensity",
+   "lines",
+   "name",
+   "pole_notes",
+   "prior",
+   "requires"
+  ],
+  "core_fields": [
+   "belief",
+   "fears",
+   "mechanic",
+   "never",
+   "tells",
+   "wants"
+  ],
+  "face_specs": [
+   null,
+   [
+    "public",
+    "true"
+   ],
+   [
+    "calm",
+    "unleashed"
+   ],
+   [
+    "first",
+    "second"
+   ]
+  ],
+  "poles": [
+   "lawful",
+   "chaotic",
+   "good",
+   "evil"
+  ],
+  "intensities": [
+   null,
+   "corner",
+   "good_axis"
+  ]
+ },
+ "schema_version": 1,
+ "note": "The authored hero_generator tables that live in Python rather than in hero_generator/policies/*.json. Vocabularies, the fame-scoring table, the quest verbs and the prose word-maps. If the Python tree is deleted this is the only copy.\n\nREAD BY / WHY, section by section:\n* `features` -- hero_generator/archetypes.py:11 FEATURES, the CLOSED VOCABULARY of archetype precondition tokens. archetypes.eligible() tests card `requires` tokens against the person's feature set; a token outside this frozenset can never be satisfied. story_web/facts.py:13 HERO_FEATURES is a SECOND COPY of it in a sibling package, kept in sync by comment alone -- see story-code-tables.json. ORDER IS FREE (a frozenset in Python); it is emitted sorted here. NOTE: the source lists 89 entries for 82 unique tokens -- 7 are duplicated -- so a port that counts entries and a port that counts tokens disagree.\n* `alignment` -- hero_generator/alignment.py:9-11 and the inline tuples at :23, :27, :36. `threshold` 0.34 is the pole cut. LIST ORDER IS A POSITIONAL CONTRACT for all four sequences: law_names/good_names are indexed by a sign-to-index computation, and `law_codes` ('CNL') and `good_codes` ('ENG') are indexed the same way to build the two-letter alignment code that persona._line() then matches on. They run LOW TO HIGH -- chaotic/evil first. The 0.34 here is duplicated, unpinned, in story_web's weights.json `threshold`, which no code reads; this one is live.\n* `fame` -- hero_generator/fame.py:8-15, the entire fame tuning table. `tiers` IS AN ORDERED DESCENDING CUTOFF LADDER walked top-down ((24.0 legendary), (8.0 renowned), (0.0 notable)) -- REORDERING IT MISLABELS EVERY HERO. The four weight maps are keyed lookups and order-free. `seat_weight` contains a `librarian` entry that is UNREACHABLE (see the defect note).\n* `quest_verbs` -- hero_generator/hooks.py:37 VERBS, the CLOSED quest-verb vocabulary, deliberately code and not policy. It is DUPLICATED as `verbs` in npc_roster's posts.json and held in sync only by tests/test_hero_generator.py:362, which asserts LIST equality -- so the ORDER IS A CROSS-PACKAGE CONTRACT even though nothing indexes it.\n* the word maps (`class_word`, `cause_phrases`, `beast_causes`, `long_lived_families`, `companion_join`, `relic_by_cause`, `diaspora_roles`, `role_word`, `dark_families`, `site_roles`, `seat_titles`, `deed_keeper`, `self_magic_cause`, `seated`, `unsited_reasons`, `pressure_exempt`) -- authored English and authored classifications read by hero_generator/facts.py, history.py, sites.py, features.py and the six wells modules. All are keyed lookups; ORDER IS FREE.\n* `schema` -- hero_generator/policy.py:10-15. These are the JSON schemas themselves, held in code: `card_fields` is compared with EXACT SET EQUALITY against every archetype card, so it is what makes a missing field a load failure rather than a default. ORDER IS FREE (sets).\n\nRNG INPUT: none of these tables is walked by an RNG. `fame.tiers` is the one ordered traversal and it is a deterministic ladder.\n\nABSENCE THAT IS NOT EMPTINESS: `role_word` and `seat_titles` each carry a DEFAULT that is not in the map -- 'hamlet' for role_word (wells/countryside.py:15) and 'Councillor' for the seat titles (naming.py:63-64) -- so an unlisted key is a named fallback, not an error and not an empty string. `pressure_exempt` is a one-element tuple ('nest',) whose MEMBERSHIP exempts a hook kind from pressure entirely.\n\nIDENTITY HASH: none. hero_generator contains no hashlib call at all. The only identity it carries is the per-file integer `revision` mapping, hero_generator/policy.py:48-49 `{name: policies[name]['revision'] for name in POLICY_FILES}` in POLICY_FILES order, exported as `policy_revision` (__init__.py:155) and consumed by story_web/__init__.py:116 as `heroes_revision`. Current values: archetypes 4, axis_overlays 1, alignment 1, names 6, wells 6.",
+ "source_identity": {
+  "origin": "FantasyWorldGenerator b67c99b, Sim/hero_generator/",
+  "source_kind": "module-level constants and in-function literals"
+ },
+ "features": [
+  "ally:lost",
+  "civ:lost_many",
+  "college:destroyed",
+  "council:outranks_sovereign",
+  "deed:credited_not_actual",
+  "deed:dark_nest",
+  "deeds:two_civilizations",
+  "deeds:two_schools",
+  "defence:failed",
+  "dread:ages_2",
+  "dread:failed_against",
+  "dread:living",
+  "dread:long_lived",
+  "dread:person_shaped",
+  "dynasty:founding",
+  "fame:legendary",
+  "fame:renowned",
+  "fortress:pressed",
+  "hamlet:farming",
+  "hamlet:resource",
+  "hamlet:starving",
+  "hamlet:threatened",
+  "heir:capital",
+  "heir:medium",
+  "heir:small",
+  "heir:unclaimed",
+  "home:fell",
+  "home:fell_later",
+  "keypoint:ruin_born",
+  "legend:predecessor",
+  "ley:tainted_home",
+  "mentor:successor",
+  "order:against_dark",
+  "order:member",
+  "order:remnant",
+  "port:terminal",
+  "realm:cold_conflicts_2",
+  "realm:contested",
+  "realm:tyrant",
+  "rival:spared",
+  "role:camp_leader",
+  "role:castellan",
+  "role:champion",
+  "role:council",
+  "role:domain_holder",
+  "role:dread",
+  "role:exile",
+  "role:founder",
+  "role:harbourmaster",
+  "role:heresiarch",
+  "role:keeper",
+  "role:magister",
+  "role:pretender",
+  "role:prophet",
+  "role:reeve",
+  "role:schemer",
+  "role:sovereign",
+  "role:warlord",
+  "routes:2",
+  "school:dark",
+  "seat:chaplain",
+  "seat:college",
+  "seat:commander",
+  "seat:librarian",
+  "seat:mage",
+  "seat:magistrate",
+  "seat:market_steward",
+  "seat:none",
+  "seat:trade",
+  "shrine:cult",
+  "shrine:ruin",
+  "sides:both",
+  "sovereign:advised",
+  "stake:lost",
+  "stake:none",
+  "stake:regained",
+  "stakes:2",
+  "villain:prior_age",
+  "war:civil_victor",
+  "war:international_victor",
+  "war:regional_victor",
+  "warden:post"
+ ],
+ "feature_entry_count_in_source": 89,
+ "alignment": {
+  "threshold": 0.34,
+  "law_names": [
+   "Chaotic",
+   "Neutral",
+   "Lawful"
+  ],
+  "good_names": [
+   "Evil",
+   "Neutral",
+   "Good"
+  ],
+  "law_poles": [
+   "chaotic",
+   "neutral",
+   "lawful"
+  ],
+  "good_poles": [
+   "evil",
+   "neutral",
+   "good"
+  ],
+  "law_codes": "CNL",
+  "good_codes": "ENG",
+  "deed_sign_floor": 0.01
+ },
+ "fame": {
+  "class_weight": {
+   "small": 1.0,
+   "medium": 2.0,
+   "capital": 3.0
+  },
+  "site_weight": {
+   "hamlet": 0.5,
+   "fortress": 1.0,
+   "port": 1.0,
+   "shrine": 0.5
+  },
+  "war_weight": {
+   "civil": 1.0,
+   "regional": 2.0,
+   "international": 3.0
+  },
+  "seat_weight": {
+   "magistrate": 1.5,
+   "commander": 1.5,
+   "market_steward": 1.2,
+   "chaplain": 1.0,
+   "mage": 1.0,
+   "librarian": 0.8
+  },
+  "legend_reach": 0.5,
+  "tiers": [
+   [
+    24.0,
+    "legendary"
+   ],
+   [
+    8.0,
+    "renowned"
+   ],
+   [
+    0.0,
+    "notable"
+   ]
+  ]
+ },
+ "quest_verbs": [
+  "reclaim",
+  "recover",
+  "defend",
+  "slay",
+  "trade",
+  "tend",
+  "convert",
+  "supply",
+  "cleanse",
+  "investigate"
+ ],
+ "unsited_reasons": [
+  "ley_node_has_no_site",
+  "target_not_found",
+  "target_has_no_node"
+ ],
+ "pressure_exempt": [
+  "nest"
+ ],
+ "class_word": {
+  "small": "small city",
+  "medium": "city",
+  "capital": "capital"
+ },
+ "cause_phrases": {
+  "dragon": "a dragon",
+  "monster": "a monster",
+  "self_magic": "its own magic"
+ },
+ "beast_causes": [
+  "dragon",
+  "monster"
+ ],
+ "long_lived_families": [
+  "draconic",
+  "undead",
+  "aberrant"
+ ],
+ "companion_join": {
+  "captive": "rescued",
+  "hidden": "found",
+  "refugee": "hired"
+ },
+ "relic_by_cause": {
+  "self_magic": [
+   "focus",
+   "the {school} focus of {name}"
+  ],
+  "ley": [
+   "focus",
+   "the {school} focus of {name}"
+  ],
+  "war": [
+   "banner",
+   "the banner of {name}"
+  ],
+  "beast": [
+   "reliquary",
+   "the reliquary of {name}"
+  ]
+ },
+ "seated": [
+  "sovereign",
+  "warlord"
+ ],
+ "tainting_layers": [
+  "ley_umbral",
+  "ley_infernal"
+ ],
+ "seat_exempt_roles": [
+  "sovereign",
+  "council",
+  "warlord"
+ ],
+ "diaspora_roles": {
+  "religious_schism": "prophet",
+  "exile": "exile",
+  "expedition": "founder",
+  "magical_displacement": "founder"
+ },
+ "seat_titles": {
+  "magistrate": "Magistrate",
+  "commander": "Commander",
+  "chaplain": "Chaplain",
+  "market_steward": "Steward",
+  "mage": "Court Mage",
+  "librarian": "Archivist"
+ },
+ "seat_title_default": "Councillor",
+ "role_word": {
+  "farming": "farmstead",
+  "resource": "quarry camp",
+  "coastal": "fishing village"
+ },
+ "role_word_default": "hamlet",
+ "dark_families": [
+  "infernal",
+  "undead",
+  "aberrant"
+ ],
+ "deed_keeper": "keeper",
+ "self_magic_cause": "self_magic",
+ "school_scoring_excludes": [
+  "ley_holy",
+  "ley_primordial"
+ ],
+ "default_school": "weave",
+ "site_roles": {
+  "shrine": "keeper",
+  "cult": "heresiarch"
+ },
+ "block_version": 2,
+ "env_switch": "FANTASY_WORLD_HEROES",
+ "method": "Walk the finished history through seven wells. Hamlets: a reeve who speaks for the farmstead that starves or loses its herds. Fortresses: a castellan who holds the road. Ports: a harbourmaster with a trade seat. Shrines: a keeper at a shrine, a heresiarch at a cult. Ruins: a ruin may leave an heir, a war a remembered victor, a beast kill a named Dread. Magic: a key point a warden, a self-destroyed college a surviving master, a living college a head. Cities: a realm a sovereign (and a founding capital a dynasty), every city a council by class, a diaspora its prophet, exile or founder. Guilds: every guild hall under threat an Order with a champion, every beast-taken city a remnant with a champion who failed. Each candidate rolls once against the wells policy and the roll is recorded. Ruins may be squatted as camps and always leave a relic; the dispossessed are placed at camps or as refugees. Cross-cutting features (tainted ground, outranked sovereigns, living successors, refounded peoples, tyrant realms) are computed once the cast is known. Fame is deed magnitude times stake reach; alignment is derived from civilization bias and deeds before an archetype is chosen from the cards whose preconditions the person's own record satisfies, seated people first so a Tyrant can make Rebels; the persona is the alignment-neutral card coloured by the two axis overlays, once per face. Claims compile into quest hooks typed against ruins, cities, nests, relics, colleges and ley nodes; a public face states a different purpose than the effect. Each hook carries the quest contract: an anchor, a verb from the roster's own vocabulary, a difficulty 1-5 banded from what stands at the target plus the nest danger reaching its ground, and the terrain node a player stands on -- or the reason there is none. Each person carries an event log and a present situation, not a plan.",
+ "limits": "An artistic reading of the exported history, not a demographic claim. Council seats are a policy table by city class, not the placed rosters. Claims and hooks are exported intent; nothing here acts, fights, changes a node, or scripts what a person will do next. No hook names a reward: difficulty is an artistic danger band derived from creature tier, ley intensity and what a place is, not a simulation of an encounter nor a promise the quest is completable, and the consuming game is what turns it into treasure."
+}

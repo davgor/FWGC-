@@ -365,6 +365,18 @@ World generate(const Config& cfg) {
             add_environment(world);
             world.timing_ms["ecology"] = elapsed_ms(ecology_started);
 
+            // Astrology again, now that ecology has published coastal_exposure.
+            //
+            // lunar_sensitivity's shore term reads that layer, and astrology has to run
+            // before ecology because ecology reads the leyline fields astrology's own
+            // inputs depend on. Run once, the shore term silently read zero on every
+            // non-lake cell -- three quarters of the published layer was wrong, with the
+            // coastal half simply absent. The reference splits ecology into two passes
+            // to break the cycle; this port runs the cheaper of the two twice instead.
+            // Safe because refresh_astrology assigns rather than accumulates and does
+            // not reseed the moon.
+            refresh_astrology(world);
+
             // Stage 10's first half. After ecology, because it reads the cold-relabelled
             // natural biome, and after the leylines, because it reads their fields.
             const auto variants_started = Clock::now();

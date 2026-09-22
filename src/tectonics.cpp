@@ -318,6 +318,12 @@ TectonicResult generate_tectonics(const Config& cfg) {
         out.resolved_octaves = static_cast<int>(frequencies.size());
         Grid noise(n);
         Grid height(n);
+        // The PUBLISHED structure, not the local copy taken before the islands were
+        // raised. shape_islands adds the archipelago uplift to out.layers, and reading
+        // the stale local here discarded every island at phase 3 and above -- which is
+        // every world built at the default phase -- while the published structure, base
+        // and archipelago_relief layers all went on describing them.
+        const Grid& raised = out.layers.at("structure");
         for (int z = 0; z < n; ++z) {
             const int count = distinct_count(z, n);
             row.assign(static_cast<std::size_t>(count), 0.0);
@@ -341,7 +347,7 @@ TectonicResult generate_tectonics(const Config& cfg) {
                 row[static_cast<std::size_t>(x)] = value * (0.2 + 0.8 * influence);
             }
             noise.fill_row(z, row);
-            for (int x = 0; x < n; ++x) height.at(x, z) = structure.at(x, z) + noise.at(x, z);
+            for (int x = 0; x < n; ++x) height.at(x, z) = raised.at(x, z) + noise.at(x, z);
         }
         out.layers["noise"] = noise;
         out.layers["height"] = height;
