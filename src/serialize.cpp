@@ -310,6 +310,7 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
             json.field("width_m", net.width_m);
             json.field("instability", net.instability);
             json.field("manifested", net.manifested);
+            if (net.has_surge) json.field("surged_strength", net.surged_strength);
             json.field("hidden", school.hidden);
             json.key("color");
             json.begin_array();
@@ -370,6 +371,117 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
             "occurrence is locked at zero and only the corruption API places a node in one. Node and line "
             "intensities are editable and overlapping raw potency is preserved. Mutation requires potency at "
             "or above the threshold and a lead over the next strongest school of at least the margin."));
+        json.end_object();
+    }
+
+    if (world.has_astrology) {
+        const auto schools = magic_school_table();
+        const auto tide_object = [&](JsonWriter& w, const std::array<double, kKnownSchools>& t) {
+            w.begin_object();
+            for (int s = 0; s < kKnownSchools; ++s) {
+                w.field(schools[static_cast<std::size_t>(s)].name, t[static_cast<std::size_t>(s)]);
+            }
+            w.end_object();
+        };
+        const auto day_object = [&](JsonWriter& w, const DayState& d) {
+            w.begin_object();
+            w.field("day", static_cast<long long>(d.day));
+            w.field("phase_fraction", d.phase_fraction);
+            w.field("elongation_degrees", d.elongation_degrees);
+            w.field("illumination", d.illumination);
+            w.field("moonrise_hour", d.moonrise_hour);
+            w.field("spin_fraction", d.spin_fraction);
+            w.field("nod_degrees", d.nod_degrees);
+            w.field("leaning", d.leaning);
+            w.key("tide");
+            tide_object(w, d.tide);
+            w.end_object();
+        };
+
+        json.key("astrology");
+        json.begin_object();
+        json.field("version", 1);
+        json.key("calendar");
+        json.begin_object();
+        json.field("hours_per_day", kHoursPerDay);
+        json.field("days_per_month", kDaysPerMonth);
+        json.field("months_per_year", kMonthsPerYear);
+        json.field("days_per_year", kDaysPerYear);
+        json.field("epoch", std::string_view("day 0 is founding year 0; hour 0 is sunrise"));
+        json.end_object();
+        json.key("moon");
+        json.begin_object();
+        json.key("periods");
+        json.begin_object();
+        json.field("synodic", world.moon.synodic_days);
+        json.field("spin", world.moon.spin_days);
+        json.field("nod", world.moon.nod_days);
+        json.end_object();
+        json.key("offsets");
+        json.begin_object();
+        json.field("synodic", world.moon.synodic_offset);
+        json.field("spin", world.moon.spin_offset);
+        json.field("nod", world.moon.nod_offset);
+        json.end_object();
+        json.field("tilt_max_degrees", world.moon.tilt_max_degrees);
+        json.field("great_year_days", static_cast<long long>(world.moon.great_year_days));
+        json.key("regions");
+        json.begin_object();
+        for (int s = 0; s < kKnownSchools; ++s) {
+            json.key(schools[static_cast<std::size_t>(s)].name);
+            const Vec3 r = school_region(s);
+            json.begin_array();
+            json.value(r.x);
+            json.value(r.y);
+            json.value(r.z);
+            json.end_array();
+        }
+        json.end_object();
+        json.end_object();
+        json.field("method", std::string_view(
+            "One moon, not tidally locked. Its still hemisphere carries radiant, water, earth and umbral; its "
+            "restless hemisphere weave, fire, air and infernal, one school per quarter. Seeded integer-day "
+            "phase, spin and nod cycles prefer coprime periods, so the great year is their least common "
+            "multiple. A school surges when its quarter both faces the world and is lit."));
+        json.field("limits", std::string_view(
+            "Artistic astronomy: one body reduced to phase, rise hour, spin and lean. No altitude, no latitude "
+            "dependence, no solar eclipses, no water tides."));
+        json.end_object();
+
+        json.key("lunar_almanac");
+        json.begin_object();
+        json.field("version", 1);
+        json.field("reported_year", world.lunar_almanac.reported_year);
+        json.field("reported_year_source", world.lunar_almanac.reported_year_source);
+        json.field("next_grand_alignment_day",
+                   static_cast<long long>(world.lunar_almanac.next_grand_alignment_day));
+        json.key("now");
+        day_object(json, world.lunar_almanac.now);
+        json.key("months");
+        json.begin_array();
+        for (const AlmanacMonth& m : world.lunar_almanac.months) {
+            json.begin_object();
+            json.field("first_day", static_cast<long long>(m.first_day));
+            json.key("state");
+            day_object(json, m.state);
+            json.key("mean_tide");
+            tide_object(json, m.mean_tide);
+            json.end_object();
+        }
+        json.end_array();
+        json.key("events");
+        json.begin_array();
+        for (const AlmanacEvent& e : world.lunar_almanac.events) {
+            json.begin_object();
+            json.field("day", e.day);
+            json.field("kind", e.kind);
+            if (!e.school.empty()) {
+                json.field("school", e.school);
+                json.field("tide", e.tide);
+            }
+            json.end_object();
+        }
+        json.end_array();
         json.end_object();
     }
 

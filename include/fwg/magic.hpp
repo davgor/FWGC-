@@ -76,6 +76,11 @@ struct LeyNetwork {
     std::vector<LeyEdge> edges;
     bool manifested = false;
     NetworkDistribution distribution;
+
+    // Set by the astrology pass, and only for the known eight: a hidden school takes
+    // no surge because alien magic does not answer to this world's sky.
+    bool has_surge = false;
+    double surged_strength = 0.0;
 };
 
 struct MagicReport {

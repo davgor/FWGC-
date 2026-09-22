@@ -1,4 +1,5 @@
 ﻿add_library(fwg STATIC
+  astrology.cpp
   biomes.cpp
   climate.cpp
   config.cpp

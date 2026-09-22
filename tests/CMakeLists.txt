@@ -1,5 +1,6 @@
 ﻿add_executable(fwg_tests
   main.cpp
+  test_astrology.cpp
   test_biomes.cpp
   test_climate.cpp
   test_ecology.cpp

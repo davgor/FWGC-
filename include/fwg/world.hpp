@@ -20,6 +20,7 @@
 #include "fwg/grid.hpp"
 #include "fwg/magic.hpp"
 #include "fwg/tectonics.hpp"
+#include "fwg/astrology.hpp"
 #include "fwg/biomes.hpp"
 #include "fwg/climate.hpp"
 #include "fwg/detail.hpp"
@@ -95,6 +96,10 @@ struct World {
 
     bool has_magic = false;
     MagicReport magic;
+
+    bool has_astrology = false;
+    Moon moon;
+    Almanac lunar_almanac;
 
     // The continuous height field's definition. Present from stage 8; an engine builds
     // a HeightField from the world and samples terrain anywhere.

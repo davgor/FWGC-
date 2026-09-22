@@ -4,7 +4,10 @@ The generator is a ladder of sixteen stages. Each stage reads the world the prev
 built and writes new blocks into it. A world reports the stage it actually reached in
 `completed_stage`, and a request above that adds a warning saying so.
 
-**Reached: stage 5 of 16**, plus all of stage 8 and the leyline half of stage 9.
+**Reached: stage 5 of 16**, plus all of stage 8 and all of stage 9.
+
+`completed_stage` still reports 5 because it is the highest CONTIGUOUS stage and 6
+and 7 are not written. The `systems` list in the document says what actually ran.
 
 `completed_stage` reports the highest CONTIGUOUS stage, so it stays at 5 while stages 6
 and 7 are missing. The `systems` list in the document says what actually ran. Climate is
@@ -31,7 +34,7 @@ output is deliberately not matched; see [determinism.md](determinism.md).
 | 8 | Ecology: habitats, cold relabel, islands, seasons, regions | `terrain_ecology` | **done** |
 | 8 | Continuous height field and tile export | `terrain_detail` | **done** |
 | 9 | Leyline networks: eight schools, fields, dominance | `terrain_leyline_history`, `terrain_magic` | **done** |
-| 9 | Astrology and the moon | `terrain_astrology` | todo |
+| 9 | Astrology: the moon, its tide and the almanac | `terrain_astrology` | **done** |
 | 10 | Biome variants, civilizations | `terrain_history`, `terrain_settlements` | todo |
 | 11 | Civilizations | `terrain_settlements` | todo |
 | 12 | Civilizations | `terrain_settlements` | todo |

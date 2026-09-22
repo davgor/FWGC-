@@ -345,6 +345,12 @@ World generate(const Config& cfg) {
             generate_networks(world);
             world.timing_ms["leylines"] = elapsed_ms(ley_started);
 
+            // Astrology after the leylines: the tide surges each school's strength,
+            // and lunar_sensitivity reads the instability fields they publish.
+            const auto sky_started = Clock::now();
+            add_astrology(world);
+            world.timing_ms["astrology"] = elapsed_ms(sky_started);
+
             const auto ecology_started = Clock::now();
             add_environment(world);
             world.timing_ms["ecology"] = elapsed_ms(ecology_started);
