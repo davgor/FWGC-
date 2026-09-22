@@ -19,7 +19,9 @@
 #include "fwg/config.hpp"
 #include "fwg/grid.hpp"
 #include "fwg/tectonics.hpp"
+#include "fwg/biomes.hpp"
 #include "fwg/climate.hpp"
+#include "fwg/content.hpp"
 #include "fwg/water.hpp"
 
 namespace fwg {
@@ -76,6 +78,9 @@ struct World {
     bool has_climate = false;
     ClimateReport climate;
 
+    bool has_terrain = false;
+    TerrainReport terrain;
+
     // Which subsystems actually ran. More honest than a stage number while the
     // ladder is partial: climate can be present while stages 6 and 7 are not.
     std::vector<std::string> systems;
@@ -97,6 +102,11 @@ void add_water(World& world);
 // report. Runs on whatever surface exists, so inserting stages 6-7 later changes its
 // input without changing this code.
 void add_climate(World& world);
+
+// Terrain labels: temperature, moisture, biome and landform, plus the sparse feature
+// markers. Runs from phase 2, and uses transported rainfall for moisture once climate
+// has provided it — before that, a latitude band plus seeded noise.
+void add_terrain_labels(World& world);
 
 World generate(const Config& cfg);
 

@@ -335,6 +335,9 @@ World generate(const Config& cfg) {
             const auto climate_started = Clock::now();
             add_climate(world);
             world.timing_ms["climate"] = elapsed_ms(climate_started);
+            const auto labels_started = Clock::now();
+            add_terrain_labels(world);
+            world.timing_ms["terrain_labels"] = elapsed_ms(labels_started);
             world.warnings.push_back(
                 "Climate ran on a stage-5 surface: stages 6 (tectonic transition) and 7 (relic carving) are not "
                 "implemented and would otherwise reshape the terrain before it. See docs/porting-status.md.");

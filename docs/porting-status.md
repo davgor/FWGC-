@@ -27,7 +27,8 @@ output is deliberately not matched; see [determinism.md](determinism.md).
 | 6 | Tectonic transition (second epoch) | `terrain_history.tectonic_transition` | todo |
 | 7 | Relic carving (abandoned waterways) | `terrain_history.carve_relics` | todo |
 | 8 | Climate: wind, rainfall, runoff, wetness | `terrain_climate` | **done** |
-| 8 | Biomes, ecology, detail | `terrain_biomes`, `terrain_ecology`, `terrain_detail` | todo |
+| 8 | Terrain labels: temperature, moisture, biome, landform, features | `terrain_biomes` | **done** |
+| 8 | Ecology, detail sampler | `terrain_ecology`, `terrain_detail` | todo |
 | 9 | Leyline networks, astrology | `terrain_leyline_history`, `terrain_astrology` | todo |
 | 10 | Biome variants, civilizations | `terrain_history`, `terrain_settlements` | todo |
 | 11 | Civilizations | `terrain_settlements` | todo |
@@ -102,9 +103,11 @@ catalogues — which are not documentation but **data stages 8–16 need at runt
 
 ## What each remaining stage will need before it can be written
 
-- **Stage 8** needs the biome taxonomy as data. In the reference this is spread across
-  `Contracts/catalogues/` and `civilization_registry.json`; it has to arrive here as a data
-  file the library loads or embeds, not as a table hand-copied into a `.cpp`.
+- **Content data now has a pipeline.** `data/*.json` is the source of truth;
+  `tools/embed_content.py` validates it and generates typed C++ tables into
+  `src/generated/`, which are checked in so the build needs no Python. Run it with
+  `--check` before committing a data change. `data/biomes.json` is the first;
+  `civilizations.json`, `buildings.json` and the nest profiles follow the same route.
 - **Stages 10–12 and 16** need the civilization registry and the settlement catalogues. The
   same applies: they are content, and content belongs in a file with a version on it.
 - **Stage 16** is by far the largest — nine subsystems, and in the reference roughly ten

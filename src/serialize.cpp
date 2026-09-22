@@ -236,6 +236,55 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
         json.end_object();
     }
 
+    if (world.has_terrain) {
+        json.key("terrain");
+        json.begin_object();
+        json.field("version", world.terrain.version);
+        json.field("climate_seed", static_cast<long long>(world.terrain.climate_seed));
+        json.key("landforms");
+        json.begin_array();
+        for (int i = 0; i < 4; ++i) json.value(std::string_view(landform_name(i)));
+        json.end_array();
+        json.key("natural_biomes");
+        json.begin_array();
+        for (const NaturalBiome& b : natural_biomes()) {
+            json.begin_object();
+            json.field("id", b.id);
+            json.field("core", b.core);
+            json.field("name", b.name);
+            json.field("asset_id", b.asset_id);
+            json.key("color");
+            json.begin_array();
+            for (const int c : b.color) json.value(c);
+            json.end_array();
+            json.field("reachable", b.reachable);
+            json.end_object();
+        }
+        json.end_array();
+        json.key("features");
+        json.begin_array();
+        for (const TerrainFeature& f : world.terrain.features) {
+            json.begin_object();
+            json.field("kind", f.kind);
+            json.field("label", f.label);
+            json.field("x", f.x);
+            json.field("z", f.z);
+            json.field("height_m", f.height_m);
+            json.key("direction");
+            json.begin_array();
+            json.value(f.direction.x);
+            json.value(f.direction.y);
+            json.value(f.direction.z);
+            json.end_array();
+            json.end_object();
+        }
+        json.end_array();
+        json.field("method", world.terrain.method);
+        json.field("icons", std::string_view(
+            "Sparse representative regions and prominent ridges; not unique geological objects."));
+        json.end_object();
+    }
+
     if (!world.systems.empty()) {
         json.key("systems");
         json.value(world.systems);

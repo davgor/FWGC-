@@ -1,6 +1,8 @@
 ﻿add_library(fwg STATIC
+  biomes.cpp
   climate.cpp
   config.cpp
+  generated/content_biomes.cpp
   erosion.cpp
   grid.cpp
   json.cpp
