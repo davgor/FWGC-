@@ -1,0 +1,55 @@
+{
+ "schema": "fwg.registry-sections",
+ "schema_version": 1,
+ "note": "The registry-wide sections of the civilization registry -- parent races, founding rules, defaults and city classification -- resolved from FantasyWorldGenerator b67c99b after validate_registry() passed. PARENT RACE ORDER IS A CONTRACT. founding.found_cities takes this table as an ordered mapping and rotates founding initiative through it: races = list(parents), offset = (turn-1) % len(races), races = races[offset:] + races[:offset]. It is first filtered down to the races that actually own a civilization this run, which PRESERVES this order, so inserting a race renumbers the rotation for every world. It is emitted as a list here for that reason. `founding_participation_percent` is a PERCENT (0..100) compared against random()*100, and it is only consulted from the second round on, or once the race already has a city: a race's FIRST city is founded without a participation roll, so a race at 0 still settles exactly one origin. `founding_rules` KEY NAMES ARE THE CONTRACT, not just the values: terrain_settlements splats the whole section into found_cities as **kwargs, so each key is a parameter name (years_per_round, origin_min_separation_degrees, diaspora_interval_years, diaspora_bonus_per_parent). validate_registry requires diaspora_interval_years to be an exact multiple of years_per_round -- the diaspora test is year modulo interval == 0, so a non-multiple fires never. `diaspora_bonus_per_parent` is validated to be 0 or 1 and is used as a BOOLEAN (at most one bonus founding per parent race), not as a count. `origin_min_separation_degrees` is converted to a distance as world_reach * degrees / 180 where world_reach is pi*globe_radius, i.e. it is a great-circle angle in degrees, and it gates only the placement of a race's FIRST city relative to other races' founding capitals. `defaults.profile_id` is the single-people default and `aggregate_profile_id` ('mixed') is the id of the aggregate configuration, which is NOT an entity and has no entity rules. `defaults.resource_score_factor_label` is not data, it is a DICT KEY: terrain_settlements writes each site's resource contribution into suitability_factors under this literal string, so the shipped world document has a key named 'gnome_metal_affinity' on every civilization's site. `normal_site_reason` and `outpost_site_reason` are the fallbacks used when an entity's settlement.reason is null. The two *_color_rgb defaults are the outpost override colours; terrain_civilizations.civilization_report republishes exactly the keys of this section that end in '_color_rgb' as presentation_defaults. `city_classification.medium_suitability_min` is the only value read at generation time (classify_cities: capital first, then medium at or above this suitability, else small); `capital_policy` is a frozen string that validate_registry refuses to see changed, and `capital_scope` is prose republished into the world document. `civilization_order` is NOT here -- it is the order of the `entities` list in entity-rules.json, which is what civilization_ids() returns.",
+ "source_identity": {
+  "schema_version": 6,
+  "revision": 12,
+  "sha256": "038cf89fe4a5248daf47e6ea002880257d0cdaac4824ed30fa3ee49bb9c8709e"
+ },
+ "parent_races": [
+  {
+   "id": "human",
+   "name": "Human",
+   "founding_participation_percent": 95
+  },
+  {
+   "id": "elf",
+   "name": "Elf",
+   "founding_participation_percent": 25
+  },
+  {
+   "id": "dwarf",
+   "name": "Dwarf",
+   "founding_participation_percent": 60
+  }
+ ],
+ "founding_rules": {
+  "years_per_round": 250,
+  "origin_min_separation_degrees": 90,
+  "diaspora_interval_years": 1000,
+  "diaspora_bonus_per_parent": 1
+ },
+ "defaults": {
+  "profile_id": "human_heartland",
+  "aggregate_profile_id": "mixed",
+  "resource_score_factor_label": "gnome_metal_affinity",
+  "normal_site_reason": "Combined freshwater, slope, climate and flood-risk score",
+  "outpost_site_reason": "Resource-driven difficult site",
+  "outpost_wall_color_rgb": [
+   232,
+   199,
+   125
+  ],
+  "outpost_roof_color_rgb": [
+   133,
+   112,
+   72
+  ]
+ },
+ "city_classification": {
+  "medium_suitability_min": 0.65,
+  "capital_policy": "retain_founding_capital_else_highest_suitability_then_lowest_node",
+  "capital_scope": "Active surface cities, one per civilization; sky settlements are separate communities."
+ }
+}

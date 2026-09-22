@@ -5,6 +5,7 @@
   test_civilizations.cpp
   test_climate.cpp
   test_ecology.cpp
+  test_founding.cpp
   test_history.cpp
   test_magic.cpp
   test_routing.cpp

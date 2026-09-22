@@ -12,6 +12,7 @@
   detail.cpp
   ecology.cpp
   erosion.cpp
+  founding.cpp
   grid.cpp
   history.cpp
   json.cpp
