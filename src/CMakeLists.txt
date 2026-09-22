@@ -6,6 +6,7 @@
   config.cpp
   generated/content_biomes.cpp
   generated/content_civilizations.cpp
+  generated/content_entities.cpp
   generated/content_registry.cpp
   generated/content_schools.cpp
   generated/content_variants.cpp
@@ -13,6 +14,7 @@
   detail.cpp
   ecology.cpp
   erosion.cpp
+  entities.cpp
   founding.cpp
   grid.cpp
   history.cpp

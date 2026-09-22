@@ -180,15 +180,26 @@ struct RegistryIdentity {
 };
 RegistryIdentity registry_identity();
 
-// The shared pool a node's child_begin/child_end index into, and the membership
-// pools its `in` test reads.
-std::span<const std::uint32_t> habitat_children();
-std::span<const double> habitat_numbers();
-std::span<const std::string_view> habitat_texts();
+// The pools a flattened habitat tree indexes into: the shared child pool a node's
+// child_begin/child_end reads, and the membership pools its `in` test compares against.
+//
+// Bundled rather than reached through free functions because there is MORE THAN ONE set
+// of habitat trees -- the civilizations' own, and the entity settlement rules, which are
+// generated into a different translation unit and cannot share arrays with these. A tree
+// that carried only its nodes would silently index another tree's pools.
+struct HabitatPools {
+    std::span<const std::uint32_t> children;
+    std::span<const double> numbers;
+    std::span<const std::string_view> texts;
+};
+
+// The pools the civilization profiles' habitat trees read.
+HabitatPools civilization_habitat_pools();
 
 // Does this ground suit these people? An empty rule suits everywhere.
 bool habitat_admits(const CivilizationProfile& profile, const HabitatSample& sample);
-bool habitat_admits(std::span<const HabitatNode> nodes, std::uint32_t index, const HabitatSample& sample);
+bool habitat_admits(std::span<const HabitatNode> nodes, const HabitatPools& pools,
+                    std::uint32_t index, const HabitatSample& sample);
 
 // A people's opinion of exact ground. An explicit magical state overrides the natural
 // core beneath it.

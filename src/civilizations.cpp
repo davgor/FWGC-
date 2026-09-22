@@ -35,10 +35,11 @@ double sample_value(HabitatField field, const HabitatSample& s) {
 
 }  // namespace
 
-bool habitat_admits(std::span<const HabitatNode> nodes, std::uint32_t index, const HabitatSample& sample) {
+bool habitat_admits(std::span<const HabitatNode> nodes, const HabitatPools& pools,
+                    std::uint32_t index, const HabitatSample& sample) {
     if (nodes.empty() || index >= nodes.size()) return true;
     const HabitatNode& node = nodes[index];
-    const auto children = habitat_children();
+    const auto children = pools.children;
 
     switch (node.op) {
         case HabitatOp::always:
@@ -47,12 +48,12 @@ bool habitat_admits(std::span<const HabitatNode> nodes, std::uint32_t index, con
             return true;
         case HabitatOp::all:
             for (std::uint32_t i = node.child_begin; i < node.child_end; ++i) {
-                if (!habitat_admits(nodes, children[i], sample)) return false;
+                if (!habitat_admits(nodes, pools, children[i], sample)) return false;
             }
             return true;
         case HabitatOp::any:
             for (std::uint32_t i = node.child_begin; i < node.child_end; ++i) {
-                if (habitat_admits(nodes, children[i], sample)) return true;
+                if (habitat_admits(nodes, pools, children[i], sample)) return true;
             }
             return false;
         case HabitatOp::leaf:
@@ -61,7 +62,7 @@ bool habitat_admits(std::span<const HabitatNode> nodes, std::uint32_t index, con
 
     // A membership test on a text field compares identities, not magnitudes.
     if (node.text_end > node.text_begin) {
-        const auto texts = habitat_texts();
+        const auto texts = pools.texts;
         bool found = false;
         for (std::uint32_t i = node.text_begin; i < node.text_end; ++i) {
             if (texts[i] == sample.variant) { found = true; break; }
@@ -72,7 +73,7 @@ bool habitat_admits(std::span<const HabitatNode> nodes, std::uint32_t index, con
     const double value = sample_value(node.field, sample);
 
     if (node.number_end > node.number_begin) {
-        const auto numbers = habitat_numbers();
+        const auto numbers = pools.numbers;
         bool found = false;
         for (std::uint32_t i = node.number_begin; i < node.number_end; ++i) {
             if (numbers[i] == value) { found = true; break; }
@@ -93,7 +94,7 @@ bool habitat_admits(const CivilizationProfile& profile, const HabitatSample& sam
     if (profile.habitat.empty()) return true;
     // Child indices are relative to the profile's own first node, so its span is
     // self-contained and the root is always index 0.
-    return habitat_admits(profile.habitat, 0, sample);
+    return habitat_admits(profile.habitat, civilization_habitat_pools(), 0, sample);
 }
 
 const CivilizationProfile* civilization_profile(std::string_view id) {

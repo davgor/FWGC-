@@ -255,6 +255,110 @@ def render_schools():
     return "\n".join(lines) + "\n"
 
 
+def load_entity_rules():
+    doc = json.loads((DATA / "entity-rules.json").read_text(encoding="utf-8"))
+    if doc.get("schema_version") != 1:
+        raise SystemExit("entity-rules.json must declare schema version 1")
+
+    rows = doc["entities"]
+    ids = [r["id"] for r in rows]
+    if len(set(ids)) != len(ids):
+        raise SystemExit("entity-rules.json has a duplicate entity id")
+
+    # Position in this list is published as `region_index`, and the lab colours a map
+    # region by it. Reordering these rows recolours every world ever generated, so the
+    # order has to agree with the civilization registry rather than merely overlap it.
+    order = [p["id"] for p in load_civilizations()["profiles"] if p["kind"] == "entity"]
+    if ids != order:
+        raise SystemExit("entity-rules.json order %s does not match the civilization "
+                         "registry order %s; region_index is a position in this list"
+                         % (ids, order))
+
+    races = {r["id"] for r in load_registry_sections()["parent_races"]}
+    for r in rows:
+        if r["parent_race_id"] not in races:
+            raise SystemExit("entity %s is owned by parent race %r, which is not in "
+                             "registry-sections.json" % (r["id"], r["parent_race_id"]))
+    return doc
+
+
+def render_entity_rules():
+    doc = load_entity_rules()
+    rows = doc["entities"]
+
+    nodes, numbers, texts, children = [], [], [], []
+    spans = []
+    for r in rows:
+        pair = []
+        for key in ("surface_habitat", "world_habitat"):
+            rule = r["settlement"].get(key) or {}
+            begin = len(nodes)
+            if rule:
+                flatten_habitat(rule, nodes, numbers, texts, children, begin)
+            pair.append((begin, len(nodes)))
+        spans.append(pair)
+
+    lines = [BANNER.format(source="entity-rules.json")]
+    lines.append('#include "fwg/entities.hpp"\n')
+    lines.append("namespace fwg {\nnamespace {\n")
+
+    lines.append("// The entities' habitat trees have their OWN pools. They are a different set of")
+    lines.append("// trees from the civilization profiles', generated into a different translation")
+    lines.append("// unit, and a tree that read the other's pools would silently test another")
+    lines.append("// people's rule.")
+    lines.append("constexpr std::uint32_t kChildren[] = {%s};"
+                 % (", ".join(str(c) for c in children) if children else "0"))
+    lines.append("constexpr double kNumbers[] = {%s};"
+                 % (", ".join(cpp_double(v) for v in numbers) if numbers else "0.0"))
+    lines.append("constexpr std::string_view kTexts[] = {%s};"
+                 % (", ".join(cpp_string(t) for t in texts) if texts else '""'))
+    lines.append("")
+
+    lines.append("constexpr HabitatNode kNodes[] = {")
+    for node in nodes:
+        lines.append("    " + habitat_node_literal(node) + ",")
+    lines.append("};\n")
+
+    lines.append("constexpr EntityRules kEntities[] = {")
+    for r, pair in zip(rows, spans):
+        s = r["settlement"]
+        e = r["economy"]
+        sky = r["sky"]
+        p = r["presentation"]
+        # `null` is NOT zero on these three. A null freshwater multiplier means the
+        # entity is not gated on fresh water at all, where 0 would forbid every cell; a
+        # null resource minimum means the terminal is NEVER built, where 0 would build
+        # one everywhere.
+        lines.append("    {%s, %s," % (cpp_string(r["id"]), cpp_string(r["parent_race_id"])))
+        lines.append("     {{kNodes + %d, kNodes + %d}, {kNodes + %d, kNodes + %d}, %s, %s, %s, %s, %s},"
+                     % (pair[0][0], pair[0][1], pair[1][0], pair[1][1],
+                        optional_double(s["freshwater_reach_multiplier"]),
+                        "true" if s["support_outside_habitat"] else "false",
+                        cpp_double(s["coastal_score_weight"]),
+                        cpp_double(s["resource_score_weight"]),
+                        cpp_string(s["reason"] or "")))
+        lines.append("     {%s, %s, %s, %s},"
+                     % (cpp_double(e["fishing_reach_multiplier"]),
+                        optional_double(e["industrial_resource_min"]),
+                        optional_double(e["air_terminal_resource_min"]),
+                        cpp_double(e["winter_fishing_fraction"])))
+        lines.append("     {%s, %s},"
+                     % (cpp_double(sky["score_bias"]), cpp_double(sky["moisture_score_weight"])))
+        lines.append("     {{%d, %d, %d}, {%d, %d, %d}, {%d, %d, %d}}},"
+                     % (p["map_color_rgb"][0], p["map_color_rgb"][1], p["map_color_rgb"][2],
+                        p["wall_color_rgb"][0], p["wall_color_rgb"][1], p["wall_color_rgb"][2],
+                        p["roof_color_rgb"][0], p["roof_color_rgb"][1], p["roof_color_rgb"][2]))
+    lines.append("};\n")
+    lines.append("}  // namespace\n")
+
+    lines.append("// ORDER IS A CONTRACT: an entity's position here is published as its")
+    lines.append("// region_index, and the map is coloured by it.")
+    lines.append("std::span<const EntityRules> entity_rules() { return kEntities; }\n")
+    lines.append("HabitatPools entity_habitat_pools() { return {kChildren, kNumbers, kTexts}; }\n")
+    lines.append("}  // namespace fwg")
+    return "\n".join(lines) + "\n"
+
+
 def load_registry_sections():
     doc = json.loads((DATA / "registry-sections.json").read_text(encoding="utf-8"))
     if doc.get("schema_version") != 1:
@@ -366,6 +470,36 @@ def load_civilizations():
     return doc
 
 
+def habitat_node_literal(n):
+    """One flattened habitat node as a C++ aggregate initialiser.
+
+    Shared by the civilization profiles and the entity settlement rules, which are
+    separate trees over the same node type.
+    """
+    return ("{HabitatOp::%s, HabitatField::%s, %s, %s, %s, %s, %s, %s, %s, %s, "
+            "%du, %du, %du, %du, %du, %du}"
+            % (n["op"], n["field"],
+               cpp_double(n.get("min") or 0.0), cpp_double(n.get("max") or 0.0),
+               cpp_double(n.get("gt") or 0.0), cpp_double(n.get("equals") or 0.0),
+               "true" if n.get("min") is not None else "false",
+               "true" if n.get("max") is not None else "false",
+               "true" if n.get("gt") is not None else "false",
+               "true" if n.get("equals") is not None else "false",
+               n["num"][0], n["num"][1], n["txt"][0], n["txt"][1],
+               n["child"][0], n["child"][1]))
+
+
+def optional_double(value):
+    """A std::optional<double> literal.
+
+    `null` is NOT zero on the fields that use this. A null freshwater multiplier means
+    the entity is not gated on fresh water at all, where 0 would forbid every cell; a
+    null resource minimum means that terminal is NEVER built, where 0 would build one
+    everywhere.
+    """
+    return "std::nullopt" if value is None else "%s" % cpp_double(value)
+
+
 def flatten_habitat(rule, nodes, numbers, texts, children, base):
     """Append `rule` and its subtree to `nodes`; return this node's index.
 
@@ -447,16 +581,7 @@ def render_civilizations():
     lines.append("// Habitat predicates, flattened. Children of a node are a contiguous range.")
     lines.append("constexpr HabitatNode kHabitat[] = {")
     for n in nodes:
-        lines.append("    {HabitatOp::%s, HabitatField::%s, %s, %s, %s, %s, %s, %s, %s, %s, %du, %du, %du, %du, %du, %du},"
-                     % (n["op"], n["field"],
-                        cpp_double(n.get("min") or 0.0), cpp_double(n.get("max") or 0.0),
-                        cpp_double(n.get("gt") or 0.0), cpp_double(n.get("equals") or 0.0),
-                        "true" if n.get("min") is not None else "false",
-                        "true" if n.get("max") is not None else "false",
-                        "true" if n.get("gt") is not None else "false",
-                        "true" if n.get("equals") is not None else "false",
-                        n["num"][0], n["num"][1], n["txt"][0], n["txt"][1],
-                        n["child"][0], n["child"][1]))
+        lines.append("    " + habitat_node_literal(n) + ",")
     lines.append("};\n")
 
     for key, kind in (("biome_preferences", "BiomeOpinion"), ("food_biome_multipliers", "BiomeOpinion"),
@@ -498,9 +623,7 @@ def render_civilizations():
     src = doc["source_identity"]
     digest = hashlib.sha256(json.dumps(doc, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     lines.append("}  // namespace\n")
-    lines.append("std::span<const std::uint32_t> habitat_children() { return kHabitatChildren; }")
-    lines.append("std::span<const double> habitat_numbers() { return kInNumbers; }")
-    lines.append("std::span<const std::string_view> habitat_texts() { return kInTexts; }")
+    lines.append("HabitatPools civilization_habitat_pools() { return {kHabitatChildren, kInNumbers, kInTexts}; }")
     lines.append("std::span<const CivilizationProfile> civilization_profiles() { return kProfiles; }")
     lines.append("std::span<const std::string_view> civilization_ids() { return kEntityIds; }")
     lines.append("std::string_view default_profile_id() { return %s; }\n"
@@ -575,6 +698,7 @@ TARGETS = {
     OUT / "content_civilizations.cpp": render_civilizations,
     OUT / "content_variants.cpp": render_variants,
     OUT / "content_registry.cpp": render_registry_sections,
+    OUT / "content_entities.cpp": render_entity_rules,
     OUT / "world_options.cpp": render_world_options,
     pathlib.Path(__file__).resolve().parent.parent / "include" / "fwg" / "option_ids.hpp": render_options_header,
 }

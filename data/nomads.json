@@ -1,0 +1,180 @@
+{
+ "schema": "fwg.nomads",
+ "schema_version": 1,
+ "note": "The nomad balance table, extracted verbatim from FantasyWorldGenerator b67c99b after terrain_nomads.policy() validated it on load (positive weight, ordered size band, positive speed, a gate dict per class, exact classification-set match against the CLASSIFICATIONS tuple, and a well-formed fission block). `policy` is the complete source document; the loader rejects any version but 2, which is `policy.version` below. terrain_nomads.add_nomads reads `candidate` and `classifications`; terrain_nomad_routes reads `fission`; the six _gate_* predicates each read their own classification's `gate`. IT IS AN RNG INPUT BY VALUE, NOT BY ORDER. candidate.density_per_1000km2 sets the rate of a thinned point process (rate = occurrence * density * area_km2 / 1000 * room, then int(rate) + (rng.random() < rate - int(rate))), candidate.settlement_clearance_spacings scales `room` against settlement spacing, each classification `weight` feeds a cumulative weighted walk against one uniform draw, `size` is drawn with rng.randint(low, high), and fission.child_share is drawn per split. Change any number and the world changes. KEY ORDER IS FREE, AND THAT IS DELIBERATE. The share list is built by iterating the Python tuple CLASSIFICATIONS = ('survivors', 'deserters', 'cultists', 'merchants', 'bandits', 'wanderers'), not this document, and the loader checks set equality only -- so re-sorting `classifications` here is a no-op, while reordering that tuple renumbers anything that stored an index into it. A port must carry that iteration order in its code, exactly as Python does, and must NOT take it from this file. It is reproduced as `classification_order` below so the two can be compared. NO IDENTITY IS STAMPED. Unlike castles.json, nothing hashes this document and nothing compares it on reopen: the output block carries only the module VERSION, so editing these numbers silently changes new worlds while saved worlds keep their old bands and never notice. That is a defect inherited from the Python, recorded here rather than fixed.",
+ "classification_order": [
+  "survivors",
+  "deserters",
+  "cultists",
+  "merchants",
+  "bandits",
+  "wanderers"
+ ],
+ "policy": {
+  "version": 2,
+  "notes": "Balance table for terrain_nomads. Every reach is a multiple of settlement spacing, never a metre constant, so a wider world does not turn a local band into a regional one. Speeds are absolute metres per day because a walking pace is a property of the traveller, not of the world. Gates are hard: a classification whose preconditions fail is ineligible outright, and a candidate that satisfies none produces no band at all. Thresholds are tuned so each hard gate admits a minority of land: most ground raises nobody, and a cult needs genuinely charged sacred ground rather than any ley whisper. Version 2 adds the `fission` section; nothing in `candidate` or `classifications` moved with it.",
+  "candidate": {
+   "density_per_1000km2": 18.0,
+   "settlement_clearance_spacings": 0.3,
+   "min_suitability": 0.12
+  },
+  "fission": {
+   "notes": "Segmentary lineage: a clan splits when its head count passes what the ground its round actually walks will carry, and the daughter segment takes part of the inherited range. Deliberately dimensionless -- capacity is read off the classification's own authored `size` band rather than as head per square kilometre, because an absolute figure reads the raster instead of the land: a cell is 52 km2 at raster 17 against 13 km2 at raster 33, and the same clan would then outgrow the same ground at one resolution and not at the other. rich_forage is the round forage at which a round carries the top of that size band; it is calibrated rather than derived. A routed herding round runs 0.32 to 0.57 on seed 42 at size 33 -- well above the gate's 0.07 start-cell floor, because the route pass picks the best ground in reach -- and 0.55 seats a child for 27 percent of routed herders across six sampled populations, against 9 percent at 0.50 and 45 percent at 0.60.",
+   "classifications": [
+    "wanderers"
+   ],
+   "rich_forage": 0.55,
+   "child_share": [
+    0.3,
+    0.45
+   ]
+  },
+  "classifications": {
+   "survivors": {
+    "weight": 1.6,
+    "disposition": "fleeing",
+    "speed_m_per_day": 11000,
+    "size": [
+     30,
+     260
+    ],
+    "column_length_per_head_m": 1.4,
+    "seeks": [
+     "shelter",
+     "kin",
+     "food"
+    ],
+    "carries": [
+     "what they could lift"
+    ],
+    "gate": {
+     "ruin_reach_spacings": 0.9,
+     "refuge_reach_spacings": 2.5
+    }
+   },
+   "deserters": {
+    "weight": 1.0,
+    "disposition": "wary",
+    "speed_m_per_day": 17000,
+    "size": [
+     12,
+     90
+    ],
+    "column_length_per_head_m": 2.2,
+    "seeks": [
+     "cover",
+     "plunder",
+     "a way out"
+    ],
+    "carries": [
+     "army issue",
+     "stolen supply"
+    ],
+    "gate": {
+     "war_reach_spacings": 0.8,
+     "min_ruggedness": 0.32
+    }
+   },
+   "cultists": {
+    "weight": 0.8,
+    "disposition": "devout",
+    "speed_m_per_day": 13000,
+    "size": [
+     15,
+     140
+    ],
+    "column_length_per_head_m": 1.8,
+    "seeks": [
+     "the god",
+     "sacred ground",
+     "converts"
+    ],
+    "carries": [
+     "relics",
+     "offerings"
+    ],
+    "gate": {
+     "min_ley_intensity": 2.0,
+     "ley_reach_spacings": 0.35,
+     "shrine_reach_spacings": 0.8,
+     "claim_reach_spacings": 1.2
+    }
+   },
+   "merchants": {
+    "weight": 1.3,
+    "disposition": "tradeable",
+    "speed_m_per_day": 24000,
+    "size": [
+     8,
+     70
+    ],
+    "column_length_per_head_m": 6.0,
+    "seeks": [
+     "markets",
+     "escort",
+     "a safe night"
+    ],
+    "carries": [
+     "goods",
+     "coin",
+     "news"
+    ],
+    "gate": {
+     "road_reach_spacings": 0.35,
+     "market_reach_spacings": 3.0,
+     "min_markets": 2,
+     "min_market_population": 2000
+    }
+   },
+   "bandits": {
+    "weight": 1.2,
+    "disposition": "hostile",
+    "speed_m_per_day": 19000,
+    "size": [
+     10,
+     80
+    ],
+    "column_length_per_head_m": 2.0,
+    "seeks": [
+     "plunder",
+     "ransom",
+     "weak escorts"
+    ],
+    "carries": [
+     "stolen goods"
+    ],
+    "gate": {
+     "min_ruggedness": 0.34,
+     "strike_reach_spacings": 1.3,
+     "control_clear_spacings": 0.9
+    }
+   },
+   "wanderers": {
+    "weight": 2.0,
+    "disposition": "wary",
+    "speed_m_per_day": 15000,
+    "size": [
+     40,
+     420
+    ],
+    "column_length_per_head_m": 3.2,
+    "seeks": [
+     "pasture",
+     "water",
+     "a sheltered winter"
+    ],
+    "carries": [
+     "herds",
+     "tents",
+     "craft"
+    ],
+    "gate": {
+     "min_forage": 0.07,
+     "min_seasonal_swing": 0.3,
+     "summer_reach_spacings": 3.5,
+     "winter_reach_spacings": 3.5
+    }
+   }
+  }
+ }
+}

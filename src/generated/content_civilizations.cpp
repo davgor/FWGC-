@@ -64,9 +64,7 @@ constexpr std::string_view kEntityIds[] = {"human_maritime", "human_desert", "hu
 
 }  // namespace
 
-std::span<const std::uint32_t> habitat_children() { return kHabitatChildren; }
-std::span<const double> habitat_numbers() { return kInNumbers; }
-std::span<const std::string_view> habitat_texts() { return kInTexts; }
+HabitatPools civilization_habitat_pools() { return {kHabitatChildren, kInNumbers, kInTexts}; }
 std::span<const CivilizationProfile> civilization_profiles() { return kProfiles; }
 std::span<const std::string_view> civilization_ids() { return kEntityIds; }
 std::string_view default_profile_id() { return "human_heartland"; }
