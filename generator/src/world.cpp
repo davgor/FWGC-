@@ -441,6 +441,12 @@ World generate(const Config& cfg, const StageObserver& observer) {
         if (cfg.phase >= 10) {
             const auto settled_started = Clock::now();
             add_settlements(world);
+            // The sky again, now that the world has a founding year to report: the
+            // reference's civilization pass refreshes astrology after every founding, so the
+            // almanac, the surged strengths and the lunar surge read the founding's end year
+            // rather than the epoch from here on. Stages 11 and 12 move neither the year nor
+            // any input the refresh reads, so the reference's refreshes there change nothing.
+            if (world.has_astrology) refresh_astrology(world);
             world.timing_ms["settlements"] = elapsed_ms(settled_started);
             finished(10);
         }

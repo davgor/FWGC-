@@ -23,9 +23,12 @@
 #include <variant>
 #include <vector>
 
+#include "fwg/ages.hpp"
 #include "fwg/complete_stage.hpp"
+#include "fwg/json_value.hpp"
 #include "fwg/liveness.hpp"
 #include "fwg/random.hpp"
+#include "fwg/serialize.hpp"
 #include "fwg/world_time.hpp"
 
 using namespace fwg;
@@ -321,6 +324,59 @@ const LeyNode* node_named(const World& w, const std::string& school, const std::
 }
 
 }  // namespace
+
+// The time API's blocks, written under the reference's keys: world_clock as terrain_time's
+// clock() builds it, and the quest board as its sweep does -- every row the eleven keys a hook
+// opens it with, every log entry {day, quest_id, event}, and an applied ley effect three more.
+// Written from a bare world holding only the two blocks, so the document stays small.
+TEST(the_document_writes_the_clock_and_the_board_under_the_references_keys) {
+    const auto keys_of = [](const JsonValue& object) {
+        std::vector<std::string> out;
+        for (const auto& member : object.as_object()) out.push_back(member.first);
+        return out;
+    };
+    World bare;
+    bare.world_clock = clock_of(held());
+    bare.quests = board_of(held());
+    std::ostringstream out;
+    write_world_json(out, bare, /*pretty=*/false, /*include_timings=*/false);
+    const JsonValue doc = parse_json(out.str());
+
+    check::is_true(keys_of(doc.at("world_clock")) ==
+                       std::vector<std::string>{"version", "day", "age", "epoch_day", "derived_from"},
+                   "the clock's keys");
+    const JsonValue& board = doc.at("quests");
+    check::is_true(keys_of(board) == std::vector<std::string>{"version", "quests", "log"}, "the board's keys");
+    const auto& rows = board.at("quests").as_array();
+    check::is_true(!rows.empty(), "a board with rows, or the row keys are untested");
+    const std::vector<std::string> row_keys{"quest_id",       "giver_uid", "anchor",      "verb",
+                                            "stated_purpose", "unwitting", "state",       "offered_day",
+                                            "expires_day",    "closed_day", "closed_reason"};
+    for (const JsonValue& row : rows) check::is_true(keys_of(row) == row_keys, "a quest row's keys");
+    const auto& log = board.at("log").as_array();
+    check::is_true(!log.empty(), "a board with a log, or the entry keys are untested");
+    for (const JsonValue& entry : log) {
+        const std::vector<std::string> keys = keys_of(entry);
+        const bool plain = keys == std::vector<std::string>{"day", "quest_id", "event"};
+        const bool ley =
+            keys == std::vector<std::string>{"day", "quest_id", "event", "school", "node_id", "intensity"};
+        check::is_true(plain || ley, "a log entry's keys");
+    }
+}
+
+// An age rebuild reads the rebuilt year's sky: the reference's refresh rewrites
+// magic.lunar_surge as the reported year's first day, so the surge the last tick left does not
+// survive the turn, and the document writes the almanac's own day in its place.
+TEST(an_age_advance_drops_the_surge_the_last_tick_left) {
+    check::is_true(ticked().lunar_surge.has_value(), "a tick leaves a surge");
+    AgeAdvanceRequest advance;
+    advance.steps = 1;
+    const World turned = advance_ages(ticked(), advance);
+    check::is_true(!turned.lunar_surge.has_value(), "the turn's refresh drops it");
+    check::equal(turned.lunar_almanac.reported_year_source, std::string("founding.end_year"), "the rebuilt year");
+    check::equal(static_cast<long long>(turned.lunar_almanac.reported_year), turned.settlements.founding.end_year,
+                 "the rebuilt founding's end year");
+}
 
 // --- the clock --------------------------------------------------------------
 

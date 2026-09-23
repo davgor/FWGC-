@@ -74,12 +74,10 @@ against 241 of 416 in the reference's world, and across seeds 1-32 and 42 at siz
 of this port places one where every reference world does. The cause is upstream of the
 writer, in how much moist and volcanic ground the monster pass claims; it is not diagnosed.
 
-**A value difference it shows.** `lunar_almanac` always reports year 0 from the `epoch`:
-`refresh_astrology` fixes the year at zero although its comment says it follows the world's
-history. The reference reports `founding.end_year` from stage 10 on, because its
-civilization pass refreshes astrology after founding; so here the almanac, the surged
-strengths and `magic.lunar_surge` read the founding epoch's sky rather than the reported
-year's.
+**Blocks the game-facing APIs add.** `world_clock` and `quests` (the time API) and
+`settlement_founding` (the founding API's last report) are written once an API has put them
+on the world, as the reference's dict gains those keys at that API's first call; their key
+sets are pinned by tests beside each API.
 
 **Deliberate departures.**
 - `schema` is `fwg.world` version 1, not `fantasy-world-generator.world` version 2 (the

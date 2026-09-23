@@ -931,6 +931,29 @@ TEST(a_player_city_on_ground_with_no_reachable_water_reads_minus_one) {
     check::equal(founded.settlements.sites.back().freshwater_distance_m, -1.0, "the sentinel read as a distance");
 }
 
+// The founding report the world carries after a founding, under the reference's keys in its
+// order: terrain_settlement_api's report dict. Written from a bare world holding only it.
+TEST(the_document_writes_the_founding_report_under_the_references_keys) {
+    const Founded f = first_legal(genesis(), asking(0, first_people(genesis())));
+    check::is_true(f.world.settlement_founding.has_value(), "a founding leaves its report on the world");
+    World bare;
+    bare.settlement_founding = f.world.settlement_founding;
+    std::ostringstream out;
+    write_world_json(out, bare, /*pretty=*/false, /*include_timings=*/false);
+    const JsonValue doc = parse_json(out.str());
+    std::vector<std::string> keys;
+    for (const auto& member : doc.at("settlement_founding").as_object()) keys.push_back(member.first);
+    check::is_true(keys == std::vector<std::string>{"version", "node", "uid", "kind", "city_class",
+                                                    "reclassified_cities", "layout", "rebuild", "nests_rerolled",
+                                                    "notes", "rural_ids_reassigned", "dropped_blocks"},
+                   "the report's keys");
+    std::vector<std::string> rural;
+    for (const auto& member : doc.at("settlement_founding").at("rural_ids_reassigned").as_object()) {
+        rural.push_back(member.first);
+    }
+    check::is_true(rural == std::vector<std::string>{"hamlets", "fortresses"}, "the reassigned ids' keys");
+}
+
 // --- the did-you-mean the refusals carry --------------------------------------------------
 
 TEST(the_did_you_mean_is_difflibs) {

@@ -279,6 +279,30 @@ TEST(a_world_carries_its_sky_and_surges_only_the_known_schools) {
     }
 }
 
+TEST(the_almanac_reports_the_epoch_until_a_founding_then_its_end_year) {
+    const World unsettled = build();
+    check::equal(unsettled.lunar_almanac.reported_year, 0, "no settlements, no history to report");
+    check::equal(unsettled.lunar_almanac.reported_year_source, std::string("epoch"), "the epoch");
+
+    Request r;
+    r.seed = 42;
+    r.size = 33;
+    r.phase = 12;
+    const World founded = generate(resolve(r));
+    const long long end_year = founded.settlements.founding.end_year;
+    check::is_true(founded.has_settlements && end_year > 0, "a founding that took some years, or nothing is tested");
+    check::equal(static_cast<long long>(founded.lunar_almanac.reported_year), end_year, "the founding's end year");
+    check::equal(founded.lunar_almanac.reported_year_source, std::string("founding.end_year"), "and says so");
+    check::equal(founded.lunar_almanac.now.day, end_year * kDaysPerYear, "read on that year's first day");
+    // The surged strengths are the reported day's, not the epoch's.
+    const auto schools = magic_school_table();
+    for (int s = 0; s < kKnownSchools; ++s) {
+        const LeyNetwork& net = founded.magic.networks.at(std::string(schools[static_cast<std::size_t>(s)].name));
+        check::equal(net.surged_strength, net.strength * founded.lunar_almanac.now.tide[static_cast<std::size_t>(s)],
+                     std::string(schools[static_cast<std::size_t>(s)].name) + " surged on the reported day");
+    }
+}
+
 TEST(lunar_sensitivity_is_bounded_and_follows_its_inputs) {
     const World world = build(65);
     const Grid& sensitivity = world.layers.at("lunar_sensitivity");

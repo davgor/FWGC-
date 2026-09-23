@@ -4323,6 +4323,99 @@ void write_history(JsonWriter& json, const WorldHistory& h) {
     json.end_object();
 }
 
+// ===========================================================================
+// What the game-facing APIs add to a world: the clock and the quest board the time API
+// keeps, and the report of the last player founding. Each is written only once an API has
+// put it there, as the reference's dict gains the key at that API's first call.
+// ===========================================================================
+
+void write_world_clock(JsonWriter& json, const WorldClock& c) {
+    json.begin_object();
+    integer(json, "version", c.version);
+    real(json, "day", c.day);
+    integer(json, "age", c.age);
+    real(json, "epoch_day", c.epoch_day);
+    text(json, "derived_from", c.derived_from);
+    json.end_object();
+}
+
+void write_quest_board(JsonWriter& json, const QuestBoard& b) {
+    json.begin_object();
+    integer(json, "version", b.version);
+    json.key("quests");
+    json.begin_array();
+    for (const QuestRecord& q : b.quests) {
+        json.begin_object();
+        text(json, "quest_id", q.quest_id);
+        optional_text(json, "giver_uid", q.giver_uid);
+        optional_text(json, "anchor", q.anchor);
+        optional_text(json, "verb", q.verb);
+        optional_text(json, "stated_purpose", q.stated_purpose);
+        flag(json, "unwitting", q.unwitting);
+        text(json, "state", to_string(q.state));
+        real(json, "offered_day", q.offered_day);
+        real(json, "expires_day", q.expires_day);
+        optional_real(json, "closed_day", q.closed_day);
+        json.key("closed_reason");
+        if (q.closed_reason) {
+            json.value(to_string(*q.closed_reason));
+        } else {
+            json.value_null();
+        }
+        json.end_object();
+    }
+    json.end_array();
+    // A closure, an outcome or a take is {day, quest_id, event}; a ley effect applied also
+    // names the school, the node and the intensity it left.
+    json.key("log");
+    json.begin_array();
+    for (const QuestLogEntry& e : b.log) {
+        json.begin_object();
+        real(json, "day", e.day);
+        text(json, "quest_id", e.quest_id);
+        text(json, "event", e.event);
+        if (e.intensity) {
+            text(json, "school", e.school);
+            text(json, "node_id", e.node_id);
+            real(json, "intensity", *e.intensity);
+        }
+        json.end_object();
+    }
+    json.end_array();
+    json.end_object();
+}
+
+void write_settlement_founding(JsonWriter& json, const SettlementFoundingReport& r) {
+    json.begin_object();
+    integer(json, "version", r.version);
+    integer(json, "node", r.node);
+    text(json, "uid", r.uid);
+    text(json, "kind", r.kind);
+    json.key("city_class");
+    if (r.city_class) {
+        json.value(city_class_name(*r.city_class));
+    } else {
+        json.value_null();
+    }
+    json.key("reclassified_cities");
+    strings(json, r.reclassified_cities);
+    text(json, "layout", r.layout);
+    text(json, "rebuild", r.rebuild);
+    flag(json, "nests_rerolled", r.nests_rerolled);
+    json.key("notes");
+    strings(json, r.notes);
+    json.key("rural_ids_reassigned");
+    json.begin_object();
+    json.key("hamlets");
+    strings(json, r.rural_ids_reassigned.hamlets);
+    json.key("fortresses");
+    strings(json, r.rural_ids_reassigned.fortresses);
+    json.end_object();
+    json.key("dropped_blocks");
+    strings(json, r.dropped_blocks);
+    json.end_object();
+}
+
 }  // namespace
 
 // ===========================================================================
@@ -4626,6 +4719,18 @@ void write_late_blocks(JsonWriter& json, const World& world) {
             json.key("key_location_plans");
             write_key_location_plans(json, world.key_location_plans);
         }
+    }
+    if (world.world_clock) {
+        json.key("world_clock");
+        write_world_clock(json, *world.world_clock);
+    }
+    if (world.quests) {
+        json.key("quests");
+        write_quest_board(json, *world.quests);
+    }
+    if (world.settlement_founding) {
+        json.key("settlement_founding");
+        write_settlement_founding(json, *world.settlement_founding);
     }
 }
 

@@ -383,19 +383,14 @@ TEST(read_blocks_names_every_top_level_key_of_the_document) {
     check::equal(read.envelope.read, std::string_view("blocks"), "envelope");
 }
 
-// A finding, pinned so it cannot change unnoticed: the world DOCUMENT does not yet carry the
-// time API's blocks, so the blocks read -- which describes the document a host receives --
-// reports them absent on a world that holds them in memory. Written when the document writer
-// learns them, this test is the one to update. The world scene and the top-level population
-// budget, once absent too, are written now.
-TEST(read_blocks_reports_what_the_document_does_not_yet_carry) {
+// The blocks read describes the document a host receives, so a block the world holds in memory
+// is present there only once the writer carries it. Every registered block a ticked world
+// holds -- the time API's clock and board among them -- is carried now.
+TEST(read_blocks_reports_the_time_apis_blocks_as_carried) {
     const World& w = ticked();
     check::is_true(w.world_clock.has_value() && w.quests.has_value(), "the ticked world holds a clock and a board");
     const BlockSummary s = read_blocks(w).summary;
-    for (const char* key : {"world_clock", "quests"}) {
-        check::is_true(has(s.absent, std::string(key)), std::string("the document does not carry ") + key);
-    }
-    for (const char* key : {"world_scene", "population_budget"}) {
+    for (const char* key : {"world_clock", "quests", "world_scene", "population_budget"}) {
         check::is_true(!has(s.absent, std::string(key)), std::string("the document carries ") + key);
     }
 }

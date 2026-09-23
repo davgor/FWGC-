@@ -310,15 +310,22 @@ void add_astrology(World& world) {
 }
 
 void refresh_astrology(World& world) {
-    // The reported year follows the world's own history once settlements exist; until
-    // then it is the epoch. Never reseeds: an age advance moves the year, it does not
-    // give the world a new moon.
-    const int year = 0;
+    // The reported year follows the world's own history once settlements exist -- the
+    // founding's end year, which every settlement rebuild rewrites -- and until then it is
+    // the epoch: the reference's reported_year. Never reseeds: an age advance moves the
+    // year, it does not give the world a new moon.
+    const bool founded = world.has_settlements;
+    const int year = founded ? static_cast<int>(world.settlements.founding.end_year) : 0;
     world.lunar_almanac = almanac(world.moon, year);
-    world.lunar_almanac.reported_year_source = "epoch";
+    world.lunar_almanac.reported_year_source = founded ? "founding.end_year" : "epoch";
     world.layers["lunar_sensitivity"] = lunar_sensitivity(world);
 
     if (!world.has_magic) return;
+    // The reference's refresh rewrites magic.lunar_surge as the reported year's first day,
+    // over whatever day the time API last surged at. Here that record is the almanac's own
+    // `now`, which the document writes wherever no later surge stands, so the refresh drops
+    // the time API's: an age rebuild reads the rebuilt year's sky, not the last tick's.
+    world.lunar_surge.reset();
     const auto table = magic_school_table();
     const auto& factors = world.lunar_almanac.now.tide;
     for (int s = 0; s < kKnownSchools; ++s) {

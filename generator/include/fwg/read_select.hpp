@@ -69,8 +69,7 @@ inline constexpr int kSelectVersion = 1;
 // 49 top-level blocks in its order: `state_keys()` in build_stages.hpp, which the stage
 // inspector also reads. The `blocks` selector marks every block of a world against it in
 // both directions. It is the reference's list and not this port's: where the C++ document
-// does not carry a block (`world_clock` and `quests` are not written yet), that
-// disagreement is exactly what `blocks` exists to report.
+// does not carry a block, that disagreement is exactly what `blocks` exists to report.
 
 // NEAR_CATEGORIES: the categories `near_rows` answers with, in a fixed order.
 std::span<const std::string_view> near_categories();
