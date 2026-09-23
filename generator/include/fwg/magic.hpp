@@ -104,6 +104,12 @@ struct ArcFrame {
 };
 ArcFrame arc_frame(const Vec3& a, const Vec3& b);
 
+// A ley line's `path` as the world document publishes it: the great-circle arc from `a` to
+// `b` sampled at kLeyPathSegments equal angles, a first and b last. A pure function of the
+// two key points, so it is derived where it is written rather than stored on the line.
+inline constexpr int kLeyPathSegments = 32;
+std::vector<Vec3> arc_path(const Vec3& a, const Vec3& b);
+
 // Angular distance from p to the arc — to its interior if p projects onto it, to the
 // nearer endpoint otherwise.
 double distance_to_frame(const Vec3& p, const ArcFrame& frame);

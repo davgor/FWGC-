@@ -23,10 +23,10 @@ constexpr double kTideGain = 1.1;
 constexpr double kTideMin = 0.5;
 constexpr double kTideMax = 1.8;
 
-constexpr int kSynodicLow = 26, kSynodicHigh = 34;
-constexpr int kSpinLow = 15, kSpinHigh = 63;
-constexpr int kNodLow = 17, kNodHigh = 37;
-constexpr double kTiltLow = 10.0, kTiltHigh = 35.0;
+constexpr int kSynodicLow = kSynodicDaysRange[0], kSynodicHigh = kSynodicDaysRange[1];
+constexpr int kSpinLow = kSpinDaysRange[0], kSpinHigh = kSpinDaysRange[1];
+constexpr int kNodLow = kNodDaysRange[0], kNodHigh = kNodDaysRange[1];
+constexpr double kTiltLow = kTiltDegreesRange[0], kTiltHigh = kTiltDegreesRange[1];
 constexpr int kRedraws = 8;
 
 // Which hemisphere a school sits on, and which quarter of it. Indexed by school table
@@ -141,6 +141,7 @@ Moon seed_moon(std::uint32_t seed, std::int64_t variation, const MoonOverrides& 
         }
         moon.tilt_max_degrees = overrides.tilt_degrees;
     }
+    moon.overrides = overrides;
 
     moon.great_year_days = std::lcm(static_cast<long long>(moon.synodic_days),
                                     std::lcm(static_cast<long long>(moon.spin_days),
@@ -304,10 +305,7 @@ void add_astrology(World& world) {
     world.moon = seed_moon(world.config.seed, static_cast<std::int64_t>(o[Option::moon_variation]), overrides);
     world.has_astrology = true;
     world.systems.push_back("astrology");
-    world.warnings.push_back(
-        "The moon is artistic astronomy: one body reduced to phase, rise hour, spin and lean. No altitude, no "
-        "latitude dependence, no solar eclipses, no water tides. Surges are momentary multipliers; the exported "
-        "leyline grids are the base field.");
+    world.warnings.emplace_back(kAstrologyLimits);
     refresh_astrology(world);
 }
 

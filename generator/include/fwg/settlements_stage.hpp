@@ -9,6 +9,7 @@
 #include <map>
 #include <optional>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "fwg/founding.hpp"
@@ -23,6 +24,24 @@ struct World;
 // The version stamped on a city's node-scale layout record, the reference's
 // CITY_LAYOUT_VERSION. Bumping it is a world-output schema change.
 inline constexpr int kCityLayoutVersion = 2;
+
+// The `settlements` block's version and its founding record's, the reference's (terrain_settlements
+// and founding.found_cities). Both are world-output schema versions.
+inline constexpr int kSettlementsVersion = 16;
+inline constexpr int kFoundingVersion = 4;
+
+// The founding record's `definition`, as the reference words it.
+inline constexpr std::string_view kFoundingDefinition =
+    "Sufficient population means capacity-derived city quotas, plus at most one food-supported diaspora bonus "
+    "per parent, subject to safe habitat, spacing and a 24-city lab ceiling; 128-round safety limit.";
+
+// The `settlements` block's method, and the sentence the reference appends once magic exists.
+inline constexpr std::string_view kSettlementsMethod =
+    "Candidate sites, not built cities or population simulation. Resources are seeded potential, flood risk a "
+    "proximity/height proxy. Outposts can accept poor conditions; water cells and slopes beyond the selected "
+    "population limit remain excluded. City assets are selected from deterministic data-driven building packs.";
+inline constexpr std::string_view kSettlementsMagicMethod =
+    " All city sites must pass the mutation hazard limit, including difficult-site cities.";
 
 // The `city_layout` a PLAYER-AUTHORED city carries: what the founding API writes when the
 // player owns where the buildings go (settlement_api.hpp, layout "player").
@@ -101,6 +120,14 @@ struct SettlementSite {
     // Infinity where no fresh water is reachable, which is a real answer rather than a
     // missing one: a site can be founded away from water and pay for it.
     double freshwater_distance_m = 0.0;
+    // Why the site stands here, in words: the people's own settlement reason where its rules
+    // author one, the registry's normal-site reason otherwise, "Founded by the player." for a
+    // player's city.
+    std::string reason;
+    // The terms `suitability` is built from, named and ordered as the reference publishes them
+    // (settlement.hpp, suitability_factors). Empty on a player's city until a rebuild founds
+    // around it, as the reference's player record carries none.
+    std::vector<SuitabilityFactor> suitability_factors;
 
     // What this city is known for, from the society pass. Empty until stage 12 runs.
     std::vector<std::string> community;
@@ -138,6 +165,7 @@ struct SettlementSite {
     bool cultural_branch = false;
     bool diaspora = false;
     std::string diaspora_reason;
+    bool diaspora_bonus = false;  // a diaspora founding that waived a zero quota; carried
 };
 
 // What the world can support, and what it was asked for. Published so a reader can ask

@@ -26,22 +26,15 @@
 //     not a claim that the condition is unmet, and it is why most of the placement
 //     vocabulary rejects rather than admits.
 //
-// WHAT A PLAN DELIBERATELY DOES NOT CARRY, and where to find it instead. The reference
-// copies several catalogues into EVERY plan so that a JSON consumer needs no second
-// file; a C++ consumer already has them, and duplicating them per settlement is
-// megabytes of identical bytes:
-//
-//   * the biome and magical-variant catalogues and the magic school colours —
-//     `natural_biomes()`, `biome_variant_catalogue()` and the world's magic report;
-//   * the terrain-detail definition and the two fixed strings beside the elevation
-//     surface — `World::terrain_detail`;
-//   * the projection formula, which is the direction/position pair written out in
-//     LocalSampler and reproduced by any consumer from `reference_frame`;
-//   * the registry identity half of the saved-world gate. Only the shape catalogue's
-//     digest is published here (see `CityPlans::shapes_sha256`); the civilization
-//     registry's digest is over a merged document this library does not yet assemble,
-//     so a world saved from this port can be checked against the shape catalogue and
-//     NOT against the building registry.
+// WHAT A PLAN STRUCT DOES NOT HOLD, though the world document writes it into every plan as
+// the reference does, so a JSON consumer can read one plan on its own: the biome and
+// magical-variant catalogues and the ley colours (`natural_biomes()`,
+// `biome_variant_catalogue()`, the world's magic report), the terrain-detail definition and
+// the two fixed strings beside the elevation surface (`World::terrain_detail`), the
+// projection formula beside `reference_frame` (the direction/position pair LocalSampler
+// writes out), and the registry half of the planner identity (`registry_identity()`). Each
+// is one catalogue or one world block, so the writer copies it in rather than every plan
+// carrying its own copy in memory.
 #pragma once
 
 #include <cstdint>
@@ -716,7 +709,8 @@ struct HousingAudit {
     int upgrades = 0;
     bool plots_exhausted = false;
     // Cities only, like `upgrades`. A hamlet reserves nothing and densifies nothing, so
-    // both stay at zero; they exist so the rural audit has the same shape as a city's.
+    // both stay at zero here; the document omits `reserved_slots` from a hamlet's audit, as
+    // the reference's rural audit has no such key.
     int reserved_slots = 0;
     int final_beds = 0;
     int shortfall = 0;
@@ -775,8 +769,8 @@ struct PlanStats {
     int unplaced_core = 0;
     int unplaced_total = 0;
     double reserved_plot_area_m2 = 0.0;
-    // Cities only. A hamlet raises no wall, so these stay at zero rather than being
-    // absent — the reference omits the keys entirely on a rural plan.
+    // Cities only. A hamlet raises no wall, so these stay at zero here, and the document
+    // omits both keys from a rural plan's stats as the reference does.
     int wall_segments = 0;
     bool defended_perimeter = false;
     std::optional<long long> population_estimate;

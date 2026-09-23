@@ -44,13 +44,14 @@ any wavelength.
 
 | `--size` | kernel time | octaves resolved | JSON |
 |---:|---:|:---:|---:|
-| 33 | 2 ms | 1 / 5 | 0.3 MB |
-| 65 | 8 ms | 2 / 5 | 1.1 MB |
-| 129 | 32 ms | 3 / 5 | 4.4 MB |
-| 257 | 130 ms | 4 / 5 | 17.6 MB |
-| 513 | 568 ms | 5 / 5 | 69.8 MB |
+| 33 | 2 ms | 1 / 5 | 0.4 MB |
+| 65 | 8 ms | 2 / 5 | 1.5 MB |
+| 129 | 32 ms | 3 / 5 | 5.7 MB |
+| 257 | 130 ms | 4 / 5 | 22.3 MB |
+| 513 | 568 ms | 5 / 5 | 88.7 MB |
 
-Measured on this machine at phase 5, seed 42, Release. Cost is linear in cells. **A world
+Measured on this machine at phase 5, seed 42, Release (JSON sizes re-measured 2026-09-23, after the
+document gained the reference's full key set). Cost is linear in cells. **A world
 below size 513 has an incomplete octave ladder** — size 33 resolves one octave of five, so
 a small preview world is not a small version of the real one, it is a world with almost no
 surface detail.

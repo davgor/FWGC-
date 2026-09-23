@@ -357,11 +357,12 @@ TEST(read_blocks_names_every_top_level_key_of_the_document) {
     // Facts checkable against the World itself.
     std::map<std::string, const BlockRow*> by_name;
     for (const BlockRow& row : s.blocks) by_name[row.name] = &row;
-    for (const char* name : {"ruins", "plates", "layers", "heroes", "magic", "config", "schema"}) {
+    for (const char* name : {"ruins", "ocean_archipelagos", "layers", "heroes", "magic", "config", "schema"}) {
         check::is_true(by_name.count(name) == 1, std::string("the document carries ") + name);
     }
     check::equal(must(by_name.at("ruins")->count, "a count"), w.ruins.size(), "ruins is the ruin list");
-    check::equal(must(by_name.at("plates")->count, "a count"), w.plates.size(), "plates is the plate list");
+    check::equal(must(by_name.at("ocean_archipelagos")->count, "a count"), w.ecology.archipelagos.size(),
+                 "ocean_archipelagos is the archipelago list");
     check::equal(must(by_name.at("layers")->count, "a count"), w.layers.size(), "layers holds every layer");
     check::equal(must(by_name.at("heroes")->version, "a version"), static_cast<long long>(w.heroes.version),
                  "heroes declares its version");

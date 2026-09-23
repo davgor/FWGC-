@@ -42,6 +42,43 @@ std::string classification_reason(CityClass c) {
                                     : "Suitability below the medium threshold";
 }
 
+// [document: settlements.sites] Why a founded city stands where it does: its people's reason
+// in words, and on the full recipe the terms its suitability was summed from, read off the
+// ground the site stands on exactly as the assessment read it -- the people's own magic-risk
+// field where it has one, the natural biome and the variant over it, the coastal support.
+void describe_site(const World& world, SettlementSite& site) {
+    const EntityRules* rules = entity_rule(site.population_profile);
+    const RegistryDefaults defaults = registry_defaults();
+    site.reason = rules != nullptr && !rules->settlement.reason.empty() ? std::string(rules->settlement.reason)
+                                                                        : std::string(defaults.normal_site_reason);
+    const CivilizationProfile* profile = civilization_profile(site.population_profile);
+    if (rules == nullptr || profile == nullptr || world.effective.world_recipe == 0) return;
+
+    SiteConditions at;
+    at.freshwater_distance_m = site.freshwater_distance_m;
+    at.slope_deg = site.slope_degrees;
+    at.temperature_c = site.temperature_c;
+    at.moisture = site.moisture;
+    at.resource = site.resource_potential;
+    at.flood = site.flood_risk;
+    const std::string risk = "magic_risk_" + site.population_profile;
+    at.magic_hazard = layer_at(world, world.layers.count(risk) != 0 ? risk.c_str() : "magic_hazard", site.x, site.z);
+    std::string_view variant;
+    if (const auto it = world.layers.find("biome_variant"); it != world.layers.end()) {
+        const int index = static_cast<int>(it->second.at(site.x, site.z));
+        const auto catalogue = biome_variant_catalogue();
+        if (index >= 0 && static_cast<std::size_t>(index) < catalogue.size()) {
+            variant = catalogue[static_cast<std::size_t>(index)].id;
+        }
+    }
+    at.biome_opinion =
+        biome_preference(*profile, static_cast<int>(layer_at(world, "biome", site.x, site.z)), variant);
+    site.suitability_factors =
+        suitability_factors(profile->traits, at, layer_at(world, "coastal_support", site.x, site.z),
+                            rules->settlement.coastal_score_weight, rules->settlement.resource_score_weight,
+                            defaults.resource_score_factor_label);
+}
+
 }  // namespace
 
 void add_settlements(World& world, const SettlementRebuild* rebuild) {
@@ -143,6 +180,7 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
             kept.cultural_branch = s.cultural_branch;
             kept.diaspora = s.diaspora;
             kept.diaspora_reason = s.diaspora_reason;
+            kept.diaspora_bonus = s.diaspora_bonus;
             request.survivors.push_back(std::move(kept));
         }
         request.forbidden = rebuild->forbidden_nodes;
@@ -262,6 +300,7 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
         site.cultural_branch = s.cultural_branch;
         site.diaspora = s.diaspora;
         site.diaspora_reason = s.diaspora_reason;
+        site.diaspora_bonus = s.diaspora_bonus;
 
         // A city that stood through the turn is the SAME city, not a new one on the same
         // ground: it keeps its identity, the age and culture that founded it, who
@@ -303,6 +342,7 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
 
         report.sites.push_back(std::move(site));
     }
+    for (SettlementSite& site : report.sites) describe_site(world, site);
 
     // [document: population_budget] The rest of the reference's budget block: each people's
     // share of the capacity, its founding minimum, how many cities it holds and how much of
@@ -332,6 +372,13 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
     for (const SpeciesAssessment& a : assessed) {
         world.layers["suitability_" + a.id] = grid.to_grid(a.suitability);
         world.layers["life_capacity_" + a.id] = grid.to_grid(a.food_potential);
+        // Where a people that farms outside its own habitat can reach to farm: 1 inside its
+        // support reach over safe routes, 0 elsewhere. Only such a people has the mask.
+        if (!a.support_reach.empty()) {
+            std::vector<double> mask(a.support_reach.size());
+            for (std::size_t i = 0; i < mask.size(); ++i) mask[i] = a.support_reach[i] != 0 ? 1.0 : 0.0;
+            world.layers[a.id + "_support_reach"] = grid.to_grid(mask);
+        }
     }
 
     // The four generic fields later stages read by name. Colleges, witch huts and key

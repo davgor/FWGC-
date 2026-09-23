@@ -22,6 +22,7 @@
 #include "fwg/magic.hpp"
 #include "fwg/serialize.hpp"
 #include "fwg/world.hpp"
+#include "serialize_blocks.hpp"
 
 namespace fwg {
 namespace {
@@ -330,13 +331,25 @@ std::optional<std::string_view> member(std::string_view text, std::string_view k
 }
 
 // ---------------------------------------------------------------------------
-// A plan row's size, measured in the document written for a world holding only that row.
+// A plan row's size, measured without serialising the whole world for one place.
 //
-// The row's writer depends on the row alone, so the bytes are the bytes it costs in the full
-// document -- a test holds the two equal for every plan kind -- without serialising the
-// whole world for one place. The probe is gated the way write_late_blocks gates each plan
-// block; `setup` sets those flags and puts the one row in.
+// A key-location plan row depends on the row alone, so it is measured in the document
+// written for a world holding only that row; the probe is gated the way write_late_blocks
+// gates the block, and `setup` sets those flags and puts the one row in. A city's, hamlet's
+// or castle's row also carries world-level catalogues and the terrain detail, so it is
+// written by its block's own row writer with the real world beside it (plan_row_bytes). A
+// test holds both equal to what the rows cost in the full document, for every plan kind.
 // ---------------------------------------------------------------------------
+
+template <typename Plan, typename Write>
+std::optional<std::size_t> plan_row_bytes(const Plan& plan, const World& world, Write write) {
+    std::ostringstream out;
+    JsonWriter json(out, /*pretty=*/false);
+    write(json, plan, world);
+    const Cost cost = cost_of(out.str());
+    if (cost.infinite) return std::nullopt;
+    return cost.bytes;
+}
 
 template <typename Setup>
 std::optional<std::size_t> probe_row_bytes(Setup setup, std::string_view block, std::string_view rows_key,
@@ -490,12 +503,7 @@ std::optional<PlanSummary> city_plan_summary(const World& world, const std::stri
         if (plan.city_uid != wanted) continue;
         PlanSummary out{"city_plans", "city_uid", wanted, std::string(plan.status), plan.version,
                         plan.plots.size(), plan.unplaced.size(), std::nullopt, kCityPlanWriter};
-        out.bytes = probe_row_bytes(
-            [&](World& probe) {
-                probe.has_plans = true;
-                probe.city_plans.cities.push_back(plan);
-            },
-            "city_plans", "cities", "city_uid", wanted);
+        out.bytes = plan_row_bytes(plan, world, serialize_detail::write_city_plan_row);
         return out;
     }
     return std::nullopt;
@@ -507,13 +515,7 @@ std::optional<PlanSummary> hamlet_plan_summary(const World& world, const std::st
         if (plan.hamlet_id != wanted) continue;
         PlanSummary out{"hamlet_plans", "hamlet_id", wanted, std::string(plan.status), plan.version,
                         plan.plots.size(), plan.unplaced.size(), std::nullopt, kHamletPlanWriter};
-        out.bytes = probe_row_bytes(
-            [&](World& probe) {
-                probe.has_plans = true;
-                probe.has_humans = true;
-                probe.hamlet_plans.hamlets.push_back(plan);
-            },
-            "hamlet_plans", "hamlets", "hamlet_id", wanted);
+        out.bytes = plan_row_bytes(plan, world, serialize_detail::write_hamlet_plan_row);
         return out;
     }
     return std::nullopt;
@@ -525,13 +527,7 @@ std::optional<PlanSummary> castle_plan_summary(const World& world, const std::st
         if (plan.fortress_id != wanted) continue;
         PlanSummary out{"castle_plans", "fortress_id", wanted, std::string(plan.status), plan.version,
                         plan.plots.size(), plan.unplaced.size(), std::nullopt, kCastlePlanWriter};
-        out.bytes = probe_row_bytes(
-            [&](World& probe) {
-                probe.has_plans = true;
-                probe.has_humans = true;
-                probe.castle_plans.castles.push_back(plan);
-            },
-            "castle_plans", "castles", "fortress_id", wanted);
+        out.bytes = plan_row_bytes(plan, world, serialize_detail::write_castle_plan_row);
         return out;
     }
     return std::nullopt;

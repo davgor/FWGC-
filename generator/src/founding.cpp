@@ -256,6 +256,7 @@ FoundingResult found_cities(std::uint32_t seed, const FoundingRequest& request,
                     e.parent_race_id = race_id;
                     e.status = "no_separated_origin";
                     e.radius_m = request.world_reach;
+                    e.required_separation_degrees = request.rules.origin_min_separation_degrees;
                     out.report.events.push_back(std::move(e));
                     continue;
                 }
@@ -452,6 +453,13 @@ FoundingResult found_cities(std::uint32_t seed, const FoundingRequest& request,
     }
     turn = std::min(turn, kMaxTurns);
 
+    for (const auto& [key, race] : request.owners) {
+        (void)race;
+        out.report.minimum_residents[key] = minimum_for(key);
+    }
+    out.report.years_per_round = request.rules.years_per_round;
+    out.report.diaspora_interval_years = request.rules.diaspora_interval_years;
+    out.report.origin_min_separation_degrees = request.rules.origin_min_separation_degrees;
     out.report.effective_quotas = quotas;
     out.report.diaspora_bonus_used.assign(bonus_used.begin(), bonus_used.end());
     out.report.used_civilizations.assign(ever_used.begin(), ever_used.end());

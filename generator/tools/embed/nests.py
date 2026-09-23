@@ -20,6 +20,7 @@ Validation mirrors the Python loader's and is fail-closed for the same reason: a
 catalogue that has lost a row or a table is not a smaller catalogue, it is a broken one.
 """
 from embed.common import BANNER, OUT, cpp_double, cpp_string, load
+from embed.json_text import json_text, text_function
 
 SOURCE = "nest-profiles.json"
 
@@ -283,4 +284,29 @@ def chunked(indent, items, per_line=6):
     return out
 
 
-TARGETS = {OUT / "content_nests.cpp": render_nests}
+def render_nest_catalogue():
+    """The rows as authored, as JSON text: what the world document publishes.
+
+    `wildlife.profiles` and `beast_nests.profiles` are the pass's catalogue rows exactly as
+    the file carries them -- every key, in file order, integers kept apart from floats --
+    and `wildlife.roles` is the feeding-role table. The typed table above is shaped for the
+    passes and drops what they never read, so the document's copies come from here.
+    """
+    rows, roles = load_nest_profiles()
+    animals = [p for p in rows if p["class"] == "animal"]
+    monsters = [p for p in rows if p["class"] == "monster"]
+    lines = [BANNER.format(source=SOURCE)]
+    lines.append('#include "fwg/nests.hpp"\n')
+    lines.append("#include <string>\n")
+    lines.append("namespace fwg {\n")
+    lines.extend(text_function("nest_animal_profiles_json", json_text(animals),
+                               "the animal profile rows"))
+    lines.extend(text_function("nest_monster_profiles_json", json_text(monsters),
+                               "the monster profile rows"))
+    lines.extend(text_function("nest_roles_json", json_text(roles), "the feeding roles"))
+    lines.append("}  // namespace fwg")
+    return "\n".join(lines) + "\n"
+
+
+TARGETS = {OUT / "content_nests.cpp": render_nests,
+           OUT / "content_nest_catalogue.cpp": render_nest_catalogue}

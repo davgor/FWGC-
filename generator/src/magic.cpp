@@ -35,6 +35,21 @@ ArcFrame arc_frame(const Vec3& a, const Vec3& b) {
     return {a, b, tangent, angle};
 }
 
+std::vector<Vec3> arc_path(const Vec3& a, const Vec3& b) {
+    const ArcFrame frame = arc_frame(a, b);
+    std::vector<Vec3> out;
+    out.reserve(kLeyPathSegments + 1);
+    for (int k = 0; k <= kLeyPathSegments; ++k) {
+        // (angle * k) / 32, in the reference's order of evaluation.
+        const double t = frame.angle * k / kLeyPathSegments;
+        const double c = std::cos(t);
+        const double s = std::sin(t);
+        out.push_back({frame.a.x * c + frame.tangent.x * s, frame.a.y * c + frame.tangent.y * s,
+                       frame.a.z * c + frame.tangent.z * s});
+    }
+    return out;
+}
+
 double distance_to_frame(const Vec3& p, const ArcFrame& frame) {
     const double pa = dot(p, frame.a);
     const double pt = dot(p, frame.tangent);
@@ -473,6 +488,15 @@ void evaluate_networks(World& world) {
                                   powers[static_cast<std::size_t>(earth)][i], powers[static_cast<std::size_t>(air)][i]});
     }
     world.layers["ley_primordial"] = grid.to_grid(primordial);
+
+    // Each people's own magic-risk field, as the reference publishes it: today the world's
+    // hazard for every one of them. Every reader already asks for `magic_risk_<people>` first
+    // and falls back to `magic_hazard`, so this is the field those readers were written for,
+    // rebuilt with the hazard every time the networks are evaluated so the two cannot drift.
+    const Grid& published_hazard = world.layers.at("magic_hazard");
+    for (const std::string_view people : civilization_ids()) {
+        world.layers["magic_risk_" + std::string(people)] = published_hazard;
+    }
 }
 
 namespace {

@@ -1,4 +1,5 @@
 #include "serialize_blocks.hpp"
+#include "serialize_document.hpp"
 
 #include <algorithm>
 #include <charconv>
@@ -1263,11 +1264,11 @@ void write_religion(JsonWriter& json, const Religion& r) {
 // Stage 16: city, hamlet and castle plans
 // ===========================================================================
 //
-// WHAT A PLAN DOES NOT CARRY, deliberately (city_plan.hpp): the per-plan copies of the
-// biome and magical-variant catalogues and the magic colours, the terrain-detail definition
-// and the two fixed strings beside the elevation surface, the projection formula, and the
-// registry half of the planner identity. Each is one catalogue or one world block every
-// plan would repeat; a consumer reads it once from where it lives.
+// Every plan carries what the reference's does, the per-plan copies included: the biome and
+// magical-variant catalogues and the ley colours in its terrain, and on a city or hamlet the
+// terrain-detail definition and the two fixed strings beside the elevation surface and the
+// projection formula beside the reference frame. They repeat one catalogue or one world
+// block per plan, and the reference publishes them so a plan can be read on its own.
 
 void plot_box(JsonWriter& json, std::string_view key, const PlotSize& p) {
     json.key(key);
@@ -1296,7 +1297,10 @@ void bounds(JsonWriter& json, double half) {
     json.end_array();
 }
 
-void terrain_raster(JsonWriter& json, const TerrainRaster& t) {
+// A plan's terrain. A city's and a hamlet's surface also names its source, the world's detail
+// definition it was sampled with and its coordinate frame; a castle's carries the heights
+// alone, as the reference's does.
+void terrain_raster(JsonWriter& json, const TerrainRaster& t, const World& world, bool described_surface) {
     json.key("terrain");
     json.begin_object();
     real(json, "cell_m", t.cell_m);
@@ -1309,11 +1313,49 @@ void terrain_raster(JsonWriter& json, const TerrainRaster& t) {
     real(json, "step_m", t.surface_step_m);
     json.key("heights_m");
     raster(json, t.surface_heights_m, t.surface_size);
+    if (described_surface) {
+        text(json, "source", "canonical terrain height in metres");
+        json.key("terrain_detail");
+        if (world.has_terrain_detail) {
+            write_terrain_detail(json, world.terrain_detail);
+        } else {
+            json.value_null();
+        }
+        text(json, "coordinates", "local east/north gnomonic coordinates; radial elevation above reference sphere");
+    }
     json.end_object();
     json.key("natural_biome");
     raster(json, t.natural_biome, t.size);
     json.key("biome_variant");
     raster(json, t.biome_variant, t.size);
+    // The catalogues the two biome rasters index, and each ley network's colour.
+    json.key("biome_catalogue");
+    if (world.has_terrain) {
+        write_natural_catalogue(json);
+    } else {
+        json.begin_array();
+        json.end_array();
+    }
+    json.key("magical_catalogue");
+    if (world.has_terrain && world.layers.count("biome_variant") != 0) {
+        write_magical_catalogue(json);
+    } else {
+        json.begin_array();
+        json.end_array();
+    }
+    json.key("magic_colors");
+    json.begin_object();
+    if (world.has_magic) {
+        for (const MagicSchool& school : magic_school_table()) {
+            const auto it = world.magic.networks.find(std::string(school.name));
+            if (it == world.magic.networks.end()) continue;
+            json.key(school.name);
+            json.begin_array();
+            for (const int c : it->second.color) json.value(c);
+            json.end_array();
+        }
+    }
+    json.end_object();
     json.end_object();
 }
 
@@ -1323,6 +1365,19 @@ void reference_frame(JsonWriter& json, const ReferenceFrame& f) {
     real(json, "radius_m", f.radius_m);
     real(json, "latitude_degrees", f.latitude_degrees);
     real(json, "longitude_degrees", f.longitude_degrees);
+    text(json, "projection",
+         "direction=normalize(up+(east*x_m+north*z_m)/radius_m); position=(radius_m+height_m)*direction");
+    json.end_object();
+}
+
+// The planner identity's registry half: the civilization registry a saved plan was drawn from.
+void registry_identity_field(JsonWriter& json) {
+    const RegistryIdentity identity = registry_identity();
+    json.key("registry");
+    json.begin_object();
+    integer(json, "schema_version", identity.schema_version);
+    integer(json, "revision", identity.revision);
+    text(json, "sha256", identity.sha256);
     json.end_object();
 }
 
@@ -1433,7 +1488,7 @@ void street_paths(JsonWriter& json, const std::vector<std::vector<Point>>& paths
     json.end_array();
 }
 
-void housing_passes(JsonWriter& json, const std::vector<HousingAudit>& audits) {
+void housing_passes(JsonWriter& json, const std::vector<HousingAudit>& audits, bool city) {
     json.begin_array();
     for (const HousingAudit& a : audits) {
         json.begin_object();
@@ -1443,9 +1498,9 @@ void housing_passes(JsonWriter& json, const std::vector<HousingAudit>& audits) {
         integer(json, "houses_placed", a.houses_placed);
         integer(json, "upgrades", a.upgrades);
         flag(json, "plots_exhausted", a.plots_exhausted);
-        // On a hamlet too, at zero: the C++ keeps "the rural audit the same shape as a
-        // city's" (city_plan.hpp, HousingAudit). The reference's hamlet audit omits it.
-        integer(json, "reserved_slots", a.reserved_slots);
+        // A city's audit counts the housing slots it reserved; a hamlet reserves none and its
+        // audit has no such key, as the reference's rural audit has none.
+        if (city) integer(json, "reserved_slots", a.reserved_slots);
         integer(json, "final_beds", a.final_beds);
         integer(json, "shortfall", a.shortfall);
         json.end_object();
@@ -1476,8 +1531,11 @@ void plan_stats_object(JsonWriter& json, const PlanStats& s, bool city) {
         if (s.urban_population_estimate) json.value(*s.urban_population_estimate); else json.value_null();
     }
     real(json, "reserved_plot_area_m2", s.reserved_plot_area_m2);
-    integer(json, "wall_segments", s.wall_segments);
-    flag(json, "defended_perimeter", s.defended_perimeter);
+    // A city's walls; a hamlet has none and its stats have no such keys, as in the reference.
+    if (city) {
+        integer(json, "wall_segments", s.wall_segments);
+        flag(json, "defended_perimeter", s.defended_perimeter);
+    }
     json.end_object();
 }
 
@@ -1492,7 +1550,7 @@ void plan_debug_object(JsonWriter& json, const PlanDebug& d, bool city) {
     integer(json, "terrain_safe_cells", static_cast<long long>(d.terrain_safe_cells));
     integer(json, "total_cells", static_cast<long long>(d.total_cells));
     json.key("housing_passes");
-    housing_passes(json, d.housing_passes);
+    housing_passes(json, d.housing_passes, city);
     text(json, "apartment_policy", d.apartment_policy);
     if (city) {
         json.key("housing_reservations");
@@ -1659,7 +1717,7 @@ void fortifications(JsonWriter& json, const Fortifications& f) {
     json.end_object();
 }
 
-void city_plan(JsonWriter& json, const CityPlan& p) {
+void city_plan(JsonWriter& json, const CityPlan& p, const World& world) {
     json.begin_object();
     integer(json, "version", p.version);
     text(json, "city_uid", p.city_uid);
@@ -1669,7 +1727,7 @@ void city_plan(JsonWriter& json, const CityPlan& p) {
     text(json, "city_class", city_class_name(p.city_class));
     text(json, "unit", "metres");
     bounds(json, p.half_m);
-    terrain_raster(json, p.terrain);
+    terrain_raster(json, p.terrain, world, /*described_surface=*/true);
     reference_frame(json, p.reference_frame);
     json.key("location");
     json.begin_object();
@@ -1712,17 +1770,19 @@ void city_plan(JsonWriter& json, const CityPlan& p) {
     json.end_object();
 }
 
-void write_city_plans(JsonWriter& json, const CityPlans& plans) {
+void write_city_plans(JsonWriter& json, const World& world) {
+    const CityPlans& plans = world.city_plans;
     json.begin_object();
     integer(json, "version", plans.version);
     json.key("identity");
     json.begin_object();
     integer(json, "version", plans.version);
+    registry_identity_field(json);
     text(json, "shapes_sha256", plans.shapes_sha256);
     json.end_object();
     json.key("cities");
     json.begin_array();
-    for (const CityPlan& p : plans.cities) city_plan(json, p);
+    for (const CityPlan& p : plans.cities) city_plan(json, p, world);
     json.end_array();
     json.key("phase_order");
     strings(json, plans.phase_order);
@@ -1730,7 +1790,7 @@ void write_city_plans(JsonWriter& json, const CityPlans& plans) {
     json.end_object();
 }
 
-void hamlet_plan(JsonWriter& json, const HamletPlan& p) {
+void hamlet_plan(JsonWriter& json, const HamletPlan& p, const World& world) {
     json.begin_object();
     integer(json, "version", p.version);
     text(json, "hamlet_id", p.hamlet_id);
@@ -1747,7 +1807,7 @@ void hamlet_plan(JsonWriter& json, const HamletPlan& p) {
     text(json, "civilization_id", p.civilization_id);
     text(json, "unit", "metres");
     bounds(json, p.half_m);
-    terrain_raster(json, p.terrain);
+    terrain_raster(json, p.terrain, world, /*described_surface=*/true);
     reference_frame(json, p.reference_frame);
     json.key("shape");
     json.begin_object();
@@ -1782,16 +1842,18 @@ void hamlet_plan(JsonWriter& json, const HamletPlan& p) {
     json.end_object();
 }
 
-void write_hamlet_plans(JsonWriter& json, const HamletPlans& plans) {
+void write_hamlet_plans(JsonWriter& json, const World& world) {
+    const HamletPlans& plans = world.hamlet_plans;
     json.begin_object();
     integer(json, "version", plans.version);
     json.key("identity");
     json.begin_object();
     integer(json, "version", plans.version);
+    registry_identity_field(json);
     json.end_object();
     json.key("hamlets");
     json.begin_array();
-    for (const HamletPlan& p : plans.hamlets) hamlet_plan(json, p);
+    for (const HamletPlan& p : plans.hamlets) hamlet_plan(json, p, world);
     json.end_array();
     json.key("phase_order");
     strings(json, plans.phase_order);
@@ -1898,7 +1960,7 @@ void castle_network(JsonWriter& json, const CastleWallNetwork& n) {
     json.end_object();
 }
 
-void castle_plan(JsonWriter& json, const CastlePlan& p) {
+void castle_plan(JsonWriter& json, const CastlePlan& p, const World& world) {
     json.begin_object();
     integer(json, "version", p.version);
     text(json, "kind", p.kind);
@@ -1936,6 +1998,10 @@ void castle_plan(JsonWriter& json, const CastlePlan& p) {
         integer(json, "workers", plot.workers);
         json.end_object();
     }
+    json.end_array();
+    // A castle lays no streets of its own; the reference's plan carries the empty list.
+    json.key("roads");
+    json.begin_array();
     json.end_array();
     json.key("wall_networks");
     json.begin_array();
@@ -1975,11 +2041,12 @@ void castle_plan(JsonWriter& json, const CastlePlan& p) {
     json.end_object();
     text(json, "status", p.status);
     real(json, "source_resolution_m", p.source_resolution_m);
-    terrain_raster(json, p.terrain);
+    terrain_raster(json, p.terrain, world, /*described_surface=*/false);
     json.end_object();
 }
 
-void write_castle_plans(JsonWriter& json, const CastlePlans& plans) {
+void write_castle_plans(JsonWriter& json, const World& world) {
+    const CastlePlans& plans = world.castle_plans;
     json.begin_object();
     integer(json, "version", plans.version);
     json.key("identity");
@@ -1991,7 +2058,7 @@ void write_castle_plans(JsonWriter& json, const CastlePlans& plans) {
     json.end_object();
     json.key("castles");
     json.begin_array();
-    for (const CastlePlan& p : plans.castles) castle_plan(json, p);
+    for (const CastlePlan& p : plans.castles) castle_plan(json, p, world);
     json.end_array();
     json.key("phase_order");
     strings(json, plans.phase_order);
@@ -4262,6 +4329,16 @@ void write_history(JsonWriter& json, const WorldHistory& h) {
 // Entry points
 // ===========================================================================
 
+void write_city_plan_row(JsonWriter& json, const CityPlan& plan, const World& world) { city_plan(json, plan, world); }
+
+void write_hamlet_plan_row(JsonWriter& json, const HamletPlan& plan, const World& world) {
+    hamlet_plan(json, plan, world);
+}
+
+void write_castle_plan_row(JsonWriter& json, const CastlePlan& plan, const World& world) {
+    castle_plan(json, plan, world);
+}
+
 void write_college_fields(JsonWriter& json, const World& world) {
     // The reference's magic block carries `colleges` and a diagnostics row from the moment
     // it is written; the college pass fills them at stage 12. Before that pass the empty
@@ -4328,6 +4405,12 @@ void write_college_fields(JsonWriter& json, const World& world) {
     }
 }
 
+void write_nest_profiles(JsonWriter& json, CreatureClass which) {
+    opaque(json, which == CreatureClass::Animal ? nest_animal_profiles_json() : nest_monster_profiles_json());
+}
+
+void write_nest_roles(JsonWriter& json) { opaque(json, nest_roles_json()); }
+
 // debug_stats republishes these exactly as city_plans and ruins write them.
 void write_city_plan_stats(JsonWriter& json, const PlanStats& stats) { plan_stats_object(json, stats, true); }
 void write_city_plan_debug(JsonWriter& json, const PlanDebug& debug) { plan_debug_object(json, debug, true); }
@@ -4355,9 +4438,12 @@ void write_site_age_fields(JsonWriter& json, const World& world, std::size_t sit
 }
 
 void write_site_society_fields(JsonWriter& json, const World& world, std::size_t site_index) {
-    // The society pass writes the traits onto every site once the economy half runs.
+    // The society pass writes the traits onto every site once the economy half runs, and
+    // stamps each city as settled surface ground as it does so.
     if (!world.has_humans || !world.society.has_economy) return;
     if (site_index >= world.settlements.sites.size()) return;
+    text(json, "layer", "surface");
+    text(json, "mobility", "settled");
     json.key("community_traits");
     strings(json, world.settlements.sites[site_index].community);
 }
@@ -4406,12 +4492,12 @@ void write_late_blocks(JsonWriter& json, const World& world) {
 
     if (world.has_plans) {
         json.key("city_plans");
-        write_city_plans(json, world.city_plans);
+        write_city_plans(json, world);
         if (world.has_humans) {
             json.key("hamlet_plans");
-            write_hamlet_plans(json, world.hamlet_plans);
+            write_hamlet_plans(json, world);
             json.key("castle_plans");
-            write_castle_plans(json, world.castle_plans);
+            write_castle_plans(json, world);
         }
     }
 

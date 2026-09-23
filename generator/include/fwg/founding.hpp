@@ -58,6 +58,7 @@ struct FoundingEvent {
     std::string status;  // founded | diaspora_founded | did_not_participate |
                          // search_radius_too_small | no_separated_origin
     double radius_m = 0.0;
+    double required_separation_degrees = -1.0;  // only on no_separated_origin
     double draw_percent = -1.0;   // only on did_not_participate
     double suitability = -1.0;    // only on a founding
     int node = -1;                // only on a founding
@@ -119,6 +120,13 @@ struct FoundingRequest {
 };
 
 struct FoundingReport {
+    // The rules the rounds ran under, recorded as the reference's record carries them: each
+    // competing people's minimum supported residents, the round length, the diaspora interval
+    // and the separation a race's first city keeps from the other races' capitals.
+    std::map<std::string, long long> minimum_residents;
+    long long years_per_round = 0;
+    long long diaspora_interval_years = 0;
+    double origin_min_separation_degrees = 0.0;
     std::map<std::string, long long> effective_quotas;  // after the food cap and any bonus
     std::vector<std::string> diaspora_bonus_used;
     std::vector<std::string> used_civilizations;

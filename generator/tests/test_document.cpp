@@ -283,9 +283,10 @@ TEST(phases_and_recipe_carry_the_reference_keys) {
     same_keys(parameters.at("seed"), {"default", "group", "description", "type", "units", "min", "max"},
               "parameters.seed");
     check::equal(joined(recipe.at("provenance").keys()), joined(parameters.keys()), "one provenance entry per parameter");
-    // 219 in the reference: this port has no ley_nodes, ley_width, magic_instability,
-    // extent, depth, width or meander -- retired fields its own registry already dropped.
-    check::equal(recipe.at("resolved").keys().size(), std::size_t{212}, "resolved: every Config field and option");
+    // 219, as the reference's: the 55 Config fields -- ley_nodes, ley_width, magic_instability,
+    // extent, depth, width and meander included at recipe 3's values, though this port has no
+    // such field and nothing reads them -- and the 164 world options.
+    check::equal(recipe.at("resolved").keys().size(), std::size_t{219}, "resolved: every Config field and option");
 }
 
 TEST(the_peoples_blocks_carry_the_reference_keys) {

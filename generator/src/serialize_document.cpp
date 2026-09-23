@@ -131,14 +131,28 @@ std::string world_options_text(const Config& cfg) {
     return out;
 }
 
-// Every Config field the reference's dataclass has, in its declaration order, then every
-// world option. Seven of the reference's fields are not here because this port has no such
-// field: ley_nodes, ley_width and magic_instability (the pre-network leyline model) and
-// extent, depth, width and meander (the retired non-tectonic experiment). The reference's
-// own registry marks all seven inactive and publishes none of them as a control; nothing on
-// recipe 3 reads them.
-void write_resolved(JsonWriter& json, const Config& cfg) {
-    json.begin_object();
+// The seven reference Config fields this port has no field for, at the values recipe 3
+// gives them (terrain_lab.Config and terrain_world.default_config(3), FantasyWorldGenerator
+// b67c99b): ley_nodes, ley_width and magic_instability (the pre-network leyline model) and
+// extent, depth, width and meander (the retired non-tectonic experiment). Nothing on recipe 3
+// reads them, and the reference's registry marks all seven inactive and publishes none as a
+// control, so no request can move them -- but its Config carries them, and `config`,
+// `effective_config` and `recipe.resolved` are that dataclass, so all three publish them.
+constexpr int kInactiveLeyNodes = 10;
+constexpr double kInactiveLeyWidth = 180.0;
+constexpr double kInactiveMagicInstability = 0.45;
+constexpr double kInactiveExtent = 8000.0;
+constexpr double kInactiveDepth = 500.0;
+constexpr double kInactiveWidth = 450.0;
+constexpr double kInactiveMeander = 650.0;
+
+}  // namespace
+
+// Every Config field the reference's dataclass has, in its declaration order. `effective`
+// scales the four inactive lengths by world_scale, as the reference's apply_world_scale
+// scales extent, depth, width and meander with the six lengths this port does carry.
+void write_config_fields(JsonWriter& json, const Config& cfg, bool effective) {
+    const double scale = effective ? cfg.world_scale : 1.0;
     integer(json, "world_recipe", cfg.world_recipe);
     text(json, "world_options", world_options_text(cfg));
     text(json, "world_size", to_string(cfg.world_size));
@@ -150,6 +164,9 @@ void write_resolved(JsonWriter& json, const Config& cfg) {
     integer(json, "tectonics", 1);
     integer(json, "phase", cfg.phase);
     integer(json, "magic_enabled", cfg.magic_enabled);
+    integer(json, "ley_nodes", kInactiveLeyNodes);
+    real(json, "ley_width", kInactiveLeyWidth);
+    real(json, "magic_instability", kInactiveMagicInstability);
     real(json, "human_magic_limit", cfg.human_magic_limit);
     integer(json, "college_count", cfg.college_count);
     integer(json, "hamlets_per_core", cfg.hamlets_per_core);
@@ -183,11 +200,23 @@ void write_resolved(JsonWriter& json, const Config& cfg) {
     real(json, "world_scale", cfg.world_scale);
     integer(json, "seed", static_cast<long long>(cfg.seed));
     integer(json, "size", cfg.size);
+    real(json, "extent", kInactiveExtent * scale);
     real(json, "amplitude", cfg.amplitude);
     real(json, "wavelength", cfg.wavelength);
     integer(json, "octaves", cfg.octaves);
     real(json, "ridge", cfg.ridge);
+    real(json, "depth", kInactiveDepth * scale);
+    real(json, "width", kInactiveWidth * scale);
+    real(json, "meander", kInactiveMeander * scale);
     real(json, "radius", cfg.radius);
+}
+
+namespace {
+
+// `recipe.resolved`: the Config fields, then every world option.
+void write_resolved(JsonWriter& json, const Config& cfg) {
+    json.begin_object();
+    write_config_fields(json, cfg, /*effective=*/false);
     const auto specs = option_specs();
     for (std::size_t i = 0; i < specs.size(); ++i) {
         json.key(specs[i].name);

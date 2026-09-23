@@ -346,6 +346,7 @@ SettlementSite player_city(const World& world, int node, int x, int z, const Che
     site.freshwater_distance_m =
         fresh && std::isfinite(*fresh) ? *fresh : std::numeric_limits<double>::infinity();
     site.suitability = layer_or(world, "suitability_" + asked.civilization, x, z, 0.0);
+    site.reason = "Founded by the player.";
 
     const CityPopulation people = city_population(asked.residents.value_or(0), 1, 0);
     site.population_estimate = people.residents;

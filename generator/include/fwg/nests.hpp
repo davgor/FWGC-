@@ -146,6 +146,14 @@ std::span<const CreatureRole> creature_roles();
 // nothing rather than erroring.
 std::span<const std::string_view> nest_field_names();
 
+// The catalogue as authored, as JSON text (src/generated/content_nest_catalogue.cpp): the
+// animal rows and the monster rows, each in file order with every authored key, and the
+// feeding-role table. The world document's `profiles` and `roles` are these bytes; no pass
+// reads them, because the typed tables above are what the passes run on.
+std::string_view nest_animal_profiles_json();
+std::string_view nest_monster_profiles_json();
+std::string_view nest_roles_json();
+
 // ---------------------------------------------------------------------------
 // What a pass produces.
 // ---------------------------------------------------------------------------

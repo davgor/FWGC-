@@ -172,11 +172,11 @@ std::vector<SpeciesAssessment> assess_habitation(const World& world, const Spher
         // cell on the planet, including other continents.
         if (rules->settlement.support_outside_habitat) {
             const RoadCost cost(grid, cfg, water, height, flood, river, &hazard);
-            const std::vector<char> reachable =
-                reachable_support(grid, a.candidates, cost, cfg.support_reach);
+            std::vector<char> reachable = reachable_support(grid, a.candidates, cost, cfg.support_reach);
             for (std::size_t i = 0; i < count; ++i) {
                 if (!reachable[i]) a.food_potential[i] = 0.0;
             }
+            a.support_reach = std::move(reachable);
         }
 
         out.push_back(std::move(a));

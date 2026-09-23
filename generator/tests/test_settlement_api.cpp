@@ -700,7 +700,10 @@ TEST(ground_the_world_will_not_settle_is_refused_naming_the_node) {
     set_at(steep, "slope", legal, profile.traits.site_slope_limit);
     ground_refusal(steep, legal, "hamlet", "will not settle at or above", "a slope at the limit");
 
+    // A generated world publishes each people's own risk field, so the plain hazard is the
+    // fallback only where that field is absent: take it away to test the fallback.
     World charged = w;
+    charged.layers.erase("magic_risk_" + people);
     set_at(charged, "magic_hazard", legal, profile.traits.mutation_limit + 0.01);
     ground_refusal(charged, legal, "hamlet", "magical hazard", "a hazard past the limit");
     // The people's own reading of the ley wins where the world publishes one: a site that

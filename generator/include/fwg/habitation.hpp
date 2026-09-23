@@ -33,6 +33,10 @@ struct SpeciesAssessment {
     // settle: a city farms its hinterland, and a people whose rules allow it farms
     // ground outside its own habitat entirely.
     std::vector<double> food_potential;
+    // Per node, 1 where such a people can reach over safe routes within its support reach
+    // to farm, 0 elsewhere: the mask its food potential was cut to. Empty for a people
+    // that farms only its own habitat. Published as the `<id>_support_reach` layer.
+    std::vector<char> support_reach;
 };
 
 // Assess every named people against this world.

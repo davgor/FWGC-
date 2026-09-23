@@ -30,6 +30,7 @@
   generated/content_ley_destruction.cpp
   generated/content_npcs.cpp
   generated/content_nests.cpp
+  generated/content_nest_catalogue.cpp
   generated/content_nomads.cpp
   generated/content_pantheon.cpp
   generated/content_schools.cpp

@@ -17,6 +17,7 @@
 #include <array>
 #include <cstdint>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "fwg/grid.hpp"
@@ -38,6 +39,13 @@ inline constexpr int kKnownSchools = 8;
 inline constexpr double kSurge = 1.6;
 inline constexpr double kHollow = 0.75;
 
+struct MoonOverrides {
+    int synodic_days = 0;  // 0 keeps the seeded value
+    int spin_days = 0;
+    int nod_days = 0;
+    double tilt_degrees = 0.0;
+};
+
 struct Moon {
     int synodic_days = 0;  // phase: full to full
     int spin_days = 0;     // which meridian faces the world
@@ -48,14 +56,48 @@ struct Moon {
     double tilt_max_degrees = 0.0;
     long long great_year_days = 0;  // lcm of the three periods
     std::int64_t variation = 0;
+    // What the request pinned, zero where the seed chose: the document's `moon.controls`.
+    MoonOverrides overrides;
 };
 
-struct MoonOverrides {
-    int synodic_days = 0;  // 0 keeps the seeded value
-    int spin_days = 0;
-    int nod_days = 0;
-    double tilt_degrees = 0.0;
+// The seeded ranges, inclusive, and the two hemispheres' schools in quarter order: the
+// constants the document's `moon` block publishes beside the draws.
+inline constexpr int kSynodicDaysRange[2] = {26, 34};
+inline constexpr int kSpinDaysRange[2] = {15, 63};
+inline constexpr int kNodDaysRange[2] = {17, 37};
+inline constexpr double kTiltDegreesRange[2] = {10.0, 35.0};
+inline constexpr std::string_view kStillHemisphere[4] = {"radiant", "water", "earth", "umbral"};
+inline constexpr std::string_view kRestlessHemisphere[4] = {"weave", "fire", "air", "infernal"};
+
+// The closed forms the almanac is computed from, as the reference's FORMULAS publishes them
+// (key, sentence), so a consumer can drive its own clock bit-consistently with the almanac.
+struct AstrologyFormula {
+    std::string_view key;
+    std::string_view text;
 };
+inline constexpr AstrologyFormula kAstrologyFormulas[] = {
+    {"time", "t is real days since founding year 0; hour 0 is sunrise; integer days use integer modulo"},
+    {"fraction", "f_k(t) = ((t + offsets[k]) mod periods[k]) / periods[k] for k in synodic, spin, nod"},
+    {"phase_angle", "alpha = 2*pi*f_synodic; 0 is full, pi is new"},
+    {"spin_angle", "beta = 2*pi*f_spin, rotation of the moon frame about its polar axis y"},
+    {"nod_degrees",
+     "gamma = tilt_max_degrees * sin(2*pi*f_nod); positive leans the still hemisphere toward the world"},
+    {"region",
+     "x,z = x*cos(beta)+z*sin(beta), -x*sin(beta)+z*cos(beta); then x,y = x*cos(gamma)+y*sin(gamma), "
+     "-x*sin(gamma)+y*cos(gamma)"},
+    {"tide",
+     "tide_s = clamp(.7 + 1.1 * max(0,x) * max(0, x*cos(alpha)+z*sin(alpha)), .5, 1.8) using that school region"},
+    {"illumination", "(1 + cos(alpha)) / 2"},
+    {"moonrise_hour", "24 * f_synodic hours after sunrise (full moon rises at sunset)"},
+    {"elongation_degrees", "360 * f_synodic"},
+    {"leyline_at_time", "ley_s(t) = ley_s * (1 + lunar_sensitivity * (tide_s(t) - 1))"},
+};
+
+// The astrology block's `limits`, which the astrology pass also appends to the warnings.
+inline constexpr std::string_view kAstrologyLimits =
+    "The moon is artistic astronomy: one body reduced to phase, rise hour, spin and lean. No altitude, no "
+    "latitude dependence, no solar eclipses, no water tides. Surges are momentary multipliers; the exported "
+    "leyline grids are the base field.";
 
 // Draw order is part of the contract: an override pins a value without moving any
 // other cycle, because the draws still happen in the same sequence.

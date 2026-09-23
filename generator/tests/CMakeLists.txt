@@ -11,6 +11,7 @@
   test_colleges.cpp
   test_corruption.cpp
   test_document.cpp
+  test_document_paths.cpp
   test_ecology.cpp
   test_entities.cpp
   test_fates.cpp

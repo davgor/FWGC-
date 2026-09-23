@@ -12,6 +12,7 @@
 #include <set>
 #include <string>
 
+#include "fwg/entities.hpp"
 #include "fwg/serialize.hpp"
 #include "fwg/settlements_stage.hpp"
 #include "fwg/world.hpp"
@@ -373,4 +374,49 @@ TEST(a_first_age_city_takes_its_culture_from_its_own_core) {
         }
     }
     check::is_true(cored > 0, "some city to have a core, or nothing is tested");
+}
+
+TEST(a_citys_published_terms_add_up_to_its_suitability) {
+    // `suitability_factors` claims to be what the score was summed from. Clamped the way the
+    // score is, the terms must give back the site's suitability exactly -- a term computed
+    // off the wrong ground, or one dropped, would not.
+    const World w = settled(33);
+    check::is_true(!w.settlements.sites.empty(), "cities to check");
+    const std::string_view label = registry_defaults().resource_score_factor_label;
+    for (const SettlementSite& s : w.settlements.sites) {
+        check::is_true(!s.reason.empty(), s.uid + " to say why it stands where it does");
+        check::equal(s.suitability_factors.size(), std::size_t{10}, s.uid + ": the ten published terms");
+        check::equal(s.suitability_factors.front().name, std::string("freshwater"), s.uid + ": the first term");
+        check::equal(s.suitability_factors.back().name, std::string(label), s.uid + ": the registry's label last");
+        double total = 0.0;
+        for (const SuitabilityFactor& f : s.suitability_factors) total += f.value;
+        check::close(std::max(0.0, std::min(1.0, total)), s.suitability, 1e-12, s.uid + ": the terms' sum");
+    }
+}
+
+TEST(each_people_has_its_own_published_risk_and_a_far_farmer_its_reach) {
+    // Every people's magic-risk field is published, and today it is the world's hazard; a
+    // people that farms outside its own habitat publishes the ground it can reach to farm.
+    const World w = settled(33);
+    const Grid& hazard = w.layers.at("magic_hazard");
+    for (const std::string_view people : civilization_ids()) {
+        const auto it = w.layers.find("magic_risk_" + std::string(people));
+        check::is_true(it != w.layers.end(), "a magic_risk layer for " + std::string(people));
+        for (int z = 0; z < hazard.size(); ++z) {
+            for (int x = 0; x < hazard.size(); ++x) {
+                check::equal(it->second.at(x, z), hazard.at(x, z), "the risk of " + std::string(people));
+            }
+        }
+    }
+    long long reach_layers = 0;
+    for (const std::string_view people : civilization_ids()) {
+        const EntityRules* rules = entity_rule(people);
+        const bool far = rules != nullptr && rules->settlement.support_outside_habitat;
+        const auto it = w.layers.find(std::string(people) + "_support_reach");
+        check::equal(it != w.layers.end(), far, std::string(people) + ": a support-reach layer only if it farms afar");
+        if (it == w.layers.end()) continue;
+        ++reach_layers;
+        for (const double v : it->second.cells()) check::is_true(v == 0.0 || v == 1.0, "a 0/1 reach mask");
+    }
+    check::is_true(reach_layers > 0, "a mixed world to hold some people that farms afar, or nothing is tested");
 }

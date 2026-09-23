@@ -28,8 +28,18 @@ namespace fwg::serialize_detail {
 void write_terrain_detail(JsonWriter& json, const TerrainDetail& detail);
 void write_settlements(JsonWriter& json, const World& world);
 void write_founding_event(JsonWriter& json, const FoundingEvent& event);
+// The reference's natural_catalogue() and biome_catalogue(), as arrays: `terrain.biomes`,
+// `terrain.natural_biomes` and `terrain.magical_biomes`, and every plan's own copies.
+void write_natural_catalogue(JsonWriter& json);
+void write_magical_catalogue(JsonWriter& json);
 
 // Defined in serialize_document.cpp.
+//
+// The reference's Config dataclass, field by field in its declaration order, into an object
+// the caller has opened: what `config`, `effective_config` and `recipe.resolved` all carry.
+// `effective` scales the four lengths this port has no field for by world_scale, as the
+// reference's apply_world_scale does.
+void write_config_fields(JsonWriter& json, const Config& cfg, bool effective);
 void write_phases(JsonWriter& json, const World& world);
 void write_recipe(JsonWriter& json, const World& world);
 void write_population(JsonWriter& json, const World& world);

@@ -323,4 +323,23 @@ double site_suitability(const CivilizationTraits& t, const SiteConditions& at, b
     return std::max(0.0, std::min(1.0, score));
 }
 
+std::vector<SuitabilityFactor> suitability_factors(const CivilizationTraits& t, const SiteConditions& at,
+                                                   double coastal_support, double coastal_score_weight,
+                                                   double resource_score_weight, std::string_view resource_label) {
+    const double slope_term = at.slope_deg / t.slope_comfort;
+    const double climate_term = (at.temperature_c - t.temperature_ideal) / t.temperature_tolerance;
+    return {
+        {"freshwater", t.water_weight * std::exp(-at.freshwater_distance_m / t.water_reach)},
+        {"slope", t.slope_weight * std::exp(-slope_term * slope_term)},
+        {"temperature", t.climate_weight * std::exp(-climate_term * climate_term)},
+        {"moisture", t.moisture_weight * std::max(0.0, 1.0 - std::abs(at.moisture - t.moisture_ideal))},
+        {"resources", t.resource_weight * at.resource},
+        {"flood", -t.flood_penalty * at.flood},
+        {"biome", at.biome_opinion},
+        {"magic", -t.magic_penalty * at.magic_hazard},
+        {"coastal_support", coastal_support * coastal_score_weight},
+        {std::string(resource_label), resource_score_weight * at.resource},
+    };
+}
+
 }  // namespace fwg

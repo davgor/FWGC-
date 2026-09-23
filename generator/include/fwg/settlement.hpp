@@ -11,6 +11,7 @@
 
 #include <map>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "fwg/civilizations.hpp"
@@ -78,6 +79,21 @@ struct SiteConditions {
 
 // A people's 0..1 opinion of one cell. Water scores zero: nobody builds on the sea.
 double site_suitability(const CivilizationTraits& traits, const SiteConditions& at, bool is_water);
+
+// One named term of a site's suitability, as a settlement site publishes it.
+struct SuitabilityFactor {
+    std::string name;
+    double value = 0.0;
+};
+
+// The ten terms a city's suitability is summed from, in the reference's order and under its
+// names: site_suitability's eight (penalties signed negative) and the full recipe's coastal
+// and resource bonuses. The last is published under `resource_label` -- the registry's
+// resource_score_factor_label, one literal key for every people -- and is weighted by the
+// people's settlement rules, as the coastal bonus is.
+std::vector<SuitabilityFactor> suitability_factors(const CivilizationTraits& traits, const SiteConditions& at,
+                                                   double coastal_support, double coastal_score_weight,
+                                                   double resource_score_weight, std::string_view resource_label);
 
 // How many cities the GROUND can hold, whoever wants them.
 //

@@ -1,7 +1,11 @@
 #include "fwg/serialize.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <ostream>
+#include <string>
+#include <string_view>
+#include <vector>
 
 #include "fwg/json.hpp"
 #include "serialize_blocks.hpp"
@@ -10,58 +14,52 @@
 namespace fwg {
 namespace {
 
-void write_config(JsonWriter& json, const Config& cfg) {
+void write_vec3(JsonWriter& json, const Vec3& v) {
+    json.begin_array();
+    json.value(v.x);
+    json.value(v.y);
+    json.value(v.z);
+    json.end_array();
+}
+
+// One ley line as the reference publishes it: its ends, the great-circle `path` between the
+// two key points they index, its id and intensity. In the magic block's flat `edges` list the
+// ends are offset past earlier networks' nodes and the line names its network and repeats its
+// intensity as `strength`; the caller passes `network` for that list only.
+void write_ley_edge(JsonWriter& json, const LeyNetwork& net, const LeyEdge& e, int offset,
+                    const std::string* network) {
     json.begin_object();
-    json.field("seed", static_cast<long long>(cfg.seed));
-    json.field("size", cfg.size);
-    json.field("phase", cfg.phase);
-    json.key("world_size");
-    json.value(std::string_view(to_string(cfg.world_size)));
-    // Whether that preset is what built the world, and the width that did.
-    json.field("world_size_was_used", cfg.world_size_was_used);
+    json.field("from", e.from + offset);
+    json.field("to", e.to + offset);
+    json.key("path");
+    json.begin_array();
+    const auto count = static_cast<int>(net.nodes.size());
+    if (e.from >= 0 && e.from < count && e.to >= 0 && e.to < count) {
+        for (const Vec3& p : arc_path(net.nodes[static_cast<std::size_t>(e.from)].direction,
+                                      net.nodes[static_cast<std::size_t>(e.to)].direction)) {
+            write_vec3(json, p);
+        }
+    }
+    json.end_array();
+    json.field("id", e.id);
+    json.field("intensity", e.intensity);
+    if (network != nullptr) {
+        json.field("network", *network);
+        json.field("strength", e.intensity);
+    }
+    json.end_object();
+}
+
+// The reference's `config` and `effective_config` are its Config dataclass, so both are the
+// dataclass's fields in its order (world options live in `world_options`, as the reference
+// keeps them). Two keys are this port's own, kept deliberately: whether the world_size preset
+// built the world and the width that did (docs/inherited-findings.md #17), because an explicit
+// circumference_km or globe_radius bypasses the preset the dataclass still names.
+void write_config(JsonWriter& json, const Config& cfg, bool effective) {
+    json.begin_object();
+    serialize_detail::write_config_fields(json, cfg, effective);
     json.field("circumference_m", cfg.circumference_m);
-    json.field("globe_radius", cfg.globe_radius);
-    json.field("world_scale", cfg.world_scale);
-    json.field("tectonic_relief", cfg.tectonic_relief);
-    json.field("amplitude", cfg.amplitude);
-    json.field("wavelength", cfg.wavelength);
-    json.field("octaves", cfg.octaves);
-    json.field("ridge", cfg.ridge);
-    json.field("sea_level", cfg.sea_level);
-    json.field("radius", cfg.radius);
-    json.field("plate_count", cfg.plate_count);
-    json.field("layout_variation", cfg.layout_variation);
-    json.field("detail_variation", cfg.detail_variation);
-    json.field("crust_bias", cfg.crust_bias);
-    json.field("belt_width", cfg.belt_width);
-    json.field("mountain_detail", cfg.mountain_detail);
-    json.field("orogeny", cfg.orogeny);
-    json.field("mountain_abundance", cfg.options[Option::mountain_abundance]);
-    json.field("erosion_passes", cfg.erosion_passes);
-    json.field("erosion_strength", cfg.erosion_strength);
-    json.field("magic_enabled", cfg.magic_enabled);
-    json.field("world_recipe", cfg.world_recipe);
-    json.field("auto_parameters", cfg.auto_parameters);
-    json.field("population_profile", cfg.population_profile);
-    json.field("wind_bearing", cfg.wind_bearing);
-    json.field("rain_passes", cfg.rain_passes);
-    json.field("rain_strength", cfg.rain_strength);
-    json.field("temperature_offset", cfg.temperature_offset);
-    json.field("moisture_bias", cfg.moisture_bias);
-    json.field("road_max_grade", cfg.road_max_grade);
-    json.field("bridge_cost", cfg.bridge_cost);
-    json.field("human_magic_limit", cfg.human_magic_limit);
-    json.field("stubbornness", cfg.stubbornness);
-    json.field("urban_food_demand", cfg.urban_food_demand);
-    json.field("human_adaptation", cfg.human_adaptation);
-    json.field("settlement_count", cfg.settlement_count);
-    json.field("hamlets_per_core", cfg.hamlets_per_core);
-    json.field("fortress_count", cfg.fortress_count);
-    json.field("college_count", cfg.college_count);
-    json.field("settlement_spacing", cfg.settlement_spacing);
-    json.field("support_reach", cfg.support_reach);
-    json.field("culture_link_cost", cfg.culture_link_cost);
-    json.field("river_threshold_km2", cfg.river_threshold_km2);
+    json.field("world_size_was_used", cfg.world_size_was_used);
     json.end_object();
 }
 
@@ -69,17 +67,60 @@ void write_config(JsonWriter& json, const Config& cfg) {
 
 namespace serialize_detail {
 
+void write_natural_catalogue(JsonWriter& json) {
+    json.begin_array();
+    for (const NaturalBiome& b : natural_biomes()) {
+        json.begin_object();
+        json.field("id", b.id);
+        json.field("core", b.core);
+        json.field("name", b.name);
+        json.key("color");
+        json.begin_array();
+        for (const int c : b.color) json.value(c);
+        json.end_array();
+        json.field("asset_id", b.asset_id);
+        json.end_object();
+    }
+    json.end_array();
+}
+
+void write_magical_catalogue(JsonWriter& json) {
+    const auto schools = magic_school_table();
+    json.begin_array();
+    for (const BiomeVariant& v : biome_variant_catalogue()) {
+        const int school = magic_school_index(v.magic_school);
+        json.begin_object();
+        json.field("id", v.id);
+        json.field("core", v.core);
+        json.field("core_biome_id", v.core_biome_id);
+        json.field("magic_school", v.magic_school);
+        json.field("group", v.group);
+        json.field("descriptors",
+                   school >= 0 ? schools[static_cast<std::size_t>(school)].descriptors : std::string_view());
+        json.field("name", v.name);
+        json.key("color");
+        json.begin_array();
+        for (const int c : v.color) json.value(c);
+        json.end_array();
+        json.field("asset_id", v.asset_id);
+        json.end_object();
+    }
+    json.end_array();
+}
+
 void write_terrain_detail(JsonWriter& json, const TerrainDetail& detail) {
     json.begin_object();
     json.field("version", detail.version);
     json.field("seed", static_cast<long long>(detail.seed));
+    // No per-band seed: the reference derives each at sample time as
+    // child_seed(seed, str(index)), and so does this port's sampler (detail.cpp), so the
+    // definition is the root seed and the bands' scale and amplitude, as published there.
     json.key("bands");
     json.begin_array();
     for (const DetailBand& b : detail.bands) {
         json.begin_object();
         json.field("scale_m", b.scale_m);
         json.field("amplitude_m", b.amplitude_m);
-        json.field("seed", static_cast<long long>(b.seed));
         json.end_object();
     }
     json.end_array();
@@ -100,6 +141,7 @@ void write_founding_event(JsonWriter& json, const FoundingEvent& e) {
     json.field("parent_race_id", e.parent_race_id);
     json.field("status", e.status);
     json.field("radius_m", e.radius_m);
+    if (e.required_separation_degrees >= 0.0) json.field("required_separation_degrees", e.required_separation_degrees);
     if (e.draw_percent >= 0.0) json.field("draw_percent", e.draw_percent);
     if (e.suitability >= 0.0) json.field("suitability", e.suitability);
     if (e.node >= 0) json.field("node", e.node);
@@ -133,10 +175,43 @@ void write_founding_event(JsonWriter& json, const FoundingEvent& e) {
     json.end_object();
 }
 
+// The rest of a site record as the reference writes it. The three diaspora keys are null on a
+// city no diaspora founded, as its founding record's .get() reads them; a player's city carries
+// no suitability terms until a rebuild founds around it. `layer` and `mobility` arrive with the
+// society pass (write_site_society_fields).
+void write_site_reference_fields(JsonWriter& json, const SettlementSite& s) {
+    const auto null_unless = [&](const char* key, bool present, const auto& value) {
+        json.key(key);
+        if (present) {
+            json.value(value);
+        } else {
+            json.value_null();
+        }
+    };
+    null_unless("diaspora", s.diaspora, true);
+    null_unless("diaspora_reason", s.diaspora, std::string_view(s.diaspora_reason));
+    null_unless("diaspora_bonus", s.diaspora, s.diaspora_bonus);
+    json.field("civilization_id", s.population_profile);
+    json.key("direction");
+    write_vec3(json, s.direction);
+    json.field("kind", std::string_view("city"));
+    // The reference's outpost list is never filled: no site is an outpost.
+    json.field("outpost", false);
+    json.field("reason", s.reason);
+    if (!s.suitability_factors.empty()) {
+        json.key("suitability_factors");
+        json.begin_object();
+        for (const SuitabilityFactor& f : s.suitability_factors) json.field(f.name, f.value);
+        json.end_object();
+    }
+    json.field("founded_age", s.founded_age);
+    json.field("source_culture", s.source_culture);
+}
+
 void write_settlements(JsonWriter& json, const World& world) {
     const SettlementReport& settled = world.settlements;
     json.begin_object();
-    json.field("version", 1);
+    json.field("version", kSettlementsVersion);
     json.field("population_profile", world.config.population_profile);
 
     json.key("sites");
@@ -187,8 +262,7 @@ void write_settlements(JsonWriter& json, const World& world) {
         json.field("source_civilization_id", s.source_civilization_id);
         json.field("migration_distance_m", s.migration_distance_m);
         json.field("cultural_branch", s.cultural_branch);
-        json.field("diaspora", s.diaspora);
-        json.field("diaspora_reason", s.diaspora_reason);
+        write_site_reference_fields(json, s);
         write_site_society_fields(json, world, site_index);
         write_site_age_fields(json, world, site_index);
         json.end_object();
@@ -200,6 +274,14 @@ void write_settlements(JsonWriter& json, const World& world) {
 
     json.key("founding");
     json.begin_object();
+    json.field("version", kFoundingVersion);
+    json.key("minimum_residents");
+    json.begin_object();
+    for (const auto& [people, value] : settled.founding.minimum_residents) json.field(people, value);
+    json.end_object();
+    json.field("diaspora_interval_years", settled.founding.diaspora_interval_years);
+    json.field("years_per_round", settled.founding.years_per_round);
+    json.field("origin_min_separation_degrees", settled.founding.origin_min_separation_degrees);
     json.field("start_year", settled.founding.start_year);
     json.field("end_year", settled.founding.end_year);
     json.field("elapsed_years", settled.founding.elapsed_years);
@@ -220,7 +302,21 @@ void write_settlements(JsonWriter& json, const World& world) {
     json.begin_array();
     for (const FoundingEvent& e : settled.founding.events) write_founding_event(json, e);
     json.end_array();
+    json.field("definition", kFoundingDefinition);
     json.end_object();
+
+    // The master seed the stage's streams are named children of -- founding, naming -- and
+    // the cities the peoples asked for in all (the budget's requested cities, summed).
+    json.field("seed", static_cast<long long>(world.config.seed));
+    long long requested = 0;
+    for (const auto& [people, cities] : settled.budget.requested_cities) {
+        (void)people;
+        requested += cities;
+    }
+    json.field("requested", requested);
+    std::string method(kSettlementsMethod);
+    if (world.has_magic) method += kSettlementsMagicMethod;
+    json.field("method", method);
     json.end_object();
 }
 
@@ -243,9 +339,9 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
     json.field("completed_stage", world.completed_stage);
 
     json.key("config");
-    write_config(json, world.config);
+    write_config(json, world.config, /*effective=*/false);
     json.key("effective_config");
-    write_config(json, world.effective);
+    write_config(json, world.effective, /*effective=*/true);
 
     json.key("physical_scale");
     json.begin_object();
@@ -285,28 +381,8 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
     json.field("crust", static_cast<long long>(world.crust_seed));
     json.field("detail", static_cast<long long>(world.detail_seed));
     json.end_object();
-
-    json.key("plates");
-    json.begin_array();
-    for (const Plate& plate : world.plates) {
-        json.begin_object();
-        json.field("id", plate.id);
-        json.key("center");
-        json.begin_array();
-        json.value(plate.center.x);
-        json.value(plate.center.y);
-        json.value(plate.center.z);
-        json.end_array();
-        json.key("omega");
-        json.begin_array();
-        json.value(plate.omega.x);
-        json.value(plate.omega.y);
-        json.value(plate.omega.z);
-        json.end_array();
-        json.end_object();
-    }
-    json.end_array();
-    json.field("motion_units", std::string_view("dimensionless angular velocity"));
+    // The plates and their motion units are published where the reference publishes them,
+    // in `phases`; the top-level copies this document used to carry had no reader.
 
     // The ladder, the request, and the peoples the request named. None of the four is a
     // stage's output: `population` and `population_profiles` exist from stage 1 in the
@@ -353,12 +429,25 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
         json.key("water");
         json.begin_object();
         json.field("version", world.water.version);
+        // The unique spherical nodes as [x, z], in node order: what `receivers` and the river
+        // segments index. The grid's seam column and pole rows are not nodes of their own.
+        {
+            const auto grid = sphere_grid(world.config.size, world.effective.globe_radius);
+            json.key("nodes");
+            json.begin_array();
+            for (std::size_t i = 0; i < grid->node_count(); ++i) {
+                json.begin_array();
+                json.value(grid->point_x[i]);
+                json.value(grid->point_z[i]);
+                json.end_array();
+            }
+            json.end_array();
+        }
         json.field("ocean_km2", world.water.ocean_km2);
         json.field("lake_km2", world.water.lake_km2);
         json.field("dry_km2", world.water.dry_km2);
         json.field("lake_capacity_m3", world.water.lake_capacity_m3);
         json.field("has_ocean", world.water.has_ocean);
-        json.field("river_segment_count", static_cast<long long>(world.water.river_segments.size()));
         json.key("receivers");
         json.begin_array();
         for (const int r : world.water.receivers) json.value(static_cast<long long>(r));
@@ -391,7 +480,6 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
         json.field("transport_step_m", world.climate.transport_step_m);
         json.field("runoff_input_m2_equivalent", world.climate.runoff_input_m2_equivalent);
         json.field("runoff_outlets_m2_equivalent", world.climate.runoff_outlets_m2_equivalent);
-        json.field("river_segment_count", static_cast<long long>(world.climate.river_segments.size()));
         json.key("river_segments");
         json.begin_array();
         for (const auto& seg : world.climate.river_segments) {
@@ -435,27 +523,17 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
         json.key("terrain");
         json.begin_object();
         json.field("version", world.terrain.version);
-        json.field("climate_seed", static_cast<long long>(world.terrain.climate_seed));
+        // `biomes` and `natural_biomes` are the same catalogue under two names, as the
+        // reference publishes them.
+        json.key("biomes");
+        serialize_detail::write_natural_catalogue(json);
+        json.key("natural_biomes");
+        serialize_detail::write_natural_catalogue(json);
         json.key("landforms");
         json.begin_array();
         for (int i = 0; i < 4; ++i) json.value(std::string_view(landform_name(i)));
         json.end_array();
-        json.key("natural_biomes");
-        json.begin_array();
-        for (const NaturalBiome& b : natural_biomes()) {
-            json.begin_object();
-            json.field("id", b.id);
-            json.field("core", b.core);
-            json.field("name", b.name);
-            json.field("asset_id", b.asset_id);
-            json.key("color");
-            json.begin_array();
-            for (const int c : b.color) json.value(c);
-            json.end_array();
-            json.field("reachable", b.reachable);
-            json.end_object();
-        }
-        json.end_array();
+        json.field("climate_seed", static_cast<long long>(world.terrain.climate_seed));
         json.key("features");
         json.begin_array();
         for (const TerrainFeature& f : world.terrain.features) {
@@ -477,6 +555,16 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
         json.field("method", world.terrain.method);
         json.field("icons", std::string_view(
             "Sparse representative regions and prominent ridges; not unique geological objects."));
+        // What the biome-variant pass adds, from the moment it has run: the catalogue
+        // `biome_variant` indexes into, and the contract between the two biome layers.
+        if (world.layers.count("biome_variant") != 0) {
+            json.key("magical_biomes");
+            serialize_detail::write_magical_catalogue(json);
+            json.field("biome_contract", std::string_view(
+                "biome and natural_biome are natural catalogue IDs, never array offsets; biome_variant is a "
+                "magical catalogue index or -1. Food and habitat rules use the natural core and explicit variant "
+                "ID with independent school risk."));
+        }
         json.end_object();
     }
 
@@ -491,25 +579,37 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
         json.begin_array();
         for (const MagicSchool& s : magic_school_table()) json.value(s.name);
         json.end_array();
+        // The school groups, each once, in school order.
+        json.key("groups");
+        json.begin_array();
+        {
+            std::vector<std::string_view> groups;
+            for (const MagicSchool& s : magic_school_table()) {
+                if (std::find(groups.begin(), groups.end(), s.group) == groups.end()) groups.push_back(s.group);
+            }
+            for (const std::string_view g : groups) json.value(g);
+        }
+        json.end_array();
+        // A network publishes no `manifested` or `hidden` flag, as the reference's does not:
+        // `distribution` is null exactly when generation did not raise the network, and
+        // `school_order` lists the four hidden schools after the known eight.
         json.key("networks");
         json.begin_object();
         for (const MagicSchool& school : magic_school_table()) {
             const LeyNetwork& net = world.magic.networks.at(std::string(school.name));
             json.key(net.name);
             json.begin_object();
+            json.field("name", net.name);
             json.field("group", net.group);
             json.field("descriptors", net.descriptors);
-            json.field("seed", static_cast<long long>(net.seed));
-            json.field("strength", net.strength);
-            json.field("width_m", net.width_m);
-            json.field("instability", net.instability);
-            json.field("manifested", net.manifested);
-            if (net.has_surge) json.field("surged_strength", net.surged_strength);
-            json.field("hidden", school.hidden);
             json.key("color");
             json.begin_array();
             for (const int c : net.color) json.value(c);
             json.end_array();
+            json.field("seed", static_cast<long long>(net.seed));
+            json.field("strength", net.strength);
+            json.field("width_m", net.width_m);
+            json.field("instability", net.instability);
             json.key("nodes");
             json.begin_array();
             for (const LeyNode& node : net.nodes) {
@@ -527,17 +627,10 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
             json.end_array();
             json.key("edges");
             json.begin_array();
-            for (const LeyEdge& e : net.edges) {
-                json.begin_object();
-                json.field("id", e.id);
-                json.field("from", e.from);
-                json.field("to", e.to);
-                json.field("intensity", e.intensity);
-                json.end_object();
-            }
+            for (const LeyEdge& e : net.edges) write_ley_edge(json, net, e, 0, nullptr);
             json.end_array();
+            json.key("distribution");
             if (net.manifested) {
-                json.key("distribution");
                 json.begin_object();
                 json.field("version", net.distribution.version);
                 json.field("model", std::string_view("landscape_alignments"));
@@ -550,7 +643,10 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
                 for (const int a : net.distribution.aligned_nodes) json.value(a);
                 json.end_array();
                 json.end_object();
+            } else {
+                json.value_null();
             }
+            if (net.has_surge) json.field("surged_strength", net.surged_strength);
             json.end_object();
         }
         json.end_object();
@@ -567,6 +663,56 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
             "or above the threshold and a lead over the next strongest school of at least the margin."));
         // The colleges live in the magic block, as they do in the reference.
         serialize_detail::write_college_fields(json, world);
+        // Every network's key points and lines in one list, in school order: a line's ends
+        // index `nodes`, offset past the networks before it, and it names its network and
+        // carries its intensity again as `strength`, as the reference's flat view does.
+        json.key("nodes");
+        json.begin_array();
+        for (const MagicSchool& school : magic_school_table()) {
+            for (const LeyNode& node : world.magic.networks.at(std::string(school.name)).nodes) {
+                write_vec3(json, node.direction);
+            }
+        }
+        json.end_array();
+        json.key("edges");
+        json.begin_array();
+        {
+            int offset = 0;
+            for (const MagicSchool& school : magic_school_table()) {
+                const LeyNetwork& net = world.magic.networks.at(std::string(school.name));
+                for (const LeyEdge& e : net.edges) write_ley_edge(json, net, e, offset, &net.name);
+                offset += static_cast<int>(net.nodes.size());
+            }
+        }
+        json.end_array();
+        // The sky's surge on the networks' strengths: the day the time API last read, or on a
+        // world it has never touched, the reported year's first day that the astrology pass
+        // read. Known schools only; a hidden school takes no surge.
+        if (world.lunar_surge) {
+            json.key("lunar_surge");
+            json.begin_object();
+            json.field("day", world.lunar_surge->day);
+            json.key("factors");
+            json.begin_object();
+            for (const auto& [school, factor] : world.lunar_surge->factors) json.field(school, factor);
+            json.end_object();
+            json.field("formula", world.lunar_surge->formula);
+            json.end_object();
+        } else if (world.has_astrology) {
+            const auto schools = magic_school_table();
+            json.key("lunar_surge");
+            json.begin_object();
+            json.field("day", static_cast<long long>(world.lunar_almanac.now.day));
+            json.key("factors");
+            json.begin_object();
+            for (int s = 0; s < kKnownSchools; ++s) {
+                json.field(schools[static_cast<std::size_t>(s)].name,
+                           world.lunar_almanac.now.tide[static_cast<std::size_t>(s)]);
+            }
+            json.end_object();
+            json.field("formula", kLunarSurgeFormula);
+            json.end_object();
+        }
         json.end_object();
     }
 
@@ -604,6 +750,12 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
             "50-million-year artistic epoch: rotate the original plate centres, backtrace crust, blend "
             "transported relief with new boundary uplift. Angular speeds are dimensionless, not calibrated "
             "geodynamics."));
+        // Stage 7's addition, once the relics have been carved.
+        if (std::find(world.systems.begin(), world.systems.end(), "relic_carving") != world.systems.end()) {
+            json.field("relic_method", std::string_view(
+                "Compare old and rerouted river occupancy and dry former water footprints. Incise beds/shoulders, "
+                "then reroute again; refilled features retain relic provenance."));
+        }
         json.end_object();
     }
 
@@ -616,9 +768,9 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
             }
             w.end_object();
         };
-        const auto day_object = [&](JsonWriter& w, const DayState& d) {
-            w.begin_object();
-            w.field("day", static_cast<long long>(d.day));
+        // A day's sky, into an object the caller has opened: `now` leads with its day, and a
+        // month heads with its first_day instead, as the reference splats the same state.
+        const auto day_fields = [&](JsonWriter& w, const DayState& d) {
             w.field("phase_fraction", d.phase_fraction);
             w.field("elongation_degrees", d.elongation_degrees);
             w.field("illumination", d.illumination);
@@ -628,7 +780,13 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
             w.field("leaning", d.leaning);
             w.key("tide");
             tide_object(w, d.tide);
-            w.end_object();
+        };
+        const auto range = [](JsonWriter& w, std::string_view key, auto low, auto high) {
+            w.key(key);
+            w.begin_array();
+            w.value(low);
+            w.value(high);
+            w.end_array();
         };
 
         json.key("astrology");
@@ -658,6 +816,30 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
         json.end_object();
         json.field("tilt_max_degrees", world.moon.tilt_max_degrees);
         json.field("great_year_days", static_cast<long long>(world.moon.great_year_days));
+        // What the request chose for the moon: its variation, and only the cycles it pinned.
+        json.key("controls");
+        json.begin_object();
+        json.field("variation", static_cast<long long>(world.moon.variation));
+        json.key("overrides");
+        json.begin_object();
+        const MoonOverrides& pinned = world.moon.overrides;
+        if (pinned.synodic_days != 0) json.field("synodic", pinned.synodic_days);
+        if (pinned.spin_days != 0) json.field("spin", pinned.spin_days);
+        if (pinned.nod_days != 0) json.field("nod", pinned.nod_days);
+        if (pinned.tilt_degrees != 0.0) json.field("tilt", pinned.tilt_degrees);
+        json.end_object();
+        json.end_object();
+        json.key("hemispheres");
+        json.begin_object();
+        json.key("still");
+        json.begin_array();
+        for (const std::string_view s : kStillHemisphere) json.value(s);
+        json.end_array();
+        json.key("restless");
+        json.begin_array();
+        for (const std::string_view s : kRestlessHemisphere) json.value(s);
+        json.end_array();
+        json.end_object();
         json.key("regions");
         json.begin_object();
         for (int s = 0; s < kKnownSchools; ++s) {
@@ -670,15 +852,24 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
             json.end_array();
         }
         json.end_object();
+        json.key("period_ranges");
+        json.begin_object();
+        range(json, "synodic", kSynodicDaysRange[0], kSynodicDaysRange[1]);
+        range(json, "spin", kSpinDaysRange[0], kSpinDaysRange[1]);
+        range(json, "nod", kNodDaysRange[0], kNodDaysRange[1]);
+        json.end_object();
+        range(json, "tilt_range_degrees", kTiltDegreesRange[0], kTiltDegreesRange[1]);
+        json.end_object();
+        json.key("formulas");
+        json.begin_object();
+        for (const AstrologyFormula& f : kAstrologyFormulas) json.field(f.key, f.text);
         json.end_object();
         json.field("method", std::string_view(
             "One moon, not tidally locked. Its still hemisphere carries radiant, water, earth and umbral; its "
             "restless hemisphere weave, fire, air and infernal, one school per quarter. Seeded integer-day "
             "phase, spin and nod cycles prefer coprime periods, so the great year is their least common "
             "multiple. A school surges when its quarter both faces the world and is lit."));
-        json.field("limits", std::string_view(
-            "Artistic astronomy: one body reduced to phase, rise hour, spin and lean. No altitude, no latitude "
-            "dependence, no solar eclipses, no water tides."));
+        json.field("limits", kAstrologyLimits);
         json.end_object();
 
         json.key("lunar_almanac");
@@ -686,17 +877,24 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
         json.field("version", 1);
         json.field("reported_year", world.lunar_almanac.reported_year);
         json.field("reported_year_source", world.lunar_almanac.reported_year_source);
-        json.field("next_grand_alignment_day",
-                   static_cast<long long>(world.lunar_almanac.next_grand_alignment_day));
+        // None when no day inside the great year restarts all three cycles together.
+        json.key("next_grand_alignment_day");
+        if (world.lunar_almanac.next_grand_alignment_day >= 0) {
+            json.value(static_cast<long long>(world.lunar_almanac.next_grand_alignment_day));
+        } else {
+            json.value_null();
+        }
         json.key("now");
-        day_object(json, world.lunar_almanac.now);
+        json.begin_object();
+        json.field("day", static_cast<long long>(world.lunar_almanac.now.day));
+        day_fields(json, world.lunar_almanac.now);
+        json.end_object();
         json.key("months");
         json.begin_array();
         for (const AlmanacMonth& m : world.lunar_almanac.months) {
             json.begin_object();
             json.field("first_day", static_cast<long long>(m.first_day));
-            json.key("state");
-            day_object(json, m.state);
+            day_fields(json, m.state);
             json.key("mean_tide");
             tide_object(json, m.mean_tide);
             json.end_object();
@@ -769,14 +967,19 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
             json.begin_object();
             json.field("id", a.id);
             json.field("kind", a.kind);
-            json.field("eligible", a.eligible);
-            json.field("island_count", static_cast<long long>(a.islands.size()));
             json.key("direction");
+            write_vec3(json, a.direction);
+            json.key("islands");
             json.begin_array();
-            json.value(a.direction.x);
-            json.value(a.direction.y);
-            json.value(a.direction.z);
+            for (const Island& island : a.islands) {
+                json.begin_object();
+                json.key("direction");
+                write_vec3(json, island.direction);
+                json.field("angular_radius", island.angular_radius);
+                json.end_object();
+            }
             json.end_array();
+            json.field("eligible", a.eligible);
             json.end_object();
         }
         json.end_array();
@@ -798,7 +1001,19 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
 
         json.key("seasonal_environment");
         json.begin_object();
-        json.field("month_count", static_cast<long long>(world.seasonal_months.size()));
+        json.key("months");
+        json.begin_array();
+        for (const SeasonalMonth& month : world.seasonal_months) {
+            json.begin_object();
+            json.key("temperature");
+            json.value(month.temperature);
+            json.key("snow");
+            json.value(month.snow);
+            json.key("water_ice");
+            json.value(month.water_ice);
+            json.end_object();
+        }
+        json.end_array();
         json.field("method", std::string_view(
             "Monthly latitude/elevation temperature proxy; snow and water ice do not modify bedrock."));
         json.end_object();
@@ -861,12 +1076,19 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
         // Two blocks, never one: animals and monsters are separate passes that do not
         // read each other, and a consumer asking "what lives here" means one or the
         // other, not their union.
-        const auto write_nests = [&](const char* key, const NestBlock& block) {
+        const auto optional_metres = [&](const char* key, const std::optional<double>& v) {
+            json.key(key);
+            if (v && std::isfinite(*v)) {
+                json.value(*v);
+            } else {
+                json.value_null();
+            }
+        };
+        const auto write_nests = [&](const char* key, const NestBlock& block, CreatureClass which) {
+            const bool animals = which == CreatureClass::Animal;
             json.key(key);
             json.begin_object();
             json.field("version", block.version);
-            // Stamped by an age transition: the age whose ground the nests stand on.
-            if (block.evaluated_age) json.field("evaluated_age", *block.evaluated_age);
             json.key("sites");
             json.begin_array();
             for (const NestSite& s : block.sites) {
@@ -874,22 +1096,57 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
                 json.field("id", s.id);
                 json.field("species_id", s.species_id);
                 json.field("name", s.name);
-                json.field("family", s.family);
-                json.field("kind", s.kind);
-                json.field("size", s.size);
-                json.field("role", s.role);
-                json.field("tier", s.tier);
                 json.field("node", s.node);
                 json.field("x", s.x);
                 json.field("z", s.z);
+                json.field("layer", kNestSiteLayer);
+                json.key("direction");
+                write_vec3(json, s.direction);
                 json.field("biome", s.biome);
-                json.field("den", s.den);
-                json.field("real", s.real);
+                json.field("tier", s.tier);
+                json.field("family", s.family);
+                json.field("kind", s.kind);
+                json.field("size", s.size);
+                // A monster has no feeding role: null, as the reference's p.get('role').
+                json.key("role");
+                if (s.role.empty()) {
+                    json.value_null();
+                } else {
+                    json.value(s.role);
+                }
+                json.field("suitability", s.suitability);
                 // A DIAMETER lives in the catalogue; this is the placed RADIUS, already
                 // halved. Publishing the catalogue value here would double every
                 // territory a reader draws.
                 json.field("range_m", s.range_m);
-                json.field("suitability", s.suitability);
+                json.field("class", std::string_view(s.creature_class == CreatureClass::Animal ? "animal"
+                                                                                                : "monster"));
+                json.field("den", s.den);
+                json.field("real", s.real);
+                json.end_object();
+            }
+            json.end_array();
+
+            // Why each species is or is not in this world. The animal rows name the feeding
+            // role; a monster has none and its row has no such key.
+            json.key("diagnostics");
+            json.begin_array();
+            for (const NestDiagnostic& d : block.diagnostics) {
+                json.begin_object();
+                json.field("species_id", d.species_id);
+                json.field("name", d.name);
+                json.field("tier", d.tier);
+                if (animals) {
+                    json.key("role");
+                    if (d.role.empty()) {
+                        json.value_null();
+                    } else {
+                        json.value(d.role);
+                    }
+                }
+                json.field("placed", d.placed);
+                json.field("cells", d.cells);
+                json.field("reason", to_string(d.reason));
                 json.end_object();
             }
             json.end_array();
@@ -903,13 +1160,38 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
                 json.field("drawn", row.drawn);
                 json.field("placed", row.placed);
                 json.field("refused", row.refused);
+                // Null where nothing is settled or the tier drew or kept nothing.
+                optional_metres("rate_distance_m", row.rate_distance_m);
+                optional_metres("placed_distance_m", row.placed_distance_m);
                 json.end_object();
             }
             json.end_array();
+
+            json.key("reachability");
+            json.begin_object();
+            json.field("authored", block.reachability.authored);
+            json.field("eligible", block.reachability.eligible);
+            json.field("placed", block.reachability.placed);
+            json.field("never_satisfiable", block.reachability.never_satisfiable);
+            json.field("scope", nest_reachability_scope());
+            json.end_object();
+
+            // The pass's catalogue rows exactly as authored, and wildlife's feeding roles.
+            json.key("profiles");
+            serialize_detail::write_nest_profiles(json, which);
+            json.field("catalogue_count", block.catalogue_count);
+            if (animals) {
+                json.key("roles");
+                serialize_detail::write_nest_roles(json);
+            }
+            json.field("method", block.method);
+            json.field("limits", block.limits);
+            // Stamped by an age transition: the age whose ground the nests stand on.
+            if (block.evaluated_age) json.field("evaluated_age", *block.evaluated_age);
             json.end_object();
         };
-        write_nests("wildlife", world.wildlife);
-        write_nests("beast_nests", world.beast_nests);
+        write_nests("wildlife", world.wildlife, CreatureClass::Animal);
+        write_nests("beast_nests", world.beast_nests, CreatureClass::Monster);
     }
 
     // Stages 12, 13 and 16: the hinterland and its economy, the faiths, the plans, the

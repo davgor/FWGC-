@@ -50,12 +50,58 @@ Each takes the world by const reference and returns a new one; each appends to
 
 ## The world document
 
-`write_world_json` writes every stage's blocks under the reference's keys with the
-reference's field names, checked path by path against a generated reference world.
-In flight: `world_scene`, `population_budget` (and the budget fields the C++ struct lacks),
-`civilizations`, `peoples`, `population`, `population_profiles`, `phases`, `recipe`,
-`debug_stats`, and opt-in `build_stages`. Per-response keys the reference's JSON APIs add
-(`corruption`, `cleanse`, `*_api_version`) are returned as typed results instead.
+`write_world_json` writes the reference's published document -- `world_document` in
+`fantasy_world_generator/cli.py`, so `build_stages` and `timing_ms` only on request, as there
+(`--include-build-stages`, `--include-timings`). This section used to say the writer had been
+checked path by path against a reference world. It had not: a structural diff at seed 42,
+size 65 on 2026-09-23 found 131 reference key paths the document did not write and 40 it
+wrote that the reference does not.
+
+**What is checked now, and how.** `tests/test_document_paths.cpp` generates one request
+(seed 10, size 33, phase 16) and requires every normalized key path and layer name of the
+reference's published document for that request -- checked in as
+`tests/fixtures/reference-world-paths-v1.json`, from FantasyWorldGenerator b67c99b -- in this
+port's document, less an allowlist whose every entry gives its reason and must still excuse
+something. It pins the key tree, not values: the worlds differ by design. It sees only
+structures one of the two worlds populates for that request, so a key that neither world
+writes at that seed is unchecked.
+
+**Not written yet.**
+- `settlements.sites[]` `building_pack_id`, `building_pack_seed`, `building_pack_version`
+  and `city_layout`: the stage-10 building packs and the generated city layout (in flight).
+
+**A behaviour difference the document shows.** No logging camp is ever placed, so no key
+location carries `suitability_factors.river`; geyser basins and lava tubes (`volcanic`) are
+suppressed the same way. The key-location scatter pass finds their ground already held by
+lairs: at seed 42, size 65, lairs hold 331 of the 364 cells a logging camp qualifies for,
+against 241 of 416 in the reference's world, and across seeds 1-32 and 42 at size 33 no world
+of this port places one where every reference world does. The cause is upstream of the
+writer, in how much moist and volcanic ground the monster pass claims; it is not diagnosed.
+
+**A value difference it shows.** `lunar_almanac` always reports year 0 from the `epoch`:
+`refresh_astrology` fixes the year at zero although its comment says it follows the world's
+history. The reference reports `founding.end_year` from stage 10 on, because its
+civilization pass refreshes astrology after founding; so here the almanac, the surged
+strengths and `magic.lunar_surge` read the founding epoch's sky rather than the reported
+year's.
+
+**Deliberate departures.**
+- `schema` is `fwg.world` version 1, not `fantasy-world-generator.world` version 2 (the
+  capability descriptor says so); `completed_stage`, `systems` and `seeds` are this port's
+  additions, the first read by `tools/preview.py`.
+- Stable keys beside the reference's ordinals: `hamlet_uid` and `fortress_uid` (and a
+  castle's `node`) on plans and scene entries, which renumber at no age turn.
+- `config` and `effective_config` also carry `circumference_m` and `world_size_was_used`
+  ([inherited-findings.md](inherited-findings.md) #17); `population_budget.calibration` also
+  carries `per_city_km2`, `resolvable_spacing_m` and `city_limit`; a castle's closed ring says
+  whether it was `clipped_to_terrain`.
+- A sleeping god's evidence is `last_seen` one level deep, where the reference nests one
+  level more at every resolution (religion.hpp).
+- Two diagnostic layers, `water_distance` and `height_above_water`, are published that the
+  reference computes and discards; the suite reads them.
+
+Per-response keys the reference's JSON APIs add (`corruption`, `cleanse`, `*_api_version`)
+are returned as typed results instead.
 
 ## Open rulings
 
