@@ -12,11 +12,15 @@
 // anyway — `dominant_magic` exports an index into this table.
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
 #include <map>
+#include <optional>
 #include <span>
+#include <stdexcept>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 #include "fwg/config.hpp"
@@ -126,6 +130,10 @@ inline constexpr double kReferenceRadiusM = 1774.4123532462844;
 // The hard ceiling a network edit enforces on any intensity.
 inline constexpr double kLeyIntensityMax = 4.0;
 
+// At most this many player leyline edits in one request. Each edit the reference makes
+// copies a whole network, which is why the bound is small.
+inline constexpr std::size_t kMaxLeylineEdits = 128;
+
 // A network edit's whole contract, as an append: an id non-empty and unique in the
 // network, a finite unit direction, and an intensity in [0, kLeyIntensityMax]. The
 // reference's edit_network copies, validates and appends; validating then appending is
@@ -136,6 +144,33 @@ inline constexpr double kLeyIntensityMax = 4.0;
 // a visitation's avatar cluster, a corruption's. Throws std::invalid_argument naming the
 // node; the APIs rethrow it as their own refusal.
 void plant_key_point(LeyNetwork& net, const LeyNode& node);
+
+// A refused player ley edit, naming the field of the edit that refused.
+class LeylineEditError : public std::invalid_argument {
+public:
+    LeylineEditError(std::string field, const std::string& message)
+        : std::invalid_argument(message), field_(std::move(field)) {}
+    const std::string& field() const { return field_; }
+
+private:
+    std::string field_;
+};
+
+// One player edit to a KNOWN school's network. Exactly one of `node_id`, `line_id` and
+// `new_node`. `intensity` sets an existing node or line and must not accompany `new_node`,
+// which carries its own. A hidden school is refused: players edit what they can see.
+struct LeylineEdit {
+    std::string school;
+    std::optional<std::string> node_id;
+    std::optional<std::string> line_id;
+    std::optional<double> intensity;
+    std::optional<LeyNode> new_node;
+};
+
+// Validate and apply one edit in place: the reference's edit_network contract plus the
+// request boundary's -- a known school, and a new node's intensity inside new_node rather
+// than beside it. The caller re-evaluates the fields; geometry is never rerolled.
+void apply_leyline_edit(MagicReport& magic, const LeylineEdit& edit);
 
 struct World;
 

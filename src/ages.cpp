@@ -1,7 +1,10 @@
 #include "fwg/ages.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <cstddef>
+#include <limits>
+#include <stdexcept>
 #include <map>
 #include <set>
 #include <string>
@@ -143,7 +146,90 @@ void dedupe_systems(std::vector<std::string>& systems) {
     systems = std::move(out);
 }
 
+// The versioned state boundary a world re-enters through. Everything an advance runs reads
+// the sky, the pantheon and the creatures, so a world without them cannot be advanced; and a
+// pantheon from another catalogue would name gods this build does not know.
+void validate_age_world(const World& world) {
+    const Config& cfg = world.config;
+    if (cfg.world_recipe != 3 || world.completed_stage < 13 || cfg.size > 1025) {
+        throw AgeAdvanceError("config", "Age advancement requires a recipe 3 world generated through creatures "
+                                        "(phase 13) on a grid of at most 1025. This world is recipe " +
+                                            std::to_string(cfg.world_recipe) + " at phase " +
+                                            std::to_string(world.completed_stage) + ", size " +
+                                            std::to_string(cfg.size) + ".");
+    }
+    if (world.history.version != kHistoryVersion || world.magic.version != 4) {
+        throw AgeAdvanceError("magic", "This world predates the twelve-school contract, so it carries no hidden "
+                                       "networks to validate. Regenerate it.");
+    }
+    if (!world.has_astrology) {
+        throw AgeAdvanceError("astrology",
+                              "This world predates the moon. It is seeded during generation, so regenerate rather "
+                              "than migrate.");
+    }
+    if (!world.has_religion || world.religion.version != kReligionVersion) {
+        throw AgeAdvanceError("religion", "This world predates the pantheon. Regenerate rather than migrate.");
+    }
+    if (world.religion.catalogue.sha256 != pantheon_identity().sha256) {
+        throw AgeAdvanceError("religion.catalogue", "This world was built against a different pantheon catalogue, "
+                                                    "so the gods it names may not exist here.");
+    }
+}
+
 }  // namespace
+
+World advance_ages(const World& world, const AgeAdvanceRequest& request) {
+    if (request.api_version != kAgeApiVersion) {
+        throw AgeAdvanceError("api_version", "this build serves age API version 1");
+    }
+    if (request.steps < 1 || request.steps > kMaxAgeSteps) {
+        throw AgeAdvanceError("steps", "between 1 and " + std::to_string(kMaxAgeSteps) + " ages");
+    }
+    if (request.moon_day && *request.moon_day < 0) throw AgeAdvanceError("moon_day", "a day, at least 0");
+    if (request.leyline_edits.size() > kMaxLeylineEdits) {
+        throw AgeAdvanceError("leyline_edits", "at most " + std::to_string(kMaxLeylineEdits) + " edits per request");
+    }
+    validate_age_world(world);
+    if (!request.leyline_edits.empty() && world.config.magic_enabled == 0) {
+        throw AgeAdvanceError("leyline_edits", "Leyline edits require a world generated with magic_enabled; this "
+                                               "one has no networks to edit.");
+    }
+
+    World out = world;
+    for (const LeylineEdit& edit : request.leyline_edits) {
+        try {
+            apply_leyline_edit(out.magic, edit);
+        } catch (const LeylineEditError& refused) {
+            throw AgeAdvanceError(refused.field(), refused.what());
+        }
+    }
+
+    // The edited field, and everything that reads it, before the first age turns.
+    evaluate_networks(out);
+    add_terrain_labels(out);
+    add_environment(out);
+    add_biome_variants(out);
+    refresh_astrology(out);
+
+    const int start_age = static_cast<int>(out.history.ages.size());
+    out.history.operations.push_back(
+        {kAgeApiVersion, start_age, request.steps, request.leyline_edits, request.moon_day});
+    for (int age = start_age + 1; age <= start_age + request.steps; ++age) {
+        // The plans describe cities an age is about to ruin; they are redrawn at the end.
+        out.city_plans = {};
+        out.hamlet_plans = {};
+        out.castle_plans = {};
+        out.has_plans = false;
+        const bool last = age == start_age + request.steps;
+        age_transition(out, age, request.moon_day, /*final_age=*/last);
+        // Regenerated, not carried: bands classified against the previous age would name
+        // ruins that moved and refuges that no longer stand.
+        if (last) add_simulation_complete(out);
+    }
+    dedupe_systems(out.systems);
+    dedupe_warnings(out.warnings);
+    return out;
+}
 
 std::vector<std::string_view> age_order() {
     return {"nests before fates",     "wars",   "city fates",

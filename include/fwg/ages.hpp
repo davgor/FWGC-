@@ -27,11 +27,14 @@
 #pragma once
 
 #include <optional>
+#include <stdexcept>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 #include "fwg/fates.hpp"
+#include "fwg/magic.hpp"
 #include "fwg/settlements_stage.hpp"
 #include "fwg/vec3.hpp"
 #include "fwg/wars.hpp"
@@ -94,10 +97,59 @@ struct AgeRecord {
     std::vector<std::string> new_city_ids;        // in settlement order
 };
 
+// ---------------------------------------------------------------------------
+// Advancing a finished world by more ages.
+// ---------------------------------------------------------------------------
+
+inline constexpr int kAgeApiVersion = 1;
+inline constexpr int kMaxAgeSteps = 10;
+
+// A refused advance. The messages are user-visible; `field` names what was wrong.
+class AgeAdvanceError : public std::runtime_error {
+public:
+    AgeAdvanceError(std::string field, const std::string& message)
+        : std::runtime_error(field + ": " + message), field_(std::move(field)) {}
+    const std::string& field() const { return field_; }
+
+private:
+    std::string field_;
+};
+
+// What an advance did, kept so a world records every advance and edit made since genesis.
+struct AgeOperation {
+    int api_version = kAgeApiVersion;
+    int after_age = 0;
+    int steps = 1;
+    std::vector<LeylineEdit> leyline_edits;
+    std::optional<long long> moon_day;
+};
+
+inline constexpr std::string_view kAgeReplayNote =
+    "Persist this returned world for subsequent calls. Config reproduces genesis; operation history "
+    "records subsequent advances and player leyline edits.";
+
 struct WorldHistory {
     int version = kHistoryVersion;
     std::vector<AgeRecord> ages;
+    // Every advance made after generation, in order. Empty for a world as generated.
+    std::vector<AgeOperation> operations;
 };
+
+struct AgeAdvanceRequest {
+    int api_version = kAgeApiVersion;
+    int steps = 1;  // 1..kMaxAgeSteps
+    // Applied in order before the first age turns; at most kMaxLeylineEdits.
+    std::vector<LeylineEdit> leyline_edits;
+    // The day the ages turn on. Absent: the founding report's end year decides.
+    std::optional<long long> moon_day;
+};
+
+// Turn `request.steps` more ages over a finished world, after the player's ley edits, and
+// re-run stage 16 over the result. Same request in, same world out; the caller's world is
+// untouched. The world must have been generated through stage 13 with the sky and the
+// pantheon, against this build's pantheon catalogue. Throws AgeAdvanceError naming the
+// field that refused.
+World advance_ages(const World& world, const AgeAdvanceRequest& request);
 
 // Turn age `age` over `world`. `moon_day` absent means the founding report's end year in
 // days, which is the day both generation-time ages turn on. `final` promotes the villains

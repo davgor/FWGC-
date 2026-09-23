@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <limits>
 #include <numbers>
 #include <set>
 #include <stdexcept>
@@ -356,6 +357,68 @@ void evaluate_networks(World& world) {
                                   powers[static_cast<std::size_t>(earth)][i], powers[static_cast<std::size_t>(air)][i]});
     }
     world.layers["ley_primordial"] = grid.to_grid(primordial);
+}
+
+namespace {
+
+bool known_school(std::string_view name) {
+    for (const MagicSchool& school : magic_school_table()) {
+        if (!school.hidden && school.name == name) return true;
+    }
+    return false;
+}
+
+std::string known_school_list() {
+    std::vector<std::string_view> names;
+    for (const MagicSchool& school : magic_school_table()) {
+        if (!school.hidden) names.push_back(school.name);
+    }
+    std::sort(names.begin(), names.end());
+    std::string out;
+    for (const std::string_view name : names) out += (out.empty() ? "" : ", ") + std::string(name);
+    return out;
+}
+
+}  // namespace
+
+void apply_leyline_edit(MagicReport& magic, const LeylineEdit& edit) {
+    if (!known_school(edit.school)) {
+        throw LeylineEditError("leyline_edits[].school",
+                               "'" + edit.school + "' is not one of the known schools: " + known_school_list());
+    }
+    if (edit.new_node && edit.intensity) {
+        throw LeylineEditError("leyline_edits[].new_node",
+                               "Put a new node intensity inside new_node; the outer intensity edits an existing node.");
+    }
+    const int targets = (edit.node_id ? 1 : 0) + (edit.line_id ? 1 : 0) + (edit.new_node ? 1 : 0);
+    if (targets != 1) throw LeylineEditError("leyline_edits[]", "Select one node, line, or new key point");
+    LeyNetwork& net = magic.networks.at(edit.school);
+    if (edit.new_node) {
+        try {
+            plant_key_point(net, *edit.new_node);
+        } catch (const std::invalid_argument& refused) {
+            throw LeylineEditError("leyline_edits[].new_node", refused.what());
+        }
+        return;
+    }
+    const double intensity = edit.intensity.value_or(std::numeric_limits<double>::quiet_NaN());
+    if (!std::isfinite(intensity) || intensity < 0.0 || intensity > kLeyIntensityMax) {
+        throw LeylineEditError("leyline_edits[].intensity", "Intensity must be finite and between 0 and 4");
+    }
+    if (edit.node_id) {
+        for (LeyNode& node : net.nodes) {
+            if (node.id != *edit.node_id) continue;
+            node.intensity = intensity;
+            return;
+        }
+    } else {
+        for (LeyEdge& line : net.edges) {
+            if (line.id != *edit.line_id) continue;
+            line.intensity = intensity;
+            return;
+        }
+    }
+    throw LeylineEditError("leyline_edits[]", "Unknown key point or line");
 }
 
 void plant_key_point(LeyNetwork& net, const LeyNode& node) {

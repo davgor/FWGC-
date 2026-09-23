@@ -215,3 +215,116 @@ TEST(religion_raises_a_cult_or_a_shrine_where_the_ages_left_one) {
     }
     check::is_true(expected > 0, "some war ruin, or the shrines are untested");
 }
+
+// --- advancing a finished world ----------------------------------------------
+
+namespace {
+
+const LeyNode* node_named(const World& w, const std::string& school, const std::string& id) {
+    for (const LeyNode& n : w.magic.networks.at(school).nodes) {
+        if (n.id == id) return &n;
+    }
+    return nullptr;
+}
+
+std::string refusal_field(const World& w, const AgeAdvanceRequest& request) {
+    try {
+        (void)advance_ages(w, request);
+    } catch (const AgeAdvanceError& refused) {
+        return refused.field();
+    }
+    return "<accepted>";
+}
+
+}  // namespace
+
+TEST(an_advance_turns_the_ages_it_asks_for_and_records_the_operation) {
+    const World genesis = at_phase(16);
+    AgeAdvanceRequest request;
+    request.steps = 2;
+    const World later = advance_ages(genesis, request);
+    check::equal(genesis.history.ages.size(), std::size_t{2}, "the caller's world untouched");
+    check::equal(later.history.ages.size(), std::size_t{4}, "two more ages");
+    check::equal(later.history.ages[2].age, 3, "numbered on from the last");
+    check::equal(later.age, 4, "the world in its fourth age");
+    check::equal(later.history.operations.size(), std::size_t{1}, "the advance recorded");
+    check::equal(later.history.operations[0].after_age, 2, "after the ages it inherited");
+    check::equal(later.history.operations[0].steps, 2, "with the steps it took");
+    check::is_true(later.config.seed == genesis.config.seed, "genesis config kept");
+    // Stage 16 is redrawn over the world the ages left: one plan per standing city.
+    check::equal(later.city_plans.cities.size(), later.settlements.sites.size(), "plans for the cities that stand");
+    for (const CityPlan& plan : later.city_plans.cities) {
+        check::is_true(city(later, plan.city_uid) != nullptr, plan.city_uid + " to be a standing city");
+    }
+}
+
+TEST(an_advance_is_a_function_of_its_request) {
+    const World genesis = at_phase(15);
+    AgeAdvanceRequest request;
+    request.moon_day = 12345;
+    const World a = advance_ages(genesis, request);
+    const World b = advance_ages(genesis, request);
+    check::equal(a.ruins.size(), b.ruins.size(), "the same ruins");
+    for (std::size_t i = 0; i < a.ruins.size(); ++i) check::equal(a.ruins[i].id, b.ruins[i].id, "ruin order");
+    check::equal(a.settlements.sites.size(), b.settlements.sites.size(), "the same cities");
+    for (std::size_t i = 0; i < a.settlements.sites.size(); ++i) {
+        check::equal(a.settlements.sites[i].uid, b.settlements.sites[i].uid, "city order");
+    }
+    check::equal(a.history.ages.back().moon->day, 12345LL, "turned on the day asked for");
+}
+
+TEST(a_refused_advance_names_the_field_it_refused) {
+    const World genesis = at_phase(15);
+    const auto with = [](auto change) {
+        AgeAdvanceRequest r;
+        change(r);
+        return r;
+    };
+    check::equal(refusal_field(genesis, with([](AgeAdvanceRequest& r) { r.steps = 0; })), std::string("steps"), "no steps");
+    check::equal(refusal_field(genesis, with([](AgeAdvanceRequest& r) { r.steps = 11; })), std::string("steps"), "too many");
+    check::equal(refusal_field(genesis, with([](AgeAdvanceRequest& r) { r.moon_day = -1; })), std::string("moon_day"),
+                 "a day before time");
+    check::equal(refusal_field(genesis, with([](AgeAdvanceRequest& r) { r.api_version = 2; })),
+                 std::string("api_version"), "a future API");
+    check::equal(refusal_field(at_phase(12), AgeAdvanceRequest{}), std::string("config"), "a world before creatures");
+
+    const auto edit = [&](LeylineEdit e) {
+        AgeAdvanceRequest r;
+        r.leyline_edits.push_back(std::move(e));
+        return refusal_field(genesis, r);
+    };
+    const std::string fire_node = genesis.magic.networks.at("fire").nodes.at(0).id;
+    check::equal(edit({"thaumaturgy", fire_node, std::nullopt, 1.0, std::nullopt}), std::string("leyline_edits[].school"),
+                 "an unknown school");
+    check::equal(edit({"blood", fire_node, std::nullopt, 1.0, std::nullopt}), std::string("leyline_edits[].school"),
+                 "a hidden school players cannot see");
+    check::equal(edit({"fire", std::string("no-such-node"), std::nullopt, 1.0, std::nullopt}),
+                 std::string("leyline_edits[]"), "a node that does not exist");
+    check::equal(edit({"fire", fire_node, std::nullopt, 5.0, std::nullopt}), std::string("leyline_edits[].intensity"),
+                 "an intensity past the ceiling");
+    check::equal(edit({"fire", std::nullopt, std::nullopt, std::nullopt, std::nullopt}), std::string("leyline_edits[]"),
+                 "no target at all");
+    const LeyNode twin{fire_node, genesis.magic.networks.at("fire").nodes.at(0).direction, 1.0};
+    check::equal(edit({"fire", std::nullopt, std::nullopt, std::nullopt, twin}), std::string("leyline_edits[].new_node"),
+                 "a new node reusing an id");
+    const LeyNode fresh{"player-well", genesis.magic.networks.at("fire").nodes.at(0).direction, 1.0};
+    check::equal(edit({"fire", std::nullopt, std::nullopt, 1.0, fresh}), std::string("leyline_edits[].new_node"),
+                 "an outer intensity beside a new node");
+}
+
+TEST(a_players_ley_edits_land_before_the_first_age_turns) {
+    const World genesis = at_phase(15);
+    const LeyNode& quenched = genesis.magic.networks.at("fire").nodes.at(0);
+    AgeAdvanceRequest request;
+    request.leyline_edits.push_back({"fire", quenched.id, std::nullopt, 0.0, std::nullopt});
+    request.leyline_edits.push_back(
+        {"water", std::nullopt, std::nullopt, std::nullopt, LeyNode{"player-spring", quenched.direction, 2.0}});
+    const World later = advance_ages(genesis, request);
+    // The drift multiplies, so a node set to zero before the turn is zero after it, and a
+    // new key point drifts from where the player put it.
+    check::equal(node_named(later, "fire", quenched.id)->intensity, 0.0, "the quenched node stays quenched");
+    const LeyNode* spring = node_named(later, "water", "player-spring");
+    check::is_true(spring != nullptr, "the player's key point to stand after the age");
+    check::between(spring->intensity, 2.0 * kLeyAgeLow - 1e-12, 2.0 * kLeyAgeHigh + 1e-12, "and to have drifted once");
+    check::equal(later.history.operations.at(0).leyline_edits.size(), std::size_t{2}, "the edits recorded");
+}

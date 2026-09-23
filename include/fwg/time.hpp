@@ -370,13 +370,10 @@ inline constexpr std::int64_t kMaxTickSteps = 200000;
 // At most this many player leyline edits in one request. Each edit copies a whole network,
 // which is why the bound is two orders below the other two.
 //
-// **Player leyline edits are NOT part of this port and `TickRequest` carries no field for
-// them.** The edit itself belongs to the leyline history module -- it validates a new node's
-// unit direction and a unique id, and refuses an intensity outside [0, 4] -- and that module
-// is not ported. The bound is recorded here because it is this request boundary's, so
-// whoever adds the field does not have to rediscover it. What a resolved hook declares for
-// itself is a different thing and IS ported: see quest_apply_resolutions.
-inline constexpr std::size_t kMaxLeylineEdits = 128;
+// The bound on player leyline edits in one request is kMaxLeylineEdits, and the edit itself
+// is apply_leyline_edit, both in magic.hpp. `TickRequest` carries no field for edits yet;
+// the age API does. What a resolved hook declares for itself is a different thing: see
+// quest_apply_resolutions.
 
 // ---------------------------------------------------------------------------
 // The tick.

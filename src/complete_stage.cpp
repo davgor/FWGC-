@@ -318,7 +318,14 @@ void add_the_moving_world(World& world, const SphereGrid& grid) {
                     break;
                 }
             }
+            // The reference assigns the candidate list only when this pass has candidates,
+            // so an advanced world keeps the list its absorption has already stamped --
+            // which is what keeps absorption idempotent by band across advances.
+            std::vector<NomadSettlementCandidate> carried = std::move(world.nomad_effects.settlement_candidates);
             world.nomad_effects = std::move(*effects);
+            if (!world.nomad_effects.assign_settlement_candidates) {
+                world.nomad_effects.settlement_candidates = std::move(carried);
+            }
             world.systems.push_back("nomad_effects");
         }
         world.nomads = std::move(*nomads);
