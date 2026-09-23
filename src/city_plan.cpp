@@ -2283,6 +2283,9 @@ ConditionSet hamlet_conditions(const std::string& role) {
 
 HamletPlan plan_hamlet(const World& world, const SphereGrid& grid, const HamletPin& pin,
                        const std::vector<CitySite>& sites, const std::vector<HamletPin>& all_pins) {
+    if (pin.uid.empty()) {
+        throw std::invalid_argument("hamlet " + pin.id + " has no uid to key its streets on");
+    }
     const SettlementPreset& preset = settlement_preset(pin.population_profile, SettlementBlock::hamlet);
     const HousingProfile& house = housing_profile("hamlet_house");
 
@@ -2315,6 +2318,7 @@ HamletPlan plan_hamlet(const World& world, const SphereGrid& grid, const HamletP
 
     HamletPlan plan;
     plan.hamlet_id = pin.id;
+    plan.hamlet_uid = pin.uid;
     plan.role = pin.role;
     plan.core_id = pin.core_id;
     if (pin.core_id >= 0 && static_cast<std::size_t>(pin.core_id) < sites.size()) {
@@ -2362,7 +2366,10 @@ HamletPlan plan_hamlet(const World& world, const SphereGrid& grid, const HamletP
 
     const double rx = half * 0.9;
     const double rz = half * 0.9 / 1.1;
-    const std::uint64_t seed = street_seed(world.config.seed, pin.id, "hamlet-streets-v1");
+    // Keyed on the uid, not the ordinal id: the ordinal renumbers on every age advance,
+    // and the reference re-drew a hamlet's streets whenever its list was re-sorted even
+    // though its ground never moved. The castle planner keys its kit the same way.
+    const std::uint64_t seed = street_seed(world.config.seed, pin.uid, "hamlet-streets-v1");
     // A seeded irregular ellipse, which is what keeps hamlets independent of the city
     // shape catalogue. The wobble phases come from the stream rather than from the raw
     // 64-bit seed: the reference adds that integer to the sine argument, where at ~2e18

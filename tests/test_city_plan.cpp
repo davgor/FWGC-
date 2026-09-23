@@ -86,6 +86,7 @@ HamletPin pin_beside(const Built& built, const std::string& id, const std::strin
     pin.population_profile = site.population_profile;
     pin.role = role;
     pin.node = built.grid->node_index(static_cast<int>(pin.x), static_cast<int>(pin.z));
+    pin.uid = "hamlet-node-" + std::to_string(pin.node);
     return pin;
 }
 
@@ -1211,6 +1212,45 @@ TEST(hamlets_are_planned_in_id_order_and_each_stands_on_its_own_ground) {
         }
     }
     check::is_true(with_plots > 0, "at least one hamlet to have been built at all");
+}
+
+TEST(a_hamlet_keeps_its_streets_when_its_ordinal_renumbers) {
+    // The ordinal id renumbers on every age advance; the ground does not. Planned under two
+    // ordinals the same hamlet lays out the same streets, and under a different uid it does
+    // not -- or the uid is not what decides them.
+    const Built built = world_with_sites(1, CityClass::Medium);
+    const HamletPin pin = pin_beside(built, "hamlet-0", "farming", 2);
+    const HamletPlan first = plan_hamlet(built.world, *built.grid, pin, built.sites, {pin});
+    check::is_true(!first.street_paths_m.empty(), "a hamlet with streets, or nothing is tested");
+    check::equal(first.hamlet_uid, pin.uid, "the plan to carry the stable key");
+
+    const auto same_streets = [&](const HamletPlan& other) {
+        if (other.street_paths_m.size() != first.street_paths_m.size()) return false;
+        for (std::size_t i = 0; i < first.street_paths_m.size(); ++i) {
+            const auto& a = first.street_paths_m[i];
+            const auto& b = other.street_paths_m[i];
+            if (a.size() != b.size()) return false;
+            for (std::size_t k = 0; k < a.size(); ++k) {
+                if (a[k].x != b[k].x || a[k].z != b[k].z) return false;
+            }
+        }
+        return true;
+    };
+
+    HamletPin renumbered = pin;
+    renumbered.id = "hamlet-7";
+    check::is_true(same_streets(plan_hamlet(built.world, *built.grid, renumbered, built.sites, {renumbered})),
+                   "the same streets under a new ordinal");
+
+    HamletPin rekeyed = pin;
+    rekeyed.uid = "hamlet-node-999999";
+    check::is_true(!same_streets(plan_hamlet(built.world, *built.grid, rekeyed, built.sites, {rekeyed})),
+                   "different streets under a different uid");
+
+    HamletPin unkeyed = pin;
+    unkeyed.uid.clear();
+    check::throws([&] { plan_hamlet(built.world, *built.grid, unkeyed, built.sites, {unkeyed}); },
+                  "a pin with no uid to be refused");
 }
 
 TEST(a_hamlet_on_unbuildable_ground_says_so_rather_than_packing_it) {

@@ -859,6 +859,10 @@ struct HamletPin {
     // The join key. ORDINAL: it renumbers on an age advance, so nothing downstream may
     // key long-lived state on it.
     std::string id;
+    // What does not renumber: the ground the hamlet stands on, "hamlet-node-<n>". The
+    // street draw is keyed on it, so a hamlet keeps its streets when the list is
+    // re-sorted around it. Required: plan_hamlet refuses a pin without one.
+    std::string uid;
     double x = 0.0;
     double z = 0.0;
     int node = -1;
@@ -878,6 +882,7 @@ struct HamletPin {
 struct HamletPlan {
     int version = 3;
     std::string hamlet_id;
+    std::string hamlet_uid;  // the pin's uid, stable across an age advance
     std::string_view kind = "hamlet";
     std::string role;
     std::string core_city_uid;

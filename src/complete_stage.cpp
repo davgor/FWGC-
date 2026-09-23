@@ -63,6 +63,7 @@ std::vector<HamletPin> hamlet_pins(const World& world) {
     for (const RuralSite& h : world.humans.hamlets) {
         HamletPin pin;
         pin.id = h.id;
+        pin.uid = h.uid;
         pin.x = h.x;
         pin.z = h.z;
         pin.node = h.node;
