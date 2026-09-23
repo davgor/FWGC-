@@ -23,6 +23,8 @@
 #include "fwg/tectonics.hpp"
 #include "fwg/astrology.hpp"
 #include "fwg/beasties_stage.hpp"
+#include "fwg/city_plan.hpp"
+#include "fwg/complete_stage.hpp"
 #include "fwg/religion.hpp"
 #include "fwg/colleges.hpp"
 #include "fwg/humans.hpp"
@@ -151,6 +153,11 @@ struct World {
     // Stage 13's second half: the pantheon, the cosmology and the faiths.
     bool has_religion = false;
     Religion religion;
+
+    // Stage 16. The street plan of every city and hamlet.
+    bool has_plans = false;
+    CityPlans city_plans;
+    HamletPlans hamlet_plans;
 
     // The age this world is in. Zero until the first age transition turns it.
     int age = 0;

@@ -444,6 +444,17 @@ World generate(const Config& cfg) {
             add_beasties(world);
             world.timing_ms["beasties"] = elapsed_ms(beasties_started);
         }
+
+        // Stages 14 and 15, the age transitions, are not wired yet. Stage 16 reads a
+        // finished world rather than changing its ground, so it runs over whatever world
+        // exists -- and `completed_stage` stays honest about the two rungs below it.
+
+        // Stage 16, "Simulation complete".
+        if (cfg.phase >= 16) {
+            const auto complete_started = Clock::now();
+            add_simulation_complete(world);
+            world.timing_ms["simulation_complete"] = elapsed_ms(complete_started);
+        }
     }
 
     world.timing_ms["tectonics"] = tectonics_ms;

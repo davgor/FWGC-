@@ -1802,6 +1802,81 @@ std::vector<RoadConnection> support_road_entries(const SphereGrid& grid, const L
     return entries;
 }
 
+// Where each regional road reaches this city's window.
+//
+// Every road route with this city at one end is walked outward from the city, each node
+// projected gnomonically onto the city's tangent plane, until the path leaves the square
+// the crop covers; the point where it crosses the edge is the gate. Status starts
+// unreachable and the planner upgrades a gate it can actually connect to a street.
+//
+// The city analogue of `support_road_entries`, and it belongs here for the same reason:
+// the crop's half-width is decided inside `plan_city`, so no caller could project the
+// gates without restating that decision. It began life as a caller-supplied input that
+// nothing could fill.
+std::vector<RoadConnection> regional_road_entries(const World& world, const SphereGrid& grid,
+                                                  const LocalSampler& sampler, int n,
+                                                  const std::string& site_key, double half) {
+    std::vector<RoadConnection> entries;
+    if (!world.has_roads || grid.node_count() == 0) return entries;
+
+    // Roads name their ends by position in the settlement list, so the city is found
+    // there by its key -- the uid, or the id's string when no uid exists.
+    int site_index = -1;
+    for (std::size_t i = 0; i < world.settlements.sites.size(); ++i) {
+        const SettlementSite& s = world.settlements.sites[i];
+        if ((!s.uid.empty() ? s.uid : std::to_string(s.id)) == site_key) {
+            site_index = static_cast<int>(i);
+            break;
+        }
+    }
+    if (site_index < 0) return entries;
+
+    const Vec3& up = sampler.up();
+    const Vec3& east = sampler.east();
+    const Vec3& north = sampler.north();
+    for (std::size_t ri = 0; ri < world.roads.routes.size(); ++ri) {
+        const Road& road = world.roads.routes[ri];
+        if (road.from != site_index && road.to != site_index) continue;
+        const bool reverse = road.to == site_index;
+        const std::size_t count = road.nodes.size();
+
+        Point prev{0.0, 0.0};
+        for (std::size_t k = 0; k < count; ++k) {
+            const int node = road.nodes[reverse ? count - 1 - k : k];
+            if (node < 0 || static_cast<std::size_t>(node) >= grid.node_count()) break;
+            const Vec3 p = direction(grid.point_x[static_cast<std::size_t>(node)],
+                                     grid.point_z[static_cast<std::size_t>(node)], n);
+            const double den = dot(p, up);
+            // Behind the tangent plane: a road that leaves over the horizon has no gate
+            // this window can draw.
+            if (den <= 0.0) break;
+            const Point q{sampler.radius() * dot(p, east) / den, sampler.radius() * dot(p, north) / den};
+            if (std::max(std::abs(q.x), std::abs(q.z)) > half) {
+                double t = std::numeric_limits<double>::infinity();
+                if (std::abs(q.x) > half) t = std::min(t, ((q.x > 0 ? half : -half) - prev.x) / (q.x - prev.x));
+                if (std::abs(q.z) > half) t = std::min(t, ((q.z > 0 ? half : -half) - prev.z) / (q.z - prev.z));
+                const Point gate{prev.x + t * (q.x - prev.x), prev.z + t * (q.z - prev.z)};
+                RoadConnection entry;
+                entry.route_id = "regional-road-" + std::to_string(ri);
+                entry.route_index = static_cast<int>(ri);
+                entry.end = reverse ? "to" : "from";
+                // An index into the road's OWN node list, whichever way it was walked, so a
+                // consumer can find the gate on the route without knowing the direction.
+                entry.outside_index = static_cast<int>(reverse ? count - 1 - k : k);
+                entry.junction_id = "junction:" + site_key + ":" + std::to_string(ri);
+                entry.gate_local_m = gate;
+                entry.direction = sampler.direction_at(gate.x, gate.z);
+                entry.status = "unreachable";
+                entry.reason = "No terrain-safe street connection to regional road";
+                entries.push_back(std::move(entry));
+                break;
+            }
+            prev = q;
+        }
+    }
+    return entries;
+}
+
 // The raster of local ground, and the cells a building may stand on.
 struct Ground {
     TerrainRaster terrain;
@@ -2013,7 +2088,11 @@ CityPlan plan_city(const World& world, const SphereGrid& grid, const CitySite& s
     plan.debug.apartment_policy = "houses_first_then_upgrade_on_plot_exhaustion";
     plan.stats.population_estimate = site.population_estimate;
     plan.stats.urban_population_estimate = site.urban_population_estimate;
-    plan.road_connections = site.road_connections;
+    // Projected here from the world's own roads unless the caller supplied gates, which a
+    // test or a tool may; a generated world always comes through the projection.
+    plan.road_connections = site.road_connections.empty()
+                                ? regional_road_entries(world, grid, sampler, n, site.key(), half)
+                                : site.road_connections;
     if (sampler.resolution() > half) {
         plan.warnings.push_back(
             "Regional land categories repeat coarse samples; canonical local relief supplies "

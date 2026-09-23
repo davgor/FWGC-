@@ -7,6 +7,7 @@
   civilizations.cpp
   climate.cpp
   colleges.cpp
+  complete_stage.cpp
   config.cpp
   generated/content_biomes.cpp
   generated/content_buildings.cpp

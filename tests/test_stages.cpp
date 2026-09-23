@@ -11,6 +11,8 @@
 #include "check.hpp"
 
 #include <algorithm>
+#include <cmath>
+#include <map>
 #include <set>
 #include <string>
 
@@ -225,4 +227,77 @@ TEST(the_cosmology_is_a_property_of_the_seed_and_not_a_constant) {
         seen.insert(generate(resolve(r)).religion.cosmology.id);
     }
     check::is_true(seen.size() > 1, "five seeds to choose more than one cosmology");
+}
+
+TEST(stage_sixteen_plans_every_city_and_every_hamlet) {
+    const World w = at_phase(16, 33);
+    check::is_true(w.has_plans, "stage 16 to run the planners");
+    check::equal(w.city_plans.cities.size(), w.settlements.sites.size(), "one plan per city");
+    std::set<std::string> uids;
+    for (const SettlementSite& s : w.settlements.sites) uids.insert(s.uid);
+    for (const CityPlan& p : w.city_plans.cities) {
+        check::is_true(uids.count(p.city_uid) != 0, p.city_uid + " to name a city that exists");
+    }
+    check::equal(w.hamlet_plans.hamlets.size(), w.humans.hamlets.size(), "one plan per hamlet");
+}
+
+TEST(a_hamlet_plan_names_the_city_it_actually_belongs_to) {
+    // The planner indexes cities by position, so the list it is handed must be in the
+    // world's own order. A re-sorted list attributes every hamlet to the wrong parent,
+    // and the only symptom is a plausible neighbour's uid.
+    const World w = at_phase(16, 33);
+    std::map<std::string, const RuralSite*> by_id;
+    for (const RuralSite& h : w.humans.hamlets) by_id[h.id] = &h;
+    long long checked = 0;
+    for (const HamletPlan& p : w.hamlet_plans.hamlets) {
+        const auto it = by_id.find(p.hamlet_id);
+        if (it == by_id.end() || it->second->core_id < 0) continue;
+        const SettlementSite& parent = w.settlements.sites[static_cast<std::size_t>(it->second->core_id)];
+        check::equal(p.core_city_uid, parent.uid, p.hamlet_id + " to belong to its own city");
+        ++checked;
+    }
+    check::is_true(checked > 0, "some hamlet to have a parent, or nothing is tested");
+}
+
+TEST(a_regional_road_enters_a_city_on_the_edge_of_its_window) {
+    // Each road touching a city is projected into the city's tangent plane and the gate
+    // is where it leaves the square the crop covers. A gate inside the square, or off it,
+    // means the projection or the crossing is wrong -- and a city whose roads produced no
+    // gates at all means the projection never ran, which is how it started: a caller
+    // input nothing could fill.
+    const World w = at_phase(16, 33);
+    long long gates = 0;
+    long long inward_checked = 0;
+    for (const CityPlan& p : w.city_plans.cities) {
+        for (const RoadConnection& c : p.road_connections) {
+            ++gates;
+            const double edge = std::max(std::abs(c.gate_local_m.x), std::abs(c.gate_local_m.z));
+            check::close(edge, p.half_m, 1e-6, c.junction_id + " to sit on the window's edge");
+            check::is_true(c.route_index >= 0 &&
+                               static_cast<std::size_t>(c.route_index) < w.roads.routes.size(),
+                           c.junction_id + " to name a real road");
+            const Road& road = w.roads.routes[static_cast<std::size_t>(c.route_index)];
+            check::is_true(c.outside_index >= 0 && static_cast<std::size_t>(c.outside_index) < road.nodes.size(),
+                           c.junction_id + " to index its own road's nodes");
+
+            // `outside_index` indexes the road's OWN node list whichever way it was
+            // walked. The node one step back toward the city is therefore inside the
+            // window. Indexed in walk order instead, a road entering from its far end
+            // would point at a node beside the OTHER city -- still a valid index, which
+            // is why the range check above cannot see it.
+            const int inward = c.end == "from" ? c.outside_index - 1 : c.outside_index + 1;
+            if (inward < 0 || static_cast<std::size_t>(inward) >= road.nodes.size()) continue;
+            const auto node = static_cast<std::size_t>(road.nodes[static_cast<std::size_t>(inward)]);
+            const auto held = sphere_grid(w.effective.size, w.effective.globe_radius);
+            const SettlementSite& city = w.settlements.sites[static_cast<std::size_t>(c.end == "from" ? road.from : road.to)];
+            const double inside = great_circle_m(w.effective.globe_radius, city.direction,
+                                                 direction(held->point_x[node], held->point_z[node], w.effective.size));
+            check::is_true(inside <= p.half_m * 1.5,
+                           c.junction_id + " to leave from a node inside the window (" + std::to_string(inside) +
+                               " m against a half-width of " + std::to_string(p.half_m) + ")");
+            ++inward_checked;
+        }
+    }
+    check::is_true(gates > 0, "roads to reach some city window, or nothing is tested");
+    check::is_true(inward_checked > 0, "some gate to be traced back inside, or the index is untested");
 }
