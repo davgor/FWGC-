@@ -63,7 +63,10 @@
   noise.cpp
   options.cpp
   patch.cpp
+  person_state.cpp
   random.cpp
+  read.cpp
+  read_select.cpp
   roads.cpp
   routing.cpp
   populated_stage.cpp

@@ -45,7 +45,7 @@ Each takes the world by const reference and returns a new one; each appends to
 | `generate_patch` -- a local metre patch with micro relief | `terrain_patch` | **wired** |
 | Time and quests on a World; the liveness predicate | `terrain_time`, `terrain_quest_api`, `terrain_liveness` | **wired** |
 | Found a player settlement; raise a band | `terrain_settlement_api`, `terrain_nomad_api` | **wired** |
-| Read/select queries; person state | `terrain_read_select`, `terrain_read`, `terrain_person_state`, `terrain_person_api` | in flight |
+| Read/select queries (blocks, near, place, person, quests, plus a local patch read the reference lacks); person state | `terrain_read_select`, `terrain_read`, `terrain_person_state`, `terrain_person_api` | **wired** |
 | Product package: asset list, capabilities, controls, coordinates, taxonomy, world handles, counter kernel, hero guild, CLI commands | `fantasy_world_generator` | **wired** |
 
 ## The world document

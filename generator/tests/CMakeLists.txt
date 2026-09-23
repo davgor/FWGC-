@@ -35,6 +35,8 @@
   test_npcs.cpp
   test_options.cpp
   test_patch.cpp
+  test_person_state.cpp
+  test_read.cpp
   test_serialize.cpp
   test_settlements_stage.cpp
   test_society.cpp

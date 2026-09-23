@@ -838,4 +838,73 @@ QuestRequestResult world_quest_request(const World& world, const QuestRequest& r
     return result;
 }
 
+// ---------------------------------------------------------------------------
+// The shared refusal builders (world_time.hpp). The first eight forward, unchanged, to the
+// ones this file's own API uses above; the last two are shapes only the read and
+// person-state APIs need.
+// ---------------------------------------------------------------------------
+namespace request_errors {
+
+std::string render(double value) { return fwg::render(value); }
+
+std::vector<std::string> nearest(std::string_view name, std::vector<std::string> pool) {
+    return fwg::nearest(name, std::move(pool));
+}
+
+WorldTimeError over_capacity(const std::string& field, std::size_t value, std::size_t limit, std::string_view noun) {
+    return fwg::over_capacity(field, value, limit, noun);
+}
+
+WorldTimeError unsupported_api(int value, int supported) { return fwg::unsupported_api(value, supported); }
+
+WorldTimeError wrong_type(const std::string& field, const std::string& received, std::string_view article) {
+    return fwg::wrong_type(field, received, article);
+}
+
+WorldTimeError missing_block(const std::string& block, const std::string& message) {
+    return fwg::missing_block(block, message);
+}
+
+WorldTimeError refused_by_world(const std::string& field, const std::string& received, const std::string& reason,
+                                const std::vector<std::string>& alternatives) {
+    return fwg::refused_by_world(field, received, reason, alternatives);
+}
+
+WorldTimeError unknown_name(const std::string& name, const std::vector<std::string>& known, std::string_view noun) {
+    return fwg::unknown_name(name, known, noun);
+}
+
+WorldTimeError invalid_choice(const std::string& field, const std::string& received,
+                              const std::vector<std::string>& choices) {
+    std::string listed;
+    for (std::size_t i = 0; i < choices.size(); ++i) {
+        if (i != 0) listed += ", ";
+        listed += in_quotes(choices[i]);
+    }
+    return WorldTimeError(kRefusalInvalidInput, field,
+                          field + " must be one of " + listed + "; received " + received + ".", received,
+                          /*retry=*/true, fwg::nearest(received, choices));
+}
+
+WorldTimeError out_of_range(const std::string& field, double value, std::optional<double> low,
+                            std::optional<double> high, std::string_view units) {
+    // 'seed must be 0..4294967295 seed' reads as a stutter: a unit that merely repeats a word
+    // of the field name is dropped from the sentence.
+    bool stutter = false;
+    std::size_t start = 0;
+    while (!units.empty() && start <= field.size()) {
+        const std::size_t end = std::min(field.find('_', start), field.size());
+        if (std::string_view(field).substr(start, end - start) == units) stutter = true;
+        start = end + 1;
+    }
+    const std::string spoken = units.empty() || stutter ? std::string() : " " + std::string(units);
+    return WorldTimeError(kRefusalInvalidInput, field,
+                          field + " must be " + (low ? fwg::render(*low) : std::string("None")) + ".." +
+                              (high ? fwg::render(*high) : std::string("None")) + spoken + "; received " +
+                              fwg::render(value) + ".",
+                          fwg::render(value));
+}
+
+}  // namespace request_errors
+
 }  // namespace fwg

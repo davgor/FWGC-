@@ -221,4 +221,58 @@ struct QuestRequestResult {
 // lapsed.
 QuestRequestResult world_quest_request(const World& world, const QuestRequest& request);
 
+// ---------------------------------------------------------------------------
+// The refusal builders, shared.
+//
+// Added for the read API (read.hpp) and the person-state API (person_state.hpp), which
+// refuse in this same envelope rather than inventing a third. The first eight forward to
+// the builders this file's own API uses, unchanged; the last two are shapes only those two
+// APIs need. One set, not two: the ranking behind a did-you-mean and the wording of each
+// refusal are the reference's terrain_errors, and a second copy is how two APIs start
+// refusing the same mistake in two different sentences.
+// ---------------------------------------------------------------------------
+namespace request_errors {
+
+// A number as a refusal renders it: integral values without a fraction, the rest in their
+// shortest round-trip form.
+std::string render(double value);
+
+// Names a caller plausibly meant, best first, at most five: prefix matches, then
+// substrings, then fuzzy matches.
+std::vector<std::string> nearest(std::string_view name, std::vector<std::string> pool);
+
+// STATE_CAPACITY: "<field> <value> is above the <noun> maximum of <limit>."
+WorldTimeError over_capacity(const std::string& field, std::size_t value, std::size_t limit, std::string_view noun);
+
+// UNSUPPORTED_VERSION, not retryable.
+WorldTimeError unsupported_api(int value, int supported);
+
+// "<field> must be <article>; received <received>." `article` is "an integer", "text" or
+// "a finite number".
+WorldTimeError wrong_type(const std::string& field, const std::string& received, std::string_view article);
+
+// Field "world.<block>", not retryable.
+WorldTimeError missing_block(const std::string& block, const std::string& message);
+
+// The request was fine and the world is the constraint. At most five alternatives.
+WorldTimeError refused_by_world(const std::string& field, const std::string& received, const std::string& reason,
+                                const std::vector<std::string>& alternatives);
+
+// A name not in the vocabulary: `field` is the unknown name itself, the candidates what it
+// most plausibly meant.
+WorldTimeError unknown_name(const std::string& name, const std::vector<std::string>& known, std::string_view noun);
+
+// A value outside a closed vocabulary: "<field> must be one of 'a', 'b'; received <x>."
+// The candidates are the choices nearest `received` when it is a word.
+WorldTimeError invalid_choice(const std::string& field, const std::string& received,
+                              const std::vector<std::string>& choices);
+
+// A number outside a declared bound: "<field> must be <low>..<high>[ <units>]; received
+// <x>." An absent bound is spelled `None`, and a unit that repeats a word of the field name
+// is not spoken, both as the reference writes it.
+WorldTimeError out_of_range(const std::string& field, double value, std::optional<double> low,
+                            std::optional<double> high, std::string_view units);
+
+}  // namespace request_errors
+
 }  // namespace fwg

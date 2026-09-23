@@ -37,6 +37,7 @@
 #include "fwg/fates.hpp"
 #include "fwg/magic.hpp"
 #include "fwg/nomad_api.hpp"
+#include "fwg/person_record.hpp"  // PersonOperation, the person-state API's log entry
 #include "fwg/settlement_api.hpp"
 #include "fwg/settlements_stage.hpp"
 #include "fwg/time_state.hpp"
@@ -175,10 +176,11 @@ struct CleanseOperation {
 
 // One line of the log every API after generation appends to, in call order: an age
 // advance, a corruption, a cleanse, a summons or a departure, a span of time, a batch of
-// quest actions, a player's founding, or a band raised on request.
+// quest actions, a player's founding, a band raised on request, or a batch of person-state
+// changes (person_state.hpp).
 using HistoryOperation = std::variant<AgeOperation, CorruptionOperation, CleanseOperation, VisitationOperation,
                                       TimeOperationRecord, QuestOperationRecord, SettlementOperation,
-                                      NomadOperation>;
+                                      NomadOperation, PersonOperation>;
 
 struct WorldHistory {
     int version = kHistoryVersion;

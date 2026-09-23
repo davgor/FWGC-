@@ -4198,6 +4198,26 @@ void history_operation(JsonWriter& json, const NomadOperation& op) {
     json.end_object();
 }
 
+// The person-state route's entry (person_state.hpp): the changes that applied, as the
+// request normalised them -- the liveness pair, never a block's own word.
+void history_operation(JsonWriter& json, const PersonOperation& op) {
+    json.begin_object();
+    integer(json, "api_version", op.api_version);
+    text(json, "kind", "person");
+    json.key("changes");
+    json.begin_array();
+    for (const PersonChangeEntry& c : op.changes) {
+        json.begin_object();
+        text(json, "uid", c.uid);
+        text(json, "status", to_string(c.status));
+        text(json, "reason", c.reason);
+        real(json, "day", c.day);
+        json.end_object();
+    }
+    json.end_array();
+    json.end_object();
+}
+
 void write_history(JsonWriter& json, const WorldHistory& h) {
     json.begin_object();
     integer(json, "version", h.version);
