@@ -54,6 +54,8 @@
 #include "fwg/world_scene.hpp"
 #include "fwg/time_state.hpp"
 #include "fwg/debug_stats.hpp"  // SettlementStageRecord (document: debug_stats)
+#include "fwg/nomad_api.hpp"
+#include "fwg/settlement_api.hpp"
 
 namespace fwg {
 
@@ -239,6 +241,11 @@ struct World {
     // generate() ran: the timeline and the founding events of cities an age later destroyed,
     // which the reference reads back out of its per-stage snapshots. See debug_stats.hpp.
     std::vector<SettlementStageRecord> settlement_stages;
+    // --- written by the game-facing mutators: settlement_api.hpp, nomad_api.hpp ---------
+    // The last founding's report, as the reference stamps `settlement_founding` on the
+    // world it returns: replaced by each founding, carried through everything else. Their
+    // operations go in history.operations with every other API's, in call order.
+    std::optional<SettlementFoundingReport> settlement_founding;
 
     // Which subsystems actually ran. More honest than a stage number while the
     // ladder is partial: climate can be present while stages 6 and 7 are not.

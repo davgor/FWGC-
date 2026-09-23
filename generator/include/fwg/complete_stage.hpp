@@ -3,10 +3,14 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
+
+#include "fwg/nomads.hpp"
 
 namespace fwg {
 
 struct World;
+struct SphereGrid;
 
 // Runs stage 16 over whatever world exists. Every pass here reads the world rather than
 // changing its ground, so it runs the same whether or not the age transitions ran first.
@@ -16,6 +20,12 @@ void add_simulation_complete(World& world);
 // stands. What a summons or a departure redraws; the bands, the cast and the rosters are
 // left as they were, as the reference leaves them.
 void redraw_plans(World& world);
+
+// The nomad pass's view of the world, for the band request API (nomad_api.hpp): the same
+// adapter placement uses, so a requested band and a placed one read identical ground.
+// `grid` must be built at world.effective.globe_radius and `cells` from it; the view points
+// into both, and into the world's seasonal months.
+NomadRequest nomad_view(const World& world, const SphereGrid& grid, const std::vector<NomadHabitatCell>& cells);
 
 // ---------------------------------------------------------------------------
 // The moving world's five passes, one at a time.

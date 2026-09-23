@@ -57,6 +57,7 @@
   magic.cpp
   measure.cpp
   nests.cpp
+  nomad_api.cpp
   nomads.cpp
   npcs.cpp
   noise.cpp
@@ -68,11 +69,13 @@
   populated_stage.cpp
   quests.cpp
   religion.cpp
+  request_error.cpp
   scale.cpp
   serialize.cpp
   serialize_blocks.cpp
   serialize_document.cpp
   settlement.cpp
+  settlement_api.cpp
   settlements_stage.cpp
   sha256.cpp
   society.cpp

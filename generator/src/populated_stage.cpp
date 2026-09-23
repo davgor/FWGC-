@@ -16,16 +16,52 @@
 #include "fwg/world.hpp"
 
 namespace fwg {
+namespace {
+
+// The six layers the hinterland pass returns rather than writes.
+void install_hinterland_layers(World& world, const HumanHinterland& hinterland) {
+    world.layers["food_potential"] = hinterland.food_potential;
+    world.layers["natural_food_potential"] = hinterland.natural_food_potential;
+    world.layers["irrigation_benefit"] = hinterland.irrigation_benefit;
+    world.layers["culture_region"] = hinterland.culture_region;
+    world.layers["civilization_region"] = hinterland.civilization_region;
+    world.layers["hamlet_catchment"] = hinterland.hamlet_catchment;
+}
+
+}  // namespace
+
+HumansRequest humans_request(const World& world) {
+    HumansRequest request;
+    request.world = &world;
+    // The rows a previous run placed. The pass reads only the player's among them and
+    // re-derives everything else, so handing it the whole list is the reference's reading
+    // of `result['humans']`, not a carry of generated rows.
+    if (world.has_humans) {
+        request.previous_hamlets = world.humans.hamlets;
+        request.previous_fortresses = world.humans.fortresses;
+    }
+    // No war history. This used to say nothing had fought yet because the age transitions
+    // were not ported; they are now, and the reference's pass reads every city's
+    // war_history here (veteran_wars), so a city that has fought asks for more forts. This
+    // adapter still passes none, so every rebuild answers as if no city had ever fought.
+    // Left as found rather than filled: filling it changes every world an age has turned.
+    return request;
+}
+
+void rebuild_hinterland(World& world) {
+    if (!world.has_roads) return;
+    HumanHinterland hinterland = add_humans(humans_request(world));
+    if (hinterland.cores.empty()) return;
+    install_hinterland_layers(world, hinterland);
+    world.humans = std::move(hinterland);
+    world.has_humans = true;
+    world.systems.push_back("humans");
+}
 
 void add_populated_regions(World& world) {
     if (!world.has_roads) return;
 
-    HumansRequest humans_request;
-    humans_request.world = &world;
-    // No war history: nothing has fought yet, because the age transitions that produce
-    // wars are not ported. Empty is the honest input, not a placeholder -- it means a
-    // world that has never been to war, which keeps exactly the road-and-city answer.
-    HumanHinterland hinterland = add_humans(humans_request);
+    HumanHinterland hinterland = add_humans(humans_request(world));
     if (hinterland.cores.empty()) return;
 
     // Colleges between the hinterland and the seasons, as the reference orders them: they
@@ -54,12 +90,7 @@ void add_populated_regions(World& world) {
     SocietyReport society = add_world_society(society_request);
 
     // --- the layers both passes produce ------------------------------------
-    world.layers["food_potential"] = hinterland.food_potential;
-    world.layers["natural_food_potential"] = hinterland.natural_food_potential;
-    world.layers["irrigation_benefit"] = hinterland.irrigation_benefit;
-    world.layers["culture_region"] = hinterland.culture_region;
-    world.layers["civilization_region"] = hinterland.civilization_region;
-    world.layers["hamlet_catchment"] = hinterland.hamlet_catchment;
+    install_hinterland_layers(world, hinterland);
     world.layers["fishing_ground_owner"] = society.fishing_ground_owner;
 
     // --- the mutations society returns rather than performing ---------------

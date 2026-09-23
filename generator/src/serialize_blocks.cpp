@@ -4161,6 +4161,43 @@ void history_operation(JsonWriter& json, const QuestOperationRecord& op) {
     json.end_object();
 }
 
+void history_operation(JsonWriter& json, const SettlementOperation& op) {
+    json.begin_object();
+    integer(json, "api_version", op.api_version);
+    text(json, "kind", op.kind);
+    text(json, "settlement_kind", op.settlement_kind);
+    integer(json, "node", op.node);
+    text(json, "civilization_id", op.civilization_id);
+    text(json, "uid", op.uid);
+    text(json, "layout", op.layout);
+    text(json, "rebuild", op.rebuild);
+    optional_text(json, "name", op.name);
+    json.end_object();
+}
+
+void history_operation(JsonWriter& json, const NomadOperation& op) {
+    json.begin_object();
+    text(json, "kind", op.kind);
+    integer(json, "api_version", op.api_version);
+    text(json, "uid", op.uid);
+    text(json, "classification", to_string(op.classification));
+    integer(json, "node", op.node);
+    json.key("origin");
+    json.begin_object();
+    text(json, "kind", to_string(op.origin.kind));
+    text_or_null(json, "id", op.origin.id);
+    integer(json, "age", op.origin.age);
+    json.end_object();
+    json.key("requested_classification");
+    if (op.requested_classification) {
+        json.value(to_string(*op.requested_classification));
+    } else {
+        json.value_null();
+    }
+    integer(json, "variation", op.variation);
+    json.end_object();
+}
+
 void write_history(JsonWriter& json, const WorldHistory& h) {
     json.begin_object();
     integer(json, "version", h.version);

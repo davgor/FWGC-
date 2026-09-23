@@ -955,4 +955,8 @@ long long beast_movement_year(const World& world) {
     return world.settlements.founding.end_year;
 }
 
+NomadRequest nomad_view(const World& world, const SphereGrid& grid, const std::vector<NomadHabitatCell>& cells) {
+    return nomad_request(world, grid, cells);
+}
+
 }  // namespace fwg

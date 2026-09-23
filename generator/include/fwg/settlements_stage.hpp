@@ -6,6 +6,8 @@
 // the world, which is what makes `completed_stage = 10` true rather than a claim.
 #pragma once
 
+#include <map>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -17,6 +19,47 @@
 namespace fwg {
 
 struct World;
+
+// The version stamped on a city's node-scale layout record, the reference's
+// CITY_LAYOUT_VERSION. Bumping it is a world-output schema change.
+inline constexpr int kCityLayoutVersion = 2;
+
+// The `city_layout` a PLAYER-AUTHORED city carries: what the founding API writes when the
+// player owns where the buildings go (settlement_api.hpp, layout "player").
+//
+// Only this record exists in the port. The generated node-scale layout -- district anchors
+// and asset roll-ups drawn from the building packs -- was not ported, and nothing needs it:
+// city_plans is the one block that says where buildings stand. So a generated city has no
+// record here, and neither has a player city founded with layout "generated": the reference
+// derives a generated record for that one at its next rebuild, which this port cannot.
+//
+// Shaped like the reference's record key for key. Everything that would describe a DERIVED
+// layout is empty, because nothing was derived: no profile but the player's, no river
+// reading, no building pack, no assets, no district anchors.
+struct AuthoredCityLayout {
+    struct River {
+        int adjacent_river_edges = 0;
+        std::optional<double> river_distance_m;  // absent: none was read
+        bool bridge_recommended = false;
+        int bridge_threshold = 0;
+    };
+    int version = kCityLayoutVersion;
+    std::string layout_profile_id = "player";
+    std::string layout_profile_name = "Player-authored layout";
+    std::string population_profile;
+    // The site's own estimate. The world owns the sizing: a settlement rebuild re-derives the
+    // site's population and this follows it, while the layout itself is carried untouched.
+    long long population_estimate = 0;
+    River river;
+    std::optional<std::string> building_pack_id;  // absent: no pack was drawn
+    std::vector<std::string> required_assets;
+    int required_asset_count = 0;
+    int required_node_slots = 0;
+    bool asset_anchors_missing = false;
+    std::map<std::string, double> features;     // empty: no district was claimed
+    std::map<std::string, double> constraints;  // empty
+    std::string authored_by = "player";
+};
 
 // One settlement as the world publishes it.
 struct SettlementSite {
@@ -68,6 +111,11 @@ struct SettlementSite {
     std::string source_culture;
     // "player" for a city the player founded; empty for a generated one. Carried.
     std::string founded_by;
+    // The player's own layout, on a player city founded with layout "player"; absent
+    // everywhere else. Carried across a rebuild together with `founded_by` -- the survivor
+    // carry is the only reason an authored layout outlives an age turn -- and its population
+    // estimate follows the site's.
+    std::optional<AuthoredCityLayout> city_layout;
     // Refugees taken in at an age boundary, and the bands they came from. Added AFTER
     // the capacity split, so the split stays a pure function of the ground. Carried.
     long long absorbed_refugees = 0;
@@ -123,6 +171,12 @@ struct SettlementReport {
     std::vector<SettlementSite> sites;
     PopulationBudget budget;
     FoundingReport founding;
+    // The uids of the cities the player founded, sorted: written by the founding API on every
+    // call. A settlement rebuild replaces this report and the list goes with it -- after an
+    // age advance it is empty although the player's cities stand. That is the reference's
+    // behaviour (its rebuild writes a fresh `settlements` block without the key), reproduced
+    // and pinned by a test; `founded_by` on each site is the record that survives.
+    std::vector<std::string> founded_by_player;
 };
 
 // What an age transition hands the settlement stage when it rebuilds civilization.
@@ -148,5 +202,10 @@ void add_settlements(World& world, const SettlementRebuild* rebuild = nullptr);
 // settlements are founded and again after the hinterland, as the reference calls it at
 // the end of every civilization pass.
 void remember_cities(World& world, int age);
+
+// Re-derive every city's class and its reason over the WHOLE list, as the founding pass
+// classifies. `city_class` is a per-people suitability RANK rather than a size, so adding
+// one city can demote an incumbent: a caller never sets it, it is recomputed.
+void classify_settlements(std::vector<SettlementSite>& sites);
 
 }  // namespace fwg

@@ -1084,6 +1084,17 @@ double nomad_distance(const Vec3& a, const Vec3& b, double radius) {
     return radius * std::acos(clamp_unit(dot(a, b)));
 }
 
+// Placement's own two, exported for the band request API rather than copied into it.
+std::pair<NomadClass, double> nomad_pick(Rng& rng, const std::vector<std::pair<NomadClass, double>>& shares,
+                                         double total) {
+    return pick(rng, shares, total);
+}
+
+NomadBand nomad_make_band(std::string uid, NomadClass value, const NomadHabitatCell& cell, int size, int age,
+                          NomadBasis basis) {
+    return make_band(std::move(uid), value, cell, size, age, std::move(basis));
+}
+
 double nomad_ruggedness(const NomadHabitatCell& cell) {
     return clamp01(cell.slope_deg / 22.0) * (1.0 + 0.35 * clamp01(std::abs(cell.tpi_m) / 40.0));
 }

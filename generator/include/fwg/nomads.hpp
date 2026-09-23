@@ -35,6 +35,7 @@
 #include <span>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 #include "fwg/grid.hpp"
@@ -42,6 +43,8 @@
 #include "fwg/vec3.hpp"
 
 namespace fwg {
+
+class Rng;
 
 // The three sub-blocks version independently, and that split is the precise statement of
 // what changed. `routes` moved to 2 when lineage fission landed -- no field was new, but
@@ -795,6 +798,23 @@ NomadGround nomad_ground(const NomadRequest& request);
 
 // Great-circle metres between two unit directions.
 double nomad_distance(const Vec3& a, const Vec3& b, double radius);
+
+// Placement's own draw and its own band, exposed for the band request API (nomad_api.hpp),
+// which raises one band exactly as placement raises one but from its own stream and on its
+// caller's account. One copy of each, so the two cannot drift.
+//
+// `nomad_pick`: the cumulative walk over the eligible classifications, in their order. One
+// uniform draw times `total` decides; the comparison is `<=`, and the LAST entry is the
+// fallback when float drift puts the draw past the final cursor. Returns the choice and the
+// draw.
+//
+// `nomad_make_band`: a band with the classification's authored speed, column, disposition,
+// seeks and carries, and the one camp it starts from. Its origin is the world's, at `age`;
+// a caller raising it on someone else's account overwrites the origin.
+std::pair<NomadClass, double> nomad_pick(Rng& rng, const std::vector<std::pair<NomadClass, double>>& shares,
+                                         double total);
+NomadBand nomad_make_band(std::string uid, NomadClass value, const NomadHabitatCell& cell, int size, int age,
+                          NomadBasis basis);
 
 // Closest place, as (metres, list position). Ties break on (distance, key string) with a
 // strict `<`, so on an exact tie of both the FIRST candidate in list order wins. An empty

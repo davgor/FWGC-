@@ -34,6 +34,14 @@ double layer_at(const World& world, const char* name, int x, int z) {
     return it != world.layers.end() ? it->second.at(x, z) : 0.0;
 }
 
+// Spelled once: the founding pass and a founding request both classify, and two copies of a
+// published string drift.
+std::string classification_reason(CityClass c) {
+    return c == CityClass::Capital  ? "Founding capital retained; otherwise highest suitability, node breaks ties"
+           : c == CityClass::Medium ? "Suitability at or above the medium threshold"
+                                    : "Suitability below the medium threshold";
+}
+
 }  // namespace
 
 void add_settlements(World& world, const SettlementRebuild* rebuild) {
@@ -224,11 +232,7 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
         }
 
         site.city_class = classes[i];
-        site.classification_reason =
-            classes[i] == CityClass::Capital
-                ? "Founding capital retained; otherwise highest suitability, node breaks ties"
-                : classes[i] == CityClass::Medium ? "Suitability at or above the medium threshold"
-                                                  : "Suitability below the medium threshold";
+        site.classification_reason = classification_reason(classes[i]);
         site.founding_capital = s.founding_capital;
         site.founding_turn = s.founding_turn;
         site.founding_year = s.founding_year;
@@ -275,6 +279,10 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
                 site.absorbed_bands = old.absorbed_bands;
                 site.absorbed_refugees = old.absorbed_refugees;
                 site.war_history = old.war_history;
+                // The player owns an authored layout, so it is carried rather than
+                // re-derived: this carry is the only reason one outlives a rebuild. Only the
+                // player's own, as the reference's `authored_layout` test has it.
+                if (old.founded_by == "player" && old.city_layout) site.city_layout = old.city_layout;
                 break;
             }
         }
@@ -286,6 +294,11 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
             site.population_estimate = with.residents;
             site.urban_population_estimate = with.urban;
             site.rural_population_estimate = with.rural;
+        }
+        // The world still owns the sizing of an authored city; only its districts are the
+        // player's. Refugees included, as the reference counts them before writing it.
+        if (site.founded_by == "player" && site.city_layout) {
+            site.city_layout->population_estimate = site.population_estimate;
         }
 
         report.sites.push_back(std::move(site));
@@ -376,6 +389,19 @@ void remember_cities(World& world, int age) {
         if (city.source_culture.empty()) {
             city.source_culture = city.population_profile + "-founders-" + std::to_string(city.node);
         }
+    }
+}
+
+void classify_settlements(std::vector<SettlementSite>& sites) {
+    std::vector<CityClassInput> inputs;
+    inputs.reserve(sites.size());
+    for (const SettlementSite& s : sites) {
+        inputs.push_back({s.node, s.population_profile, s.suitability, s.founding_capital});
+    }
+    const std::vector<CityClass> classes = classify_cities(inputs, registry_defaults().medium_suitability_min);
+    for (std::size_t i = 0; i < sites.size(); ++i) {
+        sites[i].city_class = classes[i];
+        sites[i].classification_reason = classification_reason(classes[i]);
     }
 }
 

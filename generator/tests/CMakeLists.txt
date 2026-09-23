@@ -27,8 +27,10 @@
   test_roads.cpp
   test_routing.cpp
   test_settlement.cpp
+  test_settlement_api.cpp
   test_heritage.cpp
   test_nests.cpp
+  test_nomad_api.cpp
   test_nomads.cpp
   test_npcs.cpp
   test_options.cpp
