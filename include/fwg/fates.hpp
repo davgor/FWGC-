@@ -202,6 +202,9 @@ struct ThreatReport {
     // by it, so a reader after stage 16 sees raids the walls were not built against.
     std::optional<double> nomad_pressure;
     std::vector<std::string> nomad_contributors;  // sorted band uids
+    // Written by a visitation: the favour a god showed one of its faithful cities, which
+    // relieved regional_threat by kFavorRelief times it. Lasts until the next rebuild.
+    std::optional<double> divine_favor;
 };
 
 struct ThreatAssessmentBlock {

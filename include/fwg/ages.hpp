@@ -31,12 +31,14 @@
 #include <string>
 #include <string_view>
 #include <utility>
+#include <variant>
 #include <vector>
 
 #include "fwg/fates.hpp"
 #include "fwg/magic.hpp"
 #include "fwg/settlements_stage.hpp"
 #include "fwg/vec3.hpp"
+#include "fwg/visitation.hpp"
 #include "fwg/wars.hpp"
 
 namespace fwg {
@@ -82,6 +84,17 @@ struct Ruin {
     // ruin's legacy names a school, and the key point is planted at the legacy intensity.
     std::string new_node_school;
     RuinLegacy legacy;
+
+    // A god's work. A corruption's ruin (cause rot_plague | void_unmade) names the god, the
+    // share of the falloff it was hit at and the corruption record; a visitation's ruin names
+    // the visitation, and a divine cause (divine_<god id>) the god, its aspect and the faith
+    // factor the city's own faith bought it. Absent on an age ruin.
+    std::string god_id;
+    std::string aspect;
+    std::optional<double> share;
+    std::optional<double> faith_factor;
+    std::optional<int> corruption;  // index into World::corruptions
+    std::optional<int> visitation;  // index into World::visitations
 };
 
 // The steps an age runs, stamped on every record so a reader knows what ran in what order.
@@ -128,11 +141,44 @@ inline constexpr std::string_view kAgeReplayNote =
     "Persist this returned world for subsequent calls. Config reproduces genesis; operation history "
     "records subsequent advances and player leyline edits.";
 
+// A hidden god taking a villain.
+struct CorruptionOperation {
+    int api_version = 1;
+    int corruption = -1;  // index into World::corruptions
+    std::string god_id;
+    std::string villain_uid;
+    long long encounters = 0;
+    long long variation = 0;
+};
+
+// A corruption drained, or a walking god driven off the plane.
+//
+// The reference writes this record as {"kind": "cleanse", ..., **report}, and the report
+// carries its own `kind` -- "corruption" or "god" -- which overwrites the first, so the
+// logged kind is the report's and never "cleanse". Reproduced: `kind` here is the report's.
+struct CleanseOperation {
+    int api_version = 1;
+    std::string kind;  // corruption | god
+    std::optional<int> target_corruption;
+    std::optional<std::string> target_god_id;
+    double power = 0.0;
+    int corruption = -1;
+    std::string god_id;
+    std::vector<std::string> removed;
+    int remaining = 0;
+    bool cleansed = false;
+    bool departed = false;
+};
+
+// One line of the log every API after generation appends to, in call order: an age
+// advance, a corruption, a cleanse, a summons or a departure.
+using HistoryOperation = std::variant<AgeOperation, CorruptionOperation, CleanseOperation, VisitationOperation>;
+
 struct WorldHistory {
     int version = kHistoryVersion;
     std::vector<AgeRecord> ages;
-    // Every advance made after generation, in order. Empty for a world as generated.
-    std::vector<AgeOperation> operations;
+    // Every operation made after generation, in order. Empty for a world as generated.
+    std::vector<HistoryOperation> operations;
 };
 
 struct AgeAdvanceRequest {
@@ -143,6 +189,11 @@ struct AgeAdvanceRequest {
     // The day the ages turn on. Absent: the founding report's end year decides.
     std::optional<long long> moon_day;
 };
+
+// The versioned state boundary every API after generation checks a world against: recipe
+// 3, generated through creatures (stage 13) on a grid of at most 1025, with the sky and the
+// pantheon of this build's catalogue. Throws AgeAdvanceError naming the field.
+void validate_age_world(const World& world);
 
 // Turn `request.steps` more ages over a finished world, after the player's ley edits, and
 // re-run stage 16 over the result. Same request in, same world out; the caller's world is

@@ -76,6 +76,7 @@
   wars.cpp
   water.cpp
   world.cpp
+  world_api.cpp
   world_scene.cpp
 )
 

@@ -43,6 +43,7 @@
   test_wars.cpp
   test_water.cpp
   test_world.cpp
+  test_world_api.cpp
   test_world_scene.cpp
 )
 

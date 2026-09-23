@@ -10,6 +10,7 @@
 #include <string>
 #include <string_view>
 #include <system_error>
+#include <variant>
 #include <vector>
 
 #include "fwg/beasts.hpp"
@@ -3669,6 +3670,7 @@ void write_threat_assessments(JsonWriter& json, const ThreatAssessmentBlock& b) 
             json.key("nomad_contributors");
             strings(json, r.nomad_contributors);
         }
+        if (r.divine_favor) real(json, "divine_favor", *r.divine_favor);
         json.end_object();
     }
     json.end_array();
@@ -3699,10 +3701,25 @@ void war_history(JsonWriter& json, const std::vector<WarParticipation>& history)
 bool is_school_name(std::string_view cause) { return magic_school_index(cause) >= 0; }
 
 // A fate's evidence carries the keys of the cause that was chosen, in that cause's order.
-void fate_evidence(JsonWriter& json, std::string_view cause, const CityFateEvidence& e) {
+void fate_evidence(JsonWriter& json, const Ruin& ruin) {
+    const std::string_view cause = ruin.cause;
+    const CityFateEvidence& e = ruin.evidence;
     json.key("evidence");
     json.begin_object();
-    if (is_school_name(cause)) {
+    if (cause == "rot_plague" || cause == "void_unmade") {
+        // A corruption's: the god, its school, the falloff share, the corruption record.
+        text(json, "god_id", ruin.god_id);
+        text(json, "school", e.school);
+        if (ruin.share) real(json, "share", *ruin.share);
+        if (ruin.corruption) integer(json, "corruption", *ruin.corruption);
+    } else if (cause.rfind("divine_", 0) == 0) {
+        // A visitation's own cause: the god in person.
+        text(json, "god_id", ruin.god_id);
+        if (e.distance_m) real(json, "distance_m", *e.distance_m);
+        if (e.reach_m) real(json, "reach_m", *e.reach_m);
+        text(json, "aspect", ruin.aspect);
+        if (ruin.faith_factor) real(json, "faith_factor", *ruin.faith_factor);
+    } else if (is_school_name(cause)) {
         text(json, "school", e.school);
         if (e.potency) real(json, "potency", *e.potency);
         if (e.moon_tide) real(json, "moon_tide", *e.moon_tide);
@@ -3756,7 +3773,7 @@ void ruin_record(JsonWriter& json, const Ruin& r) {
     // How it fell.
     text(json, "cause", r.cause);
     text(json, "reason", r.reason);
-    fate_evidence(json, r.cause, r.evidence);
+    fate_evidence(json, r);
     real(json, "probability", r.probability);
     real(json, "roll", r.roll);
     text_or_null(json, "new_node_school", r.new_node_school);
@@ -3766,6 +3783,9 @@ void ruin_record(JsonWriter& json, const Ruin& r) {
     real(json, "intensity", r.legacy.intensity);
     text(json, "basis", r.legacy.basis);
     json.end_object();
+    // Which operation made it, for a god's work.
+    if (r.corruption) integer(json, "corruption", *r.corruption);
+    if (r.visitation) integer(json, "visitation", *r.visitation);
     json.end_object();
 }
 
@@ -4017,6 +4037,74 @@ void leyline_edit(JsonWriter& json, const LeylineEdit& e) {
     json.end_object();
 }
 
+void history_operation(JsonWriter& json, const AgeOperation& op) {
+    json.begin_object();
+    integer(json, "api_version", op.api_version);
+    integer(json, "after_age", op.after_age);
+    integer(json, "steps", op.steps);
+    json.key("leyline_edits");
+    json.begin_array();
+    for (const LeylineEdit& e : op.leyline_edits) leyline_edit(json, e);
+    json.end_array();
+    json.key("moon_day");
+    if (op.moon_day) {
+        json.value(*op.moon_day);
+    } else {
+        json.value_null();
+    }
+    json.end_object();
+}
+
+void history_operation(JsonWriter& json, const CorruptionOperation& op) {
+    json.begin_object();
+    integer(json, "api_version", op.api_version);
+    text(json, "kind", "corruption");
+    integer(json, "corruption", op.corruption);
+    text(json, "god_id", op.god_id);
+    text(json, "villain_uid", op.villain_uid);
+    integer(json, "encounters", op.encounters);
+    integer(json, "variation", op.variation);
+    json.end_object();
+}
+
+// The reference's {"kind": "cleanse", ..., **report}: the report's kind keeps the first
+// key's position and replaces its value.
+void history_operation(JsonWriter& json, const CleanseOperation& op) {
+    json.begin_object();
+    integer(json, "api_version", op.api_version);
+    text(json, "kind", op.kind);
+    json.key("target");
+    json.begin_object();
+    if (op.target_corruption) integer(json, "corruption", *op.target_corruption);
+    if (op.target_god_id) text(json, "god_id", *op.target_god_id);
+    json.end_object();
+    real(json, "power", op.power);
+    if (op.kind == "god") {
+        text(json, "god_id", op.god_id);
+        flag(json, "departed", op.departed);
+    } else {
+        integer(json, "corruption", op.corruption);
+        text(json, "god_id", op.god_id);
+        json.key("removed");
+        strings(json, op.removed);
+        integer(json, "remaining", op.remaining);
+        flag(json, "cleansed", op.cleansed);
+    }
+    json.end_object();
+}
+
+void history_operation(JsonWriter& json, const VisitationOperation& op) {
+    json.begin_object();
+    integer(json, "api_version", op.api_version);
+    text(json, "kind", op.kind);
+    integer(json, "visitation", op.visitation);
+    text(json, "god_id", op.god_id);
+    if (op.node) integer(json, "node", *op.node);
+    if (op.wrath) real(json, "wrath", *op.wrath);
+    if (op.variation) integer(json, "variation", *op.variation);
+    json.end_object();
+}
+
 void write_history(JsonWriter& json, const WorldHistory& h) {
     json.begin_object();
     integer(json, "version", h.version);
@@ -4041,29 +4129,18 @@ void write_history(JsonWriter& json, const WorldHistory& h) {
         json.end_object();
     }
     json.end_array();
-    // Written once a world has been advanced after generation, as the reference writes it.
+    // Written once any API has changed a world after generation, as the reference writes it.
     if (!h.operations.empty()) {
         json.key("operations");
         json.begin_array();
-        for (const AgeOperation& op : h.operations) {
-            json.begin_object();
-            integer(json, "api_version", op.api_version);
-            integer(json, "after_age", op.after_age);
-            integer(json, "steps", op.steps);
-            json.key("leyline_edits");
-            json.begin_array();
-            for (const LeylineEdit& e : op.leyline_edits) leyline_edit(json, e);
-            json.end_array();
-            json.key("moon_day");
-            if (op.moon_day) {
-                json.value(*op.moon_day);
-            } else {
-                json.value_null();
-            }
-            json.end_object();
+        bool advanced = false;
+        for (const HistoryOperation& operation : h.operations) {
+            advanced = advanced || std::holds_alternative<AgeOperation>(operation);
+            std::visit([&json](const auto& op) { history_operation(json, op); }, operation);
         }
         json.end_array();
-        text(json, "replay", kAgeReplayNote);
+        // Only the age API writes the replay note.
+        if (advanced) text(json, "replay", kAgeReplayNote);
     }
     json.end_object();
 }

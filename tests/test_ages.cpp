@@ -248,8 +248,9 @@ TEST(an_advance_turns_the_ages_it_asks_for_and_records_the_operation) {
     check::equal(later.history.ages[2].age, 3, "numbered on from the last");
     check::equal(later.age, 4, "the world in its fourth age");
     check::equal(later.history.operations.size(), std::size_t{1}, "the advance recorded");
-    check::equal(later.history.operations[0].after_age, 2, "after the ages it inherited");
-    check::equal(later.history.operations[0].steps, 2, "with the steps it took");
+    const auto& advanced = std::get<AgeOperation>(later.history.operations[0]);
+    check::equal(advanced.after_age, 2, "after the ages it inherited");
+    check::equal(advanced.steps, 2, "with the steps it took");
     check::is_true(later.config.seed == genesis.config.seed, "genesis config kept");
     // Stage 16 is redrawn over the world the ages left: one plan per standing city.
     check::equal(later.city_plans.cities.size(), later.settlements.sites.size(), "plans for the cities that stand");
@@ -326,5 +327,6 @@ TEST(a_players_ley_edits_land_before_the_first_age_turns) {
     const LeyNode* spring = node_named(later, "water", "player-spring");
     check::is_true(spring != nullptr, "the player's key point to stand after the age");
     check::between(spring->intensity, 2.0 * kLeyAgeLow - 1e-12, 2.0 * kLeyAgeHigh + 1e-12, "and to have drifted once");
-    check::equal(later.history.operations.at(0).leyline_edits.size(), std::size_t{2}, "the edits recorded");
+    check::equal(std::get<AgeOperation>(later.history.operations.at(0)).leyline_edits.size(), std::size_t{2},
+                 "the edits recorded");
 }

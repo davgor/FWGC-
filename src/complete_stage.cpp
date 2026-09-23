@@ -748,11 +748,10 @@ KeyLocationRequest key_location_request(const World& world, const SphereGrid& gr
 
 }  // namespace
 
-void add_simulation_complete(World& world) {
-    if (!world.has_settlements) return;
-    const auto held = sphere_grid(world.effective.size, world.effective.globe_radius);
-    const SphereGrid& grid = *held;
+namespace {
 
+// The three planners, then the scene built from what they drew.
+void draw_plans(World& world, const SphereGrid& grid) {
     const std::vector<CitySite> sites = city_sites(world);
     world.city_plans = fill_cities(world, grid, sites);
     world.systems.push_back("city_plans");
@@ -791,6 +790,22 @@ void add_simulation_complete(World& world) {
         world.has_world_scene = true;
         world.systems.push_back("world_scene");
     }
+}
+
+}  // namespace
+
+void redraw_plans(World& world) {
+    if (!world.has_settlements) return;
+    const auto held = sphere_grid(world.effective.size, world.effective.globe_radius);
+    draw_plans(world, *held);
+}
+
+void add_simulation_complete(World& world) {
+    if (!world.has_settlements) return;
+    const auto held = sphere_grid(world.effective.size, world.effective.globe_radius);
+    const SphereGrid& grid = *held;
+
+    draw_plans(world, grid);
 
     // Bands are part of the world, so they are placed before the packages that only read
     // it: heroes, the story web and the rosters see a world with its nomads in it.

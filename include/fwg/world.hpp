@@ -37,6 +37,7 @@
 #include "fwg/complete_stage.hpp"
 #include "fwg/religion.hpp"
 #include "fwg/colleges.hpp"
+#include "fwg/corruption.hpp"
 #include "fwg/humans.hpp"
 #include "fwg/nests.hpp"
 #include "fwg/populated_stage.hpp"
@@ -214,6 +215,10 @@ struct World {
     // Every summons this world has seen, departed or not. Written by the visitation API and
     // read at an age turn: a god still walking by visitation goes home when the age turns.
     std::vector<VisitationRecord> visitations;
+    // Every corruption, cleansed or standing, in the order they happened. The typed lists are
+    // the record; religion.visitations and religion.corruptions carry the same records as the
+    // opaque JSON the religion pass hands forward, rewritten from these after each operation.
+    std::vector<CorruptionRecord> corruptions;
 
     // The age this world is in. Zero until the first age transition turns it.
     int age = 0;

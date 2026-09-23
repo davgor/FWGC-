@@ -10,4 +10,9 @@ struct World;
 // changing its ground, so it runs the same whether or not the age transitions ran first.
 void add_simulation_complete(World& world);
 
+// The city, hamlet and castle plans and the world scene alone, redrawn over the world as it
+// stands. What a summons or a departure redraws; the bands, the cast and the rosters are
+// left as they were, as the reference leaves them.
+void redraw_plans(World& world);
+
 }  // namespace fwg

@@ -146,6 +146,8 @@ void dedupe_systems(std::vector<std::string>& systems) {
     systems = std::move(out);
 }
 
+}  // namespace
+
 // The versioned state boundary a world re-enters through. Everything an advance runs reads
 // the sky, the pantheon and the creatures, so a world without them cannot be advanced; and a
 // pantheon from another catalogue would name gods this build does not know.
@@ -175,6 +177,8 @@ void validate_age_world(const World& world) {
                                                     "so the gods it names may not exist here.");
     }
 }
+
+namespace {
 
 }  // namespace
 
@@ -213,7 +217,7 @@ World advance_ages(const World& world, const AgeAdvanceRequest& request) {
 
     const int start_age = static_cast<int>(out.history.ages.size());
     out.history.operations.push_back(
-        {kAgeApiVersion, start_age, request.steps, request.leyline_edits, request.moon_day});
+        AgeOperation{kAgeApiVersion, start_age, request.steps, request.leyline_edits, request.moon_day});
     for (int age = start_age + 1; age <= start_age + request.steps; ++age) {
         // The plans, and the scene built from them, describe cities an age is about to ruin;
         // both are redrawn at the end.
