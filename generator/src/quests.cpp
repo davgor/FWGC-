@@ -82,6 +82,7 @@ std::string_view to_string(QuestGiverBlock block) {
         case QuestGiverBlock::Heroes: return "heroes";
         case QuestGiverBlock::Dreads: return "dreads";
         case QuestGiverBlock::Npcs: return "npcs";
+        case QuestGiverBlock::Bands: return "bands";
     }
     return "heroes";
 }
@@ -123,6 +124,7 @@ QuestGiverIndex::QuestGiverIndex(const QuestCast& cast) {
         take(cast.dreads);
     }
     if (cast.npcs_ok) take(cast.npcs);
+    take(cast.bands);
 }
 
 const QuestGiver* QuestGiverIndex::find(const std::optional<std::string>& uid) const {

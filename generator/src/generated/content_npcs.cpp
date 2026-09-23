@@ -11,7 +11,7 @@ namespace {
 
 // The quest vocabulary, shared with the hero generator's hooks. Changing this
 // list desynchronises two packages, and the block exports it verbatim.
-constexpr std::string_view kVerbs[] = {"reclaim", "recover", "defend", "slay", "trade", "tend", "convert", "supply", "cleanse", "investigate", };
+constexpr std::string_view kVerbs[] = {"reclaim", "recover", "defend", "slay", "trade", "tend", "convert", "supply", "cleanse", "investigate", "rebuild", "return", };
 
 // (role, target) pairs in SENIORITY order. The first row's first role is the
 // building's senior post and the only one the earmark can ever reach.

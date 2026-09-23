@@ -13,7 +13,11 @@
 #include "fwg/complete_stage.hpp"
 #include "fwg/fates.hpp"
 #include "fwg/json.hpp"
+#include "fwg/heroes.hpp"
 #include "fwg/magic.hpp"
+#include "fwg/nomad_api.hpp"
+#include "fwg/random.hpp"
+#include "fwg/request_error.hpp"
 #include "fwg/time.hpp"
 
 namespace fwg {
@@ -419,14 +423,144 @@ CorruptWorldResult corrupt(const World& world, const CorruptWorldRequest& reques
     return result;
 }
 
+namespace {
+
+// The share of a cleansed city's people who get out: keyed on the world's seed, the city and
+// the age, so the same cleanse gives the same number.
+double escape_share_of(std::uint32_t seed, const std::string& city_uid, int age) {
+    return Rng::child(seed, "cleanse-escape-" + city_uid, age).uniform(kCleanseEscapeLow, kCleanseEscapeHigh);
+}
+
+// A cleansed city's ruin. It broke a hold rather than seeding one, so it plants no key point.
+Ruin cleansed_ruin(const SettlementSite& city, int age) {
+    Ruin ruin = ruin_from_city(city);
+    const std::string school = city.corruption ? city.corruption->school : std::string();
+    ruin.id = "ruin-" + city.uid;
+    ruin.destroyed_age = age;
+    ruin.cause = "cleansed";
+    ruin.reason = "Cleansed of " + school + ": unmade to break the hidden school's hold on it.";
+    ruin.evidence.school = school;
+    if (city.corruption) ruin.corruption = city.corruption->corruption;
+    ruin.probability = 1.0;
+    return ruin;
+}
+
+int rebuild_difficulty(CityClass city_class) {
+    return city_class == CityClass::Capital ? 4 : city_class == CityClass::Medium ? 3 : 2;
+}
+
+// The quest line the refugees' band gives, on the cast's hooks, where every consumer joins a
+// quest to its difficulty. Minted as the hero pass mints: hook-<giver uid>-<ordinal>.
+std::vector<std::string> form_quest_line(World& out, const SettlementSite& city, const Ruin& ruin,
+                                         const std::string& band_uid) {
+    HeroQuestHook rebuild;
+    rebuild.hook_id = "hook-" + band_uid + "-0";
+    rebuild.giver_uid = band_uid;
+    rebuild.stated_purpose = "Raise " + city.name + " again from its ruins, with the people who fled its cleansing.";
+    rebuild.actual_effect.kind = "ruin";
+    rebuild.actual_effect.uid = ruin.id;
+    rebuild.actual_effect.action = "rebuild";
+    rebuild.target = ruin.id;
+    rebuild.verb = "rebuild";
+    rebuild.difficulty = rebuild_difficulty(city.city_class);
+    rebuild.target_node = ruin.node;
+    rebuild.has_target_node = true;
+
+    HeroQuestHook back;
+    back.hook_id = "hook-" + band_uid + "-1";
+    back.giver_uid = band_uid;
+    back.stated_purpose = "Lead the refugees of " + city.name + " to their kin, in a city that will take them in.";
+    back.actual_effect.kind = "band";
+    back.actual_effect.uid = band_uid;
+    back.actual_effect.action = "return";
+    back.target = band_uid;
+    back.verb = "return";
+    back.difficulty = kReturnDifficulty;
+    back.target_node = ruin.node;
+    back.has_target_node = true;
+
+    std::vector<std::string> ids{rebuild.hook_id, back.hook_id};
+    out.heroes.quest_hooks.push_back(std::move(rebuild));
+    out.heroes.quest_hooks.push_back(std::move(back));
+    out.heroes.summary.hooks += 2;
+    return ids;
+}
+
+// Destroy the cities named, rebuild over the ones that stand, then raise each destroyed
+// city's refugees and their quest line on the rebuilt world. With nobody named it is the
+// plain rebuild a cleanse owes.
+std::vector<CleansedCity> destroy_and_rebuild(World& out, const std::set<std::string>& doomed_uids, int age) {
+    struct Doomed {
+        SettlementSite city;
+        Ruin ruin;
+        CleansedCity report;
+    };
+    std::vector<SettlementSite> standing;
+    std::vector<Doomed> doomed;
+    for (const SettlementSite& site : out.settlements.sites) {
+        if (doomed_uids.count(site.uid) == 0) {
+            standing.push_back(site);
+            continue;
+        }
+        Doomed d{site, cleansed_ruin(site, age), {}};
+        CleansedCity& c = d.report;
+        c.city_uid = site.uid;
+        c.name = site.name;
+        c.ruin_id = d.ruin.id;
+        c.school = site.corruption ? site.corruption->school : std::string();
+        c.people = site.population_estimate;
+        c.escape_share = escape_share_of(out.config.seed, site.uid, age);
+        c.escaped = std::llround(static_cast<double>(c.people) * c.escape_share);
+        doomed.push_back(std::move(d));
+    }
+    for (const Doomed& d : doomed) out.ruins.push_back(d.ruin);
+    drop_plans(out);
+    rebuild_tail(out, standing, "cleanse", age, /*evaluate=*/true, /*religion=*/false);
+
+    std::vector<CleansedCity> reports;
+    for (Doomed& d : doomed) {
+        CleansedCity& c = d.report;
+        if (c.escaped < 1) {
+            c.note = "nobody got out";
+        } else if (!out.has_nomads) {
+            c.note = "no band: this world carries no nomads block; generate through phase 16";
+        } else {
+            try {
+                RefugeeBandRequest request;
+                request.node = d.ruin.node;
+                request.people = static_cast<int>(std::min<long long>(c.escaped, 2147483647LL));
+                request.age = age;
+                request.ruin_id = d.ruin.id;
+                request.ruin_uid = d.ruin.uid;
+                c.band_uid = raise_refugees(out, request);
+            } catch (const RequestError& refused) {
+                c.note = std::string("no band: ") + refused.what();
+            }
+        }
+        if (!c.band_uid.empty()) {
+            if (out.has_heroes && out.heroes.status == "ok") {
+                c.hook_ids = form_quest_line(out, d.city, d.ruin, c.band_uid);
+            } else {
+                c.note = "no quest line: this world's cast did not generate, so no hook can be offered";
+            }
+        }
+        reports.push_back(std::move(c));
+    }
+    return reports;
+}
+
+}  // namespace
+
 CleanseWorldResult cleanse(const World& world, const CleanseWorldRequest& request) {
     if (request.api_version != kCorruptionApiVersion) {
         throw CorruptionError("api_version", "this build serves corruption API version 1");
     }
     validate_for<CorruptionError>(world);
-    if (request.corruption.has_value() == request.god_id.has_value()) {
-        throw CorruptionError("target", "target names exactly one thing, as {\"corruption\": <index>} or "
-                                        "{\"god_id\": ...}.");
+    const int named = static_cast<int>(request.corruption.has_value()) + static_cast<int>(request.god_id.has_value()) +
+                      static_cast<int>(request.city_uid.has_value());
+    if (named != 1) {
+        throw CorruptionError("target", "target names exactly one thing, as {\"corruption\": <index>}, "
+                                        "{\"god_id\": ...} or {\"city_uid\": ...}.");
     }
     if (!(request.power > 0.0 && request.power <= 1.0)) {
         throw CorruptionError("power", "a share of the structure drained, in (0, 1]");
@@ -437,6 +571,23 @@ CleanseWorldResult cleanse(const World& world, const CleanseWorldRequest& reques
     CleanseOperation& op = result.report;
     op.api_version = kCorruptionApiVersion;
     op.power = request.power;
+
+    if (request.city_uid) {
+        const std::string& uid = *request.city_uid;
+        const SettlementSite* city = site_named(world.settlements.sites, uid);
+        if (city == nullptr) throw CorruptionError("target.city_uid", uid + " is no standing city of this world");
+        if (!city->corruption) {
+            throw CorruptionError("target.city_uid",
+                                  uid + " is held by no hidden school; only a corrupted city is cleansed");
+        }
+        op.kind = "city";
+        op.target_city_uid = uid;
+        op.cities = destroy_and_rebuild(out, {uid}, age);
+        sync_religion_records(out);
+        out.history.operations.push_back(op);
+        tidy(out);
+        return result;
+    }
 
     if (request.god_id) {
         const std::string& god_id = *request.god_id;
@@ -480,11 +631,19 @@ CleanseWorldResult cleanse(const World& world, const CleanseWorldRequest& reques
     out.religion = drained.religion;
     out.villains = drained.villains;
     out.corruptions = drained.corruptions;
-    // Nobody died, but the ley field moved: the world rebuilds over its standing sites. The
-    // pantheon is not re-resolved, as the reference does not.
-    const std::vector<SettlementSite> standing = out.settlements.sites;
-    drop_plans(out);
-    rebuild_tail(out, standing, "cleanse", age, /*evaluate=*/true, /*religion=*/false);
+    // The ley field moved, so the world rebuilds over its standing sites; the pantheon is not
+    // re-resolved, as the reference does not. A corruption drained to its last node breaks its
+    // hold on every city it took, and each is destroyed as a city cleanse destroys one; a
+    // partial drain leaves the corruption, and the cities it holds, standing.
+    std::set<std::string> doomed;
+    if (drained.cleansed) {
+        for (const SettlementSite& site : out.settlements.sites) {
+            if (site.corruption && site.corruption->corruption && *site.corruption->corruption == drained.corruption) {
+                doomed.insert(site.uid);
+            }
+        }
+    }
+    op.cities = destroy_and_rebuild(out, doomed, age);
     sync_religion_records(out);
 
     op.kind = "corruption";

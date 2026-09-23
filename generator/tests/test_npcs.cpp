@@ -69,7 +69,8 @@ const NpcPerson* person_by_uid(const NpcRoster& roster, const std::string& uid) 
 // ---------------------------------------------------------------------------
 
 TEST(the_policy_carries_every_roster_verb_row_and_rank) {
-    check::equal(npc_verbs().size(), std::size_t(10), "the canonical verbs");
+    // The reference's ten and the cleansed refugees' two (rebuild, return; 2026-09-23).
+    check::equal(npc_verbs().size(), std::size_t(12), "the canonical verbs");
     check::equal(npc_buildings().size(), std::size_t(88), "staffing rosters");
     check::equal(npc_role_verbs().size(), std::size_t(84), "verb rows");
     check::equal(npc_giver_rank().size(), std::size_t(39), "giver ranks");

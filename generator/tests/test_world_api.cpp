@@ -6,8 +6,10 @@
 #include "check.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <cstdint>
 #include <optional>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -19,6 +21,9 @@
 #include "fwg/magic.hpp"
 #include "fwg/serialize.hpp"
 #include "fwg/world_api.hpp"
+#include "fwg/world_time.hpp"
+#include "fwg/nomads.hpp"
+#include "fwg/heroes.hpp"
 
 using namespace fwg;
 
@@ -279,6 +284,212 @@ TEST(an_age_turns_over_ground_a_hidden_school_owns_and_every_hold_persists) {
     for (const SettlementSite& s : later.settlements.sites) {
         if (s.corruption) check::is_true(hidden_school(s.corruption->school), s.uid + " held by a hidden school");
     }
+}
+
+// --- cleansing what a hidden school holds (ruled 2026-09-23) -------------------------------
+
+namespace {
+
+const SettlementSite* first_held(const World& w) {
+    for (const SettlementSite& s : w.settlements.sites) {
+        if (s.corruption) return &s;
+    }
+    return nullptr;
+}
+
+const Ruin* ruin_with_id(const World& w, const std::string& id) {
+    for (const Ruin& r : w.ruins) {
+        if (r.id == id) return &r;
+    }
+    return nullptr;
+}
+
+const NomadBand* band_with_uid(const World& w, const std::string& uid) {
+    for (const NomadBand& b : w.nomads.groups) {
+        if (b.uid == uid) return &b;
+    }
+    return nullptr;
+}
+
+const HeroQuestHook* hook_with_id(const World& w, const std::string& id) {
+    for (const HeroQuestHook& h : w.heroes.quest_hooks) {
+        if (h.hook_id == id) return &h;
+    }
+    return nullptr;
+}
+
+// One corruption for every test below: each call of corrupted() runs it again.
+const CorruptWorldResult& bitten_once() {
+    static const CorruptWorldResult result = corrupted();
+    return result;
+}
+
+std::size_t band_requests(const World& w) {
+    std::size_t n = 0;
+    for (const HistoryOperation& op : w.history.operations) n += std::holds_alternative<NomadOperation>(op) ? 1 : 0;
+    return n;
+}
+
+std::string cleanse_refusal(const World& w, const CleanseWorldRequest& request) {
+    try {
+        (void)cleanse(w, request);
+    } catch (const CorruptionError& refused) {
+        return refused.field();
+    }
+    return "<accepted>";
+}
+
+// The fixture corruption's first held city, cleansed by name.
+const CleanseWorldResult& cleansed_city() {
+    static const CleanseWorldResult result = [] {
+        CleanseWorldRequest request;
+        request.city_uid = first_held(bitten_once().world)->uid;
+        return cleanse(bitten_once().world, request);
+    }();
+    return result;
+}
+
+}  // namespace
+
+TEST(cleansing_a_corrupted_city_ruins_it_and_its_refugees_become_a_band) {
+    const World& before = bitten_once().world;
+    const SettlementSite* held = first_held(before);
+    check::is_true(held != nullptr, "a held city to cleanse");
+    const SettlementSite city = *held;
+    const CleanseWorldResult& result = cleansed_city();
+    const World& w = result.world;
+    check::equal(result.report.kind, std::string("city"), "a city cleanse");
+    check::is_true(site_with_uid(w, city.uid) == nullptr, "the city no longer stands");
+
+    const Ruin* ruin = ruin_with_id(w, "ruin-" + city.uid);
+    check::is_true(ruin != nullptr, "a ruin where it stood");
+    check::equal(ruin->cause, std::string("cleansed"), "cleansed");
+    check::equal(ruin->evidence.school, city.corruption->school, "of the school that held it");
+    check::equal(ruin->destroyed_age, before.age, "in the age it was cleansed");
+    check::is_true(ruin->new_node_school.empty(), "and it plants no key point");
+
+    check::equal(result.report.cities.size(), std::size_t{1}, "one city destroyed");
+    const CleansedCity& c = result.report.cities.front();
+    check::equal(c.city_uid, city.uid, "the city named");
+    check::equal(c.people, city.population_estimate, "its people counted");
+    check::between(c.escape_share, kCleanseEscapeLow, kCleanseEscapeHigh, "a share drawn in its range");
+    check::equal(c.escaped, std::llround(static_cast<double>(c.people) * c.escape_share), "the people who got out");
+    const NomadBand* band = band_with_uid(w, c.band_uid);
+    check::is_true(band != nullptr, "raised as a band");
+    check::is_true(band->classification == NomadClass::Survivors, "of survivors");
+    check::equal(static_cast<long long>(band->size), c.escaped, "every one of them");
+    check::equal(band->node, ruin->node, "at the ruin");
+    check::equal(band->origin.id, ruin->id, "raised by the ruin");
+
+    // One operation for the call: the cleanse names the band, and no band request is logged.
+    check::equal(band_requests(w), band_requests(before), "no band request logged");
+    check::is_true(std::holds_alternative<CleanseOperation>(w.history.operations.back()), "the cleanse logged last");
+}
+
+TEST(a_cleansed_citys_refugees_offer_to_rebuild_it_or_to_return_to_their_kin) {
+    const World& before = bitten_once().world;
+    const SettlementSite city = *first_held(before);
+    const CleanseWorldResult& result = cleansed_city();
+    const World& w = result.world;
+    const CleansedCity& c = result.report.cities.front();
+    check::is_true(c.hook_ids == std::vector<std::string>{"hook-" + c.band_uid + "-0", "hook-" + c.band_uid + "-1"},
+                   "two hooks, minted as the cast mints them");
+    const HeroQuestHook* rebuild = hook_with_id(w, c.hook_ids[0]);
+    const HeroQuestHook* back = hook_with_id(w, c.hook_ids[1]);
+    check::is_true(rebuild != nullptr && back != nullptr, "both on the cast's hooks");
+    check::equal(rebuild->verb, std::string("rebuild"), "rebuild");
+    check::equal(rebuild->giver_uid, c.band_uid, "given by the refugees");
+    check::equal(rebuild->target, c.ruin_id, "on the ruin");
+    const int expected = city.city_class == CityClass::Capital ? 4 : city.city_class == CityClass::Medium ? 3 : 2;
+    check::equal(rebuild->difficulty, expected, "as hard as the city was large");
+    check::equal(back->verb, std::string("return"), "return");
+    check::equal(back->giver_uid, c.band_uid, "given by the refugees");
+    check::equal(back->target, c.band_uid, "on the band");
+    check::equal(back->difficulty, kReturnDifficulty, "return's difficulty");
+    check::equal(w.heroes.summary.hooks, before.heroes.summary.hooks + 2, "the summary counts them");
+
+    // The board offers both on the next span of time: the band stands, so its giver is present.
+    TimeAdvanceRequest tick;
+    tick.elapsed = TimeElapsed{TimeUnit::Days, 30.0};
+    const World ticked = advance_world_time(w, tick).world;
+    check::is_true(ticked.quests.has_value(), "a board");
+    for (const std::string& id : c.hook_ids) {
+        const auto quest = std::find_if(ticked.quests->quests.begin(), ticked.quests->quests.end(),
+                                        [&](const QuestRecord& q) { return q.quest_id == id; });
+        check::is_true(quest != ticked.quests->quests.end(), id + " offered");
+        check::is_true(quest->state == QuestState::Offered, id + " still open: its giver stands");
+        check::is_true(quest->giver_uid == std::optional<std::string>(c.band_uid), id + " given by the band");
+    }
+}
+
+TEST(a_city_cleanse_refuses_a_city_nothing_holds_and_names_one_target) {
+    const World& plain = finished();
+    CleanseWorldRequest request;
+    request.city_uid = plain.settlements.sites.at(0).uid;
+    check::equal(cleanse_refusal(plain, request), std::string("target.city_uid"), "a city nothing holds");
+    request.city_uid = "surface-city-9-0-nobody";
+    check::equal(cleanse_refusal(plain, request), std::string("target.city_uid"), "a city that is not there");
+    const World& bitten = bitten_once().world;
+    CleanseWorldRequest both;
+    both.city_uid = first_held(bitten)->uid;
+    both.corruption = bitten_once().report.corruption;
+    check::equal(cleanse_refusal(bitten, both), std::string("target"), "two targets at once");
+}
+
+TEST(a_corruption_drained_to_its_last_node_destroys_every_city_it_holds) {
+    const CorruptWorldResult& bitten = bitten_once();
+    std::set<std::string> held;
+    for (const SettlementSite& s : bitten.world.settlements.sites) {
+        if (s.corruption && s.corruption->corruption == std::optional<int>(bitten.report.corruption)) held.insert(s.uid);
+    }
+    check::is_true(!held.empty(), "a corruption that holds cities, or nothing is tested");
+
+    // A partial drain leaves the corruption standing, and the cities it holds.
+    CleanseWorldRequest weak;
+    weak.corruption = bitten.report.corruption;
+    weak.power = 0.01;
+    const CleanseWorldResult partial = cleanse(bitten.world, weak);
+    check::is_true(!partial.report.cleansed, "a partial drain leaves the corruption");
+    check::is_true(partial.report.cities.empty(), "and destroys nothing");
+    for (const std::string& uid : held) {
+        const SettlementSite* site = site_with_uid(partial.world, uid);
+        check::is_true(site != nullptr && site->corruption.has_value(), uid + " still stands, held");
+    }
+
+    // Drained to its last node, it breaks its hold on every city it took: each is destroyed,
+    // and each one's refugees are raised, a refuge within their reach or not.
+    World current = bitten.world;
+    CleanseWorldResult last{current, {}};
+    for (int i = 0; i < 50 && !last.report.cleansed; ++i) {
+        CleanseWorldRequest drain;
+        drain.corruption = bitten.report.corruption;
+        drain.power = 1.0;
+        last = cleanse(current, drain);
+        current = last.world;
+    }
+    check::is_true(last.report.cleansed, "the corruption drained to its last node");
+    std::set<std::string> destroyed;
+    for (const CleansedCity& c : last.report.cities) {
+        destroyed.insert(c.city_uid);
+        check::is_true(site_with_uid(current, c.city_uid) == nullptr, c.city_uid + " no longer stands");
+        const Ruin* ruin = ruin_with_id(current, c.ruin_id);
+        check::is_true(ruin != nullptr && ruin->cause == "cleansed", c.city_uid + " lies in a cleansed ruin");
+        check::is_true(!c.band_uid.empty() && band_with_uid(current, c.band_uid) != nullptr,
+                       c.city_uid + "'s refugees raised: " + c.note);
+        check::equal(c.hook_ids.size(), std::size_t{2}, c.city_uid + "'s quest line");
+    }
+    check::is_true(destroyed == held, "every city it held, and no other");
+}
+
+TEST(a_cleanse_is_a_function_of_its_request) {
+    CleanseWorldRequest request;
+    request.city_uid = first_held(bitten_once().world)->uid;
+    const CleanseWorldResult again = cleanse(bitten_once().world, request);
+    const CleansedCity& a = cleansed_city().report.cities.front();
+    const CleansedCity& b = again.report.cities.front();
+    check::equal(a.escape_share, b.escape_share, "the same share");
+    check::equal(a.escaped, b.escaped, "the same people");
+    check::equal(a.band_uid, b.band_uid, "the same band");
 }
 
 TEST(a_held_city_publishes_its_hold) {

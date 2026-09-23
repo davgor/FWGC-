@@ -3304,8 +3304,10 @@ void lint_hero_catalogue() {
     if (hero_covers_for("default").empty()) {
         throw std::runtime_error("cover_roles.default is the required fallback");
     }
-    if (hero_quest_verbs().size() != 10) {
-        throw std::runtime_error("the quest verb vocabulary is closed at ten words");
+    // The reference's ten, and the two a cleansed city's refugees offer (rebuild, return;
+    // 2026-09-23). The hero pass itself never writes those two.
+    if (hero_quest_verbs().size() != 12) {
+        throw std::runtime_error("the quest verb vocabulary is closed at twelve words");
     }
 }
 

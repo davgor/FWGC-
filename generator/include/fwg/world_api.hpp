@@ -68,12 +68,20 @@ CorruptWorldResult corrupt(const World& world, const CorruptWorldRequest& reques
 
 // --- cleansing ---------------------------------------------------------------
 
+// The share of a cleansed city's people who get out, drawn per city (ruled 2026-09-23).
+inline constexpr double kCleanseEscapeLow = 0.10;
+inline constexpr double kCleanseEscapeHigh = 0.40;
+// The quest line's difficulties: raising the city again is as hard as the city was large
+// (small 2, medium 3, capital 4); leading its people to their kin is 2.
+inline constexpr int kReturnDifficulty = 2;
+
 struct CleanseWorldRequest {
     int api_version = kCorruptionApiVersion;
     // Exactly one of these.
     std::optional<int> corruption;
     std::optional<std::string> god_id;
-    // Share of the structure drained, in (0, 1].
+    std::optional<std::string> city_uid;  // a city a hidden school holds
+    // Share of the structure drained, in (0, 1]. Read by a corruption target only.
     double power = kCleanseDefaultPower;
 };
 
@@ -85,6 +93,16 @@ struct CleanseWorldResult {
 // A corruption target drains its nodes and rebuilds; a god target sends a god that walks by
 // visitation home and rebuilds. A god revealed by corruption is refused by name: it is opposed
 // through its corruption. Throws CorruptionError naming the field.
+//
+// CLEANSING DESTROYS WHAT A HIDDEN SCHOOL HOLDS (ruled 2026-09-23). A city target -- only a
+// city marked held (SettlementSite::corruption) -- is destroyed: a ruin, cause "cleansed", and
+// no key point. So is every city a corruption holds when a cleanse drains that corruption's
+// last node; a partial drain destroys nothing. Of each destroyed city's people, a share drawn
+// per city from the world's seed (kCleanseEscapeLow..High) gets out and is raised as one
+// survivors band at the ruin (raise_refugees), and the band gives a quest line through the
+// cast's hooks: `rebuild` the city from its ruins, or `return` its people to their kin. The
+// board offers both on the next span of time; a band that cannot be raised (no refuge within
+// the survivors' reach) or a world with no cast is named in the city's `note` instead.
 CleanseWorldResult cleanse(const World& world, const CleanseWorldRequest& request);
 
 // --- visitation ----------------------------------------------------------------

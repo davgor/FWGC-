@@ -160,11 +160,34 @@ struct CorruptionOperation {
 // The reference writes this record as {"kind": "cleanse", ..., **report}, and the report
 // carries its own `kind` -- "corruption" or "god" -- which overwrites the first, so the
 // logged kind is the report's and never "cleanse". Reproduced: `kind` here is the report's.
+// A city a cleanse destroyed to break a hidden school's hold on it (ruled 2026-09-23): its
+// ruin, the people it held, the share of them who got out -- drawn per city, 10 to 40 percent
+// -- and the survivors band they became, which gives the city's quest line: rebuild it from
+// its ruins, or return its people to their kin. `band_uid` is empty, and `note` says why,
+// where no band could be raised; `hook_ids` is empty, and `note` says why, where no quest line
+// could form.
+struct CleansedCity {
+    std::string city_uid;
+    std::string name;
+    std::string ruin_id;
+    std::string school;  // the hold the cleanse broke
+    long long people = 0;
+    double escape_share = 0.0;
+    long long escaped = 0;
+    std::string band_uid;
+    std::vector<std::string> hook_ids;  // rebuild, then return
+    std::string note;
+};
+
 struct CleanseOperation {
     int api_version = 1;
-    std::string kind;  // corruption | god
+    std::string kind;  // corruption | god | city
     std::optional<int> target_corruption;
     std::optional<std::string> target_god_id;
+    std::optional<std::string> target_city_uid;
+    // Every city the cleanse destroyed, in site order: the named city, or every city a
+    // corruption held when the cleanse drained its last node.
+    std::vector<CleansedCity> cities;
     double power = 0.0;
     int corruption = -1;
     std::string god_id;

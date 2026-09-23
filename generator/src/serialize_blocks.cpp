@@ -4153,18 +4153,40 @@ void history_operation(JsonWriter& json, const CleanseOperation& op) {
     json.begin_object();
     if (op.target_corruption) integer(json, "corruption", *op.target_corruption);
     if (op.target_god_id) text(json, "god_id", *op.target_god_id);
+    if (op.target_city_uid) text(json, "city_uid", *op.target_city_uid);
     json.end_object();
     real(json, "power", op.power);
     if (op.kind == "god") {
         text(json, "god_id", op.god_id);
         flag(json, "departed", op.departed);
-    } else {
+    } else if (op.kind == "corruption") {
         integer(json, "corruption", op.corruption);
         text(json, "god_id", op.god_id);
         json.key("removed");
         strings(json, op.removed);
         integer(json, "remaining", op.remaining);
         flag(json, "cleansed", op.cleansed);
+    }
+    // This port's own key (2026-09-23), only where the cleanse destroyed a city.
+    if (!op.cities.empty()) {
+        json.key("cities");
+        json.begin_array();
+        for (const CleansedCity& c : op.cities) {
+            json.begin_object();
+            text(json, "city_uid", c.city_uid);
+            text(json, "name", c.name);
+            text(json, "ruin_id", c.ruin_id);
+            text(json, "school", c.school);
+            integer(json, "people", c.people);
+            real(json, "escape_share", c.escape_share);
+            integer(json, "escaped", c.escaped);
+            text_or_null(json, "band_uid", c.band_uid);
+            json.key("hook_ids");
+            strings(json, c.hook_ids);
+            if (!c.note.empty()) text(json, "note", c.note);
+            json.end_object();
+        }
+        json.end_array();
     }
     json.end_object();
 }

@@ -100,4 +100,22 @@ struct NomadOperation {
 // which exists from stage 16.
 World raise_band(const World& world, const RaiseBandRequest& request);
 
+// The survivors of a destroyed city, raised as one band at `node` for a caller that records
+// the event itself (a cleanse): classified survivors, SIZED to the people who got out rather
+// than drawn from the class's range, a world band whose origin id is the ruin, and logged as
+// no operation of its own -- the caller's record names the band. Where the survivors' own gate
+// does not hold at the ruin -- no refuge within their reach, as when a cleanse took every town
+// around it -- the band is raised anyway: the event is the evidence, and the band's basis names
+// the ruin and no refuge. Refused only as raise_band refuses ground: no band block, a node off
+// the grid, or water. The band joins `world` in place and its uid is returned; a refusal leaves
+// `world` as it was.
+struct RefugeeBandRequest {
+    int node = 0;
+    int people = 0;  // at least 1
+    int age = 0;     // the age the band is raised in; its uid is keyed on it
+    std::string ruin_id;   // the band's origin id
+    std::string ruin_uid;  // the fallen city's uid, as a survivors band's basis names it
+};
+std::string raise_refugees(World& world, const RefugeeBandRequest& request);
+
 }  // namespace fwg

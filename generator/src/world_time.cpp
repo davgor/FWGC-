@@ -280,6 +280,7 @@ struct QuestInputs {
     std::vector<QuestGiver> heroes;
     std::vector<QuestGiver> dreads;
     std::vector<QuestGiver> npcs;
+    std::vector<QuestGiver> bands;
     std::vector<std::string> settlement_uids;  // settlements join on uid
     std::vector<std::string> nest_ids;         // nests join on id
 
@@ -290,6 +291,7 @@ struct QuestInputs {
         out.dreads = dreads;
         out.npcs_ok = npcs_ok;
         out.npcs = npcs;
+        out.bands = bands;
         return out;
     }
     QuestWorldView view() const { return QuestWorldView{settlement_uids, nest_ids}; }
@@ -305,6 +307,10 @@ QuestInputs quest_inputs_of(const World& world) {
     for (const Hero& person : world.heroes.people) in.heroes.push_back({person.uid, is_present(person)});
     for (const HeroDread& dread : world.heroes.dreads) in.dreads.push_back({dread.uid, is_present(dread)});
     for (const NpcPerson& person : world.npcs.people) in.npcs.push_back({person.uid, is_present(person)});
+    // A band stands while it is in the block; it has no liveness vocabulary of its own.
+    if (world.has_nomads) {
+        for (const NomadBand& band : world.nomads.groups) in.bands.push_back({band.uid, true});
+    }
     for (const SettlementSite& site : world.settlements.sites) in.settlement_uids.push_back(site.uid);
     for (const NestSite& nest : world.beast_nests.sites) in.nest_ids.push_back(nest.id);
     return in;

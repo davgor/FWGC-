@@ -164,8 +164,10 @@ struct QuestBoard {
 // Four packages answer one liveness question in three vocabularies (heroes and dreads say
 // living/legend, npcs say alive/dead, villains say living/fallen). The translation belongs
 // to whoever owns the person lists, so this carries only the ANSWER -- and villains are
-// absent on purpose: a villain is never a quest giver.
-enum class QuestGiverBlock : int { Heroes = 0, Dreads, Npcs };
+// absent on purpose: a villain is never a quest giver. A band gives the quests its own plight
+// raises -- a cleansed city's refugees asking to be rebuilt or returned (2026-09-23) -- and
+// stands as long as it is in the band block.
+enum class QuestGiverBlock : int { Heroes = 0, Dreads, Npcs, Bands };
 std::string_view to_string(QuestGiverBlock block);
 
 struct QuestGiver {
@@ -176,7 +178,7 @@ struct QuestGiver {
     bool present = true;
 };
 
-// The three lists a giver can come from, IN THIS ORDER. A block whose package failed
+// The four lists a giver can come from, IN THIS ORDER. A block whose package failed
 // carries no people at all: zero present people and no package are different facts, and a
 // quest whose giver was in a failed block closes as `GiverGone` on the next sweep.
 struct QuestCast {
@@ -185,9 +187,11 @@ struct QuestCast {
     std::span<const QuestGiver> dreads;  // heroes.dreads -- the antagonist cast INSIDE heroes
     bool npcs_ok = true;
     std::span<const QuestGiver> npcs;    // npcs.people
+    std::span<const QuestGiver> bands;   // nomads.groups
 };
 
-// uid -> giver, FIRST WRITER WINS across heroes.people, then heroes.dreads, then npcs.people.
+// uid -> giver, FIRST WRITER WINS across heroes.people, then heroes.dreads, then npcs.people,
+// then nomads.groups.
 //
 // A uid claimed by two of those resolves to the first, silently. That is deliberately the
 // opposite policy from the person-state route, which collects every match and refuses a

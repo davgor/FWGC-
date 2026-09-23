@@ -128,11 +128,16 @@ Each is pinned by tests, so a change of mind lands as a deliberate change.
    which has no fall reason; the reference raised a KeyError -- stands, marked held by that
    school, instead of falling. So does a city a corruption farms (blood) or takes (eldritch),
    where the reference's rebuild erased both effects. The mark is `settlements.sites[].corruption`
-   `{school, cause: fallen | farmed | taken, age, corruption}`, what the game does with it is
-   the game's, and every rebuild carries it: corruption persists. **Open:** how "a node
-   overpowers it" ends a hold. Ending one wherever another school dominates the city's ground
-   would free 8 of the 9 cities the seed-42 size-33 test corruption takes at the very next age
-   turn, because their ground was never the hidden school's; so for now nothing ends a hold.
+   `{school, cause: fallen | farmed | taken, age, corruption}`, and every rebuild carries it.
+   **Only a cleanse ends a hold, and cleansing destroys the city**: `cleanse` takes a city
+   target, and a corruption cleansed to its last node destroys every city it holds (a partial
+   drain destroys none). The city becomes a ruin (cause `cleansed`, no key point); a share of
+   its people drawn per city from the world's seed, 10 to 40 percent, gets out as one survivors
+   band at the ruin -- raised even with no refuge in reach, the event being its evidence; and
+   the band gives a quest line on the cast's hooks under two new verbs, `rebuild` (raise the
+   city from its ruins; difficulty 2, 3 or 4 by the city's class) and `return` (lead its people
+   to their kin; 2). Bands are quest givers now, present while they stand. The cleanse record
+   lists each destroyed city with its people, share, band and hooks.
 3. **The world document is `fwg.world` version 2** (2026-09-23), and nothing from the retired
    Python repository is kept here.
 

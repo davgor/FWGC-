@@ -818,7 +818,7 @@ constexpr std::string_view kFeatures[] = {
     "warden:post",
 };
 
-constexpr std::string_view kVerbs[] = {"reclaim", "recover", "defend", "slay", "trade", "tend", "convert", "supply", "cleanse", "investigate"};
+constexpr std::string_view kVerbs[] = {"reclaim", "recover", "defend", "slay", "trade", "tend", "convert", "supply", "cleanse", "investigate", "rebuild", "return"};
 constexpr std::string_view kUnsited[] = {"ley_node_has_no_site", "target_not_found", "target_has_no_node"};
 
 constexpr HeroFameTuning kFame = {1.0, 2.0, 3.0, 1.0, 2.0, 3.0, 0.5, 1.0, 1.0, 0.5, 0.5, 24.0, 8.0};
@@ -950,7 +950,7 @@ double hero_seat_weight(std::string_view seat) {
 }
 
 HeroCatalogueIdentity hero_catalogue_identity() {
-    return {1, 4, 1, 1, 6, 6, "4e73ce5b0f571f99bbd6e6e09612c95ac86fbbb6a6e166708d8feefe50eb858b"};
+    return {1, 4, 1, 1, 6, 6, "666b2d205230c26e34884ad687cdb67d1fc4b09851c7c1ecc39c54f6c3721362"};
 }
 
 const HeroWordTables& hero_word_tables() { return kWords; }

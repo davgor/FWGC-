@@ -259,7 +259,8 @@ TEST(the_catalogue_links_in_intact) {
     lint_hero_catalogue();
     check::equal(hero_archetype_cards().size(), std::size_t{32}, "archetype cards");
     check::equal(hero_feature_vocabulary().size(), std::size_t{82}, "feature vocabulary");
-    check::equal(hero_quest_verbs().size(), std::size_t{10}, "quest verbs");
+    // The reference's ten and the cleansed refugees' two (rebuild, return; 2026-09-23).
+    check::equal(hero_quest_verbs().size(), std::size_t{12}, "quest verbs");
     // Every token a card names must be a real feature. The reference never checked this,
     // so a typo made a card unreachable forever with no error.
     std::set<std::string_view> features(hero_feature_vocabulary().begin(),

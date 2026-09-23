@@ -110,9 +110,21 @@ Checked validate(const World& world, const RaiseBandRequest& request) {
 
 }  // namespace
 
-World raise_band(const World& world, const RaiseBandRequest& request) {
-    const Checked checked = validate(world, request);
-    const auto started = std::chrono::steady_clock::now();
+namespace {
+
+struct Placed {
+    World world;
+    std::string uid;
+    NomadClass classification = NomadClass::Survivors;
+    NomadOrigin origin;
+};
+
+// The band itself: judge the ground, draw or honour the classification, place the band and
+// rebuild what the band set feeds. `size` overrides the class's drawn head count, for a band
+// whose size is a fact of the event that raised it; `fallback` is the basis a wanted class
+// is raised on where its own gate does not hold, for a band the event itself evidences.
+Placed place_band(const World& world, const Checked& checked, std::optional<int> size_override,
+                  const std::optional<NomadBasis>& fallback) {
     const int node = checked.node;
 
     // Everything up to the band itself only READS the world, so it reads the caller's: the
@@ -154,14 +166,20 @@ World raise_band(const World& world, const RaiseBandRequest& request) {
         shares.emplace_back(value, verdict->score * nomad_class_policy(value).weight);
         evidence.push_back(verdict->basis);
     }
-    if (shares.empty()) {
+    const bool wanted_holds =
+        checked.wanted && std::any_of(shares.begin(), shares.end(),
+                                      [&](const auto& share) { return share.first == *checked.wanted; });
+    const bool forced = checked.wanted && !wanted_holds && fallback.has_value();
+    if (shares.empty() && !forced) {
         throw RequestError(refused_by_world("node", node,
                                             "This ground raises nobody: no classification gate holds at node " +
                                                 std::to_string(node) + ". Pick another node."));
     }
 
-    NomadClass chosen = shares.back().first;
-    if (checked.wanted) {
+    NomadClass chosen = forced ? *checked.wanted : shares.back().first;
+    if (forced) {
+        // The event evidences the band; the gate's own draw and refusal do not apply.
+    } else if (checked.wanted) {
         const bool eligible = std::any_of(shares.begin(), shares.end(),
                                           [&](const auto& share) { return share.first == *checked.wanted; });
         if (!eligible) {
@@ -185,7 +203,8 @@ World raise_band(const World& world, const RaiseBandRequest& request) {
 
     const NomadClassPolicy& rule = nomad_class_policy(chosen);
     Rng sizer = Rng::child(seed, "nomad-request-size-" + std::to_string(node), checked.variation);
-    const int size = static_cast<int>(sizer.randint(rule.size_low, rule.size_high));
+    const int size =
+        size_override ? *size_override : static_cast<int>(sizer.randint(rule.size_low, rule.size_high));
 
     World out = world;
 
@@ -196,9 +215,15 @@ World raise_band(const World& world, const RaiseBandRequest& request) {
     std::string uid = stem;
     for (int suffix = 1; existing.count(uid) != 0; ++suffix) uid = stem + "-" + std::to_string(suffix);
 
-    std::size_t which = 0;
-    while (shares[which].first != chosen) ++which;
-    NomadBand band = nomad_make_band(uid, chosen, cell, size, checked.age, evidence[which]);
+    NomadBasis basis;
+    if (forced) {
+        basis = *fallback;
+    } else {
+        std::size_t which = 0;
+        while (shares[which].first != chosen) ++which;
+        basis = evidence[which];
+    }
+    NomadBand band = nomad_make_band(uid, chosen, cell, size, checked.age, basis);
     band.origin.kind = origin_kind_of(checked.origin.kind);
     band.origin.id = checked.origin.id.value_or(std::string());
     band.origin.age = checked.age;
@@ -215,22 +240,55 @@ World raise_band(const World& world, const RaiseBandRequest& request) {
     run_nomad_routes(out, seed);
     run_encounters(out);
     run_nomad_effects(out, seed);
+    dedupe_systems(out.systems);
+    return Placed{std::move(out), uid, chosen, origin};
+}
+
+}  // namespace
+
+World raise_band(const World& world, const RaiseBandRequest& request) {
+    const Checked checked = validate(world, request);
+    const auto started = std::chrono::steady_clock::now();
+    Placed placed = place_band(world, checked, std::nullopt, std::nullopt);
+    World out = std::move(placed.world);
 
     NomadOperation operation;
-    operation.uid = uid;
-    operation.classification = chosen;
-    operation.node = node;
-    operation.origin = origin;
+    operation.uid = placed.uid;
+    operation.classification = placed.classification;
+    operation.node = checked.node;
+    operation.origin = placed.origin;
     operation.requested_classification = checked.wanted;
     operation.variation = checked.variation;
     out.history.operations.push_back(std::move(operation));
 
-    dedupe_systems(out.systems);
     const double elapsed =
         std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - started).count();
     out.timing_ms["nomad_request"] = elapsed;
     out.timing_ms["total"] += elapsed;
     return out;
+}
+
+std::string raise_refugees(World& world, const RefugeeBandRequest& request) {
+    if (!world.has_nomads) {
+        throw RequestError(missing_block("nomads",
+                                         "This world carries no nomads block. Bands are placed at stage 16, so "
+                                         "generate through phase 16 before raising one."));
+    }
+    if (request.node < 0) throw RequestError(out_of_range("node", request.node, 0, std::nullopt, "grid index"));
+    if (request.people < 1) throw RequestError(out_of_range("people", request.people, 1, std::nullopt, ""));
+    Checked checked;
+    checked.node = request.node;
+    checked.origin = NomadBandOrigin{"world", request.ruin_id, request.age};
+    checked.age = request.age;
+    checked.wanted = NomadClass::Survivors;
+    checked.variation = 0;
+    NomadBasis basis;
+    basis.owner = NomadClass::Survivors;
+    basis.ruin_uid = request.ruin_uid;
+    basis.ruin_distance_m = 0.0;
+    Placed placed = place_band(world, checked, request.people, basis);
+    world = std::move(placed.world);
+    return placed.uid;
 }
 
 }  // namespace fwg
