@@ -54,6 +54,9 @@
       <nav class="tabs" role="tablist">
         <button type="button" role="tab" id="tab-map" aria-selected="true" aria-controls="map-view">Map</button>
         <button type="button" role="tab" id="tab-debug" aria-selected="false" aria-controls="debug-view">World debug</button>
+        <button type="button" role="tab" id="tab-races" aria-selected="false" aria-controls="races-view">Races</button>
+        <button type="button" role="tab" id="tab-npcs" aria-selected="false" aria-controls="npcs-view">NPCs</button>
+        <button type="button" role="tab" id="tab-cast" aria-selected="false" aria-controls="cast-view">Cast</button>
       </nav>
 
       <section id="map-view" class="map-view" role="tabpanel" aria-labelledby="tab-map">
@@ -81,6 +84,9 @@
       </section>
 
       <section id="debug-view" class="debug-view" role="tabpanel" aria-labelledby="tab-debug" hidden></section>
+      <section id="races-view" class="debug-view" role="tabpanel" aria-labelledby="tab-races" hidden></section>
+      <section id="npcs-view" class="debug-view" role="tabpanel" aria-labelledby="tab-npcs" hidden></section>
+      <section id="cast-view" class="debug-view" role="tabpanel" aria-labelledby="tab-cast" hidden></section>
     </main>
 
     <aside id="inspector" class="panel inspector" aria-label="Inspector">

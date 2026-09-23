@@ -245,6 +245,30 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 .bars .bar { height: 10px; background: #5fb3c4; border-radius: 2px; min-width: 1px; }
 .bars .bar.alt { background: #c4975f; }
 .bars .value { color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
+
+/* --- report panels: Races, NPCs, Cast ------------------------------------------------- */
+.debug-view > div > .card { margin-top: 16px; }
+.scroll.tall { max-height: 620px; }
+table.data th.sortable { cursor: pointer; user-select: none; white-space: nowrap; }
+table.data th.sortable:hover { color: var(--text); }
+table.data th[aria-sort="ascending"]::after { content: " \25B2"; font-size: 9px; }
+table.data th[aria-sort="descending"]::after { content: " \25BC"; font-size: 9px; }
+table.data tr.dead td, ul.links li.dead { color: var(--faint); }
+.filters { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 6px 0 8px; }
+.filters input[type="search"] { width: 200px; }
+.filters select { max-width: 220px; }
+.pager { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; }
+details.folded { margin-top: 16px; }
+details.folded > summary { cursor: pointer; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
+.cast-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.cast-cards .wide { grid-column: 1 / -1; margin: 10px 0 0; }
+.cast-card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 9px 11px; font-size: 13px; min-width: 0; }
+.cast-card.legend { opacity: .65; }
+.cast-card p { margin: 4px 0; }
+.cast-card .mask { color: #e7caff; }
+.cast-card .line { font-style: italic; }
+.cast-card details { margin-top: 4px; }
+.cast-card summary { cursor: pointer; color: var(--muted); }
 .warnings li { margin: 4px 0; }
 
 /* --- the settlement plan dialog --------------------------------------------------- */

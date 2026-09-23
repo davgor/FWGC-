@@ -1,29 +1,10 @@
 // The world debug panel: what was generated and how -- the summary, the generator's own
 // timings, its warnings, what each block of the document weighs, debug_stats, and the
-// history (ages and, once an API has touched the world, its operations).
+// history (ages and, once an API has touched the world, its operations). Its "Graphs and
+// data" are the Python lab's World debug tables and charts, one for one.
 
 import { bytes, el, num, seconds, titleCase } from './dom.js';
-
-function table(headers, rows, numeric = []) {
-  return el('div', { class: 'scroll' },
-    el('table', { class: 'data' },
-      el('thead', {}, el('tr', {}, headers.map((h, i) => el('th', { class: numeric.includes(i) ? 'num' : null }, h)))),
-      el('tbody', {}, rows.map(row => el('tr', {}, row.map((cell, i) => el('td', { class: numeric.includes(i) ? 'num' : null },
-        cell instanceof Node ? cell : typeof cell === 'number' ? num(cell) : cell ?? '—')))))));
-}
-
-function bars(rows, { format = num, alt = false } = {}) {
-  const max = Math.max(1e-9, ...rows.map(([, v]) => v ?? 0));
-  return el('div', { class: 'bars' }, rows.flatMap(([label, value]) => [
-    el('span', {}, label),
-    el('span', {}, el('div', { class: `bar${alt ? ' alt' : ''}`, style: { width: `${(100 * (value ?? 0)) / max}%` } })),
-    el('span', { class: 'value' }, format(value)),
-  ]));
-}
-
-function card(title, ...children) {
-  return el('div', { class: 'card' }, el('h3', {}, title), children);
-}
+import { bars, card, cell, folded, sortableTable, table } from './panels.js';
 
 /**
  * Render into `container`. `viewerTimings` are the browser-side measurements main.js keeps;
@@ -32,7 +13,12 @@ function card(title, ...children) {
 export async function renderDebug(container, world, viewerTimings, actions, isCurrent = () => true) {
   const s = world.summary;
   container.replaceChildren(el('p', { class: 'note' }, 'Loading debug statistics…'));
-  const [debugStats, history, settlements] = await Promise.all([world.block('debug_stats'), world.block('history'), world.block('settlements')]);
+  // A path a world at an early phase lacks is a refused selection, not a missing panel.
+  const part = (name, path) => world.select(name, { path }).catch(() => null);
+  const [debugStats, history, settlements, economy, colleges, ruins, features, landmarks] = await Promise.all([
+    world.block('debug_stats'), world.block('history'), world.block('settlements'), world.block('world_economy'),
+    part('magic', 'colleges'), world.block('ruins'), part('terrain', 'features'), part('regions', 'landmarks'),
+  ]);
   // Another world, or another render of this one, may have taken the panel meanwhile. The
   // panel is built off the page and put in place in one step, so it is never half of each.
   if (!isCurrent()) return;
@@ -108,23 +94,66 @@ export async function renderDebug(container, world, viewerTimings, actions, isCu
         d.leylines.map(l => [l.id, l.nodes, l.lines, l.distribution?.clusters, l.distribution?.spread, l.distribution?.model]), [1, 2, 3, 4])));
     }
     if (d.biome_coverage?.length) grid.append(card('Natural biome coverage (% of the globe)', bars(d.biome_coverage.map(b => [b.name, b.percent_world]), { format: v => `${num(v, 1)}%` })));
+    const spaced = (d.cities ?? []).filter(c => c.nearest_city_m !== null && c.nearest_city_m !== undefined);
+    if (spaced.length) grid.append(card('Nearest city distance (metres)', bars(spaced.map(c => [c.name, c.nearest_city_m]), { alt: true })));
     root.append(grid);
     if (d.cities?.length) {
       const sites = new Map((settlements?.sites ?? []).map(site => [site.uid, site]));
-      root.append(card(`Cities (${d.cities.length})`,
-        table(['City', 'Civilization', 'Urban pop.', 'Nearest city', 'Workers', 'Beds', 'Houses', 'Apartments', 'Shortfall', 'Wall segments', 'Unplaced', 'Plan'],
-          d.cities.map(c => {
-            const site = sites.get(c.uid);
-            return [
-              site ? el('button', { type: 'button', class: 'link', onclick: () => actions.inspect({ kind: 'city', record: site }) }, c.name) : c.name,
-              c.civilization, c.urban_population_estimate, c.nearest_city_m === null ? '—' : `${num(c.nearest_city_m)} m`,
-              c.stats?.workers, c.stats?.worker_beds, c.stats?.houses, c.stats?.apartments, c.stats?.housing_shortfall,
-              c.stats?.wall_segments, c.stats?.unplaced_total,
-              el('button', { type: 'button', class: 'link', onclick: () => actions.openPlan('city', c.uid, `${c.name} — city plan`) }, 'open'),
-            ];
-          }), [2, 3, 4, 5, 6, 7, 8, 9, 10])));
+      root.append(card(`Cities — housing and constraints (${d.cities.length})`,
+        sortableTable(['City', 'Parent race', 'Civilization', 'Class', 'Urban pop.', 'Nearest city (m)', 'Workers', 'Beds', 'Houses',
+          'Apartments', 'Shortfall', 'Vacant safe cells', 'Frontage candidates', 'Wall segments', 'Unplaced', 'Plan'],
+        d.cities.map(c => {
+          const site = sites.get(c.uid);
+          return [
+            site ? cell(el('button', { type: 'button', class: 'link', onclick: () => actions.inspect({ kind: 'city', record: site }) }, c.name), c.name) : c.name,
+            c.parent_race ?? site?.parent_race_id, c.civilization, site?.city_class, c.urban_population_estimate, c.nearest_city_m,
+            c.stats?.workers, c.stats?.worker_beds, c.stats?.houses, c.stats?.apartments, c.stats?.housing_shortfall,
+            c.placement?.vacant_shape_cells, c.placement?.housing_frontage_candidates, c.stats?.wall_segments, c.stats?.unplaced_total,
+            cell(el('button', { type: 'button', class: 'link', onclick: () => actions.openPlan('city', c.uid, `${c.name} — city plan`) }, 'open'), ''),
+          ];
+        }), { numeric: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], sorted: 4, descending: true }),
+        el('p', { class: 'note' }, 'Vacant cells are not necessarily usable plots: a building needs contiguous safe ground and a clear connection to a street. Houses are tried first; apartments upgrade them only once legal plots run out. Beds are for facility workers, not every resident.')));
     }
+    if (d.founding_events?.length) {
+      root.append(card(`Founding rounds (${d.founding_events.length} events)`,
+        sortableTable(['Year', 'Turn', 'Parent race', 'Outcome', 'Civilization', 'Came from', 'Notes', 'Reach (m)'],
+          d.founding_events.map(e => [
+            e.founding_year ?? null, e.turn, e.parent_race_id, titleCase(e.status), e.population_profile ? titleCase(e.population_profile) : null,
+            e.source_civilization_id ? `${titleCase(e.source_civilization_id)} (node ${e.migration_source_node})` : null,
+            [e.founding_capital ? 'separate parent origin' : null, e.cultural_branch ? 'cultural branch' : null,
+              e.diaspora_reason ? titleCase(e.diaspora_reason) : null, e.diaspora_bonus ? 'parent bonus city' : null].filter(Boolean).join(', ') || null,
+            e.founding_capital ? null : e.radius_m,
+          ]), { numeric: [0, 1, 7], sorted: 1 })));
+    }
+    root.append(folded('Raw diagnostic JSON (debug_stats)', el('pre', { class: 'raw' }, JSON.stringify(d, null, 2))));
   }
+
+  // The Python lab's other measured tables, over the finished world.
+  root.append(el('h2', {}, 'Food, colleges, ruins and landmarks'));
+  const more = el('div', { class: 'debug-grid' });
+  more.append(card(`Food supply (${economy?.sites?.length ?? 0} communities)`,
+    economy?.sites?.length
+      ? sortableTable(['Community', 'Layer', 'Food coverage %', 'Annual shortage', 'Lean months'],
+        economy.sites.map(s => [s.name, s.layer, 100 * s.food_coverage, s.annual_shortage, (s.lean_months ?? []).join(', ') || 'none']),
+        { numeric: [2, 3], sorted: 2 })
+      : el('p', { class: 'note' }, 'No world economy in this world (it is written from stage 12).')));
+  more.append(card(`Colleges (${colleges?.length ?? 0})`,
+    colleges?.length
+      ? sortableTable(['College', 'Civilization', 'Magic density', 'Hazard', 'Access cost (m)'],
+        colleges.map(c => [c.id, c.population_profile, c.density, c.hazard, c.access_cost]), { numeric: [2, 3, 4] })
+      : el('p', { class: 'note' }, 'No college stands in this world.')));
+  more.append(card(`Ruins (${ruins?.length ?? 0})`,
+    ruins?.length
+      ? sortableTable(['Name', 'Civilization', 'Destroyed age', 'Cause', 'Reason'],
+        ruins.map(r => [r.name, r.civilization_id ?? r.population_profile, r.destroyed_age, titleCase(r.cause), r.reason]),
+        { numeric: [2], sorted: 2 })
+      : el('p', { class: 'note' }, 'No city has fallen in this world.')));
+  const marks = [...(features ?? []), ...(landmarks ?? [])];
+  more.append(card(`Landmarks (${marks.length})`,
+    marks.length
+      ? sortableTable(['Kind', 'Label', 'Grid x', 'Grid z'], marks.map(f => [titleCase(f.kind), f.label ?? f.id, f.x, f.z]), { numeric: [2, 3] })
+      : el('p', { class: 'note' }, 'No terrain feature or regional landmark in this world.')));
+  root.append(more);
 
   // history
   root.append(el('h2', {}, 'History'));

@@ -2,9 +2,12 @@
 // overlays that are switched on, and route clicks to the inspector and the plan view.
 
 import { api } from './api.js';
+import { renderCast } from './cast-panel.js';
 import { CityView } from './city-view.js';
 import { ControlsPanel } from './controls.js';
 import { renderDebug } from './debug-panel.js';
+import { renderNpcs } from './npcs-panel.js';
+import { renderRaces } from './races-panel.js';
 import { $, bytes, el, latLon, num, seconds } from './dom.js';
 import { Inspector, searchIndex } from './inspector.js';
 import { cataloguesFor, companionsFor, groupLayers, layerInfo, makeColorizer, reliefShading } from './layers.js';
@@ -23,8 +26,7 @@ const state = {
   loadToken: 0,
   overlays: new Map(), // id -> {def, checkbox, status, enabled, renderer, pending}
   timings: [],
-  debugRendered: null,
-  debugToken: 0,
+  reports: new Map(), // report tab -> {world it was rendered for, render token}
   search: null,
   patchSupported: undefined,
 };
@@ -146,7 +148,7 @@ async function loadWorld(id, { generation = null, requestedAt = null } = {}) {
   state.world = world;
   state.shade = null;
   state.search = null;
-  state.debugRendered = null;
+  state.reports.clear();
   location.hash = `world=${id}`;
   controls.applyRequest(summary.generation?.request);
   if (summary.phases?.titles?.length) controls.setPhaseTitles(summary.phases.titles);
@@ -174,7 +176,7 @@ async function loadWorld(id, { generation = null, requestedAt = null } = {}) {
   const s = summary;
   const genText = generation ? `${generation.cached ? 'cached' : `generated in ${seconds(generation.ms)}`}, ` : '';
   setStatus(`Seed ${s.config?.seed}, size ${s.size}, stage ${s.completed_stage}/16 · ${bytes(s.bytes)} · ${genText}on screen in ${seconds(performance.now() - t0)} · ${s.warnings?.length ?? 0} warnings`);
-  if ($('tab-debug').getAttribute('aria-selected') === 'true') showDebug();
+  if (openTab() !== 'map') showReport(openTab());
   // Readout helpers, fetched quietly once the map is up.
   for (const name of ['natural_biome']) world.layer(name).catch(() => {});
   world.block('terrain').catch(() => {});
@@ -378,45 +380,65 @@ $('find').addEventListener('change', async event => {
 
 // --- tabs, panels, recent worlds -------------------------------------------------------
 
-function selectTab(which) {
-  const debug = which === 'debug';
-  $('tab-map').setAttribute('aria-selected', String(!debug));
-  $('tab-debug').setAttribute('aria-selected', String(debug));
-  $('map-view').hidden = debug;
-  $('debug-view').hidden = !debug;
-  if (debug) showDebug();
-  else map.requestRender();
+// The report tabs. Each is built once per world, the first time it is shown, off the page
+// and put in place in one step; a world loaded meanwhile discards the build.
+const REPORTS = {
+  debug: {
+    view: 'debug-view', label: 'debug panel',
+    render: (container, world, actions, isCurrent) => {
+      const overlayTimes = [...state.overlays.values()].filter(o => o.loadMs !== undefined).map(o => [`Overlay: ${o.def.label}`, o.loadMs]);
+      return renderDebug(container, world, [...state.timings, ...overlayTimes, ['Last map redraw', map.lastDrawMs]], actions, isCurrent);
+    },
+  },
+  races: { view: 'races-view', label: 'race statistics', render: (container, world, actions, isCurrent) => renderRaces(container, world, isCurrent) },
+  npcs: { view: 'npcs-view', label: 'NPC roster', render: (container, world, actions, isCurrent) => renderNpcs(container, world, actions, isCurrent) },
+  cast: { view: 'cast-view', label: 'cast', render: (container, world, actions, isCurrent) => renderCast(container, world, actions, isCurrent) },
+};
+const TABS = ['map', ...Object.keys(REPORTS)];
+
+function openTab() {
+  return TABS.find(tab => $(`tab-${tab}`).getAttribute('aria-selected') === 'true') ?? 'map';
 }
 
-async function showDebug() {
+function selectTab(which) {
+  for (const tab of TABS) {
+    $(`tab-${tab}`).setAttribute('aria-selected', String(tab === which));
+    $(tab === 'map' ? 'map-view' : REPORTS[tab].view).hidden = tab !== which;
+  }
+  if (which === 'map') map.requestRender();
+  else showReport(which);
+}
+
+async function showReport(which) {
+  const report = REPORTS[which];
   const world = state.world;
-  const container = $('debug-view');
+  const container = $(report.view);
   if (!world) {
     container.replaceChildren(el('p', { class: 'note' }, 'Load a world first.'));
     return;
   }
-  if (state.debugRendered === world) return;
-  state.debugRendered = world;
-  const token = ++state.debugToken;
-  const timings = [...state.timings];
-  const overlayTimes = [...state.overlays.values()].filter(o => o.loadMs !== undefined).map(o => [`Overlay: ${o.def.label}`, o.loadMs]);
+  const done = state.reports.get(which);
+  if (done?.world === world) return;
+  const token = (done?.token ?? 0) + 1;
+  state.reports.set(which, { world, token });
+  const isCurrent = () => state.reports.get(which)?.token === token && state.world === world;
+  const actions = {
+    inspect: item => {
+      inspector.show(item);
+      revealInspector();
+    },
+    openPlan: (kind, key, title) => cityView.open(world.plan(kind, key), title),
+  };
   try {
-    await renderDebug(container, world, [...timings, ...overlayTimes, ['Last map redraw', map.lastDrawMs]], {
-      inspect: item => {
-        inspector.show(item);
-        revealInspector();
-      },
-      openPlan: (kind, key, title) => cityView.open(world.plan(kind, key), title),
-    }, () => token === state.debugToken && state.world === world);
+    await report.render(container, world, actions, isCurrent);
   } catch (error) {
-    if (token !== state.debugToken) return;
-    container.replaceChildren(el('p', { class: 'bad' }, `Could not build the debug panel: ${error.message}`));
-    state.debugRendered = null;
+    if (!isCurrent()) return;
+    container.replaceChildren(el('p', { class: 'bad' }, `Could not build the ${report.label}: ${error.message}`));
+    state.reports.delete(which);
   }
 }
 
-$('tab-map').addEventListener('click', () => selectTab('map'));
-$('tab-debug').addEventListener('click', () => selectTab('debug'));
+for (const tab of TABS) $(`tab-${tab}`).addEventListener('click', () => selectTab(tab));
 
 function setPanel(buttonId, className, shown) {
   $('app').classList.toggle(className, !shown);

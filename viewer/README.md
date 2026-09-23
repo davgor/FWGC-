@@ -86,9 +86,28 @@ API request with its time.
 - **World debug.** The summary (stage reached, seed, size, planet, octaves, land, document
   size, generation and indexing time, the viewer's own load times), the systems that ran,
   the generator's `timing_ms`, its warnings, every block's size and counts, `debug_stats`
-  (population, founding, cities, leylines, biome coverage) and the history: ages, and
-  `history.operations` -- which a generated world never has, since only the post-generation
-  APIs write it.
+  and the history: ages, and `history.operations` -- which a generated world never has,
+  since only the post-generation APIs write it. The `debug_stats` tables and charts are the
+  Python lab's "Graphs and data", one for one: urban population by civilization, parent
+  races, the city count through founding and the ages, founding outcomes and diaspora,
+  leylines, biome coverage, nearest-city distances, every city's housing and constraints
+  (parent race, class, workers, beds, houses, apartments, shortfall, vacant safe cells,
+  frontage candidates), the founding rounds, and the raw JSON; then food supply, colleges,
+  ruins and landmarks.
+- **Races.** Every civilization and every parent race, counted across the document: cities,
+  capitals, population (urban and rural), placed workers and beds, hamlets, road and
+  frontier forts, cities lost, wars fought, NPCs (dead, important) and the cast (living,
+  legends), with charts of urban population, cities and NPCs by civilization and each parent
+  race's founding participation. The tables sort by any column.
+- **NPCs.** The roster as the Python lab showed it -- its summary, what it reported about
+  itself, the posts by site and each site's important people with the quest verbs their
+  posts offer -- and every individual NPC in one table: filter by name or post, site,
+  civilization, post, alive or dead, important, in the cast; sort by any column; 100 a page.
+  A site or a cast member opens in the inspector.
+- **Cast.** Every hero, legend and dread in a sortable table (role, archetype, alignment
+  and its law and good, tier, fame, civilization, race, school, seat, situation, quest
+  hooks), then the Python lab's cards: who and where each is, what they are doing, their
+  log and bonds, their persona and -- on request -- the truth behind their faces and hooks.
 
 The address bar keeps the world (`#world=<id>`), so a reload or a shared link reopens it;
 the World menu lists every world in the cache.
@@ -194,3 +213,5 @@ turned away. Exits non-zero on any failure.
 | `public/js/inspector.js` | records and the joins between them |
 | `public/js/city-view.js`, `city-plan.js`, `city-3d.js` | the plan dialog, plan semantics, the WebGL view |
 | `public/js/controls.js`, `debug-panel.js`, `api.js`, `dom.js` | the control panel, the debug panel, the API client, helpers |
+| `public/js/races-panel.js`, `npcs-panel.js`, `cast-panel.js` | the Races, NPCs and Cast tabs |
+| `public/js/panels.js` | what the report tabs share: cards, bar charts, tables that sort |
