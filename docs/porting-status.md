@@ -2,170 +2,114 @@
 
 The generator is a ladder of sixteen stages. Each stage reads the world the previous ones
 built and writes new blocks into it. A world reports the stage it actually reached in
-`completed_stage`, and a request above that adds a warning saying so.
+`completed_stage`, and `systems` lists what actually ran.
 
-**Reached: stage 11 of 16, contiguously and WIRED.** `generate()` at phase 11 produces a
-world with terrain, water, climate, magic, settlements and roads in it.
+**Reached: stage 16 of 16, contiguously and wired.** `generate()` at phase 16 produces a
+world with terrain, water, climate, magic, cities and roads, their hinterland, nests,
+threats and faiths, two turned ages with their wars, ruins and villains, and every stage-16
+system: plans, the world scene, bands and herds, the cast, the story web, the rosters and
+the key locations.
 
 Target is **1:1 functional parity** -- every system the Python generator has. Numeric
-output is deliberately not matched; see [determinism.md](determinism.md).
+output is deliberately not matched (a clean rewrite, new worlds); see
+[determinism.md](determinism.md).
 
-A note on what "done" means in the table below, because the distinction cost a day.
-**Wired** means `generate()` calls it and the world document carries the result. **Ported**
-means the code exists, is tested, and nothing calls it yet. Stage 10 sat in the second
-state while reporting itself in the first: `completed_stage` said 10 and the world had no
-cities. Anything marked ported is not in a world until it is wired.
+**Wired** means `generate()` or a World-level API calls it and the world document carries
+the result. **Ported** means the code exists and is tested but nothing calls it yet.
+
+## The ladder
 
 | # | Stage | Reference modules | State |
 |---|---|---|---|
-| 1 | Plate layout | `terrain_tectonics` | **wired** |
-| 2 | Hypsometric surface | `terrain_tectonics` | **wired** |
+| 1-5 | Plates, relief, surface detail, erosion, land mask and connected water | `terrain_tectonics`, `terrain_globe`, `terrain_erosion`, `terrain_area`, `terrain_water` | **wired** |
 | 2 | Ocean archipelagos | `terrain_ecology.shape_islands` | **wired** |
-| 3 | Surface detail | `terrain_tectonics`, `terrain_globe` | **wired** |
-| 4 | Erosion | `terrain_erosion` | **wired** |
-| 5 | World scale, land mask, area | `terrain_area` | **wired** |
-| 5 | Water: connected ocean, lake spill, receiver graph, rivers | `terrain_water` | **wired** |
-| 6 | Tectonic transition: a second epoch | `terrain_history.tectonic_transition` | **wired** |
-| 7 | Relic carving: abandoned waterways | `terrain_history.carve_relics` | **wired** |
-| 8 | Climate: wind, rainfall, runoff, wetness | `terrain_climate` | **wired** |
-| 8 | Terrain labels: temperature, moisture, biome, landform, features | `terrain_biomes` | **wired** |
-| 9 | Leyline networks: eight schools, fields, dominance | `terrain_leyline_history`, `terrain_magic` | **wired** |
-| 9 | Astrology: the moon, its tide and the almanac | `terrain_astrology` | **wired** |
-| 9 | Ecology: habitats, cold relabel, islands, seasons, regions | `terrain_ecology` | **wired** |
-| 9 | Biome variants: the magical state of the ground | `terrain_history.add_biome_variants` | **wired** |
-| 9 | Continuous height field and tile export | `terrain_detail` | **wired** |
-| — | Civilization registry: profiles, habitats, eligibility | `civilization_registry`, `terrain_profiles`, `terrain_civilizations` | **wired** |
-| — | Routing and capacity substrate | `terrain_settlements` (searches), `terrain_humans.allocate_access` | **wired** |
-| 10 | Settlement scoring, habitation, founding, ceiling, population, classification | `terrain_settlements`, `terrain_humans`, `founding` | **wired** |
-| 11 | Roads: the spanning forest between cities | `terrain_settlements` (road pass) | **wired** |
-| — | Heritage: naming, genomes, phonology | `Sim/heritage` | ported, not wired |
-| — | City and hamlet plans, shapes, fortifications | `city_planner`, `hamlet_planner`, `city_shapes`, `city_fortifications` | ported, not wired |
-| 13 | Beast nests | `terrain_nests` | ported, not wired |
-| 13 | Religion: gods, cosmologies, faiths | `terrain_religion` | ported, not wired |
-| 12 | Populated regions: hamlets, fortresses, colleges, harbours | `terrain_humans`, `terrain_society` | in flight |
-| 13 | Beast movement and encounters | `terrain_beast_movement`, `terrain_encounters` | in flight |
-| 16 | Nomads | `terrain_nomads`, `terrain_nomad_routes`, `terrain_nomad_effects` | in flight |
-| 16 | Villains and corruption | `terrain_villains`, `terrain_corruption` | in flight |
-| 16 | Heroes and the story web | `hero_generator`, `story_web` | in flight |
-| 16 | NPCs and key locations | `npc_roster`, `key_locations` | in flight |
-| 14 | Age transition | `terrain_history.age_transition` | todo |
-| 15 | Age transition (final) | `terrain_history.age_transition` | todo |
-| 16 | Time, quests, the world clock | `terrain_time`, `terrain_time_schedule`, `terrain_quest_actions` | todo |
-| 16 | Wars and visitation | `terrain_wars`, `terrain_visitation` | todo |
-| — | Castles | `castle_planner`, `castle_geometry` | todo |
+| 6-7 | Tectonic transition, relic carving | `terrain_history` | **wired** |
+| 8 | Climate, terrain labels | `terrain_climate`, `terrain_biomes` | **wired** |
+| 9 | Leylines (all twelve schools, hidden-school terms included), astrology, ecology, biome variants, height field | `terrain_leyline_history`, `terrain_magic`, `terrain_astrology`, `terrain_ecology`, `terrain_detail` | **wired** |
+| 10 | Founding, population, classification, heritage names | `terrain_settlements`, `founding`, `heritage` | **wired** |
+| 11 | Roads | `terrain_settlements` | **wired** |
+| 12 | Hinterland, colleges, seasonal food, society (harbours, transport, economy, witch huts) | `terrain_humans`, `terrain_magic`, `terrain_seasons`, `terrain_society` | **wired** |
+| 13 | Nests, threat assessment, religion | `terrain_nests`, `terrain_history`, `terrain_religion` | **wired** |
+| 14-15 | Age transitions: villains, wars, fates, ruins, ley drift, departures, refugees, rebuild, promotion, works | `terrain_history`, `terrain_villains`, `terrain_wars`, `terrain_ruins`, `terrain_visitation` | **wired** |
+| 16 | City, hamlet and castle plans; world scene; nomads, routes, herds, encounters, nomad effects; heroes, story web, NPCs, key locations and their plans | `city_planner`, `hamlet_planner`, `castle_planner`, `world_scene`, `terrain_nomad*`, `terrain_beast_movement`, `terrain_encounters`, `hero_generator`, `story_web`, `npc_roster`, `key_locations` | **wired** |
 
-## What the data capture covers
+## The APIs a game calls after generation
 
-All 39 files under `data/` are extracted from the reference and verified against it,
-whether or not the stage that reads them is ported. The Python tree is being abandoned, so
-unextracted authored data would be unrecoverable. That includes five sibling packages
-outside `icarus_sim` -- heritage, heroes, key locations, NPCs, the story web -- which the
-generator imports at generation time and which an audit scoped to `icarus_sim` misses
-entirely.
+Each takes the world by const reference and returns a new one; each appends to
+`history.operations`, one log of every operation since genesis.
+
+| API | Reference | State |
+|---|---|---|
+| `advance_ages` -- more ages, after player ley edits | `terrain_history.advance_age_request` | **wired** |
+| `corrupt`, `cleanse`, `summon`, `depart` | `terrain_corruption`, `terrain_visitation` request functions | **wired** |
+| `generate_patch` -- a local metre patch with micro relief | `terrain_patch` | **wired** |
+| Time and quests on a World; the liveness predicate | `terrain_time`, `terrain_quest_api`, `terrain_liveness` | in flight (pure time and quest passes ported) |
+| Found a player settlement; raise a band | `terrain_settlement_api`, `terrain_nomad_api` | in flight |
+| Read/select queries; person state | `terrain_read_select`, `terrain_read`, `terrain_person_state`, `terrain_person_api` | todo, after liveness lands |
+| Product package: asset list, capabilities, controls, coordinates, taxonomy, world handles, counter kernel, hero guild, CLI commands | `fantasy_world_generator` | in flight |
+
+## The world document
+
+`write_world_json` writes every stage's blocks under the reference's keys with the
+reference's field names, checked path by path against a generated reference world.
+In flight: `world_scene`, `population_budget` (and the budget fields the C++ struct lacks),
+`civilizations`, `peoples`, `population`, `population_profiles`, `phases`, `recipe`,
+`debug_stats`, and opt-in `build_stages`. Per-response keys the reference's JSON APIs add
+(`corruption`, `cleanse`, `*_api_version`) are returned as typed results instead.
+
+## Open rulings
+
+Both are pinned by tests, so a ruling lands as a deliberate change.
+
+1. **A hidden school owning a city's ground.** After a corruption, a hidden school can be
+   the dominant one under a city. The age lottery gives a city its dominant school's fall
+   reason, and only the eight known schools have one: the reference raises a KeyError at
+   the next age turn; the port refuses by name
+   (`an_age_cannot_yet_turn_over_ground_a_hidden_school_owns`). Author four fall reasons, or
+   keep hidden schools out of the lottery.
+2. **What a corruption does to survivors.** Blood's farmed population and eldritch's
+   `taken_by` mark are wiped by the rebuild the corruption owes, as in the reference, and
+   survive only in the corruption record's `touched` list. Keep, or carry them through.
+
+Observed and not changed: a school god's aspect is Wild when its network's mean node
+intensity times (1 + instability) exceeds 1.2, and generated intensities average about 2,
+so school gods are nearly always Wild -- in the reference as well.
 
 ## Known scale defects inherited from the reference
 
 The reference was authored for a world 11.15 km around; the shipped presets are 200 to
-600 km. Three distances scale with the planet and every other authored metre does not.
-Several whole systems consequently do not exist at any shipped width -- the entire air
-network never produces a route, irrigation never fires, every hamlet's catchment is the
-cell it stands on -- and nothing in the generator says so.
-
-The full enumeration, with measurements, is in [scale-defects.md](scale-defects.md).
-Nothing is fixed: each one changes every world it touches, so the choice is the owner's.
-What the port does is pin them with tests, so a fix cannot land silently.
+600 km. Distances that scale with the planet are fine; many authored metres do not, and
+several whole systems consequently barely exist at shipped widths (air routes, irrigation,
+hamlet catchment, a lair's reach -- which is why nests almost never destroy a city). The
+full enumeration, with measurements, is in [scale-defects.md](scale-defects.md). Nothing is
+fixed: each changes every world it touches, so the choice is the owner's. The port pins them
+with tests so a fix cannot land silently.
 
 ## Deliberate departures from the reference
 
-Recorded here rather than discovered later.
+- **Stable keys where the reference drew on ordinals.** A castle's kit and a hamlet's streets
+  are drawn from the settlement's stable uid ("<kind>-node-<n>"), not its list ordinal, which
+  renumbers at every age turn.
+- **One local sampler.** The city, hamlet and castle planners and the world scene share one
+  tangent frame and river source; the reference's copies had drifted (the city read the water
+  block's rivers where the others read climate's).
+- **An age turn sends home only a god walking by visitation.** The reference sent every
+  walking god home, and a god revealed by corruption has no record to send home with, so the
+  first age turn after any corruption raised.
+- **One ley network-edit check** (`plant_key_point`) for ruins' key points, avatars,
+  corruptions and player edits.
+- **Numbers, not timings, in the document.** Timings are off unless asked for; two runs of one
+  seed are byte-identical.
+- **Stage numbering.** Stages 1-5 are the tectonic kernel alone; the reference's `generate_base`
+  bundles later passes into them. The ladders agree on what each stage means.
 
-**The reference's stage numbering bundles more than this one's.** In the reference,
-`generate_base` is called for stages 1–5 and internally runs the *entire* downstream chain
-— water, climate, settlements, humans, society, nests — through `apply_world_scale`, then
-the stage loop discards some of it. Here, stages 1–5 are the tectonic kernel and nothing
-else. The two numbering schemes agree on what stages 1–5 *mean* and disagree on what a
-stage-5 world *contains*. Once stages 6–16 land, the ladders converge.
+See [inherited-findings.md](inherited-findings.md) for the reference defects reproduced and
+pinned, and [verification.md](verification.md) for how parity was checked.
 
-**Ocean archipelagos live in `ecology.cpp` but run from the tectonic stage.** The
-reference calls `shape_islands` from inside `generate_tectonics` at phase >= 2, and that
-ordering is load-bearing: islands must be raised BEFORE surface noise, erosion and
-drainage so they are eroded and drained like any other land rather than pasted onto a
-finished world. The code sits with the rest of ecology; only the call site is early.
+## Data
 
-**Timings are not in the document.** See [determinism.md](determinism.md) §4.
-
-**`x ** 3` is `x*x*x`.** The reference compiles that expression to a libm `pow()` call whose
-last bit is a property of the C runtime. See [determinism.md](determinism.md) §1.
-
-## How much written spec survives for the unported stages
-
-The Python repository carried a conformance record — a written acceptance spec — for 26 of
-its ~140 modules. Measured across the 19 modules behind stages 6–16:
-
-| Has a record | Source is the only spec |
-|---|---|
-| `terrain_settlements` (settlement-records) | `terrain_history` |
-| `city_planner` (settlement-records) | `terrain_climate` |
-| `hamlet_planner` (settlement-records) | `terrain_biomes` |
-| `castle_planner` (settlement-records) | `terrain_ecology` |
-| `terrain_nests` (creature-placement) | `terrain_detail` |
-| `terrain_nomads` (nomads) | `terrain_leyline_history` |
-| `terrain_encounters` (encounter-index) | `terrain_astrology` |
-| `terrain_time` (time-advance) | `terrain_religion` |
-| | `terrain_beast_movement` |
-| | `terrain_water` |
-| | `terrain_society` |
-| | *(and the rest of the 106 uncovered Sim modules)* |
-
-**Seven of nineteen are specified. Twelve are not** — including the whole of stage 8's
-climate → biome → ecology chain and stage 9's leylines and astrology.
-
-This decides something about the order of work. For the twelve, **the Python source is the
-specification**, and it stops being readable the day that repository is deleted. Either
-those stages get ported while it still exists, or the modules get extracted and archived
-first. Nothing else in this repository will tell you what `terrain_climate` did.
-
-The eight surviving records total ~3,350 lines under `docs/conformance/` in that tree and
-are not copied here. Neither are `Contracts/` — the schemas, the block registry and the
-catalogues — which are not documentation but **data stages 8–16 need at runtime**.
-
-## The rest of the pipeline is specified
-
-[docs/port-specs/](port-specs/) holds an implementable specification for every remaining
-group — twenty-two of them, extracted from the Python before it was retired and audited
-against its source by a second reader. That was the urgent work: twelve of the nineteen
-modules behind stages 6–16 had no written specification at all, so the source *was* the
-spec and it stops being readable the day that tree goes.
-
-The specifications put the remaining implementation at roughly **50,000 lines of C++**,
-excluding tests. The audits found 46 blocking gaps in the first drafts, all recorded with
-their missing content in each file's addenda.
-
-## What each remaining stage will need before it can be written
-
-- **Content data now has a pipeline.** `data/*.json` is the source of truth;
-  `tools/embed_content.py` validates it and generates typed C++ tables into
-  `src/generated/`, which are checked in so the build needs no Python. Run it with
-  `--check` before committing a data change. `data/biomes.json` is the first;
-  `civilizations.json`, `buildings.json` and the nest profiles follow the same route.
-- **The civilization registry has landed.** Thirteen profiles — twelve peoples plus one
-  aggregate — with thirty-two traits each, four biome opinion maps, habitat predicates and
-  allocation-group eligibility. Verified against the Python registry exactly: zero numeric
-  disagreement across every trait, and 1,512 habitat eligibility probes agreeing.
-  `fwg registry` dumps it, which is how that comparison was made.
-- **Stage 16's planners still need the building catalogue** — structure blocks, staffing
-  and the city/hamlet plan libraries. That half of the registry is deliberately not ported
-  yet; it is consumed only by the planners and belongs with them.
-- **Stage 16** is by far the largest — nine subsystems, and in the reference roughly ten
-  thousand lines. It should be sliced, not attempted whole.
-- **Hidden schools and `magic_risk_*` are deliberately absent.** The four hidden magic
-schools are in the taxonomy and their fields are published, but generation can never raise
-one — their occurrence is locked to zero, and only the corruption API places a node in one.
-The mechanics that run *once a hidden network has a node* (rot spreading over the node
-graph, void biting into every other school, blood and eldritch feeding on cities and nests)
-are therefore unreachable at generation and are not ported; they belong with the corruption
-API. Likewise `magic_risk_<people>`, which needs the civilization registry.
-
-**Stages 14–15** need the age model. An age is 5000 years; an age turn renumbers most ids
-  in the world, so anything that keys on a settlement or plot id across an age boundary is
-  wrong. Key on the terrain node.
+`data/*.json` is the source of truth for authored content; `tools/embed_content.py` validates
+it and generates typed tables into `src/generated/`, checked in so the build needs no Python.
+Run it with `--check` before committing a data change. The Python tree is being abandoned, so
+anything not extracted is lost: extraction happens with the port of each module, including
+the five sibling packages outside `icarus_sim`.
