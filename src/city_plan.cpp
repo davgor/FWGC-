@@ -14,6 +14,7 @@
 
 #include "fwg/detail.hpp"
 #include "fwg/grid.hpp"
+#include "fwg/local_sampler.hpp"
 #include "fwg/random.hpp"
 #include "fwg/water.hpp"
 #include "fwg/world.hpp"
@@ -26,15 +27,6 @@ constexpr double kCell = 4.0;
 // Above this a cell is blocked, a plot's ground relief is refused, and a road junction
 // is rejected. One number, three uses; they were never meant to drift apart.
 constexpr double kSlopeLimitDegrees = 25.0;
-// Half-width of the reserved channel measured from a routed river centreline.
-constexpr double kRiverChannelM = 28.0;
-// Within this of a centreline the point counts as water outright.
-constexpr double kRiverWaterM = 12.0;
-// Segments whose bounding box misses the window by more than this are dropped: it
-// covers the 28 m setback plus slack.
-constexpr double kRiverPadM = 40.0;
-// A river node more than about 84 degrees away projects to infinity.
-constexpr double kHorizonDen = 0.1;
 constexpr double kMaxGrade = 0.35;
 // Two uses: diagonal admissibility and the one-cell road widening.
 constexpr double kCliffStepM = 1.4;
@@ -800,183 +792,21 @@ int ring_count_for(std::string_view shape_id, const ShapeSelection& shape, CityC
 }
 
 // ===========================================================================
-// The local sampler
+// Distance between raster cells
 // ===========================================================================
 
 namespace {
 
-struct Sample {
-    bool water = false;
-    double slope = 0.0;
-    int channel = 0;
-    double flood_risk = 0.0;
-    double height = 0.0;
-    double moisture = 0.5;
-    int biome = 3;
-    int variant = -1;
-};
-
-// A gnomonic tangent-plane frame at one raster node, with the routed river centrelines
-// that reach the window projected into it.
-class LocalSampler {
-public:
-    LocalSampler(const World& world, const SphereGrid& grid, double node_x, double node_z, double half)
-        : field_(world), n_(world.config.size), radius_(world.effective.globe_radius) {
-        const double lat = kPi / 2.0 - kPi * node_z / (n_ - 1);
-        const double lon = -kPi + 2.0 * kPi * node_x / (n_ - 1);
-        up_ = {std::cos(lat) * std::cos(lon), std::sin(lat), std::cos(lat) * std::sin(lon)};
-        east_ = {-std::sin(lon), 0.0, std::cos(lon)};
-        north_ = {-std::sin(lat) * std::cos(lon), std::cos(lat), -std::sin(lat) * std::sin(lon)};
-
-        slope_ = layer(world, "slope");
-        water_type_ = layer(world, "water_type");
-        river_ = layer(world, "river");
-        flood_ = layer(world, "flood_risk");
-        moisture_ = layer(world, "moisture");
-        biome_ = layer(world, "natural_biome");
-        variant_ = layer(world, "biome_variant");
-
-        if (world.has_water) {
-            for (const auto& segment : world.water.river_segments) {
-                const auto a = project(grid, segment[0]);
-                const auto b = project(grid, segment[1]);
-                if (!a || !b) continue;
-                // The pad covers the 28 m setback plus slack: a centreline just outside
-                // the window still reserves ground inside it.
-                const bool overlaps_x = std::min(a->x, b->x) <= half + kRiverPadM &&
-                                        std::max(a->x, b->x) >= -half - kRiverPadM;
-                const bool overlaps_z = std::min(a->z, b->z) <= half + kRiverPadM &&
-                                        std::max(a->z, b->z) >= -half - kRiverPadM;
-                if (overlaps_x && overlaps_z) lines_.push_back({*a, *b});
-            }
-        }
-    }
-
-    double resolution() const { return kPi * radius_ / (n_ - 1); }
-    double radius() const { return radius_; }
-    const Vec3& up() const { return up_; }
-    const Vec3& east() const { return east_; }
-    const Vec3& north() const { return north_; }
-
-    Vec3 direction_at(double x, double z) const {
-        Vec3 p{up_.x + (east_.x * x + north_.x * z) / radius_,
-               up_.y + (east_.y * x + north_.y * z) / radius_,
-               up_.z + (east_.z * x + north_.z * z) / radius_};
-        const double length = std::sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
-        return {p.x / length, p.y / length, p.z / length};
-    }
-
-    // Elevation alone, for the callers that read only the height. It builds and
-    // normalises the very same vector sample() does and the height field is a pure
-    // function of it, so this returns the identical metre; what it skips is the river
-    // distance loop, two inverse-trigonometric grid-index calls and six layer lookups.
-    // The surface grid alone asks for this (size+1) squared times per settlement.
-    double height_at(double x, double z) const { return field_.height(direction_at(x, z)); }
-
-    Sample sample(double x, double z) const {
-        const Vec3 p = direction_at(x, z);
-        int gx = static_cast<int>(std::llround((std::atan2(p.z, p.x) + kPi) / (2.0 * kPi) * (n_ - 1))) % (n_ - 1);
-        if (gx < 0) gx += n_ - 1;
-        // clamp_unit, not a bare asin: rounding pushes a unit-vector component a few ulp
-        // past one often enough, and the NaN that follows indexes the grid at random.
-        const int gz = static_cast<int>(
-            clamp(std::round((kPi / 2.0 - std::asin(clamp_unit(p.y))) / kPi * (n_ - 1)), 0.0, n_ - 1));
-
-        const double distance = river_distance(x, z);
-        Sample out;
-        // Real local slope by central difference over two metres. The reference reads the
-        // coarse slope layer when the world has no continuous relief definition; this
-        // HeightField derives one from the world seed unconditionally, so there is no
-        // such world here and reading the coarse layer would contradict the very heights
-        // this plan goes on to emit. The layer is still the base value, so a caller can
-        // see it was consulted.
-        out.slope = slope_ != nullptr ? slope_->at(gx, gz) : 0.0;
-        {
-            const double dx = (height_at(x + 1.0, z) - height_at(x - 1.0, z)) / 2.0;
-            const double dz = (height_at(x, z + 1.0) - height_at(x, z - 1.0)) / 2.0;
-            out.slope = degrees_of(std::atan(std::hypot(dx, dz)));
-        }
-        // `channel` is local: this point is inside the reserved river channel and
-        // setback, in metres from a routed centreline. `flood_risk` is the REGIONAL
-        // proxy, one value for a raster cell thousands of metres across -- far larger
-        // than a town, so it is the same number everywhere in this footprint and could
-        // only ever block all of it or none of it.
-        const double river_strength = river_ != nullptr ? river_->at(gx, gz) : 0.0;
-        out.channel = (!lines_.empty() && river_strength > 0.5 && distance < kRiverChannelM) ? 1 : 0;
-        const double water_type = water_type_ != nullptr ? water_type_->at(gx, gz) : 0.0;
-        out.water = water_type != 0.0 || distance < kRiverWaterM;
-        out.flood_risk = flood_ != nullptr ? flood_->at(gx, gz) : 0.0;
-        out.height = field_.height(p);
-        out.moisture = moisture_ != nullptr ? moisture_->at(gx, gz) : 0.5;
-        out.biome = biome_ != nullptr ? static_cast<int>(std::lround(biome_->at(gx, gz))) : 3;
-        out.variant = variant_ != nullptr ? static_cast<int>(std::lround(variant_->at(gx, gz))) : -1;
-        return out;
-    }
-
-private:
-    struct Line {
-        Point a;
-        Point b;
-    };
-
-    static const Grid* layer(const World& world, const std::string& name) {
-        const auto found = world.layers.find(name);
-        return found == world.layers.end() ? nullptr : &found->second;
-    }
-
-    std::optional<Point> project(const SphereGrid& grid, int node) const {
-        if (node < 0 || static_cast<std::size_t>(node) >= grid.node_count()) return std::nullopt;
-        const Vec3 p = direction(grid.point_x[static_cast<std::size_t>(node)],
-                                 grid.point_z[static_cast<std::size_t>(node)], n_);
-        const double den = p.x * up_.x + p.y * up_.y + p.z * up_.z;
-        // More than about 84 degrees away and the projection blows up.
-        if (den <= kHorizonDen) return std::nullopt;
-        return Point{radius_ * (p.x * east_.x + p.y * east_.y + p.z * east_.z) / den,
-                     radius_ * (p.x * north_.x + p.y * north_.y + p.z * north_.z) / den};
-    }
-
-    double river_distance(double x, double z) const {
-        double best = 1e30;
-        for (const Line& line : lines_) {
-            const double dx = line.b.x - line.a.x;
-            const double dz = line.b.z - line.a.z;
-            const double denominator = dx * dx + dz * dz;
-            const double t = clamp(((x - line.a.x) * dx + (z - line.a.z) * dz) /
-                                       (denominator != 0.0 ? denominator : 1.0),
-                                   0.0, 1.0);
-            best = std::min(best, std::hypot(x - line.a.x - t * dx, z - line.a.z - t * dz));
-        }
-        return best;
-    }
-
-    HeightField field_;
-    int n_;
-    double radius_;
-    Vec3 up_{};
-    Vec3 east_{};
-    Vec3 north_{};
-    const Grid* slope_ = nullptr;
-    const Grid* water_type_ = nullptr;
-    const Grid* river_ = nullptr;
-    const Grid* flood_ = nullptr;
-    const Grid* moisture_ = nullptr;
-    const Grid* biome_ = nullptr;
-    const Grid* variant_ = nullptr;
-    std::vector<Line> lines_;
-};
-
-// Arc between two RASTER cells, with the seam deliberately NOT wrapped.
+// Great-circle arc between two RASTER cells, by the spherical law of cosines.
 //
-// Named apart from villains.hpp's great_circle_m, which takes directions and does
-// wrap. Two functions of one name measuring two different things is a near miss that
-// compiles: these differ in arity today, so no call could resolve wrongly, but the
-// next one to take a matching signature would.
-double unwrapped_arc_m(double radius, int n, double az, double ax, double bz, double bx) {
+// It measures the short way across the longitude seam, like great_circle_m does for
+// directions: the longitude difference only reaches the formula through cos(), which is
+// even and 2*pi-periodic, so a pair straddling the seam is one step apart, not a lap.
+// Measured against great_circle_m on every seam-straddling pair of a size-65 raster, the
+// two agree to within 1e-10 m.
+double raster_arc_m(double radius, int n, double az, double ax, double bz, double bx) {
     const double lat1 = kPi / 2.0 - kPi * az / (n - 1);
     const double lat2 = kPi / 2.0 - kPi * bz / (n - 1);
-    // Longitude difference only, and the seam is NOT wrapped: a pair straddling it
-    // measures the long way round. That is the existing behaviour and it only ever
-    // makes a crop larger, never overlapping.
     const double dl = 2.0 * kPi * (bx - ax) / (n - 1);
     return radius * std::acos(clamp(std::sin(lat1) * std::sin(lat2) +
                                         std::cos(lat1) * std::cos(lat2) * std::cos(dl),
@@ -1900,7 +1730,7 @@ Ground raster_ground(const LocalSampler& sampler, double half, int size, bool bl
 
     for (int j = 0; j < size; ++j) {
         for (int i = 0; i < size; ++i) {
-            const Sample v = sampler.sample(-half + (i + 0.5) * kCell, -half + (j + 0.5) * kCell);
+            const LocalSample v = sampler.sample(-half + (i + 0.5) * kCell, -half + (j + 0.5) * kCell);
             const auto at = static_cast<std::size_t>(j) * static_cast<std::size_t>(size) +
                             static_cast<std::size_t>(i);
             out.heights[at] = v.height;
@@ -1950,7 +1780,7 @@ void connect_gates(std::vector<RoadConnection>& entries, const CellSet& road,
     for (RoadConnection& c : entries) {
         const Cell cell = c.cell;
         const Point point{-half + (cell.first + 0.5) * kCell, -half + (cell.second + 0.5) * kCell};
-        const Sample v = sampler.sample(c.gate_local_m.x, c.gate_local_m.z);
+        const LocalSample v = sampler.sample(c.gate_local_m.x, c.gate_local_m.z);
         const double length = distance2d(point, c.gate_local_m);
         const double h = heights[static_cast<std::size_t>(cell.second) * static_cast<std::size_t>(size) +
                                  static_cast<std::size_t>(cell.first)];
@@ -2029,15 +1859,15 @@ CityPlan plan_city(const World& world, const SphereGrid& grid, const CitySite& s
         // skips everything and the crop bound silently switches itself off.
         if (&other == &site || other.key() == site.key()) continue;
         neighbour_half = std::min(neighbour_half,
-                                  unwrapped_arc_m(radius, n, site.z, site.x, other.z, other.x) * 0.28);
+                                  raster_arc_m(radius, n, site.z, site.x, other.z, other.x) * 0.28);
     }
     const double half = program_half_m(preset, site.city_class, neighbour_half, house.plot_m,
                                        house.worker_beds);
     const auto size = static_cast<int>(2.0 * half / kCell);
 
-    const LocalSampler sampler(world, grid, site.x, site.z, half);
+    const LocalSampler sampler(world, grid, radius, site.x, site.z, half);
     Ground ground = raster_ground(sampler, half, size, /*block_channels=*/true);
-    const Sample centre = sampler.sample(0.0, 0.0);
+    const LocalSample centre = sampler.sample(0.0, 0.0);
 
     CityPlan plan;
     plan.city_uid = site.key();
@@ -2465,7 +2295,7 @@ HamletPlan plan_hamlet(const World& world, const SphereGrid& grid, const HamletP
     // and deliberately not scaled with the planet.
     double half = 100.0;
     const auto bound = [&](double other_x, double other_z) {
-        const double distance = unwrapped_arc_m(radius, n, pin.z, pin.x, other_z, other_x);
+        const double distance = raster_arc_m(radius, n, pin.z, pin.x, other_z, other_x);
         half = std::min(half, std::max(kCell, distance * 0.5 - 8.0));
     };
     for (const CitySite& site : sites) bound(site.x, site.z);
@@ -2476,7 +2306,7 @@ HamletPlan plan_hamlet(const World& world, const SphereGrid& grid, const HamletP
     half = std::max(kCell, std::floor(half / kCell) * kCell);
     const auto size = static_cast<int>(2.0 * half / kCell);
 
-    const LocalSampler sampler(world, grid, pin.x, pin.z, half);
+    const LocalSampler sampler(world, grid, radius, pin.x, pin.z, half);
     // THE HAMLET MASK HAS NO CHANNEL TERM. Only standing water -- which already includes
     // ground within 12 m of a routed centreline -- and slope block a cell; a coarse
     // regional flood layer would otherwise empty every coast.

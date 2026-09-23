@@ -3,6 +3,7 @@
   beasties_stage.cpp
   beasts.cpp
   biomes.cpp
+  castle_plan.cpp
   city_plan.cpp
   civilizations.cpp
   climate.cpp
@@ -11,6 +12,7 @@
   config.cpp
   generated/content_biomes.cpp
   generated/content_buildings.cpp
+  generated/content_castles.cpp
   generated/content_city_shapes.cpp
   generated/content_settlement_plans.cpp
   generated/content_civilizations.cpp
@@ -41,6 +43,7 @@
   humans.cpp
   json.cpp
   key_locations.cpp
+  local_sampler.cpp
   magic.cpp
   measure.cpp
   nests.cpp

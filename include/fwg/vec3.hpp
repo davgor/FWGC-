@@ -53,8 +53,8 @@ inline double clamp_unit(double v) {
 // Lives here, with the vectors, because almost every subsystem measures between two
 // directions. It started in villains.hpp, and a distance helper in one subsystem's header
 // is how the next subsystem writes its own copy instead. This is the one that takes
-// DIRECTIONS and so wraps the longitude seam; city_plan.cpp's raster-coordinate arc,
-// `unwrapped_arc_m`, deliberately does not.
+// DIRECTIONS; city_plan.cpp's `raster_arc_m` takes raster coordinates and measures the
+// same arc, the short way across the seam as this does.
 inline double great_circle_m(double radius_m, const Vec3& a, const Vec3& b) {
     return radius_m * std::acos(clamp_unit(dot(a, b)));
 }
