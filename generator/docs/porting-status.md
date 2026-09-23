@@ -116,6 +116,14 @@ sets are pinned by tests beside each API.
 Per-response keys the reference's JSON APIs add (`corruption`, `cleanse`, `*_api_version`)
 are returned as typed results instead.
 
+**The split export** (this port's own, 2026-09-23): `write_world_split` (`fwg generate
+--split DIR`) writes the same world as a directory a game reads in parts -- `world.json`
+without the plan rows and the world scene, each plan in its own file under `plans/`, the
+scene as `scene.json` -- with each plan block listing its rows' files where the document
+carries the rows. A plan file is the document's row less the copies of the world's
+catalogues it carries, which `world.json` holds once. `tests/test_split.cpp` writes one world
+both ways and holds them equal as parsed JSON, member order included.
+
 ## Rulings
 
 Each is pinned by tests, so a change of mind lands as a deliberate change.
@@ -182,8 +190,11 @@ them, each pinned by a test so a fix is a deliberate change.
   library; the GCC/Clang half of [determinism.md](determinism.md)'s contract has never been
   compiled, let alone compared.
 - **No continuous integration.** The suite runs where someone runs it.
-- **Documents are large.** Every city, hamlet and castle plan carries its own copy of the
-  biome and magic catalogues, as the reference's does: about 155 MB at size 129.
+- **Documents are large.** About 157 MB at size 129. At size 33 (60 MB) the plan rows are half
+  of it -- their terrain rasters 31%, the copies of the world's catalogues each row carries,
+  as the reference's do, 11% -- and the world scene a fifth. The split export (`--split`,
+  above) writes each catalogue once and puts the plans and the scene in files of their own; it
+  does not make the rasters any smaller.
 
 ## Data
 

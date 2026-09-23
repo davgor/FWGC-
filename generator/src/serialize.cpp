@@ -1,13 +1,18 @@
 #include "fwg/serialize.hpp"
 
 #include <algorithm>
+#include <cctype>
 #include <cmath>
+#include <fstream>
 #include <ostream>
+#include <set>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <vector>
 
 #include "fwg/json.hpp"
+#include "fwg/sha256.hpp"
 #include "serialize_blocks.hpp"
 #include "serialize_document.hpp"
 
@@ -334,7 +339,12 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
     write_world_json(out, world, options);
 }
 
-void write_world_json(std::ostream& out, const World& world, const DocumentOptions& options) {
+namespace {
+
+// The document, whole, or as a split export's world.json: with `split`, the plan blocks list
+// their rows' files and the scene is left to its own file, named in the `split` object.
+void write_document(std::ostream& out, const World& world, const DocumentOptions& options,
+                    const serialize_detail::SplitIndex* split, const std::string* scene_path) {
     JsonWriter json(out, options.pretty);
     json.begin_object();
 
@@ -342,6 +352,18 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
     json.field("schema_version", kWorldSchemaVersion);
     json.field("generator_version", world.generator_version);
     json.field("completed_stage", world.completed_stage);
+    if (split != nullptr) {
+        json.key("split");
+        json.begin_object();
+        json.field("version", 1);
+        json.key("scene");
+        if (scene_path != nullptr) {
+            json.value(std::string_view(*scene_path));
+        } else {
+            json.value_null();
+        }
+        json.end_object();
+    }
 
     json.key("config");
     write_config(json, world.config, /*effective=*/false);
@@ -1201,10 +1223,10 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
 
     // Stages 12, 13 and 16: the hinterland and its economy, the faiths, the plans, the
     // bands and herds, the cast, the rosters and the key locations.
-    serialize_detail::write_late_blocks(json, world);
+    serialize_detail::write_late_blocks(json, world, split);
 
     // Stage 16: every plan and the regional roads in one globe-centred frame.
-    if (world.has_world_scene) {
+    if (world.has_world_scene && split == nullptr) {
         json.key("world_scene");
         serialize_detail::write_world_scene(json, world.world_scene);
     }
@@ -1245,6 +1267,157 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
 
     json.end_object();
     out << '\n';
+}
+
+// The longest file stem a split export writes. A key can run past a hundred characters -- a
+// waystone's names both cities it stands between -- and Windows refuses a path longer than
+// 260 characters in all, so a longer key is cut short and a digest of the whole key keeps
+// it apart from any other.
+constexpr std::size_t kSplitStemMax = 48;
+
+// One file name per key, unique within the export: characters a file system might refuse
+// become '_', a long key is shortened as above, and a clash takes a numbered suffix. A clash
+// is judged ignoring case, as Windows and macOS name files: two keys differing only in case
+// would otherwise write one file twice. `taken` holds the lower-cased paths.
+std::string split_path(const std::string& folder, std::string_view key, std::set<std::string>& taken) {
+    std::string stem;
+    for (const char c : key) {
+        const bool safe = std::isalnum(static_cast<unsigned char>(c)) != 0 || c == '-' || c == '_' || c == '.';
+        stem += safe ? c : '_';
+    }
+    if (stem.empty()) stem = "_";
+    if (stem.size() > kSplitStemMax) stem = stem.substr(0, kSplitStemMax - 13) + "-" + sha256_hex(key).substr(0, 12);
+    const auto claim = [&](const std::string& path) {
+        std::string folded = path;
+        for (char& c : folded) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+        return taken.insert(folded).second;
+    };
+    std::string path = folder + "/" + stem + ".json";
+    for (int n = 2; !claim(path); ++n) path = folder + "/" + stem + "-" + std::to_string(n) + ".json";
+    return path;
+}
+
+// Everything a split export has created, removed again unless it finishes. The destination
+// was new or empty, so a failed export leaves it as it was found -- not half-written, where
+// the retry would be refused for the files the failure left. Only what this export created
+// is removed, and a directory only once it is empty.
+class SplitUndo {
+public:
+    SplitUndo() = default;
+    SplitUndo(const SplitUndo&) = delete;
+    SplitUndo& operator=(const SplitUndo&) = delete;
+    ~SplitUndo() {
+        if (finished_) return;
+        std::error_code ignored;
+        for (auto f = files_.rbegin(); f != files_.rend(); ++f) std::filesystem::remove(*f, ignored);
+        for (auto d = dirs_.rbegin(); d != dirs_.rend(); ++d) std::filesystem::remove(*d, ignored);
+    }
+
+    // Creates `dir` and whichever of its parents are missing, outermost first.
+    void make_dirs(const std::filesystem::path& dir) {
+        std::vector<std::filesystem::path> missing;
+        for (std::filesystem::path p = dir; !p.empty() && !std::filesystem::exists(p); p = p.parent_path()) {
+            missing.push_back(p);
+            if (p == p.parent_path()) break;
+        }
+        for (auto p = missing.rbegin(); p != missing.rend(); ++p) {
+            if (std::filesystem::create_directory(*p)) dirs_.push_back(*p);
+        }
+    }
+
+    // Writes one file, compact or indented; returns its size.
+    template <typename Write>
+    std::uintmax_t write_file(const std::filesystem::path& path, Write&& write) {
+        make_dirs(path.parent_path());
+        files_.push_back(path);
+        {
+            std::ofstream file(path, std::ios::binary);
+            if (!file) throw std::runtime_error("cannot write " + path.string());
+            write(file);
+            if (!file) throw std::runtime_error("cannot write " + path.string());
+        }
+        return std::filesystem::file_size(path);
+    }
+
+    void finish() { finished_ = true; }
+
+private:
+    std::vector<std::filesystem::path> files_;
+    std::vector<std::filesystem::path> dirs_;
+    bool finished_ = false;
+};
+
+}  // namespace
+
+void write_world_json(std::ostream& out, const World& world, const DocumentOptions& options) {
+    write_document(out, world, options, nullptr, nullptr);
+}
+
+SplitExport write_world_split(const std::filesystem::path& dir, const World& world, bool pretty) {
+    namespace fs = std::filesystem;
+    if (fs::exists(dir)) {
+        if (!fs::is_directory(dir)) throw std::runtime_error(dir.string() + " is a file, not a directory");
+        if (!fs::is_empty(dir)) {
+            throw std::runtime_error(dir.string() + " already holds files; a split export writes into a new or "
+                                                    "empty directory and never overwrites");
+        }
+    }
+    SplitUndo undo;
+    undo.make_dirs(dir);
+
+    SplitExport out;
+    serialize_detail::SplitIndex index;
+    std::set<std::string> taken;
+    const auto json_file = [&](const std::string& path, auto&& write) {
+        out.total_bytes += undo.write_file(dir / path, [&](std::ostream& file) {
+            JsonWriter json(file, pretty);
+            write(json);
+            file << '\n';
+        });
+        out.files.push_back(path);
+    };
+    const auto plan_file = [&](std::vector<serialize_detail::SplitFile>& list, const std::string& folder,
+                               const std::string& key, auto&& write) {
+        const std::string path = split_path(folder, key, taken);
+        list.push_back({key, path});
+        json_file(path, write);
+    };
+    if (world.has_plans) {
+        for (const CityPlan& p : world.city_plans.cities) {
+            plan_file(index.cities, "plans/city", p.city_uid,
+                      [&](JsonWriter& json) { serialize_detail::write_city_plan_row(json, p, world, false); });
+        }
+        if (world.has_rural_plans) {
+            for (const HamletPlan& p : world.hamlet_plans.hamlets) {
+                plan_file(index.hamlets, "plans/hamlet", p.hamlet_id,
+                          [&](JsonWriter& json) { serialize_detail::write_hamlet_plan_row(json, p, world, false); });
+            }
+            for (const CastlePlan& p : world.castle_plans.castles) {
+                plan_file(index.castles, "plans/castle", p.fortress_id,
+                          [&](JsonWriter& json) { serialize_detail::write_castle_plan_row(json, p, world, false); });
+            }
+        }
+    }
+    if (world.has_key_locations && world.key_locations.ok && world.key_location_plans.ok) {
+        for (const KeyLocationSitePlan& p : world.key_location_plans.plans) {
+            plan_file(index.key_locations, "plans/key_location", p.location_id,
+                      [&](JsonWriter& json) { serialize_detail::write_key_location_plan_row(json, p); });
+        }
+    }
+    const std::string scene = "scene.json";
+    if (world.has_world_scene) {
+        json_file(scene, [&](JsonWriter& json) { serialize_detail::write_world_scene(json, world.world_scene); });
+    }
+
+    DocumentOptions document;
+    document.pretty = pretty;
+    out.world_bytes = undo.write_file(dir / "world.json", [&](std::ostream& file) {
+        write_document(file, world, document, &index, world.has_world_scene ? &scene : nullptr);
+    });
+    out.total_bytes += out.world_bytes;
+    out.files.insert(out.files.begin(), "world.json");
+    undo.finish();
+    return out;
 }
 
 void write_height_tile_json(std::ostream& out, const World& world, const HeightTile& tile, bool pretty) {

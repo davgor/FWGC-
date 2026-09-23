@@ -73,6 +73,10 @@ generate options:
   -o, --out, --output PATH
                         write JSON here (default stdout); the destination is
                         checked before a world is spent on it
+  --split DIR           write the world as a directory a game reads in parts:
+                        world.json without the plans and the world scene, one
+                        file per plan under plans/, the scene as scene.json;
+                        each catalogue once. DIR must be new or empty
   --pretty              indent the document for reading; interchange output
                         is compact by default, as the reference's is
   --compact             one-line JSON (the default; kept for old scripts)
@@ -430,6 +434,7 @@ int main(int argc, char** argv) {
 
     fwg::Request request;
     std::string out_path;
+    std::string split_dir;
     std::string request_path;
     // Compact unless --pretty, as the reference's interchange output is.
     bool pretty = false;
@@ -503,6 +508,7 @@ int main(int argc, char** argv) {
         }
         else if (arg == "--request") request_path = std::string(next(i, arg));
         else if (arg == "-o" || arg == "--out" || arg == "--output") out_path = std::string(next(i, arg));
+        else if (arg == "--split") split_dir = std::string(next(i, arg));
         else if (arg == "--compact") pretty = false;
         else if (arg == "--pretty") pretty = true;
         else if (arg == "--timings" || arg == "--include-timings") timings = true;
@@ -538,6 +544,23 @@ int main(int argc, char** argv) {
 
         const fwg::Config cfg = fwg::resolve(request);
 
+        if (!split_dir.empty()) {
+            if (!out_path.empty()) fail("--split writes a directory; it cannot be combined with -o/--output");
+            if (build_stages) fail("--split does not carry build stages; drop --include-build-stages");
+            if (timings) fail("--split does not carry timings; drop --timings");
+            // Judged before spending a generation on it, as the single document's path is.
+            std::error_code ignored;
+            const std::filesystem::path dir(split_dir);
+            if (std::filesystem::exists(dir, ignored)) {
+                if (!std::filesystem::is_directory(dir, ignored)) {
+                    fail("--split " + split_dir + " is a file; give a new or empty directory");
+                }
+                if (!std::filesystem::is_empty(dir, ignored)) {
+                    fail("--split " + split_dir + " already holds files; give a new or empty directory");
+                }
+            }
+        }
+
         // Fail on an unwritable destination before spending a whole generation on it.
         // Opened for append, so a failed generation does not truncate what was there.
         if (!out_path.empty()) {
@@ -569,6 +592,15 @@ int main(int argc, char** argv) {
                       << cfg.octaves << " octaves resolved\n";
             if (build_stages) std::cerr << "captured " << recorder.stages().size() << " build stages\n";
             for (const std::string& warning : world.warnings) std::cerr << "  note: " << warning << '\n';
+        }
+
+        if (!split_dir.empty()) {
+            const fwg::SplitExport split = fwg::write_world_split(split_dir, world, pretty);
+            if (!quiet) {
+                std::cerr << "wrote " << split.files.size() << " files to " << split_dir << ": world.json "
+                          << split.world_bytes / 1000000.0 << " MB of " << split.total_bytes / 1000000.0 << " MB\n";
+            }
+            return 0;
         }
 
         fwg::DocumentOptions document;

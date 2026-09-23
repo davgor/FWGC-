@@ -11,6 +11,8 @@
 #pragma once
 
 #include <cstddef>
+#include <string>
+#include <vector>
 
 #include "fwg/json.hpp"
 #include "fwg/world.hpp"
@@ -34,9 +36,25 @@ void write_site_age_fields(JsonWriter& json, const World& world, std::size_t sit
 // drew (`building_pack_id`, `building_pack_seed`, `building_pack_version`), each where it has one.
 void write_site_layout_fields(JsonWriter& json, const World& world, std::size_t site_index);
 
+// A plan's file in a split export (serialize.hpp, write_world_split): the key its block joins
+// on, and its path relative to the export's directory.
+struct SplitFile {
+    std::string key;
+    std::string path;
+};
+
+// What a split export's world.json writes in place of each plan block's rows.
+struct SplitIndex {
+    std::vector<SplitFile> cities;
+    std::vector<SplitFile> hamlets;
+    std::vector<SplitFile> castles;
+    std::vector<SplitFile> key_locations;
+};
+
 // Every top-level block from stage 12 on, in stage order. Each is written only when the
 // World says it exists.
-void write_late_blocks(JsonWriter& json, const World& world);
+// With `split`, each plan block lists its rows' files instead of carrying the rows.
+void write_late_blocks(JsonWriter& json, const World& world, const SplitIndex* split = nullptr);
 
 // The nest blocks' catalogue copies, re-emitted from the authored JSON: one pass's profile
 // rows, and wildlife's feeding-role table. Values only; the caller writes the key.
@@ -55,8 +73,12 @@ void write_ruin_list(JsonWriter& json, const std::vector<Ruin>& ruins);
 // terrain carries besides the plan -- the detail definition, the biome catalogues and each
 // ley network's colour -- so a row's bytes are its bytes in the full document. For the place
 // read, which measures one row without writing the whole world.
-void write_city_plan_row(JsonWriter& json, const CityPlan& plan, const World& world);
-void write_hamlet_plan_row(JsonWriter& json, const HamletPlan& plan, const World& world);
-void write_castle_plan_row(JsonWriter& json, const CastlePlan& plan, const World& world);
+// Without `catalogues`, a row leaves out the copies of the world's catalogues its terrain
+// otherwise carries (biome_catalogue, magical_catalogue, magic_colors, and the surface's
+// terrain_detail): a split export writes each of those once, in world.json.
+void write_city_plan_row(JsonWriter& json, const CityPlan& plan, const World& world, bool catalogues = true);
+void write_hamlet_plan_row(JsonWriter& json, const HamletPlan& plan, const World& world, bool catalogues = true);
+void write_castle_plan_row(JsonWriter& json, const CastlePlan& plan, const World& world, bool catalogues = true);
+void write_key_location_plan_row(JsonWriter& json, const KeyLocationSitePlan& plan);
 
 }  // namespace fwg::serialize_detail

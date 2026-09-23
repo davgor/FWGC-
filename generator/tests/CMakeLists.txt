@@ -42,6 +42,7 @@
   test_serialize.cpp
   test_settlements_stage.cpp
   test_society.cpp
+  test_split.cpp
   test_stages.cpp
   test_story_web.cpp
   test_substrate.cpp

@@ -345,7 +345,7 @@ template <typename Plan, typename Write>
 std::optional<std::size_t> plan_row_bytes(const Plan& plan, const World& world, Write write) {
     std::ostringstream out;
     JsonWriter json(out, /*pretty=*/false);
-    write(json, plan, world);
+    write(json, plan, world, /*catalogues=*/true);
     const Cost cost = cost_of(out.str());
     if (cost.infinite) return std::nullopt;
     return cost.bytes;

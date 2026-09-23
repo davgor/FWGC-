@@ -1300,7 +1300,8 @@ void bounds(JsonWriter& json, double half) {
 // A plan's terrain. A city's and a hamlet's surface also names its source, the world's detail
 // definition it was sampled with and its coordinate frame; a castle's carries the heights
 // alone, as the reference's does.
-void terrain_raster(JsonWriter& json, const TerrainRaster& t, const World& world, bool described_surface) {
+void terrain_raster(JsonWriter& json, const TerrainRaster& t, const World& world, bool described_surface,
+                    bool catalogues = true) {
     json.key("terrain");
     json.begin_object();
     real(json, "cell_m", t.cell_m);
@@ -1315,11 +1316,13 @@ void terrain_raster(JsonWriter& json, const TerrainRaster& t, const World& world
     raster(json, t.surface_heights_m, t.surface_size);
     if (described_surface) {
         text(json, "source", "canonical terrain height in metres");
-        json.key("terrain_detail");
-        if (world.has_terrain_detail) {
-            write_terrain_detail(json, world.terrain_detail);
-        } else {
-            json.value_null();
+        if (catalogues) {
+            json.key("terrain_detail");
+            if (world.has_terrain_detail) {
+                write_terrain_detail(json, world.terrain_detail);
+            } else {
+                json.value_null();
+            }
         }
         text(json, "coordinates", "local east/north gnomonic coordinates; radial elevation above reference sphere");
     }
@@ -1328,7 +1331,12 @@ void terrain_raster(JsonWriter& json, const TerrainRaster& t, const World& world
     raster(json, t.natural_biome, t.size);
     json.key("biome_variant");
     raster(json, t.biome_variant, t.size);
-    // The catalogues the two biome rasters index, and each ley network's colour.
+    // The catalogues the two biome rasters index, and each ley network's colour -- the world's
+    // own, copied into every plan unless a split export writes them once.
+    if (!catalogues) {
+        json.end_object();
+        return;
+    }
     json.key("biome_catalogue");
     if (world.has_terrain) {
         write_natural_catalogue(json);
@@ -1717,7 +1725,21 @@ void fortifications(JsonWriter& json, const Fortifications& f) {
     json.end_object();
 }
 
-void city_plan(JsonWriter& json, const CityPlan& p, const World& world) {
+// A split export's listing of a plan block's rows: each row's key, under the block's own join
+// key name, and the file that holds it.
+void split_files(JsonWriter& json, std::string_view key_name, const std::vector<SplitFile>& files) {
+    json.key("files");
+    json.begin_array();
+    for (const SplitFile& f : files) {
+        json.begin_object();
+        text(json, key_name, f.key);
+        text(json, "path", f.path);
+        json.end_object();
+    }
+    json.end_array();
+}
+
+void city_plan(JsonWriter& json, const CityPlan& p, const World& world, bool catalogues = true) {
     json.begin_object();
     integer(json, "version", p.version);
     text(json, "city_uid", p.city_uid);
@@ -1727,7 +1749,7 @@ void city_plan(JsonWriter& json, const CityPlan& p, const World& world) {
     text(json, "city_class", city_class_name(p.city_class));
     text(json, "unit", "metres");
     bounds(json, p.half_m);
-    terrain_raster(json, p.terrain, world, /*described_surface=*/true);
+    terrain_raster(json, p.terrain, world, /*described_surface=*/true, catalogues);
     reference_frame(json, p.reference_frame);
     json.key("location");
     json.begin_object();
@@ -1770,7 +1792,7 @@ void city_plan(JsonWriter& json, const CityPlan& p, const World& world) {
     json.end_object();
 }
 
-void write_city_plans(JsonWriter& json, const World& world) {
+void write_city_plans(JsonWriter& json, const World& world, const std::vector<SplitFile>* files = nullptr) {
     const CityPlans& plans = world.city_plans;
     json.begin_object();
     integer(json, "version", plans.version);
@@ -1780,17 +1802,21 @@ void write_city_plans(JsonWriter& json, const World& world) {
     registry_identity_field(json);
     text(json, "shapes_sha256", plans.shapes_sha256);
     json.end_object();
-    json.key("cities");
-    json.begin_array();
-    for (const CityPlan& p : plans.cities) city_plan(json, p, world);
-    json.end_array();
+    if (files != nullptr) {
+        split_files(json, "city_uid", *files);
+    } else {
+        json.key("cities");
+        json.begin_array();
+        for (const CityPlan& p : plans.cities) city_plan(json, p, world);
+        json.end_array();
+    }
     json.key("phase_order");
     strings(json, plans.phase_order);
     text(json, "scope", plans.scope);
     json.end_object();
 }
 
-void hamlet_plan(JsonWriter& json, const HamletPlan& p, const World& world) {
+void hamlet_plan(JsonWriter& json, const HamletPlan& p, const World& world, bool catalogues = true) {
     json.begin_object();
     integer(json, "version", p.version);
     text(json, "hamlet_id", p.hamlet_id);
@@ -1807,7 +1833,7 @@ void hamlet_plan(JsonWriter& json, const HamletPlan& p, const World& world) {
     text(json, "civilization_id", p.civilization_id);
     text(json, "unit", "metres");
     bounds(json, p.half_m);
-    terrain_raster(json, p.terrain, world, /*described_surface=*/true);
+    terrain_raster(json, p.terrain, world, /*described_surface=*/true, catalogues);
     reference_frame(json, p.reference_frame);
     json.key("shape");
     json.begin_object();
@@ -1842,7 +1868,7 @@ void hamlet_plan(JsonWriter& json, const HamletPlan& p, const World& world) {
     json.end_object();
 }
 
-void write_hamlet_plans(JsonWriter& json, const World& world) {
+void write_hamlet_plans(JsonWriter& json, const World& world, const std::vector<SplitFile>* files = nullptr) {
     const HamletPlans& plans = world.hamlet_plans;
     json.begin_object();
     integer(json, "version", plans.version);
@@ -1851,10 +1877,14 @@ void write_hamlet_plans(JsonWriter& json, const World& world) {
     integer(json, "version", plans.version);
     registry_identity_field(json);
     json.end_object();
-    json.key("hamlets");
-    json.begin_array();
-    for (const HamletPlan& p : plans.hamlets) hamlet_plan(json, p, world);
-    json.end_array();
+    if (files != nullptr) {
+        split_files(json, "hamlet_id", *files);
+    } else {
+        json.key("hamlets");
+        json.begin_array();
+        for (const HamletPlan& p : plans.hamlets) hamlet_plan(json, p, world);
+        json.end_array();
+    }
     json.key("phase_order");
     strings(json, plans.phase_order);
     text(json, "scope", plans.scope);
@@ -1960,7 +1990,7 @@ void castle_network(JsonWriter& json, const CastleWallNetwork& n) {
     json.end_object();
 }
 
-void castle_plan(JsonWriter& json, const CastlePlan& p, const World& world) {
+void castle_plan(JsonWriter& json, const CastlePlan& p, const World& world, bool catalogues = true) {
     json.begin_object();
     integer(json, "version", p.version);
     text(json, "kind", p.kind);
@@ -2041,11 +2071,11 @@ void castle_plan(JsonWriter& json, const CastlePlan& p, const World& world) {
     json.end_object();
     text(json, "status", p.status);
     real(json, "source_resolution_m", p.source_resolution_m);
-    terrain_raster(json, p.terrain, world, /*described_surface=*/false);
+    terrain_raster(json, p.terrain, world, /*described_surface=*/false, catalogues);
     json.end_object();
 }
 
-void write_castle_plans(JsonWriter& json, const World& world) {
+void write_castle_plans(JsonWriter& json, const World& world, const std::vector<SplitFile>* files = nullptr) {
     const CastlePlans& plans = world.castle_plans;
     json.begin_object();
     integer(json, "version", plans.version);
@@ -2056,10 +2086,14 @@ void write_castle_plans(JsonWriter& json, const World& world) {
     text(json, "castles_sha256", plans.identity.castles_sha256);
     text(json, "castle_buildings_sha256", plans.identity.castle_buildings_sha256);
     json.end_object();
-    json.key("castles");
-    json.begin_array();
-    for (const CastlePlan& p : plans.castles) castle_plan(json, p, world);
-    json.end_array();
+    if (files != nullptr) {
+        split_files(json, "fortress_id", *files);
+    } else {
+        json.key("castles");
+        json.begin_array();
+        for (const CastlePlan& p : plans.castles) castle_plan(json, p, world);
+        json.end_array();
+    }
     json.key("phase_order");
     strings(json, plans.phase_order);
     text(json, "limits", plans.limits);
@@ -3543,7 +3577,113 @@ bool shape_has_depth(KeyLocationShape s) {
     return s == KeyLocationShape::Cut || s == KeyLocationShape::Rim || s == KeyLocationShape::Trench;
 }
 
-void write_key_location_plans(JsonWriter& json, const KeyLocationPlanBlock& b) {
+void key_location_plan_row(JsonWriter& json, const KeyLocationSitePlan& p) {
+    json.begin_object();
+    text(json, "location_id", p.location_id);
+    text(json, "kind", p.kind);
+    text(json, "family", p.family);
+    integer(json, "tier", p.tier);
+    text(json, "kit_id", p.kit_id);
+    integer(json, "version", p.version);
+    text(json, "status", p.complete ? "complete" : "empty");
+    text(json, "arrangement", arrangement_name(p.arrangement));
+    json.key("origin");
+    json.begin_object();
+    json.key("direction");
+    vec3(json, p.origin_direction);
+    real(json, "height_m", p.origin_height_m);
+    integer(json, "node", p.origin_node);
+    json.end_object();
+    json.key("bounds_m");
+    json.begin_object();
+    real(json, "width", p.bounds_width_m);
+    real(json, "depth", p.bounds_depth_m);
+    json.end_object();
+    real(json, "slope_bearing_degrees", p.slope_bearing_degrees);
+
+    const KeyLocationTerrain& t = p.terrain;
+    json.key("terrain");
+    json.begin_object();
+    real(json, "cell_m", t.cell_m);
+    integer(json, "size", t.size);
+    json.key("bounds_m");
+    json.begin_array();
+    for (const double v : t.bounds_m) number(json, v);
+    json.end_array();
+    json.key("shaping");
+    json.begin_array();
+    for (const KeyLocationShapingPlacement& s : t.shaping) {
+        json.begin_object();
+        text(json, "shape", shape_name(s.spec.shape));
+        if (s.spec.has_radius) real(json, "radius_m", s.spec.radius_m);
+        if (s.spec.has_length) real(json, "length_m", s.spec.length_m);
+        if (s.spec.has_width) real(json, "width_m", s.spec.width_m);
+        if (shape_has_height(s.spec.shape)) real(json, "height_m", s.spec.height_m);
+        if (shape_has_depth(s.spec.shape)) real(json, "depth_m", s.spec.depth_m);
+        real(json, "x_m", s.x_m);
+        real(json, "z_m", s.z_m);
+        real(json, "rotation_degrees", s.rotation_degrees);
+        text(json, "part", s.part);
+        json.end_object();
+    }
+    json.end_array();
+    json.key("relief_m");
+    json.begin_object();
+    real(json, "raised_m", t.raised_m);
+    real(json, "lowered_m", t.lowered_m);
+    json.end_object();
+    json.key("surface");
+    json.begin_object();
+    integer(json, "size", t.surface.size);
+    real(json, "step_m", t.surface.step_m);
+    json.key("heights_m");
+    square_rows(json, t.surface.heights_m);
+    json.end_object();
+    json.end_object();
+
+    json.key("plots");
+    json.begin_array();
+    for (const KeyLocationPlot& plot : p.plots) {
+        json.begin_object();
+        text(json, "id", plot.id);
+        text(json, "building_id", plot.building_id);
+        text(json, "name", plot.name);
+        text(json, "kind", part_kind_name(plot.kind));
+        integer(json, "phase", plot.phase);
+        real(json, "x_m", plot.x_m);
+        real(json, "z_m", plot.z_m);
+        real(json, "rotation_degrees", plot.rotation_degrees);
+        real(json, "ground_elevation_m", plot.ground_elevation_m);
+        real(json, "foundation_bottom_m", plot.foundation_bottom_m);
+        json.key("plot_m");
+        json.begin_object();
+        real(json, "width", plot.plot_width_m);
+        real(json, "depth", plot.plot_depth_m);
+        json.end_object();
+        json.key("dimensions_m");
+        json.begin_object();
+        real(json, "width", plot.dimension_width_m);
+        real(json, "depth", plot.dimension_depth_m);
+        real(json, "height", plot.dimension_height_m);
+        json.end_object();
+        json.key("road_access");
+        xz(json, plot.road_access_x_m, plot.road_access_z_m);
+        integer(json, "workers", plot.workers);
+        integer(json, "beds", plot.beds);
+        json.end_object();
+    }
+    json.end_array();
+    json.key("stats");
+    json.begin_object();
+    integer(json, "plots", p.stat_plots);
+    integer(json, "parts", p.stat_parts);
+    integer(json, "shaping", p.stat_shaping);
+    json.end_object();
+    json.end_object();
+}
+
+void write_key_location_plans(JsonWriter& json, const KeyLocationPlanBlock& b,
+                              const std::vector<SplitFile>* files = nullptr) {
     if (!b.ok) {
         failed_block(json, b.version, b.error);
         return;
@@ -3562,113 +3702,14 @@ void write_key_location_plans(JsonWriter& json, const KeyLocationPlanBlock& b) {
     integer(json, "plots", b.summary_plots);
     real(json, "plots_per_plan", b.summary_plots_per_plan);
     json.end_object();
-    json.key("plans");
-    json.begin_array();
-    for (const KeyLocationSitePlan& p : b.plans) {
-        json.begin_object();
-        text(json, "location_id", p.location_id);
-        text(json, "kind", p.kind);
-        text(json, "family", p.family);
-        integer(json, "tier", p.tier);
-        text(json, "kit_id", p.kit_id);
-        integer(json, "version", p.version);
-        text(json, "status", p.complete ? "complete" : "empty");
-        text(json, "arrangement", arrangement_name(p.arrangement));
-        json.key("origin");
-        json.begin_object();
-        json.key("direction");
-        vec3(json, p.origin_direction);
-        real(json, "height_m", p.origin_height_m);
-        integer(json, "node", p.origin_node);
-        json.end_object();
-        json.key("bounds_m");
-        json.begin_object();
-        real(json, "width", p.bounds_width_m);
-        real(json, "depth", p.bounds_depth_m);
-        json.end_object();
-        real(json, "slope_bearing_degrees", p.slope_bearing_degrees);
-
-        const KeyLocationTerrain& t = p.terrain;
-        json.key("terrain");
-        json.begin_object();
-        real(json, "cell_m", t.cell_m);
-        integer(json, "size", t.size);
-        json.key("bounds_m");
+    if (files != nullptr) {
+        split_files(json, "location_id", *files);
+    } else {
+        json.key("plans");
         json.begin_array();
-        for (const double v : t.bounds_m) number(json, v);
+        for (const KeyLocationSitePlan& p : b.plans) key_location_plan_row(json, p);
         json.end_array();
-        json.key("shaping");
-        json.begin_array();
-        for (const KeyLocationShapingPlacement& s : t.shaping) {
-            json.begin_object();
-            text(json, "shape", shape_name(s.spec.shape));
-            if (s.spec.has_radius) real(json, "radius_m", s.spec.radius_m);
-            if (s.spec.has_length) real(json, "length_m", s.spec.length_m);
-            if (s.spec.has_width) real(json, "width_m", s.spec.width_m);
-            if (shape_has_height(s.spec.shape)) real(json, "height_m", s.spec.height_m);
-            if (shape_has_depth(s.spec.shape)) real(json, "depth_m", s.spec.depth_m);
-            real(json, "x_m", s.x_m);
-            real(json, "z_m", s.z_m);
-            real(json, "rotation_degrees", s.rotation_degrees);
-            text(json, "part", s.part);
-            json.end_object();
-        }
-        json.end_array();
-        json.key("relief_m");
-        json.begin_object();
-        real(json, "raised_m", t.raised_m);
-        real(json, "lowered_m", t.lowered_m);
-        json.end_object();
-        json.key("surface");
-        json.begin_object();
-        integer(json, "size", t.surface.size);
-        real(json, "step_m", t.surface.step_m);
-        json.key("heights_m");
-        square_rows(json, t.surface.heights_m);
-        json.end_object();
-        json.end_object();
-
-        json.key("plots");
-        json.begin_array();
-        for (const KeyLocationPlot& plot : p.plots) {
-            json.begin_object();
-            text(json, "id", plot.id);
-            text(json, "building_id", plot.building_id);
-            text(json, "name", plot.name);
-            text(json, "kind", part_kind_name(plot.kind));
-            integer(json, "phase", plot.phase);
-            real(json, "x_m", plot.x_m);
-            real(json, "z_m", plot.z_m);
-            real(json, "rotation_degrees", plot.rotation_degrees);
-            real(json, "ground_elevation_m", plot.ground_elevation_m);
-            real(json, "foundation_bottom_m", plot.foundation_bottom_m);
-            json.key("plot_m");
-            json.begin_object();
-            real(json, "width", plot.plot_width_m);
-            real(json, "depth", plot.plot_depth_m);
-            json.end_object();
-            json.key("dimensions_m");
-            json.begin_object();
-            real(json, "width", plot.dimension_width_m);
-            real(json, "depth", plot.dimension_depth_m);
-            real(json, "height", plot.dimension_height_m);
-            json.end_object();
-            json.key("road_access");
-            xz(json, plot.road_access_x_m, plot.road_access_z_m);
-            integer(json, "workers", plot.workers);
-            integer(json, "beds", plot.beds);
-            json.end_object();
-        }
-        json.end_array();
-        json.key("stats");
-        json.begin_object();
-        integer(json, "plots", p.stat_plots);
-        integer(json, "parts", p.stat_parts);
-        integer(json, "shaping", p.stat_shaping);
-        json.end_object();
-        json.end_object();
     }
-    json.end_array();
     text(json, "method", b.method);
     text(json, "limits", b.limits);
     json.end_object();
@@ -4444,14 +4485,20 @@ void write_settlement_founding(JsonWriter& json, const SettlementFoundingReport&
 // Entry points
 // ===========================================================================
 
-void write_city_plan_row(JsonWriter& json, const CityPlan& plan, const World& world) { city_plan(json, plan, world); }
-
-void write_hamlet_plan_row(JsonWriter& json, const HamletPlan& plan, const World& world) {
-    hamlet_plan(json, plan, world);
+void write_city_plan_row(JsonWriter& json, const CityPlan& plan, const World& world, bool catalogues) {
+    city_plan(json, plan, world, catalogues);
 }
 
-void write_castle_plan_row(JsonWriter& json, const CastlePlan& plan, const World& world) {
-    castle_plan(json, plan, world);
+void write_hamlet_plan_row(JsonWriter& json, const HamletPlan& plan, const World& world, bool catalogues) {
+    hamlet_plan(json, plan, world, catalogues);
+}
+
+void write_castle_plan_row(JsonWriter& json, const CastlePlan& plan, const World& world, bool catalogues) {
+    castle_plan(json, plan, world, catalogues);
+}
+
+void write_key_location_plan_row(JsonWriter& json, const KeyLocationSitePlan& plan) {
+    key_location_plan_row(json, plan);
 }
 
 void write_college_fields(JsonWriter& json, const World& world) {
@@ -4659,7 +4706,7 @@ void write_site_society_fields(JsonWriter& json, const World& world, std::size_t
     strings(json, world.settlements.sites[site_index].community);
 }
 
-void write_late_blocks(JsonWriter& json, const World& world) {
+void write_late_blocks(JsonWriter& json, const World& world, const SplitIndex* split) {
     if (world.has_humans) {
         json.key("humans");
         write_humans(json, world);
@@ -4703,12 +4750,12 @@ void write_late_blocks(JsonWriter& json, const World& world) {
 
     if (world.has_plans) {
         json.key("city_plans");
-        write_city_plans(json, world);
+        write_city_plans(json, world, split != nullptr ? &split->cities : nullptr);
         if (world.has_rural_plans) {
             json.key("hamlet_plans");
-            write_hamlet_plans(json, world);
+            write_hamlet_plans(json, world, split != nullptr ? &split->hamlets : nullptr);
             json.key("castle_plans");
-            write_castle_plans(json, world);
+            write_castle_plans(json, world, split != nullptr ? &split->castles : nullptr);
         }
     }
 
@@ -4749,7 +4796,8 @@ void write_late_blocks(JsonWriter& json, const World& world) {
         // that failed on its own is a reported failure.
         if (world.key_locations.ok) {
             json.key("key_location_plans");
-            write_key_location_plans(json, world.key_location_plans);
+            write_key_location_plans(json, world.key_location_plans,
+                                     split != nullptr ? &split->key_locations : nullptr);
         }
     }
     if (world.world_clock) {

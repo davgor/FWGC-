@@ -129,7 +129,9 @@ target_link_libraries(fwg PRIVATE fwg_flags)
 
 # The determinism flags are part of the contract, not an implementation detail: a
 # consumer that compiles against this header set with contraction on gets different
-# worlds. Propagate them.
-target_link_libraries(fwg INTERFACE fwg_flags)
+# worlds. Propagate them -- them alone: the warning policy is this project's own. The
+# headers are C++20, so a consumer is compiled as C++20 at least.
+target_link_libraries(fwg INTERFACE fwg_determinism)
+target_compile_features(fwg PUBLIC cxx_std_20)
 
 set_target_properties(fwg PROPERTIES POSITION_INDEPENDENT_CODE ON)

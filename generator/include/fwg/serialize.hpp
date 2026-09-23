@@ -6,7 +6,10 @@
 // part of the payload rather than in documentation the consumer will not have.
 #pragma once
 
+#include <cstdint>
+#include <filesystem>
 #include <iosfwd>
+#include <string>
 #include <vector>
 
 #include "fwg/build_stages.hpp"
@@ -36,6 +39,37 @@ struct DocumentOptions {
     const std::vector<BuildStage>* build_stages = nullptr;
 };
 void write_world_json(std::ostream& out, const World& world, const DocumentOptions& options);
+
+// The world as a directory a game reads in parts (2026-09-23), where the single document is
+// one file a reader must take whole.
+//
+//   world.json   the document less its plan rows and its world scene -- under a third of the
+//                whole document at size 33, where the plans and the scene are the rest --
+//                with a top-level `split` object ({"version": 1, "scene": "scene.json" or
+//                null}) after `completed_stage`, and each plan block listing its rows' files
+//                (`files`: [{<the block's join key>: key, "path": path}], in the rows' order)
+//                where the document carries the rows.
+//   plans/city/, plans/hamlet/, plans/castle/, plans/key_location/
+//                one plan per file, named for its key (city_uid, hamlet_id, fortress_id,
+//                location_id): characters a file system might refuse become '_', a key past
+//                48 characters is cut to 35 and a digest of the whole key, a clash (ignoring
+//                case) takes a numbered suffix. Read a plan's path from the listing, not from
+//                its key. Each is written as the document writes the row but WITHOUT the
+//                copies of the world's catalogues a row otherwise carries: the biome and
+//                magical catalogues are world.json's terrain.biomes and terrain.magical_biomes,
+//                the ley colours its magic networks' colors, the detail definition its
+//                terrain_detail.
+//   scene.json   the world scene, where the world has one.
+//
+// Refuses a destination that already holds anything, rather than deleting or overwriting it.
+// A failure part way removes what the export had written, leaving the destination as it was
+// found. Build stages and timings are not written. Throws std::runtime_error.
+struct SplitExport {
+    std::vector<std::string> files;  // relative to the directory, world.json first
+    std::uintmax_t world_bytes = 0;
+    std::uintmax_t total_bytes = 0;
+};
+SplitExport write_world_split(const std::filesystem::path& dir, const World& world, bool pretty = false);
 
 // A height tile (export_height_tile, detail.hpp) as the reference's height-tile document:
 // schema `fantasy-world-generator.height-tile` version 1, key for key -- the tile's frame, the
