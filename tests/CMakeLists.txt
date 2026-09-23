@@ -30,6 +30,7 @@
   test_nomads.cpp
   test_npcs.cpp
   test_options.cpp
+  test_serialize.cpp
   test_settlements_stage.cpp
   test_society.cpp
   test_stages.cpp

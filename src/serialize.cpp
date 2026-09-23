@@ -4,6 +4,7 @@
 #include <ostream>
 
 #include "fwg/json.hpp"
+#include "serialize_blocks.hpp"
 
 namespace fwg {
 namespace {
@@ -385,6 +386,8 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
             "occurrence is locked at zero and only the corruption API places a node in one. Node and line "
             "intensities are editable and overlapping raw potency is preserved. Mutation requires potency at "
             "or above the threshold and a lead over the next strongest school of at least the margin."));
+        // The colleges live in the magic block, as they do in the reference.
+        serialize_detail::write_college_fields(json, world);
         json.end_object();
     }
 
@@ -647,7 +650,8 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
 
         json.key("sites");
         json.begin_array();
-        for (const SettlementSite& s : settled.sites) {
+        for (std::size_t site_index = 0; site_index < settled.sites.size(); ++site_index) {
+            const SettlementSite& s = settled.sites[site_index];
             json.begin_object();
             json.field("id", s.id);
             json.field("uid", s.uid);
@@ -694,6 +698,7 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
             json.field("cultural_branch", s.cultural_branch);
             json.field("diaspora", s.diaspora);
             json.field("diaspora_reason", s.diaspora_reason);
+            serialize_detail::write_site_society_fields(json, world, site_index);
             json.end_object();
         }
         json.end_array();
@@ -768,7 +773,8 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
         json.field("components", world.roads.components);
         json.key("routes");
         json.begin_array();
-        for (const Road& road : world.roads.routes) {
+        for (std::size_t route_index = 0; route_index < world.roads.routes.size(); ++route_index) {
+            const Road& road = world.roads.routes[route_index];
             json.begin_object();
             json.field("from", road.from);
             json.field("to", road.to);
@@ -787,6 +793,8 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
                 json.end_array();
             }
             json.end_array();
+            // What the caravans that ride this road left on it (stage 16).
+            serialize_detail::write_route_trade_fields(json, world, route_index);
             json.end_object();
         }
         json.end_array();
@@ -850,6 +858,10 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
         write_nests("wildlife", world.wildlife);
         write_nests("beast_nests", world.beast_nests);
     }
+
+    // Stages 12, 13 and 16: the hinterland and its economy, the faiths, the plans, the
+    // bands and herds, the cast, the rosters and the key locations.
+    serialize_detail::write_late_blocks(json, world);
 
     if (!world.systems.empty()) {
         json.key("systems");

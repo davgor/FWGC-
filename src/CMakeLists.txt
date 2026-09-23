@@ -62,6 +62,7 @@
   religion.cpp
   scale.cpp
   serialize.cpp
+  serialize_blocks.cpp
   settlement.cpp
   settlements_stage.cpp
   sha256.cpp
