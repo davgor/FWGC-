@@ -6,11 +6,18 @@
 #include "check.hpp"
 
 #include <algorithm>
+#include <cstdint>
+#include <optional>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 #include <variant>
+#include <vector>
 
 #include "fwg/beasties_stage.hpp"
+#include "fwg/json_value.hpp"
+#include "fwg/magic.hpp"
+#include "fwg/serialize.hpp"
 #include "fwg/world_api.hpp"
 
 using namespace fwg;
@@ -206,22 +213,99 @@ TEST(an_age_turn_sends_a_summoned_god_home) {
     check::is_true(std::holds_alternative<AgeOperation>(later.history.operations[1]), "then the advance");
 }
 
-TEST(an_age_cannot_yet_turn_over_ground_a_hidden_school_owns) {
-    // PENDING THE OWNER'S RULING. The age lottery gives a city owned by a dominant school that
-    // school's fall reason, and only the eight known schools have one; a corruption is what
-    // lets a hidden school own ground. The reference raises a KeyError here, so the first age
-    // turn after such a corruption fails. The port refuses by name instead. Either authoring
-    // the four hidden reasons or keeping hidden schools out of the lottery closes it, and
-    // this test is the one that must change when the ruling lands.
+namespace {
+
+bool hidden_school(const std::string& school) {
+    const int s = magic_school_index(school);
+    return s >= 0 && magic_school_table()[static_cast<std::size_t>(s)].hidden;
+}
+
+const SettlementSite* site_with_uid(const World& w, const std::string& uid) {
+    for (const SettlementSite& s : w.settlements.sites) {
+        if (s.uid == uid) return &s;
+    }
+    return nullptr;
+}
+
+}  // namespace
+
+TEST(a_city_blood_farms_or_eldritch_takes_is_held_by_the_gods_school) {
+    // Ruled 2026-09-23: marked on the rebuilt site, where the reference's rebuild erased both
+    // effects. What each city lost stays in the record's `touched` list.
+    const CorruptWorldResult bitten = corrupted();
+    const CorruptionRecord* record = nullptr;
+    for (const CorruptionRecord& r : bitten.world.corruptions) {
+        if (r.index == bitten.report.corruption) record = &r;
+    }
+    check::is_true(record != nullptr, "the record the report names");
+    std::size_t held = 0;
+    for (const CorruptionTouch& t : record->touched) {
+        if (t.effect != "farmed" && t.effect != "taken") continue;
+        const SettlementSite* site = site_with_uid(bitten.world, t.city_uid);
+        check::is_true(site != nullptr, t.city_uid + " stands");
+        check::is_true(site->corruption.has_value(), t.city_uid + " is held");
+        check::equal(site->corruption->school, record->school, t.city_uid + " by the god's school");
+        check::equal(site->corruption->cause, t.effect, t.city_uid + " for what the god did to it");
+        check::equal(site->corruption->age, record->age, t.city_uid + " in the age it was done");
+        check::is_true(site->corruption->corruption == std::optional<int>(record->index),
+                       t.city_uid + " naming the corruption");
+        ++held;
+    }
+    check::is_true(held > 0, "a god that farms or takes, or nothing is tested");
+}
+
+TEST(an_age_turns_over_ground_a_hidden_school_owns_and_every_hold_persists) {
+    // Ruled 2026-09-23; the reference raised a KeyError at the first age turn after such a
+    // corruption. The age turns, no ruin is a hidden school's, and every held city that still
+    // stands is held as it was: corruption persists.
     const CorruptWorldResult bitten = corrupted();
     check::is_true(bitten.report.acted, "the corruption to act");
-    try {
-        (void)advance_ages(bitten.world, AgeAdvanceRequest{});
-        check::fail("an age turned over hidden-school ground; the ruling has landed -- update this test");
-    } catch (const std::out_of_range& refused) {
-        check::is_true(std::string(refused.what()).find("no fall reason") != std::string::npos,
-                       std::string("refused naming the missing reason: ") + refused.what());
+    const World later = advance_ages(bitten.world, AgeAdvanceRequest{});
+    for (const Ruin& ruin : later.ruins) {
+        check::is_true(!hidden_school(ruin.cause), ruin.id + " not ruined by a hidden school");
     }
+    std::size_t carried = 0;
+    for (const SettlementSite& before : bitten.world.settlements.sites) {
+        if (!before.corruption) continue;
+        const SettlementSite* after = site_with_uid(later, before.uid);
+        if (after == nullptr) continue;  // fell to something else this age
+        ++carried;
+        check::is_true(after->corruption.has_value(), before.uid + " still held after the age");
+        check::equal(after->corruption->school, before.corruption->school, before.uid + " by the same school");
+        check::equal(after->corruption->cause, before.corruption->cause, before.uid + " for the same cause");
+        check::equal(after->corruption->age, before.corruption->age, before.uid + " since the same age");
+    }
+    check::is_true(carried > 0, "some held city standing through the age, or the carry is untested");
+    for (const SettlementSite& s : later.settlements.sites) {
+        if (s.corruption) check::is_true(hidden_school(s.corruption->school), s.uid + " held by a hidden school");
+    }
+}
+
+TEST(a_held_city_publishes_its_hold) {
+    // This port's own key, only on a held city: {school, cause, age, corruption}.
+    World bare;
+    bare.has_settlements = true;
+    SettlementSite site;
+    site.uid = "surface-city-0-1-gnome";
+    site.corruption = CityCorruption{"eldritch", "taken", 2, 0};
+    bare.settlements.sites.push_back(site);
+    SettlementSite plain;
+    plain.uid = "surface-city-0-2-gnome";
+    bare.settlements.sites.push_back(plain);
+    std::ostringstream out;
+    write_world_json(out, bare, /*pretty=*/false, /*include_timings=*/false);
+    const JsonValue doc = parse_json(out.str());
+    const auto& sites = doc.at("settlements").at("sites").as_array();
+    check::equal(sites.size(), std::size_t{2}, "both sites written");
+    check::is_true(!sites.at(1).contains("corruption"), "no key on a city nothing holds");
+    const JsonValue& hold = sites.at(0).at("corruption");
+    std::vector<std::string> keys;
+    for (const auto& member : hold.as_object()) keys.push_back(member.first);
+    check::is_true(keys == std::vector<std::string>{"school", "cause", "age", "corruption"}, "the hold's keys");
+    check::equal(hold.at("school").as_string(), std::string("eldritch"), "school");
+    check::equal(hold.at("cause").as_string(), std::string("taken"), "cause");
+    check::equal(hold.at("age").as_int(), std::int64_t{2}, "age");
+    check::equal(hold.at("corruption").as_int(), std::int64_t{0}, "the corruption record");
 }
 
 TEST(the_reveal_outlasts_the_pantheons_re_resolve) {

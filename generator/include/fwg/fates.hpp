@@ -272,12 +272,17 @@ struct CityFateEvidence {
 struct CityFateCause {
     std::string kind;  // a school | dragon | monster | self_magic | villain_<growth>
     double weight = 0.0;
-    std::string reason;
+    std::string reason;  // empty for a hidden school's cause: it has no fall reason
     CityFateEvidence evidence;
+    // A hidden school's cause: chosen, it marks the city held rather than ruining it.
+    bool corrupts = false;
 };
 
 // How a city fell: the ruin record's fate fields.
 struct CityFate {
+    // True when the hidden school that dominates the ground was chosen: the city stands,
+    // held by `cause` (ruled 2026-09-23), and no ruin, legacy or key point follows.
+    bool corrupts = false;
     std::string cause;
     std::string reason;
     CityFateEvidence evidence;
@@ -311,8 +316,9 @@ struct CityFateRequest {
 // STRING id order, then self-magic when magic is on, then the villains. The selector walk is
 // order-sensitive, so a new cause is APPENDED -- inserting one moves every world.
 //
-// Throws std::out_of_range when a HIDDEN school dominates the ground: it has no fall reason.
-// Generation never raises one; a world the corruption API has touched can.
+// A HIDDEN school dominating the ground enters as a cause that corrupts: it has no fall
+// reason, and a city it is chosen for stands, held (ruled 2026-09-23; the reference raised a
+// KeyError). Generation never raises one; a world the corruption API has touched can.
 std::vector<CityFateCause> city_fate_causes(const CityFateRequest& request, const WarCity& city,
                                             const std::vector<double>& potencies);
 

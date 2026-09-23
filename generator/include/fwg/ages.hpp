@@ -249,4 +249,8 @@ void age_transition(World& world, int age, std::optional<long long> moon_day = s
 void rebuild_tail(World& world, const std::vector<SettlementSite>& survivors, const std::string& label, int age,
                   bool evaluate, bool religion);
 
+// Mark each named city held by a hidden school (ruled 2026-09-23), where it stands and is not
+// held already. Applied to the cities a rebuild has just re-seated.
+void mark_corrupted(World& world, const std::vector<std::pair<std::string, CityCorruption>>& held);
+
 }  // namespace fwg

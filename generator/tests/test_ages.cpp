@@ -307,6 +307,30 @@ TEST(heroes_survive_an_age_that_ends_a_whole_people) {
     check::is_true(fallen > 0, "a hero of a people with no city standing, or the case is not exercised");
 }
 
+TEST(a_city_the_lottery_gives_a_hidden_school_stands_held) {
+    // Ruled 2026-09-23. Blood made to dominate every city's ground, then one age turned: every
+    // city the lottery gives to blood stands, marked held by it in that age, and no ruin is
+    // blood's. The fates read the field before the rebuild re-evaluates it, so the edit bites.
+    World w = at_phase(16);
+    Grid& blood = w.layers.at("ley_blood");
+    for (double& v : blood.cells()) v = 10.0;
+    const int age = w.age + 1;
+    const std::size_t ruins_before = w.ruins.size();
+    age_transition(w, age);
+    std::size_t fallen = 0;
+    for (const SettlementSite& s : w.settlements.sites) {
+        if (!s.corruption || s.corruption->cause != "fallen") continue;
+        ++fallen;
+        check::equal(s.corruption->school, std::string("blood"), s.uid + " held by blood");
+        check::equal(s.corruption->age, age, s.uid + " in the age it fell");
+        check::is_true(!s.corruption->corruption.has_value(), s.uid + " by no corruption record");
+    }
+    for (std::size_t i = ruins_before; i < w.ruins.size(); ++i) {
+        check::is_true(w.ruins[i].cause != "blood", w.ruins[i].id + " not a blood ruin");
+    }
+    check::is_true(fallen > 0, "some city given to blood, or the path is untested");
+}
+
 TEST(an_advance_is_a_function_of_its_request) {
     const World genesis = at_phase(15);
     AgeAdvanceRequest request;

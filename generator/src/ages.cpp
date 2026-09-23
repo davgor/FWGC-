@@ -255,6 +255,14 @@ std::vector<std::string_view> age_order() {
             "civilization",           "nests",  "threat assessment"};
 }
 
+void mark_corrupted(World& world, const std::vector<std::pair<std::string, CityCorruption>>& held) {
+    for (const auto& [uid, corruption] : held) {
+        for (SettlementSite& site : world.settlements.sites) {
+            if (site.uid == uid && !site.corruption) site.corruption = corruption;
+        }
+    }
+}
+
 void rebuild_tail(World& world, const std::vector<SettlementSite>& survivors, const std::string& label, int age,
                   bool evaluate, bool religion) {
     if (evaluate) evaluate_networks(world);
@@ -356,6 +364,9 @@ void age_transition(World& world, int age, std::optional<long long> moon_day, bo
 
     std::vector<SettlementSite> survivors;
     std::vector<Ruin> events;
+    // Cities fallen to a hidden school: they stand, and are marked held once the rebuild has
+    // re-seated them.
+    std::vector<std::pair<std::string, CityCorruption>> held;
     for (const SettlementSite& city : cities) {
         const WarCity as_war = war_city(city);
         std::optional<CityFate> fate;
@@ -367,6 +378,11 @@ void age_transition(World& world, int age, std::optional<long long> moon_day, bo
         }
         if (!fate) {
             survivors.push_back(city);
+            continue;
+        }
+        if (fate->corrupts) {
+            survivors.push_back(city);
+            held.emplace_back(city.uid, CityCorruption{fate->cause, "fallen", age, std::nullopt});
             continue;
         }
         events.push_back(ruin_of(city, *fate, age));
@@ -395,8 +411,9 @@ void age_transition(World& world, int age, std::optional<long long> moon_day, bo
     // 7. Refugees reach the towns that stand.
     absorb_refugees(world, survivors, age);
 
-    // 8. The rebuild.
+    // 8. The rebuild, and then the holds this age's lottery decided.
     rebuild_tail(world, survivors, "age", age, /*evaluate=*/magic, /*religion=*/true);
+    mark_corrupted(world, held);
 
     // 9. The simulation ends with promotions. Accumulation alone cannot seat anybody in the
     // two ages a generation turns, so the last age is where the world names its

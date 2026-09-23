@@ -116,19 +116,25 @@ sets are pinned by tests beside each API.
 Per-response keys the reference's JSON APIs add (`corruption`, `cleanse`, `*_api_version`)
 are returned as typed results instead.
 
-## Open rulings
+## Rulings
 
-Both are pinned by tests, so a ruling lands as a deliberate change.
+Each is pinned by tests, so a change of mind lands as a deliberate change.
 
-1. **A hidden school owning a city's ground.** After a corruption, a hidden school can be
-   the dominant one under a city. The age lottery gives a city its dominant school's fall
-   reason, and only the eight known schools have one: the reference raises a KeyError at
-   the next age turn; the port refuses by name
-   (`an_age_cannot_yet_turn_over_ground_a_hidden_school_owns`). Author four fall reasons, or
-   keep hidden schools out of the lottery.
-2. **What a corruption does to survivors.** Blood's farmed population and eldritch's
-   `taken_by` mark are wiped by the rebuild the corruption owes, as in the reference, and
-   survive only in the corruption record's `touched` list. Keep, or carry them through.
+1. **A player's founding leaves stage 16 as it stood** (2026-09-23), as the reference does:
+   no plan, post or threat report for the new settlement until something re-runs those
+   passes; `rebuild: "humans"` drops the hamlet and castle plans and names them in
+   `dropped_blocks`.
+2. **Corrupted cities** (2026-09-23). A city the age lottery gives to a hidden school --
+   which has no fall reason; the reference raised a KeyError -- stands, marked held by that
+   school, instead of falling. So does a city a corruption farms (blood) or takes (eldritch),
+   where the reference's rebuild erased both effects. The mark is `settlements.sites[].corruption`
+   `{school, cause: fallen | farmed | taken, age, corruption}`, what the game does with it is
+   the game's, and every rebuild carries it: corruption persists. **Open:** how "a node
+   overpowers it" ends a hold. Ending one wherever another school dominates the city's ground
+   would free 8 of the 9 cities the seed-42 size-33 test corruption takes at the very next age
+   turn, because their ground was never the hidden school's; so for now nothing ends a hold.
+3. **The world document is `fwg.world` version 2** (2026-09-23), and nothing from the retired
+   Python repository is kept here.
 
 Observed and not changed: a school god's aspect is Wild when its network's mean node
 intensity times (1 + instability) exceeds 1.2, and generated intensities average about 2,

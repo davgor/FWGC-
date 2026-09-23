@@ -60,9 +60,10 @@ struct CorruptWorldResult {
 // pantheon's re-resolve and the hidden god revealed walking. Throws CorruptionError naming the
 // field on a refused request.
 //
-// Blood's farmed population and eldritch's `taken_by` mark live only in the corruption record's
-// `touched` list: the rebuild re-derives every survivor's population and carries no taken mark,
-// exactly as the reference's does. Recorded, not fixed.
+// A city blood farmed or eldritch took is marked held by the god's school on the rebuilt site
+// (SettlementSite::corruption, ruled 2026-09-23), and every later rebuild carries the mark. The
+// rebuild still re-derives the population; what each city lost, and who took it, stays in the
+// corruption record's `touched` list.
 CorruptWorldResult corrupt(const World& world, const CorruptWorldRequest& request);
 
 // --- cleansing ---------------------------------------------------------------

@@ -149,6 +149,8 @@ void carry_survivor(SettlementSite& site, const SettlementSite& old) {
     site.absorbed_bands = old.absorbed_bands;
     site.absorbed_refugees = old.absorbed_refugees;
     site.war_history = old.war_history;
+    // A hidden school's hold outlives the rebuild (ruled 2026-09-23: corruption persists).
+    site.corruption = old.corruption;
     // The player owns an authored layout, so it is carried rather than re-derived: this carry
     // is the only reason one outlives a rebuild. The test is the reference's, which admits any
     // layout on a player's site (see authored_layout).

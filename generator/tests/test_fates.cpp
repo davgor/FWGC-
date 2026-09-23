@@ -720,13 +720,24 @@ TEST(the_lottery_reads_the_swayed_field_and_the_walls_read_the_unswayed_one) {
                  "the walls never answer a surge");
 }
 
-TEST(a_hidden_school_that_holds_a_city_is_refused_loudly) {
+TEST(a_hidden_school_that_holds_a_city_corrupts_it_rather_than_ruining_it) {
+    // Ruled 2026-09-23; the reference raised a KeyError here. A hidden school has no fall
+    // reason, keeps its place and weight in the walk, and chosen, holds the city: no reason,
+    // no legacy, no key point.
     std::map<std::string, Grid> layers = ley_layers();
     layers["ley_blood"].at(1, 1) = 1.0;
     CityFateRequest request;
     request.globe_radius_m = kRadius;
     request.layers = &layers;
-    check::throws([&] { city_fate(request, city(), 0.0); }, "a blood-held city has no fall reason");
+    const std::vector<CityFateCause> causes =
+        city_fate_causes(request, city(), city_potencies(&layers, city(), std::nullopt));
+    check::is_true(!causes.empty() && causes.front().kind == "blood", "blood's cause first in the walk");
+    check::is_true(causes.front().corrupts && causes.front().reason.empty(), "a cause that corrupts, with no reason");
+    check::is_true(causes.front().weight > 0.0, "and its full weight");
+    const std::optional<CityFate> fate = city_fate(request, city(), 0.0);
+    check::is_true(fate.has_value() && fate->corrupts, "chosen, it corrupts");
+    check::equal(fate->cause, std::string("blood"), "held by blood");
+    check::is_true(fate->new_node_school.empty() && fate->legacy.school.empty(), "and leaves no key point");
     // The walls still see it: the assessment reads no prose.
     ThreatRequest threat;
     threat.ground.globe_radius_m = kRadius;

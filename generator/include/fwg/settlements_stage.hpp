@@ -40,6 +40,20 @@ inline constexpr std::string_view kSettlementsMethod =
 inline constexpr std::string_view kSettlementsMagicMethod =
     " All city sites must pass the mutation hazard limit, including difficult-site cities.";
 
+// A city a hidden school holds (ruled 2026-09-23): marked, left standing, and left for the
+// game to interpret. Two ways in -- the age lottery chose a hidden school as the city's fate,
+// or a corruption farmed or took it -- and every rebuild carries it. Corruption persists; the
+// ruling says it ends only when a node overpowers it, and HOW that is measured is not yet
+// decided, so nothing ends a hold yet.
+struct CityCorruption {
+    std::string school;  // the hidden school that holds the city
+    // How it came to be held: "fallen" (the age lottery chose the hidden school), or what a
+    // corruption did to it, "farmed" (blood) or "taken" (eldritch).
+    std::string cause;
+    int age = 0;                    // the age it was marked in
+    std::optional<int> corruption;  // the corruption record that marked it, where one did
+};
+
 // One settlement as the world publishes it.
 struct SettlementSite {
     // Position in the list. RENUMBERS whenever the set changes, which an age advance
@@ -119,6 +133,8 @@ struct SettlementSite {
     // The victor's uid, for a city that stood on as a vassal this age. NOT carried: the
     // rebuild drops it, as the reference's does -- a vassalage lasts one age boundary.
     std::string vassal_of;
+    // Held by a hidden school, where one holds it. CARRIED: see CityCorruption.
+    std::optional<CityCorruption> corruption;
 
     long long population_estimate = 0;
     long long urban_population_estimate = 0;

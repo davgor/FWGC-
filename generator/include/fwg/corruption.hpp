@@ -217,12 +217,10 @@ struct CorruptionOutcome {
 
     // The halves of the world this rewrote. Identical to the request's when nothing acted.
     //
-    // `survivors` carries blood's reduced population and eldritch's `taken_by` mark, and
-    // BOTH ARE ERASED by the tail rebuild the caller now owes: the carried-survivor key
-    // tuple holds neither, and founding re-derives the population from the habitat budget.
-    // In the reference those two signature effects therefore survive only as narration in
-    // `record.touched`. Add both keys to the carried set, or apply the failure mode after
-    // the rebuild, or accept the record-only semantics -- but decide, rather than inherit.
+    // `survivors` carries blood's reduced population and eldritch's `taken_by` mark. The tail
+    // rebuild re-derives the population from the habitat budget, as the reference's does;
+    // the world then marks each farmed or taken city held by the god's school (ruled
+    // 2026-09-23, world_api.hpp corrupt), a mark every later rebuild carries.
     std::vector<VillainCity> survivors;
     std::vector<CorruptionRuin> new_ruins;
     MagicReport magic;

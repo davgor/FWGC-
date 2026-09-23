@@ -4528,6 +4528,16 @@ void write_site_age_fields(JsonWriter& json, const World& world, std::size_t sit
     // fought, or the victor it now serves.
     if (!s.war_history.empty()) war_history(json, s.war_history);
     if (!s.vassal_of.empty()) text(json, "vassal_of", s.vassal_of);
+    // This port's own key (ruled 2026-09-23), only on a city a hidden school holds.
+    if (s.corruption) {
+        json.key("corruption");
+        json.begin_object();
+        text(json, "school", s.corruption->school);
+        text(json, "cause", s.corruption->cause);
+        integer(json, "age", s.corruption->age);
+        optional_int(json, "corruption", s.corruption->corruption);
+        json.end_object();
+    }
 }
 
 void write_site_layout_fields(JsonWriter& json, const World& world, std::size_t site_index) {

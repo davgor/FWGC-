@@ -336,19 +336,15 @@ std::vector<CityFateCause> city_fate_causes(const CityFateRequest& request, cons
     const ThreatLeyPressure ley =
         ley_threat_pressure(potencies, request.dominance_threshold, request.dominance_margin);
     if (ley.ley.has_value()) {
+        // Only the eight known schools have a fall reason. A hidden school's cause keeps its
+        // place and weight in the walk, and chosen, it holds the city rather than ruining it
+        // (ruled 2026-09-23): the reference's unguarded subscript raised here instead.
         const std::string_view reason = ley_destruction_reason(ley.ley->school);
-        // The reference's unguarded subscript, made to say what it means. Inventing a
-        // sentence, or dropping the cause, would each move every world the corruption API has
-        // touched, which is an owner's ruling rather than a port's.
-        if (reason.empty()) {
-            throw std::out_of_range("city " + city.uid + " fell to the " + ley.ley->school +
-                                    " leyline, which has no fall reason: only the eight known "
-                                    "schools are authored");
-        }
         CityFateCause cause;
         cause.kind = ley.ley->school;
         cause.weight = ley.pressure;
         cause.reason = std::string(reason);
+        cause.corrupts = reason.empty();
         cause.evidence.school = ley.ley->school;
         cause.evidence.potency = ley.ley->potency;
         causes.push_back(std::move(cause));
@@ -440,6 +436,11 @@ std::optional<CityFate> city_fate(const CityFateRequest& request, const WarCity&
     }
     fate.probability = chance;
     fate.roll = draw;
+    if (chosen->corrupts) {
+        // Held, not ruined: no legacy, no key point.
+        fate.corrupts = true;
+        return fate;
+    }
     // Every ruin seeds a key point: the destroyer's school, else the region's, else the
     // culture's.
     fate.legacy = ruin_legacy(chosen->kind, potencies, city.population_profile, city.city_class, sources,

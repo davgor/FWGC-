@@ -384,14 +384,27 @@ CorruptWorldResult corrupt(const World& world, const CorruptWorldRequest& reques
     out.has_villains = true;
     out.corruptions = outcome.corruptions;
 
-    // The rebuild over the cities rot and void spared. Blood's reduced population and
-    // eldritch's mark do not survive it, as they do not in the reference.
+    // The rebuild over the cities rot and void spared.
     std::vector<SettlementSite> survivors;
     for (const VillainCity& city : outcome.survivors) {
         if (const SettlementSite* site = site_named(world.settlements.sites, city.uid)) survivors.push_back(*site);
     }
     drop_plans(out);
     rebuild_tail(out, survivors, "corruption", age, /*evaluate=*/true, /*religion=*/false);
+
+    // A city blood farmed or eldritch took is held by the god's school (ruled 2026-09-23),
+    // marked on the rebuilt site; the reference's rebuild erased both effects. What each lost
+    // stays in the record's `touched` list.
+    std::vector<std::pair<std::string, CityCorruption>> held;
+    for (const CorruptionRecord& record : out.corruptions) {
+        if (record.index != outcome.corruption) continue;
+        for (const CorruptionTouch& touch : record.touched) {
+            if (touch.effect == "farmed" || touch.effect == "taken") {
+                held.emplace_back(touch.city_uid, CityCorruption{record.school, touch.effect, age, record.index});
+            }
+        }
+    }
+    mark_corrupted(out, held);
 
     // The pantheon re-resolves over the pass's religion, then the god is revealed walking --
     // after the resolve, precisely so the resolve cannot overwrite it.
