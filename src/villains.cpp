@@ -275,10 +275,6 @@ double round_dp(double value, int places) {
     return std::round(value * scale) / scale;
 }
 
-double great_circle_m(double radius_m, const Vec3& a, const Vec3& b) {
-    return radius_m * std::acos(clamp_unit(dot(a, b)));
-}
-
 Vec3 offset_direction(const Vec3& up, double angle, double bearing) {
     const Vec3 reference = std::abs(up.y) > 0.999 ? Vec3{1.0, 0.0, 0.0} : Vec3{0.0, 1.0, 0.0};
     const Vec3 north = unit(reference - dot(reference, up) * up);

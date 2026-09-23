@@ -6,6 +6,7 @@
   test_city_plan.cpp
   test_civilizations.cpp
   test_climate.cpp
+  test_colleges.cpp
   test_corruption.cpp
   test_ecology.cpp
   test_entities.cpp

@@ -44,4 +44,19 @@ inline double clamp_unit(double v) {
     return v < -1.0 ? -1.0 : (v > 1.0 ? 1.0 : v);
 }
 
+// Surface distance between two unit directions, in the units of `radius_m`.
+//
+// Kept in exactly this clamp-then-acos form. An atan2-based formula is more accurate and
+// would therefore NOT reproduce the behaviour at the tie boundaries where `distance <
+// best` decides which ley node anchors a region or which city owns a cell.
+//
+// Lives here, with the vectors, because almost every subsystem measures between two
+// directions. It started in villains.hpp, and a distance helper in one subsystem's header
+// is how the next subsystem writes its own copy instead. This is the one that takes
+// DIRECTIONS and so wraps the longitude seam; city_plan.cpp's raster-coordinate arc,
+// `unwrapped_arc_m`, deliberately does not.
+inline double great_circle_m(double radius_m, const Vec3& a, const Vec3& b) {
+    return radius_m * std::acos(clamp_unit(dot(a, b)));
+}
+
 }  // namespace fwg

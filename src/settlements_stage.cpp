@@ -239,6 +239,31 @@ void add_settlements(World& world) {
         world.layers["life_capacity_" + a.id] = grid.to_grid(a.food_potential);
     }
 
+    // The four generic fields later stages read by name. Colleges, witch huts and key
+    // locations all look these up, and a missing layer does not fail -- it reads as zero,
+    // which silently admits every cell to a test that was meant to refuse most of them.
+    //
+    // `suitability` is the FIRST contender's field, as the reference has it, not a blend
+    // and not the people holding the most ground. On the shipped registry the first entry
+    // is human_maritime, which settles no world at shipped widths (docs/scale-defects.md)
+    // -- but its opinion of the ground is a real field whether or not it can act on it,
+    // and matching the reference's choice keeps every consumer of the name comparable.
+    if (!assessed.empty()) world.layers["suitability"] = grid.to_grid(assessed.front().suitability);
+    world.layers["flood_risk"] = grid.to_grid(flood);
+    world.layers["resource_potential"] = world.layers.count("metal_richness") != 0
+                                             ? world.layers.at("metal_richness")
+                                             : Grid(cfg.size);
+    {
+        // Unreachable water publishes -1, not infinity: a grid is read cell by cell by
+        // consumers that compare against reaches, and -1 is the reference's own spelling
+        // of "none" in this layer.
+        std::vector<double> fresh_m(fresh.distance_m.size());
+        for (std::size_t i = 0; i < fresh_m.size(); ++i) {
+            fresh_m[i] = std::isfinite(fresh.distance_m[i]) ? fresh.distance_m[i] : -1.0;
+        }
+        world.layers["freshwater_distance"] = grid.to_grid(fresh_m);
+    }
+
     world.settlements = std::move(report);
     world.has_settlements = true;
     world.systems.push_back("settlements");

@@ -5,6 +5,7 @@
   city_plan.cpp
   civilizations.cpp
   climate.cpp
+  colleges.cpp
   config.cpp
   generated/content_biomes.cpp
   generated/content_buildings.cpp

@@ -130,19 +130,8 @@ inline constexpr std::string_view kDefaultGrowth = "usurping";
 // into `tier * 0.9 + rise * p`, so this rounding is part of the recurrence.
 double round_dp(double value, int places);
 
-// radius * acos(clamp(dot(a, b))) on unit vectors.
-//
-// Kept in exactly this clamp-then-acos form. An atan2-based great-circle formula is more
-// accurate and would therefore NOT reproduce the behaviour at the tie boundaries where
-// `distance < best` decides which ley node anchors a region.
-//
-// This is the one that takes DIRECTIONS and wraps the seam. `src/city_plan.cpp` has a
-// file-local arc over raster coordinates that deliberately does NOT wrap, and it was
-// called great_circle_m too. Renamed there to `unwrapped_arc_m`, because two functions of
-// one name measuring two different things is a near miss that compiles: they differ in
-// arity today, so no call could resolve wrongly, but the next one to take a matching
-// signature would.
-double great_circle_m(double radius_m, const Vec3& a, const Vec3& b);
+// `great_circle_m(radius_m, a, b)` moved to vec3.hpp, where every subsystem that measures
+// between two directions can find it without depending on this one.
 
 // A unit vector `angle` radians from `up` along `bearing`.
 //

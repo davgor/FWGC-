@@ -10,6 +10,7 @@
 #include <string>
 #include <utility>
 
+#include "fwg/colleges.hpp"
 #include "fwg/humans.hpp"
 #include "fwg/society.hpp"
 #include "fwg/world.hpp"
@@ -27,6 +28,11 @@ void add_populated_regions(World& world) {
     HumanHinterland hinterland = add_humans(humans_request);
     if (hinterland.cores.empty()) return;
 
+    // Colleges between the hinterland and the seasons, as the reference orders them: they
+    // stand clear of the hamlets and fortresses the hinterland just placed, and nothing
+    // they decide is read by the seasonal food.
+    CollegeReport colleges = add_colleges(world, hinterland);
+
     SeasonalFoodRequest seasonal_request;
     seasonal_request.world = &world;
     seasonal_request.humans = &hinterland;
@@ -36,29 +42,12 @@ void add_populated_regions(World& world) {
     society_request.world = &world;
     society_request.humans = &hinterland;
     society_request.seasonal = &seasonal;
-    // The suitability grid the witch huts are judged against. Left null it falls back to
-    // a ZERO field, and a zero field admits every cell rather than refusing every cell --
-    // so huts would stop being sited on poor ground and start being sited anywhere.
-    const std::string primary = "suitability_" + world.effective.population_profile;
-    if (const auto it = world.layers.find(primary); it != world.layers.end()) {
+    // The suitability grid the witch huts are judged against: the generic field the
+    // settlement stage publishes, exactly as the reference reads it. Left null it falls
+    // back to a ZERO field, and a zero field admits every cell rather than refusing every
+    // cell -- huts would stop being sited on poor ground and start being sited anywhere.
+    if (const auto it = world.layers.find("suitability"); it != world.layers.end()) {
         society_request.suitability = &it->second;
-    } else if (!world.settlements.sites.empty()) {
-        // A mixed world has no single primary people. Judge against the people who
-        // actually hold the most ground, which is the nearest honest answer.
-        std::map<std::string, int> counts;
-        for (const SettlementSite& s : world.settlements.sites) ++counts[s.population_profile];
-        const std::string* best = nullptr;
-        int most = 0;
-        for (const auto& [people, count] : counts) {
-            if (count > most) {
-                most = count;
-                best = &people;
-            }
-        }
-        if (best != nullptr) {
-            const auto found = world.layers.find("suitability_" + *best);
-            if (found != world.layers.end()) society_request.suitability = &found->second;
-        }
     }
     for (const SettlementSite& s : world.settlements.sites) society_request.site_names.push_back(s.name);
 
@@ -109,11 +98,13 @@ void add_populated_regions(World& world) {
         world.settlements.sites[k].community = society.community_traits[k];
     }
 
+    world.colleges = std::move(colleges);
     world.humans = std::move(hinterland);
     world.seasonal_food = std::move(seasonal);
     world.society = std::move(society);
     world.has_humans = true;
     world.systems.push_back("humans");
+    world.systems.push_back("colleges");
     world.systems.push_back("seasonal_food");
     world.systems.push_back("society");
 }

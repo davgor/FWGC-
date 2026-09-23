@@ -22,6 +22,7 @@
 #include "fwg/magic.hpp"
 #include "fwg/tectonics.hpp"
 #include "fwg/astrology.hpp"
+#include "fwg/colleges.hpp"
 #include "fwg/humans.hpp"
 #include "fwg/nests.hpp"
 #include "fwg/populated_stage.hpp"
@@ -143,6 +144,7 @@ struct World {
     HumanHinterland humans;
     SeasonalFood seasonal_food;
     SocietyReport society;
+    CollegeReport colleges;
 
     // Which subsystems actually ran. More honest than a stage number while the
     // ladder is partial: climate can be present while stages 6 and 7 are not.
