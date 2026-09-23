@@ -194,17 +194,23 @@ TEST(villains_are_seated_at_the_last_age_and_not_before) {
     check::is_true(seated > 0, "some villain seated at the final age");
 }
 
-TEST(veterans_ask_for_more_defence_than_cities_that_never_fought) {
+TEST(veterans_ask_for_a_road_fort_each_however_many_wars_they_fought) {
     const World w = at_phase(15);
     const FortressDemand& demand = w.humans.fortress_demand;
     std::map<std::string, const ThreatReport*> reports;
     for (const ThreatReport& r : w.threat_assessments.cities) reports[r.city_uid] = &r;
+    std::set<int> on_road;
+    for (const Road& road : w.roads.routes) {
+        on_road.insert(road.from);
+        on_road.insert(road.to);
+    }
     int veterans = 0;
     int asked = 0;
     for (const SettlementSite& s : w.settlements.sites) {
         if (s.war_history.empty()) continue;
         ++veterans;
-        asked += std::min(3, static_cast<int>(s.war_history.size()));
+        // A capital asks anyway; war adds a fort only to a city that would not otherwise ask.
+        if (on_road.count(s.id) != 0 && s.city_class != CityClass::Capital) ++asked;
         // And they expect the next war, which is what thickens their walls.
         const auto it = reports.find(s.uid);
         check::is_true(it != reports.end(), s.uid + " to be assessed");
@@ -214,9 +220,14 @@ TEST(veterans_ask_for_more_defence_than_cities_that_never_fought) {
     }
     check::is_true(veterans > 0, "a city standing after two ages that fought in them, or nothing is tested");
     check::equal(demand.veteran_cities, veterans, "every veteran city counted");
-    check::equal(demand.veteran_demand, asked, "each asks for up to three more forts");
-    check::equal(demand.city_ceiling, static_cast<int>(w.settlements.sites.size()) + asked, "the ceiling rises with them");
-    check::is_true(static_cast<int>(w.humans.fortresses.size()) <= demand.limit, "and the limit still holds");
+    check::equal(demand.veteran_demand, asked, "each asks for one road fort, however many wars");
+    std::map<int, int> road_forts;
+    for (const RuralSite& f : w.humans.fortresses) {
+        if (f.watch == "road") ++road_forts[f.core_id];
+    }
+    for (const auto& [city, held] : road_forts) {
+        check::is_true(held <= 1, "one road fort to a city, however long its wars");
+    }
 }
 
 TEST(the_rebuilt_world_is_assessed_as_of_the_last_age) {

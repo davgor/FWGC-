@@ -16,6 +16,7 @@
   test_ecology.cpp
   test_entities.cpp
   test_fates.cpp
+  test_fortresses.cpp
   test_habitation.cpp
   test_founding.cpp
   test_history.cpp

@@ -17,6 +17,7 @@
 #include "fwg/option_ids.hpp"
 #include "fwg/random.hpp"
 #include "fwg/routing.hpp"
+#include "fwg/scale.hpp"
 #include "fwg/settlement.hpp"
 #include "fwg/settlements_stage.hpp"
 #include "fwg/world.hpp"
@@ -28,9 +29,10 @@ constexpr double kPi = std::numbers::pi;
 
 // --- authored distances, every one of them in metres ------------------------
 //
-// These were tuned against the 11.15 km reference world and NONE of them is scaled with
+// These were tuned against the 11.15 km reference world and none of them is scaled with
 // world width — unlike `support_reach`, `settlement_spacing` and `culture_link_cost`,
-// which the request builder multiplies by the reach factor. At a 200 km circumference one
+// which the request builder multiplies by the reach factor — except the two fortress
+// distances, which the fort rule of 2026-09-23 scales where it uses them. At a 200 km circumference one
 // grid cell is already about 1.6 km at size 129, so each of these is smaller than a single
 // step and can only ever refuse a node its own distance from itself. They are ported at
 // their authored values because changing them is a design decision, not a port decision;
@@ -40,8 +42,14 @@ constexpr double kPi = std::numbers::pi;
 constexpr double kHamletMinAccessCost = 100.0;
 // Great-circle separation between a new hamlet and everything already placed.
 constexpr double kHamletSeparationM = 120.0;
-// The same for a fortress. Named in the published defence_method prose.
+// The same for a fortress -- SCALED with the world since 2026-09-23, as the support reach
+// is, because the fort rule was redesigned then and this is its spacing. Unscaled it fell
+// below one cell and spaced nothing: 67 forts stood a median 3 km apart on a 6 km grid.
 constexpr double kFortressSeparationM = 200.0;
+// How far a fort may stand from the node it guards before the distance costs it one unit
+// of defence. Scaled like the spacing: unscaled, a neighbouring cell cost three units and
+// the route node always won, where the reference meant a mild preference.
+constexpr double kFortressNearM = 500.0;
 // How far a hamlet's catchment reaches, in road-cost units.
 constexpr double kCatchmentReach = 250.0;
 // Annual trade: transport loss decay length and price scale, both in road-cost units.
@@ -59,8 +67,20 @@ constexpr double kHamletScoreFloor = 0.025;
 // Rural residents each generated hamlet is assumed to stand for, when the world is
 // inferring its own counts.
 constexpr double kResidentsPerHamlet = 40.0;
-// Wars beyond this stop raising a city's fortress demand.
-constexpr int kVeteranCap = 3;
+
+// --- frontier forts (2026-09-23) ---------------------------------------------
+// The routes an army weighs between two lands: every node within 10% of the cheapest.
+constexpr double kFrontierSlack = 0.10;
+// The share of the way across in which a chokepoint is sought, cut into slices. The ends
+// are left out: every route leaves from a city, where any corridor is narrow.
+constexpr double kFrontierBandLow = 0.2;
+constexpr double kFrontierBandHigh = 0.8;
+constexpr int kFrontierSlices = 12;
+// A frontier fort's standing against a road fort's, whose base runs 1 to 4 with the
+// junction's degree: a chokepoint between two peoples ranks with a busy crossing.
+constexpr double kFrontierBase = 2.0;
+// Height over the chokepoint worth one unit of defence: the high ground beside the pass.
+constexpr double kOverlookM = 50.0;
 
 // Trade below this is not worth recording; it is a floor on a residual, not a tolerance.
 constexpr double kTradeEpsilon = 1e-9;
@@ -150,6 +170,85 @@ std::vector<int> culture_groups(int count, const std::vector<CultureLink>& links
 
     std::vector<int> out(groups.size());
     for (std::size_t i = 0; i < out.size(); ++i) out[i] = root(static_cast<int>(i));
+    return out;
+}
+
+// ---------------------------------------------------------------------------
+
+std::vector<Crossing> narrowest_crossings(const std::vector<double>& from_a, const std::vector<double>& from_b,
+                                          const std::vector<double>& areas_m2, double slack, double band_low,
+                                          double band_high, int slices) {
+    const std::size_t count = std::min({from_a.size(), from_b.size(), areas_m2.size()});
+    if (slices < 1 || !(band_low < band_high) || band_low < 0.0 || band_high > 1.0) return {};
+    double cheapest = kUnreachable;
+    for (std::size_t i = 0; i < count; ++i) cheapest = std::min(cheapest, from_a[i] + from_b[i]);
+    // Unjoined lands, or two lands that share a node: no route to narrow.
+    if (!std::isfinite(cheapest) || cheapest <= 0.0) return {};
+    const double within = cheapest * (1.0 + slack);
+
+    struct Slice {
+        double area = 0.0;
+        int node = -1;
+        double node_total = kUnreachable;
+        double node_t = 0.0;
+    };
+    // `open` excludes the band's ends where the fallback reads the whole route: a node with
+    // t of exactly 0 or 1 IS a city.
+    const auto cut = [&](double low, double high, int parts, bool open) {
+        std::vector<Slice> out(static_cast<std::size_t>(parts));
+        const double step = (high - low) / parts;
+        for (std::size_t i = 0; i < count; ++i) {
+            const double total = from_a[i] + from_b[i];
+            if (!(total <= within)) continue;  // off the corridor, or unreachable from one side
+            const double t = from_a[i] / total;
+            if (t < low || t > high || (open && (t <= low || t >= high))) continue;
+            const auto k = std::min(static_cast<std::size_t>((t - low) / step), out.size() - 1);
+            Slice& s = out[k];
+            s.area += areas_m2[i];
+            const int node = static_cast<int>(i);
+            if (total < s.node_total || (total == s.node_total && node < s.node)) {
+                s.node_total = total;
+                s.node = node;
+                s.node_t = t;
+            }
+        }
+        return out;
+    };
+
+    double low = band_low;
+    double high = band_high;
+    std::vector<Slice> sliced = cut(low, high, slices, false);
+    const bool empty = std::none_of(sliced.begin(), sliced.end(), [](const Slice& s) { return s.node >= 0; });
+    if (empty) {
+        low = 0.0;
+        high = 1.0;
+        sliced = cut(low, high, 1, true);
+    }
+
+    struct Ranked {
+        double width;
+        double off_middle;
+        std::size_t slice;
+    };
+    std::vector<Ranked> ranked;
+    const double step = (high - low) / static_cast<double>(sliced.size());
+    for (std::size_t k = 0; k < sliced.size(); ++k) {
+        if (sliced[k].node < 0) continue;
+        const double centre = low + (static_cast<double>(k) + 0.5) * step;
+        // An open plain's corridor between two points is widest midway and narrows as
+        // sqrt(t (1 - t)) toward either end; dividing it out leaves what the terrain did.
+        ranked.push_back({sliced[k].area / std::sqrt(centre * (1.0 - centre)), std::abs(centre - 0.5), k});
+    }
+    std::sort(ranked.begin(), ranked.end(), [](const Ranked& a, const Ranked& b) {
+        return std::tie(a.width, a.off_middle, a.slice) < std::tie(b.width, b.off_middle, b.slice);
+    });
+
+    std::vector<Crossing> out;
+    out.reserve(ranked.size());
+    for (const Ranked& r : ranked) {
+        const Slice& s = sliced[r.slice];
+        out.push_back({s.node, cheapest, s.area / 1e6, s.node_t});
+    }
     return out;
 }
 
@@ -617,15 +716,42 @@ HumanHinterland add_humans(const HumansRequest& request) {
     std::sort(player_hamlets.begin(), player_hamlets.end(), by_node);
     std::sort(player_fortresses.begin(), player_fortresses.end(), by_node);
 
+    std::set<int> city_nodes;
+    for (const SettlementSite& site : sites) city_nodes.insert(site.node);
+    std::set<int> player_nodes;
+    for (const RuralSite& row : player_hamlets) player_nodes.insert(row.node);
+    for (const RuralSite& row : player_fortresses) player_nodes.insert(row.node);
+
     std::vector<int> occupied;
-    occupied.reserve(sites.size() + player_hamlets.size() + player_fortresses.size());
+    occupied.reserve(sites.size() + player_nodes.size() + request.previous_fortresses.size());
     for (const SettlementSite& site : sites) occupied.push_back(site.node);
-    {
-        std::set<int> player_nodes;
-        for (const RuralSite& row : player_hamlets) player_nodes.insert(row.node);
-        for (const RuralSite& row : player_fortresses) player_nodes.insert(row.node);
-        for (const int node : player_nodes) occupied.push_back(node);
+    for (const int node : player_nodes) occupied.push_back(node);
+
+    // --- forts that stand ---------------------------------------------------
+    // A fort keeps its ground while the city that garrisons it stands (ruled 2026-09-23): it
+    // is carried rather than re-proposed, and falls with its city. Its ground can still be
+    // lost -- drowned, or built over by a city or a player's site. The nodes join the
+    // occupied set before the hamlets are placed, so nothing new is sited on a fort.
+    std::map<std::string, int, std::less<>> city_by_uid;
+    for (const SettlementSite& site : sites) city_by_uid.emplace(site.uid, site.id);
+    std::vector<RuralSite> standing;
+    std::set<int> standing_nodes;
+    for (const RuralSite& row : request.previous_fortresses) {
+        if (row.founded_by == "player" || row.watch.empty()) continue;
+        const auto city = city_by_uid.find(row.core_uid);
+        if (city == city_by_uid.end()) continue;  // its city fell, and the fort with it
+        if (row.node < 0 || static_cast<std::size_t>(row.node) >= count) continue;
+        if (water[static_cast<std::size_t>(row.node)] != 0.0) continue;
+        if (city_nodes.count(row.node) != 0 || player_nodes.count(row.node) != 0) continue;
+        if (!standing_nodes.insert(row.node).second) continue;
+        RuralSite fort = row;
+        const auto garrison = static_cast<std::size_t>(city->second);
+        fort.core_id = city->second;
+        fort.population_profile = sites[garrison].population_profile;
+        fort.culture_id = culture_ids[groups[garrison]];
+        standing.push_back(std::move(fort));
     }
+    for (const int node : standing_nodes) occupied.push_back(node);
 
     std::vector<Vec3> vectors(count);
     for (std::size_t i = 0; i < count; ++i) vectors[i] = direction(grid.point_x[i], grid.point_z[i], n);
@@ -652,9 +778,11 @@ HumanHinterland add_humans(const HumansRequest& request) {
         site.z = grid.point_z[static_cast<std::size_t>(i)];
         site.core_id = core;
         if (core >= 0) {
+            site.core_uid = sites[static_cast<std::size_t>(core)].uid;
             site.population_profile = sites[static_cast<std::size_t>(core)].population_profile;
             site.culture_id = culture_ids[groups[static_cast<std::size_t>(core)]];
         }
+        site.raised_age = world.age;
         site.height_m = height[static_cast<std::size_t>(i)];
         site.access_cost = distance[static_cast<std::size_t>(i)];
         site.access_nodes.push_back(i);
@@ -662,6 +790,33 @@ HumanHinterland add_humans(const HumansRequest& request) {
             site.access_nodes.push_back(parent[static_cast<std::size_t>(site.access_nodes.back())]);
         }
         site.reason = std::move(reason);
+        return site;
+    };
+
+    // A fort garrisoned from a city found by a search of that city's whole land: a frontier
+    // fort, which may stand past any one city's support reach, so the territory's owner and
+    // access path are not its garrison's.
+    const auto garrisoned_record = [&](int i, int city, const AccessResult& land, std::string reason) {
+        RuralSite site;
+        const auto c = static_cast<std::size_t>(city);
+        const auto ui = static_cast<std::size_t>(i);
+        site.uid = "fortress-node-" + std::to_string(i);
+        site.kind = "fortress";
+        site.node = i;
+        site.x = grid.point_x[ui];
+        site.z = grid.point_z[ui];
+        site.core_id = city;
+        site.core_uid = sites[c].uid;
+        site.population_profile = sites[c].population_profile;
+        site.culture_id = culture_ids[groups[c]];
+        site.height_m = height[ui];
+        site.access_cost = land.distance[ui];
+        site.access_nodes.push_back(i);
+        while (land.parent[static_cast<std::size_t>(site.access_nodes.back())] >= 0) {
+            site.access_nodes.push_back(land.parent[static_cast<std::size_t>(site.access_nodes.back())]);
+        }
+        site.reason = std::move(reason);
+        site.raised_age = world.age;
         return site;
     };
 
@@ -684,6 +839,8 @@ HumanHinterland add_humans(const HumansRequest& request) {
         reseated.uid = row.uid;
         reseated.founded_by = row.founded_by;
         reseated.founded_age = row.founded_age;
+        reseated.raised_age = row.founded_age;
+        reseated.watch = row.watch.empty() && std::string_view(kind) == "fortress" ? std::string("player") : row.watch;
         reseated.name = row.name;
         if (!row.population_profile.empty()) reseated.population_profile = row.population_profile;
         if (!row.role.empty()) reseated.role = row.role;
@@ -695,6 +852,231 @@ HumanHinterland add_humans(const HumansRequest& request) {
         reseated.protected_route_node = row.protected_route_node;
         return reseated;
     };
+
+    // --- fortresses --------------------------------------------------------
+    // Placed BEFORE the hamlets (2026-09-23): a fort claims the strategic ground and the farms
+    // settle around it. Placed after them, the hamlets had already taken the few road nodes
+    // in a city's territory, and most cities that asked for a fort got none.
+    // Two watches (ruled 2026-09-23). A capital, and a city that has fought, each hold one
+    // fort on the most defensible junction or crossing of their own roads. Two civilizations
+    // joined by a road hold one fort on the high ground beside the narrowest point of the
+    // natural overland route between their lands. A fort that stands answers its ask, so a
+    // rebuild raises only what is newly asked, and fortress_count caps what is raised and
+    // never raises it. No two forts stand closer than the reference's spacing, scaled with
+    // the world as the support reach is.
+    const double reach_factor = scale::reach_scale(2.0 * kPi * cfg.globe_radius);
+    const double fort_spacing = kFortressSeparationM * reach_factor;
+    const double fort_near = kFortressNearM * reach_factor;
+
+    // Route junctions, river crossings and elevated surroundings suggest defensive sites.
+    // Insertion order matters: a tie on the score below is kept by the FIRST writer.
+    std::vector<int> route_order;
+    std::unordered_map<int, std::size_t> route_slot;
+    std::vector<std::set<int>> route_links;
+    const auto touch = [&](int node) -> std::set<int>& {
+        const auto found = route_slot.find(node);
+        if (found != route_slot.end()) return route_links[found->second];
+        route_slot.emplace(node, route_links.size());
+        route_order.push_back(node);
+        route_links.emplace_back();
+        return route_links.back();
+    };
+
+    std::set<int> crossings;
+    std::set<std::pair<int, int>> crossing_edges;
+    double road_length = 0.0;
+    std::vector<char> on_road(sites.size(), 0);
+    using Frontier = std::pair<std::string, std::string>;
+    std::set<Frontier> frontiers;
+    for (const Road& road : world.roads.routes) {
+        for (std::size_t k = 0; k + 1 < road.nodes.size(); ++k) {
+            touch(road.nodes[k]).insert(road.nodes[k + 1]);
+            touch(road.nodes[k + 1]).insert(road.nodes[k]);
+        }
+        for (const auto& [a, b] : road.river_crossings) {
+            crossings.insert(a);
+            crossings.insert(b);
+            crossing_edges.emplace(std::min(a, b), std::max(a, b));
+        }
+        road_length += road.length_m;
+
+        // Two peoples a road joins are neighbours: an army goes where the traders go.
+        const auto a = static_cast<std::size_t>(road.from);
+        const auto b = static_cast<std::size_t>(road.to);
+        if (a >= sites.size() || b >= sites.size()) continue;
+        on_road[a] = 1;
+        on_road[b] = 1;
+        const std::string& pa = sites[a].population_profile;
+        const std::string& pb = sites[b].population_profile;
+        if (pa != pb) frontiers.emplace(std::min(pa, pb), std::max(pa, pb));
+    }
+
+    // Who asks for a road fort: a capital, and a city that has fought -- once, however many
+    // wars. A city no road reaches has nothing for one to watch.
+    std::vector<char> asks(sites.size(), 0);
+    int capitals = 0;
+    int veteran_cities = 0;
+    int veteran_asks = 0;
+    int road_asks = 0;
+    for (std::size_t i = 0; i < sites.size(); ++i) {
+        const bool capital = sites[i].city_class == CityClass::Capital;
+        const bool fought = i < request.war_history.size() && request.war_history[i] > 0;
+        capitals += capital ? 1 : 0;
+        veteran_cities += fought ? 1 : 0;
+        if (!on_road[i] || !(capital || fought)) continue;
+        asks[i] = 1;
+        ++road_asks;
+        veteran_asks += capital ? 0 : 1;
+    }
+
+    // What the forts that stand already answer.
+    std::set<int> garrisoned;
+    std::set<Frontier> watched;
+    for (const RuralSite& fort : standing) {
+        if (fort.watch == "road") garrisoned.insert(fort.core_id);
+        if (fort.watch == "frontier") watched.emplace(fort.frontier_a, fort.frontier_b);
+    }
+    int unmet = 0;
+    for (std::size_t i = 0; i < sites.size(); ++i) {
+        if (asks[i] != 0 && garrisoned.count(static_cast<int>(i)) == 0) ++unmet;
+    }
+    for (const Frontier& frontier : frontiers) {
+        if (watched.count(frontier) == 0) ++unmet;
+    }
+    const int carried = static_cast<int>(standing.size());
+    const int fortress_limit = std::max(0, std::min(cfg.fortress_count - carried, unmet));
+    std::vector<RuralSite> raised;
+    const auto room = [&] { return static_cast<int>(raised.size()) < fortress_limit; };
+
+    // Road forts. A candidate is a road node or a neighbour of one, on dry ground its owner
+    // works, in the territory of a city that asks and has no road fort standing. Each such
+    // city takes the best candidate it owns that keeps the spacing, the best sites first.
+    std::map<int, std::pair<double, int>> strategic;
+    for (std::size_t slot = 0; slot < route_order.size(); ++slot) {
+        const int node = route_order[slot];
+        const std::set<int>& neighbours = route_links[slot];
+        const double base = 1.0 + std::min(2.0, std::max(0.0, static_cast<double>(neighbours.size()) - 2.0)) +
+                            (crossings.count(node) != 0 ? 1.0 : 0.0);
+
+        std::vector<std::pair<int, double>> around;
+        around.emplace_back(node, 0.0);
+        for (const SphereNeighbour& nb : grid.neighbours[static_cast<std::size_t>(node)]) {
+            around.emplace_back(nb.index, nb.distance);
+        }
+
+        for (const auto& [i, d] : around) {
+            const auto ui = static_cast<std::size_t>(i);
+            if (water[ui] != 0.0) continue;
+            if (slope[ui] >= node_profiles[ui]->traits.work_slope_limit) continue;
+            if (owner[ui] < 0 || distance[ui] > cfg.support_reach) continue;
+            if (asks[static_cast<std::size_t>(owner[ui])] == 0 || garrisoned.count(owner[ui]) != 0) continue;
+            // The GLOBAL cost function, not the owner's: a fort has to stand where any
+            // road could reach it.
+            if (i != node && !cost(node, i, d)) continue;
+
+            const double value = base + std::max(-0.5, std::min(1.0, tpi[ui] / 30.0)) - 0.5 * flood[ui] -
+                                 slope[ui] / 40.0 - d / fort_near;
+            const auto found = strategic.find(i);
+            if (found == strategic.end() || value > found->second.first) strategic[i] = {value, node};
+        }
+    }
+
+    std::vector<std::pair<int, std::pair<double, int>>> road_sites(strategic.begin(), strategic.end());
+    std::sort(road_sites.begin(), road_sites.end(), [](const auto& a, const auto& b) {
+        return a.second.first != b.second.first ? a.second.first > b.second.first : a.first < b.first;
+    });
+    std::set<int> served;
+    for (const auto& [i, scored] : road_sites) {
+        if (!room()) break;
+        const int city = owner[static_cast<std::size_t>(i)];
+        if (served.count(city) != 0) continue;
+        if (!separated(i, fort_spacing)) continue;
+        RuralSite fort = record(i, "fortress", 0, "Its city's road; junction/crossing importance and elevated surroundings");
+        fort.watch = "road";
+        fort.defence_score = scored.first;
+        fort.protected_route_node = scored.second;
+        raised.push_back(std::move(fort));
+        occupied.push_back(i);
+        served.insert(city);
+    }
+    // Frontier forts. Each civilization's lands are searched once, from all its cities, over
+    // the ground an army crosses -- the shared road cost, which refuses water, cliffs and
+    // unsafe magic whoever marches -- and the fort takes the best ground beside the
+    // narrowest crossing it can still be built at, garrisoned from the nearer land's
+    // nearest city. Unbounded: roads are laid by each people's own rules, so a road's cost
+    // does not bound the shared route.
+    std::map<std::string, AccessResult, std::less<>> lands;
+    const auto land_of = [&](const std::string& people) -> const AccessResult& {
+        if (const auto found = lands.find(people); found != lands.end()) return found->second;
+        std::vector<std::pair<int, int>> seeds;
+        for (const SettlementSite& site : sites) {
+            if (site.population_profile == people) seeds.emplace_back(site.node, site.id);
+        }
+        return lands.emplace(people, allocate_access(grid, seeds, cost)).first->second;
+    };
+    for (const Frontier& frontier : frontiers) {
+        if (!room()) break;
+        if (watched.count(frontier) != 0) continue;
+        const AccessResult& a = land_of(frontier.first);
+        const AccessResult& b = land_of(frontier.second);
+        const std::vector<Crossing> crossings_between = narrowest_crossings(
+            a.distance, b.distance, grid.areas, kFrontierSlack, kFrontierBandLow, kFrontierBandHigh, kFrontierSlices);
+        bool placed = false;
+        for (const Crossing& crossing : crossings_between) {
+            const int choke = crossing.node;
+            const auto uc = static_cast<std::size_t>(choke);
+            std::vector<std::pair<int, double>> around;
+            around.emplace_back(choke, 0.0);
+            for (const SphereNeighbour& nb : grid.neighbours[uc]) around.emplace_back(nb.index, nb.distance);
+
+            std::vector<std::pair<double, int>> ground;
+            for (const auto& [i, d] : around) {
+                const auto ui = static_cast<std::size_t>(i);
+                if (water[ui] != 0.0) continue;
+                if (i != choke && !cost(choke, i, d)) continue;
+                const AccessResult& side = a.distance[ui] <= b.distance[ui] ? a : b;
+                const int city = side.owner[ui];
+                if (city < 0 || !std::isfinite(side.distance[ui])) continue;
+                if (slope[ui] >= site_profiles[static_cast<std::size_t>(city)]->traits.work_slope_limit) continue;
+                const double value = kFrontierBase + std::max(-0.5, std::min(1.0, tpi[ui] / 30.0)) +
+                                     std::max(0.0, std::min(1.0, (height[ui] - height[uc]) / kOverlookM)) -
+                                     0.5 * flood[ui] - slope[ui] / 40.0 - d / fort_near;
+                ground.emplace_back(value, i);
+            }
+            std::sort(ground.begin(), ground.end(), [](const auto& x, const auto& y) {
+                return x.first != y.first ? x.first > y.first : x.second < y.second;
+            });
+
+            for (const auto& [value, i] : ground) {
+                if (!separated(i, fort_spacing)) continue;
+                const auto ui = static_cast<std::size_t>(i);
+                const AccessResult& side = a.distance[ui] <= b.distance[ui] ? a : b;
+                RuralSite fort = garrisoned_record(i, side.owner[ui], side,
+                                                   "High ground beside the narrowest point of the natural route "
+                                                   "between the " + frontier.first + " and " + frontier.second +
+                                                       " lands");
+                fort.watch = "frontier";
+                fort.frontier_a = frontier.first;
+                fort.frontier_b = frontier.second;
+                fort.corridor_km2 = crossing.width_km2;
+                fort.defence_score = value;
+                fort.protected_route_node = choke;
+                raised.push_back(std::move(fort));
+                occupied.push_back(i);
+                placed = true;
+                break;
+            }
+            if (placed) break;
+        }
+    }
+
+    // The list: what stands, in the order it was raised, then this pass's forts, then the
+    // player's -- not proposals, so appended after the ceiling rather than under it. The
+    // ordinals are this list's positions, reissued on every pass.
+    out.fortresses = std::move(standing);
+    for (RuralSite& fort : raised) out.fortresses.push_back(std::move(fort));
+    for (const RuralSite& row : player_fortresses) out.fortresses.push_back(adopt(row, "fortress", 0));
+    for (std::size_t k = 0; k < out.fortresses.size(); ++k) out.fortresses[k].id = "fortress-" + std::to_string(k);
 
     // --- hamlets -----------------------------------------------------------
     for (const SettlementSite& site : sites) {
@@ -781,8 +1163,6 @@ HumanHinterland add_humans(const HumansRequest& request) {
     }
     const AccessResult farm = allocate_access(grid, hamlet_seeds, farm_cost, kCatchmentReach);
 
-    std::set<int> city_nodes;
-    for (const SettlementSite& site : sites) city_nodes.insert(site.node);
     for (std::size_t i = 0; i < count; ++i) {
         const int k = farm.owner[i];
         if (k < 0) continue;
@@ -802,109 +1182,6 @@ HumanHinterland add_humans(const HumansRequest& request) {
                                       (farming ? kOffSpecialityRate : 1.0);
     }
 
-    // --- fortresses --------------------------------------------------------
-    // Route junctions, river crossings and elevated surroundings suggest defensive sites.
-    // Insertion order matters: a tie on the score below is kept by the FIRST writer.
-    std::vector<int> route_order;
-    std::unordered_map<int, std::size_t> route_slot;
-    std::vector<std::set<int>> route_links;
-    const auto touch = [&](int node) -> std::set<int>& {
-        const auto found = route_slot.find(node);
-        if (found != route_slot.end()) return route_links[found->second];
-        route_slot.emplace(node, route_links.size());
-        route_order.push_back(node);
-        route_links.emplace_back();
-        return route_links.back();
-    };
-
-    std::set<int> crossings;
-    std::set<std::pair<int, int>> crossing_edges;
-    double road_length = 0.0;
-    for (const Road& road : world.roads.routes) {
-        for (std::size_t k = 0; k + 1 < road.nodes.size(); ++k) {
-            touch(road.nodes[k]).insert(road.nodes[k + 1]);
-            touch(road.nodes[k + 1]).insert(road.nodes[k]);
-        }
-        for (const auto& [a, b] : road.river_crossings) {
-            crossings.insert(a);
-            crossings.insert(b);
-            crossing_edges.emplace(std::min(a, b), std::max(a, b));
-        }
-        road_length += road.length_m;
-    }
-
-    // The road network asks for its own defence: one watch per support reach of road plus
-    // one per distinct crossing. A civilization cannot raise more forts than it has cities
-    // to raise them, and fortress_count is a caller's ceiling over both — always a
-    // maximum, never a target or a guarantee.
-    std::vector<int> veteran(sites.size(), 0);
-    int veteran_demand = 0;
-    int veteran_cities = 0;
-    for (std::size_t i = 0; i < sites.size(); ++i) {
-        const int fought = i < request.war_history.size() ? request.war_history[i] : 0;
-        veteran[i] = std::min(kVeteranCap, std::max(0, fought));
-        veteran_demand += veteran[i];
-        if (veteran[i] != 0) ++veteran_cities;
-    }
-
-    const int proposed = static_cast<int>(std::floor(road_length / cfg.support_reach)) +
-                         static_cast<int>(crossing_edges.size()) + veteran_demand;
-    const int city_ceiling = static_cast<int>(sites.size()) + veteran_demand;
-    const int fortress_limit = std::min({cfg.fortress_count, proposed, city_ceiling});
-
-    std::map<int, std::pair<double, int>> strategic;
-    for (std::size_t slot = 0; slot < route_order.size(); ++slot) {
-        const int node = route_order[slot];
-        const std::set<int>& neighbours = route_links[slot];
-        const double base = 1.0 + std::min(2.0, std::max(0.0, static_cast<double>(neighbours.size()) - 2.0)) +
-                            (crossings.count(node) != 0 ? 1.0 : 0.0);
-
-        std::vector<std::pair<int, double>> around;
-        around.emplace_back(node, 0.0);
-        for (const SphereNeighbour& nb : grid.neighbours[static_cast<std::size_t>(node)]) {
-            around.emplace_back(nb.index, nb.distance);
-        }
-
-        for (const auto& [i, d] : around) {
-            const auto ui = static_cast<std::size_t>(i);
-            if (water[ui] != 0.0) continue;
-            if (slope[ui] >= node_profiles[ui]->traits.work_slope_limit) continue;
-            if (owner[ui] < 0 || distance[ui] > cfg.support_reach) continue;
-            // The GLOBAL cost function, not the owner's: a fort has to stand where any
-            // road could reach it.
-            if (i != node && !cost(node, i, d)) continue;
-
-            // Ground belonging to a city that has fought outranks equally defensible
-            // ground belonging to one that has not.
-            const double veteran_bonus =
-                owner[ui] >= 0 ? 0.5 * veteran[static_cast<std::size_t>(owner[ui])] : 0.0;
-            const double value = base + std::max(-0.5, std::min(1.0, tpi[ui] / 30.0)) - 0.5 * flood[ui] -
-                                 slope[ui] / 40.0 - d / 500.0 + veteran_bonus;
-            const auto found = strategic.find(i);
-            if (found == strategic.end() || value > found->second.first) strategic[i] = {value, node};
-        }
-    }
-
-    std::vector<std::pair<int, std::pair<double, int>>> ranked(strategic.begin(), strategic.end());
-    std::sort(ranked.begin(), ranked.end(), [](const auto& a, const auto& b) {
-        return a.second.first != b.second.first ? a.second.first > b.second.first : a.first < b.first;
-    });
-    for (const auto& [i, scored] : ranked) {
-        if (static_cast<int>(out.fortresses.size()) >= fortress_limit) break;
-        if (!separated(i, kFortressSeparationM)) continue;
-        RuralSite fort = record(i, "fortress", out.fortresses.size(),
-                                "Nearby city road; junction/crossing importance and elevated surroundings");
-        fort.defence_score = scored.first;
-        fort.protected_route_node = scored.second;
-        out.fortresses.push_back(std::move(fort));
-        occupied.push_back(i);
-    }
-
-    // A player keep is not a route-defence proposal, so it is appended AFTER the ceiling
-    // rather than competing for a place under it.
-    for (const RuralSite& row : player_fortresses) {
-        out.fortresses.push_back(adopt(row, "fortress", out.fortresses.size()));
-    }
 
     // --- cores and trade ---------------------------------------------------
     for (const SettlementSite& site : sites) {
@@ -941,16 +1218,39 @@ HumanHinterland add_humans(const HumansRequest& request) {
     out.civilization_region = grid.to_grid(civilization_region);
     out.hamlet_catchment = grid.to_grid(catchment);
 
-    out.fortress_demand.proposed = proposed;
-    out.fortress_demand.city_ceiling = city_ceiling;
-    out.fortress_demand.requested_ceiling = cfg.fortress_count;
-    out.fortress_demand.limit = fortress_limit;
-    out.fortress_demand.player_founded = static_cast<int>(player_fortresses.size());
-    out.fortress_demand.veteran_demand = veteran_demand;
-    out.fortress_demand.veteran_cities = veteran_cities;
-    out.fortress_demand.crossings = static_cast<int>(crossing_edges.size());
-    out.fortress_demand.road_length_m = road_length;
-    out.fortress_demand.support_reach = cfg.support_reach;
+    FortressDemand& demand = out.fortress_demand;
+    demand.proposed = unmet;
+    demand.city_ceiling = road_asks;
+    demand.requested_ceiling = cfg.fortress_count;
+    demand.limit = fortress_limit;
+    demand.player_founded = static_cast<int>(player_fortresses.size());
+    demand.veteran_demand = veteran_asks;
+    demand.veteran_cities = veteran_cities;
+    demand.crossings = static_cast<int>(crossing_edges.size());
+    demand.road_length_m = road_length;
+    demand.support_reach = cfg.support_reach;
+    demand.capitals = capitals;
+    demand.frontiers = static_cast<int>(frontiers.size());
+    demand.carried = carried;
+    for (const RuralSite& fort : out.fortresses) {
+        demand.road_forts += fort.watch == "road" ? 1 : 0;
+        demand.frontier_forts += fort.watch == "frontier" ? 1 : 0;
+    }
+    demand.spacing_m = fort_spacing;
+    // What no fort answers: an asking city with no road fort, a frontier with none. Usable
+    // ground and the spacing decide this; the reader should not have to infer it.
+    std::set<int> holding;
+    std::set<Frontier> kept_watch;
+    for (const RuralSite& fort : out.fortresses) {
+        if (fort.watch == "road") holding.insert(fort.core_id);
+        if (fort.watch == "frontier") kept_watch.emplace(fort.frontier_a, fort.frontier_b);
+    }
+    for (std::size_t i = 0; i < sites.size(); ++i) {
+        if (asks[i] != 0 && holding.count(static_cast<int>(i)) == 0) ++demand.unanswered;
+    }
+    for (const Frontier& frontier : frontiers) {
+        if (kept_watch.count(frontier) == 0) ++demand.unanswered;
+    }
 
     out.method =
         "All primary pins are cities. Rural sites share exclusive reachable catchments. Food/material "
@@ -968,11 +1268,15 @@ HumanHinterland add_humans(const HumansRequest& request) {
         "seed-local, not inferred ethnicities or political borders; architecture style keys identify "
         "standalone civilizations. Territory stops at the support reach; wilderness remains unassigned.";
     out.defence_method =
-        "Fortresses are spaced route-defence proposals, not a siege or visibility simulation. How many a "
-        "world asks for follows its own road length, support reach and distinct river crossings, "
-        "ceilinged by its city count; fortress_count caps that and never raises it. Usable defensible "
-        "ground and the 200 m spacing decide how many of the requested forts exist. Garrison demand is "
-        "not yet budgeted.";
+        "Fortresses are spaced strategic proposals, not a siege or visibility simulation. Every capital and "
+        "every city that has fought a war holds one road fort on the most defensible junction or crossing "
+        "of its own roads. Every two civilizations joined by a road hold one frontier fort on the high "
+        "ground beside the narrowest point of the natural overland route between their lands -- a pass, a "
+        "land bridge, a ford -- found where the corridor of routes within 10% of the cheapest covers the "
+        "least ground. A fort stands through age turns while the city that garrisons it stands; a new age "
+        "raises only what its cities and frontiers newly ask. fortress_count caps what is raised and never "
+        "raises it. No two forts stand closer than the reference's 200 m scaled with the world, as the "
+        "support reach is. Garrison demand is not yet budgeted.";
     return out;
 }
 

@@ -148,6 +148,25 @@ Each is pinned by tests, so a change of mind lands as a deliberate change.
    lists each destroyed city with its people, share, band and hooks.
 3. **The world document is `fwg.world` version 2** (2026-09-23), and nothing from the retired
    Python repository is kept here.
+4. **Forts are strategic, watch frontiers too, and stand** (2026-09-23). The reference raised
+   forts up to its cities plus up to three per city for each city's wars, ranked over every
+   road cell in the world with a 200 m spacing that no longer separated anything: about 1.6
+   forts a city, piled on a few hubs (one city held 11, 17 of 42 held none). Now a capital, and a
+   city that has fought, each hold **one road fort** on the most defensible junction or crossing
+   of their own roads; every two civilizations a road joins hold **one frontier fort** on the
+   high ground beside the narrowest point of the natural overland route between their lands --
+   a pass, a land bridge, a ford -- found where the corridor of routes within 10% of the
+   cheapest covers the least ground (`narrowest_crossings`, humans.hpp). Forts are placed before
+   the hamlets, so a fort claims the strategic ground and the farms settle around it; the
+   spacing is the reference's 200 m scaled with the world, as the support reach is. **A fort
+   stands** while the city that garrisons it (`core_uid`) stands and its ground is dry and
+   unbuilt, through age turns and every other rebuild, and a new age raises only what its
+   cities and frontiers newly ask. Each fort publishes `watch` (road, frontier or player),
+   `core_uid` and `raised_age`, a frontier fort also its peoples and corridor width;
+   `fortress_demand` keeps the reference's keys with the new rule's meanings and adds
+   `capitals`, `frontiers`, `carried`, `road_forts`, `frontier_forts`, `spacing_m` and
+   `unanswered`. The humans block is version 10. At seed 99, size 33: 38 forts where there
+   were 67, at most 3 on any city.
 
 Observed and not changed: a school god's aspect is Wild when its network's mean node
 intensity times (1 + instability) exceeds 1.2, and generated intensities average about 2,

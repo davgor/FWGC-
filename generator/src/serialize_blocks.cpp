@@ -580,6 +580,23 @@ void write_humans(JsonWriter& json, const World& world) {
         rural_common(json, s);
         real(json, "defence_score", s.defence_score);
         integer(json, "protected_route_node", s.protected_route_node);
+        // This port's own (2026-09-23): what the fort watches, the city that garrisons it by
+        // the uid an age turn keeps, and the age it was raised. A frontier fort also names the
+        // two civilizations whose route it watches and how narrow that route runs there.
+        text(json, "watch", s.watch);
+        text(json, "core_uid", s.core_uid);
+        integer(json, "raised_age", s.raised_age);
+        if (s.watch == "frontier") {
+            json.key("frontier");
+            json.begin_object();
+            json.key("between");
+            json.begin_array();
+            json.value(std::string_view(s.frontier_a));
+            json.value(std::string_view(s.frontier_b));
+            json.end_array();
+            real(json, "corridor_km2", s.corridor_km2);
+            json.end_object();
+        }
         rural_player_fields(json, s);
         json.end_object();
     }
@@ -629,6 +646,14 @@ void write_humans(JsonWriter& json, const World& world) {
     real(json, "road_length_m", d.road_length_m);
     integer(json, "crossings", d.crossings);
     real(json, "support_reach", d.support_reach);
+    // This port's own, from the rule of 2026-09-23.
+    integer(json, "capitals", d.capitals);
+    integer(json, "frontiers", d.frontiers);
+    integer(json, "carried", d.carried);
+    integer(json, "road_forts", d.road_forts);
+    integer(json, "frontier_forts", d.frontier_forts);
+    real(json, "spacing_m", d.spacing_m);
+    integer(json, "unanswered", d.unanswered);
     json.end_object();
 
     text(json, "method", h.method);

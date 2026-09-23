@@ -53,10 +53,10 @@ constexpr std::array kAllowlist = {
     // and this port's world does not. The port writes each when its world has one.
     Excused{".city_plans.cities[].fortifications.towers[].plot_id", "no wall tower in this world stands on a plot"},
     Excused{".city_plans.cities[].plots[].housing_upgrade", "no city plot in this world was upgraded"},
-    Excused{".key_locations.sites[].suitability_factors.erosion", "no natural arch places"},
     Excused{".nomads.groups[].basis.nearest_seat_m", "no band in this world rides for a prize"},
     Excused{".nomads.groups[].basis.prize_distance_m", "no band in this world rides for a prize"},
     Excused{".nomads.groups[].basis.prize_uid", "no band in this world rides for a prize"},
+    Excused{".nomads.rolls[].evidence.bandits", "no roll in this world weighs bandits: its one moved with its hamlets when forts began claiming ground first (2026-09-23); seeds 42, 7 and 99 still roll them"},
 };
 
 // Layer names the document may lack: none, every reference layer is published.

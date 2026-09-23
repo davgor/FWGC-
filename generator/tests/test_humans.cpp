@@ -171,7 +171,7 @@ TEST(a_world_of_one_city_still_gets_a_hinterland_and_asks_for_no_forts) {
     check::equal(h.fortress_demand.proposed, 0, "no road to defend");
     check::equal(h.fortresses.size(), std::size_t{0}, "and therefore no fort");
     check::equal(h.shipments.size(), std::size_t{0}, "and nobody to trade with");
-    check::equal(h.version, 9, "the block version the age advance checks for");
+    check::equal(h.version, 10, "the block version: 10 since forts watch roads and frontiers");
 
     // And the food year still runs, with no routes to run over.
     SeasonalFoodRequest request;
@@ -509,65 +509,8 @@ TEST(the_irrigated_field_never_falls_below_the_unaided_one) {
     check::is_true(most > 0.0, "some cell to grow something, or this proves nothing");
 }
 
-TEST(fortresses_are_taken_best_first_under_a_ceiling_the_world_never_exceeds) {
-    const World w = peopled();
-    const HumanHinterland h = hinterland(w);
-    const FortressDemand& demand = h.fortress_demand;
-    check::is_true(!h.fortresses.empty(), "fortresses, or this proves nothing");
-    check::is_true(demand.proposed > 0, "the road network to ask for something");
-
-    double road_length = 0.0;
-    std::set<std::pair<int, int>> crossings;
-    for (const Road& road : w.roads.routes) {
-        road_length += road.length_m;
-        for (const auto& [a, b] : road.river_crossings) crossings.emplace(std::min(a, b), std::max(a, b));
-    }
-    check::equal(demand.crossings, static_cast<int>(crossings.size()), "distinct crossings to be counted once");
-    check::equal(demand.proposed,
-                 static_cast<int>(std::floor(road_length / w.effective.support_reach)) +
-                     static_cast<int>(crossings.size()) + demand.veteran_demand,
-                 "the proposal to be road length, crossings and veterans");
-    check::equal(demand.city_ceiling, static_cast<int>(w.settlements.sites.size()) + demand.veteran_demand,
-                 "a people to raise no more forts than it has cities");
-    check::equal(demand.limit, std::min({demand.requested_ceiling, demand.proposed, demand.city_ceiling}),
-                 "the limit to be the strictest of the three");
-    check::is_true(static_cast<int>(h.fortresses.size()) <= demand.limit, "the ceiling to actually bind");
-
-    for (std::size_t k = 1; k < h.fortresses.size(); ++k) {
-        check::is_true(h.fortresses[k].defence_score <= h.fortresses[k - 1].defence_score,
-                       "forts to be taken best first");
-    }
-    std::set<int> route_nodes;
-    for (const Road& road : w.roads.routes) {
-        for (const int node : road.nodes) route_nodes.insert(node);
-    }
-    for (const RuralSite& fort : h.fortresses) {
-        check::is_true(route_nodes.count(fort.protected_route_node) != 0,
-                       fort.id + " to guard a node a road actually uses");
-    }
-}
-
-TEST(wars_raise_what_the_world_asks_for_and_what_it_allows_but_only_three_deep) {
-    // A city that has fought wants more watching its roads. The cap is what stops one
-    // long war from buying a city an unbounded garrison.
-    const World w = peopled();
-    const HumanHinterland peace = hinterland(w);
-    check::equal(peace.fortress_demand.veteran_demand, 0, "a world at peace to ask for no extra");
-    check::equal(peace.fortress_demand.veteran_cities, 0, "and to have no veterans");
-
-    std::vector<int> wars(w.settlements.sites.size(), 0);
-    wars[0] = 2;
-    wars[1] = 9;  // far beyond the cap
-    const HumanHinterland fought = hinterland(w, wars);
-    check::equal(fought.fortress_demand.veteran_demand, 5, "two wars plus a capped three");
-    check::equal(fought.fortress_demand.veteran_cities, 2, "two cities to have fought");
-    check::is_true(fought.fortress_demand.proposed > peace.fortress_demand.proposed,
-                   "war to raise what the roads ask for");
-    check::is_true(fought.fortress_demand.city_ceiling > peace.fortress_demand.city_ceiling,
-                   "war to raise what the cities may raise");
-    check::is_true(fought.fortresses.size() >= peace.fortresses.size(),
-                   "war never to reduce the garrison");
-}
+// The fort rule of 2026-09-23 -- who asks, where each kind stands, how far apart, and that a
+// fort stands while its city does -- is tested in test_fortresses.cpp.
 
 // --- trade -----------------------------------------------------------------
 

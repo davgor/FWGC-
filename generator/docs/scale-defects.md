@@ -87,10 +87,10 @@ synthetic 20 m lattice instead.
 at size 65. Measured: **0 sea routes at size 33, 4 at size 65, 10 at size 129.** The network
 grows with the raster rather than with the geography, which is backwards.
 
-**Hamlet and fortress spacing decide almost nothing.** 120 m and 200 m against a smallest
-neighbour step of ~153 m collapse to "not on the exact same node". The published
-`defence_method` prose still claims the 200 m spacing decides how many forts exist; at
-shipped widths the city-count ceiling decides, and the spacing decides nothing.
+**Hamlet spacing decides almost nothing.** 120 m against a smallest neighbour step of
+~153 m collapses to "not on the exact same node". The fortress spacing had the same defect
+until the fort rule was redesigned (2026-09-23, porting-status.md ruling 4): it is now the
+reference's 200 m scaled with the world, 3.6 km on a 200 km world, and it binds.
 
 **A river crossing is nearly free.** `bridge_cost` is 200 m, about 13% of a cell step where
 it was 2.3 cells at the reference.
@@ -99,9 +99,10 @@ it was 2.3 cells at the reference.
 road an efficiency of about 5.5e-4. Trade still happens — 18 shipments at size 65 — but
 every number in it was chosen for distances eighteen times shorter.
 
-**The fortress junction preference has lost its degree.** A `d/500` term against a 1562 m
-step is −3.1 on a base of 1 to 4, so the route node always wins outright. At the reference
-it was −0.17, a mild preference. The direction survives; the gradation does not.
+**The fortress junction preference had lost its degree** -- a `d/500` term against a 1562 m
+step was −3.1 on a base of 1 to 4, so the route node always won outright, where at the
+reference it was −0.17. Fixed with the fort rule (2026-09-23): the 500 m scales with the
+world as the spacing does, which restores −0.17 at size 129.
 
 ## Two more, found earlier and pinned
 

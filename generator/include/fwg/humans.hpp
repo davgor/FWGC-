@@ -2,7 +2,8 @@
 //
 // A city on its own is a pin. This is the ground under it — which cells it controls,
 // how much exportable food and material that ground yields, where the rural hamlets and
-// the route-defence fortresses stand, which cities share a culture, and whether annual
+// the fortresses watching its roads and its people's frontiers stand, which cities share a
+// culture, and whether annual
 // trade over the existing roads can close each city's food gap.
 //
 // EVERY NUMBER HERE IS A RELATIVE EXPORTABLE POTENTIAL UNIT. Not people, not tonnes per
@@ -19,6 +20,7 @@
 #include <array>
 #include <cstdint>
 #include <limits>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -29,7 +31,9 @@ namespace fwg {
 
 struct World;
 
-inline constexpr int kHumansBlockVersion = 9;
+// 10 (2026-09-23): fortresses watch roads and frontiers and stand through a rebuild, and
+// each carries its watch, garrison uid and raising age. 9 was the reference's block.
+inline constexpr int kHumansBlockVersion = 10;
 
 // --- rural settlement ------------------------------------------------------
 
@@ -76,7 +80,21 @@ struct RuralSite {
 
     // Fortresses only.
     double defence_score = 0.0;
+    // A road fort: the road node it guards. A frontier fort: the chokepoint it overlooks.
     int protected_route_node = -1;
+    // What a fort watches (ruled 2026-09-23): "road" -- a capital's or a war veteran's own
+    // roads -- "frontier" -- the natural route between two civilizations' lands -- or
+    // "player", a fort the player founded, which watches what the player says.
+    std::string watch;
+    // The city that garrisons it, by the uid that survives an age turn. A fort stands while
+    // this city stands, and is carried across a rebuild rather than re-proposed.
+    std::string core_uid;
+    long long raised_age = 0;  // the age the fort was raised
+    // Frontier forts only: the two civilizations whose route it watches, in id order, and
+    // the ground the corridor of near-cheapest routes covers where it is narrowest.
+    std::string frontier_a;
+    std::string frontier_b;
+    double corridor_km2 = 0.0;
 
     // What the player chose, carried across a rebuild rather than re-derived.
     std::string founded_by;
@@ -157,20 +175,61 @@ std::vector<FoodShipment> exchange_food(std::vector<CityCore>& cores, const std:
 
 // --- the block -------------------------------------------------------------
 
-// What the road network asked for, and what it was allowed. Published so a reader can ask
-// why a world has the fortress count it has instead of inferring it.
+// What the world asked for, and what it was allowed. Published so a reader can ask why a
+// world has the fortress count it has instead of inferring it.
+//
+// The keys are the reference's; the rule behind them is this port's (ruled 2026-09-23). A
+// capital and a city that has fought each ask for one road fort; two civilizations joined
+// by a road ask for one frontier fort; a fort that stands already answers its ask.
 struct FortressDemand {
-    int proposed = 0;
-    int city_ceiling = 0;
-    int requested_ceiling = 0;
-    int limit = 0;
+    int proposed = 0;           // asks no standing fort answers: what this pass would raise
+    int city_ceiling = 0;       // cities that ask for a road fort: capitals and veterans
+    int requested_ceiling = 0;  // fortress_count: a caller's ceiling, never a target
+    int limit = 0;              // the most this pass may raise: proposed, under the ceiling
     int player_founded = 0;
-    int veteran_demand = 0;
-    int veteran_cities = 0;
+    int veteran_demand = 0;     // road forts war adds: cities that fought and are not capitals
+    int veteran_cities = 0;     // cities that have fought, capitals included
     int crossings = 0;
     double road_length_m = 0.0;
     double support_reach = 0.0;
+    // This port's own.
+    int capitals = 0;
+    int frontiers = 0;          // pairs of civilizations joined by a road
+    int carried = 0;            // forts standing from an earlier pass
+    int road_forts = 0;         // road forts the world holds, standing and new
+    int frontier_forts = 0;     // frontier forts the world holds, standing and new
+    double spacing_m = 0.0;     // the least distance between two forts
+    int unanswered = 0;         // asks no fort answers after this pass: no usable, spaced ground
 };
+
+// --- frontiers -------------------------------------------------------------
+
+// Where the natural route between two lands is narrowest: a pass, a land bridge, a ford.
+//
+// `from_a` and `from_b` are terrain-cost distances from each land's cities, infinite where
+// unreachable. The cheapest route between the lands costs C, the least from_a + from_b of
+// any node. The routes an army would weigh are every node within `slack` of it (from_a +
+// from_b <= C * (1 + slack)); each sits a share t = from_a / (from_a + from_b) of the way
+// across. The band [band_low, band_high] of t is cut into `slices`, and a slice's width is
+// the ground its corridor nodes cover, divided by sqrt(t (1 - t)) at its centre: that is
+// the shape an open plain's corridor takes between two points, so on open ground every
+// slice scores alike and only terrain that squeezes the routes stands out. A slice's
+// crossing is its node on the cheapest route. The ends of the route are left out because
+// every route leaves from a city, where any corridor is narrow; a route too short to have
+// any node inside the band offers its cheapest interior node instead.
+//
+// Every occupied slice, narrowest first (ties: nearer the middle, then lower slice), so a
+// caller that cannot build at the narrowest point takes the next. Empty when the lands are
+// not joined over ground.
+struct Crossing {
+    int node = -1;
+    double route_cost = 0.0;  // C
+    double width_km2 = 0.0;   // the corridor's ground in this slice
+    double progress = 0.0;    // t at the crossing node
+};
+std::vector<Crossing> narrowest_crossings(const std::vector<double>& from_a, const std::vector<double>& from_b,
+                                          const std::vector<double>& areas_m2, double slack = 0.1,
+                                          double band_low = 0.2, double band_high = 0.8, int slices = 12);
 
 struct HumanHinterland {
     int version = kHumansBlockVersion;
@@ -178,7 +237,9 @@ struct HumanHinterland {
 
     std::vector<CityCore> cores;        // one per city, in city order
     std::vector<RuralSite> hamlets;     // generated city-major, then player-adopted
-    std::vector<RuralSite> fortresses;  // generated by descending defence score, then adopted
+    // The forts that stand, in the order they were raised; then this pass's road forts, best
+    // first; then its frontier forts; then the player's.
+    std::vector<RuralSite> fortresses;
     std::vector<CultureGroup> cultures; // one per group root, ascending root index
     std::vector<FoodShipment> shipments;
     FortressDemand fortress_demand;
@@ -200,18 +261,21 @@ struct HumanHinterland {
 struct HumansRequest {
     const World* world = nullptr;
 
-    // Rural rows from a previous run of this pass. ONLY rows whose `founded_by` is
-    // "player" are read; everything else in an old block is discarded and re-derived. A
-    // rural site the player founded is an instruction, not a proposal: it is not subject
-    // to the counts and ceilings below, and its node joins the occupied set BEFORE the
-    // generated passes run, so nothing is placed on top of it.
+    // Rural rows from a previous run of this pass. Of the hamlets, ONLY rows whose
+    // `founded_by` is "player" are read; the rest are discarded and re-derived. A rural
+    // site the player founded is an instruction, not a proposal: it is not subject to the
+    // counts and ceilings below, and its node joins the occupied set BEFORE the generated
+    // passes run, so nothing is placed on top of it.
+    //
+    // A generated fort stands (ruled 2026-09-23): it is carried while the city that
+    // garrisons it (`core_uid`) stands and its ground is dry, and it answers the ask that
+    // raised it, so a rebuild raises only what the world newly needs.
     std::vector<RuralSite> previous_hamlets;
     std::vector<RuralSite> previous_fortresses;
 
-    // Wars each city has fought, by city index. A city that has fought wants more watching
-    // its roads, so this raises both what the world asks for and how much it is allowed.
-    // Empty means a world that has never been to war, which keeps exactly the
-    // road-and-city answer.
+    // Wars each city has fought, by city index. A city that has fought asks for a road
+    // fort, as a capital does. Empty means a world that has never been to war, where only
+    // the capitals ask.
     std::vector<int> war_history;
 };
 

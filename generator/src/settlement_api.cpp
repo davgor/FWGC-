@@ -408,6 +408,13 @@ RuralSite player_rural(const World& world, int node, int x, int z, const Checked
         row.role = asked.role;
     } else {
         row.protected_route_node = -1;  // the reference's None
+        // A player's fort watches what the player says, and stands by the player's word
+        // rather than its city's: it is carried as a player row, not by core_uid.
+        row.watch = "player";
+        row.raised_age = age;
+        if (core_index >= 0 && static_cast<std::size_t>(core_index) < world.settlements.sites.size()) {
+            row.core_uid = world.settlements.sites[static_cast<std::size_t>(core_index)].uid;
+        }
     }
     return row;
 }
