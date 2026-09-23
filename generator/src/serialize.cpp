@@ -53,7 +53,7 @@ void write_ley_edge(JsonWriter& json, const LeyNetwork& net, const LeyEdge& e, i
 // The reference's `config` and `effective_config` are its Config dataclass, so both are the
 // dataclass's fields in its order (world options live in `world_options`, as the reference
 // keeps them). Two keys are this port's own, kept deliberately: whether the world_size preset
-// built the world and the width that did (docs/inherited-findings.md #17), because an explicit
+// built the world and the width that did, because an explicit
 // circumference_km or globe_radius bypasses the preset the dataclass still names.
 void write_config(JsonWriter& json, const Config& cfg, bool effective) {
     json.begin_object();

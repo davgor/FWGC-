@@ -394,7 +394,7 @@ TEST(lunar_sensitivity_carries_its_coastal_term_not_only_its_lakes) {
 // the ones that do.
 
 TEST(the_tide_matches_the_specs_hand_computed_fixture) {
-    // The spec (docs/port-specs/06-astrology.md) calls this "the only self-check
+    // The reference's astrology specification called this "the only self-check
     // available to a rewrite whose numbers are allowed to differ": periods 30/40/20,
     // every offset zero, tilt 30.
     //

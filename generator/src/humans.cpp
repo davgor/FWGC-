@@ -34,7 +34,7 @@ constexpr double kPi = std::numbers::pi;
 // grid cell is already about 1.6 km at size 129, so each of these is smaller than a single
 // step and can only ever refuse a node its own distance from itself. They are ported at
 // their authored values because changing them is a design decision, not a port decision;
-// docs/port-specs records the consequence.
+// docs/scale-defects.md records the consequence.
 
 // Keeps a hamlet off the city's own doorstep. Road-cost units, not a length.
 constexpr double kHamletMinAccessCost = 100.0;

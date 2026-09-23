@@ -15,7 +15,10 @@
 
 namespace fwg {
 
-inline constexpr int kWorldSchemaVersion = 1;
+// The `fwg.world` document's version. 2 (2026-09-23): the reference's published key tree,
+// pinned by tests/test_document_paths.cpp; keys were added, renamed and removed against 1,
+// so a reader of version 1 must not take a version-2 document for one.
+inline constexpr int kWorldSchemaVersion = 2;
 
 // Timings are OFF by default and that is deliberate. A wall-clock measurement in
 // the document makes two runs of the same seed differ, which costs the one property

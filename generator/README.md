@@ -42,19 +42,18 @@ export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/Comm
 Nyquist-filtered against cell spacing, so a coarse world does not resolve fine terrain at
 any wavelength.
 
-| `--size` | kernel time | octaves resolved | JSON |
+| `--size` | generation | octaves resolved | JSON |
 |---:|---:|:---:|---:|
-| 33 | 2 ms | 1 / 5 | 0.4 MB |
-| 65 | 8 ms | 2 / 5 | 1.5 MB |
-| 129 | 32 ms | 3 / 5 | 5.7 MB |
-| 257 | 130 ms | 4 / 5 | 22.3 MB |
-| 513 | 568 ms | 5 / 5 | 88.7 MB |
+| 33 | 1.9 s | 1 / 5 | 60 MB |
+| 65 | 3.4 s | 2 / 5 | 108 MB |
+| 129 | 5.4 s | 3 / 5 | 156 MB |
+| 257 | 10.6 s | 4 / 5 | 276 MB |
 
-Measured on this machine at phase 5, seed 42, Release (JSON sizes re-measured 2026-09-23, after the
-document gained the reference's full key set). Cost is linear in cells. **A world
-below size 513 has an incomplete octave ladder** — size 33 resolves one octave of five, so
-a small preview world is not a small version of the real one, it is a world with almost no
-surface detail.
+Measured 2026-09-23 on this machine: phase 16 (the default), seed 42, Release, one run each;
+size 513 was not measured. Stage 16's planners are most of the cost, and every plan's copy
+of the catalogues is most of the document. **A world below size 513 has an incomplete
+octave ladder** — size 33 resolves one octave of five, so a small preview world is not a
+small version of the real one, it is a world with almost no surface detail.
 
 As a library:
 
@@ -80,17 +79,12 @@ after generation, and the open rulings.
 
 ## Documents
 
-- [docs/determinism.md](docs/determinism.md) — the float and RNG contract, and what a
-  consumer must not do to it.
-- [docs/porting-status.md](docs/porting-status.md) — the stage ladder and what each stage
-  owes.
-- [docs/porting-notes.md](docs/porting-notes.md) — the traps that were expensive to find
-  in the reference implementation and are invisible until they are wrong.
-- [docs/inherited-findings.md](docs/inherited-findings.md) — the Python project's pre-port
-  red team, triaged against this codebase: what still binds, what binds when a stage lands,
-  and what died with the rewrite.
-- [docs/archive/](docs/archive/) — verbatim documents inherited from the retiring Python
-  repository, and a list of what is still only there.
+- [docs/determinism.md](docs/determinism.md) — the float and RNG contract, what a consumer
+  must not do to it, and the traps that are invisible until they are wrong.
+- [docs/porting-status.md](docs/porting-status.md) — the stage ladder, the APIs a game calls
+  after generation, the world document, rulings and deliberate departures.
+- [docs/scale-defects.md](docs/scale-defects.md) — the authored metres that do not scale
+  with the planet, and what they cost at shipped widths.
 
 ## Testing
 
@@ -106,12 +100,8 @@ knob is the measurement failing, not the model.
 Pass `--no-tests=error`. Without it `ctest` exits 0 when it selects nothing, so a filter
 typo or a `-DFWG_BUILD_TESTS=OFF` build reads as a pass.
 
-Two kinds of pinned number are deliberate and are the only two: the FIPS SHA-256 vectors,
-and the RNG golden values in `tests/test_substrate.cpp`. The latter exist because every
-other test asserts a *property* of the stream, and a changed constant satisfies all of them
-while producing a different planet from every seed. They were cross-checked against an
-independent reimplementation rather than copied out of this one.
-
-The suite has been adversarially reviewed once, which found seventeen defects in it and in
-the code it covers — including a test that could not fail. See
-[docs/inherited-findings.md](docs/inherited-findings.md).
+Pinned values are deliberate and few: the FIPS SHA-256 vectors; the RNG golden values in
+`tests/test_substrate.cpp`, which exist because every other test asserts a *property* of the
+stream and a changed constant satisfies all of them while producing a different planet from
+every seed; and `tests/fixtures/`, the product contracts' cases and the reference document's
+key paths that `tests/test_document_paths.cpp` holds the document to.

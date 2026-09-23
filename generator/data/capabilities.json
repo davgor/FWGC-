@@ -1,7 +1,7 @@
 {
  "schema": "fwg.capabilities",
  "schema_version": 1,
- "note": "The producer capability descriptor, version 1, for THIS producer. The reference's descriptor is carried verbatim as `reference_descriptor`; `descriptor` is what fwg publishes, and every place the two differ is named in `deviations` -- tools/embed/capabilities.py refuses an undocumented difference, and refuses any change to `kernel` or to the coordinate contract beyond the documented prose. WHY THEY DIFFER: the reference's own contract says the supported inventory must track the actual producer (Contracts/capabilities-and-coordinates.md), and a clean rewrite is a different producer -- copying the reference's inventory would claim world_json 2 and generation_algorithm 16, which a consumer would negotiate and then fail to read. tests/test_capabilities.cpp pins each claimed version against the code that owns it. READ BY: fwg::capabilities_document and fwg::require_capabilities (src/capabilities.cpp), and `fwg capabilities`.",
+ "note": "The producer capability descriptor, version 1, for THIS producer. The reference's descriptor is carried verbatim as `reference_descriptor`; `descriptor` is what fwg publishes, and every place the two differ is named in `deviations` -- tools/embed/capabilities.py refuses an undocumented difference, and refuses any change to `kernel` or to the coordinate contract beyond the documented prose. WHY THEY DIFFER: the reference's own contract says the supported inventory must track the actual producer (Contracts/capabilities-and-coordinates.md), and a clean rewrite is a different producer -- copying the reference's inventory would claim world_json 2 and generation_algorithm 16, which a consumer would negotiate and then fail to read. tests/test_capabilities.cpp pins each claimed version against the code that owns it. world_json 2 names this producer's `fwg.world` document at version 2, whose key tree is the reference's fantasy-world-generator.world version 2 (pinned by tests/test_document_paths.cpp); the schema NAME differs by the owner's choice and is not a descriptor field. READ BY: fwg::capabilities_document and fwg::require_capabilities (src/capabilities.cpp), and `fwg capabilities`.",
  "source_identity": {
   "source_path": "Sim/fantasy_world_generator/capabilities.json",
   "source_commit": "b67c99b",
@@ -62,7 +62,7 @@
     1
    ],
    "world_json": [
-    1
+    2
    ],
    "world_scene_json": [
     1
@@ -277,7 +277,6 @@
  "deviations": {
   "implementation": "Names this producer. The reference's value is python-reference.",
   "supported.generation_algorithm": "World::generator_version, which this producer stamps 1 on every world (include/fwg/world.hpp). The reference's 16 names its own algorithm.",
-  "supported.world_json": "The world document this producer writes is schema fwg.world version 1 (kWorldSchemaVersion, include/fwg/serialize.hpp), not the reference's fantasy-world-generator.world version 2.",
   "supported.hamlet_plans_json": "HamletPlans::version is 3 (include/fwg/city_plan.hpp). The reference advertised 1 while its own hamlet_planner.VERSION was already 3; its descriptor was stale.",
   "supported.native_kernel": "The counter kernel runs natively here (src/counter_kernel.cpp). The reference listed native_kernel as unavailable from the Python producer.",
   "unsupported": "native_kernel removed: the counter kernel runs natively here (see supported.native_kernel).",

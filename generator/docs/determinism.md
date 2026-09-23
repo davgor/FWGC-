@@ -118,7 +118,25 @@ Anywhere a set or a map decides iteration order, the order is part of the world.
 
 Never iterate an unordered container in a way that reaches the output.
 
-## 4. What is deliberately outside the document
+## 4. Traps that are invisible until they are wrong
+
+Each of these cost time once, and none is caught by the compiler.
+
+- **Argument evaluation order.** C++ leaves it unspecified. Never take more than one draw,
+  from one stream or several, inside a single expression: bind each draw to a named local
+  first, so the order is the order of the statements.
+- **Division and modulo of negatives.** Integer division truncates toward zero and `%`
+  takes the sign of the dividend. Where a floor is meant -- a neighbour scan reaching
+  `x = -1` must land on `n - 2` -- use `grid.cpp`'s `floor_mod`, never a bare `%`.
+- **Ids sorted as strings.** Blocks ordered by id -- the castle plans by fortress id, the
+  quest board by quest id -- compare strings, so `"10" < "9"`. That order is published; do
+  not "fix" it into a numeric sort.
+- **Parallelism.** Nothing here runs a pool. Whoever adds one must first decide whether
+  pooled output has to equal serial output byte for byte, and write the equality test
+  before the pool: a reference planner once parallelised behind an undocumented variable,
+  and nothing ever compared the two paths.
+
+## 5. What is deliberately outside the document
 
 Wall-clock timings are **not** written to the world document by default. They are the one
 part of a world that is not a function of its seed, and including them would cost the

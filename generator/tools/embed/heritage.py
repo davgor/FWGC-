@@ -18,8 +18,7 @@ unknown parent race, a delta that restates what it inherits, an override that re
 a derived value, and the cross-layer appearance envelopes -- all of which depend on the
 (civ_id, parent_race_id) pair the caller supplies.
 
-Three tightenings against the reference are deliberate and are listed in
-docs/port-specs/22-heritage.md's open questions:
+Three tightenings against the reference are deliberate:
   * a rule must be EXACTLY one of copy / craft / from+map. The reference tested `copy`
     first, so {"copy": ..., "map": ...} passed as a copy with the map ignored.
   * a genome rule must be from+map, because each one lands in a typed field.

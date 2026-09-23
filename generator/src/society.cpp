@@ -28,7 +28,7 @@ constexpr double kPi = std::numbers::pi;
 // 11.15 km reference world and is NOT scaled with world width — unlike
 // `settlement_spacing` and `support_reach`, which the request builder scales. The world
 // options this pass reads (fishing_reach, sea_reach, air_reach, sea_draft) are absolute
-// metres too. docs/port-specs records which of them can still fire at shipped widths.
+// metres too. docs/scale-defects.md records which of them can still fire at shipped widths.
 
 // A node must be at least this good an anchorage to compete for a harbour at all.
 constexpr double kHarbourCandidateFloor = 0.1;

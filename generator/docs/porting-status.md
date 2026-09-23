@@ -99,13 +99,13 @@ on the world, as the reference's dict gains those keys at that API's first call;
 sets are pinned by tests beside each API.
 
 **Deliberate departures.**
-- `schema` is `fwg.world` version 1, not `fantasy-world-generator.world` version 2 (the
-  capability descriptor says so); `completed_stage`, `systems` and `seeds` are this port's
+- `schema` is `fwg.world` version 2: the reference's `fantasy-world-generator.world`
+  version-2 key tree under this port's own name, by the owner's choice (2026-09-23); `completed_stage`, `systems` and `seeds` are this port's
   additions, the first read by `tools/preview.py`.
 - Stable keys beside the reference's ordinals: `hamlet_uid` and `fortress_uid` (and a
   castle's `node`) on plans and scene entries, which renumber at no age turn.
-- `config` and `effective_config` also carry `circumference_m` and `world_size_was_used`
-  ([inherited-findings.md](inherited-findings.md) #17); `population_budget.calibration` also
+- `config` and `effective_config` also carry `circumference_m` and `world_size_was_used`, so
+  a reader sees which preset set the radius; `population_budget.calibration` also
   carries `per_city_km2`, `resolvable_spacing_m` and `city_limit`; a castle's closed ring says
   whether it was `clipped_to_terrain`.
 - A sleeping god's evidence is `last_seen` one level deep, where the reference nests one
@@ -162,13 +162,21 @@ with tests so a fix cannot land silently.
 - **Stage numbering.** Stages 1-5 are the tectonic kernel alone; the reference's `generate_base`
   bundles later passes into them. The ladders agree on what each stage means.
 
-See [inherited-findings.md](inherited-findings.md) for the reference defects reproduced and
-pinned, and [verification.md](verification.md) for how parity was checked.
+Reference defects the port reproduces are named in the header of the module that reproduces
+them, each pinned by a test so a fix is a deliberate change.
+
+## Known open items
+
+- **Determinism is verified on one toolchain.** Only MSVC with the UCRT has built this
+  library; the GCC/Clang half of [determinism.md](determinism.md)'s contract has never been
+  compiled, let alone compared.
+- **No continuous integration.** The suite runs where someone runs it.
+- **Documents are large.** Every city, hamlet and castle plan carries its own copy of the
+  biome and magic catalogues, as the reference's does: about 155 MB at size 129.
 
 ## Data
 
 `data/*.json` is the source of truth for authored content; `tools/embed_content.py` validates
 it and generates typed tables into `src/generated/`, checked in so the build needs no Python.
-Run it with `--check` before committing a data change. The Python tree is being abandoned, so
-anything not extracted is lost: extraction happens with the port of each module, including
-the five sibling packages outside `icarus_sim`.
+Run it with `--check` before committing a data change. Every catalogue the generator reads
+is extracted here; the Python tree it came from is retired and is not a source for anything.
