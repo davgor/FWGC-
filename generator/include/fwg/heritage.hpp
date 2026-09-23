@@ -398,6 +398,10 @@ std::string apply_sound_changes(std::string_view word, std::span<const SoundChan
 // One resolved people. `civ_id` may be unknown; `parent_race_id` may not.
 Resolved resolve(std::string_view civ_id, std::string_view parent_race_id);
 
+// A parent race's own complete body, before any subrace extends it -- what the NPC roster
+// publishes a race's life stages from. Throws for a race with no body.
+Value race_appearance(std::string_view parent_race_id);
+
 struct Identity {
     heritage::Revisions revisions;
     std::string sha256;

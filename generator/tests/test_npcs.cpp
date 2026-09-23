@@ -5,9 +5,14 @@
 #include <map>
 #include <set>
 #include <string>
+#include <string_view>
+#include <tuple>
 #include <vector>
 
+#include "fwg/city_plan.hpp"
+#include "fwg/config.hpp"
 #include "fwg/npcs.hpp"
+#include "fwg/world.hpp"
 
 using namespace fwg;
 
@@ -52,6 +57,13 @@ NpcRequest one_city() {
     city.plots.push_back(plot("plot-2", "building.smithy", 2));
     city.plots.push_back(plot("plot-3", "building.house", 4));
     r.city_plans.push_back(std::move(city));
+
+    // The people's life, so everyone draws an age: the owner's human, 80 years.
+    NpcCivilizationEntity heartland;
+    heartland.id = "human_heartland";
+    heartland.parent_race_id = "human";
+    heartland.life = NpcLifeStages{15.0, 46.0, 80.0};
+    r.entities.push_back(heartland);
     return r;
 }
 
@@ -617,6 +629,7 @@ TEST(every_counter_is_exported_even_when_it_is_zero) {
     check::equal(n.cast_outside_a_planned_site, 0, "cast_outside_a_planned_site");
     check::equal(n.cast_located_by_presence, 0, "cast_located_by_presence");
     check::equal(n.cast_presence_unresolved, 0, "cast_presence_unresolved");
+    check::equal(n.appearance_unresolved, 0, "appearance_unresolved");
     check::close(roster.summary.important_fraction, 0.15, 1e-9, "the important share");
 }
 
@@ -719,4 +732,455 @@ TEST(a_short_name_cuts_the_age_suffix_and_keeps_the_rest_of_the_name) {
     // ends in those characters IS the name and cutting it would rename the place.
     check::equal(npc_short_name("Harbour City"), std::string("Harbour City"),
                  "a real name ending in City kept whole");
+}
+
+// ---------------------------------------------------------------------------
+// Stores, stables and the appearance baseline: the owner's rulings of 2026-09-23.
+// ---------------------------------------------------------------------------
+
+namespace {
+
+NpcPlot named_plot(const std::string& id, const std::string& building, int workers, const std::string& name) {
+    NpcPlot p = plot(id, building, workers);
+    p.name = name;
+    return p;
+}
+
+// A market quarter: every store a city keeps, a smithy that keeps none, and a stable.
+NpcRequest market_quarter() {
+    NpcRequest r = one_city();
+    NpcCityPlan& city = r.city_plans[0];
+    city.plots.clear();
+    city.plots.push_back(named_plot("plot-0", "building.granary", 4, "Granary"));
+    city.plots.push_back(named_plot("plot-1", "building.warehouse", 5, "Winter supply warehouse"));
+    city.plots.push_back(named_plot("plot-2", "building.root_cellar", 1, "Cool store and root cellar"));
+    city.plots.push_back(named_plot("plot-3", "building.smithy", 2, "Smithy"));
+    city.plots.push_back(named_plot("plot-4", "building.stable", 3, "Stable and farrier yard"));
+    return r;
+}
+
+const NpcLifeSpan* span_of(const std::vector<NpcLifeSpan>& spans, std::string_view id) {
+    for (const NpcLifeSpan& span : spans) {
+        if (span.id == id) return &span;
+    }
+    return nullptr;
+}
+
+const NpcAgeBand* band_of(const NpcLifeSpan& span, std::string_view id) {
+    for (const NpcAgeBand& band : span.bands) {
+        if (band.id == id) return &band;
+    }
+    return nullptr;
+}
+
+bool same_appearance(const NpcAppearance& a, const NpcAppearance& b) {
+    return a.gender == b.gender && a.age_band == b.age_band && a.age_years == b.age_years &&
+           a.civilization_id == b.civilization_id && a.parent_race_id == b.parent_race_id;
+}
+
+}  // namespace
+
+TEST(one_storekeeper_post_serves_every_store_and_no_store_keeper_post_remains) {
+    // The reference's two spellings were one job. The merged post is told apart by the
+    // store it keeps rather than by its title.
+    std::set<std::string_view> stores;
+    for (const NpcBuilding& building : npc_buildings()) {
+        for (const NpcRole& role : building.roles) {
+            check::is_true(role.role != "store_keeper", std::string(building.id) + " to staff no store_keeper");
+            if (role.role == "storekeeper") stores.insert(building.id);
+        }
+    }
+    check::is_true(stores == std::set<std::string_view>{"building.granary", "building.hamlet_food_store",
+                                                        "building.root_cellar", "building.warehouse"},
+                   "the four stores, and only they, to keep a storekeeper");
+    check::is_true(npc_role_verbed("storekeeper"), "the merged post to carry verbs");
+    check::is_true(!npc_role_verbed("store_keeper"), "and the retired one none");
+}
+
+TEST(a_storekeeper_names_the_store_it_keeps_and_everyone_names_the_building_they_work_in) {
+    const NpcRoster roster = generate_npc_roster(market_quarter());
+    check::is_true(roster.ok, "an ok roster: " + roster.error);
+    const std::map<std::string, std::string> names = {
+        {"plot-0", "Granary"}, {"plot-1", "Winter supply warehouse"}, {"plot-2", "Cool store and root cellar"},
+        {"plot-3", "Smithy"},  {"plot-4", "Stable and farrier yard"}};
+    std::map<std::string, int> keepers;
+    for (const NpcPerson& person : roster.people) {
+        check::is_true(person.workplace.has_value(), person.uid + " to name a workplace");
+        check::equal(*person.workplace, names.at(person.plot_id), person.uid + "'s workplace, its plot's own name");
+        if (person.post == "storekeeper") {
+            check::is_true(person.store.has_value(), person.uid + " to name its store");
+            check::equal(*person.store, std::string(npc_short_building(*person.building_id)),
+                         person.uid + "'s store, the building it stands in");
+            keepers[*person.store] += 1;
+        } else {
+            check::is_true(!person.store.has_value(), person.uid + " to keep no store");
+        }
+    }
+    check::is_true(keepers == std::map<std::string, int>{{"granary", 2}, {"root_cellar", 1}, {"warehouse", 2}},
+                   "two granary keepers, two warehouse keepers and one cellar keeper");
+
+    // A plot the plan left unnamed leaves the workplace absent rather than inventing one.
+    NpcRequest unnamed = market_quarter();
+    unnamed.city_plans[0].plots[3].name.clear();
+    const NpcRoster bare = generate_npc_roster(unnamed);
+    int smiths = 0;
+    for (const NpcPerson& person : bare.people) {
+        if (person.plot_id != "plot-3") continue;
+        ++smiths;
+        check::is_true(!person.workplace.has_value(), person.uid + " to have no invented workplace");
+    }
+    check::equal(smiths, 2, "both smiths checked");
+}
+
+TEST(the_stable_s_senior_post_is_a_horse_keeper_who_sells_mounts_and_runs_carriages) {
+    const NpcBuilding* stable = npc_building("building.stable");
+    check::is_true(stable != nullptr, "a stable roster");
+    check::equal(std::string(stable->roles[0].role), std::string("horse_keeper"),
+                 "the horse keeper first, because the first row is the senior post");
+    check::equal(stable->roles[0].target, 1, "one of them");
+    check::is_true(npc_role_verbed("horse_keeper"), "a horse keeper who can give quests");
+
+    const auto services = npc_services("horse_keeper");
+    check::is_true(std::vector<std::string_view>(services.begin(), services.end()) ==
+                       std::vector<std::string_view>{"mounts", "carriages"},
+                   "mounts and carriages");
+    check::is_true(npc_services("smith").empty(), "a smith to offer no service");
+    check::is_true(npc_services("nonsense").empty(), "an unknown post none");
+
+    const NpcRoster roster = generate_npc_roster(market_quarter());
+    int keepers = 0;
+    for (const NpcPerson& person : roster.people) {
+        if (person.post != "horse_keeper") continue;
+        ++keepers;
+        check::equal(person.uid, std::string("npc-surface-city-1-100-human_heartland-stable-0"),
+                     "the horse keeper holding the stable's senior post");
+    }
+    check::equal(keepers, 1, "one horse keeper to one stable");
+}
+
+TEST(every_city_program_queues_one_stable_that_no_condition_can_block) {
+    // Every city keeps horses. The row used to wait on `working_animals`, which the city
+    // planner never sets, so no city ever built one.
+    int programs = 0;
+    for (const CivilizationPresets& civ : civilization_presets()) {
+        for (const SettlementBlock block :
+             {SettlementBlock::small_city, SettlementBlock::medium_city, SettlementBlock::capital_city}) {
+            int stables = 0;
+            for (const PresetRow& row : settlement_preset(civ.id, block).buildings) {
+                if (row.structure().id != "building.stable") continue;
+                ++stables;
+                check::equal(row.count, 1, std::string(civ.id) + " to build one stable");
+                check::is_true(row.placement_conditions.empty(), std::string(civ.id) + "'s stable to wait on nothing");
+                check::is_true(row.structure().priority == StructurePriority::core, "a core building, queued high");
+            }
+            check::equal(stables, 1, std::string(civ.id) + " to queue exactly one stable row");
+            ++programs;
+        }
+    }
+    check::equal(programs, 36, "twelve peoples, three city sizes");
+}
+
+TEST(a_life_span_rounds_each_onset_once_so_its_bands_meet_without_a_gap) {
+    // Each onset rounds half up to a whole year FIRST and the bands are cut from those
+    // years, so no year belongs to two bands and none to neither. Young ends halfway from
+    // the adult onset to the elder one.
+    check::close(npc_young_to_middle(), 0.5, 1e-12, "the young-to-middle fraction");
+    const NpcLifeSpan span = npc_life_span("somefolk", "human", NpcLifeStages{14.6, 45.5, 80.0});
+    check::equal(span.bands.size(), std::size_t(3), "three bands");
+    const std::vector<std::tuple<std::string, int, int>> expected = {
+        {"young", 15, 30}, {"middle", 31, 45}, {"old", 46, 80}};
+    for (std::size_t i = 0; i < expected.size(); ++i) {
+        const auto& [id, from, to] = expected[i];
+        check::equal(std::string(span.bands[i].id), id, "the band order");
+        check::equal(span.bands[i].from, from, id + " from");
+        check::equal(span.bands[i].to, to, id + " to");
+    }
+    check::equal(span.parent_race_id, std::string("human"), "the parent race carried");
+
+    // A life too short to hold three bands is a loud failure, never an empty band.
+    check::throws([] { npc_life_span("mayflies", "", NpcLifeStages{10.0, 11.0, 12.0}); },
+                  "a life with no room for a middle band");
+}
+
+TEST(a_person_s_gender_and_age_come_from_their_own_stream) {
+    const NpcRequest request = one_city();
+    const NpcRoster roster = generate_npc_roster(request);
+    const NpcLifeSpan* span = span_of(roster.life_spans, "human_heartland");
+    check::is_true(span != nullptr, "the people's span published");
+    for (const NpcPerson& person : roster.people) {
+        check::is_true(person.appearance.has_value(), person.uid + " to have an appearance");
+        const NpcAppearance& a = *person.appearance;
+        check::is_true(a.gender == "female" || a.gender == "male", person.uid + "'s gender, got " + std::string(a.gender));
+        const NpcAgeBand* band = band_of(*span, a.age_band);
+        check::is_true(band != nullptr, person.uid + "'s band, got " + std::string(a.age_band));
+        check::is_true(band->from <= a.age_years && a.age_years <= band->to,
+                       person.uid + "'s age inside its band, got " + std::to_string(a.age_years));
+        check::equal(a.civilization_id, std::string("human_heartland"), "drawn for the site's people");
+        check::equal(a.parent_race_id, std::string("human"), "of the human race");
+    }
+
+    // Keyed on the uid alone: a building joining the city moves nobody already in it, and
+    // one leaving from the FRONT of the order moves nobody after it -- which a single stream
+    // walked in roster order could not survive.
+    NpcRequest grown = request;
+    grown.city_plans[0].plots.push_back(plot("plot-9", "building.smithy", 2));
+    const NpcRoster more = generate_npc_roster(grown);
+    check::equal(more.summary.total, roster.summary.total + 2, "two more people");
+    for (const NpcPerson& person : roster.people) {
+        const NpcPerson* same = person_by_uid(more, person.uid);
+        check::is_true(same != nullptr && same->appearance.has_value(), person.uid + " still there");
+        check::is_true(same_appearance(*same->appearance, *person.appearance), person.uid + " unmoved by a newcomer");
+    }
+    NpcRequest shrunk = request;
+    shrunk.city_plans[0].plots.erase(shrunk.city_plans[0].plots.begin());  // the guildhall, plot-0
+    const NpcRoster fewer = generate_npc_roster(shrunk);
+    check::equal(fewer.summary.total, roster.summary.total - 2, "two fewer people");
+    for (const NpcPerson& person : fewer.people) {
+        const NpcPerson* before = person_by_uid(roster, person.uid);
+        check::is_true(before != nullptr && before->appearance.has_value(), person.uid + " there before");
+        check::is_true(same_appearance(*person.appearance, *before->appearance), person.uid + " unmoved by a departure");
+    }
+
+    // ...and the stream is the seed's: another world draws other people.
+    NpcRequest other = request;
+    other.seed = 43;
+    const NpcRoster elsewhere = generate_npc_roster(other);
+    int differ = 0;
+    for (const NpcPerson& person : roster.people) {
+        const NpcPerson* there = person_by_uid(elsewhere, person.uid);
+        check::is_true(there != nullptr && there->appearance.has_value(), person.uid + " in the other world");
+        if (!same_appearance(*there->appearance, *person.appearance)) ++differ;
+    }
+    check::is_true(differ > 0, "another seed to draw other people");
+}
+
+TEST(a_people_with_no_life_leaves_the_appearance_absent_and_counts_it) {
+    NpcRequest request = one_city();
+    request.entities.clear();
+    const NpcRoster roster = generate_npc_roster(request);
+    check::is_true(roster.ok, "an ok roster: an ageless people is not a failure");
+    check::equal(roster.summary.notes.appearance_unresolved, 20, "each person counted");
+    for (const NpcPerson& person : roster.people) {
+        check::is_true(!person.appearance.has_value(), person.uid + " to have no guessed age");
+    }
+    check::is_true(roster.life_spans.empty(), "and no span published for it");
+}
+
+TEST(the_gender_and_band_weights_hold_across_a_garrison) {
+    NpcRequest request = one_city();
+    request.city_plans[0].plots.clear();
+    for (int i = 0; i < 60; ++i) {
+        request.city_plans[0].plots.push_back(plot("plot-" + std::to_string(i), "building.barracks", 16));
+    }
+    const NpcRoster roster = generate_npc_roster(request);
+    check::equal(roster.summary.total, 960, "sixty barracks of sixteen");
+    std::map<std::string_view, int> genders;
+    std::map<std::string_view, int> bands;
+    for (const NpcPerson& person : roster.people) {
+        genders[person.appearance->gender] += 1;
+        bands[person.appearance->age_band] += 1;
+    }
+    const auto share = [](const std::map<std::string_view, int>& counts, std::string_view key) {
+        const auto found = counts.find(key);
+        return found == counts.end() ? 0.0 : static_cast<double>(found->second) / 960.0;
+    };
+    // Genders 1:1 and young, middle and old 2:2:1, each well past sampling error.
+    check::between(share(genders, "female"), 0.44, 0.56, "half women");
+    check::between(share(genders, "male"), 0.44, 0.56, "half men");
+    check::between(share(bands, "young"), 0.34, 0.46, "two fifths young");
+    check::between(share(bands, "middle"), 0.34, 0.46, "two fifths middle-aged");
+    check::between(share(bands, "old"), 0.14, 0.26, "one fifth old");
+}
+
+TEST(the_roster_publishes_each_parent_race_s_life_beside_each_people_s) {
+    NpcRequest request = one_city();
+    NpcCivilizationEntity gnome;
+    gnome.id = "gnome";
+    gnome.parent_race_id = "dwarf";
+    gnome.life = NpcLifeStages{138.0, 438.0, 750.0};
+    NpcCivilizationEntity ageless;
+    ageless.id = "ageless";
+    ageless.parent_race_id = "dwarf";
+    request.entities.push_back(gnome);
+    request.entities.push_back(ageless);
+    request.parent_races.push_back({"human", NpcLifeStages{15.0, 46.0, 80.0}});
+    request.parent_races.push_back({"dwarf", NpcLifeStages{43.0, 257.0, 500.0}});
+    const NpcRoster roster = generate_npc_roster(request);
+    check::is_true(roster.ok, "an ok roster: " + roster.error);
+    check::equal(roster.life_spans.size(), std::size_t(2), "a span for each people with a life, none for the ageless");
+    check::equal(roster.life_spans[0].id, std::string("gnome"), "peoples sorted by id");
+    check::equal(roster.life_spans[1].id, std::string("human_heartland"), "peoples sorted by id");
+    check::equal(roster.life_spans[0].parent_race_id, std::string("dwarf"), "the gnome's race named");
+    check::equal(band_of(roster.life_spans[0], "old")->to, 750, "a gnome living to 750");
+    check::equal(roster.parent_race_life_spans.size(), std::size_t(2), "each parent race");
+    check::equal(roster.parent_race_life_spans[0].id, std::string("dwarf"), "races sorted by id");
+    check::is_true(roster.parent_race_life_spans[0].parent_race_id.empty(), "a race naming no race above it");
+    check::equal(band_of(roster.parent_race_life_spans[0], "old")->to, 500, "a dwarf living to 500");
+}
+
+// ---------------------------------------------------------------------------
+// The same, in a generated world.
+// ---------------------------------------------------------------------------
+
+namespace {
+
+const World& world() {
+    static const World w = [] {
+        Request r;
+        r.seed = 42;
+        r.size = 33;
+        r.phase = 16;
+        return generate(resolve(r));
+    }();
+    return w;
+}
+
+}  // namespace
+
+TEST(in_a_world_every_placed_stable_keeps_one_horse_keeper_and_a_lost_one_says_why) {
+    const World& w = world();
+    check::is_true(w.npcs.ok, "an ok roster: " + w.npcs.error);
+    std::map<std::string, const NpcPerson*> keeper_at;  // "<site>|<plot>"
+    for (const NpcPerson& person : w.npcs.people) {
+        if (person.post != "horse_keeper") continue;
+        check::equal(person.site_kind.value_or(""), std::string("city"), person.uid + " to keep a city's horses");
+        check::is_true(keeper_at.emplace(*person.site_uid + "|" + person.plot_id, &person).second,
+                       person.uid + " to be its stable's only horse keeper");
+    }
+    int built = 0;
+    int placed = 0;
+    for (const CityPlan& city : w.city_plans.cities) {
+        if (city.status == "unbuildable") continue;
+        ++built;
+        std::vector<const Plot*> stables;
+        for (const Plot& p : city.plots) {
+            if (p.building_id == "building.stable") stables.push_back(&p);
+        }
+        check::is_true(stables.size() <= 1, city.city_uid + " to build at most one stable");
+        if (stables.size() == 1) {
+            ++placed;
+            const auto keeper = keeper_at.find(city.city_uid + "|" + stables[0]->id);
+            check::is_true(keeper != keeper_at.end(), city.city_uid + "'s stable to keep a horse keeper");
+            check::equal(keeper->second->workplace.value_or(""), std::string(stables[0]->name),
+                         "the horse keeper working in the stable itself");
+            continue;
+        }
+        // A city that could not fit its stable says so, and for want of room: never for want
+        // of a condition, which is how no city built one before the ruling.
+        bool reported = false;
+        for (const Unplaced& u : city.unplaced) {
+            if (u.building_id != "building.stable") continue;
+            reported = true;
+            check::equal(u.reason, std::string("No terrain-safe plot with road access remaining"),
+                         city.city_uid + "'s stable lost for want of room");
+        }
+        check::is_true(reported, city.city_uid + " to report the stable it could not place");
+    }
+    check::equal(static_cast<int>(keeper_at.size()), placed, "a horse keeper for every placed stable, none besides");
+    // Size 33 is cramped -- every city there is partial -- and most still keep horses.
+    check::is_true(placed * 2 > built,
+                   "most cities to place their stable, got " + std::to_string(placed) + " of " + std::to_string(built));
+}
+
+TEST(in_a_world_every_storekeeper_stands_in_the_store_it_names) {
+    const World& w = world();
+    std::map<std::string, const std::vector<Plot>*> plans;  // by the roster's site uid
+    for (const CityPlan& city : w.city_plans.cities) plans.emplace(city.city_uid, &city.plots);
+    for (const HamletPlan& hamlet : w.hamlet_plans.hamlets) {
+        plans.emplace("hamlet-node-" + std::to_string(hamlet.node), &hamlet.plots);
+    }
+    std::map<std::string, int> by_store;
+    for (const NpcPerson& person : w.npcs.people) {
+        check::is_true(person.post != "store_keeper", person.uid + " to hold no retired post");
+        if (person.post != "storekeeper") {
+            check::is_true(!person.store.has_value(), person.uid + " to keep no store");
+            continue;
+        }
+        const std::string store = person.store.value_or("");
+        check::equal(store, std::string(npc_short_building(person.building_id.value_or(""))),
+                     person.uid + " naming the store it stands in");
+        by_store[store] += 1;
+        const auto plan = plans.find(person.site_uid.value_or(""));
+        check::is_true(plan != plans.end(), person.uid + "'s site to have a plan");
+        const Plot* at = nullptr;
+        for (const Plot& p : *plan->second) {
+            if (p.id == person.plot_id) at = &p;
+        }
+        check::is_true(at != nullptr, person.uid + "'s plot to stand in its site's plan");
+        check::equal(std::string(at->building_id), *person.building_id, person.uid + "'s plot to be that store");
+        check::equal(person.workplace.value_or(""), std::string(at->name), person.uid + "'s workplace, that store's name");
+    }
+    for (const std::string store : {"granary", "warehouse", "root_cellar", "hamlet_food_store"}) {
+        check::is_true(by_store[store] > 0, "some " + store + " keepers in the world");
+    }
+}
+
+TEST(in_a_world_everyone_has_an_age_inside_their_people_s_band) {
+    const World& w = world();
+    check::equal(w.npcs.summary.notes.appearance_unresolved, 0, "everyone aged");
+    std::map<std::string, const NpcLifeSpan*> spans;
+    for (const NpcLifeSpan& span : w.npcs.life_spans) spans.emplace(span.id, &span);
+    std::map<std::string, std::string> site_people;
+    for (const NpcSite& site : w.npcs.sites) site_people.emplace(site.uid, site.civilization_id.value_or(""));
+    std::map<std::string, std::string> hero_people;
+    for (const Hero& hero : w.heroes.people) hero_people.emplace(hero.uid, hero.civilization_id);
+
+    std::set<std::string_view> genders;
+    std::set<std::string_view> bands;
+    int cast = 0;
+    for (const NpcPerson& person : w.npcs.people) {
+        check::is_true(person.appearance.has_value(), person.uid + " to have an appearance");
+        const NpcAppearance& a = *person.appearance;
+        const auto span = spans.find(a.civilization_id);
+        check::is_true(span != spans.end(), person.uid + "'s people to have a span");
+        const NpcAgeBand* band = band_of(*span->second, a.age_band);
+        check::is_true(band != nullptr && band->from <= a.age_years && a.age_years <= band->to,
+                       person.uid + " aged inside its band");
+        check::equal(a.parent_race_id, span->second->parent_race_id, person.uid + "'s race, its people's");
+        // A post is aged as its site's people; a hero as their own.
+        const std::string& people = person.is_cast ? hero_people.at(person.hero_uid) : site_people.at(*person.site_uid);
+        check::equal(a.civilization_id, people, person.uid + " aged as its own people");
+        if (person.is_cast) ++cast;
+        genders.insert(a.gender);
+        bands.insert(a.age_band);
+    }
+    check::is_true(cast > 0, "the cast aged too");
+    check::equal(genders.size(), std::size_t(2), "both genders");
+    check::equal(bands.size(), std::size_t(3), "all three bands");
+}
+
+TEST(the_owner_s_lifespans_reach_every_people_through_its_race) {
+    // A human lives to 80, an elf to 1000, a dwarf to 500 and a gnome to 750. The stage
+    // onsets scale with the life, and every other people keeps its authored ratio to its
+    // race: the cold and rainforest humans, the hill dwarves and the tidekin.
+    struct Life {
+        std::string parent;
+        double adult, elder, max;
+    };
+    const std::map<std::string, Life> races = {
+        {"dwarf", {"", 43, 257, 500}}, {"elf", {"", 111, 667, 1000}}, {"human", {"", 15, 46, 80}}};
+    const std::map<std::string, Life> peoples = {
+        {"dwarf", {"dwarf", 43, 257, 500}},          {"elf", {"elf", 111, 667, 1000}},
+        {"frosthold_dwarf", {"dwarf", 43, 257, 500}}, {"gnome", {"dwarf", 138, 438, 750}},
+        {"hill_dwarf", {"dwarf", 43, 214, 400}},      {"human_cold", {"human", 15, 42, 72}},
+        {"human_desert", {"human", 15, 46, 80}},      {"human_heartland", {"human", 15, 46, 80}},
+        {"human_large_island", {"human", 15, 46, 80}}, {"human_maritime", {"human", 15, 46, 80}},
+        {"human_rainforest", {"human", 13, 38, 66}},  {"tidekin", {"elf", 111, 500, 778}}};
+    const World& w = world();
+    const auto compare = [](const std::vector<NpcLifeSpan>& spans, const std::map<std::string, Life>& expected,
+                            const std::string& what) {
+        check::equal(spans.size(), expected.size(), what + " published");
+        for (const NpcLifeSpan& span : spans) {
+            const auto found = expected.find(span.id);
+            check::is_true(found != expected.end(), what + ": an unexpected " + span.id);
+            const Life& life = found->second;
+            check::equal(span.parent_race_id, life.parent, span.id + "'s race");
+            check::close(span.life.adult, life.adult, 1e-9, span.id + "'s adult onset");
+            check::close(span.life.elder, life.elder, 1e-9, span.id + "'s elder onset");
+            check::close(span.life.max, life.max, 1e-9, span.id + "'s longest life");
+            check::equal(band_of(span, "old")->to, static_cast<int>(life.max), span.id + "'s old band ending with its life");
+        }
+    };
+    compare(w.npcs.parent_race_life_spans, races, "the parent races");
+    compare(w.npcs.life_spans, peoples, "the peoples");
 }

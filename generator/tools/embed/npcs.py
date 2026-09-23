@@ -31,6 +31,9 @@ from embed.common import BANNER, OUT, cpp_string, load
 POSTS = "npc-posts.json"
 NAMES = "npc-names-handover.json"
 CODE_TABLES = "npc-code-tables.json"
+APPEARANCE = "npc-appearance.json"
+BODIES = "heritage-appearance.json"
+AGE_BANDS = ("young", "middle", "old")
 
 CLASS_CAPS = ("capital", "medium", "small")
 SITE_KINDS = ("hamlet", "fortress")
@@ -81,6 +84,43 @@ def lint_posts(doc):
     for key in CLASS_CAPS + SITE_KINDS:
         if type(caps.get(key)) is not int or caps[key] < 0:
             raise SystemExit("caps needs a non-negative integer for %s" % key)
+    # What a post offers the player beyond quest verbs (2026-09-23). A service on a role no
+    # building staffs would be offered by nobody.
+    staffed = {row[0] for roles in buildings.values() for row in roles}
+    for role, services in doc.get("services", {}).items():
+        if role not in staffed:
+            raise SystemExit("services names %r, which no building staffs" % role)
+        if (not isinstance(services, list) or not services or len(set(services)) != len(services)
+                or not all(isinstance(s, str) and s for s in services)):
+            raise SystemExit("role %s needs a non-empty list of distinct services" % role)
+    return doc
+
+
+def lint_weights(rows, label):
+    if not isinstance(rows, list) or not rows:
+        raise SystemExit("%s needs a non-empty list of [id, weight] rows" % label)
+    for row in rows:
+        if len(row) != 2 or not isinstance(row[0], str) or not row[0] or type(row[1]) is not int or row[1] < 1:
+            raise SystemExit("%s has a malformed row %r; weights are positive integers" % (label, row))
+    if len({row[0] for row in rows}) != len(rows):
+        raise SystemExit("%s repeats an id" % label)
+
+
+def lint_appearance(doc, bodies):
+    lint_weights(doc.get("genders"), "genders")
+    # A gender a game cannot find a frame for is a person it cannot draw.
+    sexes = set()
+    for race in bodies["races"].values():
+        sexes |= set(race["frame"]["height_m"])
+    unknown = sorted({row[0] for row in doc["genders"]} - sexes)
+    if unknown:
+        raise SystemExit("genders %s have no frame in %s, which states %s" % (unknown, BODIES, sorted(sexes)))
+    lint_weights(doc.get("age_bands"), "age_bands")
+    if tuple(row[0] for row in doc["age_bands"]) != AGE_BANDS:
+        raise SystemExit("age_bands must be exactly %s, in that order" % (AGE_BANDS,))
+    split = doc.get("young_to_middle")
+    if type(split) is not float or not 0.0 < split < 1.0:
+        raise SystemExit("young_to_middle must be a fraction strictly between 0 and 1")
     return doc
 
 
@@ -101,6 +141,13 @@ def render_npcs():
     posts = lint_posts(load(POSTS, 1))
     names = lint_names(load(NAMES, 1))
     code = load(CODE_TABLES, 1)
+    appearance = lint_appearance(load(APPEARANCE, 1), load(BODIES, 1))
+
+    services, service_spans = [], {}
+    for role in sorted(posts.get("services", {})):
+        begin = len(services)
+        services.extend(posts["services"][role])
+        service_spans[role] = (begin, len(services) - begin)
 
     roles, role_spans = [], {}
     for building in sorted(posts["buildings"]):
@@ -115,7 +162,7 @@ def render_npcs():
         verbs.extend(posts["role_verbs"][role])
         verb_spans[role] = (begin, len(verbs) - begin)
 
-    lines = [BANNER.format(source="%s, %s and %s" % (POSTS, NAMES, CODE_TABLES))]
+    lines = [BANNER.format(source="%s, %s, %s and %s" % (POSTS, NAMES, CODE_TABLES, APPEARANCE))]
     lines.append('#include "fwg/npcs.hpp"\n')
     lines.append("namespace fwg {")
     lines.append("namespace {\n")
@@ -175,7 +222,29 @@ def render_npcs():
                            for block, key in code["place_sources"]))
     lines.append("")
 
+    lines.append("// What a post offers the player beyond quest verbs, sorted by role.")
+    lines.append("constexpr std::string_view kServices[] = {%s};"
+                 % "".join("%s, " % cpp_string(v) for v in services))
+    lines.append("constexpr NpcRoleServices kRoleServiceRows[] = {")
+    for role in sorted(service_spans):
+        begin, count = service_spans[role]
+        lines.append("    {%s, {kServices + %d, %d}}," % (cpp_string(role), begin, count))
+    lines.append("};\n")
+
+    lines.append("// The baseline appearance weights, in file order: a person's draw walks them")
+    lines.append("// cumulatively, so reordering either list re-maps every gender or age band.")
+    lines.append("constexpr NpcWeight kGenders[] = {%s};"
+                 % "".join("{%s, %d}, " % (cpp_string(g), w) for g, w in appearance["genders"]))
+    lines.append("constexpr NpcWeight kAgeBands[] = {%s};"
+                 % "".join("{%s, %d}, " % (cpp_string(b), w) for b, w in appearance["age_bands"]))
+    lines.append("")
+
     lines.append("}  // namespace\n")
+    lines.append("std::span<const NpcRoleServices> npc_role_services() { return kRoleServiceRows; }")
+    lines.append("std::span<const NpcWeight> npc_genders() { return kGenders; }")
+    lines.append("std::span<const NpcWeight> npc_age_band_weights() { return kAgeBands; }")
+    lines.append("double npc_young_to_middle() { return %r; }" % appearance["young_to_middle"])
+    lines.append("int npc_appearance_revision() { return %d; }" % revision_of(appearance, APPEARANCE))
     lines.append("std::span<const std::string_view> npc_verbs() { return kVerbs; }")
     lines.append("std::span<const NpcBuilding> npc_buildings() { return kBuildings; }")
     lines.append("std::span<const NpcRoleVerbs> npc_role_verbs() { return kRoleVerbRows; }")

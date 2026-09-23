@@ -1,0 +1,20 @@
+{
+ "schema": "fwg.npc-appearance",
+ "schema_version": 1,
+ "note": "The baseline appearance every NPC is given (ruled by the owner 2026-09-23): a gender and an age, drawn per person from its own stream so neither moves when the roster grows. Hair and every finer customisation are the game's.\n\nAGE. A people's life stages come from heritage-appearance.json -- its subrace's own stages where it has them, else its parent race's -- and give three adult bands in whole years: YOUNG from the adult onset up to `young_to_middle` of the way to the elder onset, MIDDLE from there up to the elder onset, OLD from the elder onset to the people's maximum age. A person draws a band by `age_bands` weight, then a year uniformly inside it. The bands are published per people and per parent race in the npcs block, so a reader can check a person's age against its people's.\n\nGENDER. Drawn by `genders` weight. The ids must be the sexes heritage-appearance.json states its frames in, because those frames are what a game draws a body from.\n\nWEIGHTS are population frequencies among post holders, not per-person chances a game should reuse: working people skew young and middle-aged.",
+ "source_identity": {
+  "revision": 1,
+  "authored": "2026-09-23",
+  "authored_by": "the owner's ruling on NPC appearance"
+ },
+ "genders": [
+  ["female", 1],
+  ["male", 1]
+ ],
+ "age_bands": [
+  ["young", 2],
+  ["middle", 2],
+  ["old", 1]
+ ],
+ "young_to_middle": 0.5
+}

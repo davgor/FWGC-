@@ -10,7 +10,7 @@
  "registry": {
   "schema": "fantasy-world-generator.building-registry",
   "schema_version": 2,
-  "revision": 5,
+  "revision": 6,
   "description": "Shared building definitions, measurements, staffing, runtime packs and layout libraries. Civilization presets reference these records. Castle fortification IDs live under structure_blocks.castle for the independent castle planner.",
   "building_packs": {
    "schema_version": 3,
@@ -3152,9 +3152,9 @@
         "id": "building.stable",
         "name": "Stable and farrier yard",
         "status": "planned",
-        "priority": "conditional",
+        "priority": "core",
         "module_family": "service_yard",
-        "purpose": "Support visiting and working animals.",
+        "purpose": "Keep horses for hire and sale, run the town's carriages, and support visiting and working animals.",
         "placement": "Near gates and cart routes.",
         "requirements": [
          "Actual animal use, fodder, water and manure removal."
@@ -3185,10 +3185,16 @@
          "housing_location": "city",
          "roles": [
           {
+           "role": "horse_keeper",
+           "minimum": 1,
+           "target": 1,
+           "maximum": 1
+          },
+          {
            "role": "animal_keeper",
            "minimum": 1,
-           "target": 2,
-           "maximum": 3
+           "target": 1,
+           "maximum": 2
           },
           {
            "role": "farrier",
@@ -6269,7 +6275,7 @@
          "housing_location": "hinterland",
          "roles": [
           {
-           "role": "store_keeper",
+           "role": "storekeeper",
            "minimum": 1,
            "target": 1,
            "maximum": 2

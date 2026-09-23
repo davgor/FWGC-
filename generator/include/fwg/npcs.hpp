@@ -15,6 +15,13 @@
 // kept to a bounded few per site so a consumer can scan them rather than walk the roster.
 // `alive` is birth state, so a quest is never offered by a corpse.
 //
+// THE OWNER'S BASELINE (2026-09-23). Every person names the building they work in as the
+// plan placed it (`workplace`); the one storekeeper post names the store it keeps (`store`);
+// a city's stable holds a horse keeper, who sells mounts and runs carriages (the services
+// table). And every person -- post or cast -- carries a gender and an age drawn from their
+// own stream, the age inside their people's young, middle or old band, which the block
+// publishes beside each parent race's. Hair and every finer choice are the game's.
+//
 // Like key_locations this is a READER: it takes a request rather than a World, writes
 // nothing back, and never throws. A failure is a reported block.
 //
@@ -36,7 +43,9 @@
 
 namespace fwg {
 
-inline constexpr int kNpcRosterVersion = 1;
+// 2 (2026-09-23): one storekeeper post, the horse keeper, and each person's workplace, store
+// and appearance, with the block's life spans and post services.
+inline constexpr int kNpcRosterVersion = 2;
 
 // One prefix is enough because cast uids already begin `hero-` or `dread-`; without it you
 // read `npc-hero-hero-castellan-...`.
@@ -72,6 +81,19 @@ struct NpcCap {
     int cap;
 };
 
+// What a post offers the player beyond quest verbs (2026-09-23): a horse keeper's mounts
+// and carriages. A post with no row offers none.
+struct NpcRoleServices {
+    std::string_view role;
+    std::span<const std::string_view> services;
+};
+
+// One weighted choice in the appearance baseline (data/npc-appearance.json).
+struct NpcWeight {
+    std::string_view id;
+    int weight;
+};
+
 // The ten canonical quest verbs, shared with the hero generator's hooks.
 std::span<const std::string_view> npc_verbs();
 std::span<const NpcBuilding> npc_buildings();   // sorted by id
@@ -86,6 +108,15 @@ int npc_posts_revision();
 int npc_names_revision();
 std::string_view npc_method();
 std::string_view npc_limits();
+std::span<const NpcRoleServices> npc_role_services();  // sorted by role
+// Genders and the young | middle | old band weights, in file order: a draw walks them.
+std::span<const NpcWeight> npc_genders();
+std::span<const NpcWeight> npc_age_band_weights();
+// How far from the adult onset to the elder onset YOUNG ends and MIDDLE begins.
+double npc_young_to_middle();
+int npc_appearance_revision();
+// The services a post offers, empty for most.
+std::span<const std::string_view> npc_services(std::string_view role);
 
 // A building ABSENT from the policy yields NO posts at all and its workers silently
 // vanish, which is the intended case for houses and unstaffed plots.
@@ -124,6 +155,17 @@ struct NpcPlot {
     std::string id;  // plot-<k>
     std::string building_id;
     int workers = 0;
+    // The building's name as the plan placed it ("Granary", "Winter supply warehouse"):
+    // each person's workplace, and a storekeeper's store.
+    std::string name;
+};
+
+// A people's life, in years, as the heritage appearance layer resolves it: the subrace's
+// own stages where it states them, else its parent race's.
+struct NpcLifeStages {
+    double adult = 0.0;  // the adult onset
+    double elder = 0.0;  // the elder onset
+    double max = 0.0;    // the longest life of the people
 };
 
 struct NpcCityPlan {
@@ -177,6 +219,15 @@ struct NpcSettlementSite {
 struct NpcCivilizationEntity {
     std::string id;
     std::string parent_race_id;
+    // Absent where heritage states no body for the people; its people then get no age.
+    std::optional<NpcLifeStages> life;
+};
+
+// A parent race's own stages, published beside its peoples' so a subrace's departure from
+// its race is visible.
+struct NpcParentRace {
+    std::string id;
+    NpcLifeStages life;
 };
 
 // A row from one of the eight place-index blocks, or from `ruins`.
@@ -195,6 +246,7 @@ struct NpcCastMember {
     std::string home_uid;
     std::string presence_uid;
     std::string presence_site_kind;
+    std::string civilization_id;  // the member's own people, for its appearance
 };
 
 struct NpcRequest {
@@ -214,6 +266,7 @@ struct NpcRequest {
     // ORDER IS LOAD-BEARING: `core_id` is a POSITION in this list.
     std::vector<NpcSettlementSite> settlements;
     std::vector<NpcCivilizationEntity> entities;
+    std::vector<NpcParentRace> parent_races;
 
     // Copied into the output for drift visibility only. The post labels come from a
     // snapshot of the building registry, so naming the world's own registry identity
@@ -258,6 +311,34 @@ struct NpcSite {
     int posts = 0;
 };
 
+// One adult age band of a people, in whole years, both ends inclusive.
+struct NpcAgeBand {
+    std::string_view id;  // young | middle | old
+    int from = 0;
+    int to = 0;
+};
+
+// A people's (or a parent race's) life and the three bands it gives (2026-09-23). YOUNG runs
+// from the adult onset to npc_young_to_middle() of the way to the elder onset, MIDDLE from
+// there to the elder onset, OLD from the elder onset to the longest life. Every onset is
+// rounded to a whole year first, so the bands meet without a gap or an overlap.
+struct NpcLifeSpan {
+    std::string id;
+    std::string parent_race_id;  // empty on a parent race's own row
+    NpcLifeStages life;
+    std::vector<NpcAgeBand> bands;
+};
+NpcLifeSpan npc_life_span(std::string id, std::string parent_race_id, const NpcLifeStages& life);
+
+// The baseline a game builds a body on: hair and every finer choice are the game's.
+struct NpcAppearance {
+    std::string_view gender;    // an npc_genders() id
+    std::string_view age_band;  // young | middle | old
+    int age_years = 0;
+    std::string civilization_id;  // the people the age was drawn for
+    std::string parent_race_id;
+};
+
 struct NpcPerson {
     std::string uid;  // THE KEY FIELD
     // Absent when the site's parent race could not be resolved: NEVER guessed as human,
@@ -270,6 +351,14 @@ struct NpcPerson {
     std::string plot_id;  // '' for a cast record
     bool alive = true;
     bool important = false;
+    // The name of the building this person works in, as the plan placed it.
+    std::optional<std::string> workplace;
+    // A storekeeper's store, by its building: granary, warehouse, root_cellar,
+    // hamlet_food_store. The exact store is (site_uid, plot_id).
+    std::optional<std::string> store;
+    // Absent only for a person whose people has no life stages -- a dread, say -- and
+    // counted in the notes rather than guessed.
+    std::optional<NpcAppearance> appearance;
 
     // Cast records only.
     bool is_cast = false;
@@ -295,6 +384,7 @@ struct NpcNotes {
     int cast_outside_a_planned_site = 0;
     int cast_located_by_presence = 0;
     int cast_presence_unresolved = 0;
+    int appearance_unresolved = 0;  // people with no life stages to draw an age from
 };
 
 struct NpcSummary {
@@ -320,6 +410,9 @@ struct NpcRoster {
     NpcSummary summary;
     std::vector<NpcSite> sites;
     std::vector<NpcPerson> people;
+    // Each parent race's life and bands, then each people's, both sorted by id.
+    std::vector<NpcLifeSpan> parent_race_life_spans;
+    std::vector<NpcLifeSpan> life_spans;
     // `post_verbs` and `verbs` are the static npc_role_verbs() and npc_verbs() spans
     // rather than copies. The reference copies them because its policy document is cached
     // and shared and a consumer mutating the block would corrupt every later roster; a

@@ -57,6 +57,9 @@ constexpr std::array kAllowlist = {
     Excused{".nomads.groups[].basis.prize_distance_m", "no band in this world rides for a prize"},
     Excused{".nomads.groups[].basis.prize_uid", "no band in this world rides for a prize"},
     Excused{".nomads.rolls[].evidence.bandits", "no roll in this world weighs bandits: its one moved with its hamlets when forts began claiming ground first (2026-09-23); seeds 42, 7 and 99 still roll them"},
+
+    // The owner's rulings: keys the reference writes that this port retired on purpose.
+    Excused{".npcs.post_verbs.store_keeper", "the owner merged store_keeper into storekeeper (2026-09-23); each storekeeper now names the store it keeps"},
 };
 
 // Layer names the document may lack: none, every reference layer is published.

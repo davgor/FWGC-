@@ -25,6 +25,7 @@
 #include "fwg/city_plan.hpp"
 #include "fwg/entities.hpp"
 #include "fwg/content.hpp"
+#include "fwg/heritage.hpp"
 #include "fwg/heroes.hpp"
 #include "fwg/key_locations.hpp"
 #include "fwg/magic.hpp"
@@ -564,8 +565,20 @@ StoryWebRequest story_web_request(const World& world, const HeroesBlock& heroes)
 std::vector<NpcPlot> npc_plots(const std::vector<Plot>& plots) {
     std::vector<NpcPlot> out;
     out.reserve(plots.size());
-    for (const Plot& p : plots) out.push_back({p.id, std::string(p.building_id), p.workers});
+    for (const Plot& p : plots) out.push_back({p.id, std::string(p.building_id), p.workers, std::string(p.name)});
     return out;
+}
+
+// A body's life, in years: its adult and elder onsets and its longest life. Absent for a
+// body that states no life stages.
+std::optional<NpcLifeStages> life_of(const heritage::Value& body) {
+    const heritage::Value* stages = body.find("life_stages");
+    if (stages == nullptr) return std::nullopt;
+    const heritage::Value* adult = stages->find("adult");
+    const heritage::Value* elder = stages->find("elder");
+    const heritage::Value* longest = stages->find("max_years");
+    if (adult == nullptr || elder == nullptr || longest == nullptr) return std::nullopt;
+    return NpcLifeStages{adult->at("onset_years").as_double(), elder->at("onset_years").as_double(), longest->as_double()};
 }
 
 // The roster's view of the world: the plans it staffs, the settlements it anchors to, the
@@ -617,7 +630,7 @@ NpcRequest npc_request(const World& world, const SphereGrid& grid) {
         plan.z = NpcNumber::of(p.z);
         plan.plots.reserve(p.plots.size());
         for (const CastlePlot& plot : p.plots) {
-            plan.plots.push_back({plot.id, std::string(plot.building_id), plot.workers});
+            plan.plots.push_back({plot.id, std::string(plot.building_id), plot.workers, std::string(plot.name)});
         }
         request.castle_plans.push_back(std::move(plan));
     }
@@ -636,8 +649,19 @@ NpcRequest npc_request(const World& world, const SphereGrid& grid) {
         site.z = NpcNumber::of(s.z);
         request.settlements.push_back(std::move(site));
     }
+    // Each people's life as heritage resolves it -- its subrace's own stages where it states
+    // them, else its parent race's -- and each parent race's own, for the ages (2026-09-23).
+    std::set<std::string> parent_races;
     for (const EntityRules& e : entity_rules()) {
-        request.entities.push_back({std::string(e.id), std::string(e.parent_race_id)});
+        NpcCivilizationEntity entity{std::string(e.id), std::string(e.parent_race_id), std::nullopt};
+        entity.life = life_of(heritage::resolve(e.id, e.parent_race_id).appearance);
+        request.entities.push_back(std::move(entity));
+        parent_races.insert(std::string(e.parent_race_id));
+    }
+    for (const std::string& race : parent_races) {
+        if (const std::optional<NpcLifeStages> life = life_of(heritage::race_appearance(race))) {
+            request.parent_races.push_back({race, *life});
+        }
     }
     const RegistryIdentity registry = registry_identity();
     request.registry_revision = registry.revision;
@@ -653,6 +677,7 @@ NpcRequest npc_request(const World& world, const SphereGrid& grid) {
         member.name = h.name;
         member.role = h.role;
         member.status = h.status;
+        member.civilization_id = h.civilization_id;
         if (h.home) member.home_uid = h.home->uid;
         if (h.presence) {
             member.presence_uid = h.presence->uid;

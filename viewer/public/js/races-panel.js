@@ -5,10 +5,11 @@
 // they were, and beside them what each people holds elsewhere in the document: its whole
 // population, capitals, hamlets, forts by what they watch, the cities it has lost, its
 // wars, its NPCs and its cast. A civilization is the settling people (`population_profile`,
-// e.g. hill_dwarf); its parent race is the race it descends from (dwarf).
+// e.g. hill_dwarf); its parent race is the race it descends from (dwarf). Last, each race's
+// and each people's life span and the young, middle and old bands NPC ages are drawn in.
 
 import { el, num, titleCase } from './dom.js';
-import { bars, card, sortableTable } from './panels.js';
+import { bars, card, cell, sortableTable } from './panels.js';
 
 function blank() {
   return {
@@ -140,6 +141,37 @@ export async function renderRaces(container, world, isCurrent = () => true) {
   root.append(card(`Civilizations (${civ.size})`, sortableTable(['Civilization', 'Parent race', ...COLUMNS],
     [...civ.entries()].map(([id, t]) => [civName(id), parentName(parentOf.get(id) ?? 'unknown'), ...counts(t)]),
     { numeric, sorted: 4, descending: true })));
+
+  // Each parent race's life and each people's, in the three adult bands the roster cut from
+  // them and drew every NPC's age in (2026-09-23).
+  const spans = npcs?.life_spans;
+  if (spans?.peoples?.length) {
+    const ages = new Map();
+    const raceAges = new Map();
+    for (const p of npcs.people ?? []) {
+      const a = p.appearance;
+      if (!a) continue;
+      for (const [map, key] of [[ages, a.civilization_id], [raceAges, a.parent_race_id]]) {
+        if (!map.has(key)) map.set(key, []);
+        map.get(key).push(a.age_years);
+      }
+    }
+    const mean = list => (list?.length ? list.reduce((sum, x) => sum + x, 0) / list.length : null);
+    const band = (span, id) => {
+      const b = span.bands?.[id];
+      return b ? cell(`${num(b.from)}–${num(b.to)}`, b.from) : null;
+    };
+    const life = span => [span.max_years, span.adult_years, span.elder_years, band(span, 'young'), band(span, 'middle'), band(span, 'old')];
+    const LIFE = ['Longest life', 'Adult from', 'Elder from', 'Young', 'Middle', 'Old', 'NPCs aged', 'Mean age'];
+    root.append(card('Life spans (years)',
+      el('p', { class: 'note' }, 'Young runs from the adult onset to halfway to the elder onset, middle from there to the elder '
+        + 'onset, old from the elder onset to the longest life. A people that states no life of its own lives as its race '
+        + 'does. Every NPC and cast member drew a band (young 2 : middle 2 : old 1) and then a year inside it.'),
+      sortableTable(['Parent race', ...LIFE], (spans.parent_races ?? []).map(span => [parentName(span.id), ...life(span),
+        raceAges.get(span.id)?.length ?? 0, mean(raceAges.get(span.id))]), { numeric: [1, 2, 3, 4, 5, 6, 7, 8], sorted: 1, descending: true }),
+      sortableTable(['People', 'Parent race', ...LIFE], spans.peoples.map(span => [civName(span.id), parentName(span.parent_race_id),
+        ...life(span), ages.get(span.id)?.length ?? 0, mean(ages.get(span.id))]), { numeric: [2, 3, 4, 5, 6, 7, 8, 9], sorted: 2, descending: true })));
+  }
 
   const npcTotal = npcs?.summary?.total ?? npcs?.people?.length ?? 0;
   const attributed = [...civ.values()].reduce((sum, t) => sum + t.npcs, 0);

@@ -1,11 +1,11 @@
 {
  "schema": "fwg.heritage-appearance",
  "schema_version": 1,
- "note": "What each people looks like: a complete authored body per race, extended by a sparse delta per subrace. The one heritage layer that carries numbers, and the only one that is NOT derived -- a skin range or an ear form is new information rather than a restatement of the seventeen axes. Carried whole from heritage/policies/appearance.json.\n\nREAD BY: heritage/policy.py lint_appearance() and check_resolved_appearance(); heritage/derive.py merge_appearance() and _resolve(). NOTHING OUTSIDE heritage READS IT TODAY -- in particular icarus_sim/terrain_civilizations.py:15 heritage_of() republishes only ('traits', 'culture', 'genome', 'provenance'), so appearance is deliberately NOT in the world document. It is still live data and must be ported, for two reasons: it is inside the `resolved` dict that heritage_identity() hashes, so editing it moves the world's heritage digest while changing no world; and it is the only anatomical record in the repository (civilizations.json measures habitat and never a body).\n\nRNG INPUT: not today, but it is WEIGHT-BEARING DATA AND A PORT MUST NOT REORDER IT. Every `coloration.*.swatches` list is a {name, hex, weight} table whose weights are POPULATION FREQUENCIES and are validated to sum to 1.0 within 1e-6 (policy._palette: 'weights are population frequencies and must sum to 1'). No Python draws from them yet, so today the order is unobservable -- but the obvious consumer is a cumulative weighted walk exactly like naming._weighted(), and the day one is written the file order becomes the draw intervals. The frame bands (`height_m`, `mass_kg` per sex) are min/mean/max/sd, authored so a caller can draw one NPC from the population they describe; sd must be strictly positive. `grooming.common_styles`, `attire.materials` and `art_direction.avoid` are token lists with no consumer and no order contract. `life_stages` is keyed by stage name and its sequence is fixed in code by policy.LIFE_STAGES, not by this file's key order.\n\nABSENCE THAT IS NOT EMPTINESS: `races` entries must be COMPLETE -- every one of the eight appearance blocks with exactly its keys -- while `peoples` entries are sparse deltas at depth two (block, then key), and a key's value replaces its inherited value whole. A delta that RESTATES an inherited value RAISES (merge_appearance: 'extends X with its inherited value'), so absence is the only way to say 'same as my race'. `life_stages.adult.height_fraction` must be exactly 1 because it is the reference stature every band is stated at -- a 1.0 there is a contract, not a coincidence. `life_stages.child.onset_years` must be exactly 0. A race's height band must lie inside the (floor, ceiling) envelope its `body_scale` key trait implies, and max_years inside the band its `lifespan_tempo` implies; both envelopes live in code, not here -- see heritage-axes.json. `appearance.races`/`peoples` must name EXACTLY the same keys as traits.races/traits.peoples.\n\nThe heritage identity hash does NOT cover these bytes. heritage.heritage_identity() (heritage/derive.py:330) hashes the RESOLVED peoples instead -- resolved = {cid: _resolve(cid, parent) for cid, parent in sorted(pairs)}, then sha256 of json.dumps(resolved, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8'). That is a THIRD serialisation scheme in this codebase, distinct from both of the two you already have: registry_identity() (icarus_sim/civilization_registry.py:308) uses ensure_ascii=False, separators=(',', ':') and NO sort_keys, and castle_planner (icarus_sim/castle_planner.py:39) uses sort_keys=True, separators=(',', ':') and the ensure_ascii=True default. heritage is sort_keys=True AND ensure_ascii=False, so it agrees with neither on a non-ASCII string. sort_keys sorts MAPPING keys only -- it does not touch list element order, so every list marked a contract below also moves this digest. For the twelve civilizations the registry ships, in terrain_civilizations.civilization_report's pair order (tuple((key, entity_rules(key)['parent_race_id']) for key in civilization_ids()), which heritage_identity then sorts), the expected value at FantasyWorldGenerator b67c99b is sha256=9b708d23e468beb4c3f775415405b5aa8991f21c7d402aa200cd6aa99a0b2189 with revision={traits:1, derivation:1, lexicon:1, overrides:1, appearance:1}. `source_sha256` in this file is a plain digest of the source file's raw bytes, recorded for provenance only; nothing in the Python computes it.",
+ "note": "What each people looks like: a complete authored body per race, extended by a sparse delta per subrace. The one heritage layer that carries numbers, and the only one that is NOT derived -- a skin range or an ear form is new information rather than a restatement of the seventeen axes. Carried whole from heritage/policies/appearance.json.\n\nREAD BY: heritage/policy.py lint_appearance() and check_resolved_appearance(); heritage/derive.py merge_appearance() and _resolve(). NOTHING OUTSIDE heritage READS IT TODAY -- in particular icarus_sim/terrain_civilizations.py:15 heritage_of() republishes only ('traits', 'culture', 'genome', 'provenance'), so appearance is deliberately NOT in the world document. It is still live data and must be ported, for two reasons: it is inside the `resolved` dict that heritage_identity() hashes, so editing it moves the world's heritage digest while changing no world; and it is the only anatomical record in the repository (civilizations.json measures habitat and never a body).\n\nRNG INPUT: not today, but it is WEIGHT-BEARING DATA AND A PORT MUST NOT REORDER IT. Every `coloration.*.swatches` list is a {name, hex, weight} table whose weights are POPULATION FREQUENCIES and are validated to sum to 1.0 within 1e-6 (policy._palette: 'weights are population frequencies and must sum to 1'). No Python draws from them yet, so today the order is unobservable -- but the obvious consumer is a cumulative weighted walk exactly like naming._weighted(), and the day one is written the file order becomes the draw intervals. The frame bands (`height_m`, `mass_kg` per sex) are min/mean/max/sd, authored so a caller can draw one NPC from the population they describe; sd must be strictly positive. `grooming.common_styles`, `attire.materials` and `art_direction.avoid` are token lists with no consumer and no order contract. `life_stages` is keyed by stage name and its sequence is fixed in code by policy.LIFE_STAGES, not by this file's key order.\n\nABSENCE THAT IS NOT EMPTINESS: `races` entries must be COMPLETE -- every one of the eight appearance blocks with exactly its keys -- while `peoples` entries are sparse deltas at depth two (block, then key), and a key's value replaces its inherited value whole. A delta that RESTATES an inherited value RAISES (merge_appearance: 'extends X with its inherited value'), so absence is the only way to say 'same as my race'. `life_stages.adult.height_fraction` must be exactly 1 because it is the reference stature every band is stated at -- a 1.0 there is a contract, not a coincidence. `life_stages.child.onset_years` must be exactly 0. A race's height band must lie inside the (floor, ceiling) envelope its `body_scale` key trait implies, and max_years inside the band its `lifespan_tempo` implies; both envelopes live in code, not here -- see heritage-axes.json. `appearance.races`/`peoples` must name EXACTLY the same keys as traits.races/traits.peoples.\n\nThe heritage identity hash does NOT cover these bytes. heritage.heritage_identity() (heritage/derive.py:330) hashes the RESOLVED peoples instead -- resolved = {cid: _resolve(cid, parent) for cid, parent in sorted(pairs)}, then sha256 of json.dumps(resolved, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8'). That is a THIRD serialisation scheme in this codebase, distinct from both of the two you already have: registry_identity() (icarus_sim/civilization_registry.py:308) uses ensure_ascii=False, separators=(',', ':') and NO sort_keys, and castle_planner (icarus_sim/castle_planner.py:39) uses sort_keys=True, separators=(',', ':') and the ensure_ascii=True default. heritage is sort_keys=True AND ensure_ascii=False, so it agrees with neither on a non-ASCII string. sort_keys sorts MAPPING keys only -- it does not touch list element order, so every list marked a contract below also moves this digest. For the twelve civilizations the registry ships, in terrain_civilizations.civilization_report's pair order (tuple((key, entity_rules(key)['parent_race_id']) for key in civilization_ids()), which heritage_identity then sorts), the expected value at FantasyWorldGenerator b67c99b is sha256=9b708d23e468beb4c3f775415405b5aa8991f21c7d402aa200cd6aa99a0b2189 with revision={traits:1, derivation:1, lexicon:1, overrides:1, appearance:1}. `source_sha256` in this file is a plain digest of the source file's raw bytes, recorded for provenance only; nothing in the Python computes it.\n\nREVISION 2 (2026-09-23, ruled by the owner): lifespans set to human 80, elf 1000, dwarf 500 and gnome 750 years; every stage onset scaled in proportion to its race's new span, and each other subrace kept at its ratio to its parent. The NPC roster reads these stages for each person's age.",
  "source_identity": {
   "source_path": "heritage/policies/appearance.json",
   "source_schema": "fantasy-world-generator.heritage-appearance",
-  "revision": 1,
+  "revision": 2,
   "source_sha256": "9a846ac7b68ff039a28ec7b3f1275bad4c43c4cd3fe97a81ec30c7d638a73a73",
   "source_bytes": 63011
  },
@@ -201,21 +201,21 @@
      "read": "large head on a short frame, no sex difference in silhouette"
     },
     "adolescent": {
-     "onset_years": 12,
+     "onset_years": 10,
      "height_fraction": 0.8,
      "read": "limbs outrun the torso; shoulders and hips begin to diverge"
     },
     "adult": {
-     "onset_years": 18,
+     "onset_years": 15,
      "height_fraction": 1.0,
      "read": "full stature, weight still climbing for a decade"
     },
     "elder": {
-     "onset_years": 55,
+     "onset_years": 46,
      "height_fraction": 0.98,
      "read": "greying, thinning hair, softened jaw, a hand's loss of height"
     },
-    "max_years": 95
+    "max_years": 80
    },
    "attire": {
     "layering": "two_layer_tunic_and_cloak",
@@ -414,21 +414,21 @@
      "read": "slight and long-limbed; the ears are already at full adult length"
     },
     "adolescent": {
-     "onset_years": 25,
+     "onset_years": 28,
      "height_fraction": 0.7,
      "read": "narrow and unfinished for decades; no growth spurt, only slow extension"
     },
     "adult": {
-     "onset_years": 100,
+     "onset_years": 111,
      "height_fraction": 1.0,
      "read": "full stature, and then five centuries with no visible change at all"
     },
     "elder": {
-     "onset_years": 600,
+     "onset_years": 667,
      "height_fraction": 1.0,
      "read": "no stoop and no grey; age shows only as a thinning, translucent stillness in the skin"
     },
-    "max_years": 900
+    "max_years": 1000
    },
    "attire": {
     "layering": "draped_single_layer",
@@ -629,21 +629,21 @@
      "read": "already broad; a dwarf child is a small adult, not a slight one"
     },
     "adolescent": {
-     "onset_years": 14,
+     "onset_years": 20,
      "height_fraction": 0.78,
      "read": "shoulders fill out before height finishes; first beard at the end of it"
     },
     "adult": {
-     "onset_years": 30,
+     "onset_years": 43,
      "height_fraction": 1.0,
      "read": "full mass and full beard, held for a century and a half"
     },
     "elder": {
-     "onset_years": 180,
+     "onset_years": 257,
      "height_fraction": 0.97,
      "read": "beard to the belt and white, shoulders still square, a slight settling of the spine"
     },
-    "max_years": 350
+    "max_years": 500
    },
    "attire": {
     "layering": "heavy_layered",
@@ -1044,11 +1044,11 @@
    },
    "life_stages": {
     "elder": {
-     "onset_years": 50,
+     "onset_years": 42,
      "height_fraction": 0.97,
      "read": "weathered early; the hands and face age a decade ahead of the body"
     },
-    "max_years": 85
+    "max_years": 72
    },
    "attire": {
     "layering": "furred_over_wool",
@@ -1338,21 +1338,21 @@
    },
    "life_stages": {
     "adolescent": {
-     "onset_years": 11,
+     "onset_years": 9,
      "height_fraction": 0.79,
      "read": "the cohort takes its first marks here; the scarification dates the person"
     },
     "adult": {
-     "onset_years": 16,
+     "onset_years": 13,
      "height_fraction": 1.0,
      "read": "full stature early, and the full pattern completed across the shoulders"
     },
     "elder": {
-     "onset_years": 45,
+     "onset_years": 38,
      "height_fraction": 0.97,
      "read": "the marks have spread and blurred; hair goes white against very dark skin"
     },
-    "max_years": 78
+    "max_years": 66
    },
    "attire": {
     "layering": "minimal_wrapped",
@@ -1530,11 +1530,11 @@
    },
    "life_stages": {
     "elder": {
-     "onset_years": 450,
+     "onset_years": 500,
      "height_fraction": 0.99,
      "read": "scale patching spreads until it covers the forearms and shoulders entirely"
     },
-    "max_years": 700
+    "max_years": 778
    },
    "attire": {
     "layering": "minimal_wrapped",
@@ -1732,21 +1732,21 @@
      "read": "head and ears are near adult size from the start; the body catches up around them"
     },
     "adolescent": {
-     "onset_years": 12,
+     "onset_years": 75,
      "height_fraction": 0.76,
      "read": "hands reach full size first, which is when the apprenticeship begins"
     },
     "adult": {
-     "onset_years": 22,
+     "onset_years": 138,
      "height_fraction": 1.0,
      "read": "full stature; hair often already going white at the temples"
     },
     "elder": {
-     "onset_years": 70,
+     "onset_years": 438,
      "height_fraction": 0.96,
      "read": "white-haired, stooped over the bench, spectacles pushed up onto the forehead"
     },
-    "max_years": 120
+    "max_years": 750
    },
    "attire": {
     "layering": "many_pocketed",
@@ -1920,11 +1920,11 @@
    },
    "life_stages": {
     "elder": {
-     "onset_years": 150,
+     "onset_years": 214,
      "height_fraction": 0.96,
      "read": "white-bearded and bent from the fields rather than the bench"
     },
-    "max_years": 280
+    "max_years": 400
    },
    "attire": {
     "layering": "single_layer_practical",

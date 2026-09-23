@@ -319,9 +319,70 @@ const PlaceEntry* locate(const std::map<std::string, PlaceEntry>& index, const s
     return ruin != index.end() ? &ruin->second : nullptr;
 }
 
+// A cumulative walk over integer weights, on one integer draw: exact, and the file order of
+// the weights is the draw order.
+std::string_view pick(std::span<const NpcWeight> rows, Rng& draw) {
+    std::uint64_t total = 0;
+    for (const NpcWeight& row : rows) total += static_cast<std::uint64_t>(row.weight);
+    std::uint64_t at = draw.below(total);
+    for (const NpcWeight& row : rows) {
+        const auto weight = static_cast<std::uint64_t>(row.weight);
+        if (at < weight) return row.id;
+        at -= weight;
+    }
+    return rows.back().id;
+}
+
+// A person's gender and age, from its own stream: keyed on its uid alone, so neither moves
+// when another person joins or leaves the roster. Absent when its people has no life.
+std::optional<NpcAppearance> appearance_of(std::uint64_t seed, const std::string& uid, const std::string& civilization_id,
+                                           const std::map<std::string, const NpcLifeSpan*>& spans) {
+    const auto found = spans.find(civilization_id);
+    if (civilization_id.empty() || found == spans.end()) return std::nullopt;
+    const NpcLifeSpan& span = *found->second;
+    Rng draw = Rng::child(seed, "npc-appearance-" + uid);
+    NpcAppearance out;
+    out.gender = pick(npc_genders(), draw);
+    out.age_band = pick(npc_age_band_weights(), draw);
+    for (const NpcAgeBand& band : span.bands) {
+        if (band.id == out.age_band) out.age_years = static_cast<int>(draw.randint(band.from, band.to));
+    }
+    out.civilization_id = span.id;
+    out.parent_race_id = span.parent_race_id;
+    return out;
+}
+
 }  // namespace
 
 // ---------------------------------------------------------------------------
+
+std::span<const std::string_view> npc_services(std::string_view role) {
+    const auto rows = npc_role_services();
+    const auto found = std::lower_bound(
+        rows.begin(), rows.end(), role,
+        [](const NpcRoleServices& row, std::string_view key) { return row.role < key; });
+    return (found != rows.end() && found->role == role) ? found->services : std::span<const std::string_view>{};
+}
+
+NpcLifeSpan npc_life_span(std::string id, std::string parent_race_id, const NpcLifeStages& life) {
+    const auto whole = [](double years) { return static_cast<int>(std::floor(years + 0.5)); };
+    const int adult = whole(life.adult);
+    const int elder = whole(life.elder);
+    const int oldest = whole(life.max);
+    const int middle = adult + whole((elder - adult) * npc_young_to_middle());
+    NpcLifeSpan out;
+    out.id = std::move(id);
+    out.parent_race_id = std::move(parent_race_id);
+    out.life = life;
+    out.bands = {{"young", adult, middle - 1}, {"middle", middle, elder - 1}, {"old", elder, oldest}};
+    for (const NpcAgeBand& band : out.bands) {
+        if (band.from > band.to) {
+            throw std::runtime_error("the life stages of " + out.id + " leave no room for its " + std::string(band.id) +
+                                     " band");
+        }
+    }
+    return out;
+}
 
 const NpcBuilding* npc_building(std::string_view id) {
     const auto rows = npc_buildings();
@@ -433,9 +494,24 @@ NpcRoster generate_npc_roster(const NpcRequest& request) {
         const std::vector<Row> rows = collect(request, notes);
         NameSource names;
 
+        // Each people's life and the bands it gives, then each parent race's own.
+        for (const NpcCivilizationEntity& e : request.entities) {
+            if (e.life) roster.life_spans.push_back(npc_life_span(e.id, e.parent_race_id, *e.life));
+        }
+        for (const NpcParentRace& race : request.parent_races) {
+            roster.parent_race_life_spans.push_back(npc_life_span(race.id, "", race.life));
+        }
+        const auto by_id = [](const NpcLifeSpan& a, const NpcLifeSpan& b) { return a.id < b.id; };
+        std::sort(roster.life_spans.begin(), roster.life_spans.end(), by_id);
+        std::sort(roster.parent_race_life_spans.begin(), roster.parent_race_life_spans.end(), by_id);
+        std::map<std::string, const NpcLifeSpan*> spans;
+        for (const NpcLifeSpan& span : roster.life_spans) spans.emplace(span.id, &span);
+
         for (const Row& row : rows) {
             std::vector<NpcPost> posts = npc_posts_in(*row.plots, notes.roster_mismatches);
             const std::set<std::string> important = earmark(posts, row, notes);
+            std::map<std::string, const NpcPlot*> plot_by_id;
+            for (const NpcPlot& plot : *row.plots) plot_by_id.emplace(plot.id, &plot);
             for (const NpcPost& post : posts) {
                 NpcPerson person;
                 person.uid = post_uid(row.uid, post.building_id, post.ordinal);
@@ -452,6 +528,13 @@ NpcRoster generate_npc_roster(const NpcRequest& request) {
                 person.plot_id = post.plot_id;
                 person.alive = true;
                 person.important = important.count(person.uid) != 0;
+                if (const auto plot = plot_by_id.find(post.plot_id); plot != plot_by_id.end() && !plot->second->name.empty()) {
+                    person.workplace = plot->second->name;
+                }
+                // Ruled 2026-09-23: one storekeeper post, told apart by the store it keeps.
+                if (post.role == "storekeeper") person.store = std::string(npc_short_building(post.building_id));
+                person.appearance = appearance_of(request.seed, person.uid, row.civilization_id, spans);
+                if (!person.appearance) notes.appearance_unresolved += 1;
                 roster.people.push_back(std::move(person));
             }
             NpcSite site;
@@ -502,6 +585,8 @@ NpcRoster generate_npc_roster(const NpcRequest& request) {
                 person.important = true;  // never subject to the per-site cap
                 person.is_cast = true;
                 person.hero_uid = member.uid;
+                person.appearance = appearance_of(request.seed, person.uid, member.civilization_id, spans);
+                if (!person.appearance) notes.appearance_unresolved += 1;
                 if (!member.presence_site_kind.empty()) person.presence_kind = member.presence_site_kind;
                 if (!member.presence_uid.empty()) person.presence_uid = member.presence_uid;
                 // Where they actually stand, whenever that is not the site they are filed

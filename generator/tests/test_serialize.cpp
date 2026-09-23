@@ -28,6 +28,7 @@
 #include <cstdint>
 #include <limits>
 #include <map>
+#include <optional>
 #include <set>
 #include <sstream>
 #include <string>
@@ -487,6 +488,70 @@ TEST(a_harbour_row_in_the_hamlet_list_is_the_port_record) {
     check::equal(static_cast<std::size_t>(harbours), ports.size(), "every harbour in the hamlet list");
 }
 
+TEST(an_npc_row_writes_its_workplace_store_and_age_as_the_roster_holds_them) {
+    // The key sets are pinned below; this pins the values, which are what a game and the
+    // viewer read (2026-09-23).
+    const std::set<std::string> keep = {"npcs"};
+    const Json root = StrictJson(document16(), &keep).parse();
+    const Json& block = root.at("npcs");
+    const NpcRoster& roster = world16().npcs;
+    const std::vector<Json>& people = block.at("people").items;
+    check::equal(people.size(), roster.people.size(), "one row per person");
+    int stores = 0;
+    for (std::size_t i = 0; i < people.size(); ++i) {
+        const Json& row = people[i];
+        const NpcPerson& person = roster.people[i];
+        check::equal(row.at("uid").text, person.uid, "the roster's order");
+        const auto text_or_null = [&](std::string_view key, const std::optional<std::string>& value) {
+            const Json& field = row.at(key);
+            if (value) {
+                check::equal(field.text, *value, person.uid + " " + std::string(key));
+            } else {
+                check::is_true(field.type == Json::Type::Null, person.uid + " " + std::string(key) + " to be null");
+            }
+        };
+        text_or_null("workplace", person.workplace);
+        text_or_null("store", person.store);
+        if (person.store) ++stores;
+        check::is_true(person.appearance.has_value(), person.uid + " to be aged");
+        const Json& a = row.at("appearance");
+        check::equal(a.at("gender").text, std::string(person.appearance->gender), person.uid + " gender");
+        check::equal(a.at("age_band").text, std::string(person.appearance->age_band), person.uid + " age band");
+        check::equal(a.at("age_years").number, static_cast<double>(person.appearance->age_years), person.uid + " age");
+        check::equal(a.at("civilization_id").text, person.appearance->civilization_id, person.uid + " people");
+        check::equal(a.at("parent_race_id").text, person.appearance->parent_race_id, person.uid + " race");
+    }
+    check::is_true(stores > 0, "storekeepers among them");
+
+    // Each span, and each band as the roster cut it.
+    const auto spans = [&](std::string_view key, const std::vector<NpcLifeSpan>& expected) {
+        const std::vector<Json>& rows = block.at("life_spans").at(key).items;
+        check::equal(rows.size(), expected.size(), std::string(key) + " spans");
+        for (std::size_t i = 0; i < rows.size(); ++i) {
+            const NpcLifeSpan& span = expected[i];
+            check::equal(rows[i].at("id").text, span.id, "the span order");
+            check::equal(rows[i].at("adult_years").number, span.life.adult, span.id + " adult years");
+            check::equal(rows[i].at("elder_years").number, span.life.elder, span.id + " elder years");
+            check::equal(rows[i].at("max_years").number, span.life.max, span.id + " longest life");
+            for (const NpcAgeBand& band : span.bands) {
+                const Json& b = rows[i].at("bands").at(band.id);
+                const std::string what = span.id + " " + std::string(band.id);
+                check::equal(b.at("from").number, static_cast<double>(band.from), what + " from");
+                check::equal(b.at("to").number, static_cast<double>(band.to), what + " to");
+            }
+        }
+    };
+    spans("parent_races", roster.parent_race_life_spans);
+    spans("peoples", roster.life_spans);
+
+    const Json& services = block.at("post_services");
+    check::equal(services.members.size(), std::size_t(1), "one post offering services");
+    const std::vector<Json>& horse = services.at("horse_keeper").items;
+    check::is_true(horse.size() == 2 && horse[0].text == "mounts" && horse[1].text == "carriages",
+                   "a horse keeper's mounts and carriages");
+    check::equal(block.at("summary").at("appearance_unresolved").number, 0.0, "nobody left unaged");
+}
+
 // One element of a list, by a condition: `0` the first, `k=v` the first whose string field
 // k is v, `k!=v` the first whose field k is not v, `k^=v` the first whose field starts v.
 const Json* pick(const Json& list, std::string_view condition) {
@@ -606,11 +671,17 @@ const std::vector<PinnedRecord>& pinned_records() {
     {"story_web.webs[0]", {"acts", "alignment", "archetype", "claim", "considered", "constraints", "display_name", "examples", "facts", "offered", "rest", "role", "spokes", "threads", "uid"}},
     {"story_web.webs[0].rest", {"armed", "hook", "initiative_day"}},
     {"story_web.tropes[0]", {"angle", "cast", "id", "name", "pull"}},
-    {"npcs", {"limits", "method", "people", "policy_revision", "post_verbs", "registry", "sites", "status", "summary", "verbs", "version"}},
-    {"npcs.summary", {"alive", "cast_located_by_presence", "cast_outside_a_planned_site", "cast_presence_unresolved", "dead", "duplicate_site_keys", "heroes_linked", "important", "important_capped_out", "important_fraction", "roster_mismatches", "sites", "total", "unanchored_sites", "unresolved_parent_race"}},
+    {"npcs", {"life_spans", "limits", "method", "people", "policy_revision", "post_services", "post_verbs", "registry", "sites", "status", "summary", "verbs", "version"}},
+    {"npcs.summary", {"alive", "appearance_unresolved", "cast_located_by_presence", "cast_outside_a_planned_site", "cast_presence_unresolved", "dead", "duplicate_site_keys", "heroes_linked", "important", "important_capped_out", "important_fraction", "roster_mismatches", "sites", "total", "unanchored_sites", "unresolved_parent_race"}},
+    {"npcs.life_spans", {"parent_races", "peoples"}},
+    {"npcs.life_spans.parent_races[0]", {"adult_years", "bands", "elder_years", "id", "max_years"}},
+    {"npcs.life_spans.peoples[0]", {"adult_years", "bands", "elder_years", "id", "max_years", "parent_race_id"}},
+    {"npcs.life_spans.peoples[0].bands", {"middle", "old", "young"}},
+    {"npcs.life_spans.peoples[0].bands.young", {"from", "to"}},
     {"npcs.registry", {"labels_from", "world_revision", "world_sha256"}},
     {"npcs.sites[0]", {"city_class", "civilization_id", "kind", "name", "node", "parent_race_id", "plan_id", "plan_status", "posts", "uid", "x", "z"}},
-    {"npcs.people[plot_id^=plot-]", {"building_id", "important", "name", "plot_id", "post", "site_kind", "site_uid", "status", "uid"}},
+    {"npcs.people[plot_id^=plot-]", {"appearance", "building_id", "important", "name", "plot_id", "post", "site_kind", "site_uid", "status", "store", "uid", "workplace"}},
+    {"npcs.people[plot_id^=plot-].appearance", {"age_band", "age_years", "civilization_id", "gender", "parent_race_id"}},
     {"key_locations", {"catalogue_count", "catalogue_revision", "chains", "clusters", "diagnostics", "families", "limits", "method", "sites", "status", "summary", "version"}},
     {"key_locations.summary", {"by_family", "by_occupant", "by_state", "by_tier", "dungeons", "sites"}},
     {"key_locations.sites[placement=node]", {"asset_id", "direction", "domain", "environment", "family", "height_m", "id", "interior", "kind", "layer", "links", "name", "node", "occupant", "origin", "placement", "reason", "state", "succession", "suitability", "suitability_factors", "threat", "tier", "x", "z"}},

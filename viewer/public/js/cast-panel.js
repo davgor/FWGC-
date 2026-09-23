@@ -7,8 +7,9 @@ import { card, cell, sortableTable } from './panels.js';
 
 export async function renderCast(container, world, actions, isCurrent = () => true) {
   container.replaceChildren(el('p', { class: 'note' }, 'Loading the cast…'));
-  const [heroes, civilizations, settlements, ruins, humans] = await Promise.all([
+  const [heroes, civilizations, settlements, ruins, humans, npcs] = await Promise.all([
     world.block('heroes'), world.block('civilizations'), world.block('settlements'), world.block('ruins'), world.block('humans'),
+    world.block('npcs'),
   ]);
   if (!isCurrent()) return;
   const root = el('div');
@@ -39,6 +40,10 @@ export async function renderCast(container, world, actions, isCurrent = () => tr
   const hooksOf = uid => (heroes.quest_hooks ?? []).filter(q => q.giver_uid === uid);
   const inspect = p => actions.inspect({ kind: 'hero', record: p });
   const link = p => cell(el('button', { type: 'button', class: 'link', onclick: () => inspect(p) }, p.display_name ?? p.uid), p.display_name ?? p.uid);
+  // Gender and age live on the member's NPC record, drawn like every other person's.
+  const looks = new Map((npcs?.people ?? []).filter(n => n.hero_uid && n.appearance).map(n => [n.hero_uid, n.appearance]));
+  const age = p => { const a = looks.get(p.uid); return a ? cell(`${a.age_years} · ${a.age_band}`, a.age_years) : null; };
+  const gender = p => (looks.get(p.uid) ? titleCase(looks.get(p.uid).gender) : null);
 
   const s = heroes.summary ?? {};
   root.append(el('p', {},
@@ -48,13 +53,14 @@ export async function renderCast(container, world, actions, isCurrent = () => tr
 
   // Every member at a glance.
   root.append(card(`Everyone (${everyone.length})`, sortableTable(
-    ['Name', 'Status', 'Role', 'Archetype', 'Alignment', 'Law', 'Good', 'Tier', 'Fame', 'Civilization', 'Race', 'School', 'Seat', 'Situation', 'Hooks'],
+    ['Name', 'Status', 'Role', 'Archetype', 'Alignment', 'Law', 'Good', 'Tier', 'Fame', 'Gender', 'Age', 'Civilization', 'Race', 'School', 'Seat',
+      'Situation', 'Hooks'],
     everyone.map(p => [
       link(p), p.role === 'dread' ? 'dread' : p.status, titleCase(p.role), p.archetype_name ?? null, p.alignment?.label ?? null,
-      p.alignment?.law ?? null, p.alignment?.good ?? null, titleCase(p.tier), p.fame ?? null,
+      p.alignment?.law ?? null, p.alignment?.good ?? null, titleCase(p.tier), p.fame ?? null, gender(p), age(p),
       p.role === 'dread' ? titleCase(p.family ?? 'beast') : civName(p.civilization_id), p.race_id ? titleCase(p.race_id) : null,
       p.school ? titleCase(p.school) : null, p.seat ? titleCase(p.seat) : null, p.situation ?? null, hooksOf(p.uid).length,
-    ]), { numeric: [5, 6, 8, 14], sorted: 8, descending: true, tall: true })));
+    ]), { numeric: [5, 6, 8, 10, 16], sorted: 8, descending: true, tall: true })));
 
   // The cards, as the lab drew them.
   const hideLegends = el('input', { type: 'checkbox' });
@@ -72,9 +78,11 @@ export async function renderCast(container, world, actions, isCurrent = () => tr
     if (faces.length > 1) {
       body.append(el('p', { class: 'mask' }, `Appears as: ${faces[0].label} face, a ${titleCase(faces[0].apparent_role).toLowerCase()} (${faces[0].alignment?.label ?? '—'})`));
     }
+    const look = looks.get(p.uid);
     const who = p.role === 'dread'
       ? `${titleCase(p.family ?? 'beast')} · nest tier ${p.nest_tier ?? '—'}`
-      : `${civName(p.civilization_id)} (${titleCase(p.race_id ?? '')})${p.school ? ` · ${titleCase(p.school)}` : ''}${p.seat ? ` · ${titleCase(p.seat)}` : ''}`;
+      : `${civName(p.civilization_id)} (${titleCase(p.race_id ?? '')})${look ? ` · ${look.gender}, ${look.age_years} (${look.age_band})` : ''}`
+        + `${p.school ? ` · ${titleCase(p.school)}` : ''}${p.seat ? ` · ${titleCase(p.seat)}` : ''}`;
     body.append(el('p', {}, `${who} · ${titleCase(p.role)} · ${p.archetype_name ?? 'No archetype'} · ${p.alignment?.label ?? '—'} · ${titleCase(p.tier)}, fame ${num(p.fame)}`));
     const realm = realms.get(p.realm_uid);
     body.append(el('p', {}, p.presence

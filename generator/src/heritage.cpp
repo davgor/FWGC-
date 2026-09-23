@@ -1353,6 +1353,10 @@ std::string apply_sound_changes(std::string_view word, std::span<const SoundChan
 // Resolution
 // ---------------------------------------------------------------------------
 
+Value race_appearance(std::string_view parent_race_id) {
+    return body_for(tables::appearance_races(), parent_race_id, /*required=*/true, "race");
+}
+
 Resolved resolve(std::string_view civ_id, std::string_view parent_race_id) {
     // Memoised, and the entry point hands back a COPY: a caller that mutates a resolved
     // people must not poison what the next caller sees. Nothing in the library calls this from

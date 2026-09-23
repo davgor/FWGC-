@@ -1,6 +1,6 @@
 // GENERATED FILE -- DO NOT EDIT.
 //
-// Produced by tools/embed_content.py from data/npc-posts.json, npc-names-handover.json and npc-code-tables.json.
+// Produced by tools/embed_content.py from data/npc-posts.json, npc-names-handover.json, npc-code-tables.json and npc-appearance.json.
 // Edit the JSON and regenerate; `python tools/embed_content.py --check` fails if this
 // file is stale.
 
@@ -73,7 +73,7 @@ constexpr NpcRole kRoles[] = {
     {"farm_hand", 2},
     {"carter", 1},
     {"farmer", 3},
-    {"store_keeper", 1},
+    {"storekeeper", 1},
     {"boatman", 2},
     {"sanitation_worker", 1},
     {"steward", 1},
@@ -126,7 +126,8 @@ constexpr NpcRole kRoles[] = {
     {"ore_handler", 2},
     {"smith", 1},
     {"apprentice", 1},
-    {"animal_keeper", 2},
+    {"horse_keeper", 1},
+    {"animal_keeper", 1},
     {"farrier", 1},
     {"tanner", 2},
     {"assistant", 2},
@@ -228,25 +229,25 @@ constexpr NpcBuilding kBuildings[] = {
     {"building.school", {kRoles + 105, 1}},
     {"building.smelter", {kRoles + 106, 2}},
     {"building.smithy", {kRoles + 108, 2}},
-    {"building.stable", {kRoles + 110, 2}},
-    {"building.tannery", {kRoles + 112, 2}},
-    {"building.tavern", {kRoles + 114, 3}},
-    {"building.temple", {kRoles + 117, 2}},
-    {"building.timber_yard", {kRoles + 119, 1}},
-    {"building.tower", {kRoles + 120, 1}},
-    {"building.treasury", {kRoles + 121, 2}},
-    {"building.ward_anchor", {kRoles + 123, 1}},
-    {"building.warehouse", {kRoles + 124, 2}},
-    {"building.waste_yard", {kRoles + 126, 1}},
-    {"building.water_point", {kRoles + 127, 1}},
-    {"building.watermill", {kRoles + 128, 2}},
-    {"building.weaver", {kRoles + 130, 1}},
-    {"building.weigh_house", {kRoles + 131, 1}},
-    {"building.well", {kRoles + 132, 1}},
-    {"building.windmill", {kRoles + 133, 2}},
+    {"building.stable", {kRoles + 110, 3}},
+    {"building.tannery", {kRoles + 113, 2}},
+    {"building.tavern", {kRoles + 115, 3}},
+    {"building.temple", {kRoles + 118, 2}},
+    {"building.timber_yard", {kRoles + 120, 1}},
+    {"building.tower", {kRoles + 121, 1}},
+    {"building.treasury", {kRoles + 122, 2}},
+    {"building.ward_anchor", {kRoles + 124, 1}},
+    {"building.warehouse", {kRoles + 125, 2}},
+    {"building.waste_yard", {kRoles + 127, 1}},
+    {"building.water_point", {kRoles + 128, 1}},
+    {"building.watermill", {kRoles + 129, 2}},
+    {"building.weaver", {kRoles + 131, 1}},
+    {"building.weigh_house", {kRoles + 132, 1}},
+    {"building.well", {kRoles + 133, 1}},
+    {"building.windmill", {kRoles + 134, 2}},
 };
 
-constexpr std::string_view kRoleVerbs[] = {"investigate", "supply", "tend", "supply", "tend", "recover", "supply", "trade", "investigate", "supply", "trade", "investigate", "tend", "supply", "trade", "supply", "trade", "supply", "tend", "tend", "cleanse", "trade", "supply", "supply", "supply", "trade", "tend", "convert", "supply", "supply", "investigate", "defend", "slay", "reclaim", "supply", "investigate", "trade", "supply", "supply", "supply", "trade", "supply", "supply", "tend", "tend", "supply", "supply", "supply", "supply", "supply", "defend", "slay", "reclaim", "defend", "slay", "defend", "investigate", "defend", "tend", "cleanse", "supply", "tend", "supply", "tend", "recover", "recover", "tend", "supply", "tend", "trade", "investigate", "investigate", "defend", "cleanse", "tend", "investigate", "recover", "investigate", "defend", "cleanse", "investigate", "recover", "investigate", "defend", "trade", "supply", "supply", "trade", "supply", "supply", "recover", "supply", "tend", "convert", "cleanse", "defend", "supply", "trade", "supply", "supply", "trade", "investigate", "recover", "cleanse", "investigate", "defend", "slay", "supply", "trade", "supply", "trade", "defend", "slay", "supply", "trade", "supply", "trade", "supply", "trade", "supply", "trade", "trade", "investigate", "investigate", "tend", "supply", "trade", "supply", "trade", "defend", "investigate", "trade", "recover", "cleanse", "defend", "defend", "investigate", "defend", "slay", "investigate", "tend", "cleanse", "tend", "cleanse", };
+constexpr std::string_view kRoleVerbs[] = {"investigate", "supply", "tend", "supply", "tend", "recover", "supply", "trade", "investigate", "supply", "trade", "investigate", "tend", "supply", "trade", "supply", "trade", "supply", "tend", "tend", "cleanse", "trade", "supply", "supply", "supply", "trade", "tend", "convert", "supply", "supply", "investigate", "defend", "slay", "reclaim", "supply", "investigate", "trade", "supply", "supply", "supply", "trade", "supply", "supply", "tend", "tend", "supply", "supply", "supply", "supply", "supply", "defend", "slay", "reclaim", "defend", "slay", "defend", "investigate", "defend", "tend", "cleanse", "supply", "tend", "supply", "tend", "recover", "recover", "tend", "supply", "tend", "trade", "tend", "supply", "trade", "investigate", "investigate", "defend", "cleanse", "tend", "investigate", "recover", "investigate", "defend", "cleanse", "investigate", "recover", "investigate", "defend", "trade", "supply", "supply", "trade", "supply", "supply", "recover", "supply", "tend", "convert", "cleanse", "defend", "supply", "trade", "supply", "supply", "trade", "investigate", "recover", "cleanse", "investigate", "defend", "slay", "supply", "trade", "supply", "trade", "defend", "slay", "supply", "trade", "supply", "trade", "supply", "trade", "trade", "investigate", "investigate", "tend", "supply", "trade", "supply", "trade", "defend", "investigate", "trade", "recover", "cleanse", "defend", "defend", "investigate", "defend", "slay", "investigate", "tend", "cleanse", "tend", "cleanse", };
 
 // Sorted by role. The block re-sorts before exporting, so this order is the
 // exported one as well as the lookup one. A role ABSENT here can hold a post
@@ -295,47 +296,47 @@ constexpr NpcRoleVerbs kRoleVerbRows[] = {
     {"healer", {kRoleVerbs + 63, 2}},
     {"herbalist", {kRoleVerbs + 65, 2}},
     {"herder", {kRoleVerbs + 67, 2}},
-    {"host", {kRoleVerbs + 69, 2}},
-    {"jailer", {kRoleVerbs + 71, 1}},
-    {"keep_guard", {kRoleVerbs + 72, 1}},
-    {"keeper", {kRoleVerbs + 73, 2}},
-    {"librarian", {kRoleVerbs + 75, 2}},
-    {"lookout", {kRoleVerbs + 77, 2}},
-    {"mage", {kRoleVerbs + 79, 3}},
-    {"magistrate", {kRoleVerbs + 82, 2}},
-    {"market_steward", {kRoleVerbs + 84, 2}},
-    {"mason", {kRoleVerbs + 86, 1}},
-    {"merchant", {kRoleVerbs + 87, 2}},
-    {"miller", {kRoleVerbs + 89, 1}},
-    {"miner", {kRoleVerbs + 90, 2}},
-    {"officiant", {kRoleVerbs + 92, 3}},
-    {"postern_guard", {kRoleVerbs + 95, 1}},
-    {"potter", {kRoleVerbs + 96, 2}},
-    {"quarry_worker", {kRoleVerbs + 98, 1}},
-    {"quartermaster", {kRoleVerbs + 99, 2}},
-    {"researcher", {kRoleVerbs + 101, 2}},
-    {"sanitation_worker", {kRoleVerbs + 103, 1}},
-    {"scribe", {kRoleVerbs + 104, 1}},
-    {"sergeant", {kRoleVerbs + 105, 2}},
-    {"shipwright", {kRoleVerbs + 107, 2}},
-    {"smith", {kRoleVerbs + 109, 2}},
-    {"soldier", {kRoleVerbs + 111, 2}},
-    {"steward", {kRoleVerbs + 113, 2}},
-    {"store_keeper", {kRoleVerbs + 115, 2}},
-    {"storekeeper", {kRoleVerbs + 117, 2}},
-    {"tanner", {kRoleVerbs + 119, 2}},
-    {"tavern_keeper", {kRoleVerbs + 121, 2}},
-    {"teacher", {kRoleVerbs + 123, 2}},
-    {"textile_worker", {kRoleVerbs + 125, 2}},
-    {"timber_worker", {kRoleVerbs + 127, 1}},
-    {"toll_clerk", {kRoleVerbs + 128, 1}},
-    {"tower_watch", {kRoleVerbs + 129, 2}},
-    {"treasurer", {kRoleVerbs + 131, 2}},
-    {"ward_keeper", {kRoleVerbs + 133, 2}},
-    {"watch_guard", {kRoleVerbs + 135, 2}},
-    {"watch_officer", {kRoleVerbs + 137, 3}},
-    {"water_keeper", {kRoleVerbs + 140, 2}},
-    {"well_keeper", {kRoleVerbs + 142, 2}},
+    {"horse_keeper", {kRoleVerbs + 69, 3}},
+    {"host", {kRoleVerbs + 72, 2}},
+    {"jailer", {kRoleVerbs + 74, 1}},
+    {"keep_guard", {kRoleVerbs + 75, 1}},
+    {"keeper", {kRoleVerbs + 76, 2}},
+    {"librarian", {kRoleVerbs + 78, 2}},
+    {"lookout", {kRoleVerbs + 80, 2}},
+    {"mage", {kRoleVerbs + 82, 3}},
+    {"magistrate", {kRoleVerbs + 85, 2}},
+    {"market_steward", {kRoleVerbs + 87, 2}},
+    {"mason", {kRoleVerbs + 89, 1}},
+    {"merchant", {kRoleVerbs + 90, 2}},
+    {"miller", {kRoleVerbs + 92, 1}},
+    {"miner", {kRoleVerbs + 93, 2}},
+    {"officiant", {kRoleVerbs + 95, 3}},
+    {"postern_guard", {kRoleVerbs + 98, 1}},
+    {"potter", {kRoleVerbs + 99, 2}},
+    {"quarry_worker", {kRoleVerbs + 101, 1}},
+    {"quartermaster", {kRoleVerbs + 102, 2}},
+    {"researcher", {kRoleVerbs + 104, 2}},
+    {"sanitation_worker", {kRoleVerbs + 106, 1}},
+    {"scribe", {kRoleVerbs + 107, 1}},
+    {"sergeant", {kRoleVerbs + 108, 2}},
+    {"shipwright", {kRoleVerbs + 110, 2}},
+    {"smith", {kRoleVerbs + 112, 2}},
+    {"soldier", {kRoleVerbs + 114, 2}},
+    {"steward", {kRoleVerbs + 116, 2}},
+    {"storekeeper", {kRoleVerbs + 118, 2}},
+    {"tanner", {kRoleVerbs + 120, 2}},
+    {"tavern_keeper", {kRoleVerbs + 122, 2}},
+    {"teacher", {kRoleVerbs + 124, 2}},
+    {"textile_worker", {kRoleVerbs + 126, 2}},
+    {"timber_worker", {kRoleVerbs + 128, 1}},
+    {"toll_clerk", {kRoleVerbs + 129, 1}},
+    {"tower_watch", {kRoleVerbs + 130, 2}},
+    {"treasurer", {kRoleVerbs + 132, 2}},
+    {"ward_keeper", {kRoleVerbs + 134, 2}},
+    {"watch_guard", {kRoleVerbs + 136, 2}},
+    {"watch_officer", {kRoleVerbs + 138, 3}},
+    {"water_keeper", {kRoleVerbs + 141, 2}},
+    {"well_keeper", {kRoleVerbs + 143, 2}},
 };
 
 // THE INDEX IS THE RANK AND ZERO IS BEST. A building absent from this list is
@@ -392,15 +393,31 @@ constexpr NpcCap kCaps[] = {{"capital", 6}, {"fortress", 2}, {"hamlet", 1}, {"me
 // block a shared id resolves to.
 constexpr std::string_view kPlaceSources[] = {"settlements.sites", "humans.hamlets", "humans.fortresses", "fisheries.ports", "religion.sites", "heroes.camps", "magic.colleges", "beast_nests.sites", };
 
+// What a post offers the player beyond quest verbs, sorted by role.
+constexpr std::string_view kServices[] = {"mounts", "carriages", };
+constexpr NpcRoleServices kRoleServiceRows[] = {
+    {"horse_keeper", {kServices + 0, 2}},
+};
+
+// The baseline appearance weights, in file order: a person's draw walks them
+// cumulatively, so reordering either list re-maps every gender or age band.
+constexpr NpcWeight kGenders[] = {{"female", 1}, {"male", 1}, };
+constexpr NpcWeight kAgeBands[] = {{"young", 2}, {"middle", 2}, {"old", 1}, };
+
 }  // namespace
 
+std::span<const NpcRoleServices> npc_role_services() { return kRoleServiceRows; }
+std::span<const NpcWeight> npc_genders() { return kGenders; }
+std::span<const NpcWeight> npc_age_band_weights() { return kAgeBands; }
+double npc_young_to_middle() { return 0.5; }
+int npc_appearance_revision() { return 1; }
 std::span<const std::string_view> npc_verbs() { return kVerbs; }
 std::span<const NpcBuilding> npc_buildings() { return kBuildings; }
 std::span<const NpcRoleVerbs> npc_role_verbs() { return kRoleVerbRows; }
 std::span<const std::string_view> npc_giver_rank() { return kGiverRank; }
 std::span<const NpcCap> npc_caps() { return kCaps; }
 std::span<const std::string_view> npc_place_sources() { return kPlaceSources; }
-int npc_posts_revision() { return 1; }
+int npc_posts_revision() { return 2; }
 int npc_names_revision() { return 2; }
 std::string_view npc_method() { return "Walk the three plan blocks. Every placed plot with a positive worker count expands into that many posts, senior first, using the policy snapshot of the building registry; the plot's own count wins when a civilization overrides the roster. Each post becomes one person, named from a seeded draw and keyed npc-<site>-<building>-<ordinal>, where the site is the stable city uid for a city and the node for a hamlet or fortress, because the ordinal plan ids renumber on every age advance. Every hero and Dread is folded in as a record cross-linked by hero_uid, alive while the cast calls them living. The earmark is authored, not rolled: every hero, plus the senior post of the highest-ranked giver buildings a site has, capped per site so the important subset stays bounded."; }
 std::string_view npc_limits() { return "An index of posts, not a simulation of people: nobody here works, moves, ages or dies of anything. status is birth state -- alive for every staffed post, dead only for a hero the cast has passed into legend -- and a runtime is expected to copy the block into its own save and flip it there; nothing writes back. Names are an interim parent-race syllable draw, so nine of the twelve cultures read as their parent until the heritage language genome replaces them. A site anchored on its node reuses the key if that hamlet is abandoned and another is later founded on the same node, which points a quest at the right place with the wrong history; that is the residue of anchoring positionally, and it is much smaller than the annual renumbering it replaces. Posts are drawn from the registry roster, so they are the jobs a building needs filled, not a census: dependents, children and the unemployed are not here, and neither is anyone in a ruin, camp, college or nest."; }

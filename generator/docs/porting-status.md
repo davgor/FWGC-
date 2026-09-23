@@ -168,6 +168,35 @@ Each is pinned by tests, so a change of mind lands as a deliberate change.
    `capitals`, `frontiers`, `carried`, `road_forts`, `frontier_forts`, `spacing_m` and
    `unanswered`. The humans block is version 10. At seed 99, size 33: 38 forts where there
    were 67, at most 3 on any city.
+5. **One storekeeper post, a horse keeper in every city, and an age for every person**
+   (2026-09-23). The reference's `store_keeper` (the hamlet food store) and `storekeeper`
+   (granary, warehouse, root cellar) are one post, `storekeeper`, and each names the store it
+   keeps (`npcs.people[].store`: granary, warehouse, root_cellar, hamlet_food_store) and stands
+   in that very building (`site_uid`, `plot_id`); every post names the building it works in as
+   its plan placed it (`workplace`, e.g. "Winter supply warehouse"). **Every city keeps
+   horses**: every city program of every people queues one "Stable and farrier yard", a core
+   building with no condition -- the reference's row waited on `working_animals`, which the
+   city planner never sets, so no city built one. Its senior post is a `horse_keeper` (then an
+   animal keeper and a farrier), who sells mounts and runs carriages (`npcs.post_services`).
+   A city with no room left for the stable's 20 x 29 m plot lists it unplaced, as it does any
+   building: at seeds 42, 7, 99 and 1234 (size 129) and 42 (size 257), 228 of 239 planned
+   cities placed one, and 9 of the 11 without also lost their granary or market square.
+   Hamlets keep barns and farmyards, not stables, and have no horse keeper. **Gender and
+   age**: every post and every cast member draws a gender (female or male, even odds) and an
+   age band (young, middle, old at 2 : 2 : 1), then a whole year inside the band, from a
+   stream keyed on their own uid (`data/npc-appearance.json`). The bands are their people's:
+   young from the adult onset to halfway to the elder onset, middle from there to the elder
+   onset, old from the elder onset to the longest life, each onset rounded to a whole year
+   first. The lifespans are the owner's -- a human lives to 80, an elf to 1000, a dwarf to 500,
+   a gnome to 750 -- with the stage onsets scaled in proportion and every other people keeping
+   its authored ratio to its race (human_cold 72, human_rainforest 66, hill_dwarf 400, tidekin
+   778); the gnome's lifespan tempo is `ancient` now, 750 years lying outside `long`'s 180 to
+   520. The block publishes each parent race's and each people's
+   life and bands (`npcs.life_spans`) and each person's `appearance` {gender, age_band,
+   age_years, civilization_id, parent_race_id}; a person whose people states no life is
+   counted in `summary.appearance_unresolved`, never guessed. Hair and every finer choice are
+   the game's. The npcs block is version 2. The gnome's appearance text still says gnomes grey
+   early, and is to be rewritten.
 
 Observed and not changed: a school god's aspect is Wild when its network's mean node
 intensity times (1 + instability) exceeds 1.2, and generated intensities average about 2,
@@ -210,6 +239,9 @@ them, each pinned by a test so a fix is a deliberate change.
   library; the GCC/Clang half of [determinism.md](determinism.md)'s contract has never been
   compiled, let alone compared.
 - **No continuous integration.** The suite runs where someone runs it.
+- **Dreads are not in the NPC roster.** The reference folds `heroes.people` and then
+  `heroes.dreads` into the roster; this port's adapter (`npc_request`, complete_stage.cpp)
+  passes only the people, so a dread has no NPC record, gender or age.
 - **Documents are large.** About 157 MB at size 129. At size 33 (60 MB) the plan rows are half
   of it -- their terrain rasters 31%, the copies of the world's catalogues each row carries,
   as the reference's do, 11% -- and the world scene a fifth. The split export (`--split`,

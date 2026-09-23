@@ -335,6 +335,12 @@
       ]
      },
      {
+      "structure_id": "building.stable",
+      "name": "Stable and farrier yard",
+      "count": 1,
+      "placement_conditions": []
+     },
+     {
       "structure_id": "building.preservation_house",
       "name": "Smokehouse and salting store",
       "count": 1,
@@ -562,9 +568,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -888,9 +892,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -1432,9 +1434,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.guildhall",
@@ -1648,9 +1648,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -1950,9 +1948,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -2461,6 +2457,12 @@
       ]
      },
      {
+      "structure_id": "building.stable",
+      "name": "Stable and farrier yard",
+      "count": 1,
+      "placement_conditions": []
+     },
+     {
       "structure_id": "building.guildhall",
       "name": "Guild hall",
       "count": 1,
@@ -2672,9 +2674,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -2974,9 +2974,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -3483,6 +3481,12 @@
       ]
      },
      {
+      "structure_id": "building.stable",
+      "name": "Stable and farrier yard",
+      "count": 1,
+      "placement_conditions": []
+     },
+     {
       "structure_id": "building.preservation_house",
       "name": "Smokehouse and salting store",
       "count": 1,
@@ -3722,9 +3726,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -4054,9 +4056,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -4595,6 +4595,12 @@
       ]
      },
      {
+      "structure_id": "building.stable",
+      "name": "Stable and farrier yard",
+      "count": 1,
+      "placement_conditions": []
+     },
+     {
       "structure_id": "building.apothecary",
       "name": "Apothecary and herb garden",
       "count": 1,
@@ -4834,9 +4840,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -5150,9 +5154,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -5673,6 +5675,12 @@
       "placement_conditions": []
      },
      {
+      "structure_id": "building.stable",
+      "name": "Stable and farrier yard",
+      "count": 1,
+      "placement_conditions": []
+     },
+     {
       "structure_id": "building.guildhall",
       "name": "Guild hall",
       "count": 1,
@@ -5884,9 +5892,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -6178,9 +6184,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -6667,6 +6671,12 @@
       "placement_conditions": []
      },
      {
+      "structure_id": "building.stable",
+      "name": "Stable and farrier yard",
+      "count": 1,
+      "placement_conditions": []
+     },
+     {
       "structure_id": "building.guildhall",
       "name": "Guild hall",
       "count": 1,
@@ -6892,9 +6902,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -7194,9 +7202,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -7709,6 +7715,12 @@
       ]
      },
      {
+      "structure_id": "building.stable",
+      "name": "Stable and farrier yard",
+      "count": 1,
+      "placement_conditions": []
+     },
+     {
       "structure_id": "building.shrine",
       "name": "Neighborhood shrine",
       "count": 1,
@@ -7940,9 +7952,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -8246,9 +8256,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -8739,6 +8747,12 @@
       ]
      },
      {
+      "structure_id": "building.stable",
+      "name": "Stable and farrier yard",
+      "count": 1,
+      "placement_conditions": []
+     },
+     {
       "structure_id": "building.guildhall",
       "name": "Guild hall",
       "count": 1,
@@ -8950,9 +8964,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -9252,9 +9264,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -9748,6 +9758,12 @@
       ]
      },
      {
+      "structure_id": "building.stable",
+      "name": "Stable and farrier yard",
+      "count": 1,
+      "placement_conditions": []
+     },
+     {
       "structure_id": "building.preservation_house",
       "name": "Smokehouse and salting store",
       "count": 1,
@@ -9967,9 +9983,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -10271,9 +10285,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -10782,6 +10794,12 @@
       "placement_conditions": []
      },
      {
+      "structure_id": "building.stable",
+      "name": "Stable and farrier yard",
+      "count": 1,
+      "placement_conditions": []
+     },
+     {
       "structure_id": "building.guildhall",
       "name": "Guild hall",
       "count": 1,
@@ -10993,9 +11011,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -11287,9 +11303,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -11776,6 +11790,12 @@
       "placement_conditions": []
      },
      {
+      "structure_id": "building.stable",
+      "name": "Stable and farrier yard",
+      "count": 1,
+      "placement_conditions": []
+     },
+     {
       "structure_id": "building.guildhall",
       "name": "Guild hall",
       "count": 1,
@@ -12009,9 +12029,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",
@@ -12319,9 +12337,7 @@
       "structure_id": "building.stable",
       "name": "Stable and farrier yard",
       "count": 1,
-      "placement_conditions": [
-       "working_animals"
-      ]
+      "placement_conditions": []
      },
      {
       "structure_id": "building.weigh_house",

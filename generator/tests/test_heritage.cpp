@@ -600,18 +600,19 @@ TEST(a_gnome_carries_a_dwarf_s_nose_and_an_elf_s_ears_at_once) {
 // --- the identity digest --------------------------------------------------
 
 TEST(the_heritage_identity_digests_the_resolved_peoples) {
-    // The digest published at FantasyWorldGenerator b67c99b, over the twelve registry
-    // pairs. It covers the RESOLVED peoples and not the source bytes, so a derivation
-    // edit that changes no output invalidates nothing while a one-character override
-    // that does change an output is caught. Appearance IS inside it, even though it is
-    // deliberately kept out of the world document.
+    // This port's digest over the twelve registry pairs since the owner's lifespan ruling
+    // (2026-09-23: human 80, elf 1000, dwarf 500, gnome 750 years); FantasyWorldGenerator
+    // b67c99b published 9b708d23... before it. It covers the RESOLVED peoples and not the
+    // source bytes, so a derivation edit that changes no output invalidates nothing while a
+    // one-character override that does change an output is caught. Appearance IS inside it,
+    // even though it is deliberately kept out of the world document.
     const auto pairs = registry_pairs();
     const Identity identity = heritage_identity(pairs);
     check::equal(identity.sha256,
-                 std::string("9b708d23e468beb4c3f775415405b5aa8991f21c7d402aa200cd6aa99a0b2189"),
+                 std::string("611007f58664a4f7456dd7153756455e9d4f685d040d09c138c2990e79e3da5d"),
                  "the heritage digest over the twelve shipped peoples");
-    check::equal(identity.revisions.traits, 1, "traits revision");
-    check::equal(identity.revisions.appearance, 1, "appearance revision");
+    check::equal(identity.revisions.traits, 2, "traits revision");
+    check::equal(identity.revisions.appearance, 2, "appearance revision");
 
     const std::string document = canonical_document(pairs);
     check::is_true(document.size() > 90000, "the canonical document to carry the whole record");

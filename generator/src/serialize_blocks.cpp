@@ -3269,6 +3269,7 @@ void write_npcs(JsonWriter& json, const NpcRoster& r) {
     integer(json, "cast_outside_a_planned_site", s.notes.cast_outside_a_planned_site);
     integer(json, "cast_located_by_presence", s.notes.cast_located_by_presence);
     integer(json, "cast_presence_unresolved", s.notes.cast_presence_unresolved);
+    integer(json, "appearance_unresolved", s.notes.appearance_unresolved);
     json.end_object();
 
     json.key("sites");
@@ -3304,6 +3305,21 @@ void write_npcs(JsonWriter& json, const NpcRoster& r) {
         text(json, "plot_id", p.plot_id);
         text(json, "status", p.alive ? "alive" : "dead");
         flag(json, "important", p.important);
+        optional_text(json, "workplace", p.workplace);
+        optional_text(json, "store", p.store);
+        json.key("appearance");
+        if (p.appearance) {
+            const NpcAppearance& a = *p.appearance;
+            json.begin_object();
+            text(json, "gender", a.gender);
+            text(json, "age_band", a.age_band);
+            integer(json, "age_years", a.age_years);
+            text(json, "civilization_id", a.civilization_id);
+            text(json, "parent_race_id", a.parent_race_id);
+            json.end_object();
+        } else {
+            json.value_null();
+        }
         if (p.is_cast) {
             text(json, "hero_uid", p.hero_uid);
             optional_text(json, "presence_kind", p.presence_kind);
@@ -3317,11 +3333,50 @@ void write_npcs(JsonWriter& json, const NpcRoster& r) {
     }
     json.end_array();
 
+    // Each parent race's life and bands, then each people's: a subrace's departure from its
+    // race reads off the two lists side by side.
+    const auto write_spans = [&json](std::string_view key, const std::vector<NpcLifeSpan>& spans) {
+        json.key(key);
+        json.begin_array();
+        for (const NpcLifeSpan& span : spans) {
+            json.begin_object();
+            text(json, "id", span.id);
+            if (!span.parent_race_id.empty()) text(json, "parent_race_id", span.parent_race_id);
+            real(json, "adult_years", span.life.adult);
+            real(json, "elder_years", span.life.elder);
+            real(json, "max_years", span.life.max);
+            json.key("bands");
+            json.begin_object();
+            for (const NpcAgeBand& band : span.bands) {
+                json.key(band.id);
+                json.begin_object();
+                integer(json, "from", band.from);
+                integer(json, "to", band.to);
+                json.end_object();
+            }
+            json.end_object();
+            json.end_object();
+        }
+        json.end_array();
+    };
+    json.key("life_spans");
+    json.begin_object();
+    write_spans("parent_races", r.parent_race_life_spans);
+    write_spans("peoples", r.life_spans);
+    json.end_object();
+
     json.key("post_verbs");
     json.begin_object();
     for (const NpcRoleVerbs& rv : npc_role_verbs()) {
         json.key(rv.role);
         strings(json, rv.verbs);
+    }
+    json.end_object();
+    json.key("post_services");
+    json.begin_object();
+    for (const NpcRoleServices& rs : npc_role_services()) {
+        json.key(rs.role);
+        strings(json, rs.services);
     }
     json.end_object();
     json.key("verbs");

@@ -98,16 +98,22 @@ API request with its time.
   capitals, population (urban and rural), placed workers and beds, hamlets, road and
   frontier forts, cities lost, wars fought, NPCs (dead, important) and the cast (living,
   legends), with charts of urban population, cities and NPCs by civilization and each parent
-  race's founding participation. The tables sort by any column.
+  race's founding participation; then each parent race's and each people's life span, its
+  young, middle and old bands, and how many NPCs were aged in it at what mean age. The
+  tables sort by any column.
 - **NPCs.** The roster as the Python lab showed it -- its summary, what it reported about
   itself, the posts by site and each site's important people with the quest verbs their
-  posts offer -- and every individual NPC in one table: filter by name or post, site,
-  civilization, post, alive or dead, important, in the cast; sort by any column; 100 a page.
-  A site or a cast member opens in the inspector.
+  posts offer -- then people by age band and gender, storekeepers by the store they keep and
+  which cities have a horse keeper (and which placed no stable), and every individual NPC in
+  one table: gender, age and band, workplace, what the post offers and sells; filter by name,
+  post or workplace, site, civilization, post, store, gender, age band, alive or dead,
+  important, in the cast; sort by any column (age as a number); 100 a page. A site or a cast
+  member opens in the inspector.
 - **Cast.** Every hero, legend and dread in a sortable table (role, archetype, alignment
-  and its law and good, tier, fame, civilization, race, school, seat, situation, quest
-  hooks), then the Python lab's cards: who and where each is, what they are doing, their
-  log and bonds, their persona and -- on request -- the truth behind their faces and hooks.
+  and its law and good, tier, fame, gender, age, civilization, race, school, seat,
+  situation, quest hooks), then the Python lab's cards: who and where each is, what they are
+  doing, their log and bonds, their persona and -- on request -- the truth behind their faces
+  and hooks. Dreads carry no gender or age: the roster does not hold them yet.
 
 The address bar keeps the world (`#world=<id>`), so a reload or a shared link reopens it;
 the World menu lists every world in the cache.
