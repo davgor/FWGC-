@@ -26,7 +26,7 @@ the result. **Ported** means the code exists and is tested but nothing calls it 
 | 6-7 | Tectonic transition, relic carving | `terrain_history` | **wired** |
 | 8 | Climate, terrain labels | `terrain_climate`, `terrain_biomes` | **wired** |
 | 9 | Leylines (all twelve schools, hidden-school terms included), astrology, ecology, biome variants, height field | `terrain_leyline_history`, `terrain_magic`, `terrain_astrology`, `terrain_ecology`, `terrain_detail` | **wired** |
-| 10 | Founding, population, classification, heritage names | `terrain_settlements`, `founding`, `heritage` | **wired** |
+| 10 | Founding, population, classification, heritage names | `terrain_settlements`, `founding`, `heritage` | **wired**, except each city's building pack and `city_layout` plan (in flight) |
 | 11 | Roads | `terrain_settlements` | **wired** |
 | 12 | Hinterland, colleges, seasonal food, society (harbours, transport, economy, witch huts) | `terrain_humans`, `terrain_magic`, `terrain_seasons`, `terrain_society` | **wired** |
 | 13 | Nests, threat assessment, religion | `terrain_nests`, `terrain_history`, `terrain_religion` | **wired** |
@@ -43,10 +43,10 @@ Each takes the world by const reference and returns a new one; each appends to
 | `advance_ages` -- more ages, after player ley edits | `terrain_history.advance_age_request` | **wired** |
 | `corrupt`, `cleanse`, `summon`, `depart` | `terrain_corruption`, `terrain_visitation` request functions | **wired** |
 | `generate_patch` -- a local metre patch with micro relief | `terrain_patch` | **wired** |
-| Time and quests on a World; the liveness predicate | `terrain_time`, `terrain_quest_api`, `terrain_liveness` | in flight (pure time and quest passes ported) |
-| Found a player settlement; raise a band | `terrain_settlement_api`, `terrain_nomad_api` | in flight |
-| Read/select queries; person state | `terrain_read_select`, `terrain_read`, `terrain_person_state`, `terrain_person_api` | todo, after liveness lands |
-| Product package: asset list, capabilities, controls, coordinates, taxonomy, world handles, counter kernel, hero guild, CLI commands | `fantasy_world_generator` | in flight |
+| Time and quests on a World; the liveness predicate | `terrain_time`, `terrain_quest_api`, `terrain_liveness` | **wired** |
+| Found a player settlement; raise a band | `terrain_settlement_api`, `terrain_nomad_api` | **wired** |
+| Read/select queries; person state | `terrain_read_select`, `terrain_read`, `terrain_person_state`, `terrain_person_api` | in flight |
+| Product package: asset list, capabilities, controls, coordinates, taxonomy, world handles, counter kernel, hero guild, CLI commands | `fantasy_world_generator` | **wired** |
 
 ## The world document
 
