@@ -24,6 +24,8 @@
 #include "fwg/astrology.hpp"
 #include "fwg/beasties_stage.hpp"
 #include "fwg/beasts.hpp"
+#include "fwg/heroes.hpp"
+#include "fwg/story_web.hpp"
 #include "fwg/nomads.hpp"
 #include "fwg/city_plan.hpp"
 #include "fwg/complete_stage.hpp"
@@ -169,6 +171,11 @@ struct World {
     bool has_beast_movements = false;
     BeastMovements beast_movements;
     EncounterIndex encounters;
+
+    // Stage 16. The cast of heroes and the web of stories between them.
+    bool has_heroes = false;
+    HeroesBlock heroes;
+    StoryWebBlock story_web;
 
     // The age this world is in. Zero until the first age transition turns it.
     int age = 0;

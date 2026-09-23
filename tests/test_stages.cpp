@@ -336,3 +336,41 @@ TEST(every_band_and_every_herd_is_something_a_traveller_can_meet) {
     check::equal(w.encounters.entries.size(), w.nomads.groups.size() + w.beast_movements.groups.size(),
                  "one encounter entry per band and per herd");
 }
+
+TEST(stage_sixteen_draws_a_cast_and_weaves_a_web_for_every_hero) {
+    const World w = at_phase(16, 65);
+    check::is_true(w.has_heroes, "stage 16 to draw the cast");
+    check::equal(w.heroes.status, std::string("ok"), "the cast to resolve");
+    check::is_true(!w.heroes.people.empty(), "some hero to exist");
+    for (const Hero& h : w.heroes.people) {
+        check::is_true(!h.name.empty(), h.uid + " to have a name");
+        check::is_true(!h.archetype.empty(), h.uid + " to have an archetype");
+    }
+    check::equal(w.story_web.status, std::string("ok"), "the story web to resolve");
+    check::equal(w.story_web.webs.size(), w.heroes.people.size(), "one web per hero");
+    // Nothing else binds the two blocks to one run, and a web compiled against a stale
+    // cast still compiles. The revision the web records is the cast it was woven from.
+    check::equal(w.story_web.heroes_revision.sha256, w.heroes.policy_revision.sha256,
+                 "the web to record the cast it was woven from");
+}
+
+TEST(a_quest_to_slay_something_points_at_where_it_lives) {
+    // The reference writes every slay hook as `target_has_no_node`, because its nest rows
+    // carry no node -- so no player is ever pointed at a lair. The node is known when the
+    // world is handed over, and passing it through is what makes a slay quest a place.
+    const World w = at_phase(16, 65);
+    std::set<std::string> nests;
+    std::map<std::string, int> nest_node;
+    for (const NestSite& n : w.beast_nests.sites) nest_node[n.id] = n.node;
+    long long slay = 0;
+    for (const HeroQuestHook& q : w.heroes.quest_hooks) {
+        if (q.verb != "slay") continue;
+        ++slay;
+        check::is_true(q.has_target_node, q.hook_id + " to be sited, not " + q.unsited_reason);
+        const auto it = nest_node.find(q.target);
+        if (it != nest_node.end()) {
+            check::equal(q.target_node, it->second, q.hook_id + " to point at the lair itself");
+        }
+    }
+    check::is_true(slay > 0, "some slay quest to exist, or nothing is tested");
+}

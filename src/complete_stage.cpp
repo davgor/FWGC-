@@ -14,9 +14,15 @@
 #include <cmath>
 #include <utility>
 
+#include <set>
+
 #include "fwg/beasts.hpp"
 #include "fwg/city_plan.hpp"
+#include "fwg/entities.hpp"
+#include "fwg/heroes.hpp"
+#include "fwg/magic.hpp"
 #include "fwg/nomads.hpp"
+#include "fwg/story_web.hpp"
 #include "fwg/world.hpp"
 
 namespace fwg {
@@ -243,6 +249,147 @@ void add_the_moving_world(World& world, const SphereGrid& grid) {
     }
 }
 
+// The hero generator's view of the world.
+//
+// Two id spaces meet here and must not be crossed. A city's `uid` is its stable identity;
+// its `id` is its position in the settlement list, and the hinterland, the shipments, the
+// colleges and the ports all name their city by that position. The request carries both,
+// as strings, exactly as the reference hands them over.
+HeroesRequest heroes_request(const World& world) {
+    const Config& cfg = world.effective;
+    HeroesRequest request;
+    request.seed = cfg.seed;
+    request.final_age = world.age;
+    request.globe_radius_m = cfg.globe_radius;
+    request.spacing_m = cfg.settlement_spacing;
+    request.layers = &world.layers;
+
+    for (const SettlementSite& s : world.settlements.sites) {
+        HeroCity city;
+        city.uid = s.uid;
+        city.id = std::to_string(s.id);
+        city.name = s.name;
+        city.city_class = s.city_class == CityClass::Capital  ? "capital"
+                          : s.city_class == CityClass::Medium ? "medium"
+                                                              : "small";
+        city.civilization_id = s.population_profile;
+        city.population_profile = s.population_profile;
+        city.parent_race_id = s.parent_race_id;
+        city.node = s.node;
+        city.x = s.x;
+        city.z = s.z;
+        city.direction = s.direction;
+        city.suitability = s.suitability;
+        city.founded_age = s.founded_age;
+        city.founding_capital = s.founding_capital;
+        city.diaspora_reason = s.diaspora_reason;
+        city.source_civilization_id = s.source_civilization_id;
+        request.cities.push_back(std::move(city));
+    }
+
+    std::set<std::string> peoples;
+    for (const SettlementSite& s : world.settlements.sites) peoples.insert(s.population_profile);
+    for (const std::string& id : peoples) {
+        const CivilizationProfile* profile = civilization_profile(id);
+        const EntityRules* rules = entity_rule(id);
+        request.civilizations.push_back({id, profile != nullptr ? std::string(profile->name) : id,
+                                         rules != nullptr ? std::string(rules->parent_race_id) : std::string()});
+    }
+
+    for (const CultureGroup& c : world.humans.cultures) {
+        HeroCulture culture;
+        culture.id = c.id;
+        culture.civilization_id = c.civilization_id;
+        for (const int city : c.city_ids) culture.city_ids.push_back(std::to_string(city));
+        request.cultures.push_back(std::move(culture));
+    }
+
+    for (const NestSite& n : world.beast_nests.sites) {
+        HeroNest nest;
+        nest.id = n.id;
+        nest.name = std::string(n.name);
+        nest.family = std::string(n.family);
+        nest.tier = n.tier;
+        nest.has_tier = true;
+        nest.range_m = n.range_m;
+        nest.has_range = true;
+        nest.has_grid = true;
+        nest.x = n.x;
+        nest.z = n.z;
+        nest.direction = n.direction;
+        // The reference's nest rows carry no node, so every slay hook it writes reads
+        // `target_has_no_node` and no player is ever pointed at a lair. The node is known
+        // here, and supplying it is what the port's optional field is for.
+        nest.node = n.node;
+        request.nests.push_back(std::move(nest));
+    }
+
+    for (const RuralSite& h : world.humans.hamlets) {
+        request.hamlets.push_back({h.id, h.kind, h.role, std::to_string(h.core_id), h.node, h.x, h.z});
+    }
+    for (const RuralSite& f : world.humans.fortresses) {
+        request.fortresses.push_back({f.id, std::to_string(f.core_id), f.node, f.x, f.z, f.defence_score});
+    }
+    for (const CityCore& c : world.humans.cores) {
+        request.cores.push_back({std::to_string(c.site_id), c.food_deficit});
+    }
+    for (const FoodShipment& s : world.humans.shipments) {
+        request.shipments.push_back({std::to_string(s.from), std::to_string(s.to)});
+    }
+    for (const College& c : world.colleges.colleges) {
+        request.colleges.push_back({c.id, std::to_string(c.core_id), c.node, c.x, c.z});
+    }
+
+    // In the magic school table's order, not the map's: a std::map walks alphabetically,
+    // and the reference builds its node-to-school and node-to-intensity maps from one
+    // ordering. Two orderings are how those two maps come to disagree.
+    for (const MagicSchool& school : magic_school_table()) {
+        const auto net = world.magic.networks.find(std::string(school.name));
+        if (net == world.magic.networks.end()) continue;
+        HeroLeyNetwork network;
+        network.school = net->first;
+        for (const LeyNode& n : net->second.nodes) network.nodes.push_back({n.id, n.direction, n.intensity});
+        request.networks.push_back(std::move(network));
+    }
+
+    for (const GodRecord& g : world.religion.gods) request.gods.push_back({g.id, g.name});
+    for (const ReligionSite& s : world.religion.sites) {
+        request.religion_sites.push_back({s.id, s.kind, s.god_id, s.ruin_id, s.node, s.born_under_surge});
+    }
+    for (const HarbourPort& p : world.society.fisheries.ports) {
+        request.ports.push_back({p.id, std::to_string(p.core_id), p.node, p.sea_node, p.trade_terminal});
+    }
+    for (const TransportRoute& r : world.society.transport.routes) {
+        if (r.mode != "sea") continue;
+        request.sea_routes.push_back({{r.port_a, r.port_b}});
+    }
+    // Ruins, wars and threat assessments are written by the age transitions, which are not
+    // wired yet. Empty is the honest answer: a cast drawn from a world that has never had
+    // an age turn.
+    return request;
+}
+
+StoryWebRequest story_web_request(const World& world, const HeroesBlock& heroes) {
+    StoryWebRequest request;
+    request.seed = world.effective.seed;
+    request.heroes = &heroes;
+    for (const SettlementSite& s : world.settlements.sites) request.site_ids.push_back({std::to_string(s.id), s.uid});
+    for (const CityCore& c : world.humans.cores) request.cores.push_back({std::to_string(c.site_id), c.food_deficit});
+    for (const SeasonalCity& c : world.seasonal_food.cities) {
+        request.coverage.push_back({std::to_string(c.site_id), c.food_coverage});
+    }
+    for (const auto& [school, net] : world.magic.networks) {
+        for (const LeyNode& n : net.nodes) request.node_intensity.push_back({n.id, n.intensity});
+    }
+    // One occurrence anywhere in the almanac sets the flag for every hero -- deliberately
+    // coarse, and the reference's own reading.
+    for (const AlmanacEvent& e : world.lunar_almanac.events) {
+        request.lunar_surge = request.lunar_surge || e.kind == "surge";
+        request.lunar_hollow_night = request.lunar_hollow_night || e.kind == "hollow_night";
+    }
+    return request;
+}
+
 }  // namespace
 
 void add_simulation_complete(World& world) {
@@ -262,6 +409,15 @@ void add_simulation_complete(World& world) {
     // Bands are part of the world, so they are placed before the packages that only read
     // it: heroes, the story web and the rosters see a world with its nomads in it.
     if (world.has_humans) add_the_moving_world(world, grid);
+
+    // The cast, then the web of stories between them. The web reads only the heroes and
+    // the world, and a web compiled against a cast that failed would be a plausible,
+    // empty answer -- so a failed cast stops it rather than feeding it.
+    world.heroes = attach_heroes(heroes_request(world));
+    world.has_heroes = true;
+    world.systems.push_back("heroes");
+    world.story_web = attach_story_web(story_web_request(world, world.heroes));
+    world.systems.push_back("story_web");
 }
 
 }  // namespace fwg
