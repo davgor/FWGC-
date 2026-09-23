@@ -511,3 +511,21 @@ TEST(the_raiders_raise_a_towns_threat_after_its_walls_are_drawn) {
     }
     check::is_true(raised > 0, "some town a raider reaches, or the raise is untested");
 }
+
+TEST(the_society_pass_re_sites_every_witch_hut_the_ecology_placed) {
+    // Stage 12 replaces the ecology pass's huts ("witch_huts-<node>") with its own re-sited
+    // ones ("witch-hut-<node>"), each carrying the suitability it was judged too poor by.
+    const World before = at_phase(11);
+    const World after = at_phase(12);
+    std::size_t placed = 0;
+    for (const Landmark& l : before.ecology.landmarks) placed += l.kind == "witch_hut" ? 1 : 0;
+    check::is_true(placed > 0, "the ecology pass to place some hut, or nothing is tested");
+    std::size_t resited = 0;
+    for (const Landmark& l : after.ecology.landmarks) {
+        if (l.kind != "witch_hut") continue;
+        ++resited;
+        check::is_true(l.id.rfind("witch-hut-", 0) == 0, l.id + " to be the society pass's hut");
+        check::is_true(l.conventional_suitability.has_value() && !l.reason.empty(), l.id + " to say why it stands there");
+    }
+    check::is_true(resited > 0 && resited <= placed, "up to as many huts as the ecology pass placed");
+}

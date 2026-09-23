@@ -94,6 +94,25 @@ void add_populated_regions(World& world) {
         hinterland.hamlets.push_back(std::move(row));
     }
 
+    // The witch huts, re-sited by their own preference for isolation and poor conventional
+    // suitability. Every hut the ecology pass placed is replaced, as the reference replaces
+    // them: the old rows removed, the re-sited ones appended after everything else.
+    if (society.ran) {
+        std::erase_if(world.ecology.landmarks, [](const Landmark& mark) { return mark.kind == "witch_hut"; });
+        for (const SocietyWitchHut& hut : society.witch_huts) {
+            Landmark mark;
+            mark.id = hut.id;
+            mark.kind = hut.kind;
+            mark.x = hut.x;
+            mark.z = hut.z;
+            mark.layer = hut.layer;
+            mark.intensity = hut.intensity;
+            mark.conventional_suitability = hut.conventional_suitability;
+            mark.reason = hut.reason;
+            world.ecology.landmarks.push_back(std::move(mark));
+        }
+    }
+
     for (std::size_t k = 0; k < society.community_traits.size() && k < world.settlements.sites.size(); ++k) {
         world.settlements.sites[k].community = society.community_traits[k];
     }

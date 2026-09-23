@@ -593,6 +593,11 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
             json.field("z", m.z);
             json.field("layer", m.layer);
             json.field("intensity", m.intensity);
+            if (m.conventional_suitability) {
+                json.field("conventional_suitability", *m.conventional_suitability);
+                json.key("reason");
+                json.value(std::string_view(m.reason));
+            }
             json.end_object();
         }
         json.end_array();

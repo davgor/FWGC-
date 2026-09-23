@@ -11,6 +11,7 @@
 #pragma once
 
 #include <map>
+#include <optional>
 #include <span>
 #include <string>
 #include <string_view>
@@ -65,6 +66,10 @@ struct Landmark {
     int z = 0;
     std::string layer;
     double intensity = 0.0;
+    // A witch hut the society pass re-sited carries both: the settlement suitability it was
+    // judged too poor by, and why it stands there.
+    std::optional<double> conventional_suitability;
+    std::string reason;
 };
 
 struct EcologyReport {
