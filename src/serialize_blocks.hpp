@@ -27,6 +27,9 @@ void write_route_trade_fields(JsonWriter& json, const World& world, std::size_t 
 // Inside one `settlements.sites[]` object: what the society pass wrote onto the site.
 void write_site_society_fields(JsonWriter& json, const World& world, std::size_t site_index);
 
+// Inside one `settlements.sites[]` object: the wars it fought and the victor it serves.
+void write_site_age_fields(JsonWriter& json, const World& world, std::size_t site_index);
+
 // Every top-level block from stage 12 on, in stage order. Each is written only when the
 // World says it exists.
 void write_late_blocks(JsonWriter& json, const World& world);

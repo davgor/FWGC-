@@ -3602,6 +3602,472 @@ void write_key_location_plans(JsonWriter& json, const KeyLocationPlanBlock& b) {
 constexpr std::string_view kCollegeInstitution = "wizard_college";
 constexpr std::string_view kCollegeSourceKind = "cells within a city's support reach";
 
+// ===========================================================================
+// Stages 13-15: the threat assessment, the ruins, the villains and the history
+// ===========================================================================
+
+void threat_contributor(JsonWriter& json, const ThreatContributor& c) {
+    json.begin_object();
+    text(json, "kind", c.kind);
+    real(json, "weight", c.weight);
+    if (c.kind == "ley") {
+        text(json, "school", c.school);
+        real(json, "potency", c.potency);
+    } else if (c.kind == "war") {
+        integer(json, "wars_fought", c.wars_fought);
+    } else {
+        text(json, "nest_id", c.nest_id);
+        text(json, "name", c.name);
+        text(json, "family", c.family);
+        real(json, "distance_m", c.distance_m);
+        real(json, "reach_m", c.reach_m);
+    }
+    json.end_object();
+}
+
+void write_threat_assessments(JsonWriter& json, const ThreatAssessmentBlock& b) {
+    json.begin_object();
+    integer(json, "version", b.version);
+    text(json, "evaluated_after", b.evaluated_after);
+    optional_int(json, "age", b.age);
+    json.key("cities");
+    json.begin_array();
+    for (const ThreatReport& r : b.cities) {
+        json.begin_object();
+        text(json, "city_uid", r.city_uid);
+        text(json, "city_name", r.city_name);
+        integer(json, "site_id", r.site_id);
+        real(json, "regional_threat", r.regional_threat);
+        real(json, "nest_pressure", r.nest_pressure);
+        real(json, "ley_pressure", r.ley_pressure);
+        real(json, "war_pressure", r.war_pressure);
+        integer(json, "wars_fought", r.wars_fought);
+        integer(json, "wars_recent", r.outlook.wars_recent);
+        flag(json, "enemy_living", r.outlook.enemy_living);
+        real(json, "war_risk", r.outlook.war_risk);
+        text_or_null(json, "war_risk_kind", r.outlook.war_risk_kind);
+        text_or_null(json, "war_risk_opponent_uid", r.outlook.war_risk_opponent_uid);
+        real(json, "war_hunger", r.outlook.war_hunger);
+        text_or_null(json, "war_hunger_target_uid", r.outlook.war_hunger_target_uid);
+        json.key("contributors");
+        json.begin_array();
+        for (const ThreatContributor& c : r.contributors) threat_contributor(json, c);
+        json.end_array();
+        json.key("ley");
+        if (r.ley) {
+            json.begin_object();
+            text(json, "school", r.ley->school);
+            real(json, "potency", r.ley->potency);
+            json.end_object();
+        } else {
+            json.value_null();
+        }
+        // Written by stage 16's nomad effects: every town's raid pressure, and the raiders
+        // by name where any are in reach.
+        if (r.nomad_pressure) real(json, "nomad_pressure", *r.nomad_pressure);
+        if (!r.nomad_contributors.empty()) {
+            json.key("nomad_contributors");
+            strings(json, r.nomad_contributors);
+        }
+        json.end_object();
+    }
+    json.end_array();
+    text(json, "method", b.method);
+    text(json, "limits", b.limits);
+    json.end_object();
+}
+
+void war_participation(JsonWriter& json, const WarParticipation& w) {
+    json.begin_object();
+    text(json, "war_id", w.war_id);
+    integer(json, "age", w.age);
+    text(json, "kind", w.kind);
+    text(json, "outcome", w.outcome);
+    text(json, "opponent_uid", w.opponent_uid);
+    text(json, "opponent_civilization_id", w.opponent_civilization_id);
+    text(json, "opponent_parent_race_id", w.opponent_parent_race_id);
+    json.end_object();
+}
+
+void war_history(JsonWriter& json, const std::vector<WarParticipation>& history) {
+    json.key("war_history");
+    json.begin_array();
+    for (const WarParticipation& w : history) war_participation(json, w);
+    json.end_array();
+}
+
+bool is_school_name(std::string_view cause) { return magic_school_index(cause) >= 0; }
+
+// A fate's evidence carries the keys of the cause that was chosen, in that cause's order.
+void fate_evidence(JsonWriter& json, std::string_view cause, const CityFateEvidence& e) {
+    json.key("evidence");
+    json.begin_object();
+    if (is_school_name(cause)) {
+        text(json, "school", e.school);
+        if (e.potency) real(json, "potency", *e.potency);
+        if (e.moon_tide) real(json, "moon_tide", *e.moon_tide);
+    } else if (cause == "dragon" || cause == "monster") {
+        text(json, "nest_id", e.nest_id);
+        text(json, "family", e.family);
+        if (e.distance_m) real(json, "distance_m", *e.distance_m);
+        if (e.reach_m) real(json, "reach_m", *e.reach_m);
+    } else if (cause.rfind("villain_", 0) == 0) {
+        text(json, "villain_uid", e.villain_uid);
+        text(json, "growth", e.growth);
+        if (e.tier) real(json, "tier", *e.tier);
+        if (e.distance_m) real(json, "distance_m", *e.distance_m);
+        if (e.reach_m) real(json, "reach_m", *e.reach_m);
+        text_or_null(json, "school", e.school);
+    } else if (cause.rfind("war_", 0) == 0) {
+        text(json, "war_id", e.war_id);
+        text(json, "kind", e.kind);
+        text(json, "opponent_uid", e.opponent_uid);
+        text(json, "opponent_civilization_id", e.opponent_civilization_id);
+        text(json, "opponent_parent_race_id", e.opponent_parent_race_id);
+        if (e.distance_m) real(json, "distance_m", *e.distance_m);
+        if (e.pressure) real(json, "pressure", *e.pressure);
+    }
+    // self_magic carries no evidence of its own.
+    json.end_object();
+}
+
+void ruin_record(JsonWriter& json, const Ruin& r) {
+    json.begin_object();
+    // The city as it stood: the reference's RUIN_KEYS, in its order.
+    text(json, "uid", r.uid);
+    text(json, "name", r.name);
+    integer(json, "node", r.node);
+    integer(json, "x", r.x);
+    integer(json, "z", r.z);
+    json.key("direction");
+    vec3(json, r.direction);
+    real(json, "height_m", r.height_m);
+    text(json, "population_profile", r.population_profile);
+    text(json, "civilization_id", r.civilization_id);
+    text(json, "city_class", city_class_name(r.city_class));
+    text(json, "source_culture", r.source_culture);
+    integer(json, "founded_age", r.founded_age);
+    if (!r.war_history.empty()) war_history(json, r.war_history);
+    // The ruin.
+    text(json, "id", r.id);
+    text(json, "kind", r.kind);
+    integer(json, "destroyed_age", r.destroyed_age);
+    text(json, "asset_id", r.asset_id);
+    // How it fell.
+    text(json, "cause", r.cause);
+    text(json, "reason", r.reason);
+    fate_evidence(json, r.cause, r.evidence);
+    real(json, "probability", r.probability);
+    real(json, "roll", r.roll);
+    text_or_null(json, "new_node_school", r.new_node_school);
+    json.key("legacy");
+    json.begin_object();
+    text(json, "school", r.legacy.school);
+    real(json, "intensity", r.legacy.intensity);
+    text(json, "basis", r.legacy.basis);
+    json.end_object();
+    json.end_object();
+}
+
+void write_ruins(JsonWriter& json, const std::vector<Ruin>& ruins) {
+    json.begin_array();
+    for (const Ruin& r : ruins) ruin_record(json, r);
+    json.end_array();
+}
+
+void villain_log(JsonWriter& json, const std::vector<VillainLogEntry>& log) {
+    json.key("log");
+    json.begin_array();
+    for (const VillainLogEntry& e : log) {
+        json.begin_object();
+        integer(json, "age", e.age);
+        text(json, "event", e.event);
+        if (e.concentration) real(json, "concentration", *e.concentration);
+        if (!e.school.empty()) text(json, "school", e.school);
+        if (e.lines) integer(json, "lines", *e.lines);
+        if (!e.god.empty()) text(json, "god", e.god);
+        if (e.encounters) integer(json, "encounters", *e.encounters);
+        json.end_object();
+    }
+    json.end_array();
+}
+
+void villain_well(JsonWriter& json, const std::optional<VillainWell>& well) {
+    if (!well) return;
+    json.key("well");
+    json.begin_object();
+    text(json, "node", well->node);
+    text(json, "school", well->school);
+    text_or_null(json, "god", well->god);
+    json.key("lines");
+    strings(json, well->lines);
+    integer(json, "age", well->age);
+    json.end_object();
+}
+
+void villain_claims(JsonWriter& json, const std::vector<VillainClaim>& claims) {
+    if (claims.empty()) return;
+    json.key("claims");
+    json.begin_array();
+    for (const VillainClaim& c : claims) {
+        json.begin_object();
+        text(json, "id", c.id);
+        text(json, "villain_uid", c.villain_uid);
+        integer(json, "age", c.age);
+        json.key("direction");
+        vec3(json, c.direction);
+        integer(json, "node", c.node);
+        text(json, "kind", c.kind);
+        integer(json, "refreshed_age", c.refreshed_age);
+        json.key("factions");
+        strings(json, c.factions);
+        json.key("drawn_from");
+        strings(json, c.drawn_from);
+        text_or_null(json, "well", c.well);
+        text(json, "holder_status", c.holder_status);
+        if (c.holder_fell_age) integer(json, "holder_fell_age", *c.holder_fell_age);
+        real(json, "influence", c.influence);
+        json.end_object();
+    }
+    json.end_array();
+}
+
+void villain_record(JsonWriter& json, const Villain& v) {
+    json.begin_object();
+    text(json, "uid", v.uid);
+    text(json, "region", v.region);
+    integer(json, "born_age", v.born_age);
+    text(json, "seat_uid", v.seat_uid);
+    integer(json, "node", v.node);
+    json.key("direction");
+    vec3(json, v.direction);
+    text_or_null(json, "school", v.school);
+    json.key("held_nodes");
+    strings(json, v.held_nodes);
+    real(json, "tier", v.tier);
+    real(json, "reach_m", v.reach_m);
+    text(json, "growth", v.growth);
+    text(json, "status", v.status);
+    if (v.fell_age) integer(json, "fell_age", *v.fell_age);
+    villain_log(json, v.log);
+    if (!v.god.empty()) text(json, "god", v.god);
+    if (v.corrupted) flag(json, "corrupted", true);
+    villain_well(json, v.well);
+    villain_claims(json, v.claims);
+    json.end_object();
+}
+
+void fallen_mark(JsonWriter& json, const FallenVillainMark& m) {
+    json.begin_object();
+    text(json, "uid", m.uid);
+    text(json, "region", m.region);
+    integer(json, "born_age", m.born_age);
+    text(json, "seat_uid", m.seat_uid);
+    integer(json, "node", m.node);
+    json.key("direction");
+    vec3(json, m.direction);
+    text_or_null(json, "school", m.school);
+    text(json, "growth", m.growth);
+    json.key("held_nodes");
+    strings(json, m.held_nodes);
+    villain_claims(json, m.claims);
+    villain_well(json, m.well);
+    if (!m.god.empty()) text(json, "god", m.god);
+    villain_log(json, m.log);
+    text(json, "id", m.id);
+    text(json, "kind", m.kind);
+    integer(json, "fell_age", m.fell_age);
+    integer(json, "reigned_ages", m.reigned_ages);
+    real(json, "tier_at_fall", m.tier_at_fall);
+    json.key("left");
+    json.begin_object();
+    json.key("ruins");
+    strings(json, m.left_ruins);
+    json.key("claims");
+    strings(json, m.left_claims);
+    text_or_null(json, "well", m.left_well);
+    json.key("held_nodes");
+    strings(json, m.left_held_nodes);
+    json.end_object();
+    json.end_object();
+}
+
+void write_villains(JsonWriter& json, const VillainBlock& b) {
+    json.begin_object();
+    integer(json, "version", b.version);
+    json.key("people");
+    json.begin_array();
+    for (const Villain& v : b.people) villain_record(json, v);
+    json.end_array();
+    json.key("tiers");
+    json.begin_object();
+    for (const auto& [region, tier] : b.tiers) real(json, region, tier);
+    json.end_object();
+    json.key("outlook");
+    json.begin_object();
+    real(json, "rise", b.outlook.rise);
+    integer(json, "ceiling", b.outlook.ceiling);
+    integer(json, "standing", b.outlook.standing);
+    json.key("regions");
+    json.begin_array();
+    for (const VillainOutlookRow& row : b.outlook.regions) {
+        json.begin_object();
+        text(json, "region", row.region);
+        json.key("culture");
+        if (row.has_culture) {
+            json.value(std::string_view(row.culture));
+        } else {
+            json.value_null();
+        }
+        real(json, "concentration", row.concentration);
+        real(json, "tier", row.tier);
+        real(json, "to_threshold", row.to_threshold);
+        flag(json, "seated", row.seated);
+        flag(json, "stalled", row.stalled);
+        integer(json, "cities", row.cities);
+        json.end_object();
+    }
+    json.end_array();
+    json.end_object();
+    json.key("fallen");
+    json.begin_array();
+    for (const FallenVillainMark& m : b.fallen) fallen_mark(json, m);
+    json.end_array();
+    if (!b.works.empty()) {
+        json.key("works");
+        json.begin_array();
+        for (const VillainWork& w : b.works) {
+            json.begin_object();
+            text(json, "villain_uid", w.villain_uid);
+            flag(json, "well", w.well);
+            flag(json, "claim", w.claim);
+            json.end_object();
+        }
+        json.end_array();
+    }
+    json.end_object();
+}
+
+void war_record(JsonWriter& json, const WarRecord& w) {
+    json.begin_object();
+    text(json, "id", w.id);
+    integer(json, "age", w.age);
+    text(json, "kind", w.kind);
+    json.key("participants");
+    strings(json, w.participants);
+    text(json, "victor_uid", w.victor_uid);
+    text(json, "defeated_uid", w.defeated_uid);
+    text(json, "victor_civilization_id", w.victor_civilization_id);
+    text(json, "defeated_civilization_id", w.defeated_civilization_id);
+    text(json, "victor_parent_race_id", w.victor_parent_race_id);
+    text(json, "defeated_parent_race_id", w.defeated_parent_race_id);
+    real(json, "distance_m", w.distance_m);
+    real(json, "proximity_pressure", w.proximity_pressure);
+    real(json, "supply_pressure", w.supply_pressure);
+    real(json, "pressure", w.pressure);
+    integer(json, "victor_strength", w.victor_strength);
+    integer(json, "defeated_strength", w.defeated_strength);
+    real(json, "chance", w.chance);
+    real(json, "roll", w.roll);
+    text(json, "reason", w.reason);
+    // Written only when war_survival is above zero, as the reference writes them.
+    if (!w.outcome.empty()) text(json, "outcome", w.outcome);
+    if (w.survival_chance) real(json, "survival_chance", *w.survival_chance);
+    if (w.survival_roll) real(json, "survival_roll", *w.survival_roll);
+    json.end_object();
+}
+
+void moon_record(JsonWriter& json, const std::optional<CityFateLunar>& moon) {
+    json.key("moon");
+    if (!moon) {
+        json.value_null();
+        return;
+    }
+    json.begin_object();
+    integer(json, "day", moon->day);
+    real(json, "phase_fraction", moon->phase_fraction);
+    real(json, "elongation_degrees", moon->elongation_degrees);
+    real(json, "illumination", moon->illumination);
+    text(json, "leaning", moon->leaning);
+    json.key("tide");
+    json.begin_object();
+    const auto schools = magic_school_table();
+    for (std::size_t i = 0; i < moon->tide.size() && i < schools.size(); ++i) {
+        real(json, schools[i].name, moon->tide[i]);
+    }
+    json.end_object();
+    json.end_object();
+}
+
+void leyline_edit(JsonWriter& json, const LeylineEdit& e) {
+    json.begin_object();
+    text(json, "school", e.school);
+    if (e.node_id) text(json, "node_id", *e.node_id);
+    if (e.line_id) text(json, "line_id", *e.line_id);
+    if (e.intensity) real(json, "intensity", *e.intensity);
+    if (e.new_node) {
+        json.key("new_node");
+        json.begin_object();
+        text(json, "id", e.new_node->id);
+        json.key("direction");
+        vec3(json, e.new_node->direction);
+        real(json, "intensity", e.new_node->intensity);
+        json.end_object();
+    }
+    json.end_object();
+}
+
+void write_history(JsonWriter& json, const WorldHistory& h) {
+    json.begin_object();
+    integer(json, "version", h.version);
+    json.key("ages");
+    json.begin_array();
+    for (const AgeRecord& a : h.ages) {
+        json.begin_object();
+        integer(json, "age", a.age);
+        json.key("events");
+        write_ruins(json, a.events);
+        json.key("wars");
+        json.begin_array();
+        for (const WarRecord& w : a.wars) war_record(json, w);
+        json.end_array();
+        moon_record(json, a.moon);
+        json.key("surviving_city_ids");
+        strings(json, a.surviving_city_ids);
+        json.key("new_city_ids");
+        strings(json, a.new_city_ids);
+        json.key("order");
+        strings(json, age_order());
+        json.end_object();
+    }
+    json.end_array();
+    // Written once a world has been advanced after generation, as the reference writes it.
+    if (!h.operations.empty()) {
+        json.key("operations");
+        json.begin_array();
+        for (const AgeOperation& op : h.operations) {
+            json.begin_object();
+            integer(json, "api_version", op.api_version);
+            integer(json, "after_age", op.after_age);
+            integer(json, "steps", op.steps);
+            json.key("leyline_edits");
+            json.begin_array();
+            for (const LeylineEdit& e : op.leyline_edits) leyline_edit(json, e);
+            json.end_array();
+            json.key("moon_day");
+            if (op.moon_day) {
+                json.value(*op.moon_day);
+            } else {
+                json.value_null();
+            }
+            json.end_object();
+        }
+        json.end_array();
+        text(json, "replay", kAgeReplayNote);
+    }
+    json.end_object();
+}
+
 }  // namespace
 
 // ===========================================================================
@@ -3685,6 +4151,15 @@ void write_route_trade_fields(JsonWriter& json, const World& world, std::size_t 
     }
 }
 
+void write_site_age_fields(JsonWriter& json, const World& world, std::size_t site_index) {
+    if (site_index >= world.settlements.sites.size()) return;
+    const SettlementSite& s = world.settlements.sites[site_index];
+    // Both keys appear only once an age has given the city something to record: a war it
+    // fought, or the victor it now serves.
+    if (!s.war_history.empty()) war_history(json, s.war_history);
+    if (!s.vassal_of.empty()) text(json, "vassal_of", s.vassal_of);
+}
+
 void write_site_society_fields(JsonWriter& json, const World& world, std::size_t site_index) {
     // The society pass writes the traits onto every site once the economy half runs.
     if (!world.has_humans || !world.society.has_economy) return;
@@ -3713,9 +4188,26 @@ void write_late_blocks(JsonWriter& json, const World& world) {
         }
     }
 
+    // Stage 13 writes the threat between the nests and the faiths; every age turn rewrites it.
+    if (world.has_threat_assessments) {
+        json.key("threat_assessments");
+        write_threat_assessments(json, world.threat_assessments);
+    }
+
     if (world.has_religion) {
         json.key("religion");
         write_religion(json, world.religion);
+    }
+
+    // The ages. `ruins` and `history` exist from the first stage in the reference, empty
+    // until an age turns, so they are written for every world.
+    json.key("ruins");
+    write_ruins(json, world.ruins);
+    json.key("history");
+    write_history(json, world.history);
+    if (world.has_villains) {
+        json.key("villains");
+        write_villains(json, world.villains);
     }
 
     if (world.has_plans) {

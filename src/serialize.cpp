@@ -699,6 +699,7 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
             json.field("diaspora", s.diaspora);
             json.field("diaspora_reason", s.diaspora_reason);
             serialize_detail::write_site_society_fields(json, world, site_index);
+            serialize_detail::write_site_age_fields(json, world, site_index);
             json.end_object();
         }
         json.end_array();
@@ -814,6 +815,8 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
             json.key(key);
             json.begin_object();
             json.field("version", block.version);
+            // Stamped by an age transition: the age whose ground the nests stand on.
+            if (block.evaluated_age) json.field("evaluated_age", *block.evaluated_age);
             json.key("sites");
             json.begin_array();
             for (const NestSite& s : block.sites) {
