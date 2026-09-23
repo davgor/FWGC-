@@ -87,6 +87,7 @@ TEST(capabilities_claims_are_pinned_to_the_code_that_owns_them) {
     // carry is claimed at the version the scene stamps.
     check::equal(claims(d, "world_scene_json"), world.contains("world_scene"), "world_scene_json tracks the document");
     check::is_true(versions(d, "world_scene_json") == std::vector<std::int64_t>{kWorldSceneVersion}, "world scene");
+    check::is_true(versions(d, "height_tile_json") == std::vector<std::int64_t>{kHeightTileVersion}, "height tile");
     check::equal(world.at("world_scene").at("version").as_int(), std::int64_t{kWorldSceneVersion},
                  "the scene block stamps the constant");
     for (const JsonValue& u : d.at("unsupported").as_array()) {
@@ -99,14 +100,18 @@ TEST(capabilities_negotiation_against_the_reference_fixture) {
     const auto& valid = cases.at("valid").as_array();
     check::is_true(accepted(valid.at(0)), "the kernel capabilities");
     check::is_true(accepted(valid.at(1)), "an empty requirement");
-    // The reference's third and fourth "valid" cases name ITS inventory: generation
-    // algorithm 16 and world_json 2, height_tile_json and world_scene_json. This producer
-    // publishes none of those, and says so (data/capabilities.json `deviations`).
+    // The reference's third "valid" case names ITS versions: generation algorithm 16 and
+    // world_json 2. This producer publishes neither, and says so (data/capabilities.json
+    // `deviations`). Its fourth -- taxonomy, asset list, height tile, city plans and world
+    // scene -- names products this producer publishes at the reference's versions.
     const PatchRefusal third = product_test::refusal_of([&] { require_capabilities(valid.at(2)); });
     check::equal(third.field, std::string("requires.generation_algorithm"), "the first unmatched claim is named");
-    const PatchRefusal fourth = product_test::refusal_of([&] { require_capabilities(valid.at(3)); });
-    check::equal(fourth.field, std::string("requires.height_tile_json"), "an unsupported capability is named");
-    check::equal(std::string(fourth.kind), std::string("unsupported_api"), "and not retryable with a value");
+    check::is_true(accepted(valid.at(3)), "the reference's product inventory, at its versions");
+    const PatchRefusal unsupported = product_test::refusal_of([&] {
+        require_capabilities(parse_json(R"({"capability_version": 1, "requires": {"unreal_editor_import": 1}})"));
+    });
+    check::equal(unsupported.field, std::string("requires.unreal_editor_import"), "an unsupported capability is named");
+    check::equal(std::string(unsupported.kind), std::string("unsupported_api"), "and not retryable with a value");
     for (const JsonValue& request : cases.at("invalid").as_array()) {
         const bool native = request.at("requires").contains("native_kernel");
         check::equal(accepted(request), native, "fixture invalid case " + dump_json(request) +

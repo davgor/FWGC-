@@ -108,6 +108,11 @@ void write_magical_catalogue(JsonWriter& json) {
     json.end_array();
 }
 
+// The datum every height in the detail definition and in a height tile is measured from:
+// one sentence, so the definition and the tiles sampled with it cannot disagree about it.
+constexpr std::string_view kHeightReference =
+    "radial metres above the reference sphere; same datum as layers.height";
+
 void write_terrain_detail(JsonWriter& json, const TerrainDetail& detail) {
     json.begin_object();
     json.field("version", detail.version);
@@ -124,8 +129,7 @@ void write_terrain_detail(JsonWriter& json, const TerrainDetail& detail) {
         json.end_object();
     }
     json.end_array();
-    json.field("height_reference",
-               std::string_view("radial metres above the reference sphere; same datum as layers.height"));
+    json.field("height_reference", kHeightReference);
     json.field("coordinates",
                std::string_view("unit direction (cos(lat)cos(lon), sin(lat), cos(lat)sin(lon))"));
     json.field("method", std::string_view(
@@ -1239,6 +1243,47 @@ void write_world_json(std::ostream& out, const World& world, const DocumentOptio
     json.key("debug_stats");
     serialize_detail::write_debug_stats(json, world);
 
+    json.end_object();
+    out << '\n';
+}
+
+void write_height_tile_json(std::ostream& out, const World& world, const HeightTile& tile, bool pretty) {
+    JsonWriter json(out, pretty);
+    json.begin_object();
+    json.field("schema", std::string_view("fantasy-world-generator.height-tile"));
+    json.field("version", kHeightTileVersion);
+    json.field("source_sha256", std::string_view(tile.source_sha256));
+    json.field("generator_version", world.generator_version);
+    json.key("terrain_detail");
+    serialize_detail::write_terrain_detail(json, world.terrain_detail);
+    json.field("level", tile.level);
+    json.key("origin_index");
+    json.begin_array();
+    json.value(tile.origin_x);
+    json.value(tile.origin_z);
+    json.end_array();
+    json.field("size", tile.size);
+    json.key("global_cells");
+    json.begin_array();
+    json.value(tile.global_cols);
+    json.value(tile.global_rows);
+    json.end_array();
+    json.field("radius_m", tile.radius_m);
+    json.field("angular_step_degrees", tile.angular_step_degrees);
+    json.field("equatorial_spacing_m", tile.equatorial_spacing_m);
+    json.field("coordinates",
+               std::string_view("row-major; latitude=90-180*(origin_z+row)/2^level; "
+                                "longitude=-180+180*(origin_x+column)/2^level; "
+                                "globe Cartesian=(radius_m+height_m)*unit_direction"));
+    json.field("height_reference", serialize_detail::kHeightReference);
+    json.key("heights_m");
+    json.begin_array();
+    for (const std::vector<double>& row : tile.heights_m) {
+        json.begin_array();
+        for (const double h : row) json.value(h);
+        json.end_array();
+    }
+    json.end_array();
     json.end_object();
     out << '\n';
 }

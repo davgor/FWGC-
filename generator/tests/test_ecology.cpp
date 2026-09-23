@@ -5,10 +5,14 @@
 #include <cmath>
 #include <map>
 #include <set>
+#include <sstream>
 #include <string>
+#include <vector>
 
 #include "fwg/detail.hpp"
 #include "fwg/ecology.hpp"
+#include "fwg/json_value.hpp"
+#include "fwg/serialize.hpp"
 #include "fwg/world.hpp"
 
 using namespace fwg;
@@ -286,6 +290,46 @@ TEST(tiles_of_one_world_share_a_source_digest) {
     other.phase = 9;
     const HeightTile elsewhere = export_height_tile(generate(resolve(other)), 3, 0, 0, 4);
     check::is_true(elsewhere.source_sha256 != a.source_sha256, "a different world to hash differently");
+}
+
+// The tile as the reference's height-tile document: its keys in its order, the frame the
+// typed tile carries, the world's detail definition, and every height, row-major.
+TEST(a_height_tile_is_written_as_the_references_document) {
+    const World world = build(33);
+    const HeightTile tile = export_height_tile(world, 3, 2, 1, 4);
+    std::ostringstream out;
+    write_height_tile_json(out, world, tile);
+    const JsonValue doc = parse_json(out.str());
+
+    std::vector<std::string> keys;
+    for (const auto& member : doc.as_object()) keys.push_back(member.first);
+    check::is_true(keys == std::vector<std::string>{"schema", "version", "source_sha256", "generator_version",
+                                                    "terrain_detail", "level", "origin_index", "size",
+                                                    "global_cells", "radius_m", "angular_step_degrees",
+                                                    "equatorial_spacing_m", "coordinates", "height_reference",
+                                                    "heights_m"},
+                   "the reference's keys, in its order");
+    check::equal(doc.at("schema").as_string(), std::string("fantasy-world-generator.height-tile"), "schema");
+    check::equal(doc.at("version").as_int(), std::int64_t{kHeightTileVersion}, "version");
+    check::equal(doc.at("source_sha256").as_string(), tile.source_sha256, "the tile's digest");
+    check::equal(doc.at("level").as_int(), std::int64_t{3}, "level");
+    check::equal(doc.at("origin_index").at(std::size_t{0}).as_int(), std::int64_t{2}, "origin x");
+    check::equal(doc.at("origin_index").at(std::size_t{1}).as_int(), std::int64_t{1}, "origin z");
+    check::equal(doc.at("size").as_int(), std::int64_t{tile.size}, "size");
+    check::equal(doc.at("global_cells").at(std::size_t{0}).as_int(), std::int64_t{tile.global_cols}, "columns");
+    check::equal(doc.at("global_cells").at(std::size_t{1}).as_int(), std::int64_t{tile.global_rows}, "rows");
+    check::equal(doc.at("height_reference").as_string(),
+                 doc.at("terrain_detail").at("height_reference").as_string(),
+                 "the tile's datum is its definition's");
+    const auto& rows = doc.at("heights_m").as_array();
+    check::equal(rows.size(), static_cast<std::size_t>(tile.size), "one row per sample row");
+    for (std::size_t j = 0; j < rows.size(); ++j) {
+        const auto& row = rows[j].as_array();
+        check::equal(row.size(), static_cast<std::size_t>(tile.size), "one height per sample column");
+        for (std::size_t i = 0; i < row.size(); ++i) {
+            check::equal(row[i].as_float(), tile.heights_m[j][i], "a height written as the tile holds it");
+        }
+    }
 }
 
 TEST(a_tile_outside_the_grid_is_refused) {

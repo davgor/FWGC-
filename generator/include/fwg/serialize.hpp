@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "fwg/build_stages.hpp"
+#include "fwg/detail.hpp"
 #include "fwg/world.hpp"
 
 namespace fwg {
@@ -32,5 +33,13 @@ struct DocumentOptions {
     const std::vector<BuildStage>* build_stages = nullptr;
 };
 void write_world_json(std::ostream& out, const World& world, const DocumentOptions& options);
+
+// A height tile (export_height_tile, detail.hpp) as the reference's height-tile document:
+// schema `fantasy-world-generator.height-tile` version 1, key for key -- the tile's frame, the
+// terrain-detail definition it was sampled with, and its heights, row-major. `world` is the
+// world the tile was exported from; it supplies the definition and the generator version.
+// Compact by default, as interchange output is.
+inline constexpr int kHeightTileVersion = 1;
+void write_height_tile_json(std::ostream& out, const World& world, const HeightTile& tile, bool pretty = false);
 
 }  // namespace fwg

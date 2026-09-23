@@ -40,6 +40,9 @@
    "hamlet_plans_json": [
     3
    ],
+   "height_tile_json": [
+    1
+   ],
    "hero_guild_planning": [
     1
    ],
@@ -66,7 +69,6 @@
    ]
   },
   "unsupported": [
-   "height_tile_json",
    "unreal_editor_import",
    "unreal_cooked_runtime",
    "save_migration"
@@ -278,8 +280,7 @@
   "supported.world_json": "The world document this producer writes is schema fwg.world version 1 (kWorldSchemaVersion, include/fwg/serialize.hpp), not the reference's fantasy-world-generator.world version 2.",
   "supported.hamlet_plans_json": "HamletPlans::version is 3 (include/fwg/city_plan.hpp). The reference advertised 1 while its own hamlet_planner.VERSION was already 3; its descriptor was stale.",
   "supported.native_kernel": "The counter kernel runs natively here (src/counter_kernel.cpp). The reference listed native_kernel as unavailable from the Python producer.",
-  "supported.height_tile_json": "Not written by this producer: export_height_tile returns a typed tile and nothing serialises it. Moved to unsupported.",
-  "unsupported": "height_tile_json added (see above); native_kernel removed.",
+  "unsupported": "native_kernel removed: the counter kernel runs natively here (see supported.native_kernel).",
   "coordinates.unreal_boundary.axis_mapping": "\"this Python producer\" reads \"this producer\". The mapping itself is unchanged and is not implemented here either."
  }
 }
