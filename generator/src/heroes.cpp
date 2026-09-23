@@ -9,6 +9,7 @@
 
 #include "fwg/heritage.hpp"
 #include "fwg/json.hpp"
+#include "fwg/religion.hpp"
 
 namespace fwg {
 namespace {
@@ -1088,8 +1089,8 @@ std::string first_token(const std::string& text) {
 }
 
 void run_countryside_well(Ctx& ctx, const std::map<std::string, std::size_t>& by_city,
-                          const std::vector<HeroRealm>& realms, std::vector<Hero>& people,
-                          std::vector<HeroRoll>& rolls) {
+                          const std::vector<HeroRealm>& realms, const std::vector<HeroDread>& dreads,
+                          std::vector<Hero>& people, std::vector<HeroRoll>& rolls) {
     const HeroWellsPolicy& w = *ctx.wells;
     std::map<std::string, double> deficit;
     for (const HeroRuralCore& core : ctx.req->cores) deficit[core.site_id] = core.food_deficit;
@@ -1098,6 +1099,18 @@ void run_countryside_well(Ctx& ctx, const std::map<std::string, std::size_t>& by
     std::vector<const HeroNest*> dangerous;
     for (const HeroNest& nest : ctx.req->nests) {
         if (dangerous_nest(nest, *ctx.words)) dangerous.push_back(&nest);
+    }
+    // A living dread's lair threatens every hamlet within the reach it razed cities from
+    // (2026-09-23), and it is the reeve's nest ahead of any other: the monster with a name is
+    // the one the fields fear. The well's own reach is metres of the reference world, so on
+    // a shipped world it finds no lair at all; the dread's is scaled to the world.
+    std::vector<std::pair<const HeroNest*, double>> dread_lairs;
+    for (const HeroDread& dread : dreads) {
+        if (dread.status != "living") continue;
+        const auto found = ctx.nest_by_id.find(dread.nest_id);
+        if (found == ctx.nest_by_id.end() || !found->second->has_grid) continue;
+        const HeroNest& lair = *found->second;
+        dread_lairs.emplace_back(&lair, nest_threat_reach_m(lair.has_range ? lair.range_m : 350.0, ctx.radius));
     }
 
     for (const HeroHamlet& hamlet : ctx.req->hamlets) {
@@ -1121,7 +1134,19 @@ void run_countryside_well(Ctx& ctx, const std::map<std::string, std::size_t>& by
         const double reach = nearest != nullptr && nearest->has_range && nearest->range_m != 0.0
                                  ? nearest->range_m
                                  : 1000.0;
-        const bool threatened = nearest != nullptr && distance <= w.reeve_reach_factor * reach;
+        // The nearest living dread's lair in reach, ties to the lowest nest id, displaces it.
+        const HeroNest* lair = nullptr;
+        double lair_distance = 0.0;
+        for (const auto& [candidate, lair_reach] : dread_lairs) {
+            const double d = grid_metres(hamlet.x, hamlet.z, candidate->x, candidate->z, ctx.spacing);
+            if (d > lair_reach) continue;
+            if (lair == nullptr || d < lair_distance || (d == lair_distance && candidate->id < lair->id)) {
+                lair = candidate;
+                lair_distance = d;
+            }
+        }
+        if (lair != nullptr) nearest = lair;
+        const bool threatened = lair != nullptr || (nearest != nullptr && distance <= w.reeve_reach_factor * reach);
         const double starving = deficit.count(hamlet.core_id) ? deficit[hamlet.core_id] : 0.0;
         const std::string word(hero_word(ctx.words->role_word, first_token(hamlet.role),
                                          ctx.words->role_word_default));
@@ -1638,15 +1663,39 @@ std::pair<std::string, std::string> person_name(Ctx& ctx, const Hero& person) {
     return {name, draw_epithet(draw, candidates, context)};
 }
 
+// The city a dread is named for, without the " (Age N)" a refounded city carries: the
+// epithet makes a possessive of it, and "Frosstrand (Age 1)'s Doom" is no name.
+Context dread_context(const HeroDread& dread) {
+    std::string city = dread.destroyed.empty() ? "" : hero_short_name(dread.destroyed.front().name);
+    if (const std::size_t age = city.find(" (Age "); age != std::string::npos) city.erase(age);
+    Context context;
+    context.emplace_back("city", city);
+    context.emplace_back("species", dread.species);
+    return context;
+}
+
 std::string dread_name(Ctx& ctx, const HeroDread& dread) {
     Rng draw = stream(ctx.req->seed, "hero-name-" + dread.uid);
-    Context context;
-    context.emplace_back("city",
-                         dread.destroyed.empty() ? "" : hero_short_name(dread.destroyed.front().name));
-    context.emplace_back("species", dread.species);
     const std::vector<std::string_view> candidates = hero_epithet_candidates("dread", false);
     // No usability filter on this path: the reference picks straight off the list.
-    return fill_epithet(pick(draw, candidates), context);
+    return fill_epithet(pick(draw, candidates), dread_context(dread));
+}
+
+// A dread's name is the handle a player hunts it by, so no two share one (2026-09-23). A
+// dread whose drawn name another already holds takes the first epithet, in list order, that
+// makes a free one; the epithets naming its first razed city always do, since every city is
+// razed once.
+void rename_dread_if_taken(HeroDread& dread, std::set<std::string>& taken) {
+    if (taken.insert(dread.display_name).second) return;
+    for (const std::string_view candidate : hero_epithet_candidates("dread", false)) {
+        const std::string epithet = fill_epithet(candidate, dread_context(dread));
+        const std::string display = dread.species + ", " + epithet;
+        if (taken.insert(display).second) {
+            dread.name = epithet;
+            dread.display_name = display;
+            return;
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -2447,11 +2496,25 @@ struct HookDraft {
 };
 
 std::vector<HeroQuestHook> build_quest_hooks(const Ctx& ctx, const std::vector<Hero>& people,
-                                             const std::vector<HeroRelic>& relics) {
+                                             const std::vector<HeroRelic>& relics,
+                                             const std::vector<HeroDread>& dreads) {
     const HeroWellsPolicy& w = *ctx.wells;
     const HookIndex index = build_hook_index(ctx, relics);
     std::map<std::string, const HeroRelic*> relic_by_ruin;
     for (const HeroRelic& relic : relics) relic_by_ruin[relic.resting_at] = &relic;
+    // The hunt (2026-09-23): a living dread is named in every slay hook against its lair, and
+    // the heir of each city it razed asks for it by name.
+    std::map<std::string, const HeroDread*> dread_at_lair;
+    std::map<std::string, const HeroDread*> dread_of_ruin;
+    for (const HeroDread& dread : dreads) {
+        if (dread.status != "living") continue;
+        dread_at_lair.emplace(dread.nest_id, &dread);
+        for (const HeroDreadKill& kill : dread.destroyed) dread_of_ruin.emplace(kill.uid, &dread);
+    }
+    const auto named = [&](const std::string& nest_id) -> const HeroDread* {
+        const auto found = dread_at_lair.find(nest_id);
+        return found != dread_at_lair.end() ? found->second : nullptr;
+    };
 
     std::vector<HeroQuestHook> hooks;
     for (const Hero& person : people) {
@@ -2521,8 +2584,13 @@ std::vector<HeroQuestHook> build_quest_hooks(const Ctx& ctx, const std::vector<H
                 slay.kind = "nest";
                 slay.nest_id = person.nest_id;
                 slay.action = "slay";
-                drafts.push_back(
-                    {"Drive the " + lowercase(person.nest_name) + " from our fields.", slay, false});
+                const HeroDread* dread = named(person.nest_id);
+                // The name comes last: an epithet like "Who Ate Nerdun" is an appositive, and
+                // a sentence that carries on after it needs commas nobody reads well.
+                drafts.push_back({dread != nullptr
+                                      ? "Our fields lie in its reach: drive off " + dread->display_name + "."
+                                      : "Drive the " + lowercase(person.nest_name) + " from our fields.",
+                                  slay, false});
             }
         } else if (person.role == "castellan") {
             HeroEffect e;
@@ -2562,12 +2630,16 @@ std::vector<HeroQuestHook> build_quest_hooks(const Ctx& ctx, const std::vector<H
             e.uid = person.home->uid;
             e.action = "defend";
             drafts.push_back({"Walk the walls of " + person.home->name + " with me.", e, false});
-        } else if (person.role == "champion" && !person.nest_id.empty()) {
+        } else if (person.role == "champion" && !person.nest_id.empty() && index.nest.count(person.nest_id) != 0) {
+            // A lair that no longer stands cannot be hunted: the champion of a city whose
+            // beast is gone -- a legend now -- offers nothing to slay.
             HeroEffect e;
             e.kind = "nest";
             e.nest_id = person.nest_id;
             e.action = "slay";
-            drafts.push_back({"Help me end " + claim.target_name + ".", e, false});
+            const HeroDread* dread = named(person.nest_id);
+            drafts.push_back({"Help me end " + (dread != nullptr ? dread->display_name : claim.target_name) + ".", e,
+                              false});
         } else if ((person.role == "heresiarch" || person.role == "prophet") && claim.verb == "convert") {
             HeroEffect e;
             e.kind = "city";
@@ -2588,6 +2660,20 @@ std::vector<HeroQuestHook> build_quest_hooks(const Ctx& ctx, const std::vector<H
             drafts.push_back({"Bring the college near " + hero_short_name(person.home->name) +
                                   " what it asks for.",
                               e, false});
+        }
+
+        // Outside the chain, after whatever it drafted: the heir of a city a living dread
+        // razed wants the city back AND the beast dead, and asks for the beast by name.
+        if (person.role == "pretender" && person.lost.has_value()) {
+            if (const auto found = dread_of_ruin.find(person.lost->uid); found != dread_of_ruin.end()) {
+                const HeroDread& dread = *found->second;
+                HeroEffect slay;
+                slay.kind = "nest";
+                slay.nest_id = dread.nest_id;
+                slay.action = "slay";
+                drafts.push_back({"Avenge " + hero_short_name(person.lost->name) + ": slay " + dread.display_name + ".",
+                                  slay, false});
+            }
         }
 
         for (std::size_t i = 0; i < drafts.size(); ++i) {
@@ -3079,7 +3165,7 @@ HeroesBlock resolve_heroes(const HeroesRequest& request) {
     run_magic_well(ctx, by_city, realms, people, rolls);
     run_cities_well(ctx, realms, by_city, people, rolls, orgs);
     run_guilds_well(ctx, by_city, realms, people, rolls, orgs);
-    run_countryside_well(ctx, by_city, realms, people, rolls);
+    run_countryside_well(ctx, by_city, realms, dreads, people, rolls);
     run_ports_well(ctx, by_city, realms, people, rolls);
     run_shrines_well(ctx, by_city, realms, people, rolls);
     // Camps roll AFTER all seven wells, not in well order.
@@ -3173,6 +3259,7 @@ HeroesBlock resolve_heroes(const HeroesRequest& request) {
     }
 
     std::map<std::string, const HeroNest*> nests_by_id = ctx.nest_by_id;
+    std::set<std::string> dread_names;
     for (HeroDread& dread : dreads) {
         double magnitude = 0.0;
         for (const HeroDeed& deed : dread.deeds) {
@@ -3189,10 +3276,11 @@ HeroesBlock resolve_heroes(const HeroesRequest& request) {
         if (dread.tier == "renowned" || dread.tier == "legendary") dread.features.insert("fame:renowned");
         if (dread.tier == "legendary") dread.features.insert("fame:legendary");
         finish_dread(ctx, dread);
+        rename_dread_if_taken(dread, dread_names);
     }
 
     std::vector<HeroRelic> relics = build_relics(ctx);
-    std::vector<HeroQuestHook> hooks = build_quest_hooks(ctx, people, relics);
+    std::vector<HeroQuestHook> hooks = build_quest_hooks(ctx, people, relics, dreads);
     for (Hero& person : people) {
         person.anchor_direction.reset();
         person.dispossessed = false;

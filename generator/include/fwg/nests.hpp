@@ -294,8 +294,15 @@ std::optional<NestBlock> add_monsters(const World& world, const SphereGrid& grid
                                       const std::vector<int>& settled_nodes);
 
 // Both passes, animals first. They never read each other.
+//
+// `held_lairs` STAND (ruled 2026-09-23): a monster lair that razed a city is a dread's home,
+// and it is not re-rolled away at the next placement. Each is kept exactly as it was --
+// id, node, species, tier and range -- unless its node is now settled, and it claims its
+// territory before the draw, so the lairs placed around it respect it as they would any
+// incumbent. The draw itself is unchanged: a held lair moves only what it now refuses.
 std::optional<NestPasses> add_nests(const World& world, const SphereGrid& grid,
-                                    const std::vector<int>& settled_nodes);
+                                    const std::vector<int>& settled_nodes,
+                                    const std::vector<NestSite>& held_lairs = {});
 
 // ---------------------------------------------------------------------------
 // The pieces, exposed because they are the published answers to questions a caller

@@ -595,8 +595,23 @@ async function renderBand(ctx) {
   ctx.rawSections();
 }
 
+// The slay hooks sent against a lair: who hunts the thing that lives there.
+function huntsOf(heroes, nestId) {
+  return nestId ? (heroes.block?.quest_hooks ?? []).filter(q => q.verb === 'slay' && q.actual_effect?.nest_id === nestId) : [];
+}
+
+// Each hunt under the name of whoever asks for it.
+function appendHunts(ctx, heroes, section, hunts) {
+  for (const hook of hunts) {
+    const giver = heroes.byUid.get(hook.giver_uid);
+    section.append(el('p', {}, giver ? ctx.link(heroLabel(giver), { kind: 'hero', record: giver }) : hook.giver_uid, ' asks:'),
+      hookNode(ctx, hook));
+  }
+}
+
 async function renderHero(ctx) {
   const { world, record: p } = ctx;
+  if (p.role === 'dread') return renderDread(ctx);
   ctx.header(`Person · ${titleCase(p.role ?? '')}`, p.display_name ?? p.name ?? p.uid,
     [p.archetype_name, p.alignment?.label, p.tier ? titleCase(p.tier) : null, p.status].filter(Boolean).join(' · '));
   if (p.situation) ctx.body.append(el('p', {}, p.situation));
@@ -654,6 +669,50 @@ async function renderHero(ctx) {
         ['Acts', (web.acts ?? []).map(a => a.title).join(' → ')],
       ], section);
     });
+  }
+  ctx.rawSections();
+}
+
+// A dread: a monster the cast names for the cities it razed. Living while its lair stands, and
+// hunted by the heirs of those cities, the reeves in its reach and the orders that failed
+// against it.
+async function renderDread(ctx) {
+  const { world, record: d } = ctx;
+  ctx.header(`Dread · ${d.species ?? 'beast'}`, d.display_name ?? d.name ?? d.uid,
+    [d.archetype_name, d.alignment?.label, d.tier ? titleCase(d.tier) : null, d.status].filter(Boolean).join(' · '));
+  if (d.situation) ctx.body.append(el('p', {}, d.situation));
+  const heroes = await lookups.heroes(world);
+  const lair = d.presence ? await resolveSite(world, d.presence.site_kind, d.presence.uid) : null;
+  const razed = await Promise.all((d.destroyed ?? []).map(async kill => [kill, await resolveSite(world, 'ruin', kill.uid)]));
+  if (!ctx.current()) return;
+  ctx.buttons(lair?.record?.x !== undefined ? ctx.focusButton(lair.record.x, lair.record.z) : null);
+  ctx.facts([
+    ['Lair', lair ? ctx.link(`${lair.record.name} (tier ${d.nest_tier})`, lair) : `gone; ${d.nest_id}`],
+    ['Family', d.family || 'unknown'],
+    ['Fame', d.fame],
+    ['uid', d.uid],
+  ]);
+  const razedSection = ctx.section(`Razed (${razed.length})`);
+  ctx.links(razedSection, razed.map(([kill, ruin]) => (ruin
+    ? ctx.link(`${kill.name}, age ${kill.age}`, ruin)
+    : `${kill.name}, age ${kill.age}`)), 'No city recorded.');
+  const hunts = huntsOf(heroes, d.status === 'living' ? d.nest_id : null);
+  const huntSection = ctx.section(`Hunted by (${hunts.length})`);
+  if (!hunts.length) {
+    huntSection.append(el('p', { class: 'note' }, d.status === 'living' ? 'Nobody has asked yet.' : 'Its lair is gone: there is nothing left to hunt.'));
+  }
+  appendHunts(ctx, heroes, huntSection, hunts);
+  // A dread record carries no bond list of its own: its rivals are the bonds naming it.
+  const rivals = (heroes.block?.bonds ?? [])
+    .filter(b => b.kind === 'rival' && (b.a === d.uid || b.b === d.uid))
+    .map(b => heroes.byUid.get(b.a === d.uid ? b.b : b.a)).filter(Boolean);
+  if (rivals.length) {
+    const section = ctx.section('Rivals');
+    ctx.links(section, rivals.map(q => ctx.link(heroLabel(q), { kind: 'hero', record: q })), '');
+  }
+  if (d.persona) {
+    const persona = ctx.section('Persona');
+    ctx.facts(Object.entries(d.persona).map(([k, v]) => [titleCase(k), Array.isArray(v) ? v.join('; ') : v]), persona);
   }
   ctx.rawSections();
 }
@@ -734,6 +793,21 @@ async function renderNest(ctx) {
   if (!ctx.current()) return;
   const nest = full?.[0] ?? item.record;
   const profile = profiles?.[0];
+  // A lair a dread holds: name it, and who is sent against it.
+  if (block === 'beast_nests' && world.has('heroes')) {
+    const heroes = await lookups.heroes(world);
+    if (!ctx.current()) return;
+    const dread = (heroes.block?.dreads ?? []).find(x => x.nest_id === nest.id);
+    if (dread) {
+      ctx.body.append(el('p', {}, 'The lair of ', ctx.link(dread.display_name, { kind: 'hero', record: dread }),
+        `, who razed ${(dread.destroyed ?? []).map(k => k.name).join(', ') || 'a city'}.`));
+      const hunts = huntsOf(heroes, nest.id);
+      if (hunts.length) {
+        const section = ctx.section(`Hunted by (${hunts.length})`);
+        appendHunts(ctx, heroes, section, hunts);
+      }
+    }
+  }
   ctx.facts([
     ['Role', nest.role],
     ['Suitability', nest.suitability],

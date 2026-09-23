@@ -611,6 +611,15 @@ std::array<double, kKnownSchools> mean_potency(const ReligionRequest& request,
 // the same eligibility and the same reach, and three copies of this would be three
 // answers. It lives here only because stage 14 is not ported yet; when it lands, this
 // moves and all three callers take it from one place.
+//
+// THE REACH SCALES WITH THE WORLD (ruled 2026-09-23, "beasts are a real menace"). The
+// reference authored it as min(radius / 2, max(350 m, 2 * span)) in metres of its own
+// 11.15 km world and never scaled it, so on a shipped world a lair reached no city but the
+// one on its own cell and no beast ever razed a city. The authored metres now pass through
+// reach_scale(circumference), as the villain and war reaches do; the half-radius cap is
+// already a share of the world. `span_m` is the nest's range, else its spacing, else 350.
+double nest_threat_reach_m(double span_m, double radius_m);
+
 struct NestThreat {
     std::string kind;  // dragon | monster
     double weight = 0.0;
@@ -621,8 +630,17 @@ struct NestThreat {
     double distance_m = 0.0;
     double reach_m = 0.0;
 };
+// Every eligible lair within its reach, in STRING order on the nest id. Religion's fear
+// reads them all: a city fears every monster family that can reach it.
 std::vector<NestThreat> nest_threats(const ReligionCity& city,
                                      const std::vector<ReligionNest>& nests, double radius_m);
+
+// The lair that counts against a city's walls and in its fate: the heaviest, ties to the
+// lowest id. Only one counts (2026-09-23): with the reach scaled, a city stands within
+// reach of a dozen lairs or more, and their summed weight would put every city at the fate
+// cap every age. The reference's own sentence for the weight -- a greater lair at the gates
+// is the reason a city falls -- is the strongest lair's. Null when none is in reach.
+const NestThreat* strongest_nest_threat(const std::vector<NestThreat>& threats);
 
 // Resolve gods, cosmology, faiths and sites from the current world. Narrative only:
 // nothing in the request is modified and nothing else in the world is written.

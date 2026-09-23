@@ -1032,6 +1032,142 @@ TEST(a_short_name_loses_every_city_suffix_not_only_the_first) {
     check::equal(hero_short_name("Citadel"), std::string("Citadel"), "a bare word is untouched");
 }
 
+// --- the hunt (2026-09-23) --------------------------------------------------------------
+
+namespace {
+
+const HeroDread* dread_at(const HeroesBlock& block, const std::string& nest_id) {
+    for (const HeroDread& dread : block.dreads) {
+        if (dread.nest_id == nest_id) return &dread;
+    }
+    return nullptr;
+}
+
+const Hero* person_with_uid(const HeroesBlock& block, const std::string& uid) {
+    for (const Hero& person : block.people) {
+        if (person.uid == uid) return &person;
+    }
+    return nullptr;
+}
+
+std::vector<const HeroQuestHook*> hooks_of(const HeroesBlock& block, const std::string& giver_uid) {
+    std::vector<const HeroQuestHook*> out;
+    for (const HeroQuestHook& hook : block.quest_hooks) {
+        if (hook.giver_uid == giver_uid) out.push_back(&hook);
+    }
+    return out;
+}
+
+const HeroQuestHook* slay_hook(const std::vector<const HeroQuestHook*>& hooks, const std::string& nest_id) {
+    for (const HeroQuestHook* hook : hooks) {
+        if (hook->verb == "slay" && hook->actual_effect.nest_id == nest_id) return hook;
+    }
+    return nullptr;
+}
+
+}  // namespace
+
+TEST(a_living_dread_is_hunted_by_name_by_the_heir_the_reeve_and_the_champion) {
+    // Keld fell to the Ashen Wyrm (tier four) in the final age, and its lair still stands.
+    // The heir wants the city back AND the beast dead; the reeve of the hamlet in the lair's
+    // world-scaled reach wants it driven off; the champion of Keld's remnant order wants it
+    // ended. Each names the dread, and each prices it at the lair's own tier.
+    //
+    // The hamlet stands 5 km off on the grid: past the reeve well's own reach (1.5 x the 3 km
+    // range), inside the dread's (half the radius, 5.6 km) -- so only the dread finds it.
+    Bench bench;
+    bench.request.hamlets[0].x = 1;
+    bench.request.hamlets[0].z = 2;
+    int heirs = 0, reeves = 0, champions = 0;
+    for (const HeroesBlock& block : band(bench)) {
+        const HeroDread* dread = dread_at(block, "nest-1");
+        if (dread == nullptr) continue;
+        check::equal(dread->status, std::string("living"), "a dread whose lair stands is living");
+        const std::string& name = dread->display_name;
+
+        if (person_with_uid(block, "hero-pretender-r2") != nullptr) {
+            const HeroQuestHook* hunt = slay_hook(hooks_of(block, "hero-pretender-r2"), "nest-1");
+            check::is_true(hunt != nullptr, "the heir of Keld asks for the wyrm");
+            check::equal(hunt->stated_purpose, "Avenge Keld: slay " + name + ".", "by name");
+            check::equal(hunt->difficulty, 4, "at the lair's own tier");
+            check::equal(hunt->target, std::string("nest-1"), "pointed at the lair");
+            ++heirs;
+        }
+        for (const Hero& person : block.people) {
+            if (person.role != "reeve") continue;
+            check::equal(person.nest_id, std::string("nest-1"), "the reeve's nest is the dread's lair");
+            const HeroQuestHook* hunt = slay_hook(hooks_of(block, person.uid), "nest-1");
+            check::is_true(hunt != nullptr, "the reeve asks for it");
+            check::equal(hunt->stated_purpose, "Our fields lie in its reach: drive off " + name + ".", "by name");
+            ++reeves;
+        }
+        if (person_with_uid(block, "hero-champion-r2") != nullptr) {
+            const HeroQuestHook* hunt = slay_hook(hooks_of(block, "hero-champion-r2"), "nest-1");
+            check::is_true(hunt != nullptr, "Keld's champion asks for it");
+            check::equal(hunt->stated_purpose, "Help me end " + name + ".", "by name");
+            ++champions;
+        }
+    }
+    check::is_true(heirs > 0 && reeves > 0 && champions > 0,
+                   "each hunter found across the band: heirs " + std::to_string(heirs) + ", reeves " +
+                       std::to_string(reeves) + ", champions " + std::to_string(champions));
+}
+
+TEST(a_legend_is_hunted_by_nobody_for_its_lair_is_gone) {
+    // The lair that razed Keld no longer stands: the dread is a legend, nothing can be
+    // hunted there, and nobody is sent to.
+    Bench bench;
+    bench.request.nests.erase(bench.request.nests.begin());  // nest-1, the Ashen Wyrm
+    int legends = 0;
+    for (const HeroesBlock& block : band(bench)) {
+        if (const HeroDread* dread = dread_at(block, "nest-1")) {
+            check::equal(dread->status, std::string("legend"), "a dread whose lair is gone is a legend");
+            ++legends;
+        }
+        for (const HeroQuestHook& hook : block.quest_hooks) {
+            check::is_true(hook.actual_effect.nest_id != "nest-1", hook.hook_id + " sends nobody to a lair that is gone");
+        }
+        for (const Hero& person : block.people) {
+            if (person.role == "reeve") check::is_true(person.nest_id.empty(), "no lair in reach of the reeve");
+        }
+    }
+    check::is_true(legends > 0, "a legend precipitated across the band, or nothing is tested");
+}
+
+TEST(no_two_dreads_share_a_name_and_no_epithet_carries_an_age) {
+    // Six wyrms of one kind, each razing a city refounded in the first age. Six draws over six
+    // epithets repeat one somewhere in the band -- "the Old Hunger" names no city at all --
+    // and a player hunts by name, so a repeat takes the first free epithet instead.
+    Bench bench;
+    for (int i = 0; i < 6; ++i) {
+        const std::string n = std::to_string(i);
+        HeroRuin ruin = bench.request.ruins[2];  // Keld, razed by a dragon
+        ruin.uid = "r-wyrm-" + n;
+        ruin.id = "ruin-wyrm-" + n;
+        ruin.name = "Holt" + n + " (Age 1)";
+        ruin.node = 100 + i;
+        ruin.evidence_nest_id = "nest-wyrm-" + n;
+        bench.request.ruins.push_back(ruin);
+        HeroNest lair = bench.request.nests[0];  // the Ashen Wyrm
+        lair.id = "nest-wyrm-" + n;
+        lair.tier = 5;
+        lair.x = 20 + i;
+        bench.request.nests.push_back(lair);
+    }
+    int dreads = 0;
+    for (const HeroesBlock& block : band(bench)) {
+        std::set<std::string> names;
+        for (const HeroDread& dread : block.dreads) {
+            check::is_true(names.insert(dread.display_name).second, "a second " + dread.display_name);
+            check::is_true(dread.display_name.find(" (Age ") == std::string::npos,
+                           dread.display_name + " to carry no age suffix");
+            check::equal(dread.display_name, dread.species + ", " + dread.name, "the display name is the name");
+            ++dreads;
+        }
+    }
+    check::is_true(dreads > 24 * 4, "the band full of dreads, or the collisions are not tested");
+}
+
 TEST(a_great_circle_separation_is_metres_and_clamped) {
     const Vec3 a{1.0, 0.0, 0.0};
     const Vec3 b{0.0, 1.0, 0.0};

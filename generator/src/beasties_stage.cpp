@@ -8,6 +8,7 @@
 #include "fwg/beasties_stage.hpp"
 
 #include <map>
+#include <set>
 #include <string>
 #include <utility>
 
@@ -184,7 +185,23 @@ void place_nests(World& world, std::optional<int> evaluated_age) {
     // 332 of the 365 cells a logging camp qualified for were already held, against 225 once
     // the lairs keep clear of the hamlets and harbours too.
     const std::vector<int> settled = nest_settled_nodes(world);
-    if (auto passes = add_nests(world, *held, settled)) {
+    // Every lair a beast ruin names STANDS (2026-09-23): the monster that razed a city keeps
+    // its lair through every later placement, which is what lets its dread still be living
+    // there at stage 16. The lair is read off the placement this one replaces, so a lair
+    // dropped once -- settled over, or purged by a god -- is gone for good.
+    std::set<std::string> razers;
+    for (const Ruin& ruin : world.ruins) {
+        if ((ruin.cause == "dragon" || ruin.cause == "monster") && !ruin.evidence.nest_id.empty()) {
+            razers.insert(ruin.evidence.nest_id);
+        }
+    }
+    std::vector<NestSite> standing;
+    if (world.has_wildlife) {
+        for (const NestSite& site : world.beast_nests.sites) {
+            if (razers.count(site.id) != 0) standing.push_back(site);
+        }
+    }
+    if (auto passes = add_nests(world, *held, settled, standing)) {
         world.wildlife = std::move(passes->wildlife);
         world.beast_nests = std::move(passes->beast_nests);
         world.beast_nests.evaluated_age = evaluated_age;

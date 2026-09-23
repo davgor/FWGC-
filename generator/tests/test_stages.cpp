@@ -435,6 +435,45 @@ TEST(a_quest_to_slay_something_points_at_where_it_lives) {
     check::is_true(slay > 0, "some slay quest to exist, or nothing is tested");
 }
 
+TEST(beasts_raze_cities_and_every_living_dread_is_hunted_by_name) {
+    // Ruled 2026-09-23, "beasts are a real menace": the lair reach scales with the world, so
+    // monsters raze cities; each razing can name a dread; a lair that razed a city stands; and
+    // every living dread is the target of a hunt that names it.
+    const World& w = complete_65();
+    long long beast_ruins = 0;
+    std::set<std::string> razers;
+    for (const Ruin& ruin : w.ruins) {
+        if (ruin.cause != "dragon" && ruin.cause != "monster") continue;
+        ++beast_ruins;
+        razers.insert(ruin.evidence.nest_id);
+    }
+    check::is_true(beast_ruins * 10 >= static_cast<long long>(w.ruins.size()),
+                   "beasts to raze a tenth of the fallen or more, got " + std::to_string(beast_ruins) + " of " +
+                       std::to_string(w.ruins.size()));
+    std::map<std::string, const NestSite*> lairs;
+    for (const NestSite& n : w.beast_nests.sites) lairs.emplace(n.id, &n);
+    int living = 0;
+    for (const HeroDread& dread : w.heroes.dreads) {
+        check::is_true(razers.count(dread.nest_id) != 0, dread.uid + " named for a lair that razed a city");
+        check::equal(dread.status == "living", lairs.count(dread.nest_id) != 0,
+                     dread.uid + " living exactly while its lair stands");
+        if (dread.status != "living") continue;
+        ++living;
+        int hunts = 0;
+        for (const HeroQuestHook& hook : w.heroes.quest_hooks) {
+            if (hook.verb != "slay" || hook.actual_effect.nest_id != dread.nest_id) continue;
+            ++hunts;
+            check::is_true(hook.stated_purpose.find(dread.display_name) != std::string::npos,
+                           hook.hook_id + " names " + dread.display_name);
+            check::equal(hook.target_node, lairs.at(dread.nest_id)->node, hook.hook_id + " points at the lair");
+        }
+        check::is_true(hunts > 0, dread.uid + " hunted by someone");
+    }
+    check::is_true(living * 2 > static_cast<int>(w.heroes.dreads.size()),
+                   "most dreads living at lairs that stand, got " + std::to_string(living) + " of " +
+                       std::to_string(w.heroes.dreads.size()));
+}
+
 TEST(stage_sixteen_staffs_every_settlement_and_places_every_person) {
     const World w = at_phase(16, 65);
     check::is_true(w.has_npcs, "stage 16 to build the rosters");

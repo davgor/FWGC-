@@ -878,7 +878,8 @@ TEST(each_cause_names_itself_and_asks_for_its_own_legacy) {
     // --- a nest: dragon or monster by name, and its family goes to the legacy.
     {
         Bench bench = populated();
-        // A 2 km range reaches 4 km, so each nest threatens only the city on its own cell.
+        // Both lairs reach both cities (the reach is scaled to the world, 2026-09-23), and only
+        // the strongest is drawn: the one on a city's own cell outweighs its neighbour's.
         bench.nest("nest-barrow", "Barrow Host", "undead", bench.at(9, kEquator));
         bench.nest("nest-ash", "Ash Dragon", "draconic", bench.at(10, kEquator));
         bool monster = false;

@@ -190,12 +190,12 @@ struct ThreatReport {
     // What the city planner reads as defense_priority: nest + ley + war, capped at 1. The
     // forward-looking outlook below does NOT move it -- a forecast does not build walls yet.
     double regional_threat = 0.0;
-    double nest_pressure = 0.0;
+    double nest_pressure = 0.0;  // the strongest lair in reach, the one the lottery draws
     double ley_pressure = 0.0;
     double war_pressure = 0.0;
     int wars_fought = 0;
     WarOutlook outlook;
-    std::vector<ThreatContributor> contributors;  // nests in id order, then ley, then war
+    std::vector<ThreatContributor> contributors;  // the strongest lair, then ley, then war
     std::optional<ThreatLey> ley;
     // Written by stage 16's nomad effects AFTER the planners have read regional_threat: the
     // raiders in reach and their pressure. Where any are in reach, regional_threat is raised

@@ -197,6 +197,29 @@ Each is pinned by tests, so a change of mind lands as a deliberate change.
    counted in `summary.appearance_unresolved`, never guessed. Hair and every finer choice are
    the game's. The npcs block is version 2. The gnome's appearance text still says gnomes grey
    early, and is to be rewritten.
+6. **Beasts are a real menace, and their dreads are hunted** (2026-09-23). A lair's reach,
+   min(radius / 2, max(350 m, 2 x range)), was metres of the 11.15 km reference world and
+   never scaled, so a lair reached no city but the one on its own cell and no beast ever
+   razed a city: the dread cast never formed. The authored metres now pass through
+   `reach_scale`, as the villain and war reaches do (`nest_threat_reach_m`, religion.hpp), and
+   **only the strongest lair in reach weighs on a city** -- in the age lottery, a god's
+   visitation and the walls' regional threat -- because a city now stands within reach of a
+   dozen lairs or more and their sum would hold it at the fate cap every age; religion's fear
+   still reads every lair in reach. At seeds 42, 7, 99 and 1234, sizes 65 and 129, beasts raze
+   about 30% of the fallen, the share of standing cities falling each age rose from 46-50% to
+   65-70% (wars still take 62%), and the rebuilds leave slightly more cities standing at the
+   end. **A lair that razed a city stands** through every later nest placement until its node
+   is settled or a god purges it, so its dread is still living there at stage 16: about 17
+   dreads a world, nearly all living. **The hunt**: the heir of each city a living dread razed
+   asks for it by name ("Avenge Keld: slay Ashen Wyrm, the Old Hunger."), the reeve of any
+   hamlet within its world-scaled reach takes its lair as the hamlet's nest and asks it driven
+   off, and the champion of a razed city's remnant order asks it ended; every slay hook is
+   priced at the lair's tier and sited at it, and a lair that is gone is hunted by nobody. No
+   two dreads share a name, and an epithet drops a refounded city's "(Age N)". Dreads join the
+   NPC roster after the heroes (`npc-dread-<nest id>`), at their lairs, with no gender or
+   age -- monsters, by ruling -- and nothing unresolved about them. The reeve and champion
+   wells' own nest reaches are still reference metres (scale-defects.md); only a dread's lair
+   is found through the scaled one.
 
 Observed and not changed: a school god's aspect is Wild when its network's mean node
 intensity times (1 + instability) exceeds 1.2, and generated intensities average about 2,
@@ -207,9 +230,9 @@ so school gods are nearly always Wild -- in the reference as well.
 The reference was authored for a world 11.15 km around; the shipped presets are 200 to
 600 km. Distances that scale with the planet are fine; many authored metres do not, and
 several whole systems consequently barely exist at shipped widths (air routes, irrigation,
-hamlet catchment, a lair's reach -- which is why nests almost never destroy a city). The
-full enumeration, with measurements, is in [scale-defects.md](scale-defects.md). Nothing is
-fixed: each changes every world it touches, so the choice is the owner's. The port pins them
+hamlet catchment). The full enumeration, with measurements, is in
+[scale-defects.md](scale-defects.md). Each fix changes every world it touches, so the choice
+is the owner's: the lair reach is the one fixed so far (ruling 6). The port pins the rest
 with tests so a fix cannot land silently.
 
 ## Deliberate departures from the reference
@@ -239,9 +262,6 @@ them, each pinned by a test so a fix is a deliberate change.
   library; the GCC/Clang half of [determinism.md](determinism.md)'s contract has never been
   compiled, let alone compared.
 - **No continuous integration.** The suite runs where someone runs it.
-- **Dreads are not in the NPC roster.** The reference folds `heroes.people` and then
-  `heroes.dreads` into the roster; this port's adapter (`npc_request`, complete_stage.cpp)
-  passes only the people, so a dread has no NPC record, gender or age.
 - **Documents are large.** About 157 MB at size 129. At size 33 (60 MB) the plan rows are half
   of it -- their terrain rasters 31%, the copies of the world's catalogues each row carries,
   as the reference's do, 11% -- and the world scene a fifth. The split export (`--split`,

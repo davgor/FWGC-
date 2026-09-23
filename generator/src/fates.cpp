@@ -18,11 +18,12 @@ constexpr std::string_view kSelfMagicReason =
     "The city destroyed itself in a magical experiment, leaving a new Weave key point.";
 
 constexpr std::string_view kThreatMethod =
-    "Per-city standing pressure from eligible fantasy nests (dragons and infernal/undead/aberrant "
-    "families within reach) plus dominant local leyline potency, and the war outlook: wars fought "
-    "this age, whether a former opponent still stands, and the strongest contention pressure a "
-    "living neighbour exerts (the pair pressure the next age lottery draws against). Same nest "
-    "eligibility and reach as age-fate weights; excludes magical self-destruction.";
+    "Per-city standing pressure from the strongest eligible fantasy nest (dragons and "
+    "infernal/undead/aberrant families) within its world-scaled reach, plus dominant local "
+    "leyline potency, and the war outlook: wars fought this age, whether a former opponent "
+    "still stands, and the strongest contention pressure a living neighbour exerts (the pair "
+    "pressure the next age lottery draws against). Same nest, eligibility and reach as the "
+    "age-fate lottery; excludes magical self-destruction.";
 
 constexpr std::string_view kThreatLimits =
     "Artistic regional threat for fortification and shape preference, not creature counts, "
@@ -240,8 +241,12 @@ ThreatLeyPressure ley_threat_pressure(const std::vector<double>& potencies, doub
 
 ThreatReport assess_city_threat(const ThreatRequest& request, const WarCity& city,
                                 const WarOutlook& outlook) {
-    const std::vector<NestThreat> nests =
+    // The one lair the lottery draws against is the one the walls answer, so a city walls
+    // itself against exactly the beast that can raze it.
+    const std::vector<NestThreat> lairs =
         nest_threats(religion_city(city), request.nests, request.ground.globe_radius_m);
+    std::vector<NestThreat> nests;
+    if (const NestThreat* strongest = strongest_nest_threat(lairs)) nests.push_back(*strongest);
     double nest_pressure = 0.0;
     for (const NestThreat& threat : nests) nest_pressure += threat.weight;
     // NO moon: see the declaration.
@@ -350,9 +355,12 @@ std::vector<CityFateCause> city_fate_causes(const CityFateRequest& request, cons
         causes.push_back(std::move(cause));
     }
 
-    // String order on the nest id, from the shared reader -- and the walk is order-sensitive,
-    // so this decides WHICH monster is named when several are in reach.
-    for (const NestThreat& threat : nest_threats(religion_city(city), request.nests, request.globe_radius_m)) {
+    // The strongest lair in reach is the one beast cause (2026-09-23): the shared reader
+    // lists a dozen or more lairs within the world-scaled reach, and their sum would hold
+    // every city at the cap every age. Ties go to the lowest id.
+    const std::vector<NestThreat> lairs = nest_threats(religion_city(city), request.nests, request.globe_radius_m);
+    if (const NestThreat* strongest = strongest_nest_threat(lairs)) {
+        const NestThreat& threat = *strongest;
         CityFateCause cause;
         cause.kind = threat.kind;
         cause.weight = threat.weight;

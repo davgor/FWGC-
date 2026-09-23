@@ -840,21 +840,31 @@ TEST(a_nest_beyond_its_reach_and_a_real_animal_both_frighten_nobody) {
     check::equal(tamed.facts.families.size(), std::size_t{0}, "and it is not even a family");
 }
 
-TEST(the_fear_reach_is_metres_and_not_a_fraction_of_the_world) {
-    // The 350 m floor and the doubled range are ABSOLUTE metres authored against the
-    // reference world. Handing this design units instead of metres would make the same
-    // nest near on one world and far on another, silently.
+TEST(the_fear_reach_is_a_share_of_the_world_so_a_nest_is_near_at_every_width) {
+    // Ruled 2026-09-23: the 350 m floor and the doubled range are metres of the reference
+    // world, SCALED to this one, as every lair reach now is. The reach is therefore a share of
+    // the world: the same nest at the same angle is near on a small globe and a large one, and
+    // a units slip can no longer make it near on one and far on another.
     Bench close = populated_world();
     close.network("umbral", {2.0});
     close.radius = 1000.0;
     close.nest("nest-1", "Barrow Host", "undead", lean(20.0), 500.0);  // ~349 m away
     check::is_true(!faith_of(resolve_religion(close.request()), "dwarf")->fear.empty(),
-                   "a nest inside a thousand-metre reach");
+                   "a nest inside the reach on a thousand-metre globe");
 
     Bench wide = close;
-    wide.radius = 100000.0;  // the same angle is now 35 km, far past a 1 km reach
-    check::equal(faith_of(resolve_religion(wide.request()), "dwarf")->fear.size(), std::size_t{0},
-                 "the same nest on a world a hundred times bigger");
+    wide.radius = 100000.0;  // the same angle is 35 km, and the reach scaled with the world
+    check::is_true(!faith_of(resolve_religion(wide.request()), "dwarf")->fear.empty(),
+                   "the same nest on a world a hundred times bigger");
+
+    Bench far = close;
+    far.nests.clear();
+    far.nest("nest-1", "Barrow Host", "undead", lean(40.0), 500.0);  // past the half-radius cap
+    check::equal(faith_of(resolve_religion(far.request()), "dwarf")->fear.size(), std::size_t{0},
+                 "a nest past half the radius, on the small globe");
+    far.radius = 100000.0;
+    check::equal(faith_of(resolve_religion(far.request()), "dwarf")->fear.size(), std::size_t{0},
+                 "and on the large one");
 }
 
 // --- sites ----------------------------------------------------------------

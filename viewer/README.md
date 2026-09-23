@@ -59,7 +59,8 @@ API request with its time.
   sea and air routes; roads (river crossings picked out); ley networks by school; bands
   and their routes; nests (off by default -- there are tens of thousands); key locations
   by family, their chains faint behind; ruins, with cleansed ones bleached and ringed;
-  hamlets by role and fortresses; cities, sized by class, capitals ringed, corrupted cities
+  dreads, crimson at the lairs they hold, faded at the last city a legend razed; hamlets
+  by role and fortresses; cities, sized by class, capitals ringed, corrupted cities
   ringed in the colour of the school that holds them. The footer reads out the cell under
   the pointer.
 - **Inspector.** Click anything for its record: the fields that matter, laid out to read,
@@ -67,9 +68,10 @@ API request with its time.
   the inspector links them -- a city to its plan, realm, sovereign, the people whose home
   it is, the people present, its hamlets and fortresses and its wars; a hamlet or fortress
   to its plan and city; a band to its quest hooks; a person to their home and where they
-  are, their bonds, the hooks they offer and their story web; a ruin to whoever holds it,
-  the camp and shrine in it and what destroyed it; a key location to its plan, chain and
-  the ruin it grew from. When markers share a cell the others are listed as "Also here".
+  are, their bonds, the hooks they offer and their story web; a dread to its lair, the
+  cities it razed, its rivals and everyone hunting it; a lair to the dread that holds it;
+  a ruin to whoever holds it, the camp and shrine in it and what destroyed it; a key
+  location to its plan, chain and the ruin it grew from. When markers share a cell the others are listed as "Also here".
   The find box searches cities, ruins, hamlets, fortresses, people, key locations and
   bands by name. Back walks the history.
 - **Plans.** City, hamlet, castle and key-location plans in a 2D plan (terrain shaded
@@ -113,7 +115,7 @@ API request with its time.
   and its law and good, tier, fame, gender, age, civilization, race, school, seat,
   situation, quest hooks), then the Python lab's cards: who and where each is, what they are
   doing, their log and bonds, their persona and -- on request -- the truth behind their faces
-  and hooks. Dreads carry no gender or age: the roster does not hold them yet.
+  and hooks. Dreads carry no gender or age: they are monsters (2026-09-23).
 
 The address bar keeps the world (`#world=<id>`), so a reload or a shared link reopens it;
 the World menu lists every world in the cache.

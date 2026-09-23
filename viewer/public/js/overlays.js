@@ -165,6 +165,33 @@ function drawRuin(ctx, sx, sy, s, fill) {
   ctx.stroke();
 }
 
+// A dread: a horned diamond, crimson while its lair stands, a ghost of one as a legend.
+function drawDread(ctx, sx, sy, s, living) {
+  const r = s * 0.55;
+  const fill = living ? '#e2483d' : 'rgba(226,72,61,.35)';
+  ctx.beginPath();
+  ctx.moveTo(sx - r * 0.45, sy - r * 0.35);
+  ctx.lineTo(sx - r * 0.8, sy - r * 1.1);
+  ctx.lineTo(sx - r * 0.05, sy - r * 0.55);
+  ctx.moveTo(sx + r * 0.45, sy - r * 0.35);
+  ctx.lineTo(sx + r * 0.8, sy - r * 1.1);
+  ctx.lineTo(sx + r * 0.05, sy - r * 0.55);
+  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = 'rgba(10,14,18,.85)';
+  ctx.fillStyle = fill;
+  ctx.stroke();
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(sx, sy - r);
+  ctx.lineTo(sx + r * 0.8, sy);
+  ctx.lineTo(sx, sy + r);
+  ctx.lineTo(sx - r * 0.8, sy);
+  ctx.closePath();
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  ctx.fill();
+}
+
 function drawTent(ctx, sx, sy, s, fill) {
   const h = s / 2;
   ctx.fillStyle = fill;
@@ -438,6 +465,43 @@ export const OVERLAYS = [
           });
         },
         hit: (view, sx, sy) => within(view,items, sx, sy, view.markerSize(13) * 0.55 + 2),
+      };
+    },
+  },
+  {
+    // The monsters the cast names for the cities they razed (2026-09-23): a living one at the
+    // lair it still holds, a legend at the last city it razed.
+    id: 'dreads',
+    label: 'Dreads',
+    swatch: '#e2483d',
+    defaultOn: true,
+    note: 'living at their lairs; legends faded, at the last city they razed',
+    available: w => w.has('heroes'),
+    async load(world) {
+      const [heroes, lairs, ruins] = await Promise.all([
+        world.block('heroes'),
+        world.has('beast_nests') ? world.select('beast_nests', { path: 'sites', fields: 'id,x,z' }) : [],
+        world.has('ruins') ? world.block('ruins') : [],
+      ]);
+      const lairAt = new Map((lairs ?? []).map(n => [n.id, n]));
+      const ruinAt = new Map((ruins ?? []).map(r => [r.uid, r]));
+      const items = [];
+      for (const dread of heroes?.dreads ?? []) {
+        const living = dread.status === 'living';
+        const razed = dread.destroyed ?? [];
+        const where = living ? lairAt.get(dread.nest_id) : ruinAt.get(razed[razed.length - 1]?.uid);
+        if (!where) continue;
+        const [X, Y] = pointAt(world, where.x, where.z);
+        items.push({ X, Y, kind: 'hero', record: dread, living });
+      }
+      return {
+        count: items.length,
+        items,
+        draw(ctx, view) {
+          const s = view.markerSize(12);
+          eachOnScreen(view, items, s, (item, sx, sy) => drawDread(ctx, sx, sy, s, item.living));
+        },
+        hit: (view, sx, sy) => within(view, items, sx, sy, view.markerSize(12) * 0.6 + 3),
       };
     },
   },

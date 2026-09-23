@@ -247,6 +247,9 @@ struct NpcCastMember {
     std::string presence_uid;
     std::string presence_site_kind;
     std::string civilization_id;  // the member's own people, for its appearance
+    // A dread: a monster, which carries no gender or age by the owner's ruling (2026-09-23)
+    // and is not counted as an appearance the roster failed to resolve.
+    bool monster = false;
 };
 
 struct NpcRequest {
@@ -356,8 +359,8 @@ struct NpcPerson {
     // A storekeeper's store, by its building: granary, warehouse, root_cellar,
     // hamlet_food_store. The exact store is (site_uid, plot_id).
     std::optional<std::string> store;
-    // Absent only for a person whose people has no life stages -- a dread, say -- and
-    // counted in the notes rather than guessed.
+    // Absent for a dread, by design: a monster has no gender or age. Otherwise absent only
+    // for a person whose people has no life stages, counted in the notes rather than guessed.
     std::optional<NpcAppearance> appearance;
 
     // Cast records only.

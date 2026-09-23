@@ -263,27 +263,42 @@ TEST(an_age_turns_over_ground_a_hidden_school_owns_and_every_hold_persists) {
     // Ruled 2026-09-23; the reference raised a KeyError at the first age turn after such a
     // corruption. The age turns, no ruin is a hidden school's, and every held city that still
     // stands is held as it was: corruption persists.
-    const CorruptWorldResult bitten = corrupted();
-    check::is_true(bitten.report.acted, "the corruption to act");
-    const World later = advance_ages(bitten.world, AgeAdvanceRequest{});
-    for (const Ruin& ruin : later.ruins) {
-        check::is_true(!hidden_school(ruin.cause), ruin.id + " not ruined by a hidden school");
-    }
+    //
+    // Seed 7's world, not the shared seed-42 one: since beasts began razing cities (2026-09-23)
+    // every one of seed 42's six held cities falls to a villain or a war in the next age, which
+    // would leave the carry untested; seed 7's corruption holds fourteen and one still stands.
+    Request seven;
+    seven.seed = 7;
+    seven.size = 33;
+    seven.phase = 16;
+    const World world = generate(resolve(seven));
     std::size_t carried = 0;
-    for (const SettlementSite& before : bitten.world.settlements.sites) {
-        if (!before.corruption) continue;
-        const SettlementSite* after = site_with_uid(later, before.uid);
-        if (after == nullptr) continue;  // fell to something else this age
-        ++carried;
-        check::is_true(after->corruption.has_value(), before.uid + " still held after the age");
-        check::equal(after->corruption->school, before.corruption->school, before.uid + " by the same school");
-        check::equal(after->corruption->cause, before.corruption->cause, before.uid + " for the same cause");
-        check::equal(after->corruption->age, before.corruption->age, before.uid + " since the same age");
+    int corruptions = 0;
+    {
+        CorruptWorldRequest request;
+        request.encounters = 1000;
+        const CorruptWorldResult bitten = corrupt(world, request);
+        if (bitten.report.acted) ++corruptions;
+        const World later = advance_ages(bitten.world, AgeAdvanceRequest{});
+        for (const Ruin& ruin : later.ruins) {
+            check::is_true(!hidden_school(ruin.cause), ruin.id + " not ruined by a hidden school");
+        }
+        for (const SettlementSite& before : bitten.world.settlements.sites) {
+            if (!before.corruption) continue;
+            const SettlementSite* after = site_with_uid(later, before.uid);
+            if (after == nullptr) continue;  // fell to something else this age
+            ++carried;
+            check::is_true(after->corruption.has_value(), before.uid + " still held after the age");
+            check::equal(after->corruption->school, before.corruption->school, before.uid + " by the same school");
+            check::equal(after->corruption->cause, before.corruption->cause, before.uid + " for the same cause");
+            check::equal(after->corruption->age, before.corruption->age, before.uid + " since the same age");
+        }
+        for (const SettlementSite& s : later.settlements.sites) {
+            if (s.corruption) check::is_true(hidden_school(s.corruption->school), s.uid + " held by a hidden school");
+        }
     }
+    check::is_true(corruptions > 0, "the corruption to act");
     check::is_true(carried > 0, "some held city standing through the age, or the carry is untested");
-    for (const SettlementSite& s : later.settlements.sites) {
-        if (s.corruption) check::is_true(hidden_school(s.corruption->school), s.uid + " held by a hidden school");
-    }
 }
 
 // --- cleansing what a hidden school holds (ruled 2026-09-23) -------------------------------

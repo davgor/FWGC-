@@ -5,6 +5,7 @@
 #include <cmath>
 #include <limits>
 #include <numbers>
+#include <set>
 #include <stdexcept>
 #include <string>
 #include <unordered_map>
@@ -248,7 +249,8 @@ constexpr std::string_view kBeastNestsLimits =
 // One thinned point process over the cells, shared by both passes.
 // ---------------------------------------------------------------------------
 NestBlock place(const World& world, const NestHabitat& ground_field,
-                const std::vector<Vec3>& settled, const PassSpec& spec) {
+                const std::vector<Vec3>& settled, const PassSpec& spec,
+                const std::vector<NestSite>& held) {
     const Config& cfg = world.effective;
     const WorldOptions& o = cfg.options;
     const double radius = cfg.globe_radius;
@@ -423,6 +425,31 @@ NestBlock place(const World& world, const NestHabitat& ground_field,
     // the cell's own list in one lookup regardless.
     std::vector<char> refused_here(species_count, 0);
     std::vector<int> refused_list;
+
+    // The lairs that stand (add_nests), first and in id order, as incumbents: the draw below
+    // is untouched, and a lair it would have placed where a standing one holds the ground is
+    // refused as any territory refusal is.
+    if (!held.empty()) {
+        std::unordered_map<std::string_view, std::size_t> species_at;
+        for (std::size_t i = 0; i < species_count; ++i) species_at.emplace(catalogue[i].id, i);
+        std::vector<const NestSite*> ordered;
+        ordered.reserve(held.size());
+        for (const NestSite& lair : held) ordered.push_back(&lair);
+        std::sort(ordered.begin(), ordered.end(),
+                  [](const NestSite* a, const NestSite* b) { return a->id < b->id; });
+        for (const NestSite* lair : ordered) {
+            const auto found = species_at.find(lair->species_id);
+            if (found == species_at.end()) continue;  // a species this catalogue no longer holds
+            const std::size_t species = found->second;
+            const std::size_t b = spec.bucket_is_tier ? static_cast<std::size_t>(lair->tier) : species;
+            ++counts[species];
+            const int where = static_cast<int>(placed.size());
+            placed.push_back(*lair);
+            at_node[b][lair->node].push_back(where);
+            on_row[b][lair->z].push_back(where);
+            if (lair->range_m > widest[b]) widest[b] = lair->range_m;
+        }
+    }
 
     for (std::size_t i = 0; i < count; ++i) {
         const std::size_t begin = share_begin[i];
@@ -901,7 +928,7 @@ std::optional<NestBlock> add_animals(const World& world, const SphereGrid& grid,
     if (!passes_run(cfg)) return std::nullopt;
     require_metre_grid(world, grid);
     return place(world, habitat_cells(world, grid), settled_directions(grid, settled_nodes),
-                 animal_pass(cfg.options));
+                 animal_pass(cfg.options), {});
 }
 
 std::optional<NestBlock> add_monsters(const World& world, const SphereGrid& grid,
@@ -911,11 +938,12 @@ std::optional<NestBlock> add_monsters(const World& world, const SphereGrid& grid
     if (!passes_run(cfg)) return std::nullopt;
     require_metre_grid(world, grid);
     return place(world, habitat_cells(world, grid), settled_directions(grid, settled_nodes),
-                 monster_pass(cfg.options));
+                 monster_pass(cfg.options), {});
 }
 
 std::optional<NestPasses> add_nests(const World& world, const SphereGrid& grid,
-                                    const std::vector<int>& settled_nodes) {
+                                    const std::vector<int>& settled_nodes,
+                                    const std::vector<NestSite>& held_lairs) {
     // Both passes, animals first. They never read each other: each draws from its own
     // named rng stream and neither reads the other's sites, so the ground is the only
     // thing they share -- which is why it is built once here rather than twice.
@@ -923,11 +951,19 @@ std::optional<NestPasses> add_nests(const World& world, const SphereGrid& grid,
     if (!passes_run(cfg)) return std::nullopt;
     require_metre_grid(world, grid);
 
+    // A lair whose node has since been settled is gone: people stand where it stood.
+    const std::set<int> settled_set(settled_nodes.begin(), settled_nodes.end());
+    std::vector<NestSite> standing;
+    for (const NestSite& lair : held_lairs) {
+        if (lair.real || settled_set.count(lair.node) != 0) continue;
+        standing.push_back(lair);
+    }
+
     const NestHabitat field = habitat_cells(world, grid);
     const std::vector<Vec3> settled = settled_directions(grid, settled_nodes);
     NestPasses passes;
-    passes.wildlife = place(world, field, settled, animal_pass(cfg.options));
-    passes.beast_nests = place(world, field, settled, monster_pass(cfg.options));
+    passes.wildlife = place(world, field, settled, animal_pass(cfg.options), {});
+    passes.beast_nests = place(world, field, settled, monster_pass(cfg.options), standing);
     return passes;
 }
 

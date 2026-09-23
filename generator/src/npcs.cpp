@@ -585,8 +585,11 @@ NpcRoster generate_npc_roster(const NpcRequest& request) {
                 person.important = true;  // never subject to the per-site cap
                 person.is_cast = true;
                 person.hero_uid = member.uid;
-                person.appearance = appearance_of(request.seed, person.uid, member.civilization_id, spans);
-                if (!person.appearance) notes.appearance_unresolved += 1;
+                // A dread is a monster: no gender, no age, and nothing unresolved about it.
+                if (!member.monster) {
+                    person.appearance = appearance_of(request.seed, person.uid, member.civilization_id, spans);
+                    if (!person.appearance) notes.appearance_unresolved += 1;
+                }
                 if (!member.presence_site_kind.empty()) person.presence_kind = member.presence_site_kind;
                 if (!member.presence_uid.empty()) person.presence_uid = member.presence_uid;
                 // Where they actually stand, whenever that is not the site they are filed

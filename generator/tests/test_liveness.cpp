@@ -210,18 +210,21 @@ TEST(liveness_the_roster_mirror_of_a_hero_is_the_published_mapping) {
     // The only translation between two published contracts: the roster copies each hero into
     // its people as a cast record, turning the hero's word into its own. It is bound here to
     // the published tables rather than restated, so it fails if either side moves.
+    // Dreads are cast too (2026-09-23), mirrored in the same way from their own block.
     const World& world = generated();
-    std::map<std::string, const Hero*> heroes;
-    for (const Hero& h : world.heroes.people) heroes[h.uid] = &h;
+    std::map<std::string, std::pair<std::string, LivenessBlock>> cast_status;
+    for (const Hero& h : world.heroes.people) cast_status[h.uid] = {h.status, LivenessBlock::Heroes};
+    for (const HeroDread& d : world.heroes.dreads) cast_status[d.uid] = {d.status, LivenessBlock::Dreads};
     int cast = 0;
     std::set<bool> seen;
     for (const NpcPerson& person : world.npcs.people) {
         if (!person.is_cast) continue;
-        const auto it = heroes.find(person.hero_uid);
-        check::is_true(it != heroes.end(), person.uid + " to mirror a hero of this world");
-        const bool expected = it->second->status == present_status(LivenessBlock::Heroes);
-        check::equal(person.alive, expected, person.uid + " alive exactly when its hero is " +
-                                                 std::string(present_status(LivenessBlock::Heroes)));
+        const auto it = cast_status.find(person.hero_uid);
+        check::is_true(it != cast_status.end(), person.uid + " to mirror a hero or a dread of this world");
+        const auto& [status, block] = it->second;
+        const bool expected = status == present_status(block);
+        check::equal(person.alive, expected, person.uid + " alive exactly when its record is " +
+                                                 std::string(present_status(block)));
         check::equal(std::string(token(LivenessBlock::Npcs, person.alive ? Liveness::Present : Liveness::Gone)),
                      std::string(person.alive ? "alive" : "dead"), person.uid + " in the roster's own word");
         seen.insert(person.alive);

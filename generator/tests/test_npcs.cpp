@@ -1124,11 +1124,20 @@ TEST(in_a_world_everyone_has_an_age_inside_their_people_s_band) {
     for (const NpcSite& site : w.npcs.sites) site_people.emplace(site.uid, site.civilization_id.value_or(""));
     std::map<std::string, std::string> hero_people;
     for (const Hero& hero : w.heroes.people) hero_people.emplace(hero.uid, hero.civilization_id);
+    std::set<std::string> dreads;
+    for (const HeroDread& dread : w.heroes.dreads) dreads.insert(dread.uid);
 
     std::set<std::string_view> genders;
     std::set<std::string_view> bands;
     int cast = 0;
+    int monsters = 0;
     for (const NpcPerson& person : w.npcs.people) {
+        // A dread is a monster: no gender, no age, by the owner's ruling.
+        if (person.is_cast && dreads.count(person.hero_uid) != 0) {
+            check::is_true(!person.appearance.has_value(), person.uid + " a monster, with no gender or age");
+            ++monsters;
+            continue;
+        }
         check::is_true(person.appearance.has_value(), person.uid + " to have an appearance");
         const NpcAppearance& a = *person.appearance;
         const auto span = spans.find(a.civilization_id);
@@ -1145,6 +1154,7 @@ TEST(in_a_world_everyone_has_an_age_inside_their_people_s_band) {
         bands.insert(a.age_band);
     }
     check::is_true(cast > 0, "the cast aged too");
+    check::equal(monsters, static_cast<int>(dreads.size()), "every dread in the roster, none of them aged");
     check::equal(genders.size(), std::size_t(2), "both genders");
     check::equal(bands.size(), std::size_t(3), "all three bands");
 }
@@ -1183,4 +1193,69 @@ TEST(the_owner_s_lifespans_reach_every_people_through_its_race) {
     };
     compare(w.npcs.parent_race_life_spans, races, "the parent races");
     compare(w.npcs.life_spans, peoples, "the peoples");
+}
+
+// ---------------------------------------------------------------------------
+// Dreads in the roster (2026-09-23).
+// ---------------------------------------------------------------------------
+
+TEST(a_dread_joins_the_cast_at_its_lair_with_no_gender_or_age_and_nothing_unresolved) {
+    NpcRequest request = one_city();
+    request.heroes_ok = true;
+    NpcCastMember hero;
+    hero.uid = "hero-sovereign-1";
+    hero.display_name = "Aldric Who Holds Bargdorn";
+    hero.role = "sovereign";
+    hero.status = "living";
+    hero.home_uid = "surface-city-1-100-human_heartland";
+    hero.civilization_id = "human_heartland";
+    NpcCastMember dread;
+    dread.uid = "dread-nest-red-dragons-500";
+    dread.display_name = "Red dragons, Bargdorn's Doom";
+    dread.role = "dread";
+    dread.status = "living";
+    dread.presence_uid = "nest-red-dragons-500";
+    dread.presence_site_kind = "nest";
+    dread.monster = true;
+    request.cast = {hero, dread};
+    NpcPlaceRow lair;
+    lair.uid = "nest-red-dragons-500";
+    lair.node = 500;
+    lair.x = 12.0;
+    lair.z = 30.0;
+    request.place_nests.push_back(lair);
+
+    const NpcRoster roster = generate_npc_roster(request);
+    check::is_true(roster.ok, "an ok roster: " + roster.error);
+    const NpcPerson* monster = person_by_uid(roster, "npc-dread-nest-red-dragons-500");
+    check::is_true(monster != nullptr, "the dread in the roster under the prefixed uid");
+    check::equal(monster->post, std::string("dread"), "its role as its post");
+    check::is_true(monster->alive && monster->important, "living, and never capped out");
+    check::is_true(!monster->appearance.has_value(), "no gender and no age: a monster");
+    check::is_true(!monster->site_uid.has_value(), "standing at no planned site");
+    check::is_true(monster->presence_node.has_value() && *monster->presence_node == 500, "but at its lair");
+    const NpcPerson* sovereign = person_by_uid(roster, "npc-hero-sovereign-1");
+    check::is_true(sovereign != nullptr && sovereign->appearance.has_value(), "while the hero beside it is aged");
+    check::equal(roster.summary.notes.appearance_unresolved, 0, "and a monster is nothing unresolved");
+}
+
+TEST(in_a_world_every_dread_stands_in_the_roster_and_a_living_one_at_its_lair) {
+    const World& w = world();
+    check::is_true(!w.heroes.dreads.empty(), "beasts to have razed a city and named a dread, or nothing is tested");
+    std::map<std::string, const NestSite*> lairs;
+    for (const NestSite& site : w.beast_nests.sites) lairs.emplace(site.id, &site);
+    int living = 0;
+    for (const HeroDread& dread : w.heroes.dreads) {
+        const NpcPerson* row = person_by_uid(w.npcs, std::string(kNpcUidPrefix) + dread.uid);
+        check::is_true(row != nullptr, dread.uid + " in the roster");
+        check::equal(row->alive, dread.status == "living", dread.uid + " alive exactly when living");
+        check::is_true(!row->appearance.has_value(), dread.uid + " unaged");
+        if (dread.status != "living") continue;
+        ++living;
+        const auto lair = lairs.find(dread.nest_id);
+        check::is_true(lair != lairs.end(), dread.uid + "'s lair still standing");
+        check::is_true(row->presence_node.has_value() && *row->presence_node == lair->second->node,
+                       dread.uid + " placed at its lair");
+    }
+    check::is_true(living > 0, "a living dread, or the lair is not tested");
 }

@@ -14,8 +14,9 @@ authors diagnosed exactly this disease once — `island_habitat` had an absolute
 floor that had become unreachable, and there is a long comment recording the measurement
 and the fix — and did not sweep the rest.
 
-**Nothing here is fixed.** Every one of these changes every world it touches, so the
-choice is the owner's. What the port does instead is pin each of them with a test, so
+**Two are fixed, by the owner's rulings** (both 2026-09-23): the fortress junction
+preference and a lair's reach, each recorded where it stands below. Every other one changes
+every world it touches, so the choice is the owner's. What the port does instead is pin each of them with a test, so
 that a fix cannot land silently and so that the list cannot quietly grow.
 
 ## What scales
@@ -114,6 +115,17 @@ brings neighbours within 153 m. Pinned in `test_habitation.cpp` and `test_nests.
 
 **Of three authored nest distances only the ramp span scales.** The clearance and the
 spacing do not, so the widest monster clearance can refuse only a settlement's own cell.
+
+**A lair's reach held no city -- fixed** (2026-09-23, "beasts are a real menace"). The threat a
+nest puts on a city, min(radius / 2, max(350 m, 2 x range)), was reference metres: seed 42
+measured 0 of 34 cities threatened at size 33, 4 of 43 at 65, 1 of 47 at 129, so no monster
+ever razed a city and no dread ever formed. It now passes through `reach_scale`
+(`nest_threat_reach_m`), and only the strongest lair in reach weighs on a city, since a dozen
+or more stand in the scaled reach. Still in reference metres: the reeve well's nest reach
+(1.5 x range) and the champion well's (3 x range) -- so a reeve finds a lair only through a
+dread's scaled reach, and a city's own champion almost never finds one -- and the nest
+clearance and spacing above. The champions of the razed cities come from the ruins, not a
+reach, and are unaffected.
 
 ## Correctly scale-free
 

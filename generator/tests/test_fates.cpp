@@ -365,8 +365,11 @@ TEST(a_report_sums_nests_ley_and_veteran_wars_and_caps_at_one) {
     check::equal(lair.nest_id, std::string("nest-red-dragon-4"), "which one");
     check::equal(lair.family, std::string("draconic"), "and its family");
     check::equal(lair.distance_m, 0.0, "at the gates");
-    // min(radius / 2, max(350, 2 * 300)): the radius cap binds on a 1000 m globe.
-    check::equal(lair.reach_m, 500.0, "the reach it was measured against");
+    // min(radius / 2, max(350, 2 * 300) * reach_scale): the authored 600 m scaled to a 1000 m
+    // globe, which is 0.56 of the reference world's 1774 m -- derived here from the reference
+    // radius itself, not read back from the code under test.
+    check::close(lair.reach_m, round_dp(600.0 * 1000.0 / 1774.4123532462844, 4), 1e-9,
+                 "the reach it was measured against");
     check::equal(report.contributors[1].kind, std::string("ley"), "then the ley");
     check::equal(report.contributors[1].school, std::string("fire"), "fire");
     check::is_true(report.ley.has_value() && report.ley->school == "fire", "and the report's own ley");
@@ -375,28 +378,30 @@ TEST(a_report_sums_nests_ley_and_veteran_wars_and_caps_at_one) {
     }
 }
 
-TEST(contributors_list_the_lairs_by_id_then_the_ley_then_the_wars_at_their_published_precision) {
+TEST(contributors_list_the_strongest_lair_then_the_ley_then_the_wars_at_their_published_precision) {
     std::map<std::string, Grid> layers = ley_layers();
     layers["ley_fire"].at(1, 1) = 1.0;
     ThreatRequest request;
     request.ground.globe_radius_m = kRadius;
     request.layers = &layers;
-    // Listed heaviest first, so an order by weight or by list would put nest-9 first.
-    request.nests = {nest("nest-9", "Ghoul", "undead", at(0.0)),
-                     nest("nest-10", "Imp", "infernal", at(123.456789), 3)};
+    // A tier-one nuisance at the gates (.11) and a tier-three lair further out: the lower id
+    // and the nearer lair are both the WRONG answer, and so is their sum.
+    request.nests = {nest("nest-10", "Imp", "infernal", at(0.0), 1),
+                     nest("nest-9", "Ghoul", "undead", at(123.456789), 3)};
     WarCity veteran = city();
     veteran.war_history.assign(1, WarParticipation{});
     const ThreatReport report = assess_city_threat(request, veteran, WarOutlook{});
-    check::equal(report.contributors.size(), std::size_t{4}, "two lairs, the ley, the war");
-    check::equal(report.contributors[0].nest_id, std::string("nest-10"), "lairs in STRING id order");
-    check::equal(report.contributors[1].nest_id, std::string("nest-9"), "then the other");
-    check::equal(report.contributors[2].kind, std::string("ley"), "then the ley");
-    check::equal(report.contributors[3].kind, std::string("war"), "then the wars");
+    check::equal(report.contributors.size(), std::size_t{3}, "the one lair that counts, the ley, the war");
+    check::equal(report.contributors[0].nest_id, std::string("nest-9"), "the heavier lair, not the nearer or the first");
+    check::equal(report.contributors[1].kind, std::string("ley"), "then the ley");
+    check::equal(report.contributors[2].kind, std::string("war"), "then the wars");
     // Weights to 6 dp, distances and reaches to 4.
-    const double raw = 0.11 * 3 * (1.0 - 123.456789 / 500.0);
-    check::close(report.contributors[0].weight, round_dp(raw, 6), 1e-15, "a weight to six places");
+    const double reach = 600.0 * 1000.0 / 1774.4123532462844;
+    const double raw = 0.11 * 3 * (1.0 - 123.456789 / reach);
+    check::is_true(raw > 0.11, "the floor: the far lair really is the heavier");
+    check::close(report.contributors[0].weight, round_dp(raw, 6), 1e-12, "a weight to six places");
     check::close(report.contributors[0].distance_m, 123.4568, 1e-9, "a distance to four");
-    check::close(report.nest_pressure, round_dp(raw + 0.55, 6), 1e-12, "the lairs summed, then rounded");
+    check::close(report.nest_pressure, round_dp(raw, 6), 1e-12, "the strongest lair alone, never the sum");
 }
 
 TEST(a_zero_spacing_withholds_the_whole_forecast_as_the_reference_does) {
@@ -535,26 +540,54 @@ TEST(the_threat_names_the_same_nest_weight_the_lottery_draws) {
 
 // --- the lottery -----------------------------------------------------------------
 
-TEST(the_causes_walk_ley_then_nests_by_string_id_then_self_magic_then_villains) {
+TEST(the_causes_walk_ley_then_the_strongest_lair_then_self_magic_then_villains) {
     Lottery l;
+    // Two tier-five lairs at the gates weigh the same, so the tie goes to the lowest id --
+    // in STRING order, where "nest-10" sorts before "nest-2".
     l.request.nests = {nest("nest-2", "Ghoul", "undead"), nest("nest-10", "Imp", "infernal")};
     l.request.villains = {villain("umbral")};
     const std::vector<CityFateCause> causes =
         city_fate_causes(l.request, l.c, city_potencies(&l.layers, l.c, std::nullopt));
-    check::equal(causes.size(), std::size_t{5}, "five causes");
+    check::equal(causes.size(), std::size_t{4}, "four causes: ONE lair, however many are in reach");
     check::equal(causes[0].kind, std::string("fire"), "the ley first");
     check::equal(causes[0].reason, std::string(ley_destruction_reason("fire")), "with its authored reason");
-    // STRING order: "nest-10" sorts before "nest-2".
-    check::equal(causes[1].evidence.nest_id, std::string("nest-10"), "nests by string id");
-    check::equal(causes[2].evidence.nest_id, std::string("nest-2"), "not by number");
-    check::equal(causes[3].kind, std::string("self_magic"), "then self-magic");
-    check::equal(causes[4].kind, std::string("villain_devouring"), "villains appended last");
+    check::equal(causes[1].evidence.nest_id, std::string("nest-10"), "the tie to the lowest id, not by number");
+    check::equal(causes[2].kind, std::string("self_magic"), "then self-magic");
+    check::equal(causes[3].kind, std::string("villain_devouring"), "villains appended last");
     check::close(causes[0].weight, 0.36, 1e-12, "ley .8 * .45");
-    check::close(causes[3].weight, 0.035, 1e-12, "self-magic on dead weave ground");
+    check::close(causes[1].weight, 0.55, 1e-12, "a tier-five lair at the gates");
+    check::close(causes[2].weight, 0.035, 1e-12, "self-magic on dead weave ground");
     check::equal(causes[1].reason, std::string("Imp drove the inhabitants away."), "a lair's sentence");
-    check::equal(causes[3].reason,
+    check::equal(causes[2].reason,
                  std::string("The city destroyed itself in a magical experiment, leaving a new Weave key point."),
                  "self-magic's sentence, verbatim");
+}
+
+TEST(only_the_strongest_lair_weighs_on_a_city_and_it_is_the_one_its_walls_answer) {
+    // Ruled 2026-09-23: with the reach scaled to the world a city stands within reach of a
+    // dozen lairs or more, and their SUM would hold it at the cap every age. A greater lair
+    // further out outweighs a nuisance at the gates, and it alone is drawn against.
+    Lottery l;
+    l.layers["ley_fire"].at(1, 1) = 0.0;
+    l.request.magic_enabled = false;
+    l.request.nests = {nest("nest-a", "Grave mites", "undead", at(0.0), 1),
+                       nest("nest-b", "Bone amalgams", "undead", at(150.0), 5)};
+    const std::vector<CityFateCause> causes = city_fate_causes(l.request, l.c, potencies());
+    check::equal(causes.size(), std::size_t{1}, "one lair in the walk");
+    check::equal(causes[0].evidence.nest_id, std::string("nest-b"), "the greater lair");
+    const double reach = 600.0 * 1000.0 / 1774.4123532462844;
+    check::close(causes[0].weight, 0.55 * (1.0 - 150.0 / reach), 1e-12, "its own weight, not the sum with the mites");
+    const std::optional<CityFate> fate = city_fate(l.request, l.c, 0.0);
+    check::is_true(fate.has_value(), "a roll of zero falls to it");
+    check::close(fate->probability, causes[0].weight, 1e-12, "drawn against that weight alone");
+
+    ThreatRequest threat;
+    threat.ground.globe_radius_m = kRadius;
+    threat.layers = &l.layers;
+    threat.nests = l.request.nests;
+    const ThreatReport report = assess_city_threat(threat, l.c, WarOutlook{});
+    check::equal(report.contributors.size(), std::size_t{1}, "the walls answer one lair");
+    check::equal(report.contributors[0].nest_id, std::string("nest-b"), "the same one");
 }
 
 TEST(the_selector_walks_forward_over_the_draw_rescaled_to_the_uncapped_sum) {
@@ -829,21 +862,14 @@ TEST(a_war_ruin_scars_with_the_victors_school_and_replaces_the_wars_own) {
     check::equal(orphan.legacy.basis, std::string("region"), "so a war ruin always seeds a key point");
 }
 
-// --- an inherited defect, pinned so a fix cannot land silently --------------
+// --- the lair reach, scaled to the world (ruled 2026-09-23) --------------------
 
-TEST(a_monster_lair_threatens_almost_no_city_at_the_shipped_width) {
-    // A lair's reach is min(radius / 2, max(350 m, 2 * range_m)), and range_m is the
-    // catalogue's spacing_m * nest_spacing / 2 -- ABSOLUTE metres authored for the 11.15 km
-    // reference world, never passed through reach_scale. There the half-radius cap bound: a
-    // lair reached 887 m, about ten grid steps. On the 200 km world the largest eligible
-    // species reaches 3500 m and the median 400 m, against a latitude row of 3125 m at size
-    // 33 -- and a lair never stands on a city's own cell.
-    //
-    // The consequence, measured: the monster and dragon fates, and the nest half of every
-    // city's walls, almost never exist, while wars -- whose reach is a multiple of the
-    // settlement spacing -- reach most cities of the same world. Seed 42 measured 0 of 34
-    // cities threatened by 149 eligible lairs at size 33, 4 of 43 at 65 and 1 of 47 at 129.
-    // PINNED rather than fixed, because scaling the reach changes every world.
+TEST(a_monster_lair_threatens_most_cities_at_the_shipped_width) {
+    // A lair's reach is min(radius / 2, max(350 m, 2 * range_m) * reach_scale): the metres the
+    // reference authored for its 11.15 km world, scaled to this one as the villain and war
+    // reaches are. Unscaled, it reached no city but the one on its own cell and no beast ever
+    // razed a city -- seed 42 measured 0 of 34 cities threatened at size 33. Now a lair
+    // threatens most cities of the 200 km world, as war contention reaches most of them.
     Request r;
     r.seed = 42;
     r.size = 33;
@@ -868,42 +894,21 @@ TEST(a_monster_lair_threatens_almost_no_city_at_the_shipped_width) {
         if (eligible) lairs.push_back(n);
     }
 
-    WarGround ground;
-    ground.globe_radius_m = radius;
-    ground.settlement_spacing_m = w.effective.settlement_spacing;
-    ground.cores = &w.humans.cores;
-    ground.routes = &w.roads.routes;
-    for (const SettlementSite& s : w.settlements.sites) {
-        WarCity c;
-        c.uid = s.uid;
-        c.id = s.id;
-        c.x = s.x;
-        c.z = s.z;
-        c.direction = s.direction;
-        c.population_profile = s.population_profile;
-        c.parent_race_id = s.parent_race_id;
-        ground.cities.push_back(c);
-    }
-
     check::close(2.0 * 3.14159265358979323846 * radius, 200000.0, 1.0, "the 200 km shipped world");
-    check::is_true(ground.cities.size() >= 20, "a world with cities to threaten");
+    check::close(nest_threat_reach_m(0.0, radius), 350.0 * radius / 1774.4123532462844, 1e-6,
+                 "the 350 m floor scaled to the world");
+    check::equal(nest_threat_reach_m(1e9, radius), radius * 0.5, "and capped at half the radius");
+    check::is_true(w.settlements.sites.size() >= 20, "a world with cities to threaten");
     check::is_true(lairs.size() >= 50, "and eligible lairs to threaten them, or nothing is measured");
 
     long long threatened = 0;
-    for (const WarCity& c : ground.cities) {
+    for (const SettlementSite& s : w.settlements.sites) {
         ReligionCity view;
-        view.uid = c.uid;
-        view.direction = c.direction;
+        view.uid = s.uid;
+        view.direction = s.direction;
         if (!nest_threats(view, lairs, radius).empty()) ++threatened;
     }
-    std::set<std::string> contested;
-    for (const WarPair& pair : contested_pairs(ground)) {
-        contested.insert(pair.a_uid);
-        contested.insert(pair.b_uid);
-    }
-    const auto cities = static_cast<long long>(ground.cities.size());
-    check::is_true(threatened * 20 <= cities,
-                   "lairs to threaten at most one city in twenty, got " + std::to_string(threatened));
-    check::is_true(static_cast<long long>(contested.size()) * 2 > cities,
-                   "while war contention, which scales, reaches most of them: " + std::to_string(contested.size()));
+    const auto cities = static_cast<long long>(w.settlements.sites.size());
+    check::is_true(threatened * 2 > cities,
+                   "lairs to threaten most cities, got " + std::to_string(threatened) + " of " + std::to_string(cities));
 }

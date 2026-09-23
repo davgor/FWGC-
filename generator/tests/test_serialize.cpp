@@ -513,8 +513,13 @@ TEST(an_npc_row_writes_its_workplace_store_and_age_as_the_roster_holds_them) {
         text_or_null("workplace", person.workplace);
         text_or_null("store", person.store);
         if (person.store) ++stores;
-        check::is_true(person.appearance.has_value(), person.uid + " to be aged");
         const Json& a = row.at("appearance");
+        if (!person.appearance) {
+            // Only a dread goes unaged, by design, and it is written null.
+            check::equal(person.post, std::string("dread"), person.uid + " to be aged unless it is a dread");
+            check::is_true(a.type == Json::Type::Null, person.uid + " a dread's appearance written null");
+            continue;
+        }
         check::equal(a.at("gender").text, std::string(person.appearance->gender), person.uid + " gender");
         check::equal(a.at("age_band").text, std::string(person.appearance->age_band), person.uid + " age band");
         check::equal(a.at("age_years").number, static_cast<double>(person.appearance->age_years), person.uid + " age");

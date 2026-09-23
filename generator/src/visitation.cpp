@@ -419,7 +419,7 @@ Lottery divine_lottery(const VisitationRequest& request, const GodRecord& god, c
             potencies[s] = grid.at(city.x, city.z);
         }
 
-        // ORDER IS ATTRIBUTION: ley, then nests in id order, then the god. The selector walk
+        // ORDER IS ATTRIBUTION: ley, then the strongest lair, then the god. The selector walk
         // below subtracts in this order and defaults to the last, so reordering these changes
         // which cause a given draw lands on, which changes the ruin's school and its key point.
         std::vector<Cause> causes;
@@ -455,7 +455,11 @@ Lottery divine_lottery(const VisitationRequest& request, const GodRecord& god, c
         view.z = city.z;
         view.node = city.node;
         view.direction = city.direction;
-        for (const NestThreat& threat : nest_threats(view, nests, radius)) {
+        // The strongest lair in reach, as in the age lottery (2026-09-23): one beast weighs on
+        // a city, not the dozen the world-scaled reach now finds around it.
+        const std::vector<NestThreat> lairs = nest_threats(view, nests, radius);
+        if (const NestThreat* strongest = strongest_nest_threat(lairs)) {
+            const NestThreat& threat = *strongest;
             Cause nest_cause;
             nest_cause.kind = threat.kind;
             nest_cause.weight = threat.weight;

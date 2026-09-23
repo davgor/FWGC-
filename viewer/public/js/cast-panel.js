@@ -85,9 +85,15 @@ export async function renderCast(container, world, actions, isCurrent = () => tr
         + `${p.school ? ` · ${titleCase(p.school)}` : ''}${p.seat ? ` · ${titleCase(p.seat)}` : ''}`;
     body.append(el('p', {}, `${who} · ${titleCase(p.role)} · ${p.archetype_name ?? 'No archetype'} · ${p.alignment?.label ?? '—'} · ${titleCase(p.tier)}, fame ${num(p.fame)}`));
     const realm = realms.get(p.realm_uid);
-    body.append(el('p', {}, p.presence
-      ? `Position: ${titleCase(p.presence.situation)} at ${places.get(p.presence.uid) ?? p.site_name ?? p.presence.uid}${realm ? ` · ${realm.name}` : ''}`
-      : `Legend of Age ${p.born_age ?? p.deeds?.[0]?.age ?? '—'} · no presence in the world`));
+    if (p.role === 'dread') {
+      // A monster holds a lair rather than a place with a name, and is known by what it razed.
+      body.append(el('p', {}, p.presence ? 'Position: holds its lair, still standing' : 'Legend: its lair is gone'),
+        el('p', {}, `Razed: ${(p.destroyed ?? []).map(k => `${k.name} (age ${k.age})`).join(', ') || '—'}`));
+    } else {
+      body.append(el('p', {}, p.presence
+        ? `Position: ${titleCase(p.presence.situation)} at ${places.get(p.presence.uid) ?? p.site_name ?? p.presence.uid}${realm ? ` · ${realm.name}` : ''}`
+        : `Legend of Age ${p.born_age ?? p.deeds?.[0]?.age ?? '—'} · no presence in the world`));
+    }
     if (p.situation) body.append(el('p', {}, `Now: ${p.situation}`));
 
     const log = el('details', {}, el('summary', {}, 'Event log and bonds'));

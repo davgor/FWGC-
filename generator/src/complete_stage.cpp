@@ -685,6 +685,23 @@ NpcRequest npc_request(const World& world, const SphereGrid& grid) {
         }
         request.cast.push_back(std::move(member));
     }
+    // Then the dreads, as the reference folds them (2026-09-23): a living one stands at its
+    // lair, which the place index finds among the nests; a legend stands nowhere. A monster
+    // carries no gender or age.
+    for (const HeroDread& d : world.heroes.dreads) {
+        NpcCastMember member;
+        member.uid = d.uid;
+        member.display_name = d.display_name;
+        member.name = d.name;
+        member.role = d.role;
+        member.status = d.status;
+        if (d.presence) {
+            member.presence_uid = d.presence->uid;
+            member.presence_site_kind = d.presence->site_kind;
+        }
+        member.monster = true;
+        request.cast.push_back(std::move(member));
+    }
 
     // Every place a person can be said to be, in raster cells. A row without a valid node
     // is carried with neither, so the roster can say it could not place it rather than

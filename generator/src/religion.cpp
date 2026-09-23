@@ -2,11 +2,13 @@
 
 #include <algorithm>
 #include <cmath>
+#include <numbers>
 #include <stdexcept>
 #include <utility>
 
 #include "fwg/entities.hpp"
 #include "fwg/random.hpp"
+#include "fwg/scale.hpp"
 
 namespace fwg {
 namespace {
@@ -930,6 +932,22 @@ std::array<double, kKnownSchools> mean_potency(const ReligionRequest& request,
     return out;
 }
 
+double nest_threat_reach_m(double span_m, double radius_m) {
+    // 350 m and the doubled span are metres of the reference world, scaled to this one; the
+    // half-radius cap is a share of the world already.
+    const double authored = std::max(350.0, span_m * 2.0);
+    return std::min(radius_m * 0.5, authored * scale::reach_scale(2.0 * std::numbers::pi * radius_m));
+}
+
+const NestThreat* strongest_nest_threat(const std::vector<NestThreat>& threats) {
+    const NestThreat* best = nullptr;
+    // The list is in id order, so a strict comparison keeps the lowest id on a tie.
+    for (const NestThreat& threat : threats) {
+        if (best == nullptr || threat.weight > best->weight) best = &threat;
+    }
+    return best;
+}
+
 std::vector<NestThreat> nest_threats(const ReligionCity& city,
                                      const std::vector<ReligionNest>& nests, double radius_m) {
     // STRING order on the id, and it is load-bearing: the fear dedupe keeps the first
@@ -954,11 +972,10 @@ std::vector<NestThreat> nest_threats(const ReligionCity& city,
         // construction -- there is no seam to cross.
         const double cosine = clamp_unit(dot(city.direction, nest->direction));
         const double distance = radius_m * std::acos(cosine);
-        // 350 m and radius/2 are ABSOLUTE metres authored against the reference world, not
-        // fractions of this one. The doubling applies to the nest's own range, which is why
-        // an absent range falls through to the spacing before it falls back to 350.
+        // The doubling applies to the nest's own range, which is why an absent range falls
+        // through to the spacing before it falls back to 350.
         const double span = nest->range_m ? *nest->range_m : (nest->spacing_m ? *nest->spacing_m : 350.0);
-        const double reach = std::min(radius_m * 0.5, std::max(350.0, span * 2.0));
+        const double reach = nest_threat_reach_m(span, radius_m);
         if (distance > reach) continue;
 
         NestThreat threat;
