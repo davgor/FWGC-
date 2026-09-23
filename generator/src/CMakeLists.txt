@@ -46,6 +46,7 @@
   humans.cpp
   json.cpp
   key_locations.cpp
+  liveness.cpp
   local_sampler.cpp
   magic.cpp
   measure.cpp
@@ -78,6 +79,7 @@
   world.cpp
   world_api.cpp
   world_scene.cpp
+  world_time.cpp
 )
 
 add_library(fwg::fwg ALIAS fwg)

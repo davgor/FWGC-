@@ -19,6 +19,7 @@
   test_heroes.cpp
   test_humans.cpp
   test_key_locations.cpp
+  test_liveness.cpp
   test_magic.cpp
   test_quests.cpp
   test_religion.cpp
@@ -45,6 +46,7 @@
   test_world.cpp
   test_world_api.cpp
   test_world_scene.cpp
+  test_world_time.cpp
 )
 
 target_link_libraries(fwg_tests PRIVATE fwg fwg_flags)

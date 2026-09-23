@@ -13,7 +13,9 @@
 
 #include <chrono>
 #include <cmath>
+#include <cstdint>
 #include <map>
+#include <memory>
 #include <utility>
 
 #include <set>
@@ -238,20 +240,37 @@ std::vector<EncounterBand> encounter_bands(const NomadBlock& block) {
     return out;
 }
 
-// The bands, the herds, and what a traveller would meet. The reference's order, which is
-// load-bearing: the herds are routed after the bands so a follower can attach to a band's
-// camp, the encounters read both, and the effects run last because they read the routes.
-void add_the_moving_world(World& world, const SphereGrid& grid) {
-    const Config& cfg = world.effective;
-    const std::vector<NomadHabitatCell> cells = nomad_habitat_cells(world.layers, grid);
-    const NomadRequest request = nomad_request(world, grid, cells);
+// ---------------------------------------------------------------------------
+// The moving world's passes, each over the world as it stands. Stage 16 runs them in order
+// below; the time API runs each on its own cadence through the public run_* wrappers at the
+// foot of this file. Both go through these, so there is one copy of every write-back.
+// ---------------------------------------------------------------------------
 
+// The bands, replacing the block wholesale -- its routes included -- as the reference's
+// add_nomads replaces its block. False when the stage gate refuses, which leaves whatever
+// the world carried.
+bool place_nomads(World& world, const NomadRequest& request) {
     std::optional<NomadBlock> nomads = add_nomads(request);
-    if (nomads) {
-        nomads->routes = add_nomad_routes(*nomads, request);
-        world.systems.push_back("nomads");
-    }
-    const std::vector<EncounterBand> bands = nomads ? encounter_bands(*nomads) : std::vector<EncounterBand>{};
+    if (!nomads) return false;
+    world.nomads = std::move(*nomads);
+    world.has_nomads = true;
+    return true;
+}
+
+// The route pass MUTATES the block it routes -- children leave, fresh ones are derived, the
+// counts are recomputed -- and returns the summary.
+void route_nomads(World& world, const NomadRequest& request) {
+    NomadRoutes routes = add_nomad_routes(world.nomads, request);
+    world.nomads.routes = std::move(routes);
+}
+
+std::vector<EncounterBand> bands_of(const World& world) {
+    return world.has_nomads ? encounter_bands(world.nomads) : std::vector<EncounterBand>{};
+}
+
+bool move_beasts(World& world, const SphereGrid& grid, std::uint32_t seed, long long year) {
+    const Config& cfg = world.effective;
+    const std::vector<EncounterBand> bands = bands_of(world);
 
     BeastMovementRequest herd;
     herd.world_recipe = cfg.world_recipe;
@@ -263,13 +282,11 @@ void add_the_moving_world(World& world, const SphereGrid& grid) {
     herd.road_max_grade = cfg.road_max_grade;
     // Two seeds, and the difference matters: the per-year irruption decision reads the
     // GENESIS seed, so it is a property of the year and not of how far the clock stepped.
-    herd.seed = cfg.seed;
+    herd.seed = seed;
     herd.genesis_seed = cfg.seed;
     herd.share = cfg.options[Option::beast_movement_share];
     herd.nomad_variation = cfg.options.as_int(Option::nomad_variation);
-    // No clock exists yet, so the year is where founding ended -- the reference's own
-    // fallback when a world has no world_clock.
-    herd.year = world.settlements.founding.end_year;
+    herd.year = year;
     herd.wildlife = world.wildlife.sites;
     herd.beast_nests = world.beast_nests.sites;
     herd.bands = bands;
@@ -277,61 +294,87 @@ void add_the_moving_world(World& world, const SphereGrid& grid) {
     haunts.reserve(world.ruins.size());
     for (const Ruin& r : world.ruins) haunts.push_back({r.node, r.uid});
     herd.ruins = haunts;
-    if (std::optional<BeastMovements> herds = add_beast_movements(herd)) {
-        world.beast_movements = std::move(*herds);
-        world.has_beast_movements = true;
-        world.systems.push_back("beast_movements");
-    }
+    std::optional<BeastMovements> herds = add_beast_movements(herd);
+    if (!herds) return false;
+    world.beast_movements = std::move(*herds);
+    world.has_beast_movements = true;
+    return true;
+}
 
+bool index_encounters(World& world) {
+    const Config& cfg = world.effective;
+    const std::vector<EncounterBand> bands = bands_of(world);
     EncounterRequest meet;
     meet.world_recipe = cfg.world_recipe;
     meet.phase = cfg.phase;
     meet.bands = bands;
     meet.groups = world.beast_movements.groups;
-    if (std::optional<EncounterIndex> index = add_encounters(meet)) {
-        world.encounters = std::move(*index);
-        world.systems.push_back("encounters");
-    }
+    std::optional<EncounterIndex> index = add_encounters(meet);
+    if (!index) return false;
+    world.encounters = std::move(*index);
+    return true;
+}
 
-    if (nomads) {
-        if (std::optional<NomadEffects> effects = apply_nomad_effects(*nomads, request)) {
-            // A cult deepens its circuit node; the reference edits the network and does
-            // NOT re-evaluate the fields, so the published ley layers stay as they were
-            // until the next evaluation -- an age turn. Faithful to that here.
-            for (const NomadLeyEdit& edit : effects->leyline_edits) {
-                const auto net = world.magic.networks.find(edit.school);
-                if (net == world.magic.networks.end()) continue;
-                for (LeyNode& node : net->second.nodes) {
-                    if (node.id == edit.node_id) node.intensity = edit.intensity;
-                }
-            }
-            // Raiders beside the nest, ley and war pressures a town already tracks. Written
-            // after the planners read the threat, so it widens regional_threat without
-            // having built any wall.
-            for (const NomadRaidPressure& raid : effects->raid_pressure) {
-                for (ThreatReport& report : world.threat_assessments.cities) {
-                    if (report.city_uid != raid.city_uid) continue;
-                    report.nomad_pressure = raid.nomad_pressure;
-                    if (raid.regional_threat) {
-                        report.nomad_contributors = raid.contributors;
-                        report.regional_threat = *raid.regional_threat;
-                    }
-                    break;
-                }
-            }
-            // The reference assigns the candidate list only when this pass has candidates,
-            // so an advanced world keeps the list its absorption has already stamped --
-            // which is what keeps absorption idempotent by band across advances.
-            std::vector<NomadSettlementCandidate> carried = std::move(world.nomad_effects.settlement_candidates);
-            world.nomad_effects = std::move(*effects);
-            if (!world.nomad_effects.assign_settlement_candidates) {
-                world.nomad_effects.settlement_candidates = std::move(carried);
-            }
-            world.systems.push_back("nomad_effects");
+bool write_nomad_effects(World& world, const NomadRequest& request) {
+    std::optional<NomadEffects> effects = apply_nomad_effects(world.nomads, request);
+    if (!effects) return false;
+    // A cult deepens its circuit node; the reference edits the network and does NOT
+    // re-evaluate the fields, so the published ley layers stay as they were until the next
+    // evaluation -- an age turn, or a tick that crosses this pass's cadence. Faithful to
+    // that here.
+    for (const NomadLeyEdit& edit : effects->leyline_edits) {
+        const auto net = world.magic.networks.find(edit.school);
+        if (net == world.magic.networks.end()) continue;
+        for (LeyNode& node : net->second.nodes) {
+            if (node.id == edit.node_id) node.intensity = edit.intensity;
         }
-        world.nomads = std::move(*nomads);
-        world.has_nomads = true;
     }
+    // Raiders beside the nest, ley and war pressures a town already tracks. Written after
+    // the planners read the threat, so it widens regional_threat without having built any
+    // wall.
+    for (const NomadRaidPressure& raid : effects->raid_pressure) {
+        for (ThreatReport& report : world.threat_assessments.cities) {
+            if (report.city_uid != raid.city_uid) continue;
+            report.nomad_pressure = raid.nomad_pressure;
+            if (raid.regional_threat) {
+                report.nomad_contributors = raid.contributors;
+                report.regional_threat = *raid.regional_threat;
+            }
+            break;
+        }
+    }
+    // The reference assigns the candidate list only when this pass has candidates, so an
+    // advanced world keeps the list its absorption has already stamped -- which is what
+    // keeps absorption idempotent by band across advances.
+    std::vector<NomadSettlementCandidate> carried = std::move(world.nomad_effects.settlement_candidates);
+    world.nomad_effects = std::move(*effects);
+    if (!world.nomad_effects.assign_settlement_candidates) {
+        world.nomad_effects.settlement_candidates = std::move(carried);
+    }
+    return true;
+}
+
+// The bands, the herds, and what a traveller would meet. The reference's order, which is
+// load-bearing: the herds are routed after the bands so a follower can attach to a band's
+// camp, the encounters read both, and the effects run last because they read the routes.
+//
+// The request is built once, before the bands are placed, and serves all three nomad
+// passes: nothing between them changes what it reads.
+void add_the_moving_world(World& world, const SphereGrid& grid) {
+    const Config& cfg = world.effective;
+    const std::vector<NomadHabitatCell> cells = nomad_habitat_cells(world.layers, grid);
+    const NomadRequest request = nomad_request(world, grid, cells);
+
+    // Only a population this stage placed is routed and written back. The gate that
+    // refuses placement (no recipe, or below phase 16) refuses the herds and the index too.
+    const bool placed = place_nomads(world, request);
+    if (placed) {
+        route_nomads(world, request);
+        world.systems.push_back("nomads");
+    }
+    if (move_beasts(world, grid, cfg.seed, beast_movement_year(world))) world.systems.push_back("beast_movements");
+    if (index_encounters(world)) world.systems.push_back("encounters");
+    if (placed && write_nomad_effects(world, request)) world.systems.push_back("nomad_effects");
 }
 
 // The hero generator's view of the world.
@@ -852,6 +895,64 @@ void add_simulation_complete(World& world) {
     world.systems.push_back("key_locations");
     world.systems.push_back("key_location_plans");
     lap("key_locations");
+}
+
+// ---------------------------------------------------------------------------
+// The moving world one pass at a time, for the time API's cadences. Each builds what its
+// pass reads from the world as it stands, with `seed` in place of the genesis seed. None
+// records itself in `systems`: the world already names every one of them from stage 16.
+// ---------------------------------------------------------------------------
+
+namespace {
+
+struct NomadInputs {
+    std::shared_ptr<const SphereGrid> held;
+    std::vector<NomadHabitatCell> cells;
+};
+
+// The request holds pointers into `inputs`, so `inputs` must outlive it and stay put.
+NomadRequest nomad_request_for(const World& world, const NomadInputs& inputs, std::uint32_t seed) {
+    NomadRequest request = nomad_request(world, *inputs.held, inputs.cells);
+    request.seed = seed;
+    return request;
+}
+
+NomadInputs nomad_inputs(const World& world) {
+    NomadInputs inputs;
+    inputs.held = sphere_grid(world.effective.size, world.effective.globe_radius);
+    inputs.cells = nomad_habitat_cells(world.layers, *inputs.held);
+    return inputs;
+}
+
+}  // namespace
+
+void run_nomads(World& world, std::uint32_t seed) {
+    const NomadInputs inputs = nomad_inputs(world);
+    place_nomads(world, nomad_request_for(world, inputs, seed));
+}
+
+void run_nomad_routes(World& world, std::uint32_t seed) {
+    if (!world.has_nomads || world.nomads.groups.empty()) return;
+    const NomadInputs inputs = nomad_inputs(world);
+    route_nomads(world, nomad_request_for(world, inputs, seed));
+}
+
+void run_beast_movements(World& world, std::uint32_t seed, long long year) {
+    const auto held = sphere_grid(world.effective.size, world.effective.globe_radius);
+    move_beasts(world, *held, seed, year);
+}
+
+void run_encounters(World& world) { index_encounters(world); }
+
+void run_nomad_effects(World& world, std::uint32_t seed) {
+    if (!world.has_nomads) return;
+    const NomadInputs inputs = nomad_inputs(world);
+    write_nomad_effects(world, nomad_request_for(world, inputs, seed));
+}
+
+long long beast_movement_year(const World& world) {
+    if (world.world_clock) return clock_year(*world.world_clock);
+    return world.settlements.founding.end_year;
 }
 
 }  // namespace fwg

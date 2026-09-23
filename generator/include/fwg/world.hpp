@@ -51,6 +51,7 @@
 #include "fwg/content.hpp"
 #include "fwg/water.hpp"
 #include "fwg/world_scene.hpp"
+#include "fwg/time_state.hpp"
 
 namespace fwg {
 
@@ -222,6 +223,16 @@ struct World {
 
     // The age this world is in. Zero until the first age transition turns it.
     int age = 0;
+
+    // ---- The time and quest APIs (world_time.hpp) -- written by nothing else ----------
+    // All absent on a world that has never been advanced, and absence is a fact: no clock
+    // means the world is read at its founding year, no board means the quest lifecycle has
+    // not begun, which is different from a lifecycle with no quests in it.
+    std::optional<WorldClock> world_clock;  // the reference's `world_clock`
+    std::optional<QuestBoard> quests;       // the reference's `quests`
+    std::optional<LunarSurge> lunar_surge;  // the reference's `magic.lunar_surge`
+    // Their operations go in history.operations with every other API's, in call order.
+    // ---------------------------------------------------------------------------------
 
     // Which subsystems actually ran. More honest than a stage number while the
     // ladder is partial: climate can be present while stages 6 and 7 are not.

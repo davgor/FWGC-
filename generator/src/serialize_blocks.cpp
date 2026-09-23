@@ -4105,6 +4105,53 @@ void history_operation(JsonWriter& json, const VisitationOperation& op) {
     json.end_object();
 }
 
+// A tick carries its steps and, verbatim, the edits and resolutions it applied; an age span
+// carries only the whole ages it turned (its remainder records its own tick).
+void history_operation(JsonWriter& json, const TimeOperationRecord& op) {
+    json.begin_object();
+    integer(json, "api_version", op.api_version);
+    text(json, "kind", "time");
+    text(json, "band", to_string(op.band));
+    real(json, "elapsed_days", op.elapsed_days);
+    if (op.ages) integer(json, "ages", *op.ages);
+    real(json, "from_day", op.from_day);
+    real(json, "to_day", op.to_day);
+    if (op.steps) {
+        integer(json, "steps", *op.steps);
+        json.key("leyline_edits");
+        json.begin_array();
+        for (const LeylineEdit& e : op.leyline_edits) leyline_edit(json, e);
+        json.end_array();
+        json.key("resolutions");
+        json.begin_array();
+        for (const QuestResolution& r : op.resolutions) {
+            json.begin_object();
+            text(json, "quest_id", r.quest_id);
+            text(json, "outcome", to_string(r.outcome));
+            json.end_object();
+        }
+        json.end_array();
+    }
+    json.end_object();
+}
+
+void history_operation(JsonWriter& json, const QuestOperationRecord& op) {
+    json.begin_object();
+    integer(json, "api_version", op.api_version);
+    text(json, "kind", "quest");
+    json.key("actions");
+    json.begin_array();
+    for (const QuestActionEntry& a : op.actions) {
+        json.begin_object();
+        text(json, "quest_id", a.quest_id);
+        text(json, "action", to_string(a.action));
+        real(json, "day", a.day);
+        json.end_object();
+    }
+    json.end_array();
+    json.end_object();
+}
+
 void write_history(JsonWriter& json, const WorldHistory& h) {
     json.begin_object();
     integer(json, "version", h.version);
@@ -4133,14 +4180,12 @@ void write_history(JsonWriter& json, const WorldHistory& h) {
     if (!h.operations.empty()) {
         json.key("operations");
         json.begin_array();
-        bool advanced = false;
         for (const HistoryOperation& operation : h.operations) {
-            advanced = advanced || std::holds_alternative<AgeOperation>(operation);
             std::visit([&json](const auto& op) { history_operation(json, op); }, operation);
         }
         json.end_array();
-        // Only the age API writes the replay note.
-        if (advanced) text(json, "replay", kAgeReplayNote);
+        // In the words of the API that wrote it last.
+        if (!h.replay.empty()) text(json, "replay", h.replay);
     }
     json.end_object();
 }

@@ -1,6 +1,7 @@
 #include "fwg/ages.hpp"
 
 #include <algorithm>
+#include <chrono>
 #include <cmath>
 #include <cstddef>
 #include <limits>
@@ -178,9 +179,10 @@ void validate_age_world(const World& world) {
     }
 }
 
-namespace {
-
-}  // namespace
+void refresh_villain_outlook(World& world) {
+    if (!world.has_villains) return;
+    world.villains.outlook = villain_outlook(villain_request(world, world.age));
+}
 
 World advance_ages(const World& world, const AgeAdvanceRequest& request) {
     if (request.api_version != kAgeApiVersion) {
@@ -208,6 +210,9 @@ World advance_ages(const World& world, const AgeAdvanceRequest& request) {
         }
     }
 
+    // Timed from here, as the reference times it: the edits and the checks are not the age.
+    const auto started = std::chrono::steady_clock::now();
+
     // The edited field, and everything that reads it, before the first age turns.
     evaluate_networks(out);
     add_terrain_labels(out);
@@ -218,6 +223,7 @@ World advance_ages(const World& world, const AgeAdvanceRequest& request) {
     const int start_age = static_cast<int>(out.history.ages.size());
     out.history.operations.push_back(
         AgeOperation{kAgeApiVersion, start_age, request.steps, request.leyline_edits, request.moon_day});
+    out.history.replay = std::string(kAgeReplayNote);
     for (int age = start_age + 1; age <= start_age + request.steps; ++age) {
         // The plans, and the scene built from them, describe cities an age is about to ruin;
         // both are redrawn at the end.
@@ -235,6 +241,10 @@ World advance_ages(const World& world, const AgeAdvanceRequest& request) {
     }
     dedupe_systems(out.systems);
     dedupe_warnings(out.warnings);
+    // The wall time of this whole call, however many ages it carried; a reader pricing one
+    // age divides by this call's `steps`, never by anything else in the operation log.
+    out.timing_ms["age_advance_total"] =
+        std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - started).count();
     return out;
 }
 

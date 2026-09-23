@@ -37,6 +37,7 @@
 #include "fwg/fates.hpp"
 #include "fwg/magic.hpp"
 #include "fwg/settlements_stage.hpp"
+#include "fwg/time_state.hpp"
 #include "fwg/vec3.hpp"
 #include "fwg/visitation.hpp"
 #include "fwg/wars.hpp"
@@ -171,14 +172,19 @@ struct CleanseOperation {
 };
 
 // One line of the log every API after generation appends to, in call order: an age
-// advance, a corruption, a cleanse, a summons or a departure.
-using HistoryOperation = std::variant<AgeOperation, CorruptionOperation, CleanseOperation, VisitationOperation>;
+// advance, a corruption, a cleanse, a summons or a departure, a span of time, or a batch
+// of quest actions.
+using HistoryOperation = std::variant<AgeOperation, CorruptionOperation, CleanseOperation, VisitationOperation,
+                                      TimeOperationRecord, QuestOperationRecord>;
 
 struct WorldHistory {
     int version = kHistoryVersion;
     std::vector<AgeRecord> ages;
     // Every operation made after generation, in order. Empty for a world as generated.
     std::vector<HistoryOperation> operations;
+    // How to replay the operations, in the words of the API that wrote last: the age API's
+    // kAgeReplayNote or the time API's sentence. Empty for a world as generated.
+    std::string replay;
 };
 
 struct AgeAdvanceRequest {
@@ -190,17 +196,36 @@ struct AgeAdvanceRequest {
     std::optional<long long> moon_day;
 };
 
-// The versioned state boundary every API after generation checks a world against: recipe
-// 3, generated through creatures (stage 13) on a grid of at most 1025, with the sky and the
-// pantheon of this build's catalogue. Throws AgeAdvanceError naming the field.
-void validate_age_world(const World& world);
-
 // Turn `request.steps` more ages over a finished world, after the player's ley edits, and
 // re-run stage 16 over the result. Same request in, same world out; the caller's world is
 // untouched. The world must have been generated through stage 13 with the sky and the
 // pantheon, against this build's pantheon catalogue. Throws AgeAdvanceError naming the
 // field that refused.
+//
+// Like the reference's advance_age_request, it records the wall time of the call as
+// `timing_ms["age_advance_total"]`, which the time API's age cost estimate divides by this
+// call's `steps` to price one age from this world's own measurement.
 World advance_ages(const World& world, const AgeAdvanceRequest& request);
+
+// The versioned state boundary every API after generation checks a world against: recipe
+// 3, generated through creatures (stage 13) on a grid of at most 1025, with the sky and the
+// pantheon of this build's catalogue. Throws AgeAdvanceError naming the field that refused,
+// returns quietly when it can.
+//
+// Exposed because the time API's age gate and the corruption API ASK this rather than
+// restating it. The
+// reference once hard-coded a grid ceiling there and named this check as its source; the
+// ceiling had already been raised, so a whole band of worlds was refused a span it would
+// have advanced. Asking the real predicate is the only version that cannot go stale.
+void validate_age_world(const World& world);
+
+// The villains' outlook refreshed over the world as it stands, WITHOUT advancing the cast.
+// The time API's villain_outlook cadence. A villain rises, holds or falls at an age
+// boundary and nowhere else -- advancing reads the threat assessment an age inherited, so
+// raising one mid-tick would let a villain be raised by its own damage -- but the outlook
+// is a reading of present ground and is safe to refresh. Does nothing on a world with no
+// villain block.
+void refresh_villain_outlook(World& world);
 
 // Turn age `age` over `world`. `moon_day` absent means the founding report's end year in
 // days, which is the day both generation-time ages turn on. `final` promotes the villains
