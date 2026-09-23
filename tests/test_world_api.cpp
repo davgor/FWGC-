@@ -10,6 +10,7 @@
 #include <string>
 #include <variant>
 
+#include "fwg/beasties_stage.hpp"
 #include "fwg/world_api.hpp"
 
 using namespace fwg;
@@ -221,4 +222,31 @@ TEST(an_age_cannot_yet_turn_over_ground_a_hidden_school_owns) {
         check::is_true(std::string(refused.what()).find("no fall reason") != std::string::npos,
                        std::string("refused naming the missing reason: ") + refused.what());
     }
+}
+
+TEST(the_reveal_outlasts_the_pantheons_re_resolve) {
+    // A school god's aspect is Wild when its network runs hot, which on a generated world it
+    // nearly always does -- so the order of the reveal and the resolve is invisible there.
+    // Quiet the rivals' networks first: the resolve alone would now make them Sovereign, and
+    // only a reveal that runs AFTER it leaves them Wild.
+    World quiet = finished();
+    for (auto& [school, net] : quiet.magic.networks) {
+        for (LeyNode& node : net.nodes) node.intensity = std::min(node.intensity, 0.1);
+        for (LeyEdge& edge : net.edges) edge.intensity = std::min(edge.intensity, 0.1);
+    }
+    CorruptWorldRequest request;
+    request.encounters = 1000;
+    const CorruptWorldResult result = corrupt(quiet, request);
+    check::is_true(result.report.acted, "the corruption to act on a quiet field");
+    World resolved_alone = result.world;
+    resolve_world_religion(resolved_alone);
+    std::size_t shown = 0;
+    for (const std::string& rival : result.world.corruptions.at(0).roused) {
+        const PantheonGod* known = pantheon_god(rival);
+        if (known == nullptr || known->aspects.wild.empty()) continue;
+        if (god_of(resolved_alone, rival)->aspect == "wild") continue;  // cannot show the order
+        ++shown;
+        check::equal(god_of(result.world, rival)->aspect, std::string("wild"), rival + " kept Wild by the reveal");
+    }
+    check::is_true(shown > 0, "some rival the resolve alone would calm, or the order is untested");
 }
