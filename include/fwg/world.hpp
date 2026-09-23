@@ -27,6 +27,7 @@
 #include "fwg/heroes.hpp"
 #include "fwg/story_web.hpp"
 #include "fwg/nomads.hpp"
+#include "fwg/npcs.hpp"
 #include "fwg/city_plan.hpp"
 #include "fwg/complete_stage.hpp"
 #include "fwg/religion.hpp"
@@ -176,6 +177,10 @@ struct World {
     bool has_heroes = false;
     HeroesBlock heroes;
     StoryWebBlock story_web;
+
+    // Stage 16. Who lives and works in every settlement.
+    bool has_npcs = false;
+    NpcRoster npcs;
 
     // The age this world is in. Zero until the first age transition turns it.
     int age = 0;

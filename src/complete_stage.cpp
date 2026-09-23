@@ -22,6 +22,7 @@
 #include "fwg/heroes.hpp"
 #include "fwg/magic.hpp"
 #include "fwg/nomads.hpp"
+#include "fwg/npcs.hpp"
 #include "fwg/story_web.hpp"
 #include "fwg/world.hpp"
 
@@ -390,6 +391,122 @@ StoryWebRequest story_web_request(const World& world, const HeroesBlock& heroes)
     return request;
 }
 
+std::vector<NpcPlot> npc_plots(const std::vector<Plot>& plots) {
+    std::vector<NpcPlot> out;
+    out.reserve(plots.size());
+    for (const Plot& p : plots) out.push_back({p.id, std::string(p.building_id), p.workers});
+    return out;
+}
+
+std::string_view class_name(CityClass c) {
+    return c == CityClass::Capital ? "capital" : c == CityClass::Medium ? "medium" : "small";
+}
+
+// The roster's view of the world: the plans it staffs, the settlements it anchors to, the
+// cast it draws named posts from, and every place a person can be said to be.
+NpcRequest npc_request(const World& world, const SphereGrid& grid) {
+    NpcRequest request;
+    request.seed = world.effective.seed;
+
+    request.has_city_plans = world.has_plans;
+    for (const CityPlan& p : world.city_plans.cities) {
+        NpcCityPlan plan;
+        plan.city_uid = p.city_uid;
+        plan.civilization_id = p.civilization_id;
+        plan.name = p.name;
+        plan.city_class = std::string(class_name(p.city_class));
+        plan.status = std::string(p.status);
+        // The plan's centre in raster units, the settlement's own cell.
+        for (const SettlementSite& s : world.settlements.sites) {
+            if (s.uid != p.city_uid) continue;
+            plan.x = NpcNumber::of(s.x);
+            plan.z = NpcNumber::of(s.z);
+        }
+        plan.plots = npc_plots(p.plots);
+        request.city_plans.push_back(std::move(plan));
+    }
+    request.has_hamlet_plans = world.has_plans && world.has_humans;
+    for (const HamletPlan& p : world.hamlet_plans.hamlets) {
+        NpcHamletPlan plan;
+        plan.node = p.node;
+        plan.civilization_id = p.civilization_id;
+        plan.core_city_uid = p.core_city_uid;
+        plan.core_id = p.core_id;
+        plan.kind = std::string(p.kind);
+        plan.role = p.role;
+        plan.hamlet_id = p.hamlet_id;
+        plan.status = std::string(p.status);
+        plan.x = NpcNumber::of(p.x);
+        plan.z = NpcNumber::of(p.z);
+        plan.plots = npc_plots(p.plots);
+        request.hamlet_plans.push_back(std::move(plan));
+    }
+    // Castles are not wired yet; a fortress without a castle plan still anchors a site
+    // from its own record, which is what the roster falls back to.
+
+    for (const RuralSite& f : world.humans.fortresses) {
+        request.fortresses.push_back({f.id, f.node, f.population_profile, f.core_id});
+    }
+    for (const SettlementSite& s : world.settlements.sites) {
+        NpcSettlementSite site;
+        site.uid = s.uid;
+        site.name = s.name;
+        site.civilization_id = s.population_profile;
+        site.parent_race_id = s.parent_race_id;
+        site.node = s.node;
+        site.x = NpcNumber::of(s.x);
+        site.z = NpcNumber::of(s.z);
+        request.settlements.push_back(std::move(site));
+    }
+    for (const EntityRules& e : entity_rules()) {
+        request.entities.push_back({std::string(e.id), std::string(e.parent_race_id)});
+    }
+    const RegistryIdentity registry = registry_identity();
+    request.registry_revision = registry.revision;
+    request.registry_sha256 = std::string(registry.sha256);
+
+    // Named posts are drawn from the living cast. A failed cast leaves the roster to
+    // generic workers rather than inventing named people it could not ground.
+    request.heroes_ok = world.has_heroes && world.heroes.status == "ok";
+    for (const Hero& h : world.heroes.people) {
+        NpcCastMember member;
+        member.uid = h.uid;
+        member.display_name = h.display_name;
+        member.name = h.name;
+        member.role = h.role;
+        member.status = h.status;
+        if (h.home) member.home_uid = h.home->uid;
+        if (h.presence) {
+            member.presence_uid = h.presence->uid;
+            member.presence_site_kind = h.presence->site_kind;
+        }
+        request.cast.push_back(std::move(member));
+    }
+
+    // Every place a person can be said to be, in raster cells. A row without a valid node
+    // is carried with neither, so the roster can say it could not place it rather than
+    // placing it at the origin.
+    const auto place = [&](std::vector<NpcPlaceRow>& rows, std::string uid, int node) {
+        NpcPlaceRow row;
+        row.uid = std::move(uid);
+        if (node >= 0 && static_cast<std::size_t>(node) < grid.node_count()) {
+            row.node = node;
+            row.x = grid.point_x[static_cast<std::size_t>(node)];
+            row.z = grid.point_z[static_cast<std::size_t>(node)];
+        }
+        rows.push_back(std::move(row));
+    };
+    for (const SettlementSite& s : world.settlements.sites) place(request.place_settlements, s.uid, s.node);
+    for (const RuralSite& h : world.humans.hamlets) place(request.place_hamlets, h.uid, h.node);
+    for (const RuralSite& f : world.humans.fortresses) place(request.place_fortresses, f.uid, f.node);
+    for (const HarbourPort& p : world.society.fisheries.ports) place(request.place_ports, p.id, p.node);
+    for (const ReligionSite& s : world.religion.sites) place(request.place_religion_sites, s.id, s.node);
+    for (const HeroCamp& c : world.heroes.camps) place(request.place_hero_camps, c.uid, c.node);
+    for (const College& c : world.colleges.colleges) place(request.place_colleges, c.id, c.node);
+    for (const NestSite& n : world.beast_nests.sites) place(request.place_nests, n.id, n.node);
+    return request;
+}
+
 }  // namespace
 
 void add_simulation_complete(World& world) {
@@ -418,6 +535,11 @@ void add_simulation_complete(World& world) {
     world.systems.push_back("heroes");
     world.story_web = attach_story_web(story_web_request(world, world.heroes));
     world.systems.push_back("story_web");
+
+    // The rosters staff the plans and draw their named posts from the living cast.
+    world.npcs = generate_npc_roster(npc_request(world, grid));
+    world.has_npcs = true;
+    world.systems.push_back("npcs");
 }
 
 }  // namespace fwg

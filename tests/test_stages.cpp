@@ -374,3 +374,34 @@ TEST(a_quest_to_slay_something_points_at_where_it_lives) {
     }
     check::is_true(slay > 0, "some slay quest to exist, or nothing is tested");
 }
+
+TEST(stage_sixteen_staffs_every_settlement_and_places_every_person) {
+    const World w = at_phase(16, 65);
+    check::is_true(w.has_npcs, "stage 16 to build the rosters");
+    check::is_true(w.npcs.ok, "the roster to resolve: " + w.npcs.error);
+    check::equal(w.npcs.sites.size(), w.settlements.sites.size() + w.humans.hamlets.size(),
+                 "a roster for every city and every hamlet");
+
+    std::set<std::string> places;
+    for (const SettlementSite& s : w.settlements.sites) places.insert(s.uid);
+    for (const RuralSite& h : w.humans.hamlets) places.insert(h.uid);
+    long long placed = 0;
+    for (const NpcPerson& p : w.npcs.people) {
+        if (p.is_cast || !p.site_uid) continue;
+        ++placed;
+        check::is_true(places.count(*p.site_uid) != 0, p.uid + " to live somewhere that exists");
+        check::is_true(p.name.has_value() && !p.name->empty(), p.uid + " to have a name");
+    }
+    check::is_true(placed > 0, "somebody to live somewhere, or nothing is tested");
+}
+
+TEST(every_living_hero_holds_a_post_in_the_rosters) {
+    // The roster draws its named posts from the cast. A living hero with no place in any
+    // roster is a person the world names and nobody can find.
+    const World w = at_phase(16, 65);
+    long long living = 0;
+    for (const Hero& h : w.heroes.people) living += h.status == "living" ? 1 : 0;
+    check::is_true(living > 0, "some living hero, or nothing is tested");
+    check::equal(static_cast<long long>(w.npcs.summary.heroes_linked), living,
+                 "every living hero linked into a roster");
+}
