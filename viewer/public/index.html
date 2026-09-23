@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FWGC++ world viewer</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%232a6f97'/%3E%3Cpath d='M3 9c2-3 4-1 6-3s3 1 4 0' stroke='%238fd18a' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/viewer.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="brand">World viewer</h1>
+
+    <!-- The three controls that shape a world most: everything else is in the panel. -->
+    <form id="run-form" class="run" autocomplete="off">
+      <label class="field">Seed
+        <input id="seed" type="number" min="0" max="4294967295" step="1" value="42" required>
+      </label>
+      <button type="button" id="seed-random" class="icon" title="A random seed">&#9860;</button>
+      <label class="field">Size
+        <input id="size" type="number" min="3" max="1025" step="2" value="65" list="size-presets" required
+               title="Grid cells along one edge; odd, 3 to 1025">
+        <datalist id="size-presets">
+          <option value="9"></option><option value="17"></option><option value="33"></option>
+          <option value="65"></option><option value="129"></option><option value="257"></option>
+          <option value="513"></option>
+        </datalist>
+      </label>
+      <label class="field">Phase <select id="phase" title="Stop after this stage"></select></label>
+      <button id="generate" type="submit" class="primary">Generate</button>
+      <div id="progress" class="progress" hidden><div class="progress-bar"></div></div>
+      <span id="status" class="status" role="status" aria-live="polite"></span>
+    </form>
+
+    <div class="topbar-tools">
+      <label class="field">World <select id="recent-worlds" title="Worlds already in the cache"></select></label>
+      <button type="button" id="toggle-controls" aria-pressed="true" title="Show or hide every other control">Controls</button>
+      <button type="button" id="toggle-inspector" aria-pressed="true" title="Show or hide the inspector">Inspector</button>
+    </div>
+  </header>
+
+  <div class="app" id="app">
+    <aside id="controls-panel" class="panel controls-panel" aria-label="Generator controls">
+      <div class="panel-head">
+        <input id="control-search" type="search" placeholder="Find a control" aria-label="Find a control">
+        <button type="button" id="controls-reset" title="Put every control back to its default">Reset all</button>
+      </div>
+      <p id="controls-note" class="note">Loading the control catalogue&hellip;</p>
+      <div id="control-groups"></div>
+    </aside>
+
+    <main class="workspace">
+      <nav class="tabs" role="tablist">
+        <button type="button" role="tab" id="tab-map" aria-selected="true" aria-controls="map-view">Map</button>
+        <button type="button" role="tab" id="tab-debug" aria-selected="false" aria-controls="debug-view">World debug</button>
+      </nav>
+
+      <section id="map-view" class="map-view" role="tabpanel" aria-labelledby="tab-map">
+        <div class="map-toolbar">
+          <label class="field">Layer <select id="layer-select" disabled></select></label>
+          <label class="check"><input type="checkbox" id="hillshade" checked> Hillshade</label>
+          <span class="toolbar-sep"></span>
+          <div id="overlay-toggles" class="overlay-toggles" aria-label="Overlays"></div>
+          <span class="toolbar-sep"></span>
+          <button type="button" id="zoom-in" class="icon" title="Zoom in">+</button>
+          <button type="button" id="zoom-out" class="icon" title="Zoom out">&minus;</button>
+          <button type="button" id="zoom-fit" title="Show the whole world">Fit</button>
+        </div>
+        <div class="map-wrap" id="map-wrap">
+          <canvas id="map" aria-label="World map; drag to pan, scroll to zoom, click to inspect"></canvas>
+          <div id="map-empty" class="map-empty">
+            <p>No world loaded.</p>
+            <p class="note">Pick a seed and a size and press <strong>Generate</strong>, or choose a world already in the cache.</p>
+          </div>
+        </div>
+        <div class="map-footer">
+          <div id="legend" class="legend"></div>
+          <div id="readout" class="readout">&nbsp;</div>
+        </div>
+      </section>
+
+      <section id="debug-view" class="debug-view" role="tabpanel" aria-labelledby="tab-debug" hidden></section>
+    </main>
+
+    <aside id="inspector" class="panel inspector" aria-label="Inspector">
+      <div class="panel-head">
+        <button type="button" id="inspector-back" class="icon" title="Back" disabled>&larr;</button>
+        <input id="find" type="search" placeholder="Find a city, hamlet, person, place&hellip;" aria-label="Find in this world" list="find-list">
+        <datalist id="find-list"></datalist>
+      </div>
+      <div id="inspector-body" class="inspector-body">
+        <p class="note">Click anything on the map to see its record.</p>
+      </div>
+    </aside>
+  </div>
+
+  <dialog id="city-dialog" class="city-dialog" aria-label="Settlement plan"></dialog>
+</body>
+</html>

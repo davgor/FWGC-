@@ -14,11 +14,15 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "fwg/grid.hpp"
+#include "fwg/json_value.hpp"
 #include "fwg/patch.hpp"
+#include "fwg/serialize.hpp"
 #include "fwg/world.hpp"
 
 using namespace fwg;
@@ -517,4 +521,59 @@ TEST(a_world_with_no_ground_yet_is_refused_as_a_missing_block) {
     check::equal(r.field, std::string("world.layers.height"), "the missing block named");
     check::equal(r.requires_block, std::string_view("layers.height"), "the block required");
     check::is_true(!r.retry, "no change to the request can fix the world");
+}
+
+// The fwg.patch document `fwg patch` prints: its keys in order, the world and config the
+// patch was cut from, the frame, the canonical surface's definition, and every per-vertex
+// grid and the triangles written flat, exactly as the Patch holds them.
+TEST(a_patch_is_written_as_the_fwg_patch_document) {
+    PatchConfig cfg = config(32.0, 2.0);
+    cfg.latitude = 12.5;
+    cfg.longitude = -40.0;
+    const Patch patch = generate_patch(planned_world(), cfg);
+    std::ostringstream out;
+    write_patch_json(out, patch);
+    const JsonValue doc = parse_json(out.str());
+
+    std::vector<std::string> keys;
+    for (const auto& member : doc.as_object()) keys.push_back(member.first);
+    check::is_true(keys == std::vector<std::string>{"schema", "version", "patch_version", "world_generator_version", "world",
+                                                    "patch_config", "radius_m", "size", "spacing_m", "detail_seed",
+                                                    "detail_resolved", "origin_height_m", "terrain_detail", "coordinates",
+                                                    "vertex_order", "height_reference", "warnings", "height", "detail",
+                                                    "local_x", "local_y", "local_z", "triangle_indices"},
+                   "the document's keys, in order");
+    check::equal(doc.at("schema").as_string(), std::string("fwg.patch"), "schema");
+    check::equal(doc.at("version").as_int(), std::int64_t{kPatchDocumentVersion}, "version");
+    check::equal(doc.at("patch_version").as_int(), std::int64_t{2}, "a canonical patch on a phase-16 world");
+    check::equal(doc.at("world").at("seed").as_int(), std::int64_t{42}, "the world's seed");
+    check::equal(doc.at("world").at("size").as_int(), std::int64_t{33}, "the world's size");
+    // Numbers are read with to_double: a double with no fraction is written as an integer.
+    check::equal(doc.at("patch_config").at("latitude").to_double().value(), 12.5, "latitude");
+    check::equal(doc.at("patch_config").at("longitude").to_double().value(), -40.0, "longitude");
+    check::equal(doc.at("size").as_int(), std::int64_t{17}, "32 m at 2 m is 17 vertices a side");
+    check::equal(doc.at("origin_height_m").to_double().value(), patch.origin_height_m, "the origin height");
+    check::is_true(!doc.at("terrain_detail").is_null(), "the canonical surface's definition");
+
+    const auto n = static_cast<std::size_t>(patch.size) * static_cast<std::size_t>(patch.size);
+    const std::pair<const char*, const std::vector<double>*> grids[] = {
+        {"height", &patch.height}, {"detail", &patch.detail}, {"local_x", &patch.local_x},
+        {"local_y", &patch.local_y}, {"local_z", &patch.local_z}};
+    for (const auto& [name, grid] : grids) {
+        const auto& written = doc.at(name).as_array();
+        check::equal(written.size(), n, std::string(name) + ": one value per vertex");
+        for (std::size_t i = 0; i < n; ++i) {
+            check::equal(written[i].to_double().value(), (*grid)[i], std::string(name) + ": written as the patch holds it");
+        }
+    }
+    const auto& triangles = doc.at("triangle_indices").as_array();
+    check::equal(triangles.size(), patch.triangle_indices.size(), "every triangle index");
+    for (std::size_t i = 0; i < triangles.size(); ++i) {
+        check::equal(triangles[i].as_int(), static_cast<std::int64_t>(patch.triangle_indices[i]), "an index as held");
+    }
+
+    // No clock in it: the same patch writes the same bytes.
+    std::ostringstream again;
+    write_patch_json(again, generate_patch(planned_world(), cfg));
+    check::is_true(again.str() == out.str(), "one patch, one document, byte for byte");
 }

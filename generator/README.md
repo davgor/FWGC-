@@ -37,6 +37,10 @@ export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/Comm
 ./build/apps/Release/fwg.exe generate --seed 42 --size 129 -o world.json
 ```
 
+`fwg --help` lists every command. Among them, `fwg patch --request REQ.json --latitude 10
+--longitude 20` regenerates the world a request file describes and cuts a local patch of
+ground from it -- a metre mesh up to 512 m across -- as the `fwg.patch` document.
+
 `--size` is the sampling grid along one edge of the sphere and must be odd. It is a
 **content** control as much as a detail control: the surface-noise octave ladder is
 Nyquist-filtered against cell spacing, so a coarse world does not resolve fine terrain at

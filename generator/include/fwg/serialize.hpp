@@ -79,4 +79,17 @@ SplitExport write_world_split(const std::filesystem::path& dir, const World& wor
 inline constexpr int kHeightTileVersion = 1;
 void write_height_tile_json(std::ostream& out, const World& world, const HeightTile& tile, bool pretty = false);
 
+struct Patch;
+
+// A local patch (patch.hpp) as this port's `fwg.patch` document, version 1: what `fwg patch`
+// prints. The reference's patch request answered with a bare dictionary; this document names
+// its schema and version, as the world document does, beside the patch's own patch_version.
+// The world it was cut from and the config it was cut with come first, then the frame, the
+// terrain-detail definition the canonical surface was sampled from (null on a legacy
+// world), and the mesh -- height, detail, local x/y/z, one value per vertex, and the
+// triangle indices -- flat and row-major as the Patch holds them. No timing: one request
+// writes the same bytes every time, as the world document does by default.
+inline constexpr int kPatchDocumentVersion = 1;
+void write_patch_json(std::ostream& out, const Patch& patch, bool pretty = false);
+
 }  // namespace fwg

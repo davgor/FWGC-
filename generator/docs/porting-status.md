@@ -42,7 +42,7 @@ Each takes the world by const reference and returns a new one; each appends to
 |---|---|---|
 | `advance_ages` -- more ages, after player ley edits | `terrain_history.advance_age_request` | **wired** |
 | `corrupt`, `cleanse`, `summon`, `depart` | `terrain_corruption`, `terrain_visitation` request functions | **wired** |
-| `generate_patch` -- a local metre patch with micro relief | `terrain_patch` | **wired** |
+| `generate_patch` -- a local metre patch with micro relief; `fwg patch` on the CLI, writing this port's `fwg.patch` document (`write_patch_json`) | `terrain_patch` | **wired** |
 | Time and quests on a World; the liveness predicate | `terrain_time`, `terrain_quest_api`, `terrain_liveness` | **wired** |
 | Found a player settlement; raise a band | `terrain_settlement_api`, `terrain_nomad_api` | **wired** |
 | Read/select queries (blocks, near, place, person, quests, plus a local patch read the reference lacks); person state | `terrain_read_select`, `terrain_read`, `terrain_person_state`, `terrain_person_api` | **wired** |

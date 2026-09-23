@@ -46,6 +46,13 @@ usage:
                [--output PATH]
                           describe the generator controls without generating;
                           open controls only unless --include-pinned
+  fwg patch --request PATH [--latitude DEG] [--longitude DEG] [--span M]
+            [--spacing M] [--detail-height M] [--detail-scale M] [--output PATH]
+                          regenerate the world a request file describes and cut a
+                          local patch of ground from it: a metre mesh around one
+                          point, as the fwg.patch document (compact JSON). Defaults
+                          0, 0, 64 m, 0.5 m, 0.4 m, 8 m; a refusal is printed as
+                          for generate --request
 
 --terse-errors          a refused request's JSON envelope carries only code,
                         message and field, not received/expected/suggestion
@@ -348,6 +355,68 @@ int run_capabilities(const std::vector<std::string_view>& args) {
     return 0;
 }
 
+// A request file as generate --request takes it: {"seed", "recipe_version", "overrides"}.
+fwg::Request read_request(const std::string& path) {
+    std::ifstream file(std::filesystem::path(path), std::ios::binary);
+    if (!file) fail("cannot read " + path);
+    std::ostringstream text;
+    text << file.rdbuf();
+    return fwg::request_from_json(fwg::parse_json(text.str()));
+}
+
+// The default is the highest stage that actually runs, so `fwg generate` with no arguments
+// produces the most complete world this port can make rather than the most complete one it
+// could make when the flag was last touched. Set only where the library's own default says
+// otherwise: the document's recipe.overrides lists what the request set, and a phase nobody
+// typed is not an override anybody asked for. Applied after a request file is read, so a
+// file without a phase gets the same default as flags -- and `fwg patch` regenerates the
+// same world from a file that `fwg generate --request` made.
+void default_to_highest_stage(fwg::Request& request) {
+    if (!request.phase && fwg::Config{}.phase != fwg::kHighestImplementedStage) {
+        request.phase = fwg::kHighestImplementedStage;
+    }
+}
+
+// The library's patch_request: the world regenerated from its request, then the patch cut.
+int run_patch(const std::vector<std::string_view>& args, bool terse) {
+    const Options options = parse_options(
+        args, {"--request", "--latitude", "--longitude", "--span", "--spacing", "--detail-height", "--detail-scale", "--output"},
+        {});
+    const auto request_path = last_value(options, "--request");
+    if (!request_path) fail("patch needs --request PATH, a request as generate --request takes it");
+    fwg::PatchConfig cfg;
+    const auto number = [&options](std::string_view flag, double& into) {
+        if (const auto text = last_value(options, flag)) {
+            const auto v = to_double(*text);
+            if (!v) fail(std::string(flag) + " needs a number");
+            into = *v;
+        }
+    };
+    number("--latitude", cfg.latitude);
+    number("--longitude", cfg.longitude);
+    number("--span", cfg.span);
+    number("--spacing", cfg.spacing);
+    number("--detail-height", cfg.detail_height);
+    number("--detail-scale", cfg.detail_scale);
+    try {
+        fwg::Request request = read_request(std::string(*request_path));
+        default_to_highest_stage(request);
+        const fwg::Patch patch = fwg::patch_request(request, cfg);
+        std::ostringstream text;
+        fwg::write_patch_json(text, patch);
+        if (const auto output = last_value(options, "--output")) {
+            write_file(std::string(*output), text.str());
+        } else {
+            std::cout << text.str();
+        }
+    } catch (const fwg::PatchError& error) {
+        return refuse(error, terse);
+    } catch (const std::exception& error) {
+        fail(error.what());
+    }
+    return 0;
+}
+
 int run_controls(const std::vector<std::string_view>& args) {
     const Options options =
         parse_options(args, {"--group", "--name", "--query", "--output"}, {"--include-pinned"});
@@ -435,6 +504,7 @@ int main(int argc, char** argv) {
     if (args[0] == "asset-list") return run_asset_list(args);
     if (args[0] == "capabilities") return run_capabilities(args);
     if (args[0] == "controls") return run_controls(args);
+    if (args[0] == "patch") return run_patch(args, terse);
     if (args[0] != "generate") fail("unknown command '" + std::string(args[0]) + "'; try --help");
 
     fwg::Request request;
@@ -533,22 +603,10 @@ int main(int argc, char** argv) {
                 fail("--request cannot be combined with " + shaping_flags.front() +
                      "; the request file is the whole request");
             }
-            std::ifstream file(std::filesystem::path(request_path), std::ios::binary);
-            if (!file) fail("cannot read " + request_path);
-            std::ostringstream text;
-            text << file.rdbuf();
-            request = fwg::request_from_json(fwg::parse_json(text.str()));
+            request = read_request(request_path);
         }
 
-        // The default is the highest stage that actually runs, so `fwg generate` with no
-        // arguments produces the most complete world this port can make rather than the
-        // most complete one it could make when the flag was last touched. Set only where the
-        // library's own default says otherwise: the document's recipe.overrides lists what the
-        // request set, and a phase nobody typed is not an override anybody asked for. After
-        // the request file is read, so a file without a phase gets the same default as flags.
-        if (!request.phase && fwg::Config{}.phase != fwg::kHighestImplementedStage) {
-            request.phase = fwg::kHighestImplementedStage;
-        }
+        default_to_highest_stage(request);
 
         const fwg::Config cfg = fwg::resolve(request);
         // Resolved now, so a malformed FWG_THREADS is refused before a world is spent on it.

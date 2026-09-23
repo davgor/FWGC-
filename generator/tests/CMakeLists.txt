@@ -83,3 +83,19 @@ add_test(NAME fwg_tests COMMAND fwg_tests)
 # The suite reports "no tests ran" as a failure, so an empty or mis-filtered run
 # cannot be mistaken for a green one.
 set_tests_properties(fwg_tests PROPERTIES FAIL_REGULAR_EXPRESSION "FAIL|no tests ran")
+
+# `fwg patch` end to end, where the CLI is built: a request file in and the fwg.patch
+# document out, and a patch config the library refuses coming back as fwg's failure
+# document. The document itself is pinned by test_patch.cpp; these pin the command.
+if(TARGET fwg_cli)
+  set(FWG_PATCH_REQUEST "${CMAKE_CURRENT_BINARY_DIR}/patch_request.json")
+  file(WRITE "${FWG_PATCH_REQUEST}" "{\"seed\": 42, \"recipe_version\": 3, \"overrides\": {\"size\": 9}}\n")
+  add_test(NAME fwg_cli_patch
+           COMMAND fwg_cli patch --request "${FWG_PATCH_REQUEST}" --latitude 10 --longitude 20 --span 32 --spacing 2)
+  set_tests_properties(fwg_cli_patch PROPERTIES
+                       PASS_REGULAR_EXPRESSION "^\\{\"schema\":\"fwg\\.patch\",\"version\":1,.*\"size\":17,")
+  add_test(NAME fwg_cli_patch_refused
+           COMMAND fwg_cli patch --request "${FWG_PATCH_REQUEST}" --span 100000)
+  set_tests_properties(fwg_cli_patch_refused PROPERTIES
+                       PASS_REGULAR_EXPRESSION "\"schema\": \"fantasy-world-generator\\.failure\".*\"field\": \"patch\\.span\"")
+endif()

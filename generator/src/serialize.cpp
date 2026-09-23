@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "fwg/json.hpp"
+#include "fwg/patch.hpp"
 #include "fwg/sha256.hpp"
 #include "serialize_blocks.hpp"
 #include "serialize_document.hpp"
@@ -1456,6 +1457,68 @@ void write_height_tile_json(std::ostream& out, const World& world, const HeightT
         for (const double h : row) json.value(h);
         json.end_array();
     }
+    json.end_array();
+    json.end_object();
+    out << '\n';
+}
+
+void write_patch_json(std::ostream& out, const Patch& patch, bool pretty) {
+    JsonWriter json(out, pretty);
+    const auto values = [&json](std::string_view name, const std::vector<double>& grid) {
+        json.key(name);
+        json.begin_array();
+        for (const double v : grid) json.value(v);
+        json.end_array();
+    };
+    json.begin_object();
+    json.field("schema", std::string_view("fwg.patch"));
+    json.field("version", kPatchDocumentVersion);
+    json.field("patch_version", patch.patch_version);
+    json.field("world_generator_version", patch.world_generator_version);
+    // The world is named by its request's shaping inputs; the whole design-space config is
+    // the world document's to publish, not a patch's.
+    json.key("world");
+    json.begin_object();
+    json.field("seed", static_cast<long long>(patch.world_config.seed));
+    json.field("size", patch.world_config.size);
+    json.field("phase", patch.world_config.phase);
+    json.end_object();
+    json.key("patch_config");
+    json.begin_object();
+    json.field("latitude", patch.patch_config.latitude);
+    json.field("longitude", patch.patch_config.longitude);
+    json.field("span", patch.patch_config.span);
+    json.field("spacing", patch.patch_config.spacing);
+    json.field("detail_height", patch.patch_config.detail_height);
+    json.field("detail_scale", patch.patch_config.detail_scale);
+    json.end_object();
+    json.field("radius_m", patch.radius_m);
+    json.field("size", patch.size);
+    json.field("spacing_m", patch.spacing_m);
+    json.field("detail_seed", static_cast<long long>(patch.detail_seed));
+    json.field("detail_resolved", patch.detail_resolved);
+    json.field("origin_height_m", patch.origin_height_m);
+    json.key("terrain_detail");
+    if (patch.terrain_detail) {
+        serialize_detail::write_terrain_detail(json, *patch.terrain_detail);
+    } else {
+        json.value_null();
+    }
+    json.field("coordinates", patch.coordinates);
+    json.field("vertex_order", patch.vertex_order);
+    json.field("height_reference", serialize_detail::kHeightReference);
+    json.key("warnings");
+    json.begin_array();
+    for (const std::string_view warning : patch.warnings) json.value(warning);
+    json.end_array();
+    values("height", patch.height);
+    values("detail", patch.detail);
+    values("local_x", patch.local_x);
+    values("local_y", patch.local_y);
+    values("local_z", patch.local_z);
+    json.key("triangle_indices");
+    json.begin_array();
+    for (const std::uint32_t index : patch.triangle_indices) json.value(static_cast<long long>(index));
     json.end_array();
     json.end_object();
     out << '\n';
