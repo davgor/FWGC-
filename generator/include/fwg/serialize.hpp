@@ -7,7 +7,9 @@
 #pragma once
 
 #include <iosfwd>
+#include <vector>
 
+#include "fwg/build_stages.hpp"
 #include "fwg/world.hpp"
 
 namespace fwg {
@@ -20,5 +22,15 @@ inline constexpr int kWorldSchemaVersion = 1;
 // numbers are still on the World struct for anyone who wants them, and `--timings`
 // puts them back in when the document is being read by a human rather than a tool.
 void write_world_json(std::ostream& out, const World& world, bool pretty = true, bool include_timings = false);
+
+struct DocumentOptions {
+    bool pretty = true;
+    bool include_timings = false;
+    // The stage snapshots a BuildStageRecorder captured while this world generated, written
+    // as `build_stages`. Null writes none, which is the default because no consumer of an
+    // exported world reads them and they are several times the world's own size.
+    const std::vector<BuildStage>* build_stages = nullptr;
+};
+void write_world_json(std::ostream& out, const World& world, const DocumentOptions& options);
 
 }  // namespace fwg

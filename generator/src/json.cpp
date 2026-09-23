@@ -138,6 +138,12 @@ void JsonWriter::value(const Grid& grid) {
     need_comma_ = true;
 }
 
+void JsonWriter::raw(std::string_view json_text) {
+    separator();
+    out_ << json_text;
+    need_comma_ = true;
+}
+
 void JsonWriter::value(const std::vector<std::string>& items) {
     begin_array();
     for (const std::string& item : items) value(std::string_view(item));

@@ -34,4 +34,12 @@ void write_site_age_fields(JsonWriter& json, const World& world, std::size_t sit
 // World says it exists.
 void write_late_blocks(JsonWriter& json, const World& world);
 
+// For debug_stats, which republishes a city plan's stats (as `stats`), its debug record (as
+// `placement`) and its unplaced rows, and the ruins -- each written here exactly as the
+// city_plans and ruins blocks write it. Values only; the caller writes the key.
+void write_city_plan_stats(JsonWriter& json, const PlanStats& stats);
+void write_city_plan_debug(JsonWriter& json, const PlanDebug& debug);
+void write_plan_unplaced(JsonWriter& json, const std::vector<Unplaced>& rows);
+void write_ruin_list(JsonWriter& json, const std::vector<Ruin>& ruins);
+
 }  // namespace fwg::serialize_detail

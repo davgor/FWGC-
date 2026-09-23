@@ -5,6 +5,7 @@
 
 #include "fwg/json.hpp"
 #include "serialize_blocks.hpp"
+#include "serialize_document.hpp"
 
 namespace fwg {
 namespace {
@@ -66,8 +67,174 @@ void write_config(JsonWriter& json, const Config& cfg) {
 
 }  // namespace
 
+namespace serialize_detail {
+
+void write_terrain_detail(JsonWriter& json, const TerrainDetail& detail) {
+    json.begin_object();
+    json.field("version", detail.version);
+    json.field("seed", static_cast<long long>(detail.seed));
+    json.key("bands");
+    json.begin_array();
+    for (const DetailBand& b : detail.bands) {
+        json.begin_object();
+        json.field("scale_m", b.scale_m);
+        json.field("amplitude_m", b.amplitude_m);
+        json.field("seed", static_cast<long long>(b.seed));
+        json.end_object();
+    }
+    json.end_array();
+    json.field("height_reference",
+               std::string_view("radial metres above the reference sphere; same datum as layers.height"));
+    json.field("coordinates",
+               std::string_view("unit direction (cos(lat)cos(lon), sin(lat), cos(lat)sin(lon))"));
+    json.field("method", std::string_view(
+        "Coarse elevation plus continuous spherical gradient-noise bands, with water, shoreline, river and "
+        "flood protection. Resolved samples are authoritative; level of detail never changes the height "
+        "function."));
+    json.end_object();
+}
+
+void write_founding_event(JsonWriter& json, const FoundingEvent& e) {
+    json.begin_object();
+    json.field("turn", e.turn);
+    json.field("parent_race_id", e.parent_race_id);
+    json.field("status", e.status);
+    json.field("radius_m", e.radius_m);
+    if (e.draw_percent >= 0.0) json.field("draw_percent", e.draw_percent);
+    if (e.suitability >= 0.0) json.field("suitability", e.suitability);
+    if (e.node >= 0) json.field("node", e.node);
+    if (!e.population_profile.empty()) json.field("population_profile", e.population_profile);
+    // A founding carries the site it placed, as the reference's event does: its event is the
+    // site's record plus the round's fields. The diaspora three only on a diaspora founding.
+    if (e.node >= 0) {
+        json.field("founding_turn", e.founding_turn);
+        json.field("founding_capital", e.founding_capital);
+        json.field("founding_year", e.founding_year);
+        json.key("migration_source_node");
+        if (e.migration_source_node >= 0) {
+            json.value(e.migration_source_node);
+        } else {
+            json.value_null();
+        }
+        json.key("source_civilization_id");
+        if (e.source_civilization_id.empty()) {
+            json.value_null();
+        } else {
+            json.value(std::string_view(e.source_civilization_id));
+        }
+        json.field("migration_distance_m", e.migration_distance_m);
+        json.field("cultural_branch", e.cultural_branch);
+        if (e.diaspora) {
+            json.field("diaspora", e.diaspora);
+            json.field("diaspora_reason", e.diaspora_reason);
+            json.field("diaspora_bonus", e.diaspora_bonus);
+        }
+    }
+    json.end_object();
+}
+
+void write_settlements(JsonWriter& json, const World& world) {
+    const SettlementReport& settled = world.settlements;
+    json.begin_object();
+    json.field("version", 1);
+    json.field("population_profile", world.config.population_profile);
+
+    json.key("sites");
+    json.begin_array();
+    for (std::size_t site_index = 0; site_index < settled.sites.size(); ++site_index) {
+        const SettlementSite& s = settled.sites[site_index];
+        json.begin_object();
+        json.field("id", s.id);
+        json.field("uid", s.uid);
+        json.field("node", s.node);
+        json.field("x", s.x);
+        json.field("z", s.z);
+        json.field("name", s.name);
+        json.field("name_gloss", s.name_gloss);
+        json.field("population_profile", s.population_profile);
+        json.field("parent_race_id", s.parent_race_id);
+        json.field("city_class", std::string_view(s.city_class == CityClass::Capital  ? "capital"
+                                                  : s.city_class == CityClass::Medium ? "medium"
+                                                                                      : "small"));
+        json.field("classification_reason", s.classification_reason);
+        json.field("founding_capital", s.founding_capital);
+        json.field("founding_turn", s.founding_turn);
+        json.field("founding_year", s.founding_year);
+        json.field("suitability", s.suitability);
+        json.field("height_m", s.height_m);
+        json.field("slope_degrees", s.slope_degrees);
+        json.field("temperature_c", s.temperature_c);
+        json.field("moisture", s.moisture);
+        json.field("flood_risk", s.flood_risk);
+        json.field("resource_potential", s.resource_potential);
+        // Infinity is not representable in JSON, and null is the honest reading:
+        // there is no distance to water that cannot be reached.
+        json.key("freshwater_distance_m");
+        if (std::isfinite(s.freshwater_distance_m)) {
+            json.value(s.freshwater_distance_m);
+        } else {
+            json.value_null();
+        }
+        json.field("population_estimate", s.population_estimate);
+        json.field("urban_population_estimate", s.urban_population_estimate);
+        json.field("rural_population_estimate", s.rural_population_estimate);
+        json.key("migration_source_node");
+        if (s.migration_source_node >= 0) {
+            json.value(s.migration_source_node);
+        } else {
+            json.value_null();
+        }
+        json.field("source_civilization_id", s.source_civilization_id);
+        json.field("migration_distance_m", s.migration_distance_m);
+        json.field("cultural_branch", s.cultural_branch);
+        json.field("diaspora", s.diaspora);
+        json.field("diaspora_reason", s.diaspora_reason);
+        write_site_society_fields(json, world, site_index);
+        write_site_age_fields(json, world, site_index);
+        json.end_object();
+    }
+    json.end_array();
+
+    // The budget is its own top-level block, `population_budget`, as the reference writes
+    // it. The copy that used to sit here under this port's own names had no reader.
+
+    json.key("founding");
+    json.begin_object();
+    json.field("start_year", settled.founding.start_year);
+    json.field("end_year", settled.founding.end_year);
+    json.field("elapsed_years", settled.founding.elapsed_years);
+    json.field("turns", settled.founding.turns);
+    json.field("target_cities", settled.founding.target_cities);
+    json.field("placed_cities", settled.founding.placed_cities);
+    json.field("stop_reason", settled.founding.stop_reason);
+    json.key("effective_quotas");
+    json.begin_object();
+    for (const auto& [people, value] : settled.founding.effective_quotas) json.field(people, value);
+    json.end_object();
+    json.key("diaspora_bonus_used");
+    json.value(settled.founding.diaspora_bonus_used);
+    json.key("used_civilizations");
+    json.value(settled.founding.used_civilizations);
+    // The per-round record is what answers "why is this people not on the map".
+    json.key("events");
+    json.begin_array();
+    for (const FoundingEvent& e : settled.founding.events) write_founding_event(json, e);
+    json.end_array();
+    json.end_object();
+    json.end_object();
+}
+
+}  // namespace serialize_detail
+
 void write_world_json(std::ostream& out, const World& world, bool pretty, bool include_timings) {
-    JsonWriter json(out, pretty);
+    DocumentOptions options;
+    options.pretty = pretty;
+    options.include_timings = include_timings;
+    write_world_json(out, world, options);
+}
+
+void write_world_json(std::ostream& out, const World& world, const DocumentOptions& options) {
+    JsonWriter json(out, options.pretty);
     json.begin_object();
 
     json.field("schema", std::string_view("fwg.world"));
@@ -140,6 +307,18 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
     }
     json.end_array();
     json.field("motion_units", std::string_view("dimensionless angular velocity"));
+
+    // The ladder, the request, and the peoples the request named. None of the four is a
+    // stage's output: `population` and `population_profiles` exist from stage 1 in the
+    // reference, and `phases` and `recipe` describe the whole run.
+    json.key("phases");
+    serialize_detail::write_phases(json, world);
+    json.key("recipe");
+    serialize_detail::write_recipe(json, world);
+    json.key("population");
+    serialize_detail::write_population(json, world);
+    json.key("population_profiles");
+    serialize_detail::write_population_profiles(json);
 
     if (world.config.phase >= 2) {
         json.key("area");
@@ -541,28 +720,7 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
 
     if (world.has_terrain_detail) {
         json.key("terrain_detail");
-        json.begin_object();
-        json.field("version", world.terrain_detail.version);
-        json.field("seed", static_cast<long long>(world.terrain_detail.seed));
-        json.key("bands");
-        json.begin_array();
-        for (const DetailBand& b : world.terrain_detail.bands) {
-            json.begin_object();
-            json.field("scale_m", b.scale_m);
-            json.field("amplitude_m", b.amplitude_m);
-            json.field("seed", static_cast<long long>(b.seed));
-            json.end_object();
-        }
-        json.end_array();
-        json.field("height_reference",
-                   std::string_view("radial metres above the reference sphere; same datum as layers.height"));
-        json.field("coordinates",
-                   std::string_view("unit direction (cos(lat)cos(lon), sin(lat), cos(lat)sin(lon))"));
-        json.field("method", std::string_view(
-            "Coarse elevation plus continuous spherical gradient-noise bands, with water, shoreline, river and "
-            "flood protection. Resolved samples are authoritative; level of detail never changes the height "
-            "function."));
-        json.end_object();
+        serialize_detail::write_terrain_detail(json, world.terrain_detail);
     }
 
     if (world.has_ecology) {
@@ -647,129 +805,16 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
     }
 
     if (world.has_settlements) {
-        const SettlementReport& settled = world.settlements;
         json.key("settlements");
-        json.begin_object();
-        json.field("version", 1);
-        json.field("population_profile", world.config.population_profile);
-
-        json.key("sites");
-        json.begin_array();
-        for (std::size_t site_index = 0; site_index < settled.sites.size(); ++site_index) {
-            const SettlementSite& s = settled.sites[site_index];
-            json.begin_object();
-            json.field("id", s.id);
-            json.field("uid", s.uid);
-            json.field("node", s.node);
-            json.field("x", s.x);
-            json.field("z", s.z);
-            json.field("name", s.name);
-            json.field("name_gloss", s.name_gloss);
-            json.field("population_profile", s.population_profile);
-            json.field("parent_race_id", s.parent_race_id);
-            json.field("city_class", std::string_view(s.city_class == CityClass::Capital  ? "capital"
-                                                      : s.city_class == CityClass::Medium ? "medium"
-                                                                                          : "small"));
-            json.field("classification_reason", s.classification_reason);
-            json.field("founding_capital", s.founding_capital);
-            json.field("founding_turn", s.founding_turn);
-            json.field("founding_year", s.founding_year);
-            json.field("suitability", s.suitability);
-            json.field("height_m", s.height_m);
-            json.field("slope_degrees", s.slope_degrees);
-            json.field("temperature_c", s.temperature_c);
-            json.field("moisture", s.moisture);
-            json.field("flood_risk", s.flood_risk);
-            json.field("resource_potential", s.resource_potential);
-            // Infinity is not representable in JSON, and null is the honest reading:
-            // there is no distance to water that cannot be reached.
-            json.key("freshwater_distance_m");
-            if (std::isfinite(s.freshwater_distance_m)) {
-                json.value(s.freshwater_distance_m);
-            } else {
-                json.value_null();
-            }
-            json.field("population_estimate", s.population_estimate);
-            json.field("urban_population_estimate", s.urban_population_estimate);
-            json.field("rural_population_estimate", s.rural_population_estimate);
-            json.key("migration_source_node");
-            if (s.migration_source_node >= 0) {
-                json.value(s.migration_source_node);
-            } else {
-                json.value_null();
-            }
-            json.field("source_civilization_id", s.source_civilization_id);
-            json.field("migration_distance_m", s.migration_distance_m);
-            json.field("cultural_branch", s.cultural_branch);
-            json.field("diaspora", s.diaspora);
-            json.field("diaspora_reason", s.diaspora_reason);
-            serialize_detail::write_site_society_fields(json, world, site_index);
-            serialize_detail::write_site_age_fields(json, world, site_index);
-            json.end_object();
-        }
-        json.end_array();
-
+        serialize_detail::write_settlements(json, world);
+        // Three blocks the reference writes beside the settlements rather than inside
+        // them, all from stage 10 and rewritten by every rebuild.
         json.key("population_budget");
-        json.begin_object();
-        json.field("world_capacity", settled.budget.world_capacity);
-        json.field("habitable_km2", settled.budget.ceiling.habitable_km2);
-        json.field("per_city_km2", settled.budget.ceiling.per_city_km2);
-        json.field("resolvable_spacing_m", settled.budget.ceiling.resolvable_spacing_m);
-        json.field("spacing_city_ceiling", settled.budget.ceiling.packing);
-        json.field("city_limit", settled.budget.city_limit);
-        json.key("allowances");
-        json.begin_object();
-        for (const auto& [people, value] : settled.budget.allowances) json.field(people, value);
-        json.end_object();
-        json.key("weighted_habitat_km2");
-        json.begin_object();
-        for (const auto& [people, value] : settled.budget.weighted_habitat_km2) json.field(people, value);
-        json.end_object();
-        json.key("requested_cities");
-        json.begin_object();
-        for (const auto& [people, value] : settled.budget.requested_cities) json.field(people, value);
-        json.end_object();
-        json.field("method", std::string_view(
-            "Capacity integrates area-weighted farming potential, climate, freshwater, slope and biome. "
-            "Overlapping peoples split each cell's capacity rather than multiplying it. Residents per "
-            "productive km2 is a provisional proxy, not a validated agricultural yield."));
-        json.end_object();
-
-        json.key("founding");
-        json.begin_object();
-        json.field("start_year", settled.founding.start_year);
-        json.field("end_year", settled.founding.end_year);
-        json.field("elapsed_years", settled.founding.elapsed_years);
-        json.field("turns", settled.founding.turns);
-        json.field("target_cities", settled.founding.target_cities);
-        json.field("placed_cities", settled.founding.placed_cities);
-        json.field("stop_reason", settled.founding.stop_reason);
-        json.key("effective_quotas");
-        json.begin_object();
-        for (const auto& [people, value] : settled.founding.effective_quotas) json.field(people, value);
-        json.end_object();
-        json.key("diaspora_bonus_used");
-        json.value(settled.founding.diaspora_bonus_used);
-        json.key("used_civilizations");
-        json.value(settled.founding.used_civilizations);
-        // The per-round record is what answers "why is this people not on the map".
-        json.key("events");
-        json.begin_array();
-        for (const FoundingEvent& e : settled.founding.events) {
-            json.begin_object();
-            json.field("turn", e.turn);
-            json.field("parent_race_id", e.parent_race_id);
-            json.field("status", e.status);
-            json.field("radius_m", e.radius_m);
-            if (e.draw_percent >= 0.0) json.field("draw_percent", e.draw_percent);
-            if (e.suitability >= 0.0) json.field("suitability", e.suitability);
-            if (e.node >= 0) json.field("node", e.node);
-            if (!e.population_profile.empty()) json.field("population_profile", e.population_profile);
-            json.end_object();
-        }
-        json.end_array();
-        json.end_object();
-        json.end_object();
+        serialize_detail::write_population_budget(json, world);
+        json.key("peoples");
+        serialize_detail::write_peoples(json, world);
+        json.key("civilizations");
+        serialize_detail::write_civilizations(json, world);
     }
 
     if (world.has_roads) {
@@ -871,6 +916,12 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
     // bands and herds, the cast, the rosters and the key locations.
     serialize_detail::write_late_blocks(json, world);
 
+    // Stage 16: every plan and the regional roads in one globe-centred frame.
+    if (world.has_world_scene) {
+        json.key("world_scene");
+        serialize_detail::write_world_scene(json, world.world_scene);
+    }
+
     if (!world.systems.empty()) {
         json.key("systems");
         json.value(world.systems);
@@ -887,12 +938,23 @@ void write_world_json(std::ostream& out, const World& world, bool pretty, bool i
     json.key("warnings");
     json.value(world.warnings);
 
-    if (include_timings) {
+    if (options.include_timings) {
         json.key("timing_ms");
         json.begin_object();
         for (const auto& [name, value] : world.timing_ms) json.field(name, value);
         json.end_object();
     }
+
+    // Opt-in, as the reference's --include-build-stages is: several times the world's own
+    // size, and read by the stage inspector alone.
+    if (options.build_stages != nullptr) {
+        json.key("build_stages");
+        serialize_detail::write_build_stages(json, *options.build_stages);
+    }
+
+    // Last, as the reference computes it: a summary of the finished world.
+    json.key("debug_stats");
+    serialize_detail::write_debug_stats(json, world);
 
     json.end_object();
     out << '\n';

@@ -135,6 +135,20 @@ struct Config {
     };
     std::vector<OptionBias> option_biases;
 
+    // What the request itself set, by published control name, sorted by name: the world
+    // document's recipe.overrides. Recorded by resolve() because a world keeps its Config
+    // and not its Request, and "what the caller asked for" cannot be read back off resolved
+    // values -- the world_size preset moves globe_radius off its default with nobody having
+    // asked for a radius. A string-valued control (world_size, population_profile) sets
+    // `text` and `is_text`; everything else is a number.
+    struct RequestedOverride {
+        std::string name;
+        double number = 0.0;
+        std::string text;
+        bool is_text = false;
+    };
+    std::vector<RequestedOverride> requested_overrides;
+
     // The world-options control surface: every knob that is not a field above.
     // Ocean islands, coasts, cold, nests, nomads, the moon, the magical networks and
     // the thirteen regions all read from here.

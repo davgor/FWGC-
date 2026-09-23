@@ -41,6 +41,11 @@ public:
 
     void value(const std::vector<std::string>& items);
 
+    // A value that is ALREADY JSON text, written verbatim. Nothing here parses it: the caller
+    // vouches that it is one complete value. It exists so captured stage snapshots can be
+    // spliced into a document exactly as they were written, rather than re-serialised.
+    void raw(std::string_view json_text);
+
     template <typename T>
     void field(std::string_view name, const T& v) {
         key(name);

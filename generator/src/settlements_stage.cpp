@@ -155,6 +155,10 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
 
     const FoundingResult founded = found_cities(cfg.seed, request, distance);
     report.founding = founded.report;
+    // [document: population_budget] What the reference publishes as requested_cities is
+    // the quotas founding ended on, not the ones it was handed: it rebinds `quotas` to the
+    // founding report's effective quotas before writing the budget.
+    report.budget.requested_cities = founded.report.effective_quotas;
 
     // --- the records -------------------------------------------------------
     std::map<std::string, const SpeciesAssessment*> by_id;
@@ -286,6 +290,29 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
 
         report.sites.push_back(std::move(site));
     }
+
+    // [document: population_budget] The rest of the reference's budget block: each people's
+    // share of the capacity, its founding minimum, how many cities it holds and how much of
+    // the capacity the cities took. After the sites, because `allocated` counts the refugees
+    // a survivor took in, which were added above after the capacity split -- as the
+    // reference counts them.
+    for (const SpeciesAssessment& a : assessed) {
+        const auto allowance = report.budget.allowances.find(a.id);
+        const long long own = allowance != report.budget.allowances.end() ? allowance->second : 0;
+        report.budget.shares[a.id] = report.budget.world_capacity > 0
+                                         ? static_cast<double>(own) / static_cast<double>(report.budget.world_capacity)
+                                         : 0.0;
+        if (const CivilizationProfile* profile = civilization_profile(a.id)) {
+            report.budget.minimum_city_region_residents[a.id] =
+                static_cast<long long>(profile->traits.minimum_founding_residents);
+        }
+        report.budget.placed_cities[a.id] = 0;
+    }
+    for (const SettlementSite& s : report.sites) {
+        ++report.budget.placed_cities[s.population_profile];
+        report.budget.allocated += s.population_estimate;
+    }
+    report.budget.unallocated = report.budget.world_capacity - report.budget.allocated;
 
     // Each people's opinion of the whole world, published so a reader can see the field
     // a siting decision came out of rather than only the decision.

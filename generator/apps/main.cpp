@@ -6,6 +6,7 @@
 #include <cstring>
 #include <fstream>
 #include <iostream>
+#include <iterator>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -25,6 +26,9 @@ void usage() {
 usage:
   fwg generate [options]
   fwg registry            dump the civilization registry as JSON
+  fwg materialize --stage N [-o PATH] DOCUMENT
+                          rebuild the world at stage N from a document written
+                          with --include-build-stages (compact JSON)
 
 options:
   --seed N              master seed (default 42)
@@ -46,6 +50,9 @@ options:
   --compact             one-line JSON
   --timings             include wall-clock timings in the document; off by
                         default so two runs of one seed are byte-identical
+  --include-build-stages
+                        embed the stage inspector's per-stage snapshots as
+                        `build_stages` (several times the document's size)
   --quiet               no progress on stderr
   -h, --help            this text
 
@@ -221,6 +228,46 @@ int main(int argc, char** argv) {
         dump_registry(std::cout);
         return 0;
     }
+    if (args[0] == "materialize") {
+        // The stage inspector's replay, from outside the library: the finished document's
+        // non-state blocks plus the first N snapshots.
+        std::string in_path;
+        std::string out_path;
+        long long stage = 0;
+        for (std::size_t i = 1; i < args.size(); ++i) {
+            if (args[i] == "--stage" && i + 1 < args.size()) {
+                const auto v = to_int(args[++i]);
+                if (!v) fail("--stage needs an integer");
+                stage = *v;
+            } else if ((args[i] == "-o" || args[i] == "--out") && i + 1 < args.size()) {
+                out_path = std::string(args[++i]);
+            } else if (in_path.empty() && !args[i].starts_with("-")) {
+                in_path = std::string(args[i]);
+            } else {
+                fail("unknown argument '" + std::string(args[i]) + "'; try --help");
+            }
+        }
+        if (in_path.empty()) fail("materialize needs a document");
+        std::ifstream file(in_path, std::ios::binary);
+        if (!file) fail("cannot read " + in_path);
+        const std::string document((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+        // Range-checked BEFORE the narrowing cast, as --size is: a stage past int would wrap
+        // to a small one and replay a stage nobody asked for. Zero is refused as ungenerated.
+        const int wanted = stage >= 1 && stage <= 1000000 ? static_cast<int>(stage) : 0;
+        try {
+            const std::string stage_document = fwg::materialize_stage(document, wanted);
+            if (out_path.empty()) {
+                std::cout << stage_document << '\n';
+            } else {
+                std::ofstream out(out_path, std::ios::binary);
+                if (!out) fail("cannot write " + out_path);
+                out << stage_document << '\n';
+            }
+        } catch (const std::exception& error) {
+            fail(error.what());
+        }
+        return 0;
+    }
     if (args[0] != "generate") fail("unknown command '" + std::string(args[0]) + "'; try --help");
 
     fwg::Request request;
@@ -228,6 +275,7 @@ int main(int argc, char** argv) {
     bool pretty = true;
     bool quiet = false;
     bool timings = false;
+    bool build_stages = false;
 
     const auto next = [&](std::size_t& i, std::string_view flag) -> std::string_view {
         if (i + 1 >= args.size()) fail(std::string(flag) + " needs a value");
@@ -289,6 +337,7 @@ int main(int argc, char** argv) {
         else if (arg == "-o" || arg == "--out") out_path = std::string(next(i, arg));
         else if (arg == "--compact") pretty = false;
         else if (arg == "--timings") timings = true;
+        else if (arg == "--include-build-stages") build_stages = true;
         else if (arg == "--quiet") quiet = true;
         else if (arg == "-h" || arg == "--help") { usage(); return 0; }
         else fail("unknown option '" + std::string(arg) + "'");
@@ -296,8 +345,12 @@ int main(int argc, char** argv) {
 
     // The default is the highest stage that actually runs, so `fwg generate` with no
     // arguments produces the most complete world this port can make rather than the
-    // most complete one it could make when the flag was last touched.
-    if (!request.phase) request.phase = fwg::kHighestImplementedStage;
+    // most complete one it could make when the flag was last touched. Set only where the
+    // library's own default says otherwise: the document's recipe.overrides lists what the
+    // request set, and a phase nobody typed is not an override anybody asked for.
+    if (!request.phase && fwg::Config{}.phase != fwg::kHighestImplementedStage) {
+        request.phase = fwg::kHighestImplementedStage;
+    }
 
     try {
         const fwg::Config cfg = fwg::resolve(request);
@@ -306,22 +359,34 @@ int main(int argc, char** argv) {
                       << ", radius " << cfg.globe_radius * cfg.world_scale << " m\n";
         }
 
-        const fwg::World world = fwg::generate(cfg);
+        // The stage inspector's snapshots, only when asked for: each finished stage's world
+        // is serialised and split at its top-level keys, and only what changed is kept.
+        fwg::BuildStageRecorder recorder;
+        fwg::StageObserver observer;
+        if (build_stages) {
+            observer = [&recorder](int stage, const fwg::World& stage_world) { recorder.capture(stage, stage_world); };
+        }
+        const fwg::World world = fwg::generate(cfg, observer);
 
         if (!quiet) {
             std::cerr << "generated in " << world.timing_ms.at("total") << " ms; land "
                       << world.area.land_fraction * 100.0 << "% of "
                       << world.area.total_km2 << " km2; " << world.resolved_octaves << '/'
                       << cfg.octaves << " octaves resolved\n";
+            if (build_stages) std::cerr << "captured " << recorder.stages().size() << " build stages\n";
             for (const std::string& warning : world.warnings) std::cerr << "  note: " << warning << '\n';
         }
 
+        fwg::DocumentOptions document;
+        document.pretty = pretty;
+        document.include_timings = timings;
+        document.build_stages = build_stages ? &recorder.stages() : nullptr;
         if (out_path.empty()) {
-            fwg::write_world_json(std::cout, world, pretty, timings);
+            fwg::write_world_json(std::cout, world, document);
         } else {
             std::ofstream file(out_path, std::ios::binary);
             if (!file) fail("cannot write " + out_path);
-            fwg::write_world_json(file, world, pretty, timings);
+            fwg::write_world_json(file, world, document);
             if (!quiet) std::cerr << "wrote " << out_path << '\n';
         }
     } catch (const std::exception& error) {

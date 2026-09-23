@@ -12,6 +12,7 @@
 #pragma once
 
 #include <cstdint>
+#include <functional>
 #include <map>
 #include <string>
 #include <vector>
@@ -52,6 +53,7 @@
 #include "fwg/water.hpp"
 #include "fwg/world_scene.hpp"
 #include "fwg/time_state.hpp"
+#include "fwg/debug_stats.hpp"  // SettlementStageRecord (document: debug_stats)
 
 namespace fwg {
 
@@ -233,6 +235,10 @@ struct World {
     std::optional<LunarSurge> lunar_surge;  // the reference's `magic.lunar_surge`
     // Their operations go in history.operations with every other API's, in call order.
     // ---------------------------------------------------------------------------------
+    // [document: debug_stats] One row per stage at which the settlements block changed, as
+    // generate() ran: the timeline and the founding events of cities an age later destroyed,
+    // which the reference reads back out of its per-stage snapshots. See debug_stats.hpp.
+    std::vector<SettlementStageRecord> settlement_stages;
 
     // Which subsystems actually ran. More honest than a stage number while the
     // ladder is partial: climate can be present while stages 6 and 7 are not.
@@ -267,5 +273,14 @@ void add_terrain_labels(World& world);
 void add_environment(World& world);
 
 World generate(const Config& cfg);
+
+// [document: build_stages] Called once per stage with the world as that stage left it, in
+// ladder order, 1..phase. Stages 1-4 are one kernel pass here, so for those the world handed
+// over is a generation stopped at that stage -- which is what the reference's snapshot of
+// them is too, since it rebuilds its base at every phase up to 5 -- and it is built only when
+// an observer is attached. With no observer this is generate(cfg): the only cost of the hook
+// is one empty-function test per stage.
+using StageObserver = std::function<void(int stage, const World& world)>;
+World generate(const Config& cfg, const StageObserver& observer);
 
 }  // namespace fwg

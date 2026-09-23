@@ -246,8 +246,22 @@ void add_climate(World& world) {
         "the largest humidity change on the final pass, and there is no convergence guarantee.");
 }
 
-World generate(const Config& cfg) {
+World generate(const Config& cfg) { return generate(cfg, StageObserver{}); }
+
+World generate(const Config& cfg, const StageObserver& observer) {
     cfg.validate();
+
+    // [document: build_stages] Stages 1-4 are one kernel pass below, so none of them exists
+    // as a moment of this run. What a snapshot of stage k holds is a generation stopped at
+    // k -- which is exactly what the reference snapshots, since it rebuilds generate_base at
+    // every phase up to 5. Built only when someone is watching.
+    if (observer) {
+        for (int stage = 1; stage < std::min(cfg.phase, 5); ++stage) {
+            Config prefix = cfg;
+            prefix.phase = stage;
+            observer(stage, generate(prefix));
+        }
+    }
 
     const auto started = Clock::now();
     const TectonicResult tectonics = generate_tectonics(cfg);
@@ -321,6 +335,16 @@ World generate(const Config& cfg) {
         world.layers["land"] = land;
     }
 
+    // [document: debug_stats, build_stages] The end of each stage: the settlement history
+    // debug_stats reads is recorded on every run, and the observer, when there is one, sees
+    // the world as the stage left it.
+    const auto finished = [&](int stage) {
+        record_settlement_stage(world, stage);
+        if (observer) observer(stage, world);
+    };
+    // Below stage 5 this run IS the prefix the loop above did not build.
+    if (cfg.phase < 5) finished(cfg.phase);
+
     // Stage 5, "Connected water", and not before. This ran from phase 2, which put
     // rivers and catchment into worlds that had not yet been eroded -- stages 3 and 4
     // rewrite the surface those rivers were routed over, so a phase-2 world published a
@@ -331,6 +355,7 @@ World generate(const Config& cfg) {
         // by 1/world_scale squared and every river threshold is meaningless.
         add_water(world);
         world.systems.push_back("water");
+        finished(5);
 
         // Stage 6: a second tectonic epoch. Stage 7: the scars its draining left.
         // Both rewrite the surface, so everything after them reads the world they made.
@@ -338,11 +363,13 @@ World generate(const Config& cfg) {
             const auto epoch_started = Clock::now();
             const SurfaceSnapshot before = tectonic_transition(world);
             world.timing_ms["tectonic_transition"] = elapsed_ms(epoch_started);
+            finished(6);
 
             if (cfg.phase >= 7) {
                 const auto relics_started = Clock::now();
                 carve_relics(world, before);
                 world.timing_ms["relic_carving"] = elapsed_ms(relics_started);
+                finished(7);
             }
         }
 
@@ -357,6 +384,7 @@ World generate(const Config& cfg) {
             const auto labels_started = Clock::now();
             add_terrain_labels(world);
             world.timing_ms["terrain_labels"] = elapsed_ms(labels_started);
+            finished(8);
         }
 
         // Stage 9, "Leylines".
@@ -405,6 +433,7 @@ World generate(const Config& cfg) {
             world.terrain_detail = make_terrain_detail(cfg.seed);
             world.has_terrain_detail = true;
             world.systems.push_back("terrain_detail");
+            finished(9);
         }
 
         // Stage 10, "Founding". The world had been reporting completed_stage 10 with no
@@ -413,6 +442,7 @@ World generate(const Config& cfg) {
             const auto settled_started = Clock::now();
             add_settlements(world);
             world.timing_ms["settlements"] = elapsed_ms(settled_started);
+            finished(10);
         }
 
         // Stage 11, "Roads".
@@ -420,6 +450,7 @@ World generate(const Config& cfg) {
             const auto roads_started = Clock::now();
             add_roads(world);
             world.timing_ms["roads"] = elapsed_ms(roads_started);
+            finished(11);
         }
 
         // Stage 12, "Populated regions".
@@ -427,6 +458,7 @@ World generate(const Config& cfg) {
             const auto populated_started = Clock::now();
             add_populated_regions(world);
             world.timing_ms["populated_regions"] = elapsed_ms(populated_started);
+            finished(12);
         }
 
         // Stage 13, "Beasties and animals": the nests, then the faiths.
@@ -434,6 +466,7 @@ World generate(const Config& cfg) {
             const auto beasties_started = Clock::now();
             add_beasties(world);
             world.timing_ms["beasties"] = elapsed_ms(beasties_started);
+            finished(13);
         }
 
         // Stages 14 and 15, the two ages a generation turns. `final` is stage 15 and never
@@ -443,11 +476,13 @@ World generate(const Config& cfg) {
             const auto age_started = Clock::now();
             age_transition(world, 1, std::nullopt, /*final_age=*/false);
             world.timing_ms["age_transition_1"] = elapsed_ms(age_started);
+            finished(14);
         }
         if (cfg.phase >= 15) {
             const auto age_started = Clock::now();
             age_transition(world, 2, std::nullopt, /*final_age=*/true);
             world.timing_ms["age_transition_2"] = elapsed_ms(age_started);
+            finished(15);
         }
 
         // Stage 16, "Simulation complete".
@@ -455,6 +490,7 @@ World generate(const Config& cfg) {
             const auto complete_started = Clock::now();
             add_simulation_complete(world);
             world.timing_ms["simulation_complete"] = elapsed_ms(complete_started);
+            finished(16);
         }
     }
 

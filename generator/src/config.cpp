@@ -1,5 +1,6 @@
 #include "fwg/config.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <numbers>
 #include <sstream>
@@ -128,6 +129,65 @@ void apply_prerequisites(Config& cfg, const Request& request) {
         cfg.moisture_bias = std::max(-1.0, std::min(1.0, demand * kRedSandsMoistureGain));
         cfg.option_biases.push_back({"moisture_bias", "red_sands"});
     }
+}
+
+// [document: recipe.overrides] Every control the request set, under its published name,
+// sorted. `mountain_abundance` on Request is not listed: resolve() does not apply that
+// field (the option of the same name, set through `options`, is), and an override the world
+// never received must not be reported as one.
+static void record_requested_overrides(Config& cfg, const Request& request) {
+    auto& out = cfg.requested_overrides;
+    const auto number = [&](const char* name, const auto& value) {
+        if (value) out.push_back({name, static_cast<double>(*value), {}, false});
+    };
+    number("size", request.size);
+    number("phase", request.phase);
+    if (request.world_size) out.push_back({"world_size", 0.0, to_string(*request.world_size), true});
+    number("circumference_km", request.circumference_km);
+    number("relief_m", request.relief_m);
+    number("globe_radius", request.globe_radius);
+    number("world_scale", request.world_scale);
+    number("tectonic_relief", request.tectonic_relief);
+    number("amplitude", request.amplitude);
+    number("wavelength", request.wavelength);
+    number("octaves", request.octaves);
+    number("ridge", request.ridge);
+    number("sea_level", request.sea_level);
+    number("radius", request.radius);
+    number("plate_count", request.plate_count);
+    number("layout_variation", request.layout_variation);
+    number("detail_variation", request.detail_variation);
+    number("crust_bias", request.crust_bias);
+    number("belt_width", request.belt_width);
+    number("mountain_detail", request.mountain_detail);
+    number("orogeny", request.orogeny);
+    if (request.population_profile) out.push_back({"population_profile", 0.0, *request.population_profile, true});
+    number("erosion_passes", request.erosion_passes);
+    number("erosion_strength", request.erosion_strength);
+    number("magic_enabled", request.magic_enabled);
+    number("wind_bearing", request.wind_bearing);
+    number("rain_passes", request.rain_passes);
+    number("rain_strength", request.rain_strength);
+    number("temperature_offset", request.temperature_offset);
+    number("moisture_bias", request.moisture_bias);
+    number("road_max_grade", request.road_max_grade);
+    number("bridge_cost", request.bridge_cost);
+    number("human_magic_limit", request.human_magic_limit);
+    number("stubbornness", request.stubbornness);
+    number("urban_food_demand", request.urban_food_demand);
+    number("human_adaptation", request.human_adaptation);
+    number("settlement_count", request.settlement_count);
+    number("hamlets_per_core", request.hamlets_per_core);
+    number("fortress_count", request.fortress_count);
+    number("college_count", request.college_count);
+    number("settlement_spacing", request.settlement_spacing);
+    number("support_reach", request.support_reach);
+    number("culture_link_cost", request.culture_link_cost);
+    number("river_threshold_km2", request.river_threshold_km2);
+    for (const auto& [name, value] : request.options) out.push_back({name, value, {}, false});
+    std::sort(out.begin(), out.end(), [](const Config::RequestedOverride& a, const Config::RequestedOverride& b) {
+        return a.name < b.name;
+    });
 }
 
 double circumference_for(WorldSize size) {
@@ -348,6 +408,7 @@ Config resolve(const Request& request) {
     cfg.wavelength = pick(request.wavelength, cfg.wavelength);
     cfg.orogeny = pick(request.orogeny, cfg.orogeny);
 
+    record_requested_overrides(cfg, request);
     cfg.validate();
     return cfg;
 }

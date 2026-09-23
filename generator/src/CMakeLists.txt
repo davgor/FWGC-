@@ -4,8 +4,10 @@
   beasties_stage.cpp
   beasts.cpp
   biomes.cpp
+  build_stages.cpp
   castle_plan.cpp
   city_plan.cpp
+  civilization_report.cpp
   civilizations.cpp
   climate.cpp
   colleges.cpp
@@ -17,6 +19,8 @@
   generated/content_city_shapes.cpp
   generated/content_settlement_plans.cpp
   generated/content_civilizations.cpp
+  generated/content_civilization_report.cpp
+  generated/content_controls.cpp
   generated/content_entities.cpp
   generated/content_registry.cpp
   generated/content_heritage.cpp
@@ -32,6 +36,7 @@
   generated/content_variants.cpp
   generated/world_options.cpp
   corruption.cpp
+  debug_stats.cpp
   detail.cpp
   ecology.cpp
   erosion.cpp
@@ -45,6 +50,7 @@
   history.cpp
   humans.cpp
   json.cpp
+  json_scan.cpp
   key_locations.cpp
   liveness.cpp
   local_sampler.cpp
@@ -65,6 +71,7 @@
   scale.cpp
   serialize.cpp
   serialize_blocks.cpp
+  serialize_document.cpp
   settlement.cpp
   settlements_stage.cpp
   sha256.cpp

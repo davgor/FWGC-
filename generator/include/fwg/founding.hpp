@@ -62,6 +62,20 @@ struct FoundingEvent {
     double suitability = -1.0;    // only on a founding
     int node = -1;                // only on a founding
     std::string population_profile;
+
+    // [document: founding events] On a founding only: the site it placed, as the reference's
+    // event carries it -- its event IS the founded site's record with the round's fields added.
+    // The three diaspora fields are published on a diaspora founding only.
+    int founding_turn = 0;
+    bool founding_capital = false;
+    long long founding_year = 0;
+    int migration_source_node = -1;      // -1 for a capital
+    std::string source_civilization_id;  // empty for a capital
+    double migration_distance_m = 0.0;
+    bool cultural_branch = false;
+    bool diaspora = false;
+    std::string diaspora_reason;
+    bool diaspora_bonus = false;
 };
 
 // The knobs, all authored. Defaults are the recipe's.

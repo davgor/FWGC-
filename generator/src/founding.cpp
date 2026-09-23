@@ -20,6 +20,22 @@ constexpr int kMaxTurns = 128;
 constexpr double kReachGrowth = 1.6;
 constexpr int kMaxGrowthTurns = 32;
 
+// [document: founding events] The reference's founding event is the founded site's own
+// record with the round's fields added, so a reader of the events sees where a city came
+// from without a join. Copied once the record is complete.
+void carry_site(FoundingEvent& e, const FoundedSite& record) {
+    e.founding_turn = record.founding_turn;
+    e.founding_capital = record.founding_capital;
+    e.founding_year = record.founding_year;
+    e.migration_source_node = record.migration_source_node;
+    e.source_civilization_id = record.source_civilization_id;
+    e.migration_distance_m = record.migration_distance_m;
+    e.cultural_branch = record.cultural_branch;
+    e.diaspora = record.diaspora;
+    e.diaspora_reason = record.diaspora_reason;
+    e.diaspora_bonus = record.diaspora_bonus;
+}
+
 }  // namespace
 
 FoundingResult found_cities(std::uint32_t seed, const FoundingRequest& request,
@@ -339,6 +355,7 @@ FoundingResult found_cities(std::uint32_t seed, const FoundingRequest& request,
             e.suitability = score_at(record.population_profile, record.node);
             e.node = record.node;
             e.population_profile = record.population_profile;
+            carry_site(e, record);
             out.report.events.push_back(std::move(e));
 
             ever_used.insert(record.population_profile);
@@ -414,6 +431,7 @@ FoundingResult found_cities(std::uint32_t seed, const FoundingRequest& request,
             e.suitability = score_at(key, node);
             e.node = node;
             e.population_profile = key;
+            carry_site(e, record);
             out.report.events.push_back(std::move(e));
 
             ever_used.insert(key);

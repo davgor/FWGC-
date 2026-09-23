@@ -98,9 +98,25 @@ struct PopulationBudget {
     long long world_capacity = 0;                      // residents the ground could feed
     std::map<std::string, long long> allowances;       // per people
     std::map<std::string, double> weighted_habitat_km2;
-    std::map<std::string, long long> requested_cities;  // quotas after every ceiling
+    // The quotas founding actually worked to: after every ceiling, the food cap and any
+    // diaspora bonus -- the founding report's effective_quotas. The reference rebinds its
+    // quotas to exactly these before it publishes requested_cities.
+    std::map<std::string, long long> requested_cities;
     CityCeiling ceiling;                                // what the ground alone allowed
     long long city_limit = 0;                           // what actually bound
+
+    // --- the rest of the reference's population_budget block (document key names) ------
+    // allowance / world_capacity per people; 0 on a world whose ground feeds nobody.
+    std::map<std::string, double> shares;
+    // Each competing people's minimum_founding_residents: the supported residents it needs
+    // before it can found a city at all (calibration.minimum_city_region_residents).
+    std::map<std::string, long long> minimum_city_region_residents;
+    // Cities each competing people holds once founding is done, zero included.
+    std::map<std::string, long long> placed_cities;
+    // Residents the cities hold, refugees a survivor took in included, and the capacity
+    // nobody settled. `unallocated` goes negative only if refugees outnumber the slack.
+    long long allocated = 0;
+    long long unallocated = 0;
 };
 
 struct SettlementReport {

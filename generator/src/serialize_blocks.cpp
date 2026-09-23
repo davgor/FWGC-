@@ -1455,8 +1455,7 @@ void housing_passes(JsonWriter& json, const std::vector<HousingAudit>& audits) {
 
 // Stats as the C++ carries them: every field on every path. The reference drops keys on a
 // plan's early returns; the header says zero rather than absent is intended.
-void plan_stats(JsonWriter& json, const PlanStats& s, bool city) {
-    json.key("stats");
+void plan_stats_object(JsonWriter& json, const PlanStats& s, bool city) {
     json.begin_object();
     integer(json, "workers", s.workers);
     integer(json, "worker_beds", s.worker_beds);
@@ -1482,8 +1481,13 @@ void plan_stats(JsonWriter& json, const PlanStats& s, bool city) {
     json.end_object();
 }
 
-void plan_debug(JsonWriter& json, const PlanDebug& d, bool city) {
-    json.key("debug");
+void plan_stats(JsonWriter& json, const PlanStats& s, bool city) {
+    json.key("stats");
+    plan_stats_object(json, s, city);
+}
+
+// The object alone: debug_stats republishes a city plan's debug under `placement`.
+void plan_debug_object(JsonWriter& json, const PlanDebug& d, bool city) {
     json.begin_object();
     integer(json, "terrain_safe_cells", static_cast<long long>(d.terrain_safe_cells));
     integer(json, "total_cells", static_cast<long long>(d.total_cells));
@@ -1513,6 +1517,11 @@ void plan_debug(JsonWriter& json, const PlanDebug& d, bool city) {
         real(json, "program_half_m", d.program_half_m);
     }
     json.end_object();
+}
+
+void plan_debug(JsonWriter& json, const PlanDebug& d, bool city) {
+    json.key("debug");
+    plan_debug_object(json, d, city);
 }
 
 void shape_selection(JsonWriter& json, const ShapeSelection& s) {
@@ -4261,6 +4270,12 @@ void write_college_fields(JsonWriter& json, const World& world) {
              "the rest. Institutions have no separate population or supply demand yet.");
     }
 }
+
+// debug_stats republishes these exactly as city_plans and ruins write them.
+void write_city_plan_stats(JsonWriter& json, const PlanStats& stats) { plan_stats_object(json, stats, true); }
+void write_city_plan_debug(JsonWriter& json, const PlanDebug& debug) { plan_debug_object(json, debug, true); }
+void write_plan_unplaced(JsonWriter& json, const std::vector<Unplaced>& rows) { plan_unplaced(json, rows); }
+void write_ruin_list(JsonWriter& json, const std::vector<Ruin>& ruins) { write_ruins(json, ruins); }
 
 void write_route_trade_fields(JsonWriter& json, const World& world, std::size_t route_index) {
     if (!world.has_nomads || !ran(world, "nomad_effects")) return;
