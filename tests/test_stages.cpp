@@ -192,3 +192,37 @@ TEST(irrigation_reaches_the_waters_edge_and_no_further) {
     check::is_true(total_gain / static_cast<double>(irrigated) < 0.05,
                    "the mean gain to be the shoreline trickle it is, not a regional system");
 }
+
+TEST(stage_thirteen_resolves_a_faith_for_every_people_that_settled) {
+    // Religion reads the nests just placed and the peoples that founded. A people on the
+    // map with no faith would mean the adapter dropped it between the settlement record
+    // and the religion request.
+    const World w = at_phase(13, 65);
+    check::is_true(w.has_wildlife, "stage 13 to place the nests");
+    check::is_true(w.has_religion, "stage 13 to resolve religion");
+    check::is_true(!w.religion.cosmology.id.empty(), "a cosmology to be chosen");
+    check::is_true(!w.religion.gods.empty(), "a pantheon to be resolved");
+
+    std::set<std::string> settled;
+    for (const SettlementSite& s : w.settlements.sites) settled.insert(s.population_profile);
+    check::is_true(settled.size() > 1, "several peoples, or this proves little");
+    std::set<std::string> faithful;
+    for (const Faith& f : w.religion.faiths) faithful.insert(f.civilization);
+    for (const std::string& people : settled) {
+        check::is_true(faithful.count(people) != 0, people + " to hold a faith");
+    }
+}
+
+TEST(the_cosmology_is_a_property_of_the_seed_and_not_a_constant) {
+    // One draw decides the cosmology. If every seed chose the same one, the draw would be
+    // reading something other than the seed -- or not happening at all.
+    std::set<std::string> seen;
+    for (const std::uint32_t seed : {42u, 7u, 1234u, 99u, 2026u}) {
+        Request r;
+        r.seed = seed;
+        r.size = 33;
+        r.phase = 13;
+        seen.insert(generate(resolve(r)).religion.cosmology.id);
+    }
+    check::is_true(seen.size() > 1, "five seeds to choose more than one cosmology");
+}

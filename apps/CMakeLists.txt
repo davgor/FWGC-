@@ -10,3 +10,4 @@ target_link_libraries(fwg_cli PRIVATE fwg fwg_flags)
 add_executable(fwg_sweep sweep.cpp)
 target_link_libraries(fwg_sweep PRIVATE fwg fwg_flags)
 
+

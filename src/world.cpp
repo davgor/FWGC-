@@ -438,22 +438,11 @@ World generate(const Config& cfg) {
             world.timing_ms["populated_regions"] = elapsed_ms(populated_started);
         }
 
-        // Stage 13's first half: what lives out there. Stage 12 -- hamlets, fortresses,
-        // the rest of the populated regions -- is not ported, so this runs on the cities
-        // alone. The nests only need somewhere people already are, to stay clear of it.
+        // Stage 13, "Beasties and animals": the nests, then the faiths.
         if (cfg.phase >= 13) {
-            const auto nests_started = Clock::now();
-            const auto held = sphere_grid(cfg.size, world.effective.globe_radius);
-            std::vector<int> settled;
-            settled.reserve(world.settlements.sites.size());
-            for (const SettlementSite& s : world.settlements.sites) settled.push_back(s.node);
-            if (auto passes = add_nests(world, *held, settled)) {
-                world.wildlife = std::move(passes->wildlife);
-                world.beast_nests = std::move(passes->beast_nests);
-                world.has_wildlife = true;
-                world.systems.push_back("wildlife");
-            }
-            world.timing_ms["nests"] = elapsed_ms(nests_started);
+            const auto beasties_started = Clock::now();
+            add_beasties(world);
+            world.timing_ms["beasties"] = elapsed_ms(beasties_started);
         }
     }
 

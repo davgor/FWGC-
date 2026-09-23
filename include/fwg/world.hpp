@@ -22,6 +22,8 @@
 #include "fwg/magic.hpp"
 #include "fwg/tectonics.hpp"
 #include "fwg/astrology.hpp"
+#include "fwg/beasties_stage.hpp"
+#include "fwg/religion.hpp"
 #include "fwg/colleges.hpp"
 #include "fwg/humans.hpp"
 #include "fwg/nests.hpp"
@@ -145,6 +147,10 @@ struct World {
     SeasonalFood seasonal_food;
     SocietyReport society;
     CollegeReport colleges;
+
+    // Stage 13's second half: the pantheon, the cosmology and the faiths.
+    bool has_religion = false;
+    Religion religion;
 
     // Which subsystems actually ran. More honest than a stage number while the
     // ladder is partial: climate can be present while stages 6 and 7 are not.
