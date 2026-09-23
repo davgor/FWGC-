@@ -35,27 +35,14 @@ double class_intensity(CityClass city_class) {
     return kClassIntensitySmall;
 }
 
-// A network edit's whole contract, as an append rather than a copy-on-write.
-//
-// Behaviourally identical to the reference's copy-then-validate and O(n) rather than
-// O(n^2) across a cluster. The validation is the point: a node the generator would refuse
-// is a node that silently breaks a field measurement later.
+// The network-edit contract is plant_key_point's (magic.hpp); this only makes its refusal
+// a corruption refusal.
 void add_ley_node(LeyNetwork& net, const LeyNode& node) {
-    if (node.id.empty()) throw CorruptionError("magic.networks", "a key point needs a non-empty id");
-    for (const LeyNode& existing : net.nodes) {
-        if (existing.id == node.id) {
-            throw CorruptionError("magic.networks", "duplicate key point id " + node.id);
-        }
+    try {
+        plant_key_point(net, node);
+    } catch (const std::invalid_argument& refused) {
+        throw CorruptionError("magic.networks", refused.what());
     }
-    const double length = dot(node.direction, node.direction);
-    if (!std::isfinite(length) || std::abs(length - 1.0) > 1e-6) {
-        throw CorruptionError("magic.networks", node.id + " is not a unit direction");
-    }
-    if (!std::isfinite(node.intensity) || node.intensity < 0.0 || node.intensity > kLeyIntensityMax) {
-        throw CorruptionError("magic.networks",
-                              node.id + " intensity must be finite and between 0 and 4");
-    }
-    net.nodes.push_back(node);
 }
 
 LeyNetwork& network_for(MagicReport& magic, const std::string& school) {

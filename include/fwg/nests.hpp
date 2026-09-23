@@ -243,6 +243,10 @@ struct NestBlock {
     std::span<const CreatureRole> roles;
     std::string_view method;
     std::string_view limits;
+    // The age whose ground the nests were placed on. An age transition places them on the
+    // finished age first (age - 1) and again after its rebuild (age). Absent at stage 13,
+    // where no age has turned.
+    std::optional<int> evaluated_age;
 };
 
 struct NestPasses {

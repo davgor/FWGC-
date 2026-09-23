@@ -47,8 +47,6 @@ inline constexpr double kCorruptionReachSpacings = 2.5;
 // Exactly the network ceiling: a corrupted seat is a maximal source.
 inline constexpr double kCorruptionSeatIntensity = 4.0;
 inline constexpr double kCorruptionRingIntensity = 2.5;
-// The hard ceiling a network edit enforces on any intensity.
-inline constexpr double kLeyIntensityMax = 4.0;
 // Corrupted nodes a world may carry at once; cleansing frees them. At four per corruption
 // that is twenty-four concurrent corruptions.
 inline constexpr int kCorruptionNodeBudget = 96;

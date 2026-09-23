@@ -269,15 +269,6 @@ World generate(const Config& cfg) {
     world.systems = {"tectonics"};
     if (cfg.phase >= 3) world.systems.push_back("surface_detail");
     if (cfg.phase >= 4) world.systems.push_back("erosion");
-    if (cfg.phase > kHighestImplementedStage) {
-        world.warnings.push_back(
-            "Stage " + std::to_string(cfg.phase) + " requested but stages " +
-            std::to_string(kHighestImplementedStage + 1) +
-            "-16 (populated regions, age transitions, heroes and quests) are not implemented; this world "
-            "stops after stage " + std::to_string(kHighestImplementedStage) +
-            ". Some later work does run and is listed in `systems` -- wildlife and beast nests among it -- "
-            "but a stage above this number is not contiguous. See docs/porting-status.md.");
-    }
 
     // Design space to metres. One factor for every seed; the config keeps the design
     // inputs so a world can be regenerated, and `effective` is what a consumer reads.
@@ -445,9 +436,19 @@ World generate(const Config& cfg) {
             world.timing_ms["beasties"] = elapsed_ms(beasties_started);
         }
 
-        // Stages 14 and 15, the age transitions, are not wired yet. Stage 16 reads a
-        // finished world rather than changing its ground, so it runs over whatever world
-        // exists -- and `completed_stage` stays honest about the two rungs below it.
+        // Stages 14 and 15, the two ages a generation turns. `final` is stage 15 and never
+        // min(15, phase): a phase-14 world must agree with stage 14 of a phase-16 one, so a
+        // shorter run may not promote villains at a stage the longer run does not.
+        if (cfg.phase >= 14) {
+            const auto age_started = Clock::now();
+            age_transition(world, 1, std::nullopt, /*final_age=*/false);
+            world.timing_ms["age_transition_1"] = elapsed_ms(age_started);
+        }
+        if (cfg.phase >= 15) {
+            const auto age_started = Clock::now();
+            age_transition(world, 2, std::nullopt, /*final_age=*/true);
+            world.timing_ms["age_transition_2"] = elapsed_ms(age_started);
+        }
 
         // Stage 16, "Simulation complete".
         if (cfg.phase >= 16) {

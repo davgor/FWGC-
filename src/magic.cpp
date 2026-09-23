@@ -358,4 +358,19 @@ void evaluate_networks(World& world) {
     world.layers["ley_primordial"] = grid.to_grid(primordial);
 }
 
+void plant_key_point(LeyNetwork& net, const LeyNode& node) {
+    if (node.id.empty()) throw std::invalid_argument("a key point needs a non-empty id");
+    for (const LeyNode& existing : net.nodes) {
+        if (existing.id == node.id) throw std::invalid_argument("duplicate key point id " + node.id);
+    }
+    const double length = dot(node.direction, node.direction);
+    if (!std::isfinite(length) || std::abs(length - 1.0) > 1e-6) {
+        throw std::invalid_argument(node.id + " is not a unit direction");
+    }
+    if (!std::isfinite(node.intensity) || node.intensity < 0.0 || node.intensity > kLeyIntensityMax) {
+        throw std::invalid_argument(node.id + " intensity must be finite and between 0 and 4");
+    }
+    net.nodes.push_back(node);
+}
+
 }  // namespace fwg

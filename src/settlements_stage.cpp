@@ -257,7 +257,7 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
 
         // A city that stood through the turn is the SAME city, not a new one on the same
         // ground: it keeps its identity, the age and culture that founded it, who
-        // founded it, and the refugees it took in. Matched on node AND people, because a
+        // founded it, the refugees it took in and the wars it fought. Matched on node AND people, because a
         // different people founding on a fallen city's node is a new city there.
         if (rebuild != nullptr) {
             for (const SettlementSite& old : rebuild->survivors) {
@@ -270,6 +270,7 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
                 site.founded_by = old.founded_by;
                 site.absorbed_bands = old.absorbed_bands;
                 site.absorbed_refugees = old.absorbed_refugees;
+                site.war_history = old.war_history;
                 break;
             }
         }

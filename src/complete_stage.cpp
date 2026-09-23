@@ -12,6 +12,7 @@
 #include "fwg/complete_stage.hpp"
 
 #include <cmath>
+#include <map>
 #include <utility>
 
 #include <set>
@@ -32,7 +33,23 @@
 namespace fwg {
 namespace {
 
+std::string_view class_name(CityClass c) {
+    return c == CityClass::Capital ? "capital" : c == CityClass::Medium ? "medium" : "small";
+}
+
+// A city's or a ruin's own war record, as the hero generator reads one.
+std::vector<HeroWarRecord> hero_war_history(const std::vector<WarParticipation>& history) {
+    std::vector<HeroWarRecord> out;
+    out.reserve(history.size());
+    for (const WarParticipation& w : history) out.push_back({w.war_id, w.age, w.outcome, w.kind, w.opponent_uid});
+    return out;
+}
+
 std::vector<CitySite> city_sites(const World& world) {
+    // The planner reads regional_threat as its defense priority: what the nests, the Weave
+    // and the city's own wars make it expect.
+    std::map<std::string, double> threat;
+    for (const ThreatReport& t : world.threat_assessments.cities) threat[t.city_uid] = t.regional_threat;
     std::vector<CitySite> out;
     out.reserve(world.settlements.sites.size());
     for (const SettlementSite& s : world.settlements.sites) {
@@ -51,6 +68,7 @@ std::vector<CitySite> city_sites(const World& world) {
         if (std::isfinite(s.freshwater_distance_m)) site.freshwater_distance_m = s.freshwater_distance_m;
         site.resource_potential = s.resource_potential;
         site.founded_by_player = s.founded_by == "player";
+        if (const auto it = threat.find(s.uid); it != threat.end()) site.regional_threat = it->second;
         // Left empty: the planner projects the world's own roads into the city's window
         // once it has decided how wide the window is.
         out.push_back(std::move(site));
@@ -81,9 +99,8 @@ std::vector<HamletPin> hamlet_pins(const World& world) {
     return out;
 }
 
-// The nomad pass's view of the world. Ruins, villain claims and threat assessments are
-// written by the age transitions, which are not wired yet, so those three are honestly
-// empty -- a band's roll that reads them sees a world that has never had an age turn.
+// The nomad pass's view of the world: the settlements and what the ages left of the ones
+// that fell, the ley and the shrines, the villains' claims, and each town's threat.
 NomadRequest nomad_request(const World& world, const SphereGrid& grid,
                            const std::vector<NomadHabitatCell>& cells) {
     const Config& cfg = world.effective;
@@ -115,6 +132,7 @@ NomadRequest nomad_request(const World& world, const SphereGrid& grid,
         site.rural_population_estimate = static_cast<double>(s.rural_population_estimate);
         site.absorbed_bands = s.absorbed_bands;
         site.absorbed_refugees = s.absorbed_refugees;
+        site.war_history = static_cast<int>(s.war_history.size());
         request.sites.push_back(std::move(site));
     }
     for (const RuralSite& h : world.humans.hamlets) {
@@ -155,6 +173,42 @@ NomadRequest nomad_request(const World& world, const SphereGrid& grid,
     }
     for (const Road& road : world.roads.routes) request.roads.push_back({road.nodes, road.length_m});
     for (const SeasonalMonth& m : world.seasonal_months) request.seasonal_temperature.push_back(&m.temperature);
+
+    for (const Ruin& r : world.ruins) {
+        NomadRuin ruin;
+        ruin.uid = r.uid;
+        ruin.id = r.id;
+        ruin.node = r.node;
+        ruin.x = r.x;
+        ruin.z = r.z;
+        ruin.direction = r.direction;
+        ruin.destroyed_age = r.destroyed_age;
+        ruin.war_history = static_cast<int>(r.war_history.size());
+        ruin.legacy_intensity = r.legacy.intensity;
+        request.ruins.push_back(std::move(ruin));
+    }
+    // Every claim, the fallen holders' included: held ground outlives its holder.
+    for (const Villain& v : world.villains.people) {
+        for (const VillainClaim& c : v.claims) {
+            NomadClaim claim;
+            claim.id = c.id;
+            claim.node = c.node;
+            if (c.node >= 0 && static_cast<std::size_t>(c.node) < grid.node_count()) {
+                claim.x = grid.point_x[static_cast<std::size_t>(c.node)];
+                claim.z = grid.point_z[static_cast<std::size_t>(c.node)];
+            }
+            claim.direction = c.direction;
+            claim.influence = c.influence;
+            claim.villain_uid = v.uid;
+            claim.villain_school = v.school;
+            claim.villain_tier = v.tier;
+            request.claims.push_back(std::move(claim));
+        }
+    }
+    for (const AgeRecord& a : world.history.ages) request.ages.push_back(a.age);
+    for (const ThreatReport& t : world.threat_assessments.cities) {
+        request.threat_cities.push_back({t.city_uid, t.regional_threat});
+    }
     return request;
 }
 
@@ -218,6 +272,10 @@ void add_the_moving_world(World& world, const SphereGrid& grid) {
     herd.wildlife = world.wildlife.sites;
     herd.beast_nests = world.beast_nests.sites;
     herd.bands = bands;
+    std::vector<BeastRuin> haunts;
+    haunts.reserve(world.ruins.size());
+    for (const Ruin& r : world.ruins) haunts.push_back({r.node, r.uid});
+    herd.ruins = haunts;
     if (std::optional<BeastMovements> herds = add_beast_movements(herd)) {
         world.beast_movements = std::move(*herds);
         world.has_beast_movements = true;
@@ -244,6 +302,20 @@ void add_the_moving_world(World& world, const SphereGrid& grid) {
                 if (net == world.magic.networks.end()) continue;
                 for (LeyNode& node : net->second.nodes) {
                     if (node.id == edit.node_id) node.intensity = edit.intensity;
+                }
+            }
+            // Raiders beside the nest, ley and war pressures a town already tracks. Written
+            // after the planners read the threat, so it widens regional_threat without
+            // having built any wall.
+            for (const NomadRaidPressure& raid : effects->raid_pressure) {
+                for (ThreatReport& report : world.threat_assessments.cities) {
+                    if (report.city_uid != raid.city_uid) continue;
+                    report.nomad_pressure = raid.nomad_pressure;
+                    if (raid.regional_threat) {
+                        report.nomad_contributors = raid.contributors;
+                        report.regional_threat = *raid.regional_threat;
+                    }
+                    break;
                 }
             }
             world.nomad_effects = std::move(*effects);
@@ -289,6 +361,7 @@ HeroesRequest heroes_request(const World& world) {
         city.founding_capital = s.founding_capital;
         city.diaspora_reason = s.diaspora_reason;
         city.source_civilization_id = s.source_civilization_id;
+        city.war_history = hero_war_history(s.war_history);
         request.cities.push_back(std::move(city));
     }
 
@@ -368,9 +441,34 @@ HeroesRequest heroes_request(const World& world) {
         if (r.mode != "sea") continue;
         request.sea_routes.push_back({{r.port_a, r.port_b}});
     }
-    // Ruins, wars and threat assessments are written by the age transitions, which are not
-    // wired yet. Empty is the honest answer: a cast drawn from a world that has never had
-    // an age turn.
+    for (const Ruin& r : world.ruins) {
+        HeroRuin ruin;
+        ruin.uid = r.uid;
+        ruin.id = r.id;
+        ruin.name = r.name;
+        ruin.city_class = std::string(class_name(r.city_class));
+        ruin.cause = r.cause;
+        ruin.destroyed_age = r.destroyed_age;
+        ruin.civilization_id = r.civilization_id;
+        ruin.population_profile = r.population_profile;
+        ruin.node = r.node;
+        ruin.x = r.x;
+        ruin.z = r.z;
+        ruin.has_direction = true;
+        ruin.direction = r.direction;
+        ruin.new_node_school = r.new_node_school;
+        ruin.evidence_nest_id = r.evidence.nest_id;
+        ruin.war_history = hero_war_history(r.war_history);
+        request.ruins.push_back(std::move(ruin));
+    }
+    // Every age's wars, flattened in age order.
+    for (const AgeRecord& a : world.history.ages) {
+        for (const WarRecord& w : a.wars) {
+            request.wars.push_back({w.id, w.age, w.kind, w.victor_uid, w.victor_civilization_id,
+                                    w.victor_parent_race_id, w.defeated_uid});
+        }
+    }
+    for (const ThreatReport& t : world.threat_assessments.cities) request.threats.push_back({t.city_uid, t.war_pressure});
     return request;
 }
 
@@ -379,6 +477,17 @@ StoryWebRequest story_web_request(const World& world, const HeroesBlock& heroes)
     request.seed = world.effective.seed;
     request.heroes = &heroes;
     for (const SettlementSite& s : world.settlements.sites) request.site_ids.push_back({std::to_string(s.id), s.uid});
+    for (const ThreatReport& t : world.threat_assessments.cities) {
+        StoryCityThreat threat;
+        threat.city_uid = t.city_uid;
+        threat.war_pressure = t.war_pressure;
+        threat.wars_recent = t.outlook.wars_recent;
+        threat.enemy_living = t.outlook.enemy_living;
+        threat.war_risk = t.outlook.war_risk;
+        threat.war_hunger = t.outlook.war_hunger;
+        threat.regional_threat = t.regional_threat;
+        request.threats.push_back(std::move(threat));
+    }
     for (const CityCore& c : world.humans.cores) request.cores.push_back({std::to_string(c.site_id), c.food_deficit});
     for (const SeasonalCity& c : world.seasonal_food.cities) {
         request.coverage.push_back({std::to_string(c.site_id), c.food_coverage});
@@ -400,10 +509,6 @@ std::vector<NpcPlot> npc_plots(const std::vector<Plot>& plots) {
     out.reserve(plots.size());
     for (const Plot& p : plots) out.push_back({p.id, std::string(p.building_id), p.workers});
     return out;
-}
-
-std::string_view class_name(CityClass c) {
-    return c == CityClass::Capital ? "capital" : c == CityClass::Medium ? "medium" : "small";
 }
 
 // The roster's view of the world: the plans it staffs, the settlements it anchors to, the
@@ -520,6 +625,8 @@ NpcRequest npc_request(const World& world, const SphereGrid& grid) {
     for (const HeroCamp& c : world.heroes.camps) place(request.place_hero_camps, c.uid, c.node);
     for (const College& c : world.colleges.colleges) place(request.place_colleges, c.id, c.node);
     for (const NestSite& n : world.beast_nests.sites) place(request.place_nests, n.id, n.node);
+    // Keyed on the ruin id: a presence naming the city a ruin used to be finds it there.
+    for (const Ruin& r : world.ruins) place(request.place_ruins, r.id, r.node);
     return request;
 }
 
@@ -604,8 +711,31 @@ KeyLocationRequest key_location_request(const World& world, const SphereGrid& gr
     for (const BiomeVariant& v : biome_variant_catalogue()) {
         request.magical_biomes.push_back({v.core_biome_id, std::string(v.name), std::string(v.asset_id)});
     }
-    // Ruins and villains are written by the age transitions, not wired yet: a key
-    // location that succeeds a ruin, or stands in a villain's claim, has none to read.
+    // What the ages left. A ruin is keyed on its own `ruin-` id, which is what a location's
+    // origin names; its founding age and culture are the fallen city's.
+    for (const Ruin& r : world.ruins) {
+        KeyLocationPlace ruin = at_node(r.id, r.node);
+        ruin.name = r.name;
+        ruin.direction = r.direction;
+        ruin.founded_age = r.founded_age;
+        ruin.source_culture = r.source_culture;
+        ruin.civilization_id = r.civilization_id;
+        request.ruins.push_back(std::move(ruin));
+    }
+    // Every villain, fallen or standing: a fallen one's seat is dropped by the reader, but
+    // the ground it claimed stays taken.
+    for (const Villain& v : world.villains.people) {
+        KeyLocationVillain villain;
+        villain.seat = at_node(v.uid, v.node);
+        villain.seat.direction = v.direction;
+        villain.status = v.status;
+        for (const VillainClaim& c : v.claims) {
+            KeyLocationPlace claim = at_node(c.id, c.node);
+            claim.direction = c.direction;
+            villain.claims.push_back(std::move(claim));
+        }
+        request.villains.push_back(std::move(villain));
+    }
     return request;
 }
 

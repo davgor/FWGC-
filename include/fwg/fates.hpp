@@ -197,6 +197,11 @@ struct ThreatReport {
     WarOutlook outlook;
     std::vector<ThreatContributor> contributors;  // nests in id order, then ley, then war
     std::optional<ThreatLey> ley;
+    // Written by stage 16's nomad effects AFTER the planners have read regional_threat: the
+    // raiders in reach and their pressure. Where any are in reach, regional_threat is raised
+    // by it, so a reader after stage 16 sees raids the walls were not built against.
+    std::optional<double> nomad_pressure;
+    std::vector<std::string> nomad_contributors;  // sorted band uids
 };
 
 struct ThreatAssessmentBlock {

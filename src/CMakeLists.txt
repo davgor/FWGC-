@@ -1,4 +1,5 @@
 ﻿add_library(fwg STATIC
+  ages.cpp
   astrology.cpp
   beasties_stage.cpp
   beasts.cpp

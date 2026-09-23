@@ -123,6 +123,20 @@ int dominant_school(const std::vector<double>& potencies, double threshold, doub
 // falls between raster cells on a 200 km planet and every magic field collapses to zero.
 inline constexpr double kReferenceRadiusM = 1774.4123532462844;
 
+// The hard ceiling a network edit enforces on any intensity.
+inline constexpr double kLeyIntensityMax = 4.0;
+
+// A network edit's whole contract, as an append: an id non-empty and unique in the
+// network, a finite unit direction, and an intensity in [0, kLeyIntensityMax]. The
+// reference's edit_network copies, validates and appends; validating then appending is
+// behaviourally identical and linear across a cluster. The validation is the point: a node
+// the generator would refuse is one that silently breaks a field measurement later.
+//
+// Every edit that adds a key point goes through this one check -- a ruin's at an age turn,
+// a visitation's avatar cluster, a corruption's. Throws std::invalid_argument naming the
+// node; the APIs rethrow it as their own refusal.
+void plant_key_point(LeyNetwork& net, const LeyNode& node);
+
 struct World;
 
 // Lays down the networks, then evaluates their fields.

@@ -80,26 +80,14 @@ LeyNetwork& network_for(MagicReport& magic, std::string_view school) {
     return it->second;
 }
 
-// A network edit's whole contract, as an append.
-//
-// The reference copies the network, validates and appends; appending after validating is
-// behaviourally identical and linear across a cluster. The validation is the point: a node
-// the generator would refuse is one that silently breaks a field measurement later. This is
-// the second copy of this contract in the library -- corruption keeps its own in an anonymous
-// namespace -- and the two belong in magic.hpp as one.
+// The network-edit contract is plant_key_point's (magic.hpp); this only makes its refusal
+// a visitation refusal.
 void plant_node(LeyNetwork& net, const LeyNode& node) {
-    if (node.id.empty()) throw VisitationError("magic.networks", "a key point needs a non-empty id");
-    for (const LeyNode& existing : net.nodes) {
-        if (existing.id == node.id) throw VisitationError("magic.networks", "duplicate key point id " + node.id);
+    try {
+        plant_key_point(net, node);
+    } catch (const std::invalid_argument& refused) {
+        throw VisitationError("magic.networks", refused.what());
     }
-    const double length = dot(node.direction, node.direction);
-    if (!std::isfinite(length) || std::abs(length - 1.0) > 1e-6) {
-        throw VisitationError("magic.networks", node.id + " is not a unit direction");
-    }
-    if (!std::isfinite(node.intensity) || node.intensity < 0.0 || node.intensity > 4.0) {
-        throw VisitationError("magic.networks", node.id + " intensity must be finite and between 0 and 4");
-    }
-    net.nodes.push_back(node);
 }
 
 double aspect_factor(std::string_view aspect) {

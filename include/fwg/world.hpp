@@ -23,10 +23,13 @@
 #include "fwg/tectonics.hpp"
 #include "fwg/astrology.hpp"
 #include "fwg/beasties_stage.hpp"
+#include "fwg/ages.hpp"
 #include "fwg/beasts.hpp"
+#include "fwg/fates.hpp"
 #include "fwg/heroes.hpp"
 #include "fwg/key_locations.hpp"
 #include "fwg/story_web.hpp"
+#include "fwg/visitation.hpp"
 #include "fwg/nomads.hpp"
 #include "fwg/npcs.hpp"
 #include "fwg/castle_plan.hpp"
@@ -49,12 +52,10 @@
 
 namespace fwg {
 
-// The highest stage of the sixteen-stage ladder this library implements. Stages
-// above it are accepted and reported honestly rather than silently claimed.
-// The highest CONTIGUOUS stage. Stages 12 and 13 now both run, so this is 13; above it
-// a great deal is ported and unwired, and `systems` is the channel that says what
-// actually ran. This number only ever promises that everything below it did.
-inline constexpr int kHighestImplementedStage = 13;
+// The highest stage of the sixteen-stage ladder this library implements: all of it.
+// `completed_stage` only ever promises that every stage up to it ran, and `systems` is the
+// evidence of what did.
+inline constexpr int kHighestImplementedStage = 16;
 
 struct SeasonalMonth {
     Grid temperature;
@@ -157,6 +158,12 @@ struct World {
     SocietyReport society;
     CollegeReport colleges;
 
+    // Stage 13, between the nests and the faiths: the standing threat each city reads for
+    // its walls. Re-assessed after every rebuild; the city planner reads regional_threat
+    // as its defense priority, and the nomads widen it after the planners have read it.
+    bool has_threat_assessments = false;
+    ThreatAssessmentBlock threat_assessments;
+
     // Stage 13's second half: the pantheon, the cosmology and the faiths.
     bool has_religion = false;
     Religion religion;
@@ -190,6 +197,18 @@ struct World {
     bool has_key_locations = false;
     KeyLocationBlock key_locations;
     KeyLocationPlanBlock key_location_plans;
+
+    // Stages 14 and 15. What the ages destroyed, the antagonists that rose through them,
+    // and the record of each turn. The history exists with no ages in it until one turns,
+    // as the reference's does from stage 5: an unturned world has an empty history, not an
+    // absent one.
+    std::vector<Ruin> ruins;
+    bool has_villains = false;
+    VillainBlock villains;
+    WorldHistory history;
+    // Every summons this world has seen, departed or not. Written by the visitation API and
+    // read at an age turn: a god still walking by visitation goes home when the age turns.
+    std::vector<VisitationRecord> visitations;
 
     // The age this world is in. Zero until the first age transition turns it.
     int age = 0;

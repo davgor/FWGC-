@@ -12,6 +12,7 @@
 #include "fwg/founding.hpp"
 #include "fwg/settlement.hpp"
 #include "fwg/vec3.hpp"
+#include "fwg/wars.hpp"
 
 namespace fwg {
 
@@ -71,6 +72,12 @@ struct SettlementSite {
     // the capacity split, so the split stays a pure function of the ground. Carried.
     long long absorbed_refugees = 0;
     std::vector<std::string> absorbed_bands;
+    // Every war this city has fought. Both sides carry each war, and a survivor carries
+    // its history through the rebuild, so a veteran's walls answer what it has fought.
+    std::vector<WarParticipation> war_history;
+    // The victor's uid, for a city that stood on as a vassal this age. NOT carried: the
+    // rebuild drops it, as the reference's does -- a vassalage lasts one age boundary.
+    std::string vassal_of;
 
     long long population_estimate = 0;
     long long urban_population_estimate = 0;

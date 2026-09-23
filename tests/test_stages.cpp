@@ -78,24 +78,16 @@ TEST(each_rung_of_the_ladder_adds_something) {
     }
 }
 
-TEST(a_stage_beyond_the_ladder_says_what_is_actually_missing) {
+TEST(a_full_ladder_claims_every_stage_and_warns_of_nothing_missing) {
     // The warning named water, climate, biomes and history as unimplemented long after
-    // all four were ported. A warning that lies about the state of the port is worse
-    // than none: it sends a reader to look for a gap that closed.
+    // all four were ported. With the whole ladder in, a warning that says anything is
+    // unimplemented sends a reader to look for a gap that has closed.
     const World w = at_phase(16);
-    bool warned = false;
+    check::equal(w.completed_stage, 16, "a full world to report the whole ladder");
     for (const std::string& warning : w.warnings) {
-        if (warning.find("not implemented") == std::string::npos) continue;
-        warned = true;
-        for (const char* ported : {"water", "climate", "biomes"}) {
-            check::is_true(warning.find(ported) == std::string::npos,
-                           std::string("the warning not to claim ") + ported +
-                               " is missing; it is ported");
-        }
+        check::is_true(warning.find("not implemented") == std::string::npos,
+                       "no warning to claim a stage is missing: " + warning);
     }
-    check::is_true(warned, "a world past the ladder to say so");
-    check::equal(w.completed_stage, kHighestImplementedStage,
-                 "a world past the ladder to stop at the last implemented stage");
 }
 
 TEST(the_systems_list_records_what_actually_ran) {
@@ -347,7 +339,15 @@ TEST(stage_sixteen_draws_a_cast_and_weaves_a_web_for_every_hero) {
         check::is_true(!h.archetype.empty(), h.uid + " to have an archetype");
     }
     check::equal(w.story_web.status, std::string("ok"), "the story web to resolve");
-    check::equal(w.story_web.webs.size(), w.heroes.people.size(), "one web per hero");
+    // Woven for the LIVING cast, people and Dreads alike: a legend walks no arcs. The ages
+    // are what make legends, so a world that has turned them must have some, or the living
+    // filter is not being tested at all.
+    std::size_t living = 0;
+    std::size_t legends = 0;
+    for (const Hero& h : w.heroes.people) (h.status == "living" ? living : legends) += 1;
+    for (const HeroDread& d : w.heroes.dreads) (d.status == "living" ? living : legends) += 1;
+    check::is_true(legends > 0, "some legend after two ages, or the living filter is untested");
+    check::equal(w.story_web.webs.size(), living, "one web per living hero or Dread");
     // Nothing else binds the two blocks to one run, and a web compiled against a stale
     // cast still compiles. The revision the web records is the cast it was woven from.
     check::equal(w.story_web.heroes_revision.sha256, w.heroes.policy_revision.sha256,
@@ -398,15 +398,17 @@ TEST(stage_sixteen_staffs_every_settlement_and_places_every_person) {
     check::is_true(placed > 0, "somebody to live somewhere, or nothing is tested");
 }
 
-TEST(every_living_hero_holds_a_post_in_the_rosters) {
-    // The roster draws its named posts from the cast. A living hero with no place in any
-    // roster is a person the world names and nobody can find.
+TEST(every_member_of_the_cast_is_folded_into_the_rosters) {
+    // The roster folds in the whole cast, people and Dreads, the living as alive and the
+    // legends as dead, each cross-linked by hero uid. A cast member missing from it is a
+    // person the world names and nobody can find.
     const World w = at_phase(16, 65);
-    long long living = 0;
-    for (const Hero& h : w.heroes.people) living += h.status == "living" ? 1 : 0;
-    check::is_true(living > 0, "some living hero, or nothing is tested");
-    check::equal(static_cast<long long>(w.npcs.summary.heroes_linked), living,
-                 "every living hero linked into a roster");
+    const long long cast = static_cast<long long>(w.heroes.people.size() + w.heroes.dreads.size());
+    check::is_true(cast > 0, "some cast, or nothing is tested");
+    check::equal(static_cast<long long>(w.npcs.summary.heroes_linked), cast, "every cast member linked");
+    long long dead = 0;
+    for (const NpcPerson& p : w.npcs.people) dead += (p.is_cast && !p.alive) ? 1 : 0;
+    check::is_true(dead > 0, "a legend folded in as dead, or the ages made none");
 }
 
 TEST(stage_sixteen_places_the_key_locations_and_plans_each_one) {

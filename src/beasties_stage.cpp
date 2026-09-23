@@ -1,21 +1,88 @@
-// Stage 13, "Beasties and animals": the nests, and the faiths a world with nests in it
-// comes to hold.
+// Stage 13, "Beasties and animals": the nests, the threat each city reads for its walls,
+// and the faiths a world with nests in it comes to hold.
 //
 // The reference runs, in order, the two nest passes, the threat assessment, and religion.
 // Religion is last because it reads everything before it: which peoples founded, which
-// god a diaspora carried, what lives in the wild to be feared. The threat assessment is
-// not ported yet and slots in between; nothing here reads it.
+// god a diaspora carried, what lives in the wild to be feared. Every age transition runs
+// the same three again over the world it rebuilt, through the same functions.
 #include "fwg/beasties_stage.hpp"
 
 #include <map>
 #include <string>
+#include <utility>
 
 #include "fwg/grid.hpp"
+#include "fwg/magic.hpp"
 #include "fwg/religion.hpp"
 #include "fwg/world.hpp"
 
 namespace fwg {
-namespace {
+
+WarCity war_city(const SettlementSite& s) {
+    WarCity city;
+    city.uid = s.uid;
+    city.id = s.id;
+    city.node = s.node;
+    city.x = s.x;
+    city.z = s.z;
+    city.direction = s.direction;
+    city.name = s.name;
+    city.population_profile = s.population_profile;
+    city.parent_race_id = s.parent_race_id;
+    city.city_class = s.city_class;
+    city.population_estimate = s.population_estimate;
+    city.war_history = s.war_history;
+    return city;
+}
+
+std::vector<WarCity> war_cities(const World& world) {
+    std::vector<WarCity> out;
+    out.reserve(world.settlements.sites.size());
+    for (const SettlementSite& s : world.settlements.sites) out.push_back(war_city(s));
+    return out;
+}
+
+WarGround war_ground(const World& world) {
+    WarGround ground;
+    ground.globe_radius_m = world.effective.globe_radius;
+    ground.settlement_spacing_m = world.effective.settlement_spacing;
+    ground.cities = war_cities(world);
+    ground.cores = world.has_humans ? &world.humans.cores : nullptr;
+    ground.routes = world.has_roads ? &world.roads.routes : nullptr;
+    if (world.has_villains) ground.villains = world.villains.people;
+    return ground;
+}
+
+std::vector<ReligionNest> monster_nests(const World& world) {
+    std::vector<ReligionNest> out;
+    out.reserve(world.beast_nests.sites.size());
+    for (const NestSite& n : world.beast_nests.sites) {
+        ReligionNest nest;
+        nest.id = n.id;
+        nest.name = std::string(n.name);
+        nest.family = std::string(n.family);
+        nest.real = n.real;
+        nest.tier = n.tier;
+        nest.range_m = n.range_m;
+        nest.direction = n.direction;
+        out.push_back(std::move(nest));
+    }
+    return out;
+}
+
+ThreatRequest threat_request(const World& world, const std::string& evaluated_after, std::optional<int> age) {
+    ThreatRequest request;
+    request.evaluated_after = evaluated_after;
+    request.age = age;
+    request.ground = war_ground(world);
+    request.layers = &world.layers;
+    request.nests = monster_nests(world);
+    if (world.has_magic) {
+        request.dominance_threshold = world.magic.mutation_threshold;
+        request.dominance_margin = world.magic.dominance_margin;
+    }
+    return request;
+}
 
 // Religion's view of the world, built from the blocks the earlier stages wrote.
 //
@@ -31,6 +98,9 @@ ReligionRequest religion_request(const World& world) {
     request.almanac = world.has_astrology ? &world.lunar_almanac : nullptr;
     request.globe_radius_m = world.effective.globe_radius;
     request.lunar_influence = world.effective.options[Option::lunar_influence];
+    // The pantheon it replaces: a sleeping god keeps its last aspect, a hidden god that
+    // returned stays walking, and theophanies and conversions carry forward.
+    request.previous = world.has_religion ? &world.religion : nullptr;
 
     std::map<int, const SettlementSite*> by_node;
     for (const SettlementSite& s : world.settlements.sites) {
@@ -66,16 +136,20 @@ ReligionRequest religion_request(const World& world) {
 
     // Monster nests only. Religion fears what could destroy a city; the animal pass is the
     // world's fauna, and a people does not raise a god against deer.
-    for (const NestSite& n : world.beast_nests.sites) {
-        ReligionNest nest;
-        nest.id = n.id;
-        nest.name = std::string(n.name);
-        nest.family = std::string(n.family);
-        nest.real = n.real;
-        nest.tier = n.tier;
-        nest.range_m = n.range_m;
-        nest.direction = n.direction;
-        request.nests.push_back(std::move(nest));
+    request.nests = monster_nests(world);
+
+    // What the ages left: a city that destroyed itself raises a Weave cult, a war a shrine to
+    // the Red Field; and every age's wars count toward the gods of strife.
+    for (const Ruin& ruin : world.ruins) {
+        request.ruins.push_back({ruin.id, ruin.node, ruin.cause, ruin.destroyed_age, ruin.population_profile});
+    }
+    const std::size_t weave = static_cast<std::size_t>(magic_school_index("weave"));
+    for (const AgeRecord& age : world.history.ages) {
+        ReligionAge row;
+        row.age = age.age;
+        row.wars = static_cast<int>(age.wars.size());
+        if (age.moon) row.weave_tide = age.moon->tide[weave];
+        request.ages.push_back(row);
     }
 
     if (world.has_water) {
@@ -83,16 +157,11 @@ ReligionRequest religion_request(const World& world) {
         request.lake_km2 = world.water.lake_km2;
         request.dry_km2 = world.water.dry_km2;
     }
-    // Sky islands are suspended on recipe 3, and ruins and ages are written only by the
-    // age transitions, which have not run at stage 13 -- all three are honestly empty.
+    // Sky islands are suspended on recipe 3, so there are none to count.
     return request;
 }
 
-}  // namespace
-
-void add_beasties(World& world) {
-    if (!world.has_settlements) return;
-
+void place_nests(World& world, std::optional<int> evaluated_age) {
     const auto held = sphere_grid(world.effective.size, world.effective.globe_radius);
     std::vector<int> settled;
     settled.reserve(world.settlements.sites.size());
@@ -100,16 +169,37 @@ void add_beasties(World& world) {
     if (auto passes = add_nests(world, *held, settled)) {
         world.wildlife = std::move(passes->wildlife);
         world.beast_nests = std::move(passes->beast_nests);
+        world.beast_nests.evaluated_age = evaluated_age;
         world.has_wildlife = true;
         world.systems.push_back("wildlife");
     }
+}
 
+void assess_world_threats(World& world, const std::string& evaluated_after, std::optional<int> age) {
+    world.threat_assessments = assess_threats(threat_request(world, evaluated_after, age));
+    world.has_threat_assessments = true;
+    world.systems.push_back("threat_assessments");
+}
+
+void resolve_world_religion(World& world) {
+    // The request points into world.religion as `previous`; the resolve returns a new value
+    // before anything is assigned, so the pointer is valid for as long as it is read.
+    Religion resolved = resolve_religion(religion_request(world));
+    world.religion = std::move(resolved);
+    world.has_religion = true;
+    world.systems.push_back("religion");
+}
+
+void add_beasties(World& world) {
+    if (!world.has_settlements) return;
+    place_nests(world, std::nullopt);
+    // Between the nests and the faiths, as the reference runs it: the nests just placed are
+    // half of what a city fears, and religion reads none of this.
+    assess_world_threats(world, "beast_nests", std::nullopt);
     // Religion reads the nests just placed. It needs the moon for the turning-moon god
     // and the ley fields for every school a god answers to; on a world without magic or
     // without a sky there is still a pantheon, only a narrower one.
-    world.religion = resolve_religion(religion_request(world));
-    world.has_religion = true;
-    world.systems.push_back("religion");
+    resolve_world_religion(world);
 }
 
 }  // namespace fwg
