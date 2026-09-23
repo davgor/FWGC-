@@ -1,0 +1,49 @@
+{
+ "schema": "fwg.control-annotations",
+ "schema_version": 1,
+ "note": "What the published control catalogue says ABOUT each control beyond its bounds and prose: whether it is open, pinned or inert, which controls the world's physical width derives, and which producers honour it. The reference derived these in tools/export_controls.py (source_identity) into world_controls.json (reference_catalogue_identity); tools/embed/controls.py derives them the same way from world-options.json + config-controls.json + this file, so the catalogue is generated, not copied. `status` is `pinned` when min == max, `inert` when named here, `open` otherwise. `derived` is in the order the width derivation runs in src/config.cpp resolve(): shape_overrides' five, the three reaches, then the catalogue area; tests/test_controls.cpp checks each one actually moves with circumference_km and yields to an explicit override. PRODUCERS CHANGED MEANING: in the reference, `native` meant its old Core/ resolver, which honoured 24 controls. Here `native` is this producer, which routes all 209 through `--request` (tests pin that every catalogue name is accepted); `reference` still means the Python producer, which published all 209. The INERT reason is rewritten for this producer: the reference's text named a Python function.",
+ "source_identity": {
+  "source_path": "tools/export_controls.py",
+  "source_commit": "b67c99b",
+  "source_sha256": "5d837c7f1ec37d897209d41ba24239afecad7a313f16479c0f22bed34c6f67b6",
+  "source_bytes": 11450
+ },
+ "reference_catalogue_identity": {
+  "source_path": "Sim/fantasy_world_generator/world_controls.json",
+  "source_commit": "b67c99b",
+  "source_sha256": "a96ae0e7de6ec78f513d767f17ca16feec5b9f4ab8250db5bc3e3f92cd6f5654",
+  "source_bytes": 69159,
+  "content_sha256": "4fc42cdac4cf905cc67752f0d5ee6aafb89d508e31f9958a6639259643ca57a9"
+ },
+ "catalogue": {
+  "schema": "fantasy-world-generator.world-controls",
+  "version": 1,
+  "recipe_version": 3
+ },
+ "shape_inputs": [
+  "circumference_km",
+  "relief_m"
+ ],
+ "derived": [
+  "globe_radius",
+  "tectonic_relief",
+  "amplitude",
+  "wavelength",
+  "orogeny",
+  "settlement_spacing",
+  "support_reach",
+  "culture_link_cost",
+  "river_threshold_km2"
+ ],
+ "derived_note": "Computed from the world's physical width unless set explicitly; an explicit value wins. An absent circumference_km falls back to the world_size preset, so this derives on the default path too.",
+ "inert": {
+  "stubbornness": "Stored on Config and written to the world document's config block, and read by no generation stage: the automatic-parameter path that consumed it is retired, and recipe 3 forbids auto_parameters. The value is accepted and changes nothing."
+ },
+ "reference_inert": {
+  "stubbornness": "Written only by terrain_recipes.seed_config, which runs when auto_parameters is set; recipe 3 forbids auto_parameters, so on this recipe the value is accepted and never read."
+ },
+ "producers": [
+  "reference",
+  "native"
+ ]
+}

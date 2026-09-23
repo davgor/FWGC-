@@ -55,6 +55,22 @@
 target_link_libraries(fwg_tests PRIVATE fwg fwg_flags)
 target_include_directories(fwg_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
+# The product package's tests, kept as their own block so they merge cleanly with the
+# generator's list above. They read the reference's conformance fixtures, carried verbatim
+# in tests/fixtures/.
+target_sources(fwg_tests PRIVATE
+  test_asset_list.cpp
+  test_capabilities.cpp
+  test_coordinates.cpp
+  test_counter_kernel.cpp
+  test_hero_guild.cpp
+  test_json_value.cpp
+  test_request_json.cpp
+  test_taxonomy.cpp
+  test_world_handle.cpp
+)
+target_compile_definitions(fwg_tests PRIVATE FWG_TEST_FIXTURES="${CMAKE_CURRENT_SOURCE_DIR}/fixtures")
+
 add_test(NAME fwg_tests COMMAND fwg_tests)
 
 # The suite reports "no tests ran" as a failure, so an empty or mis-filtered run

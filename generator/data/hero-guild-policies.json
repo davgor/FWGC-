@@ -1,0 +1,138 @@
+{
+ "schema": "fwg.hero-guild-policies",
+ "schema_version": 1,
+ "note": "Hero guild planning policies, carried whole from Sim/fantasy_world_generator/hero_guild_policies.json as `document`, which is what fwg::guild_policy_document returns. One policy per civilization entity, keyed by exact id; tools/embed/hero_guild.py refuses a set that is not exactly civilizations.json's entities. Every resident rate is zero on purpose: hero demographics are not silently invented. Increment `document.revision` for an authored edit -- a plan reports the revision it used. These policies read no generator stream and change no world.",
+ "source_identity": {
+  "source_path": "Sim/fantasy_world_generator/hero_guild_policies.json",
+  "source_commit": "b67c99b",
+  "source_sha256": "62fb4464b04bef7f3e03125d4b13efffbdc97a58a74e06b27bfd018eef778c26",
+  "source_bytes": 3871
+ },
+ "document": {
+  "schema": "fantasy-world-generator.hero-guild-policies",
+  "schema_version": 1,
+  "revision": 1,
+  "policies": {
+   "human_maritime": {
+    "resident_rate_numerator": 0,
+    "resident_rate_denominator": 1000,
+    "max_resident_heroes": 1000,
+    "max_visiting_heroes": 1000,
+    "party_size": 4,
+    "max_active_parties": 25,
+    "heroes_per_service_worker": 20,
+    "max_additional_staff": 20
+   },
+   "human_desert": {
+    "resident_rate_numerator": 0,
+    "resident_rate_denominator": 1000,
+    "max_resident_heroes": 1000,
+    "max_visiting_heroes": 1000,
+    "party_size": 4,
+    "max_active_parties": 25,
+    "heroes_per_service_worker": 20,
+    "max_additional_staff": 20
+   },
+   "human_cold": {
+    "resident_rate_numerator": 0,
+    "resident_rate_denominator": 1000,
+    "max_resident_heroes": 1000,
+    "max_visiting_heroes": 1000,
+    "party_size": 4,
+    "max_active_parties": 25,
+    "heroes_per_service_worker": 20,
+    "max_additional_staff": 20
+   },
+   "human_large_island": {
+    "resident_rate_numerator": 0,
+    "resident_rate_denominator": 1000,
+    "max_resident_heroes": 1000,
+    "max_visiting_heroes": 1000,
+    "party_size": 4,
+    "max_active_parties": 25,
+    "heroes_per_service_worker": 20,
+    "max_additional_staff": 20
+   },
+   "human_rainforest": {
+    "resident_rate_numerator": 0,
+    "resident_rate_denominator": 1000,
+    "max_resident_heroes": 1000,
+    "max_visiting_heroes": 1000,
+    "party_size": 4,
+    "max_active_parties": 25,
+    "heroes_per_service_worker": 20,
+    "max_additional_staff": 20
+   },
+   "human_heartland": {
+    "resident_rate_numerator": 0,
+    "resident_rate_denominator": 1000,
+    "max_resident_heroes": 1000,
+    "max_visiting_heroes": 1000,
+    "party_size": 4,
+    "max_active_parties": 25,
+    "heroes_per_service_worker": 20,
+    "max_additional_staff": 20
+   },
+   "dwarf": {
+    "resident_rate_numerator": 0,
+    "resident_rate_denominator": 1000,
+    "max_resident_heroes": 1000,
+    "max_visiting_heroes": 1000,
+    "party_size": 4,
+    "max_active_parties": 25,
+    "heroes_per_service_worker": 20,
+    "max_additional_staff": 20
+   },
+   "elf": {
+    "resident_rate_numerator": 0,
+    "resident_rate_denominator": 1000,
+    "max_resident_heroes": 1000,
+    "max_visiting_heroes": 1000,
+    "party_size": 4,
+    "max_active_parties": 25,
+    "heroes_per_service_worker": 20,
+    "max_additional_staff": 20
+   },
+   "gnome": {
+    "resident_rate_numerator": 0,
+    "resident_rate_denominator": 1000,
+    "max_resident_heroes": 1000,
+    "max_visiting_heroes": 1000,
+    "party_size": 4,
+    "max_active_parties": 25,
+    "heroes_per_service_worker": 20,
+    "max_additional_staff": 20
+   },
+   "tidekin": {
+    "resident_rate_numerator": 0,
+    "resident_rate_denominator": 1000,
+    "max_resident_heroes": 1000,
+    "max_visiting_heroes": 1000,
+    "party_size": 4,
+    "max_active_parties": 25,
+    "heroes_per_service_worker": 20,
+    "max_additional_staff": 20
+   },
+   "hill_dwarf": {
+    "resident_rate_numerator": 0,
+    "resident_rate_denominator": 1000,
+    "max_resident_heroes": 1000,
+    "max_visiting_heroes": 1000,
+    "party_size": 4,
+    "max_active_parties": 25,
+    "heroes_per_service_worker": 20,
+    "max_additional_staff": 20
+   },
+   "frosthold_dwarf": {
+    "resident_rate_numerator": 0,
+    "resident_rate_denominator": 1000,
+    "max_resident_heroes": 1000,
+    "max_visiting_heroes": 1000,
+    "party_size": 4,
+    "max_active_parties": 25,
+    "heroes_per_service_worker": 20,
+    "max_additional_staff": 20
+   }
+  }
+ }
+}

@@ -134,6 +134,22 @@ struct PatchRefusal {
     bool retry = true;
 
     std::string message;
+
+    // --- added by the product-package port (world handles, controls, --request) ---------
+    // Additive and empty on every patch refusal. The rest of the reference's vocabulary
+    // uses them: kind is then also invalid_choice | retired_version | unsupported_api |
+    // unknown_field | over_capacity, and suggestion also choose | did_you_mean. Rendered as
+    // the reference's failure-v2 wire document by fwg/request_json.hpp.
+    //
+    // The value received when it is not a finite number -- a string, a bool, null, an
+    // array -- or when its integer spelling matters, as JSON text ("\"1\"", "true", "7").
+    // When set it is what the wire document carries instead of `received`.
+    std::string received_json;
+    // invalid_choice / retired_version / unsupported_api: the closed vocabulary, as JSON
+    // texts in the reference's order.
+    std::vector<std::string> choices_json;
+    // choose / did_you_mean / unknown_field: the suggested values, best first, as JSON texts.
+    std::vector<std::string> candidates_json;
 };
 
 // Subclasses std::invalid_argument for the reason the reference's RequestError subclasses

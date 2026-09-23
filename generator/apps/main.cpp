@@ -2,18 +2,26 @@
 //
 // The CLI is deliberately thin: everything it does is available through the library
 // headers, and nothing it does is available only here.
+#include <algorithm>
 #include <charconv>
 #include <cstring>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <iterator>
 #include <optional>
+#include <sstream>
 #include <string>
 #include <string_view>
 #include <vector>
 
+#include "fwg/asset_list.hpp"
+#include "fwg/capabilities.hpp"
 #include "fwg/civilizations.hpp"
 #include "fwg/json.hpp"
+#include "fwg/json_value.hpp"
+#include "fwg/patch.hpp"
+#include "fwg/request_json.hpp"
 #include "fwg/serialize.hpp"
 #include "fwg/world.hpp"
 
@@ -24,16 +32,32 @@ void usage() {
         R"(fwg -- fantasy world generator
 
 usage:
-  fwg generate [options]
+  fwg [--terse-errors] generate [options]
   fwg registry            dump the civilization registry as JSON
   fwg materialize --stage N [-o PATH] DOCUMENT
                           rebuild the world at stage N from a document written
                           with --include-build-stages (compact JSON)
+  fwg asset-list --output PATH
+                          compile the exhaustive potential-state asset list
+  fwg capabilities [--version N] --output PATH
+                          export the capability descriptor (version 1)
+  fwg controls [--group G] [--name N]... [--query TEXT] [--include-pinned]
+               [--output PATH]
+                          describe the generator controls without generating;
+                          open controls only unless --include-pinned
 
-options:
+--terse-errors          a refused request's JSON envelope carries only code,
+                        message and field, not received/expected/suggestion
+
+generate options:
+  --request PATH        a JSON request {"seed", "recipe_version", "overrides"},
+                        overrides keyed by published control name (see
+                        `fwg controls`); cannot be combined with the flags below
+                        that shape the world. A refusal is printed to stdout as a
+                        fantasy-world-generator.failure document; exit 2.
   --seed N              master seed (default 42)
   --size N              grid cells along one edge, odd, 3..1025 (default 129)
-  --phase N             stop after stage N, 1..16 (default 11; see below)
+  --phase N             stop after stage N, 1..16 (default 16; see below)
   --world-size NAME     small | medium | large (default small)
   --circumference-km X  authored world width; overrides --world-size
   --relief-m X          authored relief budget (default 1667)
@@ -46,9 +70,14 @@ options:
   --population-profile  a civilization id, or "mixed" for all of them (default)
   --option NAME=VALUE   set one of the 164 world options by its published name;
                         repeatable. `fwg registry` lists them.
-  -o, --out PATH        write JSON here (default stdout)
-  --compact             one-line JSON
-  --timings             include wall-clock timings in the document; off by
+  -o, --out, --output PATH
+                        write JSON here (default stdout); the destination is
+                        checked before a world is spent on it
+  --pretty              indent the document for reading; interchange output
+                        is compact by default, as the reference's is
+  --compact             one-line JSON (the default; kept for old scripts)
+  --timings, --include-timings
+                        include wall-clock timings in the document; off by
                         default so two runs of one seed are byte-identical
   --include-build-stages
                         embed the stage inspector's per-stage snapshots as
@@ -56,19 +85,18 @@ options:
   --quiet               no progress on stderr
   -h, --help            this text
 
-the sixteen-stage ladder, and where this port has reached:
-  1  plate layout           done     9  leylines, astrology,    done
-  2  hypsometric surface    done        ecology, biome variants
-  3  surface detail         done    10  founding: cities        done
-  4  erosion                done    11  roads                   done
-  5  land mask, water       done    12  populated regions       done
-  6  tectonic transition    done    13  nests, beasts, religion done
-  7  relic carving          done    14  age transition          todo
-  8  climate, biomes        done    15  age transition          todo
-                                    16  plans, bands, heroes,   done
-                                        NPCs, key locations
-Stage 16 runs over a world that has had no age turn: no ruins, no villains.
-A --phase above 13 reports 13 in completed_stage and says so in warnings.
+the sixteen-stage ladder:
+  1  plate layout                 9  leylines, astrology, ecology,
+  2  hypsometric surface            biome variants
+  3  surface detail              10  founding: cities
+  4  erosion                     11  roads
+  5  land mask, water            12  populated regions
+  6  tectonic transition         13  nests, beasts, religion
+  7  relic carving               14  an age turns: wars, fates,
+  8  climate, biomes                 ruins, villains, rebuilding
+                                 15  the second, final age turn
+                                 16  plans, bands, heroes, NPCs,
+                                     key locations
 See docs/porting-status.md.
 )";
 }
@@ -216,10 +244,137 @@ void dump_registry(std::ostream& out) {
     std::exit(2);
 }
 
+// --- the product commands -----------------------------------------------------------------
+
+// The reference writes these with json.dumps(value, ensure_ascii=False, indent=2) and a
+// trailing newline, creating the parent directory first. Always LF here; the reference's
+// text-mode write gives CRLF on Windows and LF elsewhere.
+std::string indented(const fwg::JsonValue& value) {
+    fwg::JsonDumpOptions options;
+    options.ensure_ascii = false;
+    options.indent = 2;
+    return fwg::dump_json(value, options) + "\n";
+}
+
+void write_file(const std::string& path, const std::string& text) {
+    const std::filesystem::path target(path);
+    std::error_code ignored;
+    if (target.has_parent_path()) std::filesystem::create_directories(target.parent_path(), ignored);
+    std::ofstream file(target, std::ios::binary);
+    if (!file) fail("cannot write " + path);
+    file << text;
+    if (!file) fail("cannot write " + path);
+}
+
+// A refused request: the machine-readable envelope on stdout for the caller to parse, the
+// one-line reason on stderr for whoever is watching, and exit 2 -- the reference's shape.
+int refuse(const fwg::PatchError& error, bool terse) {
+    fwg::JsonDumpOptions options;
+    options.ensure_ascii = false;
+    std::cout << fwg::dump_json(fwg::refusal_document(error.refusal(), !terse), options) << '\n';
+    std::cerr << error.refusal().code << ": " << error.what() << '\n';
+    return 2;
+}
+
+// `--flag VALUE` pairs and bare switches, for the three small commands.
+struct Options {
+    std::vector<std::pair<std::string_view, std::string_view>> values;
+    std::vector<std::string_view> switches;
+};
+
+Options parse_options(const std::vector<std::string_view>& args, std::initializer_list<std::string_view> valued,
+                      std::initializer_list<std::string_view> bare) {
+    Options out;
+    for (std::size_t i = 1; i < args.size(); ++i) {
+        const std::string_view arg = args[i];
+        if (std::find(valued.begin(), valued.end(), arg) != valued.end()) {
+            if (i + 1 >= args.size()) fail(std::string(arg) + " needs a value");
+            out.values.emplace_back(arg, args[++i]);
+        } else if (std::find(bare.begin(), bare.end(), arg) != bare.end()) {
+            out.switches.push_back(arg);
+        } else {
+            fail("unknown option '" + std::string(arg) + "' for " + std::string(args[0]));
+        }
+    }
+    return out;
+}
+
+std::optional<std::string_view> last_value(const Options& options, std::string_view flag) {
+    std::optional<std::string_view> found;
+    for (const auto& [name, value] : options.values) {
+        if (name == flag) found = value;
+    }
+    return found;
+}
+
+int run_asset_list(const std::vector<std::string_view>& args) {
+    const Options options = parse_options(args, {"--output"}, {});
+    const auto output = last_value(options, "--output");
+    if (!output) fail("asset-list needs --output PATH");
+    try {
+        write_file(std::string(*output), indented(fwg::compile_asset_list()));
+    } catch (const std::exception& error) {
+        fail(error.what());
+    }
+    return 0;
+}
+
+int run_capabilities(const std::vector<std::string_view>& args) {
+    const Options options = parse_options(args, {"--output", "--version"}, {});
+    const auto output = last_value(options, "--output");
+    if (!output) fail("capabilities needs --output PATH");
+    int version = fwg::kCapabilityVersion;
+    if (const auto text = last_value(options, "--version")) {
+        const auto parsed = to_int(*text);
+        if (!parsed || *parsed < -2147483647LL || *parsed > 2147483647LL) fail("--version needs an integer");
+        version = static_cast<int>(*parsed);
+    }
+    try {
+        // Resolved before the file is touched: an unsupported version never overwrites.
+        const std::string text = indented(fwg::capabilities_document(version));
+        write_file(std::string(*output), text);
+    } catch (const std::exception& error) {
+        fail(error.what());
+    }
+    return 0;
+}
+
+int run_controls(const std::vector<std::string_view>& args) {
+    const Options options =
+        parse_options(args, {"--group", "--name", "--query", "--output"}, {"--include-pinned"});
+    fwg::ControlQuery query;
+    for (const auto& [flag, value] : options.values) {
+        if (flag == "--group") query.group = std::string(value);
+        if (flag == "--query") query.query = std::string(value);
+        if (flag == "--name") {
+            if (!query.names) query.names.emplace();
+            query.names->emplace_back(value);
+        }
+    }
+    query.include_pinned = !options.switches.empty();
+    try {
+        const std::string text = indented(fwg::describe_controls(query));
+        if (const auto output = last_value(options, "--output")) {
+            write_file(std::string(*output), text);
+        } else {
+            std::cout << text;
+        }
+    } catch (const std::exception& error) {
+        fail(error.what());
+    }
+    return 0;
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
     std::vector<std::string_view> args(argv + 1, argv + argc);
+    // The reference's one global option, which precedes the command.
+    bool terse = false;
+    while (!args.empty() && args[0] == "--terse-errors") {
+        terse = true;
+        args.erase(args.begin());
+    }
     if (args.empty() || args[0] == "-h" || args[0] == "--help") {
         usage();
         return args.empty() ? 2 : 0;
@@ -268,14 +423,20 @@ int main(int argc, char** argv) {
         }
         return 0;
     }
+    if (args[0] == "asset-list") return run_asset_list(args);
+    if (args[0] == "capabilities") return run_capabilities(args);
+    if (args[0] == "controls") return run_controls(args);
     if (args[0] != "generate") fail("unknown command '" + std::string(args[0]) + "'; try --help");
 
     fwg::Request request;
     std::string out_path;
-    bool pretty = true;
+    std::string request_path;
+    // Compact unless --pretty, as the reference's interchange output is.
+    bool pretty = false;
     bool quiet = false;
     bool timings = false;
     bool build_stages = false;
+    std::vector<std::string> shaping_flags;  // what --request cannot be combined with
 
     const auto next = [&](std::size_t& i, std::string_view flag) -> std::string_view {
         if (i + 1 >= args.size()) fail(std::string(flag) + " needs a value");
@@ -302,6 +463,12 @@ int main(int argc, char** argv) {
             if (!v) fail(std::string(flag) + " needs a number");
             return *v;
         };
+        const bool shapes = arg == "--seed" || arg == "--size" || arg == "--phase" || arg == "--plates" ||
+                            arg == "--erosion-passes" || arg == "--erosion-strength" || arg == "--sea-level" ||
+                            arg == "--circumference-km" || arg == "--relief-m" || arg == "--world-size" ||
+                            arg == "--magic-enabled" || arg == "--settlement-count" ||
+                            arg == "--population-profile" || arg == "--option";
+        if (shapes) shaping_flags.emplace_back(arg);
 
         if (arg == "--seed") request.seed = static_cast<std::uint32_t>(need_int(arg, 0, 4294967295LL));
         else if (arg == "--size") request.size = static_cast<int>(need_int(arg, 3, 1025));
@@ -334,26 +501,53 @@ int main(int argc, char** argv) {
                 fail("--option " + name + " needs a number, got '" + std::string(pair.substr(eq + 1)) + "'");
             }
         }
-        else if (arg == "-o" || arg == "--out") out_path = std::string(next(i, arg));
+        else if (arg == "--request") request_path = std::string(next(i, arg));
+        else if (arg == "-o" || arg == "--out" || arg == "--output") out_path = std::string(next(i, arg));
         else if (arg == "--compact") pretty = false;
-        else if (arg == "--timings") timings = true;
+        else if (arg == "--pretty") pretty = true;
+        else if (arg == "--timings" || arg == "--include-timings") timings = true;
         else if (arg == "--include-build-stages") build_stages = true;
+        else if (arg == "--terse-errors") terse = true;
         else if (arg == "--quiet") quiet = true;
         else if (arg == "-h" || arg == "--help") { usage(); return 0; }
         else fail("unknown option '" + std::string(arg) + "'");
     }
 
-    // The default is the highest stage that actually runs, so `fwg generate` with no
-    // arguments produces the most complete world this port can make rather than the
-    // most complete one it could make when the flag was last touched. Set only where the
-    // library's own default says otherwise: the document's recipe.overrides lists what the
-    // request set, and a phase nobody typed is not an override anybody asked for.
-    if (!request.phase && fwg::Config{}.phase != fwg::kHighestImplementedStage) {
-        request.phase = fwg::kHighestImplementedStage;
-    }
-
     try {
+        if (!request_path.empty()) {
+            if (!shaping_flags.empty()) {
+                fail("--request cannot be combined with " + shaping_flags.front() +
+                     "; the request file is the whole request");
+            }
+            std::ifstream file(std::filesystem::path(request_path), std::ios::binary);
+            if (!file) fail("cannot read " + request_path);
+            std::ostringstream text;
+            text << file.rdbuf();
+            request = fwg::request_from_json(fwg::parse_json(text.str()));
+        }
+
+        // The default is the highest stage that actually runs, so `fwg generate` with no
+        // arguments produces the most complete world this port can make rather than the
+        // most complete one it could make when the flag was last touched. Set only where the
+        // library's own default says otherwise: the document's recipe.overrides lists what the
+        // request set, and a phase nobody typed is not an override anybody asked for. After
+        // the request file is read, so a file without a phase gets the same default as flags.
+        if (!request.phase && fwg::Config{}.phase != fwg::kHighestImplementedStage) {
+            request.phase = fwg::kHighestImplementedStage;
+        }
+
         const fwg::Config cfg = fwg::resolve(request);
+
+        // Fail on an unwritable destination before spending a whole generation on it.
+        // Opened for append, so a failed generation does not truncate what was there.
+        if (!out_path.empty()) {
+            const std::filesystem::path target(out_path);
+            std::error_code ignored;
+            if (target.has_parent_path()) std::filesystem::create_directories(target.parent_path(), ignored);
+            std::ofstream probe(target, std::ios::binary | std::ios::app);
+            if (!probe) fail("cannot write " + out_path);
+        }
+
         if (!quiet) {
             std::cerr << "seed " << cfg.seed << ", size " << cfg.size << ", phase " << cfg.phase
                       << ", radius " << cfg.globe_radius * cfg.world_scale << " m\n";
@@ -389,6 +583,8 @@ int main(int argc, char** argv) {
             fwg::write_world_json(file, world, document);
             if (!quiet) std::cerr << "wrote " << out_path << '\n';
         }
+    } catch (const fwg::PatchError& error) {
+        return refuse(error, terse);
     } catch (const std::exception& error) {
         fail(error.what());
     }

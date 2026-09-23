@@ -92,6 +92,27 @@
   world_time.cpp
 )
 
+# The product package: the JSON document layer, world handles, the counter kernel, the
+# coordinate oracle, the taxonomy, capabilities and controls, hero guild planning, the
+# asset list and the JSON request boundary. Kept as its own block so it merges cleanly
+# with the generator's list above.
+target_sources(fwg PRIVATE
+  asset_list.cpp
+  capabilities.cpp
+  coordinates.cpp
+  counter_kernel.cpp
+  hero_guild.cpp
+  json_value.cpp
+  request_json.cpp
+  taxonomy.cpp
+  world_handle.cpp
+  generated/content_asset_sources.cpp
+  generated/content_capabilities.cpp
+  generated/content_control_catalogue.cpp
+  generated/content_hero_guild.cpp
+  generated/content_taxonomy.cpp
+)
+
 add_library(fwg::fwg ALIAS fwg)
 
 target_include_directories(fwg PUBLIC

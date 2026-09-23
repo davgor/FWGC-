@@ -1,0 +1,88 @@
+{
+ "schema": "fwg.terrain-taxonomy",
+ "schema_version": 1,
+ "note": "The portable terrain taxonomy, version 1, carried whole from Sim/fantasy_world_generator/terrain_taxonomy.json as `taxonomy`. That document IS the published contract: fwg::taxonomy_document returns it unchanged and fwg::resolve_terrain_identity reads only it. It is independent of the generator's own tables on purpose, and tools/embed/taxonomy.py checks the two agree: `schools` must be the known schools of magic-schools.json in their order, and `natural_biomes` the ids and cores of biomes.json in theirs. The four hidden schools are NOT in taxonomy v1 and resolving one is refused, although the asset list publishes their 52 variant identities; widening that is a taxonomy version 2 decision. `aliases` must stay empty: the resolver supports none, so a non-empty table would publish a lie.",
+ "source_identity": {
+  "source_path": "Sim/fantasy_world_generator/terrain_taxonomy.json",
+  "source_commit": "b67c99b",
+  "source_sha256": "1af8ee8f4bd249bfc11c8d552a44375a80783c4b444ed8f64abcd85389409436",
+  "source_bytes": 763
+ },
+ "taxonomy": {
+  "schema": "fantasy-world-generator.terrain-taxonomy",
+  "taxonomy_version": 1,
+  "recipe_version": 3,
+  "schools": [
+   "weave",
+   "umbral",
+   "infernal",
+   "radiant",
+   "fire",
+   "water",
+   "earth",
+   "air"
+  ],
+  "natural_biomes": [
+   {
+    "id": 0,
+    "core": "ocean"
+   },
+   {
+    "id": 1,
+    "core": "tundra"
+   },
+   {
+    "id": 2,
+    "core": "desert"
+   },
+   {
+    "id": 3,
+    "core": "grassland"
+   },
+   {
+    "id": 4,
+    "core": "forest"
+   },
+   {
+    "id": 5,
+    "core": "exposed_rock"
+   },
+   {
+    "id": 6,
+    "core": "snow"
+   },
+   {
+    "id": 7,
+    "core": "rainforest"
+   },
+   {
+    "id": 8,
+    "core": "lake"
+   },
+   {
+    "id": 13,
+    "core": "marsh"
+   },
+   {
+    "id": 15,
+    "core": "boreal_forest"
+   },
+   {
+    "id": 16,
+    "core": "cold_tundra"
+   },
+   {
+    "id": 17,
+    "core": "land_ice"
+   }
+  ],
+  "retired_natural_ids": [
+   9,
+   10,
+   11,
+   12,
+   14
+  ],
+  "aliases": {}
+ }
+}
