@@ -8,6 +8,8 @@ this library makes is narrow and worth stating exactly:
 > the same request — in any process, on any machine.**
 
 Verified across separate processes at size 129 on MSVC 19.44 / UCRT: two runs, one SHA-256.
+The thread count is not an input either (§4): on 2026-09-23 eight worlds, sizes 33 to 257,
+hashed the same on 1 and 24 threads and under the serial code the pool replaced.
 
 **"The same C runtime" is load-bearing and was missing from an earlier draft of this
 sentence.** The generation path calls `sin`, `cos`, `exp`, `log`, `tanh`, `asin`, `atan2`
@@ -131,10 +133,48 @@ Each of these cost time once, and none is caught by the compiler.
 - **Ids sorted as strings.** Blocks ordered by id -- the castle plans by fortress id, the
   quest board by quest id -- compare strings, so `"10" < "9"`. That order is published; do
   not "fix" it into a numeric sort.
-- **Parallelism.** Nothing here runs a pool. Whoever adds one must first decide whether
-  pooled output has to equal serial output byte for byte, and write the equality test
-  before the pool: a reference planner once parallelised behind an undocumented variable,
-  and nothing ever compared the two paths.
+- **Parallelism.** Stage 16's three planners run on a pool, and the ruling that came with it
+  is that a world is **byte for byte the same on any number of threads**. The equality test
+  was written before the pool, while it could only pass trivially: a reference planner once
+  parallelised behind an undocumented variable, and nothing ever compared the two paths.
+
+  *What runs in parallel.* Every hamlet plan and every castle plan; and each city's plan in
+  two parallel halves -- the survey (window, ground raster, elevation surface, the seven site
+  facts) and the finish (streets, walls, packing, housing). *What stays serial:* the cities'
+  shape draws, one at a time in key order between the two halves, because each is weighted
+  by the repetition tally the cities before it left. A draw costs microseconds; the survey
+  and the finish are the cost. Everything outside the three planners is serial, the world
+  scene built from their plans included.
+
+  *Why the bytes cannot depend on it.* Each task reads only what no task writes -- the world,
+  the grid, the site and pin lists -- and writes only its own slot of a vector sized before
+  the pass, so results land in index order whatever order threads finish in. The planners
+  keep no mutable static state: their tables are `constexpr`, the catalogue digests are
+  function-local statics (initialised thread-safely, and first read before any pass starts),
+  every random stream is a child of the seed keyed on the site's own key or uid, and the
+  sphere-grid cache, which is locked anyway, is not called from a pass. The tally is the one
+  piece of cross-city state, and only the serial walk touches it. A failure is the serial
+  loop's: the pool rethrows the exception of the LOWEST index that threw, and a city whose
+  survey fails holds that failure until the walk reaches it -- an earlier city may yet fail
+  in its finish, and that is the one serial planning reports. And every task runs in the
+  calling thread's floating-point environment: a new thread starts in the default one, so a
+  host that rounds upward or flushes denormals would otherwise get one world from the pool
+  and another from the loop.
+
+  *The count is not part of the world.* `fwg::set_worker_threads` (workers.hpp), `fwg generate
+  --threads N` or `FWG_THREADS`: 0 is every hardware thread, the default, and 1 is the plain
+  loop with no thread started. It is a process setting and never a field of Config or
+  Request, both of which are written into the document.
+
+  *The test that holds it.* `tests/test_workers.cpp` generates worlds at 1 worker and at 2, 3
+  and every hardware thread and compares the SHA-256 of the whole compact document: size 33
+  at seeds 42 and 7, size 65 at seed 42, and a redraw over a player's city. Each world first
+  proves an ordering defect could show in it -- plans from all three planners, and a shape
+  worn by two cities. Beside it: fill_cities against the one-at-a-time loop it replaced;
+  failures at every count against the serial failure; the lowest-index rule; and the
+  floating-point environment, checked on every pool thread and compared as bits. Each was
+  sabotaged before it was trusted: letting every city read the tally as it stood when the
+  city started -- the obvious pool -- changed the document at 2, 3 and 24 threads.
 
 ## 5. What is deliberately outside the document
 

@@ -506,7 +506,8 @@ CastlePlan plan_castle_with_kit(const CastleRequest& request, const RuralSite& f
 
 // Every fortress, planned in ascending order of its id STRING: "fortress-10" before
 // "fortress-2". A castle carries no cross-castle state, so the order decides only the
-// order of the output, which is a record consumers read.
+// order of the output, which is a record consumers read. Planned on worker threads
+// (workers.hpp), each into its own slot.
 CastlePlans fill_castles(const CastleRequest& request);
 
 }  // namespace fwg

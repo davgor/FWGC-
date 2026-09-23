@@ -1355,8 +1355,10 @@ std::string apply_sound_changes(std::string_view word, std::span<const SoundChan
 
 Resolved resolve(std::string_view civ_id, std::string_view parent_race_id) {
     // Memoised, and the entry point hands back a COPY: a caller that mutates a resolved
-    // people must not poison what the next caller sees. Generation is single-threaded,
-    // which is the only reason this needs no lock.
+    // people must not poison what the next caller sees. Nothing in the library calls this from
+    // a second thread -- the one pool, the stage-16 planners' (workers.hpp), never reaches it
+    // -- which is the only reason it has no lock. Two worlds generated at once on two of a
+    // host's threads would race here.
     static std::map<std::pair<std::string, std::string>, Resolved> cache;
     const std::pair<std::string, std::string> key{std::string(civ_id), std::string(parent_race_id)};
     const auto found = cache.find(key);

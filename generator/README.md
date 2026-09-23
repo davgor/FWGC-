@@ -42,19 +42,22 @@ export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/Comm
 Nyquist-filtered against cell spacing, so a coarse world does not resolve fine terrain at
 any wavelength.
 
-| `--size` | generation | octaves resolved | JSON |
-|---:|---:|:---:|---:|
-| 33 | 1.9 s | 1 / 5 | 60 MB |
-| 65 | 3.4 s | 2 / 5 | 108 MB |
-| 129 | 5.4 s | 3 / 5 | 156 MB |
-| 257 | 10.6 s | 4 / 5 | 276 MB |
-| 513 | 32.8 s | 5 / 5 | 687 MB |
+| `--size` | generation, 24 threads | serially (`--threads 1`) | octaves resolved | JSON |
+|---:|---:|---:|:---:|---:|
+| 33 | 0.44 s | 1.79 s | 1 / 5 | 57 MB |
+| 65 | 0.93 s | 3.30 s | 2 / 5 | 104 MB |
+| 129 | 2.16 s | 5.27 s | 3 / 5 | 151 MB |
+| 257 | 7.15 s | 10.7 s | 4 / 5 | 275 MB |
+| 513 | 29.3 s | 33.5 s | 5 / 5 | 689 MB |
 
-Measured 2026-09-23 on this machine: phase 16 (the default), seed 42, Release, one run each;
-size 513 peaked at 960 MB of memory. Stage 16's planners are most of the cost up to size 129.
-What the document is
-made of shifts with size: at 33 the plans are half of it and the world scene a fifth, and at
-257 the 166 layer grids alone are 109 MB. **A world below size 513 has an incomplete
+Measured 2026-09-23 on this machine -- 24 cores, 8 performance and 16 efficiency -- at phase 16
+(the default), seed 42, Release: the median of three runs of the `total` timing, which leaves
+out writing the JSON. Stage 16's three planners are most of a small world's serial cost, and
+run on every hardware thread by default (`--threads N`, `FWG_THREADS`); the document is
+byte-identical at every thread count
+([docs/determinism.md](docs/determinism.md) §4). What the document is made of shifts with
+size: at 33 the plans are half of it and the world scene a fifth, and at 257 the 166 layer
+grids alone are 109 MB. **A world below size 513 has an incomplete
 octave ladder** — size 33 resolves one octave of five, so a small preview world is not a
 small version of the real one, it is a world with almost no surface detail.
 
@@ -80,12 +83,12 @@ layout.
 
 | `--size` | whole document | `world.json` | `scene.json` | plans | largest plan |
 |---:|---:|---:|---:|---:|---:|
-| 33 | 60.2 MB | 17.2 MB | 11.4 MB | 24.9 MB in 398 files | 0.86 MB |
-| 65 | 108.8 MB | 40.9 MB | 17.9 MB | 38.4 MB in 753 files | 0.85 MB |
-| 129 | 156.9 MB | 80.6 MB | 22.0 MB | 41.9 MB in 926 files | 0.90 MB |
-| 257 | 276.5 MB | 195.8 MB | 22.9 MB | 44.7 MB in 860 files | 0.86 MB |
+| 33 | 56.7 MB | 17.3 MB | 10.8 MB | 23.0 MB in 362 files | 0.86 MB |
+| 65 | 104.4 MB | 40.4 MB | 17.4 MB | 36.3 MB in 754 files | 0.85 MB |
+| 129 | 151.4 MB | 79.6 MB | 20.9 MB | 39.5 MB in 897 files | 0.90 MB |
+| 257 | 275.4 MB | 195.4 MB | 23.2 MB | 44.4 MB in 855 files | 0.90 MB |
 
-Measured the same day, seed 42. The split is 5–11% smaller in total, since each catalogue is
+Measured the same day, seed 42. The split is 5–10% smaller in total, since each catalogue is
 written once. Its value is that a reader takes only what it needs. The plans and the scene
 barely grow past size 129, and `world.json` does: at 257, its 166 layer grids are 109 MB of
 its 196.
@@ -119,7 +122,9 @@ gets the two things the headers need and nothing else:
 The generator's warning policy (`/W4 /WX`) applies to its own code only.
 
 The library has **no dependencies at all** — JSON, SHA-256, the RNG and the test harness
-are all in-tree — so it drops into an engine build unchanged.
+are all in-tree — so it drops into an engine build unchanged. It does start threads: stage
+16's planners use every hardware thread unless `fwg::set_worker_threads(n)`
+(`fwg/workers.hpp`) says otherwise, and 1 keeps generation on the calling thread.
 
 ## Status
 

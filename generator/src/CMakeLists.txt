@@ -91,6 +91,7 @@
   visitation.cpp
   wars.cpp
   water.cpp
+  workers.cpp
   world.cpp
   world_api.cpp
   world_scene.cpp
@@ -133,5 +134,16 @@ target_link_libraries(fwg PRIVATE fwg_flags)
 # headers are C++20, so a consumer is compiled as C++20 at least.
 target_link_libraries(fwg INTERFACE fwg_determinism)
 target_compile_features(fwg PUBLIC cxx_std_20)
+
+# std::thread, for the stage-16 planners' pool (workers.cpp). The platform's own thread
+# library, not a new dependency: nothing on MSVC, -pthread where POSIX needs it. Found
+# here only if the including project has not already found it, and then made global: an
+# imported target is otherwise seen only below the directory that found it, and a sibling
+# component linking fwg::fwg from its own folder would not resolve it.
+if(NOT TARGET Threads::Threads)
+  find_package(Threads REQUIRED)
+  set_target_properties(Threads::Threads PROPERTIES IMPORTED_GLOBAL TRUE)
+endif()
+target_link_libraries(fwg PUBLIC Threads::Threads)
 
 set_target_properties(fwg PROPERTIES POSITION_INDEPENDENT_CODE ON)

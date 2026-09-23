@@ -979,11 +979,16 @@ struct HamletPlans {
 // Sites are planned in ascending order of the STRING form of their key, which is
 // lexicographic and not numeric: "city-10" comes before "city-2". The order is what the
 // shape repetition counter walks, so it decides which city gets which shape.
+//
+// On worker threads (workers.hpp) for everything but the shape draws: every city's ground is
+// surveyed at once, the draws then run one at a time in that order, and the rest of every
+// plan is built at once. The plans are the same on any number of threads, and a failure is
+// the one the first failing city in that order throws.
 CityPlans fill_cities(const World& world, const SphereGrid& grid, std::vector<CitySite> sites);
 
 // A hamlet plan carries no cross-hamlet state at all, so unlike a city nothing here
 // depends on the order — but it is sorted anyway, because the output order is a record
-// consumers read.
+// consumers read. Planned on worker threads (workers.hpp), each into its own slot.
 HamletPlans fill_hamlets(const World& world, const SphereGrid& grid,
                          const std::vector<CitySite>& sites, std::vector<HamletPin> pins);
 

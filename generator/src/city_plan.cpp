@@ -4,8 +4,10 @@
 #include <array>
 #include <cmath>
 #include <cstddef>
+#include <exception>
 #include <limits>
 #include <map>
+#include <optional>
 #include <queue>
 #include <stdexcept>
 #include <string>
@@ -17,6 +19,7 @@
 #include "fwg/local_sampler.hpp"
 #include "fwg/random.hpp"
 #include "fwg/water.hpp"
+#include "fwg/workers.hpp"
 #include "fwg/world.hpp"
 
 namespace fwg {
@@ -1837,15 +1840,40 @@ std::uint64_t street_seed(std::uint32_t world_seed, const std::string& id, std::
 
 // ===========================================================================
 // plan_city
+//
+// In three parts, because exactly one thing a city's plan reads was written by another
+// city: the shape tally, which the draw reads and the next city sees updated. The survey
+// before the draw and the rest after it read the world and the site alone. plan_city runs
+// the three in a row; fill_cities runs every survey at once, then the draws one at a time
+// in key order, then every rest at once -- the same three calls on the same arguments, in
+// the same order for each city, which is why the plans cannot tell the difference.
 // ===========================================================================
 
-CityPlan plan_city(const World& world, const SphereGrid& grid, const CitySite& site,
-                   const std::vector<CitySite>& all_sites,
-                   const std::map<std::string_view, int>& nearby_counts) {
-    const SettlementPreset& preset =
-        settlement_preset(site.population_profile, city_block_for(site.city_class));
-    const HousingProfile& house = housing_profile("worker_house");
-    const HousingProfile& apartment = housing_profile("worker_apartment");
+namespace {
+
+// What the shape draw reads, measured before it -- the ground in the city's window and the
+// seven facts taken from it -- and what the rest of the plan goes on to build on.
+struct CitySurvey {
+    // Rows of the registry's static tables, which outlive every plan.
+    const SettlementPreset* preset = nullptr;
+    const HousingProfile* house = nullptr;
+    const HousingProfile* apartment = nullptr;
+    double half = 0.0;
+    int size = 0;
+    // Its terrain raster already moved into plan.terrain.
+    Ground ground;
+    // Identity, frame, site facts and terrain; no shape yet.
+    CityPlan plan;
+};
+
+CitySurvey survey_city(const World& world, const SphereGrid& grid, const CitySite& site,
+                       const std::vector<CitySite>& all_sites) {
+    CitySurvey survey;
+    survey.preset = &settlement_preset(site.population_profile, city_block_for(site.city_class));
+    survey.house = &housing_profile("worker_house");
+    survey.apartment = &housing_profile("worker_apartment");
+    const SettlementPreset& preset = *survey.preset;
+    const HousingProfile& house = *survey.house;
 
     const int n = world.config.size;
     const double radius = world.effective.globe_radius;
@@ -1864,12 +1892,15 @@ CityPlan plan_city(const World& world, const SphereGrid& grid, const CitySite& s
     const double half = program_half_m(preset, site.city_class, neighbour_half, house.plot_m,
                                        house.worker_beds);
     const auto size = static_cast<int>(2.0 * half / kCell);
+    survey.half = half;
+    survey.size = size;
 
     const LocalSampler sampler(world, grid, radius, site.x, site.z, half);
-    Ground ground = raster_ground(sampler, half, size, /*block_channels=*/true);
+    Ground& ground = survey.ground;
+    ground = raster_ground(sampler, half, size, /*block_channels=*/true);
     const LocalSample centre = sampler.sample(0.0, 0.0);
 
-    CityPlan plan;
+    CityPlan& plan = survey.plan;
     plan.city_uid = site.key();
     plan.site_id = site.id;
     plan.name = site.name;
@@ -1888,18 +1919,47 @@ CityPlan plan_city(const World& world, const SphereGrid& grid, const CitySite& s
     plan.location.defense_priority = site.regional_threat;
 
     sample_surface(ground, sampler, half, size);
-    plan.terrain = ground.terrain;
+    // Moved, not copied: nothing below reads the ground's own raster again, and fill_cities
+    // holds every city's survey at once.
+    plan.terrain = std::move(ground.terrain);
+    return survey;
+}
 
-    plan.shape = select_shape(plan.location.as_shape_site(), world.config.seed, plan.city_uid,
-                              site.city_class, nearby_counts);
+// The one step that reads another city's plan: the draw is weighted by the tally of shapes
+// already given to the cities planned before this one. A town the player laid out draws a
+// shape and keeps none, so it adds nothing to the tally.
+ShapeSelection draw_city_shape(const World& world, const CitySite& site, const CitySurvey& survey,
+                               const std::map<std::string_view, int>& nearby_counts) {
+    ShapeSelection shape = select_shape(survey.plan.location.as_shape_site(), world.config.seed,
+                                        survey.plan.city_uid, site.city_class, nearby_counts);
     if (site.founded_by_player) {
-        plan.authored_by_player = true;
-        plan.shape.shape_id = {};
-        plan.shape.family = {};
-        plan.shape.parameters.clear();
-        plan.shape.reason =
-            "Layout authored by the player; the generator chooses no shape for an authored city.";
+        shape.shape_id = {};
+        shape.family = {};
+        shape.parameters.clear();
+        shape.reason = "Layout authored by the player; the generator chooses no shape for an authored city.";
     }
+    return shape;
+}
+
+CityPlan finish_city(const World& world, const SphereGrid& grid, const CitySite& site, CitySurvey survey,
+                     ShapeSelection drawn) {
+    const SettlementPreset& preset = *survey.preset;
+    const HousingProfile& house = *survey.house;
+    const HousingProfile& apartment = *survey.apartment;
+    const int n = world.config.size;
+    const double radius = world.effective.globe_radius;
+    const double half = survey.half;
+    const int size = survey.size;
+    Ground& ground = survey.ground;
+    // The frame the survey measured the ground in, built again rather than carried: a
+    // sampler holds its own copy of the world's detail-protection grid, n x n doubles, and
+    // fill_cities would otherwise hold one per city at once. Its construction is a function
+    // of these arguments alone, so the second is the same sampler.
+    const LocalSampler sampler(world, grid, radius, site.x, site.z, half);
+
+    CityPlan plan = std::move(survey.plan);
+    plan.shape = std::move(drawn);
+    if (site.founded_by_player) plan.authored_by_player = true;
 
     static constexpr std::string_view kPhases[] = {"map",  "shape",       "fortification", "high",
                                                    "high_housing", "low", "low_housing"};
@@ -2254,6 +2314,16 @@ CityPlan plan_city(const World& world, const SphereGrid& grid, const CitySite& s
     return plan;
 }
 
+}  // namespace
+
+CityPlan plan_city(const World& world, const SphereGrid& grid, const CitySite& site,
+                   const std::vector<CitySite>& all_sites,
+                   const std::map<std::string_view, int>& nearby_counts) {
+    CitySurvey survey = survey_city(world, grid, site, all_sites);
+    ShapeSelection shape = draw_city_shape(world, site, survey, nearby_counts);
+    return finish_city(world, grid, site, std::move(survey), std::move(shape));
+}
+
 // ===========================================================================
 // plan_hamlet
 // ===========================================================================
@@ -2537,15 +2607,48 @@ CityPlans fill_cities(const World& world, const SphereGrid& grid, std::vector<Ci
     out.shapes_sha256 = city_shape_catalogue_identity();
     out.phase_order = {"map", "shape", "fortification", "high", "high_housing", "low", "low_housing"};
     out.scope = "Schematic local metres from final world raster; does not change simulated population.";
+    const std::size_t count = sites.size();
 
-    // The only thing serialising the cities: each reads the tally and the next sees it
-    // updated. An authored city is given no shape, so it does not count.
+    // plan_city's three parts, each city's in its own order, with the draws in key order.
+    //
+    // 1. Every survey at once. Each reads the world and its own site and writes its own slot.
+    //    A survey that fails is held, not thrown: a city before it in key order may yet fail
+    //    later in its own plan, and that is the failure serial planning would have reported.
+    std::vector<std::optional<CitySurvey>> surveys(count);
+    std::vector<std::exception_ptr> failures(count);
+    for_each_index(count, [&](std::size_t i) {
+        try {
+            surveys[i].emplace(survey_city(world, grid, sites[i], sites));
+        } catch (...) {
+            failures[i] = std::current_exception();
+        }
+    });
+
+    // 2. The draws, one city at a time in key order: the only thing serialising the cities.
+    //    Each reads the tally and the next sees it updated; an authored city is given no
+    //    shape, so it does not count. The walk stops at the first city whose survey or draw
+    //    failed, as serial planning stops there.
     std::map<std::string_view, int> counts;
-    for (const CitySite& site : sites) {
-        CityPlan plan = plan_city(world, grid, site, sites, counts);
-        if (!plan.shape.shape_id.empty()) ++counts[plan.shape.shape_id];
-        out.cities.push_back(std::move(plan));
+    std::vector<ShapeSelection> shapes(count);
+    std::size_t drawn = 0;
+    for (; drawn < count && !failures[drawn]; ++drawn) {
+        try {
+            shapes[drawn] = draw_city_shape(world, sites[drawn], *surveys[drawn], counts);
+        } catch (...) {
+            failures[drawn] = std::current_exception();
+            break;
+        }
+        if (!shapes[drawn].shape_id.empty()) ++counts[shapes[drawn].shape_id];
     }
+
+    // 3. The rest of every city whose shape was drawn, at once. A failure among them comes
+    //    before the walk's stop in key order, so the lowest -- the one for_each_index rethrows
+    //    -- is the one serial planning would have met first.
+    out.cities.resize(drawn);
+    for_each_index(drawn, [&](std::size_t i) {
+        out.cities[i] = finish_city(world, grid, sites[i], std::move(*surveys[i]), std::move(shapes[i]));
+    });
+    if (drawn < count) std::rethrow_exception(failures[drawn]);
     return out;
 }
 
@@ -2558,7 +2661,11 @@ HamletPlans fill_hamlets(const World& world, const SphereGrid& grid,
     out.scope =
         "Schematic local metres for support hamlets; independent of city_plans; does not change "
         "simulated population.";
-    for (const HamletPin& pin : pins) out.hamlets.push_back(plan_hamlet(world, grid, pin, sites, pins));
+    // Each hamlet reads only the world, the sites and the pins, and writes only its own slot,
+    // so the plans are the same on any number of threads. A pin that fails is reported as the
+    // serial loop reports it: the first in id order (workers.hpp).
+    out.hamlets.resize(pins.size());
+    for_each_index(pins.size(), [&](std::size_t i) { out.hamlets[i] = plan_hamlet(world, grid, pins[i], sites, pins); });
     return out;
 }
 

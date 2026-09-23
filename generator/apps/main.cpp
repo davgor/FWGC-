@@ -23,6 +23,7 @@
 #include "fwg/patch.hpp"
 #include "fwg/request_json.hpp"
 #include "fwg/serialize.hpp"
+#include "fwg/workers.hpp"
 #include "fwg/world.hpp"
 
 namespace {
@@ -86,6 +87,10 @@ generate options:
   --include-build-stages
                         embed the stage inspector's per-stage snapshots as
                         `build_stages` (several times the document's size)
+  --threads N           worker threads for the stage-16 planners: 0 is every
+                        hardware thread, 1 is serial (default: FWG_THREADS,
+                        else 0). Not part of the world: the document is
+                        byte-identical at every count
   --quiet               no progress on stderr
   -h, --help            this text
 
@@ -513,6 +518,9 @@ int main(int argc, char** argv) {
         else if (arg == "--pretty") pretty = true;
         else if (arg == "--timings" || arg == "--include-timings") timings = true;
         else if (arg == "--include-build-stages") build_stages = true;
+        // A process setting, not a request field: the request is written into the document
+        // and the thread count must never be.
+        else if (arg == "--threads") fwg::set_worker_threads(static_cast<unsigned>(need_int(arg, 0, 4096)));
         else if (arg == "--terse-errors") terse = true;
         else if (arg == "--quiet") quiet = true;
         else if (arg == "-h" || arg == "--help") { usage(); return 0; }
@@ -543,6 +551,8 @@ int main(int argc, char** argv) {
         }
 
         const fwg::Config cfg = fwg::resolve(request);
+        // Resolved now, so a malformed FWG_THREADS is refused before a world is spent on it.
+        const unsigned workers = fwg::worker_threads();
 
         if (!split_dir.empty()) {
             if (!out_path.empty()) fail("--split writes a directory; it cannot be combined with -o/--output");
@@ -573,7 +583,8 @@ int main(int argc, char** argv) {
 
         if (!quiet) {
             std::cerr << "seed " << cfg.seed << ", size " << cfg.size << ", phase " << cfg.phase
-                      << ", radius " << cfg.globe_radius * cfg.world_scale << " m\n";
+                      << ", radius " << cfg.globe_radius * cfg.world_scale << " m, " << workers
+                      << (workers == 1 ? " worker thread\n" : " worker threads\n");
         }
 
         // The stage inspector's snapshots, only when asked for: each finished stage's world

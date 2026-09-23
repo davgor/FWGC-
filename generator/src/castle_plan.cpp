@@ -18,6 +18,7 @@
 #include "fwg/random.hpp"
 #include "fwg/local_sampler.hpp"
 #include "fwg/villains.hpp"  // round_dp
+#include "fwg/workers.hpp"
 #include "fwg/world.hpp"
 
 namespace fwg {
@@ -966,8 +967,11 @@ CastlePlans fill_castles(const CastleRequest& request) {
         "A castle plan declares no sleeping capacity. No structure in the castle registry carries a bed count, "
         "so castle plots carry no beds key at all rather than a zero that was never measured. The garrison a "
         "plan staffs is stats.workers, which npc_roster opens one post per.";
-    out.castles.reserve(order.size());
-    for (const RuralSite* fortress : order) out.castles.push_back(plan_castle(request, *fortress));
+    // Each castle reads the request and its own fortress and writes only its own slot, so the
+    // plans are the same on any number of threads. A fortress that fails is reported as the
+    // serial loop reports it: the first in id order (workers.hpp).
+    out.castles.resize(order.size());
+    for_each_index(order.size(), [&](std::size_t i) { out.castles[i] = plan_castle(request, *order[i]); });
     return out;
 }
 
