@@ -66,13 +66,32 @@ something. It pins the key tree, not values: the worlds differ by design. It see
 structures one of the two worlds populates for that request, so a key that neither world
 writes at that seed is unchecked.
 
-**A behaviour difference the document shows.** No logging camp is ever placed, so no key
-location carries `suitability_factors.river`; geyser basins and lava tubes (`volcanic`) are
-suppressed the same way. The key-location scatter pass finds their ground already held by
-lairs: at seed 42, size 65, lairs hold 331 of the 364 cells a logging camp qualifies for,
-against 241 of 416 in the reference's world, and across seeds 1-32 and 42 at size 33 no world
-of this port places one where every reference world does. The cause is upstream of the
-writer, in how much moist and volcanic ground the monster pass claims; it is not diagnosed.
+**A behaviour difference the document showed, and its cause.** No world of this port placed
+a logging camp, so no key location carried `suitability_factors.river`, and geyser basins and
+lava tubes (`volcanic`) were suppressed the same way. The passes were right and three of the
+adapters feeding them were not, as measured on 2026-09-23:
+
+- *The nest passes kept clear of the cities alone.* The reference's `settled_directions` is
+  every city, harbour and hamlet. At seed 42, size 65, this port laired 472 of 3679 monsters
+  inside a hamlet's or a harbour's clearance, where the reference's world lairs none, and 332
+  of the 365 cells a logging camp qualified for were already held; kept clear of all three,
+  225 are.
+- *Key locations kept clear of every hamlet, fortress, harbour and college.* The reference
+  keeps clear of the settled records that carry a `direction`, and in its world only the
+  cities do. On the same world that refused all 140 free cells a logging camp qualified for,
+  where the cities alone refuse 33; applied to the reference's own world it would refuse all
+  158 of its free cells.
+- *Every landmark claimed its cell.* The reference's landmark records carry `x` and `z` and
+  no `node`, so they claim nothing. Claiming changed the key-location block of 13 of the 33
+  size-33 worlds below and cost the seed-10 fixture world its whaling station.
+
+Across seeds 1-32 and 42 at size 33, the nest fix alone places no logging camp in any world
+and neither do the two key-location fixes alone. All three together place one in all 33
+worlds, 169 in all, as the reference places one in all 33 of its own, 167 in all; geyser
+basins now stand in 12 of the 33 worlds against the reference's 9, and lava tubes in 11
+against its 10. `tests/test_stages.cpp` pins each rule on the seed-42 size-65 world. The
+fixture world still places no natural arch: that is its ground, and the reference's pass run
+over this port's document for that request places none either.
 
 **Blocks the game-facing APIs add.** `world_clock` and `quests` (the time API) and
 `settlement_founding` (the founding API's last report) are written once an API has put them

@@ -19,12 +19,18 @@ namespace fwg {
 
 struct World;
 
-// Runs stage 13. Needs stage 10's cities: the nests stay clear of where people already
-// are, and religion reads which peoples founded and what they have to fear.
+// Runs stage 13. Needs stage 10's cities and stage 12's hamlets and harbours: the nests stay
+// clear of where people already are, and religion reads which peoples founded and what they
+// have to fear.
 void add_beasties(World& world);
 
-// Both nest passes over the cities standing now. `evaluated_age` stamps the beast nests.
+// Both nest passes over everything settled now. `evaluated_age` stamps the beast nests.
 void place_nests(World& world, std::optional<int> evaluated_age);
+
+// What the nest passes keep clear of and ramp danger away from, as grid nodes in the
+// reference's order: every city, then every harbour, then every hamlet -- the rural list,
+// which carries each harbour again. Never the fortresses or the colleges.
+std::vector<int> nest_settled_nodes(const World& world);
 
 // The standing threat of every city, written to world.threat_assessments.
 // `evaluated_after` is "beast_nests" at stage 13 and "age" after an age's rebuild.

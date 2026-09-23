@@ -697,20 +697,30 @@ KeyLocationRequest key_location_request(const World& world, const SphereGrid& gr
     request.ages = world.age;
     request.layers = &world.layers;
 
-    const auto at_node = [&](std::string id, int node) {
+    // A record carries a `direction` or a `node` only where the reference's own record does,
+    // because the pass reads their presence as rules. `settled_directions` keeps clear of
+    // every city, hamlet, fortress, port and college THAT HAS A DIRECTION. Cities, ruins, nests
+    // and villains publish one; hamlets, fortresses, ports, colleges and religion sites publish
+    // a node and no direction, so the reference keeps its key locations clear of the cities
+    // alone. Given a direction here, the other four refused ground the reference offers: on
+    // the seed-42 size-65 world every free cell a logging camp qualified for. `claimed_nodes`
+    // reads a `node`, which a landmark does not publish -- see the landmarks below.
+    const auto at_node = [&](std::string id, int node, bool directed) {
         KeyLocationPlace place;
         place.id = std::move(id);
         if (node >= 0 && static_cast<std::size_t>(node) < grid.node_count()) {
             place.node = node;
             place.x = grid.point_x[static_cast<std::size_t>(node)];
             place.z = grid.point_z[static_cast<std::size_t>(node)];
-            place.direction = direction(*place.x, *place.z, cfg.size);
+            if (directed) place.direction = direction(*place.x, *place.z, cfg.size);
         }
         return place;
     };
+    constexpr bool kDirected = true;
+    constexpr bool kNodeOnly = false;
 
     for (const SettlementSite& s : world.settlements.sites) {
-        KeyLocationPlace city = at_node(s.uid, s.node);
+        KeyLocationPlace city = at_node(s.uid, s.node, kDirected);
         city.name = s.name;
         city.founded_age = s.founded_age;
         city.source_culture = s.source_culture;
@@ -718,36 +728,40 @@ KeyLocationRequest key_location_request(const World& world, const SphereGrid& gr
         request.cities.push_back(std::move(city));
     }
     for (const RuralSite& h : world.humans.hamlets) {
-        KeyLocationPlace hamlet = at_node(h.uid, h.node);
+        KeyLocationPlace hamlet = at_node(h.uid, h.node, kNodeOnly);
         hamlet.civilization_id = h.population_profile;
         request.hamlets.push_back(std::move(hamlet));
     }
     for (const RuralSite& f : world.humans.fortresses) {
-        KeyLocationPlace fort = at_node(f.uid, f.node);
+        KeyLocationPlace fort = at_node(f.uid, f.node, kNodeOnly);
         fort.civilization_id = f.population_profile;
         request.fortresses.push_back(std::move(fort));
     }
-    for (const HarbourPort& p : world.society.fisheries.ports) request.ports.push_back(at_node(p.id, p.node));
+    for (const HarbourPort& p : world.society.fisheries.ports) {
+        request.ports.push_back(at_node(p.id, p.node, kNodeOnly));
+    }
     for (const College& c : world.colleges.colleges) {
-        KeyLocationPlace college = at_node(c.id, c.node);
+        KeyLocationPlace college = at_node(c.id, c.node, kNodeOnly);
         college.civilization_id = c.population_profile;
         request.colleges.push_back(std::move(college));
     }
     for (const NestSite& n : world.beast_nests.sites) {
-        KeyLocationPlace nest = at_node(n.id, n.node);
+        KeyLocationPlace nest = at_node(n.id, n.node, kDirected);
         nest.name = std::string(n.name);
         nest.tier = n.tier;
         request.nests.push_back(std::move(nest));
     }
-    for (const ReligionSite& s : world.religion.sites) request.religion_sites.push_back(at_node(s.id, s.node));
-    // Landmarks are placed by cell, not by node, so their position comes from the cell.
+    for (const ReligionSite& s : world.religion.sites) {
+        request.religion_sites.push_back(at_node(s.id, s.node, kNodeOnly));
+    }
+    // A landmark is published by cell -- `x` and `z` -- with no `node`, and the claimed set
+    // is a set of nodes, so in the reference a landmark claims no ground at all. It is
+    // passed as the reference publishes it rather than given the node of its cell.
     for (const Landmark& l : world.ecology.landmarks) {
         KeyLocationPlace landmark;
         landmark.id = l.id;
         landmark.x = l.x;
         landmark.z = l.z;
-        landmark.node = grid.node_index(l.x, l.z);
-        landmark.direction = direction(l.x, l.z, cfg.size);
         request.landmarks.push_back(std::move(landmark));
     }
     for (const Road& r : world.roads.routes) {
@@ -769,7 +783,7 @@ KeyLocationRequest key_location_request(const World& world, const SphereGrid& gr
     // What the ages left. A ruin is keyed on its own `ruin-` id, which is what a location's
     // origin names; its founding age and culture are the fallen city's.
     for (const Ruin& r : world.ruins) {
-        KeyLocationPlace ruin = at_node(r.id, r.node);
+        KeyLocationPlace ruin = at_node(r.id, r.node, kDirected);
         ruin.name = r.name;
         ruin.direction = r.direction;
         ruin.founded_age = r.founded_age;
@@ -781,11 +795,11 @@ KeyLocationRequest key_location_request(const World& world, const SphereGrid& gr
     // the ground it claimed stays taken.
     for (const Villain& v : world.villains.people) {
         KeyLocationVillain villain;
-        villain.seat = at_node(v.uid, v.node);
+        villain.seat = at_node(v.uid, v.node, kDirected);
         villain.seat.direction = v.direction;
         villain.status = v.status;
         for (const VillainClaim& c : v.claims) {
-            KeyLocationPlace claim = at_node(c.id, c.node);
+            KeyLocationPlace claim = at_node(c.id, c.node, kDirected);
             claim.direction = c.direction;
             villain.claims.push_back(std::move(claim));
         }

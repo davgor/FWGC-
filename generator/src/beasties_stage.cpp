@@ -161,11 +161,29 @@ ReligionRequest religion_request(const World& world) {
     return request;
 }
 
+std::vector<int> nest_settled_nodes(const World& world) {
+    // The reference's `settled_directions`, in its order: the cities, then the harbours, then
+    // the hamlets -- which carry every harbour a second time, because stage 12 appends each
+    // port to the rural list. The duplicates are the reference's and are kept: this list is a
+    // tie-break order (see add_nests), and a nearest distance cannot change for a point
+    // listed twice. Fortresses and colleges are not in it, in the reference or here.
+    std::vector<int> settled;
+    settled.reserve(world.settlements.sites.size() + world.society.fisheries.ports.size() +
+                    world.humans.hamlets.size());
+    for (const SettlementSite& s : world.settlements.sites) settled.push_back(s.node);
+    for (const HarbourPort& p : world.society.fisheries.ports) settled.push_back(p.node);
+    for (const RuralSite& h : world.humans.hamlets) settled.push_back(h.node);
+    return settled;
+}
+
 void place_nests(World& world, std::optional<int> evaluated_age) {
     const auto held = sphere_grid(world.effective.size, world.effective.globe_radius);
-    std::vector<int> settled;
-    settled.reserve(world.settlements.sites.size());
-    for (const SettlementSite& s : world.settlements.sites) settled.push_back(s.node);
+    // Everything standing on the surface, not the cities alone. Handed only the cities, the
+    // passes laired 472 of 3679 monsters inside a hamlet's or a harbour's clearance on the
+    // seed-42 size-65 world, where the reference's world for that request lairs none, and
+    // 332 of the 365 cells a logging camp qualified for were already held, against 225 once
+    // the lairs keep clear of the hamlets and harbours too.
+    const std::vector<int> settled = nest_settled_nodes(world);
     if (auto passes = add_nests(world, *held, settled)) {
         world.wildlife = std::move(passes->wildlife);
         world.beast_nests = std::move(passes->beast_nests);

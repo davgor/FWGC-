@@ -13,8 +13,11 @@
 #include <algorithm>
 #include <cmath>
 #include <map>
+#include <numbers>
 #include <set>
 #include <string>
+#include <utility>
+#include <vector>
 
 #include "fwg/world.hpp"
 
@@ -31,6 +34,58 @@ World at_phase(int phase, int size = 33) {
 }
 
 bool has(const World& w, const char* layer) { return w.layers.find(layer) != w.layers.end(); }
+
+// The seed-42 size-65 world at phase 16, built once for the tests below that only read it.
+// It is the world both codebases were measured on when no logging camp placed here: the
+// reference's own world for this request places five logging camps and two geyser basins.
+const World& complete_65() {
+    static const World w = at_phase(16, 65);
+    return w;
+}
+
+const KeyLocationDiagnostic* diagnostic(const World& w, std::string_view archetype) {
+    for (const KeyLocationDiagnostic& d : w.key_locations.diagnostics) {
+        if (d.archetype == archetype) return &d;
+    }
+    return nullptr;
+}
+
+bool weighs(const KeyLocationSite& site, std::string_view layer) {
+    for (const KeyLocationFactor& f : site.suitability_factors) {
+        if (f.layer == layer) return true;
+    }
+    return false;
+}
+
+// Every archetype of `kind` the world placed must stand on ground its own rules allow: on a
+// node no ruin, lair, shrine or college holds, and outside its clearance of every city.
+// Returns how many there were.
+std::size_t placed_on_free_ground(const World& w, std::string_view kind, std::string_view factor) {
+    std::set<int> held;
+    for (const Ruin& r : w.ruins) held.insert(r.node);
+    for (const NestSite& n : w.beast_nests.sites) held.insert(n.node);
+    for (const ReligionSite& s : w.religion.sites) held.insert(s.node);
+    for (const College& c : w.colleges.colleges) held.insert(c.node);
+    const KeyLocationArchetype* archetype = key_location_archetype(kind);
+    check::is_true(archetype != nullptr, "the catalogue to carry " + std::string(kind));
+    const double radius = w.effective.globe_radius;
+    const double reference_cell = 2.0 * std::numbers::pi * radius / (kKeyLocationReferenceRaster - 1);
+    const double clearance = archetype->has_settlement_clearance_m
+                                 ? archetype->settlement_clearance_m
+                                 : archetype->settlement_clearance_cells * reference_cell;
+    std::size_t placed = 0;
+    for (const KeyLocationSite& site : w.key_locations.sites) {
+        if (site.kind != kind) continue;
+        ++placed;
+        check::is_true(weighs(site, factor), site.id + " to weigh " + std::string(factor));
+        check::is_true(held.count(site.node) == 0, site.id + " to stand on ground no other feature holds");
+        for (const SettlementSite& city : w.settlements.sites) {
+            check::is_true(great_circle_m(radius, site.direction, city.direction) >= clearance,
+                           site.id + " to keep its clearance of " + city.uid);
+        }
+    }
+    return placed;
+}
 
 }  // namespace
 
@@ -441,6 +496,149 @@ TEST(the_only_key_location_waiting_on_a_missing_layer_is_the_one_the_reference_k
     }
     const std::set<std::pair<std::string, std::string>> known{{"peat_cuttings", "wetland_distance"}};
     check::is_true(absent == known, "the unpublished-layer set to be exactly the known one");
+}
+
+TEST(no_lair_or_range_stands_inside_its_clearance_of_a_city_a_harbour_or_a_hamlet) {
+    // The reference's nest passes keep clear of `settled_directions`: every city, then every
+    // harbour, then every hamlet. A monster of tier t needs base * t metres of it and an
+    // animal base * t / 3. Handed the cities alone, the passes laired 472 of 3679 monsters on
+    // this world inside a hamlet's or a harbour's clearance, where the reference's world for
+    // the same request lairs none, and held 332 of the 365 cells a logging camp qualified for.
+    const World& w = complete_65();
+    const double radius = w.effective.globe_radius;
+    const int n = w.effective.size;
+    const double base = w.effective.options[Option::nest_settlement_clearance];
+    check::is_true(!w.society.fisheries.ports.empty() && !w.humans.hamlets.empty(),
+                   "harbours and hamlets to keep clear of, or nothing is tested");
+
+    std::vector<std::pair<std::string, Vec3>> settled;
+    for (const SettlementSite& s : w.settlements.sites) settled.emplace_back(s.uid, s.direction);
+    for (const HarbourPort& p : w.society.fisheries.ports) settled.emplace_back(p.id, direction(p.x, p.z, n));
+    for (const RuralSite& h : w.humans.hamlets) settled.emplace_back(h.uid, direction(h.x, h.z, n));
+
+    // One message for the first offender and a count, not a check per pair: there are
+    // millions of pairs.
+    const auto audit = [&](const std::vector<NestSite>& sites, double divisor, const std::string& what) {
+        std::size_t inside = 0;
+        std::string first;
+        for (const NestSite& site : sites) {
+            const double need = base * site.tier / divisor;
+            for (const auto& [uid, where] : settled) {
+                if (great_circle_m(radius, site.direction, where) >= need) continue;
+                if (inside++ == 0) first = site.id + " inside " + std::to_string(need) + " m of " + uid;
+                break;
+            }
+        }
+        check::equal(inside, std::size_t{0}, what + " inside a clearance the reference keeps; first: " + first);
+    };
+    check::is_true(!w.beast_nests.sites.empty() && !w.wildlife.sites.empty(), "lairs and ranges to test");
+    audit(w.beast_nests.sites, 1.0, "lairs");
+    audit(w.wildlife.sites, 3.0, "animal ranges");
+
+    // The list stops there. Fortresses are not in it, in the reference or here, so a lair
+    // may stand closer to a fortress than to anyone the list names -- and on this world some do.
+    std::size_t by_fortress = 0;
+    for (const NestSite& lair : w.beast_nests.sites) {
+        for (const RuralSite& f : w.humans.fortresses) {
+            if (great_circle_m(radius, lair.direction, direction(f.x, f.z, n)) < base * lair.tier) {
+                ++by_fortress;
+                break;
+            }
+        }
+    }
+    check::is_true(by_fortress > 0, "some lair inside a fortress's clearance: fortresses are not settled ground here");
+}
+
+TEST(key_locations_keep_clear_of_the_cities_and_only_the_cities) {
+    // `settled_directions` keeps clear of every city, hamlet, fortress, harbour and college
+    // THAT PUBLISHES A DIRECTION, and in the reference only the cities do: the other four
+    // publish a node and no direction, so its clearance never sees them. Given directions
+    // here, they refused all 140 free cells a logging camp qualified for on this world, where
+    // the cities alone refuse 33. So every scatter site keeps its clearance from every city,
+    // and some stand closer than that to a hamlet, a fortress or a harbour.
+    const World& w = complete_65();
+    const double radius = w.effective.globe_radius;
+    const int n = w.effective.size;
+    const double reference_cell = 2.0 * std::numbers::pi * radius / (kKeyLocationReferenceRaster - 1);
+    std::vector<Vec3> rural;
+    for (const RuralSite& h : w.humans.hamlets) rural.push_back(direction(h.x, h.z, n));
+    for (const RuralSite& f : w.humans.fortresses) rural.push_back(direction(f.x, f.z, n));
+    for (const HarbourPort& p : w.society.fisheries.ports) rural.push_back(direction(p.x, p.z, n));
+
+    std::size_t scattered = 0;
+    std::size_t near_rural = 0;
+    for (const KeyLocationSite& site : w.key_locations.sites) {
+        if (site.placement != KeyLocationPlacement::Node) continue;
+        const KeyLocationArchetype* a = key_location_archetype(site.kind);
+        check::is_true(a != nullptr, site.kind + " to be in the catalogue");
+        const double clearance = a->has_settlement_clearance_m ? a->settlement_clearance_m
+                                                               : a->settlement_clearance_cells * reference_cell;
+        if (clearance <= 0.0) continue;
+        ++scattered;
+        for (const SettlementSite& city : w.settlements.sites) {
+            check::is_true(great_circle_m(radius, site.direction, city.direction) >= clearance,
+                           site.id + " to keep its clearance of " + city.uid);
+        }
+        for (const Vec3& where : rural) {
+            if (great_circle_m(radius, site.direction, where) < clearance) {
+                ++near_rural;
+                break;
+            }
+        }
+    }
+    check::is_true(scattered > 0, "scattered key locations with a clearance, or nothing is tested");
+    check::is_true(near_rural > 0,
+                   "some key location inside its clearance of a hamlet, fortress or harbour, as the "
+                   "reference's clearance cannot see them");
+}
+
+TEST(a_key_location_may_stand_on_a_landmarks_cell_because_no_landmark_claims_ground) {
+    // `claimed_nodes` leaves ground to the module that placed it by NODE, and a landmark
+    // publishes its cell and no node, so in the reference no landmark claims anything.
+    // Claiming its cell's node here kept a portal arch off a witch hut's cell on the seed-10
+    // size-33 world, and the block that followed left no room for the whaling station that
+    // world now places. On this world a summoning circle stands on a witch hut's cell.
+    const World& w = complete_65();
+    const auto grid = sphere_grid(w.effective.size, w.effective.globe_radius);
+    std::set<int> marked;
+    for (const Landmark& l : w.ecology.landmarks) marked.insert(grid->node_index(l.x, l.z));
+    check::is_true(!marked.empty(), "a landmark, or nothing is tested");
+    std::size_t on_a_mark = 0;
+    for (const KeyLocationSite& site : w.key_locations.sites) {
+        // Scatter sites only: a cluster member is placed at an offset and never asks the
+        // claimed set, so one standing on a landmark proves nothing about it.
+        if (site.placement == KeyLocationPlacement::Node && marked.count(site.node) != 0) ++on_a_mark;
+    }
+    check::is_true(on_a_mark > 0, "a scattered key location on a landmark's cell, as the reference allows");
+}
+
+TEST(a_world_with_free_moist_ground_places_a_logging_camp_and_weighs_its_river) {
+    // The finding this pins: no world of this port placed a logging camp, so no key location
+    // carried `suitability_factors.river`, while every reference world measured places one.
+    // Moist ground qualified; lairs crowded onto the hamlets' ground and a clearance the
+    // reference does not keep refused the rest. The reference's world for this request
+    // places five.
+    const World& w = complete_65();
+    const KeyLocationDiagnostic* row = diagnostic(w, "logging_camp");
+    check::is_true(row != nullptr, "a diagnostic row for the logging camp");
+    check::is_true(row->candidates > 0, "moist ground for a logging camp to qualify on");
+    const std::size_t camps = placed_on_free_ground(w, "logging_camp", "river");
+    check::is_true(camps > 0, "a logging camp on this world; the pass said: " + row->reason);
+    check::equal(static_cast<std::size_t>(row->placed), camps, "the diagnostic to count the camps placed");
+}
+
+TEST(a_world_with_free_volcanic_ground_places_a_geyser_basin_and_a_lava_tube) {
+    // Suppressed the same way as the logging camp, and for the same two reasons. The
+    // reference's world for this request places two geyser basins and no lava tube: its one
+    // free lava-tube cell is inside a city's clearance. This world frees four.
+    const World& w = complete_65();
+    for (const std::string_view kind : {std::string_view("geyser_basin"), std::string_view("lava_tube")}) {
+        const KeyLocationDiagnostic* row = diagnostic(w, kind);
+        check::is_true(row != nullptr, "a diagnostic row for " + std::string(kind));
+        check::is_true(row->candidates > 0, "volcanic ground for " + std::string(kind) + " to qualify on");
+        const std::size_t placed = placed_on_free_ground(w, kind, "volcanic");
+        check::is_true(placed > 0, "a " + std::string(kind) + " on this world; the pass said: " + row->reason);
+    }
 }
 
 TEST(stage_sixteen_lays_out_a_castle_for_every_fortress) {

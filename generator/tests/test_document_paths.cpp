@@ -49,23 +49,11 @@ struct Excused {
 };
 
 constexpr std::array kAllowlist = {
-    // A behaviour difference, reported in docs/porting-status.md: this port's lairs already hold
-    // most of the moist ground a logging camp needs, and the logging camp is what weighs `river`.
-    Excused{".key_locations.sites[].suitability_factors.river", "no logging camp places: lairs hold its ground"},
     // This world, not this writer: structures the reference's world populates for this request
     // and this port's world does not. The port writes each when its world has one.
     Excused{".city_plans.cities[].fortifications.towers[].plot_id", "no wall tower in this world stands on a plot"},
     Excused{".city_plans.cities[].plots[].housing_upgrade", "no city plot in this world was upgraded"},
-    Excused{".key_locations.sites[].suitability_factors.coastal_fishing_productivity", "no whaling station places"},
-    Excused{".key_locations.sites[].suitability_factors.harbor_suitability", "no whaling station places"},
     Excused{".key_locations.sites[].suitability_factors.erosion", "no natural arch places"},
-    Excused{".key_locations.sites[].suitability_factors.magic_hazard", "no scar, binding site or petrified army places"},
-    Excused{".key_locations.sites[].suitability_factors.rocky_coast", "no sea cave places"},
-    Excused{".key_locations.summary.by_family.arcane", "no arcane-family key location places"},
-    Excused{".key_locations.summary.by_occupant.cult", "no key location drew a cult for its occupant"},
-    Excused{".key_locations.summary.by_occupant.fae", "no key location drew the fae for its occupant"},
-    Excused{".key_locations.summary.by_state.corrupted", "no key location is corrupted"},
-    Excused{".key_locations.summary.by_state.sealed", "no key location is sealed"},
     Excused{".nomads.groups[].basis.nearest_seat_m", "no band in this world rides for a prize"},
     Excused{".nomads.groups[].basis.prize_distance_m", "no band in this world rides for a prize"},
     Excused{".nomads.groups[].basis.prize_uid", "no band in this world rides for a prize"},

@@ -271,10 +271,10 @@ inline constexpr int kBeastNestsVersion = 4;
 // ---------------------------------------------------------------------------
 
 // `settled_nodes` are the grid nodes of everything already standing on the surface --
-// cities, ports and hamlets -- for the clearance test and the danger ramp. The caller
-// supplies them because the stages that produce them are not ported yet; an empty list
-// is a legal world with no people in it, and the ramp degenerates cleanly to its
-// tier-only form.
+// cities, ports and hamlets -- for the clearance test and the danger ramp. The stages pass
+// nest_settled_nodes (beasties_stage.hpp), which lists all three in the reference's order;
+// the cities alone lair monsters on the hamlets' own cells. An empty list is a legal world
+// with no people in it, and the ramp degenerates cleanly to its tier-only form.
 //
 // THE ORDER OF `settled_nodes` IS A TIE-BREAK. nearest_settled sorts them by latitude
 // with the original index breaking ties, so two settled things at exactly the same
