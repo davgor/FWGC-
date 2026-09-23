@@ -88,6 +88,18 @@ TEST(a_corruption_takes_a_villain_rebuilds_and_reveals_its_god) {
     check::equal(w.corruptions[0].villain_uid, result.report.villain_uid, "naming the villain it took");
     const GodRecord* god = god_of(w, result.report.god_id);
     check::is_true(god != nullptr && god->status == "walking", "the hidden god revealed walking after the resolve");
+    // The rivals it roused stay Wild: the reveal runs AFTER the resolve, which would otherwise
+    // recompute every known god's aspect and erase it.
+    // Sixteen known gods have one face and are roused without being pushed; only a rival with
+    // a Wild face can show the order.
+    std::size_t pushed = 0;
+    for (const std::string& rival : w.corruptions[0].roused) {
+        const PantheonGod* known = pantheon_god(rival);
+        if (known == nullptr || known->aspects.wild.empty()) continue;
+        ++pushed;
+        check::equal(god_of(w, rival)->aspect, std::string("wild"), rival + " roused to its Wild aspect");
+    }
+    check::is_true(pushed > 0, "some roused rival with a Wild face, or the order is untested");
     // The world was rebuilt, and the reference redraws no plan after a corruption.
     check::is_true(!w.has_plans && !w.has_world_scene, "the plans and the scene dropped");
     check::equal(w.threat_assessments.evaluated_after, std::string("corruption"), "the threat re-assessed");
