@@ -61,6 +61,17 @@ struct SettlementSite {
     // What this city is known for, from the society pass. Empty until stage 12 runs.
     std::vector<std::string> community;
 
+    // The age this city was founded in and the culture that founded it. A city that
+    // stands through an age turn CARRIES both; a new one takes the current age.
+    int founded_age = 0;
+    std::string source_culture;
+    // "player" for a city the player founded; empty for a generated one. Carried.
+    std::string founded_by;
+    // Refugees taken in at an age boundary, and the bands they came from. Added AFTER
+    // the capacity split, so the split stays a pure function of the ground. Carried.
+    long long absorbed_refugees = 0;
+    std::vector<std::string> absorbed_bands;
+
     long long population_estimate = 0;
     long long urban_population_estimate = 0;
     long long rural_population_estimate = 0;
@@ -91,8 +102,28 @@ struct SettlementReport {
     FoundingReport founding;
 };
 
-// Runs stage 10. Needs stages 1-9: without climate, ecology and the leylines there is
-// nothing to score ground on.
-void add_settlements(World& world);
+// What an age transition hands the settlement stage when it rebuilds civilization.
+//
+// The survivors are cities that stood through the turn; founding places the new age's
+// cities AROUND them, and each survivor keeps its identity -- uid, name, founding age,
+// founding culture, who founded it, the refugees it took in. The forbidden nodes are
+// ruins, where nobody rebuilds. The previous founding record is where the clock and the
+// once-per-parent diaspora bonuses resume from.
+struct SettlementRebuild {
+    int age = 0;
+    std::vector<SettlementSite> survivors;
+    std::vector<int> forbidden_nodes;
+    FoundingReport previous;
+};
+
+// Runs stage 10, or rebuilds it after an age turn when `rebuild` is given. Needs stages
+// 1-9: without climate, ecology and the leylines there is nothing to score ground on.
+void add_settlements(World& world, const SettlementRebuild* rebuild = nullptr);
+
+// Gives each new city its identity for this age, and each city founded this age the
+// culture of its own core once the hinterland has placed one. Called after the
+// settlements are founded and again after the hinterland, as the reference calls it at
+// the end of every civilization pass.
+void remember_cities(World& world, int age);
 
 }  // namespace fwg

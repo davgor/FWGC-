@@ -107,6 +107,9 @@ void add_populated_regions(World& world) {
     world.systems.push_back("colleges");
     world.systems.push_back("seasonal_food");
     world.systems.push_back("society");
+
+    // Now the cores exist, a city founded this age takes its culture from its own.
+    remember_cities(world, world.age);
 }
 
 }  // namespace fwg

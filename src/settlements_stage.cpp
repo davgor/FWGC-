@@ -36,7 +36,7 @@ double layer_at(const World& world, const char* name, int x, int z) {
 
 }  // namespace
 
-void add_settlements(World& world) {
+void add_settlements(World& world, const SettlementRebuild* rebuild) {
     const Config& cfg = world.effective;
     const auto held = sphere_grid(cfg.size, cfg.globe_radius);
     const SphereGrid& grid = *held;
@@ -116,6 +116,33 @@ void add_settlements(World& world) {
     request.rules = authored_founding_rules();
     request.rules.magic_enabled = cfg.magic_enabled != 0;
 
+    // A rebuild founds AROUND what stood through the age turn. The survivors go in as
+    // already-placed sites, so spacing and quotas count them; the ruins are ground nobody
+    // builds on; and the clock resumes a round after the last age's founding ended rather
+    // than restarting at year zero on top of it.
+    if (rebuild != nullptr) {
+        for (const SettlementSite& s : rebuild->survivors) {
+            FoundedSite kept;
+            kept.node = s.node;
+            kept.population_profile = s.population_profile;
+            kept.parent_race_id = s.parent_race_id;
+            kept.founding_turn = s.founding_turn;
+            kept.founding_capital = s.founding_capital;
+            kept.founding_year = s.founding_year;
+            kept.migration_source_node = s.migration_source_node;
+            kept.source_civilization_id = s.source_civilization_id;
+            kept.migration_distance_m = s.migration_distance_m;
+            kept.cultural_branch = s.cultural_branch;
+            kept.diaspora = s.diaspora;
+            kept.diaspora_reason = s.diaspora_reason;
+            request.survivors.push_back(std::move(kept));
+        }
+        request.forbidden = rebuild->forbidden_nodes;
+        request.diaspora_bonus_used = rebuild->previous.diaspora_bonus_used;
+        request.used_civilizations = rebuild->previous.used_civilizations;
+        request.rules.start_year = rebuild->previous.end_year + request.rules.years_per_round;
+    }
+
     // Great-circle distance between two nodes, in metres.
     const auto distance = [&](int a, int b) {
         const Vec3 p = direction(grid.point_x[static_cast<std::size_t>(a)],
@@ -172,10 +199,9 @@ void add_settlements(World& world) {
 
         SettlementSite site;
         site.id = static_cast<int>(i);
-        // Age 0 because nothing advances the ages yet. The reference assigns this at the
-        // first age turn with setdefault, so a city founded in the first age carries
-        // exactly this shape.
-        site.uid = "surface-city-0-" + std::to_string(s.node) + "-" + s.population_profile;
+        // No uid here: remember_cities assigns one to a NEW city and a survivor carries its
+        // own. Minting it at founding would stamp every city with the current age,
+        // including one that has stood since the first.
         site.node = s.node;
         site.x = x;
         site.z = z;
@@ -229,6 +255,34 @@ void add_settlements(World& world) {
         site.diaspora = s.diaspora;
         site.diaspora_reason = s.diaspora_reason;
 
+        // A city that stood through the turn is the SAME city, not a new one on the same
+        // ground: it keeps its identity, the age and culture that founded it, who
+        // founded it, and the refugees it took in. Matched on node AND people, because a
+        // different people founding on a fallen city's node is a new city there.
+        if (rebuild != nullptr) {
+            for (const SettlementSite& old : rebuild->survivors) {
+                if (old.node != site.node || old.population_profile != site.population_profile) continue;
+                site.uid = old.uid;
+                site.name = old.name;
+                site.name_gloss = old.name_gloss;
+                site.founded_age = old.founded_age;
+                site.source_culture = old.source_culture;
+                site.founded_by = old.founded_by;
+                site.absorbed_bands = old.absorbed_bands;
+                site.absorbed_refugees = old.absorbed_refugees;
+                break;
+            }
+        }
+        // Refugees walked in from a town that fell; the split above is derived from the
+        // ground this city farms and cannot know about them. Added after it, so the split
+        // stays a pure function of habitat and the arrivals stay auditable on their own.
+        if (site.absorbed_refugees > 0) {
+            const CityPopulation with = city_population(site.population_estimate, 1, 0, site.absorbed_refugees);
+            site.population_estimate = with.residents;
+            site.urban_population_estimate = with.urban;
+            site.rural_population_estimate = with.rural;
+        }
+
         report.sites.push_back(std::move(site));
     }
 
@@ -267,6 +321,34 @@ void add_settlements(World& world) {
     world.settlements = std::move(report);
     world.has_settlements = true;
     world.systems.push_back("settlements");
+    remember_cities(world, rebuild != nullptr ? rebuild->age : 0);
+}
+
+void remember_cities(World& world, int age) {
+    std::map<int, const CityCore*> cores;
+    if (world.has_humans) {
+        for (const CityCore& c : world.humans.cores) cores[c.site_id] = &c;
+    }
+    for (SettlementSite& city : world.settlements.sites) {
+        if (city.uid.empty()) {
+            // A new city in a later age takes its age into its name. Names are keyed on the
+            // node, so a city founded where one fell would otherwise carry exactly the
+            // fallen city's name -- the suffix is what tells a reader they are two.
+            if (age > 0) city.name += " (Age " + std::to_string(age) + ")";
+            city.uid = "surface-city-" + std::to_string(age) + "-" + std::to_string(city.node) + "-" +
+                       city.population_profile;
+            city.founded_age = age;
+        }
+        // A city founded THIS age takes its culture from its own core, once the hinterland
+        // has placed the cores; until then, and for a city with none, a name that at least
+        // says who founded it and where. A survivor keeps the culture it was founded with.
+        if (city.founded_age == age) {
+            if (const auto it = cores.find(city.id); it != cores.end()) city.source_culture = it->second->culture_id;
+        }
+        if (city.source_culture.empty()) {
+            city.source_culture = city.population_profile + "-founders-" + std::to_string(city.node);
+        }
+    }
 }
 
 }  // namespace fwg

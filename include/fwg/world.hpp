@@ -152,6 +152,9 @@ struct World {
     bool has_religion = false;
     Religion religion;
 
+    // The age this world is in. Zero until the first age transition turns it.
+    int age = 0;
+
     // Which subsystems actually ran. More honest than a stage number while the
     // ladder is partial: climate can be present while stages 6 and 7 are not.
     std::vector<std::string> systems;

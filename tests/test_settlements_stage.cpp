@@ -261,3 +261,116 @@ TEST(a_citys_direction_points_at_its_own_cell) {
         check::close(length, 1.0, 1e-12, s.uid + " to be a unit vector");
     }
 }
+
+// --- rebuilding around survivors, as an age transition does -----------------
+
+namespace {
+
+// A stage-12 world, then half its cities kept as survivors and a few turned to ruins.
+struct Rebuilt {
+    World before;
+    World after;
+    SettlementRebuild rebuild;
+};
+
+Rebuilt rebuilt_world() {
+    Rebuilt r;
+    Request req;
+    req.seed = 42;
+    req.size = 65;
+    req.phase = 12;
+    r.before = generate(resolve(req));
+    r.after = r.before;
+
+    r.rebuild.age = 1;
+    r.rebuild.previous = r.before.settlements.founding;
+    const auto& sites = r.before.settlements.sites;
+    for (std::size_t i = 0; i < sites.size(); ++i) {
+        if (i % 2 == 0) {
+            r.rebuild.survivors.push_back(sites[i]);
+        } else if (i % 4 == 1) {
+            r.rebuild.forbidden_nodes.push_back(sites[i].node);
+        }
+    }
+    add_settlements(r.after, &r.rebuild);
+    return r;
+}
+
+}  // namespace
+
+TEST(a_city_that_stands_through_an_age_turn_keeps_its_identity) {
+    // It is the SAME city, not a new one on the same ground: the uid threat reports and
+    // claims key on, the name its people call it, and the age that founded it.
+    const Rebuilt r = rebuilt_world();
+    check::is_true(!r.rebuild.survivors.empty(), "some survivors, or nothing is tested");
+    long long found = 0;
+    for (const SettlementSite& old : r.rebuild.survivors) {
+        for (const SettlementSite& now : r.after.settlements.sites) {
+            if (now.node != old.node || now.population_profile != old.population_profile) continue;
+            ++found;
+            check::equal(now.uid, old.uid, old.uid + " to keep its uid");
+            check::equal(now.name, old.name, old.uid + " to keep its name");
+            check::equal(now.founded_age, old.founded_age, old.uid + " to keep its founding age");
+            check::equal(now.source_culture, old.source_culture, old.uid + " to keep its culture");
+        }
+    }
+    check::equal(found, static_cast<long long>(r.rebuild.survivors.size()), "every survivor to still stand");
+}
+
+TEST(a_city_founded_in_a_later_age_says_so) {
+    // New cities take the new age into their uid, their founding age and their name. The
+    // name matters because names are keyed on the node: a city founded where one fell
+    // would otherwise carry exactly the fallen city's name.
+    const Rebuilt r = rebuilt_world();
+    std::set<std::string> old_uids;
+    for (const SettlementSite& s : r.rebuild.survivors) old_uids.insert(s.uid);
+    long long new_cities = 0;
+    for (const SettlementSite& s : r.after.settlements.sites) {
+        if (old_uids.count(s.uid) != 0) continue;
+        ++new_cities;
+        check::equal(s.founded_age, 1, s.uid + " to be founded in age 1");
+        check::is_true(s.uid.rfind("surface-city-1-", 0) == 0, s.uid + " to carry age 1 in its uid");
+        check::is_true(s.name.find(" (Age 1)") != std::string::npos, s.name + " to say which age founded it");
+    }
+    check::is_true(new_cities > 0, "the rebuild to found some new cities, or this proves nothing");
+}
+
+TEST(nobody_rebuilds_on_the_ruins) {
+    const Rebuilt r = rebuilt_world();
+    check::is_true(!r.rebuild.forbidden_nodes.empty(), "some ruins, or nothing is tested");
+    const std::set<int> ruined(r.rebuild.forbidden_nodes.begin(), r.rebuild.forbidden_nodes.end());
+    for (const SettlementSite& s : r.after.settlements.sites) {
+        check::is_true(ruined.count(s.node) == 0, s.uid + " not to stand on a ruin");
+    }
+}
+
+TEST(the_founding_clock_resumes_after_the_last_age_rather_than_restarting) {
+    // A new age's cities are founded after the old age's, never at year zero on top of
+    // them.
+    const Rebuilt r = rebuilt_world();
+    check::is_true(r.after.settlements.founding.start_year > r.before.settlements.founding.end_year,
+                   "the new age to start after the old one ended (" +
+                       std::to_string(r.after.settlements.founding.start_year) + " after " +
+                       std::to_string(r.before.settlements.founding.end_year) + ")");
+}
+
+TEST(a_first_age_city_takes_its_culture_from_its_own_core) {
+    // At stage 12 the hinterland places the cores, and a city founded this age takes its
+    // culture from its own -- not the placeholder it was given at stage 10 before any core
+    // existed.
+    Request req;
+    req.seed = 42;
+    req.size = 65;
+    req.phase = 12;
+    const World w = generate(resolve(req));
+    long long cored = 0;
+    for (const SettlementSite& s : w.settlements.sites) {
+        check::is_true(!s.source_culture.empty(), s.uid + " to have a founding culture");
+        for (const CityCore& c : w.humans.cores) {
+            if (c.site_id != s.id) continue;
+            ++cored;
+            check::equal(s.source_culture, c.culture_id, s.uid + " to take its core's culture");
+        }
+    }
+    check::is_true(cored > 0, "some city to have a core, or nothing is tested");
+}
