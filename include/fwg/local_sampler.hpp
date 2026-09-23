@@ -25,6 +25,25 @@ struct World;
 struct SphereGrid;
 class Grid;
 
+// The frame itself, with nothing sampled: the tangent basis at a raster node and the map
+// from local metres to a unit direction. LocalSampler holds one; the world scene builds
+// one per plan to put that plan's plots and streets on the globe. It is its own type so
+// that the scene and the planner cannot hold two copies of this arithmetic -- the scene
+// must land every building on exactly the direction its plot was planned at.
+struct LocalFrame {
+    double radius = 0.0;  // the EFFECTIVE globe radius, metres
+    Vec3 up{};
+    Vec3 east{};
+    Vec3 north{};
+
+    // The frame at raster node (node_x, node_z) of an n x n latitude/longitude grid.
+    static LocalFrame at_node(int n, double radius_m, double node_x, double node_z);
+
+    // normalize(up + (east * x + north * z) / radius): gnomonic, so a straight local line
+    // is a great circle.
+    Vec3 direction_at(double x, double z) const;
+};
+
 struct LocalSample {
     bool water = false;
     double slope = 0.0;  // degrees, by central difference over two metres
@@ -50,12 +69,13 @@ public:
 
     // Metres per raster step along a meridian.
     double resolution() const;
-    double radius() const { return radius_; }
-    const Vec3& up() const { return up_; }
-    const Vec3& east() const { return east_; }
-    const Vec3& north() const { return north_; }
+    double radius() const { return frame_.radius; }
+    const Vec3& up() const { return frame_.up; }
+    const Vec3& east() const { return frame_.east; }
+    const Vec3& north() const { return frame_.north; }
+    const LocalFrame& frame() const { return frame_; }
 
-    Vec3 direction_at(double x, double z) const;
+    Vec3 direction_at(double x, double z) const { return frame_.direction_at(x, z); }
     // The same metre sample() computes, without the river loop and the layer reads. The
     // height is a pure function of the direction, so this is the identical number.
     double height_at(double x, double z) const;
@@ -71,11 +91,8 @@ private:
     double river_distance(double x, double z) const;
 
     HeightField field_;
+    LocalFrame frame_;
     int n_;
-    double radius_;
-    Vec3 up_{};
-    Vec3 east_{};
-    Vec3 north_{};
     const Grid* water_type_ = nullptr;
     const Grid* river_ = nullptr;
     const Grid* flood_ = nullptr;

@@ -49,6 +49,7 @@
 #include "fwg/ecology.hpp"
 #include "fwg/content.hpp"
 #include "fwg/water.hpp"
+#include "fwg/world_scene.hpp"
 
 namespace fwg {
 
@@ -173,6 +174,10 @@ struct World {
     CityPlans city_plans;
     HamletPlans hamlet_plans;
     CastlePlans castle_plans;  // one per fortress, in ascending id-string order
+
+    // Stage 16. Every plan above, and the regional roads, in one globe-centred frame.
+    bool has_world_scene = false;
+    WorldScene world_scene;
 
     // Stage 16. The bands that do not settle, the herds that move with the seasons,
     // what a traveller meets, and what the bands did to the world around them.

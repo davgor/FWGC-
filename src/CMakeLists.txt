@@ -54,6 +54,7 @@
   npcs.cpp
   noise.cpp
   options.cpp
+  patch.cpp
   random.cpp
   roads.cpp
   routing.cpp
@@ -75,6 +76,7 @@
   wars.cpp
   water.cpp
   world.cpp
+  world_scene.cpp
 )
 
 add_library(fwg::fwg ALIAS fwg)

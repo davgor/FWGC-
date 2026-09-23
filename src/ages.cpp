@@ -215,11 +215,14 @@ World advance_ages(const World& world, const AgeAdvanceRequest& request) {
     out.history.operations.push_back(
         {kAgeApiVersion, start_age, request.steps, request.leyline_edits, request.moon_day});
     for (int age = start_age + 1; age <= start_age + request.steps; ++age) {
-        // The plans describe cities an age is about to ruin; they are redrawn at the end.
+        // The plans, and the scene built from them, describe cities an age is about to ruin;
+        // both are redrawn at the end.
         out.city_plans = {};
         out.hamlet_plans = {};
         out.castle_plans = {};
         out.has_plans = false;
+        out.world_scene = {};
+        out.has_world_scene = false;
         const bool last = age == start_age + request.steps;
         age_transition(out, age, request.moon_day, /*final_age=*/last);
         // Regenerated, not carried: bands classified against the previous age would name

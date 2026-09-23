@@ -30,6 +30,7 @@
   test_nomads.cpp
   test_npcs.cpp
   test_options.cpp
+  test_patch.cpp
   test_serialize.cpp
   test_settlements_stage.cpp
   test_society.cpp
@@ -42,6 +43,7 @@
   test_wars.cpp
   test_water.cpp
   test_world.cpp
+  test_world_scene.cpp
 )
 
 target_link_libraries(fwg_tests PRIVATE fwg fwg_flags)

@@ -773,6 +773,25 @@ void add_simulation_complete(World& world) {
     }
     world.has_plans = true;
 
+    // Every plan and every regional road in one globe-centred frame, built once all three
+    // planners have run -- the scene the reference keeps after rebuilding it after each.
+    {
+        const HeightField field(world);
+        WorldSceneRequest scene;
+        scene.n = world.config.size;
+        scene.radius_m = world.effective.globe_radius;
+        scene.field = &field;
+        scene.nodes = &grid;
+        scene.settlements = world.settlements.sites;
+        scene.roads = world.roads.routes;
+        scene.cities = world.city_plans.cities;
+        scene.hamlets = world.hamlet_plans.hamlets;
+        scene.castles = world.castle_plans.castles;
+        world.world_scene = build_world_scene(scene);
+        world.has_world_scene = true;
+        world.systems.push_back("world_scene");
+    }
+
     // Bands are part of the world, so they are placed before the packages that only read
     // it: heroes, the story web and the rosters see a world with its nomads in it.
     if (world.has_humans) add_the_moving_world(world, grid);

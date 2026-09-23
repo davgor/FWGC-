@@ -33,15 +33,27 @@ const Grid* layer(const World& world, const char* name) {
 
 }  // namespace
 
+LocalFrame LocalFrame::at_node(int n, double radius_m, double node_x, double node_z) {
+    LocalFrame frame;
+    frame.radius = radius_m;
+    const double lat = kPi / 2.0 - kPi * node_z / (n - 1);
+    const double lon = -kPi + 2.0 * kPi * node_x / (n - 1);
+    frame.up = {std::cos(lat) * std::cos(lon), std::sin(lat), std::cos(lat) * std::sin(lon)};
+    frame.east = {-std::sin(lon), 0.0, std::cos(lon)};
+    frame.north = {-std::sin(lat) * std::cos(lon), std::cos(lat), -std::sin(lat) * std::sin(lon)};
+    return frame;
+}
+
+Vec3 LocalFrame::direction_at(double x, double z) const {
+    const Vec3 p{up.x + (east.x * x + north.x * z) / radius, up.y + (east.y * x + north.y * z) / radius,
+                 up.z + (east.z * x + north.z * z) / radius};
+    const double length = std::sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
+    return {p.x / length, p.y / length, p.z / length};
+}
+
 LocalSampler::LocalSampler(const World& world, const SphereGrid& grid, double radius_m, double node_x,
                            double node_z, double half)
-    : field_(world), n_(grid.n), radius_(radius_m) {
-    const double lat = kPi / 2.0 - kPi * node_z / (n_ - 1);
-    const double lon = -kPi + 2.0 * kPi * node_x / (n_ - 1);
-    up_ = {std::cos(lat) * std::cos(lon), std::sin(lat), std::cos(lat) * std::sin(lon)};
-    east_ = {-std::sin(lon), 0.0, std::cos(lon)};
-    north_ = {-std::sin(lat) * std::cos(lon), std::cos(lat), -std::sin(lat) * std::sin(lon)};
-
+    : field_(world), frame_(LocalFrame::at_node(grid.n, radius_m, node_x, node_z)), n_(grid.n) {
     water_type_ = layer(world, "water_type");
     river_ = layer(world, "river");
     flood_ = layer(world, "flood_risk");
@@ -64,14 +76,7 @@ LocalSampler::LocalSampler(const World& world, const SphereGrid& grid, double ra
     }
 }
 
-double LocalSampler::resolution() const { return kPi * radius_ / (n_ - 1); }
-
-Vec3 LocalSampler::direction_at(double x, double z) const {
-    const Vec3 p{up_.x + (east_.x * x + north_.x * z) / radius_, up_.y + (east_.y * x + north_.y * z) / radius_,
-                 up_.z + (east_.z * x + north_.z * z) / radius_};
-    const double length = std::sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
-    return {p.x / length, p.y / length, p.z / length};
-}
+double LocalSampler::resolution() const { return kPi * frame_.radius / (n_ - 1); }
 
 double LocalSampler::height_at(double x, double z) const { return field_.height(direction_at(x, z)); }
 
@@ -112,9 +117,9 @@ LocalSample LocalSampler::sample(double x, double z) const {
 std::optional<Point> LocalSampler::project(const SphereGrid& grid, int node) const {
     if (node < 0 || static_cast<std::size_t>(node) >= grid.node_count()) return std::nullopt;
     const Vec3 p = direction(grid.point_x[static_cast<std::size_t>(node)], grid.point_z[static_cast<std::size_t>(node)], n_);
-    const double den = dot(p, up_);
+    const double den = dot(p, frame_.up);
     if (den <= kHorizonDen) return std::nullopt;
-    return Point{radius_ * dot(p, east_) / den, radius_ * dot(p, north_) / den};
+    return Point{frame_.radius * dot(p, frame_.east) / den, frame_.radius * dot(p, frame_.north) / den};
 }
 
 double LocalSampler::river_distance(double x, double z) const {

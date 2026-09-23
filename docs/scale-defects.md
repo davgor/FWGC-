@@ -110,6 +110,32 @@ the fishing draft are depths; the 1e6 m²→km² conversion and the 100 resident
 productive km² are area-denominated; the 0.25 radian sky-cluster separation is an angle.
 Every dimensionless threshold is fine by construction.
 
+**The world scene's 4 m road densification is ground-denominated, and its cost is not.**
+`world_scene` drapes every regional road onto the height field one vertex per 4 m of arc
+(`kSceneRoadStepM`). The step is a sampling density for the ground under a road — the
+same metre as the planners' 4 m street cell, and finer than the 6 m finest detail band —
+so it does what it was authored to do at every width, and scaling it with the planet
+would under-sample the very relief it exists to follow. What grows is the vertex COUNT,
+linearly with total road length. Measured, seed 42, phase 16, Release, this machine (the
+payload counts every position and axis at 24 bytes and no ids; the time is the whole
+scene, best of three calls):
+
+| World | Size | Roads | Road arc | Road vertices | Share of the scene's vectors | `build_world_scene` |
+|---|---:|---:|---:|---:|---:|---:|
+| 11.15 km (reference, `relief_m` 200) | 65 | 1 | 0.9 km | 220 | 6% of 0.09 MB | 0.4 ms |
+| 200 km | 33 | 25 | 311 km | 77 695 | 42% of 4.4 MB | 14 ms |
+| 200 km | 65 | 28 | 366 km | 91 644 | 37% of 6.0 MB | 30 ms |
+| 200 km | 129 | 37 | 448 km | 112 343 | 36% of 7.5 MB | 43 ms |
+| 600 km | 65 | 33 | 1 167 km | 291 886 | 61% of 11.5 MB | 63 ms |
+
+So it is not enormous at any shipped width — tens of milliseconds and at most a dozen
+megabytes — but it is the one part of the scene that grows with the planet rather than
+with the number of settlements, and at 600 km it is most of it. If that ever matters, the
+remedy is to densify on demand from the coarse node path and its two gates, both of which
+the world already carries, not to lengthen the step. The step is pinned both ways — no
+longer than 4 m, no denser than one vertex per 4 m per coarse segment — in
+`test_world_scene.cpp`.
+
 ## One that blocks reproducing the reference world
 
 The relief budget guard refuses an 11.15 km world at the default 1667 m relief: *"11.15 km
