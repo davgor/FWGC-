@@ -22,6 +22,7 @@
   generated/content_heroes.cpp
   generated/content_story_web.cpp
   generated/content_key_locations.cpp
+  generated/content_ley_destruction.cpp
   generated/content_npcs.cpp
   generated/content_nests.cpp
   generated/content_nomads.cpp
@@ -33,6 +34,7 @@
   detail.cpp
   ecology.cpp
   erosion.cpp
+  fates.cpp
   entities.cpp
   founding.cpp
   grid.cpp
@@ -68,6 +70,7 @@
   time.cpp
   villains.cpp
   visitation.cpp
+  wars.cpp
   water.cpp
   world.cpp
 )

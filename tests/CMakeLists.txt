@@ -11,6 +11,7 @@
   test_corruption.cpp
   test_ecology.cpp
   test_entities.cpp
+  test_fates.cpp
   test_habitation.cpp
   test_founding.cpp
   test_history.cpp
@@ -36,6 +37,7 @@
   test_time.cpp
   test_villains.cpp
   test_visitation.cpp
+  test_wars.cpp
   test_water.cpp
   test_world.cpp
 )
