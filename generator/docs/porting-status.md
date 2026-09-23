@@ -26,7 +26,7 @@ the result. **Ported** means the code exists and is tested but nothing calls it 
 | 6-7 | Tectonic transition, relic carving | `terrain_history` | **wired** |
 | 8 | Climate, terrain labels | `terrain_climate`, `terrain_biomes` | **wired** |
 | 9 | Leylines (all twelve schools, hidden-school terms included), astrology, ecology, biome variants, height field | `terrain_leyline_history`, `terrain_magic`, `terrain_astrology`, `terrain_ecology`, `terrain_detail` | **wired** |
-| 10 | Founding, population, classification, heritage names | `terrain_settlements`, `founding`, `heritage` | **wired**, except each city's building pack and `city_layout` plan (in flight) |
+| 10 | Founding, population, classification, heritage names, building packs and node-scale city layouts | `terrain_settlements`, `founding`, `heritage` | **wired** |
 | 11 | Roads | `terrain_settlements` | **wired** |
 | 12 | Hinterland, colleges, seasonal food, society (harbours, transport, economy, witch huts) | `terrain_humans`, `terrain_magic`, `terrain_seasons`, `terrain_society` | **wired** |
 | 13 | Nests, threat assessment, religion | `terrain_nests`, `terrain_history`, `terrain_religion` | **wired** |
@@ -65,10 +65,6 @@ port's document, less an allowlist whose every entry gives its reason and must s
 something. It pins the key tree, not values: the worlds differ by design. It sees only
 structures one of the two worlds populates for that request, so a key that neither world
 writes at that seed is unchecked.
-
-**Not written yet.**
-- `settlements.sites[]` `building_pack_id`, `building_pack_seed`, `building_pack_version`
-  and `city_layout`: the stage-10 building packs and the generated city layout (in flight).
 
 **A behaviour difference the document shows.** No logging camp is ever placed, so no key
 location carries `suitability_factors.river`; geyser basins and lava tubes (`volcanic`) are

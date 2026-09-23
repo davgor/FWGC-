@@ -128,8 +128,12 @@ const HousingProfile& housing_profile(std::string_view key);
 
 // --- building packs --------------------------------------------------------
 //
-// These are read by settlement assembly rather than by the planners, but the three
-// ORDER CONTRACTS below are the reason the tables exist in this shape at all.
+// These are read by settlement assembly (city_layout.hpp) rather than by the planners,
+// but the three ORDER CONTRACTS below are the reason the tables exist in this shape at all.
+//
+// WHO MAY BUILD WHAT is not authored in buildings.json. It is derived at codegen from each
+// civilization's own `buildings` bindings (data/settlement-plans.json), exactly as the
+// reference's building_pack_data() and layout_profile_data() derive it at load.
 
 struct AssetChoice {
     std::string_view asset_id;
@@ -137,40 +141,63 @@ struct AssetChoice {
 };
 
 // How many of something a city of a given size gets. A bare integer in the data means
-// `base` alone.
+// `base` alone. `min` and `max` are authored integers.
 struct FeatureCount {
     double base = 0.0;
-    std::optional<double> per_100_residents;
-    std::optional<double> max;
-    // Peoples this feature applies to. Empty means all of them.
-    std::span<const std::string_view> profiles;
+    std::optional<double> per_100_residents;  // absent: none
+    std::optional<double> min;                // absent: no floor
+    std::optional<double> max;                // absent: no ceiling
+    // The peoples this count applies to. ABSENT means every people; PRESENT AND EMPTY means
+    // none -- two different answers, and a layout feature no civilization binds is the
+    // second. On a layout feature this is the binding list; on a default it is the default
+    // table's own list; a building option carries its list on the option instead.
+    std::optional<std::span<const std::string_view>> profiles;
 };
 
 struct BuildingOption {
     std::string_view id;
     std::string_view name;
     FeatureCount count;
+    // A required option builds at least one: its count's floor is raised to 1.
     bool required = false;
-    std::string_view placement;
+    // A river gate that needs a bridge is skipped where the river does not fork enough to
+    // recommend one, and a required one then reports its anchor missing.
+    bool requires_bridge = false;
+    std::string_view placement;  // anchored | structural | river_gate | wall
     std::span<const std::string_view> tags;
     // ORDER CONTRACT: walked cumulatively against ONE draw. Append, never insert.
     std::span<const AssetChoice> asset_choices;
+    // The peoples that may build it: every civilization whose binding lists this option
+    // under this pack. EMPTY means nobody. The reference REMOVES such an option, because its
+    // own option loader would read an empty list as everybody; skipping it here is the same
+    // plan, since a skipped option draws nothing and claims no node.
+    std::span<const std::string_view> profiles;
 };
 
 struct PackCriteria {
-    std::span<const int> biomes;
-    std::span<const std::string_view> biome_variants;
-    std::optional<double> freshwater_distance_m_min;
-    std::optional<double> freshwater_distance_m_max;
-    std::optional<double> height_min_m;
-    std::optional<double> slope_max_degrees;
-    std::optional<double> resource_min;
-    std::optional<double> resource_max;
+    // Whether the pack is gated on ground at all. True when the criteria name `biomes` or
+    // `biome_variants`, EVEN AS AN EMPTY LIST: a pack that names both empty matches no
+    // ground anywhere, which is the reference's reading.
+    bool ground_gated = false;
+    std::span<const int> biomes;  // natural biome ids
+    std::span<const std::string_view> biome_variants;  // exact magical variant ids
+    std::optional<double> freshwater_distance_m_min;  // absent: 0
+    std::optional<double> freshwater_distance_m_max;  // absent: 1e9
+    std::optional<double> height_min_m;               // absent: -1e6
+    std::optional<double> height_max_m;               // absent: 1e6
+    std::optional<double> slope_max_degrees;          // absent: 1000
+    std::optional<double> resource_min;               // absent: 0
+    std::optional<double> resource_max;               // absent: 1
+    // The peoples that may draw the pack: every civilization whose binding names it.
+    // EMPTY means nobody.
+    std::span<const std::string_view> population_profiles;
 };
 
 struct BuildingPack {
     std::string_view id;
     std::string_view name;
+    // The layout profile the pack forces. Empty where it forces none, and then the river
+    // decides (city_layout.hpp, pick_layout_profile).
     std::string_view layout_profile_id;
     double weight = 0.0;
     PackCriteria criteria;
@@ -184,6 +211,9 @@ struct BuildingPack {
 // the path. Swapping two packs hands a different pack to the same city.
 std::span<const BuildingPack> building_packs();
 std::string_view fallback_building_pack_id();
+// The pack catalogue's schema version, stamped on every city that drew a pack as
+// `building_pack_version`.
+int building_pack_schema_version();
 
 struct LayoutFeature {
     std::string_view name;
@@ -201,15 +231,16 @@ struct LayoutProfile {
     std::string_view id;
     std::string_view name;
     // The profile's OWN features, in its own order. The reference iterates a hard-coded
-    // seven-name tuple here instead, which silently drops an eighth feature; the codegen
-    // refuses an unknown name rather than reproducing that.
+    // seven-name tuple instead, which silently drops an eighth feature; the codegen refuses
+    // an unknown name rather than reproducing that. The plan walks the seven in the
+    // defaults' order and looks each one up here by name.
     std::span<const LayoutFeature> features;
     LayoutPlacement placement;
 };
 std::span<const LayoutProfile> layout_profiles();
 std::string_view fallback_layout_profile_id();
-// What a feature falls back to when a profile omits it. Data, so a consumer reads the
-// fallback instead of restating it.
+// What a feature falls back to when a profile omits it, in the order the district pass
+// walks the features. Data, so a consumer reads the fallback instead of restating it.
 std::span<const LayoutFeature> layout_feature_defaults();
 
 // ===========================================================================

@@ -22,7 +22,9 @@
 #include <variant>
 #include <vector>
 
+#include "fwg/city_layout.hpp"
 #include "fwg/entities.hpp"
+#include "fwg/json_value.hpp"
 #include "fwg/request_error.hpp"
 #include "fwg/serialize.hpp"
 #include "fwg/settlement_api.hpp"
@@ -384,19 +386,65 @@ TEST(an_authored_layout_is_the_players_and_a_generated_one_is_absent) {
     check::is_true(site.city_layout.has_value(), "layout player: an authored record");
     check::equal(site.city_layout->layout_profile_id, std::string("player"), "the player's profile");
     check::equal(site.city_layout->authored_by, std::string("player"), "authored by the player");
-    check::equal(site.city_layout->population_estimate, 400LL, "sized as the site is");
+    check::equal(site.city_layout->population_estimate.value_or(-1), 400LL, "sized as the site is");
     check::equal(site.city_layout->version, kCityLayoutVersion, "the layout version");
     check::is_true(!site.city_layout->building_pack_id && site.city_layout->required_assets.empty() &&
-                       site.city_layout->features.empty(),
-                   "no pack, asset or district claimed");
+                       site.city_layout->features.empty() && !site.city_layout->constraints,
+                   "no pack, asset, district or constraint claimed");
+    check::equal(site.city_layout->authored_by, std::string("player"), "and it says whose it is");
+    check::is_true(!site.building_pack.has_value(), "a player's city draws no building pack when it is founded");
 
     // On a world with no stage 16, so no redraw: nothing here needs one.
     FoundSettlementRequest r = asking(0, first_people(rural_world()));
     r.layout = "generated";
     const World generated = first_legal(rural_world(), r).world;
     check::is_true(!generated.settlements.sites.back().city_layout.has_value(), "layout generated: no authored record");
+    check::is_true(!generated.settlements.sites.back().building_pack.has_value(), "and no pack until a rebuild draws one");
     check::equal(generated.settlements.sites.back().founded_by, std::string("player"), "still the player's city");
     check::is_true(!generated.has_plans, "and no plans drawn on a world that had none");
+}
+
+TEST(a_player_city_publishes_the_same_layout_shape_as_a_generated_one) {
+    // One published shape for both, as the reference has it: an authored record carries the
+    // generated record's keys -- empty, null or zero where nothing was derived -- plus who
+    // authored it. A player's city carries no pack keys at all until a rebuild draws a pack.
+    FoundSettlementRequest r = asking(0, first_people(rural_world()));
+    r.population_estimate = 250;
+    const World w = first_legal(rural_world(), r).world;
+    const std::string uid = w.settlements.sites.back().uid;
+    const JsonValue doc = parse_json(document(w));
+    const JsonValue* site = nullptr;
+    for (const JsonValue& s : doc.at("settlements").at("sites").as_array()) {
+        if (s.at("uid").as_string() == uid) site = &s;
+    }
+    check::is_true(site != nullptr, "the player's city in the document");
+    for (const char* key : {"building_pack_id", "building_pack_seed", "building_pack_version"}) {
+        check::is_true(!site->contains(key), std::string("no ") + key + " on a city no pack was drawn for");
+    }
+    const JsonValue& layout = site->at("city_layout");
+    std::set<std::string> keys;
+    for (const auto& [key, value] : layout.as_object()) keys.insert(key);
+    check::is_true(keys == std::set<std::string>{"version", "layout_profile_id", "layout_profile_name", "population_profile",
+                                                 "population_estimate", "river", "building_pack_id", "required_assets",
+                                                 "required_asset_count", "required_node_slots", "asset_anchors_missing",
+                                                 "features", "constraints", "authored_by"},
+                   "the generated record's keys, and authored_by");
+    check::equal(layout.at("layout_profile_id").as_string(), std::string("player"), "the player's profile");
+    check::equal(layout.at("population_estimate").as_int(), std::int64_t{250}, "sized as asked");
+    check::is_true(layout.at("building_pack_id").is_null() && layout.at("river").at("river_distance_m").is_null(),
+                   "no pack and no river reading");
+    check::is_true(layout.at("features").as_object().empty() && layout.at("constraints").as_object().empty(),
+                   "no district and no constraint: empty objects, as the reference writes them");
+    check::equal(layout.at("authored_by").as_string(), std::string("player"), "authored by the player");
+
+    // Founded with layout "generated", the city has no record at all yet.
+    r.layout = "generated";
+    const World g = first_legal(rural_world(), r).world;
+    const JsonValue generated_doc = parse_json(document(g));
+    for (const JsonValue& s : generated_doc.at("settlements").at("sites").as_array()) {
+        if (s.at("uid").as_string() != g.settlements.sites.back().uid) continue;
+        check::is_true(!s.contains("city_layout") && !s.contains("building_pack_id"), "no layout and no pack yet");
+    }
 }
 
 TEST(a_settlement_rebuild_keeps_the_players_city_where_it_stands_with_its_layout) {
@@ -419,12 +467,72 @@ TEST(a_settlement_rebuild_keeps_the_players_city_where_it_stands_with_its_layout
     check::equal(kept->source_culture, player.source_culture, "and its founders");
     check::is_true(kept->city_layout.has_value(), "its authored layout carried rather than re-derived");
     check::equal(kept->city_layout->layout_profile_id, std::string("player"), "still the player's layout");
-    check::equal(kept->city_layout->population_estimate, kept->population_estimate,
+    check::equal(kept->city_layout->authored_by, std::string("player"), "still authored by the player");
+    check::is_true(kept->city_layout->features.empty() && !kept->city_layout->building_pack_id &&
+                       kept->city_layout->required_asset_count == 0,
+                   "with no district, pack or asset the planner would have given it");
+    check::equal(kept->city_layout->population_estimate.value_or(-1), kept->population_estimate,
                  "sized by the world at the rebuild: the world owns the metadata");
+    // The SITE is re-founded like every city standing through a rebuild, so it draws a pack --
+    // the reference writes one onto every site it builds -- while its layout stays the player's.
+    check::is_true(kept->building_pack.has_value(), "the rebuild draws the site a building pack");
 
     // REFERENCE DEFECT, REPRODUCED: the rebuild writes a fresh settlement report and the
     // list of the player's cities goes with it, although the player's city stands.
     check::is_true(w.settlements.founded_by_player.empty(), "founded_by_player dropped by the rebuild");
+}
+
+TEST(a_generated_player_city_keeps_the_plan_its_first_rebuild_drew_unsized) {
+    // REFERENCE DEFECT, REPRODUCED AND PINNED. The reference decides a layout is the player's
+    // by asking whether the player founded the site and whether it carries a layout -- not
+    // whether the layout is the "player" profile. A city founded with layout "generated" has
+    // none until its first rebuild plans one; that rebuild then takes it for the player's, so
+    // the plan keeps the district counts it was drawn with BEFORE the city was sized (only its
+    // population estimate follows the site), and every later rebuild carries it forward.
+    FoundSettlementRequest r = asking(0, first_people(rural_world()));
+    r.layout = "generated";
+    World w = first_legal(rural_world(), r).world;
+    const std::string uid = w.settlements.sites.back().uid;
+    const auto rebuild_around_everything = [](World& world) {
+        SettlementRebuild rebuild;
+        rebuild.age = world.age;
+        rebuild.survivors = world.settlements.sites;
+        for (const Ruin& ruin : world.ruins) rebuild.forbidden_nodes.push_back(ruin.node);
+        rebuild.previous = world.settlements.founding;
+        add_settlements(world, &rebuild);
+    };
+
+    rebuild_around_everything(w);
+    const SettlementSite* first = site_with(w, uid);
+    check::is_true(first != nullptr && first->city_layout.has_value() && first->building_pack.has_value(),
+                   "the first rebuild plans the city a layout and draws it a pack");
+    check::is_true(first->city_layout->authored_by.empty() && first->city_layout->layout_profile_id != "player",
+                   "a generated record");
+    check::is_true(authored_layout(*first), "which the reference's test then takes for the player's");
+    check::equal(first->city_layout->population_estimate.value_or(-1), first->population_estimate,
+                 "its population follows the site");
+    const LayoutProfile* profile = layout_profile(first->city_layout->layout_profile_id);
+    check::is_true(profile != nullptr, "a catalogue profile");
+    int unsized_differs = 0;
+    std::vector<int> targets;
+    for (const LayoutFeaturePlan& f : first->city_layout->features) {
+        const FeatureCount* spec = nullptr;
+        for (const LayoutFeature& own : profile->features) {
+            if (own.name == f.name) spec = &own.count;
+        }
+        check::is_true(spec != nullptr, f.name + " declared by the profile");
+        check::equal(f.target_count, resolve_feature_count(*spec, std::nullopt), f.name + " counted UNSIZED");
+        if (resolve_feature_count(*spec, first->population_estimate) != f.target_count) ++unsized_differs;
+        targets.push_back(f.target_count);
+    }
+    check::is_true(unsized_differs > 0, "a district a sized plan would count differently, or this proves nothing");
+
+    rebuild_around_everything(w);
+    const SettlementSite* second = site_with(w, uid);
+    check::is_true(second != nullptr && second->city_layout.has_value(), "the city still stands with a layout");
+    std::vector<int> carried;
+    for (const LayoutFeaturePlan& f : second->city_layout->features) carried.push_back(f.target_count);
+    check::is_true(carried == targets, "the next rebuild carries that plan rather than re-planning it");
 }
 
 TEST(the_founded_world_still_advances_an_age) {

@@ -5,6 +5,7 @@
   test_beasts.cpp
   test_biomes.cpp
   test_castle_plan.cpp
+  test_city_layout.cpp
   test_city_plan.cpp
   test_civilizations.cpp
   test_climate.cpp

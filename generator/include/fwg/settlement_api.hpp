@@ -83,6 +83,11 @@
 //     food and society go on describing the hinterland as it was. The harbour drop is
 //     pinned; with the redraw it also means the harbours lose their plans until the next age.
 //   * The refusal wording, "None" included: "node must be 0..None grid index; received -1."
+//   * A city founded with layout "generated" gets no layout and no building pack here; its
+//     first settlement rebuild plans one, and from then on the reference's authored-layout
+//     test takes that plan for the player's: it keeps the district counts it was drawn with
+//     before the city was sized, and every later rebuild carries it (settlements_stage.hpp,
+//     authored_layout).
 #pragma once
 
 #include <optional>
@@ -106,7 +111,9 @@ struct FoundSettlementRequest {
     std::optional<std::string> civilization_id;  // required: whose settlement
     std::optional<std::string> name;             // absent: "New Settlement" for a city, none for a rural row
     // player: the player owns where the buildings go, and the city carries an authored layout
-    // record the generator never re-derives. generated: no record; the world decides.
+    // record the generator never re-derives. generated: no record and no building pack; the
+    // next settlement rebuild plans both (and then keeps that plan -- settlements_stage.hpp,
+    // authored_layout).
     std::string layout = "player";
     std::optional<long long> population_estimate;  // a city's residents; absent is 0
     // none: leave the rural layer and every join into it alone. humans: re-derive the

@@ -69,6 +69,18 @@ one: a road cost is at least the great-circle length of the path it prices, so a
 
 **The 200 m hut-to-hut separation** is below one cell, so it never refuses anything.
 
+**A city's node-scale layout claims its own node or nothing, and draws no building asset.**
+The district anchor search walks `max(180, 4 × river_buffer_m + 180)` metres from the city
+-- 540 m for the standard profile, 460 m for the riverfront -- over a raster whose cells are
+kilometres across, so the only node it ever holds is the city's own. Every city therefore
+reports at most one district anchor against targets of a dozen or more, a `fallback` reason,
+and `required_asset_count` 0: the building-pack asset draw has no node left to place on.
+Measured at seed 42, phase 10: sizes 33 and 65 hold 0 or 1 anchor per city and size 129 one
+city with 2 (a near-pole neighbour closer than the band), with no asset drawn at any of the
+three. The reference's own record says the same of its worlds and assigns the fix to
+SCALE-METRE-CONSTANTS-COLLAPSE. Pinned in `test_city_layout.cpp`, which proves the draw on a
+synthetic 20 m lattice instead.
+
 ## Degraded: fires, but not as authored
 
 **Sea routes are an artefact of resolution.** `sea_reach` is 6000 m, roughly two cell steps

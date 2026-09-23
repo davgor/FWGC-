@@ -49,13 +49,6 @@ struct Excused {
 };
 
 constexpr std::array kAllowlist = {
-    // Another change, in flight: the stage-10 building packs and the generated city layout.
-    Excused{".settlements.sites[].building_pack_id", "stage-10 building packs are not ported yet (separate change)"},
-    Excused{".settlements.sites[].building_pack_seed", "stage-10 building packs are not ported yet (separate change)"},
-    Excused{".settlements.sites[].building_pack_version",
-            "stage-10 building packs are not ported yet (separate change)"},
-    Excused{".settlements.sites[].city_layout",
-            "the generated node-scale city layout is not ported yet (separate change)"},
     // A behaviour difference, reported in docs/porting-status.md: this port's lairs already hold
     // most of the moist ground a logging camp needs, and the logging camp is what weighs `river`.
     Excused{".key_locations.sites[].suitability_factors.river", "no logging camp places: lairs hold its ground"},

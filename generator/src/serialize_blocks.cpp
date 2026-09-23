@@ -4437,6 +4437,92 @@ void write_site_age_fields(JsonWriter& json, const World& world, std::size_t sit
     if (!s.vassal_of.empty()) text(json, "vassal_of", s.vassal_of);
 }
 
+void write_site_layout_fields(JsonWriter& json, const World& world, std::size_t site_index) {
+    if (site_index >= world.settlements.sites.size()) return;
+    const SettlementSite& s = world.settlements.sites[site_index];
+    // A player city carries no layout until a rebuild plans one when founded with layout
+    // "generated", and no pack until then whichever layout it was founded with: the
+    // reference's record has no such key rather than a null.
+    if (s.city_layout) {
+        const CityLayout& l = *s.city_layout;
+        json.key("city_layout");
+        json.begin_object();
+        integer(json, "version", l.version);
+        text(json, "layout_profile_id", l.layout_profile_id);
+        text(json, "layout_profile_name", l.layout_profile_name);
+        text(json, "population_profile", l.population_profile);
+        json.key("population_estimate");
+        if (l.population_estimate) {
+            json.value(*l.population_estimate);
+        } else {
+            json.value_null();
+        }
+        json.key("river");
+        json.begin_object();
+        integer(json, "adjacent_river_edges", l.river.adjacent_river_edges);
+        optional_real(json, "river_distance_m", l.river.river_distance_m);
+        flag(json, "bridge_recommended", l.river.bridge_recommended);
+        integer(json, "bridge_threshold", l.river.bridge_threshold);
+        json.end_object();
+        optional_text(json, "building_pack_id", l.building_pack_id);
+        json.key("required_assets");
+        json.begin_array();
+        for (const RequiredAsset& a : l.required_assets) {
+            json.begin_object();
+            text(json, "asset_id", a.asset_id);
+            integer(json, "count", a.count);
+            json.end_object();
+        }
+        json.end_array();
+        integer(json, "required_asset_count", l.required_asset_count);
+        integer(json, "required_node_slots", l.required_node_slots);
+        flag(json, "asset_anchors_missing", l.asset_anchors_missing);
+        json.key("features");
+        json.begin_object();
+        for (const LayoutFeaturePlan& f : l.features) {
+            json.key(f.name);
+            json.begin_object();
+            integer(json, "target_count", f.target_count);
+            integer(json, "count", f.count);
+            json.key("anchors");
+            json.begin_array();
+            for (const LayoutAnchor& a : f.anchors) {
+                json.begin_object();
+                integer(json, "node", a.node);
+                integer(json, "x", a.x);
+                integer(json, "z", a.z);
+                real(json, "distance_to_city_m", a.distance_to_city_m);
+                json.end_object();
+            }
+            json.end_array();
+            json.end_object();
+        }
+        json.end_object();
+        // `{}` on an authored record, which constrains nothing.
+        json.key("constraints");
+        json.begin_object();
+        if (l.constraints) {
+            real(json, "max_anchor_slope_degrees", l.constraints->max_anchor_slope_degrees);
+            real(json, "river_buffer_m", l.constraints->river_buffer_m);
+            real(json, "min_river_distance_m", l.constraints->min_river_distance_m);
+        }
+        json.end_object();
+        if (l.fallback) {
+            json.key("fallback");
+            json.begin_object();
+            text(json, "reason", *l.fallback);
+            json.end_object();
+        }
+        if (!l.authored_by.empty()) text(json, "authored_by", l.authored_by);
+        json.end_object();
+    }
+    if (s.building_pack) {
+        text(json, "building_pack_id", s.building_pack->id);
+        integer(json, "building_pack_seed", static_cast<long long>(s.building_pack->seed));
+        integer(json, "building_pack_version", s.building_pack->version);
+    }
+}
+
 void write_site_society_fields(JsonWriter& json, const World& world, std::size_t site_index) {
     // The society pass writes the traits onto every site once the economy half runs, and
     // stamps each city as settled surface ground as it does so.

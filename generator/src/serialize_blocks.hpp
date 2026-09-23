@@ -30,6 +30,10 @@ void write_site_society_fields(JsonWriter& json, const World& world, std::size_t
 // Inside one `settlements.sites[]` object: the wars it fought and the victor it serves.
 void write_site_age_fields(JsonWriter& json, const World& world, std::size_t site_index);
 
+// Inside one `settlements.sites[]` object: its `city_layout` record and the building pack it
+// drew (`building_pack_id`, `building_pack_seed`, `building_pack_version`), each where it has one.
+void write_site_layout_fields(JsonWriter& json, const World& world, std::size_t site_index);
+
 // Every top-level block from stage 12 on, in stage order. Each is written only when the
 // World says it exists.
 void write_late_blocks(JsonWriter& json, const World& world);

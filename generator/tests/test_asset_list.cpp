@@ -145,10 +145,15 @@ TEST(asset_list_covers_every_identity_a_generated_world_references) {
         check::is_true(kinds[prefix] > 0, std::string("the world names ") + prefix + " identities");
     }
     check::is_true(referenced.size() > 300, "hundreds of identities, not a handful");
-    // PINNED GAP, reported rather than hidden: this port never selects a building pack (the
-    // reference's settlements.sites[].city_layout is not ported), so none of the 84
-    // building-pack identities is reachable from its worlds.
+    // PINNED GAP, reported rather than hidden: every city draws a building pack, but the
+    // layout's anchor band never leaves the city's own node at a shipped width, so no pack
+    // asset is drawn (settlements.sites[].city_layout.required_assets is empty everywhere;
+    // docs/scale-defects.md) and none of the 84 building-pack identities is reachable from
+    // this producer's worlds -- neither under its list identity nor under the bare pack
+    // asset id a `required_assets` row would carry.
     check::is_true(std::none_of(referenced.begin(), referenced.end(),
-                                [](const std::string& id) { return id.rfind("building.building_", 0) == 0; }),
+                                [](const std::string& id) {
+                                    return id.rfind("building.building_", 0) == 0 || id.rfind("building_", 0) == 0;
+                                }),
                    "no building-pack identity is referenced by this producer's worlds");
 }

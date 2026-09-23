@@ -5,10 +5,16 @@
 #include <map>
 #include <numbers>
 #include <set>
+#include <stdexcept>
+#include <string>
+#include <string_view>
 
+#include "fwg/city_layout.hpp"
+#include "fwg/content.hpp"
 #include "fwg/entities.hpp"
 #include "fwg/heritage.hpp"
 #include "fwg/habitation.hpp"
+#include "fwg/random.hpp"
 #include "fwg/routing.hpp"
 #include "fwg/world.hpp"
 
@@ -79,7 +85,75 @@ void describe_site(const World& world, SettlementSite& site) {
                             defaults.resource_score_factor_label);
 }
 
+// The magical variant standing on a cell, by catalogue id; empty where there is none.
+std::string_view variant_at(const World& world, int x, int z) {
+    const auto it = world.layers.find("biome_variant");
+    if (it == world.layers.end()) return {};
+    const auto index = static_cast<long long>(it->second.at(x, z));
+    const auto catalogue = biome_variant_catalogue();
+    if (index < 0 || static_cast<std::size_t>(index) >= catalogue.size()) return {};
+    return catalogue[static_cast<std::size_t>(index)].id;
+}
+
+// What every city's layout is planned on, one value per node, read once per pass.
+struct LayoutGround {
+    const SphereGrid* grid = nullptr;
+    std::vector<double> water;
+    std::vector<double> slope;
+    std::vector<double> river;
+    // To the nearest river over the node graph, water crossed; infinity on a riverless world.
+    std::vector<double> river_distance_m;
+};
+
+LayoutGround layout_ground(const World& world, const SphereGrid& grid) {
+    const auto nodes = [&](const char* name) {
+        std::vector<double> out(grid.node_count(), 0.0);
+        const auto it = world.layers.find(name);
+        if (it == world.layers.end()) return out;
+        for (std::size_t i = 0; i < out.size(); ++i) out[i] = it->second.at(grid.point_x[i], grid.point_z[i]);
+        return out;
+    };
+    LayoutGround ground;
+    ground.grid = &grid;
+    ground.water = nodes("water_type");
+    ground.slope = nodes("slope");
+    ground.river = nodes("rain_river");
+    ground.river_distance_m = river_distances(grid, ground.river);
+    return ground;
+}
+
+// One city's layout on its own node, under `profile`, drawing from `pack`.
+CityLayout plan_layout(const LayoutGround& ground, std::uint32_t seed, int node, const LayoutProfile& profile,
+                       const std::string& people, std::optional<long long> residents, const BuildingPack& pack) {
+    const double river_distance = ground.river_distance_m[static_cast<std::size_t>(node)];
+    const std::vector<AnchorCandidate> candidates =
+        land_anchor_candidates(*ground.grid, node, ground.river_distance_m, ground.water, ground.slope,
+                               profile.placement.max_anchor_slope_degrees, profile.placement.river_buffer_m);
+    return plan_city_layout(seed, node, profile, people, residents, river_distance, candidates, *ground.grid,
+                            ground.river, &pack);
+}
+
 }  // namespace
+
+bool authored_layout(const SettlementSite& site) {
+    return site.founded_by == "player" && site.city_layout.has_value();
+}
+
+void carry_survivor(SettlementSite& site, const SettlementSite& old) {
+    site.uid = old.uid;
+    site.name = old.name;
+    site.name_gloss = old.name_gloss;
+    site.founded_age = old.founded_age;
+    site.source_culture = old.source_culture;
+    site.founded_by = old.founded_by;
+    site.absorbed_bands = old.absorbed_bands;
+    site.absorbed_refugees = old.absorbed_refugees;
+    site.war_history = old.war_history;
+    // The player owns an authored layout, so it is carried rather than re-derived: this carry
+    // is the only reason one outlives a rebuild. The test is the reference's, which admits any
+    // layout on a player's site (see authored_layout).
+    if (authored_layout(old)) site.city_layout = old.city_layout;
+}
 
 void add_settlements(World& world, const SettlementRebuild* rebuild) {
     const Config& cfg = world.effective;
@@ -223,6 +297,7 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
 
     const FreshwaterAccess fresh = freshwater_access(world, grid);
     const std::vector<double> flood = flood_risk(world, grid, fresh);
+    const LayoutGround ground = layout_ground(world, grid);
 
     // Each people names its own cities, in its own tongue. Resolving a heritage is not
     // cheap and every city of a people shares one, so resolve once per people rather
@@ -285,6 +360,29 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
         site.flood_risk = flood[n];
         site.freshwater_distance_m = fresh.distance_m[n];
 
+        // The building pack, and the layout planned from it before the city is sized, as the
+        // reference plans it at founding; re-planned below once the population is split. The
+        // seed is keyed on the node AND the founding position, so an age that reorders the
+        // founding list redraws a standing city's pack.
+        {
+            const std::uint32_t pack_seed =
+                child_seed(cfg.seed, "building-pack-" + std::to_string(s.node) + "-" + std::to_string(i) + "-" +
+                                         std::to_string(x) + "-" + std::to_string(z) + "-" + s.population_profile);
+            PackGround at;
+            at.biome = static_cast<int>(layer_at(world, "biome", x, z));
+            at.variant = variant_at(world, x, z);
+            at.height_m = site.height_m;
+            at.slope_degrees = site.slope_degrees;
+            at.resource = site.resource_potential;
+            // No fresh water reachable reads -1, which every pack's minimum refuses.
+            at.freshwater_m = std::isfinite(site.freshwater_distance_m) ? site.freshwater_distance_m : -1.0;
+            const std::string_view pack_id = pick_building_pack(pack_seed, s.population_profile, at);
+            const BuildingPack& pack = building_pack_or_fallback(pack_id);
+            site.building_pack = BuildingPackDraw{std::string(pack_id), pack_seed, building_pack_schema_version()};
+            site.city_layout = plan_layout(ground, pack_seed, s.node, pick_layout_profile(pack, ground.river_distance_m[n]),
+                                           s.population_profile, std::nullopt, pack);
+        }
+
         const long long index = seen_so_far[s.population_profile]++;
         const auto allowance = report.budget.allowances.find(s.population_profile);
         const CityPopulation people =
@@ -309,19 +407,7 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
         if (rebuild != nullptr) {
             for (const SettlementSite& old : rebuild->survivors) {
                 if (old.node != site.node || old.population_profile != site.population_profile) continue;
-                site.uid = old.uid;
-                site.name = old.name;
-                site.name_gloss = old.name_gloss;
-                site.founded_age = old.founded_age;
-                site.source_culture = old.source_culture;
-                site.founded_by = old.founded_by;
-                site.absorbed_bands = old.absorbed_bands;
-                site.absorbed_refugees = old.absorbed_refugees;
-                site.war_history = old.war_history;
-                // The player owns an authored layout, so it is carried rather than
-                // re-derived: this carry is the only reason one outlives a rebuild. Only the
-                // player's own, as the reference's `authored_layout` test has it.
-                if (old.founded_by == "player" && old.city_layout) site.city_layout = old.city_layout;
+                carry_survivor(site, old);
                 break;
             }
         }
@@ -334,10 +420,21 @@ void add_settlements(World& world, const SettlementRebuild* rebuild) {
             site.urban_population_estimate = with.urban;
             site.rural_population_estimate = with.rural;
         }
-        // The world still owns the sizing of an authored city; only its districts are the
-        // player's. Refugees included, as the reference counts them before writing it.
-        if (site.founded_by == "player" && site.city_layout) {
+        if (authored_layout(site)) {
+            // The world still owns the sizing of an authored city; only its districts are the
+            // player's. Refugees included, as the reference counts them before writing it.
             site.city_layout->population_estimate = site.population_estimate;
+        } else {
+            // The re-plan: the same profile, pack and seed the founding drew, now sized. The
+            // districts and the asset draw both scale with the population, so this -- not the
+            // unsized plan -- is the layout the city keeps.
+            const LayoutProfile* profile = layout_profile(site.city_layout->layout_profile_id);
+            if (profile == nullptr) {
+                throw std::logic_error("city " + std::to_string(site.id) + " names unknown layout profile " +
+                                       site.city_layout->layout_profile_id);
+            }
+            site.city_layout = plan_layout(ground, site.building_pack->seed, site.node, *profile, site.population_profile,
+                                           site.population_estimate, building_pack_or_fallback(site.building_pack->id));
         }
 
         report.sites.push_back(std::move(site));

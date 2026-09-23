@@ -31,10 +31,15 @@
 // every identity it names -- natural biomes and variants through the biome layers, every
 // creature by species, every building and wall structure a plan places, every key-location
 // marker, exterior part and ruin. The list must cover all of them (tested on a generated
-// size-33 phase-16 world). The converse does not hold: this port never selects a building
-// pack (the reference's settlements.sites[].city_layout is not ported), so the 84
-// simulation.building_packs identities are unreachable from its worlds, and production
-// briefs are commissions no world names by design.
+// size-33 phase-16 world). The converse does not hold. Every city draws a building pack
+// (settlements.sites[].city_layout), but at every shipped width the layout's anchor band
+// never leaves the city's own node, so no pack asset is ever drawn and `required_assets` is
+// empty (docs/scale-defects.md): the 84 simulation.building_packs identities are unreachable
+// from this producer's worlds. And production briefs are commissions no world names by design.
+//
+// A world that DID draw one would name it here under its bare pack asset id -- the
+// `asset_id` of a `required_assets` row, e.g. building_temple_generic -- where the list's
+// identity is "building." + that id. The reader does not map it, because no world draws one.
 #pragma once
 
 #include <set>

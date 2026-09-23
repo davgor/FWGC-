@@ -289,13 +289,18 @@ Ground legality(const World& world, int node, const std::string& kind, const std
     return ground;
 }
 
-// The `city_layout` a player-authored city carries in place of a derived one. It makes no
-// building-placement claim, because city_plans is authoritative for that, and the plan the
-// generator writes for this city reports `unbuildable` with the reason.
-AuthoredCityLayout authored_layout(const std::string& civilization, std::optional<long long> residents) {
-    AuthoredCityLayout layout;
+// The `city_layout` a player-authored city carries in place of a derived one: the same
+// published shape the generator's plan has, saying the profile is the player's, that no
+// district was claimed and no asset drawn -- no pack, no river reading, empty features and
+// constraints. It makes no building-placement claim, because city_plans is authoritative for
+// that, and the plan the generator writes for this city reports `unbuildable` with the reason.
+CityLayout player_layout(const std::string& civilization, std::optional<long long> residents) {
+    CityLayout layout;
+    layout.layout_profile_id = std::string(kPlayer);
+    layout.layout_profile_name = "Player-authored layout";
     layout.population_profile = civilization;
     layout.population_estimate = residents.value_or(0);
+    layout.authored_by = std::string(kPlayer);
     return layout;
 }
 
@@ -471,7 +476,8 @@ World found_settlement(const World& world, const FoundSettlementRequest& request
     std::string rural_id;
     if (asked.kind == "city") {
         SettlementSite site = player_city(out, asked.node, ground.x, ground.z, asked, age);
-        if (asked.layout == kPlayer) site.city_layout = authored_layout(asked.civilization, asked.residents);
+        // "generated" writes no layout and draws no pack: the next settlement rebuild plans both.
+        if (asked.layout == kPlayer) site.city_layout = player_layout(asked.civilization, asked.residents);
         report.uid = site.uid;
         recorded_name = site.name;
         out.settlements.sites.push_back(std::move(site));

@@ -6,6 +6,7 @@
   biomes.cpp
   build_stages.cpp
   castle_plan.cpp
+  city_layout.cpp
   city_plan.cpp
   civilization_report.cpp
   civilizations.cpp

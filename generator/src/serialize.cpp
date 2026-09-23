@@ -265,6 +265,7 @@ void write_settlements(JsonWriter& json, const World& world) {
         write_site_reference_fields(json, s);
         write_site_society_fields(json, world, site_index);
         write_site_age_fields(json, world, site_index);
+        write_site_layout_fields(json, world, site_index);
         json.end_object();
     }
     json.end_array();

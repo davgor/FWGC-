@@ -12,6 +12,7 @@
 #include <string_view>
 #include <vector>
 
+#include "fwg/city_layout.hpp"
 #include "fwg/founding.hpp"
 #include "fwg/settlement.hpp"
 #include "fwg/vec3.hpp"
@@ -20,10 +21,6 @@
 namespace fwg {
 
 struct World;
-
-// The version stamped on a city's node-scale layout record, the reference's
-// CITY_LAYOUT_VERSION. Bumping it is a world-output schema change.
-inline constexpr int kCityLayoutVersion = 2;
 
 // The `settlements` block's version and its founding record's, the reference's (terrain_settlements
 // and founding.found_cities). Both are world-output schema versions.
@@ -42,43 +39,6 @@ inline constexpr std::string_view kSettlementsMethod =
     "population limit remain excluded. City assets are selected from deterministic data-driven building packs.";
 inline constexpr std::string_view kSettlementsMagicMethod =
     " All city sites must pass the mutation hazard limit, including difficult-site cities.";
-
-// The `city_layout` a PLAYER-AUTHORED city carries: what the founding API writes when the
-// player owns where the buildings go (settlement_api.hpp, layout "player").
-//
-// Only this record exists in the port. The generated node-scale layout -- district anchors
-// and asset roll-ups drawn from the building packs -- was not ported, and nothing needs it:
-// city_plans is the one block that says where buildings stand. So a generated city has no
-// record here, and neither has a player city founded with layout "generated": the reference
-// derives a generated record for that one at its next rebuild, which this port cannot.
-//
-// Shaped like the reference's record key for key. Everything that would describe a DERIVED
-// layout is empty, because nothing was derived: no profile but the player's, no river
-// reading, no building pack, no assets, no district anchors.
-struct AuthoredCityLayout {
-    struct River {
-        int adjacent_river_edges = 0;
-        std::optional<double> river_distance_m;  // absent: none was read
-        bool bridge_recommended = false;
-        int bridge_threshold = 0;
-    };
-    int version = kCityLayoutVersion;
-    std::string layout_profile_id = "player";
-    std::string layout_profile_name = "Player-authored layout";
-    std::string population_profile;
-    // The site's own estimate. The world owns the sizing: a settlement rebuild re-derives the
-    // site's population and this follows it, while the layout itself is carried untouched.
-    long long population_estimate = 0;
-    River river;
-    std::optional<std::string> building_pack_id;  // absent: no pack was drawn
-    std::vector<std::string> required_assets;
-    int required_asset_count = 0;
-    int required_node_slots = 0;
-    bool asset_anchors_missing = false;
-    std::map<std::string, double> features;     // empty: no district was claimed
-    std::map<std::string, double> constraints;  // empty
-    std::string authored_by = "player";
-};
 
 // One settlement as the world publishes it.
 struct SettlementSite {
@@ -138,11 +98,17 @@ struct SettlementSite {
     std::string source_culture;
     // "player" for a city the player founded; empty for a generated one. Carried.
     std::string founded_by;
-    // The player's own layout, on a player city founded with layout "player"; absent
-    // everywhere else. Carried across a rebuild together with `founded_by` -- the survivor
-    // carry is the only reason an authored layout outlives an age turn -- and its population
-    // estimate follows the site's.
-    std::optional<AuthoredCityLayout> city_layout;
+    // The node-scale layout (city_layout.hpp): planned by stage 10 on every city it founds,
+    // re-planned once the city is sized, and drawn afresh at every settlement rebuild. On a
+    // player city founded with layout "player" it is the player's own record instead, which
+    // the rebuild CARRIES -- the survivor carry is the only reason an authored layout
+    // outlives an age turn -- with its population estimate following the site's. Absent on
+    // a player city founded with layout "generated", until the next rebuild plans one.
+    std::optional<CityLayout> city_layout;
+    // The building pack the layout drew its assets from, with the seed that drew it and the
+    // pack catalogue's version. Present wherever stage 10 founded the city; absent on a city
+    // the player founded, until the next rebuild. NOT carried: a rebuilt city draws again.
+    std::optional<BuildingPackDraw> building_pack;
     // Refugees taken in at an age boundary, and the bands they came from. Added AFTER
     // the capacity split, so the split stays a pure function of the ground. Carried.
     long long absorbed_refugees = 0;
@@ -223,7 +189,30 @@ struct SettlementRebuild {
 
 // Runs stage 10, or rebuilds it after an age turn when `rebuild` is given. Needs stages
 // 1-9: without climate, ecology and the leylines there is nothing to score ground on.
+//
+// Every city it founds draws a building pack and gets a node-scale layout: planned at
+// founding, before the population is split, then RE-PLANNED from the same published seed
+// once the city is sized -- except an authored layout, whose population is updated and
+// whose districts are left alone.
 void add_settlements(World& world, const SettlementRebuild* rebuild = nullptr);
+
+// Whether a site's `city_layout` is the player's to keep rather than the planner's to
+// redraw: the reference's `authored_layout`. It asks whether the PLAYER FOUNDED the site and
+// whether the site carries a layout -- not whether the layout is the "player" profile.
+//
+// REFERENCE DEFECT, REPRODUCED AND PINNED: a player city founded with layout "generated"
+// has no layout until its first rebuild plans one; from then on it passes this test. So
+// that first rebuild keeps the plan drawn before the city was sized (only its population
+// estimate follows the site), and every later rebuild carries it forward as if the player
+// had authored it, while the site's own `building_pack` is drawn afresh each time.
+bool authored_layout(const SettlementSite& site);
+
+// What a city rebuilt on a survivor's node inherits from it, copied in place: the reference's
+// `carry_survivor`. Its identity (uid, name, founding age and culture, who founded it), the
+// refugees it took in and the wars it fought -- and its `city_layout` only where
+// `authored_layout(old)` holds, which by the defect above includes a generated layout on a
+// player's site. The building pack is never carried: the rebuilt city draws its own.
+void carry_survivor(SettlementSite& site, const SettlementSite& old);
 
 // Gives each new city its identity for this age, and each city founded this age the
 // culture of its own core once the hinterland has placed one. Called after the
