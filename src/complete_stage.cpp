@@ -11,6 +11,7 @@
 // blocks the earlier stages wrote map onto what each pass reads.
 #include "fwg/complete_stage.hpp"
 
+#include <chrono>
 #include <cmath>
 #include <map>
 #include <utility>
@@ -805,11 +806,25 @@ void add_simulation_complete(World& world) {
     const auto held = sphere_grid(world.effective.size, world.effective.globe_radius);
     const SphereGrid& grid = *held;
 
+    // Each part timed on its own: stage 16 is most of a world's cost, and a single figure for
+    // it says nothing about where. The keys are "stage16_<part>"; timings stay out of the
+    // document unless asked for.
+    using Clock = std::chrono::steady_clock;
+    auto mark = Clock::now();
+    const auto lap = [&](const char* part) {
+        const auto now = Clock::now();
+        world.timing_ms[std::string("stage16_") + part] =
+            std::chrono::duration<double, std::milli>(now - mark).count();
+        mark = now;
+    };
+
     draw_plans(world, grid);
+    lap("plans");
 
     // Bands are part of the world, so they are placed before the packages that only read
     // it: heroes, the story web and the rosters see a world with its nomads in it.
     if (world.has_humans) add_the_moving_world(world, grid);
+    lap("moving_world");
 
     // The cast, then the web of stories between them. The web reads only the heroes and
     // the world, and a web compiled against a cast that failed would be a plausible,
@@ -819,11 +834,13 @@ void add_simulation_complete(World& world) {
     world.systems.push_back("heroes");
     world.story_web = attach_story_web(story_web_request(world, world.heroes));
     world.systems.push_back("story_web");
+    lap("cast");
 
     // The rosters staff the plans and draw their named posts from the living cast.
     world.npcs = generate_npc_roster(npc_request(world, grid));
     world.has_npcs = true;
     world.systems.push_back("npcs");
+    lap("npcs");
 
     // The key locations, then their plans. The plans read the placed locations, so a
     // failed placement yields an empty plan block rather than plans for places that do
@@ -834,6 +851,7 @@ void add_simulation_complete(World& world) {
     world.has_key_locations = true;
     world.systems.push_back("key_locations");
     world.systems.push_back("key_location_plans");
+    lap("key_locations");
 }
 
 }  // namespace fwg
