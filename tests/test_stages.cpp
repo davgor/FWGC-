@@ -470,3 +470,44 @@ TEST(stage_sixteen_lays_out_a_castle_for_every_fortress) {
     }
     check::is_true(at_forts > 0, "somebody to hold a fortress");
 }
+
+TEST(a_city_plan_reads_its_threat_as_its_defense_priority) {
+    // The planner builds walls against what the threat assessment says a city expects. The
+    // nomads raise a city's threat AFTER the plans are drawn, so only a city no raider
+    // reaches can be compared directly -- and some such city must expect something.
+    const World w = at_phase(16);
+    std::map<std::string, const ThreatReport*> reports;
+    for (const ThreatReport& t : w.threat_assessments.cities) reports[t.city_uid] = &t;
+    std::size_t compared = 0;
+    for (const CityPlan& plan : w.city_plans.cities) {
+        const auto it = reports.find(plan.city_uid);
+        check::is_true(it != reports.end(), plan.city_uid + " to have a threat report");
+        if (!it->second->nomad_contributors.empty()) continue;
+        check::equal(plan.location.defense_priority, it->second->regional_threat,
+                     plan.city_uid + " to defend against the threat it was assessed");
+        compared += it->second->regional_threat > 0.0 ? 1 : 0;
+    }
+    check::is_true(compared > 0, "some unraided city under threat, or the join is untested");
+}
+
+TEST(the_raiders_raise_a_towns_threat_after_its_walls_are_drawn) {
+    // The reference writes its raid pressure into the threat block itself: every town's
+    // pressure, and a raised regional_threat where any raider is in reach.
+    const World w = at_phase(16, 65);
+    check::is_true(!w.nomad_effects.raid_pressure.empty(), "some raid pressure, or nothing is tested");
+    std::size_t raised = 0;
+    for (const NomadRaidPressure& raid : w.nomad_effects.raid_pressure) {
+        const ThreatReport* report = nullptr;
+        for (const ThreatReport& t : w.threat_assessments.cities) {
+            if (t.city_uid == raid.city_uid) report = &t;
+        }
+        check::is_true(report != nullptr, raid.city_uid + " to be an assessed town");
+        check::is_true(report->nomad_pressure.has_value(), raid.city_uid + " to record its raid pressure");
+        check::equal(*report->nomad_pressure, raid.nomad_pressure, raid.city_uid + " raid pressure");
+        if (!raid.regional_threat) continue;
+        ++raised;
+        check::equal(report->regional_threat, *raid.regional_threat, raid.city_uid + " raised threat");
+        check::is_true(report->nomad_contributors == raid.contributors, raid.city_uid + " to name its raiders");
+    }
+    check::is_true(raised > 0, "some town a raider reaches, or the raise is untested");
+}
