@@ -19,7 +19,9 @@
 #include "fwg/beasts.hpp"
 #include "fwg/city_plan.hpp"
 #include "fwg/entities.hpp"
+#include "fwg/content.hpp"
 #include "fwg/heroes.hpp"
+#include "fwg/key_locations.hpp"
 #include "fwg/magic.hpp"
 #include "fwg/nomads.hpp"
 #include "fwg/npcs.hpp"
@@ -507,6 +509,92 @@ NpcRequest npc_request(const World& world, const SphereGrid& grid) {
     return request;
 }
 
+// The key-location pass's view of the world: every place that already exists, so a new
+// location can stand clear of it, name itself after it, or succeed it.
+KeyLocationRequest key_location_request(const World& world, const SphereGrid& grid) {
+    const Config& cfg = world.effective;
+    KeyLocationRequest request;
+    request.seed = cfg.seed;
+    request.n = cfg.size;
+    request.radius_m = cfg.globe_radius;
+    request.spacing_m = cfg.settlement_spacing;
+    request.ages = world.age;
+    request.layers = &world.layers;
+
+    const auto at_node = [&](std::string id, int node) {
+        KeyLocationPlace place;
+        place.id = std::move(id);
+        if (node >= 0 && static_cast<std::size_t>(node) < grid.node_count()) {
+            place.node = node;
+            place.x = grid.point_x[static_cast<std::size_t>(node)];
+            place.z = grid.point_z[static_cast<std::size_t>(node)];
+            place.direction = direction(*place.x, *place.z, cfg.size);
+        }
+        return place;
+    };
+
+    for (const SettlementSite& s : world.settlements.sites) {
+        KeyLocationPlace city = at_node(s.uid, s.node);
+        city.name = s.name;
+        city.founded_age = s.founded_age;
+        city.source_culture = s.source_culture;
+        city.civilization_id = s.population_profile;
+        request.cities.push_back(std::move(city));
+    }
+    for (const RuralSite& h : world.humans.hamlets) {
+        KeyLocationPlace hamlet = at_node(h.uid, h.node);
+        hamlet.civilization_id = h.population_profile;
+        request.hamlets.push_back(std::move(hamlet));
+    }
+    for (const RuralSite& f : world.humans.fortresses) {
+        KeyLocationPlace fort = at_node(f.uid, f.node);
+        fort.civilization_id = f.population_profile;
+        request.fortresses.push_back(std::move(fort));
+    }
+    for (const HarbourPort& p : world.society.fisheries.ports) request.ports.push_back(at_node(p.id, p.node));
+    for (const College& c : world.colleges.colleges) {
+        KeyLocationPlace college = at_node(c.id, c.node);
+        college.civilization_id = c.population_profile;
+        request.colleges.push_back(std::move(college));
+    }
+    for (const NestSite& n : world.beast_nests.sites) {
+        KeyLocationPlace nest = at_node(n.id, n.node);
+        nest.name = std::string(n.name);
+        nest.tier = n.tier;
+        request.nests.push_back(std::move(nest));
+    }
+    for (const ReligionSite& s : world.religion.sites) request.religion_sites.push_back(at_node(s.id, s.node));
+    // Landmarks are placed by cell, not by node, so their position comes from the cell.
+    for (const Landmark& l : world.ecology.landmarks) {
+        KeyLocationPlace landmark;
+        landmark.id = l.id;
+        landmark.x = l.x;
+        landmark.z = l.z;
+        landmark.node = grid.node_index(l.x, l.z);
+        landmark.direction = direction(l.x, l.z, cfg.size);
+        request.landmarks.push_back(std::move(landmark));
+    }
+    for (const Road& r : world.roads.routes) {
+        const auto uid_of = [&](int index) {
+            return index >= 0 && static_cast<std::size_t>(index) < world.settlements.sites.size()
+                       ? world.settlements.sites[static_cast<std::size_t>(index)].uid
+                       : std::string("?");
+        };
+        request.routes.push_back({uid_of(r.from), uid_of(r.to), r.nodes});
+    }
+    for (const GodRecord& g : world.religion.gods) request.gods.push_back({g.id, g.name});
+    for (const MagicSchool& s : magic_school_table()) request.magic_school_order.emplace_back(s.name);
+    for (const NaturalBiome& b : natural_biomes()) {
+        request.natural_biomes.push_back({b.id, std::string(b.name), std::string(b.asset_id)});
+    }
+    for (const BiomeVariant& v : biome_variant_catalogue()) {
+        request.magical_biomes.push_back({v.core_biome_id, std::string(v.name), std::string(v.asset_id)});
+    }
+    // Ruins and villains are written by the age transitions, not wired yet: a key
+    // location that succeeds a ruin, or stands in a villain's claim, has none to read.
+    return request;
+}
+
 }  // namespace
 
 void add_simulation_complete(World& world) {
@@ -540,6 +628,16 @@ void add_simulation_complete(World& world) {
     world.npcs = generate_npc_roster(npc_request(world, grid));
     world.has_npcs = true;
     world.systems.push_back("npcs");
+
+    // The key locations, then their plans. The plans read the placed locations, so a
+    // failed placement yields an empty plan block rather than plans for places that do
+    // not exist.
+    const KeyLocationRequest places = key_location_request(world, grid);
+    world.key_locations = generate_key_locations(places);
+    world.key_location_plans = generate_key_location_plans(places, world.key_locations);
+    world.has_key_locations = true;
+    world.systems.push_back("key_locations");
+    world.systems.push_back("key_location_plans");
 }
 
 }  // namespace fwg

@@ -25,6 +25,7 @@
 #include "fwg/beasties_stage.hpp"
 #include "fwg/beasts.hpp"
 #include "fwg/heroes.hpp"
+#include "fwg/key_locations.hpp"
 #include "fwg/story_web.hpp"
 #include "fwg/nomads.hpp"
 #include "fwg/npcs.hpp"
@@ -181,6 +182,12 @@ struct World {
     // Stage 16. Who lives and works in every settlement.
     bool has_npcs = false;
     NpcRoster npcs;
+
+    // Stage 16. The places worth going: ruins, lairs, shrines and wonders, and the
+    // plan of each.
+    bool has_key_locations = false;
+    KeyLocationBlock key_locations;
+    KeyLocationPlanBlock key_location_plans;
 
     // The age this world is in. Zero until the first age transition turns it.
     int age = 0;

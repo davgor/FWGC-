@@ -405,3 +405,35 @@ TEST(every_living_hero_holds_a_post_in_the_rosters) {
     check::equal(static_cast<long long>(w.npcs.summary.heroes_linked), living,
                  "every living hero linked into a roster");
 }
+
+TEST(stage_sixteen_places_the_key_locations_and_plans_each_one) {
+    const World w = at_phase(16, 65);
+    check::is_true(w.has_key_locations, "stage 16 to place the key locations");
+    check::is_true(w.key_locations.ok, "the key locations to resolve: " + w.key_locations.error);
+    check::is_true(w.key_location_plans.ok, "their plans to resolve: " + w.key_location_plans.error);
+    check::is_true(!w.key_locations.sites.empty(), "somewhere worth going, or nothing is tested");
+    // One plan per site, in block order: the plan's location_id is the join.
+    check::equal(w.key_location_plans.plans.size(), w.key_locations.sites.size(), "a plan for every site");
+    for (std::size_t i = 0; i < w.key_locations.sites.size(); ++i) {
+        check::equal(w.key_location_plans.plans[i].location_id, w.key_locations.sites[i].id,
+                     "plan " + std::to_string(i) + " to join its site");
+    }
+    check::equal(w.systems.back(), std::string("key_location_plans"), "the plans to be the last system to run");
+}
+
+TEST(the_only_key_location_waiting_on_a_missing_layer_is_the_one_the_reference_knows) {
+    // The reference pins this set exactly (KNOWN_UNPUBLISHED): `peat_cuttings` gates on a
+    // `wetland_distance` layer nothing upstream writes, so it fails closed in every world.
+    // Ported as it stands. The set cannot grow without failing here, and it cannot be
+    // quietly fixed without failing either.
+    const World w = at_phase(16, 65);
+    const std::string prefix = "the world never generated the ";
+    std::set<std::pair<std::string, std::string>> absent;
+    for (const KeyLocationDiagnostic& d : w.key_locations.diagnostics) {
+        if (d.reason.rfind(prefix, 0) != 0) continue;
+        const std::string rest = d.reason.substr(prefix.size());
+        absent.emplace(d.archetype, rest.substr(0, rest.find(' ')));
+    }
+    const std::set<std::pair<std::string, std::string>> known{{"peat_cuttings", "wetland_distance"}};
+    check::is_true(absent == known, "the unpublished-layer set to be exactly the known one");
+}
