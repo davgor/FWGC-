@@ -150,6 +150,7 @@ void drop_plans(World& world) {
     world.hamlet_plans = {};
     world.castle_plans = {};
     world.has_plans = false;
+    world.has_rural_plans = false;
     world.world_scene = {};
     world.has_world_scene = false;
 }

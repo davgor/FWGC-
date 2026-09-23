@@ -591,7 +591,7 @@ NpcRequest npc_request(const World& world, const SphereGrid& grid) {
         plan.plots = npc_plots(p.plots);
         request.city_plans.push_back(std::move(plan));
     }
-    request.has_hamlet_plans = world.has_plans && world.has_humans;
+    request.has_hamlet_plans = world.has_rural_plans;
     for (const HamletPlan& p : world.hamlet_plans.hamlets) {
         NpcHamletPlan plan;
         plan.node = p.node;
@@ -607,7 +607,7 @@ NpcRequest npc_request(const World& world, const SphereGrid& grid) {
         plan.plots = npc_plots(p.plots);
         request.hamlet_plans.push_back(std::move(plan));
     }
-    request.has_castle_plans = world.has_plans && world.has_humans;
+    request.has_castle_plans = world.has_rural_plans;
     for (const CastlePlan& p : world.castle_plans.castles) {
         NpcCastlePlan plan;
         plan.fortress_id = p.fortress_id;
@@ -836,6 +836,7 @@ void draw_plans(World& world, const SphereGrid& grid) {
         world.systems.push_back("castle_plans");
     }
     world.has_plans = true;
+    world.has_rural_plans = world.has_humans;
 
     // Every plan and every regional road in one globe-centred frame, built once all three
     // planners have run -- the scene the reference keeps after rebuilding it after each.

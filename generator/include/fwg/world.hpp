@@ -178,6 +178,11 @@ struct World {
     // Stage 16. The street plan of every city and hamlet, and the castle of every fortress.
     bool has_plans = false;
     CityPlans city_plans;
+    // The hamlet and castle plans, drawn wherever the city plans are on a world with a rural
+    // layer. Their own flag because a founding that rebuilds the rural layer drops these two
+    // and keeps the city plans, as the reference drops them: they key on the rural ordinals
+    // the rebuild renumbers. The next stage-16 draw sets it again.
+    bool has_rural_plans = false;
     HamletPlans hamlet_plans;
     CastlePlans castle_plans;  // one per fortress, in ascending id-string order
 

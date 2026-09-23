@@ -31,36 +31,19 @@
 //     now name different ground. The default, "none", leaves every rural join intact and
 //     gives the new settlement no hinterland until something rebuilds it.
 //
+// STAGE 16 IS LEFT AS IT STOOD, as the reference leaves it (ruled 2026-09-23): the new
+// settlement has no plan, no staffed post and no threat report until something re-runs those
+// passes. With `rebuild: "humans"` the hamlet and castle plans are dropped -- they key on the
+// ordinals the rebuild renumbers -- and named in `dropped_blocks`; the city plans stay.
+//
 // HOW THIS DIFFERS FROM THE REFERENCE, deliberately:
 //
-//   * STAGE 16 IS REDRAWN. On a world that carries stage 16, the founding re-derives it
-//     exactly as an age advance does -- every plan and the world scene, the bands, herds and
-//     encounters, the cast and the story web, the rosters, the key locations -- so the new
-//     settlement has a plan and every block that reads the settlement list has read it. The
-//     reference redraws none of it: its new city had no plan until the next advance, and its
-//     `rebuild: "humans"` dropped the hamlet and castle plans (reported in `dropped_blocks`)
-//     rather than re-deriving them. Here nothing is dropped, so `dropped_blocks` is always
-//     empty and a note says what was redrawn. The price is the reference's own objection to
-//     the nest pass, in a smaller dose: band placement is one sequential stream, so a band
-//     far from the new settlement can re-roll, and band, roster and key-location ids held
-//     from before the call may not resolve after it. Measured at seed 42, size 33, founding
-//     at four different nodes: 0 to 8 of 15 bands changed, 0 to 5 of 158 key locations,
-//     every hero kept its uid, and 1 of 29 city plans changed each time.
-//   * The threat assessment is re-read before the redraw, because stage 16's planners read
-//     the threat before the raiders raise it and the raid pass adds onto whatever threat it
-//     finds -- redrawn over the last pass's raised threat, a town would be raided twice. The
-//     re-read also sees what the generated world's own stage 16 did not: the final age
-//     builds the villains' works AFTER its threat assessment, and a well moves the ley
-//     field. A redraw with nothing founded at all changes one city plan too, the size of
-//     the plan change measured above: 8 villain seats read a higher ley pressure, and the
-//     shape counter carries a changed shape on to a later city.
 //   * The player city's `parent_race_id` is its people's parent race. The reference wrote
 //     the CIVILIZATION id there, which for most peoples names no parent race. The reference
-//     never read it before its next rebuild recomputed it; the stage-16 redraw here resolves
-//     a heritage from it at once, the heritage refuses an unknown parent race, and the hero
-//     pass -- which never throws -- fails whole: measured on a human_maritime city, 156
-//     heroes to none, status "failed". Fixed rather than reproduced, because reproduced it
-//     would cost every founding its cast.
+//     never read it before its next rebuild recomputed it, but any pass that resolves a
+//     heritage from the site before then would meet an unknown parent race, the heritage
+//     refuses one, and the hero pass -- which never throws -- fails whole: measured on a
+//     human_maritime city, 156 heroes to none. Fixed rather than reproduced.
 //   * The message that says which stage places a block names this ladder's stage (10 for
 //     cities, 12 for the rural layer); the reference's said 9 for both.
 //   * The reference's refusals of a malformed JSON body -- not an object, an unknown key,
@@ -81,7 +64,7 @@
 //   * `rebuild: "humans"` re-runs the hinterland pass alone (populated_stage.hpp,
 //     rebuild_hinterland): the harbours drop out of the rural layer, and colleges, seasonal
 //     food and society go on describing the hinterland as it was. The harbour drop is
-//     pinned; with the redraw it also means the harbours lose their plans until the next age.
+//     pinned; the hamlet plans the harbours had are dropped with the rest.
 //   * The refusal wording, "None" included: "node must be 0..None grid index; received -1."
 //   * A city founded with layout "generated" gets no layout and no building pack here; its
 //     first settlement rebuild plans one, and from then on the reference's authored-layout

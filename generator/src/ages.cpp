@@ -231,6 +231,7 @@ World advance_ages(const World& world, const AgeAdvanceRequest& request) {
         out.hamlet_plans = {};
         out.castle_plans = {};
         out.has_plans = false;
+        out.has_rural_plans = false;
         out.world_scene = {};
         out.has_world_scene = false;
         const bool last = age == start_age + request.steps;

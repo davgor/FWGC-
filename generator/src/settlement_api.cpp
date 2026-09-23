@@ -1,8 +1,7 @@
 // Found a settlement the player chose. See settlement_api.hpp for the contract; this file is
 // the reference's terrain_settlement_api over the World, in its order: judge the request,
 // judge the ground, copy the world, write the site or the rural row, re-rank the cities,
-// rebuild what was asked for, report, record -- then, where the world carries stage 16,
-// redraw it around the new settlement.
+// rebuild what was asked for, report, record.
 #include "fwg/settlement_api.hpp"
 
 #include <algorithm>
@@ -17,9 +16,7 @@
 #include <utility>
 #include <vector>
 
-#include "fwg/beasties_stage.hpp"
 #include "fwg/civilizations.hpp"
-#include "fwg/complete_stage.hpp"
 #include "fwg/entities.hpp"
 #include "fwg/grid.hpp"
 #include "fwg/json.hpp"  // format_double
@@ -436,26 +433,6 @@ std::vector<std::string> moved_ids(const std::map<std::string, int>& before, con
     return out;
 }
 
-// Stage 16 over the world as it now stands, as an age advance redraws it. The threat is
-// re-read first: the planners read it BEFORE the raiders raise it, and the raid pass adds
-// onto whatever threat it finds, so redrawing over a threat the last pass already raised
-// would build walls against raiders twice and raise the threat twice.
-void redraw_stage_sixteen(World& world) {
-    if (world.has_threat_assessments) {
-        // Copied out first: the pass replaces the block these are read from.
-        const std::string label = world.threat_assessments.evaluated_after;
-        const std::optional<int> age = world.threat_assessments.age;
-        assess_world_threats(world, label, age);
-    }
-    world.city_plans = {};
-    world.hamlet_plans = {};
-    world.castle_plans = {};
-    world.has_plans = false;
-    world.world_scene = {};
-    world.has_world_scene = false;
-    add_simulation_complete(world);
-}
-
 }  // namespace
 
 World found_settlement(const World& world, const FoundSettlementRequest& request) {
@@ -523,13 +500,19 @@ World found_settlement(const World& world, const FoundSettlementRequest& request
                                " existing city/cities. city_class is a rank, not a size.");
     }
 
-    // Stage 16 is redrawn below wherever the world carries it; decided now, before anything
-    // can change the flag, because the notes depend on it.
-    const bool redraw = out.has_plans;
     if (asked.rebuild == "humans") {
         rebuild_hinterland(out);
         report.rural_ids_reassigned.hamlets = moved_ids(before_hamlets, ordinals(out.humans.hamlets));
         report.rural_ids_reassigned.fortresses = moved_ids(before_forts, ordinals(out.humans.fortresses));
+        // The hamlet and castle plans key on exactly the ordinals the rebuild renumbers, with
+        // no uid beside them: left in place they would hand a consumer rows naming ground that
+        // moved. Dropped, as the reference drops them -- absence is honest, a stale row is not.
+        if (out.has_rural_plans) {
+            out.hamlet_plans = {};
+            out.castle_plans = {};
+            out.has_rural_plans = false;
+            report.dropped_blocks = {"hamlet_plans", "castle_plans"};
+        }
         const std::size_t moved = report.rural_ids_reassigned.hamlets.size();
         const std::size_t moved_forts = report.rural_ids_reassigned.fortresses.size();
         if (moved != 0 || moved_forts != 0) {
@@ -538,29 +521,26 @@ World found_settlement(const World& world, const FoundSettlementRequest& request
                                    " fortress ordinal ids now name different ground. Those ids renumber at every "
                                    "age boundary by design; key on the terrain node instead.");
         }
+        if (!report.dropped_blocks.empty()) {
+            std::string names;
+            for (std::size_t i = 0; i < report.dropped_blocks.size(); ++i) {
+                if (i != 0) names += " and ";
+                names += report.dropped_blocks[i];
+            }
+            report.notes.push_back("Dropped " + names +
+                                   ", which key on those ordinals and would otherwise name ground that moved. Run a "
+                                   "phase-16 pass to rebuild them.");
+        }
     } else {
-        // Without a redraw the new settlement has no staffed posts either. With one, a player
-        // hamlet or keep is planned and staffed like any other -- a player city is not, the
-        // player owning its layout -- so the note says only what is still true.
-        const bool staffed = redraw && asked.kind != "city";
-        report.notes.push_back(std::string("The rural layer was not rebuilt, so this settlement has no hinterland") +
-                               (staffed ? " and no roads" : ", no roads and no staffed posts") +
-                               " until something rebuilds it. Founding takes a rebuild argument rather than "
-                               "rebuilding on its own or marking the world dirty, so the cost is the caller's to "
-                               "choose at the call that caused it.");
+        report.notes.push_back(
+            "The rural layer was not rebuilt, so this settlement has no hinterland, no roads and no staffed posts "
+            "until something rebuilds it. Founding takes a rebuild argument rather than rebuilding on its own or "
+            "marking the world dirty, so the cost is the caller's to choose at the call that caused it.");
     }
     report.notes.push_back(
         "The beast book was deliberately left alone: the nest pass draws from one sequential stream keyed on "
         "distance to settled ground, so re-running it here would re-roll nests world-wide. The next age advance "
         "will re-roll them regardless.");
-    if (redraw) {
-        report.notes.push_back(
-            "Stage 16 was redrawn around the new settlement, as an age advance redraws it: every plan and the world "
-            "scene, the bands, herds and encounters, the cast and the story web, the rosters and the key locations "
-            "were re-derived from the world as it now stands, after the threat assessment was re-read. Placement "
-            "draws the bands from one sequential stream, so a band far from this settlement may re-roll: band, "
-            "roster and key-location ids held from before this call may not resolve in the world it returns.");
-    }
 
     std::set<std::string> player_cities;
     for (const SettlementSite& s : out.settlements.sites) {
@@ -579,7 +559,6 @@ World found_settlement(const World& world, const FoundSettlementRequest& request
     out.history.operations.push_back(std::move(operation));
     out.settlement_founding = std::move(report);
 
-    if (redraw) redraw_stage_sixteen(out);
     dedupe_systems(out.systems);
     dedupe_warnings(out.warnings);
     out.timing_ms["settlement_founding"] =

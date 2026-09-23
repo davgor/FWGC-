@@ -13,6 +13,7 @@
 #include "check.hpp"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <map>
 #include <optional>
@@ -248,16 +249,13 @@ const Founded& newcomer_city() {
 
 }  // namespace
 
-TEST(the_player_city_names_its_peoples_parent_race_and_the_cast_survives_it) {
-    // The reference wrote the civilization id here. The stage-16 redraw resolves a heritage
-    // from this field, and a heritage refuses a parent race that does not exist: measured, the
-    // hero pass then fails whole -- status failed, every hero gone.
+TEST(the_player_city_names_its_peoples_parent_race) {
+    // The reference wrote the civilization id here, which for most peoples names no parent
+    // race: a pass resolving a heritage from the site before its next rebuild would refuse it.
     const World& w = newcomer_city().world;
     const SettlementSite& site = w.settlements.sites.back();
     check::equal(site.parent_race_id, std::string(entity_rule(site.population_profile)->parent_race_id),
                  "the parent race, not the civilization");
-    check::equal(w.heroes.status, std::string("ok"), "the cast redrawn around the city: " + w.heroes.error);
-    check::is_true(!w.heroes.people.empty(), "with heroes in it");
 }
 
 TEST(the_class_is_derived_over_the_whole_list_and_a_move_is_reported) {
@@ -301,51 +299,50 @@ TEST(a_founding_leaves_the_callers_world_alone_and_repeats_exactly) {
     check::equal(again.settlements.sites.back().uid, founded_city().world.settlements.sites.back().uid, "the same city");
 }
 
-TEST(stage_sixteen_is_redrawn_around_the_new_city) {
+TEST(stage_sixteen_is_left_as_it_stood) {
+    // As the reference leaves it (ruled 2026-09-23): the new city has no plan, no threat report
+    // and no place in the cast until something re-runs those passes, and without a rebuild of
+    // the rural layer nothing is dropped either.
+    const World& before = genesis();
     const World& w = founded_city().world;
     const std::string uid = w.settlements.sites.back().uid;
-    check::is_true(w.has_plans && w.has_world_scene, "the plans and the scene redrawn");
-    check::equal(w.city_plans.cities.size(), w.settlements.sites.size(), "one plan per city, the new one included");
-    const auto plan = std::find_if(w.city_plans.cities.begin(), w.city_plans.cities.end(),
-                                   [&](const CityPlan& p) { return p.city_uid == uid; });
-    check::is_true(plan != w.city_plans.cities.end(), "a plan for the player's city");
-    // The player owns where the buildings go, so the planner packs nothing and says why.
-    check::is_true(plan->authored_by_player, "the plan marked as the player's layout");
-    check::equal(std::string(plan->status), std::string("unbuildable"), "a status the planner already emits");
-    check::is_true(plan->plots.empty(), "no building placed for the player");
-    check::is_true(!plan->unplaced.empty() && plan->unplaced.front().reason.find("player") != std::string::npos,
-                   "the unplaced programme saying the player authored it");
-    // Re-read before the redraw, so the new city has a threat and the planners read it.
-    const bool assessed = std::any_of(w.threat_assessments.cities.begin(), w.threat_assessments.cities.end(),
-                                      [&](const ThreatReport& t) { return t.city_uid == uid; });
-    check::is_true(assessed, "the new city's threat assessed");
-    check::equal(w.threat_assessments.cities.size(), w.settlements.sites.size(), "every city assessed");
+    check::is_true(w.has_plans && w.has_rural_plans && w.has_world_scene, "every stage-16 block still there");
+    check::equal(w.city_plans.cities.size(), before.city_plans.cities.size(), "the same city plans");
+    check::is_true(std::none_of(w.city_plans.cities.begin(), w.city_plans.cities.end(),
+                                [&](const CityPlan& p) { return p.city_uid == uid; }),
+                   "no plan for the player's city");
+    check::equal(w.hamlet_plans.hamlets.size(), before.hamlet_plans.hamlets.size(), "the same hamlet plans");
+    check::equal(w.castle_plans.castles.size(), before.castle_plans.castles.size(), "the same castle plans");
+    check::equal(w.world_scene.buildings.size(), before.world_scene.buildings.size(), "the same scene");
+    check::equal(w.threat_assessments.cities.size(), before.threat_assessments.cities.size(), "no threat re-read");
+    check::is_true(std::none_of(w.threat_assessments.cities.begin(), w.threat_assessments.cities.end(),
+                                [&](const ThreatReport& t) { return t.city_uid == uid; }),
+                   "and no report for the new city");
+    check::equal(w.heroes.people.size(), before.heroes.people.size(), "the same cast");
+    check::is_true(w.settlement_founding->dropped_blocks.empty(), "nothing dropped without a rebuild");
     const auto& notes = w.settlement_founding->notes;
-    check::is_true(std::any_of(notes.begin(), notes.end(),
-                               [](const std::string& n) { return n.find("Stage 16 was redrawn") == 0; }),
-                   "the report saying stage 16 was redrawn and what that costs");
-    check::is_true(w.settlement_founding->dropped_blocks.empty(), "nothing dropped: redrawn instead");
+    check::is_true(std::none_of(notes.begin(), notes.end(),
+                                [](const std::string& n) { return n.find("redrawn") != std::string::npos; }),
+                   "and no note claiming a redraw");
 }
 
-TEST(a_redraw_reads_the_threat_once_rather_than_raising_it_again) {
-    // Stage 16's raid pass adds onto whatever threat it finds. Redrawn over the threat the
-    // last pass already raised, a town beside raiders would read the same raiders twice. So
-    // every raided town must read exactly its fresh assessment plus its own raid pressure.
-    const World& after = founded_city().world;
-    World fresh = after;
-    const std::string label = after.threat_assessments.evaluated_after;
-    assess_world_threats(fresh, label, after.threat_assessments.age);
-    std::size_t raided = 0;
-    for (const ThreatReport& t : after.threat_assessments.cities) {
-        if (t.nomad_contributors.empty()) continue;
-        ++raided;
-        const auto base = std::find_if(fresh.threat_assessments.cities.begin(), fresh.threat_assessments.cities.end(),
-                                       [&](const ThreatReport& u) { return u.city_uid == t.city_uid; });
-        check::is_true(base != fresh.threat_assessments.cities.end(), t.city_uid + " assessed");
-        check::close(t.regional_threat, std::min(1.0, base->regional_threat + t.nomad_pressure.value_or(0.0)), 2e-6,
-                     t.city_uid + " raised by its raiders once");
-    }
-    check::is_true(raided > 0, "some town beside raiders, or this tests nothing");
+TEST(dropped_rural_plans_are_absent_from_the_document_not_empty) {
+    // A world whose rural layer a founding rebuilt: the city plans are written, the hamlet and
+    // castle plans are not written at all, as the reference pops both keys. Bare, so small.
+    World bare;
+    bare.has_plans = true;
+    bare.has_humans = true;
+    const auto keys = [](const World& w) {
+        std::ostringstream out;
+        write_world_json(out, w, /*pretty=*/false, /*include_timings=*/false);
+        const JsonValue doc = parse_json(out.str());
+        return std::array<bool, 3>{doc.contains("city_plans"), doc.contains("hamlet_plans"),
+                                   doc.contains("castle_plans")};
+    };
+    bare.has_rural_plans = false;
+    check::is_true(keys(bare) == std::array<bool, 3>{true, false, false}, "the rural plan blocks absent once dropped");
+    bare.has_rural_plans = true;
+    check::is_true(keys(bare) == std::array<bool, 3>{true, true, true}, "and written while they stand");
 }
 
 TEST(the_report_discloses_what_it_left_alone) {
@@ -394,7 +391,7 @@ TEST(an_authored_layout_is_the_players_and_a_generated_one_is_absent) {
     check::equal(site.city_layout->authored_by, std::string("player"), "and it says whose it is");
     check::is_true(!site.building_pack.has_value(), "a player's city draws no building pack when it is founded");
 
-    // On a world with no stage 16, so no redraw: nothing here needs one.
+    // On a world with no stage 16: nothing here has a plan to wait for.
     FoundSettlementRequest r = asking(0, first_people(rural_world()));
     r.layout = "generated";
     const World generated = first_legal(rural_world(), r).world;
@@ -555,7 +552,7 @@ TEST(the_founded_world_still_advances_an_age) {
 
 // --- rural foundings ---------------------------------------------------------------
 
-TEST(a_player_hamlet_lands_in_the_block_that_holds_hamlets_and_is_planned) {
+TEST(a_player_hamlet_lands_in_the_block_that_holds_hamlets_and_waits_for_its_plan) {
     const World& before = genesis();
     FoundSettlementRequest r = asking(0, first_people(before), "hamlet");
     r.name = "Player Farmstead";
@@ -585,9 +582,12 @@ TEST(a_player_hamlet_lands_in_the_block_that_holds_hamlets_and_is_planned) {
     check::equal(w.settlement_founding->uid, row.uid, "the report names its uid");
     check::is_true(!w.settlement_founding->city_class.has_value(), "and no class");
     check::equal(first_op<SettlementOperation>(w).settlement_kind, std::string("hamlet"), "recorded as a hamlet");
+    // No stage-16 redraw, as in the reference: the new hamlet has no plan until something
+    // re-runs the planners, and the plans already drawn stand as they were.
     const bool planned = std::any_of(w.hamlet_plans.hamlets.begin(), w.hamlet_plans.hamlets.end(),
                                      [&](const HamletPlan& p) { return p.hamlet_uid == row.uid; });
-    check::is_true(planned, "a hamlet plan for it after the redraw");
+    check::is_true(!planned, "no hamlet plan for it until a phase-16 pass draws one");
+    check::equal(w.hamlet_plans.hamlets.size(), before.hamlet_plans.hamlets.size(), "the drawn plans untouched");
     const auto& notes = w.settlement_founding->notes;
     check::is_true(!notes.empty() && notes.front().find("do not hold it") != std::string::npos,
                    "the report warning that its ordinal renumbers");
@@ -654,21 +654,26 @@ TEST(the_players_fortress_survives_the_rural_rebuild) {
     for (const SettlementSite& s : w.settlements.sites) check::is_true(nodes.count(s.node) == 0, "no rural site on a city");
     const SettlementFoundingReport& report = *w.settlement_founding;
     check::equal(report.rebuild, std::string("humans"), "the rebuild recorded");
-    check::is_true(report.dropped_blocks.empty(), "the plans redrawn, not dropped");
-    const bool planned = std::any_of(w.castle_plans.castles.begin(), w.castle_plans.castles.end(),
-                                     [&](const CastlePlan& p) { return p.fortress_uid == keeps.front()->uid; });
-    check::is_true(planned, "the keep planned in the redrawn castle block");
+    // The hamlet and castle plans key on the ordinals the rebuild renumbered: dropped, as the
+    // reference drops them, and named in the report. The city plans stay.
+    check::is_true(report.dropped_blocks == std::vector<std::string>{"hamlet_plans", "castle_plans"},
+                   "both rural plan blocks dropped");
+    check::is_true(!w.has_rural_plans && w.hamlet_plans.hamlets.empty() && w.castle_plans.castles.empty(),
+                   "and gone from the world");
+    check::is_true(w.has_plans && w.city_plans.cities.size() == before.city_plans.cities.size(),
+                   "the city plans kept");
+    check::is_true(std::any_of(report.notes.begin(), report.notes.end(),
+                               [](const std::string& n) {
+                                   return n.rfind("Dropped hamlet_plans and castle_plans, which key on those ordinals",
+                                                  0) == 0;
+                               }),
+                   "the report saying what it dropped and why");
     // The harbours society folded into the rural layer drop out of it: the rebuild re-runs
     // the hinterland alone, as the reference's does. Reproduced.
     const auto harbour = [](const RuralSite& h) { return h.id.rfind("coastal-", 0) == 0; };
     const bool had_harbour = std::any_of(before.humans.hamlets.begin(), before.humans.hamlets.end(), harbour);
     const bool has_harbour = std::any_of(w.humans.hamlets.begin(), w.humans.hamlets.end(), harbour);
     check::is_true(had_harbour && !has_harbour, "harbours in the rural layer before, and out of it after");
-    // ...and with the redraw, out of the hamlet plans too, until a full stage-12 pass returns them.
-    const auto harbour_plan = [](const HamletPlan& p) { return p.hamlet_id.rfind("coastal-", 0) == 0; };
-    check::is_true(std::any_of(before.hamlet_plans.hamlets.begin(), before.hamlet_plans.hamlets.end(), harbour_plan) &&
-                       std::none_of(w.hamlet_plans.hamlets.begin(), w.hamlet_plans.hamlets.end(), harbour_plan),
-                   "harbour plans before, and none after the redraw");
 }
 
 // --- refusals: every illegal choice names its field and says why -------------------------

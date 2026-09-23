@@ -510,7 +510,7 @@ std::optional<PlanSummary> city_plan_summary(const World& world, const std::stri
 }
 
 std::optional<PlanSummary> hamlet_plan_summary(const World& world, const std::string& wanted) {
-    if (!world.has_plans || !world.has_humans) return std::nullopt;
+    if (!world.has_rural_plans) return std::nullopt;
     for (const HamletPlan& plan : world.hamlet_plans.hamlets) {
         if (plan.hamlet_id != wanted) continue;
         PlanSummary out{"hamlet_plans", "hamlet_id", wanted, std::string(plan.status), plan.version,
@@ -522,7 +522,7 @@ std::optional<PlanSummary> hamlet_plan_summary(const World& world, const std::st
 }
 
 std::optional<PlanSummary> castle_plan_summary(const World& world, const std::string& wanted) {
-    if (!world.has_plans || !world.has_humans) return std::nullopt;
+    if (!world.has_rural_plans) return std::nullopt;
     for (const CastlePlan& plan : world.castle_plans.castles) {
         if (plan.fortress_id != wanted) continue;
         PlanSummary out{"castle_plans", "fortress_id", wanted, std::string(plan.status), plan.version,

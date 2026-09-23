@@ -4672,7 +4672,7 @@ void write_late_blocks(JsonWriter& json, const World& world) {
     if (world.has_plans) {
         json.key("city_plans");
         write_city_plans(json, world);
-        if (world.has_humans) {
+        if (world.has_rural_plans) {
             json.key("hamlet_plans");
             write_hamlet_plans(json, world);
             json.key("castle_plans");
