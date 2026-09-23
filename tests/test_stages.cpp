@@ -301,3 +301,38 @@ TEST(a_regional_road_enters_a_city_on_the_edge_of_its_window) {
     check::is_true(gates > 0, "roads to reach some city window, or nothing is tested");
     check::is_true(inward_checked > 0, "some gate to be traced back inside, or the index is untested");
 }
+
+TEST(stage_sixteen_places_and_routes_the_nomads) {
+    const World w = at_phase(16, 65);
+    check::is_true(w.has_nomads, "stage 16 to place the nomads");
+    check::is_true(!w.nomads.groups.empty(), "some band to exist, or nothing is tested");
+    check::is_true(w.nomads.routes.has_value(), "the bands to have been routed");
+    // routed + stranded covers every band: a band the route pass skipped entirely would
+    // be neither, and the counts would silently stop adding up.
+    check::equal(w.nomads.routes->routed + w.nomads.routes->stranded,
+                 static_cast<int>(w.nomads.groups.size()), "every band routed or stranded");
+}
+
+TEST(the_herds_forage_now_that_the_hinterland_publishes_food) {
+    // Beasts and nomads both read food_potential for forage, and while stage 12 was
+    // unported both reported the same thing independently: forage was zero everywhere, the
+    // summer scorer fell back to the lowest node, and EVERY irruptive group was solitary.
+    // If the food layers ever stop reaching this pass, the herds collapse back to that.
+    const World w = at_phase(16, 65);
+    check::is_true(w.has_beast_movements, "stage 16 to move the herds");
+    const BeastMovements& m = w.beast_movements;
+    check::is_true(!m.groups.empty(), "some herd to exist");
+    check::is_true(m.routed > m.solitary,
+                   "more herds routed than solitary (" + std::to_string(m.routed) + " routed, " +
+                       std::to_string(m.solitary) + " solitary)");
+
+    bool wanderers = false;
+    for (const NomadBand& b : w.nomads.groups) wanderers = wanderers || b.classification == NomadClass::Wanderers;
+    check::is_true(wanderers, "wanderer bands to exist, which need forage above their floor");
+}
+
+TEST(every_band_and_every_herd_is_something_a_traveller_can_meet) {
+    const World w = at_phase(16, 65);
+    check::equal(w.encounters.entries.size(), w.nomads.groups.size() + w.beast_movements.groups.size(),
+                 "one encounter entry per band and per herd");
+}

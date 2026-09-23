@@ -23,6 +23,8 @@
 #include "fwg/tectonics.hpp"
 #include "fwg/astrology.hpp"
 #include "fwg/beasties_stage.hpp"
+#include "fwg/beasts.hpp"
+#include "fwg/nomads.hpp"
 #include "fwg/city_plan.hpp"
 #include "fwg/complete_stage.hpp"
 #include "fwg/religion.hpp"
@@ -158,6 +160,15 @@ struct World {
     bool has_plans = false;
     CityPlans city_plans;
     HamletPlans hamlet_plans;
+
+    // Stage 16. The bands that do not settle, the herds that move with the seasons,
+    // what a traveller meets, and what the bands did to the world around them.
+    bool has_nomads = false;
+    NomadBlock nomads;
+    NomadEffects nomad_effects;
+    bool has_beast_movements = false;
+    BeastMovements beast_movements;
+    EncounterIndex encounters;
 
     // The age this world is in. Zero until the first age transition turns it.
     int age = 0;
