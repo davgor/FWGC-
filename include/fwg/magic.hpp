@@ -1,0 +1,135 @@
+// Leyline networks: independently seeded sacred alignments, and the fields they cast.
+//
+// Each school is its own network of key points and the lines between them. A cell's
+// potency in a school is how close it is to that network, saturated so overlapping
+// sources never run away. Where one school leads the rest by a clear margin, the
+// ground belongs to it — which is what later stages read to mutate biomes, site
+// colleges and decide what a region is.
+//
+// Eight KNOWN schools are the world's taxonomy. Four HIDDEN ones exist in the table but
+// generation can never raise them: their occurrence is locked to zero in the option
+// registry, and only the corruption API places a node in one. Their position matters
+// anyway — `dominant_magic` exports an index into this table.
+#pragma once
+
+#include <cstdint>
+#include <map>
+#include <span>
+#include <string>
+#include <string_view>
+#include <vector>
+
+#include "fwg/config.hpp"
+#include "fwg/grid.hpp"
+#include "fwg/vec3.hpp"
+
+namespace fwg {
+
+struct MagicSchool {
+    std::string_view name;
+    std::string_view group;        // Raw magic | Holy / unholy | Primordial | Outside
+    std::string_view descriptors;  // what the school is about, in words
+    int color[3];
+    bool hidden;  // generation never raises one of these
+};
+
+// In contract order: the known eight first, hidden schools appended.
+std::span<const MagicSchool> magic_school_table();
+
+// Index into that table, or -1.
+int magic_school_index(std::string_view name);
+
+struct LeyNode {
+    std::string id;
+    Vec3 direction;
+    double intensity = 0.0;
+};
+
+struct LeyEdge {
+    std::string id;
+    int from = 0;
+    int to = 0;
+    double intensity = 0.0;
+};
+
+// How the key points were scattered. Recorded because it is the only description of a
+// network's shape that survives into the world document.
+struct NetworkDistribution {
+    int version = 2;
+    std::vector<int> aligned_nodes;  // the three that share a straight spherical alignment
+    int clusters = 0;
+    double spread = 0.0;
+    double outlier_fraction = 0.0;
+    double extra_link_probability = 0.0;
+};
+
+struct LeyNetwork {
+    std::string name;
+    std::string group;
+    std::string descriptors;
+    int color[3] = {0, 0, 0};
+    std::uint32_t seed = 0;
+    double strength = 0.0;
+    double width_m = 0.0;
+    double instability = 0.0;
+    std::vector<LeyNode> nodes;
+    std::vector<LeyEdge> edges;
+    bool manifested = false;
+    NetworkDistribution distribution;
+
+    // Set by the astrology pass, and only for the known eight: a hidden school takes
+    // no surge because alien magic does not answer to this world's sky.
+    bool has_surge = false;
+    double surged_strength = 0.0;
+};
+
+struct MagicReport {
+    int version = 4;
+    bool enabled = false;
+    std::map<std::string, LeyNetwork> networks;
+    double mutation_threshold = 0.35;
+    double dominance_margin = 0.08;
+};
+
+// A great-circle arc, resolved once so distance queries against it are cheap.
+struct ArcFrame {
+    Vec3 a;
+    Vec3 b;
+    Vec3 tangent;
+    double angle = 0.0;
+};
+ArcFrame arc_frame(const Vec3& a, const Vec3& b);
+
+// Angular distance from p to the arc — to its interior if p projects onto it, to the
+// nearer endpoint otherwise.
+double distance_to_frame(const Vec3& p, const ArcFrame& frame);
+
+// Uneven seeded clusters, scattered outliers and independently variable links. Three
+// key points share a straight spherical alignment when there are at least three: a
+// fantasy reading of ley alignments, not a physical law.
+struct NetworkGeometry {
+    std::vector<Vec3> nodes;
+    std::vector<std::pair<int, int>> edges;
+    NetworkDistribution distribution;
+};
+NetworkGeometry network_geometry(std::uint32_t seed, int count);
+
+// The strongest school at a cell, or -1 where none leads clearly enough. `potencies`
+// is indexed by the school table.
+int dominant_school(const std::vector<double>& potencies, double threshold, double margin);
+
+// Physical radius of the reference world: design radius 10000 at the recipe scale.
+// School widths are authored against it and scale with the world, or a 110 m Gaussian
+// falls between raster cells on a 200 km planet and every magic field collapses to zero.
+inline constexpr double kReferenceRadiusM = 1774.4123532462844;
+
+struct World;
+
+// Lays down the networks, then evaluates their fields.
+void generate_networks(World& world);
+
+// Rebuilds only the magic-derived layers, leaving the network inputs alone — so an
+// editor can move a key point and see the fields follow without rerolling geometry.
+void evaluate_networks(World& world);
+
+}  // namespace fwg

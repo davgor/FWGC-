@@ -1,0 +1,15 @@
+{
+ "schema": "fwg.ley-destruction",
+ "schema_version": 1,
+ "note": "The sentence a city leaves behind when a leyline is what killed it, one per KNOWN school, extracted from LEY_DESTRUCTION in terrain_history.py at FantasyWorldGenerator b67c99b. terrain_history.city_fate and terrain_visitation both do causes.append((ley['school'], ley_pressure, LEY_DESTRUCTION[ley['school']], ley)), and the chosen cause's third element is published verbatim as world ruin `reason`. NOT AN RNG INPUT, IN ANY SENSE. The weight in that tuple is ley_pressure, computed by ley_threat_pressure; this string occupies slot 2 and the fate lottery never reads it. The lookup is by school NAME, so key order here is free -- unlike magic-schools.json, whose order is a hard contract. Changing a sentence changes the prose of a ruin and nothing else. ONLY THE EIGHT KNOWN SCHOOLS ARE KEYED, and that is not an oversight: generation can never raise a hidden school, so a hidden-school leyline never reaches this lookup. A port that widened it to all twelve would be adding dead rows. LEY_DESTRUCTION[school] is an unguarded subscript, so a missing key is a KeyError at generation, not a fallback. THE SIBLING FALL REASONS DELIBERATELY STAYED IN CODE and are not here: the nest reason is f-string built per nest (nest['name'] + ' drove the inhabitants away.' in fantasy_nest_threats), the villain reason interpolates a seat uid (terrain_villains.causes), and the self-magic and divine reasons are inline literals at their one call site. Port those with the code that builds them; this file is the one fall reason that is a table a writer could revise on its own.",
+ "reasons": {
+  "weave": "An arcane surge tore the city apart.",
+  "umbral": "Necrotic entropy extinguished the city.",
+  "infernal": "Infernal corruption and demonic incursions drove its people away.",
+  "radiant": "An overwhelming radiant surge forced the city to be abandoned.",
+  "fire": "A fire leyline engulfed the city in flames.",
+  "water": "A water leyline drowned or froze the city.",
+  "earth": "An earth leyline let roots and stone reclaim the city.",
+  "air": "An air leyline shattered the city with storms and force."
+ }
+}

@@ -1,0 +1,139 @@
+{
+ "schema": "fwg.magic-schools",
+ "schema_version": 1,
+ "note": "ORDER IS A CONTRACT. dominant_magic exports an index into this list and biome_variant indexes a catalogue built in this order, so the known eight keep positions 0-7 and hidden schools are APPENDED, never inserted. Generation can never raise a hidden school: its occurrence is locked to zero in the option registry and only the corruption API places a node in one. Extracted from FantasyWorldGenerator b67c99b.",
+ "schools": [
+  {
+   "name": "weave",
+   "group": "Raw magic",
+   "descriptors": "chaos, creation, creativity",
+   "color": [
+    166,
+    104,
+    214
+   ],
+   "hidden": false
+  },
+  {
+   "name": "umbral",
+   "group": "Raw magic",
+   "descriptors": "necrotic, entropy, death, order",
+   "color": [
+    72,
+    49,
+    35
+   ],
+   "hidden": false
+  },
+  {
+   "name": "infernal",
+   "group": "Holy / unholy",
+   "descriptors": "demons, hellscapes, corruption, evil",
+   "color": [
+    154,
+    43,
+    49
+   ],
+   "hidden": false
+  },
+  {
+   "name": "radiant",
+   "group": "Holy / unholy",
+   "descriptors": "holy, healing, order, peace, righteousness",
+   "color": [
+    225,
+    209,
+    133
+   ],
+   "hidden": false
+  },
+  {
+   "name": "fire",
+   "group": "Primordial",
+   "descriptors": "fire, heat, renewal, chaos",
+   "color": [
+    207,
+    86,
+    37
+   ],
+   "hidden": false
+  },
+  {
+   "name": "water",
+   "group": "Primordial",
+   "descriptors": "water, ice, currents, order",
+   "color": [
+    65,
+    156,
+    202
+   ],
+   "hidden": false
+  },
+  {
+   "name": "earth",
+   "group": "Primordial",
+   "descriptors": "nature, ground, stone, roots, order",
+   "color": [
+    67,
+    120,
+    51
+   ],
+   "hidden": false
+  },
+  {
+   "name": "air",
+   "group": "Primordial",
+   "descriptors": "wind, storms, chaos, force",
+   "color": [
+    176,
+    210,
+    213
+   ],
+   "hidden": false
+  },
+  {
+   "name": "blood",
+   "group": "Outside",
+   "descriptors": "sacrifice, lineage, vitality, hunger",
+   "color": [
+    140,
+    26,
+    38
+   ],
+   "hidden": true
+  },
+  {
+   "name": "void",
+   "group": "Outside",
+   "descriptors": "absence, entropy, unmaking, silence",
+   "color": [
+    26,
+    22,
+    40
+   ],
+   "hidden": true
+  },
+  {
+   "name": "rot",
+   "group": "Outside",
+   "descriptors": "disease, undeath, decay, rebirth",
+   "color": [
+    124,
+    130,
+    62
+   ],
+   "hidden": true
+  },
+  {
+   "name": "eldritch",
+   "group": "Outside",
+   "descriptors": "madness, wrong geometry, dominion of minds",
+   "color": [
+    62,
+    96,
+    92
+   ],
+   "hidden": true
+  }
+ ]
+}

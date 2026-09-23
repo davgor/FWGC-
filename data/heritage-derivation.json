@@ -1,0 +1,381 @@
+{
+ "schema": "fwg.heritage-derivation",
+ "schema_version": 1,
+ "note": "The rules that turn the seventeen key traits into a culture and a language genome. Pure lookup tables; no RNG reads this file directly, but three of its outputs ARE rng probabilities. Carried whole from heritage/policies/derivation.json.\n\nREAD BY: heritage/policy.py lint_derivation(); heritage/derive.py derive_culture() and derive_genome() via _apply_rule(). A rule is one of three shapes: {'copy': axis} lifts a trait verbatim, {'craft': 0|1} indexes the people's craft_focus list positionally, and {'from': axis, 'map': {...}} looks the trait's value up in a table.\n\nRNG INPUT: not itself walked, but genome.rates.*.map values become probabilities compared against draw.random() -- `third_syllable` in naming._draw_person (if draw.random() < rate: count += 1) and `cluster` in naming._syllable (twice: once for the onset cluster, once for the coda cluster). `loanword` is authored, validated to 0..1, published in every genome, and READ BY NOTHING; see the defect note below.\nLIST ORDER: there are no lists in this file. MAPPING order is FREE for every `map` (dict lookup). The `culture` and `genome` BLOCK and KEY order is not free in the weak sense that derive_culture()/derive_genome() build their result with a dict comprehension over this file's iteration order, so it is the key insertion order of the `culture` and `genome` blocks published in the world document. It does not reach the heritage sha256, which serialises with sort_keys=True.\n\nABSENCE THAT IS NOT EMPTINESS: there is no such thing as a defaulted mapping here. lint_derivation() requires every rule's `map` to name EVERY enum value of the axis it reads ('derivation has no rule for axis/value; every enum value must map') and rejects any key outside that axis. A missing entry is a load failure, never a fallback. The culture blocks must be exactly the six in policy.CULTURE_BLOCKS with exactly their keys. Culture values may not be numbers at all -- 'heritage culture carries no numbers' is enforced -- so a numeric-looking culture value is an authoring error, not a weight. genome_derived blocks are phonotactics, prosody, morphology, orthography, rates; derive_genome() then ADDS computed keys to three of them (phonotactics gains max_onset_cluster/max_coda_cluster/onset_clusters/coda_clusters/allowed_clusters, morphology gains word_order/affixing/patronymic, orthography gains digraphs), so the shipped genome block is wider than this file.\n\nThe heritage identity hash does NOT cover these bytes. heritage.heritage_identity() (heritage/derive.py:330) hashes the RESOLVED peoples instead -- resolved = {cid: _resolve(cid, parent) for cid, parent in sorted(pairs)}, then sha256 of json.dumps(resolved, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8'). That is a THIRD serialisation scheme in this codebase, distinct from both of the two you already have: registry_identity() (icarus_sim/civilization_registry.py:308) uses ensure_ascii=False, separators=(',', ':') and NO sort_keys, and castle_planner (icarus_sim/castle_planner.py:39) uses sort_keys=True, separators=(',', ':') and the ensure_ascii=True default. heritage is sort_keys=True AND ensure_ascii=False, so it agrees with neither on a non-ASCII string. sort_keys sorts MAPPING keys only -- it does not touch list element order, so every list marked a contract below also moves this digest. For the twelve civilizations the registry ships, in terrain_civilizations.civilization_report's pair order (tuple((key, entity_rules(key)['parent_race_id']) for key in civilization_ids()), which heritage_identity then sorts), the expected value at FantasyWorldGenerator b67c99b is sha256=9b708d23e468beb4c3f775415405b5aa8991f21c7d402aa200cd6aa99a0b2189 with revision={traits:1, derivation:1, lexicon:1, overrides:1, appearance:1}. `source_sha256` in this file is a plain digest of the source file's raw bytes, recorded for provenance only; nothing in the Python computes it.",
+ "source_identity": {
+  "source_path": "heritage/policies/derivation.json",
+  "source_schema": "fantasy-world-generator.heritage-derivation",
+  "revision": 1,
+  "source_sha256": "8207a9d77e11da5d3d5799700dce2eb2e2fa25a425c7f713efdfe1c9ccc99dbc",
+  "source_bytes": 8364
+ },
+ "source_note": "How the seventeen key traits become a culture and a language genome. Three rule kinds: copy takes an axis value verbatim, from/map looks it up, craft indexes craft_focus. Every map must be total over its axis enum, so adding an axis value cannot silently produce an empty culture. Culture carries no numbers; genome rates do, because a rate is what they are.",
+ "culture": {
+  "household": {
+   "unit": {
+    "copy": "kinship"
+   },
+   "inheritance": {
+    "from": "kinship",
+    "map": {
+     "nuclear_household": "divided_among_children",
+     "extended_clan": "hold_undivided",
+     "lineage_house": "house_entail",
+     "age_cohort": "cohort_commons",
+     "crew_and_berth": "hull_and_share",
+     "guild_family": "shop_and_tools"
+    }
+   },
+   "naming_pattern": {
+    "from": "kinship",
+    "map": {
+     "nuclear_household": "given_plus_father",
+     "extended_clan": "given_plus_clan",
+     "lineage_house": "given_plus_house",
+     "age_cohort": "given_plus_cohort",
+     "crew_and_berth": "given_plus_vessel",
+     "guild_family": "given_plus_workshop"
+    }
+   },
+   "marriage_move": {
+    "from": "kinship",
+    "map": {
+     "nuclear_household": "new_household",
+     "extended_clan": "to_the_hold",
+     "lineage_house": "to_the_elder_house",
+     "age_cohort": "within_the_cohort",
+     "crew_and_berth": "to_either_deck",
+     "guild_family": "to_the_bench"
+    }
+   }
+  },
+  "governance": {
+   "seat": {
+    "copy": "authority"
+   },
+   "succession": {
+    "from": "authority",
+    "map": {
+     "elder_council": "seniority",
+     "hereditary_lord": "eldest_of_the_line",
+     "guild_assembly": "elected_term",
+     "acclaimed_war_leader": "acclaimed_in_the_field",
+     "temple_seat": "chosen_by_omen",
+     "consensus_moot": "acclaimed_each_moot"
+    }
+   },
+   "law_form": {
+    "from": "memory_mode",
+    "map": {
+     "oral_formulaic": "spoken_precedent",
+     "sung_lineage": "sung_precedent",
+     "written_archive": "written_code",
+     "carved_record": "carved_statute",
+     "ledger_and_seal": "written_charter"
+    }
+   },
+   "assembly": {
+    "from": "mobility",
+    "map": {
+     "rooted": "winter_court",
+     "seasonal_transhumance": "gathering_at_the_move",
+     "voyaging": "landing_moot",
+     "caravan": "caravanserai_council",
+     "frontier_expanding": "county_assize"
+    }
+   }
+  },
+  "livelihood": {
+   "primary": {
+    "craft": 0
+   },
+   "secondary": {
+    "craft": 1
+   },
+   "exchange": {
+    "from": "outsiders",
+    "map": {
+     "hostile": "weighed_barter",
+     "wary": "weighed_barter",
+     "transactional": "coin_and_tally",
+     "hospitable": "share_and_gift",
+     "assimilating": "coin_and_credit"
+    }
+   },
+   "calendar": {
+    "from": "mobility",
+    "map": {
+     "rooted": "two_season_dark_and_thaw",
+     "seasonal_transhumance": "drive_and_return",
+     "voyaging": "tide_and_run",
+     "caravan": "market_quarters",
+     "frontier_expanding": "sowing_and_harvest"
+    }
+   }
+  },
+  "memory": {
+   "record": {
+    "copy": "memory_mode"
+   },
+   "teaching": {
+    "from": "lifespan_tempo",
+    "map": {
+     "brief": "short_apprenticeship",
+     "human": "indentured_apprenticeship",
+     "long": "hold_apprenticeship",
+     "ancient": "lifelong_fostering"
+    }
+   },
+   "oath_form": {
+    "from": "memory_mode",
+    "map": {
+     "oral_formulaic": "spoken_before_witnesses",
+     "sung_lineage": "sung_before_kin",
+     "written_archive": "signed_and_witnessed",
+     "carved_record": "cut_into_the_lintel",
+     "ledger_and_seal": "signed_and_sealed"
+    }
+   },
+   "taboo": {
+    "from": "magic_stance",
+    "map": {
+     "untrained": "speaking_to_the_unseen",
+     "ritual_communal": "rite_out_of_season",
+     "scholarly_licensed": "unlicensed_practice",
+     "inherited_bloodline": "teaching_the_bloodless",
+     "taboo_avoidant": "the_worked_word",
+     "bargained_with": "breaking_the_terms"
+    }
+   }
+  },
+  "contact": {
+   "stranger_rite": {
+    "from": "outsiders",
+    "map": {
+     "hostile": "gate_challenge",
+     "wary": "threshold_question",
+     "transactional": "open_counter",
+     "hospitable": "bread_and_seat",
+     "assimilating": "named_as_kin"
+    }
+   },
+   "trade_stance": {
+    "copy": "outsiders"
+   },
+   "war_stance": {
+    "from": "authority",
+    "map": {
+     "elder_council": "defend_the_grove",
+     "hereditary_lord": "hold_and_deny",
+     "guild_assembly": "paid_levy",
+     "acclaimed_war_leader": "raid_and_withdraw",
+     "temple_seat": "sanctioned_war",
+     "consensus_moot": "muster_and_disperse"
+    }
+   }
+  },
+  "faith": {
+   "school": {
+    "copy": "magic_school"
+   },
+   "practice": {
+    "copy": "magic_stance"
+   },
+   "site": {
+    "from": "magic_school",
+    "map": {
+     "weave": "chartered_college",
+     "umbral": "unlit_vault",
+     "infernal": "warded_pit",
+     "radiant": "sun_terrace",
+     "fire": "ember_hearth",
+     "water": "tideline_stone",
+     "earth": "deep_cairn",
+     "air": "wind_gallery"
+    }
+   },
+   "festival": {
+    "from": "magic_stance",
+    "map": {
+     "untrained": "harvest_thanks",
+     "ritual_communal": "the_long_rite",
+     "scholarly_licensed": "charter_day",
+     "inherited_bloodline": "the_naming_of_lines",
+     "taboo_avoidant": "the_quiet_week",
+     "bargained_with": "the_terms_renewed"
+    }
+   }
+  }
+ },
+ "genome": {
+  "phonotactics": {
+   "syllable": {
+    "from": "speech_environment",
+    "map": {
+     "open_plain": "(C)(C)V(C)",
+     "surf": "(C)V(V)(N)",
+     "forest": "(C)V(C)",
+     "stone_hall": "(C)V(C)",
+     "wind_scoured": "(C)V(C)(C)",
+     "humid_canopy": "(C)V(N)",
+     "market_din": "(C)(C)V(C)",
+     "terraced_valley": "(C)V(C)"
+    }
+   },
+   "vowel_length": {
+    "from": "breath_capacity",
+    "map": {
+     "short": "none",
+     "steady": "none",
+     "deep": "none",
+     "sustained": "contrastive"
+    }
+   },
+   "hiatus": {
+    "from": "breath_capacity",
+    "map": {
+     "short": "forbidden",
+     "steady": "allowed",
+     "deep": "forbidden",
+     "sustained": "preferred"
+    }
+   },
+   "geminates": {
+    "from": "speech_environment",
+    "map": {
+     "open_plain": false,
+     "surf": false,
+     "forest": false,
+     "stone_hall": true,
+     "wind_scoured": true,
+     "humid_canopy": false,
+     "market_din": false,
+     "terraced_valley": true
+    }
+   }
+  },
+  "prosody": {
+   "stress": {
+    "from": "carrying_register",
+    "map": {
+     "quiet": "penultimate",
+     "conversational": "initial",
+     "carrying": "initial",
+     "calling": "penultimate"
+    }
+   },
+   "tone": {
+    "from": "speech_environment",
+    "map": {
+     "open_plain": "none",
+     "surf": "none",
+     "forest": "none",
+     "stone_hall": "none",
+     "wind_scoured": "none",
+     "humid_canopy": "register",
+     "market_din": "none",
+     "terraced_valley": "register"
+    }
+   },
+   "word_shape": {
+    "from": "breath_capacity",
+    "map": {
+     "short": "monosyllabic_heavy",
+     "steady": "disyllabic",
+     "deep": "disyllabic",
+     "sustained": "trisyllabic_flowing"
+    }
+   }
+  },
+  "morphology": {
+   "compounding": {
+    "from": "memory_mode",
+    "map": {
+     "oral_formulaic": "light",
+     "sung_lineage": "light",
+     "written_archive": "moderate",
+     "carved_record": "heavy",
+     "ledger_and_seal": "heavy"
+    }
+   },
+   "honorific": {
+    "from": "authority",
+    "map": {
+     "elder_council": "age_suffix",
+     "hereditary_lord": "title_prefix",
+     "guild_assembly": "rank_suffix",
+     "acclaimed_war_leader": "deed_epithet",
+     "temple_seat": "sacred_prefix",
+     "consensus_moot": "none"
+    }
+   },
+   "call_form": {
+    "from": "carrying_register",
+    "map": {
+     "quiet": false,
+     "conversational": false,
+     "carrying": true,
+     "calling": true
+    }
+   }
+  },
+  "orthography": {
+   "script_form": {
+    "from": "writing_surface",
+    "map": {
+     "none": "unwritten",
+     "knot_and_cord": "knotted_cord",
+     "incised_stone": "angular_rune",
+     "carved_wood": "notched_stave",
+     "inked_hide": "round_hand",
+     "pressed_fibre_paper": "cursive_nib"
+    }
+   },
+   "direction": {
+    "from": "writing_surface",
+    "map": {
+     "none": "unwritten",
+     "knot_and_cord": "strand_order",
+     "incised_stone": "vertical_column",
+     "carved_wood": "boustrophedon",
+     "inked_hide": "left_to_right",
+     "pressed_fibre_paper": "left_to_right"
+    }
+   }
+  },
+  "rates": {
+   "third_syllable": {
+    "from": "breath_capacity",
+    "map": {
+     "short": 0.1,
+     "steady": 0.35,
+     "deep": 0.3,
+     "sustained": 0.7
+    }
+   },
+   "cluster": {
+    "from": "speech_environment",
+    "map": {
+     "open_plain": 0.3,
+     "surf": 0.05,
+     "forest": 0.15,
+     "stone_hall": 0.2,
+     "wind_scoured": 0.55,
+     "humid_canopy": 0.05,
+     "market_din": 0.4,
+     "terraced_valley": 0.2
+    }
+   },
+   "loanword": {
+    "from": "outsiders",
+    "map": {
+     "hostile": 0.05,
+     "wary": 0.15,
+     "transactional": 0.3,
+     "hospitable": 0.3,
+     "assimilating": 0.45
+    }
+   }
+  }
+ }
+}

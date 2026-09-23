@@ -1,0 +1,1483 @@
+{
+ "note": "The world_options control surface: every knob a request may set that is not a Config field. Taken from the live OPTIONS table (which generates its per-region and per-network entries) cross-checked against the exported world-controls-v1.json, at FantasyWorldGenerator b67c99b. Order here is alphabetical and carries no contract.",
+ "options": {
+  "air_capacity": {
+   "default": 2.0,
+   "description": "Monthly air shipment ceiling",
+   "group": "Transport",
+   "max": 100.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "food units/month"
+  },
+  "air_instability": {
+   "default": 0.2,
+   "description": "Instability independent of density",
+   "group": "Air",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "air_nodes": {
+   "default": 8,
+   "description": "Independent ley node count",
+   "group": "Air",
+   "max": 24,
+   "min": 3,
+   "type": "integer",
+   "units": "nodes"
+  },
+  "air_occurrence": {
+   "default": 1.0,
+   "description": "Probability this magical network manifests",
+   "group": "Air",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "air_reach": {
+   "default": 4500.0,
+   "description": "Maximum air route length",
+   "group": "Transport",
+   "max": 50000.0,
+   "min": 100.0,
+   "type": "number",
+   "units": "m"
+  },
+  "air_strength": {
+   "default": 0.7,
+   "description": "Magical influence amplitude",
+   "group": "Air",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "air_variation": {
+   "default": 0,
+   "description": "Independent network seed variation",
+   "group": "Air",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "air_width": {
+   "default": 110.0,
+   "description": "Gaussian influence reach",
+   "group": "Air",
+   "max": 2000.0,
+   "min": 10.0,
+   "type": "number",
+   "units": "m"
+  },
+  "animal_density": {
+   "default": 4.5,
+   "description": "Tier one animal groups per square kilometre of land, and again per square kilometre of water; higher tiers follow the pyramid",
+   "group": "Beast nests",
+   "max": 40.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "groups/km2"
+  },
+  "animal_tier_falloff": {
+   "default": 4.0,
+   "description": "How much rarer each animal danger tier is than the one below it",
+   "group": "Beast nests",
+   "max": 8.0,
+   "min": 1.5,
+   "type": "number",
+   "units": "relative"
+  },
+  "archipelago_count": {
+   "default": 5,
+   "description": "Candidate oceanic island clusters",
+   "group": "Ocean islands",
+   "max": 16,
+   "min": 0,
+   "type": "integer",
+   "units": "clusters"
+  },
+  "archipelago_extent": {
+   "default": 1.0,
+   "description": "Cluster footprint multiplier",
+   "group": "Ocean islands",
+   "max": 3.0,
+   "min": 0.3,
+   "type": "number",
+   "units": "relative"
+  },
+  "archipelago_occurrence": {
+   "default": 0.8,
+   "description": "Probability each candidate cluster manifests",
+   "group": "Ocean islands",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "atoll_weight": {
+   "default": 1.0,
+   "description": "Relative chance of reef islands and atolls",
+   "group": "Ocean islands",
+   "max": 5.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "beast_movement_share": {
+   "default": 1.0,
+   "description": "Share of eligible creature sites that become travelling groups; wildlife is dense enough that routing every one is mostly volume",
+   "group": "Nomads",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "blood_instability": {
+   "default": 0.8,
+   "description": "Instability independent of density",
+   "group": "Blood",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "blood_nodes": {
+   "default": 8,
+   "description": "Independent ley node count",
+   "group": "Blood",
+   "max": 24,
+   "min": 3,
+   "type": "integer",
+   "units": "nodes"
+  },
+  "blood_occurrence": {
+   "default": 0.0,
+   "description": "Locked at zero: a hidden school cannot manifest during generation",
+   "group": "Blood",
+   "max": 0.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "blood_strength": {
+   "default": 1.15,
+   "description": "Magical influence amplitude",
+   "group": "Blood",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "blood_variation": {
+   "default": 0,
+   "description": "Independent network seed variation",
+   "group": "Blood",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "blood_width": {
+   "default": 110.0,
+   "description": "Gaussian influence reach",
+   "group": "Blood",
+   "max": 2000.0,
+   "min": 10.0,
+   "type": "number",
+   "units": "m"
+  },
+  "coastal_hamlets": {
+   "default": 2,
+   "description": "Maximum additional coastal support hamlets per city",
+   "group": "Coasts",
+   "max": 4,
+   "min": 0,
+   "type": "integer",
+   "units": "hamlets"
+  },
+  "cold_island_weight": {
+   "default": 1.0,
+   "description": "Relative chance of cold archipelagos",
+   "group": "Ocean islands",
+   "max": 5.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "continental_island_weight": {
+   "default": 1.0,
+   "description": "Relative chance of continental fragments",
+   "group": "Ocean islands",
+   "max": 5.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "crystal_extent": {
+   "default": 0.22,
+   "description": "crystal angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "crystal_intensity": {
+   "default": 0.8,
+   "description": "How strongly the crystal character is expressed where it manifests. Paired with crystal_occurrence, which decides whether it appears at all, and crystal_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "crystal_occurrence": {
+   "default": 0.55,
+   "description": "crystal manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "dead_sea_extent": {
+   "default": 0.22,
+   "description": "dead sea angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "dead_sea_intensity": {
+   "default": 0.8,
+   "description": "How strongly the dead sea character is expressed where it manifests. Paired with dead_sea_occurrence, which decides whether it appears at all, and dead_sea_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "dead_sea_occurrence": {
+   "default": 0.55,
+   "description": "dead sea manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "demonic_extent": {
+   "default": 0.22,
+   "description": "demonic angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "demonic_intensity": {
+   "default": 0.8,
+   "description": "How strongly the demonic character is expressed where it manifests. Paired with demonic_occurrence, which decides whether it appears at all, and demonic_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "demonic_occurrence": {
+   "default": 0.55,
+   "description": "demonic manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "draconic_extent": {
+   "default": 0.22,
+   "description": "draconic angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "draconic_intensity": {
+   "default": 0.8,
+   "description": "How strongly the draconic character is expressed where it manifests. Paired with draconic_occurrence, which decides whether it appears at all, and draconic_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "draconic_occurrence": {
+   "default": 0.55,
+   "description": "draconic manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "earth_instability": {
+   "default": 0.2,
+   "description": "Instability independent of density",
+   "group": "Earth",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "earth_nodes": {
+   "default": 8,
+   "description": "Independent ley node count",
+   "group": "Earth",
+   "max": 24,
+   "min": 3,
+   "type": "integer",
+   "units": "nodes"
+  },
+  "earth_occurrence": {
+   "default": 1.0,
+   "description": "Probability this magical network manifests",
+   "group": "Earth",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "earth_strength": {
+   "default": 0.7,
+   "description": "Magical influence amplitude",
+   "group": "Earth",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "earth_variation": {
+   "default": 0,
+   "description": "Independent network seed variation",
+   "group": "Earth",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "earth_width": {
+   "default": 110.0,
+   "description": "Gaussian influence reach",
+   "group": "Earth",
+   "max": 2000.0,
+   "min": 10.0,
+   "type": "number",
+   "units": "m"
+  },
+  "eldritch_instability": {
+   "default": 0.8,
+   "description": "Instability independent of density",
+   "group": "Eldritch",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "eldritch_nodes": {
+   "default": 8,
+   "description": "Independent ley node count",
+   "group": "Eldritch",
+   "max": 24,
+   "min": 3,
+   "type": "integer",
+   "units": "nodes"
+  },
+  "eldritch_occurrence": {
+   "default": 0.0,
+   "description": "Locked at zero: a hidden school cannot manifest during generation",
+   "group": "Eldritch",
+   "max": 0.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "eldritch_strength": {
+   "default": 1.15,
+   "description": "Magical influence amplitude",
+   "group": "Eldritch",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "eldritch_variation": {
+   "default": 0,
+   "description": "Independent network seed variation",
+   "group": "Eldritch",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "eldritch_width": {
+   "default": 110.0,
+   "description": "Gaussian influence reach",
+   "group": "Eldritch",
+   "max": 2000.0,
+   "min": 10.0,
+   "type": "number",
+   "units": "m"
+  },
+  "enchanted_extent": {
+   "default": 0.22,
+   "description": "enchanted angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "enchanted_intensity": {
+   "default": 0.8,
+   "description": "How strongly the enchanted character is expressed where it manifests. Paired with enchanted_occurrence, which decides whether it appears at all, and enchanted_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "enchanted_occurrence": {
+   "default": 0.55,
+   "description": "enchanted manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "fire_instability": {
+   "default": 0.2,
+   "description": "Instability independent of density",
+   "group": "Fire",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "fire_nodes": {
+   "default": 8,
+   "description": "Independent ley node count",
+   "group": "Fire",
+   "max": 24,
+   "min": 3,
+   "type": "integer",
+   "units": "nodes"
+  },
+  "fire_occurrence": {
+   "default": 1.0,
+   "description": "Probability this magical network manifests",
+   "group": "Fire",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "fire_strength": {
+   "default": 0.7,
+   "description": "Magical influence amplitude",
+   "group": "Fire",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "fire_variation": {
+   "default": 0,
+   "description": "Independent network seed variation",
+   "group": "Fire",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "fire_width": {
+   "default": 110.0,
+   "description": "Gaussian influence reach",
+   "group": "Fire",
+   "max": 2000.0,
+   "min": 10.0,
+   "type": "number",
+   "units": "m"
+  },
+  "fish_productivity": {
+   "default": 60.0,
+   "description": "Annual productive marine food yield",
+   "group": "Coasts",
+   "max": 200.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "food units/km\u00b2/year"
+  },
+  "fishing_reach": {
+   "default": 700.0,
+   "description": "Ordinary coastal vessel harvesting reach",
+   "group": "Coasts",
+   "max": 4000.0,
+   "min": 50.0,
+   "type": "number",
+   "units": "m"
+  },
+  "fungal_extent": {
+   "default": 0.22,
+   "description": "fungal angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "fungal_intensity": {
+   "default": 0.8,
+   "description": "How strongly the fungal character is expressed where it manifests. Paired with fungal_occurrence, which decides whether it appears at all, and fungal_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "fungal_occurrence": {
+   "default": 0.55,
+   "description": "fungal manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "haunted_marsh_extent": {
+   "default": 0.22,
+   "description": "haunted marsh angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "haunted_marsh_intensity": {
+   "default": 0.8,
+   "description": "How strongly the haunted marsh character is expressed where it manifests. Paired with haunted_marsh_occurrence, which decides whether it appears at all, and haunted_marsh_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "haunted_marsh_occurrence": {
+   "default": 0.55,
+   "description": "haunted marsh manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "haunted_sands_extent": {
+   "default": 0.22,
+   "description": "haunted sands angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "haunted_sands_intensity": {
+   "default": 0.8,
+   "description": "How strongly the haunted sands character is expressed where it manifests. Paired with haunted_sands_occurrence, which decides whether it appears at all, and haunted_sands_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "haunted_sands_occurrence": {
+   "default": 0.55,
+   "description": "haunted sands manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "ice_accumulation": {
+   "default": 0.5,
+   "description": "Moisture required for persistent land ice",
+   "group": "Cold",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "infernal_instability": {
+   "default": 0.65,
+   "description": "Instability independent of density",
+   "group": "Infernal",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "infernal_nodes": {
+   "default": 8,
+   "description": "Independent ley node count",
+   "group": "Infernal",
+   "max": 24,
+   "min": 3,
+   "type": "integer",
+   "units": "nodes"
+  },
+  "infernal_occurrence": {
+   "default": 1.0,
+   "description": "Probability this magical network manifests",
+   "group": "Infernal",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "infernal_strength": {
+   "default": 0.45,
+   "description": "Magical influence amplitude",
+   "group": "Infernal",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "infernal_variation": {
+   "default": 0,
+   "description": "Independent network seed variation",
+   "group": "Infernal",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "infernal_width": {
+   "default": 110.0,
+   "description": "Gaussian influence reach",
+   "group": "Infernal",
+   "max": 2000.0,
+   "min": 10.0,
+   "type": "number",
+   "units": "m"
+  },
+  "island_radius": {
+   "default": 0.035,
+   "description": "Typical island radius / planet radius",
+   "group": "Ocean islands",
+   "max": 0.1,
+   "min": 0.008,
+   "type": "number",
+   "units": "relative"
+  },
+  "island_spacing": {
+   "default": 2.5,
+   "description": "Spacing relative to island radius",
+   "group": "Ocean islands",
+   "max": 6.0,
+   "min": 1.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "islands_per_cluster": {
+   "default": 5,
+   "description": "Islands in each manifested cluster",
+   "group": "Ocean islands",
+   "max": 12,
+   "min": 1,
+   "type": "integer",
+   "units": "islands"
+  },
+  "lunar_influence": {
+   "default": 0.5,
+   "description": "How strongly lunar surges sway the age lottery; zero leaves the moon a spectator",
+   "group": "Moon",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "metal_abundance": {
+   "default": 1.0,
+   "description": "Overall geological metal richness multiplier",
+   "group": "Geography",
+   "max": 2.0,
+   "min": 0.1,
+   "type": "number",
+   "units": "relative"
+  },
+  "monster_density": {
+   "default": 0.53,
+   "description": "Tier one monster lairs per square kilometre of land, and again per square kilometre of water; higher tiers follow the pyramid",
+   "group": "Beast nests",
+   "max": 40.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "lairs/km2"
+  },
+  "monster_tier_falloff": {
+   "default": 2.0,
+   "description": "How much rarer each monster danger tier is; gentler than the animal pyramid so a greater lair is an event rather than a rumour, and the smallest world can still hold one",
+   "group": "Beast nests",
+   "max": 8.0,
+   "min": 1.5,
+   "type": "number",
+   "units": "relative"
+  },
+  "moon_nod_days": {
+   "default": 0,
+   "description": "Nod cycle in days (which hemisphere leans in); zero lets the seed choose 17..37",
+   "group": "Moon",
+   "max": 37,
+   "min": 0,
+   "type": "integer",
+   "units": "days"
+  },
+  "moon_spin_days": {
+   "default": 0,
+   "description": "Spin cycle in days (which meridian faces the world); zero lets the seed choose 15..63",
+   "group": "Moon",
+   "max": 63,
+   "min": 0,
+   "type": "integer",
+   "units": "days"
+  },
+  "moon_synodic_days": {
+   "default": 0,
+   "description": "Phase cycle in days; zero lets the seed choose 26..34",
+   "group": "Moon",
+   "max": 34,
+   "min": 0,
+   "type": "integer",
+   "units": "days"
+  },
+  "moon_tilt_degrees": {
+   "default": 0.0,
+   "description": "Maximum lean of the moon toward the world; zero lets the seed choose 10..35",
+   "group": "Moon",
+   "max": 35.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "degrees"
+  },
+  "moon_variation": {
+   "default": 0,
+   "description": "Independent moon seed variation",
+   "group": "Moon",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "mountain_abundance": {
+   "default": 1.3,
+   "description": "Width of mountain collision belts relative to the legacy model",
+   "group": "Geography",
+   "max": 2.0,
+   "min": 0.25,
+   "type": "number",
+   "units": "relative"
+  },
+  "nest_density": {
+   "default": 1.0,
+   "description": "Overall creature density multiplier; zero empties the world",
+   "group": "Beast nests",
+   "max": 3.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "nest_fantasy": {
+   "default": 1.0,
+   "description": "Monster density multiplier; zero leaves only animals",
+   "group": "Beast nests",
+   "max": 3.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "nest_limit": {
+   "default": 0,
+   "description": "Hard cap on habitat anchors per pass; zero lets the ground decide",
+   "group": "Beast nests",
+   "max": 20000,
+   "min": 0,
+   "type": "integer",
+   "units": "anchors"
+  },
+  "nest_min_suitability": {
+   "default": 0.3,
+   "description": "Minimum weighted habitat suitability",
+   "group": "Beast nests",
+   "max": 0.95,
+   "min": 0.05,
+   "type": "number",
+   "units": "relative"
+  },
+  "nest_per_species": {
+   "default": 0,
+   "description": "Cap on anchors for one species; zero lets density decide",
+   "group": "Beast nests",
+   "max": 64,
+   "min": 0,
+   "type": "integer",
+   "units": "anchors"
+  },
+  "nest_settlement_clearance": {
+   "default": 250.0,
+   "description": "Minimum distance from settled anchors on the same layer",
+   "group": "Beast nests",
+   "max": 3000.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "m"
+  },
+  "nest_spacing": {
+   "default": 1.0,
+   "description": "Same-species territory spacing multiplier",
+   "group": "Beast nests",
+   "max": 4.0,
+   "min": 0.25,
+   "type": "number",
+   "units": "relative"
+  },
+  "nest_variation": {
+   "default": 0,
+   "description": "Independent nest seed variation",
+   "group": "Beast nests",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "nomad_density": {
+   "default": 18.0,
+   "description": "Candidate bands per thousand square kilometres of habitable land",
+   "group": "Nomads",
+   "max": 200.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "bands/1000km2"
+  },
+  "nomad_occurrence": {
+   "default": 1.0,
+   "description": "Overall multiplier on travelling bands; zero leaves the world settled",
+   "group": "Nomads",
+   "max": 3.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "nomad_variation": {
+   "default": 0,
+   "description": "Independent nomad seed variation",
+   "group": "Nomads",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "pirate_extent": {
+   "default": 0.22,
+   "description": "pirate angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "pirate_intensity": {
+   "default": 0.8,
+   "description": "How strongly the pirate character is expressed where it manifests. Paired with pirate_occurrence, which decides whether it appears at all, and pirate_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "pirate_occurrence": {
+   "default": 0.55,
+   "description": "pirate manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "radiant_instability": {
+   "default": 0.2,
+   "description": "Instability independent of density",
+   "group": "Radiant",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "radiant_nodes": {
+   "default": 8,
+   "description": "Independent ley node count",
+   "group": "Radiant",
+   "max": 24,
+   "min": 3,
+   "type": "integer",
+   "units": "nodes"
+  },
+  "radiant_occurrence": {
+   "default": 1.0,
+   "description": "Probability this magical network manifests",
+   "group": "Radiant",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "radiant_strength": {
+   "default": 0.7,
+   "description": "Magical influence amplitude",
+   "group": "Radiant",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "radiant_variation": {
+   "default": 0,
+   "description": "Independent network seed variation",
+   "group": "Radiant",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "radiant_width": {
+   "default": 110.0,
+   "description": "Gaussian influence reach",
+   "group": "Radiant",
+   "max": 2000.0,
+   "min": 10.0,
+   "type": "number",
+   "units": "m"
+  },
+  "red_sands_extent": {
+   "default": 0.22,
+   "description": "red sands angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "red_sands_intensity": {
+   "default": 0.8,
+   "description": "How strongly the red sands character is expressed where it manifests. Paired with red_sands_occurrence, which decides whether it appears at all, and red_sands_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "red_sands_occurrence": {
+   "default": 0.55,
+   "description": "red sands manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "rot_instability": {
+   "default": 0.8,
+   "description": "Instability independent of density",
+   "group": "Rot",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "rot_nodes": {
+   "default": 8,
+   "description": "Independent ley node count",
+   "group": "Rot",
+   "max": 24,
+   "min": 3,
+   "type": "integer",
+   "units": "nodes"
+  },
+  "rot_occurrence": {
+   "default": 0.0,
+   "description": "Locked at zero: a hidden school cannot manifest during generation",
+   "group": "Rot",
+   "max": 0.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "rot_strength": {
+   "default": 1.15,
+   "description": "Magical influence amplitude",
+   "group": "Rot",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "rot_variation": {
+   "default": 0,
+   "description": "Independent network seed variation",
+   "group": "Rot",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "rot_width": {
+   "default": 110.0,
+   "description": "Gaussian influence reach",
+   "group": "Rot",
+   "max": 2000.0,
+   "min": 10.0,
+   "type": "number",
+   "units": "m"
+  },
+  "salinity": {
+   "default": 0.65,
+   "description": "Arid lake salinization strength",
+   "group": "Coasts",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "sea_capacity": {
+   "default": 8.0,
+   "description": "Monthly sea shipment ceiling",
+   "group": "Transport",
+   "max": 100.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "food units/month"
+  },
+  "sea_draft": {
+   "default": 1.0,
+   "description": "Minimum navigable water depth",
+   "group": "Transport",
+   "max": 10.0,
+   "min": 0.1,
+   "type": "number",
+   "units": "m"
+  },
+  "sea_reach": {
+   "default": 6000.0,
+   "description": "Maximum navigable sea route length",
+   "group": "Transport",
+   "max": 50000.0,
+   "min": 100.0,
+   "type": "number",
+   "units": "m"
+  },
+  "seasonality": {
+   "default": 1.0,
+   "description": "Latitude-dependent temperature seasonality",
+   "group": "Cold",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "sky_altitude": {
+   "default": 450.0,
+   "description": "Island altitude above local ground or sea",
+   "group": "Sky",
+   "max": 2500.0,
+   "min": 100.0,
+   "type": "number",
+   "units": "m"
+  },
+  "sky_clusters": {
+   "default": 0,
+   "description": "Candidate elevated archipelagos",
+   "group": "Sky",
+   "max": 0,
+   "min": 0,
+   "type": "integer",
+   "units": "clusters"
+  },
+  "sky_occurrence": {
+   "default": 0.0,
+   "description": "Probability a magically supported cluster manifests",
+   "group": "Sky",
+   "max": 0.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "sky_radius": {
+   "default": 180.0,
+   "description": "Typical independent island surface radius",
+   "group": "Sky",
+   "max": 600.0,
+   "min": 40.0,
+   "type": "number",
+   "units": "m"
+  },
+  "starlight_lakes_extent": {
+   "default": 0.22,
+   "description": "starlight lakes angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "starlight_lakes_intensity": {
+   "default": 0.8,
+   "description": "How strongly the starlight lakes character is expressed where it manifests. Paired with starlight_lakes_occurrence, which decides whether it appears at all, and starlight_lakes_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "starlight_lakes_occurrence": {
+   "default": 0.55,
+   "description": "starlight lakes manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "steampunk_extent": {
+   "default": 0.22,
+   "description": "steampunk angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "steampunk_intensity": {
+   "default": 0.8,
+   "description": "How strongly the steampunk character is expressed where it manifests. Paired with steampunk_occurrence, which decides whether it appears at all, and steampunk_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "steampunk_occurrence": {
+   "default": 0.55,
+   "description": "steampunk manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "umbral_instability": {
+   "default": 0.2,
+   "description": "Instability independent of density",
+   "group": "Umbral",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "umbral_nodes": {
+   "default": 8,
+   "description": "Independent ley node count",
+   "group": "Umbral",
+   "max": 24,
+   "min": 3,
+   "type": "integer",
+   "units": "nodes"
+  },
+  "umbral_occurrence": {
+   "default": 1.0,
+   "description": "Probability this magical network manifests",
+   "group": "Umbral",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "umbral_strength": {
+   "default": 0.45,
+   "description": "Magical influence amplitude",
+   "group": "Umbral",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "umbral_variation": {
+   "default": 0,
+   "description": "Independent network seed variation",
+   "group": "Umbral",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "umbral_width": {
+   "default": 110.0,
+   "description": "Gaussian influence reach",
+   "group": "Umbral",
+   "max": 2000.0,
+   "min": 10.0,
+   "type": "number",
+   "units": "m"
+  },
+  "villain_density": {
+   "default": 3.0,
+   "description": "Cultural regions per villain permitted at or above the band; the rest stall just beneath it",
+   "group": "Communities",
+   "max": 12.0,
+   "min": 1.0,
+   "type": "number",
+   "units": "regions"
+  },
+  "villain_hold": {
+   "default": 0.7,
+   "description": "Tier a seated villain falls below to lose the world; under the rise band, so a reign is long once established",
+   "group": "Communities",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "villain_rise": {
+   "default": 0.5,
+   "description": "Share of a region's concentrated turmoil that becomes villain tier each age; zero raises none and writes no villains block",
+   "group": "Communities",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "void_instability": {
+   "default": 0.8,
+   "description": "Instability independent of density",
+   "group": "Void",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "void_nodes": {
+   "default": 8,
+   "description": "Independent ley node count",
+   "group": "Void",
+   "max": 24,
+   "min": 3,
+   "type": "integer",
+   "units": "nodes"
+  },
+  "void_occurrence": {
+   "default": 0.0,
+   "description": "Locked at zero: a hidden school cannot manifest during generation",
+   "group": "Void",
+   "max": 0.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "void_strength": {
+   "default": 1.15,
+   "description": "Magical influence amplitude",
+   "group": "Void",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "void_variation": {
+   "default": 0,
+   "description": "Independent network seed variation",
+   "group": "Void",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "void_width": {
+   "default": 110.0,
+   "description": "Gaussian influence reach",
+   "group": "Void",
+   "max": 2000.0,
+   "min": 10.0,
+   "type": "number",
+   "units": "m"
+  },
+  "volcanic_island_weight": {
+   "default": 1.0,
+   "description": "Relative chance of volcanic island chains",
+   "group": "Ocean islands",
+   "max": 5.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "war_survival": {
+   "default": 0.0,
+   "description": "Chance a defeated city survives a war as its victor's vassal instead of a ruin; zero keeps every loser a ruin",
+   "group": "Communities",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "water_instability": {
+   "default": 0.2,
+   "description": "Instability independent of density",
+   "group": "Water",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "water_nodes": {
+   "default": 8,
+   "description": "Independent ley node count",
+   "group": "Water",
+   "max": 24,
+   "min": 3,
+   "type": "integer",
+   "units": "nodes"
+  },
+  "water_occurrence": {
+   "default": 1.0,
+   "description": "Probability this magical network manifests",
+   "group": "Water",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "water_strength": {
+   "default": 0.7,
+   "description": "Magical influence amplitude",
+   "group": "Water",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "water_variation": {
+   "default": 0,
+   "description": "Independent network seed variation",
+   "group": "Water",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "water_width": {
+   "default": 110.0,
+   "description": "Gaussian influence reach",
+   "group": "Water",
+   "max": 2000.0,
+   "min": 10.0,
+   "type": "number",
+   "units": "m"
+  },
+  "weave_instability": {
+   "default": 0.2,
+   "description": "Instability independent of density",
+   "group": "Weave",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "weave_nodes": {
+   "default": 8,
+   "description": "Independent ley node count",
+   "group": "Weave",
+   "max": 24,
+   "min": 3,
+   "type": "integer",
+   "units": "nodes"
+  },
+  "weave_occurrence": {
+   "default": 1.0,
+   "description": "Probability this magical network manifests",
+   "group": "Weave",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "weave_strength": {
+   "default": 0.7,
+   "description": "Magical influence amplitude",
+   "group": "Weave",
+   "max": 2.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "weave_variation": {
+   "default": 0,
+   "description": "Independent network seed variation",
+   "group": "Weave",
+   "max": 4294967295,
+   "min": 0,
+   "type": "integer",
+   "units": "seed"
+  },
+  "weave_width": {
+   "default": 110.0,
+   "description": "Gaussian influence reach",
+   "group": "Weave",
+   "max": 2000.0,
+   "min": 10.0,
+   "type": "number",
+   "units": "m"
+  },
+  "witch_huts_extent": {
+   "default": 0.22,
+   "description": "witch huts angular influence radius",
+   "group": "Regions",
+   "max": 0.8,
+   "min": 0.04,
+   "type": "number",
+   "units": "radians"
+  },
+  "witch_huts_intensity": {
+   "default": 0.8,
+   "description": "How strongly the witch huts character is expressed where it manifests. Paired with witch_huts_occurrence, which decides whether it appears at all, and witch_huts_extent, which sets how far it reaches.",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  },
+  "witch_huts_occurrence": {
+   "default": 0.55,
+   "description": "witch huts manifestation probability",
+   "group": "Regions",
+   "max": 1.0,
+   "min": 0.0,
+   "type": "number",
+   "units": "relative"
+  }
+ },
+ "schema": "fwg.world-options",
+ "schema_version": 1
+}

@@ -1,0 +1,75 @@
+{
+ "schema": "fwg.hero-axis-overlays",
+ "schema_version": 1,
+ "note": "The persona prose each alignment pole contributes, shared across all 32 archetypes: voice, lies, never, cornered and toward_player for the three law poles and the three good poles. Carried whole from hero_generator/policies/axis_overlays.json.\n\nREAD BY: hero_generator/policy.py:44,76-82 lint_overlays(); hero_generator/persona.py:23-37 compose(). Entry points __init__.py:97, :316, :341.\n\nRNG INPUT: no. ORDER IS FREE for the two outer mappings and the six pole entries -- persona.py:23-24 looks them up by name, and the lint iterates code-side tuples rather than this file's order. `<axis>.<pole>.never` LIST ORDER IS A CONTRACT ON OUTPUT: persona.py:29-32 builds the exported persona.never as list(core['never']) then `for entry in law['never'] + good['never']` with a first-wins dedupe, so both the intra-list order AND THE LAW-BEFORE-GOOD JOIN survive into the world document.\nThe STRING COMPOSITION ORDER is also a contract and it is NOT uniform -- copy it literally: voice = f\"{law['voice']} {good['voice']}\" and cornered = f\"{law['cornered']} {good['cornered']}\" are LAW FIRST, while lies = f\"{good['lies']} {law['lies']}\" and toward_player = f\"{good['toward_player']} {law['toward_player']}\" are GOOD FIRST. `manner` (persona.py:26) is the card's pole_notes for (law_pole, good_pole) with 'neutral' dropped, law note before good note, space-joined.\n\nABSENCE THAT IS NOT EMPTINESS: nothing may be absent -- lint_overlays requires all six pole entries and an EXACT five-key set per pole, so a missing key is a load failure. `never: []` IS legal (the lint only type-checks it is a list) and contributes nothing to the persona union, which is a different state from absence. Unlike lint_archetypes, lint_overlays does NOT require the strings to be non-empty, so an empty string would load and flow into the persona.\n\nPARSE-LEVEL RULES the loader applies and a port must keep: json.loads(text, object_pairs_hook=_pairs, parse_constant=_reject) -- DUPLICATE KEYS RAISE rather than last-wins, and NaN/Infinity RAISE rather than parse. `revision` must be an int >= 1.\n\nIDENTITY HASH: NONE. No hashlib/sha256 call anywhere in this package touches this file, and the document carries no digest of its own -- provenance is the integer `revision` alone, republished into the world block. The nearest thing that transitively covers this content is the world handle, Sim/fantasy_world_generator/world_handle.py:80-82: sha256(json.dumps(transfer_document(doc), ensure_ascii=False, sort_keys=True, separators=(',', ':'), allow_nan=False).encode('utf-8')).hexdigest()[:16], prefixed 'w_'. It hashes the GENERATED OUTPUT, never these bytes -- and because sort_keys=True sorts mapping keys but NOT list elements, every list-order contract named above is load-bearing at the handle level while every mapping-key order is not. Note the codebase has three mutually disagreeing canonical forms and you must pick per call site, not per repository: registry_identity() (civilization_registry.py:308) ensure_ascii=False + separators + NO sort_keys; castle_planner.py:39 sort_keys=True + separators + ensure_ascii DEFAULT TRUE; heritage/derive.py:330 sort_keys=True + separators + ensure_ascii=False. `source_sha256` in this file is a plain digest of the source file's raw bytes, recorded for provenance only; nothing in the Python computes it.",
+ "source_identity": {
+  "source_path": "hero_generator/policies/axis_overlays.json",
+  "source_schema": "fantasy-world-generator.hero-axis-overlays",
+  "revision": 1,
+  "source_sha256": "138b5c34cd4919ca9e01e186b1b0b909053d245d10b8ff4845dd285bc7a373cd",
+  "source_bytes": 2817
+ },
+ "source_note": "Shared across every archetype. The law pole sets procedure and word-keeping; the good pole sets whose cost counts. Archetype pole notes override only where a trope genuinely differs.",
+ "law": {
+  "lawful": {
+   "voice": "Complete sentences, titles and forms of address, precedent and oaths cited when pressed.",
+   "lies": "Lies rarely and formally: silence, a technical truth, an answer to a different question.",
+   "never": [
+    "break a sworn word",
+    "act outside the office they hold"
+   ],
+   "cornered": "Invokes the rules, bargains inside them, and accepts judgement when the bargain fails.",
+   "toward_player": "Proves the player's standing before trusting them with anything that matters."
+  },
+  "neutral": {
+   "voice": "Plain and situational; register follows the room.",
+   "lies": "Lies when it is cheaper than the truth, and forgets the lie when it stops paying.",
+   "never": [
+    "spend more than the goal is worth"
+   ],
+   "cornered": "Takes whichever exit costs least.",
+   "toward_player": "Judges the player by usefulness and keeps the ledger current."
+  },
+  "chaotic": {
+   "voice": "Fragments, nicknames, interruptions; changes register mid-sentence and enjoys it.",
+   "lies": "Lies freely, sometimes for fun, and rarely keeps the story straight.",
+   "never": [
+    "obey an order they did not choose",
+    "abandon a personal loyalty for a rule"
+   ],
+   "cornered": "Improvises, gambles, flees or laughs, and usually more than one of those.",
+   "toward_player": "Loyal to the person, never to the cause the person serves."
+  }
+ },
+ "good": {
+  "good": {
+   "voice": "Asks after others, uses names, apologises when they mean it.",
+   "lies": "Only to shield someone else, and it costs them.",
+   "never": [
+    "harm an innocent to advance the claim",
+    "leave the helpless behind"
+   ],
+   "cornered": "Takes the cost on themselves rather than passing it on.",
+   "toward_player": "Helps first and asks later."
+  },
+  "neutral": {
+   "voice": "Direct and self-interested without malice.",
+   "lies": "When threatened, and only as far as the threat reaches.",
+   "never": [
+    "cruelty for its own sake"
+   ],
+   "cornered": "Protects self and kin and lets the rest fend for themselves.",
+   "toward_player": "Offers a fair trade and expects the same."
+  },
+  "evil": {
+   "voice": "Contempt under courtesy, or open contempt when courtesy stops paying.",
+   "lies": "As a tool, without guilt, and with pleasure when the mark is proud.",
+   "never": [
+    "sacrifice self for another",
+    "let a slight go unanswered"
+   ],
+   "cornered": "Sacrifices whoever is nearest.",
+   "toward_player": "Uses first and discards when spent."
+  }
+ }
+}

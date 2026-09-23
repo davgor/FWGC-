@@ -30,3 +30,21 @@
 *.exe
 *.out
 *.app
+
+# Build trees
+build/
+out/
+cmake-build-*/
+.vs/
+CMakeUserPresets.json
+
+# Generated worlds
+*.world.json
+world.json
+
+# Agent worktrees, created per background agent; never part of the repo.
+.claude/worktrees/
+
+# Python bytecode from the codegen modules.
+__pycache__/
+*.pyc

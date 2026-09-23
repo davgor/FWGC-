@@ -1,0 +1,1105 @@
+{
+ "schema": "fwg.npc-posts",
+ "schema_version": 1,
+ "note": "Post labels per building, the verbs each role can offer a quest under, the per-class caps on important NPCs, and the quest-giver rank order. Carried whole from npc_roster/policies/posts.json.\n\nREAD BY: npc_roster/policy.py:35 load() -> :45 load_all() -> :56 lint_posts(); npc_roster/__init__.py:76-83 (giver_rank -> a rank map, caps, role_verbs -> a verbed set, buildings -> posts_in) and :113-114 (exports post_verbs and verbs); npc_roster/sites.py:230 posts_in(). CROSS-PACKAGE: tests/test_hero_generator.py:362 reads `verbs` to pin hero_generator/hooks.py:32 VERBS, and tests/test_npc_roster.py:335 byte-compares `buildings` against icarus_sim/buildings.json.\n\nRNG INPUT: NO -- npc_roster consumes no sequential RNG stream at all; every draw is independently keyed as rng(seed, 'npc-name-' + uid) (__init__.py:88), so iteration order over people never affects a drawn value. TWO LIST ORDERS ARE NEVERTHELESS HARD CONTRACTS, both positional rather than probabilistic.\n`giver_rank` IS AN INDEX-INTO-LIST RANK: __init__.py:77 `rank = {building: index for index, building in enumerate(posts_policy['giver_rank'])}`, consumed at :153 `candidates.sort(key=lambda post: (rank[post['building_id']], post['building_id']))` and truncated at :155 `candidates[:cap]`. INDEX 0 IS THE BEST RANK. The list is not sorted anywhere and lint only checks the SET, so the order is a contract AND completely unguarded -- reordering it changes which NPCs are important.\n`buildings.<id>` ROLE ROWS ARE SENIORITY ORDER: sites.py:249 `expanded = [role for role, target in roles for _ in range(target)]` and :260 `'senior': index == 0 and ordinal == 0`, so the FIRST ROLE OF THE FIRST ROW is the building's senior post and the only one eligible for the earmark. Both repair paths are order-sensitive too: :253 `expanded = expanded[:workers]` truncates the TAIL, and :255 `expanded += [expanded[-1]] * (workers - len(expanded))` pads with the LAST role. The source's own notes say it: role order is seniority order. The order is additionally pinned to buildings.json by list equality in the test suite.\n`verbs` is FREE FOR LOGIC (policy.py:60 makes it a set) but A CONTRACT FOR OUTPUT BYTES and a CROSS-PACKAGE CONTRACT BY TEST: __init__.py:114 copies it verbatim into the block and a test asserts LIST equality against hero_generator's VERBS tuple.\nORDER IS FREE for the `buildings` mapping (.get lookups; currently sorted on disk), for `role_verbs` (__init__.py:113 explicitly re-sorts: `{role: list(verbs) for role, verbs in sorted(...)}`) and for `caps` (key lookup). An inner role_verbs list is a set everywhere it is used, so its order is an output-bytes contract only.\n\nABSENCE THAT IS NOT EMPTINESS -- the sharpest inversion in the whole port:\n* A building ABSENT FROM `giver_rank` IS NOT RANK 0; IT IS 'NEVER A QUEST GIVER' (__init__.py:151 `post['building_id'] in rank`). Rank 0 is the BEST rank. A port that defaults a missing rank to 0 inverts the meaning exactly.\n* A building id absent from `buildings` means the plot yields NO POSTS AT ALL and its workers silently vanish (sites.py:246-247 `if not roles: continue`), with no counter raised -- while an empty list is FORBIDDEN by lint, so absence and empty are not interchangeable.\n* `role_verbs.<role>` absent is equivalent to an empty list; both mean 'can hold a post, never a giver'. Eleven roles used by buildings have no entry: apprentice, assistant, cart_handler, farm_hand, hall_attendant, maintenance_laborer, ore_handler, porter, service_worker, support_worker, water_carrier.\n* `caps.<key>` absent is equivalent to 0 (__init__.py:149 `if not cap: return set()` conflates them), but lint requires all five keys. A site whose city_class is None gets no earmarks at all.\n\nPARSE-LEVEL RULES the loader applies and a port must keep: json.loads(text, object_pairs_hook=_pairs, parse_constant=_reject) -- DUPLICATE KEYS RAISE rather than last-wins, and NaN/Infinity RAISE rather than parse. `revision` must be an int >= 1.\n\nIDENTITY HASH: NONE. No hashlib/sha256 call anywhere in this package touches this file, and the document carries no digest of its own -- provenance is the integer `revision` alone, republished into the world block. The nearest thing that transitively covers this content is the world handle, Sim/fantasy_world_generator/world_handle.py:80-82: sha256(json.dumps(transfer_document(doc), ensure_ascii=False, sort_keys=True, separators=(',', ':'), allow_nan=False).encode('utf-8')).hexdigest()[:16], prefixed 'w_'. It hashes the GENERATED OUTPUT, never these bytes -- and because sort_keys=True sorts mapping keys but NOT list elements, every list-order contract named above is load-bearing at the handle level while every mapping-key order is not. Note the codebase has three mutually disagreeing canonical forms and you must pick per call site, not per repository: registry_identity() (civilization_registry.py:308) ensure_ascii=False + separators + NO sort_keys; castle_planner.py:39 sort_keys=True + separators + ensure_ascii DEFAULT TRUE; heritage/derive.py:330 sort_keys=True + separators + ensure_ascii=False. `source_sha256` in this file is a plain digest of the source file's raw bytes, recorded for provenance only; nothing in the Python computes it.",
+ "source_identity": {
+  "source_path": "npc_roster/policies/posts.json",
+  "source_schema": "fantasy-world-generator.npc-posts",
+  "revision": 1,
+  "source_sha256": "8630f975fbec9a22a410798f20c458419e72170ec8f6ae895657fdab3f4f9754",
+  "source_bytes": 13985
+ },
+ "source_note": "Post labels per building, the verbs each post can plausibly offer, and the authored earmark rules. The buildings map is a snapshot of buildings.json staffing rosters, copied so this package never imports the generator; test_npc_roster re-reads the registry and fails if it drifts. Role order is seniority order: the first role of a building is its senior post. Verbs are the ten the quest generator pinned; a role with no verbs can hold a post but never becomes a giver.",
+ "verbs": [
+  "reclaim",
+  "recover",
+  "defend",
+  "slay",
+  "trade",
+  "tend",
+  "convert",
+  "supply",
+  "cleanse",
+  "investigate"
+ ],
+ "caps": {
+  "capital": 6,
+  "medium": 4,
+  "small": 3,
+  "hamlet": 1,
+  "fortress": 2
+ },
+ "giver_rank": [
+  "building.guildhall",
+  "building.keep",
+  "building.keep_tower",
+  "building.great_temple",
+  "building.civic_hall",
+  "building.court",
+  "building.inn",
+  "building.tavern",
+  "building.temple",
+  "building.barracks",
+  "building.castle_barracks",
+  "building.guardhouse",
+  "building.market_square",
+  "building.dock",
+  "building.library",
+  "building.laboratory",
+  "building.infirmary",
+  "building.apothecary",
+  "building.smithy",
+  "building.treasury",
+  "building.warehouse",
+  "building.observatory",
+  "building.magical_worksite",
+  "building.ward_anchor",
+  "building.school",
+  "building.great_hall",
+  "building.castle_chapel",
+  "building.barbican",
+  "building.gatehouse",
+  "building.brewery",
+  "building.mine",
+  "building.boatyard",
+  "building.stable",
+  "building.hamlet_meeting_shed",
+  "building.hamlet_shrine",
+  "building.hamlet_smith_shed",
+  "building.hamlet_farmyard",
+  "building.hamlet_landing",
+  "building.hamlet_food_store"
+ ],
+ "role_verbs": {
+  "administrator": [
+   "investigate",
+   "supply"
+  ],
+  "animal_keeper": [
+   "tend",
+   "supply"
+  ],
+  "apothecary": [
+   "tend",
+   "recover"
+  ],
+  "armorer": [
+   "supply",
+   "trade"
+  ],
+  "astronomer": [
+   "investigate"
+  ],
+  "baker": [
+   "supply"
+  ],
+  "bartender": [
+   "trade",
+   "investigate"
+  ],
+  "bath_attendant": [
+   "tend"
+  ],
+  "boatman": [
+   "supply",
+   "trade"
+  ],
+  "brewer": [
+   "supply",
+   "trade"
+  ],
+  "butcher": [
+   "supply"
+  ],
+  "care_assistant": [
+   "tend"
+  ],
+  "caretaker": [
+   "tend",
+   "cleanse"
+  ],
+  "cargo_clerk": [
+   "trade",
+   "supply"
+  ],
+  "carpenter": [
+   "supply"
+  ],
+  "carter": [
+   "supply",
+   "trade"
+  ],
+  "chaplain": [
+   "tend",
+   "convert"
+  ],
+  "charcoal_burner": [
+   "supply"
+  ],
+  "clay_worker": [
+   "supply"
+  ],
+  "clerk": [
+   "investigate"
+  ],
+  "commander": [
+   "defend",
+   "slay",
+   "reclaim"
+  ],
+  "cook": [
+   "supply"
+  ],
+  "court_clerk": [
+   "investigate"
+  ],
+  "dockmaster": [
+   "trade",
+   "supply"
+  ],
+  "dockworker": [
+   "supply"
+  ],
+  "dyer": [
+   "supply",
+   "trade"
+  ],
+  "equipment_keeper": [
+   "supply"
+  ],
+  "farmer": [
+   "supply",
+   "tend"
+  ],
+  "farrier": [
+   "tend",
+   "supply"
+  ],
+  "fisher": [
+   "supply"
+  ],
+  "food_preserver": [
+   "supply"
+  ],
+  "fuel_handler": [
+   "supply"
+  ],
+  "furnace_worker": [
+   "supply"
+  ],
+  "garrison_officer": [
+   "defend",
+   "slay",
+   "reclaim"
+  ],
+  "garrison_trooper": [
+   "defend",
+   "slay"
+  ],
+  "gate_captain": [
+   "defend",
+   "investigate"
+  ],
+  "gate_guard": [
+   "defend"
+  ],
+  "groundskeeper": [
+   "tend",
+   "cleanse"
+  ],
+  "grower": [
+   "supply",
+   "tend"
+  ],
+  "hauler": [
+   "supply"
+  ],
+  "healer": [
+   "tend",
+   "recover"
+  ],
+  "herbalist": [
+   "recover",
+   "tend"
+  ],
+  "herder": [
+   "supply",
+   "tend"
+  ],
+  "host": [
+   "trade",
+   "investigate"
+  ],
+  "jailer": [
+   "investigate"
+  ],
+  "keep_guard": [
+   "defend"
+  ],
+  "keeper": [
+   "cleanse",
+   "tend"
+  ],
+  "librarian": [
+   "investigate",
+   "recover"
+  ],
+  "lookout": [
+   "investigate",
+   "defend"
+  ],
+  "mage": [
+   "cleanse",
+   "investigate",
+   "recover"
+  ],
+  "magistrate": [
+   "investigate",
+   "defend"
+  ],
+  "market_steward": [
+   "trade",
+   "supply"
+  ],
+  "mason": [
+   "supply"
+  ],
+  "merchant": [
+   "trade",
+   "supply"
+  ],
+  "miller": [
+   "supply"
+  ],
+  "miner": [
+   "recover",
+   "supply"
+  ],
+  "officiant": [
+   "tend",
+   "convert",
+   "cleanse"
+  ],
+  "postern_guard": [
+   "defend"
+  ],
+  "potter": [
+   "supply",
+   "trade"
+  ],
+  "quarry_worker": [
+   "supply"
+  ],
+  "quartermaster": [
+   "supply",
+   "trade"
+  ],
+  "researcher": [
+   "investigate",
+   "recover"
+  ],
+  "sanitation_worker": [
+   "cleanse"
+  ],
+  "scribe": [
+   "investigate"
+  ],
+  "sergeant": [
+   "defend",
+   "slay"
+  ],
+  "shipwright": [
+   "supply",
+   "trade"
+  ],
+  "smith": [
+   "supply",
+   "trade"
+  ],
+  "soldier": [
+   "defend",
+   "slay"
+  ],
+  "steward": [
+   "supply",
+   "trade"
+  ],
+  "store_keeper": [
+   "supply",
+   "trade"
+  ],
+  "storekeeper": [
+   "supply",
+   "trade"
+  ],
+  "tanner": [
+   "supply",
+   "trade"
+  ],
+  "tavern_keeper": [
+   "trade",
+   "investigate"
+  ],
+  "teacher": [
+   "investigate",
+   "tend"
+  ],
+  "textile_worker": [
+   "supply",
+   "trade"
+  ],
+  "timber_worker": [
+   "supply"
+  ],
+  "toll_clerk": [
+   "trade"
+  ],
+  "tower_watch": [
+   "defend",
+   "investigate"
+  ],
+  "treasurer": [
+   "trade",
+   "recover"
+  ],
+  "ward_keeper": [
+   "cleanse",
+   "defend"
+  ],
+  "watch_guard": [
+   "defend",
+   "investigate"
+  ],
+  "watch_officer": [
+   "defend",
+   "slay",
+   "investigate"
+  ],
+  "water_keeper": [
+   "tend",
+   "cleanse"
+  ],
+  "well_keeper": [
+   "tend",
+   "cleanse"
+  ]
+ },
+ "buildings": {
+  "building.apothecary": [
+   [
+    "apothecary",
+    1
+   ],
+   [
+    "herbalist",
+    1
+   ]
+  ],
+  "building.armory": [
+   [
+    "armorer",
+    2
+   ]
+  ],
+  "building.bakery": [
+   [
+    "baker",
+    2
+   ],
+   [
+    "assistant",
+    2
+   ]
+  ],
+  "building.barbican": [
+   [
+    "gate_captain",
+    1
+   ],
+   [
+    "gate_guard",
+    4
+   ]
+  ],
+  "building.barracks": [
+   [
+    "garrison_officer",
+    2
+   ],
+   [
+    "soldier",
+    12
+   ],
+   [
+    "quartermaster",
+    2
+   ]
+  ],
+  "building.bathhouse": [
+   [
+    "bath_attendant",
+    4
+   ]
+  ],
+  "building.boatyard": [
+   [
+    "shipwright",
+    4
+   ],
+   [
+    "assistant",
+    4
+   ]
+  ],
+  "building.brewery": [
+   [
+    "brewer",
+    2
+   ],
+   [
+    "assistant",
+    3
+   ]
+  ],
+  "building.butchery": [
+   [
+    "butcher",
+    2
+   ],
+   [
+    "assistant",
+    2
+   ]
+  ],
+  "building.carpenter": [
+   [
+    "carpenter",
+    2
+   ],
+   [
+    "apprentice",
+    1
+   ]
+  ],
+  "building.cart_yard": [
+   [
+    "cart_handler",
+    2
+   ]
+  ],
+  "building.castle_armory": [
+   [
+    "armorer",
+    1
+   ]
+  ],
+  "building.castle_barracks": [
+   [
+    "sergeant",
+    2
+   ],
+   [
+    "garrison_trooper",
+    8
+   ]
+  ],
+  "building.castle_chapel": [
+   [
+    "chaplain",
+    1
+   ]
+  ],
+  "building.cemetery": [
+   [
+    "groundskeeper",
+    2
+   ]
+  ],
+  "building.charcoal_yard": [
+   [
+    "charcoal_burner",
+    2
+   ]
+  ],
+  "building.cistern": [
+   [
+    "water_keeper",
+    2
+   ]
+  ],
+  "building.civic_hall": [
+   [
+    "administrator",
+    2
+   ],
+   [
+    "clerk",
+    2
+   ]
+  ],
+  "building.clay_pit": [
+   [
+    "clay_worker",
+    4
+   ]
+  ],
+  "building.corner_tower": [
+   [
+    "tower_watch",
+    2
+   ]
+  ],
+  "building.court": [
+   [
+    "magistrate",
+    1
+   ],
+   [
+    "court_clerk",
+    2
+   ]
+  ],
+  "building.crypt": [
+   [
+    "caretaker",
+    1
+   ]
+  ],
+  "building.dock": [
+   [
+    "dockmaster",
+    1
+   ],
+   [
+    "dockworker",
+    4
+   ]
+  ],
+  "building.dyeworks": [
+   [
+    "dyer",
+    2
+   ],
+   [
+    "assistant",
+    2
+   ]
+  ],
+  "building.farmstead": [
+   [
+    "farmer",
+    4
+   ]
+  ],
+  "building.fire_shed": [
+   [
+    "equipment_keeper",
+    1
+   ]
+  ],
+  "building.fuel_depot": [
+   [
+    "fuel_handler",
+    2
+   ]
+  ],
+  "building.garden_orchard": [
+   [
+    "grower",
+    3
+   ]
+  ],
+  "building.gatehouse": [
+   [
+    "gate_guard",
+    6
+   ],
+   [
+    "toll_clerk",
+    2
+   ]
+  ],
+  "building.granary": [
+   [
+    "storekeeper",
+    2
+   ],
+   [
+    "porter",
+    2
+   ]
+  ],
+  "building.great_hall": [
+   [
+    "steward",
+    1
+   ],
+   [
+    "hall_attendant",
+    2
+   ]
+  ],
+  "building.great_temple": [
+   [
+    "officiant",
+    4
+   ],
+   [
+    "caretaker",
+    4
+   ]
+  ],
+  "building.guardhouse": [
+   [
+    "watch_officer",
+    2
+   ],
+   [
+    "watch_guard",
+    6
+   ]
+  ],
+  "building.guildhall": [
+   [
+    "cook",
+    1
+   ],
+   [
+    "bartender",
+    1
+   ]
+  ],
+  "building.hamlet_barn": [
+   [
+    "farm_hand",
+    2
+   ]
+  ],
+  "building.hamlet_cart_shed": [
+   [
+    "carter",
+    1
+   ]
+  ],
+  "building.hamlet_farmyard": [
+   [
+    "farmer",
+    3
+   ]
+  ],
+  "building.hamlet_food_store": [
+   [
+    "store_keeper",
+    1
+   ]
+  ],
+  "building.hamlet_landing": [
+   [
+    "boatman",
+    2
+   ]
+  ],
+  "building.hamlet_latrine": [
+   [
+    "sanitation_worker",
+    1
+   ]
+  ],
+  "building.hamlet_meeting_shed": [
+   [
+    "steward",
+    1
+   ]
+  ],
+  "building.hamlet_net_shed": [
+   [
+    "fisher",
+    2
+   ]
+  ],
+  "building.hamlet_shrine": [
+   [
+    "caretaker",
+    1
+   ]
+  ],
+  "building.hamlet_smith_shed": [
+   [
+    "smith",
+    1
+   ]
+  ],
+  "building.hamlet_staging_yard": [
+   [
+    "hauler",
+    2
+   ]
+  ],
+  "building.hamlet_well": [
+   [
+    "well_keeper",
+    1
+   ]
+  ],
+  "building.hand_mill": [
+   [
+    "miller",
+    2
+   ]
+  ],
+  "building.holding_cells": [
+   [
+    "jailer",
+    4
+   ]
+  ],
+  "building.infirmary": [
+   [
+    "healer",
+    2
+   ],
+   [
+    "care_assistant",
+    3
+   ]
+  ],
+  "building.inn": [
+   [
+    "host",
+    1
+   ],
+   [
+    "cook",
+    2
+   ],
+   [
+    "service_worker",
+    2
+   ]
+  ],
+  "building.isolation_house": [
+   [
+    "healer",
+    2
+   ],
+   [
+    "care_assistant",
+    4
+   ]
+  ],
+  "building.keep": [
+   [
+    "commander",
+    2
+   ],
+   [
+    "keep_guard",
+    6
+   ],
+   [
+    "steward",
+    2
+   ]
+  ],
+  "building.keep_tower": [
+   [
+    "commander",
+    2
+   ],
+   [
+    "keep_guard",
+    6
+   ]
+  ],
+  "building.laboratory": [
+   [
+    "researcher",
+    2
+   ],
+   [
+    "assistant",
+    2
+   ]
+  ],
+  "building.latrine": [
+   [
+    "sanitation_worker",
+    2
+   ]
+  ],
+  "building.library": [
+   [
+    "librarian",
+    2
+   ],
+   [
+    "scribe",
+    2
+   ]
+  ],
+  "building.livestock_yard": [
+   [
+    "herder",
+    3
+   ]
+  ],
+  "building.magic_well": [
+   [
+    "keeper",
+    2
+   ]
+  ],
+  "building.magical_worksite": [
+   [
+    "mage",
+    2
+   ],
+   [
+    "assistant",
+    3
+   ]
+  ],
+  "building.market_shelter": [
+   [
+    "merchant",
+    2
+   ],
+   [
+    "assistant",
+    1
+   ]
+  ],
+  "building.market_square": [
+   [
+    "market_steward",
+    1
+   ]
+  ],
+  "building.mason": [
+   [
+    "mason",
+    2
+   ],
+   [
+    "maintenance_laborer",
+    3
+   ]
+  ],
+  "building.mine": [
+   [
+    "miner",
+    8
+   ],
+   [
+    "support_worker",
+    4
+   ]
+  ],
+  "building.observatory": [
+   [
+    "astronomer",
+    2
+   ],
+   [
+    "assistant",
+    1
+   ]
+  ],
+  "building.postern": [
+   [
+    "postern_guard",
+    2
+   ]
+  ],
+  "building.pottery": [
+   [
+    "potter",
+    2
+   ],
+   [
+    "apprentice",
+    1
+   ]
+  ],
+  "building.preservation_house": [
+   [
+    "food_preserver",
+    2
+   ],
+   [
+    "assistant",
+    2
+   ]
+  ],
+  "building.quarry": [
+   [
+    "quarry_worker",
+    6
+   ]
+  ],
+  "building.root_cellar": [
+   [
+    "storekeeper",
+    1
+   ]
+  ],
+  "building.school": [
+   [
+    "teacher",
+    2
+   ]
+  ],
+  "building.smelter": [
+   [
+    "furnace_worker",
+    4
+   ],
+   [
+    "ore_handler",
+    2
+   ]
+  ],
+  "building.smithy": [
+   [
+    "smith",
+    1
+   ],
+   [
+    "apprentice",
+    1
+   ]
+  ],
+  "building.stable": [
+   [
+    "animal_keeper",
+    2
+   ],
+   [
+    "farrier",
+    1
+   ]
+  ],
+  "building.tannery": [
+   [
+    "tanner",
+    2
+   ],
+   [
+    "assistant",
+    2
+   ]
+  ],
+  "building.tavern": [
+   [
+    "tavern_keeper",
+    1
+   ],
+   [
+    "cook",
+    1
+   ],
+   [
+    "service_worker",
+    2
+   ]
+  ],
+  "building.temple": [
+   [
+    "officiant",
+    2
+   ],
+   [
+    "caretaker",
+    2
+   ]
+  ],
+  "building.timber_yard": [
+   [
+    "timber_worker",
+    4
+   ]
+  ],
+  "building.tower": [
+   [
+    "lookout",
+    3
+   ]
+  ],
+  "building.treasury": [
+   [
+    "treasurer",
+    1
+   ],
+   [
+    "clerk",
+    2
+   ]
+  ],
+  "building.ward_anchor": [
+   [
+    "ward_keeper",
+    2
+   ]
+  ],
+  "building.warehouse": [
+   [
+    "storekeeper",
+    2
+   ],
+   [
+    "porter",
+    3
+   ]
+  ],
+  "building.waste_yard": [
+   [
+    "sanitation_worker",
+    4
+   ]
+  ],
+  "building.water_point": [
+   [
+    "water_carrier",
+    2
+   ]
+  ],
+  "building.watermill": [
+   [
+    "miller",
+    2
+   ],
+   [
+    "assistant",
+    2
+   ]
+  ],
+  "building.weaver": [
+   [
+    "textile_worker",
+    2
+   ]
+  ],
+  "building.weigh_house": [
+   [
+    "cargo_clerk",
+    2
+   ]
+  ],
+  "building.well": [
+   [
+    "water_keeper",
+    1
+   ]
+  ],
+  "building.windmill": [
+   [
+    "miller",
+    1
+   ],
+   [
+    "assistant",
+    2
+   ]
+  ]
+ }
+}

@@ -1,0 +1,80 @@
+{
+ "schema": "fwg.story-constraints",
+ "schema_version": 1,
+ "note": "Typed arc constraints per hero archetype: which thread kinds and which verbs a given kind of hero may be given. Carried whole from story_web/policies/constraints.json.\n\nREAD BY: story_web/policy.py:39 load() -> :123 lint_constraints(); story_web/threads.py:21 constraints_for(), called from threads.py:50 and __init__.py:107.\n\nRNG INPUT: no. ORDER IS FREE for the `archetypes` mapping (threads.py:22 is a pure .get lookup; only the lint iterates it) and FREE FOR LOGIC for the `allowed_verbs` lists (membership at threads.py:82) -- but those lists ARE an output-bytes contract, because __init__.py:107 exports the constraint entry object itself, list order and all.\n\nABSENCE THAT IS NOT EMPTINESS -- the single most important null in this file: `allowed_verbs: null` MEANS ANY VERB; `[]` WOULD MEAN NO VERB. threads.py:82 `elif rules['allowed_verbs'] is not None and condition['verb'] not in rules['allowed_verbs']` -- null and empty list are NOT the same, and a port that normalises null to an empty list silences every constrained hero. An archetype ABSENT from `archetypes` falls back to `default`, which is UNCONSTRAINED rather than locked, and a hero with no archetype at all lands on the same default via the key ''. Unlike lint_weights, lint_constraints does NOT check the document-level field set, so `schema` and `notes` are free-form here.\n\nPARSE-LEVEL RULES the loader applies and a port must keep: json.loads(text, object_pairs_hook=_pairs, parse_constant=_reject) -- DUPLICATE KEYS RAISE rather than last-wins, and NaN/Infinity RAISE rather than parse. `revision` must be an int >= 1.\n\nIDENTITY HASH: NONE. No hashlib/sha256 call anywhere in this package touches this file, and the document carries no digest of its own -- provenance is the integer `revision` alone, republished into the world block. The nearest thing that transitively covers this content is the world handle, Sim/fantasy_world_generator/world_handle.py:80-82: sha256(json.dumps(transfer_document(doc), ensure_ascii=False, sort_keys=True, separators=(',', ':'), allow_nan=False).encode('utf-8')).hexdigest()[:16], prefixed 'w_'. It hashes the GENERATED OUTPUT, never these bytes -- and because sort_keys=True sorts mapping keys but NOT list elements, every list-order contract named above is load-bearing at the handle level while every mapping-key order is not. Note the codebase has three mutually disagreeing canonical forms and you must pick per call site, not per repository: registry_identity() (civilization_registry.py:308) ensure_ascii=False + separators + NO sort_keys; castle_planner.py:39 sort_keys=True + separators + ensure_ascii DEFAULT TRUE; heritage/derive.py:330 sort_keys=True + separators + ensure_ascii=False. `source_sha256` in this file is a plain digest of the source file's raw bytes, recorded for provenance only; nothing in the Python computes it.",
+ "source_identity": {
+  "source_path": "story_web/policies/constraints.json",
+  "source_schema": "fantasy-world-generator.story-constraints",
+  "revision": 1,
+  "source_sha256": "9f33b09daf41eb7a02cd0d4ecefe35ff5239dc6fcdc536c73cd8bbffc86ef302",
+  "source_bytes": 1510
+ },
+ "source_note": "Typed arc constraints per archetype, read from the archetype catalogue's prose `mechanic` lines. `claim_locked` means the claim verb can never change, so any thread that needs a different verb is cut. `allowed_verbs` restricts which verbs a recast may propose; null means any. `drift_locked` means alignment never moves, so threads that need an alignment crossing are cut. Archetypes absent here are unconstrained.",
+ "default": {
+  "claim_locked": false,
+  "drift_locked": false,
+  "allowed_verbs": null
+ },
+ "archetypes": {
+  "oathbound": {
+   "claim_locked": true,
+   "drift_locked": false,
+   "allowed_verbs": null
+  },
+  "inherited_hero": {
+   "claim_locked": true,
+   "drift_locked": false,
+   "allowed_verbs": null
+  },
+  "incarnate": {
+   "claim_locked": false,
+   "drift_locked": true,
+   "allowed_verbs": null
+  },
+  "obsessed_hunter": {
+   "claim_locked": false,
+   "drift_locked": false,
+   "allowed_verbs": [
+    "kill"
+   ]
+  },
+  "puppet_sovereign": {
+   "claim_locked": true,
+   "drift_locked": false,
+   "allowed_verbs": null
+  },
+  "warden": {
+   "claim_locked": false,
+   "drift_locked": false,
+   "allowed_verbs": [
+    "hold",
+    "protect"
+   ]
+  },
+  "ancient": {
+   "claim_locked": false,
+   "drift_locked": false,
+   "allowed_verbs": [
+    "hold",
+    "none"
+   ]
+  },
+  "forgiving": {
+   "claim_locked": false,
+   "drift_locked": false,
+   "allowed_verbs": [
+    "protect",
+    "hold",
+    "retake",
+    "expose",
+    "convert",
+    "unify"
+   ]
+  },
+  "malevolent_benevolent": {
+   "claim_locked": false,
+   "drift_locked": true,
+   "allowed_verbs": null
+  }
+ }
+}

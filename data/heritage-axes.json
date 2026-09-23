@@ -1,0 +1,394 @@
+{
+ "schema": "fwg.heritage-axes",
+ "schema_version": 1,
+ "note": "The closed vocabularies, envelopes and block schemas of the heritage layer. These are AUTHORED DATA THAT LIVE IN PYTHON, not in policies/*.json: every value here is a module-level constant in Sim/heritage/policy.py, and the package deliberately restates two of them (the civilization ids and the magic schools) rather than import the registry, because heritage is a leaf package. tests/test_heritage_registry_binding.py is what keeps them from drifting -- it asserts both against the registry in each direction. If the Python tree is deleted, that test goes with it and this file becomes the only copy.\n\nREAD BY: heritage/policy.py -- _check_axis(), lint_traits(), lint_derivation(), lint_appearance(), check_resolved_appearance(), _check_appearance_key(); heritage/derive.py derive_culture()/derive_genome() (the AXES tables decide what a derivation map must cover); heritage/phonemes.py inventory() (the six gated soma axes). heritage/__init__.py re-exports AXES, APPEARANCE_BLOCKS, CULTURE_BLOCKS, KNOWN_SCHOOLS and BODY_SCALE_HEIGHT_M as part of the package's public surface.\n\nRNG INPUT: no. Nothing here is drawn from. LIST ORDER IS NEVERTHELESS A CONTRACT in `axes` and `known_schools`, for a non-RNG reason: lint_derivation() requires a derivation map to cover EVERY value of the axis it reads and REJECTS any key outside it, so these tuples are the closed enum, and an ordinal encoding in C++ (which is the obvious port) makes their position load-bearing where Python only made their membership load-bearing. `craft_focus` is the same tuple as `crafts`, and derivation indexes a people's own two-element craft_focus POSITIONALLY (0 -> livelihood.primary, 1 -> livelihood.secondary). `appearance_blocks` and `culture_blocks` key order is the emission order of those blocks in a resolved people; `life_stages` order IS a contract -- check_resolved_appearance() walks it to require strictly increasing onset_years and strictly increasing height_fraction over its first three entries. `band_keys`, `feature_keys`, `palette_keys`, `stage_keys` and `sexes` are compared with set() and are order-free. ORDER IS FREE for `hidden_schools`, `facial_hair` and `sexual_dimorphism` (membership tests only).\n\nABSENCE THAT IS NOT EMPTINESS: `writing_surface` carries the value 'none' as a real enum member -- a people with no script says so explicitly and cannot omit the axis; a race base must name exactly all 17 axes. `magic_stance` likewise carries 'untrained'. `hidden_schools` are the four Outside schools from icarus_sim/terrain_leyline_history.HIDDEN_SCHOOLS and are deliberately ABSENT from `known_schools`: naming one in traits raises a specific error rather than being ignored, because no world can produce one and nobody has a cultural stance toward a school they have never heard of. `weight_tolerance` (1e-6) is for float addition of a palette that is authored to two decimals -- it is not a licence for a palette that nearly sums to 1.\n\nIDENTITY HASH: none covers this file directly, but every value here constrains the resolved peoples that heritage_identity() hashes; see heritage-traits.json for that digest and its exact serialisation.",
+ "source_identity": {
+  "source_path": "heritage/policy.py",
+  "source_kind": "module-level constants",
+  "origin": "FantasyWorldGenerator b67c99b, Sim/heritage/policy.py"
+ },
+ "policy_files": [
+  "traits",
+  "derivation",
+  "lexicon",
+  "overrides",
+  "appearance"
+ ],
+ "known_schools": [
+  "weave",
+  "umbral",
+  "infernal",
+  "radiant",
+  "fire",
+  "water",
+  "earth",
+  "air"
+ ],
+ "hidden_schools": [
+  "blood",
+  "void",
+  "rot",
+  "eldritch"
+ ],
+ "crafts": [
+  "seafaring",
+  "husbandry_and_tillage",
+  "metal_and_forge",
+  "stone_and_vault",
+  "wood_and_weave",
+  "glass_and_mechanism",
+  "herb_and_dye",
+  "ice_and_preserve",
+  "clay_and_kiln"
+ ],
+ "craft_count": 2,
+ "axes": {
+  "body_scale": [
+   "small",
+   "compact",
+   "mid",
+   "tall",
+   "towering"
+  ],
+  "vocal_tract": [
+   "narrow",
+   "even",
+   "broad",
+   "resonant_chest"
+  ],
+  "breath_capacity": [
+   "short",
+   "steady",
+   "deep",
+   "sustained"
+  ],
+  "hearing_band": [
+   "low_weighted",
+   "flat",
+   "high_weighted",
+   "wide"
+  ],
+  "lifespan_tempo": [
+   "brief",
+   "human",
+   "long",
+   "ancient"
+  ],
+  "dentition": [
+   "blunt",
+   "even",
+   "prominent_canine",
+   "tusked"
+  ],
+  "speech_environment": [
+   "open_plain",
+   "surf",
+   "forest",
+   "stone_hall",
+   "wind_scoured",
+   "humid_canopy",
+   "market_din",
+   "terraced_valley"
+  ],
+  "carrying_register": [
+   "quiet",
+   "conversational",
+   "carrying",
+   "calling"
+  ],
+  "writing_surface": [
+   "none",
+   "knot_and_cord",
+   "incised_stone",
+   "carved_wood",
+   "inked_hide",
+   "pressed_fibre_paper"
+  ],
+  "kinship": [
+   "nuclear_household",
+   "extended_clan",
+   "lineage_house",
+   "age_cohort",
+   "crew_and_berth",
+   "guild_family"
+  ],
+  "authority": [
+   "elder_council",
+   "hereditary_lord",
+   "guild_assembly",
+   "acclaimed_war_leader",
+   "temple_seat",
+   "consensus_moot"
+  ],
+  "mobility": [
+   "rooted",
+   "seasonal_transhumance",
+   "voyaging",
+   "caravan",
+   "frontier_expanding"
+  ],
+  "memory_mode": [
+   "oral_formulaic",
+   "sung_lineage",
+   "written_archive",
+   "carved_record",
+   "ledger_and_seal"
+  ],
+  "craft_focus": [
+   "seafaring",
+   "husbandry_and_tillage",
+   "metal_and_forge",
+   "stone_and_vault",
+   "wood_and_weave",
+   "glass_and_mechanism",
+   "herb_and_dye",
+   "ice_and_preserve",
+   "clay_and_kiln"
+  ],
+  "outsiders": [
+   "hostile",
+   "wary",
+   "transactional",
+   "hospitable",
+   "assimilating"
+  ],
+  "magic_stance": [
+   "untrained",
+   "ritual_communal",
+   "scholarly_licensed",
+   "inherited_bloodline",
+   "taboo_avoidant",
+   "bargained_with"
+  ],
+  "magic_school": [
+   "weave",
+   "umbral",
+   "infernal",
+   "radiant",
+   "fire",
+   "water",
+   "earth",
+   "air"
+  ]
+ },
+ "list_axes": [
+  "craft_focus"
+ ],
+ "body_scale_height_m": {
+  "small": [
+   0.92,
+   1.26
+  ],
+  "compact": [
+   1.1,
+   1.34
+  ],
+  "mid": [
+   1.38,
+   2.05
+  ],
+  "tall": [
+   1.55,
+   2.2
+  ],
+  "towering": [
+   2.0,
+   3.2
+  ]
+ },
+ "lifespan_tempo_years": {
+  "brief": [
+   55,
+   120
+  ],
+  "human": [
+   70,
+   160
+  ],
+  "long": [
+   180,
+   520
+  ],
+  "ancient": [
+   500,
+   1600
+  ]
+ },
+ "culture_blocks": {
+  "household": [
+   "unit",
+   "inheritance",
+   "naming_pattern",
+   "marriage_move"
+  ],
+  "governance": [
+   "seat",
+   "succession",
+   "law_form",
+   "assembly"
+  ],
+  "livelihood": [
+   "primary",
+   "secondary",
+   "exchange",
+   "calendar"
+  ],
+  "memory": [
+   "record",
+   "teaching",
+   "oath_form",
+   "taboo"
+  ],
+  "contact": [
+   "stranger_rite",
+   "trade_stance",
+   "war_stance"
+  ],
+  "faith": [
+   "school",
+   "practice",
+   "site",
+   "festival"
+  ]
+ },
+ "genome_derived_blocks": [
+  "phonotactics",
+  "prosody",
+  "morphology",
+  "orthography",
+  "rates"
+ ],
+ "rate_keys": [
+  "third_syllable",
+  "cluster",
+  "loanword"
+ ],
+ "appearance_blocks": {
+  "frame": [
+   "height_m",
+   "mass_kg",
+   "build",
+   "sexual_dimorphism"
+  ],
+  "proportion": [
+   "heads_tall",
+   "shoulder_width_ratio",
+   "leg_length_ratio",
+   "hand_length_ratio"
+  ],
+  "coloration": [
+   "skin",
+   "hair",
+   "eye"
+  ],
+  "features": [
+   "face_shape",
+   "ear",
+   "eye_shape",
+   "nose",
+   "brow",
+   "jaw",
+   "lips",
+   "teeth",
+   "skin_texture",
+   "markings"
+  ],
+  "grooming": [
+   "scalp_texture",
+   "facial_hair",
+   "body_hair",
+   "common_styles"
+  ],
+  "life_stages": [
+   "child",
+   "adolescent",
+   "adult",
+   "elder",
+   "max_years"
+  ],
+  "attire": [
+   "layering",
+   "materials",
+   "dye_character",
+   "signature_item",
+   "footwear"
+  ],
+  "art_direction": [
+   "silhouette",
+   "reads_as",
+   "avoid"
+  ]
+ },
+ "band_keys": [
+  "min",
+  "mean",
+  "max",
+  "sd"
+ ],
+ "feature_keys": [
+  "form",
+  "note"
+ ],
+ "palette_keys": [
+  "note",
+  "swatches"
+ ],
+ "sexes": [
+  "male",
+  "female"
+ ],
+ "life_stages": [
+  "child",
+  "adolescent",
+  "adult",
+  "elder"
+ ],
+ "stage_keys": [
+  "onset_years",
+  "height_fraction",
+  "read"
+ ],
+ "facial_hair": [
+  "none",
+  "sparse",
+  "male_only",
+  "male_full",
+  "male_full_female_sparse",
+  "full_universal"
+ ],
+ "sexual_dimorphism": [
+  "minimal",
+  "low",
+  "moderate",
+  "pronounced"
+ ],
+ "validation": {
+  "prose_min_chars": 20,
+  "palette_min_swatches": 3,
+  "weight_tolerance": 1e-06,
+  "token_pattern": "^[a-z][a-z0-9_]*$",
+  "hex_colour_pattern": "^#[0-9a-f]{6}$",
+  "heads_tall_range": [
+   3.0,
+   9.0
+  ],
+  "body_ratio_range": [
+   0.05,
+   0.95
+  ],
+  "max_years_range": [
+   1,
+   5000
+  ],
+  "onset_years_range": [
+   0,
+   5000
+  ],
+  "height_fraction_range": [
+   0.2,
+   1.0
+  ],
+  "adult_height_fraction_exact": 1,
+  "child_onset_years_exact": 0
+ }
+}

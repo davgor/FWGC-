@@ -1,0 +1,64 @@
+{
+ "schema": "fwg.heritage-overrides",
+ "schema_version": 1,
+ "note": "Sparse hand-tunes applied on top of the derived culture and the derived genome, after derivation and never before it. Carried whole from heritage/policies/overrides.json.\n\nREAD BY: heritage/policy.py lint_overrides(); heritage/derive.py _resolve(), which calls apply_overrides() twice -- once on the derived culture and once on the derived genome -- with policies['overrides'].get(section, {}).get(civ_id, {}).\n\nRNG INPUT: no. But MAPPING ITERATION ORDER IS A CONTRACT ON PUBLISHED OUTPUT, which is easy to miss. apply_overrides() walks `for block, keys in patch.items(): for key, value in keys.items():` and appends f'{block}.{key}' to `touched` in that order; _resolve() then publishes that list verbatim as provenance.overridden (culture entries first, then genome entries). That list rides into the world document via heritage_of(), and sort_keys=True does not sort list elements, so REORDERING THE KEYS IN THIS FILE CHANGES THE HERITAGE sha256 AND THE PUBLISHED PROVENANCE WHILE CHANGING NO RESOLVED VALUE. The add/drop lists inside a `genome.inventory` patch ARE order-free: derive._patch_inventory() re-emits the merged inventory in phonemes.CONSONANTS + phonemes.VOWELS order regardless of how the patch was written.\n\nABSENCE THAT IS NOT EMPTINESS: this whole file is optional per people and per key -- absence means 'take the derived value'. A patch that RESTATES the derived value RAISES ('override for X restates the derived value at block.key'), so you cannot pin a derived value by writing it down. Merging is depth two and no deeper, the same bound merge_appearance() keeps. A `genome.inventory` patch is the one place where a dict value does not replace but merges: {'add': [...], 'drop': [...]}, where a phoneme in both raises, a phoneme outside phonemes.ALPHABET raises, dropping one the derivation never produced raises, and adding one it already produced raises. So every token in an inventory patch is load-bearing and none of them is a no-op.\n\nThe heritage identity hash does NOT cover these bytes. heritage.heritage_identity() (heritage/derive.py:330) hashes the RESOLVED peoples instead -- resolved = {cid: _resolve(cid, parent) for cid, parent in sorted(pairs)}, then sha256 of json.dumps(resolved, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8'). That is a THIRD serialisation scheme in this codebase, distinct from both of the two you already have: registry_identity() (icarus_sim/civilization_registry.py:308) uses ensure_ascii=False, separators=(',', ':') and NO sort_keys, and castle_planner (icarus_sim/castle_planner.py:39) uses sort_keys=True, separators=(',', ':') and the ensure_ascii=True default. heritage is sort_keys=True AND ensure_ascii=False, so it agrees with neither on a non-ASCII string. sort_keys sorts MAPPING keys only -- it does not touch list element order, so every list marked a contract below also moves this digest. For the twelve civilizations the registry ships, in terrain_civilizations.civilization_report's pair order (tuple((key, entity_rules(key)['parent_race_id']) for key in civilization_ids()), which heritage_identity then sorts), the expected value at FantasyWorldGenerator b67c99b is sha256=9b708d23e468beb4c3f775415405b5aa8991f21c7d402aa200cd6aa99a0b2189 with revision={traits:1, derivation:1, lexicon:1, overrides:1, appearance:1}. `source_sha256` in this file is a plain digest of the source file's raw bytes, recorded for provenance only; nothing in the Python computes it.",
+ "source_identity": {
+  "source_path": "heritage/policies/overrides.json",
+  "source_schema": "fantasy-world-generator.heritage-overrides",
+  "revision": 1,
+  "source_sha256": "826af0b2d28185e2d3eedbde05bd15c2b0be89c758515f6d84b68ec613b67150",
+  "source_bytes": 1106
+ },
+ "source_note": "Sparse hand-tunes over the derived culture and genome. Every entry here is a deliberate departure from the derivation; an entry that restates the derived value is a load error, so this file stays a list of real decisions rather than a slowly fossilising copy of the output. Inventory patches use add/drop, and dropping a phoneme the derivation never produced is an error too.",
+ "culture": {
+  "frosthold_dwarf": {
+   "memory": {
+    "taboo": "letting_the_forge_die"
+   },
+   "faith": {
+    "festival": "ember_vigil"
+   }
+  },
+  "tidekin": {
+   "memory": {
+    "taboo": "naming_the_drowned"
+   },
+   "faith": {
+    "festival": "the_long_ebb"
+   }
+  },
+  "gnome": {
+   "memory": {
+    "taboo": "unlicensed_copy"
+   },
+   "faith": {
+    "festival": "patent_day"
+   }
+  },
+  "hill_dwarf": {
+   "faith": {
+    "festival": "the_full_table"
+   }
+  },
+  "human_cold": {
+   "faith": {
+    "festival": "the_long_night_watch"
+   }
+  }
+ },
+ "genome": {
+  "tidekin": {
+   "inventory": {
+    "consonants": {
+     "add": [
+      "lh"
+     ],
+     "drop": [
+      "p",
+      "g"
+     ]
+    }
+   }
+  }
+ }
+}

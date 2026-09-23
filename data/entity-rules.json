@@ -1,0 +1,762 @@
+{
+ "schema": "fwg.entity-rules",
+ "schema_version": 1,
+ "note": "Per-civilization settlement, economy and presentation rules, resolved from the Python civilization registry at FantasyWorldGenerator b67c99b after validate_registry() passed. `terrain_settlements.add_settlements` reads `settlement` to decide where a people can live; `terrain_society` reads `economy`; `terrain_civilizations.civilization_report` reads `presentation`. `terrain_society.make_sky` reads `sky`: when a magically supported sky island manifests it picks that island's people with max(people, key=lambda p: -abs(temperature_ideal[p] - island_temperature) + rng.uniform(0, 8) + score_bias[p] + moisture_score_weight[p] * island_moisture), so `score_bias` is a flat additive preference for living on a sky island (negative repels; tidekin sit at -10) and `moisture_score_weight` is multiplied by the island cell's moisture, a 0..1 unit fraction, to add a damp-air preference (elves sit at 3). Both are validated to -100..100 by validate_registry and are on the same scale as the other two terms -- degrees Celsius of temperature mismatch, and a uniform 0..8 jitter -- so a zero in both fields means the choice is temperature and luck alone, which is what ten of the twelve entities carry. The draw is a max() over `people` in this file's order, so this list's order also breaks score ties. ORDER IS A CONTRACT: this list is the registry's own `civilization_order`, which is what `terrain_profiles.civilization_ids()` returns, and `civilization_report` publishes each entity's position in it as `region_index`. Append, never insert. `surface_habitat` and `world_habitat` use the SAME predicate grammar as a population profile's `habitat` in civilizations.json (all/any/field with in/min/max/gt/equals, and an empty object meaning always true) -- see terrain_civilizations.matches() -- but unlike the population habitats these nest up to three levels deep. `source_identity` records the registry these came from.",
+ "source_identity": {
+  "schema_version": 6,
+  "revision": 12,
+  "sha256": "038cf89fe4a5248daf47e6ea002880257d0cdaac4824ed30fa3ee49bb9c8709e"
+ },
+ "entities": [
+  {
+   "id": "human_maritime",
+   "parent_race_id": "human",
+   "settlement": {
+    "surface_habitat": {},
+    "world_habitat": {},
+    "freshwater_reach_multiplier": null,
+    "support_outside_habitat": false,
+    "coastal_score_weight": 0.15,
+    "resource_score_weight": 0.0,
+    "reason": null
+   },
+   "economy": {
+    "fishing_reach_multiplier": 1.0,
+    "industrial_resource_min": null,
+    "air_terminal_resource_min": null,
+    "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
+   "presentation": {
+    "map_color_rgb": [
+     83,
+     161,
+     190
+    ],
+    "wall_color_rgb": [
+     255,
+     232,
+     194
+    ],
+    "roof_color_rgb": [
+     186,
+     102,
+     83
+    ],
+    "outpost_colors": true
+   }
+  },
+  {
+   "id": "human_desert",
+   "parent_race_id": "human",
+   "settlement": {
+    "surface_habitat": {},
+    "world_habitat": {},
+    "freshwater_reach_multiplier": null,
+    "support_outside_habitat": false,
+    "coastal_score_weight": 0.15,
+    "resource_score_weight": 0.0,
+    "reason": null
+   },
+   "economy": {
+    "fishing_reach_multiplier": 1.0,
+    "industrial_resource_min": null,
+    "air_terminal_resource_min": null,
+    "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
+   "presentation": {
+    "map_color_rgb": [
+     210,
+     171,
+     103
+    ],
+    "wall_color_rgb": [
+     255,
+     232,
+     194
+    ],
+    "roof_color_rgb": [
+     186,
+     102,
+     83
+    ],
+    "outpost_colors": true
+   }
+  },
+  {
+   "id": "human_cold",
+   "parent_race_id": "human",
+   "settlement": {
+    "surface_habitat": {},
+    "world_habitat": {},
+    "freshwater_reach_multiplier": null,
+    "support_outside_habitat": false,
+    "coastal_score_weight": 0.15,
+    "resource_score_weight": 0.0,
+    "reason": null
+   },
+   "economy": {
+    "fishing_reach_multiplier": 1.25,
+    "industrial_resource_min": null,
+    "air_terminal_resource_min": null,
+    "winter_fishing_fraction": 0.25
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
+   "presentation": {
+    "map_color_rgb": [
+     149,
+     172,
+     202
+    ],
+    "wall_color_rgb": [
+     255,
+     232,
+     194
+    ],
+    "roof_color_rgb": [
+     186,
+     102,
+     83
+    ],
+    "outpost_colors": true
+   }
+  },
+  {
+   "id": "human_large_island",
+   "parent_race_id": "human",
+   "settlement": {
+    "surface_habitat": {},
+    "world_habitat": {},
+    "freshwater_reach_multiplier": null,
+    "support_outside_habitat": false,
+    "coastal_score_weight": 0.15,
+    "resource_score_weight": 0.0,
+    "reason": null
+   },
+   "economy": {
+    "fishing_reach_multiplier": 1.0,
+    "industrial_resource_min": null,
+    "air_terminal_resource_min": null,
+    "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
+   "presentation": {
+    "map_color_rgb": [
+     138,
+     165,
+     115
+    ],
+    "wall_color_rgb": [
+     255,
+     232,
+     194
+    ],
+    "roof_color_rgb": [
+     186,
+     102,
+     83
+    ],
+    "outpost_colors": true
+   }
+  },
+  {
+   "id": "human_rainforest",
+   "parent_race_id": "human",
+   "settlement": {
+    "surface_habitat": {},
+    "world_habitat": {},
+    "freshwater_reach_multiplier": null,
+    "support_outside_habitat": false,
+    "coastal_score_weight": 0.15,
+    "resource_score_weight": 0.0,
+    "reason": null
+   },
+   "economy": {
+    "fishing_reach_multiplier": 1.0,
+    "industrial_resource_min": null,
+    "air_terminal_resource_min": null,
+    "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
+   "presentation": {
+    "map_color_rgb": [
+     70,
+     136,
+     105
+    ],
+    "wall_color_rgb": [
+     255,
+     232,
+     194
+    ],
+    "roof_color_rgb": [
+     186,
+     102,
+     83
+    ],
+    "outpost_colors": true
+   }
+  },
+  {
+   "id": "human_heartland",
+   "parent_race_id": "human",
+   "settlement": {
+    "surface_habitat": {},
+    "world_habitat": {},
+    "freshwater_reach_multiplier": null,
+    "support_outside_habitat": false,
+    "coastal_score_weight": 0.15,
+    "resource_score_weight": 0.0,
+    "reason": null
+   },
+   "economy": {
+    "fishing_reach_multiplier": 1.0,
+    "industrial_resource_min": null,
+    "air_terminal_resource_min": null,
+    "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
+   "presentation": {
+    "map_color_rgb": [
+     184,
+     131,
+     113
+    ],
+    "wall_color_rgb": [
+     255,
+     232,
+     194
+    ],
+    "roof_color_rgb": [
+     186,
+     102,
+     83
+    ],
+    "outpost_colors": true
+   }
+  },
+  {
+   "id": "dwarf",
+   "parent_race_id": "dwarf",
+   "settlement": {
+    "surface_habitat": {
+     "all": [
+      {
+       "field": "resource",
+       "min": 0.5
+      },
+      {
+       "any": [
+        {
+         "field": "biome",
+         "in": [
+          5
+         ]
+        },
+        {
+         "field": "variant",
+         "in": [
+          "desert.weave",
+          "desert.infernal",
+          "desert.water"
+         ]
+        },
+        {
+         "field": "tpi",
+         "gt": 6
+        },
+        {
+         "all": [
+          {
+           "field": "slope",
+           "gt": 10
+          },
+          {
+           "field": "height",
+           "gt": 15
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "world_habitat": {
+     "all": [
+      {
+       "field": "resource",
+       "min": 0.5
+      },
+      {
+       "any": [
+        {
+         "field": "biome",
+         "in": [
+          5
+         ]
+        },
+        {
+         "field": "variant",
+         "in": [
+          "desert.weave",
+          "desert.infernal",
+          "desert.water"
+         ]
+        },
+        {
+         "field": "tpi",
+         "gt": 6
+        },
+        {
+         "all": [
+          {
+           "field": "slope",
+           "gt": 10
+          },
+          {
+           "field": "height",
+           "gt": 15
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "freshwater_reach_multiplier": 2,
+    "support_outside_habitat": true,
+    "coastal_score_weight": 0.15,
+    "resource_score_weight": 0.0,
+    "reason": "Mineral-rich upland with freshwater access"
+   },
+   "economy": {
+    "fishing_reach_multiplier": 1.0,
+    "industrial_resource_min": null,
+    "air_terminal_resource_min": null,
+    "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
+   "presentation": {
+    "map_color_rgb": [
+     142,
+     142,
+     154
+    ],
+    "wall_color_rgb": [
+     185,
+     194,
+     207
+    ],
+    "roof_color_rgb": [
+     104,
+     122,
+     150
+    ],
+    "outpost_colors": false
+   }
+  },
+  {
+   "id": "elf",
+   "parent_race_id": "elf",
+   "settlement": {
+    "surface_habitat": {
+     "all": [
+      {
+       "field": "biome",
+       "in": [
+        4,
+        7,
+        15
+       ]
+      },
+      {
+       "field": "moisture",
+       "min": 0.55
+      }
+     ]
+    },
+    "world_habitat": {
+     "all": [
+      {
+       "field": "biome",
+       "in": [
+        4,
+        7,
+        15
+       ]
+      },
+      {
+       "field": "moisture",
+       "min": 0.4
+      }
+     ]
+    },
+    "freshwater_reach_multiplier": 2,
+    "support_outside_habitat": false,
+    "coastal_score_weight": 0.15,
+    "resource_score_weight": 0.0,
+    "reason": "Moist forest habitat with freshwater access"
+   },
+   "economy": {
+    "fishing_reach_multiplier": 1.0,
+    "industrial_resource_min": null,
+    "air_terminal_resource_min": null,
+    "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 3
+   },
+   "presentation": {
+    "map_color_rgb": [
+     123,
+     185,
+     143
+    ],
+    "wall_color_rgb": [
+     179,
+     232,
+     199
+    ],
+    "roof_color_rgb": [
+     54,
+     131,
+     101
+    ],
+    "outpost_colors": false
+   }
+  },
+  {
+   "id": "gnome",
+   "parent_race_id": "dwarf",
+   "settlement": {
+    "surface_habitat": {},
+    "world_habitat": {
+     "field": "resource",
+     "gt": 0.45
+    },
+    "freshwater_reach_multiplier": null,
+    "support_outside_habitat": false,
+    "coastal_score_weight": 0.15,
+    "resource_score_weight": 0.15,
+    "reason": null
+   },
+   "economy": {
+    "fishing_reach_multiplier": 1.0,
+    "industrial_resource_min": 0.5,
+    "air_terminal_resource_min": 0.5,
+    "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 4,
+    "moisture_score_weight": 0
+   },
+   "presentation": {
+    "map_color_rgb": [
+     193,
+     166,
+     98
+    ],
+    "wall_color_rgb": [
+     255,
+     232,
+     194
+    ],
+    "roof_color_rgb": [
+     186,
+     102,
+     83
+    ],
+    "outpost_colors": true
+   }
+  },
+  {
+   "id": "tidekin",
+   "parent_race_id": "elf",
+   "settlement": {
+    "surface_habitat": {},
+    "world_habitat": {
+     "all": [
+      {
+       "field": "maritime",
+       "gt": 0.3
+      },
+      {
+       "field": "coastal_support",
+       "gt": 0.1
+      }
+     ]
+    },
+    "freshwater_reach_multiplier": null,
+    "support_outside_habitat": false,
+    "coastal_score_weight": 0.35,
+    "resource_score_weight": 0.0,
+    "reason": null
+   },
+   "economy": {
+    "fishing_reach_multiplier": 1.5,
+    "industrial_resource_min": null,
+    "air_terminal_resource_min": null,
+    "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": -10,
+    "moisture_score_weight": 0
+   },
+   "presentation": {
+    "map_color_rgb": [
+     102,
+     189,
+     184
+    ],
+    "wall_color_rgb": [
+     255,
+     232,
+     194
+    ],
+    "roof_color_rgb": [
+     186,
+     102,
+     83
+    ],
+    "outpost_colors": true
+   }
+  },
+  {
+   "id": "hill_dwarf",
+   "parent_race_id": "dwarf",
+   "settlement": {
+    "surface_habitat": {
+     "all": [
+      {
+       "field": "biome",
+       "in": [
+        3
+       ]
+      },
+      {
+       "field": "slope",
+       "max": 18
+      }
+     ]
+    },
+    "world_habitat": {
+     "all": [
+      {
+       "field": "biome",
+       "in": [
+        3
+       ]
+      },
+      {
+       "field": "slope",
+       "max": 18
+      }
+     ]
+    },
+    "freshwater_reach_multiplier": null,
+    "support_outside_habitat": false,
+    "coastal_score_weight": 0.15,
+    "resource_score_weight": 0.0,
+    "reason": "Fertile grassland and gentle slopes suited to a pastoral hill-dwarf community"
+   },
+   "economy": {
+    "fishing_reach_multiplier": 1.0,
+    "industrial_resource_min": null,
+    "air_terminal_resource_min": null,
+    "winter_fishing_fraction": 0
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
+   "presentation": {
+    "map_color_rgb": [
+     185,
+     174,
+     95
+    ],
+    "wall_color_rgb": [
+     197,
+     183,
+     135
+    ],
+    "roof_color_rgb": [
+     99,
+     139,
+     71
+    ],
+    "outpost_colors": true
+   }
+  },
+  {
+   "id": "frosthold_dwarf",
+   "parent_race_id": "dwarf",
+   "settlement": {
+    "surface_habitat": {
+     "all": [
+      {
+       "field": "abs_latitude",
+       "min": 50
+      },
+      {
+       "field": "temperature",
+       "max": 5
+      },
+      {
+       "field": "resource",
+       "min": 0.45
+      },
+      {
+       "any": [
+        {
+         "field": "biome",
+         "in": [
+          5
+         ]
+        },
+        {
+         "field": "tpi",
+         "gt": 6
+        },
+        {
+         "all": [
+          {
+           "field": "slope",
+           "gt": 10
+          },
+          {
+           "field": "height",
+           "gt": 15
+          }
+         ]
+        },
+        {
+         "all": [
+          {
+           "field": "maritime",
+           "gt": 0.3
+          },
+          {
+           "field": "slope",
+           "min": 8
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "world_habitat": {
+     "all": [
+      {
+       "field": "abs_latitude",
+       "min": 50
+      },
+      {
+       "field": "temperature",
+       "max": 5
+      },
+      {
+       "field": "resource",
+       "min": 0.45
+      },
+      {
+       "any": [
+        {
+         "field": "biome",
+         "in": [
+          5
+         ]
+        },
+        {
+         "field": "tpi",
+         "gt": 6
+        },
+        {
+         "all": [
+          {
+           "field": "slope",
+           "gt": 10
+          },
+          {
+           "field": "height",
+           "gt": 15
+          }
+         ]
+        },
+        {
+         "all": [
+          {
+           "field": "maritime",
+           "gt": 0.3
+          },
+          {
+           "field": "slope",
+           "min": 8
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "freshwater_reach_multiplier": 2,
+    "support_outside_habitat": true,
+    "coastal_score_weight": 0.25,
+    "resource_score_weight": 0.0,
+    "reason": "Cold mineral-rich upland or coastal cliff with reachable freshwater and supply hinterland"
+   },
+   "economy": {
+    "fishing_reach_multiplier": 1.25,
+    "industrial_resource_min": null,
+    "air_terminal_resource_min": null,
+    "winter_fishing_fraction": 0.15
+   },
+   "sky": {
+    "score_bias": 0,
+    "moisture_score_weight": 0
+   },
+   "presentation": {
+    "map_color_rgb": [
+     133,
+     182,
+     207
+    ],
+    "wall_color_rgb": [
+     111,
+     129,
+     145
+    ],
+    "roof_color_rgb": [
+     60,
+     92,
+     114
+    ],
+    "outpost_colors": false
+   }
+  }
+ ]
+}

@@ -1,0 +1,54 @@
+{
+ "schema": "fwg.heritage-name-draw",
+ "schema_version": 1,
+ "note": "Every numeric constant the name generator draws against, and the name-frequency curve a people's personal names are distributed along. AUTHORED DATA THAT LIVES IN PYTHON: the `stock_curve` values are module-level constants in Sim/heritage/naming.py; everything under `draw_rates` and `word_shape_syllables` is an INLINE LITERAL inside a function body in the same file. A port that misses any of these still produces names -- just a different world's names -- so they are the most silently lossy thing in the package.\n\nREAD BY: heritage/naming.py -- _weighted(), settlement_name(), person_name(), person_name_with_gloss(), _nucleus(), _syllable(), _draw_person(), _join(), _thresholds(), _ranked(), _ordered(), name_stock(), stock_name(). DOWNSTREAM: icarus_sim/terrain_settlements.py:773 names every city; npc_roster/naming.py:57,71,76 names every NPC; hero_generator/naming.py:35 names every hero; hero_generator/realms.py:20 names every realm.\n\nRNG INPUT: this file IS the RNG contract. LIST ORDER IS A CONTRACT for `stock_curve.head_shares`: naming._thresholds() consumes it POSITIONALLY as rank 1..5 (shares = list(HEAD_SHARES[:count])), pads the remaining ranks with a 1/r Zipf tail, normalises, and returns a CUMULATIVE list; stock_name() then walks that cumulative list in order (for index, threshold in enumerate(stock['thresholds']): if cut < threshold: return common[index]) -- a bisect by another name. Reordering head_shares re-ranks a whole people's names. The figures are the English poll-tax returns of the late fourteenth century rounded: one man in three a John, the top five covering about four fifths. They are TABULATED RATHER THAN FITTED on purpose -- the measured curve is steeper at the head than any single Zipf exponent reproduces.\n`draw_rates` are compared against draw.random() and each one CONSUMES A DRAW WHETHER OR NOT IT CHANGES THE OUTCOME, so the stream position depends on them: nucleus_complex_share (base 0.15, raised to 0.30 when phonotactics.vowel_length is 'contrastive' and to 0.40 when phonotactics.hiatus is 'preferred' -- the two are tested in that order and the hiatus test WINS because it is a second unconditional if, not an elif); optional_coda_skip 0.55 (note the SENSE: _syllable returns early when draw.random() >= 0.55, so an optional coda appears 55% of the time); and the per-genome `rates.cluster` and `rates.third_syllable` from heritage-derivation.json. stock_name() deliberately takes TWO draws on every path ('two draws whatever the outcome, so the stream a caller sees does not depend on which branch was taken') -- roll decides rare vs common against rare_share, cut indexes within whichever was chosen. A port that takes one draw on the common path desynchronises every subsequent name.\n`redraw_limit` 8 bounds the retry loop in settlement_name() and person_name(); on exhaustion BOTH RETURN THE LAST REJECTED CANDIDATE rather than raising, so a forbidden form can still ship if the lexicon is too small to satisfy the filter.\nThe stock RANK ORDER is pure and seedless by design -- 'rank has to be a property of the culture rather than of a seed' -- sorted by (-authored template weight, len(name), name), a TOTAL order, then the head is filled greedily to `head_spread`=5 skipping any name that reuses a root already standing in the head, with the skipped names falling to the body in their own rank order. If the space is too small to fill a distinct head, the plain rank order stands unaltered rather than the head running short.\n\nABSENCE THAT IS NOT EMPTINESS: an EMPTY common stock is not 'draw from rare' -- stock_name() returns None and refuses the whole stock, because an empty common stock means no personal template this family's roots can fill, and promoting the rare pairings would hide that authoring fault behind names that look fine. `person_name(resolved, draw)` with the lexicon omitted is a supported two-argument call that silently shifts to the PHONOTACTIC path (if draw is None: lexicon, draw = None, lexicon) -- a different name distribution, not a degraded one. In _join(), `geminates` false COLLAPSES a doubled letter across a compound seam and `hiatus` == 'forbidden' DROPS the first root's final vowel, so those two genome fields change spelling rather than merely annotate it.",
+ "source_identity": {
+  "source_path": "heritage/naming.py",
+  "source_kind": "module-level constants and in-function literals",
+  "origin": "FantasyWorldGenerator b67c99b, Sim/heritage/naming.py"
+ },
+ "redraw_limit": 8,
+ "stock_curve": {
+  "head_shares": [
+   0.35,
+   0.17,
+   0.12,
+   0.09,
+   0.06
+  ],
+  "zipf_exponent": 1.0,
+  "rare_share": 0.025,
+  "head_spread": 5,
+  "rank_key": [
+   "-template_weight",
+   "len(name)",
+   "name"
+  ],
+  "collision_rule": "first reading wins, highest authored weight wins"
+ },
+ "draw_rates": {
+  "nucleus_complex_share": {
+   "base": 0.15,
+   "vowel_length_contrastive": 0.3,
+   "hiatus_preferred": 0.4
+  },
+  "optional_coda_skip": 0.55,
+  "stock_draws_per_name": 2
+ },
+ "word_shape_syllables": {
+  "monosyllabic_heavy": 1,
+  "disyllabic": 2,
+  "trisyllabic_flowing": 2
+ },
+ "vowel_letters": [
+  "a",
+  "e",
+  "i",
+  "o",
+  "u"
+ ],
+ "name_table_slices": {
+  "consonants": 12,
+  "vowels": 3
+ }
+}
