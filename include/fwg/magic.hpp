@@ -130,6 +130,17 @@ inline constexpr double kReferenceRadiusM = 1774.4123532462844;
 // The hard ceiling a network edit enforces on any intensity.
 inline constexpr double kLeyIntensityMax = 4.0;
 
+// Each hidden school draws on something the known eight do not. These only ever act on a
+// network that already has a node, so a generated world -- whose hidden networks are always
+// empty -- takes none of these paths and its fields are untouched. The corruption API is
+// what puts a node in one.
+inline constexpr double kBloodFeedGain = 2.5;     // dense living multiplies what blood can draw
+inline constexpr double kEldritchFeedGain = 2.5;  // aberrant and undead nests and ruins feed eldritch
+inline constexpr double kRotReachWidths = 6.0;    // how far rot creeps, in its own network widths
+inline constexpr double kRotDecayWidths = 2.0;    // e-folding length of that creep, likewise
+inline constexpr int kRotMaxSteps = 64;
+inline constexpr double kVoidBite = 0.8;          // share of void potency taken from every other school
+
 // At most this many player leyline edits in one request. Each edit the reference makes
 // copies a whole network, which is why the bound is small.
 inline constexpr std::size_t kMaxLeylineEdits = 128;
@@ -179,6 +190,12 @@ void generate_networks(World& world);
 
 // Rebuilds only the magic-derived layers, leaving the network inputs alone — so an
 // editor can move a key point and see the fields follow without rerolling geometry.
+//
+// The hidden schools read the world as it stands: blood feeds on the living (every city,
+// weighted by its share of the largest), eldritch on the aberrant and undead nests and on
+// the ruins, rot creeps outward cell to cell in metres, and void subtracts from every other
+// school. Each reads the world BEFORE the rebuild that follows it, so a corruption is always
+// one rebuild behind the cities it is eating.
 void evaluate_networks(World& world);
 
 }  // namespace fwg

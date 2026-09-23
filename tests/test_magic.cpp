@@ -257,3 +257,124 @@ TEST(leylines_unblock_the_magical_regions) {
         }
     }
 }
+
+// --- the hidden schools ------------------------------------------------------
+//
+// Generation never raises a hidden school; the corruption API plants one. Each test plants
+// a node by hand on a world that has cities, nests and (at phase 15) ruins, evaluates, and
+// compares against the same world with the one input the term reads taken away.
+
+namespace {
+
+World settled(int phase = 15) {
+    Request r;
+    r.seed = 42;
+    r.size = 33;
+    r.phase = phase;
+    return generate(resolve(r));
+}
+
+// A node on the first city, so the living it feeds on are close.
+void plant_on_first_city(World& w, const std::string& school, double intensity = 3.0) {
+    plant_key_point(w.magic.networks.at(school),
+                    {school + "-test-node", w.settlements.sites.at(0).direction, intensity});
+}
+
+const Grid& ley(const World& w, const std::string& school) { return w.layers.at("ley_" + school); }
+
+// Every cell of a is at least b's, and some cell is strictly greater.
+bool dominates(const Grid& a, const Grid& b) {
+    bool strictly = false;
+    for (int z = 0; z < a.size(); ++z) {
+        for (int x = 0; x < a.size(); ++x) {
+            if (a.at(x, z) < b.at(x, z) - 1e-12) return false;
+            strictly = strictly || a.at(x, z) > b.at(x, z) + 1e-12;
+        }
+    }
+    return strictly;
+}
+
+}  // namespace
+
+TEST(blood_feeds_on_the_living) {
+    World fed = settled();
+    plant_on_first_city(fed, "blood");
+    World starved = fed;
+    for (SettlementSite& s : starved.settlements.sites) s.population_estimate = 0;
+    evaluate_networks(fed);
+    evaluate_networks(starved);
+    check::is_true(dominates(ley(fed, "blood"), ley(starved, "blood")),
+                   "a blood node among the living to draw more than the same node among none");
+}
+
+TEST(eldritch_feeds_on_the_feared_and_the_fallen) {
+    World fed = settled();
+    check::is_true(!fed.ruins.empty(), "ruins for eldritch to feed on, or nothing is tested");
+    plant_key_point(fed.magic.networks.at("eldritch"), {"eldritch-test-node", fed.ruins.at(0).direction, 3.0});
+    World starved = fed;
+    starved.ruins.clear();
+    std::erase_if(starved.beast_nests.sites,
+                  [](const NestSite& n) { return n.family == "aberrant" || n.family == "undead"; });
+    evaluate_networks(fed);
+    evaluate_networks(starved);
+    check::is_true(dominates(ley(fed, "eldritch"), ley(starved, "eldritch")),
+                   "eldritch beside a ruin to draw more than with nothing feared nearby");
+}
+
+TEST(rot_creeps_outward_in_metres) {
+    World w = settled(13);
+    plant_on_first_city(w, "rot");
+    evaluate_networks(w);
+    // A bare Gaussian of the same node, for comparison: an identical node in a school with
+    // the same width that does not creep.
+    const LeyNetwork& rot = w.magic.networks.at("rot");
+    World plain = settled(13);
+    LeyNetwork& blood = plain.magic.networks.at("blood");
+    blood.width_m = rot.width_m;
+    blood.strength = rot.strength;
+    plant_on_first_city(plain, "blood");
+    for (SettlementSite& s : plain.settlements.sites) s.population_estimate = 0;  // no feed
+    evaluate_networks(plain);
+    check::is_true(dominates(ley(w, "rot"), ley(plain, "blood")),
+                   "rot to reach cells a node of the same width does not, and lose nowhere");
+}
+
+TEST(void_takes_ground_from_every_other_school) {
+    World bitten = settled(13);
+    World whole = bitten;
+    plant_on_first_city(bitten, "void");
+    evaluate_networks(bitten);
+    evaluate_networks(whole);
+    std::size_t lost = 0;
+    for (const MagicSchool& school : magic_school_table()) {
+        const std::string name(school.name);
+        if (name == "void") continue;
+        const Grid& before = ley(whole, name);
+        const Grid& after = ley(bitten, name);
+        for (int z = 0; z < before.size(); ++z) {
+            for (int x = 0; x < before.size(); ++x) {
+                check::is_true(after.at(x, z) <= before.at(x, z), name + " never to gain under void");
+                lost += after.at(x, z) < before.at(x, z) ? 1 : 0;
+            }
+        }
+    }
+    check::is_true(lost > 0, "some school to lose ground to void");
+}
+
+TEST(a_generated_world_takes_none_of_the_hidden_paths) {
+    // Evaluating a generated world again changes nothing: its hidden networks are empty.
+    World w = settled(13);
+    const std::map<std::string, Grid> before = w.layers;
+    evaluate_networks(w);
+    for (const MagicSchool& school : magic_school_table()) {
+        const std::string name = "ley_" + std::string(school.name);
+        const Grid& a = before.at(name);
+        const Grid& b = w.layers.at(name);
+        for (int z = 0; z < a.size(); ++z) {
+            for (int x = 0; x < a.size(); ++x) {
+                check::is_true(std::signbit(a.at(x, z)) == std::signbit(b.at(x, z)) && a.at(x, z) == b.at(x, z),
+                               name + " unchanged, sign of zero included");
+            }
+        }
+    }
+}

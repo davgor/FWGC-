@@ -236,6 +236,109 @@ void generate_networks(World& world) {
     world.systems.push_back("leylines");
 }
 
+namespace {
+
+// A 0..1 field of how close each point is to a weighted set of sources.
+std::vector<double> saturating_field(const std::vector<std::pair<Vec3, double>>& sources,
+                                     const std::vector<Vec3>& vectors, double radius, double width_m) {
+    std::vector<double> field(vectors.size());
+    for (std::size_t i = 0; i < vectors.size(); ++i) {
+        double total = 0.0;
+        for (const auto& [point, weight] : sources) {
+            const double a = radius * std::acos(clamp_unit(dot(vectors[i], point))) / width_m;
+            total += weight * std::exp(-a * a);
+        }
+        field[i] = -std::expm1(-total);
+    }
+    return field;
+}
+
+// What blood and eldritch find to feed on, as a multiplier per point, keyed by school.
+// Only a school whose network has a node gets one.
+std::map<std::string, std::vector<double>> hidden_feeds(const World& world, const std::vector<Vec3>& vectors,
+                                                        double radius) {
+    std::map<std::string, std::vector<double>> feeds;
+    const auto& networks = world.magic.networks;
+    if (const auto blood = networks.find("blood"); blood != networks.end() && !blood->second.nodes.empty()) {
+        // The living: every city, as a share of the largest one.
+        double largest = 0.0;
+        for (const SettlementSite& c : world.settlements.sites) {
+            largest = std::max(largest, static_cast<double>(c.population_estimate));
+        }
+        std::vector<std::pair<Vec3, double>> sources;
+        if (largest > 0.0) {
+            for (const SettlementSite& c : world.settlements.sites) {
+                sources.emplace_back(c.direction, static_cast<double>(c.population_estimate) / largest);
+            }
+        }
+        std::vector<double> field = saturating_field(sources, vectors, radius, blood->second.width_m);
+        for (double& v : field) v = 1.0 + kBloodFeedGain * v;
+        feeds["blood"] = std::move(field);
+    }
+    if (const auto eldritch = networks.find("eldritch");
+        eldritch != networks.end() && !eldritch->second.nodes.empty()) {
+        // What the world already fears: its aberrant and undead nests, and its ruins.
+        std::vector<std::pair<Vec3, double>> sources;
+        for (const NestSite& nest : world.beast_nests.sites) {
+            if (nest.family == "aberrant" || nest.family == "undead") sources.emplace_back(nest.direction, 1.0);
+        }
+        for (const Ruin& ruin : world.ruins) sources.emplace_back(ruin.direction, 1.0);
+        std::vector<double> field = saturating_field(sources, vectors, radius, eldritch->second.width_m);
+        for (double& v : field) v = 1.0 + kEldritchFeedGain * v;
+        feeds["eldritch"] = std::move(field);
+    }
+    return feeds;
+}
+
+// Rot creeps cell to cell instead of falling off from a node. The creep is measured in
+// metres, never in cells: each step carries a neighbour's value across that edge's own arc,
+// decaying over a length derived from the network's width, so a size-33 world and a
+// size-257 one rot at the same physical rate, which a fixed iteration count would not give.
+std::vector<double> rot_spread(std::vector<double> power, const LeyNetwork& net, const SphereGrid& grid) {
+    const double decay_m = kRotDecayWidths * net.width_m;
+    double arc_sum = 0.0;
+    std::size_t arcs = 0;
+    for (const auto& edges : grid.neighbours) {
+        for (const SphereNeighbour& e : edges) {
+            arc_sum += e.distance;
+            ++arcs;
+        }
+    }
+    const double mean_arc = arcs > 0 ? arc_sum / static_cast<double>(arcs) : 0.0;
+    if (mean_arc == 0.0 || decay_m == 0.0) return power;
+    const int steps =
+        std::min(kRotMaxSteps, std::max(1, static_cast<int>(std::lround(kRotReachWidths * net.width_m / mean_arc))));
+    std::vector<double> carried(power.size());
+    for (int step = 0; step < steps; ++step) {
+        for (std::size_t i = 0; i < power.size(); ++i) {
+            double best = power[i];
+            for (const SphereNeighbour& e : grid.neighbours[i]) {
+                best = std::max(best, power[static_cast<std::size_t>(e.index)] * std::exp(-e.distance / decay_m));
+            }
+            carried[i] = best;
+        }
+        if (carried == power) break;
+        power.swap(carried);
+    }
+    return power;
+}
+
+// Void does not add potency, it takes it: every other school loses ground to it. Skipped
+// where void is zero rather than applied as a zero, because max(0, x - 0) would turn the
+// negative zero an unmanifested network writes into a positive one.
+void void_bite(std::vector<std::vector<double>>& powers, std::size_t void_school) {
+    const std::vector<double> bite_of = powers[void_school];
+    for (std::size_t i = 0; i < bite_of.size(); ++i) {
+        const double bite = bite_of[i] * kVoidBite;
+        if (bite == 0.0) continue;
+        for (std::size_t s = 0; s < powers.size(); ++s) {
+            if (s != void_school) powers[s][i] = std::max(0.0, powers[s][i] - bite);
+        }
+    }
+}
+
+}  // namespace
+
 void evaluate_networks(World& world) {
     const Config& cfg = world.effective;
     const int n = cfg.size;
@@ -250,12 +353,15 @@ void evaluate_networks(World& world) {
 
     const auto table = magic_school_table();
     std::vector<std::vector<double>> powers(table.size(), std::vector<double>(count, 0.0));
+    const std::map<std::string, std::vector<double>> feeds = hidden_feeds(world, vectors, radius);
 
     for (std::size_t s = 0; s < table.size(); ++s) {
         const LeyNetwork& net = world.magic.networks.at(std::string(table[s].name));
         std::vector<double>& power = powers[s];
+        const auto fed = feeds.find(std::string(table[s].name));
+        const std::vector<double>* feed = fed != feeds.end() ? &fed->second : nullptr;
 
-        if (net.nodes.empty() && net.edges.empty()) {
+        if (net.nodes.empty() && net.edges.empty() && feed == nullptr) {
             // An empty school sums to integer zero everywhere, and -expm1(-0) is
             // NEGATIVE zero. Written as the same expression rather than a literal so
             // it cannot drift from the loop below; the sign reaches the document.
@@ -292,9 +398,19 @@ void evaluate_networks(World& world) {
                 const double a = radius * distance_to_frame(p, frame) / width;
                 total += k * std::exp(-a * a);
             }
+            // Applied before saturation, so a well-fed field still tops out at strength.
+            if (feed != nullptr) total *= (*feed)[i];
             // Saturating: overlapping sources approach `strength` and never exceed it.
             power[i] = net.strength * -std::expm1(-total);
         }
+    }
+
+    const auto rot = static_cast<std::size_t>(magic_school_index("rot"));
+    if (const LeyNetwork& net = world.magic.networks.at("rot"); !net.nodes.empty()) {
+        powers[rot] = rot_spread(std::move(powers[rot]), net, grid);
+    }
+    if (!world.magic.networks.at("void").nodes.empty()) {
+        void_bite(powers, static_cast<std::size_t>(magic_school_index("void")));
     }
 
     // Publish the per-school fields.
