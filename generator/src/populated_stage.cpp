@@ -40,11 +40,14 @@ HumansRequest humans_request(const World& world) {
         request.previous_hamlets = world.humans.hamlets;
         request.previous_fortresses = world.humans.fortresses;
     }
-    // No war history. This used to say nothing had fought yet because the age transitions
-    // were not ported; they are now, and the reference's pass reads every city's
-    // war_history here (veteran_wars), so a city that has fought asks for more forts. This
-    // adapter still passes none, so every rebuild answers as if no city had ever fought.
-    // Left as found rather than filled: filling it changes every world an age has turned.
+    // Each city's wars, by site index (the pass keys its owner field on site id, which is
+    // the index): the reference reads every city's war_history here (veteran_wars), so a
+    // city that has fought asks for more forts and weights the ground it owns. A world no
+    // age has turned has none, and keeps the road-and-city answer.
+    request.war_history.reserve(world.settlements.sites.size());
+    for (const SettlementSite& site : world.settlements.sites) {
+        request.war_history.push_back(static_cast<int>(site.war_history.size()));
+    }
     return request;
 }
 

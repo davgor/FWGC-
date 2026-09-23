@@ -192,6 +192,31 @@ TEST(villains_are_seated_at_the_last_age_and_not_before) {
     check::is_true(seated > 0, "some villain seated at the final age");
 }
 
+TEST(veterans_ask_for_more_defence_than_cities_that_never_fought) {
+    const World w = at_phase(15);
+    const FortressDemand& demand = w.humans.fortress_demand;
+    std::map<std::string, const ThreatReport*> reports;
+    for (const ThreatReport& r : w.threat_assessments.cities) reports[r.city_uid] = &r;
+    int veterans = 0;
+    int asked = 0;
+    for (const SettlementSite& s : w.settlements.sites) {
+        if (s.war_history.empty()) continue;
+        ++veterans;
+        asked += std::min(3, static_cast<int>(s.war_history.size()));
+        // And they expect the next war, which is what thickens their walls.
+        const auto it = reports.find(s.uid);
+        check::is_true(it != reports.end(), s.uid + " to be assessed");
+        check::equal(it->second->wars_fought, static_cast<int>(s.war_history.size()), s.uid + " wars fought");
+        check::is_true(it->second->war_pressure > 0.0, s.uid + " to feel its wars");
+        check::is_true(it->second->regional_threat >= it->second->war_pressure, s.uid + " threat covers its wars");
+    }
+    check::is_true(veterans > 0, "a city standing after two ages that fought in them, or nothing is tested");
+    check::equal(demand.veteran_cities, veterans, "every veteran city counted");
+    check::equal(demand.veteran_demand, asked, "each asks for up to three more forts");
+    check::equal(demand.city_ceiling, static_cast<int>(w.settlements.sites.size()) + asked, "the ceiling rises with them");
+    check::is_true(static_cast<int>(w.humans.fortresses.size()) <= demand.limit, "and the limit still holds");
+}
+
 TEST(the_rebuilt_world_is_assessed_as_of_the_last_age) {
     const World w = at_phase(15);
     check::equal(w.beast_nests.evaluated_age.value_or(-1), 2, "the nests placed on the rebuilt ground");
