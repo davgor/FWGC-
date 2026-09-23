@@ -13,12 +13,17 @@
 #include <algorithm>
 #include <cmath>
 #include <map>
+#include <memory>
 #include <numbers>
 #include <set>
 #include <string>
 #include <utility>
 #include <vector>
 
+#include "fwg/complete_stage.hpp"
+#include "fwg/grid.hpp"
+#include "fwg/heroes.hpp"
+#include "fwg/key_locations.hpp"
 #include "fwg/world.hpp"
 
 using namespace fwg;
@@ -727,3 +732,16 @@ TEST(the_society_pass_re_sites_every_witch_hut_the_ecology_placed) {
     }
     check::is_true(resited > 0 && resited <= placed, "up to as many huts as the ecology pass placed");
 }
+
+// The cast and the key locations measure their distances per grid node, as the reference's
+// passes read world['spacing_m'] -- the grid step, not the settlement spacing. The two differ
+// by more than half on this world, so an adapter handing over the wrong one cannot pass.
+TEST(the_cast_and_the_key_locations_measure_in_grid_metres) {
+    const World& w = complete_65();
+    check::is_true(std::abs(w.spacing_m - w.effective.settlement_spacing) > 0.5 * w.spacing_m,
+                   "the grid step and the settlement spacing to differ, or nothing is tested");
+    check::equal(heroes_view(w).spacing_m, w.spacing_m, "the cast reads the grid step");
+    const std::shared_ptr<const SphereGrid> grid = sphere_grid(w.config.size, w.effective.globe_radius);
+    check::equal(key_location_view(w, *grid).spacing_m, w.spacing_m, "the key locations read the grid step");
+}
+

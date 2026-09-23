@@ -257,6 +257,12 @@ TEST(percentile_is_nearest_rank_and_never_interpolates) {
     check::equal(key_location_percentile(values, 0.0), 0.0, "the floor");
     check::equal(key_location_percentile(values, 1.0), 3.0, "the ceiling");
     check::equal(key_location_percentile({7.0}, 0.8), 7.0, "a single sample");
+    // A rank on an exact half rounds away from zero, the library's one rule, where the
+    // reference's round() takes the even rank: rank 0.5 is the higher of two, and rank 2.5
+    // of six is index 3, not 2.
+    check::equal(key_location_percentile({10.0, 20.0}, 0.5), 20.0, "rank 0.5 rounds away from zero");
+    check::equal(key_location_percentile({10.0, 20.0, 30.0, 40.0, 50.0, 60.0}, 0.5), 40.0,
+                 "rank 2.5 rounds to 3, not to the even 2");
 }
 
 TEST(a_distance_field_with_no_sources_reads_the_ceiling_everywhere) {

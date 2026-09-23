@@ -30,7 +30,10 @@
 //
 // Rounding: every rounded output field uses half-away-from-zero (`std::round` on the
 // scaled value), not the reference's banker's rounding. Picked once, here, because two
-// rounding rules in one library make two builds disagree on a tie.
+// rounding rules in one library make two builds disagree on a tie. The percentile's
+// nearest rank follows the same rule, so a rank landing on an exact half takes the higher
+// sample where the reference's round() takes the even one: one candidate more or fewer
+// at a tie, pinned by a test so a change of rule is a decision.
 #pragma once
 
 #include <cstdint>

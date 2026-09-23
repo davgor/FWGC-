@@ -389,7 +389,9 @@ HeroesRequest heroes_request(const World& world) {
     request.seed = cfg.seed;
     request.final_age = world.age;
     request.globe_radius_m = cfg.globe_radius;
-    request.spacing_m = cfg.settlement_spacing;
+    // The grid step: the reference's heroes read world['spacing_m'], metres per grid node,
+    // for every countryside and quest-pressure distance -- not the settlement spacing.
+    request.spacing_m = world.spacing_m;
     request.layers = &world.layers;
 
     for (const SettlementSite& s : world.settlements.sites) {
@@ -693,7 +695,8 @@ KeyLocationRequest key_location_request(const World& world, const SphereGrid& gr
     request.seed = cfg.seed;
     request.n = cfg.size;
     request.radius_m = cfg.globe_radius;
-    request.spacing_m = cfg.settlement_spacing;
+    // The grid step, as the reference's key_locations.core.world.spacing_m reads it.
+    request.spacing_m = world.spacing_m;
     request.ages = world.age;
     request.layers = &world.layers;
 
@@ -975,6 +978,12 @@ long long beast_movement_year(const World& world) {
 
 NomadRequest nomad_view(const World& world, const SphereGrid& grid, const std::vector<NomadHabitatCell>& cells) {
     return nomad_request(world, grid, cells);
+}
+
+HeroesRequest heroes_view(const World& world) { return heroes_request(world); }
+
+KeyLocationRequest key_location_view(const World& world, const SphereGrid& grid) {
+    return key_location_request(world, grid);
 }
 
 }  // namespace fwg

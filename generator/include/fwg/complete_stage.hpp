@@ -11,6 +11,8 @@ namespace fwg {
 
 struct World;
 struct SphereGrid;
+struct HeroesRequest;
+struct KeyLocationRequest;
 
 // Runs stage 16 over whatever world exists. Every pass here reads the world rather than
 // changing its ground, so it runs the same whether or not the age transitions ran first.
@@ -26,6 +28,12 @@ void redraw_plans(World& world);
 // `grid` must be built at world.effective.globe_radius and `cells` from it; the view points
 // into both, and into the world's seasonal months.
 NomadRequest nomad_view(const World& world, const SphereGrid& grid, const std::vector<NomadHabitatCell>& cells);
+
+// The cast's and the key locations' views of the world: the adapters stage 16 hands those
+// two passes, exported so a test can hold them to what the reference's passes read. Both
+// point into `world` (and the second into `grid`), so neither may outlive them.
+HeroesRequest heroes_view(const World& world);
+KeyLocationRequest key_location_view(const World& world, const SphereGrid& grid);
 
 // ---------------------------------------------------------------------------
 // The moving world's five passes, one at a time.
