@@ -10,6 +10,8 @@
 #include <set>
 #include <string>
 
+#include "fwg/entities.hpp"
+#include "fwg/heroes.hpp"
 #include "fwg/time.hpp"
 #include "fwg/world.hpp"
 
@@ -282,6 +284,27 @@ TEST(an_advance_turns_the_ages_it_asks_for_and_records_the_operation) {
     for (const CityPlan& plan : later.city_plans.cities) {
         check::is_true(city(later, plan.city_uid) != nullptr, plan.city_uid + " to be a standing city");
     }
+}
+
+TEST(heroes_survive_an_age_that_ends_a_whole_people) {
+    // Seed 42 at size 17: the third age leaves ruins of peoples with no city standing. Their
+    // heroes still resolve their own race; a fallback race refuses the heritage merge and
+    // the whole package with it.
+    const World w = at_phase(16, 17);
+    AgeAdvanceRequest advance;
+    advance.steps = 1;
+    const World next = advance_ages(w, advance);
+    check::equal(next.heroes.status, std::string("ok"), "the heroes package after the age: " + next.heroes.error);
+    std::set<std::string> standing;
+    for (const SettlementSite& s : next.settlements.sites) standing.insert(s.population_profile);
+    int fallen = 0;
+    for (const Hero& h : next.heroes.people) {
+        const EntityRules* rules = entity_rule(h.civilization_id);
+        check::is_true(rules != nullptr, h.uid + " to name a registry civilization");
+        check::equal(h.race_id, std::string(rules->parent_race_id), h.uid + " to carry its people's race");
+        if (standing.count(h.civilization_id) == 0) ++fallen;
+    }
+    check::is_true(fallen > 0, "a hero of a people with no city standing, or the case is not exercised");
 }
 
 TEST(an_advance_is_a_function_of_its_request) {

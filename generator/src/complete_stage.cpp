@@ -416,9 +416,13 @@ HeroesRequest heroes_request(const World& world) {
         request.cities.push_back(std::move(city));
     }
 
-    std::set<std::string> peoples;
-    for (const SettlementSite& s : world.settlements.sites) peoples.insert(s.population_profile);
-    for (const std::string& id : peoples) {
+    // Every civilization in the registry, standing or not, as the reference's
+    // civilizations.entities lists them: a ruin whose whole people has since fallen still
+    // names its race and its people through this. Listing only the peoples with a standing
+    // city sent such a ruin's heroes to the "human" fallback, and resolving a dwarf or a
+    // gnome people against the human base refused the whole package.
+    for (const std::string_view view : civilization_ids()) {
+        const std::string id(view);
         const CivilizationProfile* profile = civilization_profile(id);
         const EntityRules* rules = entity_rule(id);
         request.civilizations.push_back({id, profile != nullptr ? std::string(profile->name) : id,

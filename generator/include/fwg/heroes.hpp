@@ -526,7 +526,7 @@ struct HeroesRequest {
     std::vector<HeroRuin> ruins;
     std::vector<HeroCity> cities;
     std::vector<HeroWar> wars;  // every age's wars, flattened, in age order
-    std::vector<HeroCivilization> civilizations;
+    std::vector<HeroCivilization> civilizations;  // the whole registry, cities or none
     std::vector<HeroCulture> cultures;
     std::vector<HeroNest> nests;
     std::vector<HeroHamlet> hamlets;
