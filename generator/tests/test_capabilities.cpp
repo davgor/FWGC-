@@ -150,9 +150,10 @@ TEST(controls_catalogue_status_hash_and_groups) {
     check::is_true(statuses == std::map<std::string, int>{{"inert", 1}, {"open", 201}, {"pinned", 7}}, "201 open, 7 pinned, 1 inert");
     check::equal(controls.at("stubbornness").at("status").as_string(), std::string("inert"), "stubbornness is read by nothing");
     // sha256 over json.dumps(controls, indent=1, sort_keys=True), recomputed independently by
-    // the reference's recipe over this catalogue.
+    // the reference's recipe over this catalogue. Moved 2026-09-23 when fortress_count's
+    // description followed the fort rule; recomputed in Python from controls_document().
     check::equal(doc.at("content_sha256").as_string(),
-                 std::string("19e65b478cfb4b2b6fa613c49ae802c1a25e9a0f90d9be573da14a18c7cfca59"), "content hash");
+                 std::string("9db3ab64090a794314562a96bae3503067948cb03d23ad69d751adcb15a40a00"), "content hash");
     std::vector<std::string> keys;
     for (const auto& m : doc.as_object()) keys.push_back(m.first);
     check::is_true(keys == std::vector<std::string>{"content_sha256", "controls", "recipe_version", "schema", "version"},

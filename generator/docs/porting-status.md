@@ -87,11 +87,12 @@ adapters feeding them were not, as measured on 2026-09-23:
 
 Across seeds 1-32 and 42 at size 33, the nest fix alone places no logging camp in any world
 and neither do the two key-location fixes alone. All three together place one in all 33
-worlds, 169 in all, as the reference places one in all 33 of its own, 167 in all; geyser
-basins now stand in 12 of the 33 worlds against the reference's 9, and lava tubes in 11
-against its 10. `tests/test_stages.cpp` pins each rule on the seed-42 size-65 world. The
-fixture world still places no natural arch: that is its ground, and the reference's pass run
-over this port's document for that request places none either.
+worlds, as the reference places one in all 33 of its own, 167 in all. Recounted after the
+fort rule (ruling 4) moved the hamlets: 171 camps in all (169 before it); geyser basins in 9
+of the 33 worlds against the reference's 9 (12 before), and lava tubes in 9 against its 10
+(11 before). `tests/test_stages.cpp` pins each rule on the seed-42 size-65 world. The fixture
+world placed no natural arch until the fort rule moved its hamlets; it places one now, and
+the allowlist entry that excused its absence is gone.
 
 **Blocks the game-facing APIs add.** `world_clock` and `quests` (the time API) and
 `settlement_founding` (the founding API's last report) are written once an API has put them

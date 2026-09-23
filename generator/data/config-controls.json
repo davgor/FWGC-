@@ -96,7 +96,7 @@
   },
   "fortress_count": {
    "default": 1024,
-   "description": "Maximum route-defence fortresses; road length, crossings and city count ask for fewer unless this is lowered.",
+   "description": "Maximum fortresses raised. A capital and a city that has fought each ask for one road fort, and two peoples a road joins for one frontier fort; this caps those asks and never raises them.",
    "group": "Communities",
    "max": 1024,
    "min": 0,

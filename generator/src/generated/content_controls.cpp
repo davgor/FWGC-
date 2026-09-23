@@ -226,7 +226,7 @@ constexpr ControlSpec kControls[] = {
      "Coasts", "Ordinary coastal vessel harvesting reach", "m",
      {}, {}, true},
     {"fortress_count", ControlType::Integer, 1024.0, "", true, 0.0, true, 1024.0,
-     "Communities", "Maximum route-defence fortresses; road length, crossings and city count ask for fewer unless this is lowered.", "fortresses",
+     "Communities", "Maximum fortresses raised. A capital and a city that has fought each ask for one road fort, and two peoples a road joins for one frontier fort; this caps those asks and never raises them.", "fortresses",
      {}, {}, false},
     {"fungal_extent", ControlType::Number, 0.22, "", true, 0.04, true, 0.8,
      "Regions", "fungal angular influence radius", "radians",
