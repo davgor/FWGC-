@@ -17,6 +17,7 @@
 #include <set>
 
 #include "fwg/beasts.hpp"
+#include "fwg/castle_plan.hpp"
 #include "fwg/city_plan.hpp"
 #include "fwg/entities.hpp"
 #include "fwg/content.hpp"
@@ -444,8 +445,20 @@ NpcRequest npc_request(const World& world, const SphereGrid& grid) {
         plan.plots = npc_plots(p.plots);
         request.hamlet_plans.push_back(std::move(plan));
     }
-    // Castles are not wired yet; a fortress without a castle plan still anchors a site
-    // from its own record, which is what the roster falls back to.
+    request.has_castle_plans = world.has_plans && world.has_humans;
+    for (const CastlePlan& p : world.castle_plans.castles) {
+        NpcCastlePlan plan;
+        plan.fortress_id = p.fortress_id;
+        plan.status = std::string(p.status);
+        // The fortress's own raster cell, as the reference's plan records it.
+        plan.x = NpcNumber::of(p.x);
+        plan.z = NpcNumber::of(p.z);
+        plan.plots.reserve(p.plots.size());
+        for (const CastlePlot& plot : p.plots) {
+            plan.plots.push_back({plot.id, std::string(plot.building_id), plot.workers});
+        }
+        request.castle_plans.push_back(std::move(plan));
+    }
 
     for (const RuralSite& f : world.humans.fortresses) {
         request.fortresses.push_back({f.id, f.node, f.population_profile, f.core_id});
@@ -609,6 +622,17 @@ void add_simulation_complete(World& world) {
     if (world.has_humans) {
         world.hamlet_plans = fill_hamlets(world, grid, sites, hamlet_pins(world));
         world.systems.push_back("hamlet_plans");
+
+        // Every fortress, laid out as a castle. The whole city list crops each window, so
+        // a fort standing beside a town cannot wall itself into the town's streets.
+        CastleRequest castles;
+        castles.world = &world;
+        castles.grid = &grid;
+        castles.globe_radius_m = world.effective.globe_radius;
+        castles.sites = world.settlements.sites;
+        castles.fortresses = world.humans.fortresses;
+        world.castle_plans = fill_castles(castles);
+        world.systems.push_back("castle_plans");
     }
     world.has_plans = true;
 

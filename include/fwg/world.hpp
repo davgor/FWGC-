@@ -29,6 +29,7 @@
 #include "fwg/story_web.hpp"
 #include "fwg/nomads.hpp"
 #include "fwg/npcs.hpp"
+#include "fwg/castle_plan.hpp"
 #include "fwg/city_plan.hpp"
 #include "fwg/complete_stage.hpp"
 #include "fwg/religion.hpp"
@@ -160,10 +161,11 @@ struct World {
     bool has_religion = false;
     Religion religion;
 
-    // Stage 16. The street plan of every city and hamlet.
+    // Stage 16. The street plan of every city and hamlet, and the castle of every fortress.
     bool has_plans = false;
     CityPlans city_plans;
     HamletPlans hamlet_plans;
+    CastlePlans castle_plans;  // one per fortress, in ascending id-string order
 
     // Stage 16. The bands that do not settle, the herds that move with the seasons,
     // what a traveller meets, and what the bands did to the world around them.

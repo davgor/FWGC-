@@ -379,12 +379,15 @@ TEST(stage_sixteen_staffs_every_settlement_and_places_every_person) {
     const World w = at_phase(16, 65);
     check::is_true(w.has_npcs, "stage 16 to build the rosters");
     check::is_true(w.npcs.ok, "the roster to resolve: " + w.npcs.error);
-    check::equal(w.npcs.sites.size(), w.settlements.sites.size() + w.humans.hamlets.size(),
-                 "a roster for every city and every hamlet");
+    check::is_true(!w.humans.fortresses.empty(), "a fortress to staff, or the castle rosters are not tested");
+    check::equal(w.npcs.sites.size(),
+                 w.settlements.sites.size() + w.humans.hamlets.size() + w.humans.fortresses.size(),
+                 "a roster for every city, every hamlet and every fortress");
 
     std::set<std::string> places;
     for (const SettlementSite& s : w.settlements.sites) places.insert(s.uid);
     for (const RuralSite& h : w.humans.hamlets) places.insert(h.uid);
+    for (const RuralSite& f : w.humans.fortresses) places.insert(f.uid);
     long long placed = 0;
     for (const NpcPerson& p : w.npcs.people) {
         if (p.is_cast || !p.site_uid) continue;
@@ -436,4 +439,32 @@ TEST(the_only_key_location_waiting_on_a_missing_layer_is_the_one_the_reference_k
     }
     const std::set<std::pair<std::string, std::string>> known{{"peat_cuttings", "wetland_distance"}};
     check::is_true(absent == known, "the unpublished-layer set to be exactly the known one");
+}
+
+TEST(stage_sixteen_lays_out_a_castle_for_every_fortress) {
+    const World w = at_phase(16, 65);
+    check::is_true(!w.humans.fortresses.empty(), "a fortress, or nothing is tested");
+    check::equal(w.castle_plans.castles.size(), w.humans.fortresses.size(), "a castle plan for every fortress");
+
+    std::set<std::string> fortresses;
+    for (const RuralSite& f : w.humans.fortresses) fortresses.insert(f.uid);
+    long long garrisoned = 0;
+    for (std::size_t i = 0; i < w.castle_plans.castles.size(); ++i) {
+        const CastlePlan& plan = w.castle_plans.castles[i];
+        check::is_true(fortresses.count(plan.fortress_uid) != 0, plan.fortress_id + " to stand on a fortress");
+        if (i > 0) {
+            check::is_true(w.castle_plans.castles[i - 1].fortress_id < plan.fortress_id,
+                           "castles in ascending id-string order");
+        }
+        for (const CastlePlot& plot : plan.plots) garrisoned += plot.workers;
+    }
+    check::is_true(garrisoned > 0, "some castle to need a garrison");
+
+    // The rosters open one post per garrison worker, so a castle's people live at the
+    // fortress's own node.
+    long long at_forts = 0;
+    for (const NpcPerson& p : w.npcs.people) {
+        if (p.site_uid && p.site_uid->rfind("fortress-node-", 0) == 0) ++at_forts;
+    }
+    check::is_true(at_forts > 0, "somebody to hold a fortress");
 }

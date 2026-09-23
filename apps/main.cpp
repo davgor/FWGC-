@@ -54,13 +54,15 @@ the sixteen-stage ladder, and where this port has reached:
   2  hypsometric surface    done        ecology, biome variants
   3  surface detail         done    10  founding: cities        done
   4  erosion                done    11  roads                   done
-  5  land mask, water       done    12  populated regions       todo
-  6  tectonic transition    done    13  nests, beasts, religion todo
+  5  land mask, water       done    12  populated regions       done
+  6  tectonic transition    done    13  nests, beasts, religion done
   7  relic carving          done    14  age transition          todo
   8  climate, biomes        done    15  age transition          todo
-                                    16  heroes, NPCs, quests    todo
-A --phase above 11 runs what exists, reports it in completed_stage, and says so
-in warnings. See docs/porting-status.md.
+                                    16  plans, bands, heroes,   done
+                                        NPCs, key locations
+Stage 16 runs over a world that has had no age turn: no ruins, no villains.
+A --phase above 13 reports 13 in completed_stage and says so in warnings.
+See docs/porting-status.md.
 )";
 }
 
