@@ -34,6 +34,7 @@
   test_substrate.cpp
   test_time.cpp
   test_villains.cpp
+  test_visitation.cpp
   test_water.cpp
   test_world.cpp
 )

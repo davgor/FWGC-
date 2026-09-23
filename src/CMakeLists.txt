@@ -64,6 +64,7 @@
   tectonics.cpp
   time.cpp
   villains.cpp
+  visitation.cpp
   water.cpp
   world.cpp
 )
