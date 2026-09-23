@@ -307,18 +307,34 @@ TEST(blood_feeds_on_the_living) {
                    "a blood node among the living to draw more than the same node among none");
 }
 
-TEST(eldritch_feeds_on_the_feared_and_the_fallen) {
+TEST(eldritch_feeds_on_the_fallen) {
     World fed = settled();
     check::is_true(!fed.ruins.empty(), "ruins for eldritch to feed on, or nothing is tested");
     plant_key_point(fed.magic.networks.at("eldritch"), {"eldritch-test-node", fed.ruins.at(0).direction, 3.0});
+    // The ruins alone taken away: the nests stay, so only the ruins' share can differ.
     World starved = fed;
     starved.ruins.clear();
+    evaluate_networks(fed);
+    evaluate_networks(starved);
+    check::is_true(dominates(ley(fed, "eldritch"), ley(starved, "eldritch")),
+                   "eldritch beside a ruin to draw more than with no ruins");
+}
+
+TEST(eldritch_feeds_on_the_aberrant_and_the_undead) {
+    World fed = settled();
+    const auto feared = std::find_if(fed.beast_nests.sites.begin(), fed.beast_nests.sites.end(),
+                                     [](const NestSite& n) { return n.family == "aberrant" || n.family == "undead"; });
+    check::is_true(feared != fed.beast_nests.sites.end(), "an aberrant or undead nest, or nothing is tested");
+    plant_key_point(fed.magic.networks.at("eldritch"), {"eldritch-test-node", feared->direction, 3.0});
+    // The feared nests alone taken away, and the ruins with them so they cannot mask it.
+    fed.ruins.clear();
+    World starved = fed;
     std::erase_if(starved.beast_nests.sites,
                   [](const NestSite& n) { return n.family == "aberrant" || n.family == "undead"; });
     evaluate_networks(fed);
     evaluate_networks(starved);
     check::is_true(dominates(ley(fed, "eldritch"), ley(starved, "eldritch")),
-                   "eldritch beside a ruin to draw more than with nothing feared nearby");
+                   "eldritch beside a feared nest to draw more than with none");
 }
 
 TEST(rot_creeps_outward_in_metres) {
