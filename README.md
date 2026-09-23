@@ -6,6 +6,7 @@ README.
 | Folder | What it is |
 |---|---|
 | [generator/](generator/) | The fantasy world generator: a seed in, a finished world out -- tectonics to heroes, all sixteen stages -- as a dependency-free C++20 static library (`fwg`) and a CLI (`fwg.exe`). |
+| [concept art/](concept%20art/) | Three-tier concept art production map and master asset checklist, grounded in the generator's authored catalogues. |
 
 Build a component from inside its folder; see its README. For the generator:
 
