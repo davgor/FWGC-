@@ -5,8 +5,10 @@
 #include "communicator/voice.hpp"
 
 #include <algorithm>
+#include <cctype>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "check.hpp"
@@ -160,13 +162,17 @@ TEST(the_prompt_carries_the_persona_and_every_fact_as_it_is_said) {
     const FactPacket work = packets::work();
     const std::string prompt = prompt_of(voice, work, "Any work?");
     const orchestrator::Persona& s = work.persona;
-    for (const std::string* part : {&s.name, &s.manner, &s.voice, &s.toward_player})
+    for (const std::string* part : {&s.name, &s.voice, &s.toward_player})
         check::is_true(prompt.find(*part) != std::string::npos, "the persona's " + *part);
-    // Never the card's sample line: a model shown it says it back whole.
+    // Never the card's sample line or its manner: a model shown them says the one back whole,
+    // and tells the other as fact ("the watch rota is sacred").
     check::is_true(prompt.find("Third night this month") == std::string::npos, "no sample line to say back");
-    // Numbers on a scale come with words, and a deadline says it is one.
-    for (const std::string said : {"fair work (3 of 5)", "easy work (2 of 5)", "the offer stands for 713 more days"})
+    check::is_true(prompt.find("rota") == std::string::npos, "no manner to tell as fact: " + s.manner);
+    // Numbers on a scale come with words. The days an offer stands are not said at all.
+    for (const std::string said : {"fair work (3 of 5)", "easy work (2 of 5)"})
         check::is_true(prompt.find(said) != std::string::npos, "an offer's numbers in words: " + said);
+    for (const std::string days : {"713", "974", "776", "581"})
+        check::is_true(prompt.find(days) == std::string::npos, "no offer's days: " + days);
     for (const std::string& never : s.never) check::is_true(prompt.find(never) != std::string::npos, "never: " + never);
     // Names come as they are said: "Wenweg (Age 2)" is Wenweg.
     for (const std::string said : {"at Wenweg,", "Hold the fortress above Wenweg with me.", "Nerbrann",
@@ -272,6 +278,111 @@ TEST(a_reply_quotes_nothing) {
     const std::string held = model.complete(prompt, sampling).text;
     for (const std::string mark : {"\"", "\xE2\x80\x9C", "\xE2\x80\x9D"})
         check::is_true(held.find(mark) == std::string::npos, "no double quote, held: " + held);
+}
+
+namespace {
+
+// What the model writes when told to say `word` and nothing else: free, and held by `grammar`.
+// A held reply the token limit cut off loses its last word, which it may not have finished.
+std::pair<std::string, std::string> told_to_say(inference::Model& model, const std::string& word, const std::string& grammar) {
+    const std::string prompt =
+        model.chat_prompt({{"system", "Reply with exactly the text the user gives, and nothing else."}, {"user", word}});
+    inference::Sampling sampling;
+    sampling.max_tokens = 16;
+    const std::string free_reply = model.complete(prompt, sampling).text;
+    sampling.grammar = grammar;
+    const inference::Completion held = model.complete(prompt, sampling);
+    std::string text = held.text;
+    if (!held.stopped_at_end)
+        while (!text.empty() && std::isalpha(static_cast<unsigned char>(text.back()))) text.pop_back();
+    return {free_reply, text};
+}
+
+std::string lowered(const std::string& text) {
+    std::string out;
+    for (const char c : text) out += (c >= 'A' && c <= 'Z') ? static_cast<char>(c - 'A' + 'a') : c;
+    return out;
+}
+
+// Whether `text` holds `word` in any case: whole, or with `whole` false, as the start of a word.
+bool says(const std::string& text, const std::string& word, bool whole = true) {
+    const std::string lower = lowered(text);
+    for (std::size_t at = lower.find(word); at != std::string::npos; at = lower.find(word, at + 1)) {
+        const bool starts = at == 0 || !std::isalpha(static_cast<unsigned char>(lower[at - 1]));
+        const bool ends = at + word.size() == lower.size() || !std::isalpha(static_cast<unsigned char>(lower[at + word.size()]));
+        if (starts && (ends || !whole)) return true;
+    }
+    return false;
+}
+
+}  // namespace
+
+TEST(a_reply_gives_no_bearing_and_no_price) {
+    // Told to say a compass point or a coin, the free model does; held, it cannot. A packet
+    // holds distances, never bearings, and the game prices rewards, not the voice.
+    inference::Model& model = test_model::model();
+    Voice voice(model);
+    const std::string grammar = voice.grammar(packets::about_self());  // an answer: no forced opening
+    for (const std::string word : {"north", "gold"}) {
+        const auto [free_reply, held] = told_to_say(model, word, grammar);
+        check::is_true(says(free_reply, word), "the premise: free, the model says " + word + ": " + free_reply);
+        check::is_true(!says(held, word), "held, it cannot say " + word + ": " + held);
+    }
+}
+
+TEST(no_word_may_begin_with_a_bearing_or_pay) {
+    // Kept from ending a word at a barred one, a model may run on into a longer word: Qwen3-4B
+    // wrote "northwardstretch" and "westwardwhere". So compass points and "pay" are barred as
+    // stems. Told to say a longer word no list of forms holds, the free model does; held, no
+    // word it writes begins with the stem.
+    inference::Model& model = test_model::model();
+    Voice voice(model);
+    const std::string grammar = voice.grammar(packets::about_self());
+    const std::vector<std::string>& forbidden = communicator::forbidden_words();
+    for (const auto& [word, stem] : {std::pair<std::string, std::string>{"northernmost", "north"}, {"paymaster", "pay"}}) {
+        check::is_true(std::find(forbidden.begin(), forbidden.end(), word) == forbidden.end(), "not a listed form: " + word);
+        const auto [free_reply, held] = told_to_say(model, word, grammar);
+        check::is_true(says(free_reply, word), "the premise: free, the model says " + word + ": " + free_reply);
+        check::is_true(!says(held, stem, false), "held, no word begins with " + stem + ": " + held);
+    }
+}
+
+TEST(no_common_capital_is_a_forbidden_word) {
+    // The ban holds lower-case words. A capitalised word comes only from the packet or from
+    // common_capitals(), so none of those may be a word the ban covers: with any capital
+    // allowed, the test model, told to say north, wrote "North."
+    for (const std::string& capital : communicator::common_capitals()) {
+        const std::string word = lowered(capital);
+        for (const std::string& f : communicator::forbidden_words()) {
+            const bool stem = !f.empty() && f.back() == '*';
+            check::is_true(stem ? word.rfind(f.substr(0, f.size() - 1), 0) != 0 : word != f, "not a barred word: " + capital);
+        }
+    }
+}
+
+TEST(a_forbidden_word_the_packet_says_may_be_said) {
+    // The deeps under Linbrig are a silver mine, so a speaker who knows them may say "silver";
+    // one whose packet holds no silver may not.
+    inference::Model& model = test_model::model();
+    Voice voice(model);
+    const auto [free_reply, held_by_mine] = told_to_say(model, "silver", voice.grammar(packets::surroundings()));
+    check::is_true(says(free_reply, "silver"), "the premise: free, the model says silver: " + free_reply);
+    check::is_true(says(held_by_mine, "silver"), "the packet holds it, so it may be said: " + held_by_mine);
+    const std::string held_elsewhere = told_to_say(model, "silver", voice.grammar(packets::about_self())).second;
+    check::is_true(!says(held_elsewhere, "silver"), "a packet without it: " + held_elsewhere);
+    // Under a stem, the packet's own word is sayable and nothing else is: a place called the
+    // southern tower may be named, and "south", "southwest" and "southside" stay barred.
+    FactPacket tower = packets::about_self();
+    tower.facts.push_back({orchestrator::FactKind::Place, "keyloc-watchtower-7",
+                           {{"kind", "watchtower"}, {"name", "the southern tower"}, {"distance", "1.2 km"}}});
+    const std::string lifted = voice.grammar(tower);
+    for (const std::string word : {"southern", "south", "southwest"}) {
+        const auto [free_word, held_word] = told_to_say(model, word, lifted);
+        check::is_true(says(free_word, word), "the premise: free, the model says " + word + ": " + free_word);
+        check::equal(says(held_word, word), word == "southern", "held beside the southern tower, " + word + ": " + held_word);
+        for (const std::string& w : words_of(held_word))
+            if (lowered(w).rfind("south", 0) == 0) check::equal(lowered(w), std::string("southern"), "past the stem: " + held_word);
+    }
 }
 
 TEST(a_sentence_ends_with_one_stop) {

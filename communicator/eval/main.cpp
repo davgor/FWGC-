@@ -253,10 +253,88 @@ std::size_t sentences_in(const std::string& text) {
     return count;
 }
 
+// The lower-case words of `text`: runs of ASCII letters, lowered.
+std::vector<std::string> lower_words(const std::string& text) {
+    std::vector<std::string> out;
+    std::string word;
+    for (const char c : text) {
+        if (c >= 'A' && c <= 'Z') {
+            word += static_cast<char>(c - 'A' + 'a');
+        } else if (c >= 'a' && c <= 'z') {
+            word += c;
+        } else if (!word.empty()) {
+            out.push_back(word);
+            word.clear();
+        }
+    }
+    if (!word.empty()) out.push_back(word);
+    return out;
+}
+
+// Every word the packet gives the voice as something to say: the speaker's name, post and place,
+// and every fact's text.
+std::set<std::string> sayable_words(const FactPacket& p) {
+    std::set<std::string> out;
+    for (const std::string* text : {&p.persona.name, &p.persona.role, &p.persona.place})
+        for (const std::string& w : lower_words(*text)) out.insert(w);
+    for (const orchestrator::Fact& f : p.facts)
+        for (const auto& [key, value] : f.fields)
+            for (const std::string& w : lower_words(value)) out.insert(w);
+    return out;
+}
+
+// Words a reply said that came from the card (its manner, voice, stance and never-lines) and from
+// nothing else the model was given: the card's descriptions taken for facts. A card word the
+// prompt holds anyway (in a fact, the stranger's line, "fair work") is not counted. A proxy for a
+// reader's judgement: it counts the words, not whether they were used as facts, and leaves out
+// short and common words.
+std::set<std::string> card_echoes(const communicator::Voice& voice, const FactPacket& p, const std::string& line,
+                                  const std::string& reply) {
+    static const std::set<std::string> common = {
+        "about", "also", "anything", "before", "cannot", "could", "does", "even", "from", "have", "hold", "into", "just",
+        "leave", "make", "matters", "more", "most", "must", "only", "over", "same", "shall", "should", "some", "such",
+        "take", "than", "that", "their", "them", "then", "they", "this", "those", "very", "what", "when", "will", "with",
+        "without", "word", "words", "would", "your"};
+    FactPacket bare = p;
+    bare.persona.manner.clear();
+    bare.persona.voice.clear();
+    bare.persona.toward_player.clear();
+    bare.persona.never.clear();
+    std::set<std::string> given;
+    for (const inference::Message& m : voice.messages(bare, line))
+        for (const std::string& w : lower_words(m.content)) given.insert(w);
+    std::set<std::string> card;
+    std::vector<const std::string*> sources = {&p.persona.manner, &p.persona.voice, &p.persona.toward_player};
+    for (const std::string& n : p.persona.never) sources.push_back(&n);
+    for (const std::string* text : sources)
+        for (const std::string& w : lower_words(*text))
+            if (w.size() >= 4 && !common.count(w) && !given.count(w)) card.insert(w);
+    std::set<std::string> out;
+    for (const std::string& w : lower_words(reply))
+        if (card.count(w)) out.insert(w);
+    return out;
+}
+
+// Whether `word` is a forbidden word, or begins with a forbidden stem. Restated here, not asked
+// of the grammar, so that a build without the ban can be counted too.
+bool forbidden_word(const std::string& word) {
+    for (const std::string& f : communicator::forbidden_words()) {
+        const bool stem = !f.empty() && f.back() == '*';
+        if (stem ? word.rfind(f.substr(0, f.size() - 1), 0) == 0 : word == f) return true;
+    }
+    return false;
+}
+
+std::string listed(const std::set<std::string>& words) {
+    std::string out;
+    for (const std::string& w : words) out += (out.empty() ? "" : ", ") + w;
+    return out;
+}
+
 void voice_eval(inference::Model& model, const std::string& path) {
     communicator::Voice voice(model);
     const auto packets_by_name = voice_packets();
-    std::size_t cases = 0, shaped = 0;
+    std::size_t cases = 0, shaped = 0, echoing = 0, echoes = 0, forbidden_said = 0, days_said = 0;
     double seconds = 0.0, slowest = 0.0;
     std::cout << "\n## Voice\n\n";
     for (const auto& [number, cells] : rows_of(path, 2)) {
@@ -285,15 +363,35 @@ void voice_eval(inference::Model& model, const std::string& path) {
         const bool short_enough = sentences >= 1 && sentences <= static_cast<std::size_t>(shape.sentences);
         const bool ok = opens && closed && short_enough && reply.finished;
         shaped += ok;
+
+        // What a reply said that its packet did not give it: the card's words, forbidden words,
+        // and talk of days (an offer's deadline, misread as the work's length before).
+        const std::set<std::string> echo = card_echoes(voice, packet, cells[1], said);
+        const std::set<std::string> sayable = sayable_words(packet);
+        std::set<std::string> banned;
+        bool days = false;
+        for (const std::string& w : lower_words(said)) {
+            if (forbidden_word(w) && !sayable.count(w)) banned.insert(w);
+            if (w == "day" || w == "days") days = true;
+        }
+        echoing += !echo.empty();
+        echoes += echo.size();
+        forbidden_said += banned.size();
+        days_said += days;
         std::cout << (ok ? "  ok   " : "  OFF  ") << "[" << cells[0] << " / " << orchestrator::to_string(packet.outcome) << "] "
                   << cells[1] << "\n         " << reply.text << "\n         (" << took << " s, " << reply.tokens << " tokens"
                   << (opens ? "" : ", wrong opening") << (closed ? "" : ", no closing") << (short_enough ? "" : ", too long")
-                  << (reply.finished ? "" : ", cut off") << ")\n";
+                  << (reply.finished ? "" : ", cut off") << (echo.empty() ? "" : "; card words: " + listed(echo))
+                  << (banned.empty() ? "" : "; forbidden: " + listed(banned)) << (days ? "; days" : "") << ")\n";
     }
-    if (cases)
+    if (cases) {
         std::cout << "\n" << shaped << " of " << cases << " replies hold their shape; mean " << seconds / static_cast<double>(cases)
                   << " s, slowest " << slowest << " s\n";
-    std::cout << "summary: replies=" << cases << " shaped=" << shaped << "\n";
+        std::cout << "card words said in " << echoing << " of " << cases << " replies (" << echoes << " words); forbidden words said: "
+                  << forbidden_said << "; replies talking of days: " << days_said << "\n";
+    }
+    std::cout << "summary: replies=" << cases << " shaped=" << shaped << " card_echo_replies=" << echoing << " card_echo_words=" << echoes
+              << " forbidden=" << forbidden_said << " days=" << days_said << "\n";
 }
 
 }  // namespace

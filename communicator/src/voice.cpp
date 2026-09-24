@@ -62,8 +62,6 @@ std::vector<std::string> phrases(const Fact& fact, std::initializer_list<std::st
             out.push_back(value == "here" ? "right here" : value + " away");
         else if (key == "threat" || key == "danger" || key == "difficulty")  // each a scale of 1 to 5 in a packet
             out.push_back(scaled(key, value));
-        else if (key == "days_left")  // how long the offer stands, not how long the work takes: misread twice
-            out.push_back("the offer stands for " + value + " more days");
         else
             out.push_back(text::spaced(key) + ": " + value);
     }
@@ -90,7 +88,10 @@ std::string fact_line(const Fact& fact) {
             }
             const std::string purpose = value_of(fact, "purpose");
             if (!purpose.empty()) line += " In the giver's words: \"" + purpose + "\"";
-            const std::vector<std::string> rest = phrases(fact, {"giver", "giver_role", "from_speaker", "purpose"});
+            // Not the days the offer stands: read as how long the work takes however it was put
+            // ("948 days left", "to be done within", "the offer stands for"; judged 2026-09-24).
+            // The game can show a deadline; the voice does not say it.
+            const std::vector<std::string> rest = phrases(fact, {"giver", "giver_role", "from_speaker", "purpose", "days_left"});
             return line + (rest.empty() ? "" : " (" + join(rest, "; ") + ")");
         }
         case FactKind::QuestState:
@@ -187,6 +188,22 @@ void capitals_of(std::string_view text, std::set<std::string>& out) {
     }
 }
 
+// The words of `text` in lower case: runs of ASCII letters, lowered.
+void lower_words_of(std::string_view text, std::set<std::string>& out) {
+    std::string word;
+    for (const char c : text) {
+        if (c >= 'A' && c <= 'Z') {
+            word += static_cast<char>(c - 'A' + 'a');
+        } else if (c >= 'a' && c <= 'z') {
+            word += c;
+        } else if (!word.empty()) {
+            out.insert(word);
+            word.clear();
+        }
+    }
+    if (!word.empty()) out.insert(word);
+}
+
 }  // namespace
 
 const std::vector<std::string>& common_capitals() {
@@ -224,6 +241,23 @@ const std::vector<std::string>& common_capitals() {
     return words;
 }
 
+const std::vector<std::string>& forbidden_words() {
+    static const std::vector<std::string> words = {
+        // Compass points, as stems. With only whole words barred, Qwen3-4B ran on past them 9
+        // times in four runs of 24 replies: "northwardstretch", "westwardwhere", "westernmost"
+        // (2026-09-24).
+        "north*", "south*", "east*", "west*",
+        // Money, payment and reward. Only "pay", "repay" and "reward" are stems: every word that
+        // begins with one of them is about pay, and "golden" and "coincidence" are not. Nor is
+        // "crown" barred: in a fantasy world it is as often the throne.
+        "pay*", "repay*", "reward*", "paid", "repaid", "gold", "silver", "copper", "coin", "coins", "coinage", "penny",
+        "pennies", "pence", "shilling", "shillings", "money", "cash", "wage", "wages", "salary", "stipend", "bounty",
+        "bounties", "fee", "fees", "price", "prices", "purse", "purses", "recompense", "compensation", "treasure",
+        "treasures", "riches", "loot",
+    };
+    return words;
+}
+
 Voice::Voice(inference::Model& model, VoiceOptions options) : model_(model), options_(options) {
     if (options_.max_tokens < 1) throw Error("max_tokens must be at least 1");
     if (!std::isfinite(options_.temperature) || options_.temperature < 0.0f)
@@ -237,16 +271,21 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
     std::string system = "You are " + (name.empty() ? std::string("someone") : name) + (role.empty() ? "" : ", " + role) +
                          (place.empty() ? "" : ", at " + place) +
                          ", a person in a fantasy world. A stranger has come up to you and speaks to you.\n";
-    if (!p.manner.empty()) system += "How you carry yourself: " + text::one_line(p.manner) + "\n";
-    if (!p.voice.empty()) system += "How you speak: " + text::one_line(p.voice) + "\n";
-    if (!p.toward_player.empty()) system += "Toward strangers: " + text::one_line(p.toward_player) + "\n";
     // The card's sample line is left out. Shown to the model in any framing, it was said back
     // whole: in 9 of 24 replies from Qwen3-4B, "never to be repeated word for word" or not
-    // (judged 2026-09-24). The card's manner, voice and stance carry the character instead.
+    // (judged 2026-09-24). So is its manner, whose words came back as facts, framed as manner
+    // or not. The card's voice and stance carry the character instead.
+    std::vector<std::string> card;
+    if (!p.voice.empty()) card.push_back("How you speak: " + text::one_line(p.voice));
+    if (!p.toward_player.empty()) card.push_back("Toward strangers: " + text::one_line(p.toward_player));
     if (!p.never.empty()) {
         std::vector<std::string> never;
         for (const std::string& n : p.never) never.push_back(text::one_line(n));
-        system += "You never: " + join(never, "; ") + ".\n";
+        card.push_back("You never: " + join(never, "; ") + ".");
+    }
+    if (!card.empty()) {
+        system += "Your character, which shapes how you speak and is never something to tell:\n";
+        for (const std::string& trait : card) system += "- " + trait + "\n";
     }
     system += "\nWhat you know and may tell:\n";
     if (packet.facts.empty()) system += "- nothing that bears on this\n";
@@ -267,10 +306,16 @@ std::string Voice::grammar(const FactPacket& packet) const {
     // name, post and place, and the facts' words. The never-lines and the card's descriptions
     // are not the speaker's words, and the card's sample line is not shown, so they add none.
     std::set<std::string> capitals(common_capitals().begin(), common_capitals().end());
-    for (const std::string* said : {&packet.persona.name, &packet.persona.role, &packet.persona.place})
+    std::set<std::string> packet_words;
+    for (const std::string* said : {&packet.persona.name, &packet.persona.role, &packet.persona.place}) {
         capitals_of(*said, capitals);
+        lower_words_of(*said, packet_words);
+    }
     for (const Fact& fact : packet.facts)
-        for (const auto& [key, value] : fact.fields) capitals_of(value, capitals);
+        for (const auto& [key, value] : fact.fields) {
+            capitals_of(value, capitals);
+            lower_words_of(value, packet_words);
+        }
 
     // The reply's shape: its opening words, then whole sentences up to the shape's count, then
     // the closing C++ wrote, word for word.
@@ -281,14 +326,19 @@ std::string Voice::grammar(const FactPacket& packet) const {
     if (!more.empty()) root += " " + more;
     if (!shape.closing.empty()) root += " " + gbnf::literal(" " + shape.closing);
 
-    // A sentence is words parted by gaps, then an end. A word is all lower case, a number, or
-    // one of those capitalised words whole: a capital word followed straight on by letters
-    // ("Theodric" as "The" + "odric") is not a word here.
+    // A sentence is words parted by gaps, then an end. A word is all lower case, a number, or one
+    // of those capitalised words whole: a capital word followed straight on by letters
+    // ("Theodric" as "The" + "odric") is not a word here. A lower-case word is not forbidden,
+    // unless the packet's own text says it: a place may be the silver mine.
     std::string g = "root ::= " + root + "\n";
     if (!shape.openings.empty()) g += "first ::= " + gbnf::one_of(shape.openings) + " (gap token)* gap? end\n";
     g += "sentence ::= gap? token (gap token)* gap? end\n"
          "token ::= lower | capital | number\n"
-         "lower ::= [a-z] [a-z\\u00DF-\\u00F6\\u00F8-\\u00FF]*\n"
+         "lower ::= " +
+         gbnf::word_except(forbidden_words(), std::vector<std::string>(packet_words.begin(), packet_words.end()),
+                           "\\u00DF-\\u00F6\\u00F8-\\u00FF", "rest") +
+         "\n"
+         "rest ::= [a-z\\u00DF-\\u00F6\\u00F8-\\u00FF]*\n"
          "capital ::= " +
          gbnf::one_of(std::vector<std::string>(capitals.begin(), capitals.end())) +
          "\n"

@@ -80,16 +80,19 @@ model: C++ maps the chosen label back to the id the act carries.
 
 ## The voice
 
-The prompt holds three things:
-- **The persona:** the face a stranger sees, and the card's manner, voice, stance and `never`
-  lines. Not the card's sample line: shown in any framing, Qwen3-4B said it back whole, in 9
-  of 24 replies.
+The prompt holds four things:
+- **The persona:** the face a stranger sees, and the card's voice, stance and `never` lines.
+  - Not the card's sample line: shown in any framing, Qwen3-4B said it back whole, in 9 of 24
+    replies.
+  - Not the card's manner: Qwen3-4B told it as fact, framed as manner or not ("The watch rota
+    is sacred" came back as rotas "sworn", "standing firm" and "unbroken").
 - **The facts:** plain lines, without ids, as they would be said.
   - A part of a name in brackets is dropped, so "Wenweg (Age 2)" is Wenweg.
   - A scale of 1 to 5 comes in words beside the number: "easy work (2 of 5)", "threat high
-    (4 of 5)".
-  - An offer's days left read as "the offer stands for 948 more days". Bare, both models took
-    the numbers for how long the work lasts, or for "danger level 5.1".
+    (4 of 5)". Bare, the numbers were misread ("danger level 5.1", difficulty 2 called hard).
+  - Not the days an offer stands. However they were put ("948 days left", "the offer stands
+    for 948 more days"), a model took them for how long the work lasts. The game can show a
+    deadline.
 - **What just happened:** the outcome, with a refusal's reason.
 - **The closing rules:** a length, no names beyond the packet's, nothing of pay, and how far
   places are but never which way.
@@ -122,7 +125,21 @@ numbers and plain punctuation:
 - a sentence ends with one stop, an ellipsis, `?!` or `!?`: a run of stops let one reply spin out
   to its token limit.
 
-A reply therefore cannot name a person or a place its packet does not name.
+Lower-case words are held too. No word of `forbidden_words()` may be said unless the packet's
+own text says it:
+- **Compass points are stems:** no word may begin with one. When only whole words were barred,
+  Qwen3-4B ran on past them 9 times in four runs of 24 replies: "northwardstretch",
+  "westwardwhere", "westernmost".
+- **Money and reward:** "gold", "coin", "wage", "bounty", "treasure" and more, whole, and every
+  word that begins with "pay", "repay" or "reward". Only those three are stems, because other
+  money words begin ordinary words ("golden", "coincidence"). "Crown" is not barred: in a
+  fantasy world it is as often the throne.
+- **A packet's own word is sayable, and only that word.** A speaker who knows the silver mine
+  may say "silver". One who knows the southern tower may say "southern", and still not "south"
+  or "southwest".
+
+A reply therefore cannot name a person or a place its packet does not name, nor give a
+bearing or speak of pay in any of those words.
 
 ## What it guarantees, each with a test
 
@@ -152,14 +169,21 @@ A reply therefore cannot name a person or a place its packet does not name.
   cannot.
 - **A sentence ends with one stop.** The test model will not run on however it is asked, so
   this test reads the rule in each packet's grammar instead of a reply.
+- **No bearing and no pay, in the barred words.** Told to say "north" or "gold", the free model
+  does; held, it cannot. Told to say "northernmost" or "paymaster", which no list holds, held,
+  no word it writes begins with the stem. No common capital is a barred word: the ban holds
+  lower case, and with any capital allowed, the test model wrote "North."
+- **A packet's own word may be said, and nothing past it.** Beside the silver mine, "silver" can
+  be said, and elsewhere it cannot. Beside the southern tower, "southern" can, and "south" and
+  "southwest" still cannot.
 - **No world id reaches a model:** no uid or fact id is in any prompt or grammar.
 - **The voice's prompt carries its packet, as it is said:**
   - the persona and its `never` lines;
   - every offer's giver and purpose;
   - the places and dangers;
   - a refusal's reason;
-  - scales in words and the offer's days as a standing offer;
-  - no bracketed part of a name, and no sample line to say back.
+  - scales in words, and no days an offer stands;
+  - no bracketed part of a name, no sample line to say back, and no manner to tell as fact.
 - **Streaming adds up, stops when asked, and greedy replies repeat.**
 - **Refusals:** another contract version, a line past `kMaxLineBytes`, options out of range.
 
@@ -186,34 +210,50 @@ machine's CPU at 8 threads. [`eval/README.md`](eval/README.md) has the full tabl
     the wrong work.
   - `clear_lines_find_their_act` pins eight lines the test model reads right. It is a floor,
     not a score.
-- **The voice.** A separate session judged every reply against its packet, strictly.
+- **The voice.** A separate session judged every reply against its packet, strictly. It read
+  the replies from before the barred words and the card change and from after, not told which
+  was which. Before, for Qwen3-4B, is in brackets.
 
   | | Qwen2.5-0.5B | Qwen3-4B |
   |---|---|---|
-  | Replies with no fault, of 24 (lenient) | 10 (12) | 7 (15) |
-  | The 9 open-ended answers with no fault (lenient) | 0 (2) | 0 (4) |
+  | Replies with no fault, of 24 (lenient) | 11 (12) | 9 (13) [6 (11)] |
+  | The 9 open-ended answers with no fault (lenient) | 1 (2) | 1 (4) [0 (3)] |
   | Confuses who is who | 6 | 0 |
-  | Invents a fact | 6 | 17 |
+  | Invents a fact | 5 | 15 [17] |
+  | Withholds an answer it had | 2 | 0 [1] |
   | Contradicts the outcome, or repeats instructions | 0 | 0 |
 
   - The shapes hold: no reply contradicts what happened, and none parrots its instructions.
-  - The test model speaks as the player ("Thank you, Selbren").
-  - Qwen3-4B answers fully but invents, from three sources:
-    - the card's manner ("The watch rota is sacred" turns into oaths and rules);
-    - directions it was told not to give ("To the north...");
-    - "the offer stands for 948 more days", read as how long the work takes.
+  - The test model speaks as the player ("Thank you, Selbren"). The change left its counts as
+    they were.
+  - Qwen3-4B answers fully but invents. It no longer names a compass point, reads a deadline as
+    the work's length, or tells of the watch rota. What remains:
+    - the card's voice line and stance, told as fact: sworn oaths in 4 replies (the voice line
+      says "precedent and oaths cited when pressed"), and proving the stranger's standing in 2;
+    - distances in the wrong order ("just beyond" a nearer place), a bearing in other words ("in
+      the direction of the deeps"), and a journey of "three days by foot";
+    - a common capital standing in for a name ("a castle named Greetings").
 
-  The grammar keeps out names, not false claims.
+  The grammar keeps out names and barred words, not false claims. Another session had judged
+  the same "before" replies 7 (15) for Qwen3-4B and 10 (12) for the test model: compare counts
+  from one session.
 
 The models that ship are a later decision: a trained classifier for the interpreter, and a
 fine-tuned voice (the plan's "Building our own model").
 
 ## Not in this slice
 
-- **Words a reply may not use.** The grammar limits capitalised words only. A lower-case
-  compass point ("to the north") or a coin gets through. Banning whole words in the grammar
-  (compass points, money) would make "never which way" and "nothing of pay" hold, as the names
-  rule does.
+- **Other ways to say which way, or what it pays.** The grammar bars words, not meanings:
+  "toward the sunrise", "in the direction of the deeps" and "worth your while" get through. So
+  does a word glued onto a barred money word that is not a stem. No reply has held one, but told
+  to say "silver" with it barred, the test model wrote "silvergold".
+- **Common capitals mid-sentence.** A common capital may stand anywhere, so a model can make a
+  name of one: "beyond the Watch Right", "a castle named Greetings". Allowing them only where
+  a sentence begins would close that.
+- **The card's voice line and stance, told as fact.** Qwen3-4B still turns "precedent and oaths
+  cited when pressed" into oaths it has sworn. With the voice line dropped as well, no oaths
+  came back, but the test model once recited the card ("Toward strangers: offers a fair
+  trade..."), and the speaker's style goes with the line.
 - **"Who are you?"** Telling the model who is spoken to made things worse, measured three ways
   (`eval/README.md`).
 - **Names no packet gave.** "Castle Grey" can only become `no_act`. Looking a player's words up in

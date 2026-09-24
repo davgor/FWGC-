@@ -4,7 +4,8 @@
 // they know (the packet's facts, without ids) and what just happened (the outcome). A grammar
 // then holds its words: every capitalised word in the reply is a word of the packet's own text,
 // or one of a closed set of words sentences commonly begin with ("I", "The", "You"...). The
-// voice therefore cannot name a person or a place the packet does not name.
+// voice therefore cannot name a person or a place the packet does not name. Nor can it give a
+// bearing or speak of pay, in words the packet does not hold (forbidden_words()).
 #pragma once
 
 #include <cstdint>
@@ -56,5 +57,13 @@ private:
 // The capitalised words a reply may use besides its packet's: "I", and words sentences commonly
 // begin with. None is a name.
 const std::vector<std::string>& common_capitals();
+
+// The words a reply may not say unless its packet's own text does: compass points, since a
+// packet holds distances and never bearings, and money, since the game prices rewards and the
+// voice promises none. Lower case, and whole words, so "golden" is not "gold". An entry ending
+// in "*" is a stem, and no word may begin with it: "north*" bars "northernmost" too. The
+// packet's own words are sayable, and only they: a packet naming the southern tower lets a reply
+// say "southern", not "south".
+const std::vector<std::string>& forbidden_words();
 
 }  // namespace communicator
