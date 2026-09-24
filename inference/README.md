@@ -70,7 +70,8 @@ on llama.cpp's API, which changes between releases.
 
 - **A grammar holds the output to its language.** Asked freely, the model explains itself; with
   `root ::= "yes" | "no"` it says one word and stops. With a JSON grammar over a closed set of
-  acts, it can only answer one of those acts: the interpreter's job, in miniature.
+  labels, it can only answer one of those labels. Classification held by a grammar is what a
+  caller builds on.
 - **Nothing carries between calls.** The context is cleared first. A word told to the model in
   one call is unknown in the next: the answer matches a freshly loaded model's exactly. The same
   greedy prompt gives the same reply twice.

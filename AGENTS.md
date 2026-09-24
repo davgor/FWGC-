@@ -18,7 +18,7 @@ Text is only freeform conversation with NPCs, which is how players get quests an
 | `orchestrator/` | The deterministic director. Built so far: dialogue acts answered as knowledge-scoped fact packets, taking and releasing quests, and time. Pacing and hero direction are still to come | runtime | Claude |
 | `communicator/` | *Planned.* NPC dialogue: the interpreter (text to a dialogue act) and the NPC voice | runtime | Claude |
 | `creator/` | *Planned.* New-world setup: a player's description to a seed and generator settings | runtime | Claude |
-| `inference/` | *Planned.* The local model runtime (llama.cpp and a small classifier), knowing nothing of worlds | runtime | Claude |
+| `inference/` | The local model runtime, knowing nothing of worlds. Built so far: llama.cpp (pinned) on the CPU, with chat templates, streaming and grammar-held output. GPU offload and the classifier are still to come | runtime | Claude |
 
 The planned folders do not exist yet. Their rules are already in
 `tools/check_layers/layers.txt`, but creating one is a slice the owner starts, not something to
