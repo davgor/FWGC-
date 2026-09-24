@@ -38,7 +38,9 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
 - **`include/orchestrator/contract.hpp` names nothing of the generator.** The communicator includes
   it and nothing else from here. Keep it that way, and keep `orchestrator_contract` unlinked from
   `fwg`.
-- **No model concepts.** Prompts, tokens and models are the communicator's and inference's. The
-  layer checker refuses those words here.
+- **No model concepts.** Prompts and model plumbing belong to the communicator and inference. The
+  layer checker refuses `llm`, `llama`, `gguf`, `inference`, `prompt`, `prompts`, `tokenizer` and
+  `logits` in identifiers here. The red team watches for the rest (token, model, sampling), which
+  the list leaves out because those words are too common to ban.
 - **Tests assert properties and check their premise first.** A test that looks for something
   fails if the world does not hold it, rather than passing over nothing.
