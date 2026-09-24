@@ -91,8 +91,8 @@ the log hook this runtime silences. The call still fails with an `Error`.
 
 - **GPU offload.** The game shares its GPU with the renderer, and `gpu_layers` needs a Vulkan or
   CUDA backend built in, and a VRAM budget measured on the game.
-- **The interpreter's classifier.** A small encoder is the plan; a grammar-held model can do the
-  job meanwhile.
+- **An encoder classifier.** A small model that only classifies is cheaper than a generative
+  one. Until it exists, a grammar-held generative model does the classifying.
 - **Stop strings, several sequences at once, and reusing a prompt's cache across calls.**
 - **Shipping.** When a model ships, the game ships llama.cpp's MIT licence and the model's own
   licence with it.
