@@ -27,6 +27,14 @@ TEST(only_the_acts_about_something_need_a_target) {
     check::is_true(!act_needs_target(ActKind::NoAct), "no_act");
 }
 
+TEST(only_taking_and_giving_up_work_change_the_world) {
+    for (int i = 0; i <= static_cast<int>(ActKind::NoAct); ++i) {
+        const auto kind = static_cast<ActKind>(i);
+        const bool expected = kind == ActKind::AcceptQuest || kind == ActKind::AbandonQuest;
+        check::equal(act_changes_world(kind), expected, std::string(to_string(kind)));
+    }
+}
+
 TEST(a_fact_finds_its_fields_by_key) {
     Fact f{FactKind::Place, "x", {{"kind", "city"}, {"name", "Mekkadr"}}};
     check::is_true(f.field("name") && *f.field("name") == "Mekkadr", "a present field");

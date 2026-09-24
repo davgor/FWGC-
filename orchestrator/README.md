@@ -47,6 +47,11 @@ dread, a roster NPC or a villain.
 | `abandon_quest` | Released, if the speaker gave it. |
 | `farewell`, `no_act` | `parted`, `not_understood`: no facts, the world untouched. |
 
+Only `accept_quest` and `abandon_quest` change the world, and `act_changes_world(kind)` in the
+contract says so. A test grants all nine acts in turn and checks that the world document changes
+on exactly those two. A game confirms such an act with the player before handing it over, so a
+misread line costs a question, never a quest.
+
 `include/orchestrator/contract.hpp` holds the packet types (`DialogueAct`, `FactPacket`, `Fact`,
 `Persona`) and names nothing of the generator. The communicator includes that header alone. The
 `orchestrator_contract` library links nothing of the generator, so a component that depends on it

@@ -34,6 +34,11 @@ std::string_view to_string(ActKind kind);
 std::optional<ActKind> act_kind(std::string_view name);  // nullopt for a name not in the set
 bool act_needs_target(ActKind kind);
 
+// Whether the director changes the world when it grants this act: taking work, or giving it up.
+// A game confirms such an act with the player before handing it to the director, so a misread
+// line costs a question, never a quest.
+bool act_changes_world(ActKind kind);
+
 struct DialogueAct {
     ActKind kind = ActKind::NoAct;
     std::string target;  // empty unless act_needs_target(kind)

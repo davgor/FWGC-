@@ -46,6 +46,23 @@ bool act_needs_target(ActKind kind) {
     return false;
 }
 
+bool act_changes_world(ActKind kind) {
+    switch (kind) {
+        case ActKind::AcceptQuest:
+        case ActKind::AbandonQuest:
+            return true;
+        case ActKind::AskSurroundings:
+        case ActKind::AskAboutPlace:
+        case ActKind::AskAboutPerson:
+        case ActKind::AskForWork:
+        case ActKind::DeclineQuest:
+        case ActKind::Farewell:
+        case ActKind::NoAct:
+            return false;
+    }
+    return false;
+}
+
 std::string_view to_string(Outcome outcome) { return kOutcomeNames[static_cast<std::size_t>(outcome)]; }
 
 std::string_view to_string(FactKind kind) { return kFactNames[static_cast<std::size_t>(kind)]; }

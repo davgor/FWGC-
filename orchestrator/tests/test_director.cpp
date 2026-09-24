@@ -475,6 +475,33 @@ TEST(a_callers_mistake_is_an_error_and_records_nothing) {
     check::is_true(d.inputs().empty(), "nothing recorded");
 }
 
+TEST(the_world_changes_exactly_on_the_acts_the_contract_says_change_it) {
+    // Every act of the contract, granted in turn: the world document changes exactly when
+    // act_changes_world says so. A game confirms those acts with the player, so this is what
+    // makes a confirmation enough.
+    Director d(month_old());
+    const std::string giver = a_giver();
+    const FactPacket work = d.respond(giver, {ActKind::AskForWork, ""});
+    const std::string quest = of_kind(work, FactKind::QuestOffer).front()->subject;
+    const FactPacket around = d.respond(giver, {ActKind::AskSurroundings, ""});
+    const std::vector<const Fact*> places = of_kind(around, FactKind::Place);
+    check::is_true(!places.empty(), "the premise: a place in reach to ask about");
+    const std::string place = places.front()->subject;
+    // In an order where each can be granted: declined before it is taken, taken before it is given up.
+    const std::vector<std::pair<ActKind, std::string>> acts = {
+        {ActKind::AskSurroundings, ""}, {ActKind::AskAboutPlace, place}, {ActKind::AskAboutPerson, giver},
+        {ActKind::AskForWork, ""},      {ActKind::DeclineQuest, quest},  {ActKind::AcceptQuest, quest},
+        {ActKind::AbandonQuest, quest}, {ActKind::Farewell, ""},         {ActKind::NoAct, ""}};
+    check::equal(acts.size(), static_cast<std::size_t>(ActKind::NoAct) + 1, "the premise: every act of the contract");
+    for (const auto& [kind, target] : acts) {
+        const std::string name(orchestrator::to_string(kind));
+        const std::string before = json_of(d.world());
+        const FactPacket p = d.respond(giver, {kind, target});
+        check::is_true(p.outcome != Outcome::Refused && p.outcome != Outcome::Unknown, "the premise: " + name + " granted");
+        check::equal(json_of(d.world()) != before, orchestrator::act_changes_world(kind), "the world changed on " + name);
+    }
+}
+
 TEST(no_act_and_farewell_answer_and_change_nothing) {
     Director d(month_old());
     const std::string broker = a_broker();
