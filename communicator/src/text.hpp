@@ -1,0 +1,25 @@
+// Small text helpers the interpreter, the voice and Known share.
+#pragma once
+
+#include <string>
+#include <string_view>
+
+namespace communicator::text {
+
+// One line of plain text: a control character becomes a space, and the ends are trimmed.
+std::string one_line(std::string_view text);
+
+// A snake_case key or value as words: "gate_captain" -> "gate captain".
+std::string spaced(std::string_view text);
+
+// `text` inside a JSON string: quotes and backslashes escaped.
+std::string json_escaped(std::string_view text);
+
+// `text` with typographic punctuation made plain: curly quotes become straight ones, dashes a
+// hyphen, the ellipsis three dots. Words then split the same whichever a keyboard typed.
+std::string plain_punctuation(std::string_view text);
+
+// Throws Error for a line longer than kMaxLineBytes.
+void check_line(std::string_view line);
+
+}  // namespace communicator::text
