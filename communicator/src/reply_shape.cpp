@@ -10,17 +10,21 @@ using orchestrator::Fact;
 using orchestrator::FactKind;
 using orchestrator::Outcome;
 
-// Who a refusal sends the stranger to, as a sentence: the first person the packet names.
+// Who a refusal sends the stranger to, as a sentence: the one person the packet names. With
+// two or more, nothing says which is meant, so no one is named; the order facts come in is
+// not a meaning to rely on.
 std::string who_to_see(const orchestrator::FactPacket& packet) {
+    const Fact* person = nullptr;
     for (const Fact& fact : packet.facts) {
         if (fact.kind != FactKind::Person) continue;
-        const std::string* name = fact.field("name");
-        if (!name || text::one_line(*name).empty()) continue;
-        const std::string* where = fact.field("where");
-        const std::string at = where ? text::spoken(*where) : std::string();
-        return "Speak to " + text::spoken(*name) + (at.empty() ? "" : ", at " + at) + ".";
+        if (person) return {};
+        person = &fact;
     }
-    return {};
+    const std::string* name = person ? person->field("name") : nullptr;
+    if (!name || text::spoken(*name).empty()) return {};
+    const std::string* where = person->field("where");
+    const std::string at = where ? text::spoken(*where) : std::string();
+    return "Speak to " + text::spoken(*name) + (at.empty() ? "" : ", at " + at) + ".";
 }
 
 }  // namespace

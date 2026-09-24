@@ -247,6 +247,11 @@ TEST(a_refusal_says_who_to_see_in_words_it_cannot_change) {
     const std::string closing = " Speak to Halbrann, at the ruins of Linbrig.";
     check::is_true(reply.size() > closing.size() && reply.compare(reply.size() - closing.size(), closing.size(), closing) == 0,
                    "the closing, word for word: " + reply);
+    // Two people in a refusal: nothing says which to see, so neither is named.
+    orchestrator::FactPacket two = packets::refused_brokered();
+    two.facts.push_back({orchestrator::FactKind::Person, "hero-castellan-fortress-node-178",
+                         {{"name", "Selbren"}, {"role", "castellan"}, {"where", "Wenweg (Age 2)"}, {"status", "about"}}});
+    check::is_true(communicator::reply_shape(two).closing.empty(), "no closing when two could be meant");
 }
 
 TEST(a_reply_streams_in_whole_pieces_and_stops_when_asked) {
