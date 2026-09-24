@@ -147,22 +147,58 @@ Completion Model::complete(const std::string& prompt, const Sampling& sampling,
         throw Error("the prompt (" + std::to_string(tokens.size()) + " tokens) and up to " +
                     std::to_string(sampling.max_tokens) + " more do not fit the context of " + std::to_string(room) + " tokens");
 
-    llama_sampler* chain = llama_sampler_chain_init(llama_sampler_chain_default_params());
     struct Owned {
-        llama_sampler* sampler;
-        ~Owned() { llama_sampler_free(sampler); }
-    } owned{chain};
+        llama_sampler* sampler = nullptr;
+        ~Owned() {
+            if (sampler) llama_sampler_free(sampler);
+        }
+    };
+    // The grammar stands apart from the chain that chooses, so that it can be asked about the
+    // one token chosen before it is asked about the whole vocabulary.
+    Owned grammar;
     if (!sampling.grammar.empty()) {
-        llama_sampler* grammar = llama_sampler_init_grammar(impl_->vocab, sampling.grammar.c_str(), sampling.grammar_root.c_str());
-        if (!grammar) throw Error("the grammar did not parse");
-        llama_sampler_chain_add(chain, grammar);  // the chain owns it from here
+        grammar.sampler = llama_sampler_init_grammar(impl_->vocab, sampling.grammar.c_str(), sampling.grammar_root.c_str());
+        if (!grammar.sampler) throw Error("the grammar did not parse");
     }
+    Owned chain{llama_sampler_chain_init(llama_sampler_chain_default_params())};
     if (sampling.temperature <= 0.0f) {
-        llama_sampler_chain_add(chain, llama_sampler_init_greedy());
+        llama_sampler_chain_add(chain.sampler, llama_sampler_init_greedy());
     } else {
-        llama_sampler_chain_add(chain, llama_sampler_init_temp(sampling.temperature));
-        llama_sampler_chain_add(chain, llama_sampler_init_dist(sampling.seed));
+        llama_sampler_chain_add(chain.sampler, llama_sampler_init_temp(sampling.temperature));
+        llama_sampler_chain_add(chain.sampler, llama_sampler_init_dist(sampling.seed));
     }
+
+    // Checking every token of the vocabulary against a grammar at every step is what makes
+    // held output slow. The token the model would choose anyway is checked first; only when the
+    // grammar refuses it does the whole vocabulary go through the grammar, and the choice is made
+    // again among what it allows. Greedy output is the same as filtering first: a best token the
+    // grammar allows is the best of the allowed ones. Sampled output keeps the filtered
+    // distribution, drawing again only after a refusal.
+    const std::int32_t vocabulary = llama_vocab_n_tokens(impl_->vocab);
+    std::vector<llama_token_data> candidates(static_cast<std::size_t>(vocabulary));
+    const auto choose = [&](bool through_grammar) {
+        const float* logits = llama_get_logits_ith(impl_->context, -1);
+        if (!logits) throw Error("the model gave no scores to choose from");
+        for (llama_token id = 0; id < vocabulary; ++id) candidates[static_cast<std::size_t>(id)] = {id, logits[id], 0.0f};
+        llama_token_data_array all{candidates.data(), candidates.size(), -1, false};
+        if (through_grammar) llama_sampler_apply(grammar.sampler, &all);
+        llama_sampler_apply(chain.sampler, &all);
+        if (all.selected < 0 || static_cast<std::size_t>(all.selected) >= all.size || !std::isfinite(all.data[all.selected].logit))
+            throw Error("the grammar allows nothing to follow what was written");
+        return all.data[all.selected].id;
+    };
+    const auto next_token = [&] {
+        llama_token token = choose(false);
+        if (grammar.sampler) {
+            llama_token_data one{token, 0.0f, 0.0f};
+            llama_token_data_array just_one{&one, 1, -1, false};
+            llama_sampler_apply(grammar.sampler, &just_one);
+            if (!std::isfinite(one.logit)) token = choose(true);
+            llama_sampler_accept(grammar.sampler, token);
+        }
+        llama_sampler_accept(chain.sampler, token);
+        return token;
+    };
 
     // One call is one reply: nothing from an earlier call stays in the context.
     llama_memory_clear(llama_get_memory(impl_->context), true);
@@ -173,7 +209,7 @@ Completion Model::complete(const std::string& prompt, const Sampling& sampling,
     Completion out;
     std::string held;  // bytes of a character still arriving
     for (int i = 0; i < sampling.max_tokens; ++i) {
-        llama_token token = llama_sampler_sample(chain, impl_->context, -1);
+        llama_token token = next_token();
         if (llama_vocab_is_eog(impl_->vocab, token)) {
             out.stopped_at_end = true;
             break;

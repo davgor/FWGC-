@@ -72,6 +72,18 @@ on llama.cpp's API, which changes between releases.
   `root ::= "yes" | "no"` it says one word and stops. With a JSON grammar over a closed set of
   labels, it can only answer one of those labels. Classification held by a grammar is what a
   caller builds on.
+- **A grammar costs little when the model's own choice fits it.** Each step checks the token the
+  model would choose anyway. Only when the grammar refuses it does the whole vocabulary go
+  through the grammar, and the choice is made again among what it allows. Greedy output is the
+  same as checking everything first: the best token the grammar allows is the best allowed one.
+  Checking all 151,936 tokens at every step had made held prose about 65 ms a token slower than
+  free text.
+  - Measured on 2026-09-24 with the test model, over 8 held replies of prose and 17
+    classifications: the text was identical to checking everything first.
+  - Held replies took 0.3–1.4 s where they had taken 0.7–2.3 s, within 0.2 s of the same prompts
+    unheld.
+  - The grammar tests cover both paths. A mutation pass broke the fallback three ways (keep a
+    refused token, choose again without the grammar, never check), and tests failed each time.
 - **Nothing carries between calls.** The context is cleared first. A word told to the model in
   one call is unknown in the next: the answer matches a freshly loaded model's exactly. The same
   greedy prompt gives the same reply twice.
