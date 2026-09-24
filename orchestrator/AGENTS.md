@@ -36,7 +36,8 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
   Every fact names the world id it came from. A test guards each of these; keep them, and prove a
   new one by switching the rule off and watching its test fail.
 - **`include/orchestrator/contract.hpp` names nothing of the generator.** The communicator includes
-  it and nothing else from here. Keep it that way, and keep `orchestrator_contract` unlinked from
+  it and nothing else from here; the layer checker refuses any other orchestrator header in a
+  dependant (`public-include`). Keep it that way, and keep `orchestrator_contract` unlinked from
   `fwg`.
 - **No model concepts.** Prompts and model plumbing belong to the communicator and inference. The
   layer checker refuses `llm`, `llama`, `gguf`, `inference`, `prompt`, `prompts`, `tokenizer` and

@@ -46,10 +46,10 @@ the working tree.
 | Component | Folder | Kind | Lane |
 |---|---|---|---|
 | generator | `generator/` | runtime C++: the deterministic world generator | Claude |
-| orchestrator | `orchestrator/` | runtime C++: the deterministic director (not built yet) | Claude |
-| communicator | `communicator/` | runtime C++: dialogue interpreter and NPC voice (not built yet) | Claude |
+| orchestrator | `orchestrator/` | runtime C++: the deterministic director | Claude |
+| communicator | `communicator/` | runtime C++: dialogue interpreter and NPC voice | Claude |
 | creator | `creator/` | runtime C++: new-world setup from player text (not built yet) | Claude |
-| inference | `inference/` | runtime C++: the local model runtime (not built yet) | Claude |
+| inference | `inference/` | runtime C++: the local model runtime | Claude |
 | viewer | `viewer/` | dev tool, JavaScript: a browser viewer over `fwg.exe` | GPT |
 | concept art | `concept art/` | documents and art assets | GPT |
 | tools | `tools/` | dev tools: this gate, the checker, the hooks | Claude |
@@ -74,7 +74,8 @@ fully local.
 
 The checker already enforces all of the following mechanically:
 
-- include edges and public headers (`fwg/api/` only);
+- include edges and public headers (the generator's `fwg/api/`, the orchestrator's
+  `orchestrator/contract.hpp`);
 - `fwg::` calls against `generator/api.txt`;
 - unqualified calls that argument-dependent lookup could resolve into the generator;
 - a deny-list of words;
@@ -92,7 +93,11 @@ Look for the same failures in forms it cannot see.
 - a consumer that reaches generator internals another way: a macro, a template or pointer trick,
   or a copied header;
 - a consumer that re-implements a generator pass instead of calling the public verb (duplicated
-  world logic).
+  world logic);
+- a communicator that links `fwgc::orchestrator` rather than `fwgc::orchestrator_contract`, or
+  reaches a world some other way. The checker sees includes, not which target a build links;
+- a communicator that makes the director's decisions itself: what a speaker knows, or whether
+  an act succeeds.
 
 An api.txt entry for a general world verb or read is fine when the commit says why.
 

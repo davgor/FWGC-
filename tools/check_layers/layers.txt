@@ -41,15 +41,18 @@ include-dir    generator generator/include
 public-include generator fwg/api/
 namespace      generator fwg
 targets        generator fwg fwg::fwg fwg_flags fwg_determinism
-# Provisional for the components not built yet; settle each when it is scaffolded.
-include-root orchestrator orchestrator/
-namespace    orchestrator orchestrator
+# The orchestrator publishes its contract alone: what depends on it sees the packet types, never
+# the director, which holds a world and would put the generator within reach.
+include-root   orchestrator orchestrator/
+public-include orchestrator orchestrator/contract.hpp
+namespace      orchestrator orchestrator
 include-root communicator communicator/
 namespace    communicator communicator
-include-root creator creator/
-namespace    creator creator
 include-root inference inference/
 namespace    inference inference
+# Provisional for the component not built yet; settle it when it is scaffolded.
+include-root creator creator/
+namespace    creator creator
 
 # ---- The generator's public functions (guardrail 1) -------------------------------------------
 # A dependant includes fwg/api/ only, writes fwg:: in full, and calls only what

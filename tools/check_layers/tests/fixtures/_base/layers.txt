@@ -19,8 +19,9 @@ include-dir    generator generator/include
 public-include generator fwg/api/
 namespace      generator fwg
 targets        generator fwg fwg::fwg
-include-root orchestrator orchestrator/
-namespace    orchestrator orchestrator
+include-root   orchestrator orchestrator/
+public-include orchestrator orchestrator/contract.hpp
+namespace      orchestrator orchestrator
 targets      orchestrator orchestrator_core
 include-root communicator communicator/
 namespace    communicator communicator

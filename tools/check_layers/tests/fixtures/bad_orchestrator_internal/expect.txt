@@ -1,0 +1,3 @@
+# Line 2 is the orchestrator's contract, its one public header (the clean control). Line 3 is the
+# director, which holds a world: through it the communicator would reach the generator.
+api-include communicator/src/interpreter.cpp:3

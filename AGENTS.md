@@ -16,14 +16,14 @@ Text is only freeform conversation with NPCs, which is how players get quests an
 | `concept art/` | The concept art production map and its assets | assets | GPT |
 | `tools/` | The layer checker, the commit gate, the red-team prompt, the git hooks | dev tool (C++) | Claude |
 | `orchestrator/` | The deterministic director. Built so far: dialogue acts answered as knowledge-scoped fact packets, taking and releasing quests, and time. Pacing and hero direction are still to come | runtime | Claude |
-| `communicator/` | *Planned.* NPC dialogue: the interpreter (text to a dialogue act) and the NPC voice | runtime | Claude |
+| `communicator/` | NPC dialogue. Built so far: the interpreter (a player's line to one dialogue act, its target only something a packet named) and the voice (a packet in the speaker's words, naming only what the packet names), each held by a grammar. Names no packet gave, and the models that ship, are still to come | runtime | Claude |
 | `creator/` | *Planned.* New-world setup: a player's description to a seed and generator settings | runtime | Claude |
 | `inference/` | The local model runtime, knowing nothing of worlds. Built so far: llama.cpp (pinned) on the CPU, with chat templates, streaming and grammar-held output. GPU offload and the classifier are still to come | runtime | Claude |
 
-The planned folders do not exist yet. Their rules are already in
-`tools/check_layers/layers.txt`, but creating one is a slice the owner starts, not something to
-scaffold in passing. The same holds for each new slice of `orchestrator/`: plan it before building
-it.
+The planned folder, `creator/`, does not exist yet. Its rules are already in
+`tools/check_layers/layers.txt`, but creating it is a slice the owner starts, not something to
+scaffold in passing. The same holds for each new slice of a built component: plan it before
+building it.
 
 **The architecture in one line: the LLM translates and phrases; C++ decides.** A model turns
 player text into a closed set of actions and phrases the results. Deterministic C++ decides what
@@ -60,7 +60,7 @@ viewer       -> fwg.exe and its documents (a process boundary, not a dependency)
 
 | Guardrail | Rule | Enforced by |
 |---|---|---|
-| G1 | A dependant includes only `fwg/api/`, writes `fwg::` in full, and calls only what `generator/api.txt` lists. | `check_layers` (`api-include`, `api-function`, `api-namespace`, `api-adl`, `api-list`), red team |
+| G1 | A dependant includes only `fwg/api/`, writes `fwg::` in full, and calls only what `generator/api.txt` lists. The communicator includes only the orchestrator's `contract.hpp` and links only `fwgc::orchestrator_contract`, so no world is within its reach. | `check_layers` (`api-include`, `api-function`, `api-namespace`, `api-adl`, `api-list`), red team |
 | G2 | Nothing in the generator names, includes, links, or is shaped for a consumer. | `check_layers` (`edge`), red team |
 | G3 | Only the generator's logged verbs change a World. Each takes `const World&`, returns a new world and appends to `history.operations`. Consumers never write into a World. | red team; later, an op-log replay test in each consumer |
 | G4 | The generator has no callbacks into consumers, and there is no shared `common/`-style folder. What two components share belongs to the lower one. | `check_layers` (`top-level`), red team |
