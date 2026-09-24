@@ -305,6 +305,11 @@ struct NearRows {
 // Throws std::out_of_range for a node off the grid.
 NearRows near_rows(const World& world, int node, double radius_m);
 
+// Empties every category of `rows` that `keep` does not name, by near_categories()'s names.
+// A name outside that vocabulary keeps nothing; read_near refuses such a name before this
+// runs.
+void keep_near_categories(NearRows& rows, const std::vector<std::string>& keep);
+
 // ---------------------------------------------------------------------------
 // place
 // ---------------------------------------------------------------------------

@@ -780,6 +780,20 @@ std::size_t NearRows::total() const {
            ley_nodes.size() + encounters.size();
 }
 
+void keep_near_categories(NearRows& rows, const std::vector<std::string>& keep) {
+    // One branch per name, in kNearCategories' order. A category added to the table without
+    // a branch here would be kept whatever the filter said.
+    static_assert(std::size(kNearCategories) == 7, "a new near category needs its branch in keep_near_categories");
+    const auto kept = [&](std::size_t i) { return std::find(keep.begin(), keep.end(), kNearCategories[i]) != keep.end(); };
+    if (!kept(0)) rows.settlements.clear();
+    if (!kept(1)) rows.hamlets.clear();
+    if (!kept(2)) rows.fortresses.clear();
+    if (!kept(3)) rows.key_locations.clear();
+    if (!kept(4)) rows.beast_nests.clear();
+    if (!kept(5)) rows.ley_nodes.clear();
+    if (!kept(6)) rows.encounters.clear();
+}
+
 NearRows near_rows(const World& world, int node, double radius_m) {
     const Measure measure(world, node, radius_m);
     NearRows rows;

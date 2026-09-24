@@ -110,6 +110,15 @@ NearRead read_near(const World& world, const NearReadRequest& request) {
     const double radius_m = request.radius_m;
     if (!std::isfinite(radius_m)) throw refuse::wrong_type("radius_m", refuse::render(radius_m), "a finite number");
     if (radius_m < 0.0) throw refuse::out_of_range("radius_m", radius_m, 0.0, std::nullopt, "m");
+    if (request.categories) {
+        const std::span<const std::string_view> vocabulary = near_categories();
+        for (const std::string& name : *request.categories) {
+            if (std::find(vocabulary.begin(), vocabulary.end(), name) == vocabulary.end()) {
+                const std::vector<std::string> choices(vocabulary.begin(), vocabulary.end());
+                throw refuse::invalid_choice("categories", name, choices);
+            }
+        }
+    }
 
     require_grid(world);
     const std::size_t count = node_count(world);
@@ -130,11 +139,13 @@ NearRead read_near(const World& world, const NearReadRequest& request) {
     }
 
     NearRows rows = near_rows(world, node, radius_m);
+    if (request.categories) keep_near_categories(rows, *request.categories);
     const std::size_t total = rows.total();
     if (total > kMaxNearRows) {
         // Refused rather than truncated. A truncated answer to "what is near here" is a wrong
         // answer that looks complete, and the caller has a remedy it can apply.
-        throw refuse::over_capacity("near.rows", total, kMaxNearRows, "rows per read; ask a smaller radius_m");
+        throw refuse::over_capacity("near.rows", total, kMaxNearRows,
+                                    "rows per read; ask a smaller radius_m or fewer categories");
     }
 
     NearRead out;
@@ -148,6 +159,7 @@ NearRead read_near(const World& world, const NearReadRequest& request) {
     out.cell.layers = layer_sample(world, out.cell.cell.x, out.cell.cell.z);
     out.near = std::move(rows);
     out.joins.assign(std::begin(kNearJoins), std::end(kNearJoins));
+    out.categories = request.categories;
     return out;
 }
 

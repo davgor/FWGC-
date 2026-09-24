@@ -654,8 +654,10 @@ TEST(read_near_refuses_a_world_without_a_grid_by_its_block) {
 }
 
 TEST(read_near_row_ceiling_refuses_rather_than_truncating_when_it_is_reached) {
-    // Driven on a hand-built world, because no generated world reaches it: a test that only
-    // asked a real world for a wide neighbourhood would pass while the branch never ran.
+    // Driven on a hand-built world, which puts the ceiling exactly at the boundary. Generated
+    // worlds do reach it (2026-09-24: most cities of the seed-42 size-33 world, ticked a month,
+    // at the radius ceiling, through their encounter rows; see the categories tests below),
+    // but never by exactly one row, and the off-by-one is what this pins.
     World w;
     w.config.size = 17;
     w.effective.globe_radius = 31830.988618379066;
@@ -682,6 +684,121 @@ TEST(read_near_row_ceiling_refuses_rather_than_truncating_when_it_is_reached) {
     check::is_true(contains(over.message(), std::to_string(kMaxNearRows)), "and the ceiling");
     w.beast_nests.sites.pop_back();
     check::equal(read_near(w, request).rows, kMaxNearRows, "the ceiling itself is answered in full");
+}
+
+// ---------------------------------------------------------------------------
+// near: the categories filter (this port's addition)
+// ---------------------------------------------------------------------------
+
+namespace {
+
+// A category's rows by its published name. The test's own table, so a filter that maps a
+// name onto the wrong category disagrees with it.
+std::size_t category_size(const NearRows& rows, std::string_view name) {
+    if (name == "settlements") return rows.settlements.size();
+    if (name == "hamlets") return rows.hamlets.size();
+    if (name == "fortresses") return rows.fortresses.size();
+    if (name == "key_locations") return rows.key_locations.size();
+    if (name == "beast_nests") return rows.beast_nests.size();
+    if (name == "ley_nodes") return rows.ley_nodes.size();
+    if (name == "encounters") return rows.encounters.size();
+    check::fail("the test's table has no category named " + std::string(name));
+}
+
+NearReadRequest near_request(int node, double radius_m, std::optional<std::vector<std::string>> categories) {
+    NearReadRequest request;
+    request.node = node;
+    request.radius_m = radius_m;
+    request.categories = std::move(categories);
+    return request;
+}
+
+}  // namespace
+
+TEST(read_near_without_categories_answers_every_category) {
+    const World& w = ticked();
+    const double radius = globe_radius(w) * kNearRadiusFraction / 4.0;
+    const int node = w.settlements.sites.front().node;
+    const NearRead read = read_near(w, near_request(node, radius, std::nullopt));
+    const NearRows all = near_rows(w, node, radius);
+    check::equal(read.rows, all.total(), "every row near_rows finds");
+    for (const std::string_view name : near_categories())
+        check::equal(category_size(read.near, name), category_size(all, name), std::string(name));
+    check::is_true(!read.categories.has_value(), "no filter echoed");
+}
+
+TEST(read_near_categories_select_exactly_the_categories_they_name) {
+    // For each category, a node and radius where it AND some other category both have rows
+    // and the whole neighbourhood fits the ceiling -- so selecting it must keep its rows and
+    // empty the others, and a filter that mapped the name onto another category fails here.
+    const World& w = ticked();
+    const double cap = globe_radius(w) * kNearRadiusFraction;
+    for (const std::string_view name : near_categories()) {
+        bool tested = false;
+        for (const SettlementSite& site : w.settlements.sites) {
+            for (const double radius : {cap / 2.0, cap / 4.0, cap / 8.0}) {
+                const NearRows all = near_rows(w, site.node, radius);
+                const std::size_t own = category_size(all, name);
+                if (own == 0 || own == all.total() || all.total() > kMaxNearRows) continue;
+                const NearRead read = read_near(w, near_request(site.node, radius, std::vector<std::string>{std::string(name)}));
+                check::equal(read.rows, own, std::string(name) + " alone counts only its rows");
+                for (const std::string_view other : near_categories())
+                    check::equal(category_size(read.near, other), other == name ? own : std::size_t{0},
+                                 std::string(name) + " filter, category " + std::string(other));
+                tested = true;
+                break;
+            }
+            if (tested) break;
+        }
+        check::is_true(tested, "a city whose neighbourhood holds " + std::string(name) + " and something else");
+    }
+}
+
+TEST(read_near_categories_let_a_dense_neighbourhood_answer) {
+    // The reason the filter exists: at the radius ceiling most cities' reads are refused, nearly
+    // all of it encounters, so without a filter nobody could ask which places stand in reach.
+    const World& w = ticked();
+    const double cap = globe_radius(w) * kNearRadiusFraction;
+    const std::vector<std::string> places = {"settlements", "hamlets", "fortresses", "key_locations"};
+    std::size_t dense = 0;
+    for (const SettlementSite& site : w.settlements.sites) {
+        const NearRows all = near_rows(w, site.node, cap);
+        if (all.total() <= kMaxNearRows) continue;
+        ++dense;
+        WorldTimeError over = refused([&] { (void)read_near(w, near_request(site.node, cap, std::nullopt)); },
+                                      "the unfiltered read of a dense neighbourhood");
+        check::equal(over.code(), kRefusalStateCapacity, "STATE_CAPACITY");
+        check::is_true(contains(over.message(), "fewer categories"), "the refusal names the new remedy");
+        std::size_t expected = 0;
+        for (const std::string& name : places) expected += category_size(all, name);
+        check::is_true(expected <= kMaxNearRows, "the places alone fit the ceiling at " + site.uid);
+        const NearRead read = read_near(w, near_request(site.node, cap, places));
+        check::equal(read.rows, expected, "every place in reach of " + site.uid);
+        check::equal(read.near.encounters.size(), std::size_t{0}, "no encounters");
+        check::equal(read.near.beast_nests.size(), std::size_t{0}, "no nests");
+    }
+    check::is_true(dense > 0, "the premise: some city's unfiltered read at the ceiling is refused");
+}
+
+TEST(read_near_an_empty_categories_filter_selects_nothing) {
+    const World& w = ticked();
+    const int node = w.settlements.sites.front().node;
+    const NearRead read = read_near(w, near_request(node, globe_radius(w) * kNearRadiusFraction / 4.0, std::vector<std::string>{}));
+    check::equal(read.rows, std::size_t{0}, "no rows");
+    check::equal(read.near.total(), std::size_t{0}, "every category empty");
+    check::is_true(read.categories.has_value() && read.categories->empty(), "the empty filter echoed");
+}
+
+TEST(read_near_refuses_a_category_outside_the_vocabulary) {
+    const World& w = ticked();
+    const int node = w.settlements.sites.front().node;
+    WorldTimeError typo = refused(
+        [&] { (void)read_near(w, near_request(node, 1000.0, std::vector<std::string>{"hamlets", "settlement"})); },
+        "a misspelt category");
+    check::equal(typo.code(), kRefusalInvalidInput, "INVALID_INPUT");
+    check::equal(typo.field(), std::string("categories"), "names the field");
+    check::equal(typo.received(), std::string("settlement"), "echoes the unknown name, not the good one");
+    check::is_true(has(typo.candidates(), std::string("settlements")), "suggests the name meant");
 }
 
 // ===========================================================================

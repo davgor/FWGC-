@@ -132,6 +132,15 @@ struct NearReadRequest {
     // north pole that nobody asked for is a wrong answer that looks like a right one.
     std::optional<int> node;
     double radius_m = 0.0;  // metres; 0 asks what stands on the node itself
+    // Absent: every category. Present: only the categories named, by near_categories()'s
+    // names; an empty list selects nothing -- a filter selects, it never invents. The row
+    // ceiling counts the selected rows only, so narrowing the categories is a remedy for a
+    // dense neighbourhood, as a smaller radius is. Measured on 2026-09-24 on the seed-42
+    // size-33 worlds after a 30-day tick: at the radius ceiling most cities' reads pass
+    // kMaxNearRows, nearly all of it encounter rows, so without this a caller could not ask
+    // which settlements stand within reach. THIS PORT'S ADDITION: the reference's near read
+    // takes no filter.
+    std::optional<std::vector<std::string>> categories;
 };
 
 // The node read: its cell, and every layer's value there.
@@ -146,17 +155,19 @@ struct NearRead {
     double radius_m = 0.0;
     double radius_ceiling_m = 0.0;
     std::size_t row_ceiling = kMaxNearRows;
-    std::size_t rows = 0;
+    std::size_t rows = 0;  // the selected rows
     NearCell cell;
-    NearRows near;
+    NearRows near;  // an unselected category is empty
     std::vector<ReadJoin> joins;
+    std::optional<std::vector<std::string>> categories;  // the filter, echoed
 };
 
 // Throws WorldTimeError, in this order: api_version; `node` absent; `radius_m` not finite;
-// `radius_m` below zero (out of range, suggesting zero); `world.config` when the world has no
-// grid (size below 2) or `world.effective_config` when it has no positive globe radius; then,
-// as refusals by the world, `node` off this world's grid and `radius_m` above half its globe
-// radius; then `near.rows` (STATE_CAPACITY) when more than kMaxNearRows rows answer.
+// `radius_m` below zero (out of range, suggesting zero); a `categories` name outside
+// near_categories() (an invalid choice); `world.config` when the world has no grid (size
+// below 2) or `world.effective_config` when it has no positive globe radius; then, as
+// refusals by the world, `node` off this world's grid and `radius_m` above half its globe
+// radius; then `near.rows` (STATE_CAPACITY) when more than kMaxNearRows selected rows answer.
 NearRead read_near(const World& world, const NearReadRequest& request);
 
 // ---------------------------------------------------------------------------
