@@ -30,6 +30,11 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   every prompt and grammar for ids.
 - **The voice names only what its packet names.** Nothing that can be a name goes into
   `common_capitals()`: only words sentences begin with.
+- **The voice gives no bearing and speaks of no pay, in the words of `forbidden_words()`.**
+  - A packet's own word stays sayable, and only that exact word.
+  - An entry is a stem (`north*`) only when every word it begins should be barred too.
+    Otherwise it goes in whole, with its forms.
+  - No common capital may be a barred word.
 - **A world-changing act is confirmed before it reaches the director.** Whatever joins the
   communicator to the director (the game, a binding) asks `Interpretation::confirm` and hands on
   the act only on yes. A reply's shape (`reply_shape()`) states the outcome first; an outcome
