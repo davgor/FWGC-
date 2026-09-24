@@ -84,15 +84,16 @@ bool opens_with_one_of(const std::string& reply, const std::vector<std::string>&
     return std::any_of(openings.begin(), openings.end(), [&](const std::string& o) { return reply.rfind(o, 0) == 0; });
 }
 
-// The sentences in `text`: runs of . ! ? that close it or come before a space or a closing quote.
-// The point in "2.5 km" ends nothing.
+// The sentences in `text`: runs of . ! ? that close it, or come before a space, a bracket or a
+// quote, straight or curly (a curly one starts with the byte E2). The point in "2.5 km" ends
+// nothing.
 std::size_t sentences_in(const std::string& text) {
     std::size_t count = 0;
     for (std::size_t i = 0; i < text.size(); ++i) {
         if (text[i] != '.' && text[i] != '!' && text[i] != '?') continue;
         while (i + 1 < text.size() && (text[i + 1] == '.' || text[i + 1] == '!' || text[i + 1] == '?')) ++i;
-        const char next = i + 1 < text.size() ? text[i + 1] : ' ';
-        if (next == ' ' || next == '"' || next == '\'' || next == ')') ++count;
+        const auto next = i + 1 < text.size() ? static_cast<unsigned char>(text[i + 1]) : static_cast<unsigned char>(' ');
+        if (next == ' ' || next == '"' || next == '\'' || next == ')' || next == 0xE2) ++count;
     }
     return count;
 }
@@ -159,8 +160,13 @@ TEST(the_prompt_carries_the_persona_and_every_fact_as_it_is_said) {
     const FactPacket work = packets::work();
     const std::string prompt = prompt_of(voice, work, "Any work?");
     const orchestrator::Persona& s = work.persona;
-    for (const std::string* part : {&s.name, &s.manner, &s.voice, &s.toward_player, &s.line})
+    for (const std::string* part : {&s.name, &s.manner, &s.voice, &s.toward_player})
         check::is_true(prompt.find(*part) != std::string::npos, "the persona's " + *part);
+    // Never the card's sample line: a model shown it says it back whole.
+    check::is_true(prompt.find("Third night this month") == std::string::npos, "no sample line to say back");
+    // Numbers on a scale come with words, and a deadline says it is one.
+    for (const std::string said : {"fair work (3 of 5)", "easy work (2 of 5)", "the offer stands for 713 more days"})
+        check::is_true(prompt.find(said) != std::string::npos, "an offer's numbers in words: " + said);
     for (const std::string& never : s.never) check::is_true(prompt.find(never) != std::string::npos, "never: " + never);
     // Names come as they are said: "Wenweg (Age 2)" is Wenweg.
     for (const std::string said : {"at Wenweg,", "Hold the fortress above Wenweg with me.", "Nerbrann",
@@ -209,12 +215,20 @@ TEST(a_reply_opens_by_saying_what_happened) {
 TEST(a_short_answer_stays_one_sentence) {
     inference::Model& model = test_model::model();
     Voice voice(model);
+    // Lines that invite a long answer where there is little to say.
+    std::vector<std::pair<FactPacket, std::string>> cases = outcome_cases();
+    cases.insert(cases.end(), {
+        {packets::unknown_place(), "What do you know of Castle Grey? Tell me everything: its history, who lives there, the way."},
+        {packets::not_understood(), "Tell me a long story about your childhood, and your family, and the war."},
+        {packets::parted(), "Farewell! Greet my friends in Wenweg for me, and tell them the road was kind to me."},
+        {packets::declined(), "No, I won't do it. I'm tired, it's dangerous, and I have plans of my own. Explain why you asked me."},
+    });
     // The premise: free, the model runs past one sentence for at least one of these.
     std::size_t longest_free = 0;
     std::string longest_reply;
     inference::Sampling free_text;
     free_text.max_tokens = 120;
-    for (const auto& [packet, line] : outcome_cases()) {
+    for (const auto& [packet, line] : cases) {
         if (communicator::reply_shape(packet).sentences != 1) continue;
         const std::string reply = model.complete(model.chat_prompt(voice.messages(packet, line)), free_text).text;
         if (sentences_in(reply) > longest_free) {
@@ -228,7 +242,7 @@ TEST(a_short_answer_stays_one_sentence) {
     using orchestrator::Outcome;
     const std::set<Outcome> short_ones = {Outcome::Unknown, Outcome::Refused, Outcome::Declined,
                                           Outcome::Abandoned, Outcome::Parted, Outcome::NotUnderstood};
-    for (const auto& [packet, line] : outcome_cases()) {
+    for (const auto& [packet, line] : cases) {
         const communicator::ReplyShape shape = communicator::reply_shape(packet);
         check::equal(shape.sentences == 1, short_ones.count(packet.outcome) == 1,
                      "one sentence for " + std::string(orchestrator::to_string(packet.outcome)));
@@ -238,6 +252,38 @@ TEST(a_short_answer_stays_one_sentence) {
             said = said.substr(0, said.size() - shape.closing.size());
         check::equal(sentences_in(said), std::size_t{1},
                      std::string(orchestrator::to_string(packet.outcome)) + " in one sentence: " + said);
+    }
+}
+
+TEST(a_reply_quotes_nothing) {
+    // Told to quote, the free model does; held, a reply has no double quotes to open or leave
+    // hanging.
+    inference::Model& model = test_model::model();
+    Voice voice(model);
+    // The reply is begun with an open quote (a prefill), which a model closes when it may.
+    const std::string prompt = model.chat_prompt(
+        {{"system", "Answer with one word inside double quotation marks, and nothing else."}, {"user", "Say yes."}}) + "\"";
+    inference::Sampling sampling;
+    sampling.max_tokens = 32;
+    const std::string free_reply = model.complete(prompt, sampling).text;
+    check::is_true(free_reply.find('"') != std::string::npos, "the premise: free, the model closes the quote: " + free_reply);
+    // An answer's grammar: no forced opening, so only the quotes stand between it and the copy.
+    sampling.grammar = voice.grammar(packets::surroundings());
+    const std::string held = model.complete(prompt, sampling).text;
+    for (const std::string mark : {"\"", "\xE2\x80\x9C", "\xE2\x80\x9D"})
+        check::is_true(held.find(mark) == std::string::npos, "no double quote, held: " + held);
+}
+
+TEST(a_sentence_ends_with_one_stop) {
+    // A sentence ends with one stop, an ellipsis, ?! or !?. With any run of stops allowed,
+    // Qwen3-4B once spun a reply out as "..?..?" to its token limit. The test model will not
+    // run on however it is asked, so this reads the rule itself rather than a reply: every
+    // packet's grammar ends a sentence in exactly this bounded set.
+    Voice voice(test_model::model());
+    for (const FactPacket& p : packets::all()) {
+        const std::string g = voice.grammar(p);
+        check::is_true(g.find("\nend ::= \"...\" | \"?!\" | \"!?\" | [.!?]\n") != std::string::npos,
+                       "the bounded end, for " + p.persona.name);
     }
 }
 

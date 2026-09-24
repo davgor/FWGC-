@@ -240,14 +240,15 @@ void interpreter_eval(inference::Model& model, const std::string& path, std::siz
               << " bad_rows=" << bad_rows << "\n";
 }
 
-// The sentences in `text`: runs of . ! ? that close it or come before a space or a closing quote.
+// The sentences in `text`: runs of . ! ? that close it, or come before a space, a bracket or a
+// quote, straight or curly (a curly one starts with the byte E2).
 std::size_t sentences_in(const std::string& text) {
     std::size_t count = 0;
     for (std::size_t i = 0; i < text.size(); ++i) {
         if (text[i] != '.' && text[i] != '!' && text[i] != '?') continue;
         while (i + 1 < text.size() && (text[i + 1] == '.' || text[i + 1] == '!' || text[i + 1] == '?')) ++i;
-        const char next = i + 1 < text.size() ? text[i + 1] : ' ';
-        if (next == ' ' || next == '"' || next == '\'' || next == ')') ++count;
+        const auto next = i + 1 < text.size() ? static_cast<unsigned char>(text[i + 1]) : static_cast<unsigned char>(' ');
+        if (next == ' ' || next == '"' || next == '\'' || next == ')' || next == 0xE2) ++count;
     }
     return count;
 }

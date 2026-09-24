@@ -39,6 +39,18 @@ std::string value_of(const Fact& fact, std::string_view key) {
     return value ? text::spoken(*value) : std::string();
 }
 
+// A step on one of a packet's scales of 1 to 5, in words, with the number beside it: a number
+// alone was misread ("danger level 5.1", difficulty 2 called hard; judged 2026-09-24).
+std::string scaled(std::string_view key, const std::string& value) {
+    static const char* const kDifficulty[] = {"very easy", "easy", "fair", "hard", "very hard"};
+    static const char* const kDanger[] = {"slight", "low", "real", "high", "deadly"};
+    const bool one_digit = value.size() == 1 && value[0] >= '1' && value[0] <= '5';
+    if (!one_digit) return std::string(key) + " " + value;
+    const auto step = static_cast<std::size_t>(value[0] - '1');
+    if (key == "difficulty") return std::string(kDifficulty[step]) + " work (" + value + " of 5)";
+    return std::string(key) + " " + kDanger[step] + " (" + value + " of 5)";
+}
+
 // A fact's remaining fields as short phrases, in the director's order, skipping `used`.
 std::vector<std::string> phrases(const Fact& fact, std::initializer_list<std::string_view> used) {
     std::vector<std::string> out;
@@ -49,9 +61,9 @@ std::vector<std::string> phrases(const Fact& fact, std::initializer_list<std::st
         if (key == "distance")
             out.push_back(value == "here" ? "right here" : value + " away");
         else if (key == "threat" || key == "danger" || key == "difficulty")  // each a scale of 1 to 5 in a packet
-            out.push_back(key + " " + value + " of 5");
-        else if (key == "days_left")
-            out.push_back(value + " days left");
+            out.push_back(scaled(key, value));
+        else if (key == "days_left")  // how long the offer stands, not how long the work takes: misread twice
+            out.push_back("the offer stands for " + value + " more days");
         else
             out.push_back(text::spaced(key) + ": " + value);
     }
@@ -205,8 +217,9 @@ const std::vector<std::string>& common_capitals() {
         "Thanks", "Greetings", "Hello", "Hail", "Farewell", "Goodbye", "Welcome", "Good", "Safe", "Just", "Only", "Even",
         "Still", "Also", "Too", "Again", "Soon", "Later", "Today", "Tonight", "Tomorrow", "First", "Last", "Next", "Very",
         "Quite", "Rather", "Certainly", "Sure", "Right", "Fine", "True", "Nothing", "Something", "Anything", "Everything",
-        "Nobody", "Somebody", "Anyone", "Someone", "Everyone", "None", "Instead", "Otherwise", "Besides", "North",
-        "South", "East", "West",
+        "Nobody", "Somebody", "Anyone", "Someone", "Everyone", "None", "Instead", "Otherwise", "Besides",
+        // No compass point: a packet holds distances, never bearings, and a reply that gives one
+        // invents it.
     };
     return words;
 }
@@ -227,7 +240,9 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
     if (!p.manner.empty()) system += "How you carry yourself: " + text::one_line(p.manner) + "\n";
     if (!p.voice.empty()) system += "How you speak: " + text::one_line(p.voice) + "\n";
     if (!p.toward_player.empty()) system += "Toward strangers: " + text::one_line(p.toward_player) + "\n";
-    if (!p.line.empty()) system += "Something you might say: \"" + text::spoken(p.line) + "\"\n";
+    // The card's sample line is left out. Shown to the model in any framing, it was said back
+    // whole: in 9 of 24 replies from Qwen3-4B, "never to be repeated word for word" or not
+    // (judged 2026-09-24). The card's manner, voice and stance carry the character instead.
     if (!p.never.empty()) {
         std::vector<std::string> never;
         for (const std::string& n : p.never) never.push_back(text::one_line(n));
@@ -241,17 +256,18 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
     const std::string length =
         sentences == 1 ? "in one short sentence" : "in one to " + std::string(sentences == 2 ? "two" : "three") + " short sentences";
     system += "Reply as " + (name.empty() ? std::string("yourself") : name) + ", " + length +
-              " of spoken words. Speak of no person or place that is not named above. Promise no payment or reward.";
+              " of spoken words. Speak of no person or place that is not named above, and say nothing of pay. Say how far "
+              "places are, never which way: you know no directions.";
     return {{"system", system}, {"user", text::one_line(line)}};
 }
 
 std::string Voice::grammar(const FactPacket& packet) const {
     check_version(packet);
-    // Every capitalised word of the packet's own text may be said: names, and the words of the
-    // speaker's line and the facts. The never-lines and the card's descriptions are not the
-    // speaker's words, so they add none.
+    // Every capitalised word the prompt gives as something to say may be said: the speaker's
+    // name, post and place, and the facts' words. The never-lines and the card's descriptions
+    // are not the speaker's words, and the card's sample line is not shown, so they add none.
     std::set<std::string> capitals(common_capitals().begin(), common_capitals().end());
-    for (const std::string* said : {&packet.persona.name, &packet.persona.role, &packet.persona.place, &packet.persona.line})
+    for (const std::string* said : {&packet.persona.name, &packet.persona.role, &packet.persona.place})
         capitals_of(*said, capitals);
     for (const Fact& fact : packet.facts)
         for (const auto& [key, value] : fact.fields) capitals_of(value, capitals);
@@ -277,8 +293,12 @@ std::string Voice::grammar(const FactPacket& packet) const {
          gbnf::one_of(std::vector<std::string>(capitals.begin(), capitals.end())) +
          "\n"
          "number ::= [0-9]+ (\".\" [0-9]+)?\n"
-         "gap ::= [ ,;:'\"()\\u2013\\u2014\\u2018\\u2019\\u201C\\u201D-]+\n"
-         "end ::= [.!?]+ [\"'\\u201D\\u2019)]?\n";
+         // No double quotes: after a stop, one was, 14 times in 24, a quote never opened
+         // (judged 2026-09-24), and spoken words shown in a dialogue box need none.
+         // Apostrophes stay, for contractions. A sentence ends with one stop, an ellipsis, or
+         // ?! and !?: any run of stops let a reply spin out "..?..?" to its token limit.
+         "gap ::= [ ,;:'()\\u2013\\u2014\\u2018\\u2019-]+\n"
+         "end ::= \"...\" | \"?!\" | \"!?\" | [.!?]\n";
     return g;
 }
 

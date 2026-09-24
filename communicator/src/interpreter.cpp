@@ -191,7 +191,11 @@ Question Interpreter::target_question(ActKind act, std::string_view line, const 
     q.messages = {
         {"system", "A traveller in a fantasy world " + std::string(text.pointing) +
                        ". Answer with the one listed thing they mean, exactly as written: " + none + " if it is none of the others."},
-        // Worked examples, from another place and time.
+        // Worked examples, from another place and time. Telling the model who is spoken to, so
+        // that "you" could mean them, was measured three ways on 2026-09-24 and lowered
+        // Qwen3-4B's score each time (77% of lines right, then 74% each). Shown for work, it
+        // taught the model that only the speaker's own work counts; shown for people alone, it
+        // took strangers for the speaker. "Who are you?" stays open (eval/README.md).
         {"user", "- Tamsin\n- Old Bram\n- " + none + "\n\nThe traveller says: \"Who is Brother Cadfael?\""},
         {"assistant", none},
         {"user", "- the mill of Oakmere\n- Oakmere\n- the old bridge\n- " + none + "\n\nThe traveller says: \"Tell me of the mill.\""},

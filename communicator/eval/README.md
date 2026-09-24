@@ -86,6 +86,48 @@ Each is built in `main.cpp` from the packets the tests use (`tests/packets.hpp`)
 | `inn` | Dornwen, innkeeper at Torhas (Age 1) | Torhas (Age 1); the cold marker; the silent keep; Dunfor (Age 2); Strandbrig | Dornwen | Dornar's and Mekmoh's, neither Dornwen's own | none |
 | `opening` | Fersel, a conversation just begun | none | Fersel | none | none |
 
+## Models measured
+
+Measured on 2026-09-24 on this machine's CPU (Core Ultra 9 275HX), 8 threads, the prompts as
+committed. On a GPU the times would fall; the accuracy would not change.
+
+| | Qwen2.5-0.5B (test model) | Qwen3-4B-Instruct-2507 |
+|---|---|---|
+| File (in `inference/models/`) | `qwen2.5-0.5b-instruct-q4_0.gguf` | `Qwen3-4B-Instruct-2507-Q4_K_M.gguf`, 2,497,281,120 bytes, Apache-2.0 |
+| Lines read fully right | 117 of 243 (48%) | 186 of 243 (77%) |
+| Unsafe reads | 12 | 0 |
+| A named place | 3 of 37 | 25 of 37 |
+| A person | 5 of 19 | 10 of 19 |
+| Taking work | 15 of 23 | 19 of 23 |
+| Turning work down | 3 of 13 | 2 of 13 |
+| Giving work up | 4 of 8 | 1 of 8 |
+| Small talk and the rest (`no_act`) | 26 of 57 | 50 of 57 |
+| Time per line | 0.8 s | 5.3 s |
+| Replies holding their shape | 24 of 24 | 24 of 24 |
+| Replies with no fault, judged strictly (leniently) | 10 (12) | 7 (15) |
+| Open-ended answers with no fault, of 9 | 0 (2) | 0 (4) |
+| Time per reply | 0.4 s | 4.3 s |
+
+The fault counts come from a separate session. It read every reply against its packet, with the
+prompt code, and judged the model's own words: not the openings or closing the program writes.
+
+Qwen3-4B's misses are mostly in the second question: which work, which person.
+- **"Who are you?"** is read as a question about a person, then the model answers
+  `(not listed)`, because nothing tells it who "you" is.
+- **Giving work up** fails the same way: one piece of work held, and the model still answers
+  `(not listed)`.
+- **Turning work down** picks the wrong work.
+
+**What did not help:** telling the model who is spoken to, so that "you" could mean them. It was
+tried three ways, and each lowered Qwen3-4B's score to 74%.
+- In every question, it taught the model that only the speaker's own work counts: taking work
+  fell from 19 of 23 to 9.
+- In the target questions alone, with examples that broke the pairing, taking work reached 12.
+- In the person question alone, named people rose to 14 of 19, but unknown names collapsed from
+  12 of 13 to 3: the model took strangers for the speaker.
+
+The same change dropped the test model to 28%. The prompts went back to the ones above.
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).
