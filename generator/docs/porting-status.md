@@ -45,7 +45,7 @@ Each takes the world by const reference and returns a new one; each appends to
 | `generate_patch` -- a local metre patch with micro relief; `fwg patch` on the CLI, writing this port's `fwg.patch` document (`write_patch_json`) | `terrain_patch` | **wired** |
 | Time and quests on a World; the liveness predicate | `terrain_time`, `terrain_quest_api`, `terrain_liveness` | **wired** |
 | Found a player settlement; raise a band | `terrain_settlement_api`, `terrain_nomad_api` | **wired** |
-| Read/select queries (blocks, near, place, person, quests, plus a local patch read the reference lacks); person state | `terrain_read_select`, `terrain_read`, `terrain_person_state`, `terrain_person_api` | **wired** |
+| Read/select queries (blocks, near, place, person, quests, plus a local patch read and a near-read category filter the reference lacks); person state | `terrain_read_select`, `terrain_read`, `terrain_person_state`, `terrain_person_api` | **wired** |
 | Product package: asset list, capabilities, controls, coordinates, taxonomy, world handles, counter kernel, hero guild, height-tile documents, CLI commands | `fantasy_world_generator`, `terrain_detail.export_height_tile` | **wired** |
 
 ## The world document
@@ -250,6 +250,10 @@ with tests so a fix cannot land silently.
   corruptions and player edits.
 - **Numbers, not timings, in the document.** Timings are off unless asked for; two runs of one
   seed are byte-identical.
+- **A near read can name its categories** (2026-09-24). At the radius ceiling most cities'
+  reads pass the row ceiling, nearly all of it encounter rows, so without a filter nobody could
+  ask which places stand in reach. `NearReadRequest::categories` selects categories, and the
+  ceiling counts only what it selects. Absent, the read is the reference's.
 - **Stage numbering.** Stages 1-5 are the tectonic kernel alone; the reference's `generate_base`
   bundles later passes into them. The ladders agree on what each stage means.
 
