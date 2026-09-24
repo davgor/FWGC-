@@ -79,14 +79,14 @@ TEST(options_out_of_range_are_refused_before_anything_loads) {
 
 TEST(the_model_loads_and_counts_tokens) {
     const int short_text = model().count_tokens("hello");
-    const int long_text = model().count_tokens("hello there, traveller; the road north is long and the inns are few");
+    const int long_text = model().count_tokens("hello there, friend; the river runs long and the bridges are few");
     check::is_true(short_text > 0, "a word is some tokens");
     check::is_true(long_text > short_text, "a sentence is more");
 }
 
 TEST(a_chat_prompt_uses_the_models_own_template) {
-    const std::string prompt = ask("Where is the inn?");
-    check::is_true(prompt.find("Where is the inn?") != std::string::npos, "the question is in it");
+    const std::string prompt = ask("Where is the station?");
+    check::is_true(prompt.find("Where is the station?") != std::string::npos, "the question is in it");
     check::is_true(prompt.find("<|im_start|>user") != std::string::npos, "in the model's ChatML turns");
     check::is_true(prompt.rfind("<|im_start|>assistant") != std::string::npos, "ending where the reply begins");
 }
@@ -124,14 +124,14 @@ TEST(a_seed_makes_sampling_reproducible) {
     sampling.max_tokens = 24;
     sampling.temperature = 0.9f;
     sampling.seed = 7;
-    const std::string prompt = ask("Invent a name for a tavern.");
+    const std::string prompt = ask("Invent a name for a boat.");
     check::equal(model().complete(prompt, sampling).text, model().complete(prompt, sampling).text, "the same seed, the same text");
 }
 
 TEST(max_tokens_bounds_the_reply) {
     inference::Sampling sampling;
     sampling.max_tokens = 3;
-    const inference::Completion c = model().complete(ask("Tell me a long story about a dragon."), sampling);
+    const inference::Completion c = model().complete(ask("Tell me a long story about a river."), sampling);
     check::is_true(c.tokens <= 3, "at most three tokens");
     check::is_true(!c.stopped_at_end, "cut by the limit, not ended by the model");
 }
@@ -151,22 +151,24 @@ TEST(a_grammar_holds_the_reply_to_its_language) {
     check::is_true(c.stopped_at_end, "and then it ends");
 }
 
-TEST(a_json_grammar_yields_one_of_a_closed_set_of_acts) {
-    // What the interpreter will do: text in, one act from a closed set out, as JSON.
-    const std::set<std::string> acts = {"ask_for_work", "ask_surroundings", "farewell", "no_act"};
+TEST(a_json_grammar_yields_one_of_a_closed_set_of_labels) {
+    // Classification held by a grammar: text in, one label from a closed set out, as JSON. The
+    // labels are neutral on purpose; this component knows nothing of what a caller classifies.
+    const std::set<std::string> labels = {"greeting", "question", "farewell", "unclear"};
     std::string alternatives;
-    for (const std::string& act : acts) alternatives += std::string(alternatives.empty() ? "" : " | ") + "\"\\\"" + act + "\\\"\"";
+    for (const std::string& label : labels)
+        alternatives += std::string(alternatives.empty() ? "" : " | ") + "\"\\\"" + label + "\\\"\"";
     inference::Sampling sampling;
     sampling.max_tokens = 32;
-    sampling.grammar = "root ::= \"{\\\"act\\\": \" act \"}\"\nact ::= " + alternatives;
+    sampling.grammar = "root ::= \"{\\\"label\\\": \" label \"}\"\nlabel ::= " + alternatives;
     const std::string prompt = model().chat_prompt(
-        {{"system", "Classify what the player says as one act, as JSON."}, {"user", "Got any work for a traveller like me?"}});
+        {{"system", "Classify the message as one label, as JSON."}, {"user", "Hello! What time does the museum open?"}});
     const inference::Completion c = model().complete(prompt, sampling);
-    const std::string head = "{\"act\": \"";
+    const std::string head = "{\"label\": \"";
     check::is_true(c.text.rfind(head, 0) == 0 && c.text.size() > head.size() + 2 && c.text.substr(c.text.size() - 2) == "\"}",
                    "the JSON shape: " + c.text);
-    const std::string act = c.text.substr(head.size(), c.text.size() - head.size() - 2);
-    check::is_true(acts.count(act) == 1, "an act from the set: " + act);
+    const std::string label = c.text.substr(head.size(), c.text.size() - head.size() - 2);
+    check::is_true(labels.count(label) == 1, "a label from the set: " + label);
 }
 
 TEST(streamed_pieces_add_up_to_the_reply_and_never_split_a_character) {
@@ -174,7 +176,7 @@ TEST(streamed_pieces_add_up_to_the_reply_and_never_split_a_character) {
     // vocabulary spells in more than one token, so some token must end partway through a
     // character. The premise below checks that one did: fewer pieces reached the caller than
     // tokens were produced, because the runtime held a character's first bytes back.
-    const std::string forced = "Hail, \xF0\x90\x8D\x88\xF0\x90\x8C\xB0\xF0\x90\x8D\x82 traveller";
+    const std::string forced = "Hail, \xF0\x90\x8D\x88\xF0\x90\x8C\xB0\xF0\x90\x8D\x82 friend";
     inference::Sampling sampling;
     sampling.max_tokens = 48;
     sampling.grammar = "root ::= \"" + forced + "\"";

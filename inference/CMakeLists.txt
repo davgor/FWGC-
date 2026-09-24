@@ -28,6 +28,9 @@ set(LLAMA_BUILD_SERVER   OFF CACHE BOOL "" FORCE)
 set(LLAMA_BUILD_APP      OFF CACHE BOOL "" FORCE)
 set(LLAMA_BUILD_UI       OFF CACHE BOOL "" FORCE)
 set(LLAMA_OPENSSL        OFF CACHE BOOL "" FORCE)
+# ggml's RPC backend talks over sockets. It is off by default today; saying so here keeps a
+# future default from bringing a network backend into the runtime unnoticed.
+set(GGML_RPC             OFF CACHE BOOL "" FORCE)
 set(BUILD_SHARED_LIBS    OFF CACHE BOOL "" FORCE)
 
 include(FetchContent)
