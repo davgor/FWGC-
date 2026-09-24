@@ -51,6 +51,22 @@ sha256sum inference/models/qwen2.5-0.5b-instruct-q4_0.gguf
 This is a test model, not a choice for the game. The model that ships, and its fine-tuning, is
 a later decision (the plan's "Building our own model").
 
+### Candidate models
+
+Downloaded with the owner's approval to measure against the test model, never committed. The
+tests do not use them.
+
+| | |
+|---|---|
+| File | `Qwen3-4B-Instruct-2507-Q4_K_M.gguf` |
+| From | `https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF` (a quantization of `Qwen/Qwen3-4B-Instruct-2507`) |
+| Size | 2,497,281,120 bytes |
+| SHA-256 | `3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597` |
+| Licence | Apache-2.0 |
+| Approved | 2026-09-24 |
+
+It runs in this runtime unchanged: its chat template is ChatML, and it has no thinking mode.
+
 ## The API
 
 `include/inference/runtime.hpp` shows none of llama.cpp. A caller depends on this contract, not
