@@ -1,0 +1,72 @@
+# The generator's public functions: the only fwg:: functions a sibling component may call.
+#
+# One function per line, then the fwg/api/ header(s) that forward its declaration:
+#
+#   <function> <api-header> [<api-header> ...]
+#
+# tools/check_layers holds a sibling to this list. It reads the list from the LAST COMMIT, so
+# a function lands here in one commit and gains its first caller in the next. It also
+# refuses an entry the named header does not declare, so the list cannot drift from the code.
+#
+# Adding a line widens the public surface: say why in the commit. What stays off the list is
+# the point of it: the stage passes, the in-place World& mutators (rebuild_tail,
+# age_transition, mark_corrupted, raise_refugees, ...) and the board steps a request API
+# already runs.
+
+# A world: from a request to a generated World.
+generate              world
+resolve               world
+parse_world_size      world
+to_string             world quests
+
+# The verbs that change a world. Each takes a const World& and returns a new world (alone or
+# inside its result), and logs what it changed in history.operations.
+advance_ages          ages
+advance_world_time    world_time
+world_quest_request   world_time
+corrupt               world_api
+cleanse               world_api
+summon                world_api
+depart                world_api
+found_settlement      settlement_api
+raise_band            nomad_api
+person_state_request  person_state
+
+# What a world can be asked without changing it.
+age_order             ages
+world_clock_of        world_time
+world_age_gate        world_time
+person_change_fields  person_state
+quest_is_open         quests
+read_names            read
+read_blocks           read
+read_near             read
+read_place            read
+read_person           read
+read_quests           read
+read_patch            read
+
+# The world as documents.
+write_world_json      serialize
+write_world_split     serialize
+
+# The controls a request may set, and what this producer supports.
+option_specs          options
+option_spec           options
+option_by_name        options
+capabilities_document capabilities
+require_capabilities  capabilities
+controls_document     capabilities
+describe_controls     capabilities
+control_definition    capabilities
+control_names         capabilities
+
+# The JSON boundary: a request in, a refusal out.
+parse_json            json_value
+dump_json             json_value
+request_from_json     request_json
+refusal_document      request_json
+
+# The process-wide thread count.
+set_worker_threads    workers
+worker_threads        workers
