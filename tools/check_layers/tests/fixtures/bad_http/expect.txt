@@ -1,0 +1,5 @@
+# A runtime component's network include (matched without regard to case) and link. The
+# dev tool's curl and the standard <string> are clean.
+http inference/src/net.cpp:1
+http inference/src/net.cpp:2
+http inference/CMakeLists.txt:1

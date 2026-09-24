@@ -1,0 +1,3 @@
+# plan_city is internal to the generator and reachable by argument-dependent lookup. census is
+# internal too, but the orchestrator declares its own (line 3); generate is listed.
+api-adl orchestrator/src/adl.cpp:5

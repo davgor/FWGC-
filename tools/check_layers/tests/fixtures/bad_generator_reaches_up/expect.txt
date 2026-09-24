@@ -1,0 +1,6 @@
+# The generator depends on nothing: an include, a namespace, a build path and a target that
+# reach the orchestrator are each an edge. The comments naming it are not.
+edge generator/src/leak.cpp:2
+edge generator/src/leak.cpp:4
+edge generator/CMakeLists.txt:3
+edge generator/CMakeLists.txt:4

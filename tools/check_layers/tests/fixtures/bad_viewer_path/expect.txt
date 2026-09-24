@@ -1,0 +1,3 @@
+# Reading the generator's sources is refused; its built executable (line 3) and the comment
+# (line 1) are clean.
+path-text viewer/lib/read.mjs:2

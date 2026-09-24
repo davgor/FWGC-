@@ -1,0 +1,3 @@
+# common is forbidden outright; misc is simply undeclared.
+top-level common/
+top-level misc/

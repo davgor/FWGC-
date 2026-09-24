@@ -1,0 +1,1 @@
+The gate checks a staged snapshot: every file in it, including folders named in ignore-dir.

@@ -1,0 +1,1 @@
+Checked as the gate checks a staged tree.

@@ -1,0 +1,4 @@
+#!/bin/sh
+# FWGC++: the layer checks, the context-cleared separation review of the staged tree with this
+# message, and the Separation-Review trailer. See tools/check_layers/README.md.
+exec sh "$(dirname "$0")/run-gate" commit-msg "$1"

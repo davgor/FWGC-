@@ -1,0 +1,3 @@
+# A relative path into another component bypasses its public headers; one within the
+# orchestrator (line 2) is clean.
+edge orchestrator/src/rel.cpp:1

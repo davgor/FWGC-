@@ -1,0 +1,1 @@
+# A consumer and a second-tier consumer, both within the rules: no findings.

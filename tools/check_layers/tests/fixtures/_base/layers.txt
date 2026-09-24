@@ -1,0 +1,45 @@
+# The rules most fixtures share: a small copy of the real layers.txt.
+component generator    generator     runtime
+component orchestrator orchestrator  runtime
+component communicator communicator  runtime
+component inference    inference     runtime
+component viewer       viewer        devtool
+component concept-art  "concept art" assets
+component tools        tools         devtool
+
+ignore-top .git build node_modules
+forbid-top common
+ignore-dir build node_modules
+
+depends orchestrator generator
+depends communicator orchestrator inference
+
+include-root   generator fwg/
+include-dir    generator generator/include
+public-include generator fwg/api/
+namespace      generator fwg
+targets        generator fwg fwg::fwg
+include-root orchestrator orchestrator/
+namespace    orchestrator orchestrator
+targets      orchestrator orchestrator_core
+include-root communicator communicator/
+namespace    communicator communicator
+include-root inference inference/
+namespace    inference inference
+
+api-list    generator generator/api.txt
+api-headers generator generator/include/fwg/api
+
+deny-word generator pacing dialogue
+deny-word inference world
+
+cpp-only generator except generator/tools
+cpp-only orchestrator
+cpp-only inference
+non-cpp-ext .py .js .mjs
+no-code concept-art
+
+deny-include runtime curl/ winhttp.h
+deny-link    runtime CURL::libcurl winhttp
+
+deny-path-text viewer generator/src

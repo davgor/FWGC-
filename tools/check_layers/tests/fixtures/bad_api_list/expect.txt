@@ -1,0 +1,4 @@
+# generate is declared where listed (clean). ghost_function is declared nowhere, and
+# plan_city names a forwarder that does not exist.
+api-list generator/api.txt:3
+api-list generator/api.txt:4

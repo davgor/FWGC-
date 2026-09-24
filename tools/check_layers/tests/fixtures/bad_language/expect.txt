@@ -1,0 +1,4 @@
+# generator/tools is the declared exception; the other three are refused.
+lang generator/src/tool.py
+lang orchestrator/src/glue.js
+lang inference/run.mjs

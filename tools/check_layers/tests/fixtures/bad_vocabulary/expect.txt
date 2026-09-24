@@ -1,0 +1,4 @@
+# Words in identifiers only: the comment (1), 'spacing' (4) and the string (5) are clean.
+vocab generator/src/pace.cpp:3
+vocab generator/src/pace.cpp:6
+vocab inference/src/model.cpp:2

@@ -1,0 +1,2 @@
+# Assets only: a script is refused, the notes are not.
+no-code "concept art/tier-1/tool.py"

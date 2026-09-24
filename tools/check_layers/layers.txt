@@ -1,0 +1,87 @@
+# FWGC++ layer rules, read by tools/check_layers.
+#
+# The commit gate reads this file from the LAST COMMIT (and also checks the staged version),
+# so a rule change takes effect for the commits after the one that makes it: change it in a
+# commit of its own, and add a new component's folder only after its rules have landed.
+# AGENTS.md at the repository root says why each rule exists.
+#
+# One directive per line; '#' starts a comment; a folder name with a space is "quoted".
+
+# ---- Components ---------------------------------------------------------------------------
+# component <name> <top-level folder> <runtime|devtool|assets>
+component generator    generator      runtime
+component orchestrator orchestrator   runtime
+component communicator communicator   runtime
+component creator      creator        runtime
+component inference    inference      runtime
+component viewer       viewer         devtool
+component concept-art  "concept art"  assets
+component tools        tools          devtool
+
+# Top-level entries that are not components; and names no top-level folder may take, because
+# what two components share belongs to the lower of them, never to a grab-bag beside both.
+ignore-top .git .github .claude .vs .vscode .idea build out
+forbid-top common shared util utils lib libs misc core helpers
+# Skipped at any depth in a working-tree run only; the commit gate checks every staged file.
+ignore-dir build out .cache node_modules __pycache__ .vs cmake-build-debug cmake-build-release
+# Planted violations that the checker's own tests must catch.
+skip-path tools/check_layers/tests/fixtures
+
+# ---- The dependency graph -------------------------------------------------------------------
+# A component includes, links and names (namespace::) only what it depends on.
+depends orchestrator generator
+depends communicator orchestrator inference
+depends creator      generator inference
+# generator, inference, viewer, concept-art and tools depend on nothing here. The viewer runs
+# fwg.exe and reads its documents: a process boundary, not a dependency.
+
+# ---- Headers, namespaces and targets --------------------------------------------------------
+include-root   generator fwg/
+include-dir    generator generator/include
+public-include generator fwg/api/
+namespace      generator fwg
+targets        generator fwg fwg::fwg fwg_flags fwg_determinism
+# Provisional for the components not built yet; settle each when it is scaffolded.
+include-root orchestrator orchestrator/
+namespace    orchestrator orchestrator
+include-root communicator communicator/
+namespace    communicator communicator
+include-root creator creator/
+namespace    creator creator
+include-root inference inference/
+namespace    inference inference
+
+# ---- The generator's public functions (guardrail 1) -------------------------------------------
+# A dependant includes fwg/api/ only, writes fwg:: in full, and calls only what
+# generator/api.txt lists. The generator's other functions are its own.
+api-list    generator generator/api.txt
+api-headers generator generator/include/fwg/api
+
+# ---- Vocabulary (guardrail 5) ---------------------------------------------------------------
+# Identifier words, split at '_' and at case changes; comments and strings are not read.
+# The generator keeps world words. It already uses player, intensity, persona, prompt,
+# encounter and voice for world things, so those are NOT listed: pacing, dialogue and model
+# plumbing are what belong to the layers above it.
+deny-word generator pacing director directors dialogue dialogues dialog utterance utterances narrator narration narrate conversation conversations chat llm llama gguf inference tension drama mood session sessions orchestrator communicator creator viewer
+# The orchestrator adjudicates and never touches a model.
+deny-word orchestrator llm llama gguf inference prompt prompts tokenizer logits
+# Inference runs models and knows nothing of worlds.
+deny-word inference world worlds quest quests hero heroes npc npcs city cities settlement settlements fwg generator orchestrator player
+
+# ---- Language (ruled 2026-09-24) --------------------------------------------------------------
+# Runtime components are C++. The generator's Python content tooling and the JS viewer are the
+# declared dev-tool exceptions; concept art holds documents and assets only.
+cpp-only generator except generator/tools
+cpp-only orchestrator
+cpp-only communicator
+cpp-only creator
+cpp-only inference
+non-cpp-ext .py .pyc .pyw .js .mjs .cjs .ts .tsx .jsx .rb .go .rs .java .kt .cs .lua .php .pl .sh .bash .ps1 .psm1 .bat .cmd .vbs .swift .dart
+no-code concept-art
+
+# ---- The runtime ships fully local (guardrail 7) ------------------------------------------------
+deny-include runtime curl/ httplib.h cpr/ winhttp.h wininet.h winsock.h winsock2.h ws2tcpip.h sys/socket.h netdb.h arpa/inet.h boost/beast/ boost/beast.hpp boost/asio/ boost/asio.hpp asio.hpp urlmon.h
+deny-link    runtime CURL::libcurl libcurl curl cpr cpr::cpr httplib httplib::httplib winhttp wininet ws2_32 wsock32 urlmon Boost::beast Boost::asio
+
+# ---- The viewer reads the generator through fwg.exe and its documents only -----------------------
+deny-path-text viewer generator/src generator/include generator/data generator/tools

@@ -1,0 +1,2 @@
+# Hooks run under sh, which reads a carriage return as part of a command.
+* text eol=lf

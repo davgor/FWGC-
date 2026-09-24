@@ -1,0 +1,4 @@
+# Line 1 is the public header (clean control); 2 is a generator internal; 3 reaches
+# communicator, which orchestrator does not depend on.
+api-include orchestrator/src/director.cpp:2
+edge orchestrator/src/director.cpp:3

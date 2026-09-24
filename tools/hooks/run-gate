@@ -1,0 +1,35 @@
+#!/bin/sh
+# Runs tools/check_layers' commit_gate, building it first when it is missing or older than its
+# sources. Every decision the gate makes is in C++ (tools/check_layers/src/main_gate.cpp); this
+# script only finds and builds it. Enabled with: git config core.hooksPath tools/hooks
+set -u
+top=$(git rev-parse --show-toplevel) || exit 1
+tool="$top/tools/check_layers"
+gate="$tool/build/Release/commit_gate.exe"
+
+stale=""
+if [ ! -f "$gate" ]; then
+    stale="it is not built"
+elif [ -n "$(find "$tool/src" "$tool/CMakeLists.txt" -newer "$gate" 2>/dev/null | head -n 1)" ]; then
+    stale="its sources changed"
+fi
+
+if [ -n "$stale" ]; then
+    cmake=$(command -v cmake 2>/dev/null || true)
+    if [ -z "$cmake" ]; then
+        vs="/c/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe"
+        [ -f "$vs" ] && cmake="$vs"
+    fi
+    if [ -z "$cmake" ]; then
+        echo "commit_gate: $stale, and no cmake was found to build it; the commit is stopped" >&2
+        exit 1
+    fi
+    echo "commit_gate: building the gate ($stale)" >&2
+    if ! "$cmake" -S "$tool" -B "$tool/build" -G "Visual Studio 17 2022" -A x64 >/dev/null 2>&1 ||
+       ! "$cmake" --build "$tool/build" --config Release --target commit_gate >/dev/null 2>&1; then
+        echo "commit_gate: the gate did not build (run cmake in tools/check_layers to see why); the commit is stopped" >&2
+        exit 1
+    fi
+fi
+
+exec "$gate" "$@"

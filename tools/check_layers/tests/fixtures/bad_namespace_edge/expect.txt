@@ -1,0 +1,3 @@
+# The communicator depends on the orchestrator (line 1 is clean) but not on the generator, so
+# naming fwg:: is the coupling a transitive include would hide.
+edge communicator/src/voice.cpp:3

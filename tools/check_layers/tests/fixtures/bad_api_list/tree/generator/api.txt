@@ -1,0 +1,4 @@
+# listed functions
+generate world
+ghost_function world
+plan_city missing_header

@@ -1,0 +1,2 @@
+# In a snapshot a top-level folder named like build output is real, and undeclared.
+top-level node_modules/

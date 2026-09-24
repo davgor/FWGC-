@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "properties": {
+    "verdict": { "type": "string", "enum": ["PASS", "FAIL"] },
+    "summary": { "type": "string" },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rule": {
+            "type": "string",
+            "enum": [
+              "G1-public-api",
+              "G2-direction",
+              "G3-mutation",
+              "G4-callbacks-or-shared",
+              "G5-vocabulary",
+              "G6-contract",
+              "G7-local-only",
+              "language",
+              "lane",
+              "rules-change",
+              "other"
+            ]
+          },
+          "severity": { "type": "string", "enum": ["block", "note"] },
+          "file": { "type": "string" },
+          "line": { "type": "integer" },
+          "evidence": { "type": "string" },
+          "why": { "type": "string" }
+        },
+        "required": ["rule", "severity", "file", "line", "evidence", "why"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["verdict", "summary", "findings"],
+  "additionalProperties": false
+}

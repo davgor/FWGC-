@@ -1,0 +1,2 @@
+# A base generator's public list.
+generate world

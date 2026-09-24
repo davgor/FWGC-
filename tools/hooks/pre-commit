@@ -1,0 +1,3 @@
+#!/bin/sh
+# FWGC++: the layer checks on the staged tree. See tools/check_layers/README.md.
+exec sh "$(dirname "$0")/run-gate" pre-commit
