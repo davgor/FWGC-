@@ -406,7 +406,10 @@ private:
                 t[i + 2].kind == TokenKind::Identifier) {
                 if (i > 0 && (is(i - 1, ".") || is(i - 1, "->"))) continue;
                 const std::string& name = t[i + 2].text;
-                if (lowercase_name(name) && !is_keyword(name) && !api.count(name))
+                // snake_case is a function or a namespace by the repository's spelling; any other
+                // name is still a function when the generator declares one by it.
+                const bool function_like = lowercase_name(name) || internal_functions(dep).count(name) > 0;
+                if (function_like && !is_keyword(name) && !api.count(name))
                     add("api-function", s.rel, line(i),
                         ns + "::" + name + " is not in " + dep.name + "'s public API (" + list_name +
                             "); call a listed function, or list it in a " + dep.name + " commit of its own first");

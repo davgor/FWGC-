@@ -8,5 +8,6 @@ void run(const fwg::World& w) {
     fwg::plan_city(w);
     fwg::detail::helper();
     const int k = fwg::kSomething;
+    fwg::MakeInternal();
 }
 }  // namespace orchestrator

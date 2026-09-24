@@ -1,7 +1,9 @@
-# 2-4: using, reopening and aliasing the namespace. 7 is listed, 10 is a constant: clean
-# controls. 8 is an internal function, 9 an internal nested namespace.
+# 2-4: using, reopening and aliasing the namespace. 7 is listed, and 6 and 10 are a type and a
+# constant: clean controls. 8 is an internal function, 9 an internal nested namespace, and 11
+# an internal function spelled like a type.
 api-namespace orchestrator/src/calls.cpp:2
 api-namespace orchestrator/src/calls.cpp:3
 api-namespace orchestrator/src/calls.cpp:4
 api-function orchestrator/src/calls.cpp:8
 api-function orchestrator/src/calls.cpp:9
+api-function orchestrator/src/calls.cpp:11

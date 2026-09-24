@@ -61,8 +61,9 @@ api-headers generator generator/include/fwg/api
 # Identifier words, split at '_' and at case changes; comments and strings are not read.
 # The generator keeps world words. It already uses player, intensity, persona, prompt,
 # encounter and voice for world things, so those are NOT listed: pacing, dialogue and model
-# plumbing are what belong to the layers above it.
-deny-word generator pacing director directors dialogue dialogues dialog utterance utterances narrator narration narrate conversation conversations chat llm llama gguf inference tension drama mood session sessions orchestrator communicator creator viewer
+# plumbing are what belong to the layers above it. Nor are stress (syllable stress in the
+# heritage phonology) and beats (a verb in test names): the red team watches those.
+deny-word generator pacing director directors dialogue dialogues dialog utterance utterances narrator narration narrate conversation conversations chat speech speeches excitement llm llama gguf inference tension drama mood session sessions orchestrator communicator creator viewer
 # The orchestrator adjudicates and never touches a model.
 deny-word orchestrator llm llama gguf inference prompt prompts tokenizer logits
 # Inference runs models and knows nothing of worlds.

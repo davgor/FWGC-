@@ -40,7 +40,7 @@ git config core.hooksPath tools/hooks
 |---|---|---|
 | `edge` | A component includes, links (CMake target or `../folder` path) or names (`ns::`) a component it does not `depend` on, or includes another component by relative path. | The dependency graph is one-way. The generator depends on nothing. |
 | `api-include` | A dependant includes a generator header outside `fwg/api/`. | The generator's public face is `fwg/api/`. |
-| `api-function` | A dependant calls `fwg::name` where `name` is snake_case and not in [`generator/api.txt`](../../generator/api.txt). Types (`UpperCamel`) and constants (`kName`) are free to read. | The generator's ~700 other functions are its own to change. |
+| `api-function` | A dependant writes `fwg::name`, where `name` is snake_case (or any function the generator declares, however it is spelled), and `name` is not in [`generator/api.txt`](../../generator/api.txt). Types (`UpperCamel`) and constants (`kName`) are free to read. | The generator's ~700 other functions are its own to change. |
 | `api-namespace` | A dependant writes `using namespace fwg`, reopens `namespace fwg`, or aliases it. | Each of these hides which generator functions are called. |
 | `api-adl` | A dependant makes an unqualified call to a function the generator declares and does not publish. Argument-dependent lookup would reach it through `fwg::` arguments. | Otherwise `plan_city(world, ...)` compiles without `fwg::`. |
 | `api-list` | An `api.txt` entry names a function its `fwg/api/` header does not forward, or a forwarder that does not exist. | The list cannot drift from the code. |
