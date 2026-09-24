@@ -30,6 +30,13 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   every prompt and grammar for ids.
 - **The voice names only what its packet names.** Nothing that can be a name goes into
   `common_capitals()`: only words sentences begin with.
+- **A world-changing act is confirmed before it reaches the director.** Whatever joins the
+  communicator to the director (the game, a binding) asks `Interpretation::confirm` and hands on
+  the act only on yes. A reply's shape (`reply_shape()`) states the outcome first; an outcome
+  added to the contract gets its openings and its length there.
+- **Measure a prompt or model change with `communicator_eval`,** before and after, at the same
+  thread count. Put both numbers in the commit message. A change that helps the tests' lines
+  and hurts the set is a regression.
 - **Local only**, like every runtime component: models are local files, loaded through
   `inference`.
 - **Tests fail loudly without their model, and check their premise first.**
