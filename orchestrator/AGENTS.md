@@ -1,0 +1,44 @@
+# orchestrator/: local rules
+
+The director: deterministic C++ over one world. **Lane: Claude.** The repository-wide rules are
+in [`../AGENTS.md`](../AGENTS.md), and [`README.md`](README.md) says what it does and what a
+speaker knows.
+
+## Build and test
+
+```bash
+cmake -S orchestrator -B orchestrator/build -G "Visual Studio 17 2022" -A x64
+cmake --build orchestrator/build --config Release
+ctest --test-dir orchestrator/build -C Release --no-tests=error
+```
+
+## Rules
+
+- **Deterministic.** No clock, no randomness, no file or network I/O. The same world and inputs
+  give the same world and the same packets, and `replay()` must reproduce a session byte for byte.
+  Every new input kind is recorded and replayed.
+- **The world changes only through the generator's logged verbs,** the ones `generator/api.txt`
+  lists: each takes `const World&`, returns a new world and logs the operation. Never write into a
+  `World`.
+- **Reach the generator through `fwg/api/` only.** Write `fwg::` in full, and call only listed
+  functions. A function you need that the list lacks is added in a generator commit of its own
+  first; this commit then uses it.
+- **Beware argument-dependent lookup.** A helper called unqualified with a `fwg::` argument also
+  searches namespace `fwg`. Check a new helper's name against the generator's declarations. Two
+  of this component's first names collided.
+- **Disclose only what the speaker would say:**
+  - the public face, never a hidden one;
+  - a card's voice (`manner`, `voice`, `toward_player`, `line`, `never`), never its secrets
+    (`lies`, `belief`, `wants`, `fears`, `tells`);
+  - a hook's stated purpose, never its actual effect or whether the purpose is true;
+  - places and people within reach.
+
+  Every fact names the world id it came from. A test guards each of these; keep them, and prove a
+  new one by switching the rule off and watching its test fail.
+- **`include/orchestrator/contract.hpp` names nothing of the generator.** The communicator includes
+  it and nothing else from here. Keep it that way, and keep `orchestrator_contract` unlinked from
+  `fwg`.
+- **No model concepts.** Prompts, tokens and models are the communicator's and inference's. The
+  layer checker refuses those words here.
+- **Tests assert properties and check their premise first.** A test that looks for something
+  fails if the world does not hold it, rather than passing over nothing.
