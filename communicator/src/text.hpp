@@ -12,6 +12,10 @@ std::string one_line(std::string_view text);
 // A snake_case key or value as words: "gate_captain" -> "gate captain".
 std::string spaced(std::string_view text);
 
+// Text as it is said aloud: one line, without any part in brackets ("Wenweg (Age 2)" ->
+// "Wenweg"), and single spaces.
+std::string spoken(std::string_view text);
+
 // `text` inside a JSON string: quotes and backslashes escaped.
 std::string json_escaped(std::string_view text);
 

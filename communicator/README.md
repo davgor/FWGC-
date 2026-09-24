@@ -21,9 +21,13 @@ The build adds `../inference`, which fetches llama.cpp pinned by hash (`inferenc
 also adds `../orchestrator`, but only the contract is built: the director, and the generator
 behind it, are configured and never compiled.
 
-The tests run the test model that `inference/README.md` names, and take about 35 seconds.
+The tests run the test model that `inference/README.md` names, and take about 50 seconds.
 `FWGC_TEST_MODEL` points them at another copy. Without a model, every test that needs one fails
 and says how to get it.
+
+[`eval/`](eval/README.md) measures how well a model reads players and phrases packets, over
+labelled cases. The tests guard the guarantees; `communicator_eval` measures what a model does
+inside them.
 
 ## A conversation
 
@@ -35,10 +39,15 @@ player's line --Interpreter--> DialogueAct --Director::respond--> FactPacket --V
                    +---------------------- Known::learn <-------------+
 ```
 
-1. **`Known::learn(packet)`**, after every packet, records what the player has been told.
+1. **`Known::learn(packet)`**, after every packet, records what the player has been told. Open a
+   conversation with a packet (the speaker's greeting, for instance the answer to `no_act`), so
+   the speaker's name is known before the player's first line.
 2. **`Interpreter::interpret(line, known, last_reply)`** gives an `Interpretation`: the act, the
-   words its target was named by, and `meant`.
-3. **The game hands the act to `Director::respond`.**
+   words its target was named by, `meant`, and `confirm`.
+3. **When `confirm` is set, the game asks the player first.** Only taking or giving up work
+   changes the world (`orchestrator::act_changes_world`). For those acts, the game asks the
+   question in `confirm` ("Take on this work?", with `label` beneath it), and the act goes to
+   `Director::respond` only on yes. A misread line then costs a question, never a quest.
 4. **`Voice::speak(packet, line, on_piece)`** streams the reply, piece by piece.
 
 One `inference::Model` serves both the interpreter and the voice, called in turn.
@@ -73,12 +82,32 @@ model: C++ maps the chosen label back to the id the act carries.
 
 The prompt holds three things:
 - **The persona:** the face a stranger sees, and the card's voice and `never` lines.
-- **The facts:** plain lines, without ids.
+- **The facts:** plain lines, without ids. Names come as they are said: a part in brackets is
+  dropped, so "Wenweg (Age 2)" is Wenweg.
 - **What just happened:** the outcome, with a refusal's reason.
 
-A grammar holds the reply. Every capitalised word must be a word of the packet's own text, or one
-of a closed list of common words (`common_capitals()`: "I", "The", "Aye"...). Everything else is
-lower-case words, digits and plain punctuation: no markdown, no line breaks. A reply therefore
+A grammar holds the reply, and what happened shapes it:
+
+| Outcome | The reply opens with one of | Sentences |
+|---|---|---|
+| answered | anything | up to three |
+| accepted | Good, Then it's agreed, Done, Very good, Thank you | up to two |
+| declined | Very well, As you wish, Suit yourself, So be it, Fair enough | one |
+| abandoned | So be it, Very well, A pity, As you wish, Then it's done | one |
+| unknown | I don't know, I've never heard, I can't say, I know nothing, Never heard, No idea, I couldn't tell you | one |
+| refused | No, I can't, I cannot, I won't, Not from me, That's not mine | one, then C++'s closing |
+| parted | Farewell, Safe travels, Go well, Goodbye, Take care | one |
+| not understood | I don't follow, I'm not sure what you mean, What do you mean, I can't help with that, Speak plainly | one |
+
+The model chooses among the openings and writes the rest. A reply that opens by stating what
+happened rarely turns into its opposite. A short one leaves little room to invent.
+
+A refusal ends with a sentence C++ writes, word for word: who to see instead ("Speak to Halbrann,
+at the ruins of Linbrig.").
+
+Every capitalised word the model writes must be a word of the packet's own text, or one of a
+closed list of common words (`common_capitals()`: "I", "The", "Aye"...). Everything else is
+lower-case words, numbers and plain punctuation: no markdown, no line breaks. A reply therefore
 cannot name a person or a place its packet does not name.
 
 ## What it guarantees, each with a test
@@ -92,6 +121,7 @@ cannot name a person or a place its packet does not name.
 - **The acts are the contract's own,** under the contract's names.
 - **A name said outright wins over the model's guess.** In the test, the model alone picks the
   wrong one of two people.
+- **Taking or giving up work comes with a question,** and no other act does.
 - **What the player knows:**
   - within a packet, the nearest comes first; across packets, the latest;
   - taking work moves it to held, and abandoning it forgets it;
@@ -99,12 +129,18 @@ cannot name a person or a place its packet does not name.
   - a packet of another contract version is refused.
 - **The voice names only what its packet names.** Asked about Castle Grey, the free model names
   it; held, it cannot. The test checks the held replies to eight packets and lines.
+- **A reply opens by saying what happened.** Free, a speaker who knows nothing of Castle Grey
+  claims to know it; held, every outcome but an answer opens with its own words.
+- **Where there is little to say, one sentence.** Free, some reply runs on; held, unknown,
+  refused, declined, abandoned, parted and not understood each say one.
+- **A refusal says who to see in C++'s words,** exactly.
 - **No world id reaches a model:** no uid or fact id is in any prompt or grammar.
-- **The voice's prompt carries its packet:**
+- **The voice's prompt carries its packet, as it is said:**
   - the persona and its `never` lines;
   - every offer's giver and purpose;
   - the places and dangers;
-  - a refusal's reason.
+  - a refusal's reason;
+  - no bracketed part of a name.
 - **Streaming adds up, stops when asked, and greedy replies repeat.**
 - **Refusals:** another contract version, a line past `kMaxLineBytes`, options out of range.
 
@@ -114,20 +150,23 @@ every time (see the commit that added this component).
 ## What the test model does (measured, not guaranteed)
 
 Qwen2.5-0.5B is a stand-in: too small to read players well, or to follow a prompt closely.
+`communicator_eval` measured it on 2026-09-24, over 243 lines and 24 replies at 8 threads.
 
-- **It reads 11 of 17 varied lines right** against a real castellan's packets. It reads 12 if
-  "Where can I find the ninth stone on the Linbrig road?" counts as asking the way.
-  - It reads the act right more often than the target.
-  - It can take "Hello there!" for a question about the surroundings, and a demand for gold for
-    a request for work.
+- **It reads 48% of lines fully right.**
+  - It is good at the two acts it guesses most, what is around (24 of 25) and work (20 of 22).
+  - It is poor at the rest: a named place 3 of 37, mostly taken for "what is around"; a person
+    5 of 19; turning work down 3 of 13; small talk 26 of 57, often taken for a request for work.
   - `clear_lines_find_their_act` pins eight lines it reads right. It is a floor, not a score.
-- **Its replies are short and often flat, and it misses instructions.**
-  - Asked about a place it does not know, it describes one anyway, in words the grammar allows
-    ("the castle is a grand and ancient structure"). The grammar keeps out names, not false
-    claims.
-  - A refusal can come out as agreement.
-- **Timing** on this machine, 4 threads: an interpretation takes 0.9–1.7 s (one question or two),
-  and a reply 0.3–1.4 s.
+- **12 lines (5%) were unsafe reads,** such as "pour me a pint" read as taking Dornar's work.
+  Each becomes a question the player says no to.
+- **All 24 replies hold their shape,** and it is the shape that says the outcome: "I've never
+  heard of the sunken library." "I won't help take back Linbrig. Speak to Halbrann, at the ruins
+  of Linbrig."
+- **Within the shape it still invents and confuses who is who.** Selbren once calls himself the
+  harbourmaster, and on accepting it thanks the player as "Selbren". The grammar keeps out
+  names, not false claims.
+- **Timing on this machine, at 8 threads:** a line takes 0.8 s on average (1.4 s at most), and
+  a reply 0.5 s (1.1 s at most).
 
 The models that ship are a later decision: a trained classifier for the interpreter, and a
 fine-tuned voice (the plan's "Building our own model").
@@ -139,8 +178,8 @@ fine-tuned voice (the plan's "Building our own model").
 - **The player's own name.** No packet holds it, so the voice cannot say it.
 - **Memory beyond the last reply.** There is also no prompt caching: the interpreter re-reads its
   examples on every call.
-- **Names as the world gives them.** City names carry their age ("Wenweg (Age 2)"). The voice is
-  told to leave the bracket out, and the test model often does not. Whether the world should give
-  speakable names is a question for the generator.
+- **Names as the world gives them.** City names carry their age ("Wenweg (Age 2)"). The voice
+  drops the bracket before the model sees it, but labels keep it, so a game showing `label` shows
+  it. Whether the world should give speakable names is a question for the generator.
 - **Raw values.** Snake-case values such as `human_cold` are spaced into words. Better phrasing
   would come from the director or the generator, not from here.

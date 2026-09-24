@@ -149,6 +149,26 @@ TEST(a_target_of_the_wrong_kind_cannot_be_chosen) {
     check::is_true(held == "Selbren" || held == communicator::kNotListed, "held, only a person or none: " + held);
 }
 
+TEST(an_act_that_changes_the_world_comes_with_a_question) {
+    // Taking or giving up work goes to the director only after the player says yes to a
+    // question, so a misread line costs a question, never a quest.
+    Interpreter interpreter(test_model::model());
+    Known known = told();
+    const std::string offered = "Hold the fortress above Wenweg with me, stranger.";
+    const Interpretation take = interpreter.interpret("Yes, I'll do it.", known, offered);
+    check::equal(shown(take), std::string("accept_quest [Selbren: Hold the fortress above Wenweg (Age 2) with me.]"),
+                 "the premise: read as taking the work");
+    check::equal(take.confirm, std::string("Take on this work?"), "a question before it goes to the director");
+    const Interpretation ask = interpreter.interpret("Tell me about Selbren.", known);
+    check::is_true(!orchestrator::act_changes_world(ask.act.kind) && ask.confirm.empty(),
+                   "no question for an act that changes nothing: " + shown(ask));
+    known.learn(packets::accepted());
+    const Interpretation drop = interpreter.interpret("I give up the fortress job.", known);
+    check::equal(std::string(orchestrator::to_string(drop.act.kind)), std::string("abandon_quest"),
+                 "the premise: read as giving the work up: " + shown(drop));
+    check::equal(drop.confirm, std::string("Give up this work?"), "a question for that too");
+}
+
 TEST(the_acts_offered_are_the_contracts_own) {
     // Every act of the contract, by the contract's own name, is offered once there is something
     // of every kind to point at.

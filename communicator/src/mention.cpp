@@ -27,18 +27,6 @@ std::string spaced_words(std::string_view text) {
     return out;
 }
 
-// A label without its bracketed parts: "Hakndum (Age 2)" -> "Hakndum ".
-std::string unbracketed(std::string_view label) {
-    std::string out;
-    int depth = 0;
-    for (const char c : label) {
-        if (c == '(') ++depth;
-        else if (c == ')' && depth > 0) --depth;
-        else if (depth == 0) out += c;
-    }
-    return out;
-}
-
 }  // namespace
 
 std::optional<Referent> named_outright(Kind kind, const Known& known, std::string_view line) {
@@ -47,7 +35,7 @@ std::optional<Referent> named_outright(Kind kind, const Known& known, std::strin
     std::size_t best_length = 0;
     bool tied = false;
     for (const Referent& r : known.nameable(kind, Known::kKeptPerKind)) {
-        const std::string name = spaced_words(unbracketed(r.label));
+        const std::string name = spaced_words(text::spoken(r.label));  // a name as said: "Hakndum (Age 2)" is "Hakndum"
         if (name.size() <= 2 || said.find(name) == std::string::npos) continue;  // " " alone names nothing
         if (name.size() > best_length) {
             best = r;

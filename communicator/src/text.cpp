@@ -20,6 +20,27 @@ std::string spaced(std::string_view text) {
     return out;
 }
 
+std::string spoken(std::string_view text) {
+    std::string unbracketed;
+    int depth = 0;
+    for (const char c : one_line(text)) {
+        if (c == '(') {
+            ++depth;
+        } else if (c == ')' && depth > 0) {
+            --depth;
+        } else if (depth == 0) {
+            // A space never doubles, and never sits before punctuation a bracket left behind.
+            if (c == ' ' && (unbracketed.empty() || unbracketed.back() == ' ')) continue;
+            if ((c == '.' || c == ',' || c == ';' || c == ':' || c == '!' || c == '?') && !unbracketed.empty() &&
+                unbracketed.back() == ' ')
+                unbracketed.pop_back();
+            unbracketed += c;
+        }
+    }
+    while (!unbracketed.empty() && unbracketed.back() == ' ') unbracketed.pop_back();
+    return unbracketed;
+}
+
 std::string json_escaped(std::string_view text) {
     std::string out;
     for (const char c : text) {

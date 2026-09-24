@@ -127,6 +127,8 @@ inline FactPacket accepted(const std::string& quest = kOwnOffer) {
     return packet(castellan(), ActKind::AcceptQuest, Outcome::Accepted, {{FactKind::QuestState, quest, {{"state", "taken"}}}});
 }
 
+inline FactPacket declined() { return packet(castellan(), ActKind::DeclineQuest, Outcome::Declined); }
+
 inline FactPacket abandoned(const std::string& quest = kOwnOffer) {
     return packet(castellan(), ActKind::AbandonQuest, Outcome::Abandoned, {{FactKind::QuestState, quest, {{"state", "abandoned"}}}});
 }
@@ -150,10 +152,52 @@ inline FactPacket surroundings_from_the_gate() {
                   });
 }
 
+// A roster innkeeper where two givers stand: all of the work they know of is someone else's.
+inline Persona innkeeper() {
+    Persona p;
+    p.uid = "npc-surface-city-1-359-hill_dwarf-inn-0";
+    p.name = "Dornwen";
+    p.role = "innkeeper";
+    p.place = "Torhas (Age 1)";
+    return p;
+}
+
+inline FactPacket work_at_the_inn() {
+    return packet(innkeeper(), ActKind::AskForWork, Outcome::Answered,
+                  {
+                      {FactKind::QuestOffer, "hook-hero-council-surface-city-1-359-hill_dwarf-commander-0",
+                       {{"giver", "Dornar"}, {"giver_role", "council"}, {"from_speaker", "no"}, {"verb", "defend"},
+                        {"purpose", "Walk the walls of Torhas (Age 1) with me."}, {"where", "Torhas (Age 1)"}, {"difficulty", "2"},
+                        {"distance", "here"}, {"days_left", "948"}}},
+                      {FactKind::QuestOffer, "hook-hero-keeper-shrine-ruin-surface-city-0-327-hill_dwarf-0",
+                       {{"giver", "Mekmoh"}, {"giver_role", "keeper"}, {"from_speaker", "no"}, {"verb", "tend"},
+                        {"purpose", "Bring an offering to the shrine of The Red Field at Narbod."}, {"difficulty", "1"},
+                        {"distance", "2.2 km"}, {"days_left", "313"}}},
+                  });
+}
+
+inline FactPacket surroundings_from_the_inn() {
+    return packet(innkeeper(), ActKind::AskSurroundings, Outcome::Answered,
+                  {
+                      {FactKind::Place, "surface-city-1-359-hill_dwarf",
+                       {{"kind", "city"}, {"name", "Torhas (Age 1)"}, {"class", "capital"}, {"people", "hill_dwarf"}, {"distance", "here"}}},
+                      {FactKind::Place, "keyloc-boundary_stone-march_stones-frontier-98600",
+                       {{"kind", "boundary_stone"}, {"name", "the cold marker"}, {"family", "wayside"}, {"state", "abandoned"},
+                        {"threat", "3"}, {"distance", "here"}}},
+                      {FactKind::Place, "keyloc-border_fort-391",
+                       {{"kind", "border_fort"}, {"name", "the silent keep"}, {"family", "fortification"}, {"state", "ruined"},
+                        {"threat", "4"}, {"occupant", "squatters"}, {"distance", "3.1 km"}}},
+                      {FactKind::Place, "surface-city-2-454-human_desert",
+                       {{"kind", "city"}, {"name", "Dunfor (Age 2)"}, {"class", "small"}, {"people", "human_desert"}, {"distance", "11.2 km"}}},
+                      {FactKind::Place, "surface-city-0-425-human_desert",
+                       {{"kind", "city"}, {"name", "Strandbrig"}, {"class", "small"}, {"people", "human_desert"}, {"distance", "13.5 km"}}},
+                  });
+}
+
 // Every packet above, for tests that hold across all of them.
 inline std::vector<FactPacket> all() {
-    return {surroundings(), work(), about_self(), unknown_place(), refused_brokered(), accepted(), abandoned(), parted(),
-            not_understood(), surroundings_from_the_gate()};
+    return {surroundings(), work(), about_self(), unknown_place(), refused_brokered(), accepted(), declined(), abandoned(), parted(),
+            not_understood(), surroundings_from_the_gate(), work_at_the_inn(), surroundings_from_the_inn()};
 }
 
 }  // namespace packets

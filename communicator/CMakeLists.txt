@@ -43,6 +43,7 @@ add_library(communicator STATIC
   src/interpreter.cpp
   src/known.cpp
   src/mention.cpp
+  src/reply_shape.cpp
   src/text.cpp
   src/voice.cpp
 )
@@ -70,4 +71,13 @@ if(COMMUNICATOR_BUILD_TESTS)
   target_compile_definitions(communicator_tests PRIVATE
     COMMUNICATOR_TEST_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/../inference/models/qwen2.5-0.5b-instruct-q4_0.gguf")
   add_test(NAME communicator_tests COMMAND communicator_tests)
+
+  # A measuring tool over eval/, not a test: eval/README.md.
+  add_executable(communicator_eval eval/main.cpp)
+  target_link_libraries(communicator_eval PRIVATE communicator)
+  target_include_directories(communicator_eval PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+  target_compile_options(communicator_eval PRIVATE ${COMMUNICATOR_WARNINGS})
+  target_compile_definitions(communicator_eval PRIVATE
+    COMMUNICATOR_TEST_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/../inference/models/qwen2.5-0.5b-instruct-q4_0.gguf"
+    COMMUNICATOR_EVAL_DIR="${CMAKE_CURRENT_SOURCE_DIR}/eval")
 endif()

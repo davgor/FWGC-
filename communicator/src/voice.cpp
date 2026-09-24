@@ -8,6 +8,7 @@
 #include "communicator/error.hpp"
 #include "communicator/known.hpp"
 #include "gbnf.hpp"
+#include "reply_shape.hpp"
 #include "text.hpp"
 
 namespace communicator {
@@ -32,9 +33,10 @@ std::string join(const std::vector<std::string>& parts, std::string_view between
     return out;
 }
 
+// A field's value as it would be said: names without their bracketed parts.
 std::string value_of(const Fact& fact, std::string_view key) {
     const std::string* value = fact.field(key);
-    return value ? text::one_line(*value) : std::string();
+    return value ? text::spoken(*value) : std::string();
 }
 
 // A fact's remaining fields as short phrases, in the director's order, skipping `used`.
@@ -42,7 +44,7 @@ std::vector<std::string> phrases(const Fact& fact, std::initializer_list<std::st
     std::vector<std::string> out;
     for (const auto& [key, raw] : fact.fields) {
         if (std::find(used.begin(), used.end(), key) != used.end()) continue;
-        const std::string value = text::spaced(text::one_line(raw));
+        const std::string value = text::spaced(text::spoken(raw));
         if (value.empty()) continue;
         if (key == "distance")
             out.push_back(value == "here" ? "right here" : value + " away");
@@ -61,9 +63,9 @@ std::vector<std::string> phrases(const Fact& fact, std::initializer_list<std::st
 std::string fact_line(const Fact& fact) {
     switch (fact.kind) {
         case FactKind::Place:
-            return "- " + label_of(fact) + ": " + join(phrases(fact, {"name", "of"}), "; ");
+            return "- " + text::spoken(label_of(fact)) + ": " + join(phrases(fact, {"name", "of"}), "; ");
         case FactKind::Person:
-            return "- " + label_of(fact) + ": " + join(phrases(fact, {"name"}), "; ");
+            return "- " + text::spoken(label_of(fact)) + ": " + join(phrases(fact, {"name"}), "; ");
         case FactKind::QuestOffer: {
             std::string line;
             if (value_of(fact, "from_speaker") == "yes") {
@@ -126,7 +128,7 @@ std::string what_happened(const FactPacket& packet) {
             for (const Fact& fact : packet.facts)
                 if (fact.kind == FactKind::Reason) why = value_of(fact, "reason");
             return "You refuse what the stranger asked" + (why.empty() ? std::string() : ", because " + why) +
-                   ". Tell them so, and send them to whoever is named above, if anyone is.";
+                   ". Say no, in your own way.";
         }
         case Outcome::Parted:
             return "The stranger is leaving. Say goodbye.";
@@ -218,14 +220,14 @@ Voice::Voice(inference::Model& model, VoiceOptions options) : model_(model), opt
 std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::string_view line) const {
     check_version(packet);
     const orchestrator::Persona& p = packet.persona;
-    const std::string name = text::one_line(p.name), role = text::spaced(text::one_line(p.role)), place = text::one_line(p.place);
+    const std::string name = text::spoken(p.name), role = text::spaced(text::spoken(p.role)), place = text::spoken(p.place);
     std::string system = "You are " + (name.empty() ? std::string("someone") : name) + (role.empty() ? "" : ", " + role) +
                          (place.empty() ? "" : ", at " + place) +
                          ", a person in a fantasy world. A stranger has come up to you and speaks to you.\n";
     if (!p.manner.empty()) system += "How you carry yourself: " + text::one_line(p.manner) + "\n";
     if (!p.voice.empty()) system += "How you speak: " + text::one_line(p.voice) + "\n";
     if (!p.toward_player.empty()) system += "Toward strangers: " + text::one_line(p.toward_player) + "\n";
-    if (!p.line.empty()) system += "Something you might say: \"" + text::one_line(p.line) + "\"\n";
+    if (!p.line.empty()) system += "Something you might say: \"" + text::spoken(p.line) + "\"\n";
     if (!p.never.empty()) {
         std::vector<std::string> never;
         for (const std::string& n : p.never) never.push_back(text::one_line(n));
@@ -235,9 +237,11 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
     if (packet.facts.empty()) system += "- nothing that bears on this\n";
     for (const Fact& fact : packet.facts) system += fact_line(fact) + "\n";
     system += "\nWhat just happened: " + what_happened(packet) + "\n\n";
-    system += "Reply as " + (name.empty() ? std::string("yourself") : name) +
-              ", in one to three short sentences of spoken words. Speak of no person or place that is not named above, and "
-              "leave out any part of a name in brackets. Promise no payment or reward.";
+    const int sentences = reply_shape(packet).sentences;
+    const std::string length =
+        sentences == 1 ? "in one short sentence" : "in one to " + std::string(sentences == 2 ? "two" : "three") + " short sentences";
+    system += "Reply as " + (name.empty() ? std::string("yourself") : name) + ", " + length +
+              " of spoken words. Speak of no person or place that is not named above. Promise no payment or reward.";
     return {{"system", system}, {"user", text::one_line(line)}};
 }
 
@@ -252,15 +256,30 @@ std::string Voice::grammar(const FactPacket& packet) const {
     for (const Fact& fact : packet.facts)
         for (const auto& [key, value] : fact.fields) capitals_of(value, capitals);
 
-    // A word is all lower case, or one of those capitalised words whole: a capital word
-    // followed straight on by letters ("Theodric" as "The" + "odric") is not a word here.
-    return "root ::= sep* (word (sep+ word)* sep*)?\n"
-           "word ::= lower | capital\n"
-           "lower ::= [a-z] [a-z\\u00DF-\\u00F6\\u00F8-\\u00FF]*\n"
-           "capital ::= " +
-           gbnf::one_of(std::vector<std::string>(capitals.begin(), capitals.end())) +
-           "\n"
-           "sep ::= [ ,.!?;:'\"()0-9\\u2013\\u2014\\u2018\\u2019\\u201C\\u201D\\u2026-]\n";
+    // The reply's shape: its opening words, then whole sentences up to the shape's count, then
+    // the closing C++ wrote, word for word.
+    const ReplyShape shape = reply_shape(packet);
+    std::string root = shape.openings.empty() ? "sentence" : "first";
+    std::string more;
+    for (int i = 1; i < shape.sentences; ++i) more = "(\" \" sentence" + (more.empty() ? "" : " " + more) + ")?";
+    if (!more.empty()) root += " " + more;
+    if (!shape.closing.empty()) root += " " + gbnf::literal(" " + shape.closing);
+
+    // A sentence is words parted by gaps, then an end. A word is all lower case, a number, or
+    // one of those capitalised words whole: a capital word followed straight on by letters
+    // ("Theodric" as "The" + "odric") is not a word here.
+    std::string g = "root ::= " + root + "\n";
+    if (!shape.openings.empty()) g += "first ::= " + gbnf::one_of(shape.openings) + " (gap token)* gap? end\n";
+    g += "sentence ::= gap? token (gap token)* gap? end\n"
+         "token ::= lower | capital | number\n"
+         "lower ::= [a-z] [a-z\\u00DF-\\u00F6\\u00F8-\\u00FF]*\n"
+         "capital ::= " +
+         gbnf::one_of(std::vector<std::string>(capitals.begin(), capitals.end())) +
+         "\n"
+         "number ::= [0-9]+ (\".\" [0-9]+)?\n"
+         "gap ::= [ ,;:'\"()\\u2013\\u2014\\u2018\\u2019\\u201C\\u201D-]+\n"
+         "end ::= [.!?]+ [\"'\\u201D\\u2019)]?\n";
+    return g;
 }
 
 Reply Voice::speak(const FactPacket& packet, std::string_view line, const std::function<bool(std::string_view)>& on_piece) {

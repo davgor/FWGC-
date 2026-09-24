@@ -13,6 +13,7 @@
 #include "communicator/error.hpp"
 #include "model.hpp"
 #include "packets.hpp"
+#include "reply_shape.hpp"
 
 namespace {
 
@@ -79,6 +80,37 @@ std::string prompt_of(const Voice& voice, const FactPacket& p, const std::string
     return out;
 }
 
+bool opens_with_one_of(const std::string& reply, const std::vector<std::string>& openings) {
+    return std::any_of(openings.begin(), openings.end(), [&](const std::string& o) { return reply.rfind(o, 0) == 0; });
+}
+
+// The sentences in `text`: runs of . ! ? that close it or come before a space or a closing quote.
+// The point in "2.5 km" ends nothing.
+std::size_t sentences_in(const std::string& text) {
+    std::size_t count = 0;
+    for (std::size_t i = 0; i < text.size(); ++i) {
+        if (text[i] != '.' && text[i] != '!' && text[i] != '?') continue;
+        while (i + 1 < text.size() && (text[i + 1] == '.' || text[i + 1] == '!' || text[i + 1] == '?')) ++i;
+        const char next = i + 1 < text.size() ? text[i + 1] : ' ';
+        if (next == ' ' || next == '"' || next == '\'' || next == ')') ++count;
+    }
+    return count;
+}
+
+// One packet and line for each outcome.
+std::vector<std::pair<FactPacket, std::string>> outcome_cases() {
+    return {
+        {packets::surroundings(), "What is around here?"},
+        {packets::accepted(), "I'll hold the fortress with you."},
+        {packets::declined(), "No, not for me."},
+        {packets::abandoned(), "I'm giving up the fortress."},
+        {packets::unknown_place(), "What do you know of Castle Grey?"},
+        {packets::refused_brokered(), "I'll help take back Linbrig."},
+        {packets::parted(), "Farewell, and thank you for your time."},
+        {packets::not_understood(), "What's the name of the blacksmith here, and the innkeeper?"},
+    };
+}
+
 }  // namespace
 
 TEST(a_reply_names_only_what_its_packet_names) {
@@ -122,28 +154,99 @@ TEST(no_id_reaches_the_voices_prompt) {
     }
 }
 
-TEST(the_prompt_carries_the_persona_and_every_fact) {
+TEST(the_prompt_carries_the_persona_and_every_fact_as_it_is_said) {
     Voice voice(test_model::model());
     const FactPacket work = packets::work();
     const std::string prompt = prompt_of(voice, work, "Any work?");
     const orchestrator::Persona& s = work.persona;
-    for (const std::string* part : {&s.name, &s.place, &s.manner, &s.voice, &s.toward_player, &s.line})
+    for (const std::string* part : {&s.name, &s.manner, &s.voice, &s.toward_player, &s.line})
         check::is_true(prompt.find(*part) != std::string::npos, "the persona's " + *part);
     for (const std::string& never : s.never) check::is_true(prompt.find(never) != std::string::npos, "never: " + never);
-    for (const Fact& f : work.facts)
-        for (const std::string key : {"purpose", "giver"})
-            check::is_true(prompt.find(*f.field(key)) != std::string::npos, "the offer's " + key + ": " + *f.field(key));
+    // Names come as they are said: "Wenweg (Age 2)" is Wenweg.
+    for (const std::string said : {"at Wenweg,", "Hold the fortress above Wenweg with me.", "Nerbrann",
+                                   "Keep the sea lanes to the harbour of Wenweg open.", "Halbrann", "Help me take back Linbrig.",
+                                   "Recover the reliquary of Linbrig from the ruins."})
+        check::is_true(prompt.find(said) != std::string::npos, "the persona and the offers, as said: " + said);
     const FactPacket around = packets::surroundings();
     const std::string surroundings = prompt_of(voice, around, "What is around?");
-    for (const std::string name : {"the burnt works", "the hamlet of Wenweg (Age 2)", "Nerstrann (Age 1)", "Hippogryphs", "Frost owls"})
+    for (const std::string name : {"the burnt works", "the hamlet of Wenweg:", "Nerstrann:", "Hippogryphs", "Frost owls"})
         check::is_true(surroundings.find(name) != std::string::npos, "the place or danger " + name);
+    for (const FactPacket& p : packets::all())
+        check::is_true(prompt_of(voice, p, "Hello.").find("(Age") == std::string::npos, "no bracket said aloud, for " + p.persona.name);
     const FactPacket refused = packets::refused_brokered();
     check::is_true(prompt_of(voice, refused, "I'll take it.").find(*refused.facts.front().field("reason")) != std::string::npos,
                    "a refusal's reason");
     // A roster person has no card: the prompt stands on name, post and place.
     const std::string gate = prompt_of(voice, packets::not_understood(), "Hello.");
-    check::is_true(gate.find("Fersel, gate captain, at the fortress of Wenweg (Age 2)") != std::string::npos,
+    check::is_true(gate.find("Fersel, gate captain, at the fortress of Wenweg,") != std::string::npos,
                    "the post as words, not a key: " + gate.substr(0, 80));
+}
+
+TEST(a_reply_opens_by_saying_what_happened) {
+    inference::Model& model = test_model::model();
+    Voice voice(model);
+    // The premise: free, a speaker who knows nothing of a place claims to know it.
+    const FactPacket unknown = packets::unknown_place();
+    const std::string asked = "What do you know of Castle Grey?";
+    inference::Sampling free_text;
+    free_text.max_tokens = 120;
+    const std::string free_reply = model.complete(model.chat_prompt(voice.messages(unknown, asked)), free_text).text;
+    check::is_true(!opens_with_one_of(free_reply, communicator::reply_shape(unknown).openings),
+                   "the premise: free, the model does not open by saying it does not know: " + free_reply);
+    // Held, each outcome's reply opens with that outcome's words. Every outcome but an answer
+    // has such words: what happened is said first.
+    for (const auto& [packet, line] : outcome_cases()) {
+        const communicator::ReplyShape shape = communicator::reply_shape(packet);
+        const std::string outcome(orchestrator::to_string(packet.outcome));
+        check::equal(shape.openings.empty(), packet.outcome == orchestrator::Outcome::Answered, "opening words for " + outcome);
+        if (shape.openings.empty()) continue;
+        const Reply r = voice.speak(packet, line);
+        check::is_true(opens_with_one_of(r.text, shape.openings),
+                       std::string(orchestrator::to_string(packet.outcome)) + " opens as it should: " + r.text);
+    }
+}
+
+TEST(a_short_answer_stays_one_sentence) {
+    inference::Model& model = test_model::model();
+    Voice voice(model);
+    // The premise: free, the model runs past one sentence for at least one of these.
+    std::size_t longest_free = 0;
+    std::string longest_reply;
+    inference::Sampling free_text;
+    free_text.max_tokens = 120;
+    for (const auto& [packet, line] : outcome_cases()) {
+        if (communicator::reply_shape(packet).sentences != 1) continue;
+        const std::string reply = model.complete(model.chat_prompt(voice.messages(packet, line)), free_text).text;
+        if (sentences_in(reply) > longest_free) {
+            longest_free = sentences_in(reply);
+            longest_reply = reply;
+        }
+    }
+    check::is_true(longest_free > 1, "the premise: free, some reply runs on: " + longest_reply);
+    // Held, the model says one sentence where there is little to say: not knowing, refusing,
+    // declining, giving up, parting, not following. A refusal's closing is C++'s, and comes after.
+    using orchestrator::Outcome;
+    const std::set<Outcome> short_ones = {Outcome::Unknown, Outcome::Refused, Outcome::Declined,
+                                          Outcome::Abandoned, Outcome::Parted, Outcome::NotUnderstood};
+    for (const auto& [packet, line] : outcome_cases()) {
+        const communicator::ReplyShape shape = communicator::reply_shape(packet);
+        check::equal(shape.sentences == 1, short_ones.count(packet.outcome) == 1,
+                     "one sentence for " + std::string(orchestrator::to_string(packet.outcome)));
+        if (shape.sentences != 1) continue;
+        std::string said = voice.speak(packet, line).text;
+        if (!shape.closing.empty() && said.size() > shape.closing.size())
+            said = said.substr(0, said.size() - shape.closing.size());
+        check::equal(sentences_in(said), std::size_t{1},
+                     std::string(orchestrator::to_string(packet.outcome)) + " in one sentence: " + said);
+    }
+}
+
+TEST(a_refusal_says_who_to_see_in_words_it_cannot_change) {
+    Voice voice(test_model::model());
+    const std::string reply = voice.speak(packets::refused_brokered(), "I'll take the work.").text;
+    const std::string closing = " Speak to Halbrann, at the ruins of Linbrig.";
+    check::is_true(reply.size() > closing.size() && reply.compare(reply.size() - closing.size(), closing.size(), closing) == 0,
+                   "the closing, word for word: " + reply);
 }
 
 TEST(a_reply_streams_in_whole_pieces_and_stops_when_asked) {

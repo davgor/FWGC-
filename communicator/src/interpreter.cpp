@@ -58,6 +58,19 @@ static_assert(kActs.size() == static_cast<std::size_t>(ActKind::NoAct) + 1, "one
 
 const ActText& text_of(ActKind kind) { return kActs[static_cast<std::size_t>(kind)]; }
 
+// The question put to the player before an act that changes the world goes to the director.
+std::string confirmation(ActKind kind) {
+    if (!orchestrator::act_changes_world(kind)) return {};
+    switch (kind) {
+        case ActKind::AcceptQuest:
+            return "Take on this work?";
+        case ActKind::AbandonQuest:
+            return "Give up this work?";
+        default:
+            return "Do this?";  // an act the contract makes world-changing later, until it has words of its own
+    }
+}
+
 // Whether an act can be put to the model: it takes no target, or there is something to point at.
 bool offered(const ActText& act, const Known& known) { return !act.target || !known.nameable(*act.target, 1).empty(); }
 
@@ -219,18 +232,19 @@ Interpretation Interpreter::interpret(std::string_view line, const Known& known,
     if (const std::optional<Referent> named = named_outright(*act.target, known, line)) {
         out.act.target = named->id;
         out.label = named->label;
-        return out;
+    } else {
+        const std::string label = ask(target_question(*kind, line, known, last_reply));
+        if (label == kNotListed) {
+            out.meant = *kind;
+            out.act.kind = ActKind::NoAct;
+            return out;
+        }
+        const std::optional<std::string> id = known.resolve(*act.target, label);
+        if (!id) throw outside(label);
+        out.act.target = *id;
+        out.label = label;
     }
-    const std::string label = ask(target_question(*kind, line, known, last_reply));
-    if (label == kNotListed) {
-        out.meant = *kind;
-        out.act.kind = ActKind::NoAct;
-        return out;
-    }
-    const std::optional<std::string> id = known.resolve(*act.target, label);
-    if (!id) throw outside(label);
-    out.act.target = *id;
-    out.label = label;
+    out.confirm = confirmation(out.act.kind);
     return out;
 }
 

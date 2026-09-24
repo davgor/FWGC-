@@ -28,6 +28,11 @@ struct Interpretation {
     // named ("Who is Gandalf?"). Such an act cannot be made, so `act` is no_act and this says
     // what was meant.
     std::optional<orchestrator::ActKind> meant;
+    // Set when the act changes the world if the director grants it
+    // (orchestrator::act_changes_world): the question a game puts to the player, with `label`
+    // beneath it, before it hands the act on. A misread line then costs a question, never a
+    // quest. Empty for every other act.
+    std::string confirm;
 };
 
 // The answer the target question offers, beside the known labels, for something no packet
