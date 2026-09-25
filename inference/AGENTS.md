@@ -29,8 +29,10 @@ ctest --test-dir inference/build -C Release --no-tests=error
   Vulkan made `vulkan-1.dll` a dependency of the program itself, and a machine without it could
   not start. `the_program_links_no_gpu_api_of_its_own` guards this; keep it the first test.
 - **Ship only the backend DLLs the build makes:** `llama`, `ggml`, `ggml-base`, the `ggml-cpu-*`
-  variants and `ggml-vulkan`. Never a `ggml-rpc.dll`: the runtime loads whatever backend it finds
-  beside it, and RPC talks over sockets.
+  variants and `ggml-vulkan`. Never a `ggml-rpc.dll`: RPC talks over sockets. ggml would load any
+  backend beside the runtime or named by `GGML_BACKEND_PATH`. The runtime unloads every one but
+  the CPU and Vulkan, and `a_backend_the_runtime_does_not_ship_is_unloaded` guards that. A new
+  backend (CUDA, say) joins that list on purpose, in the same commit as its test.
 - **Models are downloaded, never committed.** `models/` is ignored. A new model is named in the
   README with its source, size, SHA-256 and licence, and the owner approves every download.
 - **Tests fail loudly without their model**, never skip. They assert properties (grammar-held
