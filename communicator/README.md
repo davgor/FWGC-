@@ -156,10 +156,14 @@ the packet. No model writes it, so it says only what the packet holds, in words 
 The owner asked for NPCs that feel like "scripted real lines, not fake AI slop", especially the
 larger-than-life heroes.
 
-- **The file:** [`data/lines.txt`](data/lines.txt), rows of `voice | situation | line`.
+- **The library:** [`data/lines/`](data/lines/README.md), one file per archetype plus the roster
+  posts and `any`, rows of `voice | situation | line`. `Lines::load` reads every `.txt` in the
+  folder. The folder's README holds the format and the rules for writers.
 - **Banks.** A hero with one face speaks from their archetype and alignment ("warden/LN", the
-  persona's `voice_key`, from contract version 2). Everyone then falls back to their post's lines
-  (`post:innkeeper`), then to `any`. The first bank with a line the packet can fill answers.
+  persona's `voice_key`, from contract version 2). An alignment with no bank of its own speaks
+  from its archetype's true-neutral bank ("warden/NN"), where the archetype "shows almost
+  unmodified". Everyone then falls back to their post's lines (`post:innkeeper`), then to `any`.
+  The first bank with a line the packet can fill answers.
 - **Situations** are read from the packet (`Lines::situation`): the outcome, and for an answer,
   what was asked. A refusal splits by its reason's `why`: the work not theirs to give or to
   release, the speaker gone, or refused by the world.
@@ -179,16 +183,31 @@ larger-than-life heroes.
   fill a blank in it. So one line serves a packet with a nest and one without:
   `The nearest is {nearest}.[ Then there's {others}.][ Mind the {danger}.]`
 - **The fullest lines are said.** Of the lines that fit, only those that say the most of the
-  packet are candidates. The speaker's own name, post and place do not count. A speaker who
-  knows of a nest does not drop it for a shorter line: the first judge found withholding the
-  written lines' main fault.
+  packet are candidates: the most distinct blanks, so a blank said twice counts once, and the
+  speaker's own name, post and place do not count. A speaker who knows of a nest does not drop
+  it for a shorter line: the first judge found withholding the written lines' main fault.
+- **Checking rows.** `communicator_eval --check-lines PATH` holds every row of a file or folder
+  to the voice's rules, as the tests do, with no model: writers run it on their own rows.
 - **A world refusal says why,** in the director's words ("the offer has lapsed"). Before
   orchestrator 1228ec5 that reason was the generator's own message, quest ids and all.
 - **The choice** is a hash of the speaker, the situation and the player's words. The same words
   get the same reply, different words spread over the bank, and `previous` (the last reply) is
   not said again while another line fits.
-- **The pilot** (2026-09-24): 96 lines. They cover the warden, lawful neutral (the tests'
-  castellan, Selbren), the gate captain and innkeeper posts, and `any` in every situation.
+- **The library** (2026-09-25): 8,670 lines in 34 files.
+  - **Every archetype, at every alignment its heroes carry:** 196 banks of about 44 lines,
+    8,618 lines in all. The pairs were counted over 38 generated worlds (sizes 33, 65 and 129),
+    plus a true-neutral bank for every archetype.
+  - **Each bank's voice comes from the public persona the generator composes for that pair:**
+    manner from the card's pole notes, voice and stance from the alignment overlays, never-lines
+    and the sample line. Nothing the card keeps back.
+  - **The faced archetypes and `ancient` are written but unused:** 27 banks, 1,188 lines, for
+    deceiver, false_hero, beast, fractured_heart and ancient. Their heroes get no voice key: a
+    face hides the archetype, or the hero is a dread.
+  - **The roster posts and `any`:** 52 lines.
+  - **Drafted by one hosted-model writer per archetype,** from a brief of its public personas
+    and a shared guide. Each writer ran `--check-lines` until every row was sound, then the rows
+    were read for the rules no test holds: pet names, claimed deeds, one bank sounding like
+    another.
 - **Judged** blind, with the voice's rubric and a craft score, over the 24 voice cases. Each
   session judged its sets not knowing which was which (2026-09-24). Counts from one session
   compare; the same replies moved by a reply or two between sessions.
@@ -267,22 +286,28 @@ larger-than-life heroes.
 - **Streaming adds up, stops when asked, and greedy replies repeat.**
 - **Refusals:** another contract version, a line past `kMaxLineBytes`, options out of range.
 - **Written lines, with no model:**
-  - **Every line in `data/lines.txt` keeps the voice's rules.** Each row is tried alone against
-    every test packet, as its bank's speaker. At least one packet must speak it, and every reply
-    must hold its outcome's opening, sentence count and closing. It may name only what the
-    packet names, begin only sentences with common capitals, and say no barred word but the
-    packet's own. It may hold no unfilled blank, no double quote and no id. A control shows each
-    check failing a reply that breaks its rule.
-  - **Every test packet gets a reply from the file.**
+  - **Every line in `data/lines/` keeps the voice's rules,** all 8,670. Each row is tried alone
+    against every test packet, as its bank's speaker. At least one packet must speak it, and
+    every reply must hold its outcome's opening, sentence count and closing. It may name only
+    what the packet names, begin only sentences with common capitals, and say no barred word but
+    the packet's own. It may hold no unfilled blank, no double quote and no id. The line's own
+    text may hold no capital but a sentence's first word, "I" and its outcome's opening: a name
+    typed into a line fails even where a test packet holds it. A control shows each check
+    failing a line that breaks its rule.
+  - **Every test packet gets a reply from the library.**
+  - **A folder of lines files loads as one library:** every `.txt` in it and nothing else. A
+    folder with none is refused.
   - **A line speaks only when its packet fills every blank,** in exact words: no nest near the
     inn, so only the line without one is said.
   - **Of the lines that fit, the fullest are said.** The speaker's own name, post and place make
-    no line fuller.
+    no line fuller, and nor does a blank said twice.
   - **An optional part is left out whole when its blank is not filled,** and kept when it is.
   - **Where the speaker stands is named, and a place named twice is "another" the second time.**
   - **A refusal that names two people fills `{giver}` with neither.**
   - **A speaker's own bank comes first,** then their post's, then anyone's. A bank whose lines
     the packet cannot fill gives way.
+  - **An alignment with no bank speaks from its archetype's true-neutral bank,** before its
+    post's.
   - **Each situation is read from the packet,** a refusal by its kind.
   - **Another's work is told as theirs,** by what it asks, and a council's member is "of the
     council".
@@ -381,8 +406,13 @@ fine-tuned voice (the plan's "Building our own model").
   would come from the director or the generator, not from here.
 - **Written lines: choosing by meaning.** The choice is a hash, not what fits the player's words
   best. An embedding model (Qwen3-Embedding-0.6B, on disk) would pick the closest line.
-- **Written lines: the library.** The pilot is one hero voice and two posts. Still to write: the
-  32 archetypes and their alignments, every roster post, and sayings per culture. A hero whose
-  face hides another, a dread, and a post with no bank all speak from `any`.
+- **Written lines: the rest of the library.** Every roster post but the gate captain and the
+  innkeeper still speaks from `any`, and there are no sayings per culture yet. A hero whose face
+  hides another, and a dread, speak from their post's lines. Their archetype banks are written
+  and wait for a design that lets a stranger meet the true face.
+- **Written lines that ask the player something.** 441 lines, outside `not_understood`, put a
+  question to the player ("Are you hurt?", "And you are?"). The interpreter has no act for an
+  answer to the speaker's question, so a player who answers is told "I don't follow". Either
+  the lines give up their questions, or the interpreter gains such an act: the owner's call.
 - **Written lines: what was asked, within a situation.** "Is it safe?" and "What is around?" are
   both `surroundings` and draw on the same lines.

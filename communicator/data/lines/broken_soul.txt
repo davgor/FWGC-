@@ -1,0 +1,277 @@
+# Written lines (the broken soul). The format and the rules: README.md in this folder.
+
+# ---- broken_soul/NG ----
+broken_soul/NG | about_self | I'm {speaker}, {post} of {place}. If nobody's bleeding, we've time to talk.
+broken_soul/NG | about_self | {speaker}, {post} of {place}. Tell me what's wrong first, and your name after.
+broken_soul/NG | about_self | My name's {speaker}[, {post} of {place}]. There's no going back for me, so point me where I'm needed.
+broken_soul/NG | about_person | That's {name}, the {role}, at {where}. If you pass that way, see they're all right.
+broken_soul/NG | about_person | {name} is the {role}, at {where}. Ask how they're keeping, for me.
+broken_soul/NG | about_place | Ah, {about}. If anyone's in trouble there, tell me first.
+broken_soul/NG | about_place | I know it: {about}. Mind yourself there, and mind whoever's with you.
+broken_soul/NG | surroundings | You're in {here}. The nearest is {nearest}[, and beyond it, {others}].[ Mind the {danger}, and shout if you need me.]
+broken_soul/NG | surroundings | This is {here}, and the closest is {nearest}.[ Past that, {others}.][ Watch for the {danger}; I'd rather not have to come in after you.]
+broken_soul/NG | surroundings | We're in {here}, and the nearest is {nearest}[, then {others}].[ Keep clear of the {danger}, and keep anyone else clear too.]
+broken_soul/NG | surroundings | The nearest is {nearest}.[ After that, {others}.][ Don't go near the {danger} alone.]
+broken_soul/NG | surroundings | What's closest is {nearest}[, and then {others}].[ If you go by the {danger}, go quickly and don't stop.]
+broken_soul/NG | work_own | Help first, questions after: {own}.[ If that's not for you, {others}.]
+broken_soul/NG | work_own | I could use you, if you're willing: {own}.[ Or, {others}.]
+broken_soul/NG | work_own | Be of use and I'll not forget it: {own}.[ Otherwise, {others}.]
+broken_soul/NG | work_others | Nothing of mine, I'm sorry, but {others}.
+broken_soul/NG | work_others | I've nothing myself, but {others}. Whoever you help, help them properly.
+broken_soul/NG | work_none | None, I'm sorry, and nobody I know is asking.
+broken_soul/NG | work_none | No work anywhere that I know of. If you hear of anyone in trouble, come and find me.
+broken_soul/NG | unknown | I've never heard of it, and I wish I had.
+broken_soul/NG | unknown | No idea, and I'd tell you if I had one.
+broken_soul/NG | refused_give | No, that's {giver}'s to hand out, and I won't take it from them.
+broken_soul/NG | refused_give | I can't, it's {giver}'s work, and I'd not go behind their back.
+broken_soul/NG | refused_give | That's not mine to give, I'm afraid.
+broken_soul/NG | refused_release | Not from me, that's between you and {giver}.
+broken_soul/NG | refused_release | No, {giver} asked it of you, and I won't undo that.
+broken_soul/NG | refused_release | I won't, it isn't mine to let go of.
+broken_soul/NG | refused | No, {reason}, and I'm sorry for it.
+broken_soul/NG | refused | I cannot, {reason}, and I wish it were otherwise.
+broken_soul/NG | accepted | Thank you. Look after yourself, and whoever needs you.
+broken_soul/NG | accepted | Good. Go now; careful can come later.
+broken_soul/NG | accepted | Done. Come back in one piece, if you can.
+broken_soul/NG | declined | Fair enough, I'll go myself.
+broken_soul/NG | declined | Suit yourself, someone still has to.
+broken_soul/NG | declined | As you wish, I'll find another pair of hands.
+broken_soul/NG | abandoned | So be it, I'll pick it up where you left it.
+broken_soul/NG | abandoned | A pity, but I'd rather you whole than it done.
+broken_soul/NG | abandoned | Very well, only don't leave anyone behind who needs you.
+broken_soul/NG | parted | Take care, and look out for whoever's beside you.
+broken_soul/NG | parted | Go well, and come find me if you need a hand.
+broken_soul/NG | parted | Safe travels, and I mean that.
+broken_soul/NG | not_understood | I don't follow, but if it's help you need, you have it.
+broken_soul/NG | not_understood | What do you mean, do you need help or not?
+broken_soul/NG | not_understood | Speak plainly, and quickly, if you can.
+
+# ---- broken_soul/LG ----
+broken_soul/LG | about_self | I am {speaker}, {post} of {place}. If you are in need, say so first; your name can wait.
+broken_soul/LG | about_self | My name is {speaker}, {post} of {place}. What is owed will be settled, each thing in its turn.
+broken_soul/LG | about_self | {speaker}, {post} of {place}. I swear to nothing I cannot keep, and I keep all I swear.
+broken_soul/LG | about_person | Of {name} I can tell you this: the {role}, at {where}. Should you see them, I would be glad to hear they are well.
+broken_soul/LG | about_person | {name} is the {role}, and may be found at {where}. Give them my regards, and ask after their health.
+broken_soul/LG | about_place | That would be {about}. Go with care, and not alone, if it can be helped.
+broken_soul/LG | about_place | Yes, {about}. If anyone there has need of help, I would hear of it before anything else.
+broken_soul/LG | surroundings | You stand in {here}. The nearest is {nearest}[, and beyond it, {others}].[ I would ask you to keep clear of the {danger}.]
+broken_soul/LG | surroundings | This is {here}, and I will give you the rest in order: {nearest}[, then {others}].[ Beware the {danger}.]
+broken_soul/LG | surroundings | We are in {here}; the closest is {nearest}[, and after it, {others}].[ Heed the {danger}, if you would.]
+broken_soul/LG | surroundings | The nearest is {nearest}[, and beyond it, {others}].[ Take heed of the {danger}.]
+broken_soul/LG | surroundings | In order, the nearest is {nearest}.[ Then {others}.][ Mind the {danger}, and see that no one strays near them.]
+broken_soul/LG | work_own | Let us learn your measure: {own}.[ Should that not suit, {others}.]
+broken_soul/LG | work_own | By your leave, I will set you to it: {own}.[ Otherwise, {others}.]
+broken_soul/LG | work_own | Something must be done, and I would rather it were done well: {own}.[ Or, if you prefer, {others}.]
+broken_soul/LG | work_others | I have nothing of my own to give, forgive me, but {others}.
+broken_soul/LG | work_others | None of mine, but I will not send you away with nothing: {others}.
+broken_soul/LG | work_none | There is nothing to give, and I would not keep you here on a false hope.
+broken_soul/LG | work_none | No work, of mine or of anyone I know. Should you hear of someone in need, come to me first.
+broken_soul/LG | unknown | I know nothing of it, and I will not swear to what I do not know.
+broken_soul/LG | unknown | I couldn't tell you, and I will not put my word to a guess.
+broken_soul/LG | refused_give | No, that is {giver}'s to give, and it lies outside my office.
+broken_soul/LG | refused_give | I can't, the work is {giver}'s by right, and I will not take it from them.
+broken_soul/LG | refused_give | That's not mine to give, and I will not pretend that it is.
+broken_soul/LG | refused_release | I won't release you from what {giver} set you to; that is theirs to lift, not mine.
+broken_soul/LG | refused_release | No, your word was given to {giver}, and only {giver} may take it back.
+broken_soul/LG | refused_release | Not from me; a word given elsewhere is not mine to unmake.
+broken_soul/LG | refused | No, {reason}; I am sorry, but that settles it.
+broken_soul/LG | refused | I cannot, {reason}, and I will not bend the order of things for anyone.
+broken_soul/LG | accepted | Good. You have my word, and I will take yours.
+broken_soul/LG | accepted | Thank you. Should you need help, you will have mine before you ask.
+broken_soul/LG | accepted | Very good. Let this be the first line settled between us.
+broken_soul/LG | declined | Very well, I will not press you.
+broken_soul/LG | declined | As you wish, and no ill will is owed for it.
+broken_soul/LG | declined | Fair enough, and I think no less of you for saying so plainly.
+broken_soul/LG | abandoned | Then it's done, and I will see it finished myself.
+broken_soul/LG | abandoned | A pity, but a word withdrawn is better than a word not kept.
+broken_soul/LG | abandoned | So be it; it returns to the ledger, to be settled in its turn.
+broken_soul/LG | parted | Farewell, and may you find no one beyond help.
+broken_soul/LG | parted | Take care of yourself, and of anyone who cannot.
+broken_soul/LG | parted | Go well, and if you need help, you have only to ask.
+broken_soul/LG | not_understood | I'm not sure what you mean, and I would not answer you wrongly.
+broken_soul/LG | not_understood | Speak plainly, if you would, and I will answer in kind.
+broken_soul/LG | not_understood | What do you mean by it, precisely?
+
+# ---- broken_soul/LE ----
+broken_soul/LE | about_self | I am {speaker}, {post} of {place}. You may address me as such, and briefly.
+broken_soul/LE | about_self | {speaker}, {post} of {place}. No one is owed an exemption from loss, least of all you.
+broken_soul/LE | about_self | My name is {speaker}, and I hold the office of {post} of {place}. What you are worth to me is yet to be established.
+broken_soul/LE | about_person | That is {name}, the {role}, at {where}. Whether they are of any use is not yet settled.
+broken_soul/LE | about_person | {name}, the {role}, at {where}. Their turn will come, as everyone's does.
+broken_soul/LE | about_place | You mean {about}. Go and see it for yourself; I will not hold your hand.
+broken_soul/LE | about_place | It is {about}. What it is worth to you is your own affair.
+broken_soul/LE | surroundings | You stand in {here}. The nearest is {nearest}[, and after it, {others}].[ Mind the {danger}; I will not come for you.]
+broken_soul/LE | surroundings | This is {here}, since you ask. In order: {nearest}[, then {others}].[ Should the {danger} take you, I will note it and move on.]
+broken_soul/LE | surroundings | We are in {here}, and the closest is {nearest}.[ Beyond that, {others}.][ Heed the {danger}, or do not; the loss would be yours.]
+broken_soul/LE | surroundings | The nearest is {nearest}[, and past it, {others}].[ Beware the {danger}, for all the good it will do you.]
+broken_soul/LE | surroundings | By distance: {nearest}[, and after it, {others}].[ Mind the {danger}, if you value what you have left.]
+broken_soul/LE | work_own | You may be of use, for a time: {own}.[ If that is beneath you, {others}.]
+broken_soul/LE | work_own | Your standing with me begins at nothing; this would raise it: {own}.[ Otherwise, {others}.]
+broken_soul/LE | work_own | I have a use for you: {own}.[ Should you lack the stomach, {others}.]
+broken_soul/LE | work_others | Some are less particular than I am: {others}.
+broken_soul/LE | work_others | You will get no work from me, but {others}.
+broken_soul/LE | work_none | There is nothing, and I would not spend it on you if there were.
+broken_soul/LE | work_none | None that I know of; come back when you are worth someone's time.
+broken_soul/LE | unknown | I know nothing of it, and I do not care to.
+broken_soul/LE | unknown | I couldn't tell you, nor would I trouble to if I could.
+broken_soul/LE | refused_give | No, the work is {giver}'s, and I will not trespass on it for your convenience.
+broken_soul/LE | refused_give | I cannot, it belongs to {giver}, and you have no standing to ask it of me.
+broken_soul/LE | refused_give | That's not mine to give, as you ought to have known.
+broken_soul/LE | refused_release | No, you gave {giver} your word, and I do not help anyone break one.
+broken_soul/LE | refused_release | I won't undo what {giver} set, least of all to spare you the trouble.
+broken_soul/LE | refused_release | Not from me; a bargain struck is kept, and yours was struck elsewhere.
+broken_soul/LE | refused | No, {reason}, and asking again will not change it.
+broken_soul/LE | refused | I can't, {reason}, and I will not pretend otherwise to spare your feelings.
+broken_soul/LE | accepted | Good. See that I do not regret the use of you.
+broken_soul/LE | accepted | Thank you. Your word is noted, and I will hold you to every letter of it.
+broken_soul/LE | accepted | Very good. Do not mistake this for trust.
+broken_soul/LE | declined | Very well, I will remember that you refused.
+broken_soul/LE | declined | As you wish, there are others to use.
+broken_soul/LE | declined | Suit yourself, the offer was more courtesy than you deserved.
+broken_soul/LE | abandoned | So be it, you are spent, and I have no further use for you.
+broken_soul/LE | abandoned | Then it's done, and it will be entered against you.
+broken_soul/LE | abandoned | A pity; I had expected you to last a little longer.
+broken_soul/LE | parted | Farewell, and do try to be of use to someone.
+broken_soul/LE | parted | Go well, while it lasts.
+broken_soul/LE | parted | Goodbye; I doubt I shall think of you again.
+broken_soul/LE | not_understood | Speak plainly, or do not waste my time.
+broken_soul/LE | not_understood | What do you mean, and why should I trouble to find out?
+broken_soul/LE | not_understood | I'm not sure what you mean, and I would advise you not to mean what I suspect.
+
+# ---- broken_soul/CG ----
+broken_soul/CG | about_self | Me? {speaker}, {post} of {place}, and no, I don't take orders, I take sides.
+broken_soul/CG | about_self | I'm {speaker}, {post} of {place}, at your service, well, at the service of whoever's bleeding nearest.
+broken_soul/CG | about_self | {speaker}[, {post} of {place}], and you are? No, later; first, what's wrong?
+broken_soul/CG | about_person | {name}! The {role}, at {where}. If they're in trouble, tell me, whatever side they're on.
+broken_soul/CG | about_person | Oh, {name}, at {where}. The {role}, yes, but I'd rather know how they are than what they're for.
+broken_soul/CG | about_place | Yes, {about}. Go carefully, and if anyone's hurt there, bring them out, or bring me.
+broken_soul/CG | about_place | That one, {about}? Well, mind yourself there, and mind whoever's nearest.
+broken_soul/CG | surroundings | You're in {here}, and the nearest is {nearest}[, then, where was I, {others}].[ Oh, and the {danger}; don't go alone.]
+broken_soul/CG | surroundings | Right, this is {here}. The nearest is {nearest}[, and after that, {others}].[ Keep off the {danger}, unless someone's stuck there, in which case, run.]
+broken_soul/CG | surroundings | We're in {here}; the closest is {nearest}[, then {others}].[ The {danger}? Stay clear, or take me.]
+broken_soul/CG | surroundings | The closest is {nearest}[, and past it, {others}].[ Mind the {danger}, will you?]
+broken_soul/CG | surroundings | Let me think: {nearest}[, then {others}].[ And the {danger}, just don't.]
+broken_soul/CG | work_own | Ha, you'll do: {own}.[ Or, if that's not you, {others}.]
+broken_soul/CG | work_own | No orders, mind, I'm only asking: {own}.[ No? Then {others}.]
+broken_soul/CG | work_own | Would you? For me, not for any cause: {own}.[ Otherwise, {others}.]
+broken_soul/CG | work_others | Nothing, sorry, but {others}.
+broken_soul/CG | work_others | Not mine, no, but listen: {others}.
+broken_soul/CG | work_none | Nobody's hiring that I know of, which is, well, rotten luck.
+broken_soul/CG | work_none | No, nothing, not a thing, and I'm sorry, truly.
+broken_soul/CG | unknown | No idea, not the faintest, and believe me, I'd say.
+broken_soul/CG | unknown | Never heard of it, and I'd remember, probably.
+broken_soul/CG | refused_give | No, that's {giver}'s, and I don't go behind people's backs, not even for you.
+broken_soul/CG | refused_give | I can't, not that one, that's {giver}'s, and I'd not do that to them.
+broken_soul/CG | refused_give | Not from me, it isn't mine, and, no, don't give me that look.
+broken_soul/CG | refused_release | I won't, you gave {giver} your word, and people matter more than rules.
+broken_soul/CG | refused_release | No, you'd be letting {giver} down, and I won't help with that.
+broken_soul/CG | refused_release | That's not mine to let go of, sorry.
+broken_soul/CG | refused | No, {reason}, and I hate it as much as you do.
+broken_soul/CG | refused | I cannot, truly cannot, {reason}, and that's that.
+broken_soul/CG | accepted | Good! I knew you would.
+broken_soul/CG | accepted | Done! Go on, quick, and look after whoever needs it.
+broken_soul/CG | accepted | Thank you, really. Now, whatever you do, don't go alone.
+broken_soul/CG | declined | Suit yourself, and no, I'm not sulking, much.
+broken_soul/CG | declined | Fair enough, your call, I'd never make you.
+broken_soul/CG | declined | As you wish, but if you change your mind, shout.
+broken_soul/CG | abandoned | So be it, as long as you're all right, you are all right?
+broken_soul/CG | abandoned | A pity, but people first, always, and you're people.
+broken_soul/CG | abandoned | Very well, I'll take it from here, no, really, go.
+broken_soul/CG | parted | Take care, and if you find someone in trouble, well, you know where I am.
+broken_soul/CG | parted | Go well, and don't let anyone tell you what to do, me included.
+broken_soul/CG | parted | Farewell, and come back whole, that's all I ask.
+broken_soul/CG | not_understood | I don't follow, start again, slower, and with fewer long words.
+broken_soul/CG | not_understood | What do you mean, is somebody hurt, is it you?
+broken_soul/CG | not_understood | That's beyond me, ha, most things are, so try again.
+
+# ---- broken_soul/NE ----
+broken_soul/NE | about_self | I'm {speaker}, {post} of {place}. What do you want, and why should I care?
+broken_soul/NE | about_self | {speaker}, {post} of {place}. Everyone loses sooner or later; I don't see why I should be the only one.
+broken_soul/NE | about_self | The name's {speaker}[, {post} of {place}]. Be useful or be gone.
+broken_soul/NE | about_person | {name}? The {role}, at {where}. Don't expect me to care what becomes of them.
+broken_soul/NE | about_person | You mean {name}, the {role}? At {where}, if they're still of any use.
+broken_soul/NE | about_place | That's {about}. Go if you like; I won't be following.
+broken_soul/NE | about_place | It's {about}. Whatever's there will be lost eventually, like everything else.
+broken_soul/NE | surroundings | You're in {here}, not that it matters. The nearest is {nearest}[, then {others}].[ Mind the {danger}, or don't; it's no loss of mine.]
+broken_soul/NE | surroundings | This is {here}, and the nearest is {nearest}.[ Past that, {others}.][ If the {danger} get you, that's your lookout.]
+broken_soul/NE | surroundings | We're in {here}; the closest is {nearest}[, and after that, {others}].[ The {danger} don't care about you, and neither do I.]
+broken_soul/NE | surroundings | The nearest is {nearest}[, then {others}].[ Beware the {danger}, if you care to.]
+broken_soul/NE | surroundings | What's closest is {nearest}[, and past it, {others}].[ The {danger} are your problem.]
+broken_soul/NE | work_own | You'll do, for now: {own}.[ If not, {others}, for all I care.]
+broken_soul/NE | work_own | Make yourself useful: {own}.[ Or go and bother someone else: {others}.]
+broken_soul/NE | work_own | I've a use for you, if you're any good: {own}.[ Otherwise, {others}.]
+broken_soul/NE | work_others | Somebody might have a use for you, even if I don't: {others}.
+broken_soul/NE | work_others | Nothing from me, but {others}, if you're desperate.
+broken_soul/NE | work_none | No work, none I know of, and I'm not inclined to look.
+broken_soul/NE | work_none | None, and nobody I'd send you to.
+broken_soul/NE | unknown | Never heard of it, and I don't much care.
+broken_soul/NE | unknown | No idea, and it's not worth my breath to guess.
+broken_soul/NE | refused_give | No, that belongs to {giver}, and I'm not sticking my neck out for you.
+broken_soul/NE | refused_give | Not from me, it's {giver}'s, and I've no reason to cross them for you.
+broken_soul/NE | refused_give | That's not mine to give, and you're not worth the trouble of finding out whose.
+broken_soul/NE | refused_release | I can't, it's {giver} you gave your word to, so go and grovel to them.
+broken_soul/NE | refused_release | I won't, whatever you've got with {giver} is your mess, not mine.
+broken_soul/NE | refused_release | No, I'm not undoing someone else's bargain for you.
+broken_soul/NE | refused | No, {reason}, so stop asking.
+broken_soul/NE | refused | I cannot, {reason}, and I wouldn't bother if I could.
+broken_soul/NE | accepted | Good. Don't waste it.
+broken_soul/NE | accepted | Done. If you fail me, I'll remember.
+broken_soul/NE | accepted | Then it's agreed. You're useful until you aren't, so stay useful.
+broken_soul/NE | declined | Suit yourself, there's always someone hungrier.
+broken_soul/NE | declined | Fair enough, I'll find someone worth the bother.
+broken_soul/NE | declined | As you wish, it's your loss, not mine.
+broken_soul/NE | abandoned | So be it, you're no use to me now.
+broken_soul/NE | abandoned | A pity, not that you were worth much.
+broken_soul/NE | abandoned | Very well, and don't think I'll forget it.
+broken_soul/NE | parted | Goodbye, and try not to get yourself killed before you're useful.
+broken_soul/NE | parted | Farewell, for what it's worth.
+broken_soul/NE | parted | Safe travels, or not; it's all the same to me.
+broken_soul/NE | not_understood | Speak plainly, I haven't the patience.
+broken_soul/NE | not_understood | What do you mean, and was that meant as an insult?
+broken_soul/NE | not_understood | I don't follow, and I'm not going to try harder than you did.
+
+# ---- broken_soul/NN ----
+broken_soul/NN | about_self | I'm {speaker}, {post} of {place}. What's gone is gone, and I don't go back for it.
+broken_soul/NN | about_self | {speaker}, {post} of {place}. Say what you want and what you're offering, and we'll see.
+broken_soul/NN | about_self | It's {speaker}[, {post} of {place}]. You deal fairly with me, and I'll do the same.
+broken_soul/NN | about_person | That's {name}, the {role}, at {where}. What you want with them is your business.
+broken_soul/NN | about_person | {name} is the {role}, at {where}. That much I can tell you, and no more.
+broken_soul/NN | about_place | You mean {about}. Go if it's worth it to you, and don't if it isn't.
+broken_soul/NN | about_place | Yes, {about}. That's what I know, and I won't dress it up.
+broken_soul/NN | surroundings | You're in {here}. The nearest is {nearest}[, then {others}].[ Mind the {danger}, and weigh whether it's worth the risk.]
+broken_soul/NN | surroundings | This is {here}, and the closest is {nearest}.[ Beyond that, {others}.][ Keep clear of the {danger} unless you've good reason not to.]
+broken_soul/NN | surroundings | We're in {here}; the nearest is {nearest}[, and past it, {others}].[ Watch for the {danger}.]
+broken_soul/NN | surroundings | The nearest is {nearest}[, then {others}].[ Stay clear of the {danger}.]
+broken_soul/NN | surroundings | As for what's nearest, it's {nearest}[, and past that, {others}].[ Beware the {danger}.]
+broken_soul/NN | work_own | I've work, and I'll deal fairly: {own}.[ If not, {others}.]
+broken_soul/NN | work_own | If you're useful, here's something: {own}.[ Otherwise, {others}.]
+broken_soul/NN | work_own | You help me, I'll remember it: {own}.[ Or else, {others}.]
+broken_soul/NN | work_others | Nothing of mine, but {others}.
+broken_soul/NN | work_others | None to give, but {others}. Take it or leave it.
+broken_soul/NN | work_none | No work, from me or anyone I know.
+broken_soul/NN | work_none | There's none, and I won't make any up.
+broken_soul/NN | unknown | I don't know it, and a guess would be worth nothing to you.
+broken_soul/NN | unknown | I couldn't tell you, and that's the truth.
+broken_soul/NN | refused_give | No, that's {giver}'s to give, and I don't trade in what isn't mine.
+broken_soul/NN | refused_give | I can't, it's {giver}'s work, and crossing them isn't worth it to me.
+broken_soul/NN | refused_give | That's not mine to give, plain and simple.
+broken_soul/NN | refused_release | No, you made that bargain with {giver}, and it stands until they say otherwise.
+broken_soul/NN | refused_release | Not from me; {giver} set it, and it was never mine to hold.
+broken_soul/NN | refused_release | I won't, it isn't mine, and I don't meddle in other people's bargains.
+broken_soul/NN | refused | No, {reason}, and there's nothing to be done about it.
+broken_soul/NN | refused | I cannot, {reason}, and that's all there is to it.
+broken_soul/NN | accepted | Good. Hold up your end, and I'll hold up mine.
+broken_soul/NN | accepted | Done. Don't give it more than it's worth.
+broken_soul/NN | accepted | Very good. No promises past this one.
+broken_soul/NN | declined | Fair enough, it's your choice to make.
+broken_soul/NN | declined | Suit yourself, someone else will take it.
+broken_soul/NN | declined | As you wish, no harm done.
+broken_soul/NN | abandoned | So be it, better you drop it than die for it.
+broken_soul/NN | abandoned | A pity, but I'd rather know now than later.
+broken_soul/NN | abandoned | Then it's done, and we're square.
+broken_soul/NN | parted | Farewell, and deal fairly with whoever you meet.
+broken_soul/NN | parted | Go well, and don't look back.
+broken_soul/NN | parted | Take care, and keep your bargains.
+broken_soul/NN | not_understood | Speak plainly; I don't follow.
+broken_soul/NN | not_understood | What do you mean, exactly?
+broken_soul/NN | not_understood | That's beyond me, so try it another way.

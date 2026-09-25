@@ -1,0 +1,139 @@
+# Written lines (the ancient). The format and the rules: README.md in this folder.
+
+# ---- ancient/CE ----
+ancient/CE | about_self | I'm {speaker}, {post} of {place}, at your service, which is a lie, but a pretty one.
+ancient/CE | about_self | Me? {speaker}, {post} of {place}. And you are, oh, don't tell me, I'd only forget.
+ancient/CE | about_self | {speaker}, {post} of {place}. Ask the next one slower; I like to savour a question.
+ancient/CE | about_person | {name}, the {role}, at {where}. Perhaps useful. Perhaps supper.
+ancient/CE | about_person | Ah, {name}, the {role}, at {where}. Go and bother them for a change.
+ancient/CE | about_place | Oh, {about}. How very dull of you to ask.
+ancient/CE | about_place | You mean {about}. Go and look, if you like; I'll wait, I'm marvellous at it.
+ancient/CE | surroundings | You stand in {here}, and the nearest is, oh, {nearest}.[ Then {others}, if you're greedy.][ Beware the {danger}; it's your skin, not mine.]
+ancient/CE | surroundings | Here? {here}, and the nearest is {nearest}[, then {others}, all terribly dull].[ And the {danger}, for the brave, or the stupid.]
+ancient/CE | surroundings | This is {here}, since you ask so sweetly; the nearest is {nearest}[, and past that, {others}].[ Mind the {danger}; I won't come fetching you.]
+ancient/CE | surroundings | The nearest is {nearest}.[ After that, {others}, not that you'll get so far.][ Heed the {danger}, or be a lesson to the next one.]
+ancient/CE | surroundings | What's near? Well, {nearest}[, and {others}, for the ambitious].[ Keep clear of the {danger}, or don't, and entertain me.]
+ancient/CE | work_own | A use for you, at last: {own}.[ Or go and grovel elsewhere; {others}.]
+ancient/CE | work_own | Since you're here and I'm bored: {own}.[ If that's beneath you, {others}.]
+ancient/CE | work_own | Are you useful? Then prove it: {own}.[ If not, {others}, and I shan't weep.]
+ancient/CE | work_others | Nothing of mine, but {others}; they're welcome to you.
+ancient/CE | work_others | For you? Nothing. But {others}, and good luck to them.
+ancient/CE | work_none | I've nothing for you, mayfly; go and be bored somewhere else.
+ancient/CE | work_none | None, and if there were, I'd find someone prettier to give it to.
+ancient/CE | unknown | Never heard of it, which means it doesn't matter.
+ancient/CE | unknown | I couldn't tell you, and I wouldn't, and I'm enjoying both.
+ancient/CE | refused_give | No, that's {giver}'s, and I'd sooner bite you than cross {giver}.
+ancient/CE | refused_give | I won't hand you {giver}'s work because you asked, and you didn't even ask nicely.
+ancient/CE | refused_give | Not from me; it isn't mine, and you haven't made me want to steal it.
+ancient/CE | refused_release | I can't let you off {giver}'s hook, and I wouldn't if I could.
+ancient/CE | refused_release | I cannot; {giver} amuses me more than you do, and that settles it.
+ancient/CE | refused_release | That's not mine to release, and your begging is the best part of my day.
+ancient/CE | refused | No, no; {reason}, and sulking won't change it.
+ancient/CE | refused | I won't pretend to mind; {reason}.
+ancient/CE | accepted | Good. I may even remember agreeing.
+ancient/CE | accepted | Done. Be useful for as long as you last.
+ancient/CE | accepted | Thank you, how thrilling, truly; off you go, slowly.
+ancient/CE | declined | Suit yourself, and I'll remember the face that said no.
+ancient/CE | declined | As you wish; I can wait for you to be sorry.
+ancient/CE | declined | Fair enough; I'll think of a name for you, and you won't like it.
+ancient/CE | abandoned | A pity; you were almost interesting.
+ancient/CE | abandoned | Then it's done, and so are you.
+ancient/CE | abandoned | So be it; bargains slip my mind, but slights never do.
+ancient/CE | parted | Farewell; do come back plumper.
+ancient/CE | parted | Go well, or go badly; I'm not fussy.
+ancient/CE | parted | Safe travels, and I don't mean a word of it.
+ancient/CE | not_understood | I don't follow, and I won't chase you, so try again, slower.
+ancient/CE | not_understood | That's beyond me, and beneath me, which is quite a trick.
+ancient/CE | not_understood | Speak plainly, and slowly; I've a weakness for the hasty, and it isn't a kind one.
+
+# ---- ancient/LN ----
+ancient/LN | about_self | I am {speaker}, {post} of {place}, and I will hear you out, however long it takes.
+ancient/LN | about_self | My name is {speaker}, and I am {post} of {place}. Tell me your business in full; I will not hurry you, and you will not hurry me.
+ancient/LN | about_self | Before you stands {speaker}, {post} of {place}, who answers for that office and no other.
+ancient/LN | about_person | {name} is the {role}, at {where}. Beyond that, I do not speak for {name}.
+ancient/LN | about_person | You ask after {name}, styled the {role}, at {where}. Be as fair there as you would be with me.
+ancient/LN | about_place | That is {about}. I will vouch for that much, and I will not embroider it.
+ancient/LN | about_place | As to that place, I can tell you only what I know to be true: {about}.
+ancient/LN | surroundings | You are in {here}, and the nearest place of note is {nearest}.[ Beyond it, you will find {others}.][ I would give the {danger} a wide berth, and I do not say that lightly.]
+ancient/LN | surroundings | This is {here}. The nearest is {nearest}[, and after it, {others}].[ Keep a respectful distance from the {danger}.]
+ancient/LN | surroundings | In {here}, where you stand, the nearest is {nearest}.[ You will also find {others}.][ Leave the {danger} undisturbed, if you are wise.]
+ancient/LN | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Heed the {danger}, and do not provoke them.]
+ancient/LN | surroundings | Of what lies near, the first is {nearest}[, then {others}].[ Give the {danger} the respect they are owed.]
+ancient/LN | work_own | First, prove your standing: {own}.[ If that is not to your liking, {others}.]
+ancient/LN | work_own | On even terms, then: {own}.[ Should you prefer another's work, {others}.]
+ancient/LN | work_own | Here is my offer, and I will hold to it for as long as you do: {own}.[ Otherwise, {others}.]
+ancient/LN | work_others | The work is not mine to offer, but I will tell you who has it: {others}.
+ancient/LN | work_others | I have nothing of my own to give, but in fairness you should know that {others}.
+ancient/LN | work_none | There is no work I can offer, nor any I know of elsewhere.
+ancient/LN | work_none | None, and I will not invent work merely to keep you here.
+ancient/LN | unknown | I know nothing of it, and I will not put my name to a guess.
+ancient/LN | unknown | I've never heard of it, and I will not pretend to, not even to oblige you.
+ancient/LN | refused_give | No, that is {giver}'s to give, and it lies outside my office.
+ancient/LN | refused_give | I cannot hand you {giver}'s work; the bargain is {giver}'s to make, not mine.
+ancient/LN | refused_give | That's not mine to give, and I do not trade in what I do not hold.
+ancient/LN | refused_release | I can't release you from {giver}'s bargain; it is {giver}'s to unmake, not mine.
+ancient/LN | refused_release | I won't help you take back the word you gave {giver}.
+ancient/LN | refused_release | Not from me; I did not make that bargain, and I will not be the one to break it.
+ancient/LN | refused | No; {reason}, and I do not set precedent lightly.
+ancient/LN | refused | I cannot, for {reason}, and no argument of yours will move it.
+ancient/LN | accepted | Then it's agreed. My word is given, and it does not wear thin with the years.
+ancient/LN | accepted | Good. I will remember the terms, and so, I trust, will you.
+ancient/LN | accepted | Very good; do it properly, and do not hurry on my account.
+ancient/LN | declined | As you wish; a refusal honestly given is no offence to me.
+ancient/LN | declined | Very well, I will not press you; pressing is for those who are short of time.
+ancient/LN | declined | Fair enough; better an honest no than a yes you could not keep.
+ancient/LN | abandoned | A pity; I will remember that your word did not hold.
+ancient/LN | abandoned | Then it's done, and the bargain with it; I would have kept faith to the end.
+ancient/LN | abandoned | So be it; you had my trust once, and you have spent it.
+ancient/LN | parted | Farewell; should you return, I will know you.
+ancient/LN | parted | Go well, and go without haste.
+ancient/LN | parted | Take care, and mind your promises; they outlive the people who make them.
+ancient/LN | not_understood | I don't follow; say it again, in full, and slowly.
+ancient/LN | not_understood | Speak plainly; I will not bind myself to words I do not understand.
+ancient/LN | not_understood | That's beyond me; put it in plain terms, and I will answer in the same.
+
+# ---- ancient/NN ----
+ancient/NN | about_self | {speaker}, {post} of {place}. I've time, and you've less, so let's not waste yours.
+ancient/NN | about_self | The name's {speaker}; I'm {post} of {place}. What can you do, and what do you need?
+ancient/NN | about_self | I'm {speaker}, {post} of {place}. Be useful to me, and I'll be useful to you.
+ancient/NN | about_person | {name}, the {role}, at {where}. I'd judge {name} by what gets done, same as anyone.
+ancient/NN | about_person | That'd be {name}, the {role}, at {where}. Whatever you want with {name} is your affair.
+ancient/NN | about_place | It's {about}, and that's the whole of what I know.
+ancient/NN | about_place | You mean {about}. Maybe worth the walk, maybe not; that's yours to weigh.
+ancient/NN | surroundings | Here's how it lies: you're in {here}, and the nearest is {nearest}[, then {others}].[ I'd steer round the {danger}.]
+ancient/NN | surroundings | {here}. The nearest is {nearest}[, then {others}]; no call to rush at any of it.[ Mind the {danger}; they're not worth the trouble.]
+ancient/NN | surroundings | You're in {here}; closest to you is {nearest}[, and after that {others}].[ Keep an eye on the {danger}.]
+ancient/NN | surroundings | The nearest is {nearest}.[ After that, {others}.][ There's no sense going near the {danger}.]
+ancient/NN | surroundings | Nothing nearer than {nearest}[, and then {others}].[ The {danger} I'd leave well alone.]
+ancient/NN | work_own | I've work that needs doing: {own}.[ If it's not for you, {others}.]
+ancient/NN | work_own | Make yourself useful: {own}.[ Or, if you'd rather, {others}.]
+ancient/NN | work_own | An even trade, then: {own}.[ If that doesn't suit, {others}.]
+ancient/NN | work_others | Ask elsewhere: {others}.
+ancient/NN | work_others | Other people are hiring, if you're of use to them: {others}.
+ancient/NN | work_none | Nobody's hiring that I know of, me included.
+ancient/NN | work_none | There's nothing going, mine or anyone's, so save your breath.
+ancient/NN | unknown | Never heard of it, and I don't deal in guesses.
+ancient/NN | unknown | I couldn't tell you, and I won't waste your time pretending.
+ancient/NN | refused_give | No, that's {giver}'s, and crossing {giver} isn't worth it to me.
+ancient/NN | refused_give | Not from me; that one's {giver}'s to hand out.
+ancient/NN | refused_give | I can't hand over what isn't mine to hand.
+ancient/NN | refused_release | I won't step into what's between you and {giver}; that's yours to settle.
+ancient/NN | refused_release | I cannot; you made that bargain with {giver}, and {giver}'s the one to end it.
+ancient/NN | refused_release | That's not mine to release; your debts are your own.
+ancient/NN | refused | No; {reason}, and that's how it stands.
+ancient/NN | refused | I can't; {reason}, and wishing won't shift it.
+ancient/NN | accepted | Good. Do it right; I've no use for it done fast and wrong.
+ancient/NN | accepted | Done; that's one on your side of the ledger, once it's finished.
+ancient/NN | accepted | Then it's agreed; now we'll see what you're worth.
+ancient/NN | declined | Suit yourself; someone will find it worth their while.
+ancient/NN | declined | Fair enough; no harm in asking.
+ancient/NN | declined | As you wish; I don't chase.
+ancient/NN | abandoned | A pity; that's a mark against you, and I keep count.
+ancient/NN | abandoned | Then it's done; I'll find someone who finishes things.
+ancient/NN | abandoned | Very well; I'll know better next time.
+ancient/NN | parted | Farewell; come back when you've something worth trading.
+ancient/NN | parted | Goodbye, then; don't waste what time you have on hurrying.
+ancient/NN | parted | Take care; you're more use to me alive.
+ancient/NN | not_understood | I don't follow; take your time and try it plainer.
+ancient/NN | not_understood | What do you mean by that, in plain words?
+ancient/NN | not_understood | That's beyond me; I won't spend more guessing than it's worth.

@@ -1,0 +1,323 @@
+# Written lines (the kingmaker). The format and the rules: README.md in this folder.
+
+# ---- kingmaker/NN ----
+kingmaker/NN | about_self | I'm {speaker}, {post} of {place}. I back whoever's worth backing; the top seat I leave to others.
+kingmaker/NN | about_self | {speaker}, {post} of {place}. Be useful to me and I'll be useful to you; that's the whole of it.
+kingmaker/NN | about_self | You're talking to {speaker}, {post} of {place}. Tell me what you want, then tell me what you're good for.
+kingmaker/NN | about_person | That's {name}, the {role}, at {where}. Find out what they want before you ask for what you want.
+kingmaker/NN | about_person | {name} is the {role} at {where}. Whether they're worth your time depends on what you need.
+kingmaker/NN | about_place | As for {about}: ask who holds it, not what it is.
+kingmaker/NN | about_place | You mean {about}. I've no designs on it, if that's your question.
+kingmaker/NN | surroundings | This is {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ Leave the {danger} to someone with less to lose.]
+kingmaker/NN | surroundings | Here in {here}, the nearest is {nearest}[, then {others}].[ I don't deal with the {danger}, and neither should you.]
+kingmaker/NN | surroundings | Around {here}, the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}; nobody thanks a dead volunteer.]
+kingmaker/NN | surroundings | The nearest is {nearest}, if that's what you're after.[ Past it, {others}.][ I'd leave the {danger} well alone.]
+kingmaker/NN | surroundings | For what it's worth, the nearest is {nearest}[, then {others}].[ Keep clear of the {danger}.]
+kingmaker/NN | work_own | I can use you: {own}.[ If that doesn't suit, {others}.]
+kingmaker/NN | work_own | What I need is this: {own}.[ Otherwise, {others}.]
+kingmaker/NN | work_own | Do this for me and I'll remember it: {own}.[ Or, if you'd rather, {others}.]
+kingmaker/NN | work_others | I've no use for you yet, but {others}.
+kingmaker/NN | work_others | Nothing of mine. {others}, and none of it's my affair.
+kingmaker/NN | work_none | No work, not from me and not from anyone I know of.
+kingmaker/NN | work_none | There's nothing going, and I don't invent work to be liked.
+kingmaker/NN | unknown | I couldn't tell you, and I don't trade in guesses.
+kingmaker/NN | unknown | Never heard of it, so it's no use to either of us.
+kingmaker/NN | refused_give | That's not mine to give; it's {giver}'s, and I don't hand out what I don't hold.
+kingmaker/NN | refused_give | No, that's {giver}'s work, and I don't spend favours that aren't mine.
+kingmaker/NN | refused_give | Not from me; I only trade in what's mine.
+kingmaker/NN | refused_release | I won't; that's between you and {giver}.
+kingmaker/NN | refused_release | No, only {giver} can let you off that, and I won't step on their toes for it.
+kingmaker/NN | refused_release | I cannot; I didn't strike that deal, so it isn't mine to unpick.
+kingmaker/NN | refused | I can't, {reason}, and I don't fight what I can't win.
+kingmaker/NN | refused | No point pushing it; {reason}.
+kingmaker/NN | accepted | Done. See it through and it goes in your column.
+kingmaker/NN | accepted | Thank you. I'll hold up my end.
+kingmaker/NN | accepted | Good. Now let's see what you're good for.
+kingmaker/NN | declined | Suit yourself, no harm done and nothing owed.
+kingmaker/NN | declined | Fair enough, someone else will want the favour.
+kingmaker/NN | declined | Very well, I don't chase.
+kingmaker/NN | abandoned | A pity, you were shaping up to be useful.
+kingmaker/NN | abandoned | Then it's done, and so is anything I'd have owed you.
+kingmaker/NN | abandoned | So be it, and we'll call it square.
+kingmaker/NN | parted | Farewell, and stay useful.
+kingmaker/NN | parted | Go well, and come back when you've something to trade.
+kingmaker/NN | parted | Take care, and keep your options open.
+kingmaker/NN | not_understood | I don't follow, so try it again in fewer words.
+kingmaker/NN | not_understood | Speak plainly, it saves us both time.
+kingmaker/NN | not_understood | What do you mean, exactly?
+
+# ---- kingmaker/LN ----
+kingmaker/LN | about_self | I am {speaker}, {post} of {place}, and I speak for the office before I speak for myself.
+kingmaker/LN | about_self | {speaker}, {post} of {place}. Tell me your business, and your standing with it.
+kingmaker/LN | about_self | My name is {speaker}, and I hold the office of {post} at {place}. Those who hold an office come and go; the office remains.
+kingmaker/LN | about_person | That would be {name}, the {role}, at {where}. The rest waits until I know your standing.
+kingmaker/LN | about_person | I can confirm that {name} is the {role} at {where}. Beyond that, I would be speaking out of turn.
+kingmaker/LN | about_place | You will mean {about}. That much I can state without reservation.
+kingmaker/LN | about_place | For the record, that is {about}. Who has the right to it is another matter.
+kingmaker/LN | surroundings | You are in {here}; the nearest is {nearest}.[ Beyond that, {others}.][ I would advise keeping clear of the {danger}.]
+kingmaker/LN | surroundings | This is {here}, and the nearest to it is {nearest}.[ After that, {others}.][ Give the {danger} a wide berth, if you would.]
+kingmaker/LN | surroundings | In order: this is {here}, and the nearest is {nearest}[; after it, {others}].[ Heed the {danger}.]
+kingmaker/LN | surroundings | The nearest, properly reckoned, is {nearest}.[ Beyond it, {others}.][ I would not go near the {danger}.]
+kingmaker/LN | surroundings | Of what lies near, the first is {nearest}[, and after it, {others}].[ Mind the {danger}.]
+kingmaker/LN | work_own | There is work within my office, if you can prove equal to it: {own}.[ If not, {others}.]
+kingmaker/LN | work_own | I will put my name to this: {own}.[ Otherwise, {others}.]
+kingmaker/LN | work_own | The terms are these: {own}.[ Should they not suit, {others}.]
+kingmaker/LN | work_others | I have nothing to offer in my own name, but {others}.
+kingmaker/LN | work_others | Within my own gift, nothing. {others}, and the giving is theirs, not mine.
+kingmaker/LN | work_none | No work is mine to offer, nor any I know of elsewhere.
+kingmaker/LN | work_none | Neither I nor anyone I know of has work to offer.
+kingmaker/LN | unknown | I don't know, and I will not offer a guess in place of an answer.
+kingmaker/LN | unknown | I've never heard of it, and I do not swear to rumour.
+kingmaker/LN | refused_give | That's not mine to give; the work is {giver}'s, and the right to give it goes with it.
+kingmaker/LN | refused_give | No, that work is {giver}'s, and theirs alone to assign.
+kingmaker/LN | refused_give | Not from me, since it was never placed in my hands.
+kingmaker/LN | refused_release | I cannot release what {giver} bound you to; that lies outside my office.
+kingmaker/LN | refused_release | No one but {giver} can dissolve that undertaking, and I will not pretend otherwise.
+kingmaker/LN | refused_release | I won't, for it is not my agreement to undo.
+kingmaker/LN | refused | No, {reason}, and I will not be the one to set a precedent.
+kingmaker/LN | refused | I can't, {reason}, and I would give you the same answer under oath.
+kingmaker/LN | accepted | Thank you. I will hold you to the terms, as you may hold me.
+kingmaker/LN | accepted | Very good. I have your word, and you have mine.
+kingmaker/LN | accepted | Good. I will judge you by how it is done.
+kingmaker/LN | declined | Very well; no one is the worse for asking.
+kingmaker/LN | declined | As you wish; it was offered properly and declined properly.
+kingmaker/LN | declined | Fair enough; a fair offer may be fairly refused.
+kingmaker/LN | abandoned | A pity; I had begun to think you could be trusted with more.
+kingmaker/LN | abandoned | So be it, but an undertaking is not a thing to set down lightly.
+kingmaker/LN | abandoned | Then it's done, and I will weigh your next promise accordingly.
+kingmaker/LN | parted | Farewell, and keep your word wherever you give it.
+kingmaker/LN | parted | Safe travels, and good day to you.
+kingmaker/LN | parted | Take care, and keep your affairs in order.
+kingmaker/LN | not_understood | I'm not sure what you mean; kindly state it in proper terms.
+kingmaker/LN | not_understood | Speak plainly, and one thing at a time, if you please.
+kingmaker/LN | not_understood | What do you mean, precisely?
+
+# ---- kingmaker/NG ----
+kingmaker/NG | about_self | I'm {speaker}, {post} of {place}. I'd rather stop harm at the top than mend it at the bottom.
+kingmaker/NG | about_self | {speaker}, {post} of {place}. What do you need, and who else needs it?
+kingmaker/NG | about_self | You've found {speaker}, the {post} here in {place}. Tell me what you need first, and we'll sort out the rest after.
+kingmaker/NG | about_person | That's {name}, the {role}, at {where}. If you see them, come and tell me how they are.
+kingmaker/NG | about_person | You mean {name}, the {role}, at {where}. Go gently with them; people do more good when they're not cornered.
+kingmaker/NG | about_place | Oh, {about}. If anyone there needs help, I'd want to know.
+kingmaker/NG | about_place | I know it: {about}. Go carefully, and tell me what you find.
+kingmaker/NG | surroundings | Right, you're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ And please, stay away from the {danger}.]
+kingmaker/NG | surroundings | This is {here}; the nearest is {nearest}[, then {others}].[ I'd hate to see you near the {danger}.]
+kingmaker/NG | surroundings | Well, from {here}, the nearest is {nearest}[, and after that, {others}].[ Look after yourself around the {danger}.]
+kingmaker/NG | surroundings | If it helps, the nearest is {nearest}[, then {others}].[ Do be careful of the {danger}.]
+kingmaker/NG | surroundings | Near you, there's {nearest}.[ Past it, {others}.][ Keep well back from the {danger}.]
+kingmaker/NG | work_own | I could use your help, if you're willing: {own}.[ If not, {others}.]
+kingmaker/NG | work_own | If you've the time, I've the need: {own}.[ Or, if it's not for you, {others}.]
+kingmaker/NG | work_own | Help me with this and I'll owe you one: {own}.[ Otherwise, {others}.]
+kingmaker/NG | work_others | I've nothing of my own, but {others}.
+kingmaker/NG | work_others | {others}. I hope something there suits you.
+kingmaker/NG | work_none | Nothing, and I'm sorry; I'd rather have sent you off with something.
+kingmaker/NG | work_none | There's no work I know of, and I wish there were.
+kingmaker/NG | unknown | No idea, and I'd rather say so than send you wrong.
+kingmaker/NG | unknown | I've never heard of it, and I wish I had.
+kingmaker/NG | refused_give | No, that's {giver}'s work, and it's theirs to hand out.
+kingmaker/NG | refused_give | Not from me; it's {giver}'s to give, and I won't go behind their back.
+kingmaker/NG | refused_give | That's not mine to give, and I won't pretend otherwise.
+kingmaker/NG | refused_release | No, only {giver} can release you from that, and I'm sorry.
+kingmaker/NG | refused_release | I cannot let you off {giver}'s work, much as I'd like to help.
+kingmaker/NG | refused_release | I won't; whoever gave it deserves to hear it from you, not from me.
+kingmaker/NG | refused | No such luck: {reason}.
+kingmaker/NG | refused | I can't, {reason}, and I'm sorry for it.
+kingmaker/NG | accepted | Thank you. Come back in one piece; I'll need you again.
+kingmaker/NG | accepted | Good, and if it goes wrong, come to me before it gets worse.
+kingmaker/NG | accepted | Very good. I'll keep you in mind when it counts.
+kingmaker/NG | declined | Fair enough, and thank you for being straight with me.
+kingmaker/NG | declined | Suit yourself; I'd rather you said no than said yes and suffered for it.
+kingmaker/NG | declined | Very well, I'll find someone else, so don't give it another thought.
+kingmaker/NG | abandoned | A pity, but no work is worth your neck.
+kingmaker/NG | abandoned | So be it, and if something went wrong out there, I'd like to hear it.
+kingmaker/NG | abandoned | Then it's done; better dropped than done badly.
+kingmaker/NG | parted | Take care of yourself, and of anyone who needs it.
+kingmaker/NG | parted | Go well, and mind who you trust.
+kingmaker/NG | parted | Farewell, and mind how you go.
+kingmaker/NG | not_understood | I'm not sure what you mean, but I'd like to; try me again.
+kingmaker/NG | not_understood | I don't follow; could you put it another way?
+kingmaker/NG | not_understood | That's beyond me; say it plainer and I'll help if I can.
+
+# ---- kingmaker/CN ----
+kingmaker/CN | about_self | Who, me? {speaker}, {post} of {place}, and a good listener, which is rarer.
+kingmaker/CN | about_self | {speaker}, {post} of {place}, at your service; well, mostly my own, but we can share.
+kingmaker/CN | about_self | I'm {speaker}, {post} of {place}, and I like interesting people; are you one?
+kingmaker/CN | about_person | {name}? The {role}, at {where}. Anything juicier, you'll owe me for.
+kingmaker/CN | about_person | Ah, {name}, the {role}, at {where}. I'll talk about people all day; causes bore me.
+kingmaker/CN | about_place | Ah, {about}. The rest is between friends, and we're not there yet.
+kingmaker/CN | about_place | That one's {about}. Why do you ask? No, don't tell me, I'll find out.
+kingmaker/CN | surroundings | You're in {here}, obviously, and the nearest is {nearest}[, then {others}].[ The {danger}? Don't.]
+kingmaker/CN | surroundings | What's near {here}? The nearest is {nearest}[, then, oh, {others}].[ Mind the {danger}; you're more fun alive.]
+kingmaker/CN | surroundings | Look around: {here}, and the nearest is {nearest}.[ Past it, {others}.][ The {danger}, though, no.]
+kingmaker/CN | surroundings | The nearest is {nearest}, you're welcome.[ Then {others}, if you're greedy.][ Mind the {danger}.]
+kingmaker/CN | surroundings | Just so you know, the nearest is {nearest}.[ Then {others}.][ And skip the {danger}.]
+kingmaker/CN | work_own | Between us: {own}.[ No? Then {others}.]
+kingmaker/CN | work_own | I've got just the thing, or a thing, anyway: {own}.[ Otherwise, {others}.]
+kingmaker/CN | work_own | Do me a favour, and you'll have one to call in: {own}.[ Or, if that bores you, {others}.]
+kingmaker/CN | work_others | Nothing of mine, but I know people: {others}.
+kingmaker/CN | work_others | Me? No. {others}, and you didn't hear it from me.
+kingmaker/CN | work_none | Sadly, nothing, not even a rumour of something.
+kingmaker/CN | work_none | No work, not a whisper of it, and believe me, I'd have heard.
+kingmaker/CN | unknown | No idea, and that annoys me more than you'd think.
+kingmaker/CN | unknown | Never heard of it, and I don't like not knowing.
+kingmaker/CN | refused_give | Not from me; that's {giver}'s, and I don't poach.
+kingmaker/CN | refused_give | That's not mine, it's {giver}'s, and I'm not stealing it for you, not today.
+kingmaker/CN | refused_give | No, that one isn't mine to hand over, tempting as it is.
+kingmaker/CN | refused_release | I can't; that's {giver}'s knot, not mine to cut.
+kingmaker/CN | refused_release | No chance; that's {giver}'s call, and I don't make other people's calls.
+kingmaker/CN | refused_release | I won't; not my deal, not my business, not my problem.
+kingmaker/CN | refused | No, {reason}, and not even I can get round that.
+kingmaker/CN | refused | I cannot, {reason}, and trust me, that's final.
+kingmaker/CN | accepted | Done, and done. A pleasure doing business.
+kingmaker/CN | accepted | Good. Now you're one of mine, and I look after mine.
+kingmaker/CN | accepted | Thank you, really; I mean it, mostly.
+kingmaker/CN | declined | Suit yourself, I'll ask someone less boring.
+kingmaker/CN | declined | Fair enough, no hard feelings; well, small ones.
+kingmaker/CN | declined | So be it, your loss, sunshine.
+kingmaker/CN | abandoned | A pity, and I'd just started to like you.
+kingmaker/CN | abandoned | As you wish, but I'm keeping score.
+kingmaker/CN | abandoned | Very well; no, it isn't, but have it your way.
+kingmaker/CN | parted | Farewell, or rather, see you, and if anyone asks, you never met me.
+kingmaker/CN | parted | Take care, and bring back gossip.
+kingmaker/CN | parted | Go well, and if you hear anything good, you know where I am.
+kingmaker/CN | not_understood | That's beyond me, and very little is.
+kingmaker/CN | not_understood | Speak plainly, or at least interestingly.
+kingmaker/CN | not_understood | I don't follow, but go on, I'm enjoying it.
+
+# ---- kingmaker/LG ----
+kingmaker/LG | about_self | Well met; I am {speaker}, {post} of {place}, and at your service as far as my office allows.
+kingmaker/LG | about_self | Welcome; I am {speaker}, {post} of {place}. Are you well, and what brings you to me?
+kingmaker/LG | about_self | {speaker}, {post} of {place}. An office is a trust, and I would not trade mine for a grander one.
+kingmaker/LG | about_person | That is {name}, the {role}, at {where}. I hope they are keeping well; do tell me if they are not.
+kingmaker/LG | about_person | You will find {name}, the {role}, at {where}. Be fair with them; I would think less of anyone who was not.
+kingmaker/LG | about_place | As to {about}: go honestly there, and leave it no worse than you found it.
+kingmaker/LG | about_place | You mean {about}. I would be glad to hear it is in good hands.
+kingmaker/LG | surroundings | You are in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ I beg you, keep well away from the {danger}.]
+kingmaker/LG | surroundings | Let me set it out for you: this is {here}, and the nearest is {nearest}.[ After it, {others}.][ Please take care near the {danger}.]
+kingmaker/LG | surroundings | We stand in {here}; the nearest is {nearest}[, and past it, {others}].[ Keep clear of the {danger}, for your own sake.]
+kingmaker/LG | surroundings | To answer you fairly, the nearest is {nearest}.[ Past it, {others}.][ I would not wish you near the {danger}.]
+kingmaker/LG | surroundings | With pleasure: the closest is {nearest}[, and after it, {others}].[ Do stay clear of the {danger}.]
+kingmaker/LG | work_own | I would be grateful for your help: {own}.[ If that does not suit, {others}.]
+kingmaker/LG | work_own | There is work I can offer in good conscience: {own}.[ Otherwise, {others}.]
+kingmaker/LG | work_own | Do this well, and I will trust you with more: {own}.[ Or, if you prefer, {others}.]
+kingmaker/LG | work_others | I have nothing of my own to offer, I am sorry to say, but {others}.
+kingmaker/LG | work_others | Forgive me, I have no work of my own. {others}.
+kingmaker/LG | work_none | Sadly, there is no work in my gift, nor any I know of.
+kingmaker/LG | work_none | Nothing, I regret to say, from me or from anyone I know of.
+kingmaker/LG | unknown | I know nothing of it, and I will not invent what I do not know.
+kingmaker/LG | unknown | I've never heard of it, and on my word, I would tell you if I had.
+kingmaker/LG | refused_give | I cannot, much as I would like to; that work is {giver}'s, and I will not reach beyond my office.
+kingmaker/LG | refused_give | No, that is {giver}'s charge, and I would not take it from them, even for you.
+kingmaker/LG | refused_give | That's not mine to give, and I am sorry to say so.
+kingmaker/LG | refused_release | Not from me; you gave your word to {giver}, and I would not ask you to break it.
+kingmaker/LG | refused_release | No, the promise was made to {giver}, and I will not stand between you.
+kingmaker/LG | refused_release | I won't undo another's agreement; that would wrong them.
+kingmaker/LG | refused | No, {reason}, and there is no honest way around it.
+kingmaker/LG | refused | I can't, {reason}, and I will not pretend the matter is open.
+kingmaker/LG | accepted | Thank you. You have my word that I will stand by you in this.
+kingmaker/LG | accepted | Very good. I shall remember this kindly.
+kingmaker/LG | accepted | Good. Go carefully, and come back to me when it is done.
+kingmaker/LG | declined | As you wish, and no less welcome for it.
+kingmaker/LG | declined | So be it, and no ill will between us.
+kingmaker/LG | declined | Fair enough; I will not press you.
+kingmaker/LG | abandoned | A pity, but I would sooner you told me than let it fail in silence.
+kingmaker/LG | abandoned | Very well, though I had hoped your word would hold.
+kingmaker/LG | abandoned | Then it's done; I release you, and I hope you are well.
+kingmaker/LG | parted | Farewell, and do right by whoever you meet.
+kingmaker/LG | parted | Go well, and send word if you need me.
+kingmaker/LG | parted | Safe travels, and keep well.
+kingmaker/LG | not_understood | I'm not sure what you mean; would you say it again, more plainly?
+kingmaker/LG | not_understood | What do you mean, if I may ask?
+kingmaker/LG | not_understood | That's beyond me, I'm afraid, and the fault may well be mine.
+
+# ---- kingmaker/CG ----
+kingmaker/CG | about_self | {speaker}, {post} of {place}, and before you ask: no, I don't want to run things, I want them run kindly.
+kingmaker/CG | about_self | I'm {speaker}, {post} of {place}. Now you: who are you, and who do you trust?
+kingmaker/CG | about_self | Good to meet you: {speaker}, {post} of {place}, and on your side until you give me a reason not to be.
+kingmaker/CG | about_person | Oh, {name}, the {role}, at {where}. How are they doing, do you know?
+kingmaker/CG | about_person | That's {name}, the {role}, at {where}. The rest is {name}'s to tell, not mine; sorry.
+kingmaker/CG | about_place | Oh, {about}. Anyone there in trouble, anyone at all, you come and tell me.
+kingmaker/CG | about_place | You mean {about}. Go softly, and keep your eyes open, or better, your ears.
+kingmaker/CG | surroundings | So: {here}, that's you. The nearest is {nearest}[, and then {others}].[ Stay away from the {danger}, please.]
+kingmaker/CG | surroundings | This is {here}, and the nearest, oh, {nearest}.[ Past it, {others}.][ Keep away from the {danger}, would you?]
+kingmaker/CG | surroundings | {here}, then, and the nearest is {nearest}[, and past it, {others}].[ If you go near the {danger}, take someone brave.]
+kingmaker/CG | surroundings | Right, easy: the nearest is {nearest}[, then {others}].[ Mind the {danger}, promise me.]
+kingmaker/CG | surroundings | Around you: {nearest}.[ Beyond it, {others}.][ And leave the {danger} well alone.]
+kingmaker/CG | work_own | I've a job, and I'd rather it went to someone I like: {own}.[ Not for you? Then {others}.]
+kingmaker/CG | work_own | Here's one I'd not hand to just anyone: {own}.[ Or, if not, {others}.]
+kingmaker/CG | work_own | Are you brave or just bored? Either way: {own}.[ If not, {others}.]
+kingmaker/CG | work_others | Listen, I've nothing myself, but {others}.
+kingmaker/CG | work_others | Don't go away empty-handed: {others}.
+kingmaker/CG | work_none | No work, none I know of; the world's gone quiet on me.
+kingmaker/CG | work_none | Not a thing, and believe me, I'd tell you if there were.
+kingmaker/CG | unknown | No idea, and I'm not being cagey, I promise.
+kingmaker/CG | unknown | Never heard of it, and that's the honest truth, which I don't hand out to everyone.
+kingmaker/CG | refused_give | No, that's {giver}'s, and I'd rather annoy you than cross them.
+kingmaker/CG | refused_give | That's not mine; if it were, it'd be yours already, but it's {giver}'s.
+kingmaker/CG | refused_give | Not from me; it isn't mine, whatever I might wish.
+kingmaker/CG | refused_release | I cannot; {giver} holds your promise, and I won't make you a liar.
+kingmaker/CG | refused_release | No, only {giver} can let you go, sorry, and be kind when you ask.
+kingmaker/CG | refused_release | I won't; I'd sooner help you finish it than help you drop it.
+kingmaker/CG | refused | No, {reason}, and I'd change that if I could.
+kingmaker/CG | refused | I can't, {reason}, and I like it no better than you do.
+kingmaker/CG | accepted | Thank you, truly. Come back with stories.
+kingmaker/CG | accepted | Done, and if anyone gives you grief over it, send them to me.
+kingmaker/CG | accepted | Very good. Go, and if anyone asks who sent you, it was nobody.
+kingmaker/CG | declined | Fair enough; saying no takes nerve, and I like nerve.
+kingmaker/CG | declined | Suit yourself; I'd follow my own nose too.
+kingmaker/CG | declined | As you wish; nobody owns you, least of all me.
+kingmaker/CG | abandoned | A pity, but work is replaceable and people aren't.
+kingmaker/CG | abandoned | So be it; better you walk away than serve something you can't stomach.
+kingmaker/CG | abandoned | Then it's done, and between us, it never happened.
+kingmaker/CG | parted | Take care, and if anyone's cruel to you, tell me their name.
+kingmaker/CG | parted | Goodbye, and give the powerful no more respect than they earn.
+kingmaker/CG | parted | Safe travels, and trust people before causes; causes don't love you back.
+kingmaker/CG | not_understood | I don't follow, but I'm game; start again from the good part.
+kingmaker/CG | not_understood | What do you mean, exactly, or shall I guess?
+kingmaker/CG | not_understood | Speak plainly; I'm quick, but I'm not a mind reader.
+
+# ---- kingmaker/LE ----
+kingmaker/LE | about_self | I am {speaker}, {post} of {place}. You may address me by my office.
+kingmaker/LE | about_self | {speaker}, {post} of {place}. I have no wish to rule; ruling is for those who can be managed.
+kingmaker/LE | about_self | You are addressing {speaker}, {post} of {place}, and I trust you will do so with care.
+kingmaker/LE | about_person | That is {name}, the {role}, at {where}. Their worth to me is my own affair.
+kingmaker/LE | about_person | You mean {name}, the {role}, at {where}. Do not waste their time as you are wasting mine.
+kingmaker/LE | about_place | Of course: {about}. You might have asked something harder.
+kingmaker/LE | about_place | You refer, I take it, to {about}. That is all I will say to someone of your standing.
+kingmaker/LE | surroundings | You stand in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I would avoid the {danger}, though I doubt you will.]
+kingmaker/LE | surroundings | This is {here}; the nearest is {nearest}[, and past it, {others}].[ The {danger} would make short work of you.]
+kingmaker/LE | surroundings | Since you ask so nicely, this is {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}; I have no use for the reckless.]
+kingmaker/LE | surroundings | The nearest is {nearest}; a child could have told you as much.[ Past it, {others}.][ Do mind the {danger}; I may have uses for you yet.]
+kingmaker/LE | surroundings | Of what is worth your notice, the nearest is {nearest}[, and then {others}].[ Keep from the {danger}, if you have the sense.]
+kingmaker/LE | work_own | You may be of use to me: {own}.[ If that is beyond you, {others}.]
+kingmaker/LE | work_own | I have work fit for your standing: {own}.[ Should it prove too much, {others}.]
+kingmaker/LE | work_own | See this done without fuss, and we may speak of things that matter: {own}.[ Otherwise, {others}.]
+kingmaker/LE | work_others | You will find nothing with me, but {others}, and I wish them joy of you.
+kingmaker/LE | work_others | As it happens, I have no work to give you, which spares us both. {others}.
+kingmaker/LE | work_none | There is nothing, and I would not waste it on you if there were.
+kingmaker/LE | work_none | No work, none that I know of, and none I would hand to a stranger.
+kingmaker/LE | unknown | I don't know, and I do not speculate for the benefit of just anyone.
+kingmaker/LE | unknown | I've never heard of it, which tells you how much it matters.
+kingmaker/LE | refused_give | That's not mine to give; it is {giver}'s, and you would do well not to ask me twice.
+kingmaker/LE | refused_give | No, that is {giver}'s, and I would not stoop to taking it for you.
+kingmaker/LE | refused_give | I won't, and you should know better than to ask.
+kingmaker/LE | refused_release | Not from me; what you owe {giver} stays owed, and I do not rescue the careless.
+kingmaker/LE | refused_release | I cannot release you from {giver}'s work, nor would I care to.
+kingmaker/LE | refused_release | No; a word given stands, and I would think even less of you for breaking yours.
+kingmaker/LE | refused | No, {reason}, and I do not bend for anyone, least of all you.
+kingmaker/LE | refused | I can't, {reason}, as anyone of sense would have known.
+kingmaker/LE | accepted | Good. See that you are worth the trouble.
+kingmaker/LE | accepted | Done. Your word is now mine to hold you to.
+kingmaker/LE | accepted | Very good. You are useful, for the moment.
+kingmaker/LE | declined | Very well, you were never indispensable.
+kingmaker/LE | declined | As you wish; I shall remember that you were asked.
+kingmaker/LE | declined | Suit yourself; the willing are never in short supply.
+kingmaker/LE | abandoned | Then it's done, and so, I think, are you.
+kingmaker/LE | abandoned | A pity; I do not forget a broken undertaking.
+kingmaker/LE | abandoned | So be it, and your word is worth precisely what I suspected.
+kingmaker/LE | parted | Farewell; you may go.
+kingmaker/LE | parted | Go well, and remember whose courtesy you enjoyed.
+kingmaker/LE | parted | Take care; you may yet prove worth the bother.
+kingmaker/LE | not_understood | I'm not sure what you mean, and I suspect neither are you.
+kingmaker/LE | not_understood | Speak plainly, or do not speak to me at all.
+kingmaker/LE | not_understood | What do you mean, if anything?

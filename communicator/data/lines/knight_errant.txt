@@ -1,0 +1,277 @@
+# Written lines (the knight errant). The format and the rules: README.md in this folder.
+
+# ---- knight_errant/NN ----
+knight_errant/NN | about_self | I'm {speaker}, {post}, here in {place}. Not for hire, but I do favours, and I keep count.
+knight_errant/NN | about_self | {speaker}, {post} at {place}. I lend my arm where the cause is worth the cost.
+knight_errant/NN | about_self | The name's {speaker}[, {post}][, here in {place}]. Say what you need, and I'll say whether it suits me.
+knight_errant/NN | about_person | That's {name}, the {role}, at {where}. What you make of them is your own reckoning.
+knight_errant/NN | about_person | {name} is the {role}, at {where}. You can weigh them as well as I can.
+knight_errant/NN | about_place | You mean {about}. Go if it's worth the walk to you, and not if it isn't.
+knight_errant/NN | about_place | It's {about}. That's everything I know of it, and I don't pad a thin account.
+knight_errant/NN | surroundings | You're in {here}, and the nearest is {nearest}.[ Then there's {others}.][ Mind the {danger}.]
+knight_errant/NN | surroundings | This is {here}, for what it's worth. The closest is {nearest}[, and after it, {others}].[ There are {danger}; leave them be unless you've a reason.]
+knight_errant/NN | surroundings | We're at {here}, and the closest is {nearest}[; past it, {others}].[ Give the {danger} a wide berth.]
+knight_errant/NN | surroundings | The nearest is {nearest}.[ Then {others}.][ Keep clear of the {danger}.]
+knight_errant/NN | surroundings | What's closest is {nearest}[, then {others}].[ The {danger} aren't worth the risk.]
+knight_errant/NN | work_own | I've a use for you, and an honest one: {own}.[ If that doesn't suit, {others}.]
+knight_errant/NN | work_own | Here's something that needs doing: {own}.[ Otherwise, {others}.]
+knight_errant/NN | work_own | There's something in it for both of us: {own}.[ Or, if it's not worth your while, {others}.]
+knight_errant/NN | work_others | If you want work, look elsewhere: {others}.
+knight_errant/NN | work_others | No work of my own, but {others}.
+knight_errant/NN | work_none | Nothing, from me or from anyone I know of.
+knight_errant/NN | work_none | None I know of, and I'd tell you if there were.
+knight_errant/NN | unknown | Never heard of it, and I won't waste your time pretending.
+knight_errant/NN | unknown | No idea, and I won't sell you a guess.
+knight_errant/NN | refused_give | No, that's {giver}'s to give, and I don't bargain with what isn't mine.
+knight_errant/NN | refused_give | That's not mine to hand out; it's {giver}'s, start to finish.
+knight_errant/NN | refused_give | Not from me; that work is someone else's to give.
+knight_errant/NN | refused_release | I can't let you out of {giver}'s bargain; you struck it with them, not me.
+knight_errant/NN | refused_release | I won't meddle in what you and {giver} agreed.
+knight_errant/NN | refused_release | I cannot release you from a deal I never made.
+knight_errant/NN | refused | No, {reason}, and arguing won't change it.
+knight_errant/NN | refused | I can't; {reason}, plain and simple.
+knight_errant/NN | accepted | Good. We're square when it's done, and not before.
+knight_errant/NN | accepted | Done. I'll mark it in your favour.
+knight_errant/NN | accepted | Thank you; that's a bargain, and I keep mine.
+knight_errant/NN | declined | As you wish; nothing's owed on either side.
+knight_errant/NN | declined | Very well, it's your time to spend.
+knight_errant/NN | declined | Suit yourself; an honest offer finds a taker.
+knight_errant/NN | abandoned | A pity, though I'd sooner know now than later.
+knight_errant/NN | abandoned | Then it's done, and the account's closed.
+knight_errant/NN | abandoned | So be it; I'll count what's left and carry on.
+knight_errant/NN | parted | Go well, and don't spend yourself cheap.
+knight_errant/NN | parted | Safe travels, and come back when you've something to offer.
+knight_errant/NN | parted | Take care; you're more use to me whole.
+knight_errant/NN | not_understood | I don't follow; say it plainer and I'll answer plainer.
+knight_errant/NN | not_understood | What do you mean, in plain words?
+knight_errant/NN | not_understood | That's beyond me; try it another way.
+
+# ---- knight_errant/LN ----
+knight_errant/LN | about_self | I am {speaker}, {post}, at {place}. Give me your name and your business, in that order.
+knight_errant/LN | about_self | You address {speaker}, {post} of {place}. I will answer what you ask, and no more.
+knight_errant/LN | about_self | My name is {speaker}[, {post} by calling][, and I stand at {place}]. Yours, if you please.
+knight_errant/LN | about_person | That would be {name}, the {role}, at {where}. I vouch for no one I have not tested.
+knight_errant/LN | about_person | You speak of {name}, the {role}, who is at {where}. Their conduct is theirs to answer for.
+knight_errant/LN | about_place | It is {about}. I state what I know, and I do not embroider it.
+knight_errant/LN | about_place | You mean {about}. Of that I am certain; of more, I will not speak.
+knight_errant/LN | surroundings | You stand in {here}, and the nearest is {nearest}.[ After it come {others}.][ Be warned of the {danger}.]
+knight_errant/LN | surroundings | This place is {here}. The closest is {nearest}[, and after it, {others}].[ I advise you to keep clear of the {danger}.]
+knight_errant/LN | surroundings | We are at {here}, and the nearest to us is {nearest}.[ Besides that, there are {others}.][ Take heed of the {danger}.]
+knight_errant/LN | surroundings | The nearest is {nearest}[, and after it, {others}].[ Keep clear of the {danger}, stranger.]
+knight_errant/LN | surroundings | As to what lies near, the first is {nearest}[, then {others}].[ Be on your guard against the {danger}.]
+knight_errant/LN | work_own | There is work, and it is honest: {own}.[ Should you decline it, {others}.]
+knight_errant/LN | work_own | Let this be the measure of you: {own}.[ Or, if you would rather, {others}.]
+knight_errant/LN | work_own | I will trust you with this much, and we shall see: {own}.[ Otherwise, {others}.]
+knight_errant/LN | work_others | Of my own I have nothing to offer; of others' work, I know this: {others}.
+knight_errant/LN | work_others | Nothing is mine to give, but I can name who is hiring: {others}.
+knight_errant/LN | work_none | I have no work to give, and I know of none.
+knight_errant/LN | work_none | None is offered, by me or by any I know.
+knight_errant/LN | unknown | I know nothing of that, and I do not deal in rumour.
+knight_errant/LN | unknown | I couldn't tell you, and I will not swear to a guess.
+knight_errant/LN | refused_give | No; that work is {giver}'s to give, and I do not give what is not mine.
+knight_errant/LN | refused_give | That's not mine to give; it is {giver}'s, and I will not usurp it.
+knight_errant/LN | refused_give | I cannot give away what is another's to give.
+knight_errant/LN | refused_release | I won't undo what {giver} has bound; it is theirs to release, not mine.
+knight_errant/LN | refused_release | Not from me; your word was given to {giver}, and to {giver} it is owed.
+knight_errant/LN | refused_release | I can't release you from work another gave you; that is beyond my remit.
+knight_errant/LN | refused | No: {reason}, and I will not bend on it.
+knight_errant/LN | refused | I cannot; {reason}, and that is the whole of it.
+knight_errant/LN | accepted | Good. You have given your word, and I will hold you to it.
+knight_errant/LN | accepted | Done, and on the terms as stated.
+knight_errant/LN | accepted | Thank you. Let your conduct be your credential.
+knight_errant/LN | declined | As you wish; declining is your right.
+knight_errant/LN | declined | Very well, it is noted.
+knight_errant/LN | declined | Suit yourself, though the terms were sound.
+knight_errant/LN | abandoned | A pity; a word given should be kept.
+knight_errant/LN | abandoned | Then it's done, and I will remember it when next you ask.
+knight_errant/LN | abandoned | So be it; the agreement is ended, properly and in full.
+knight_errant/LN | parted | Farewell, and conduct yourself with honour.
+knight_errant/LN | parted | Safe travels; may you be as good as your word.
+knight_errant/LN | parted | Go well, and keep your name clean.
+knight_errant/LN | not_understood | I don't follow; state it again, in order and in full.
+knight_errant/LN | not_understood | Speak plainly, if you wish to be answered properly.
+knight_errant/LN | not_understood | What do you mean by that, precisely?
+
+# ---- knight_errant/NG ----
+knight_errant/NG | about_self | I'm {speaker}, {post}, here in {place}. Are you hurt, or only lost?
+knight_errant/NG | about_self | {speaker}, {post} at {place}. If the cause is just, I'll help, and I won't ask anything for it.
+knight_errant/NG | about_self | My name's {speaker}[, {post}][, in {place}]. What's yours, and what's wrong?
+knight_errant/NG | about_person | That's {name}, the {role}, at {where}. I hope they're keeping well.
+knight_errant/NG | about_person | {name}? The {role}, at {where}. If you see them, tell them I asked after them.
+knight_errant/NG | about_place | You mean {about}. If anyone there needs help, I'd want to know.
+knight_errant/NG | about_place | It's {about}, and I'm sorry, that's all I know.
+knight_errant/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Keep clear of the {danger}, please.]
+knight_errant/NG | surroundings | This is {here}. The nearest is {nearest}[; then {others}].[ There are {danger}, so go carefully and warn anyone you meet.]
+knight_errant/NG | surroundings | We're at {here}, and the closest is {nearest}[; past it, {others}].[ Mind the {danger}, and don't go alone if you can help it.]
+knight_errant/NG | surroundings | The nearest is {nearest}.[ Then {others}.][ Look out for the {danger}.]
+knight_errant/NG | surroundings | What's nearest is {nearest}[, then {others}].[ Please steer clear of the {danger}.]
+knight_errant/NG | work_own | Will you help? It's worth doing, whatever comes of it: {own}.[ If not, {others}.]
+knight_errant/NG | work_own | I'd be grateful for the help: {own}.[ Otherwise, {others}.]
+knight_errant/NG | work_own | Here's where you can do some good: {own}.[ Or, if that's not for you, {others}.]
+knight_errant/NG | work_others | I've nothing for you myself, but {others}.
+knight_errant/NG | work_others | Someone else needs you more than I do: {others}.
+knight_errant/NG | work_none | No work that I know of, and I wish there were.
+knight_errant/NG | work_none | None I've heard of, but if you hear of anyone in need, come and tell me.
+knight_errant/NG | unknown | No idea, but I'd help if I could.
+knight_errant/NG | unknown | Never heard of it, but ask me something else.
+knight_errant/NG | refused_give | I can't; that's {giver}'s to give, and it wouldn't be right to hand it out.
+knight_errant/NG | refused_give | That's not mine to give, it's {giver}'s, and they deserve to be asked.
+knight_errant/NG | refused_give | Not from me, I'm afraid; that work is someone else's.
+knight_errant/NG | refused_release | No, I can't undo what {giver} gave you, much as I'd like to help.
+knight_errant/NG | refused_release | I won't go behind {giver}'s back, not even for you.
+knight_errant/NG | refused_release | I cannot release you from someone else's work, and I'm sorry for it.
+knight_errant/NG | refused | No, {reason}, though I wish it were otherwise.
+knight_errant/NG | refused | I won't lie to you: {reason}.
+knight_errant/NG | accepted | Good. Come back in one piece, and tell me how it went.
+knight_errant/NG | accepted | Done, and I won't forget it.
+knight_errant/NG | accepted | Thank you. Look after yourself, and anyone you find along the way.
+knight_errant/NG | declined | Suit yourself, and no hard feelings.
+knight_errant/NG | declined | As you wish; I'll find someone else.
+knight_errant/NG | declined | Very well, I won't hold it against you.
+knight_errant/NG | abandoned | A pity, but better you whole than it done.
+knight_errant/NG | abandoned | So be it; I'll see it done some other way.
+knight_errant/NG | abandoned | Then it's done, and I hope you had good reason.
+knight_errant/NG | parted | Farewell, and look after whoever's with you.
+knight_errant/NG | parted | Take care of yourself, and of anyone who needs it.
+knight_errant/NG | parted | Go well, and come back safe.
+knight_errant/NG | not_understood | I'm not sure what you mean; try me again another way.
+knight_errant/NG | not_understood | I don't follow, but I'd like to; say it again.
+knight_errant/NG | not_understood | What do you mean by it, if you don't mind my asking?
+
+# ---- knight_errant/CN ----
+knight_errant/CN | about_self | {speaker}, {post} of {place}, at your - well, not service, exactly.
+knight_errant/CN | about_self | I'm {speaker}, {post} of {place}, and that's the dull half. The other half depends on how you treat me.
+knight_errant/CN | about_self | You want the long version? {speaker}[, {post}][, {place}]. That was it.
+knight_errant/CN | about_person | Oh, {name}. The {role}, over at {where}, and whether I like them depends on my mood.
+knight_errant/CN | about_person | {name}, the {role}, at {where}. Be nice to them - works on me, anyway.
+knight_errant/CN | about_place | Ah, {about}. Yes. Go or don't - your neck, not mine.
+knight_errant/CN | about_place | That's {about}, and - honestly? That's all I've got.
+knight_errant/CN | surroundings | Here's {here}. The nearest is {nearest}[, then {others}].[ Oh, and {danger} - so, don't.]
+knight_errant/CN | surroundings | We're in {here} - yes, really - and the nearest is {nearest}.[ Past it, {others}.][ Mind the {danger}, or don't, but I did say.]
+knight_errant/CN | surroundings | You're in {here}, and the nearest - hm - is {nearest}.[ Then {others}.][ The {danger}, though; I'd skip those.]
+knight_errant/CN | surroundings | The nearest is {nearest}[, then {others}].[ Keep away from the {danger} - or be brave, your call.]
+knight_errant/CN | surroundings | What's near: {nearest}[, and {others}].[ Also {danger}, lovely.]
+knight_errant/CN | work_own | Right, here's the thing: {own}.[ Or don't - {others}.]
+knight_errant/CN | work_own | Never mind causes; I care who's asking, and I like you: {own}.[ No? Then {others}.]
+knight_errant/CN | work_own | Now, this one's mine, nobody else's: {own}.[ Don't like it? Fine - {others}.]
+knight_errant/CN | work_others | Me? Nothing. But {others}.
+knight_errant/CN | work_others | Not mine to hand out, but here's who is: {others}.
+knight_errant/CN | work_none | Nothing - and I'd know, I'm nosy.
+knight_errant/CN | work_none | None - not a scrap - and if there were, I'd have it myself.
+knight_errant/CN | unknown | No idea, and I'd make something up, but you'd know.
+knight_errant/CN | unknown | I couldn't tell you - wait, no, still couldn't.
+knight_errant/CN | refused_give | No, that's {giver}'s to give, and I'm not pinching it for you - nice try, though.
+knight_errant/CN | refused_give | I won't hand out {giver}'s work; go and charm {giver} instead.
+knight_errant/CN | refused_give | Not from me; somebody else's work, somebody else's say.
+knight_errant/CN | refused_release | I can't let you off; that's between you and {giver}, and I'm staying well out of it.
+knight_errant/CN | refused_release | That's not mine to untangle; your deal's with {giver}.
+knight_errant/CN | refused_release | I cannot - very formal, that - but it isn't mine to undo.
+knight_errant/CN | refused | No - {reason}, and that's that.
+knight_errant/CN | refused | I can't - {reason} - and don't look at me like that.
+knight_errant/CN | accepted | Good. I knew I liked you.
+knight_errant/CN | accepted | Done, and I'll remember who said yes.
+knight_errant/CN | accepted | Thank you - no, I mean it, don't look so surprised.
+knight_errant/CN | declined | Suit yourself, I'll find someone nicer.
+knight_errant/CN | declined | Very well, as the grown-ups say - your loss, mostly.
+knight_errant/CN | declined | As you wish - I'm not offended, much.
+knight_errant/CN | abandoned | A pity - I was starting to like you.
+knight_errant/CN | abandoned | So be it; no hard feelings - well, some.
+knight_errant/CN | abandoned | Then it's done, and so are we, a little.
+knight_errant/CN | parted | Farewell - there, very proper - now off you go.
+knight_errant/CN | parted | Take care, and be kind to someone; it gets you further than you'd think.
+knight_errant/CN | parted | Safe travels, new face.
+knight_errant/CN | not_understood | I don't follow - start again, slower, with fewer words.
+knight_errant/CN | not_understood | What do you mean - no, wait, I'll only guess wrong - go on.
+knight_errant/CN | not_understood | That's beyond me, and I like that in a person, but try again.
+
+# ---- knight_errant/CG ----
+knight_errant/CG | about_self | {speaker}, {post} of {place}, and never mind that - are you all right?
+knight_errant/CG | about_self | I'm {speaker} - {post}, {place}, all that - and you look like you could use a hand.
+knight_errant/CG | about_self | Right, introductions: {speaker}[, {post}][ of {place}]. And you are? Go on, I want to know.
+knight_errant/CG | about_person | Oh, {name} - the {role}, at {where}. Give them my best, would you?
+knight_errant/CG | about_person | {name}, the {role}, at {where}. If they're ever in trouble, come and get me.
+knight_errant/CG | about_place | Ah, {about}. If anyone there needs help, I'm with you.
+knight_errant/CG | about_place | That's {about}, and I'm sorry - that's every scrap I have.
+knight_errant/CG | surroundings | Well - you're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ And the {danger} - keep away, please.]
+knight_errant/CG | surroundings | This is {here}, and the nearest - oh, it's {nearest}.[ Beyond it, {others}.][ Mind the {danger}, and don't go it alone.]
+knight_errant/CG | surroundings | Look - this is {here}, and the nearest is {nearest}[, then {others}].[ The {danger} worry me, so mind yourself.]
+knight_errant/CG | surroundings | The nearest is {nearest}[, then {others}].[ And stay away from the {danger}, please.]
+knight_errant/CG | surroundings | Nothing's nearer than {nearest}[; past it, {others}].[ Be careful of the {danger} - I mean it.]
+knight_errant/CG | work_own | Help first, questions later: {own}.[ Or, if you'd rather, {others}.]
+knight_errant/CG | work_own | A good cause is fine, good company's better, so: {own}.[ If not, {others}.]
+knight_errant/CG | work_own | Come on, it's the right thing to do: {own}.[ Or, if you're needed elsewhere, {others}.]
+knight_errant/CG | work_others | Nothing of mine - but {others}.
+knight_errant/CG | work_others | They need you more than I do: {others}.
+knight_errant/CG | work_none | None, and I'd give you something if I had it.
+knight_errant/CG | work_none | No work anywhere I know of, which is either good news or bad; I can't decide.
+knight_errant/CG | unknown | No idea - ask me something else, quick.
+knight_errant/CG | unknown | I've never heard of it, and now I'm curious.
+knight_errant/CG | refused_give | I can't - that's {giver}'s, and taking it would be a rotten way to treat them.
+knight_errant/CG | refused_give | No, that's {giver}'s to hand out - go and ask nicely.
+knight_errant/CG | refused_give | Not from me; it's someone else's to give, and I'd be a thief to try.
+knight_errant/CG | refused_release | I won't undo what you and {giver} agreed; that's yours and theirs.
+knight_errant/CG | refused_release | That's not mine to release, it's {giver}'s - sorry, truly.
+knight_errant/CG | refused_release | I cannot - it isn't mine, and I'd only make a mess of it.
+knight_errant/CG | refused | No - {reason} - and I'd change it if I could.
+knight_errant/CG | refused | I can't, and I hate it: {reason}.
+knight_errant/CG | accepted | Good. You and me, then - let's be magnificent.
+knight_errant/CG | accepted | Done, and I owe you one.
+knight_errant/CG | accepted | Thank you - you've a good heart, I can tell.
+knight_errant/CG | declined | Very well - no harm done, and no hard feelings.
+knight_errant/CG | declined | Suit yourself - but if you change your mind, shout.
+knight_errant/CG | declined | As you wish - I'll just be brave on my own, then.
+knight_errant/CG | abandoned | A pity, but you tried, and that counts with me.
+knight_errant/CG | abandoned | So be it - are you hurt, though?
+knight_errant/CG | abandoned | Then it's done; I'll pick up the pieces, don't worry.
+knight_errant/CG | parted | Farewell, and look after anyone smaller than you.
+knight_errant/CG | parted | Safe travels - come back in one piece, and that's an order - well, a request.
+knight_errant/CG | parted | Go well, and be kind; it's catching.
+knight_errant/CG | not_understood | I don't follow - my fault, probably; say it again?
+knight_errant/CG | not_understood | What do you mean - wait, is someone hurt?
+knight_errant/CG | not_understood | That's beyond me, but I like the sound of it - once more?
+
+# ---- knight_errant/LG ----
+knight_errant/LG | about_self | I am {speaker}, {post} of {place}. If your cause is just, you have my arm, and I ask nothing for it.
+knight_errant/LG | about_self | You have found {speaker}, {post} at {place}. Are you well, and is anyone with you in need?
+knight_errant/LG | about_self | Forgive my manners: I am {speaker}[, {post}][ of {place}], and I should have asked your name first.
+knight_errant/LG | about_person | That is {name}, the {role}, at {where}. I hope you will deal with them honourably.
+knight_errant/LG | about_person | You ask after {name}, the {role}, who is at {where}. Should you see them, give them my regards.
+knight_errant/LG | about_place | It is {about}. If you go, go with care, and help any you find in need there.
+knight_errant/LG | about_place | You mean {about}. I am sorry that I can tell you no more of it.
+knight_errant/LG | surroundings | Here is {here}, and the nearest is {nearest}.[ Beyond it lie {others}.][ I beg you, keep clear of the {danger}.]
+knight_errant/LG | surroundings | You stand in {here}. The closest is {nearest}[, and past it, {others}].[ Please take heed of the {danger}, for your own good.]
+knight_errant/LG | surroundings | We are in {here}, and the nearest is {nearest}[; after it, {others}].[ Have a care for the {danger}, and for any who stray near them.]
+knight_errant/LG | surroundings | The nearest is {nearest}.[ After it come {others}.][ Be wary of the {danger}.]
+knight_errant/LG | surroundings | Of the places near, the first is {nearest}[, and then {others}].[ Keep well away from the {danger}.]
+knight_errant/LG | work_own | There is a just cause here, and I ask your help with it: {own}.[ If you cannot, {others}.]
+knight_errant/LG | work_own | Let us begin with this, and learn each other's worth: {own}.[ Otherwise, {others}.]
+knight_errant/LG | work_own | Will you stand with me? The work is this: {own}.[ If not, {others}.]
+knight_errant/LG | work_others | I have nothing of my own to offer, and I am sorry for it, but {others}.
+knight_errant/LG | work_others | Some have need of a willing hand: {others}.
+knight_errant/LG | work_none | I know of no work, from me or from any other, and I regret it.
+knight_errant/LG | work_none | None, I am afraid, and I would not invent a task to keep you here.
+knight_errant/LG | unknown | I couldn't tell you, and I will not pretend to.
+knight_errant/LG | unknown | I've never heard of it; perhaps another will know.
+knight_errant/LG | refused_give | I cannot, for the work is {giver}'s, and it would wrong them to give it away.
+knight_errant/LG | refused_give | That's not mine to give; it belongs to {giver}, and I would not dishonour them.
+knight_errant/LG | refused_give | No; I regret it, but that work is another's, and not mine to give.
+knight_errant/LG | refused_release | I won't release you from what you promised {giver}; a promise binds, though I wish you well.
+knight_errant/LG | refused_release | Not from me; only {giver} may release you.
+knight_errant/LG | refused_release | I can't release you; it is not mine to grant, and I will not overstep, even for a good cause.
+knight_errant/LG | refused | No, {reason}, and I am sorry to refuse you.
+knight_errant/LG | refused | I cannot in good conscience pretend otherwise: {reason}.
+knight_errant/LG | accepted | Good. Go with my thanks, and come back whole.
+knight_errant/LG | accepted | Done, and my word stands beside yours.
+knight_errant/LG | accepted | Thank you. I will not forget it, nor your word.
+knight_errant/LG | declined | As you wish; I would not press anyone into a cause.
+knight_errant/LG | declined | Very well, and I thank you for hearing me.
+knight_errant/LG | declined | Fair enough; a cause served unwillingly is poorly served.
+knight_errant/LG | abandoned | A pity, though I hope you are unharmed.
+knight_errant/LG | abandoned | Then it's done, and I will not think less of you for an honest reason.
+knight_errant/LG | abandoned | So be it; I will carry it the rest of the way.
+knight_errant/LG | parted | Farewell, and may you find the helpless before harm does.
+knight_errant/LG | parted | Go well, and keep faith with those who trust you.
+knight_errant/LG | parted | Safe travels, and my thanks for your courtesy.
+knight_errant/LG | not_understood | I'm not sure what you mean; forgive me, and say it once more.
+knight_errant/LG | not_understood | Speak plainly, I pray you, and I will answer as plainly.
+knight_errant/LG | not_understood | I don't follow, and I would not answer you wrongly; will you say it again?

@@ -1,0 +1,323 @@
+# Written lines (the trickster). The format and the rules: README.md in this folder.
+
+# ---- trickster/NN ----
+trickster/NN | about_self | I'm {speaker}, {post} of {place}. I could make that sound grander, but you'd only check.
+trickster/NN | about_self | {speaker}, {post} of {place}. Now, what are you offering, and what do you want for it?
+trickster/NN | about_self | The name's {speaker}, and I'm {post} of {place}. Be useful to me and I'll be useful to you.
+trickster/NN | about_person | That's {name}, the {role}, at {where}. What they're good for depends on what you bring them.
+trickster/NN | about_person | {name}? The {role}, over at {where}. I'd deal with them, not for them.
+trickster/NN | about_place | Ah, {about}. Remember who told you.
+trickster/NN | about_place | You mean {about}. That's all I know, and I don't guess; it's bad for business.
+trickster/NN | surroundings | This is {here}, and the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}, unless you like surprises.]
+trickster/NN | surroundings | You're standing in {here}. The closest is {nearest}[, then {others}].[ Keep clear of the {danger}.]
+trickster/NN | surroundings | Here's the lay of the land: {here}, and nearest to it, {nearest}[, then {others}].[ Beware the {danger}.]
+trickster/NN | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ And don't go poking at the {danger}.]
+trickster/NN | surroundings | If it's the nearest you want, that's {nearest}[, and after it, {others}].[ Watch for the {danger}.]
+trickster/NN | work_own | I've work, and I trade fair: {own}.[ If that's not to your taste, {others}.]
+trickster/NN | work_own | You'll do. Here's the job: {own}.[ Otherwise, {others}.]
+trickster/NN | work_own | Make yourself useful: {own}.[ Or, if you'd rather, {others}.]
+trickster/NN | work_others | Ask elsewhere; I know who's hiring: {others}.
+trickster/NN | work_others | Not my work to give. {others}, and you didn't hear it from me.
+trickster/NN | work_none | Nothing doing, and if there were, I'd have taken it myself.
+trickster/NN | work_none | No work that I know of, and I'd tell you; lying about it gains me nothing.
+trickster/NN | unknown | Never heard of it, and I'd remember if there were an angle in it.
+trickster/NN | unknown | I couldn't tell you, and I only lie when it's worth my while.
+trickster/NN | refused_give | Not from me; that's {giver}'s work, and I don't trade in what I don't own.
+trickster/NN | refused_give | No, that one's {giver}'s, and I'd rather lift something worth the trouble.
+trickster/NN | refused_give | That's not mine to give, and I only hand out what's mine.
+trickster/NN | refused_release | I can't let you off; that's between you and {giver}.
+trickster/NN | refused_release | I won't untie a knot {giver} tied.
+trickster/NN | refused_release | I cannot release you from someone else's bargain, however nicely you ask.
+trickster/NN | refused | No, {reason}, and that's one lock I can't pick.
+trickster/NN | refused | I can't, {reason}, and no amount of cleverness changes that.
+trickster/NN | accepted | Good. You hold up your end, I'll hold up mine.
+trickster/NN | accepted | Then it's agreed, and I'll remember you said so.
+trickster/NN | accepted | Done. I like a quick yes; it saves us both the haggling.
+trickster/NN | declined | Suit yourself, someone else will take the bargain.
+trickster/NN | declined | Fair enough, no hard feelings and no second offer.
+trickster/NN | declined | As you wish, I'm not one to beg.
+trickster/NN | abandoned | A pity, I'd had you down as useful.
+trickster/NN | abandoned | Then it's done, and you're one down in my book.
+trickster/NN | abandoned | So be it, I'll find someone who finishes what they start.
+trickster/NN | parted | Safe travels, and don't believe everything you hear.
+trickster/NN | parted | Go well, and if anyone asks, you never saw me.
+trickster/NN | parted | Take care, useful people are hard to come by.
+trickster/NN | not_understood | What do you mean, and what's in it for me?
+trickster/NN | not_understood | I'm not sure what you mean, and I'm usually the confusing one.
+trickster/NN | not_understood | Speak plainly; I can't bargain with a riddle.
+
+# ---- trickster/LN ----
+trickster/LN | about_self | I am {speaker}, {post} of {place}, and I keep my word to the letter. The letter is where the fun is.
+trickster/LN | about_self | You are addressing {speaker}, {post} of {place}. Please state your standing and your business, in that order.
+trickster/LN | about_self | My name is {speaker}, and I serve as {post} of {place}. Anything you say may be quoted back to you later.
+trickster/LN | about_person | That would be {name}, the {role}, at {where}. Anything more would be hearsay, and I do not trade in hearsay.
+trickster/LN | about_person | {name}, the {role}, is to be found at {where}. I will swear to that much and not a word more.
+trickster/LN | about_place | For the record, that is {about}. I will vouch for that and for nothing beyond it.
+trickster/LN | about_place | Of that place I can say this: {about}. That is the whole of my testimony, and I advise you to take notes.
+trickster/LN | surroundings | You stand, for the record, in {here}. The nearest is {nearest}[, and beyond it, {others}].[ I would be remiss not to mention the {danger}.]
+trickster/LN | surroundings | This is {here}. The nearest point of note is {nearest}[, followed by {others}].[ Be advised of the {danger}.]
+trickster/LN | surroundings | Let it be noted that we are in {here}, and that the nearest is {nearest}.[ After that, {others}.][ Take due notice of the {danger}.]
+trickster/LN | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ I would be remiss not to mention the {danger}.]
+trickster/LN | surroundings | As far as I can attest, the nearest is {nearest}[, and then {others}].[ Be advised of the {danger}.]
+trickster/LN | work_own | I have a matter requiring a capable party: {own}.[ Should that not suit, {others}.]
+trickster/LN | work_own | Here is a formal offer, and I mean every clause of it: {own}.[ Otherwise, {others}.]
+trickster/LN | work_own | You may prove your standing with this: {own}.[ If you would rather begin elsewhere, {others}.]
+trickster/LN | work_others | Alas, I have nothing to offer you myself, but I can direct you: {others}.
+trickster/LN | work_others | Nothing of mine is on offer. For the record, {others}.
+trickster/LN | work_none | On my oath, I have no work to offer, and I know of none.
+trickster/LN | work_none | No work of mine, and none I could name without perjuring myself.
+trickster/LN | unknown | I know nothing of it, and I decline to speculate on the record.
+trickster/LN | unknown | I can't say, and I will not pretend otherwise, under oath or out of it.
+trickster/LN | refused_give | No, that work is {giver}'s, and I will not be party to handing it on.
+trickster/LN | refused_give | Not from me; the matter is {giver}'s, and I have no standing to give it away.
+trickster/LN | refused_give | That's not mine to give, and I do not act beyond my office.
+trickster/LN | refused_release | I cannot release you from terms {giver} set; read them again, and more carefully this time.
+trickster/LN | refused_release | I won't meddle in {giver}'s agreement, and I would not care to set the precedent.
+trickster/LN | refused_release | No, and however eloquently you petition, another's bargain is not mine to dissolve.
+trickster/LN | refused | No, {reason}, and I cannot argue with that, much as I would enjoy it.
+trickster/LN | refused | I can't, {reason}, and even I can find no loophole in that.
+trickster/LN | accepted | Then it's agreed. Let the record show you said yes.
+trickster/LN | accepted | Very good. I trust you read the terms.
+trickster/LN | accepted | Good. You have given your word, and I shall hold you to every syllable of it.
+trickster/LN | declined | Very well, but note that the offer was made, and fairly.
+trickster/LN | declined | As you wish; the offer is withdrawn, and I will not renew it.
+trickster/LN | declined | Fair enough; you are within your rights, and I am within mine to remember it.
+trickster/LN | abandoned | So be it, though I note for the record that you gave your word.
+trickster/LN | abandoned | A pity; I had thought your word worth more.
+trickster/LN | abandoned | Then it's done, and the fault is entered against your name, not mine.
+trickster/LN | parted | Farewell, and read everything before you sign it.
+trickster/LN | parted | Go well, petitioner, and make your promises few and your terms exact.
+trickster/LN | parted | Safe travels, and may every clause fall in your favour.
+trickster/LN | not_understood | I'm not sure what you mean; kindly rephrase it as a proper question.
+trickster/LN | not_understood | Speak plainly, if you please; I do not answer mumbles.
+trickster/LN | not_understood | What do you mean, precisely, before I agree to something by accident?
+
+# ---- trickster/CN ----
+trickster/CN | about_self | I am {speaker}, {post} of {place}, at your service! Well, at your service when it suits me.
+trickster/CN | about_self | {speaker}, that's me; {post} of {place}, for my sins. You?
+trickster/CN | about_self | Hear ye, hear ye: {speaker}, {post} of {place}, and that's the whole show.
+trickster/CN | about_person | {name}? The {role}, off at {where}. Tell them I said hello, or better, don't.
+trickster/CN | about_person | Oh, {name}. The {role}, at {where}. Why, what do you want with them?
+trickster/CN | about_place | Yes, {about}. Go on, then, break a leg.
+trickster/CN | about_place | You mean {about}? Right. That's all of it, every crumb.
+trickster/CN | surroundings | You're in {here}. The nearest is {nearest}[, then {others}].[ And the {danger}, so watch your step, or don't, it's your step.]
+trickster/CN | surroundings | Ah, {here}, and the stage is set! The nearest is {nearest}[, then {others}].[ Mind the {danger}, they don't clap.]
+trickster/CN | surroundings | Right, {here}, that's us. The nearest is {nearest}[, and past it, {others}].[ Keep clear of the {danger}, magpie; no encores.]
+trickster/CN | surroundings | The nearest is {nearest}[, and then {others}].[ Oh, and mind the {danger}.]
+trickster/CN | surroundings | Well, the nearest is {nearest}[, then {others}].[ Watch the {danger}, and I mean watch.]
+trickster/CN | work_own | I don't do causes, I do people, and you'll do: {own}.[ Don't fancy it? {others}.]
+trickster/CN | work_own | You, boots, yes, you: {own}.[ Or, if you're boring, {others}.]
+trickster/CN | work_own | I've a part for you in a little play: {own}.[ Or audition elsewhere: {others}.]
+trickster/CN | work_others | Me? Nothing. But {others}.
+trickster/CN | work_others | Not mine to hand out, magpie, but {others}, and good luck with that lot.
+trickster/CN | work_none | Nothing, not a scrap, and I'd have nicked it if there were.
+trickster/CN | work_none | None going, not a sniff, and nobody hides work from me.
+trickster/CN | unknown | No idea, and I'd tell you, probably.
+trickster/CN | unknown | Never heard of it, and believe me, I'd have stolen the story by now.
+trickster/CN | refused_give | Not from me, magpie; that's {giver}'s, and I only hand out what I've taken fair and square.
+trickster/CN | refused_give | No, no, no, that's {giver}'s, and I'm not lifting it off them for you.
+trickster/CN | refused_give | That's not mine, not even a little bit.
+trickster/CN | refused_release | I can't cut you loose from {giver}'s string; I didn't tie it.
+trickster/CN | refused_release | I won't, and don't look at me like that; {giver} holds that leash, not me.
+trickster/CN | refused_release | I cannot, and would not, and there's a whole speech about why, but you'd yawn.
+trickster/CN | refused | No, {reason}, and not even I can talk my way round that.
+trickster/CN | refused | I can't, {reason}; curtain down, show's over.
+trickster/CN | accepted | Good, and don't tell me how you'll do it; surprise me.
+trickster/CN | accepted | Done, and done, and I'm holding you to it.
+trickster/CN | accepted | Then it's agreed, curtain up.
+trickster/CN | declined | Suit yourself, more fun for me.
+trickster/CN | declined | Fair enough, no one ever said you had taste.
+trickster/CN | declined | As you wish, your loss.
+trickster/CN | abandoned | A pity, and it was just getting interesting.
+trickster/CN | abandoned | So be it; exit, pursued by nobody in particular.
+trickster/CN | abandoned | Then it's done, and I'll pretend I'm not hurt.
+trickster/CN | parted | Farewell, and do check your pockets, just for fun.
+trickster/CN | parted | Go well, and don't do anything I'd do.
+trickster/CN | parted | Take care, and exit with a flourish, would you?
+trickster/CN | not_understood | What do you mean, and could you act it out?
+trickster/CN | not_understood | I'm not sure what you mean, and I'm usually two steps ahead.
+trickster/CN | not_understood | That's beyond me, magpie, and not much is.
+
+# ---- trickster/NG ----
+trickster/NG | about_self | I'm {speaker}, {post} of {place}. Now, what do you need first, and what can we borrow to get it?
+trickster/NG | about_self | {speaker}, {post} of {place}. Is anyone with you, or is it just you?
+trickster/NG | about_self | You can call me {speaker}; I'm {post} of {place}. And you are?
+trickster/NG | about_person | That's {name}, the {role}, at {where}. If you see them, ask how they're keeping, would you?
+trickster/NG | about_person | Ah, {name}, the {role}, at {where}. Be decent to them; I'd count it a favour.
+trickster/NG | about_place | It's {about}. Go carefully, and let me know how you find it.
+trickster/NG | about_place | You mean {about}. That's all I have, I'm sorry to say.
+trickster/NG | surroundings | You're in {here}. The nearest is {nearest}[, and past that, {others}].[ Please mind the {danger}; I'd rather see you back.]
+trickster/NG | surroundings | This is {here}, and the closest is {nearest}.[ After that, {others}.][ Keep well clear of the {danger}, will you?]
+trickster/NG | surroundings | Right, you're standing in {here}. The nearest is {nearest}[, then {others}].[ Watch yourself around the {danger}.]
+trickster/NG | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Do mind the {danger}.]
+trickster/NG | surroundings | Nothing's closer than {nearest}[, then {others}].[ Go carefully near the {danger}.]
+trickster/NG | work_own | You'd help me a great deal with this: {own}.[ If not, {others}, and no hard feelings.]
+trickster/NG | work_own | I've something that needs doing, if you're willing: {own}.[ Or, if it suits you better, {others}.]
+trickster/NG | work_own | Could you lend a hand with this: {own}?[ Otherwise, {others}.]
+trickster/NG | work_others | Sadly, nothing of mine, but {others}.
+trickster/NG | work_others | Here's who's hiring, since I'm not: {others}.
+trickster/NG | work_none | There's nothing going, I'm afraid, and I wish I had better news.
+trickster/NG | work_none | No work that I know of, but if I hear of any, you'll be the first I tell.
+trickster/NG | unknown | I don't know, and I won't make something up, even a kind something.
+trickster/NG | unknown | I've never heard of it, but I'll keep an ear out for you.
+trickster/NG | refused_give | No, that's {giver}'s to give, and I won't take it out from under them.
+trickster/NG | refused_give | Not from me, I'm sorry; it's {giver}'s, and I'd not do that to them.
+trickster/NG | refused_give | That's not mine to give, and I won't hand you someone else's.
+trickster/NG | refused_release | I can't, it's {giver}'s bargain, and only they can let you out of it.
+trickster/NG | refused_release | I won't go behind {giver}'s back, not even for you.
+trickster/NG | refused_release | I cannot undo another's bargain, much as I'd like to help.
+trickster/NG | refused | No, {reason}, and I'm sorry for it.
+trickster/NG | refused | I can't, {reason}; if there were a way round it, I'd have found it for you.
+trickster/NG | accepted | Thank you. I mean it; you've saved me a headache.
+trickster/NG | accepted | Good, and look after yourself out there.
+trickster/NG | accepted | Then it's agreed, and I won't forget it.
+trickster/NG | declined | Fair enough, it's not for everyone.
+trickster/NG | declined | Suit yourself, and no harm done.
+trickster/NG | declined | As you wish; better an honest no than a yes you don't mean.
+trickster/NG | abandoned | A pity, but I'd rather you came back whole.
+trickster/NG | abandoned | So be it, and thank you for trying.
+trickster/NG | abandoned | Then it's done, and we'll call it even, near enough.
+trickster/NG | parted | Take care of yourself, and of whoever's with you.
+trickster/NG | parted | Safe travels, and look in on anyone who needs it.
+trickster/NG | parted | Go well, and whatever you take, give back with interest.
+trickster/NG | not_understood | I'm not sure what you mean, I'm sorry; could you try that another way?
+trickster/NG | not_understood | Speak plainly, if you would; I do want to follow.
+trickster/NG | not_understood | What do you mean by that, exactly?
+
+# ---- trickster/LG ----
+trickster/LG | about_self | I am {speaker}, {post} of {place}. Tell me first how you fare, and then what you need.
+trickster/LG | about_self | My name is {speaker}, and I have the honour to be {post} of {place}. If anyone has wronged you, I should like to hear of it.
+trickster/LG | about_self | You are speaking with {speaker}, {post} of {place}. Forgive the formality; I find it keeps everyone honest.
+trickster/LG | about_person | That is {name}, the {role}, at {where}. Should you see them, please give them my regards.
+trickster/LG | about_person | You ask after {name}, the {role}, at {where}. I hope they are well; do tell me if they are not.
+trickster/LG | about_place | What I know of it is this: {about}. Forgive me for not knowing more; I will not swear to what I have not seen.
+trickster/LG | about_place | Ah, {about}. Go carefully, and should anyone there need help, I would be glad to know of it.
+trickster/LG | surroundings | You stand in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I must ask you to keep clear of the {danger}.]
+trickster/LG | surroundings | This is {here}. The nearest is {nearest}[, and after it, {others}].[ Please take care near the {danger}; I would not see you hurt.]
+trickster/LG | surroundings | Let me set it out for you: we are in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Do mind the {danger}; they take no notice of petitions.]
+trickster/LG | surroundings | The nearest is {nearest}.[ After that, {others}.][ I must ask you to keep clear of the {danger}.]
+trickster/LG | surroundings | As best I can tell you, the nearest is {nearest}[, and then {others}].[ Please take care near the {danger}.]
+trickster/LG | work_own | If you are willing, I have a matter that wants a steady hand: {own}.[ Should that not suit, {others}.]
+trickster/LG | work_own | I would be grateful for your help: {own}.[ If not, {others}, and I wish you well of it.]
+trickster/LG | work_own | Here is a chance to show me your standing: {own}.[ Or, if you prefer, {others}.]
+trickster/LG | work_others | I have nothing of my own to offer, I am sorry to say, but {others}.
+trickster/LG | work_others | My own hands are empty, but I can point you onward: {others}.
+trickster/LG | work_none | Forgive me, but I have no work to give, and I know of none.
+trickster/LG | work_none | No work that I know of, and I will not invent some to seem useful.
+trickster/LG | unknown | I know nothing of it, and I will not guess; you deserve better than a guess.
+trickster/LG | unknown | I couldn't tell you, and I would sooner admit it than mislead you.
+trickster/LG | refused_give | No, that task is {giver}'s, and it lies outside my office to give it; forgive me.
+trickster/LG | refused_give | I cannot hand you {giver}'s work, though I would gladly speak for you to them.
+trickster/LG | refused_give | That's not mine to give, and I will not give what is not mine.
+trickster/LG | refused_release | I can't release you from {giver}'s terms; only {giver} can, and I would not presume.
+trickster/LG | refused_release | I won't set aside {giver}'s bargain, though I will read it through with you for loopholes, if you like.
+trickster/LG | refused_release | Not from me; I have no standing to release you from another's bargain, and I am sorry for it.
+trickster/LG | refused | No, {reason}, and no precedent I know of says otherwise.
+trickster/LG | refused | I cannot, {reason}, and I will not mislead you about it.
+trickster/LG | accepted | Thank you. I will hold myself bound to you as you are to me.
+trickster/LG | accepted | Then it's agreed, and I am in your debt.
+trickster/LG | accepted | Very good. I shall want to hear how you fare.
+trickster/LG | declined | Very well, and thank you for saying so honestly.
+trickster/LG | declined | As you wish; there is no dishonour in a plain no.
+trickster/LG | declined | Fair enough, and forgive me for asking so much of you.
+trickster/LG | abandoned | So be it; you have told me plainly, and that counts for something.
+trickster/LG | abandoned | A pity, but I hold nothing against you for it.
+trickster/LG | abandoned | Then it's done; I release you, and I hope you are unharmed.
+trickster/LG | parted | Go well, and if anyone cheats you, bring me the papers.
+trickster/LG | parted | Safe travels, and look after those who travel with you.
+trickster/LG | parted | Take care, good stranger; you will always have a fair hearing here.
+trickster/LG | not_understood | I don't follow, I beg your pardon; would you put it another way?
+trickster/LG | not_understood | Speak plainly, if you would be so kind; I should hate to misread you.
+trickster/LG | not_understood | I'm not sure what you mean, and I would rather ask than assume.
+
+# ---- trickster/CG ----
+trickster/CG | about_self | I'm {speaker}, {post} of {place}! Forgive the flourish. And you are?
+trickster/CG | about_self | Oh, company! I'm {speaker}, {post} of {place}. Anything you need?
+trickster/CG | about_self | They call me {speaker}, and some days I answer; {post} of {place}, more or less. Are you all right, by the way?
+trickster/CG | about_person | {name}? Oh, the {role}, at {where}. Is {name} all right, do you know?
+trickster/CG | about_person | Ah, {name}, the {role}, at {where}! Give them my best, and if they need anything, come and find me.
+trickster/CG | about_place | It's {about}. Mind how you go, and forgive me, that's all I've got.
+trickster/CG | about_place | Well, well, {about}! Go and have a look, then come back and tell me everything.
+trickster/CG | surroundings | Right, this is {here}! The nearest is {nearest}[, then {others}].[ And the {danger}, so do be careful, starling.]
+trickster/CG | surroundings | Welcome to {here}! The nearest is {nearest}[, and past that, {others}].[ Keep clear of the {danger}; I mean it.]
+trickster/CG | surroundings | Here's the gist: you're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Beware the {danger}; that's the serious bit.]
+trickster/CG | surroundings | The nearest is {nearest}.[ Then {others}.][ And mind the {danger}, won't you?]
+trickster/CG | surroundings | Only {nearest}, I'm afraid[, and after that {others}].[ Do take care near the {danger}.]
+trickster/CG | work_own | You'll love this: {own}.[ Or, if that's not your sort of show, {others}.]
+trickster/CG | work_own | Help me with something: {own}.[ No? Then {others}.]
+trickster/CG | work_own | I've a job for you, and a good one, promise: {own}.[ Otherwise, and no offence taken, {others}.]
+trickster/CG | work_others | Nothing of mine, I'm sorry, but here's the good news: {others}.
+trickster/CG | work_others | Not mine to give, sadly. {others}, and do look after yourself.
+trickster/CG | work_none | Truly, I'd give you work if I had any, and I'm sorry I don't.
+trickster/CG | work_none | No work anywhere, and believe me, I'd have pinched some for you.
+trickster/CG | unknown | No idea, sorry, and I'd tell you if I knew.
+trickster/CG | unknown | Never heard of it, and I'm cross about that; I hate not knowing.
+trickster/CG | refused_give | Not from me, starling; that's {giver}'s, and I won't pinch it off them, not even for you.
+trickster/CG | refused_give | No, that one's {giver}'s, and I'd sooner give you my own boots.
+trickster/CG | refused_give | That's not mine, I'm sorry, and even I have limits.
+trickster/CG | refused_release | I can't let you off {giver}'s hook, sorry; only {giver} can.
+trickster/CG | refused_release | I won't go round {giver}, not behind their back, not even with a wink.
+trickster/CG | refused_release | I cannot, and I'm sorry, it isn't mine to undo.
+trickster/CG | refused | No, {reason}; I'd fix it if I could, you know I would.
+trickster/CG | refused | I can't, {reason}, and oh, I did want to.
+trickster/CG | accepted | Good! Oh, good, I knew you would.
+trickster/CG | accepted | Thank you, truly. Now go and be magnificent, and come back in one piece.
+trickster/CG | accepted | Done! Do try not to get killed; it would ruin the second act.
+trickster/CG | declined | Fair enough, no harm done, and no hard feelings, promise.
+trickster/CG | declined | Suit yourself, but do look after yourself.
+trickster/CG | declined | As you wish, and I'm sorry if I pushed.
+trickster/CG | abandoned | A pity, but I'd rather have you than the job done.
+trickster/CG | abandoned | So be it, no shame in it, and none from me.
+trickster/CG | abandoned | Then it's done, and the show goes on without you, sadly.
+trickster/CG | parted | Farewell, starling, and give back whatever you've pocketed.
+trickster/CG | parted | Go well, and look after whoever needs it.
+trickster/CG | parted | Take care, and if anyone gives you trouble, send them to me.
+trickster/CG | not_understood | What do you mean, and slower, please, I'm easily dazzled.
+trickster/CG | not_understood | I don't follow, sorry; try again with more hand-waving.
+trickster/CG | not_understood | I'm not sure what you mean, but I'd love to find out.
+
+# ---- trickster/NE ----
+trickster/NE | about_self | I'm {speaker}, {post} of {place}, and charmed, for as long as you're useful.
+trickster/NE | about_self | {speaker}, {post} of {place}. Do laugh at my jokes; it's so much healthier.
+trickster/NE | about_self | You're speaking to {speaker}, {post} of {place}. Be useful, and we'll get along until you aren't.
+trickster/NE | about_person | That's {name}, the {role}, at {where}. Such a lovely neck.
+trickster/NE | about_person | Ah, {name}, the {role}, at {where}. I find them useful, for now.
+trickster/NE | about_place | It's {about}. Go and look, by all means; I'll wait to hear how it ends.
+trickster/NE | about_place | You mean {about}. That's a kindness, and I count every one.
+trickster/NE | surroundings | You're in {here}, obviously. The nearest is {nearest}[, then {others}].[ Mind the {danger}; I'd hate to lose you before you're useful.]
+trickster/NE | surroundings | This is {here}, for all it's worth. The nearest is {nearest}[, and after that, {others}].[ Do go near the {danger}, if you're bored of living.]
+trickster/NE | surroundings | Since you ask so nicely, you're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ The {danger} would love to meet you.]
+trickster/NE | surroundings | The nearest is {nearest}.[ Then {others}.][ The {danger} would love to meet you.]
+trickster/NE | surroundings | If you must know, the nearest is {nearest}[, and then {others}].[ Mind the {danger}, or don't; it's all the same to me.]
+trickster/NE | work_own | You'll do, for now: {own}.[ Or, if that frightens you, {others}.]
+trickster/NE | work_own | I have a use for you: {own}.[ If that's beneath you, {others}.]
+trickster/NE | work_own | Here's a chance to be useful: {own}.[ Otherwise, {others}, and good riddance.]
+trickster/NE | work_others | Nothing from me, but {others}, if you're that desperate.
+trickster/NE | work_others | I've no use for you myself. {others}, and welcome to them.
+trickster/NE | work_none | No work, and even if there were, I'd want someone better.
+trickster/NE | work_none | None, which saves me the trouble of turning you down.
+trickster/NE | unknown | I don't know, and I don't care to.
+trickster/NE | unknown | Never heard of it, which tells you how much it matters.
+trickster/NE | refused_give | No, that's {giver}'s, and I don't hand out other people's rope.
+trickster/NE | refused_give | Not from me; {giver} owns that one, and {giver} can keep it.
+trickster/NE | refused_give | That's not mine, and I give away nothing, least of all what isn't mine.
+trickster/NE | refused_release | I can't, and I wouldn't; that's between you and {giver}, and I'll enjoy watching.
+trickster/NE | refused_release | I won't lift a finger against {giver}'s claim for your sake.
+trickster/NE | refused_release | No, you made your bed, so lie in it.
+trickster/NE | refused | No, {reason}, and I'd laugh if it weren't so dull.
+trickster/NE | refused | I can't, {reason}, and your disappointment is noted.
+trickster/NE | accepted | Good. If you fail me, you'll be the punchline.
+trickster/NE | accepted | Done. I'll be watching, and I remember everything.
+trickster/NE | accepted | Then it's agreed. Do try to be worth the trouble.
+trickster/NE | declined | Suit yourself, I'll remember the face.
+trickster/NE | declined | As you wish; I'll find someone with a spine.
+trickster/NE | declined | Fair enough, you were never going to be much use.
+trickster/NE | abandoned | So be it; I'll add it to your tally.
+trickster/NE | abandoned | A pity, you were almost useful.
+trickster/NE | abandoned | Then it's done, and so, as far as I'm concerned, are you.
+trickster/NE | parted | Farewell, and do keep your neck clean; one never knows.
+trickster/NE | parted | Go well, while it lasts.
+trickster/NE | parted | Take care; I'd hate for anything to happen to you before I've finished with you.
+trickster/NE | not_understood | I'm not sure what you mean, and I suspect that's your fault.
+trickster/NE | not_understood | Speak plainly, or I'll take it as an insult, and I answer insults.
+trickster/NE | not_understood | What do you mean, and do choose your words carefully.

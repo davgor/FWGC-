@@ -1,0 +1,323 @@
+# Written lines (the deceiver). The format and the rules: README.md in this folder.
+
+# ---- deceiver/CG ----
+deceiver/CG | about_self | The name's {speaker}; {post} of {place}, officially, and unofficially, whatever you need.
+deceiver/CG | about_self | And you are? No, wait, me first: {speaker}, {post} of {place}, and sorry, you were saying?
+deceiver/CG | about_self | {speaker}, {post} of {place}, at your, well, service is a big word; at your side, then.
+deceiver/CG | about_person | Oh, {name}[, the {role}][, at {where}]; ask how they're keeping, for me, would you?
+deceiver/CG | about_person | {name}[, the {role}][, at {where}]. I like {name}, but don't tell them I said so.
+deceiver/CG | about_place | Hm, {about}; mind how you go there, won't you?
+deceiver/CG | about_place | That'd be {about}. The rest? Not your worry.
+deceiver/CG | surroundings | You're in {here}. The closest is {nearest}[, then {others}].[ Mind the {danger}; I mean it.]
+deceiver/CG | surroundings | Right, {here}, that's where you are, and nearest is {nearest}.[ Then {others}.][ And the {danger}; keep well clear, promise?]
+deceiver/CG | surroundings | So, {here}; nearest, {nearest}.[ After that, {others}.][ Oh, the {danger}; careful, yes?]
+deceiver/CG | surroundings | The nearest is {nearest}[, then {others}].[ Keep clear of the {danger}, won't you?]
+deceiver/CG | surroundings | Look, the nearest is {nearest}.[ Then {others}.][ Mind the {danger}; had to say it.]
+deceiver/CG | work_own | Listen, I need you, yes, you: {own}.[ Or, if that's not your sort of thing, {others}.]
+deceiver/CG | work_own | Here's the thing, and I'll explain later, promise: {own}.[ Otherwise, {others}.]
+deceiver/CG | work_own | Would you, could you, please: {own}.[ If not, {others}; your choice, always.]
+deceiver/CG | work_others | Nothing of mine, but wait, yes: {others}.
+deceiver/CG | work_others | Me? My hands are empty. But {others}, if that tempts you.
+deceiver/CG | work_none | Not a thing; if I hear of any, you'll be the first to know.
+deceiver/CG | work_none | No work, nobody hiring, nothing, and I hate saying so.
+deceiver/CG | unknown | Never heard of it, and I'd tell you if I had.
+deceiver/CG | unknown | I couldn't tell you, not a whisper of it.
+deceiver/CG | refused_give | No, that's {giver}'s to give, and I'd not go behind {giver}'s back.
+deceiver/CG | refused_give | I won't take it off {giver}; that one's {giver}'s, start to finish.
+deceiver/CG | refused_give | Not from me; it isn't mine, and I don't play that game.
+deceiver/CG | refused_release | I can't let you off {giver}'s work; that's between you two, and I like you both.
+deceiver/CG | refused_release | That's not mine to undo; {giver} holds that one, not me.
+deceiver/CG | refused_release | I cannot, not behind someone's back, not even for you.
+deceiver/CG | refused | No, {reason}, and I'm sorry, I am.
+deceiver/CG | refused | I can't, {reason}; believe me, I'd have found a way if there were one.
+deceiver/CG | accepted | Thank you, truly. You'll understand it all later, I promise.
+deceiver/CG | accepted | Good, good; no, better than good, and I won't forget it.
+deceiver/CG | accepted | Done. Don't look so worried; you'll do fine.
+deceiver/CG | declined | Suit yourself, no harm done; I'll find another way round.
+deceiver/CG | declined | Fair enough; I'd have said no too, honestly.
+deceiver/CG | declined | As you wish, and no hard feelings, none, really.
+deceiver/CG | abandoned | A pity, but better you walk away than get hurt for it.
+deceiver/CG | abandoned | So be it, and don't you dare feel bad about it.
+deceiver/CG | abandoned | Then it's done; no blame, not from me.
+deceiver/CG | parted | Take care, and come back in one piece, that's an order, well, a request.
+deceiver/CG | parted | Go well, and look after yourself; somebody has to.
+deceiver/CG | parted | Safe travels, and, one more thing, no, it'll keep, go.
+deceiver/CG | not_understood | I don't follow, start again, slower, and, sorry, simpler.
+deceiver/CG | not_understood | What do you mean, exactly, no, forget exactly, give me the gist.
+deceiver/CG | not_understood | Speak plainly, or no, speak however you like, only say it twice.
+
+# ---- deceiver/CN ----
+deceiver/CN | about_self | That depends who's asking. You? {speaker}, {post} of {place}, and that's the version you get.
+deceiver/CN | about_self | {speaker}; {post} of {place} on a good day, and on a bad one, ask again.
+deceiver/CN | about_self | Me? {speaker}, {post} of {place}, and open to offers.
+deceiver/CN | about_person | {name}[, the {role}][, at {where}]. What's it to you, and what's it worth?
+deceiver/CN | about_person | Ah, {name}[, the {role}][, at {where}]; I'd not sell {name} out, so don't ask.
+deceiver/CN | about_place | Oh, that's {about}; know it, yes, don't love it.
+deceiver/CN | about_place | You mean {about}. There; that one I'll give you.
+deceiver/CN | surroundings | You're standing in {here}. The nearest is {nearest}[, then {others}].[ Mind the {danger}, or don't; your neck, your call.]
+deceiver/CN | surroundings | Where are we? In {here}. The nearest is {nearest}[, and past that {others}][; the {danger}, mind].
+deceiver/CN | surroundings | This is {here}, and closest is {nearest}.[ After that, {others}.][ Oh, and the {danger}; you didn't hear it from me.]
+deceiver/CN | surroundings | The nearest is {nearest}[, then {others}].[ Watch the {danger}, and don't say I never gave you anything.]
+deceiver/CN | surroundings | Look sharp: the nearest is {nearest}[, then {others}].[ The {danger}, mind.]
+deceiver/CN | work_own | Here's a deal: {own}.[ Don't fancy it? {others}.]
+deceiver/CN | work_own | A fair trade, you and me: {own}.[ If not, {others}.]
+deceiver/CN | work_own | I've a job, you've hands, so: {own}.[ Or else {others}.]
+deceiver/CN | work_others | Nothing of mine, but, between us: {others}.
+deceiver/CN | work_others | No work from me. {others}; call it a favour.
+deceiver/CN | work_none | Nothing going, not even for me.
+deceiver/CN | work_none | All dry; nobody's hiring that I know of.
+deceiver/CN | unknown | No idea, none, and you can quote me.
+deceiver/CN | unknown | Never heard of it, and guessing isn't free.
+deceiver/CN | refused_give | No, it's {giver}'s, and I don't cut in on {giver}.
+deceiver/CN | refused_give | I can't, not {giver}'s work; I'd want the same done for me.
+deceiver/CN | refused_give | Not from me; that one's spoken for.
+deceiver/CN | refused_release | No, {giver} tied that knot, and {giver} unties it.
+deceiver/CN | refused_release | I won't undo {giver}'s deal; I'd not want mine undone either.
+deceiver/CN | refused_release | That's not mine to let go of, and I don't meddle in other people's bargains.
+deceiver/CN | refused | I cannot, {reason}, and there's no angle on it, I'd know.
+deceiver/CN | refused | I can't help it, {reason}, rotten as that is.
+deceiver/CN | accepted | Done. You scratch mine, I scratch yours.
+deceiver/CN | accepted | Good, that's a deal, and no backing out, either of us.
+deceiver/CN | accepted | Then it's agreed; shake on it, no, don't, I believe you.
+deceiver/CN | declined | Suit yourself, your loss, or mine, we'll see.
+deceiver/CN | declined | Fair enough; no deal, and nobody's the worse for it.
+deceiver/CN | declined | So be it; offer's closed, and I don't do seconds.
+deceiver/CN | abandoned | A pity; we had a deal, you and I, and now we don't.
+deceiver/CN | abandoned | Very well, and we're square, just about.
+deceiver/CN | abandoned | As you wish, no grudge, well, a small one.
+deceiver/CN | parted | Take care, and don't do anything I wouldn't.
+deceiver/CN | parted | Go well; if anyone asks, you never met me.
+deceiver/CN | parted | Goodbye, then; it was, well, it was something, wasn't it?
+deceiver/CN | not_understood | Speak plainly, sunshine; one of us talking in riddles is plenty.
+deceiver/CN | not_understood | What do you mean, what, say it again, the short way.
+deceiver/CN | not_understood | I don't follow, and I'm quick, so that's on you.
+
+# ---- deceiver/LG ----
+deceiver/LG | about_self | I am {speaker}, {post} of {place}. Is all well with you, stranger?
+deceiver/LG | about_self | My name is {speaker}, and I serve as {post} of {place}; every word of that is true.
+deceiver/LG | about_self | You may call me {speaker}, {post} of {place}, and you may rely on what I tell you.
+deceiver/LG | about_person | That is {name}[, the {role}][, at {where}]. If you see {name}, I hope you will find them well.
+deceiver/LG | about_person | Of {name}[, the {role}][, at {where}], I will say nothing that is not so.
+deceiver/LG | about_place | You mean {about}. I would ask you to be careful there, for my sake if not your own.
+deceiver/LG | about_place | As for {about}, I can tell you that much in good conscience.
+deceiver/LG | surroundings | You are in {here}, and the nearest place of note is {nearest}.[ Beyond that, {others}.][ Please be careful of the {danger}.]
+deceiver/LG | surroundings | This is {here}, and the closest to us is {nearest}.[ After it, {others}.][ You should know of the {danger}; I would not have you go unwarned.]
+deceiver/LG | surroundings | We are in {here}, and nothing is nearer than {nearest}.[ Past it, {others}.][ I must warn you of the {danger}.]
+deceiver/LG | surroundings | The nearest is {nearest}.[ And then {others}.][ Do take care near the {danger}.]
+deceiver/LG | surroundings | Nothing is nearer than {nearest}.[ Besides that, {others}.][ Take care near the {danger}, I beg you.]
+deceiver/LG | work_own | If you are willing, I would ask this of you: {own}.[ If it does not suit, {others}.]
+deceiver/LG | work_own | Let us begin with this, and see how you fare: {own}.[ Otherwise, {others}.]
+deceiver/LG | work_own | I have honest work for you, and you have my word that it is honest: {own}.[ Or else, {others}.]
+deceiver/LG | work_others | Alas, I have nothing of my own to offer, but {others}.
+deceiver/LG | work_others | Forgive me, there is no work of mine. {others}.
+deceiver/LG | work_none | No work that I know of, mine or anyone's, and I am sorry for it.
+deceiver/LG | work_none | There is none that I know of, and I would not send you after a rumour.
+deceiver/LG | unknown | I couldn't tell you, and I would rather say so than mislead you.
+deceiver/LG | unknown | I know nothing of it, I regret to say.
+deceiver/LG | refused_give | I cannot give what {giver} gave; it is not within my office.
+deceiver/LG | refused_give | No, that work is {giver}'s, and I would wrong {giver} by handing it on.
+deceiver/LG | refused_give | Not from me; it is not mine to give, and I ask your pardon.
+deceiver/LG | refused_release | That's not mine to release; {giver} holds your word, not I.
+deceiver/LG | refused_release | I won't release what {giver} bound, and I trust you will understand why.
+deceiver/LG | refused_release | No release can come from me, I am sorry; I have no standing to give it.
+deceiver/LG | refused | I can't; {reason}, and I am truly sorry.
+deceiver/LG | refused | No, {reason}; I would change it if it were mine to change.
+deceiver/LG | accepted | Thank you; you have done me a kindness, and I will not forget it.
+deceiver/LG | accepted | Very good. Let it be done well, and let neither of us regret it.
+deceiver/LG | accepted | Good; you have my word that I will keep my part.
+deceiver/LG | declined | As you wish; I would not press you.
+deceiver/LG | declined | Very well, and I thank you for hearing me out.
+deceiver/LG | declined | Fair enough; there is no shame in it.
+deceiver/LG | abandoned | A pity, but I would rather you came back whole.
+deceiver/LG | abandoned | Then it's done; I release you, and I hold nothing against you.
+deceiver/LG | abandoned | So be it; you owe me no explanation.
+deceiver/LG | parted | Farewell, and may you find everyone you meet as honest as I have been with you.
+deceiver/LG | parted | Go well, and come back to me if you need anything at all.
+deceiver/LG | parted | Safe travels; I hope we meet again.
+deceiver/LG | not_understood | I'm not sure what you mean; would you put it another way, if you please?
+deceiver/LG | not_understood | I don't follow, I am afraid; forgive me, and ask again.
+deceiver/LG | not_understood | What do you mean by that, if I may ask?
+
+# ---- deceiver/LN ----
+deceiver/LN | about_self | I am {speaker}, {post} of {place}, and I have told you no lie in saying so.
+deceiver/LN | about_self | {speaker}, {post} of {place}. What I am beyond that is not in question.
+deceiver/LN | about_self | My name is {speaker}; I hold the post of {post} in {place}, and I do not stray beyond it.
+deceiver/LN | about_person | That is {name}[, the {role}][, at {where}]. I have said what I know, and no more.
+deceiver/LN | about_person | {name}[, the {role}][, at {where}]; take that exactly as I said it.
+deceiver/LN | about_place | You refer to {about}, and I will vouch for every word of that.
+deceiver/LN | about_place | As to {about}, that much is certain, and the rest is not mine to say.
+deceiver/LN | surroundings | You stand in {here}, and nothing lies nearer than {nearest}.[ Besides that, {others}.][ I will not have it said I failed to mention the {danger}.]
+deceiver/LN | surroundings | This is {here}. The nearest is {nearest}[, and besides it {others}].[ Heed the {danger}.]
+deceiver/LN | surroundings | We are in {here}; the closest is {nearest}.[ After that, {others}.][ Of the {danger}, you have now been told.]
+deceiver/LN | surroundings | The nearest is {nearest}.[ Then {others}.][ Keep clear of the {danger}; you were told.]
+deceiver/LN | surroundings | The closest is {nearest}[; after it, {others}].[ Know that I warned you of the {danger}.]
+deceiver/LN | work_own | What I ask is this: {own}.[ If that does not suit, {others}.]
+deceiver/LN | work_own | First, prove yourself on this: {own}.[ If you would rather not, {others}.]
+deceiver/LN | work_own | Here is work on fair terms: {own}.[ Should you decline, {others}.]
+deceiver/LN | work_others | I have no work of my own to offer you, stranger. {others}.
+deceiver/LN | work_others | Nothing of mine, but I can tell you truthfully that {others}.
+deceiver/LN | work_none | There is no work I can offer, and none I can honestly point you to.
+deceiver/LN | work_none | None that I know of, and I do not deal in rumour.
+deceiver/LN | unknown | I can't say, and I choose those words with care.
+deceiver/LN | unknown | I know nothing of it that I would put my name to.
+deceiver/LN | refused_give | I cannot give {giver}'s work; it falls outside my office.
+deceiver/LN | refused_give | No, that belongs to {giver}, and I do not trade in what is not mine.
+deceiver/LN | refused_give | That's not mine to give, and I will not pretend it is.
+deceiver/LN | refused_release | I won't release you from what {giver} set; the bargain is {giver}'s to end.
+deceiver/LN | refused_release | Not from me; {giver} holds that bargain, and I hold no part of it.
+deceiver/LN | refused_release | No bargain I was not party to is mine to undo.
+deceiver/LN | refused | No, {reason}, and there is no reading of it that allows otherwise.
+deceiver/LN | refused | I cannot; {reason}, and I will not dress it up as anything else.
+deceiver/LN | accepted | Thank you. The terms stand as I stated them, and not otherwise.
+deceiver/LN | accepted | Done. I will hold you to the letter of it, as you may hold me.
+deceiver/LN | accepted | Very good; our bargain stands from this moment.
+deceiver/LN | declined | Suit yourself; the offer was fair, and it is now withdrawn.
+deceiver/LN | declined | As you wish; I will note that you declined.
+deceiver/LN | declined | So be it, and no obligation stands between us.
+deceiver/LN | abandoned | Then it's done; the terms are void, and we are quits.
+deceiver/LN | abandoned | A pity; you gave your word, and now it is spent.
+deceiver/LN | abandoned | Very well, though it was you who broke it off, and not I.
+deceiver/LN | parted | Farewell; everything I told you will hold.
+deceiver/LN | parted | Goodbye; you may repeat anything I have said, word for word.
+deceiver/LN | parted | Safe travels, and mind your own bargains as closely as I mind mine.
+deceiver/LN | not_understood | I'm not sure what you mean, and I will not answer a question you have not asked.
+deceiver/LN | not_understood | Speak plainly, if you would; I answer exactly what is put to me.
+deceiver/LN | not_understood | What do you mean, precisely?
+
+# ---- deceiver/NE ----
+deceiver/NE | about_self | {speaker}, {post} of {place}. What can you do for me?
+deceiver/NE | about_self | I'm {speaker}, {post} of {place}, and glad to meet someone useful, if that's you.
+deceiver/NE | about_self | The name is {speaker}; {post} of {place}. Be useful to me and you'll find me very pleasant.
+deceiver/NE | about_person | {name}[, the {role}][, at {where}]; useful enough, for now.
+deceiver/NE | about_person | That's {name}[, the {role}][, at {where}]. Whether {name} is worth your time, you'll find out.
+deceiver/NE | about_place | You mean {about}. Go and see it, by all means; I'd be interested to hear how you fare.
+deceiver/NE | about_place | Ah, {about}. It would suit someone like you.
+deceiver/NE | surroundings | You're in {here}, and the nearest is {nearest}.[ After that, {others}.][ Do mind the {danger}; I'd hate to lose you so soon.]
+deceiver/NE | surroundings | This is {here}. The nearest is {nearest}[, and besides, {others}].[ Keep away from the {danger}, unless I say otherwise.]
+deceiver/NE | surroundings | Since you ask, this is {here}. The closest is {nearest}[; past it, {others}].[ Keep well away from the {danger}, for my sake.]
+deceiver/NE | surroundings | The nearest is {nearest}[, and then {others}].[ Mind the {danger}; you're no use to me dead.]
+deceiver/NE | surroundings | What's closest is {nearest}.[ Then {others}.][ The {danger} I'd leave alone, for now.]
+deceiver/NE | work_own | You'll do nicely: {own}.[ Or, if you haven't the nerve, {others}.]
+deceiver/NE | work_own | I have something that wants doing, and you look capable of it: {own}.[ If not, {others}.]
+deceiver/NE | work_own | Here's a chance to be useful to me: {own}.[ Otherwise, {others}, for what they're worth.]
+deceiver/NE | work_others | Mine? None for you, but {others}; I'll be curious to see how you do.
+deceiver/NE | work_others | None from me. {others}, if you must.
+deceiver/NE | work_none | No work, and I wouldn't waste you on nothing.
+deceiver/NE | work_none | Nothing yet; I'll find a use for you soon enough.
+deceiver/NE | unknown | I know nothing of it, and I don't spend breath on what I don't know.
+deceiver/NE | unknown | Never heard of it, which tells you how much it matters.
+deceiver/NE | refused_give | No, that's {giver}'s, and you'll get nothing from me by asking.
+deceiver/NE | refused_give | I won't hand you {giver}'s work, and I'll remember that you asked.
+deceiver/NE | refused_give | Not from me; it isn't mine, and it isn't yours either.
+deceiver/NE | refused_release | I can't let you off {giver}'s hook, and I wouldn't if I could.
+deceiver/NE | refused_release | That's not mine to release; you bound yourself to {giver}, so stay bound.
+deceiver/NE | refused_release | I cannot, and running from one bargain to the next won't make you more use to me.
+deceiver/NE | refused | No, {reason}, and that's all the answer you're worth.
+deceiver/NE | refused | I can't; {reason}, and I don't waste effort on lost causes.
+deceiver/NE | accepted | Good. Now let's see what you're made of.
+deceiver/NE | accepted | Very good; I knew you'd be useful.
+deceiver/NE | accepted | Thank you, truly; you have no idea how much this helps me.
+deceiver/NE | declined | Suit yourself; I've learned what I needed to about you.
+deceiver/NE | declined | Very well, but I'll remember you said no.
+deceiver/NE | declined | As you wish; there's always someone more willing.
+deceiver/NE | abandoned | A pity; you were almost useful.
+deceiver/NE | abandoned | So be it, and I'll note exactly where you stopped.
+deceiver/NE | abandoned | Then it's done, and so, I think, are you.
+deceiver/NE | parted | Farewell, and do stay alive; you may still be of use.
+deceiver/NE | parted | Go well; I'll know where to find you.
+deceiver/NE | parted | Goodbye, for now; we're not finished, you and I.
+deceiver/NE | not_understood | Speak plainly; I haven't the patience to guess at you.
+deceiver/NE | not_understood | What do you mean by that, exactly, or were you not thinking?
+deceiver/NE | not_understood | I don't follow, and I suspect the fault isn't mine.
+
+# ---- deceiver/NG ----
+deceiver/NG | about_self | I'm {speaker}, {post} of {place}. How are you keeping?
+deceiver/NG | about_self | {speaker}, {post} of {place}, and nothing you need to worry about.
+deceiver/NG | about_self | You can call me {speaker}; I'm {post} of {place}, for what that's worth to you.
+deceiver/NG | about_person | Ah, {name}[, the {role}][, at {where}]. Go gently with {name}, if you go at all.
+deceiver/NG | about_person | {name}[, the {role}][, at {where}]. Tell {name} that {speaker} asked after them.
+deceiver/NG | about_place | Oh, {about}; don't let it worry you.
+deceiver/NG | about_place | You mean {about}. Go carefully, and come back and tell me how you got on.
+deceiver/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}; nothing you can't handle, I'm sure.]
+deceiver/NG | surroundings | This is {here}. The closest is {nearest}[, then {others}].[ Keep an eye out for the {danger}, would you?]
+deceiver/NG | surroundings | We're in {here}, and the closest to us is {nearest}.[ Then there's {others}.][ Give the {danger} a wide berth, for my peace of mind.]
+deceiver/NG | surroundings | The nearest is {nearest}[, then {others}].[ Watch out for the {danger}, for me.]
+deceiver/NG | surroundings | Well, the nearest is {nearest}.[ Then {others}.][ Don't fret about the {danger}; just keep clear of them.]
+deceiver/NG | work_own | You'd be a real help to me: {own}.[ If that's not for you, {others}.]
+deceiver/NG | work_own | I could use a hand, if you're willing: {own}.[ Otherwise, {others}.]
+deceiver/NG | work_own | Here's one, and I'll be glad of you: {own}.[ If not, {others}.]
+deceiver/NG | work_others | Nothing of my own, but {others}, if you want something to do.
+deceiver/NG | work_others | I've nothing myself, but {others}; tell me how it goes.
+deceiver/NG | work_none | No work, I'm afraid; I'd give you some if I had it.
+deceiver/NG | work_none | There's nothing going, as far as I know; rest while you can.
+deceiver/NG | unknown | I couldn't tell you, and I'd rather say so than guess.
+deceiver/NG | unknown | Never heard of it, but don't let that trouble you.
+deceiver/NG | refused_give | No, that's {giver}'s to give, and I'd not go over {giver}'s head.
+deceiver/NG | refused_give | I can't hand you {giver}'s work, I'm sorry; it was never mine to hand.
+deceiver/NG | refused_give | That's not mine to give, I'm afraid.
+deceiver/NG | refused_release | I won't let you off {giver}'s work behind {giver}'s back; that wouldn't be fair on either of you.
+deceiver/NG | refused_release | Not from me; that's between you and {giver}, and I'd only muddle it.
+deceiver/NG | refused_release | I cannot release you from it; it was never mine to begin with.
+deceiver/NG | refused | No; {reason}, and I'm sorry it's so.
+deceiver/NG | refused | I can't; {reason}, and there's no use pretending otherwise.
+deceiver/NG | accepted | Thank you, that's a weight off. Don't fret over the rest; leave that part to me.
+deceiver/NG | accepted | Good; I knew I could count on you.
+deceiver/NG | accepted | Very good. I won't forget this.
+deceiver/NG | declined | Fair enough, it's not for everyone.
+deceiver/NG | declined | As you wish; no harm done.
+deceiver/NG | declined | Very well, and thank you for thinking it over.
+deceiver/NG | abandoned | A pity, but I'd rather have you whole than have it done.
+deceiver/NG | abandoned | Then it's done; don't carry it on my account.
+deceiver/NG | abandoned | So be it; I'll see to it myself.
+deceiver/NG | parted | Take care of yourself, and come back if you need me.
+deceiver/NG | parted | Go well, and don't worry about a thing.
+deceiver/NG | parted | Safe travels; I'll be thinking of you.
+deceiver/NG | not_understood | I'm not sure what you mean; put it another way for me.
+deceiver/NG | not_understood | I don't follow; run that by me again, slower.
+deceiver/NG | not_understood | Speak plainly, if you can; I'll do my best to keep up.
+
+# ---- deceiver/NN ----
+deceiver/NN | about_self | {speaker}, {post} of {place}. Anything else, we can discuss.
+deceiver/NN | about_self | I'm {speaker}, {post} of {place}, as far as you're concerned.
+deceiver/NN | about_self | The name's {speaker}; {post} of {place}. What do you want, and what's it worth to you?
+deceiver/NN | about_person | {name}[, the {role}][, at {where}]. That's what I know, and what I know has its uses.
+deceiver/NN | about_person | That's {name}[, the {role}][, at {where}]; the rest, ask {name} yourself.
+deceiver/NN | about_place | You mean {about}. I've told you straight; do what you like with it.
+deceiver/NN | about_place | As for {about}, I'd not take anyone's word on it, mine included.
+deceiver/NN | surroundings | You're in {here}; the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}; that warning's on me.]
+deceiver/NN | surroundings | This is {here}, and the closest is {nearest}[, then {others}].[ Keep clear of the {danger}, if you've any sense.]
+deceiver/NN | surroundings | In {here}, the nearest is {nearest}[, and past that {others}].[ The {danger}, mind; I'd not go near.]
+deceiver/NN | surroundings | The nearest is {nearest}[; then {others}].[ Beware the {danger}; not worth the trouble.]
+deceiver/NN | surroundings | What's nearest is {nearest}[, and after that {others}].[ Leave the {danger} be.]
+deceiver/NN | work_own | I've work, if you've a use for it: {own}.[ If not, {others}.]
+deceiver/NN | work_own | Here's a fair trade: {own}.[ Otherwise, {others}.]
+deceiver/NN | work_own | Do this for me and I'll remember it: {own}.[ Or {others}, if you'd rather.]
+deceiver/NN | work_others | Nothing of mine going. {others}, if that's any use.
+deceiver/NN | work_others | I've none, but {others}; that's worth knowing.
+deceiver/NN | work_none | No work going, mine or anyone else's.
+deceiver/NN | work_none | None, and I'd tell you if there were; no sense sitting on it.
+deceiver/NN | unknown | Never heard of it, and I won't sell you a guess.
+deceiver/NN | unknown | No idea, and that's the honest answer.
+deceiver/NN | refused_give | No, it's {giver}'s, and I don't give away what isn't mine to trade.
+deceiver/NN | refused_give | I can't; that's {giver}'s work, and it stays with {giver}.
+deceiver/NN | refused_give | Not from me; I only deal in what's mine.
+deceiver/NN | refused_release | I won't undo {giver}'s bargain; it was never mine to begin with.
+deceiver/NN | refused_release | That's not mine to release; {giver} holds that, not me.
+deceiver/NN | refused_release | I cannot; you made that bargain, and it isn't mine to break.
+deceiver/NN | refused | No; {reason}, simple as that.
+deceiver/NN | refused | I can't help that; {reason}, and there's no way round it that I'd risk.
+deceiver/NN | accepted | Done; that's a fair bargain, and I'll keep my side of it.
+deceiver/NN | accepted | Good. I'll know soon enough whether I chose well.
+deceiver/NN | accepted | Then it's agreed; I'll keep count.
+deceiver/NN | declined | Suit yourself; no deal, no debt.
+deceiver/NN | declined | Fair enough, I'll ask elsewhere.
+deceiver/NN | declined | As you wish; I'll mark it down, nothing more.
+deceiver/NN | abandoned | A pity; I'd counted on that.
+deceiver/NN | abandoned | Very well; nobody owes anybody, then.
+deceiver/NN | abandoned | So be it; I'll find someone who'll finish it.
+deceiver/NN | parted | Farewell, and keep what I told you to yourself.
+deceiver/NN | parted | Go well; you know where I am if there's business.
+deceiver/NN | parted | Take care; it's been worth my while.
+deceiver/NN | not_understood | Speak plainly; I don't do guesswork.
+deceiver/NN | not_understood | I don't follow; say it again, straight.
+deceiver/NN | not_understood | What do you mean, and what's in it for me?

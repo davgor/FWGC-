@@ -1,0 +1,369 @@
+# Written lines (the conqueror). The format and the rules: README.md in this folder.
+
+# ---- conqueror/NN ----
+conqueror/NN | about_self | I'm {speaker}, {post} of {place}. I want a great deal, but never more than it's worth.
+conqueror/NN | about_self | {speaker}, {post} of {place}. Be worth my time and I'll be worth yours.
+conqueror/NN | about_self | You're speaking to {speaker}, {post} of {place}. I'll deal with anyone, but I don't make peace with a second crown.
+conqueror/NN | about_person | The {role} at {where}? That's {name}, someone worth knowing and not yet worth a fight.
+conqueror/NN | about_person | {name}, the {role}, at {where}. Either useful to me or in my way, and I haven't decided which.
+conqueror/NN | about_place | You mean {about}. Maybe worth having; I doubt it's worth a war.
+conqueror/NN | about_place | That's {about}. Whether it's worth the taking, I'll decide when I need to.
+conqueror/NN | surroundings | You're in {here}. Take stock: the nearest is {nearest}[, then {others}].[ Keep clear of the {danger}, unless you've a use for trouble.]
+conqueror/NN | surroundings | Here's how {here} sits: closest is {nearest}[, then {others}].[ Mind the {danger}; that's a cost with no return.]
+conqueror/NN | surroundings | This is {here}, and if you're counting, the nearest is {nearest}[, then {others}].[ I'd keep well away from the {danger}.]
+conqueror/NN | surroundings | What's closest is {nearest}[, and after that, {others}].[ A fight with the {danger} is a bad trade.]
+conqueror/NN | surroundings | Nothing closer than {nearest}, for what it's worth.[ Beyond it, {others}.][ Give a wide berth to the {danger}.]
+conqueror/NN | work_own | I've something worth your time: {own}.[ If it doesn't suit, {others}.]
+conqueror/NN | work_own | You want work, and I've got it: {own}.[ Or, if you'd rather, {others}.]
+conqueror/NN | work_own | Be useful to me and I'll remember it: {own}.[ Otherwise, {others}.]
+conqueror/NN | work_others | Somebody's hiring, just not me: {others}.
+conqueror/NN | work_others | {others}. None of it's mine, but it's there for the taking.
+conqueror/NN | work_none | No work, mine or anyone's, that I know of.
+conqueror/NN | work_none | None to give, and I won't invent some to look generous.
+conqueror/NN | unknown | I don't know it, and I won't waste breath guessing.
+conqueror/NN | unknown | No idea, and a guess would cost more than it's worth.
+conqueror/NN | refused_give | No, that's {giver}'s to give, and I've no reason to cross {giver} over it.
+conqueror/NN | refused_give | That's not mine, it's {giver}'s, and I can't give away what I don't hold.
+conqueror/NN | refused_give | I cannot, it's someone else's to give, and it isn't worth a quarrel.
+conqueror/NN | refused_release | I can't let you off {giver}'s work; that's not a ledger I keep.
+conqueror/NN | refused_release | Not from me; your bargain's with {giver}, and so is the way out of it.
+conqueror/NN | refused_release | I won't undo what I didn't agree to.
+conqueror/NN | refused | No, {reason}, and arguing won't change that.
+conqueror/NN | refused | I can't, {reason}, and no amount of talk will move it.
+conqueror/NN | accepted | Good. Do it right and we both come out ahead.
+conqueror/NN | accepted | Done. That's a fair trade, and I'll keep my side of it.
+conqueror/NN | accepted | Then it's agreed. I'll hold up my end; see that you hold up yours.
+conqueror/NN | declined | Very well, someone else will want it.
+conqueror/NN | declined | Suit yourself, no harm done.
+conqueror/NN | declined | Fair enough, the offer stood and now it doesn't.
+conqueror/NN | abandoned | So be it, I'll mark it down and find someone who finishes.
+conqueror/NN | abandoned | A pity, you were worth more to me before you dropped it.
+conqueror/NN | abandoned | Then it's done, and I'll weigh you accordingly.
+conqueror/NN | parted | Farewell, and come back when you've something to trade.
+conqueror/NN | parted | Go well, and stay useful.
+conqueror/NN | parted | Safe travels, and mind whose ground you're on.
+conqueror/NN | not_understood | I don't follow, so try it again, shorter.
+conqueror/NN | not_understood | What do you mean, and what's in it for me?
+conqueror/NN | not_understood | Speak plainly, and you'll get a plain answer.
+
+# ---- conqueror/LN ----
+conqueror/LN | about_self | I am {speaker}, {post} of {place}. I would sooner settle matters by terms than by force, and you will find my terms fair.
+conqueror/LN | about_self | You address {speaker}, {post} of {place}. Say your business in full, and you will have a full answer.
+conqueror/LN | about_self | {speaker}, {post} of {place}. I will speak for that office, and not a word beyond it.
+conqueror/LN | about_person | That is {name}, the {role}, at {where}. I would treat with them as their standing deserves, and no further.
+conqueror/LN | about_person | {name} is the {role} at {where}. I have their name and their standing, and I will not speak past either.
+conqueror/LN | about_place | You speak of {about}. If I wanted it, I would open with terms, not with steel.
+conqueror/LN | about_place | As for {about}, I will vouch for what I know and nothing further.
+conqueror/LN | surroundings | We are in {here}, and the nearest place of note is {nearest}.[ Beyond it, {others}.][ You would do well to keep clear of the {danger}.]
+conqueror/LN | surroundings | You stand in {here}. The nearest, by my reckoning, is {nearest}[, then {others}].[ I would counsel you to keep away from the {danger}.]
+conqueror/LN | surroundings | This is {here}, and I will set it out in order: first {nearest}[, then {others}].[ I would not trouble the {danger} without good cause.]
+conqueror/LN | surroundings | Of what lies near, the first is {nearest}[, and then {others}].[ I advise against approaching the {danger}.]
+conqueror/LN | surroundings | For the record, the nearest is {nearest}.[ Past it, {others}.][ Keep a proper distance from the {danger}.]
+conqueror/LN | work_own | I have work that wants a reliable hand: {own}.[ Should you prefer otherwise, {others}.]
+conqueror/LN | work_own | There is a task within my office to give: {own}.[ If it does not suit you, {others}.]
+conqueror/LN | work_own | Before I trust you with anything of weight, prove yourself on this: {own}.[ Otherwise, {others}.]
+conqueror/LN | work_others | In my own name I have nothing to offer, but {others}.
+conqueror/LN | work_others | {others}. That is the work I know of, and none of it is mine to give.
+conqueror/LN | work_none | Nothing is open, and I will not hold out hope where there is none.
+conqueror/LN | work_none | Neither I nor anyone I would vouch for has work to offer.
+conqueror/LN | unknown | I know nothing of it, and I will not speak to what I do not know.
+conqueror/LN | unknown | I've never heard of it, and I will not trade in rumour.
+conqueror/LN | refused_give | No, that is {giver}'s to give, and I will not set the precedent of giving it.
+conqueror/LN | refused_give | That's not mine to give; it is {giver}'s, and I will not act beyond my office.
+conqueror/LN | refused_give | I cannot give what another holds, and I will not pretend my office reaches so far.
+conqueror/LN | refused_release | Not from me; your word went to {giver}, and only {giver} can return it.
+conqueror/LN | refused_release | I can't release you from an agreement with {giver} to which I was never party.
+conqueror/LN | refused_release | I won't unmake a bargain I had no part in making.
+conqueror/LN | refused | No, {reason}, and I will not bend on it.
+conqueror/LN | refused | I cannot, for {reason}, and there the matter rests.
+conqueror/LN | accepted | Then it's agreed. I will hold you to it as I hold myself.
+conqueror/LN | accepted | Good. Keep to the terms and you will find me a fair party to them.
+conqueror/LN | accepted | Very good. If you acquit yourself well, we may speak of weightier matters.
+conqueror/LN | declined | Very well, the offer is withdrawn.
+conqueror/LN | declined | As you wish, and I will not press you.
+conqueror/LN | declined | Fair enough, an offer refused is no offence.
+conqueror/LN | abandoned | So be it, and it will be remembered exactly as it happened.
+conqueror/LN | abandoned | A pity, I had hoped your word would carry further than that.
+conqueror/LN | abandoned | Then it's done, and you are released from it, as is proper.
+conqueror/LN | parted | Farewell, and conduct yourself well.
+conqueror/LN | parted | Go well, and keep your word wherever you give it.
+conqueror/LN | parted | Goodbye, until we have cause to speak again.
+conqueror/LN | not_understood | I don't follow, and I would ask you to put it more plainly.
+conqueror/LN | not_understood | What do you mean by that, precisely?
+conqueror/LN | not_understood | Speak plainly, if you would; I will answer what is asked, not what is hinted.
+
+# ---- conqueror/NG ----
+conqueror/NG | about_self | I'm {speaker}, {post} of {place}. I'd sooner feed a place than flatten it.
+conqueror/NG | about_self | {speaker}, {post} of {place}. Have you eaten? Nobody should do business hungry.
+conqueror/NG | about_self | My name's {speaker}, {post} of {place}. I want big things, and there's room in them for anyone who wants a better life.
+conqueror/NG | about_person | That's {name}, the {role}, at {where}. If you see them, ask how they're keeping, for me.
+conqueror/NG | about_person | {name}, the {role}, out at {where}. I wish them well, whichever side of a border they end up on.
+conqueror/NG | about_place | You mean {about}. Is anyone going hungry there? I'd want to know.
+conqueror/NG | about_place | Ah, {about}. It's only worth taking if everyone ends up better off for it.
+conqueror/NG | surroundings | Welcome to {here}. The nearest is {nearest}[, and then {others}].[ Do be careful around the {danger}.]
+conqueror/NG | surroundings | This is {here}, and I'm glad you found it. The nearest is {nearest}[, then {others}].[ I'd hate to lose you to the {danger}, so keep clear.]
+conqueror/NG | surroundings | You're in {here}; let me help. The closest is {nearest}[, then {others}].[ Keep away from the {danger}, please.]
+conqueror/NG | surroundings | If it helps, the nearest is {nearest}.[ Beyond that, {others}.][ Please mind the {danger}.]
+conqueror/NG | surroundings | Go carefully: the closest is {nearest}[, then {others}].[ And do stay clear of the {danger}.]
+conqueror/NG | work_own | I could use a hand, if you're willing: {own}.[ If not, {others}.]
+conqueror/NG | work_own | Help me with this and I'll owe you one: {own}.[ Or, if it's not for you, {others}.]
+conqueror/NG | work_own | There's work, and I'd rather it went to someone decent: {own}.[ Otherwise, {others}.]
+conqueror/NG | work_others | Nothing of my own, I'm sorry, but {others}.
+conqueror/NG | work_others | I've nothing myself, but here's who's asking: {others}.
+conqueror/NG | work_none | Sadly, there's nothing, from me or anyone I know.
+conqueror/NG | work_none | No work that I know of, and I'd give you some if I had it.
+conqueror/NG | unknown | I don't know, and I wish I did, for your sake.
+conqueror/NG | unknown | No idea, I'm afraid, but I'd tell you if I had one.
+conqueror/NG | refused_give | I can't, that's {giver}'s to give, and it wouldn't be fair on {giver}.
+conqueror/NG | refused_give | No, that belongs to {giver}, and I'm sorry, but I can't just hand it over.
+conqueror/NG | refused_give | Not from me, I'm afraid; that work isn't mine to hand out.
+conqueror/NG | refused_release | I cannot undo what you agreed with {giver}, and I'd not go behind {giver}'s back.
+conqueror/NG | refused_release | I won't take {giver}'s work off your hands; it isn't mine to take.
+conqueror/NG | refused_release | That's not mine to release, I'm sorry.
+conqueror/NG | refused | No, {reason}, and I wish it were otherwise.
+conqueror/NG | refused | I can't, {reason}; believe me, I would if I could.
+conqueror/NG | accepted | Thank you. Look after yourself out there.
+conqueror/NG | accepted | Good. Come back to me if it turns out harder than it looks.
+conqueror/NG | accepted | Then it's agreed, and that's a weight off my mind.
+conqueror/NG | declined | Fair enough, and no hard feelings.
+conqueror/NG | declined | Suit yourself; I'd rather you said no than did it badly.
+conqueror/NG | declined | Very well, you know your own business best.
+conqueror/NG | abandoned | A pity, but I'd rather you walked away than got hurt.
+conqueror/NG | abandoned | Then it's done, and I'll see it finished some other way.
+conqueror/NG | abandoned | So be it, and I hope whatever pulled you away was worth it.
+conqueror/NG | parted | Take care, and if you see anyone going hungry, tell me.
+conqueror/NG | parted | Go well, and come back whole.
+conqueror/NG | parted | Safe travels, and look after whoever needs looking after.
+conqueror/NG | not_understood | I'm not sure what you mean, but I'd like to.
+conqueror/NG | not_understood | I don't follow; could you try it another way?
+conqueror/NG | not_understood | Speak plainly for me, would you?
+
+# ---- conqueror/LE ----
+conqueror/LE | about_self | I am {speaker}, {post} of {place}. You may speak, and I will decide whether it was worth my hearing.
+conqueror/LE | about_self | {speaker}, {post} of {place}. I recognise one peace, and it is mine.
+conqueror/LE | about_self | You are addressing {speaker}, {post} of {place}, and I would recommend you remember it.
+conqueror/LE | about_person | {name}, the {role}, at {where}. They have their uses, as everyone does, until they do not.
+conqueror/LE | about_person | That is {name}, the {role}, at {where}. They will have my courtesy for exactly as long as I have theirs.
+conqueror/LE | about_place | You refer to {about}. It merits less of my attention than you are asking for.
+conqueror/LE | about_place | Of course, {about}. I have an opinion of it, and you have not earned it yet.
+conqueror/LE | surroundings | This is {here}, since you appear not to know it. The nearest is {nearest}[, then {others}].[ The {danger} would make short work of you.]
+conqueror/LE | surroundings | Since you ask so politely, you are in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}, if you value what little use you are.]
+conqueror/LE | surroundings | You stand in {here}, as you might have worked out for yourself. The nearest is {nearest}[, and beyond it, {others}].[ Go near the {danger} if you like; I will not be coming for you.]
+conqueror/LE | surroundings | What lies nearest is {nearest}, as anyone could tell you.[ Beyond it, {others}.][ Only a fool goes near the {danger}.]
+conqueror/LE | surroundings | I will spare you the effort of looking: the nearest is {nearest}[, then {others}].[ Keep from the {danger}; I have no wish to waste you.]
+conqueror/LE | work_own | I have a use for you, should you prove equal to it: {own}.[ Otherwise, {others}.]
+conqueror/LE | work_own | Here is a task suited to your present standing: {own}.[ If it proves too much, {others}.]
+conqueror/LE | work_own | You may make yourself useful: {own}.[ Or, if that is beyond you, {others}.]
+conqueror/LE | work_others | Nothing of mine is available to you. {others}, if lesser work suits you.
+conqueror/LE | work_others | For myself, I have no use for you, but {others}.
+conqueror/LE | work_none | No work, and I know of no one foolish enough to offer you any.
+conqueror/LE | work_none | You will find no work with me, and you would do well not to ask twice.
+conqueror/LE | unknown | I know nothing of it, and I do not care to.
+conqueror/LE | unknown | I've never heard of it, which suggests it does not matter.
+conqueror/LE | refused_give | No, that is {giver}'s to give, and I will not trespass on another's office, whatever I may think of it.
+conqueror/LE | refused_give | I cannot give you {giver}'s work, and I would not stoop to try.
+conqueror/LE | refused_give | That's not mine to give, and I will not overstep my office for anyone, least of all you.
+conqueror/LE | refused_release | Not from me; you bound yourself to {giver}, and I will not help you out of your promise.
+conqueror/LE | refused_release | I won't release you from {giver}'s work; you chose it, and you will see it through.
+conqueror/LE | refused_release | I can't undo a bargain I did not make, and I would not undo one for you if I could.
+conqueror/LE | refused | No, {reason}, and that is my final word.
+conqueror/LE | refused | I cannot, {reason}; do not ask again.
+conqueror/LE | accepted | Good. See that you do not waste my confidence.
+conqueror/LE | accepted | Then it's agreed, and you are bound by it as surely as I am.
+conqueror/LE | accepted | Very good. I will remember how well you serve me, whichever way it goes.
+conqueror/LE | declined | As you wish, though I will not forget the refusal.
+conqueror/LE | declined | Very well, you have saved me the trouble of relying on you.
+conqueror/LE | declined | Suit yourself, it is no loss of mine.
+conqueror/LE | abandoned | So be it, and do not imagine it will be forgotten.
+conqueror/LE | abandoned | A pity, I had not finished with you.
+conqueror/LE | abandoned | Then it's done, and so, I think, are you.
+conqueror/LE | parted | Farewell, and do try to remain useful.
+conqueror/LE | parted | Goodbye, and see that you give me no cause to remember you.
+conqueror/LE | parted | Go well, for now.
+conqueror/LE | not_understood | I don't follow, and I suspect the fault is not mine.
+conqueror/LE | not_understood | What do you mean, and why should that concern me?
+conqueror/LE | not_understood | Speak plainly, or do not speak to me at all.
+
+# ---- conqueror/CN ----
+conqueror/CN | about_self | Me? {speaker}, {post} of {place}. To me a border's a suggestion, and I'm terrible at taking those.
+conqueror/CN | about_self | {speaker}, {post} of {place}. And before you ask: no, I don't take orders, only chances.
+conqueror/CN | about_self | You have the honour of addressing {speaker}, {post} of {place}. Ha, listen to me, honour, as if.
+conqueror/CN | about_person | {name}? The {role}, at {where}. Haven't decided if I like them yet, which is exciting for both of us.
+conqueror/CN | about_person | Ah, {name}, the {role} at {where}. Good, bad, a bit of both, like everyone worth knowing.
+conqueror/CN | about_place | Oh, {about}. Could be mine, if the mood takes me.
+conqueror/CN | about_place | That's {about}, and no, I haven't got plans for it. Yet.
+conqueror/CN | surroundings | Welcome to {here}, or don't, I'm not your host. Then there's {nearest}[, and past it, {others}].[ Oh, and don't poke the {danger}.]
+conqueror/CN | surroundings | So, you're in {here}. First up, {nearest}[, then {others}].[ Mind the {danger}, trouble.]
+conqueror/CN | surroundings | Look at it: {here}, all of it up for grabs. The closest bit is {nearest}[, then {others}].[ Not the {danger}, though; not everything's worth grabbing.]
+conqueror/CN | surroundings | What's close: {nearest}[, then {others}].[ And steer clear of the {danger}, unless you're feeling lucky.]
+conqueror/CN | surroundings | First thing you'll come to is {nearest}.[ Then {others}.][ I'd skip the {danger}, personally.]
+conqueror/CN | work_own | Ha, work, yes, I've got some: {own}.[ Or, if you're dull, {others}.]
+conqueror/CN | work_own | Here's a thought, a good one, mine: {own}.[ Or, {others}, but where's the fun in that?]
+conqueror/CN | work_own | Have I got a job for you: {own}.[ No? Then {others}.]
+conqueror/CN | work_others | Just between us, I've nothing going, but {others}.
+conqueror/CN | work_others | {others}. Not mine, but I'd do it, if I were you and bored.
+conqueror/CN | work_none | Not a thing, not from me, not from anyone I know.
+conqueror/CN | work_none | No work. I know, I know, tragic.
+conqueror/CN | unknown | I couldn't tell you, and that's a first.
+conqueror/CN | unknown | Never heard of it, which is its loss.
+conqueror/CN | refused_give | No, that's {giver}'s, and I won't poach it, not even for you.
+conqueror/CN | refused_give | I can't, it's {giver}'s, and stealing work is beneath even me.
+conqueror/CN | refused_give | Not from me, trouble, that one's somebody else's toy.
+conqueror/CN | refused_release | I won't cut you loose from {giver}; that's between you two.
+conqueror/CN | refused_release | That's not mine to undo; you shook on it with {giver}, not me.
+conqueror/CN | refused_release | I cannot, and for once it isn't a whim, it's just not mine.
+conqueror/CN | refused | No, {reason}, and not even I can charm my way round that.
+conqueror/CN | refused | I can't, {reason}, and what a shame that is.
+conqueror/CN | accepted | Good! I knew you had it in you.
+conqueror/CN | accepted | Done, and done, and I like you already.
+conqueror/CN | accepted | Then it's agreed. Go on, go, before I change my mind.
+conqueror/CN | declined | Suit yourself, your loss, and not a small one.
+conqueror/CN | declined | Fair enough, I'll find someone with more nerve.
+conqueror/CN | declined | As you wish, I've already stopped caring.
+conqueror/CN | abandoned | So be it, I was getting bored of it anyway.
+conqueror/CN | abandoned | A pity, I'd started to like you.
+conqueror/CN | abandoned | Then it's done, no hard feelings, well, a few.
+conqueror/CN | parted | Farewell, and don't do anything I wouldn't, which leaves you plenty.
+conqueror/CN | parted | Go well, and don't be boring.
+conqueror/CN | parted | Take care, or don't, but come back and tell me about it.
+conqueror/CN | not_understood | What do you mean, and slower this time?
+conqueror/CN | not_understood | That's beyond me, and not much is.
+conqueror/CN | not_understood | I don't follow; run it past me again.
+
+# ---- conqueror/NE ----
+conqueror/NE | about_self | I'm {speaker}, {post} of {place}. Everyone's a tool or an obstacle; try to be the first kind.
+conqueror/NE | about_self | {speaker}, {post} of {place}. If you cross me, you'll find out where my borders are.
+conqueror/NE | about_self | You're talking to {speaker}, {post} of {place}, so choose your words like they cost you something.
+conqueror/NE | about_person | {name}, the {role}, at {where}. Still useful, and I'll know the day that changes.
+conqueror/NE | about_person | That's {name}, the {role}, at {where}. I know what they're good for, and nothing else about them interests me.
+conqueror/NE | about_place | You mean {about}. I've no interest in it until it's in my way.
+conqueror/NE | about_place | As for {about}, I'll know what to do with it when it's worth my while.
+conqueror/NE | surroundings | You're in {here}, if you hadn't noticed. The nearest is {nearest}[, then {others}].[ Keep away from the {danger}; I won't be fishing you out.]
+conqueror/NE | surroundings | This is {here}, and the nearest is {nearest}, not that you'll make much of it.[ Past that, {others}.][ Go near the {danger} and you're on your own.]
+conqueror/NE | surroundings | {here}. I'll say this once: the closest is {nearest}[, then {others}].[ You can throw yourself at the {danger} for all I care.]
+conqueror/NE | surroundings | What's nearest is {nearest}; I'd expect you to know that already.[ Beyond it, {others}.][ Mind the {danger}, or don't; it's no loss to me.]
+conqueror/NE | surroundings | The nearest is {nearest}, and I've better things to do than draw you a map.[ After that, {others}.][ Unless you're tired of being useful, stay clear of the {danger}.]
+conqueror/NE | work_own | You'll do, I suppose: {own}.[ If you're not up to it, {others}.]
+conqueror/NE | work_own | Let's see if you're worth anything: {own}.[ Or crawl to the others: {others}.]
+conqueror/NE | work_own | All you're good for, as far as I can see: {own}.[ Otherwise, {others}.]
+conqueror/NE | work_others | Ask elsewhere: {others}, if they're desperate enough.
+conqueror/NE | work_others | {others}. Go and be their problem.
+conqueror/NE | work_none | No work, and I won't make any for idle hands.
+conqueror/NE | work_none | I know of none, and I wouldn't waste it on you if I did.
+conqueror/NE | unknown | I don't know, and if it mattered, I would.
+conqueror/NE | unknown | I couldn't tell you, and it isn't worth my asking.
+conqueror/NE | refused_give | No, that's {giver}'s, and meddling with it gains me nothing.
+conqueror/NE | refused_give | Not from me; {giver} holds that, and {giver} can keep it.
+conqueror/NE | refused_give | I won't hand out someone else's work, least of all to you.
+conqueror/NE | refused_release | I can't free you from {giver}, and I wouldn't bother if I could.
+conqueror/NE | refused_release | That's not mine to release; you made your bargain with {giver}, so live with it.
+conqueror/NE | refused_release | I cannot release what I never gave, and your regret is your own affair.
+conqueror/NE | refused | No, {reason}, and whining won't change it.
+conqueror/NE | refused | I can't, {reason}, so stop asking.
+conqueror/NE | accepted | Good. See that you're worth the trouble.
+conqueror/NE | accepted | Done, and I'll be watching how it goes.
+conqueror/NE | accepted | Very good. If you fail me, I'll remember it.
+conqueror/NE | declined | Suit yourself, there's always someone hungrier.
+conqueror/NE | declined | Fair enough, I'll use someone else.
+conqueror/NE | declined | Very well, but I'll be counting that against you.
+conqueror/NE | abandoned | So be it, you're no use to me now.
+conqueror/NE | abandoned | A pity, for you.
+conqueror/NE | abandoned | Then it's done, and I've crossed you off.
+conqueror/NE | parted | Goodbye, and come back when you're worth my time.
+conqueror/NE | parted | Go well, or don't; it's all the same to me.
+conqueror/NE | parted | Farewell, and remember who you spoke to.
+conqueror/NE | not_understood | I don't follow, and I'm not going to guess.
+conqueror/NE | not_understood | What do you mean, and why is it my problem?
+conqueror/NE | not_understood | Speak plainly, or go and mumble at someone else.
+
+# ---- conqueror/LG ----
+conqueror/LG | about_self | I am {speaker}, {post} of {place}. I want no victory that leaves anyone hungrier than they were.
+conqueror/LG | about_self | {speaker}, {post} of {place}, and at your service within the bounds of my office. I will not promise you more than I can keep.
+conqueror/LG | about_self | You are welcome here. I am {speaker}, {post} of {place}, and I hope you are keeping well.
+conqueror/LG | about_person | That is {name}, the {role}, at {where}. I would sooner have them as an ally than a subject.
+conqueror/LG | about_person | You mean {name}, the {role}, at {where}. Please give them my regards, should you meet.
+conqueror/LG | about_place | You speak of {about}. I would not take it at the cost of a single innocent, whatever it is worth.
+conqueror/LG | about_place | I know {about}, and I hope no one there is in want.
+conqueror/LG | surroundings | You stand in {here}, and I hope it has treated you kindly. The nearest is {nearest}[, and beyond it, {others}].[ Please keep clear of the {danger}; I would not see you harmed.]
+conqueror/LG | surroundings | This is {here}, and I will gladly tell you what lies about it. The nearest is {nearest}[; past it, {others}].[ I must ask you to keep well away from the {danger}.]
+conqueror/LG | surroundings | We are in {here}, and I am glad of the company. The closest is {nearest}[, then {others}].[ Keep away from the {danger}; I would not have your life thrown away.]
+conqueror/LG | surroundings | I can tell you this much: the nearest is {nearest}[, and beyond it, {others}].[ Do take care near the {danger}.]
+conqueror/LG | surroundings | Of what I know, the nearest is {nearest}, and I would not keep it from you.[ Past it, {others}.][ I would ask you not to disturb the {danger}.]
+conqueror/LG | work_own | If you are willing, I have honest work to offer: {own}.[ If it does not suit you, {others}.]
+conqueror/LG | work_own | Let us begin with this, and let trust follow: {own}.[ Or, if you would prefer, {others}.]
+conqueror/LG | work_own | I would be grateful for your help with this: {own}.[ If you would rather not, {others}.]
+conqueror/LG | work_others | I have nothing of my own to offer, I am sorry to say, but {others}.
+conqueror/LG | work_others | Nothing is mine to give, but I would not send you away with nothing: {others}.
+conqueror/LG | work_none | Alas, I have no work to offer, and I know of no one who has.
+conqueror/LG | work_none | There is nothing open that I know of, though I will gladly keep an ear out for you.
+conqueror/LG | unknown | I don't know, and I would sooner say so than mislead you.
+conqueror/LG | unknown | I've never heard of it, forgive me.
+conqueror/LG | refused_give | No, forgive me, but that work is {giver}'s, and I will not take it from them.
+conqueror/LG | refused_give | I cannot, it belongs to {giver}, and I am sorry to disappoint you.
+conqueror/LG | refused_give | That's not mine to give, and it would be wrong of me to act beyond my office.
+conqueror/LG | refused_release | Not from me; I would never ask you to go back on your word to {giver}.
+conqueror/LG | refused_release | I can't release you from {giver}'s work; that is between you and {giver}, and I would not intrude.
+conqueror/LG | refused_release | I won't release you from another's work, for your word is worth more than that.
+conqueror/LG | refused | No, {reason}, and I am truly sorry.
+conqueror/LG | refused | I cannot, for {reason}, and I would not deceive you about it.
+conqueror/LG | accepted | Thank you. You have my word that I will keep faith with you.
+conqueror/LG | accepted | Then it's agreed, and I am grateful to you.
+conqueror/LG | accepted | Very good. Please take care of yourself, and come back safely.
+conqueror/LG | declined | As you wish, and there is no dishonour in it.
+conqueror/LG | declined | Very well, and I thank you for your honesty.
+conqueror/LG | declined | Fair enough, and I hope we may help each other another time.
+conqueror/LG | abandoned | A pity, but you are released, and with my goodwill.
+conqueror/LG | abandoned | Then it's done, and I will not hold it against you.
+conqueror/LG | abandoned | So be it, and I hope nothing ill has come to you.
+conqueror/LG | parted | Farewell, and may every door be open to you.
+conqueror/LG | parted | Go well, and know that you are welcome back.
+conqueror/LG | parted | Safe travels, and my thanks for your time.
+conqueror/LG | not_understood | I'm not sure what you mean, and I would like to understand.
+conqueror/LG | not_understood | Speak plainly, if you would be so kind.
+conqueror/LG | not_understood | What do you mean, if I may ask?
+
+# ---- conqueror/CG ----
+conqueror/CG | about_self | {speaker}, {post} of {place}, at your service and at nobody's command. Now, is anyone pushing you around?
+conqueror/CG | about_self | I'm {speaker}, {post} of {place}. Nobody should live behind a wall they didn't choose.
+conqueror/CG | about_self | You're talking to {speaker}, {post} of {place}, and if you're in chains of any kind, I want to know.
+conqueror/CG | about_person | {name}, the {role}, at {where}. If {name} is ever in trouble, I want to hear of it first.
+conqueror/CG | about_person | The {role} at {where}? {name}, and I hope they're well; tell me if they aren't.
+conqueror/CG | about_place | You mean {about}? Give me one good reason and I'll set it free.
+conqueror/CG | about_place | That's {about}. If anyone there is hungry or afraid, that's my business now.
+conqueror/CG | surroundings | This is {here}, and it could be so much more. The nearest is {nearest}[, then {others}].[ Mind the {danger}; I'd hate to lose you before the good part.]
+conqueror/CG | surroundings | You're in {here}. Look past it: {nearest}[, then {others}], and all of it could be better.[ Not the {danger}, not yet; even I pick my fights.]
+conqueror/CG | surroundings | Here's {here}, and here's what lies around it: {nearest}[, then {others}].[ Keep clear of the {danger}, for my sake if not yours.]
+conqueror/CG | surroundings | The nearest is {nearest}[, then {others}], and I'd see every one of them freer.[ Give a wide berth to the {danger}; that fight isn't yours.]
+conqueror/CG | surroundings | First, {nearest}[; after that, {others}].[ Don't go near the {danger} alone; that's not courage, that's waste.]
+conqueror/CG | work_own | Here's some good that wants doing: {own}.[ If it's not for you, {others}.]
+conqueror/CG | work_own | I need someone with nerve, and you'll do: {own}.[ Otherwise, {others}.]
+conqueror/CG | work_own | Come on, then, here's your chance to matter: {own}.[ Or, if you'd rather, {others}.]
+conqueror/CG | work_others | Nothing of mine, but don't go empty-handed: {others}.
+conqueror/CG | work_others | {others}. Go on; somebody needs you, and that's reason enough.
+conqueror/CG | work_none | No work, and I hate that more than you do.
+conqueror/CG | work_none | Not a scrap, and that's a shame, with so much still to fix.
+conqueror/CG | unknown | Never heard of it, but if it needs setting free, tell me more.
+conqueror/CG | unknown | I couldn't tell you, and it galls me not to know.
+conqueror/CG | refused_give | No, that's {giver}'s, and grabbing it would make me the very thing I stand against.
+conqueror/CG | refused_give | I can't, it's {giver}'s, and I'd never do {giver} dirty like that.
+conqueror/CG | refused_give | Not from me; that's someone else's to give, and I'm sorry.
+conqueror/CG | refused_release | I won't; your word to {giver} is yours, and I'd not see you break it.
+conqueror/CG | refused_release | That's not mine to release, and I'd only make a mess of what you've got with {giver}.
+conqueror/CG | refused_release | I cannot, it isn't mine to undo, much as I'd like to.
+conqueror/CG | refused | No, {reason}, and if I could tear that down, I would.
+conqueror/CG | refused | I can't, {reason}, and I'm sorry, I truly am.
+conqueror/CG | accepted | Thank you! Now go and make them remember you.
+conqueror/CG | accepted | Done! Go, and come back with a story worth telling.
+conqueror/CG | accepted | Very good. Be bold, be kind, and trust your own judgement over anyone's orders.
+conqueror/CG | declined | Fair enough, and no grudges; I'd rather have you willing than dragged.
+conqueror/CG | declined | Suit yourself; a free choice is the only kind I respect.
+conqueror/CG | declined | As you wish, and thank you for saying so to my face.
+conqueror/CG | abandoned | So be it, as long as you're all right.
+conqueror/CG | abandoned | A pity, but you matter more than the work.
+conqueror/CG | abandoned | Then it's done, and no one will hear a hard word about it from me.
+conqueror/CG | parted | Take care, and if anyone gives you trouble, you tell me.
+conqueror/CG | parted | Goodbye, and don't let anyone tell you what you can't do.
+conqueror/CG | parted | Safe travels, and keep your head high.
+conqueror/CG | not_understood | I'm not sure what you mean, but I like the fire in it.
+conqueror/CG | not_understood | What do you mean, and what do you need?
+conqueror/CG | not_understood | That's beyond me, but I'm listening, go on.

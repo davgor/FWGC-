@@ -1,0 +1,231 @@
+# Written lines (the forgiving). The format and the rules: README.md in this folder.
+
+# ---- forgiving/NN ----
+forgiving/NN | about_self | I'm {speaker}, {post} of {place}. Say what you need, and we'll see if we can trade.
+forgiving/NN | about_self | {speaker}, {post} of {place}. I forgive easily and forget nothing, so deal straight with me.
+forgiving/NN | about_self | You're speaking with {speaker}, {post} of {place}. Be useful to me and I'll be useful to you.
+forgiving/NN | about_person | {name}? The {role}, at {where}. I'll tell you that much for nothing.
+forgiving/NN | about_person | You'll find {name}, the {role}, at {where}. If you get something out of them, remember who pointed you there.
+forgiving/NN | about_place | That's {about}. I know it well enough to name it, not well enough to vouch for it.
+forgiving/NN | about_place | Ah, {about}. Go if it's worth it to you, and not otherwise.
+forgiving/NN | surroundings | This is {here}[, and the nearest is {nearest}].[ Past that, {others}.][ Leave the {danger} alone unless you've good reason.]
+forgiving/NN | surroundings | We're in {here}, for what it's worth. The nearest is {nearest}[, then {others}].[ Mind the {danger}, and count the cost before you go near.]
+forgiving/NN | surroundings | Here in {here}, the nearest is {nearest}.[ Beyond it, {others}.][ Give the {danger} a wide berth.]
+forgiving/NN | surroundings | What's nearest is {nearest}.[ Past it, {others}.][ Keep clear of the {danger}.]
+forgiving/NN | surroundings | The closest thing is {nearest}[, and after it, {others}].[ Watch for the {danger}.]
+forgiving/NN | work_own | I need someone useful: {own}.[ If that's not you, {others}.]
+forgiving/NN | work_own | Do this and I'll count it in your favour: {own}.[ Otherwise, {others}.]
+forgiving/NN | work_own | There's a straight trade on offer: {own}.[ Or, if you'd rather, {others}.]
+forgiving/NN | work_others | I've none of my own, but {others}. Remember who told you.
+forgiving/NN | work_others | All I can give you is a name or two: {others}.
+forgiving/NN | work_none | No work, from me or anyone I know of.
+forgiving/NN | work_none | Nothing for you, and that's a loss to both of us.
+forgiving/NN | unknown | I don't know it, and I won't sell you a guess.
+forgiving/NN | unknown | No idea, and a wrong answer would do neither of us any good.
+forgiving/NN | refused_give | No, that's {giver}'s to give, and I don't trade in other people's work.
+forgiving/NN | refused_give | I cannot, it's {giver}'s work, and crossing {giver} would cost me more than it gets you.
+forgiving/NN | refused_give | That's not mine to give, and giving it would do me no good.
+forgiving/NN | refused_release | Not from me, that's between you and {giver}.
+forgiving/NN | refused_release | I won't undo {giver}'s bargain, any more than I'd want mine undone.
+forgiving/NN | refused_release | No, I can't let you off what someone else holds you to.
+forgiving/NN | refused | No, {reason}, and arguing won't change it.
+forgiving/NN | refused | I can't, {reason}, so let's not waste each other's time.
+forgiving/NN | accepted | Good. Do it well and I'll remember it.
+forgiving/NN | accepted | Done, and we both come out of it better.
+forgiving/NN | accepted | Thank you, and don't make me forgive you.
+forgiving/NN | declined | Suit yourself, no harm done.
+forgiving/NN | declined | Fair enough, a clean no beats a broken yes.
+forgiving/NN | declined | As you wish, I'll find someone hungrier.
+forgiving/NN | abandoned | A pity, I had a use for you.
+forgiving/NN | abandoned | Then it's done, and forgiven, though I don't forget.
+forgiving/NN | abandoned | So be it, better dropped now than botched later.
+forgiving/NN | parted | Farewell, and come back useful.
+forgiving/NN | parted | Take care, and we'll see where we stand next time.
+forgiving/NN | parted | Go well, and don't owe anyone you can't face.
+forgiving/NN | not_understood | Speak plainly, and we'll both save time.
+forgiving/NN | not_understood | What do you mean, and what do you want from me?
+forgiving/NN | not_understood | That's beyond me, so try it again in fewer words.
+
+# ---- forgiving/NG ----
+forgiving/NG | about_self | I'm {speaker}, {post} of {place}. Ask what you need, and we'll worry about the rest later.
+forgiving/NG | about_self | {speaker}, {post} of {place}. I hope you're keeping well.
+forgiving/NG | about_self | My name's {speaker}, {post} of {place}, and you're welcome here, whatever you've done.
+forgiving/NG | about_person | {name}, the {role}, at {where}. If you see {name}, tell me how they're keeping.
+forgiving/NG | about_person | That's {name}, the {role}. You'll find them at {where}, and I hope you find them well.
+forgiving/NG | about_place | You mean {about}. Go carefully, and don't walk past anyone there who needs a hand.
+forgiving/NG | about_place | Ah, {about}. That's all I have, but it's yours.
+forgiving/NG | surroundings | You're in {here}[, and the nearest is {nearest}].[ Past that, {others}.][ Please keep clear of the {danger}.]
+forgiving/NG | surroundings | This is {here}, and the nearest is {nearest}.[ After it, {others}.][ If you go near the {danger}, don't go alone.]
+forgiving/NG | surroundings | Welcome to {here}. The nearest is {nearest}[, then {others}].[ Mind the {danger}, for my sake if not yours.]
+forgiving/NG | surroundings | Around us, the nearest is {nearest}.[ Then {others}.][ Look after yourself near the {danger}.]
+forgiving/NG | surroundings | If you're finding your way, the nearest is {nearest}[, then {others}].[ Keep well clear of the {danger}.]
+forgiving/NG | work_own | I could use the help, if you'll give it: {own}.[ If not, {others}.]
+forgiving/NG | work_own | There's something, and I'd be grateful: {own}.[ Or else, {others}.]
+forgiving/NG | work_own | Here's where you could help: {own}.[ If it's not for you, {others}.]
+forgiving/NG | work_others | I've nothing of my own, but {others}.
+forgiving/NG | work_others | Nothing from me, but you won't go short: {others}.
+forgiving/NG | work_none | I'm sorry, there's nothing, not from me or anyone I know.
+forgiving/NG | work_none | No work that I know of, and I wish I had some for you.
+forgiving/NG | unknown | I couldn't tell you, and I wish I could, for your sake.
+forgiving/NG | unknown | I've never heard of it, and I won't send you off on a guess.
+forgiving/NG | refused_give | No, that's {giver}'s to give, and I'd not take it from them.
+forgiving/NG | refused_give | I won't go behind {giver}'s back, not even to help you.
+forgiving/NG | refused_give | That's not mine to give, I'm sorry.
+forgiving/NG | refused_release | I cannot release you from {giver}'s work, much as I'd like to.
+forgiving/NG | refused_release | Not from me, only {giver} can let you go, and they deserve to be asked.
+forgiving/NG | refused_release | No, whoever gave you that has to be the one to let you go.
+forgiving/NG | refused | No, {reason}, and I'm truly sorry.
+forgiving/NG | refused | I can't, {reason}, though I wish I could.
+forgiving/NG | accepted | Thank you, truly. Come to me if you need anything for it.
+forgiving/NG | accepted | Good. Look after yourself, and come back either way.
+forgiving/NG | accepted | Very good, and I won't forget it.
+forgiving/NG | declined | Suit yourself, you know your own load best.
+forgiving/NG | declined | Fair enough, and thank you for saying so plainly.
+forgiving/NG | declined | As you wish, and if you change your mind, I'll still be glad of you.
+forgiving/NG | abandoned | A pity, but you're forgiven, and I hope you're all right.
+forgiving/NG | abandoned | Then it's done, and I won't hold it against you.
+forgiving/NG | abandoned | So be it, I'd sooner have you whole than the work finished.
+forgiving/NG | parted | Take care of yourself, and of anyone who needs it.
+forgiving/NG | parted | Go well, and come back whenever you need to.
+forgiving/NG | parted | Safe travels, and I mean that.
+forgiving/NG | not_understood | I don't follow, could you say it another way?
+forgiving/NG | not_understood | I'm not sure what you mean, but I'd like to.
+forgiving/NG | not_understood | Speak plainly, please, and I'll help if I can.
+
+# ---- forgiving/LN ----
+forgiving/LN | about_self | I am {speaker}, {post} of {place}. Bring your matter in good order and you will have a fair hearing.
+forgiving/LN | about_self | You may address me as {speaker}, {post} of {place}. What trust there is between us, you have yet to earn.
+forgiving/LN | about_self | My name is {speaker}, and I serve {place} as {post}, within that office and no further.
+forgiving/LN | about_person | That would be {name}, the {role}, at {where}. I will vouch for that much and no more.
+forgiving/LN | about_person | You ask after {name}, the {role}, who may be found at {where}. Whatever your business with them, see that it is done correctly.
+forgiving/LN | about_place | That is {about}. I would swear to that much, and to nothing further.
+forgiving/LN | about_place | The place you mean is {about}. Whatever you do there, do it honestly.
+forgiving/LN | surroundings | You stand in {here}[, and the nearest place of note is {nearest}].[ Beyond that, {others}.][ Be advised of the {danger}.]
+forgiving/LN | surroundings | For the record, this is {here}. The nearest is {nearest}[, and after it, {others}].[ I would caution you against the {danger}.]
+forgiving/LN | surroundings | We are in {here}, and the closest is {nearest}.[ Past that, {others}.][ Take due note of the {danger}.]
+forgiving/LN | surroundings | The nearest place I can name is {nearest}.[ Beyond it, {others}.][ Be warned of the {danger}.]
+forgiving/LN | surroundings | Of what lies near, the first is {nearest}[, followed by {others}].[ Keep a proper distance from the {danger}.]
+forgiving/LN | work_own | There is work, on honest terms: {own}.[ Should you decline it, {others}.]
+forgiving/LN | work_own | Your standing with me begins here: {own}.[ Otherwise, {others}.]
+forgiving/LN | work_own | I offer this, and I expect it done as agreed: {own}.[ If it does not suit you, {others}.]
+forgiving/LN | work_others | Nothing falls to me to give. {others}, if you wish to ask.
+forgiving/LN | work_others | It is not mine to offer, but {others}.
+forgiving/LN | work_none | I have no work to offer, and I know of none elsewhere.
+forgiving/LN | work_none | No work falls within my office, nor to anyone I know of.
+forgiving/LN | unknown | I don't know it, and I will not swear to what I have not seen.
+forgiving/LN | unknown | I know nothing of it, and a guess from me would carry more weight than it deserves.
+forgiving/LN | refused_give | No, that work is {giver}'s to give, and I will not act outside my office.
+forgiving/LN | refused_give | I won't give away what {giver} holds, and I would expect the same courtesy from {giver}.
+forgiving/LN | refused_give | That's not mine to give, and I do not overreach.
+forgiving/LN | refused_release | No, the word you gave {giver} is theirs to return, not mine.
+forgiving/LN | refused_release | I cannot release you from {giver}'s work, any more than {giver} could release you from mine.
+forgiving/LN | refused_release | Not from me, a release must come from whoever holds your word.
+forgiving/LN | refused | No, {reason}, and I do not bend on such matters.
+forgiving/LN | refused | I can't, {reason}, and I would tell anyone the same.
+forgiving/LN | accepted | Then it's agreed, and I will hold you to it as I hold myself.
+forgiving/LN | accepted | Very good. Your word is given, and mine with it.
+forgiving/LN | accepted | Thank you. Do it well, and your standing with me will reflect it.
+forgiving/LN | declined | As you wish, and it will not be held against you.
+forgiving/LN | declined | Fair enough, it was offered properly and refused properly.
+forgiving/LN | declined | Suit yourself, I will not press a matter already answered.
+forgiving/LN | abandoned | So be it, and you are pardoned for it, formally and in full.
+forgiving/LN | abandoned | A pity, but you gave it up openly, and that is to your credit.
+forgiving/LN | abandoned | Very well, your word is returned to you, and the matter is closed.
+forgiving/LN | parted | Farewell, and conduct yourself as you would be judged.
+forgiving/LN | parted | Go well, stranger, and keep your word wherever you give it.
+forgiving/LN | parted | Safe travels, and may you have no need of my pardon.
+forgiving/LN | not_understood | I'm not sure what you mean, and I would rather ask than assume.
+forgiving/LN | not_understood | Speak plainly, if you would, and in full sentences.
+forgiving/LN | not_understood | That's beyond me, so put it to me again, in order.
+
+# ---- forgiving/CN ----
+forgiving/CN | about_self | Me? {speaker}, {post} of {place}, and before you ask, yes, really.
+forgiving/CN | about_self | {speaker}, at your service, ha, no, just {speaker}, {post} of {place}.
+forgiving/CN | about_self | Who's asking? Oh, you are, fine, I'm {speaker}, {post} of {place}.
+forgiving/CN | about_person | {name}, yes, the {role}, at {where}. Trust the person, not the banner.
+forgiving/CN | about_person | Oh, {name}, the {role}, at {where}. Go easy on them, whatever they've done.
+forgiving/CN | about_place | Ha, {about}. Go if you like, it's your neck.
+forgiving/CN | about_place | That's {about}, and that's all you'll get, because that's all I've got.
+forgiving/CN | surroundings | Where are we? {here}, and the nearest is {nearest}[, then {others}].[ Oh, and mind the {danger}.]
+forgiving/CN | surroundings | You're in {here}, obviously. The nearest is {nearest}[, and past it, {others}].[ And the {danger}, so, you know, don't.]
+forgiving/CN | surroundings | Right, {here}, that's us. The nearest is {nearest}[, then {others}].[ Don't poke the {danger}.]
+forgiving/CN | surroundings | Look, the nearest is {nearest}.[ Then {others}.][ The {danger}, though, give those a miss.]
+forgiving/CN | surroundings | Around here? The nearest is {nearest}[, and after that, {others}].[ Keep off the {danger}, trust me.]
+forgiving/CN | work_own | Something to do? Yes, yes: {own}.[ Or, if not, {others}.]
+forgiving/CN | work_own | Here, take this one, go on: {own}.[ Or else {others}, if you're fussy.]
+forgiving/CN | work_own | A trade, you and me: {own}.[ Don't fancy it? {others}.]
+forgiving/CN | work_others | Mine? Nothing. {others}, though.
+forgiving/CN | work_others | I've got nothing, you've got nothing, but {others}.
+forgiving/CN | work_none | Nothing. Not a scrap, not a whisper.
+forgiving/CN | work_none | No work, no rumour of work, and don't look at me like that.
+forgiving/CN | unknown | No idea, and I'd make something up, but you'd know.
+forgiving/CN | unknown | Never heard of it, not once, not even as a lie.
+forgiving/CN | refused_give | No, that's {giver}'s, and I'm not stealing from {giver}, not even for you.
+forgiving/CN | refused_give | I won't, it's {giver}'s, and I stick by people, not their causes.
+forgiving/CN | refused_give | That's not mine, is it, so no.
+forgiving/CN | refused_release | I can't, {giver} gave it, {giver} takes it back, simple as that.
+forgiving/CN | refused_release | Not from me, that's {giver}'s knot, not mine to untie.
+forgiving/CN | refused_release | No, no, I don't undo other people's handshakes.
+forgiving/CN | refused | I cannot, {reason}, and I'd bend it if I could, honestly.
+forgiving/CN | refused | No such luck, {reason}, annoyingly.
+forgiving/CN | accepted | Good, good. Off you go, then.
+forgiving/CN | accepted | Done, shake on it, no, don't, just go.
+forgiving/CN | accepted | Thank you, and if you botch it, you're forgiven in advance.
+forgiving/CN | declined | Suit yourself, somebody else will bite.
+forgiving/CN | declined | Fair enough, no grudge, I never keep them long.
+forgiving/CN | declined | So be it, and, ha, I'd have said no too.
+forgiving/CN | abandoned | A pity, and you're forgiven, sorry or not.
+forgiving/CN | abandoned | Then it's done, and I'm not even cross, which surprises us both.
+forgiving/CN | abandoned | As you wish, gone, forgotten, next.
+forgiving/CN | parted | Farewell, and try not to need forgiving.
+forgiving/CN | parted | Go well, and if you do something stupid, come back anyway.
+forgiving/CN | parted | Take care, sinner, you'll be forgiven either way.
+forgiving/CN | not_understood | Speak plainly, sunshine.
+forgiving/CN | not_understood | What do you mean, what, no, say it again, slower.
+forgiving/CN | not_understood | That's beyond me, and I'm quick, so that's on you.
+
+# ---- forgiving/LG ----
+forgiving/LG | about_self | I am {speaker}, {post} of {place}. I hope you are well, and I will hear your business gladly.
+forgiving/LG | about_self | My name is {speaker}, {post} of {place}, and you will be heard fairly, whatever brings you.
+forgiving/LG | about_self | You are speaking to {speaker}, {post} of {place}, and you are welcome here.
+forgiving/LG | about_person | {name}, the {role}, may be found at {where}. If you see {name}, I would be glad to hear how they fare.
+forgiving/LG | about_person | That is {name}, the {role}, at {where}. Please deal with them honestly, as I would.
+forgiving/LG | about_place | You mean {about}. If anyone there is in need, I would ask you not to pass them by.
+forgiving/LG | about_place | Of that place, I can tell you only this: {about}.
+forgiving/LG | surroundings | This is {here}[, and the nearest place is {nearest}].[ Beyond it, {others}.][ I must ask you to keep clear of the {danger}.]
+forgiving/LG | surroundings | We are in {here}. The nearest is {nearest}[, and past it, {others}].[ Please take care near the {danger}, for your own sake.]
+forgiving/LG | surroundings | Here in {here}, the nearest is {nearest}.[ After that, {others}.][ Should you go near the {danger}, do not go alone.]
+forgiving/LG | surroundings | The nearest place I know is {nearest}.[ After it, {others}.][ Be careful of the {danger}.]
+forgiving/LG | surroundings | Of the places near us, the first is {nearest}[, then {others}].[ Keep well away from the {danger}, I beg you.]
+forgiving/LG | work_own | There is work, if you are willing, and I will help you however I can: {own}.[ If it does not suit you, {others}.]
+forgiving/LG | work_own | Let this be the start of trust between us: {own}.[ Otherwise, {others}.]
+forgiving/LG | work_own | I would ask this of you, and gladly: {own}.[ Or, if you would rather, {others}.]
+forgiving/LG | work_others | I have no work of my own, but {others}.
+forgiving/LG | work_others | Nothing is mine to offer. {others}, and I hope one of them suits you.
+forgiving/LG | work_none | No work that I know of, and I am truly sorry for it.
+forgiving/LG | work_none | I know of no work, and I would rather tell you so plainly than raise false hope.
+forgiving/LG | unknown | I don't know it, and I will not mislead you by guessing.
+forgiving/LG | unknown | I've never heard of it, and I would tell you honestly if I had.
+forgiving/LG | refused_give | No, that is {giver}'s to give, and I will not take from {giver} what is theirs.
+forgiving/LG | refused_give | I cannot give you {giver}'s work, for it would wrong {giver}, and I will not do that.
+forgiving/LG | refused_give | That's not mine to give, and I am sorry, but my office ends where another's begins.
+forgiving/LG | refused_release | I won't come between you and {giver}, for the word you gave them should be honoured.
+forgiving/LG | refused_release | Not from me, only {giver} may release you, and I would ask them gently.
+forgiving/LG | refused_release | No, only the one who gave it may release you, and I cannot act for them.
+forgiving/LG | refused | No, {reason}, and I am sorry for it.
+forgiving/LG | refused | I can't, {reason}, though I would if it were mine to decide.
+forgiving/LG | accepted | Thank you. Should you need help in it, you have only to ask.
+forgiving/LG | accepted | Good. Go carefully, and look after anyone who cannot look after themselves.
+forgiving/LG | accepted | Very good, and I will keep my word to you as you keep yours to me.
+forgiving/LG | declined | As you wish, and there is no shame in it.
+forgiving/LG | declined | Very well, and thank you for telling me honestly.
+forgiving/LG | declined | Fair enough, and I bear you no ill will for it.
+forgiving/LG | abandoned | So be it, you are pardoned, and I hope you are unhurt.
+forgiving/LG | abandoned | A pity, but I am sure you had good reason, and I will not hold it against you.
+forgiving/LG | abandoned | Then it's done, and I release you from your word without complaint.
+forgiving/LG | parted | Farewell, and I hope to see you again, well and whole.
+forgiving/LG | parted | Go well, good stranger, and know you are welcome back here, whatever happens.
+forgiving/LG | parted | Take care, and remember that no wrong is beyond mending.
+forgiving/LG | not_understood | I'm not sure what you mean, but I would like to, if you will say it again.
+forgiving/LG | not_understood | What do you mean, if I may ask?
+forgiving/LG | not_understood | That's beyond me, I am afraid, so please put it another way.

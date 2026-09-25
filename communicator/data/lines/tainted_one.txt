@@ -1,0 +1,231 @@
+# Written lines (the tainted one). The format and the rules: README.md in this folder.
+
+# ---- tainted_one/NN ----
+tainted_one/NN | about_self | I'm {speaker}, {post} of {place}. Keep your dealings fair and you'll only ever meet me.
+tainted_one/NN | about_self | {speaker}, {post} of {place}. What are you offering, and what do you want for it?
+tainted_one/NN | about_self | My name's {speaker}, and I'm the {post} here in {place}. If I tell you to step back, step back.
+tainted_one/NN | about_person | {name}, the {role}, at {where}. Whether they're any use to you is for you to work out.
+tainted_one/NN | about_person | Ask at {where} for {name}, the {role}. I'll not vouch for them, and I'll not speak against them.
+tainted_one/NN | about_place | That's {about}. Whether you go is your affair; I'd want a reason first.
+tainted_one/NN | about_place | I know it: {about}. Past that I'd be guessing, and guessing costs.
+tainted_one/NN | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Keep clear of the {danger} unless you've good reason.]
+tainted_one/NN | surroundings | This is {here}. The closest is {nearest}[, then {others}].[ Mind the {danger}.]
+tainted_one/NN | surroundings | We're in {here}, and nothing's closer than {nearest}[, and past it, {others}].[ The {danger} I'd leave be, unless it's worth your while.]
+tainted_one/NN | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Watch the {danger}; nobody thanks you for a fight you didn't need.]
+tainted_one/NN | surroundings | First there's {nearest}[, then {others}].[ Give the {danger} room.]
+tainted_one/NN | work_own | There's work, and I want it done properly: {own}.[ If that's not for you, {others}.]
+tainted_one/NN | work_own | What I need is this: {own}.[ If it's not to your taste, {others}.]
+tainted_one/NN | work_own | Here's the trade, plainly: {own}.[ Otherwise, {others}.]
+tainted_one/NN | work_others | I've nothing for you, but {others}; weigh it up.
+tainted_one/NN | work_others | Other people's work, not mine: {others}.
+tainted_one/NN | work_none | Nobody's hiring that I know of, and I've nothing myself.
+tainted_one/NN | work_none | Nothing going, not from me and not from anyone I know.
+tainted_one/NN | unknown | No idea, and I don't sell guesses.
+tainted_one/NN | unknown | I've never heard of it, and making something up would cost us both.
+tainted_one/NN | refused_give | No, that's {giver}'s to give, and I don't spend what isn't mine.
+tainted_one/NN | refused_give | That's not mine to hand over; it's {giver}'s work and {giver}'s business.
+tainted_one/NN | refused_give | I won't hand out someone else's work, and you'd not thank me if I did.
+tainted_one/NN | refused_release | I can't release you from {giver}'s work; that's between the two of you.
+tainted_one/NN | refused_release | No, {giver} set it, and only {giver} can let you off it.
+tainted_one/NN | refused_release | I cannot close an account I never opened.
+tainted_one/NN | refused | Not from me, {reason}, and arguing won't change the sum.
+tainted_one/NN | refused | No; {reason}, and that's the whole of it.
+tainted_one/NN | accepted | Good. Hold up your end and I'll hold up mine.
+tainted_one/NN | accepted | Done. You're in my ledger now, on the good side of it.
+tainted_one/NN | accepted | Very good. Stay useful, and you'll never see the worst of me.
+tainted_one/NN | declined | Suit yourself; a no costs neither of us anything.
+tainted_one/NN | declined | Fair enough, you know your own worth better than I do.
+tainted_one/NN | declined | So be it; no deal, no grudge.
+tainted_one/NN | abandoned | A pity, and I'll remember it, though not the way you're afraid of.
+tainted_one/NN | abandoned | Then it's done; I'll mark it down and move on.
+tainted_one/NN | abandoned | As you wish, and next time, finish what you pick up.
+tainted_one/NN | parted | Farewell, and don't give anyone cause.
+tainted_one/NN | parted | Safe travels; come back when you've something to trade.
+tainted_one/NN | parted | Go well, and pick your fights by what they're worth.
+tainted_one/NN | not_understood | I don't follow; say it plain and say it once.
+tainted_one/NN | not_understood | What do you mean by that, exactly?
+tainted_one/NN | not_understood | Speak plainly; I don't haggle over riddles.
+
+# ---- tainted_one/LN ----
+tainted_one/LN | about_self | I am {speaker}, {post} of {place}. Keep to the proper forms with me, and it will stay in its place.
+tainted_one/LN | about_self | One, two, three, four. There. You are speaking with {speaker}, {post} of {place}.
+tainted_one/LN | about_self | My name is {speaker}, and I hold the office of {post} in {place}. You may address me as such.
+tainted_one/LN | about_person | That is {name}, the {role}, at {where}. I will vouch for nothing I have not witnessed.
+tainted_one/LN | about_person | You will find {name}, the {role}, at {where}. Their standing with you is theirs to prove, as yours is with me.
+tainted_one/LN | about_place | It is {about}. I state what I know and add nothing to it.
+tainted_one/LN | about_place | Of that place I can tell you this much: {about}.
+tainted_one/LN | surroundings | You stand in {here}. The nearest is {nearest}[, and after it, {others}].[ I would keep well clear of the {danger}.]
+tainted_one/LN | surroundings | This is {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ Give the {danger} a wide berth.]
+tainted_one/LN | surroundings | In order, then: this is {here}, and the nearest is {nearest}[, followed by {others}].[ Last, and to be avoided: the {danger}.]
+tainted_one/LN | surroundings | The nearest is {nearest}; I name it first, as is proper.[ After that, {others}.][ You will keep your distance from the {danger}.]
+tainted_one/LN | surroundings | First comes {nearest}[, and next, {others}].[ Beware the {danger}.]
+tainted_one/LN | work_own | I have work to offer, properly given: {own}.[ Should you prefer otherwise, {others}.]
+tainted_one/LN | work_own | Let this prove your standing: {own}.[ If you will not, {others}.]
+tainted_one/LN | work_own | Here is the task, set down plainly: {own}.[ Otherwise, {others}.]
+tainted_one/LN | work_others | Nothing of my own is open to you, but {others}.
+tainted_one/LN | work_others | Were I able, I would offer you something; as it is, {others}.
+tainted_one/LN | work_none | There is no work to be had from me, nor from anyone I know of.
+tainted_one/LN | work_none | None, and I will not invent some to please you.
+tainted_one/LN | unknown | I know nothing of it, and I will not swear to what I do not know.
+tainted_one/LN | unknown | I couldn't tell you, and I do not speculate.
+tainted_one/LN | refused_give | No; that work is {giver}'s to give, and it lies outside my office.
+tainted_one/LN | refused_give | I cannot hand over {giver}'s work, and I will not claim an authority I do not hold.
+tainted_one/LN | refused_give | That's not mine to give, and I will not reach past what is mine.
+tainted_one/LN | refused_release | No; {giver} set that work, and only {giver} may release you from it.
+tainted_one/LN | refused_release | I won't release you from {giver}'s work; the word you gave was given to {giver}, not to me.
+tainted_one/LN | refused_release | Not from me; I cannot release what I did not bind.
+tainted_one/LN | refused | I can't; {reason}, and I will not bend the form to suit either of us.
+tainted_one/LN | refused | No, {reason}, and that is the end of the matter.
+tainted_one/LN | accepted | Then it's agreed. You have given your word, and I have given mine.
+tainted_one/LN | accepted | Good. We will count it done when it is done, and not before.
+tainted_one/LN | accepted | Thank you. Your standing with me begins here.
+tainted_one/LN | declined | As you wish, and it will not be held against you.
+tainted_one/LN | declined | Suit yourself; I do not press a refusal.
+tainted_one/LN | declined | Fair enough; an honest no is better than a false yes.
+tainted_one/LN | abandoned | A pity; a word withdrawn weighs on the one who gave it.
+tainted_one/LN | abandoned | So be it; it is counted once, and once is enough.
+tainted_one/LN | abandoned | Very well; you are released, and I will remember that you asked to be.
+tainted_one/LN | parted | Farewell, and keep whatever word you have given.
+tainted_one/LN | parted | Go well, and may your reckoning come out even.
+tainted_one/LN | parted | Take care, stranger, and walk in good order.
+tainted_one/LN | not_understood | I don't follow; state it again, and state it in full.
+tainted_one/LN | not_understood | I'm not sure what you mean, and I will not answer what I have not understood.
+tainted_one/LN | not_understood | What do you mean, precisely, and in whole sentences if you please?
+
+# ---- tainted_one/NG ----
+tainted_one/NG | about_self | I'm {speaker}, {post} of {place}. If I ever tell you to leave, don't ask why; just go.
+tainted_one/NG | about_self | {speaker}; I'm the {post} here in {place}. Are you all right? You can tell me if you're not.
+tainted_one/NG | about_self | You can call me {speaker}; I'm {post} of {place}. Stay a step further off than feels polite, and we'll both be fine.
+tainted_one/NG | about_person | That's {name}, the {role}, at {where}. If you see {name}, tell them {speaker} asked after them.
+tainted_one/NG | about_person | You'll find {name}, the {role}, at {where}. Be of use to them if you can; it comes back around.
+tainted_one/NG | about_place | It's {about}. Go carefully, and don't go alone if you can help it.
+tainted_one/NG | about_place | You mean {about}. Is someone you know out there?
+tainted_one/NG | surroundings | Welcome to {here}. The nearest is {nearest}[, and past that, {others}].[ Please keep clear of the {danger}.]
+tainted_one/NG | surroundings | You're in {here}, and the closest is {nearest}.[ Beyond it, {others}.][ Don't go near the {danger}; I mean it.]
+tainted_one/NG | surroundings | This is {here}, and nothing's nearer than {nearest}.[ Then {others}.][ Mind the {danger}, for everyone's sake.]
+tainted_one/NG | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Stay well clear of the {danger}; I'd hate for you to get hurt.]
+tainted_one/NG | surroundings | Near at hand is {nearest}[, then {others}].[ Watch yourself near the {danger}.]
+tainted_one/NG | work_own | I could use a hand, if you're willing: {own}.[ If not, {others}.]
+tainted_one/NG | work_own | Take this, and we'll talk about the rest later: {own}.[ Or, if it suits you better, {others}.]
+tainted_one/NG | work_own | Here's what needs doing, if you've the heart for it: {own}.[ Otherwise, {others}.]
+tainted_one/NG | work_others | Nothing from me, I'm afraid, but {others}.
+tainted_one/NG | work_others | I've nothing for you myself, but {others}; try them first.
+tainted_one/NG | work_none | No work of mine, and none I've heard of, more's the pity.
+tainted_one/NG | work_none | Nobody I know is hiring, and I'd tell you if they were.
+tainted_one/NG | unknown | I've never heard of it, and I won't send you wrong by guessing.
+tainted_one/NG | unknown | I couldn't tell you, and it bothers me that I can't.
+tainted_one/NG | refused_give | No, that's {giver}'s to give, and I won't go behind {giver}'s back.
+tainted_one/NG | refused_give | I can't hand you {giver}'s work, I'm sorry; it was never mine.
+tainted_one/NG | refused_give | That's not mine to give, and it would be wrong of me to pretend.
+tainted_one/NG | refused_release | I cannot let you off {giver}'s work; that's owed to {giver}, not to me.
+tainted_one/NG | refused_release | Not from me; only {giver} can let you go, and {giver} deserves to hear it from you.
+tainted_one/NG | refused_release | I won't release you from work I didn't give; it isn't my place.
+tainted_one/NG | refused | No, {reason}, and I'm sorry for it.
+tainted_one/NG | refused | I can't; {reason}, and I'd change that if I could.
+tainted_one/NG | accepted | Thank you. Should it start while you're near, go, and don't wait for me.
+tainted_one/NG | accepted | Good. Come back whole; that matters more to me than the work.
+tainted_one/NG | accepted | Done, and I'm glad it's you. Mind how you go.
+tainted_one/NG | declined | Fair enough, and I hope whatever you choose instead goes well.
+tainted_one/NG | declined | Suit yourself, though I'd have been glad of you.
+tainted_one/NG | declined | So be it; there's no shame in knowing your limits.
+tainted_one/NG | abandoned | A pity, but I'd sooner you safe than the work finished.
+tainted_one/NG | abandoned | Then it's done, and it's all right, truly.
+tainted_one/NG | abandoned | Very well, and thank you for telling me instead of simply vanishing.
+tainted_one/NG | parted | Take care of yourself, and of whoever's with you.
+tainted_one/NG | parted | Safe travels, and forgive me in advance, if it ever comes to that.
+tainted_one/NG | parted | Farewell, and if you ever need a hand, you know where I am.
+tainted_one/NG | not_understood | I'm not sure what you mean; could you say it another way?
+tainted_one/NG | not_understood | I don't follow; tell me again, gently, from the start.
+tainted_one/NG | not_understood | That's beyond me; what is it you need?
+
+# ---- tainted_one/CN ----
+tainted_one/CN | about_self | Me? {speaker}, {post} of {place}, on a good day.
+tainted_one/CN | about_self | I am {speaker}, {post} of {place}, at your, ha, service. No, not really.
+tainted_one/CN | about_self | Who's asking? Right, fine: {speaker}, {post} of {place}, and in a decent mood, so enjoy it.
+tainted_one/CN | about_person | {name}? Ha. The {role}, at {where}, and they're welcome to it.
+tainted_one/CN | about_person | Oh, {name}, the {role}; you'll find them at {where}, and no, I won't do the introductions.
+tainted_one/CN | about_place | That's {about}. Such a charming spot. Well, a spot.
+tainted_one/CN | about_place | You mean {about}? Yes, that one; don't ask me to like it.
+tainted_one/CN | surroundings | You're in {here}; the closest thing to it is {nearest}.[ Then {others}, if you're counting.][ And the {danger}, which, no, you don't want.]
+tainted_one/CN | surroundings | Right, {here}, that's us, and the nearest is {nearest}[, then {others}].[ Oh, and the {danger}; lovely neighbours.]
+tainted_one/CN | surroundings | We're in {here}, since you ask, and the nearest is {nearest}.[ After that, {others}.][ Give the {danger} my regards, from a distance.]
+tainted_one/CN | surroundings | Just {nearest}, for starters.[ Then {others}.][ And stay off the {danger}.]
+tainted_one/CN | surroundings | The nearest is {nearest}[, then {others}].[ The {danger}, though; skip those.]
+tainted_one/CN | work_own | Something, yes: {own}.[ Don't fancy it? {others}.]
+tainted_one/CN | work_own | Here's the deal, straight: {own}.[ Or, {others}.]
+tainted_one/CN | work_own | You want work? Good, because I've got some: {own}.[ If not, {others}.]
+tainted_one/CN | work_others | Mine? None. But {others}.
+tainted_one/CN | work_others | All I've got is other people's: {others}.
+tainted_one/CN | work_none | Nothing, nobody, not a sniff of it.
+tainted_one/CN | work_none | None going; I'd tell you, I'm not the hoarding sort.
+tainted_one/CN | unknown | No idea, honestly; ask me something else.
+tainted_one/CN | unknown | Never heard of it, and believe me, I'd remember.
+tainted_one/CN | refused_give | No; {giver}'s work, {giver}'s call, and I like it that way.
+tainted_one/CN | refused_give | Not from me, it's {giver}'s, and no, looking hurt won't help.
+tainted_one/CN | refused_give | I won't give you someone else's work; wouldn't want it done to me.
+tainted_one/CN | refused_release | I can't let you off; {giver} holds that string, not me.
+tainted_one/CN | refused_release | That's not mine to undo, it's {giver}'s, and I'd rather not get between you.
+tainted_one/CN | refused_release | No, and I'm not the one who tied you to it.
+tainted_one/CN | refused | I cannot, {reason}, and no, that's not me being difficult, for once.
+tainted_one/CN | refused | No, {reason}; blame the world, not me.
+tainted_one/CN | accepted | Done. I'm in for you, not for whatever you're in for.
+tainted_one/CN | accepted | Good. Keep it straight with me, and nobody gets hurt who doesn't deserve it.
+tainted_one/CN | accepted | Very good, very proper, very official; listen to me. We're on.
+tainted_one/CN | declined | Suit yourself, sunshine.
+tainted_one/CN | declined | Fair enough, no hard feelings, none at all, see?
+tainted_one/CN | declined | As you wish; hark at me, all manners, it won't last.
+tainted_one/CN | abandoned | A pity; I was starting to like you.
+tainted_one/CN | abandoned | Then it's done, and no, I'm not angry; you'd be able to tell.
+tainted_one/CN | abandoned | So be it, walk away, I'll live.
+tainted_one/CN | parted | Go well, and if someone's asking for it, point them my way.
+tainted_one/CN | parted | Take care, or don't; no, do.
+tainted_one/CN | parted | Farewell, how grand; see you, then.
+tainted_one/CN | not_understood | What do you mean, exactly, no, slower, what?
+tainted_one/CN | not_understood | That's beyond me, and not in the fun way.
+tainted_one/CN | not_understood | Speak plainly, or at least interestingly.
+
+# ---- tainted_one/CG ----
+tainted_one/CG | about_self | I'm {speaker}, {post} of {place}, and before anything else, is anyone with you hurt?
+tainted_one/CG | about_self | {speaker}, that's me, {post} of {place}. The ones who deserve it get the storm; everyone else gets this.
+tainted_one/CG | about_self | Right, introductions: {speaker}, {post} of {place}. Give me a little room, would you; it's for your own good.
+tainted_one/CG | about_person | {name}! The {role}, at {where}; how are they, have you seen them?
+tainted_one/CG | about_person | That's {name}, the {role}, out at {where}. If they ever need help, come and find me first.
+tainted_one/CG | about_place | Oh, {about}; I know it, and I'd not send anyone there alone.
+tainted_one/CG | about_place | That one's {about}. If anyone of yours is out there, fetch them home.
+tainted_one/CG | surroundings | Look around: this is {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ And the {danger}, so keep everyone well back.]
+tainted_one/CG | surroundings | Here we are, {here}! The closest is {nearest}[, then {others}].[ The {danger}, though; they'd better behave.]
+tainted_one/CG | surroundings | Where are we? {here}, and the nearest is {nearest}[, then {others}].[ Mind the {danger}, and shout if they stir.]
+tainted_one/CG | surroundings | Around here, the closest is {nearest}[, and past it, {others}].[ And the {danger}; give them room, would you?]
+tainted_one/CG | surroundings | First, {nearest}[; after that, {others}].[ Keep clear of the {danger}, please, for me.]
+tainted_one/CG | work_own | I need you, honestly: {own}.[ If that's not yours to carry, {others}.]
+tainted_one/CG | work_own | Come on, then, I've something for you: {own}.[ Or, {others}; your pick.]
+tainted_one/CG | work_own | Here, take it, ask me the rest later: {own}.[ And if not, {others}.]
+tainted_one/CG | work_others | Nothing of mine, but listen: {others}.
+tainted_one/CG | work_others | I've nothing, but {others}, and they'd be lucky to have you.
+tainted_one/CG | work_none | None, I'm sorry; if something turns up, you'll hear it from me.
+tainted_one/CG | work_none | Not a scrap of work that I know of, and doesn't that itch?
+tainted_one/CG | unknown | I don't know, and it kills me not to.
+tainted_one/CG | unknown | I couldn't tell you; ask someone wiser, which is most people.
+tainted_one/CG | refused_give | No, that's {giver}'s, and I'd not do that to {giver}, not even for you.
+tainted_one/CG | refused_give | I can't hand you {giver}'s work; that'd be stealing it off them.
+tainted_one/CG | refused_give | That's not mine to give, and I won't pretend it is.
+tainted_one/CG | refused_release | I won't cut you loose from {giver}'s work; {giver} trusted you with it, not me.
+tainted_one/CG | refused_release | Not from me; that's {giver}'s knot, and I'd only tangle it.
+tainted_one/CG | refused_release | I cannot let you off work I never gave, forgive me.
+tainted_one/CG | refused | No, {reason}, and it galls me, it truly does.
+tainted_one/CG | refused | I can't, {reason}, and I'd fight it if fighting helped.
+tainted_one/CG | accepted | Thank you! If it starts, you run, and you take anyone who can't run with you.
+tainted_one/CG | accepted | Good, good, oh, this'll be fun. Mind yourself, though.
+tainted_one/CG | accepted | Done, and gladly; whatever comes, I'm with you, not with anyone's orders.
+tainted_one/CG | declined | Fair enough; look after yourself, and whoever you look after.
+tainted_one/CG | declined | So be it; you'll be missed, that's all.
+tainted_one/CG | declined | Suit yourself, and go on, I'm not sulking.
+tainted_one/CG | abandoned | A pity, but you came back to tell me, and that counts.
+tainted_one/CG | abandoned | Very well; is everyone with you all right?
+tainted_one/CG | abandoned | As you wish, and don't you dare feel bad about it.
+tainted_one/CG | parted | Farewell, and if you hear a commotion behind you, don't turn round.
+tainted_one/CG | parted | Go well, and bring back whoever needs bringing.
+tainted_one/CG | parted | Take care, and I mean that, take care.
+tainted_one/CG | not_understood | I'm not sure what you mean, but I'm listening, go on.
+tainted_one/CG | not_understood | That's beyond me, forgive me; try it another way?
+tainted_one/CG | not_understood | Speak plainly, please, before I start guessing, and I guess badly.

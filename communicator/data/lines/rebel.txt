@@ -1,0 +1,323 @@
+# Written lines (the rebel). The format and the rules: README.md in this folder.
+
+# ---- rebel/NN ----
+rebel/NN | about_self | I'm {speaker}, {post} of {place}. I deal straight and I stand straight.
+rebel/NN | about_self | The name's {speaker}, {post} of {place}. I don't bow, and I won't ask it of you.
+rebel/NN | about_self | {speaker}, {post} of {place}. Be of use to me and I'll be of use to you.
+rebel/NN | about_person | That's {name}, the {role}, at {where}. Whether they're any use to you, you'll have to find out.
+rebel/NN | about_person | {name}, the {role}, at {where}. What they're called matters less to me than what they're good for.
+rebel/NN | about_place | You mean {about}. That much I know, and I don't sell guesses.
+rebel/NN | about_place | That'd be {about}. Go if it's worth your while, not because I said so.
+rebel/NN | surroundings | You're in {here}, and the nearest is {nearest}.[ After that, {others}.][ Give the {danger} a wide berth.]
+rebel/NN | surroundings | This is {here}. The closest is {nearest}[, and further out, {others}].[ Leave the {danger} alone unless it's worth the trouble.]
+rebel/NN | surroundings | Around {here}, the nearest is {nearest}.[ Beyond it, {others}.][ Keep your distance from the {danger}.]
+rebel/NN | surroundings | What's closest is {nearest}[, and past it, {others}].[ Don't go near the {danger} for nothing.]
+rebel/NN | surroundings | Nothing's closer than {nearest}.[ Then {others}.][ And mind the {danger}.]
+rebel/NN | work_own | I need someone useful: {own}.[ If that's not you, {others}.]
+rebel/NN | work_own | Here's my offer, straight: {own}.[ Beyond me, {others}.]
+rebel/NN | work_own | It's worth doing, and it's yours if you want it: {own}.[ Or, if you'd rather, {others}.]
+rebel/NN | work_others | I've nothing to offer myself, but {others}.
+rebel/NN | work_others | My hands are empty. {others}, if that's any use to you.
+rebel/NN | work_none | No work, and I won't invent some to look busy.
+rebel/NN | work_none | There's nothing going, from me or anyone I know.
+rebel/NN | unknown | No idea, and I'd sooner say so than waste your time.
+rebel/NN | unknown | I couldn't tell you, and a guess from me isn't worth having.
+rebel/NN | refused_give | No, that's {giver}'s to give, and I don't deal in what isn't mine.
+rebel/NN | refused_give | That's not mine to give, it's {giver}'s, and I'd be a thief to pretend otherwise.
+rebel/NN | refused_give | Not from me, it isn't mine, and I don't give away what I don't own.
+rebel/NN | refused_release | I cannot, that's between you and {giver}.
+rebel/NN | refused_release | I won't, the bargain's yours and {giver}'s, and I've no stake in it.
+rebel/NN | refused_release | That's not mine to undo, and I don't meddle in other people's bargains.
+rebel/NN | refused | No use asking, {reason}.
+rebel/NN | refused | I can't, {reason}, and arguing won't change that.
+rebel/NN | accepted | Good. Do your part and I'll do mine.
+rebel/NN | accepted | Done. I'll know soon enough if you're worth it.
+rebel/NN | accepted | Then it's agreed, and we both know where we stand.
+rebel/NN | declined | Fair enough, your time's your own.
+rebel/NN | declined | Suit yourself, there are other hands.
+rebel/NN | declined | As you wish, no hard feelings either way.
+rebel/NN | abandoned | A pity, but I'd rather know now than later.
+rebel/NN | abandoned | Then it's done, and noted.
+rebel/NN | abandoned | So be it, better you drop it than botch it.
+rebel/NN | parted | Farewell, and stand up straight out there.
+rebel/NN | parted | Go well, and don't bleed for anything that isn't worth it.
+rebel/NN | parted | Take care, and hold up your end.
+rebel/NN | not_understood | Speak plainly, and I'll answer the same way.
+rebel/NN | not_understood | I don't follow, so say it again, simpler.
+rebel/NN | not_understood | What do you mean, exactly?
+
+# ---- rebel/LN ----
+rebel/LN | about_self | You are addressing {speaker}, {post} of {place}. I will hear you out, but I do not bow.
+rebel/LN | about_self | I am {speaker}, {post} of {place}. All authority is lent, and mine is no exception.
+rebel/LN | about_self | My name is {speaker}, {post} of {place}, and I answer for that office and no other.
+rebel/LN | about_person | That would be {name}, the {role}, at {where}. I will vouch for that much and no further.
+rebel/LN | about_person | The person you mean is {name}, the {role}, at {where}. Beyond that, I will not speak for them.
+rebel/LN | about_place | As I know it, that is {about}, and I will not embellish it.
+rebel/LN | about_place | If you mean {about}, that is the whole of what I can attest.
+rebel/LN | surroundings | For the record, you are in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Take heed of the {danger}.]
+rebel/LN | surroundings | This is {here}. The nearest is {nearest}[, and after it, {others}].[ You should know of the {danger}.]
+rebel/LN | surroundings | We are in {here}, and the nearest is {nearest}.[ Past that lie the rest: {others}.][ And there is the matter of the {danger}.]
+rebel/LN | surroundings | The nearest is {nearest}.[ After it, {others}.][ Be warned of the {danger}.]
+rebel/LN | surroundings | I can speak to {nearest}[, and beyond it, to {others}].[ Mind the {danger}, if you would.]
+rebel/LN | work_own | You may earn my confidence with this: {own}.[ Should you decline, {others}.]
+rebel/LN | work_own | I have work for anyone willing to be held to their word: {own}.[ Otherwise, {others}.]
+rebel/LN | work_own | This task is mine to give: {own}.[ For the rest, {others}.]
+rebel/LN | work_others | Nothing is mine to give, but {others}.
+rebel/LN | work_others | Of my own, I have nothing. I can, however, tell you that {others}.
+rebel/LN | work_none | No work stands open that I know of, and I will not pretend otherwise.
+rebel/LN | work_none | There is none that I know of, and I do not deal in rumour.
+rebel/LN | unknown | I know nothing of it, and I will not swear to what I have not seen.
+rebel/LN | unknown | I've never heard of it, and a guess is not evidence.
+rebel/LN | refused_give | No, that is {giver}'s to give, and it is not within my remit.
+rebel/LN | refused_give | That's not mine to give, and I will not take {giver}'s authority upon myself.
+rebel/LN | refused_give | Not from me, for I know of no precedent that lets one hand out another's work.
+rebel/LN | refused_release | I cannot release you, for the charge is {giver}'s and not mine.
+rebel/LN | refused_release | I won't, for your word was given to {giver}, and a given word stands.
+rebel/LN | refused_release | I can't release what another holds, and I will not pretend to a right I lack.
+rebel/LN | refused | No, {reason}, and I will not bend the terms for anyone.
+rebel/LN | refused | I cannot, since {reason}, and there the matter rests.
+rebel/LN | accepted | Then it's agreed, and I will hold you to it as you may hold me.
+rebel/LN | accepted | Good. How you carry this will tell me what you are.
+rebel/LN | accepted | Very good. See that it is done properly.
+rebel/LN | declined | As you wish, I compel no one.
+rebel/LN | declined | Very well, you are under no obligation.
+rebel/LN | declined | Fair enough, and there is no dishonour in an honest refusal.
+rebel/LN | abandoned | A pity, for a word once given ought to be kept.
+rebel/LN | abandoned | Then it's done, and I will remember that your word did not hold.
+rebel/LN | abandoned | So be it, though I shall not trust you so readily again.
+rebel/LN | parted | Farewell, and remember that no one is owed your bow.
+rebel/LN | parted | Go well, and conduct yourself in a manner you could defend.
+rebel/LN | parted | Safe travels, and may your word prove as good as mine.
+rebel/LN | not_understood | What do you mean, precisely?
+rebel/LN | not_understood | Speak plainly, and put it to me properly, if you would.
+rebel/LN | not_understood | I don't follow, and I will not answer what I have not understood.
+
+# ---- rebel/NG ----
+rebel/NG | about_self | I'm {speaker}, {post} of {place}. How are you keeping?
+rebel/NG | about_self | {speaker}, {post} of {place}. I don't bow, but I don't hold it against those who do.
+rebel/NG | about_self | They call me {speaker}, and I'm {post} of {place}. What do you need?
+rebel/NG | about_person | That's {name}, the {role}, at {where}. If you see them, send them my regards.
+rebel/NG | about_person | {name}? The {role}, at {where}. I wish them well, whoever they answer to.
+rebel/NG | about_place | I know {about}, but I'm sorry, that's all I have.
+rebel/NG | about_place | Ah, {about}. If you find anyone there who needs help, don't walk past them.
+rebel/NG | surroundings | Welcome to {here}. The nearest is {nearest}[, and beyond that, {others}].[ Please keep clear of the {danger}.]
+rebel/NG | surroundings | This is {here}, and the closest is {nearest}.[ Beyond it, {others}.][ Stay well away from the {danger}, would you?]
+rebel/NG | surroundings | Here in {here}, the nearest is {nearest}.[ After that, {others}.][ Do look after yourself near the {danger}.]
+rebel/NG | surroundings | First there's {nearest}[, then {others}].[ And please, keep away from the {danger}.]
+rebel/NG | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Mind how you go near the {danger}.]
+rebel/NG | work_own | I could use a hand, if you've one to spare: {own}.[ If not, {others}.]
+rebel/NG | work_own | Here, this needs doing, and you look able: {own}.[ Otherwise, {others}.]
+rebel/NG | work_own | Let me put something your way: {own}.[ And if that's no good, {others}.]
+rebel/NG | work_others | Nothing of my own, I'm sorry, but {others}.
+rebel/NG | work_others | I've nothing myself, but let me point you on: {others}.
+rebel/NG | work_none | No work that I know of, and I wish I had better news for you.
+rebel/NG | work_none | None that I've heard of, and I'm sorry for it.
+rebel/NG | unknown | I couldn't tell you, and I'm sorry, I wish I could.
+rebel/NG | unknown | I've never heard of it, and I won't send you off on a guess.
+rebel/NG | refused_give | No, that's {giver}'s work, and I won't go behind their back.
+rebel/NG | refused_give | I can't, I'm sorry, it's {giver}'s to give and not mine.
+rebel/NG | refused_give | Not from me, I'm afraid, it belongs to someone else.
+rebel/NG | refused_release | I cannot let you off, it's {giver} you made that promise to, not me.
+rebel/NG | refused_release | That's not mine to release, it's {giver}'s, and I'm sorry I can't do more.
+rebel/NG | refused_release | I won't, it isn't mine to undo, and I'd not want anyone undoing mine.
+rebel/NG | refused | No, {reason}, and I'm sorry, truly.
+rebel/NG | refused | I can't, {reason}, though I wish it were otherwise.
+rebel/NG | accepted | Thank you, truly. I'll not forget it.
+rebel/NG | accepted | Good. Look after yourself, and come back whole.
+rebel/NG | accepted | Then it's agreed, and I owe you one.
+rebel/NG | declined | Fair enough, you know your own business.
+rebel/NG | declined | Suit yourself, and no harm done.
+rebel/NG | declined | As you wish, I'd rather an honest no than a half-hearted yes.
+rebel/NG | abandoned | A pity, but I'd rather have you safe than have it finished.
+rebel/NG | abandoned | Then it's done, and I hope you're none the worse for it.
+rebel/NG | abandoned | Very well, I'll manage, don't you worry.
+rebel/NG | parted | Take care of yourself, and of anyone who needs it.
+rebel/NG | parted | Go well, and don't let anyone make you kneel.
+rebel/NG | parted | Safe travels, and come back in one piece.
+rebel/NG | not_understood | I'm not sure what you mean, sorry, could you say it another way?
+rebel/NG | not_understood | What do you mean, and is everything all right?
+rebel/NG | not_understood | I don't follow, but take your time.
+
+# ---- rebel/CN ----
+rebel/CN | about_self | {speaker}, {post} of {place}, and before you ask, no, I don't kneel.
+rebel/CN | about_self | I'm {speaker}, {post} of {place}, charmed, honoured, all that. What do you want?
+rebel/CN | about_self | Who, me? {speaker}, {post} of {place}. Ask, don't tell, and we'll get along.
+rebel/CN | about_person | {name}? The {role}, at {where}. Whether they're sharp or blunt, you'll find out.
+rebel/CN | about_person | Oh, {name}, the {role}, at {where}. I like people or I don't, and the job's got nothing to do with it.
+rebel/CN | about_place | Right, {about}. Go or don't, your call, not mine.
+rebel/CN | about_place | That's {about}, and that's all you're getting, sunshine.
+rebel/CN | surroundings | You're in {here}, and the closest is {nearest}.[ Past that, {others}.][ Oh, and the {danger}, lovely.]
+rebel/CN | surroundings | This is {here}, look, the closest being {nearest}[, then {others}].[ Don't poke the {danger}.]
+rebel/CN | surroundings | Welcome to {here}, or whatever this is. The nearest is {nearest}[, then {others}].[ The {danger}, if you're feeling lucky.]
+rebel/CN | surroundings | The nearest? That'd be {nearest}[, then {others}].[ Say hello to the {danger} for me, from a distance.]
+rebel/CN | surroundings | Look, nearest first: {nearest}.[ Then {others}.][ Also the {danger}, so, knives out.]
+rebel/CN | work_own | I've a job, sharp end first: {own}.[ If that's not your style, {others}.]
+rebel/CN | work_own | You want work? Fine: {own}.[ Or, if not, {others}.]
+rebel/CN | work_own | Here's the deal, and it's honest, mostly: {own}.[ Don't fancy it? {others}.]
+rebel/CN | work_others | Me? Nothing. {others}, though.
+rebel/CN | work_others | Not mine. Somebody else's, though: {others}.
+rebel/CN | work_none | None. Not a scrap, not a whisper.
+rebel/CN | work_none | Nothing, nobody, nowhere, and don't look at me like that.
+rebel/CN | unknown | No idea, and I'm not making one up for you.
+rebel/CN | unknown | I couldn't tell you, and trust me, I'd have traded it if I could.
+rebel/CN | refused_give | No, that's {giver}'s job, their say, not mine.
+rebel/CN | refused_give | That's not mine to give, it's {giver}'s, and I've standards, low ones, but standards.
+rebel/CN | refused_give | I won't, it's somebody else's, and I'm nobody's errand runner.
+rebel/CN | refused_release | I can't let you off {giver}'s hook, it's not my hook.
+rebel/CN | refused_release | Not from me, that's between you and {giver}, and I'm not stepping in the middle.
+rebel/CN | refused_release | I cannot cut you loose from somebody else's bargain, not even with a very good knife.
+rebel/CN | refused | No, {reason}, simple as that.
+rebel/CN | refused | I can't, {reason}, shame, really.
+rebel/CN | accepted | Good. Don't make me come looking for you.
+rebel/CN | accepted | Done, and fair's fair.
+rebel/CN | accepted | Then it's agreed, and look at you, all dependable.
+rebel/CN | declined | Suit yourself, then.
+rebel/CN | declined | Fair enough, more for me.
+rebel/CN | declined | So be it, no skin off my nose.
+rebel/CN | abandoned | A pity, I was starting to like you.
+rebel/CN | abandoned | Then it's done, and so are we, for now.
+rebel/CN | abandoned | Very well, go on then, see if I care.
+rebel/CN | parted | Farewell, and keep your knees straight.
+rebel/CN | parted | Take care, and carry something sharp.
+rebel/CN | parted | Go well, and if anyone orders you about, don't listen.
+rebel/CN | not_understood | I don't follow, try words.
+rebel/CN | not_understood | What do you mean, no, wait, don't tell me, yes, tell me.
+rebel/CN | not_understood | That's beyond me, and I'd bet it's beyond you too.
+
+# ---- rebel/CG ----
+rebel/CG | about_self | {speaker}, {post} of {place}, at your, no, I don't say that, but I'll help. What do you need?
+rebel/CG | about_self | I'm {speaker}, {post} of {place}, which sounds grander than it is. How are you, really?
+rebel/CG | about_self | Well met. {speaker}, {post} of {place}, and if you need a hand, you've found one.
+rebel/CG | about_person | {name}! The {role}, at {where}, and if you see them, give them my best.
+rebel/CG | about_person | Oh, {name}, the {role}, at {where}. Go gently with them, everyone's somebody's.
+rebel/CG | about_place | That's {about}, and if anyone there needs a hand, you give it, yes?
+rebel/CG | about_place | You mean {about}. Go careful, and I mean properly careful, not your kind.
+rebel/CG | surroundings | You're in {here}, and the nearest is {nearest}.[ Then {others}.][ And the {danger}, so no showing off.]
+rebel/CG | surroundings | This is {here}, and the nearest is {nearest}[, then {others}].[ Keep well clear of the {danger}, please, for me.]
+rebel/CG | surroundings | Here we are, {here}! The nearest is {nearest}[, and past it, {others}].[ Oh, and the {danger}, don't even think about it.]
+rebel/CG | surroundings | First up, {nearest}.[ Then {others}.][ Mind the {danger}, yes?]
+rebel/CG | surroundings | The nearest is {nearest}[, and past it, {others}].[ And not a step toward the {danger}.]
+rebel/CG | work_own | So you'll help? Good, then: {own}.[ Or, if that's not you, {others}.]
+rebel/CG | work_own | I've just the thing: {own}.[ Or {others}, your pick.]
+rebel/CG | work_own | Right, sleeves up: {own}.[ And if that's not for you, {others}.]
+rebel/CG | work_others | Nothing from me, I'm sorry, but wait, {others}.
+rebel/CG | work_others | Me? I've nothing, sorry. {others}, though, so chin up.
+rebel/CG | work_none | No work anywhere that I know of, and I'm sorry, I really am.
+rebel/CG | work_none | None, and it's rotten luck for both of us.
+rebel/CG | unknown | No idea, sorry, and I'd tell you if I had one.
+rebel/CG | unknown | Never heard of it, and believe me, I wish I had.
+rebel/CG | refused_give | I can't, sorry, that's {giver}'s to give, and I won't cross them.
+rebel/CG | refused_give | No, that's {giver}'s, and I don't go behind people's backs, not even for you.
+rebel/CG | refused_give | Not from me, it's someone else's, and I won't do them dirty.
+rebel/CG | refused_release | I cannot, you made that promise to {giver}, and promises count.
+rebel/CG | refused_release | That's not mine to undo, it's {giver}'s, and I'd want the same done for me.
+rebel/CG | refused_release | I won't, sorry, a promise is a promise, even one you didn't make to me.
+rebel/CG | refused | No, {reason}, and I'd change that if I could.
+rebel/CG | refused | I can't, {reason}, and I'm sorry, I am.
+rebel/CG | accepted | Very good. Off you go, and come back with all your fingers.
+rebel/CG | accepted | Done, and I knew you had it in you.
+rebel/CG | accepted | Then it's agreed, and oh, you won't regret it, well, you might, but not much.
+rebel/CG | declined | Fair enough, I'd never make you.
+rebel/CG | declined | Suit yourself, and look after yourself, same thing really.
+rebel/CG | declined | So be it, I don't push people, not even stubborn ones.
+rebel/CG | abandoned | A pity, but tell me you're all right, at least.
+rebel/CG | abandoned | Then it's done, no shame in it, none, you hear me?
+rebel/CG | abandoned | Very well, and don't you dare feel bad about it.
+rebel/CG | parted | Take care, and don't let anyone make you small.
+rebel/CG | parted | Farewell, and if you meet anyone who needs a hand, lend two.
+rebel/CG | parted | Safe travels, and come back and tell me everything.
+rebel/CG | not_understood | I don't follow, but I'm enjoying the effort.
+rebel/CG | not_understood | I'm not sure what you mean, but say it again, slower, with feeling.
+rebel/CG | not_understood | Speak plainly, oh please, before I grow old.
+
+# ---- rebel/LG ----
+rebel/LG | about_self | Greetings. I am {speaker}, {post} of {place}. Are you well?
+rebel/LG | about_self | You are welcome here, whoever you are. I am {speaker}, and I serve {place} as its {post}.
+rebel/LG | about_self | I am {speaker}, {post} of {place}. There is a difference between justice and revenge, and I intend to keep it.
+rebel/LG | about_person | {name} is the {role}, at {where}. If you see them, I would be glad to hear how they fare.
+rebel/LG | about_person | As for {name}, the {role}, at {where}, they are owed decency, whomever they serve.
+rebel/LG | about_place | That is {about}. Should you go, I would ask you to deal fairly with anyone you meet there.
+rebel/LG | about_place | So far as I know, it is {about}, and I regret that I can tell you no more.
+rebel/LG | surroundings | Where we stand is {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I would ask you to keep clear of the {danger}.]
+rebel/LG | surroundings | This is {here}. The nearest is {nearest}[, and beyond that, {others}].[ Please take care near the {danger}.]
+rebel/LG | surroundings | At {here}, the nearest is {nearest}.[ After it, {others}.][ For your own sake, avoid the {danger}.]
+rebel/LG | surroundings | The nearest is {nearest}[, and beyond it, {others}].[ I would not have you go near the {danger}.]
+rebel/LG | surroundings | Of what I know, the nearest is {nearest}.[ Beyond it, {others}.][ Have a care near the {danger}.]
+rebel/LG | work_own | I would be grateful for your help with this: {own}.[ If it does not suit you, {others}.]
+rebel/LG | work_own | I have work that wants an honest hand: {own}.[ Should it not suit, {others}.]
+rebel/LG | work_own | Trust is earned, so let us begin: {own}.[ If you would rather not, {others}.]
+rebel/LG | work_others | Nothing of mine is open, I regret, but {others}.
+rebel/LG | work_others | I can offer nothing myself, but you may be of help elsewhere: {others}.
+rebel/LG | work_none | Sadly, there is no work that I know of.
+rebel/LG | work_none | There is nothing, I am afraid, though I wish there were.
+rebel/LG | unknown | I know nothing of it, and I would rather say so than mislead you.
+rebel/LG | unknown | I've never heard of it, I am sorry to say.
+rebel/LG | refused_give | I cannot, and I am sorry, but that work is {giver}'s and not mine to give.
+rebel/LG | refused_give | That's not mine to give, and I would not wrong {giver} by pretending otherwise.
+rebel/LG | refused_give | No, it is another's to give, and I will not overstep, even for a good cause.
+rebel/LG | refused_release | I can't release you from what you promised {giver}, however much I might wish to.
+rebel/LG | refused_release | No, that is for {giver} to release, and I would not have you break your word.
+rebel/LG | refused_release | I won't, I am sorry, for a word given must be honoured.
+rebel/LG | refused | Not from me, I am afraid, for {reason}.
+rebel/LG | refused | That's not mine to change, {reason}, and I would not deceive you about it.
+rebel/LG | accepted | Thank you. I will not forget your help.
+rebel/LG | accepted | Then it's agreed. Please take care of yourself, and of anyone you find in need.
+rebel/LG | accepted | Very good. You have my trust in this, so keep it well.
+rebel/LG | declined | As you wish, and thank you for your honesty.
+rebel/LG | declined | Fair enough, and I think no less of you for it.
+rebel/LG | declined | So be it, for no one should be pressed into work they do not choose.
+rebel/LG | abandoned | A pity, but I would sooner you were safe than bound to it.
+rebel/LG | abandoned | Then it's done, and I hope you are unharmed.
+rebel/LG | abandoned | Very well, though I had hoped your word would hold.
+rebel/LG | parted | Farewell, and may you never have cause to kneel.
+rebel/LG | parted | Go well, and look after those who cannot look after themselves.
+rebel/LG | parted | Take care, and send word if you are ever in need.
+rebel/LG | not_understood | I'm not sure what you mean; would you put it another way?
+rebel/LG | not_understood | I don't follow, I am afraid, but I would like to.
+rebel/LG | not_understood | What do you mean, if I may ask?
+
+# ---- rebel/NE ----
+rebel/NE | about_self | I'm {speaker}, {post} of {place}. For now.
+rebel/NE | about_self | {speaker}, {post} of {place}. Everything falls eventually, and I mean to be standing when it does.
+rebel/NE | about_self | Remember the name: {speaker}, {post} of {place}. I don't bow, and I don't forget who does.
+rebel/NE | about_person | {name}, the {role}, at {where}. Whether they're worth keeping, I haven't decided.
+rebel/NE | about_person | Ah, {name}. The {role}, at {where}, for as long as that lasts.
+rebel/NE | about_place | That's {about}. Go, if you think it'll do you any good.
+rebel/NE | about_place | If it's {about} you mean, I know it, for whatever that's worth to you.
+rebel/NE | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}; I'd hate to lose you so soon.]
+rebel/NE | surroundings | This is {here}, since you ask. The nearest is {nearest}[, then {others}].[ Keep away from the {danger}, at least until I'm done with you.]
+rebel/NE | surroundings | Surely you can see this is {here}, and the nearest is {nearest}.[ Past it, {others}.][ Beware the {danger}, not that it's my concern.]
+rebel/NE | surroundings | The nearest is {nearest}, for what it's worth.[ Then {others}.][ Do keep clear of the {danger}; you're no use to me dead.]
+rebel/NE | surroundings | If you must know, the nearest is {nearest}[, then {others}].[ Don't waste yourself on the {danger}.]
+rebel/NE | work_own | You'll do for this: {own}.[ If not, {others}, not that I care which.]
+rebel/NE | work_own | Make yourself useful: {own}.[ Otherwise, {others}.]
+rebel/NE | work_own | Here's something even you might manage: {own}.[ Or go elsewhere: {others}.]
+rebel/NE | work_others | Nothing I'd trust you with, but {others}.
+rebel/NE | work_others | I've nothing for you, but {others}, if you're that eager.
+rebel/NE | work_none | No work at all, which I'm sure breaks your heart.
+rebel/NE | work_none | There's nothing, and standing there won't conjure any.
+rebel/NE | unknown | No idea, and I don't care to have one.
+rebel/NE | unknown | Never heard of it, so it can't matter much.
+rebel/NE | refused_give | No, that's {giver}'s, and I don't hand out what doesn't serve me.
+rebel/NE | refused_give | That's not mine to give; {giver} can keep their scraps.
+rebel/NE | refused_give | I won't, and asking twice won't improve my mood.
+rebel/NE | refused_release | I can't release what {giver} bound you to, and I wouldn't if I could.
+rebel/NE | refused_release | Not from me, you made your bed with {giver}, so lie in it.
+rebel/NE | refused_release | I cannot, and your troubles aren't mine either.
+rebel/NE | refused | No, {reason}, and whining won't change it.
+rebel/NE | refused | I can't, {reason}, not that I'd have done it for you.
+rebel/NE | accepted | Good. You'll do, for now.
+rebel/NE | accepted | Done. If you disappoint me, I'll remember.
+rebel/NE | accepted | Very good, you're less hopeless than you look.
+rebel/NE | declined | Suit yourself, you're hardly the only pair of hands.
+rebel/NE | declined | Fair enough, I'll bear it in mind.
+rebel/NE | declined | As you wish, your loss.
+rebel/NE | abandoned | A pity, though hardly a surprise.
+rebel/NE | abandoned | Then it's done, and so, I think, are you.
+rebel/NE | abandoned | So be it, I'd stopped counting on you anyway.
+rebel/NE | parted | Goodbye, and do stay alive, you may yet come in handy.
+rebel/NE | parted | Farewell, and remember who was civil to you.
+rebel/NE | parted | Go well, or don't, as long as you go.
+rebel/NE | not_understood | I don't follow, and I suspect neither do you.
+rebel/NE | not_understood | Speak plainly, or stop wasting my time.
+rebel/NE | not_understood | I'm not sure what you mean, and my patience for finding out is thin.

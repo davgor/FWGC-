@@ -1,0 +1,231 @@
+# Written lines (the hermit sage). The format and the rules: README.md in this folder.
+
+# ---- hermit_sage/NN ----
+hermit_sage/NN | about_self | I'm {speaker}, {post} of {place}. Ask what you came to ask, and I'll weigh it.
+hermit_sage/NN | about_self | {speaker}, {post}[ of {place}]. I answer what's worth answering, and not a word past it.
+hermit_sage/NN | about_self | My name's {speaker}, {post} here in {place}. A useful question gets a useful answer, and a dangerous one gets nothing.
+hermit_sage/NN | about_person | That's {name}, the {role}, at {where}. Whether they're any use to you is your own sum to do.
+hermit_sage/NN | about_person | {name}? The {role}, at {where}. What they're good for, you can work out yourself.
+hermit_sage/NN | about_place | It's {about}. Go or don't; it's the same to me.
+hermit_sage/NN | about_place | You mean {about}. I'll say that much, and I've no stake in what you do with it.
+hermit_sage/NN | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ The {danger}, I'd leave alone.]
+hermit_sage/NN | surroundings | This is {here}; the closest is {nearest}[, then {others}].[ Leave the {danger} be, unless the risk is worth it to you.]
+hermit_sage/NN | surroundings | Here's how it stands: you're in {here}, and closest to you is {nearest}.[ Beyond it, {others}.][ Mind the {danger}; they're no bargain.]
+hermit_sage/NN | surroundings | The nearest is {nearest}.[ Past that, {others}.][ The {danger} are trouble you don't need.]
+hermit_sage/NN | surroundings | What's closest is {nearest}[, and after it, {others}].[ Keep your distance from the {danger}.]
+hermit_sage/NN | work_own | I've a use for you, if you want one: {own}.[ If not, {others}.]
+hermit_sage/NN | work_own | There's a job needs doing, and you'll do: {own}.[ Otherwise, {others}.]
+hermit_sage/NN | work_own | One job, plainly put: {own}.[ Or, if it suits you better, {others}.]
+hermit_sage/NN | work_others | Nothing of mine needs doing, but {others}.
+hermit_sage/NN | work_others | Ask elsewhere: {others}.
+hermit_sage/NN | work_none | No work here, and none I know of anywhere else.
+hermit_sage/NN | work_none | None that I know of, and I won't make some up to be polite.
+hermit_sage/NN | unknown | I can't say, and a guess from me is worth nothing to you.
+hermit_sage/NN | unknown | No idea, and I don't deal in guesses.
+hermit_sage/NN | refused_give | No, that's {giver}'s to hand out, and I don't trade in what isn't mine.
+hermit_sage/NN | refused_give | That's not mine; {giver} set it, and I keep my accounts straight.
+hermit_sage/NN | refused_give | Not from me; it isn't mine to give, and nothing you offer changes that.
+hermit_sage/NN | refused_release | I cannot release you from {giver}'s work; that bargain was struck without me.
+hermit_sage/NN | refused_release | I won't undo {giver}'s bargain, for them or for you.
+hermit_sage/NN | refused_release | I can't; whoever set you that task holds the other end of it.
+hermit_sage/NN | refused | No; {reason}, and wanting it harder won't change the sum.
+hermit_sage/NN | refused | I won't pretend otherwise: {reason}.
+hermit_sage/NN | accepted | Good. Do it well and it counts in your favour.
+hermit_sage/NN | accepted | Then it's agreed. Now we'll see what you're worth.
+hermit_sage/NN | accepted | Done, and fairly struck. Hold up your end.
+hermit_sage/NN | declined | Fair enough; I asked, you answered, and we're even.
+hermit_sage/NN | declined | Suit yourself; I'll find a use for someone else.
+hermit_sage/NN | declined | Very well, no harm done and nothing owed.
+hermit_sage/NN | abandoned | A pity; you were useful up to now.
+hermit_sage/NN | abandoned | Then it's done, and so is what I'd counted on from you.
+hermit_sage/NN | abandoned | So be it; I'll remember that, no more and no less.
+hermit_sage/NN | parted | Farewell; come back when you've a better question.
+hermit_sage/NN | parted | Go well, and spend yourself wisely.
+hermit_sage/NN | parted | Take care; you're more use to me alive.
+hermit_sage/NN | not_understood | Speak plainly; a muddled question earns a muddled answer.
+hermit_sage/NN | not_understood | What do you mean, and why ask me?
+hermit_sage/NN | not_understood | I don't follow; try it again from the start.
+
+# ---- hermit_sage/NG ----
+hermit_sage/NG | about_self | I'm {speaker}, {post} of {place}. Ask, and you'll get the part of the answer that can't hurt you.
+hermit_sage/NG | about_self | {speaker}[, {post} of {place}]. Rest a moment, and tell me what you need.
+hermit_sage/NG | about_self | My name is {speaker}, and I'm {post} of {place}. Whatever brings you, I'll help where it's safe to.
+hermit_sage/NG | about_person | {name}, the {role}, at {where}. If you see them, ask how they're keeping, for me.
+hermit_sage/NG | about_person | You'll find {name}, the {role}, at {where}. Be fair with them, whatever you're after.
+hermit_sage/NG | about_place | That would be {about}. Go carefully there; I'd like to see you back.
+hermit_sage/NG | about_place | You mean {about}. That much I can tell you safely.
+hermit_sage/NG | surroundings | Here in {here}, the nearest is {nearest}.[ Past that, {others}.][ Please keep clear of the {danger}.]
+hermit_sage/NG | surroundings | Welcome to {here}. The closest is {nearest}[, and after it, {others}].[ Stay well away from the {danger}, for my sake.]
+hermit_sage/NG | surroundings | Let me set it out: you're in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I'd hate to see you near the {danger}.]
+hermit_sage/NG | surroundings | If it helps, the nearest is {nearest}.[ After that, {others}.][ Give the {danger} a wide berth.]
+hermit_sage/NG | surroundings | Just so you know, the nearest is {nearest}[, then {others}].[ The {danger} worry me, so keep clear.]
+hermit_sage/NG | work_own | If you're willing to help, there's this: {own}.[ If it's not for you, {others}.]
+hermit_sage/NG | work_own | I could use a hand, and I'd be grateful: {own}.[ Or, if you'd rather, {others}.]
+hermit_sage/NG | work_own | Here's something that needs doing: {own}.[ Otherwise, {others}.]
+hermit_sage/NG | work_others | I've nothing of my own, I'm sorry, but {others}.
+hermit_sage/NG | work_others | Not mine to offer, but others could use you: {others}.
+hermit_sage/NG | work_none | Nothing needs doing that I know of, and I'd tell you if it did.
+hermit_sage/NG | work_none | No work, not from me or anyone I know; I wish I had some for you.
+hermit_sage/NG | unknown | I couldn't tell you, and I'd rather say so than guess and get you hurt.
+hermit_sage/NG | unknown | I've never heard of it, and that's the honest answer.
+hermit_sage/NG | refused_give | No, that's {giver}'s to give, and I'd not take it from them.
+hermit_sage/NG | refused_give | That's not mine; it belongs to {giver}, and I won't go behind their back.
+hermit_sage/NG | refused_give | I can't hand you someone else's work, however much I'd like to help.
+hermit_sage/NG | refused_release | I cannot release you from what you promised {giver}; that's between the two of you.
+hermit_sage/NG | refused_release | I won't release you from {giver}'s work; I'm sorry, but it isn't mine to undo.
+hermit_sage/NG | refused_release | Not from me; whoever gave you that work deserves to hear it from you.
+hermit_sage/NG | refused | No, {reason}, and I wish it were otherwise.
+hermit_sage/NG | refused | I can't; {reason}, and I'd not lie to you about it.
+hermit_sage/NG | accepted | Thank you. Come back safe, whatever happens.
+hermit_sage/NG | accepted | Good. Look after yourself, and anyone who needs it along the way.
+hermit_sage/NG | accepted | Very good; just don't spend your neck on it.
+hermit_sage/NG | declined | As you wish; better an honest no than a grudging yes.
+hermit_sage/NG | declined | Fair enough, and thank you for saying so plainly.
+hermit_sage/NG | declined | Very well; I'll not think less of you for it.
+hermit_sage/NG | abandoned | A pity, but better you drop it than get hurt holding it.
+hermit_sage/NG | abandoned | Then it's done; I hope you're all right.
+hermit_sage/NG | abandoned | So be it; tell me if anyone's left in need because of it.
+hermit_sage/NG | parted | Take care of yourself, and of whoever needs you.
+hermit_sage/NG | parted | Safe travels; come back whole.
+hermit_sage/NG | parted | Go well, and don't leave anyone behind who can't keep up.
+hermit_sage/NG | not_understood | I don't follow, but I want to; try it another way.
+hermit_sage/NG | not_understood | I'm not sure what you mean; say it again, slower, and we'll get there.
+hermit_sage/NG | not_understood | That's beyond me, I'm afraid; start again from the beginning.
+
+# ---- hermit_sage/LN ----
+hermit_sage/LN | about_self | I am {speaker}, {post} of {place}. Give me your question, and your standing, in that order.
+hermit_sage/LN | about_self | My name is {speaker}, and I hold the post of {post} in {place}. I answer within that office, and not beyond it.
+hermit_sage/LN | about_self | {speaker}[, {post} of {place}]. Ask properly and I will teach you; some things, however, I teach to no one.
+hermit_sage/LN | about_person | That is {name}, the {role}, at {where}. I will vouch for the name and the place, and for nothing further.
+hermit_sage/LN | about_person | You ask after {name}, the {role}; they are to be found at {where}. Their conduct is theirs to answer for, not mine.
+hermit_sage/LN | about_place | It is {about}. I state it as I know it, and I will not embellish.
+hermit_sage/LN | about_place | You refer to {about}. I can attest to that much, and to no more.
+hermit_sage/LN | surroundings | You stand in {here}, and the nearest place of note is {nearest}.[ Beyond it, {others}.][ You should be advised of the {danger}.]
+hermit_sage/LN | surroundings | This place is {here}, and the closest is {nearest}[; after it, {others}].[ I would be remiss not to mention the {danger}.]
+hermit_sage/LN | surroundings | For the record, you are in {here}, and the nearest is {nearest}.[ Past it, {others}.][ Take due note of the {danger}.]
+hermit_sage/LN | surroundings | To be exact, the nearest is {nearest}.[ After it, {others}.][ Heed the {danger}.]
+hermit_sage/LN | surroundings | Of what lies near, the closest is {nearest}[, and past it, {others}].[ Mind the {danger}, if you would.]
+hermit_sage/LN | work_own | One task falls within my office to offer: {own}.[ Should you decline it, {others}.]
+hermit_sage/LN | work_own | I put this to you formally: {own}.[ If it does not suit, {others}.]
+hermit_sage/LN | work_own | Hear the task, then give me a plain yes or no: {own}.[ Otherwise, {others}.]
+hermit_sage/LN | work_others | My office has no task to offer; however, {others}.
+hermit_sage/LN | work_others | I can direct you elsewhere, since I have nothing of my own: {others}.
+hermit_sage/LN | work_none | I have no work to offer, and I know of none I could in good conscience recommend.
+hermit_sage/LN | work_none | There is no task to be had from me, nor any I know of elsewhere.
+hermit_sage/LN | unknown | I know nothing of it, and I will not speak to what I do not know.
+hermit_sage/LN | unknown | I couldn't tell you, and I will not pretend otherwise.
+hermit_sage/LN | refused_give | No; that work is {giver}'s to assign, and I do not act outside my own office.
+hermit_sage/LN | refused_give | That's not mine to give; it was {giver}'s to offer, and it remains so.
+hermit_sage/LN | refused_give | Not from me; there is a proper order to these things, and I keep to it.
+hermit_sage/LN | refused_release | I cannot release you from an undertaking made to {giver}; only they may do that.
+hermit_sage/LN | refused_release | I won't release you; your word was given to {giver}, not to me.
+hermit_sage/LN | refused_release | No, and I will not presume to release you from work I did not give.
+hermit_sage/LN | refused | I can't; {reason}, and I know of no precedent for setting that aside.
+hermit_sage/LN | refused | I won't bend the form to suit you: {reason}.
+hermit_sage/LN | accepted | Then it's agreed. My word is given; see that yours is kept.
+hermit_sage/LN | accepted | Very good. You have taken it on, and I will hold you to it.
+hermit_sage/LN | accepted | Done, and witnessed. See that you conduct yourself accordingly.
+hermit_sage/LN | declined | As you wish; a refusal honestly given is no offence.
+hermit_sage/LN | declined | Very well, your answer is noted.
+hermit_sage/LN | declined | Fair enough; you were within your rights to refuse.
+hermit_sage/LN | abandoned | So be it, though a word once given ought to be kept.
+hermit_sage/LN | abandoned | A pity; I had thought better of you.
+hermit_sage/LN | abandoned | Then it's done, and your standing with me goes with it.
+hermit_sage/LN | parted | Farewell; you may call again, provided you observe the forms.
+hermit_sage/LN | parted | Goodbye, stranger, until you have cause to return.
+hermit_sage/LN | parted | Go well, and keep to your word.
+hermit_sage/LN | not_understood | Speak plainly, and in whole sentences, if you want a proper answer.
+hermit_sage/LN | not_understood | I'm not sure what you mean; put the question properly and I will consider it.
+hermit_sage/LN | not_understood | What do you mean by that, precisely?
+
+# ---- hermit_sage/CG ----
+hermit_sage/CG | about_self | So, introductions, how civilised. {speaker}, {post} of {place}, and you look like you need something; out with it.
+hermit_sage/CG | about_self | Who, me? {speaker}[, of {place}; {post} by trade], nosy by nature.
+hermit_sage/CG | about_self | I'm {speaker}! Well, {speaker}, {post} of {place}, if we're being grand about it.
+hermit_sage/CG | about_person | {name}! The {role}, off at {where}. Tell them I said hello, would you, and ask if they're eating properly.
+hermit_sage/CG | about_person | Oh, {name}. The {role}, at {where}; I like them far better than their line of work, mind.
+hermit_sage/CG | about_place | Hm. That's {about}. Go and look, but carefully, yes?
+hermit_sage/CG | about_place | That one? It's {about}. The safe bits I'll give you gladly; the sharp bits, never.
+hermit_sage/CG | surroundings | Right, where are we: {here}, and the nearest is {nearest}.[ Then, oh, {others}.][ And the {danger}; don't, please, just don't.]
+hermit_sage/CG | surroundings | You're in {here}, lucky you, and the closest is {nearest}.[ Past that, {others}, if you're feeling energetic.][ Oh, and the {danger}, which you'll avoid for me, yes?]
+hermit_sage/CG | surroundings | This is {here}, and the nearest is, hm, {nearest}[, then {others}, then who knows].[ The {danger}: no, no, and no.]
+hermit_sage/CG | surroundings | The nearest? That'd be {nearest}[, and then {others}].[ And do avoid the {danger}, for my nerves.]
+hermit_sage/CG | surroundings | Now then, the nearest is {nearest}[, and past it, {others}].[ Watch the {danger}; I mean it.]
+hermit_sage/CG | work_own | You want work? Here's some: {own}.[ Or, if that bores you, {others}.]
+hermit_sage/CG | work_own | I've a favour to ask, a fun one, well, fun-ish: {own}.[ No? Then {others}.]
+hermit_sage/CG | work_own | Help me with something, would you: {own}.[ If not, fine, {others}.]
+hermit_sage/CG | work_others | Me? Nothing, sorry. But {others}, and do tell them I sent you.
+hermit_sage/CG | work_others | Ah, work. Not mine to give, alas, but {others}.
+hermit_sage/CG | work_none | Sadly, no work, not a scrap, and none I've heard of either.
+hermit_sage/CG | work_none | Nothing, sorry, truly; ask me again later, who knows.
+hermit_sage/CG | unknown | No idea, none, and I hate that.
+hermit_sage/CG | unknown | Never heard of it; now I'm curious, drat.
+hermit_sage/CG | refused_give | No, that's {giver}'s, and I won't pinch it from them, not even for you.
+hermit_sage/CG | refused_give | Not from me, sorry; that one's {giver}'s to hand out, and I'd never go behind their back.
+hermit_sage/CG | refused_give | That's not mine to give, and I'd hate to tread on anyone's toes.
+hermit_sage/CG | refused_release | I can't let you off {giver}'s hook, much as I'd like to.
+hermit_sage/CG | refused_release | I won't, not behind {giver}'s back; that's not how I treat people.
+hermit_sage/CG | refused_release | No, it's not mine to release, and I do wish it were.
+hermit_sage/CG | refused | I cannot; {reason}, and that annoys me no end.
+hermit_sage/CG | refused | That's not mine to decide; {reason}, sadly.
+hermit_sage/CG | accepted | Good! Off you go, and come back in one piece, I mean it.
+hermit_sage/CG | accepted | Thank you, really; you've made my day slightly less dull.
+hermit_sage/CG | accepted | Done, done, done. Go, before I think of three more questions.
+hermit_sage/CG | declined | Suit yourself; no sulking from me, well, a little.
+hermit_sage/CG | declined | Fair enough, I'd have said no too, probably.
+hermit_sage/CG | declined | As you wish; the next one who amuses me gets it.
+hermit_sage/CG | abandoned | A pity, but you're still standing, and that's the part I care about.
+hermit_sage/CG | abandoned | So be it; you over the job, every time.
+hermit_sage/CG | abandoned | Then it's done, and don't you dare brood over it.
+hermit_sage/CG | parted | Farewell, and if anyone needs rescuing, rescue them.
+hermit_sage/CG | parted | Go well, and come back with a better question, or a good story, either works.
+hermit_sage/CG | parted | Take care of yourself, and of anyone smaller than you.
+hermit_sage/CG | not_understood | That's beyond me, and I rather like that, but say it again anyway.
+hermit_sage/CG | not_understood | What do you mean, no, wait, start again from the top.
+hermit_sage/CG | not_understood | Speak plainly, puzzle-box, and we'll talk.
+
+# ---- hermit_sage/CN ----
+hermit_sage/CN | about_self | {speaker}. That's me[, {post} of {place}], when I feel like it.
+hermit_sage/CN | about_self | Who's asking? Never mind. I'm {speaker}, {post} of {place}, and I'm listening, for now.
+hermit_sage/CN | about_self | My name? {speaker}, {post} of {place}, and how much I teach you depends on how much you amuse me.
+hermit_sage/CN | about_person | {name}. The {role}. At {where}, and whether you like them is your problem.
+hermit_sage/CN | about_person | Ah, {name}, the {role}, at, hm, {where}, yes. What you want with them is your own affair.
+hermit_sage/CN | about_place | That? It's {about}. Go and poke at it, if you're bored enough.
+hermit_sage/CN | about_place | Oh, that's {about}. That's the fact of it; my opinions I keep.
+hermit_sage/CN | surroundings | You're in {here}; nearest, {nearest}.[ Then {others}, if you're counting.][ And the {danger}, which is your lookout, not mine.]
+hermit_sage/CN | surroundings | This is {here}, as it happens, and the nearest is {nearest}.[ Past that, {others}, and that's your lot.][ The {danger} I'd avoid, personally.]
+hermit_sage/CN | surroundings | Look around: {here}. The nearest is {nearest}[, and after that, {others}].[ The {danger}: best not.]
+hermit_sage/CN | surroundings | The closest is {nearest}[, then {others}].[ Leave the {danger} to someone duller.]
+hermit_sage/CN | surroundings | Since you ask, the nearest is {nearest}[, then {others}].[ Keep away from the {danger}, if you've any sense.]
+hermit_sage/CN | work_own | Here's one that amuses me: {own}.[ If it doesn't amuse you, {others}.]
+hermit_sage/CN | work_own | Do this for me, and do it your way: {own}.[ Or don't; {others}.]
+hermit_sage/CN | work_own | Fine, a job, since you're standing there: {own}.[ Otherwise, {others}.]
+hermit_sage/CN | work_others | Not mine. But {others}, if you're that keen.
+hermit_sage/CN | work_others | Me? No. {others}, though.
+hermit_sage/CN | work_none | Nothing. Ask me again when I'm bored.
+hermit_sage/CN | work_none | None, and don't look at me like that.
+hermit_sage/CN | unknown | Never heard of it, and I'm not about to pretend for your benefit.
+hermit_sage/CN | unknown | No idea; ask me something I know, it's more fun for both of us.
+hermit_sage/CN | refused_give | No, that's {giver}'s, and I don't poach.
+hermit_sage/CN | refused_give | Not from me; that one's {giver}'s, and I'm nobody's go-between.
+hermit_sage/CN | refused_give | That's not mine to hand over, and I'm not in the mood to pretend it is.
+hermit_sage/CN | refused_release | I won't cut you loose from {giver}'s work; that knot is yours and theirs.
+hermit_sage/CN | refused_release | I can't undo {giver}'s bargain, and I wouldn't if I could.
+hermit_sage/CN | refused_release | No, not mine to undo; you tied it, you untie it.
+hermit_sage/CN | refused | I cannot, {reason}, and sulking won't change it.
+hermit_sage/CN | refused | I won't be argued round; {reason}.
+hermit_sage/CN | accepted | Good. Now go, before I change my mind.
+hermit_sage/CN | accepted | Done. Don't make it boring.
+hermit_sage/CN | accepted | Then it's agreed, more or less. I'll hold you to the more.
+hermit_sage/CN | declined | Suit yourself; I wasn't attached to it.
+hermit_sage/CN | declined | Fair enough, your loss, possibly mine, mostly yours.
+hermit_sage/CN | declined | As you wish; I'll find someone more entertaining.
+hermit_sage/CN | abandoned | Very well, less work for you, less patience from me.
+hermit_sage/CN | abandoned | A pity; you were almost interesting.
+hermit_sage/CN | abandoned | Then it's done, and I'm keeping count.
+hermit_sage/CN | parted | Farewell, and try to be more interesting next time.
+hermit_sage/CN | parted | Goodbye, then; shoo.
+hermit_sage/CN | parted | Go well, or badly, just go interestingly.
+hermit_sage/CN | not_understood | Speak plainly, riddler; one of us being cryptic is plenty.
+hermit_sage/CN | not_understood | What do you mean, and, no, wait, say it slower.
+hermit_sage/CN | not_understood | I'm not sure what you mean, and I'm not sure I care, but go on.

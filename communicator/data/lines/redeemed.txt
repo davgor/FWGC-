@@ -1,0 +1,277 @@
+# Written lines (the redeemed). The format and the rules: README.md in this folder.
+
+# ---- redeemed/NN ----
+redeemed/NN | about_self | I'm {speaker}, {post} of {place}. You can weigh me by what I do, and I'll weigh you the same way.
+redeemed/NN | about_self | {speaker}, {post} of {place}. What I was is my business; what I do, you can judge for yourself.
+redeemed/NN | about_self | My name is {speaker}, and I'm {post} of {place}. I do what the work needs and not a stroke more.
+redeemed/NN | about_person | That's {name}, the {role}, at {where}. Whether they're any use to you is yours to find out.
+redeemed/NN | about_person | {name}, the {role}, at {where}. I judge people by what they do, not by what they're called.
+redeemed/NN | about_place | You mean {about}. It's worth the trip if you've business there, and a waste if you haven't.
+redeemed/NN | about_place | I know it: {about}. Go if you need to, not because you're curious.
+redeemed/NN | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Leave the {danger} alone unless you've good reason.]
+redeemed/NN | surroundings | This is {here}. The closest is {nearest}[, and beyond it, {others}].[ A wide berth round the {danger} costs you nothing.]
+redeemed/NN | surroundings | Here's how it lies: this is {here}, and nearest to it is {nearest}.[ Beyond that, {others}.][ Only a fool goes near the {danger} without cause.]
+redeemed/NN | surroundings | The nearest is {nearest}[, then {others}].[ Keep clear of the {danger} if you can.]
+redeemed/NN | surroundings | What's close is {nearest}[, and past it, {others}].[ I'd stay well clear of the {danger}.]
+redeemed/NN | work_own | Some work needs doing, and I'll not dress it up: {own}.[ If that's not for you, {others}.]
+redeemed/NN | work_own | It suits us both if you take it: {own}.[ Otherwise, {others}.]
+redeemed/NN | work_own | I could use you: {own}.[ If not, {others}.]
+redeemed/NN | work_others | I've nothing for you myself, but {others}.
+redeemed/NN | work_others | None of my own. What I do know: {others}.
+redeemed/NN | work_none | There's no work, and I won't invent some to keep you busy.
+redeemed/NN | work_none | Nothing, and I'd rather tell you so than waste your time.
+redeemed/NN | unknown | Never heard of it, and a guess would do you no good.
+redeemed/NN | unknown | No idea, and I'd sooner say so than send you wrong.
+redeemed/NN | refused_give | That's not mine to hand over, it's {giver}'s, and it isn't worth the trouble it would make.
+redeemed/NN | refused_give | No, that's {giver}'s work, and I don't take what isn't mine.
+redeemed/NN | refused_give | Not from me, it's someone else's to give, and I'd only muddy it.
+redeemed/NN | refused_release | I can't, it's {giver}'s bargain, and I don't undo other people's bargains.
+redeemed/NN | refused_release | I won't step between you and {giver}, that's yours to settle with them.
+redeemed/NN | refused_release | No, the one who gave it is the one who can take it back.
+redeemed/NN | refused | No, {reason}, and there's no use arguing with that.
+redeemed/NN | refused | I cannot, {reason}, and wishing won't change it.
+redeemed/NN | accepted | Good. Do only what it takes, and come back whole.
+redeemed/NN | accepted | Done. I'll hold up my end, and you hold up yours.
+redeemed/NN | accepted | Very good. No waste, no cruelty, and we'll both be better for it.
+redeemed/NN | declined | Suit yourself, better a straight no than a half-hearted yes.
+redeemed/NN | declined | Fair enough, it's your time to spend.
+redeemed/NN | declined | As you wish, someone else will find it worth the trouble.
+redeemed/NN | abandoned | So be it, I'd rather you stopped than finished it badly.
+redeemed/NN | abandoned | A pity, you seemed useful.
+redeemed/NN | abandoned | Then it's done, and I'll remember it, no more and no less.
+redeemed/NN | parted | Farewell, and spend yourself on nothing that isn't worth it.
+redeemed/NN | parted | Go well, and don't make it harder than it needs to be.
+redeemed/NN | parted | Take care, and make it count.
+redeemed/NN | not_understood | Speak plainly, it saves us both time.
+redeemed/NN | not_understood | What do you mean, in plain words?
+redeemed/NN | not_understood | I don't follow, so say it again, simpler.
+
+# ---- redeemed/NG ----
+redeemed/NG | about_self | I'm {speaker}, {post} of {place}. Tell me what you need, and I'll help if it can be done cleanly.
+redeemed/NG | about_self | {speaker}, {post} of {place}. I'm trying to be better than I was, and some days I manage it.
+redeemed/NG | about_self | My name is {speaker}, {post} of {place}. And yours? It's only right I know who I'm helping.
+redeemed/NG | about_person | {name}? The {role}, at {where}. I hope they're keeping well.
+redeemed/NG | about_person | That's {name}, the {role}, out at {where}. If you're passing, tell them I asked after them.
+redeemed/NG | about_place | You're thinking of {about}. If anyone there needs help, please don't walk past them.
+redeemed/NG | about_place | I know it, {about}. Whatever takes you there, do it cleanly.
+redeemed/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Please keep clear of the {danger}.]
+redeemed/NG | surroundings | Here in {here}, the nearest is {nearest}[, and beyond it, {others}].[ Watch yourself near the {danger}, I'd hate to see you hurt.]
+redeemed/NG | surroundings | Of course: you're standing in {here}, and the closest is {nearest}.[ Beyond that, {others}.][ Don't go near the {danger} alone.]
+redeemed/NG | surroundings | The nearest is {nearest}[, and past it, {others}].[ Be careful of the {danger}.]
+redeemed/NG | surroundings | As far as I know, the nearest is {nearest}[, then {others}].[ Keep well away from the {danger}, would you?]
+redeemed/NG | work_own | I'd be glad of the help: {own}.[ If that's not for you, {others}.]
+redeemed/NG | work_own | If you're willing, there's this: {own}.[ And if not, {others}.]
+redeemed/NG | work_own | Would you help? What needs doing is this: {own}.[ If not, {others}.]
+redeemed/NG | work_others | I've nothing myself, but let me point you on: {others}.
+redeemed/NG | work_others | Nothing of mine, but I know who's asking: {others}.
+redeemed/NG | work_none | No work that I know of, and I wish I had some for you.
+redeemed/NG | work_none | There's nothing, I'm sorry, not here and not that I've heard.
+redeemed/NG | unknown | I don't know, and I won't guess with your safety.
+redeemed/NG | unknown | I've never heard of it, I'm afraid.
+redeemed/NG | refused_give | No, that's {giver}'s to give, and I'd not go behind their back.
+redeemed/NG | refused_give | I can't, it's {giver}'s, and I'd want the same courtesy.
+redeemed/NG | refused_give | That's not mine to give, and taking it from its owner is no way to help you.
+redeemed/NG | refused_release | I won't, {giver} set you to it and deserves to hear it from you.
+redeemed/NG | refused_release | Not from me, it was {giver} you gave your word to.
+redeemed/NG | refused_release | I cannot, it isn't mine to release, and I'm sorry.
+redeemed/NG | refused | No, {reason}, and I wish it were otherwise.
+redeemed/NG | refused | I can't, {reason}, and I'll not go looking for a crooked way round it.
+redeemed/NG | accepted | Thank you, truly. Come back in one piece.
+redeemed/NG | accepted | Good. No shortcuts that hurt anyone, promise me that.
+redeemed/NG | accepted | Done, and gladly. If it turns ugly, walk away before you do something you'd regret.
+redeemed/NG | declined | As you wish, and no hard feelings.
+redeemed/NG | declined | Fair enough, and if you change your mind, I'll still be glad of you.
+redeemed/NG | declined | Very well, I'll manage, and thank you for being straight with me.
+redeemed/NG | abandoned | So be it, are you all right, though?
+redeemed/NG | abandoned | A pity, but I'd rather that than see it done wrong.
+redeemed/NG | abandoned | Then it's done, no grudge, but I won't pretend it didn't happen.
+redeemed/NG | parted | Safe travels, and look after whoever needs it along the way.
+redeemed/NG | parted | Take care of yourself, I mean that.
+redeemed/NG | parted | Goodbye, and thank you for stopping to talk.
+redeemed/NG | not_understood | I'm not sure what you mean, could you put it another way?
+redeemed/NG | not_understood | What do you mean, and how can I help?
+redeemed/NG | not_understood | That's beyond me, but I'd like to understand.
+
+# ---- redeemed/LN ----
+redeemed/LN | about_self | I am {speaker}, {post} of {place}. I answer for what I do, and I do it where it can be seen.
+redeemed/LN | about_self | {speaker}, {post} of {place}. Let anyone with the right to judge me do so; I will not hide from it.
+redeemed/LN | about_self | You are speaking to {speaker}, {post} of {place}. Before I trust you with anything, you will show me who you are.
+redeemed/LN | about_person | That is {name}, the {role}, at {where}. I do not speak to another's character, and I would ask the same courtesy for mine.
+redeemed/LN | about_person | You will find {name}, the {role}, at {where}. Let their conduct speak for them, as I would have mine speak for me.
+redeemed/LN | about_place | You mean {about}. I will tell you what I know of it and nothing I do not.
+redeemed/LN | about_place | That place is {about}. Go there on lawful business, or do not go at all.
+redeemed/LN | surroundings | You stand in {here}, and the nearest is {nearest}.[ Beyond that, you will find {others}.][ I would counsel you to keep clear of the {danger}.]
+redeemed/LN | surroundings | This is {here}, and the closest is {nearest}.[ I also know of {others}.][ You would do well to avoid the {danger}.]
+redeemed/LN | surroundings | If you would know the lie of the land: this is {here}, and nearest to it is {nearest}.[ You will also find {others}.][ Keep your distance from the {danger}.]
+redeemed/LN | surroundings | The nearest is {nearest}.[ Past it, you will find {others}.][ Give the {danger} a wide berth.]
+redeemed/LN | surroundings | I can speak to what is near: {nearest}[, and past it, {others}].[ Keep clear of the {danger}, if you will be advised by me.]
+redeemed/LN | work_own | Here is work, on honest terms: {own}.[ Should that not suit you, {others}.]
+redeemed/LN | work_own | Within my office, I can offer this: {own}.[ Otherwise, {others}.]
+redeemed/LN | work_own | Let this be the measure of your standing: {own}.[ If you prefer, {others}.]
+redeemed/LN | work_others | I have nothing within my office to give, but {others}.
+redeemed/LN | work_others | Nothing falls to me to give, but {others}.
+redeemed/LN | work_none | There is none to be had, and I will not pretend otherwise.
+redeemed/LN | work_none | None, I regret to say, from me or from anyone I know of.
+redeemed/LN | unknown | I know nothing of it, and I will not swear to what I do not know.
+redeemed/LN | unknown | I couldn't tell you, and I would sooner say so than mislead you.
+redeemed/LN | refused_give | No, that work is {giver}'s to give, and it lies outside my office.
+redeemed/LN | refused_give | That's not mine to give, it is {giver}'s, and I will not take it upon myself.
+redeemed/LN | refused_give | Not from me, it is another's to give, and I would be rightly judged if I gave it.
+redeemed/LN | refused_release | Not from me, you gave your word to {giver}, and a word given is not mine to unmake.
+redeemed/LN | refused_release | No, only {giver} may release you, and I will not act in their stead.
+redeemed/LN | refused_release | I cannot release what another has bound, and I know of no precedent that would let me.
+redeemed/LN | refused | No, {reason}, and I will not set a precedent by pretending otherwise.
+redeemed/LN | refused | I cannot, {reason}, and I will not bend the matter to suit either of us.
+redeemed/LN | accepted | Very good. You have given your word, and I shall hold you to it as I hold myself.
+redeemed/LN | accepted | Good. Do it properly and in the open, and it will speak for you.
+redeemed/LN | accepted | Thank you. Your standing with me begins here.
+redeemed/LN | declined | As you wish, the offer stands for whoever proves fit for it.
+redeemed/LN | declined | Very well, a plain refusal is worth more than a false yes.
+redeemed/LN | declined | Fair enough, you owe me nothing, and I owe you nothing.
+redeemed/LN | abandoned | So be it, but a word given and then broken is remembered.
+redeemed/LN | abandoned | A pity, you gave your word, and now you have taken it back.
+redeemed/LN | abandoned | Then it's done, and it will be weighed against you, as it would be against me.
+redeemed/LN | parted | Farewell, and conduct yourself as though you will be judged for it.
+redeemed/LN | parted | Go well, and keep whatever word you give.
+redeemed/LN | parted | Safe travels, stranger, and give no one cause to sit in judgement of you.
+redeemed/LN | not_understood | Speak plainly, if you would, and I shall answer in kind.
+redeemed/LN | not_understood | What do you mean by that, precisely?
+redeemed/LN | not_understood | I'm not sure what you mean, and I will not answer what I have not understood.
+
+# ---- redeemed/LG ----
+redeemed/LG | about_self | I am {speaker}, {post} of {place}. Tell me what you need; my questions can wait.
+redeemed/LG | about_self | {speaker}, {post} of {place}. I do nothing in the dark, and I would ask the same of you.
+redeemed/LG | about_self | My name is {speaker}, and I serve as {post} of {place}. May I ask yours?
+redeemed/LG | about_person | That is {name}, the {role}, at {where}. If you see them, give them my regards.
+redeemed/LG | about_person | {name} is the {role}, at {where}. Be fair with them, as you would have others be fair with you.
+redeemed/LG | about_place | That would be {about}. Should you find anyone there in need, I would ask you to stop for them.
+redeemed/LG | about_place | The place you mean is {about}. Go openly, and do nothing there you would be ashamed to answer for.
+redeemed/LG | surroundings | Let me tell you what I can: this is {here}, and the nearest is {nearest}.[ Beyond it, you will find {others}.][ Please, keep clear of the {danger}.]
+redeemed/LG | surroundings | We are in {here}, and the nearest is {nearest}[, and past it, {others}].[ Be careful near the {danger}, and warn whoever you meet.]
+redeemed/LG | surroundings | This is {here}, and closest to it is {nearest}.[ You will also find {others}.][ I would not have you go near the {danger}.]
+redeemed/LG | surroundings | The nearest is {nearest}[, and beyond it, {others}].[ Stay clear of the {danger}, I ask you.]
+redeemed/LG | surroundings | I can tell you of {nearest}[, and of {others}].[ Keep away from the {danger}, for your own sake.]
+redeemed/LG | work_own | I would be grateful for your help: {own}.[ If that does not suit you, {others}.]
+redeemed/LG | work_own | Here is what I would ask of you: {own}.[ Otherwise, {others}.]
+redeemed/LG | work_own | If you are willing, I have need of you: {own}.[ If not, {others}.]
+redeemed/LG | work_others | I have no work of my own to give, but {others}.
+redeemed/LG | work_others | Nothing is mine to offer, but I will not send you away without help: {others}.
+redeemed/LG | work_none | Forgive me, I have no work for you, and I know of none.
+redeemed/LG | work_none | There is no work that I know of, and I would tell you if there were.
+redeemed/LG | unknown | I know nothing of it, and I will not guess where a guess could mislead you.
+redeemed/LG | unknown | I couldn't tell you, and I would rather admit it than send you astray.
+redeemed/LG | refused_give | No, forgive me, that is {giver}'s to give and not mine.
+redeemed/LG | refused_give | I cannot, it would wrong {giver}, and I will not wrong anyone to oblige you.
+redeemed/LG | refused_give | That's not mine to give, and I will not take it from the one it belongs to.
+redeemed/LG | refused_release | Not from me, your word was given to {giver}, and I will not help you break it.
+redeemed/LG | refused_release | No, you owe {giver} the courtesy of asking them yourself.
+redeemed/LG | refused_release | I cannot release you from another's charge, and it would be wrong of me to try.
+redeemed/LG | refused | No, {reason}, and I will not look for a crooked way round it.
+redeemed/LG | refused | I cannot, {reason}, and I am sorry to disappoint you.
+redeemed/LG | accepted | Thank you, truly. I will not forget that you helped when you were asked.
+redeemed/LG | accepted | Very good. Do it honestly, and if anyone needs help along the way, do not pass them by.
+redeemed/LG | accepted | Good. You have my trust in this, and you will have more if you keep it.
+redeemed/LG | declined | As you wish, and I thank you for telling me plainly.
+redeemed/LG | declined | Very well, there is no shame in knowing what you can and cannot carry.
+redeemed/LG | declined | Fair enough, and there is no dishonour in a plain answer.
+redeemed/LG | abandoned | So be it, but tell me you are unhurt.
+redeemed/LG | abandoned | A pity, and I am sorry it came to that.
+redeemed/LG | abandoned | Then it's done, and I will not hold it against you, though your word was given.
+redeemed/LG | parted | Go well, and help whoever you find in need.
+redeemed/LG | parted | Take care of yourself, and of anyone who cannot take care of themselves.
+redeemed/LG | parted | Safe travels, and keep your word, whatever it costs you.
+redeemed/LG | not_understood | I'm not sure what you mean, would you be kind enough to say it again?
+redeemed/LG | not_understood | What do you mean, if I may ask?
+redeemed/LG | not_understood | Speak plainly, I beg you, so that I do not answer you wrongly.
+
+# ---- redeemed/CN ----
+redeemed/CN | about_self | Me? Nobody, really. Fine, {speaker}, {post} of {place}, but you didn't hear it from me.
+redeemed/CN | about_self | I'm {speaker}, {post} of {place}, and I'd take it as a great personal kindness if you forgot that the moment you leave.
+redeemed/CN | about_self | The name's {speaker}, {post} of {place} for my sins. And no, we're not discussing the sins.
+redeemed/CN | about_person | {name}? The {role}, at {where}. Mind you, it's the person I'd weigh, not the label.
+redeemed/CN | about_person | Oh, {name}, the {role}, out at {where}, and that's all you'll get from me, I don't gossip.
+redeemed/CN | about_place | That one's {about}. Go if you must, and don't say I sent you.
+redeemed/CN | about_place | Ah, {about}. Know it, don't love it, won't lie about it.
+redeemed/CN | surroundings | Right, you're in {here}, nearest is {nearest}[, then {others}].[ And the {danger}, don't, just don't.]
+redeemed/CN | surroundings | {here}, that's you; closest is {nearest}[; beyond, {others}].[ Oh, and the {danger}: nope.]
+redeemed/CN | surroundings | You want the lay of it? {here}, where you're standing, then {nearest}[, then {others}].[ Keep well off the {danger}, and that's not a suggestion.]
+redeemed/CN | surroundings | The nearest? That'd be {nearest}[, then {others}].[ Mind the {danger}, seriously.]
+redeemed/CN | surroundings | What's close: {nearest}[, and past that, {others}].[ Stay clear of the {danger}, trust me.]
+redeemed/CN | work_own | Something, actually: {own}.[ Or, if that bores you, {others}.]
+redeemed/CN | work_own | I've a job, you've hands, so: {own}.[ No? Then {others}.]
+redeemed/CN | work_own | Between us, and only us: {own}.[ If not, {others}.]
+redeemed/CN | work_others | Nothing from me, but, well, {others}.
+redeemed/CN | work_others | Mine? None, sorry, no, not sorry, but {others}.
+redeemed/CN | work_none | Nothing, nobody, not a sniff of work.
+redeemed/CN | work_none | No work, none, not even the dull kind.
+redeemed/CN | unknown | Never heard of it, and believe me, I'd have heard.
+redeemed/CN | unknown | No idea, not a whisper.
+redeemed/CN | refused_give | No, that's {giver}'s, and I'm not stepping on anyone's toes for it.
+redeemed/CN | refused_give | Not from me, {giver} holds that one, and I don't cross people, only causes.
+redeemed/CN | refused_give | That's not mine to give, and pinching it for you isn't the sort of help you want.
+redeemed/CN | refused_release | I can't, you shook on it with {giver}, not me.
+redeemed/CN | refused_release | I won't, that's between you and {giver}, and I stay out of other people's bargains.
+redeemed/CN | refused_release | No, not mine to undo, however nicely you ask.
+redeemed/CN | refused | I cannot, most regretfully, {reason}, so there.
+redeemed/CN | refused | No, {reason}, and there's no clever way round it, sadly.
+redeemed/CN | accepted | Good. You and me, then, not you and some cause.
+redeemed/CN | accepted | Done, and if anyone asks, you never saw me.
+redeemed/CN | accepted | Thank you, and I mean it, which is unsettling for both of us. Off you go.
+redeemed/CN | declined | Suit yourself, I'll not beg, it's unbecoming.
+redeemed/CN | declined | Fair enough, no hard feelings, well, a few.
+redeemed/CN | declined | As you wish, and I'll pretend I never asked.
+redeemed/CN | abandoned | So be it, somebody'll do it, and nobody'll know who.
+redeemed/CN | abandoned | A pity, I was starting to like you, a little, don't let it go to your head.
+redeemed/CN | abandoned | Then it's done, and we'll say no more about it, ever, to anyone.
+redeemed/CN | parted | Farewell, and you never met me, understood?
+redeemed/CN | parted | Take care, and if you hear of some good done quietly, don't go looking for who did it.
+redeemed/CN | parted | Go well, stranger, or whatever you're calling yourself these days.
+redeemed/CN | not_understood | What do you mean, no, wait, don't tell me, yes, tell me.
+redeemed/CN | not_understood | I don't follow, try again, slower, with fewer words.
+redeemed/CN | not_understood | That's beyond me, and I'm cleverer than I look.
+
+# ---- redeemed/CG ----
+redeemed/CG | about_self | {speaker}, {post} of {place}, and you are? No, wait, first, are you all right?
+redeemed/CG | about_self | I'm {speaker}, {post} of {place}, though I'd much rather be nobody in particular.
+redeemed/CG | about_self | Me? Just {speaker}, {post} of {place}, and not worth a song, so don't make one.
+redeemed/CG | about_person | {name}, the {role}, at {where}. Tell them someone asked after them, and no, not who.
+redeemed/CG | about_person | Oh, {name}, the {role}, out at {where}. Are they well, do you know?
+redeemed/CG | about_place | That's {about}. Anyone in trouble there, you help them, all right?
+redeemed/CG | about_place | Ah, {about}. Go gently, and do it right, promise?
+redeemed/CG | surroundings | Before you ask anything else: you're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Keep well clear of the {danger}, and take anyone who can't with you.]
+redeemed/CG | surroundings | This is {here}, and the nearest, let me think, is {nearest}.[ Then {others}.][ Oh, and keep away from the {danger}, would you?]
+redeemed/CG | surroundings | You're standing in {here}, so, nearest, {nearest}[, and after that, {others}].[ The {danger}, though, no, not even for a look.]
+redeemed/CG | surroundings | The nearest is {nearest}[, then {others}].[ Be careful round the {danger}.]
+redeemed/CG | surroundings | What I know: {nearest}[, then {others}].[ And mind the {danger}, for me?]
+redeemed/CG | work_own | You'd help? Oh, good, here: {own}.[ If not, {others}.]
+redeemed/CG | work_own | Something needs doing, and quietly: {own}.[ Otherwise, {others}.]
+redeemed/CG | work_own | Help me with this, no fuss, no names: {own}.[ Or, if you'd rather, {others}.]
+redeemed/CG | work_others | Nothing of mine, sorry, truly, but {others}.
+redeemed/CG | work_others | Me? No work, but here, before you go: {others}.
+redeemed/CG | work_none | Nothing, I'm afraid, and I wish there were.
+redeemed/CG | work_none | No work, none, and I hate saying that.
+redeemed/CG | unknown | I've never heard of it, and I won't make something up to please you.
+redeemed/CG | unknown | No idea, none, but ask me something else, go on.
+redeemed/CG | refused_give | No, that's {giver}'s, and I won't go behind anyone's back, not even for you.
+redeemed/CG | refused_give | I can't, it's {giver}'s to give, and I'd not do that to them.
+redeemed/CG | refused_give | That's not mine to give, and taking it wouldn't be helping, would it?
+redeemed/CG | refused_release | I won't, you and {giver} made a deal, and I stick with people, not loopholes.
+redeemed/CG | refused_release | Not from me, {giver} should hear it from you, it's kinder.
+redeemed/CG | refused_release | No, not mine to undo, sorry, I would if I could.
+redeemed/CG | refused | I can't, {reason}, and I won't cheat my way round it, not for anyone.
+redeemed/CG | refused | No, {reason}, and I hate that more than you do.
+redeemed/CG | accepted | Thank you, really. And if someone needs you on the way, stop for them.
+redeemed/CG | accepted | Good, good. No dirty tricks and nobody hurt, deal?
+redeemed/CG | accepted | Done, and nobody needs to know it was us.
+redeemed/CG | declined | Fair enough, you know your own load best.
+redeemed/CG | declined | Suit yourself, and no, I'm not hurt, much.
+redeemed/CG | declined | As you wish, just look after yourself, yes?
+redeemed/CG | abandoned | A pity, but you're whole, yes?
+redeemed/CG | abandoned | Then it's done, and nobody will hear a word about it from me.
+redeemed/CG | abandoned | Very well, no shame in it, truly.
+redeemed/CG | parted | Take care, and if someone's struggling, stop, it's never wasted.
+redeemed/CG | parted | Go well, stranger, and do some good where nobody's watching.
+redeemed/CG | parted | Safe travels, and keep your hands clean, it's easier than scrubbing them after.
+redeemed/CG | not_understood | What do you mean, no, hang on, say it again, slower?
+redeemed/CG | not_understood | I'm not sure what you mean, but I'm listening.
+redeemed/CG | not_understood | That's beyond me, oh, wait, no, still beyond me.

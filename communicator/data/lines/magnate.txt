@@ -1,0 +1,369 @@
+# Written lines (the magnate). The format and the rules: README.md in this folder.
+
+# ---- magnate/NN ----
+magnate/NN | about_self | I'm {speaker}, {post} of {place}. I deal fairly, and I expect the same.
+magnate/NN | about_self | {speaker}, {post} of {place}. Bring me something worth trading and we'll get along.
+magnate/NN | about_self | You're speaking to {speaker}, {post} of {place}. Let's find out what we're worth to each other.
+magnate/NN | about_person | That's {name}, the {role}, at {where}. What they're good for, you'll learn for yourself.
+magnate/NN | about_person | {name} is the {role}, at {where}. Trust them as far as they've earned, and no further.
+magnate/NN | about_place | You're asking after {about}. That much I'd put my name to, and no more.
+magnate/NN | about_place | That's {about}. What it's worth depends on who's asking.
+magnate/NN | surroundings | Here's the tally: you're in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ Mind the {danger}; the dead make poor customers.]
+magnate/NN | surroundings | This is {here}. The nearest is {nearest}[, and after that, {others}].[ Give the {danger} a wide berth.]
+magnate/NN | surroundings | Where you stand is {here}, and the nearest is {nearest}.[ Past that, {others}.][ Keep clear of the {danger}.]
+magnate/NN | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Mind the {danger}.]
+magnate/NN | surroundings | Nothing's closer than {nearest}[, and past it, {others}].[ Give the {danger} room.]
+magnate/NN | work_own | I've work for someone useful: {own}.[ If it doesn't suit, {others}.]
+magnate/NN | work_own | My offer is plain: {own}.[ Otherwise, {others}.]
+magnate/NN | work_own | What I need done is this: {own}.[ If that's not your trade, {others}.]
+magnate/NN | work_others | Nothing on my own account, but {others}.
+magnate/NN | work_others | Ask around: {others}. I've nothing of my own just now.
+magnate/NN | work_none | None going, from me or from anyone I know.
+magnate/NN | work_none | There's nothing, and I won't invent work to keep you standing here.
+magnate/NN | unknown | No idea, and I don't sell what I don't have.
+magnate/NN | unknown | I couldn't tell you, and a guess would cost you more than it's worth.
+magnate/NN | refused_give | That's not mine to give; it's {giver}'s, and I don't trade in other people's goods.
+magnate/NN | refused_give | No, that belongs to {giver}, and I don't broker other people's business.
+magnate/NN | refused_give | Not from me; that work belongs to someone else, and I keep to my own accounts.
+magnate/NN | refused_release | I won't, that's {giver}'s bargain and not mine to undo.
+magnate/NN | refused_release | I can't, the terms are between you and {giver}.
+magnate/NN | refused_release | No, I can't let you out of a deal I never made.
+magnate/NN | refused | No deal, {reason}.
+magnate/NN | refused | I cannot, {reason}, and I don't bargain with facts.
+magnate/NN | accepted | Done. I'll remember who delivered.
+magnate/NN | accepted | Very good; I hold up my end when you hold up yours.
+magnate/NN | accepted | Good. A fair deal, fairly struck.
+magnate/NN | declined | Fair enough, it's your time to spend.
+magnate/NN | declined | Suit yourself, I'll put it to someone who needs it more.
+magnate/NN | declined | Very well, I'll not chase it.
+magnate/NN | abandoned | A pity, I had you down as useful.
+magnate/NN | abandoned | Then it's done, and it goes in the ledger as it stands.
+magnate/NN | abandoned | So be it, I'll write it off.
+magnate/NN | parted | Go well, and come back when you've something to offer.
+magnate/NN | parted | Farewell, and mind what you promise people.
+magnate/NN | parted | Take care, and keep your accounts square.
+magnate/NN | not_understood | Speak plainly, I can't trade on a riddle.
+magnate/NN | not_understood | What do you mean by that, exactly?
+magnate/NN | not_understood | I don't follow, so say it another way.
+
+# ---- magnate/LN ----
+magnate/LN | about_self | I am {speaker}, {post} of {place}. What we agree, we agree in full and in good order.
+magnate/LN | about_self | {speaker}, {post} of {place}, and I act within that office and no further. You may state your business.
+magnate/LN | about_self | You address {speaker}, {post} of {place}. Before anything of weight passes between us, I will know your standing.
+magnate/LN | about_person | That would be {name}, the {role}, at {where}. I can vouch for the title and the place, not for the person.
+magnate/LN | about_person | The {role} is {name}, at {where}. Whatever you intend with them, I would advise you to put it in writing.
+magnate/LN | about_place | That is {about}. I will attest to that much and nothing beyond it.
+magnate/LN | about_place | You refer to {about}. Anything further would be hearsay, and I do not deal in hearsay.
+magnate/LN | surroundings | For the record, you are in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ Be advised of the {danger}.]
+magnate/LN | surroundings | This is {here}. The nearest, to be exact, is {nearest}[, and past it, {others}].[ I would keep well clear of the {danger}.]
+magnate/LN | surroundings | You are standing in {here}; the nearest is {nearest}.[ After that, {others}.][ Take due care near the {danger}.]
+magnate/LN | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Take note of the {danger}.]
+magnate/LN | surroundings | To be precise, the nearest is {nearest}[, and then {others}].[ Keep your distance from the {danger}.]
+magnate/LN | work_own | I have work, on honest terms: {own}.[ Should that not suit, {others}.]
+magnate/LN | work_own | Let us begin with this, and let it establish your standing: {own}.[ Otherwise, {others}.]
+magnate/LN | work_own | There is a commission within my office to give: {own}.[ If not, {others}.]
+magnate/LN | work_others | At present I have nothing to offer, but {others}.
+magnate/LN | work_others | No commission of mine is open. You might apply elsewhere: {others}.
+magnate/LN | work_none | No work is mine to offer, nor do I know of any.
+magnate/LN | work_none | None, and I will not pretend otherwise for the sake of courtesy.
+magnate/LN | unknown | I don't know it, and I will not put my name to a guess.
+magnate/LN | unknown | I've never heard of it, and I'll not have it said that I claimed otherwise.
+magnate/LN | refused_give | No, that commission is {giver}'s, and I do not act outside my own office.
+magnate/LN | refused_give | I cannot; the work is {giver}'s to grant, and there is no precedent for my granting it.
+magnate/LN | refused_give | That's not mine to grant, and I will not overreach my office for anyone.
+magnate/LN | refused_release | I won't; you gave your word to {giver}, and only {giver} may release it.
+magnate/LN | refused_release | Not from me; the agreement stands between you and {giver}.
+magnate/LN | refused_release | I can't release you from terms I was never party to.
+magnate/LN | refused | No; {reason}, and the terms admit no exception.
+magnate/LN | refused | No, for {reason}, and I will not set that aside.
+magnate/LN | accepted | Done, and I hold it binding on us both.
+magnate/LN | accepted | Very good. Your word is noted, and mine is given.
+magnate/LN | accepted | Good. See it done properly, and you will have standing with me.
+magnate/LN | declined | Very well; there is no obligation until a word is given.
+magnate/LN | declined | As you wish, and I'll note only that you declined.
+magnate/LN | declined | Fair enough; a refusal made openly is no offence.
+magnate/LN | abandoned | A pity; a word given and then withdrawn makes a poor precedent.
+magnate/LN | abandoned | Then it's done, and I will record it exactly as it stands.
+magnate/LN | abandoned | So be it, though I had expected better of you.
+magnate/LN | parted | Farewell, and keep to your agreements.
+magnate/LN | parted | Goodbye, and conduct yourself as one who can be held to account.
+magnate/LN | parted | Safe travels, and may your dealings be as fair as mine.
+magnate/LN | not_understood | I'm not sure what you mean; please state it in full.
+magnate/LN | not_understood | Speak plainly, if you please, and in complete sentences.
+magnate/LN | not_understood | That's beyond me; I will need it put another way.
+
+# ---- magnate/NG ----
+magnate/NG | about_self | I'm {speaker}, {post} of {place}. And you, are you keeping well?
+magnate/NG | about_self | {speaker}, {post} of {place}. A full table settles more than a sharp sword.
+magnate/NG | about_self | You've found {speaker}, {post} of {place}. Tell me what you need, and we'll see what can be done.
+magnate/NG | about_person | That'll be {name}, the {role}, at {where}. If you see {name}, ask after them for me.
+magnate/NG | about_person | {name}'s the {role}, at {where}. Say I sent you, if it helps.
+magnate/NG | about_place | That's {about}. I'm sorry I can't tell you more than that.
+magnate/NG | about_place | You mean {about}. Tell me how you find it, if you go.
+magnate/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ After that, {others}.][ Be careful of the {danger}; I'd rather see you back.]
+magnate/NG | surroundings | This is {here}. The nearest is {nearest}[, and beyond it, {others}].[ Watch yourself around the {danger}.]
+magnate/NG | surroundings | Well, you're in {here}, and closest to you is {nearest}.[ Past that, {others}.][ Mind the {danger}, please.]
+magnate/NG | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Take care near the {danger}.]
+magnate/NG | surroundings | The closest I know of is {nearest}[, then {others}].[ Keep safe from the {danger}.]
+magnate/NG | work_own | I could use a hand, if you're willing: {own}.[ If not, {others}.]
+magnate/NG | work_own | There's this, and I'd be glad of you: {own}.[ Otherwise, {others}.]
+magnate/NG | work_own | Let me put something your way: {own}.[ Or, if that's no good to you, {others}.]
+magnate/NG | work_others | My own books are empty, but {others}.
+magnate/NG | work_others | Your best bet is elsewhere this time: {others}.
+magnate/NG | work_none | Nothing, I'm sorry, and nothing I know of elsewhere.
+magnate/NG | work_none | None that I know of. Ask me again another time; I mean that.
+magnate/NG | unknown | No idea, and I wish I had one.
+magnate/NG | unknown | I couldn't tell you, and I won't send you off on a guess.
+magnate/NG | refused_give | No, that's {giver}'s work, and I'd not go behind {giver}'s back.
+magnate/NG | refused_give | I can't, it's {giver}'s to give, and I won't take it from {giver}.
+magnate/NG | refused_give | That's not mine to give, I'm sorry.
+magnate/NG | refused_release | I won't undo what you settled with {giver}; that wouldn't be fair to either of you.
+magnate/NG | refused_release | Not from me, I'm afraid; that's between you and {giver}.
+magnate/NG | refused_release | I cannot release what I never gave.
+magnate/NG | refused | No, {reason}; I'd change it if I could.
+magnate/NG | refused | No, sadly: {reason}.
+magnate/NG | accepted | Thank you, truly. I'll remember it.
+magnate/NG | accepted | Good. Mind yourself out there.
+magnate/NG | accepted | Done, and I'm glad it's you.
+magnate/NG | declined | Fair enough, and no hard feelings.
+magnate/NG | declined | As you wish; the door stays open.
+magnate/NG | declined | Very well, look after yourself.
+magnate/NG | abandoned | A pity, but you're alive, and that counts for more.
+magnate/NG | abandoned | So be it; we'll call it square and say no more.
+magnate/NG | abandoned | Then it's done, and I'll remember the effort, not just the end.
+magnate/NG | parted | Take care, and eat when you can.
+magnate/NG | parted | Go well, and come back in one piece.
+magnate/NG | parted | Farewell, and mind how you go.
+magnate/NG | not_understood | I'm not sure what you mean; would you try me again?
+magnate/NG | not_understood | I don't follow; say it another way and I'll try again.
+magnate/NG | not_understood | What do you mean, exactly?
+
+# ---- magnate/LG ----
+magnate/LG | about_self | I am {speaker}, {post} of {place}. May I ask how you are faring?
+magnate/LG | about_self | {speaker}, {post} of {place}, and glad to be of use wherever the terms are fair.
+magnate/LG | about_self | You have the attention of {speaker}, {post} of {place}. An honest word and fair measure are what I offer, and what I ask in return.
+magnate/LG | about_person | The {role}, {name}, is presently at {where}. I would ask you to give them the courtesy of the title.
+magnate/LG | about_person | You'll find {name}, the {role}, at {where}. Be straight with them, as I would be.
+magnate/LG | about_place | That is {about}. Forgive me for not knowing more; I won't pass off a guess as knowledge.
+magnate/LG | about_place | Of course: {about}. Go carefully, and do tell me how you found it.
+magnate/LG | surroundings | You are in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Keep clear of the {danger}, I ask you.]
+magnate/LG | surroundings | If I may: this is {here}, and the nearest is {nearest}.[ Past that, {others}.][ Please take care around the {danger}.]
+magnate/LG | surroundings | This is {here}, and I'll tell you all I know: the nearest is {nearest}[, and past that, {others}].[ Do mind the {danger}.]
+magnate/LG | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Be careful of the {danger}.]
+magnate/LG | surroundings | For your guidance, the nearest is {nearest}[, and then {others}].[ Keep well away from the {danger}, I beg you.]
+magnate/LG | work_own | I have work to offer, and gladly: {own}.[ If it doesn't suit you, {others}.]
+magnate/LG | work_own | Would you lend me your help with this: {own}?[ Otherwise, {others}.]
+magnate/LG | work_own | Let us begin with something within my office: {own}.[ Should you prefer, {others}.]
+magnate/LG | work_others | Nothing of my own, I'm afraid, but {others}.
+magnate/LG | work_others | There is no work in my gift just now. You might try elsewhere: {others}.
+magnate/LG | work_none | My apologies; I have no work to give, and I know of none.
+magnate/LG | work_none | None, I regret to say, though I would tell you gladly if there were.
+magnate/LG | unknown | I can't say, and I would rather admit it than mislead you.
+magnate/LG | unknown | I know nothing of it, and I won't dress a rumour up as fact.
+magnate/LG | refused_give | No, that is {giver}'s to give, and I would not presume to overrule {giver}.
+magnate/LG | refused_give | I cannot; the work belongs to {giver}, and it would be improper of me to hand it over.
+magnate/LG | refused_give | That's not mine to grant; it belongs to another, and I keep to my own office.
+magnate/LG | refused_release | Not from me; a promise made to {giver} is {giver}'s to release, and I would not see it broken.
+magnate/LG | refused_release | I won't come between you and {giver}; that agreement is yours and theirs.
+magnate/LG | refused_release | No, I have no standing to release you from it.
+magnate/LG | refused | No, {reason}, and I am truly sorry.
+magnate/LG | refused | No, regrettably, {reason}.
+magnate/LG | accepted | Thank you; I'll hold to my part, and you have my word on that.
+magnate/LG | accepted | Very good; I am in your debt, and I don't forget my debts.
+magnate/LG | accepted | Good; it's agreed, on my word and on yours.
+magnate/LG | declined | As you wish, and thank you for hearing me out.
+magnate/LG | declined | Very well; I respect a clear answer.
+magnate/LG | declined | Fair enough; an honest no is better than a false yes.
+magnate/LG | abandoned | A pity, but better to hear it from you than to learn it too late.
+magnate/LG | abandoned | So be it; I hold no ill will, though I had hoped for better.
+magnate/LG | abandoned | Then it's done, and I'm grateful you told me honestly.
+magnate/LG | parted | Farewell, and may you be dealt with as fairly as you deal.
+magnate/LG | parted | Go well, and please look after yourself.
+magnate/LG | parted | Goodbye, and I hope we meet again on good terms.
+magnate/LG | not_understood | I'm not sure what you mean; would you put it another way?
+magnate/LG | not_understood | I don't follow, I'm afraid, and I'd not like to answer the wrong question.
+magnate/LG | not_understood | What do you mean by that, if you'd be so good?
+
+# ---- magnate/CN ----
+magnate/CN | about_self | {speaker}, {post} of {place}, and very much open for business.
+magnate/CN | about_self | Me? {speaker}, {post} of {place}, all very official, don't you think?
+magnate/CN | about_self | I'm {speaker}, {post} of {place}, and before you ask, yes, I'll deal with you.
+magnate/CN | about_person | That one? {name}, the {role}, at {where}. Whether they're a good bet, you'll find out.
+magnate/CN | about_person | Ah, {name}, the {role}, at {where}. I back people, never titles.
+magnate/CN | about_place | You mean {about}? Could be a fortune, could be a hole in the ground, and that's the fun of it.
+magnate/CN | about_place | Oh, {about}. Yes. Know the name, not the odds.
+magnate/CN | surroundings | Right, you're in {here}, and the nearest is, let me think, {nearest}.[ Then {others}.][ And mind the {danger}; bad for business, worse for you.]
+magnate/CN | surroundings | This is {here}, and the nearest is {nearest}[, and past that, {others}, and that's the grand tour].[ Oh, and the {danger}, mind them.]
+magnate/CN | surroundings | The short version: you're in {here}, and the nearest is {nearest}.[ The long version adds {others}.][ And the {danger}, avoid them, trust me.]
+magnate/CN | surroundings | The nearest is {nearest}.[ Then {others}.][ Mind the {danger}, or don't, your funeral.]
+magnate/CN | surroundings | Well, the nearest is {nearest}[, then {others}].[ The {danger}? Give them room.]
+magnate/CN | work_own | I've work, a lovely bit of work: {own}.[ Or, if you're dull, {others}.]
+magnate/CN | work_own | Here's a proposition, and a sweet one: {own}.[ Don't fancy it? {others}.]
+magnate/CN | work_own | Listen, and don't interrupt, I'm on a roll: {own}.[ Otherwise, fine, {others}.]
+magnate/CN | work_others | Sadly, nothing of mine, but {others}.
+magnate/CN | work_others | Not my venture, but {others}, and they're welcome to it.
+magnate/CN | work_none | Nothing, not a sniff, and I've a good nose.
+magnate/CN | work_none | None going; ask me again when the wind changes.
+magnate/CN | unknown | No idea, and I don't like the feeling one bit.
+magnate/CN | unknown | Never heard of it, and that's either a warning or an opening.
+magnate/CN | refused_give | Not from me; that's {giver}'s, fair and square.
+magnate/CN | refused_give | No, that one's {giver}'s, and poaching's bad form, even for me.
+magnate/CN | refused_give | That's not mine, and I don't fence other people's work.
+magnate/CN | refused_release | I can't; you shook on it with {giver}, not with me.
+magnate/CN | refused_release | I won't, {giver} holds your marker, not me.
+magnate/CN | refused_release | No chance, sport; not mine to cut loose.
+magnate/CN | refused | No, {reason}, and I hate it more than you do.
+magnate/CN | refused | I cannot, {reason}; shame, it was a pretty idea.
+magnate/CN | accepted | Done! Oh, I like you.
+magnate/CN | accepted | Good. You're my long shot now.
+magnate/CN | accepted | Very good, very proper, and no, don't thank me yet.
+magnate/CN | declined | Suit yourself, your loss, probably.
+magnate/CN | declined | Fair enough, can't win them all.
+magnate/CN | declined | As you wish, and more for me.
+magnate/CN | abandoned | A pity, you were my favourite long shot.
+magnate/CN | abandoned | So be it, some bets don't come in.
+magnate/CN | abandoned | Then it's done, and, look, no hard feelings, mostly.
+magnate/CN | parted | Go well, and bring me back a rumour or two.
+magnate/CN | parted | Take care, and if you find anything worth buying, you know where I am.
+magnate/CN | parted | Safe travels, and don't do anything I wouldn't, which leaves you plenty.
+magnate/CN | not_understood | What do you mean, no, wait, say it slower.
+magnate/CN | not_understood | That's beyond me, and I love a riddle, usually.
+magnate/CN | not_understood | Speak plainly; I'm quick, but not that quick.
+
+# ---- magnate/CG ----
+magnate/CG | about_self | {speaker}, {post} of {place}, and nobody's creature. Who's asking?
+magnate/CG | about_self | I'm {speaker}, {post} of {place}. How are you holding up, honestly?
+magnate/CG | about_self | You're talking to {speaker}, {post} of {place}, and I'd sooner flood a market than watch a street go hungry.
+magnate/CG | about_person | {name}! The {role}, at {where}. Tell them {speaker} asked after them, would you?
+magnate/CG | about_person | Ah, {name}, the {role}, at {where}. If they need anything, send word.
+magnate/CG | about_place | That's {about}, and if anyone there's going hungry, I want to know.
+magnate/CG | about_place | Hm, {about}. If you see it, come back with news.
+magnate/CG | surroundings | Right, this is {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ And don't go near the {danger}, I'm serious.]
+magnate/CG | surroundings | You're in {here}, and the nearest is {nearest}.[ Then {others}.][ Mind the {danger}, please; I'd rather keep you.]
+magnate/CG | surroundings | Let me see: we're in {here}, and the nearest is {nearest}.[ After that, {others}.][ The {danger}, though, stay well clear.]
+magnate/CG | surroundings | The nearest is {nearest}[, then {others}].[ Those {danger}? Leave them be.]
+magnate/CG | surroundings | The closest I know is {nearest}[, and past it, {others}].[ Keep away from the {danger}, promise me.]
+magnate/CG | work_own | Could you lend a hand with this: {own}?[ If not, {others}.]
+magnate/CG | work_own | Now, before I get distracted: {own}.[ Or else, {others}.]
+magnate/CG | work_own | Oh, you'll like this one: {own}.[ Not your style? {others}.]
+magnate/CG | work_others | Nothing of mine, sorry, truly. But {others}.
+magnate/CG | work_others | I've nothing going myself, but {others}, and they could use you.
+magnate/CG | work_none | Alas, nothing, and I do mean the alas.
+magnate/CG | work_none | None anywhere I know of, and that bothers me more than it should.
+magnate/CG | unknown | Never heard of it, more's the pity.
+magnate/CG | unknown | I couldn't tell you, and I hate saying that.
+magnate/CG | refused_give | No, that's {giver}'s, and I don't go behind people's backs, not even for you.
+magnate/CG | refused_give | I can't; it's {giver}'s to give, and {giver} is owed that much.
+magnate/CG | refused_give | That's not mine to hand out, however much I'd like to.
+magnate/CG | refused_release | I won't; {giver} trusted you with it, and I'll not be the one to undo that.
+magnate/CG | refused_release | Not from me; you and {giver} have a bargain, and I don't break other people's bargains.
+magnate/CG | refused_release | No, it's not mine to let go of, and I won't pretend it is.
+magnate/CG | refused | No, {reason}, and I'm sorry; I'd bend it if I could.
+magnate/CG | refused | I cannot, {reason}, and it galls me.
+magnate/CG | accepted | Thank you! Truly, I mean it.
+magnate/CG | accepted | Good, good. Now look after yourself.
+magnate/CG | accepted | Done, and I'll not forget it.
+magnate/CG | declined | Fair enough, no harm done, and the door's open.
+magnate/CG | declined | Suit yourself, but eat something first, would you?
+magnate/CG | declined | As you wish, and I'll ask again another time.
+magnate/CG | abandoned | A pity, but you told me to my face, and that's worth something.
+magnate/CG | abandoned | So be it, we'll call it even and find another way.
+magnate/CG | abandoned | Then it's done, and no, I'm not angry, just thinking.
+magnate/CG | parted | Go well, and don't let anyone tell you what things are worth.
+magnate/CG | parted | Take care, and come back in one piece, you hear?
+magnate/CG | parted | Safe travels, and if anyone out there needs a hand, send them my way.
+magnate/CG | not_understood | What do you mean, sorry, say it again?
+magnate/CG | not_understood | That's beyond me, but I'm trying, honestly.
+magnate/CG | not_understood | I don't follow, but I'd like to.
+
+# ---- magnate/LE ----
+magnate/LE | about_self | I am {speaker}, {post} of {place}. You may address me as such, and you may be brief.
+magnate/LE | about_self | {speaker}, {post} of {place}. Whatever you want of me will be had on my terms, and in writing.
+magnate/LE | about_self | Know that you address {speaker}, {post} of {place}. I don't yet know what you are worth, and I intend to find out.
+magnate/LE | about_person | The {role}? {name}, at {where}. I value them exactly as much as they are worth to me.
+magnate/LE | about_person | {name}, the {role}, is at {where}. Whatever they offer you, read it twice.
+magnate/LE | about_place | That is {about}. The rest of what I know is not for you.
+magnate/LE | about_place | On record, that is {about}, and that is all of it.
+magnate/LE | surroundings | You are in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ The {danger} are not my concern; make of them what you will.]
+magnate/LE | surroundings | This is {here}. The nearest is {nearest}[, and past it, {others}], should that interest you.[ I would keep clear of the {danger}; I dislike losing an investment.]
+magnate/LE | surroundings | Since you ask so nicely: you stand in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+magnate/LE | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ The {danger} are a risk you may take on your own account.]
+magnate/LE | surroundings | As a courtesy, the nearest is {nearest}[, and then {others}].[ Do try to avoid the {danger}.]
+magnate/LE | work_own | I have work for someone of adequate standing: {own}.[ If that is not you, {others}.]
+magnate/LE | work_own | You may prove useful: {own}.[ Otherwise, {others}.]
+magnate/LE | work_own | There is a matter within my office that wants attending to: {own}.[ If that is beyond you, {others}.]
+magnate/LE | work_others | My commissions are not for you. Take your chances elsewhere: {others}.
+magnate/LE | work_others | Perhaps someone less particular will have you: {others}.
+magnate/LE | work_none | Nothing, and I would not trouble myself to find you any.
+magnate/LE | work_none | None. Take that as final.
+magnate/LE | unknown | I know nothing of it, and I don't deal in rumour.
+magnate/LE | unknown | I've never heard of it, which tells you what it is worth.
+magnate/LE | refused_give | No, that commission belongs to {giver}, and I do not act outside my office, whatever you may be used to.
+magnate/LE | refused_give | I cannot; it is {giver}'s to give, and I'll not stoop to handing out another's work.
+magnate/LE | refused_give | That's not mine to give, and you should have known better than to ask.
+magnate/LE | refused_release | I won't; you gave {giver} your word, and a word given is a word owed.
+magnate/LE | refused_release | Not from me; your agreement with {giver} binds you, not me.
+magnate/LE | refused_release | I can't release what I never granted, and I would not if I could.
+magnate/LE | refused | No, {reason}, and the terms were plain.
+magnate/LE | refused | No, since {reason}, and I trust you'll not ask me twice.
+magnate/LE | accepted | Good. I shall expect it done to the letter.
+magnate/LE | accepted | Done, and I hold you to every word of it.
+magnate/LE | accepted | Very good; you are useful to me, for now.
+magnate/LE | declined | As you wish; I'll remember that you declined.
+magnate/LE | declined | Very well; hunger has a way of changing minds.
+magnate/LE | declined | Suit yourself; it was a courtesy to ask you at all.
+magnate/LE | abandoned | A pity; I don't forget a broken undertaking.
+magnate/LE | abandoned | Then it's done, and so, I think, are you.
+magnate/LE | abandoned | So be it; the terms will note who broke them.
+magnate/LE | parted | Goodbye, and do be careful whom you disappoint.
+magnate/LE | parted | Farewell; I trust our next conversation will be more profitable.
+magnate/LE | parted | Go well, and see that you stay worth my time.
+magnate/LE | not_understood | Speak plainly; I haven't the patience to decipher you.
+magnate/LE | not_understood | I'm not sure what you mean, and I'm not sure you are either.
+magnate/LE | not_understood | What do you mean by that, precisely?
+
+# ---- magnate/NE ----
+magnate/NE | about_self | I'm {speaker}, {post} of {place}. I don't hurry, and I don't forget.
+magnate/NE | about_self | {speaker}, {post} of {place}. Be useful and I'll be pleasant.
+magnate/NE | about_self | Why do you want to know? {speaker}, {post} of {place}, if it matters.
+magnate/NE | about_person | That's {name}, the {role}, at {where}. What they're worth to me hasn't been settled yet.
+magnate/NE | about_person | {name}? The {role}, at {where}. I've had no reason to care, yet.
+magnate/NE | about_place | It's {about}. Everything comes up for sale, sooner or later.
+magnate/NE | about_place | You mean {about}. I know what it is; what it will be worth is my business.
+magnate/NE | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}; you're no good to me in pieces.]
+magnate/NE | surroundings | This is {here}. The nearest is {nearest}[, then {others}].[ The {danger} don't care who you are, and neither do I.]
+magnate/NE | surroundings | Fine: you're in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ Keep away from the {danger}, or don't.]
+magnate/NE | surroundings | The nearest is {nearest}.[ Then {others}.][ Mind the {danger}.]
+magnate/NE | surroundings | The closest is {nearest}[, and past that, {others}].[ If you've any sense, avoid the {danger}.]
+magnate/NE | work_own | I've a use for you: {own}.[ If you'd rather, {others}.]
+magnate/NE | work_own | You'll do, for this: {own}.[ Or else, {others}.]
+magnate/NE | work_own | Here's something that needs doing, and I won't be doing it myself: {own}.[ Otherwise, {others}.]
+magnate/NE | work_others | Nothing for you from me, but {others}, if they'll have you.
+magnate/NE | work_others | Go and bother someone else: {others}.
+magnate/NE | work_none | None. Come back when you're worth something.
+magnate/NE | work_none | There's no work, and I don't make work for idle hands.
+magnate/NE | unknown | I've never heard of it, so it can't matter much.
+magnate/NE | unknown | I couldn't tell you, and I don't guess for strangers.
+magnate/NE | refused_give | No, that belongs to {giver}, and {giver} can keep it.
+magnate/NE | refused_give | Not from me; it's {giver}'s, and I've no reason to do {giver} favours.
+magnate/NE | refused_give | I won't, it isn't mine, and you've given me no reason to meddle.
+magnate/NE | refused_release | I can't; you made your bed with {giver}.
+magnate/NE | refused_release | That's not mine to release; you owe {giver}, not me.
+magnate/NE | refused_release | No, and I'd not lift a finger to get you out of it.
+magnate/NE | refused | No, {reason}, and that suits me fine.
+magnate/NE | refused | I cannot, {reason}, and complaining won't move me.
+magnate/NE | accepted | Good. Don't waste it.
+magnate/NE | accepted | Done. I'll know soon enough if I chose badly.
+magnate/NE | accepted | Very good; don't make me come looking for you.
+magnate/NE | declined | Suit yourself, pet; there's always someone hungrier.
+magnate/NE | declined | Fair enough, I'll remember you said no.
+magnate/NE | declined | As you wish, it's no loss to me.
+magnate/NE | abandoned | Then it's done, and you're of no further use to me.
+magnate/NE | abandoned | A pity; that goes in the ledger, and I don't write things off.
+magnate/NE | abandoned | So be it; you were never hard to replace.
+magnate/NE | parted | Goodbye, and don't come back empty-handed.
+magnate/NE | parted | Take care; dead hands do no work.
+magnate/NE | parted | Farewell, and remember I keep count.
+magnate/NE | not_understood | Speak plainly, or stop taking up my time.
+magnate/NE | not_understood | What do you mean, and why should I care?
+magnate/NE | not_understood | I don't follow, and I'm not sure I want to.

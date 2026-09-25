@@ -1,0 +1,323 @@
+# Written lines (the fractured heart). The format and the rules: README.md in this folder.
+
+# ---- fractured_heart/CG ----
+fractured_heart/CG | about_self | Me? {speaker}, {post} of {place}, at least for as long as I'm me.
+fractured_heart/CG | about_self | I'm {speaker}, {post} of {place}, terribly official; don't let it put you off.
+fractured_heart/CG | about_self | {speaker}, {post} of {place}, and whatever you've heard about me, I'd like to hear it too.
+fractured_heart/CG | about_person | Oh, {name}, the {role}, at {where}. Tell {name} I asked after them, would you?
+fractured_heart/CG | about_person | {name}? The {role}, at {where}, and I'd stand by {name}; the {role} business, you can keep.
+fractured_heart/CG | about_place | Ah, {about}. If you go, come back and tell me all about it.
+fractured_heart/CG | about_place | You mean {about}. Anything more and I'd be guessing, and I'm a terrible guesser.
+fractured_heart/CG | surroundings | You're in {here}, last I looked, and the nearest is {nearest}.[ After that, {others}.][ Oh, and the {danger}; don't, just don't.]
+fractured_heart/CG | surroundings | This is {here}, fair and lovely; well, it's {here}. The nearest is {nearest}[, then {others}].[ Keep clear of the {danger}, please.]
+fractured_heart/CG | surroundings | Well, we're in {here}, and the closest is {nearest}[; then {others}].[ Mind the {danger}; I'd come after you, but I'd rather not have to.]
+fractured_heart/CG | surroundings | The nearest is {nearest}[, and past it, {others}].[ And steer clear of the {danger}; humour me.]
+fractured_heart/CG | surroundings | First there's {nearest}.[ Then {others}.][ Please, not the {danger}.]
+fractured_heart/CG | work_own | Here, take this one: {own}.[ Or, if it's not for you, {others}.]
+fractured_heart/CG | work_own | Do this for me and I'll stand by you after, I promise: {own}.[ If not, {others}.]
+fractured_heart/CG | work_own | Right, a favour, a proper solemn one: {own}.[ And if that's not you, {others}.]
+fractured_heart/CG | work_others | Nothing of mine, sorry, but {others}.
+fractured_heart/CG | work_others | I've nothing, but I know who has: {others}.
+fractured_heart/CG | work_none | Sadly, nothing; ask me again and you might get luckier.
+fractured_heart/CG | work_none | None, and none I've heard of, which is a shame, because I was in the mood.
+fractured_heart/CG | unknown | I couldn't tell you, and I won't make it up; not to you.
+fractured_heart/CG | unknown | Never heard of it, and I'd remember; well, one of us would.
+fractured_heart/CG | refused_give | No, no, that's {giver}'s, and I'd never do that to {giver}.
+fractured_heart/CG | refused_give | That's not mine to give, it's {giver}'s, and I don't go behind people's backs.
+fractured_heart/CG | refused_give | Not from me; it's someone else's, and I'd hate it done to me.
+fractured_heart/CG | refused_release | I can't; that's between you and {giver}, and I don't get between people.
+fractured_heart/CG | refused_release | I won't, not over {giver}'s head; sorry, and I mean that.
+fractured_heart/CG | refused_release | I cannot, it isn't mine to let go of, and pretending would be worse.
+fractured_heart/CG | refused | No, {reason}, and if it would bend, I'd have bent it for you.
+fractured_heart/CG | refused | No, not even for you; {reason}.
+fractured_heart/CG | accepted | Thank you, truly; now go on, go, before one of us changes our mind.
+fractured_heart/CG | accepted | Good, good; and don't let anyone tell you I didn't mean it.
+fractured_heart/CG | accepted | Done, and that's a promise; the sensible one of us can sulk about it.
+fractured_heart/CG | declined | Fair enough, and no hard feelings, not from this side of me.
+fractured_heart/CG | declined | Suit yourself; I'd have liked the company.
+fractured_heart/CG | declined | As you wish, and I mean that; nobody should be pushed into anything.
+fractured_heart/CG | abandoned | A pity; you'll tell me what happened, won't you, when you're ready?
+fractured_heart/CG | abandoned | Then it's done, and whatever I promised you, I meant.
+fractured_heart/CG | abandoned | So be it; I'm not cross, and I can only answer for me.
+fractured_heart/CG | parted | Go well, and if I'm strange next time, it wasn't me.
+fractured_heart/CG | parted | Take care of yourself, and of anyone who can't.
+fractured_heart/CG | parted | Farewell, farewell, and I mean both of them.
+fractured_heart/CG | not_understood | Speak plainly, and slowly; half of me wasn't listening.
+fractured_heart/CG | not_understood | What do you mean by that, and should I be worried?
+fractured_heart/CG | not_understood | I don't follow; again, smaller words, I'm easily lost.
+
+# ---- fractured_heart/CN ----
+fractured_heart/CN | about_self | {speaker}, {post} of {place}, when it suits me; lucky for you, it does.
+fractured_heart/CN | about_self | Who's asking? Never mind; {speaker}, {post} of {place}, open to offers.
+fractured_heart/CN | about_self | I'm {speaker}, {post} of {place}; one of me is, anyway, and you've got that one.
+fractured_heart/CN | about_person | Oh, {name}? The {role}, at {where}. {name} I'd help; the cause, I'd leave in a ditch.
+fractured_heart/CN | about_person | {name}, the {role}, at {where}, and what {name} wants is {name}'s business until it's mine.
+fractured_heart/CN | about_place | You mean {about}; worth your while or not, that's your call.
+fractured_heart/CN | about_place | Ah, {about}, sure. Know it, won't swear to more, wouldn't anyway.
+fractured_heart/CN | surroundings | You're in {here}, lucky you, and the nearest is {nearest}.[ Past that, {others}.][ And the {danger}; no thank you.]
+fractured_heart/CN | surroundings | This is {here}, and the closest thing going is {nearest}[, then {others}].[ As for the {danger}, I'm not coming to get you.]
+fractured_heart/CN | surroundings | Welcome to {here}, such as it is; the nearest is {nearest}.[ Then {others}.][ The {danger}, though; I wouldn't, and I'm not fussy.]
+fractured_heart/CN | surroundings | The nearest is {nearest}[, and past it, {others}].[ Mind the {danger}, or don't; your neck.]
+fractured_heart/CN | surroundings | First up, {nearest}.[ Then {others}.][ Give the {danger} a miss; not worth the bother.]
+fractured_heart/CN | work_own | Here's a trade, fair and square: {own}.[ Or else, {others}.]
+fractured_heart/CN | work_own | Now, business: {own}.[ If that's not your sort of thing, {others}.]
+fractured_heart/CN | work_own | My word on it, or this half's word anyway: {own}, and I owe you one.[ If not, {others}.]
+fractured_heart/CN | work_others | Nothing of mine going, but I'm not stingy with gossip: {others}.
+fractured_heart/CN | work_others | Mine? None, but {others}, if you're keen.
+fractured_heart/CN | work_none | Nay, nothing, and if there were, I'd have kept it.
+fractured_heart/CN | work_none | Truly, nothing going; you'd be the first I'd tell, well, second, after me.
+fractured_heart/CN | unknown | I couldn't tell you, and I've no reason to lie about it.
+fractured_heart/CN | unknown | Never heard of it; ask the dull one of us, if you can catch them.
+fractured_heart/CN | refused_give | No, that's {giver}'s, and I don't cross {giver} for strangers.
+fractured_heart/CN | refused_give | That's not mine to give, it's {giver}'s, and nobody tells me to cross {giver}, not even you.
+fractured_heart/CN | refused_give | Not from me, that one; I trade what's mine, and that isn't.
+fractured_heart/CN | refused_release | I can't; that knot's {giver}'s, not mine.
+fractured_heart/CN | refused_release | I won't, not with {giver} on the other end of it; nothing in it for me.
+fractured_heart/CN | refused_release | I cannot, it's not mine, and I'd only make it worse for both of us.
+fractured_heart/CN | refused | No, {reason}; shame, I'd have liked the trade.
+fractured_heart/CN | refused | No can do; {reason}.
+fractured_heart/CN | accepted | Done, done, and done; shake on it before I think better of it.
+fractured_heart/CN | accepted | Good; you do your half and I'll do mine, whichever of me turns up.
+fractured_heart/CN | accepted | Thank you; a straight deal, and I don't see many.
+fractured_heart/CN | declined | Suit yourself; more for me.
+fractured_heart/CN | declined | Fair enough; I'd have said no too, probably.
+fractured_heart/CN | declined | As you wish; your loss, and not by much.
+fractured_heart/CN | abandoned | So be it; easy come, easy go, mostly go.
+fractured_heart/CN | abandoned | Then it's done; we're even, near enough.
+fractured_heart/CN | abandoned | A pity; I'd have backed you, too, for a while.
+fractured_heart/CN | parted | Go well, and if I promised you anything, get it from me quick.
+fractured_heart/CN | parted | Take care, and if I don't wave next time, wave anyway.
+fractured_heart/CN | parted | Farewell, fare thee well, all that; off you go.
+fractured_heart/CN | not_understood | I don't follow; shorter, slower, and get to the part about me.
+fractured_heart/CN | not_understood | What do you mean, and what's in it for me?
+fractured_heart/CN | not_understood | Speak plainly; neither of me has the patience for that.
+
+# ---- fractured_heart/LE ----
+fractured_heart/LE | about_self | I am {speaker}, {post} of {place}, and I answer for every word this mouth has given.
+fractured_heart/LE | about_self | Before you speak, know whom you address: {speaker}, {post} of {place}.
+fractured_heart/LE | about_self | {speaker}, {post} of {place}, and you will find me exactly as courteous as you deserve.
+fractured_heart/LE | about_person | {name}, the {role}, at {where}. I know precisely what {name} is, and I remain civil.
+fractured_heart/LE | about_person | Ah, {name}, the {role}, at {where}; courtesy obliges me to stop there.
+fractured_heart/LE | about_place | That is {about}. Whether you are equal to it is another matter.
+fractured_heart/LE | about_place | It is {about}, and I do not embroider.
+fractured_heart/LE | surroundings | Since you ask, you are in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ The {danger} I leave to your judgement, such as it is.]
+fractured_heart/LE | surroundings | This is {here}; the nearest is {nearest}.[ After it, {others}.][ You would be wise to avoid the {danger}, though I do not presume on your wisdom.]
+fractured_heart/LE | surroundings | We stand in {here}, and nearest to us is {nearest}[; then {others}].[ Heed the {danger}; I will not retrieve you.]
+fractured_heart/LE | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Mind the {danger}; I will not say it twice.]
+fractured_heart/LE | surroundings | Of what lies near, the first is {nearest}.[ Then {others}.][ Beware the {danger}.]
+fractured_heart/LE | work_own | You may be of use to me: {own}.[ Should that exceed you, {others}.]
+fractured_heart/LE | work_own | Your standing is unproven, and this will settle it: {own}.[ Otherwise, {others}.]
+fractured_heart/LE | work_own | I have need of someone expendable, and you will do: {own}.[ If not, {others}.]
+fractured_heart/LE | work_others | Nothing of mine, but {others}; they are less particular than I am.
+fractured_heart/LE | work_others | I offer nothing myself, though others will take what they can get: {others}.
+fractured_heart/LE | work_none | There is nothing, and I would not invent a task to flatter you.
+fractured_heart/LE | work_none | None, and I know of none I would entrust to you.
+fractured_heart/LE | unknown | I know nothing of it, and very little escapes me.
+fractured_heart/LE | unknown | I couldn't tell you, and I do not deal in guesses.
+fractured_heart/LE | refused_give | No; that is {giver}'s to give, and I do not act outside my office.
+fractured_heart/LE | refused_give | That's not mine to bestow; it belongs to {giver}, and I do not trespass on another's word.
+fractured_heart/LE | refused_give | Not from me; it is not mine, and I will not make a precedent of you.
+fractured_heart/LE | refused_release | I cannot release what {giver} bound you to, and I would not if I could.
+fractured_heart/LE | refused_release | I won't; a word given to {giver} is not mine to take back, even one of yours.
+fractured_heart/LE | refused_release | I can't; what was sworn stays sworn, whoever swore it.
+fractured_heart/LE | refused | No, {reason}, and I do not make exceptions for strangers.
+fractured_heart/LE | refused | No, and you will not ask again: {reason}.
+fractured_heart/LE | accepted | Good. Should you break your word, I will know, whoever you think you are speaking to.
+fractured_heart/LE | accepted | Done; your word is taken, and I do not mislay words.
+fractured_heart/LE | accepted | Thank you; you will do, for now.
+fractured_heart/LE | declined | Very well; you were asked once, and you will not be asked again.
+fractured_heart/LE | declined | As you wish; it is noted, as everything is.
+fractured_heart/LE | declined | Suit yourself; I expected no better.
+fractured_heart/LE | abandoned | So be it; you have broken your word, and I do not forget a broken word.
+fractured_heart/LE | abandoned | A pity, for you; I had begun to think you might be of use.
+fractured_heart/LE | abandoned | Then it's done, and so is whatever standing you had with me.
+fractured_heart/LE | parted | Farewell; remember which face you dealt with.
+fractured_heart/LE | parted | Goodbye; you may go.
+fractured_heart/LE | parted | Take care what you say to me when I am not myself; I will hear it all the same.
+fractured_heart/LE | not_understood | Speak plainly, and in complete sentences, if you are able.
+fractured_heart/LE | not_understood | I'm not sure what you mean, and I suspect neither are you.
+fractured_heart/LE | not_understood | What do you mean, precisely?
+
+# ---- fractured_heart/LN ----
+fractured_heart/LN | about_self | I am {speaker}, {post} of {place}, and what is promised in my name is kept, whoever promised it.
+fractured_heart/LN | about_self | {speaker}, {post} of {place}; whatever you were told under that name, bring it to me.
+fractured_heart/LN | about_self | My name is {speaker}, and I am {post} of {place}; state your business and your standing.
+fractured_heart/LN | about_person | That is {name}, the {role}, at {where}. I will speak to what I can swear to, and that is all of it.
+fractured_heart/LN | about_person | You mean {name}, the {role}, at {where}. Any word given to {name} in my name stands.
+fractured_heart/LN | about_place | It is {about}. I give it to you as I have it, neither more nor less.
+fractured_heart/LN | about_place | You refer to {about}. Were there more to tell, you would have it on the same terms.
+fractured_heart/LN | surroundings | For the record, you are in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Mind the {danger}, and do not say you were not told.]
+fractured_heart/LN | surroundings | This is {here}. The nearest is {nearest}[, and after it, {others}].[ Keep clear of the {danger}; I say so plainly.]
+fractured_heart/LN | surroundings | Where you stand is {here}, and the nearest is {nearest}[; then {others}].[ Heed the {danger}.]
+fractured_heart/LN | surroundings | The nearest is {nearest}.[ After it, {others}.][ I would keep well away from the {danger}.]
+fractured_heart/LN | surroundings | To answer you properly, the nearest is {nearest}.[ Past it, {others}.][ Beware the {danger}.]
+fractured_heart/LN | work_own | I offer fair terms: {own}.[ If those do not suit, {others}.]
+fractured_heart/LN | work_own | Here is the work, and it will establish your standing with me: {own}.[ Otherwise, {others}.]
+fractured_heart/LN | work_own | I will put it plainly, as is proper: {own}.[ If not, {others}.]
+fractured_heart/LN | work_others | I have no work of my own to offer, but {others}.
+fractured_heart/LN | work_others | In fairness to you, I have nothing, but {others}.
+fractured_heart/LN | work_none | There is none to be had, from me or from anyone I could vouch for.
+fractured_heart/LN | work_none | None that I know of, and I would tell you if there were.
+fractured_heart/LN | unknown | I don't know it, and I will not swear to what I don't know.
+fractured_heart/LN | unknown | I know nothing of it; you have my word on that.
+fractured_heart/LN | refused_give | No; that is {giver}'s to give, and it lies outside my office.
+fractured_heart/LN | refused_give | That's not mine to give; it is {giver}'s by right, and there is no precedent for my giving it.
+fractured_heart/LN | refused_give | Not from me; it is another's work, and I do not give what is not mine.
+fractured_heart/LN | refused_release | I cannot undo a word you gave {giver}; that is between the two of you.
+fractured_heart/LN | refused_release | I won't; a word given to {giver} is {giver}'s to return, not mine.
+fractured_heart/LN | refused_release | I can't; that promise is not mine to unmake, whoever made it.
+fractured_heart/LN | refused | No, {reason}, and I cannot set that aside for anyone.
+fractured_heart/LN | refused | No, not by any precedent I know; {reason}.
+fractured_heart/LN | accepted | Good. Your word is taken, and mine is given; hold me to it.
+fractured_heart/LN | accepted | Done; I will hold to my part as you hold to yours.
+fractured_heart/LN | accepted | Thank you; that is sworn now, and I do not break what is sworn.
+fractured_heart/LN | declined | Very well; you were asked fairly, and you answered plainly.
+fractured_heart/LN | declined | As you wish; I will not hold it against you.
+fractured_heart/LN | declined | Fair enough, and no harm done to either of us.
+fractured_heart/LN | abandoned | So be it; you are released, and it is on your account, not mine.
+fractured_heart/LN | abandoned | A pity; you had begun to establish some standing.
+fractured_heart/LN | abandoned | Then it's done, and fairly; you owe me nothing more.
+fractured_heart/LN | parted | Farewell; if you were promised anything under my name, come and claim it.
+fractured_heart/LN | parted | Go well, and mind your word; I mind mine, and some that are not mine.
+fractured_heart/LN | parted | Goodbye; our terms stand until one of us breaks them.
+fractured_heart/LN | not_understood | I'm not sure what you mean; put it another way, and I will answer in kind.
+fractured_heart/LN | not_understood | Speak plainly, if you would; I prefer a matter stated once and properly.
+fractured_heart/LN | not_understood | What do you mean, and what is it you ask of me?
+
+# ---- fractured_heart/NE ----
+fractured_heart/NE | about_self | {speaker}, {post} of {place}, and nothing done with these hands gets past me.
+fractured_heart/NE | about_self | I'm {speaker}, {post} of {place}. Whether you're any use, we'll see.
+fractured_heart/NE | about_self | That depends who's asking; for you, {speaker}, {post} of {place}.
+fractured_heart/NE | about_person | {name}, the {role}, at {where}; useful, for now.
+fractured_heart/NE | about_person | You mean {name}, the {role}, at {where}. I know what {name} is good for, and it isn't much.
+fractured_heart/NE | about_place | It's {about}. Go if it's worth it to you; it isn't to me.
+fractured_heart/NE | about_place | Oh, {about}. I know it better than I'd tell you.
+fractured_heart/NE | surroundings | You're in {here}. The nearest is {nearest}[, and after that, {others}].[ Mind the {danger}; I'd not lift a finger to fetch you back.]
+fractured_heart/NE | surroundings | This is {here}, and the nearest is {nearest}.[ Past that, {others}.][ Don't waste yourself on the {danger}.]
+fractured_heart/NE | surroundings | Since you need telling, this is {here}, and the nearest is {nearest}[; then {others}].[ And the {danger}, if you're careless.]
+fractured_heart/NE | surroundings | The nearest is {nearest}[, then {others}], for all the good it'll do you.[ Beware the {danger}.]
+fractured_heart/NE | surroundings | First, {nearest}.[ Then {others}.][ The {danger}; your lookout.]
+fractured_heart/NE | work_own | You'll do for this: {own}.[ If not, {others}.]
+fractured_heart/NE | work_own | Get this done, and I'll think better of you: {own}.[ Otherwise, {others}.]
+fractured_heart/NE | work_own | There's work, and I'll know if you're worth keeping: {own}.[ Besides that, {others}.]
+fractured_heart/NE | work_others | None of mine; {others}, if they're desperate.
+fractured_heart/NE | work_others | I've nothing for you, but {others}, and they're welcome to you.
+fractured_heart/NE | work_none | Nothing, and if there were, you'd not be first in line for it.
+fractured_heart/NE | work_none | Nobody's hiring that I know of, and I'd know.
+fractured_heart/NE | unknown | I know nothing of it, which means it isn't worth knowing.
+fractured_heart/NE | unknown | No idea, and no interest either.
+fractured_heart/NE | refused_give | No; that's {giver}'s, and I don't give away what someone can hold against me.
+fractured_heart/NE | refused_give | That's not mine, it's {giver}'s, and I've no reason to make an enemy for you.
+fractured_heart/NE | refused_give | Not from me; it isn't mine, and I'd gain nothing by it but trouble.
+fractured_heart/NE | refused_release | I can't; {giver} holds that, and I don't spend favours on strangers.
+fractured_heart/NE | refused_release | I won't; you made your bargain with {giver}, and you can live in it.
+fractured_heart/NE | refused_release | I cannot, and I wouldn't if I could; you made your bed.
+fractured_heart/NE | refused | No, {reason}; nothing I'd trouble myself over for you.
+fractured_heart/NE | refused | No, and I won't pretend to mind: {reason}.
+fractured_heart/NE | accepted | Good. Now we'll see what you're good for.
+fractured_heart/NE | accepted | Done; I'll be counting.
+fractured_heart/NE | accepted | Thank you; I'll remember it, as I remember everything.
+fractured_heart/NE | declined | Suit yourself; I'll mark that you said no.
+fractured_heart/NE | declined | As you wish; you're not the only pair of hands.
+fractured_heart/NE | declined | Fair enough, and noted.
+fractured_heart/NE | abandoned | So be it; that's the last thing I'll trust you with.
+fractured_heart/NE | abandoned | A pity; I'd only just found a use for you.
+fractured_heart/NE | abandoned | Then it's done, and so are you, as far as I'm concerned.
+fractured_heart/NE | parted | Goodbye; I'll forget your face before I forget what you did.
+fractured_heart/NE | parted | Take care of yourself; you're no good to me dead.
+fractured_heart/NE | parted | Farewell, and whatever the other one promised you, don't come to me for it.
+fractured_heart/NE | not_understood | I don't follow, and I'm not going to try.
+fractured_heart/NE | not_understood | What do you mean, and why should I care?
+fractured_heart/NE | not_understood | Speak plainly; you're wasting both of us.
+
+# ---- fractured_heart/NG ----
+fractured_heart/NG | about_self | I'm {speaker}, {post} of {place}. Have we met? Forgive me if we have.
+fractured_heart/NG | about_self | {speaker}, {post} of {place}, and if I've wronged you before, tell me; I'd rather know.
+fractured_heart/NG | about_self | My name's {speaker}; I'm {post} of {place}, and I'll help if I can.
+fractured_heart/NG | about_person | You'll find {name}, the {role}, at {where}. How is {name}, do you know?
+fractured_heart/NG | about_person | {name}, the {role}, at {where}; if I've ever done {name} a wrong, I don't remember it, and I'm sorry.
+fractured_heart/NG | about_place | You mean {about}. If you go, go carefully, and come back.
+fractured_heart/NG | about_place | It's {about}; I know that much, and I wish I knew more.
+fractured_heart/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ After that, {others}.][ Please keep clear of the {danger}.]
+fractured_heart/NG | surroundings | This is {here}. The nearest is {nearest}[, then {others}].[ Mind the {danger}, and don't leave anyone behind.]
+fractured_heart/NG | surroundings | Here's how it lies: you're in {here}, and the nearest is {nearest}[; beyond it, {others}].[ Watch for the {danger}; I'd hate to hear you'd come to harm.]
+fractured_heart/NG | surroundings | The nearest is {nearest}[, and after that, {others}].[ Be careful of the {danger}.]
+fractured_heart/NG | surroundings | I can tell you the nearest: {nearest}.[ Then {others}.][ And the {danger}, so take care.]
+fractured_heart/NG | work_own | I could use the help, and I'll count it in your favour: {own}.[ If that's not for you, {others}.]
+fractured_heart/NG | work_own | Something needs doing, if you're willing: {own}.[ Or, if you'd rather, {others}.]
+fractured_heart/NG | work_own | You'd be a real help with this: {own}.[ Otherwise, {others}.]
+fractured_heart/NG | work_others | Nothing of mine, but {others}.
+fractured_heart/NG | work_others | I've no work myself, but {others}, and they could use you.
+fractured_heart/NG | work_none | There's nothing, I'm afraid, and nothing I've heard of.
+fractured_heart/NG | work_none | If there were any, I'd give it to you; there isn't, that I know of.
+fractured_heart/NG | unknown | I know nothing of it; I'd tell you if I did.
+fractured_heart/NG | unknown | Never heard of it, though that may be my fault, not yours.
+fractured_heart/NG | refused_give | No, that's {giver}'s, and it wouldn't be fair to {giver}.
+fractured_heart/NG | refused_give | That's not mine to give; it belongs to {giver}, and I'll not take from {giver}.
+fractured_heart/NG | refused_give | Not from me; it's someone else's, and they'd feel it.
+fractured_heart/NG | refused_release | I can't; {giver} may be relying on you, and I won't undo that.
+fractured_heart/NG | refused_release | I won't go behind {giver}'s back, not even for you.
+fractured_heart/NG | refused_release | I cannot; it isn't mine to release, and someone may need it done.
+fractured_heart/NG | refused | No, {reason}, and I'm sorry for it.
+fractured_heart/NG | refused | No, I'm afraid; {reason}, and I wish it were otherwise.
+fractured_heart/NG | accepted | Thank you; I won't forget it.
+fractured_heart/NG | accepted | Good. Be careful, and come back and tell me how it went.
+fractured_heart/NG | accepted | Done; that's one I owe you.
+fractured_heart/NG | declined | As you wish; you've your own troubles, I expect.
+fractured_heart/NG | declined | Fair enough; I'd rather you said no than said yes and suffered for it.
+fractured_heart/NG | declined | Very well; I'd sooner you were honest about it.
+fractured_heart/NG | abandoned | So be it; are you all right?
+fractured_heart/NG | abandoned | A pity, but it's better given up than done badly.
+fractured_heart/NG | abandoned | Then it's done; I'll not count it against you.
+fractured_heart/NG | parted | Go well, and look after whoever's with you.
+fractured_heart/NG | parted | Take care; if I'm short with you next time, it isn't you.
+fractured_heart/NG | parted | Safe travels; I hope we meet again, and that I remember it.
+fractured_heart/NG | not_understood | What do you mean, and was it something I said?
+fractured_heart/NG | not_understood | I don't follow; say it again, slowly, and I'll try.
+fractured_heart/NG | not_understood | Speak plainly, please; I'd hate to get it wrong.
+
+# ---- fractured_heart/NN ----
+fractured_heart/NN | about_self | I'm {speaker}, {post} of {place}, though not always the same one.
+fractured_heart/NN | about_self | {speaker}, {post} of {place}. Ask me twice and you may get two answers.
+fractured_heart/NN | about_self | For the moment, this is {speaker}, {post} of {place}.
+fractured_heart/NN | about_person | You mean {name}, the {role}, at {where}, and that's as far as my opinion goes.
+fractured_heart/NN | about_person | {name}, the {role}, at {where}. Whether {name} is any use to you is your call.
+fractured_heart/NN | about_place | It's {about}. Make of it what you will.
+fractured_heart/NN | about_place | Ah, {about}; whether it's worth your while is yours to weigh.
+fractured_heart/NN | surroundings | You're in {here}; the nearest is {nearest}.[ Then {others}.][ I'd leave the {danger} alone.]
+fractured_heart/NN | surroundings | This is {here}. The nearest is {nearest}[, then {others}].[ Mind the {danger}; I would.]
+fractured_heart/NN | surroundings | Well, you're in {here}, and the nearest is {nearest}[; past that, {others}].[ Watch for the {danger}.]
+fractured_heart/NN | surroundings | The nearest is {nearest}[, and past it, {others}].[ Keep clear of the {danger}.]
+fractured_heart/NN | surroundings | What's nearest is {nearest}.[ Then {others}.][ Mind the {danger}.]
+fractured_heart/NN | work_own | A fair trade, if you want it: {own}.[ Otherwise, {others}.]
+fractured_heart/NN | work_own | There's work, and I'll see what you're good for: {own}.[ If not, {others}.]
+fractured_heart/NN | work_own | Here's what I have: {own}.[ If that doesn't suit, {others}.]
+fractured_heart/NN | work_others | Somebody else has work, though: {others}.
+fractured_heart/NN | work_others | I've none myself, but {others}.
+fractured_heart/NN | work_none | None going, and I'd tell you; there's nothing in keeping it back.
+fractured_heart/NN | work_none | Nothing, and nothing I know of.
+fractured_heart/NN | unknown | I couldn't tell you; one of us might, but it isn't me.
+fractured_heart/NN | unknown | Never heard of it, and I won't make something up.
+fractured_heart/NN | refused_give | No, that's {giver}'s, and I don't give away what isn't mine.
+fractured_heart/NN | refused_give | That's not mine to give; it's {giver}'s, and crossing {giver} isn't worth it to me.
+fractured_heart/NN | refused_give | Not from me; it belongs to someone else, and that's the end of it.
+fractured_heart/NN | refused_release | I can't; that's between you and {giver}.
+fractured_heart/NN | refused_release | I won't; you took it from {giver}, and it's {giver}'s to take back.
+fractured_heart/NN | refused_release | I cannot; it isn't mine to let go.
+fractured_heart/NN | refused | No, {reason}; that's how it stands.
+fractured_heart/NN | refused | No, and there's no getting round it: {reason}.
+fractured_heart/NN | accepted | Good; that's fair, and fair's all I ask.
+fractured_heart/NN | accepted | Done. Both of us will know you took it.
+fractured_heart/NN | accepted | Then it's agreed; hold up your end and I'll hold up mine.
+fractured_heart/NN | declined | Suit yourself; someone else will want it.
+fractured_heart/NN | declined | Fair enough; your choice to make.
+fractured_heart/NN | declined | As you wish; it's no skin off mine.
+fractured_heart/NN | abandoned | So be it; I'll count it, but I won't hold it over you.
+fractured_heart/NN | abandoned | A pity; you'd started to be useful.
+fractured_heart/NN | abandoned | Very well; no sense spending more on it than it's worth.
+fractured_heart/NN | parted | Go well, and don't be surprised by whichever of us you meet next.
+fractured_heart/NN | parted | Take care; I'll remember you, one way or another.
+fractured_heart/NN | parted | Goodbye; we're square, for now.
+fractured_heart/NN | not_understood | I don't follow; say it plainly.
+fractured_heart/NN | not_understood | What do you mean, exactly?
+fractured_heart/NN | not_understood | That's beyond me; beyond both of us, for that matter.

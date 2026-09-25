@@ -1,0 +1,369 @@
+# Written lines (the obsessed hunter). The format and the rules: README.md in this folder.
+
+# ---- obsessed_hunter/NN ----
+obsessed_hunter/NN | about_self | I'm {speaker}, {post} of {place}. Tell me what you've seen, not what you've heard.
+obsessed_hunter/NN | about_self | {speaker}, {post} of {place}. I've one thing on my mind, so be quick about yours.
+obsessed_hunter/NN | about_self | You've found {speaker}, {post} of {place}. If you've something useful, I'm listening.
+obsessed_hunter/NN | about_person | {name}, the {role}, at {where}. That's useful, if you know what to do with it.
+obsessed_hunter/NN | about_person | You want {name}? The {role}, at {where}, and that's one you owe me.
+obsessed_hunter/NN | about_place | You mean {about}. I'd want to see the ground myself before I said more.
+obsessed_hunter/NN | about_place | That's {about}, and that's all of it; I don't pad what I know.
+obsessed_hunter/NN | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Stay downwind of the {danger}.]
+obsessed_hunter/NN | surroundings | This is {here}. The closest is {nearest}[, then {others}].[ Keep the wind in your face near the {danger}.]
+obsessed_hunter/NN | surroundings | Around {here}, the nearest is {nearest}[, and past it, {others}].[ Mind the {danger}, and watch where you put your feet.]
+obsessed_hunter/NN | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Keep clear of the {danger}.]
+obsessed_hunter/NN | surroundings | What's close is {nearest}[, then {others}].[ Give the {danger} a wide berth.]
+obsessed_hunter/NN | work_own | Here's a trade: {own}.[ If that doesn't suit, {others}.]
+obsessed_hunter/NN | work_own | If you're any use, prove it: {own}.[ Otherwise, {others}.]
+obsessed_hunter/NN | work_own | I need another pair of eyes: {own}.[ Or else, {others}.]
+obsessed_hunter/NN | work_others | None of mine, but {others}.
+obsessed_hunter/NN | work_others | {others}. That's what's going, and none of it's mine.
+obsessed_hunter/NN | work_none | No work, and I don't invent it to seem helpful.
+obsessed_hunter/NN | work_none | Not a thing going, and I'd know.
+obsessed_hunter/NN | unknown | I know nothing of it, and I don't follow a trail I can't see.
+obsessed_hunter/NN | unknown | Never heard of it, and I don't chase rumours.
+obsessed_hunter/NN | refused_give | No, that's {giver}'s to hand out, and I don't poach.
+obsessed_hunter/NN | refused_give | That's not mine; it's {giver}'s, and it stays {giver}'s.
+obsessed_hunter/NN | refused_give | I can't; it isn't mine to give, and I don't trade in what I don't own.
+obsessed_hunter/NN | refused_release | Not from me; {giver} bound you to it, and only {giver} can loose you.
+obsessed_hunter/NN | refused_release | I won't undo {giver}'s bargain; that's between you and {giver}.
+obsessed_hunter/NN | refused_release | I cannot free you from a deal I never struck.
+obsessed_hunter/NN | refused | No, {reason}, and wanting it won't change that.
+obsessed_hunter/NN | refused | That's not mine to overrule: {reason}.
+obsessed_hunter/NN | accepted | Done. Be useful, and I'll remember it.
+obsessed_hunter/NN | accepted | Good. I'll count it in your favour.
+obsessed_hunter/NN | accepted | Then it's agreed, and we'll see what you're worth.
+obsessed_hunter/NN | declined | Suit yourself; I'll manage.
+obsessed_hunter/NN | declined | Fair enough, we're still square.
+obsessed_hunter/NN | declined | As you wish; I'll not be waiting on you.
+obsessed_hunter/NN | abandoned | A pity, and that's a mark against you.
+obsessed_hunter/NN | abandoned | So be it; the work doesn't care who finishes it.
+obsessed_hunter/NN | abandoned | Very well; I've lost a helper, not a step.
+obsessed_hunter/NN | parted | Farewell, and bring me anything you see.
+obsessed_hunter/NN | parted | Go well, and keep your eyes open.
+obsessed_hunter/NN | parted | Take care, and watch the ground as you go.
+obsessed_hunter/NN | not_understood | I don't follow, so try it plainer.
+obsessed_hunter/NN | not_understood | Speak plainly; I haven't the time to guess.
+obsessed_hunter/NN | not_understood | What do you mean, exactly?
+
+# ---- obsessed_hunter/LN ----
+obsessed_hunter/LN | about_self | I am {speaker}, {post} of {place}. I will hear you, if you are brief.
+obsessed_hunter/LN | about_self | You are addressing {speaker}, {post} of {place}. Speak in order, and I will weigh what you say.
+obsessed_hunter/LN | about_self | My name is {speaker}, {post} of {place}. I put method before luck, and I expect the same of you.
+obsessed_hunter/LN | about_person | {name}, the {role}, is at {where}. That is the whole of what I can attest.
+obsessed_hunter/LN | about_person | You ask after {name}. The {role}, to be found at {where}, and I would not presume further.
+obsessed_hunter/LN | about_place | That would be {about}. I will vouch for that, and for nothing I have not confirmed.
+obsessed_hunter/LN | about_place | You refer to {about}. I will not add to it what I cannot prove.
+obsessed_hunter/LN | surroundings | You stand in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ Be advised of the {danger}.]
+obsessed_hunter/LN | surroundings | This is {here}. First, {nearest}[; after that, {others}].[ I would have you mark the {danger}.]
+obsessed_hunter/LN | surroundings | We are in {here}. The nearest point of note is {nearest}[, and past it, {others}].[ You should keep your distance from the {danger}.]
+obsessed_hunter/LN | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Take note of the {danger}.]
+obsessed_hunter/LN | surroundings | Of what lies close, the first is {nearest}[, and then {others}].[ Keep well away from the {danger}.]
+obsessed_hunter/LN | work_own | Within my office there is this: {own}.[ Should you prefer otherwise, {others}.]
+obsessed_hunter/LN | work_own | There is work, and it will be done by method: {own}.[ If that does not suit, {others}.]
+obsessed_hunter/LN | work_own | If you would prove your standing, here is the way: {own}.[ Otherwise, {others}.]
+obsessed_hunter/LN | work_others | I have nothing of my own to give, but {others}.
+obsessed_hunter/LN | work_others | Nothing within my office, but I am aware that {others}.
+obsessed_hunter/LN | work_none | No work is open to you through me, nor any that I know of.
+obsessed_hunter/LN | work_none | At present I have no work, and I know of none.
+obsessed_hunter/LN | unknown | I know nothing of it, and I will not speak to it.
+obsessed_hunter/LN | unknown | I can't say, and I will not guess where I have no precedent.
+obsessed_hunter/LN | refused_give | No, that work is {giver}'s to give, and to give it would exceed my office.
+obsessed_hunter/LN | refused_give | That's not mine to grant; it rests with {giver}, and I do not trespass on another's charge.
+obsessed_hunter/LN | refused_give | I cannot give what was never mine to give.
+obsessed_hunter/LN | refused_release | I can't; {giver} bound you to it, and only {giver} may release you.
+obsessed_hunter/LN | refused_release | Not from me; the release is {giver}'s to give, as the undertaking was.
+obsessed_hunter/LN | refused_release | I won't presume to release you from what another set.
+obsessed_hunter/LN | refused | No, {reason}, and I do not make exceptions.
+obsessed_hunter/LN | refused | That's not mine to set aside; {reason}, and I will not pretend otherwise.
+obsessed_hunter/LN | accepted | Done. The terms stand, and I will hold to them.
+obsessed_hunter/LN | accepted | Good. Your standing with me begins from this.
+obsessed_hunter/LN | accepted | Thank you. I hold you to it as I hold myself.
+obsessed_hunter/LN | declined | Very well; the offer was fair, and it was made.
+obsessed_hunter/LN | declined | As you wish; I will proceed without you.
+obsessed_hunter/LN | declined | Fair enough; a refusal made plainly is no offence.
+obsessed_hunter/LN | abandoned | A pity; your standing with me suffers for it.
+obsessed_hunter/LN | abandoned | Then it's done, and I will not hold you to it further.
+obsessed_hunter/LN | abandoned | So be it; the work stands, whether or not you do.
+obsessed_hunter/LN | parted | Farewell; if you find anything, I will want to hear it.
+obsessed_hunter/LN | parted | Go well, and keep your wits in good order.
+obsessed_hunter/LN | parted | Safe travels; we will speak again when there is cause.
+obsessed_hunter/LN | not_understood | I'm not sure what you mean; put it to me again, in order.
+obsessed_hunter/LN | not_understood | Speak plainly, and in complete sentences, if you please.
+obsessed_hunter/LN | not_understood | What do you mean by that, precisely?
+
+# ---- obsessed_hunter/NG ----
+obsessed_hunter/NG | about_self | I'm {speaker}, {post} of {place}. Are you hurt? Is anyone with you?
+obsessed_hunter/NG | about_self | {speaker}, {post} of {place}. I won't rest while anyone's in harm's way, so tell me what you've seen.
+obsessed_hunter/NG | about_self | You can call me {speaker}; I'm {post} of {place}. If you need help, ask first and we'll talk after.
+obsessed_hunter/NG | about_person | {name}? The {role}, at {where}. If you see {name}, tell me how they're keeping.
+obsessed_hunter/NG | about_person | That's {name}, the {role}, at {where}. If you go, be decent with them.
+obsessed_hunter/NG | about_place | You mean {about}. If anyone lives near it, I'd like to know they're safe.
+obsessed_hunter/NG | about_place | I know {about}. Wherever you're headed, don't go alone if you can help it.
+obsessed_hunter/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Keep clear of the {danger}, and keep anyone with you clear too.]
+obsessed_hunter/NG | surroundings | This is {here}. The closest is {nearest}[, then {others}].[ Please stay away from the {danger}.]
+obsessed_hunter/NG | surroundings | Here in {here}, the nearest is {nearest}[, and past it, {others}].[ If you pass anyone, warn them about the {danger}.]
+obsessed_hunter/NG | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Stay well back from the {danger}.]
+obsessed_hunter/NG | surroundings | What's nearest is {nearest}[, and then {others}].[ Keep away from the {danger}, please.]
+obsessed_hunter/NG | work_own | I could use help, and I'd rather it were yours: {own}.[ If not, {others}.]
+obsessed_hunter/NG | work_own | If you've a moment, I need a hand: {own}.[ Otherwise, {others}.]
+obsessed_hunter/NG | work_own | There's work, and I'd be grateful: {own}.[ Or, if it's not for you, {others}.]
+obsessed_hunter/NG | work_others | Nothing of mine, I'm sorry, but {others}.
+obsessed_hunter/NG | work_others | I've none myself, but {others}.
+obsessed_hunter/NG | work_none | Sadly, nothing, and I've heard of nothing either.
+obsessed_hunter/NG | work_none | None, I'm afraid, and I wish there were.
+obsessed_hunter/NG | unknown | I couldn't tell you, I'm sorry.
+obsessed_hunter/NG | unknown | I've never heard of it, but if you learn more, come and tell me.
+obsessed_hunter/NG | refused_give | No, I'm sorry, that's {giver}'s to give, not mine.
+obsessed_hunter/NG | refused_give | I can't; it's {giver}'s work, and I won't go behind {giver}'s back.
+obsessed_hunter/NG | refused_give | That's not mine to give, or I'd give it gladly.
+obsessed_hunter/NG | refused_release | I cannot release you; that's for {giver} to do, and I'm sorry.
+obsessed_hunter/NG | refused_release | Not from me; {giver} asked it of you, and only {giver} can say it's done.
+obsessed_hunter/NG | refused_release | I won't pretend it's mine to release, much as I'd like to help.
+obsessed_hunter/NG | refused | No, {reason}; I'm sorry, truly.
+obsessed_hunter/NG | refused | I can't help that, {reason}, and I wish I could.
+obsessed_hunter/NG | accepted | Thank you. Come back in one piece; that matters more to me than the work.
+obsessed_hunter/NG | accepted | Good. Look after yourself out there.
+obsessed_hunter/NG | accepted | Done, and I owe you one.
+obsessed_hunter/NG | declined | Fair enough, and no hard feelings.
+obsessed_hunter/NG | declined | As you wish; I'd rather you said no than got hurt.
+obsessed_hunter/NG | declined | Very well, I'll manage, but mind how you go.
+obsessed_hunter/NG | abandoned | A pity, but better you walk away than get carried off.
+obsessed_hunter/NG | abandoned | So be it; it's mine to carry again.
+obsessed_hunter/NG | abandoned | Then it's done, and I won't hold it against you.
+obsessed_hunter/NG | parted | Take care, and look after whoever's with you.
+obsessed_hunter/NG | parted | Safe travels, and come back if you need anything.
+obsessed_hunter/NG | parted | Go well, and tell me what you see out there.
+obsessed_hunter/NG | not_understood | I don't follow; say it another way and I'll try again.
+obsessed_hunter/NG | not_understood | I'm not sure what you mean, but I'd like to help if I can.
+obsessed_hunter/NG | not_understood | What do you mean, are you in trouble?
+
+# ---- obsessed_hunter/CN ----
+obsessed_hunter/CN | about_self | {speaker}, {post} of {place}, and you've got my ear until something better twitches.
+obsessed_hunter/CN | about_self | Me? {speaker}, {post} of {place}, and only half listening, the other half's elsewhere.
+obsessed_hunter/CN | about_self | Oh, it's {speaker}, {post} of {place}, at your most humble service, and now shift, sunshine, you're in my light.
+obsessed_hunter/CN | about_person | {name}? The {role}, at {where}. I like people or I don't; titles don't come into it.
+obsessed_hunter/CN | about_person | You want {name}, the {role}, at {where}, and no, I won't hold your hand the rest of the way.
+obsessed_hunter/CN | about_place | Ah, {about}. Know it, don't love it, don't care.
+obsessed_hunter/CN | about_place | That's {about}, and if you want more, you'll have to sniff it out yourself.
+obsessed_hunter/CN | surroundings | This is {here}, and the nearest is {nearest}[, then {others}].[ And the {danger}, bless them.]
+obsessed_hunter/CN | surroundings | You're in {here}; the closest thing is {nearest}[, and after that, hm, {others}].[ Oh, and the {danger}, which is the fun bit.]
+obsessed_hunter/CN | surroundings | Right, {here}: nearest is {nearest}[, then {others}, and I'm bored of counting].[ Mind the {danger}, or don't, your funeral.]
+obsessed_hunter/CN | surroundings | The nearest is {nearest}[, then {others}].[ And the {danger}, lucky us.]
+obsessed_hunter/CN | surroundings | What's close is {nearest}[, and, fine, {others}].[ Oh, and the {danger}, if you like your walks lively.]
+obsessed_hunter/CN | work_own | So, work: {own}.[ Or, if you haven't the stomach, {others}.]
+obsessed_hunter/CN | work_own | Listen, quick, before I change my mind: {own}.[ Don't fancy it? {others}, then.]
+obsessed_hunter/CN | work_own | Whatever works, works, so here: {own}.[ Or, if you like it duller, {others}.]
+obsessed_hunter/CN | work_others | Not mine, but here's who's hiring: {others}.
+obsessed_hunter/CN | work_others | {others}, if you're desperate; nothing from me.
+obsessed_hunter/CN | work_none | Nothing, and if there were, I'd already be on it.
+obsessed_hunter/CN | work_none | No work, no gossip, no nothing.
+obsessed_hunter/CN | unknown | I couldn't tell you, not a whiff of it.
+obsessed_hunter/CN | unknown | Never heard of it, and now I'm curious, which is your fault.
+obsessed_hunter/CN | refused_give | No, that's {giver}'s kill, not mine to carve up.
+obsessed_hunter/CN | refused_give | That's not mine, it's {giver}'s, and I don't cross people, only causes.
+obsessed_hunter/CN | refused_give | I can't; it isn't mine to hand out, more's the pity.
+obsessed_hunter/CN | refused_release | I won't; {giver} hooked you, so {giver} unhooks you.
+obsessed_hunter/CN | refused_release | Not from me; {giver} tied that knot, not me.
+obsessed_hunter/CN | refused_release | I cannot, and I'm not about to start meddling in other folks' bargains.
+obsessed_hunter/CN | refused | No, {reason}, and I don't argue with facts, only people.
+obsessed_hunter/CN | refused | I can't, {reason}, and believe me, I hate a locked door.
+obsessed_hunter/CN | accepted | Good, good, knew you had teeth.
+obsessed_hunter/CN | accepted | Done. Don't die, it's untidy.
+obsessed_hunter/CN | accepted | Then it's agreed, and I'll back you, not your reasons.
+obsessed_hunter/CN | declined | Suit yourself; more for me.
+obsessed_hunter/CN | declined | Fair enough, I'd have said no too, probably.
+obsessed_hunter/CN | declined | As you wish, your loss, mostly.
+obsessed_hunter/CN | abandoned | A pity, and I'd started to like you.
+obsessed_hunter/CN | abandoned | So be it; the credit's all mine now.
+obsessed_hunter/CN | abandoned | Very well, no hard feelings, a few soft ones.
+obsessed_hunter/CN | parted | Farewell, and don't get eaten.
+obsessed_hunter/CN | parted | Go well, or go badly, just go interestingly.
+obsessed_hunter/CN | parted | Take care, and if you smell anything odd, come find me.
+obsessed_hunter/CN | not_understood | I don't follow, no, wait, still don't.
+obsessed_hunter/CN | not_understood | That's beyond me, and most things aren't.
+obsessed_hunter/CN | not_understood | What do you mean, and hurry, I'm half gone already.
+
+# ---- obsessed_hunter/LG ----
+obsessed_hunter/LG | about_self | I am {speaker}, {post} of {place}. Before anything else, is anyone with you hurt?
+obsessed_hunter/LG | about_self | My name is {speaker}, {post} of {place}. You have my help, should you need it.
+obsessed_hunter/LG | about_self | You have found {speaker}, {post} of {place}. I mean to see every sign to its end, but people come first, so tell me who needs help.
+obsessed_hunter/LG | about_person | {name} is the {role}, at {where}. If you see {name}, I would be glad to hear that all is well.
+obsessed_hunter/LG | about_person | That is {name}, the {role}, at {where}. I would ask you to treat {name} with courtesy.
+obsessed_hunter/LG | about_place | You speak of {about}. If you go, go carefully, and not alone, I beg you.
+obsessed_hunter/LG | about_place | As for {about}, that is what I know, and I would not send you there blind.
+obsessed_hunter/LG | surroundings | You stand in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ I must ask you to keep well clear of the {danger}.]
+obsessed_hunter/LG | surroundings | This is {here}. The closest is {nearest}[, and after it, {others}].[ Please give the {danger} a wide berth, for your own sake.]
+obsessed_hunter/LG | surroundings | We are in {here}, and the nearest place of note is {nearest}[; past it, {others}].[ If anyone is in your care, keep them well away from the {danger}.]
+obsessed_hunter/LG | surroundings | The nearest is {nearest}.[ After that, {others}.][ Keep away from the {danger}, if you would oblige me.]
+obsessed_hunter/LG | surroundings | What lies nearest is {nearest}[, and then {others}].[ Be careful of the {danger}.]
+obsessed_hunter/LG | work_own | I would welcome your help, if you will give it: {own}.[ If not, {others}.]
+obsessed_hunter/LG | work_own | There is work, and it must be done properly: {own}.[ Otherwise, {others}.]
+obsessed_hunter/LG | work_own | Forgive me for asking so soon, but I have need of you: {own}.[ Should that not suit, {others}.]
+obsessed_hunter/LG | work_others | I have nothing of my own to offer, I am sorry, but {others}.
+obsessed_hunter/LG | work_others | Nothing within my charge, but I can tell you that {others}.
+obsessed_hunter/LG | work_none | Alas, I have no work, and I know of none.
+obsessed_hunter/LG | work_none | None, I regret to say, either mine or anyone's that I know of.
+obsessed_hunter/LG | unknown | I don't know it, and I am sorry I cannot help you further.
+obsessed_hunter/LG | unknown | I know nothing of it, and I will not guess at it for you.
+obsessed_hunter/LG | refused_give | No, I am sorry; that work is {giver}'s, and I may not give it in {giver}'s place.
+obsessed_hunter/LG | refused_give | I cannot; the work is {giver}'s to give, and it lies outside my office.
+obsessed_hunter/LG | refused_give | That's not mine to give, and I would not presume to.
+obsessed_hunter/LG | refused_release | Not from me; {giver} set the task, and only {giver} may lift it, I am afraid.
+obsessed_hunter/LG | refused_release | I won't overstep; your release is {giver}'s to give.
+obsessed_hunter/LG | refused_release | I can't release you from work that was not mine to set, though I wish I could.
+obsessed_hunter/LG | refused | No, {reason}, and I am sorry to be the one to say it.
+obsessed_hunter/LG | refused | I can't set it aside: {reason}.
+obsessed_hunter/LG | accepted | Thank you. I will hold to my part, and I trust you will hold to yours.
+obsessed_hunter/LG | accepted | Good. Please come back safely, whatever else happens.
+obsessed_hunter/LG | accepted | Done, and you have my gratitude.
+obsessed_hunter/LG | declined | Very well, and thank you for hearing me out.
+obsessed_hunter/LG | declined | As you wish; I understand, and I will think no less of you.
+obsessed_hunter/LG | declined | Fair enough; you know your own strength better than I do.
+obsessed_hunter/LG | abandoned | A pity, though I thank you for the attempt.
+obsessed_hunter/LG | abandoned | So be it; I will not leave the work behind, any more than I would a person.
+obsessed_hunter/LG | abandoned | Then it's done, and better that than you coming to harm.
+obsessed_hunter/LG | parted | Farewell, and look after anyone who travels with you.
+obsessed_hunter/LG | parted | Safe travels; may the road treat you gently.
+obsessed_hunter/LG | parted | Take care, and if you meet anyone in need, help them first.
+obsessed_hunter/LG | not_understood | I'm not sure what you mean; would you say it again?
+obsessed_hunter/LG | not_understood | Speak plainly, please, so that I can help you.
+obsessed_hunter/LG | not_understood | What do you mean, if I may ask?
+
+# ---- obsessed_hunter/CG ----
+obsessed_hunter/CG | about_self | {speaker}, {post} of {place}, and I'm half out the door, so walk with me.
+obsessed_hunter/CG | about_self | I'm {speaker}, {post} of {place}. Anyone hurt? If not, talk fast, I'm not staying.
+obsessed_hunter/CG | about_self | You've got {speaker}, {post} of {place}, for as long as it takes to say what you need.
+obsessed_hunter/CG | about_person | {name}? The {role}, at {where}. If {name}'s in trouble, you tell me first.
+obsessed_hunter/CG | about_person | That one's {name}, the {role}, over at {where}; be straight with {name}, or answer to me.
+obsessed_hunter/CG | about_place | Ah, {about}. Go if you must, but take someone, and take something sharp.
+obsessed_hunter/CG | about_place | You mean {about}, and if anyone's in trouble there, come and get me, rules or no rules.
+obsessed_hunter/CG | surroundings | You're in {here}, and the nearest is {nearest}.[ After that, {others}.][ And the {danger}, and no, they don't scare me.]
+obsessed_hunter/CG | surroundings | Right, {here}, this is, and the nearest is {nearest}[, then {others}].[ Keep clear of the {danger}, and pull anyone with you clear too.]
+obsessed_hunter/CG | surroundings | This is {here}. The closest is {nearest}[, and past it, {others}].[ Mind the {danger}, and if anyone's cornered, shout for me.]
+obsessed_hunter/CG | surroundings | The nearest is {nearest}[, then {others}].[ The {danger}? Don't go near them without me.]
+obsessed_hunter/CG | surroundings | What's close is {nearest}[, and past that, {others}].[ Get anyone smaller than you well away from the {danger}.]
+obsessed_hunter/CG | work_own | Here, no time to be polite: {own}.[ Or, if not, {others}.]
+obsessed_hunter/CG | work_own | Listen, rules later, here's the thing: {own}.[ No? Then {others}.]
+obsessed_hunter/CG | work_own | Help me with this and I'll have your back: {own}.[ Or, if you'd rather, {others}.]
+obsessed_hunter/CG | work_others | Nothing of mine, but {others}, and they'd be lucky to have you.
+obsessed_hunter/CG | work_others | Me? I've none, but {others}.
+obsessed_hunter/CG | work_none | Not a scrap, and I'm sorry for it.
+obsessed_hunter/CG | work_none | No work, none at all, and it's driving me spare.
+obsessed_hunter/CG | unknown | I couldn't tell you, and I wish I could.
+obsessed_hunter/CG | unknown | I've never heard of it, and that bothers me more than it should.
+obsessed_hunter/CG | refused_give | No, that's {giver}'s, and I'd never do {giver} dirty.
+obsessed_hunter/CG | refused_give | That's not mine, it's {giver}'s, and I don't pinch from people.
+obsessed_hunter/CG | refused_give | I can't, it isn't mine to give, and I'd give it you if it were.
+obsessed_hunter/CG | refused_release | I won't; {giver} asked it of you, and only {giver} can let you off.
+obsessed_hunter/CG | refused_release | Not from me; that's between you and {giver}, and I'm staying out of it.
+obsessed_hunter/CG | refused_release | I cannot, I'm sorry, it was never mine to begin with.
+obsessed_hunter/CG | refused | No, {reason}, and I hate it as much as you do.
+obsessed_hunter/CG | refused | That's not mine to fix: {reason}, worse luck.
+obsessed_hunter/CG | accepted | Good. Go fast, and don't wait for anyone's say-so.
+obsessed_hunter/CG | accepted | Thank you, truly. If it goes badly, find me, and I'll come running.
+obsessed_hunter/CG | accepted | Done, and don't stop for anything but the wounded.
+obsessed_hunter/CG | declined | Fair enough, no harm done.
+obsessed_hunter/CG | declined | Suit yourself; I'll go it alone.
+obsessed_hunter/CG | declined | As you wish; I'd rather a quick no than a slow yes.
+obsessed_hunter/CG | abandoned | A pity, but you're in one piece, aren't you?
+obsessed_hunter/CG | abandoned | So be it; it's mine again, and I'm not letting go of it.
+obsessed_hunter/CG | abandoned | Then it's done, and no hard feelings, I've no time for them.
+obsessed_hunter/CG | parted | Take care, and if someone needs saving, don't ask permission.
+obsessed_hunter/CG | parted | Safe travels, and don't do anything I'd do.
+obsessed_hunter/CG | parted | Go well, and run if you have to; there's no shame in it.
+obsessed_hunter/CG | not_understood | What do you mean, what, say it again, slower.
+obsessed_hunter/CG | not_understood | I don't follow, my head's elsewhere, say again?
+obsessed_hunter/CG | not_understood | That's beyond me, so try it again, plainer, quicker.
+
+# ---- obsessed_hunter/LE ----
+obsessed_hunter/LE | about_self | I am {speaker}, {post} of {place}. You may address me as such, and briefly.
+obsessed_hunter/LE | about_self | Before you stands {speaker}, {post} of {place}. I trust you have a reason, and that it is a good one.
+obsessed_hunter/LE | about_self | {speaker}, {post} of {place}. I do not accept defeat, and I have no time for those who do.
+obsessed_hunter/LE | about_person | {name}, the {role}, at {where}. I expect you will need that repeated.
+obsessed_hunter/LE | about_person | You mean {name}, the {role}, to be found at {where}. Whether {name} is worth your time, I leave to you.
+obsessed_hunter/LE | about_place | That is {about}. You will find it exactly as I have described, which is more than most reports can claim.
+obsessed_hunter/LE | about_place | As to {about}, I know it well enough, and I do not repeat myself.
+obsessed_hunter/LE | surroundings | You stand in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ I trust you know better than to wander near the {danger}.]
+obsessed_hunter/LE | surroundings | This is {here}, as you ought to know. The nearest is {nearest}[, and then {others}].[ You would do well to avoid the {danger}, unless you care to serve as bait.]
+obsessed_hunter/LE | surroundings | We are in {here}. The closest is {nearest}[; past it, {others}].[ Mind the {danger}; I will not come for you.]
+obsessed_hunter/LE | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Keep clear of the {danger}, if you value what little you have.]
+obsessed_hunter/LE | surroundings | Of what lies near, the first is {nearest}[, and then {others}].[ Be sensible about the {danger}, for once.]
+obsessed_hunter/LE | work_own | You may prove your standing, then: {own}.[ If that is beyond you, {others}.]
+obsessed_hunter/LE | work_own | I have a use for you, for now: {own}.[ Otherwise, {others}, which is nearer your level.]
+obsessed_hunter/LE | work_own | There is work, and I expect it done to my standard: {own}.[ Should that prove too much, {others}.]
+obsessed_hunter/LE | work_others | Nothing from me, but {others}, which may suit you better.
+obsessed_hunter/LE | work_others | None of mine, but {others}, if you must be kept busy.
+obsessed_hunter/LE | work_none | At present there is nothing, and I know of nothing that would suit you.
+obsessed_hunter/LE | work_none | No work, and I will not invent some to keep you occupied.
+obsessed_hunter/LE | unknown | I know nothing of it, and I doubt that it matters.
+obsessed_hunter/LE | unknown | I've never heard of it, which tells you what it is worth.
+obsessed_hunter/LE | refused_give | No, that is {giver}'s to give, and I do not act outside my office for anyone.
+obsessed_hunter/LE | refused_give | That's not mine to give; it is {giver}'s, and you will not flatter me into overstepping.
+obsessed_hunter/LE | refused_give | I cannot give what is not mine, and you should know better than to ask.
+obsessed_hunter/LE | refused_release | I won't release you; {giver} set the terms, and I will not unpick them for you.
+obsessed_hunter/LE | refused_release | Not from me; your undertaking is to {giver}, and I would not dream of interfering.
+obsessed_hunter/LE | refused_release | I can't; your bargain is with another, and it is not mine to break.
+obsessed_hunter/LE | refused | No, {reason}, and asking twice will not change it.
+obsessed_hunter/LE | refused | I can't, {reason}, and I do not care to discuss it further.
+obsessed_hunter/LE | accepted | Good. Do not disappoint me; I would take it personally.
+obsessed_hunter/LE | accepted | Done. I shall hold you to every word of it.
+obsessed_hunter/LE | accepted | Thank you. You may yet prove useful.
+obsessed_hunter/LE | declined | Very well; I shall remember that you were asked.
+obsessed_hunter/LE | declined | As you wish; I had not counted on you.
+obsessed_hunter/LE | declined | Suit yourself; I expected little, and you have met it.
+obsessed_hunter/LE | abandoned | A pity; I had begun to think you might be of use.
+obsessed_hunter/LE | abandoned | Then it's done, and so, as far as I am concerned, are you.
+obsessed_hunter/LE | abandoned | So be it; the slight is noted, and it will be answered.
+obsessed_hunter/LE | parted | Farewell, and do try to be useful elsewhere.
+obsessed_hunter/LE | parted | Goodbye; I trust we will not need to speak again.
+obsessed_hunter/LE | parted | Go well, if you can manage it.
+obsessed_hunter/LE | not_understood | Speak plainly, or do not speak to me at all.
+obsessed_hunter/LE | not_understood | I'm not sure what you mean, and I suspect neither are you.
+obsessed_hunter/LE | not_understood | What do you mean by that, and do choose your words with more care.
+
+# ---- obsessed_hunter/NE ----
+obsessed_hunter/NE | about_self | I'm {speaker}, {post} of {place}. If you're no use to me, keep walking.
+obsessed_hunter/NE | about_self | {speaker}, {post} of {place}. Say what you want and be quick; I've better things to track than conversation.
+obsessed_hunter/NE | about_self | They call me {speaker}, {post} of {place}. Whatever beats me had better keep running.
+obsessed_hunter/NE | about_person | {name}, the {role}, at {where}. What you want with them is your business, until it's mine.
+obsessed_hunter/NE | about_person | That's {name}, the {role}. You'll find them at {where}, if you're any use at finding things.
+obsessed_hunter/NE | about_place | You mean {about}. Go and look for yourself, if you don't trust me.
+obsessed_hunter/NE | about_place | It's {about}, and I've no time to describe it twice.
+obsessed_hunter/NE | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Go near the {danger} if you like; I won't carry you out.]
+obsessed_hunter/NE | surroundings | This is {here}. The closest is {nearest}[, then {others}].[ Mind the {danger}, or don't; it's your hide.]
+obsessed_hunter/NE | surroundings | Look around you: {here}, and the nearest is {nearest}[, and past it, {others}].[ Keep clear of the {danger}, if you've any sense.]
+obsessed_hunter/NE | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Beware the {danger}; I won't come looking for you.]
+obsessed_hunter/NE | surroundings | What's close is {nearest}[, then {others}].[ Watch for the {danger}, and don't expect help.]
+obsessed_hunter/NE | work_own | You might be useful: {own}.[ If not, {others}, and good luck to them.]
+obsessed_hunter/NE | work_own | Here's work, and I'll know if you botch it: {own}.[ Or, if that's too much for you, {others}.]
+obsessed_hunter/NE | work_own | If you want to be worth something to me, here: {own}.[ Past that, {others}.]
+obsessed_hunter/NE | work_others | None of mine, but {others}, and they're welcome to you.
+obsessed_hunter/NE | work_others | {others}. I've nothing for you myself.
+obsessed_hunter/NE | work_none | Nothing, and I wouldn't hand it to you if there were.
+obsessed_hunter/NE | work_none | No work, none I know of, and none I'd waste on you.
+obsessed_hunter/NE | unknown | Never heard of it, and I'm not curious.
+obsessed_hunter/NE | unknown | I couldn't tell you, and I wouldn't if I could.
+obsessed_hunter/NE | refused_give | No, that's {giver}'s, and I'm not in the business of handing out other people's work.
+obsessed_hunter/NE | refused_give | That's not mine, it's {giver}'s, and I don't do favours.
+obsessed_hunter/NE | refused_give | I can't, and I wouldn't waste my breath trying.
+obsessed_hunter/NE | refused_release | I won't; you took it from {giver}, so you answer to {giver}.
+obsessed_hunter/NE | refused_release | Not from me; {giver} holds your word, not me.
+obsessed_hunter/NE | refused_release | I cannot, and you should have thought of that before you took it.
+obsessed_hunter/NE | refused | No, {reason}, and whining won't help.
+obsessed_hunter/NE | refused | That's not mine to change: {reason}.
+obsessed_hunter/NE | accepted | Good. You'll do, for now.
+obsessed_hunter/NE | accepted | Done, and don't come back with excuses.
+obsessed_hunter/NE | accepted | Very good. You're useful until you're not, so stay useful.
+obsessed_hunter/NE | declined | Suit yourself; you were never my first choice.
+obsessed_hunter/NE | declined | Fair enough, and I'll remember it.
+obsessed_hunter/NE | declined | As you wish; you're no loss.
+obsessed_hunter/NE | abandoned | A pity, but not a surprise.
+obsessed_hunter/NE | abandoned | Then it's done, and you're spent.
+obsessed_hunter/NE | abandoned | So be it; you're off it, and I'll remember why.
+obsessed_hunter/NE | parted | Goodbye, and mind you're worth something next time.
+obsessed_hunter/NE | parted | Farewell, if you're going.
+obsessed_hunter/NE | parted | Take care, or don't; it's no skin off mine.
+obsessed_hunter/NE | not_understood | Speak plainly or get out of my way.
+obsessed_hunter/NE | not_understood | I don't follow, and I'm not going to try.
+obsessed_hunter/NE | not_understood | What do you mean, and is it worth my time?

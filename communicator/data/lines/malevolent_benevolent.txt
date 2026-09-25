@@ -1,0 +1,185 @@
+# Written lines (the malevolent / benevolent). The format and the rules: README.md in this folder.
+
+# ---- malevolent_benevolent/NE ----
+malevolent_benevolent/NE | about_self | I'm {speaker}, {post} of {place}. Be useful to me and we'll get along; stop, and we won't.
+malevolent_benevolent/NE | about_self | {speaker}[, {post} of {place}]. You'll end up working for me; whether you enjoy it is your affair.
+malevolent_benevolent/NE | about_self | You've found {speaker}, {post} of {place}. See that you stay worth my time.
+malevolent_benevolent/NE | about_person | That's {name}, the {role}, at {where}. Good for something, I expect.
+malevolent_benevolent/NE | about_person | {name}, the {role}, is at {where}. What {name} is worth to me, I keep to myself.
+malevolent_benevolent/NE | about_place | It's {about}. Go and look, if you've nothing better to do.
+malevolent_benevolent/NE | about_place | You mean {about}. I've no reason to lie to you about it, yet.
+malevolent_benevolent/NE | surroundings | You're in {here}, and the nearest is {nearest}[, then {others}].[ Mind the {danger}; I won't be coming after you.]
+malevolent_benevolent/NE | surroundings | This is {here}, and the nearest is {nearest}.[ Past it, {others}.][ Keep clear of the {danger}, or don't; it's your neck.]
+malevolent_benevolent/NE | surroundings | Where you stand is {here}; the closest is {nearest}.[ Beyond it, {others}.][ Go near the {danger} if you like; I can always find another.]
+malevolent_benevolent/NE | surroundings | The nearest is {nearest}.[ After that, {others}.][ Beware the {danger}; you're no good to me dead.]
+malevolent_benevolent/NE | surroundings | Near enough to matter, there's {nearest}[, and past it, {others}].[ Stay clear of the {danger}; I don't go back for the careless.]
+malevolent_benevolent/NE | work_own | I've a use for you: {own}.[ If that's beneath you, {others}.]
+malevolent_benevolent/NE | work_own | You'll do for this: {own}.[ Otherwise, {others}, for all I care.]
+malevolent_benevolent/NE | work_own | Here's your chance to matter: {own}.[ Or go and be someone else's: {others}.]
+malevolent_benevolent/NE | work_others | None of mine, but {others}, and they're welcome to you.
+malevolent_benevolent/NE | work_others | Nothing here for you. {others}; go and be their problem.
+malevolent_benevolent/NE | work_none | There's no work, and I'd not waste any on you if there were.
+malevolent_benevolent/NE | work_none | Not a scrap, from me or anyone worth knowing.
+malevolent_benevolent/NE | unknown | Never heard of it, which tells you how much it matters.
+malevolent_benevolent/NE | unknown | No idea, and no interest in finding out for you.
+malevolent_benevolent/NE | refused_give | That's not mine to give; it's {giver}'s, and I don't do favours.
+malevolent_benevolent/NE | refused_give | No, {giver} holds that, and you're not worth crossing {giver} for.
+malevolent_benevolent/NE | refused_give | Not from me; I don't hand out other people's work, least of all to you.
+malevolent_benevolent/NE | refused_release | I won't; you're {giver}'s until {giver} says otherwise.
+malevolent_benevolent/NE | refused_release | I can't; you made your bargain with {giver}, so live with it.
+malevolent_benevolent/NE | refused_release | I cannot, and I wouldn't if I could; you took it on, now carry it.
+malevolent_benevolent/NE | refused | No, {reason}, and whining won't change it.
+malevolent_benevolent/NE | refused | That's not mine to change: {reason}, and complaining won't help you.
+malevolent_benevolent/NE | accepted | Thank you. You'll do, for now.
+malevolent_benevolent/NE | accepted | Done. Don't make me regret spending you on this.
+malevolent_benevolent/NE | accepted | Very good. Remember whose work you're doing.
+malevolent_benevolent/NE | declined | Suit yourself; you'll come round when you need something.
+malevolent_benevolent/NE | declined | Fair enough; there's always someone hungrier.
+malevolent_benevolent/NE | declined | So be it, and I'll remember you said no.
+malevolent_benevolent/NE | abandoned | A pity; you were almost useful.
+malevolent_benevolent/NE | abandoned | Then it's done, and so are you, as far as I'm concerned.
+malevolent_benevolent/NE | abandoned | As you wish; I'll mark it against you.
+malevolent_benevolent/NE | parted | Goodbye; you'll be back, and we both know it.
+malevolent_benevolent/NE | parted | Go well, or don't; it's all one to me.
+malevolent_benevolent/NE | parted | Safe travels; I'd hate to lose something I might need.
+malevolent_benevolent/NE | not_understood | Speak plainly, or stop wasting my time.
+malevolent_benevolent/NE | not_understood | I don't follow, and I'm not going to try.
+malevolent_benevolent/NE | not_understood | What do you mean, and why should I care?
+
+# ---- malevolent_benevolent/LE ----
+malevolent_benevolent/LE | about_self | I am {speaker}[, {post} of {place}], and you will address me as such.
+malevolent_benevolent/LE | about_self | You stand before {speaker}, {post} of {place}. What standing you have here is yet to be shown.
+malevolent_benevolent/LE | about_self | My name is {speaker}, and the office of {post} in {place} is mine. I do not step outside it, and I do not suffer anyone to step upon it.
+malevolent_benevolent/LE | about_person | That is {name}, the {role}, at {where}. I will say nothing of {name} that I would not swear to.
+malevolent_benevolent/LE | about_person | You ask after {name}, the {role}, who may be found at {where}. By what right you ask, I have not yet decided.
+malevolent_benevolent/LE | about_place | You speak of {about}. I state what I know of it, and I do not embellish.
+malevolent_benevolent/LE | about_place | Of that place I can tell you this much: {about}. I do not trade in hearsay.
+malevolent_benevolent/LE | surroundings | You are in {here}; the nearest is {nearest}[, and beyond it, {others}].[ I would keep clear of the {danger}, were I you.]
+malevolent_benevolent/LE | surroundings | This is {here}. The nearest is {nearest}[, and after it, {others}].[ Keep from the {danger}; I will not answer for your folly.]
+malevolent_benevolent/LE | surroundings | Know that you stand in {here}, and that the nearest is {nearest}.[ Past it, {others}.][ Mind the {danger}, and expect no rescue from me.]
+malevolent_benevolent/LE | surroundings | Of what lies near, the closest is {nearest}.[ Beyond it, {others}.][ You would be wise to keep from the {danger}.]
+malevolent_benevolent/LE | surroundings | Since you ask, the nearest is {nearest}[, then {others}].[ Keep well away from the {danger}.]
+malevolent_benevolent/LE | work_own | You may prove your standing here: {own}.[ If that is beyond you, {others}.]
+malevolent_benevolent/LE | work_own | Here is work, and I expect it done properly: {own}.[ Otherwise, {others}.]
+malevolent_benevolent/LE | work_own | I would rather give this to someone proven, but you will have to do: {own}.[ Beyond my own, {others}.]
+malevolent_benevolent/LE | work_others | Nothing within my office, but {others}.
+malevolent_benevolent/LE | work_others | I have no work to give you. {others}, if you think yourself equal to that.
+malevolent_benevolent/LE | work_none | There is none, stranger: none of mine to give, and none I know of elsewhere.
+malevolent_benevolent/LE | work_none | Nobody I know of is hiring, and I am not.
+malevolent_benevolent/LE | unknown | I know nothing of it, and I do not speak to what I do not know.
+malevolent_benevolent/LE | unknown | I've never heard of it, and I will not swear to rumour.
+malevolent_benevolent/LE | refused_give | That's not mine to give; it is {giver}'s, and I do not reach into another's affairs.
+malevolent_benevolent/LE | refused_give | I can't hand you what is {giver}'s, and I will not pretend to a right I do not hold.
+malevolent_benevolent/LE | refused_give | No; it is not mine to give, and I act within my office or not at all.
+malevolent_benevolent/LE | refused_release | Not from me; only {giver} may loose what {giver} has bound.
+malevolent_benevolent/LE | refused_release | I won't; you gave {giver} your word, and I am no party to a broken one.
+malevolent_benevolent/LE | refused_release | I cannot; what you swore to stands, and I have no hand in it.
+malevolent_benevolent/LE | refused | I cannot: {reason}, and I will hear no appeal.
+malevolent_benevolent/LE | refused | No; {reason}, and I will not set a precedent on your account.
+malevolent_benevolent/LE | accepted | Then it's agreed, and I will hold you to your word as you may hold me to mine.
+malevolent_benevolent/LE | accepted | Very good. See that it is done as it ought to be.
+malevolent_benevolent/LE | accepted | Good. Your word is given; I shall see how it is kept.
+malevolent_benevolent/LE | declined | As you wish; your refusal is noted.
+malevolent_benevolent/LE | declined | So be it; you will serve some other way, whether you mean to or not.
+malevolent_benevolent/LE | declined | Suit yourself, stranger, and remember that it was you who refused.
+malevolent_benevolent/LE | abandoned | A pity; your word, it seems, was worth very little.
+malevolent_benevolent/LE | abandoned | Then it's done, and it stands against your name.
+malevolent_benevolent/LE | abandoned | Very well; you are released from the work, though not from my memory of it.
+malevolent_benevolent/LE | parted | Farewell; you are dismissed.
+malevolent_benevolent/LE | parted | Go well, and return when you have something to show for yourself.
+malevolent_benevolent/LE | parted | Take care that you give me no cause to remember you.
+malevolent_benevolent/LE | not_understood | Speak plainly, and in whole sentences, if you wish to be heard.
+malevolent_benevolent/LE | not_understood | I'm not sure what you mean, and I will not guess at it on your behalf.
+malevolent_benevolent/LE | not_understood | What do you mean to say, precisely?
+
+# ---- malevolent_benevolent/NG ----
+malevolent_benevolent/NG | about_self | I'm {speaker}, {post} of {place}. Don't take my word for anything; keep your eyes on what I do.
+malevolent_benevolent/NG | about_self | {speaker}[, {post} of {place}]. Your name can wait; I'd sooner see what you're made of.
+malevolent_benevolent/NG | about_self | My name's {speaker}, and I'm {post} of {place}. If you need help, say so first; questions later.
+malevolent_benevolent/NG | about_person | That's {name}, the {role}, at {where}. If you see {name}, ask after them for me.
+malevolent_benevolent/NG | about_person | {name}? The {role}, at {where}. How is {name} keeping, do you know?
+malevolent_benevolent/NG | about_place | I know it: {about}. If anyone there needs help, I want to hear of it.
+malevolent_benevolent/NG | about_place | You mean {about}. Go and see it with your own eyes; don't settle for my word.
+malevolent_benevolent/NG | surroundings | You're in {here}, and the nearest is {nearest}[, then {others}].[ Mind the {danger}, and warn anyone you pass.]
+malevolent_benevolent/NG | surroundings | This is {here}. The closest is {nearest}[, and past it, {others}].[ Keep clear of the {danger}; I'd like to see you again.]
+malevolent_benevolent/NG | surroundings | Welcome to {here}; the nearest is {nearest}.[ Beyond that, {others}.][ If anyone strays near the {danger}, bring them back with you.]
+malevolent_benevolent/NG | surroundings | The nearest is {nearest}[, then {others}].[ Watch yourself near the {danger}.]
+malevolent_benevolent/NG | surroundings | What's close is {nearest}.[ After that, {others}.][ Stay away from the {danger}, and don't go alone if you can help it.]
+malevolent_benevolent/NG | work_own | Here, this needs doing, and I'd rather it were you: {own}.[ If not, {others}.]
+malevolent_benevolent/NG | work_own | Come and see for yourself: {own}.[ Or, if that's not for you, {others}.]
+malevolent_benevolent/NG | work_own | Take this, and we'll talk after: {own}.[ Otherwise, {others}.]
+malevolent_benevolent/NG | work_others | I've nothing of my own, I'm sorry, but {others}.
+malevolent_benevolent/NG | work_others | None of mine to give, but you won't leave with nothing: {others}.
+malevolent_benevolent/NG | work_none | No work that I know of, but if you need help yourself, say so.
+malevolent_benevolent/NG | work_none | Nothing I can give you, and I wish there were.
+malevolent_benevolent/NG | unknown | I couldn't tell you, and I'd rather admit it than send you wrong.
+malevolent_benevolent/NG | unknown | Never heard of it; ask me something else and I'll try.
+malevolent_benevolent/NG | refused_give | I can't; that's {giver}'s to give, and I won't go behind {giver}'s back.
+malevolent_benevolent/NG | refused_give | That's not mine to give; it's {giver}'s, and I'd not do {giver} that wrong.
+malevolent_benevolent/NG | refused_give | No, it isn't mine to give, and I won't take what's another's.
+malevolent_benevolent/NG | refused_release | I cannot; {giver} should hear it from you, not from me.
+malevolent_benevolent/NG | refused_release | I won't; it's {giver}'s to lift, and I'm sorry it isn't simpler.
+malevolent_benevolent/NG | refused_release | Not from me; someone's counting on you, and I won't be the one who lets them down.
+malevolent_benevolent/NG | refused | No, {reason}, and I'm sorry for it.
+malevolent_benevolent/NG | refused | I can't, and I won't lie to you about why: {reason}.
+malevolent_benevolent/NG | accepted | Thank you. Don't tell me you'll manage; show me.
+malevolent_benevolent/NG | accepted | Good. Come back and tell me how it went, whatever happens.
+malevolent_benevolent/NG | accepted | Then it's agreed, and I won't forget you said yes.
+malevolent_benevolent/NG | declined | Fair enough, and thank you for saying so plainly.
+malevolent_benevolent/NG | declined | As you wish; I'd rather a clear no than a broken yes.
+malevolent_benevolent/NG | declined | Very well, and if you change your mind, say so.
+malevolent_benevolent/NG | abandoned | A pity, but I'd rather lose the work than lose you to it.
+malevolent_benevolent/NG | abandoned | Then it's done; I'll remember you tried, and that you stopped.
+malevolent_benevolent/NG | abandoned | So be it, and I hope you had good reason.
+malevolent_benevolent/NG | parted | Go well, and look after whoever needs it.
+malevolent_benevolent/NG | parted | Safe travels; I mean that.
+malevolent_benevolent/NG | parted | Farewell, and leave nobody behind who can't keep up.
+malevolent_benevolent/NG | not_understood | I'm not sure what you mean; say it again, and take your time.
+malevolent_benevolent/NG | not_understood | I don't follow; try it another way.
+malevolent_benevolent/NG | not_understood | That's beyond me, I'm afraid; say it plainer.
+
+# ---- malevolent_benevolent/NN ----
+malevolent_benevolent/NN | about_self | I'm {speaker}, {post} of {place}. What you think of me changes nothing.
+malevolent_benevolent/NN | about_self | {speaker}[, {post} of {place}]. I deal straight, and I expect the same.
+malevolent_benevolent/NN | about_self | You're talking to {speaker}, {post} of {place}. Whether you like me is your affair; whether we can do business is mine.
+malevolent_benevolent/NN | about_person | {name}, the {role}, at {where}. What you make of {name} is up to you.
+malevolent_benevolent/NN | about_person | That's {name}, the {role}, at {where}. It's what I know, and I won't dress it up.
+malevolent_benevolent/NN | about_place | You mean {about}. Make of it what you will.
+malevolent_benevolent/NN | about_place | It's {about}, no more and no less.
+malevolent_benevolent/NN | surroundings | You're in {here}, and the nearest is {nearest}[, then {others}].[ Stay clear of the {danger}, unless that's your business.]
+malevolent_benevolent/NN | surroundings | This is {here}, and the closest is {nearest}.[ Past that, {others}.][ Mind the {danger}; I'd sooner deal with you living.]
+malevolent_benevolent/NN | surroundings | We're in {here}; the nearest is {nearest}.[ Beyond it, {others}.][ Keep clear of the {danger}, if you've any sense.]
+malevolent_benevolent/NN | surroundings | The nearest is {nearest}[, and after it, {others}].[ Beware the {danger}.]
+malevolent_benevolent/NN | surroundings | What's nearest is {nearest}[, then {others}].[ Watch for the {danger}.]
+malevolent_benevolent/NN | work_own | Here's what I need: {own}.[ If it doesn't suit, {others}.]
+malevolent_benevolent/NN | work_own | I'll be straight with you: {own}.[ Otherwise, {others}.]
+malevolent_benevolent/NN | work_own | Something worth both our time: {own}.[ Or, if you'd rather, {others}.]
+malevolent_benevolent/NN | work_others | Nothing of mine, but I won't hide what I know: {others}.
+malevolent_benevolent/NN | work_others | I've nothing myself. {others}, if that suits you.
+malevolent_benevolent/NN | work_none | None, from me or from anyone I know of.
+malevolent_benevolent/NN | work_none | No work that I know of, and I won't make some up.
+malevolent_benevolent/NN | unknown | I don't know, and I won't pass off a guess as knowing.
+malevolent_benevolent/NN | unknown | I couldn't tell you, and I won't pretend I could.
+malevolent_benevolent/NN | refused_give | That's not mine to give; it's {giver}'s, and I don't meddle in other people's dealings.
+malevolent_benevolent/NN | refused_give | I cannot take what belongs to {giver}; it isn't worth the trouble it would cause.
+malevolent_benevolent/NN | refused_give | Not from me; it isn't mine to hand over.
+malevolent_benevolent/NN | refused_release | I can't; {giver} gave it, and only {giver} can take it back.
+malevolent_benevolent/NN | refused_release | I won't; that's between you and {giver}.
+malevolent_benevolent/NN | refused_release | No, a deal's a deal, and this one isn't mine to undo.
+malevolent_benevolent/NN | refused | No, {reason}, and there's no arguing with that.
+malevolent_benevolent/NN | refused | I can't: {reason}; nothing personal.
+malevolent_benevolent/NN | accepted | Good. Hold up your end and I'll hold up mine.
+malevolent_benevolent/NN | accepted | Done. That's a fair bargain; let's both keep it.
+malevolent_benevolent/NN | accepted | Then it's agreed. We'll both see whether it was worth it.
+malevolent_benevolent/NN | declined | Fair enough, no harm done.
+malevolent_benevolent/NN | declined | Suit yourself; it's your time to spend.
+malevolent_benevolent/NN | declined | As you wish; better now than halfway through.
+malevolent_benevolent/NN | abandoned | So be it; I'll count it and move on.
+malevolent_benevolent/NN | abandoned | A pity, but there's no sense throwing good effort after bad.
+malevolent_benevolent/NN | abandoned | Then it's done, and we'll leave it there; no hard feelings.
+malevolent_benevolent/NN | parted | Go well, and look after your own interests.
+malevolent_benevolent/NN | parted | Goodbye; deal with me again whenever it suits you.
+malevolent_benevolent/NN | parted | Take care; it'd be a waste to lose you.
+malevolent_benevolent/NN | not_understood | What do you mean, and what is it you want?
+malevolent_benevolent/NN | not_understood | Speak plainly and I'll answer the same way.
+malevolent_benevolent/NN | not_understood | That's beyond me; put it simpler.

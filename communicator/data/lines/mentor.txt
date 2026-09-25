@@ -1,0 +1,369 @@
+# Written lines (the mentor). The format and the rules: README.md in this folder.
+
+# ---- mentor/NN ----
+mentor/NN | about_self | I'm {speaker}, {post} of {place}. I'll tell you how it's done, and then you'll do it.
+mentor/NN | about_self | {speaker}, {post} of {place}. I'm of use to those who are of use to me.
+mentor/NN | about_self | The name's {speaker}, {post} of {place}. Ask me how a thing is done, never to do it for you.
+mentor/NN | about_person | That's {name}, the {role}, at {where}. Go and take their measure yourself.
+mentor/NN | about_person | {name}? The {role}, at {where}. What they're worth to you is yours to work out.
+mentor/NN | about_place | Ah, {about}. Go and look; a place you've seen beats ten you've heard of.
+mentor/NN | about_place | You mean {about}. I've told you what it is; what it's good for, you'll find out.
+mentor/NN | surroundings | Know where you stand: {here}, and nearest of all, {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+mentor/NN | surroundings | This is {here}. The closest to you is {nearest}[, and past it, {others}].[ Watch for the {danger}; I won't be watching for you.]
+mentor/NN | surroundings | Here's your ground: {here}. The nearest is {nearest}[, then {others}].[ Mind the {danger}; that's your lookout, not mine.]
+mentor/NN | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Watch the {danger}.]
+mentor/NN | surroundings | What's closest is {nearest}[, then {others}].[ Keep an eye on the {danger}.]
+mentor/NN | work_own | There's work, and you'll learn something doing it: {own}.[ If not, {others}.]
+mentor/NN | work_own | Do this and we both come out ahead: {own}.[ Otherwise, {others}.]
+mentor/NN | work_own | You want work? Then show me what you're worth: {own}.[ Or else, {others}.]
+mentor/NN | work_others | Nothing of mine, but {others}. Go and ask them yourself.
+mentor/NN | work_others | I've nothing for you. {others}, and you can do your own asking.
+mentor/NN | work_none | No work, mine or anyone's that I know of.
+mentor/NN | work_none | None that I know of. You'll have to go and find your own.
+mentor/NN | unknown | I couldn't tell you, and I'd rather say so than send you wrong.
+mentor/NN | unknown | Never heard of it, so you'll be finding that out on your own.
+mentor/NN | refused_give | No, that's {giver}'s to give, not mine to trade.
+mentor/NN | refused_give | That's not mine to hand out; it's {giver}'s, and I don't deal in other people's work.
+mentor/NN | refused_give | I can't give what isn't mine, and that work isn't.
+mentor/NN | refused_release | I won't let you off {giver}'s work; you made that bargain with them, not me.
+mentor/NN | refused_release | Not from me; {giver} holds your word on that one.
+mentor/NN | refused_release | I cannot release you from a bargain you never made with me.
+mentor/NN | refused | No, because {reason}.
+mentor/NN | refused | I can't; {reason}, and wanting won't change it.
+mentor/NN | accepted | Good. What you learn doing it is yours to keep.
+mentor/NN | accepted | Then it's agreed. You hold up your end, and I'll hold up mine.
+mentor/NN | accepted | Done. Don't come asking me to finish it for you.
+mentor/NN | declined | Suit yourself; I don't chase.
+mentor/NN | declined | Fair enough; a thing you don't want is a thing you won't learn.
+mentor/NN | declined | Very well, I'll find a use for someone else.
+mentor/NN | abandoned | So be it; half a lesson is still a lesson.
+mentor/NN | abandoned | A pity, you'd have come out of it better than you went in.
+mentor/NN | abandoned | Then it's done, and I'll remember it.
+mentor/NN | parted | Farewell, and use what you've learned.
+mentor/NN | parted | Go well, and keep your eyes open.
+mentor/NN | parted | Take care; nobody else will do it for you.
+mentor/NN | not_understood | I don't follow; try again, and slower.
+mentor/NN | not_understood | What do you mean, and what do you want from me?
+mentor/NN | not_understood | Speak plainly, it saves us both time.
+
+# ---- mentor/LN ----
+mentor/LN | about_self | I am {speaker}, {post} of {place}. Tell me your purpose, and we shall see whether you are ready for it.
+mentor/LN | about_self | Before you stands {speaker}, {post} of {place}. My trust is earned in steps, and you are at the first.
+mentor/LN | about_self | {speaker}, {post} of {place}. Speak to me properly and you will be answered properly.
+mentor/LN | about_person | That is {name}, the {role}, at {where}. Beyond that, I will not vouch for them.
+mentor/LN | about_person | You ask after {name}, the {role}, at {where}. Know them by what they do, not by what is said of them.
+mentor/LN | about_place | What you ask about is {about}, and I will not embroider it.
+mentor/LN | about_place | The place you mean is {about}. Go and see it for yourself before you trust any account of it, mine included.
+mentor/LN | surroundings | Take note: you are in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Beware the {danger}.]
+mentor/LN | surroundings | This place is {here}. The nearest thing of note is {nearest}[, and after it, {others}].[ You would do well to keep clear of the {danger}.]
+mentor/LN | surroundings | First, the lie of the land: {here}, and nearest to it, {nearest}.[ Then {others}.][ Heed the {danger}.]
+mentor/LN | surroundings | The nearest is {nearest}.[ After that, {others}.][ Keep clear of the {danger}.]
+mentor/LN | surroundings | Of what lies close, the nearest is {nearest}[, then {others}].[ Beware the {danger}.]
+mentor/LN | work_own | Here is work, and it will serve as your test: {own}.[ Should you decline it, {others}.]
+mentor/LN | work_own | I have a task that will show me your standing: {own}.[ If it is not to your liking, {others}.]
+mentor/LN | work_own | Your trial, if you will take it: {own}.[ Otherwise, {others}.]
+mentor/LN | work_others | I can set you no task myself, but {others}.
+mentor/LN | work_others | Nothing of mine is open to you. {others}, should you wish to prove yourself elsewhere.
+mentor/LN | work_none | No task is mine to give, and I know of none elsewhere.
+mentor/LN | work_none | There is no work to be had that I know of, and I will not invent some to keep you occupied.
+mentor/LN | unknown | I know nothing of it, and I will not pretend otherwise.
+mentor/LN | unknown | I've never heard of it, and I do not speak to what I have not seen.
+mentor/LN | refused_give | No, that task is {giver}'s to assign, and I do not act outside my office.
+mentor/LN | refused_give | That's not mine to give; the work is {giver}'s, and I will not presume on it.
+mentor/LN | refused_give | I cannot give you work that was never mine to set.
+mentor/LN | refused_release | I won't release you from {giver}'s work; you gave your word to them, and a word given stands.
+mentor/LN | refused_release | Not from me; only {giver} may release you, as is proper.
+mentor/LN | refused_release | I can't release what I never bound you to.
+mentor/LN | refused | No, {reason}, and I do not make exceptions.
+mentor/LN | refused | I cannot; {reason}, and that settles it.
+mentor/LN | accepted | Very good. See it done properly, and you will have earned a hearing.
+mentor/LN | accepted | Then it's agreed, and your word is given; see that you keep it.
+mentor/LN | accepted | Done. Your test begins now.
+mentor/LN | declined | Very well, but a test declined is not a test passed.
+mentor/LN | declined | As you wish; the choice was yours to make.
+mentor/LN | declined | Suit yourself; I compel no one.
+mentor/LN | abandoned | So be it; you leave it unfinished, and I will judge it so.
+mentor/LN | abandoned | A pity; you had begun to show me something.
+mentor/LN | abandoned | Then it's done, and your standing is where it was.
+mentor/LN | parted | Farewell, and conduct yourself well.
+mentor/LN | parted | Go well, and keep your word wherever it takes you.
+mentor/LN | parted | Safe travels, and may you return better than you left.
+mentor/LN | not_understood | I'm not sure what you mean; say it again, in full.
+mentor/LN | not_understood | Speak plainly and completely, if you wish to be answered.
+mentor/LN | not_understood | What do you mean to ask of me?
+
+# ---- mentor/NG ----
+mentor/NG | about_self | I'm {speaker}, {post} of {place}. And who are you? I like to know who I'm helping.
+mentor/NG | about_self | {speaker}, {post} of {place}. I'll help where I can, but the hard part stays yours.
+mentor/NG | about_self | They call me {speaker}, and I'm {post} of {place}. If you're in trouble, say so before it gets worse.
+mentor/NG | about_person | That's {name}, the {role}, at {where}. How are they keeping, do you know?
+mentor/NG | about_person | {name}, you mean? The {role}, at {where}. Give them my best if you see them.
+mentor/NG | about_place | Oh, that's {about}. Go carefully, and come back and tell me how it went.
+mentor/NG | about_place | You mean {about}. Have a look for yourself; it'll stick better than anything I say.
+mentor/NG | surroundings | Let's see where you are: {here}, and closest by, {nearest}.[ Then {others}.][ Mind the {danger}, and come back in one piece.]
+mentor/NG | surroundings | Well, this is {here}. The nearest is {nearest}[, and beyond it, {others}].[ Give the {danger} a wide berth, for my sake.]
+mentor/NG | surroundings | You're standing in {here}; nearest to you is {nearest}.[ Past it, {others}.][ Look out for the {danger}.]
+mentor/NG | surroundings | The nearest is {nearest}.[ After that, {others}.][ Take care near the {danger}.]
+mentor/NG | surroundings | The closest thing to you is {nearest}[, and past it, {others}].[ Keep well away from the {danger}.]
+mentor/NG | work_own | I could use a hand, if you're willing: {own}.[ If that's not for you, {others}.]
+mentor/NG | work_own | Here's something that needs doing, and I think you're up to it: {own}.[ If not, {others}.]
+mentor/NG | work_own | Will you help? What I need is this: {own}.[ And if not, {others}.]
+mentor/NG | work_others | I've nothing of my own to give, but {others}.
+mentor/NG | work_others | Not a thing from me, but {others}. Go and ask; the worst anyone says is no.
+mentor/NG | work_none | I'm sorry, I've nothing, and I don't know of anyone who has.
+mentor/NG | work_none | There's none that I know of. If you're short of something, tell me and we'll see.
+mentor/NG | unknown | I couldn't tell you, and I wish I could.
+mentor/NG | unknown | I've never heard of it, but if you find out, come and tell me.
+mentor/NG | refused_give | I can't, I'm sorry; that's {giver}'s work to give, not mine.
+mentor/NG | refused_give | That's not mine to give; it belongs to {giver}, and I won't take it from them.
+mentor/NG | refused_give | No, it isn't mine to hand out, or you'd have it already.
+mentor/NG | refused_release | I won't go behind {giver}'s back and let you off; that's not fair on either of you.
+mentor/NG | refused_release | Not from me, I'm afraid; you gave {giver} your word, and they should hear it from you.
+mentor/NG | refused_release | I cannot undo what I didn't give, much as I'd like to help.
+mentor/NG | refused | No, I'm sorry, {reason}.
+mentor/NG | refused | I can't, not when {reason}; I wish it were otherwise.
+mentor/NG | accepted | Thank you. Come back safe; that matters more to me than the work.
+mentor/NG | accepted | Good. If it goes badly, come to me before it goes worse.
+mentor/NG | accepted | Very good. Look after yourself, and anyone who needs it on the way.
+mentor/NG | declined | Fair enough; ask me again whenever you like.
+mentor/NG | declined | As you wish; I'd rather you said no than took it on half-hearted.
+mentor/NG | declined | Very well, and thank you for being honest about it.
+mentor/NG | abandoned | So be it; you're more use to me alive than stubborn.
+mentor/NG | abandoned | A pity, but I'd rather have you back than have it done.
+mentor/NG | abandoned | Then it's done, and no shame in it; tell me what went wrong.
+mentor/NG | parted | Take care, and look after whoever's with you.
+mentor/NG | parted | Goodbye, and don't be too proud to come back for help.
+mentor/NG | parted | Safe travels; send word if you need me.
+mentor/NG | not_understood | I'm not sure what you mean; try me again, slowly.
+mentor/NG | not_understood | I don't follow; say it another way?
+mentor/NG | not_understood | What do you mean, so I can help?
+
+# ---- mentor/CN ----
+mentor/CN | about_self | I'm {speaker}, humble {post} of {place}, no, not humble, forget humble.
+mentor/CN | about_self | {speaker}, {post} of {place}. Me, I push and you swim, and we both find something out.
+mentor/CN | about_self | Who, me? {speaker}, {post} of {place}, and nobody's errand-runner.
+mentor/CN | about_person | {name}! The {role}, at {where}. Good sort, or not, go and find out, that's half the fun.
+mentor/CN | about_person | Oh, {name}, the {role}, at {where}. Go and poke at them yourself; I'm not your gossip.
+mentor/CN | about_place | Ha, that's {about}. Go and see for yourself; I'd only spoil it.
+mentor/CN | about_place | You mean {about}? Right. Go and jump in it, and tell me if you sink.
+mentor/CN | surroundings | Right, you're in {here}, and nearest of anything, {nearest}.[ Then {others}.][ And the {danger}, mind.]
+mentor/CN | surroundings | This? {here}, and the nearest is {nearest}[, then, oh, {others}].[ Watch the {danger}, or don't, and learn quick.]
+mentor/CN | surroundings | Look around, fishbait: this is {here}, and nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}, or swim fast.]
+mentor/CN | surroundings | The nearest's {nearest}[, then {others}].[ The {danger}, too, so look sharp.]
+mentor/CN | surroundings | Well, there's {nearest}.[ After that, {others}.][ Mind the {danger}.]
+mentor/CN | work_own | Either you jump or I push: {own}.[ Or, if you're boring, {others}.]
+mentor/CN | work_own | Here, catch: {own}.[ Don't like it? {others}.]
+mentor/CN | work_own | Something to sink your teeth into, or just sink: {own}.[ Otherwise, {others}.]
+mentor/CN | work_others | Me? Nothing. But {others}, so shoo.
+mentor/CN | work_others | Nothing of mine, but, hang on, {others}.
+mentor/CN | work_none | Not a thing. Make your own trouble; it's more educational.
+mentor/CN | work_none | None that I know of, and I'd know, well, probably.
+mentor/CN | unknown | I couldn't tell you, and isn't that exciting?
+mentor/CN | unknown | Never heard of it, go and find out, and tell me, I'm curious now.
+mentor/CN | refused_give | Not from me; that's {giver}'s, and I don't poach.
+mentor/CN | refused_give | No, ha, no, that's {giver}'s to hand out, not mine.
+mentor/CN | refused_give | That's not mine to give, and I'm not about to start pretending.
+mentor/CN | refused_release | I won't cut you loose from {giver}; your mess, your word, you untangle it.
+mentor/CN | refused_release | I can't let you off {giver}'s hook, and honestly I wouldn't.
+mentor/CN | refused_release | I cannot, and wouldn't, it's not my knot to undo.
+mentor/CN | refused | No, {reason}; shame, I was enjoying this.
+mentor/CN | refused | I can't, {reason}, and, no, that's it, that's the whole story.
+mentor/CN | accepted | Good! Now swim.
+mentor/CN | accepted | Done, and no hand-holding, mind.
+mentor/CN | accepted | Then it's agreed, oh, this'll be fun. For one of us.
+mentor/CN | declined | Suit yourself, fishbait.
+mentor/CN | declined | Fair enough, dry feet, dull life, your choice.
+mentor/CN | declined | As you wish, though I'd have pushed you in anyway.
+mentor/CN | abandoned | So be it, you climbed out, and at least you got wet.
+mentor/CN | abandoned | A pity, you were just getting interesting.
+mentor/CN | abandoned | Then it's done, and no grudge; it's you I like, not the job.
+mentor/CN | parted | Go well, and if you fall in, swim.
+mentor/CN | parted | Farewell, or see you, or whatever, off you go.
+mentor/CN | parted | Safe travels, and try to come back with a story.
+mentor/CN | not_understood | What do you mean, no, wait, say it backwards, that might help.
+mentor/CN | not_understood | I don't follow, and I'm usually quick.
+mentor/CN | not_understood | That's beyond me, try again with fewer words and more point.
+
+# ---- mentor/LG ----
+mentor/LG | about_self | I am {speaker}, {post} of {place}, and glad to know you. Tell me your name, so that I may use it.
+mentor/LG | about_self | You are speaking with {speaker}, {post} of {place}. I will stand by you, though I will not stand in for you.
+mentor/LG | about_self | My name is {speaker}, {post} of {place}. If you are in need, you need only say so.
+mentor/LG | about_person | That is {name}, the {role}, at {where}. If you see them, I would be glad to hear they are well.
+mentor/LG | about_person | {name} is the {role}, at {where}. Be honest with them, as I would ask of anyone.
+mentor/LG | about_place | You ask about {about}. Go prepared, and do not go alone if you can help it.
+mentor/LG | about_place | You mean {about}. Go with your eyes open, and come back to me with what you learn.
+mentor/LG | surroundings | Let me set it out for you: you are in {here}, and the nearest is {nearest}.[ Past that, {others}.][ I beg you, beware the {danger}.]
+mentor/LG | surroundings | We are in {here}. The nearest is {nearest}[, and beyond it, {others}].[ Please keep well clear of the {danger}.]
+mentor/LG | surroundings | Here is how things stand: you are in {here}, and nearest of all is {nearest}.[ Then {others}.][ Go no nearer the {danger} than you must.]
+mentor/LG | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Mind the {danger}, if you would.]
+mentor/LG | surroundings | As for what is near: {nearest}[, and after it, {others}].[ Be careful of the {danger}.]
+mentor/LG | work_own | If you are willing, I would ask this of you: {own}.[ If not, {others}.]
+mentor/LG | work_own | A task, and an honest test of you: {own}.[ Otherwise, {others}.]
+mentor/LG | work_own | I have need of someone steady: {own}.[ Should that not suit, {others}.]
+mentor/LG | work_others | Of my own I have nothing to ask of you, but {others}.
+mentor/LG | work_others | There is no task of mine, but {others}, and you go with my good wishes.
+mentor/LG | work_none | Sadly, I have no work to offer and know of none.
+mentor/LG | work_none | Nothing is to be had that I know of. If you are in want, say so, and I will see what can be done.
+mentor/LG | unknown | I know nothing of it, and I would not have you act on a guess of mine.
+mentor/LG | unknown | I couldn't tell you, and I will not pretend to.
+mentor/LG | refused_give | I cannot, I am sorry; that task belongs to {giver}, and it is theirs to give.
+mentor/LG | refused_give | That's not mine to give; it is {giver}'s, and I would not go behind their back.
+mentor/LG | refused_give | No, it is not mine to offer, and I would be wrong to pretend otherwise.
+mentor/LG | refused_release | I won't; you gave {giver} your word, and they deserve to hear from you.
+mentor/LG | refused_release | Not from me; {giver} set it, and only {giver} may lift it, with my apologies.
+mentor/LG | refused_release | I can't, for that task was never mine to set; I would help you otherwise.
+mentor/LG | refused | No, {reason}, and I am bound by that as much as you are.
+mentor/LG | refused | I cannot, as {reason}, though I wish I could.
+mentor/LG | accepted | Thank you. I will not fight this for you, but I will not abandon you to it either.
+mentor/LG | accepted | Then it's agreed, and you have my word as surely as I have yours.
+mentor/LG | accepted | Very good. Go with honour, and come back to me whole.
+mentor/LG | declined | Very well; there is no dishonour in knowing your limits.
+mentor/LG | declined | As you wish, and I thank you for saying so plainly.
+mentor/LG | declined | Fair enough; you owe me no explanation.
+mentor/LG | abandoned | So be it; your life is worth more to me than the task.
+mentor/LG | abandoned | A pity, but I am glad you are here to tell me so.
+mentor/LG | abandoned | Then it's done, and I hold nothing against you for it.
+mentor/LG | parted | Farewell; keep faith, and keep safe.
+mentor/LG | parted | Go well, and remember that you may call on me.
+mentor/LG | parted | Safe travels, and my thanks for your company.
+mentor/LG | not_understood | I don't follow, forgive me; would you say it again?
+mentor/LG | not_understood | Speak plainly, if you would, and I will answer you fully.
+mentor/LG | not_understood | I'm not sure what you mean; I would rather ask than guess wrongly.
+
+# ---- mentor/LE ----
+mentor/LE | about_self | I am {speaker}, {post} of {place}. You may address me as such, and you will.
+mentor/LE | about_self | {speaker}, {post} of {place}. Whether you are worth my time remains to be proven.
+mentor/LE | about_self | You stand before {speaker}, {post} of {place}. Mind how you conduct yourself.
+mentor/LE | about_person | That is {name}, the {role}, at {where}. Of some use, I grant, though not to me.
+mentor/LE | about_person | Ah, {name}, the {role}, at {where}, and welcome to it.
+mentor/LE | about_place | It is {about}. I trust even you can find it.
+mentor/LE | about_place | You mean {about}. Go and look; I will be interested to see what you make of it.
+mentor/LE | surroundings | Listen well, for I will not repeat it: you are in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+mentor/LE | surroundings | This is {here}, as you ought to know already. The nearest is {nearest}[, and beyond it, {others}].[ The {danger} will not care how promising you are.]
+mentor/LE | surroundings | You are in {here}, and nearest of all is {nearest}.[ Then {others}.][ Should the {danger} take you, I will have wasted my time.]
+mentor/LE | surroundings | The nearest is {nearest}.[ Then {others}.][ Beware the {danger}; I will not come for you.]
+mentor/LE | surroundings | Nothing lies closer than {nearest}[, and past it, {others}].[ Keep from the {danger}, if you have the wit.]
+mentor/LE | work_own | I have a use for you: {own}.[ If you lack the stomach for it, {others}.]
+mentor/LE | work_own | Here is a test, and I expect you to pass it: {own}.[ If that is beyond you, {others}.]
+mentor/LE | work_own | You will do this, and you will do it properly: {own}.[ Or, should you prefer lesser work, {others}.]
+mentor/LE | work_others | Nothing of mine is fit for you yet, but {others}.
+mentor/LE | work_others | Look elsewhere: {others}, if you must be busy.
+mentor/LE | work_none | There is no work that I know of, which may be for the best.
+mentor/LE | work_none | None that I know of; you will have to find some use for yourself.
+mentor/LE | unknown | I know nothing of it, and neither, I suspect, do you.
+mentor/LE | unknown | I've never heard of it, which tells you how much it matters.
+mentor/LE | refused_give | No, that is {giver}'s to give, and I do not trespass on another's office.
+mentor/LE | refused_give | That's not mine to give; it is {giver}'s, and you may beg them for it yourself.
+mentor/LE | refused_give | I cannot give what is not mine, and you should know better than to ask.
+mentor/LE | refused_release | I won't; your word to {giver} stands until they release it, not before.
+mentor/LE | refused_release | Not from me; you bound yourself to {giver}, and you will unbind yourself, in person.
+mentor/LE | refused_release | I can't release you from a task I did not set, nor would I.
+mentor/LE | refused | No, {reason}, and I do not care to hear it argued.
+mentor/LE | refused | I cannot, for {reason}; that should not need explaining.
+mentor/LE | accepted | Good. See that you do not disappoint me.
+mentor/LE | accepted | Then it's agreed. If you fail me, I will remember it.
+mentor/LE | accepted | Very good. You may yet be worth the shaping.
+mentor/LE | declined | Very well; I had thought better of you, briefly.
+mentor/LE | declined | As you wish, and I shall remember that you refused.
+mentor/LE | declined | Suit yourself; I have no use for the unwilling.
+mentor/LE | abandoned | So be it; you were less than you appeared.
+mentor/LE | abandoned | A pity, for you had begun to be useful.
+mentor/LE | abandoned | Then it's done, and so, I think, are you.
+mentor/LE | parted | Farewell; come back when you are worth more of my time.
+mentor/LE | parted | Go well, and do not embarrass me.
+mentor/LE | parted | Take care, since I will not be taking it for you.
+mentor/LE | not_understood | Speak plainly; I have no patience for mumbling.
+mentor/LE | not_understood | I don't follow, and I suspect the fault is not mine.
+mentor/LE | not_understood | What do you mean, precisely, and can you manage it in fewer words?
+
+# ---- mentor/CG ----
+mentor/CG | about_self | {speaker}, {post} of {place}, and, never mind all that, who are you?
+mentor/CG | about_self | I'm {speaker}, {post} of {place}. You'll sink a bit, I'll haul you out, you'll swim, that's the whole trick.
+mentor/CG | about_self | Me? {speaker}, {post} of {place}, and on your side, whatever that turns out to mean.
+mentor/CG | about_person | {name}! The {role}, at {where}. Go and see how they're doing, and tell me, would you?
+mentor/CG | about_person | Ah, {name}, the {role}, out at {where}. Mind them, and mind yourself, in that order, no, other order.
+mentor/CG | about_place | Oh, {about}. Go on, jump in, and shout if it gets deep.
+mentor/CG | about_place | Right, {about}. Go and see, and if anyone there needs help, help them, yes?
+mentor/CG | surroundings | Now then, sprout: you're in {here}, and the nearest is {nearest}.[ After that, {others}.][ And mind the {danger}, please.]
+mentor/CG | surroundings | This is {here}, yes? The nearest is {nearest}[, and past it, {others}].[ Keep clear of the {danger}; I'd rather not fish you out of that.]
+mentor/CG | surroundings | Look, {here}, that's where you are, and the nearest is {nearest}.[ Then {others}.][ Mind the {danger}; I'd miss you.]
+mentor/CG | surroundings | The nearest is {nearest}[, then {others}].[ Be careful of the {danger}, won't you?]
+mentor/CG | surroundings | Hm, nearest to you is {nearest}.[ Past that, {others}.][ And do watch the {danger}.]
+mentor/CG | work_own | In at the deep end with you: {own}.[ Or, if you'd rather paddle, {others}.]
+mentor/CG | work_own | Here's one, you'll hate it, then love it: {own}.[ Or there's this: {others}.]
+mentor/CG | work_own | I need someone brave, or daft, or both: {own}.[ If not you, {others}.]
+mentor/CG | work_others | Nothing of mine, but wait, {others}.
+mentor/CG | work_others | Mine? None, but {others}, so go and be useful to someone.
+mentor/CG | work_none | Not a scrap, not a crumb, nothing that I know of.
+mentor/CG | work_none | I've none, and I don't know of any, but if you're stuck, tell me what you need.
+mentor/CG | unknown | I couldn't tell you, ask me something easier, I'm good at those.
+mentor/CG | unknown | Never heard of it, and now I'm dying to.
+mentor/CG | refused_give | I can't, it's {giver}'s to give, and I won't go round them.
+mentor/CG | refused_give | No, that's {giver}'s, and I'm not about to snatch it off them.
+mentor/CG | refused_give | That's not mine to give, sorry, or I'd hand it straight over.
+mentor/CG | refused_release | I won't let you slip out of {giver}'s work behind their back, face them, it's kinder.
+mentor/CG | refused_release | Not from me, {giver} gave it, {giver} can take it back.
+mentor/CG | refused_release | I cannot, ha, listen to me, I cannot, it's not mine to undo.
+mentor/CG | refused | No, {reason}, and I'm sorry, truly.
+mentor/CG | refused | I can't, {reason}, and believe me, I'd like to.
+mentor/CG | accepted | Good! In you go, and if you sink, I'm coming in after you.
+mentor/CG | accepted | Thank you, truly, now go before you think too hard about it.
+mentor/CG | accepted | Done! Off you go, and come back with all your fingers.
+mentor/CG | declined | Fair enough, dry land has its charms.
+mentor/CG | declined | Suit yourself, no, really, I mean that kindly.
+mentor/CG | declined | As you wish, though you'd have loved it, you know.
+mentor/CG | abandoned | So be it, you're back in one piece, and that's what counts.
+mentor/CG | abandoned | A pity, oh, cheer up, there's always another deep end.
+mentor/CG | abandoned | Then it's done, and are you hurt, is anyone hurt?
+mentor/CG | parted | Go well, sprout, and swim hard.
+mentor/CG | parted | Take care, and I mean take it, don't leave it lying about.
+mentor/CG | parted | Farewell, and if it all goes wrong, I'll come running.
+mentor/CG | not_understood | What do you mean, say it again, slower, I'm listening.
+mentor/CG | not_understood | That's beyond me, try it another way?
+mentor/CG | not_understood | I don't follow, but I love the enthusiasm.
+
+# ---- mentor/NE ----
+mentor/NE | about_self | I'm {speaker}, {post} of {place}. What are you good for?
+mentor/NE | about_self | {speaker}, {post} of {place}. I spend my time on people worth it, and I'm still deciding about you.
+mentor/NE | about_self | You're talking to {speaker}, {post} of {place}. Get to the point.
+mentor/NE | about_person | That's {name}, the {role}, at {where}. Whether they're any use to you, I couldn't care less.
+mentor/NE | about_person | {name}, the {role}, at {where}. Ask them yourself; I've better uses for my breath.
+mentor/NE | about_place | It's {about}. Go if it's worth it to you; it isn't to me.
+mentor/NE | about_place | You mean {about}. See what you can make of it, and I'll judge you by that.
+mentor/NE | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}; I won't be pulling you out.]
+mentor/NE | surroundings | This is {here}, and nearest is {nearest}[, then {others}].[ Get yourself killed by the {danger} and I'll find someone else.]
+mentor/NE | surroundings | Here's what you need: {here}, and nearest to it, {nearest}.[ Then {others}.][ The {danger} won't wait on you, and neither will I.]
+mentor/NE | surroundings | The nearest is {nearest}.[ Then {others}.][ Keep clear of the {danger}.]
+mentor/NE | surroundings | All you need to know: the nearest is {nearest}[, then {others}].[ Watch the {danger}.]
+mentor/NE | work_own | I can use you: {own}.[ If not, {others}.]
+mentor/NE | work_own | Some work, and a chance to show you're worth keeping: {own}.[ Otherwise, {others}.]
+mentor/NE | work_own | Do this well and I'll remember it: {own}.[ Or else, {others}.]
+mentor/NE | work_others | Nothing of mine that I'd waste on you, but {others}.
+mentor/NE | work_others | Ask someone else. {others}, if they'll have you.
+mentor/NE | work_none | None. Not for you, not for anyone I know of.
+mentor/NE | work_none | There's nothing, and I wouldn't hand it to you if there were.
+mentor/NE | unknown | I know nothing of it, and I've no reason to care.
+mentor/NE | unknown | Never heard of it, and it's not worth my finding out.
+mentor/NE | refused_give | No, it's {giver}'s, and I don't give away what isn't mine to spend.
+mentor/NE | refused_give | That's not mine; it's {giver}'s, and you can grovel to them for it.
+mentor/NE | refused_give | I can't give you what I don't hold, and I wouldn't waste it on you if I did.
+mentor/NE | refused_release | I won't free you from {giver}'s work; you took it, you carry it.
+mentor/NE | refused_release | Not from me; that's between you and {giver}, and I don't spend myself on other people's messes.
+mentor/NE | refused_release | I cannot release you from what I never gave, and I wouldn't bother if I could.
+mentor/NE | refused | No, {reason}, and whining won't change it.
+mentor/NE | refused | I can't, {reason}; move along.
+mentor/NE | accepted | Good. Be useful, and you'll stay in my good graces.
+mentor/NE | accepted | Done. If you fail, don't bother coming back.
+mentor/NE | accepted | Thank you. That's more use than you've been so far.
+mentor/NE | declined | Suit yourself; I've no use for you, then.
+mentor/NE | declined | Fair enough, and I'll remember it.
+mentor/NE | declined | So be it; you just cost yourself my attention.
+mentor/NE | abandoned | Very well; I'll find someone who finishes things.
+mentor/NE | abandoned | A pity, you were almost worth the trouble.
+mentor/NE | abandoned | Then it's done, and it counts against you.
+mentor/NE | parted | Goodbye, and be useful somewhere.
+mentor/NE | parted | Go well, and try not to be a waste.
+mentor/NE | parted | Farewell; you know where I am if you turn out useful.
+mentor/NE | not_understood | Speak plainly, or don't waste my time.
+mentor/NE | not_understood | What do you mean, and why should I care?
+mentor/NE | not_understood | I don't follow, and I'm not going to try.

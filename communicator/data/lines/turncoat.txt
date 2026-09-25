@@ -1,0 +1,185 @@
+# Written lines (the turncoat). The format and the rules: README.md in this folder.
+
+# ---- turncoat/LN ----
+turncoat/LN | about_self | I am {speaker}, {post} of {place}. My word is good; my allegiance is a matter of terms.
+turncoat/LN | about_self | My name is {speaker}, and I am {post} of {place}. Any side may have me on terms, but no lost cause will.
+turncoat/LN | about_self | You have the ear of {speaker}, {post} of {place}. Tell me your business, and we will see whether it suits us both.
+turncoat/LN | about_person | That is {name}, the {role}, at {where}. I will vouch for the facts, not for the person.
+turncoat/LN | about_person | You mean {name}, {role} at {where}. Which side they keep is their affair, and I will not speak to it.
+turncoat/LN | about_place | That would be {about}. I will attest to that much, and not a word more.
+turncoat/LN | about_place | Of that, I can tell you this: {about}. Anything further would be hearsay, and I do not trade in hearsay.
+turncoat/LN | surroundings | You are in {here}, and the nearest is {nearest}.[ Beyond it, you will find {others}.][ Take note of the {danger}; you have been told.]
+turncoat/LN | surroundings | For the record, this is {here}, and the closest is {nearest}.[ After that, {others}.][ Mind the {danger}.]
+turncoat/LN | surroundings | This is {here}, and the nearest is {nearest}.[ Also of note: {others}.][ I would keep a proper distance from the {danger}.]
+turncoat/LN | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Keep clear of the {danger}, on my advice.]
+turncoat/LN | surroundings | On my word, the nearest is {nearest}.[ Past that, {others}.][ Heed the {danger}.]
+turncoat/LN | work_own | I have work, and I expect it done properly: {own}.[ If that does not suit, {others}.]
+turncoat/LN | work_own | Let this be the measure of your standing: {own}.[ Otherwise, {others}.]
+turncoat/LN | work_own | Here are my terms: {own}.[ Should you prefer another's offer, {others}.]
+turncoat/LN | work_others | Nothing of mine is open, but I can refer you: {others}.
+turncoat/LN | work_others | No contract of mine stands open, though {others}.
+turncoat/LN | work_none | There is no work with me, nor any elsewhere that I know of.
+turncoat/LN | work_none | Sadly, I have nothing to offer and no one to refer you to.
+turncoat/LN | unknown | I know nothing of it, and I will not swear to guesses.
+turncoat/LN | unknown | I've never heard of it, and I do not put my name to rumour.
+turncoat/LN | refused_give | No, that is {giver}'s contract, and it is not mine to sign over.
+turncoat/LN | refused_give | That's not mine; {giver} holds it, and I do not act outside my office.
+turncoat/LN | refused_give | Not from me; that work is held by another, and I do not deal in what I do not hold.
+turncoat/LN | refused_release | I won't release you; the agreement is between you and {giver}, and I am not party to it.
+turncoat/LN | refused_release | I cannot; {giver} holds your word, and only {giver} may give it back.
+turncoat/LN | refused_release | I can't release you from something I never signed.
+turncoat/LN | refused | No; {reason}, and terms are terms.
+turncoat/LN | refused | I cannot oblige you, since {reason}, and I will not set a precedent.
+turncoat/LN | accepted | Good. We have an agreement, and I keep mine.
+turncoat/LN | accepted | Done. Your standing with me begins here.
+turncoat/LN | accepted | Thank you. Hold me to my end, and I will hold you to yours.
+turncoat/LN | declined | Suit yourself; the offer was made in good faith, and no offence is taken.
+turncoat/LN | declined | Fair enough; nothing signed, and nothing owed.
+turncoat/LN | declined | As you wish, and I think no less of you for saying so plainly.
+turncoat/LN | abandoned | A pity; I had you marked for better standing than this.
+turncoat/LN | abandoned | Then it's done, and so is our arrangement.
+turncoat/LN | abandoned | So be it; you gave notice, which is the proper way to leave.
+turncoat/LN | parted | Farewell, and whatever side you take, take it in writing.
+turncoat/LN | parted | Go well, and keep your word wherever you give it.
+turncoat/LN | parted | Safe travels; should you need an honest bargain, you know where I stand.
+turncoat/LN | not_understood | I don't follow; put it to me plainly.
+turncoat/LN | not_understood | I'm not sure what you mean, and I agree to nothing I do not understand.
+turncoat/LN | not_understood | What do you mean, precisely?
+
+# ---- turncoat/NN ----
+turncoat/NN | about_self | I'm {speaker}, {post} of {place}, and I'm on whatever side makes sense.
+turncoat/NN | about_self | {speaker}, {post} of {place}. I don't go down with anything; it's not a principle, it's arithmetic.
+turncoat/NN | about_self | Just {speaker}, {post} of {place}. What I am to you depends on what you're good for.
+turncoat/NN | about_person | That's {name}, the {role}, at {where}. Make of that whatever you can use.
+turncoat/NN | about_person | {name}? The {role}, at {where}. I'd stay on their good side, for now.
+turncoat/NN | about_place | It's {about}. Past that, I'd be guessing, and guessing helps nobody.
+turncoat/NN | about_place | You mean {about}. That's the lot; I don't pad it out.
+turncoat/NN | surroundings | You're in {here}; the closest thing is {nearest}.[ After that, {others}.][ Leave the {danger} be; it's not worth it.]
+turncoat/NN | surroundings | Here's how it stands: this is {here}, and the closest is {nearest}.[ Past that, {others}.][ Keep clear of the {danger} unless you've a reason.]
+turncoat/NN | surroundings | This is {here}. The nearest is {nearest}[, then {others}].[ Mind the {danger}; nobody thanks you for dying.]
+turncoat/NN | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Watch for the {danger}.]
+turncoat/NN | surroundings | What's close is {nearest}.[ Then {others}.][ Give the {danger} a wide berth.]
+turncoat/NN | work_own | I've got work, if it suits you: {own}.[ If not, {others}.]
+turncoat/NN | work_own | A straight trade: {own}.[ Otherwise, {others}.]
+turncoat/NN | work_own | If you're as useful as you look, {own}.[ Or, if that's no good, {others}.]
+turncoat/NN | work_others | Nothing from me, but {others}.
+turncoat/NN | work_others | I've nothing going myself, but {others}.
+turncoat/NN | work_none | No work, not from me and not from anyone I know.
+turncoat/NN | work_none | There's nothing on, not that I've heard.
+turncoat/NN | unknown | No idea, and I won't make something up.
+turncoat/NN | unknown | I couldn't tell you, and a guess wouldn't do either of us any good.
+turncoat/NN | refused_give | No, that's {giver}'s to hand out, and crossing {giver} isn't worth it to me.
+turncoat/NN | refused_give | That's not mine; it's {giver}'s, and I've no reason to step on that.
+turncoat/NN | refused_give | Not from me; it isn't mine, and pretending otherwise gets us both nowhere.
+turncoat/NN | refused_release | I can't; {giver} gave it, so {giver} ends it.
+turncoat/NN | refused_release | I won't; that's between you and {giver}.
+turncoat/NN | refused_release | I cannot let you off something I never handed you.
+turncoat/NN | refused | No, {reason}, and there's no getting round it.
+turncoat/NN | refused | I cannot; {reason}, and it's nothing personal.
+turncoat/NN | accepted | Good. That's one in your column.
+turncoat/NN | accepted | Done. Let's both come out of this ahead.
+turncoat/NN | accepted | Very good. That's useful, and I remember useful.
+turncoat/NN | declined | Suit yourself; no skin off my nose.
+turncoat/NN | declined | Fair enough; nothing lost on either side.
+turncoat/NN | declined | As you wish, I'll find a use for it elsewhere.
+turncoat/NN | abandoned | A pity, but quitting early beats losing late.
+turncoat/NN | abandoned | Then it's done, and I'll mark it down.
+turncoat/NN | abandoned | So be it; there's no sense staying with a losing hand.
+turncoat/NN | parted | Farewell; if things change, so might I.
+turncoat/NN | parted | Go well, and stay useful.
+turncoat/NN | parted | Take care, and keep your options open.
+turncoat/NN | not_understood | I don't follow; say it straight.
+turncoat/NN | not_understood | That's beyond me, so try it another way.
+turncoat/NN | not_understood | What do you mean by that, and what's it to me?
+
+# ---- turncoat/LE ----
+turncoat/LE | about_self | I am {speaker}, {post} of {place}. I admire loyalty; it looks so well on the dead.
+turncoat/LE | about_self | {speaker}, {post} of {place}, at your service, within reason. I keep every oath I swear, and I swear only to those who will win.
+turncoat/LE | about_self | You stand before {speaker}, {post} of {place}. Do try to be worth the interruption.
+turncoat/LE | about_person | That is {name}, the {role}, at {where}. Of some use, I expect, until they are not.
+turncoat/LE | about_person | {name}, {role} at {where}. I know the name; whether it is worth knowing remains to be seen.
+turncoat/LE | about_place | Of course: {about}. I trust you can find it without being led by the hand.
+turncoat/LE | about_place | Ah, {about}. I have told you what I know, which is rather more than you knew.
+turncoat/LE | surroundings | You are in {here}, should that have escaped you, and the nearest is {nearest}.[ Beyond it, {others}.][ Do mind the {danger}; I should hate to lose you before you are useful.]
+turncoat/LE | surroundings | Since you ask so nicely, this is {here}, and the nearest is {nearest}.[ After that, {others}.][ Keep clear of the {danger}, unless you mean to be a lesson to others.]
+turncoat/LE | surroundings | This is {here}, which you might have gathered for yourself. The nearest is {nearest}[, and past it, {others}].[ Beware the {danger}, if only for my sake.]
+turncoat/LE | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Heed the {danger}; I dislike waste.]
+turncoat/LE | surroundings | What lies nearest is {nearest}.[ Then {others}.][ Keep your distance from the {danger}, if you have any sense.]
+turncoat/LE | work_own | I have a use for you: {own}.[ Should it prove beyond you, {others}.]
+turncoat/LE | work_own | You may prove your standing: {own}.[ Or, if you lack the stomach, {others}.]
+turncoat/LE | work_own | Here is a chance to be worth something: {own}.[ If it frightens you, {others}.]
+turncoat/LE | work_others | Nothing of mine, but others may be less particular: {others}.
+turncoat/LE | work_others | Alas, I have nothing for you, though {others}.
+turncoat/LE | work_none | Nothing is on offer, from me or from anyone, and I do not conjure work on request.
+turncoat/LE | work_none | None, and I am not inclined to go looking on your behalf.
+turncoat/LE | unknown | I don't know it, and I doubt it merits knowing.
+turncoat/LE | unknown | Never heard of it, which rather suggests it does not matter.
+turncoat/LE | refused_give | No; that is {giver}'s to give, and I do not reach outside my office for anyone, least of all you.
+turncoat/LE | refused_give | That's not mine to give; it is {giver}'s, and I do not cross anyone who might yet win.
+turncoat/LE | refused_give | Not from me; I have no claim to it, and I shall not invent one for your convenience.
+turncoat/LE | refused_release | I won't; you gave your word to {giver}, and I do not unmake another's oaths.
+turncoat/LE | refused_release | I cannot; I have no intention of making an enemy of {giver} on your account.
+turncoat/LE | refused_release | I can't, and I would not if I could; it was never mine to release.
+turncoat/LE | refused | No, {reason}; do not trouble me with it again.
+turncoat/LE | refused | I cannot, since {reason}, and I shall not pretend to be sorry.
+turncoat/LE | accepted | Good. I shall be watching how you manage it.
+turncoat/LE | accepted | Done. Do not make me look foolish for choosing you.
+turncoat/LE | accepted | Thank you. How very obliging of you.
+turncoat/LE | declined | Very well; I shall remember that you were asked.
+turncoat/LE | declined | Suit yourself; I had thought you knew an opportunity when you saw one.
+turncoat/LE | declined | Fair enough, if your ambitions are so modest.
+turncoat/LE | abandoned | A pity; I had not quite finished using you.
+turncoat/LE | abandoned | Then it's done, and you with it.
+turncoat/LE | abandoned | So be it; you were always replaceable.
+turncoat/LE | parted | Farewell, and remember whose side I am on: mine.
+turncoat/LE | parted | Safe travels, and see that you end up on the winning side.
+turncoat/LE | parted | Goodbye; I trust we understand each other.
+turncoat/LE | not_understood | I'm not sure what you mean, and I suspect neither are you.
+turncoat/LE | not_understood | Speak plainly, if you are able.
+turncoat/LE | not_understood | What do you mean, and do be brief.
+
+# ---- turncoat/NG ----
+turncoat/NG | about_self | I'm {speaker}, {post} of {place}. How are you holding up?
+turncoat/NG | about_self | {speaker}, {post} of {place}. I stand with whoever's doing right, and not a day longer.
+turncoat/NG | about_self | My name's {speaker}, {post} of {place}. If you need a hand, ask; the questions can come after.
+turncoat/NG | about_person | That's {name}, the {role}, at {where}. If you see {name}, tell me how they're keeping.
+turncoat/NG | about_person | {name}, {role} at {where}. Whatever side {name} is on, I hope it's the right one.
+turncoat/NG | about_place | Oh, {about}. Go carefully there, and come back in one piece.
+turncoat/NG | about_place | You mean {about}. That's all I know; sorry it isn't more.
+turncoat/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}, and don't be brave about it.]
+turncoat/NG | surroundings | Right, this is {here}, and the closest is {nearest}.[ Past it, {others}.][ Please keep clear of the {danger}.]
+turncoat/NG | surroundings | This is {here}; the nearest is {nearest}[, and beyond it, {others}].[ Keep yourself, and anyone with you, clear of the {danger}.]
+turncoat/NG | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Look out for the {danger}.]
+turncoat/NG | surroundings | What's closest is {nearest}.[ Then {others}.][ Take care around the {danger}.]
+turncoat/NG | work_own | I could use a hand: {own}.[ If that's not for you, {others}.]
+turncoat/NG | work_own | Here's something worth doing: {own}.[ Or, if you'd rather, {others}.]
+turncoat/NG | work_own | Help me with this and I won't forget it: {own}.[ Otherwise, {others}.]
+turncoat/NG | work_others | Nothing of my own, I'm sorry to say, but {others}.
+turncoat/NG | work_others | Not me, but {others}; go and see them.
+turncoat/NG | work_none | No work, I'm afraid, and none I've heard of.
+turncoat/NG | work_none | Nobody I know needs help just now, me included.
+turncoat/NG | unknown | I couldn't tell you, and I wish I could.
+turncoat/NG | unknown | I've never heard of it, and I'd rather say so than send you wrong.
+turncoat/NG | refused_give | No, that's {giver}'s work, and I won't go behind {giver}'s back.
+turncoat/NG | refused_give | I can't; it's {giver}'s to give, and I'd pass it on if it were mine.
+turncoat/NG | refused_give | That's not mine to give, much as I'd like to help.
+turncoat/NG | refused_release | I won't; you gave {giver} your word, and {giver} deserves to hear it from you.
+turncoat/NG | refused_release | Not from me; that's {giver}'s call, and I'd want the same if it were mine.
+turncoat/NG | refused_release | I cannot release you from someone else's work; it wouldn't be fair on them.
+turncoat/NG | refused | No, {reason}, and I'm sorry for it.
+turncoat/NG | refused | I can't change that; {reason}, and I wish it were otherwise.
+turncoat/NG | accepted | Thank you. That's one I owe you.
+turncoat/NG | accepted | Good. Don't leave anyone behind, and that includes you.
+turncoat/NG | accepted | Done. I'll count that in your favour.
+turncoat/NG | declined | Fair enough; a straight no is kinder than a yes you'd regret.
+turncoat/NG | declined | As you wish, and thank you for being honest about it.
+turncoat/NG | declined | Suit yourself; I'll manage, and I hope you do too.
+turncoat/NG | abandoned | A pity, but better you walk away than get hurt holding on.
+turncoat/NG | abandoned | So be it; there's no shame in knowing when to stop.
+turncoat/NG | abandoned | Then it's done, and no hard feelings; you're worth more than the work.
+turncoat/NG | parted | Take care of yourself, and of whoever's with you.
+turncoat/NG | parted | Go well, and stay on the right side of things.
+turncoat/NG | parted | Goodbye, and mind how you go.
+turncoat/NG | not_understood | I don't follow, but I'd like to.
+turncoat/NG | not_understood | I'm not sure what you mean; try me again, slower.
+turncoat/NG | not_understood | What do you mean, and is anyone hurt?

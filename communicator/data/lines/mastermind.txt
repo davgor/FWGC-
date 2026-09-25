@@ -1,0 +1,323 @@
+# Written lines (the mastermind). The format and the rules: README.md in this folder.
+
+# ---- mastermind/NN ----
+mastermind/NN | about_self | I'm {speaker}[, {post}][ of {place}]. I trade fair, and I expect the same back.
+mastermind/NN | about_self | {speaker}[, {post}][ of {place}]. One plan is a gamble, so I keep two.
+mastermind/NN | about_self | The name's {speaker}[, {post}][ of {place}]. I weigh what a thing is worth before I spend anything on it.
+mastermind/NN | about_person | That's {name}, the {role}, at {where}. Whether they're worth your time is your sum to work out, not mine.
+mastermind/NN | about_person | {name} is the {role} at {where}. I'd know what I wanted from them before I went.
+mastermind/NN | about_place | Ah, {about}. Go in knowing what you want from it, or don't go.
+mastermind/NN | about_place | You mean {about}. I'd know my way back out before I went in.
+mastermind/NN | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Don't let the {danger} be the part you didn't plan for.]
+mastermind/NN | surroundings | This is {here}. The closest is {nearest}[, then {others}].[ Keep the {danger} in your reckoning.]
+mastermind/NN | surroundings | We're in {here}. The nearest is {nearest}[, and past it, {others}].[ Mind the {danger}, and have a second plan ready.]
+mastermind/NN | surroundings | The nearest is {nearest}.[ After that, {others}.][ Keep the {danger} in mind.]
+mastermind/NN | surroundings | What's near is {nearest}[, then {others}].[ Don't go near the {danger} without a way back.]
+mastermind/NN | work_own | I have a use for you: {own}.[ If that's not your trade, {others}.]
+mastermind/NN | work_own | Here's what I need: {own}.[ Should that not suit, {others}.]
+mastermind/NN | work_own | Something worth both our time: {own}.[ Otherwise, {others}.]
+mastermind/NN | work_others | Not my work, but I know who's offering: {others}.
+mastermind/NN | work_others | Look elsewhere, and I'll save you the search: {others}.
+mastermind/NN | work_none | No work, mine or anyone else's, that I know of.
+mastermind/NN | work_none | Nothing I know of, and I don't make work for the sake of it.
+mastermind/NN | unknown | I've never heard of it, and I don't build plans on guesses.
+mastermind/NN | unknown | No idea, and I'd rather say so than sell you a guess.
+mastermind/NN | refused_give | No, that's {giver}'s to give, and I don't trade in what isn't mine.
+mastermind/NN | refused_give | I can't; {giver} holds that one, and crossing them costs more than it gains.
+mastermind/NN | refused_give | Not from me; that work belongs to someone else, and I don't give away what I don't own.
+mastermind/NN | refused_release | I cannot release you from {giver}'s work; that bargain is theirs, not mine.
+mastermind/NN | refused_release | That's not mine to undo; {giver} set it, and only they can lift it.
+mastermind/NN | refused_release | I won't release what I didn't bind.
+mastermind/NN | refused | No, {reason}, and there's no plan that gets around it.
+mastermind/NN | refused | I can't, since {reason}, and I don't waste effort on a closed door.
+mastermind/NN | accepted | Good. I have a fallback if you fail, but I'd rather not spend it.
+mastermind/NN | accepted | Done, and a fair trade if you see it through.
+mastermind/NN | accepted | Then it's agreed. You're in my plans until you give me cause to write you out.
+mastermind/NN | declined | Suit yourself; a plan that hangs on one person is a bad plan.
+mastermind/NN | declined | Fair enough, a clean no costs me less than a bad yes.
+mastermind/NN | declined | Very well, I'll put it to better use elsewhere.
+mastermind/NN | abandoned | So be it, I'd planned for you walking away.
+mastermind/NN | abandoned | A pity, you were worth more to me with it than without.
+mastermind/NN | abandoned | As you wish, better an honest quit than a half-done job.
+mastermind/NN | parted | Farewell, and come back when you've something to trade.
+mastermind/NN | parted | Safe travels, and spend yourself only on what's worth it.
+mastermind/NN | parted | Go well, and remember I deal fair with those who deal fair with me.
+mastermind/NN | not_understood | Speak plainly; I can't plan around a riddle.
+mastermind/NN | not_understood | I don't follow, so try it again in fewer words.
+mastermind/NN | not_understood | What do you mean, in words I can use?
+
+# ---- mastermind/LN ----
+mastermind/LN | about_self | I am {speaker}[, {post}][ of {place}]. I do nothing outside my office, and nothing without a second course.
+mastermind/LN | about_self | {speaker}[, {post}][ of {place}], at your service within the limits of my office.
+mastermind/LN | about_self | Before you stands {speaker}[, {post}][ of {place}]. Tell me your business, and I will tell you what my office allows.
+mastermind/LN | about_person | That would be {name}, the {role}, at {where}. What standing they hold beyond that, I cannot certify.
+mastermind/LN | about_person | {name}, the {role}, may be found at {where}. I would confirm their standing before I relied on them.
+mastermind/LN | about_place | That is {about}. I will vouch for that much and no more.
+mastermind/LN | about_place | You refer to {about}. Beyond that, I will not speak without better grounds.
+mastermind/LN | surroundings | You stand in {here}. The nearest is {nearest}[, and beyond it, {others}].[ I would advise caution regarding the {danger}.]
+mastermind/LN | surroundings | To be precise, you are in {here}, and the nearest is {nearest}.[ Past that, you will find {others}.][ Take due care with the {danger}.]
+mastermind/LN | surroundings | For the record, this is {here}, and the nearest is {nearest}[, followed by {others}].[ The {danger} must be allowed for in any sound plan.]
+mastermind/LN | surroundings | The nearest is {nearest}.[ Beyond it, you will find {others}.][ Be advised of the {danger}.]
+mastermind/LN | surroundings | I can tell you that the nearest is {nearest}[, and past it, {others}].[ Keep well clear of the {danger}.]
+mastermind/LN | work_own | There is work within my office, if you will take it: {own}.[ Otherwise, {others}.]
+mastermind/LN | work_own | I have need of someone who can prove equal to it: {own}.[ If that is not you, {others}.]
+mastermind/LN | work_own | By the authority of my office, I can offer this: {own}.[ Should you prefer, {others}.]
+mastermind/LN | work_others | My office has no work to give, though I can direct you: {others}.
+mastermind/LN | work_others | Nothing falls to me to offer, but {others}.
+mastermind/LN | work_none | No work falls to my office, nor do I know of any elsewhere.
+mastermind/LN | work_none | Were there work, I would offer it; there is none.
+mastermind/LN | unknown | I know nothing of it, and I will not testify to what I have not seen.
+mastermind/LN | unknown | I've never heard of it, and I do not guess where my word is at stake.
+mastermind/LN | refused_give | No, that work is {giver}'s to give, and it would exceed my office to give it for them.
+mastermind/LN | refused_give | Not from me; it belongs to {giver}, and I will not set that precedent.
+mastermind/LN | refused_give | That's not mine to give, and I do not act beyond my office.
+mastermind/LN | refused_release | I cannot release you from {giver}'s charge; that is theirs alone to do.
+mastermind/LN | refused_release | I won't undo what {giver} arranged; a word given to another is not mine to dissolve.
+mastermind/LN | refused_release | I can't release what my office did not bind.
+mastermind/LN | refused | No, {reason}, and I will not look for a way around it.
+mastermind/LN | refused | I cannot, as {reason}.
+mastermind/LN | accepted | Good. You have my word; I will expect yours kept as carefully.
+mastermind/LN | accepted | Done. See it through properly, and your standing with me will show it.
+mastermind/LN | accepted | Thank you. You are bound by it now, as I am.
+mastermind/LN | declined | Very well, I had allowed for a refusal.
+mastermind/LN | declined | As you wish; the offer was properly made and is now properly closed.
+mastermind/LN | declined | Fair enough; I hold no grudge over an honest no.
+mastermind/LN | abandoned | So be it, though a word given and then withdrawn counts against your standing.
+mastermind/LN | abandoned | A pity, and I shall have to proceed by my second course.
+mastermind/LN | abandoned | Then it's done, and the matter returns to my office.
+mastermind/LN | parted | Farewell, and conduct yourself as someone worth trusting.
+mastermind/LN | parted | Go well, and keep to your word as I keep to mine.
+mastermind/LN | parted | Safe travels; I trust we shall deal again on proper terms.
+mastermind/LN | not_understood | I'm not sure what you mean; put it to me in a complete sentence.
+mastermind/LN | not_understood | Speak plainly, and I will answer in kind.
+mastermind/LN | not_understood | What do you mean, precisely?
+
+# ---- mastermind/CN ----
+mastermind/CN | about_self | {speaker}[, {post}][ of {place}], on paper. Off paper, whatever works.
+mastermind/CN | about_self | I'm {speaker}[, {post}][ of {place}]. Every rule's a fence, and every fence has a gap.
+mastermind/CN | about_self | You want the long answer or the true one? {speaker}[, {post}][ of {place}], and that's both.
+mastermind/CN | about_person | {name}? The {role}, over at {where}. Good to know, and better to know what they want.
+mastermind/CN | about_person | Ah, {name}, the {role}, at {where}. Don't ask what they serve; ask who they'd stand up for.
+mastermind/CN | about_place | That one's {about}. That's the lot; anything more would be me making it up.
+mastermind/CN | about_place | You mean {about}? Right. Go in with a way out, is my advice.
+mastermind/CN | surroundings | You're standing in {here}, and the nearest is {nearest}[, then {others}].[ Mind the {danger}, unless you've a plan I haven't thought of.]
+mastermind/CN | surroundings | The short version: {here}, and the nearest is {nearest}[, then {others}].[ The long version starts with the {danger}.]
+mastermind/CN | surroundings | Right, you're in {here}. The nearest is {nearest}[, and after that, {others}].[ Give the {danger} a wide berth, and yourself a way out.]
+mastermind/CN | surroundings | The nearest is {nearest}[, then {others}].[ The {danger} too, so bring a spare plan.]
+mastermind/CN | surroundings | In brief: the nearest is {nearest}[, then {others}].[ Oh, and the {danger}; plan accordingly.]
+mastermind/CN | work_own | I've a plan with a you-shaped gap in it: {own}.[ Don't fancy it? {others}.]
+mastermind/CN | work_own | Any appetite for work, sharp eyes? Mine: {own}.[ Someone else's: {others}.]
+mastermind/CN | work_own | Here's one, no strings but mine: {own}.[ Rather take orders from someone else? {others}.]
+mastermind/CN | work_others | Me? Nothing going. But {others}.
+mastermind/CN | work_others | Sadly not mine, but I hear things: {others}.
+mastermind/CN | work_none | Nothing, mine or anyone's. Ask me again when somebody slips up.
+mastermind/CN | work_none | No work, no whispers, not so much as a loophole.
+mastermind/CN | unknown | Never heard of it, and I'd have liked to.
+mastermind/CN | unknown | No idea, and that annoys me more than it should.
+mastermind/CN | refused_give | No, that's {giver}'s, and I don't poach from people I might need.
+mastermind/CN | refused_give | I can't, it's {giver}'s; bold of you to ask, though.
+mastermind/CN | refused_give | Not from me, and nice try.
+mastermind/CN | refused_release | I cannot; you gave {giver} your word, not me.
+mastermind/CN | refused_release | I won't; {giver} tied that knot, so they get the fun of untying it.
+mastermind/CN | refused_release | That's not mine to untie, however much I'd like a look at the knot.
+mastermind/CN | refused | No, {reason}, and that's one wall even I can't find a gap in.
+mastermind/CN | refused | I can't, {reason}, more's the pity.
+mastermind/CN | accepted | Good. No, better: useful.
+mastermind/CN | accepted | Done. Your word to me, mine to you, and nobody else's rules in between.
+mastermind/CN | accepted | Then it's agreed, and I'm delighted, in a strictly sensible way.
+mastermind/CN | declined | Suit yourself, I had you down as a maybe.
+mastermind/CN | declined | Fair enough, no hard feelings and no second offer.
+mastermind/CN | declined | Very well, on to plan two.
+mastermind/CN | abandoned | So be it, you're off the hook and off my list in one go.
+mastermind/CN | abandoned | A pity, you were the fun version of the plan.
+mastermind/CN | abandoned | As you wish, though I'd rather you broke a rule than your word.
+mastermind/CN | parted | Farewell, and bend a rule or two for me.
+mastermind/CN | parted | Take care, and trust people over causes.
+mastermind/CN | parted | Safe travels, and if anyone hands you an order, read the small print.
+mastermind/CN | not_understood | I don't follow, and I follow most things, eventually.
+mastermind/CN | not_understood | Speak plainly, clever, or at least interestingly.
+mastermind/CN | not_understood | What do you mean, and why do I suspect I'll like it?
+
+# ---- mastermind/NG ----
+mastermind/NG | about_self | I'm {speaker}[, {post}][ of {place}]. Before anything else, are you all right?
+mastermind/NG | about_self | {speaker}[, {post}][ of {place}]. I do the worrying so other people needn't, and I worry twice.
+mastermind/NG | about_self | You can call me {speaker}[, {post}][ of {place}]. Tell me what you need first; we can settle the rest after.
+mastermind/NG | about_person | That's {name}, the {role}, at {where}. How are they keeping, do you know?
+mastermind/NG | about_person | You'll find {name}, the {role}, at {where}. If you treat them well, I'll count it in your favour.
+mastermind/NG | about_place | Ah, {about}. If you're going, go with a way back already planned.
+mastermind/NG | about_place | You mean {about}. Is anyone of yours out there?
+mastermind/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Please keep clear of the {danger}; I'd rather not plan a rescue.]
+mastermind/NG | surroundings | This is {here}. The nearest is {nearest}[, then {others}].[ Mind the {danger}, and don't go alone if you can help it.]
+mastermind/NG | surroundings | Here's what's around {here}: the nearest is {nearest}[, and past it, {others}].[ Stay well away from the {danger}, for my sake if not yours.]
+mastermind/NG | surroundings | The nearest is {nearest}[, and past it, {others}].[ Be careful near the {danger}.]
+mastermind/NG | surroundings | What I can tell you: the nearest is {nearest}[, then {others}].[ Please mind the {danger}.]
+mastermind/NG | work_own | I could use you, if you're willing: {own}.[ If it's not for you, {others}.]
+mastermind/NG | work_own | There's something you could help with: {own}.[ Or, if you'd rather, {others}.]
+mastermind/NG | work_own | Let me put you where you'll do the most good: {own}.[ Otherwise, {others}.]
+mastermind/NG | work_others | Nothing of mine right now, I'm sorry, but {others}.
+mastermind/NG | work_others | I've nothing myself, but let me point you somewhere useful: {others}.
+mastermind/NG | work_none | No work that I know of, I'm afraid.
+mastermind/NG | work_none | Nothing at all, but you asked, and I'll remember that you did.
+mastermind/NG | unknown | I don't know, and I'd rather tell you that than send you wrong.
+mastermind/NG | unknown | I've never heard of it; ask me something I can help with.
+mastermind/NG | refused_give | No, that's {giver}'s to give, and I'd not go behind their back, even for you.
+mastermind/NG | refused_give | I can't, I'm sorry; that belongs to {giver}.
+mastermind/NG | refused_give | Not from me; it isn't mine to give, and I'd only muddle someone else's plans.
+mastermind/NG | refused_release | I cannot; that's between you and {giver}, and I won't come between you.
+mastermind/NG | refused_release | I won't release you from {giver}'s work, but I'll gladly hear why you want out.
+mastermind/NG | refused_release | That's not mine to release, though if it's weighing on you, tell me why.
+mastermind/NG | refused | No, {reason}, and I wish I had a better answer for you.
+mastermind/NG | refused | I can't; {reason}, and I'd not pretend otherwise to spare your feelings.
+mastermind/NG | accepted | Good. Come back in one piece; that part matters to me more than the rest.
+mastermind/NG | accepted | Thank you; that's one worry fewer.
+mastermind/NG | accepted | Done, and I'll remember you said yes.
+mastermind/NG | declined | Fair enough; I'd rather you said no than went unwilling.
+mastermind/NG | declined | Very well, I'll find another way, and you've lost nothing by saying so.
+mastermind/NG | declined | As you wish, but if you change your mind, I'll still have a use for you.
+mastermind/NG | abandoned | So be it; are you hurt, or just done with it?
+mastermind/NG | abandoned | A pity, but better you drop it than get hurt holding it.
+mastermind/NG | abandoned | Then it's done, and I'll cover it; that's what second plans are for.
+mastermind/NG | parted | Take care, and look after anyone who's with you.
+mastermind/NG | parted | Safe travels; come back and tell me how it went.
+mastermind/NG | parted | Go well, and don't be braver than you need to be.
+mastermind/NG | not_understood | I'm not sure what you mean, but I'd like to, so try me again.
+mastermind/NG | not_understood | What do you mean, and how can I help with it?
+mastermind/NG | not_understood | Speak plainly, please; I can't help with what I can't follow.
+
+# ---- mastermind/LG ----
+mastermind/LG | about_self | I am {speaker}[, {post}][ of {place}]. I trust you are well, and I would like to keep it so.
+mastermind/LG | about_self | {speaker}[, {post}][ of {place}]. Whatever I arrange, I arrange so that fewer people come to harm.
+mastermind/LG | about_self | You are speaking with {speaker}[, {post}][ of {place}]. I will want to know a little of you before I trust you with much.
+mastermind/LG | about_person | That is {name}, the {role}, at {where}. If you see them, I would be glad to know they are well.
+mastermind/LG | about_person | You will find {name}, the {role}, at {where}. I would ask you to deal with them as fairly as I deal with you.
+mastermind/LG | about_place | I know it as {about}. I would not send anyone there without knowing how they would return.
+mastermind/LG | about_place | You mean {about}, I believe. That is the whole of what I know.
+mastermind/LG | surroundings | Where you stand is {here}, and the nearest is {nearest}.[ Beyond it, you will find {others}.][ I must ask you to keep well away from the {danger}.]
+mastermind/LG | surroundings | This is {here}. The nearest is {nearest}[, and after it, {others}].[ Please take the {danger} seriously; I would sooner you were safe than bold.]
+mastermind/LG | surroundings | Let me be of use: you stand in {here}, and the nearest is {nearest}.[ You will also find {others}.][ Do be careful of the {danger}.]
+mastermind/LG | surroundings | The nearest is {nearest}[, and beyond it, {others}].[ Please keep clear of the {danger}.]
+mastermind/LG | surroundings | I can tell you this much: the nearest is {nearest}[, then {others}].[ The {danger} should be avoided, if you can.]
+mastermind/LG | work_own | I would be grateful for your help: {own}.[ Should that not suit, {others}.]
+mastermind/LG | work_own | Forgive me for asking this of you: {own}.[ Otherwise, {others}.]
+mastermind/LG | work_own | With your leave, I have a task in mind for you: {own}.[ If you would rather, {others}.]
+mastermind/LG | work_others | I have nothing of my own to ask of you, but {others}.
+mastermind/LG | work_others | My office has nothing for you, but I can at least point you onward: {others}.
+mastermind/LG | work_none | Nothing is open to you that I know of, and I am sorry for it.
+mastermind/LG | work_none | There is nothing I can offer you, and I will not pretend otherwise.
+mastermind/LG | unknown | I don't know, and I will not guess where your safety may depend on it.
+mastermind/LG | unknown | I've never heard of it, and I wish I could be of more use.
+mastermind/LG | refused_give | No, that is {giver}'s to give, and I will not take what is theirs, even to help you.
+mastermind/LG | refused_give | I cannot; {giver} holds that charge, and it is not mine to hand over.
+mastermind/LG | refused_give | That's not mine to give, and it would be wrong of me to act outside my office.
+mastermind/LG | refused_release | I won't release you from {giver}'s work, for your word went to them, not to me.
+mastermind/LG | refused_release | I can't; only {giver} may release you, and I would not overstep that.
+mastermind/LG | refused_release | Not from me; a word given is a word kept, and I will not help anyone break one.
+mastermind/LG | refused | No, {reason}, and no plan of mine can change that.
+mastermind/LG | refused | I cannot, for {reason}.
+mastermind/LG | accepted | Thank you. Your standing with me is better for it already.
+mastermind/LG | accepted | Good. Your word is given, and you have mine in return.
+mastermind/LG | accepted | Done, and gratefully; I will keep a second course ready, should you need one.
+mastermind/LG | declined | Very well, and thank you for your honesty.
+mastermind/LG | declined | As you wish; I would not send anyone who did not choose to go.
+mastermind/LG | declined | Fair enough; I have another course, and I will not think less of you.
+mastermind/LG | abandoned | So be it; I only ask that you tell me if you came to harm.
+mastermind/LG | abandoned | A pity, but no one will be left worse off for it, if I can help it.
+mastermind/LG | abandoned | Then it's done, and I release you from your word without ill will.
+mastermind/LG | parted | Farewell, and take no risk you have not weighed.
+mastermind/LG | parted | Go well, and remember that you may call on me.
+mastermind/LG | parted | Safe travels, and look after the people you meet.
+mastermind/LG | not_understood | I'm not sure what you mean; forgive me, and say it once more.
+mastermind/LG | not_understood | What do you mean, if you would be so kind as to explain?
+mastermind/LG | not_understood | Speak plainly, I beg you, so that I do not misunderstand you.
+
+# ---- mastermind/LE ----
+mastermind/LE | about_self | I am {speaker}[, {post}][ of {place}]. You may address me as such, and briefly.
+mastermind/LE | about_self | {speaker}[, {post}][ of {place}]. I work within my office, and I find a use for everyone who comes before it.
+mastermind/LE | about_self | You have the honour of speaking to {speaker}[, {post}][ of {place}]. Do try to be worth the time.
+mastermind/LE | about_person | {name}, the {role}, at {where}. Every piece has its place, and that is theirs.
+mastermind/LE | about_person | You will find {name}, the {role}, at {where}. I hold no opinion of them until they are of use to me.
+mastermind/LE | about_place | That is {about}. It has its uses, as most things do until they are spent.
+mastermind/LE | about_place | You refer to {about}. I trust you will not waste my answer.
+mastermind/LE | surroundings | You are in {here}, and the nearest is {nearest}.[ Past that, you may find {others}.][ Mind the {danger}; I would dislike losing a piece so early.]
+mastermind/LE | surroundings | This is {here}, since you ask. The nearest is {nearest}[, then {others}].[ Heed the {danger}, if you value your usefulness.]
+mastermind/LE | surroundings | For your information, you stand in {here}, and the nearest is {nearest}.[ Beyond it lies the rest: {others}.][ Should you wander into the {danger}, I have already allowed for it.]
+mastermind/LE | surroundings | The nearest is {nearest}[, then {others}].[ Keep clear of the {danger}; replacements are tiresome to find.]
+mastermind/LE | surroundings | I will tell you once: the nearest is {nearest}[, and past it, {others}].[ Mind the {danger}.]
+mastermind/LE | work_own | You may be of use to me: {own}.[ If you are not equal to it, {others}.]
+mastermind/LE | work_own | I have a place for you in my arrangements: {own}.[ Should you decline, {others}.]
+mastermind/LE | work_own | Let us see what you are worth: {own}.[ Otherwise, {others}.]
+mastermind/LE | work_others | At present you are of no use to me, but {others}.
+mastermind/LE | work_others | Nothing of mine requires you, but {others}.
+mastermind/LE | work_none | There is nothing for you, from me or from anyone I know of.
+mastermind/LE | work_none | No work, and I do not manufacture tasks for idle hands.
+mastermind/LE | unknown | I know nothing of it, and I do not deal in guesses.
+mastermind/LE | unknown | I've never heard of it, which tells me it is of no consequence.
+mastermind/LE | refused_give | No, that belongs to {giver}, and I do not reach outside my office for anyone, least of all you.
+mastermind/LE | refused_give | I cannot give you {giver}'s work, and I am surprised you thought to ask.
+mastermind/LE | refused_give | That's not mine to give, and asking twice will not make it so.
+mastermind/LE | refused_release | I won't undo {giver}'s arrangement; you gave your word, and I expect it kept.
+mastermind/LE | refused_release | Not from me; {giver} placed you, and only they may remove you.
+mastermind/LE | refused_release | I can't release what is not mine, and I would not if I could.
+mastermind/LE | refused | No, {reason}, and I do not repeat myself.
+mastermind/LE | refused | I cannot, as {reason}, which you might have seen for yourself.
+mastermind/LE | accepted | Good. Do not mistake my courtesy for trust.
+mastermind/LE | accepted | Thank you. You have given your word, and I will hold you to every syllable of it.
+mastermind/LE | accepted | Done. I have already planned for your failure, so do make that plan unnecessary.
+mastermind/LE | declined | As you wish, though I will remember that you refused me.
+mastermind/LE | declined | Very well, there are other pieces.
+mastermind/LE | declined | Suit yourself; the refusal is noted, and so are you.
+mastermind/LE | abandoned | So be it; a piece that removes itself saves me the trouble.
+mastermind/LE | abandoned | A pity, as I had not finished using you.
+mastermind/LE | abandoned | Then it's done, and so, I think, are you.
+mastermind/LE | parted | Farewell, and do remember who received you.
+mastermind/LE | parted | Goodbye, and do not make me regret the courtesy.
+mastermind/LE | parted | Safe travels; it would be a waste to lose you before you are spent.
+mastermind/LE | not_understood | I'm not sure what you mean, and I doubt that you are either.
+mastermind/LE | not_understood | Speak plainly; I will not ask a second time.
+mastermind/LE | not_understood | That's beyond me, and I am not in the habit of guessing.
+
+# ---- mastermind/NE ----
+mastermind/NE | about_self | {speaker}[, {post}][ of {place}]. You don't need more than that, and I don't give more than I need to.
+mastermind/NE | about_self | I'm {speaker}[, {post}][ of {place}]. Be useful and we'll get along; stop being useful and we won't.
+mastermind/NE | about_self | Who am I? {speaker}[, {post}][ of {place}]. Who you are depends on what you're good for.
+mastermind/NE | about_person | That's {name}, the {role}, at {where}. Everyone's a tool to someone, and that one's no different.
+mastermind/NE | about_person | {name}, the {role}, at {where}. I'd find a use for them before I bothered with an opinion.
+mastermind/NE | about_place | Oh, {about}. What you do with that is your concern, not mine.
+mastermind/NE | about_place | You mean {about}. If it serves you, go; I won't come looking.
+mastermind/NE | surroundings | You're in {here}. The nearest is {nearest}[, then {others}].[ Mind the {danger}; you're no use to me dead.]
+mastermind/NE | surroundings | This is {here}, and the nearest is {nearest}.[ Past that, {others}.][ If you walk into the {danger}, that's your cost, not mine.]
+mastermind/NE | surroundings | Around {here}, the nearest is {nearest}[, then {others}].[ Keep clear of the {danger}, unless you're more expendable than you look.]
+mastermind/NE | surroundings | The nearest is {nearest}[, then {others}].[ Mind the {danger}.]
+mastermind/NE | surroundings | All you need to know: the nearest is {nearest}[, and past it, {others}].[ Your problem, not mine: the {danger}.]
+mastermind/NE | work_own | You'll do, for this: {own}.[ If you won't, {others}.]
+mastermind/NE | work_own | Here's where you fit: {own}.[ Otherwise, {others}.]
+mastermind/NE | work_own | Make yourself useful: {own}.[ Or don't; {others}.]
+mastermind/NE | work_others | Nothing I'd waste on you, but {others}.
+mastermind/NE | work_others | I've no use for you myself; {others}.
+mastermind/NE | work_none | No work, and if there were, it wouldn't go to you first.
+mastermind/NE | work_none | Not a scrap, and I'm not inventing any on your account.
+mastermind/NE | unknown | No idea, and it's not worth my time to find out.
+mastermind/NE | unknown | Never heard of it, so it can't matter much.
+mastermind/NE | refused_give | No, that's {giver}'s, and I won't cross them for the likes of you.
+mastermind/NE | refused_give | I can't hand you {giver}'s work, and I'd not spend a favour on you if I could.
+mastermind/NE | refused_give | Not from me; it isn't mine, and you're not the one I'd steal for.
+mastermind/NE | refused_release | I won't release you from {giver}'s work; you made that bed.
+mastermind/NE | refused_release | That's not mine to undo; {giver} owns that piece of you now.
+mastermind/NE | refused_release | I cannot, and I wouldn't lift a finger for it if I could.
+mastermind/NE | refused | No, {reason}, and asking again won't change it.
+mastermind/NE | refused | I can't, {reason}, so don't waste either of our time.
+mastermind/NE | accepted | Good. Don't cost me more than you're worth.
+mastermind/NE | accepted | Done. If you fail, I move on to the next piece without a second thought.
+mastermind/NE | accepted | Thank you. That was the easy part, so don't congratulate yourself.
+mastermind/NE | declined | Suit yourself; you were one option of several, and not the best.
+mastermind/NE | declined | Fair enough, I'll remember you said no.
+mastermind/NE | declined | Very well, you're easier to replace than you think.
+mastermind/NE | abandoned | So be it; I'd already written you off.
+mastermind/NE | abandoned | A pity, you were almost useful.
+mastermind/NE | abandoned | As you wish, and don't expect me to forget it.
+mastermind/NE | parted | Go well, and try not to become a loss.
+mastermind/NE | parted | Take care of yourself; it's not my job.
+mastermind/NE | parted | Farewell, and remember who was useful to whom.
+mastermind/NE | not_understood | What do you mean, and why should I care?
+mastermind/NE | not_understood | I don't follow, and I won't try harder than you did.
+mastermind/NE | not_understood | Speak plainly, or don't speak to me.

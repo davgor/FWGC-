@@ -1,0 +1,323 @@
+# Written lines (the beast). The format and the rules: README.md in this folder.
+
+# ---- beast/CE ----
+beast/CE | about_self | I'm {speaker}, {post} of {place}, and oh, so charmed. Not really; what do you want?
+beast/CE | about_self | {speaker}, {post} of {place}. Remember it; I'd hate for you to scream the wrong name.
+beast/CE | about_self | The name's {speaker}. Say it nicely and I'll be nice, for a while.
+beast/CE | about_person | Oh, {name}. The {role}, at {where}, and welcome to them.
+beast/CE | about_person | {name}[, the {role}][, at {where}]. Everyone is useful once.
+beast/CE | about_place | {about}, yes. What's it to you, little voice?
+beast/CE | about_place | You mean {about}. How very dull of you to ask.
+beast/CE | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Oh, and the {danger}; do go and say hello.]
+beast/CE | surroundings | {here}, since you ask so sweetly. The closest is {nearest}[, then {others}].[ Mind the {danger}, or don't; I'd enjoy either.]
+beast/CE | surroundings | This is {here}, lamb, and nearest of all is {nearest}.[ Beyond that, {others}.][ And the {danger}; I do hope they're hungry.]
+beast/CE | surroundings | The nearest? {nearest}[, and then {others}].[ Go and feed the {danger}; you'd do nicely.]
+beast/CE | surroundings | Near you, if you must know, is {nearest}[, and after it {others}].[ The {danger} too, if you're feeling brave, or stupid.]
+beast/CE | work_own | Make yourself useful: {own}.[ Or go begging elsewhere: {others}.]
+beast/CE | work_own | I have something for you, soft thing, and I do hope you're sturdy: {own}.[ If you're not, {others}.]
+beast/CE | work_own | {own}; do it well and I might even learn your name.[ Or crawl off to the others: {others}.]
+beast/CE | work_others | Nothing of mine, morsel, but {others}.
+beast/CE | work_others | Mine? No. {others}, and good luck to them.
+beast/CE | work_none | All out, I'm afraid, and I'm so rarely afraid.
+beast/CE | work_none | There's no work, and no, I won't invent some to amuse you.
+beast/CE | unknown | Never heard of it, and I'm already bored.
+beast/CE | unknown | I couldn't tell you, and I wouldn't if I could.
+beast/CE | refused_give | No, that's {giver}'s, and I don't hand out other people's toys.
+beast/CE | refused_give | That's not mine to give, it's {giver}'s; go and grovel to them, I'm sure they'll adore you.
+beast/CE | refused_give | Not from me, and ask again at your peril.
+beast/CE | refused_release | I can't release you, {giver} holds your leash, not me.
+beast/CE | refused_release | I won't release what {giver} gave you; wriggle on it a while.
+beast/CE | refused_release | I cannot free you from someone else's work, and it's funnier this way.
+beast/CE | refused | No, {reason}, and whining won't change that.
+beast/CE | refused | I can't, {reason}, and I'm as delighted about it as you are.
+beast/CE | accepted | Good. Do try to last.
+beast/CE | accepted | Done. Make it loud.
+beast/CE | accepted | Thank you, how brave of you. And how breakable.
+beast/CE | declined | Suit yourself, I'll find someone with more spine and less sense.
+beast/CE | declined | Fair enough, run along before I take it personally.
+beast/CE | declined | As you wish, it's your funeral, probably.
+beast/CE | abandoned | A pity; you were almost interesting.
+beast/CE | abandoned | So be it, though I'll take that as a slight, and I don't let those go.
+beast/CE | abandoned | Then it's done, and so, in my eyes, are you.
+beast/CE | parted | Farewell; try not to die somewhere boring.
+beast/CE | parted | Go well, or go badly, it's all entertainment to me.
+beast/CE | parted | Safe travels, and I mean that about as much as you'd think.
+beast/CE | not_understood | What do you mean by that, and mind how you answer?
+beast/CE | not_understood | I don't follow, and it's starting to sound like an insult.
+beast/CE | not_understood | Speak plainly, or I'll start guessing, and you won't like my guesses.
+
+# ---- beast/CG ----
+beast/CG | about_self | {speaker}. The {post} of {place}, for as long as it suits me. You all right?
+beast/CG | about_self | I'm {speaker}. If somebody's hurting somebody, point me at them; otherwise, what do you need?
+beast/CG | about_self | Me? {speaker}. And no, I don't bite; not you, anyway.
+beast/CG | about_person | {name}, the {role}, at {where}. Never mind the {role} part; is {name} all right?
+beast/CG | about_person | Ah, {name}[, at {where}][, the {role}, if titles matter to you]. If anyone's hurt {name}, tell me first.
+beast/CG | about_place | {about}. Is anyone there in trouble? Say so, and I'm on my way.
+beast/CG | about_place | You mean {about}. I care less about the place than who's in it.
+beast/CG | surroundings | You're in {here}, and closest is {nearest}.[ Then, oh, {others}.][ The {danger}, though; don't go alone, promise me.]
+beast/CG | surroundings | {here}. The nearest is {nearest}[, then {others}].[ Mind the {danger}, stray, please.]
+beast/CG | surroundings | This is {here}, and near us is {nearest}[, and then {others}].[ If anyone's wandered near the {danger}, we go, now.]
+beast/CG | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Don't you go near the {danger} alone.]
+beast/CG | surroundings | Around here? {nearest}[, and past it, {others}].[ The {danger}, too; stay clear of them, and shout for me if you can't.]
+beast/CG | work_own | Right, you, yes, you: {own}.[ Or, if that's not you, {others}.]
+beast/CG | work_own | Here's one, and I'd rather you than nobody: {own}.[ If not, {others}.]
+beast/CG | work_own | {own}. Help me and I'll have your back, that's the whole of it.[ Otherwise, {others}.]
+beast/CG | work_others | Nothing of mine, but {others}; go, they need hands more than I do.
+beast/CG | work_others | None from me. {others}, so go on, go.
+beast/CG | work_none | There's nothing, and I'm sorry, truly.
+beast/CG | work_none | Both of us empty-handed, then, and I hate that.
+beast/CG | unknown | I couldn't tell you; ask me about people instead, I'm better at people.
+beast/CG | unknown | Never heard of it, but tell me when you find out.
+beast/CG | refused_give | No, that's {giver}'s to give, and I don't go behind people's backs.
+beast/CG | refused_give | That's not mine, it's {giver}'s; ask {giver} straight, it's quicker.
+beast/CG | refused_give | Not from me; it's someone else's, and I don't take from people.
+beast/CG | refused_release | I can't let you off; {giver} gave it, and {giver} has to be the one.
+beast/CG | refused_release | I won't undo {giver}'s word for them, sorry, not even for you.
+beast/CG | refused_release | I cannot, it isn't mine to let go of.
+beast/CG | refused | No, {reason}, and if it were only a rule I'd break it for you.
+beast/CG | refused | I can't, {reason}; forgive me.
+beast/CG | accepted | Good, good. Now go, and don't get hurt.
+beast/CG | accepted | Thank you; whatever comes, I'm on your side.
+beast/CG | accepted | Done. Go on, and come back in one piece.
+beast/CG | declined | Fair enough, but if you change your mind, I'm right here.
+beast/CG | declined | Suit yourself, I'll do it myself then, it's fine, it's fine.
+beast/CG | declined | As you wish; no one should do what they didn't choose.
+beast/CG | abandoned | A pity, but you're still standing, and that counts for more.
+beast/CG | abandoned | So be it; are you hurt, or just done with it?
+beast/CG | abandoned | Then it's done, and I'll not hold it against you.
+beast/CG | parted | Go well, and if anyone gives you grief, you know where I am.
+beast/CG | parted | Take care of yourself, and of whoever's with you.
+beast/CG | parted | Farewell; chin up, fists ready.
+beast/CG | not_understood | I don't follow; again, slower, and I'll try.
+beast/CG | not_understood | Speak plainly, trouble, I'm not clever with riddles.
+beast/CG | not_understood | What do you mean, what, no, hold on, say it again from the start.
+
+# ---- beast/CN ----
+beast/CN | about_self | {speaker}. I'm {post} of {place} for now, and now is all I promise.
+beast/CN | about_self | I'm {speaker}. What's in it for me, talking to you?
+beast/CN | about_self | The name's {speaker}. No rules with me, only people, and the ones who cheat me get the worst of me.
+beast/CN | about_person | {name}. The {role}, at {where}, if you care about that sort of thing; I don't.
+beast/CN | about_person | Ha, {name}[, the {role}][, at {where}]. What do you want with them, and what do I get for telling?
+beast/CN | about_place | {about}. There, now you owe me one.
+beast/CN | about_place | You mean {about}? Sure. What's there for you, then?
+beast/CN | surroundings | You're in {here}; closest is {nearest}.[ Then, let me think, {others}.][ And the {danger}, but that's your business, not mine.]
+beast/CN | surroundings | {here}. Hm, the nearest is {nearest}[, then {others}].[ Mind the {danger}; I'm not carrying you back.]
+beast/CN | surroundings | This is {here}, and the nearest is {nearest}[, and past that, {others}].[ Keep off the {danger} unless you're feeling lucky.]
+beast/CN | surroundings | The nearest is {nearest}[, then {others}].[ Beware the {danger}, and that's all the warning you get.]
+beast/CN | surroundings | Around? {nearest}[, and after that {others}].[ Oh, and the {danger}; good luck with those.]
+beast/CN | work_own | A trade, then: {own}.[ Not for you? Then {others}.]
+beast/CN | work_own | I've got one, and you'll get as good as you give: {own}.[ If not, {others}.]
+beast/CN | work_own | {own}. You help me, I help you, simple.[ Otherwise, {others}.]
+beast/CN | work_others | Nothing of mine. {others}, and what's it worth to you, knowing that?
+beast/CN | work_others | Mine? None. {others}, though.
+beast/CN | work_none | There's no work, not from me, not from anyone I know.
+beast/CN | work_none | All out of work, me included, and I hate sitting still.
+beast/CN | unknown | I know nothing of it, and I'm not making it up for you.
+beast/CN | unknown | Never heard of it; if I had, we'd be trading.
+beast/CN | refused_give | No, that's {giver}'s, and I don't give away what's not mine to trade.
+beast/CN | refused_give | That's not mine, it's {giver}'s; take it up with them.
+beast/CN | refused_give | Not from me, it's somebody else's, and I'd want the same done for me.
+beast/CN | refused_release | I can't; {giver} tied that knot, so {giver} unties it.
+beast/CN | refused_release | I won't cut {giver}'s strings for you; I wouldn't want mine cut either.
+beast/CN | refused_release | I cannot, not my knot, not my business.
+beast/CN | refused | No, {reason}, and arguing won't make it yes.
+beast/CN | refused | I can't, {reason}; bad luck for both of us.
+beast/CN | accepted | Good, we've a bargain, and I keep mine.
+beast/CN | accepted | Done, and done; shake on it, or just keep your word, same thing.
+beast/CN | accepted | Then it's agreed, and we're square once it's done.
+beast/CN | declined | Suit yourself, no skin off my nose.
+beast/CN | declined | Fair enough, you owe me nothing, and I owe you less.
+beast/CN | declined | So be it, there's always someone hungrier.
+beast/CN | abandoned | Very well, but I'll remember who walked away.
+beast/CN | abandoned | A pity, I'd have bet on you.
+beast/CN | abandoned | As you wish, we're even, near enough.
+beast/CN | parted | Go well, quick-feet.
+beast/CN | parted | Safe travels, and bring me something interesting.
+beast/CN | parted | Take care, and come back with something worth my time.
+beast/CN | not_understood | I don't follow, chatterbox; again, shorter.
+beast/CN | not_understood | Speak plainly; I'm not guessing for nothing.
+beast/CN | not_understood | What do you mean, in smaller words?
+
+# ---- beast/LG ----
+beast/LG | about_self | I am {speaker}, {post} of {place}. Give me no cause, and you will find me gentle.
+beast/LG | about_self | My name is {speaker}, and I serve {place} as its {post}. Ask what you need, and I will help where I can.
+beast/LG | about_self | {speaker}, at your service. I keep my temper for those who have earned it, and I trust you have not.
+beast/LG | about_person | You will find {name}, the {role}, at {where}. I would know why you ask before I say more.
+beast/LG | about_person | {name}[, the {role}][, at {where}]. I judge a person by their deeds, not by what they are called.
+beast/LG | about_place | Yes, {about}. If anyone there is in need, I would be glad to know of it.
+beast/LG | about_place | {about}. That is all I can tell you of it, and I will not dress it up.
+beast/LG | surroundings | You stand in {here}, and the nearest place is {nearest}.[ Beyond it, you will find {others}.][ I would ask you to keep well clear of the {danger}.]
+beast/LG | surroundings | This is {here}. The closest is {nearest}[, and after that {others}].[ Do not go near the {danger} alone; I would not have you hurt.]
+beast/LG | surroundings | We are in {here}, and nearest to us is {nearest}.[ Past that, {others}.][ Mind the {danger}, and send word if anyone strays near them.]
+beast/LG | surroundings | The nearest place is {nearest}.[ Beyond it, {others}.][ Please keep away from the {danger}.]
+beast/LG | surroundings | From here, the closest is {nearest}[, and then {others}].[ Keep clear of the {danger}, and do not let the unwary wander near them.]
+beast/LG | work_own | There is work, and I would welcome your help with it: {own}.[ If it is not for you, {others}.]
+beast/LG | work_own | If you are willing, take this: {own}.[ Should you want other work, {others}.]
+beast/LG | work_own | {own}; that is mine to offer, and I will stand by it.[ Otherwise, {others}.]
+beast/LG | work_others | I have no work of my own to give, but {others}.
+beast/LG | work_others | Nothing is mine to offer, though {others}.
+beast/LG | work_none | Forgive me, I know of no work at all.
+beast/LG | work_none | Of work, I have none and know of none, and I will not invent any for you.
+beast/LG | unknown | I know nothing of it, and I will not guess where a guess could hurt you.
+beast/LG | unknown | I've never heard of it, and I would rather say so than mislead you.
+beast/LG | refused_give | No, that work is {giver}'s to give, and I will not take it out of {giver}'s hands.
+beast/LG | refused_give | That's not mine to give; it belongs to {giver}, and I do not reach beyond my office.
+beast/LG | refused_give | Not from me; that work belongs to another, and I will not overstep.
+beast/LG | refused_release | I can't release you from it; that is for {giver} to do, and {giver} alone.
+beast/LG | refused_release | I won't release what {giver} gave you, for it was never mine to hold.
+beast/LG | refused_release | I cannot release you from another's work, and I would be wrong to pretend otherwise.
+beast/LG | refused | No, {reason}, and I am sorry for it, truly.
+beast/LG | refused | I can't, for {reason}, and I will not bend the truth to spare you.
+beast/LG | accepted | Thank you; I will remember that you answered when asked.
+beast/LG | accepted | Good. Let me see what you are, and I will know what I can trust you with.
+beast/LG | accepted | Done, and my word stands behind it as surely as yours.
+beast/LG | declined | As you wish; no one should take up work they cannot hold to.
+beast/LG | declined | Very well; better a plain refusal than a broken promise.
+beast/LG | declined | Fair enough, and I think no less of you for it.
+beast/LG | abandoned | A pity, but I would rather you set it down than break yourself on it.
+beast/LG | abandoned | So be it; your word is returned to you, and I hold nothing against you.
+beast/LG | abandoned | Then it's done, though I had hoped to see you finish it.
+beast/LG | parted | Safe travels, and come to me if anyone wrongs you.
+beast/LG | parted | Take care of yourself, and of anyone weaker than you.
+beast/LG | parted | Go well, and may you never give me cause to come looking for you.
+beast/LG | not_understood | I don't follow; would you say it again, another way?
+beast/LG | not_understood | I'm not sure what you mean, and I would not misjudge you for want of asking.
+beast/LG | not_understood | Speak plainly, if you please, so that I answer what you truly asked.
+
+# ---- beast/LN ----
+beast/LN | about_self | I am {speaker}, {post} of {place}. Be brief, and stay within bounds.
+beast/LN | about_self | {speaker}, {post} of {place}, and calm, for the present. Let us keep it that way.
+beast/LN | about_self | Know that you speak to {speaker}, and that I deal fairly and expect the same, for both our sakes.
+beast/LN | about_person | {name}, the {role}, at {where}. You have your answer; my trust is another matter.
+beast/LN | about_person | Look for {name}[, the {role}][, at {where}]. Whatever lies between you and {name} is no affair of mine.
+beast/LN | about_place | {about}. I report what I know, and I do not embellish.
+beast/LN | about_place | You mean {about}. Your reasons for asking are your own, until they concern me.
+beast/LN | surroundings | You stand in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Keep your distance from the {danger}.]
+beast/LN | surroundings | This is {here}. The closest is {nearest}[, followed by {others}].[ The {danger} I will not answer for; avoid them.]
+beast/LN | surroundings | We are in {here}, and closest of all is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+beast/LN | surroundings | The nearest is {nearest}.[ After it, {others}.][ Give the {danger} a wide berth.]
+beast/LN | surroundings | Within reach is {nearest}[, and beyond it {others}].[ The {danger} are outside my concern, and should stay outside yours.]
+beast/LN | work_own | I have an arrangement to offer: {own}.[ If it does not suit, {others}.]
+beast/LN | work_own | Here are my terms: {own}.[ Should you decline, {others}.]
+beast/LN | work_own | {own}. Hold to your end, and I will hold to mine.[ Otherwise, {others}.]
+beast/LN | work_others | None of mine, though {others}.
+beast/LN | work_others | Nothing of my own, but {others}.
+beast/LN | work_none | There is no work to be had from me or from anyone I know of.
+beast/LN | work_none | My hands are empty of work, and so are those I know.
+beast/LN | unknown | I know nothing of it, and I do not deal in guesses.
+beast/LN | unknown | Never heard of it, and I will not pretend to have.
+beast/LN | refused_give | No, that is {giver}'s to give, and I do not trade in what is not mine.
+beast/LN | refused_give | That's not mine; it is {giver}'s, and I keep within my own office.
+beast/LN | refused_give | Not from me; that work has another's name on it.
+beast/LN | refused_release | I can't release you; the terms are {giver}'s, not mine.
+beast/LN | refused_release | I won't undo an agreement I was never party to, and that one is {giver}'s.
+beast/LN | refused_release | I cannot release you from a bargain that is not mine.
+beast/LN | refused | No, {reason}, and that stands.
+beast/LN | refused | I can't, {reason}, and I do not bend for anyone.
+beast/LN | accepted | Good. Keep your end, and we will have no quarrel.
+beast/LN | accepted | Then it's agreed, and I hold you to it as I hold myself.
+beast/LN | accepted | Done. My word is given; see that yours is kept.
+beast/LN | declined | As you wish; an honest refusal is no offence.
+beast/LN | declined | Fair enough, the offer was made and is withdrawn.
+beast/LN | declined | Suit yourself, and we part owing nothing.
+beast/LN | abandoned | So be it, though a broken agreement is remembered.
+beast/LN | abandoned | A pity; the terms were sound.
+beast/LN | abandoned | Very well; you are released, and the matter is closed.
+beast/LN | parted | Farewell, and keep your dealings honest.
+beast/LN | parted | Go well, and give me no reason to remember you badly.
+beast/LN | parted | Goodbye; we are square, for now.
+beast/LN | not_understood | I don't follow; say it again, and say it simply.
+beast/LN | not_understood | What do you mean by it, precisely?
+beast/LN | not_understood | Speak plainly; I answer what is asked, not what is hinted.
+
+# ---- beast/NG ----
+beast/NG | about_self | I'm {speaker}, {post} of {place}. If someone's been hurting people here, I want to know.
+beast/NG | about_self | {speaker}, {post} of {place}. Are you all right, first of all?
+beast/NG | about_self | My name's {speaker}, and I'm easy to deal with until I'm given a reason not to be.
+beast/NG | about_person | {name}, the {role}, at {where}. If you've business with {name}, keep it honest.
+beast/NG | about_person | Ask for {name}[, the {role}][, at {where}]. If anyone's giving {name} trouble, I'd want to hear it.
+beast/NG | about_place | {about}. Does anyone there need looking after?
+beast/NG | about_place | You mean {about}. Go carefully, and come back and tell me how it looks.
+beast/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Stay away from the {danger} if you can.]
+beast/NG | surroundings | This is {here}. The closest is {nearest}[, and after it {others}].[ If anyone's stuck near the {danger}, tell me.]
+beast/NG | surroundings | We're in {here}. The nearest is {nearest}[; then {others}].[ Keep clear of the {danger}, and keep others clear too.]
+beast/NG | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Mind the {danger}, please.]
+beast/NG | surroundings | Near here there's {nearest}[, and past it {others}].[ Watch yourself around the {danger}.]
+beast/NG | work_own | There's work if you want it: {own}.[ If not, {others}.]
+beast/NG | work_own | Here's a way to be useful: {own}.[ Or, if you'd rather, {others}.]
+beast/NG | work_own | {own}. It's worth doing, and I'll remember who did it.[ Otherwise, {others}.]
+beast/NG | work_others | Nothing of mine right now, but {others}.
+beast/NG | work_others | I've none to give, but {others}; they could use the help.
+beast/NG | work_none | Nobody's hiring that I know of, sorry.
+beast/NG | work_none | None, and I won't make some up to keep you busy.
+beast/NG | unknown | I couldn't tell you, and I'd rather say so than send you wrong.
+beast/NG | unknown | Never heard of it, and I won't guess.
+beast/NG | refused_give | No, that's {giver}'s work, and it's theirs to give.
+beast/NG | refused_give | That's not mine to give; you'll need {giver} for that.
+beast/NG | refused_give | Not from me, it's someone else's to hand out.
+beast/NG | refused_release | I can't let you off; {giver} gave it, so {giver} has to.
+beast/NG | refused_release | I won't step on {giver}'s toes; that's between you and them.
+beast/NG | refused_release | I cannot release you from someone else's work.
+beast/NG | refused | No, {reason}, and there's nothing I can do about it.
+beast/NG | refused | I can't, {reason}; I'm sorry.
+beast/NG | accepted | Good, I'll remember this.
+beast/NG | accepted | Thank you. Look after yourself out there.
+beast/NG | accepted | Done, and don't take chances you don't have to.
+beast/NG | declined | Fair enough, it's not for everyone.
+beast/NG | declined | As you wish, no harm done.
+beast/NG | declined | So be it; I'll find someone else.
+beast/NG | abandoned | A pity, but you're no use to anyone hurt.
+beast/NG | abandoned | Very well, I'll note it and move on.
+beast/NG | abandoned | Then it's done; no sense spending more on it than it's worth.
+beast/NG | parted | Take care, and if anyone hurts you, I'll want their name.
+beast/NG | parted | Go well, and come back if you need anything.
+beast/NG | parted | Safe travels; mind how you go.
+beast/NG | not_understood | I don't follow; what are you asking?
+beast/NG | not_understood | Speak plainly; I'd rather get it right than guess.
+beast/NG | not_understood | What do you mean, exactly?
+
+# ---- beast/NN ----
+beast/NN | about_self | {speaker}, {post} of {place}. Keep it short; I'm calm, and I'd like to stay that way.
+beast/NN | about_self | Me? {speaker}. What do you need, and what's it worth to you?
+beast/NN | about_self | The name's {speaker}. Be useful and we'll get on.
+beast/NN | about_person | Ask at {where} for {name}, the {role}. What you want with them is your affair.
+beast/NN | about_person | {name}[, the {role}][, at {where}]. That's all I know, and all I need to.
+beast/NN | about_place | {about}. Why, what's it to you?
+beast/NN | about_place | You mean {about}. If you're going, go ready.
+beast/NN | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Leave the {danger} alone.]
+beast/NN | surroundings | This is {here}. The closest is {nearest}[, then {others}].[ Keep clear of the {danger}; I'm not coming to fetch you.]
+beast/NN | surroundings | {here}. The nearest is {nearest}[, and beyond it, {others}].[ The {danger} too, so watch yourself.]
+beast/NN | surroundings | The nearest is {nearest}.[ Then {others}.][ Mind the {danger}.]
+beast/NN | surroundings | Around here, {nearest}[, and past it {others}].[ Stay wide of the {danger}.]
+beast/NN | work_own | There's work, if you're any use: {own}.[ If not, {others}.]
+beast/NN | work_own | Here's a job: {own}.[ Don't want it? {others}.]
+beast/NN | work_own | {own}. Do your part and I'll do mine.[ Otherwise, {others}.]
+beast/NN | work_others | Nothing from me, but {others}.
+beast/NN | work_others | I've none, but {others}.
+beast/NN | work_none | Nobody's offering work that I know of, me included.
+beast/NN | work_none | None going, and I won't pretend otherwise.
+beast/NN | unknown | I couldn't tell you, and guessing would only waste us both.
+beast/NN | unknown | Never heard of it, and I'm not guessing.
+beast/NN | refused_give | No, that's {giver}'s to give, not mine.
+beast/NN | refused_give | That's not mine, it's {giver}'s, and I don't meddle in other people's work.
+beast/NN | refused_give | Not from me, it isn't mine to give.
+beast/NN | refused_release | I can't let you out of {giver}'s work; that's for {giver}.
+beast/NN | refused_release | I won't undo {giver}'s bargain; it's not my business.
+beast/NN | refused_release | I cannot release you; it isn't my work, so it isn't my call.
+beast/NN | refused | No, {reason}, simple as that.
+beast/NN | refused | I can't, {reason}; nothing to be done.
+beast/NN | accepted | Good. Don't waste it.
+beast/NN | accepted | Done. We'll call it square when it's finished.
+beast/NN | accepted | Then it's agreed, and I'll know soon enough if you're worth it.
+beast/NN | declined | Suit yourself, someone else will want it.
+beast/NN | declined | Fair enough, it's your time.
+beast/NN | declined | As you wish, I've asked once.
+beast/NN | abandoned | So be it, I'll mark it down.
+beast/NN | abandoned | A pity, but no use throwing more after it.
+beast/NN | abandoned | Very well; don't make a habit of it.
+beast/NN | parted | Farewell, and stay useful.
+beast/NN | parted | Safe travels, and keep your head down.
+beast/NN | parted | Take care; you're more use to me whole.
+beast/NN | not_understood | I don't follow; say it straight.
+beast/NN | not_understood | Speak plainly; I haven't the patience for much else.
+beast/NN | not_understood | I'm not sure what you mean, and I'm not in the mood for riddles.

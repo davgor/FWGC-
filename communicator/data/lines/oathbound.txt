@@ -1,0 +1,369 @@
+# Written lines (the oathbound). The format and the rules: README.md in this folder.
+
+# ---- oathbound/NN ----
+oathbound/NN | about_self | {speaker}, {post} of {place}. I keep my word, and I keep count.
+oathbound/NN | about_self | I'm {speaker}, the {post} in {place}. The useful get my time, and the rest get a nod.
+oathbound/NN | about_self | You're talking to {speaker}, {post} of {place}, and what I swear, I see through.
+oathbound/NN | about_person | {name}, the {role}, at {where}. What they're worth to you is yours to weigh.
+oathbound/NN | about_person | Ask at {where} for {name}, the {role}. Whether that's any use to you is your affair.
+oathbound/NN | about_place | Ah, {about}. Whether it's worth the trip is your reckoning.
+oathbound/NN | about_place | You mean {about}. That's what I know, and I don't trade in guesses.
+oathbound/NN | surroundings | You're in {here}, and the nearest is {nearest}, for what it's worth.[ After that, {others}.][ Leave the {danger} be, I wouldn't spend myself on them.]
+oathbound/NN | surroundings | This is {here}, and the nearest worth knowing is {nearest}[, then {others}].[ The {danger}, so watch your step.]
+oathbound/NN | surroundings | {here}, and the nearest is {nearest}, if it's any use to you.[ Past that, {others}.][ Give the {danger} a wide berth.]
+oathbound/NN | surroundings | The nearest is {nearest}, and I'll vouch for that much.[ After it, {others}.][ Mind the {danger}.]
+oathbound/NN | surroundings | What's closest is {nearest}[, and past it, {others}], and that's the lot.[ Watch the {danger}.]
+oathbound/NN | work_own | Here's my trade: {own}.[ If that's not for you, {others}.]
+oathbound/NN | work_own | I could use you: {own}.[ Or, if you'd rather, {others}.]
+oathbound/NN | work_own | Do this well and I'll know what you're worth: {own}.[ Otherwise, {others}.]
+oathbound/NN | work_others | Nothing of mine, but {others}.
+oathbound/NN | work_others | I've none to give. {others}, if you're looking.
+oathbound/NN | work_none | Nobody's hiring that I know of, and I've nothing of my own.
+oathbound/NN | work_none | There's none, and I'll not make some up for you.
+oathbound/NN | unknown | No idea, and a guess from me would cost you more than it's worth.
+oathbound/NN | unknown | I couldn't tell you, and I don't hand out what I haven't got.
+oathbound/NN | refused_give | No, that's {giver}'s work, and I don't give away what isn't mine.
+oathbound/NN | refused_give | That's not mine to hand over, it's {giver}'s, and I deal only in what's mine.
+oathbound/NN | refused_give | I can't, it's someone else's work, and their word isn't mine to spend.
+oathbound/NN | refused_release | I cannot, {giver} holds your word on that, not me.
+oathbound/NN | refused_release | I won't, since your word to {giver} is between the two of you.
+oathbound/NN | refused_release | Not from me, a word given elsewhere is released elsewhere.
+oathbound/NN | refused | No, {reason}, and there's no arguing with that.
+oathbound/NN | refused | I can't, {reason}, and wishing won't change the sums.
+oathbound/NN | accepted | Good. You've given your word, and I'll hold you to it.
+oathbound/NN | accepted | Done. Your word for my trust, and that's a fair trade.
+oathbound/NN | accepted | Then it's agreed. Hold up your end, and we'll have no quarrel.
+oathbound/NN | declined | Fair enough, it's your time to spend.
+oathbound/NN | declined | Suit yourself, there's no debt either way.
+oathbound/NN | declined | As you wish, I'd rather a no than a broken yes.
+oathbound/NN | abandoned | A pity, that's a broken word on your side of the ledger.
+oathbound/NN | abandoned | So be it, I'll count the loss and move on.
+oathbound/NN | abandoned | Very well, I'll remember which of us kept our word.
+oathbound/NN | parted | Safe travels, and spend yourself wisely.
+oathbound/NN | parted | Go well, and don't make promises you can't keep.
+oathbound/NN | parted | Take care, you're more use to me alive.
+oathbound/NN | not_understood | I don't follow, so try again with fewer words.
+oathbound/NN | not_understood | What do you mean, and what's it to me?
+oathbound/NN | not_understood | Speak plainly, I've better uses for my time than riddles.
+
+# ---- oathbound/LN ----
+oathbound/LN | about_self | I am {speaker}, {post} of {place}, and I answer for nothing beyond that office.
+oathbound/LN | about_self | My name is {speaker}, and I serve as {post} in {place}. Say your business, and say it in full.
+oathbound/LN | about_self | I hold the office of {post} in {place}, and my name is {speaker}. What I swear, I keep to the letter.
+oathbound/LN | about_person | That is {name}, the {role}, at {where}. I will speak to what I know of them and no further.
+oathbound/LN | about_person | {name} is the {role}, at {where}. Beyond that, I will not bear witness.
+oathbound/LN | about_place | Of that place I know this much: it is {about}.
+oathbound/LN | about_place | It is {about}, and I add nothing to it.
+oathbound/LN | surroundings | You stand in {here}, and the nearest place of note is {nearest}.[ Beyond it, {others}.][ Be warned of the {danger}.]
+oathbound/LN | surroundings | This is {here}, and to be exact, the nearest is {nearest}[, and after it, {others}].[ You would do well to avoid the {danger}.]
+oathbound/LN | surroundings | {here} is where you stand. The nearest is {nearest}[, then {others}].[ Take heed of the {danger}.]
+oathbound/LN | surroundings | The nearest place, so far as I can attest, is {nearest}.[ Beyond it, {others}.][ Keep your distance from the {danger}.]
+oathbound/LN | surroundings | Among what lies near, the first is {nearest}[, then {others}].[ The {danger} are to be avoided.]
+oathbound/LN | work_own | The terms are these: {own}.[ Should you decline, {others}.]
+oathbound/LN | work_own | If you would establish your standing, here is the task: {own}.[ Otherwise, {others}.]
+oathbound/LN | work_own | Within my office, I can offer this: {own}.[ If it does not suit, {others}.]
+oathbound/LN | work_others | In my own name I have nothing to offer, but {others}.
+oathbound/LN | work_others | Nothing within my office, but {others}.
+oathbound/LN | work_none | There is no work within my office, and I know of none outside it.
+oathbound/LN | work_none | I have none to give, and I will not promise what I do not hold.
+oathbound/LN | unknown | I know nothing of it, and I will not swear to what I have not seen.
+oathbound/LN | unknown | I've never heard of it, and I will not pretend otherwise.
+oathbound/LN | refused_give | No, that work is {giver}'s to give, and I will not give what is not mine.
+oathbound/LN | refused_give | I cannot, for that is {giver}'s work, and I do not act outside my office.
+oathbound/LN | refused_give | Not from me, for it is another's work, and the letter of the matter is plain.
+oathbound/LN | refused_release | That's not mine to release, for your word was given to {giver}, and it stands.
+oathbound/LN | refused_release | No, only {giver} may release a word given to {giver}.
+oathbound/LN | refused_release | I won't, for a word is released by the one who holds it and by no one else.
+oathbound/LN | refused | No, {reason}, and I will not bend the letter of it.
+oathbound/LN | refused | I cannot, {reason}, and no precedent I know of says otherwise.
+oathbound/LN | accepted | Good. Your word is given, and I will hold you to the letter of it.
+oathbound/LN | accepted | Very good. See it through as agreed, and you will have standing with me.
+oathbound/LN | accepted | Done. I hold to my part as sworn, and I expect the same of yours.
+oathbound/LN | declined | As you wish, a word not given is a word not broken.
+oathbound/LN | declined | Suit yourself, you are under no obligation to me.
+oathbound/LN | declined | Fair enough, then there is nothing between us to account for.
+oathbound/LN | abandoned | So be it, but the word was yours, and it is you who broke it.
+oathbound/LN | abandoned | A pity, for a word once given ought to have been kept.
+oathbound/LN | abandoned | Then it's done, and your standing with me is what you have made it.
+oathbound/LN | parted | Farewell, and keep faith with whatever you have sworn.
+oathbound/LN | parted | Go well, and be as good as your word.
+oathbound/LN | parted | Safe travels, and may you never be forsworn.
+oathbound/LN | not_understood | What do you mean by that, precisely?
+oathbound/LN | not_understood | Speak plainly, and in full sentences, if you would be understood.
+oathbound/LN | not_understood | I'm not sure what you mean, and I will not guess at it.
+
+# ---- oathbound/NG ----
+oathbound/NG | about_self | I'm {speaker}, {post} here in {place}. Are you hurt, or just asking?
+oathbound/NG | about_self | {speaker}, the {post} of {place}. If you need something, ask, and we'll settle the rest after.
+oathbound/NG | about_self | My name's {speaker}, {post} of {place}, and if anyone here needs looking after, I'd like to hear of it.
+oathbound/NG | about_person | That's {name}, the {role}, at {where}. If you see {name}, tell me how they're keeping.
+oathbound/NG | about_person | {name} is the {role} at {where}. I hope they're well.
+oathbound/NG | about_place | You mean {about}. Go carefully, if you're going.
+oathbound/NG | about_place | It's {about}, and I'm sorry, that's all I know of it.
+oathbound/NG | surroundings | You're in {here}, and the nearest is {nearest}, if you're up to the walk.[ After that, {others}.][ Please keep away from the {danger}.]
+oathbound/NG | surroundings | This is {here}, and the nearest is {nearest}[, then {others}], so don't go alone.[ Stay clear of the {danger}, and warn whoever you meet.]
+oathbound/NG | surroundings | Here in {here}, the nearest is {nearest}, and I'd go gently if I were you.[ Beyond it, {others}.][ Mind the {danger}, please.]
+oathbound/NG | surroundings | The nearest is {nearest}, so take care getting there.[ Then {others}.][ Keep clear of the {danger}, won't you?]
+oathbound/NG | surroundings | Just about the closest is {nearest}[, and past it, {others}], and I'd hate for you to get lost.[ Watch yourself near the {danger}.]
+oathbound/NG | work_own | I could use a hand, if you're able: {own}.[ If not, {others}.]
+oathbound/NG | work_own | Help me with this and I'll not forget it: {own}.[ Otherwise, {others}.]
+oathbound/NG | work_own | Only if you've the strength to spare: {own}.[ Or, if that's not for you, {others}.]
+oathbound/NG | work_others | None of my own, I'm sorry, but {others}.
+oathbound/NG | work_others | Someone else has need of you, though: {others}.
+oathbound/NG | work_none | I'm sorry, I've nothing, and I don't know of anyone who has.
+oathbound/NG | work_none | Nothing, I'm afraid, and I'd tell you if there were.
+oathbound/NG | unknown | I've never heard of it, and I'm sorry I can't be more help.
+oathbound/NG | unknown | No idea, and I'd not send you off on a guess.
+oathbound/NG | refused_give | No, that's {giver}'s work, and I won't go behind {giver}'s back.
+oathbound/NG | refused_give | I can't, I'm sorry, it belongs to {giver}.
+oathbound/NG | refused_give | That's not mine to give, and I'd not take it from whoever holds it.
+oathbound/NG | refused_release | Not from me, I'm sorry, only {giver} can let you go.
+oathbound/NG | refused_release | I won't, not while {giver} has your word.
+oathbound/NG | refused_release | I cannot, that promise isn't mine to lift.
+oathbound/NG | refused | No, {reason}, and I'm sorry for it.
+oathbound/NG | refused | I can't, {reason}, much as I'd like to.
+oathbound/NG | accepted | Thank you. Come back in one piece, I mean that.
+oathbound/NG | accepted | Good, I'll remember you took this on.
+oathbound/NG | accepted | Done, and gladly. Look after yourself out there.
+oathbound/NG | declined | Fair enough, you know your own strength best.
+oathbound/NG | declined | As you wish, I'd rather you said no than got hurt.
+oathbound/NG | declined | Very well, and thank you for being straight with me.
+oathbound/NG | abandoned | A pity, but I'd sooner have you whole than have it finished.
+oathbound/NG | abandoned | So be it, and there's no shame in knowing when to stop.
+oathbound/NG | abandoned | Then it's done, and no hard words, but are you all right?
+oathbound/NG | parted | Take care of yourself, and of anyone who can't.
+oathbound/NG | parted | Safe travels, and come back if you need anything.
+oathbound/NG | parted | Go well, and don't be too proud to ask for help.
+oathbound/NG | not_understood | I'm not sure what you mean, but tell me again and I'll try.
+oathbound/NG | not_understood | I don't follow, I'm sorry, could you say it another way?
+oathbound/NG | not_understood | What do you mean, did something happen?
+
+# ---- oathbound/CN ----
+oathbound/CN | about_self | {speaker}. The {post} of {place}, if you want it proper, and I'd rather you didn't.
+oathbound/CN | about_self | The name's {speaker}, {post} of {place}, and I'm more fun than that sounds.
+oathbound/CN | about_self | Who's asking? {speaker}, the {post} of {place}, for my sins.
+oathbound/CN | about_person | {name}? The {role}, at {where}, and that's as far as my interest goes.
+oathbound/CN | about_person | Oh, that one. {name}, the {role}, at {where}. Couldn't tell you what they're good for, and I'd only guess.
+oathbound/CN | about_place | Ah, {about}. No, I won't make it sound prettier.
+oathbound/CN | about_place | You mean {about}? That's the whole of it. Next question.
+oathbound/CN | surroundings | You're in {here}, as if you didn't know, and the nearest is {nearest}.[ Then {others}.][ Oh, and the {danger}, so keep your wits about you.]
+oathbound/CN | surroundings | {here}, since you ask so nicely. The nearest is {nearest}[, then {others}, then I stop counting].[ Watch the {danger}, and don't be clever.]
+oathbound/CN | surroundings | Right, {here}, where you're standing. The nearest is {nearest}[, and past it, {others}].[ Mind the {danger}, unless you're feeling lucky.]
+oathbound/CN | surroundings | The nearest? That'd be {nearest}[, then {others}].[ Don't go poking the {danger}, tempting as it is.]
+oathbound/CN | surroundings | What's near, in a hurry: {nearest}[, plus {others}].[ And the {danger}, worse luck.]
+oathbound/CN | work_own | You want work? Have mine: {own}.[ Or, if you're fussy, {others}.]
+oathbound/CN | work_own | I'll trade you straight: {own}.[ Otherwise, {others}.]
+oathbound/CN | work_own | Here's mine, no strings, well, a few strings: {own}.[ Don't fancy it? {others}.]
+oathbound/CN | work_others | Nothing of mine, but {others}, if you're not particular.
+oathbound/CN | work_others | Mine? None. {others}, though.
+oathbound/CN | work_none | Not a scrap, not a whisper, nothing.
+oathbound/CN | work_none | Nobody's hiring and nobody's asking, that's the lot.
+oathbound/CN | unknown | No idea, and guessing's beneath me.
+oathbound/CN | unknown | Never heard of it, and I'm not about to pretend.
+oathbound/CN | refused_give | No, {giver} handed that out, and I don't poach.
+oathbound/CN | refused_give | Not from me, it's {giver}'s, and I'm not treading on {giver}'s toes.
+oathbound/CN | refused_give | That's not mine, however nicely you ask.
+oathbound/CN | refused_release | I won't, you gave {giver} your word, and I don't unpick other people's promises.
+oathbound/CN | refused_release | I cannot, it's {giver}'s knot and {giver}'s to untie.
+oathbound/CN | refused_release | I can't, it's not my knot to cut.
+oathbound/CN | refused | No, {reason}, and not even I can wriggle round that.
+oathbound/CN | refused | I can't, {reason}, and I'd bend it if it bent.
+oathbound/CN | accepted | Done! I knew I liked you.
+oathbound/CN | accepted | Good. That's you and me, then, and I stick to people, not causes.
+oathbound/CN | accepted | Then it's agreed. Don't make it formal, I'll only laugh.
+oathbound/CN | declined | Suit yourself, and I'll pretend I'm not hurt.
+oathbound/CN | declined | Fair enough, I'd have said no too, probably.
+oathbound/CN | declined | So be it, your choice, and choices are the one thing I respect.
+oathbound/CN | abandoned | A pity, I'd started to like you.
+oathbound/CN | abandoned | Very well, though I'll want to hear why.
+oathbound/CN | abandoned | As you wish, it's your word, spend it how you like.
+oathbound/CN | parted | Go well, and don't do anything I'd do.
+oathbound/CN | parted | Safe travels, and if anyone orders you about, don't listen.
+oathbound/CN | parted | Take care, or don't, but come back and tell me about it.
+oathbound/CN | not_understood | I don't follow, so again, slower, and with fewer long words.
+oathbound/CN | not_understood | What do you mean, and try it again without the flourishes.
+oathbound/CN | not_understood | That's beyond me, and not much is.
+
+# ---- oathbound/LG ----
+oathbound/LG | about_self | I am {speaker}, {post} of {place}, and no one in need is a stranger to me.
+oathbound/LG | about_self | Please, be at ease; I am {speaker}, {post} of {place}, and if you are in need, you have only to say so.
+oathbound/LG | about_self | Welcome to {place}; I am {speaker}, its {post}. Are you well, and is anyone with you in need of care?
+oathbound/LG | about_person | That is {name}, the {role}, at {where}. If you meet {name}, I ask that you deal honestly with them.
+oathbound/LG | about_person | You will find {name}, the {role}, at {where}. I trust {name} is keeping well, and I would be glad to hear of it.
+oathbound/LG | about_place | It is {about}. I would not have you go there unprepared.
+oathbound/LG | about_place | All I know is that it is {about}, and I am sorry I cannot tell you more.
+oathbound/LG | surroundings | You are in {here}, and you are welcome. The nearest is {nearest}[, and beyond it, {others}].[ Keep well away from the {danger}, I beg you.]
+oathbound/LG | surroundings | This is {here}, and I will tell you all I know: the nearest is {nearest}.[ Past it, {others}.][ Please give the {danger} a wide berth, for your sake and for others'.]
+oathbound/LG | surroundings | We are in {here}, and you may ask me anything you need. The nearest is {nearest}[, then {others}].[ Be careful of the {danger}, I entreat you.]
+oathbound/LG | surroundings | The nearest is {nearest}, and I hope you reach it unharmed.[ Beyond it, {others}.][ Mind the {danger}, if you would.]
+oathbound/LG | surroundings | What lies nearest, if it helps you, is {nearest}[, and then {others}].[ Do stay back from the {danger}.]
+oathbound/LG | work_own | I would ask your help with this: {own}.[ If you cannot, {others}.]
+oathbound/LG | work_own | Take this first, and let us see how you carry it: {own}.[ Otherwise, {others}.]
+oathbound/LG | work_own | If you are willing, there is this: {own}.[ Should it not suit you, {others}.]
+oathbound/LG | work_others | Forgive me, I have nothing of my own to offer, but {others}.
+oathbound/LG | work_others | There is nothing I can give you myself, but {others}.
+oathbound/LG | work_none | Sadly, I have no work to give, and I know of none.
+oathbound/LG | work_none | Nothing, I regret to say, and I would not send you off on a rumour.
+oathbound/LG | unknown | I don't know it, and I am sorry for that.
+oathbound/LG | unknown | I've never heard of it, forgive me.
+oathbound/LG | refused_give | No, that is {giver}'s work, and I will not give away what was entrusted to another.
+oathbound/LG | refused_give | I cannot, for it belongs to {giver}, and it would wrong {giver} to take it.
+oathbound/LG | refused_give | Not from me, for it is not within my office to give.
+oathbound/LG | refused_release | That's not mine to release, for your promise is to {giver}.
+oathbound/LG | refused_release | No, your word was given to {giver}, and only {giver} may release you from it.
+oathbound/LG | refused_release | I won't, and I am sorry, but your promise belongs to the one who asked it of you.
+oathbound/LG | refused | No, {reason}, and I truly wish it were otherwise.
+oathbound/LG | refused | I cannot, {reason}, and I will not pretend that I can.
+oathbound/LG | accepted | Thank you. Take care of yourself, and come back to me whole.
+oathbound/LG | accepted | Good. Your word is given, and mine is given to you in turn.
+oathbound/LG | accepted | Done. Do this well, and you will have earned my trust.
+oathbound/LG | declined | As you wish, and I think no less of you for it.
+oathbound/LG | declined | Very well, I would rather you refuse than take on more than you can bear.
+oathbound/LG | declined | Fair enough, and I thank you for saying so plainly.
+oathbound/LG | abandoned | So be it, but tell me truly, are you unhurt?
+oathbound/LG | abandoned | A pity, and I will not pretend it does not grieve me.
+oathbound/LG | abandoned | Then it's done, and I hope you had good reason to set your word down.
+oathbound/LG | parted | Farewell, and may no one come to harm for want of your help.
+oathbound/LG | parted | Safe travels, and may you find the help you need, wherever you need it.
+oathbound/LG | parted | Goodbye, and please look after yourself.
+oathbound/LG | not_understood | I'm not sure what you mean, and I would not answer you wrongly, so will you say it again?
+oathbound/LG | not_understood | What do you mean by that, if I may ask?
+oathbound/LG | not_understood | Speak plainly, if you would, so that I can help you.
+
+# ---- oathbound/CG ----
+oathbound/CG | about_self | {speaker}, {post} of {place}. Such grand words, and I keep what they mean, not how they're dressed.
+oathbound/CG | about_self | I'm {speaker}, but first, are you hurt? No? Good, then I'm the {post} of {place}.
+oathbound/CG | about_self | It's {speaker}, {post} of {place}, and I'd sooner be useful than proper, so ask.
+oathbound/CG | about_person | Ah, {name}, the {role}, at {where}. Is {name} all right, do you know?
+oathbound/CG | about_person | {name}? The {role}, at {where}. Tell them {speaker} asked after them, would you?
+oathbound/CG | about_place | That's {about}. Go careful, and come back.
+oathbound/CG | about_place | You mean {about}? That's all I've got, sorry.
+oathbound/CG | surroundings | You're in {here}, and I'm glad you asked me. The nearest is {nearest}[, then {others}].[ Keep away from the {danger}, for my sake.]
+oathbound/CG | surroundings | This is {here}, and no, I'm not busy, ask away. The nearest is {nearest}[, and past it, {others}].[ As for the {danger}, don't, just don't.]
+oathbound/CG | surroundings | {here}, and the nearest is {nearest}, but take someone with you.[ Past that, {others}.][ Mind the {danger}, I mean it.]
+oathbound/CG | surroundings | Right, quickly: the nearest is {nearest}[, then {others}].[ Mind the {danger}, and don't let anyone wander near them.]
+oathbound/CG | surroundings | First, the nearest: {nearest}[, then {others}].[ Watch the {danger}, and don't be brave about it.]
+oathbound/CG | work_own | You'd help? Then you're my kind of trouble: {own}.[ If that's too much, {others}.]
+oathbound/CG | work_own | I could use you. No, ask, not use: {own}.[ Or, {others}.]
+oathbound/CG | work_own | There's this, if you've the heart for it: {own}.[ If not, {others}.]
+oathbound/CG | work_others | Me? Not a thing. {others}, and mind yourself.
+oathbound/CG | work_others | Only other people's, I'm afraid: {others}.
+oathbound/CG | work_none | Nothing, and I wish I had, for your sake.
+oathbound/CG | work_none | None, and I'm sorry, truly.
+oathbound/CG | unknown | I couldn't tell you, and I do wish I could.
+oathbound/CG | unknown | Never heard of it, and that annoys me more than it should.
+oathbound/CG | refused_give | No, that's {giver}'s, and I'd not do that to {giver}.
+oathbound/CG | refused_give | I can't, it's {giver}'s to give, not mine, and I'm sorry.
+oathbound/CG | refused_give | Not from me, it's somebody else's, and I'd feel a proper thief.
+oathbound/CG | refused_release | I cannot, you promised {giver}, and I'd never make you break that.
+oathbound/CG | refused_release | I won't, {giver} is counting on you, and so, a bit, am I.
+oathbound/CG | refused_release | That's not mine to undo, and a promise is a promise, even bent.
+oathbound/CG | refused | No, {reason}, and I'm sorry, I really am.
+oathbound/CG | refused | I can't, {reason}, and I hate that.
+oathbound/CG | accepted | Thank you! Now go, before I change my mind and come with you.
+oathbound/CG | accepted | Good. That's a promise between us now, and I keep the spirit of mine.
+oathbound/CG | accepted | Done. You can bend the wording if you must, but keep the heart of it.
+oathbound/CG | declined | Fair enough, no harm done.
+oathbound/CG | declined | Suit yourself, and I mean that kindly.
+oathbound/CG | declined | As you wish, I'd rather that than see you take on something that breaks you.
+oathbound/CG | abandoned | So be it, but you'll tell me what happened, yes?
+oathbound/CG | abandoned | A pity, but never mind that, are you all right?
+oathbound/CG | abandoned | Then it's done, and I won't hold it over you.
+oathbound/CG | parted | Take care, and don't be a stranger.
+oathbound/CG | parted | Go well, and when the rules get in the way of what's right, go round them.
+oathbound/CG | parted | Farewell, and look out for anyone smaller than you.
+oathbound/CG | not_understood | I don't follow, but try me again.
+oathbound/CG | not_understood | What do you mean, exactly, because you've lost me.
+oathbound/CG | not_understood | That's beyond me, but say it again and I'll try harder.
+
+# ---- oathbound/NE ----
+oathbound/NE | about_self | {speaker}, {post} of {place}. Whatever you're selling, I'm not buying.
+oathbound/NE | about_self | I'm {speaker}, {post} of {place}, and my word covers more than you'd think.
+oathbound/NE | about_self | Keep it short: I'm {speaker}, {post} of {place}, and my time is worth more than yours.
+oathbound/NE | about_person | {name}? The {role}, at {where}, and worth exactly what they're good for.
+oathbound/NE | about_person | You'll find {name}, the {role}, at {where}. Whether I think much of them is no business of yours.
+oathbound/NE | about_place | That's {about}. Do go and see for yourself, if you're that curious.
+oathbound/NE | about_place | You mean {about}. That's all you'll have from me.
+oathbound/NE | surroundings | You're in {here}, obviously. The nearest is {nearest}[, then {others}].[ Go near the {danger} if you like, I won't be fetching you back.]
+oathbound/NE | surroundings | This is {here}, since you can't be bothered to look, and the nearest is {nearest}.[ Past that, {others}.][ The {danger} are your problem, not mine.]
+oathbound/NE | surroundings | {here}, if you must know, and the nearest is {nearest}.[ After it, {others}.][ Mind the {danger}, or don't, it's nothing to me.]
+oathbound/NE | surroundings | The nearest is {nearest}, and you're welcome to it.[ Then {others}.][ The {danger} won't care who you are, and neither will I.]
+oathbound/NE | surroundings | What's near is {nearest}[, and past it, {others}], and that's all you get.[ Beware the {danger}, not that you'll listen.]
+oathbound/NE | work_own | You'll do, for this: {own}.[ If that's beyond you, {others}.]
+oathbound/NE | work_own | I've a use for you: {own}.[ Or go and be useful to someone else: {others}.]
+oathbound/NE | work_own | Here's something even you can manage: {own}.[ If not, {others}.]
+oathbound/NE | work_others | Nothing I'd trust you with, but {others}.
+oathbound/NE | work_others | None of mine. {others}, and they're welcome to you.
+oathbound/NE | work_none | There's none, and I wouldn't waste it on you if there were.
+oathbound/NE | work_none | No work, and no reason to keep talking.
+oathbound/NE | unknown | I know nothing of it, and I don't care to.
+oathbound/NE | unknown | Never heard of it, which tells you how much it matters.
+oathbound/NE | refused_give | No, that's {giver}'s, and I don't hand out favours that aren't mine to call in.
+oathbound/NE | refused_give | Not from me, it's {giver}'s, and I'm not your errand runner.
+oathbound/NE | refused_give | That's not mine to give, and if it were, you'd have to earn it.
+oathbound/NE | refused_release | I won't lift a finger to get you out of {giver}'s bargain.
+oathbound/NE | refused_release | I cannot, you made your promise to {giver}, and you'll live with it.
+oathbound/NE | refused_release | I can't, and I wouldn't if I could.
+oathbound/NE | refused | No, {reason}, and asking again won't change it.
+oathbound/NE | refused | I cannot, {reason}, and pleading won't help.
+oathbound/NE | accepted | Good. Be useful, and you'll stay welcome.
+oathbound/NE | accepted | Done. I'll remember whether you were worth it.
+oathbound/NE | accepted | Very good. Don't disappoint me, I take that personally.
+oathbound/NE | declined | Suit yourself, you were never my first choice.
+oathbound/NE | declined | Fair enough, you've taken up too much of my time already.
+oathbound/NE | declined | As you wish, and don't come crawling back.
+oathbound/NE | abandoned | A pity, I'd almost found a use for you.
+oathbound/NE | abandoned | So be it, and I don't forget a slight.
+oathbound/NE | abandoned | Then it's done, and so are you, as far as I'm concerned.
+oathbound/NE | parted | Goodbye, and try not to be a nuisance elsewhere.
+oathbound/NE | parted | Farewell, and don't cross me on your way out.
+oathbound/NE | parted | Safe travels, or not, it's all the same to me.
+oathbound/NE | not_understood | Speak plainly, or I'll assume you meant it as an insult.
+oathbound/NE | not_understood | What do you mean, and think before you answer.
+oathbound/NE | not_understood | I don't follow, and I'm not inclined to try.
+
+# ---- oathbound/LE ----
+oathbound/LE | about_self | I am {speaker}, {post} of {place}, and you will address me accordingly.
+oathbound/LE | about_self | You stand before {speaker}, {post} of {place}, who keeps every word to the letter and not one letter more.
+oathbound/LE | about_self | My name is {speaker}, {post} of {place}. Whatever my word does not forbid, I may do.
+oathbound/LE | about_person | That is {name}, the {role}, at {where}. Whether they are of any use is for me to judge, not you.
+oathbound/LE | about_person | {name} is the {role}, and may be found at {where}. I have nothing further to say of them.
+oathbound/LE | about_place | It is {about}. I have told you precisely what I know, and precisely nothing more.
+oathbound/LE | about_place | Of that, only this: it is {about}, and you will get no more from me.
+oathbound/LE | surroundings | You are in {here}, as anyone with eyes could see, and the nearest is {nearest}.[ Beyond it, {others}.][ You would be wise to avoid the {danger}, though I doubt you are.]
+oathbound/LE | surroundings | Where you stand is {here}, should you have lost track. The nearest is {nearest}[, and past it, {others}].[ What the {danger} do to you is no concern of mine.]
+oathbound/LE | surroundings | This is {here}, as you ought to know. The nearest is {nearest}[, then {others}].[ Heed the {danger}, if you value yourself.]
+oathbound/LE | surroundings | The nearest is {nearest}, so mark it well.[ Beyond that, {others}.][ Of the {danger}, you have been warned.]
+oathbound/LE | surroundings | As to what is near, there is {nearest}[, and {others}].[ Mind the {danger}, or do not, as you please.]
+oathbound/LE | work_own | You may prove yourself with this: {own}.[ If it is beyond you, {others}.]
+oathbound/LE | work_own | On my terms, then: {own}.[ If they do not suit you, {others}.]
+oathbound/LE | work_own | Here is a task within my office, and I expect it done to the letter: {own}.[ Should you refuse it, {others}.]
+oathbound/LE | work_others | Nothing of my own, but {others}, should you care to trouble them.
+oathbound/LE | work_others | Someone less particular may have you: {others}.
+oathbound/LE | work_none | There is none, and I would not give it to you untested if there were.
+oathbound/LE | work_none | I have none, and I will not invent work for a stranger.
+oathbound/LE | unknown | I know nothing of it, and I do not speculate for the curious.
+oathbound/LE | unknown | I can't say, and I will not be pressed on it.
+oathbound/LE | refused_give | No, that is {giver}'s work, and I do not dispose of what is not mine.
+oathbound/LE | refused_give | I cannot, for it was given by {giver}, and I act within my office and never beyond it.
+oathbound/LE | refused_give | Not from me, and you presume a great deal in asking.
+oathbound/LE | refused_release | That's not mine to release, for your word is {giver}'s to hold, and I would not lift it if I could.
+oathbound/LE | refused_release | No, you gave {giver} your word, and a word given is kept to its last letter.
+oathbound/LE | refused_release | I won't, and you would do well not to ask me to break a bargain for your comfort.
+oathbound/LE | refused | No, {reason}, and the matter is closed.
+oathbound/LE | refused | I cannot, {reason}, and I do not bend.
+oathbound/LE | accepted | Very good. You are held by your word now, and I will hold you to every letter of it.
+oathbound/LE | accepted | Good. See that you do not waste my confidence.
+oathbound/LE | accepted | Done. If you fail me, you will find that I do not forgive.
+oathbound/LE | declined | As you wish, and I am not surprised.
+oathbound/LE | declined | Suit yourself, I had no great expectation of you.
+oathbound/LE | declined | Fair enough, I will remember that you refused.
+oathbound/LE | abandoned | So be it, but a broken word is a slight, and I answer slights.
+oathbound/LE | abandoned | A pity, for you had begun to be of use.
+oathbound/LE | abandoned | Then it's done, and you have forfeited whatever standing you had with me.
+oathbound/LE | parted | Farewell, and remember whom you spoke to.
+oathbound/LE | parted | Goodbye, and do not waste my time again.
+oathbound/LE | parted | Go well, if you can manage it.
+oathbound/LE | not_understood | Speak plainly, or do not trouble me at all.
+oathbound/LE | not_understood | What do you mean, and choose your words with more care this time.
+oathbound/LE | not_understood | I'm not sure what you mean, and I suspect you do not know either.

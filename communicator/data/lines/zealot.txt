@@ -1,0 +1,271 @@
+# Written lines (the zealot). The format and the rules: README.md in this folder.
+
+# ---- zealot/NN ----
+zealot/NN | about_self | {speaker}, {post} of {place}. I believe, I work, and I waste neither.
+zealot/NN | about_self | I'm {speaker}, {post} of {place}. I'll ask what you believe, and then what you're good for.
+zealot/NN | about_self | The name's {speaker}, and I'm {post} of {place}. First faith, then business, and you'll find me plain about both.
+zealot/NN | about_person | {name}, the {role}, at {where}. Ask what they believe before you ask them for anything.
+zealot/NN | about_person | If it's {name} you want, the {role}'s at {where}. Whether they're worth your time, I'm still weighing.
+zealot/NN | about_place | You mean {about}. Whether it's any use to you depends on what you want there.
+zealot/NN | about_place | It's {about}. That's all I have, and I won't pad it with guesses.
+zealot/NN | surroundings | You're in {here}. The nearest is {nearest}[, and past that, {others}].[ Mind the {danger}; pray, by all means, but keep your eyes open.]
+zealot/NN | surroundings | This is {here}, and the closest is {nearest}.[ After that, {others}.][ Keep clear of the {danger}.]
+zealot/NN | surroundings | Around {here}, the nearest is {nearest}[; then {others}].[ Beware the {danger}.]
+zealot/NN | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Give the {danger} a wide berth.]
+zealot/NN | work_own | There's work for someone useful: {own}.[ If that's not you, {others}.]
+zealot/NN | work_own | Do this, and we'll both be better for it: {own}.[ If not, {others}.]
+zealot/NN | work_own | Here's what I have, and it's worth doing: {own}.[ Otherwise, {others}.]
+zealot/NN | work_others | I've none of my own, but {others}.
+zealot/NN | work_others | Ask elsewhere: {others}.
+zealot/NN | work_none | Nothing for you, and I won't make work just to keep you busy.
+zealot/NN | work_none | None going that I know of, and I don't deal in maybes.
+zealot/NN | unknown | I know nothing of it, and I won't pretend to.
+zealot/NN | unknown | Never heard of it, and guessing's how heresy starts.
+zealot/NN | refused_give | No, that's {giver}'s work, and I'd want the same respect if it were mine.
+zealot/NN | refused_give | That's not mine to give; {giver} set it, and {giver} decides.
+zealot/NN | refused_give | I can't give away work that belongs to someone else.
+zealot/NN | refused_release | I won't; you struck that bargain with {giver}, not with me.
+zealot/NN | refused_release | Not from me; {giver} holds it, and {giver} can let it go.
+zealot/NN | refused_release | I cannot release you from a bargain I never made.
+zealot/NN | refused | No, {reason}, and there's nothing to be gained by arguing it.
+zealot/NN | refused | That's not mine to change; {reason}.
+zealot/NN | accepted | Good. That's one in your favour.
+zealot/NN | accepted | Done. Hold up your end and I'll hold up mine.
+zealot/NN | accepted | Very good. Come back with it done, and we'll talk about faith.
+zealot/NN | declined | Suit yourself; I'll find someone more useful.
+zealot/NN | declined | Fair enough, it's your time to spend.
+zealot/NN | declined | Very well, nothing owed either way.
+zealot/NN | abandoned | A pity; you were worth more to me with it than without.
+zealot/NN | abandoned | Then it's done, and I'll count it against you.
+zealot/NN | abandoned | So be it; better dropped than botched.
+zealot/NN | parted | Go well, and keep your faith where you can reach it.
+zealot/NN | parted | Farewell, and remember who dealt fairly with you.
+zealot/NN | parted | Take care, and don't make me pray for you.
+zealot/NN | not_understood | Speak plainly, and I'll answer the same way.
+zealot/NN | not_understood | What do you mean by that, exactly?
+zealot/NN | not_understood | I don't follow, and if it was blasphemy, don't repeat it.
+
+# ---- zealot/LN ----
+zealot/LN | about_self | I am {speaker}, {post} of {place}. You will answer me as you would answer under oath.
+zealot/LN | about_self | My name is {speaker}, and I hold the office of {post} in {place}. Before we go further, I will know where you stand in the faith.
+zealot/LN | about_self | Before you stands {speaker}, {post} of {place}. Be brief, be truthful, and be orthodox.
+zealot/LN | about_person | The {role} at {where} is {name}. I will speak to the name and the place, and to nothing I cannot prove.
+zealot/LN | about_person | You mean {name}, the {role}, at {where}. Whether {name} holds to sound doctrine, I have not yet determined.
+zealot/LN | about_place | You speak of {about}. So much I can attest; the rest would be hearsay.
+zealot/LN | about_place | Of that place I will say only what I know: {about}.
+zealot/LN | surroundings | You stand in {here}. The nearest is {nearest}[, and beyond it, {others}].[ I would counsel you to keep clear of the {danger}.]
+zealot/LN | surroundings | This is {here}, and the nearest place of note is {nearest}.[ Beyond that, {others}.][ Beware the {danger}.]
+zealot/LN | surroundings | We are in {here}, and the nearest is {nearest}[; after it, {others}].[ You would do well to avoid the {danger}.]
+zealot/LN | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Take heed of the {danger}.]
+zealot/LN | work_own | There is work I can entrust to you, as a first proof of your standing: {own}.[ Should you prefer otherwise, {others}.]
+zealot/LN | work_own | Let this be the measure of you: {own}.[ If you would be measured elsewhere, {others}.]
+zealot/LN | work_own | I have a charge to lay on you, if you will accept it: {own}.[ If not, {others}.]
+zealot/LN | work_others | I hold no charge of my own to give, but {others}.
+zealot/LN | work_others | Nothing within my office, but {others}.
+zealot/LN | work_none | My office holds no work at present, and I know of none beyond it.
+zealot/LN | work_none | Neither I nor anyone I know of has work to give.
+zealot/LN | unknown | I know nothing of it, and I will not bear false witness.
+zealot/LN | unknown | I couldn't tell you, and I will not speculate.
+zealot/LN | refused_give | No; that charge was laid by {giver}, and it is not mine to hand on.
+zealot/LN | refused_give | That's not mine to give; it is {giver}'s, and I do not reach beyond my office.
+zealot/LN | refused_give | I cannot give out another's charge, and I will not pretend to the authority.
+zealot/LN | refused_release | I won't; {giver} bound you to it, and only {giver} may loose you.
+zealot/LN | refused_release | Not from me; I will not undo what {giver} has done.
+zealot/LN | refused_release | I can't; a charge is released by the one who laid it, and that is not I.
+zealot/LN | refused | No, {reason}, and I will make no exception.
+zealot/LN | refused | That's not mine to overrule; {reason}.
+zealot/LN | accepted | Thank you. I will hold you to your word, as you may hold me to mine.
+zealot/LN | accepted | Good. We shall see what your word is worth.
+zealot/LN | accepted | Very good. If you carry it faithfully, your standing with me will rise accordingly.
+zealot/LN | declined | As you wish; I will not press a charge on the unwilling.
+zealot/LN | declined | Very well, it will be offered to another.
+zealot/LN | declined | Fair enough; a plain refusal is no offence.
+zealot/LN | abandoned | A pity; I had hoped your word would prove heavier than that.
+zealot/LN | abandoned | Then it's done, and it will be remembered when next you ask for my trust.
+zealot/LN | abandoned | So be it, though I think less of a word given lightly.
+zealot/LN | parted | Go well, and keep the faith as it was given to you.
+zealot/LN | parted | Farewell, and guard your tongue against heresy.
+zealot/LN | parted | Take care, stranger, that I hear only good of you.
+zealot/LN | not_understood | Speak plainly; I will not guess at your meaning, and I will not hear blasphemy.
+zealot/LN | not_understood | What do you mean by that, precisely?
+zealot/LN | not_understood | I'm not sure what you mean, and I would have you say it again in plain words.
+
+# ---- zealot/NG ----
+zealot/NG | about_self | {speaker}, {post} of {place}. Have you eaten?
+zealot/NG | about_self | I'm {speaker}, {post} here in {place}. If you're hurt or hungry, say so first; faith can wait that long.
+zealot/NG | about_self | My name's {speaker}, and I'm {post} of {place}. The faith goes down easier on a full stomach, so we'll start with that.
+zealot/NG | about_person | {name}, the {role}, at {where}. If you see {name}, ask how they're keeping, and tell me.
+zealot/NG | about_person | The {role}? That's {name}, at {where}. I hope {name}'s well; I'd want to hear if not.
+zealot/NG | about_place | That's {about}. If anyone there is hurt, I'd want to know.
+zealot/NG | about_place | You mean {about}. Go carefully, and if you find anyone in need there, don't leave them.
+zealot/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}; I'd rather not be patching you up.]
+zealot/NG | surroundings | This is {here}. The closest is {nearest}[, then {others}].[ Keep clear of the {danger}, please.]
+zealot/NG | surroundings | Around {here}, the nearest is {nearest}[, and after that {others}].[ Watch for the {danger}, and come back in one piece.]
+zealot/NG | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Stay clear of the {danger}.]
+zealot/NG | work_own | If you're fed and rested, I could use you: {own}.[ Or, if you'd rather, {others}.]
+zealot/NG | work_own | I've work that does some good: {own}.[ If that's not for you, {others}.]
+zealot/NG | work_own | Here's where you'd be useful: {own}.[ Otherwise, {others}.]
+zealot/NG | work_others | I'm sorry, I've nothing of my own, but {others}.
+zealot/NG | work_others | None of my own, but {others}, if you're up to it.
+zealot/NG | work_none | Nothing that I know of, I'm sorry.
+zealot/NG | work_none | Rest a while instead; there's no work I know of, but I'll gladly talk faith with you.
+zealot/NG | unknown | I couldn't tell you, and I'd sooner say so than send you off on a guess.
+zealot/NG | unknown | Never heard of it, I'm afraid; ask me something I can help with.
+zealot/NG | refused_give | No, that belongs to {giver}, and I'd not take it without asking.
+zealot/NG | refused_give | That's not mine to give; it's {giver}'s, and I won't go behind {giver}'s back.
+zealot/NG | refused_give | I can't; it isn't mine, and handing it out would only make trouble for you.
+zealot/NG | refused_release | I won't; {giver} is counting on you, and I'd not undo that.
+zealot/NG | refused_release | Not from me; that's between you and {giver}.
+zealot/NG | refused_release | I cannot let you off someone else's work, much as I'd like to help.
+zealot/NG | refused | No, {reason}, and I'm sorry for it.
+zealot/NG | refused | That's not mine to mend, much as I'd like to; {reason}.
+zealot/NG | accepted | Thank you. Come back whole; that matters more to me than the work.
+zealot/NG | accepted | Good. You're useful already.
+zealot/NG | accepted | Very good. If you're hurt on the way, come to me first.
+zealot/NG | declined | Fair enough; you know your own strength better than I do.
+zealot/NG | declined | Suit yourself, but eat something before you go.
+zealot/NG | declined | As you wish; I'd rather you said no than came back hurt.
+zealot/NG | abandoned | A pity, but better you walk away whole.
+zealot/NG | abandoned | So be it; I'd rather have you back than the work done.
+zealot/NG | abandoned | Then it's done; see to yourself first.
+zealot/NG | parted | Go well; eat when you can, and pray when you can't.
+zealot/NG | parted | Take care of yourself, and of anyone slower than you.
+zealot/NG | parted | Safe travels, and come back hungry.
+zealot/NG | not_understood | I'm not sure what you mean; try me again, slowly.
+zealot/NG | not_understood | What do you mean by that, and are you feeling well?
+zealot/NG | not_understood | I don't follow, but I'm listening.
+
+# ---- zealot/LG ----
+zealot/LG | about_self | I am {speaker}, {post} of {place}. Take a breath before we speak of anything else.
+zealot/LG | about_self | My name is {speaker}, {post} of {place}. If you are in need, say so, and it will be seen to first.
+zealot/LG | about_self | Be welcome, and be honest with me: I am {speaker}, {post} of {place}.
+zealot/LG | about_person | {name}, the {role}, at {where}. If {name} is in any need, I would want to know of it.
+zealot/LG | about_person | The {role} at {where} is {name}. I will speak well of {name} until I have cause not to.
+zealot/LG | about_place | That is {about}. If there are sick or hungry there, I would be told of it.
+zealot/LG | about_place | You mean {about}. Go with care, and go in good faith.
+zealot/LG | surroundings | You are in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I beg you, keep clear of the {danger}.]
+zealot/LG | surroundings | This is {here}. The nearest is {nearest}[, and then {others}].[ Beware the {danger}, and take no needless risk.]
+zealot/LG | surroundings | We are in {here}, and closest to us is {nearest}[; after it, {others}].[ Please mind the {danger}.]
+zealot/LG | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Have a care near the {danger}.]
+zealot/LG | work_own | Let us begin here, so that I may come to know you: {own}.[ If it does not suit, {others}.]
+zealot/LG | work_own | I have honest work, and I would see how you carry it: {own}.[ If you would rather, {others}.]
+zealot/LG | work_own | Forgive me for asking so soon, but there is work: {own}.[ Otherwise, {others}.]
+zealot/LG | work_others | Nothing of my own, I am sorry to say, but {others}.
+zealot/LG | work_others | My own hands are empty of work, but {others}.
+zealot/LG | work_none | Sadly, I have no work to give, and know of none.
+zealot/LG | work_none | At present there is nothing, but you are welcome to rest before you go.
+zealot/LG | unknown | I know nothing of it, and I would rather say so than mislead you.
+zealot/LG | unknown | I've never heard of it; forgive me.
+zealot/LG | refused_give | No; that work is {giver}'s to give, and I will not take from {giver} what is theirs.
+zealot/LG | refused_give | That's not mine to give; it belongs to {giver}, and I will not overstep.
+zealot/LG | refused_give | I cannot; it is another's work, and it lies outside my office.
+zealot/LG | refused_release | I won't; you gave {giver} your word, and I would not see it broken.
+zealot/LG | refused_release | Not from me; only {giver} can release what {giver} has asked of you.
+zealot/LG | refused_release | I can't release you from it; it was never mine to hold.
+zealot/LG | refused | No, {reason}, and I am sorry for it.
+zealot/LG | refused | That's not mine to alter; {reason}.
+zealot/LG | accepted | Thank you. Go with my blessing, and with my prayers until you return.
+zealot/LG | accepted | Very good. Your word is given, and I will hold you to it as gently as I can.
+zealot/LG | accepted | Good. I will pray for you by name, if you will give it to me.
+zealot/LG | declined | Fair enough; I would sooner have an honest no than an idle yes.
+zealot/LG | declined | Very well, and you are no less welcome for it.
+zealot/LG | declined | So be it; I will not think the worse of you.
+zealot/LG | abandoned | A pity; I pray it did not cost you dearly.
+zealot/LG | abandoned | Then it's done; you are released, and I hope you are unhurt.
+zealot/LG | abandoned | As you wish; see that you are whole before you take up anything else.
+zealot/LG | parted | Go well, and go in faith.
+zealot/LG | parted | Farewell, and may you never go hungry.
+zealot/LG | parted | Safe travels; I will keep you in my prayers.
+zealot/LG | not_understood | I don't follow, but I will listen as long as you need.
+zealot/LG | not_understood | I'm not sure what you mean; would you put it another way?
+zealot/LG | not_understood | Speak plainly, I beg you, and speak no blasphemy while you do.
+
+# ---- zealot/CN ----
+zealot/CN | about_self | I'm {speaker}, {post} of {place}, and I see things - oh, never mind what. What do you want?
+zealot/CN | about_self | Me? {speaker}, {post} of {place} - and, if you've a minute, your salvation.
+zealot/CN | about_self | {speaker}! That's the name - {post} of {place}, and the rest is revelation.
+zealot/CN | about_person | Ah, {name}! The {role}, over at {where}. Fine soul - wrong about nearly everything.
+zealot/CN | about_person | You mean {name}? The {role}, at {where}. I like the person; the rest I'd have to pray over.
+zealot/CN | about_place | Ha, {about}? And what's in it for me - for you, I mean, for you?
+zealot/CN | about_place | There? That's {about}. Go carefully - no, go boldly; care is for doubters.
+zealot/CN | surroundings | You're in {here}, and the nearest thing's {nearest}[, then {others}].[ And the {danger} - mind them, or don't, but don't come crying to me.]
+zealot/CN | surroundings | Where are we? {here}, and the nearest is {nearest}[, then {others}].[ Oh, and {danger} - lovely, from a distance.]
+zealot/CN | surroundings | This is {here} - listen, listen - the nearest is {nearest}[, and after that {others}].[ Keep an eye on the {danger}.]
+zealot/CN | surroundings | The nearest's {nearest}[, then {others}].[ Watch the {danger} - no, better, avoid them.]
+zealot/CN | work_own | Oh, work! I've just the thing: {own}.[ Or, if the spirit moves you elsewhere, {others}.]
+zealot/CN | work_own | A trade, then, straight and holy: {own}.[ If not, {others}.]
+zealot/CN | work_own | Listen - no, really listen: {own}.[ Or, if you're not the one for it, {others}.]
+zealot/CN | work_others | Mine? None. But {others}.
+zealot/CN | work_others | Ask them, not me: {others}.
+zealot/CN | work_none | Nothing. Not a scrap, not a rumour - pray harder.
+zealot/CN | work_none | None, sinner - and don't look at me like I'm hiding it.
+zealot/CN | unknown | Never heard of it - and I hear a great deal, some of it from above.
+zealot/CN | unknown | I couldn't tell you, and the heavens aren't telling either.
+zealot/CN | refused_give | No, no, no - that's {giver}'s, not mine to fling about.
+zealot/CN | refused_give | That's not mine; ask me for mine, sinner, not {giver}'s.
+zealot/CN | refused_give | I can't - not mine, never was, and I won't pretend for you.
+zealot/CN | refused_release | I won't - {giver} gave it you, {giver} takes it back, simple as that.
+zealot/CN | refused_release | Not from me - you made your bed with {giver}, so lie in it.
+zealot/CN | refused_release | I cannot, and I wouldn't if I could - a promise is a promise, even yours.
+zealot/CN | refused | No - {reason}, and even I can't argue with that.
+zealot/CN | refused | That's not mine to bend - {reason}, and there it is.
+zealot/CN | accepted | Good! I knew it - I had a feeling about you.
+zealot/CN | accepted | Done, and done. Your word for mine, and no wriggling.
+zealot/CN | accepted | Very good! Go on, then - go, before the feeling fades.
+zealot/CN | declined | Suit yourself; I'd have sworn you were the one.
+zealot/CN | declined | Fair enough - no, it isn't, but fair enough.
+zealot/CN | declined | So be it, sinner, go on unsaved.
+zealot/CN | abandoned | A pity; I was just starting to like you.
+zealot/CN | abandoned | Then it's done, and so's my faith in you - well, most of it.
+zealot/CN | abandoned | As you wish; loyalty cuts both ways, and you just cut it.
+zealot/CN | parted | Go well, and go loud!
+zealot/CN | parted | Farewell - I'll save you next time.
+zealot/CN | parted | Safe travels, and keep a little fire in you.
+zealot/CN | not_understood | What do you mean - no, wait, say it louder, maybe that'll help.
+zealot/CN | not_understood | That's beyond me, and not much is.
+zealot/CN | not_understood | I don't follow - say it again, slower, with feeling.
+
+# ---- zealot/CG ----
+zealot/CG | about_self | {speaker}, {post} of {place} - now, hungry or hurt, which is it? Both? Then I'd best get busy.
+zealot/CG | about_self | I'm {speaker}, {post} of {place}, and the spirit's in me, so mind your ears.
+zealot/CG | about_self | You found me: {speaker}, {post} of {place}. Now - how are you, truly?
+zealot/CG | about_person | Oh, {name}! The {role}, at {where}. Tell {name} I asked after them, would you?
+zealot/CG | about_person | Ah, {name} - the {role}, at {where}, bless them. Whatever {name}'s cause is, it's {name} I'd pray for.
+zealot/CG | about_place | If you're going to {about}, and anyone's hurt there, you bring them to me - promise?
+zealot/CG | about_place | That's {about} - and I've a feeling about it, holy or indigestion, I can't tell yet.
+zealot/CG | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ And mind the {danger} - I'd hate to be bandaging you.]
+zealot/CG | surroundings | This is {here} - listen, it matters - the nearest is {nearest}[, then {others}].[ Keep clear of the {danger}, please, for me.]
+zealot/CG | surroundings | Around {here}, the closest is {nearest}[, and past it {others}].[ Oh, and the {danger} - don't, just don't.]
+zealot/CG | surroundings | The nearest is {nearest}[ - then {others}].[ Stay away from the {danger}, won't you?]
+zealot/CG | work_own | Rest first, if you need it - then, if you're willing: {own}.[ Or, if your heart's elsewhere, {others}.]
+zealot/CG | work_own | Somebody like you is an answer to a prayer: {own}.[ Or {others}, and I won't sulk.]
+zealot/CG | work_own | Help me with something good: {own}.[ If not, {others}; somebody needs you either way.]
+zealot/CG | work_others | I've nothing of my own - but {others}, and go with my blessing.
+zealot/CG | work_others | Me? No. But {others}!
+zealot/CG | work_none | Nothing, not even a whisper - so stay a while, and let me look at you.
+zealot/CG | work_none | None to give, and none I've heard of - but you're not leaving hungry.
+zealot/CG | unknown | I don't know, and I'm sorry - I'd tell you in a heartbeat if I did.
+zealot/CG | unknown | Never heard of it - forgive me, pilgrim.
+zealot/CG | refused_give | No, that's {giver}'s, and I'd never go behind {giver}'s back, not even for you.
+zealot/CG | refused_give | That's not mine to give - it's {giver}'s, bless them.
+zealot/CG | refused_give | I can't; it's somebody else's, and I keep faith with people.
+zealot/CG | refused_release | I won't - you gave {giver} your word, and {giver} is counting on you, and so am I, a little.
+zealot/CG | refused_release | Not from me; only {giver} can let you off, and honestly, I hope they don't.
+zealot/CG | refused_release | I cannot, and oh, I'm sorry - it was never mine to undo.
+zealot/CG | refused | No - {reason}, and I'm sorrier than I can say.
+zealot/CG | refused | That's not mine to change - {reason}, and I won't lie to you about it.
+zealot/CG | accepted | Thank you! Now eat something before you go - no arguments.
+zealot/CG | accepted | Good! Come back whole, or I'll come and fetch you.
+zealot/CG | accepted | Done! Off you go, then - I'll be praying loud enough for both of us.
+zealot/CG | declined | As you wish - and don't you dare feel bad about it.
+zealot/CG | declined | Fair enough, pilgrim; the offer's not the point, you are.
+zealot/CG | declined | Suit yourself - my blessing goes with you anyway.
+zealot/CG | abandoned | A pity - but if you're whole, that's the part I care about.
+zealot/CG | abandoned | Then it's done, and I'm sorry if it went hard for you.
+zealot/CG | abandoned | So be it; nobody's cast out for trying.
+zealot/CG | parted | Go well, and go singing.
+zealot/CG | parted | Farewell, and anyone you find hurt, you bring to me.
+zealot/CG | parted | Take care, take care - and I mean that, I'll be asking.
+zealot/CG | not_understood | What do you mean - no, slower, I'm listening, I promise.
+zealot/CG | not_understood | I'm not sure what you mean, but say it again and I'll try harder.
+zealot/CG | not_understood | Speak plainly, pilgrim, and keep it clean - I'll hear anything but blasphemy.

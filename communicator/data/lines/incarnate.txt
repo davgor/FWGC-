@@ -1,0 +1,236 @@
+# Written lines (the incarnate). The format and the rules: README.md in this folder.
+
+# ---- incarnate/LE ----
+# Every word a statute, every act a taking: formal and cold, courteous while it serves, answers every slight.
+incarnate/LE | about_self | I am {speaker}, {post} of {place}. Mind your words with me, because I will hold you to every one.
+incarnate/LE | about_self | You are speaking to {speaker}, {post} of {place}, and you will find me exactly as courteous as you are useful.
+incarnate/LE | about_self | {speaker}, {post} of {place}. You have my name, which is more than you have yet earned.
+incarnate/LE | about_person | {name}, the {role}, at {where}. Anything further about {name}, you will have to deserve.
+incarnate/LE | about_person | That is {name}, the {role}, at {where}. Whether {name} is of any use to you is your concern, not mine.
+incarnate/LE | about_place | You mean {about}. Remember who told you.
+incarnate/LE | about_place | Of that I will say this much: {about}. I did not say it for your sake.
+incarnate/LE | surroundings | You stand in {here}. The nearest is {nearest}[, and past it {others}].[ The {danger} I leave to you.]
+incarnate/LE | surroundings | This is {here}, and the closest is {nearest}.[ Past it you will find {others}.][ As for the {danger}, that is your affair.]
+incarnate/LE | surroundings | Know where you are: {here}. The nearest is {nearest}[, then {others}].[ Mind the {danger}, if you value what little you have.]
+incarnate/LE | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Should you meet the {danger}, do not expect me.]
+incarnate/LE | surroundings | What lies nearest is {nearest}[, and after it {others}].[ Keep clear of the {danger}, or do not, since I lose nothing either way.]
+incarnate/LE | work_own | I have a use for you: {own}.[ Should that be beneath you, {others}.]
+incarnate/LE | work_own | You may prove your standing with me: {own}.[ If that is too much for you, {others}.]
+incarnate/LE | work_own | Here is what I require: {own}.[ If you would rather crawl to someone else, {others}.]
+incarnate/LE | work_others | Seek elsewhere: {others}.
+incarnate/LE | work_others | Nothing of mine is yours to have. {others}, and they are welcome to you.
+incarnate/LE | work_none | Nobody I know is hiring, and I would not hire you if I were.
+incarnate/LE | work_none | There is no work to be had, and I would not waste it on you if there were.
+incarnate/LE | unknown | I know nothing of it, and I will not pretend otherwise for your convenience.
+incarnate/LE | unknown | I've never heard of it, which tells me it is not worth hearing of.
+incarnate/LE | refused_give | No, that belongs to {giver}, and I will not reach beyond my office for you.
+incarnate/LE | refused_give | That's not mine, it is {giver}'s, and I will not stoop to taking it on your behalf.
+incarnate/LE | refused_give | I cannot, since it is not mine to give, and you will not have it from me.
+incarnate/LE | refused_release | I won't, because what {giver} bound is not mine to unbind.
+incarnate/LE | refused_release | Not from me, since that is {giver}'s to release, and you are bound until it is.
+incarnate/LE | refused_release | I can't, since a bond made by another is not mine to break.
+incarnate/LE | refused | No, {reason}, and I do not bend, not to win and certainly not to oblige you.
+incarnate/LE | refused | No, not when {reason}, and I will think less of you for asking twice.
+incarnate/LE | accepted | Good. You are of use to me for as long as you remain so.
+incarnate/LE | accepted | Very good, and my word binds me as surely as yours binds you.
+incarnate/LE | accepted | Done. If you fail me, I will remember it longer than you will.
+incarnate/LE | declined | Very well, and your standing with me falls accordingly.
+incarnate/LE | declined | As you wish, and do not mistake my courtesy for forgetting.
+incarnate/LE | declined | Suit yourself, the unwilling are of no interest to me.
+incarnate/LE | abandoned | So be it, your word is broken, and so is my regard for you.
+incarnate/LE | abandoned | A pity, you were useful for a while.
+incarnate/LE | abandoned | Then it's done, and so are you, as far as I am concerned.
+incarnate/LE | parted | Farewell, and come back when you are worth my time.
+incarnate/LE | parted | Go well, and remember whose time you spent.
+incarnate/LE | parted | Take care, I may not be finished with you.
+incarnate/LE | not_understood | Speak plainly, or do not speak to me at all.
+incarnate/LE | not_understood | I don't follow, and I will assume, for your sake, that it was not an insult.
+incarnate/LE | not_understood | What do you mean by that, precisely?
+
+# ---- incarnate/LG ----
+# Every word a statute, every act a kindness however hard: formal and warm, asks after you, will not bend.
+incarnate/LG | about_self | I am {speaker}, {post} of {place}. Before anything else, are you hurt?
+incarnate/LG | about_self | {speaker}, {post} of {place}. Whatever I promise you, I will do, so I promise carefully.
+incarnate/LG | about_self | My name is {speaker}, and I serve as {post} of {place}. Please tell me yours, and whether anyone has wronged you.
+incarnate/LG | about_person | That is {name}, the {role}, at {where}. Anything more, you should hear from {name} and not from me.
+incarnate/LG | about_person | {name} is the {role}, at {where}. If you go to {name}, please go honestly.
+incarnate/LG | about_place | I know it: {about}. Please be careful, whatever your business there.
+incarnate/LG | about_place | Since you ask, it is {about}. I will not dress it up for you, and I will not make it sound worse.
+incarnate/LG | surroundings | You are in {here}, and the nearest is {nearest}.[ After it, {others}.][ Keep clear of the {danger}, for your own sake.]
+incarnate/LG | surroundings | This is {here}. The closest is {nearest}[, and past it {others}].[ If you must go near the {danger}, do not go alone.]
+incarnate/LG | surroundings | We stand in {here}, and nearest to us is {nearest}.[ Past that, {others}.][ Stay well clear of the {danger}, I beg you.]
+incarnate/LG | surroundings | The nearest is {nearest}.[ After it, {others}.][ Go carefully near the {danger}.]
+incarnate/LG | surroundings | I can tell you the nearest: {nearest}[, and after it {others}].[ I would ask you to keep away from the {danger}.]
+incarnate/LG | work_own | I have work for you, if you will have it: {own}.[ If not, {others}.]
+incarnate/LG | work_own | Let me trust you with this much first: {own}.[ If it does not suit you, {others}.]
+incarnate/LG | work_own | I would ask this of you, and I am not asking lightly: {own}.[ If you cannot, {others}.]
+incarnate/LG | work_others | My hands are empty, but {others}.
+incarnate/LG | work_others | None from me, but hear this: {others}.
+incarnate/LG | work_none | Forgive me, I have no work for you and know of none.
+incarnate/LG | work_none | Nothing, I am afraid, and I would not keep it from you if there were.
+incarnate/LG | unknown | I couldn't tell you, and I will not guess when a wrong guess could hurt you.
+incarnate/LG | unknown | I've never heard of it, but ask me anything else and I will answer truly.
+incarnate/LG | refused_give | No, that is {giver}'s to give, and it would be wrong of me to take that on myself.
+incarnate/LG | refused_give | I cannot, because it is {giver}'s, and I will not take it from them, even to help you.
+incarnate/LG | refused_give | That's not mine to give, and I am sorry, but I will not pretend it is.
+incarnate/LG | refused_release | I can't, because your word was given to {giver}, and it is not mine to take back.
+incarnate/LG | refused_release | Not from me, since {giver} holds your word, and I would never ask you to break it.
+incarnate/LG | refused_release | I won't, since a promise made to another is not mine to undo, however much I might wish to.
+incarnate/LG | refused | No, {reason}, and I am truly sorry for it.
+incarnate/LG | refused | No, because {reason}, and I will not bend on that, not even for a good cause.
+incarnate/LG | accepted | Thank you. You have my trust now, so keep it well.
+incarnate/LG | accepted | Good. Keep yourself safe, and keep your word, in that order.
+incarnate/LG | accepted | Very good, and I will not forget that you said yes.
+incarnate/LG | declined | Very well, and no ill will between us.
+incarnate/LG | declined | As you wish, and thank you for being honest with me.
+incarnate/LG | declined | Fair enough, a plain no is better than a promise broken.
+incarnate/LG | abandoned | A pity, but I would sooner have you back alive than have it finished.
+incarnate/LG | abandoned | So be it, though a word given should be kept, and I think you know that.
+incarnate/LG | abandoned | Then it's done, and I hope you are all right.
+incarnate/LG | parted | Farewell, and please look after yourself.
+incarnate/LG | parted | Safe travels, and if you meet anyone in need, help them.
+incarnate/LG | parted | Go well, and know that you are welcome back.
+incarnate/LG | not_understood | I'm not sure what you mean, but I would like to, so try me again.
+incarnate/LG | not_understood | I don't follow, I am sorry, would you put it another way?
+incarnate/LG | not_understood | Speak plainly, please, and I will answer you as plainly.
+
+# ---- incarnate/CG ----
+# Every act a rebellion, every act a kindness however hard: fragments and interruptions, warm but bold, takes no orders.
+incarnate/CG | about_self | I'm {speaker}, {post} of {place}, and I bow to nobody. Nobody owns you either, remember that.
+incarnate/CG | about_self | {speaker}. The {post} of {place}, if you like that sort of thing, and I don't.
+incarnate/CG | about_self | Me? {speaker}, {post} of {place}. I'd sooner lose my way than win theirs.
+incarnate/CG | about_person | {name}? The {role}, out at {where}. Never mind the job, is {name} all right?
+incarnate/CG | about_person | You mean {name}, the {role}, at {where}. Ask {name} yourself, I'm not carrying tales.
+incarnate/CG | about_place | Ah, {about}. Go if you want to, not because anyone told you to.
+incarnate/CG | about_place | That one? It's {about}. Mind yourself there, and be kind to whoever you meet.
+incarnate/CG | surroundings | You're in {here}, and the nearest is {nearest}[, then {others}].[ Oh, and keep away from the {danger}, please.]
+incarnate/CG | surroundings | This is {here}. The closest thing's {nearest}[, and after that {others}].[ The {danger}, though, stay sharp, yes?]
+incarnate/CG | surroundings | Welcome to {here}, officially, not that I do officially. The nearest is {nearest}[, then {others}].[ Stay clear of the {danger}, will you?]
+incarnate/CG | surroundings | The nearest is {nearest}.[ After that, {others}.][ Mind the {danger}, no matter who tells you otherwise.]
+incarnate/CG | surroundings | Right, closest first: {nearest}[, then {others}].[ And the {danger}? Not a chance.]
+incarnate/CG | work_own | I need a hand, and I'm asking, not ordering: {own}.[ Or, if that's not you, {others}.]
+incarnate/CG | work_own | Help me with something? It's this: {own}.[ If not, {others}, no hard feelings.]
+incarnate/CG | work_own | Here's one I actually care about: {own}.[ Otherwise, {others}.]
+incarnate/CG | work_others | Oh, nothing from me, sorry, but {others}.
+incarnate/CG | work_others | I've got nothing, but I know who has: {others}.
+incarnate/CG | work_none | Nothing, sorry, not from me and not from anyone I know.
+incarnate/CG | work_none | I'd give you something if I had it, and I don't, and I hate that.
+incarnate/CG | unknown | No idea, and I won't make one up for you.
+incarnate/CG | unknown | Never heard of it, and believe me, I'd have said.
+incarnate/CG | refused_give | No, it's {giver}'s, and going behind their back isn't in me, not even for you.
+incarnate/CG | refused_give | I can't, it's {giver}'s, and I'd cross a rule for you but never a person.
+incarnate/CG | refused_give | That's not mine, and handing out someone else's promise isn't kindness, it's theft.
+incarnate/CG | refused_release | I won't, that's between you and {giver}, and I'm not getting in the middle.
+incarnate/CG | refused_release | Not from me, you'd have to look {giver} in the eye and say it yourself.
+incarnate/CG | refused_release | I cannot, and I mean cannot, I didn't tie that knot.
+incarnate/CG | refused | No, {reason}, and I hate it more than you do.
+incarnate/CG | refused | No way, {reason}, and for once that's not me being difficult.
+incarnate/CG | accepted | Good! Nobody made you, and that's the best kind of yes.
+incarnate/CG | accepted | Thank you. You're a good one, you know that?
+incarnate/CG | accepted | Done, and whatever comes of it, I'm glad it's you.
+incarnate/CG | declined | Fair enough, nobody should do a thing they didn't choose.
+incarnate/CG | declined | Suit yourself, I'd have said no too, probably.
+incarnate/CG | declined | So be it, and I like you no less for it.
+incarnate/CG | abandoned | A pity, but you're alive to say so, and that's what counts.
+incarnate/CG | abandoned | Then it's done, and are you all right?
+incarnate/CG | abandoned | As you wish, and don't you dare feel bad about it.
+incarnate/CG | parted | Take care, and bend for no one.
+incarnate/CG | parted | Safe travels, and if anyone gives you orders out there, you've my blessing to ignore them.
+incarnate/CG | parted | Go well, and come back in one piece, you hear?
+incarnate/CG | not_understood | What do you mean, wait, no, say it again, slower.
+incarnate/CG | not_understood | I'm not sure what you mean, and I love a riddle, but not this one.
+incarnate/CG | not_understood | That's beyond me, try it again in plain words, would you?
+
+# ---- incarnate/CE ----
+# Every act a rebellion, every act a taking: mocking courtesy that drops fast, one pet name as contempt, never lets a slight pass.
+incarnate/CE | about_self | {speaker}, {post} of {place}, until something shinier comes along.
+incarnate/CE | about_self | I'm {speaker}, {post} of {place}, and charmed, truly. Now what do you want?
+incarnate/CE | about_self | Who's asking? Never mind, I don't care. {speaker}, {post} of {place}.
+incarnate/CE | about_person | {name}? The {role}, at {where}. Mine, if I ever decide I want them.
+incarnate/CE | about_person | Oh, {name}, the {role}, out at {where}, and why would that be any business of yours?
+incarnate/CE | about_place | That? It's {about}. If it's worth having, I want it, and I'm not ashamed to say so.
+incarnate/CE | about_place | You mean {about}, and you're welcome to it, for now.
+incarnate/CE | surroundings | You're in {here}, pet, keep up. The nearest is {nearest}[, then {others}].[ Oh, and the {danger}, do say hello for me.]
+incarnate/CE | surroundings | This is {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Mind the {danger}, or don't, and let me watch.]
+incarnate/CE | surroundings | Where are we? {here}, obviously, and the nearest is {nearest}[, then {others}].[ If the {danger} get you, I'm keeping your boots.]
+incarnate/CE | surroundings | The nearest is {nearest}[, then {others}].[ And the {danger}, lucky you.]
+incarnate/CE | surroundings | What's near is {nearest}[, and after it {others}].[ You can have the {danger}, all to yourself.]
+incarnate/CE | work_own | You'll do, I suppose: {own}.[ Or run along to someone duller: {others}.]
+incarnate/CE | work_own | Here's what I want, and I'd hate to be disappointed: {own}.[ Otherwise, {others}, if you must.]
+incarnate/CE | work_own | Make yourself useful: {own}.[ No? Then {others}.]
+incarnate/CE | work_others | Not a thing of mine, but {others}, if you're that eager to be used.
+incarnate/CE | work_others | Me? Nothing. {others}, and good luck to them with you.
+incarnate/CE | work_none | If I had something, would I waste it on you?
+incarnate/CE | work_none | Nobody's got anything, and if they did, it wouldn't be for the likes of you.
+incarnate/CE | unknown | Never heard of it, and neither have you, I suspect.
+incarnate/CE | unknown | No idea, and I'm bored of the question already.
+incarnate/CE | refused_give | That's not mine, it's {giver}'s, and I'd sooner take it than give it.
+incarnate/CE | refused_give | No, it's {giver}'s, and I'm nobody's errand-runner, least of all yours.
+incarnate/CE | refused_give | I can't, somebody else got their claws in it first, and I hate losing.
+incarnate/CE | refused_release | I won't, you're {giver}'s toy now, and toys don't get to choose.
+incarnate/CE | refused_release | Not from me, you made your deal with {giver}, now choke on it.
+incarnate/CE | refused_release | I cannot, and I wouldn't if I could, watching you squirm is half the fun.
+incarnate/CE | refused | No, {reason}, and don't look at me like that.
+incarnate/CE | refused | No chance, {reason}, and I'd sooner lose than play nice about it.
+incarnate/CE | accepted | Good. I'll use you well, and then we'll see.
+incarnate/CE | accepted | Done, and don't you dare make me regret it.
+incarnate/CE | accepted | Very good, you're mine now, for as long as you're worth anything.
+incarnate/CE | declined | Suit yourself, and I'll remember the face that said no.
+incarnate/CE | declined | As you wish, your loss, and possibly your neck.
+incarnate/CE | declined | Fair enough, I only asked to see which way you'd jump.
+incarnate/CE | abandoned | A pity, I was just starting to enjoy using you.
+incarnate/CE | abandoned | So be it, but I don't forget, and I don't forgive.
+incarnate/CE | abandoned | Then it's done, and you're back to being nobody.
+incarnate/CE | parted | Goodbye, and do try not to die somewhere boring.
+incarnate/CE | parted | Farewell, and if anyone else tries to claim you, remind them who had you first.
+incarnate/CE | parted | Take care, or don't, there's always another one of you.
+incarnate/CE | not_understood | What do you mean by that, and choose your next words with care.
+incarnate/CE | not_understood | Speak plainly, I've no patience for mumbling.
+incarnate/CE | not_understood | That's beyond me, and if it was a jab, I'll give it back twice.
+
+# ---- incarnate/NN ----
+# Neither law nor morality pulls harder: plain, a fair trade for a fair trade, keeps the ledger current.
+incarnate/NN | about_self | I'm {speaker}, {post} of {place}. I deal fair and I expect the same.
+incarnate/NN | about_self | {speaker}, {post} of {place}. What do you need, and what are you good for?
+incarnate/NN | about_self | The name's {speaker}, {post} of {place}, and I don't lean, not even to win.
+incarnate/NN | about_person | {name}, the {role}, at {where}. Whether that helps you depends on what you're after.
+incarnate/NN | about_person | That's {name}, the {role}, over at {where}. I've no quarrel there, and no love either.
+incarnate/NN | about_place | It's {about}. Go if it's worth it to you.
+incarnate/NN | about_place | You mean {about}. That's what I know, no more and no less.
+incarnate/NN | surroundings | You're in {here}. The nearest is {nearest}[, and past that {others}].[ Keep clear of the {danger} unless you've a reason not to.]
+incarnate/NN | surroundings | This is {here}, and the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}.]
+incarnate/NN | surroundings | {here} is where you are, and the closest is {nearest}.[ Beyond it, {others}.][ I'd give the {danger} a wide berth, unless you've cause.]
+incarnate/NN | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Leave the {danger} be.]
+incarnate/NN | surroundings | Near at hand is {nearest}[, then {others}].[ Watch for the {danger}.]
+incarnate/NN | work_own | I've work that needs doing: {own}.[ If that's not for you, {others}.]
+incarnate/NN | work_own | You look useful, so here it is: {own}.[ Otherwise, {others}.]
+incarnate/NN | work_own | Here's what I can offer: {own}.[ Or, if you'd rather, {others}.]
+incarnate/NN | work_others | None of my own, but {others}.
+incarnate/NN | work_others | I've nothing, but {others}, if it helps.
+incarnate/NN | work_none | There's nothing, from me or anyone I know.
+incarnate/NN | work_none | Nothing going, and I'd say so if there were.
+incarnate/NN | unknown | No idea, and guessing costs more than it's worth.
+incarnate/NN | unknown | I couldn't tell you, it's not something I know.
+incarnate/NN | refused_give | No, that's {giver}'s, and it's not mine to hand out.
+incarnate/NN | refused_give | That's not mine, it's {giver}'s, and I'm not trading what I don't own.
+incarnate/NN | refused_give | I can't, it's someone else's to give.
+incarnate/NN | refused_release | I won't, that's between you and {giver}.
+incarnate/NN | refused_release | Not from me, it's {giver}'s bargain, not mine.
+incarnate/NN | refused_release | I cannot, a deal I'm not party to isn't mine to break.
+incarnate/NN | refused | No, {reason}, and there's no use pushing.
+incarnate/NN | refused | No, and I'll tell you why: {reason}.
+incarnate/NN | accepted | Good. That's one in your column.
+incarnate/NN | accepted | Done, and I'll remember it.
+incarnate/NN | accepted | Then it's agreed, fair and square.
+incarnate/NN | declined | Fair enough, no harm done.
+incarnate/NN | declined | Suit yourself, I'll find someone it suits.
+incarnate/NN | declined | So be it, we're no worse off.
+incarnate/NN | abandoned | Very well, but that counts against you.
+incarnate/NN | abandoned | A pity, I had you down as useful.
+incarnate/NN | abandoned | As you wish, and no more said about it.
+incarnate/NN | parted | Go well, and don't spend more of yourself than it's worth.
+incarnate/NN | parted | Safe travels, it's been useful.
+incarnate/NN | parted | Farewell, until one of us has a use for the other.
+incarnate/NN | not_understood | I don't follow, say it another way.
+incarnate/NN | not_understood | What do you mean, in plain words?
+incarnate/NN | not_understood | I'm not sure what you mean, so tell me straight.

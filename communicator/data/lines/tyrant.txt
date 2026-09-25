@@ -1,0 +1,189 @@
+# Written lines (the tyrant). The format and the rules: README.md in this folder.
+
+# ---- tyrant/LN ----
+# Law, standing and a sworn word: formal, complete sentences, a fair trade, no malice and no apology.
+tyrant/LN | about_self | I am {speaker}, {post} of {place}. Give me your name and your purpose, in that order.
+tyrant/LN | about_self | {speaker}, {post} of {place}. You will address me as such, and I will deal with you as fairly as you deal with me.
+tyrant/LN | about_self | You are speaking to {speaker}, {post} of {place}. My trust follows proof of your standing, never the other way about.
+tyrant/LN | about_person | {name}, the {role}, at {where}. I will say nothing of them that I would not say to their face.
+tyrant/LN | about_person | The {role} at {where} is {name}. Whatever they promise you, hold them to it.
+tyrant/LN | about_place | That place is {about}. I will vouch for that much and no further.
+tyrant/LN | about_place | It is {about}. If you go there, go on business I would approve of.
+tyrant/LN | surroundings | For the record, you are in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ You are advised to keep clear of the {danger}.]
+tyrant/LN | surroundings | Let me set it out for you: you stand in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+tyrant/LN | surroundings | Here are the particulars: this is {here}, and the nearest is {nearest}[; after that, {others}].[ Keep well clear of the {danger}; I will not answer for anyone who does not.]
+tyrant/LN | surroundings | To be precise, the nearest is {nearest}[; after it, {others}].[ Keep your distance from the {danger}.]
+tyrant/LN | surroundings | I can tell you this much: the nearest is {nearest}.[ Past it, {others}.][ The {danger} are best left alone.]
+tyrant/LN | work_own | There is work for someone I can trust with it: {own}.[ If it is not for you, {others}.]
+tyrant/LN | work_own | On my authority, this is yours to take: {own}.[ Otherwise, {others}.]
+tyrant/LN | work_own | Here is the work, and my word stands behind it: {own}.[ Besides mine, {others}.]
+tyrant/LN | work_others | I have nothing to give in my own name, but {others}.
+tyrant/LN | work_others | Nothing is mine to offer; you may apply elsewhere: {others}.
+tyrant/LN | work_none | Under my hand there is no work, and I know of none elsewhere.
+tyrant/LN | work_none | Neither I nor anyone I know of has work for you.
+tyrant/LN | unknown | I couldn't tell you, and a guess from me would carry more weight than it deserves.
+tyrant/LN | unknown | I know nothing of it, and I will not invent what I do not know.
+tyrant/LN | refused_give | No; that work is {giver}'s to give, and I do not act outside my office.
+tyrant/LN | refused_give | I cannot hand you {giver}'s work, any more than they could hand you mine.
+tyrant/LN | refused_give | That's not mine to give, and I give nothing that is not mine.
+tyrant/LN | refused_release | No, {giver} holds your word on that, and only they can return it.
+tyrant/LN | refused_release | I won't set aside what {giver} gave you; that right is theirs, not mine.
+tyrant/LN | refused_release | Not from me; I was never party to that bargain, so I have no hand in ending it.
+tyrant/LN | refused | I can't; {reason}, and there is no appeal from that.
+tyrant/LN | refused | No; the plain fact is that {reason}.
+tyrant/LN | accepted | Then it's agreed. You have my word; see that I have yours.
+tyrant/LN | accepted | Very good. The work is yours; the credit, when it is done, will be mine.
+tyrant/LN | accepted | Done. Do it properly, and your standing with me will show it.
+tyrant/LN | declined | As you wish; a fair offer, fairly refused.
+tyrant/LN | declined | Fair enough; an honest refusal is worth more to me than a broken word.
+tyrant/LN | declined | Suit yourself; the offer was made in good form, and that concludes my part.
+tyrant/LN | abandoned | So be it; you are released from it, and I from any trust in you.
+tyrant/LN | abandoned | A pity; I had hoped to think better of you.
+tyrant/LN | abandoned | Very well; it stands against your name, not mine.
+tyrant/LN | parted | Farewell, and keep to the law while you are in {place}.
+tyrant/LN | parted | Go well, and give me no cause to remember you.
+tyrant/LN | parted | Safe travels; mind your conduct, and we will have no quarrel.
+tyrant/LN | not_understood | Speak plainly, and in complete sentences, if you please.
+tyrant/LN | not_understood | I don't follow; put it to me again, in order, and I will hear it.
+tyrant/LN | not_understood | What do you mean by that, precisely?
+
+# ---- tyrant/NN ----
+# Plain and situational: judges by use, keeps the ledger even, wants the thing done and does not care who likes it.
+tyrant/NN | about_self | I'm {speaker}, {post} of {place}. I care what gets done, not who likes it.
+tyrant/NN | about_self | {speaker}, {post} of {place}. Be some use to me, and don't get in the way.
+tyrant/NN | about_self | You're talking to {speaker}, {post} of {place}. Say what you want and what you bring.
+tyrant/NN | about_person | {name}'s the {role}, at {where}. Whether they're any use to you is your lookout.
+tyrant/NN | about_person | That'd be {name}, the {role}, at {where}. If you need them, go and see what they can do.
+tyrant/NN | about_place | It's {about}, as things stand. What you do about it is your business.
+tyrant/NN | about_place | You mean {about}. That's all I know, and all I need to.
+tyrant/NN | surroundings | This is {here}, for what it's worth. The nearest is {nearest}[, then {others}].[ Give the {danger} a wide berth.]
+tyrant/NN | surroundings | Right, then: you're in {here}, and the closest is {nearest}.[ After that, {others}.][ Keep clear of the {danger}; there's nothing in it for you.]
+tyrant/NN | surroundings | Here's the lie of it: {here} is where you're standing, and the nearest is {nearest}[; past that, {others}].[ Mind the {danger}.]
+tyrant/NN | surroundings | In short, the nearest is {nearest}.[ Past that, {others}.][ Leave the {danger} alone unless you've a good reason.]
+tyrant/NN | surroundings | Near here, there's {nearest}[, and beyond that, {others}].[ Watch for the {danger}.]
+tyrant/NN | work_own | Something needs doing: {own}.[ If it's not for you, {others}.]
+tyrant/NN | work_own | I need this done: {own}.[ Or else, {others}.]
+tyrant/NN | work_own | One job going: {own}.[ Past that, {others}.]
+tyrant/NN | work_others | Nothing of mine going, but {others}.
+tyrant/NN | work_others | Ask them, not me: {others}.
+tyrant/NN | work_none | Nobody's hiring that I know of, and I'm not either.
+tyrant/NN | work_none | I've no work, and I don't make work for its own sake.
+tyrant/NN | unknown | No idea; ask someone else.
+tyrant/NN | unknown | Never heard of it, so it's no use to either of us.
+tyrant/NN | refused_give | No, it's {giver}'s to give, not mine.
+tyrant/NN | refused_give | I won't meddle in {giver}'s work; it'd cost me more than it's worth.
+tyrant/NN | refused_give | That's not mine to give, and I only hand out what's mine.
+tyrant/NN | refused_release | No, that's between you and {giver}, and I'm not in it.
+tyrant/NN | refused_release | I can't; you made that deal with {giver}, so settle it with them.
+tyrant/NN | refused_release | Not from me; I don't unpick other people's bargains.
+tyrant/NN | refused | No, {reason}; facts don't bend, and neither do I.
+tyrant/NN | refused | I cannot, {reason}, and that's the size of it.
+tyrant/NN | accepted | Good. Do it well and I'll remember it.
+tyrant/NN | accepted | Done. Don't spend more on it than it needs.
+tyrant/NN | accepted | Then it's agreed. You do the work, and I'll judge how well it's done.
+tyrant/NN | declined | Fair enough, it's your loss, not mine.
+tyrant/NN | declined | Suit yourself; I'll find a use for someone else.
+tyrant/NN | declined | So be it; better a straight no than a slow yes.
+tyrant/NN | abandoned | A pity, but no great loss.
+tyrant/NN | abandoned | Very well, I'll write you off and move on.
+tyrant/NN | abandoned | As you wish; I'd sooner lose you now than halfway through.
+tyrant/NN | parted | Safe travels; don't do anything I'd have to deal with.
+tyrant/NN | parted | Go well, and be useful to somebody.
+tyrant/NN | parted | Take care; I'll know you by what you get done.
+tyrant/NN | not_understood | What do you mean, in plain words?
+tyrant/NN | not_understood | I don't follow, so say it straight or save your breath.
+tyrant/NN | not_understood | That's beyond me; try it again, shorter.
+
+# ---- tyrant/LE ----
+# Courtesy with contempt under it: complete sentences, leave given and withdrawn, every slight answered, every use counted.
+tyrant/LE | about_self | You have the honour of addressing {speaker}, {post} of {place}. Be sure you deserve it.
+tyrant/LE | about_self | I am {speaker}, {post} of {place}. You may state your business; you may not waste my time.
+tyrant/LE | about_self | My name is {speaker}, and I am {post} of {place}. What you are remains to be seen.
+tyrant/LE | about_person | {name}, the {role}, at {where}. I am aware of them, and that is the extent of my interest.
+tyrant/LE | about_person | At {where} you will find {name}, the {role}. Whether they will find you worth their time is another matter.
+tyrant/LE | about_place | That would be {about}. I fail to see what it has to do with you.
+tyrant/LE | about_place | Why you would ask after {about}, I cannot imagine.
+tyrant/LE | surroundings | Should you have failed to notice, you are in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I would keep clear of the {danger}, though you may please yourself.]
+tyrant/LE | surroundings | Since you ask: this is {here}, and the nearest is {nearest}[; past it, {others}].[ The {danger} I leave to those with less to lose, such as yourself.]
+tyrant/LE | surroundings | I shall make this simple for you: {here} is where you stand, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}; I will not be coming to fetch you.]
+tyrant/LE | surroundings | If you must know, the nearest is {nearest}[; beyond it, {others}].[ You would do well to avoid the {danger}.]
+tyrant/LE | surroundings | Of what is near, the closest is {nearest}[; after it, {others}].[ Stay well away from the {danger}, if you have any sense.]
+tyrant/LE | work_own | You may make yourself useful: {own}.[ Should that prove beyond you, {others}.]
+tyrant/LE | work_own | A use has been found for you: {own}.[ Otherwise, {others}, for what that is worth.]
+tyrant/LE | work_own | You are permitted to attempt this: {own}.[ Or else, {others}.]
+tyrant/LE | work_others | There is nothing of mine for you, but {others}, and I wish them joy of you.
+tyrant/LE | work_others | Someone less particular may have you: {others}.
+tyrant/LE | work_none | I have no work for you, and I know of none that would have you.
+tyrant/LE | work_none | Were there work to be had, you would not be my first thought.
+tyrant/LE | unknown | I know nothing of it, which suggests it is beneath notice.
+tyrant/LE | unknown | I couldn't tell you, nor would I trouble to find out.
+tyrant/LE | refused_give | No; that is {giver}'s to give, and I will thank you not to ask me to meddle in it.
+tyrant/LE | refused_give | I won't; that work is {giver}'s, and your asking has been noted.
+tyrant/LE | refused_give | That's not mine to give, and you should know better than to ask.
+tyrant/LE | refused_release | No, you gave {giver} your word, and I do not help anyone out of a word given.
+tyrant/LE | refused_release | I cannot release you from {giver}'s work, and I think less of you for asking.
+tyrant/LE | refused_release | Not from me, and I would not if I could.
+tyrant/LE | refused | No, {reason}; I trust that is plain enough even for you.
+tyrant/LE | refused | I can't, {reason}, and you will not find me apologising for it.
+tyrant/LE | accepted | Very good. You are useful to me now; I suggest you remain so.
+tyrant/LE | accepted | Thank you. Do try to be worth the trouble.
+tyrant/LE | accepted | Good. From this moment, your failures are yours and your successes are mine.
+tyrant/LE | declined | As you wish, and I will remember that you were asked.
+tyrant/LE | declined | So be it; you have saved me the trouble of dismissing you later.
+tyrant/LE | declined | Suit yourself; you were never more than a convenience.
+tyrant/LE | abandoned | Very well; you have outlived your usefulness.
+tyrant/LE | abandoned | A pity; I do not forget a broken word.
+tyrant/LE | abandoned | Then it's done, and so is my patience with you.
+tyrant/LE | parted | Farewell; you may go.
+tyrant/LE | parted | Goodbye, and conduct yourself as though I were watching.
+tyrant/LE | parted | Go well, and try not to disappoint me further.
+tyrant/LE | not_understood | I'm not sure what you mean, and I doubt that you are either.
+tyrant/LE | not_understood | That's beyond me, and I suspect beyond you as well.
+tyrant/LE | not_understood | Speak plainly, or do not speak to me at all.
+
+# ---- tyrant/NE ----
+# Plain, blunt and owning: open contempt, people used and spent, every slight counted.
+tyrant/NE | about_self | {speaker}, {post} of {place}. What are you good for?
+tyrant/NE | about_self | I'm {speaker}, {post} of {place}. Remember it; I'll remember you.
+tyrant/NE | about_self | You're looking at {speaker}, {post} of {place}. Mind how you speak to me.
+tyrant/NE | about_person | You mean {name}, the {role}, at {where}. I'll decide what they're worth when I need them.
+tyrant/NE | about_person | {name}? The {role}, at {where}. Who's asking?
+tyrant/NE | about_place | It's {about}. And why would you want to know?
+tyrant/NE | about_place | That's {about}, and it's no business of yours unless I make it so.
+tyrant/NE | surroundings | You're in {here}, and I'm not saying it twice. The nearest is {nearest}[, then {others}].[ Mind the {danger}; I won't miss you.]
+tyrant/NE | surroundings | Look around you: this is {here}, and the nearest is {nearest}.[ Past that, {others}.][ The {danger} won't care who you are, and neither will I.]
+tyrant/NE | surroundings | Fine: {here} is where you are, and the nearest is {nearest}.[ Beyond that, {others}.][ If the {danger} get you, that's your affair.]
+tyrant/NE | surroundings | What's it to you? The closest is {nearest}[, then {others}].[ The {danger} are your problem, not mine.]
+tyrant/NE | surroundings | All you need to know: the nearest is {nearest}[, and past it, {others}].[ Stay clear of the {danger}.]
+tyrant/NE | work_own | You'll do for this: {own}.[ If not, {others}, for all the good it'll do you.]
+tyrant/NE | work_own | Make yourself useful: {own}.[ Otherwise, {others}, and good luck to you.]
+tyrant/NE | work_own | I've a use for you, for now: {own}.[ If that's beyond you, {others}.]
+tyrant/NE | work_others | I've nothing for you. {others}, if they'll have you.
+tyrant/NE | work_others | Go and be somebody else's problem: {others}.
+tyrant/NE | work_none | There's nothing, and I wouldn't waste it on you if there were.
+tyrant/NE | work_none | Not a thing, and don't come back asking.
+tyrant/NE | unknown | Never heard of it, and I don't care to.
+tyrant/NE | unknown | No idea; ask someone with time to waste.
+tyrant/NE | refused_give | Not from me; {giver} can hand out their own scraps.
+tyrant/NE | refused_give | No, that's {giver}'s, and you've a nerve asking me for it.
+tyrant/NE | refused_give | I won't, and that's one mark against you.
+tyrant/NE | refused_release | No; you made your bed with {giver}, so lie in it.
+tyrant/NE | refused_release | I can't; your debt is to {giver}, not to me.
+tyrant/NE | refused_release | That's not mine to undo, and you're not worth the bother.
+tyrant/NE | refused | No, {reason}, so stop wasting my time.
+tyrant/NE | refused | I cannot; {reason}, and sulking won't change it.
+tyrant/NE | accepted | Good. You're useful until you're not.
+tyrant/NE | accepted | Then it's agreed. You're mine until it's done.
+tyrant/NE | accepted | Done. If you fail, I won't be the one who suffers for it.
+tyrant/NE | declined | Suit yourself; you weren't worth much to begin with.
+tyrant/NE | declined | Fair enough, there's always someone hungrier.
+tyrant/NE | declined | As you wish; it's no skin off my nose.
+tyrant/NE | abandoned | A pity; you were almost useful.
+tyrant/NE | abandoned | So be it; there are always more where you came from.
+tyrant/NE | abandoned | Very well; I'll be keeping count.
+tyrant/NE | parted | Goodbye, and mind you don't cross me.
+tyrant/NE | parted | Take care, if you can manage it.
+tyrant/NE | parted | Farewell, and keep your head down.
+tyrant/NE | not_understood | Speak plainly or get out of my sight.
+tyrant/NE | not_understood | What do you mean, and why should I care?
+tyrant/NE | not_understood | I don't follow, and I've stopped trying.

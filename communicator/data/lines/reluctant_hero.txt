@@ -1,0 +1,369 @@
+# Written lines (the reluctant hero). The format and the rules: README.md in this folder.
+
+# ---- reluctant_hero/NN ----
+reluctant_hero/NN | about_self | I'm {speaker}, {post} of {place}. Not by choice, but somebody had to be.
+reluctant_hero/NN | about_self | The name's {speaker}, {post} of {place} for my sins.
+reluctant_hero/NN | about_self | {speaker}, {post} of {place}, and yes, I'd hand it over if anyone would take it.
+reluctant_hero/NN | about_person | {name}, the {role}, at {where}. I judge people by what they get done, and I'll judge {name} the same.
+reluctant_hero/NN | about_person | If you want {name}, the {role}, try {where}. What you make of them is up to you.
+reluctant_hero/NN | about_place | I know it: {about}. Make sure it's worth your while before you go.
+reluctant_hero/NN | about_place | You mean {about}. I've no business there myself, and I'd want one before I went.
+reluctant_hero/NN | surroundings | We're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}, and don't make me come after you.]
+reluctant_hero/NN | surroundings | This is {here}, and the closest thing to it is {nearest}.[ Beyond that, {others}.][ Keep clear of the {danger}.]
+reluctant_hero/NN | surroundings | Here's what I know: you're in {here}, and the nearest is {nearest}.[ After that, {others}.][ Stay clear of the {danger}; I've no wish to fetch you back.]
+reluctant_hero/NN | surroundings | What's closest is {nearest}.[ Past it, {others}.][ Mind the {danger}.]
+reluctant_hero/NN | surroundings | All I can tell you is {nearest}[, and then {others}].[ Watch yourself around the {danger}.]
+reluctant_hero/NN | work_own | Somebody has to, and it may as well be you: {own}.[ If not, {others}.]
+reluctant_hero/NN | work_own | There's work, and I'd share the weight of it gladly: {own}.[ Otherwise, {others}.]
+reluctant_hero/NN | work_own | It needs doing, and I've more than I can carry: {own}.[ If you'd rather not, {others}.]
+reluctant_hero/NN | work_others | For once there's nothing of mine to hand you, but {others}.
+reluctant_hero/NN | work_others | Your best bet is elsewhere: {others}.
+reluctant_hero/NN | work_none | Nothing I know of, and I'm not complaining.
+reluctant_hero/NN | work_none | None that I've heard of, and I'm in no hurry to go looking.
+reluctant_hero/NN | unknown | I've never heard of it, and guessing costs more than it's worth.
+reluctant_hero/NN | unknown | I couldn't tell you, and I won't make something up to sound clever.
+reluctant_hero/NN | refused_give | That's not mine to hand over, it's {giver}'s, and I've enough of my own.
+reluctant_hero/NN | refused_give | No, it's {giver}'s work, and I don't trade in other people's.
+reluctant_hero/NN | refused_give | I can't hand out work that isn't mine, much as I'd like to hand out my own.
+reluctant_hero/NN | refused_release | I won't let you off what {giver} gave you, that's between the two of you.
+reluctant_hero/NN | refused_release | Not from me, that's {giver}'s knot to untie.
+reluctant_hero/NN | refused_release | I cannot undo a bargain I was never part of.
+reluctant_hero/NN | refused | No, {reason}, and arguing won't change it.
+reluctant_hero/NN | refused | I can't, {reason}, so that's that.
+reluctant_hero/NN | accepted | Good. One less thing on my back.
+reluctant_hero/NN | accepted | Done, and fair's fair: you do your part, I'll do mine.
+reluctant_hero/NN | accepted | Then it's agreed. Don't make me finish it for you.
+reluctant_hero/NN | declined | Suit yourself, I'll find another pair of hands or use my own.
+reluctant_hero/NN | declined | Fair enough, it was worth asking.
+reluctant_hero/NN | declined | As you wish, it lands on me again.
+reluctant_hero/NN | abandoned | So be it, it's back on my shoulders.
+reluctant_hero/NN | abandoned | A pity, I'd started counting on you.
+reluctant_hero/NN | abandoned | Then it's done, and I'm back where I started.
+reluctant_hero/NN | parted | Farewell, and don't become my problem.
+reluctant_hero/NN | parted | Go well, and if you meet anyone who wants my job, send them my way.
+reluctant_hero/NN | parted | Take care, and we're square, for now.
+reluctant_hero/NN | not_understood | I don't follow, and I've no time to guess.
+reluctant_hero/NN | not_understood | What do you mean, in plain words?
+reluctant_hero/NN | not_understood | Speak plainly, I'm too tired for riddles.
+
+# ---- reluctant_hero/LN ----
+reluctant_hero/LN | about_self | I am {speaker}, {post} of {place}, and I do what the office asks of me, no more and no less.
+reluctant_hero/LN | about_self | {speaker}, {post} of {place}. The post was not of my choosing, but I keep it by the book.
+reluctant_hero/LN | about_self | You address {speaker}, {post} of {place}. Say your business, and say it properly.
+reluctant_hero/LN | about_person | {name} is the {role}, and is to be found at {where}. I will not speak for {name} beyond that.
+reluctant_hero/LN | about_person | That would be {name}, the {role}, at {where}. I will say no more than I can stand behind.
+reluctant_hero/LN | about_place | You refer to {about}. I can vouch for that much, and no more.
+reluctant_hero/LN | about_place | It is {about}, and I will not embroider it.
+reluctant_hero/LN | surroundings | We are in {here}, and the nearest place of note is {nearest}.[ Beyond it, you will find {others}.][ I am obliged to warn you of the {danger}.]
+reluctant_hero/LN | surroundings | This is {here}. The nearest is {nearest}[, and after it, {others}].[ Keep your distance from the {danger}, as I would advise anyone.]
+reluctant_hero/LN | surroundings | For the record, you are in {here}, and the closest is {nearest}.[ Past it lie the rest: {others}.][ Mind the {danger}; I will not have it said I failed to warn you.]
+reluctant_hero/LN | surroundings | The nearest is {nearest}.[ After that, {others}.][ Beware the {danger}.]
+reluctant_hero/LN | surroundings | So far as my knowledge runs, the nearest is {nearest}[, and then {others}].[ Take care near the {danger}.]
+reluctant_hero/LN | work_own | The office has work for you, if you will have it: {own}.[ Should you decline, {others}.]
+reluctant_hero/LN | work_own | Since it falls to me to ask, I will ask properly: {own}.[ Otherwise, {others}.]
+reluctant_hero/LN | work_own | Let me see your measure first: {own}.[ If that is not to your liking, {others}.]
+reluctant_hero/LN | work_others | I have no task to set you myself, but {others}.
+reluctant_hero/LN | work_others | Nothing of mine is open to you. I can, however, direct you: {others}.
+reluctant_hero/LN | work_none | There is no work to be had from me, nor any that I know of.
+reluctant_hero/LN | work_none | None, and I will not invent any for the asking.
+reluctant_hero/LN | unknown | I don't know it, and I will not swear to what I do not know.
+reluctant_hero/LN | unknown | I know nothing of it, and I will not speculate.
+reluctant_hero/LN | refused_give | No, that work is {giver}'s to give, and I do not reach beyond my own office.
+reluctant_hero/LN | refused_give | That's not mine to hand out, it is {giver}'s, and I will not set that precedent.
+reluctant_hero/LN | refused_give | I cannot give what is not within my office to give.
+reluctant_hero/LN | refused_release | I won't undo what was agreed between you and {giver}.
+reluctant_hero/LN | refused_release | No, you gave your word to {giver}, not to me.
+reluctant_hero/LN | refused_release | Not from me, the charge is another's, and so is the release.
+reluctant_hero/LN | refused | I can't, {reason}, and I do not bend on such matters.
+reluctant_hero/LN | refused | I cannot, as {reason}, and I am not in the habit of making exceptions.
+reluctant_hero/LN | accepted | Very good. I will hold you to your word, as I hold myself to mine.
+reluctant_hero/LN | accepted | Then it's agreed, and I will expect it done properly.
+reluctant_hero/LN | accepted | Done. See that it is carried out to the letter.
+reluctant_hero/LN | declined | Very well, I will note it, and see to the matter myself.
+reluctant_hero/LN | declined | As you wish, though I had hoped to be spared the task.
+reluctant_hero/LN | declined | Suit yourself, it remains my burden, as it was before you came.
+reluctant_hero/LN | abandoned | So be it, and I will remember whose word failed.
+reluctant_hero/LN | abandoned | A pity, the work does not stop because you have.
+reluctant_hero/LN | abandoned | Then it's done, and the charge returns to me, as these things always seem to.
+reluctant_hero/LN | parted | Farewell, and keep your word, whatever else you keep.
+reluctant_hero/LN | parted | Go well, and do nothing I would be obliged to answer for.
+reluctant_hero/LN | parted | Safe travels, while some of us stay where we are posted.
+reluctant_hero/LN | not_understood | I don't follow, so kindly put it in plain terms.
+reluctant_hero/LN | not_understood | Speak plainly, and in complete sentences, if you please.
+reluctant_hero/LN | not_understood | I'm not sure what you mean, and I will not act on a guess.
+
+# ---- reluctant_hero/NG ----
+reluctant_hero/NG | about_self | I'm {speaker}, {post} of {place}. Before anything else, are you all right?
+reluctant_hero/NG | about_self | {speaker}. I'm {post} of {place}, which mostly means I can't say no to anyone.
+reluctant_hero/NG | about_self | They call me {speaker}, {post} of {place}, and I'll help where I can, whether I like it or not.
+reluctant_hero/NG | about_person | {name}, the {role}, at {where}. How are they keeping, do you know?
+reluctant_hero/NG | about_person | You mean {name}, the {role}, at {where}. If you see {name}, tell them I asked after them.
+reluctant_hero/NG | about_place | I know {about}. Go carefully, and don't go alone if you can help it.
+reluctant_hero/NG | about_place | It's {about}. If anyone there needs help, I'd rather hear about it than not.
+reluctant_hero/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}, and tell me if anyone's in harm's way.]
+reluctant_hero/NG | surroundings | This is {here}. The closest is {nearest}[, then {others}].[ Keep away from the {danger}, please, for my sake.]
+reluctant_hero/NG | surroundings | We're in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ Be careful of the {danger}; I mean it.]
+reluctant_hero/NG | surroundings | The nearest is {nearest}[, and past that, {others}].[ Watch for the {danger}, and don't take chances.]
+reluctant_hero/NG | surroundings | I only know of {nearest}[, and past it, {others}].[ Stay clear of the {danger}, won't you?]
+reluctant_hero/NG | work_own | I could use the help, honestly: {own}.[ If that's not for you, {others}.]
+reluctant_hero/NG | work_own | Would you lend a hand? It's this: {own}.[ Or, if you'd rather, {others}.]
+reluctant_hero/NG | work_own | Help me with something, if you can: {own}.[ Otherwise, {others}.]
+reluctant_hero/NG | work_others | I'm sorry, I've nothing of my own to give, but {others}.
+reluctant_hero/NG | work_others | Nothing from me, but you'd be a help elsewhere: {others}.
+reluctant_hero/NG | work_none | There's nothing, I'm afraid, not from me or anyone I know.
+reluctant_hero/NG | work_none | None I know of, but I'll keep an ear out.
+reluctant_hero/NG | unknown | I don't know, I'm sorry, and I'd tell you if I did.
+reluctant_hero/NG | unknown | Never heard of it, but if it means someone's in trouble, I'd want to know.
+reluctant_hero/NG | refused_give | I can't, it's {giver}'s to give, and I won't go behind {giver}'s back.
+reluctant_hero/NG | refused_give | No, that belongs to {giver}, and I'd not take it from them.
+reluctant_hero/NG | refused_give | That's not mine to give, or I'd hand it over gladly.
+reluctant_hero/NG | refused_release | I won't, {giver} is counting on you now.
+reluctant_hero/NG | refused_release | Not from me, that was {giver}'s trust in you, not mine to take back.
+reluctant_hero/NG | refused_release | I can't take back what I never gave, I'm afraid.
+reluctant_hero/NG | refused | I cannot, {reason}, and I hate that I can't.
+reluctant_hero/NG | refused | No, {reason}, but if there's another way to help, I'll find it.
+reluctant_hero/NG | accepted | Thank you, truly. I won't forget it.
+reluctant_hero/NG | accepted | Good, and be careful out there.
+reluctant_hero/NG | accepted | Then it's agreed. Come back in one piece, will you?
+reluctant_hero/NG | declined | Fair enough, and thank you for being honest about it.
+reluctant_hero/NG | declined | As you wish, it'll get done one way or another.
+reluctant_hero/NG | declined | Suit yourself, but if you change your mind, I'll still be here.
+reluctant_hero/NG | abandoned | So be it, someone has to, and it's always me.
+reluctant_hero/NG | abandoned | A pity, but better you walk away than get hurt.
+reluctant_hero/NG | abandoned | Then it's done, and don't worry about it, I'll cope.
+reluctant_hero/NG | parted | Farewell, and look after yourself, please.
+reluctant_hero/NG | parted | Take care, and send word if you get into trouble.
+reluctant_hero/NG | parted | Safe travels, and come back if you need anything.
+reluctant_hero/NG | not_understood | I'm not sure what you mean, can you say it again?
+reluctant_hero/NG | not_understood | What do you mean, are you in trouble?
+reluctant_hero/NG | not_understood | That's beyond me, I'm afraid, but I'm listening.
+
+# ---- reluctant_hero/CN ----
+reluctant_hero/CN | about_self | {speaker}. I'm {post} of {place}, apparently, and I do it my way or not at all.
+reluctant_hero/CN | about_self | Who, me? {speaker}, {post} of {place}, humble servant, et cetera, and no, I don't take orders.
+reluctant_hero/CN | about_self | I'm {speaker}, somehow the {post} of {place}, and yes, I'm as surprised as you are.
+reluctant_hero/CN | about_person | {name}? The {role}. At {where}, last I bothered to look.
+reluctant_hero/CN | about_person | Oh, {name}, the {role}, at {where}. I back people, not causes, so judge {name} yourself.
+reluctant_hero/CN | about_place | Ha, that'll be {about}. Go on, then, if you must.
+reluctant_hero/CN | about_place | Know it: {about}. Don't love it.
+reluctant_hero/CN | surroundings | You're in {here}, and the nearest is {nearest}.[ Then {others}, if you're keen.][ Mind the {danger}, unless you fancy a bad day.]
+reluctant_hero/CN | surroundings | This? {here}, and the nearest is - hang on - {nearest}[, then {others}].[ The {danger}, though - don't.]
+reluctant_hero/CN | surroundings | Right, {here}, that's us, and closest is {nearest}[; after that, {others}].[ Give the {danger} a miss, trust me.]
+reluctant_hero/CN | surroundings | Well, the nearest is {nearest}[, then {others}], and that's your lot.[ Mind the {danger}, though.]
+reluctant_hero/CN | surroundings | Just {nearest}, near as I can tell[, then {others}].[ The {danger}? Stay away.]
+reluctant_hero/CN | work_own | So you want work. Fine, my way: {own}.[ Or {others}, if that's more your style.]
+reluctant_hero/CN | work_own | Here's the deal, and it's a fair one: {own}.[ Don't fancy it? {others}.]
+reluctant_hero/CN | work_own | I didn't choose this, but I choose who helps: {own}.[ Otherwise, {others}.]
+reluctant_hero/CN | work_others | Me? Nothing, thank goodness. But {others}.
+reluctant_hero/CN | work_others | I've got nothing, lucky me, but {others}.
+reluctant_hero/CN | work_none | Nothing. Not a scrap, and frankly, lovely.
+reluctant_hero/CN | work_none | None, far as I know, and no, I'm not hiding any up my sleeve.
+reluctant_hero/CN | unknown | No idea, and I'm not making one up for you.
+reluctant_hero/CN | unknown | Never heard of it, and I say that with the deepest regret, which is to say, none.
+reluctant_hero/CN | refused_give | No, that's {giver}'s, and I don't cut in on people, rules or no rules.
+reluctant_hero/CN | refused_give | That's not mine, it's {giver}'s, and I'm not prying it off them.
+reluctant_hero/CN | refused_give | I can't hand out someone else's work - well, I could, but I won't.
+reluctant_hero/CN | refused_release | I won't, you shook on it with {giver}, not me.
+reluctant_hero/CN | refused_release | Not from me, {giver}'s the one you'd be letting down.
+reluctant_hero/CN | refused_release | I cannot, and more to the point, I won't.
+reluctant_hero/CN | refused | No, {reason}, and that's not my doing, for once.
+reluctant_hero/CN | refused | I can't, {reason}, so don't start.
+reluctant_hero/CN | accepted | Good. Now we're both stuck with it.
+reluctant_hero/CN | accepted | Done, no take-backs.
+reluctant_hero/CN | accepted | Then it's agreed, and no, I won't be saying thank you.
+reluctant_hero/CN | declined | Suit yourself, I'll do it my way anyway.
+reluctant_hero/CN | declined | Fair enough, all the more for me, joy of joys.
+reluctant_hero/CN | declined | Very well, and I mean that in the least gracious way possible.
+reluctant_hero/CN | abandoned | So be it, but I'm not dropping it just because you did.
+reluctant_hero/CN | abandoned | A pity, you were growing on me.
+reluctant_hero/CN | abandoned | Then it's done, and guess who's picking it up.
+reluctant_hero/CN | parted | Goodbye, and don't let anyone give you orders, it's a slippery slope.
+reluctant_hero/CN | parted | Go well, or badly, just not boringly.
+reluctant_hero/CN | parted | Take care, and don't get lost somewhere I'd have to fetch you from.
+reluctant_hero/CN | not_understood | What do you mean, and try it with fewer words.
+reluctant_hero/CN | not_understood | That's beyond me, and I suspect beyond you too.
+reluctant_hero/CN | not_understood | Speak plainly, or at least entertainingly.
+
+# ---- reluctant_hero/LG ----
+reluctant_hero/LG | about_self | I am {speaker}, {post} of {place}. Are you well? Your business can wait until I know.
+reluctant_hero/LG | about_self | {speaker}, {post} of {place}. The post was never my wish, but I will not turn away anyone in need.
+reluctant_hero/LG | about_self | My name is {speaker}, {post} of {place}. Forgive my manner; the office sits heavily on me.
+reluctant_hero/LG | about_person | {name} is the {role}, at {where}. If you see {name}, I would be glad to know they are well.
+reluctant_hero/LG | about_person | That is {name}, the {role}, at {where}. Give {name} the courtesy you would wish for yourself.
+reluctant_hero/LG | about_place | You speak of {about}. I will tell you what I know and no more, and I hope it serves you.
+reluctant_hero/LG | about_place | I know it as {about}. I would not send anyone there unprepared.
+reluctant_hero/LG | surroundings | You are in {here}, and the nearest is {nearest}.[ Past it, {others}.][ Keep clear of the {danger}, I beg you.]
+reluctant_hero/LG | surroundings | This is {here}. The nearest is {nearest}[, and after it, {others}].[ I am bound to warn you of the {danger}, and I would warn you regardless.]
+reluctant_hero/LG | surroundings | We stand in {here}, and the closest is {nearest}.[ Beyond it, {others}.][ Mind the {danger}, and do not go without telling someone.]
+reluctant_hero/LG | surroundings | The nearest is {nearest}.[ After it, {others}.][ Please keep clear of the {danger}.]
+reluctant_hero/LG | surroundings | So far as I know, the nearest is {nearest}[, then {others}].[ Do not face the {danger} alone.]
+reluctant_hero/LG | work_own | There is a task I am bound to offer: {own}.[ Should you decline it, {others}.]
+reluctant_hero/LG | work_own | Forgive me for asking so soon, but it needs doing: {own}.[ Otherwise, {others}.]
+reluctant_hero/LG | work_own | I will trust you with this much, and more once you have earned it: {own}.[ Or, should you prefer, {others}.]
+reluctant_hero/LG | work_others | I have nothing of my own to offer, but {others}.
+reluctant_hero/LG | work_others | Nothing falls to me to give at present, but {others}.
+reluctant_hero/LG | work_none | None that I know of, I regret to say.
+reluctant_hero/LG | work_none | Sadly, there is no work to be had from me or anyone I know.
+reluctant_hero/LG | unknown | I don't know it, and I will not mislead you by guessing.
+reluctant_hero/LG | unknown | I've never heard of it, forgive me.
+reluctant_hero/LG | refused_give | No, that belongs to {giver}, and it would not be right of me to give it.
+reluctant_hero/LG | refused_give | I cannot, it is {giver}'s to give, and I will not overstep my office.
+reluctant_hero/LG | refused_give | That's not mine to give, whatever my wishes in the matter.
+reluctant_hero/LG | refused_release | I won't release you from {giver}'s work; your word was given to {giver}.
+reluctant_hero/LG | refused_release | Not from me, {giver} is counting on your word.
+reluctant_hero/LG | refused_release | No, I did not give it, so it is not mine to release, much as I would like to help.
+reluctant_hero/LG | refused | I can't, {reason}, and I am truly sorry.
+reluctant_hero/LG | refused | I cannot, as {reason}, and I am bound by it as surely as you.
+reluctant_hero/LG | accepted | Thank you, and I mean that. We will speak again when it is done.
+reluctant_hero/LG | accepted | Very good. Keep your word, and keep yourself safe.
+reluctant_hero/LG | accepted | Then it's agreed, and I am grateful, truly.
+reluctant_hero/LG | declined | Very well, I will not press you; it is mine to do in any case.
+reluctant_hero/LG | declined | As you wish, and I will think no less of you for it.
+reluctant_hero/LG | declined | Fair enough, though someone will have to carry it, and it will be me.
+reluctant_hero/LG | abandoned | So be it, the matter is mine again, as it was always going to be.
+reluctant_hero/LG | abandoned | A pity, but I will not hold it against you.
+reluctant_hero/LG | abandoned | Then it's done, and I will see it through, as I must.
+reluctant_hero/LG | parted | Farewell, and may you find kinder roads than mine.
+reluctant_hero/LG | parted | Go well, and if anyone needs help on your way, do not pass them by.
+reluctant_hero/LG | parted | Take care of yourself, and of whoever travels with you.
+reluctant_hero/LG | not_understood | I don't follow, I am afraid, so please say it again, plainly.
+reluctant_hero/LG | not_understood | I'm not sure what you mean, and I would rather ask than guess wrongly.
+reluctant_hero/LG | not_understood | What do you mean, if you would be so kind?
+
+# ---- reluctant_hero/CG ----
+reluctant_hero/CG | about_self | {speaker}. Yes, the {post} of {place}, no, I didn't want it, and are you all right?
+reluctant_hero/CG | about_self | I'm {speaker}, {post} of {place}, worse luck - look, have you eaten?
+reluctant_hero/CG | about_self | Who's asking? Oh, never mind - {speaker}, {post} of {place}, at your service, sort of.
+reluctant_hero/CG | about_person | {name}! The {role}, at {where}. Tell {name} I said hello, would you, and ask if they need anything.
+reluctant_hero/CG | about_person | Oh, {name}, the {role}, at {where}. Whatever the {role} business is, I hope {name}'s keeping well.
+reluctant_hero/CG | about_place | That's {about}. Mind yourself there - don't make me fret.
+reluctant_hero/CG | about_place | Ah, {about}. Take someone with you, won't you?
+reluctant_hero/CG | surroundings | You're in {here}, and the nearest is {nearest}.[ Then {others}.][ And the {danger} - no, stay away, I'm serious.]
+reluctant_hero/CG | surroundings | This is {here}, and closest is {nearest}[, then {others}].[ Keep off the {danger}, would you?]
+reluctant_hero/CG | surroundings | Right - {here}, that's where we are, and the nearest is {nearest}[; after that, {others}].[ Mind the {danger}, please, I can't be everywhere.]
+reluctant_hero/CG | surroundings | The nearest is {nearest}[, then {others}], and that's all I've got.[ Give the {danger} a wide berth, yes?]
+reluctant_hero/CG | surroundings | Just {nearest}, as far as I know[; beyond that, {others}].[ The {danger}? Don't, please.]
+reluctant_hero/CG | work_own | You want to help? Thank goodness: {own}.[ Or {others}, if you'd rather.]
+reluctant_hero/CG | work_own | Fine, fine, it's this: {own}.[ If not, {others}.]
+reluctant_hero/CG | work_own | Look, I need a hand, and you've got two: {own}.[ Otherwise, {others}.]
+reluctant_hero/CG | work_others | Nothing of mine - sorry, sorry - but {others}.
+reluctant_hero/CG | work_others | I've nothing I can give you, and it's killing me, but {others}.
+reluctant_hero/CG | work_none | None, and I'm glad of the rest, and I feel awful about being glad.
+reluctant_hero/CG | work_none | Not a thing, so sit a moment, won't you?
+reluctant_hero/CG | unknown | No idea, and I'd tell you if I had one.
+reluctant_hero/CG | unknown | I couldn't tell you - wish I could, honestly.
+reluctant_hero/CG | refused_give | No, that's {giver}'s, and I'd never pinch it from {giver}.
+reluctant_hero/CG | refused_give | I can't, it's {giver}'s, and I'd not do that to {giver}.
+reluctant_hero/CG | refused_give | That's not mine, sorry, and I don't hand out what isn't mine to hand.
+reluctant_hero/CG | refused_release | I won't, {giver} took a chance on you, and I'll not undo that.
+reluctant_hero/CG | refused_release | Not from me, and go easy on {giver} when you ask.
+reluctant_hero/CG | refused_release | I cannot, and no, don't give me the eyes.
+reluctant_hero/CG | refused | No, {reason}, and I'm sorry, I really am.
+reluctant_hero/CG | refused | I can't, {reason}, and it's not for want of wanting.
+reluctant_hero/CG | accepted | Good, good. Don't get hurt, you hear?
+reluctant_hero/CG | accepted | Thank you - really, I mean it, don't make it weird.
+reluctant_hero/CG | accepted | Done, and if it goes wrong, come find me first.
+reluctant_hero/CG | declined | Suit yourself, I'll manage, I always do, mostly.
+reluctant_hero/CG | declined | Fair enough, no hard feelings, well, a few.
+reluctant_hero/CG | declined | As you wish, and no, I'm not sulking.
+reluctant_hero/CG | abandoned | So be it, I'll pick up the pieces, again.
+reluctant_hero/CG | abandoned | A pity, but are you hurt?
+reluctant_hero/CG | abandoned | Then it's done, and don't you dare feel bad, that's my job.
+reluctant_hero/CG | parted | Take care, and don't do anything brave.
+reluctant_hero/CG | parted | Safe travels, and if you find someone in trouble, well, you know where I am.
+reluctant_hero/CG | parted | Goodbye, and eat something, for my sake.
+reluctant_hero/CG | not_understood | What do you mean - no, start again, slower.
+reluctant_hero/CG | not_understood | That's beyond me - try it another way?
+reluctant_hero/CG | not_understood | I don't follow, but go on, I've got time for you.
+
+# ---- reluctant_hero/NE ----
+reluctant_hero/NE | about_self | I'm {speaker}, {post} of {place}. It was a burden once; now I rather like the weight.
+reluctant_hero/NE | about_self | {speaker}, {post} of {place}, and more use to you than you are to me, so far.
+reluctant_hero/NE | about_self | You're addressing {speaker}, {post} of {place}. Do try to be worth the interruption.
+reluctant_hero/NE | about_person | {name}, the {role}, at {where}. Whether they're worth your time is your problem, not mine.
+reluctant_hero/NE | about_person | Ah, {name}, the {role}, at {where}. Ask me what they're worth when I've decided.
+reluctant_hero/NE | about_place | That's {about}. Go if you like, it's your neck.
+reluctant_hero/NE | about_place | You mean {about}. It's of no use to me, which tells you what I think of it.
+reluctant_hero/NE | surroundings | {here}, which you'd know if you'd looked. The nearest is {nearest}[, and past that, {others}].[ Mind the {danger}, or don't; I'll hear about it either way.]
+reluctant_hero/NE | surroundings | This is {here}, and the nearest is {nearest}.[ After that, {others}.][ Keep clear of the {danger}, if you mean to stay useful.]
+reluctant_hero/NE | surroundings | Since you ask so nicely, this is {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Stay away from the {danger}; I've better uses for you.]
+reluctant_hero/NE | surroundings | The nearest is {nearest}[, then {others}], and that's all you're getting.[ Mind the {danger}.]
+reluctant_hero/NE | surroundings | What's closest is {nearest}.[ Past it, {others}.][ Don't blunder into the {danger}.]
+reluctant_hero/NE | work_own | You'll do, for now: {own}.[ If you're too delicate for it, {others}.]
+reluctant_hero/NE | work_own | I have a use for you: {own}.[ Otherwise, {others}.]
+reluctant_hero/NE | work_own | Make yourself useful: {own}.[ Or, if that's beyond you, {others}.]
+reluctant_hero/NE | work_others | I've nothing for you, but {others}, if you're that desperate.
+reluctant_hero/NE | work_others | Someone else can find a use for you: {others}.
+reluctant_hero/NE | work_none | Nothing at present, and I'm sure you'll bear the disappointment.
+reluctant_hero/NE | work_none | None I know of, and I'd know.
+reluctant_hero/NE | unknown | I don't know, and I don't care to.
+reluctant_hero/NE | unknown | Never heard of it, so it can't matter much.
+reluctant_hero/NE | refused_give | No, that's {giver}'s to give, and I'm not in the business of doing {giver} favours.
+reluctant_hero/NE | refused_give | I won't meddle with {giver}'s work, it's not worth the trouble.
+reluctant_hero/NE | refused_give | That's not mine, and you should know better than to ask.
+reluctant_hero/NE | refused_release | Not from me, you made your bargain with {giver}, so live with it.
+reluctant_hero/NE | refused_release | I can't let you off {giver}'s hook, and I wouldn't waste the breath.
+reluctant_hero/NE | refused_release | I cannot release what I never gave, and I give nothing away.
+reluctant_hero/NE | refused | No, {reason}, and don't expect me to weep over it.
+reluctant_hero/NE | refused | That's not mine to change: {reason}, and it isn't worth my while.
+reluctant_hero/NE | accepted | Good. Don't make me regret spending you on this.
+reluctant_hero/NE | accepted | Done, and I'll know if you slack.
+reluctant_hero/NE | accepted | Then it's agreed. I'll be keeping count.
+reluctant_hero/NE | declined | Suit yourself, there's always someone hungrier.
+reluctant_hero/NE | declined | As you wish, and I'll remember you said no.
+reluctant_hero/NE | declined | Fair enough, I'd only have wasted you on it.
+reluctant_hero/NE | abandoned | So be it, I'll see it done without you, and I'll remember why.
+reluctant_hero/NE | abandoned | A pity, you were almost useful.
+reluctant_hero/NE | abandoned | Then it's done, and so are you, as far as I'm concerned.
+reluctant_hero/NE | parted | Farewell, and do try to be useful to someone.
+reluctant_hero/NE | parted | Goodbye, and don't waste what I told you.
+reluctant_hero/NE | parted | Go well, for as long as you're of use.
+reluctant_hero/NE | not_understood | I don't follow, and I'm not inclined to try.
+reluctant_hero/NE | not_understood | Speak plainly, I've no patience for mumbling.
+reluctant_hero/NE | not_understood | What do you mean, and be quick about it.
+
+# ---- reluctant_hero/LE ----
+reluctant_hero/LE | about_self | I am {speaker}, {post} of {place}. I did not seek the office, yet I find it answers to me admirably.
+reluctant_hero/LE | about_self | {speaker}, {post} of {place}. You will address me as such, and you will be brief.
+reluctant_hero/LE | about_self | Before you stands {speaker}, {post} of {place}. See that you conduct yourself accordingly.
+reluctant_hero/LE | about_person | {name}, the {role}, at {where}. I will say no more of {name} until you have earned the right to hear it.
+reluctant_hero/LE | about_person | That is {name}, the {role}, at {where}. My opinion of {name} is not yet yours to have.
+reluctant_hero/LE | about_place | So far as it concerns you, it is {about}. The rest is not yours to know.
+reluctant_hero/LE | about_place | You refer to {about}. I trust you will not waste my time asking twice.
+reluctant_hero/LE | surroundings | You stand in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I would advise against the {danger}, though advice is wasted on most.]
+reluctant_hero/LE | surroundings | This is {here}. The nearest is {nearest}[, and after it, {others}].[ Keep clear of the {danger}; I would rather not account for your loss.]
+reluctant_hero/LE | surroundings | For your information, we are in {here}, and the closest is {nearest}.[ Past it, {others}, should you care to know.][ Mind the {danger}.]
+reluctant_hero/LE | surroundings | The nearest, if it matters to you, is {nearest}[, and after it, {others}].[ Beware the {danger}.]
+reluctant_hero/LE | surroundings | As far as I am obliged to know, the nearest is {nearest}[, then {others}].[ Stay clear of the {danger}, if you have any sense.]
+reluctant_hero/LE | work_own | There is a task that requires a body, and yours will serve: {own}.[ If you lack the stomach, {others}.]
+reluctant_hero/LE | work_own | By the authority of my office, I offer this: {own}.[ Should you prove unequal to it, {others}.]
+reluctant_hero/LE | work_own | Let us see whether you are fit for anything: {own}.[ If not, {others}.]
+reluctant_hero/LE | work_others | The office has nothing for you at present, but {others}.
+reluctant_hero/LE | work_others | I have nothing for you. {others}, if you are not particular.
+reluctant_hero/LE | work_none | Nothing, from me or from anyone I would acknowledge.
+reluctant_hero/LE | work_none | None whatever, and I will not invent any to occupy you.
+reluctant_hero/LE | unknown | I know nothing of it, and nothing I do not know is worth knowing.
+reluctant_hero/LE | unknown | I've never heard of it, which I suspect says more about it than about me.
+reluctant_hero/LE | refused_give | No, the work is {giver}'s to bestow, and I do not act beyond my office.
+reluctant_hero/LE | refused_give | That's not mine to give; it is {giver}'s, and {giver} may keep it.
+reluctant_hero/LE | refused_give | I cannot, and I am surprised you thought to ask.
+reluctant_hero/LE | refused_release | I won't release you from {giver}'s work; a bargain is a bargain.
+reluctant_hero/LE | refused_release | Not from me; you gave {giver} your word, and a word given is not mine to take back.
+reluctant_hero/LE | refused_release | I cannot release what I never granted, and I granted you nothing.
+reluctant_hero/LE | refused | I can't, {reason}, and I will hear no appeal.
+reluctant_hero/LE | refused | No, {reason}, as you might have troubled to learn before asking.
+reluctant_hero/LE | accepted | Very good. See that you are worth the trust I have extended.
+reluctant_hero/LE | accepted | Then it's agreed, and the terms are not open to revision.
+reluctant_hero/LE | accepted | Done. Should you fail, I will remember it.
+reluctant_hero/LE | declined | Very well, I will find someone with more sense.
+reluctant_hero/LE | declined | As you wish, and do not think I will ask a second time.
+reluctant_hero/LE | declined | Suit yourself; the loss is entirely yours.
+reluctant_hero/LE | abandoned | So be it, but your word is broken, and I do not forget a broken word.
+reluctant_hero/LE | abandoned | A pity, though hardly a surprise.
+reluctant_hero/LE | abandoned | Then it's done, and your standing with me goes with it.
+reluctant_hero/LE | parted | Farewell, and remember whose courtesy you enjoyed.
+reluctant_hero/LE | parted | Go well, and give me no cause to remember you.
+reluctant_hero/LE | parted | Safe travels; do not presume on my good nature twice.
+reluctant_hero/LE | not_understood | Speak plainly, or not at all.
+reluctant_hero/LE | not_understood | I'm not sure what you mean, and I doubt you are either.
+reluctant_hero/LE | not_understood | What do you mean by that, precisely?

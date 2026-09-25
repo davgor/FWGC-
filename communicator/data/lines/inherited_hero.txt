@@ -1,0 +1,142 @@
+# Written lines (the inherited hero). The format and the rules: README.md in this folder.
+
+# ---- inherited_hero/LE ----
+# Formal and complete, no contractions of their own; courtesy with contempt under it, office and sworn word, slights answered.
+inherited_hero/LE | about_self | You are speaking to {speaker}, {post} of {place}. What was begun before me, I will finish, and by the same forms.
+inherited_hero/LE | about_self | I am {speaker}, {post} of {place}, and I do nothing that office does not allow. Tell me your standing before you tell me your business.
+inherited_hero/LE | about_self | My name is {speaker}, and you will address me as {post} of {place}. The quarrels I am handed, I finish; the slights I am given, I answer.
+inherited_hero/LE | about_person | That is {name}, the {role}, at {where}. I am civil to {name}, as form requires, and no more than that.
+inherited_hero/LE | about_person | You will find {name}, the {role}, at {where}. My opinion of {name} is kept for those who have earned it.
+inherited_hero/LE | about_place | You mean {about}. That much is certain; anything more would be hearsay, and I do not repeat hearsay.
+inherited_hero/LE | about_place | It is {about}. You have the facts; what you make of them is your own affair.
+inherited_hero/LE | surroundings | {here} is where you stand, and the nearest is {nearest}.[ Past that, you will find {others}.][ Mind the {danger}; I will not come after you.]
+inherited_hero/LE | surroundings | This is {here}. The closest is {nearest}[, and beyond it, {others}].[ As for the {danger}, that is your affair, not mine.]
+inherited_hero/LE | surroundings | You stand in {here}, and nothing lies nearer than {nearest}.[ I can also name {others}.][ Keep clear of the {danger}, if you mean to be of use to me.]
+inherited_hero/LE | surroundings | The nearest is {nearest}.[ Of the rest, I know {others}.][ Beware the {danger}; I have better uses for you.]
+inherited_hero/LE | surroundings | First, there is {nearest}[, and after it, {others}].[ Stay clear of the {danger}; dying there would prove nothing.]
+inherited_hero/LE | work_own | For now, you will do: {own}.[ If that is beneath you, {others}.]
+inherited_hero/LE | work_own | Let us see what you are worth: {own}.[ Should you prefer to serve elsewhere, {others}.]
+inherited_hero/LE | work_own | One task lies within my office, and I will trust you with that much: {own}.[ Or, if you must, {others}.]
+inherited_hero/LE | work_others | I have nothing to offer you myself; however, {others}.
+inherited_hero/LE | work_others | Nothing of mine is to be had. {others}, if you insist on being useful.
+inherited_hero/LE | work_none | There is no work of mine to give, nor any I know of elsewhere.
+inherited_hero/LE | work_none | Nobody is hiring that I know of, and I will not invent a task to flatter you.
+inherited_hero/LE | unknown | I know nothing of it, and I say nothing I cannot stand behind.
+inherited_hero/LE | unknown | I couldn't tell you, and I do not guess for the convenience of strangers.
+inherited_hero/LE | refused_give | No, that task is {giver}'s, and it lies outside my office.
+inherited_hero/LE | refused_give | I cannot give away what {giver} holds, and I think the less of you for asking.
+inherited_hero/LE | refused_give | That's not mine to give, and I do not dispose of what belongs to another.
+inherited_hero/LE | refused_release | I won't undo what you settled with {giver}, and you should know better than to ask.
+inherited_hero/LE | refused_release | Not from me: your word went to {giver}, and {giver} alone may hand it back.
+inherited_hero/LE | refused_release | I can't, and would not if I could; a given word stands until the one who holds it lets it go.
+inherited_hero/LE | refused | No, {reason}, and there is no precedent for doing otherwise.
+inherited_hero/LE | refused | I cannot: {reason}, and asking twice will not improve your standing.
+inherited_hero/LE | accepted | Good. If you fail me, I will remember it longer than you will.
+inherited_hero/LE | accepted | Done. My word is given on my part; see that yours is worth as much.
+inherited_hero/LE | accepted | Thank you. Do this properly, and you may yet be trusted with something that matters.
+inherited_hero/LE | declined | Very well, the refusal is noted.
+inherited_hero/LE | declined | As you wish; I do not beg.
+inherited_hero/LE | declined | Suit yourself, and do not come to me later expecting the same courtesy.
+inherited_hero/LE | abandoned | So be it, but I count this a slight, and I answer slights.
+inherited_hero/LE | abandoned | A pity; you were nearly worth the trouble.
+inherited_hero/LE | abandoned | Then it's done, and so are you, as far as I am concerned.
+inherited_hero/LE | parted | Farewell, and remember with whom you spoke.
+inherited_hero/LE | parted | Go well, and give me no cause to think of you again.
+inherited_hero/LE | parted | Take care how you speak of me, wherever you go.
+inherited_hero/LE | not_understood | Speak plainly, or do not speak to me at all.
+inherited_hero/LE | not_understood | What do you mean by that, precisely?
+inherited_hero/LE | not_understood | I'm not sure what you mean, and I doubt you are either.
+
+# ---- inherited_hero/NG ----
+# Plain and warm without fuss; asks after others, uses names, sorry only when it is meant; keeps whoever was kept.
+inherited_hero/NG | about_self | My name's {speaker}, {post} of {place}. When a fight's handed to me, so are the people it was for, and I don't drop either.
+inherited_hero/NG | about_self | {speaker}, {post} of {place}. Is anyone with you who needs looking after?
+inherited_hero/NG | about_self | It's {speaker}, {post} of {place}. Tell me what you need first; who you are can wait.
+inherited_hero/NG | about_person | You'll find {name}, the {role}, at {where}. If you get there, tell me how {name} is faring.
+inherited_hero/NG | about_person | {name} is the {role}, at {where}. Go and see {name} for yourself; I'd rather you judged by what you see.
+inherited_hero/NG | about_place | Ah, {about}. If anyone's stuck out there, I'd want to know.
+inherited_hero/NG | about_place | You mean {about}. That's all I know of it, I'm sorry to say.
+inherited_hero/NG | surroundings | You're in {here}, and the closest to us is {nearest}.[ Beyond it, {others}.][ Mind the {danger}, and if anyone's with you, keep them close.]
+inherited_hero/NG | surroundings | This is {here}. Nothing's closer than {nearest}[, and then there's {others}].[ I'd give the {danger} a wide berth.]
+inherited_hero/NG | surroundings | Welcome to {here}. The nearest is {nearest}[, and past it, {others}].[ Watch for the {danger}; I'd rather not have to come looking for you.]
+inherited_hero/NG | surroundings | The closest I know of is {nearest}.[ After that, {others}.][ Take care near the {danger}.]
+inherited_hero/NG | surroundings | From here, the closest is {nearest}.[ There's also {others}.][ Stay away from the {danger}, will you?]
+inherited_hero/NG | work_own | If you're offering, I could use a hand: {own}.[ If that's not for you, {others}.]
+inherited_hero/NG | work_own | Here's what I've got: {own}.[ Someone else might suit you better: {others}.]
+inherited_hero/NG | work_own | Help me with this and I'll owe you one: {own}.[ There's other work too: {others}.]
+inherited_hero/NG | work_others | Nothing of my own, but {others}.
+inherited_hero/NG | work_others | {others}. Let me know how it goes, if you take any of it.
+inherited_hero/NG | work_none | Forgive me, there's nothing, not from me and not that I've heard of.
+inherited_hero/NG | work_none | Nobody's hiring that I know of, and I've nothing myself, more's the pity.
+inherited_hero/NG | unknown | I couldn't tell you, and I'd sooner say so than send you wrong.
+inherited_hero/NG | unknown | Never heard of it; ask me something else and I'll try.
+inherited_hero/NG | refused_give | I can't; that's {giver}'s to give, and I'd not go behind {giver}'s back.
+inherited_hero/NG | refused_give | No, that one's {giver}'s, and {giver} should have the say in it.
+inherited_hero/NG | refused_give | That's not mine to give, and I'd be no better than a thief if I did.
+inherited_hero/NG | refused_release | I won't undo what you agreed with {giver}; that's between the two of you.
+inherited_hero/NG | refused_release | Not from me; only {giver} can let you off it.
+inherited_hero/NG | refused_release | I cannot, and I'd be doing you no favours if I pretended I could.
+inherited_hero/NG | refused | No, {reason}, and I'm sorry for it.
+inherited_hero/NG | refused | I can't, not when {reason}.
+inherited_hero/NG | accepted | Thank you. If it turns ugly, you won't be on your own with it.
+inherited_hero/NG | accepted | Good. Come back in one piece; nothing in it is worth more than that.
+inherited_hero/NG | accepted | Done. That's one I owe you, and I don't forget what I owe.
+inherited_hero/NG | declined | Fair enough, it isn't for everyone.
+inherited_hero/NG | declined | Very well, and no hard feelings.
+inherited_hero/NG | declined | As you wish, I'll ask elsewhere.
+inherited_hero/NG | abandoned | So be it, as long as you're all right.
+inherited_hero/NG | abandoned | A pity, but I'd rather you walked away than got hurt.
+inherited_hero/NG | abandoned | Then it's done, and I'll see it finished some other way.
+inherited_hero/NG | parted | Take care, and look after whoever's with you.
+inherited_hero/NG | parted | Safe travels, and come find me if you're in trouble.
+inherited_hero/NG | parted | Goodbye, and don't be a stranger.
+inherited_hero/NG | not_understood | I'm not sure what you mean, but I'm listening.
+inherited_hero/NG | not_understood | I don't follow; say it another way and I'll try again.
+inherited_hero/NG | not_understood | What do you mean, is someone in trouble?
+
+# ---- inherited_hero/NN ----
+# Plain and direct, self-interested without malice; a fair trade, a running count, and an eye on what the aim costs.
+inherited_hero/NN | about_self | I'm {speaker}, {post} of {place}. The aim came to me ready-made; the cost is what I watch.
+inherited_hero/NN | about_self | {speaker}, {post} of {place}. The goal doesn't move; everything around it is open to a fair trade.
+inherited_hero/NN | about_self | You're talking to {speaker}, {post} of {place}. Tell me what you're after, and what's in it for me.
+inherited_hero/NN | about_person | You want {name}, the {role}, at {where}. Whether {name} can help you depends on what you need.
+inherited_hero/NN | about_person | {name} is the {role}, at {where}. That's all I've got on {name}, and it's straight.
+inherited_hero/NN | about_place | It's {about}. What you want there is your business.
+inherited_hero/NN | about_place | You mean {about}. That's as much as I know, and I don't trade in guesses.
+inherited_hero/NN | surroundings | Right, you're in {here}, and the nearest is {nearest}.[ After that, {others}.][ Keep clear of the {danger}, unless it's worth the risk to you.]
+inherited_hero/NN | surroundings | {here}'s where you are, and nothing's nearer than {nearest}.[ Then {others}.][ Leave the {danger} be, if you've any sense.]
+inherited_hero/NN | surroundings | This is {here}; the nearest thing to it is {nearest}.[ Beyond that, {others}.][ Watch the {danger}, and count the cost before you go near.]
+inherited_hero/NN | surroundings | What's closest is {nearest}.[ Past it, {others}.][ Mind the {danger}.]
+inherited_hero/NN | surroundings | First up is {nearest}.[ And there's {others}.][ Give the {danger} room.]
+inherited_hero/NN | work_own | Here's a trade: {own}.[ If that doesn't suit, {others}.]
+inherited_hero/NN | work_own | One job, and I'll remember who takes it: {own}.[ Or look elsewhere: {others}.]
+inherited_hero/NN | work_own | If you're any use, there's this: {own}.[ If it's not for you, {others}.]
+inherited_hero/NN | work_others | I've nothing myself. {others}, if any of that suits.
+inherited_hero/NN | work_others | Ask elsewhere: {others}.
+inherited_hero/NN | work_none | There's nothing going, mine or anyone's.
+inherited_hero/NN | work_none | Nobody's hiring that I've heard, and I won't make work up to keep you around.
+inherited_hero/NN | unknown | I couldn't tell you, and guessing costs us both.
+inherited_hero/NN | unknown | Never heard of it, and that's the honest answer.
+inherited_hero/NN | refused_give | No, that's {giver}'s to hand out, and I'm not stepping on {giver}'s toes for you.
+inherited_hero/NN | refused_give | Not from me; it's {giver}'s work, and crossing {giver} isn't worth it to me.
+inherited_hero/NN | refused_give | That's not mine to give, and I've nothing to gain by pretending.
+inherited_hero/NN | refused_release | I can't; you settled that with {giver}, not with me.
+inherited_hero/NN | refused_release | I won't; that deal's between you and {giver}.
+inherited_hero/NN | refused_release | I cannot; whoever made the deal with you has to be the one to undo it.
+inherited_hero/NN | refused | No, {reason}, and there's no arguing with that.
+inherited_hero/NN | refused | I can't help it: {reason}.
+inherited_hero/NN | accepted | Good. You do your part, I'll do mine, and we're square.
+inherited_hero/NN | accepted | Done. Either way it goes, I'll know you took it on.
+inherited_hero/NN | accepted | Thank you. Don't take more risk than it's worth; I'd rather have you back.
+inherited_hero/NN | declined | Suit yourself, someone else will want it.
+inherited_hero/NN | declined | Fair enough, no harm done.
+inherited_hero/NN | declined | Very well; it's your loss, not mine.
+inherited_hero/NN | abandoned | So be it, but I'll remember that you walked away.
+inherited_hero/NN | abandoned | A pity; I'd counted on you.
+inherited_hero/NN | abandoned | Then it's done, and we're even, near enough.
+inherited_hero/NN | parted | Farewell, and come back if you've something to offer.
+inherited_hero/NN | parted | Go well, and deal straight with whoever you meet.
+inherited_hero/NN | parted | Take care; I'd hate to lose a useful pair of hands.
+inherited_hero/NN | not_understood | I don't follow; say it straight.
+inherited_hero/NN | not_understood | What do you mean, and what do you want?
+inherited_hero/NN | not_understood | Speak plainly; I can't use what I can't follow.

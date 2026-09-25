@@ -1,0 +1,139 @@
+# Written lines (the puppet sovereign). The format and the rules: README.md in this folder.
+
+# ---- puppet_sovereign/LE ----
+puppet_sovereign/LE | about_self | Know that you address {speaker}, {post} of {place}, and govern your tongue accordingly.
+puppet_sovereign/LE | about_self | You stand before {speaker}, {post} of {place}. Say what you came to say, and say it properly.
+puppet_sovereign/LE | about_self | I am {speaker}[, {post} of {place}], and you will address me as such.
+puppet_sovereign/LE | about_person | {name} is the {role} at {where}. Whether {name} has any standing with me is another matter.
+puppet_sovereign/LE | about_person | Of {name}, I will say this much: the {role}, at {where}. More than that, I have not been advised to say.
+puppet_sovereign/LE | about_place | If you mean {about}, I know of it, officially.
+puppet_sovereign/LE | about_place | That is {about}, or so it has been described to me, and I see no need to look for myself.
+puppet_sovereign/LE | surroundings | Since you ask, this is {here}. The nearest is {nearest}[, and beyond it, {others}].[ You would do well to avoid the {danger}.]
+puppet_sovereign/LE | surroundings | We are in {here}, as you ought already to know. The closest is {nearest}[, and after it, {others}].[ I am advised to keep clear of the {danger}, and so are you.]
+puppet_sovereign/LE | surroundings | You are in {here}, and under my eye. The nearest place of note is {nearest}[; beyond that, {others}].[ Beware the {danger}, and do not look to me for rescue.]
+puppet_sovereign/LE | surroundings | Listen well: the nearest is {nearest}[, and beyond it, {others}].[ Keep well clear of the {danger}.]
+puppet_sovereign/LE | surroundings | Nothing lies nearer than {nearest}[, and after it, {others}].[ Mind the {danger}.]
+puppet_sovereign/LE | work_own | Hear what is asked of you: {own}.[ Should that prove beyond you, {others}.]
+puppet_sovereign/LE | work_own | You may prove your standing, then: {own}.[ If my work is not to your taste, {others}.]
+puppet_sovereign/LE | work_own | Let it be known that I have work for capable hands: {own}.[ Or, if you must, {others}.]
+puppet_sovereign/LE | work_others | Other hands than mine have work to give: {others}.
+puppet_sovereign/LE | work_others | For work, you must look past me; I am told {others}.
+puppet_sovereign/LE | work_none | There is none to be had from me, and none has been brought before me.
+puppet_sovereign/LE | work_none | I have nothing for you, and I do not invent errands to flatter petitioners.
+puppet_sovereign/LE | unknown | I know nothing of it, and I will not guess before witnesses.
+puppet_sovereign/LE | unknown | I've never heard of it, which tells you what it is worth.
+puppet_sovereign/LE | refused_give | No, that work is {giver}'s, and I do not reach beyond my office.
+puppet_sovereign/LE | refused_give | I cannot give away what is {giver}'s; there is a proper form for such things, and this is not it.
+puppet_sovereign/LE | refused_give | That's not mine to give, and I will not be seen meddling in another's affairs.
+puppet_sovereign/LE | refused_release | I won't release you from {giver}'s work; a word once given is kept, and yours was given.
+puppet_sovereign/LE | refused_release | Not from me; your undertaking is to {giver}, and precedent does not bend for you.
+puppet_sovereign/LE | refused_release | I can't; what I did not bind, I do not loose.
+puppet_sovereign/LE | refused | No, {reason}, and I will not set form aside to suit you.
+puppet_sovereign/LE | refused | I cannot; {reason}, and there the matter rests.
+puppet_sovereign/LE | accepted | Good. See that you are as useful as you are willing.
+puppet_sovereign/LE | accepted | Then it's agreed. Your word is given before me, and I hold you to it as I hold myself.
+puppet_sovereign/LE | accepted | Thank you. That was the correct answer.
+puppet_sovereign/LE | declined | Very well; it is noted, and I do not forget what is noted.
+puppet_sovereign/LE | declined | As you wish; there are more useful people than you, and I shall find one.
+puppet_sovereign/LE | declined | Suit yourself, but a refusal is a slight, and I answer slights.
+puppet_sovereign/LE | abandoned | So be it; you are of no further use to me.
+puppet_sovereign/LE | abandoned | A pity; a word given and then taken back is worth less than no word at all.
+puppet_sovereign/LE | abandoned | Then it's done, and so is whatever standing you had with me.
+puppet_sovereign/LE | parted | Farewell; you have leave to go, and I trust you will use it.
+puppet_sovereign/LE | parted | Go well, and speak of me kindly wherever you are heard.
+puppet_sovereign/LE | parted | Take care, and keep to where others can see you.
+puppet_sovereign/LE | not_understood | What do you mean by that, and should I take it as a slight?
+puppet_sovereign/LE | not_understood | That's beyond me, and I suspect it is beneath me as well.
+puppet_sovereign/LE | not_understood | Speak plainly, and address me properly when you do.
+
+# ---- puppet_sovereign/NG ----
+puppet_sovereign/NG | about_self | I'm {speaker}, {post} of {place}, but {speaker} will do.
+puppet_sovereign/NG | about_self | My name's {speaker}, and I'm {post} of {place}. Are you all right? You can say if you're not.
+puppet_sovereign/NG | about_self | {speaker}[, {post} of {place}]. I don't decide much, but I notice who needs help.
+puppet_sovereign/NG | about_person | That's {name}, the {role}, at {where}. If you see {name}, tell me how they are.
+puppet_sovereign/NG | about_person | You mean {name}? The {role}, at {where}, I'm told. Is {name} in some trouble?
+puppet_sovereign/NG | about_place | Oh, {about}. What takes you there, if I may ask?
+puppet_sovereign/NG | about_place | You're thinking of {about}. Go carefully there, if you're going.
+puppet_sovereign/NG | surroundings | You're in {here}. The nearest is {nearest}[, and past that, {others}].[ Mind the {danger}; I'd go myself, but I'm told I'm needed here.]
+puppet_sovereign/NG | surroundings | Here's where you are: {here}. The closest is {nearest}[, and after that, {others}].[ Please keep clear of the {danger}.]
+puppet_sovereign/NG | surroundings | This is {here}, and I'll tell you what I know. Nothing's nearer than {nearest}[, and then there's {others}].[ Do be careful of the {danger}.]
+puppet_sovereign/NG | surroundings | The nearest is {nearest}[, and past that, {others}].[ Stay away from the {danger}, if you can.]
+puppet_sovereign/NG | surroundings | Around here, there's {nearest}[, and after that, {others}].[ Watch out for the {danger}.]
+puppet_sovereign/NG | work_own | I could use help, if you're willing: {own}.[ If that's not for you, {others}.]
+puppet_sovereign/NG | work_own | There's something you could do for me, and I'd not forget it: {own}.[ Or, if you'd rather, {others}.]
+puppet_sovereign/NG | work_own | If you've the time, I'd be grateful: {own}.[ And if not, {others}.]
+puppet_sovereign/NG | work_others | Sadly, I've nothing of my own, but {others}.
+puppet_sovereign/NG | work_others | Nothing from me, but here's what I've heard: {others}.
+puppet_sovereign/NG | work_none | I'm sorry; I've no work, and I don't know of any.
+puppet_sovereign/NG | work_none | No work, I'm afraid. If I hear of any, you'll be the first I think of.
+puppet_sovereign/NG | unknown | I don't know, and I'd rather say so than send you wrong.
+puppet_sovereign/NG | unknown | I've never heard of it, but ask me something else and I'll try.
+puppet_sovereign/NG | refused_give | I can't give you that; it's {giver}'s work, and it wouldn't be fair to {giver}.
+puppet_sovereign/NG | refused_give | No, that's for {giver} to give, not me, though I wish I could help.
+puppet_sovereign/NG | refused_give | That's not mine to give, and I'm sorry for it.
+puppet_sovereign/NG | refused_release | I won't go behind {giver}'s back; that's for the two of you to settle.
+puppet_sovereign/NG | refused_release | Not from me; only {giver} can let you off that.
+puppet_sovereign/NG | refused_release | I cannot; whoever set you that deserves to hear it from you.
+puppet_sovereign/NG | refused | No, {reason}, and I wish it were otherwise.
+puppet_sovereign/NG | refused | I can't; {reason}, though I'd have liked to help.
+puppet_sovereign/NG | accepted | Thank you. I'll remember this, and I mean that.
+puppet_sovereign/NG | accepted | Good. If anyone questions it, send them to me.
+puppet_sovereign/NG | accepted | Then it's agreed, and I'm grateful. Come back in one piece.
+puppet_sovereign/NG | declined | Fair enough; better an honest no than a yes you'd regret.
+puppet_sovereign/NG | declined | Very well, I'll ask elsewhere, and I won't hold it against you.
+puppet_sovereign/NG | declined | As you wish; thank you for hearing me out.
+puppet_sovereign/NG | abandoned | A pity, but you're worth more to me whole than the work is.
+puppet_sovereign/NG | abandoned | So be it; I'll mark it down, and we'll say no more about it.
+puppet_sovereign/NG | abandoned | Then it's done, and I'm glad you told me rather than let it lie.
+puppet_sovereign/NG | parted | Take care of yourself, and of anyone who can't.
+puppet_sovereign/NG | parted | Go well; I'll be here, if I'm allowed.
+puppet_sovereign/NG | parted | Safe travels; I'll ask after you.
+puppet_sovereign/NG | not_understood | I'm not sure what you mean; could you put it another way?
+puppet_sovereign/NG | not_understood | I don't follow, but I'd like to, so try me again.
+puppet_sovereign/NG | not_understood | That's beyond me; I'd have to ask.
+
+# ---- puppet_sovereign/NN ----
+puppet_sovereign/NN | about_self | I'm {speaker}, {post} of {place}, and it suits me well enough. What are you after?
+puppet_sovereign/NN | about_self | The name's {speaker}, {post} of {place}. I'm told it's an important post, and I've no wish to argue.
+puppet_sovereign/NN | about_self | You're talking to {speaker}[, {post} of {place}]. If you want something, say what you'll do for it.
+puppet_sovereign/NN | about_person | That's {name}, the {role}, at {where}. What do you want with {name}?
+puppet_sovereign/NN | about_person | {name} is the {role}, at {where}. Whether that helps you is your affair.
+puppet_sovereign/NN | about_place | You mean {about}. Is that useful to you, or are you just curious?
+puppet_sovereign/NN | about_place | By all accounts, that's {about}. I don't question accounts; it saves trouble.
+puppet_sovereign/NN | surroundings | Right, you're in {here}. The nearest is {nearest}[, and after that, {others}].[ Leave the {danger} to someone else; I would.]
+puppet_sovereign/NN | surroundings | This is {here}, and the nearest is {nearest}.[ After that, {others}.][ Stay clear of the {danger}; there's nothing in it for you.]
+puppet_sovereign/NN | surroundings | Here's the lie of it: you're in {here}, and the nearest is {nearest}[, then {others}].[ The {danger} aren't worth the bother.]
+puppet_sovereign/NN | surroundings | The nearest is {nearest}[, and after that, {others}].[ Keep away from the {danger}, if you've sense.]
+puppet_sovereign/NN | surroundings | What's nearest is {nearest}[, then {others}].[ I'd give the {danger} a wide berth.]
+puppet_sovereign/NN | work_own | My offer's this: {own}.[ If that doesn't suit, {others}.]
+puppet_sovereign/NN | work_own | It's been put to me that I need someone: {own}.[ Or there's this: {others}.]
+puppet_sovereign/NN | work_own | Let's deal: {own}.[ If that's no good to you, {others}.]
+puppet_sovereign/NN | work_others | Nothing from me, but I hear {others}.
+puppet_sovereign/NN | work_others | None of mine, but {others}.
+puppet_sovereign/NN | work_none | There's nothing going, not that anyone's mentioned.
+puppet_sovereign/NN | work_none | I've no work for you, and I won't make some up.
+puppet_sovereign/NN | unknown | No idea; nobody's told me.
+puppet_sovereign/NN | unknown | I couldn't tell you, and a guess from me isn't worth having.
+puppet_sovereign/NN | refused_give | No, that's {giver}'s to hand out, and I'm not getting between you.
+puppet_sovereign/NN | refused_give | I can't give you {giver}'s work; it's not mine to trade.
+puppet_sovereign/NN | refused_give | That's not mine to give; I only deal in what's mine.
+puppet_sovereign/NN | refused_release | I won't; your bargain's with {giver}, not with me.
+puppet_sovereign/NN | refused_release | I cannot let you off {giver}'s work; I'd want the same if it were mine.
+puppet_sovereign/NN | refused_release | Not from me; it's not my bargain to break.
+puppet_sovereign/NN | refused | No, {reason}, and it's not worth fighting over.
+puppet_sovereign/NN | refused | I can't; {reason}, and I don't waste breath on what's settled.
+puppet_sovereign/NN | accepted | Done. You hold up your end, and I'll hold up mine.
+puppet_sovereign/NN | accepted | Good. I'll remember who said yes.
+puppet_sovereign/NN | accepted | Very good. Do it well and you'll find me easy to deal with.
+puppet_sovereign/NN | declined | Fair enough; no deal, no harm done.
+puppet_sovereign/NN | declined | Suit yourself; someone else will want it.
+puppet_sovereign/NN | declined | As you wish; that's your loss more than mine.
+puppet_sovereign/NN | abandoned | So be it; I'll count that against you, but not for long.
+puppet_sovereign/NN | abandoned | A pity, but better you say so now than leave me waiting.
+puppet_sovereign/NN | abandoned | Then it's done, and we're square, near enough.
+puppet_sovereign/NN | parted | Safe travels, and don't do anything I'd be told about.
+puppet_sovereign/NN | parted | Farewell, and if there's business to be done, you know where I am.
+puppet_sovereign/NN | parted | Take care; you're more use to me alive.
+puppet_sovereign/NN | not_understood | I don't follow; say it another way.
+puppet_sovereign/NN | not_understood | What do you mean, exactly, and what do you want from me?
+puppet_sovereign/NN | not_understood | Speak plainly, and I'll answer plainly.

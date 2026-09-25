@@ -1,0 +1,377 @@
+# Written lines (the corrupt). The format and the rules: README.md in this folder.
+
+# ---- corrupt/NN ----
+# Plain and self-interested without malice: a fair trade, the same expected back, the ledger kept current.
+corrupt/NN | about_self | I'm {speaker}, {post} of {place}. Bring me something useful and we'll both come out ahead.
+corrupt/NN | about_self | {speaker}, {post} of {place}. Be useful to me and I'll be useful to you.
+corrupt/NN | about_self | The name's {speaker}, {post} of {place}. Anything past that costs a little extra.
+corrupt/NN | about_person | That's {name}, the {role}, at {where}. What they're worth to you is yours to work out.
+corrupt/NN | about_person | {name}'s the {role}, out at {where}. I'll deal with anyone once, and twice if it went well.
+corrupt/NN | about_place | You mean {about}. I know what it is, not what it's worth to you.
+corrupt/NN | about_place | Ah, {about}. Everything has its uses, if you know who's buying.
+corrupt/NN | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}, there's no bargaining with those.]
+corrupt/NN | surroundings | This is {here}. The closest is {nearest}[, and after it, {others}].[ Stay clear of the {danger} unless someone makes it worth your while.]
+corrupt/NN | surroundings | We're in {here}, and what's closest is {nearest}.[ Then {others}.][ The {danger} I'd leave well alone.]
+corrupt/NN | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Give the {danger} a wide berth.]
+corrupt/NN | surroundings | What's nearest is {nearest}[, then {others}].[ Watch for the {danger}.]
+corrupt/NN | work_own | Here's one with something in it for both of us: {own}.[ If it doesn't suit, {others}.]
+corrupt/NN | work_own | I could use you: {own}.[ Or else, {others}.]
+corrupt/NN | work_own | Do me a good turn and I'll remember it: {own}.[ Otherwise, {others}.]
+corrupt/NN | work_others | I've nothing of my own, but {others}.
+corrupt/NN | work_others | My hands are empty, but I know whose aren't: {others}. Remember who told you.
+corrupt/NN | work_none | Nothing doing, from me or anyone I'd send you to.
+corrupt/NN | work_none | Nobody's hiring that I know of, me included.
+corrupt/NN | unknown | Never heard of it, and I'm not buying rumours.
+corrupt/NN | unknown | I couldn't tell you, and I don't sell guesses.
+corrupt/NN | refused_give | No, that's {giver}'s to give, and I only trade in what's mine.
+corrupt/NN | refused_give | That's not mine, it's {giver}'s, and poaching costs more than it brings.
+corrupt/NN | refused_give | I can't hand out what isn't mine, not if I want to keep dealing.
+corrupt/NN | refused_release | Not from me, that's between you and {giver}, and I don't settle other people's accounts.
+corrupt/NN | refused_release | I cannot, that bargain is {giver}'s to end.
+corrupt/NN | refused_release | I won't undo a deal I never made.
+corrupt/NN | refused | No, {reason}, and there's no profit in arguing with that.
+corrupt/NN | refused | I can't, {reason}, and I don't throw good effort after bad.
+corrupt/NN | accepted | Done. That's one in your favour.
+corrupt/NN | accepted | Good. Bring it off and you'll find me grateful.
+corrupt/NN | accepted | Then it's agreed. Hold up your end and I'll hold up mine.
+corrupt/NN | declined | Fair enough, it's your loss to count, not mine.
+corrupt/NN | declined | Suit yourself, no trade's better than a bad one.
+corrupt/NN | declined | As you wish, I don't haggle with a no.
+corrupt/NN | abandoned | So be it, and that's a mark against you.
+corrupt/NN | abandoned | A pity, I had you down as a better bet.
+corrupt/NN | abandoned | Very well, half a job is worth nothing to either of us.
+corrupt/NN | parted | Farewell, and if you find a better offer, I'd like to hear it.
+corrupt/NN | parted | Go well, and come back when you've something to trade.
+corrupt/NN | parted | Take care, you're no use to me dead.
+corrupt/NN | not_understood | I don't follow, so put it in terms I can use.
+corrupt/NN | not_understood | Speak plainly, I can't do business with a muddle.
+corrupt/NN | not_understood | What do you mean, and what's in it for me?
+
+# ---- corrupt/LN ----
+# Formal and exact: every arrangement in writing, a cut taken inside the office, standing proven before trust.
+corrupt/LN | about_self | I am {speaker}, {post} of {place}. Before I trust you with anything, you will show me who you are.
+corrupt/LN | about_self | {speaker}, {post} of {place}, at your service, on terms.
+corrupt/LN | about_self | My name is {speaker}, and I hold the office of {post} in {place}. Whatever you want of me, you will have by the book, and the book has margins.
+corrupt/LN | about_person | That would be {name}, the {role}, at {where}. I have no standing to speak for them beyond that.
+corrupt/LN | about_person | You will find {name}, the {role}, at {where}. Whatever arrangements they keep are their own affair.
+corrupt/LN | about_place | As to {about}, I will vouch for that much and nothing further.
+corrupt/LN | about_place | You are asking after {about}. Anything beyond that lies outside my office.
+corrupt/LN | surroundings | You stand in {here}, and the nearest place of note is {nearest}.[ Beyond it, {others}.][ I would advise you to keep clear of the {danger}.]
+corrupt/LN | surroundings | This is {here}. The closest, for the record, is {nearest}[, and after it, {others}].[ I would not go near the {danger} without good cause.]
+corrupt/LN | surroundings | We are in {here}, and nearest to us is {nearest}.[ Past that, {others}.][ Mind the {danger}, for I will not answer for anyone who does not.]
+corrupt/LN | surroundings | The nearest place is {nearest}.[ Beyond it, {others}.][ Keep clear of the {danger}.]
+corrupt/LN | surroundings | As a matter of record, the nearest is {nearest}[, then {others}].[ Beware the {danger}.]
+corrupt/LN | work_own | Should you want work, I have it, on proper terms: {own}.[ If it does not suit, {others}.]
+corrupt/LN | work_own | A commission within my gift, for anyone who can be trusted with it: {own}.[ Otherwise, {others}.]
+corrupt/LN | work_own | Let this establish your standing, and then we may speak of more: {own}.[ Or, if you prefer, {others}.]
+corrupt/LN | work_others | I have nothing to give, but {others}.
+corrupt/LN | work_others | None of my own commissions is open, but {others}. I trust you will remember whose advice it was.
+corrupt/LN | work_none | There is no work to be had from me, nor any I know of elsewhere.
+corrupt/LN | work_none | Nothing is open, from me or from anyone I could vouch for.
+corrupt/LN | unknown | I've never heard of it, and I will not swear to a guess.
+corrupt/LN | unknown | I know nothing of it, and I do not trade in rumour.
+corrupt/LN | refused_give | No, that commission is {giver}'s, and I do not act outside my own office.
+corrupt/LN | refused_give | That's not mine to give, it is {giver}'s, and I will not put my seal to another's contract.
+corrupt/LN | refused_give | I cannot hand over what was never mine to give.
+corrupt/LN | refused_release | I won't, the contract stands between you and {giver}, and I am not party to it.
+corrupt/LN | refused_release | Not from me, since you gave your word to {giver} and not to me.
+corrupt/LN | refused_release | I can't dissolve an agreement that was never mine.
+corrupt/LN | refused | No, {reason}, and I will not bend the terms for anyone.
+corrupt/LN | refused | I cannot, {reason}, and that is the end of the matter.
+corrupt/LN | accepted | Good. I consider it witnessed, and I will hold you to it as I hold myself.
+corrupt/LN | accepted | Very good. Your standing with me begins here, so mind it.
+corrupt/LN | accepted | Done, and properly done. See that your part is kept as faithfully as mine.
+corrupt/LN | declined | Very well, it is noted, and no harm done.
+corrupt/LN | declined | As you wish, I will not press terms on anyone unwilling.
+corrupt/LN | declined | Fair enough, an honest no is worth more than a false yes.
+corrupt/LN | abandoned | So be it, but your word is worth less to me now than it was.
+corrupt/LN | abandoned | A pity, I took you at your word, and I do not do that lightly.
+corrupt/LN | abandoned | Then it's done, and so is my confidence in you.
+corrupt/LN | parted | Farewell, and keep your affairs in order.
+corrupt/LN | parted | Go well, and may your dealings be as honest as your needs allow.
+corrupt/LN | parted | Safe travels, and remember with whom you dealt fairly.
+corrupt/LN | not_understood | I'm not sure what you mean, so kindly put it again in plain terms.
+corrupt/LN | not_understood | Speak plainly, if you would, and I will answer in kind.
+corrupt/LN | not_understood | What do you mean by that, precisely?
+
+# ---- corrupt/NG ----
+# Warm and plain, a little crooked for a decent end: helps first, asks after people, says sorry and means it.
+corrupt/NG | about_self | I'm {speaker}, {post} of {place}. Tell me what you need first, and we'll talk about what it costs later.
+corrupt/NG | about_self | {speaker}, {post} of {place}. I'm not above skimming, if it does someone some good.
+corrupt/NG | about_self | Just {speaker}, {post} of {place}. Not as honest as I'd like, but honest where it counts.
+corrupt/NG | about_person | That's {name}, the {role}, at {where}. If you see {name}, ask if they're keeping well for me.
+corrupt/NG | about_person | You'll find {name}, the {role}, at {where}. Be decent to them, would you?
+corrupt/NG | about_place | Oh, {about}. Mind how you go there, I'd hate to hear you came to grief.
+corrupt/NG | about_place | You mean {about}. If there's anyone there who needs a hand, I'd like to know.
+corrupt/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ Keep clear of the {danger}, for my sake if not yours.]
+corrupt/NG | surroundings | This is {here}. The closest is {nearest}[, and past it, {others}].[ Mind the {danger}, and don't go dying on me.]
+corrupt/NG | surroundings | We're in {here}, and closest to us is {nearest}.[ Then {others}.][ Anyone you care about, keep them away from the {danger}.]
+corrupt/NG | surroundings | The nearest is {nearest}.[ After that, {others}.][ Watch yourself near the {danger}.]
+corrupt/NG | surroundings | What's closest is {nearest}[, then {others}].[ Do take care around the {danger}.]
+corrupt/NG | work_own | I could use a hand, and I'd sooner it were yours: {own}.[ If not, {others}.]
+corrupt/NG | work_own | Here's something honest, near enough: {own}.[ Otherwise, {others}.]
+corrupt/NG | work_own | Help me with this and I'll owe you one: {own}.[ Or, if you'd rather, {others}.]
+corrupt/NG | work_others | Nothing of mine, I'm sorry to say, but {others}.
+corrupt/NG | work_others | I've none to give, but I'll not send you off empty-handed: {others}.
+corrupt/NG | work_none | There's nothing, I'm afraid, from me or anyone I know. If you're short in the meantime, say so.
+corrupt/NG | work_none | I'm sorry, I've no work and know of none.
+corrupt/NG | unknown | I don't know, and I'd rather say so than send you wrong.
+corrupt/NG | unknown | No idea, I'm afraid, and a guess from me could cost you.
+corrupt/NG | refused_give | No, that's {giver}'s to give, and I'd not take it out of their hands.
+corrupt/NG | refused_give | I can't go behind {giver}'s back, I'm sorry, not even for you.
+corrupt/NG | refused_give | That's not mine to give, more's the pity.
+corrupt/NG | refused_release | Not from me, you made that promise to {giver}, and promises count.
+corrupt/NG | refused_release | I won't, you gave {giver} your word, and I'd not see it broken.
+corrupt/NG | refused_release | I cannot let you off something that was never mine to hand you.
+corrupt/NG | refused | No, {reason}, and I'm sorry, I'd have liked to help.
+corrupt/NG | refused | I can't, {reason}, though I wish it were otherwise.
+corrupt/NG | accepted | Thank you. I mean that, and I won't forget it.
+corrupt/NG | accepted | Good. Look after yourself out there, and come back whole.
+corrupt/NG | accepted | Done. That's a weight off, and I'm grateful.
+corrupt/NG | declined | Fair enough, and thank you for being straight with me.
+corrupt/NG | declined | As you wish, I'd sooner you said no than took it on half-hearted.
+corrupt/NG | declined | Very well, you know your own business best.
+corrupt/NG | abandoned | A pity, but I'd rather you walked away than got hurt.
+corrupt/NG | abandoned | So be it, no job's worth your neck.
+corrupt/NG | abandoned | Then it's done, and I'll not hold it against you, much.
+corrupt/NG | parted | Take care of yourself, and of anyone who needs it.
+corrupt/NG | parted | Safe travels, and if anyone's in need where you're going, point them my way.
+corrupt/NG | parted | Go well, and come back if you're ever short.
+corrupt/NG | not_understood | I'm not sure what you mean, would you say it again, slower?
+corrupt/NG | not_understood | What do you mean, exactly, and is everything all right?
+corrupt/NG | not_understood | That's beyond me, but tell me again and I'll do my best.
+
+# ---- corrupt/CN ----
+# Quick, sly and off the books: fragments and interruptions, a fair trade, loyal to the face in front of them.
+corrupt/CN | about_self | {speaker}. The {post} of {place}, on paper, and I don't trust paper.
+corrupt/CN | about_self | Me? {speaker}, {post} of {place}. What else I am depends who's asking.
+corrupt/CN | about_self | I'm {speaker}, {post} of {place}, and before you ask, yes, everything's negotiable.
+corrupt/CN | about_person | {name}? Oh, the {role}, out at {where}. Whose side they're on is their business, and mine's my own.
+corrupt/CN | about_person | That's {name}, the {role}, at {where}, and you didn't hear it from me.
+corrupt/CN | about_place | Ha, {about}. What you get up to there is between you and nobody.
+corrupt/CN | about_place | You mean {about}? Know it, yes, and what's it to you, hm?
+corrupt/CN | surroundings | You're in {here}, and the nearest is, let me think, {nearest}.[ Then {others}.][ Mind the {danger}, they don't take bribes.]
+corrupt/CN | surroundings | This is {here}, and the nearest, hang on, is {nearest}.[ Past that, {others}.][ The {danger} I'd skip, and I'm not squeamish.]
+corrupt/CN | surroundings | Right, {here}, that's where we are, and the nearest is {nearest}.[ After that, {others}.][ Give the {danger} a wide berth, trust me.]
+corrupt/CN | surroundings | The nearest? That'd be {nearest}[, then {others}].[ Watch the {danger}.]
+corrupt/CN | surroundings | What's near is {nearest}[, and after, {others}].[ Oh, and mind the {danger}.]
+corrupt/CN | work_own | Oh, I've something for you, no questions asked: {own}.[ Or, if that's not your line, {others}.]
+corrupt/CN | work_own | Here's the deal, and it's a good one: {own}.[ Don't fancy it? {others}.]
+corrupt/CN | work_own | Now, this one's all above board, mostly: {own}.[ Otherwise, {others}.]
+corrupt/CN | work_others | Between us, {others}, and none of it's mine.
+corrupt/CN | work_others | I've nothing myself, but I know people: {others}.
+corrupt/CN | work_none | Nothing, not a sniff, and my nose is good.
+corrupt/CN | work_none | All quiet, no work from me or anyone I'd vouch for.
+corrupt/CN | unknown | Never heard of it, and that surprises me.
+corrupt/CN | unknown | No idea, and if I had one, I'd sell it you.
+corrupt/CN | refused_give | No, that's {giver}'s, and, look, I like you, but not that much.
+corrupt/CN | refused_give | Not from me, that's {giver}'s, and pinching it would cost me more than it'd fetch.
+corrupt/CN | refused_give | I can't, it isn't mine to fence.
+corrupt/CN | refused_release | I won't, you shook on it with {giver}, not with me.
+corrupt/CN | refused_release | That's not mine to undo, that knot's {giver}'s.
+corrupt/CN | refused_release | I cannot, and I don't meddle in other people's handshakes.
+corrupt/CN | refused | No, {reason}, and there's no greasing that.
+corrupt/CN | refused | I can't, {reason}, and if there were a way round it, I'd have found it.
+corrupt/CN | accepted | Done, and done. That's how I like it.
+corrupt/CN | accepted | Good. Keep it quiet and keep it quick.
+corrupt/CN | accepted | Very good, very good indeed. Off you pop.
+corrupt/CN | declined | Suit yourself, plenty more fish.
+corrupt/CN | declined | Fair enough, no hard feelings, well, maybe one.
+corrupt/CN | declined | As you wish, and I'll pretend I'm not hurt.
+corrupt/CN | abandoned | A pity, I was starting to like you.
+corrupt/CN | abandoned | Very well, easy come, easy go.
+corrupt/CN | abandoned | So be it, just don't make a habit of it, eh.
+corrupt/CN | parted | Farewell, and if anyone asks, you never saw me.
+corrupt/CN | parted | Take care, and keep your pockets buttoned.
+corrupt/CN | parted | Go well, and stay out of sight.
+corrupt/CN | not_understood | I don't follow, and I'm trying, honest.
+corrupt/CN | not_understood | What do you mean, and slower, if you would, I'm a simple soul.
+corrupt/CN | not_understood | Speak plainly, sunshine, or make it worth my while.
+
+# ---- corrupt/LG ----
+# Courteous and correct, crooked only for a decent end; helps first and asks after people by name.
+corrupt/LG | about_self | I am {speaker}, {post} of {place}, and you will find me honest, in most of the ways that matter.
+corrupt/LG | about_self | {speaker}, {post} of {place}. Before anything else, tell me what you need, and we shall settle the rest afterwards.
+corrupt/LG | about_self | You may call me {speaker}, {post} of {place}. If I take a share of anything, it will do more good with me than without.
+corrupt/LG | about_person | That is {name}, the {role}, at {where}. Please give {name} my regards, and tell me how they fare.
+corrupt/LG | about_person | {name}, the {role}, is at {where}. I will not speak ill of anyone who is not here to answer.
+corrupt/LG | about_place | I know {about}, and I can tell you that much in good conscience.
+corrupt/LG | about_place | Ah, {about}. If anyone there is in need, I would be grateful to hear of it.
+corrupt/LG | surroundings | You stand in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I would ask you, most sincerely, to keep clear of the {danger}.]
+corrupt/LG | surroundings | This is {here}, and the nearest to us is {nearest}[, and beyond it, {others}].[ Please mind the {danger}, and anyone you travel with.]
+corrupt/LG | surroundings | We are in {here}, and the closest is {nearest}.[ After that, {others}.][ I must beg you to give the {danger} a wide berth.]
+corrupt/LG | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Do keep clear of the {danger}.]
+corrupt/LG | surroundings | Of what is near, the closest is {nearest}[, then {others}].[ Mind the {danger}, if you would.]
+corrupt/LG | work_own | I have work, and you will have it from me straight: {own}.[ Should it not suit you, {others}.]
+corrupt/LG | work_own | If you would help me, I would be in your debt: {own}.[ Otherwise, {others}.]
+corrupt/LG | work_own | Here is a first task between us, to see how we suit: {own}.[ Or, if you prefer, {others}.]
+corrupt/LG | work_others | Nothing within my own office, I am sorry to say, but {others}.
+corrupt/LG | work_others | There is no commission within my gift, but I would not send you away with nothing: {others}.
+corrupt/LG | work_none | Forgive me, I have no work to give and know of none.
+corrupt/LG | work_none | None at present, I regret to say, from me or anyone I know. Is there anything else you need?
+corrupt/LG | unknown | I don't know, and I would sooner tell you so than lead you astray.
+corrupt/LG | unknown | I've never heard of it, and I will not guess at your expense.
+corrupt/LG | refused_give | No, that is {giver}'s to give, and I will not take from {giver} what is theirs by right.
+corrupt/LG | refused_give | I cannot, forgive me, the work was given by {giver} and it lies outside my office.
+corrupt/LG | refused_give | That's not mine to give, and I would be wrong to pretend otherwise.
+corrupt/LG | refused_release | I won't release you from your word to {giver}, and I would think less of us both if I did.
+corrupt/LG | refused_release | Not from me, only {giver} may release you from that.
+corrupt/LG | refused_release | I can't, and I would not ask you to break faith with anyone.
+corrupt/LG | refused | No, {reason}, and I am sorry for it, truly.
+corrupt/LG | refused | I cannot, {reason}, and I would not deceive you about it.
+corrupt/LG | accepted | Thank you, sincerely. I give you my word on my part, and I shall hold you to yours.
+corrupt/LG | accepted | Very good. Please look after yourself, and anyone you find in need along the way.
+corrupt/LG | accepted | Done, and witnessed by us both. Go carefully.
+corrupt/LG | declined | Very well, and thank you for telling me honestly.
+corrupt/LG | declined | As you wish, and I hope whatever you choose instead treats you kindly.
+corrupt/LG | declined | Fair enough, and no offence is taken.
+corrupt/LG | abandoned | A pity, but I would rather see you whole than see it finished.
+corrupt/LG | abandoned | So be it, and I will not hold it against your name.
+corrupt/LG | abandoned | Then it's done, and I trust you had good reason.
+corrupt/LG | parted | Farewell, and may you find kindness wherever you are owed it.
+corrupt/LG | parted | Safe travels, and see that no one is left behind on your account.
+corrupt/LG | parted | Goodbye, and please come back to me if you are ever in want.
+corrupt/LG | not_understood | I'm not sure what you mean, would you be so kind as to say it another way?
+corrupt/LG | not_understood | Speak plainly, I beg you, I am not so clever as I look.
+corrupt/LG | not_understood | What do you mean, if I may ask?
+
+# ---- corrupt/CG ----
+# Warm and reckless: bends a rule for anyone in need, loyal to faces over causes, sorry when it counts.
+corrupt/CG | about_self | {speaker}, {post} of {place}. If something needs bending for somebody, ask me first.
+corrupt/CG | about_self | I'm {speaker}, {post} of {place}, and if a stupid rule stands in your way, I'm on your side of it.
+corrupt/CG | about_self | Who's asking? No, never mind, I'm {speaker}, {post} of {place}, and I like a stranger who asks.
+corrupt/CG | about_person | {name}! The {role}, at {where}. If {name} needs anything, anything at all, you tell me.
+corrupt/CG | about_person | That's {name}, the {role}, at {where}, and whatever side {name} is on, I'm on {name}'s.
+corrupt/CG | about_place | Ah, {about}. If anyone there is going without, I want to know, and then I want to fix it.
+corrupt/CG | about_place | You mean {about}? Go, and don't let anyone there tell you what you can't do.
+corrupt/CG | surroundings | You're in {here}, and the nearest is, oh, {nearest}.[ Then {others}.][ The {danger} I'd go round, and I'm not ashamed of it.]
+corrupt/CG | surroundings | This is {here}, and the closest is {nearest}[, then {others}].[ Mind the {danger}; nothing out there is worth dying for.]
+corrupt/CG | surroundings | Well, here's {here}, and nearest of all is {nearest}.[ After that, {others}.][ The {danger}, though, keep away, I mean it.]
+corrupt/CG | surroundings | The nearest is {nearest}.[ Then {others}.][ Watch for the {danger}, won't you.]
+corrupt/CG | surroundings | What's close is {nearest}[, and past it, {others}].[ Give the {danger} a wide berth.]
+corrupt/CG | work_own | Come on, then, let's do some good the quick way: {own}.[ Or, if you'd rather, {others}.]
+corrupt/CG | work_own | Here's one, and I'll not ask questions if you don't: {own}.[ Otherwise, {others}.]
+corrupt/CG | work_own | Take this on, and hang the paperwork: {own}.[ Or else {others}.]
+corrupt/CG | work_others | Nothing of mine, I'm sorry, but {others}.
+corrupt/CG | work_others | Not a thing of my own, but {others}, and go quick, before someone duller gets there.
+corrupt/CG | work_none | There's no work anywhere, and I'm sorry, I'd make some if I could.
+corrupt/CG | work_none | Nothing, and that's a crime, a real one, not the fun kind.
+corrupt/CG | unknown | No idea, and I'd tell you if I had.
+corrupt/CG | unknown | I couldn't tell you, and I'd sooner say so than guess you into trouble.
+corrupt/CG | refused_give | No, that's {giver}'s, and I'll not cheat {giver} out of it, not even for you.
+corrupt/CG | refused_give | Not from me, it's {giver}'s to hand out, and I'd only muddle it.
+corrupt/CG | refused_give | I can't, it's not mine, and I'm sorry, I truly am.
+corrupt/CG | refused_release | I won't, you promised {giver}, and a promise to a person means something to me.
+corrupt/CG | refused_release | That's not mine to undo, it's between you and {giver}.
+corrupt/CG | refused_release | I cannot, and I'll not come between you and whoever you promised.
+corrupt/CG | refused | No, {reason}, and I'm sorry, I'd bend it for you if it'd bend.
+corrupt/CG | refused | I can't, {reason}, but come and find me if you're in a fix.
+corrupt/CG | accepted | Thank you, truly. Go on, and if a rule gets in your way, go round it.
+corrupt/CG | accepted | Good. Now go, before anyone thinks to stop you.
+corrupt/CG | accepted | Done, and done gladly. Come back in one piece, that's the only order I'll give you.
+corrupt/CG | declined | Fair enough, no harm done.
+corrupt/CG | declined | Suit yourself, and good on you for saying so.
+corrupt/CG | declined | As you wish, and sorry for asking.
+corrupt/CG | abandoned | A pity, but I'd rather have you than the job done.
+corrupt/CG | abandoned | So be it, I'll not think less of you.
+corrupt/CG | abandoned | Then it's done, and no one's keeping score, least of all me.
+corrupt/CG | parted | Take care, and look after anyone who can't look after themselves.
+corrupt/CG | parted | Go well, and if anyone gives you grief, you know where I am.
+corrupt/CG | parted | Safe travels, and don't do anything I wouldn't, which leaves you plenty.
+corrupt/CG | not_understood | I don't follow, but say it again, I'm listening.
+corrupt/CG | not_understood | What do you mean, and is something the matter?
+corrupt/CG | not_understood | That's beyond me, have another go.
+
+# ---- corrupt/NE ----
+# Plain courtesy over contempt: everyone has a figure, the player is kept while useful, and no slight goes unanswered.
+corrupt/NE | about_self | I'm {speaker}, {post} of {place}, for as long as it's worth my while.
+corrupt/NE | about_self | {speaker}, {post} of {place}. Everything has its figure, and I'm already working out yours.
+corrupt/NE | about_self | The name's {speaker}, {post} of {place}, and you'd be a fool to mistake that for loyalty.
+corrupt/NE | about_person | That's {name}, the {role}, at {where}. Everyone's worth something to someone, even {name}.
+corrupt/NE | about_person | {name}? The {role}, at {where}. I'd not stake much on them, or on you, come to that.
+corrupt/NE | about_place | Oh, {about}. I'd go, if someone else were bearing the cost.
+corrupt/NE | about_place | You mean {about}. It's worth exactly what someone will give for it, and no more.
+corrupt/NE | surroundings | You're in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Mind the {danger}, unless you're tired of being useful.]
+corrupt/NE | surroundings | This is {here}, such as it is, and the closest is {nearest}[, then {others}].[ The {danger} you can have for nothing.]
+corrupt/NE | surroundings | Welcome to {here}, and I use the word loosely. The nearest is {nearest}[, then {others}].[ Keep clear of the {danger}.]
+corrupt/NE | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Give the {danger} a wide berth, or don't.]
+corrupt/NE | surroundings | As for what's near, there's {nearest}[, and past it, {others}].[ Mind the {danger}.]
+corrupt/NE | work_own | You'll do, for this: {own}.[ If you're too delicate for it, {others}.]
+corrupt/NE | work_own | Here's a chance to prove you're more than you look: {own}.[ Otherwise, {others}.]
+corrupt/NE | work_own | Make yourself useful: {own}.[ Or, if that's beyond you, {others}.]
+corrupt/NE | work_others | I've none going, but {others}. Remember who pointed you there.
+corrupt/NE | work_others | Go to them, not me: {others}. They're welcome to you.
+corrupt/NE | work_none | No work, from me or anyone worth knowing.
+corrupt/NE | work_none | Nothing, and if there were, I'd want to know what you're good for first.
+corrupt/NE | unknown | Never heard of it, which tells you what it's worth.
+corrupt/NE | unknown | I know nothing of it, and wouldn't give it away if I did.
+corrupt/NE | refused_give | No, that's {giver}'s, and I don't give away what I could sell.
+corrupt/NE | refused_give | That's not mine, it's {giver}'s, and I'm not crossing {giver} on your account.
+corrupt/NE | refused_give | I won't, and you've a nerve asking.
+corrupt/NE | refused_release | Not from me, you made that bargain with {giver}, now live with it.
+corrupt/NE | refused_release | I cannot, {giver} holds your word, and mine isn't wasted on the likes of you.
+corrupt/NE | refused_release | I can't, and I'll not lift a finger to spare you a promise you made.
+corrupt/NE | refused | No, {reason}, and whining won't change it.
+corrupt/NE | refused | I can't, {reason}, so take your disappointment elsewhere.
+corrupt/NE | accepted | Good. You're of use to me now, so stay that way.
+corrupt/NE | accepted | Done, and noted. Don't make me come looking for you.
+corrupt/NE | accepted | Thank you, I'm sure. I'd hate for us to fall out.
+corrupt/NE | declined | Suit yourself, I've no shortage of people who say yes.
+corrupt/NE | declined | As you wish, and I'll remember that you did.
+corrupt/NE | declined | Very well, your loss, and a small one.
+corrupt/NE | abandoned | A pity, for you.
+corrupt/NE | abandoned | So be it, and you'll find my memory is longer than your nerve.
+corrupt/NE | abandoned | Then it's done, and so are you, as far as I'm concerned.
+corrupt/NE | parted | Farewell, and do come back when you've something I want.
+corrupt/NE | parted | Goodbye, and don't let anyone buy you cheaper than I would.
+corrupt/NE | parted | Take care, I've not finished with you yet.
+corrupt/NE | not_understood | I don't follow, and I've little patience for mumbling.
+corrupt/NE | not_understood | What do you mean, and try to make it quick.
+corrupt/NE | not_understood | Speak plainly, I'm not in the business of guessing.
+
+# ---- corrupt/LE ----
+# Correct to the letter and cold beneath it: terms for everything, standing proven first, the city sold short, no slight let pass.
+corrupt/LE | about_self | I am {speaker}, {post} of {place}, and nothing you get from me comes without terms.
+corrupt/LE | about_self | {speaker}, {post} of {place}, and do not mistake my post for devotion to {place}.
+corrupt/LE | about_self | You are addressing {speaker}, {post} of {place}. I shall want proof of your standing before we discuss anything of consequence.
+corrupt/LE | about_person | The person you mean is {name}, the {role}, at {where}. I would not rely on them, but then I rely on very few.
+corrupt/LE | about_person | {name} is the {role} at {where}. They have my courtesy while they are useful to me, and no longer.
+corrupt/LE | about_place | It is {about}, and I tell you so at no charge, which you will kindly remember.
+corrupt/LE | about_place | You refer to {about}. I would part with it for very little, were it mine to sell.
+corrupt/LE | surroundings | You stand in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I would not venture near the {danger}, though that is your affair.]
+corrupt/LE | surroundings | This is {here}, and I shall spare you my opinion of it. The nearest is {nearest}[, then {others}].[ The {danger} I leave to those with less to lose.]
+corrupt/LE | surroundings | We are in {here}, and the closest is {nearest}.[ Past that, {others}.][ Heed the {danger}, or do not, as you please.]
+corrupt/LE | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Beware the {danger}.]
+corrupt/LE | surroundings | As a courtesy, I will tell you the nearest is {nearest}[, then {others}].[ Mind the {danger}.]
+corrupt/LE | work_own | A commission, then, and I expect it discharged to the letter: {own}.[ Should that be beyond you, {others}.]
+corrupt/LE | work_own | There is work, on my terms: {own}.[ Otherwise, {others}.]
+corrupt/LE | work_own | Let us see whether you are worth a second commission: {own}.[ Or, if you prefer, {others}.]
+corrupt/LE | work_others | I have nothing for you myself, but {others}. You will recall, I trust, who directed you.
+corrupt/LE | work_others | None of my own, but {others}. I am sure they will find some use for you.
+corrupt/LE | work_none | No work, from my office or any other worth the name.
+corrupt/LE | work_none | Nothing is on offer, from me or from anyone I would trouble to mention.
+corrupt/LE | unknown | I know nothing of it, and I do not deal in hearsay.
+corrupt/LE | unknown | I've never heard of it, which, I assure you, is its loss and not mine.
+corrupt/LE | refused_give | No, that commission belongs to {giver}, and I do not trespass on another's office for anyone.
+corrupt/LE | refused_give | That's not mine to give, it is {giver}'s, and you presume a great deal in asking.
+corrupt/LE | refused_give | I won't, and I shall remember that you asked.
+corrupt/LE | refused_release | Not from me, your word went to {giver}, and I would hold you to it myself.
+corrupt/LE | refused_release | I cannot, {giver} holds your promise, and I have no standing to dissolve it.
+corrupt/LE | refused_release | I can't release you from what you so freely undertook.
+corrupt/LE | refused | No, {reason}, and I make no exceptions, least of all for you.
+corrupt/LE | refused | I cannot, {reason}, and your disappointment is not my concern.
+corrupt/LE | accepted | Good. I shall hold you to every word of it.
+corrupt/LE | accepted | Done, and witnessed. Do not mistake my courtesy for patience.
+corrupt/LE | accepted | Thank you, how very obliging. You have my word, which, so far, is worth rather more than yours.
+corrupt/LE | declined | Very well, your refusal is noted, and so are you.
+corrupt/LE | declined | As you wish, there are others who know an opportunity when one is offered.
+corrupt/LE | declined | Suit yourself, though I confess I expected little else.
+corrupt/LE | abandoned | A pity, and it will be remembered.
+corrupt/LE | abandoned | So be it, but consider this a debt, and do not make me call it in.
+corrupt/LE | abandoned | Then it's done, and your standing with me is done with it.
+corrupt/LE | parted | Farewell, and do try to remain of some use.
+corrupt/LE | parted | Safe travels, and keep in mind whose goodwill you are spending.
+corrupt/LE | parted | Goodbye, and I trust we shall not need to discuss your conduct.
+corrupt/LE | not_understood | I'm not sure what you mean, and I suspect neither are you.
+corrupt/LE | not_understood | Speak plainly, in complete sentences, if you are capable of them.
+corrupt/LE | not_understood | What do you mean by that, and do take care how you answer.
