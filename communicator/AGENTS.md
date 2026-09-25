@@ -41,6 +41,9 @@ ctest --test-dir communicator/build -C Release --no-tests=error
     voice's rules. A row that breaks one fails by its own words.
   - A line adds manner, never a fact. A place, a creature, a duty or a distance comes only
     through a blank, and a blank only from the packet.
+  - Draw a voice from a card's public part (manner, voice, stance, sample line, never), never
+    from what the card keeps back (belief, wants, fears, tells, lies). The first warden lines
+    took "stays behind the line" from the warden's belief, and a judge heard it as a rule.
   - A new situation or blank goes in `Lines::situations()`, with a test packet that speaks it.
 - **A world-changing act is confirmed before it reaches the director.** Whatever joins the
   communicator to the director (the game, a binding) asks `Interpretation::confirm` and hands on
