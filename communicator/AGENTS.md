@@ -43,6 +43,11 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   - A bank sounds like its own archetype and alignment, not like its neighbours, and says how
     the speaker stands, never what they have done. A pet name at most once in a bank, and only
     as contempt or command: repeated, it is a tic.
+  - A post's bank speaks from the job: the plain work every holder of it does is fair ("I've a
+    gate to watch"). A particular deed, customer, stock or rumour is invented.
+  - An offer, and what is said when it is taken, turned down or given up, never says what the
+    work is like or who goes. `{own}` may be any verb, and a hero's offer may be "... with me":
+    a judge counted "if you don't mind soot" and "I can't leave my desk" against it.
   - A line adds manner, never a fact. A place, a creature, a duty or a distance comes only
     through a blank, and a blank only from the packet.
   - Draw a voice from a card's public part (manner, voice, stance, sample line, never), never
