@@ -27,6 +27,14 @@ constexpr std::size_t kSurroundingLandmarks = 6;
 
 Fact reason(std::string text) { return Fact{FactKind::Reason, "", {{"reason", std::move(text)}}}; }
 
+// Whose a piece of work is, as a refusal's reason says it: the giver's by name, else "someone
+// else's". Never "the speaker's": a model told it as the speaker took that for the stranger,
+// and answered "not yours to give" (judged 2026-09-24).
+std::string whose(const std::optional<knowledge::KnownPerson>& giver) {
+    const std::string* name = giver ? giver->fact.field("name") : nullptr;
+    return name && !name->empty() ? *name + "'s" : std::string("someone else's");
+}
+
 FactPacket packet_for(const Speaker& s, const DialogueAct& act, Outcome outcome) {
     FactPacket p;
     p.speaker = s.uid;
@@ -170,7 +178,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
 
     if (!s.present) {
         FactPacket p = packet_for(s, act, Outcome::Refused);
-        p.facts.push_back(reason("the speaker is gone"));
+        p.facts.push_back(reason((s.persona.name.empty() ? std::string("the one spoken to") : s.persona.name) + " is gone"));
         return recorded(std::move(p));
     }
 
@@ -238,10 +246,10 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
             if (!offer->own) {
                 // Taking work is agreed with whoever gives it: send the player to them.
                 FactPacket p = packet_for(s, act, Outcome::Refused);
-                p.facts.push_back(reason("the work is not the speaker's to give"));
-                if (offer->row.giver_uid)
-                    if (const std::optional<knowledge::KnownPerson> giver = knowledge::person_fact(world_, *offer->row.giver_uid))
-                        p.facts.push_back(giver->fact);
+                std::optional<knowledge::KnownPerson> giver;
+                if (offer->row.giver_uid) giver = knowledge::person_fact(world_, *offer->row.giver_uid);
+                p.facts.push_back(reason("the work is " + whose(giver) + " to give"));
+                if (giver) p.facts.push_back(giver->fact);
                 return recorded(std::move(p));
             }
             fwg::QuestRequest request;
@@ -267,10 +275,10 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
             if (row == taken->end()) return recorded(packet_for(s, act, Outcome::Unknown));
             if (!row->giver_uid || *row->giver_uid != s.uid) {
                 FactPacket p = packet_for(s, act, Outcome::Refused);
-                p.facts.push_back(reason("the work is not the speaker's to release"));
-                if (row->giver_uid)
-                    if (const std::optional<knowledge::KnownPerson> giver = knowledge::person_fact(world_, *row->giver_uid))
-                        p.facts.push_back(giver->fact);
+                std::optional<knowledge::KnownPerson> giver;
+                if (row->giver_uid) giver = knowledge::person_fact(world_, *row->giver_uid);
+                p.facts.push_back(reason("the work is " + whose(giver) + " to release"));
+                if (giver) p.facts.push_back(giver->fact);
                 return recorded(std::move(p));
             }
             fwg::QuestRequest request;

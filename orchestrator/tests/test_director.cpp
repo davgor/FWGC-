@@ -216,6 +216,11 @@ TEST(taking_work_through_a_broker_is_refused_and_names_the_giver) {
     const std::vector<const Fact*> people = of_kind(p, FactKind::Person);
     check::is_true(!people.empty() && people.front()->subject == giver, "and the giver to go to");
     check::is_true(json_of(d.world()) == before, "the world unchanged");
+    // The reason says whose the work is, by name. "Not the speaker's to give" was taken, by a
+    // model told it as the speaker, for "not yours" (judged 2026-09-24).
+    const std::string* name = people.front()->field("name");
+    check::is_true(name && !name->empty(), "the premise: the giver has a name");
+    check::equal(*of_kind(p, FactKind::Reason).front()->field("reason"), "the work is " + *name + "'s to give", "whose work, by name");
 }
 
 TEST(giving_up_work_goes_back_to_its_giver_and_nobody_else) {
@@ -224,13 +229,36 @@ TEST(giving_up_work_goes_back_to_its_giver_and_nobody_else) {
     const std::string broker = a_broker();
     const std::string quest = of_kind(d.respond(giver, {ActKind::AskForWork, ""}), FactKind::QuestOffer).front()->subject;
     check::is_true(d.respond(giver, {ActKind::AcceptQuest, quest}).outcome == Outcome::Accepted, "taken first");
-    check::is_true(d.respond(broker, {ActKind::AbandonQuest, quest}).outcome == Outcome::Refused, "a stranger cannot release it");
+    const FactPacket refused = d.respond(broker, {ActKind::AbandonQuest, quest});
+    check::is_true(refused.outcome == Outcome::Refused, "a stranger cannot release it");
+    const std::vector<const Fact*> named = of_kind(refused, FactKind::Person);
+    check::is_true(!named.empty() && named.front()->field("name"), "the premise: the refusal names the giver");
+    check::is_true(!of_kind(refused, FactKind::Reason).empty(), "with a reason");
+    check::equal(*of_kind(refused, FactKind::Reason).front()->field("reason"),
+                 "the work is " + *named.front()->field("name") + "'s to release", "who can release it, by name");
     const FactPacket p = d.respond(giver, {ActKind::AbandonQuest, quest});
     check::is_true(p.outcome == Outcome::Abandoned, "its giver can");
     const std::vector<fwg::QuestRow> abandoned = board(d.world(), fwg::QuestState::Abandoned);
     check::is_true(std::any_of(abandoned.begin(), abandoned.end(), [&](const fwg::QuestRow& q) { return q.quest_id == quest; }),
                    "the board has it abandoned");
     check::is_true(d.respond(giver, {ActKind::AbandonQuest, quest}).outcome == Outcome::Unknown, "and it cannot be given up twice");
+}
+
+TEST(a_speaker_who_is_gone_refuses_by_name) {
+    const fwg::World& w = month_old();
+    std::string gone;
+    for (const fwg::NpcPerson& person : w.npcs.people)
+        if (!person.alive) {
+            gone = person.uid;
+            break;
+        }
+    check::is_true(!gone.empty(), "the premise: a month-old world has someone gone");
+    Director d(w);
+    const FactPacket p = d.respond(gone, {ActKind::NoAct, ""});
+    check::is_true(p.outcome == Outcome::Refused, "refused");
+    check::is_true(!of_kind(p, FactKind::Reason).empty(), "with a reason");
+    check::is_true(!p.persona.name.empty(), "the premise: the one gone has a name");
+    check::equal(*of_kind(p, FactKind::Reason).front()->field("reason"), p.persona.name + " is gone", "gone, by name");
 }
 
 TEST(what_a_speaker_describes_is_real_and_within_reach) {
