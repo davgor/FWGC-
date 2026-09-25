@@ -46,6 +46,14 @@ read_person           read
 read_quests           read
 read_patch            read
 
+# The weather at a moment: a read keyed on the day alone, recording and changing nothing. A
+# report of the systems alive then, a place's weather from that report, the two in one call,
+# and the whole grid's.
+weather_report        weather
+weather_sample        weather
+weather_at            weather
+weather_field         weather
+
 # The world as documents.
 write_world_json      serialize
 write_world_split     serialize
