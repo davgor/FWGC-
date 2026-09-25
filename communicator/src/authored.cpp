@@ -64,9 +64,11 @@ std::string how_far(const Fact& fact) {
     return distance == "here" ? "right here" : distance + " off";
 }
 
-// A place as one phrase: its name, how far, and who holds it or what became of it.
-std::string place_phrase(const Fact& place) {
+// A place as one phrase: its name, how far, and who holds it or what became of it. A name
+// already said is another of its kind the second time: "another hamlet of Wenweg".
+std::string place_phrase(const Fact& place, std::set<std::string>& said) {
     std::string out = text::spoken(label_of(place));
+    if (!said.insert(out).second && out.rfind("the ", 0) == 0) out = "another " + out.substr(4);
     const std::string far = how_far(place);
     if (!far.empty()) out += ", " + far;
     const std::string occupant = text::spaced(field_of(place, "occupant"));
@@ -118,12 +120,14 @@ std::string retold(const std::string& text) {
     return out;
 }
 
-// Someone else's offer: who wants it done, and what.
+// Someone else's offer: who wants it done, and what. A giver is "the reeve", or "of the council"
+// when the role names a body they sit on.
 std::string others_offer_phrase(const Fact& offer) {
+    static const std::set<std::string> bodies = {"council"};
     std::string who = text::spoken(field_of(offer, "giver"));
     if (who.empty()) who = "someone";
     const std::string role = text::spaced(text::spoken(field_of(offer, "giver_role")));
-    if (!role.empty()) who += " the " + role;
+    if (!role.empty()) who += (bodies.count(role) ? " of the " : " the ") + role;
     const std::string purpose = retold(mid_sentence(ask_of(text::spoken(field_of(offer, "purpose")))));
     return purpose.empty() ? who + " is hiring" : who + " wants someone to " + purpose;
 }
@@ -168,12 +172,20 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
         for (const Fact* reason : of_kind(p, FactKind::Reason)) set("reason", mid_sentence(text::spoken(field_of(*reason, "reason"))));
 
     const std::vector<const Fact*> places = of_kind(p, FactKind::Place);
-    if (situation == "about_place" && !places.empty()) set("about", place_phrase(*places.front()));
+    std::set<std::string> said;
+    if (situation == "about_place" && !places.empty()) set("about", place_phrase(*places.front(), said));
     if (situation == "surroundings") {
-        // Nearest first, as the director lists them, leaving out where the speaker stands.
+        // Where the speaker stands, by name; then the rest, nearest first, as the director lists
+        // them.
         std::vector<std::string> away;
-        for (const Fact* place : places)
-            if (field_of(*place, "distance") != "here") away.push_back(place_phrase(*place));
+        for (const Fact* place : places) {
+            if (field_of(*place, "distance") != "here") {
+                away.push_back(place_phrase(*place, said));
+            } else if (!out.count("here")) {
+                set("here", text::spoken(label_of(*place)));
+                said.insert(text::spoken(label_of(*place)));
+            }
+        }
         if (!away.empty()) set("nearest", away.front());
         // Each place's phrase has commas of its own, so the last is joined by ", and".
         if (away.size() > 1)
@@ -196,30 +208,79 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     return out;
 }
 
-// `line` with its blanks filled, or nothing when the packet cannot fill one.
-std::optional<std::string> filled(const std::string& line, const std::map<std::string, std::string>& blanks) {
-    std::string out;
+// A line filled from a packet: its text, and how many of its situation's blanks it says (the
+// speaker's own, {speaker}, {post} and {place}, are not counted).
+struct Filled {
+    std::string text;
+    std::size_t said = 0;
+};
+
+// `text` with its blanks filled, or nothing when the packet cannot fill one.
+std::optional<Filled> fill_blanks(std::string_view text, const std::map<std::string, std::string>& blanks) {
+    Filled out;
     std::size_t i = 0;
-    while (i < line.size()) {
-        if (line[i] != '{') {
-            out += line[i++];
+    while (i < text.size()) {
+        if (text[i] != '{') {
+            out.text += text[i++];
             continue;
         }
-        const std::size_t close = line.find('}', i);
-        const auto found = blanks.find(line.substr(i + 1, close - i - 1));
+        const std::size_t close = text.find('}', i);
+        const std::string name(text.substr(i + 1, close - i - 1));
+        const auto found = blanks.find(name);
         if (found == blanks.end()) return std::nullopt;
-        out += found->second;
+        out.text += found->second;
+        if (std::find(speaker_blanks().begin(), speaker_blanks().end(), name) == speaker_blanks().end()) ++out.said;
+        i = close + 1;
+    }
+    return out;
+}
+
+// `line` with its blanks filled, or nothing when the packet cannot fill one. An optional part, in
+// [brackets], is left out whole when the packet cannot fill a blank in it.
+std::optional<Filled> filled(const std::string& line, const std::map<std::string, std::string>& blanks) {
+    Filled out;
+    std::size_t i = 0;
+    while (i < line.size()) {
+        const std::size_t open = line.find('[', i);
+        const std::optional<Filled> plain =
+            fill_blanks(std::string_view(line).substr(i, open == std::string::npos ? std::string::npos : open - i), blanks);
+        if (!plain) return std::nullopt;
+        out.text += plain->text;
+        out.said += plain->said;
+        if (open == std::string::npos) break;
+        const std::size_t close = line.find(']', open);
+        if (const std::optional<Filled> part = fill_blanks(std::string_view(line).substr(open + 1, close - open - 1), blanks)) {
+            out.text += part->text;
+            out.said += part->said;
+        }
         i = close + 1;
     }
     // Each sentence starts with a capital, however a blank that opens one began.
     bool start = true;
-    for (std::size_t k = 0; k < out.size(); ++k) {
-        const char c = out[k];
-        if (start && c >= 'a' && c <= 'z') out[k] = static_cast<char>(c - 'a' + 'A');
+    for (std::size_t k = 0; k < out.text.size(); ++k) {
+        const char c = out.text[k];
+        if (start && c >= 'a' && c <= 'z') out.text[k] = static_cast<char>(c - 'a' + 'A');
         if (c != ' ') start = false;
-        if ((c == '.' || c == '!' || c == '?') && (k + 1 == out.size() || out[k + 1] == ' ')) start = true;
+        if ((c == '.' || c == '!' || c == '?') && (k + 1 == out.text.size() || out.text[k + 1] == ' ')) start = true;
     }
     return out;
+}
+
+// Why a line's optional parts cannot be read, or empty when they can: each is closed, holds a
+// blank, and holds no other.
+std::string optional_parts_problem(const std::string& line) {
+    std::size_t open = std::string::npos;
+    for (std::size_t k = 0; k < line.size(); ++k) {
+        if (line[k] == '[') {
+            if (open != std::string::npos) return "an optional part inside another";
+            open = k;
+        } else if (line[k] == ']') {
+            if (open == std::string::npos) return "a ] with no [";
+            if (line.find('{', open) > k) return "an optional part with no blank, which is never left out";
+            open = std::string::npos;
+        }
+    }
+    return open == std::string::npos ? std::string() : "an optional part with no ]";
 }
 
 // The blanks a line uses, by name.
@@ -250,7 +311,7 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"about_self", {}},
         {"about_person", {"name", "role", "where"}},
         {"about_place", {"about"}},
-        {"surroundings", {"nearest", "others", "danger"}},
+        {"surroundings", {"here", "nearest", "others", "danger"}},
         {"work_own", {"own", "others"}},
         {"work_others", {"others"}},
         {"work_none", {}},
@@ -346,6 +407,7 @@ Lines Lines::parse(std::string_view text, const std::string& source) {
                                  std::find(speaker_blanks().begin(), speaker_blanks().end(), blank) != speaker_blanks().end();
             if (!allowed) throw Error(where + ": no blank {" + blank + "} in " + cells[1]);
         }
+        if (const std::string problem = optional_parts_problem(cells[2]); !problem.empty()) throw Error(where + ": " + problem);
         out.banks_[cells[0]][cells[1]].push_back(cells[2]);
     }
     return out;
@@ -365,10 +427,18 @@ std::vector<std::string> Lines::replies(const FactPacket& p) const {
         if (bank == banks_.end()) continue;
         const auto lines = bank->second.find(s);
         if (lines == bank->second.end()) continue;
-        std::vector<std::string> out;
+        std::vector<Filled> fits;
         for (const std::string& line : lines->second)
-            if (const std::optional<std::string> reply = filled(line, blanks)) out.push_back(*reply + (closing.empty() ? "" : " " + closing));
-        if (!out.empty()) return out;
+            if (std::optional<Filled> reply = filled(line, blanks)) fits.push_back(std::move(*reply));
+        if (fits.empty()) continue;
+        // The lines that say the most of what the packet holds: a speaker who knows of a nest
+        // does not leave it out for a shorter line.
+        std::size_t most = 0;
+        for (const Filled& f : fits) most = std::max(most, f.said);
+        std::vector<std::string> out;
+        for (const Filled& f : fits)
+            if (f.said == most) out.push_back(f.text + (closing.empty() ? "" : " " + closing));
+        return out;
     }
     return {};
 }

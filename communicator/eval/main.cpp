@@ -384,6 +384,9 @@ std::string listed(const std::set<std::string>& words) {
 void voice_eval(inference::Model& model, const std::string& path, const communicator::Lines* written) {
     communicator::Voice voice(model);
     const auto packets_by_name = voice_packets();
+    // A written reply's speaker is handed their last reply, as a game hands it: cases on one
+    // packet are turns with one speaker.
+    std::map<std::string, std::string> last_reply;
     std::size_t cases = 0, shaped = 0, echoing = 0, echoes = 0, forbidden_said = 0, days_said = 0, straying = 0, strays = 0;
     double seconds = 0.0, slowest = 0.0;
     std::cout << "\n## Voice" << (written ? " (written lines)" : "") << "\n\n";
@@ -398,7 +401,8 @@ void voice_eval(inference::Model& model, const std::string& path, const communic
         const Clock::time_point start = Clock::now();
         communicator::Reply reply;
         if (written) {
-            reply.text = written->speak(packet, cells[1]);
+            reply.text = written->speak(packet, cells[1], last_reply[cells[0]]);
+            last_reply[cells[0]] = reply.text;
             reply.finished = !reply.text.empty();
         } else {
             reply = voice.speak(packet, cells[1]);

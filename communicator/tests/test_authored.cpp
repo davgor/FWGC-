@@ -214,8 +214,10 @@ TEST(a_line_speaks_only_when_its_packet_fills_every_blank) {
     const std::vector<std::string> at_the_inn = lines.replies(packets::surroundings_from_the_inn());
     check::equal(at_the_inn.size(), std::size_t(1), "one line fits at the inn");
     check::equal(at_the_inn.front(), std::string("The nearest is the silent keep, 3.1 km off, held by squatters."), "the reply");
+    // Both fit at the gate, and the one that says more is said: a speaker who knows of a nest does
+    // not leave it out.
     const std::vector<std::string> at_the_gate = lines.replies(packets::surroundings_from_the_gate());
-    check::equal(at_the_gate.size(), std::size_t(2), "both fit at the gate");
+    check::equal(at_the_gate.size(), std::size_t(1), "the fuller line at the gate");
     check::equal(at_the_gate.front(),
                  std::string("The nearest is the hamlet of Wenweg, 3.1 km off. Mind the Glacier dragons nesting 3.1 km off."),
                  "the reply");
@@ -228,12 +230,49 @@ TEST(a_line_speaks_only_when_its_packet_fills_every_blank) {
                  "the castellan's surroundings");
 }
 
+TEST(an_optional_part_is_left_out_when_its_blank_is_not_filled) {
+    const Lines lines = Lines::parse("any | surroundings | The nearest is {nearest}.[ Then there's {others}.][ Mind the {danger}.]", "test");
+    check::equal(first(lines.replies(packets::surroundings_from_the_inn())),
+                 std::string("The nearest is the silent keep, 3.1 km off, held by squatters. Then there's Dunfor, 11.2 km off, and "
+                             "Strandbrig, 13.5 km off."),
+                 "no nest near the inn, so no warning");
+    check::equal(first(lines.replies(packets::surroundings_from_the_gate())),
+                 std::string("The nearest is the hamlet of Wenweg, 3.1 km off. Then there's the hospice on the Wenweg pass, 3.1 km "
+                             "off, held by monsters, and another hamlet of Wenweg, 4.9 km off. Mind the Glacier dragons nesting "
+                             "3.1 km off."),
+                 "all of it at the gate");
+    // A part left out still leaves a line that says more than one without it.
+    const Lines two = Lines::parse("any | surroundings | The nearest is {nearest}.\n"
+                                   "any | surroundings | The nearest is {nearest}.[ Mind the {danger}.]\n",
+                                   "test");
+    check::equal(two.replies(packets::surroundings_from_the_inn()).size(), std::size_t(2), "at the inn, both say the same");
+    check::equal(two.replies(packets::surroundings_from_the_gate()).size(), std::size_t(1), "at the gate, the one with the nest");
+    // The speaker's own name, post and place say nothing of the packet: they make no line fuller.
+    const Lines named = Lines::parse("any | surroundings | The nearest is {nearest}.\n"
+                                     "any | surroundings | I'm {speaker}, and the nearest is {nearest}.\n",
+                                     "test");
+    check::equal(named.replies(packets::surroundings_from_the_inn()).size(), std::size_t(2), "both, with a name or without");
+}
+
+TEST(where_the_speaker_stands_is_named_and_a_place_named_twice_is_another) {
+    const Lines lines = Lines::parse("any | surroundings | This is {here}, and the nearest is {nearest}.[ Then there's {others}.]", "test");
+    check::equal(first(lines.replies(packets::surroundings())),
+                 std::string("This is Wenweg, and the nearest is the ninth stone on the Linbrig road, 2.5 km off, held by monsters. "
+                             "Then there's the hamlet of Wenweg, 3.1 km off, and the burnt works, 3.1 km off, held by squatters."),
+                 "the castellan's town");
+    check::equal(first(lines.replies(packets::surroundings_from_the_gate())),
+                 std::string("This is the fortress of Wenweg, and the nearest is the hamlet of Wenweg, 3.1 km off. Then there's the "
+                             "hospice on the Wenweg pass, 3.1 km off, held by monsters, and another hamlet of Wenweg, 4.9 km off."),
+                 "the gate's fortress, and the second hamlet as another");
+}
+
 TEST(a_refusal_naming_two_people_names_neither_as_the_giver) {
     // Nothing says which of two is meant, so a line that needs the giver is not said.
     const Lines lines = Lines::parse("any | refused_give | No, that's {giver}'s work.\n"
                                      "any | refused_give | No, that work isn't mine to give.\n",
                                      "test");
-    check::equal(lines.replies(packets::refused_brokered()).size(), std::size_t(2), "the premise: one person, both lines");
+    check::equal(first(lines.replies(packets::refused_brokered())),
+                 std::string("No, that's Halbrann's work. Speak to Halbrann, at the ruins of Linbrig."), "the premise: one person, named");
     FactPacket two = packets::refused_brokered();
     two.facts.push_back({FactKind::Person, "hero-harbourmaster-coastal-23-30",
                          {{"name", "Nerbrann"}, {"role", "harbourmaster"}, {"where", "the hamlet of Wenweg (Age 2)"}, {"status", "about"}}});
@@ -295,9 +334,9 @@ TEST(others_work_is_retold_as_theirs) {
     // "Walk the walls with me" is the giver's line; the innkeeper tells it as theirs.
     const Lines lines = Lines::parse("any | work_others | {others}.\nany | work_own | {own}.\n", "test");
     check::equal(first(lines.replies(packets::work_at_the_inn())),
-                 std::string("Dornar the council wants someone to walk the walls of Torhas with them, and Mekmoh the keeper wants "
-                             "someone to bring an offering to the shrine of The Red Field at Narbod."),
-                 "others' work");
+                 std::string("Dornar of the council wants someone to walk the walls of Torhas with them, and Mekmoh the keeper "
+                             "wants someone to bring an offering to the shrine of The Red Field at Narbod."),
+                 "others' work, and a council sat on, not been");
     check::equal(first(lines.replies(packets::work())), std::string("Hold the fortress above Wenweg with me, fair work, 8.0 km off."),
                  "the speaker's own, in their words");
     // A purpose that gives its reason first is told by what it asks.
@@ -345,7 +384,8 @@ TEST(a_bad_lines_file_is_refused) {
     check::throws([] { Lines::load("no/such/lines.txt"); }, "a missing file");
     for (const std::string bad : {"warden/LN | parted", "warden/LN | parted | Go well. | Farewell.", "warden/LN | greeting | Hello.",
                                   "any | parted | Farewell, {giver}.", "any | parted | Farewell, {speaker.", " | parted | Go well.",
-                                  "any | parted | "})
+                                  "any | parted | ", "any | parted | Farewell[, {speaker}.", "any | parted | Farewell], {speaker}.",
+                                  "any | parted | Farewell[, [{speaker}]].", "any | parted | Farewell[, friend]."})
         check::throws([&] { Lines::parse(bad, "test"); }, "refused: " + bad);
     check::equal(Lines::parse("# a comment\n\n  \nany | parted | Farewell.\n", "test").size(), std::size_t(1), "comments and blanks");
     check::equal(Lines::parse("\xEF\xBB\xBF# a comment\nany | parted | Farewell.\r\n", "test").size(), std::size_t(1),

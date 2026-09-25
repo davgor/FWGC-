@@ -7,7 +7,9 @@
 // - a roster post ("post:innkeeper");
 // - "any", for everyone.
 // A speaker is answered from their own bank first, then their post's, then "any": the first that
-// has a line for the situation which the packet can fill.
+// has a line for the situation which the packet can fill. Of those lines, the ones that say the
+// most of the packet are said. A part of a line in [brackets] is optional: it is left out whole
+// when the packet cannot fill a blank in it.
 #pragma once
 
 #include <map>
@@ -36,8 +38,9 @@ public:
     // none fits (an answer with no facts to give, say).
     static std::string situation(const orchestrator::FactPacket& packet);
 
-    // Every reply the lines give `packet`, in the first bank that has one: filled, and ending in
-    // the closing C++ writes for a refusal (reply_shape()). Empty when no line fits.
+    // Every reply the lines give `packet`, from the first bank that has one: the lines that say
+    // the most of it, filled, each ending in the closing C++ writes for a refusal (reply_shape()).
+    // Empty when no line fits.
     std::vector<std::string> replies(const orchestrator::FactPacket& packet) const;
 
     // One of replies(), chosen by `line` (the stranger's words) and the packet, the same every

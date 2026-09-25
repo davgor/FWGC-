@@ -21,8 +21,9 @@ GPU build").
 
 `--authored PATH` speaks every `voice.txt` case from written lines (`communicator/data/lines.txt`;
 the communicator README's "Written lines") instead of the model, with the same checks and counts.
-The model is still loaded: the interpreter runs on it, and the card-word count reads the words
-its prompt gives. `--lines ""` skips the interpreter.
+Cases on one packet are turns with one speaker, so each written reply is handed that speaker's
+last one (`previous`), as a game hands it. The model is still loaded: the interpreter runs on it,
+and the card-word count reads the words its prompt gives. `--lines ""` skips the interpreter.
 
 ## What it reports
 

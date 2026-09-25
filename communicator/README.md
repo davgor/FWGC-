@@ -164,47 +164,57 @@ larger-than-life heroes.
   what was asked. A refusal splits by its reason's `why`: the work not theirs to give or to
   release, the speaker gone, or refused by the world.
 - **Blanks** are filled from the packet only (`Lines::situations()` lists each situation's):
-  `{giver}`, `{nearest}`, `{others}`, `{danger}`, `{own}`..., and in every situation `{speaker}`,
-  `{post}` and `{place}`. A line with a blank its packet cannot fill is not said.
+  `{giver}`, `{here}`, `{nearest}`, `{others}`, `{danger}`, `{own}`..., and in every situation
+  `{speaker}`, `{post}` and `{place}`. A line with a blank its packet cannot fill is not said.
+  - `{here}` is where the speaker stands, by name, so "where am I" has its answer.
   - A place comes with how far it is and who holds it: "the burnt works, 3.1 km off, held by
-    squatters". Where the speaker stands is not "the nearest".
+    squatters". A name said twice is "another" the second time: "another hamlet of Wenweg".
   - A nest is the worst the packet holds.
   - Work comes with how hard and how far: "fair work, 8.0 km off".
   - Another's work is told as theirs ("with me" becomes "with them"), by what it asks, not by
     the reason given first ("Our fields lie in its reach: drive off...").
   - A refusal names its giver only when it names one person.
+  - A giver whose role is a body they sit on is "of" it: "Dornar of the council".
+- **Optional parts.** A part of a line in `[brackets]` is left out whole when the packet cannot
+  fill a blank in it. So one line serves a packet with a nest and one without:
+  `The nearest is {nearest}.[ Then there's {others}.][ Mind the {danger}.]`
+- **The fullest lines are said.** Of the lines that fit, only those that say the most of the
+  packet are candidates. The speaker's own name, post and place do not count. A speaker who
+  knows of a nest does not drop it for a shorter line: the first judge found withholding the
+  written lines' main fault.
 - **A world refusal says why,** in the director's words ("the offer has lapsed"). Before
   orchestrator 1228ec5 that reason was the generator's own message, quest ids and all.
 - **The choice** is a hash of the speaker, the situation and the player's words. The same words
   get the same reply, different words spread over the bank, and `previous` (the last reply) is
   not said again while another line fits.
-- **The pilot** (2026-09-24): 79 lines. They cover the warden, lawful neutral (the tests'
+- **The pilot** (2026-09-24): 96 lines. They cover the warden, lawful neutral (the tests'
   castellan, Selbren), the gate captain and innkeeper posts, and `any` in every situation.
-- **Judged** blind against Qwen3-4B's replies to the same 24 voice cases, with the voice's rubric
-  and a craft score, in one session (2026-09-24):
+- **Judged** blind, with the voice's rubric and a craft score, over the 24 voice cases. Each
+  session judged its sets not knowing which was which (2026-09-24). Counts from one session
+  compare; the same replies moved by a reply or two between sessions.
 
-  | | Written lines | Qwen3-4B |
-  |---|---|---|
-  | Replies with no fault, of 24 (lenient) | 19 (23) | 11 (16) |
-  | The 9 open-ended answers with no fault (lenient) | 5 (8) | 2 (4) |
-  | Invents a fact | 2, both borderline | 11 |
-  | Contradicts the outcome | 0 | 2 |
-  | Withholds an answer it had | 3 | 0 |
-  | Craft, 1 to 5 | 3 | 2 |
+  | | Qwen3-4B | Written, first | Written, now |
+  |---|---|---|---|
+  | Replies with no fault, of 24 (lenient) | 9 (16) | 19 (21) | 23 (24) |
+  | The 9 open-ended answers with no fault (lenient) | 2 (4) | 4 (6) | 8 (9) |
+  | Invents a fact | 12 | 3 | 0 |
+  | Contradicts the outcome | 3 | 0 | 0 |
+  | Withholds an answer it had | 0 | 2 | 1, borderline |
+  | Craft, 1 to 5 | 2 | 3 | 4 |
 
-  The judge found the written lines "terse and written, like dialogue from a shipped game". Where
-  they went wrong:
-  - The warden's archetype line ("stays behind the line") read as a rule the packet does not
-    hold (2, borderline).
-  - They said less than the packet held. "Where am I" was not told the speaker stands in Wenweg,
-    "is it safe" got no danger, and "we'll talk of more" held other work back.
-  - The templates' joins showed: "Dornar the council", and two hamlets of Wenweg that sound like
-    one.
-  - Different lines got word-for-word the same reply, four times. The hash chooses among two or
-    three lines a situation, and collides.
-
-  Qwen3-4B invented directions, adjectives, a deadline and a route, rounded 13.6 km to 13, and
-  called abandoned work "finished".
+  That is the second session, which judged all three. The first judged the first written lines
+  against Qwen3-4B alone: 19 (23) against 11 (16), craft 3 against 2.
+  - **The first written lines** said less than the packet held. "Where am I" was never told
+    Wenweg, "is it safe" got no nest, and "we'll talk of more" held other work back. The
+    warden's "stays behind the line", from the card's belief, read as a rule. The judges also
+    heard "Dornar the council", two hamlets of Wenweg that sounded like one, and word-for-word
+    repeats.
+  - **Now** the fullest lines are said, `{here}` names where the speaker stands, a place named
+    twice is "another", and the eval hands a speaker their last reply. The judge heard "B's
+    voice with B's flaws fixed". One miss is left: "is it safe" gets the places near by, but not
+    the deadliest one or any threat word.
+  - **Qwen3-4B** invented directions, a temperament for a people, duties from the card, a
+    deadline and a route. It rounded 13.6 km to 13, and called abandoned work "finished".
 
 ## What it guarantees, each with a test
 
@@ -266,16 +276,22 @@ larger-than-life heroes.
   - **Every test packet gets a reply from the file.**
   - **A line speaks only when its packet fills every blank,** in exact words: no nest near the
     inn, so only the line without one is said.
+  - **Of the lines that fit, the fullest are said.** The speaker's own name, post and place make
+    no line fuller.
+  - **An optional part is left out whole when its blank is not filled,** and kept when it is.
+  - **Where the speaker stands is named, and a place named twice is "another" the second time.**
   - **A refusal that names two people fills `{giver}` with neither.**
   - **A speaker's own bank comes first,** then their post's, then anyone's. A bank whose lines
     the packet cannot fill gives way.
   - **Each situation is read from the packet,** a refusal by its kind.
-  - **Another's work is told as theirs,** by what it asks.
+  - **Another's work is told as theirs,** by what it asks, and a council's member is "of the
+    council".
   - **A world refusal says why,** in the director's words.
   - **The choice is steady and follows the player's words,** and never repeats the last reply
     while another fits.
   - **A bad lines file is refused:** a missing file, a row of two or four cells, an unknown
-    situation or blank, an unclosed blank, an empty voice. A byte-order mark and CRLF are read.
+    situation or blank, an unclosed blank, an empty voice, and an optional part that is unclosed,
+    nested, never opened, or holds no blank. A byte-order mark and CRLF are read.
 
 A mutation pass switched off each of these in a scratch copy, one at a time, and a test failed
 every time (see the commit that added this component).
