@@ -638,6 +638,75 @@ TEST(a_keyed_ley_node_sites_at_its_ruin_and_a_bare_one_says_it_cannot) {
     check::is_true(bare > 0, "an opposing-node hook was generated");
 }
 
+TEST(a_ley_node_is_named_by_the_place_it_is_nearest_or_counted_out_from_one) {
+    // Ashford and the ruins of Keld stand far apart, with three water nodes between them.
+    HeroesRequest request;
+    HeroCity ashford;
+    ashford.uid = "city-1";
+    ashford.name = "Ashford City";
+    ashford.direction = east(0.02);
+    HeroRuin keld;
+    keld.uid = "r1";
+    keld.name = "Keld";
+    keld.has_direction = true;
+    keld.direction = east(0.30);
+    request.cities = {ashford};
+    request.ruins = {keld};
+    HeroLeyNetwork water;
+    water.school = "water";
+    water.nodes = {{"water-node-0", east(0.021), 1.0}, {"water-node-1", east(0.12), 1.0}, {"water-node-2", east(0.25), 1.0}};
+    request.networks = {water};
+    check::equal(hero_ley_node_name(request, "water-node-0", "water"), std::string("the water node nearest Ashford"),
+                 "a city's nearest");
+    check::equal(hero_ley_node_name(request, "water-node-2", "water"),
+                 std::string("the water node nearest the ruins of Keld"), "a ruin's nearest");
+    // Second from both places: counted from the one it lies nearer.
+    check::equal(hero_ley_node_name(request, "water-node-1", "water"), std::string("the second water node from Ashford"),
+                 "no place's nearest, so counted out");
+
+    // Words two places share name neither: with a second Ashford, only Keld is left to count from.
+    HeroCity twin = ashford;
+    twin.uid = "city-2";
+    twin.direction = east(0.60);
+    HeroesRequest twins = request;
+    twins.cities = {ashford, twin};
+    check::equal(hero_ley_node_name(twins, "water-node-0", "water"), std::string("the third water node from the ruins of Keld"),
+                 "two places called Ashford");
+
+    // Nearest to a farther place beats second from a nearer one: the node lies nearer Ashford,
+    // but Ashford has a nearer node of its own, and Corry has none nearer than this one.
+    HeroCity corry;
+    corry.uid = "city-3";
+    corry.name = "Corry";
+    corry.direction = east(0.09);
+    HeroesRequest pair;
+    pair.cities = {ashford, corry};
+    HeroLeyNetwork two;
+    two.school = "water";
+    two.nodes = {{"water-node-0", east(0.021), 1.0}, {"water-node-5", east(0.05), 1.0}};
+    pair.networks = {two};
+    check::is_true(hero_separation_m(east(0.05), east(0.02), 1.0) < hero_separation_m(east(0.05), east(0.09), 1.0),
+                   "the premise: the node lies nearer Ashford than Corry");
+    check::equal(hero_ley_node_name(pair, "water-node-5", "water"), std::string("the water node nearest Corry"),
+                 "nearest a farther place, not second from a nearer one");
+
+    // Two nodes on one spot: the lower id is the nearer, as the ley hooks break ties.
+    HeroesRequest tied;
+    tied.cities = {ashford};
+    HeroLeyNetwork same;
+    same.school = "water";
+    same.nodes = {{"water-node-b", east(0.30), 1.0}, {"water-node-a", east(0.30), 1.0}};
+    tied.networks = {same};
+    check::equal(hero_ley_node_name(tied, "water-node-a", "water"), std::string("the water node nearest Ashford"),
+                 "the lower id");
+    check::equal(hero_ley_node_name(tied, "water-node-b", "water"), std::string("the second water node from Ashford"),
+                 "the higher id");
+
+    // No such node, or not that school's: nothing to say, and the hook names the school alone.
+    check::equal(hero_ley_node_name(request, "water-node-9", "water"), std::string(), "no such node");
+    check::equal(hero_ley_node_name(request, "water-node-0", "fire"), std::string(), "not a fire node");
+}
+
 TEST(raising_the_stake_raises_the_fame) {
     // The invariant the reference holds: a bigger wound is a bigger name.
     Bench bench;

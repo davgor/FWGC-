@@ -248,6 +248,14 @@ with tests so a fix cannot land silently.
   first age turn after any corruption raised.
 - **One ley network-edit check** (`plant_key_point`) for ruins' key points, avatars,
   corruptions and player edits.
+- **A hook names a ley node by a place, never by its id** (2026-09-25). A hook on a node with
+  no key point, a school's own or a villain's well, read "Weaken the water node water-node-4".
+  It now names the city or ruin the node is its school's nearest node to ("Weaken the water
+  node nearest Wensal"). A node that is no place's nearest is counted out from the place it
+  comes soonest from ("the second water node from the ruins of Korpat"). Words two places
+  share are passed over (`hero_ley_node_name`). Only the purposes move: across 39 worlds at
+  sizes 33, 65 and 129, 905 purposes were renamed, all of them "nearest", and with purposes
+  set aside every document was identical.
 - **Numbers, not timings, in the document.** Timings are off unless asked for; two runs of one
   seed are byte-identical.
 - **A near read can name its categories** (2026-09-24). At the radius ceiling most cities'

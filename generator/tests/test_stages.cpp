@@ -474,6 +474,90 @@ TEST(beasts_raze_cities_and_every_living_dread_is_hunted_by_name) {
                        std::to_string(w.heroes.dreads.size()));
 }
 
+TEST(no_stated_purpose_names_a_node_by_its_id) {
+    // A hero asks for work in their own words, and an id is no one's words. Until 2026-09-25 a
+    // hook on a ley node with no key point read "Weaken the water node water-node-4; it chokes
+    // the fire.", and on a villain's well "Weaken the umbral node well-villain-2-1563".
+    const World& w = complete_65();
+    std::set<std::string> ids;
+    for (const auto& [school, network] : w.magic.networks) {
+        for (const LeyNode& node : network.nodes) ids.insert(node.id);
+    }
+    int bare = 0;
+    for (const HeroQuestHook& hook : w.heroes.quest_hooks) {
+        if (hook.actual_effect.kind != "ley_node") continue;
+        const std::string& id = hook.actual_effect.node_id;
+        ids.insert(id);  // a key point's id, "<ruin>-key", is not a network node
+        if (id.size() < 4 || id.compare(id.size() - 4, 4, "-key") != 0) ++bare;
+    }
+    check::is_true(bare > 0, "the premise: hooks on nodes with no key point, which were named by id");
+    for (const HeroQuestHook& hook : w.heroes.quest_hooks) {
+        check::is_true(hook.stated_purpose.find("-node-") == std::string::npos,
+                       hook.hook_id + " says an id: " + hook.stated_purpose);
+        for (const std::string& id : ids) {
+            check::is_true(hook.stated_purpose.find(id) == std::string::npos,
+                           hook.hook_id + " says " + id + ": " + hook.stated_purpose);
+        }
+    }
+}
+
+TEST(a_ley_node_is_named_by_a_place_it_is_its_schools_nearest_to) {
+    // "the water node nearest Naelannon" must be true: of the water nodes, this one lies
+    // nearest Naelannon. "the second water node from the ruins of Korpat": exactly one lies
+    // nearer. Checked from the world's own geometry, not from how the words were chosen.
+    const World& w = complete_65();
+    std::map<std::string, Vec3> places;
+    for (const SettlementSite& city : w.settlements.sites) places.emplace(hero_short_name(city.name), city.direction);
+    for (const Ruin& ruin : w.ruins) places.emplace("the ruins of " + hero_short_name(ruin.name), ruin.direction);
+    static const std::vector<std::string> kCounted = {"", "", "second", "third", "fourth", "fifth", "sixth",
+                                                      "seventh", "eighth", "ninth", "tenth"};
+    int nearest = 0, counted = 0;
+    for (const HeroQuestHook& hook : w.heroes.quest_hooks) {
+        if (hook.actual_effect.kind != "ley_node") continue;
+        const std::string& said = hook.stated_purpose;
+        const std::string school = hook.actual_effect.school;
+        std::size_t at = said.find(" " + school + " node nearest ");
+        std::size_t rank = 1;
+        std::string words;
+        if (at != std::string::npos) {
+            at += school.size() + 15;
+            ++nearest;
+        } else {
+            for (rank = 2; rank < kCounted.size(); ++rank) {
+                const std::string lead = "the " + kCounted[rank] + " " + school + " node from ";
+                at = said.find(lead);
+                if (at != std::string::npos) {
+                    at += lead.size();
+                    break;
+                }
+            }
+            if (at == std::string::npos) continue;  // a key point, or a covert shrine
+            ++counted;
+        }
+        words = said.substr(at, said.find_first_of(";.", at) - at);
+        const auto place = places.find(words);
+        check::is_true(place != places.end(), hook.hook_id + " names a place the world has: " + words);
+        if (place == places.end()) continue;
+        const LeyNetwork& network = w.magic.networks.at(school);
+        const LeyNode* self = nullptr;
+        for (const LeyNode& node : network.nodes) {
+            if (node.id == hook.actual_effect.node_id) self = &node;
+        }
+        check::is_true(self != nullptr, hook.hook_id + " targets a node of its school");
+        if (self == nullptr) continue;
+        std::size_t nearer = 0;
+        const double own = hero_separation_m(place->second, self->direction, 1.0);
+        for (const LeyNode& node : network.nodes) {
+            if (node.id == self->id) continue;
+            const double angle = hero_separation_m(place->second, node.direction, 1.0);
+            if (angle < own || (angle == own && node.id < self->id)) ++nearer;
+        }
+        check::equal(nearer + 1, rank, hook.hook_id + ": " + said);
+    }
+    check::is_true(nearest > 0, "the premise: a node named by the place it is nearest");
+    check::is_true(nearest + counted > 0, "and every such name checked above");
+}
+
 TEST(stage_sixteen_staffs_every_settlement_and_places_every_person) {
     const World w = at_phase(16, 65);
     check::is_true(w.has_npcs, "stage 16 to build the rosters");

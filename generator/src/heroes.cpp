@@ -5,6 +5,8 @@
 #include <map>
 #include <sstream>
 #include <stdexcept>
+#include <string_view>
+#include <tuple>
 #include <utility>
 
 #include "fwg/heritage.hpp"
@@ -2455,14 +2457,19 @@ HookTarget resolve_target(const HookIndex& index, const HeroEffect& effect) {
     return out;
 }
 
-std::string node_name(const HookIndex& index, const std::string& node_id, const std::string& school) {
+// A ley node as a person names it, never by its id: a stated purpose is what a hero asks
+// for, in their own words, and until 2026-09-25 a bare node's read "the water node
+// water-node-4". A key point stands at its ruin: "the radiant key point at Korpat". Any other
+// node, a school's own or a villain's well, is named by a place (`hero_ley_node_name`).
+std::string node_name(const Ctx& ctx, const HookIndex& index, const std::string& node_id, const std::string& school) {
     if (node_id.size() > 4 && node_id.compare(node_id.size() - 4, 4, "-key") == 0) {
         auto ruin = index.ruins_by_id.find(node_id.substr(0, node_id.size() - 4));
         if (ruin != index.ruins_by_id.end()) {
             return "the " + school + " key point at " + hero_short_name(ruin->second->name);
         }
     }
-    return "the " + school + " node " + node_id;
+    const std::string named = hero_ley_node_name(*ctx.req, node_id, school);
+    return named.empty() ? "the " + school + " node" : named;
 }
 
 // The node a ley hook proposes to weaken: the nearest node of the opposing school to the
@@ -2553,7 +2560,7 @@ std::vector<HeroQuestHook> build_quest_hooks(const Ctx& ctx, const std::vector<H
             own.school = school;
             own.intensity_delta = w.hook_intensity_delta;
             own.has_delta = true;
-            const std::string honest = "Strengthen " + node_name(index, person.node_id, school) + ".";
+            const std::string honest = "Strengthen " + node_name(ctx, index, person.node_id, school) + ".";
             const std::string cover =
                 "Restore the old shrine at " +
                 (person.lost.has_value() ? hero_short_name(person.lost->name) : claim.target_name) +
@@ -2568,8 +2575,8 @@ std::vector<HeroQuestHook> build_quest_hooks(const Ctx& ctx, const std::vector<H
                 weaken.intensity_delta = -w.hook_intensity_delta;
                 weaken.has_delta = true;
                 const std::string weaken_honest =
-                    "Weaken " + node_name(index, node->id, opposite) + "; it chokes the " + school + ".";
-                const std::string weaken_cover = "Cleanse " + node_name(index, node->id, opposite) +
+                    "Weaken " + node_name(ctx, index, node->id, opposite) + "; it chokes the " + school + ".";
+                const std::string weaken_cover = "Cleanse " + node_name(ctx, index, node->id, opposite) +
                                                  "; something there is poisoning the valley.";
                 drafts.push_back({covert ? weaken_cover : weaken_honest, weaken, covert});
             }
@@ -2943,6 +2950,63 @@ std::string hero_short_name(std::string_view name) {
         out.erase(at, suffix.size());
     }
     return out;
+}
+
+std::string hero_ley_node_name(const HeroesRequest& request, const std::string& node_id, const std::string& school) {
+    const HeroLeyNetwork* network = nullptr;
+    for (const HeroLeyNetwork& net : request.networks) {
+        if (net.school == school) network = &net;
+    }
+    const HeroLeyNodeRef* self = nullptr;
+    if (network != nullptr) {
+        for (const HeroLeyNodeRef& node : network->nodes) {
+            if (node.id == node_id) self = &node;
+        }
+    }
+    if (self == nullptr) return {};
+    // How many of the school's nodes lie nearer `from` than this one, plus one.
+    const auto rank_from = [&](const Vec3& from) {
+        const double own = hero_separation_m(from, self->direction, 1.0);
+        int rank = 1;
+        for (const HeroLeyNodeRef& other : network->nodes) {
+            if (&other == self) continue;
+            const double angle = hero_separation_m(from, other.direction, 1.0);
+            if (angle < own || (angle == own && other.id < node_id)) ++rank;
+        }
+        return rank;
+    };
+    // Every city and ruin a player could be pointed to, by the words that name it.
+    struct Place {
+        const Vec3* direction = nullptr;
+        int kind = 0;  // 0 a city, 1 a ruin
+        const std::string* key = nullptr;
+        std::string words;
+        int rank = 0;
+        double angle = 0.0;
+    };
+    std::vector<Place> places;
+    for (const HeroCity& city : request.cities) places.push_back({&city.direction, 0, &city.uid, hero_short_name(city.name)});
+    for (const HeroRuin& ruin : request.ruins) {
+        if (ruin.has_direction) places.push_back({&ruin.direction, 1, &ruin.uid, "the ruins of " + hero_short_name(ruin.name)});
+    }
+    std::map<std::string, int> sharing;
+    for (const Place& place : places) ++sharing[place.words];
+    // The place a player is told of: the lowest count, then the place nearest the node, then
+    // cities before ruins, then the key.
+    const auto order = [](const Place& p) { return std::tie(p.rank, p.angle, p.kind, *p.key); };
+    const Place* best = nullptr;
+    for (Place& place : places) {
+        if (sharing[place.words] != 1) continue;
+        place.rank = rank_from(*place.direction);
+        place.angle = hero_separation_m(*place.direction, self->direction, 1.0);
+        if (best == nullptr || order(place) < order(*best)) best = &place;
+    }
+    if (best == nullptr) return {};
+    if (best->rank == 1) return "the " + school + " node nearest " + best->words;
+    static constexpr std::string_view kCounted[] = {"second", "third", "fourth", "fifth", "sixth",
+                                                    "seventh", "eighth", "ninth", "tenth"};
+    if (best->rank > 10) return {};
+    return "the " + std::string(kCounted[best->rank - 2]) + " " + school + " node from " + best->words;
 }
 
 HeroAlignment hero_alignment_record(double law, double good) {

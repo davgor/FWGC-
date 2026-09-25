@@ -930,6 +930,17 @@ double hero_separation_m(const Vec3& a, const Vec3& b, double radius_m);
 // and the reference's `str.replace` has no count argument.
 std::string hero_short_name(std::string_view name);
 
+// A ley node of `school` as a person names it, never by its id (2026-09-25):
+// - by a city or a ruin it is the school's nearest node to: "the water node nearest Wensal";
+// - where it is no place's nearest, counted out from the place it comes soonest from: "the
+//   second water node from the ruins of Korpat".
+// Either is true by construction and fits no other node of the school. Ties between nodes
+// fall to the lower id, as the ley hooks break them. Words two places share name neither, so
+// those places are passed over. Empty when `school` has no node `node_id`, no place is left
+// to name it by, or it comes later than tenth. A key point is named by its ruin before this
+// is asked.
+std::string hero_ley_node_name(const HeroesRequest& request, const std::string& node_id, const std::string& school);
+
 // The nine-cell label and two-character code for a pair of axis values.
 HeroAlignment hero_alignment_record(double law, double good);
 
