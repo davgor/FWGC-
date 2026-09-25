@@ -7,7 +7,7 @@ measures how well a model does inside them.
 
 ```bash
 cmake --build communicator/build --config Release --target communicator_eval
-communicator/build/Release/communicator_eval.exe [--model PATH] [--lines PATH] [--voice PATH] [--limit N] [--threads N] [--gpu-layers N]
+communicator/build/Release/communicator_eval.exe [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH] [--limit N] [--threads N] [--gpu-layers N]
 ```
 
 Without `--model`, it uses `FWGC_TEST_MODEL`, then the test model `inference/README.md` names.
@@ -18,6 +18,11 @@ greedy output is reproducible for one count, and can differ between counts.
 `INFERENCE_VULKAN`. The report's `device:` line says where the model ran. Compare on one device:
 a GPU reads as many lines right, but words its replies differently (`inference/README.md`, "The
 GPU build").
+
+`--authored PATH` speaks every `voice.txt` case from written lines (`communicator/data/lines.txt`;
+the communicator README's "Written lines") instead of the model, with the same checks and counts.
+The model is still loaded: the interpreter runs on it, and the card-word count reads the words
+its prompt gives. `--lines ""` skips the interpreter.
 
 ## What it reports
 

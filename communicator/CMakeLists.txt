@@ -39,6 +39,7 @@ else()
 endif()
 
 add_library(communicator STATIC
+  src/authored.cpp
   src/gbnf.cpp
   src/interpreter.cpp
   src/known.cpp
@@ -59,6 +60,7 @@ if(COMMUNICATOR_BUILD_TESTS)
   enable_testing()
   add_executable(communicator_tests
     tests/main.cpp
+    tests/test_authored.cpp
     tests/test_known.cpp
     tests/test_interpreter.cpp
     tests/test_voice.cpp
@@ -69,7 +71,8 @@ if(COMMUNICATOR_BUILD_TESTS)
   # The test model inference/README.md names, downloaded and never committed; FWGC_TEST_MODEL
   # points elsewhere.
   target_compile_definitions(communicator_tests PRIVATE
-    COMMUNICATOR_TEST_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/../inference/models/qwen2.5-0.5b-instruct-q4_0.gguf")
+    COMMUNICATOR_TEST_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/../inference/models/qwen2.5-0.5b-instruct-q4_0.gguf"
+    COMMUNICATOR_LINES="${CMAKE_CURRENT_SOURCE_DIR}/data/lines.txt")
   add_test(NAME communicator_tests COMMAND communicator_tests)
 
   # A measuring tool over eval/, not a test: eval/README.md.
@@ -79,5 +82,6 @@ if(COMMUNICATOR_BUILD_TESTS)
   target_compile_options(communicator_eval PRIVATE ${COMMUNICATOR_WARNINGS})
   target_compile_definitions(communicator_eval PRIVATE
     COMMUNICATOR_TEST_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/../inference/models/qwen2.5-0.5b-instruct-q4_0.gguf"
-    COMMUNICATOR_EVAL_DIR="${CMAKE_CURRENT_SOURCE_DIR}/eval")
+    COMMUNICATOR_EVAL_DIR="${CMAKE_CURRENT_SOURCE_DIR}/eval"
+    COMMUNICATOR_LINES="${CMAKE_CURRENT_SOURCE_DIR}/data/lines.txt")
 endif()

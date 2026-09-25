@@ -26,4 +26,8 @@ std::string plain_punctuation(std::string_view text);
 // Throws Error for a line longer than kMaxLineBytes.
 void check_line(std::string_view line);
 
+// A packet's step on a scale of 1 to 5, in a word: difficulty "very easy" to "very hard",
+// threat or danger "slight" to "deadly". Empty for any other key, or a value that is not 1 to 5.
+std::string scale_word(std::string_view key, std::string_view value);
+
 }  // namespace communicator::text

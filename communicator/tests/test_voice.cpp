@@ -16,115 +16,20 @@
 #include "model.hpp"
 #include "packets.hpp"
 #include "reply_shape.hpp"
+#include "rules.hpp"
 
 namespace {
 
+using namespace rules;
 using communicator::Reply;
 using communicator::Voice;
 using orchestrator::Fact;
 using orchestrator::FactPacket;
 
-// The words of `text`: runs of letters, ASCII or not. Typographic punctuation (curly quotes,
-// dashes, the ellipsis: U+2000 to U+207F, bytes E2 80 or E2 81 and one more) parts words, as
-// ASCII punctuation does, so "I’m" is "I" and "m".
-std::vector<std::string> words_of(const std::string& text) {
-    std::vector<std::string> out;
-    std::string word;
-    const auto flush = [&] {
-        if (!word.empty()) out.push_back(word);
-        word.clear();
-    };
-    for (std::size_t i = 0; i < text.size(); ++i) {
-        const auto c = static_cast<unsigned char>(text[i]);
-        const bool punctuation = c == 0xE2 && i + 2 < text.size() && (static_cast<unsigned char>(text[i + 1]) & 0xFE) == 0x80;
-        if (punctuation) {
-            flush();
-            i += 2;
-        } else if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c >= 0x80) {
-            word += text[i];
-        } else {
-            flush();
-        }
-    }
-    flush();
-    return out;
-}
-
-// Every word the packet puts in front of the voice as something to say: the speaker's name,
-// post, place and line, and every fact's text.
-std::set<std::string> packet_words(const FactPacket& p) {
-    std::set<std::string> out;
-    for (const std::string* text : {&p.persona.name, &p.persona.role, &p.persona.place, &p.persona.line})
-        for (const std::string& w : words_of(*text)) out.insert(w);
-    for (const Fact& f : p.facts)
-        for (const auto& [key, value] : f.fields)
-            for (const std::string& w : words_of(value)) out.insert(w);
-    return out;
-}
-
-// The capitalised words of a reply that are neither the packet's nor common words: names the
-// packet does not give.
-std::vector<std::string> unlisted_names(const std::string& reply, const FactPacket& p) {
-    const std::set<std::string> known = packet_words(p);
-    const std::vector<std::string>& common = communicator::common_capitals();
-    std::vector<std::string> out;
-    for (const std::string& w : words_of(reply)) {
-        const auto first = static_cast<unsigned char>(w[0]);
-        const bool capital = (first >= 'A' && first <= 'Z') || first >= 0x80;
-        if (capital && !known.count(w) && std::find(common.begin(), common.end(), w) == common.end()) out.push_back(w);
-    }
-    return out;
-}
-
-// The common capitals a reply uses past the start of a sentence, "I" and the packet's own words
-// aside: common words made into names ("a castle named Greetings"). A sentence starts the reply
-// and follows a stop that ends a word run (the point in "2.5 km" ends nothing).
-std::vector<std::string> stray_capitals(const std::string& reply, const FactPacket& p) {
-    const std::set<std::string> known = packet_words(p);
-    const std::vector<std::string>& common = communicator::common_capitals();
-    std::vector<std::string> out;
-    bool starts = true;
-    std::string word;
-    for (std::size_t i = 0; i <= reply.size(); ++i) {
-        const char c = i < reply.size() ? reply[i] : ' ';
-        if (std::isalpha(static_cast<unsigned char>(c))) {
-            word += c;
-            continue;
-        }
-        if (!word.empty()) {
-            const bool listed = std::find(common.begin(), common.end(), word) != common.end();
-            if (!starts && listed && word != "I" && !known.count(word)) out.push_back(word);
-            starts = false;
-            word.clear();
-        }
-        const bool stop = c == '.' || c == '!' || c == '?';
-        if (stop && (i + 1 >= reply.size() || !std::isalnum(static_cast<unsigned char>(reply[i + 1])))) starts = true;
-    }
-    return out;
-}
-
 std::string prompt_of(const Voice& voice, const FactPacket& p, const std::string& line) {
     std::string out;
     for (const inference::Message& m : voice.messages(p, line)) out += m.content + "\n";
     return out;
-}
-
-bool opens_with_one_of(const std::string& reply, const std::vector<std::string>& openings) {
-    return std::any_of(openings.begin(), openings.end(), [&](const std::string& o) { return reply.rfind(o, 0) == 0; });
-}
-
-// The sentences in `text`: runs of . ! ? that close it, or come before a space, a bracket or a
-// quote, straight or curly (a curly one starts with the byte E2). The point in "2.5 km" ends
-// nothing.
-std::size_t sentences_in(const std::string& text) {
-    std::size_t count = 0;
-    for (std::size_t i = 0; i < text.size(); ++i) {
-        if (text[i] != '.' && text[i] != '!' && text[i] != '?') continue;
-        while (i + 1 < text.size() && (text[i + 1] == '.' || text[i + 1] == '!' || text[i + 1] == '?')) ++i;
-        const auto next = i + 1 < text.size() ? static_cast<unsigned char>(text[i + 1]) : static_cast<unsigned char>(' ');
-        if (next == ' ' || next == '"' || next == '\'' || next == ')' || next == 0xE2) ++count;
-    }
-    return count;
 }
 
 // One packet and line for each outcome.
@@ -363,12 +268,6 @@ std::pair<std::string, std::string> told_to_say(inference::Model& model, const s
     if (!held.stopped_at_end)
         while (!text.empty() && std::isalpha(static_cast<unsigned char>(text.back()))) text.pop_back();
     return {free_reply, text};
-}
-
-std::string lowered(const std::string& text) {
-    std::string out;
-    for (const char c : text) out += (c >= 'A' && c <= 'Z') ? static_cast<char>(c - 'A' + 'a') : c;
-    return out;
 }
 
 // Whether `text` holds `word` in any case: whole, or with `whole` false, as the start of a word.

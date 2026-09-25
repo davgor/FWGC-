@@ -1,0 +1,111 @@
+# The written lines speakers answer in (communicator/include/communicator/authored.hpp).
+#
+#   voice | situation | line
+#
+# voice: a hero's archetype and alignment, as the director's voice_key gives it ("warden/LN"),
+#   "post:<post>" for a roster post, or "any" for everyone. A speaker is answered from their own
+#   bank first, then their post's, then "any".
+# situation: one of Lines::situations(). A line's {blanks} are filled from the fact packet, and a
+#   line with a blank its packet cannot fill is not used. Every situation may use {speaker},
+#   {post} and {place}.
+#
+# Lines keep the voice's rules, and a test holds every one of them to it:
+# - a sentence starts with a word from common_capitals(), or with a blank;
+# - past a sentence's start a capital is "I" or a blank's;
+# - no barred word (forbidden_words()), and no double quote;
+# - a short outcome is one sentence, opening with its outcome's words (reply_shape.cpp);
+# - a line says only what its blanks hold: attitude, never a fact of its own.
+#
+# The pilot (2026-09-24): the warden, lawful neutral (Selbren, the tests' castellan), two roster
+# posts, and "any".
+
+# ---- The warden, lawful neutral ---------------------------------------------------------------
+# From the card: "It stays behind the line. That's all." Direct, formal when pressed, a fair
+# trade and no more; never leaves the post, never breaks a sworn word.
+warden/LN | about_self | I'm {speaker}, {post} of {place}, and whatever you want stays behind the line until I say otherwise.
+warden/LN | about_self | I'm {speaker}, {post} of {place}. You'll find me here, where I'm meant to be.
+warden/LN | about_self | {speaker}, {post} of {place}. Say what you want plainly and we'll get on.
+warden/LN | about_person | That's {name}, the {role}, at {where}. What they do there is their own business.
+warden/LN | about_person | You'll find {name} at {where}. The {role}, and no concern of mine beyond that.
+warden/LN | about_place | That's {about}. I know it, and that's all I'll swear to.
+warden/LN | about_place | You mean {about}. Past that, I don't guess.
+warden/LN | surroundings | The nearest is {nearest}. Past that, {others}. Mind the {danger}.
+warden/LN | surroundings | The closest is {nearest}. Then there's {others}. Keep clear of the {danger}.
+warden/LN | surroundings | The nearest is {nearest}. That much I'll vouch for.
+warden/LN | work_own | There's work, if you've the stomach for it: {own}. If not, {others}.
+warden/LN | work_own | I need steady hands: {own}. Otherwise, {others}.
+warden/LN | work_own | My own first: {own}. Do that well and we'll talk of more.
+warden/LN | work_others | No work of mine to give, but {others}.
+warden/LN | work_others | Nothing from me. {others}, if you're asking.
+warden/LN | work_none | No work of mine, and none I know of.
+warden/LN | unknown | I don't know it, and if it's not on my side of the line, it's not my concern.
+warden/LN | unknown | I've never heard of it, and I don't guess at what I haven't seen.
+warden/LN | refused_give | No, that's {giver}'s work, and I don't hand out other people's.
+warden/LN | refused_give | That's not mine to give, it's {giver}'s, and I keep to my own.
+warden/LN | refused_give | No, that work isn't mine to give, and I don't hand out other people's.
+warden/LN | refused_release | No, that work is {giver}'s to release, not mine.
+warden/LN | refused_release | That's not mine to release, and I keep to my own.
+warden/LN | refused | No, {reason}, and that's an end of it.
+warden/LN | accepted | Good. Hold the line and we'll get on.
+warden/LN | accepted | Then it's agreed. Keep your word and I'll keep mine.
+warden/LN | accepted | Done. Don't make me regret it.
+warden/LN | declined | Very well, I'll find someone who will.
+warden/LN | declined | Suit yourself, the offer was fair.
+warden/LN | abandoned | So be it, someone else will hold it.
+warden/LN | abandoned | A pity, but I'll manage without you.
+warden/LN | parted | Farewell, and don't make trouble on my side of the line.
+warden/LN | parted | Go well, stranger.
+warden/LN | not_understood | I don't follow, so speak plainly or move along.
+warden/LN | not_understood | Speak plainly, I've no time for riddles.
+
+# ---- A gate captain -----------------------------------------------------------------------------
+# Curt, a soldier at a gate.
+post:gate_captain | about_self | I'm {speaker}, {post} of {place}. Keep it brief.
+post:gate_captain | surroundings | The nearest is {nearest}. After that, {others}. Watch for the {danger}.
+post:gate_captain | surroundings | Out past the gate, {nearest}. Beyond it, {others}. Beware the {danger}.
+post:gate_captain | surroundings | The nearest is {nearest}. That's all I'll say from the gate.
+post:gate_captain | work_none | Nothing from me, and nothing I've heard of.
+post:gate_captain | not_understood | Speak plainly, I've a gate to watch.
+post:gate_captain | not_understood | What do you mean by that?
+post:gate_captain | parted | Go well, and mind the road.
+
+# ---- An innkeeper -------------------------------------------------------------------------------
+# Warm, talkative, knows who is hiring.
+post:innkeeper | about_self | I'm {speaker}, {post} here at {place}. What can I get you?
+post:innkeeper | work_others | Not from me, love, but {others}.
+post:innkeeper | work_others | Nothing of mine, but I hear {others}.
+post:innkeeper | work_none | No work that I know of, love.
+post:innkeeper | surroundings | The nearest is {nearest}. Then there's {others}. I'd keep clear of the {danger}.
+post:innkeeper | surroundings | The nearest is {nearest}, and past that {others}.
+post:innkeeper | not_understood | I'm not sure what you mean, love.
+post:innkeeper | parted | Safe travels, love, and come back thirsty.
+
+# ---- Anyone -------------------------------------------------------------------------------------
+any | about_self | I'm {speaker}, {post} of {place}.
+any | about_self | I'm {speaker}.
+any | about_person | That's {name}, the {role}, at {where}.
+any | about_place | That's {about}.
+any | surroundings | The nearest is {nearest}. Then {others}. Watch for the {danger}.
+any | surroundings | The nearest is {nearest}.
+any | work_own | There's work: {own}.
+any | work_others | No work of mine, but {others}.
+any | work_none | No work that I know of.
+any | unknown | I don't know it.
+any | unknown | I've never heard of it.
+any | refused_give | No, that work is {giver}'s to give, not mine.
+any | refused_give | No, that work isn't mine to give.
+any | refused_release | No, that work is {giver}'s to release, not mine.
+any | refused_release | No, that work isn't mine to release.
+any | refused_gone | I can't, not now.
+any | refused | I can't, because {reason}.
+any | refused | No, because {reason}.
+any | accepted | Good. It's yours.
+any | accepted | Then it's agreed.
+any | declined | Very well.
+any | declined | As you wish.
+any | abandoned | So be it.
+any | abandoned | Very well, it's off your hands.
+any | parted | Farewell.
+any | parted | Safe travels.
+any | not_understood | I don't follow.
+any | not_understood | I'm not sure what you mean.

@@ -80,4 +80,14 @@ void check_line(std::string_view line) {
                     std::to_string(kMaxLineBytes));
 }
 
+std::string scale_word(std::string_view key, std::string_view value) {
+    static const char* const kDifficulty[] = {"very easy", "easy", "fair", "hard", "very hard"};
+    static const char* const kDanger[] = {"slight", "low", "real", "high", "deadly"};
+    if (value.size() != 1 || value[0] < '1' || value[0] > '5') return {};
+    const auto step = static_cast<std::size_t>(value[0] - '1');
+    if (key == "difficulty") return kDifficulty[step];
+    if (key == "threat" || key == "danger") return kDanger[step];
+    return {};
+}
+
 }  // namespace communicator::text

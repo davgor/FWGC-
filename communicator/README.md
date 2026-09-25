@@ -1,8 +1,10 @@
 # FWGC++ communicator
 
-NPC dialogue, in two parts:
+NPC dialogue, in three parts:
 - the **interpreter** turns a player's words into one dialogue act;
-- the **voice** puts a fact packet into the speaker's words.
+- the **voice** puts a fact packet into the speaker's words, through a model;
+- the **written lines** answer a fact packet with a line a person wrote, its blanks filled from
+  the packet, and no model at all.
 
 It never sees a world. It includes `orchestrator/contract.hpp` alone and links only the
 orchestrator's contract and `inference`. **The model translates and phrases; C++ decides.**
@@ -48,7 +50,8 @@ player's line --Interpreter--> DialogueAct --Director::respond--> FactPacket --V
    changes the world (`orchestrator::act_changes_world`). For those acts, the game asks the
    question in `confirm` ("Take on this work?", with `label` beneath it), and the act goes to
    `Director::respond` only on yes. A misread line then costs a question, never a quest.
-4. **`Voice::speak(packet, line, on_piece)`** streams the reply, piece by piece.
+4. **`Voice::speak(packet, line, on_piece)`** streams the reply, piece by piece. Or
+   **`Lines::speak(packet, line, previous)`** gives a written one ([Written lines](#written-lines)).
 
 One `inference::Model` serves both the interpreter and the voice, called in turn.
 
@@ -146,6 +149,63 @@ A reply therefore cannot name a person or a place its packet does not name, in c
 give a bearing or speak of pay in any of those words. A name in lower case gets through: asked
 about Castle Grey, Qwen3-4B said it knew of no "castle named grey".
 
+## Written lines
+
+`communicator/authored.hpp`. A reply is a line a person wrote, with blanks that C++ fills from
+the packet. No model writes it, so it says only what the packet holds, in words a writer chose.
+The owner asked for NPCs that feel like "scripted real lines, not fake AI slop", especially the
+larger-than-life heroes.
+
+- **The file:** [`data/lines.txt`](data/lines.txt), rows of `voice | situation | line`.
+- **Banks.** A hero with one face speaks from their archetype and alignment ("warden/LN", the
+  persona's `voice_key`, from contract version 2). Everyone then falls back to their post's lines
+  (`post:innkeeper`), then to `any`. The first bank with a line the packet can fill answers.
+- **Situations** are read from the packet (`Lines::situation`): the outcome, and for an answer,
+  what was asked. A refusal splits by its reason's `why`: the work not theirs to give or to
+  release, the speaker gone, or refused by the world.
+- **Blanks** are filled from the packet only (`Lines::situations()` lists each situation's):
+  `{giver}`, `{nearest}`, `{others}`, `{danger}`, `{own}`..., and in every situation `{speaker}`,
+  `{post}` and `{place}`. A line with a blank its packet cannot fill is not said.
+  - A place comes with how far it is and who holds it: "the burnt works, 3.1 km off, held by
+    squatters". Where the speaker stands is not "the nearest".
+  - A nest is the worst the packet holds.
+  - Work comes with how hard and how far: "fair work, 8.0 km off".
+  - Another's work is told as theirs ("with me" becomes "with them"), by what it asks, not by
+    the reason given first ("Our fields lie in its reach: drive off...").
+  - A refusal names its giver only when it names one person.
+- **A world refusal says why,** in the director's words ("the offer has lapsed"). Before
+  orchestrator 1228ec5 that reason was the generator's own message, quest ids and all.
+- **The choice** is a hash of the speaker, the situation and the player's words. The same words
+  get the same reply, different words spread over the bank, and `previous` (the last reply) is
+  not said again while another line fits.
+- **The pilot** (2026-09-24): 79 lines. They cover the warden, lawful neutral (the tests'
+  castellan, Selbren), the gate captain and innkeeper posts, and `any` in every situation.
+- **Judged** blind against Qwen3-4B's replies to the same 24 voice cases, with the voice's rubric
+  and a craft score, in one session (2026-09-24):
+
+  | | Written lines | Qwen3-4B |
+  |---|---|---|
+  | Replies with no fault, of 24 (lenient) | 19 (23) | 11 (16) |
+  | The 9 open-ended answers with no fault (lenient) | 5 (8) | 2 (4) |
+  | Invents a fact | 2, both borderline | 11 |
+  | Contradicts the outcome | 0 | 2 |
+  | Withholds an answer it had | 3 | 0 |
+  | Craft, 1 to 5 | 3 | 2 |
+
+  The judge found the written lines "terse and written, like dialogue from a shipped game". Where
+  they went wrong:
+  - The warden's archetype line ("stays behind the line") read as a rule the packet does not
+    hold (2, borderline).
+  - They said less than the packet held. "Where am I" was not told the speaker stands in Wenweg,
+    "is it safe" got no danger, and "we'll talk of more" held other work back.
+  - The templates' joins showed: "Dornar the council", and two hamlets of Wenweg that sound like
+    one.
+  - Different lines got word-for-word the same reply, four times. The hash chooses among two or
+    three lines a situation, and collides.
+
+  Qwen3-4B invented directions, adjectives, a deadline and a route, rounded 13.6 km to 13, and
+  called abandoned work "finished".
+
 ## What it guarantees, each with a test
 
 - **An act of the contract, always.** Hostile lines, nonsense, other languages, JSON and empty
@@ -196,6 +256,26 @@ about Castle Grey, Qwen3-4B said it knew of no "castle named grey".
     as fact.
 - **Streaming adds up, stops when asked, and greedy replies repeat.**
 - **Refusals:** another contract version, a line past `kMaxLineBytes`, options out of range.
+- **Written lines, with no model:**
+  - **Every line in `data/lines.txt` keeps the voice's rules.** Each row is tried alone against
+    every test packet, as its bank's speaker. At least one packet must speak it, and every reply
+    must hold its outcome's opening, sentence count and closing. It may name only what the
+    packet names, begin only sentences with common capitals, and say no barred word but the
+    packet's own. It may hold no unfilled blank, no double quote and no id. A control shows each
+    check failing a reply that breaks its rule.
+  - **Every test packet gets a reply from the file.**
+  - **A line speaks only when its packet fills every blank,** in exact words: no nest near the
+    inn, so only the line without one is said.
+  - **A refusal that names two people fills `{giver}` with neither.**
+  - **A speaker's own bank comes first,** then their post's, then anyone's. A bank whose lines
+    the packet cannot fill gives way.
+  - **Each situation is read from the packet,** a refusal by its kind.
+  - **Another's work is told as theirs,** by what it asks.
+  - **A world refusal says why,** in the director's words.
+  - **The choice is steady and follows the player's words,** and never repeats the last reply
+    while another fits.
+  - **A bad lines file is refused:** a missing file, a row of two or four cells, an unknown
+    situation or blank, an unclosed blank, an empty voice. A byte-order mark and CRLF are read.
 
 A mutation pass switched off each of these in a scratch copy, one at a time, and a test failed
 every time (see the commit that added this component).
@@ -283,3 +363,10 @@ fine-tuned voice (the plan's "Building our own model").
   it. Whether the world should give speakable names is a question for the generator.
 - **Raw values.** Snake-case values such as `human_cold` are spaced into words. Better phrasing
   would come from the director or the generator, not from here.
+- **Written lines: choosing by meaning.** The choice is a hash, not what fits the player's words
+  best. An embedding model (Qwen3-Embedding-0.6B, on disk) would pick the closest line.
+- **Written lines: the library.** The pilot is one hero voice and two posts. Still to write: the
+  32 archetypes and their alignments, every roster post, and sayings per culture. A hero whose
+  face hides another, a dread, and a post with no bank all speak from `any`.
+- **Written lines: what was asked, within a situation.** "Is it safe?" and "What is around?" are
+  both `surroundings` and draw on the same lines.

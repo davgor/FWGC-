@@ -42,13 +42,10 @@ std::string value_of(const Fact& fact, std::string_view key) {
 // A step on one of a packet's scales of 1 to 5, in words, with the number beside it: a number
 // alone was misread ("danger level 5.1", difficulty 2 called hard; judged 2026-09-24).
 std::string scaled(std::string_view key, const std::string& value) {
-    static const char* const kDifficulty[] = {"very easy", "easy", "fair", "hard", "very hard"};
-    static const char* const kDanger[] = {"slight", "low", "real", "high", "deadly"};
-    const bool one_digit = value.size() == 1 && value[0] >= '1' && value[0] <= '5';
-    if (!one_digit) return std::string(key) + " " + value;
-    const auto step = static_cast<std::size_t>(value[0] - '1');
-    if (key == "difficulty") return std::string(kDifficulty[step]) + " work (" + value + " of 5)";
-    return std::string(key) + " " + kDanger[step] + " (" + value + " of 5)";
+    const std::string word = text::scale_word(key, value);
+    if (word.empty()) return std::string(key) + " " + value;
+    if (key == "difficulty") return word + " work (" + value + " of 5)";
+    return std::string(key) + " " + word + " (" + value + " of 5)";
 }
 
 // A fact's remaining fields as short phrases, in the director's order, skipping `used`.

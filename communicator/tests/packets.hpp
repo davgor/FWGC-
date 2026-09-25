@@ -30,6 +30,9 @@ inline Persona castellan() {
                       "anything that matters.";
     p.line = "Third night this month it's tested the ward. You want through? You're coming back with a message.";
     p.never = {"leave the post", "break a sworn word", "act outside the office they hold", "cruelty for its own sake"};
+    // As the director gave it for this uid in that world (2026-09-24): a warden, lawful neutral,
+    // with one face.
+    p.voice_key = "warden/LN";
     return p;
 }
 
@@ -118,7 +121,7 @@ inline FactPacket unknown_place() { return packet(castellan(), ActKind::AskAbout
 // A broker asked to hand over work that is not theirs: the reason, and who to go to.
 inline FactPacket refused_brokered() {
     return packet(castellan(), ActKind::AcceptQuest, Outcome::Refused,
-                  {{FactKind::Reason, "", {{"reason", "the work is Halbrann's to give"}}},
+                  {{FactKind::Reason, "", {{"reason", "the work is Halbrann's to give"}, {"why", "not_theirs_to_give"}}},
                    {FactKind::Person, "hero-pretender-surface-city-0-243-human_cold",
                     {{"name", "Halbrann"}, {"role", "pretender"}, {"where", "the ruins of Linbrig"}, {"status", "about"}}}});
 }
