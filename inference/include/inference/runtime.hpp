@@ -27,7 +27,11 @@ public:
 struct ModelOptions {
     int context_tokens = 4096;  // the context window: the prompt and the reply together
     int threads = 4;            // CPU threads; for a fixed count, greedy output is reproducible
-    int gpu_layers = 0;         // layers offloaded to a GPU; this build has the CPU backend only
+    // Layers offloaded to a GPU: 0 keeps the model on the CPU alone, and a count past the
+    // model's layers offloads them all. Offloading needs a build with a GPU backend
+    // (INFERENCE_VULKAN) and a GPU; without either the model runs on the CPU, and device() says
+    // so. Greedy output on a GPU can differ from the CPU's: the arithmetic is not the same.
+    int gpu_layers = 0;
 };
 
 // One turn of a conversation, for the model's own chat template: "system", "user" or
@@ -81,6 +85,9 @@ public:
     int count_tokens(const std::string& text) const;
 
     int context_tokens() const;
+
+    // Where the model runs: "CPU", or the name of the GPU its layers went to.
+    const std::string& device() const;
 
 private:
     Model();

@@ -73,7 +73,12 @@ It runs in this runtime unchanged: its chat template is ChatML, and it has no th
 on llama.cpp's API, which changes between releases.
 
 - **`Model::load(path, {context_tokens, threads, gpu_layers})`** loads a GGUF file,
-  memory-mapped.
+  memory-mapped. `gpu_layers` above 0 offloads that many layers (a count past the model's layers
+  offloads all) to the GPU the runtime chooses. A discrete GPU comes before an integrated one,
+  then the one with more memory, and only one: left alone, llama.cpp would split a model across
+  a laptop's two GPUs. With no GPU backend in the build, or no GPU in the machine, the model runs
+  on the CPU.
+- **`device()`** says where it runs: `CPU`, or the GPU's name.
 - **`chat_prompt(messages)`** applies the model's own chat template.
 - **`complete(prompt, sampling, on_piece)`** continues a prompt.
   - It is greedy when `temperature` is 0; otherwise it samples from `seed`.
@@ -111,14 +116,53 @@ on llama.cpp's API, which changes between releases.
   test binary: `KERNEL32`, `ADVAPI32`, the C and C++ runtimes, and `VCOMP140` (the OpenMP runtime
   ggml threads with, part of the Visual C++ redistributable a game ships). No `ws2_32`, `winhttp`
   or `wininet`.
+- **A model kept on the CPU says so,** and in a build with a GPU backend, offloaded layers reach
+  a GPU: the model answers inside its grammar there, and greedy output repeats.
+- **No GPU API is linked into the program.** Before any model loads, `vulkan-1.dll` is not in
+  the process. A first Vulkan build linked the backend in, and `dumpbin` showed `vulkan-1.dll`
+  among the program's own imports: on a machine without Vulkan it would not have started.
+
+## The GPU build
+
+`-DINFERENCE_VULKAN=ON` builds llama.cpp's Vulkan backend. Building needs the Vulkan SDK
+(LunarG 1.4.357.0 here); a player needs only a GPU driver, which carries Vulkan on Windows for
+NVIDIA, AMD and Intel.
+
+That build is shaped for shipping. llama.cpp and its backends are DLLs in one folder
+(`bin/Release`), loaded at run time from the folder of the module the runtime is in:
+- `llama.dll`, `ggml.dll` and `ggml-base.dll` beside the program;
+- `ggml-vulkan.dll`, skipped when it will not load, which leaves the CPU;
+- the CPU backend in one DLL per processor generation (x64 to icelake and alderlake), the best
+  the machine runs chosen at start. The default build, for the CPU alone, is compiled for the
+  machine that builds it (AVX2 here), which is fine for development and wrong to ship.
+
+Measured on 2026-09-24: communicator_eval, Qwen3-4B-Instruct-2507, every layer on an RTX 5080
+Laptop GPU (16 GB), against the CPU at 8 threads:
+
+| | CPU | GPU |
+|---|---|---|
+| Time per line (the interpreter) | 5.3 s | 0.27 s |
+| Time per reply (the voice) | 4.5 s | 0.40 s |
+| Lines read fully right, of 243 | 186 | 186 |
+| GPU memory | none | about 3.4 GB |
+
+- **The same accuracy, not the same text.** 4 lines were read differently each way, and 17 of 24
+  replies were worded differently. GPU arithmetic is not the CPU's, so greedy output differs
+  between them. Tests that pin exact output run on the CPU.
+- **The first call warms the GPU up,** about 16 s on this machine, while the driver compiles
+  its shaders. A game makes that call behind a loading screen.
 
 One noise: llama.cpp's grammar parser prints a malformed grammar's error to stderr itself, past
 the log hook this runtime silences. The call still fails with an `Error`.
 
 ## Not in this slice
 
-- **GPU offload.** The game shares its GPU with the renderer, and `gpu_layers` needs a Vulkan or
-  CUDA backend built in, and a VRAM budget measured on the game.
+- **Sharing the GPU with the game.** The renderer (Direct3D 12 in Unreal) and Vulkan do not
+  share a memory budget. The game should check free GPU memory before choosing `gpu_layers`, and
+  a player setting should choose GPU, CPU or off. Only NVIDIA has been measured; AMD and Intel
+  should be measured before anything ships.
+- **CUDA.** It would be a further backend DLL, loaded the same way, if measured speed on NVIDIA
+  ever calls for it.
 - **An encoder classifier.** A small model that only classifies is cheaper than a generative
   one. Until it exists, a grammar-held generative model does the classifying.
 - **Stop strings, several sequences at once, and reusing a prompt's cache across calls.**

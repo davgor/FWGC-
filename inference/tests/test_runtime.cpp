@@ -6,6 +6,16 @@
 #include <set>
 #include <string>
 
+#ifdef _WIN32
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
+#endif
+
 #include "check.hpp"
 
 namespace {
@@ -61,6 +71,16 @@ bool valid_utf8(std::string_view text) {
 
 }  // namespace
 
+TEST(the_program_links_no_gpu_api_of_its_own) {
+    // Keep this test first: it must run before any model loads. The Vulkan loader may come in
+    // with the Vulkan backend, loaded at run time. Linked into the program itself, it made a
+    // machine without Vulkan unable to start the program at all (a build that linked the
+    // backend in, 2026-09-24).
+#ifdef _WIN32
+    check::is_true(GetModuleHandleW(L"vulkan-1.dll") == nullptr, "no vulkan-1.dll in the process before any backend loads");
+#endif
+}
+
 TEST(a_missing_model_file_is_an_error_that_names_it) {
     try {
         (void)inference::Model::load("C:/no/such/model.gguf");
@@ -75,6 +95,34 @@ TEST(options_out_of_range_are_refused_before_anything_loads) {
     check::throws([] { (void)inference::Model::load(model_path(), {16, 4, 0}); }, "a context too small");
     check::throws([] { (void)inference::Model::load(model_path(), {4096, 0, 0}); }, "no threads");
     check::throws([] { (void)inference::Model::load(model_path(), {4096, 4, -1}); }, "negative gpu layers");
+}
+
+TEST(a_model_kept_on_the_cpu_says_so) {
+    check::equal(model().device(), std::string("CPU"), "the shared test model, loaded with no layers offloaded");
+}
+
+TEST(offloaded_layers_go_to_a_gpu_when_the_build_has_one) {
+    inference::ModelOptions options;
+    options.gpu_layers = 1000;  // past the test model's 24 layers: all of them
+    const std::unique_ptr<inference::Model> offloaded = inference::Model::load(model_path(), options);
+#if INFERENCE_TESTS_GPU
+    // A build with a GPU backend, run on a machine with a GPU: the layers go there, and the
+    // model still answers inside its grammar, the same way every time.
+    check::is_true(offloaded->device() != "CPU", "the premise: a GPU on this machine, not " + offloaded->device());
+    inference::Sampling held;
+    held.max_tokens = 8;
+    held.grammar = R"(root ::= "yes" | "no")";
+    const std::string prompt = offloaded->chat_prompt({{"user", "Is water wet? Answer yes or no."}});
+    const std::string reply = offloaded->complete(prompt, held).text;
+    check::is_true(reply == "yes" || reply == "no", "held by its grammar on the GPU: " + reply);
+    inference::Sampling greedy;
+    greedy.max_tokens = 32;
+    const std::string first = offloaded->complete(prompt, greedy).text;
+    check::equal(offloaded->complete(prompt, greedy).text, first, "greedy output repeats on the GPU");
+#else
+    // A build for the CPU alone runs the model there, however many layers are asked for.
+    check::equal(offloaded->device(), std::string("CPU"), "no GPU backend in this build");
+#endif
 }
 
 TEST(the_model_loads_and_counts_tokens) {

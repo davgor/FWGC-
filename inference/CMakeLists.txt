@@ -15,11 +15,16 @@ if(INFERENCE_TOP_LEVEL AND NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPE
 endif()
 
 option(INFERENCE_BUILD_TESTS "Build the inference tests" ${INFERENCE_TOP_LEVEL})
+# GPU offload through Vulkan, which NVIDIA, AMD and Intel drivers carry on Windows, so a player
+# installs nothing. Building it needs the Vulkan SDK (its shader compiler and headers); off by
+# default, so a machine without the SDK still builds, for the CPU alone.
+option(INFERENCE_VULKAN "Build llama.cpp's Vulkan backend, for GPU offload" OFF)
 
 # llama.cpp, pinned to the v0.5.0 source archive by its hash. The build downloads it once,
 # when it is configured (dev tooling may use the network); the runtime fetches nothing.
-# Only the library is built: no tools, server, examples, tests or HTTPS support, and the CPU
-# backend alone. SYSTEM keeps its headers' warnings out of this component's /W4 /WX.
+# Only the library is built: no tools, server, examples, tests or HTTPS support; the CPU
+# backend, and with INFERENCE_VULKAN the Vulkan one. SYSTEM keeps its headers' warnings out of
+# this component's /W4 /WX.
 set(LLAMA_BUILD_COMMON   OFF CACHE BOOL "" FORCE)
 set(LLAMA_BUILD_TESTS    OFF CACHE BOOL "" FORCE)
 set(LLAMA_BUILD_TOOLS    OFF CACHE BOOL "" FORCE)
@@ -31,7 +36,23 @@ set(LLAMA_OPENSSL        OFF CACHE BOOL "" FORCE)
 # ggml's RPC backend talks over sockets. It is off by default today; saying so here keeps a
 # future default from bringing a network backend into the runtime unnoticed.
 set(GGML_RPC             OFF CACHE BOOL "" FORCE)
-set(BUILD_SHARED_LIBS    OFF CACHE BOOL "" FORCE)
+set(GGML_VULKAN          ${INFERENCE_VULKAN} CACHE BOOL "" FORCE)
+if(INFERENCE_VULKAN)
+  # A GPU build loads its backends at run time, as DLLs beside the program. Linked in, the
+  # Vulkan backend would make vulkan-1.dll a dependency of the program itself, and a machine
+  # without Vulkan could not start it at all; loaded, a backend that will not load is skipped
+  # and the CPU runs instead. The CPU backend comes in one DLL per processor generation, the
+  # best one chosen on each machine, rather than built for the machine that compiles it.
+  set(BUILD_SHARED_LIBS     ON  CACHE BOOL "" FORCE)
+  set(GGML_BACKEND_DL       ON  CACHE BOOL "" FORCE)
+  set(GGML_CPU_ALL_VARIANTS ON  CACHE BOOL "" FORCE)
+  set(GGML_NATIVE           OFF CACHE BOOL "" FORCE)
+  # Every DLL and program in one folder, where the backends are looked for.
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+  set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+else()
+  set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+endif()
 
 include(FetchContent)
 FetchContent_Declare(llama_cpp
@@ -61,6 +82,9 @@ target_compile_features(inference PUBLIC cxx_std_20)
 # PRIVATE: a consumer sees this component's header, never llama.cpp's.
 target_link_libraries(inference PRIVATE llama)
 target_compile_options(inference PRIVATE ${INFERENCE_WARNINGS})
+if(INFERENCE_VULKAN)
+  target_compile_definitions(inference PRIVATE INFERENCE_LOAD_BACKENDS=1)
+endif()
 
 if(INFERENCE_BUILD_TESTS)
   enable_testing()
@@ -68,7 +92,14 @@ if(INFERENCE_BUILD_TESTS)
   target_link_libraries(inference_tests PRIVATE inference)
   target_compile_options(inference_tests PRIVATE ${INFERENCE_WARNINGS})
   # The test model is downloaded, never committed; FWGC_TEST_MODEL points elsewhere.
+  # The tests know which build they run in: with a GPU backend, offloading must reach a GPU.
+  if(INFERENCE_VULKAN)
+    set(INFERENCE_TESTS_GPU 1)
+  else()
+    set(INFERENCE_TESTS_GPU 0)
+  endif()
   target_compile_definitions(inference_tests PRIVATE
-    INFERENCE_TEST_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/models/qwen2.5-0.5b-instruct-q4_0.gguf")
+    INFERENCE_TEST_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/models/qwen2.5-0.5b-instruct-q4_0.gguf"
+    INFERENCE_TESTS_GPU=${INFERENCE_TESTS_GPU})
   add_test(NAME inference_tests COMMAND inference_tests)
 endif()

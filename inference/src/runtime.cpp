@@ -1,8 +1,19 @@
 #include "inference/runtime.hpp"
 
+#include <array>
 #include <cmath>
 #include <filesystem>
 #include <mutex>
+
+#if defined(INFERENCE_LOAD_BACKENDS) && defined(_WIN32)
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
+#endif
 
 #include "llama.h"
 
@@ -13,10 +24,37 @@ namespace {
 // llama.cpp logs to stderr by default; a runtime inside a game says nothing unless asked.
 void quiet(ggml_log_level, const char*, void*) {}
 
+#ifdef INFERENCE_LOAD_BACKENDS
+// The folder the backend DLLs sit in: beside the module this code is part of. For a test that
+// is its program; for a game it is the plugin, not the engine's executable.
+std::string backend_folder() {
+#ifdef _WIN32
+    HMODULE self = nullptr;
+    if (!GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+                            reinterpret_cast<LPCWSTR>(&backend_folder), &self))
+        return {};
+    std::wstring path(32768, L'\0');
+    const DWORD length = GetModuleFileNameW(self, path.data(), static_cast<DWORD>(path.size()));
+    if (length == 0 || length >= path.size()) return {};
+    path.resize(length);
+    const std::u8string folder = std::filesystem::path(path).parent_path().u8string();
+    return std::string(folder.begin(), folder.end());
+#else
+    return {};
+#endif
+}
+#endif
+
 void start_backend_once() {
     static std::once_flag once;
     std::call_once(once, [] {
         llama_log_set(quiet, nullptr);
+#ifdef INFERENCE_LOAD_BACKENDS
+        // Whichever backends load on this machine: the best CPU variant always, Vulkan where the
+        // driver has it. One that will not load is skipped.
+        const std::string folder = backend_folder();
+        ggml_backend_load_all_from_path(folder.empty() ? nullptr : folder.c_str());
+#endif
         llama_backend_init();
     });
 }
@@ -63,6 +101,30 @@ std::size_t complete_utf8(const std::string& text) {
     return n;  // only continuation bytes in reach: not UTF-8 we can repair, so pass it on
 }
 
+// The GPU a model's layers go to: a discrete one before one that shares the CPU's memory, then
+// the one with more memory. Null when the build has no GPU backend or the machine no GPU. Only
+// ever one: left to itself, llama.cpp splits a model across every GPU it finds, a laptop's
+// integrated one included.
+ggml_backend_dev_t chosen_gpu() {
+    ggml_backend_dev_t best = nullptr;
+    bool best_discrete = false;
+    std::size_t best_total = 0;
+    for (std::size_t i = 0; i < ggml_backend_dev_count(); ++i) {
+        ggml_backend_dev_t device = ggml_backend_dev_get(i);
+        const auto type = ggml_backend_dev_type(device);  // the enum shares the function's name
+        if (type != GGML_BACKEND_DEVICE_TYPE_GPU && type != GGML_BACKEND_DEVICE_TYPE_IGPU) continue;
+        std::size_t free = 0, total = 0;
+        ggml_backend_dev_memory(device, &free, &total);
+        const bool discrete = type == GGML_BACKEND_DEVICE_TYPE_GPU;
+        if (!best || (discrete && !best_discrete) || (discrete == best_discrete && total > best_total)) {
+            best = device;
+            best_discrete = discrete;
+            best_total = total;
+        }
+    }
+    return best;
+}
+
 }  // namespace
 
 struct Model::Impl {
@@ -70,6 +132,7 @@ struct Model::Impl {
     llama_context* context = nullptr;
     const llama_vocab* vocab = nullptr;
     ModelOptions options;
+    std::string device = "CPU";
 
     ~Impl() {
         if (context) llama_free(context);
@@ -90,23 +153,34 @@ std::unique_ptr<Model> Model::load(const std::string& path, const ModelOptions& 
     start_backend_once();
 
     std::unique_ptr<Model> m(new Model());
+    // The devices the model may use, ending in null: the chosen GPU, or none at all, so that a
+    // model kept on the CPU stays there even in a build with a GPU backend.
+    ggml_backend_dev_t gpu = options.gpu_layers > 0 ? chosen_gpu() : nullptr;
+    std::array<ggml_backend_dev_t, 2> devices = {gpu, nullptr};
     llama_model_params model_params = llama_model_default_params();
-    model_params.n_gpu_layers = options.gpu_layers;
+    model_params.devices = devices.data();
+    model_params.n_gpu_layers = gpu ? options.gpu_layers : 0;
     model_params.load_mode = LLAMA_LOAD_MODE_MMAP;  // memory-mapped: loads fast, pages in as used
     m->impl_->model = llama_model_load_from_file(path.c_str(), model_params);
-    if (!m->impl_->model) throw Error("the model file at " + path + " did not load");
+    if (!m->impl_->model)
+        throw Error("the model file at " + path + " did not load" +
+                    (gpu ? " on " + std::string(ggml_backend_dev_description(gpu)) : std::string()));
 
     llama_context_params context_params = llama_context_default_params();
     context_params.n_ctx = static_cast<std::uint32_t>(options.context_tokens);
     context_params.n_batch = static_cast<std::uint32_t>(options.context_tokens);  // a whole prompt in one decode
     context_params.n_threads = options.threads;
     context_params.n_threads_batch = options.threads;
+    context_params.op_offload = gpu != nullptr;  // on the CPU, no single operation borrows a GPU either
     m->impl_->context = llama_init_from_model(m->impl_->model, context_params);
     if (!m->impl_->context) throw Error("no context could be made for the model at " + path);
     m->impl_->vocab = llama_model_get_vocab(m->impl_->model);
     m->impl_->options = options;
+    if (gpu) m->impl_->device = ggml_backend_dev_description(gpu);
     return m;
 }
+
+const std::string& Model::device() const { return impl_->device; }
 
 std::string Model::chat_prompt(const std::vector<Message>& messages) const {
     const char* tmpl = llama_model_chat_template(impl_->model, nullptr);
