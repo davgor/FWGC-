@@ -246,6 +246,35 @@ TEST(giving_up_work_goes_back_to_its_giver_and_nobody_else) {
     check::is_true(d.respond(giver, {ActKind::AbandonQuest, quest}).outcome == Outcome::Unknown, "and it cannot be given up twice");
 }
 
+TEST(a_lapsed_offer_is_refused_in_the_speakers_words) {
+    // An offer lapses at a moment of a day, and the board sweeps whole days: between the two it
+    // is still on offer, and the world refuses to let it be taken. The generator's message then
+    // names quests by id and lists work the speaker may know nothing of; the speaker's reason
+    // must hold none of that.
+    const fwg::World& w = month_old();
+    const double today = fwg::world_clock_of(w).day;
+    const std::vector<fwg::QuestRow> offers = board(w, fwg::QuestState::Offered);
+    const fwg::QuestRow* soonest = nullptr;
+    for (const fwg::QuestRow& q : offers)
+        if (q.giver_uid && q.expires_day > today + 1.0 && q.expires_day != std::floor(q.expires_day) &&
+            (!soonest || q.expires_day < soonest->expires_day))
+            soonest = &q;
+    check::is_true(soonest != nullptr, "the premise: an offer that lapses at a moment of a later day");
+    const std::string quest = soonest->quest_id, giver = *soonest->giver_uid;
+    const double lapse = soonest->expires_day;
+    Director d(w);
+    d.advance(lapse - today + (std::ceil(lapse) - lapse) / 2.0);  // past the lapse, before the day's sweep
+    const std::vector<fwg::QuestRow> offered = board(d.world(), fwg::QuestState::Offered);
+    check::is_true(std::any_of(offered.begin(), offered.end(), [&](const fwg::QuestRow& q) { return q.quest_id == quest; }),
+                   "the premise: the board has not swept it yet");
+    const FactPacket p = d.respond(giver, {ActKind::AcceptQuest, quest});
+    check::is_true(p.outcome == Outcome::Refused, "the premise: the world refuses a lapsed offer");
+    check::is_true(!of_kind(p, FactKind::Reason).empty(), "with a reason");
+    const Fact& why = *of_kind(p, FactKind::Reason).front();
+    check::equal(*why.field("why"), std::string("refused_by_world"), "the kind of refusal");
+    check::equal(*why.field("reason"), std::string("the offer has lapsed"), "the speaker's words for it");
+}
+
 TEST(a_hero_with_one_face_speaks_from_their_archetypes_lines) {
     // The key names the written lines a speaker speaks from. A face that hides another gets none:
     // its archetype (false_hero, deceiver) is what the face hides.

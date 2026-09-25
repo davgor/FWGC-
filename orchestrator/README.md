@@ -61,6 +61,10 @@ cannot reach a world.
   Halbrann's to give", "Selbren is gone". `why` is one of `not_theirs_to_give`,
   `not_theirs_to_release`, `gone` or `refused_by_world`, so a caller can answer each kind in its
   own words. "The speaker's", as a reason once put it, was read by the voice as the stranger's.
+- **A reason is always the director's words, never the generator's message.** A world refusal
+  names quests by id and lists open work the speaker may know nothing of. An offer lapses at a
+  moment of a day, and the board sweeps it at the next whole day, so taking it in between is
+  refused: the reason is "the offer has lapsed".
 - **A persona's `voice_key`** names the written lines the speaker speaks from. A hero with one
   face gets archetype and alignment ("warden/LN"). A hero whose public face hides another gets
   none, since the archetype (`false_hero`, `deceiver`) is what that face hides. So do a dread and

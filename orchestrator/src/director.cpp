@@ -263,8 +263,12 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
                 world_ = std::move(result.world);
             } catch (const fwg::WorldTimeError& refusal) {
                 if (!refusal.refused_by_world()) throw;
+                // Never the generator's message: it names quests by id, and lists work the speaker
+                // may know nothing of. An offer lapses at a moment of a day and leaves the board
+                // at the next day's sweep, so between the two, taking it is refused.
+                const bool lapsed = offer->row.expires_day < fwg::world_clock_of(world_).day;
                 FactPacket p = packet_for(s, act, Outcome::Refused);
-                p.facts.push_back(reason("refused_by_world", refusal.message()));
+                p.facts.push_back(reason("refused_by_world", lapsed ? "the offer has lapsed" : "the work cannot be taken now"));
                 return recorded(std::move(p));
             }
             FactPacket p = packet_for(s, act, Outcome::Accepted);
@@ -292,8 +296,9 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
                 world_ = std::move(result.world);
             } catch (const fwg::WorldTimeError& refusal) {
                 if (!refusal.refused_by_world()) throw;
+                // Never the generator's message, as in taking work.
                 FactPacket p = packet_for(s, act, Outcome::Refused);
-                p.facts.push_back(reason("refused_by_world", refusal.message()));
+                p.facts.push_back(reason("refused_by_world", "the work cannot be given up now"));
                 return recorded(std::move(p));
             }
             FactPacket p = packet_for(s, act, Outcome::Abandoned);
