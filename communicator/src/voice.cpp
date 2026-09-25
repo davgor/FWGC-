@@ -121,10 +121,18 @@ std::string what_happened(const FactPacket& packet) {
                     if (!packet.facts.empty() && packet.facts.front().subject == packet.speaker)
                         return "The stranger asked who you are. Tell them.";
                     return "The stranger asked about the person above. Tell them what you know of them.";
-                case ActKind::AskForWork:
-                    return packet.facts.empty() ? "The stranger asked for work. You know of none: say so."
-                                                : "The stranger asked for work. Describe the work above in your own words: "
-                                                  "yours first, then who else is hiring.";
+                case ActKind::AskForWork: {
+                    if (packet.facts.empty()) return "The stranger asked for work. You know of none: say so.";
+                    bool own = false;
+                    for (const Fact& fact : packet.facts)
+                        if (fact.kind == FactKind::QuestOffer && value_of(fact, "from_speaker") == "yes") own = true;
+                    // "Yours first" only to a speaker with work of their own: told it with none, an
+                    // innkeeper claimed another's work as hers (judged 2026-09-24).
+                    return own ? "The stranger asked for work. Describe the work above in your own words: yours first, then "
+                                 "who else is hiring."
+                               : "The stranger asked for work. None of it is yours to give: say who is hiring, and for "
+                                 "what.";
+                }
                 default:
                     return "Answer the stranger from what you know above.";
             }

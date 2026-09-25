@@ -225,6 +225,42 @@ TEST(the_prompt_carries_the_persona_and_every_fact_as_it_is_said) {
                    "the post as words, not a key: " + gate.substr(0, 80));
 }
 
+TEST(work_from_others_is_never_offered_as_the_speakers_own) {
+    // Told "yours first" with no work of their own, an innkeeper claimed another's work as hers
+    // (judged 2026-09-24). A speaker with work of their own gives theirs first; one without is
+    // told none of it is theirs to give.
+    Voice voice(test_model::model());
+    const auto own_offers = [](const FactPacket& p) {
+        return std::count_if(p.facts.begin(), p.facts.end(), [](const Fact& f) {
+            return f.kind == orchestrator::FactKind::QuestOffer && f.field("from_speaker") && *f.field("from_speaker") == "yes";
+        });
+    };
+    const FactPacket inn = packets::work_at_the_inn(), keep = packets::work();
+    check::is_true(own_offers(inn) == 0 && own_offers(keep) > 0, "the premise: the innkeeper has no work of her own, the castellan has");
+    const std::string at_the_inn = prompt_of(voice, inn, "Anyone hiring?");
+    check::is_true(at_the_inn.find("yours first") == std::string::npos, "not 'yours first' at the inn");
+    check::is_true(at_the_inn.find("None of it is yours to give") != std::string::npos, "the innkeeper told none of it is hers");
+    check::is_true(prompt_of(voice, keep, "Any work?").find("yours first") != std::string::npos, "the castellan gives his own first");
+}
+
+TEST(no_opening_sounds_like_an_assistant) {
+    // The openings are C++'s words in a speaker's mouth. "I can't help with that", said by a
+    // castellan, read as an AI assistant turning a request down (judged 2026-09-24).
+    const std::vector<std::string> assistant = {"help with that", "assist", "as an ai", "i'm sorry, but", "i apologize",
+                                                "language model", "i'm unable"};
+    std::size_t openings = 0;
+    for (const auto& [packet, line] : outcome_cases()) {
+        for (const std::string& opening : communicator::reply_shape(packet).openings) {
+            ++openings;
+            std::string lower;
+            for (const char c : opening) lower += static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+            for (const std::string& phrase : assistant)
+                check::is_true(lower.find(phrase) == std::string::npos, "an opening a speaker would say, not \"" + opening + "\"");
+        }
+    }
+    check::is_true(openings > 20, "the premise: openings to read");
+}
+
 TEST(a_reply_opens_by_saying_what_happened) {
     inference::Model& model = test_model::model();
     Voice voice(model);

@@ -61,7 +61,9 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
             shape.sentences = 1;
             break;
         case Outcome::NotUnderstood:
-            shape.openings = {"I don't follow", "I'm not sure what you mean", "What do you mean", "I can't help with that",
+            // Not "I can't help with that": said by a speaker in a fantasy world, it read as an AI
+            // assistant turning a request down (judged 2026-09-24).
+            shape.openings = {"I don't follow", "I'm not sure what you mean", "What do you mean", "That's beyond me",
                               "Speak plainly"};
             shape.sentences = 1;
             break;

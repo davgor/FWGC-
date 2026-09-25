@@ -93,7 +93,7 @@ TEST(what_cannot_be_named_is_not_offered) {
     known.learn(packets::packet(packets::castellan(), orchestrator::ActKind::AskSurroundings, orchestrator::Outcome::Answered,
                                 {{orchestrator::FactKind::Place, "hamlet-99", {{"kind", "hamlet"}, {"distance", "1.0 km"}}},
                                  {orchestrator::FactKind::Danger, "nest-griffons-178", {{"creature", "Griffons"}}},
-                                 {orchestrator::FactKind::Reason, "", {{"reason", "the speaker is gone"}}}}));
+                                 {orchestrator::FactKind::Reason, "", {{"reason", "Selbren is gone"}}}}));
     check::is_true(labels(known, Kind::Place).empty(), "a nameless place");
     check::equal(joined(labels(known, Kind::Person)), joined({"Selbren"}), "only the speaker");
 }

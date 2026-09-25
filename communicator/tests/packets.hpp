@@ -118,7 +118,7 @@ inline FactPacket unknown_place() { return packet(castellan(), ActKind::AskAbout
 // A broker asked to hand over work that is not theirs: the reason, and who to go to.
 inline FactPacket refused_brokered() {
     return packet(castellan(), ActKind::AcceptQuest, Outcome::Refused,
-                  {{FactKind::Reason, "", {{"reason", "the work is not the speaker's to give"}}},
+                  {{FactKind::Reason, "", {{"reason", "the work is Halbrann's to give"}}},
                    {FactKind::Person, "hero-pretender-surface-city-0-243-human_cold",
                     {{"name", "Halbrann"}, {"role", "pretender"}, {"where", "the ruins of Linbrig"}, {"status", "about"}}}});
 }

@@ -111,7 +111,7 @@ A grammar holds the reply, and what happened shapes it:
 | unknown | I don't know, I've never heard, I can't say, I know nothing, Never heard, No idea, I couldn't tell you | one |
 | refused | No, I can't, I cannot, I won't, Not from me, That's not mine | one, then C++'s closing |
 | parted | Farewell, Safe travels, Go well, Goodbye, Take care | one |
-| not understood | I don't follow, I'm not sure what you mean, What do you mean, I can't help with that, Speak plainly | one |
+| not understood | I don't follow, I'm not sure what you mean, What do you mean, That's beyond me, Speak plainly | one |
 
 The model chooses among the openings and writes the rest. A reply that opens by stating what
 happened rarely turns into its opposite. A short one leaves little room to invent.
