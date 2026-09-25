@@ -116,10 +116,11 @@ happened rarely turns into its opposite. A short one leaves little room to inven
 A refusal ends with a sentence C++ writes, word for word: who to see instead ("Speak to Halbrann,
 at the ruins of Linbrig.").
 
-Every capitalised word the model writes must be a word the prompt gives as something to say,
-or one of a closed list of common words (`common_capitals()`: "I", "The", "Aye"...). No compass
-point is on that list, because no packet holds a bearing. Everything else is lower-case words,
-numbers and plain punctuation:
+Every capitalised word the model writes must be a word the prompt gives as something to say, or
+"I". A sentence may also begin with one of a closed list of common words (`common_capitals()`:
+"The", "Aye", "Greetings"...), and only begin with one: anywhere else it passes for a name, as
+when Qwen3-4B told of "a castle named Greetings". No compass point is on that list, because no
+packet holds a bearing. Everything else is lower-case words, numbers and plain punctuation:
 - no markdown, no line breaks;
 - no double quotes: after a stop, Qwen3-4B had closed quotes it never opened, 14 times in 24;
 - a sentence ends with one stop, an ellipsis, `?!` or `!?`: a run of stops let one reply spin out
@@ -138,8 +139,9 @@ own text says it:
   may say "silver". One who knows the southern tower may say "southern", and still not "south"
   or "southwest".
 
-A reply therefore cannot name a person or a place its packet does not name, nor give a
-bearing or speak of pay in any of those words.
+A reply therefore cannot name a person or a place its packet does not name, in capitals, nor
+give a bearing or speak of pay in any of those words. A name in lower case gets through: asked
+about Castle Grey, Qwen3-4B said it knew of no "castle named grey".
 
 ## What it guarantees, each with a test
 
@@ -159,7 +161,11 @@ bearing or speak of pay in any of those words.
   - the oldest are forgotten past a limit;
   - a packet of another contract version is refused.
 - **The voice names only what its packet names.** Asked about Castle Grey, the free model names
-  it; held, it cannot. The test checks the held replies to eight packets and lines.
+  it; held, it cannot. The test checks the held replies to eight packets and lines, and that
+  none holds a common capital past a sentence's start.
+- **A common capital only begins a sentence.** Told to say "It is a castle named Greetings.",
+  the free model does; held, it cannot. "Greetings, traveller." and "Yes, I serve Selbren at
+  Wenweg." still come out whole.
 - **A reply opens by saying what happened.** Free, a speaker who knows nothing of Castle Grey
   claims to know it; held, every outcome but an answer opens with its own words.
 - **Where there is little to say, one sentence.** Free, some reply runs on; held, unknown,
@@ -227,16 +233,19 @@ machine's CPU at 8 threads. [`eval/README.md`](eval/README.md) has the full tabl
   - The test model speaks as the player ("Thank you, Selbren"). The change left its counts as
     they were.
   - Qwen3-4B answers fully but invents. It no longer names a compass point, reads a deadline as
-    the work's length, or tells of the watch rota. What remains:
+    the work's length, tells of the watch rota, or makes a name of a common capital ("a castle
+    named Greetings" became "a castle named grey", the one reply of 24 the capitals rule
+    changed). What remains:
     - the card's voice line and stance, told as fact: sworn oaths in 4 replies (the voice line
       says "precedent and oaths cited when pressed"), and proving the stranger's standing in 2;
     - distances in the wrong order ("just beyond" a nearer place), a bearing in other words ("in
-      the direction of the deeps"), and a journey of "three days by foot";
-    - a common capital standing in for a name ("a castle named Greetings").
+      the direction of the deeps"), a moat nobody mentioned, and a journey of "three days by
+      foot".
 
   The grammar keeps out names and barred words, not false claims. Another session had judged
   the same "before" replies 7 (15) for Qwen3-4B and 10 (12) for the test model: compare counts
-  from one session.
+  from one session. The capitals rule came after this judging and changed one reply, which still
+  invents the moat the judge faulted, so the counts stand.
 
 The models that ship are a later decision: a trained classifier for the interpreter, and a
 fine-tuned voice (the plan's "Building our own model").
@@ -247,9 +256,9 @@ fine-tuned voice (the plan's "Building our own model").
   "toward the sunrise", "in the direction of the deeps" and "worth your while" get through. So
   does a word glued onto a barred money word that is not a stem. No reply has held one, but told
   to say "silver" with it barred, the test model wrote "silvergold".
-- **Common capitals mid-sentence.** A common capital may stand anywhere, so a model can make a
-  name of one: "beyond the Watch Right", "a castle named Greetings". Allowing them only where
-  a sentence begins would close that.
+- **Names in lower case.** The grammar holds capitals. Kept from "Grey", and since the
+  capitals rule from "Greetings" too, Qwen3-4B said it knew of no "castle named grey". That
+  echoes the player's own words; an invented name in lower case would get through the same way.
 - **The card's voice line and stance, told as fact.** Qwen3-4B still turns "precedent and oaths
   cited when pressed" into oaths it has sworn. With the voice line dropped as well, no oaths
   came back, but the test model once recited the card ("Toward strangers: offers a fair

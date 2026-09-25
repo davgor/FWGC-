@@ -302,10 +302,13 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
 
 std::string Voice::grammar(const FactPacket& packet) const {
     check_version(packet);
-    // Every capitalised word the prompt gives as something to say may be said: the speaker's
-    // name, post and place, and the facts' words. The never-lines and the card's descriptions
-    // are not the speaker's words, and the card's sample line is not shown, so they add none.
-    std::set<std::string> capitals(common_capitals().begin(), common_capitals().end());
+    // Every capitalised word the prompt gives as something to say may be said anywhere: the
+    // speaker's name, post and place, and the facts' words; and "I". The never-lines and the
+    // card's descriptions are not the speaker's words, and the card's sample line is not shown,
+    // so they add none. The other common capitals may only begin a sentence: mid-sentence,
+    // Qwen3-4B made names of them ("a castle named Greetings", "the Watch Right"; judged
+    // 2026-09-24).
+    std::set<std::string> capitals = {"I"};
     std::set<std::string> packet_words;
     for (const std::string* said : {&packet.persona.name, &packet.persona.role, &packet.persona.place}) {
         capitals_of(*said, capitals);
@@ -316,6 +319,9 @@ std::string Voice::grammar(const FactPacket& packet) const {
             capitals_of(value, capitals);
             lower_words_of(value, packet_words);
         }
+    std::vector<std::string> common;
+    for (const std::string& word : common_capitals())
+        if (!capitals.count(word)) common.push_back(word);
 
     // The reply's shape: its opening words, then whole sentences up to the shape's count, then
     // the closing C++ wrote, word for word.
@@ -326,13 +332,18 @@ std::string Voice::grammar(const FactPacket& packet) const {
     if (!more.empty()) root += " " + more;
     if (!shape.closing.empty()) root += " " + gbnf::literal(" " + shape.closing);
 
-    // A sentence is words parted by gaps, then an end. A word is all lower case, a number, or one
-    // of those capitalised words whole: a capital word followed straight on by letters
-    // ("Theodric" as "The" + "odric") is not a word here. A lower-case word is not forbidden,
-    // unless the packet's own text says it: a place may be the silver mine.
+    // A sentence is words parted by gaps, then an end. Its first word may be a common capital.
+    // Any word is all lower case, a number, or one of the packet's capitalised words whole: a
+    // capital word followed straight on by letters ("Theodric" as "The" + "odric") is not a word
+    // here. A lower-case word is not forbidden, unless the packet's own text says it: a place may
+    // be the silver mine. The fixed openings go on with words, so a common capital follows none.
     std::string g = "root ::= " + root + "\n";
     if (!shape.openings.empty()) g += "first ::= " + gbnf::one_of(shape.openings) + " (gap token)* gap? end\n";
-    g += "sentence ::= gap? token (gap token)* gap? end\n"
+    if (!common.empty()) g += "common ::= " + gbnf::one_of(common) + "\n";
+    g += "sentence ::= gap? opener (gap token)* gap? end\n"
+         "opener ::= token" +
+         std::string(common.empty() ? "" : " | common") +
+         "\n"
          "token ::= lower | capital | number\n"
          "lower ::= " +
          gbnf::word_except(forbidden_words(), std::vector<std::string>(packet_words.begin(), packet_words.end()),

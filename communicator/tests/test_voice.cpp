@@ -76,6 +76,33 @@ std::vector<std::string> unlisted_names(const std::string& reply, const FactPack
     return out;
 }
 
+// The common capitals a reply uses past the start of a sentence, "I" and the packet's own words
+// aside: common words made into names ("a castle named Greetings"). A sentence starts the reply
+// and follows a stop that ends a word run (the point in "2.5 km" ends nothing).
+std::vector<std::string> stray_capitals(const std::string& reply, const FactPacket& p) {
+    const std::set<std::string> known = packet_words(p);
+    const std::vector<std::string>& common = communicator::common_capitals();
+    std::vector<std::string> out;
+    bool starts = true;
+    std::string word;
+    for (std::size_t i = 0; i <= reply.size(); ++i) {
+        const char c = i < reply.size() ? reply[i] : ' ';
+        if (std::isalpha(static_cast<unsigned char>(c))) {
+            word += c;
+            continue;
+        }
+        if (!word.empty()) {
+            const bool listed = std::find(common.begin(), common.end(), word) != common.end();
+            if (!starts && listed && word != "I" && !known.count(word)) out.push_back(word);
+            starts = false;
+            word.clear();
+        }
+        const bool stop = c == '.' || c == '!' || c == '?';
+        if (stop && (i + 1 >= reply.size() || !std::isalnum(static_cast<unsigned char>(reply[i + 1])))) starts = true;
+    }
+    return out;
+}
+
 std::string prompt_of(const Voice& voice, const FactPacket& p, const std::string& line) {
     std::string out;
     for (const inference::Message& m : voice.messages(p, line)) out += m.content + "\n";
@@ -130,6 +157,7 @@ TEST(a_reply_names_only_what_its_packet_names) {
     // Held by the voice's grammar, it cannot, for that line or any packet.
     const Reply held = voice.speak(unknown, asked);
     check::is_true(unlisted_names(held.text, unknown).empty(), "no name the packet lacks: " + held.text);
+    check::is_true(stray_capitals(held.text, unknown).empty(), "no common capital made a name: " + held.text);
     const std::vector<std::pair<FactPacket, std::string>> cases = {
         {packets::surroundings(), "What is around here?"},
         {packets::work(), "Is there any work for me?"},
@@ -144,6 +172,8 @@ TEST(a_reply_names_only_what_its_packet_names) {
         check::is_true(!r.text.empty(), "a reply to: " + line);
         const std::vector<std::string> unlisted = unlisted_names(r.text, packet);
         check::is_true(unlisted.empty(), "no name the packet lacks (" + (unlisted.empty() ? "" : unlisted.front()) + ") in: " + r.text);
+        const std::vector<std::string> stray = stray_capitals(r.text, packet);
+        check::is_true(stray.empty(), "no common capital mid-sentence (" + (stray.empty() ? "" : stray.front()) + ") in: " + r.text);
     }
 }
 
@@ -358,6 +388,28 @@ TEST(no_common_capital_is_a_forbidden_word) {
             check::is_true(stem ? word.rfind(f.substr(0, f.size() - 1), 0) != 0 : word != f, "not a barred word: " + capital);
         }
     }
+}
+
+TEST(a_common_capital_only_begins_a_sentence) {
+    // Mid-sentence, a common capital passes for a name: asked about Castle Grey, Qwen3-4B told of
+    // "a castle named Greetings" (judged 2026-09-24). So past a sentence's first word, a capital
+    // is the packet's, or "I". Told to say such a line, the free model does; held, no common
+    // capital stands past a sentence's start.
+    inference::Model& model = test_model::model();
+    Voice voice(model);
+    const FactPacket about = packets::about_self();
+    const std::string grammar = voice.grammar(about);
+    const std::string named = "It is a castle named Greetings.";
+    const auto [free_reply, held] = told_to_say(model, named, grammar);
+    check::is_true(!stray_capitals(free_reply, about).empty(), "the premise: free, the model says " + named + ": " + free_reply);
+    check::is_true(stray_capitals(held, about).empty(), "held, no common capital mid-sentence: " + held);
+    // A common capital still begins a sentence, and the packet's capitals and "I" still stand
+    // anywhere.
+    const std::string greeting = told_to_say(model, "Greetings, traveller.", grammar).second;
+    check::is_true(greeting.rfind("Greetings", 0) == 0, "a common capital begins a sentence: " + greeting);
+    const std::string serving = told_to_say(model, "Yes, I serve Selbren at Wenweg.", grammar).second;
+    for (const std::string said : {" I ", "Selbren", "Wenweg"})
+        check::is_true(serving.find(said) != std::string::npos, "still said, held: \"" + said + "\" in " + serving);
 }
 
 TEST(a_forbidden_word_the_packet_says_may_be_said) {

@@ -3,9 +3,10 @@
 // The model is told who the speaker is (the face a stranger sees, and their card's voice), what
 // they know (the packet's facts, without ids) and what just happened (the outcome). A grammar
 // then holds its words: every capitalised word in the reply is a word of the packet's own text,
-// or one of a closed set of words sentences commonly begin with ("I", "The", "You"...). The
-// voice therefore cannot name a person or a place the packet does not name. Nor can it give a
-// bearing or speak of pay, in words the packet does not hold (forbidden_words()).
+// or "I", or begins a sentence and is one of a closed set of words sentences commonly begin with
+// ("The", "You"...). The voice therefore cannot name a person or a place the packet does not
+// name. Nor can it give a bearing or speak of pay, in words the packet does not hold
+// (forbidden_words()).
 #pragma once
 
 #include <cstdint>
@@ -54,8 +55,8 @@ private:
     VoiceOptions options_;
 };
 
-// The capitalised words a reply may use besides its packet's: "I", and words sentences commonly
-// begin with. None is a name.
+// The capitalised words a reply may use besides its packet's: "I", anywhere, and the words
+// sentences commonly begin with, only where a sentence begins. None is a name.
 const std::vector<std::string>& common_capitals();
 
 // The words a reply may not say unless its packet's own text does: compass points, since a

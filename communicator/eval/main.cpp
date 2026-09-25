@@ -325,6 +325,51 @@ bool forbidden_word(const std::string& word) {
     return false;
 }
 
+// The words of `text` that begin with a capital A-Z, as written.
+void capitals_in(const std::string& text, std::set<std::string>& out) {
+    std::string word;
+    for (std::size_t i = 0; i <= text.size(); ++i) {
+        const char c = i < text.size() ? text[i] : ' ';
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+            word += c;
+            continue;
+        }
+        if (!word.empty() && word[0] >= 'A' && word[0] <= 'Z') out.insert(word);
+        word.clear();
+    }
+}
+
+// The common capitals a reply used past the start of a sentence, "I" and the packet's own
+// capitals aside: common words made into names ("a castle named Greetings"). The grammar lets
+// them begin a sentence only, so this counts when a build without that rule is measured.
+std::set<std::string> stray_capitals(const FactPacket& p, const std::string& reply) {
+    std::set<std::string> own;
+    for (const std::string* text : {&p.persona.name, &p.persona.role, &p.persona.place}) capitals_in(*text, own);
+    for (const orchestrator::Fact& f : p.facts)
+        for (const auto& [key, value] : f.fields) capitals_in(value, own);
+    const std::vector<std::string>& common = communicator::common_capitals();
+    std::set<std::string> out;
+    bool starts = true;
+    std::string word;
+    for (std::size_t i = 0; i <= reply.size(); ++i) {
+        const char c = i < reply.size() ? reply[i] : ' ';
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+            word += c;
+            continue;
+        }
+        if (!word.empty()) {
+            const bool listed = std::find(common.begin(), common.end(), word) != common.end();
+            if (!starts && listed && word != "I" && !own.count(word)) out.insert(word);
+            starts = false;
+            word.clear();
+        }
+        const bool stop = c == '.' || c == '!' || c == '?';
+        const char next = i + 1 < reply.size() ? reply[i + 1] : ' ';
+        if (stop && !((next >= 'a' && next <= 'z') || (next >= 'A' && next <= 'Z') || (next >= '0' && next <= '9'))) starts = true;
+    }
+    return out;
+}
+
 std::string listed(const std::set<std::string>& words) {
     std::string out;
     for (const std::string& w : words) out += (out.empty() ? "" : ", ") + w;
@@ -334,7 +379,7 @@ std::string listed(const std::set<std::string>& words) {
 void voice_eval(inference::Model& model, const std::string& path) {
     communicator::Voice voice(model);
     const auto packets_by_name = voice_packets();
-    std::size_t cases = 0, shaped = 0, echoing = 0, echoes = 0, forbidden_said = 0, days_said = 0;
+    std::size_t cases = 0, shaped = 0, echoing = 0, echoes = 0, forbidden_said = 0, days_said = 0, straying = 0, strays = 0;
     double seconds = 0.0, slowest = 0.0;
     std::cout << "\n## Voice\n\n";
     for (const auto& [number, cells] : rows_of(path, 2)) {
@@ -374,24 +419,30 @@ void voice_eval(inference::Model& model, const std::string& path) {
             if (forbidden_word(w) && !sayable.count(w)) banned.insert(w);
             if (w == "day" || w == "days") days = true;
         }
+        const std::set<std::string> stray = stray_capitals(packet, said);
         echoing += !echo.empty();
         echoes += echo.size();
         forbidden_said += banned.size();
         days_said += days;
+        straying += !stray.empty();
+        strays += stray.size();
         std::cout << (ok ? "  ok   " : "  OFF  ") << "[" << cells[0] << " / " << orchestrator::to_string(packet.outcome) << "] "
                   << cells[1] << "\n         " << reply.text << "\n         (" << took << " s, " << reply.tokens << " tokens"
                   << (opens ? "" : ", wrong opening") << (closed ? "" : ", no closing") << (short_enough ? "" : ", too long")
                   << (reply.finished ? "" : ", cut off") << (echo.empty() ? "" : "; card words: " + listed(echo))
-                  << (banned.empty() ? "" : "; forbidden: " + listed(banned)) << (days ? "; days" : "") << ")\n";
+                  << (banned.empty() ? "" : "; forbidden: " + listed(banned)) << (days ? "; days" : "")
+                  << (stray.empty() ? "" : "; mid-sentence capitals: " + listed(stray)) << ")\n";
     }
     if (cases) {
         std::cout << "\n" << shaped << " of " << cases << " replies hold their shape; mean " << seconds / static_cast<double>(cases)
                   << " s, slowest " << slowest << " s\n";
         std::cout << "card words said in " << echoing << " of " << cases << " replies (" << echoes << " words); forbidden words said: "
-                  << forbidden_said << "; replies talking of days: " << days_said << "\n";
+                  << forbidden_said << "; replies talking of days: " << days_said << "; common capitals mid-sentence: " << strays
+                  << " in " << straying << " replies\n";
     }
     std::cout << "summary: replies=" << cases << " shaped=" << shaped << " card_echo_replies=" << echoing << " card_echo_words=" << echoes
-              << " forbidden=" << forbidden_said << " days=" << days_said << "\n";
+              << " forbidden=" << forbidden_said << " days=" << days_said << " stray_capital_replies=" << straying
+              << " stray_capitals=" << strays << "\n";
 }
 
 }  // namespace

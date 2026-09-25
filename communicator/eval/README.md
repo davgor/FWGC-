@@ -28,7 +28,7 @@ greedy output is reproducible for one count, and can differ between counts.
 - **For the voice:** each reply is checked against its shape. It must open with its outcome's
   words, stay within its sentence count, end with its closing, and not be cut off. Every reply
   is printed, because whether it claims something its packet does not hold is for a reader to
-  judge. Three counts help that reader:
+  judge. Four counts help that reader:
   - **Card words:** words of the card (manner, voice, stance, `never` lines) that the reply
     says and nothing else in the prompt holds. They are the card taken for facts: "the watch
     rota", "sworn oaths". This is a proxy: it counts words, not how they were used, and leaves
@@ -37,6 +37,9 @@ greedy output is reproducible for one count, and can differ between counts.
     stems, that the packet does not say. Under the grammar it is 0. It counts only when a build
     without the ban is measured beside it.
   - **Days:** replies that speak of days. The prompt gives no number of days.
+  - **Mid-sentence capitals:** common capitals past a sentence's start, "I" and the packet's own
+    capitals aside, which pass for names ("a castle named Greetings"). Under the grammar it is
+    0. It counts only when a build without the rule is measured beside it.
 
 ## lines.txt
 
@@ -115,6 +118,7 @@ committed. On a GPU the times would fall; the accuracy would not change.
 | Replies saying card words | 0 | 6 (7 words) |
 | Forbidden words said | 0 | 0 |
 | Replies talking of days | 0 | 1 |
+| Common capitals mid-sentence | 0 | 0 (1 before the capitals rule) |
 | Replies with no fault, judged strictly (leniently) | 11 (12) | 9 (13) |
 | Open-ended answers with no fault, of 9 | 1 (2) | 1 (4) |
 | Time per reply | 0.45 s | 4.5 s |
@@ -122,9 +126,10 @@ committed. On a GPU the times would fall; the accuracy would not change.
 The fault counts come from a separate session. It read every reply against its packet, with the
 prompt code, and judged the model's own words: not the openings or closing the program writes.
 
-The voice rows are for the barred words and the prompt without the card's manner or an offer's
-days. Before that change, Qwen3-4B said card words in 12 replies (25 words), 3 compass points,
-and days in 3. The judging session also read those earlier replies, not told which were which,
+The voice rows are for the barred words, the prompt without the card's manner or an offer's
+days, and common capitals only where a sentence begins. Before the first two, Qwen3-4B said card
+words in 12 replies (25 words), 3 compass points, and days in 3. The capitals rule changed one
+of its replies: "a castle named Greetings" became "a castle named grey". The judging session also read those earlier replies, not told which were which,
 and found 6 (11) with no fault. The test model's counts did not move. Another session had
 judged the same earlier replies 7 (15) and 10 (12), so compare counts from one session.
 
