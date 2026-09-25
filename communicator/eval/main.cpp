@@ -465,14 +465,17 @@ int main(int argc, char** argv) {
         else if (arg == "--voice") voice = value();
         else if (arg == "--limit") limit = static_cast<std::size_t>(std::stoul(value()));
         else if (arg == "--threads") options.threads = std::stoi(value());
+        else if (arg == "--gpu-layers") options.gpu_layers = std::stoi(value());
         else {
-            std::cerr << "usage: communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--limit N] [--threads N]\n";
+            std::cerr << "usage: communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--limit N] [--threads N]"
+                         " [--gpu-layers N]\n";
             return 2;
         }
     }
     try {
         std::unique_ptr<inference::Model> model = inference::Model::load(model_path, options);
-        std::cout << "# communicator_eval\n\nmodel: " << model_path << "\nthreads: " << options.threads << "\n";
+        std::cout << "# communicator_eval\n\nmodel: " << model_path << "\nthreads: " << options.threads
+                  << "\ndevice: " << model->device() << "\n";
         if (!lines.empty()) interpreter_eval(*model, lines, limit);
         if (!voice.empty()) voice_eval(*model, voice);
     } catch (const std::exception& e) {

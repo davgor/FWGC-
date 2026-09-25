@@ -7,12 +7,17 @@ measures how well a model does inside them.
 
 ```bash
 cmake --build communicator/build --config Release --target communicator_eval
-communicator/build/Release/communicator_eval.exe [--model PATH] [--lines PATH] [--voice PATH] [--limit N] [--threads N]
+communicator/build/Release/communicator_eval.exe [--model PATH] [--lines PATH] [--voice PATH] [--limit N] [--threads N] [--gpu-layers N]
 ```
 
 Without `--model`, it uses `FWGC_TEST_MODEL`, then the test model `inference/README.md` names.
 `--threads` sets the CPU threads (4 by default). Compare models at the same thread count:
 greedy output is reproducible for one count, and can differ between counts.
+
+`--gpu-layers` offloads that many layers to a GPU, in a build of `inference` with
+`INFERENCE_VULKAN`. The report's `device:` line says where the model ran. Compare on one device:
+a GPU reads as many lines right, but words its replies differently (`inference/README.md`, "The
+GPU build").
 
 ## What it reports
 
