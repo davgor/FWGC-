@@ -1,0 +1,331 @@
+# Written lines (roster posts: command). The format and the rules: README.md in this folder.
+
+# ---- post:commander ----
+post:commander | about_self | I am {speaker}, {post} of {place}. Speak, and make it worth my time.
+post:commander | about_self | {speaker}, {post}. This keep is mine to hold, and I measure my words, so measure yours.
+post:commander | about_person | {name}, the {role}[, at {where}]. I make it my business to know who stands where.
+post:commander | about_person | That would be {name}, the {role}.[ You will find them at {where}.]
+post:commander | about_place | That ground I know: {about}. Go with a plan.
+post:commander | about_place | Here is how it stands: {about}. Make of it what you will.
+post:commander | surroundings | Know your ground: this is {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Do not discount the {danger}.]
+post:commander | surroundings | You stand in {here}, and the nearest is {nearest}.[ After that, {others}.][ Keep a wary eye on the {danger}.]
+post:commander | surroundings | Beyond these walls, the nearest is {nearest}.[ Past it, {others}.][ Mind the {danger}.]
+post:commander | work_own | I need a steady blade: {own}.[ If that is not for you, {others}.]
+post:commander | work_own | There is work for a fighter: {own}.[ Otherwise, {others}.]
+post:commander | work_others | Nothing under my command, but {others}.
+post:commander | work_others | This keep has no task for you, but {others}.
+post:commander | work_none | None, from me or from anyone else.
+post:commander | work_none | My garrison has no need of you, and I hear of no one else who does.
+post:commander | unknown | I know nothing of that, and I do not deal in guesses.
+post:commander | unknown | I couldn't tell you, and I will not pretend to.
+post:commander | refused_give | Not from me; that task is {giver}'s to give.
+post:commander | refused_give | That's not mine to assign, and I do not overreach.
+post:commander | refused_release | I won't countermand {giver}.
+post:commander | refused_release | No; another's orders are not mine to undo.
+post:commander | refused | I cannot; {reason}, and there is an end to it.
+post:commander | accepted | Good. I expect it done properly.
+post:commander | accepted | Then it's agreed, and I will hold you to it.
+post:commander | declined | As you wish; I do not ask twice.
+post:commander | declined | Very well; I will find another blade.
+post:commander | abandoned | So be it; I have no use for half measures.
+post:commander | abandoned | A pity; I took you for someone who finishes.
+post:commander | parted | Farewell; keep your guard up.
+post:commander | parted | Go well, and come back whole.
+post:commander | not_understood | Speak plainly; I have no time for puzzles.
+post:commander | not_understood | What do you mean by that, exactly?
+
+# ---- post:sergeant ----
+post:sergeant | about_self | {speaker}, {post}. I shout at recruits until they're soldiers.
+post:sergeant | about_self | I'm {speaker}, {post} at {place}, and you're in my way.
+post:sergeant | about_person | {name}? The {role}[, over at {where}]. That's the lot.
+post:sergeant | about_person | Know {name}? Of course, the {role}.[ Look for them at {where}.]
+post:sergeant | about_place | Aye, I know it: {about}. Go with your eyes open.
+post:sergeant | about_place | That's {about}. Don't make me say it twice.
+post:sergeant | surroundings | Right, you're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Keep well clear of the {danger}.]
+post:sergeant | surroundings | Look sharp: this is {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ And watch for the {danger}.]
+post:sergeant | surroundings | Out there, the nearest is {nearest}.[ Past it, {others}.][ Mind the {danger}.]
+post:sergeant | work_own | On your feet, then: {own}.[ Or if that's too much for you, {others}.]
+post:sergeant | work_own | Have you two good arms? Then {own}.[ If not, {others}.]
+post:sergeant | work_others | Ask elsewhere; {others}.
+post:sergeant | work_others | Nothing for you in the barracks, but {others}.
+post:sergeant | work_none | No work, none going, and don't ask twice.
+post:sergeant | work_none | Nobody's hiring that I've heard of.
+post:sergeant | unknown | Never heard of it, and I don't care to.
+post:sergeant | unknown | I couldn't tell you, and I've no time to find out.
+post:sergeant | refused_give | That's not mine to hand out; it's {giver}'s.
+post:sergeant | refused_give | Not from me; that work's spoken for.
+post:sergeant | refused_release | I won't cut you loose from {giver}'s work.
+post:sergeant | refused_release | No, I didn't give it, so I can't take it off you.
+post:sergeant | refused | I can't, {reason}, and that's flat.
+post:sergeant | accepted | Good. Now move.
+post:sergeant | accepted | Done. Now fall in and get on with it.
+post:sergeant | declined | Suit yourself, and step aside.
+post:sergeant | declined | Fair enough; your loss.
+post:sergeant | abandoned | So be it; quitting's a habit, and you've started it.
+post:sergeant | abandoned | A pity, but I'm not surprised.
+post:sergeant | parted | Take care, and keep your head down.
+post:sergeant | parted | Safe travels, and don't come back limping.
+post:sergeant | not_understood | I don't follow; spit it out.
+post:sergeant | not_understood | What do you mean by that, then?
+
+# ---- post:garrison_officer ----
+post:garrison_officer | about_self | {speaker}, {post}. I keep the rolls and musters of {place} in order.
+post:garrison_officer | about_self | You're speaking to {speaker}, {post} at {place}. Your name and business, if you please.
+post:garrison_officer | about_person | For the record, {name} is the {role}[, at {where}].
+post:garrison_officer | about_person | I have {name} down as the {role}.[ You'll find them at {where}.]
+post:garrison_officer | about_place | What I have on it is this: {about}.
+post:garrison_officer | about_place | On the facts: {about}. Nothing further.
+post:garrison_officer | surroundings | You're in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ The {danger} are to be avoided.]
+post:garrison_officer | surroundings | To be precise: you're at {here}, and the nearest is {nearest}.[ After that, {others}.][ Give the {danger} a wide berth.]
+post:garrison_officer | surroundings | Of what's near, the closest is {nearest}.[ Past it, {others}.][ Stay clear of the {danger}.]
+post:garrison_officer | work_own | A posting is open, if you'll take it: {own}.[ If not, {others}.]
+post:garrison_officer | work_own | I can put you to use: {own}.[ Otherwise, {others}.]
+post:garrison_officer | work_others | Nothing on my rolls, but {others}.
+post:garrison_officer | work_others | Not through this office, but {others}.
+post:garrison_officer | work_none | No postings open, and none I know of elsewhere.
+post:garrison_officer | work_none | There is nothing to put you to, and I've heard of nothing.
+post:garrison_officer | unknown | I've never heard of it; that's outside my remit.
+post:garrison_officer | unknown | I don't know, and I won't speculate.
+post:garrison_officer | refused_give | I cannot reassign what {giver} has issued.
+post:garrison_officer | refused_give | Not from me; that goes through other hands.
+post:garrison_officer | refused_release | I won't overrule {giver}; the work stands.
+post:garrison_officer | refused_release | No, that release isn't mine to sign.
+post:garrison_officer | refused | I can't sanction it; {reason}.
+post:garrison_officer | accepted | Good; I'll see it entered.
+post:garrison_officer | accepted | Thank you; see that it's done by the book.
+post:garrison_officer | declined | As you wish; I'll note that you declined.
+post:garrison_officer | declined | Very well, I'll close the matter.
+post:garrison_officer | abandoned | A pity; I'll strike it from the roll.
+post:garrison_officer | abandoned | Then it's done, and it goes down as abandoned.
+post:garrison_officer | parted | Farewell, and keep the peace out there.
+post:garrison_officer | parted | Go well, and stay out of my reports.
+post:garrison_officer | not_understood | I'm not sure what you mean; put it another way.
+post:garrison_officer | not_understood | Speak plainly, and in order.
+
+# ---- post:quartermaster ----
+post:quartermaster | about_self | {speaker}, {post}. If it's in the stores, I've counted it.
+post:quartermaster | about_self | I'm {speaker}, {post} at {place}, and your hands stay where I can see them.
+post:quartermaster | about_person | {name}, the {role}[, at {where}]. I count crates, not people.
+post:quartermaster | about_person | You'll want {name}, the {role}.[ They're at {where}.]
+post:quartermaster | about_place | Know it? Aye: {about}. Go stocked, or don't go.
+post:quartermaster | about_place | That one's {about}. Take extra of everything.
+post:quartermaster | surroundings | Here's the tally: you're in {here}, and the nearest is {nearest}.[ Then {others}.][ The {danger} I'd put down as trouble.]
+post:quartermaster | surroundings | For your list: this is {here}, and the nearest is {nearest}.[ Past it, {others}.][ Keep clear of the {danger}.]
+post:quartermaster | surroundings | The nearest is {nearest}.[ After it, {others}.][ Mind the {danger}.]
+post:quartermaster | work_own | I've a task, and no time to explain it twice: {own}.[ If that's no good to you, {others}.]
+post:quartermaster | work_own | If you can carry, I've work: {own}.[ Otherwise, {others}.]
+post:quartermaster | work_others | Nothing on my list, but {others}.
+post:quartermaster | work_others | I want nothing myself, but {others}.
+post:quartermaster | work_none | Nobody's asking for anything, me least of all.
+post:quartermaster | work_none | I've nothing, and neither has anyone I deal with.
+post:quartermaster | unknown | Never heard of it, and I don't stock hearsay.
+post:quartermaster | unknown | No idea, and I don't guess at what I can't count.
+post:quartermaster | refused_give | That's not mine to issue; it's {giver}'s.
+post:quartermaster | refused_give | Not from me; I don't hand out what isn't mine.
+post:quartermaster | refused_release | I can't sign you off {giver}'s work.
+post:quartermaster | refused_release | I won't take back what I never gave out.
+post:quartermaster | refused | No, {reason}, and no amount of asking changes that.
+post:quartermaster | accepted | Done; I'll mark it down.
+post:quartermaster | accepted | Good. Mind you account for everything.
+post:quartermaster | declined | Suit yourself; I'll cross it off.
+post:quartermaster | declined | Fair enough; one less thing to track.
+post:quartermaster | abandoned | A pity; I'll write it off.
+post:quartermaster | abandoned | So be it, another loss for the ledger.
+post:quartermaster | parted | Goodbye, and mind your kit.
+post:quartermaster | parted | Safe travels, and ration what you carry.
+post:quartermaster | not_understood | I don't follow; itemise it.
+post:quartermaster | not_understood | What do you mean, and how many?
+
+# ---- post:armorer ----
+post:armorer | about_self | {speaker}, {post}. I fit the steel that keeps soldiers breathing.
+post:armorer | about_self | I'm {speaker}, {post} at {place}, and I've mail to mend, so be quick.
+post:armorer | about_person | {name}, the {role}[, at {where}]. I know buckles better than people.
+post:armorer | about_person | Hm, {name}, the {role}.[ You'll find them at {where}.]
+post:armorer | about_place | From what I hear, it's {about}. Don't go in anything that rattles.
+post:armorer | about_place | That's {about}. Whatever you wear there, wear it well fitted.
+post:armorer | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Don't meet the {danger} in thin leather.]
+post:armorer | surroundings | This is {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I'd go armoured against the {danger}.]
+post:armorer | surroundings | From here, the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}.]
+post:armorer | work_own | I've work that keeps my hammer going: {own}.[ Or, if you'd rather, {others}.]
+post:armorer | work_own | I could use someone who can take a knock: {own}.[ Otherwise, {others}.]
+post:armorer | work_others | Nothing at my bench, but {others}.
+post:armorer | work_others | I've none to give, but {others}.
+post:armorer | work_none | None; I've enough of my own.
+post:armorer | work_none | No work I know of; I hear little past the anvil.
+post:armorer | unknown | I couldn't tell you; steel is what I know.
+post:armorer | unknown | Never heard of it; if it's not armour, I'm no use to you.
+post:armorer | refused_give | I won't hand over what {giver} commissioned.
+post:armorer | refused_give | No, I don't give out other people's orders.
+post:armorer | refused_release | I can't loosen what {giver} buckled on you.
+post:armorer | refused_release | Not from me; I didn't strap you into it.
+post:armorer | refused | I cannot; {reason}, and no hammer will change that.
+post:armorer | accepted | Good; now let's see what you're made of.
+post:armorer | accepted | Done; don't come back dented.
+post:armorer | declined | As you wish; I've rivets waiting.
+post:armorer | declined | Fair enough; the mail will keep.
+post:armorer | abandoned | A pity; you looked sturdier than that.
+post:armorer | abandoned | So be it; better a cracked link found early.
+post:armorer | parted | Take care, and keep your straps tight.
+post:armorer | parted | Go well, and bring me dents, not holes.
+post:armorer | not_understood | I don't follow; my ears ring from the hammer.
+post:armorer | not_understood | Speak plainly; I work in rivets, not riddles.
+
+# ---- post:equipment_keeper ----
+post:equipment_keeper | about_self | {speaker}, {post}. I keep the buckets full and the ladders sound.
+post:equipment_keeper | about_self | I'm {speaker}, {post} at {place}, and if anything catches, I'm the first one running.
+post:equipment_keeper | about_person | {name}, the {role}[, at {where}]. I only meet people when something's alight.
+post:equipment_keeper | about_person | That's {name}, the {role}.[ Last I knew, at {where}.]
+post:equipment_keeper | about_place | Here's what I know: {about}. Go ready, not hopeful.
+post:equipment_keeper | about_place | It's {about}. I'd want water and sand before I went near it.
+post:equipment_keeper | surroundings | You're at {here}, and from this shed the nearest is {nearest}.[ Past it, {others}.][ Beware the {danger}.]
+post:equipment_keeper | surroundings | This is {here}, and the nearest is {nearest}.[ After that, {others}.][ If it's not fire, it's the {danger} I'd worry about.]
+post:equipment_keeper | surroundings | As for what's near, it's {nearest}.[ Past that, {others}.][ Watch for the {danger}.]
+post:equipment_keeper | work_own | Here's one for someone who keeps a cool head: {own}.[ If that's not for you, {others}.]
+post:equipment_keeper | work_own | I'd rather ask now than shout later: {own}.[ Otherwise, {others}.]
+post:equipment_keeper | work_others | Nothing on my pegs, but {others}.
+post:equipment_keeper | work_others | None from me, but {others}.
+post:equipment_keeper | work_none | None, and let's hope nothing catches to make some.
+post:equipment_keeper | work_none | All quiet, and in my trade that's the best news.
+post:equipment_keeper | unknown | No idea; I mind fires, and that's all.
+post:equipment_keeper | unknown | I couldn't tell you; my world is hooks and water.
+post:equipment_keeper | refused_give | I can't hand over {giver}'s work; it doesn't hang in my shed.
+post:equipment_keeper | refused_give | Not from me; I only hand out buckets.
+post:equipment_keeper | refused_release | I won't let you off {giver}'s work.
+post:equipment_keeper | refused_release | No, what I didn't give, I can't take back.
+post:equipment_keeper | refused | I cannot; {reason}, and there's no putting that out.
+post:equipment_keeper | accepted | Good; that's one less spark to worry about.
+post:equipment_keeper | accepted | Thank you; I'll sleep easier.
+post:equipment_keeper | declined | Suit yourself; the buckets won't mind.
+post:equipment_keeper | declined | So be it, and keep your sparks to yourself.
+post:equipment_keeper | abandoned | A pity; a job half-done is a fire half out.
+post:equipment_keeper | abandoned | Very well; I'll make do.
+post:equipment_keeper | parted | Safe travels, and leave no embers behind you.
+post:equipment_keeper | parted | Farewell; if you smell smoke, shout.
+post:equipment_keeper | not_understood | I'm not sure what you mean; is something on fire?
+post:equipment_keeper | not_understood | That's beyond me; I've ladders to check.
+
+# ---- post:hall_attendant ----
+post:hall_attendant | about_self | {speaker}, {post}. I lay the tables and clear them, and not much else.
+post:hall_attendant | about_self | I'm {speaker}, {post} at {place}; if it's spilled, I'm the one who wipes it.
+post:hall_attendant | about_person | {name}, the {role}[, at {where}]. I pour, I don't pry.
+post:hall_attendant | about_person | Oh, {name}, the {role}.[ You'd find them at {where}.]
+post:hall_attendant | about_place | Only what I overhear: {about}.
+post:hall_attendant | about_place | It's {about}. That's as much as I know.
+post:hall_attendant | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Stay away from the {danger}.]
+post:hall_attendant | surroundings | This is {here}, and outside these doors the nearest is {nearest}.[ Beyond that, {others}.][ I'd not go near the {danger}.]
+post:hall_attendant | surroundings | From the hall, the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}.]
+post:hall_attendant | work_own | If you've a spare pair of hands: {own}.[ Otherwise, {others}.]
+post:hall_attendant | work_own | There's something you could do for me: {own}.[ If not, {others}.]
+post:hall_attendant | work_others | Not from me, but {others}.
+post:hall_attendant | work_others | I've no work of my own, but I hear {others}.
+post:hall_attendant | work_none | None that I've heard, and I hear a good deal.
+post:hall_attendant | work_none | No work, only mine, and there's plenty of that.
+post:hall_attendant | unknown | I couldn't tell you; that's not table talk.
+post:hall_attendant | unknown | I've never heard of it, sorry.
+post:hall_attendant | refused_give | That's not mine to pass along; {giver} holds it.
+post:hall_attendant | refused_give | I cannot hand out another's work; I only serve.
+post:hall_attendant | refused_release | I won't undo what {giver} asked of you.
+post:hall_attendant | refused_release | No, that's not for the likes of me to release.
+post:hall_attendant | refused | I can't, I'm afraid; {reason}.
+post:hall_attendant | accepted | Thank you; that's a weight off.
+post:hall_attendant | accepted | Good; I'll keep a cup for you.
+post:hall_attendant | declined | As you wish; I'll get back to the benches.
+post:hall_attendant | declined | Fair enough; forget I asked.
+post:hall_attendant | abandoned | So be it; I'll tidy it away like the rest.
+post:hall_attendant | abandoned | A pity; I'd hoped you'd see it through.
+post:hall_attendant | parted | Goodbye, and wipe your boots next time.
+post:hall_attendant | parted | Farewell, and keep warm.
+post:hall_attendant | not_understood | I'm not sure what you mean; could you say it plainer?
+post:hall_attendant | not_understood | That's beyond me; I fetch and carry.
+
+# ---- post:chaplain ----
+post:chaplain | about_self | {speaker}, {post}. I tend the souls of those who hold these walls.
+post:chaplain | about_self | I am {speaker}, {post} at {place}. If your heart is heavy, sit a while.
+post:chaplain | about_person | {name}, the {role}[, at {where}]. I keep them in my prayers, as I do everyone.
+post:chaplain | about_person | Yes, {name}, the {role}.[ You will find them at {where}.]
+post:chaplain | about_place | Of that place I know this: {about}. Go with care.
+post:chaplain | about_place | It is {about}. May it treat you kindly.
+post:chaplain | surroundings | You are in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ May you never meet the {danger}.]
+post:chaplain | surroundings | This is {here}, and the nearest is {nearest}.[ After that, {others}.][ Keep well away from the {danger}, and keep faith.]
+post:chaplain | surroundings | Near us lies {nearest}.[ Past that, {others}.][ Heed the {danger}.]
+post:chaplain | work_own | There is good work to be done: {own}.[ If it is not for you, {others}.]
+post:chaplain | work_own | If your hands are willing: {own}.[ Otherwise, {others}.]
+post:chaplain | work_others | I have nothing to ask of you, but {others}.
+post:chaplain | work_others | Not from this chapel, but {others}.
+post:chaplain | work_none | None that I know of; I have only comfort to offer.
+post:chaplain | work_none | No work, but you may pray with me, if you like.
+post:chaplain | unknown | I know nothing of that; forgive me.
+post:chaplain | unknown | I couldn't tell you; that is beyond my learning.
+post:chaplain | refused_give | That's not mine to give; it rests with {giver}.
+post:chaplain | refused_give | I cannot give what is not mine to bless.
+post:chaplain | refused_release | I won't lift what {giver} laid on you.
+post:chaplain | refused_release | No, only the one who asked it of you can release you.
+post:chaplain | refused | I can't; {reason}, and I am sorry for it.
+post:chaplain | accepted | Thank you; go with my blessing.
+post:chaplain | accepted | Good. May it go well for you.
+post:chaplain | declined | As you wish; there is no sin in knowing your limits.
+post:chaplain | declined | So be it; perhaps another time.
+post:chaplain | abandoned | Very well; it is between you and your conscience.
+post:chaplain | abandoned | A pity, but you are still in my prayers.
+post:chaplain | parted | Go well, and go in grace.
+post:chaplain | parted | Farewell; I will light a candle for your road.
+post:chaplain | not_understood | I'm not sure what you mean; say it simply, and I will listen.
+post:chaplain | not_understood | What do you mean by that, and what troubles you?
+
+# ---- post:steward ----
+post:steward | about_self | {speaker}, {post} of {place}. I see that everyone here is fed, housed and accounted for.
+post:steward | about_self | I'm {speaker}; if it's stored, spent or traded at {place}, it's my concern.
+post:steward | about_person | {name}, the {role}[, at {where}]. Beyond that, I keep my opinions to myself.
+post:steward | about_person | Ah, {name}, the {role}.[ You'll find them at {where}.]
+post:steward | about_place | I can tell you this much: {about}. Take provisions to match.
+post:steward | about_place | By my reckoning, it's {about}.
+post:steward | surroundings | Welcome to {here}, where the nearest is {nearest}.[ Beyond that, {others}.][ Keep your distance from the {danger}.]
+post:steward | surroundings | This is {here}, and the nearest is {nearest}.[ After that, {others}.][ The {danger} are bad for trade and worse for travel.]
+post:steward | surroundings | In short, the nearest is {nearest}.[ Past it, {others}.][ Mind the {danger}.]
+post:steward | work_own | I have an arrangement to offer: {own}.[ If it doesn't suit, {others}.]
+post:steward | work_own | There's business for someone reliable: {own}.[ Otherwise, {others}.]
+post:steward | work_others | My own needs are met, but {others}.
+post:steward | work_others | Not on my books, but {others}.
+post:steward | work_none | No work at present, and none I've heard of.
+post:steward | work_none | Everything's in hand, and I know of no one short of help.
+post:steward | unknown | I've never heard of it, and it's not in my accounts.
+post:steward | unknown | I couldn't tell you, I'm afraid.
+post:steward | refused_give | That's not mine to arrange; the matter is {giver}'s.
+post:steward | refused_give | I cannot give away another's business.
+post:steward | refused_release | I won't undo {giver}'s arrangement.
+post:steward | refused_release | Not from me; I don't unmake another's bargain.
+post:steward | refused | No; {reason}, and I don't bend the books for anyone.
+post:steward | accepted | Very good; we have an understanding.
+post:steward | accepted | Thank you; that settles it.
+post:steward | declined | As you wish; I'll look elsewhere.
+post:steward | declined | Fair enough; no harm in asking.
+post:steward | abandoned | So be it; I'll balance it somehow.
+post:steward | abandoned | A pity; I'd planned around you.
+post:steward | parted | Safe travels; eat well on the road.
+post:steward | parted | Goodbye, and come back if you've something to trade.
+post:steward | not_understood | I'm not sure what you mean; be exact, if you would.
+post:steward | not_understood | What do you mean, precisely?
+
+# ---- post:gate_captain ----
+# The situations its bank in posts.txt lacks, in its voice (curt, a soldier at a gate).
+post:gate_captain | about_person | {name}, the {role}[, at {where}]. That's all you get from me.
+post:gate_captain | about_person | Aye, {name}, the {role}.[ At {where}, if you must know.]
+post:gate_captain | about_place | I know it: {about}. Nothing more to say.
+post:gate_captain | about_place | It's {about}. Your business there is your own.
+post:gate_captain | work_own | I need someone with sharp eyes: {own}.[ Otherwise, {others}.]
+post:gate_captain | work_own | Here's work, if you want it: {own}.[ If not, {others}.]
+post:gate_captain | work_others | Not from me, but {others}.
+post:gate_captain | work_others | None of mine, but {others}.
+post:gate_captain | unknown | Never heard of it; next question.
+post:gate_captain | unknown | No idea, and guessing isn't my job.
+post:gate_captain | refused_give | That's not mine; it's {giver}'s business.
+post:gate_captain | refused_give | I can't hand out another's orders.
+post:gate_captain | refused_release | I won't cross {giver}, not over this.
+post:gate_captain | refused_release | No, what someone else set you stays set.
+post:gate_captain | refused | I cannot, {reason}, and that's final.
+post:gate_captain | accepted | Good. I'll know you when you come back through the gate.
+post:gate_captain | accepted | Then it's agreed; off you go.
+post:gate_captain | declined | Suit yourself; the gate stays manned either way.
+post:gate_captain | declined | Fair enough, but don't loiter.
+post:gate_captain | abandoned | So be it; I'll remember your face.
+post:gate_captain | abandoned | A pity; I took you for someone who could stand a watch.

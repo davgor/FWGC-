@@ -1,0 +1,205 @@
+# Written lines (roster posts: civic). The format and the rules: README.md in this folder.
+
+# ---- post:administrator ----
+post:administrator | about_self | {speaker}, {post} of {place}. If it needs a seal, a tally or a signature, it comes across my desk.
+post:administrator | about_self | I'm {speaker}, {post} for {place}; be brief, the rolls don't keep themselves.
+post:administrator | about_person | {name}, the {role}, at {where}. Next question.
+post:administrator | about_person | Take it up with {name}[, the {role}][, at {where}].
+post:administrator | about_place | By my ledgers, that's {about}. There's nothing past that entry.
+post:administrator | about_place | That would be {about}. If you find it otherwise, tell me, and I'll amend it.
+post:administrator | surroundings | This is {here}, and first on my list is {nearest}.[ After that, {others}.][ Keep clear of the {danger}.]
+post:administrator | surroundings | You're in {here}; the nearest is {nearest}.[ Then there's {others}.][ Mind the {danger}.]
+post:administrator | surroundings | The nearest on my list is {nearest}.[ Past it, {others}.][ Watch for the {danger}.]
+post:administrator | work_own | There's work from this desk, if you'll take it: {own}.[ If not, {others}.]
+post:administrator | work_own | I've a matter to put out, and you'll do: {own}.[ Otherwise, {others}.]
+post:administrator | work_others | Nothing from the hall, but {others}.
+post:administrator | work_others | Ask elsewhere: {others}.
+post:administrator | work_none | My ledgers are empty of it, and nobody else is asking.
+post:administrator | work_none | None, and I'd have seen it if there were.
+post:administrator | unknown | I know nothing of it, and if it isn't written down, it isn't my concern.
+post:administrator | unknown | I've never heard of it, and it's on no roll of mine.
+post:administrator | refused_give | That's not mine to assign; it sits under {giver}'s seal.
+post:administrator | refused_give | I cannot hand out another office's business.
+post:administrator | refused_release | I won't countermand {giver}; I've enough of my own to answer for.
+post:administrator | refused_release | Not from me; I didn't put that on the books, and I can't take it off.
+post:administrator | refused | No; {reason}, and no amount of asking changes the rolls.
+post:administrator | accepted | Good; that's one matter settled.
+post:administrator | accepted | Done, then; come back when it's finished, not before.
+post:administrator | declined | Suit yourself; it stays open.
+post:administrator | declined | Fair enough; I'll find another name for it.
+post:administrator | abandoned | A pity; I'd already counted it done.
+post:administrator | abandoned | So be it; back on the pile it goes.
+post:administrator | parted | Farewell; I've the tallies to finish.
+post:administrator | parted | Goodbye; there's always another petition.
+post:administrator | not_understood | Speak plainly, or put it in writing.
+post:administrator | not_understood | What do you mean, exactly, and whose business is it?
+
+# ---- post:court_clerk ----
+post:court_clerk | about_self | I'm {speaker}, {post} in {place}. I write down what's said, word for word, and I don't mishear.
+post:court_clerk | about_self | {speaker}, {post}; spell your business out and I'll see it entered.
+post:court_clerk | about_person | {name} is the {role}, at {where}; I'd swear to the spelling.
+post:court_clerk | about_person | You'll want {name}[, the {role}].[ At {where}, to be exact.]
+post:court_clerk | about_place | It stands as {about}, and I'll not add a word.
+post:court_clerk | about_place | To the letter: {about}. I'll thank you not to quote me in court.
+post:court_clerk | surroundings | For the record, this is {here}, and the nearest is {nearest}.[ Also noted: {others}.][ Mind the {danger}.]
+post:court_clerk | surroundings | In order: you're in {here}, and the nearest is {nearest}.[ Then {others}.][ Last, the {danger}; I'd rather not write you up.]
+post:court_clerk | surroundings | The nearest is {nearest}.[ After that, {others}.][ And the {danger}, for completeness.]
+post:court_clerk | work_own | I need someone who deals in facts, not guesses: {own}.[ Otherwise, {others}.]
+post:court_clerk | work_own | There's a matter that wants more than ink: {own}.[ If that won't do, {others}.]
+post:court_clerk | work_others | Nothing on my docket, but {others}.
+post:court_clerk | work_others | Other people are hiring, and I can give you their names: {others}.
+post:court_clerk | work_none | Every docket I keep is empty of work for you.
+post:court_clerk | work_none | None that I've heard of, and none I could put in writing.
+post:court_clerk | unknown | I know nothing of it, and I'll not enter a guess.
+post:court_clerk | unknown | I've never heard of it, and I forget very little.
+post:court_clerk | refused_give | That's not mine to hand over; it stands in {giver}'s name.
+post:court_clerk | refused_give | I cannot pass on what isn't mine; it would never stand up.
+post:court_clerk | refused_release | I won't strike out what {giver} set down; it isn't my entry to strike.
+post:court_clerk | refused_release | No; another hand set that down, and only that hand can undo it.
+post:court_clerk | refused | Not from me; {reason}, and I don't alter the record.
+post:court_clerk | accepted | Thank you; it goes down as agreed.
+post:court_clerk | accepted | Done. I'll want it back in plain words, with nothing added.
+post:court_clerk | declined | As you wish; I'll put down that you declined.
+post:court_clerk | declined | Fair enough, and so noted.
+post:court_clerk | abandoned | So be it; I'll mark it withdrawn.
+post:court_clerk | abandoned | A pity; now I've a page to amend.
+post:court_clerk | parted | Goodbye, and keep your affairs in order.
+post:court_clerk | parted | Farewell; I'll note the time you left.
+post:court_clerk | not_understood | I'm not sure what you mean, and the record can't hold a maybe.
+post:court_clerk | not_understood | Speak plainly, and one thing at a time.
+
+# ---- post:magistrate ----
+post:magistrate | about_self | I am {speaker}, {post} of {place}, and I hear what is brought before me.
+post:magistrate | about_self | {speaker}, {post}. Mind your words; weighing them is my trade.
+post:magistrate | about_person | {name}, the {role}, at {where}. I'll pass no judgement on them here.
+post:magistrate | about_person | I know {name}[, the {role}][, at {where}]; my opinions I keep for the bench.
+post:magistrate | about_place | On the evidence I have, it's {about}. Anything beyond that is hearsay.
+post:magistrate | about_place | All I know of it is {about}. I'll not add to that without a witness.
+post:magistrate | surroundings | We stand in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I would heed the {danger}.]
+post:magistrate | surroundings | Let the facts be plain: you are in {here}, and the nearest is {nearest}.[ Then {others}.][ On the {danger}, my ruling is caution.]
+post:magistrate | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Beware the {danger}.]
+post:magistrate | work_own | I need an honest hand, and yours may do: {own}.[ If that's not for you, {others}.]
+post:magistrate | work_own | There's a matter that needs more than my judgement: {own}.[ Or, if you'd rather, {others}.]
+post:magistrate | work_others | Nothing from the bench, but {others}.
+post:magistrate | work_others | Look to others: {others}.
+post:magistrate | work_none | I have none to offer, and I've heard of none.
+post:magistrate | work_none | None; idle hands find their way to my court soon enough.
+post:magistrate | unknown | Never heard of it, and I'll not pretend otherwise.
+post:magistrate | unknown | I couldn't tell you, and I won't rule on a guess.
+post:magistrate | refused_give | That's not mine to give; it's {giver}'s, and I respect a claim.
+post:magistrate | refused_give | I cannot hand over what another has granted; that would be theft with a seal on it.
+post:magistrate | refused_release | I won't release you from {giver}'s work; a word given stands.
+post:magistrate | refused_release | No; a bargain made with another is theirs to loosen, not mine.
+post:magistrate | refused | Not from me; {reason}, and the law doesn't bend for asking.
+post:magistrate | accepted | Good. I'll want the truth of it when you're done.
+post:magistrate | accepted | Then it's agreed, and I'll hold you to it as I would anyone.
+post:magistrate | declined | So be it; I'll not compel you.
+post:magistrate | declined | Very well; the matter can wait.
+post:magistrate | abandoned | A pity; I'd judged you better.
+post:magistrate | abandoned | As you wish, though I'll remember it was given up.
+post:magistrate | parted | Go well, and stay out of my court.
+post:magistrate | parted | Farewell, and keep the peace.
+post:magistrate | not_understood | Speak plainly; riddles make poor testimony.
+post:magistrate | not_understood | What do you mean by that, precisely?
+
+# ---- post:teacher ----
+post:teacher | about_self | I'm {speaker}, {post} in {place}. Half the day is lessons, the other half is patience.
+post:teacher | about_self | Speak up; you're talking to {speaker}, and I've heard every excuse there is.
+post:teacher | about_person | {name}, the {role}, at {where}; that's the whole lesson.
+post:teacher | about_person | Ask for {name}[, the {role}][, at {where}], and mind your manners when you do.
+post:teacher | about_place | Listen, then: {about}. Say it back to me.
+post:teacher | about_place | It's {about}. Remember that; I won't repeat myself.
+post:teacher | surroundings | Here's your geography: you're in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ And mind the {danger}; that's not a suggestion.]
+post:teacher | surroundings | Look about you; this is {here}, and the nearest is {nearest}.[ After it, {others}.][ Keep away from the {danger}, and I mean it.]
+post:teacher | surroundings | First, the nearest: {nearest}.[ Then {others}.][ Last, the {danger}; stay clear.]
+post:teacher | work_own | I've a task that needs grown hands, not small ones: {own}.[ If that's not to your taste, {others}.]
+post:teacher | work_own | Here's a lesson you won't find on a slate: {own}.[ Or else, {others}.]
+post:teacher | work_others | Only chalk and slates from me, but {others}.
+post:teacher | work_others | Someone else is asking, so listen: {others}.
+post:teacher | work_none | Nothing going; the children would have told me first.
+post:teacher | work_none | There's none I know of; I've only marking to do.
+post:teacher | unknown | I couldn't tell you, and I'd sooner say so than teach you wrong.
+post:teacher | unknown | Never heard of it, and it's not a subject I teach.
+post:teacher | refused_give | That's not mine to hand out; {giver} set it, and {giver} marks it.
+post:teacher | refused_give | I cannot give out another's work as if it were mine.
+post:teacher | refused_release | I won't let you off what {giver} gave you; finish what you started.
+post:teacher | refused_release | No, you'll not wriggle out of it through me.
+post:teacher | refused | Not from me, not when {reason}.
+post:teacher | accepted | Good; I'll expect it done properly, not quickly.
+post:teacher | accepted | Very good. It's homework now, and I mark hard.
+post:teacher | declined | Suit yourself; nobody learns by being made to.
+post:teacher | declined | Fair enough; not every lesson takes.
+post:teacher | abandoned | A pity; I'd marked you as one who finishes.
+post:teacher | abandoned | Then it's done, and I'll not pretend I'm not disappointed.
+post:teacher | parted | Go well, and remember what you've learned.
+post:teacher | parted | Take care, and walk, don't run.
+post:teacher | not_understood | What do you mean, and could you put it in a whole sentence?
+post:teacher | not_understood | I don't follow; start again, slowly.
+
+# ---- post:librarian ----
+post:librarian | about_self | Keep your voice down; I'm {speaker}, {post} of {place}, and these shelves are mine.
+post:librarian | about_self | {speaker}, {post}. If it's kept here, I can find it.
+post:librarian | about_person | {name}, the {role}, at {where}; people are harder to keep in order than books.
+post:librarian | about_person | I'd catalogue {name} as the {role}[, at {where}].
+post:librarian | about_place | You mean {about}. I'd rather read about such places than visit them.
+post:librarian | about_place | Of that, I know this much: {about}.
+post:librarian | surroundings | This is {here}, and the nearest is {nearest}.[ Past that, {others}.][ I'd not go near the {danger} myself.]
+post:librarian | surroundings | Where you stand is {here}, and the nearest to it is {nearest}.[ Beyond it, {others}.][ Give the {danger} a wide berth.]
+post:librarian | surroundings | The nearest is {nearest}.[ Then {others}.][ Mind the {danger}.]
+post:librarian | work_own | There's a task no book will do for you: {own}.[ If not, {others}.]
+post:librarian | work_own | If you've careful hands, I've use for them: {own}.[ Otherwise, {others}.]
+post:librarian | work_others | Nothing from me but a reading list, though {others}.
+post:librarian | work_others | Someone else needs help more than I do: {others}.
+post:librarian | work_none | None, and I'd know; people talk in libraries, however often I hush them.
+post:librarian | work_none | Only reading; no work that I know of.
+post:librarian | unknown | I've never heard of it, and I've read more than most.
+post:librarian | unknown | I couldn't tell you, and I'll not guess; guessing is how books get misshelved.
+post:librarian | refused_give | That's not mine to lend; it's {giver}'s.
+post:librarian | refused_give | I can't lend out what was never on my shelves.
+post:librarian | refused_release | I won't take back what {giver} lent you.
+post:librarian | refused_release | No; I only take back my own loans.
+post:librarian | refused | Not from me; {reason}, and there's no rewriting that.
+post:librarian | accepted | Good; handle it the way you'd handle a book, with clean hands.
+post:librarian | accepted | Thank you; I'll mark you down as borrowed.
+post:librarian | declined | As you wish; I'll not press a book on an unwilling reader.
+post:librarian | declined | So be it; I'll put it back.
+post:librarian | abandoned | A pity; returned unread, then.
+post:librarian | abandoned | Very well, though I do hate a thing half finished.
+post:librarian | parted | Goodbye, and quietly, please.
+post:librarian | parted | Take care, and turn your pages gently.
+post:librarian | not_understood | I'm not sure what you mean; say it again, and slower.
+post:librarian | not_understood | Speak plainly, and softly, if you can manage both.
+
+# ---- post:scribe ----
+post:scribe | about_self | {speaker}, {post}. I copy what I'm given, and I don't blot.
+post:scribe | about_self | I'm {speaker}, {post} here in {place}; talk if you must, but don't jog the desk.
+post:scribe | about_person | {name}, the {role}, at {where}. That's all I'd put to paper.
+post:scribe | about_person | You want {name}[, the {role}][, at {where}]; now let me get on.
+post:scribe | about_place | I'd write it as {about}, and not a line more.
+post:scribe | about_place | In plain ink: {about}.
+post:scribe | surroundings | One line at a time: you're in {here}, and the nearest is {nearest}.[ Next line, {others}.][ Last line, the {danger}; mind them.]
+post:scribe | surroundings | This is {here}, and the nearest is {nearest}.[ Past that, {others}.][ Keep clear of the {danger}.]
+post:scribe | surroundings | The nearest is {nearest}.[ After that, {others}.][ Watch for the {danger}.]
+post:scribe | work_own | This one won't be settled with ink: {own}.[ If not that, {others}.]
+post:scribe | work_own | If you've a hand that doesn't blot, here's work: {own}.[ Otherwise, {others}.]
+post:scribe | work_others | My hands are full, but {others}.
+post:scribe | work_others | Someone's hiring, just not me: {others}.
+post:scribe | work_none | None that's crossed my desk, and plenty crosses it.
+post:scribe | work_none | Nothing I know of; only pages, and they're mine.
+post:scribe | unknown | Never heard of it, and a great deal passes under my pen.
+post:scribe | unknown | I don't know, and I don't take down guesses.
+post:scribe | refused_give | That's not mine to give; it's written in {giver}'s hand.
+post:scribe | refused_give | I can't; I copy work, I don't give it out.
+post:scribe | refused_release | I won't scratch out {giver}'s writing for you.
+post:scribe | refused_release | No; I didn't write that one, so I can't unwrite it.
+post:scribe | refused | Not from me; {reason}, and I won't set down what isn't so.
+post:scribe | accepted | Done; I'll make a note before I forget.
+post:scribe | accepted | Good. Don't smudge it.
+post:scribe | declined | Fair enough; my hand's cramped as it is.
+post:scribe | declined | Suit yourself; back to the page.
+post:scribe | abandoned | So be it; I'll rule a line through it.
+post:scribe | abandoned | Then it's done, and that's good ink wasted.
+post:scribe | parted | Farewell; mind the ink on your way past.
+post:scribe | parted | Go well; my nib's going dry.
+post:scribe | not_understood | What do you mean, letter by letter?
+post:scribe | not_understood | Speak plainly; I can't copy a mumble.

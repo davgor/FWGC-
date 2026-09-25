@@ -1,0 +1,364 @@
+# Written lines (roster posts: land). The format and the rules: README.md in this folder.
+# ---- post:farmer ----
+post:farmer | about_self | {speaker}, and I farm this ground. It gives back what you put in and not a grain more.
+post:farmer | about_self | Me? I plough, I sow, I weed, and the ground still does as it pleases.
+post:farmer | about_person | {name}[, the {role}][, at {where}]. Their business is their own; mine is in the furrows.
+post:farmer | about_person | You'll find {name} at {where}; the {role}, if it matters to you.
+post:farmer | about_place | Ah, {about}. I'd sooner walk a furrow twice than go there once.
+post:farmer | about_place | As I know it, {about}. I've no call to go looking; the field keeps me.
+post:farmer | surroundings | This is {here}, my fields and all, and the nearest is {nearest}.[ Beyond that, {others}.][ Mind the {danger}.]
+post:farmer | surroundings | Around {here}, the nearest worth naming is {nearest}.[ After that, {others}.][ Keep well clear of the {danger}.]
+post:farmer | surroundings | The nearest to my ground is {nearest}.[ Past that, {others}.][ Watch for the {danger}.]
+post:farmer | work_own | Here's work for a strong back: {own}.[ If that's not for you, {others}.]
+post:farmer | work_own | Two hands more would do me good: {own}.[ Otherwise, {others}.]
+post:farmer | work_others | Nothing from my yard, but {others}.
+post:farmer | work_others | My work stays in my hands, but {others}.
+post:farmer | work_none | If there's work going, nobody's told a {post}.
+post:farmer | work_none | Nobody's hiring that I know of, me included.
+post:farmer | unknown | I couldn't tell you; I know soil and not much else.
+post:farmer | unknown | Never heard of it, and the field won't wait while I wonder.
+post:farmer | refused_give | That's not mine to hand out; it's {giver}'s.
+post:farmer | refused_give | No, I don't give away work that isn't mine.
+post:farmer | refused_release | I can't let you off what {giver} set you to.
+post:farmer | refused_release | I won't loose a yoke I never put on you.
+post:farmer | refused | Not from me; the way things stand, {reason}.
+post:farmer | accepted | Good; roll your sleeves up and get to it.
+post:farmer | accepted | Done, then, and mind you work the way I would.
+post:farmer | declined | Suit yourself; the ground will still be here.
+post:farmer | declined | Fair enough, I'll do it myself as ever.
+post:farmer | abandoned | A pity; I took you for someone who finishes a row.
+post:farmer | abandoned | So be it; the weeds won't notice, but I will.
+post:farmer | parted | Farewell; mind the muck on your way out.
+post:farmer | parted | Go well, and keep off my rows.
+post:farmer | not_understood | Speak plainly; I'm a {post}, not a scholar.
+post:farmer | not_understood | What do you mean by that, and what's it to do with the field?
+# ---- post:farm_hand ----
+post:farm_hand | about_self | {speaker}, the {post}. If it's heavy, dirty or stinks, it's mine.
+post:farm_hand | about_self | All I do is fork hay and shift muck, and then do it again.
+post:farm_hand | about_person | {name}[, the {role}][, at {where}]; not that anyone asks a hand what they think.
+post:farm_hand | about_person | Over at {where}, that's {name}, the {role}; more than that's above my station.
+post:farm_hand | about_place | You mean {about}. Ask someone who gets out of the barn more.
+post:farm_hand | about_place | Only what a {post} gets told: {about}.
+post:farm_hand | surroundings | Welcome to {here}, for all it's worth; the nearest is {nearest}.[ Beyond it, {others}.][ Keep clear of the {danger}, I would.]
+post:farm_hand | surroundings | We're in {here}; the nearest is {nearest}.[ Then there's {others}.][ And steer clear of the {danger}.]
+post:farm_hand | surroundings | From the barn, the nearest is {nearest}.[ After that, {others}.][ Watch for the {danger}.]
+post:farm_hand | work_own | There's a job going, if you don't mind blisters: {own}.[ If you do, {others}.]
+post:farm_hand | work_own | For once I've something to hand out: {own}.[ Or else, {others}.]
+post:farm_hand | work_others | Me, hand out work? No, but {others}.
+post:farm_hand | work_others | Ask them, not me: {others}.
+post:farm_hand | work_none | You're asking the wrong end of the pitchfork; I know of none.
+post:farm_hand | work_none | Nobody tells the hired help who's hiring.
+post:farm_hand | unknown | I don't know; I'm the last to hear anything.
+post:farm_hand | unknown | Never heard tell of that; hay doesn't talk.
+post:farm_hand | refused_give | Not from me; that's {giver}'s to hand out, not a hand's.
+post:farm_hand | refused_give | That's not mine to give, and I've nothing that is.
+post:farm_hand | refused_release | I won't undo what {giver} asked of you.
+post:farm_hand | refused_release | No, I've no say over that; I only muck out.
+post:farm_hand | refused | I can't do it; {reason}.
+post:farm_hand | accepted | Then it's agreed, and better your back than mine.
+post:farm_hand | accepted | Thank you; that's one less job with my name on it.
+post:farm_hand | declined | As you wish; it's no skin off my nose.
+post:farm_hand | declined | Fair enough, I'd not want it either.
+post:farm_hand | abandoned | Very well, it'll land back on me like everything does.
+post:farm_hand | abandoned | A pity, though I can't say I blame you.
+post:farm_hand | parted | Take care; I'll be here, knee-deep as usual.
+post:farm_hand | parted | Goodbye, then; the hay won't fork itself.
+post:farm_hand | not_understood | I'm not sure what you mean; I'm only a {post}.
+post:farm_hand | not_understood | What do you mean, in words a hand would know?
+# ---- post:well_keeper ----
+post:well_keeper | about_self | {speaker}, and I keep the well at {place}. The water stays clean and the rope stays sound, or I hear about it.
+post:well_keeper | about_self | Nobody thanks a well until it runs dry, and nobody thanks its keeper at all.
+post:well_keeper | about_person | {name}[, the {role}][, at {where}]. Everyone comes to a well in the end, whoever they are.
+post:well_keeper | about_person | Seek {name}, the {role}, at {where}.
+post:well_keeper | about_place | Well, {about}. I'd want to know what's in the water before I set foot there.
+post:well_keeper | about_place | What I hear at the rope is {about}; I've no cause to go and see.
+post:well_keeper | surroundings | Where you stand is {here}, and from the well-head the nearest is {nearest}.[ Beyond that, {others}.][ Mind the {danger}.]
+post:well_keeper | surroundings | You're in {here}; the nearest is {nearest}.[ Past that, {others}.][ Be wary of the {danger}.]
+post:well_keeper | surroundings | From where I draw water, the nearest is {nearest}.[ After that, {others}.][ Keep away from the {danger}.]
+post:well_keeper | work_own | Mind you do it cleanly, and this is yours: {own}.[ If it's not to your liking, {others}.]
+post:well_keeper | work_own | Here's something that wants doing properly: {own}.[ If it's not for you, {others}.]
+post:well_keeper | work_others | Everyone who draws water talks, and this is what I've heard: {others}.
+post:well_keeper | work_others | Mine's a one-rope job, but {others}.
+post:well_keeper | work_none | If there's work about, it hasn't come up with the water.
+post:well_keeper | work_none | Nothing here wants more hands than mine, and I've heard of no work elsewhere.
+post:well_keeper | unknown | I know nothing of that; I know water.
+post:well_keeper | unknown | Never heard a whisper of it, and plenty gets said over a bucket.
+post:well_keeper | refused_give | That's not mine to give; {giver} drew that bucket, not me.
+post:well_keeper | refused_give | I won't hand out another's work, not even to someone thirsty for it.
+post:well_keeper | refused_release | Not from me; only {giver} can let you go.
+post:well_keeper | refused_release | I cannot free you from a promise I didn't draw from you.
+post:well_keeper | refused | No, and there's no helping it: {reason}.
+post:well_keeper | accepted | Very good; go carefully, and keep your hands clean.
+post:well_keeper | accepted | Thank you; that's a weight off the rope.
+post:well_keeper | declined | So be it; the rope's used to my hands.
+post:well_keeper | declined | Fair enough; I'll draw on without you.
+post:well_keeper | abandoned | A pity; a job dropped is a well left open.
+post:well_keeper | abandoned | Then it's done; the bucket comes up either way.
+post:well_keeper | parted | Go well, and never drink from a well you haven't looked into.
+post:well_keeper | parted | Safe travels, and come back thirsty.
+post:well_keeper | not_understood | I don't follow; say it as plain as well water.
+post:well_keeper | not_understood | Speak plainly; I'll not guess at it.
+# ---- post:carter ----
+post:carter | about_self | {speaker}, the {post}. If it fits on a cart and the axle holds, I'll move it.
+post:carter | about_self | My life's a cart shed and every rut between here and anywhere.
+post:carter | about_person | {name}[, the {role}][, at {where}]. Whether they're good for a load, I couldn't say.
+post:carter | about_person | You're after {name}, the {role}; you'll find them at {where}.
+post:carter | about_place | Ah, {about}. I only care whether a cart can get there.
+post:carter | about_place | Here's what I know of it: {about}. If there's a load in it, tell me.
+post:carter | surroundings | From {here}, by cart or on foot, the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+post:carter | surroundings | Out of {here}, the nearest is {nearest}.[ After that, {others}.][ Keep your wheels clear of the {danger}.]
+post:carter | surroundings | First stop from the shed is {nearest}.[ Then {others}.][ Watch for the {danger}.]
+post:carter | work_own | If you've the nerve for the road, this is yours: {own}.[ If not, {others}.]
+post:carter | work_own | Help me out here: {own}.[ Otherwise, {others}.]
+post:carter | work_others | Nothing on my cart for you, but {others}.
+post:carter | work_others | One thing I can pass on: {others}.
+post:carter | work_none | Such work as there is hasn't found my cart.
+post:carter | work_none | Nobody's hiring, not that the road's told me.
+post:carter | unknown | I know nothing about that; if it's not freight, it's not my business.
+post:carter | unknown | Never heard of it; it's not on any road I drive.
+post:carter | refused_give | Not from me; {giver} loaded that one, and {giver} hands it out.
+post:carter | refused_give | I won't sell you work that isn't mine to sell.
+post:carter | refused_release | I cannot unhitch you from what {giver} set.
+post:carter | refused_release | That's not mine to undo; I never harnessed you to it.
+post:carter | refused | No, can't be done: {reason}.
+post:carter | accepted | Done; shake on it and we're square.
+post:carter | accepted | Then it's agreed, and I'll hold you to it.
+post:carter | declined | Suit yourself; there's always another pair of hands on the road.
+post:carter | declined | Fair enough, I'll find someone hungrier.
+post:carter | abandoned | A pity; half a load is no load at all.
+post:carter | abandoned | As you wish, and I'll remember who dropped it.
+post:carter | parted | Safe travels, and mind the ruts.
+post:carter | parted | Take care, and give way to carts.
+post:carter | not_understood | Speak plainly; I deal in loads, not riddles.
+post:carter | not_understood | I'm not sure what you mean, so say it like you're selling it.
+# ---- post:fisher ----
+post:fisher | about_self | {speaker}. I fish, and I smell like it.
+post:fisher | about_self | Me? I read water; people I leave to others.
+post:fisher | about_person | {name}.[ The {role}.][ At {where}.]
+post:fisher | about_person | You want {name}, you go to {where}; the {role}, that one.
+post:fisher | about_place | Aye, {about}. The fish don't care, and neither do I.
+post:fisher | about_place | Only what I've heard: {about}. I don't go where the fish aren't.
+post:fisher | surroundings | This is {here}; the nearest is {nearest}.[ Then {others}.][ Mind the {danger}.]
+post:fisher | surroundings | Here in {here}, the nearest thing is {nearest}.[ Past that, {others}.][ Watch the {danger}.]
+post:fisher | surroundings | From the water's edge, the nearest is {nearest}.[ After that, {others}.][ Keep clear of the {danger}.]
+post:fisher | work_own | If you've a stronger stomach than you look, there's this: {own}.[ If not, {others}.]
+post:fisher | work_own | Could use a hand that doesn't talk much: {own}.[ Or {others}.]
+post:fisher | work_others | Their work, not mine: {others}.
+post:fisher | work_others | Some are hiring: {others}.
+post:fisher | work_none | None, not from me or anyone I know.
+post:fisher | work_none | The nets are all the work I know of, and they're mine.
+post:fisher | unknown | I don't know, and I don't guess.
+post:fisher | unknown | Never heard of it, not on the water.
+post:fisher | refused_give | No; {giver} cast that net, not me.
+post:fisher | refused_give | I won't hand over what I didn't catch.
+post:fisher | refused_release | That's not mine to cut loose; {giver} tied it.
+post:fisher | refused_release | I can't unhook you from someone else's line.
+post:fisher | refused | Not from me; {reason}.
+post:fisher | accepted | Good. Don't make me regret it.
+post:fisher | accepted | Done; now let me get back to my knots.
+post:fisher | declined | Fair enough; there's other fish.
+post:fisher | declined | Very well, I've nets to mend anyway.
+post:fisher | abandoned | So be it; not everyone has the patience.
+post:fisher | abandoned | Then it's done; I'll not waste breath on it.
+post:fisher | parted | Farewell, and don't fall in.
+post:fisher | parted | Take care; the water takes the careless.
+post:fisher | not_understood | What do you mean by that?
+post:fisher | not_understood | Speak plainly or not at all.
+# ---- post:boatman ----
+post:boatman | about_self | {speaker}; I work a boat off the landing, so long as nobody rocks it.
+post:boatman | about_self | Half my life's on the water and the other half is waiting at the landing.
+post:boatman | about_person | {name}[, the {role}][, at {where}]. Everyone needs a boat once in their life.
+post:boatman | about_person | Look for {name} at {where}; that's the {role}, and good luck to you.
+post:boatman | about_place | Oh, {about}. Unless there's water on the way, my boat's no use to you.
+post:boatman | about_place | The way I have it, {about}. Past that, ask someone with dry boots.
+post:boatman | surroundings | You've come to {here}; from the landing, the nearest is {nearest}.[ Beyond that, {others}.][ Mind the {danger}.]
+post:boatman | surroundings | From {here}, the nearest is {nearest}.[ Past that, {others}.][ And keep clear of the {danger}.]
+post:boatman | surroundings | By water or land, the nearest is {nearest}.[ After that, {others}.][ Watch for the {danger}.]
+post:boatman | work_own | You look like you could use something to do: {own}.[ If not, {others}.]
+post:boatman | work_own | Something needs doing, and you've the look of someone steady on their feet: {own}.[ Or else {others}.]
+post:boatman | work_others | Mine's all spoken for, but {others}.
+post:boatman | work_others | There's work elsewhere: {others}.
+post:boatman | work_none | If anyone's hiring, they haven't crossed my landing.
+post:boatman | work_none | Nothing doing, not on the water or off it.
+post:boatman | unknown | I couldn't tell you; it's never come past the landing.
+post:boatman | unknown | Never heard the like, and I hear plenty.
+post:boatman | refused_give | Not from me; that's {giver}'s to hand out, and I don't row other folk's boats.
+post:boatman | refused_give | That's not mine to give, any more than the water is.
+post:boatman | refused_release | I won't untie what {giver} tied you to.
+post:boatman | refused_release | No, you're moored to that one, not to me.
+post:boatman | refused | I can't, and no amount of rowing changes it: {reason}.
+post:boatman | accepted | Very good; shake on it, then.
+post:boatman | accepted | Then it's agreed; don't keep me waiting.
+post:boatman | declined | Suit yourself; the boat goes out with or without you.
+post:boatman | declined | Fair enough; I've rowed alone before.
+post:boatman | abandoned | A pity; I'll bail out what you left.
+post:boatman | abandoned | So be it; no hard feelings on the water.
+post:boatman | parted | Safe travels; enjoy the ground while it holds still.
+post:boatman | parted | Go well; don't trust still water.
+post:boatman | not_understood | Speak plainly; half of that went over the side.
+post:boatman | not_understood | I'm not sure what you mean; is that a question or a knot?
+# ---- post:hauler ----
+post:hauler | about_self | {speaker}. I lift it, I rope it, I shift it, and I don't ask what's inside.
+post:hauler | about_self | Hm, the {post}; the staging yard is where you'll find me, under something heavy.
+post:hauler | about_person | {name}[, the {role}][, at {where}]. How heavy they are, I couldn't tell you.
+post:hauler | about_person | At {where}; that's {name}, the {role}.
+post:hauler | about_place | All I know is {about}. If it's heavy and it's there, it stays there.
+post:hauler | about_place | Right, {about}. I've no reason to go without a load to carry.
+post:hauler | surroundings | This is {here}; nearest to the yard is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+post:hauler | surroundings | Around {here}, the nearest is {nearest}.[ After that, {others}.][ Stay clear of the {danger}.]
+post:hauler | surroundings | The nearest is {nearest}.[ Then {others}.][ Watch the {danger}.]
+post:hauler | work_own | There's work if your back's up to it: {own}.[ If not, {others}.]
+post:hauler | work_own | If you can carry your share, here it is: {own}.[ Or else {others}.]
+post:hauler | work_others | Someone else has loads: {others}.
+post:hauler | work_others | Those are hiring, not me: {others}.
+post:hauler | work_none | Nothing to lift, nothing to give.
+post:hauler | work_none | Nobody's hiring, or I'd be carrying it.
+post:hauler | unknown | I don't know; I carry things, not news.
+post:hauler | unknown | Never heard of it, and I've no room in my head for more.
+post:hauler | refused_give | I cannot hand over {giver}'s load.
+post:hauler | refused_give | No, I don't shift work that's not mine.
+post:hauler | refused_release | Not from me; {giver} set it on your back, not me.
+post:hauler | refused_release | I won't lift a load I never put on you.
+post:hauler | refused | That's not mine to change: {reason}.
+post:hauler | accepted | Good; don't let it get the better of you.
+post:hauler | accepted | Done. Now shoulder it and go.
+post:hauler | declined | Fair enough; I'll shoulder it myself.
+post:hauler | declined | So be it; some backs aren't built for it.
+post:hauler | abandoned | Then it's done; I've carried heavier.
+post:hauler | abandoned | Very well; set it down, then.
+post:hauler | parted | Go well; watch your back.
+post:hauler | parted | Take care, and bend your knees.
+post:hauler | not_understood | Speak plainly; words don't weigh much with me.
+post:hauler | not_understood | What do you mean, and how heavy is it?
+# ---- post:water_carrier ----
+post:water_carrier | about_self | {speaker}, the {post}; two buckets, one yoke, and every stair in {place}.
+post:water_carrier | about_self | More water goes up this city's stairs on my shoulders than you'd think.
+post:water_carrier | about_person | {name}[, the {role}][, at {where}]; now, if you'll let me by.
+post:water_carrier | about_person | Ask for {name} at {where}; the {role}, if that helps.
+post:water_carrier | about_place | Yes, yes: {about}. I've enough places to go with a full yoke.
+post:water_carrier | about_place | Just this: {about}. Now let me get these buckets moving.
+post:water_carrier | surroundings | This is {here}, and a thirsty place it is; the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+post:water_carrier | surroundings | You're in {here}; the nearest is {nearest}.[ Then {others}.][ And keep away from the {danger}.]
+post:water_carrier | surroundings | Past the water point, the nearest is {nearest}.[ After that, {others}.][ Watch for the {danger}.]
+post:water_carrier | work_own | Take this off my shoulders: {own}.[ Or else {others}.]
+post:water_carrier | work_own | This one's heavier than a yoke of pails: {own}.[ If not, {others}.]
+post:water_carrier | work_others | While I haul water, others hire: {others}.
+post:water_carrier | work_others | Too busy to hire, but {others}.
+post:water_carrier | work_none | Whatever work there is in this city, it's not come past the water point.
+post:water_carrier | work_none | Only my own yoke, and nobody else's work that I know of.
+post:water_carrier | unknown | I couldn't tell you; I don't stop long enough to learn anything.
+post:water_carrier | unknown | Never heard a word of it, not between one bucket and the next.
+post:water_carrier | refused_give | No; that's {giver}'s work, and I've enough of my own.
+post:water_carrier | refused_give | I won't hand out what isn't mine to carry.
+post:water_carrier | refused_release | That's not mine to lift off you; {giver} put it there.
+post:water_carrier | refused_release | Not from me; I don't unload other people's yokes.
+post:water_carrier | refused | I can't, and I've no time to argue it: {reason}.
+post:water_carrier | accepted | Thank you; one less trip for me.
+post:water_carrier | accepted | Done, and mind your step.
+post:water_carrier | declined | Suit yourself; more for my shoulders.
+post:water_carrier | declined | As you wish; the city stays thirsty either way.
+post:water_carrier | abandoned | Then it's done, and it's back on my shoulders.
+post:water_carrier | abandoned | A pity; I'd started to count on you.
+post:water_carrier | parted | Safe travels, and step lively.
+post:water_carrier | parted | Goodbye, and step aside for full buckets.
+post:water_carrier | not_understood | What do you mean, and can you say it walking?
+post:water_carrier | not_understood | Speak plainly, and quickly with it.
+# ---- post:water_keeper ----
+post:water_keeper | about_self | {speaker}, the {post}. The cistern, the channels that feed it and everything that settles in it are mine to answer for.
+post:water_keeper | about_self | Most people think water keeps itself clean; it doesn't, and that is my work.
+post:water_keeper | about_person | {name}[, the {role}][, at {where}]. I keep water, not company, so that is the extent of it.
+post:water_keeper | about_person | For {name}, the {role}, go to {where}.
+post:water_keeper | about_place | To my knowledge, {about}. I would boil anything I drank there.
+post:water_keeper | about_place | {about}; that is all I know of it.
+post:water_keeper | surroundings | This is {here}; outside the collection court, the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+post:water_keeper | surroundings | You are in {here}, and the nearest is {nearest}.[ After that, {others}.][ Keep well away from the {danger}.]
+post:water_keeper | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Beware the {danger}.]
+post:water_keeper | work_own | There is work that wants a careful hand: {own}.[ If care is not your habit, {others}.]
+post:water_keeper | work_own | If you can follow instructions exactly, I have this: {own}.[ Otherwise, {others}.]
+post:water_keeper | work_others | Of my own, I have nothing to offer, but {others}.
+post:water_keeper | work_others | Some in the city need hands: {others}.
+post:water_keeper | work_none | None that I know of, and none of mine.
+post:water_keeper | work_none | Nobody I know is taking on hands.
+post:water_keeper | unknown | I know nothing of that, and I would rather say so than guess.
+post:water_keeper | unknown | Never heard of it; it has never come through the court.
+post:water_keeper | refused_give | That's not mine to assign; it belongs to {giver}.
+post:water_keeper | refused_give | I won't give away another's work; that is not how things are kept.
+post:water_keeper | refused_release | I cannot release you from what {giver} asked.
+post:water_keeper | refused_release | No, a thing begun under another's word is theirs to end.
+post:water_keeper | refused | Not from me: {reason}.
+post:water_keeper | accepted | Very good; do it properly or not at all.
+post:water_keeper | accepted | Thank you; I will expect it done cleanly.
+post:water_keeper | declined | So be it; I will manage.
+post:water_keeper | declined | As you wish; I would rather no hand than a careless one.
+post:water_keeper | abandoned | A pity; unfinished work fouls like standing water.
+post:water_keeper | abandoned | Then it's done, and I will note it.
+post:water_keeper | parted | Farewell; wash your hands before you touch anyone's water.
+post:water_keeper | parted | Go well, and keep your waste out of the gutters.
+post:water_keeper | not_understood | I'm not sure what you mean; be exact.
+post:water_keeper | not_understood | Speak plainly; I have levels to read.
+# ---- post:horse_keeper ----
+post:horse_keeper | about_self | {speaker}, the {post}; I let out mounts and carriages, and I judge the rider before the horse.
+post:horse_keeper | about_self | Give me one look at a horse and I'll tell you its age, its wind and its temper.
+post:horse_keeper | about_person | {name}[, the {role}][, at {where}]; I'd want to see them ride before I said more.
+post:horse_keeper | about_person | Go to {where} for {name}, the {role}, and mind your manners.
+post:horse_keeper | about_place | Now, {about}. Take a sound horse, if you go at all.
+post:horse_keeper | about_place | As I hear it, {about}. Tell me the going there and I'll tell you the shoes.
+post:horse_keeper | surroundings | Listen: you're in {here}, and the nearest ride is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+post:horse_keeper | surroundings | Out of {here}, the nearest is {nearest}.[ After that, {others}.][ Keep anything you ride well clear of the {danger}.]
+post:horse_keeper | surroundings | From the yard, the nearest is {nearest}.[ Beyond that, {others}.][ Watch for the {danger}.]
+post:horse_keeper | work_own | Here's work for someone who knows which end of a horse bites: {own}.[ If that's not you, {others}.]
+post:horse_keeper | work_own | If you can strike a bargain or hold a halter, there's this: {own}.[ Otherwise, {others}.]
+post:horse_keeper | work_others | For work, not mounts, go elsewhere: {others}.
+post:horse_keeper | work_others | Someone else would take you on: {others}.
+post:horse_keeper | work_none | None going, not that the stable's heard.
+post:horse_keeper | work_none | Nobody's hiring that the yard knows of; you'd do as well asking the horses.
+post:horse_keeper | unknown | I don't know; ask me about teeth and hooves instead.
+post:horse_keeper | unknown | I've never heard of it; if it hasn't four legs, I don't keep track.
+post:horse_keeper | refused_give | No; that's {giver}'s to give, not mine to trade.
+post:horse_keeper | refused_give | That's not mine to hand out, and I don't deal in what I don't own.
+post:horse_keeper | refused_release | Not from me; {giver} put the bit in, so {giver} takes it out.
+post:horse_keeper | refused_release | I won't slip a bridle I never buckled.
+post:horse_keeper | refused | I can't; {reason}, and there's no haggling over that.
+post:horse_keeper | accepted | Done; I've seen worse riders take on less.
+post:horse_keeper | accepted | Then it's agreed; keep a light hand and a firm seat.
+post:horse_keeper | declined | Suit yourself; I'll not chase you.
+post:horse_keeper | declined | Very well, the yard won't miss you.
+post:horse_keeper | abandoned | A pity; I'd have said you had the legs for it.
+post:horse_keeper | abandoned | So be it; some horses balk at the last fence.
+post:horse_keeper | parted | Safe travels, and water your mount before yourself.
+post:horse_keeper | parted | Farewell, and keep your heels down.
+post:horse_keeper | not_understood | What do you mean by that; walk it past me again, slower.
+post:horse_keeper | not_understood | Speak plainly; I've no patience for a horse or a customer that dances.
+# ---- post:animal_keeper ----
+post:animal_keeper | about_self | {speaker}; I keep the beasts here fed, watered and mucked out, and they thank me better than people do.
+post:animal_keeper | about_self | Anything in this yard with four legs and a temper, I look after.
+post:animal_keeper | about_person | {name}[, the {role}][, at {where}]; I know people less well than I know beasts.
+post:animal_keeper | about_person | If it's {name} you want, the {role}, try {where}.
+post:animal_keeper | about_place | Oh, {about}. The beasts stay here, and so do I.
+post:animal_keeper | about_place | You mean {about}? I'd not take a beast of mine near it.
+post:animal_keeper | surroundings | Where you're standing is {here}, and the nearest is {nearest}.[ Past that, {others}.][ Keep anything you care for away from the {danger}.]
+post:animal_keeper | surroundings | We're in {here}; the nearest is {nearest}.[ Then there's {others}.][ Stay clear of the {danger}.]
+post:animal_keeper | surroundings | Past the yard, the nearest is {nearest}.[ After that, {others}.][ Watch for the {danger}.]
+post:animal_keeper | work_own | With gentle hands and a strong stomach, you could take this: {own}.[ If that's not you, {others}.]
+post:animal_keeper | work_own | Some of the work here wants another pair of hands: {own}.[ Otherwise, {others}.]
+post:animal_keeper | work_others | The beasts keep me busy enough without hiring, but {others}.
+post:animal_keeper | work_others | Ask elsewhere: {others}.
+post:animal_keeper | work_none | Nothing but mucking out, and I do that myself.
+post:animal_keeper | work_none | Nobody's hiring that I've heard, and my lot don't gossip.
+post:animal_keeper | unknown | I know nothing about that; ask me about feed and bedding.
+post:animal_keeper | unknown | Never heard of it, and neither have the beasts.
+post:animal_keeper | refused_give | I won't give out {giver}'s work as if it were mine.
+post:animal_keeper | refused_give | No, I only hand out feed, and not to you.
+post:animal_keeper | refused_release | That's not mine to undo; {giver} penned you in, not me.
+post:animal_keeper | refused_release | I cannot turn you loose from another's work.
+post:animal_keeper | refused | Not from me; {reason}, and that's that.
+post:animal_keeper | accepted | Good; go gently, and come back with all your fingers.
+post:animal_keeper | accepted | Thank you; the beasts won't say it, so I will.
+post:animal_keeper | declined | Fair enough; an unwilling hand is worse than none around animals.
+post:animal_keeper | declined | As you wish, and I'll get back to the stalls.
+post:animal_keeper | abandoned | Very well; I never counted on anyone but myself.
+post:animal_keeper | abandoned | So be it; the stalls still need mucking either way.
+post:animal_keeper | parted | Take care, and never stand behind anything that kicks.
+post:animal_keeper | parted | Farewell; I've mouths to feed.
+post:animal_keeper | not_understood | I don't follow; I'm better with animals than words.
+post:animal_keeper | not_understood | What do you mean, and does it eat?

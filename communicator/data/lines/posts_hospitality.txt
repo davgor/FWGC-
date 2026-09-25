@@ -1,0 +1,298 @@
+# Written lines (roster posts: hospitality). The format and the rules: README.md in this folder.
+# ---- post:baker ----
+post:baker | about_self | I'm {speaker}, and I keep the oven[ in {place}]. Say your piece while the dough rests.
+post:baker | about_self | {speaker}, the {post}, and too floury to shake your hand.
+post:baker | about_person | {name}? The {role}.[ Look at {where}; I've loaves to shape.]
+post:baker | about_person | Aye, I know {name}[, the {role}][; look for them at {where}]. Now let me get back to my kneading.
+post:baker | about_place | That's {about}. For more, ask someone who gets out from behind an oven.
+post:baker | about_place | I know it: {about}. My bread gets further than I ever do.
+post:baker | surroundings | Out my door it's {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+post:baker | surroundings | This is {here}; the closest place to it is {nearest}.[ Beyond that, {others}.][ Keep clear of the {danger}.]
+post:baker | surroundings | The nearest I know of is {nearest}.[ Then there's {others}.][ Watch for {danger}.]
+post:baker | work_own | With flour on my hands or not, this wants doing: {own}.[ If not, {others}.]
+post:baker | work_own | Good, a pair of hands with no flour on them: {own}.[ Otherwise, {others}.]
+post:baker | work_others | Nothing at my bench, but {others}.
+post:baker | work_others | All I deal in is bread, but I hear {others}.
+post:baker | work_none | If it's work you want, I've none but the kneading, and that's spoken for.
+post:baker | work_none | Every job I know of has flour on it, and those are mine.
+post:baker | unknown | I couldn't tell you; my world is the width of this oven.
+post:baker | unknown | I don't know, and I'll not burn a batch finding out.
+post:baker | accepted | Good. Go on; my dough won't knead itself.
+post:baker | accepted | Thank you; that's one less thing on my board.
+post:baker | declined | Suit yourself; the loaves bake either way.
+post:baker | declined | Fair enough; I'll find other hands.
+post:baker | abandoned | A pity; half-baked is worse than never started.
+post:baker | abandoned | Then it's done, and I'll not ask you twice.
+post:baker | refused_give | That's not mine to hand out; it's {giver}'s.
+post:baker | refused_give | No; I only hand out what comes out of my own oven.
+post:baker | refused_release | I can't let you off {giver}'s work; that's between the two of you.
+post:baker | refused_release | Not from me; whoever set you to it can let you off.
+post:baker | refused | I won't do it[; {reason}].
+post:baker | parted | Take care, and come back when the loaves are cool.
+post:baker | parted | Safe travels; shut the door behind you, the heat escapes.
+post:baker | not_understood | Speak plainly; I've flour on my hands, not time on them.
+post:baker | not_understood | What do you mean, and say it before the crust catches.
+# ---- post:cook ----
+post:cook | about_self | {speaker}, {post} to this hall[ in {place}]. Keep clear of the fire.
+post:cook | about_self | Every bowl out of this kitchen goes past my ladle, so aye, I'm the {post}.
+post:cook | about_person | Make it quick: {name}'s the {role}.[ Look at {where}; I've a pot on.]
+post:cook | about_person | Everyone eats, so I know {name}[, the {role}][; try {where}].
+post:cook | about_place | You mean {about}? I've pots to watch, so that's all you get.
+post:cook | about_place | Aye, {about}. Now out of my way, before something boils over.
+post:cook | surroundings | We're in {here}, and the nearest thing to us is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+post:cook | surroundings | This kitchen sits in {here}; the nearest is {nearest}.[ After that, {others}.][ And watch for {danger}.]
+post:cook | surroundings | If you must know, the nearest is {nearest}.[ Beyond it, {others}.][ Beware the {danger}.]
+post:cook | work_own | With a hall to feed, I've no time to dress this up: {own}.[ Otherwise, {others}.]
+post:cook | work_own | Listen, and quickly: {own}.[ If not, {others}.]
+post:cook | work_others | Ask elsewhere: {others}.
+post:cook | work_others | Whoever's hiring, it isn't me; {others}.
+post:cook | work_none | Whatever work there is, it's at my stove, and it's mine.
+post:cook | work_none | Nothing, unless you want to scrub, and I'd not trust you with my pans.
+post:cook | unknown | I know nothing of it, and the pot won't stir itself while I think.
+post:cook | unknown | I've never heard of it; not much gets through the clatter in here.
+post:cook | accepted | Done. Now out of my kitchen.
+post:cook | accepted | Then it's agreed; come back hungry.
+post:cook | declined | As you wish; there's always another pair of hands.
+post:cook | declined | So be it; back to the chopping.
+post:cook | abandoned | Very well; I'll make do, as I always do.
+post:cook | abandoned | A pity; I'll cook around the gap.
+post:cook | refused_give | No, that's {giver}'s to give; I only hand out bowls.
+post:cook | refused_give | That's not mine to give; my say ends at the kitchen door.
+post:cook | refused_release | I cannot let you off; {giver} set you to it, not me.
+post:cook | refused_release | I won't meddle in work I never gave.
+post:cook | refused | Not from me[; {reason}].
+post:cook | parted | Goodbye, and mind the knives as you go.
+post:cook | parted | Go well; I've a ladle waiting.
+post:cook | not_understood | I'm not sure what you mean, and I've no time to guess.
+post:cook | not_understood | That's beyond me; say it again, and louder, over the fire.
+# ---- post:miller ----
+post:miller | about_self | I grind[ for {place}], a handful at a time, and the name's {speaker}.
+post:miller | about_self | {speaker}, the {post}, with grit in my teeth and dust in every crease.
+post:miller | about_person | Give me a moment; I think at the pace of the handle. {name}[, the {role}][, at {where}].
+post:miller | about_person | That's {name}[, the {role}], plain as flour.[ Seek them at {where}.]
+post:miller | about_place | Hm, that'd be {about}; that's all the meal I can make of it.
+post:miller | about_place | As I have it, {about}; sift it how you like.
+post:miller | surroundings | You're in {here}, and nearest to us is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+post:miller | surroundings | Take it slow: this is {here}, and the closest is {nearest}.[ Then there's {others}.][ Watch for {danger}.]
+post:miller | surroundings | One at a time: the nearest is {nearest}.[ After that, {others}.][ Beware the {danger}.]
+post:miller | work_own | Here's grist for someone else's mill: {own}.[ Otherwise, {others}.]
+post:miller | work_own | There's work, if you've the patience for it: {own}.[ Or else, {others}.]
+post:miller | work_others | Only the quern here, and my own arms turn it; {others}.
+post:miller | work_others | What comes in with the sacks is this: {others}.
+post:miller | work_none | There's the grinding, and the grinding's mine; nothing else.
+post:miller | work_none | Nothing I know of; grain comes in, flour goes out, and that's my lot.
+post:miller | unknown | Never heard of it; a quern's poor company for news.
+post:miller | unknown | I couldn't tell you; I'd only be grinding air.
+post:miller | accepted | Then it's agreed. I'd rather have it right than quick.
+post:miller | accepted | Thank you. I'll be here at the quern; I always am.
+post:miller | declined | Very well; the handle keeps turning.
+post:miller | declined | Fair enough; I'll wait for steadier legs.
+post:miller | abandoned | So be it; some grain won't mill.
+post:miller | abandoned | As you wish, though I'd hoped you'd see it through.
+post:miller | refused_give | No, that's {giver}'s grist, not mine.
+post:miller | refused_give | That's not mine, and I don't hand out another's work.
+post:miller | refused_release | I can't; that knot's {giver}'s to untie.
+post:miller | refused_release | Not from me; I didn't set you to it.
+post:miller | refused | I won't, not as things stand[; {reason}].
+post:miller | parted | Go well, and don't rush.
+post:miller | parted | Farewell; the sacks and I aren't going anywhere.
+post:miller | not_understood | I don't follow; say it slower, the way the handle turns.
+post:miller | not_understood | I'm not sure what you mean; grind it finer for me.
+# ---- post:brewer ----
+post:brewer | about_self | My trade's brewing[ here in {place}]; the smell is the mash, not me.
+post:brewer | about_self | They call me {speaker}, and I spend my days waiting on yeast; I'm good at it.
+post:brewer | about_person | Ah, {name}[, the {role}].[ You'll find them at {where}.]
+post:brewer | about_person | I know {name}[, the {role}], the way I know a barrel: from the outside.[ Ask after them at {where}.]
+post:brewer | about_place | Aye, {about}; I've not tasted more of it than that.
+post:brewer | about_place | Oh, {about}. That's all I know; the vats keep me close.
+post:brewer | surroundings | This is {here}, malt and all; the nearest is {nearest}.[ Beyond that, {others}.][ Mind the {danger}.]
+post:brewer | surroundings | You've wandered into {here}; closest is {nearest}.[ Then there's {others}.][ And {danger}, so don't go in your cups.]
+post:brewer | surroundings | Let me think over the bubbling: the nearest is {nearest}.[ Past that, {others}.][ Watch for {danger}.]
+post:brewer | work_own | Here's one to sober you up: {own}.[ If not, {others}.]
+post:brewer | work_own | Here's something for a steady hand: {own}.[ Or {others}.]
+post:brewer | work_others | The vats are all mine to mind, but {others}.
+post:brewer | work_others | Nothing brewing for you here, but {others}.
+post:brewer | work_none | None; the only work here is waiting, and I do that myself.
+post:brewer | work_none | Nobody's hiring that I know of, and the yeast doesn't need your help.
+post:brewer | unknown | No idea; ask me about barley and I'll talk your ear off.
+post:brewer | unknown | I've never heard of it; I hear the vats bubble and not much else.
+post:brewer | accepted | Good. Take your time, but not too much.
+post:brewer | accepted | Done. I'll drink to it when you're back.
+post:brewer | declined | So be it; the brew won't mind.
+post:brewer | declined | As you wish; I can wait, it's half my trade.
+post:brewer | abandoned | A pity; that's a batch gone sour.
+post:brewer | abandoned | Then it's done, and poured out.
+post:brewer | refused_give | That's not mine; it's {giver}'s, and I don't pour from another's cask.
+post:brewer | refused_give | No; I hand out my own work and no one else's.
+post:brewer | refused_release | I cannot loose you from {giver}'s work.
+post:brewer | refused_release | Not from me; I only tap the casks I filled.
+post:brewer | refused | I won't, and there's no use asking[; {reason}].
+post:brewer | parted | Farewell, and come back thirsty.
+post:brewer | parted | Safe travels; the casks will still be here.
+post:brewer | not_understood | What do you mean, and have you been at the ale?
+post:brewer | not_understood | That's beyond me; try again, slower.
+# ---- post:bartender ----
+post:bartender | about_self | {speaker}. I pour, I listen, and I forget most of it.
+post:bartender | about_self | I keep this bar[ in {place}], and I keep it quiet.
+post:bartender | about_person | {name}[, the {role}]. You didn't hear it from me[, but look at {where}].
+post:bartender | about_person | Keep your voice down. {name}'s the {role}[, found at {where}].
+post:bartender | about_place | That's {about}. The rest you'll get from a looser tongue than mine.
+post:bartender | about_place | So you're asking after {about}. The name's come up, nothing more.
+post:bartender | surroundings | You'd be in {here}; the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+post:bartender | surroundings | Outside these doors is {here}, and the nearest is {nearest}.[ Beyond, {others}.][ And the {danger}; I'd drink indoors.]
+post:bartender | surroundings | The nearest, since you ask, is {nearest}.[ Then {others}.][ Watch for {danger}.]
+post:bartender | work_own | Come closer; there's work, if you want it: {own}.[ If not, {others}.]
+post:bartender | work_own | Something needs doing, and you'll do: {own}.[ Otherwise, {others}.]
+post:bartender | work_others | The talk at this bar says {others}.
+post:bartender | work_others | Over the cups, I hear {others}.
+post:bartender | work_none | None; if there were, I'd have heard.
+post:bartender | work_none | Nobody's asked me to find anyone, so no.
+post:bartender | unknown | Never heard of it, and that's saying something.
+post:bartender | unknown | I know nothing about that, and I like it that way.
+post:bartender | accepted | Done. Now drink up and go.
+post:bartender | accepted | Then it's agreed; I'll keep your stool warm.
+post:bartender | declined | Suit yourself; the offer goes back under the bar.
+post:bartender | declined | Fair enough; forget I asked.
+post:bartender | abandoned | So be it; I'll wipe it off the slate.
+post:bartender | abandoned | As you wish; I'll find someone who finishes.
+post:bartender | refused_give | That's not mine to hand over; it's {giver}'s business.
+post:bartender | refused_give | No; I pour drinks, not other people's work.
+post:bartender | refused_release | I can't undo what {giver} set you to.
+post:bartender | refused_release | Not from me; I never gave it.
+post:bartender | refused | I won't, and don't push it[; {reason}].
+post:bartender | parted | Go well; you were never here.
+post:bartender | parted | Take care; don't drink on the road.
+post:bartender | not_understood | Speak plainly; this is a bar, not a riddle hall.
+post:bartender | not_understood | I don't follow, and I've poured for every kind of mumbler.
+# ---- post:host ----
+post:host | about_self | I am {speaker}, and I keep this house[ in {place}]. Whoever sleeps or eats under its roof is my concern.
+post:host | about_self | If it's a bed or a meal you want, I'm the one to ask.
+post:host | about_person | Of {name}[, the {role}], I'll say only what's proper.[ Ask at {where}.]
+post:host | about_person | A name I know well: {name}, the {role}[; you'll find them at {where}].
+post:host | about_place | Ah, {about}; I pass it on as guests bring it.
+post:host | about_place | Yes, {about}, and that is the sum of what I've been told.
+post:host | surroundings | This house stands in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I'd warn any guest of the {danger}.]
+post:host | surroundings | You are in {here}; the closest is {nearest}.[ After that, {others}.][ Mind the {danger}; I'd hate to lose a guest to them.]
+post:host | surroundings | As my guests tell it, the nearest is {nearest}.[ Beyond that, {others}.][ And do mind the {danger}.]
+post:host | work_own | A guest who asks for work gets an honest answer: {own}.[ Should that not suit, {others}.]
+post:host | work_own | There is a matter that needs someone from outside the house: {own}.[ If not, {others}.]
+post:host | work_others | I have nothing to offer myself; however, {others}.
+post:host | work_others | Those who stop here talk; {others}.
+post:host | work_none | At present, no, and I'd tell you if there were.
+post:host | work_none | None, I'm afraid; no one has asked me to find hands.
+post:host | unknown | I can't say, and I'll not guess in front of a guest.
+post:host | unknown | I've never heard of it, and a great many people pass this door.
+post:host | accepted | Very good; I'll expect you back.
+post:host | accepted | Thank you; the house wishes you well of it.
+post:host | declined | As you wish; I'll not press a guest.
+post:host | declined | So be it; thank you for hearing me out.
+post:host | abandoned | Then it's done; I'd hoped to hear the end of it over supper.
+post:host | abandoned | A pity; I'll find someone steadier.
+post:host | refused_give | That's not mine to offer; it belongs to {giver}.
+post:host | refused_give | No; I give out only what the house needs done.
+post:host | refused_release | I cannot release you from {giver}'s affair.
+post:host | refused_release | Not from me; that bargain was made elsewhere.
+post:host | refused | I won't, and I'm sorry for it[; {reason}].
+post:host | parted | Farewell; the door is open to you.
+post:host | parted | Safe travels, and speak well of the house.
+post:host | not_understood | I'm not sure what you mean; perhaps once more, slowly.
+post:host | not_understood | That's beyond me; put it another way.
+# ---- post:service_worker ----
+post:service_worker | about_self | {speaker}, not that anyone asks; I'm the one with the trays.
+post:service_worker | about_self | I'm a {post}[ in {place}], which means beds, tables and floors, all day.
+post:service_worker | about_person | Oh, {name}[, the {role}].[ Look at {where}, and let me get on with the tables.]
+post:service_worker | about_person | {name}[, the {role}][, over at {where}]. Now, can I get back to it?
+post:service_worker | about_place | Well, it's {about}; not that I ever get out to see it.
+post:service_worker | about_place | Between trays, I've heard of {about}.
+post:service_worker | surroundings | You're in {here}, and I'm run off my feet; the nearest is {nearest}.[ Past that, {others}.][ Look out for {danger}.]
+post:service_worker | surroundings | Right, quickly: this is {here}, and the closest is {nearest}.[ Then {others}.][ And watch for {danger}.]
+post:service_worker | surroundings | All I know is the nearest is {nearest}.[ Then there's {others}.][ Beware the {danger}.]
+post:service_worker | work_own | Keep your voice down; this one's real work: {own}.[ If not, {others}.]
+post:service_worker | work_own | Here's something, if you've a free hand: {own}.[ Otherwise, {others}.]
+post:service_worker | work_others | Me? I take orders, I don't give them; but {others}.
+post:service_worker | work_others | Nothing of mine, but I've heard {others}.
+post:service_worker | work_none | None, unless you want my trays, and you don't.
+post:service_worker | work_none | If there's work going, nobody tells me.
+post:service_worker | unknown | No idea; I only work here.
+post:service_worker | unknown | I don't know, and I haven't time to find out.
+post:service_worker | accepted | Good; at least one thing's off my hands.
+post:service_worker | accepted | Thank you; my feet thank you too.
+post:service_worker | declined | Fair enough; I'll carry it myself, like everything else.
+post:service_worker | declined | Suit yourself; I'll manage somehow.
+post:service_worker | abandoned | So be it; it lands on me, then.
+post:service_worker | abandoned | Very well; back on the pile it goes.
+post:service_worker | refused_give | That's not mine; I'd not dare hand out {giver}'s work.
+post:service_worker | refused_give | No; I've nothing to hand over but a tray.
+post:service_worker | refused_release | I can't let you off {giver}'s work; I carry plates, not promises.
+post:service_worker | refused_release | Not from me; I've no say in it.
+post:service_worker | refused | I won't, sorry[; {reason}].
+post:service_worker | parted | Goodbye, and shut the door; I've enough to sweep.
+post:service_worker | parted | Take care; I'll be here, as ever.
+post:service_worker | not_understood | What do you mean, and can it wait?
+post:service_worker | not_understood | Speak plainly; my head's full of orders.
+# ---- post:bath_attendant ----
+post:bath_attendant | about_self | I'm {speaker}; I heat the water, scrub the backs and wring the linen[ here in {place}].
+post:bath_attendant | about_self | Everyone comes in dirty, and nobody leaves that way, not past me.
+post:bath_attendant | about_person | {name}? Aye, the {role}, clean or not.[ Ask at {where}.]
+post:bath_attendant | about_person | I know {name}[, the {role}], but I don't talk about who's been in the water.[ Find them at {where}.]
+post:bath_attendant | about_place | That's {about}. Bring the dirt of it back here after.
+post:bath_attendant | about_place | You mean {about}? I only know what's said over the tubs.
+post:bath_attendant | surroundings | Past the steam is {here}; the nearest is {nearest}.[ Beyond that, {others}.][ And the {danger}, so come back filthy but whole.]
+post:bath_attendant | surroundings | This is {here}, and the closest is {nearest}.[ After that, {others}.][ Keep well off the {danger}.]
+post:bath_attendant | surroundings | Near as I know, the closest is {nearest}.[ Then {others}.][ Beware the {danger}.]
+post:bath_attendant | work_own | I need someone sturdier than they look: {own}.[ If not, {others}.]
+post:bath_attendant | work_own | Here's one that'll get you out of the steam: {own}.[ Otherwise, {others}.]
+post:bath_attendant | work_others | I've only water to haul, and that's mine; but {others}.
+post:bath_attendant | work_others | What I hear through the steam: {others}.
+post:bath_attendant | work_none | Only if you fancy wringing linen, and I do that myself.
+post:bath_attendant | work_none | Nothing; the scrubbing's mine, and I keep it.
+post:bath_attendant | unknown | I've never heard of it, and people tell me everything with their clothes off.
+post:bath_attendant | unknown | I couldn't tell you; ask someone who's dry.
+post:bath_attendant | accepted | Good. You'll want a wash when it's done.
+post:bath_attendant | accepted | Thank you; that's a load off my arms.
+post:bath_attendant | declined | Very well; the fires won't stoke themselves.
+post:bath_attendant | declined | So be it; I'll wring it out myself.
+post:bath_attendant | abandoned | A pity; I'll wash my hands of it.
+post:bath_attendant | abandoned | Then it's done, and down the drain.
+post:bath_attendant | refused_give | That's not mine to hand you; {giver} holds it.
+post:bath_attendant | refused_give | No; all I hand out is towels.
+post:bath_attendant | refused_release | I can't wash {giver}'s work off you.
+post:bath_attendant | refused_release | Not from me; I didn't put it on you.
+post:bath_attendant | refused | I won't, and that's flat[; {reason}].
+post:bath_attendant | parted | Safe travels, and come back when you need a scrub.
+post:bath_attendant | parted | Farewell; you know where the water is.
+post:bath_attendant | not_understood | Speak plainly; I've steam in my ears.
+post:bath_attendant | not_understood | What do you mean; say it louder, over the splashing.
+# ---- post:assistant ----
+post:assistant | about_self | Just {speaker}; I fetch, carry, sweep, and do as I'm told[ here in {place}].
+post:assistant | about_self | {speaker}, an {post}. I'm still learning, so don't ask me anything hard.
+post:assistant | about_person | That's {name}, the {role}.[ Go to {where}, but don't say I sent you.]
+post:assistant | about_person | Aye, {name}[, the {role}], but I'd best keep to my work.[ Head for {where}.]
+post:assistant | about_place | It's {about}, or that's what I've picked up while sweeping.
+post:assistant | about_place | Oh, {about}. I've heard it talked of over my head.
+post:assistant | surroundings | This is {here}, I know that much; the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+post:assistant | surroundings | You're in {here}, and the closest is {nearest}.[ After that, {others}.][ And the {danger}; I'd not go alone.]
+post:assistant | surroundings | Don't quote me, but the nearest is {nearest}.[ Then {others}.][ Watch for {danger}.]
+post:assistant | work_own | Here's an errand bigger than mine: {own}.[ Otherwise, {others}.]
+post:assistant | work_own | If you've a spare hand, I've something: {own}.[ Or {others}.]
+post:assistant | work_others | Ask anyone but me; {others}.
+post:assistant | work_others | I only hear things in passing: {others}.
+post:assistant | work_none | None that I know of, and I'm the last to know anything.
+post:assistant | work_none | Nothing; I just do what I'm given.
+post:assistant | unknown | I couldn't tell you; I'm only the help.
+post:assistant | unknown | Never heard of it; ask someone who's been here longer.
+post:assistant | accepted | Thank you; I'll not forget it.
+post:assistant | accepted | Good. I hope you're quicker than me.
+post:assistant | declined | As you wish; it's not as if I'm in charge.
+post:assistant | declined | Very well; I'll keep looking.
+post:assistant | abandoned | A pity; now I'll have to explain it.
+post:assistant | abandoned | So be it; I'll manage, one way or another.
+post:assistant | refused_give | That's not mine; it's {giver}'s, and I'd be in trouble.
+post:assistant | refused_give | No, I can't give out what isn't mine.
+post:assistant | refused_release | I can't let you off {giver}'s work, I'm sorry.
+post:assistant | refused_release | Not from me; I'm the last one who could.
+post:assistant | refused | I won't go against it[; {reason}].
+post:assistant | parted | Take care; I'd better run before I'm missed.
+post:assistant | parted | Goodbye; mind how you go.
+post:assistant | not_understood | I'm not sure what you mean; could you say it simpler?
+post:assistant | not_understood | I don't follow; is that a word I should know?

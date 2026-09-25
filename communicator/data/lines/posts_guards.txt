@@ -1,0 +1,331 @@
+# Written lines (roster posts: guards). The format and the rules: README.md in this folder.
+# ---- post:watch_guard ----
+post:watch_guard | about_self | {speaker}, {post}. My boots know {place} better than I do.
+post:watch_guard | about_self | Me? I walk the rounds and break up whatever needs breaking up.
+post:watch_guard | about_person | {name}? The {role}; I know the face.[ Find them at {where}.]
+post:watch_guard | about_person | Aye, I know {name}[, the {role}][; you'd want {where}].
+post:watch_guard | about_place | {about}. I'd go armed, but I go armed everywhere.
+post:watch_guard | about_place | On the street they'd tell you this: {about}.
+post:watch_guard | surroundings | You're in {here}, on my rounds, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+post:watch_guard | surroundings | {here}, my patch; the nearest is {nearest}.[ Beyond that, {others}.][ Keep clear of the {danger}.]
+post:watch_guard | surroundings | Past my beat, the first thing you'd come to is {nearest}.[ After that, {others}.][ And mind the {danger}.]
+post:watch_guard | work_own | Another pair of boots would help: {own}.[ If that's not your line, {others}.]
+post:watch_guard | work_own | Here's one I can't cover alone: {own}.[ Or else, {others}.]
+post:watch_guard | work_others | None of mine, but I hear things on the street: {others}.
+post:watch_guard | work_others | Ask around and you'd hear it anyway: {others}.
+post:watch_guard | work_none | Nothing for you; I've my rounds, and they're mine to walk.
+post:watch_guard | work_none | Can't help you there; all I've got is sore feet.
+post:watch_guard | unknown | Never heard the name, and there's not much I haven't heard.
+post:watch_guard | unknown | I couldn't tell you; I know doors and alleys, not that.
+post:watch_guard | refused_give | That's not mine to hand out; it's {giver}'s work.
+post:watch_guard | refused_give | Not from me; I'd sooner hand over my cudgel.
+post:watch_guard | refused_release | I cannot; {giver} set you to it, and only {giver} can call you off.
+post:watch_guard | refused_release | I won't; you gave your word to someone else, not to me.
+post:watch_guard | refused | No, and don't push it[; {reason}].
+post:watch_guard | accepted | Good. Keep your eyes open and your hands where I can see them.
+post:watch_guard | accepted | Then it's agreed. Mind you keep to it.
+post:watch_guard | declined | Suit yourself; the streets won't walk themselves.
+post:watch_guard | declined | Fair enough; it goes back on my beat.
+post:watch_guard | abandoned | Very well; I had you down as someone who finishes.
+post:watch_guard | abandoned | So be it; the streets are full of quitters.
+post:watch_guard | parted | Go well, and stay out of my guardhouse.
+post:watch_guard | parted | Take care; I'd rather not find you face down in a gutter.
+post:watch_guard | not_understood | Speak plainly; I've heard drunks make more sense.
+post:watch_guard | not_understood | I'm not sure what you mean; try it again, slower.
+# ---- post:gate_guard ----
+post:gate_guard | about_self | {speaker}, on the gate. I watch what comes in and what goes out.
+post:gate_guard | about_self | Mine's the asking; yours is the business, so let's hear it.
+post:gate_guard | about_person | {name}, the {role}, at {where}; that's name, trade and whereabouts, all I ever ask of anyone.
+post:gate_guard | about_person | You mean {name}[, the {role}]?[ Look for them at {where}.]
+post:gate_guard | about_place | {about}. Come back this way and I'll want to hear what you found.
+post:gate_guard | about_place | All I know of it, I had from people passing: {about}.
+post:gate_guard | surroundings | This is the gate of {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+post:gate_guard | surroundings | {here}, and you'll want to know the nearest: {nearest}.[ Beyond it, {others}.][ Stay clear of the {danger}.]
+post:gate_guard | surroundings | Out through the arch, the first thing you reach is {nearest}.[ After that, {others}.][ Watch for the {danger}.]
+post:gate_guard | work_own | If you've the arm for it: {own}.[ Not your sort of work? Then {others}.]
+post:gate_guard | work_own | One more spear would do it: {own}.[ If not, {others}.]
+post:gate_guard | work_others | From what passes through here: {others}.
+post:gate_guard | work_others | None of it mine, but {others}.
+post:gate_guard | work_none | Nothing; the gate is all I have, and it's not for sharing.
+post:gate_guard | work_none | Only my spot in the arch, and it's taken.
+post:gate_guard | unknown | I've never heard the name, and I hear most names that come my way.
+post:gate_guard | unknown | I don't know; ask me about carts and faces instead.
+post:gate_guard | refused_give | That's not mine; it's {giver}'s, and it stays {giver}'s.
+post:gate_guard | refused_give | Not from me, any more than I'd hand you my post.
+post:gate_guard | refused_release | I can't; that's between you and {giver}.
+post:gate_guard | refused_release | I won't; I don't unmake other people's bargains.
+post:gate_guard | refused | No, and waiting here won't change it[; {reason}].
+post:gate_guard | accepted | Done. Go on through.
+post:gate_guard | accepted | Very good. Keep your wits; I'll keep the gate.
+post:gate_guard | declined | As you wish; I'm here either way.
+post:gate_guard | declined | So be it; next.
+post:gate_guard | abandoned | Then it's done; move along.
+post:gate_guard | abandoned | A pity; I'll look at you twice next time you pass.
+post:gate_guard | parted | Safe travels; I'll know your face when you come back.
+post:gate_guard | parted | Farewell, and keep moving.
+post:gate_guard | not_understood | That's beyond me; this is a gate, not a riddle.
+post:gate_guard | not_understood | What do you mean, and what's your business?
+# ---- post:soldier ----
+post:soldier | about_self | {speaker}, reporting. I go where I'm sent and stand where I'm put.
+post:soldier | about_self | Just another spear in the line at {place}.
+post:soldier | about_person | {name}, {role}[, stationed at {where}]. That's as much as anyone tells me.
+post:soldier | about_person | Aye, {name}[, the {role}].[ Last I heard, at {where}.]
+post:soldier | about_place | {about}. If they send us there, we go.
+post:soldier | about_place | Right: {about}. That's the report as I have it.
+post:soldier | surroundings | We're at {here}, and the nearest ground is {nearest}.[ Beyond that, {others}.][ Watch your flank near the {danger}.]
+post:soldier | surroundings | {here}; march out and the first thing you'll hit is {nearest}.[ Then {others}.][ Keep your distance from the {danger}.]
+post:soldier | surroundings | First ground out from here is {nearest}.[ After that, {others}.][ Look out for the {danger}.]
+post:soldier | work_own | If you can keep step, there's this: {own}.[ Otherwise, {others}.]
+post:soldier | work_own | Here's my detail, and room for one more: {own}.[ Or else {others}.]
+post:soldier | work_others | Nothing for you from me, but I've heard this: {others}.
+post:soldier | work_others | From what gets passed down the line: {others}.
+post:soldier | work_none | All I've got is drill, and you don't want that.
+post:soldier | work_none | Can't hand out orders I don't have.
+post:soldier | unknown | No idea; they don't tell a spear much.
+post:soldier | unknown | I don't know; nobody's put it in my orders.
+post:soldier | refused_give | That's not mine to hand out; it's {giver}'s command.
+post:soldier | refused_give | Not from me; that's above my station.
+post:soldier | refused_release | I cannot; {giver} gave the order, and {giver} can stand you down.
+post:soldier | refused_release | I won't; you took it on, so it's yours to finish.
+post:soldier | refused | No[; {reason}], and I don't argue with that.
+post:soldier | accepted | Good. Don't break ranks on me.
+post:soldier | accepted | Thank you; that's one more spear than I had.
+post:soldier | declined | Very well; the line holds without you.
+post:soldier | declined | As you wish; I'll march it alone.
+post:soldier | abandoned | So be it; there's always another at muster.
+post:soldier | abandoned | Then it's done; I took you for someone who'd see it through.
+post:soldier | parted | Safe travels; eyes front.
+post:soldier | parted | Take care; keep your head down and your feet moving.
+post:soldier | not_understood | Speak plainly; I take words the way I take orders, straight.
+post:soldier | not_understood | What do you mean, and do I salute it?
+# ---- post:tower_watch ----
+post:tower_watch | about_self | {speaker}, {post}. I climb, I watch, I climb down.
+post:tower_watch | about_self | Up in the tower, a body learns to wait.
+post:tower_watch | about_person | {name}, the {role}[, at {where}]. From the tower, a speck like the rest.
+post:tower_watch | about_person | Know the name: {name}[, the {role}].[ Look to {where}.]
+post:tower_watch | about_place | {about}. Whatever comes from there, I'd rather see it first.
+post:tower_watch | about_place | Hm. {about}. Nothing I can do about it but look.
+post:tower_watch | surroundings | {here}; the nearest, {nearest}.[ Then {others}.][ And the {danger}; mind them.]
+post:tower_watch | surroundings | You're at {here}, under my tower; the nearest is {nearest}.[ Beyond it, {others}.][ Keep clear of the {danger}.]
+post:tower_watch | surroundings | The nearest thing I keep an eye on is {nearest}.[ Past it, {others}.][ Mind the {danger}.]
+post:tower_watch | work_own | Two watch better than one: {own}.[ Or {others}.]
+post:tower_watch | work_own | For someone with patience and a steady arm: {own}.[ Otherwise, {others}.]
+post:tower_watch | work_others | Only what I've heard: {others}.
+post:tower_watch | work_others | Some talk climbs the stair: {others}.
+post:tower_watch | work_none | Nothing; I watch, and watching is a job for one.
+post:tower_watch | work_none | All I have is a stair and a long view.
+post:tower_watch | unknown | I couldn't tell you; I only know what I can see.
+post:tower_watch | unknown | Never heard it; the wind takes most talk before it gets up here.
+post:tower_watch | refused_give | That's not mine; it's {giver}'s to give.
+post:tower_watch | refused_give | Not from me; it's not my watch.
+post:tower_watch | refused_release | I can't; {giver} set it, {giver} lifts it.
+post:tower_watch | refused_release | I won't; not my word to take back.
+post:tower_watch | refused | No[, {reason}], and that's the end of it.
+post:tower_watch | accepted | Done. I'll know you by your walk when you come back.
+post:tower_watch | accepted | Thank you; that's one less thing to squint at.
+post:tower_watch | declined | Very well; it'll keep, and so will I.
+post:tower_watch | declined | So be it; the tower's not going anywhere.
+post:tower_watch | abandoned | As you wish; I'll carry it up the stair with the rest.
+post:tower_watch | abandoned | A pity; I'd hoped to see it done.
+post:tower_watch | parted | Goodbye; I'll keep you in sight as far as I can.
+post:tower_watch | parted | Go well; you'll be a speck soon enough.
+post:tower_watch | not_understood | That's beyond me; too many words for one question.
+post:tower_watch | not_understood | I don't follow; say it slower, I've all the time there is.
+# ---- post:garrison_trooper ----
+post:garrison_trooper | about_self | {speaker}, {post}, and bored stiff behind these walls.
+post:garrison_trooper | about_self | Another blade in the barracks, waiting for a reason to use it.
+post:garrison_trooper | about_person | {name}? The {role}.[ Out at {where}, lucky them.]
+post:garrison_trooper | about_person | Sure, I know {name}[, the {role}].[ Go find them at {where}, and take me with you.]
+post:garrison_trooper | about_place | {about}. I'd go just to stretch my legs.
+post:garrison_trooper | about_place | Out there? {about}. Still beats a bunk.
+post:garrison_trooper | surroundings | You're in {here}, and outside these walls the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}, or send me instead.]
+post:garrison_trooper | surroundings | {here}, for all I see of it; the nearest is {nearest}.[ Then {others}.][ And watch the {danger}.]
+post:garrison_trooper | surroundings | Outside, the nearest is {nearest}.[ Beyond it, {others}.][ Keep an eye on the {danger}.]
+post:garrison_trooper | work_own | At last, something worth the steel: {own}.[ If that's not for you, {others}.]
+post:garrison_trooper | work_own | Is it a fight you're after? Here: {own}.[ Or else {others}.]
+post:garrison_trooper | work_others | Nothing here but boredom; I hear this, though: {others}.
+post:garrison_trooper | work_others | If it were mine to take, I'd be gone already: {others}.
+post:garrison_trooper | work_none | Can't give what I haven't got, and I've got a bunk and a blade.
+post:garrison_trooper | work_none | All we do is wait; you're welcome to join in.
+post:garrison_trooper | unknown | No idea; nothing reaches us in the barracks.
+post:garrison_trooper | unknown | I know nothing about it, and less about most things.
+post:garrison_trooper | refused_give | That's not mine; it's {giver}'s, and I've trouble enough.
+post:garrison_trooper | refused_give | Not from me; I've nothing to hand out but blisters.
+post:garrison_trooper | refused_release | I cannot; {giver} holds that, not me.
+post:garrison_trooper | refused_release | I won't; you gave your word, now keep it.
+post:garrison_trooper | refused | No[; {reason}], worse luck.
+post:garrison_trooper | accepted | Done. Don't come back in pieces.
+post:garrison_trooper | accepted | Then it's agreed; bring me back a story, I've heard all of mine.
+post:garrison_trooper | declined | Suit yourself; more for me, if I ever get out of here.
+post:garrison_trooper | declined | Fair enough; I'll go back to counting stones in the wall.
+post:garrison_trooper | abandoned | Very well, and I'm still stuck in here.
+post:garrison_trooper | abandoned | As you wish; I'd have gone in your place.
+post:garrison_trooper | parted | Safe travels; spare a thought for the rest of us.
+post:garrison_trooper | parted | Farewell; I'll be where you left me, same as ever.
+post:garrison_trooper | not_understood | What do you mean, in barracks words?
+post:garrison_trooper | not_understood | I don't follow; I've been cooped up too long for riddles.
+# ---- post:keep_guard ----
+post:keep_guard | about_self | I am {speaker}, {post}, and when all else falls, I am what stands.
+post:keep_guard | about_self | Mine is the last door in {place}.
+post:keep_guard | about_person | {name}[, the {role}][; you will find them at {where}]. I say no more of anyone than that.
+post:keep_guard | about_person | The name is known to me: {name}[, the {role}][, at {where}].
+post:keep_guard | about_place | {about}. Whatever holds it, it will not take this keep.
+post:keep_guard | about_place | Of that place I know this: {about}.
+post:keep_guard | surroundings | You stand in {here}, under the keep; the nearest is {nearest}.[ Beyond, {others}.][ Keep clear of the {danger}.]
+post:keep_guard | surroundings | We are in {here}, and the nearest is {nearest}.[ Past it, {others}.][ Give a wide berth to the {danger}.]
+post:keep_guard | surroundings | Beyond these walls, the nearest is {nearest}.[ Then {others}.][ Beware the {danger}.]
+post:keep_guard | work_own | Give me one more who does not break: {own}.[ If not, {others}.]
+post:keep_guard | work_own | Will you stand with me? {own}.[ Otherwise, {others}.]
+post:keep_guard | work_others | None from me, but I have heard this: {others}.
+post:keep_guard | work_others | My place is the door, not the hiring; {others}.
+post:keep_guard | work_none | There is no work here but the standing, and that is mine.
+post:keep_guard | work_none | Nothing; I have only my post, and it is not for giving.
+post:keep_guard | unknown | I know nothing of it, and I do not guess.
+post:keep_guard | unknown | I've never heard the name; I have no ear for rumour.
+post:keep_guard | refused_give | That's not mine; it is {giver}'s to give, and {giver}'s alone.
+post:keep_guard | refused_give | I can't give what is not mine to give.
+post:keep_guard | refused_release | I won't unbind what {giver} has bound.
+post:keep_guard | refused_release | No; a word given is a word kept.
+post:keep_guard | refused | Not from me[; {reason}], and there it ends.
+post:keep_guard | accepted | Very good. Hold fast, and hold to the last.
+post:keep_guard | accepted | Thank you. The keep will remember it.
+post:keep_guard | declined | As you wish; the door holds with or without you.
+post:keep_guard | declined | So be it; I will stand the harder.
+post:keep_guard | abandoned | A pity; I had judged you steadier.
+post:keep_guard | abandoned | Then it's done; I will not ask again.
+post:keep_guard | parted | Farewell; I shall be here when you return.
+post:keep_guard | parted | Go well, and come back whole.
+post:keep_guard | not_understood | Speak plainly; this is a keep, not a court.
+post:keep_guard | not_understood | I'm not sure what you mean; say it once more, slowly.
+# ---- post:lookout ----
+post:lookout | about_self | {speaker}, {post}. Up on the wall over {place} is where I live.
+post:lookout | about_self | The eyes on the wall, that's me.
+post:lookout | about_person | {name}, the {role}; I'd pick them out of any crowd.[ Head for {where}.]
+post:lookout | about_person | Oh, {name}[, the {role}]![ You'll find them at {where}.]
+post:lookout | about_place | {about}. I'd look twice at everything there, and I should know.
+post:lookout | about_place | Sure, and I'd know it at a glance: {about}.
+post:lookout | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Keep an eye on the {danger}; I do.]
+post:lookout | surroundings | This is {here}, and from up top the first thing I'd point you to is {nearest}.[ Then {others}.][ Watch out for the {danger}.]
+post:lookout | surroundings | Your nearest is {nearest}.[ Past it, {others}.][ And look sharp for the {danger}.]
+post:lookout | work_own | If you're quick on your feet, here: {own}.[ Or else, {others}.]
+post:lookout | work_own | Here's one that wants sharp eyes and a steady blade: {own}.[ Otherwise, {others}.]
+post:lookout | work_others | There's work about, just not mine: {others}.
+post:lookout | work_others | Look, I hear everything on the wall: {others}.
+post:lookout | work_none | Nothing I've spotted, and I spot most things.
+post:lookout | work_none | All I've got is a sore neck and a good view.
+post:lookout | unknown | Never heard the name, and not much gets past me.
+post:lookout | unknown | I've never heard of it, and if it moved, I'd have seen it.
+post:lookout | refused_give | That's not mine; {giver} set that, and I just watch.
+post:lookout | refused_give | Not from me; it isn't mine to pass along.
+post:lookout | refused_release | I cannot; that's {giver}'s knot to untie.
+post:lookout | refused_release | I won't; I'd not undo somebody else's bargain.
+post:lookout | refused | No, much as I'd like to[; {reason}].
+post:lookout | accepted | Good! I'll be watching for you.
+post:lookout | accepted | Then it's agreed; wave when you're back in sight.
+post:lookout | declined | Suit yourself; I'll spot someone else.
+post:lookout | declined | Very well; plenty more faces down there.
+post:lookout | abandoned | So be it; I'll keep an eye out for someone steadier.
+post:lookout | abandoned | As you wish; there's always another pair of legs.
+post:lookout | parted | Safe travels; don't do anything I'd have to shout about.
+post:lookout | parted | Goodbye; look up now and then, I'll be there.
+post:lookout | not_understood | That's beyond me; I'm all eyes, not all ears.
+post:lookout | not_understood | I don't follow; point at it, maybe.
+# ---- post:jailer ----
+post:jailer | about_self | {speaker}, {post}. I keep the keys, and the keys keep everyone else.
+post:jailer | about_self | Every lock in the cells answers to me.
+post:jailer | about_person | {name}, the {role}[, at {where}]. I make a point of knowing names.
+post:jailer | about_person | Ah, {name}[, the {role}].[ Look for them at {where}, not in my cells.]
+post:jailer | about_place | {about}. Go if you like; I'll keep a cell warm.
+post:jailer | about_place | Some of what I'm told is even true: {about}.
+post:jailer | surroundings | You're in {here}, and outside my walls the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}; I can't lock those up.]
+post:jailer | surroundings | {here}, for my sins, and the nearest is {nearest}.[ Beyond it, {others}.][ Stay clear of the {danger}.]
+post:jailer | surroundings | Out past the last lock, the nearest is {nearest}.[ Then {others}.][ Watch the {danger}.]
+post:jailer | work_own | My keys don't open this one: {own}.[ If that's not for you, {others}.]
+post:jailer | work_own | I've a matter, if you can keep your nerve: {own}.[ Otherwise, {others}.]
+post:jailer | work_others | Even the cells hear who's hiring: {others}.
+post:jailer | work_others | Somebody's hiring, and it isn't me: {others}.
+post:jailer | work_none | Nothing; the only work I have comes with a bucket and a bad smell.
+post:jailer | work_none | If I had work, I'd have someone locked up doing it.
+post:jailer | unknown | No idea, and I've heard every lie there is.
+post:jailer | unknown | I don't know; nobody's confessed it to me yet.
+post:jailer | refused_give | That's not mine; it's {giver}'s, and I don't open other people's doors.
+post:jailer | refused_give | Not from me; the only things I hand out go through the bars.
+post:jailer | refused_release | I can't; {giver} holds that key, not me.
+post:jailer | refused_release | I won't; I'm in the business of holding people, not letting them go.
+post:jailer | refused | No[; {reason}], and pleading won't help.
+post:jailer | accepted | Good. And don't lie to me after; I'll know.
+post:jailer | accepted | Very good. Come back with the truth, not a story.
+post:jailer | declined | Fair enough; folk rarely want favours from the one with the keys.
+post:jailer | declined | Suit yourself; I've locks to check.
+post:jailer | abandoned | So be it; I've heard that excuse before, whatever it is.
+post:jailer | abandoned | A pity; I'd started to trust you, and I trust nobody.
+post:jailer | parted | Farewell; stay on the right side of the bars.
+post:jailer | parted | Goodbye, and don't come back through my door.
+post:jailer | not_understood | What do you mean; is that a confession?
+post:jailer | not_understood | Speak plainly; I've heard mumbling from better liars.
+# ---- post:watch_officer ----
+post:watch_officer | about_self | {speaker}, {post}. I've a watch to run and not long to talk.
+post:watch_officer | about_self | Whatever goes wrong in {place} ends up on my desk.
+post:watch_officer | about_person | {name}, the {role}.[ Last reported at {where}.]
+post:watch_officer | about_person | We have {name} on file[, the {role}][, at {where}].
+post:watch_officer | about_place | {about}. If you go, I'll want a full account.
+post:watch_officer | about_place | On record: {about}.
+post:watch_officer | surroundings | You're in {here}, in my jurisdiction; the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}; that's an order.]
+post:watch_officer | surroundings | {here}; nearest to us is {nearest}.[ Beyond, {others}.][ Keep well clear of the {danger}.]
+post:watch_officer | surroundings | In brief: the nearest is {nearest}.[ Then {others}.][ And the {danger}; avoid them.]
+post:watch_officer | work_own | There's a task for someone capable: {own}.[ If not, {others}.]
+post:watch_officer | work_own | Here's an assignment, if you'll take it: {own}.[ Otherwise, {others}.]
+post:watch_officer | work_others | My desk has nothing for you; {others}.
+post:watch_officer | work_others | For work, look elsewhere: {others}.
+post:watch_officer | work_none | Nothing for you at present.
+post:watch_officer | work_none | Everything's in hand; nothing I need help with.
+post:watch_officer | unknown | I couldn't tell you; it's crossed no desk of mine.
+post:watch_officer | unknown | I've never heard of it, and I won't guess on the record.
+post:watch_officer | refused_give | That's not mine to assign; it belongs to {giver}.
+post:watch_officer | refused_give | Not from me; I don't reassign another's work.
+post:watch_officer | refused_release | I cannot; {giver} gave you that, and {giver} signs you off it.
+post:watch_officer | refused_release | I won't; it stands until whoever set it says otherwise.
+post:watch_officer | refused | No, and that's final[; {reason}].
+post:watch_officer | accepted | Very good. I expect it done properly.
+post:watch_officer | accepted | Then it's agreed. Come back and report when it's done.
+post:watch_officer | declined | As you wish; I'll assign it elsewhere.
+post:watch_officer | declined | Fair enough; noted.
+post:watch_officer | abandoned | So be it; it goes in the report.
+post:watch_officer | abandoned | A pity; I'd marked you as reliable.
+post:watch_officer | parted | Goodbye; don't give me cause to remember you.
+post:watch_officer | parted | Take care; I'd hate to write you up.
+post:watch_officer | not_understood | I'm not sure what you mean; say it plainly, and once.
+post:watch_officer | not_understood | I don't follow; keep it short, I've no time for puzzles.
+# ---- post:postern_guard ----
+post:postern_guard | about_self | {speaker}. I mind the little door; the big one gets the attention.
+post:postern_guard | about_self | Keep your voice down; I guard the back way, and it's meant to stay quiet.
+post:postern_guard | about_person | {name}, the {role}[, at {where}]; and you didn't hear it from me.
+post:postern_guard | about_person | Aye, {name}[, the {role}].[ Seek them at {where}, and keep me out of it.]
+post:postern_guard | about_place | {about}. Whatever you find there, don't bring it back this way.
+post:postern_guard | about_place | Between us: {about}.
+post:postern_guard | surroundings | This is {here}, round the back; the nearest is {nearest}.[ Beyond, {others}.][ Keep clear of the {danger}.]
+post:postern_guard | surroundings | {here}, if anyone asks, and the nearest is {nearest}.[ Past it, {others}.][ Mind the {danger}.]
+post:postern_guard | surroundings | Once you're out, the nearest is {nearest}.[ Then {others}.][ Watch for the {danger}.]
+post:postern_guard | work_own | If you can keep your voice down, there's this: {own}.[ Otherwise, {others}.]
+post:postern_guard | work_own | Come closer: {own}.[ Or, if not, {others}.]
+post:postern_guard | work_others | None of mine, though I hear a thing or two: {others}.
+post:postern_guard | work_others | Even back here, word gets round: {others}.
+post:postern_guard | work_none | Nothing; this door is all I have, and it's enough.
+post:postern_guard | work_none | Only a bolt to mind, and I mind it alone.
+post:postern_guard | unknown | I know nothing, and that's how I like it.
+post:postern_guard | unknown | Never heard of it, and I'd be careful who you ask.
+post:postern_guard | refused_give | That's not mine; it's {giver}'s, and I'll not be seen handing it on.
+post:postern_guard | refused_give | Not from me; nothing leaves this door in my name.
+post:postern_guard | refused_release | I can't; that's {giver}'s bargain, not mine to slip you out of.
+post:postern_guard | refused_release | I won't; a back door isn't a way out of your word.
+post:postern_guard | refused | No, and keep it down[; {reason}].
+post:postern_guard | accepted | Done. Out the little door with you, then.
+post:postern_guard | accepted | Thank you. Go softly.
+post:postern_guard | declined | Very well; forget you asked.
+post:postern_guard | declined | So be it; you never saw me.
+post:postern_guard | abandoned | As you wish; I don't ask twice.
+post:postern_guard | abandoned | Then it's done; we'll say no more about it.
+post:postern_guard | parted | Go well, and quietly.
+post:postern_guard | parted | Take care; I'll bolt it behind you.
+post:postern_guard | not_understood | That's beyond me, and I'd rather it stayed that way.
+post:postern_guard | not_understood | I'm not sure what you mean, and it's safer if I don't.

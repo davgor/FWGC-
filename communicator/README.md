@@ -204,7 +204,7 @@ larger-than-life heroes.
 - **The choice** is a hash of the speaker, the situation and the player's words. The same words
   get the same reply, different words spread over the bank, and `previous` (the last reply) is
   not said again while another line fits.
-- **The library** (2026-09-25): 8,670 lines in 34 files.
+- **The library** (2026-09-25): 11,411 lines in 43 files.
   - **Every archetype, at every alignment its heroes carry:** 196 banks of about 44 lines,
     8,618 lines in all. The pairs were counted over 38 generated worlds (sizes 33, 65 and 129),
     plus a true-neutral bank for every archetype.
@@ -214,11 +214,22 @@ larger-than-life heroes.
   - **The faced archetypes and `ancient` are written but unused:** 27 banks, 1,188 lines, for
     deceiver, false_hero, beast, fractured_heart and ancient. Their heroes get no voice key: a
     face hides the archetype, or the hero is a dread.
-  - **The roster posts and `any`:** 52 lines.
-  - **Drafted by one hosted-model writer per archetype,** from a brief of its public personas
-    and a shared guide. Each writer ran `--check-lines` until every row was sound, then the rows
-    were read for the rules no test holds: pet names, claimed deeds, one bank sounding like
-    another.
+  - **Every roster post, and the faces heroes show:** 86 banks of 32 lines, in
+    `posts_<group>.txt` by trade: 2,741 lines, and the gate captain's first 11 in `posts.txt`.
+    The roster's own posts, from the gate guard to the astronomer; the five posts and five
+    trades a hero who hides their true self shows a stranger (sovereign, champion, pretender,
+    domain holder, magister; charcoal burner, hermit, shepherd, pilgrim, midwife); and the
+    dread. A post's voice is its job: the plain work every holder of it does, never a
+    particular deed, customer or stock.
+  - **Not written, on purpose:** reeve, council, harbourmaster, castellan, warlord, keeper,
+    heresiarch, founder and exile. Only heroes with one face hold them, and those always speak
+    from their archetype's banks, so a post bank would never be said.
+  - **The pilot's two posts and `any`:** 52 lines.
+  - **Drafted by one hosted-model writer per archetype, and one per group of posts,** from a
+    brief (the public personas, or the posts' workplaces) and a shared guide. Each writer ran
+    `--check-lines` until every row was sound, then the rows were read for the rules no test
+    holds: pet names, claimed deeds, one bank sounding like another, and an offer's opening
+    that says the speaker stays behind (19 rewritten: a hero's offer may be "... with me").
 - **Judged** blind, with the voice's rubric and a craft score, over the 24 voice cases. Each
   session judged its sets not knowing which was which (2026-09-24). Counts from one session
   compare; the same replies moved by a reply or two between sessions.
@@ -242,10 +253,24 @@ larger-than-life heroes.
   - **Now** the fullest lines are said, `{here}` names where the speaker stands, a place named
     twice is "another", and the eval hands a speaker their last reply. The judge heard "B's
     voice with B's flaws fixed". One miss was left: "is it safe" got the places near by, but not
-    the deadliest one or any threat word. Since fixed in the engine (a dangerous place says so,
-    and the deadliest is always named); not yet judged again.
+    the deadliest one or any threat word. Since fixed in the engine: a dangerous place says so,
+    and the deadliest is always named. The posts' judge (below) heard the dangers named in all
+    ten sets.
   - **Qwen3-4B** invented directions, a temperament for a people, duties from the card, a
     deadline and a route. It rounded 13.6 km to 13, and called abandoned work "finished".
+  - **The roster posts** (2026-09-25), judged blind with the same rubric plus fit. Ten banks
+    were drawn at random, one from each writer's group and the dread. Each spoke the castellan's
+    19 cases as a person of its post (`communicator_eval --post`).
+    - 166 of 190 replies had no fault, and 187 leniently. 3 were clearly false, and none
+      contradicted the outcome. Craft 3.9, fit 4.3.
+    - A second judge matched all 10 sets to their posts, 9 of them from the voice alone.
+    - Its faults, fixed after in 83 rows and not judged again:
+      - offers and outcomes that said what the work was ("if you don't mind soot");
+      - menace or pride that changed a fact (the dread calling the nest "mere weather", the
+        sovereign's "I do not offer twice");
+      - one stock line in six banks.
+    - It read "the hamlet of Wenweg and the deeps, deadly, held by monsters" as both deadly. The
+      engine now says the dangerous place first.
 
 ## What it guarantees, each with a test
 
@@ -301,7 +326,7 @@ larger-than-life heroes.
 - **Streaming adds up, stops when asked, and greedy replies repeat.**
 - **Refusals:** another contract version, a line past `kMaxLineBytes`, options out of range.
 - **Written lines, with no model:**
-  - **Every line in `data/lines/` keeps the voice's rules,** all 8,670. Each row is tried alone
+  - **Every line in `data/lines/` keeps the voice's rules,** all 11,411. Each row is tried alone
     against every test packet, as its bank's speaker. At least one packet must speak it, and
     every reply must hold its outcome's opening, sentence count and closing. It may name only
     what the packet names, begin only sentences with common capitals, and say no barred word but
@@ -425,11 +450,10 @@ fine-tuned voice (the plan's "Building our own model").
   would come from the director or the generator, not from here.
 - **Written lines: choosing by meaning.** The choice is a hash, not what fits the player's words
   best. An embedding model (Qwen3-Embedding-0.6B, on disk) would pick the closest line.
-- **Written lines: the rest of the library.** Every roster post but the gate captain and the
-  innkeeper still speaks from `any`, and there are no sayings per culture yet. A hero whose face
-  hides another, and a dread, speak from their post's lines. Their archetype banks are written
-  and wait for a design that lets a stranger meet the true face.
-- **Written lines that ask the player something.** 441 lines, outside `not_understood`, put a
+- **Written lines: sayings, and the true face.** There are no sayings per culture yet. A hero
+  whose face hides another speaks from the post bank of the face they show. Their archetype
+  banks are written, and wait for a design that lets a stranger meet the true face.
+- **Written lines that ask the player something.** 488 lines, outside `not_understood`, put a
   question to the player ("Are you hurt?", "And you are?"). The interpreter has no act for an
   answer to the speaker's question, so a player who answers is told "I don't follow". Either
   the lines give up their questions, or the interpreter gains such an act: the owner's call.

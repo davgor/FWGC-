@@ -1,0 +1,341 @@
+# Written lines (roster posts: care). The format and the rules: README.md in this folder.
+
+# ---- post:caretaker ----
+post:caretaker | about_self | {speaker}, {post}. Anything dripped, dropped or trodden in, I'm the one who gets it up.
+post:caretaker | about_self | Me? I sweep, I scrub and I trim the wicks[ here in {place}], and nobody notices unless I stop.
+post:caretaker | about_person | {name}, the {role}[, at {where}]. I clean up after people; I don't keep track of them.
+post:caretaker | about_person | Ask at {where} for {name}[, the {role}]; I've a floor to scrub.
+post:caretaker | about_place | That would be {about}. I don't get far from my broom, so that's the whole of it.
+post:caretaker | about_place | Only what I overhear with my head down: {about}.
+post:caretaker | surroundings | You're in {here}[, and the nearest is {nearest}].[ Past that, {others}.][ Mind the {danger}.]
+post:caretaker | surroundings | This is {here}, and all of it comes in on somebody's boots[; the nearest is {nearest}].[ Out past us, {others}.][ Keep clear of the {danger}.]
+post:caretaker | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Watch for the {danger}; I'd rather not mop up after you.]
+post:caretaker | work_own | There's work, and it isn't sweeping: {own}.[ If that's not for you, {others}.]
+post:caretaker | work_own | I could use a second pair of hands: {own}.[ Or else, {others}.]
+post:caretaker | work_others | None of mine, but {others}.
+post:caretaker | work_others | All I've got is a mop and a bucket, and you don't want those; {others}.
+post:caretaker | work_none | Nothing, unless you count dust, and I don't share it.
+post:caretaker | work_none | Just the floor, and that's mine to do.
+post:caretaker | unknown | I couldn't tell you; it's not in any corner I've swept.
+post:caretaker | unknown | Never heard of it, and people talk freely in front of a broom.
+post:caretaker | refused_give | No, that's {giver}'s to hand out, not mine.
+post:caretaker | refused_give | That's not mine to give; I only keep the place.
+post:caretaker | refused_release | I can't release you from {giver}'s work; the only keys I hold open cupboards.
+post:caretaker | refused_release | I won't undo what somebody else set; that's not my mess to clear.
+post:caretaker | refused | I cannot, not when {reason}.
+post:caretaker | accepted | Good; the sooner it's seen to, the sooner I can lock up.
+post:caretaker | accepted | Thank you; I'd have done it myself if the floors would let me.
+post:caretaker | declined | Suit yourself; it'll keep, like the dust.
+post:caretaker | declined | Fair enough; I'll find other hands.
+post:caretaker | abandoned | A pity, but I've cleaned up worse.
+post:caretaker | abandoned | Then it's done; I'll tidy away what's left of it.
+post:caretaker | parted | Take care, and shut the door behind you.
+post:caretaker | parted | Go well, and wipe your feet next time.
+post:caretaker | not_understood | What do you mean; is it something that wants cleaning?
+post:caretaker | not_understood | I'm not sure what you mean; plain words for a plain job, please.
+
+# ---- post:officiant ----
+post:officiant | about_self | I am {speaker}, {post}[ of {place}]; I say the words at the altar, and I say them the same way every time.
+post:officiant | about_self | My work is the rite: the words, the candle, and the quiet after.
+post:officiant | about_person | {name} is the {role}[ at {where}]; I pray for them as I pray for anyone.
+post:officiant | about_person | Seek {name}[, the {role}][, at {where}], and speak with courtesy.
+post:officiant | about_place | That is {about}. My feet know the aisle better than the road.
+post:officiant | about_place | Of {about}, I can tell you that much and no more; I do not embroider.
+post:officiant | surroundings | Outside this house lies {here}[, and the nearest is {nearest}].[ Beyond that, {others}.][ May you keep clear of the {danger}.]
+post:officiant | surroundings | You stand in {here}[; nearest to us is {nearest}].[ Past that, {others}.][ Beware the {danger}, and come back to us whole.]
+post:officiant | surroundings | What lies closest is {nearest}.[ Beyond it, {others}.][ Give the {danger} a wide berth.]
+post:officiant | work_own | We have need of willing hands: {own}.[ If it does not suit you, {others}.]
+post:officiant | work_own | I would ask a service of you: {own}.[ Otherwise, {others}.]
+post:officiant | work_others | I ask nothing of you myself; {others}.
+post:officiant | work_others | For work, look beyond these walls: {others}.
+post:officiant | work_none | There is no work here but prayer, and prayer I do myself.
+post:officiant | work_none | None that I know of; seek it somewhere louder than this.
+post:officiant | unknown | I know nothing of it, and guessing is not my office.
+post:officiant | unknown | I can't say; it has not reached my ears.
+post:officiant | refused_give | No; that work is {giver}'s to give, not mine to take.
+post:officiant | refused_give | Not from me; I cannot give what was never mine.
+post:officiant | refused_release | I cannot unbind what {giver} has bound.
+post:officiant | refused_release | That's not mine to release; your word was given elsewhere.
+post:officiant | refused | I won't, for {reason}.
+post:officiant | accepted | Then it's agreed; I will remember you at the altar.
+post:officiant | accepted | Thank you. Go with care, and return.
+post:officiant | declined | As you wish; the choice was always yours.
+post:officiant | declined | So be it; not every hand is called.
+post:officiant | abandoned | Very well; I will pray it finds another bearer.
+post:officiant | abandoned | A pity; what is begun deserves an ending.
+post:officiant | parted | Go well, and in peace.
+post:officiant | parted | Farewell, and may the road be kind.
+post:officiant | not_understood | Speak plainly, and I will answer plainly.
+post:officiant | not_understood | That's beyond me; say it again, and simply.
+
+# ---- post:groundskeeper ----
+post:groundskeeper | about_self | They call me {speaker}; I dig the graves and keep the grass off the stones[ in {place}].
+post:groundskeeper | about_self | A spade, a pair of shears and a lot of quiet; that's the job.
+post:groundskeeper | about_person | {name}? The {role}, at {where}, and not one of mine yet.
+post:groundskeeper | about_person | You'll find {name}[ the {role}] at {where}; better there than here with me.
+post:groundskeeper | about_place | You mean {about}. I've never needed to go; they all end up here eventually.
+post:groundskeeper | about_place | Everyone talks at a graveside; that's how I know of {about}.
+post:groundskeeper | surroundings | Over the wall is {here}[, and the nearest is {nearest}].[ Out past that, {others}.][ Give the {danger} a wide berth.]
+post:groundskeeper | surroundings | You're standing in {here}, among the quiet ones[; the nearest is {nearest}].[ Past that, {others}.][ Mind the {danger}; I've no wish to make your bed.]
+post:groundskeeper | surroundings | Past the last row of stones, the nearest is {nearest}.[ After that, {others}.][ Stay clear of the {danger}; I'd sooner not measure you.]
+post:groundskeeper | work_own | There's graft here if you want it: {own}.[ If not, {others}.]
+post:groundskeeper | work_own | Here's work for someone still above ground: {own}.[ Otherwise, {others}.]
+post:groundskeeper | work_others | Mine's all spadework, but {others}.
+post:groundskeeper | work_others | The dead don't hire, but {others}.
+post:groundskeeper | work_none | Nothing; I keep this ground by myself, and I like it that way.
+post:groundskeeper | work_none | None I know of; this isn't a place people come looking for work.
+post:groundskeeper | unknown | No idea; it's not carved on any stone I tend.
+post:groundskeeper | unknown | I've never heard of it, and I've heard plenty over open graves.
+post:groundskeeper | refused_give | That's not mine to hand out; that ground is {giver}'s.
+post:groundskeeper | refused_give | Not from me; I only hand out spades.
+post:groundskeeper | refused_release | I can't dig you out of what {giver} set you to.
+post:groundskeeper | refused_release | I won't cut you loose from someone else's work.
+post:groundskeeper | refused | I cannot; {reason}, and that's buried.
+post:groundskeeper | accepted | Done. Come back walking; I'd rather not be the one to fetch you.
+post:groundskeeper | accepted | Good; the dead are patient, but I'm not.
+post:groundskeeper | declined | Suit yourself; the grass won't mind.
+post:groundskeeper | declined | Fair enough; nobody's in a hurry here.
+post:groundskeeper | abandoned | So be it; I've buried better plans than that.
+post:groundskeeper | abandoned | A pity, but half-dug holes are nothing new to me.
+post:groundskeeper | parted | Safe travels; don't hurry back on my account.
+post:groundskeeper | parted | Goodbye, and stay upright.
+post:groundskeeper | not_understood | What do you mean; is it something I bury or something I mow?
+post:groundskeeper | not_understood | I don't follow; most of my company doesn't talk.
+
+# ---- post:care_assistant ----
+post:care_assistant | about_self | I'm {speaker}; I strip the beds, empty the pans and carry whatever needs carrying.
+post:care_assistant | about_self | On my feet all day, that's the {post}'s lot[ in {place}].
+post:care_assistant | about_person | The {role}, {name}[, at {where}]; that's all I know, and I'm wanted elsewhere.
+post:care_assistant | about_person | Look for {name}[, the {role},] at {where}; I can't go chasing people.
+post:care_assistant | about_place | Oh, {about}. Ask me about fevers and I'd tell you more.
+post:care_assistant | about_place | I've heard it from the patients: {about}.
+post:care_assistant | surroundings | Right, quickly: this is {here}[; the nearest is {nearest}].[ Beyond that, {others}.][ Keep clear of the {danger}.]
+post:care_assistant | surroundings | If you mean outside, that's {here}[, and the nearest is {nearest}].[ Past that, {others}.][ Mind the {danger}; I'd rather not be changing your dressings.]
+post:care_assistant | surroundings | From what I hear, the nearest is {nearest}.[ Then {others}.][ Stay clear of the {danger}, for my sake.]
+post:care_assistant | work_own | It's not changing beds, if that's what you fear: {own}.[ If not, {others}.]
+post:care_assistant | work_own | You could take something off my hands: {own}.[ Or else {others}.]
+post:care_assistant | work_others | My hands are full, but {others}.
+post:care_assistant | work_others | Nothing I can give you, but {others}.
+post:care_assistant | work_none | None that I know of; I don't look up from the work long enough to hear.
+post:care_assistant | work_none | Ask elsewhere; all I've got is sheets and basins.
+post:care_assistant | unknown | I couldn't tell you; my world's a row of beds.
+post:care_assistant | unknown | No idea; I've not sat down long enough to find out.
+post:care_assistant | refused_give | That's not mine to pass along; {giver} gave it, and I only carry what I'm handed.
+post:care_assistant | refused_give | Not from me; I've nothing to give but clean sheets.
+post:care_assistant | refused_release | I can't let you off {giver}'s work; I can't even let myself off mine.
+post:care_assistant | refused_release | I won't untangle someone else's arrangement; mine are knotted enough.
+post:care_assistant | refused | I cannot; {reason}, and that's that.
+post:care_assistant | accepted | Thank you; that's one less thing for me to run after.
+post:care_assistant | accepted | Done, then. Don't dawdle; I'm counting on you.
+post:care_assistant | declined | Fair enough; I'll ask around when there's a moment.
+post:care_assistant | declined | Very well; back to the basins.
+post:care_assistant | abandoned | A pity; I'll add it to the pile.
+post:care_assistant | abandoned | As you wish; I've carried heavier.
+post:care_assistant | parted | Take care, and don't come back on a stretcher.
+post:care_assistant | parted | Goodbye, and wash your hands on the way out.
+post:care_assistant | not_understood | Speak plainly; I've no time for riddles.
+post:care_assistant | not_understood | I'm not sure what you mean; say it quick, I'm busy.
+
+# ---- post:healer ----
+post:healer | about_self | {speaker}. I set bones, close wounds and tell people what they'd rather not hear.
+post:healer | about_self | I'm the {post}[ in {place}]; show me where it hurts, or let me work.
+post:healer | about_person | {name}, the {role}[, at {where}]. If I'd treated them, I wouldn't tell you.
+post:healer | about_person | Ask at {where} for {name}[, the {role}]; I know bodies, not business.
+post:healer | about_place | Yes, {about}. Wherever you go, clean any cut before it festers.
+post:healer | about_place | I know it as {about}; the rest is guesswork, and I don't guess.
+post:healer | surroundings | {here}, and you're in it[; the nearest is {nearest}].[ Past that, {others}.][ Mind the {danger}; I've only so much thread.]
+post:healer | surroundings | Listen: this is {here}[, and the nearest is {nearest}].[ Beyond that, {others}.][ Keep away from the {danger}.]
+post:healer | surroundings | The nearest is {nearest}.[ After that, {others}.][ If you meet the {danger}, press hard on the bleeding and come to me.]
+post:healer | work_own | I need someone steady: {own}.[ If that's not for you, {others}.]
+post:healer | work_own | If your hands don't shake, there's this: {own}.[ Otherwise, {others}.]
+post:healer | work_others | Mine is knife and needle work, but {others}.
+post:healer | work_others | Everything I do takes training, but {others}.
+post:healer | work_none | None that I know of; I hear about injuries, not jobs.
+post:healer | work_none | Nothing for you here unless you're bleeding.
+post:healer | unknown | I can't say; ask me something with a pulse.
+post:healer | unknown | Never heard of it; if it were catching, I'd know.
+post:healer | refused_give | No; {giver} set that work, and it's {giver}'s to give.
+post:healer | refused_give | Not from me; I hand out remedies, not other people's work.
+post:healer | refused_release | I cannot release you from {giver}'s work; that's not a thing I can treat.
+post:healer | refused_release | That's not mine to undo.
+post:healer | refused | I won't; {reason}.
+post:healer | accepted | Good. Come back in one piece; it saves us both trouble.
+post:healer | accepted | Then it's agreed; try not to need me.
+post:healer | declined | As you wish; I've no time to argue.
+post:healer | declined | So be it; I'll ask elsewhere.
+post:healer | abandoned | Very well; better that than half done badly.
+post:healer | abandoned | A pity, but I've seen worse outcomes.
+post:healer | parted | Go well, and keep your wounds clean.
+post:healer | parted | Safe travels; I'd rather not see you on my table.
+post:healer | not_understood | What do you mean; is something hurting?
+post:healer | not_understood | That's beyond me; describe it like a symptom.
+
+# ---- post:apothecary ----
+post:apothecary | about_self | I'm {speaker}; I weigh, I grind, I label, and a grain too many turns a cure to poison.
+post:apothecary | about_self | Behind this counter[ in {place}], every jar has its name and every dose its measure.
+post:apothecary | about_person | I can give you {name}, the {role}[, at {where}], and that's all of it, weighed and wrapped.
+post:apothecary | about_person | At {where} you'll find {name}[, the {role}]; get the name right when you ask.
+post:apothecary | about_place | It's {about}; I'd not vouch for a grain more.
+post:apothecary | about_place | Everything I know of {about} is secondhand; I'd not bottle it.
+post:apothecary | surroundings | Make a note: this is {here}[, and the nearest is {nearest}].[ Beyond, {others}.][ Mind the {danger}; some harms no draught can mend.]
+post:apothecary | surroundings | Right, then: you're in {here}[; the nearest is {nearest}].[ Past that, {others}.][ Keep clear of the {danger}.]
+post:apothecary | surroundings | To be exact, the nearest is {nearest}.[ Past it, {others}.][ Stay clear of the {danger}.]
+post:apothecary | work_own | I have a task that wants care and a steady hand: {own}.[ If not, {others}.]
+post:apothecary | work_own | Something needs doing, and doing exactly: {own}.[ Otherwise, {others}.]
+post:apothecary | work_others | My counter has none, but {others}.
+post:apothecary | work_others | Nothing for you among my jars, but {others}.
+post:apothecary | work_none | None, and nobody touches my scales but me.
+post:apothecary | work_none | Every draught here I prepare myself; there's nothing to hand on.
+post:apothecary | unknown | I know nothing of that, and I don't sell guesses.
+post:apothecary | unknown | I've never heard of it; it's in none of my books.
+post:apothecary | refused_give | No; that work is {giver}'s, and I don't hand out what isn't on my shelf.
+post:apothecary | refused_give | That's not mine to give out.
+post:apothecary | refused_release | I can't unmix what {giver} mixed.
+post:apothecary | refused_release | I won't alter another's recipe.
+post:apothecary | refused | Not from me; {reason}, and there's no remedy for that.
+post:apothecary | accepted | Very good. Be as careful with it as I am with poisons.
+post:apothecary | accepted | Done; I'll note it down.
+post:apothecary | declined | Suit yourself; I'll not force a dose on anyone.
+post:apothecary | declined | As you wish; I've tinctures to strain.
+post:apothecary | abandoned | So be it; I'll strike it from my ledger.
+post:apothecary | abandoned | Then it's done, and I'll wipe the scale clean.
+post:apothecary | parted | Farewell, and read the label before you drink anything.
+post:apothecary | parted | Take care, and keep your remedies dry.
+post:apothecary | not_understood | I don't follow; say it again, slowly and exactly.
+post:apothecary | not_understood | What do you mean, precisely?
+
+# ---- post:herbalist ----
+post:herbalist | about_self | I grow what heals and pull what doesn't[, here in {place}]; {speaker}, if you need a name.
+post:herbalist | about_self | Me? On my knees in the beds, mostly, with dirt to the wrist.
+post:herbalist | about_person | I know leaves better than people, but {name}'s the {role}[, at {where}].
+post:herbalist | about_person | Head to {where} for {name}[, the {role}]; that's where they've put down roots.
+post:herbalist | about_place | Ah, {about}. What grows there, I couldn't say.
+post:herbalist | about_place | All I know of it is {about}; I stay near my seedlings.
+post:herbalist | surroundings | Around us is {here}[, and the nearest is {nearest}].[ Past that, {others}.][ Mind the {danger}; not everything out there can be poulticed.]
+post:herbalist | surroundings | This patch of ground is {here}[; the nearest is {nearest}].[ Out past the garden, {others}.][ Keep away from the {danger}.]
+post:herbalist | surroundings | Beyond the herb rows, the nearest is {nearest}.[ Past it, {others}.][ Watch for the {danger} if you go picking.]
+post:herbalist | work_own | I could use sharp eyes and patient hands: {own}.[ If not, {others}.]
+post:herbalist | work_own | If you've patience, I've something: {own}.[ Otherwise, {others}.]
+post:herbalist | work_others | Nothing growing that needs you, but {others}.
+post:herbalist | work_others | My garden's no place for boots, but {others}.
+post:herbalist | work_none | Only weeding, and I keep that for myself.
+post:herbalist | work_none | Nobody I know is hiring; the plants don't ask for help.
+post:herbalist | unknown | I don't know it, and it's no leaf I've ever pressed.
+post:herbalist | unknown | Never heard of it; it doesn't grow round here, whatever it is.
+post:herbalist | refused_give | No; that's {giver}'s to hand out, not mine to pluck.
+post:herbalist | refused_give | That's not mine to give; I don't pick from another's plot.
+post:herbalist | refused_release | I cannot uproot what {giver} planted.
+post:herbalist | refused_release | Not from me; that work was sown by other hands.
+post:herbalist | refused | I won't, since {reason}.
+post:herbalist | accepted | Good. Go gently; most things break if you rush them.
+post:herbalist | accepted | Thank you; that's a weight off my knees.
+post:herbalist | declined | Fair enough; some things take time to root.
+post:herbalist | declined | So be it; I'll not force it.
+post:herbalist | abandoned | As you wish; I'll dig it over and start again.
+post:herbalist | abandoned | Very well; not everything takes.
+post:herbalist | parted | Go well, and watch where you tread.
+post:herbalist | parted | Goodbye; I've beds to see to.
+post:herbalist | not_understood | I'm not sure what you mean; plants are simpler to talk to.
+post:herbalist | not_understood | That's beyond me; start again, and slower.
+
+# ---- post:researcher ----
+post:researcher | about_self | My name's {speaker}; I try things, note what happens, then try them again.
+post:researcher | about_self | Half my day is watching things boil; the other half is writing down why.
+post:researcher | about_person | In my notes, {name} is the {role}[, at {where}], and nothing else worth recording.
+post:researcher | about_person | You want {where} for {name}[, the {role}]; write it down, I won't repeat it.
+post:researcher | about_place | They say it's {about}; I'd want samples before I believed more.
+post:researcher | about_place | I have it as {about}, and I've more pressing questions.
+post:researcher | surroundings | We're in {here}[; the nearest is {nearest}].[ Beyond that, {others}.][ Mind the {danger}; nobody learns anything from being eaten.]
+post:researcher | surroundings | By my reckoning, this is {here}[, and the nearest is {nearest}].[ Past that, {others}.][ If you meet the {danger}, observe from a distance.]
+post:researcher | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Keep clear of the {danger}.]
+post:researcher | work_own | Some things no theory settles: {own}.[ If not, {others}.]
+post:researcher | work_own | I've more questions than hands: {own}.[ Otherwise, {others}.]
+post:researcher | work_others | Nothing of mine needs company, but {others}.
+post:researcher | work_others | Beyond my bench, {others}.
+post:researcher | work_none | None; my work stays in this room.
+post:researcher | work_none | Everything here I'd rather botch myself than hand to anyone.
+post:researcher | unknown | I can't say; I've never tested it.
+post:researcher | unknown | No idea, and I don't speculate out loud.
+post:researcher | refused_give | No; that's {giver}'s work, and I don't touch another's experiment.
+post:researcher | refused_give | That's not mine to give; I'd be tampering with someone else's work.
+post:researcher | refused_release | I cannot void what {giver} set in motion.
+post:researcher | refused_release | I won't interfere with work I didn't start.
+post:researcher | refused | Not from me; {reason}, and I don't argue with results.
+post:researcher | accepted | Very good. Watch everything; the dull parts matter most.
+post:researcher | accepted | Then it's agreed; I'll want a full account.
+post:researcher | declined | Fair enough; I'll find another pair of eyes.
+post:researcher | declined | As you wish; back to the furnace.
+post:researcher | abandoned | So be it; a failed trial still teaches something.
+post:researcher | abandoned | A pity; I'll mark it inconclusive.
+post:researcher | parted | Goodbye, and close the door softly.
+post:researcher | parted | Take care, and remember what you see.
+post:researcher | not_understood | What do you mean; define your terms.
+post:researcher | not_understood | I don't follow; start from the beginning.
+
+# ---- post:astronomer ----
+post:astronomer | about_self | Up all night with the sky, half asleep all day; I'm {speaker}.
+post:astronomer | about_self | I spend my nights at the lens[ in {place}], counting what moves and what doesn't.
+post:astronomer | about_person | Down here, {name} is the {role}[ at {where}]; I notice little else on the ground.
+post:astronomer | about_person | Go to {where} for {name}[, the {role}], though people drift more than stars do.
+post:astronomer | about_place | Hm, {about}; I rarely look that low.
+post:astronomer | about_place | My charts stop at the rooftops, so {about} is all I can tell you.
+post:astronomer | surroundings | Below us lies {here}[, and the nearest is {nearest}].[ Past that, {others}.][ Beware the {danger}.]
+post:astronomer | surroundings | You're in {here}, if you're asking about the ground[; the nearest is {nearest}].[ Beyond that, {others}.][ Keep clear of the {danger}.]
+post:astronomer | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Mind the {danger}; look down now and then.]
+post:astronomer | work_own | I need eyes on the ground for once: {own}.[ If not, {others}.]
+post:astronomer | work_own | There's something I can't see from up here: {own}.[ Otherwise, {others}.]
+post:astronomer | work_others | Mine needs a clear night and nobody else, but {others}.
+post:astronomer | work_others | Nothing up here, but {others}.
+post:astronomer | work_none | None I know of; news rarely climbs this high.
+post:astronomer | work_none | Only watching, and that takes one pair of eyes.
+post:astronomer | unknown | No idea; it isn't written in any sky I've mapped.
+post:astronomer | unknown | I couldn't tell you; I keep to what's above.
+post:astronomer | refused_give | That's not mine to give; it's {giver}'s, and I don't meddle below the horizon.
+post:astronomer | refused_give | Not from me; everything I have is overhead.
+post:astronomer | refused_release | I can't release you from {giver}'s work; I chart the heavens, I don't steer them.
+post:astronomer | refused_release | I won't pull you out of someone else's orbit.
+post:astronomer | refused | I cannot, as {reason}.
+post:astronomer | accepted | Done. Watch closely; that's all I ask.
+post:astronomer | accepted | Thank you; tell me everything you see.
+post:astronomer | declined | So be it; the sky will keep.
+post:astronomer | declined | Suit yourself; I'm used to waiting.
+post:astronomer | abandoned | A pity; some things only show once.
+post:astronomer | abandoned | Very well; I'll chart around the gap.
+post:astronomer | parted | Safe travels, and look up once in a while.
+post:astronomer | parted | Farewell; I'll be awake when you're asleep.
+post:astronomer | not_understood | I'm not sure what you mean; ask me again after I've slept.
+post:astronomer | not_understood | That's beyond me, and I study the heavens.
+
+# ---- post:sanitation_worker ----
+post:sanitation_worker | about_self | Whatever you'd rather not think about[ in {place}], I haul it away; {speaker}'s the name.
+post:sanitation_worker | about_self | Me? I've a cart, a shovel and no sense of smell left; somebody's got to.
+post:sanitation_worker | about_person | {name}, the {role}[, at {where}]. No matter what they're called, they all need my work.
+post:sanitation_worker | about_person | At {where}, if it's {name}[ the {role}] you're after.
+post:sanitation_worker | about_place | Right, {about}. If it's got people, it's got muck, and that's all I care about.
+post:sanitation_worker | about_place | I've heard it's {about}, and that's about the size of it.
+post:sanitation_worker | surroundings | You're in {here}, muck and all[, and the nearest is {nearest}].[ Past that, {others}.][ Mind the {danger}.]
+post:sanitation_worker | surroundings | This is {here}, and I know every pit in it[; the nearest is {nearest}].[ Beyond, {others}.][ Keep clear of the {danger}.]
+post:sanitation_worker | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Watch for the {danger}; that's a mess I won't clear.]
+post:sanitation_worker | work_own | There's work going, and you'll not hear me sweeten it: {own}.[ If not, {others}.]
+post:sanitation_worker | work_own | Bring your wits: {own}.[ Otherwise, {others}.]
+post:sanitation_worker | work_others | Nothing of mine you'd want, but {others}.
+post:sanitation_worker | work_others | My work's not for the squeamish, but {others}.
+post:sanitation_worker | work_none | None; nobody's queuing up for my job.
+post:sanitation_worker | work_none | Just the pits, and they're mine.
+post:sanitation_worker | unknown | Never heard of it, and I hear everything that gets thrown out.
+post:sanitation_worker | unknown | I don't know it; ask someone who works indoors.
+post:sanitation_worker | refused_give | No; that's {giver}'s work, and I only take what's left behind.
+post:sanitation_worker | refused_give | That's not mine to give; everything I handle is somebody's leavings.
+post:sanitation_worker | refused_release | I can't scrub you clean of {giver}'s work.
+post:sanitation_worker | refused_release | I won't haul off someone else's promise.
+post:sanitation_worker | refused | Not from me; {reason}, and that's flat.
+post:sanitation_worker | accepted | Done; better you than me, whatever it is.
+post:sanitation_worker | accepted | Good; the sooner it's clean, the better we'll all breathe.
+post:sanitation_worker | declined | Suit yourself; the muck will wait.
+post:sanitation_worker | declined | Fair enough; not everyone's built for it.
+post:sanitation_worker | abandoned | So be it; I've shovelled worse.
+post:sanitation_worker | abandoned | Then it's done, and I'll clear up after you, like always.
+post:sanitation_worker | parted | Goodbye; mind where you step.
+post:sanitation_worker | parted | Go well, and upwind of me if you can.
+post:sanitation_worker | not_understood | Speak plainly; I'm a shovel-and-cart sort.
+post:sanitation_worker | not_understood | What do you mean; I only understand dirty and clean.

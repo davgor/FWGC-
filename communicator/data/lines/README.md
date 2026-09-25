@@ -4,6 +4,10 @@ The lines speakers answer in, read by `communicator/include/communicator/authore
 (`Lines::load` reads every `.txt` here, in name order). The communicator README's "Written
 lines" says how they are chosen.
 
+One file per hero archetype, every alignment's bank in it. `posts.txt` holds the pilot's two
+posts and `posts_<group>.txt` the rest of the roster's, grouped by trade; `any.txt` is everyone's
+fallback.
+
 ## Format
 
 ```
@@ -65,3 +69,8 @@ packet. `communicator_eval --check-lines PATH` runs the same check on a file or 
 - **Draw a voice from a card's public part** (manner, voice, stance, sample line, never), never
   from what the card keeps back (belief, wants, fears, tells, lies). A stranger never hears those.
 - **Never name the archetype or a title.** `{post}` says what the speaker does.
+- **A post's voice is its job.** The packet holds the post, so the plain work every holder of it
+  does is fair ("I've a gate to watch"). A particular deed, event, rule, customer, stock or
+  rumour is invented.
+- **An offer's opening never says who goes.** A hero's offer may put them alongside ("hold the
+  fortress above Wenweg with me"), so "I can't leave my desk: {own}" would contradict it.

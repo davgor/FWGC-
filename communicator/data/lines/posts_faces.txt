@@ -1,0 +1,375 @@
+# Written lines (roster posts: faces). The format and the rules: README.md in this folder.
+
+# ---- post:sovereign ----
+post:sovereign | about_self | You stand before {speaker}, {post} of {place}. Every stone of it answers to me.
+post:sovereign | about_self | {speaker}, {post}, and mine is the last word in any matter you bring.
+post:sovereign | about_person | {name}, the {role}, at {where}. A small name beside mine, but I know it.
+post:sovereign | about_person | That would be {name}, the {role}, at {where}. Tell them the {post} of {place} knows their name.
+post:sovereign | about_place | You mean {about}. I would be a poor {post} if I did not know it.
+post:sovereign | about_place | That is {about}. It is my business to know such things, and I know them.
+post:sovereign | surroundings | This is {here}, and the nearest of any note is {nearest}.[ Past it, {others}.][ Give the {danger} a wide berth.]
+post:sovereign | surroundings | All about you is {here}, and the nearest is {nearest}.[ After that, {others}.][ Keep your distance from the {danger}; that is not a request.]
+post:sovereign | surroundings | The nearest, since you ask, is {nearest}.[ Beyond it, {others}.][ I would not have you near the {danger}.]
+post:sovereign | work_own | Here is a task from my own hand: {own}.[ Should it be beneath you, {others}.]
+post:sovereign | work_own | I have need of someone bold: {own}.[ If you are not, {others}.]
+post:sovereign | work_others | Nothing I would trust to you yet, but {others}.
+post:sovereign | work_others | Seek them out, with my leave: {others}.
+post:sovereign | work_none | There is no task at my disposal, and I have heard of none.
+post:sovereign | work_none | Not today. When I have need of you, you will hear of it.
+post:sovereign | unknown | I know nothing of it, and what I do not know is seldom worth knowing.
+post:sovereign | unknown | Never heard of it, and I am not in the habit of pretending.
+post:sovereign | refused_give | No; that is {giver}'s to give, and I do not stoop to it.
+post:sovereign | refused_give | That's not mine to grant, and I do not grant what belongs to another.
+post:sovereign | refused_release | I cannot; {giver} set that task, and only {giver} may lift it.
+post:sovereign | refused_release | I won't break a word I never gave.
+post:sovereign | refused | I can't; {reason}, and I do not waste my word on what cannot be.
+post:sovereign | accepted | Good. Go, and do my name credit.
+post:sovereign | accepted | Done. Remember whose work you carry.
+post:sovereign | declined | As you wish; the offer was a kindness, not a need.
+post:sovereign | declined | So be it; I will not beg.
+post:sovereign | abandoned | A pity; I had thought better of you.
+post:sovereign | abandoned | Very well, but I remember who leaves my work half done.
+post:sovereign | parted | Go well, and speak well of {place}.
+post:sovereign | parted | Farewell; you may say you stood before the {post}.
+post:sovereign | not_understood | Speak plainly when you address the {post}.
+post:sovereign | not_understood | What do you mean by it, and why should a {post} have to guess?
+
+# ---- post:champion ----
+post:champion | about_self | I'm {speaker}, {post} of {place}. When there's a fight worth having, I want to be in it.
+post:champion | about_self | The name's {speaker}, and I'm {post} to anyone who needs one.
+post:champion | about_person | {name}? The {role}, at {where}. I'd like to try my arm against them some day.
+post:champion | about_person | Ah, {name}, the {role}, at {where}. Tell them {speaker} is ready whenever they are.
+post:champion | about_place | That's {about}. I'd walk in grinning and walk out the same.
+post:champion | about_place | Oh, {about}? Just point me at it and stand well back.
+post:champion | surroundings | You're in {here}, and the nearest is {nearest}; a short stroll, to the likes of me.[ Past that, {others}.][ Leave the {danger} to me.]
+post:champion | surroundings | Now then, this is {here}, and closest to hand is {nearest}.[ Then {others}.][ If you meet the {danger}, shout for me.]
+post:champion | surroundings | First you'll hit {nearest}[, then {others}].[ The {danger} can wait for me.]
+post:champion | work_own | Come on, then, I've just the thing: {own}.[ If you've no taste for it, {others}.]
+post:champion | work_own | Always room at my side: {own}.[ If not, {others}.]
+post:champion | work_others | Nothing from me today, but {others}. Tell them the {post} sent you.
+post:champion | work_others | Ha, not from me; I do my own fighting. But {others}.
+post:champion | work_none | Nothing, and I'm as restless as you are.
+post:champion | work_none | No work anywhere; a sword gets dull on days like this.
+post:champion | unknown | No idea, and I won't lose sleep over it.
+post:champion | unknown | I've never heard of it; ask someone who reads.
+post:champion | refused_give | No, that's {giver}'s to hand out, and I don't poach.
+post:champion | refused_give | Not from me; I only give out what's mine to give.
+post:champion | refused_release | I can't; you shook on it with {giver}, not me.
+post:champion | refused_release | I won't let you off someone else's hook.
+post:champion | refused | I cannot; {reason}, and no arm is strong enough to shift that.
+post:champion | accepted | Good, that's the spirit. Now go and show them how it's done.
+post:champion | accepted | Very good; I knew you had some fight in you.
+post:champion | declined | Suit yourself; more glory for me.
+post:champion | declined | Fair enough, not everyone has the stomach for it.
+post:champion | abandoned | A pity; I'd had you down as a stayer.
+post:champion | abandoned | Then it's done, and I'll finish it myself.
+post:champion | parted | Go well, and swing first.
+post:champion | parted | Take care, and keep your guard up.
+post:champion | not_understood | I don't follow; try it again, slower.
+post:champion | not_understood | That's beyond me; I'm better with a blade than with riddles.
+
+# ---- post:pretender ----
+post:pretender | about_self | They call me {post}. I am {speaker}, and the word will not outlast my claim.
+post:pretender | about_self | You speak with {speaker}, and one day you will be glad you did.
+post:pretender | about_person | You ask about {name}, the {role}, at {where}. Tell me, do they stand with me or in my way?
+post:pretender | about_person | That's {name}, the {role}, at {where}. Whether ally or obstacle, I'll know soon enough.
+post:pretender | about_place | That's {about}. Go carefully; I'll need every good sword when my hour comes.
+post:pretender | about_place | I know it: {about}. When you mean to rule, you learn the ground.
+post:pretender | surroundings | Look around you: this is {here}, and the nearest is {nearest}.[ After that, {others}.][ Beware the {danger}; I'd hate to lose you before we've begun.]
+post:pretender | surroundings | Here in {here}, the nearest is {nearest}.[ Past it, {others}.][ Stay clear of the {danger}; my cause needs you breathing.]
+post:pretender | surroundings | As things stand, the nearest is {nearest}.[ Then {others}.][ Keep clear of the {danger}.]
+post:pretender | work_own | Help me, and help my claim: {own}.[ If not, {others}.]
+post:pretender | work_own | I need people who believe in something: {own}.[ If you'd rather, {others}.]
+post:pretender | work_others | Soon I'll have work worthy of you; for now, {others}.
+post:pretender | work_others | Go to them, then: {others}. Come back when you're ready for something greater.
+post:pretender | work_none | Nothing yet, but that will change, and sooner than people think.
+post:pretender | work_none | None to give, and none I've heard of, which galls me more than you.
+post:pretender | unknown | I've never heard of it, and I make it my business to hear things.
+post:pretender | unknown | I couldn't tell you; my mind is on the throne, and little else.
+post:pretender | refused_give | No, that belongs to {giver}; I only ever claim what is mine by right.
+post:pretender | refused_give | That's not mine to give, and I'll not have it said I took it.
+post:pretender | refused_release | I cannot; only {giver} can loose you from that.
+post:pretender | refused_release | I won't break another's bargain; I mean to be known for kept words.
+post:pretender | refused | Not from me; {reason}, and even I must let that stand.
+post:pretender | accepted | Thank you; I will not forget who stood with me.
+post:pretender | accepted | Then it's agreed; my cause is the stronger for it.
+post:pretender | declined | So be it, but the day will come when you wish you'd said yes.
+post:pretender | declined | Very well; there will be others with more faith.
+post:pretender | abandoned | A pity; I took you for someone who finishes things.
+post:pretender | abandoned | As you wish; there is no room in my cause for half measures.
+post:pretender | parted | Farewell; when my name is on every tongue, remember you knew it first.
+post:pretender | parted | Safe travels, and say my name kindly where it counts.
+post:pretender | not_understood | I'm not sure what you mean, but say it again and I'll listen.
+post:pretender | not_understood | What do you mean by that, and whose side are you on?
+
+# ---- post:domain_holder ----
+post:domain_holder | about_self | {speaker}, {post}. What I hold, I hold whole, and I hold a great deal.
+post:domain_holder | about_self | I am {speaker}. The land is mine, and I am the land's.
+post:domain_holder | about_person | {name}, the {role}, is at {where}. I judge anyone by how they keep what they hold.
+post:domain_holder | about_person | Aye, {name}, the {role}, at {where}. I know them as I know the weather: well enough to plan around.
+post:domain_holder | about_place | That's {about}. Someone holds it, or someone should.
+post:domain_holder | about_place | I know the place: {about}. Whose it is matters more to me than what's in it.
+post:domain_holder | surroundings | You stand in {here}, and the nearest to it is {nearest}.[ Beyond, {others}.][ Mind the {danger}; I'd not set a fence post near them.]
+post:domain_holder | surroundings | Here's how the land sits: this is {here}, and the nearest is {nearest}.[ Then {others}.][ I'd keep well clear of the {danger}.]
+post:domain_holder | surroundings | Around here, the nearest is {nearest}.[ Past that, {others}.][ Give the {danger} their due distance.]
+post:domain_holder | work_own | What's mine needs minding: {own}.[ Otherwise, {others}.]
+post:domain_holder | work_own | I've a task, if you've the back for it: {own}.[ If not, {others}.]
+post:domain_holder | work_others | None of my own to give, but {others}.
+post:domain_holder | work_others | Look elsewhere: {others}.
+post:domain_holder | work_none | Nothing wants doing that I know of.
+post:domain_holder | work_none | There's no work in my gift just now, nor any I've heard of.
+post:domain_holder | unknown | No idea, and if it were worth owning, I'd know it.
+post:domain_holder | unknown | Never heard of it, and I hear of most things that change hands.
+post:domain_holder | refused_give | No, that's {giver}'s to give, and I don't reach across another's fence.
+post:domain_holder | refused_give | That's not mine to give; what isn't mine, I leave alone.
+post:domain_holder | refused_release | I can't; you're bound to {giver} on that, not to me.
+post:domain_holder | refused_release | I won't undo another's bargain, same as I'd not have mine undone.
+post:domain_holder | refused | Not from me; {reason}, and I don't move boundary stones for anyone.
+post:domain_holder | accepted | Good. Keep at it like it was your own.
+post:domain_holder | accepted | Done, and I'll know if you skimp.
+post:domain_holder | declined | Fair enough, I'll find another pair of hands.
+post:domain_holder | declined | As you wish; land is patient, and so am I.
+post:domain_holder | abandoned | So be it; a half-ploughed field is worse than none.
+post:domain_holder | abandoned | A pity; I don't lend my trust twice.
+post:domain_holder | parted | Go well, and mind whose ground you cross.
+post:domain_holder | parted | Farewell, and may you one day have something worth guarding.
+post:domain_holder | not_understood | Speak plainly; I deal in land, not riddles.
+post:domain_holder | not_understood | I don't follow; say it plain, the way a tenant would.
+
+# ---- post:magister ----
+post:magister | about_self | {speaker}, {post} of {place}. Remember both, and pronounce them correctly.
+post:magister | about_self | I am {speaker}, and I am a {post}; the distinction is considerable.
+post:magister | about_person | {name}, the {role}, presently at {where}. I have studied stranger subjects.
+post:magister | about_person | You mean {name}, the {role}, at {where}. I have noted the name.
+post:magister | about_place | That would be {about}. I know it as a scholar knows a footnote.
+post:magister | about_place | Indeed: {about}. Bring me a harder question next time.
+post:magister | surroundings | We are in {here}, and the nearest thing worth naming is {nearest}.[ Beyond it, {others}.][ I advise against the {danger}.]
+post:magister | surroundings | Know, then, that this is {here}, and the nearest is {nearest}.[ Past that, {others}.][ The {danger} are best left unstudied.]
+post:magister | surroundings | In order: {nearest}[, then {others}].[ The {danger} I would not approach without preparation.]
+post:magister | work_own | A task, if you can follow instructions: {own}.[ If not, {others}.]
+post:magister | work_own | You may be of use to me: {own}.[ Or, should you prefer, {others}.]
+post:magister | work_others | Nothing of mine suits your talents, but {others}.
+post:magister | work_others | Ask them, not me: {others}.
+post:magister | work_none | Nothing at present; I have not concerned myself with such matters.
+post:magister | work_none | None whatever; ask someone with more time for errands.
+post:magister | unknown | I don't know, and I find that more interesting than you might think.
+post:magister | unknown | I've never heard of it, which is itself remarkable.
+post:magister | refused_give | No, that belongs to {giver}, and I do not dabble in other people's arrangements.
+post:magister | refused_give | That's not mine to give; the matter is outside my purview.
+post:magister | refused_release | I cannot; {giver} bound you to it, and I do not unpick another's binding.
+post:magister | refused_release | I won't meddle with a bargain I had no part in; it would be untidy.
+post:magister | refused | I can't; {reason}, and no amount of learning alters that.
+post:magister | accepted | Very good. Be precise about it.
+post:magister | accepted | Good. I shall expect a full account when it is done.
+post:magister | declined | As you wish; I expected very little.
+post:magister | declined | So be it, though I suspect you will regret it.
+post:magister | abandoned | A pity; I had begun to think you capable.
+post:magister | abandoned | Then it's done; I shall note the failure.
+post:magister | parted | Farewell, and do read something now and then.
+post:magister | parted | Goodbye; try not to die of anything avoidable.
+post:magister | not_understood | I'm not sure what you mean; precision costs nothing.
+post:magister | not_understood | That's beyond me, which is a rare thing to say.
+
+# ---- post:charcoal burner ----
+post:charcoal burner | about_self | {speaker}. I burn charcoal, and the clamp wants watching, so be quick.
+post:charcoal burner | about_self | I'm {speaker}, the {post} at {place}. The soot doesn't wash off, so don't stare.
+post:charcoal burner | about_person | That'll be {name}, the {role}, at {where}. More than that I couldn't say; I don't get about much.
+post:charcoal burner | about_person | {name}? Aye, the {role}, at {where}. Most folk come to me for charcoal, not gossip.
+post:charcoal burner | about_place | Aye, that's {about}. Now let me get back to my stack.
+post:charcoal burner | about_place | Hm, {about}. I'd not cut a stick there, I'll tell you that.
+post:charcoal burner | surroundings | This is {here}, soot and all. The nearest is {nearest}[, and after it {others}].[ Keep upwind of the {danger}.]
+post:charcoal burner | surroundings | You're in {here}, and closest is {nearest}.[ Then {others}.][ The {danger}; I'd let those be.]
+post:charcoal burner | surroundings | There's {nearest}, for a start.[ Past it, {others}.][ Mind the {danger}.]
+post:charcoal burner | work_own | I've a job, and it's not hauling turf: {own}.[ If that's no good, {others}.]
+post:charcoal burner | work_own | Here's what needs doing while the clamp burns: {own}.[ Otherwise, {others}.]
+post:charcoal burner | work_others | I've only my fire to mind, and that's mine. {others}, though.
+post:charcoal burner | work_others | Nothing here but smoke; {others}.
+post:charcoal burner | work_none | Nothing; it's a trade for one.
+post:charcoal burner | work_none | None I know of, and I can't leave off to go looking.
+post:charcoal burner | unknown | No idea; my world's a clearing and a pile of wood.
+post:charcoal burner | unknown | Never heard of it; talk doesn't reach me over the crackle.
+post:charcoal burner | refused_give | No, that's {giver}'s, and I've my own work smouldering.
+post:charcoal burner | refused_give | That's not mine to hand over, and I don't meddle.
+post:charcoal burner | refused_release | I can't; you settle that with {giver}.
+post:charcoal burner | refused_release | I won't; what you took on, you took on.
+post:charcoal burner | refused | No; {reason}, and wet wood won't catch for wishing.
+post:charcoal burner | accepted | Good. Mind it like a clamp: slow and steady.
+post:charcoal burner | accepted | Done; see it through, and don't let it go to ash.
+post:charcoal burner | declined | Suit yourself; I've no time to argue.
+post:charcoal burner | declined | Fair enough, it's no skin off my nose.
+post:charcoal burner | abandoned | So be it; a fire let go out is no use to anyone.
+post:charcoal burner | abandoned | A pity; I'd thought you had more patience than that.
+post:charcoal burner | parted | Go well, and air your coat out after.
+post:charcoal burner | parted | Take care, and step round the stack on your way.
+post:charcoal burner | not_understood | I don't follow; say it again, slow, like you're talking to a stump.
+post:charcoal burner | not_understood | Speak plainly, or wait till the smoke clears.
+
+# ---- post:hermit ----
+post:hermit | about_self | {speaker}, a {post}. I talk little, and less to strangers.
+post:hermit | about_self | My name is {speaker}, and the quiet here is mine; mind you don't break it.
+post:hermit | about_person | {name}, the {role}, at {where}, so I'm told. I hear of people; I don't go looking.
+post:hermit | about_person | That's {name}. The {role}, at {where}, and welcome to it.
+post:hermit | about_place | Ah, {about}. Leave it to those who like crowds.
+post:hermit | about_place | I know of it: {about}. That's as near as I'll go.
+post:hermit | surroundings | You're in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ Leave the {danger} alone; I do.]
+post:hermit | surroundings | {here}, they call it. The nearest is {nearest}[, then {others}].[ The {danger} want no visitors, and nor do I.]
+post:hermit | surroundings | Out there, the nearest is {nearest}.[ Past it, {others}.][ Let the {danger} be.]
+post:hermit | work_own | I don't ask much, but I'll ask this: {own}.[ If not, {others}.]
+post:hermit | work_own | One thing, since you're here: {own}.[ Or {others}, if you'd rather.]
+post:hermit | work_others | I've nothing, but others do: {others}.
+post:hermit | work_others | Go and bother them instead: {others}.
+post:hermit | work_none | Nothing, and if there were, I'd be the last to hear.
+post:hermit | work_none | None; I've no work, and I want none.
+post:hermit | unknown | I couldn't tell you; news doesn't find me.
+post:hermit | unknown | I can't say, and I don't much care.
+post:hermit | refused_give | No; that's {giver}'s to give, and I stay out of other people's business.
+post:hermit | refused_give | That's not mine, and I'll not be handing it out.
+post:hermit | refused_release | I cannot; that's between you and {giver}.
+post:hermit | refused_release | I won't; untangle it yourself.
+post:hermit | refused | Not from me; {reason}, and there's no more to say.
+post:hermit | accepted | Thank you. Now go, and let me be.
+post:hermit | accepted | Good; see it done, and don't come back to tell me about it.
+post:hermit | declined | Fair enough; I wasn't hoping for company.
+post:hermit | declined | Very well, less talk for both of us.
+post:hermit | abandoned | So be it; I'm not surprised.
+post:hermit | abandoned | As you wish; I'll not waste breath on it.
+post:hermit | parted | Goodbye, and quietly, if you can.
+post:hermit | parted | Take care, and don't hurry back.
+post:hermit | not_understood | That's beyond me; fewer words, please.
+post:hermit | not_understood | What do you mean by that, and must you mean it so loudly?
+
+# ---- post:shepherd ----
+post:shepherd | about_self | {speaker}, {post}. I'd shake your hand, but I'm counting.
+post:shepherd | about_self | I'm {speaker}; I keep a flock round {place}, and it keeps me.
+post:shepherd | about_person | You'll find {name}, the {role}, at {where}. Whether they'd know a ewe from a ram, I couldn't say.
+post:shepherd | about_person | Aye, that's {name}, the {role}, at {where}. I know folk the way I know sheep: by how they wander.
+post:shepherd | about_place | That's {about}. The lambs wouldn't thank me for it.
+post:shepherd | about_place | Aye, {about}. A {post} walks a lot of ground.
+post:shepherd | surroundings | This is {here}, and the nearest is {nearest}.[ Past that, {others}.][ I'd not graze within sight of the {danger}.]
+post:shepherd | surroundings | Well, you're standing in {here}, and nearest is {nearest}.[ Beyond it, {others}.][ Mind the {danger}; I keep one eye that way.]
+post:shepherd | surroundings | The nearest bit of anything is {nearest}.[ Then {others}.][ Keep the {danger} at a distance.]
+post:shepherd | work_own | I could use another pair of eyes: {own}.[ If not that, {others}.]
+post:shepherd | work_own | There's a job wants doing, if you've the legs for it: {own}.[ Otherwise, {others}.]
+post:shepherd | work_others | Only sheep here, and they don't hire. But {others}.
+post:shepherd | work_others | I've heard of some: {others}.
+post:shepherd | work_none | Nothing; only the flock, and that's mine to mind.
+post:shepherd | work_none | No work that I know of, unless you count watching grass grow.
+post:shepherd | unknown | Never heard of it; the ewes don't gossip.
+post:shepherd | unknown | I couldn't tell you; that's past my pasture.
+post:shepherd | refused_give | No, that's {giver}'s to give; I'd not hand out another's lambs.
+post:shepherd | refused_give | That's not mine to give, any more than the next fold over.
+post:shepherd | refused_release | I can't; that's {giver}'s rope, not mine to untie.
+post:shepherd | refused_release | I won't; you took it on, you see it home.
+post:shepherd | refused | No; {reason}, and there's no herding round that.
+post:shepherd | accepted | Good. Go steady, and don't wander.
+post:shepherd | accepted | Then it's agreed, and I'll count you in with the flock.
+post:shepherd | declined | Fair enough; I'll not chase you, I've enough to chase.
+post:shepherd | declined | Suit yourself; the ewes won't miss you.
+post:shepherd | abandoned | A pity; a stray's no use to anyone.
+post:shepherd | abandoned | So be it; not everyone's built for the long walk.
+post:shepherd | parted | Safe travels, and shut the gate if you pass one.
+post:shepherd | parted | Farewell; mind your step where they've grazed.
+post:shepherd | not_understood | I'm not sure what you mean; I'm better at counting than talking.
+post:shepherd | not_understood | That's beyond me; I talk mostly to sheep.
+
+# ---- post:pilgrim ----
+post:pilgrim | about_self | {speaker}, a {post}. I'm passing through {place}, as I pass through everywhere.
+post:pilgrim | about_self | I'm {speaker}; my feet are sore and my heart is steady.
+post:pilgrim | about_person | {name}, the {role}, at {where}. I'll pray for them, as I pray for everyone I hear of.
+post:pilgrim | about_person | I've heard of {name}, the {role}, at {where}. May peace go with them.
+post:pilgrim | about_place | That's {about}. It has my prayers, for what they're worth.
+post:pilgrim | about_place | You mean {about}. Every place is holy ground to someone.
+post:pilgrim | surroundings | You stand in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Go wide of the {danger}; no journey is worth that.]
+post:pilgrim | surroundings | My road has brought me to {here}, and the nearest is {nearest}.[ After that, {others}.][ May you pass wide of the {danger}.]
+post:pilgrim | surroundings | If you're walking, the nearest is {nearest}.[ Past that, {others}.][ Beware the {danger}.]
+post:pilgrim | work_own | I'd ask a kindness of you: {own}.[ If not, {others}.]
+post:pilgrim | work_own | There's a thing I'd not ask lightly: {own}.[ If your heart's not in it, {others}.]
+post:pilgrim | work_others | I've nothing to give but a blessing. {others}, though.
+post:pilgrim | work_others | Here's where the work is: {others}.
+post:pilgrim | work_none | Nothing; a {post} carries little, and work least of all.
+post:pilgrim | work_none | None that I've heard of along the way.
+post:pilgrim | unknown | No idea; walking teaches a lot, but not that.
+post:pilgrim | unknown | I've never heard of it, and I listen to everyone I pass.
+post:pilgrim | refused_give | No, that's {giver}'s to give, and I'll not reach for another's bread.
+post:pilgrim | refused_give | That's not mine to give, and I've little enough of my own.
+post:pilgrim | refused_release | I cannot; you gave {giver} your word, and a word is a holy thing.
+post:pilgrim | refused_release | I won't; a promise made is a road begun.
+post:pilgrim | refused | Not from me; {reason}, and I must bow to that.
+post:pilgrim | accepted | Thank you; you'll be in my prayers till it's done.
+post:pilgrim | accepted | Good. Go gently, and come back whole.
+post:pilgrim | declined | As you wish; we each choose our own road.
+post:pilgrim | declined | So be it; I'll ask the next soul I meet.
+post:pilgrim | abandoned | A pity, but there's no shame in turning back.
+post:pilgrim | abandoned | Very well; not every journey reaches its end.
+post:pilgrim | parted | Go well, and rest when you can.
+post:pilgrim | parted | Safe travels, and may your boots hold out.
+post:pilgrim | not_understood | I don't follow; I'm tired, and you'll have to say it simply.
+post:pilgrim | not_understood | What do you mean, and is it kindly meant?
+
+# ---- post:midwife ----
+post:midwife | about_self | {speaker}, {post} for {place}. If someone's coming into the world, I'm the one sent for.
+post:midwife | about_self | I'm {speaker}, the {post}. Mind you wash your hands before you touch anything.
+post:midwife | about_person | {name}, is it? The {role}, at {where}. Everyone was small once.
+post:midwife | about_person | Oh, {name}, the {role}, at {where}. Tell them to eat properly.
+post:midwife | about_place | That's {about}. If a baby's coming there, I'll go; they don't wait for good roads.
+post:midwife | about_place | Yes, {about}. Every place is the same to me: hot water, clean linen, and a long night.
+post:midwife | surroundings | You're in {here}, and the nearest is {nearest}, if you must go wandering.[ Beyond that, {others}.][ Stay clear of the {danger}; I've enough on my hands.]
+post:midwife | surroundings | Right, this is {here}. The nearest is {nearest}[, and after that {others}].[ Keep away from the {danger}, and I mean it.]
+post:midwife | surroundings | Listen: the nearest is {nearest}.[ Past it, {others}.][ Don't go near the {danger}.]
+post:midwife | work_own | You'll do. Here's what I need: {own}.[ If you won't, {others}.]
+post:midwife | work_own | Get your sleeves up: {own}.[ If you're squeamish, {others}.]
+post:midwife | work_others | I've only births, and you'd faint. But {others}.
+post:midwife | work_others | You want work? {others}.
+post:midwife | work_none | Nothing, and I've no call to go looking.
+post:midwife | work_none | None I know of; people tell me their pains, not their business.
+post:midwife | unknown | I couldn't tell you; I spend my days with mothers, not news.
+post:midwife | unknown | I know nothing of it; ask someone who sits still.
+post:midwife | refused_give | No, that's {giver}'s to give; I've my own to see to.
+post:midwife | refused_give | That's not mine to give; the only thing I hand over is babies.
+post:midwife | refused_release | I can't; you made your promise to {giver}, so keep it.
+post:midwife | refused_release | I won't; you finish what you start, same as any labour.
+post:midwife | refused | No; {reason}, and fussing won't change it.
+post:midwife | accepted | Good. Don't dawdle, and don't do anything daft.
+post:midwife | accepted | Done; now off with you, I'm busy.
+post:midwife | declined | Fair enough; I don't coax.
+post:midwife | declined | Suit yourself; I'll find someone with steadier nerves.
+post:midwife | abandoned | So be it; I've seen people go pale at less.
+post:midwife | abandoned | Very well; some can't abide the sight of blood.
+post:midwife | parted | Take care, and eat something; you look peaky.
+post:midwife | parted | Goodbye; if you hear screaming, send for me.
+post:midwife | not_understood | Speak plainly; I've a birth to get to.
+post:midwife | not_understood | I'm not sure what you mean, and I haven't all day.
+
+# ---- post:dread ----
+post:dread | about_self | I am {speaker}. Say it softly, if you must say it at all.
+post:dread | about_self | {speaker}, the {post}. You knew already; I can smell it on you.
+post:dread | about_person | {name}, the {role}, at {where}. So small, so warm, so breakable.
+post:dread | about_person | Ah, {name}: the {role}, at {where}. A name I will enjoy saying slowly.
+post:dread | about_place | That is {about}. Everything there is mine, eventually.
+post:dread | about_place | You mean {about}. Go there, and I will be curious to see what comes back.
+post:dread | surroundings | You are in {here}, and the nearest is {nearest}; neither is far enough.[ Beyond it, {others}.][ Mind the {danger}, and fear me more.]
+post:dread | surroundings | Look where you stand: {here}. The nearest is {nearest}[, and beyond, {others}].[ You fear the {danger}; you should fear me more.]
+post:dread | surroundings | What lies nearest is {nearest}.[ Then {others}.][ Let the {danger} have you, or let me; it is all one.]
+post:dread | work_own | Do a thing for me, and I may let you keep walking: {own}.[ Or crawl to the others: {others}.]
+post:dread | work_own | You will serve: {own}.[ If you would rather serve lesser things, {others}.]
+post:dread | work_others | I have no use for you yet. The small ones do: {others}.
+post:dread | work_others | Nothing of mine. Go to them, and tell them who sent you: {others}.
+post:dread | work_none | Nothing. I need no help, and I have heard of none wanted.
+post:dread | work_none | None; what I want done, I do myself.
+post:dread | unknown | I know nothing of it, and it had better stay that way, for its own sake.
+post:dread | unknown | Never heard of it; ask me instead what I know of you.
+post:dread | refused_give | No; that is {giver}'s, and you would not want mine.
+post:dread | refused_give | That's not mine to give, and I do not give.
+post:dread | refused_release | I cannot unbind what {giver} has bound, and I would not trouble to.
+post:dread | refused_release | I won't; wriggle free of it yourself, if you can.
+post:dread | refused | No; {reason}, and I find I do not care.
+post:dread | accepted | Good. Do not make me come looking for you.
+post:dread | accepted | Then it's agreed, and I never forget an agreement.
+post:dread | declined | As you wish; there is always later.
+post:dread | declined | So be it; walk away while your legs still work.
+post:dread | abandoned | A pity; I was beginning to enjoy watching you.
+post:dread | abandoned | Very well, and I will remember that you ran.
+post:dread | parted | Farewell, and do look behind you, often.
+post:dread | parted | Go well, while you still can.
+post:dread | not_understood | Speak plainly, or do not speak at all.
+post:dread | not_understood | What do you mean, little thing?
