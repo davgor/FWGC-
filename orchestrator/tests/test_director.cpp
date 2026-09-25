@@ -221,6 +221,7 @@ TEST(taking_work_through_a_broker_is_refused_and_names_the_giver) {
     const std::string* name = people.front()->field("name");
     check::is_true(name && !name->empty(), "the premise: the giver has a name");
     check::equal(*of_kind(p, FactKind::Reason).front()->field("reason"), "the work is " + *name + "'s to give", "whose work, by name");
+    check::equal(*of_kind(p, FactKind::Reason).front()->field("why"), std::string("not_theirs_to_give"), "the kind of refusal");
 }
 
 TEST(giving_up_work_goes_back_to_its_giver_and_nobody_else) {
@@ -236,12 +237,35 @@ TEST(giving_up_work_goes_back_to_its_giver_and_nobody_else) {
     check::is_true(!of_kind(refused, FactKind::Reason).empty(), "with a reason");
     check::equal(*of_kind(refused, FactKind::Reason).front()->field("reason"),
                  "the work is " + *named.front()->field("name") + "'s to release", "who can release it, by name");
+    check::equal(*of_kind(refused, FactKind::Reason).front()->field("why"), std::string("not_theirs_to_release"), "the kind of refusal");
     const FactPacket p = d.respond(giver, {ActKind::AbandonQuest, quest});
     check::is_true(p.outcome == Outcome::Abandoned, "its giver can");
     const std::vector<fwg::QuestRow> abandoned = board(d.world(), fwg::QuestState::Abandoned);
     check::is_true(std::any_of(abandoned.begin(), abandoned.end(), [&](const fwg::QuestRow& q) { return q.quest_id == quest; }),
                    "the board has it abandoned");
     check::is_true(d.respond(giver, {ActKind::AbandonQuest, quest}).outcome == Outcome::Unknown, "and it cannot be given up twice");
+}
+
+TEST(a_hero_with_one_face_speaks_from_their_archetypes_lines) {
+    // The communicator chooses its written lines by this key. A face that hides another gets
+    // none: its archetype (false_hero, deceiver) is what the face hides.
+    const fwg::World& w = month_old();
+    const fwg::Hero* plain = nullptr;
+    const fwg::Hero* faced = nullptr;
+    for (const fwg::Hero& h : w.heroes.people) {
+        if (!plain && h.faces.size() == 1 && !h.archetype.empty() && !h.alignment.code.empty()) plain = &h;
+        if (!faced && h.faces.size() > 1) faced = &h;
+    }
+    check::is_true(plain != nullptr, "the premise: a hero with one face, of " + std::to_string(w.heroes.people.size()));
+    check::is_true(faced != nullptr, "the premise: a hero with two faces, of " + std::to_string(w.heroes.people.size()));
+    Director d(w);
+    check::equal(d.respond(plain->uid, {ActKind::Farewell, ""}).persona.voice_key, plain->archetype + "/" + plain->alignment.code,
+                 "archetype and alignment, for " + plain->uid);
+    check::equal(d.respond(faced->uid, {ActKind::Farewell, ""}).persona.voice_key, std::string(), "none for " + faced->uid);
+    check::equal(d.respond(a_broker(), {ActKind::Farewell, ""}).persona.voice_key, std::string(), "none for a roster person");
+    // The communicator's test castellan is this world's: a warden, lawful neutral.
+    check::equal(d.respond("hero-castellan-fortress-node-178", {ActKind::Farewell, ""}).persona.voice_key, std::string("warden/LN"),
+                 "Selbren's key, as the communicator's test packets carry it");
 }
 
 TEST(a_speaker_who_is_gone_refuses_by_name) {
@@ -259,6 +283,7 @@ TEST(a_speaker_who_is_gone_refuses_by_name) {
     check::is_true(!of_kind(p, FactKind::Reason).empty(), "with a reason");
     check::is_true(!p.persona.name.empty(), "the premise: the one gone has a name");
     check::equal(*of_kind(p, FactKind::Reason).front()->field("reason"), p.persona.name + " is gone", "gone, by name");
+    check::equal(*of_kind(p, FactKind::Reason).front()->field("why"), std::string("gone"), "the kind of refusal");
 }
 
 TEST(what_a_speaker_describes_is_real_and_within_reach) {

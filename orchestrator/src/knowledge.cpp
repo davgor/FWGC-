@@ -20,6 +20,11 @@ const fwg::HeroFace* stranger_face(const fwg::Hero& hero) {
     return nullptr;
 }
 
+// The written lines a hero speaks from: "warden/LN". Empty when either part is.
+std::string voice_key_of(const std::string& archetype, const std::string& alignment_code) {
+    return archetype.empty() || alignment_code.empty() ? std::string() : archetype + "/" + alignment_code;
+}
+
 // The card's voice, and only its voice: `lies`, `belief`, `wants`, `fears` and `tells` say what
 // the character keeps to itself, and a voice handed them can say them.
 void take_card(Persona& persona, const fwg::HeroPersona& card) {
@@ -115,12 +120,20 @@ void strangers_view(const fwg::PersonDocument& document, Persona& persona, bool 
                 if (const fwg::HeroFace* face = stranger_face(person)) {
                     persona.name = face->name;
                     persona.role = face->apparent_role;
-                    if (with_card) take_card(persona, face->persona);
+                    if (with_card) {
+                        take_card(persona, face->persona);
+                        // One face hides nothing, so the archetype is how it speaks. A second face
+                        // hides it (false_hero, deceiver), and that hero gets no voice key.
+                        if (person.faces.size() == 1) persona.voice_key = voice_key_of(person.archetype, face->alignment.code);
+                    }
                 } else if (person.faces.empty()) {
                     // No faces at all: nothing is hidden, so the record is the face.
                     persona.name = person.name;
                     persona.role = person.role;
-                    if (with_card) take_card(persona, person.persona);
+                    if (with_card) {
+                        take_card(persona, person.persona);
+                        persona.voice_key = voice_key_of(person.archetype, person.alignment.code);
+                    }
                 } else {
                     // Faces, and none a stranger sees: name only.
                     persona.name = person.name;

@@ -57,6 +57,15 @@ misread line costs a question, never a quest.
 `orchestrator_contract` library links nothing of the generator, so a component that depends on it
 cannot reach a world.
 
+- **A refusal says why, and what kind of why.** Its Reason fact names who, by name: "the work is
+  Halbrann's to give", "Selbren is gone". `why` is one of `not_theirs_to_give`,
+  `not_theirs_to_release`, `gone` or `refused_by_world`, so a caller can answer each kind in its
+  own words. "The speaker's", as a reason once put it, was read by the voice as the stranger's.
+- **A persona's `voice_key`** names the written lines the speaker speaks from. A hero with one
+  face gets archetype and alignment ("warden/LN"). A hero whose public face hides another gets
+  none, since the archetype (`false_hero`, `deceiver`) is what that face hides. So do a dread and
+  a roster person, who speak from their post's lines. Contract version 2 added both.
+
 ## What a speaker knows
 
 - **Reach.** A roster person knows about 10 km around them (hamlet, fortress) or 20 km (city). A

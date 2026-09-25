@@ -14,7 +14,8 @@
 
 namespace orchestrator {
 
-inline constexpr int kContractVersion = 1;
+// 2: Persona::voice_key, and a Reason fact's `why`.
+inline constexpr int kContractVersion = 2;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -50,7 +51,9 @@ enum class Outcome : int {
     Declined,       // nothing changed
     Abandoned,      // the player gave the quest up
     Unknown,        // the speaker knows nothing of the target
-    Refused,        // the world would not have it; a Reason fact says why
+    Refused,        // the world would not have it; a Reason fact says why, in `reason`, and
+                    // what kind of why, in `why`: "not_theirs_to_give", "not_theirs_to_release",
+                    // "gone" (the speaker), or "refused_by_world"
     Parted,         // farewell
     NotUnderstood,  // NoAct: answer in character, act on nothing
 };
@@ -83,6 +86,11 @@ struct Persona {
     // from name, role and place.
     std::string manner, voice, toward_player, line;
     std::vector<std::string> never;  // lines the voice must not cross
+    // The written lines the speaker speaks from, where their public face names them: a hero
+    // with one face speaks as their archetype and alignment ("warden/LN"). Empty for anyone
+    // else: a face that hides another, a dread, a roster NPC, who speak from their post's lines.
+    // Nothing it names is kept back from a stranger.
+    std::string voice_key;
 };
 
 struct FactPacket {

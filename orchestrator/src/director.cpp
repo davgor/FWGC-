@@ -25,7 +25,11 @@ constexpr std::size_t kSurroundingHamlets = 3;
 constexpr std::size_t kSurroundingFortresses = 3;
 constexpr std::size_t kSurroundingLandmarks = 6;
 
-Fact reason(std::string text) { return Fact{FactKind::Reason, "", {{"reason", std::move(text)}}}; }
+// Why a request is refused: the reason in words, and its kind (contract.hpp, Outcome::Refused),
+// for a caller that answers each kind in its own words.
+Fact reason(std::string why, std::string text) {
+    return Fact{FactKind::Reason, "", {{"reason", std::move(text)}, {"why", std::move(why)}}};
+}
 
 // Whose a piece of work is, as a refusal's reason says it: the giver's by name, else "someone
 // else's". Never "the speaker's": voiced by the speaker, that was read as the stranger, and
@@ -178,7 +182,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
 
     if (!s.present) {
         FactPacket p = packet_for(s, act, Outcome::Refused);
-        p.facts.push_back(reason((s.persona.name.empty() ? std::string("the one spoken to") : s.persona.name) + " is gone"));
+        p.facts.push_back(reason("gone", (s.persona.name.empty() ? std::string("the one spoken to") : s.persona.name) + " is gone"));
         return recorded(std::move(p));
     }
 
@@ -248,7 +252,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
                 FactPacket p = packet_for(s, act, Outcome::Refused);
                 std::optional<knowledge::KnownPerson> giver;
                 if (offer->row.giver_uid) giver = knowledge::person_fact(world_, *offer->row.giver_uid);
-                p.facts.push_back(reason("the work is " + whose(giver) + " to give"));
+                p.facts.push_back(reason("not_theirs_to_give", "the work is " + whose(giver) + " to give"));
                 if (giver) p.facts.push_back(giver->fact);
                 return recorded(std::move(p));
             }
@@ -260,7 +264,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
             } catch (const fwg::WorldTimeError& refusal) {
                 if (!refusal.refused_by_world()) throw;
                 FactPacket p = packet_for(s, act, Outcome::Refused);
-                p.facts.push_back(reason(refusal.message()));
+                p.facts.push_back(reason("refused_by_world", refusal.message()));
                 return recorded(std::move(p));
             }
             FactPacket p = packet_for(s, act, Outcome::Accepted);
@@ -277,7 +281,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
                 FactPacket p = packet_for(s, act, Outcome::Refused);
                 std::optional<knowledge::KnownPerson> giver;
                 if (row->giver_uid) giver = knowledge::person_fact(world_, *row->giver_uid);
-                p.facts.push_back(reason("the work is " + whose(giver) + " to release"));
+                p.facts.push_back(reason("not_theirs_to_release", "the work is " + whose(giver) + " to release"));
                 if (giver) p.facts.push_back(giver->fact);
                 return recorded(std::move(p));
             }
@@ -289,7 +293,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
             } catch (const fwg::WorldTimeError& refusal) {
                 if (!refusal.refused_by_world()) throw;
                 FactPacket p = packet_for(s, act, Outcome::Refused);
-                p.facts.push_back(reason(refusal.message()));
+                p.facts.push_back(reason("refused_by_world", refusal.message()));
                 return recorded(std::move(p));
             }
             FactPacket p = packet_for(s, act, Outcome::Abandoned);
