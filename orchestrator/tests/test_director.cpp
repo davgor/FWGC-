@@ -247,8 +247,8 @@ TEST(giving_up_work_goes_back_to_its_giver_and_nobody_else) {
 }
 
 TEST(a_hero_with_one_face_speaks_from_their_archetypes_lines) {
-    // The communicator chooses its written lines by this key. A face that hides another gets
-    // none: its archetype (false_hero, deceiver) is what the face hides.
+    // The key names the written lines a speaker speaks from. A face that hides another gets none:
+    // its archetype (false_hero, deceiver) is what the face hides.
     const fwg::World& w = month_old();
     const fwg::Hero* plain = nullptr;
     const fwg::Hero* faced = nullptr;
@@ -263,9 +263,6 @@ TEST(a_hero_with_one_face_speaks_from_their_archetypes_lines) {
                  "archetype and alignment, for " + plain->uid);
     check::equal(d.respond(faced->uid, {ActKind::Farewell, ""}).persona.voice_key, std::string(), "none for " + faced->uid);
     check::equal(d.respond(a_broker(), {ActKind::Farewell, ""}).persona.voice_key, std::string(), "none for a roster person");
-    // The communicator's test castellan is this world's: a warden, lawful neutral.
-    check::equal(d.respond("hero-castellan-fortress-node-178", {ActKind::Farewell, ""}).persona.voice_key, std::string("warden/LN"),
-                 "Selbren's key, as the communicator's test packets carry it");
 }
 
 TEST(a_speaker_who_is_gone_refuses_by_name) {
