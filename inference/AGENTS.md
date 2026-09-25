@@ -25,6 +25,12 @@ ctest --test-dir inference/build -C Release --no-tests=error
   release, since its API changes between releases.
 - **The public header shows none of llama.cpp,** and `inference` links it privately. Keep
   llama.cpp's types out of `include/`.
+- **A GPU build loads its backends at run time; the program links no GPU API.** Linked in,
+  Vulkan made `vulkan-1.dll` a dependency of the program itself, and a machine without it could
+  not start. `the_program_links_no_gpu_api_of_its_own` guards this; keep it the first test.
+- **Ship only the backend DLLs the build makes:** `llama`, `ggml`, `ggml-base`, the `ggml-cpu-*`
+  variants and `ggml-vulkan`. Never a `ggml-rpc.dll`: the runtime loads whatever backend it finds
+  beside it, and RPC talks over sockets.
 - **Models are downloaded, never committed.** `models/` is ignored. A new model is named in the
   README with its source, size, SHA-256 and licence, and the owner approves every download.
 - **Tests fail loudly without their model**, never skip. They assert properties (grammar-held
