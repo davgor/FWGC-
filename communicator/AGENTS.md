@@ -37,8 +37,12 @@ ctest --test-dir communicator/build -C Release --no-tests=error
     Otherwise it goes in whole, with its forms.
   - No common capital may be a barred word.
 - **A written line keeps the voice's rules and says only what its blanks hold.**
-  - `every_line_is_spoken_and_keeps_the_voices_rules` holds every row of `data/lines.txt` to the
-    voice's rules. A row that breaks one fails by its own words.
+  - `every_line_is_spoken_and_keeps_the_voices_rules` holds every row of `data/lines/` to the
+    voice's rules. A row that breaks one fails by its own words. Run
+    `communicator_eval --check-lines` on new rows before a commit does.
+  - A bank sounds like its own archetype and alignment, not like its neighbours, and says how
+    the speaker stands, never what they have done. A pet name at most once in a bank, and only
+    as contempt or command: repeated, it is a tic.
   - A line adds manner, never a fact. A place, a creature, a duty or a distance comes only
     through a blank, and a blank only from the packet.
   - Draw a voice from a card's public part (manner, voice, stance, sample line, never), never
