@@ -92,6 +92,43 @@ TEST(no_id_reaches_the_voices_prompt) {
     }
 }
 
+TEST(markers_are_for_the_game_and_never_reach_a_prompt_or_a_grammar) {
+    // Work carries its exact map marker for the game. No voice may see it: the prompt and the
+    // grammar are the same with it and without, even when a marker's id holds a barred word, so
+    // "silver" from a mine's id cannot become sayable.
+    Voice voice(test_model::model());
+    const auto without_markers = [](FactPacket p) {
+        for (Fact& f : p.facts)
+            f.fields.erase(std::remove_if(f.fields.begin(), f.fields.end(),
+                                          [](const auto& field) { return field.first == "marker" || field.first == "marker_node"; }),
+                           f.fields.end());
+        return p;
+    };
+    FactPacket work = packets::work();
+    work.facts.front().fields.emplace_back("marker", "keyloc-silver_mine-211");
+    std::size_t markers = 0;
+    for (const FactPacket& p : {work, packets::accepted()}) {
+        for (const Fact& f : p.facts) markers += f.field("marker_node") != nullptr;
+        const FactPacket bare = without_markers(p);
+        check::equal(prompt_of(voice, p, "Any work?"), prompt_of(voice, bare, "Any work?"), "the same prompt");
+        check::is_true(voice.grammar(p) == voice.grammar(bare), "the same grammar");
+    }
+    check::is_true(markers >= 2, "the premise: markers to keep out");
+}
+
+TEST(how_far_is_said_in_words_never_in_numbers) {
+    // A packet says how far only roughly, and the prompt in words: no number to read out, or to
+    // round wrong ("thirteen kilometres" for 13.6; judged 2026-09-24).
+    Voice voice(test_model::model());
+    const std::string around = prompt_of(voice, packets::surroundings(), "What is around?");
+    for (const std::string said : {"right here", "a short walk away", "an hour's walk away", "a long walk away"})
+        check::is_true(around.find(said) != std::string::npos, "how far, as said: " + said);
+    for (const FactPacket& p : packets::all()) {
+        const std::string prompt = prompt_of(voice, p, "How far?");
+        check::is_true(prompt.find(" km") == std::string::npos, "no kilometres for " + p.persona.name);
+    }
+}
+
 TEST(the_prompt_carries_the_persona_and_every_fact_as_it_is_said) {
     Voice voice(test_model::model());
     const FactPacket work = packets::work();
@@ -362,7 +399,7 @@ TEST(a_forbidden_word_the_packet_says_may_be_said) {
     // southern tower may be named, and "south", "southwest" and "southside" stay barred.
     FactPacket tower = packets::about_self();
     tower.facts.push_back({orchestrator::FactKind::Place, "keyloc-watchtower-7",
-                           {{"kind", "watchtower"}, {"name", "the southern tower"}, {"distance", "1.2 km"}}});
+                           {{"kind", "watchtower"}, {"name", "the southern tower"}, {"range", "near"}}});
     const std::string lifted = voice.grammar(tower);
     for (const std::string word : {"southern", "south", "southwest"}) {
         const auto [free_word, held_word] = told_to_say(model, word, lifted);

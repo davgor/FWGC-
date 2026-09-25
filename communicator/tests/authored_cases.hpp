@@ -41,7 +41,7 @@ inline FactPacket about_the_works() {
     return packets::packet(packets::castellan(), ActKind::AskAboutPlace, Outcome::Answered,
                            {{FactKind::Place, "keyloc-smelter_ruin-180",
                              {{"kind", "smelter_ruin"}, {"name", "the burnt works"}, {"family", "extractive"}, {"state", "ruined"},
-                              {"threat", "2"}, {"occupant", "squatters"}, {"distance", "3.1 km"}}}});
+                              {"threat", "2"}, {"occupant", "squatters"}, {"range", "walk"}}}});
 }
 
 inline FactPacket no_work() { return packets::packet(packets::castellan(), ActKind::AskForWork, Outcome::Answered); }

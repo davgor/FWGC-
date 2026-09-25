@@ -91,7 +91,7 @@ TEST(what_cannot_be_named_is_not_offered) {
     // Dangers and reasons are said, never targeted; a place with neither a name nor a city is
     // not something a player can name.
     known.learn(packets::packet(packets::castellan(), orchestrator::ActKind::AskSurroundings, orchestrator::Outcome::Answered,
-                                {{orchestrator::FactKind::Place, "hamlet-99", {{"kind", "hamlet"}, {"distance", "1.0 km"}}},
+                                {{orchestrator::FactKind::Place, "hamlet-99", {{"kind", "hamlet"}, {"range", "near"}}},
                                  {orchestrator::FactKind::Danger, "nest-griffons-178", {{"creature", "Griffons"}}},
                                  {orchestrator::FactKind::Reason, "", {{"reason", "Selbren is gone"}}}}));
     check::is_true(labels(known, Kind::Place).empty(), "a nameless place");

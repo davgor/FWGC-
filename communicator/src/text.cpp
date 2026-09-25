@@ -90,4 +90,16 @@ std::string scale_word(std::string_view key, std::string_view value) {
     return {};
 }
 
+std::string range_words(std::string_view range) {
+    if (range == "here") return "right here";
+    if (range == "close") return "close by";
+    if (range == "near") return "a short walk away";
+    if (range == "walk") return "an hour's walk away";
+    if (range == "far") return "a long walk away";
+    if (range == "distant") return "a long way off";
+    return {};
+}
+
+bool for_the_game(std::string_view key) { return key == "marker" || key == "marker_node"; }
+
 }  // namespace communicator::text

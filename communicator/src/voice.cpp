@@ -53,11 +53,12 @@ std::vector<std::string> phrases(const Fact& fact, std::initializer_list<std::st
     std::vector<std::string> out;
     for (const auto& [key, raw] : fact.fields) {
         if (std::find(used.begin(), used.end(), key) != used.end()) continue;
+        if (text::for_the_game(key)) continue;  // the game's map marker, never said
         const std::string value = text::spaced(text::spoken(raw));
         if (value.empty()) continue;
-        if (key == "distance")
-            out.push_back(value == "here" ? "right here" : value + " away");
-        else if (key == "threat" || key == "danger" || key == "difficulty")  // each a scale of 1 to 5 in a packet
+        if (key == "range") {  // roughly, never in metres
+            if (const std::string words = text::range_words(raw); !words.empty()) out.push_back(words);
+        } else if (key == "threat" || key == "danger" || key == "difficulty")  // each a scale of 1 to 5 in a packet
             out.push_back(scaled(key, value));
         else
             out.push_back(text::spaced(key) + ": " + value);
@@ -321,6 +322,8 @@ std::string Voice::grammar(const FactPacket& packet) const {
     }
     for (const Fact& fact : packet.facts)
         for (const auto& [key, value] : fact.fields) {
+            // A marker is the game's, never said: its id's words are no words the speaker has.
+            if (text::for_the_game(key)) continue;
             capitals_of(value, capitals);
             lower_words_of(value, packet_words);
         }

@@ -30,4 +30,12 @@ void check_line(std::string_view line);
 // threat or danger "slight" to "deadly". Empty for any other key, or a value that is not 1 to 5.
 std::string scale_word(std::string_view key, std::string_view value);
 
+// How far a packet's `range` is, in words (orchestrator/contract.hpp publishes the bands):
+// "here" is "right here", "near" "a short walk away", "distant" "a long way off". Empty for a
+// band the contract does not publish.
+std::string range_words(std::string_view range);
+
+// Whether a fact's field is for the game, not for saying: the exact marker of a piece of work.
+bool for_the_game(std::string_view key);
+
 }  // namespace communicator::text

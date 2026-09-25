@@ -58,20 +58,28 @@ std::string mid_sentence(std::string text) {
     return text;
 }
 
-// How far something is, as said: "right here", "2.5 km off".
-std::string how_far(const Fact& fact) {
-    const std::string distance = field_of(fact, "distance");
-    if (distance.empty()) return {};
-    return distance == "here" ? "right here" : distance + " off";
+// How far something is, in words: "right here", "a short walk away". The packet says it only
+// roughly (orchestrator/contract.hpp), so no line can read a number out, or round it wrong.
+std::string how_far(const Fact& fact) { return text::range_words(field_of(fact, "range")); }
+
+// How dangerous a place is, when it is worth a warning: "dangerous" at threat 4, "deadly" at 5.
+std::string danger_word(const Fact& place) {
+    const std::string threat = field_of(place, "threat");
+    if (threat == "5") return "deadly";
+    if (threat == "4") return "dangerous";
+    return {};
 }
 
-// A place as one phrase: its name, how far, and who holds it or what became of it. A name
-// already said is another of its kind the second time: "another hamlet of Wenweg".
-std::string place_phrase(const Fact& place, std::set<std::string>& said) {
+// A place as one phrase: its name, how far, how dangerous, and who holds it or what became of
+// it. A name already said is another of its kind the second time: "another hamlet of Wenweg".
+// Without `with_range`, how far is left for the caller to say once for several places.
+std::string place_phrase(const Fact& place, std::set<std::string>& said, bool with_range = true) {
     std::string out = text::spoken(label_of(place));
     if (!said.insert(out).second && out.rfind("the ", 0) == 0) out = "another " + out.substr(4);
     const std::string far = how_far(place);
-    if (!far.empty()) out += ", " + far;
+    if (with_range && !far.empty()) out += ", " + far;
+    const std::string danger = danger_word(place);
+    if (!danger.empty()) out += ", " + danger;
     const std::string occupant = text::spaced(field_of(place, "occupant"));
     const std::string state = field_of(place, "state");
     if (!occupant.empty())
@@ -81,7 +89,7 @@ std::string place_phrase(const Fact& place, std::set<std::string>& said) {
     return out;
 }
 
-// A nest as one phrase: "Hippogryphs nesting 4.9 km off".
+// A nest as one phrase: "Hippogryphs nesting an hour's walk away".
 std::string danger_phrase(const Fact& nest) {
     std::string out = text::spoken(field_of(nest, "creature"));
     if (out.empty()) out = "something";
@@ -140,6 +148,22 @@ std::string joined(const std::vector<std::string>& parts, std::string_view betwe
     return out;
 }
 
+// The places after the nearest, as one phrase. Two at the same range share it, said once: "the
+// hamlet of Wenweg and the burnt works, held by squatters, both an hour's walk away". A first
+// place with details of its own is closed by a comma, or "held by monsters and another hamlet"
+// would read as if the hamlet held it.
+std::string others_phrase(const std::vector<const Fact*>& places, std::set<std::string>& said) {
+    if (places.size() == 2 && !how_far(*places[0]).empty() && how_far(*places[0]) == how_far(*places[1])) {
+        const std::string first = place_phrase(*places[0], said, false);
+        const std::string and_then = first.find(',') == std::string::npos ? " and " : ", and ";
+        return first + and_then + place_phrase(*places[1], said, false) + ", both " + how_far(*places[0]);
+    }
+    std::vector<std::string> out;
+    for (const Fact* place : places) out.push_back(place_phrase(*place, said));
+    // Each place's phrase has commas of its own, so the last is joined by ", and".
+    return joined(out, ", ", ", and ");
+}
+
 std::vector<const Fact*> of_kind(const FactPacket& p, FactKind kind) {
     std::vector<const Fact*> out;
     for (const Fact& f : p.facts)
@@ -178,20 +202,30 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     if (situation == "surroundings") {
         // Where the speaker stands, by name; then the rest, nearest first, as the director lists
         // them.
-        std::vector<std::string> away;
+        std::vector<const Fact*> away;
         for (const Fact* place : places) {
-            if (field_of(*place, "distance") != "here") {
-                away.push_back(place_phrase(*place, said));
+            if (field_of(*place, "range") != "here") {
+                away.push_back(place);
             } else if (!out.count("here")) {
                 set("here", text::spoken(label_of(*place)));
                 said.insert(text::spoken(label_of(*place)));
             }
         }
-        if (!away.empty()) set("nearest", away.front());
-        // Each place's phrase has commas of its own, so the last is joined by ", and".
-        if (away.size() > 1)
-            set("others", joined(std::vector<std::string>(away.begin() + 1, away.begin() + std::min<std::size_t>(away.size(), 3)),
-                                 ", ", ", and "));
+        // The nearest three, and the most dangerous place the speaker knows even when it is
+        // further: asked whether it is safe, a speaker names the worst of it.
+        std::vector<const Fact*> named(away.begin(), away.begin() + static_cast<std::ptrdiff_t>(std::min<std::size_t>(away.size(), 3)));
+        const Fact* deadliest = nullptr;
+        for (const Fact* place : away)
+            if (!danger_word(*place).empty() && (!deadliest || field_of(*place, "threat") > field_of(*deadliest, "threat")))
+                deadliest = place;
+        if (deadliest && std::find(named.begin(), named.end(), deadliest) == named.end()) {
+            if (named.size() == 3)
+                named.back() = deadliest;
+            else
+                named.push_back(deadliest);
+        }
+        if (!named.empty()) set("nearest", place_phrase(*named.front(), said));
+        if (named.size() > 1) set("others", others_phrase(std::vector<const Fact*>(named.begin() + 1, named.end()), said));
         // The worst nest: the highest danger, the nearest of those.
         const Fact* worst = nullptr;
         for (const Fact* nest : of_kind(p, FactKind::Danger))

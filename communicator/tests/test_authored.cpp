@@ -92,33 +92,34 @@ TEST(a_line_speaks_only_when_its_packet_fills_every_blank) {
     // No nest near the inn: only the line without a danger is said.
     const std::vector<std::string> at_the_inn = lines.replies(packets::surroundings_from_the_inn());
     check::equal(at_the_inn.size(), std::size_t(1), "one line fits at the inn");
-    check::equal(at_the_inn.front(), std::string("The nearest is the silent keep, 3.1 km off, held by squatters."), "the reply");
+    check::equal(at_the_inn.front(), std::string("The nearest is the silent keep, an hour's walk away, dangerous, held by squatters."), "the reply");
     // Both fit at the gate, and the one that says more is said: a speaker who knows of a nest does
     // not leave it out.
     const std::vector<std::string> at_the_gate = lines.replies(packets::surroundings_from_the_gate());
     check::equal(at_the_gate.size(), std::size_t(1), "the fuller line at the gate");
     check::equal(at_the_gate.front(),
-                 std::string("The nearest is the hamlet of Wenweg, 3.1 km off. Mind the Glacier dragons nesting 3.1 km off."),
+                 std::string("The nearest is the hamlet of Wenweg, an hour's walk away. Mind the Glacier dragons nesting an hour's walk "
+                             "away."),
                  "the reply");
     // Where the speaker stands is not the nearest place, and the worst nest is named.
     const Lines around = Lines::parse("any | surroundings | {nearest}. Past that, {others}. Mind the {danger}.", "test");
     check::equal(first(around.replies(packets::surroundings())),
-                 std::string("The ninth stone on the Linbrig road, 2.5 km off, held by monsters. Past that, the hamlet of "
-                             "Wenweg, 3.1 km off, and the burnt works, 3.1 km off, held by squatters. Mind the Hippogryphs "
-                             "nesting 4.9 km off."),
+                 std::string("The ninth stone on the Linbrig road, a short walk away, dangerous, held by monsters. Past "
+                             "that, the hamlet of Wenweg and the deeps under Linbrig, deadly, held by monsters, both an hour's "
+                             "walk away. Mind the Hippogryphs nesting an hour's walk away."),
                  "the castellan's surroundings");
 }
 
 TEST(an_optional_part_is_left_out_when_its_blank_is_not_filled) {
     const Lines lines = Lines::parse("any | surroundings | The nearest is {nearest}.[ Then there's {others}.][ Mind the {danger}.]", "test");
     check::equal(first(lines.replies(packets::surroundings_from_the_inn())),
-                 std::string("The nearest is the silent keep, 3.1 km off, held by squatters. Then there's Dunfor, 11.2 km off, and "
-                             "Strandbrig, 13.5 km off."),
+                 std::string("The nearest is the silent keep, an hour's walk away, dangerous, held by squatters. Then there's "
+                             "Dunfor and Strandbrig, both a long walk away."),
                  "no nest near the inn, so no warning");
     check::equal(first(lines.replies(packets::surroundings_from_the_gate())),
-                 std::string("The nearest is the hamlet of Wenweg, 3.1 km off. Then there's the hospice on the Wenweg pass, 3.1 km "
-                             "off, held by monsters, and another hamlet of Wenweg, 4.9 km off. Mind the Glacier dragons nesting "
-                             "3.1 km off."),
+                 std::string("The nearest is the hamlet of Wenweg, an hour's walk away. Then there's the hospice on the Wenweg "
+                             "pass, dangerous, held by monsters, and another hamlet of Wenweg, both an hour's walk away. Mind the "
+                             "Glacier dragons nesting an hour's walk away."),
                  "all of it at the gate");
     // A part left out still leaves a line that says more than one without it.
     const Lines two = Lines::parse("any | surroundings | The nearest is {nearest}.\n"
@@ -141,13 +142,56 @@ TEST(an_optional_part_is_left_out_when_its_blank_is_not_filled) {
 TEST(where_the_speaker_stands_is_named_and_a_place_named_twice_is_another) {
     const Lines lines = Lines::parse("any | surroundings | This is {here}, and the nearest is {nearest}.[ Then there's {others}.]", "test");
     check::equal(first(lines.replies(packets::surroundings())),
-                 std::string("This is Wenweg, and the nearest is the ninth stone on the Linbrig road, 2.5 km off, held by monsters. "
-                             "Then there's the hamlet of Wenweg, 3.1 km off, and the burnt works, 3.1 km off, held by squatters."),
+                 std::string("This is Wenweg, and the nearest is the ninth stone on the Linbrig road, a short walk away, "
+                             "dangerous, held by monsters. Then there's the hamlet of Wenweg and the deeps under Linbrig, deadly, "
+                             "held by monsters, both an hour's walk away."),
                  "the castellan's town");
     check::equal(first(lines.replies(packets::surroundings_from_the_gate())),
-                 std::string("This is the fortress of Wenweg, and the nearest is the hamlet of Wenweg, 3.1 km off. Then there's the "
-                             "hospice on the Wenweg pass, 3.1 km off, held by monsters, and another hamlet of Wenweg, 4.9 km off."),
+                 std::string("This is the fortress of Wenweg, and the nearest is the hamlet of Wenweg, an hour's walk away. Then "
+                             "there's the hospice on the Wenweg pass, dangerous, held by monsters, and another hamlet of Wenweg, "
+                             "both an hour's walk away."),
                  "the gate's fortress, and the second hamlet as another");
+}
+
+TEST(asked_what_is_around_a_speaker_names_the_worst_of_it) {
+    // Is it safe? A dangerous place says so, and the most dangerous place the speaker knows is
+    // named even past the nearest three: the deeps under Linbrig are the castellan's fifth.
+    const FactPacket around = packets::surroundings();
+    std::vector<std::string> away;
+    for (const Fact& f : around.facts)
+        if (f.kind == FactKind::Place && *f.field("range") != "here") away.push_back(f.subject);
+    check::is_true(std::find(away.begin(), away.end(), "keyloc-silver_mine-211") - away.begin() >= 3,
+                   "the premise: the deeps are past the nearest three");
+    const Lines lines = Lines::parse("any | surroundings | The nearest is {nearest}.[ Then there's {others}.]", "test");
+    const std::string said = first(lines.replies(around));
+    check::is_true(said.find("the deeps under Linbrig, deadly") != std::string::npos, "the deadliest named: " + said);
+    check::is_true(said.find("the ninth stone on the Linbrig road, a short walk away, dangerous") != std::string::npos,
+                   "a dangerous place says so: " + said);
+    // With nothing dangerous about, the nearest three are named and nothing is called dangerous.
+    FactPacket quiet = around;
+    for (Fact& f : quiet.facts)
+        for (auto& [key, value] : f.fields)
+            if (key == "threat") value = "2";
+    const std::string calm = first(lines.replies(quiet));
+    check::is_true(calm.find("the burnt works") != std::string::npos, "the third nearest, then: " + calm);
+    check::is_true(calm.find("deadly") == std::string::npos && calm.find("dangerous") == std::string::npos, "no danger claimed: " + calm);
+}
+
+TEST(a_marker_changes_no_written_reply) {
+    // The work's exact map marker is the game's: the written lines say the same with it or without.
+    const Lines lines = Lines::load(COMMUNICATOR_LINES);
+    for (FactPacket p : {packets::work(), packets::accepted()}) {
+        const std::vector<std::string> with = lines.replies(p);
+        std::size_t markers = 0;
+        for (Fact& f : p.facts) {
+            const auto end = std::remove_if(f.fields.begin(), f.fields.end(),
+                                            [](const auto& field) { return field.first == "marker" || field.first == "marker_node"; });
+            markers += static_cast<std::size_t>(f.fields.end() - end);
+            f.fields.erase(end, f.fields.end());
+        }
+        check::is_true(markers > 0, "the premise: markers to take away");
+        check::is_true(lines.replies(p) == with, "the same replies");
+    }
 }
 
 TEST(a_refusal_naming_two_people_names_neither_as_the_giver) {
@@ -209,7 +253,7 @@ TEST(a_speaker_speaks_from_their_own_bank_first) {
     // A bank whose lines the packet cannot fill gives way to the next.
     FactPacket warden_at_the_inn = packets::surroundings_from_the_inn();
     warden_at_the_inn.persona.voice_key = "warden/LN";
-    check::equal(first(lines.replies(warden_at_the_inn)), std::string("The nearest is the silent keep, 3.1 km off, held by squatters."),
+    check::equal(first(lines.replies(warden_at_the_inn)), std::string("The nearest is the silent keep, an hour's walk away, dangerous, held by squatters."),
                  "anyone's, when the warden's need a nest");
 }
 
@@ -249,14 +293,14 @@ TEST(others_work_is_retold_as_theirs) {
                  std::string("Dornar of the council wants someone to walk the walls of Torhas with them, and Mekmoh the keeper "
                              "wants someone to bring an offering to the shrine of The Red Field at Narbod."),
                  "others' work, and a council sat on, not been");
-    check::equal(first(lines.replies(packets::work())), std::string("Hold the fortress above Wenweg with me, fair work, 8.0 km off."),
+    check::equal(first(lines.replies(packets::work())), std::string("Hold the fortress above Wenweg with me, fair work, a long walk away."),
                  "the speaker's own, in their words");
     // A purpose that gives its reason first is told by what it asks.
     FactPacket dragons = packets::work_at_the_inn();
     dragons.facts = {{FactKind::QuestOffer, "hook-hero-warden-hamlet-12-0",
                       {{"giver", "Aldmer"}, {"giver_role", "reeve"}, {"from_speaker", "no"}, {"verb", "slay"},
                        {"purpose", "Our fields lie in its reach: drive off Forest dragons, Who Ate Linbrig."}, {"difficulty", "4"},
-                       {"distance", "6.0 km"}}}};
+                       {"range", "walk"}}}};
     check::equal(first(lines.replies(dragons)), std::string("Aldmer the reeve wants someone to drive off Forest dragons, Who Ate Linbrig."),
                  "the ask, not the reason");
 }

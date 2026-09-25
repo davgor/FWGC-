@@ -1,6 +1,7 @@
 // Fact packets as the director writes them, built by hand: this component never sees a world.
 // Their text is taken from real packets (seed 42, size 33, a month old), so the tests read what
-// the voice and the interpreter will actually be handed. The ids are the director's too.
+// the voice and the interpreter will actually be handed. The ids are the director's too, but for
+// the work's markers (for the game's map, never said), whose ids are illustrative.
 #pragma once
 
 #include <string>
@@ -60,27 +61,27 @@ inline FactPacket surroundings() {
     return packet(castellan(), ActKind::AskSurroundings, Outcome::Answered,
                   {
                       {FactKind::Place, "surface-city-2-212-human_cold",
-                       {{"kind", "city"}, {"name", "Wenweg (Age 2)"}, {"class", "small"}, {"people", "human_cold"}, {"distance", "here"}}},
+                       {{"kind", "city"}, {"name", "Wenweg (Age 2)"}, {"class", "small"}, {"people", "human_cold"}, {"range", "here"}}},
                       {FactKind::Place, "keyloc-waystone-road_waystones-rsurface-city-2-142-human_cold-surface-city-2-212-human_cold-19800",
                        {{"kind", "waystone"}, {"name", "the ninth stone on the Linbrig road"}, {"family", "wayside"}, {"state", "abandoned"},
-                        {"threat", "4"}, {"occupant", "monsters"}, {"distance", "2.5 km"}}},
-                      {FactKind::Place, "hamlet-39", {{"kind", "hamlet"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"distance", "3.1 km"}}},
+                        {"threat", "4"}, {"occupant", "monsters"}, {"range", "near"}}},
+                      {FactKind::Place, "hamlet-39", {{"kind", "hamlet"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"range", "walk"}}},
                       {FactKind::Place, "keyloc-smelter_ruin-180",
                        {{"kind", "smelter_ruin"}, {"name", "the burnt works"}, {"family", "extractive"}, {"state", "ruined"},
-                        {"threat", "2"}, {"occupant", "squatters"}, {"distance", "3.1 km"}}},
-                      {FactKind::Place, "hamlet-37", {{"kind", "hamlet"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"distance", "4.0 km"}}},
+                        {"threat", "2"}, {"occupant", "squatters"}, {"range", "walk"}}},
+                      {FactKind::Place, "hamlet-37", {{"kind", "hamlet"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"range", "walk"}}},
                       {FactKind::Place, "keyloc-silver_mine-211",
                        {{"kind", "silver_mine"}, {"name", "the deeps under Linbrig"}, {"family", "extractive"}, {"state", "ruined"},
-                        {"threat", "5"}, {"occupant", "monsters"}, {"distance", "4.0 km"}}},
-                      {FactKind::Place, "fortress-17", {{"kind", "fortress"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"distance", "8.0 km"}}},
+                        {"threat", "5"}, {"occupant", "monsters"}, {"range", "walk"}}},
+                      {FactKind::Place, "fortress-17", {{"kind", "fortress"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"range", "far"}}},
                       {FactKind::Place, "surface-city-2-242-dwarf",
-                       {{"kind", "city"}, {"name", "Hakndum (Age 2)"}, {"class", "small"}, {"people", "dwarf"}, {"distance", "8.9 km"}}},
+                       {{"kind", "city"}, {"name", "Hakndum (Age 2)"}, {"class", "small"}, {"people", "dwarf"}, {"range", "far"}}},
                       {FactKind::Place, "surface-city-1-152-human_cold",
-                       {{"kind", "city"}, {"name", "Nerstrann (Age 1)"}, {"class", "small"}, {"people", "human_cold"}, {"distance", "14.8 km"}}},
+                       {{"kind", "city"}, {"name", "Nerstrann (Age 1)"}, {"class", "small"}, {"people", "human_cold"}, {"range", "far"}}},
                       {FactKind::Danger, "nest-hippogryphs-179",
-                       {{"creature", "Hippogryphs"}, {"danger", "3"}, {"family", "fantastic"}, {"distance", "4.9 km"}}},
+                       {{"creature", "Hippogryphs"}, {"danger", "3"}, {"family", "fantastic"}, {"range", "walk"}}},
                       {FactKind::Danger, "nest-frost-owls-179",
-                       {{"creature", "Frost owls"}, {"danger", "2"}, {"family", "fantastic"}, {"distance", "4.9 km"}}},
+                       {{"creature", "Frost owls"}, {"danger", "2"}, {"family", "fantastic"}, {"range", "walk"}}},
                   });
 }
 
@@ -93,20 +94,21 @@ inline FactPacket work() {
                       {FactKind::QuestOffer, kOwnOffer,
                        {{"giver", "Selbren"}, {"giver_role", "castellan"}, {"from_speaker", "yes"}, {"verb", "defend"},
                         {"purpose", "Hold the fortress above Wenweg (Age 2) with me."}, {"where", "the fortress of Wenweg (Age 2)"},
-                        {"difficulty", "3"}, {"distance", "8.0 km"}, {"days_left", "713"}}},
+                        {"difficulty", "3"}, {"range", "far"}, {"days_left", "713"}, {"marker", "fortress-17"},
+                        {"marker_node", "178"}}},
                       {FactKind::QuestOffer, "hook-hero-harbourmaster-coastal-23-30-0",
                        {{"giver", "Nerbrann"}, {"giver_role", "harbourmaster"}, {"from_speaker", "no"}, {"verb", "trade"},
                         {"purpose", "Keep the sea lanes to the harbour of Wenweg (Age 2) open."}, {"where", "the hamlet of Wenweg (Age 2)"},
-                        {"difficulty", "2"}, {"distance", "13.6 km"}, {"days_left", "974"}}},
+                        {"difficulty", "2"}, {"range", "far"}, {"days_left", "974"}, {"marker", "hamlet-38"}, {"marker_node", "30"}}},
                       {FactKind::QuestOffer, kBrokeredOffer,
                        {{"giver", "Halbrann"}, {"giver_role", "pretender"}, {"from_speaker", "no"}, {"verb", "reclaim"},
                         {"purpose", "Help me take back Linbrig."}, {"where", "the ruins of Linbrig"}, {"difficulty", "2"},
-                        {"distance", "5.2 km"}, {"days_left", "776"}}},
+                        {"range", "walk"}, {"days_left", "776"}, {"marker", "ruin-243"}, {"marker_node", "243"}}},
                       {FactKind::QuestOffer, "hook-hero-pretender-surface-city-0-243-human_cold-1",
                        {{"giver", "Halbrann"}, {"giver_role", "pretender"}, {"from_speaker", "no"}, {"verb", "recover"},
                         {"purpose", "Recover the reliquary of Linbrig from the ruins."},
-                        {"where", "the reliquary of Linbrig, in the ruins of Linbrig"}, {"difficulty", "2"}, {"distance", "5.2 km"},
-                        {"days_left", "581"}}},
+                        {"where", "the reliquary of Linbrig, in the ruins of Linbrig"}, {"difficulty", "2"}, {"range", "walk"},
+                        {"days_left", "581"}, {"marker", "ruin-243"}, {"marker_node", "243"}}},
                   });
 }
 
@@ -127,7 +129,8 @@ inline FactPacket refused_brokered() {
 }
 
 inline FactPacket accepted(const std::string& quest = kOwnOffer) {
-    return packet(castellan(), ActKind::AcceptQuest, Outcome::Accepted, {{FactKind::QuestState, quest, {{"state", "taken"}}}});
+    return packet(castellan(), ActKind::AcceptQuest, Outcome::Accepted,
+                  {{FactKind::QuestState, quest, {{"state", "taken"}, {"marker", "fortress-17"}, {"marker_node", "178"}}}});
 }
 
 inline FactPacket declined() { return packet(castellan(), ActKind::DeclineQuest, Outcome::Declined); }
@@ -144,14 +147,14 @@ inline FactPacket not_understood() { return packet(gate_captain(), ActKind::NoAc
 inline FactPacket surroundings_from_the_gate() {
     return packet(gate_captain(), ActKind::AskSurroundings, Outcome::Answered,
                   {
-                      {FactKind::Place, "fortress-17", {{"kind", "fortress"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"distance", "here"}}},
-                      {FactKind::Place, "hamlet-38", {{"kind", "hamlet"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"distance", "3.1 km"}}},
+                      {FactKind::Place, "fortress-17", {{"kind", "fortress"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"range", "here"}}},
+                      {FactKind::Place, "hamlet-38", {{"kind", "hamlet"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"range", "walk"}}},
                       {FactKind::Place, "keyloc-pass_hospice-146",
                        {{"kind", "pass_hospice"}, {"name", "the hospice on the Wenweg (Age 2) pass"}, {"family", "wayside"},
-                        {"state", "ruined"}, {"threat", "4"}, {"occupant", "monsters"}, {"distance", "3.1 km"}}},
-                      {FactKind::Place, "hamlet-37", {{"kind", "hamlet"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"distance", "4.9 km"}}},
+                        {"state", "ruined"}, {"threat", "4"}, {"occupant", "monsters"}, {"range", "walk"}}},
+                      {FactKind::Place, "hamlet-37", {{"kind", "hamlet"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"range", "walk"}}},
                       {FactKind::Danger, "nest-glacier-dragons-210",
-                       {{"creature", "Glacier dragons"}, {"danger", "5"}, {"family", "draconic"}, {"distance", "3.1 km"}}},
+                       {{"creature", "Glacier dragons"}, {"danger", "5"}, {"family", "draconic"}, {"range", "walk"}}},
                   });
 }
 
@@ -171,11 +174,11 @@ inline FactPacket work_at_the_inn() {
                       {FactKind::QuestOffer, "hook-hero-council-surface-city-1-359-hill_dwarf-commander-0",
                        {{"giver", "Dornar"}, {"giver_role", "council"}, {"from_speaker", "no"}, {"verb", "defend"},
                         {"purpose", "Walk the walls of Torhas (Age 1) with me."}, {"where", "Torhas (Age 1)"}, {"difficulty", "2"},
-                        {"distance", "here"}, {"days_left", "948"}}},
+                        {"range", "here"}, {"days_left", "948"}}},
                       {FactKind::QuestOffer, "hook-hero-keeper-shrine-ruin-surface-city-0-327-hill_dwarf-0",
                        {{"giver", "Mekmoh"}, {"giver_role", "keeper"}, {"from_speaker", "no"}, {"verb", "tend"},
                         {"purpose", "Bring an offering to the shrine of The Red Field at Narbod."}, {"difficulty", "1"},
-                        {"distance", "2.2 km"}, {"days_left", "313"}}},
+                        {"range", "near"}, {"days_left", "313"}}},
                   });
 }
 
@@ -183,17 +186,17 @@ inline FactPacket surroundings_from_the_inn() {
     return packet(innkeeper(), ActKind::AskSurroundings, Outcome::Answered,
                   {
                       {FactKind::Place, "surface-city-1-359-hill_dwarf",
-                       {{"kind", "city"}, {"name", "Torhas (Age 1)"}, {"class", "capital"}, {"people", "hill_dwarf"}, {"distance", "here"}}},
+                       {{"kind", "city"}, {"name", "Torhas (Age 1)"}, {"class", "capital"}, {"people", "hill_dwarf"}, {"range", "here"}}},
                       {FactKind::Place, "keyloc-boundary_stone-march_stones-frontier-98600",
                        {{"kind", "boundary_stone"}, {"name", "the cold marker"}, {"family", "wayside"}, {"state", "abandoned"},
-                        {"threat", "3"}, {"distance", "here"}}},
+                        {"threat", "3"}, {"range", "here"}}},
                       {FactKind::Place, "keyloc-border_fort-391",
                        {{"kind", "border_fort"}, {"name", "the silent keep"}, {"family", "fortification"}, {"state", "ruined"},
-                        {"threat", "4"}, {"occupant", "squatters"}, {"distance", "3.1 km"}}},
+                        {"threat", "4"}, {"occupant", "squatters"}, {"range", "walk"}}},
                       {FactKind::Place, "surface-city-2-454-human_desert",
-                       {{"kind", "city"}, {"name", "Dunfor (Age 2)"}, {"class", "small"}, {"people", "human_desert"}, {"distance", "11.2 km"}}},
+                       {{"kind", "city"}, {"name", "Dunfor (Age 2)"}, {"class", "small"}, {"people", "human_desert"}, {"range", "far"}}},
                       {FactKind::Place, "surface-city-0-425-human_desert",
-                       {{"kind", "city"}, {"name", "Strandbrig"}, {"class", "small"}, {"people", "human_desert"}, {"distance", "13.5 km"}}},
+                       {{"kind", "city"}, {"name", "Strandbrig"}, {"class", "small"}, {"people", "human_desert"}, {"range", "far"}}},
                   });
 }
 

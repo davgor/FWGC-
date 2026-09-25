@@ -99,6 +99,11 @@ The prompt holds four things:
   - Not the days an offer stands. However they were put ("948 days left", "the offer stands
     for 948 more days"), a model took them for how long the work lasts. The game can show a
     deadline.
+  - How far, in words, as roughly as the packet says it (contract version 3): "a short walk
+    away", "an hour's walk away", "a long way off". Given kilometres, Qwen3-4B read them out in
+    6 replies of 24 and rounded them wrong ("thirteen kilometers" for 13.6); given words, in 0.
+  - Never a piece of work's map marker (`marker`, `marker_node`): it is for the game. Neither
+    the prompt nor the grammar changes with it, so no id's words become sayable.
 - **What just happened:** the outcome, with a refusal's reason.
 - **The closing rules:** a length, no names beyond the packet's, nothing of pay, and how far
   places are but never which way.
@@ -171,10 +176,14 @@ larger-than-life heroes.
   `{giver}`, `{here}`, `{nearest}`, `{others}`, `{danger}`, `{own}`..., and in every situation
   `{speaker}`, `{post}` and `{place}`. A line with a blank its packet cannot fill is not said.
   - `{here}` is where the speaker stands, by name, so "where am I" has its answer.
-  - A place comes with how far it is and who holds it: "the burnt works, 3.1 km off, held by
-    squatters". A name said twice is "another" the second time: "another hamlet of Wenweg".
+  - A place comes with how far it is, roughly, how dangerous when it is, and who holds it: "the
+    deeps under Linbrig, an hour's walk away, deadly, held by monsters". A name said twice is
+    "another" the second time: "another hamlet of Wenweg".
+  - The nearest three are named, and the most dangerous place the speaker knows always, even
+    further off: asked whether it is safe, a speaker names the worst of it.
+  - Two places at the same range share it: "Dunfor and Strandbrig, both a long walk away".
   - A nest is the worst the packet holds.
-  - Work comes with how hard and how far: "fair work, 8.0 km off".
+  - Work comes with how hard and how far: "fair work, a long walk away".
   - Another's work is told as theirs ("with me" becomes "with them"), by what it asks, not by
     the reason given first ("Our fields lie in its reach: drive off...").
   - A refusal names its giver only when it names one person.
@@ -230,8 +239,9 @@ larger-than-life heroes.
     repeats.
   - **Now** the fullest lines are said, `{here}` names where the speaker stands, a place named
     twice is "another", and the eval hands a speaker their last reply. The judge heard "B's
-    voice with B's flaws fixed". One miss is left: "is it safe" gets the places near by, but not
-    the deadliest one or any threat word.
+    voice with B's flaws fixed". One miss was left: "is it safe" got the places near by, but not
+    the deadliest one or any threat word. Since fixed in the engine (a dangerous place says so,
+    and the deadliest is always named); not yet judged again.
   - **Qwen3-4B** invented directions, a temperament for a people, duties from the card, a
     deadline and a route. It rounded 13.6 km to 13, and called abandoned work "finished".
 
@@ -275,6 +285,9 @@ larger-than-life heroes.
   be said, and elsewhere it cannot. Beside the southern tower, "southern" can, and "south" and
   "southwest" still cannot.
 - **No world id reaches a model:** no uid or fact id is in any prompt or grammar.
+- **A map marker reaches no prompt and no grammar:** both are the same with it and without,
+  even when the marker's id holds a barred word ("silver" from a mine).
+- **How far is said in words, never in numbers:** "a short walk away", never kilometres.
 - **The voice's prompt carries its packet, as it is said:**
   - the persona and its `never` lines;
   - every offer's giver and purpose;
@@ -303,6 +316,10 @@ larger-than-life heroes.
     no line fuller, and nor does a blank said twice.
   - **An optional part is left out whole when its blank is not filled,** and kept when it is.
   - **Where the speaker stands is named, and a place named twice is "another" the second time.**
+  - **Asked what is around, a speaker names the worst of it:** a dangerous place says so, and the
+    deadliest is named past the nearest three. With nothing dangerous about, the nearest three are
+    named and nothing is called dangerous.
+  - **A map marker changes no written reply.**
   - **A refusal that names two people fills `{giver}` with neither.**
   - **A speaker's own bank comes first,** then their post's, then anyone's. A bank whose lines
     the packet cannot fill gives way.
