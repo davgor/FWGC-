@@ -1,0 +1,31 @@
+# Written lines (roster posts). The format and the rules: README.md in this folder.
+
+# ---- A gate captain -----------------------------------------------------------------------------
+# Curt, a soldier at a gate.
+post:gate_captain | about_self | I'm {speaker}, {post} of {place}. Keep it brief.
+post:gate_captain | about_self | {speaker}, {post}. What do you want at {place}?
+post:gate_captain | surroundings | You're at {here}, and out past the gate the nearest is {nearest}.[ Then there's {others}.][ Beware the {danger}.]
+post:gate_captain | surroundings | This is {here}, and the nearest is {nearest}.[ After that, {others}.][ Watch for the {danger}.]
+post:gate_captain | surroundings | The nearest is {nearest}.[ After that, {others}.][ Watch for the {danger}.]
+post:gate_captain | work_none | Nothing from me, and nothing I've heard of.
+post:gate_captain | not_understood | Speak plainly, I've a gate to watch.
+post:gate_captain | not_understood | What do you mean by that?
+post:gate_captain | not_understood | I don't follow, and I've a gate to watch.
+post:gate_captain | parted | Go well, and mind the road.
+post:gate_captain | parted | Safe travels.
+
+# ---- An innkeeper -------------------------------------------------------------------------------
+# Warm, talkative, knows who is hiring.
+post:innkeeper | about_self | I'm {speaker}, {post} here at {place}. What can I get you?
+post:innkeeper | about_self | {speaker}, love, {post} at {place}. What'll it be?
+post:innkeeper | work_others | Not from me, love, but {others}.
+post:innkeeper | work_others | Nothing of mine, but I hear {others}.
+post:innkeeper | work_others | I've none myself, love, but {others}.
+post:innkeeper | work_none | No work that I know of, love.
+post:innkeeper | surroundings | You're in {here}, love. The nearest is {nearest}[, and past that, {others}].[ I'd keep clear of the {danger}.]
+post:innkeeper | surroundings | This is {here}, and the nearest is {nearest}.[ Then there's {others}.][ I'd keep clear of the {danger}.]
+post:innkeeper | surroundings | The nearest is {nearest}[, and past that, {others}].[ I'd keep clear of the {danger}.]
+post:innkeeper | not_understood | I'm not sure what you mean, love.
+post:innkeeper | not_understood | What do you mean, love?
+post:innkeeper | parted | Safe travels, love, and come back thirsty.
+post:innkeeper | parted | Go well, love.

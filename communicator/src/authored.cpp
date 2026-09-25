@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cstdint>
+#include <filesystem>
 #include <fstream>
 #include <optional>
 #include <set>
@@ -208,11 +209,11 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     return out;
 }
 
-// A line filled from a packet: its text, and how many of its situation's blanks it says (the
-// speaker's own, {speaker}, {post} and {place}, are not counted).
+// A line filled from a packet: its text, and which of its situation's blanks it says, each once
+// however often it says it (the speaker's own, {speaker}, {post} and {place}, are not counted).
 struct Filled {
     std::string text;
-    std::size_t said = 0;
+    std::set<std::string> said;
 };
 
 // `text` with its blanks filled, or nothing when the packet cannot fill one.
@@ -229,7 +230,7 @@ std::optional<Filled> fill_blanks(std::string_view text, const std::map<std::str
         const auto found = blanks.find(name);
         if (found == blanks.end()) return std::nullopt;
         out.text += found->second;
-        if (std::find(speaker_blanks().begin(), speaker_blanks().end(), name) == speaker_blanks().end()) ++out.said;
+        if (std::find(speaker_blanks().begin(), speaker_blanks().end(), name) == speaker_blanks().end()) out.said.insert(name);
         i = close + 1;
     }
     return out;
@@ -246,12 +247,12 @@ std::optional<Filled> filled(const std::string& line, const std::map<std::string
             fill_blanks(std::string_view(line).substr(i, open == std::string::npos ? std::string::npos : open - i), blanks);
         if (!plain) return std::nullopt;
         out.text += plain->text;
-        out.said += plain->said;
+        out.said.insert(plain->said.begin(), plain->said.end());
         if (open == std::string::npos) break;
         const std::size_t close = line.find(']', open);
         if (const std::optional<Filled> part = fill_blanks(std::string_view(line).substr(open + 1, close - open - 1), blanks)) {
             out.text += part->text;
-            out.said += part->said;
+            out.said.insert(part->said.begin(), part->said.end());
         }
         i = close + 1;
     }
@@ -376,17 +377,38 @@ std::string Lines::situation(const FactPacket& p) {
 }
 
 Lines Lines::load(const std::string& path) {
-    std::ifstream in(path, std::ios::binary);
-    if (!in) throw Error("no lines file at " + path);
-    std::stringstream text;
-    text << in.rdbuf();
-    return parse(text.str(), path);
+    // A folder is every `.txt` in it, in name order: one file for each archetype, say.
+    std::vector<std::filesystem::path> files;
+    std::error_code error;
+    if (std::filesystem::is_directory(path, error)) {
+        for (const auto& entry : std::filesystem::directory_iterator(path, error))
+            if (entry.is_regular_file() && entry.path().extension() == ".txt") files.push_back(entry.path());
+        if (error) throw Error("cannot read the lines folder " + path + ": " + error.message());
+        if (files.empty()) throw Error("no .txt lines files in " + path);
+        std::sort(files.begin(), files.end());
+    } else {
+        files.push_back(path);
+    }
+    Lines out;
+    for (const std::filesystem::path& file : files) {
+        std::ifstream in(file, std::ios::binary);
+        if (!in) throw Error("no lines file at " + file.string());
+        std::stringstream text;
+        text << in.rdbuf();
+        out.read(text.str(), file.string());
+    }
+    return out;
 }
 
 Lines Lines::parse(std::string_view text, const std::string& source) {
+    Lines out;
+    out.read(text, source);
+    return out;
+}
+
+void Lines::read(std::string_view text, const std::string& source) {
     if (text.substr(0, 3) == "\xEF\xBB\xBF") text.remove_prefix(3);  // a byte-order mark an editor wrote
     std::stringstream in{std::string(text)};
-    Lines out;
     std::string row;
     int number = 0;
     while (std::getline(in, row)) {
@@ -408,9 +430,8 @@ Lines Lines::parse(std::string_view text, const std::string& source) {
             if (!allowed) throw Error(where + ": no blank {" + blank + "} in " + cells[1]);
         }
         if (const std::string problem = optional_parts_problem(cells[2]); !problem.empty()) throw Error(where + ": " + problem);
-        out.banks_[cells[0]][cells[1]].push_back(cells[2]);
+        banks_[cells[0]][cells[1]].push_back(cells[2]);
     }
-    return out;
 }
 
 std::vector<std::string> Lines::replies(const FactPacket& p) const {
@@ -419,7 +440,16 @@ std::vector<std::string> Lines::replies(const FactPacket& p) const {
     const std::map<std::string, std::string> blanks = blanks_of(p, s);
     const std::string closing = reply_shape(p).closing;
     std::vector<std::string> voices;
-    if (!p.persona.voice_key.empty()) voices.push_back(p.persona.voice_key);
+    if (!p.persona.voice_key.empty()) {
+        voices.push_back(p.persona.voice_key);
+        // An alignment with no bank of its own speaks from its archetype's true-neutral lines,
+        // where the archetype shows almost unmodified.
+        const std::size_t slash = p.persona.voice_key.find('/');
+        if (slash != std::string::npos) {
+            const std::string core = p.persona.voice_key.substr(0, slash) + "/NN";
+            if (core != p.persona.voice_key) voices.push_back(core);
+        }
+    }
     if (!p.persona.role.empty()) voices.push_back("post:" + p.persona.role);
     voices.push_back("any");
     for (const std::string& voice : voices) {
@@ -434,10 +464,10 @@ std::vector<std::string> Lines::replies(const FactPacket& p) const {
         // The lines that say the most of what the packet holds: a speaker who knows of a nest
         // does not leave it out for a shorter line.
         std::size_t most = 0;
-        for (const Filled& f : fits) most = std::max(most, f.said);
+        for (const Filled& f : fits) most = std::max(most, f.said.size());
         std::vector<std::string> out;
         for (const Filled& f : fits)
-            if (f.said == most) out.push_back(f.text + (closing.empty() ? "" : " " + closing));
+            if (f.said.size() == most) out.push_back(f.text + (closing.empty() ? "" : " " + closing));
         return out;
     }
     return {};

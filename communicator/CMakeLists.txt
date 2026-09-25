@@ -72,7 +72,8 @@ if(COMMUNICATOR_BUILD_TESTS)
   # points elsewhere.
   target_compile_definitions(communicator_tests PRIVATE
     COMMUNICATOR_TEST_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/../inference/models/qwen2.5-0.5b-instruct-q4_0.gguf"
-    COMMUNICATOR_LINES="${CMAKE_CURRENT_SOURCE_DIR}/data/lines.txt")
+    COMMUNICATOR_LINES="${CMAKE_CURRENT_SOURCE_DIR}/data/lines"
+    COMMUNICATOR_TEST_DATA="${CMAKE_CURRENT_SOURCE_DIR}/tests/data")
   add_test(NAME communicator_tests COMMAND communicator_tests)
 
   # A measuring tool over eval/, not a test: eval/README.md.
@@ -83,5 +84,5 @@ if(COMMUNICATOR_BUILD_TESTS)
   target_compile_definitions(communicator_eval PRIVATE
     COMMUNICATOR_TEST_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/../inference/models/qwen2.5-0.5b-instruct-q4_0.gguf"
     COMMUNICATOR_EVAL_DIR="${CMAKE_CURRENT_SOURCE_DIR}/eval"
-    COMMUNICATOR_LINES="${CMAKE_CURRENT_SOURCE_DIR}/data/lines.txt")
+    COMMUNICATOR_LINES="${CMAKE_CURRENT_SOURCE_DIR}/data/lines")
 endif()

@@ -7,7 +7,8 @@ measures how well a model does inside them.
 
 ```bash
 cmake --build communicator/build --config Release --target communicator_eval
-communicator/build/Release/communicator_eval.exe [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH] [--limit N] [--threads N] [--gpu-layers N]
+communicator/build/Release/communicator_eval.exe [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH] [--voice-key KEY] [--limit N] [--threads N] [--gpu-layers N]
+communicator/build/Release/communicator_eval.exe --check-lines PATH
 ```
 
 Without `--model`, it uses `FWGC_TEST_MODEL`, then the test model `inference/README.md` names.
@@ -24,6 +25,15 @@ the communicator README's "Written lines") instead of the model, with the same c
 Cases on one packet are turns with one speaker, so each written reply is handed that speaker's
 last one (`previous`), as a game hands it. The model is still loaded: the interpreter runs on it,
 and the card-word count reads the words its prompt gives. `--lines ""` skips the interpreter.
+
+`--voice-key KEY` speaks every case whose speaker has a voice key (the castellan's) as `KEY`
+instead: `--authored communicator/data/lines --voice-key conqueror/LE` hears a lawful-evil
+conqueror answer the same packets. The roster cases keep their own posts.
+
+`--check-lines PATH` holds every row of a lines file or folder to the voice's rules, as the tests
+do (`tests/authored_cases.hpp`), and prints each row that breaks one, with the rule. It loads no
+model and exits 1 when any row breaks a rule: a writer runs it on their own rows before handing
+them in.
 
 ## What it reports
 

@@ -1,0 +1,370 @@
+# Written lines (The Warden). The format and the rules: README.md in this folder.
+
+# ---- The warden, lawful neutral ---------------------------------------------------------------
+# Terse, formal when pressed, a fair trade and no more; keeps to the post and to a sworn word.
+warden/LN | about_self | I'm {speaker}, {post} of {place}. Say your business plainly.
+warden/LN | about_self | I'm {speaker}, {post} of {place}. You'll find me here, where I'm meant to be.
+warden/LN | about_self | {speaker}, {post} of {place}. Say what you want plainly and we'll get on.
+warden/LN | about_person | That's {name}, the {role}, at {where}. What they do there is their own business.
+warden/LN | about_person | You'll find {name} at {where}. The {role}, and no concern of mine beyond that.
+warden/LN | about_place | That's {about}. I know it, and that's all I'll swear to.
+warden/LN | about_place | You mean {about}. Past that, I don't guess.
+warden/LN | surroundings | You stand in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+warden/LN | surroundings | This is {here}. The closest is {nearest}[, then {others}].[ Keep clear of the {danger}.]
+warden/LN | surroundings | You're in {here}. The nearest is {nearest}[, and past that, {others}].[ Beware the {danger}.]
+warden/LN | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
+warden/LN | surroundings | The closest is {nearest}[, then {others}].[ Keep clear of the {danger}.]
+warden/LN | work_own | There's work, if you've the stomach for it: {own}.[ If not, {others}.]
+warden/LN | work_own | I need steady hands: {own}.[ Otherwise, {others}.]
+warden/LN | work_own | Mine to give: {own}.[ Past that, {others}.]
+warden/LN | work_others | No work of mine to give, but {others}.
+warden/LN | work_others | Nothing from me. {others}, if you're asking.
+warden/LN | work_others | Not mine to give, but {others}.
+warden/LN | work_none | No work of mine, and none I know of.
+warden/LN | work_none | Nothing to give, and nothing I've heard of.
+warden/LN | unknown | I don't know it, and I won't pretend I do.
+warden/LN | unknown | I've never heard of it, and I don't guess at what I haven't seen.
+warden/LN | unknown | I know nothing of it, and I'll not guess.
+warden/LN | refused_give | No, that's {giver}'s work, and I don't hand out other people's.
+warden/LN | refused_give | That's not mine to give, it's {giver}'s, and I keep to my own.
+warden/LN | refused_give | No, that work isn't mine to give, and I don't hand out other people's.
+warden/LN | refused_release | No, that work is {giver}'s to release, not mine.
+warden/LN | refused_release | That's not mine to release, and I keep to my own.
+warden/LN | refused | No, {reason}, and that's an end of it.
+warden/LN | accepted | Good. Do it well and we'll get on.
+warden/LN | accepted | Then it's agreed. Keep your word and I'll keep mine.
+warden/LN | accepted | Done. Don't make me regret it.
+warden/LN | declined | Very well, I'll find someone who will.
+warden/LN | declined | Suit yourself, the offer was fair.
+warden/LN | declined | As you wish, I'll not ask twice.
+warden/LN | abandoned | So be it, someone else will hold it.
+warden/LN | abandoned | A pity, but I'll manage without you.
+warden/LN | abandoned | Then it's done, and your word with it.
+warden/LN | parted | Farewell, and keep out of trouble.
+warden/LN | parted | Go well, stranger.
+warden/LN | parted | Take care, stranger.
+warden/LN | not_understood | I don't follow, so speak plainly or move along.
+warden/LN | not_understood | Speak plainly, I've no time for riddles.
+warden/LN | not_understood | What do you mean by that?
+
+# ---- warden/NN ----
+warden/NN | about_self | {speaker}, {post} of {place}. Ask me straight and you'll get it straight.
+warden/NN | about_self | I'm {speaker}, {post} of {place}. Help me and I'll help you, and that's the whole of it.
+warden/NN | about_self | You've found {speaker}, {post} of {place}. What can I do for you, and what can you do for me?
+warden/NN | about_person | That'd be {name}, the {role}, at {where}. Take them as you find them.
+warden/NN | about_person | {name}? The {role}, at {where}. That's all I've got on them.
+warden/NN | about_place | That's {about}. Go if you've reason to; I've none.
+warden/NN | about_place | Aye, {about}. That's what I know, no more and no less.
+warden/NN | surroundings | Here's how it lies: you're in {here}, and the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}.]
+warden/NN | surroundings | We're in {here}, and the closest is {nearest}[, then {others}].[ {danger}, so tread carefully.]
+warden/NN | surroundings | Around {here}, the nearest is {nearest}[, and beyond that, {others}].[ Give the {danger} a wide berth.]
+warden/NN | surroundings | What's nearest is {nearest}.[ Then {others}.][ Don't go near the {danger}.]
+warden/NN | surroundings | The nearest to you is {nearest}[, and after it, {others}].[ Keep an eye out for the {danger}.]
+warden/NN | work_own | There's work going, if you want it: {own}.[ If that's not for you, {others}.]
+warden/NN | work_own | Since you're asking, here's one: {own}.[ Besides that, {others}.]
+warden/NN | work_own | Right, you'd be handy for this: {own}.[ If not, {others}.]
+warden/NN | work_others | None of my own, but {others}.
+warden/NN | work_others | Your best bet's elsewhere: {others}.
+warden/NN | work_none | Nothing doing, and nobody I know is hiring either.
+warden/NN | work_none | Not one, and I'd tell you if there were.
+warden/NN | unknown | Never heard of it, so I'm no help there.
+warden/NN | unknown | I couldn't tell you, and guessing would only waste your time.
+warden/NN | refused_give | No, that's {giver}'s to hand out, not mine.
+warden/NN | refused_give | Not from me, that's {giver}'s business, and I stay out of other people's.
+warden/NN | refused_give | That's not mine to give, so asking me gets you nowhere.
+warden/NN | refused_release | I can't, that's between you and {giver}.
+warden/NN | refused_release | I won't undo a deal {giver} made.
+warden/NN | refused_release | I cannot, that's for whoever set you to it.
+warden/NN | refused | No, {reason}, and there's no sense arguing it.
+warden/NN | refused | I can't, {reason}, simple as that.
+warden/NN | accepted | Done. I don't forget a good turn.
+warden/NN | accepted | Good, that's that sorted.
+warden/NN | accepted | Then it's agreed, and that suits us both.
+warden/NN | declined | Very well, can't win them all.
+warden/NN | declined | Suit yourself, there's always another pair of hands.
+warden/NN | declined | As you wish, I won't waste breath talking you round.
+warden/NN | abandoned | A pity, I'd started counting on you.
+warden/NN | abandoned | So be it, I'll mark it down and find someone else.
+warden/NN | abandoned | Then it's done, and no hard feelings; it happens.
+warden/NN | parted | Take care, you've been easy to deal with.
+warden/NN | parted | Goodbye, and don't be a stranger.
+warden/NN | parted | Go well, and mind your own business, it's the safest kind.
+warden/NN | not_understood | I don't follow, say that again, plainer.
+warden/NN | not_understood | That's beyond me, so give it to me in fewer words.
+warden/NN | not_understood | What do you mean, exactly?
+
+# ---- warden/NG ----
+warden/NG | about_self | I'm {speaker}, {post} of {place}. Have you come far?
+warden/NG | about_self | {speaker}, {post} of {place}, and you're welcome here. Ask for what you need, and we'll sort the rest out after.
+warden/NG | about_self | You can call me {speaker}; I'm {post} of {place}. Is anyone with you who needs help?
+warden/NG | about_person | {name}, the {role}, at {where}. If you go to them, go carefully.
+warden/NG | about_person | That's {name}, the {role}, at {where}. Be decent to them, would you?
+warden/NG | about_place | Ah, {about}. I wish I could tell you more.
+warden/NG | about_place | Oh, {about}. Is someone you care for out there?
+warden/NG | surroundings | Let me help: you're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Please keep clear of the {danger}.]
+warden/NG | surroundings | You're in {here}, and the closest is {nearest}[, then {others}].[ Be careful of the {danger}.]
+warden/NG | surroundings | So you don't go wrong, this is {here}, and the nearest is {nearest}[, and after that {others}].[ Keep your distance from the {danger}, won't you?]
+warden/NG | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Mind yourself near the {danger}.]
+warden/NG | surroundings | If it helps, the nearest is {nearest}[, then {others}].[ Take care near the {danger}.]
+warden/NG | work_own | I'd be grateful for a hand: {own}.[ Or, if that's not for you, {others}.]
+warden/NG | work_own | There's this, if you're willing: {own}.[ And if not, {others}.]
+warden/NG | work_own | I'm sorry to ask it of you, but {own}.[ If it's too much, {others}.]
+warden/NG | work_others | Nothing here, but don't lose heart: {others}.
+warden/NG | work_others | I've nothing to give, but I can point you on: {others}.
+warden/NG | work_none | Sadly not, and I've heard of none going either.
+warden/NG | work_none | None, but you've lost nothing by asking.
+warden/NG | unknown | I couldn't tell you, and I'm sorry for it.
+warden/NG | unknown | I've never heard of it, and I'd not send you wrong with a guess.
+warden/NG | refused_give | No, that's {giver}'s to give, and I'd not go behind their back.
+warden/NG | refused_give | I can't, it's {giver}'s, or you'd have it gladly.
+warden/NG | refused_give | That's not mine to give, I'm sorry.
+warden/NG | refused_release | I cannot, only {giver} can let you go from it.
+warden/NG | refused_release | Not from me, that's {giver}'s to release, and I'd not take that from them.
+warden/NG | refused_release | I won't meddle in what isn't mine, much as I'd like to.
+warden/NG | refused | No, {reason}, and I wish it were otherwise.
+warden/NG | refused | I can't, {reason}, but I'll help however else I can.
+warden/NG | accepted | Thank you, truly. Mind how you go.
+warden/NG | accepted | Good, and I'm glad it's you.
+warden/NG | accepted | Then it's agreed, and bless you for it.
+warden/NG | declined | Fair enough, and no harm done.
+warden/NG | declined | Very well, and thanks for being straight with me.
+warden/NG | declined | As you wish, and I hope whatever you're about goes well.
+warden/NG | abandoned | A pity, but I'd rather you walked away than got hurt.
+warden/NG | abandoned | So be it, and there's no shame in it.
+warden/NG | abandoned | Then it's done, and don't you worry, I'll find another way.
+warden/NG | parted | Go well, and look after yourself.
+warden/NG | parted | Safe travels, and you know where I am if you need anything.
+warden/NG | parted | Take care, and if you meet anyone in trouble, send them my way.
+warden/NG | not_understood | I'm not sure what you mean, so try me again.
+warden/NG | not_understood | I don't follow, forgive me, could you say it another way?
+warden/NG | not_understood | Speak plainly, please, and I'll do what I can.
+
+# ---- warden/CN ----
+warden/CN | about_self | {speaker}, {post} of {place}, at your most humble service, ha, no. What do you want?
+warden/CN | about_self | Me? {speaker}, {post} of {place}, for my sins.
+warden/CN | about_self | I'm {speaker}, {post} of {place}, and I play straight, mostly, all right, always.
+warden/CN | about_person | Oh, {name}. The {role}, at {where}, and that's all you're getting.
+warden/CN | about_person | Look for {name} at {where}. The {role}, if you care for titles.
+warden/CN | about_place | Ah, {about}. Know it. Couldn't tell you more if I tried.
+warden/CN | about_place | That'd be {about}, and no, I'm not taking you.
+warden/CN | surroundings | Right, you're in {here}, and the nearest is {nearest}.[ Then {others}.][ Oh, and the {danger}, so don't.]
+warden/CN | surroundings | Welcome to {here}, esteemed guest, and so on. The nearest is {nearest}[, then {others}].[ Mind the {danger}, and if it comes to running, run anywhere but here.]
+warden/CN | surroundings | Here's the gist: this is {here}, and the nearest is {nearest}[, then {others}].[ Stay clear of the {danger}, obviously.]
+warden/CN | surroundings | Let's see, the nearest is {nearest}.[ After that, {others}.][ The {danger}, I'd skip.]
+warden/CN | surroundings | If you want the nearest, it's {nearest}[, then {others}].[ Don't go poking the {danger}.]
+warden/CN | work_own | What, work? Fine: {own}.[ Or, if you'd rather, {others}.]
+warden/CN | work_own | A job, if you've the legs for it, and I think you have, just about: {own}.[ No? Then {others}.]
+warden/CN | work_own | Now, this one's mine, so naturally it's the best: {own}.[ If that's not to your taste, {others}.]
+warden/CN | work_others | Not me, but {others}.
+warden/CN | work_others | Mine? None. {others}, though, if you're hungry for it.
+warden/CN | work_none | Nothing, nowhere, not a scrap.
+warden/CN | work_none | No work, no gossip, no nothing.
+warden/CN | unknown | No idea, and I've stopped pretending I have those.
+warden/CN | unknown | Never heard of it, and now I'm curious, thanks for that.
+warden/CN | refused_give | No, that's {giver}'s, and crossing people is bad for business.
+warden/CN | refused_give | I can't do that to {giver}, I'd want the same done for me, so, no.
+warden/CN | refused_give | That's not mine to give, trouble, and I only give what's mine.
+warden/CN | refused_release | I cannot, I'm not stepping on {giver}'s toes, not for you, not for anyone.
+warden/CN | refused_release | Not from me, that's between you and {giver}, and I stay out of other people's handshakes.
+warden/CN | refused_release | I won't, not behind anyone's back, not even for you.
+warden/CN | refused | No, {reason}, and that's not me being awkward, for once.
+warden/CN | refused | I can't, {reason}, and no, I don't like it either.
+warden/CN | accepted | Done. You and me, then, never mind the rest of it.
+warden/CN | accepted | Very good, very proper, now off you go before I change my mind.
+warden/CN | accepted | Then it's agreed, and no backing out, I'm serious, mostly.
+warden/CN | declined | Suit yourself, sunshine.
+warden/CN | declined | Very well, more for me.
+warden/CN | declined | So be it, I'll only mention it twice more.
+warden/CN | abandoned | A pity, and there I was starting to like you.
+warden/CN | abandoned | Then it's done, more fool you, no offence.
+warden/CN | abandoned | As you wish, I'll pretend I'm not disappointed.
+warden/CN | parted | Go well, trouble.
+warden/CN | parted | Safe travels, and don't do anything I wouldn't.
+warden/CN | parted | Farewell, trouble, I'll be right here, being marvellous.
+warden/CN | not_understood | I don't follow, you lost me, somewhere early, go again.
+warden/CN | not_understood | What do you mean, what, no, start again.
+warden/CN | not_understood | That's beyond me, and I'm usually quick.
+
+# ---- warden/LG ----
+warden/LG | about_self | I am {speaker}, {post} of {place}. You are welcome here, and if you are in need, say so first.
+warden/LG | about_self | {speaker}, {post} of {place}, at your service, good stranger.
+warden/LG | about_self | You speak with {speaker}, {post} of {place}. Before anything else, are you well?
+warden/LG | about_person | That is {name}, the {role}, at {where}. I would ask you to deal kindly with {name}.
+warden/LG | about_person | You will find {name}, the {role}, at {where}. Should {name} wrong you, I would hear of it.
+warden/LG | about_place | Yes, {about}. I pray you go carefully, if you go at all.
+warden/LG | about_place | Of that I know only this: {about}. I am sorry I cannot tell you more.
+warden/LG | surroundings | If I may: you are in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ I beg you, keep clear of the {danger}.]
+warden/LG | surroundings | We are in {here}, and the closest is {nearest}[, and after it, {others}].[ Please take the greatest care near the {danger}.]
+warden/LG | surroundings | Welcome to {here}. The nearest is {nearest}[, and past it, {others}].[ Do not go near the {danger} unless you must.]
+warden/LG | surroundings | The nearest is {nearest}.[ After that, {others}.][ Be wary near the {danger}.]
+warden/LG | surroundings | The closest to us is {nearest}[, and then {others}].[ I would sooner you kept well away from the {danger}.]
+warden/LG | work_own | I will trust you with this much, and gladly: {own}.[ If it does not suit you, {others}.]
+warden/LG | work_own | Here is a task worthy of you, if you will take it: {own}.[ Otherwise, {others}.]
+warden/LG | work_own | Pardon me, but I must know you better before I ask more: {own}.[ Should you prefer otherwise, {others}.]
+warden/LG | work_others | I have nothing of my own to offer, but {others}.
+warden/LG | work_others | Forgive me, the work I know of is not mine: {others}.
+warden/LG | work_none | There is none to be had from me, nor from anyone I know.
+warden/LG | work_none | None, I regret, but you are always welcome to ask.
+warden/LG | unknown | I know nothing of it, and I would not mislead you.
+warden/LG | unknown | I couldn't tell you, and I am the poorer for not knowing.
+warden/LG | refused_give | No, that work is {giver}'s to give, and I will not take it upon myself.
+warden/LG | refused_give | I cannot, for it is {giver}'s, and I would not wrong them so.
+warden/LG | refused_give | That's not mine to give, and it would not be right of me.
+warden/LG | refused_release | I can't release you from what {giver} gave; that is theirs alone to do.
+warden/LG | refused_release | Not from me, your word was given to {giver}, and only they may return it.
+warden/LG | refused_release | I won't overstep: it is not mine to release.
+warden/LG | refused | No, {reason}, and I would spare you that if I could.
+warden/LG | refused | I cannot, {reason}, and I have no right to set that aside.
+warden/LG | accepted | Thank you. You have my word that I will not forget it.
+warden/LG | accepted | Very good. Take every care, and let nothing befall you on my account.
+warden/LG | accepted | Then it's agreed, and I am glad of your help.
+warden/LG | declined | As you wish, and should you need anything, you have only to ask.
+warden/LG | declined | Very well, and I thank you for hearing me out.
+warden/LG | declined | Fair enough, and I shall think no less of you for it.
+warden/LG | abandoned | A pity, but I would far rather you told me than came to harm.
+warden/LG | abandoned | Then it's done, and I release you from your word.
+warden/LG | abandoned | So be it; your safety matters more to me than the task.
+warden/LG | parted | Go well, good stranger, and keep safe.
+warden/LG | parted | Farewell, and remember that you have been welcome here.
+warden/LG | parted | Safe travels, and my good wishes go with you.
+warden/LG | not_understood | I'm not sure what you mean; would you say it again, more plainly?
+warden/LG | not_understood | I don't follow; I would ask you to put it another way.
+warden/LG | not_understood | What do you mean by that, so that I may answer you properly?
+
+# ---- warden/CG ----
+warden/CG | about_self | {speaker}, {post} of {place}, and never mind me, are you all right?
+warden/CG | about_self | I'm {speaker}, {post} of {place}. Anyone with you, hurt, hungry, lost? Out with it.
+warden/CG | about_self | Hello there, {speaker}'s the name, {post} of {place}, and anywhere I'm stood, you're welcome.
+warden/CG | about_person | {name}! The {role}, at {where}, and you mind yourself round them, yes?
+warden/CG | about_person | Oh, {name}, the {role}, at {where}, and be kind to them, whatever they're like.
+warden/CG | about_place | That's {about}, and if anyone there needs a way out, you send them to me.
+warden/CG | about_place | Ah, {about}. Do you have to? No, don't answer that, just be careful.
+warden/CG | surroundings | Here, let me, you're in {here}, and the nearest is {nearest}.[ Then {others}.][ And the {danger}, so please, please be careful.]
+warden/CG | surroundings | You're in {here}, and the nearest is {nearest}[, then {others}].[ Keep clear of the {danger}, I mean it.]
+warden/CG | surroundings | Before I forget, this is {here}, and the nearest is {nearest}[, and after that {others}].[ The {danger}, though, not one step nearer, you hear?]
+warden/CG | surroundings | Look, the nearest is {nearest}.[ Then {others}.][ Stay well back from the {danger}, for me.]
+warden/CG | surroundings | So, the nearest is {nearest}[, then {others}].[ {danger}, and I'd rather you steered well clear.]
+warden/CG | work_own | Right, you, yes, you, I need a hand: {own}.[ If not, no harm, {others}.]
+warden/CG | work_own | Would you really? Then here: {own}.[ Or, if that's not for you, {others}.]
+warden/CG | work_own | No pressure, none, well, a little: {own}.[ Otherwise, {others}.]
+warden/CG | work_others | Nothing of mine, but wait, {others}.
+warden/CG | work_others | Me, I've nothing, but {others}.
+warden/CG | work_none | None, and that's a crying shame.
+warden/CG | work_none | Not a whisper of any, and it's driving me mad.
+warden/CG | unknown | No idea, wish I had.
+warden/CG | unknown | I couldn't tell you, and it's killing me.
+warden/CG | refused_give | No, that's {giver}'s, and I stick by people.
+warden/CG | refused_give | I won't do that to {giver}, sorry.
+warden/CG | refused_give | That's not mine to give, or you'd have it already.
+warden/CG | refused_release | I can't let you off {giver}'s work, but I'd not blame you for asking.
+warden/CG | refused_release | Not from me, {giver} set it, and I don't go behind people.
+warden/CG | refused_release | I cannot, it's not mine to undo, and I'm sorry, I am.
+warden/CG | refused | No, {reason}, and believe me, I'd change it if I could.
+warden/CG | refused | I can't, {reason}, and I hate saying it.
+warden/CG | accepted | Thank you, oh, thank you. Come back safe, that's all I ask.
+warden/CG | accepted | Good, good, oh, that's a weight off, now mind yourself out there.
+warden/CG | accepted | Done, and you've a good heart, you have.
+warden/CG | declined | Fair enough, it was a lot to ask, sorry, forget I did.
+warden/CG | declined | Suit yourself, I'll ask someone else, no, really, it's fine.
+warden/CG | declined | As you wish, but look after yourself anyway.
+warden/CG | abandoned | A pity, but you matter more than the job, you do.
+warden/CG | abandoned | So be it, and no, I'm not cross, I'm worried, there's a difference.
+warden/CG | abandoned | Then it's done, and don't you dare feel bad about it.
+warden/CG | parted | Take care, and if you find anyone in a bad way, bring them, never mind who says what.
+warden/CG | parted | Go well, and come back to me in one piece, yes?
+warden/CG | parted | Farewell, and don't let anyone push you about.
+warden/CG | not_understood | I don't follow, again, slower?
+warden/CG | not_understood | What do you mean, exactly?
+warden/CG | not_understood | That's beyond me, but I'm listening, go on.
+
+# ---- warden/NE ----
+warden/NE | about_self | {speaker}, {post} of {place}, and how lovely to have a visitor, I'm sure.
+warden/NE | about_self | I'm {speaker}, {post} of {place}, and I look after my own. What do you want?
+warden/NE | about_self | You're speaking to {speaker}, {post} of {place}, and you'd best be worth the bother.
+warden/NE | about_person | {name}, the {role}, at {where}. Whatever you want with them, leave me out of it.
+warden/NE | about_person | That's {name}, the {role}. You'll find them at {where}, for all the good it'll do you.
+warden/NE | about_place | That'd be {about}. Don't come running to me about it.
+warden/NE | about_place | Oh, {about}. Go if you like; it's your funeral.
+warden/NE | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}; I've better things to do than fetch you back.]
+warden/NE | surroundings | This is {here}, and the closest is {nearest}[, then {others}].[ Go near the {danger} and you're on your own.]
+warden/NE | surroundings | Look around you: this is {here}, and the nearest is {nearest}[, and after it, {others}].[ Don't go leading the {danger} back here.]
+warden/NE | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Stay away from the {danger}; I'd hate to lose a pair of hands.]
+warden/NE | surroundings | All you need to know: the nearest is {nearest}[, then {others}].[ Keep clear of the {danger}, if you've any sense.]
+warden/NE | work_own | I'd take it as a kindness, and I do remember kindnesses: {own}.[ If not, go and bother someone else: {others}.]
+warden/NE | work_own | Make yourself useful: {own}.[ Or run along: {others}.]
+warden/NE | work_own | Here's a use for you, since you've nothing better: {own}.[ Don't like it? {others}.]
+warden/NE | work_others | Nothing of mine, but {others}, if they'll have you.
+warden/NE | work_others | Me? No. {others}, and they're welcome to you.
+warden/NE | work_none | None, and you'd be far down my list if there were.
+warden/NE | work_none | Not a scrap, so there's no reason for you to linger.
+warden/NE | unknown | No idea, and it's no concern of mine.
+warden/NE | unknown | Never heard of it, and I don't care to.
+warden/NE | refused_give | No, that's {giver}'s, and I don't do favours for strangers.
+warden/NE | refused_give | That's not mine, it's {giver}'s, and you'd do well to remember whose.
+warden/NE | refused_give | I won't, it isn't mine, and I'd not lift a finger for you if it were.
+warden/NE | refused_release | I can't, you're {giver}'s problem now, not mine.
+warden/NE | refused_release | Not from me, you chose {giver}, now live with it.
+warden/NE | refused_release | I cannot, and you've wasted enough of my time asking.
+warden/NE | refused | No, {reason}, and whining won't change it.
+warden/NE | refused | I can't, {reason}, and I'm not sorry.
+warden/NE | accepted | Good. See that you're worth the trouble.
+warden/NE | accepted | Done, and if you cut corners, I'll hear of it, and so will you.
+warden/NE | accepted | Then it's agreed, and you're mine till it's done.
+warden/NE | declined | Suit yourself, there are hungrier hands than yours.
+warden/NE | declined | Very well, I'll remember you said no.
+warden/NE | declined | As you wish, it's no loss to me.
+warden/NE | abandoned | A pity, for you, since I don't forget.
+warden/NE | abandoned | So be it, you were never worth much anyway.
+warden/NE | abandoned | Then it's done, and I've no further use for you.
+warden/NE | parted | Goodbye, and don't hurry back.
+warden/NE | parted | Take care, if you can manage it.
+warden/NE | parted | Safe travels, for as long as they last.
+warden/NE | not_understood | Speak plainly, or save your breath.
+warden/NE | not_understood | What do you mean by that, and think before you answer.
+warden/NE | not_understood | I don't follow, and I won't play guessing games.
+
+# ---- warden/LE ----
+warden/LE | about_self | I am {speaker}, {post} of {place}. You will remember both.
+warden/LE | about_self | You stand before {speaker}, {post} of {place}. I trust you will conduct yourself accordingly, though I doubt it.
+warden/LE | about_self | {speaker}, {post} of {place}, and I have not yet decided what you are.
+warden/LE | about_person | That is {name}, the {role}, at {where}. Whether they will receive you is not my affair.
+warden/LE | about_person | {name}, the {role}, may be found at {where}. I would not presume to vouch for you there.
+warden/LE | about_place | Yes, {about}. I trust your reasons for going are better than your manners.
+warden/LE | about_place | It is {about}, and that is all you will have from me.
+warden/LE | surroundings | Hear me once: you are in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Should you wander near the {danger}, do not expect me to follow.]
+warden/LE | surroundings | This is {here}, and the closest is {nearest}[, and after it, {others}].[ Whatever befalls you among the {danger} will not trouble me.]
+warden/LE | surroundings | Since you ask: you are in {here}, and the nearest is {nearest}[, then {others}].[ The {danger} I leave to you, and you to them.]
+warden/LE | surroundings | The nearest is {nearest}.[ After that, {others}.][ I would mind the {danger}, were I as careless as you appear.]
+warden/LE | surroundings | What lies nearest is {nearest}[, and past it, {others}].[ Heed the {danger}, since I doubt you will heed me.]
+warden/LE | work_own | You may prove yourself with this: {own}.[ If it is beneath you, {others}.]
+warden/LE | work_own | A task fit for someone of your sort: {own}.[ If not, {others}.]
+warden/LE | work_own | Do this properly, and I may revise my opinion of you: {own}.[ Or, if you must, {others}.]
+warden/LE | work_others | I have nothing for you. {others}, if they are less particular than I am.
+warden/LE | work_others | None of mine, and I would not trust you with any yet, but {others}.
+warden/LE | work_none | There is nothing, and you would be the last to hear of it if there were.
+warden/LE | work_none | Nothing whatever, and I would thank you not to ask again.
+warden/LE | unknown | I know nothing of it, and I do not deal in rumour.
+warden/LE | unknown | I've never heard of it, which tells me it is of no importance.
+warden/LE | refused_give | No, that work is {giver}'s, and I do not trespass on another's to oblige the likes of you.
+warden/LE | refused_give | I cannot, it belongs to {giver}, and you have not the right to ask.
+warden/LE | refused_give | That's not mine to give, and I am surprised you thought to ask.
+warden/LE | refused_release | I won't, your word went to {giver}, and I will not help you wriggle out of it.
+warden/LE | refused_release | I can't; that is {giver}'s to release, and you would do well to remember it.
+warden/LE | refused_release | Not from me, for that lies outside my remit, and I do not step outside it, least of all for you.
+warden/LE | refused | No, {reason}, and I will not repeat myself.
+warden/LE | refused | I cannot, {reason}, and your asking does not change it.
+warden/LE | accepted | Very good. I shall expect you to keep your word better than most.
+warden/LE | accepted | Then it's agreed, and I shall hold you to every word, for I doubt you will hold yourself.
+warden/LE | accepted | Good. Do not mistake this for trust.
+warden/LE | declined | As you wish, and I shall remember it when next you want something of me.
+warden/LE | declined | Very well, there are others more fit for it.
+warden/LE | declined | Suit yourself, and do not think to ask for it again.
+warden/LE | abandoned | A pity, though hardly a surprise.
+warden/LE | abandoned | So be it, I will note that your word proved worthless.
+warden/LE | abandoned | Then it's done, and so is any regard I had for you.
+warden/LE | parted | Farewell, and do try not to disappoint me further.
+warden/LE | parted | Go well, and do not presume on my patience a second time.
+warden/LE | parted | Goodbye, you are dismissed.
+warden/LE | not_understood | Speak plainly, if you are able.
+warden/LE | not_understood | I'm not sure what you mean, and I suspect neither are you.
+warden/LE | not_understood | What do you mean by that, and kindly be brief about it.

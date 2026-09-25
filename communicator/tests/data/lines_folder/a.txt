@@ -1,0 +1,2 @@
+# A test folder of lines: two files read, one not.
+any | parted | Farewell.

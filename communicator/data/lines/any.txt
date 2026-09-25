@@ -1,0 +1,31 @@
+# Written lines (anyone). The format and the rules: README.md in this folder.
+
+# ---- Anyone -------------------------------------------------------------------------------------
+any | about_self | I'm {speaker}, {post} of {place}.
+any | about_self | I'm {speaker}.
+any | about_person | That's {name}, the {role}, at {where}.
+any | about_place | That's {about}.
+any | surroundings | This is {here}, and the nearest is {nearest}.[ Then there's {others}.][ Watch for the {danger}.]
+any | surroundings | The nearest is {nearest}.[ Then there's {others}.][ Watch for the {danger}.]
+any | work_own | There's work: {own}.[ Otherwise, {others}.]
+any | work_others | No work of mine, but {others}.
+any | work_none | No work that I know of.
+any | unknown | I don't know it.
+any | unknown | I've never heard of it.
+any | refused_give | No, that work is {giver}'s to give, not mine.
+any | refused_give | No, that work isn't mine to give.
+any | refused_release | No, that work is {giver}'s to release, not mine.
+any | refused_release | No, that work isn't mine to release.
+any | refused_gone | I can't, not now.
+any | refused | I can't, because {reason}.
+any | refused | No, because {reason}.
+any | accepted | Good. It's yours.
+any | accepted | Then it's agreed.
+any | declined | Very well.
+any | declined | As you wish.
+any | abandoned | So be it.
+any | abandoned | Very well, it's off your hands.
+any | parted | Farewell.
+any | parted | Safe travels.
+any | not_understood | I don't follow.
+any | not_understood | I'm not sure what you mean.

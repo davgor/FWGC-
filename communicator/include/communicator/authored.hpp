@@ -6,10 +6,11 @@
 // - a hero's archetype and alignment ("warden/LN", the persona's voice_key);
 // - a roster post ("post:innkeeper");
 // - "any", for everyone.
-// A speaker is answered from their own bank first, then their post's, then "any": the first that
-// has a line for the situation which the packet can fill. Of those lines, the ones that say the
-// most of the packet are said. A part of a line in [brackets] is optional: it is left out whole
-// when the packet cannot fill a blank in it.
+// A speaker is answered from their own bank first, then their archetype's true-neutral bank
+// ("warden/NN", where the archetype shows almost unmodified) when their own alignment has none,
+// then their post's, then "any": the first that has a line for the situation which the packet
+// can fill. Of those lines, the ones that say the most of the packet are said. A part of a line
+// in [brackets] is optional: it is left out whole when the packet cannot fill a blank in it.
 #pragma once
 
 #include <map>
@@ -23,9 +24,10 @@ namespace communicator {
 
 class Lines {
 public:
-    // Reads `path`: rows of `voice | situation | line`, cells trimmed, `#` starting a comment.
-    // Throws Error for a row that is not three cells, a situation situations() does not know, a
-    // line with a blank its situation does not have, or a file that cannot be read.
+    // Reads `path`, a file or a folder of `.txt` files (read in name order): rows of
+    // `voice | situation | line`, cells trimmed, `#` starting a comment. Throws Error for a row
+    // that is not three cells, a situation situations() does not know, a line with a blank its
+    // situation does not have or a bad optional part, or a path that cannot be read.
     static Lines load(const std::string& path);
 
     // The same, from text already read; `source` names it in an error.
@@ -52,6 +54,9 @@ public:
     std::size_t size() const;
 
 private:
+    // Adds the rows of `text` to the banks; `source` names it in an error.
+    void read(std::string_view text, const std::string& source);
+
     // voice -> situation -> lines
     std::map<std::string, std::map<std::string, std::vector<std::string>>> banks_;
 };

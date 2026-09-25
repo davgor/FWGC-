@@ -1,6 +1,6 @@
 // Written lines, spoken for fact packets. No model: a reply is a line a person wrote, its blanks
-// filled from the packet. Every line in data/lines.txt is tried alone against every packet here
-// and held to the voice's rules, so a line that breaks one fails by name.
+// filled from the packet. Every row in data/lines/ is tried alone against every packet in
+// authored_cases.hpp and held to the voice's rules, so a row that breaks one fails by name.
 #include "communicator/authored.hpp"
 
 #include <algorithm>
@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 
+#include "authored_cases.hpp"
 #include "check.hpp"
 #include "communicator/error.hpp"
 #include "packets.hpp"
@@ -18,6 +19,7 @@
 
 namespace {
 
+using namespace authored_cases;
 using communicator::Lines;
 using orchestrator::ActKind;
 using orchestrator::Fact;
@@ -25,157 +27,28 @@ using orchestrator::FactKind;
 using orchestrator::FactPacket;
 using orchestrator::Outcome;
 
-Fact halbrann() {
-    return {FactKind::Person, "hero-pretender-surface-city-0-243-human_cold",
-            {{"name", "Halbrann"}, {"role", "pretender"}, {"where", "the ruins of Linbrig"}, {"status", "about"}}};
-}
-
-Fact reason(const std::string& why, const std::string& text) { return {FactKind::Reason, "", {{"reason", text}, {"why", why}}}; }
-
-// The situations packets.hpp has no packet for, built from its facts.
-FactPacket about_halbrann() { return packets::packet(packets::castellan(), ActKind::AskAboutPerson, Outcome::Answered, {halbrann()}); }
-
-FactPacket about_the_works() {
-    return packets::packet(packets::castellan(), ActKind::AskAboutPlace, Outcome::Answered,
-                           {{FactKind::Place, "keyloc-smelter_ruin-180",
-                             {{"kind", "smelter_ruin"}, {"name", "the burnt works"}, {"family", "extractive"}, {"state", "ruined"},
-                              {"threat", "2"}, {"occupant", "squatters"}, {"distance", "3.1 km"}}}});
-}
-
-FactPacket no_work() { return packets::packet(packets::castellan(), ActKind::AskForWork, Outcome::Answered); }
-
-FactPacket refused_release() {
-    return packets::packet(packets::castellan(), ActKind::AbandonQuest, Outcome::Refused,
-                           {reason("not_theirs_to_release", "the work is Halbrann's to release"), halbrann()});
-}
-
-FactPacket refused_with_no_giver() {
-    return packets::packet(packets::castellan(), ActKind::AcceptQuest, Outcome::Refused,
-                           {reason("not_theirs_to_give", "the work is someone else's to give")});
-}
-
-FactPacket refused_gone() {
-    return packets::packet(packets::castellan(), ActKind::NoAct, Outcome::Refused, {reason("gone", "Selbren is gone")});
-}
-
-// Refused by the world, in the director's words for a lapsed offer.
-FactPacket refused_by_the_world() {
-    return packets::packet(packets::castellan(), ActKind::AcceptQuest, Outcome::Refused,
-                           {reason("refused_by_world", "the offer has lapsed")});
-}
-
-std::vector<FactPacket> cases() {
-    std::vector<FactPacket> out = packets::all();
-    for (FactPacket p : {about_halbrann(), about_the_works(), no_work(), refused_release(), refused_with_no_giver(), refused_gone(),
-                         refused_by_the_world()})
-        out.push_back(std::move(p));
-    return out;
-}
-
 // The first of `replies`, failing by name when there is none.
 std::string first(const std::vector<std::string>& replies) {
     check::is_true(!replies.empty(), "a reply");
     return replies.front();
 }
 
-// The rows of the lines file as the test reads them, apart from Lines: every row that is not
-// blank or a comment.
-std::vector<std::string> rows_of_the_file() {
-    std::ifstream in(COMMUNICATOR_LINES, std::ios::binary);
-    check::is_true(static_cast<bool>(in), std::string("the lines file at ") + COMMUNICATOR_LINES);
-    std::vector<std::string> out;
-    std::string row;
-    while (std::getline(in, row)) {
-        const std::size_t first = row.find_first_not_of(" \t\r");
-        if (first == std::string::npos || row[first] == '#') continue;
-        out.push_back(row);
-    }
-    return out;
-}
-
-std::string voice_of(const std::string& row) {
-    std::string voice = row.substr(0, row.find('|'));
-    while (!voice.empty() && voice.back() == ' ') voice.pop_back();
-    return voice;
-}
-
-// `p` spoken by someone the row's bank answers for: a hero with that voice key, someone at that
-// post, or, for "any", the packet's own speaker.
-FactPacket as_voiced_by(FactPacket p, const std::string& voice) {
-    if (voice.rfind("post:", 0) == 0) {
-        p.persona.voice_key.clear();
-        p.persona.role = voice.substr(5);
-    } else if (voice != "any") {
-        p.persona.voice_key = voice;
-    }
-    return p;
-}
-
-// Every rule of the voice's that `reply` breaks, as spoken for `p`.
-std::vector<std::string> broken_rules(const std::string& reply, const FactPacket& p) {
-    std::vector<std::string> out;
-    if (reply.find_first_of("{}") != std::string::npos) out.push_back("a blank left unfilled");
-    for (const std::string mark : {"\"", "\xE2\x80\x9C", "\xE2\x80\x9D"})
-        if (reply.find(mark) != std::string::npos) out.push_back("a double quote");
-    std::vector<std::string> ids = {p.persona.uid};
-    for (const Fact& f : p.facts)
-        if (!f.subject.empty()) ids.push_back(f.subject);
-    for (const std::string id_start : {"hook-", "hero-", "npc-", "keyloc-", "surface-city-", "nest-"}) ids.push_back(id_start);
-    for (const std::string& id : ids)
-        if (reply.find(id) != std::string::npos) out.push_back("an id: " + id);
-
-    const communicator::ReplyShape shape = communicator::reply_shape(p);
-    std::string own = reply;
-    if (!shape.closing.empty()) {
-        const std::string closing = " " + shape.closing;
-        if (own.size() < closing.size() || own.compare(own.size() - closing.size(), closing.size(), closing) != 0)
-            out.push_back("not the closing: " + shape.closing);
-        else
-            own.resize(own.size() - closing.size());
-    }
-    std::string past_opening = own;
-    if (!shape.openings.empty()) {
-        const auto opening = std::find_if(shape.openings.begin(), shape.openings.end(),
-                                          [&](const std::string& o) { return own.rfind(o, 0) == 0; });
-        if (opening == shape.openings.end())
-            out.push_back("not an opening of its outcome's");
-        else
-            past_opening = own.substr(opening->size());  // C++'s own words: "Suit yourself"
-    }
-    const std::size_t sentences = rules::sentences_in(own);
-    if (sentences < 1 || sentences > static_cast<std::size_t>(shape.sentences))
-        out.push_back(std::to_string(sentences) + " sentences, of at most " + std::to_string(shape.sentences));
-    for (const std::string& name : rules::unlisted_names(past_opening, p)) out.push_back("a capital no packet gave: " + name);
-    for (const std::string& stray : rules::stray_capitals(reply, p)) out.push_back("a common capital mid-sentence: " + stray);
-    for (const std::string& barred : rules::barred_words(reply, p)) out.push_back("a barred word: " + barred);
-    return out;
-}
-
 }  // namespace
 
 TEST(the_lines_file_loads_every_row) {
     const Lines lines = Lines::load(COMMUNICATOR_LINES);
-    check::equal(lines.size(), rows_of_the_file().size(), "rows read");
+    check::equal(lines.size(), rows_of(COMMUNICATOR_LINES).size(), "rows read");
     check::is_true(lines.size() > 50, "the premise: a pilot's worth of lines");
 }
 
 TEST(every_line_is_spoken_and_keeps_the_voices_rules) {
     // Each row alone, against every packet, as its bank's speaker: a row no packet can speak, or
     // a reply that breaks a rule, fails by the row's words.
-    const std::vector<std::string> rows = rows_of_the_file();
+    const std::vector<Row> rows = rows_of(COMMUNICATOR_LINES);
     check::is_true(!rows.empty(), "the premise: rows to read");
-    for (const std::string& row : rows) {
-        const Lines one = Lines::parse(row, "the row");
-        std::size_t spoken = 0;
-        for (const FactPacket& packet : cases()) {
-            const FactPacket p = as_voiced_by(packet, voice_of(row));
-            for (const std::string& reply : one.replies(p)) {
-                ++spoken;
-                const std::vector<std::string> broken = broken_rules(reply, p);
-                check::is_true(broken.empty(), "\"" + reply + "\" to keep the rules; it breaks: " + (broken.empty() ? "" : broken.front()));
-            }
-        }
-        check::is_true(spoken > 0, "a packet that speaks the row: " + row);
+    for (const Row& row : rows) {
+        const std::vector<std::string> problems = row_problems(row.text);
+        check::is_true(problems.empty(), row.where + " to be sound: " + row.text + "; " + (problems.empty() ? "" : problems.front()));
     }
 }
 
@@ -204,6 +77,12 @@ TEST(the_rule_checks_catch_what_they_check) {
     for (const auto& [reply, p] : broken) check::is_true(!broken_rules(reply, p).empty(), "a broken rule found in: " + reply);
     check::is_true(broken_rules("Farewell, and mind the road.", parted).empty(), "a line that keeps them passes");
     check::is_true(broken_rules("No, that's Halbrann's work." + closing, refused).empty(), "with its closing, it passes");
+    // A name the writer typed passes the reply check when a test packet holds it, so the row's
+    // own text is held too: the town is a blank, never a word the line writes.
+    check::is_true(broken_rules("Farewell, and give Wenweg my regards.", parted).empty(), "the premise: the packet holds Wenweg");
+    check::is_true(!row_problems("any | parted | Farewell, and give Wenweg my regards.").empty(), "a town the line writes itself");
+    check::is_true(row_problems("any | parted | Farewell, and give {place} my regards.").empty(), "the town as a blank passes");
+    check::is_true(row_problems("any | declined | Suit yourself, then.").empty(), "an outcome's opening is the program's own");
 }
 
 TEST(a_line_speaks_only_when_its_packet_fills_every_blank) {
@@ -252,6 +131,11 @@ TEST(an_optional_part_is_left_out_when_its_blank_is_not_filled) {
                                      "any | surroundings | I'm {speaker}, and the nearest is {nearest}.\n",
                                      "test");
     check::equal(named.replies(packets::surroundings_from_the_inn()).size(), std::size_t(2), "both, with a name or without");
+    // Nor does a blank said twice: the line says no more of the packet than one that says it once.
+    const Lines twice = Lines::parse("any | refused_give | No, that's {giver}'s work, and {giver} knows it.\n"
+                                     "any | refused_give | No, that's {giver}'s work.\n",
+                                     "test");
+    check::equal(twice.replies(packets::refused_brokered()).size(), std::size_t(2), "both, with the giver once or twice");
 }
 
 TEST(where_the_speaker_stands_is_named_and_a_place_named_twice_is_another) {
@@ -279,6 +163,34 @@ TEST(a_refusal_naming_two_people_names_neither_as_the_giver) {
     const std::vector<std::string> replies = lines.replies(two);
     check::equal(replies.size(), std::size_t(1), "one line fits");
     check::equal(replies.front(), std::string("No, that work isn't mine to give."), "the line without a giver");
+}
+
+TEST(a_folder_of_lines_files_loads_as_one_library) {
+    // Every .txt in the folder, and nothing else: a note beside them is not read as lines.
+    const Lines folder = Lines::load(std::string(COMMUNICATOR_TEST_DATA) + "/lines_folder");
+    check::equal(folder.size(), std::size_t(3), "the rows of a.txt and b.txt, not notes.md");
+    check::equal(first(folder.replies(packets::parted())), std::string("Go well, stranger."), "b.txt's warden");
+    check::equal(first(folder.replies(packets::packet(packets::gate_captain(), ActKind::Farewell, Outcome::Parted))),
+                 std::string("Farewell."), "a.txt's anyone");
+    check::throws([] { Lines::load(std::string(COMMUNICATOR_TEST_DATA) + "/no_lines"); }, "a folder with no .txt file");
+}
+
+TEST(an_alignment_with_no_bank_speaks_from_its_archetypes_core) {
+    // "warden/NN" is the archetype almost unmodified: a warden of another alignment with no bank
+    // of its own speaks from it before falling back to their post's lines.
+    const Lines lines = Lines::parse("warden/NN | parted | Go well, stranger.\n"
+                                     "warden/LE | parted | Farewell, and mind whose ground you cross.\n"
+                                     "post:castellan | parted | Farewell from the wall.\n",
+                                     "test");
+    const auto as = [](const std::string& key) {
+        FactPacket p = packets::parted();
+        p.persona.voice_key = key;
+        return p;
+    };
+    check::equal(first(lines.replies(as("warden/LE"))), std::string("Farewell, and mind whose ground you cross."), "its own bank");
+    check::equal(first(lines.replies(as("warden/CG"))), std::string("Go well, stranger."), "no bank: the archetype's core");
+    check::equal(first(lines.replies(as("warden/NN"))), std::string("Go well, stranger."), "the core itself");
+    check::equal(first(lines.replies(as("tyrant/LE"))), std::string("Farewell from the wall."), "no archetype bank: the post");
 }
 
 TEST(a_speaker_speaks_from_their_own_bank_first) {

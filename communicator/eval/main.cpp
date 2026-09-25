@@ -1,6 +1,8 @@
 // communicator_eval: the interpreter and the voice measured against labelled cases, on a model.
 //
-//   communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH] [--limit N] [--threads N]
+//   communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH] [--voice-key KEY]
+//                     [--limit N] [--threads N] [--gpu-layers N]
+//   communicator_eval --check-lines PATH
 //
 // A measuring tool, not a test: it passes or fails nothing. For the interpreter it prints how
 // often a line is read as its label says, what was mistaken for what, and every unsafe read: an
@@ -9,7 +11,12 @@
 // reader to judge what no check can: whether it claims anything false. With --authored, the voice's
 // replies are written lines (communicator/authored.hpp) from that file instead of the model's, held
 // to the same checks; the model is still loaded, for the interpreter and for the card words a
-// prompt gives.
+// prompt gives. --voice-key speaks every case whose speaker has a voice key as that key instead
+// (a bank of written lines, say "conqueror/LE").
+//
+// --check-lines holds every row of a lines file or folder to the voice's rules, as the tests do
+// (tests/authored_cases.hpp), and prints each row that breaks one. It loads no model: a writer
+// runs it on their own rows. It exits 1 when any row breaks a rule.
 //
 // lines.txt and voice.txt (README.md in this folder) hold the cases. The contexts they name are
 // what a player has been told, built from the packets the tests use.
@@ -29,6 +36,7 @@
 #include "communicator/authored.hpp"
 #include "communicator/interpreter.hpp"
 #include "communicator/known.hpp"
+#include "authored_cases.hpp"
 #include "communicator/voice.hpp"
 #include "packets.hpp"
 #include "reply_shape.hpp"
@@ -381,7 +389,24 @@ std::string listed(const std::set<std::string>& words) {
     return out;
 }
 
-void voice_eval(inference::Model& model, const std::string& path, const communicator::Lines* written) {
+// Every row of `path` held to the voice's rules; the count of rows that break one.
+int check_lines(const std::string& path) {
+    const std::vector<authored_cases::Row> rows = authored_cases::rows_of(path);
+    if (rows.empty()) throw std::runtime_error("no rows of lines at " + path);
+    int broken = 0;
+    for (const authored_cases::Row& row : rows) {
+        const std::vector<std::string> problems = authored_cases::row_problems(row.text);
+        if (problems.empty()) continue;
+        ++broken;
+        std::cout << row.where << ": " << row.text << "\n";
+        for (const std::string& problem : problems) std::cout << "    " << problem << "\n";
+    }
+    std::cout << rows.size() - static_cast<std::size_t>(broken) << " of " << rows.size() << " rows sound\n";
+    return broken;
+}
+
+void voice_eval(inference::Model& model, const std::string& path, const communicator::Lines* written,
+                const std::string& voice_key) {
     communicator::Voice voice(model);
     const auto packets_by_name = voice_packets();
     // A written reply's speaker is handed their last reply, as a game hands it: cases on one
@@ -396,7 +421,8 @@ void voice_eval(inference::Model& model, const std::string& path, const communic
             std::cout << "BAD ROW " << path << ":" << number << ": no packet " << cells[0] << "\n";
             continue;
         }
-        const FactPacket packet = found->second();
+        FactPacket packet = found->second();
+        if (!voice_key.empty() && !packet.persona.voice_key.empty()) packet.persona.voice_key = voice_key;
         const communicator::ReplyShape shape = communicator::reply_shape(packet);
         const Clock::time_point start = Clock::now();
         communicator::Reply reply;
@@ -467,7 +493,7 @@ int main(int argc, char** argv) {
     if (model_path.empty()) model_path = COMMUNICATOR_TEST_MODEL;
     std::string lines = std::string(COMMUNICATOR_EVAL_DIR) + "/lines.txt";
     std::string voice = std::string(COMMUNICATOR_EVAL_DIR) + "/voice.txt";
-    std::string authored;
+    std::string authored, voice_key, check;
     std::size_t limit = 0;
     inference::ModelOptions options;
     for (int i = 1; i < argc; ++i) {
@@ -480,17 +506,20 @@ int main(int argc, char** argv) {
         else if (arg == "--lines") lines = value();
         else if (arg == "--voice") voice = value();
         else if (arg == "--authored") authored = value();
+        else if (arg == "--voice-key") voice_key = value();
+        else if (arg == "--check-lines") check = value();
         else if (arg == "--limit") limit = static_cast<std::size_t>(std::stoul(value()));
         else if (arg == "--threads") options.threads = std::stoi(value());
         else if (arg == "--gpu-layers") options.gpu_layers = std::stoi(value());
         else {
-            std::cerr << "usage: communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH] [--limit N]"
-                         " [--threads N]"
-                         " [--gpu-layers N]\n";
+            std::cerr << "usage: communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH]"
+                         " [--voice-key KEY] [--limit N] [--threads N] [--gpu-layers N]\n"
+                         "       communicator_eval --check-lines PATH\n";
             return 2;
         }
     }
     try {
+        if (!check.empty()) return check_lines(check) == 0 ? 0 : 1;
         std::unique_ptr<inference::Model> model = inference::Model::load(model_path, options);
         std::cout << "# communicator_eval\n\nmodel: " << model_path << "\nthreads: " << options.threads
                   << "\ndevice: " << model->device() << "\n";
@@ -501,7 +530,8 @@ int main(int argc, char** argv) {
                 written = communicator::Lines::load(authored);
                 std::cout << "written lines: " << authored << " (" << written->size() << ")\n";
             }
-            voice_eval(*model, voice, written ? &*written : nullptr);
+            if (!voice_key.empty()) std::cout << "voice key: " << voice_key << "\n";
+            voice_eval(*model, voice, written ? &*written : nullptr, voice_key);
         }
     } catch (const std::exception& e) {
         std::cerr << "communicator_eval: " << e.what() << "\n";
