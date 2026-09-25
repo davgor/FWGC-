@@ -7,7 +7,7 @@ measures how well a model does inside them.
 
 ```bash
 cmake --build communicator/build --config Release --target communicator_eval
-communicator/build/Release/communicator_eval.exe [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH] [--voice-key KEY] [--limit N] [--threads N] [--gpu-layers N]
+communicator/build/Release/communicator_eval.exe [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH] [--voice-key KEY] [--post POST] [--limit N] [--threads N] [--gpu-layers N]
 communicator/build/Release/communicator_eval.exe --check-lines PATH
 ```
 
@@ -29,6 +29,9 @@ and the card-word count reads the words its prompt gives. `--lines ""` skips the
 `--voice-key KEY` speaks every case whose speaker has a voice key (the castellan's) as `KEY`
 instead: `--authored communicator/data/lines --voice-key conqueror/LE` hears a lawful-evil
 conqueror answer the same packets. The roster cases keep their own posts.
+
+`--post POST` speaks those cases as a roster person of that post instead: no voice key, and
+`POST` as what they do, so written lines come from the bank `post:POST` (`--post gate_guard`).
 
 `--check-lines PATH` holds every row of a lines file or folder to the voice's rules, as the tests
 do (`tests/authored_cases.hpp`), and prints each row that breaks one, with the rule. It loads no

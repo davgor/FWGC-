@@ -1,7 +1,7 @@
 // communicator_eval: the interpreter and the voice measured against labelled cases, on a model.
 //
 //   communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH] [--voice-key KEY]
-//                     [--limit N] [--threads N] [--gpu-layers N]
+//                     [--post POST] [--limit N] [--threads N] [--gpu-layers N]
 //   communicator_eval --check-lines PATH
 //
 // A measuring tool, not a test: it passes or fails nothing. For the interpreter it prints how
@@ -12,7 +12,8 @@
 // replies are written lines (communicator/authored.hpp) from that file instead of the model's, held
 // to the same checks; the model is still loaded, for the interpreter and for the card words a
 // prompt gives. --voice-key speaks every case whose speaker has a voice key as that key instead
-// (a bank of written lines, say "conqueror/LE").
+// (a bank of written lines, say "conqueror/LE"). --post speaks those cases as a roster person of
+// that post instead: no voice key, and the post as what they do (the bank "post:smith", say).
 //
 // --check-lines holds every row of a lines file or folder to the voice's rules, as the tests do
 // (tests/authored_cases.hpp), and prints each row that breaks one. It loads no model: a writer
@@ -406,7 +407,7 @@ int check_lines(const std::string& path) {
 }
 
 void voice_eval(inference::Model& model, const std::string& path, const communicator::Lines* written,
-                const std::string& voice_key) {
+                const std::string& voice_key, const std::string& post) {
     communicator::Voice voice(model);
     const auto packets_by_name = voice_packets();
     // A written reply's speaker is handed their last reply, as a game hands it: cases on one
@@ -422,7 +423,12 @@ void voice_eval(inference::Model& model, const std::string& path, const communic
             continue;
         }
         FactPacket packet = found->second();
-        if (!voice_key.empty() && !packet.persona.voice_key.empty()) packet.persona.voice_key = voice_key;
+        if (!post.empty() && !packet.persona.voice_key.empty()) {
+            packet.persona.voice_key.clear();
+            packet.persona.role = post;
+        } else if (!voice_key.empty() && !packet.persona.voice_key.empty()) {
+            packet.persona.voice_key = voice_key;
+        }
         const communicator::ReplyShape shape = communicator::reply_shape(packet);
         const Clock::time_point start = Clock::now();
         communicator::Reply reply;
@@ -493,7 +499,7 @@ int main(int argc, char** argv) {
     if (model_path.empty()) model_path = COMMUNICATOR_TEST_MODEL;
     std::string lines = std::string(COMMUNICATOR_EVAL_DIR) + "/lines.txt";
     std::string voice = std::string(COMMUNICATOR_EVAL_DIR) + "/voice.txt";
-    std::string authored, voice_key, check;
+    std::string authored, voice_key, post, check;
     std::size_t limit = 0;
     inference::ModelOptions options;
     for (int i = 1; i < argc; ++i) {
@@ -507,13 +513,14 @@ int main(int argc, char** argv) {
         else if (arg == "--voice") voice = value();
         else if (arg == "--authored") authored = value();
         else if (arg == "--voice-key") voice_key = value();
+        else if (arg == "--post") post = value();
         else if (arg == "--check-lines") check = value();
         else if (arg == "--limit") limit = static_cast<std::size_t>(std::stoul(value()));
         else if (arg == "--threads") options.threads = std::stoi(value());
         else if (arg == "--gpu-layers") options.gpu_layers = std::stoi(value());
         else {
             std::cerr << "usage: communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH]"
-                         " [--voice-key KEY] [--limit N] [--threads N] [--gpu-layers N]\n"
+                         " [--voice-key KEY] [--post POST] [--limit N] [--threads N] [--gpu-layers N]\n"
                          "       communicator_eval --check-lines PATH\n";
             return 2;
         }
@@ -531,7 +538,8 @@ int main(int argc, char** argv) {
                 std::cout << "written lines: " << authored << " (" << written->size() << ")\n";
             }
             if (!voice_key.empty()) std::cout << "voice key: " << voice_key << "\n";
-            voice_eval(*model, voice, written ? &*written : nullptr, voice_key);
+            if (!post.empty()) std::cout << "post: " << post << "\n";
+            voice_eval(*model, voice, written ? &*written : nullptr, voice_key, post);
         }
     } catch (const std::exception& e) {
         std::cerr << "communicator_eval: " << e.what() << "\n";
