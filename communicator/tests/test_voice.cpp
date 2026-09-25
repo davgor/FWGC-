@@ -192,12 +192,13 @@ TEST(the_prompt_carries_the_persona_and_every_fact_as_it_is_said) {
     const FactPacket work = packets::work();
     const std::string prompt = prompt_of(voice, work, "Any work?");
     const orchestrator::Persona& s = work.persona;
-    for (const std::string* part : {&s.name, &s.voice, &s.toward_player})
+    for (const std::string* part : {&s.name, &s.toward_player})
         check::is_true(prompt.find(*part) != std::string::npos, "the persona's " + *part);
-    // Never the card's sample line or its manner: a model shown them says the one back whole,
-    // and tells the other as fact ("the watch rota is sacred").
+    // Never the card's sample line, manner or voice line: a model shown them says the first back
+    // whole, and tells the others as fact ("the watch rota is sacred", oaths sworn).
     check::is_true(prompt.find("Third night this month") == std::string::npos, "no sample line to say back");
     check::is_true(prompt.find("rota") == std::string::npos, "no manner to tell as fact: " + s.manner);
+    check::is_true(prompt.find("oaths") == std::string::npos, "no voice line to tell as fact: " + s.voice);
     // Numbers on a scale come with words. The days an offer stands are not said at all.
     for (const std::string said : {"fair work (3 of 5)", "easy work (2 of 5)"})
         check::is_true(prompt.find(said) != std::string::npos, "an offer's numbers in words: " + said);

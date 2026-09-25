@@ -115,26 +115,34 @@ committed. On a GPU the times would fall; the accuracy would not change.
 | Small talk and the rest (`no_act`) | 26 of 57 | 50 of 57 |
 | Time per line | 0.8 s | 5.3 s |
 | Replies holding their shape | 24 of 24 | 24 of 24 |
-| Replies saying card words | 0 | 6 (7 words) |
+| Replies saying card words | 1 (11 words: it read its card aloud) | 7 (9 words) |
 | Forbidden words said | 0 | 0 |
-| Replies talking of days | 0 | 1 |
-| Common capitals mid-sentence | 0 | 0 (1 before the capitals rule) |
-| Replies with no fault, judged strictly (leniently) | 11 (12) | 9 (13) |
-| Open-ended answers with no fault, of 9 | 1 (2) | 1 (4) |
-| Time per reply | 0.45 s | 4.5 s |
+| Replies talking of days | 0 | 0 |
+| Common capitals mid-sentence | 0 | 0 |
+| Replies with no fault, judged strictly (leniently) | 10 (13) | 11 (18) |
+| Open-ended answers with no fault, of 9 | 0 (3) | 2 (5) |
+| Time per reply | 0.46 s | 4.5 s |
 
 The fault counts come from a separate session. It read every reply against its packet, with the
 prompt code, and judged the model's own words: not the openings or closing the program writes.
 
-The voice rows are for the barred words, the prompt without the card's manner or an offer's
-days, and common capitals only where a sentence begins. Before the first two, Qwen3-4B said card
-words in 12 replies (25 words), 3 compass points, and days in 3. The capitals rule changed one
-of its replies: "a castle named Greetings" became "a castle named grey". The judging session also read those earlier replies, not told which were which,
-and found 6 (11) with no fault. The test model's counts did not move. Another session had
-judged the same earlier replies 7 (15) and 10 (12), so compare counts from one session.
+The voice rows are for the prompt and grammar as they stand: barred words, common capitals only
+where a sentence begins, and no card manner, card voice line or offer's days in the prompt.
+Each change was measured against the one before it:
 
-Qwen3-4B took 4.3 s a reply before and 4.5 s after, and wrote 12% more tokens. The test model
-took 0.45 s both times.
+| Qwen3-4B | Card words | Forbidden | Days | Mid-sentence capitals | No fault (judged) |
+|---|---|---|---|---|---|
+| 1aaacce | 12 replies (25 words) | 3 | 3 | not counted | 6 (11) |
+| Barred words, no manner or days | 6 (7) | 0 | 1 | 1 | 9 (13) |
+| Common capitals only begin a sentence | 6 (7) | 0 | 1 | 0 | not judged: 1 reply changed |
+| No card voice line | 7 (9) | 0 | 0 | 0 | 11 (18), against 9 (14) |
+
+The card-word count is a proxy. Without the voice line, Qwen3-4B no longer swears the card's
+oaths (4 replies to 0), but says "post" and "watch" instead, which count the same. The judged
+column comes from two sessions, the last row from the second: two sessions differ by a reply or
+two on the same replies, so compare counts from one session. The test model's counts barely
+moved throughout. Without the voice line it once read its card aloud ("Toward strangers: offers
+a fair trade..."), in a reply where it had leaked its prompt before.
 
 Qwen3-4B's misses are mostly in the second question: which work, which person.
 - **"Who are you?"** is read as a question about a person, then the model answers

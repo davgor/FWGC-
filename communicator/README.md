@@ -81,11 +81,14 @@ model: C++ maps the chosen label back to the id the act carries.
 ## The voice
 
 The prompt holds four things:
-- **The persona:** the face a stranger sees, and the card's voice, stance and `never` lines.
+- **The persona:** the face a stranger sees, and the card's stance and `never` lines.
   - Not the card's sample line: shown in any framing, Qwen3-4B said it back whole, in 9 of 24
     replies.
   - Not the card's manner: Qwen3-4B told it as fact, framed as manner or not ("The watch rota
     is sacred" came back as rotas "sworn", "standing firm" and "unbroken").
+  - Not the card's voice line: from "precedent and oaths cited when pressed", Qwen3-4B swore
+    oaths in 4 replies of 24, and in none without the line. Its speech grew plainer, and the
+    owner chose that (2026-09-24).
 - **The facts:** plain lines, without ids, as they would be said.
   - A part of a name in brackets is dropped, so "Wenweg (Age 2)" is Wenweg.
   - A scale of 1 to 5 comes in words beside the number: "easy work (2 of 5)", "threat high
@@ -189,7 +192,8 @@ about Castle Grey, Qwen3-4B said it knew of no "castle named grey".
   - the places and dangers;
   - a refusal's reason;
   - scales in words, and no days an offer stands;
-  - no bracketed part of a name, no sample line to say back, and no manner to tell as fact.
+  - no bracketed part of a name, no sample line to say back, and no manner or voice line to tell
+    as fact.
 - **Streaming adds up, stops when asked, and greedy replies repeat.**
 - **Refusals:** another contract version, a line past `kMaxLineBytes`, options out of range.
 
@@ -216,36 +220,40 @@ machine's CPU at 8 threads. [`eval/README.md`](eval/README.md) has the full tabl
     the wrong work.
   - `clear_lines_find_their_act` pins eight lines the test model reads right. It is a floor,
     not a score.
-- **The voice.** A separate session judged every reply against its packet, strictly. It read
-  the replies from before the barred words and the card change and from after, not told which
-  was which. Before, for Qwen3-4B, is in brackets.
+- **The voice.** A separate session judged every reply against its packet, strictly, not told
+  which version of the prompt wrote which. The counts are for the prompt and grammar as they
+  stand.
 
   | | Qwen2.5-0.5B | Qwen3-4B |
   |---|---|---|
-  | Replies with no fault, of 24 (lenient) | 11 (12) | 9 (13) [6 (11)] |
-  | The 9 open-ended answers with no fault (lenient) | 1 (2) | 1 (4) [0 (3)] |
+  | Replies with no fault, of 24 (lenient) | 10 (13) | 11 (18) |
+  | The 9 open-ended answers with no fault (lenient) | 0 (3) | 2 (5) |
   | Confuses who is who | 6 | 0 |
-  | Invents a fact | 5 | 15 [17] |
-  | Withholds an answer it had | 2 | 0 [1] |
-  | Contradicts the outcome, or repeats instructions | 0 | 0 |
+  | Invents a fact | 5 | 12 |
+  | Withholds an answer it had | 2 | 0 |
+  | Contradicts the outcome | 0 | 1, borderline |
+  | Reads out its card or instructions | 1 | 0 |
 
-  - The shapes hold: no reply contradicts what happened, and none parrots its instructions.
-  - The test model speaks as the player ("Thank you, Selbren"). The change left its counts as
-    they were.
+  - The test model speaks as the player ("Thank you, Selbren"), and once reads its card aloud
+    instead of saying where the stranger is.
   - Qwen3-4B answers fully but invents. It no longer names a compass point, reads a deadline as
-    the work's length, tells of the watch rota, or makes a name of a common capital ("a castle
-    named Greetings" became "a castle named grey", the one reply of 24 the capitals rule
-    changed). What remains:
-    - the card's voice line and stance, told as fact: sworn oaths in 4 replies (the voice line
-      says "precedent and oaths cited when pressed"), and proving the stranger's standing in 2;
-    - distances in the wrong order ("just beyond" a nearer place), a bearing in other words ("in
-      the direction of the deeps"), a moat nobody mentioned, and a journey of "three days by
-      foot".
+    the work's length, tells of the watch rota, swears the card's oaths, or makes a name of a
+    common capital. What remains:
+    - the card's stance and never-lines, told as fact: "you must prove your worth", "any duty I
+      hold", in 4 replies;
+    - a direction in other words ("to the immediate left"), distances out of order, and details
+      nobody gave ("return by dusk");
+    - once, work given up called "finished".
 
-  The grammar keeps out names and barred words, not false claims. Another session had judged
-  the same "before" replies 7 (15) for Qwen3-4B and 10 (12) for the test model: compare counts
-  from one session. The capitals rule came after this judging and changed one reply, which still
-  invents the moat the judge faulted, so the counts stand.
+  Each change was judged in one session against the prompt before it. Barred words, with the
+  manner and the deadline left out, took Qwen3-4B from 6 (11) replies with no fault to 9 (13).
+  Dropping the voice line took it from 9 (14) to 11 (18), in a second session. The test model
+  stayed at 11 (12), then 10 (13). Two sessions differ by a reply or two on the same replies, so
+  compare counts from one session. The capitals rule came after the judging. It changed none of
+  Qwen3-4B's judged replies and one of the test model's, a farewell ("Goodbye, Farewell."
+  became "Goodbye, and thank you for your time.").
+
+  The grammar keeps out names and barred words, not false claims.
 
 The models that ship are a later decision: a trained classifier for the interpreter, and a
 fine-tuned voice (the plan's "Building our own model").
@@ -259,10 +267,10 @@ fine-tuned voice (the plan's "Building our own model").
 - **Names in lower case.** The grammar holds capitals. Kept from "Grey", and since the
   capitals rule from "Greetings" too, Qwen3-4B said it knew of no "castle named grey". That
   echoes the player's own words; an invented name in lower case would get through the same way.
-- **The card's voice line and stance, told as fact.** Qwen3-4B still turns "precedent and oaths
-  cited when pressed" into oaths it has sworn. With the voice line dropped as well, no oaths
-  came back, but the test model once recited the card ("Toward strangers: offers a fair
-  trade..."), and the speaker's style goes with the line.
+- **The card's stance and never-lines, told as fact.** Qwen3-4B turns "Proves the player's
+  standing before trusting them" into "you must prove your worth", and "act outside the office
+  they hold" into duties, in 4 replies of 24. Dropping them too would leave a speaker no
+  character but a name, a post and a place.
 - **"Who are you?"** Telling the model who is spoken to made things worse, measured three ways
   (`eval/README.md`).
 - **Names no packet gave.** "Castle Grey" can only become `no_act`. Looking a player's words up in

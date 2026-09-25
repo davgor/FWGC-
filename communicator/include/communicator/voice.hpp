@@ -1,6 +1,6 @@
 // The voice: a fact packet in the speaker's own words, streamed as the model writes them.
 //
-// The model is told who the speaker is (the face a stranger sees, and their card's voice), what
+// The model is told who the speaker is (the face a stranger sees, and their card's stance), what
 // they know (the packet's facts, without ids) and what just happened (the outcome). A grammar
 // then holds its words: every capitalised word in the reply is a word of the packet's own text,
 // or "I", or begins a sentence and is one of a closed set of words sentences commonly begin with

@@ -273,10 +273,10 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
                          ", a person in a fantasy world. A stranger has come up to you and speaks to you.\n";
     // The card's sample line is left out. Shown to the model in any framing, it was said back
     // whole: in 9 of 24 replies from Qwen3-4B, "never to be repeated word for word" or not
-    // (judged 2026-09-24). So is its manner, whose words came back as facts, framed as manner
-    // or not. The card's voice and stance carry the character instead.
+    // (judged 2026-09-24). So are its manner and its voice line, whose words came back as facts
+    // however they were framed: the watch rota, oaths sworn ("precedent and oaths cited when
+    // pressed"). The card's stance and never-lines carry the character instead.
     std::vector<std::string> card;
-    if (!p.voice.empty()) card.push_back("How you speak: " + text::one_line(p.voice));
     if (!p.toward_player.empty()) card.push_back("Toward strangers: " + text::one_line(p.toward_player));
     if (!p.never.empty()) {
         std::vector<std::string> never;
