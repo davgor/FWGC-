@@ -8,6 +8,7 @@
 #include <optional>
 #include <set>
 #include <sstream>
+#include <utility>
 
 #include "communicator/error.hpp"
 #include "communicator/known.hpp"
@@ -149,14 +150,22 @@ std::string joined(const std::vector<std::string>& parts, std::string_view betwe
 }
 
 // The places after the nearest, as one phrase. Two at the same range share it, said once: "the
-// hamlet of Wenweg and the burnt works, held by squatters, both an hour's walk away". A first
-// place with details of its own is closed by a comma, or "held by monsters and another hamlet"
-// would read as if the hamlet held it.
+// burnt works, held by squatters, and the hamlet of Wenweg, both an hour's walk away". A place
+// with details of its own goes first, closed by a comma: last, "the hamlet of Wenweg and the
+// deeps, deadly, held by monsters" read as if both were deadly; unclosed, "held by monsters and
+// another hamlet" as if the hamlet were held.
 std::string others_phrase(const std::vector<const Fact*>& places, std::set<std::string>& said) {
     if (places.size() == 2 && !how_far(*places[0]).empty() && how_far(*places[0]) == how_far(*places[1])) {
-        const std::string first = place_phrase(*places[0], said, false);
+        const auto detailed = [&said](const Fact& place) {
+            std::set<std::string> dry = said;  // "another" is decided when the phrase is said
+            return place_phrase(place, dry, false).find(',') != std::string::npos;
+        };
+        const Fact* first_place = places[0];
+        const Fact* second_place = places[1];
+        if (!detailed(*first_place) && detailed(*second_place)) std::swap(first_place, second_place);
+        const std::string first = place_phrase(*first_place, said, false);
         const std::string and_then = first.find(',') == std::string::npos ? " and " : ", and ";
-        return first + and_then + place_phrase(*places[1], said, false) + ", both " + how_far(*places[0]);
+        return first + and_then + place_phrase(*second_place, said, false) + ", both " + how_far(*first_place);
     }
     std::vector<std::string> out;
     for (const Fact* place : places) out.push_back(place_phrase(*place, said));

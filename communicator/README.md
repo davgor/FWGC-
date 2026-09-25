@@ -181,7 +181,9 @@ larger-than-life heroes.
     "another" the second time: "another hamlet of Wenweg".
   - The nearest three are named, and the most dangerous place the speaker knows always, even
     further off: asked whether it is safe, a speaker names the worst of it.
-  - Two places at the same range share it: "Dunfor and Strandbrig, both a long walk away".
+  - Two places at the same range share it: "Dunfor and Strandbrig, both a long walk away". One
+    with details goes first ("the deeps under Linbrig, deadly, held by monsters, and the hamlet
+    of Wenweg, both an hour's walk away"): said last, a judge read the hamlet as deadly too.
   - A nest is the worst the packet holds.
   - Work comes with how hard and how far: "fair work, a long walk away".
   - Another's work is told as theirs ("with me" becomes "with them"), by what it asks, not by

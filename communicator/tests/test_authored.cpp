@@ -105,7 +105,7 @@ TEST(a_line_speaks_only_when_its_packet_fills_every_blank) {
     const Lines around = Lines::parse("any | surroundings | {nearest}. Past that, {others}. Mind the {danger}.", "test");
     check::equal(first(around.replies(packets::surroundings())),
                  std::string("The ninth stone on the Linbrig road, a short walk away, dangerous, held by monsters. Past "
-                             "that, the hamlet of Wenweg and the deeps under Linbrig, deadly, held by monsters, both an hour's "
+                             "that, the deeps under Linbrig, deadly, held by monsters, and the hamlet of Wenweg, both an hour's "
                              "walk away. Mind the Hippogryphs nesting an hour's walk away."),
                  "the castellan's surroundings");
 }
@@ -143,8 +143,8 @@ TEST(where_the_speaker_stands_is_named_and_a_place_named_twice_is_another) {
     const Lines lines = Lines::parse("any | surroundings | This is {here}, and the nearest is {nearest}.[ Then there's {others}.]", "test");
     check::equal(first(lines.replies(packets::surroundings())),
                  std::string("This is Wenweg, and the nearest is the ninth stone on the Linbrig road, a short walk away, "
-                             "dangerous, held by monsters. Then there's the hamlet of Wenweg and the deeps under Linbrig, deadly, "
-                             "held by monsters, both an hour's walk away."),
+                             "dangerous, held by monsters. Then there's the deeps under Linbrig, deadly, held by monsters, and "
+                             "the hamlet of Wenweg, both an hour's walk away."),
                  "the castellan's town");
     check::equal(first(lines.replies(packets::surroundings_from_the_gate())),
                  std::string("This is the fortress of Wenweg, and the nearest is the hamlet of Wenweg, an hour's walk away. Then "
