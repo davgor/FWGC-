@@ -1,0 +1,29 @@
+# Rainforest human female: approved light gold armor variation
+
+Status: **Approved by the owner.** Feedback: "approved". Tier 1 variation approved 2026-09-25.
+
+[Approved female sheet](people.human_rainforest_female.style-study.png). Companion: [approved male](people.human_rainforest_male.style-study.md).
+
+Source output: exec-1ab9f71a-6fd6-4051-812b-cf8136fc3246.png in external generated-images session 01a0d6fa-b73a-7310-9a56-64805ed2efe5.
+
+Catalogue identity: `people.human_rainforest`; `_female` identifies this character variant, not a new people. Only approved artwork is retained in the repository. No generator data changed; the full art bible and production checklist remain incomplete. The approved visual direction differs from the original catalogue; reconcile its visual fields in a separately scoped data change before production.
+
+Built-in image generation, using approved male light-gold-armor revision as cultural material and rendering reference. Visually inspected: long single black braid, separate cheek markings, ivory short-sleeved square-neck top with red stepped yoke, teal wrapped skirt, ochre side sash, compact gold upper-chest guard, one forearm guard and small shin guards, satchel and sandals. Distinct clothing silhouette and armor placement from male. Full figure and portrait match major facial, hair and costume details. Fantasy Aztec-inspired design, not a historical reconstruction or measured production sheet.
+
+## Final prompt
+
+Use case: stylized-concept
+Asset type: FWGC++ Tier 1 rainforest human FEMALE variation preview.
+Input image role: approved MALE cultural materials and rendering reference ONLY. Create a distinct adult woman from the same Aztec-inspired rainforest fantasy culture. This must expand the style references through clearly different hair, clothing silhouette, color blocking, armor placement, accessories and pose, not reuse his outfit on a female body.
+Character: capable adult human woman around 32, warm deep copper-brown skin, natural strong build and human proportions, normal rounded ears, dark brown moderate-size eyes, broad cheekbones, natural gently rounded nose and composed alert expression. Different facial identity from male, mature restrained anime rendering.
+Hair: LONG BLACK hair swept back smoothly into ONE substantial long braid descending behind one shoulder to her hip, with a long straight loose tail. Held at the base by a small flat gold clasp with greenstone inset. No male forehead band, no feathers, no crown. Two small terracotta painted angled strokes on each cheek, original fantasy face markings rather than the male's continuous horizontal band.
+Outfit: a short straight-cut IVORY cotton huipil-inspired upper garment with a square neckline, short loose sleeves and broad TERRACOTTA-RED yoke patterned with ordered cream/charcoal stepped-fret motifs. Plain lightweight woven cloth with natural drape, absolutely NO quilted or padded cotton.
+Lower garment: a deep TURQUOISE/TEAL calf-length wrapped skirt with a broad overlapping side opening for stride, always modest and opaque. Strong red and cream stepped bands only at the lower hem and the wrap edge. A flat GOLDEN-OCHRE woven waist sash with one short broad side tail, neatly tucked under a small oblong gold fastener. Construction is readable, continuous overlapping cloth; no rope coils or tangled knots. Do NOT duplicate the male's diagonal shoulder mantle, red long rectangular front apron, short brown lower layer or large square center belt buckle.
+VERY LIGHT GOLD METAL ARMOR, visibly metallic warm gold with controlled broad highlights and fine stepped engraving. New arrangement: one compact shallow curved upper-chest guard about hand-span width below the neckline, attached with narrow brown leather straps over the shoulders; it protects a small area only and leaves most ivory cloth/yoke visible. Flat practical plate, no sculpted breasts or corset. ONE slim outer-forearm guard, secured by two understated leather straps, the other wrist has a narrow woven cuff. Small low-profile gold shin guards over short leather backing wraps, leaving knees and calves mostly free; simple leather sandals beneath. Small turquoise inlays tie the armor to the male design. Armor must remain sparse and mobile; no giant shoulder pauldrons, no full cuirass, no armor skirt, no boots, no quilted cloth.
+Accessories: small gold-and-greenstone ear ornaments, a compact rectangular woven satchel at one hip on a narrow crossbody strap routed cleanly beside the chest guard. No necklace copied from male and no weapons. Gold is limited to the small armor pieces, clasp and ears.
+Pose: relaxed three-quarter standing, one hand lightly grips the satchel strap low by the hip, other relaxed with fingers visible. Whole silhouette legible and comfortably clothed, not sexualized.
+Rendering: match the reference's restrained anime-painterly concept style, clean designed adult facial planes, moderate eyes, broad painted shadow shapes, organized hair masses, selective crisp lines, restrained texture. No photographic skin pores, dense fine hair, exaggerated eyes or doll proportions.
+Composition: standalone landscape 3:2 sheet, exactly one full-body figure on LEFT and one large matching head-and-shoulders portrait on RIGHT. Both views show the SAME distinct woman with identical long braid, cheek markings, square ivory/red neckline, compact gold upper-chest guard and strap placement. All hair and sandals inside comfortable margins, pale warm paper, subtle ground shadow, brushed lower portrait edge. Understated serif heading "RAINFOREST — FEMALE", no other writing or panels.
+Fantasy cultural variation using Aztec/Mexica-inspired textile geometry and garment shapes, with the user's fantasy gold armor language; no claim of historical reconstruction. Preserve richness and practical design, no feather headdress, fringe-heavy buckskin, ritual scene, excess regalia or background environment.
+
+
