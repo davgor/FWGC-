@@ -79,7 +79,7 @@ Character style checkpoint: all twelve authored peoples now have owner-approved 
 - [ ] Magic direction sheet showing all twelve schools together, including ordinary, radiant, corrupt, hidden, and blended manifestations.
 - [ ] Civilization comparison sheet: the twelve authored peoples at one scale, with silhouette, materials, architecture, clothing, and color languages.
 - [ ] Character/creature direction sheet: human and nonhuman anatomy, heroic/villainous shapes, mundane wildlife, giant threats, and supernatural beings.
-- [ ] Settlement key art: hamlet, small city, medium city, capital, harbour, mountain hold, woodland settlement, and castle in their landscapes.
+- [ ] Settlement key art: hamlet, small city, medium city, capital, harbour, mountain hold, woodland settlement, and castle in their landscapes. Approved first Heartland village direction: [whole-village concept](tier-1-style/settlements-and-locations/people.human_heartland.village.style-study.md), with timber-and-plaster cottages, a village green, riverside mill, stone bridge, inn, forge and surrounding farmland. Individual building breakdowns are the next stage; this reference does not complete the wider settlement set.
 - [ ] Landmark key art: ruins, sacred place, wonder, lair, subterranean site, and drowned site; show intact and age-worn states.
 - [ ] Society/story key art: market life, travel, war, refuge, religious practice, expedition, quest, and corruption/cleansing.
 - [ ] Cartography/UI direction sheet: globe, atlas, regional map, local plan, symbols, labels, information hierarchy, and color-blind-safe status coding.
@@ -1112,6 +1112,10 @@ Approved core dwarf variants: the [male](tier-1-style/peoples-and-creatures/peop
 
 ### Settlements, architecture, and infrastructure
 
+Approved Heartland assembled set: thatched cottage, inn, watermill, smithy with distinct house and forge roof levels, barn, stone bridge, well with corrected windlass, market shelter, meeting shelter, and stable yard. Individual exterior references are linked below; rear views, interiors and production parts remain open.
+
+- [ ] `building.hamlet_house` — [approved Heartland thatched cottage exterior](tier-2-assembled/settlements-and-buildings/building.hamlet_house.heartland.md), grounded in the housing profiles in [buildings.json](../generator/data/buildings.json); production breakdown remains open.
+
 - [ ] Settlement scale assemblies: hamlet, small city, medium city, capital city, castle, and surrounding farmland/hinterland.
 - [ ] District assemblies: housing, civic core, market, industry, faith, harbour, defensive perimeter, and abandoned/ruined district.
 - [ ] Infrastructure assemblies: street, bridge, ford, ferry, road, trail, pass, harbour, dock, aqueduct, irrigation, walls, gate, and tower.
@@ -1252,7 +1256,7 @@ Approved core dwarf variants: the [male](tier-1-style/peoples-and-creatures/peop
 - [ ] `building.boatyard`
 - [ ] `building.boundary_wall`
 - [ ] `building.brewery`
-- [ ] `building.bridge`
+- [ ] `building.bridge` — [approved Heartland exterior concept](tier-2-assembled/settlements-and-buildings/building.bridge.heartland.md); production breakdown remains open.
 - [ ] `building.butchery`
 - [ ] `building.carpenter`
 - [ ] `building.cart_yard`
@@ -1284,23 +1288,23 @@ Approved core dwarf variants: the [male](tier-1-style/peoples-and-creatures/peop
 - [ ] `building.great_temple`
 - [ ] `building.guardhouse`
 - [ ] `building.guildhall`
-- [ ] `building.hamlet_barn`
+- [ ] `building.hamlet_barn` — [approved Heartland exterior concept](tier-2-assembled/settlements-and-buildings/building.hamlet_barn.heartland.md); production breakdown remains open.
 - [ ] `building.hamlet_cart_shed`
 - [ ] `building.hamlet_farmyard`
 - [ ] `building.hamlet_food_store`
 - [ ] `building.hamlet_landing`
 - [ ] `building.hamlet_latrine`
-- [ ] `building.hamlet_meeting_shed`
+- [ ] `building.hamlet_meeting_shed` — [approved Heartland exterior concept](tier-2-assembled/settlements-and-buildings/building.hamlet_meeting_shed.heartland.md); production breakdown remains open.
 - [ ] `building.hamlet_net_shed`
 - [ ] `building.hamlet_shrine`
 - [ ] `building.hamlet_smith_shed`
 - [ ] `building.hamlet_staging_yard`
 - [ ] `building.hamlet_track`
-- [ ] `building.hamlet_well`
+- [ ] `building.hamlet_well` — [approved Heartland exterior concept](tier-2-assembled/settlements-and-buildings/building.hamlet_well.heartland.md); production breakdown remains open.
 - [ ] `building.hand_mill`
 - [ ] `building.holding_cells`
 - [ ] `building.infirmary`
-- [ ] `building.inn`
+- [ ] `building.inn` — [approved Heartland exterior concept](tier-2-assembled/settlements-and-buildings/building.inn.heartland.md); production breakdown remains open.
 - [ ] `building.isolation_house`
 - [ ] `building.keep`
 - [ ] `building.keep_tower`
@@ -1310,7 +1314,7 @@ Approved core dwarf variants: the [male](tier-1-style/peoples-and-creatures/peop
 - [ ] `building.livestock_yard`
 - [ ] `building.magic_well`
 - [ ] `building.magical_worksite`
-- [ ] `building.market_shelter`
+- [ ] `building.market_shelter` — [approved Heartland exterior concept](tier-2-assembled/settlements-and-buildings/building.market_shelter.heartland.md); production breakdown remains open.
 - [ ] `building.market_square`
 - [ ] `building.mason`
 - [ ] `building.mine`
@@ -1325,9 +1329,9 @@ Approved core dwarf variants: the [male](tier-1-style/peoples-and-creatures/peop
 - [ ] `building.school`
 - [ ] `building.shrine`
 - [ ] `building.smelter`
-- [ ] `building.smithy`
+- [ ] `building.smithy` — [approved Heartland exterior concept](tier-2-assembled/settlements-and-buildings/building.smithy.heartland.md), with clearly separated house and forge roofs; production breakdown remains open.
 - [ ] `building.square`
-- [ ] `building.stable`
+- [ ] `building.stable` — [approved Heartland exterior concept](tier-2-assembled/settlements-and-buildings/building.stable.heartland.md); production breakdown remains open.
 - [ ] `building.stairs_ramps`
 - [ ] `building.street`
 - [ ] `building.tannery`
@@ -1343,7 +1347,7 @@ Approved core dwarf variants: the [male](tier-1-style/peoples-and-creatures/peop
 - [ ] `building.warehouse`
 - [ ] `building.waste_yard`
 - [ ] `building.water_point`
-- [ ] `building.watermill`
+- [ ] `building.watermill` — [approved Heartland exterior concept](tier-2-assembled/settlements-and-buildings/building.watermill.heartland.md); production breakdown remains open.
 - [ ] `building.weaver`
 - [ ] `building.weigh_house`
 - [ ] `building.well`
