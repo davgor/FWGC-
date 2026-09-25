@@ -53,6 +53,7 @@
   test_visitation.cpp
   test_wars.cpp
   test_water.cpp
+  test_weather.cpp
   test_workers.cpp
   test_world.cpp
   test_world_api.cpp
@@ -99,4 +100,16 @@ if(TARGET fwg_cli)
            COMMAND fwg_cli patch --request "${FWG_PATCH_REQUEST}" --span 100000)
   set_tests_properties(fwg_cli_patch_refused PROPERTIES
                        PASS_REGULAR_EXPRESSION "\"schema\": \"fantasy-world-generator\\.failure\".*\"field\": \"patch\\.span\"")
+
+  # `fwg weather` end to end: three hours at a place are three moments of one sample each, and a
+  # place off the globe is refused as a failure document naming the field. The model is pinned by
+  # test_weather.cpp.
+  add_test(NAME fwg_cli_weather
+           COMMAND fwg_cli weather --request "${FWG_PATCH_REQUEST}" --day 400000.5 --latitude 10 --longitude 20 --hours 3)
+  set_tests_properties(fwg_cli_weather PROPERTIES
+                       PASS_REGULAR_EXPRESSION "^\\{\"schema\":\"fwg\\.weather\",\"version\":1,\"moments\":\\[.*\"samples\":\\[\\{[^{}]*\\}\\].*\"samples\":\\[\\{[^{}]*\\}\\].*\"samples\":\\[\\{[^{}]*\\}\\]")
+  add_test(NAME fwg_cli_weather_refused
+           COMMAND fwg_cli weather --request "${FWG_PATCH_REQUEST}" --latitude 95 --longitude 0)
+  set_tests_properties(fwg_cli_weather_refused PROPERTIES
+                       PASS_REGULAR_EXPRESSION "\"schema\": \"fantasy-world-generator\\.failure\".*\"field\": \"latitude\"")
 endif()

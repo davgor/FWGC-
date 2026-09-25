@@ -39,7 +39,12 @@ export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/Comm
 
 `fwg --help` lists every command. Among them, `fwg patch --request REQ.json --latitude 10
 --longitude 20` regenerates the world a request file describes and cuts a local patch of
-ground from it -- a metre mesh up to 512 m across -- as the `fwg.patch` document.
+ground from it -- a metre mesh up to 512 m across -- as the `fwg.patch` document. And
+`fwg weather --request REQ.json --latitude 10 --longitude 20 --hours 24` reads the same world's
+weather for a day from the world's clock: each hour's storm systems and that place's intensity,
+wind and summer percentage then, as the `fwg.weather` document. Weather is a read keyed on the
+absolute hour, so any moment can be asked in any order; see
+[include/fwg/weather.hpp](include/fwg/weather.hpp).
 
 `--size` is the sampling grid along one edge of the sphere and must be odd. It is a
 **content** control as much as a detail control: the surface-noise octave ladder is

@@ -91,6 +91,7 @@
   visitation.cpp
   wars.cpp
   water.cpp
+  weather.cpp
   workers.cpp
   world.cpp
   world_api.cpp

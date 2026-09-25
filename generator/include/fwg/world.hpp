@@ -140,7 +140,8 @@ struct World {
     TerrainDetail terrain_detail;
 
     // Twelve months of temperature, snow cover and water ice. Proxies: none of them
-    // modify bedrock, and there is no weather.
+    // modify bedrock. The weather (weather.hpp) reads the temperature and ice, blended to
+    // the day.
     std::vector<SeasonalMonth> seasonal_months;
 
     // Stage 10. Cities, what they can feed, and the record of how they were founded.

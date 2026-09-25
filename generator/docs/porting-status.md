@@ -46,6 +46,7 @@ Each takes the world by const reference and returns a new one; each appends to
 | Time and quests on a World; the liveness predicate | `terrain_time`, `terrain_quest_api`, `terrain_liveness` | **wired** |
 | Found a player settlement; raise a band | `terrain_settlement_api`, `terrain_nomad_api` | **wired** |
 | Read/select queries (blocks, near, place, person, quests, plus a local patch read and a near-read category filter the reference lacks); person state | `terrain_read_select`, `terrain_read`, `terrain_person_state`, `terrain_person_api` | **wired** |
+| Weather at a moment (`weather_report`, `weather_sample`, `weather_at`, `weather_field`): a read keyed on the absolute hour that records and changes nothing; `fwg weather` on the CLI, writing the `fwg.weather` document (`write_weather_json`). See ruling 7 | none: this port's own | **wired** |
 | Product package: asset list, capabilities, controls, coordinates, taxonomy, world handles, counter kernel, hero guild, height-tile documents, CLI commands | `fantasy_world_generator`, `terrain_detail.export_height_tile` | **wired** |
 
 ## The world document
@@ -220,6 +221,26 @@ Each is pinned by tests, so a change of mind lands as a deliberate change.
    age -- monsters, by ruling -- and nothing unresolved about them. The reeve and champion
    wells' own nest reaches are still reference metres (scale-defects.md); only a dread's lair
    is found through the scaled one.
+7. **Weather is two percentages, on real wind belts** (2026-09-25; `weather.hpp`). Weather is
+   a read of a finished world at a moment, keyed on the absolute hour, so it is the same
+   however time is cut into calls, and it runs on the sub-day clock the time API keeps.
+   **Intensity** is one severity scale with no storm kinds: about 5 is light rain, 50 a
+   thunderstorm, 75 a storm, 100 a tornado or a hurricane -- hurricane force (33 m/s) tops the
+   scale, and a system's wind says how far past it. Warm-core systems grow over open sea at
+   26.5 C or warmer toward the DeMaria-Kaplan maximum, never grow over land, and die there at
+   the Kaplan-DeMaria rate; cold-core systems grow on the winter mid-latitudes' temperature
+   contrast; thunderstorm cells come with warm, wet afternoons, and tornadoes stand in the
+   rarest cores where heat meets contrast over land.
+   **Summer** runs 0 to 100 by how warm the month is at that place, from 0 C to 20 C, with
+   winter the rest: an equatorial island never has a winter and an ice cap never a summer.
+   **Systems steer on trade winds, westerlies and polar easterlies**, weather only: the
+   climate stage keeps its single `wind_bearing`, so storm tracks and the rain shadows the
+   world was built with can disagree. Lengths and ground speeds are Earth's scaled to the
+   planet's circumference, so a system covers the share of this world a real one covers of
+   Earth and a place sees weather about as often as a real one. Calibrated at seed 42, size
+   65, over a year: 82 warm-core systems (44 reach hurricane force, 16 major), rain at a wet
+   mid-latitude place 16% of the time, a thunderstorm (50 or more) at a wet tropical place 2%
+   of the time; a world 5 C colder has no warm-core systems.
 
 Observed and not changed: a school god's aspect is Wild when its network's mean node
 intensity times (1 + instability) exceeds 1.2, and generated intensities average about 2,

@@ -23,8 +23,10 @@
 #include "fwg/patch.hpp"
 #include "fwg/request_json.hpp"
 #include "fwg/serialize.hpp"
+#include "fwg/weather.hpp"
 #include "fwg/workers.hpp"
 #include "fwg/world.hpp"
+#include "fwg/world_time.hpp"
 
 namespace {
 
@@ -53,6 +55,15 @@ usage:
                           point, as the fwg.patch document (compact JSON). Defaults
                           0, 0, 64 m, 0.5 m, 0.4 m, 8 m; a refusal is printed as
                           for generate --request
+  fwg weather --request PATH [--day D] [--latitude DEG --longitude DEG]
+              [--hours N] [--output PATH]
+                          regenerate the world a request file describes and read
+                          its weather hour by hour for N hours (default 1) from
+                          day D (real days since founding year 0; default the
+                          world's clock): each hour's storm systems and, given a
+                          place, its intensity, wind and summer percentage then,
+                          as the fwg.weather document (compact JSON). A refused
+                          day or place is printed as a failure document, exit 2
 
 --terse-errors          a refused request's JSON envelope carries only code,
                         message and field, not received/expected/suggestion
@@ -417,6 +428,78 @@ int run_patch(const std::vector<std::string_view>& args, bool terse) {
     return 0;
 }
 
+// A refused read, in the failure envelope's terse tier -- code, message and field, which is all
+// the read envelope carries -- on stdout, the reason on stderr, and exit 2.
+int refuse(const fwg::WorldTimeError& error) {
+    fwg::PatchRefusal refusal;
+    refusal.code = error.code();
+    refusal.field = error.field();
+    refusal.message = error.message();
+    fwg::JsonDumpOptions options;
+    options.ensure_ascii = false;
+    std::cout << fwg::dump_json(fwg::refusal_document(refusal, /*detail=*/false), options) << '\n';
+    std::cerr << error.code() << ": " << error.what() << '\n';
+    return 2;
+}
+
+// The library's weather read: the world regenerated from its request, then its weather hour by
+// hour from a moment -- each hour's systems and, given a place, that place's weather then.
+int run_weather(const std::vector<std::string_view>& args, bool terse) {
+    const Options options =
+        parse_options(args, {"--request", "--day", "--hours", "--latitude", "--longitude", "--output"}, {});
+    const auto request_path = last_value(options, "--request");
+    if (!request_path) fail("weather needs --request PATH, a request as generate --request takes it");
+    const auto number = [&options](std::string_view flag) -> std::optional<double> {
+        const auto text = last_value(options, flag);
+        if (!text) return std::nullopt;
+        const auto v = to_double(*text);
+        if (!v) fail(std::string(flag) + " needs a number");
+        return v;
+    };
+    const auto day = number("--day");
+    const auto latitude = number("--latitude");
+    const auto longitude = number("--longitude");
+    if (latitude.has_value() != longitude.has_value()) fail("weather needs --latitude and --longitude together");
+    long long hours = 1;
+    if (const auto text = last_value(options, "--hours")) {
+        const auto v = to_int(*text);
+        if (!v || *v < 1 || *v > 8760) fail("--hours needs an integer 1..8760");
+        hours = *v;
+    }
+    try {
+        // Refused before a world is spent on it, by the read's own checks.
+        if (day) fwg::weather_require_day(*day);
+        if (latitude) fwg::weather_require_place(*latitude, *longitude);
+
+        fwg::Request request = read_request(std::string(*request_path));
+        default_to_highest_stage(request);
+        const fwg::World world = fwg::generate(fwg::resolve(request));
+        const double from = day ? *day : fwg::world_clock_of(world).day;
+        std::vector<fwg::WeatherMoment> moments;
+        for (long long h = 0; h < hours; ++h) {
+            fwg::WeatherMoment moment;
+            moment.report = fwg::weather_report(world, from + static_cast<double>(h) / 24.0);
+            if (latitude) moment.samples.push_back(fwg::weather_sample(world, moment.report, *latitude, *longitude));
+            moments.push_back(std::move(moment));
+        }
+        std::ostringstream text;
+        fwg::write_weather_json(text, moments);
+        text << '\n';
+        if (const auto output = last_value(options, "--output")) {
+            write_file(std::string(*output), text.str());
+        } else {
+            std::cout << text.str();
+        }
+    } catch (const fwg::WorldTimeError& error) {
+        return refuse(error);
+    } catch (const fwg::PatchError& error) {
+        return refuse(error, terse);
+    } catch (const std::exception& error) {
+        fail(error.what());
+    }
+    return 0;
+}
+
 int run_controls(const std::vector<std::string_view>& args) {
     const Options options =
         parse_options(args, {"--group", "--name", "--query", "--output"}, {"--include-pinned"});
@@ -505,6 +588,7 @@ int main(int argc, char** argv) {
     if (args[0] == "capabilities") return run_capabilities(args);
     if (args[0] == "controls") return run_controls(args);
     if (args[0] == "patch") return run_patch(args, terse);
+    if (args[0] == "weather") return run_weather(args, terse);
     if (args[0] != "generate") fail("unknown command '" + std::string(args[0]) + "'; try --help");
 
     fwg::Request request;
