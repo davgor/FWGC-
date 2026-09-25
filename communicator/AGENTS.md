@@ -36,6 +36,12 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   - An entry is a stem (`north*`) only when every word it begins should be barred too.
     Otherwise it goes in whole, with its forms.
   - No common capital may be a barred word.
+- **A written line keeps the voice's rules and says only what its blanks hold.**
+  - `every_line_is_spoken_and_keeps_the_voices_rules` holds every row of `data/lines.txt` to the
+    voice's rules. A row that breaks one fails by its own words.
+  - A line adds manner, never a fact. A place, a creature, a duty or a distance comes only
+    through a blank, and a blank only from the packet.
+  - A new situation or blank goes in `Lines::situations()`, with a test packet that speaks it.
 - **A world-changing act is confirmed before it reaches the director.** Whatever joins the
   communicator to the director (the game, a binding) asks `Interpretation::confirm` and hands on
   the act only on yes. A reply's shape (`reply_shape()`) states the outcome first; an outcome

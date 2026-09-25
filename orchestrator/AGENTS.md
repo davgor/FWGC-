@@ -31,7 +31,10 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
   - a card's voice (`manner`, `voice`, `toward_player`, `line`, `never`), never its secrets
     (`lies`, `belief`, `wants`, `fears`, `tells`);
   - a hook's stated purpose, never its actual effect or whether the purpose is true;
-  - places and people within reach.
+  - places and people within reach;
+  - a refusal's reason in the director's own words, never the generator's message, which names
+    quests by id and lists work the speaker does not know of;
+  - a `voice_key` only for a hero whose one face hides nothing.
 
   Every fact names the world id it came from. A test guards each of these; keep them, and prove a
   new one by switching the rule off and watching its test fail.
