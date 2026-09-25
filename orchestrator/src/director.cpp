@@ -28,8 +28,8 @@ constexpr std::size_t kSurroundingLandmarks = 6;
 Fact reason(std::string text) { return Fact{FactKind::Reason, "", {{"reason", std::move(text)}}}; }
 
 // Whose a piece of work is, as a refusal's reason says it: the giver's by name, else "someone
-// else's". Never "the speaker's": a model told it as the speaker took that for the stranger,
-// and answered "not yours to give" (judged 2026-09-24).
+// else's". Never "the speaker's": voiced by the speaker, that was read as the stranger, and
+// came out "not yours to give" (judged 2026-09-24).
 std::string whose(const std::optional<knowledge::KnownPerson>& giver) {
     const std::string* name = giver ? giver->fact.field("name") : nullptr;
     return name && !name->empty() ? *name + "'s" : std::string("someone else's");
