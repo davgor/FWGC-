@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <map>
 #include <optional>
+#include <regex>
 #include <set>
 #include <sstream>
 #include <string>
@@ -63,14 +64,41 @@ std::string text_of(const FactPacket& p) {
     return out;
 }
 
-double km_of(const Fact& f) {
-    const std::string* distance = f.field("distance");
-    if (!distance) check::fail("a distance on " + f.subject);
-    return *distance == "here" ? 0.0 : std::strtod(distance->c_str(), nullptr);
-}
-
 double reach_ceiling_km(const fwg::World& world) {
     return world.effective.globe_radius * fwg::kNearRadiusFraction / 1000.0;
+}
+
+// How far each place and nest stands from `speaker`, in metres, by the near read out to the
+// ceiling: the oracle a packet's rough `range` is checked against, since the packet itself no
+// longer says metres. Keyed by the ids facts use as subjects.
+std::map<std::string, double> metres_from(const fwg::World& world, const std::string& speaker) {
+    fwg::PersonReadRequest who;
+    who.uid = speaker;
+    const std::optional<int> node = fwg::read_person(world, who).person.anchor.node;
+    if (!node) check::fail("the premise: " + speaker + " stands somewhere");
+    fwg::NearReadRequest near;
+    near.node = *node;
+    near.radius_m = reach_ceiling_km(world) * 1000.0;
+    near.categories = std::vector<std::string>{"settlements", "hamlets", "fortresses", "key_locations", "beast_nests"};
+    const fwg::NearRead read = fwg::read_near(world, near);
+    std::map<std::string, double> out;
+    for (const auto& r : read.near.settlements) out[r.uid] = r.distance_m;
+    for (const auto& r : read.near.hamlets) out[r.id] = r.distance_m;
+    for (const auto& r : read.near.fortresses) out[r.id] = r.distance_m;
+    for (const auto& r : read.near.key_locations) out[r.id] = r.distance_m;
+    for (const auto& r : read.near.beast_nests) out[r.id] = r.distance_m;
+    return out;
+}
+
+// The bands contract.hpp publishes for `range`, as [from, to) metres.
+std::pair<double, double> band_metres(const std::string& range) {
+    if (range == "here") return {0.0, 50.0};
+    if (range == "close") return {50.0, 1000.0};
+    if (range == "near") return {1000.0, 3000.0};
+    if (range == "walk") return {3000.0, 7000.0};
+    if (range == "far") return {7000.0, 15000.0};
+    if (range == "distant") return {15000.0, 1e12};
+    check::fail("a published band, not " + range);
 }
 
 // A giver with open offers who stands somewhere the world names.
@@ -146,7 +174,7 @@ TEST(asking_a_giver_for_work_names_their_own_offers_first) {
 TEST(an_offer_carries_only_what_its_giver_would_say) {
     // Never the hook's actual effect, and never whether the stated purpose is the true one.
     const std::set<std::string> allowed = {"giver", "giver_role", "from_speaker", "verb", "purpose",
-                                           "difficulty", "where", "distance", "days_left"};
+                                           "difficulty", "where", "range", "days_left", "marker", "marker_node"};
     Director d(month_old());
     std::set<std::string> givers;
     for (const fwg::QuestRow& q : board(month_old(), fwg::QuestState::Offered))
@@ -275,6 +303,70 @@ TEST(a_lapsed_offer_is_refused_in_the_speakers_words) {
     check::equal(*why.field("reason"), std::string("the offer has lapsed"), "the speaker's words for it");
 }
 
+TEST(how_far_is_said_only_roughly) {
+    // A speaker has measured nothing: every place and nest comes with a rough `range`, one of
+    // the published bands, and the band holds the distance the near read measures. No fact says
+    // metres or kilometres, so no voice can read a number out, or round it wrong.
+    const fwg::World& w = month_old();
+    Director d(w);
+    std::size_t ranged = 0;
+    std::set<std::string> bands;
+    for (const std::string& speaker : {a_giver(), a_broker()}) {
+        const FactPacket p = d.respond(speaker, {ActKind::AskSurroundings, ""});
+        const std::map<std::string, double> metres = metres_from(w, speaker);
+        for (const Fact& f : p.facts) {
+            check::is_true(f.field("distance") == nullptr, "no distance field: " + f.subject);
+            static const std::regex measure(R"(\d\s?k?m\b)");
+            for (const auto& [key, value] : f.fields)
+                check::is_true(!std::regex_search(value, measure), "no measure in " + key + ": " + value);
+            if (f.kind != FactKind::Place && f.kind != FactKind::Danger) continue;
+            const std::string* range = f.field("range");
+            check::is_true(range != nullptr, "a range: " + f.subject);
+            const auto [from, to] = band_metres(*range);
+            const double m = metres.count(f.subject) ? metres.at(f.subject) : -1.0;
+            check::is_true(m >= from && m < to, f.subject + " at " + std::to_string(m) + " m is " + *range);
+            ++ranged;
+            bands.insert(*range);
+        }
+    }
+    check::is_true(ranged > 10, "the premise: places and nests to range, " + std::to_string(ranged));
+    check::is_true(bands.size() >= 3, "the premise: more than one band met, " + std::to_string(bands.size()));
+}
+
+TEST(work_carries_an_exact_marker_for_the_game) {
+    // The speaker says how far only roughly; the game still marks the work on its map exactly:
+    // the anchor, and the anchor's terrain node, on the offer and on the work once taken.
+    const fwg::World& w = month_old();
+    Director d(w);
+    const std::string giver = a_giver();
+    const FactPacket work = d.respond(giver, {ActKind::AskForWork, ""});
+    std::map<std::string, fwg::QuestRow> rows;
+    for (const fwg::QuestRow& q : board(w, fwg::QuestState::Offered)) rows.emplace(q.quest_id, q);
+    std::size_t marked = 0;
+    std::string quest;
+    for (const Fact* f : of_kind(work, FactKind::QuestOffer)) {
+        const fwg::QuestRow& row = rows.at(f->subject);
+        const fwg::HeroQuestHook& h = hook(f->subject);
+        if (row.anchor) {
+            check::is_true(f->field("marker") != nullptr, "a marker on " + f->subject);
+            check::equal(*f->field("marker"), *row.anchor, "the anchor, exactly");
+        }
+        if (h.has_target_node) {
+            check::is_true(f->field("marker_node") != nullptr, "a marker node on " + f->subject);
+            check::equal(*f->field("marker_node"), std::to_string(h.target_node), "the anchor's node, exactly");
+            ++marked;
+            if (quest.empty() && *f->field("from_speaker") == "yes") quest = f->subject;
+        }
+    }
+    check::is_true(marked > 0, "the premise: offers with a node to mark");
+    check::is_true(!quest.empty(), "the premise: the giver's own sited offer");
+    const FactPacket taken = d.respond(giver, {ActKind::AcceptQuest, quest});
+    check::is_true(taken.outcome == Outcome::Accepted, "the premise: taken");
+    const Fact* state = of_kind(taken, FactKind::QuestState).front();
+    check::is_true(state->field("marker_node") != nullptr, "taken work keeps a marker");
+    check::equal(*state->field("marker_node"), std::to_string(hook(quest).target_node), "taken work keeps its marker");
+}
+
 TEST(a_hero_with_one_face_speaks_from_their_archetypes_lines) {
     // The key names the written lines a speaker speaks from. A face that hides another gets none:
     // its archetype (false_hero, deceiver) is what the face hides.
@@ -325,15 +417,16 @@ TEST(what_a_speaker_describes_is_real_and_within_reach) {
     for (const std::string& speaker : {a_giver(), a_broker()}) {
         const FactPacket p = d.respond(speaker, {ActKind::AskSurroundings, ""});
         check::is_true(p.outcome == Outcome::Answered, "an answer");
+        const std::map<std::string, double> metres = metres_from(w, speaker);
         for (const Fact* f : of_kind(p, FactKind::Place)) {
             ++described;
             check::is_true(places.count(f->subject) == 1, "a place the world holds: " + f->subject);
-            check::is_true(km_of(*f) <= reach_ceiling_km(w) + 0.05, "within reach: " + f->subject);
+            check::is_true(metres.count(f->subject) == 1, "within reach: " + f->subject);
         }
         for (const Fact* f : of_kind(p, FactKind::Danger)) {
             ++dangers;
             check::is_true(nests.count(f->subject) == 1, "a nest the world holds: " + f->subject);
-            check::is_true(km_of(*f) <= 5.05, "close by: " + f->subject);
+            check::is_true(metres.count(f->subject) == 1 && metres.at(f->subject) <= 5050.0, "close by: " + f->subject);
         }
     }
     check::is_true(described > 0, "the premise: places to describe");
@@ -349,7 +442,7 @@ TEST(a_speaker_knows_the_places_in_reach_and_not_the_rest) {
         const FactPacket p = d.respond(broker, {ActKind::AskAboutPlace, site.uid});
         if (p.outcome == Outcome::Answered) {
             ++known;
-            check::is_true(km_of(p.facts.front()) <= reach_ceiling_km(w) + 0.05, "a known city is within reach");
+            check::is_true(metres_from(w, broker).count(site.uid) == 1, "a known city is within reach");
         } else {
             check::is_true(p.outcome == Outcome::Unknown, "otherwise unknown");
             check::is_true(p.facts.empty(), "and nothing said about it");

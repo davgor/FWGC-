@@ -89,6 +89,14 @@ std::vector<Offer> offers_known_to(const fwg::World& world, const Speaker& s) {
     return own;
 }
 
+// Where the game marks a piece of work on its map: the anchor, and the anchor's terrain node,
+// exactly. For the game alone; the speaker says how far only roughly (`range`).
+void add_marker(const fwg::World& world, const fwg::QuestRow& q, Fact& f) {
+    if (q.anchor && !q.anchor->empty()) f.fields.emplace_back("marker", *q.anchor);
+    if (const fwg::HeroQuestHook* hook = hook_of(world, q.quest_id); hook && hook->has_target_node)
+        f.fields.emplace_back("marker_node", std::to_string(hook->target_node));
+}
+
 // An offer as the speaker would put it: what the giver asks and why they say they ask it.
 // Never the hook's actual effect, and never whether the stated purpose is the true one -- the
 // giver may not know, and the speaker certainly does not.
@@ -109,14 +117,15 @@ Fact offer_fact(const fwg::World& world, const Offer& offer, const std::vector<K
     if (const fwg::HeroQuestHook* hook = hook_of(world, q.quest_id)) {
         f.fields.emplace_back("difficulty", std::to_string(hook->difficulty));
         if (hook->has_target_node) {
-            // The distance is to the anchor's node, which is right whatever else stands there.
+            // How far is to the anchor's node, which is right whatever else stands there.
             for (const KnownPlace& place : places)
                 if (place.node == hook->target_node) {
-                    f.fields.emplace_back("distance", knowledge::distance_text(place.distance_m));
+                    f.fields.emplace_back("range", knowledge::range_of(place.distance_m));
                     break;
                 }
         }
     }
+    add_marker(world, q, f);
     const double left = std::floor(q.expires_day - today);
     if (left >= 0.0) f.fields.emplace_back("days_left", std::to_string(static_cast<long long>(left)));
     return f;
@@ -272,7 +281,9 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
                 return recorded(std::move(p));
             }
             FactPacket p = packet_for(s, act, Outcome::Accepted);
-            p.facts.push_back(quest_state_fact(act.target, "taken"));
+            Fact taken = quest_state_fact(act.target, "taken");
+            add_marker(world_, offer->row, taken);  // the game marks taken work on its map
+            p.facts.push_back(std::move(taken));
             return recorded(std::move(p));
         }
 

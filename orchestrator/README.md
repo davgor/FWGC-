@@ -69,6 +69,13 @@ cannot reach a world.
   face gets archetype and alignment ("warden/LN"). A hero whose public face hides another gets
   none, since the archetype (`false_hero`, `deceiver`) is what that face hides. So do a dread and
   a roster person, who speak from their post's lines. Contract version 2 added both.
+- **How far is said roughly.** A place, a nest or a piece of work comes with a `range` band,
+  never metres: `here` (under 50 m), `close` (under 1 km), `near` (under 3 km), `walk` (under
+  7 km), `far` (under 15 km), `distant`. Nobody standing there has measured it. A voice read the
+  kilometres out, and rounded them wrong ("thirteen kilometres" for 13.6).
+- **Work carries an exact marker for the game.** `marker` (the anchor's id) and `marker_node`
+  (its terrain node) are on offered work and on work once taken, so the game marks it on its
+  map exactly. They are for the game; no voice says them. Contract version 3 added both.
 
 ## What a speaker knows
 
@@ -81,8 +88,8 @@ cannot reach a world.
 - **Places** come from `fwg::read_near` with the category filter. At the ceiling most cities' reads
   would be refused over the encounter rows, which is why the generator grew that filter.
 - **Offers** carry the giver's public name and role, the verb, the *stated* purpose, the
-  difficulty from the hook, the anchor by its own name, its distance when within reach, and the
-  days left.
+  difficulty from the hook, the anchor by its own name, how far it is when within reach (a
+  `range`), the days left, and the exact marker for the game.
   - A ruin is named as the ruins, never as the hamlet built on the same node.
   - An anchor the world's blocks do not name (a ley node, a shrine) gets no `where`. Its stated
     purpose says where it is.

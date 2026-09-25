@@ -15,7 +15,9 @@
 namespace orchestrator {
 
 // 2: Persona::voice_key, and a Reason fact's `why`.
-inline constexpr int kContractVersion = 2;
+// 3: how far a thing is, as a rough `range` in place of a `distance` in kilometres; an exact
+//    `marker` and `marker_node` on offered and taken work, for the game's map.
+inline constexpr int kContractVersion = 3;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -67,6 +69,14 @@ std::string_view to_string(FactKind kind);
 // One thing the speaker may say. `subject` is the world id it is about -- a place id, a
 // person uid, a quest id, a nest id -- so every fact traces back to the record it came from.
 // `fields` are rendered text, in the order the director wrote them.
+//
+// How far a place, a nest or a piece of work is comes as `range`, never as a measure: nobody
+// standing there has measured it. The bands: "here" (under 50 m), "close" (under 1 km), "near"
+// (under 3 km), "walk" (under 7 km), "far" (under 15 km), "distant".
+//
+// Offered work, and work once taken, also carry `marker` (the anchor's id) and `marker_node`
+// (the anchor's terrain node): where the game marks it on its map, exactly. They are for the
+// game, not for saying: no voice speaks them.
 struct Fact {
     FactKind kind = FactKind::Place;
     std::string subject;

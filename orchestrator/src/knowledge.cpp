@@ -1,7 +1,6 @@
 #include "knowledge.hpp"
 
 #include <algorithm>
-#include <cstdio>
 #include <type_traits>
 #include <variant>
 
@@ -46,7 +45,7 @@ std::string city_name_of(const fwg::World& world, int id) {
 Fact settlement_fact(const fwg::NearSettlementRow& row, bool with_distance) {
     Fact f{FactKind::Place, row.uid, {}};
     f.fields = {{"kind", "city"}, {"name", row.name}, {"class", std::string(row.city_class)}, {"people", row.population_profile}};
-    if (with_distance) f.fields.emplace_back("distance", distance_text(row.distance_m));
+    if (with_distance) f.fields.emplace_back("range", range_of(row.distance_m));
     return f;
 }
 
@@ -57,7 +56,7 @@ Fact small_site_fact(const fwg::World& world, const fwg::NearSmallSiteRow& row, 
     const std::string of = city_name_of(world, row.core_id);
     if (!of.empty()) f.fields.emplace_back("of", of);
     f.fields.emplace_back("people", row.population_profile);
-    if (with_distance) f.fields.emplace_back("distance", distance_text(row.distance_m));
+    if (with_distance) f.fields.emplace_back("range", range_of(row.distance_m));
     return f;
 }
 
@@ -66,7 +65,7 @@ Fact key_location_fact(const fwg::NearKeyLocationRow& row, bool with_distance) {
     f.fields = {{"kind", row.kind}, {"name", row.name}, {"family", row.family}, {"state", row.state},
                 {"threat", std::to_string(row.threat)}};
     if (!row.occupant.empty() && row.occupant != "none") f.fields.emplace_back("occupant", row.occupant);
-    if (with_distance) f.fields.emplace_back("distance", distance_text(row.distance_m));
+    if (with_distance) f.fields.emplace_back("range", range_of(row.distance_m));
     return f;
 }
 
@@ -163,11 +162,13 @@ std::string place_label(const Fact& place) {
 
 }  // namespace
 
-std::string distance_text(double metres) {
+std::string range_of(double metres) {
     if (metres < 50.0) return "here";
-    char text[32];
-    std::snprintf(text, sizeof text, "%.1f km", metres / 1000.0);
-    return text;
+    if (metres < 1000.0) return "close";
+    if (metres < 3000.0) return "near";
+    if (metres < 7000.0) return "walk";
+    if (metres < 15000.0) return "far";
+    return "distant";
 }
 
 std::optional<Speaker> speaker(const fwg::World& world, const std::string& uid) {
@@ -224,7 +225,7 @@ std::vector<Fact> dangers_near(const fwg::World& world, const Speaker& s) {
         if (out.size() == kMaxDangers) break;
         Fact f{FactKind::Danger, nest.id, {}};
         f.fields = {{"creature", nest.name}, {"danger", std::to_string(nest.tier)}, {"family", nest.family},
-                    {"distance", distance_text(nest.distance_m)}};
+                    {"range", range_of(nest.distance_m)}};
         out.push_back(std::move(f));
     }
     return out;

@@ -84,6 +84,8 @@ struct KnownPerson {
 std::optional<KnownPerson> person_fact(const fwg::World& world, const std::string& uid);
 
 // "3.4 km", or "here" under fifty metres.
-std::string distance_text(double metres);
+// How far a thing is, as a speaker would put it: a band, never metres, which nobody standing
+// there has measured. contract.hpp lists the bands.
+std::string range_of(double metres);
 
 }  // namespace orchestrator::knowledge
