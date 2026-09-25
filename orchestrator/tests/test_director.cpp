@@ -216,8 +216,8 @@ TEST(taking_work_through_a_broker_is_refused_and_names_the_giver) {
     const std::vector<const Fact*> people = of_kind(p, FactKind::Person);
     check::is_true(!people.empty() && people.front()->subject == giver, "and the giver to go to");
     check::is_true(json_of(d.world()) == before, "the world unchanged");
-    // The reason says whose the work is, by name. "Not the speaker's to give" was taken, by a
-    // model told it as the speaker, for "not yours" (judged 2026-09-24).
+    // The reason says whose the work is, by name. "Not the speaker's to give", voiced by the
+    // speaker, was read as "not yours" (judged 2026-09-24).
     const std::string* name = people.front()->field("name");
     check::is_true(name && !name->empty(), "the premise: the giver has a name");
     check::equal(*of_kind(p, FactKind::Reason).front()->field("reason"), "the work is " + *name + "'s to give", "whose work, by name");
