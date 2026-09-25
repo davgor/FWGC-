@@ -29,7 +29,8 @@ ctest --test-dir communicator/build -C Release --no-tests=error
 - **No id reaches a model.** A model sees labels; C++ maps a label back to its id. A test checks
   every prompt and grammar for ids.
 - **The voice names only what its packet names.** Nothing that can be a name goes into
-  `common_capitals()`: only words sentences begin with.
+  `common_capitals()`: only words sentences begin with. The grammar lets them begin a sentence
+  and stand nowhere else; past a sentence's start, a capital is the packet's own, or "I".
 - **The voice gives no bearing and speaks of no pay, in the words of `forbidden_words()`.**
   - A packet's own word stays sayable, and only that exact word.
   - An entry is a stem (`north*`) only when every word it begins should be barred too.
