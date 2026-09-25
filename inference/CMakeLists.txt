@@ -101,5 +101,18 @@ if(INFERENCE_BUILD_TESTS)
   target_compile_definitions(inference_tests PRIVATE
     INFERENCE_TEST_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/models/qwen2.5-0.5b-instruct-q4_0.gguf"
     INFERENCE_TESTS_GPU=${INFERENCE_TESTS_GPU})
+  if(INFERENCE_VULKAN)
+    # A backend the runtime does not ship, offered to it in a test through GGML_BACKEND_PATH:
+    # the runtime must unload it.
+    add_library(inference_foreign_backend MODULE tests/foreign_backend.cpp)
+    # Kept out of bin/, where the DLLs a game ships are gathered.
+    set_target_properties(inference_foreign_backend PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test-backends)
+    target_include_directories(inference_foreign_backend PRIVATE
+      ${llama_cpp_SOURCE_DIR}/ggml/include ${llama_cpp_SOURCE_DIR}/ggml/src)
+    target_compile_definitions(inference_foreign_backend PRIVATE GGML_BACKEND_DL GGML_BACKEND_SHARED GGML_BACKEND_BUILD)
+    add_dependencies(inference_tests inference_foreign_backend)
+    target_compile_definitions(inference_tests PRIVATE
+      INFERENCE_TEST_FOREIGN_BACKEND="$<TARGET_FILE:inference_foreign_backend>")
+  endif()
   add_test(NAME inference_tests COMMAND inference_tests)
 endif()

@@ -95,4 +95,8 @@ private:
     std::unique_ptr<Impl> impl_;
 };
 
+// The backends this process can run models on, by name: "CPU", and "Vulkan" where a GPU build
+// loaded it. Nothing else stays loaded. Loads them first, if no model has yet.
+std::vector<std::string> backends();
+
 }  // namespace inference

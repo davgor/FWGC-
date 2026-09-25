@@ -54,6 +54,14 @@ void start_backend_once() {
         // driver has it. One that will not load is skipped.
         const std::string folder = backend_folder();
         ggml_backend_load_all_from_path(folder.empty() ? nullptr : folder.c_str());
+        // Then only the backends this runtime ships stay. ggml loads any it finds beside the
+        // runtime, and one GGML_BACKEND_PATH names, and its RPC backend talks over sockets; the
+        // runtime opens no network connection.
+        for (std::size_t i = ggml_backend_reg_count(); i-- > 0;) {
+            ggml_backend_reg_t reg = ggml_backend_reg_get(i);
+            const std::string name = ggml_backend_reg_name(reg);
+            if (name != "CPU" && name != "Vulkan") ggml_backend_unload(reg);
+        }
 #endif
         llama_backend_init();
     });
@@ -181,6 +189,13 @@ std::unique_ptr<Model> Model::load(const std::string& path, const ModelOptions& 
 }
 
 const std::string& Model::device() const { return impl_->device; }
+
+std::vector<std::string> backends() {
+    start_backend_once();
+    std::vector<std::string> out;
+    for (std::size_t i = 0; i < ggml_backend_reg_count(); ++i) out.emplace_back(ggml_backend_reg_name(ggml_backend_reg_get(i)));
+    return out;
+}
 
 std::string Model::chat_prompt(const std::vector<Message>& messages) const {
     const char* tmpl = llama_model_chat_template(impl_->model, nullptr);

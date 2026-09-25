@@ -79,6 +79,8 @@ on llama.cpp's API, which changes between releases.
   a laptop's two GPUs. With no GPU backend in the build, or no GPU in the machine, the model runs
   on the CPU.
 - **`device()`** says where it runs: `CPU`, or the GPU's name.
+- **`inference::backends()`** lists what models can run on in this process: `CPU`, and `Vulkan`
+  where a GPU build loaded it.
 - **`chat_prompt(messages)`** applies the model's own chat template.
 - **`complete(prompt, sampling, on_piece)`** continues a prompt.
   - It is greedy when `temperature` is 0; otherwise it samples from `seed`.
@@ -121,6 +123,12 @@ on llama.cpp's API, which changes between releases.
 - **No GPU API is linked into the program.** Before any model loads, `vulkan-1.dll` is not in
   the process. A first Vulkan build linked the backend in, and `dumpbin` showed `vulkan-1.dll`
   among the program's own imports: on a machine without Vulkan it would not have started.
+- **Only the backends the runtime ships stay loaded:** the CPU and Vulkan.
+  - ggml loads any backend it finds beside the runtime, and any one `GGML_BACKEND_PATH` names.
+    Its RPC backend talks over sockets.
+  - The test offers a test-only backend through `GGML_BACKEND_PATH`. It checks that ggml loaded
+    it and that the runtime unloaded it.
+  - With the unloading switched off, the test fails.
 
 ## The GPU build
 

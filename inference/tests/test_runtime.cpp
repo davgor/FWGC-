@@ -2,9 +2,11 @@
 // A missing model fails every test that needs it, with the way to get it; nothing is skipped.
 #include "inference/runtime.hpp"
 
+#include <algorithm>
 #include <cstdlib>
 #include <set>
 #include <string>
+#include <vector>
 
 #ifdef _WIN32
 #ifndef NOMINMAX
@@ -78,6 +80,25 @@ TEST(the_program_links_no_gpu_api_of_its_own) {
     // backend in, 2026-09-24).
 #ifdef _WIN32
     check::is_true(GetModuleHandleW(L"vulkan-1.dll") == nullptr, "no vulkan-1.dll in the process before any backend loads");
+#endif
+}
+
+TEST(a_backend_the_runtime_does_not_ship_is_unloaded) {
+    // Keep this test before any model loads too: the backends load once, with the first. ggml
+    // loads a backend GGML_BACKEND_PATH names, and any it finds beside the runtime, and its RPC
+    // backend talks over sockets. Only the CPU and Vulkan backends stay.
+#ifdef INFERENCE_TEST_FOREIGN_BACKEND
+    _putenv_s("GGML_BACKEND_PATH", INFERENCE_TEST_FOREIGN_BACKEND);
+    const std::vector<std::string> loaded = inference::backends();
+    _putenv_s("GGML_BACKEND_PATH", "");
+    char mark[8] = {};
+    check::is_true(GetEnvironmentVariableA("INFERENCE_FOREIGN_BACKEND_LOADED", mark, sizeof mark) > 0,
+                   "the premise: ggml loaded the foreign backend it was offered");
+    check::is_true(std::find(loaded.begin(), loaded.end(), std::string("CPU")) != loaded.end(), "the CPU backend stays");
+    check::is_true(std::find(loaded.begin(), loaded.end(), std::string("Foreign")) == loaded.end(), "the foreign backend is gone");
+#else
+    // A build for the CPU alone loads no backend at run time: the CPU is all there is.
+    check::is_true(inference::backends() == std::vector<std::string>{"CPU"}, "only the CPU");
 #endif
 }
 
