@@ -23,7 +23,9 @@ namespace orchestrator {
 // 5: Persona::people, whose sayings the speaker knows.
 // 6: the Memory fact's `heard`, and `since` by the calendar, with "yesterday".
 // 7: the Memory fact's `asked_before` is what was asked in the last conversation only.
-inline constexpr int kContractVersion = 7;
+// 8: the act apologize and its outcomes, forgiven and unwronged; an answer about a place says who
+//    is there, what nests near it and what work is there.
+inline constexpr int kContractVersion = 8;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -45,8 +47,10 @@ enum class ActKind : int {
     Insult,     // rudeness, a threat
     AskSafety,  // is it safe, what should I fear
     Confront,   // the player tells the speaker they are not what they seem
+    // 8.
+    Apologize,  // the player says sorry
 };
-inline constexpr int kActCount = static_cast<int>(ActKind::Confront) + 1;
+inline constexpr int kActCount = static_cast<int>(ActKind::Apologize) + 1;
 
 std::string_view to_string(ActKind kind);
 std::optional<ActKind> act_kind(std::string_view name);  // nullopt for a name not in the set
@@ -84,8 +88,12 @@ enum class Outcome : int {
                    // face is the persona from then on; a beast's or a fractured heart's other face
                    // still shows only on its own days
     Denied,        // confronted without cause, or with nothing to hide: the speaker denies it
+    // 8: an apology.
+    Forgiven,      // the speaker held a grievance (an insult, their own work given up) and one eases:
+                   // their regard gives back what it cost
+    Unwronged,     // there was nothing to forgive
 };
-inline constexpr int kOutcomeCount = static_cast<int>(Outcome::Denied) + 1;
+inline constexpr int kOutcomeCount = static_cast<int>(Outcome::Unwronged) + 1;
 
 std::string_view to_string(Outcome outcome);
 
@@ -129,6 +137,16 @@ std::string_view to_string(FactKind kind);
 // A conversation ends at a farewell, when time passes, or when the player turns to someone
 // else. A face that does not recognise the player (a beast unleashed) gives a first meeting and
 // a hostile mood.
+//
+// An answer about a place (ask_about_place) says what the speaker knows of it, beyond the place:
+// - the Place fact's `trades`: up to three of a settlement's roster posts, by role, the roster's
+//   own first, joined by ", " ("innkeeper, smith, healer"); absent for a place with no roster;
+// - a Person fact for each hero who holds a post there (up to two, never the speaker), `where`
+//   naming the place;
+// - a Danger fact for each nest within 2 km of the place (up to two, the worst first), marked
+//   `around` "yes", its `range` from the place, not from the speaker;
+// - a QuestOffer fact for each piece of work the speaker knows of (as ask_for_work would give
+//   it) that is anchored at the place.
 //
 // A Person fact carries `hides`, "yes", when the speaker knows that person is not what they
 // seem: a rival, kin or ally of a hero whose public face is a mask. It is how a player learns a

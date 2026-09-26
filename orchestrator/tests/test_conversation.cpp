@@ -364,6 +364,101 @@ TEST(what_the_player_asked_about_last_time_is_remembered) {
                  "and not after one in which nothing was asked");
 }
 
+TEST(an_apology_eases_the_latest_grievance_and_gives_back_what_it_cost) {
+    Director d(faced_world());
+    const std::string x = townsfolk(1).front();
+    const auto said = [&](ActKind kind) { return d.respond(x, {kind, ""}); };
+    FactPacket p = said(ActKind::Apologize);
+    check::is_true(p.outcome == Outcome::Unwronged, "nothing to forgive yet");
+    check::equal(memory(p)["mood"], std::string("neutral"), "and nothing moves");
+    check::equal(memory(said(ActKind::Insult))["mood"], std::string("hostile"), "the premise: insulted");
+    p = said(ActKind::Apologize);
+    check::is_true(p.outcome == Outcome::Forgiven, "forgiven");
+    check::equal(memory(p)["mood"], std::string("neutral"), "back where it was");
+    check::is_true(said(ActKind::Apologize).outcome == Outcome::Unwronged, "and once forgiven, nothing more to forgive");
+    // At the bottom of the scale an insult costs less, and its apology gives back only that.
+    check::equal(memory(said(ActKind::Thank))["mood"], std::string("friendly"), "the premise: thanked");
+    check::equal(memory(said(ActKind::Insult))["mood"], std::string("wary"), "insulted");
+    check::equal(memory(said(ActKind::Insult))["mood"], std::string("hostile"), "insulted again");
+    check::equal(memory(said(ActKind::Insult))["mood"], std::string("hostile"), "and again, at the bottom");
+    check::equal(memory(said(ActKind::Apologize))["mood"], std::string("hostile"), "the last insult cost nothing, and gives back nothing");
+    check::equal(memory(said(ActKind::Apologize))["mood"], std::string("wary"), "the one before");
+    p = said(ActKind::Apologize);
+    check::is_true(p.outcome == Outcome::Forgiven && memory(p)["mood"] == "friendly", "the first: where the thanks had put it");
+    check::is_true(said(ActKind::Apologize).outcome == Outcome::Unwronged, "all three forgiven");
+}
+
+TEST(giving_up_the_speakers_own_work_is_a_grievance_too) {
+    Director d(faced_world());
+    const std::string g = givers().front();
+    const std::vector<std::string> own = own_offers(d, g);
+    check::is_true(!own.empty(), "the premise: an offer of the giver's own");
+    check::is_true(d.respond(g, {ActKind::AcceptQuest, own.front()}).outcome == Outcome::Accepted, "the premise: taken");
+    const std::string before = memory(d.respond(g, {ActKind::SmallTalk, ""}))["mood"];
+    check::is_true(d.respond(g, {ActKind::AbandonQuest, own.front()}).outcome == Outcome::Abandoned, "the premise: given up");
+    const FactPacket p = d.respond(g, {ActKind::Apologize, ""});
+    check::is_true(p.outcome == Outcome::Forgiven, "forgiven");
+    check::equal(memory(p)["mood"], before, "as they were before it was given up");
+}
+
+TEST(an_answer_about_a_place_says_who_is_there_what_nests_near_and_the_work_there) {
+    Director d(faced_world());
+    std::size_t trades = 0, heroes = 0, nests = 0, work = 0, asked = 0, own_town = 0;
+    std::vector<std::string> speakers = townsfolk(8);
+    for (const std::string& g : givers()) speakers.push_back(g);
+    for (const std::string& x : speakers) {
+        const FactPacket around = d.respond(x, {ActKind::AskSurroundings, ""});
+        for (const Fact& place : facts_of(around, FactKind::Place)) {
+            const FactPacket about = d.respond(x, {ActKind::AskAboutPlace, place.subject});
+            ++asked;
+            const std::vector<Fact> places = facts_of(about, FactKind::Place);
+            check::is_true(places.size() == 1 && places[0].subject == place.subject, "the one place asked about");
+            fwg::PlaceReadRequest request;
+            request.place_id = place.subject;
+            const fwg::PlaceRead read = fwg::read_place(d.world(), request);
+            const int node = read.place.anchor.node;
+            for (const fwg::NpcPostRow& row : read.place.resolved.npc_posts)
+                if (row.status == "alive" && row.hero_uid && *row.hero_uid == x) {
+                    ++own_town;  // the roster there names the speaker
+                    break;
+                }
+            if (const std::string* listed = places[0].field("trades")) {
+                ++trades;
+                std::size_t parts = 1;
+                for (const char c : *listed) parts += c == ',';
+                check::is_true(!listed->empty() && parts <= 3, "up to three trades: " + *listed);
+            }
+            const std::string* name = places[0].field("name");
+            const std::string label = name ? *name : "the " + value(places[0], "kind") + " of " + value(places[0], "of");
+            const std::vector<Fact> people = facts_of(about, FactKind::Person);
+            check::is_true(people.size() <= 2, "up to two heroes there");
+            for (const Fact& who : people) {
+                ++heroes;
+                check::equal(value(who, "where"), label, "a hero who stands there");
+                check::equal(value(who, "status"), std::string("about"), "and is about");
+                check::is_true(who.subject != x, "never the speaker themself: " + x);
+            }
+            const std::vector<Fact> near = facts_of(about, FactKind::Danger);
+            check::is_true(near.size() <= 2, "up to two nests around it");
+            for (const Fact& nest : near) {
+                ++nests;
+                const std::string range = value(nest, "range");
+                check::is_true(value(nest, "around") == "yes" && (range == "here" || range == "close" || range == "near"),
+                               "a nest within 2 km of it, its range from it: " + range);
+            }
+            for (const Fact& offer : facts_of(about, FactKind::QuestOffer)) {
+                ++work;
+                check::equal(value(offer, "marker_node"), std::to_string(node), "work anchored there");
+            }
+        }
+        (void)d.respond(x, {ActKind::Farewell, ""});
+    }
+    check::is_true(asked > 0 && trades > 0 && heroes > 0 && nests > 0 && work > 0 && own_town > 0,
+                   "the premise: places with trades, heroes, nests and work, and a speaker asked about the town they hold a "
+                   "post in, of " + std::to_string(asked) + " asked about (" + std::to_string(trades) + ", " + std::to_string(heroes) +
+                       ", " + std::to_string(nests) + ", " + std::to_string(work) + ", " + std::to_string(own_town) + ")");
+}
+
 TEST(a_giver_remembers_work_finished_or_failed) {
     Director d(faced_world());
     const std::vector<std::string> all = givers();
@@ -645,6 +740,7 @@ TEST(a_beast_is_unleashed_about_the_full_moon_and_owns_to_it_after) {
     check::is_true(p.persona.role == calm.apparent_role && p.persona.face.empty() && p.persona.voice_key == key_of(beast, calm),
                    "the calm face, speaking as itself");
     check::is_true(d.respond(beast.uid, {ActKind::Confront, ""}).outcome == Outcome::Denied, "no cause before it was seen");
+    (void)d.respond(beast.uid, {ActKind::Insult, ""});
     (void)d.respond(beast.uid, {ActKind::Farewell, ""});
     advance_to_a_day(d, [&](double day) { return fwg::moon_phase_on(w, day)->full; }, "the full moon");
     p = d.respond(beast.uid, {ActKind::Greet, ""});
@@ -653,12 +749,15 @@ TEST(a_beast_is_unleashed_about_the_full_moon_and_owns_to_it_after) {
                    "unleashed under the full moon");
     const Memory raging = memory(p);
     check::is_true(raging.at("met") == "first" && raging.at("mood") == "hostile" && raging.at("heard") == "0", "knowing nobody");
+    check::is_true(d.respond(beast.uid, {ActKind::Apologize, ""}).outcome == Outcome::Unwronged,
+                   "and forgiving nothing: it does not know the player");
     d.advance(1.0);
     check::equal(d.respond(beast.uid, {ActKind::Greet, ""}).persona.face, std::string("unleashed"), "and the day after");
     (void)d.respond(beast.uid, {ActKind::Farewell, ""});
     advance_to_a_day(d, [&](double day) { return !full_moon_near(w, day); }, "a calm day after");
     p = d.respond(beast.uid, {ActKind::Greet, ""});
     check::is_true(p.persona.face.empty() && memory(p)["times"] == "3", "calm again, and counting every meeting");
+    check::is_true(d.respond(beast.uid, {ActKind::Apologize, ""}).outcome == Outcome::Forgiven, "the calm face forgives the insult");
     const FactPacket owned = d.respond(beast.uid, {ActKind::Confront, ""});
     check::is_true(owned.outcome == Outcome::Exposed, "it owns to what the player saw");
     const std::vector<Fact> reveal = facts_of(owned, FactKind::Reveal);
@@ -752,7 +851,7 @@ TEST(every_packet_carries_one_memory_of_its_speaker) {
         {ActKind::DeclineQuest, own[0]}, {ActKind::AcceptQuest, own[0]}, {ActKind::AbandonQuest, own[0]},
         {ActKind::Answer, ""},        {ActKind::Thank, ""},            {ActKind::Insult, ""},
         {ActKind::Confront, ""},      {ActKind::NoAct, ""},            {ActKind::AskAboutPlace, "no-such-place"},
-        {ActKind::Farewell, ""}};
+        {ActKind::Apologize, ""},     {ActKind::Farewell, ""}};
     std::set<ActKind> kinds;
     int turn = 1;  // own_offers asked once already
     for (const auto& [kind, target] : acts) {
@@ -775,6 +874,8 @@ TEST(replay_restores_what_every_speaker_remembers) {
     check::is_true(!places.empty(), "the premise: a place to ask about");
     (void)d.respond(folk[0], {ActKind::AskAboutPlace, places.front().subject});
     (void)d.respond(folk[1], {ActKind::Insult, ""});
+    (void)d.respond(folk[1], {ActKind::Insult, ""});
+    (void)d.respond(folk[1], {ActKind::Apologize, ""});
     const std::vector<std::string> own = own_offers(d, g);
     check::is_true(!own.empty(), "the premise: an offer of the giver's own");
     (void)d.respond(g, {ActKind::AcceptQuest, own.front()});
@@ -794,7 +895,7 @@ TEST(replay_restores_what_every_speaker_remembers) {
         check::is_true(a->conversations == b->conversations && a->disposition == b->disposition && a->work == b->work &&
                            a->asked_before == b->asked_before && a->asked_now == b->asked_now && a->exposed == b->exposed &&
                            a->finished_covert == b->finished_covert && a->turn == b->turn && a->said == b->said &&
-                           a->heard == b->heard,
+                           a->heard == b->heard && a->grievances == b->grievances,
                        "the same acquaintance with " + uid);
         check::equal(text_of(d.respond(uid, {ActKind::SmallTalk, ""})), text_of(again.respond(uid, {ActKind::SmallTalk, ""})),
                      "the same next packet from " + uid);

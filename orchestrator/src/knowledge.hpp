@@ -81,6 +81,20 @@ std::vector<KnownPlace> places_in_reach(const fwg::World& world, Speaker& speake
 // the nearest first among equals: what someone would warn about.
 std::vector<Fact> dangers_near(const fwg::World& world, const Speaker& speaker);
 
+// The nests within `radius_m` of a place's node, the worst first and the nearest first among
+// equals, at most `most`: Danger facts marked `around`, their `range` from the place.
+std::vector<Fact> nests_around(const fwg::World& world, int node, double radius_m, std::size_t most);
+
+// Who a settlement's roster says is there: up to three of its trades by role, the roster's own
+// posts first, and the uids of up to two heroes who hold a post there, never `speaker` (asked
+// about their own town, a speaker does not name themself). Both empty for a place with no
+// roster, a key location.
+struct PlaceFolk {
+    std::vector<std::string> trades;
+    std::vector<std::string> heroes;
+};
+PlaceFolk folk_at(const fwg::World& world, const std::string& place_id, const std::string& speaker);
+
 // What stands on one node, as a place fact: a quest anchor's target node, or where a person
 // stands. nullopt when nothing named stands there.
 std::optional<Fact> place_at(const fwg::World& world, int node);

@@ -108,6 +108,21 @@ about its speaker:
 A conversation ends at a farewell, when time passes, or when the player turns to someone else.
 The next act to that speaker begins another.
 
+**Saying sorry** (contract version 8). Each insult, and each piece of the speaker's own work
+given up, is a grievance, kept at what it cost the speaker's regard: at the bottom of the scale an
+insult costs less. `apologize` eases the latest and gives back what it cost (`Forgiven`), so an
+insult and an apology leave the speaker where they were. With none held, or to a face that does
+not know the player (a beast unleashed), there is nothing to forgive (`Unwronged`).
+
+## What a speaker says of a place
+
+Asked about a place (contract version 8), a speaker says what they know of it past the place
+itself: up to three of a settlement's trades from its roster (`trades` on the Place fact, the
+roster's own posts first), the heroes who hold a post there (up to two Person facts, never the
+speaker: asked about their own town, a speaker does not name themself), the nests within 2 km of
+it (up to two Danger facts marked `around`, their `range` from the place), and the work they know
+of that is anchored there (QuestOffer facts, as for work).
+
 ## Faces
 
 A hero with two faces shows one at a time. The persona is the face shown, and `persona.face`

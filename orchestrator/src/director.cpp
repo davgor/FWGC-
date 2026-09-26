@@ -39,6 +39,10 @@ constexpr int kWorkAbandoned = -2;
 constexpr int kWorkFinished = 2;
 constexpr int kWorkFailed = -1;
 
+// What an answer about a place says of what is around it: the nests this near it, and how many.
+constexpr double kAroundPlaceM = 2000.0;
+constexpr std::size_t kNestsAround = 2;
+
 // A mask comes off to a player who has met its wearer this many times: long acquaintance sees
 // through it, whatever else the player has learned. Counting the conversation under way.
 constexpr int kMeetingsThatSeeThrough = 3;
@@ -205,7 +209,12 @@ std::string mood_of(int disposition) {
     return "hostile";
 }
 
-void regard(Director::Acquaintance& a, int change) { a.disposition = std::clamp(a.disposition + change, -3, 3); }
+// Moves the speaker's regard, within its bounds; returns how far it moved.
+int regard(Director::Acquaintance& a, int change) {
+    const int before = a.disposition;
+    a.disposition = std::clamp(a.disposition + change, -3, 3);
+    return a.disposition - before;
+}
 
 // `heard`: how many times before this the player made this act to the speaker.
 Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool recognised, bool repeat, int heard) {
@@ -570,8 +579,19 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
         }
 
         case ActKind::Insult:
-            regard(a, kInsulted);
+            // A grievance, kept at what it cost: at the bottom of the scale an insult costs less.
+            a.grievances.push_back(regard(a, kInsulted));
             return finish(packet_for(s, act, Outcome::Offended));
+
+        case ActKind::Apologize: {
+            // An apology eases the latest grievance and gives back what it cost, so an insult and
+            // an apology leave the speaker where they were. With none, or to a face that does not
+            // know the player, there is nothing to forgive.
+            if (!recognised || a.grievances.empty()) return finish(packet_for(s, act, Outcome::Unwronged));
+            regard(a, -a.grievances.back());
+            a.grievances.pop_back();
+            return finish(packet_for(s, act, Outcome::Forgiven));
+        }
 
         case ActKind::SmallTalk: {
             FactPacket p = packet_for(s, act, Outcome::Chatted);
@@ -618,7 +638,26 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
             for (const KnownPlace& place : places) {
                 if (place.fact.subject != act.target) continue;
                 FactPacket p = packet_for(s, act, Outcome::Answered);
-                p.facts.push_back(place.fact);
+                // What the speaker knows of it past the place itself: its trades and the heroes who
+                // hold a post there, the nests near it, and the work there they know of ("Tell me
+                // more about that place" had only the place's own phrase again; judged 2026-09-26).
+                const knowledge::PlaceFolk folk = knowledge::folk_at(world_, place.fact.subject, speaker_uid);
+                Fact about = place.fact;
+                if (!folk.trades.empty()) {
+                    std::string trades;
+                    for (const std::string& trade : folk.trades) trades += (trades.empty() ? "" : ", ") + trade;
+                    about.fields.emplace_back("trades", trades);
+                }
+                p.facts.push_back(std::move(about));
+                for (const std::string& uid : folk.heroes)
+                    if (std::optional<knowledge::KnownPerson> there = knowledge::person_fact(world_, uid))
+                        if (const std::string* status = there->fact.field("status"); status && *status == "about")
+                            p.facts.push_back(there->fact);
+                for (Fact& nest : knowledge::nests_around(world_, place.node, kAroundPlaceM, kNestsAround)) p.facts.push_back(std::move(nest));
+                for (const Offer& offer : offers_known_to(world_, s))
+                    if (const fwg::HeroQuestHook* hook = hook_of(world_, offer.row.quest_id);
+                        hook && hook->has_target_node && hook->target_node == place.node)
+                        p.facts.push_back(offer_fact(world_, offer, places, today));
                 a.asked_now = knowledge::place_label(place.fact);
                 return finish(std::move(p));
             }
@@ -737,7 +776,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
                 return finish(std::move(p));
             }
             a.work = "abandoned";
-            regard(a, kWorkAbandoned);
+            a.grievances.push_back(regard(a, kWorkAbandoned));
             FactPacket p = packet_for(s, act, Outcome::Abandoned);
             p.facts.push_back(quest_state_fact(act.target, "abandoned"));
             return finish(std::move(p));

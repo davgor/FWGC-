@@ -246,6 +246,53 @@ std::vector<Fact> dangers_near(const fwg::World& world, const Speaker& s) {
     return out;
 }
 
+std::vector<Fact> nests_around(const fwg::World& world, int node, double radius_m, std::size_t most) {
+    std::vector<Fact> out;
+    const std::optional<fwg::NearRead> read = bounded_near(world, node, radius_m, {"beast_nests"});
+    if (!read) return out;
+    std::vector<fwg::NearNestRow> nests = read->near.beast_nests;
+    std::stable_sort(nests.begin(), nests.end(), [](const fwg::NearNestRow& a, const fwg::NearNestRow& b) {
+        if (a.tier != b.tier) return a.tier > b.tier;
+        return a.distance_m < b.distance_m;
+    });
+    for (const auto& nest : nests) {
+        if (out.size() == most) break;
+        Fact f{FactKind::Danger, nest.id, {}};
+        f.fields = {{"creature", nest.name}, {"danger", std::to_string(nest.tier)}, {"family", nest.family},
+                    {"range", range_of(nest.distance_m)}, {"around", "yes"}};
+        out.push_back(std::move(f));
+    }
+    return out;
+}
+
+PlaceFolk folk_at(const fwg::World& world, const std::string& place_id, const std::string& speaker) {
+    PlaceFolk out;
+    fwg::PlaceReadRequest request;
+    request.place_id = place_id;
+    std::optional<fwg::PlaceRead> read;
+    try {
+        read = fwg::read_place(world, request);
+    } catch (const fwg::WorldTimeError&) {
+        return out;  // not a place the world can read in full: nothing more to say of it
+    }
+    // The roster's own posts first, as the roster marks them; a post a hero holds is the hero.
+    std::vector<const fwg::NpcPostRow*> posts;
+    for (const fwg::NpcPostRow& row : read->place.resolved.npc_posts)
+        if (row.status == "alive") posts.push_back(&row);
+    std::stable_partition(posts.begin(), posts.end(), [](const fwg::NpcPostRow* row) { return row->important; });
+    for (const fwg::NpcPostRow* row : posts) {
+        if (row->hero_uid) {
+            if (*row->hero_uid != speaker && out.heroes.size() < 2 &&
+                std::find(out.heroes.begin(), out.heroes.end(), *row->hero_uid) == out.heroes.end())
+                out.heroes.push_back(*row->hero_uid);
+            continue;
+        }
+        if (out.trades.size() < 3 && std::find(out.trades.begin(), out.trades.end(), row->post) == out.trades.end())
+            out.trades.push_back(row->post);
+    }
+    return out;
+}
+
 std::optional<Fact> place_at(const fwg::World& world, int node) {
     fwg::NearReadRequest request;
     request.node = node;
