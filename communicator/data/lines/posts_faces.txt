@@ -1240,3 +1240,93 @@ post:dread | forgiven_cold | Maybe; fear makes everyone sorry.
 post:dread | unwronged | Whatever for? Nothing you could do would trouble me.
 post:dread | about_place | Oh, I know {about}.[ There is {trades} there.][ You will find {who} there, for as long as they last.][ There are {around}; I do hope you meet them.][ {work}.]
 post:dread | about_place | Ah, {about}; how curious that you ask.[ Do go and see the {around}.][ Look for {who} there.][ It has {trades}, going about their small lives.][ And for work, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- post:sovereign ----
+post:sovereign | surroundings_told | I have told you once, and my word does not change for the asking[: the nearest of any note is {nearest}].[ I would not have you near the {danger}.]
+post:sovereign | surroundings_told | It is as I told you[; this is {here}][, and the nearest is {nearest}].[ Keep your distance from the {danger}; I say it again.]
+post:sovereign | safety_unsafe_told | No, as I have told you, and I do not speak idly.[ Keep away from {worst}.][ There are {danger}, too.]
+post:sovereign | safety_wary_told | Careful, as I have said before[; keep well clear of {worst}].
+post:sovereign | safety_safe_told | It's safe, as I have said, and what I say holds.[ The only place worth your caution is {worst}.]
+post:sovereign | about_place_told | I have told you all I know of it: {about}.[ Heed me, and mind the {around}.]
+post:sovereign | about_place_told | You have had my answer already, and it is all I know of it: {about}.
+# ---- post:champion ----
+post:champion | surroundings_told | Ha, I told you already[: first you'll hit {nearest}].[ Keep your guard up near the {danger}.]
+post:champion | surroundings_told | Now then, it's as I told you[: you're in {here}][, and the nearest is {nearest}].[ Mind the {danger}.]
+post:champion | safety_unsafe_told | No, as I told you, and I don't back off an answer any more than a fight.[ Keep off {worst}.][ There are {danger}, too.]
+post:champion | safety_wary_told | More or less, like I said[; I'd still keep my blade handy near {worst}].
+post:champion | safety_safe_told | Yes, as I said, more's the pity for my sword arm.[ The worst of it is still {worst}.]
+post:champion | about_place_told | I'll say it again gladly, though you've had all I know of it: {about}.[ Mind the {around}, unless it's a scrap you're after.]
+post:champion | about_place_told | That's the lot, and you've had it from me already: {about}.
+# ---- post:pretender ----
+post:pretender | surroundings_told | I remember what I tell people, and I told you this[: the nearest is {nearest}].[ Mind the {danger}; I've need of you whole.]
+post:pretender | surroundings_told | Nothing's changed since I told you, not yet[; this is {here}][, and the nearest is {nearest}].[ Stay clear of the {danger}.]
+post:pretender | safety_unsafe_told | I wouldn't say so, as I told you.[ Keep off {worst}; I'd sooner have you at my side than lost to it.][ And there are {danger}.]
+post:pretender | safety_wary_told | Mostly, as I said[; keep clear of {worst}, and keep yourself for better things].
+post:pretender | safety_safe_told | It's safe, as I told you; I make it my business to know.[ The one place worth minding is {worst}.]
+post:pretender | about_place_told | All I know of it, I've told you: {about}.[ Seek out {who}; I'd know which side they're on.]
+post:pretender | about_place_told | Ah, {about}; only what I told you, and one day I'll know more.
+# ---- post:domain_holder ----
+post:domain_holder | surroundings_told | The land lies as I told you[; you stand in {here}][, and the nearest is {nearest}].[ Mind the {danger}.]
+post:domain_holder | surroundings_told | It's as I told you, straight as a fence line[: the nearest is {nearest}].[ Keep well clear of the {danger}.]
+post:domain_holder | safety_unsafe_told | No; I said so, and I stand by it like a boundary stone.[ Keep off {worst}.][ Mind the {danger}, too.]
+post:domain_holder | safety_wary_told | Careful, as I said[; mark {worst}, and keep off it].
+post:domain_holder | safety_safe_told | Safe enough, as I told you[; the one to watch is still {worst}].
+post:domain_holder | about_place_told | Every inch I know of it, you've had: {about}.[ Keep a wide margin from the {around}.]
+post:domain_holder | about_place_told | That's {about}, as I told you; what I know of it, I gave you whole.
+# ---- post:magister ----
+post:magister | surroundings_told | I have already told you, and I dislike repeating myself[: the nearest is {nearest}].[ The {danger} are still best left unstudied.]
+post:magister | surroundings_told | To be exact, it is as I told you[; we are in {here}][, and the nearest is {nearest}].[ I advise against the {danger}, as before.]
+post:magister | safety_unsafe_told | No, and my conclusion stands as I gave it.[ Keep well away from {worst}.][ The {danger}, too.]
+post:magister | safety_wary_told | More or less, as I have said[; the one caveat remains {worst}].
+post:magister | safety_safe_told | Quiet enough, as I noted before[; for completeness, I mention {worst}].
+post:magister | about_place_told | I have told you all I know of it, and I do not pad an answer: {about}.
+post:magister | about_place_told | Only what I told you, precisely: {about}.[ I would still keep well away from the {around}.]
+# ---- post:charcoal burner ----
+post:charcoal burner | surroundings_told | Aye, I told you already[: there's {nearest}, for a start].[ Mind the {danger}.]
+post:charcoal burner | surroundings_told | It's all as I told you, bar the smoke[; this is {here}][, and closest is {nearest}].[ Keep upwind of the {danger}.]
+post:charcoal burner | safety_unsafe_told | Not safe, as I told you[; I'd not cut a stick near {worst}].[ And there are {danger}.]
+post:charcoal burner | safety_wary_told | Mostly; I said so before[, and I'd still keep well back from {worst}].
+post:charcoal burner | safety_safe_told | Yes, same as I told you[; all I'd mind is {worst}].
+post:charcoal burner | about_place_told | That's all I know of it, and you've had it already: {about}.
+post:charcoal burner | about_place_told | I told you what I know, and the smoke hasn't muddled it: {about}.[ I'd not stack wood near the {around}.]
+# ---- post:hermit ----
+post:hermit | surroundings_told | I told you, and I'll say it shorter.[ The nearest is {nearest}.][ Keep away from the {danger}, as I do.]
+post:hermit | surroundings_told | Nothing's changed since I said it, and that suits me.[ You're in {here}.][ The nearest is {nearest}.]
+post:hermit | safety_unsafe_told | Not safe, as I said[; keep away from {worst}, as from most things].[ And the {danger}.]
+post:hermit | safety_wary_told | Mostly; I told you.[ Keep off {worst}.]
+post:hermit | safety_safe_told | Quiet enough, as I said[; the only thing I'd mind is {worst}].
+post:hermit | about_place_told | I'd as soon not say it again, but you've had all I know of it: {about}.
+post:hermit | about_place_told | If you must hear it again: {about}.[ Leave the {around} to themselves.]
+# ---- post:shepherd ----
+post:shepherd | surroundings_told | I'll count it off again, as I told you[: the nearest is {nearest}].[ Keep your distance from the {danger}.]
+post:shepherd | surroundings_told | Nothing's strayed since I told you[; you're in {here}][, and the nearest is {nearest}].[ Mind the {danger}.]
+post:shepherd | safety_unsafe_told | Far from it, as I told you[; keep away from {worst}, as I keep the flock away].[ There are {danger}, too.]
+post:shepherd | safety_wary_told | Keep your wits about you, as I said[; watch yourself near {worst}].
+post:shepherd | safety_safe_told | Aye, as I said; the flock would've let me know otherwise.[ The only place I'd look twice at is {worst}.]
+post:shepherd | about_place_told | You've had all I know of it, every head: {about}.[ Keep well back from the {around}.]
+post:shepherd | about_place_told | Well, only what I told you, and gladly again: {about}.
+# ---- post:pilgrim ----
+post:pilgrim | surroundings_told | I'll gladly tell it again[: the nearest is {nearest}].[ May you pass wide of the {danger}.]
+post:pilgrim | surroundings_told | All's as I told you, thank heaven[; you stand in {here}][, and the nearest is {nearest}].[ Keep far from the {danger}.]
+post:pilgrim | safety_unsafe_told | No, as I told you, and I'll keep saying it for your sake.[ Stay well away from {worst}.][ There are {danger}, too.]
+post:pilgrim | safety_wary_told | Keep your wits about you, as I said before[; don't wander near {worst}].
+post:pilgrim | safety_safe_told | It's safe, just as I told you, and I pray it stays so.[ I'd still keep clear of {worst}.]
+post:pilgrim | about_place_told | I've told you all I know of it, and it's no burden to tell it again: {about}.[ Mind the {around}, and go gently.]
+post:pilgrim | about_place_told | Only what I told you: {about}. May peace be on it.
+# ---- post:midwife ----
+post:midwife | surroundings_told | I'll say it again, and quickly[: the nearest is {nearest}].[ Keep away from the {danger}, and I mean it.]
+post:midwife | surroundings_told | Right, it's just as I told you[; this is {here}][, and the nearest is {nearest}].[ Don't go near the {danger}.]
+post:midwife | safety_unsafe_told | No, as I told you, and I've not changed my mind.[ Stay away from {worst}.][ There are {danger}, too.]
+post:midwife | safety_wary_told | Mostly, as I said[; keep clear of {worst}, and I'll not be sent for].
+post:midwife | safety_safe_told | It's safe; I told you so, and you can stop fretting.[ The only place to mind is {worst}.]
+post:midwife | about_place_told | Here it is again, and it's all I know of it: {about}.
+post:midwife | about_place_told | Just what I told you, and no more: {about}.[ Mind the {around}, and don't go getting hurt.]
+# ---- post:dread ----
+post:dread | surroundings_told | I told you already, and I will tell you again; I like to watch you listen[: the nearest is {nearest}].[ The {danger} are still there; do mind them.]
+post:dread | surroundings_told | It pleases me to say it again, just as I told you.[ You are in {here}.][ The nearest is {nearest}.]
+post:dread | safety_unsafe_told | No; I told you so, and I do enjoy saying it.[ Keep from {worst}.][ The {danger}, too.]
+post:dread | safety_wary_told | Careful, as I told you[; it would be such a waste of you, lost to {worst}].
+post:dread | safety_safe_told | Nothing to fear, as I told you; how you do like to hear it.[ Keep your fear for {worst}.]
+post:dread | about_place_told | You have heard all I know of it, and I would tell it again and again: {about}.[ There are {around}, still.]
+post:dread | about_place_told | Ah, {about}; I have told you every word I know of it, and I savour each one.

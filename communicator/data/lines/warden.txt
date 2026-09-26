@@ -883,3 +883,69 @@ warden/LE | forgiven_cold | We'll see. An apology is easily made, and yours has 
 warden/LE | unwronged | What for? You have done nothing that requires my pardon, though the deference is noted.
 warden/LE | about_place | That is {about}, and I trust you have a reason for asking.[ You will find {trades} there.][ Ask for {who}, and mind your manners when you do.][ Beware the {around}, should you value your skin.][ Should you want work, {work}.]
 warden/LE | about_place | Since you ask, it is {about}.[ You may present yourself to {who}, and be brief.][ It has {trades}.][ There are {around}; that is your concern, not mine.][ As to work, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- warden/LN ----
+warden/LN | surroundings_told | I told you once, and it still stands[: this is {here}].[ The nearest is {nearest}.]
+warden/LN | surroundings_told | My answer's the one I gave you before[: the nearest is {nearest}].[ Keep clear of the {danger}.]
+warden/LN | safety_unsafe_told | Not safe, as I told you before.[ Keep clear of {worst}.][ Mind the {danger}.]
+warden/LN | safety_wary_told | More or less, as I said[, so long as you mind {worst}].
+warden/LN | safety_safe_told | Quiet enough, and I'll say so again.[ The worst of it is still {worst}.]
+warden/LN | about_place_told | I've told you all I'll swear to: {about}.[ Mind the {around}.]
+warden/LN | about_place_told | What I told you stands, and past that I don't guess: it's {about}.[ If it's work you want, {work}.]
+# ---- warden/NN ----
+warden/NN | surroundings_told | It lies the same as when I told you[: the nearest is {nearest}].[ Give the {danger} a wide berth.]
+warden/NN | surroundings_told | You've had this from me already, and nothing's shifted.[ We're in {here}.][ Mind the {danger}.]
+warden/NN | safety_unsafe_told | I wouldn't say so, and it's the same answer I gave you.[ Keep well clear of {worst}.][ There are {danger}, mind.]
+warden/NN | safety_wary_told | Keep your wits about you, as I said before[, and keep well off {worst}].
+warden/NN | safety_safe_told | Safe enough, as I told you, and that hasn't changed.[ The worst of it's still {worst}.]
+warden/NN | about_place_told | I've given you all I've got on it: {about}.[ Mind the {around}.]
+warden/NN | about_place_told | It's what I told you, no more and no less: {about}.[ If you're after work, {work}.]
+# ---- warden/NG ----
+warden/NG | surroundings_told | Of course; it's just as I told you.[ The nearest is {nearest}.][ Please keep clear of the {danger}.]
+warden/NG | surroundings_told | I don't mind going over it again, if it helps.[ You're in {here}.][ Be careful of the {danger}, won't you?]
+warden/NG | safety_unsafe_told | Far from it, and I'm sorry it's still as I told you.[ Do keep away from {worst}.][ Mind yourself near the {danger}.]
+warden/NG | safety_wary_told | Careful, as I told you, and you'll be all right[; just steer clear of {worst}].
+warden/NG | safety_safe_told | Nothing to fear, as I said before, and I'm glad of it.[ The worst I know of is still {worst}.]
+warden/NG | about_place_told | I've told you all I know of it, I'm afraid: {about}.[ Please mind the {around}.]
+warden/NG | about_place_told | I've nothing past what I told you, and I wish I had: {about}.[ You'll find {who} there.]
+# ---- warden/CN ----
+warden/CN | surroundings_told | Again? Fine, the short version of what I told you[: the nearest's still {nearest}].[ And the {danger}, so, don't.]
+warden/CN | surroundings_told | We've done this bit, but fine, I'll humour you[: this is {here}, as ever].[ The {danger}, I'd still skip.]
+warden/CN | safety_unsafe_told | No, as I said, and I'm still not joking.[ Keep clear of {worst}.][ Oh, and the {danger}, yes, those.]
+warden/CN | safety_wary_told | Mostly, as I told you, give or take[; just not {worst}].
+warden/CN | safety_safe_told | Quiet enough, just like I said, nothing's budged.[ The worst of it's still {worst}, obviously.]
+warden/CN | about_place_told | That one again? You've had all I've got: {about}.[ Mind the {around}, I did mention them.]
+warden/CN | about_place_told | No extras, I checked, it's what I told you: {about}.[ Look for {who}, or don't, your call.][ {work}, as I said.]
+# ---- warden/LG ----
+warden/LG | surroundings_told | It is as I told you before, and I would not have you unsure of it.[ The nearest is {nearest}.][ Do take great care near the {danger}.]
+warden/LG | surroundings_told | I will gladly tell you again, for nothing has changed.[ We are in {here}.][ The nearest is {nearest}.]
+warden/LG | safety_unsafe_told | Not here, I fear; I told you so before, and I am sorry for it.[ Keep clear of {worst}, I pray you.][ There are still {danger}.]
+warden/LG | safety_wary_told | Mostly, as I said before.[ I would still ask you to avoid {worst}.]
+warden/LG | safety_safe_told | It's safe, on my word, as I gave it before.[ The worst I can name is still {worst}.]
+warden/LG | about_place_told | I have told you all I know of it, and I am sorry it is no more: {about}.[ I would still have you keep well away from the {around}.]
+warden/LG | about_place_told | You are welcome to hear it again, though it is only what I told you: {about}.[ You will find {who} there.][ Should work be what you seek, {work}.]
+# ---- warden/CG ----
+warden/CG | surroundings_told | Oh, I told you, I did, but here it is again[: the nearest's {nearest}].[ And the {danger}, still, so keep well back.]
+warden/CG | surroundings_told | I said it before, and I'll say it as often as you like[: you're in {here}].[ Keep away from the {danger}, I still mean it.]
+warden/CG | safety_unsafe_told | No, it's still no, like I told you.[ Keep clear of {worst}, please.][ The {danger}, not one step, you hear?]
+warden/CG | safety_wary_told | Keep your wits about you, same as I said.[ And stay out of {worst}, yes?]
+warden/CG | safety_safe_told | Yes, still safe, and I'm glad to tell you again.[ Only {worst}, still, so mind that.]
+warden/CG | about_place_told | Everything I know of it, I told you, honestly: {about}.[ Stay well back from the {around}, please.]
+warden/CG | about_place_told | Only what I said before, sorry, nothing new: {about}.[ Look for {who} there, and be kind.][ And {work}, still.]
+# ---- warden/NE ----
+warden/NE | surroundings_told | I told you this already, and I don't care to say it at length.[ The nearest is {nearest}.][ Mind the {danger}; I'd still hate to lose a pair of hands.]
+warden/NE | surroundings_told | Nothing's changed since I told you[; this is still {here}].[ The {danger} are your lookout, not mine.]
+warden/NE | safety_unsafe_told | No, and I told you as much already.[ Keep clear of {worst}.][ Mind the {danger}; I'll not be fetching you back.]
+warden/NE | safety_wary_told | Mostly, as I told you[, for those who keep off {worst}].
+warden/NE | safety_safe_told | Yes; I've told you so, and it hasn't changed for asking.[ The worst of it is still {worst}.]
+warden/NE | about_place_told | I've no more on it than I gave you: {about}.[ Mind the {around}; it's your funeral.]
+warden/NE | about_place_told | It's what I told you, and no more: {about}.[ {work}, if you mean to be of use.]
+# ---- warden/LE ----
+warden/LE | surroundings_told | I have told you this once already, and I repeat it only as a courtesy.[ The nearest is {nearest}.][ The {danger} I leave to you, as before.]
+warden/LE | surroundings_told | You will have the same account I gave you before[: you are in {here}].[ Heed the {danger}, as I advised you.]
+warden/LE | safety_unsafe_told | Far from it, as I made plain to you.[ Keep clear of {worst}.][ The {danger} are still there, should you care.]
+warden/LE | safety_wary_told | Careful, as I have said[, and keep away from {worst}].
+warden/LE | safety_safe_told | Quiet enough; my answer stands as it was given.[ The one matter worth your caution remains {worst}.]
+warden/LE | about_place_told | You have had all I know of it: {about}.[ The {around} remain your concern, not mine.]
+warden/LE | about_place_told | I will repeat what I told you, and no more: it is {about}.[ You may present yourself to {who}, if you must.]

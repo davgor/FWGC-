@@ -635,3 +635,53 @@ post:scribe | forgiven_cold | Words are cheap; I've a pot of them on the desk.
 post:scribe | unwronged | What for? You've not so much as jogged my desk.
 post:scribe | about_place | Here it is, neat as a copy: {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ If it's work you want, {work}.]
 post:scribe | about_place | As I'd set it down, it's {about}.[ It has {trades}.][ Ask there for {who}.][ Keep clear of the {around}.][ {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- post:administrator ----
+post:administrator | surroundings_told | You have this from me already, and it stands.[ First on my list is still {nearest}.][ Keep clear of the {danger}.]
+post:administrator | surroundings_told | It's as I told you; nothing on the rolls has changed.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:administrator | safety_unsafe_told | Not safe; that's what I told you, and I'll not amend it.[ The worst on my list is {worst}.][ There are {danger} as well.]
+post:administrator | safety_wary_told | More or less, as I told you.[ The one entry that worries me is {worst}.]
+post:administrator | safety_safe_told | Safe enough; I said as much, and I'd say it under seal.[ The only place I'd mark is {worst}.]
+post:administrator | about_place_told | You've had every entry I hold on it: {about}.
+post:administrator | about_place_told | The ledger holds no more than I told you: {about}.[ Ask there for {who}.][ On the matter of work, {work}.]
+# ---- post:court_clerk ----
+post:court_clerk | surroundings_told | It's on record that I told you, and nothing's been struck out.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:court_clerk | surroundings_told | Let me read it back as I gave it.[ The nearest is {nearest}.][ And the {danger}, for completeness.]
+post:court_clerk | safety_unsafe_told | No, and I'll not write it any softer than when I told you.[ Stay well clear of {worst}.][ There are {danger} besides.]
+post:court_clerk | safety_wary_told | Mostly, as I told you, with one entry against it.[ That entry is {worst}.]
+post:court_clerk | safety_safe_told | It's safe; I said so, and I've nothing written to the contrary.[ The only mark against it is {worst}.]
+post:court_clerk | about_place_told | You've had it exactly as I have it: {about}.
+post:court_clerk | about_place_told | It stands as I told you, and I'll not add a word: {about}.[ Also noted, the {around}.]
+# ---- post:magistrate ----
+post:magistrate | surroundings_told | I've spoken to this already, and my view stands.[ The nearest is {nearest}.][ On the {danger}, my ruling is still caution.]
+post:magistrate | surroundings_told | It is as I told you; the facts have not changed.[ The closest is {nearest}.][ I would heed the {danger}.]
+post:magistrate | safety_unsafe_told | Not safe; you've had the evidence from me already.[ The gravest matter is {worst}.][ The {danger} weigh against it too.]
+post:magistrate | safety_wary_told | Safe enough, with care, as I told you.[ I'd give {worst} a wide berth.]
+post:magistrate | safety_safe_told | Yes; nothing has come before me to change what I told you.[ My one caution still concerns {worst}.]
+post:magistrate | about_place_told | You've heard all I can attest to: {about}.
+post:magistrate | about_place_told | I'll give you only what I told you, and nothing on hearsay: {about}.[ Beware the {around}.]
+# ---- post:teacher ----
+post:teacher | surroundings_told | We've been over this, but once more won't hurt.[ The nearest is {nearest}.][ Keep away from the {danger}.]
+post:teacher | surroundings_told | It's the same lesson I gave you before.[ The nearest is {nearest}.][ And mind the {danger}; that's not a suggestion.]
+post:teacher | safety_unsafe_told | Not here, it isn't, and that hasn't changed since I told you.[ Stay away from {worst}.][ Mind the {danger} as well.]
+post:teacher | safety_wary_told | Careful, as I told you, and I'll keep telling you.[ Keep well away from {worst}.]
+post:teacher | safety_safe_told | Quiet enough, as I said before; I'd still let the children walk home alone.[ The one to avoid is {worst}.]
+post:teacher | about_place_told | I've given you all I know of it; listen, then: {about}.
+post:teacher | about_place_told | Only what I told you, and it bears repeating: {about}.[ Stay well away from the {around}.]
+# ---- post:librarian ----
+post:librarian | surroundings_told | In a whisper, then, and just as I told you.[ The nearest is {nearest}.][ Give the {danger} a wide berth.]
+post:librarian | surroundings_told | Nothing's been moved since I told you; it's all where I shelved it.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:librarian | safety_unsafe_told | I wouldn't say so, and I said as much before.[ I'd not go within reach of {worst}.][ There are {danger} as well.]
+post:librarian | safety_wary_told | Mostly, as it was when I told you.[ Please keep away from {worst}.]
+post:librarian | safety_safe_told | Safe enough, as I said; not a page has turned on it.[ The worst of it is {worst}.]
+post:librarian | about_place_told | You've had all I know of it; I'll say it again, quietly: {about}.
+post:librarian | about_place_told | I've nothing more on the shelf than I told you: {about}.[ Mind the {around}, please.]
+# ---- post:scribe ----
+post:scribe | surroundings_told | I told you; here's the fair copy.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:scribe | surroundings_told | It's the same as I told you, and I'd not change a letter of it.[ The nearest is {nearest}.][ Beware the {danger}.]
+post:scribe | safety_unsafe_told | Not safe; I've said so, and I don't blot my words.[ Keep off {worst}.][ There are {danger} too.]
+post:scribe | safety_wary_told | More or less, as I told you, and I'd copy it out the same.[ Keep clear of {worst}.]
+post:scribe | safety_safe_told | Aye, safe; nothing to add to what I told you.[ Just not {worst}.]
+post:scribe | about_place_told | Every line I have on it, you've had: {about}.
+post:scribe | about_place_told | Not a word more than I told you: {about}.[ Watch for the {around}.]

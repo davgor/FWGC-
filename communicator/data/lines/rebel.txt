@@ -773,3 +773,61 @@ rebel/NE | forgiven_cold | Maybe. You'd say anything, I expect.
 rebel/NE | unwronged | What for? You'd have to matter a good deal more to wrong me.
 rebel/NE | about_place | Ah, {about}.[ There's {trades} there, if they're any use to you.][ Ask for {who}, if you must.][ Mind the {around}; I'd rather not lose you yet.][ As for work, {work}.]
 rebel/NE | about_place | You mean {about}, I suppose.[ It has {trades}.][ {who} may be found there, if you care.][ Keep away from the {around}, not that it's my concern.][ If you're that eager, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- rebel/NN ----
+rebel/NN | surroundings_told | It's the same as I told you[: the nearest is {nearest}].[ The {danger} still aren't worth the trouble.]
+rebel/NN | surroundings_told | You've had this from me before, and it still holds.[ Nothing's nearer than {nearest}.][ Keep off the {danger}; they're not worth your blood.]
+rebel/NN | safety_unsafe_told | No, and my answer hasn't changed since I gave it.[ Keep clear of {worst}; it isn't worth it.][ There are still {danger}, too.]
+rebel/NN | safety_wary_told | More or less, as I told you[; keep clear of {worst}, and it's a fair bet].[ Mind the {danger} as well.]
+rebel/NN | safety_safe_told | Yes, as I told you, and I'd not trade you a different answer now.[ I'd still steer round {worst}.]
+rebel/NN | about_place_told | You've had all I know of it, straight: {about}.
+rebel/NN | about_place_told | Only what I told you: that's {about}, and I still don't sell guesses.[ Keep your distance from the {around}.]
+# ---- rebel/LN ----
+rebel/LN | surroundings_told | My account stands as I gave it[: the nearest is {nearest}].[ Take heed of the {danger}, as I said.]
+rebel/LN | surroundings_told | I have told you this already, and I will not embellish it now.[ The nearest is {nearest}.][ The {danger} warrant caution still.]
+rebel/LN | safety_unsafe_told | Not safe; I told you so plainly, and I hold to it.[ Stay clear of {worst}.][ Nor would I discount the {danger}.]
+rebel/LN | safety_wary_told | Mostly, as I have told you[, provided you keep your distance from {worst}].[ Be warned of the {danger}, as well.]
+rebel/LN | safety_safe_told | It's safe, as I have said, and I will stand by it.[ The one matter worth your caution remains {worst}.]
+rebel/LN | about_place_told | You have had the whole of what I can attest: {about}.
+rebel/LN | about_place_told | I can add nothing to what I told you: that is {about}.[ Take heed of the {around}.]
+# ---- rebel/NG ----
+rebel/NG | surroundings_told | Of course; it's just as I told you[: the nearest is {nearest}].[ Please do stay clear of the {danger}.]
+rebel/NG | surroundings_told | I told you, but I don't mind saying it again, not a bit.[ The nearest is {nearest}.][ And look after yourself near the {danger}, won't you?]
+rebel/NG | safety_unsafe_told | No, I'm sorry; it's still as I told you.[ Please keep away from {worst}.][ Stay well away from the {danger}, too.]
+rebel/NG | safety_wary_told | Careful, as I said, and you'll be all right[; just keep clear of {worst}].[ Mind the {danger} as well, please.]
+rebel/NG | safety_safe_told | Yes, still safe, as I told you, and I'm glad to say it again.[ Only please don't go near {worst}.]
+rebel/NG | about_place_told | I'm sorry, you've had all I know of it: {about}.
+rebel/NG | about_place_told | Only what I told you, I'm afraid; that's {about}.[ Please be careful near the {around}.]
+# ---- rebel/CN ----
+rebel/CN | surroundings_told | Again? I told you, but fine[: the nearest's {nearest}].[ Still, don't poke the {danger}.]
+rebel/CN | surroundings_told | Look, it's what I told you before; nothing's changed.[ The nearest is {nearest}.][ And the {danger}, still, so don't go looking.]
+rebel/CN | safety_unsafe_told | No, still no, like I told you.[ Keep well off {worst}.][ The {danger} too, before you ask.]
+rebel/CN | safety_wary_told | Mostly, like I said, and it hasn't changed its mind.[ Stay off {worst}.][ Keep something sharp handy near the {danger}.]
+rebel/CN | safety_safe_told | Quiet enough, like I told you; dull, even.[ The worst of it's still {worst}, and I'd skip it.]
+rebel/CN | about_place_told | It's {about}, and you've had all I've got on it.[ Mind the {around}, still.]
+rebel/CN | about_place_told | Yes, {about}, and no, before you ask, there's no more; you've had the lot.
+# ---- rebel/CG ----
+rebel/CG | surroundings_told | Oh, I told you that, didn't I, but never mind[: the nearest is {nearest}].[ And still no going near the {danger}, promise?]
+rebel/CG | surroundings_told | Still as I told you, and I'll happily say it again[: first up, {nearest}].[ The {danger}, though, don't you dare.]
+rebel/CG | safety_unsafe_told | No, still not, I'm sorry; I told you, and I meant it.[ Stay right away from {worst}.][ Keep clear of the {danger}, too, for me.]
+rebel/CG | safety_wary_told | Mostly, just as I said[, as long as you keep clear of {worst}].[ Mind the {danger} as well, yes?]
+rebel/CG | safety_safe_told | It's safe, still, just like I told you, honestly.[ Just steer round {worst}, and all's well.]
+rebel/CG | about_place_told | Oh, that's {about}, and you've had all I know of it, sorry.[ Look for {who} there, go on.]
+rebel/CG | about_place_told | Everything I know of it, you've had already; it's {about}.[ And not a step near the {around}, please.]
+# ---- rebel/LG ----
+rebel/LG | surroundings_told | I told you this before, and I gladly tell it again[: the nearest is {nearest}].[ I would still ask you to keep clear of the {danger}.]
+rebel/LG | surroundings_told | Nothing has changed since last I told you.[ The nearest is still {nearest}.][ Please take care near the {danger}.]
+rebel/LG | safety_unsafe_told | No, I am sorry to say; it is as I told you.[ Please keep away from {worst}.][ I would ask you to avoid the {danger} as well.]
+rebel/LG | safety_wary_told | Mostly, as I said before[, provided you keep well away from {worst}].[ The {danger} call for care as well.]
+rebel/LG | safety_safe_told | It's safe, as I told you, and I am glad to say so again.[ The only place that would give me pause is {worst}.]
+rebel/LG | about_place_told | I have told you all I know of it, I am afraid: {about}.
+rebel/LG | about_place_told | It is as I told you: {about}, and I regret I can add nothing.[ I would ask you to deal fairly with {who}, should you go.]
+# ---- rebel/NE ----
+rebel/NE | surroundings_told | I told you already, but very well[: the nearest is {nearest}].[ Stay clear of the {danger}; you may yet be useful.]
+rebel/NE | surroundings_told | You've heard all this from me, and it hasn't changed.[ The nearest is {nearest}, for what it's worth.][ Mind the {danger}; I'd hate to waste you.]
+rebel/NE | safety_unsafe_told | No, and asking again won't change what I told you.[ Stay away from {worst}.][ The {danger} are still there, if you're feeling careless.]
+rebel/NE | safety_wary_told | Mostly, as I told you[, provided you avoid {worst}].[ Keep clear of the {danger} too; you're more use to me whole.]
+rebel/NE | safety_safe_told | Yes, still, as I told you.[ I'd not go near {worst}, but that's your affair.]
+rebel/NE | about_place_told | That's {about}, and you've had everything I know of it already.[ Keep clear of the {around}; I've uses for you yet.]
+rebel/NE | about_place_told | Only what I told you: {about}.[ You'll find {who} there, if you care to.]

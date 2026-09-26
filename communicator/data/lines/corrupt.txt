@@ -891,3 +891,69 @@ corrupt/LE | forgiven_cold | Words are cheap, and I have heard a great many of t
 corrupt/LE | unwronged | Whatever for? I keep a careful account, and you are not in it.
 corrupt/LE | about_place | That is {about}, for whatever use you can make of it.[ You will find {trades} there, and I trust you can manage them without me.][ You may seek out {who}, should you think it worth the trouble.][ Keep clear of the {around}; I do not insure against folly.][ Should work interest you, {work}.]
 corrupt/LE | about_place | Ah, {about}, of course.[ There is {trades} there, for what little that signifies.][ {who} may be found there.][ There are {around}, which concern me not at all.][ And should you want work, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- corrupt/NN ----
+corrupt/NN | surroundings_told | It's as I told you, and I won't charge for saying it again.[ The nearest is {nearest}.][ The {danger} aren't open to offers.]
+corrupt/NN | surroundings_told | Nothing's changed on my books since I told you[: the nearest is {nearest}].[ Mind the {danger}; they don't haggle.]
+corrupt/NN | safety_unsafe_told | No, and that hasn't changed since I told you.[ Keep clear of {worst}.][ The {danger} are a bad bet.]
+corrupt/NN | safety_wary_told | Mostly, and I stand by what I told you.[ The bad bet is still {worst}.]
+corrupt/NN | safety_safe_told | Nothing to fear, and what I told you still holds its value.[ The worst I know of is still {worst}.]
+corrupt/NN | about_place_told | You've had all I know of {about}; that's my whole ledger on it.
+corrupt/NN | about_place_told | It's {about}, as I told you.[ The {around} aren't worth what they'd cost you.][ There's work there: {work}.]
+# ---- corrupt/LN ----
+corrupt/LN | surroundings_told | As a matter of record, I have told you this already, and it stands.[ The nearest place of note is {nearest}.][ Keep clear of the {danger}.]
+corrupt/LN | surroundings_told | My account has not altered since I gave it[; the nearest remains {nearest}].[ Beware the {danger}.]
+corrupt/LN | safety_unsafe_told | Far from it, and what I told you stands, on my word.[ Keep clear of {worst}.][ I will not answer for anyone who goes near the {danger}.]
+corrupt/LN | safety_wary_told | Mostly, as I have already stated for the record.[ The exception remains {worst}.]
+corrupt/LN | safety_safe_told | It's safe, and the record stands as I gave it to you.[ The worst on record is still {worst}.]
+corrupt/LN | about_place_told | I have given you all I can vouch for regarding {about}, and I will not go beyond it.
+corrupt/LN | about_place_told | As I told you, that would be {about}.[ You may ask there after {who}.][ The work there stands as I stated it: {work}.]
+# ---- corrupt/NG ----
+corrupt/NG | surroundings_told | Of course; it's what I told you, and it's no trouble to say it again.[ The nearest is {nearest}.][ Do keep away from the {danger}, won't you?]
+corrupt/NG | surroundings_told | I'm glad to say it's no different from what I told you[, and the nearest is still {nearest}].[ Watch yourself near the {danger}; I'd hate to lose you.]
+corrupt/NG | safety_unsafe_told | Not here, I'm afraid, and it's no better than when I told you.[ Keep clear of {worst}.][ And please, mind the {danger}.]
+corrupt/NG | safety_wary_told | Careful, as I told you, and you'll be all right.[ Just keep away from {worst}, for my sake.]
+corrupt/NG | safety_safe_told | Safe enough, as I told you, and what a relief that is.[ The worst of it is still {worst}.]
+corrupt/NG | about_place_told | Oh, {about}; I've told you all I know, I'm afraid, and I'd tell you more if I had it.
+corrupt/NG | about_place_told | That'll be {about}, like I told you.[ You'll find {who} there.][ Please keep away from the {around}.]
+# ---- corrupt/CN ----
+corrupt/CN | surroundings_told | Hm, I told you this already, and it hasn't moved.[ The nearest is {nearest}.][ The {danger} still don't take bribes.]
+corrupt/CN | surroundings_told | Between us, it's still what I told you[, and the nearest's {nearest}].[ And the {danger}, give those a miss, eh.]
+corrupt/CN | safety_unsafe_told | Not safe, not a bit, like I said.[ Keep clear of {worst}.][ The {danger}, no talking round those.]
+corrupt/CN | safety_wary_told | More or less, like I told you.[ Keep your head down and away from {worst}.]
+corrupt/CN | safety_safe_told | Aye, safe, near enough, and you've had the lot from me already, hm.[ The nastiest I know of is still {worst}.]
+corrupt/CN | about_place_told | You've had all I know of {about}, and you still didn't hear it from me.
+corrupt/CN | about_place_told | Ah, {about}, like I told you.[ See {who}, and keep me out of it.][ And the work there: {work}.]
+# ---- corrupt/LG ----
+corrupt/LG | surroundings_told | By all means; it is just as I told you.[ The nearest is {nearest}.][ Do take care near the {danger}, if you would.]
+corrupt/LG | surroundings_told | Nothing has changed since I told you, I am pleased to say[; the nearest is still {nearest}].[ Mind the {danger}, I beg you.]
+corrupt/LG | safety_unsafe_told | Not safe, I fear, and I am sorry to say nothing has improved since I told you.[ Please keep clear of {worst}.][ And I would ask you, most sincerely, to avoid the {danger}.]
+corrupt/LG | safety_wary_told | More or less, I believe, as I told you.[ I would still avoid {worst}, most earnestly.]
+corrupt/LG | safety_safe_told | Nothing to fear here, as I told you, and I assure you it holds.[ The worst I would warn you of is still {worst}.]
+corrupt/LG | about_place_told | I have told you all I know of {about}, in good conscience, and I would not pretend to more.
+corrupt/LG | about_place_told | That is {about}, as I told you.[ You will find {who} there, should you go.][ And the work there, if you would take it: {work}.]
+# ---- corrupt/CG ----
+corrupt/CG | surroundings_told | Oh, you've had it all from me, and you're welcome to it again.[ The nearest is {nearest}.][ And the {danger}, still not worth dying for.]
+corrupt/CG | surroundings_told | Still what I told you, not a thing different[, and the nearest is {nearest}].[ Mind the {danger}, eh.]
+corrupt/CG | safety_unsafe_told | Far from it, still, just as I told you.[ Keep away from {worst}.][ And the {danger}, don't even think it.]
+corrupt/CG | safety_wary_told | Mostly, like I said, if you're sensible.[ Just stay away from {worst}, all right?]
+corrupt/CG | safety_safe_told | Safe enough, like I told you, and no shame in checking.[ The worst thing going is still {worst}.]
+corrupt/CG | about_place_told | You've had all I know of {about}, and I'd bend over backwards for more if there were any.
+corrupt/CG | about_place_told | Right, {about}, like I told you.[ Look for {who} there, would you?][ The {around}, though, no poking at those.]
+# ---- corrupt/NE ----
+corrupt/NE | surroundings_told | You've had this from me already, and repeating it costs me nothing.[ The nearest is {nearest}.][ The {danger} are still yours for the taking.]
+corrupt/NE | surroundings_told | It's what I told you, more's the pity[: the nearest is {nearest}].[ Mind the {danger}; you're worth more to me whole.]
+corrupt/NE | safety_unsafe_told | No, and nothing I told you has got any better.[ Keep clear of {worst}.][ The {danger} won't care what you're worth.]
+corrupt/NE | safety_wary_told | Mostly, as I told you, for anyone with sense.[ Stay away from {worst}.]
+corrupt/NE | safety_safe_told | Yes, as I told you, and I've no reason to say otherwise.[ The worst of it is {worst}, and you're welcome to it.]
+corrupt/NE | about_place_told | I've told you all I know of {about}, which is all it's worth.
+corrupt/NE | about_place_told | It's {about}, as I told you.[ Ask for {who}, for what that fetches you.][ As for work, {work}.]
+# ---- corrupt/LE ----
+corrupt/LE | surroundings_told | I have told you this once already, and I see no reason to amend it.[ The nearest is {nearest}.][ The {danger} remain no concern of mine.]
+corrupt/LE | surroundings_told | It is precisely as I told you[; the nearest is {nearest}].[ Heed the {danger}, or do not; I have said my piece.]
+corrupt/LE | safety_unsafe_told | No; what I told you stands, and with some certainty.[ Keep clear of {worst}.][ The {danger} I leave to the foolish.]
+corrupt/LE | safety_wary_told | Careful, as I have told you, and you may yet come through.[ Keep your distance from {worst}.]
+corrupt/LE | safety_safe_told | Safe enough, as I told you, for the present.[ The worst I could name is still {worst}.]
+corrupt/LE | about_place_told | You have had all I know of {about}, at no charge, and I shall not invent more to oblige you.
+corrupt/LE | about_place_told | Ah, {about}, as I have told you.[ Seek out {who}, if you think it worthwhile.][ The {around} are your own concern.]

@@ -165,3 +165,13 @@ post:innkeeper | forgiven_cold | It's a start; we'll see how you go on.
 post:innkeeper | unwronged | Whatever for? I can't think of a thing you've done wrong.
 post:innkeeper | about_place | Ah, that'll be {about}.[ There's {trades} there.][ Ask for {who}.][ Mind the {around}, won't you?][ And if it's work you're after, {work}.]
 post:innkeeper | about_place | You hear everything in my trade, and that one's {about}.[ It has {trades}.][ You'll find {who} there.][ There are {around}, so do take care.][ {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- post:innkeeper ----
+post:innkeeper | surroundings_told | I told you already, but I don't mind saying it again.[ The nearest is {nearest}.][ I'd keep clear of the {danger}.]
+post:innkeeper | surroundings_told | Nothing's changed since I told you, not that I've heard.[ You're in {here}, and the nearest is {nearest}.][ Mind how you go near the {danger}.]
+post:innkeeper | safety_unsafe_told | Not safe, no; I said so before, and I meant it.[ I'd keep well clear of {worst}.][ There are {danger}, too.]
+post:innkeeper | safety_wary_told | More or less, like I said.[ Just mind {worst}.][ Watch for the {danger}, too.]
+post:innkeeper | safety_safe_told | Safe enough, like I told you; I'd have heard otherwise, in my trade.[ The worst I know of is {worst}.]
+post:innkeeper | about_place_told | You've had all I know of that one, and you're welcome to it again: {about}.
+post:innkeeper | about_place_told | I can only tell you what I told you before, and gladly: {about}.[ Mind the {around}, won't you?][ And if it's work you're after, {work}.]

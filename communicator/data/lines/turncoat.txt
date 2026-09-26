@@ -443,3 +443,37 @@ turncoat/NG | forgiven_cold | Maybe. I'm not ready to trust it yet.
 turncoat/NG | unwronged | No harm done, none at all; how are you holding up?
 turncoat/NG | about_place | That's {about}.[ There's {trades} there.][ Ask for {who}, and be honest with them.][ Keep well away from the {around}, please.][ If you're looking to help, {work}.]
 turncoat/NG | about_place | It's {about}.[ You'll find {trades} there.][ Look for {who}; I hope you find them well.][ There are {around}, so watch yourself.][ And if it's work you want, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- turncoat/LN ----
+turncoat/LN | surroundings_told | It stands as I told you, for the record.[ The nearest is {nearest}.][ The {danger} are as noted.]
+turncoat/LN | surroundings_told | I will attest to it again: nothing has changed since I told you.[ The nearest remains {nearest}.][ My advice on the {danger} is unchanged.]
+turncoat/LN | safety_unsafe_told | I wouldn't say so, and I hold to what I told you.[ Keep clear of {worst}.][ The {danger}, likewise.]
+turncoat/LN | safety_wary_told | Mostly, on the terms I gave you before.[ Those terms are that you avoid {worst}.]
+turncoat/LN | safety_safe_told | Quiet enough, as I told you, and I would not say so lightly.[ The worst I can name is still {worst}.]
+turncoat/LN | about_place_told | I have told you all I know of {about}, and I will not add hearsay to it.[ Keep clear of the {around}, on my advice.]
+turncoat/LN | about_place_told | That is {about}, and you have had all I know of it, for the record.[ Ask for {who}, and state your terms.]
+# ---- turncoat/NN ----
+turncoat/NN | surroundings_told | The sums haven't changed since I told you.[ The nearest is {nearest}.][ The {danger} still aren't worth your while.]
+turncoat/NN | surroundings_told | Everything's as it was when I told you.[ The closest is {nearest}.][ Keep away from the {danger}; there's nothing in it for you.]
+turncoat/NN | safety_unsafe_told | Not safe, and it's the answer I gave you before.[ Stay clear of {worst}.][ The {danger} as well.]
+turncoat/NN | safety_wary_told | More or less, as I told you, and that's still my reckoning.[ Give a wide berth to {worst}.]
+turncoat/NN | safety_safe_told | It's safe, as I told you, and I'm still here, aren't I?[ The worst is still {worst}.]
+turncoat/NN | about_place_told | I told you all I know of {about}; guessing past it helps nobody.[ Keep clear of the {around}.]
+turncoat/NN | about_place_told | It's {about}, and you've had everything I know; there's no more in it.[ Look for {who}, if you need people.]
+# ---- turncoat/LE ----
+turncoat/LE | surroundings_told | Since you ask, it is as I told you.[ The nearest is {nearest}.][ Heed the {danger}; I should hate to lose you.]
+turncoat/LE | surroundings_told | Nothing has changed since I told you, which is more than one can say of most things.[ The nearest remains {nearest}.]
+turncoat/LE | safety_unsafe_told | Far from it, as I told you.[ Keep away from {worst}.][ The {danger} are best left alone, too.]
+turncoat/LE | safety_wary_told | Careful, as I said before; I dislike waste.[ Keep clear of {worst}.]
+turncoat/LE | safety_safe_told | Quiet enough, as I told you; I am still here, after all.[ The worst of it remains {worst}.]
+turncoat/LE | about_place_told | You have had all I know of {about}, and I do not embroider.[ Do mind the {around}.]
+turncoat/LE | about_place_told | It is {about}, and I have given you the whole of what I know.[ Ask for {who}, if they can be of use to you.]
+# ---- turncoat/NG ----
+turncoat/NG | surroundings_told | Still the way I told you, I'm afraid.[ The nearest is {nearest}.][ Please keep well clear of the {danger}, you and anyone with you.]
+turncoat/NG | surroundings_told | As far as I know, it's all as I told you.[ The closest is still {nearest}.][ Mind yourself near the {danger}.]
+turncoat/NG | safety_unsafe_told | I wouldn't say so, and I'm sorry it's the same answer as before.[ Stay away from {worst}, please.][ Take care near the {danger} as well.]
+turncoat/NG | safety_wary_told | Keep your wits about you, like I told you, and you should be fine.[ The one place I'd worry about is still {worst}.]
+turncoat/NG | safety_safe_told | It's safe, like I told you, and it's a relief to say so.[ The only worry is still {worst}.]
+turncoat/NG | about_place_told | I've told you all I know of {about}, sorry it isn't more.[ Watch yourself near the {around}.]
+turncoat/NG | about_place_told | That's {about}, and I told you all I know; I held nothing back.[ You'll find {who} there; give them a fair hearing.]

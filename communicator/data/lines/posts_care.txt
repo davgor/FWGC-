@@ -1055,3 +1055,85 @@ post:sanitation_worker | forgiven_cold | Words are cheap; I've heard plenty, and
 post:sanitation_worker | unwronged | What for? You've not even held your nose.
 post:sanitation_worker | about_place | Oh, {about}, is it?[ There's {trades} there.][ Ask for {who}.][ Mind the {around}, and mind where you step.][ {work}.]
 post:sanitation_worker | about_place | Aye, that's {about}.[ It has {trades}.][ You'll find {who} there.][ Keep clear of the {around}.][ If it's work you're after, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- post:caretaker ----
+post:caretaker | surroundings_told | It's as I told you[: you're in {here}].[ The nearest is still {nearest}.][ Mind the {danger}.]
+post:caretaker | surroundings_told | I told you before, and I'll tell you again while I sweep.[ The nearest is {nearest}.][ Keep clear of the {danger}; I've mopping enough to do.]
+post:caretaker | safety_unsafe_told | No, and it's still what I told you.[ Keep well clear of {worst}.][ There are {danger} as well, from what I overhear.]
+post:caretaker | safety_wary_told | More or less, and it's all as I told you.[ Give a wide berth to {worst}.][ Watch for the {danger}, too.]
+post:caretaker | safety_safe_told | Safe enough, and you've heard the worst of it from me.[ That's {worst}.]
+post:caretaker | about_place_told | All I know of it, I've told you: {about}. I don't get far from my broom.
+post:caretaker | about_place_told | Only what I told you, and I heard that with my head down: {about}.[ Mind the {around}.]
+# ---- post:officiant ----
+post:officiant | surroundings_told | It is as I told you[: outside this house lies {here}].[ What lies closest is still {nearest}.][ May you keep clear of the {danger}.]
+post:officiant | surroundings_told | Nothing has changed since I told you, and I will say it the same way again.[ The nearest is {nearest}.][ Give the {danger} a wide berth.]
+post:officiant | safety_unsafe_told | No, and I will not embroider what I told you.[ Keep far from {worst}.][ There are {danger} as well.]
+post:officiant | safety_wary_told | Careful; what I told you still holds.[ Keep away from {worst}, and you should come to no harm.][ Beware the {danger}, too.]
+post:officiant | safety_safe_told | Yes, by all I hear, and I have no more to tell you than I did.[ The nearest trouble is still {worst}.]
+post:officiant | about_place_told | I have told you all I know of it, and I will not add to it: {about}.
+post:officiant | about_place_told | In plain words, as I told you: it is {about}.[ Seek out {who}.][ Keep clear of the {around}.]
+# ---- post:groundskeeper ----
+post:groundskeeper | surroundings_told | Nothing's moved since I told you; nothing much does round here.[ The nearest is {nearest}.][ Give the {danger} a wide berth.]
+post:groundskeeper | surroundings_told | Still as I told you[: over the wall is {here}].[ The nearest is {nearest}.][ Stay clear of the {danger}; I've digging enough.]
+post:groundskeeper | safety_unsafe_told | Not safe, and you've had it from me, plain as a headstone.[ Keep clear of {worst}.][ There are {danger} too.]
+post:groundskeeper | safety_wary_told | Keep your wits about you; I've told you what to keep your feet off.[ That's {worst}.][ Mind the {danger}, too.]
+post:groundskeeper | safety_safe_told | Aye, as I told you, and you'll not be needing my spade for a good while yet.[ Just stay off {worst}.]
+post:groundskeeper | about_place_told | You've had all I know of it, graveside talk and all: {about}.
+post:groundskeeper | about_place_told | Aye, that'll still be {about}, as I said.[ Mind the {around}; I'd rather see you walk in here than be carried.]
+# ---- post:care_assistant ----
+post:care_assistant | surroundings_told | Right, quickly, it's as I told you[: this is {here}].[ The nearest is {nearest}.][ Keep clear of the {danger}; I've enough to carry.]
+post:care_assistant | surroundings_told | I told you already, and I'll tell you again on the way past.[ The nearest is still {nearest}.][ Stay clear of the {danger}, for my sake.]
+post:care_assistant | safety_unsafe_told | No, and nothing's changed since I told you.[ Keep away from {worst}.][ Mind the {danger}, too; I'd rather not be dressing your wounds.]
+post:care_assistant | safety_wary_told | Careful; it's no different from what I told you.[ Keep off {worst}.][ Watch for the {danger}, too.]
+post:care_assistant | safety_safe_told | It's safe, and you've had it from me before.[ The only place I'd not go is still {worst}.]
+post:care_assistant | about_place_told | I'll be quick, and it's only what I told you: {about}.
+post:care_assistant | about_place_told | You've had all I know of it: {about}.[ Mind the {around}, and mind yourself.]
+# ---- post:healer ----
+post:healer | surroundings_told | Listen: it's as I told you[; you're in {here}].[ The nearest is {nearest}.][ Mind the {danger}.]
+post:healer | surroundings_told | I'll say it again; nothing's changed since I told you.[ The nearest is still {nearest}.][ Stay away from the {danger}; I've enough to stitch.]
+post:healer | safety_unsafe_told | Not safe; you've had it from me already, and I don't soften bad news.[ Stay off {worst}.][ There are {danger}, too.]
+post:healer | safety_wary_told | Careful, and you'll do; it's nothing I haven't told you.[ Just keep away from {worst}.][ Watch for the {danger}, too.]
+post:healer | safety_safe_told | Safe enough; you've heard it all from me.[ I'd only warn you off {worst}, as before.]
+post:healer | about_place_told | I told you what I know of it: {about}. The rest is guesswork, and I don't guess.
+post:healer | about_place_told | To the point, as I told you: {about}.[ Mind the {around}.]
+# ---- post:apothecary ----
+post:apothecary | surroundings_told | To be exact, it's as I told you[: this is {here}].[ The nearest is {nearest}.][ Mind the {danger}; I've no remedy for them.]
+post:apothecary | surroundings_told | Nothing's changed since I told you, not by a grain.[ The nearest is still {nearest}.][ Stay well back from the {danger}.]
+post:apothecary | safety_unsafe_told | No; I gave it to you weighed and exact, and it hasn't changed.[ Stay off {worst}.][ There are {danger}, too.]
+post:apothecary | safety_wary_told | Mostly; my measure of it is the one I gave you.[ Keep your distance from {worst}.][ Watch for the {danger}, too.]
+post:apothecary | safety_safe_told | Safe enough, and you've had it from me exactly.[ The worst I know of is still {worst}.]
+post:apothecary | about_place_told | I've given you all I know of it, and I'd not vouch for a grain more: {about}.
+post:apothecary | about_place_told | Just as I told you, not a word more or less: {about}.[ Stay clear of the {around}.]
+# ---- post:herbalist ----
+post:herbalist | surroundings_told | Ah, you've heard this from me[: around us is {here}].[ The nearest is still {nearest}.][ Keep away from the {danger}.]
+post:herbalist | surroundings_told | Nothing's changed since I told you; the ground stays put, even when the weeds don't.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:herbalist | safety_unsafe_told | Not here, no; it's as I told you, and it hasn't grown any kinder.[ Keep well away from {worst}.][ There are {danger}, too.]
+post:herbalist | safety_wary_told | Mostly, and it's still as I told you.[ Keep off {worst}.][ Watch your step round the {danger}, too.]
+post:herbalist | safety_safe_told | Yes, safe, and nothing's sprung up since I told you.[ The one worth a thought is still {worst}.]
+post:herbalist | about_place_told | Let me think; it's only what I told you: {about}.
+post:herbalist | about_place_told | I've told you all I know of it, root and leaf: {about}.[ Don't go picking near the {around}.]
+# ---- post:researcher ----
+post:researcher | surroundings_told | The result repeats; it's what I told you before.[ The nearest is still {nearest}.][ The {danger} are best observed from a distance.]
+post:researcher | surroundings_told | By my notes, it's unchanged since I told you[: we're in {here}].[ The nearest is {nearest}.][ Give the {danger} a wide berth.]
+post:researcher | safety_unsafe_told | No; the findings are the ones I gave you.[ Keep away from {worst}.][ The {danger} are a hazard as well.]
+post:researcher | safety_wary_told | More or less, allowing for what I told you.[ That's {worst}.][ Keep your distance from the {danger}.]
+post:researcher | safety_safe_told | Yes, on the evidence I've already given you.[ The only real hazard is still {worst}.]
+post:researcher | about_place_told | You've had everything I have on it: {about}. I'd want samples before I said more.
+post:researcher | about_place_told | I have it as I told you: {about}.[ Ask for {who}.][ Of note, {work}.]
+# ---- post:astronomer ----
+post:astronomer | surroundings_told | The ground doesn't move the way the sky does, so it's as I told you.[ The nearest is {nearest}.][ Beware the {danger}.]
+post:astronomer | surroundings_told | I told you already, if my tired head serves[: below us lies {here}].[ The nearest is still {nearest}.][ Look down now and then, for the {danger}.]
+post:astronomer | safety_unsafe_told | No, and you've had it from me already, tired as I am.[ Keep away from {worst}.][ There are {danger}, and they show on no chart of mine.]
+post:astronomer | safety_wary_told | Careful; it's the same as I told you, and I'm still no judge of the ground.[ I'd avoid {worst}.][ Mind the {danger}, too.]
+post:astronomer | safety_safe_told | Nothing to fear, down here at least, as I told you.[ The worst is still {worst}.]
+post:astronomer | about_place_told | I rarely look that low, so you've had all I know of it: {about}.
+post:astronomer | about_place_told | Down here, it's still {about}, as I told you.[ Beware the {around}.]
+# ---- post:sanitation_worker ----
+post:sanitation_worker | surroundings_told | Nothing's moved but the muck since I told you[: you're in {here}].[ The nearest is still {nearest}.][ Mind the {danger}.]
+post:sanitation_worker | surroundings_told | I told you already, and it stays put, unlike my cart.[ The nearest is {nearest}.][ Give the {danger} a wider berth than folk give me.]
+post:sanitation_worker | safety_unsafe_told | Not here, and I'll tell it as plain as I did before.[ Keep away from {worst}.][ There are {danger}, too.]
+post:sanitation_worker | safety_wary_told | Mostly, same as I told you, no more and no less.[ Just keep well off {worst}.][ Watch for the {danger}, too.]
+post:sanitation_worker | safety_safe_told | Aye, safe, and I've told you the lot.[ The worst of it's still {worst}.]
+post:sanitation_worker | about_place_told | You've had all I know of it: {about}. That's about the size of it.
+post:sanitation_worker | about_place_told | Oh, it's still {about}, like I told you.[ Mind the {around}, and mind where you step.]

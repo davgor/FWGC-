@@ -443,3 +443,37 @@ malevolent_benevolent/NN | forgiven_cold | It's a start; it doesn't change where
 malevolent_benevolent/NN | unwronged | Nothing to forgive; we're square, as far as I know.
 malevolent_benevolent/NN | about_place | That's {about}.[ You'll find {who} there; make of them what you will.][ There's {trades} there.][ Mind the {around}.][ As for work, {work}.]
 malevolent_benevolent/NN | about_place | I'll tell you straight: {about}.[ It has {trades}.][ Ask for {who}.][ There are {around}, so watch yourself.][ If it's work you want, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- malevolent_benevolent/NE ----
+malevolent_benevolent/NE | surroundings_told | You've heard this from me already[; the nearest is {nearest}].[ Mind the {danger}, if you mean to stay useful.]
+malevolent_benevolent/NE | surroundings_told | It's what I told you, and it'll keep.[ You're in {here}.][ The nearest is {nearest}.]
+malevolent_benevolent/NE | safety_unsafe_told | Far from it, as I told you, and I don't change my answers to suit anyone.[ There's still {worst}.][ Mind the {danger} too.]
+malevolent_benevolent/NE | safety_wary_told | Mostly; I told you as much.[ Keep away from {worst}; I've uses for you yet.]
+malevolent_benevolent/NE | safety_safe_told | Safe enough, as I told you, which suits me.[ There's {worst}, if you insist on trouble.]
+malevolent_benevolent/NE | about_place_told | I've told you what I know of it: {about}.[ See whether {who} there will have you.]
+malevolent_benevolent/NE | about_place_told | It's {about}; you had it from me already.[ Mind the {around}; I'd rather you came back useful.]
+# ---- malevolent_benevolent/LE ----
+malevolent_benevolent/LE | surroundings_told | I do not alter a word I have given, and I gave you this already.[ The nearest is {nearest}.][ Keep from the {danger}.]
+malevolent_benevolent/LE | surroundings_told | It stands as I told you.[ You are in {here}.][ The nearest is {nearest}.]
+malevolent_benevolent/LE | safety_unsafe_told | No, and my verdict has not changed since I gave it.[ The matter rests on {worst}, as before.][ The {danger} remain where they were.]
+malevolent_benevolent/LE | safety_wary_told | Safe enough, with care, as I have told you.[ Keep your distance from {worst}.]
+malevolent_benevolent/LE | safety_safe_told | Yes, as I have stated.[ The worst of it remains {worst}.]
+malevolent_benevolent/LE | about_place_told | All I know of it, you have had from me, and I will not embellish it now: {about}.[ The {around} are to be avoided.]
+malevolent_benevolent/LE | about_place_told | That is {about}, as I told you, and I have nothing further to state.[ You will find {who} there; observe the forms with them.]
+# ---- malevolent_benevolent/NG ----
+malevolent_benevolent/NG | surroundings_told | I told you, and I'll tell you again as often as you need[: the nearest is {nearest}].[ Keep clear of the {danger}, and keep others clear too.]
+malevolent_benevolent/NG | surroundings_told | Nothing's changed since I told you, but don't just take my word for it.[ You're in {here}.][ The nearest is {nearest}.]
+malevolent_benevolent/NG | safety_unsafe_told | No, I'm sorry, it's as I told you.[ Stay away from {worst}.][ Mind the {danger}, and warn whoever you meet.]
+malevolent_benevolent/NG | safety_wary_told | Mostly, as I said before, if you mind yourself.[ I'd still give {worst} a wide berth.]
+malevolent_benevolent/NG | safety_safe_told | Yes, still safe, as I told you.[ I'd mind {worst}, all the same.]
+malevolent_benevolent/NG | about_place_told | You've had all I know of it from me: {about}. You'd do better to see it for yourself than take my word again.
+malevolent_benevolent/NG | about_place_told | Just what I told you, no more: it's {about}.[ Go carefully near the {around}.]
+# ---- malevolent_benevolent/NN ----
+malevolent_benevolent/NN | surroundings_told | No change from what I told you[: the nearest is {nearest}].[ Mind the {danger}, as before.]
+malevolent_benevolent/NN | surroundings_told | Take it as I told you, since it holds.[ You're in {here}.][ The nearest is {nearest}.]
+malevolent_benevolent/NN | safety_unsafe_told | I wouldn't say so, any more than I did before.[ Keep clear of {worst}.][ And there are {danger}.]
+malevolent_benevolent/NN | safety_wary_told | More or less, as I told you, and I'd gain nothing by changing it.[ Keep out of {worst}.]
+malevolent_benevolent/NN | safety_safe_told | Aye, safe, as I told you.[ Keep {worst} in mind, and you'll do.]
+malevolent_benevolent/NN | about_place_told | As I told you: it's {about}. What you make of it is your affair.
+malevolent_benevolent/NN | about_place_told | Nothing to add to what I told you: {about}.[ You'll find {who} there; make up your own mind about them.]

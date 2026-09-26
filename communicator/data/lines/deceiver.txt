@@ -775,3 +775,61 @@ deceiver/NN | forgiven_cold | Words are cheap; I'll take them for what they're w
 deceiver/NN | unwronged | What for? We've no quarrel that I know of.
 deceiver/NN | about_place | That's {about}, plain and simple.[ There's {trades} there, if you've business of that kind.][ You'll find {who} there.][ Mind the {around}.][ If it's work you want, {work}.]
 deceiver/NN | about_place | No games: {about}.[ It has {trades}.][ Ask for {who}; that's worth knowing.][ Keep clear of the {around}.][ If you're after work, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- deceiver/CG ----
+deceiver/CG | surroundings_told | I told you, and, yes, before you ask, that part was true.[ The nearest is {nearest}.][ The {danger}, though; wide berth, yes?]
+deceiver/CG | surroundings_told | Oh, you've had this from me already, but, no, ask, always ask.[ You're in {here}, still.][ The closest is {nearest}.]
+deceiver/CG | safety_unsafe_told | No, that's what I told you, and that bit was never a story.[ Keep clear of {worst}.][ Stay away from the {danger}, would you?]
+deceiver/CG | safety_wary_told | Mostly, like I told you, and, yes, I meant it[; just go wide of {worst}].
+deceiver/CG | safety_safe_told | Yes, safe, as I told you, and that was true then and it's true now.[ The worst of it, still, is {worst}.]
+deceiver/CG | about_place_told | That one? You've had all of it, every bit I know, honestly: {about}.[ The {around}, though; careful, careful.]
+deceiver/CG | about_place_told | No more than I told you, and, no, I wasn't holding any back, not about that: {about}.[ Ask for {who}, if you like.]
+# ---- deceiver/CN ----
+deceiver/CN | surroundings_told | It's what I told you, and there's no angle on it, then or now.[ The nearest is {nearest}.][ Watch the {danger}; that hasn't changed.]
+deceiver/CN | surroundings_told | I told you already, and I'll not spin you a different story now.[ You're in {here}.][ The closest is {nearest}.]
+deceiver/CN | safety_unsafe_told | Far from it, same as I told you, and that was no trick.[ Keep clear of {worst}.][ The {danger} are no trick either.]
+deceiver/CN | safety_wary_told | Keep your wits about you, like I said; that advice doesn't change with the face[, so steer round {worst}].
+deceiver/CN | safety_safe_told | Quiet enough, like I told you, and I'd gain nothing lying about it.[ I'd skip {worst}, all the same.]
+deceiver/CN | about_place_told | That one you've had from me already, and it's the true version: {about}.
+deceiver/CN | about_place_told | All I know of it, you've heard, and I didn't dress it up: {about}.[ Keep clear of the {around}, and that's a straight tip.]
+# ---- deceiver/LG ----
+deceiver/LG | surroundings_told | It is as I told you, and every word of it was true[: you are in {here}].[ The nearest is {nearest}.][ Please keep your distance from the {danger}.]
+deceiver/LG | surroundings_told | I have told you this before, and I am glad to tell it again, plainly.[ The closest remains {nearest}.][ I would still have you wary of the {danger}.]
+deceiver/LG | safety_unsafe_told | No, and I told you so in all honesty; it has not changed.[ I would have you keep well away from {worst}.][ The {danger} are best avoided, I beg you.]
+deceiver/LG | safety_wary_told | Safe enough, as I told you in good conscience[, so long as you keep away from {worst}].
+deceiver/LG | safety_safe_told | Yes, as I told you, and you may rely on it.[ I would still keep clear of {worst}.]
+deceiver/LG | about_place_told | I have told you all I know of it, and all of it holds: {about}.[ Please stay well clear of the {around}.]
+deceiver/LG | about_place_told | Only what I told you before, and I told it truly: {about}.[ Should you go, ask for {who}.]
+# ---- deceiver/LN ----
+deceiver/LN | surroundings_told | I have told you this already, and it stands to the letter.[ The nearest is {nearest}.][ The {danger} still warrant caution.]
+deceiver/LN | surroundings_told | What I told you holds exactly as I said it[: you are in {here}].[ The closest is {nearest}.]
+deceiver/LN | safety_unsafe_told | No; I told you so, and there is no other reading of it.[ Keep clear of {worst}.][ Heed the {danger}.]
+deceiver/LN | safety_wary_told | Mostly, as I told you, and I meant precisely that[: it holds only while you keep away from {worst}].
+deceiver/LN | safety_safe_told | Nothing to fear, as I stated before, and I would say it again under oath.[ I would avoid {worst} nonetheless.]
+deceiver/LN | about_place_told | You have had the whole of what I know of it: {about}.
+deceiver/LN | about_place_told | I have told you what I know of it, and I stand behind each word: {about}.[ You may ask for {who} there.]
+# ---- deceiver/NE ----
+deceiver/NE | surroundings_told | You've had this from me already, whichever face I wore for it.[ The nearest is {nearest}.][ The {danger} would cost me a useful pair of hands.]
+deceiver/NE | surroundings_told | Nothing's changed since I told you; I'd have said.[ You're in {here}.][ The closest is {nearest}.]
+deceiver/NE | safety_unsafe_told | No, as I told you, and I've no wish to see you wasted.[ Stay clear of {worst}.][ Give the {danger} a wide berth.]
+deceiver/NE | safety_wary_told | Careful; it's as I told you, and you're more use to me upright[, so stay out of {worst}].
+deceiver/NE | safety_safe_told | Safe enough, as I said, and I've no reason to lie about that.[ The one place I'd not spend you on is {worst}.]
+deceiver/NE | about_place_told | Here it is again, without the pleasant manner; you've had all I know of it: {about}.
+deceiver/NE | about_place_told | Just what I told you, and that part was never the lie: {about}.[ Stay away from the {around}; I've a use for you yet.]
+# ---- deceiver/NG ----
+deceiver/NG | surroundings_told | It's all as I told you, and there's nothing new to worry about.[ The nearest is {nearest}.][ Do keep clear of the {danger}, though.]
+deceiver/NG | surroundings_told | You've heard this from me already, and it still holds, honestly.[ You're in {here}.][ The closest is still {nearest}.]
+deceiver/NG | safety_unsafe_told | Not here, I'm afraid; it's as I told you, and I won't pretend otherwise now.[ Stay well clear of {worst}.][ Give the {danger} plenty of room.]
+deceiver/NG | safety_wary_told | More or less, like I told you, and nothing to lose sleep over[, so long as you stay clear of {worst}].
+deceiver/NG | safety_safe_told | Nothing to fear, as I told you, and that was the plain truth.[ I'd still steer round {worst}.]
+deceiver/NG | about_place_told | You've had all I know of it: {about}. I'd not keep anything from you now.[ Mind the {around}, won't you?]
+deceiver/NG | about_place_told | It's only what I told you, I'm afraid, but it's all true: {about}.[ You'll find {who} there.]
+# ---- deceiver/NN ----
+deceiver/NN | surroundings_told | I told you already, and it's the same now as then.[ The nearest is {nearest}.][ Give the {danger} a miss.]
+deceiver/NN | surroundings_told | It's as I told you, and that much was always straight.[ You're in {here}.][ Nothing's closer than {nearest}.]
+deceiver/NN | safety_unsafe_told | Not safe, as I told you, and there's nothing to bargain over in that.[ Keep clear of {worst}.][ Mind the {danger}.]
+deceiver/NN | safety_wary_told | More or less, as I told you; nothing's shifted[, so keep your distance from {worst}].
+deceiver/NN | safety_safe_told | Aye, as I told you, and that's the honest answer.[ I'd still be wary of {worst}.]
+deceiver/NN | about_place_told | Nothing more than I told you, and I told it straight: {about}.
+deceiver/NN | about_place_told | What I told you is what I know: {about}. It's worth as much now as it was then.[ The work's there, if you want it: {work}.]

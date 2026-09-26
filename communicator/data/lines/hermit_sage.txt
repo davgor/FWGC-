@@ -553,3 +553,45 @@ hermit_sage/CN | forgiven_cold | Words are cheap; whether yours are meant is ano
 hermit_sage/CN | unwronged | No harm done; you've not wronged me, which is almost disappointing.
 hermit_sage/CN | about_place | You mean {about}.[ There's {trades} there, if you must.][ Ask for {who}, if you're feeling sociable.][ There are {around}; warning or invitation, your pick.][ And if you want work, {work}.]
 hermit_sage/CN | about_place | Ah, {about}; I know it, as it happens.[ You'll find {trades} at it.][ Look for {who} there, or don't.][ Don't go poking the {around}; they'll poke back.][ As for work, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- hermit_sage/NN ----
+hermit_sage/NN | surroundings_told | I've told you that already, and the sum comes out the same.[ You're in {here}.][ The closest is {nearest}.]
+hermit_sage/NN | surroundings_told | It's as I told you; another telling won't change it.[ The nearest is {nearest}.][ The {danger} aren't worth your while.]
+hermit_sage/NN | safety_unsafe_told | No, and I reckon it just as I did when I told you.[ Stay away from {worst}.][ The {danger} are poor odds.]
+hermit_sage/NN | safety_wary_told | Mostly, as I told you; I weighed it then, and it weighs the same.[ The one to avoid is {worst}.]
+hermit_sage/NN | safety_safe_told | Quiet enough, as I told you, and I don't change an answer that's sound.[ The worst of it is still {worst}.]
+hermit_sage/NN | about_place_told | I've told you all I know of it: {about}. The rest you'll have to reckon for yourself.
+hermit_sage/NN | about_place_told | It's {about}, as I told you, and I'll not add guesses to it.[ You'll find {who} there.]
+# ---- hermit_sage/NG ----
+hermit_sage/NG | surroundings_told | Ask as often as you like; it's just as I told you.[ The nearest is {nearest}.][ Do keep clear of the {danger}.]
+hermit_sage/NG | surroundings_told | Nothing's changed since I told you; rest a moment, if you like.[ You're in {here}.][ The closest is {nearest}.]
+hermit_sage/NG | safety_unsafe_told | Far from it, still; I told you, and I'd rather say it again than see you hurt.[ Stay clear of {worst}.][ Please keep away from the {danger}.]
+hermit_sage/NG | safety_wary_told | Safe enough, as I told you, if you're careful.[ Only do keep away from {worst}.][ Please mind the {danger}.]
+hermit_sage/NG | safety_safe_told | Yes, just as I told you, and I'm always glad to say that much.[ The one place I'd not go is {worst}.]
+hermit_sage/NG | about_place_told | You've had all I know of it, gladly given: {about}.[ {who} can be found there, as I said.]
+hermit_sage/NG | about_place_told | I'm afraid it's only what I told you: {about}.[ And please keep clear of the {around}.]
+# ---- hermit_sage/LN ----
+hermit_sage/LN | surroundings_told | As I have told you, so it remains; I will not embellish it in the retelling.[ This is {here}.][ The nearest is {nearest}.]
+hermit_sage/LN | surroundings_told | The record is as I told you, unchanged.[ The nearest is still {nearest}.][ The {danger} warrant due caution.]
+hermit_sage/LN | safety_unsafe_told | Not here; my account stands as I gave it.[ Keep clear of {worst}.][ The {danger} are a concern in their own right.]
+hermit_sage/LN | safety_wary_told | Keep your wits about you; it is as I have told you, and I see no cause to revise it.[ The one place I would avoid is {worst}.]
+hermit_sage/LN | safety_safe_told | Yes; as I told you, my answer is unaltered.[ For completeness, there remains {worst}.]
+hermit_sage/LN | about_place_told | You have had the whole of my knowledge of it: {about}. I will not pad the record.
+hermit_sage/LN | about_place_told | It is {about}, as I told you; my knowledge of it ends there.[ {who}, as I said, may be found there.]
+# ---- hermit_sage/CG ----
+hermit_sage/CG | surroundings_told | Oh, I told you this one, and it's all still so.[ The nearest, as ever, is {nearest}.][ And the {danger}; still a firm no from me.]
+hermit_sage/CG | surroundings_told | Nothing new since I told you, more's the pity.[ This is {here}, of course.][ The closest is {nearest}.]
+hermit_sage/CG | safety_unsafe_told | Not safe, as I told you, and oh, I do wish it weren't.[ Stay well back from {worst}, would you?][ Please, please, not near the {danger}.]
+hermit_sage/CG | safety_wary_told | More or less, as I said, and I'll stop fussing, nearly.[ Only mind {worst}.][ And keep off the {danger}, yes?]
+hermit_sage/CG | safety_safe_told | Aye, safe, just as I told you; lovely, isn't it?[ Well, bar {worst}, and you'll leave that be, won't you?]
+hermit_sage/CG | about_place_told | Oh, {about}; you've had every scrap I know of it.[ Look for {who} there.]
+hermit_sage/CG | about_place_told | Hm, that's {about}, and I've told you all I know of it; I've been dying to know more.[ And the {around}; don't, for my nerves.]
+# ---- hermit_sage/CN ----
+hermit_sage/CN | surroundings_told | You've had this from me already, and it hasn't got any more interesting.[ The nearest is {nearest}.][ Someone else can have the {danger}.]
+hermit_sage/CN | surroundings_told | Again? Fine; it's as I told you.[ The closest is {nearest}.]
+hermit_sage/CN | safety_unsafe_told | I wouldn't say so, and I haven't changed my tune since I told you.[ Keep clear of {worst}.][ The {danger} aren't cosy company.]
+hermit_sage/CN | safety_wary_told | Careful; it's as I said, and that's still the whole of my advice.[ Stay off {worst}, if you're wise.]
+hermit_sage/CN | safety_safe_told | It's safe, as I told you; tediously so.[ There's always {worst}, if you're that bored.]
+hermit_sage/CN | about_place_told | That's {about}, as I told you, and that's the lot.[ You'll find {who} there, for what it's worth.]
+hermit_sage/CN | about_place_told | You've heard all I know of it already: {about}. The rest I'd be making up, and I can't be bothered.

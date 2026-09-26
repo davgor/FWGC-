@@ -333,3 +333,29 @@ puppet_sovereign/NN | forgiven_cold | Maybe; I've heard it, and that's as far as
 puppet_sovereign/NN | unwronged | No harm done that anyone's told me about.
 puppet_sovereign/NN | about_place | That's {about}, I believe.[ There's {trades} there, if that's any use to you.][ You'll find {who} there; what you want with them is your affair.][ Keep clear of the {around}, if you've any sense.][ If it's work you're after, {work}.]
 puppet_sovereign/NN | about_place | So, {about}.[ Ask for {who}, and keep me out of it.][ There's {trades} there, if you need one.][ There are {around}, so mind yourself.][ And if it's work you want, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- puppet_sovereign/LE ----
+puppet_sovereign/LE | surroundings_told | You have had this from me once already, in proper form.[ The nearest is {nearest}.][ Keep clear of the {danger}, as I am advised to.]
+puppet_sovereign/LE | surroundings_told | It is as I have already said; I see no occasion to embellish it[: the nearest is {nearest}].[ Beware the {danger}.]
+puppet_sovereign/LE | safety_unsafe_told | No, and I am advised that it remains as I told you.[ I would not go near {worst}.][ The {danger} are not to be trifled with.]
+puppet_sovereign/LE | safety_wary_told | Safe enough, as I have already said, for those who observe the proprieties.[ Keep a proper distance from {worst}.]
+puppet_sovereign/LE | safety_safe_told | Yes, as I have told you, and I am not advised otherwise.[ As for {worst}, it may stay where it is.]
+puppet_sovereign/LE | about_place_told | You have had all I know of {about}, officially, and I have not been advised to add to it.
+puppet_sovereign/LE | about_place_told | That would be {about}, as you have already heard from me.[ You will be civil to {who}.][ The {around} are best left alone, I am told.]
+# ---- puppet_sovereign/NG ----
+puppet_sovereign/NG | surroundings_told | It's what I told you, and what I was told before that.[ The nearest is {nearest}.][ Please be careful near the {danger}.]
+puppet_sovereign/NG | surroundings_told | Nothing's changed since I told you, as far as anyone's let me know[, and the nearest is still {nearest}].[ Mind the {danger}; I'd hate for you to meet them.]
+puppet_sovereign/NG | safety_unsafe_told | Not safe, no, and I've heard nothing to change what I told you.[ Please stay away from {worst}.][ And mind the {danger}.]
+puppet_sovereign/NG | safety_wary_told | More or less, as I told you, and I'd tell you straight if it weren't.[ Just go carefully near {worst}.]
+puppet_sovereign/NG | safety_safe_told | Yes, it's safe, as I said, and I'm glad I can say so.[ I'd only mention {worst}, so it doesn't catch you out.]
+puppet_sovereign/NG | about_place_told | I've told you all I know of {about}, which is all anyone's told me.
+puppet_sovereign/NG | about_place_told | Ah, {about}, as I said.[ If you go, ask for {who}.][ Go gently near the {around}.]
+# ---- puppet_sovereign/NN ----
+puppet_sovereign/NN | surroundings_told | I've told you this already, and nobody's told me any different.[ The nearest is {nearest}.][ Leave the {danger} to someone else.]
+puppet_sovereign/NN | surroundings_told | It's as I told you, and it saves us both trouble to keep it short[: the nearest is {nearest}].[ The {danger} still aren't worth the bother.]
+puppet_sovereign/NN | safety_unsafe_told | I wouldn't say so, now or when I told you.[ Keep away from {worst}.][ Mind the {danger}.]
+puppet_sovereign/NN | safety_wary_told | Mostly, as I told you, and that's the account I was given.[ I'd steer round {worst}.]
+puppet_sovereign/NN | safety_safe_told | Yes, near enough, as I told you.[ The worst anyone's mentioned is still {worst}.]
+puppet_sovereign/NN | about_place_told | You've had all I know of {about}, as it was given to me.
+puppet_sovereign/NN | about_place_told | It's {about}, as I told you.[ Whatever you want with {who}, that's your affair.][ Keep clear of the {around}.]

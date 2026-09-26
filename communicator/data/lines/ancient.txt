@@ -333,3 +333,29 @@ ancient/NN | forgiven_cold | It's a start; we'll see how it wears.
 ancient/NN | unwronged | There's nothing to forgive; we've no quarrel that I know of.
 ancient/NN | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there.][ Keep well off the {around}.][ If it's a job you're after, {work}.]
 ancient/NN | about_place | Ah, {about}.[ Ask for {who}; take your time about it.][ It has {trades}, if that's any use.][ There are {around}, and no sense rushing at them.][ {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- ancient/CE ----
+ancient/CE | surroundings_told | I told you this already; I remember, oddly.[ The nearest is, oh, {nearest}.][ Beware the {danger}; it's still your skin, not mine.]
+ancient/CE | surroundings_told | Again? It's as I told you[: the nearest is {nearest}].[ And the {danger}, for the brave, or the bored.]
+ancient/CE | safety_unsafe_told | No, not remotely, and I did tell you.[ There's {worst}, as before.][ The {danger} are still there, if you're collecting.]
+ancient/CE | safety_wary_told | Mostly, as I said, and I don't often repeat myself[; keep clear of {worst}].[ Mind the {danger}, if you'd like to stay interesting.]
+ancient/CE | safety_safe_told | Quiet enough, as I told you, and it bores me as much as ever.[ There's only {worst}, if you insist on excitement.]
+ancient/CE | about_place_told | It's {about}, and you've had all I know of it; I'm bored of it already.[ The {around}, at least, might amuse you.]
+ancient/CE | about_place_told | I told you all I know, and it's duller each time: {about}.[ Go and bother {who} instead.]
+# ---- ancient/LN ----
+ancient/LN | surroundings_told | I have told you this, and I will tell it again as often as you ask[: the nearest is {nearest}].[ Do not provoke the {danger}.]
+ancient/LN | surroundings_told | My answer is as I gave it, and it has not aged a day.[ The nearest is {nearest}.][ Heed the {danger}, as ever.]
+ancient/LN | safety_unsafe_told | No; I told you so before, and it holds.[ Keep clear of {worst}.][ The {danger} are best left in peace.]
+ancient/LN | safety_wary_told | More or less, as I have told you[, if you keep well away from {worst}].[ Give the {danger} their due.]
+ancient/LN | safety_safe_told | Yes, as I told you; my word on it does not wear thin.[ The one hazard I would still name is {worst}.]
+ancient/LN | about_place_told | It is {about}, as I told you, and I will not add what I do not know.
+ancient/LN | about_place_told | You have had the whole of what I know of it: {about}.[ There you may ask for {who}.]
+# ---- ancient/NN ----
+ancient/NN | surroundings_told | I told you already, and I've time to tell you again[: the nearest is {nearest}].[ I'd still steer round the {danger}.]
+ancient/NN | surroundings_told | Nothing's moved since I told you.[ The nearest is still {nearest}.][ There's no sense going near the {danger}.]
+ancient/NN | safety_unsafe_told | I wouldn't say so, and I told you as much.[ Keep away from {worst}.][ And there are {danger}, still.]
+ancient/NN | safety_wary_told | More or less, same as I told you[; give a wide berth to {worst}].[ Keep an eye on the {danger}, too.]
+ancient/NN | safety_safe_told | Aye, as I told you; nothing to lose sleep over.[ The only trouble is {worst}, if you go looking for it.]
+ancient/NN | about_place_told | That's the whole of what I know, and you've had it: {about}.
+ancient/NN | about_place_told | Only what I told you: {about}; take your time weighing it.[ Keep well off the {around}.]

@@ -773,3 +773,61 @@ kingmaker/LE | forgiven_cold | Hmph. You apologise very prettily; I remain uncon
 kingmaker/LE | unwronged | Whatever for? You have not yet been important enough to wrong me.
 kingmaker/LE | about_place | That is {about}, as you might have discovered for yourself.[ There is {trades} there, if you require such things.][ Should you call on {who}, I suggest you mind your manners.][ Do avoid the {around}; I dislike waste.][ If you want employment, {work}.]
 kingmaker/LE | about_place | I am aware of {about}; most people of consequence are.[ It has {trades}, for whatever that is worth to you.][ Should you reach {who}, try to be brief.][ Heed the {around}, if nothing else I have said.][ And, since you will ask, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- kingmaker/NN ----
+kingmaker/NN | surroundings_told | You've had this from me already, and it still holds.[ The nearest is {nearest}.][ The {danger} still aren't worth the trouble.]
+kingmaker/NN | surroundings_told | Nothing's changed since I told you[; the nearest is still {nearest}].[ Mind the {danger}, same as before.]
+kingmaker/NN | safety_unsafe_told | No, and my answer hasn't changed since I gave it.[ Keep clear of {worst}.][ There are {danger}, too, and no favour's worth meeting them.]
+kingmaker/NN | safety_wary_told | More or less, as I said before.[ I'd still not bother with {worst}.]
+kingmaker/NN | safety_safe_told | Yes, and I told you as much.[ The only thing I'd think twice about is {worst}.]
+kingmaker/NN | about_place_told | That's {about}; I've told you all I know of it.[ If you're making friends there, start with {who}.][ And the work there, same as I said: {work}.]
+kingmaker/NN | about_place_told | Only what you've already had from me: that's {about}.[ Mind the {around}; it isn't worth the risk.]
+# ---- kingmaker/LN ----
+kingmaker/LN | surroundings_told | You have heard all of this from me already, and it stands.[ The nearest is {nearest}.][ I would still keep clear of the {danger}.]
+kingmaker/LN | surroundings_told | For the record, it is as I told you.[ The nearest remains {nearest}.]
+kingmaker/LN | safety_unsafe_told | No, and I state it as plainly as I did before.[ I would not go anywhere near {worst}.][ The {danger} remain a hazard.]
+kingmaker/LN | safety_wary_told | Mostly, and my advice stands as I gave it.[ I would not approach {worst}.]
+kingmaker/LN | safety_safe_told | Yes, as I told you, and I have heard nothing to alter it.[ The one exception remains {worst}.]
+kingmaker/LN | about_place_told | You have had from me all I know of it, and I will not embellish it: {about}.[ Ask for {who} there, in proper form.]
+kingmaker/LN | about_place_told | I can only repeat what I have told you: that is {about}.[ I would not go near the {around}.][ The work there is as I stated it: {work}.]
+# ---- kingmaker/NG ----
+kingmaker/NG | surroundings_told | I did tell you, but I don't mind saying it again.[ The nearest is {nearest}.][ Please take care around the {danger}.]
+kingmaker/NG | surroundings_told | It's just as I told you[, and the nearest is still {nearest}].[ Mind the {danger}, won't you?]
+kingmaker/NG | safety_unsafe_told | No, I'm sorry; it's what I told you before.[ I'd keep well away from {worst}, if I were you.][ There are still {danger}, too.]
+kingmaker/NG | safety_wary_told | Keep your wits about you, as I said, and thank you for asking.[ I'd still steer clear of {worst}.]
+kingmaker/NG | safety_safe_told | Yes, still safe, and I'm happy to say so again.[ The only place I'd worry about is {worst}.]
+kingmaker/NG | about_place_told | All I know of it is what I told you: it's {about}.[ You'll find {who} there; do say hello.]
+kingmaker/NG | about_place_told | I'm afraid you've had all I know of it already: {about}.[ Do stay away from the {around}.][ And the work there, if it helps: {work}.]
+# ---- kingmaker/CN ----
+kingmaker/CN | surroundings_told | You've heard this one from me; lucky for you, I like repeating myself.[ The nearest, obviously, is still {nearest}.][ Still no to the {danger}.]
+kingmaker/CN | surroundings_told | Oh, we've done this; I told you.[ The nearest? {nearest}, same as ever.]
+kingmaker/CN | safety_unsafe_told | Far from it; I told you, and I meant it.[ Don't go near {worst}.][ And the {danger}, still charming.]
+kingmaker/CN | safety_wary_told | Careful, same as I said.[ No poking at {worst}.]
+kingmaker/CN | safety_safe_told | Safe enough, still; I did say.[ Only {worst}, and you're not going there, are you?]
+kingmaker/CN | about_place_told | That's all I've got on it, and you've had it already: {about}.[ Be charming to {who}; people tell charming people things.]
+kingmaker/CN | about_place_told | Ah, {about}; you've had all I know of that one.[ The {around}, though; still a no.]
+# ---- kingmaker/LG ----
+kingmaker/LG | surroundings_told | I have told you this, and I am glad to tell you again.[ The nearest is {nearest}.][ I would still ask you to keep your distance from the {danger}.]
+kingmaker/LG | surroundings_told | Nothing has changed since I told you, on my word[; the nearest is still {nearest}].
+kingmaker/LG | safety_unsafe_told | Not safe, and I am sorry to repeat it.[ Keep well away from {worst}, I beg you.][ The {danger} are still there.]
+kingmaker/LG | safety_wary_told | Careful; my answer is the one I gave you, and I hold to it.[ I would ask you to stay clear of {worst}.]
+kingmaker/LG | safety_safe_told | Yes, it is safe; I said so, and I stand by it.[ My only concern remains {worst}.]
+kingmaker/LG | about_place_told | With pleasure, though you have had all I know of it already: it is {about}.[ Seek out {who}, if you would, and be fair with them.]
+kingmaker/LG | about_place_told | Only what I have told you, I am afraid: it is {about}.[ I would not have you near the {around}.][ And the work there, should you want it: {work}.]
+# ---- kingmaker/CG ----
+kingmaker/CG | surroundings_told | Oh, I told you this, and I'll happily tell you again.[ The nearest is {nearest}.][ The {danger}, though: still no, please.]
+kingmaker/CG | surroundings_told | Right, it's what I said before[: the nearest is still {nearest}].[ Stay well back from the {danger}, for me.]
+kingmaker/CG | safety_unsafe_told | No, not safe, and I meant it when I told you.[ Stay away from {worst}, please.][ And the {danger} as well, for my sake.]
+kingmaker/CG | safety_wary_told | Mostly, like I said; just keep your eyes open.[ Not near {worst}, though; promise me.]
+kingmaker/CG | safety_safe_told | Aye, still safe, like I told you.[ Just {worst}, and you know how I feel about that one.]
+kingmaker/CG | about_place_told | You've had everything I know of it already, honestly: {about}.[ Look for {who}, and be kind.]
+kingmaker/CG | about_place_told | Oh, {about}; I've told you all I've got on that one.[ Mind the {around}, would you?][ The work there, if you want it: {work}.]
+# ---- kingmaker/LE ----
+kingmaker/LE | surroundings_told | Once more, since you ask, though I have told you already.[ The nearest is {nearest}.][ The {danger} remain where they were, and I would still avoid them.]
+kingmaker/LE | surroundings_told | You have had this from me before, and it has not changed for the asking[: this is {here}].[ The nearest is still {nearest}.]
+kingmaker/LE | safety_unsafe_told | No; I told you as much, and the answer does not soften with repeating.[ Keep well clear of {worst}.][ The {danger} are still there, whatever you may hope.]
+kingmaker/LE | safety_wary_told | Careful; I have advised you already, and my advice stands.[ Do not go near {worst}.]
+kingmaker/LE | safety_safe_told | Yes, and you have that from me already; my answers do not shift to suit the asker.[ The one hazard worth your notice remains {worst}.]
+kingmaker/LE | about_place_told | You have already had all I know of it: {about}.[ Should you call on {who}, do be brief.]
+kingmaker/LE | about_place_told | I told you of {about}, and I have nothing to add to it.[ Heed the {around}.]

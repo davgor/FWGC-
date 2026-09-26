@@ -773,3 +773,61 @@ fallen_hero/LG | forgiven_cold | We'll see. You will forgive me if I reserve my 
 fallen_hero/LG | unwronged | No harm done, I assure you; you have wronged me in nothing.
 fallen_hero/LG | about_place | That would be {about}, and I am glad to be of use.[ There is {trades} there, should you have need.][ You will find {who} there, and I hope you find them well.][ Please take care near the {around}.][ If it is work you seek, {work}.]
 fallen_hero/LG | about_place | The place you mean is {about}.[ You may find {trades} there.][ Ask for {who}, if you would speak with anyone there.][ Keep your distance from the {around}, I ask you.][ And should you want work, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- fallen_hero/NN ----
+fallen_hero/NN | surroundings_told | I told you already, and it still holds.[ The nearest is {nearest}.][ Stay clear of the {danger}, same as before.]
+fallen_hero/NN | surroundings_told | It's as I told you, and it hasn't grown in the telling.[ You're in {here}.][ The closest is still {nearest}.]
+fallen_hero/NN | safety_unsafe_told | No; that was my answer before, and it's my answer now.[ Stay away from {worst}.][ The {danger} haven't gone anywhere.]
+fallen_hero/NN | safety_wary_told | Mostly, as I told you, and I'd not tell you different now[; just keep away from {worst}].
+fallen_hero/NN | safety_safe_told | Safe enough; I told you so, and I'd say if that changed.[ The one place I'd still keep clear of is {worst}.]
+fallen_hero/NN | about_place_told | You've had everything I know of it: {about}.[ As for work, {work}.]
+fallen_hero/NN | about_place_told | Only what I told you: {about}. I don't pad it out to look useful.[ Keep clear of the {around}.]
+# ---- fallen_hero/LN ----
+fallen_hero/LN | surroundings_told | I have told you this already, and I will not alter a word of it.[ The nearest is {nearest}.][ The {danger} are to be avoided.]
+fallen_hero/LN | surroundings_told | The matter stands as I stated it[: you are in {here}].[ The nearest remains {nearest}.]
+fallen_hero/LN | safety_unsafe_told | Not safe, as I have said before, and I do not revise a verdict without cause.[ I would not approach {worst}.][ The {danger} are not to be taken lightly.]
+fallen_hero/LN | safety_wary_told | More or less, as I told you, and I hold to it[; only keep your distance from {worst}].
+fallen_hero/LN | safety_safe_told | Yes; I told you as much, and I can vouch for it still.[ All the same, I would counsel you against going near {worst}.]
+fallen_hero/LN | about_place_told | I have told you all I know of it: {about}. I will not embroider it now.
+fallen_hero/LN | about_place_told | You have had my knowledge of it already, such as it is: {about}.[ If you have business there, ask for {who}.]
+# ---- fallen_hero/NG ----
+fallen_hero/NG | surroundings_told | It's just as I told you, and I don't mind going over it again.[ The nearest is {nearest}.][ Give the {danger} plenty of room, please.]
+fallen_hero/NG | surroundings_told | Nothing's changed since I told you, and I'm glad you're checking.[ You're still in {here}.][ The closest is {nearest}.]
+fallen_hero/NG | safety_unsafe_told | No, I'm sorry; it's still as I told you.[ Please stay well back from {worst}.][ Mind the {danger}, for me.]
+fallen_hero/NG | safety_wary_told | Mostly, like I said, and there's no harm in hearing it again[; just stay away from {worst}].
+fallen_hero/NG | safety_safe_told | Yes, still, as I told you, and I'm glad I can say so.[ I'd only keep clear of {worst}.]
+fallen_hero/NG | about_place_told | I've told you all I know of it, but here it is again, gladly: {about}.[ Please watch yourself near the {around}.]
+fallen_hero/NG | about_place_told | It's no more than I told you, I'm afraid: {about}.[ You'll find {who} there.]
+# ---- fallen_hero/CN ----
+fallen_hero/CN | surroundings_told | I remember telling you this, which surprises us both.[ The nearest is {nearest}.][ The {danger}, still there, still a bad idea.]
+fallen_hero/CN | surroundings_told | Oh, we've been over this, you and I, and nothing's moved an inch.[ You're in {here}, still.][ The closest is {nearest}, same as ever.]
+fallen_hero/CN | safety_unsafe_told | No, still no; I told you, and I stand by it, more or less upright.[ Stay well out of {worst}.][ The {danger}, mind; I said that too.]
+fallen_hero/CN | safety_wary_told | More or less, like I told you, and I'm consistent, it's my one virtue[; just skip {worst}].
+fallen_hero/CN | safety_safe_told | Quiet enough, as I said, and dull as ditchwater with it.[ The worst I'd bother naming is {worst}.]
+fallen_hero/CN | about_place_told | Oh, that one; you've had the lot already, and the lot is this: {about}.[ Don't go poking at the {around}; I'm serious, for once.]
+fallen_hero/CN | about_place_told | Only what I told you, and I've not been holding out on you, honest: {about}.[ Ask for {who}, if you're asking things.]
+# ---- fallen_hero/LE ----
+fallen_hero/LE | surroundings_told | Very well, I will indulge you, though I have told you this already.[ The nearest is {nearest}.][ The {danger} are still best avoided.]
+fallen_hero/LE | surroundings_told | You have had this from me before, and it has not altered[: you are in {here}].[ Nothing lies nearer than {nearest}.]
+fallen_hero/LE | safety_unsafe_told | Not safe, as I have told you, and repetition will not improve it.[ Keep clear of {worst}.][ The {danger} will not care who warned you.]
+fallen_hero/LE | safety_wary_told | Keep your wits about you; my answer has not changed[, and I would keep well out of reach of {worst}].
+fallen_hero/LE | safety_safe_told | It's safe; I said so before, and I do not say things idly.[ I would still not trouble myself with {worst}.]
+fallen_hero/LE | about_place_told | You have had all I know of it already: {about}. It has not grown more interesting in the retelling.
+fallen_hero/LE | about_place_told | I told you what I know of it, and I will say it once more, since you ask: {about}.[ You may present yourself to {who}.]
+# ---- fallen_hero/NE ----
+fallen_hero/NE | surroundings_told | You've had this from me already, and it's no different now.[ The nearest is {nearest}.][ What you do about the {danger} is up to you, as ever.]
+fallen_hero/NE | surroundings_told | It's what I told you before, and it's still no concern of mine.[ You're in {here}.][ Nothing's closer than {nearest}.]
+fallen_hero/NE | safety_unsafe_told | I wouldn't say so, and I told you as much.[ Stay off {worst}, if you want to stay useful.][ The {danger} are your lookout, not mine.]
+fallen_hero/NE | safety_wary_told | Safe enough, as I told you[, as long as you've the sense to keep away from {worst}].
+fallen_hero/NE | safety_safe_told | Aye, as I told you; I don't change my answers to seem interesting.[ The worst of it is still {worst}; do as you like about that.]
+fallen_hero/NE | about_place_told | You've had all I know of it: {about}. It's worth what you make of it.
+fallen_hero/NE | about_place_told | That's {about}, as I told you, and I've nothing to add for your benefit.[ The work stands, if it's any use to you: {work}.]
+# ---- fallen_hero/LG ----
+fallen_hero/LG | surroundings_told | I have told you already, and I would sooner tell you twice than see you come to harm.[ The nearest is {nearest}.][ Please, go nowhere near the {danger}.]
+fallen_hero/LG | surroundings_told | Let me say it again, as I said it before; you do well to make certain.[ We are in {here}.][ The nearest is still {nearest}.]
+fallen_hero/LG | safety_unsafe_told | No, I fear it is still as I told you.[ I would not have you set foot near {worst}.][ The {danger} are there still; take every care.]
+fallen_hero/LG | safety_wary_told | Careful, as I said before, and I say it gladly[; I would only have you stay well away from {worst}].
+fallen_hero/LG | safety_safe_told | Yes, it is as I told you, and I am no less glad of it now.[ I would still keep my distance from {worst}.]
+fallen_hero/LG | about_place_told | All I know of it, I have told you: {about}. I would not have you think I held anything back.[ Please be careful of the {around}.]
+fallen_hero/LG | about_place_told | I told you of it before, and you are welcome to it again: {about}.[ Should you go, ask for {who}.]

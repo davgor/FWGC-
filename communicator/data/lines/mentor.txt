@@ -883,3 +883,69 @@ mentor/NE | forgiven_cold | Hmph. I'll decide what it's worth, and I haven't yet
 mentor/NE | unwronged | No harm done; don't waste my time with it.
 mentor/NE | about_place | Fine: {about}.[ It has {trades}.][ You'll find {who} there; don't waste their time.][ Watch the {around}; you're no use to me dead.][ If you want to be useful, {work}.]
 mentor/NE | about_place | That's {about}, since you ask.[ There's {trades} there.][ Ask for {who}, if they'll have you.][ There are {around}; I won't be the one fetching you back.][ {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- mentor/NN ----
+mentor/NN | surroundings_told | I told you already, and it hasn't changed[: the nearest is {nearest}].[ Mind the {danger}; that's still your lookout.]
+mentor/NN | surroundings_told | Nothing's moved since I told you[: you're in {here}][, and the nearest is {nearest}]. You can work out the rest.
+mentor/NN | safety_unsafe_told | No, and I told you why.[ Stay away from {worst}.][ The {danger} are still there.]
+mentor/NN | safety_wary_told | Careful, as I told you, and you'll be fine.[ Just steer clear of {worst}.]
+mentor/NN | safety_safe_told | Safe enough; I told you so, and I've no reason to say otherwise.[ I'd still keep well away from {worst}.]
+mentor/NN | about_place_told | I've told you all I know of it: {about}. Go and look; you'll learn more there than from me.
+mentor/NN | about_place_told | It's what I told you: {about}.[ Keep an eye on the {around}.]
+# ---- mentor/LN ----
+mentor/LN | surroundings_told | My answer has not changed since I gave it.[ The nearest is {nearest}.][ Heed the {danger}.]
+mentor/LN | surroundings_told | Let me repeat what I told you, in order.[ You are in {here}.][ The nearest is {nearest}.]
+mentor/LN | safety_unsafe_told | I wouldn't say so; I have told you as much, and I do not unsay it.[ Keep clear of {worst}.][ The {danger} are to be avoided.]
+mentor/LN | safety_wary_told | Mostly, as I have said before.[ My counsel regarding {worst} has not changed: keep clear of it.]
+mentor/LN | safety_safe_told | Quiet enough, as I told you, and I hold to it.[ The worst of it remains {worst}.]
+mentor/LN | about_place_told | All that I know of it, I have told you: {about}.[ You may present yourself to {who} there.]
+mentor/LN | about_place_told | Only what I told you, and no more: it is {about}.[ Give the {around} a wide margin.]
+# ---- mentor/NG ----
+mentor/NG | surroundings_told | Of course; it's as I told you[, and the nearest is {nearest}].[ Keep away from the {danger}, please.]
+mentor/NG | surroundings_told | I don't mind saying it again.[ You're in {here}.][ The nearest is {nearest}.]
+mentor/NG | safety_unsafe_told | No, I'm afraid, just as I told you.[ Please keep clear of {worst}.][ And do mind the {danger}.]
+mentor/NG | safety_wary_told | Safe enough, as I told you, if you're careful.[ Keep away from {worst}, won't you?]
+mentor/NG | safety_safe_told | Aye, as I told you, and I'm glad it's still so.[ Do stay clear of {worst}, though.]
+mentor/NG | about_place_told | I'd tell you more if I knew it, but you've had it all: {about}.[ Mind the {around}, please.]
+mentor/NG | about_place_told | Ah, {about}; I've told you all I know of it.[ Do ask for {who} there.]
+# ---- mentor/CN ----
+mentor/CN | surroundings_told | I told you this, didn't I?[ The nearest's {nearest}.][ And the {danger}, mind, still there.]
+mentor/CN | surroundings_told | Again? Fine, as I said[, you're in {here}][, and the nearest's {nearest}].
+mentor/CN | safety_unsafe_told | No, still no, I told you.[ Keep clear of {worst}.][ And the {danger}, those too.]
+mentor/CN | safety_wary_told | Mostly, as I said, give or take.[ Keep out of {worst}, mind.]
+mentor/CN | safety_safe_told | Quiet enough, as I said, dull as ever.[ There's {worst}, if you're bored.]
+mentor/CN | about_place_told | Ha, {about}, that one; I've told you all I know of it. The rest, go and find out.
+mentor/CN | about_place_told | Oh, that again? It's {about}, and you've had the lot from me.[ Mind the {around}, though.]
+# ---- mentor/LG ----
+mentor/LG | surroundings_told | Certainly, and willingly; it stands as I told you[: the nearest is {nearest}].[ Please do keep clear of the {danger}.]
+mentor/LG | surroundings_told | You are welcome to hear it again, just as I told you.[ This is {here}.][ The nearest is {nearest}.]
+mentor/LG | safety_unsafe_told | Not safe, I regret to say, and nothing has changed since I told you.[ Keep well clear of {worst}.][ The {danger} are still there, I fear.]
+mentor/LG | safety_wary_told | More or less, with care, as I told you.[ I would not have you go near {worst}.]
+mentor/LG | safety_safe_told | It's safe; I said so before, and I say so again.[ Even so, {worst} bears remembering.]
+mentor/LG | about_place_told | You have had all I know of it, and I will gladly give it again: {about}.[ You will find {who} there.]
+mentor/LG | about_place_told | Forgive me, it is only what I told you: {about}.[ Please be careful of the {around}.]
+# ---- mentor/LE ----
+mentor/LE | surroundings_told | I have told you this already; I will indulge you.[ The nearest is {nearest}.][ The {danger} have not moved, and neither has my advice.]
+mentor/LE | surroundings_told | Once more, then, exactly as I told you.[ You are in {here}.][ The nearest is {nearest}.]
+mentor/LE | safety_unsafe_told | No; I told you so, and I do not revise a verdict.[ Keep clear of {worst}.][ The {danger} are as they were.]
+mentor/LE | safety_wary_told | Keep your wits about you, as I have told you.[ Stay out of {worst}, and my advice will not have been wasted.]
+mentor/LE | safety_safe_told | Yes; you have my word on it already, and my word stands.[ There is {worst}, which a person of any sense will avoid.]
+mentor/LE | about_place_told | I have given you all I know of it: {about}.[ You will find {who} there; do try to impress them.]
+mentor/LE | about_place_told | It is precisely what I told you: {about}.[ Keep from the {around}; I should dislike having told you for nothing.]
+# ---- mentor/CG ----
+mentor/CG | surroundings_told | Oh, you've had this from me, but never mind, again, then[: the nearest's {nearest}].[ And mind the {danger}, I mean it.]
+mentor/CG | surroundings_told | Right, as I said, yes[: you're in {here}][, and the nearest is {nearest}].[ Keep clear of the {danger}, won't you?]
+mentor/CG | safety_unsafe_told | Far from it, and I'm sorry, it's what I told you.[ Stay away from {worst}.][ The {danger}, too, please.]
+mentor/CG | safety_wary_told | Careful, careful, like I told you, and you'll do fine.[ Keep away from {worst}, though, yes?]
+mentor/CG | safety_safe_told | Yes, safe, still safe, just like I told you.[ There's {worst}, but you'll give that a miss, I know.]
+mentor/CG | about_place_told | Hm, {about}, yes, and, sorry, you've had all I know of it, nothing new.[ And the {around}, please, give them room.]
+mentor/CG | about_place_told | Yes, yes, I've told you what I know, all of it: it's {about}.[ You'll find {who} there; be kind to them.]
+# ---- mentor/NE ----
+mentor/NE | surroundings_told | You've had this from me already[: the nearest is {nearest}].[ The {danger} haven't gone anywhere.]
+mentor/NE | surroundings_told | Here it is again, as I told you[: you're in {here}][, and the nearest is {nearest}]. Now make some use of it.
+mentor/NE | safety_unsafe_told | No, as I told you; it hasn't got any safer for asking.[ Keep clear of {worst}.][ And watch the {danger}.]
+mentor/NE | safety_wary_told | More or less; I said so before.[ Keep out of {worst}; I've no time to find someone else.]
+mentor/NE | safety_safe_told | Nothing to fear, as I told you; that's still true.[ The worst of it is {worst}, and that's your problem.]
+mentor/NE | about_place_told | You've had everything I know of it: {about}.[ You'll find {who} there; see if they're worth your time.]
+mentor/NE | about_place_told | Only what I told you: {about}.[ The {around} are still there; I'd not waste you on them.]

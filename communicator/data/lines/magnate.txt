@@ -883,3 +883,69 @@ magnate/NE | forgiven_cold | Maybe; I've marked it down, and that's all it gets.
 magnate/NE | unwronged | No harm done; save it for someone who cares.
 magnate/NE | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there, if they're any use to you.][ Mind the {around}, unless you'd rather be a loss.][ If you want work, {work}.]
 magnate/NE | about_place | Fine, it's {about}.[ It has {trades}.][ Ask for {who}, and don't waste their time or mine.][ There are {around}; mind them or don't.][ If it's work you're after, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- magnate/NN ----
+magnate/NN | surroundings_told | You've had this from me already, and the tally hasn't changed[: the nearest is {nearest}].[ Mind the {danger}; they're still bad for business.]
+magnate/NN | surroundings_told | Nothing's changed since I told you[: you're in {here}][, and the nearest is {nearest}].
+magnate/NN | safety_unsafe_told | No; my answer's the one I gave you.[ The trouble is still {worst}.][ The {danger} are still about.]
+magnate/NN | safety_wary_told | More or less, as I told you.[ Keep {worst} in your reckoning and you'll do.]
+magnate/NN | safety_safe_told | Safe enough; I told you so, and I'd stand by it.[ The worst of it is still {worst}.]
+magnate/NN | about_place_told | You've had all I have on it: {about}.[ There's {trades} there.]
+magnate/NN | about_place_told | It's as I told you, and I'd put my name to it again: {about}.[ Ask for {who} there, and make your own terms.]
+# ---- magnate/LN ----
+magnate/LN | surroundings_told | I have told you this already, and my statement stands.[ The nearest is {nearest}.][ The {danger} remain a matter for caution.]
+magnate/LN | surroundings_told | For the record, it is as I told you[: you are in {here}][, and the nearest is {nearest}].
+magnate/LN | safety_unsafe_told | Not safe, as I have stated before.[ It still turns on {worst}.][ The {danger} warrant the same caution.]
+magnate/LN | safety_wary_told | Careful, and it is safe enough, on the condition I gave you.[ Stay clear of {worst}.]
+magnate/LN | safety_safe_told | Yes; I told you so, and I see no cause to amend it.[ I would still note {worst}.]
+magnate/LN | about_place_told | I have told you all I can attest of it: {about}.[ You will find {trades} there.]
+magnate/LN | about_place_told | Only what I told you, and no hearsay besides: it is {about}.[ You may address yourself to {who} there.]
+# ---- magnate/NG ----
+magnate/NG | surroundings_told | It's just as I told you, and you're welcome to it again[: the nearest is {nearest}].[ Do take care near the {danger}.]
+magnate/NG | surroundings_told | Well, I'll go over it again with you, gladly.[ You're in {here}.][ The nearest is {nearest}.]
+magnate/NG | safety_unsafe_told | I wouldn't say so; it's as I told you, I'm sorry to say.[ Keep away from {worst}.][ Mind the {danger}, please.]
+magnate/NG | safety_wary_told | Mostly, as I told you, if you take care.[ Just stay clear of {worst}.]
+magnate/NG | safety_safe_told | Yes, and I'm glad to say it again: it's safe.[ Keep {worst} in mind, all the same.]
+magnate/NG | about_place_told | I'm afraid there's nothing more than I told you: {about}.[ It has {trades}.]
+magnate/NG | about_place_told | Oh, I wish I knew more, but it's only what I told you: {about}.[ You'll find {who} there.]
+# ---- magnate/LG ----
+magnate/LG | surroundings_told | If I may, it is exactly as I told you[: the nearest is {nearest}].[ Mind the {danger}, I beg you.]
+magnate/LG | surroundings_told | Of course; I will gladly tell you again.[ You are in {here}.][ The nearest is {nearest}.]
+magnate/LG | safety_unsafe_told | Far from it, I am sorry to say, as I told you.[ The trouble remains {worst}.][ Please keep clear of the {danger}.]
+magnate/LG | safety_wary_told | Safe enough, as I told you, with a little care.[ I would ask you, still, to avoid {worst}.]
+magnate/LG | safety_safe_told | Quiet enough, as I told you, and I am pleased to confirm it.[ Do keep {worst} in mind, if you would.]
+magnate/LG | about_place_told | Forgive me, I have told you all I know of it: {about}.[ Please mind the {around}.]
+magnate/LG | about_place_told | With pleasure, though it is only what I told you: {about}.[ You will find {who} there.]
+# ---- magnate/CN ----
+magnate/CN | surroundings_told | Right, you've heard this one from me, short version[: the nearest's {nearest}].[ And the {danger}, bad odds as ever.]
+magnate/CN | surroundings_told | Oh, it's the same as I told you, near enough, no, exactly[: {here}][, and the nearest's {nearest}].
+magnate/CN | safety_unsafe_told | Not safe, and the odds haven't moved since I told you.[ There's {worst}.][ The {danger}, too, so, no.]
+magnate/CN | safety_wary_told | Mostly, like I said, and I'd still take that bet.[ Stay off {worst}, though.]
+magnate/CN | safety_safe_told | Aye, safe, like I told you, and I'd give you the same odds.[ The worst of it's {worst}, if you're looking.]
+magnate/CN | about_place_told | That one? You've had all I know of it: {about}.[ Ask for {who} there, go on.]
+magnate/CN | about_place_told | Oh, {about}? Right, I told you, and I've nothing new on it.[ Mind the {around}; I wouldn't bet on them.]
+# ---- magnate/CG ----
+magnate/CG | surroundings_told | Ah, gladly; it's just what I told you[: the nearest is {nearest}].[ And the {danger}, still there, so, wide berth, yes?]
+magnate/CG | surroundings_told | Hm, nothing's changed, I told you, didn't I?[ You're in {here}.][ The nearest is {nearest}.]
+magnate/CG | safety_unsafe_told | No, sorry, it's still what I told you.[ Stay away from {worst}.][ The {danger}, too, and I'm serious.]
+magnate/CG | safety_wary_told | More or less, like I told you.[ Just keep off {worst}, would you?]
+magnate/CG | safety_safe_told | It's safe, it is, just like I told you, and I'm glad.[ Mind {worst}, though, won't you?]
+magnate/CG | about_place_told | Ah, {about}, yes; you've had all I know of it, sorry.[ Keep away from the {around}, please.]
+magnate/CG | about_place_told | Let me think, no, I told you everything I know: {about}.[ You'll find {who} there, be nice.]
+# ---- magnate/LE ----
+magnate/LE | surroundings_told | As a courtesy, I will repeat what I told you[: the nearest is {nearest}].[ The {danger} are no concern of mine, as before.]
+magnate/LE | surroundings_told | You have my answer already; it stands as given.[ You are in {here}.][ The nearest is {nearest}.]
+magnate/LE | safety_unsafe_told | No; I told you as much, and the facts have not improved.[ There is still {worst}.][ The {danger} remain, as I said.]
+magnate/LE | safety_wary_told | Mostly, as I told you, and I see no reason to revise it.[ Stay away from {worst}.]
+magnate/LE | safety_safe_told | Nothing to fear, as I told you, and I am generally right about these things.[ There is {worst}, which need not concern the sensible.]
+magnate/LE | about_place_told | It has not changed since I told you: {about}.[ You will find {who} there; do be brief with them.]
+magnate/LE | about_place_told | What I know of it, you have had: {about}.[ Keep clear of the {around}; I dislike losing what might prove useful.]
+# ---- magnate/NE ----
+magnate/NE | surroundings_told | Fine, again, then; it's what I told you[: the nearest is {nearest}].[ The {danger} are still there, and still not my problem.]
+magnate/NE | surroundings_told | It's no different from what I told you.[ You're in {here}.][ The nearest is {nearest}.]
+magnate/NE | safety_unsafe_told | Not here; I told you so already.[ There's still {worst}.][ Mind the {danger}, too.]
+magnate/NE | safety_wary_told | Careful, as I told you.[ Keep away from {worst}; you're more use to me whole.]
+magnate/NE | safety_safe_told | Aye; I told you it's safe, and it still is.[ There's {worst}, but nobody's asking you to go.]
+magnate/NE | about_place_told | There's nothing I didn't tell you: {about}.[ Its trades run to {trades}, as I said.]
+magnate/NE | about_place_told | I told you already; it's {about}, and I've nothing new to sell you on it.[ You'll find {who} there, if they'll see you.]

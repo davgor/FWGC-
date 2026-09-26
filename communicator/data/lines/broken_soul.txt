@@ -663,3 +663,53 @@ broken_soul/NN | forgiven_cold | It's a start; we'll see where it goes.
 broken_soul/NN | unwronged | No harm done; you owe me nothing.
 broken_soul/NN | about_place | That's {about}, plain and simple.[ There's {trades} there, if you need one.][ Ask for {who}, and deal fairly with them.][ Mind the {around}, if you go.][ If it's work you want, {work}.]
 broken_soul/NN | about_place | It's {about}; take it or leave it.[ You'll find {trades} there.][ {who} can be found there, if you've business with them.][ There are {around}, so go ready.][ And {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- broken_soul/NG ----
+broken_soul/NG | surroundings_told | I told you, and I'll tell you as often as it keeps you whole.[ The nearest is {nearest}.][ The {danger} are still there; don't go near them alone.]
+broken_soul/NG | surroundings_told | It's still as I told you[: you're in {here}][, and the nearest is {nearest}].[ Keep anyone with you clear of the {danger}.]
+broken_soul/NG | safety_unsafe_told | No, it's as I said, and I'm sorry it hasn't changed.[ Keep away from {worst}.][ And warn anyone you meet of the {danger}.]
+broken_soul/NG | safety_wary_told | Careful, same as I told you.[ The trouble is still {worst}.]
+broken_soul/NG | safety_safe_told | Quiet enough, like I said.[ I'd still keep well back from {worst}.]
+broken_soul/NG | about_place_told | You've heard all I know of it: {about}.[ If you see {who}, see they're all right.][ Mind the {around}, and look after whoever's with you.]
+broken_soul/NG | about_place_told | Just what I told you, sorry: {about}.[ There's {trades} there.][ And {work}, if you'll help.]
+# ---- broken_soul/LG ----
+broken_soul/LG | surroundings_told | I have told you this, and I will give it again, in order.[ The nearest is {nearest}.][ The {danger} are still to be avoided.]
+broken_soul/LG | surroundings_told | Nothing has altered since I told you[: you stand in {here}][, and the nearest is {nearest}].[ Keep clear of the {danger}, I beg you.]
+broken_soul/LG | safety_unsafe_told | Not safe; my answer stands as I gave it, and I am sorry for it.[ Stay away from {worst}.][ And heed the {danger}, if you would.]
+broken_soul/LG | safety_wary_told | Safe enough, as I told you, with care.[ The one exception is {worst}.]
+broken_soul/LG | safety_safe_told | Yes; as I told you, the account stands.[ The one entry that troubles me is still {worst}.]
+broken_soul/LG | about_place_told | You have had all I know of it; I set it down again: {about}.[ You will find {who} there; I would hear that they are well.][ Keep your distance from the {around}, I pray you.]
+broken_soul/LG | about_place_told | I can add nothing to what I told you: {about}.[ There is {trades} there.][ Of work there, it is as I said: {work}.]
+# ---- broken_soul/LE ----
+broken_soul/LE | surroundings_told | Very well; once more, though I have told you this already.[ The nearest is {nearest}.][ The {danger} remain, and remain your affair.]
+broken_soul/LE | surroundings_told | What I told you stands, no better for the asking[: you are in {here}][; the nearest is {nearest}].[ The {danger} are still there, whatever you choose to do about them.]
+broken_soul/LE | safety_unsafe_told | No, as I told you, and it has not become any kinder.[ Keep clear of {worst}.][ Nor have the {danger} gone anywhere.]
+broken_soul/LE | safety_wary_told | Careful; that was my answer, and it remains so.[ Keep away from {worst}.]
+broken_soul/LE | safety_safe_told | Safe enough; I have told you so, and I do not repeat myself for pleasure.[ The one thing worth your attention is {worst}.]
+broken_soul/LE | about_place_told | It is {about}, as I told you, and I know no more than I said.[ You will find {who} there.][ The {around} are there still; do as you see fit.]
+broken_soul/LE | about_place_told | I told you what I know of it: {about}.[ There is {trades} there, as before.][ As to work, it is as I said: {work}.]
+# ---- broken_soul/CG ----
+broken_soul/CG | surroundings_told | Oh, I told you this, didn't I, well, never mind, again, then[: the nearest is {nearest}].[ And the {danger} are still there, so don't go alone.]
+broken_soul/CG | surroundings_told | Right, nothing's moved since I told you, ha[: you're in {here}][, and the nearest is {nearest}].[ The {danger}? Still there, so, no.]
+broken_soul/CG | safety_unsafe_told | Not safe, no, still not, sorry, I did tell you.[ Stay out of {worst}.][ Keep away from the {danger}, please, please.]
+broken_soul/CG | safety_wary_told | Keep your wits about you, same as I told you.[ Oh, and not {worst}, all right?]
+broken_soul/CG | safety_safe_told | Aye, still safe, like I told you.[ Well, not {worst}, obviously.]
+broken_soul/CG | about_place_told | Ha, that one again? You've had all I know of it, sorry: {about}.[ You'll find {who} there, if you look.][ Mind the {around}, will you?]
+broken_soul/CG | about_place_told | Well, it's what I told you, nothing more: {about}.[ You'll find {trades} there.][ And {work}, if you've a hand free.]
+# ---- broken_soul/NE ----
+broken_soul/NE | surroundings_told | I've told you already; here it is again, for what it's worth.[ The nearest is {nearest}.][ The {danger} are still your problem.]
+broken_soul/NE | surroundings_told | You've heard it from me already, not that it matters[: you're in {here}][, and the nearest is {nearest}].[ Mind the {danger}, or don't.]
+broken_soul/NE | safety_unsafe_told | Far from it, as I told you; asking again won't change it.[ Keep away from {worst}, if you want to keep what you have.][ The {danger} are still there.]
+broken_soul/NE | safety_wary_told | Careful; I told you, and it's no different now.[ Stay off {worst}; the rest is your lookout.]
+broken_soul/NE | safety_safe_told | It's safe; you had my answer, and it's the one you'll get.[ The worst is still {worst}, and that's your concern.]
+broken_soul/NE | about_place_told | That's {about}; you've had all I know of it, and it hasn't improved.[ You'll find {who} there, for all the good it does.][ The {around} are still there; your affair.]
+broken_soul/NE | about_place_told | Only what I told you, and I'm not adding to it: {about}.[ There's {trades} there.][ The work's as I said, if you care: {work}.]
+# ---- broken_soul/NN ----
+broken_soul/NN | surroundings_told | It hasn't changed since I told you.[ The nearest is {nearest}.][ The {danger} are still there.]
+broken_soul/NN | surroundings_told | It's what I told you, plain and simple[: you're in {here}][, and the nearest is {nearest}].[ Stay clear of the {danger}, unless you've good reason.]
+broken_soul/NN | safety_unsafe_told | No; my answer's what it was.[ Keep clear of {worst}.][ The {danger} aren't worth the risk.]
+broken_soul/NN | safety_wary_told | More or less; what I told you still holds.[ I'd give a wide berth to {worst}.]
+broken_soul/NN | safety_safe_told | Aye, safe enough; that's what I told you, and it stands.[ The one thing worth weighing is {worst}.]
+broken_soul/NN | about_place_told | That's all I know of it, and you've had it: {about}.[ {who} can be found there.][ The {around} are still there, so go ready.]
+broken_soul/NN | about_place_told | As I told you, it's {about}; take it or leave it.[ There's {trades} there.][ And {work}, as I said.]

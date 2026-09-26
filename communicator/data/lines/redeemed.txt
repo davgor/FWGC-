@@ -663,3 +663,53 @@ redeemed/CG | forgiven_cold | We'll see, and, honestly, not yet.
 redeemed/CG | unwronged | Whatever for? No, really, whatever for; you've done me no wrong.
 redeemed/CG | about_place | Oh, {about}, yes, of course.[ You'll find {trades} there.][ Ask for {who}, and be nice, would you?][ And the {around}, no, stay away, please.][ If it's work you want, {work}.]
 redeemed/CG | about_place | So, {about}; that's the one.[ You could try {who}, if you need a name.][ It has {trades}, if you need one.][ There are {around}; careful, yes, careful.][ Oh, and work: {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- redeemed/NN ----
+redeemed/NN | surroundings_told | I told you already, and it's still worth knowing.[ The nearest is {nearest}.][ The {danger} aren't worth the trip.]
+redeemed/NN | surroundings_told | Nothing's changed since I told you, so I'll keep it short.[ This is {here}.][ The closest is {nearest}.]
+redeemed/NN | safety_unsafe_told | No, as I told you, and I'd not waste words saying otherwise.[ Stay away from {worst}.][ Don't spend yourself on the {danger}.]
+redeemed/NN | safety_wary_told | More or less; my answer's as I gave it[, and it still turns on staying clear of {worst}].
+redeemed/NN | safety_safe_told | Yes, as I told you, and it's worth no more worry than it was.[ I'd not bother with {worst}.]
+redeemed/NN | about_place_told | I told you all I know of it: {about}. No sense dressing it up.
+redeemed/NN | about_place_told | Only what I told you, no more and no less: {about}.[ There's work there, too: {work}.]
+# ---- redeemed/NG ----
+redeemed/NG | surroundings_told | I'll tell you again, gladly; nothing's changed since I did.[ The nearest is {nearest}.][ Please stay clear of the {danger}.]
+redeemed/NG | surroundings_told | It's as I told you, and I'd rather you asked twice than guessed.[ You're in {here}.][ Watch yourself around the {danger}.]
+redeemed/NG | safety_unsafe_told | No, it's as I told you, and I wish it weren't.[ Keep well away from {worst}.][ Please mind the {danger}.]
+redeemed/NG | safety_wary_told | Careful, like I said before, and I mean it kindly[; please don't go near {worst}].
+redeemed/NG | safety_safe_told | It's safe, as I told you, and I'm glad it still is.[ I'd only keep away from {worst}, to be sure.]
+redeemed/NG | about_place_told | You've had all I know of it, I'm sorry to say, but you're welcome to it again: {about}.[ Mind yourself near the {around}, please.]
+redeemed/NG | about_place_told | Just what I told you before: {about}.[ If you need someone there, try {who}.]
+# ---- redeemed/LN ----
+redeemed/LN | surroundings_told | I have told you this already, and I will say it again as openly as before.[ The nearest is {nearest}.][ The {danger} remain, and I would not go near them.]
+redeemed/LN | surroundings_told | My answer stands as I gave it, and I will not shade it now[: this is {here}].[ The closest is {nearest}.]
+redeemed/LN | safety_unsafe_told | No, it is not, as I was bound to tell you before.[ Keep your distance from {worst}.][ I would give the {danger} a wide berth.]
+redeemed/LN | safety_wary_told | Safe enough, as I told you, and I stand by it[, so long as you stay away from {worst}].
+redeemed/LN | safety_safe_told | Yes, as I told you, and I would say it before anyone.[ The gravest danger I know of remains {worst}.]
+redeemed/LN | about_place_told | I have told you all I know of it, openly: {about}. I will not add to it now.
+redeemed/LN | about_place_told | You have had it from me already, in the open: {about}.[ The {around} are best left alone.]
+# ---- redeemed/LG ----
+redeemed/LG | surroundings_told | Of course; it is as I told you, and I will tell you as often as you need.[ The nearest is {nearest}.][ Please keep well clear of the {danger}, and see that others do.]
+redeemed/LG | surroundings_told | All is as I told you, and I would not have you unsure of it.[ You stand in {here}.][ The closest is {nearest}.]
+redeemed/LG | safety_unsafe_told | No; it is as I told you, and I am sorry for it.[ Please go nowhere near {worst}.][ I beg you, be careful of the {danger}.]
+redeemed/LG | safety_wary_told | More or less, as I told you, and I would say the same to anyone[: only stay away from {worst}].
+redeemed/LG | safety_safe_told | Nothing to fear, as I told you, and I am as glad to say it now.[ Even so, I would steer clear of {worst}.]
+redeemed/LG | about_place_told | I wish I knew more to give you, but you have had all I know of it: {about}.[ Please be careful near the {around}.]
+redeemed/LG | about_place_told | What I know of it, I have told you, and you are welcome to hear it again: {about}.[ Ask for {who}, and deal with them honestly.]
+# ---- redeemed/CN ----
+redeemed/CN | surroundings_told | I told you, and I'll tell you again, quietly.[ The nearest is {nearest}.][ The {danger}, don't even look.]
+redeemed/CN | surroundings_told | It's what I told you, give or take nothing.[ You're in {here}.][ The closest is {nearest}.]
+redeemed/CN | safety_unsafe_told | No, and I said so; that hasn't changed, sadly.[ Stay out of {worst}.][ The {danger}, obviously, also no.]
+redeemed/CN | safety_wary_told | Mostly, like I told you, and I've not changed my tune[; steer round {worst}].
+redeemed/CN | safety_safe_told | Quiet enough, like I told you, and don't ask how I know.[ I'd keep out of {worst}, all the same.]
+redeemed/CN | about_place_told | That one? You've had all I know of it, and not a word more: {about}.
+redeemed/CN | about_place_told | Only what I told you, and you never heard it from me: {about}.[ The {around}: don't.]
+# ---- redeemed/CG ----
+redeemed/CG | surroundings_told | Oh, I told you, yes, and it's all still where it was.[ The nearest is {nearest}.][ Give the {danger} plenty of room, please.]
+redeemed/CG | surroundings_told | It's all the same as I told you, good, one less thing to fret about.[ You're in {here}.][ Mind the {danger}, yes?]
+redeemed/CG | safety_unsafe_told | No, sorry, still no, it's as I told you.[ Keep right away from {worst}.][ Mind the {danger}, please, please.]
+redeemed/CG | safety_wary_told | More or less, like I told you, and you'll be all right[; keep clear of {worst}, for me].
+redeemed/CG | safety_safe_told | Yes, it's fine, like I told you, honestly.[ I'd still not go near {worst}.]
+redeemed/CG | about_place_told | Oh, that one; you've had all I know, sorry, that's the lot: {about}.[ The {around}, though, careful, please.]
+redeemed/CG | about_place_told | No more than I told you, I'm afraid: {about}.[ Ask for {who}; say hello, go on.]

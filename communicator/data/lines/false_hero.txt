@@ -336,3 +336,29 @@ false_hero/NN | forgiven_cold | It's a start; I'll see if it holds.
 false_hero/NN | unwronged | No harm done; you've nothing to square with me.
 false_hero/NN | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there, if they're any use to you.][ Keep clear of the {around}; there's no profit in them.][ If it's work you're after, {work}.]
 false_hero/NN | about_place | You'll be meaning {about}.[ Ask for {who}.][ It has {trades}.][ Give the {around} a wide berth.][ Since you'll ask, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- false_hero/CG ----
+false_hero/CG | surroundings_told | Right, the encore, then; I did tell you, but I don't mind saying it again[: the nearest is {nearest}].[ Mind the {danger}, please, and no heroics.]
+false_hero/CG | surroundings_told | It's just as I said before, cross my heart.[ The nearest is {nearest}.][ And the {danger}, still, so give them a wide berth for me.]
+false_hero/CG | safety_unsafe_told | No, sorry, it's what I told you, and I wish it weren't.[ Stay well clear of {worst}.][ Keep away from the {danger} as well, please, I mean it.]
+false_hero/CG | safety_wary_told | Careful, like I told you, and you'll be fine[; just steer round {worst}].[ Oh, and the {danger}; don't make me fret.]
+false_hero/CG | safety_safe_told | Quiet enough, still, just as I told you, and I'm glad of it.[ Only mind {worst}, and we're both happy.]
+false_hero/CG | about_place_told | Hm, {about}; that's every scrap I know, and you've had it already.[ Look for {who} there.]
+false_hero/CG | about_place_told | Only what I told you, I'm afraid, and I won't dress it up: {about}.[ And mind the {around}, won't you?]
+# ---- false_hero/LE ----
+false_hero/LE | surroundings_told | You have my account already, and it is final.[ The nearest is {nearest}.][ Beware the {danger}, as I said.]
+false_hero/LE | surroundings_told | What I told you is settled, but I will say it once more.[ The nearest is {nearest}.][ The {danger} remain; heed them or not, as you please.]
+false_hero/LE | safety_unsafe_told | Not safe; I told you so, and I do not revise my warnings.[ Keep away from {worst}.][ Nor would I go near the {danger}.]
+false_hero/LE | safety_wary_told | Mostly; my answer stands as I gave it[, and the place to avoid is still {worst}].[ Mind the {danger} as well.]
+false_hero/LE | safety_safe_told | It's safe, as I told you, and I do not say such things lightly.[ The one exception remains {worst}.]
+false_hero/LE | about_place_told | It is {about}; you have had all I know of it, and I do not amend what I have said.
+false_hero/LE | about_place_told | As I told you, it is {about}, and the record needs nothing added.[ Take heed of the {around}.]
+# ---- false_hero/NN ----
+false_hero/NN | surroundings_told | No change since I told you[; the nearest is {nearest}].[ The {danger} are still a poor bargain.]
+false_hero/NN | surroundings_told | You've had this from me already, and it holds.[ The nearest is {nearest}.][ Keep away from the {danger}; there's nothing in it for you.]
+false_hero/NN | safety_unsafe_told | Not here, as I told you; the odds haven't moved.[ Stay clear of {worst}.][ Nor would I chance the {danger}.]
+false_hero/NN | safety_wary_told | Careful, as I told you, and it's fine[; just keep off {worst}].[ Mind the {danger}, too.]
+false_hero/NN | safety_safe_told | Aye, it's safe, as I said.[ The only place I'd still leave out of my plans is {worst}.]
+false_hero/NN | about_place_told | You've had all I know of it: {about}; I'd not sell you more than I've got.
+false_hero/NN | about_place_told | Only what I told you: it's {about}.[ Ask for {who}, if they're any use to you.]

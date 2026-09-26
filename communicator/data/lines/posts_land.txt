@@ -1136,3 +1136,93 @@ post:animal_keeper | forgiven_cold | Hmph; the beasts can't lie to me, and you c
 post:animal_keeper | unwronged | What for? You've done nothing to me, nor to anything in my stalls.
 post:animal_keeper | about_place | That's {about}; I'd sooner talk beasts, but there it is.[ There's {trades} there.][ Ask for {who}.][ I'd keep a beast well back from the {around}.][ If it's work you want, {work}.]
 post:animal_keeper | about_place | It's {about}, and the beasts don't care either way.[ Mind the {around}.][ Look for {who} there.][ You'll find {trades} there.][ {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- post:farmer ----
+post:farmer | surroundings_told | It's the same ground it was when I told you[; the nearest is {nearest}].[ And mind the {danger}.]
+post:farmer | surroundings_told | I told you once already[: this is {here}, my fields and all][, and the nearest is {nearest}].[ Watch for the {danger}.]
+post:farmer | safety_unsafe_told | No; I said as much before, and I'd say it to anyone.[ Keep well off {worst}.][ There are {danger} besides.]
+post:farmer | safety_wary_told | Mostly, as I told you[; keep your boots off {worst}].[ Mind the {danger}, too.]
+post:farmer | safety_safe_told | Aye, it's as I said; I'd not stand here hoeing if it weren't.[ I'd only keep clear of {worst}.]
+post:farmer | about_place_told | That's all I know of it, and you've had it: {about}.[ Keep well clear of the {around}.]
+post:farmer | about_place_told | As I told you, it's {about}; the field keeps me from knowing more.
+# ---- post:farm_hand ----
+post:farm_hand | surroundings_told | It's just as I told you, for what a hand's word is worth[: the nearest is {nearest}].[ And steer clear of the {danger}.]
+post:farm_hand | surroundings_told | Nothing's moved since I told you, least of all me[; we're in {here}][, and the nearest is {nearest}].[ Mind the {danger}.]
+post:farm_hand | safety_unsafe_told | Far from it; I told you before, and nobody's told me different.[ Stay away from {worst}.][ There are {danger} too.]
+post:farm_hand | safety_wary_told | Careful, like I told you[; don't go poking round {worst}].
+post:farm_hand | safety_safe_told | Quiet enough, same as I told you[; I'd only mind {worst}].
+post:farm_hand | about_place_told | You've had all a hand knows of it: {about}.[ Watch yourself near the {around}.]
+post:farm_hand | about_place_told | Only what I told you, and that's more than most ask a hand: {about}.
+# ---- post:well_keeper ----
+post:well_keeper | surroundings_told | Well, it's as I told you, plain as well water[: the nearest is {nearest}].[ Be wary of the {danger}.]
+post:well_keeper | surroundings_told | I'll draw it up again, just as I told you[; you're in {here}][, and the nearest is {nearest}].[ Mind the {danger}.]
+post:well_keeper | safety_unsafe_told | No; I said as much before, and the talk at the well's no different.[ Keep off {worst}.][ Mind the {danger}, too.]
+post:well_keeper | safety_wary_told | Mostly, as I told you[; keep back from {worst}, as you would from an open well].
+post:well_keeper | safety_safe_told | Aye, as I told you; I'd tell you straight if it had changed.[ The one I'd warn you of is still {worst}.]
+post:well_keeper | about_place_told | You've had all I know of it, every drop: {about}.[ Keep well back from the {around}.]
+post:well_keeper | about_place_told | I told you all I know of it, and there's no more at the bottom of the bucket: {about}.
+# ---- post:carter ----
+post:carter | surroundings_told | I gave it you straight the first time[: the nearest is {nearest}].[ Keep your wheels clear of the {danger}.]
+post:carter | surroundings_told | The ruts haven't moved since I told you[; you're in {here}][, and first stop from the shed is {nearest}].[ Mind the {danger}.]
+post:carter | safety_unsafe_told | No; I told you so, and I'll not load it any lighter.[ Keep clear of {worst}.][ There are {danger} as well.]
+post:carter | safety_wary_told | More or less, as I told you[; go round {worst}, and you'll do].
+post:carter | safety_safe_told | Yes, as I said, and that's still my word[; I'd only drive wide of {worst}].
+post:carter | about_place_told | You've had the whole load already: {about}.[ I'd not drive within reach of the {around}.]
+post:carter | about_place_told | That's {about}, same as I told you, and there's no more on the cart.
+# ---- post:fisher ----
+post:fisher | surroundings_told | I told you.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:fisher | surroundings_told | Still as I said.[ This is {here}.][ Keep clear of the {danger}.]
+post:fisher | safety_unsafe_told | Not safe, as I said.[ Keep off {worst}.][ Watch the {danger}.]
+post:fisher | safety_wary_told | Careful, like before.[ Stay off {worst}.]
+post:fisher | safety_safe_told | Yes. I said so.[ Just mind {worst}.]
+post:fisher | about_place_told | All I know, I told you: {about}.[ Watch the {around}.]
+post:fisher | about_place_told | It's {about}, like I told you.
+# ---- post:boatman ----
+post:boatman | surroundings_told | I'll go over it again, gladly[: the nearest is {nearest}].[ And keep clear of the {danger}.]
+post:boatman | surroundings_told | The current's the only thing that's moved since I told you[; you're in {here}][, and the nearest is {nearest}].[ Mind the {danger}.]
+post:boatman | safety_unsafe_told | No, as I told you, and I'm glad you're checking[; I'd give a wide berth to {worst}].[ There are {danger}, too.]
+post:boatman | safety_wary_told | More or less, as I said before[; steer wide of {worst}].[ Mind the {danger} too.]
+post:boatman | safety_safe_told | Aye, calm water still, as I told you[; the only rough patch is {worst}].
+post:boatman | about_place_told | I've given you all I know of it already: {about}.[ Mind the {around}.]
+post:boatman | about_place_told | You're welcome to it again, and it's all I know: {about}.
+# ---- post:hauler ----
+post:hauler | surroundings_told | Hm, I told you already[; nearest to the yard is {nearest}].[ Mind the {danger}.]
+post:hauler | surroundings_told | Nothing's shifted since I told you, not an inch.[ This is {here}.][ The nearest is {nearest}.]
+post:hauler | safety_unsafe_told | Far from it; I told you, and it's no lighter for asking.[ Keep off {worst}.][ There are {danger} too.]
+post:hauler | safety_wary_told | Careful, as I said before[; don't carry anything near {worst}].
+post:hauler | safety_safe_told | Safe enough, as I told you[; the only weight on my mind is {worst}].
+post:hauler | about_place_told | That's all I know of it, and you've had every bit: {about}.[ Stay clear of the {around}.]
+post:hauler | about_place_told | Right, it's {about}, as I told you, and I've nothing heavier to add.
+# ---- post:water_carrier ----
+post:water_carrier | surroundings_told | I'll tell you again as I go[: the nearest is {nearest}].[ Watch for the {danger}.]
+post:water_carrier | surroundings_told | I can't stop, but it's still as I told you[: you're in {here}][, and the nearest is {nearest}].[ Mind the {danger}.]
+post:water_carrier | safety_unsafe_told | I wouldn't say so, as I told you[; keep away from {worst}].[ There are {danger}, too.]
+post:water_carrier | safety_wary_told | Mostly, like I said[; just keep out of the way of {worst}].
+post:water_carrier | safety_safe_told | Yes, yes, I told you[; just watch for {worst}].
+post:water_carrier | about_place_told | Come on, walk and listen; you've had all I know of it: {about}.[ Stay clear of the {around}.]
+post:water_carrier | about_place_told | Just what I told you, and I've no time to find out more: {about}.
+# ---- post:water_keeper ----
+post:water_keeper | surroundings_told | I will repeat it exactly as I told you[: the nearest is {nearest}].[ Beware the {danger}.]
+post:water_keeper | surroundings_told | Nothing has changed since I told you[; this is {here}][, and the nearest is {nearest}].[ Keep well away from the {danger}.]
+post:water_keeper | safety_unsafe_told | No; it is as I told you, and I do not change a reading without cause.[ Keep away from {worst}.][ There are {danger} besides.]
+post:water_keeper | safety_wary_told | Careful, as I said before[; the place to avoid is still {worst}].
+post:water_keeper | safety_safe_told | Yes; my answer stands as I gave it[, and the only place I would name remains {worst}].
+post:water_keeper | about_place_told | I have given you all I know of it, exactly: {about}.[ Stay well clear of the {around}.]
+post:water_keeper | about_place_told | What I told you is all I know, and I will not embroider it: {about}.
+# ---- post:horse_keeper ----
+post:horse_keeper | surroundings_told | Listen, it's as I told you[: you're in {here}][, and the nearest is {nearest}].[ Mind the {danger}.]
+post:horse_keeper | surroundings_told | I'll walk it past you again[: the nearest is {nearest}].[ Watch for the {danger}.]
+post:horse_keeper | safety_unsafe_told | Not safe, as I told you[; I'd not take a horse near {worst}].[ There are {danger} besides.]
+post:horse_keeper | safety_wary_told | Mostly, as I said[; keep a tight rein near {worst}].
+post:horse_keeper | safety_safe_told | Aye; I told you so, and I judged it right the first time.[ I'd still keep a rider off {worst}.]
+post:horse_keeper | about_place_told | You've had my whole judgement of it already: {about}.[ Keep anything you ride well back from the {around}.]
+post:horse_keeper | about_place_told | Now, only what I told you: {about}.
+# ---- post:animal_keeper ----
+post:animal_keeper | surroundings_told | I'll say it again, and shorter, the way the beasts would[: the nearest is {nearest}].[ Keep well away from the {danger}.]
+post:animal_keeper | surroundings_told | Nothing's changed since I told you, not even the smell[; we're in {here}][, and past the yard, the nearest is {nearest}].[ Stay clear of the {danger}.]
+post:animal_keeper | safety_unsafe_told | No, as I told you, and the beasts would say the same[; keep well back from {worst}].[ Mind the {danger} as well.]
+post:animal_keeper | safety_wary_told | More or less, like I said[; keep clear of {worst}, as you would of anything that kicks].
+post:animal_keeper | safety_safe_told | Nothing to fear; I said so before, and the beasts would've told me otherwise.[ The only worry I have is {worst}.]
+post:animal_keeper | about_place_told | I know little past the stalls, and you've had all of it: {about}.
+post:animal_keeper | about_place_told | Oh, only what I told you: {about}.[ Keep any beast of yours clear of the {around}.]

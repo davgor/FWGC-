@@ -950,3 +950,77 @@ post:clerk | forgiven_cold | Words are cheap; I copy thousands a day.
 post:clerk | unwronged | What for? There's nothing against you in any file of mine.
 post:clerk | about_place | If I have the right file, it's {about}.[ There's {trades} there.][ You'll find {who} there.][ Watch for the {around}.][ If it's work you want, {work}.]
 post:clerk | about_place | Let me find the page: {about}.[ It has {trades}.][ Ask there for {who}.][ There are {around}.][ {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- post:storekeeper ----
+post:storekeeper | surroundings_told | It's as I told you; it's kept, like everything in my stores.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:storekeeper | surroundings_told | My tally hasn't changed since I told you.[ The nearest is {nearest}.][ Keep your distance from the {danger}.]
+post:storekeeper | safety_unsafe_told | No, as I told you, and it's not improved with keeping.[ Keep clear of {worst}.][ There are {danger}, besides.]
+post:storekeeper | safety_wary_told | Mostly, and it's still as I told you.[ Keep yourself out of {worst}.][ The {danger} want watching, too.]
+post:storekeeper | safety_safe_told | Safe enough, like I said; nothing's gone off since.[ The worst I know of is {worst}.]
+post:storekeeper | about_place_told | You've had all I keep of it: {about}.
+post:storekeeper | about_place_told | Only what I told you, counted out the same: {about}.[ It has {trades}.][ Mind the {around}.]
+# ---- post:porter ----
+post:porter | surroundings_told | You've heard it from me already; I haul sacks, not news.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:porter | surroundings_told | It's the same as I told you, and no lighter for the asking.[ The nearest is {nearest}.][ Watch for the {danger}.]
+post:porter | safety_unsafe_told | No, and it weighs the same as when I told you.[ I'd keep off {worst}.][ There are {danger}, too.]
+post:porter | safety_wary_told | Careful, like I said, and you'll manage.[ Stay off {worst}.]
+post:porter | safety_safe_told | Aye, safe; that's what I told you, and it holds.[ The worst of it is still {worst}.]
+post:porter | about_place_told | That's all I've got on it, and you've had it: {about}.
+post:porter | about_place_told | Just what I told you; I don't carry more than I'm given: {about}.[ Keep off the {around}.]
+# ---- post:merchant ----
+post:merchant | surroundings_told | You've had that from me already, and the goods haven't changed.[ The nearest is {nearest}.][ Watch for the {danger}.]
+post:merchant | surroundings_told | It's as I told you, and a fair answer doesn't change with the asking.[ The closest is {nearest}.][ Keep clear of the {danger}.]
+post:merchant | safety_unsafe_told | No; I've told you, and that's not up for haggling.[ Stay off {worst}.][ There are {danger}, too.]
+post:merchant | safety_wary_told | More or less, like I said.[ A live customer keeps clear of {worst}.]
+post:merchant | safety_safe_told | Yes, same as I said, and I'd stake my stall on it.[ The one place I'd not trade is {worst}.]
+post:merchant | about_place_told | Everything I know of it, you've had; I hold nothing back under the stall: {about}.
+post:merchant | about_place_told | No more than I told you, and I don't deal in guesses: {about}.[ Ask there for {who}.][ Watch for the {around}.]
+# ---- post:market_steward ----
+post:market_steward | surroundings_told | I told you already, and I'll shout it again if I must.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:market_steward | surroundings_told | Listen, it's as I told you; nothing's changed but the crowd.[ The nearest is {nearest}.][ Stay clear of the {danger}.]
+post:market_steward | safety_unsafe_told | No; I said so over the din, and it's no different in a whisper.[ Stay off {worst}.][ There are {danger}, too.]
+post:market_steward | safety_wary_told | Mostly, as I said before.[ I'd give a wide berth to {worst}.]
+post:market_steward | safety_safe_told | Safe enough, as I told you; out there it's quieter than my market.[ The worst I'd name is {worst}.]
+post:market_steward | about_place_told | All I know of it, you've heard, and I'll make it plain again: {about}.
+post:market_steward | about_place_told | Only what I told you, and louder, if you need it: {about}.[ Keep clear of the {around}.]
+# ---- post:cargo_clerk ----
+post:cargo_clerk | surroundings_told | On my scale, it's as I told you.[ The nearest is {nearest}.][ Take the {danger} into account.]
+post:cargo_clerk | surroundings_told | I've given you those figures already, and they haven't shifted.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:cargo_clerk | safety_unsafe_told | No, and the balance is the same as when I told you.[ Keep off {worst}.][ The {danger} only add to it.]
+post:cargo_clerk | safety_wary_told | Safe enough, on balance, as I told you.[ Stay off {worst}.]
+post:cargo_clerk | safety_safe_told | Yes, by my figures, same as before.[ The heaviest risk is still {worst}.]
+post:cargo_clerk | about_place_told | You've had the full weight of what I know: {about}.
+post:cargo_clerk | about_place_told | What I told you, weighed the same again: {about}.[ Keep the {around} in your reckoning.][ {work}.]
+# ---- post:fuel_handler ----
+post:fuel_handler | surroundings_told | I've said it already, and I've not the breath to dress it up.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:fuel_handler | surroundings_told | It's the same as I told you, between coughs.[ The nearest is {nearest}.][ Give the {danger} a wide berth.]
+post:fuel_handler | safety_unsafe_told | Far from it, as I said before.[ I'd keep well off {worst}.][ And there are {danger}.]
+post:fuel_handler | safety_wary_told | Careful, as I told you; I'd say it louder if my chest let me.[ Keep clear of {worst}.]
+post:fuel_handler | safety_safe_told | Quiet enough, like I said; the worst thing here's still my cough.[ The one I'd keep away from is {worst}.]
+post:fuel_handler | about_place_told | You've had all I know of it, soot and all: {about}.
+post:fuel_handler | about_place_told | Nothing more than I told you, shovelled out the same: {about}.[ You'll find {who} there.][ Mind the {around}.]
+# ---- post:toll_clerk ----
+post:toll_clerk | surroundings_told | I told you already; step aside and I'll say it once more.[ The nearest is {nearest}.][ Keep clear of the {danger}.]
+post:toll_clerk | surroundings_told | It's what I told you, and the line's waiting.[ The nearest is {nearest}.][ Watch for the {danger}.]
+post:toll_clerk | safety_unsafe_told | Not safe; I said so at the gate, and I'll not say it slower.[ Keep off {worst}.][ There are {danger}.]
+post:toll_clerk | safety_wary_told | Careful, as I said, and you'll do.[ Stay off {worst}.]
+post:toll_clerk | safety_safe_told | It's safe, as I told you.[ Just keep off {worst}.] Next.
+post:toll_clerk | about_place_told | Nothing's come through the gate about it since I told you: {about}.
+post:toll_clerk | about_place_told | Keep to the side, and I'll give you what I told you: {about}.[ Watch for the {around}.]
+# ---- post:treasurer ----
+post:treasurer | surroundings_told | It is as I told you; I do not revise my accounts without cause.[ The nearest is {nearest}.][ Be wary of the {danger}.]
+post:treasurer | surroundings_told | I have told you this already, and the count stands.[ The nearest is {nearest}.][ I would keep my distance from the {danger}.]
+post:treasurer | safety_unsafe_told | No; you have the particulars from me, and I have nothing to add.[ The gravest risk I know of is {worst}.][ And there are {danger}, besides.]
+post:treasurer | safety_wary_told | Safe enough, with care, as I have said.[ I would not go near {worst}.]
+post:treasurer | safety_safe_told | Yes, as I told you, and I would know if it were not.[ The only matter worth a warning is {worst}.]
+post:treasurer | about_place_told | You have had a full account of what I know: {about}.
+post:treasurer | about_place_told | No more than I told you, and I will not embellish it: {about}.[ I would be wary of the {around}.]
+# ---- post:clerk ----
+post:clerk | surroundings_told | There's been nothing to amend since I told you.[ The nearest on record is {nearest}.][ Mind the {danger}.]
+post:clerk | surroundings_told | I've told you this already; let me find the page again.[ The nearest is {nearest}.][ Watch for the {danger}.]
+post:clerk | safety_unsafe_told | No; the record reads just as I told you.[ Keep away from {worst}.][ Mind the {danger}, too.]
+post:clerk | safety_wary_told | Mostly, as I told you.[ I'd still make a note to avoid {worst}.]
+post:clerk | safety_safe_told | Safe enough, as I said, and my files agree.[ The worst I have written down is {worst}.]
+post:clerk | about_place_told | You've had the whole of my file on it: {about}.
+post:clerk | about_place_told | Nothing but what I told you, copied out again: {about}.[ Ask there for {who}.][ Watch for the {around}.]

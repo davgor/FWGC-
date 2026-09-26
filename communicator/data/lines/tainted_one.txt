@@ -553,3 +553,45 @@ tainted_one/CG | forgiven_cold | Words are cheap; I'm not there yet, not with yo
 tainted_one/CG | unwronged | Whatever for? Oh, you're fine, you're fine; is something wrong?
 tainted_one/CG | about_place | Ah, {about}, of course.[ There's {trades} there, should anybody need one.][ You'll find {who} there; be kind to them, would you?][ Give the {around} plenty of room, for everyone's sake.][ If it's work you want, {work}.]
 tainted_one/CG | about_place | That's {about}, that is.[ You'll find {trades} at it.][ Look for {who} there.][ Oh, and there are {around}; nobody goes poking them, all right?][ {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- tainted_one/NN ----
+tainted_one/NN | surroundings_told | It's what I told you, no more and no less.[ The nearest is {nearest}.][ The {danger} are a bad trade; leave them be.]
+tainted_one/NN | surroundings_told | You've had this from me already, and it still holds.[ You're in {here}.][ The closest is {nearest}.]
+tainted_one/NN | safety_unsafe_told | No, and what I told you still stands.[ Keep clear of {worst}.][ Nobody comes out ahead against the {danger}.]
+tainted_one/NN | safety_wary_told | Mostly, as I told you, and nothing's shifted either way.[ Keep clear of {worst}, and you'll do.][ The {danger} are best left alone.]
+tainted_one/NN | safety_safe_told | Yes, as I told you, and I'd have said so if that had changed.[ If there's a place to avoid, it's still {worst}.]
+tainted_one/NN | about_place_told | You've had the whole of what I know of it: {about}.[ You'll find {who} there; what they're worth to you is yours to work out.]
+tainted_one/NN | about_place_told | That's {about}; I've given you all I know of it, and there's nothing more on my side of the ledger.[ The work there, as I said: {work}.]
+# ---- tainted_one/LN ----
+tainted_one/LN | surroundings_told | It stands exactly as I told you.[ The nearest is {nearest}.][ The {danger} remain to be avoided.]
+tainted_one/LN | surroundings_told | Nothing is altered from what I told you, by my count.[ You stand in {here}.][ The nearest is {nearest}.]
+tainted_one/LN | safety_unsafe_told | I wouldn't say so, and I will not revise what I told you.[ Keep your distance from {worst}.][ I would not go near the {danger}.]
+tainted_one/LN | safety_wary_told | Keep your wits about you; it is as I told you, and my reckoning is unchanged.[ Stay away from {worst}.][ The {danger} call for distance.]
+tainted_one/LN | safety_safe_told | Nothing to fear, as I told you, and I count it no differently now.[ I would still name {worst}, and nothing else.]
+tainted_one/LN | about_place_told | I have told you all I know of it: {about}. I add nothing to it now, as I added nothing then.
+tainted_one/LN | about_place_told | It is {about}, and you have had all I know of it, counted and complete.[ {who} may be found there, as I said.]
+# ---- tainted_one/NG ----
+tainted_one/NG | surroundings_told | It's just as I told you, and I don't mind being asked.[ The nearest is {nearest}.][ Stay well away from the {danger}, won't you?]
+tainted_one/NG | surroundings_told | I'm glad you checked; nothing's changed since I told you.[ You're in {here}.][ The place nearest you is {nearest}.]
+tainted_one/NG | safety_unsafe_told | Not safe; it's as I told you, and I wish it weren't.[ Please stay away from {worst}.][ I'd not want you anywhere near the {danger}.]
+tainted_one/NG | safety_wary_told | Safe enough, as I told you; I'd not have you worry more than you need.[ Only keep away from {worst}.][ And mind the {danger}, please.]
+tainted_one/NG | safety_safe_told | It's safe, as I told you, and it's a relief to say so.[ The only place I'd fret over is {worst}.]
+tainted_one/NG | about_place_told | That's {about}, and I'm sorry, but you've had everything I know.[ You'll find {who} there.]
+tainted_one/NG | about_place_told | I've nothing beyond what I told you, I'm afraid: {about}.[ Do be careful of the {around}.]
+# ---- tainted_one/CN ----
+tainted_one/CN | surroundings_told | Oh, we've done this one; I told you already.[ You're in {here}, unless someone's moved it.][ The nearest is {nearest}.]
+tainted_one/CN | surroundings_told | It's the same as I told you, give or take my mood.[ The nearest is {nearest}.][ And the {danger}; still a no.]
+tainted_one/CN | safety_unsafe_told | Far from it, still; it's no different from when I told you.[ Stay well off {worst}.][ The {danger}; obviously not.]
+tainted_one/CN | safety_wary_told | More or less, as I told you, and I'm sticking to it.[ Just don't go near {worst}.][ The {danger}, not if you're fond of yourself.]
+tainted_one/CN | safety_safe_told | Quiet enough, like I told you; I'd have said if it wasn't.[ Mind, there's still {worst}.]
+tainted_one/CN | about_place_told | Only what I told you: {about}.[ And the {around}; leave them to it.]
+tainted_one/CN | about_place_told | That's {about}, and you've had all I know of it; it doesn't grow with the telling.[ There's {who}, if you're after company.]
+# ---- tainted_one/CG ----
+tainted_one/CG | surroundings_told | Of course, of course; it's all as I told you.[ The closest is {nearest}.][ Mind the {danger}, and mind anyone with you.]
+tainted_one/CG | surroundings_told | Still just as I told you, I promise, or I'd have shouted.[ You're in {here}.][ The nearest is {nearest}.]
+tainted_one/CG | safety_unsafe_told | Not here, no; just as I told you, and I hate it.[ Stay away from {worst}, please.][ The {danger}; well back from them, yes?]
+tainted_one/CG | safety_wary_told | Careful; it's like I told you, and I've not changed my mind.[ Keep clear of {worst}, would you?][ And keep back from the {danger}, for me.]
+tainted_one/CG | safety_safe_told | Yes! Still safe, just like I said, and I love saying it.[ Just not {worst}, all right?]
+tainted_one/CG | about_place_told | Oh, that's {about}, and I've told you every bit I know, honestly.[ Be good to {who}, if you see them.]
+tainted_one/CG | about_place_told | That's all I've got, and you've had it already: {about}.[ And the {around}; nobody near them, please.]

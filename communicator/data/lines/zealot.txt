@@ -657,3 +657,53 @@ zealot/CG | forgiven_cold | It's a start - a small one, and I'm still sore.
 zealot/CG | unwronged | No harm done - none at all, so chin up.
 zealot/CG | about_place | {about} - yes, and bless it.[ There's {trades} there - be kind to them, won't you?][ Find {who} - they're about.][ And the {around} - stay away, promise me.][ If you want work, {work}.]
 zealot/CG | about_place | Ah, {about}![ You'll find {trades} there - go and say hello.][ Ask for {who} - and give them a blessing from me.][ There are {around} - don't go near them, please.][ And if you want work - {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- zealot/NN ----
+zealot/NN | surroundings_told | I've told you this, and it holds, same as my faith does.[ The nearest is {nearest}.][ Keep your eyes open around the {danger}.]
+zealot/NN | surroundings_told | It's what I told you before, and it's still true[: the nearest is {nearest}].[ The {danger} haven't moved, prayers or no prayers.]
+zealot/NN | safety_unsafe_told | No, and I've told you so; my faith in that answer hasn't wavered.[ Keep clear of {worst}.][ There are {danger}, too.]
+zealot/NN | safety_wary_told | Mostly, as I said, and I've not changed my mind.[ Give a wide berth to {worst}.]
+zealot/NN | safety_safe_told | Safe enough, as I told you; I don't say one thing and then another.[ I'd still mind {worst}.]
+zealot/NN | about_place_told | You've had all I know of it, and I won't dress it up with guesses now: {about}.[ Look for {who}, and weigh them for yourself.]
+zealot/NN | about_place_told | That's {about}, and that's only what you've had from me already.[ Mind the {around}; faith won't move them.]
+# ---- zealot/LN ----
+zealot/LN | surroundings_told | I have told you this, and my testimony has not changed.[ The nearest is {nearest}.][ I would still counsel you to avoid the {danger}.]
+zealot/LN | surroundings_told | It is as I stated before, and I will state it as often as I am asked.[ The nearest is still {nearest}.]
+zealot/LN | safety_unsafe_told | No, as I have told you, and I retract not a word of it.[ Keep clear of {worst}; I would swear to that.][ The {danger} remain, and I would send no one among them.]
+zealot/LN | safety_wary_told | Keep your wits about you, as I counselled before.[ I would not set foot near {worst}.]
+zealot/LN | safety_safe_told | Yes; I attested to it before, and I attest to it still.[ I would warn you of {worst}, and of nothing graver.]
+zealot/LN | about_place_told | I have told you all I know of it, and I will not add hearsay: {about}.[ You will find {who} there; speak to them honestly.]
+zealot/LN | about_place_told | My testimony on it is what you have already heard: {about}.[ The {around} are reason enough for caution.][ As to work there, it is as I said: {work}.]
+# ---- zealot/NG ----
+zealot/NG | surroundings_told | No bother at all; I'll tell you again.[ The nearest is {nearest}.][ Please keep clear of the {danger}.]
+zealot/NG | surroundings_told | Nothing's different from what I told you[; the nearest is still {nearest}].[ Mind the {danger}; I'd rather feed you than patch you up.]
+zealot/NG | safety_unsafe_told | Not safe, no, and I'm sorry to be telling you again.[ Don't go near {worst}, please.][ There are still {danger}, and I worry for anyone near them.]
+zealot/NG | safety_wary_told | Safe enough, as I told you, if you go carefully.[ Stay clear of {worst}.]
+zealot/NG | safety_safe_told | It's safe, and I'm glad to say it again.[ You needn't go near {worst}, and I'd rather you didn't.]
+zealot/NG | about_place_told | I've nothing more than what I told you, I'm sorry to say: it's {about}.[ If you see {who}, see that they've eaten.]
+zealot/NG | about_place_told | You mean {about}; you've had all I know of it already.[ Keep away from the {around}, won't you?]
+# ---- zealot/LG ----
+zealot/LG | surroundings_told | You have heard this from me, and you are welcome to hear it again.[ The nearest is {nearest}.][ I pray you, take no needless risk near the {danger}.]
+zealot/LG | surroundings_told | In good faith, it is as I told you before[: we are in {here}].[ The nearest is still {nearest}.]
+zealot/LG | safety_unsafe_told | I wouldn't say so, as I told you, and it pains me to say it again.[ Keep well clear of {worst}, I pray you.][ There are still {danger}, I am sorry to say.]
+zealot/LG | safety_wary_told | Careful, and it is as I told you.[ Please keep your distance from {worst}.]
+zealot/LG | safety_safe_told | Nothing to fear, just as I said, and I am glad it still holds.[ The only place that gives me any unease is {worst}.]
+zealot/LG | about_place_told | You have heard from me all I know of it, and I would not add to it falsely: {about}.[ If you meet {who}, I pray they are well.]
+zealot/LG | about_place_told | Forgive me; I know no more of it than I told you: {about}.[ Go nowhere near the {around}, I beg you.]
+# ---- zealot/CN ----
+zealot/CN | surroundings_told | I told you - I did, I heard myself say it![ The nearest - {nearest}.][ The {danger} - still there, still to be avoided.]
+zealot/CN | surroundings_told | Nothing's changed - I'd have felt it if it had[: the nearest is {nearest}].[ Mind the {danger} - same warning, same as ever.]
+zealot/CN | safety_unsafe_told | No - and I said so, loud, and I'll say it louder.[ Keep out of {worst} - I mean it.][ And the {danger} - I'd not go near them, not for a sermon.]
+zealot/CN | safety_wary_told | More or less - I told you so, and the spirit hasn't changed its mind.[ Keep away from {worst} - that one I feel.]
+zealot/CN | safety_safe_told | Aye - safe, still, just as I told you.[ Only {worst} - skip that one.]
+zealot/CN | about_place_told | You've heard every scrap I have on it - but here, again, with feeling: {about}.[ Find {who}, and listen - really listen.]
+zealot/CN | about_place_told | Oh, {about} - I told you, all of it, all I have.[ Mind the {around} - still, always.]
+# ---- zealot/CG ----
+zealot/CG | surroundings_told | Oh, you've heard this from me - and I'd tell you a hundred times, bless you.[ The nearest is {nearest}.][ And the {danger} - still no, promise me.]
+zealot/CG | surroundings_told | It's all just as I said[ - the nearest is still {nearest}].[ Keep well away from the {danger} - for my sake.]
+zealot/CG | safety_unsafe_told | Not safe - I told you, and I'll keep telling you.[ Keep away from {worst}, please.][ And the {danger} - please, no.]
+zealot/CG | safety_wary_told | Mostly - I said so, and I say so still.[ But {worst} - no, not there.]
+zealot/CG | safety_safe_told | It's safe - I told you, didn't I?[ Just not {worst}; that's all I ask.]
+zealot/CG | about_place_told | I've told you all I know of it - every bit, I promise: {about}.[ If you see {who}, bless them for me.]
+zealot/CG | about_place_told | Ah, {about}! Only what I told you - but I'll say it again if it helps.[ The {around} - stay well back from them.]

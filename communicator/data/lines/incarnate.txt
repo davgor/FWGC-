@@ -558,3 +558,45 @@ incarnate/NN | forgiven_cold | We'll see. It's heard, and that's as far as it go
 incarnate/NN | unwronged | No harm done; you've nothing to square with me.
 incarnate/NN | about_place | That's {about}.[ There's {trades} there, if you've a use for one.][ You'll find {who} there.][ Stay wary of the {around}.][ If it's work you want, {work}.]
 incarnate/NN | about_place | I know it: {about}.[ You'll find {trades} at it.][ Ask for {who}; what they're worth to you is your call.][ Keep away from the {around}, unless there's something in it for you.][ {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- incarnate/LE ----
+incarnate/LE | surroundings_told | I have told you this, and it has not changed for your asking.[ The nearest is {nearest}.][ The {danger} are still no concern of mine.]
+incarnate/LE | surroundings_told | What I told you stands, and I do not amend my words.[ This is {here}.][ Nothing lies nearer than {nearest}.]
+incarnate/LE | safety_unsafe_told | No; I have said so already, and my word does not shift.[ Keep clear of {worst}.][ The {danger} will care even less than I do.]
+incarnate/LE | safety_wary_told | Careful; it is as I told you, and repetition will not make it gentler.[ The trouble lies at {worst}.][ The {danger} are your own affair.]
+incarnate/LE | safety_safe_told | It's safe, as I have told you, and I do not say what I do not mean.[ The worst of it is {worst}, and that is for you to weigh.]
+incarnate/LE | about_place_told | You have had all I know of it: {about}. I will not invent more to hold your interest.
+incarnate/LE | about_place_told | It is {about}, as I told you, and that is the whole of what I know.[ You will find {who} there, as I said, and I vouch for nothing more.]
+# ---- incarnate/LG ----
+incarnate/LG | surroundings_told | It is just as I told you, and I am glad you asked.[ The nearest is {nearest}.][ I would still ask you to keep your distance from the {danger}.]
+incarnate/LG | surroundings_told | Nothing has changed since I told you, and I would tell you honestly if it had.[ You are in {here}.][ The closest is {nearest}.]
+incarnate/LG | safety_unsafe_told | I wouldn't say so; it is still as I told you, and I will not soften it.[ I beg you, keep away from {worst}.][ Please do not go near the {danger}.]
+incarnate/LG | safety_wary_told | Mostly, as I told you, and I hold to every word of it.[ Only keep well away from {worst}.][ Mind the {danger}, if you would.]
+incarnate/LG | safety_safe_told | Yes, just as I told you, and it gladdens me to say so.[ The one place that gives me pause is {worst}.]
+incarnate/LG | about_place_told | I am afraid I have nothing to add to what I told you: {about}.[ {who} may be found there, as before.]
+incarnate/LG | about_place_told | Forgive me; it is {about}, as I said, and I know no more than that.[ Do mind the {around}, whatever brings you there.]
+# ---- incarnate/CG ----
+incarnate/CG | surroundings_told | Oh, it's just what I told you, nothing new.[ The nearest is {nearest}.][ Keep clear of the {danger}, yes?]
+incarnate/CG | surroundings_told | Wait, I told you this one, didn't I? Well, it all still holds.[ The closest is {nearest}.]
+incarnate/CG | safety_unsafe_told | Not safe, still, just like I told you, and I won't sweeten it.[ Keep well away from {worst}, would you?][ And not a step near the {danger}, please.]
+incarnate/CG | safety_wary_told | Keep your wits about you; it's what I told you, nothing's changed.[ Just stay off {worst}, will you?]
+incarnate/CG | safety_safe_told | Aye, still safe, as I told you, and don't let anyone tell you different.[ I'd skip {worst}, though.]
+incarnate/CG | about_place_told | Right, you've had all I know of it, every bit: {about}.[ Go and see {who}, if you like; nobody's making you.]
+incarnate/CG | about_place_told | Nothing more than I told you, sorry: {about}.[ And the {around}; wide berth, please.]
+# ---- incarnate/CE ----
+incarnate/CE | surroundings_told | Oh, this again? It's as I told you, and I'm only answering because it amuses me.[ The nearest is {nearest}.]
+incarnate/CE | surroundings_told | Just as I told you, and none of it's got any more worth having.[ You're in {here}.][ The {danger} are still there, should you care to meet them.]
+incarnate/CE | safety_unsafe_told | Far from it, as I told you, and I've no sympathy to add.[ Keep away from {worst}.][ And there are the {danger}, if you're feeling brave.]
+incarnate/CE | safety_wary_told | Safe enough, as I told you, and I'm still not holding your hand.[ Stay clear of {worst}.][ Mind the {danger}, if you'd like to stay useful to me.]
+incarnate/CE | safety_safe_told | Nothing to fear, as I told you, and it bores me every bit as much.[ There's still {worst}, if you're desperate for excitement.]
+incarnate/CE | about_place_told | That's {about}, and you've had every scrap I know of it. If you want more, go and see for yourself.
+incarnate/CE | about_place_told | Not a crumb more than I told you: {about}.[ You'll find {who} there, and you're welcome to them.]
+# ---- incarnate/NN ----
+incarnate/NN | surroundings_told | Nothing's different from what I told you.[ You're in {here}.][ The nearest is {nearest}.]
+incarnate/NN | surroundings_told | Here's the short of it, the same as I told you.[ The nearest is {nearest}.][ Mind the {danger}; that hasn't changed.]
+incarnate/NN | safety_unsafe_told | Not here, as I told you; no use dressing it up.[ Keep clear of {worst}.][ The {danger} aren't worth the risk.]
+incarnate/NN | safety_wary_told | More or less, as I told you, and I don't go back on what I've said.[ Stay clear of {worst}, and you'll do.]
+incarnate/NN | safety_safe_told | Quiet enough, as I told you, and that's a straight answer.[ It's your call whether you go near {worst}.]
+incarnate/NN | about_place_told | You've had all I know of it: {about}.[ Ask for {who}, and weigh them yourself.]
+incarnate/NN | about_place_told | It's {about}; I've given you all I know of it already, fair and square.[ And the work going there, as I said: {work}.]

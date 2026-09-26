@@ -663,3 +663,53 @@ knight_errant/LG | forgiven_cold | Words are cheap; I will believe it when your 
 knight_errant/LG | unwronged | There's nothing to forgive; I hold nothing against you, and I would not have you think I do.
 knight_errant/LG | about_place | That is {about}.[ You will find {trades} there, should you have need of one.][ Ask for {who}, with all courtesy.][ Have a care near the {around}, I pray you.][ If you seek work, {work}.]
 knight_errant/LG | about_place | Of course; it is {about}.[ There is {trades} there.][ You will find {who} there, and I wish them well.][ Please keep your distance from the {around}.][ Should you want work, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- knight_errant/NN ----
+knight_errant/NN | surroundings_told | You've had that from me already, and it still holds.[ The nearest is {nearest}.][ The {danger} are still there, and still not worth the risk.]
+knight_errant/NN | surroundings_told | Nothing's moved since I told you[: you're at {here}][, and the closest is {nearest}].[ The {danger} are still best left alone.]
+knight_errant/NN | safety_unsafe_told | Not safe, and I told you as much.[ The reason is still {worst}.][ The {danger} count against it too.]
+knight_errant/NN | safety_wary_told | Mostly, as I reckoned it before.[ The one to weigh is still {worst}.]
+knight_errant/NN | safety_safe_told | Quiet enough; that's what I told you, and my answer's the same.[ At most, I'd spare a thought for {worst}.]
+knight_errant/NN | about_place_told | I'll not pad it now; you've had all I know of it: {about}.[ {who} can be found there, as I said.][ The {around} are still there; mind them.]
+knight_errant/NN | about_place_told | Only what I told you, and it hasn't changed: {about}.[ There's {trades} there.][ The work stands as it did: {work}.]
+# ---- knight_errant/LN ----
+knight_errant/LN | surroundings_told | I have told you this already; I will state it once more.[ The nearest is {nearest}.][ My warning stands: keep clear of the {danger}.]
+knight_errant/LN | surroundings_told | It is as I told you before[: you stand in {here}][, and the nearest is {nearest}].[ The {danger} still merit your caution.]
+knight_errant/LN | safety_unsafe_told | No; I gave you my answer, and I do not alter it without cause.[ Do not go near {worst}.][ Take heed besides of the {danger}.]
+knight_errant/LN | safety_wary_told | Keep your wits about you, as I told you; my counsel has not changed.[ Stay clear of {worst}.]
+knight_errant/LN | safety_safe_told | Yes; I have said so before, and I say it again.[ The one hazard that warrants care is {worst}.]
+knight_errant/LN | about_place_told | All I know of it, I have told you: {about}.[ {who} may be found there, as I said.][ The {around} remain; keep your distance.]
+knight_errant/LN | about_place_told | Nothing I know of it is new to you: {about}.[ There is {trades} there.][ As to work, it stands as I said: {work}.]
+# ---- knight_errant/NG ----
+knight_errant/NG | surroundings_told | Of course; it's as I told you.[ The nearest is {nearest}.][ Do mind the {danger}; I'd hate for anyone to wander near them.]
+knight_errant/NG | surroundings_told | I told you, but I don't mind saying it again.[ You're in {here}, and the nearest is {nearest}.][ Watch for the {danger}, please.]
+knight_errant/NG | safety_unsafe_told | Far from it, and I'm sorry to have to say so again.[ Please stay away from {worst}.][ And do keep clear of the {danger}.]
+knight_errant/NG | safety_wary_told | Careful, as I said, and you'll be all right.[ The one I'd avoid is still {worst}.]
+knight_errant/NG | safety_safe_told | Yes, as I told you, and I'm glad to say so again.[ The only one that worries me is {worst}.]
+knight_errant/NG | about_place_told | I'm sorry, you've heard all I know of it: {about}.[ If you go, ask for {who}.][ Be careful of the {around}.]
+knight_errant/NG | about_place_told | Nothing more than I told you, I'm afraid: {about}.[ You'll find {trades} there.][ And {work}, if you've a mind to help.]
+# ---- knight_errant/CN ----
+knight_errant/CN | surroundings_told | I told you - I did, I remember - but fine[: the nearest is {nearest}].[ And the {danger} - still there, still a no.]
+knight_errant/CN | surroundings_told | Well, it's what I told you - all still there[: you're in {here}][, and the nearest is {nearest}].[ The {danger}, too - skip those, honestly.]
+knight_errant/CN | safety_unsafe_told | Not safe - still not - I told you.[ The trouble's {worst}.][ And {danger}, if you need more.]
+knight_errant/CN | safety_wary_told | More or less - as I said, and I'm sticking to it.[ Just stay off {worst}.]
+knight_errant/CN | safety_safe_told | Quiet enough - I told you, and I do love being right.[ Well - {worst}, if you're counting.]
+knight_errant/CN | about_place_told | That one? You've had all I've got on it: {about}.[ You'll find {who} there - still.][ And the {around} - lovely as ever.]
+knight_errant/CN | about_place_told | Right - only what I told you, no extras: {about}.[ There's {trades} there.][ And {work} - in case you'd like it again.]
+# ---- knight_errant/CG ----
+knight_errant/CG | surroundings_told | Ask as often as you like - I told you, and I'll tell you again.[ The nearest is {nearest}.][ And the {danger} - still there, so please be careful.]
+knight_errant/CG | surroundings_told | Oh, again - happily; it's all as I told you[: you're in {here}][, and the nearest is {nearest}].[ Mind the {danger} - for me?]
+knight_errant/CG | safety_unsafe_told | Not here - I told you, and I wish it had changed.[ Stay away from {worst}, please.][ And keep clear of the {danger} - promise me.]
+knight_errant/CG | safety_wary_told | Mostly - as I told you - and you'll be fine.[ Just not near {worst}, all right?]
+knight_errant/CG | safety_safe_told | Yes - still yes, I'm happy to say, just as I told you.[ But I'd give a miss to {worst}.]
+knight_errant/CG | about_place_told | That one - you've had every scrap I have: {about}.[ Say hello to {who} for me.][ And mind the {around} - really.]
+knight_errant/CG | about_place_told | I told you all I know of it - sorry it's not more: {about}.[ You'll find {trades} there.][ And {work} - if you're minded.]
+# ---- knight_errant/LG ----
+knight_errant/LG | surroundings_told | You shall have it again, and gladly, just as I told you.[ The nearest is {nearest}.][ Have a care still for the {danger}.]
+knight_errant/LG | surroundings_told | Forgive me if I repeat myself; nothing has changed since I told you[: you stand in {here}][, and the nearest is {nearest}].[ I pray you, keep well clear of the {danger}.]
+knight_errant/LG | safety_unsafe_told | Not safe, I am sorry to say, as I told you before.[ Stay well away from {worst}.][ And I beg you to mind the {danger}.]
+knight_errant/LG | safety_wary_told | Careful, as I told you; my judgement stands.[ I would still avoid {worst}.]
+knight_errant/LG | safety_safe_told | Safe enough, as I said before, and I say so still.[ The one place that would give me pause is {worst}.]
+knight_errant/LG | about_place_told | I have told you all I know of it, and I am sorry it is not more: {about}.[ Should you go, ask for {who}.][ The {around} are there still; be wary of them.]
+knight_errant/LG | about_place_told | With pleasure, though it is only what I told you before: {about}.[ There is {trades} there.][ The work I spoke of stands: {work}.]

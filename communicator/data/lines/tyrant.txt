@@ -447,3 +447,37 @@ tyrant/NE | forgiven_cold | Hmph. Anyone can say it, and plenty do.
 tyrant/NE | unwronged | What for? You've done nothing to me; I'd remember if you had.
 tyrant/NE | about_place | You mean {about}; what's it to you?[ There's {trades} there.][ Go and find {who} there, if you like.][ The {around} can have you, for all I care.][ {work}; take it or leave it.]
 tyrant/NE | about_place | Fine: it's {about}.[ Ask for {who}; they're welcome to you.][ It has {trades}.][ If you want work, {work}.][ Keep clear of the {around}, if you've any sense.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- tyrant/LN ----
+tyrant/LN | surroundings_told | As I set it out for you before, so it stands.[ The nearest is {nearest}.][ You are advised, again, to keep clear of the {danger}.]
+tyrant/LN | surroundings_told | My account has not changed since I gave it[: you stand in {here}].[ The nearest is still {nearest}.]
+tyrant/LN | safety_unsafe_told | No, as I stated before, and the finding holds.[ Keep clear of {worst}.][ The {danger} are best left alone.]
+tyrant/LN | safety_wary_told | More or less, as I advised you before[: keep away from {worst}].
+tyrant/LN | safety_safe_told | Yes, as I have told you, and I hold to it.[ If I must name a danger, it is still {worst}.]
+tyrant/LN | about_place_told | You have had from me all that I know of it: {about}.[ Should you call on {who}, address them correctly.]
+tyrant/LN | about_place_told | It is as I told you, and I add nothing to the record: {about}.[ If you want work, {work}.]
+# ---- tyrant/NN ----
+tyrant/NN | surroundings_told | Nothing's moved since I told you.[ The nearest is {nearest}.][ Leave the {danger} alone.]
+tyrant/NN | surroundings_told | You've heard it from me already; I'll not dress it up[: you're in {here}].[ Mind the {danger}.]
+tyrant/NN | safety_unsafe_told | Far from it, as I told you, and it still holds.[ Keep away from {worst}; it's not worth the risk.][ Watch for the {danger}.]
+tyrant/NN | safety_wary_told | More or less, same as I told you[; mind {worst}, and you'll likely be fine].
+tyrant/NN | safety_safe_told | Quiet enough, and I've said as much before.[ The only thing worth minding is still {worst}.]
+tyrant/NN | about_place_told | You've had all I know of it, and all I need to: {about}.[ Mind the {around}.]
+tyrant/NN | about_place_told | It's what I told you, and that's the size of it: {about}.[ {work}; that still needs doing.]
+# ---- tyrant/LE ----
+tyrant/LE | surroundings_told | I shall repeat myself, since you ask; nothing has altered.[ The nearest is {nearest}.][ The {danger} I still leave to your judgement.]
+tyrant/LE | surroundings_told | You have my answer already, and it is unchanged[: this is {here}].[ The {danger} are no concern of mine.]
+tyrant/LE | safety_unsafe_told | No, as I have already told you.[ Keep clear of {worst}.][ There are {danger}, and I still do not recommend them.]
+tyrant/LE | safety_wary_told | Mostly, as I told you before[; you would be ill advised to go near {worst}].
+tyrant/LE | safety_safe_told | Safe enough; I have said so, and I say so again.[ Should you insist on danger, there is still {worst}.]
+tyrant/LE | about_place_told | I told you all I know of it, and it has not grown more interesting: {about}.[ Mind the {around}; I will not be sending anyone after you.]
+tyrant/LE | about_place_told | Only what I told you, since you insist: {about}.[ You will find {who} there, should you care to present yourself.]
+# ---- tyrant/NE ----
+tyrant/NE | surroundings_told | I told you already, and I'm not saying it all again.[ The nearest is {nearest}.][ The {danger} are still your problem, not mine.]
+tyrant/NE | surroundings_told | It's the same as I told you[: you're in {here}].[ Mind the {danger}; that's your affair.]
+tyrant/NE | safety_unsafe_told | Not safe, and I've told you so.[ Keep off {worst}.][ The {danger} won't care who you are.]
+tyrant/NE | safety_wary_told | More or less, as I told you[; stay clear of {worst}, and you'll live].
+tyrant/NE | safety_safe_told | Yes; you've had that answer from me before.[ Nothing worth minding, bar {worst}.]
+tyrant/NE | about_place_told | I've told you all I know of it; asking again gets you nothing more: {about}.[ Keep clear of the {around}.]
+tyrant/NE | about_place_told | What I told you still holds, whether it suits you or not: {about}.[ And {work}, take it or leave it.]

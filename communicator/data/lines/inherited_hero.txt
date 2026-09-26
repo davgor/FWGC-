@@ -336,3 +336,29 @@ inherited_hero/NN | forgiven_cold | Hmph. It's noted; that's as far as it goes.
 inherited_hero/NN | unwronged | What for? You've done me no wrong, so there's nothing to settle.
 inherited_hero/NN | about_place | Here it is, straight: {about}.[ You'll find {trades} there; what you want with them is your business.][ Ask for {who}, and deal fair.][ There are {around}; weigh the risk before you go.][ If it's work you want, {work}.]
 inherited_hero/NN | about_place | That's {about}, and I'll not dress it up.[ Keep your distance from the {around}; it's not worth the cost.][ It has {trades}, if that's any help.][ You'll find {who} there, if you've dealings with them.][ {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- inherited_hero/LE ----
+inherited_hero/LE | surroundings_told | What I told you stands, and I do not amend it[: the nearest is {nearest}].[ The {danger} remain your affair, not mine.]
+inherited_hero/LE | surroundings_told | You have heard this from me already[, and I will give it again in brief: you stand in {here}].[ Nothing lies nearer than {nearest}.][ Keep clear of the {danger}.]
+inherited_hero/LE | safety_unsafe_told | No, and my answer is the one I gave you.[ I would still send no one of value to {worst}.][ The {danger} answer to no one.]
+inherited_hero/LE | safety_wary_told | Mostly, as I told you, and the terms are unchanged.[ Stay out of {worst}.]
+inherited_hero/LE | safety_safe_told | Yes, as I have said, and I stand by it.[ The exception is still {worst}.]
+inherited_hero/LE | about_place_told | You have had all I know of it from me: {about}.[ Anyone of sense would still keep clear of the {around}.]
+inherited_hero/LE | about_place_told | It is {about}, as I said, and I will not pad it with hearsay.[ The work there is as I told it: {work}.]
+# ---- inherited_hero/NG ----
+inherited_hero/NG | surroundings_told | It's as I told you[, and it's no trouble to say it again: the nearest is {nearest}].[ Mind the {danger}, and keep anyone with you close.]
+inherited_hero/NG | surroundings_told | Nothing's changed since I told you[: you're in {here}].[ The closest is still {nearest}.][ Keep well away from the {danger}, will you?]
+inherited_hero/NG | safety_unsafe_told | Not safe, as I told you, and I'm sorry it's still so.[ Keep away from {worst}.][ The {danger} too, please.]
+inherited_hero/NG | safety_wary_told | More or less, as I said before; take care and you'll be all right.[ The one place I'd not go near is {worst}.]
+inherited_hero/NG | safety_safe_told | Yes, it's still safe, just as I said; you can rest easy.[ The only thing worth a worry is {worst}.]
+inherited_hero/NG | about_place_told | I've told you all I know of {about}, and I'm sorry it isn't more.[ Take care near the {around}.]
+inherited_hero/NG | about_place_told | Ah, {about}; I told you as much.[ You'll find {who} there.]
+# ---- inherited_hero/NN ----
+inherited_hero/NN | surroundings_told | It's what I told you, straight[: the nearest is {nearest}].[ The {danger} aren't worth the risk.]
+inherited_hero/NN | surroundings_told | You've had this from me[, so I'll keep it short: you're in {here}].[ The nearest is {nearest}.][ Mind the {danger}, and count the cost.]
+inherited_hero/NN | safety_unsafe_told | No, and it's the same answer as before.[ I still wouldn't risk {worst}.][ There are {danger}, too.]
+inherited_hero/NN | safety_wary_told | Mostly, as I told you; my count hasn't changed.[ Stay off {worst}, and you'll do.]
+inherited_hero/NN | safety_safe_told | It's safe, as I said, and I've no reason to dress it up.[ Keep off {worst}, and it costs you nothing.]
+inherited_hero/NN | about_place_told | That's all I've got on {about}, and you've heard it.[ Mind the {around}; that's still the risk.]
+inherited_hero/NN | about_place_told | It's {about}, like I told you, and I don't trade in guesses.[ The work's still on offer: {work}.]

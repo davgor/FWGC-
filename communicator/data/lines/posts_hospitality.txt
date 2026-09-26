@@ -930,3 +930,77 @@ post:assistant | forgiven_cold | Maybe; I'd rather wait and see, if it's all the
 post:assistant | unwronged | What for? I'm usually the one saying sorry.
 post:assistant | about_place | Wait, I know this one: {about}.[ There's {trades} there.][ You'll find {who} there, I believe.][ I'd stay clear of the {around}, myself.][ If it's work you want, {work}.]
 post:assistant | about_place | If I've heard right, it's {about}.[ It has {trades}.][ Ask there for {who}.][ There are {around}, which frightens me.][ {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- post:baker ----
+post:baker | surroundings_told | It's as I told you; nothing out there has risen or fallen since.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:baker | surroundings_told | You've had it from me already, and it's not gone stale.[ The closest is {nearest}.][ Keep clear of the {danger}.]
+post:baker | safety_unsafe_told | No, and it's no safer than when I told you.[ Stay off {worst}.][ There are {danger}, too.]
+post:baker | safety_wary_told | More or less, as I said before.[ I'd still steer round {worst}.]
+post:baker | safety_safe_told | Aye, safe, as I told you.[ The only place I'd fret over is {worst}.]
+post:baker | about_place_told | You've had every crumb I know of it: {about}.
+post:baker | about_place_told | I'll give it you again, but it's no more than I told you: {about}.[ Mind the {around}, if you go.]
+# ---- post:cook ----
+post:cook | surroundings_told | I told you already; nothing's changed out there, only what's in my pots.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:cook | surroundings_told | It's the same as I said, and I've no time to dress it up.[ The nearest thing to us is {nearest}.][ Watch for {danger}.]
+post:cook | safety_unsafe_told | No, and I've told you why already.[ Keep off {worst}.][ There are {danger} too.]
+post:cook | safety_wary_told | Mostly, like I told you.[ Just don't go near {worst}.]
+post:cook | safety_safe_told | Yes, safe; I said as much, and it still is.[ The one place I'd not send you is {worst}.]
+post:cook | about_place_told | I've a pot on, and you've had all I know of it: {about}.
+post:cook | about_place_told | Nothing more than I told you, so here it is, quick: {about}.[ Ask for {who}; don't ask me.]
+# ---- post:miller ----
+post:miller | surroundings_told | I told you, and I'll tell you again, slow as ever.[ The nearest is {nearest}.][ Beware the {danger}.]
+post:miller | surroundings_told | Still as I told you; I've ground it over, and it comes out the same.[ The closest is {nearest}.][ Watch for {danger}.]
+post:miller | safety_unsafe_told | No, as I told you, and turning it over again won't change it.[ Keep away from {worst}.][ There are {danger}, too.]
+post:miller | safety_wary_told | More or less, as I said; take it slow.[ Give {worst} a wide berth.]
+post:miller | safety_safe_told | Aye, safe, the same as I said.[ If I fretted over anything, it'd still be {worst}.]
+post:miller | about_place_told | That's all the meal I can make of it, and you've had it: {about}.
+post:miller | about_place_told | Only what I told you; I'll say it slow: {about}.[ There are {around}.]
+# ---- post:brewer ----
+post:brewer | surroundings_told | Nothing's changed since I told you; it's the same brew.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:brewer | surroundings_told | I told you before, and it's kept like a good cask.[ The closest is {nearest}.][ Watch for {danger}.]
+post:brewer | safety_unsafe_told | Not here, no; it's not mellowed any since I told you.[ Keep off {worst}.][ There are {danger}.]
+post:brewer | safety_wary_told | Mostly, as I told you; keep a sober head.[ Give {worst} a wide berth.][ Watch the {danger}.]
+post:brewer | safety_safe_told | Yes, safe, like I said, and I'd still drink to that.[ The worst I've heard tell of is {worst}.]
+post:brewer | about_place_told | You've had all I've tasted of it: {about}.
+post:brewer | about_place_told | It's what I told you, drawn from the same cask: {about}.[ Ask there for {who}.][ Mind the {around}, and keep your head clear.]
+# ---- post:bartender ----
+post:bartender | surroundings_told | I told you already, and I'll forget I said it again.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:bartender | surroundings_told | Keep it low; it's the same as I told you.[ Outside, the nearest is still {nearest}.][ Watch for {danger}.]
+post:bartender | safety_unsafe_told | No; I told you, and I don't say it louder.[ Stay well away from {worst}.][ There are {danger} as well.]
+post:bartender | safety_wary_told | Mostly, as I said.[ Keep off {worst}.]
+post:bartender | safety_safe_told | It's safe, as I told you; I'd have heard if not.[ The worst I'd name is {worst}.]
+post:bartender | about_place_told | You've had all I know of it, and you didn't hear it from me: {about}.
+post:bartender | about_place_told | No more than I told you, and keep it between us: {about}.[ Ask for {who}, quietly.]
+# ---- post:host ----
+post:host | surroundings_told | I'm glad to tell you again; it's just as I said.[ The nearest is {nearest}.][ Do mind the {danger}.]
+post:host | surroundings_told | Nothing has changed since we last spoke of it, I assure you.[ The closest is {nearest}.][ I'd warn any guest of the {danger}.]
+post:host | safety_unsafe_told | Not safe, I'm afraid, and I'll warn you as I did before.[ Please keep away from {worst}.][ There are {danger} besides.]
+post:host | safety_wary_told | Safe enough, with care; my advice is as I gave it.[ I would still avoid {worst}.]
+post:host | safety_safe_told | Yes, quite safe, as I was pleased to tell you.[ If you must worry, worry about {worst}.]
+post:host | about_place_told | I've told you all I know of it, and here it is again: {about}.
+post:host | about_place_told | Only what guests have told me, and you've had all of it: {about}.[ I would ask there for {who}.][ Please keep clear of the {around}.]
+# ---- post:service_worker ----
+post:service_worker | surroundings_told | I've said this between trays already, and nothing's changed.[ The nearest is {nearest}.][ Look out for {danger}.]
+post:service_worker | surroundings_told | Right, again, quickly: it's as I said.[ The closest is {nearest}.][ Watch for {danger}.]
+post:service_worker | safety_unsafe_told | Not safe, no, same as I told you.[ Whatever you do, keep off {worst}.][ There are {danger}, too.]
+post:service_worker | safety_wary_told | Safe enough, if you're careful; I did say.[ The place to avoid is {worst}.]
+post:service_worker | safety_safe_told | Quiet enough out there, as I told you; it's in here that isn't.[ The only trouble I hear of is at {worst}.]
+post:service_worker | about_place_told | What I know of it, you've had already: {about}.
+post:service_worker | about_place_told | Just what I told you, in passing: {about}.[ Ask there for {who}.][ Look out for the {around}.]
+# ---- post:bath_attendant ----
+post:bath_attendant | surroundings_told | None of it's washed off since I told you.[ The nearest is {nearest}.][ Keep well off the {danger}.]
+post:bath_attendant | surroundings_told | You heard it from me already, steam and all.[ The closest is {nearest}.][ Beware the {danger}.]
+post:bath_attendant | safety_unsafe_told | Not safe, no; I've told you where the dirt is.[ Give {worst} a wide berth.][ There are {danger} as well.]
+post:bath_attendant | safety_wary_told | More or less, as I told you.[ The one to avoid is still {worst}.]
+post:bath_attendant | safety_safe_told | Aye, safe, as I said; you'll come back needing nothing worse than a scrub.[ The worst I've heard of is {worst}.]
+post:bath_attendant | about_place_told | I've wrung out all I know of it for you already: {about}.
+post:bath_attendant | about_place_told | Only what I told you, and it's all from over the tubs: {about}.[ Mind the {around}.]
+# ---- post:assistant ----
+post:assistant | surroundings_told | I told you before, I think, and it's still the same.[ The nearest is {nearest}.][ Mind the {danger}.]
+post:assistant | surroundings_told | Oh, I've told you this one, and I'm sure it's still right.[ The closest is {nearest}.][ Watch for {danger}.]
+post:assistant | safety_unsafe_told | No, I don't think so, same as I said before.[ I'd stay away from {worst}.][ There are {danger}, too.]
+post:assistant | safety_wary_told | Mostly, I think, like I told you.[ If it were me, I'd keep clear of {worst}.]
+post:assistant | safety_safe_told | Yes, I think so, like I said; I've not heard any different.[ The only place I've heard warnings about is {worst}.]
+post:assistant | about_place_told | You've had everything I know of it, I promise: {about}.
+post:assistant | about_place_told | Only what I told you, and I hope I had it right: {about}.[ Mind the {around}, please.]

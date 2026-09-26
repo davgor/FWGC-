@@ -553,3 +553,45 @@ forgiving/LG | forgiven_cold | It's a start. The pardon stands; my trust will ta
 forgiving/LG | unwronged | There's nothing to forgive, I assure you; set your mind at rest.
 forgiving/LG | about_place | Certainly; it is {about}.[ You will find {trades} there.][ You may ask there for {who}, and I hope they receive you kindly.][ Keep your distance from the {around}, if you would.][ If you are seeking work, {work}.]
 forgiving/LG | about_place | I know it well enough; it is {about}.[ There is {trades} at it.][ You will find {who} there.][ I hope you will steer clear of the {around}.][ Should you want work, {work}.]
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----
+# ---- forgiving/NN ----
+forgiving/NN | surroundings_told | I told you this already, and I don't forget what I've said.[ You're in {here}.][ The nearest is {nearest}.]
+forgiving/NN | surroundings_told | It's as I told you, and still worth what it was.[ The nearest is {nearest}.][ The {danger} are a poor bargain, whatever you're after.]
+forgiving/NN | safety_unsafe_told | No, and it's no different from what I told you.[ Keep clear of {worst}.][ The {danger} would cost you more than you'd gain.]
+forgiving/NN | safety_wary_told | Safe enough, as I told you, and I've not changed my reckoning.[ Stay clear of {worst}.]
+forgiving/NN | safety_safe_told | Aye, as I told you; my word on it hasn't moved.[ The one risk I'd weigh is still {worst}.]
+forgiving/NN | about_place_told | You've had everything I know of it: {about}.[ Ask there for {who}, and see what they're worth to you.]
+forgiving/NN | about_place_told | It's {about}; that's the whole of what I know, and you've had it from me before.[ As for the {around}, give them room.]
+# ---- forgiving/NG ----
+forgiving/NG | surroundings_told | Of course; it's just as I told you.[ The nearest is {nearest}.][ And do keep clear of the {danger}, won't you?]
+forgiving/NG | surroundings_told | Nothing's changed since I told you, and I don't mind you asking at all.[ You're in {here}.][ The closest is {nearest}.]
+forgiving/NG | safety_unsafe_told | Not safe, I'm sorry to say; it's still as I told you.[ Please don't go near {worst}.][ I'd hate to see you near the {danger}.]
+forgiving/NG | safety_wary_told | Mostly, as I told you, and I'd still ask you to take care.[ Stay clear of {worst}.]
+forgiving/NG | safety_safe_told | Nothing to fear, as I told you, and it does my heart good to say it.[ I'd still steer around {worst}, if I were you.]
+forgiving/NG | about_place_told | I told you all I know of it, and you're welcome to it again: {about}.
+forgiving/NG | about_place_told | It's {about}, as I told you; I wish I knew more to give you.[ You'll find {who} there, if you look.]
+# ---- forgiving/LN ----
+forgiving/LN | surroundings_told | It stands as I told you, and nothing has been added to the record.[ This is {here}.][ The nearest is {nearest}.]
+forgiving/LN | surroundings_told | In brief, it is as I told you before.[ The nearest is {nearest}.][ The {danger} are best avoided.]
+forgiving/LN | safety_unsafe_told | Far from it; my finding is as I gave it.[ Keep clear of {worst}.][ The {danger} would settle the matter by themselves.]
+forgiving/LN | safety_wary_told | Keep your wits about you; it is as I told you, and the terms have not changed.[ Stay clear of {worst}.][ Take care near the {danger}.]
+forgiving/LN | safety_safe_told | It's safe, as I have told you, and my word on it stands.[ The gravest risk I can name remains {worst}.]
+forgiving/LN | about_place_told | What I know of it, I have told you, and no more: {about}. I will not add to the record what I cannot vouch for.
+forgiving/LN | about_place_told | It is {about}, as I stated, and I know nothing further.[ As I said, {who} may be sought there.]
+# ---- forgiving/CN ----
+forgiving/CN | surroundings_told | Ha, I told you this one, and it's all still there.[ The nearest is {nearest}.][ And the {danger}, which, no.]
+forgiving/CN | surroundings_told | Oh, go on, then; it's what I told you.[ You're in {here}, still.][ The nearest is {nearest}.]
+forgiving/CN | safety_unsafe_told | Not here, ha, no; that's what I told you, and it's still true.[ Keep well off {worst}.][ The {danger}; no, no.]
+forgiving/CN | safety_wary_told | More or less, same as I told you; you'll live.[ Keep clear of {worst}, though.]
+forgiving/CN | safety_safe_told | Quiet enough, like I told you; nothing's come along to spoil it.[ Well, apart from {worst}.]
+forgiving/CN | about_place_told | Oh, {about}; you've had all I know of it, which isn't much.[ You'll find {who} there; be nice.]
+forgiving/CN | about_place_told | You've heard everything I know of it already, ha: {about}.[ The {around}; I'd give those a miss, trust me.]
+# ---- forgiving/LG ----
+forgiving/LG | surroundings_told | Certainly, and willingly; it is as I told you.[ The nearest is {nearest}.][ Please, stay clear of the {danger}.]
+forgiving/LG | surroundings_told | You are welcome to ask; it is just as I told you.[ We are in {here}.][ The nearest is {nearest}.]
+forgiving/LG | safety_unsafe_told | I wouldn't say so; it grieves me, but it is still as I told you.[ Keep well clear of {worst}, I beg you.][ I would not have you near the {danger}.]
+forgiving/LG | safety_wary_told | Careful; it is as I told you, and I think you will be well.[ Only keep clear of {worst}, if you would.]
+forgiving/LG | safety_safe_told | Yes, as I told you, and I am thankful for it.[ If anything, I would steer clear of {worst}.]
+forgiving/LG | about_place_told | I have told you all I know of it, and gladly: {about}.
+forgiving/LG | about_place_told | I am sorry to have no more for you than I told you: {about}.[ Should you go, you will find {who} there.]
