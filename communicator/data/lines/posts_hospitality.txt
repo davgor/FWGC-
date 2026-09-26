@@ -702,3 +702,166 @@ post:bath_attendant | parted | Take care, and don't undo all my scrubbing on the
 post:bath_attendant | small_talk | My hands are wrinkled to the wrist, so it's been a busy one.[ As the old ones had it, {saying}.]
 post:assistant | parted | Safe travels, and good luck with whatever you're after[; as we say, {saying}].
 post:assistant | small_talk | Everyone wants something fetched, and it's always me they ask.[ As they told me when I was small, {saying}.]
+# ---- depth ----
+post:baker | greeted_again | Good day; you know where the bench is, and where the flour isn't.
+post:baker | greeted_again | Well met again; you were in {since}, and the oven's not gone cold since.
+post:baker | greeted_again | Good to see you; I'll keep kneading, if it's all the same.[ Did you get anywhere with {asked}?]
+post:baker | greeted_warm | Welcome back; there's always a warm corner by the oven for you.[ How did you fare with {asked}?]
+post:baker | greeted_warm | Hello again; I'd know that face anywhere, flour in my eyes or not.
+post:baker | small_talk | Well enough; the arms ache and the back grumbles, but the loaves come out right.
+post:baker | small_talk | Every loaf here has been through these hands, and I'd know any one of them.
+post:baker | small_talk | You can't hurry dough, and I've long since stopped trying.
+post:baker | small_talk_fair | Nothing but clear sky, and the smoke goes straight up the chimney.
+post:baker | small_talk_wet | Listen to it on the shutters; the loaves won't mind, but my knees do.
+post:baker | small_talk_storm | Hear that wind; it has the oven drawing like a bellows.
+post:baker | parted | Farewell; I'll have the next batch in before you're down the road.
+post:baker | parted | Go well; there'll be bread, whenever you're passing.
+post:baker | parted_cold | Go, then, and leave me to my work.
+post:baker | parted_cold | Off with you; there's nothing for you at this bench.
+post:baker | thanked | Think nothing of it; it cost me less than a pinch of salt.
+post:baker | thanked | Glad to; I've more kind words than loaves, and they keep better.
+post:baker | acknowledged | Fair enough; I asked, you answered, and the dough never stopped rising.
+post:cook | greeted_again | Good day; you know the way round the pots by now.
+post:cook | greeted_again | Well met again; it was {since}, wasn't it, or has the smoke got to me?
+post:cook | greeted_again | Good to see you; I've a pot on, but I've an ear free.[ Did you ever track down {asked}?]
+post:cook | greeted_warm | Welcome back; you're about the only one I'll let near the fire.[ Get anywhere with {asked}?]
+post:cook | greeted_warm | Back again, and good; I'd not say that to most who wander into my kitchen.
+post:cook | small_talk | I'm singed at the edges and short of sleep, which is to say well.
+post:cook | small_talk | From the first fire to the last pot, I don't sit down.
+post:cook | small_talk | Half of cooking is shouting, and I'm good at both halves.
+post:cook | small_talk_fair | The herbs on the sill will dry nicely under a sky like this.
+post:cook | small_talk_wet | There's rain dripping down the flue and hissing in the fire.
+post:cook | small_talk_storm | The whole kitchen shakes in this gale, and the pots just keep on simmering.
+post:cook | parted | Farewell; the pots won't wait on goodbyes.
+post:cook | parted | Safe travels; you'll find me up to my elbows in something, as ever.
+post:cook | parted_cold | Get going; there's no room in here for idle feet.
+post:cook | parted_cold | On your way, and don't touch anything on the way out.
+post:cook | thanked | No need; I've heard it, now let me cook.
+post:cook | thanked | You're welcome; it took less time than a sauce takes to catch.
+post:cook | acknowledged | Right; that's answered, and back to the stove with me.
+post:miller | greeted_again | Good day; I'll hear you out, however long it takes.
+post:miller | greeted_again | Well met again; the stone's gone round a fair few times since I saw you {since}.
+post:miller | greeted_again | Good to see you; I'll keep turning while we talk, if you don't mind.[ How are you getting on with {asked}?]
+post:miller | greeted_warm | Welcome back; the stone turns sweeter with you sat by it.[ Did you get what you wanted from {asked}?]
+post:miller | greeted_warm | Hello again; the company's welcome, and yours most of all.
+post:miller | small_talk | Oh, I'm fine; my shoulders creak, but they keep turning.
+post:miller | small_talk | Since first light I've been at the handle, and I'll be at it till the light goes.
+post:miller | small_talk | It only wants a good stone, a steady arm and all the time in the world.
+post:miller | small_talk_fair | I can hear the birds over the grinding; it's that clear and still.
+post:miller | small_talk_wet | Hear the rain on the roof? The handle turns in time with it.
+post:miller | small_talk_storm | Listen to it blow; the door shakes, and the dust dances with it.
+post:miller | parted | Safe travels; don't let the dust follow you home.
+post:miller | parted | Goodbye, then; mind the step, it's slick with meal.
+post:miller | parted_cold | Be on your way; I've heard enough.
+post:miller | parted_cold | Go, then; I'll not stop the stone for you.
+post:miller | thanked | Think nothing of it; slow help is still help.
+post:miller | thanked | My pleasure; I'd not rush a kindness any more than a grind.
+post:miller | acknowledged | Right; that's in the hopper now.
+post:brewer | greeted_again | Good day; the vats can spare me a while, so let's hear it.
+post:brewer | greeted_again | Well met again; you were last in {since}, if I'm counting brews right.
+post:brewer | greeted_again | Good to see you; you're steadier on your feet than most who come by.[ Any clearer on {asked}?]
+post:brewer | greeted_warm | Welcome back, and sit where it's warm by the mash tun.[ Did you get your answer about {asked}?]
+post:brewer | greeted_warm | Back again, and a pleasure it is; the vats aren't much for talk.
+post:brewer | small_talk | I'm well, and patient, which in my trade is the same thing.
+post:brewer | small_talk | I've skimmed, stirred and sniffed at every vat twice over.
+post:brewer | small_talk | Keep the casks clean and trust your nose; the rest is waiting.
+post:brewer | small_talk_fair | The sky's clear, so the casks are out in the yard, airing.
+post:brewer | small_talk_wet | Out in the fields the barley's drinking this rain in, and I'll be glad of it later.
+post:brewer | small_talk_storm | In this gale the vat lids rattle like teeth.
+post:brewer | parted | Goodbye; you'll carry the smell of the mash a while, I'm afraid.
+post:brewer | parted | Take care, and keep your head clearer than my ale.
+post:brewer | parted_cold | On your way; I've nothing on tap for you.
+post:brewer | parted_cold | Be on your way; we're done.
+post:brewer | thanked | No need; save it for a brew that deserves it.
+post:brewer | thanked | Glad to; it's no more than a sip of my time.
+post:brewer | acknowledged | I see. That's settled, then, like the dregs in a cask.
+post:bartender | greeted_again | Good day; lean on the bar, it's held up worse than you.
+post:bartender | greeted_again | Well met again; {since}, I'd guess, not that I keep count.
+post:bartender | greeted_again | Good to see you, quietly.[ Find out what you wanted about {asked}?]
+post:bartender | greeted_warm | Welcome back; you'll get the good stool, not that I'd say so to anyone.[ Did you hear what you needed about {asked}?]
+post:bartender | greeted_warm | Back again; I don't smile at many, so count yourself lucky.
+post:bartender | small_talk | I'm fine; I'm always fine, as far as anyone knows.
+post:bartender | small_talk | Between the pouring and the wiping, the day goes quick enough.
+post:bartender | small_talk | The trick is a clean cup and a short memory.
+post:bartender | small_talk_fair | The shutters are open to the fine weather for once, and the room's the better for it.
+post:bartender | small_talk_wet | There's rain coming in under the door again, as there always is.
+post:bartender | small_talk_storm | That gale's rattling every cup on the shelf.
+post:bartender | parted | Farewell; go quietly, and you'll go far.
+post:bartender | parted | Safe travels; the bar's here when you want it.
+post:bartender | parted_cold | Off with you; the door's that way.
+post:bartender | parted_cold | On your way; you'll get nothing more from me.
+post:bartender | thanked | Think nothing of it; I already have.
+post:bartender | thanked | My pleasure, and that's the last I'll say of it.
+post:bartender | acknowledged | Fair enough; that stays behind the bar.
+post:host | greeted_again | Back again; I trust all has been well with you.
+post:host | greeted_again | Well met again; you'll find the house as you left it {since}.
+post:host | greeted_again | Good to see you; do come in.[ I hope you found what you were seeking about {asked}.]
+post:host | greeted_warm | Welcome back; your company does this house credit.[ Tell me, how did you find {asked}?]
+post:host | greeted_warm | Good day, and a glad one; you are always welcome at this table.
+post:host | small_talk | I'm very well, thank you; a house in good order keeps its keeper well.
+post:host | small_talk | My days go to linen and lamps and seeing that no one wants for anything.
+post:host | small_talk | Anyone can make a bed; a welcome takes more care, and I see to it myself.
+post:host | small_talk_fair | The sky is clear, so the rooms are aired and the fires can rest.
+post:host | small_talk_wet | The rain has set in; do hang your cloak by the door.
+post:host | small_talk_storm | Let it rage; the shutters are barred and the fires are high.
+post:host | parted | Goodbye, and thank you for your company.
+post:host | parted | Take care, and may the road treat you as kindly as we try to.
+post:host | parted_cold | Be on your way; I have nothing further to say to you.
+post:host | parted_cold | Go, then; the door is behind you.
+post:host | thanked | Think nothing of it; it is the least a house owes its guests.
+post:host | thanked | Glad to; it is always a pleasure to be of use.
+post:host | acknowledged | Good; I'm obliged to you for answering.
+post:service_worker | greeted_again | Welcome back; walk with me, I've plates to clear.
+post:service_worker | greeted_again | Well met again; I've not sat down since I saw you {since}.
+post:service_worker | greeted_again | Good to see you; I'll listen while I stack.[ Any further on with {asked}?]
+post:service_worker | greeted_warm | Hello again, and a proper hello; you're the easiest part of my day.[ Any news of {asked}?]
+post:service_worker | greeted_warm | Back again; you're the one table I don't mind waiting on.
+post:service_worker | small_talk | Everything aches, and I've stopped counting where.
+post:service_worker | small_talk | I've stripped beds, cleared tables and swept floors, and now I'll do them all again.
+post:service_worker | small_talk | Nobody notices a clean table, only a dirty one.
+post:service_worker | small_talk_fair | They're all coming in with dust on their boots instead of mud; that's fair weather for you.
+post:service_worker | small_talk_wet | In rain like this they sit longer, and I stand longer.
+post:service_worker | small_talk_storm | Every door in the place is banging in this wind, and I've given up chasing them.
+post:service_worker | parted | Farewell, and leave the chair where you found it.
+post:service_worker | parted | Safe travels; somebody's got to go somewhere, and it's never me.
+post:service_worker | parted_cold | Off with you, and don't expect me to see you out.
+post:service_worker | parted_cold | On your way, and mind my clean floor.
+post:service_worker | thanked | Glad to; it's what I'm here for, apparently.
+post:service_worker | thanked | My pleasure, or near enough.
+post:service_worker | acknowledged | Ah, right; that'll do, and I'd best get on.
+post:bath_attendant | greeted_again | Good day. There's a dry towel on the peg, if you want one.
+post:bath_attendant | greeted_again | Well met again; you last came by the tubs {since}.
+post:bath_attendant | greeted_again | Good to see you; I'll not ask what you've been wading through.[ Did you find what you were after with {asked}?]
+post:bath_attendant | greeted_warm | Welcome back; I'll keep the hottest tub for you.[ How did you get on with {asked}?]
+post:bath_attendant | greeted_warm | Hello again; the water's always a little warmer when you're in.
+post:bath_attendant | small_talk | I'm as well as anyone who lives in steam can be.
+post:bath_attendant | small_talk | Under the coppers the fire never goes out, so neither do I.
+post:bath_attendant | small_talk | The linen never ends; I think it breeds in the basket.
+post:bath_attendant | small_talk_fair | On a fine one like this, I prop the door and let the steam out.
+post:bath_attendant | small_talk_wet | Between the rain on the roof and the steam on the walls, I can't tell which is dripping on me.
+post:bath_attendant | small_talk_storm | In a storm they all come in soaked and want the water hotter.
+post:bath_attendant | parted | Go well, and stay clean as long as you can.
+post:bath_attendant | parted | Goodbye, and try not to roll in anything.
+post:bath_attendant | parted_cold | Get going, and take your dirt with you.
+post:bath_attendant | parted_cold | Be on your way; I'm done with you.
+post:bath_attendant | thanked | No need; I'm glad to be dry for a moment and talking.
+post:bath_attendant | thanked | Glad to; a clean back and a kind word, that's a fair trade.
+post:bath_attendant | acknowledged | Fair enough; I'll wring nothing more out of you.
+post:assistant | greeted_again | Welcome back; they're all busy, so you've got me.
+post:assistant | greeted_again | Well met again. It was {since} you were last in, if I'm not muddled.
+post:assistant | greeted_again | Good to see you; I'll just set the broom down.[ Were you still looking into {asked}?]
+post:assistant | greeted_warm | Hello again, and oh, I'm glad it's you.[ Was {asked} any help to you?]
+post:assistant | greeted_warm | Back again, and I'm pleased, honestly; you make the day easier.
+post:assistant | small_talk | All right, I think; nobody's shouted at me yet.
+post:assistant | small_talk | I sweep, I carry, and then I sweep again; I think the floor gets dirty on purpose.
+post:assistant | small_talk | Most of this work is learning where things go, and then someone moves them.
+post:assistant | small_talk_fair | When it's clear like this, they send me on the long errands.
+post:assistant | small_talk_wet | They all track the rain in, and I've only just swept.
+post:assistant | small_talk_storm | The shutters keep banging in this wind, and I jump every time; I can't help it.
+post:assistant | parted | Farewell, and come back soon, if you like.
+post:assistant | parted | Go well; if you need anything fetched, you know who to ask.
+post:assistant | parted_cold | Go, then; please just go.
+post:assistant | parted_cold | On your way, and leave me be.
+post:assistant | thanked | No need, really; it was nothing.
+post:assistant | thanked | Don't mention it, or they'll think I've been idle.
+post:assistant | acknowledged | Good, thank you; that's all I wanted to ask.

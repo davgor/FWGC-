@@ -780,3 +780,184 @@ post:watch_officer | parted | Safe travels, and let someone else's watch have th
 post:watch_officer | small_talk | Too much on my desk and too few hands to share it with; the usual.[ As the saying goes, {saying}.]
 post:postern_guard | parted | Farewell, and softly on your way[; as we say, {saying}].
 post:postern_guard | small_talk | Nobody comes round this side much, and that suits the door and me.[ As the old ones had it, {saying}.]
+# ---- depth ----
+post:watch_guard | greeted_again | Good day. I had you on my rounds {since}, and here you are again.
+post:watch_guard | greeted_again | Welcome back; walk with me, the round won't finish itself.
+post:watch_guard | greeted_again | Good to see you.[ Turn up anything on {asked}?]
+post:watch_guard | greeted_warm | Hello again; it's a relief to see a friendly face out here.[ How'd you do with {asked}?]
+post:watch_guard | greeted_warm | Back again, and I'm glad of it; most faces I know, I know for the wrong reasons.
+post:watch_guard | small_talk | My feet hurt and my back aches, so I'm as well as I ever am.
+post:watch_guard | small_talk | Every door on my round tried twice, and every alley looked down.
+post:watch_guard | small_talk | Come {season}, the drunks just change which doorways they sleep in.
+post:watch_guard | small_talk_fair | A clear sky, and everybody out in it, so I'll be busy.
+post:watch_guard | small_talk_wet | All this rain, and a round still to walk; my collar's full of it.
+post:watch_guard | small_talk_storm | Hear the signs bang in that wind; I'll walk under none of them.
+post:watch_guard | parted | Safe travels, and keep out of dark alleys.
+post:watch_guard | parted | Goodbye; I'll see you on my round, no doubt.
+post:watch_guard | parted_cold | On your way, and keep out of trouble.
+post:watch_guard | parted_cold | Get going; I've got my eye on you.
+post:watch_guard | thanked | You're welcome; I'd sooner help than haul someone in.
+post:watch_guard | thanked | Glad to; it breaks up the round.
+post:watch_guard | acknowledged | Aye. That'll do for me.
+post:gate_guard | greeted_again | Well met again. You came through {since}; I had you marked.
+post:gate_guard | greeted_again | Welcome back to the gate; step to the side, you know the drill.
+post:gate_guard | greeted_again | Good to see you.[ Did you find your way to {asked}?]
+post:gate_guard | greeted_warm | Hello again; no need to state your business with me.[ Get what you wanted from {asked}?]
+post:gate_guard | greeted_warm | Welcome back; you're one face I don't need to ask twice.
+post:gate_guard | small_talk | I'm stiff from standing, but I'll live.
+post:gate_guard | small_talk | My whole day is two directions and more faces than I can name.
+post:gate_guard | small_talk | You can tell it's {season} by what's piled on the carts; the questions stay the same.
+post:gate_guard | small_talk_fair | Not a cloud, and the carts come through with nothing worse than dust on them.
+post:gate_guard | small_talk_wet | Everyone wants to wait out the rain under my arch, and I can't blame them.
+post:gate_guard | small_talk_storm | What a gale; I'm leaning into it just to stay at my post.
+post:gate_guard | parted | Go well; the gate's here when you want back in.
+post:gate_guard | parted | Goodbye; I'll wave you through quicker next time.
+post:gate_guard | parted_cold | On your way, and quickly.
+post:gate_guard | parted_cold | Be on your way; the gate's for moving through, not lingering.
+post:gate_guard | thanked | Think nothing of it; I answer questions all day.
+post:gate_guard | thanked | Don't mention it; mind the ruts on your way out.
+post:gate_guard | acknowledged | Aye. That answers it.
+post:soldier | greeted_again | Good day. You came by {since}; nothing's changed at muster but the date.
+post:soldier | greeted_again | Welcome back; I'd salute, but you're not in my orders.
+post:soldier | greeted_again | Good to see you.[ What's the report on {asked}, then?]
+post:soldier | greeted_warm | Hello again; at ease, you're among friends here.[ How went it with {asked}?]
+post:soldier | greeted_warm | Back again, and glad I am; you're better company than drill.
+post:soldier | small_talk | I'm sore all over and short on sleep, same as the rest of the line.
+post:soldier | small_talk | All I do is drill, stand a watch, eat, sleep, and start over.
+post:soldier | small_talk | They change our kit for {season} and leave the orders as they were.
+post:soldier | small_talk_fair | A clear sky, and they'll find a reason to march us somewhere under it.
+post:soldier | small_talk_wet | All this rain means rust, and rust means scrubbing.
+post:soldier | small_talk_storm | Hear that wind; you can't hold a line straight in it, however you try.
+post:soldier | parted | Farewell, and keep your boots dry.
+post:soldier | parted | Goodbye; I'll be here, unless they move us.
+post:soldier | parted_cold | On your way; I've nothing more to say to you.
+post:soldier | parted_cold | Get going, and don't loiter near the line.
+post:soldier | thanked | You're welcome; it's more thanks than I get from anyone above me.
+post:soldier | thanked | Glad to; it beats standing here saying nothing.
+post:soldier | acknowledged | I see. I'll pass that on, if anyone asks.
+post:tower_watch | greeted_again | Good day. It was {since} you were last under my tower; I keep count.
+post:tower_watch | greeted_again | Welcome back; I'd come down, but the stair's longer than the chat.
+post:tower_watch | greeted_again | Good to see you.[ Any closer to {asked}?]
+post:tower_watch | greeted_warm | Hello again; I hoped that speck on the road was you.[ What came of {asked}?]
+post:tower_watch | greeted_warm | Back again; you make the watch go quicker.
+post:tower_watch | small_talk | I'm well enough; stiff in the knees from that stair.
+post:tower_watch | small_talk | I count the hours by what moves on the road, and some hours nothing does.
+post:tower_watch | small_talk | The shadows fall differently for {season}, and I've learned them all.
+post:tower_watch | small_talk_fair | With a sky this clear, I can see further than I'd ever care to walk.
+post:tower_watch | small_talk_wet | Everything's grey and dripping, and me with it.
+post:tower_watch | small_talk_storm | The whole tower hums in this wind, and I feel it in my teeth.
+post:tower_watch | parted | Safe travels; wave, if you remember, and I'll wave back.
+post:tower_watch | parted | Farewell; it'll be quiet again, and I'll mind it more now.
+post:tower_watch | parted_cold | Go, then; I'll watch you all the way.
+post:tower_watch | parted_cold | Be on your way; I've a watch to keep.
+post:tower_watch | thanked | You're welcome; it's nice to be asked something besides the time.
+post:tower_watch | thanked | My pleasure; talk's scarce up here.
+post:tower_watch | acknowledged | Right. That's put away, then.
+post:garrison_trooper | greeted_again | Well met again. You were by {since}; tell me you've been somewhere more interesting since.
+post:garrison_trooper | greeted_again | Welcome back; you've the look of someone who's been outside these walls, lucky thing.
+post:garrison_trooper | greeted_again | Good to see you.[ Did {asked} give you any trouble worth hearing about?]
+post:garrison_trooper | greeted_warm | Hello again; you've saved me from another hour of staring at the wall.[ Well, what about {asked}?]
+post:garrison_trooper | greeted_warm | Back again, and my day's looking up already.
+post:garrison_trooper | small_talk | I'm going soft, is how I am; soft and stiff at once.
+post:garrison_trooper | small_talk | Every day's roll call, drill, dice and more roll call, in that order.
+post:garrison_trooper | small_talk | The only way I know it's {season} is the change in the stew.
+post:garrison_trooper | small_talk_fair | Not a cloud, and I'm in here looking at a square of it.
+post:garrison_trooper | small_talk_wet | The roof drips on my bunk in rain like this; I've named the drips.
+post:garrison_trooper | small_talk_storm | I'd go out and fight that storm myself, if they'd open the gate.
+post:garrison_trooper | parted | Goodbye; come back soon, I'll have nothing new to tell you.
+post:garrison_trooper | parted | Take care, and see something worth seeing for me.
+post:garrison_trooper | parted_cold | Off with you; I'd rather be bored alone.
+post:garrison_trooper | parted_cold | Go, then; I'll not miss you.
+post:garrison_trooper | thanked | You're welcome; it was the highlight of my day.
+post:garrison_trooper | thanked | Glad to; I'd talk to a fence post if it'd answer.
+post:garrison_trooper | acknowledged | Well. That'll keep me going till supper.
+post:keep_guard | greeted_again | Back again. It was {since} you last stood here; I marked it.
+post:keep_guard | greeted_again | Welcome back. Say your business, as before.
+post:keep_guard | greeted_again | Good to see you.[ What became of {asked}?]
+post:keep_guard | greeted_warm | Well met again; you are welcome at this door.[ Speak to me of {asked}.]
+post:keep_guard | greeted_warm | Hello again; this door has few friends, and you are one.
+post:keep_guard | small_talk | I am whole and awake, which is all a door asks of me.
+post:keep_guard | small_talk | Each hour I stand and listen, and each one passes as it should.
+post:keep_guard | small_talk | Through {season} and every other, the same stones at my back.
+post:keep_guard | small_talk_fair | The sky is clear, and I can see a long way from this door.
+post:keep_guard | small_talk_wet | All the gutters of the keep are running, and I stand beneath them.
+post:keep_guard | small_talk_storm | Hear it; the wind tries every shutter, and finds every one barred.
+post:keep_guard | parted | Goodbye; walk steady, and keep your word.
+post:keep_guard | parted | Take care, and stand firm, wherever you stand.
+post:keep_guard | parted_cold | Be on your way; I have nothing more for you.
+post:keep_guard | parted_cold | On your way, and keep your distance from the door.
+post:keep_guard | thanked | You're welcome; truth costs me nothing.
+post:keep_guard | thanked | Don't mention it; I did only what is right.
+post:keep_guard | acknowledged | Aye. I will keep it, as I keep the door.
+post:lookout | greeted_again | Good day! You were down there {since}; I remember the walk.
+post:lookout | greeted_again | Welcome back! I saw you coming before you saw me.
+post:lookout | greeted_again | Good to see you![ Did {asked} turn out to be worth the look?]
+post:lookout | greeted_warm | Hello again, you![ What did {asked} look like up close?]
+post:lookout | greeted_warm | Back again! You're my favourite face to spot on the road.
+post:lookout | small_talk | I'm grand, thanks; bright-eyed and full of beans.
+post:lookout | small_talk | Every cart, every crow, every door that opens; I keep a tally of the lot.
+post:lookout | small_talk | It's {season}, and I've watched it creep across the fields one day at a time.
+post:lookout | small_talk_fair | So clear, not a thing could hide from me in it.
+post:lookout | small_talk_wet | Every time I lean out, I get a faceful of rain, and I lean out a lot.
+post:lookout | small_talk_storm | Hold on to your hat; the wind up here would take it and you both.
+post:lookout | parted | Farewell; I'll be up here, keeping an eye out for you.
+post:lookout | parted | Take care, and don't stray where I can't see you.
+post:lookout | parted_cold | Off with you; I'll see where you go, mind.
+post:lookout | parted_cold | Get going; I've a wall to watch.
+post:lookout | thanked | You're welcome; it's nice to be useful on the ground for once.
+post:lookout | thanked | No need; seeing's no effort, not for me.
+post:lookout | acknowledged | Right! That's another thing I know now.
+post:jailer | greeted_again | Well met again. It was {since} I saw you last, and I still can't decide about you.
+post:jailer | greeted_again | Welcome back; the keys are where they always are, on me.
+post:jailer | greeted_again | Good to see you.[ Find anything out about {asked} I should know?]
+post:jailer | greeted_warm | Hello again, and I mean that kindly, for once.[ Any luck with {asked}?]
+post:jailer | greeted_warm | Back again; I'd almost say I've missed you, if I said such things.
+post:jailer | small_talk | I'm well, not that anyone in here asks.
+post:jailer | small_talk | Every lock rattled, every head counted, and not one of them trusted.
+post:jailer | small_talk | My prisoners count the seasons in scratches on the wall; it's {season}, by their count.
+post:jailer | small_talk_fair | Even a clear sky comes through the bars in stripes; pretty, if you like bars.
+post:jailer | small_talk_wet | All this rain, and I'll be oiling locks till my arms ache.
+post:jailer | small_talk_storm | Listen to the wind howl down the corridor; the prisoners hate it, and I don't blame them.
+post:jailer | parted | Safe travels; I'd rather see you out there than in here.
+post:jailer | parted | Take care; the world's full of liars, and I've met most of them.
+post:jailer | parted_cold | Get going; we're done talking.
+post:jailer | parted_cold | On your way; I've seen your sort leave before.
+post:jailer | thanked | You're welcome; just don't make me regret it.
+post:jailer | thanked | Glad to; it's not often I help someone who isn't behind bars.
+post:jailer | acknowledged | Well. I'll write it down, and we'll see if it holds.
+post:watch_officer | greeted_again | Good day. You were in {since}; I have it written down somewhere.
+post:watch_officer | greeted_again | Welcome back; mind the stacks, they're taller than they look.
+post:watch_officer | greeted_again | Good to see you.[ Is {asked} still on your list?]
+post:watch_officer | greeted_warm | Hello again; I'll make time for you.[ Where do things stand with {asked}?]
+post:watch_officer | greeted_warm | Back again, and a welcome break from the paperwork.
+post:watch_officer | small_talk | I'm tired, and I've ink on my cuffs, but the watch runs.
+post:watch_officer | small_talk | My day is rotas and reports, in whatever order they come.
+post:watch_officer | small_talk | The complaints change with the season; it's {season}, so I know what's coming.
+post:watch_officer | small_talk_fair | A clear sky; the streets fill up, and so does my desk.
+post:watch_officer | small_talk_wet | All this rain keeps the streets quiet, and my desk with them.
+post:watch_officer | small_talk_storm | Hear that wind; I've a patrol out in it, and I don't envy them.
+post:watch_officer | parted | Go well; I'll be at the desk, as ever.
+post:watch_officer | parted | Farewell, and stay out of the reports.
+post:watch_officer | parted_cold | On your way; I've work waiting.
+post:watch_officer | parted_cold | Be on your way; this conversation is closed.
+post:watch_officer | thanked | Don't mention it; I'd have to write it down.
+post:watch_officer | thanked | Glad to; it's the rare question I can answer quickly.
+post:watch_officer | acknowledged | Aye. I'll file it.
+post:postern_guard | greeted_again | Well met again. It was {since} you last came to the little door, and it's no busier now.
+post:postern_guard | greeted_again | Welcome back; come in close, the walls have ears.
+post:postern_guard | greeted_again | Good to see you; keep it low.[ Get anywhere with {asked}?]
+post:postern_guard | greeted_warm | Hello again; you're always welcome at the little door.[ How did you fare with {asked}?]
+post:postern_guard | greeted_warm | Back again, and glad I am; the back way's lonely.
+post:postern_guard | small_talk | I'm well, if you keep your voice down about it.
+post:postern_guard | small_talk | My day's a bolt to oil and a door to listen at.
+post:postern_guard | small_talk | For {season}, I keep the same stool by the same door.
+post:postern_guard | small_talk_fair | Such a still, clear sky; sound carries in it, so mind your voice.
+post:postern_guard | small_talk_wet | All this rain drips off the lintel and straight down my neck.
+post:postern_guard | small_talk_storm | What a gale; nobody could hear a thing through it, which suits me.
+post:postern_guard | parted | Safe travels, and don't look back at this door.
+post:postern_guard | parted | Goodbye, and mind nobody sees you go.
+post:postern_guard | parted_cold | Off with you; I've a bolt to see to.
+post:postern_guard | parted_cold | On your way, and not a word of this door to anyone.
+post:postern_guard | thanked | You're welcome, and that's the last we'll speak of it.
+post:postern_guard | thanked | Think nothing of it; I've already forgotten it.
+post:postern_guard | acknowledged | Good. That's all I need to hear, and no one else need hear it.

@@ -858,3 +858,202 @@ post:horse_keeper | parted | Go well, and sit easy in the saddle[; as we say, {s
 post:horse_keeper | small_talk | First the horses, then the harness, then me, if there's any day left.[ As my people put it, {saying}.]
 post:animal_keeper | parted | Goodbye, and don't feed anything that isn't yours[; as the saying goes, {saying}].
 post:animal_keeper | small_talk | Nothing stays fed for long in this yard, and nothing stays clean.[ As the old ones had it, {saying}.]
+# ---- depth ----
+post:farmer | greeted_again | Welcome back; you'll not mind if I keep hoeing.
+post:farmer | greeted_again | Well met again. Last I saw you was {since}; the field's not moved.
+post:farmer | greeted_again | Good to see you, and your boots are cleaner than mine.[ Was {asked} what you thought?]
+post:farmer | greeted_warm | Well met again; there's nobody I'd sooner see coming across the field.[ What did you make of {asked}?]
+post:farmer | greeted_warm | Hello again; it's a good day when you come by, and I don't say that often.
+post:farmer | small_talk | A stiff back, and every digger has one of those; otherwise I'm well.
+post:farmer | small_talk | Up before the birds and out till I can't see the rows.
+post:farmer | small_talk | The soil can't be argued with; you work it and you wait.
+post:farmer | small_talk_fair | Not a cloud in sight, and the hoe goes in sweet.
+post:farmer | small_talk_wet | There's rain standing in every furrow, and more coming.
+post:farmer | small_talk_storm | Hear it howl; I've tied down what I can and left the rest to luck.
+post:farmer | parted | Safe travels; I've a furrow to finish.
+post:farmer | parted | Goodbye, then; shut the gate behind you.
+post:farmer | parted_cold | Be on your way, and off my land.
+post:farmer | parted_cold | Get going; there's nothing here for you.
+post:farmer | thanked | Don't mention it; it's the lightest work I'll do all day.
+post:farmer | thanked | You're welcome; the weeds can wait that long.
+post:farmer | acknowledged | Aye, well; that's that answered.
+post:farm_hand | greeted_again | Welcome back; stand upwind of me, if you've any sense.
+post:farm_hand | greeted_again | Well met again. You were by {since}, I think; one bale looks like the next to me.
+post:farm_hand | greeted_again | Good to see you; mind the pitchfork.[ Any closer to {asked}?]
+post:farm_hand | greeted_warm | Hello again; you've brightened a mucky day, that's certain.[ Any good news about {asked}?]
+post:farm_hand | greeted_warm | Back again, and gladly seen; you're better company than the hay.
+post:farm_hand | small_talk | My back's sore and I smell of the barn, but I'll live.
+post:farm_hand | small_talk | Whatever needs lifting, I've lifted it, and there's always more.
+post:farm_hand | small_talk | A hand gets every job nobody else wants, and I've had most of them.
+post:farm_hand | small_talk_fair | The hay's drying nicely, not that anyone lets me out to see it.
+post:farm_hand | small_talk_wet | Even the barn smells wetter in this, and so do I.
+post:farm_hand | small_talk_storm | The barn creaks in every gust, and I creak along with it.
+post:farm_hand | parted | Farewell; think of me when you're somewhere clean.
+post:farm_hand | parted | Safe travels; mind you don't step in anything on the way.
+post:farm_hand | parted_cold | Off with you, then; go on.
+post:farm_hand | parted_cold | Get going, and let me work.
+post:farm_hand | thanked | No need; I've done nothing worth the word.
+post:farm_hand | thanked | Think nothing of it; I'd have done it for anyone who asked nicely.
+post:farm_hand | acknowledged | Fair enough; I only asked.
+post:well_keeper | greeted_again | Good day; talk away, I can haul and listen at once.
+post:well_keeper | greeted_again | Welcome back; {since}, was it? The days go down the well with everything else.
+post:well_keeper | greeted_again | Good to see you; sit on the wall, if you like.[ Did you draw up anything on {asked}?]
+post:well_keeper | greeted_warm | Hello again, and gladly; I'd draw the first bucket for you.[ Did {asked} turn up anything?]
+post:well_keeper | greeted_warm | Well met again; you're as welcome here as rain in a dry spell.
+post:well_keeper | small_talk | Well, thank you, and so's the water, which matters more.
+post:well_keeper | small_talk | My arms know every turn of the windlass, and they get plenty of practice.
+post:well_keeper | small_talk | You look into a well every day, whether it needs it or not.
+post:well_keeper | small_talk_fair | Above and below it's clear, sky and water both.
+post:well_keeper | small_talk_wet | The rain's pattering on the well cover, and the rope's gone stiff with it.
+post:well_keeper | small_talk_storm | The wind's swinging the bucket on its rope like a bell.
+post:well_keeper | parted | Farewell, and drink before you set out.
+post:well_keeper | parted | Take care; the well's always here, whatever else moves.
+post:well_keeper | parted_cold | On your way, and keep your hands off the bucket.
+post:well_keeper | parted_cold | Be on your way; draw your water elsewhere.
+post:well_keeper | thanked | Think nothing of it; words come up easier than water.
+post:well_keeper | thanked | Glad to; it's all in a day at the well.
+post:well_keeper | acknowledged | Fair enough; that'll do for one bucketful.
+post:carter | greeted_again | Welcome back; you'll find me where I always am, under a wheel.
+post:carter | greeted_again | Well met again; {since}, was it, or have I been on the road too long?
+post:carter | greeted_again | Good to see you; lean on the tailboard and talk.[ Did you get where you wanted with {asked}?]
+post:carter | greeted_warm | Hello again; I'd load for you before anyone.[ Did {asked} live up to the telling?]
+post:carter | greeted_warm | Well met again; a face I trust is worth more than a full cart.
+post:carter | small_talk | Good enough; I creak a little, but so does any cart you'd trust.
+post:carter | small_talk | Every day's a load out and a load back, and the road in between.
+post:carter | small_talk | I look over every wheel before I set out; a cracked spoke costs a day.
+post:carter | small_talk_fair | All dust and no mud, and the dust follows me everywhere.
+post:carter | small_talk_wet | The ruts are all puddles, and every puddle's deeper than it looks.
+post:carter | small_talk_storm | A wind like this would have the cover off a load in no time.
+post:carter | parted | Farewell; if you hear wheels, it's likely me.
+post:carter | parted | Goodbye; I'll be at the shed or out with a load, one or the other.
+post:carter | parted_cold | Get going; we've no dealings, you and I.
+post:carter | parted_cold | On your way; there's nothing to haggle over.
+post:carter | thanked | No need; we're square.
+post:carter | thanked | Think nothing of it; it was on my way.
+post:carter | acknowledged | Right; that's loaded, then.
+post:fisher | greeted_again | Welcome back. You know the way down.
+post:fisher | greeted_again | Well met again; {since}, by my tally.
+post:fisher | greeted_again | Good to see you; pull up a crate.[ Anything come of {asked}?]
+post:fisher | greeted_warm | Hello again, and glad of it.[ And {asked}?]
+post:fisher | greeted_warm | Back again. Good; I'd hoped you would.
+post:fisher | small_talk | Well enough. The hands are raw, but they always are.
+post:fisher | small_talk | Out early, back late, as ever.
+post:fisher | small_talk | You learn to wait, or you don't eat.
+post:fisher | small_talk_fair | Good sky for it. The water's like glass.
+post:fisher | small_talk_wet | The fish rise to it. I'll take the wet.
+post:fisher | small_talk_storm | Listen to that wind. I'll mend nets till it's done.
+post:fisher | parted | Go well; mind the bank.
+post:fisher | parted | Safe travels, and dry feet.
+post:fisher | parted_cold | Go, then.
+post:fisher | parted_cold | Off with you; you're in my light.
+post:fisher | thanked | Glad to; now let me work.
+post:fisher | thanked | Think nothing of it; I didn't.
+post:fisher | acknowledged | Good. Enough said.
+post:boatman | greeted_again | Good day; sit on the landing a while, if you've the time.
+post:boatman | greeted_again | Welcome back; the water's run a long way since I saw you {since}.
+post:boatman | greeted_again | Good to see you; I've a rope to splice, but I'll listen.[ Any headway with {asked}?]
+post:boatman | greeted_warm | Hello again; step aboard any time you like.[ Did you reach {asked} in the end?]
+post:boatman | greeted_warm | Well met again; the water seems kinder when you're about.
+post:boatman | small_talk | Still sound in the arms, and good for a few more crossings yet.
+post:boatman | small_talk | I've rowed, mended and rowed again, and I'd do it all over tomorrow.
+post:boatman | small_talk | Every boat leaks a little; you just bail faster than it does.
+post:boatman | small_talk_fair | The oars are dry for once, and the sky's empty from end to end.
+post:boatman | small_talk_wet | The rain's pocking the water all over, and I'm bailing twice as often.
+post:boatman | small_talk_storm | Hear the water slapping the landing in this wind; I've pulled the boat up high.
+post:boatman | parted | Take care; the landing's here, whenever you need across.
+post:boatman | parted | Goodbye; I'll be out on the water, like as not.
+post:boatman | parted_cold | On your way; I've no room in the boat for you.
+post:boatman | parted_cold | Off with you; we're done talking.
+post:boatman | thanked | No need; talk's lighter than rowing.
+post:boatman | thanked | Don't mention it; it's all part of the crossing.
+post:boatman | acknowledged | Aye; that's me answered, then.
+post:hauler | greeted_again | Welcome back; don't mind me, I'll keep lifting.
+post:hauler | greeted_again | Well met again; you were in the yard {since}, I think.
+post:hauler | greeted_again | Good to see you; mind the ropes underfoot.[ Where did you land with {asked}?]
+post:hauler | greeted_warm | Hello again, and good; you're lighter company than most.[ How did it go with {asked}?]
+post:hauler | greeted_warm | Well met again; my arms are glad of the rest, and I'm glad of you.
+post:hauler | small_talk | The back's holding, and so am I.
+post:hauler | small_talk | One load after another, and the pile never gets any smaller.
+post:hauler | small_talk | Always lift with your legs, not your back; that's the whole trade.
+post:hauler | small_talk_fair | The barrows run easy on ground this dry.
+post:hauler | small_talk_wet | The yard's mud to the shins, and every load goes through it.
+post:hauler | small_talk_storm | In this wind nothing goes up high; I stack it low and weight it down.
+post:hauler | parted | Safe travels, and travel light.
+post:hauler | parted | Goodbye; there'll be something heavy waiting when you're back.
+post:hauler | parted_cold | Get going; I've work to shift.
+post:hauler | parted_cold | On your way; I've nothing to carry for you.
+post:hauler | thanked | No need; save your breath for the road.
+post:hauler | thanked | Glad to, and I'd do it again.
+post:hauler | acknowledged | Fair enough; that's off my mind, then.
+post:water_carrier | greeted_again | Welcome back; you'll have to keep pace, I'm afraid.
+post:water_carrier | greeted_again | Well met again; I'd put it at {since}, though I see a thousand faces a day.
+post:water_carrier | greeted_again | Good to see you, if only in passing.[ Is it {asked} again, or something new?]
+post:water_carrier | greeted_warm | Hello again; you're better than another stair any day.[ Any luck with {asked}?]
+post:water_carrier | greeted_warm | Back again, and a welcome sight, even at a trot.
+post:water_carrier | small_talk | Always short of breath, but I'd not know myself without it.
+post:water_carrier | small_talk | I've filled and emptied these pails more times than I can count, and it's not done yet.
+post:water_carrier | small_talk | A full pail never spills if you keep the rhythm.
+post:water_carrier | small_talk_fair | When the stairs are this dry, I take them two at a time.
+post:water_carrier | small_talk_wet | Half my pails fill themselves in this rain, and nobody thanks the sky.
+post:water_carrier | small_talk_storm | In this gale I carry the pails low and walk sideways.
+post:water_carrier | parted | Go well; I'm off up the next stair.
+post:water_carrier | parted | Take care, and don't jog anyone carrying.
+post:water_carrier | parted_cold | Get going; I've a city to water.
+post:water_carrier | parted_cold | Off with you; we've nothing more to say.
+post:water_carrier | thanked | Don't mention it; there's always another trip.
+post:water_carrier | thanked | My pleasure, at a run.
+post:water_carrier | acknowledged | Fair enough; that'll do me, and I'm off.
+post:water_keeper | greeted_again | Back again. Keep clear of the edge, if you would.
+post:water_keeper | greeted_again | Well met again; it was {since}, by my reckoning, that you were last in the court.
+post:water_keeper | greeted_again | Good to see you; I will hear you while I read the levels.[ Is the matter of {asked} settled?]
+post:water_keeper | greeted_warm | Welcome back; I do not say that to many, and I mean it.[ I trust {asked} did not disappoint.]
+post:water_keeper | greeted_warm | Good day; it is a pleasure to see you here again.
+post:water_keeper | small_talk | I am well; I keep myself as I keep the water, clean and in order.
+post:water_keeper | small_talk | My day is the channels, the sluices and the levels, in that order, and then again.
+post:water_keeper | small_talk | Still water spoils, and moving water must be watched.
+post:water_keeper | small_talk_fair | In weather this fair, the cistern shows every speck on its surface.
+post:water_keeper | small_talk_wet | When it falls this gently, the rain fills the cistern and fouls nothing.
+post:water_keeper | small_talk_storm | The cistern cover is weighted down against this gale, and it will stay so until it passes.
+post:water_keeper | parted | Goodbye; mind your footing on the wet stones.
+post:water_keeper | parted | Take care; clean water is rarer than people think.
+post:water_keeper | parted_cold | Be on your way; we are finished here.
+post:water_keeper | parted_cold | Go, then, and touch nothing on your way out.
+post:water_keeper | thanked | Think nothing of it; accuracy is its own courtesy.
+post:water_keeper | thanked | My pleasure, and a small one; it cost me only a moment.
+post:water_keeper | acknowledged | Right. That is all I needed to ask.
+post:horse_keeper | greeted_again | Welcome back; stand where the horses can see you.
+post:horse_keeper | greeted_again | Well met again; you were last at the rail {since}, if memory serves.
+post:horse_keeper | greeted_again | Good to see you; walk the line with me while I check these legs.[ Any word on {asked}?]
+post:horse_keeper | greeted_warm | Hello again; you're one I'd not need to look over twice.[ Is {asked} behind you now?]
+post:horse_keeper | greeted_warm | Good day, and a better one for seeing you.
+post:horse_keeper | small_talk | As they say of a good horse, I'm sound and eating well.
+post:horse_keeper | small_talk | I've walked every one of them round the yard and looked at every hoof.
+post:horse_keeper | small_talk | A horse knows a nervous rider before the rider does.
+post:horse_keeper | small_talk_fair | With the sky this clear, the horses want out, and so do I.
+post:horse_keeper | small_talk_wet | In this wet it's hoof picks and dry straw all round.
+post:horse_keeper | small_talk_storm | The stable doors are barred against the storm, and I've a hand on every trembling neck.
+post:horse_keeper | parted | Goodbye, and give your mount its head on the hills.
+post:horse_keeper | parted | Take care, and check your girth before you mount.
+post:horse_keeper | parted_cold | Off with you, and walk, don't run; you'll spook them.
+post:horse_keeper | parted_cold | Get going; the yard gate's behind you.
+post:horse_keeper | thanked | No need; I know good sense when I hear it, even my own.
+post:horse_keeper | thanked | Glad to; I'd give that much to anyone who sits a horse right.
+post:horse_keeper | acknowledged | I see; I'll not ask twice.
+post:animal_keeper | greeted_again | Welcome back; don't take it amiss if I watch the beasts while we talk.
+post:animal_keeper | greeted_again | Well met again. I last saw you {since}, over the stall door.
+post:animal_keeper | greeted_again | Good to see you; mind where you tread.[ Anything more on {asked}?]
+post:animal_keeper | greeted_warm | Hello again; the beasts perk up when you come in, and so do I.[ Did you find {asked}, then?]
+post:animal_keeper | greeted_warm | Back again, and welcome; you've a gentle way with you that they notice.
+post:animal_keeper | small_talk | A bit bitten, a bit trodden on, and otherwise fine.
+post:animal_keeper | small_talk | By dark I'll have mucked out, fed round and changed the water, and it'll all want doing again.
+post:animal_keeper | small_talk | None of them can tell you what's wrong, so you learn to look.
+post:animal_keeper | small_talk_fair | They're all out in the yard, soaking up the fair weather.
+post:animal_keeper | small_talk_wet | The rain's turned the yard to soup, and they all want to stand in it.
+post:animal_keeper | small_talk_storm | I'll go round every stall with a lamp and a word till this blows over.
+post:animal_keeper | parted | Go well; I'll get back to the ones who don't talk.
+post:animal_keeper | parted | Safe travels, and give a kind word to any beast you meet.
+post:animal_keeper | parted_cold | Go, then; you're unsettling them.
+post:animal_keeper | parted_cold | Be on your way, and walk wide of the pens.
+post:animal_keeper | thanked | No need; I'd do the same for a lame goat.
+post:animal_keeper | thanked | Glad to; you're easier to help than most of my lot.
+post:animal_keeper | acknowledged | Aye; I'll tell the beasts, they like to know.

@@ -961,3 +961,203 @@ post:midwife | parted | Go well, and keep your hands clean[; as they told me whe
 post:midwife | small_talk | I'm tired to the bone, but it's the good sort of tired.[ As we say, {saying}.]
 post:dread | parted | Goodbye, for now[; as the old ones had it, {saying}].
 post:dread | small_talk | Nothing troubles my days; I am what troubles other people's.[ As my people say, {saying}.]
+
+# ---- depth ----
+post:sovereign | greeted_again | Welcome back. You had audience of me {since}; you may have it again.
+post:sovereign | greeted_again | Good to see you. You may approach, and speak.
+post:sovereign | greeted_again | Well met again.[ Is the matter of {asked} settled to your liking?]
+post:sovereign | greeted_warm | Good day; you are always welcome before me.[ Tell me, what came of {asked}?]
+post:sovereign | greeted_warm | Back again, and gladly received; there are few I say that to.
+post:sovereign | small_talk | I am well, as {place} is well; the two go together.
+post:sovereign | small_talk | My days are petitions and judgements, and I give each its due.
+post:sovereign | small_talk | Even {season} waits on my word, or so my court would have me believe.
+post:sovereign | small_talk_fair | Not a cloud over {place}; I could almost believe the sky knows whose it is.
+post:sovereign | small_talk_wet | The rain falls on my lands as on any other, and I suffer it with the rest.
+post:sovereign | small_talk_storm | Hear that gale shout at the walls like a petitioner; it gets no further than they do.
+post:sovereign | parted | Safe travels, and return when you have something worth my hearing.
+post:sovereign | parted | Goodbye; you go with my leave, and my good will.
+post:sovereign | parted_cold | Go, then; I have given you more of my time than you deserved.
+post:sovereign | parted_cold | Be on your way; this audience is at an end.
+post:sovereign | thanked | No need; generosity is the least of my duties.
+post:sovereign | thanked | My pleasure; I am generous when I choose to be, and I chose to be.
+post:sovereign | acknowledged | Is that so? Then I have my answer.
+post:champion | greeted_again | Good day. I saw you {since}; you've the look of someone who's kept busy.
+post:champion | greeted_again | Welcome back; don't mind me, I'm only sharpening.
+post:champion | greeted_again | Good to see you.[ Tell me you got somewhere with {asked}.]
+post:champion | greeted_warm | Hello again; here's my hand.[ Any joy with {asked}?]
+post:champion | greeted_warm | Back again, and a sight better than an empty practice yard.
+post:champion | small_talk | I'm fit as a hound, and twice as keen.
+post:champion | small_talk | Up at first light, drill till my arms ache, then the whetstone; I like a day with a shape to it.
+post:champion | small_talk | Some like {season} for the rest it brings; I like it for the practice.
+post:champion | small_talk_fair | A sky this clear makes me want to run somewhere, just for the joy of it.
+post:champion | small_talk_wet | It's pouring, and I'll drill in it anyway; a little wet never slowed a good arm.
+post:champion | small_talk_storm | That gale's got some fight in it; I'd almost step out and square up to it.
+post:champion | parted | Safe travels, and give as good as you get.
+post:champion | parted | Goodbye, and come back with a few good scars to show me.
+post:champion | parted_cold | Off with you, and take your quarrel with you.
+post:champion | parted_cold | Get going; we're done here.
+post:champion | thanked | Think nothing of it; I've done harder things before breakfast.
+post:champion | thanked | Don't mention it; save your breath for the next hill.
+post:champion | acknowledged | Well, that settles it; no sense chewing it over.
+post:pretender | greeted_again | Welcome back. It was {since} we last spoke; I've thought of little but my claim since.
+post:pretender | greeted_again | Good to see you; every face that comes back is one more I can count on, perhaps.
+post:pretender | greeted_again | Well met again.[ Tell me, is {asked} worth my attention?]
+post:pretender | greeted_warm | Hello again; you are a welcome sight.[ Bring me word of {asked}, if you have it.]
+post:pretender | greeted_warm | Back again, and I'm glad of it; I need more faces like yours about me.
+post:pretender | small_talk | I'm restless, if you must know; patience comes hard to anyone with a claim.
+post:pretender | small_talk | My days go on letters and handshakes, and every one of them counts.
+post:pretender | small_talk | The old order sits through {season} as it sat through the last; it won't forever.
+post:pretender | small_talk_fair | A clear sky like this makes a clear head, and I have plans to think through.
+post:pretender | small_talk_wet | All this wet keeps folk indoors, and folk indoors have time to listen to me.
+post:pretender | small_talk_storm | Listen to that gale; the shutters rattle, and I think better for the noise.
+post:pretender | parted | Goodbye, and remember who greeted you kindly.
+post:pretender | parted | Take care of yourself; I've need of people who last.
+post:pretender | parted_cold | On your way; I've no use for fence-sitters.
+post:pretender | parted_cold | Go, then; I'll remember that you left.
+post:pretender | thanked | No need; a kindness now, a friend later, that's how causes grow.
+post:pretender | thanked | Glad to; one day I'll be able to do far more.
+post:pretender | acknowledged | Right. I'll put that with everything else I'm gathering.
+post:domain_holder | greeted_again | Well met again. It was {since} you last came by, and the land hasn't moved an inch.
+post:domain_holder | greeted_again | Welcome back; wipe your boots, it's good soil you're carrying off.
+post:domain_holder | greeted_again | Good to see you.[ Was {asked} worth the walk?]
+post:domain_holder | greeted_warm | Hello again, and welcome on my ground.[ What did you make of {asked}?]
+post:domain_holder | greeted_warm | Good day; my gate's always open to you, and I don't say that to many.
+post:domain_holder | small_talk | I'm well; land keeps a body busy and a mind steady.
+post:domain_holder | small_talk | My day is ditches, hedges and tenants' complaints, and I'd have it no other way.
+post:domain_holder | small_talk | It's {season}, and I plan the next as I work this one; land thinks a year ahead.
+post:domain_holder | small_talk_fair | Not a cloud over my fields, and nothing for me to grumble at.
+post:domain_holder | small_talk_wet | All this wet, and every ditch on the place earning its keep.
+post:domain_holder | small_talk_storm | That wind's at the roofs like a dog at a door, and I'm counting slates in my head.
+post:domain_holder | parted | Goodbye, and keep to the paths; the fields have enough feet on them.
+post:domain_holder | parted | Take care, and come back when you like; the land's not going anywhere.
+post:domain_holder | parted_cold | Off with you, and mind the fences on your way.
+post:domain_holder | parted_cold | Be on your way; I've work that won't wait.
+post:domain_holder | thanked | You're welcome; a fair turn for a fair question.
+post:domain_holder | thanked | Glad to; it's the way we do things on my land.
+post:domain_holder | acknowledged | Right. I'll turn that over, like soil.
+post:magister | greeted_again | Welcome back. You called on me {since}, and I have been at my books ever since.
+post:magister | greeted_again | Good to see you, I suppose; I was at a difficult passage.
+post:magister | greeted_again | Well met again.[ Have you anything to add to what is known of {asked}?]
+post:magister | greeted_warm | Hello again; do sit.[ I trust {asked} satisfied your curiosity?]
+post:magister | greeted_warm | Good day; a conversation with you is one of the few I do not ration.
+post:magister | small_talk | I am tolerably well, and intolerably busy.
+post:magister | small_talk | I spend whole days on a single footnote, and the footnote usually wins.
+post:magister | small_talk | Whether it is {season} or not, ink dries at the same rate indoors.
+post:magister | small_talk_fair | Such a clear sky is wasted on people who will not look up from their feet.
+post:magister | small_talk_wet | Another wet {time}; I have studied rain at some length, and it has nothing to teach me.
+post:magister | small_talk_storm | The shutters rattle, the candles gutter, and I am expected to concentrate.
+post:magister | parted | Safe travels; do take notes.
+post:magister | parted | Take care; I should hate to lose one of my better listeners.
+post:magister | parted_cold | Go, then; you have taken up quite enough of my time.
+post:magister | parted_cold | Be on your way; I have work that deserves me.
+post:magister | thanked | No need; I would have corrected you whether you wished it or not.
+post:magister | thanked | Think nothing of it; I have already moved on to weightier things.
+post:magister | acknowledged | Well. That is an answer, and I shall treat it as one.
+post:charcoal burner | greeted_again | Well met again. You were by {since}, and here you are, back in the soot.
+post:charcoal burner | greeted_again | Welcome back; you'll smell of smoke for a week, but you know that by now.
+post:charcoal burner | greeted_again | Good to see you, I suppose.[ Get anywhere with {asked}?]
+post:charcoal burner | greeted_warm | Hello again; pull that stump closer.[ What came of {asked}?]
+post:charcoal burner | greeted_warm | Back again, and I'm glad of it; the smoke sees most folk off for good.
+post:charcoal burner | small_talk | I'm well enough, bar the cough, and the cough comes with the work.
+post:charcoal burner | small_talk | First the wood, then the turf, then days of sitting up with it; that's the job.
+post:charcoal burner | small_talk | It's {season}, so I'm cutting for the next burn while this one smoulders.
+post:charcoal burner | small_talk_fair | A clear, still sky, and the smoke goes straight up like it should.
+post:charcoal burner | small_talk_wet | All this wet, and the clamp hisses at me like a cat.
+post:charcoal burner | small_talk_storm | One gap in the turf, in a wind like this, and the whole burn goes up in flame.
+post:charcoal burner | parted | Safe travels, and don't mind the smell; it wears off, mostly.
+post:charcoal burner | parted | Goodbye; you'll find me here, same stump, same smoke.
+post:charcoal burner | parted_cold | Go, then; the clamp's better company.
+post:charcoal burner | parted_cold | Get going; I've nothing more to say.
+post:charcoal burner | thanked | You're welcome, for what it's worth.
+post:charcoal burner | thanked | Glad to; it's a change from talking to the stack.
+post:charcoal burner | acknowledged | Ah. Well, now I know.
+post:hermit | greeted_again | Well met again, if it must be. You were here {since}, and I've had my quiet since.
+post:hermit | greeted_again | Welcome back; you've worn a path to my door, near enough.
+post:hermit | greeted_again | Good to see you; keep it short.[ Did {asked} leave you be?]
+post:hermit | greeted_warm | Hello again; you may stay a while, quietly.[ Find {asked}, did you?]
+post:hermit | greeted_warm | Back again, and I find I don't mind; don't let it go to your head.
+post:hermit | small_talk | I'm as I like to be: alone, mostly.
+post:hermit | small_talk | My days are water, wood, and silence, and I'd trade none of them.
+post:hermit | small_talk | I gather what I need for {season}, and leave the rest be.
+post:hermit | small_talk_fair | A fair sky, and not a sound under it; you could help keep it that way.
+post:hermit | small_talk_wet | Let it pour; I've a roof, and nothing I need to go out for.
+post:hermit | small_talk_storm | I'll bar the door and sit this gale out, the way I sit everything out.
+post:hermit | parted | Safe travels, and close the door behind you.
+post:hermit | parted | Go well; don't let the world talk you deaf.
+post:hermit | parted_cold | Go, then; I've had my fill of company.
+post:hermit | parted_cold | Off with you; I'll not be missing you.
+post:hermit | thanked | You're welcome; now let me be.
+post:hermit | thanked | Think nothing of it, and think of me less.
+post:hermit | acknowledged | Right. That'll do.
+post:shepherd | greeted_again | Well met again. You passed by {since}; I counted you in then, and I'll count you in now.
+post:shepherd | greeted_again | Welcome back; stand clear of the ram, he doesn't know you like I do.
+post:shepherd | greeted_again | Good to see you.[ Did you track down {asked}?]
+post:shepherd | greeted_warm | Hello again, and a fine sight you are.[ How did you fare with {asked}?]
+post:shepherd | greeted_warm | Back again; you're better company than the whole flock, and they're good company.
+post:shepherd | small_talk | I'm well enough, though my knees know every hill I've climbed.
+post:shepherd | small_talk | Up before the flock and down after them, with a crook in one hand and bread in the other.
+post:shepherd | small_talk | Come {season}, the flock goes where the grass is, and I go where the flock is.
+post:shepherd | small_talk_fair | Not a cloud, and the flock's grazing easy, heads down and quiet.
+post:shepherd | small_talk_wet | The rain's got into my boots and my collar, and it's working on the rest.
+post:shepherd | small_talk_storm | In a gale like this I bring them down off the tops, and count them twice.
+post:shepherd | parted | Goodbye, and if you see a stray, send it home.
+post:shepherd | parted | Take care, and watch the ground; it's never as flat as it looks.
+post:shepherd | parted_cold | On your way, and leave the flock be.
+post:shepherd | parted_cold | Go, then; I've counting to do.
+post:shepherd | thanked | You're welcome; it's more thanks than the ewes ever give.
+post:shepherd | thanked | Don't mention it; I've done no more than point.
+post:shepherd | acknowledged | Fair enough. I'll fold that in with the rest.
+post:pilgrim | greeted_again | Well met again. I saw you {since}, and I've worn out a good deal of boot since.
+post:pilgrim | greeted_again | Welcome back, and may the road have been gentle with you.
+post:pilgrim | greeted_again | Good to see you.[ Did your road lead you to {asked}?]
+post:pilgrim | greeted_warm | Hello again, and bless you for coming back.[ Tell me of {asked}.]
+post:pilgrim | greeted_warm | Good day, and a better one for your face in it.
+post:pilgrim | small_talk | I'm well; a body that can still walk is a blessing, and mine still can.
+post:pilgrim | small_talk | Most days I walk till midday, rest and pray, then walk again till dark.
+post:pilgrim | small_talk | I give thanks for {season}, as I do for every season.
+post:pilgrim | small_talk_fair | A clear sky; it's hard not to feel looked after under it.
+post:pilgrim | small_talk_wet | Every drop of this rain is meant for someone's field, so I'll not grumble at it.
+post:pilgrim | small_talk_storm | Such a wind; I'll say a prayer for anyone caught out in it.
+post:pilgrim | parted | Goodbye, and go gently; there's no prize for hurrying.
+post:pilgrim | parted | Take care, and look up from the road now and then.
+post:pilgrim | parted_cold | Go, then; I've nothing more for you.
+post:pilgrim | parted_cold | On your way; I'll not walk beside you.
+post:pilgrim | thanked | You're welcome; it's little enough to give.
+post:pilgrim | thanked | Glad to; the road's easier when we lighten each other's load.
+post:pilgrim | acknowledged | Fair enough. I'll think on it as I walk.
+post:midwife | greeted_again | Well met again. It was {since} I saw you; you've kept yourself in one piece, then.
+post:midwife | greeted_again | Welcome back; mind the kettle, it's always on.
+post:midwife | greeted_again | Good to see you.[ Was {asked} worth all the fuss?]
+post:midwife | greeted_warm | Hello again, and look at you, still standing.[ Tell me about {asked}, then.]
+post:midwife | greeted_warm | Back again; you're one of the few I'm always glad to see at my door.
+post:midwife | small_talk | My feet are killing me, same as always, and I'd not have it any other way.
+post:midwife | small_talk | Some days it's one baby, some days three, and never when it suits.
+post:midwife | small_talk | It's {season}, and my bag's packed by the door, same as any other.
+post:midwife | small_talk_fair | A clear sky; good, I can walk to a birth without wading.
+post:midwife | small_talk_wet | All this rain gets into folk's chests, and then they come to me.
+post:midwife | small_talk_storm | What a wind; if anyone sends for me in this, I'll go, and grumble all the way.
+post:midwife | parted | Safe travels, and mind you don't come back needing stitches.
+post:midwife | parted | Farewell; you know where to find me, if it comes to it.
+post:midwife | parted_cold | Off with you; I've work to do.
+post:midwife | parted_cold | Be on your way, and take your trouble with you.
+post:midwife | thanked | No need; just do as I say, that's thanks enough.
+post:midwife | thanked | Glad to; it's what I'm for.
+post:midwife | acknowledged | Well. That'll do me.
+post:dread | greeted_again | Well met again. I saw you {since}; you look well, which will not last.
+post:dread | greeted_again | Welcome back to my shadow; it has missed you.
+post:dread | greeted_again | Good to see you; you are looking so very alive.[ Was {asked} everything you feared?]
+post:dread | greeted_warm | Hello again, my favourite.[ Tell me everything about {asked}.]
+post:dread | greeted_warm | Back again; I do so enjoy the ones who return of their own accord.
+post:dread | small_talk | I am well; I am always well, and that should worry you.
+post:dread | small_talk | I wait, I watch, and now and then I stop waiting.
+post:dread | small_talk | Whatever the season, something is dying in it, and I find that restful.
+post:dread | small_talk_fair | A sky this clear shows every vein in your neck.
+post:dread | small_talk_wet | You shiver in this rain, and I do not; one of us is made for it.
+post:dread | small_talk_storm | Let the gale howl; nothing out there is half so hungry as I am.
+post:dread | parted | Safe travels; I will know where you are.
+post:dread | parted | Take care; I would hate for anything else to have you first.
+post:dread | parted_cold | Go, then; run, if you like, it changes nothing.
+post:dread | parted_cold | Be on your way, and do not look back; it would only frighten you.
+post:dread | thanked | No need; I will remember it for both of us.
+post:dread | thanked | My pleasure, and it was, more than you know.
+post:dread | acknowledged | Ah. I will keep that, with the rest of you.

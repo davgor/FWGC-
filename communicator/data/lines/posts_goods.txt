@@ -721,3 +721,167 @@ post:treasurer | parted | Go well, and keep your keys close[; as the old ones ha
 post:treasurer | small_talk | Quite in order, thank you: the tallies agree and the locks hold.[ As we say, {saying}.]
 post:clerk | parted | Goodbye, and keep your papers where you can find them[; as we say, {saying}].
 post:clerk | small_talk | Behind, as ever, and catching up one page at a time.[ As my people put it, {saying}.]
+
+# ---- depth ----
+post:storekeeper | greeted_again | Well met again. You were last in {since}, by my tally.
+post:storekeeper | greeted_again | Welcome back; stamp the mud off before you come in among the bins.
+post:storekeeper | greeted_again | Back again, and the stores in order, as ever.[ Still after {asked}?]
+post:storekeeper | greeted_warm | Hello again; come in, and mind nothing but the barrels.[ Was {asked} worth the trouble?]
+post:storekeeper | greeted_warm | Good day; take that crate, if you like, it's sound.
+post:storekeeper | small_talk | I'm well enough; my back complains more than I do.
+post:storekeeper | small_talk | Most of my day is turning sacks so the bottoms don't rot.
+post:storekeeper | small_talk | Every season brings its own rot, and I've a cure for each.
+post:storekeeper | small_talk_fair | I'll have the doors wide open while it's this fine, to air the stores.
+post:storekeeper | small_talk_wet | I can smell the rain in the sacks already.
+post:storekeeper | small_talk_storm | The whole store creaks when a gale gets under the eaves like this.
+post:storekeeper | parted | Goodbye; I'll be among the sacks if you need me.
+post:storekeeper | parted | Safe travels, and keep your bread wrapped.
+post:storekeeper | parted_cold | On your way; the stores are closed to you.
+post:storekeeper | parted_cold | Off with you; there's nothing here for you.
+post:storekeeper | thanked | You're welcome; ask whenever you like, I'm always here.
+post:storekeeper | thanked | Don't mention it; I've a head for small things.
+post:storekeeper | acknowledged | Aye; I'll keep that somewhere dry.
+post:porter | greeted_again | Well met again; {since}, was it? I've shifted a mountain since.
+post:porter | greeted_again | Welcome back. Keep up; I can't stop mid-load.
+post:porter | greeted_again | Good to see you upright.[ Did {asked} lead anywhere?]
+post:porter | greeted_warm | Good day, and a friendly face is worth a rest.[ Get anywhere with {asked}?]
+post:porter | greeted_warm | Hello again; you're the best thing I've seen all day that isn't a bench.
+post:porter | small_talk | I'm well, bar the shoulders; they're always the first to complain.
+post:porter | small_talk | Up at first light, and I carry till there's nothing left to carry.
+post:porter | small_talk | I know every doorstep in {place} by the sacks I've dropped on it.
+post:porter | small_talk_fair | A clear sky and a dry road; I could carry double in this.
+post:porter | small_talk_wet | My boots are full of rain, and the sacks are full of it too.
+post:porter | small_talk_storm | In a gale like this, you carry low and lean into it.
+post:porter | parted | Take care, and lift with your legs.
+post:porter | parted | Farewell, and may your own load be a light one.
+post:porter | parted_cold | Get going; I've loads to shift.
+post:porter | parted_cold | Off with you; I'm carrying.
+post:porter | thanked | You're welcome; any time my hands are free, which is never.
+post:porter | thanked | Glad to; it's the one load I don't mind.
+post:porter | acknowledged | Well, I'll carry that with me, then.
+post:merchant | greeted_again | Good day. You were at my stall {since}, if I'm not mistaken.
+post:merchant | greeted_again | Welcome back; step up, and let's see what we can agree on.
+post:merchant | greeted_again | Good to see you again.[ Did asking after {asked} get you anywhere?]
+post:merchant | greeted_warm | Hello again; there's always a deal for you at this stall.[ Was {asked} worth your while?]
+post:merchant | greeted_warm | Well met again! You're the kind of customer I'd keep, if I could.
+post:merchant | small_talk | Me? I'm busy, which is how a trader likes it.
+post:merchant | small_talk | It's buy, sell and argue the difference, from open to close.
+post:merchant | small_talk | Some seasons buy more than others, but none of them buy nothing.
+post:merchant | small_talk_fair | In weather this fair, buyers linger, and I let them.
+post:merchant | small_talk_wet | Everything on the stall's under cover, and so am I, in this rain.
+post:merchant | small_talk_storm | I'd sooner pack up than chase my goods down the street in this gale.
+post:merchant | parted | Farewell, and may every bargain you strike be a good one.
+post:merchant | parted | Go well, and tell others where you found a fair deal.
+post:merchant | parted_cold | On your way; you're keeping the buyers off.
+post:merchant | parted_cold | Be on your way, and shop elsewhere.
+post:merchant | thanked | Don't mention it; a kind word never lost me a sale.
+post:merchant | thanked | Glad to; it cost me nothing, and that's a rare bargain.
+post:merchant | acknowledged | Right; I'll weigh that like any other offer.
+post:market_steward | greeted_again | Good day! You were through here {since}; I never forget a face in my market.
+post:market_steward | greeted_again | Welcome back; stand here by me, out of the crowd's way.
+post:market_steward | greeted_again | Good to see you, over all this din.[ Any closer to {asked}?]
+post:market_steward | greeted_warm | Hello again; you're a welcome sight in this crush.[ Did you settle the matter of {asked}?]
+post:market_steward | greeted_warm | Well met again! If everyone were as easy as you, I'd have a quiet market.
+post:market_steward | small_talk | I'm hoarse, but the market's in order, so I'm content.
+post:market_steward | small_talk | From setting-up to packing-away, I'm on my feet and shouting.
+post:market_steward | small_talk | Whatever {season} brings to the stalls, I'm here to see it sold fairly.
+post:market_steward | small_talk_fair | The stalls are out to the edge of the square in this fine weather.
+post:market_steward | small_talk_wet | Half the stalls have their shutters up against this rain.
+post:market_steward | small_talk_storm | Nobody's trading in a gale like this, so I've only the wind to shout at.
+post:market_steward | parted | Take care, and mind the carts on your way out.
+post:market_steward | parted | Safe travels, and keep an eye on your pockets in the crowd.
+post:market_steward | parted_cold | Get going, and take your trouble out of my market.
+post:market_steward | parted_cold | On your way; you've held up the rows long enough.
+post:market_steward | thanked | You're welcome; a market runs on manners.
+post:market_steward | thanked | Don't mention it; I've a crowd to see to.
+post:market_steward | acknowledged | Right; I heard you, just about.
+post:cargo_clerk | greeted_again | Good day. You were by the scale {since}, if my figures hold.
+post:cargo_clerk | greeted_again | Welcome back; stand clear of the beam and say your piece.
+post:cargo_clerk | greeted_again | Good to see you, and nothing on your back to weigh.[ Did you get to the bottom of {asked}?]
+post:cargo_clerk | greeted_warm | Hello again; you I'd let past the scale without a second look.[ Any luck with {asked}?]
+post:cargo_clerk | greeted_warm | Well met again; I'd round in your favour, if I ever rounded.
+post:cargo_clerk | small_talk | I'm steady enough; it's the carters that try my patience.
+post:cargo_clerk | small_talk | It's load on, weigh, write it down, load off, and the next one.
+post:cargo_clerk | small_talk | Nothing gets past my scale unweighed, and nothing ever will.
+post:cargo_clerk | small_talk_fair | With the sky this fair, nobody's blaming the weather for a short load.
+post:cargo_clerk | small_talk_wet | The scale's wet, the loads are wet, and every carter blames me for it.
+post:cargo_clerk | small_talk_storm | I've the ledger weighted down, or this gale would have its pages.
+post:cargo_clerk | parted | Go well, and keep a straight tally.
+post:cargo_clerk | parted | Take care; I'll have the beam level when you're back.
+post:cargo_clerk | parted_cold | Be on your way; you're off my books.
+post:cargo_clerk | parted_cold | Get going; we're done here.
+post:cargo_clerk | thanked | No need; it's weighed and done.
+post:cargo_clerk | thanked | Glad to; exact answers are my trade.
+post:cargo_clerk | acknowledged | Aye; that balances it.
+post:fuel_handler | greeted_again | Well met again; you stopped by {since}, if my memory's not full of soot.
+post:fuel_handler | greeted_again | Welcome back; mind your clothes near the pile.
+post:fuel_handler | greeted_again | Good to see you; come round the stacks, not through them.[ Did you run {asked} to ground?]
+post:fuel_handler | greeted_warm | Hello again; you're worth stopping the shovel for.[ Get what you needed about {asked}?]
+post:fuel_handler | greeted_warm | Good day! I'll come to you; no sense both of us getting black.
+post:fuel_handler | small_talk | I'm well, for someone who breathes coal all day.
+post:fuel_handler | small_talk | All day I'm shovelling in, shovelling out, stacking and covering.
+post:fuel_handler | small_talk | I can tell {season} by how fast the stacks go down.
+post:fuel_handler | small_talk_fair | The covers are off the stacks while the sky stays this clear.
+post:fuel_handler | small_talk_wet | Nothing I stack stays dry in this rain, and wet coal smokes something awful.
+post:fuel_handler | small_talk_storm | This gale's pulling at every cover I've tied down.
+post:fuel_handler | parted | Goodbye, and breathe some clean air for me.
+post:fuel_handler | parted | Safe travels, and dry kindling wherever you stop.
+post:fuel_handler | parted_cold | Go, then; I've coal to shift.
+post:fuel_handler | parted_cold | On your way; I'm done talking.
+post:fuel_handler | thanked | You're welcome; it's the cleanest thing I've done all day.
+post:fuel_handler | thanked | Glad to; it gave my shovel a rest.
+post:fuel_handler | acknowledged | Indeed; I'll mind that.
+post:toll_clerk | greeted_again | Well met again; you were at my gate {since}.
+post:toll_clerk | greeted_again | Welcome back; step to the side while I finish this cart.
+post:toll_clerk | greeted_again | Good to see you, and quickly now.[ Any further with {asked}?]
+post:toll_clerk | greeted_warm | Hello again; the line can wait a moment for you.[ Get where you were going with {asked}?]
+post:toll_clerk | greeted_warm | Good day! I'd wave you through without a count, if I could.
+post:toll_clerk | small_talk | I'm well; my voice is tired of saying next.
+post:toll_clerk | small_talk | From first cart to last, I'm on my feet by the bar.
+post:toll_clerk | small_talk | The loads change with the season; the stopping never does.
+post:toll_clerk | small_talk_fair | Nobody minds a wait in weather this fair, so I'll take my time.
+post:toll_clerk | small_talk_wet | Every driver comes up with a wet face and a short temper in this.
+post:toll_clerk | small_talk_storm | I've to hold my hat and the tally both, in a wind like this.
+post:toll_clerk | parted | Go well, and mind the wheels.
+post:toll_clerk | parted | Take care on the road.
+post:toll_clerk | parted_cold | Get going; there's a line behind you.
+post:toll_clerk | parted_cold | Be on your way, through or back, I don't care which.
+post:toll_clerk | thanked | You're welcome; off you go, then.
+post:toll_clerk | thanked | Glad to; it's the only thing I give away.
+post:toll_clerk | acknowledged | I see; noted, and on we go.
+post:treasurer | greeted_again | Good day. You were last at this door {since}; I keep such things.
+post:treasurer | greeted_again | Welcome back. Wait there, if you would, while I lock this away.
+post:treasurer | greeted_again | Good to see you; I have a moment, precisely one.[ Is it still {asked} that concerns you?]
+post:treasurer | greeted_warm | Hello again; I will set the keys down for you, which I seldom do.[ Did {asked} prove worth the effort?]
+post:treasurer | greeted_warm | Well met again. Your visits are the one thing here I do not count.
+post:treasurer | small_talk | I am well enough; a quiet day is a good day, in my work.
+post:treasurer | small_talk | I count in the morning, check in the afternoon, and lock up at night.
+post:treasurer | small_talk | One season is much like another, behind a locked door.
+post:treasurer | small_talk_fair | With weather this fair, I have let a window stand open, for once.
+post:treasurer | small_talk_wet | I keep the ledgers well back from the windows in this rain.
+post:treasurer | small_talk_storm | A gale like this sets the doors rattling, and I check each one by hand.
+post:treasurer | parted | Take care, and count what you carry.
+post:treasurer | parted | Safe travels, and lock your door at night.
+post:treasurer | parted_cold | Be on your way; we have nothing further to discuss.
+post:treasurer | parted_cold | Go, then; I have nothing more to say to you.
+post:treasurer | thanked | No need; accuracy is its own satisfaction.
+post:treasurer | thanked | My pleasure, though I would not make a habit of it.
+post:treasurer | acknowledged | Right; that is recorded.
+post:clerk | greeted_again | Good day. You were in {since}; it's here in my notes somewhere.
+post:clerk | greeted_again | Welcome back; give me a moment to blot this.
+post:clerk | greeted_again | Good to see you again, and my desk no tidier.[ Any more on {asked}?]
+post:clerk | greeted_warm | Hello again; you're a welcome break from the copying.[ Did {asked} turn out as you hoped?]
+post:clerk | greeted_warm | Well met again! You're the best thing to cross my desk all week.
+post:clerk | small_talk | I'm well, though my eyes would like a rest from small print.
+post:clerk | small_talk | My day is copying, filing and hunting for what someone misfiled.
+post:clerk | small_talk | The seasons turn, and the pile on my desk stays the same height.
+post:clerk | small_talk_fair | The window's open, the weather's fair, and every paper's weighted down.
+post:clerk | small_talk_wet | I've moved the papers off the sill; this rain finds every crack.
+post:clerk | small_talk_storm | The candle's guttering in this gale, and I'm copying by guesswork.
+post:clerk | parted | Go well, and don't let anyone rush you into signing.
+post:clerk | parted | Safe travels; I'll be here, a page further on.
+post:clerk | parted_cold | Off with you; I've copying to do.
+post:clerk | parted_cold | On your way, and leave the desk alone.
+post:clerk | thanked | No need; I'd only have filed it anyway.
+post:clerk | thanked | Glad to; finding things is half my work.
+post:clerk | acknowledged | Well; that goes in the right file, then.

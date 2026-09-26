@@ -745,3 +745,175 @@ post:chaplain | parted | Take care, and carry your burdens lightly[; as the old 
 post:chaplain | small_talk | Some days I have a full chapel, and some days only the candles; I tend both.[ As we say, {saying}.]
 post:steward | parted | Farewell, and keep your own accounts as well as I keep mine[; as we say, {saying}].
 post:steward | small_talk | Everyone's fed and housed, and the lists still balance, which is all a day needs.[ As the saying goes, {saying}.]
+
+# ---- depth ----
+post:commander | greeted_again | Welcome back. You were at these walls {since}, and I make note of who returns.
+post:commander | greeted_again | Hello again. I have a keep to hold, but you may have a moment of it.
+post:commander | greeted_again | Good to see you. You know how this keep runs by now, so be brief.
+post:commander | greeted_warm | Well met again.[ What did you learn of {asked}?]
+post:commander | greeted_warm | Good day; there are few I am glad to see within these walls, and you are one.
+post:commander | small_talk | I am as I always am: first awake and last to sleep.
+post:commander | small_talk | I walk the walls at every change of the watch; a keep is only as good as its sentries.
+post:commander | small_talk | A dull day is a well-run one, and I aim for nothing else.
+post:commander | small_talk_fair | Fine weather for {season}; the garrison drills in the yard while it lasts.
+post:commander | small_talk_wet | It is a grey, wet {time}, and the watch stands in it, as it must.
+post:commander | small_talk_storm | It is blowing a gale; I keep the gates shut and the watch doubled until it drops.
+post:commander | parted | Goodbye, and keep your wits sharper than your blade.
+post:commander | parted | Take care; I would rather see you again than hear of you.
+post:commander | parted_cold | Go, then, and do not linger at my gate.
+post:commander | parted_cold | Be on your way; I have nothing more for you.
+post:commander | thanked | You're welcome; I do not hoard what I know.
+post:commander | thanked | Don't mention it; it is my duty to know, and no hardship to tell.
+post:commander | acknowledged | Fair enough. I will take you at your word.
+
+post:sergeant | greeted_again | Hello again. You were here {since}, and I've been shouting ever since.
+post:sergeant | greeted_again | Welcome back. Mind the recruits; half of them can't tell left from right.
+post:sergeant | greeted_again | Good to see you. You've the look of someone who could do with a week of drill.
+post:sergeant | greeted_warm | Well met again.[ Did {asked} work out for you?]
+post:sergeant | greeted_warm | Back again? Good; pull up a bench, the recruits can drill themselves for a minute.
+post:sergeant | small_talk | I'm dead on my feet, and I'll be shouting again in a minute.
+post:sergeant | small_talk | I spend half the day drilling recruits and the other half undoing what they've learned wrong.
+post:sergeant | small_talk | Every morning it's boots, buckles and straight backs, and every morning someone fails.
+post:sergeant | small_talk_fair | It's dry, the sun's out, and the yard's full of recruits pretending to march.
+post:sergeant | small_talk_wet | The yard's a bog in this rain, and the recruits drill in it anyway.
+post:sergeant | small_talk_storm | That's a proper gale, and I can still out-shout it.
+post:sergeant | parted | Farewell, and walk like you mean it.
+post:sergeant | parted | Goodbye; if anyone gives you trouble, shout louder than they do.
+post:sergeant | parted_cold | Off with you, and look sharp about it.
+post:sergeant | parted_cold | Get going, and don't dawdle.
+post:sergeant | thanked | Think nothing of it; I'd shout it at anyone who asked.
+post:sergeant | thanked | You're welcome, and that's all the softness you'll get from me.
+post:sergeant | acknowledged | Fair enough. Now we both know.
+
+post:garrison_officer | greeted_again | Welcome back; you were in this office {since}, and I trust you're here on business.
+post:garrison_officer | greeted_again | Good to see you; a returning face saves me a new entry.
+post:garrison_officer | greeted_again | Well met again. I'll hear you out, but keep it to one matter at a time.
+post:garrison_officer | greeted_warm | Good day, and a better one for the visit.[ Any progress on {asked}?]
+post:garrison_officer | greeted_warm | Hello again; you're a welcome break from the rolls.
+post:garrison_officer | small_talk | I'm well, thank you; my eyes are tired, but the columns add up.
+post:garrison_officer | small_talk | I've the musters to copy out and the leave lists to check before the day's done.
+post:garrison_officer | small_talk | A steady hand and a sharp quill; that's the whole of my trade.
+post:garrison_officer | small_talk_fair | It's a fine, clear {time}, and I've the shutters open over the ledgers.
+post:garrison_officer | small_talk_wet | It's pouring; the sentries' reports come in soaked, and so do the sentries.
+post:garrison_officer | small_talk_storm | Such a gale; I've weighed down every loose sheet on the desk.
+post:garrison_officer | parted | Goodbye; I'll note the visit.
+post:garrison_officer | parted | Take care; you know where this office is.
+post:garrison_officer | parted_cold | On your way; this interview is over.
+post:garrison_officer | parted_cold | Be on your way; we're finished here.
+post:garrison_officer | thanked | No need; getting the facts right is the job.
+post:garrison_officer | thanked | Glad to; it's a pleasant change from filing.
+post:garrison_officer | acknowledged | Fair enough; that settles the point.
+
+post:quartermaster | greeted_again | Welcome back; {since}, wasn't it? I've a head for dates as well as numbers.
+post:quartermaster | greeted_again | Good to see you, though I'll still be counting while we talk.
+post:quartermaster | greeted_again | Well met again. You know the stores by now; touch nothing.
+post:quartermaster | greeted_warm | Hello again; I'll even stop counting for you.[ Get anywhere with {asked}?]
+post:quartermaster | greeted_warm | Back again, and glad I am of it; sit on that crate, it's counted.
+post:quartermaster | small_talk | I'm well enough, as long as the tally comes out right.
+post:quartermaster | small_talk | I spend the day checking what goes out against what comes in, and they never quite agree.
+post:quartermaster | small_talk | A crate you haven't counted is a crate you haven't got, whatever the list says.
+post:quartermaster | small_talk_fair | Not a cloud about; a good day for loading.
+post:quartermaster | small_talk_wet | It's raining, so the canvas is over the sacks and I'm under it with them.
+post:quartermaster | small_talk_storm | It's blowing a gale; I've lashed down everything that will take a rope.
+post:quartermaster | parted | Go well; I'll be here with my lists.
+post:quartermaster | parted | Take care, and keep your pack buckled.
+post:quartermaster | parted_cold | Off with you, and leave the stores as you found them.
+post:quartermaster | parted_cold | On your way, and empty your hands first.
+post:quartermaster | thanked | Don't mention it; talk doesn't come out of my stores.
+post:quartermaster | thanked | Think nothing of it; words are the one thing I don't have to count.
+post:quartermaster | acknowledged | Right. I'll take it as given.
+
+post:armorer | greeted_again | Well met again. Last time was {since}, and I've mended a heap of mail since.
+post:armorer | greeted_again | Good to see you. Come into the light, and I'll judge your fit while we talk.
+post:armorer | greeted_again | Welcome back; keep the door shut, the draught cools the work.
+post:armorer | greeted_warm | Hello again, and welcome.[ What came of {asked}?]
+post:armorer | greeted_warm | Back again, and a welcome sight among all this scrap.
+post:armorer | small_talk | I'm well, and busier than I'd like, which is how I like it.
+post:armorer | small_talk | I've straps to cut and buckles to set, and a helm or two to beat back into shape.
+post:armorer | small_talk | A well-fitted coat of mail is a thing of beauty, not that anyone notices until it fails.
+post:armorer | small_talk_fair | It's dry and bright, so I've the bench out by the door.
+post:armorer | small_talk_wet | It's pouring, and damp leather stretches, so the straps want watching.
+post:armorer | small_talk_storm | It's a gale out there; every rack in the place is rattling.
+post:armorer | parted | Farewell, and don't trust a buckle you haven't checked.
+post:armorer | parted | Goodbye; mind the scrap on your way out.
+post:armorer | parted_cold | Get going, and take your noise with you.
+post:armorer | parted_cold | Off with you, and leave the racks alone.
+post:armorer | thanked | No need; a kind word's welcome, but it won't close a link.
+post:armorer | thanked | Don't mention it; I talk better than I rivet, some days.
+post:armorer | acknowledged | Fair enough; I've no quarrel with that.
+
+post:equipment_keeper | greeted_again | Welcome back. You were by {since}, and the buckets are as full now as they were then.
+post:equipment_keeper | greeted_again | Good to see you. Mind where you put your feet; there's water about.
+post:equipment_keeper | greeted_again | Well met again. I'll hear you, but I've one eye on the hearth.
+post:equipment_keeper | greeted_warm | Hello again, and welcome; you're the best thing through that door all day.[ Any luck with {asked}?]
+post:equipment_keeper | greeted_warm | Good day; sit anywhere you like, only not by the lamp oil.
+post:equipment_keeper | small_talk | I'm well, thanks, though I sleep with one ear open for shouting.
+post:equipment_keeper | small_talk | I walk the rounds, sniff at every chimney and refill whatever's been used.
+post:equipment_keeper | small_talk | A fire caught early is a bucket's work; caught late, it's everyone's.
+post:equipment_keeper | small_talk_fair | It's fair, so I've the ladders up for a good look at the roofs.
+post:equipment_keeper | small_talk_wet | It's wet, so I'm oiling the hinges and patching the leather buckets.
+post:equipment_keeper | small_talk_storm | It's blowing a gale; every hearth in the place is banked down, if they listen to me.
+post:equipment_keeper | parted | Go well, and keep your lamp trimmed.
+post:equipment_keeper | parted | Take care, and don't lean on my ladders on your way out.
+post:equipment_keeper | parted_cold | Be on your way; I've nothing more to say to you.
+post:equipment_keeper | parted_cold | Get going, and shut the door after you.
+post:equipment_keeper | thanked | No need; I'd rather talk than run for water.
+post:equipment_keeper | thanked | Don't mention it; a quiet chat is a rest for me.
+post:equipment_keeper | acknowledged | Right; I'll keep that in mind while I do my rounds.
+
+post:hall_attendant | greeted_again | Welcome back. You were in {since}; I've laid these tables a good few times since.
+post:hall_attendant | greeted_again | Good to see you; there's a clean end of the table, if you want it.
+post:hall_attendant | greeted_again | Well met again, and excuse the clatter; the cups won't stack themselves.
+post:hall_attendant | greeted_warm | Hello again; I hoped it might be you.[ Any word of {asked}?]
+post:hall_attendant | greeted_warm | Good day; I'm always glad when it's you through that door.
+post:hall_attendant | small_talk | I'm well, thank you, only a bit tired on my feet.
+post:hall_attendant | small_talk | The cups come back faster than I can wash them, most days.
+post:hall_attendant | small_talk | You'd be surprised what people leave under a table.
+post:hall_attendant | small_talk_fair | It's a fair {time}, and nobody's in a hurry to leave when it's like this.
+post:hall_attendant | small_talk_wet | It's raining, so the cloaks are dripping on every peg I've got.
+post:hall_attendant | small_talk_storm | Listen to it howl; I've had to shut every shutter in the hall.
+post:hall_attendant | parted | Go well, and mind the step at the door.
+post:hall_attendant | parted | Safe travels; I'll be here, clearing up after everyone.
+post:hall_attendant | parted_cold | On your way, please.
+post:hall_attendant | parted_cold | Off with you, then; I've tables to clear.
+post:hall_attendant | thanked | Glad to; it's nice to be asked something besides more ale.
+post:hall_attendant | thanked | Don't mention it; I'm only glad I knew.
+post:hall_attendant | acknowledged | Right you are, then.
+
+post:chaplain | greeted_again | Well met again; you were last here {since}, and the door has stood open since.
+post:chaplain | greeted_again | Good to see you. Rest a while, if you like; the benches are for anyone.
+post:chaplain | greeted_again | Back again, and welcome; this chapel keeps no count of visits.
+post:chaplain | greeted_warm | Welcome back; my heart lifts to see you.[ What news of {asked}?]
+post:chaplain | greeted_warm | Hello again; you bring a little light in with you.
+post:chaplain | small_talk | I am well, thank you, and grateful to be so.
+post:chaplain | small_talk | I trim the wicks, sweep the aisle and sit with whoever comes; that is my day.
+post:chaplain | small_talk | Most of prayer is listening, I find, and I am still learning to do it well.
+post:chaplain | small_talk_fair | It is fair out, and more folk stop by the chapel on days like this.
+post:chaplain | small_talk_wet | The rain is soft and steady; there are worse sounds to pray by.
+post:chaplain | small_talk_storm | It is a hard gale; I have set the candles away from the door, or they gutter.
+post:chaplain | parted | Goodbye; come back whenever you need a quiet place.
+post:chaplain | parted | Safe travels, and may you meet kindness.
+post:chaplain | parted_cold | Go, then, and I will not keep you.
+post:chaplain | parted_cold | Be on your way; I have my prayers to return to.
+post:chaplain | thanked | You're welcome; I ask nothing for it.
+post:chaplain | thanked | Glad to; it is good to be of use.
+post:chaplain | acknowledged | Fair enough; I will not press you further.
+
+post:steward | greeted_again | Welcome back. You called on me {since}, and you'll find the place much as you left it.
+post:steward | greeted_again | Good to see you. Let me finish this column, and I'm yours.
+post:steward | greeted_again | Well met again; keep it brief, and I'll give it my full attention.
+post:steward | greeted_warm | Hello again; you're always good company.[ Any luck with {asked}?]
+post:steward | greeted_warm | Good day; I'll put the ledger down for you, which I do for few.
+post:steward | small_talk | I'm well, and busy, which in my work is the same thing.
+post:steward | small_talk | I've the kitchens to check, the cellar to count and the linen to see to before dark.
+post:steward | small_talk | A household runs on small things done on time; miss one, and everyone feels it.
+post:steward | small_talk_fair | It's dry and fair, and the carts come and go without a hitch.
+post:steward | small_talk_wet | It's a wet {time}, and every hall in the place smells of wet wool.
+post:steward | small_talk_storm | What a gale; I've the fires banked and the stores shut up till it drops.
+post:steward | parted | Go well, and deal fairly wherever the road takes you.
+post:steward | parted | Take care, and keep a little something back for lean days.
+post:steward | parted_cold | On your way; we've no further business.
+post:steward | parted_cold | Be on your way; I've accounts waiting.
+post:steward | thanked | You're welcome; it cost me nothing but a moment.
+post:steward | thanked | Glad to; I'd rather you asked than guessed.
+post:steward | acknowledged | Right; that's all I needed to know.

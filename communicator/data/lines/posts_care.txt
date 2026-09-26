@@ -801,3 +801,185 @@ post:astronomer | parted | Take care, and forgive the yawning[; as we say, {sayi
 post:astronomer | small_talk | Half asleep, as usual; my days are only the gaps between nights.[ As the old ones had it, {saying}.]
 post:sanitation_worker | parted | Take care, and don't hold your nose on my account[; as we say, {saying}].
 post:sanitation_worker | small_talk | Somebody has to shift it, and somebody always turns out to be me.[ As my people put it, {saying}.]
+
+# ---- depth ----
+post:caretaker | greeted_again | Good day. You were in {since}; I've swept that floor a dozen times since.
+post:caretaker | greeted_again | Well met again; mind the wet patch, I've just mopped.
+post:caretaker | greeted_again | Good to see you back.[ Any the wiser about {asked}?]
+post:caretaker | greeted_warm | Hello again; I'll lean on the broom a while for you.[ How did you fare with {asked}?]
+post:caretaker | greeted_warm | Welcome back! The floors can wait; they always do.
+post:caretaker | small_talk | I'm well enough; my knees know every flagstone in the place.
+post:caretaker | small_talk | Up before anyone, and last to leave; the place doesn't keep itself.
+post:caretaker | small_talk | Every season tracks in its own kind of dirt.
+post:caretaker | small_talk_fair | I'll beat the rugs outside while it's this fair.
+post:caretaker | small_talk_wet | I've laid sacking at the door, for all the good it does in rain like this.
+post:caretaker | small_talk_storm | The shutters want fastening in this gale, and that's my job too.
+post:caretaker | parted | Farewell, and mind the step on your way.
+post:caretaker | parted | Safe travels, and leave the dust out there.
+post:caretaker | parted_cold | Go, then, and mind my floor on the way.
+post:caretaker | parted_cold | Off with you, and don't come tramping back.
+post:caretaker | thanked | You're welcome; it's nice to be noticed.
+post:caretaker | thanked | Glad to; it was easier than getting wax off a floor.
+post:caretaker | acknowledged | Aye; I'll tuck that away with the rest.
+post:officiant | greeted_again | Good day to you. It was {since} you last came through that door.
+post:officiant | greeted_again | Well met again; come in, and let the noise of the day fall away.
+post:officiant | greeted_again | Good to see you once more.[ Is {asked} still on your mind?]
+post:officiant | greeted_warm | Hello again, and welcome; take the bench nearest the candles.[ Did {asked} end as you hoped?]
+post:officiant | greeted_warm | Welcome back. Your coming is a small blessing in my day.
+post:officiant | small_talk | At peace, mostly, and grateful for it.
+post:officiant | small_talk | I light the candles, say the words, and sit with whoever comes.
+post:officiant | small_talk | The hours of the rite keep me, as I keep them.
+post:officiant | small_talk_fair | In weather this fair, the benches fill, and I am glad of it.
+post:officiant | small_talk_wet | Let the rain fall; the prayers go on beneath it.
+post:officiant | small_talk_storm | Whatever this gale does outside, the prayers are said all the same.
+post:officiant | parted | Goodbye, and walk gently.
+post:officiant | parted | Safe travels, and come back whenever you need the quiet.
+post:officiant | parted_cold | Go, then; I have nothing more for you.
+post:officiant | parted_cold | Be on your way, and quietly.
+post:officiant | thanked | No need; it was freely given.
+post:officiant | thanked | Think nothing of it; I am here for all who come.
+post:officiant | acknowledged | Well; I will hold that in mind.
+post:groundskeeper | greeted_again | Well met again; {since}, wasn't it, and not a day older by the look of you.
+post:groundskeeper | greeted_again | Welcome back; you're still walking in, which is more than most manage.
+post:groundskeeper | greeted_again | Good to see you among the living.[ Did {asked} come to anything?]
+post:groundskeeper | greeted_warm | Hello again; sit on the wall a while, if the stones don't trouble you.[ Did you ever find {asked}?]
+post:groundskeeper | greeted_warm | Good day, and a good one, now there's someone to talk to who talks back.
+post:groundskeeper | small_talk | Well enough; I'm the liveliest thing in here, which isn't saying much.
+post:groundskeeper | small_talk | Between the mowing and the digging, there's little else to my days.
+post:groundskeeper | small_talk | By {season} I know which stones the moss likes best.
+post:groundskeeper | small_talk_fair | With weather this dry, I can get the paths swept and the stones scrubbed.
+post:groundskeeper | small_talk_wet | The ground's heavy as lead in this rain, and so is every spadeful.
+post:groundskeeper | small_talk_storm | This gale's bringing branches down all over the stones.
+post:groundskeeper | parted | Farewell, and give my regards to anyone with a pulse.
+post:groundskeeper | parted | Take care; the stones will keep, and so will I.
+post:groundskeeper | parted_cold | Off with you, and leave the dead in peace.
+post:groundskeeper | parted_cold | Be on your way; I've digging to do.
+post:groundskeeper | thanked | Don't mention it; it's rare I'm any use to the living.
+post:groundskeeper | thanked | Glad to; now let me get back to my rows.
+post:groundskeeper | acknowledged | Fair enough; I'll let that lie.
+post:care_assistant | greeted_again | Good day. You were through here {since}; walk with me, I can't stop.
+post:care_assistant | greeted_again | Well met again; stand by the wall, the stretchers need the room.
+post:care_assistant | greeted_again | Good to see you, and not as a patient.[ Any word on {asked}?]
+post:care_assistant | greeted_warm | Welcome back; I'll steal a moment for you.[ Did {asked} turn out all right?]
+post:care_assistant | greeted_warm | Good day! You've brightened the ward just by walking in.
+post:care_assistant | small_talk | I'm tired, but they need me, so I'm fine.
+post:care_assistant | small_talk | From beds to basins to dressings, and round again before I sit.
+post:care_assistant | small_talk | Whatever {season} brings, it comes through our door sooner or later.
+post:care_assistant | small_talk_fair | The windows are open on the ward, and the air's doing more good than I am.
+post:care_assistant | small_talk_wet | Everything smells of wet wool and camphor in this.
+post:care_assistant | small_talk_storm | Nobody on the ward sleeps through a gale like this, me included.
+post:care_assistant | parted | Farewell; eat properly and sleep when you can.
+post:care_assistant | parted | Safe travels, and mind any cut you get.
+post:care_assistant | parted_cold | Get going; I've beds to see to.
+post:care_assistant | parted_cold | On your way; I've no time for you.
+post:care_assistant | thanked | You're welcome; mind you rest.
+post:care_assistant | thanked | Don't mention it; it's all in a day on the ward.
+post:care_assistant | acknowledged | I see; I'll keep that in my head, with everything else.
+post:healer | greeted_again | Well met again. You were in {since}, and nothing's fallen off since, I hope.
+post:healer | greeted_again | Welcome back; let me look at you. Your colour's good.
+post:healer | greeted_again | Good to see you, and not bleeding.[ Anything come of {asked}?]
+post:healer | greeted_warm | Hello again; I'll make time for you, which I make for few.[ Did {asked} give you any answers?]
+post:healer | greeted_warm | Good day, and a healthy face is the best thing I see all day.
+post:healer | small_talk | I'm well; healers don't get to be anything else.
+post:healer | small_talk | Rest, I tell everyone, and I never take my own advice.
+post:healer | small_talk | I've seen every ailment the seasons bring, and most of them twice.
+post:healer | small_talk_fair | The sickroom smells better with the shutters open in weather like this.
+post:healer | small_talk_wet | There's not an old break in the place that isn't aching in this rain.
+post:healer | small_talk_storm | Hear that gale; I've splints laid out already.
+post:healer | parted | Take care, and don't do anything I'd have to mend.
+post:healer | parted | Goodbye, and eat something green.
+post:healer | parted_cold | On your way; I've said all I mean to.
+post:healer | parted_cold | Off with you; I've work that matters.
+post:healer | thanked | You're welcome; just don't make a habit of needing me.
+post:healer | thanked | Glad to; it's the pleasant part of the job.
+post:healer | acknowledged | Aye; I'll take that into account.
+post:apothecary | greeted_again | Well met again; you were in {since}, by my book.
+post:apothecary | greeted_again | Welcome back; keep your sleeves clear of the scales.
+post:apothecary | greeted_again | Back again, and in good health, by the look of it.[ Did {asked} measure up?]
+post:apothecary | greeted_warm | Hello again; I'll stop the pestle for you.[ Did {asked} prove worth the asking?]
+post:apothecary | greeted_warm | Good to see you. A pleasant visit is a rare dose in here.
+post:apothecary | small_talk | I'm well, by any measure I'd trust.
+post:apothecary | small_talk | My days are measured out like doses: grind, weigh, bottle, label.
+post:apothecary | small_talk | Each season wants different remedies, and I keep them all ready.
+post:apothecary | small_talk_fair | While it's this fair, I've the drawers open to air.
+post:apothecary | small_talk_wet | I've sealed every jar twice against this damp.
+post:apothecary | small_talk_storm | The whole shelf hums when a gale like this shakes the door.
+post:apothecary | parted | Go well, and follow the dose, not your instinct.
+post:apothecary | parted | Safe travels; no more than the label says.
+post:apothecary | parted_cold | Be on your way, and touch nothing on the way out.
+post:apothecary | parted_cold | Get going; I've measuring to do.
+post:apothecary | thanked | No need; it's measured and given.
+post:apothecary | thanked | Glad to; a precise question deserves a precise answer.
+post:apothecary | acknowledged | Right; to the grain, then.
+post:herbalist | greeted_again | Well met again; you were in the garden {since}, if I remember right.
+post:herbalist | greeted_again | Welcome back; step round the beds, not through them.
+post:herbalist | greeted_again | Good to see you; kneel if you like, it's how I talk best.[ Did asking after {asked} bear fruit?]
+post:herbalist | greeted_warm | Hello again; you're welcome among my beds any time.[ Any joy from {asked}?]
+post:herbalist | greeted_warm | Good day! I'll wash my hands for you, and that's saying something.
+post:herbalist | small_talk | I'm well; a bit of dirt never hurt anyone.
+post:herbalist | small_talk | Most of my day is spent on my knees among the beds, and happily.
+post:herbalist | small_talk | I could tell you it's {season} by what's in flower, or isn't.
+post:herbalist | small_talk_fair | I'll get the drying racks out while it's this fair.
+post:herbalist | small_talk_wet | Nothing waters a garden like this; I've put the cans away.
+post:herbalist | small_talk_storm | The frames are rattling and the beds are flattening in this gale.
+post:herbalist | parted | Farewell, and may your own ground grow well.
+post:herbalist | parted | Safe travels; wash anything you pick.
+post:herbalist | parted_cold | Off with you; the garden's had enough of you.
+post:herbalist | parted_cold | Be on your way; I've weeding to do.
+post:herbalist | thanked | No need; it's small help, and gladly.
+post:herbalist | thanked | Think nothing of it; the garden gives, and so do I.
+post:herbalist | acknowledged | I see; I'll turn that over, like soil.
+post:researcher | greeted_again | Good day. Your last visit was {since}; I keep a log.
+post:researcher | greeted_again | Well met again; mind the bench, it's warm.
+post:researcher | greeted_again | Good to see you; stand clear of the fumes.[ Any new findings on {asked}?]
+post:researcher | greeted_warm | Hello again; I'll let the flask boil for you.[ What did you find out about {asked}?]
+post:researcher | greeted_warm | Welcome back! A visitor I actually want to see; note the date.
+post:researcher | small_talk | I'm well, or at least nothing's gone wrong with me that I've measured.
+post:researcher | small_talk | Nothing marks my days but the trials, and they all run together.
+post:researcher | small_talk | The seasons are just another variable to me.
+post:researcher | small_talk_fair | With weather this fair, the shutters stay open and the fumes find their own way out.
+post:researcher | small_talk_wet | I've moved the delicate work away from the damp wall, in this rain.
+post:researcher | small_talk_storm | This gale has every flask on the shelf trembling.
+post:researcher | parted | Farewell; observe everything, trust nothing.
+post:researcher | parted | Safe travels; I'll be here, testing.
+post:researcher | parted_cold | Get going; you're disturbing the work.
+post:researcher | parted_cold | On your way; this conversation is concluded.
+post:researcher | thanked | You're welcome; knowledge is for sharing.
+post:researcher | thanked | Think nothing of it; it cost me no more than a moment.
+post:researcher | acknowledged | Indeed; another fact for the notebook.
+post:astronomer | greeted_again | Well met again; you were here {since}, by my reckoning of days, which isn't much.
+post:astronomer | greeted_again | Welcome back; mind the charts on the floor.
+post:astronomer | greeted_again | Good to see you, blurry as you are.[ Did {asked} come into focus?]
+post:astronomer | greeted_warm | Hello again; you're a brighter sight than most of my stars.[ Did {asked} turn out as you'd charted?]
+post:astronomer | greeted_warm | Good day! I'll put the kettle on; I need it more than you.
+post:astronomer | small_talk | Not quite awake, but content enough.
+post:astronomer | small_talk | I sleep while you work, and work while you sleep.
+post:astronomer | small_talk | One season's sky is much like another's to most folk, but not to me.
+post:astronomer | small_talk_fair | With a sky this clear, the lens will earn its keep.
+post:astronomer | small_talk_wet | The dome drips in this rain, and the charts have to be moved.
+post:astronomer | small_talk_storm | In a gale like this, the stars could fall and I'd never know.
+post:astronomer | parted | Goodbye, and sleep well, one of us should.
+post:astronomer | parted | Go well, and look where you're walking, not up.
+post:astronomer | parted_cold | Go, then; I'm going back to bed.
+post:astronomer | parted_cold | Off with you; I've no patience left, and little sleep.
+post:astronomer | thanked | You're welcome; it woke me up a little.
+post:astronomer | thanked | No need; you asked nicely, and I was awake.
+post:astronomer | acknowledged | I see, I think; I'll remember it when I'm awake.
+post:sanitation_worker | greeted_again | Well met again; you came by {since}, and you're back for more, it seems.
+post:sanitation_worker | greeted_again | Welcome back; stand where the wind's in your favour.
+post:sanitation_worker | greeted_again | Good to see you, nose and all.[ Get to the bottom of {asked}?]
+post:sanitation_worker | greeted_warm | Hello again; I'd wipe my hands for you, if it'd help.[ Any luck with {asked}?]
+post:sanitation_worker | greeted_warm | Welcome back! A friendly word's worth more to me than a clean cart.
+post:sanitation_worker | small_talk | I'm well, and stronger than I look, from all the shovelling.
+post:sanitation_worker | small_talk | All day it's pit to cart, cart to heap, and back.
+post:sanitation_worker | small_talk | The season changes the smell, not the work.
+post:sanitation_worker | small_talk_fair | In weather this fair, I'll get round every pit before dark.
+post:sanitation_worker | small_talk_wet | My boots are full of rain and worse, in this.
+post:sanitation_worker | small_talk_storm | I've lashed the cart down; in this gale it'd go over.
+post:sanitation_worker | parted | Farewell, and keep your boots clean.
+post:sanitation_worker | parted | Safe travels, and fresh air wherever you're going.
+post:sanitation_worker | parted_cold | Get going; I'm finished with you.
+post:sanitation_worker | parted_cold | On your way; I've muck to shift.
+post:sanitation_worker | thanked | You're welcome, and it's a pleasure to hear it.
+post:sanitation_worker | thanked | Don't mention it; I'll carry that around longer than the smell.
+post:sanitation_worker | acknowledged | Fair enough; I'll not muck about with it.

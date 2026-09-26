@@ -801,3 +801,194 @@ post:farrier | parted | Goodbye, and gently past the stalls[; as we say, {saying
 post:farrier | small_talk | Nobody's kicked me yet, which is as good as it gets.[ As the old ones had it, {saying}.]
 post:cart_handler | parted | Safe travels, and give a loaded cart the whole road[; as the saying goes, {saying}].
 post:cart_handler | small_talk | Up to my elbows in grease, and the wheels still squeal.[ As my people put it, {saying}.]
+
+# ---- depth ----
+post:smith | greeted_again | Well met again; you were at my door {since}, and I've burnt a heap of charcoal since.
+post:smith | greeted_again | Good to see you. Mind the quench tub, and mind the tongs.
+post:smith | greeted_again | Welcome back. You'll forgive the soot; there's no keeping it off.
+post:smith | greeted_warm | Hello again; a good heat to you.[ Did you ever get to the bottom of {asked}?]
+post:smith | greeted_warm | Good day; you're one of the few I'll shout a welcome to over the hammer.
+post:smith | small_talk | I'm well enough; my arms ache, but they always do.
+post:smith | small_talk | It's all hinges and nails, mostly; the grand work is rare.
+post:smith | small_talk | Good iron tells you when it's ready, if you listen for it.
+post:smith | small_talk_fair | It's bright out, and bright sun's no help at a forge; I can't judge a heat in it.
+post:smith | small_talk_wet | The rain's getting down the chimney, and the fire spits at every drop.
+post:smith | small_talk_storm | That wind's got the forge door banging fit to come off.
+post:smith | parted | Farewell; you know where the forge is.
+post:smith | parted | Safe travels; the fire will be going when you're back.
+post:smith | parted_cold | Get going, and keep your hands off my tools.
+post:smith | parted_cold | Off with you; I've work to do.
+post:smith | thanked | Think nothing of it; talk's easy, it's iron that's hard.
+post:smith | thanked | Glad to; it's no trouble between heats.
+post:smith | acknowledged | Fair enough; I'll take that as it comes.
+
+post:carpenter | greeted_again | Well met again. You stood in that same spot {since}, near enough.
+post:carpenter | greeted_again | Good to see you. Take the trestle; it's the only thing here that's finished.
+post:carpenter | greeted_again | Welcome back; I'll finish this cut, then I'm all yours.
+post:carpenter | greeted_warm | Hello again; the yard's the better for you.[ Any luck with {asked}?]
+post:carpenter | greeted_warm | Back again, and as welcome as a straight board.
+post:carpenter | small_talk | I'm well; a few splinters, but that's the trade.
+post:carpenter | small_talk | I've joints to cut and boards to plane, and neither can be hurried.
+post:carpenter | small_talk | Good timber's worth waiting for; green wood warps on you.
+post:carpenter | small_talk_fair | The sky's clear, so I'm working out in the yard where the light's good.
+post:carpenter | small_talk_wet | It's raining; I'll be in the shed with the lathe till it eases.
+post:carpenter | small_talk_storm | What a gale; I'll be mending fences after this, you watch.
+post:carpenter | parted | Go well; I'll be at the bench.
+post:carpenter | parted | Take care, and take a straight road.
+post:carpenter | parted_cold | On your way; the gate's behind you.
+post:carpenter | parted_cold | Get going; we're done.
+post:carpenter | thanked | No need; get on with your day, and I'll get on with mine.
+post:carpenter | thanked | Glad to; ask me anything with a grain to it.
+post:carpenter | acknowledged | Good; then we know where we stand.
+
+post:mason | greeted_again | Good day. You came by {since}, and the wall's grown a little since.
+post:mason | greeted_again | Good to see you. Give me a moment to wipe the mortar off my hands.
+post:mason | greeted_again | Welcome back; the chisel can rest while we talk.
+post:mason | greeted_warm | Hello again; you're a welcome sight.[ Did you get what you needed from {asked}?]
+post:mason | greeted_warm | Back again; it's good to see a face that holds steady, like good stone.
+post:mason | small_talk | I'm sound enough, bar my knees; stone's hard on them.
+post:mason | small_talk | I've stone to dress and lime to slake, same as most days.
+post:mason | small_talk | A wall laid true will outlast the one who laid it; that's enough for me.
+post:mason | small_talk_fair | It's clear and dry, and I can sight every course from end to end.
+post:mason | small_talk_wet | It's raining, and wet stone's slippery underfoot; watch yourself.
+post:mason | small_talk_storm | It's a gale, so I'm under cover, squaring a block while it blows.
+post:mason | parted | Goodbye, and mind your head under the scaffold.
+post:mason | parted | Safe travels; slow and steady gets there.
+post:mason | parted_cold | On your way, and keep off my wall.
+post:mason | parted_cold | Be on your way; I've said what I'll say.
+post:mason | thanked | No need; it cost me a breath, no more.
+post:mason | thanked | You're welcome; it's little enough.
+post:mason | acknowledged | Fair enough; I'll let that set.
+
+post:maintenance_laborer | greeted_again | Well met again. You were round {since}, and I don't think I've sat down since.
+post:maintenance_laborer | greeted_again | Good to see you, and empty-handed, which makes a change.
+post:maintenance_laborer | greeted_again | Welcome back; I'd offer you a seat, but it's broken, like everything else.
+post:maintenance_laborer | greeted_warm | Hello again; I'll take any excuse to stop, and you're a good one.[ Get anywhere with {asked}?]
+post:maintenance_laborer | greeted_warm | Good day, and a better one for seeing you; it's been all ladders so far.
+post:maintenance_laborer | small_talk | I'm tired, mostly, but I'll live.
+post:maintenance_laborer | small_talk | If it creaks, sags or rocks, it's mine to see to.
+post:maintenance_laborer | small_talk | Nobody notices a thing that's mended, only a thing that's broken.
+post:maintenance_laborer | small_talk_fair | The sun's out, and there's tar to lay while it's dry.
+post:maintenance_laborer | small_talk_wet | It's raining, so I'll be on my knees under some drip or other.
+post:maintenance_laborer | small_talk_storm | That wind's taking tiles off somewhere, and I'll be the one to put them back.
+post:maintenance_laborer | parted | Farewell; I'll be here, holding something up.
+post:maintenance_laborer | parted | Safe travels, and if you see a ladder, walk round it.
+post:maintenance_laborer | parted_cold | Off with you, and don't touch anything.
+post:maintenance_laborer | parted_cold | Get going; I'm busy.
+post:maintenance_laborer | thanked | Glad to; it's the easiest thing I've done all day.
+post:maintenance_laborer | thanked | Think nothing of it; I usually get blamed, so this is nice.
+post:maintenance_laborer | acknowledged | Aye; I'll bear it in mind, if there's room.
+
+post:apprentice | greeted_again | Good day; you came by {since}, didn't you? I'm sure it was you.
+post:apprentice | greeted_again | Good to see you. I'm not supposed to stop, but I will, for a bit.
+post:apprentice | greeted_again | Welcome back; don't mind the mess, I'm getting to it.
+post:apprentice | greeted_warm | Hello again; I was hoping you'd come by.[ Any luck with {asked}?]
+post:apprentice | greeted_warm | Back again, and I'm glad; you're the nicest part of my day.
+post:apprentice | small_talk | I'm all right, I think; my hands are blistered, but I'm told that stops.
+post:apprentice | small_talk | Most days I watch and hand things over, and try to learn from the watching.
+post:apprentice | small_talk | They say the first years are the worst; I hope they're right.
+post:apprentice | small_talk_fair | It's sunny, and the dust shows in every beam, so I'm sweeping twice.
+post:apprentice | small_talk_wet | It's pouring, and they'll send me out in it for something, you'll see.
+post:apprentice | small_talk_storm | The shutters keep banging in this gale, and I keep jumping.
+post:apprentice | parted | Farewell; I'd better get back before I'm missed.
+post:apprentice | parted | Take care, and come and talk to me again.
+post:apprentice | parted_cold | On your way; I don't want to talk to you.
+post:apprentice | parted_cold | Go, then; leave me be.
+post:apprentice | thanked | No need, really; I only told you what I know.
+post:apprentice | thanked | Don't mention it; I'll get told off for chatting, but it was worth it.
+post:apprentice | acknowledged | Fair enough; I won't ask again.
+
+post:textile_worker | greeted_again | Good day. You were in {since}, and I've worn through a thimble since.
+post:textile_worker | greeted_again | Good to see you. Say what you like; my hands don't need my ears.
+post:textile_worker | greeted_again | Welcome back; give me a moment to knot this off.
+post:textile_worker | greeted_warm | Hello again; I'm glad it's you and not another torn sleeve.[ Any luck with {asked}?]
+post:textile_worker | greeted_warm | Back again, and welcome; you're the best interruption I've had all day.
+post:textile_worker | small_talk | I'm well, though my fingers are pricked to ribbons.
+post:textile_worker | small_talk | I weave till my back aches, then sew till my eyes do.
+post:textile_worker | small_talk | Every cloth has a grain, and it'll fight you if you cut against it.
+post:textile_worker | small_talk_fair | The light's good in weather like this, so I've moved my stool to the window.
+post:textile_worker | small_talk_wet | The rain's drumming on the shutters, and I've lit a lamp to sew by.
+post:textile_worker | small_talk_storm | It's blowing so hard the thread won't sit still in the draught.
+post:textile_worker | parted | Farewell, and mind your hem on the step.
+post:textile_worker | parted | Take care, and keep your buttons sewn on tight.
+post:textile_worker | parted_cold | Off with you, and mind my cloth as you go.
+post:textile_worker | parted_cold | Be on your way; I've no more to say.
+post:textile_worker | thanked | Glad to; I can talk and sew at once.
+post:textile_worker | thanked | Don't mention it; words are quicker than stitches.
+post:textile_worker | acknowledged | Right; that's one knot undone.
+
+post:furnace_worker | greeted_again | Well met again; you were here {since}, and I've not cooled down since.
+post:furnace_worker | greeted_again | Good to see you, if I can see you at all through this smoke.
+post:furnace_worker | greeted_again | Welcome back; mind the slag, it's hotter than it looks.
+post:furnace_worker | greeted_warm | Hello again; you're a breath of fresh air in here.[ Any luck with {asked}?]
+post:furnace_worker | greeted_warm | Good day; it does me good to see a clean face.
+post:furnace_worker | small_talk | I'm parched, same as always; this work dries a body out.
+post:furnace_worker | small_talk | I rake out the slag, keep the bellows going and watch the colour of the flame.
+post:furnace_worker | small_talk | A furnace has moods, and you learn to read them or you get burnt.
+post:furnace_worker | small_talk_fair | The sun's out, so I'll take my bread by the door where there's air.
+post:furnace_worker | small_talk_wet | The rain's hissing off the hot stack like a kettle.
+post:furnace_worker | small_talk_storm | This gale's making the fire roar like it's angry; I'll need to damp it.
+post:furnace_worker | parted | Goodbye; think of me when you're somewhere cool.
+post:furnace_worker | parted | Safe travels, and wash the soot off before you go far.
+post:furnace_worker | parted_cold | Get going, and leave me to the fire.
+post:furnace_worker | parted_cold | Off with you; there's nothing for you here.
+post:furnace_worker | thanked | Glad to; I've little else to give but a word.
+post:furnace_worker | thanked | Don't mention it; I'd sooner talk than stoke.
+post:furnace_worker | acknowledged | Good; that's settled, then.
+
+post:ore_handler | greeted_again | Well met again. You were here {since}; same heap.
+post:ore_handler | greeted_again | Good to see you. Mind your feet.
+post:ore_handler | greeted_again | Welcome back. Take a shovel, or stand clear.
+post:ore_handler | greeted_warm | Hello again.[ Any luck with {asked}?]
+post:ore_handler | greeted_warm | Back again. Good; sit on the barrow.
+post:ore_handler | small_talk | I'm all right; tired, is all.
+post:ore_handler | small_talk | I fill the barrow, tip it, fill it again.
+post:ore_handler | small_talk | A good shovel and a strong back; that's all it takes.
+post:ore_handler | small_talk_fair | The sun's out; dry ore, light loads.
+post:ore_handler | small_talk_wet | All mud out there, and my boots weigh double.
+post:ore_handler | small_talk_storm | Some wind. Nobody's shovelling in this.
+post:ore_handler | parted | Goodbye, then.
+post:ore_handler | parted | Safe travels; go steady.
+post:ore_handler | parted_cold | Go, then.
+post:ore_handler | parted_cold | On your way.
+post:ore_handler | thanked | Glad to.
+post:ore_handler | thanked | Think nothing of it.
+post:ore_handler | acknowledged | Fair enough.
+
+post:farrier | greeted_again | Well met again. You were in the yard {since}; I've shod a good few since.
+post:farrier | greeted_again | Good to see you. Hold a moment while I clinch this nail.
+post:farrier | greeted_again | Welcome back, and keep it soft; they hear everything.
+post:farrier | greeted_warm | Hello again; the horses know your step by now.[ Any luck with {asked}?]
+post:farrier | greeted_warm | Back again, and welcome; I'd trust you round any horse here.
+post:farrier | small_talk | I'm well; my back's bent from the hooves, but the hands are steady.
+post:farrier | small_talk | I trim, I rasp and I fit, and I never rush a hoof.
+post:farrier | small_talk | A horse will tell you what hurts, if you've the patience to listen.
+post:farrier | small_talk_fair | What a day for it; I've the horses tied out in the sun.
+post:farrier | small_talk_wet | The rain's steady; I'm shoeing under the eaves to keep the hoof dry.
+post:farrier | small_talk_storm | It's a gale, so there'll be no shoeing till it drops; they're too jumpy.
+post:farrier | parted | Farewell; mind the gate, it swings.
+post:farrier | parted | Take care, and don't let anything rush you.
+post:farrier | parted_cold | On your way, and quietly.
+post:farrier | parted_cold | Be on your way, and walk, don't run.
+post:farrier | thanked | Glad to; it's no more trouble than a quiet horse.
+post:farrier | thanked | Think nothing of it; I'd do as much for a mule.
+post:farrier | acknowledged | Fair enough; I'll mull that over while I work.
+
+post:cart_handler | greeted_again | Well met again; you came through {since}, if I've got it right.
+post:cart_handler | greeted_again | Good to see you; stand by the wall, the carts need the middle.
+post:cart_handler | greeted_again | Welcome back, and quick, before the next load comes in.
+post:cart_handler | greeted_warm | Hello again; you're a welcome face in a busy yard.[ Any luck with {asked}?]
+post:cart_handler | greeted_warm | Good day, and glad of it; sit on the tailboard a minute.
+post:cart_handler | small_talk | I'm hoarse from shouting, but I'm well.
+post:cart_handler | small_talk | I load, I lash, I check the wheels, and then I do it all again.
+post:cart_handler | small_talk | A load lashed badly is a load lost; I tie every knot twice.
+post:cart_handler | small_talk_fair | A clear sky, and every cart in the place wants to be off at once.
+post:cart_handler | small_talk_wet | The rain's on, so I'm throwing sacking over every load.
+post:cart_handler | small_talk_storm | That gale would have a cart over if it caught it broadside.
+post:cart_handler | parted | Farewell; I'll be here, or under a cart.
+post:cart_handler | parted | Goodbye, and don't stand in the gateway.
+post:cart_handler | parted_cold | Get going; you're in the road.
+post:cart_handler | parted_cold | Off with you, and out of the yard.
+post:cart_handler | thanked | Glad to; it's quicker than arguing.
+post:cart_handler | thanked | Think nothing of it; words don't need greasing.
+post:cart_handler | acknowledged | Good; that's one less thing to shout about.

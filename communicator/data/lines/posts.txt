@@ -119,3 +119,40 @@ post:gate_captain | parted | Farewell, and keep your eyes open[; as we say, {say
 post:gate_captain | small_talk | The gate's manned, and I'm the one manning it.[ As the saying goes, {saying}.]
 post:innkeeper | parted | Goodbye, and don't be a stranger[; as we say, {saying}].
 post:innkeeper | small_talk | Oh, rushed off my feet, but I'd not have it any other way.[ As my people put it, {saying}.]
+# ---- depth ----
+post:gate_captain | greeted_again | Well met again. I last had eyes on you {since}.
+post:gate_captain | greeted_again | Welcome back. The gate's where it was, and so am I.
+post:gate_captain | greeted_again | Back again, then.[ Any closer to {asked}?]
+post:gate_captain | greeted_warm | Well met again, and glad of it.[ Did you learn much about {asked}?]
+post:gate_captain | greeted_warm | Good day. Keep me company a while, if you like; the watch is long.
+post:gate_captain | small_talk | I'm sound enough; stiff from standing, that's all.
+post:gate_captain | small_talk | Watch, relief, then watch again; that's my day, every day.
+post:gate_captain | small_talk | Come {season} or any other, the gate wants a captain on it.
+post:gate_captain | small_talk_fair | Nothing to complain of in weather this fair, and I've tried.
+post:gate_captain | small_talk_wet | My cloak's soaked through, and the watch goes on regardless.
+post:gate_captain | small_talk_storm | Listen to that wind; I can barely hear myself give an order.
+post:gate_captain | parted | Take care; the gate's here when you need it.
+post:gate_captain | parted | Goodbye, and stay out of trouble.
+post:gate_captain | parted_cold | Go, then, and be quick about it.
+post:gate_captain | parted_cold | On your way, and don't linger at my gate.
+post:gate_captain | thanked | You're welcome; it's what the gate's for.
+post:gate_captain | thanked | Think nothing of it; I'd tell anyone the same.
+post:gate_captain | acknowledged | I see; I'll keep that in mind.
+post:innkeeper | greeted_again | Well met again; I had you in here {since}, didn't I?
+post:innkeeper | greeted_again | Good day; sit wherever you like, and I'll be over directly.
+post:innkeeper | greeted_again | Back again, and welcome as ever.[ Still after {asked}?]
+post:innkeeper | greeted_warm | Hello again, and come in; I'll find you the best seat in the house.[ How did you get on with {asked}?]
+post:innkeeper | greeted_warm | Well met again, and you're a sight for tired eyes.
+post:innkeeper | small_talk | Me? I'm well, thanks for asking; my feet less so.
+post:innkeeper | small_talk | Between the kegs, the beds and the tables, I barely sit down.
+post:innkeeper | small_talk | Whatever the season, the stew pot never leaves the hearth.
+post:innkeeper | small_talk_fair | The door's propped open while the weather's this fair; that's how I like it.
+post:innkeeper | small_talk_wet | Mind the puddle by the door; it's pouring out there, and everyone's coming in.
+post:innkeeper | small_talk_storm | The shutters are rattling fit to fly off; stay by the fire till it's blown over.
+post:innkeeper | parted | Take care, and mind the step on your way out.
+post:innkeeper | parted | Farewell; there's always a seat for you here.
+post:innkeeper | parted_cold | Off with you; the door's that way.
+post:innkeeper | parted_cold | Be on your way; there's others waiting on me.
+post:innkeeper | thanked | Glad to; I like a guest who says thank you.
+post:innkeeper | thanked | Don't mention it; there's plenty more where that came from.
+post:innkeeper | acknowledged | Well, there you are; I'll know next time.

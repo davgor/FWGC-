@@ -481,3 +481,113 @@ post:librarian | parted | Farewell, and bring back anything you borrow[; as we s
 post:librarian | small_talk | Every book in its place and not a voice raised; I ask for nothing more.[ As the old ones had it, {saying}.]
 post:scribe | parted | Take care, and don't jog anyone's elbow on your way[; as we say, {saying}].
 post:scribe | small_talk | So far not a blot, and my hand aches only a little.[ As my people put it, {saying}.]
+
+# ---- depth ----
+post:administrator | greeted_again | Welcome back. I have you marked as in {since}, if my day-book's right.
+post:administrator | greeted_again | Well met again. Take a seat, if you can find one not buried in papers.
+post:administrator | greeted_again | Good day again; a new matter, or an old one?[ Did {asked} get you anywhere?]
+post:administrator | greeted_warm | Hello again; for you, the seals can wait.[ Any further with {asked}?]
+post:administrator | greeted_warm | Welcome back. For you I'll find a moment, and moments are scarce here.
+post:administrator | small_talk | I'm well enough, if you don't count the ink on my fingers.
+post:administrator | small_talk | From first light it's seals, signatures and files, then the same again.
+post:administrator | small_talk | Whatever the season, the pile on this desk only ever grows.
+post:administrator | small_talk_fair | The windows are open for once, with weather this fair.
+post:administrator | small_talk_wet | Listen to it drum on the roof; the petitioners come in dripping.
+post:administrator | small_talk_storm | The hall doors bang every time this gale gets a grip on them.
+post:administrator | parted | Go well; I'll be here, under the pile.
+post:administrator | parted | Safe travels, and keep your papers in order.
+post:administrator | parted_cold | Get going; I've business that matters.
+post:administrator | parted_cold | Be on your way; this desk is closed to you.
+post:administrator | thanked | Glad to; it's rare anyone leaves this desk pleased.
+post:administrator | thanked | My pleasure; now, the next matter.
+post:administrator | acknowledged | Indeed; I'll note it and move on.
+post:court_clerk | greeted_again | Good day. For the record, you were last here {since}.
+post:court_clerk | greeted_again | Welcome back. Tell me your business, and I'll take it down.
+post:court_clerk | greeted_again | Back again, and I've a clean page ready.[ Still pursuing {asked}?]
+post:court_clerk | greeted_warm | Well met again; there's no one I'd sooner have in the record.[ Any more to report on {asked}?]
+post:court_clerk | greeted_warm | Hello again. Mind the ink, and take the good chair.
+post:court_clerk | small_talk | My wrist aches, but my letters are as clean as ever.
+post:court_clerk | small_talk | Each day's a stack of pages, and each page has to be exact.
+post:court_clerk | small_talk | Nothing changes in the record but the date, and I like it that way.
+post:court_clerk | small_talk_fair | No wet cloaks dripping on the record, in weather this fair; I'm grateful.
+post:court_clerk | small_talk_wet | The ink's slow to dry in this damp, so I blot twice.
+post:court_clerk | small_talk_storm | I've a weight on every sheet, with this gale at the shutters.
+post:court_clerk | parted | Safe travels; mind what you sign.
+post:court_clerk | parted | Take care, and keep your word as carefully as I keep the record.
+post:court_clerk | parted_cold | On your way; the record has what it needs of you.
+post:court_clerk | parted_cold | Get going, and say no more.
+post:court_clerk | thanked | No need; exact is all I aim to be.
+post:court_clerk | thanked | Glad to, and every word of it true.
+post:court_clerk | acknowledged | Indeed; I have that now.
+post:magistrate | greeted_again | Hello again; {since}, was it not, that we last spoke?
+post:magistrate | greeted_again | Welcome back. Speak, and you'll have a fair hearing, as before.
+post:magistrate | greeted_again | Back again, I see.[ Is {asked} still your concern?]
+post:magistrate | greeted_warm | Well met again; you are always welcome in my court.[ What did you make of {asked}?]
+post:magistrate | greeted_warm | Good day, and a better one for seeing you.
+post:magistrate | small_talk | I'm well enough; the bench wears on the back more than the mind.
+post:magistrate | small_talk | My days are spent listening, mostly; deciding takes less time than people think.
+post:magistrate | small_talk | Whatever {season} brings, the law asks the same patience of me.
+post:magistrate | small_talk_fair | In weather this fine, even the quarrels are milder.
+post:magistrate | small_talk_wet | The benches are full of wet cloaks and short tempers.
+post:magistrate | small_talk_storm | The candles gutter in every draught this gale sends through the court.
+post:magistrate | parted | Take care, and deal fairly with whoever you meet.
+post:magistrate | parted | Safe travels, and may the road give you no cause for complaint.
+post:magistrate | parted_cold | Be on your way; this hearing is over.
+post:magistrate | parted_cold | Off with you; I have nothing more to say to you.
+post:magistrate | thanked | You're welcome; fairness costs me nothing.
+post:magistrate | thanked | Think nothing of it; I only said what was so.
+post:magistrate | acknowledged | Fair enough; the point stands as you put it.
+post:teacher | greeted_again | Welcome back. You were here {since}; I'd mark you present.
+post:teacher | greeted_again | Well met again. Speak up, and tell me what you need.
+post:teacher | greeted_again | Back again, and no slate under your arm.[ Any progress on {asked}?]
+post:teacher | greeted_warm | Hello again; you're a welcome change from the slates.[ Did you do well with {asked}?]
+post:teacher | greeted_warm | Good day! If only my class were half as glad to see me.
+post:teacher | small_talk | I'm hoarse, as usual, but still standing.
+post:teacher | small_talk | It's lessons till midday and marking till dark, most days.
+post:teacher | small_talk | By {season} I know every child's excuse by heart.
+post:teacher | small_talk_fair | With weather this fair, nobody's looking at the slate.
+post:teacher | small_talk_wet | Every peg's hung with a dripping cloak in this rain.
+post:teacher | small_talk_storm | The shutters bang so, I can't hear myself teach.
+post:teacher | parted | Goodbye, and do your best out there.
+post:teacher | parted | Safe travels, and keep your wits sharp.
+post:teacher | parted_cold | Off with you, and take your manners in hand.
+post:teacher | parted_cold | Get going; you've had all the patience I've got.
+post:teacher | thanked | No need; a question well asked deserves an answer.
+post:teacher | thanked | My pleasure; you listened, which is thanks enough.
+post:teacher | acknowledged | Well; I'll take that as your answer.
+post:librarian | greeted_again | Good day. You were last among the shelves {since}.
+post:librarian | greeted_again | Well met again; keep your voice low, and ask what you like.
+post:librarian | greeted_again | Back again, and in a whisper, please.[ Still hunting for {asked}?]
+post:librarian | greeted_warm | Hello again; there's always a quiet corner for you here.[ Did you ever track down {asked}?]
+post:librarian | greeted_warm | Welcome back; I'd raise my voice for you, if I raised it for anyone.
+post:librarian | small_talk | I'm content; a quiet room and a full shelf will do that.
+post:librarian | small_talk | My days go on mending spines, shelving books and hushing people.
+post:librarian | small_talk | I mark {season} by which books people ask for.
+post:librarian | small_talk_fair | The reading room empties when it's this fair out; I don't mind.
+post:librarian | small_talk_wet | In rain like this, I move every book away from the door.
+post:librarian | small_talk_storm | A gale like this, and I listen for the windows more than the readers.
+post:librarian | parted | Go well, and read something worth reading.
+post:librarian | parted | Safe travels; the shelves will keep till you're back.
+post:librarian | parted_cold | On your way, and quietly.
+post:librarian | parted_cold | Off with you, and close the door behind you.
+post:librarian | thanked | You're welcome; that's what the shelves are for.
+post:librarian | thanked | Glad to; a good question is a rare thing.
+post:librarian | acknowledged | Right; I'll shelve that where it belongs.
+post:scribe | greeted_again | Good day. You were at my desk {since}; let me blot this first.
+post:scribe | greeted_again | Welcome back; mind the inkpot, it's full.
+post:scribe | greeted_again | Back again, and the pen's still wet.[ Any luck with {asked}?]
+post:scribe | greeted_warm | Hello again; I'll stop mid-word for you, and I don't for many.[ Find what you wanted on {asked}?]
+post:scribe | greeted_warm | Well met again; you're the best interruption I've had.
+post:scribe | small_talk | My hand's cramped, but my lines are straight.
+post:scribe | small_talk | I copy from first light till the candle's gone; that's the whole of it.
+post:scribe | small_talk | I turn pages while the seasons turn.
+post:scribe | small_talk_fair | No damp, no draught; weather this fair suits a copyist.
+post:scribe | small_talk_wet | I keep the window shut in this rain, and copy by candle.
+post:scribe | small_talk_storm | In a wind like this, I shield the candle with one hand and copy with the other.
+post:scribe | parted | Goodbye; I'll be here, nib in hand.
+post:scribe | parted | Safe travels; keep your letters legible.
+post:scribe | parted_cold | Get going; I've lines to finish.
+post:scribe | parted_cold | On your way; I'm done with you.
+post:scribe | thanked | You're welcome; I'd copy it twice if asked.
+post:scribe | thanked | Think nothing of it; it's all in a day's copying.
+post:scribe | acknowledged | Ah; got it, word for word.
