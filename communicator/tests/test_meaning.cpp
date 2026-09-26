@@ -22,10 +22,10 @@ using orchestrator::Outcome;
 
 // Small talk in fair weather: two lines of the weather, two of the speaker, said alike.
 const Lines& small_talk_lines() {
-    static const Lines lines = Lines::parse("any | small_talk_fair | Clear and bright; not a cloud in the sky this {time}.\n"
-                                            "any | small_talk_fair | Dry and fair, for {season}.\n"
-                                            "any | small_talk | Tired, but well enough, thank you for asking.\n"
-                                            "any | small_talk | Busy as ever; the work never stops.\n"
+    static const Lines lines = Lines::parse("any | small_talk_fair | It's clear and bright; not a cloud in the sky this {time}.\n"
+                                            "any | small_talk_fair | It's dry and fair, for {season}.\n"
+                                            "any | small_talk | I'm tired, but well enough, thank you for asking.\n"
+                                            "any | small_talk | I'm busy as ever; the work never stops.\n"
                                             "any | small_talk_cold | I've no time for talk.\n"
                                             "any | parted | Farewell.\nany | parted | Safe travels.\n",
                                             "test");
@@ -40,7 +40,7 @@ FactPacket chat(int heard, const std::string& mood = "neutral") {
 }
 
 bool of_the_weather(const std::string& reply) {
-    return reply.find("cloud") != std::string::npos || reply.find("Dry and fair") != std::string::npos;
+    return reply.find("cloud") != std::string::npos || reply.find("dry and fair") != std::string::npos;
 }
 
 // Small talk a player might make, and whether it is of the weather.

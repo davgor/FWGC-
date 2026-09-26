@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "communicator/authored.hpp"
+#include "communicator/truth.hpp"
 #include "packets.hpp"
 #include "reply_shape.hpp"
 #include "rules.hpp"
@@ -282,9 +283,11 @@ inline std::vector<std::string> saying_problems(const std::string& voice, const 
 inline const std::string kTestSaying = "the well remembers who dug it";
 
 // What is wrong with one row, tried alone against every case as its bank's speaker: a row the
-// loader refuses, a row no packet speaks, a capital the line writes itself, or each reply that
-// breaks a rule, quoted with the rule. Empty when the row is sound.
-inline std::vector<std::string> row_problems(const std::string& row) {
+// loader refuses, a row no packet speaks, a capital the line writes itself, each reply that
+// breaks a rule, quoted with the rule, and each claim no packet could back (communicator/truth.hpp).
+// Empty when the row is sound. With `claims`, the claims a case's packet does not back are added
+// to it: they keep the line unsaid for such a packet, and are not the row's fault.
+inline std::vector<std::string> row_problems(const std::string& row, std::vector<std::string>* claims = nullptr) {
     std::vector<std::string> out;
     const std::size_t first_bar = row.find('|');
     const std::size_t second_bar = first_bar == std::string::npos ? first_bar : row.find('|', first_bar + 1);
@@ -350,6 +353,15 @@ inline std::vector<std::string> row_problems(const std::string& row) {
             for (const std::string& reply : replies_of(one, packet, p)) {
                 ++spoken;
                 for (const std::string& broken : broken_rules(reply, p)) out.push_back(broken + ", in: " + reply);
+                // What the reply claims (communicator/truth.hpp): a claim no packet can back is the
+                // row's fault; one this packet does not back only keeps the line unsaid here.
+                const std::vector<std::string> recent = again ? heard_everything(packet) : std::vector<std::string>();
+                for (const std::string& claim : communicator::untrue(reply, again ? asked_before(p) : p, recent)) {
+                    if (communicator::never_backed(claim))
+                        out.push_back(claim + ", in: " + reply);
+                    else if (claims != nullptr)
+                        claims->push_back(claim + ", in: " + reply);
+                }
             }
         }
         if (spoken == 0) out.push_back("no test packet speaks it");

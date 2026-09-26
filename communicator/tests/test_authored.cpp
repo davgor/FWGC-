@@ -523,14 +523,14 @@ TEST(a_line_said_with_another_saying_is_the_same_line_again) {
     const Lines talk = Lines::parse("saying:human_cold | saying | the cold keeps what the warm forgets\n"
                                     "saying:human_cold | saying | no fire was ever lit by waiting\n"
                                     "any | small_talk | Much as ever.[ {saying}.]\n"
-                                    "any | small_talk | Busy, as always.\n",
+                                    "any | small_talk | Always busy.\n",
                                     "test");
     for (int heard = 0; heard < 2; ++heard) {
         FactPacket chat = packets::small_talk("fair", "still");
         chat.persona.people = "human_cold";
         chat.facts.back() = packets::memory_of(chat.speaker, {.met = "again", .times = heard + 1, .heard = heard});
         for (const std::string lately : {"Much as ever. The cold keeps what the warm forgets.", "Much as ever. No fire was ever lit by waiting."})
-            check::equal(talk.speak(chat, "How are you?", {lately}), std::string("Busy, as always."), "not the same small talk again: " + lately);
+            check::equal(talk.speak(chat, "How are you?", {lately}), std::string("Always busy."), "not the same small talk again: " + lately);
     }
 }
 
@@ -662,11 +662,11 @@ TEST(no_one_met_before_is_called_a_stranger) {
 }
 
 TEST(small_talk_warns_of_a_nest_only_when_not_warned_of_lately) {
-    const Lines lines = Lines::parse("any | small_talk_fair | Clear skies.[ Mind the {danger}.]\n", "test");
+    const Lines lines = Lines::parse("any | small_talk_fair | A clear day.[ Mind the {danger}.]\n", "test");
     const FactPacket chat = packets::small_talk("clear", "still");
-    const std::string warned = "Clear skies. Mind the Hippogryphs nesting an hour's walk away.";
+    const std::string warned = "A clear day. Mind the Hippogryphs nesting an hour's walk away.";
     check::equal(lines.speak(chat, "Nice day."), warned, "the nest mentioned, the first time");
-    check::equal(lines.speak(chat, "Nice day.", {"Not safe. There are Hippogryphs nesting an hour's walk away."}), std::string("Clear skies."),
+    check::equal(lines.speak(chat, "Nice day.", {"Not safe. There are Hippogryphs nesting an hour's walk away."}), std::string("A clear day."),
                  "not again after a warning lately");
     check::equal(lines.speak(chat, "Nice day.", {"Fine weather."}), warned, "mentioned when nothing said lately named it");
     // An answer about what is near says it whatever was said before.
@@ -719,7 +719,7 @@ TEST(an_answer_heard_lately_is_said_again_as_told) {
     const Lines lines = Lines::parse("any | safety_unsafe | Not safe. Keep clear of {worst}.[ Mind the {danger}.]\n"
                                      "any | safety_unsafe_told | Not safe, as I told you. Keep clear of {worst}.\n"
                                      "any | surroundings | You're in {here}. The nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]\n"
-                                     "any | surroundings_told | Same as I told you: the nearest is {nearest}.\n"
+                                     "any | surroundings_told | The same as I told you: the nearest is {nearest}.\n"
                                      "any | about_place | That's {about}.\n"
                                      "any | about_place_told | That's all I know of it: {about}.\n",
                                      "test");
@@ -784,7 +784,7 @@ TEST(an_answer_heard_lately_is_said_again_as_told) {
     FactPacket twice = packets::surroundings_again();
     twice.facts.back() = packets::memory_of(twice.speaker, {.turn = 2, .repeat = true, .heard = 1});
     const std::string said_twice = lines.speak(twice, "What's around, again?", {around});
-    check::is_true(said_twice.rfind("Same as I told you: the nearest is ", 0) == 0, "no lead before a told line: " + said_twice);
+    check::is_true(said_twice.rfind("The same as I told you: the nearest is ", 0) == 0, "no lead before a told line: " + said_twice);
     // A bank without told lines leaves the answer to the next bank's, never says its own again.
     const Lines banked = Lines::parse("post:gate_captain | safety_unsafe | Not here. Keep off {worst}.[ The {danger}, too.]\n"
                                       "any | safety_unsafe_told | Not safe, as I told you.\n",
@@ -840,6 +840,61 @@ TEST(small_talk_says_the_weather_or_anything_else_alike) {
     check::is_true(std::find(fair.begin(), fair.end(),
                              "Clear skies for deep winter. Mind the Hippogryphs nesting an hour's walk away.") != fair.end(),
                    "and the one that mentions it");
+}
+
+TEST(a_line_that_claims_what_the_speaker_has_no_ground_for_is_not_said) {
+    // A farewell is one situation whether the two met before or not, so only the check keeps "good
+    // to see you again" from a stranger. The warden's bank has it and a plain one; the next, a plain one.
+    const Lines lines = Lines::parse("warden/LN | parted | Good to see you again; farewell.\n"
+                                     "warden/LN | parted | Farewell.\n"
+                                     "any | parted | Go well.\n",
+                                     "test");
+    const auto parting = [](bool met, int heard) {
+        FactPacket p = packets::parted();
+        p.facts.back() = met ? packets::memory_of(p.speaker, {.met = "again", .times = 1, .since = "days", .heard = heard})
+                             : packets::memory_of(p.speaker, {.heard = heard});
+        return p;
+    };
+    check::equal(lines.replies(parting(false, 0)).size(), std::size_t(2), "the premise: both of the warden's lines fit a stranger");
+    std::set<std::string> to_a_stranger, to_someone_met;
+    for (int heard = 0; heard < 4; ++heard) {
+        to_a_stranger.insert(lines.speak(parting(false, heard), "Bye."));
+        to_someone_met.insert(lines.speak(parting(true, heard), "Bye."));
+    }
+    check::is_true(to_a_stranger.size() == 1 && to_a_stranger.count("Farewell.") == 1, "never glad to see a stranger again");
+    check::is_true(to_someone_met.count("Good to see you again; farewell.") == 1, "the control: glad to see someone met before");
+    // A bank with nothing true to say gives way to the next.
+    const Lines only = Lines::parse("warden/LN | parted | Good to see you again; farewell.\nany | parted | Go well.\n", "test");
+    check::equal(only.speak(parting(false, 0), "Bye."), std::string("Go well."), "the next bank's line");
+    check::equal(only.speak(parting(true, 0), "Bye."), std::string("Good to see you again; farewell."), "the control: its own, when true");
+    // A saying is quoted, not claimed: rain in a proverb on a clear day reports none.
+    FactPacket chat = packets::small_talk("clear", "still");
+    chat.persona.people = "human_cold";
+    const Lines quoting = Lines::parse("saying:human_cold | saying | rain finds every roof in the end\n"
+                                       "any | small_talk_fair | It's a fine {time}[; as we say, {saying}].\n",
+                                       "test");
+    check::equal(quoting.speak(chat, "Nice day."), std::string("It's a fine evening; as we say, rain finds every roof in the end."),
+                 "a saying quoted");
+    const Lines claiming = Lines::parse("any | small_talk_fair | It's a fine {time}; rain finds every roof in the end.\n", "test");
+    check::equal(claiming.speak(chat, "Nice day."), std::string(), "the control: the line's own rain, on a clear day");
+    // The same where the saying opens its sentence, with a capital.
+    const Lines opening = Lines::parse("saying:human_cold | saying | rain finds every roof in the end\n"
+                                       "any | small_talk_fair | It's a fine {time}.[ {saying}.]\n",
+                                       "test");
+    check::equal(opening.speak(chat, "Nice day."), std::string("It's a fine evening. Rain finds every roof in the end."),
+                 "a saying quoted, opening its sentence");
+    // told() says what speak() does: a told line that is untrue is not said, and the answer is not told.
+    const Lines told_lines = Lines::parse("any | safety_unsafe | Not safe. Keep clear of {worst}.\n"
+                                          "any | safety_unsafe_told | Welcome back; not safe, as I told you.\n",
+                                          "test");
+    const std::string whole = told_lines.speak(packets::safety_unsafe(), "Is it safe?");
+    FactPacket stranger = packets::safety_unsafe();
+    stranger.facts.back() = packets::memory_of(stranger.speaker, {.heard = 1});
+    FactPacket met = packets::safety_unsafe();
+    met.facts.back() = packets::memory_of(met.speaker, {.met = "again", .times = 1, .since = "days", .heard = 1});
+    check::is_true(!told_lines.told(stranger, {whole}) && told_lines.speak(stranger, "Is it safe?", {whole}) == whole,
+                   "a stranger is not welcomed back: the answer as ever, not told");
+    check::is_true(told_lines.told(met, {whole}), "the control: told to someone met before");
 }
 
 TEST(a_bad_lines_file_is_refused) {

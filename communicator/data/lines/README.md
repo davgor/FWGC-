@@ -167,7 +167,17 @@ packet, and a row that says a saying once more with one dropped in. `communicato
 - An article fits the word a blank fills in after it: "a {time}" says "a evening", "an {post}"
   "an farmer". `{season}` may be "the turn of the season", so nothing that needs a noun of its own
   stands before it ("this {season}", "every {season}").
+- No claim that no packet can back (`truth.hpp`, `never_backed()`): no greeting sent to someone
+  named, and no news asked of them ("give them my regards", "tell them I sent you", "don't say I
+  sent you", "tell me how they're keeping"); no distance or time counted out ("three days", "a
+  day's march", "in a few years"). "One day", "on your own two feet" and "all in a day's work"
+  count nothing.
 - Some test packet speaks the row.
+
+The rest of the truth check is held where a line is said: a line that says "welcome back" is not
+said to a stranger, nor rain on a clear day, nor "dangerous" of a nest of three, and the next line
+is. `--check-lines` lists those as "(unsaid for this packet)". A line said only where it is true
+is fine; one that no packet the game gives can make true is never heard.
 
 ## Rules no test can hold
 

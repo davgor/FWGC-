@@ -71,7 +71,9 @@ public:
     // while one that is not fits, and when every one is, the one said longest ago is (a line said
     // with other passing words, another saying or "some weeks ago" for "a few days ago", is the
     // same line); an answer the stranger heard all of lately is said as told; and small talk does
-    // not warn again of a nest the speaker has warned of lately. Empty when no line fits.
+    // not warn again of a nest the speaker has warned of lately. A line that claims what the
+    // speaker has no ground for (truth.hpp: untrue()) is not said: the next one is, then the next
+    // bank's. Empty when no line fits.
     std::string speak(const orchestrator::FactPacket& packet, std::string_view line, const std::vector<std::string>& recent = {},
                       Meaning* meaning = nullptr) const;
 
@@ -98,8 +100,10 @@ private:
     };
 
     // replies(), each as Spoken. With `recent` (what the speaker said lately), small talk leaves
-    // out a warning of a nest the speaker has just given.
-    std::vector<Spoken> spoken_for(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent = nullptr) const;
+    // out a warning of a nest the speaker has just given. `checked`, as speak() says them: a line
+    // untrue() finds a claim in is left out, and a bank with none left gives way to the next.
+    std::vector<Spoken> spoken_for(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent = nullptr,
+                                   bool checked = false) const;
 
     // Adds the rows of `text` to the banks; `source` names it in an error.
     void read(std::string_view text, const std::string& source);

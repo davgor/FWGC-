@@ -48,6 +48,7 @@ add_library(communicator STATIC
   src/mention.cpp
   src/reply_shape.cpp
   src/text.cpp
+  src/truth.cpp
   src/voice.cpp
 )
 add_library(fwgc::communicator ALIAS communicator)
@@ -66,6 +67,7 @@ if(COMMUNICATOR_BUILD_TESTS)
     tests/test_known.cpp
     tests/test_interpreter.cpp
     tests/test_meaning.cpp
+    tests/test_truth.cpp
     tests/test_voice.cpp
   )
   target_link_libraries(communicator_tests PRIVATE communicator)

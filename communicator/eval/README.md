@@ -36,7 +36,9 @@ conqueror answer the same packets. The roster cases keep their own posts.
 `--check-lines PATH` holds every row of a lines file or folder to the voice's rules, as the tests
 do (`tests/authored_cases.hpp`), and prints each row that breaks one, with the rule. It loads no
 model and exits 1 when any row breaks a rule: a writer runs it on their own rows before handing
-them in.
+them in. A claim no packet can back (the truth check's `never_backed()`) breaks a rule; a claim
+some test packet does not back is listed as "(unsaid for this packet)", since the line is simply
+not said where it is untrue, and counted at the end.
 
 ## What it reports
 
@@ -64,6 +66,12 @@ them in.
   - **Mid-sentence capitals:** common capitals past a sentence's start, "I" and the packet's own
     capitals aside, which pass for names ("a castle named Greetings"). Under the grammar it is
     0. It counts only when a build without the rule is measured beside it.
+  - **Untrue:** the claims the truth check (`truth.hpp`) finds without ground, each named, and the
+    replies that make them. A game shows the written line instead of such a reply.
+
+  A refusal closes on who to see, and a written line that named them already on where they are
+  ("Find them at ..."): the shape check takes either. Before 2026-09-26 it took only the first,
+  and counted two written refusals as off their shape.
 
 ## lines.txt
 

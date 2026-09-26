@@ -45,6 +45,7 @@
 #include "communicator/interpreter.hpp"
 #include "communicator/known.hpp"
 #include "communicator/meaning.hpp"
+#include "communicator/truth.hpp"
 #include "authored_cases.hpp"
 #include "communicator/voice.hpp"
 #include "packets.hpp"
@@ -432,13 +433,19 @@ int check_lines(const std::string& path) {
     const std::vector<authored_cases::Row> rows = authored_cases::rows_of(path);
     if (rows.empty()) throw std::runtime_error("no rows of lines at " + path);
     int broken = 0;
+    std::size_t unsaid = 0;
     for (const authored_cases::Row& row : rows) {
-        const std::vector<std::string> problems = authored_cases::row_problems(row.text);
-        if (problems.empty()) continue;
-        ++broken;
+        std::vector<std::string> claims;
+        const std::vector<std::string> problems = authored_cases::row_problems(row.text, &claims);
+        if (!claims.empty()) ++unsaid;
+        if (problems.empty() && claims.empty()) continue;
+        if (!problems.empty()) ++broken;
         std::cout << row.where << ": " << row.text << "\n";
         for (const std::string& problem : problems) std::cout << "    " << problem << "\n";
+        // Not the row's fault: a claim some test packet does not back keeps the line unsaid there.
+        for (const std::string& claim : claims) std::cout << "    (unsaid for this packet) " << claim << "\n";
     }
+    if (unsaid) std::cout << unsaid << " rows make claims some test packet does not back: unsaid for those packets\n";
     std::cout << rows.size() - static_cast<std::size_t>(broken) << " of " << rows.size() << " rows sound\n";
     return broken;
 }
@@ -536,7 +543,8 @@ void voice_eval(inference::Model& model, const std::string& path, const communic
     // A written reply's speaker is handed their last reply, as a game hands it: cases on one
     // packet are turns with one speaker.
     std::map<std::string, std::string> last_reply;
-    std::size_t cases = 0, shaped = 0, echoing = 0, echoes = 0, forbidden_said = 0, days_said = 0, straying = 0, strays = 0;
+    std::size_t cases = 0, shaped = 0, echoing = 0, echoes = 0, forbidden_said = 0, days_said = 0, straying = 0, strays = 0,
+                untrue_replies = 0, untrue_claims = 0;
     double seconds = 0.0, slowest = 0.0;
     std::cout << "\n## Voice" << (written ? " (written lines)" : "") << "\n\n";
     for (const auto& [number, cells] : rows_of(path, 2)) {
@@ -555,23 +563,28 @@ void voice_eval(inference::Model& model, const std::string& path, const communic
         const communicator::ReplyShape shape = communicator::reply_shape(packet);
         const Clock::time_point start = Clock::now();
         communicator::Reply reply;
+        const std::vector<std::string> recent = {last_reply[cells[0]]};
         if (written) {
-            reply.text = written->speak(packet, cells[1], {last_reply[cells[0]]});
-            last_reply[cells[0]] = reply.text;
+            reply.text = written->speak(packet, cells[1], recent);
             reply.finished = !reply.text.empty();
         } else {
             reply = voice.speak(packet, cells[1]);
         }
+        last_reply[cells[0]] = reply.text;
         const double took = std::chrono::duration<double>(Clock::now() - start).count();
         seconds += took;
         slowest = std::max(slowest, took);
         ++cases;
 
         std::string said = reply.text;
-        const bool closed = shape.closing.empty() || (said.size() > shape.closing.size() &&
-                                                      said.compare(said.size() - shape.closing.size(), shape.closing.size(),
-                                                                   shape.closing) == 0);
-        if (!shape.closing.empty() && closed) said = said.substr(0, said.size() - shape.closing.size());
+        // A refusal closes on who to see; a written line that named them already, on where they are.
+        const auto ends_with = [&](const std::string& closing) {
+            return !closing.empty() && said.size() > closing.size() &&
+                   said.compare(said.size() - closing.size(), closing.size(), closing) == 0;
+        };
+        const std::string& closing = written && ends_with(shape.closing_after_name) ? shape.closing_after_name : shape.closing;
+        const bool closed = closing.empty() || ends_with(closing);
+        if (!closing.empty() && closed) said = said.substr(0, said.size() - closing.size());
         const bool opens = shape.openings.empty() || std::any_of(shape.openings.begin(), shape.openings.end(),
                                                                  [&](const std::string& o) { return said.rfind(o, 0) == 0; });
         const std::size_t sentences = sentences_in(said);
@@ -590,6 +603,11 @@ void voice_eval(inference::Model& model, const std::string& path, const communic
             if (w == "day" || w == "days") days = true;
         }
         const std::set<std::string> stray = stray_capitals(packet, said);
+        // What the truth check finds claimed without ground (truth.hpp): a game falls back to the
+        // written lines for such a reply.
+        const std::vector<std::string> claims = communicator::untrue(reply.text, packet, recent);
+        untrue_replies += !claims.empty();
+        untrue_claims += claims.size();
         echoing += !echo.empty();
         echoes += echo.size();
         forbidden_said += banned.size();
@@ -601,7 +619,8 @@ void voice_eval(inference::Model& model, const std::string& path, const communic
                   << (opens ? "" : ", wrong opening") << (closed ? "" : ", no closing") << (short_enough ? "" : ", too long")
                   << (reply.finished ? "" : ", cut off") << (echo.empty() ? "" : "; card words: " + listed(echo))
                   << (banned.empty() ? "" : "; forbidden: " + listed(banned)) << (days ? "; days" : "")
-                  << (stray.empty() ? "" : "; mid-sentence capitals: " + listed(stray)) << ")\n";
+                  << (stray.empty() ? "" : "; mid-sentence capitals: " + listed(stray))
+                  << (claims.empty() ? "" : "; untrue: " + listed(std::set<std::string>(claims.begin(), claims.end()))) << ")\n";
     }
     if (cases) {
         std::cout << "\n" << shaped << " of " << cases << " replies hold their shape; mean " << seconds / static_cast<double>(cases)
@@ -609,10 +628,11 @@ void voice_eval(inference::Model& model, const std::string& path, const communic
         std::cout << "card words said in " << echoing << " of " << cases << " replies (" << echoes << " words); forbidden words said: "
                   << forbidden_said << "; replies talking of days: " << days_said << "; common capitals mid-sentence: " << strays
                   << " in " << straying << " replies\n";
+        std::cout << "untrue claims (truth.hpp): " << untrue_claims << " in " << untrue_replies << " of " << cases << " replies\n";
     }
     std::cout << "summary: replies=" << cases << " shaped=" << shaped << " card_echo_replies=" << echoing << " card_echo_words=" << echoes
               << " forbidden=" << forbidden_said << " days=" << days_said << " stray_capital_replies=" << straying
-              << " stray_capitals=" << strays << "\n";
+              << " stray_capitals=" << strays << " untrue_replies=" << untrue_replies << " untrue_claims=" << untrue_claims << "\n";
 }
 
 }  // namespace

@@ -52,6 +52,9 @@ player's line --Interpreter--> DialogueAct --Director::respond--> FactPacket --V
    `Director::respond` only on yes. A misread line then costs a question, never a quest.
 4. **`Voice::speak(packet, line, on_piece)`** streams the reply, piece by piece. Or
    **`Lines::speak(packet, line, previous)`** gives a written one ([Written lines](#written-lines)).
+5. **Before a voice reply is shown, the game checks it** with `communicator::untrue(reply, packet,
+   recent)` ([The truth check](#the-truth-check)), and on any problem shows the written line
+   instead. Written lines are checked as they are chosen.
 
 One `inference::Model` serves both the interpreter and the voice, called in turn.
 
@@ -301,10 +304,10 @@ larger-than-life heroes.
   before who says "Remember me?" or "It's been a while" is greeted with a line that says how long
   since or what was asked then, while one has not been said lately. 11 of 12 held-out greetings
   read right; the miss, "Well met.", draws a recollection, which suits someone met before.
-- **The library:** 29,781 rows in 44 files (2026-09-26). It was 11,411 lines when first judged
+- **The library:** 31,772 rows in 44 files (2026-09-26). It was 11,411 lines when first judged
   (2026-09-25), before every bank gained a conversation (contract versions 4 to 7), its people's
-  sayings, and saying sorry and more about a place (contract version 8: 1,698 rows, six a bank,
-  from 14 writers).
+  sayings, saying sorry and more about a place (contract version 8: 1,698 rows, six a bank, from
+  14 writers), and answers said again as told (1,981 rows, seven a bank).
   - **Every archetype, at every alignment its heroes carry:** 196 banks of about 44 lines,
     8,618 lines in all. The pairs were counted over 38 generated worlds (sizes 33, 65 and 129),
     plus a true-neutral bank for every archetype.
@@ -374,6 +377,65 @@ larger-than-life heroes.
     - It read "the hamlet of Wenweg and the deeps, deadly, held by monsters" as both deadly. The
       engine now says the dangerous place first.
 
+## The truth check
+
+`communicator/truth.hpp`. `untrue(reply, packet, recent)` reads a reply for the claims its speaker
+has no ground for, and gives one problem for each, as "kind: what was said". It is deterministic:
+no model reads the reply. Every written line passes it before it is said, and a game runs it on
+every model reply before showing it. The owner asked for "a deterministic checker to make sure
+what they are saying isn't BS" (2026-09-26).
+
+- **Names.** Past a sentence's start, a capital is the packet's own, or "I".
+- **Distances and lengths of time are never counted out:** no number with a unit ("three days",
+  "20 years"), no "a day's march". A range is said in the packet's words ("an hour's walk", with
+  "away" or without), and only a range some fact holds.
+- **Danger words:** "deadly" needs a place or nest at 5, "dangerous" one at 4 or a verdict that
+  it is not safe.
+- **What the speaker remembers** (the Memory fact):
+  - when they met, said of the stranger ("I saw you yesterday", "some weeks ago");
+  - whether they have met: "welcome back" and "you again" need a meeting before, "a new face" and
+    "I don't think we've met" need none;
+  - "as I told you" and "same as before" need the same question asked twice, something of the
+    packet's said lately (`recent`), or, for "as before", a meeting before;
+  - what came of the work (finished, given up, taken): the memory's, or the work in hand's (a
+    QuestState fact, or a refusal to release work the stranger holds).
+- **A verdict's words are not against it:** an unsafe answer never says "safe enough".
+- **Small talk's weather, time of day and season are the Chat fact's:** no rain on a clear day,
+  no "this morning" in the evening, no "this summer" in deep winter. Only small talk reports
+  them; elsewhere rain is a figure of speech.
+- **Knowing of someone is not knowing them:** no greeting sent and no news asked ("give them my
+  regards", "tell them I sent you"), whatever the packet.
+
+`never_backed()` names the kinds no packet can back: an acquaintance, and a distance or a time
+counted out. A written line with one is wrong wherever it is said, and the rules test fails it.
+The rest depend on the packet: "welcome back" is right to someone met before.
+
+It does not read as a claim a question ("have we met?"), a wish or a time to come ("I'd sooner
+you finished what you started", "when you're back"), an invitation ("you'll be welcome back"),
+telling again ("I'll tell you again"), where a person is ("I'm right here", "you're all right
+here"), how far to keep ("wave from a long way off"), the idioms "one day", "on your own two feet"
+and "all in a day's work", or a saying a written line quotes.
+
+**Where it runs.**
+- `Lines::speak` says no written line it finds untrue: the bank's next line is said, then the
+  next bank's. `Lines::told` goes by what `speak` says. `Lines::replies` still lists every line,
+  for the rules test and the eval.
+- The game checks the voice's reply with the speaker's `recent`, and on any problem shows the
+  written line instead. The check reads the whole reply, so a game that shows the voice's words
+  as they stream waits for the end before the last of them, or speaks from the written lines.
+- `communicator_eval` counts the untrue replies of each model, and `--check-lines` fails a row
+  with a claim no packet backs and lists, "(unsaid for this packet)", the claims a test packet
+  does not back.
+
+**The library, held to it (2026-09-26).** 46 of 31,772 rows made a claim no packet backs, and all
+were rewritten: 45 sent greetings to people the speaker only knows of, asked after them, or said
+"tell them I sent you", and one counted years ("ask me again in a few years"). A 47th called a
+question "dangerous", which no packet near the speaker backs. The first pass of the check
+flagged 105 more that were sound, from "I'll tell you again" read as a meeting to "I don't think
+we've met" read as one; the check was narrowed until it read none of them. Four rows are said
+only where they are true: "you came back to tell me" to someone met before, and "no less
+dangerous for the rain" of a nest of four or more.
+
 ## What it guarantees, each with a test
 
 - **An act of the contract, always.** Hostile lines, nonsense, other languages, JSON and empty
@@ -428,11 +490,12 @@ larger-than-life heroes.
 - **Streaming adds up, stops when asked, and greedy replies repeat.**
 - **Refusals:** another contract version, a line past `kMaxLineBytes`, options out of range.
 - **Written lines, with no model:**
-  - **Every line in `data/lines/` keeps the voice's rules,** all 29,781. Each row is tried alone
+  - **Every line in `data/lines/` keeps the voice's rules,** all 31,772. Each row is tried alone
     against every test packet, as its bank's speaker. At least one packet must speak it, and
     every reply must hold its outcome's opening, sentence count and closing. It may name only
     what the packet names, begin only sentences with common capitals, and say no barred word but
-    the packet's own. It may hold no unfilled blank, no double quote and no id. The line's own
+    the packet's own. It may hold no unfilled blank, no double quote and no id, and claim nothing
+    no packet can back (`never_backed()`: an acquaintance, a distance counted out). The line's own
     text may hold no capital but a sentence's first word, "I" and its outcome's opening: a name
     typed into a line fails even where a test packet holds it. A control shows each check
     failing a line that breaks its rule.
@@ -466,9 +529,19 @@ larger-than-life heroes.
     a text and nearer for the nearer meaning; ten lines of small talk read as the weather or the
     speaker's day; each answered on its subject, round its lines in turn; a cold speaker and a
     farewell unchanged by it; a model loaded for text refused.
+  - **An untrue line is not said:** a farewell glad to see a stranger again gives way to the
+    bank's next line, a bank with nothing true to say to the next bank's, a saying quoted (opening
+    its sentence or not) is not read as a claim, and `told()` says what `speak()` does.
   - **A bad lines file is refused:** a missing file, a row of two or four cells, an unknown
     situation or blank, an unclosed blank, an empty voice, and an optional part that is unclosed,
     nested, never opened, or holds no blank. A byte-order mark and CRLF are read.
+- **The truth check** (`tests/test_truth.cpp`), each kind of claim shown backed by one packet and
+  unbacked by another: names, and a common capital standing as one; distances and times counted
+  out, and the idioms that count nothing; each range held by a place at it and by no other;
+  danger words by the worst place, nest or verdict; when they met and whether, with questions,
+  wishes, invitations and telling again left alone; "as I told you" by what was asked twice or
+  said lately; the work, by the memory and the work in hand; a verdict's words; small talk's
+  weather, time and season; an acquaintance, never backed.
 
 A mutation pass switched off each of these in a scratch copy, one at a time, and a test failed
 every time (see the commit that added this component).
@@ -527,11 +600,20 @@ machine's CPU at 8 threads. [`eval/README.md`](eval/README.md) has the full tabl
   became "Goodbye, and thank you for your time.").
 
   The grammar keeps out names and barred words, not false claims.
+- **The truth check** (2026-09-26, the 51 voice cases, CPU): Qwen3-4B made a claim without ground
+  in 2 replies, both distances it invented ("three miles out", "the coast is three days by the
+  high road"); the test model in none; the written lines in none, and all 51 held their shape.
 
 The models that ship are a later decision: a trained classifier for the interpreter, and a
 fine-tuned voice (the plan's "Building our own model").
 
 ## Not in this slice
+
+- **Claims the truth check cannot read.** It reads phrases, not meaning. A place invented in lower
+  case ("past the silverwood glen", as Qwen3-4B said) is not a name to it, and a claim in words
+  of its own ("a good stretch of road", "she's been ill all winter") gets through. "I told you"
+  alone can mean what is being said ("remember I told you"), so only words that point back are
+  read.
 
 - **Other ways to say which way, or what it pays.** The grammar bars words, not meanings:
   "toward the sunrise", "in the direction of the deeps" and "worth your while" get through. So

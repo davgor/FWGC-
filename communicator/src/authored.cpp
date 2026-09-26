@@ -14,6 +14,7 @@
 #include "communicator/error.hpp"
 #include "communicator/known.hpp"
 #include "communicator/meaning.hpp"
+#include "communicator/truth.hpp"
 #include "communicator/voice.hpp"
 #include "memory.hpp"
 #include "reply_shape.hpp"
@@ -577,6 +578,22 @@ bool heard_all(const std::map<std::string, std::string>& blanks, const std::stri
 // stranger". Said to someone met before, it reads as a speaker who has forgotten them (judged
 // 2026-09-26: "Mind your manners, stranger" two lines after "Welcome back"). The word in other
 // uses stays: "don't be a stranger", "stranger subjects".
+const std::vector<std::string> kNothingSaid;
+
+// `text` with its passing words (a saying, how long since, the season...) blanked out, as they
+// stand or opening a sentence with a capital, for the truth check.
+std::string without_passing(std::string text, const std::vector<std::string>& passing) {
+    for (const std::string& words : passing) {
+        if (words.empty()) continue;
+        std::string opening = words;
+        opening[0] = static_cast<char>(std::toupper(static_cast<unsigned char>(opening[0])));
+        for (const std::string& form : {words, opening})
+            for (std::size_t at = text.find(form); at != std::string::npos; at = text.find(form, at + form.size()))
+                text.replace(at, form.size(), form.size(), ' ');
+    }
+    return text;
+}
+
 bool addresses_a_stranger(const std::string& line) {
     static const std::string word = "stranger";
     std::string lower = line;
@@ -854,7 +871,7 @@ std::vector<std::string> Lines::replies(const FactPacket& p, const std::vector<s
     return out;
 }
 
-std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vector<std::string>* recent) const {
+std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vector<std::string>* recent, bool checked) const {
     const std::vector<std::string> chain = situations_for(p);
     if (chain.empty()) return {};
     const ReplyShape shape = reply_shape(p);
@@ -915,7 +932,14 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
                 for (const std::string& line : lines->second) {
                     // No one met before is a stranger any more.
                     if (memory.again && addresses_a_stranger(line)) continue;
-                    if (std::optional<Filled> reply = filled(line, blanks, s)) fits.emplace_back(s, std::move(*reply));
+                    std::optional<Filled> reply = filled(line, blanks, s);
+                    if (!reply) continue;
+                    // Nor is a line said that claims what the speaker has no ground for. Its passing
+                    // words are the packet's own or a saying quoted, never its claims: "as my people
+                    // say, rain finds every roof" on a clear day reports no rain.
+                    if (checked && !untrue(without_passing(finished(*reply), reply->passing), p, recent ? *recent : kNothingSaid).empty())
+                        continue;
+                    fits.emplace_back(s, std::move(*reply));
                 }
                 if (!fits.empty() && !pooled) break;
             }
@@ -980,7 +1004,7 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
 }
 
 std::string Lines::speak(const FactPacket& p, std::string_view line, const std::vector<std::string>& recent, Meaning* meaning) const {
-    std::vector<Spoken> spoken = spoken_for(p, &recent);
+    std::vector<Spoken> spoken = spoken_for(p, &recent, true);
     if (spoken.empty()) return {};
     // With meaning, small talk answers what the stranger's words are about: the weather's lines for
     // the weather, the rest for the speaker's own day (judged 2026-09-26: "How are things with you?"
@@ -1052,7 +1076,7 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
 }
 
 bool Lines::told(const FactPacket& p, const std::vector<std::string>& recent) const {
-    const std::vector<Spoken> spoken = spoken_for(p, &recent);
+    const std::vector<Spoken> spoken = spoken_for(p, &recent, true);
     return !spoken.empty() && said_again(spoken.front().situation);
 }
 
