@@ -722,3 +722,54 @@ mastermind/LE | parted | Go well; a piece lost is a piece I must replace, and I 
 mastermind/LE | small_talk | Today every piece moved where I wished, and not one of them knew it.[ My people have a saying, and for once they were right: {saying}.]
 mastermind/NE | parted | Goodbye; I've other pieces, so don't flatter yourself[; as my people say, {saying}].
 mastermind/NE | small_talk | Nothing today went wrong for me; when things go wrong, they go wrong for someone else.[ As we say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- mastermind/NN ----
+mastermind/NN | forgiven | Very well; it's out of the reckoning.
+mastermind/NN | forgiven | Apology accepted; grudges cost more than they're worth.
+mastermind/NN | forgiven_cold | Maybe; I'll plan as though you didn't mean it.
+mastermind/NN | unwronged | What for? I've nothing against you in my sums.
+mastermind/NN | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there; know what you want of them first.][ Mind the {around}; they belong in any plan.][ If you're after work, {work}.]
+mastermind/NN | about_place | That'd be {about}.[ Ask for {who}.][ You'll find {trades} there, if that's of use.][ Mind the {around}, and know your way out before you need it.][ {work}.]
+# ---- mastermind/LN ----
+mastermind/LN | forgiven | Apology accepted, and so recorded; the matter is closed.
+mastermind/LN | forgiven | Very well. I set the matter aside, formally and without reservation.
+mastermind/LN | forgiven_cold | We'll see; I will note the apology, and reserve my judgement.
+mastermind/LN | unwronged | There's nothing to forgive; my office holds no complaint against you.
+mastermind/LN | about_place | The place in question is {about}.[ There is {trades} there.][ You may call on {who} there.][ Be advised of the {around}.][ For your information, {work}.]
+mastermind/LN | about_place | To be precise, that is {about}.[ You will find {who} there.][ It has {trades}, to my knowledge.][ The {around} must be allowed for.][ As a matter of record, {work}.]
+# ---- mastermind/CN ----
+mastermind/CN | forgiven | Forgiven; clean slate, no small print.
+mastermind/CN | forgiven | No hard feelings; a grudge is just a rule I'd have to keep.
+mastermind/CN | forgiven_cold | Hmph. It's a nice speech, and I've a fallback in case that's all it is.
+mastermind/CN | unwronged | Whatever for? Oh, don't start apologising, it's catching.
+mastermind/CN | about_place | Right, {about}.[ There's {trades} there.][ Ask for {who}, and find out what they want first.][ Mind the {around}, and keep a way out handy.][ If you're itching for work, {work}.]
+mastermind/CN | about_place | Oh, {about}, yes.[ Look up {who} while you're about it.][ It's got {trades}.][ The {around}, naturally; there's always a catch.][ Now, work: {work}.]
+# ---- mastermind/NG ----
+mastermind/NG | forgiven | All right, it's forgiven; don't carry it on my account.
+mastermind/NG | forgiven | Forgiven, and thank you; that can't have been easy to say.
+mastermind/NG | forgiven_cold | It's a start; I'll keep my precautions all the same.
+mastermind/NG | unwronged | Nothing to forgive; whatever it is, I'd sooner hear it than guess.
+mastermind/NG | about_place | That's {about}.[ There's {trades} there, if you need anything.][ You'll find {who} there.][ Be careful near the {around}, for my peace of mind.][ And if you want work, {work}.]
+mastermind/NG | about_place | Oh, {about}.[ Ask for {who}.][ It has {trades}.][ Mind the {around}, and have a way back planned.][ {work}.]
+# ---- mastermind/LG ----
+mastermind/LG | forgiven | Forgiven, and gladly; I would far rather have you at ease.
+mastermind/LG | forgiven | Apology accepted. You have my goodwill again, in full.
+mastermind/LG | forgiven_cold | Maybe; you will forgive me if my caution remains.
+mastermind/LG | unwronged | Whatever for? I know of nothing between us that needs forgiving.
+mastermind/LG | about_place | That is {about}.[ There is {trades} there.][ You will find {who} there.][ I must ask you to keep well away from the {around}.][ Should you be seeking work, {work}.]
+mastermind/LG | about_place | Let me be of use: that is {about}.[ Ask there for {who}, if you would.][ It has {trades}.][ Do be careful of the {around}.][ If I may, {work}.]
+# ---- mastermind/LE ----
+mastermind/LE | forgiven | Very well; it is struck from the record.
+mastermind/LE | forgiven | Apology accepted; it was properly made, and I have no further use for the grievance.
+mastermind/LE | forgiven_cold | Words are cheap, and I do not trade in cheap things.
+mastermind/LE | unwronged | No harm done; you flatter yourself if you think you could do me any.
+mastermind/LE | about_place | For your information, that is {about}.[ There is {trades} there, should they be of use.][ You may present yourself there to {who}.][ Mind the {around}; I would dislike the waste.][ If you must be occupied, {work}.]
+mastermind/LE | about_place | You are asking after {about}, I take it.[ You will find {who} there.][ It has {trades}.][ Keep clear of the {around}; I do not care to lose a piece to them.][ Should you want employment, {work}.]
+# ---- mastermind/NE ----
+mastermind/NE | forgiven | All right; you're still of use, so it's forgotten.
+mastermind/NE | forgiven | Apology accepted; I'd sooner use you than resent you.
+mastermind/NE | forgiven_cold | Hmph. An apology doesn't make you useful.
+mastermind/NE | unwronged | What for? You've done nothing worth my noticing.
+mastermind/NE | about_place | That's {about}.[ There's {trades} there, if you've a use for them.][ Ask for {who}, if it suits you.][ Mind the {around}; a broken tool's no good to me.][ If you want something to do, {work}.]
+mastermind/NE | about_place | It's {about}, if you must know.[ It has {trades}.][ You'll find {who} there, for whatever use they are.][ The {around} are your problem, not mine.][ As for work, {work}.]

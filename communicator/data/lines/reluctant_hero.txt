@@ -825,3 +825,61 @@ reluctant_hero/NE | parted | Take care, and remember who holds the reins around 
 reluctant_hero/NE | small_talk | Another day in the seat I never wanted, and I've never sat so comfortably.[ As my people say, {saying}.]
 reluctant_hero/LE | parted | Goodbye, and do not mistake my courtesy for fondness[; as my people have it, {saying}].
 reluctant_hero/LE | small_talk | Each day the office demands more of me, and each day I find I demand more of it.[ As the saying goes, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- reluctant_hero/NN ----
+reluctant_hero/NN | forgiven | All right. I've too much on my plate to carry a grudge as well.
+reluctant_hero/NN | forgiven | Apology accepted; we're even, and I'm too tired to keep score.
+reluctant_hero/NN | forgiven_cold | Hmph. I heard you, and I'll believe it when I've reason to.
+reluctant_hero/NN | unwronged | What for? You've done me no wrong, and I've enough real trouble without inventing more.
+reluctant_hero/NN | about_place | That's {about}, for what it's worth to you.[ There's {trades} there.][ You'll find {who} there, and what you make of them is up to you.][ Mind the {around}, and don't make yourself my problem.][ If it's work you want, {work}.]
+reluctant_hero/NN | about_place | Right, {about}; I know it, for my sins.[ Ask for {who}, and leave me out of it.][ It has {trades}, if you need any of that.][ There are {around}, so watch yourself.][ {work}, since you'll ask anyway.]
+# ---- reluctant_hero/LN ----
+reluctant_hero/LN | forgiven | Very well. It is accepted in proper form, and I consider the matter closed.
+reluctant_hero/LN | forgiven | Forgiven, as is proper; I have neither the wish nor the time to carry it further.
+reluctant_hero/LN | forgiven_cold | Maybe. I have noted it, and I will believe it when it is borne out.
+reluctant_hero/LN | unwronged | There's nothing to forgive; no wrong has been done me, and I will not record one.
+reluctant_hero/LN | about_place | For the record, it is {about}.[ There is {trades} there.][ Ask for {who}, and address them properly.][ I am obliged to warn you of the {around}.][ Should you want work, {work}; I am bound to mention it.]
+reluctant_hero/LN | about_place | I can tell you this: it is {about}.[ You will find {who} there.][ It has {trades}.][ If you are seeking work, {work}.][ Keep your distance from the {around}.]
+# ---- reluctant_hero/NG ----
+reluctant_hero/NG | forgiven | Forgiven, of course. Thank you for saying it; I know it isn't easy.
+reluctant_hero/NG | forgiven | No hard feelings, honestly; I've enough to worry about without that.
+reluctant_hero/NG | forgiven_cold | Words are cheap; I'll need to see more before I'm easy with you.
+reluctant_hero/NG | unwronged | Nothing to forgive, truly; are you all right, though?
+reluctant_hero/NG | about_place | Oh, {about}; go carefully.[ You'll find {trades} there.][ Ask for {who}; I hope they're well.][ Stay clear of the {around}, please.][ And if it's work you're after, {work}.]
+reluctant_hero/NG | about_place | That's {about}, and I'll tell you what I know.[ Mind the {around}, won't you?][ It has {trades}.][ You'll find {who} there.][ {work}, if you've a mind to help.]
+# ---- reluctant_hero/CN ----
+reluctant_hero/CN | forgiven | Forgiven - there, done, no speeches.
+reluctant_hero/CN | forgiven | All right, all right, it's forgotten; I've enough grudges without collecting yours.
+reluctant_hero/CN | forgiven_cold | Hmph. I heard it - not sold, not yet.
+reluctant_hero/CN | unwronged | Whatever for? You've done nothing to me, which is more than I can say for most.
+reluctant_hero/CN | about_place | Oh, that one: {about}.[ There's {trades} there.][ Ask for {who} - they're not me, which is the main thing.][ The {around} - don't, just don't.][ {work} - your call.]
+reluctant_hero/CN | about_place | Right, {about}, and don't ask me to love it.[ Mind the {around} - I'd only have to fetch you.][ You'll find {who} there, if you're collecting names.][ It has {trades}.][ Oh, and {work}, before you ask.]
+# ---- reluctant_hero/LG ----
+reluctant_hero/LG | forgiven | Apology accepted, gladly; think no more of it.
+reluctant_hero/LG | forgiven | Very well. It is forgiven, and I will not speak of it again.
+reluctant_hero/LG | forgiven_cold | We'll see. I have heard you, and I will judge by what follows.
+reluctant_hero/LG | unwronged | Whatever for? You have done me no wrong; if something troubles you, tell me that instead.
+reluctant_hero/LG | about_place | Of course; that is {about}.[ You will find {trades} there.][ Ask for {who}, and treat them kindly.][ Please take great care near the {around}.][ Should work be what you need, {work}.]
+reluctant_hero/LG | about_place | I will tell you what I can: it is {about}.[ You will find {who} there; I hope they are well.][ There is {trades} there.][ Do not go near the {around} alone.][ {work}, should you wish to know.]
+# ---- reluctant_hero/CG ----
+reluctant_hero/CG | forgiven | Forgiven - of course you are, don't be daft.
+reluctant_hero/CG | forgiven | No hard feelings - honestly, I've forgotten it already, well, nearly.
+reluctant_hero/CG | forgiven_cold | We'll see - I heard you, I did, I'm just not there yet.
+reluctant_hero/CG | unwronged | What for? You've done nothing to me - have you eaten, though?
+reluctant_hero/CG | about_place | Oh, {about} - mind yourself there.[ You'll find {trades} there.][ Look for {who} there, and be nice to them.][ Keep off the {around}, would you, please?][ And {work}, while I think of it.]
+reluctant_hero/CG | about_place | Right, {about} - oh, now I'll worry.[ The {around} - no, stay away, for my nerves.][ It has {trades}.][ You'll find {who} there, for what it's worth.][ {work}, if you want it.]
+# ---- reluctant_hero/NE ----
+reluctant_hero/NE | forgiven | Apology accepted. It's the right answer, and I like being given the right answer.
+reluctant_hero/NE | forgiven | No hard feelings; you're more use to me forgiven than not.
+reluctant_hero/NE | forgiven_cold | It's a start, and a small one; I'll see if it grows.
+reluctant_hero/NE | unwronged | No harm done; you've done nothing to me worth the breath.
+reluctant_hero/NE | about_place | Ah, {about}.[ It has {trades}, if that's of any use to you.][ You'll find {who} there, if you've business with them.][ Mind the {around}; you're no use to me dead.][ As it happens, {work}.]
+reluctant_hero/NE | about_place | It's {about}, and you're welcome to it.[ Ask for {who}; I'll leave you to them.][ There's {trades} there.][ Mind the {around}, or don't; it's your neck.][ {work}; make of that what you will.]
+# ---- reluctant_hero/LE ----
+reluctant_hero/LE | forgiven | Apology accepted. The office acknowledges it, and so, I suppose, do I.
+reluctant_hero/LE | forgiven | Very well; it is entered in your favour, and we need say no more.
+reluctant_hero/LE | forgiven_cold | Hmph. An apology is noted; whether it is meant remains to be seen.
+reluctant_hero/LE | unwronged | Whatever for? You have done nothing that wants my pardon, and I do not grant it idly.
+reluctant_hero/LE | about_place | It is {about}, since you insist.[ You will find {trades} there.][ Seek out {who}, if you think it worth your while.][ The {around} are your affair, not the office's.][ Should you require work, {work}.]
+reluctant_hero/LE | about_place | For your information, it is {about}.[ You will find {who} there.][ Mind the {around}, if you have any regard for your own skin.][ It has {trades}.][ {work}; I trust that is clear.]

@@ -619,3 +619,47 @@ broken_soul/NE | parted | Take care of your own; nobody else will, least of all 
 broken_soul/NE | small_talk | Nothing's gone wrong for me today, so it's gone wrong for somebody else.[ My people have a saying, not that it ever helped anyone: {saying}.]
 broken_soul/NN | parted | Safe travels, and don't carry more than you can use[; as my people say, {saying}].
 broken_soul/NN | small_talk | Enough work to keep my mind off things, and that's all I ask of a day.[ As my people put it, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- broken_soul/NG ----
+broken_soul/NG | forgiven | Forgiven; there's enough hurt going round without me adding to it.
+broken_soul/NG | forgiven | All right, it's done with, and I'll not carry it.
+broken_soul/NG | forgiven_cold | Hmph. I'll believe it when I've reason to.
+broken_soul/NG | unwronged | No harm done; there's nothing to mend between us.
+broken_soul/NG | about_place | That's {about}.[ There's {trades} there, if you need one.][ Ask for {who}; they're about.][ There are {around}, so go carefully.][ If it's work you want, {work}.]
+broken_soul/NG | about_place | You mean {about}, then.[ You'll find {trades} there.][ Look for {who}, and look after them if they need it.][ Stay well back from the {around}.][ And {work}.]
+# ---- broken_soul/LG ----
+broken_soul/LG | forgiven | Very well; it is settled, and struck from the ledger.
+broken_soul/LG | forgiven | Forgiven, fully; that account is closed.
+broken_soul/LG | forgiven_cold | We'll see; I have heard it, and I will weigh it in its turn.
+broken_soul/LG | unwronged | There's nothing to forgive; nothing stands against you in my reckoning.
+broken_soul/LG | about_place | If I have your meaning, it is {about}.[ There is {trades} there, should you have need of one.][ Ask for {who}, and deal with them honourably.][ Take heed of the {around}.][ If you seek work, {work}.]
+broken_soul/LG | about_place | In answer, it is {about}.[ You will find {trades} there.][ {who} may be found there, should your business lie with them.][ The {around} are to be avoided.][ Of work there, I know this: {work}.]
+# ---- broken_soul/LE ----
+broken_soul/LE | forgiven | Very well. It is noted, and set aside.
+broken_soul/LE | forgiven | Forgiven, which is more than most receive from me.
+broken_soul/LE | forgiven_cold | Words are cheap, and yours have not yet bought anything.
+broken_soul/LE | unwronged | Nothing to forgive; nothing is entered against you, for what that is worth.
+broken_soul/LE | about_place | That is {about}, for what use it is to you.[ There is {trades} there, should you need one.][ Ask for {who}, and do not waste their time.][ There are {around}, which I leave to your judgement, such as it is.][ Should you want work, {work}.]
+broken_soul/LE | about_place | {about}, since you must know.[ You will find {trades} there.][ {who} may be found there, for whatever they are worth.][ The {around} are your concern, not mine.][ As to work, {work}.]
+# ---- broken_soul/CG ----
+broken_soul/CG | forgiven | Forgiven, forgiven, of course, don't even think about it.
+broken_soul/CG | forgiven | No hard feelings, none, well, maybe one, and it's gone now.
+broken_soul/CG | forgiven_cold | Maybe, but not today.
+broken_soul/CG | unwronged | Whatever for? Ha, I've nothing against you, nothing at all.
+broken_soul/CG | about_place | Oh, {about}, yes, I know it.[ There's {trades} there, if that's any use.][ Ask for {who}, why don't you.][ Mind the {around}, will you, and mind whoever's with you, too.][ And {work}.]
+broken_soul/CG | about_place | Well, that's {about}, isn't it?[ You'll find {trades} there.][ {who} can be found there, and, well, be kind to them.][ Watch out for the {around}, and shout if you need me.][ If it's work you want, {work}.]
+# ---- broken_soul/NE ----
+broken_soul/NE | forgiven | Very well; it's not worth the grudge.
+broken_soul/NE | forgiven | Forgiven; holding on to it would only cost me.
+broken_soul/NE | forgiven_cold | Maybe. Or maybe you just want something.
+broken_soul/NE | unwronged | What for? I've no grudge against you, and I'm not in the market for one.
+broken_soul/NE | about_place | You mean {about}; much good may it do you.[ There's {trades} there, if you've a use for one.][ Ask for {who}, if they'll bother with you.][ The {around} are your lookout.][ If you're after work, {work}.]
+broken_soul/NE | about_place | Fine, it's {about}, since you ask.[ You'll find {trades} there.][ {who} can be found there, if they're of any use to you.][ Keep away from the {around}, or don't; I won't be counting.][ If you care, {work}.]
+# ---- broken_soul/NN ----
+broken_soul/NN | forgiven | Forgiven. What's done is done.
+broken_soul/NN | forgiven | All right, that's squared, and that's the end of it.
+broken_soul/NN | forgiven_cold | It's a start; we'll see where it goes.
+broken_soul/NN | unwronged | No harm done; you owe me nothing.
+broken_soul/NN | about_place | That's {about}, plain and simple.[ There's {trades} there, if you need one.][ Ask for {who}, and deal fairly with them.][ Mind the {around}, if you go.][ If it's work you want, {work}.]
+broken_soul/NN | about_place | It's {about}; take it or leave it.[ You'll find {trades} there.][ {who} can be found there, if you've business with them.][ There are {around}, so go ready.][ And {work}.]

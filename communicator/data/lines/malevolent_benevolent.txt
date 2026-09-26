@@ -413,3 +413,33 @@ malevolent_benevolent/NG | parted | Goodbye, and trust what people do over what 
 malevolent_benevolent/NG | small_talk | A long day, and a good one; nobody thanked me, and nobody needed to.[ As the old ones had it, {saying}.]
 malevolent_benevolent/NN | parted | Farewell; like me or don't, the door's open either way[; as my people say, {saying}].
 malevolent_benevolent/NN | small_talk | The usual: work to do, and people making up their minds about me while I do it.[ As we say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- malevolent_benevolent/NE ----
+malevolent_benevolent/NE | forgiven | Very well; I'll strike it off, since you may yet be useful.
+malevolent_benevolent/NE | forgiven | Forgiven; holding it against you isn't worth my while.
+malevolent_benevolent/NE | forgiven_cold | Words are cheap; I'll see whether yours are worth believing.
+malevolent_benevolent/NE | unwronged | Whatever for? You've done nothing to me, which is about what I'd expect.
+malevolent_benevolent/NE | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there, for what use they are.][ Mind the {around}; I'd hate to waste you.][ If you want to be of use, {work}.]
+malevolent_benevolent/NE | about_place | Here's what's worth knowing: {about}.[ It has {trades}.][ Ask for {who}, and see whether they'll have you.][ There are {around}; walk into them if you like.][ {work}.]
+# ---- malevolent_benevolent/LE ----
+malevolent_benevolent/LE | forgiven | Apology accepted; it is noted in your favour, and there the matter rests.
+malevolent_benevolent/LE | forgiven | Very well; I receive your apology, and I will not raise it again.
+malevolent_benevolent/LE | forgiven_cold | We'll see. An apology is noted, not proven.
+malevolent_benevolent/LE | unwronged | There's nothing to forgive; you have given me no cause, and I do not invent one.
+malevolent_benevolent/LE | about_place | That is {about}.[ There you will find {trades}.][ Go to {who} there, and observe the proper forms.][ Take heed of the {around}.][ Should you seek work, {work}.]
+malevolent_benevolent/LE | about_place | You refer to {about}.[ It has {trades}.][ Ask for {who}, and do not presume on them.][ Keep your distance from the {around}.][ As to work, {work}.]
+# ---- malevolent_benevolent/NG ----
+malevolent_benevolent/NG | forgiven | Forgiven, and I mean it; we start again from here.
+malevolent_benevolent/NG | forgiven | All right; it's done with, and I'm glad you said it.
+malevolent_benevolent/NG | forgiven_cold | Maybe. I'll watch what you do, same as anyone.
+malevolent_benevolent/NG | unwronged | No harm done; you've nothing to answer for with me.
+malevolent_benevolent/NG | about_place | That's {about}.[ There's {trades} there.][ Ask for {who}; they're about.][ Keep yourself and anyone with you clear of the {around}.][ If you're after work, {work}.]
+malevolent_benevolent/NG | about_place | Ah, {about}.[ You'll find {who} there; judge them by what they do.][ It has {trades}.][ There are {around}, so go carefully.][ {work}.]
+# ---- malevolent_benevolent/NN ----
+malevolent_benevolent/NN | forgiven | Very well; it's settled, and I'll not hold it against you.
+malevolent_benevolent/NN | forgiven | No hard feelings; I'd rather deal with you than nurse a grudge.
+malevolent_benevolent/NN | forgiven_cold | It's a start; it doesn't change where we stand, not yet.
+malevolent_benevolent/NN | unwronged | Nothing to forgive; we're square, as far as I know.
+malevolent_benevolent/NN | about_place | That's {about}.[ You'll find {who} there; make of them what you will.][ There's {trades} there.][ Mind the {around}.][ As for work, {work}.]
+malevolent_benevolent/NN | about_place | I'll tell you straight: {about}.[ It has {trades}.][ Ask for {who}.][ There are {around}, so watch yourself.][ If it's work you want, {work}.]

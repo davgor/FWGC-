@@ -722,3 +722,54 @@ rebel/LG | parted | Safe travels, and may you meet with fair dealing wherever yo
 rebel/LG | small_talk | Some days the work is slow, and today was one, but it is honest work.[ As the old ones had it, {saying}.]
 rebel/NE | parted | Take care, and choose your side before it's chosen for you[; as we say, {saying}].
 rebel/NE | small_talk | Everything's moving my way, slowly, and I'm in no hurry.[ As my people say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- rebel/NN ----
+rebel/NN | forgiven | Very well; it's settled, and we'll not go back over it.
+rebel/NN | forgiven | Apology accepted; you said it straight, and I take it the same way.
+rebel/NN | forgiven_cold | Words are cheap; I'll see what yours are worth.
+rebel/NN | unwronged | Nothing to forgive; the ledger's clean between us.
+rebel/NN | about_place | That's {about}.[ You can deal with {trades} there.][ You'll find {who} there, if they're worth your while.][ Give the {around} a wide berth.][ If it's work you're after, {work}.]
+rebel/NN | about_place | You're asking after {about}.[ Ask for {who}.][ You'll find {trades} there, if that's any use to you.][ Mind the {around}; they're not worth bleeding for.][ {work}.]
+# ---- rebel/LN ----
+rebel/LN | forgiven | Very well; an apology honestly offered is accepted in the same spirit.
+rebel/LN | forgiven | Forgiven. The matter is closed, and I will not reopen it.
+rebel/LN | forgiven_cold | We'll see; an apology is a declaration, not a proof.
+rebel/LN | unwronged | Whatever for? I hold no grievance against you.
+rebel/LN | about_place | The place you mean is {about}.[ There is {trades} there.][ You will find {who} there.][ Take heed of the {around}.][ For the record, {work}.]
+rebel/LN | about_place | That would be {about}.[ You may seek out {who} there.][ It has {trades}, as I understand it.][ Be warned of the {around}.][ If it is work you want, {work}.]
+# ---- rebel/NG ----
+rebel/NG | forgiven | Forgiven, and gladly; thank you for saying it.
+rebel/NG | forgiven | All right, it's forgotten; now, how are you?
+rebel/NG | forgiven_cold | It's a start, but only a start.
+rebel/NG | unwronged | No harm done, none at all; is something troubling you?
+rebel/NG | about_place | That's {about}.[ There's {trades} there, should you need them.][ You'll find {who} there.][ Please keep well clear of the {around}; I'd hate for you to get hurt.][ If you're looking for work, {work}.]
+rebel/NG | about_place | You mean {about}, I think.[ Ask there for {who}.][ It has {trades}.][ Do look after yourself near the {around}.][ And if it's work you need, {work}.]
+# ---- rebel/CN ----
+rebel/CN | forgiven | Forgiven. There, done, no speeches.
+rebel/CN | forgiven | All right, all right, it's forgotten; don't milk it.
+rebel/CN | forgiven_cold | Hmph. So you're sorry; we'll see how long that lasts.
+rebel/CN | unwronged | What for? No, really, what did I miss?
+rebel/CN | about_place | Ah, that one, {about}.[ It's got {trades}, if that's your thing.][ Look up {who}, if you're feeling sociable.][ Mind the {around}, and keep a knife handy.][ Oh, and work: {work}.]
+rebel/CN | about_place | Look, that's {about}.[ There's {trades} there.][ You'll find {who} there, for your sins.][ And the {around}; don't go making friends.][ Since you'll ask, {work}.]
+# ---- rebel/CG ----
+rebel/CG | forgiven | Forgiven, of course, and forgotten already; there, gone.
+rebel/CG | forgiven | No hard feelings, not one, I promise; don't you fret.
+rebel/CG | forgiven_cold | Hmph. I heard you, I did; I'm just not there yet.
+rebel/CG | unwronged | There's nothing to forgive, nothing at all; what's brought this on?
+rebel/CG | about_place | Oh, {about}![ There's {trades} there; be nice to them, yes?][ Look for {who} while you're there.][ Not a step near the {around}, promise me.][ If it's work you want, oh, here: {work}.]
+rebel/CG | about_place | Right, {about}, yes.[ Ask for {who}, go on.][ You'll find {trades} there.][ Mind the {around}, please, for me.][ And work, since you're asking: {work}.]
+# ---- rebel/LG ----
+rebel/LG | forgiven | Forgiven, and I thank you for the courtesy of saying so.
+rebel/LG | forgiven | Apology accepted, and with a glad heart; let there be an end of it.
+rebel/LG | forgiven_cold | It's a start; I acknowledge it, though I cannot yet believe it.
+rebel/LG | unwronged | Nothing to forgive, I assure you; you have done me no wrong.
+rebel/LG | about_place | You ask after {about}.[ There is {trades} there, should you have need of them.][ You will find {who} there, and I hope they fare well.][ I would ask you to keep clear of the {around}.][ Should you want work, {work}.]
+rebel/LG | about_place | If I have it right, you mean {about}.[ You may ask there for {who}.][ It has {trades}, I believe.][ Please take care near the {around}.][ And if you are seeking work, {work}.]
+# ---- rebel/NE ----
+rebel/NE | forgiven | Very well; an apology answers it, and I'll take the answer.
+rebel/NE | forgiven | Let's forget it; I've bigger things to remember.
+rebel/NE | forgiven_cold | Maybe. You'd say anything, I expect.
+rebel/NE | unwronged | What for? You'd have to matter a good deal more to wrong me.
+rebel/NE | about_place | Ah, {about}.[ There's {trades} there, if they're any use to you.][ Ask for {who}, if you must.][ Mind the {around}; I'd rather not lose you yet.][ As for work, {work}.]
+rebel/NE | about_place | You mean {about}, I suppose.[ It has {trades}.][ {who} may be found there, if you care.][ Keep away from the {around}, not that it's my concern.][ If you're that eager, {work}.]

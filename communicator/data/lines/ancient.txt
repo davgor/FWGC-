@@ -310,3 +310,26 @@ ancient/LN | parted | Goodbye; whenever you return, my word will stand exactly w
 ancient/LN | small_talk | Much is in hand, as ever, and each part of it will be done in its proper time and not before.[ As my people have said for longer than I can cite, {saying}.]
 ancient/NN | parted | Go well, and don't spend yourself on anything that isn't worth it[; as my people have it, {saying}].
 ancient/NN | small_talk | Some work's done, some isn't, and all of it will keep till I get to it.[ As my people put it, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- ancient/CE ----
+ancient/CE | forgiven | Forgiven, and half forgotten already; I forget so much.
+ancient/CE | forgiven | Very well; you grovel so nicely, I'm almost sorry it's over.
+ancient/CE | forgiven_cold | Hmph. It's a word, and I've heard prettier ones.
+ancient/CE | unwronged | What for? You're apologising for nothing; how quaint, do it again.
+ancient/CE | about_place | That's {about}, since you insist.[ There's {trades} there, if you like that sort of thing.][ You'll find {who} there, if you must.][ Beware the {around}, not that you will.][ Oh, and work: {work}.]
+ancient/CE | about_place | Ah, {about}; you do ask the dullest things.[ You'll find {trades} there.][ Ask for {who}, if you've the patience.][ There are {around}, which is something, at least.][ If you must be busy, {work}.]
+# ---- ancient/LN ----
+ancient/LN | forgiven | Forgiven, and in full; I do not forgive by halves.
+ancient/LN | forgiven | Very well; the apology is accepted, and I will hold to that as I hold to any word.
+ancient/LN | forgiven_cold | We'll see; I have time enough to learn whether you meant it.
+ancient/LN | unwronged | Whatever for? You owe me no apology, and I will not take one I am not owed.
+ancient/LN | about_place | You ask after {about}, I think.[ There is {trades} there.][ You will find {who} there.][ The {around} are best left in peace.][ If you seek work, {work}.]
+ancient/LN | about_place | That would be {about}, if I take your meaning.[ There you may ask for {who}.][ You will find {trades} there.][ I would not disturb the {around}.][ And, since you may ask, {work}.]
+# ---- ancient/NN ----
+ancient/NN | forgiven | All right; I've time enough for most things, but not for grudges.
+ancient/NN | forgiven | No hard feelings; they weigh more than they're worth.
+ancient/NN | forgiven_cold | It's a start; we'll see how it wears.
+ancient/NN | unwronged | There's nothing to forgive; we've no quarrel that I know of.
+ancient/NN | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there.][ Keep well off the {around}.][ If it's a job you're after, {work}.]
+ancient/NN | about_place | Ah, {about}.[ Ask for {who}; take your time about it.][ It has {trades}, if that's any use.][ There are {around}, and no sense rushing at them.][ {work}.]

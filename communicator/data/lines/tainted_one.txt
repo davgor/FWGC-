@@ -516,3 +516,40 @@ tainted_one/CN | parted | Goodbye, and be nice to people, it's safer, trust me[;
 tainted_one/CN | small_talk | Fine, bored, nobody's earned it today, which is probably for the best.[ As my people say, {saying}.]
 tainted_one/CG | parted | Safe travels, and mind yourself, I'd hate for anything to happen to you[; oh, and, as we say, {saying}].
 tainted_one/CG | small_talk | Oh, a good day, nobody hurt, nobody shouted at, well, hardly anybody.[ And, you know what we say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- tainted_one/NN ----
+tainted_one/NN | forgiven | Apology accepted; that squares it.
+tainted_one/NN | forgiven | No hard feelings; the ledger's clear, as far as I'm concerned.
+tainted_one/NN | forgiven_cold | We'll see. I've heard it; what it's worth, I'll find out.
+tainted_one/NN | unwronged | What for? You've cost me nothing, and I'd know if you had.
+tainted_one/NN | about_place | You mean {about}.[ There's {trades} there, if you've business with one.][ You'll find {who} there.][ Keep your distance from the {around}; they're a bad bargain.][ If it's work you want, {work}.]
+tainted_one/NN | about_place | It's {about}, for what that's worth to you.[ There's {trades} at it.][ Ask for {who}, and judge them for yourself.][ Stay out of the way of the {around}, if you can.][ {work}.]
+# ---- tainted_one/LN ----
+tainted_one/LN | forgiven | Forgiven, in due form; I will not count it against you.
+tainted_one/LN | forgiven | Very well. It is struck from the tally, and the tally is closed.
+tainted_one/LN | forgiven_cold | It's a start. I have heard it, and I will believe it when I have cause to.
+tainted_one/LN | unwronged | There's nothing to forgive; by my count, no apology is owed.
+tainted_one/LN | about_place | That is {about}.[ You will find {trades} there.][ You may ask there for {who}.][ I would not go near the {around} without cause.][ If you are seeking work, {work}.]
+tainted_one/LN | about_place | The place you name is {about}.[ There is {trades} at it.][ {who} may be found there, should you wish it.][ You are hereby warned of the {around}.][ As to work, {work}.]
+# ---- tainted_one/NG ----
+tainted_one/NG | forgiven | All right, it's forgotten. Is everything well with you?
+tainted_one/NG | forgiven | Forgiven, truly, and I'm glad you said sorry.
+tainted_one/NG | forgiven_cold | Maybe. I'll need a while before I believe it.
+tainted_one/NG | unwronged | Nothing to forgive, honestly; there's nothing between us that needs mending.
+tainted_one/NG | about_place | That's {about}.[ There's {trades} there, if you need one.][ You'll find {who} there.][ Stay back from the {around}, you and anyone with you.][ If you're looking for work, {work}.]
+tainted_one/NG | about_place | I know it; it's {about}.[ You'll find {trades} at it.][ Look for {who} there.][ Go gently near the {around}, would you?][ {work}.]
+# ---- tainted_one/CN ----
+tainted_one/CN | forgiven | Apology accepted, how very grand of us both; there, it's gone.
+tainted_one/CN | forgiven | Let's forget it; there, forgotten, and my memory's awful anyway.
+tainted_one/CN | forgiven_cold | Hmph. I heard it; I'm not buying it, not yet.
+tainted_one/CN | unwronged | No harm done, none; I'd have noticed, trust me.
+tainted_one/CN | about_place | Oh, {about}; I know the one.[ There's {trades} there, if that's any use.][ You'll find {who} there; say hello, or don't.][ Mind the {around}; really, mind them.][ And work, since you'll ask: {work}.]
+tainted_one/CN | about_place | Yes, yes, {about}; what of it?[ You'll find {trades} about the place.][ Ask for {who}, if you must.][ There are {around} too; I'd not bother them, frankly.][ {work}, if you're keen.]
+# ---- tainted_one/CG ----
+tainted_one/CG | forgiven | Forgiven, oh, of course forgiven; it's gone, all of it.
+tainted_one/CG | forgiven | No hard feelings, none; honestly, don't give it another thought.
+tainted_one/CG | forgiven_cold | Words are cheap; I'm not there yet, not with you.
+tainted_one/CG | unwronged | Whatever for? Oh, you're fine, you're fine; is something wrong?
+tainted_one/CG | about_place | Ah, {about}, of course.[ There's {trades} there, should anybody need one.][ You'll find {who} there; be kind to them, would you?][ Give the {around} plenty of room, for everyone's sake.][ If it's work you want, {work}.]
+tainted_one/CG | about_place | That's {about}, that is.[ You'll find {trades} at it.][ Look for {who} there.][ Oh, and there are {around}; nobody goes poking them, all right?][ {work}.]

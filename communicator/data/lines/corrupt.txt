@@ -833,3 +833,61 @@ corrupt/NE | parted | Go well, and if you meet anyone who'd buy this place, send
 corrupt/NE | small_talk | Fine, for me; rather less so for anyone who dealt with me.[ As we say, {saying}.]
 corrupt/LE | parted | Take care, and do not invest too much of yourself in this place; I certainly have not[; as my people have it, {saying}].
 corrupt/LE | small_talk | Much has been arranged today, to my satisfaction if not to anyone else's.[ As my people have long held, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- corrupt/NN ----
+corrupt/NN | forgiven | Very well; you're back in credit with me.
+corrupt/NN | forgiven | No hard feelings; bad blood's bad for business.
+corrupt/NN | forgiven_cold | Words are cheap, and I deal in dearer things.
+corrupt/NN | unwronged | Nothing to forgive; you've not crossed me.
+corrupt/NN | about_place | Right, {about}.[ There's {trades} there; how you deal with them is your business.][ You'll find {who} there, if it's them you want.][ Leave the {around} alone; there's no profit in them.][ If it's work you're after, {work}.]
+corrupt/NN | about_place | That's {about}, since you're asking.[ Ask for {who}, and make of them what you can.][ There's {trades} there, if you've business with one.][ There are {around}, so count the cost before you go.][ And there's work going: {work}.]
+# ---- corrupt/LN ----
+corrupt/LN | forgiven | Apology accepted, and properly made; I consider the matter closed.
+corrupt/LN | forgiven | Very well. It is set aside, without terms.
+corrupt/LN | forgiven_cold | It's a start. I will note it, and extend nothing further until I have reason.
+corrupt/LN | unwronged | Whatever for? I have lodged no complaint against you.
+corrupt/LN | about_place | You will be meaning {about}.[ There is {trades} there, for any business you may have.][ You will find {who} there; any arrangement with them is your own affair.][ Keep a proper distance from the {around}.][ As regards work, {work}.]
+corrupt/LN | about_place | That would be {about}, precisely.[ Ask there after {who}.][ Of trades, there is {trades}.][ There are {around}; I note it for your information.][ There is also work to be had: {work}.]
+# ---- corrupt/NG ----
+corrupt/NG | forgiven | Forgiven, and gladly; I'd hate for it to sit between us.
+corrupt/NG | forgiven | Let's forget it, shall we? I'd much rather know how you're keeping.
+corrupt/NG | forgiven_cold | Maybe. I'll believe it when I've reason to.
+corrupt/NG | unwronged | No harm done, none at all, so put it out of your mind.
+corrupt/NG | about_place | Ah, {about}.[ You'll find {who} there; say hello, would you?][ There's {trades} there, and I hope they're well.][ Do mind the {around}, won't you?][ And if you're after work, {work}.]
+corrupt/NG | about_place | That'll be {about}.[ Look for {who} there.][ You'll find {trades} there, if you need anything seen to.][ Give the {around} a wide berth, for my sake.][ And there's work there, if you want it: {work}.]
+# ---- corrupt/CN ----
+corrupt/CN | forgiven | Let's forget it; I have, already.
+corrupt/CN | forgiven | No hard feelings, none; far as I'm concerned, it never happened.
+corrupt/CN | forgiven_cold | Hmph; sorry's cheap, and I know cheap when I hear it.
+corrupt/CN | unwronged | Whatever for? You've done nothing to me, not that I know of, hm?
+corrupt/CN | about_place | {about}, is it?[ There's {trades} there, and what you do with them is between you and them.][ Ask for {who}, and keep me out of it.][ Mind the {around}, eh.][ Oh, and work, if you want it: {work}.]
+corrupt/CN | about_place | Oh, {about}, hm.[ You'll find {who} there, and good luck to you.][ There's {trades} there, for this and that.][ There are {around}, so tread light.][ {work}.]
+# ---- corrupt/LG ----
+corrupt/LG | forgiven | Apology accepted, with thanks; I hold nothing against you.
+corrupt/LG | forgiven | Very well; it is forgiven, and forgotten besides.
+corrupt/LG | forgiven_cold | We'll see; I will be courteous, but trust must wait a while.
+corrupt/LG | unwronged | Nothing to forgive, truly; you have done me no wrong at all.
+corrupt/LG | about_place | That is {about}, if I am not mistaken.[ You may look for {who} there.][ There is {trades} there, and I wish them well.][ Do be careful of the {around}, if you please.][ Should you be looking for work, {work}.]
+corrupt/LG | about_place | You mean {about}.[ You will find {who} there, and I hope they are keeping well.][ There is {trades} there, I believe.][ There are {around}, so please do take care.][ There is work there, if you would take it: {work}.]
+# ---- corrupt/CG ----
+corrupt/CG | forgiven | Forgiven, gladly, and no forms to fill in.
+corrupt/CG | forgiven | All right, all right, it's forgotten; don't give it another thought.
+corrupt/CG | forgiven_cold | Hmph. Fine words; we'll see if they last.
+corrupt/CG | unwronged | What for? You've not put a foot wrong, not with me.
+corrupt/CG | about_place | Oh, {about}![ There's {trades} there, and if they're going without, tell me.][ Look up {who}, would you?][ And the {around}, keep away from those, all right?][ If you want work, {work}.]
+corrupt/CG | about_place | Right, you mean {about}.[ Ask for {who}, and don't be shy about it.][ There's {trades} there, and tell me if anyone's giving them grief.][ There are {around}, so be sensible, eh?][ And there's work: {work}.]
+# ---- corrupt/NE ----
+corrupt/NE | forgiven | Very well; that answers it, and a grudge fetches nothing anyway.
+corrupt/NE | forgiven | Apology accepted. There's more to be had from you forgiven than otherwise.
+corrupt/NE | forgiven_cold | Maybe. I'll decide what it's worth when I've a use for you.
+corrupt/NE | unwronged | No harm done; you'd have to matter more to manage that.
+corrupt/NE | about_place | That's {about}.[ There's {trades} there, for whatever they're worth.][ You'll find {who} there, if you must.][ There are {around}; don't expect sympathy if you meet them.][ If you're after work, {work}.]
+corrupt/NE | about_place | Ah, {about}, and don't expect me to be sentimental about it.[ There's {trades} there, not that you'll need one.][ Ask for {who}, and see how far that gets you.][ Mind the {around}, or don't; I lose nothing either way.][ And there's work, if you're that keen: {work}.]
+# ---- corrupt/LE ----
+corrupt/LE | forgiven | Very well. An apology is an answer, and I shall take it as one.
+corrupt/LE | forgiven | Apology accepted; you find me in a generous humour.
+corrupt/LE | forgiven_cold | Words are cheap, and I have heard a great many of them.
+corrupt/LE | unwronged | Whatever for? I keep a careful account, and you are not in it.
+corrupt/LE | about_place | That is {about}, for whatever use you can make of it.[ You will find {trades} there, and I trust you can manage them without me.][ You may seek out {who}, should you think it worth the trouble.][ Keep clear of the {around}; I do not insure against folly.][ Should work interest you, {work}.]
+corrupt/LE | about_place | Ah, {about}, of course.[ There is {trades} there, for what little that signifies.][ {who} may be found there.][ There are {around}, which concern me not at all.][ And should you want work, {work}.]

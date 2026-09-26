@@ -917,3 +917,75 @@ post:steward | parted_cold | Be on your way; I've accounts waiting.
 post:steward | thanked | You're welcome; it cost me nothing but a moment.
 post:steward | thanked | Glad to; I'd rather you asked than guessed.
 post:steward | acknowledged | Right; that's all I needed to know.
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- post:commander ----
+post:commander | forgiven | Very well. It is done with, and I will not raise it again.
+post:commander | forgiven | Apology accepted; I have a keep to hold, and no room in it for grudges.
+post:commander | forgiven_cold | We'll see. I have heard it said; I have yet to see it meant.
+post:commander | unwronged | What for? I have no quarrel with you, and I would know if I did.
+post:commander | about_place | Take note: {about}.[ It has {trades}.][ You will find {who} there.][ Do not discount the {around}.][ If it is work you want, {work}.]
+post:commander | about_place | You mean {about}.[ There is {trades} there.][ Ask for {who}.][ Keep a wary eye on the {around}.][ {work}.]
+# ---- post:sergeant ----
+post:sergeant | forgiven | All right; it's forgotten, and I've recruits to shout at.
+post:sergeant | forgiven | No hard feelings. As far as I'm concerned, it's dismissed.
+post:sergeant | forgiven_cold | Hmph. Anyone can say sorry; I'll wait and see.
+post:sergeant | unwronged | No harm done; now stand up straight and say what you want.
+post:sergeant | about_place | Right, listen: that's {about}.[ There's {trades} there.][ Ask for {who}, and speak up.][ Keep well clear of the {around}.][ If it's work you want, {work}.]
+post:sergeant | about_place | Look sharp: it's {about}.[ It's got {trades}.][ You'll find {who} there.][ Watch for the {around}, and I mean watch.][ {work}.]
+# ---- post:garrison_officer ----
+post:garrison_officer | forgiven | Very well. We'll proceed as though it never happened.
+post:garrison_officer | forgiven | Apology accepted, and duly noted.
+post:garrison_officer | forgiven_cold | Words are cheap; I'll note it, and reserve judgement.
+post:garrison_officer | unwronged | Whatever for? I've nothing against you, on paper or off it.
+post:garrison_officer | about_place | In order, then: {about}.[ I have {trades} down for it.][ Ask for {who}.][ Give the {around} a wide berth.][ For the record, {work}.]
+post:garrison_officer | about_place | To be precise, it's {about}.[ It has {trades}.][ You'll find {who} there.][ The {around} are to be avoided.][ As for work, {work}.]
+# ---- post:quartermaster ----
+post:quartermaster | forgiven | All right; I'll strike it off the tally.
+post:quartermaster | forgiven | Let's forget it; I've enough to count as it is.
+post:quartermaster | forgiven_cold | Words are cheap; I count what I can see.
+post:quartermaster | unwronged | What for? Nothing's gone missing, and I'd know if it had.
+post:quartermaster | about_place | Here's how it tallies: {about}.[ By my count, there's {trades} there.][ You'll find {who} there.][ I'd count the {around} as trouble.][ If it's work you want, {work}.]
+post:quartermaster | about_place | Get this down: {about}.[ It has {trades}.][ Ask for {who}.][ Keep clear of the {around}.][ One more for your list: {work}.]
+# ---- post:armorer ----
+post:armorer | forgiven | Forgiven. A dent hammers out, and so does this.
+post:armorer | forgiven | No hard feelings; I've rivets to set, and they won't wait while I sulk.
+post:armorer | forgiven_cold | Hmph. I'll trust it once it's been tested, like any steel.
+post:armorer | unwronged | Whatever for? You've not dented anything of mine.
+post:armorer | about_place | Hm, {about}.[ There's {trades} there.][ Ask for {who}.][ In thin leather, I'd keep well away from the {around}.][ {work}.]
+post:armorer | about_place | Right, that's {about}.[ It's got {trades}.][ You'll find {who} there.][ Keep your straps tight near the {around}.][ If it's work you're after, {work}.]
+# ---- post:equipment_keeper ----
+post:equipment_keeper | forgiven | Let's forget it; it's out, and I'll not go poking at the ashes.
+post:equipment_keeper | forgiven | All right. A bucket of water on it, and it's done.
+post:equipment_keeper | forgiven_cold | We'll see. I've seen embers look dead before.
+post:equipment_keeper | unwronged | No harm done; nothing's burning, is it?
+post:equipment_keeper | about_place | That's {about}.[ There's {trades} there.][ Ask for {who}.][ Watch for the {around}, the way I watch for smoke.][ {work}.]
+post:equipment_keeper | about_place | As far as I know, it's {about}.[ It's got {trades}.][ You'll find {who} there.][ Keep well back from the {around}.][ If it's work you want, {work}.]
+# ---- post:hall_attendant ----
+post:hall_attendant | forgiven | Very well; I'll wipe it away with the rest of the spills.
+post:hall_attendant | forgiven | Apology accepted, and thank you for it.
+post:hall_attendant | forgiven_cold | Maybe. You'll forgive me if I keep a table between us.
+post:hall_attendant | unwronged | Whatever for? You've not spilled a thing.
+post:hall_attendant | about_place | From the talk at table, it's {about}.[ There's {trades} there, they say.][ You'd find {who} there.][ I'd not go near the {around}.][ {work}.]
+post:hall_attendant | about_place | Oh, that's {about}.[ It has {trades}, I hear.][ Ask for {who}.][ Do mind the {around}.][ If it's work you're after, {work}.]
+# ---- post:chaplain ----
+post:chaplain | forgiven | Forgiven, and gladly; it is already behind us.
+post:chaplain | forgiven | Very well. I will hold nothing against you.
+post:chaplain | forgiven_cold | Maybe. Only you know whether you mean it.
+post:chaplain | unwronged | There's nothing to forgive; you have done me no harm.
+post:chaplain | about_place | You ask after {about}.[ There you will find {trades}.][ Ask for {who}.][ Beware the {around}, and go with care.][ If it is work you seek, {work}.]
+post:chaplain | about_place | I know of it: {about}.[ It has {trades}.][ You will find {who} there.][ Heed the {around}.][ {work}.]
+# ---- post:steward ----
+post:steward | forgiven | Apology accepted; I'll close the account on it.
+post:steward | forgiven | Very well. We'll carry nothing forward.
+post:steward | forgiven_cold | It's a start; I'll not enter it in your favour yet.
+post:steward | unwronged | Nothing to forgive; there's nothing on the books against you.
+post:steward | about_place | As I have it, it's {about}.[ If you've dealings to do, there's {trades} there.][ Ask for {who}.][ Keep your distance from the {around}.][ On the matter of work, {work}.]
+post:steward | about_place | In short, it's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ If it's work you're after, {work}.]
+# ---- post:gate_captain ----
+post:gate_captain | forgiven | All right. That's done with; next question.
+post:gate_captain | forgiven | Let's forget it. I've a gate to watch, and no time to nurse a grudge.
+post:gate_captain | forgiven_cold | Hmph. I heard you; I'm not sure I believe you.
+post:gate_captain | unwronged | No harm done; now, what's your business?
+post:gate_captain | about_place | That's {about}, if you must know.[ There's {trades} there.][ Ask for {who}.][ Watch for the {around}.][ {work}.]
+post:gate_captain | about_place | You're asking about {about}.[ It has {trades}.][ You'll find {who} there.][ Keep your eyes open for the {around}.][ If it's work you want, {work}.]

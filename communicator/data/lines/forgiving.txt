@@ -516,3 +516,40 @@ forgiving/CN | parted | Safe travels, and if you meet someone who's wronged you,
 forgiving/CN | small_talk | Nobody's needed forgiving today, which is a shame, I was in the mood.[ As my people say, {saying}.]
 forgiving/LG | parted | Goodbye, and may you be forgiven as freely as you forgive[; as my people have long said, {saying}].
 forgiving/LG | small_talk | Much of my day goes to hearing people out, and there is no work I would rather do.[ There is a saying among my people I hold dear: {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- forgiving/NN ----
+forgiving/NN | forgiven | Forgiven, and put down; I don't carry what I don't need.
+forgiving/NN | forgiven | Apology accepted; it's settled, and we deal from here.
+forgiving/NN | forgiven_cold | Words are cheap; you're forgiven, which isn't the same as trusted.
+forgiving/NN | unwronged | What for? You owe me nothing, not even that.
+forgiving/NN | about_place | You mean {about}.[ There's {trades} there, if you've dealings with one.][ You'll find {who} there; make of them what you will.][ The {around} aren't worth the risk, to my mind.][ If it's work you want, {work}.]
+forgiving/NN | about_place | It's {about}, since you ask.[ You'll find {trades} at it.][ Ask there for {who}.][ Stay well back from the {around} unless it's worth your while.][ {work}.]
+# ---- forgiving/NG ----
+forgiving/NG | forgiven | Forgiven, and gladly. How are you keeping?
+forgiving/NG | forgiven | All right, and I'm grateful you said sorry; it can't have been easy.
+forgiving/NG | forgiven_cold | Maybe. You're forgiven; believing you is going to take me longer.
+forgiving/NG | unwronged | No harm done, none at all; is everything all right with you?
+forgiving/NG | about_place | It's {about}, and I'm glad you asked.[ You'll find {trades} there.][ {who} can be found there.][ Please don't go near the {around}; I'd worry otherwise.][ And if you need work, {work}.]
+forgiving/NG | about_place | Oh, that one; it's {about}.[ You'll find {trades} at it.][ Ask for {who} there.][ Be careful around the {around}, won't you?][ {work}.]
+# ---- forgiving/LN ----
+forgiving/LN | forgiven | Forgiven, formally and without reservation.
+forgiving/LN | forgiven | Very well. The apology is heard, and the pardon is given.
+forgiving/LN | forgiven_cold | We'll see. Your apology is entered on the record; my trust is not.
+forgiving/LN | unwronged | Nothing to forgive; there is no charge against you, and no pardon is needed.
+forgiving/LN | about_place | You refer to {about}.[ There is {trades} there.][ You may ask for {who} there.][ I am bound to warn you of the {around}.][ If you seek work, {work}.]
+forgiving/LN | about_place | As it stands, it is {about}.[ It has {trades}.][ {who} may be found there.][ You would do well to keep clear of the {around}.][ As to work, {work}.]
+# ---- forgiving/CN ----
+forgiving/CN | forgiven | Forgiven, ha, before you'd even finished.
+forgiving/CN | forgiven | Let's forget it; gone, done, what were we talking about?
+forgiving/CN | forgiven_cold | Hmph. You're forgiven, everyone is, but I don't believe a word of it.
+forgiving/CN | unwronged | Whatever for? You've done nothing, or nothing I noticed.
+forgiving/CN | about_place | Oh, {about}, yes.[ There's {trades} there, if you want one.][ Look for {who} there, and be decent, yes?][ There are {around}, too, so tread lightly, eh?][ If it's work you're after, {work}.]
+forgiving/CN | about_place | Hm, {about}, that one.[ You'll find {trades} at it.][ Ask for {who}, why not.][ The {around}, seriously, no.][ {work}, if you like.]
+# ---- forgiving/LG ----
+forgiving/LG | forgiven | Apology accepted, with a glad heart; it is behind us both.
+forgiving/LG | forgiven | Forgiven, freely and in good faith. Are you well?
+forgiving/LG | forgiven_cold | It's a start. The pardon stands; my trust will take longer.
+forgiving/LG | unwronged | There's nothing to forgive, I assure you; set your mind at rest.
+forgiving/LG | about_place | Certainly; it is {about}.[ You will find {trades} there.][ You may ask there for {who}, and I hope they receive you kindly.][ Keep your distance from the {around}, if you would.][ If you are seeking work, {work}.]
+forgiving/LG | about_place | I know it well enough; it is {about}.[ There is {trades} at it.][ You will find {who} there.][ I hope you will steer clear of the {around}.][ Should you want work, {work}.]

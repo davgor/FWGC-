@@ -825,3 +825,61 @@ oathbound/NE | parted | Take care, and mind the wording of anything you swear to
 oathbound/NE | small_talk | The day's gone my way, and days generally do when you choose your words with care.[ As we say, and for once it's true, {saying}.]
 oathbound/LE | parted | Take care, and remember that every word you give can be held against you[; as my people have it, {saying}].
 oathbound/LE | small_talk | Nothing I have sworn forbids me a pleasant day, and so I was having one, until now.[ As the saying goes, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- oathbound/NN ----
+oathbound/NN | forgiven | Apology accepted; we're square.
+oathbound/NN | forgiven | Let's forget it; a grudge costs more to keep than it's worth.
+oathbound/NN | forgiven_cold | Words are cheap, and I've not yet weighed yours.
+oathbound/NN | unwronged | Nothing to forgive; keep your apology for someone who's owed one.
+oathbound/NN | about_place | That's {about}, for what it's worth.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}, and don't spend yourself on them.][ {work}.]
+oathbound/NN | about_place | It's {about}.[ You'll find {trades} there.][ Ask for {who}, and deal plainly.][ There are {around}, so watch your step.][ If it's work you're after, {work}.]
+# ---- oathbound/LN ----
+oathbound/LN | forgiven | Forgiven, formally and in full.
+oathbound/LN | forgiven | Very well. I accept your apology, and the matter is discharged.
+oathbound/LN | forgiven_cold | We'll see. Your apology is noted, and it proves nothing yet.
+oathbound/LN | unwronged | Whatever for? I have no complaint to bring against you.
+oathbound/LN | about_place | That is {about}, to the letter.[ There is {trades} there.][ You may present yourself to {who}.][ I would caution you regarding the {around}.][ {work}.]
+oathbound/LN | about_place | You mean {about}, precisely.[ You will find {trades} there.][ Ask for {who}, and state your business in full.][ Take heed of the {around}.][ Should you seek work, {work}.]
+# ---- oathbound/NG ----
+oathbound/NG | forgiven | Very well, and gladly; you needn't carry it any further.
+oathbound/NG | forgiven | No hard feelings, none at all; are you all right?
+oathbound/NG | forgiven_cold | It's a start, but I'm not easy with you yet.
+oathbound/NG | unwronged | What for? You've nothing to be sorry for, truly.
+oathbound/NG | about_place | That's {about}.[ There's {trades} there.][ Look for {who}, and be kind to them.][ And do be careful of the {around}.][ If you're looking for work, {work}.]
+oathbound/NG | about_place | Oh, {about}.[ You'll find {trades} there.][ Ask for {who}; I hope they're keeping well.][ Mind yourself near the {around}, please.][ {work}.]
+# ---- oathbound/CN ----
+oathbound/CN | forgiven | Forgiven, and don't make a ceremony of it.
+oathbound/CN | forgiven | No hard feelings; I'd sooner laugh than sulk.
+oathbound/CN | forgiven_cold | Hmph, nicely said, and I'm still not buying it.
+oathbound/CN | unwronged | Whatever for? You've done nothing, more's the pity.
+oathbound/CN | about_place | That's {about}, since you ask.[ There's {trades} there, if you must.][ Ask for {who}, and don't be stiff about it.][ Give the {around} a wave from a long way off.][ Oh, and {work}.]
+oathbound/CN | about_place | Oh, that'd be {about}.[ You'll find {trades} there.][ Look for {who}, and tell me if they're any fun.][ Mind the {around}, if you're sensible, which I doubt.][ If it's work you want, well, {work}.]
+# ---- oathbound/LG ----
+oathbound/LG | forgiven | Forgiven, freely; you have my word that I will not hold it against you.
+oathbound/LG | forgiven | Very well; it is forgiven, and it will stay forgiven.
+oathbound/LG | forgiven_cold | It's a start, but my trust is not so quickly given back.
+oathbound/LG | unwronged | Whatever for? You have done me no wrong, and I would tell you if you had.
+oathbound/LG | about_place | That is {about}, and you are welcome to what I know of it.[ There is {trades} there.][ Ask for {who}, and I hope you find them well.][ I entreat you, keep well away from the {around}.][ If you would help, {work}.]
+oathbound/LG | about_place | You speak of {about}.[ You will find {trades} there.][ You may ask for {who}.][ Do take care near the {around}, I beg you.][ Should you seek work, {work}.]
+# ---- oathbound/CG ----
+oathbound/CG | forgiven | Forgiven, and I mean the heart of it, not just the word.
+oathbound/CG | forgiven | All right, it's forgiven, all of it, gone.
+oathbound/CG | forgiven_cold | Maybe, but not yet; I'm still smarting.
+oathbound/CG | unwronged | No harm done, none, so stop that and tell me how you are.
+oathbound/CG | about_place | Ah, {about}, yes.[ There's {trades} there.][ Look for {who}, and be good to them.][ The {around}, though; don't go near them, please.][ If you've a mind to, {work}.]
+oathbound/CG | about_place | It's {about}, and I'm glad you asked.[ You'll find {trades} there.][ Ask for {who}, and mind your manners, the kind that matter.][ Stay well back from the {around}, promise me.][ And if it's work you're after, {work}.]
+# ---- oathbound/NE ----
+oathbound/NE | forgiven | Forgiven, which is more than most get from me.
+oathbound/NE | forgiven | Let's forget it; I've better uses for my memory.
+oathbound/NE | forgiven_cold | Words are cheap; yours, cheaper still.
+oathbound/NE | unwronged | No harm done; you'd have to matter to me first.
+oathbound/NE | about_place | It's {about}, if you're that curious.[ There's {trades} there.][ Ask for {who}, and don't expect me to vouch for you.][ Mind the {around}, or don't; I've no stake in it.][ {work}.]
+oathbound/NE | about_place | Ah, {about}.[ You'll find {trades} there, if that's any use to you.][ Look for {who}, and be quick about it.][ There are {around}; go near them if you like.][ If you want work, {work}.]
+# ---- oathbound/LE ----
+oathbound/LE | forgiven | Very well; it is forgiven, to the letter.
+oathbound/LE | forgiven | Apology accepted; I shall consider the account closed.
+oathbound/LE | forgiven_cold | We'll see. An apology is easily made; meaning it is another matter.
+oathbound/LE | unwronged | There's nothing to forgive, and I do not accept apologies for nothing.
+oathbound/LE | about_place | That is {about}, precisely.[ There is {trades} there.][ You may address yourself to {who}.][ Keep clear of the {around}; I will not repeat the warning.][ {work}.]
+oathbound/LE | about_place | Since you ask, that is {about}.[ You will find {trades} there.][ Ask for {who}, and mind your tone with them.][ Stay clear of the {around}, as anyone with sense would.][ Should you want work, {work}.]

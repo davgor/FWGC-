@@ -619,3 +619,47 @@ knight_errant/CG | parted | Take care - and if you find a cause worth the troubl
 knight_errant/CG | small_talk | Half the day helping, half the day being thanked for it - awful, the thanking.[ As they told me when I was small, {saying}.]
 knight_errant/LG | parted | Goodbye, and may you never need my arm, though it is yours if you do[; as the old saying goes among my people, {saying}].
 knight_errant/LG | small_talk | Each day asks something of my arm and my word, and each day shall have both.[ As my people have long said, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- knight_errant/NN ----
+knight_errant/NN | forgiven | Very well; call it squared, and we'll not reckon it again.
+knight_errant/NN | forgiven | No hard feelings; a grudge costs more to keep than it's worth.
+knight_errant/NN | forgiven_cold | We'll see; I don't count it settled yet.
+knight_errant/NN | unwronged | What for? There's nothing on the tally against you.
+knight_errant/NN | about_place | That's {about}, plainly put.[ There's {trades} there, if you've need of one.][ Ask for {who}, if your business is with them.][ Mind the {around}; they're part of the reckoning.][ If it's work you want, {work}.]
+knight_errant/NN | about_place | The place you mean is {about}.[ You'll find {trades} there.][ {who} can be found there.][ There are {around}, and that's worth knowing.][ One more thing: {work}.]
+# ---- knight_errant/LN ----
+knight_errant/LN | forgiven | Very well; it is set aside, and there it will stay.
+knight_errant/LN | forgiven | Apology accepted; you have my word that it is forgotten.
+knight_errant/LN | forgiven_cold | It's a start; it is noted, and no more than that.
+knight_errant/LN | unwronged | Whatever for? No offence stands between us.
+knight_errant/LN | about_place | That place is {about}.[ There is {trades} there, should you require one.][ You will find {who} there.][ Keep your distance from the {around}.][ Should you seek work, {work}.]
+knight_errant/LN | about_place | I know the place: {about}.[ Ask for {who}, and state your business plainly.][ You will find {trades} there, should you have need of one.][ Beware the {around}.][ Of work there, I know this: {work}.]
+# ---- knight_errant/NG ----
+knight_errant/NG | forgiven | Forgiven, gladly, and thank you for saying so.
+knight_errant/NG | forgiven | All right, it's forgotten; please don't trouble yourself over it.
+knight_errant/NG | forgiven_cold | Maybe. I'm still wary of you.
+knight_errant/NG | unwronged | There's nothing to forgive, truly; put your mind at ease.
+knight_errant/NG | about_place | That's {about}.[ There's {trades} there, if you need one.][ Ask for {who}, and be polite.][ Do be careful of the {around}.][ If it's work you want, {work}.]
+knight_errant/NG | about_place | Oh, {about}; I hope it treats you kindly.[ You'll find {who} there, and I hope they're keeping well.][ There's {trades} there, should you need one.][ Watch out for the {around}, please.][ And {work}.]
+# ---- knight_errant/CN ----
+knight_errant/CN | forgiven | Forgiven - look at me, being gracious.
+knight_errant/CN | forgiven | Let's forget it - I'm in a good mood, and you caught it.
+knight_errant/CN | forgiven_cold | Hmph - maybe, on a better day.
+knight_errant/CN | unwronged | Whatever for? I'm not cross with you - not even slightly.
+knight_errant/CN | about_place | Oh, {about} - I know it, sort of.[ There's {trades} there, if that helps.][ Ask for {who} - and smile, it can't hurt.][ Mind the {around} - I'd hate to lose you, I think.][ And {work} - thought you'd want to know.]
+knight_errant/CN | about_place | Hm, {about} - yes, that one.[ {who} can be found there, whether you like them or not.][ You'll find {trades} there.][ Keep away from the {around} - honestly.][ If it's work you want, {work}.]
+# ---- knight_errant/CG ----
+knight_errant/CG | forgiven | Forgiven - completely, honestly, don't give it another thought.
+knight_errant/CG | forgiven | No hard feelings - I'm glad you said so, truly.
+knight_errant/CG | forgiven_cold | We'll see - I'm not over it yet.
+knight_errant/CG | unwronged | What for? We're all right, you and I - honestly.
+knight_errant/CG | about_place | Oh, {about} - I know it![ There's {trades} there, if you need one.][ Ask for {who} - go on, ask!][ Mind the {around} - please, please be careful.][ And if it's work you want, {work}.]
+knight_errant/CG | about_place | Well - it's {about}, and I'm glad you asked.[ You'll find {trades} there.][ Look for {who} - and be nice, for me.][ Keep clear of the {around}, would you?][ Oh, and {work}.]
+# ---- knight_errant/LG ----
+knight_errant/LG | forgiven | Forgiven, and freely; think no more of it.
+knight_errant/LG | forgiven | Apology accepted, with my thanks for the grace of offering it.
+knight_errant/LG | forgiven_cold | Words are cheap; I will believe it when your conduct bears it out.
+knight_errant/LG | unwronged | There's nothing to forgive; I hold nothing against you, and I would not have you think I do.
+knight_errant/LG | about_place | That is {about}.[ You will find {trades} there, should you have need of one.][ Ask for {who}, with all courtesy.][ Have a care near the {around}, I pray you.][ If you seek work, {work}.]
+knight_errant/LG | about_place | Of course; it is {about}.[ There is {trades} there.][ You will find {who} there, and I wish them well.][ Please keep your distance from the {around}.][ Should you want work, {work}.]

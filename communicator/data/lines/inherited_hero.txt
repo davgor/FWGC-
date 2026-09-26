@@ -313,3 +313,26 @@ inherited_hero/NG | parted | Go well, and look out for the ones nobody else look
 inherited_hero/NG | small_talk | Most of my day goes on the people I was left to look after, and I'd not have it otherwise.[ As the old ones had it, {saying}.]
 inherited_hero/NN | parted | Safe travels, and don't sell yourself cheap to anyone, me included[; as my people say, {saying}].
 inherited_hero/NN | small_talk | Half the day went on the aim I was handed, and half on what it costs to chase it.[ As we say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- inherited_hero/LE ----
+inherited_hero/LE | forgiven | Very well. The matter has been answered, and I consider it closed.
+inherited_hero/LE | forgiven | Forgiven, as form requires, and I will say no more of it.
+inherited_hero/LE | forgiven_cold | Words are cheap. I have heard yours, and I am not yet persuaded.
+inherited_hero/LE | unwronged | Whatever for? You have given me no cause for complaint, and I would know if you had.
+inherited_hero/LE | about_place | You refer to {about}.[ There is {trades} there, for whatever use you can make of that.][ You will find {who} there, and you will address them properly.][ There are {around}, and I do not retrieve the careless.][ Should you wish to be of use, {work}.]
+inherited_hero/LE | about_place | That is {about}, since you ask.[ Anyone of sense would keep clear of the {around}.][ There is {trades} there; that is certain.][ You may present yourself to {who} there, if you have the standing.][ {work}.]
+# ---- inherited_hero/NG ----
+inherited_hero/NG | forgiven | All right; it's done with, and I'm glad you said it.
+inherited_hero/NG | forgiven | Forgiven, and that's the end of it. How are you keeping?
+inherited_hero/NG | forgiven_cold | It's a start. I've heard you; the rest will take time.
+inherited_hero/NG | unwronged | No harm done. Is everything all right, you and yours?
+inherited_hero/NG | about_place | That's {about}, and I'll help where I can.[ There's {trades} there; tell me if they're ever struggling.][ You'll find {who} there.][ Go carefully near the {around}, you and anyone with you.][ {work}.]
+inherited_hero/NG | about_place | It's {about}, and I hope everyone there is safe.[ Please stay clear of the {around}.][ You'll find {trades} at it.][ Ask for {who}; they're about.][ If you've a mind to help, {work}.]
+# ---- inherited_hero/NN ----
+inherited_hero/NN | forgiven | Apology accepted; that's us square.
+inherited_hero/NN | forgiven | Let's forget it; a grudge costs more than it's worth to carry.
+inherited_hero/NN | forgiven_cold | Hmph. It's noted; that's as far as it goes.
+inherited_hero/NN | unwronged | What for? You've done me no wrong, so there's nothing to settle.
+inherited_hero/NN | about_place | Here it is, straight: {about}.[ You'll find {trades} there; what you want with them is your business.][ Ask for {who}, and deal fair.][ There are {around}; weigh the risk before you go.][ If it's work you want, {work}.]
+inherited_hero/NN | about_place | That's {about}, and I'll not dress it up.[ Keep your distance from the {around}; it's not worth the cost.][ It has {trades}, if that's any help.][ You'll find {who} there, if you've dealings with them.][ {work}.]

@@ -992,3 +992,75 @@ post:cart_handler | parted_cold | Off with you, and out of the yard.
 post:cart_handler | thanked | Glad to; it's quicker than arguing.
 post:cart_handler | thanked | Think nothing of it; words don't need greasing.
 post:cart_handler | acknowledged | Good; that's one less thing to shout about.
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- post:smith ----
+post:smith | forgiven | Very well; it's quenched, and there's an end of it.
+post:smith | forgiven | No hard feelings; I've no time to nurse a grudge between heats.
+post:smith | forgiven_cold | Words are cheap; iron's what I trust.
+post:smith | unwronged | Whatever for? You've not so much as cooled my fire.
+post:smith | about_place | As plain as I can hammer it, that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}; take an edge that holds.][ {work}.]
+post:smith | about_place | You mean {about}; I'll tell it between blows.[ You'll find {trades} there.][ Ask for {who}.][ Keep clear of the {around}.][ If it's work you want, {work}.]
+# ---- post:carpenter ----
+post:carpenter | forgiven | All right; that's planed smooth, and we'll leave it.
+post:carpenter | forgiven | Apology accepted; it's square with me.
+post:carpenter | forgiven_cold | We'll see; I measure twice before I trust.
+post:carpenter | unwronged | What for? There's nothing out of true that I can see.
+post:carpenter | about_place | As true as I can measure it, that's {about}.[ There's {trades} there.][ You'll find {who} there.][ I'd measure every step near the {around}.][ {work}.]
+post:carpenter | about_place | Let me lay it out plain: {about}.[ You'll find {trades} there.][ Ask for {who}.][ Keep well clear of the {around}.][ If it's work you want, {work}.]
+# ---- post:mason ----
+post:mason | forgiven | Very well; I'll let it wash out before it sets.
+post:mason | forgiven | Let's forget it; I carry enough stone without a grudge on top.
+post:mason | forgiven_cold | It's a start, but I'll not build on it yet.
+post:mason | unwronged | No harm done; the walls are all still standing.
+post:mason | about_place | Here it is, stone by stone: {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ {work}.]
+post:mason | about_place | That's {about}, and I'd set my name to it.[ You'll find {trades} there.][ Ask for {who}.][ I'd want good walls between me and the {around}.][ If it's work you want, {work}.]
+# ---- post:maintenance_laborer ----
+post:maintenance_laborer | forgiven | All right; I've no time to stay cross, anyway.
+post:maintenance_laborer | forgiven | Forgiven; it's the easiest thing I'll mend all day.
+post:maintenance_laborer | forgiven_cold | Hmph; I'll believe it when it's mended.
+post:maintenance_laborer | unwronged | Whatever for? You've not broken anything I know of.
+post:maintenance_laborer | about_place | For what it's worth, that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Watch for the {around}.][ {work}.]
+post:maintenance_laborer | about_place | Oh, that's {about}, since you've caught me off the ladder.[ You'll find {trades} there.][ Ask for {who}.][ The {around} I leave to braver folk.][ If it's work you want, {work}.]
+# ---- post:apprentice ----
+post:apprentice | forgiven | All right; I'm not one to sulk, honest.
+post:apprentice | forgiven | No hard feelings; really, it's forgotten.
+post:apprentice | forgiven_cold | Maybe. I'll have to think about it.
+post:apprentice | unwronged | What for? You haven't done anything to me, have you?
+post:apprentice | about_place | I think that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}; I would.][ {work}.]
+post:apprentice | about_place | Oh, I know that one: {about}.[ You'll find {trades} there.][ Ask for {who}.][ Watch out for the {around}, won't you?][ If it's work you want, {work}.]
+# ---- post:textile_worker ----
+post:textile_worker | forgiven | Very well; I'll unpick it and say no more.
+post:textile_worker | forgiven | Let's forget it; I've enough loose ends without keeping that one.
+post:textile_worker | forgiven_cold | Words are cheap; stitches take work.
+post:textile_worker | unwronged | Nothing to forgive; there's no tear to mend.
+post:textile_worker | about_place | I'll say it while I stitch: {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ {work}.]
+post:textile_worker | about_place | Near as I can stitch it together, that's {about}.[ You'll find {trades} there.][ Ask for {who}.][ Keep away from the {around}; I can mend a coat, not the one in it.][ If it's work you want, {work}.]
+# ---- post:furnace_worker ----
+post:furnace_worker | forgiven | All right; it's gone up the flue with the rest.
+post:furnace_worker | forgiven | Forgiven; it's too hot in here to stay cross.
+post:furnace_worker | forgiven_cold | Hmph; words are smoke, in here.
+post:furnace_worker | unwronged | What for? The only thing that's wronged me today is the furnace.
+post:furnace_worker | about_place | From what I catch over the roar, that's {about}.[ There's {trades} there.][ You'll find {who} there.][ I'd sooner stand in the heat than near the {around}.][ {work}.]
+post:furnace_worker | about_place | You mean {about}; I'll say it quick, before the fire wants me.[ You'll find {trades} there.][ Ask for {who}.][ Keep clear of the {around}.][ If it's work you want, {work}.]
+# ---- post:ore_handler ----
+post:ore_handler | forgiven | All right; it's done with.
+post:ore_handler | forgiven | Forgiven; back to the heap.
+post:ore_handler | forgiven_cold | Hmph; words weigh nothing.
+post:ore_handler | unwronged | Whatever for? Nothing's wrong.
+post:ore_handler | about_place | Aye, {about}.[ There's {trades} there.][ Look for {who}.][ Watch the {around}.][ {work}.]
+post:ore_handler | about_place | That one's {about}.[ You'll find {trades} there.][ Ask for {who}.][ I'd not haul a barrow past the {around}.][ If it's work you want, {work}.]
+# ---- post:farrier ----
+post:farrier | forgiven | No hard feelings; easy now, it's forgotten.
+post:farrier | forgiven | Very well; I'll let it go, gentle as you like.
+post:farrier | forgiven_cold | We'll see; trust comes slow in this yard.
+post:farrier | unwronged | No harm done; you've not so much as startled a horse.
+post:farrier | about_place | Now then, that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Keep wide of the {around}.][ {work}.]
+post:farrier | about_place | Let me think; that's {about}.[ You'll find {trades} there.][ Ask for {who}, and gently.][ Any horse would shy from the {around}, and so should you.][ If it's work you want, {work}.]
+# ---- post:cart_handler ----
+post:cart_handler | forgiven | All right, it's forgotten; mind the wheels.
+post:cart_handler | forgiven | No hard feelings; I've no room on the cart for a grudge.
+post:cart_handler | forgiven_cold | Words are cheap, and I've loads to shift.
+post:cart_handler | unwronged | No harm done; you're not even in the road.
+post:cart_handler | about_place | Out of the road, and I'll tell you: {about}.[ There's {trades} there.][ You'll find {who} there.][ Watch for the {around}.][ {work}.]
+post:cart_handler | about_place | Here's your answer, and quick: {about}.[ You'll find {trades} there.][ Ask for {who}.][ I'd not take a wheel near the {around}.][ If it's work you want, {work}.]

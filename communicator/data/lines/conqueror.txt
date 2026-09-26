@@ -825,3 +825,61 @@ conqueror/LG | parted | Take care, and may you eat well wherever you go; I would
 conqueror/LG | small_talk | Much remains to be settled, and I will settle nothing that leaves people hungry.[ As my people rightly say, {saying}.]
 conqueror/CG | parted | Go well, and if you pass a wall that shouldn't be there, ha, make a note of it for me[; as we say, {saying}].
 conqueror/CG | small_talk | Never better; the world still wants setting right, and I don't wait for anyone's leave.[ As my people put it, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- conqueror/NN ----
+conqueror/NN | forgiven | Apology accepted. I'll strike it off the books.
+conqueror/NN | forgiven | Very well; a grudge is a poor trade, and I don't make poor trades.
+conqueror/NN | forgiven_cold | Words are cheap; I'll not take yours at face value.
+conqueror/NN | unwronged | What for? You've not cost me a thing.
+conqueror/NN | about_place | For what it's worth, that's {about}.[ There's {trades} there, if that's any use to you.][ You'll find {who} there; weigh them up yourself.][ Mind the {around}; there's nothing to gain from them but trouble.][ If it's work you're after, {work}.]
+conqueror/NN | about_place | It's {about}, and I'll give it to you plainly.[ The {around} are a cost with no return, so keep clear.][ You'll find {trades} at it.][ Ask for {who}, if you've a deal to put to them.][ {work}.]
+# ---- conqueror/LN ----
+conqueror/LN | forgiven | Apology accepted. It was properly made, and I hold nothing against you.
+conqueror/LN | forgiven | Very well; the matter is settled, and I do not reopen what is settled.
+conqueror/LN | forgiven_cold | We'll see. I have heard you, and I will not pretend to more than that.
+conqueror/LN | unwronged | There's nothing to forgive. You have given me no offence, and I would not accept an apology that is not owed.
+conqueror/LN | about_place | By my account, that is {about}.[ There is {trades} there, should you have business with them.][ You will find {who} there; address them as their standing deserves.][ I would counsel you to keep clear of the {around}.][ Should you be seeking work, {work}.]
+conqueror/LN | about_place | That is {about}, and I will vouch for it.[ You would do well to keep a proper distance from the {around}.][ There is {trades} to be found there.][ You will find {who} there, and I would treat with them on proper terms.][ As to work, {work}.]
+# ---- conqueror/NG ----
+conqueror/NG | forgiven | All right, and thank you for saying so. It's forgotten.
+conqueror/NG | forgiven | No hard feelings, truly. Now, is there anything you need?
+conqueror/NG | forgiven_cold | It's a start. I've heard you, and that's all I'll say for now.
+conqueror/NG | unwronged | Whatever for? You've done me no harm; is something the matter?
+conqueror/NG | about_place | That's {about}, and I'm glad you asked.[ There's {trades} there, if you need anything.][ You'll find {who} there.][ Please be careful of the {around}.][ If it's work you want, {work}.]
+conqueror/NG | about_place | It's {about}, and I'm happy to help.[ Do mind the {around}, please.][ You'll find {trades} at it, and I hope nobody there goes short.][ Ask for {who}; they're about.][ {work}.]
+# ---- conqueror/LE ----
+conqueror/LE | forgiven | Very well. I accept it, and you may consider the matter closed.
+conqueror/LE | forgiven | Apology accepted, and graciously, you will note.
+conqueror/LE | forgiven_cold | Hmph. I have heard your apology; what it is worth, I have yet to decide.
+conqueror/LE | unwronged | Nothing to forgive. You have not been of enough consequence to offend me.
+conqueror/LE | about_place | I take it you mean {about}.[ There is {trades} there, should that interest you.][ You will find {who} there; see that you address them properly.][ Keep clear of the {around}; I have no wish to waste you.][ {work}.]
+conqueror/LE | about_place | That would be {about}, as anyone could have told you.[ There are {around}; I trust even you can avoid them.][ It has {trades}, for what that is worth to you.][ You may seek out {who} there, if they will see you.][ As for work, {work}.]
+# ---- conqueror/CN ----
+conqueror/CN | forgiven | Forgiven! There, done, and I've already lost track of what for.
+conqueror/CN | forgiven | All right, all right, forgiven; grudges bore me, and I bore easily.
+conqueror/CN | forgiven_cold | Maybe, maybe not; I haven't decided, and I'm in no hurry to.
+conqueror/CN | unwronged | No harm done, none at all, which is almost a shame; I like a bit of trouble.
+conqueror/CN | about_place | Ah, {about}, now there's a thought.[ There's {trades} there, for whatever you're after.][ You'll find {who} there, and I'd love to know what you make of them.][ The {around}, ha, leave those alone.][ {work}, if you're asking.]
+conqueror/CN | about_place | Ha, {about}; I like the sound of that.[ Watch out for the {around}; they don't negotiate.][ It's got {trades}, if that's your sort of thing.][ Ask for {who}; I haven't made up my mind about them yet.][ Oh, and before I forget, {work}.]
+# ---- conqueror/NE ----
+conqueror/NE | forgiven | Very well. You're more use to me forgiven than not.
+conqueror/NE | forgiven | All right; holding it against you isn't worth my time.
+conqueror/NE | forgiven_cold | We'll see. I've heard it, and it changes nothing yet.
+conqueror/NE | unwronged | Whatever for? You haven't crossed me, and I'd know if you had.
+conqueror/NE | about_place | If you must know, that's {about}.[ There's {trades} there, if you've a use for that.][ You'll find {who} there; deal with them or don't.][ The {around} are your problem, not mine.][ If you want work, {work}.]
+conqueror/NE | about_place | That's {about}, and I'll not say it twice.[ There are {around}; walk into them and that's your affair.][ It has {trades}, for whatever use that is.][ Ask for {who}, and don't waste their time or mine.][ {work}.]
+# ---- conqueror/LG ----
+conqueror/LG | forgiven | Forgiven, and gladly; I thank you for saying so.
+conqueror/LG | forgiven | Apology accepted. You have my word that it is forgotten.
+conqueror/LG | forgiven_cold | Maybe. Forgive me, but I cannot yet say more than that.
+conqueror/LG | unwronged | Nothing to forgive. You have done me no wrong, and I hope nothing is troubling you.
+conqueror/LG | about_place | That is {about}, and I am glad to be of help.[ There is {trades} there, should you need anything.][ You will find {who} there, and I would ask you to be courteous.][ Please take care near the {around}.][ If you are seeking work, {work}.]
+conqueror/LG | about_place | It is {about}, and I hope all is well there.[ Do keep your distance from the {around}, for your own sake.][ There is {trades} to be found at it.][ Should you meet {who} there, do ask after their health for me.][ If you would help, {work}.]
+# ---- conqueror/CG ----
+conqueror/CG | forgiven | No hard feelings, honestly; now, are you all right?
+conqueror/CG | forgiven | Let's forget it, all of it; I'd much rather be glad to see you.
+conqueror/CG | forgiven_cold | Hmph. I heard you; that's all you get for now.
+conqueror/CG | unwronged | There's nothing to forgive! You've done me no wrong, so chin up.
+conqueror/CG | about_place | Right, {about}; now, what do you need there?[ You'll find {trades} there; if anyone's pushing them around, tell me.][ Ask for {who}, and if they're in any trouble, I want to hear of it.][ Leave the {around} alone; not every fight's worth picking.][ And if it's work you're after, {work}.]
+conqueror/CG | about_place | Oh, {about}, and good on you for asking.[ Mind the {around}, won't you?][ It's got {trades}, and I hope they're well.][ You'll find {who} there; go on and say hello.][ And listen, {work}.]

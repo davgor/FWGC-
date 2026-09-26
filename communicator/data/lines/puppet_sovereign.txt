@@ -310,3 +310,26 @@ puppet_sovereign/NG | parted | Farewell, and I hope someone looks after you as w
 puppet_sovereign/NG | small_talk | Much better, now someone's asked me something I can answer for myself.[ As my people say, {saying}.]
 puppet_sovereign/NN | parted | Go well, and if anyone asks, I said nothing[; as we say, {saying}].
 puppet_sovereign/NN | small_talk | Nothing's gone wrong that anyone's blamed on me, so I'd call it a good day.[ As the old ones had it, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- puppet_sovereign/LE ----
+puppet_sovereign/LE | forgiven | Very well. You are pardoned, and the matter is closed.
+puppet_sovereign/LE | forgiven | Apology accepted, as is proper when one is properly made.
+puppet_sovereign/LE | forgiven_cold | Hmph. It is heard, and it will be weighed.
+puppet_sovereign/LE | unwronged | What for? I have not been advised of any wrong.
+puppet_sovereign/LE | about_place | That would be {about}.[ There is {trades} there, I understand.][ You will find {who} there, and you will be civil to them.][ I am advised that the {around} should be left alone.][ Should you seek work, {work}.]
+puppet_sovereign/LE | about_place | You wish to know of {about}.[ I am told there is {trades} there.][ {who} may be found there, I believe.][ Mind the {around}, and keep your distance.][ Should work be your purpose, {work}.]
+# ---- puppet_sovereign/NG ----
+puppet_sovereign/NG | forgiven | Forgiven, of course; I'm only glad you came to say it.
+puppet_sovereign/NG | forgiven | Apology accepted, and gladly; you mustn't worry over it.
+puppet_sovereign/NG | forgiven_cold | It's a start, I suppose; believing it will take longer.
+puppet_sovereign/NG | unwronged | Nothing to forgive, truly; did someone tell you otherwise?
+puppet_sovereign/NG | about_place | Ah, {about}.[ There's {trades} there, I'm told.][ You'll find {who} there; I hope they're well.][ The {around} worry me, so go gently.][ If you'd like work, {work}.]
+puppet_sovereign/NG | about_place | That's {about}, yes.[ Ask for {who}, if it helps.][ There's {trades} there, if you need anything.][ There are {around}, so please take care.][ And if you're looking for work, {work}.]
+# ---- puppet_sovereign/NN ----
+puppet_sovereign/NN | forgiven | Let's forget it; it's less trouble for both of us.
+puppet_sovereign/NN | forgiven | Very well; it's not worth the bother of remembering.
+puppet_sovereign/NN | forgiven_cold | Maybe; I've heard it, and that's as far as it goes.
+puppet_sovereign/NN | unwronged | No harm done that anyone's told me about.
+puppet_sovereign/NN | about_place | That's {about}, I believe.[ There's {trades} there, if that's any use to you.][ You'll find {who} there; what you want with them is your affair.][ Keep clear of the {around}, if you've any sense.][ If it's work you're after, {work}.]
+puppet_sovereign/NN | about_place | So, {about}.[ Ask for {who}, and keep me out of it.][ There's {trades} there, if you need one.][ There are {around}, so mind yourself.][ And if it's work you want, {work}.]

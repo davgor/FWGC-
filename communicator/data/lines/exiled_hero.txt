@@ -825,3 +825,61 @@ exiled_hero/LE | parted | Take care whose neighbour you become[; as my people ha
 exiled_hero/LE | small_talk | Our own are provided for, and our neighbours may shift for themselves.[ As we have always held, {saying}.]
 exiled_hero/NE | parted | Safe travels, and don't settle anywhere near mine[; as my people say, {saying}].
 exiled_hero/NE | small_talk | Nobody's troubled my people today, and anyone who tries will regret it.[ As we say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- exiled_hero/NN ----
+exiled_hero/NN | forgiven | Very well; we'll call it square and get on.
+exiled_hero/NN | forgiven | Apology accepted, and that's an end of it.
+exiled_hero/NN | forgiven_cold | We'll see. I'll judge you by what comes next.
+exiled_hero/NN | unwronged | What for? By my reckoning, you've done me no wrong.
+exiled_hero/NN | about_place | So, {about}.[ There's {trades} there, if you've dealings to do.][ Ask for {who}, and weigh them up for yourself.][ Mind the {around}; they're not worth the trouble.][ If it's work you're after, {work}.]
+exiled_hero/NN | about_place | That's {about}, and I know it well enough.[ You'll find {who} there.][ There's {trades} there, should you need one.][ There are {around}, so watch yourself.][ And there's work, if you want it: {work}.]
+# ---- exiled_hero/NG ----
+exiled_hero/NG | forgiven | All right, and I'm glad you said it; we'll leave it there.
+exiled_hero/NG | forgiven | No hard feelings; it's behind us now, and I mean that.
+exiled_hero/NG | forgiven_cold | It's a start. Trust takes longer.
+exiled_hero/NG | unwronged | Whatever for? You've done me no harm; is something troubling you?
+exiled_hero/NG | about_place | Oh, {about}.[ There's {trades} there, if you need anything.][ You'll find {who} there.][ Go carefully around the {around}.][ And if you're looking for work, {work}.]
+exiled_hero/NG | about_place | Ah, you mean {about}.[ Ask for {who} there.][ There's {trades} there, if you've need of one.][ Please keep well away from the {around}.][ If it's work you want, {work}.]
+# ---- exiled_hero/LN ----
+exiled_hero/LN | forgiven | Very well. I consider it settled, and I will hold to that.
+exiled_hero/LN | forgiven | Apology accepted, formally and in good faith.
+exiled_hero/LN | forgiven_cold | Words are cheap. I will note the apology, and reserve judgement.
+exiled_hero/LN | unwronged | There's nothing to forgive; I have no grievance against you on record.
+exiled_hero/LN | about_place | That is {about}.[ There is {trades} there, should you have business.][ You will find {who} there.][ Mind the {around}, as a matter of prudence.][ As to work, {work}.]
+exiled_hero/LN | about_place | The place you mean is {about}.[ You may ask there for {who}.][ There is {trades} there, should you require one.][ I would advise caution near the {around}.][ On the matter of work, {work}.]
+# ---- exiled_hero/LG ----
+exiled_hero/LG | forgiven | Forgiven, and gladly; let it trouble you no further.
+exiled_hero/LG | forgiven | Very well. You have my forgiveness, and it is freely given.
+exiled_hero/LG | forgiven_cold | We'll see. I have heard you, and for now that must suffice.
+exiled_hero/LG | unwronged | There's nothing to forgive, I promise you; put it from your mind.
+exiled_hero/LG | about_place | That would be {about}.[ There is {trades} there, should you have need.][ You will find {who} there, and I hope they are well.][ Be wary of the {around}, I pray you.][ Should you want work, {work}.]
+exiled_hero/LG | about_place | You speak of {about}, I think.[ You may seek out {who} there.][ There is {trades} there, to my knowledge.][ Go gently near the {around}.][ If it is work you seek, {work}.]
+# ---- exiled_hero/CN ----
+exiled_hero/CN | forgiven | Let's forget it, all of it, done and gone.
+exiled_hero/CN | forgiven | No hard feelings, honestly; I'm hopeless at staying cross.
+exiled_hero/CN | forgiven_cold | Maybe. Don't hold your breath, though.
+exiled_hero/CN | unwronged | What for? Whatever it was, I missed it.
+exiled_hero/CN | about_place | Ah, {about}, sure.[ There's {trades} there, give or take.][ You'll find {who} there; go and say hello.][ The {around}, though, give those a miss.][ Oh, and work: {work}.]
+exiled_hero/CN | about_place | That'd be {about}, then.[ Ask for {who}; always handy, knowing people.][ There's {trades} about the place.][ There are {around}, so, you know, careful.][ And work, while we're at it: {work}.]
+# ---- exiled_hero/CG ----
+exiled_hero/CG | forgiven | Forgiven, done, forgotten, honestly.
+exiled_hero/CG | forgiven | Apology accepted, gladly; now, are you all right?
+exiled_hero/CG | forgiven_cold | Hmph. I heard it; believing it is another matter.
+exiled_hero/CG | unwronged | No harm done, none at all, so stop fretting.
+exiled_hero/CG | about_place | Right, {about}.[ You'll find {who} there; say hello, go on.][ There's {trades} there, handy to know.][ And the {around}, don't go poking at them, please.][ If it's work you're after, {work}.]
+exiled_hero/CG | about_place | Ah, {about}, yes.[ Look for {who}, all right?][ You'll find {trades} there, if you need anything done.][ Mind the {around}, honestly.][ Oh, and there's work: {work}.]
+# ---- exiled_hero/LE ----
+exiled_hero/LE | forgiven | Very well. You have answered for it, and I count it answered.
+exiled_hero/LE | forgiven | Apology accepted. I am not so small as to refuse one properly made.
+exiled_hero/LE | forgiven_cold | We'll see. An apology is easily made, and yours has yet to prove its worth.
+exiled_hero/LE | unwronged | What for? You have given me no cause, and I would have noticed.
+exiled_hero/LE | about_place | That is {about}, if you must know.[ You will find {who} there, for what that is worth.][ There is {trades} there, should you have business with them.][ Keep clear of the {around}, if you value yourself.][ If you are in want of work, {work}.]
+exiled_hero/LE | about_place | You mean {about}, I take it.[ Ask for {who}, and be brief with them.][ There is {trades} there, if such things interest you.][ Mind the {around}; I would think it obvious.][ {work}.]
+# ---- exiled_hero/NE ----
+exiled_hero/NE | forgiven | All right, it's forgotten; you're more use to me forgiven.
+exiled_hero/NE | forgiven | Let's forget it; sorry's enough, and I've no time for grudges.
+exiled_hero/NE | forgiven_cold | Hmph. I'll believe it when you're some use to me.
+exiled_hero/NE | unwronged | What for? You've done me no wrong, which is more than I expected.
+exiled_hero/NE | about_place | Oh, {about}.[ There's {trades} there, if you've a use for them.][ You'll find {who} there; find out what they're good for.][ Keep away from the {around}, if you want to stay useful.][ If you want something to do, {work}.]
+exiled_hero/NE | about_place | That's {about}.[ You'll find {who} there, for all the good it'll do you.][ There's {trades} there, not that I care.][ There are {around}, so keep your eyes open.][ And there's work: {work}.]

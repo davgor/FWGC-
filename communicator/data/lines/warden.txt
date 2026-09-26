@@ -825,3 +825,61 @@ warden/NE | parted | Farewell, and remember I look after my own, and you're not 
 warden/NE | small_talk | Another day holding the line, and another day fed for it, which is all I'm here for.[ As my people say, {saying}.]
 warden/LE | parted | Safe travels, and do not expect me to come looking for you[; as my people have it, {saying}].
 warden/LE | small_talk | Nothing of note, which in my position is the highest praise a day can earn.[ As the saying goes, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- warden/LN ----
+warden/LN | forgiven | Apology accepted. That settles it, and I'll hold nothing over you.
+warden/LN | forgiven | Very well; it's set aside, and I'll not raise it again.
+warden/LN | forgiven_cold | We'll see. I've heard it, and hearing isn't believing.
+warden/LN | unwronged | Nothing to forgive; you've done me no wrong, and I'd have said so if you had.
+warden/LN | about_place | The place you mean is {about}, and I'll swear to it.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ If it's work you want, {work}.]
+warden/LN | about_place | Here it is, plainly: {about}.[ Ask for {who}, and state your business.][ It has {trades}.][ Keep clear of the {around}.][ As for work, {work}.]
+# ---- warden/NN ----
+warden/NN | forgiven | All right. We're square, and that's the end of it.
+warden/NN | forgiven | No hard feelings; it's off the books.
+warden/NN | forgiven_cold | Words are cheap. I'll wait and see what yours are worth.
+warden/NN | unwronged | Whatever for? You've done me no wrong, and I'd know; I keep count.
+warden/NN | about_place | Right, {about}.[ There's {trades} there, if you've dealings to do.][ You'll find {who} there.][ Give the {around} a wide berth.][ {work}, if that's any use to you.]
+warden/NN | about_place | You'll be after {about}.[ Ask for {who}.][ It has {trades}.][ There are {around}, so mind yourself.][ And if you want work, {work}.]
+# ---- warden/NG ----
+warden/NG | forgiven | Forgiven, and gladly; it takes some doing to say sorry.
+warden/NG | forgiven | Let's forget it; I'd much rather we started fresh.
+warden/NG | forgiven_cold | It's a start, and I heard it. I'm not easy about you yet.
+warden/NG | unwronged | What for? You've done me no wrong; is something else the matter?
+warden/NG | about_place | Let me help: that's {about}.[ You'll find {trades} there, if you need anything.][ Ask for {who}, and be decent to them.][ Please mind the {around}.][ If you're looking for work, {work}.]
+warden/NG | about_place | Well, that's {about}.[ Do keep clear of the {around}, won't you?][ There's {trades} there.][ You'll find {who} there, and I hope they're keeping well.][ {work}, if that's any help.]
+# ---- warden/CN ----
+warden/CN | forgiven | Forgiven, done, gone, what were we talking about?
+warden/CN | forgiven | No hard feelings, well, one, small, and it's gone now.
+warden/CN | forgiven_cold | Maybe. I'll let you know when I've stopped being annoyed, don't wait up.
+warden/CN | unwronged | No harm done, none, whatever you think you did, you didn't, not to me.
+warden/CN | about_place | Oh, {about}, yes, that one.[ There's {trades} there.][ Ask for {who}, if you like asking for people.][ Mind the {around}, no, really.][ {work}, just so you know.]
+warden/CN | about_place | Hm, {about}, and no, I'm not walking you anywhere.[ You'll want {who}, or you won't, your call.][ The {around}, I'd skip.][ It has {trades}.][ Oh, and {work}.]
+# ---- warden/LG ----
+warden/LG | forgiven | Forgiven, freely and in full. I thank you for the courtesy of saying so.
+warden/LG | forgiven | Very well, and with all good will. It is behind us now.
+warden/LG | forgiven_cold | Maybe. I receive it, but my trust is another matter.
+warden/LG | unwronged | There's nothing to forgive, I assure you; you have done me no wrong.
+warden/LG | about_place | Certainly: that is {about}.[ There you will find {trades}.][ I would ask you to deal kindly with {who}, should you meet them there.][ I pray you, give the {around} a wide berth.][ Should you seek work, {work}.]
+warden/LG | about_place | That place is {about}, and I am glad to tell you of it.[ Ask there for {who}.][ It has {trades}, should you have need.][ Mind the {around}, I beg you.][ If it is work you seek, {work}.]
+# ---- warden/CG ----
+warden/CG | forgiven | Forgiven, forgiven, don't you give it another thought.
+warden/CG | forgiven | No hard feelings, none, honestly, it's gone.
+warden/CG | forgiven_cold | We'll see, we will; I heard you, but trust takes me longer than that.
+warden/CG | unwronged | Whatever for? You've done nothing to me, nothing, now what's all this about?
+warden/CG | about_place | Now, {about}, I know that one.[ There's {trades} there.][ Ask for {who}, and be nice, yes?][ Mind the {around}, please, please.][ Oh, and {work}, before I forget.]
+warden/CG | about_place | Oh, that's {about}, and yes, I'll fret, I always do.[ Stay well back from the {around}, promise me.][ Look for {who} there, and be polite, for me.][ It has {trades}.][ If you're after work, {work}.]
+# ---- warden/NE ----
+warden/NE | forgiven | Apology accepted; a useful face is worth more to me than a grudge.
+warden/NE | forgiven | Very well. That's answered, and I'll not waste more on it.
+warden/NE | forgiven_cold | Hmph. I heard it, and I'll decide what it's worth.
+warden/NE | unwronged | No harm done; I don't collect apologies I've no use for.
+warden/NE | about_place | You mean {about}, I suppose.[ There's {trades} there, not that I care.][ You'll find {who} there, and whatever you want with them is your affair.][ Mind the {around}; I'll not be fetching you back.][ If you want to be of use, {work}.]
+warden/NE | about_place | Well, it's {about}, if you must know.[ Ask for {who}; I've no interest in why.][ It has {trades}, for your purposes, whatever they are.][ There are {around}, and they're your lookout, not mine.][ Since you're here, {work}.]
+# ---- warden/LE ----
+warden/LE | forgiven | Apology accepted. It was owed, and you have had the sense to give it.
+warden/LE | forgiven | Very well; the matter is closed, and I do not reopen what I have closed.
+warden/LE | forgiven_cold | We'll see. An apology is easily made, and yours has yet to prove itself.
+warden/LE | unwronged | What for? You have done nothing that requires my pardon, though the deference is noted.
+warden/LE | about_place | That is {about}, and I trust you have a reason for asking.[ You will find {trades} there.][ Ask for {who}, and mind your manners when you do.][ Beware the {around}, should you value your skin.][ Should you want work, {work}.]
+warden/LE | about_place | Since you ask, it is {about}.[ You may present yourself to {who}, and be brief.][ It has {trades}.][ There are {around}; that is your concern, not mine.][ As to work, {work}.]

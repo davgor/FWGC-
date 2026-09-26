@@ -413,3 +413,33 @@ turncoat/LE | parted | Take care, and do choose your friends by their prospects[
 turncoat/LE | small_talk | Nothing troubles me today; I am, as ever, on the side that is winning.[ As the saying goes, {saying}.]
 turncoat/NG | parted | Safe travels, and if you find you're on the wrong side, it's never too late to cross over[; as my people say, {saying}].
 turncoat/NG | small_talk | Much easier these days; I can look people in the eye, and I like the people I'm looking at.[ As we say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- turncoat/LN ----
+turncoat/LN | forgiven | Apology accepted, and entered on the record.
+turncoat/LN | forgiven | Very well. The matter is closed, and I do not reopen closed matters.
+turncoat/LN | forgiven_cold | Maybe. An apology is a start; trust is a separate agreement.
+turncoat/LN | unwronged | Nothing to forgive; you have broken no agreement with me.
+turncoat/LN | about_place | That is {about}, on my word.[ There is {trades} there.][ You will find {who} there.][ I would keep my distance from the {around}.][ For the record, {work}.]
+turncoat/LN | about_place | It is {about}, and I will attest to it.[ You will find {trades} there.][ You may apply to {who}; state your terms plainly.][ Take note of the {around}.][ As to work, {work}.]
+# ---- turncoat/NN ----
+turncoat/NN | forgiven | No hard feelings; grudges are bad arithmetic.
+turncoat/NN | forgiven | All right, it's forgotten; there's nothing in holding on to it.
+turncoat/NN | forgiven_cold | It's a start, and I'll see how it adds up.
+turncoat/NN | unwronged | What for? You haven't cost me anything.
+turncoat/NN | about_place | That's {about}.[ There's {trades} there.][ Ask for {who}, and see what they're good for.][ Give the {around} a wide berth; dying helps nobody.][ {work}.]
+turncoat/NN | about_place | Ah, {about}.[ You'll find {trades} there.][ Look for {who}, if they're any use to you.][ Watch for the {around}, and don't take chances you don't need.][ If you want work, {work}.]
+# ---- turncoat/LE ----
+turncoat/LE | forgiven | Forgiven; resentment is a luxury, and I prefer useful things.
+turncoat/LE | forgiven | Very well. One never knows whose side one will need.
+turncoat/LE | forgiven_cold | Hmph. How very touching, and how very convenient.
+turncoat/LE | unwronged | Whatever for? You flatter yourself.
+turncoat/LE | about_place | That would be {about}.[ You will find {trades} there, if that interests you.][ Ask for {who}, and do try to be civil.][ Do avoid the {around}; you are of no use to me dead.][ {work}.]
+turncoat/LE | about_place | It is {about}, since you ask so nicely.[ There is {trades} there.][ You may present yourself to {who}.][ Stay clear of the {around}, if you have any instinct for survival.][ Should you care to be useful, {work}.]
+# ---- turncoat/NG ----
+turncoat/NG | forgiven | All right, and thank you for being straight with me.
+turncoat/NG | forgiven | No hard feelings, truly; let's leave it behind us.
+turncoat/NG | forgiven_cold | Maybe. I'm not ready to trust it yet.
+turncoat/NG | unwronged | No harm done, none at all; how are you holding up?
+turncoat/NG | about_place | That's {about}.[ There's {trades} there.][ Ask for {who}, and be honest with them.][ Keep well away from the {around}, please.][ If you're looking to help, {work}.]
+turncoat/NG | about_place | It's {about}.[ You'll find {trades} there.][ Look for {who}; I hope you find them well.][ There are {around}, so watch yourself.][ And if it's work you want, {work}.]

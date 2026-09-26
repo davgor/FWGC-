@@ -865,3 +865,68 @@ post:assistant | parted_cold | On your way, and leave me be.
 post:assistant | thanked | No need, really; it was nothing.
 post:assistant | thanked | Don't mention it, or they'll think I've been idle.
 post:assistant | acknowledged | Good, thank you; that's all I wanted to ask.
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- post:baker ----
+post:baker | forgiven | All right; it's swept off the bench with the rest of the flour.
+post:baker | forgiven | Forgiven; I've no room on my board for a grudge.
+post:baker | forgiven_cold | Hmph; I'll believe it when it's baked through.
+post:baker | unwronged | What for? You've not burnt so much as a crust of mine.
+post:baker | about_place | With my hands in the dough, I'll tell you: that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}, if you go.][ If it's work you want, {work}.]
+post:baker | about_place | Aye, I know that one: {about}.[ Ask there for {who}.][ It has {trades}.][ Keep clear of the {around}.][ {work}.]
+# ---- post:cook ----
+post:cook | forgiven | Very well; it's off the boil, and I've no time to stir it up again.
+post:cook | forgiven | No hard feelings; I've pots to watch, not grudges.
+post:cook | forgiven_cold | Words are cheap, and I've no time to taste them.
+post:cook | unwronged | Whatever for? Nothing's boiled over between us.
+post:cook | about_place | I've a pot on, so here it is: {about}.[ There's {trades} there.][ Ask for {who}; don't ask me.][ Mind the {around}.][ If it's work you want, {work}.]
+post:cook | about_place | Even in this kitchen, word gets in: {about}.[ You'll find {who} there.][ It has {trades}.][ {work}.][ Keep clear of the {around}.]
+# ---- post:miller ----
+post:miller | forgiven | All right; it's ground fine, and blown away with the dust.
+post:miller | forgiven | Let's forget it; I'd sooner grind grain than grudges.
+post:miller | forgiven_cold | Maybe; I'll believe it once it's been through the stone.
+post:miller | unwronged | Nothing to forgive; I've turned it over, and there's nothing there.
+post:miller | about_place | Let me grind it out: that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ If it's work you want, {work}.]
+post:miller | about_place | Near as I can sift it, it's {about}.[ It has {trades}.][ Ask there for {who}, and take your time.][ {work}.][ There are {around}.]
+# ---- post:brewer ----
+post:brewer | forgiven | No hard feelings; let it settle like the dregs.
+post:brewer | forgiven | Forgiven; I'll not keep that one in the cask.
+post:brewer | forgiven_cold | It's a start; we'll see if it keeps.
+post:brewer | unwronged | No harm done; nothing's gone sour that I know of.
+post:brewer | about_place | Right, that'd be {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}, and keep your head clear.][ If it's work you want, {work}.]
+post:brewer | about_place | Here's what I've tasted of it: {about}.[ It has {trades}.][ Ask there for {who}.][ Stay well off the {around}.][ {work}.]
+# ---- post:bartender ----
+post:bartender | forgiven | Forgiven; I forget most things, and that's one of them now.
+post:bartender | forgiven | No hard feelings; the bar's wiped, and so is that.
+post:bartender | forgiven_cold | Words are cheap; I hear plenty across this bar.
+post:bartender | unwronged | No harm done; I'd remember, and I don't remember much.
+post:bartender | about_place | Keep it low: that's {about}.[ There's {trades} there.][ Ask for {who}, quietly.][ Mind the {around}.][ If it's work you want, {work}.]
+post:bartender | about_place | Since you ask, it's {about}.[ It has {trades}.][ You'll find {who} there, not that you heard it from me.][ Watch for the {around}.][ {work}.]
+# ---- post:host ----
+post:host | forgiven | Apology accepted; the house bears no grudge, and nor do I.
+post:host | forgiven | Very well; consider it forgotten, and the door still open to you.
+post:host | forgiven_cold | We'll see; an apology is easily made.
+post:host | unwronged | There's nothing to forgive, I assure you; please, think no more of it.
+post:host | about_place | From what guests tell me, it's {about}.[ There's {trades} there.][ You'll find {who} there.][ Do mind the {around}.][ Should you want work, {work}.]
+post:host | about_place | Certainly; it's {about}.[ It has {trades}.][ I would ask there for {who}.][ Please keep clear of the {around}.][ {work}.]
+# ---- post:service_worker ----
+post:service_worker | forgiven | No hard feelings; I've no time to keep any.
+post:service_worker | forgiven | All right; it's cleared away with the rest of the plates.
+post:service_worker | forgiven_cold | Hmph; sorry's easy, and I've trays waiting.
+post:service_worker | unwronged | What for? If anyone's run me ragged, it isn't you.
+post:service_worker | about_place | Right, I've a moment: that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Watch for the {around}.][ If it's work you want, {work}.]
+post:service_worker | about_place | In passing, I've heard it's {about}.[ It has {trades}.][ Ask there for {who}.][ {work}.][ Look out for the {around}.]
+# ---- post:bath_attendant ----
+post:bath_attendant | forgiven | Forgiven; it's washed off, and I don't keep the dirt.
+post:bath_attendant | forgiven | Let's forget it; it's wrung out and hung up to dry.
+post:bath_attendant | forgiven_cold | Words are cheap; I'll see if they wash.
+post:bath_attendant | unwronged | Whatever for? You've not tracked mud on my floor, that I've seen.
+post:bath_attendant | about_place | Through the steam, I've heard it's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ If it's work you want, {work}.]
+post:bath_attendant | about_place | Everyone talks in the water, so I know it: {about}.[ It has {trades}.][ Ask there for {who}.][ Give the {around} a wide berth.][ {work}.]
+# ---- post:assistant ----
+post:assistant | forgiven | All right; honestly, I'm not one to hold on to things.
+post:assistant | forgiven | Forgiven, of course; I'd not have you fret over it.
+post:assistant | forgiven_cold | Maybe; I'd rather wait and see, if it's all the same.
+post:assistant | unwronged | What for? I'm usually the one saying sorry.
+post:assistant | about_place | Wait, I know this one: {about}.[ There's {trades} there.][ You'll find {who} there, I believe.][ I'd stay clear of the {around}, myself.][ If it's work you want, {work}.]
+post:assistant | about_place | If I've heard right, it's {about}.[ It has {trades}.][ Ask there for {who}.][ There are {around}, which frightens me.][ {work}.]

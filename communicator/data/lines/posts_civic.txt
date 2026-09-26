@@ -591,3 +591,47 @@ post:scribe | parted_cold | On your way; I'm done with you.
 post:scribe | thanked | You're welcome; I'd copy it twice if asked.
 post:scribe | thanked | Think nothing of it; it's all in a day's copying.
 post:scribe | acknowledged | Ah; got it, word for word.
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- post:administrator ----
+post:administrator | forgiven | Apology accepted; consider it signed and sealed.
+post:administrator | forgiven | Very well; I'll strike it from the ledger.
+post:administrator | forgiven_cold | Maybe; I'll take it under consideration.
+post:administrator | unwronged | No harm done, as far as the rolls show.
+post:administrator | about_place | One moment; that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Keep clear of the {around}.][ On the matter of work, {work}.]
+post:administrator | about_place | As the rolls have it, it's {about}.[ It has {trades}.][ Ask there for {who}.][ Mind the {around}.][ {work}.]
+# ---- post:court_clerk ----
+post:court_clerk | forgiven | Apology accepted, and so entered.
+post:court_clerk | forgiven | Forgiven; let the record show it.
+post:court_clerk | forgiven_cold | We'll see; I note that you said it, and no more.
+post:court_clerk | unwronged | Whatever for? I'd have it written down if there were.
+post:court_clerk | about_place | As entered: {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ If it's work you want, {work}.]
+post:court_clerk | about_place | I have it exactly: {about}.[ It has {trades}.][ Ask there for {who}.][ Also noted, the {around}.][ {work}.]
+# ---- post:magistrate ----
+post:magistrate | forgiven | Apology accepted; I'll weigh it no further.
+post:magistrate | forgiven | Very well; you're pardoned, and that ends it.
+post:magistrate | forgiven_cold | It's a start; I reserve judgement on the rest.
+post:magistrate | unwronged | There's nothing to forgive; I've no charge to lay against you.
+post:magistrate | about_place | The facts, as I have them: {about}.[ There's {trades} there.][ You'll find {who} there.][ Heed the {around}; that is my counsel.][ If it's work you want, {work}.]
+post:magistrate | about_place | I'll put it plainly: {about}.[ It has {trades}.][ Ask there for {who}.][ Beware the {around}.][ {work}.]
+# ---- post:teacher ----
+post:teacher | forgiven | Forgiven; we'll start again with a clean slate.
+post:teacher | forgiven | Very well; that was nicely said, and it's forgotten.
+post:teacher | forgiven_cold | Hmph; I've heard that from every child in the class.
+post:teacher | unwronged | What for? You've not put a foot wrong that I've seen.
+post:teacher | about_place | Take this down: that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Stay well away from the {around}.][ If it's work you want, {work}.]
+post:teacher | about_place | Here's the lesson: {about}.[ It has {trades}.][ Ask there for {who}, politely.][ There are {around}.][ {work}.]
+# ---- post:librarian ----
+post:librarian | forgiven | Forgiven; now, quietly, we'll say no more.
+post:librarian | forgiven | Let's forget it, softly and for good.
+post:librarian | forgiven_cold | Maybe; I'll shelve it for now.
+post:librarian | unwronged | Nothing to forgive; not a page out of place.
+post:librarian | about_place | In a whisper, then: {about}.[ There's {trades} there.][ You'll find {who} there.][ Give the {around} a wide berth.][ If it's work you want, {work}.]
+post:librarian | about_place | By the catalogue, it's {about}.[ It has {trades}.][ Ask there for {who}.][ Mind the {around}, please.][ {work}.]
+# ---- post:scribe ----
+post:scribe | forgiven | Forgiven; I've blotted it out.
+post:scribe | forgiven | All right; a line through it, and on to the next page.
+post:scribe | forgiven_cold | Words are cheap; I've a pot of them on the desk.
+post:scribe | unwronged | What for? You've not so much as jogged my desk.
+post:scribe | about_place | Here it is, neat as a copy: {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ If it's work you want, {work}.]
+post:scribe | about_place | As I'd set it down, it's {about}.[ It has {trades}.][ Ask there for {who}.][ Keep clear of the {around}.][ {work}.]

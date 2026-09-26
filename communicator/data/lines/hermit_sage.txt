@@ -516,3 +516,40 @@ hermit_sage/CG | parted | Safe travels, and ask everyone everything, it's the on
 hermit_sage/CG | small_talk | Today I've been nosy and helpful in about equal measure, which is my favourite kind of day.[ As my lot say, {saying}.]
 hermit_sage/CN | parted | Take care, and bring back something I don't already know[; as my people say, {saying}].
 hermit_sage/CN | small_talk | Half the day gone, and nothing worth teaching in it, until you, maybe.[ As we say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- hermit_sage/NN ----
+hermit_sage/NN | forgiven | No hard feelings; the sum comes out even.
+hermit_sage/NN | forgiven | All right. We'll call it settled and say no more about it.
+hermit_sage/NN | forgiven_cold | Maybe. It's on the scales; I haven't read them yet.
+hermit_sage/NN | unwronged | What for? You owe me no apology, and I don't collect ones I'm not owed.
+hermit_sage/NN | about_place | That's {about}.[ There's {trades} there, if you've need of one.][ You'll find {who} there; what you make of them is up to you.][ I'd keep clear of the {around}.][ If you're asking after work, {work}.]
+hermit_sage/NN | about_place | I'll give you that one plainly: it's {about}.[ You'll find {trades} at it.][ Ask there for {who}.][ Give the {around} a wide berth; they're a poor trade for anyone.][ {work}.]
+# ---- hermit_sage/NG ----
+hermit_sage/NG | forgiven | Forgiven, of course; think no more of it.
+hermit_sage/NG | forgiven | Let's forget it. Now, how are you, really?
+hermit_sage/NG | forgiven_cold | We'll see. I've heard you, and I'll hold my judgement a while.
+hermit_sage/NG | unwronged | There's nothing to forgive. Is something weighing on you?
+hermit_sage/NG | about_place | It's {about}.[ There's {trades} there, if you need one.][ You'll find {who} there, and I hope they're well.][ Go carefully near the {around}, won't you?][ If you're looking for work, {work}.]
+hermit_sage/NG | about_place | Ah, that's {about}.[ You'll find {trades} at it.][ Look for {who} there.][ Mind the {around}; I'd sooner you came to no harm.][ {work}.]
+# ---- hermit_sage/LN ----
+hermit_sage/LN | forgiven | Apology accepted, as properly given; the matter is at an end.
+hermit_sage/LN | forgiven | Very well. Your apology is received, and entered in proper form.
+hermit_sage/LN | forgiven_cold | It's a start. It is noted for the record, and not yet believed.
+hermit_sage/LN | unwronged | Nothing to forgive; you have given me no cause, and I note none.
+hermit_sage/LN | about_place | That is {about}.[ There is {trades} there.][ Seek out {who} there, should you have business with them.][ I note, for completeness, that there are {around}.][ If you are seeking work, {work}.]
+hermit_sage/LN | about_place | Of that place, I can state this: it is {about}.[ You will find {trades} at it.][ You may call on {who} there.][ Keep a proper distance from the {around}.][ As to work, {work}.]
+# ---- hermit_sage/CG ----
+hermit_sage/CG | forgiven | Forgiven! Oh, entirely; there, it's gone already.
+hermit_sage/CG | forgiven | No hard feelings, none, not a one; now, how are you?
+hermit_sage/CG | forgiven_cold | Hmph. Well, it's said, and I'm not convinced, not yet.
+hermit_sage/CG | unwronged | Whatever for? You've done nothing at all; what a funny thing to say.
+hermit_sage/CG | about_place | Oh, {about}, yes, I know it.[ There's {trades} there, if you need one.][ You'll find {who} there; tell me all about them after, would you?][ Keep well clear of the {around}; I fret, you see.][ If it's work you're after, {work}.]
+hermit_sage/CG | about_place | Now then, that's {about}.[ You'll find {trades} at it, hm, yes.][ Look for {who} there, and be nice, would you?][ There are {around} as well, which is not ideal.][ {work}, if you fancy it.]
+# ---- hermit_sage/CN ----
+hermit_sage/CN | forgiven | Forgiven, fine, and already forgotten; now say something interesting.
+hermit_sage/CN | forgiven | Let's forget it; I have, and it wasn't hard.
+hermit_sage/CN | forgiven_cold | Words are cheap; whether yours are meant is another matter.
+hermit_sage/CN | unwronged | No harm done; you've not wronged me, which is almost disappointing.
+hermit_sage/CN | about_place | You mean {about}.[ There's {trades} there, if you must.][ Ask for {who}, if you're feeling sociable.][ There are {around}; warning or invitation, your pick.][ And if you want work, {work}.]
+hermit_sage/CN | about_place | Ah, {about}; I know it, as it happens.[ You'll find {trades} at it.][ Look for {who} there, or don't.][ Don't go poking the {around}; they'll poke back.][ As for work, {work}.]

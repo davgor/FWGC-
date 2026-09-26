@@ -743,3 +743,54 @@ beast/NG | parted | Farewell, and keep out of harm's way; I'd much rather hear y
 beast/NG | small_talk | Not bad, so long as everyone round here is all right, and as far as I can tell, they are.[ As we say, {saying}.]
 beast/NN | parted | Go well, and keep your temper; I'll keep mine[; as my people say, {saying}].
 beast/NN | small_talk | Much the same as ever: work, food, and nobody poking at me.[ As my people put it, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- beast/CE ----
+beast/CE | forgiven | No hard feelings; I save those for people who interest me.
+beast/CE | forgiven | Very well, you're forgiven; don't look so relieved, it spoils the fun.
+beast/CE | forgiven_cold | We'll see; I'm far harder to charm than that.
+beast/CE | unwronged | Whatever for? I hold nothing against you, which is almost a disappointment.
+beast/CE | about_place | Oh, {about}, since you insist.[ There's {trades} there, if that excites you.][ Ask for {who}, and do tell me how it goes.][ Do give my love to the {around}.][ And {work}.]
+beast/CE | about_place | That's {about}, and aren't you the curious one.[ {who} can be found there, lucky you.][ You'll find {trades} there, should you want one.][ Mind the {around}, or don't; surprise me.][ If it's work you want, {work}.]
+# ---- beast/CG ----
+beast/CG | forgiven | Forgiven, and forgotten; now, are you all right?
+beast/CG | forgiven | No hard feelings, honestly; I've let it go already.
+beast/CG | forgiven_cold | It's a start, but I'm not there yet.
+beast/CG | unwronged | Whatever for? I've no quarrel with you; you all right, though?
+beast/CG | about_place | That's {about}, yes.[ There's {trades} there, if anyone needs one.][ You'll find {who} there; ask if they're all right, for me.][ Mind the {around}, promise me.][ If it's work you want, {work}.]
+beast/CG | about_place | Oh, that one: {about}.[ Ask for {who}, and if they need a hand, come and get me.][ You'll find {trades} there.][ Keep clear of the {around}, please, I mean it.][ And {work}.]
+# ---- beast/CN ----
+beast/CN | forgiven | All right, call it square; I've no use for old debts.
+beast/CN | forgiven | Let's forget it; I've better things to trade than grudges.
+beast/CN | forgiven_cold | Words are cheap, and I'm not buying yet.
+beast/CN | unwronged | What for? You don't owe me a thing, that I know of.
+beast/CN | about_place | That's {about}, and that one's free.[ You'll find {trades} there, if you need one.][ Ask for {who}, and don't give anything away for nothing.][ There are {around}; your neck, your call.][ And if you want in, {work}.]
+beast/CN | about_place | Ha, {about}, and you didn't even haggle.[ Mind the {around}, if you like your skin.][ There's {trades} there.][ Look for {who} there, if you've business with them.][ If it's work you're after, {work}.]
+# ---- beast/LG ----
+beast/LG | forgiven | Forgiven, gladly; let it trouble neither of us further.
+beast/LG | forgiven | Apology accepted; I hold it against you no longer.
+beast/LG | forgiven_cold | We'll see; deeds will tell me more than words.
+beast/LG | unwronged | There's nothing to forgive; I bear you no grudge, and you may rest easy.
+beast/LG | about_place | That is {about}.[ There is {trades} there, should you have need of one.][ You will find {who} there, and I trust you will treat them fairly.][ Have a care near the {around}.][ If it is work you seek, {work}.]
+beast/LG | about_place | It is {about}, and I answer you plainly.[ You will find {trades} there.][ {who} may be found there.][ Keep well clear of the {around}, for your own sake.][ Should you want work, {work}.]
+# ---- beast/LN ----
+beast/LN | forgiven | Very well. It is settled, and I will not raise it again.
+beast/LN | forgiven | Apology accepted; we owe each other nothing on that score.
+beast/LN | forgiven_cold | Words are cheap; I will reserve judgement.
+beast/LN | unwronged | Nothing to forgive, that I am aware of; you may set your mind at rest.
+beast/LN | about_place | That is {about}, to be precise.[ There is {trades} there, should you require one.][ You will find {who} there.][ The {around} are best avoided.][ Of work there, I know this much: {work}.]
+beast/LN | about_place | In plain terms, it is {about}.[ Ask for {who}, should you have business there.][ You will find {trades} there.][ I would avoid the {around}.][ If work is your concern, {work}.]
+# ---- beast/NG ----
+beast/NG | forgiven | All right, it's forgiven; let's not dwell on it.
+beast/NG | forgiven | No hard feelings; I'm glad you said something.
+beast/NG | forgiven_cold | It's a start, and that's all it is.
+beast/NG | unwronged | No harm done; whatever it is, it isn't weighing on me.
+beast/NG | about_place | That's {about}.[ There's {trades} there, if you need one.][ You'll find {who} there; if they need anything, I'd want to know.][ Please keep well away from the {around}.][ If it's work you want, {work}.]
+beast/NG | about_place | Ah, {about}; I know it.[ There are {around}, so watch yourself.][ You'll find {trades} there.][ Ask for {who}, and treat them fairly.][ And {work}.]
+# ---- beast/NN ----
+beast/NN | forgiven | Forgiven. We'll leave it there.
+beast/NN | forgiven | Let's forget it; no use chewing on it.
+beast/NN | forgiven_cold | Hmph. That's easy enough to say.
+beast/NN | unwronged | No harm done, as far as I know; leave it.
+beast/NN | about_place | That's {about}; make of it what you like.[ There's {trades} there.][ Ask for {who}.][ Keep off the {around}.][ {work}.]
+beast/NN | about_place | It's {about}.[ You'll find {trades} there, if you need one.][ {who} can be found there.][ Mind the {around}.][ If it's work you want, {work}.]

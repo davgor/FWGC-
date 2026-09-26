@@ -885,3 +885,68 @@ post:clerk | parted_cold | On your way, and leave the desk alone.
 post:clerk | thanked | No need; I'd only have filed it anyway.
 post:clerk | thanked | Glad to; finding things is half my work.
 post:clerk | acknowledged | Well; that goes in the right file, then.
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- post:storekeeper ----
+post:storekeeper | forgiven | Very well; it's off the tally.
+post:storekeeper | forgiven | Let's forget it; I'll not store that one.
+post:storekeeper | forgiven_cold | We'll see; I'll check it for rot first.
+post:storekeeper | unwronged | What for? Nothing's spoiled that I can see.
+post:storekeeper | about_place | I keep to my stores, but I know it's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ If it's work you want, {work}.]
+post:storekeeper | about_place | Between the bins, I've heard it's {about}.[ It has {trades}.][ Ask there for {who}.][ Keep your distance from the {around}.][ {work}.]
+# ---- post:porter ----
+post:porter | forgiven | No hard feelings; I've enough to carry without that.
+post:porter | forgiven | All right; it's set down, and I'll not pick it up again.
+post:porter | forgiven_cold | Hmph; sorry's light enough to say.
+post:porter | unwronged | Whatever for? You've not dropped anything on my feet.
+post:porter | about_place | Let me shift this sack: that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ If it's work you want, {work}.]
+post:porter | about_place | Aye, I've heard of it: {about}.[ It has {trades}.][ Ask there for {who}.][ Keep off the {around}.][ {work}.]
+# ---- post:merchant ----
+post:merchant | forgiven | Apology accepted; a grudge is bad for business.
+post:merchant | forgiven | Very well; bygones are bygones, and trade is trade.
+post:merchant | forgiven_cold | Words are cheap, and I know what cheap is worth.
+post:merchant | unwronged | What for? You've not cheated me, and I'd know.
+post:merchant | about_place | For what it's worth, that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ If you're in the market for work, {work}.]
+post:merchant | about_place | I'll give you this one for nothing: {about}.[ It has {trades}.][ Ask there for {who}.][ Watch for the {around}.][ {work}.]
+# ---- post:market_steward ----
+post:market_steward | forgiven | Very well; that's settled, and I've a market to keep.
+post:market_steward | forgiven | Forgiven; I've no time to nurse it, not with this crowd.
+post:market_steward | forgiven_cold | Maybe; sorry gets shouted across the stalls all day.
+post:market_steward | unwronged | Nothing to forgive; if you'd made trouble, I'd have heard it.
+post:market_steward | about_place | Over this din, I'll make it plain: {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ If it's work you want, {work}.]
+post:market_steward | about_place | Here's what the stalls say: {about}.[ It has {trades}.][ Ask there for {who}.][ Keep clear of the {around}.][ {work}.]
+# ---- post:cargo_clerk ----
+post:cargo_clerk | forgiven | Very well; the scale's back level.
+post:cargo_clerk | forgiven | Let's forget it; I've loads waiting, and it weighs nothing now.
+post:cargo_clerk | forgiven_cold | We'll see; I'll weigh it before I take it.
+post:cargo_clerk | unwronged | Nothing to forgive; you've not come up short by an ounce.
+post:cargo_clerk | about_place | For the ledger, that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Keep the {around} in your reckoning.][ If it's work you want, {work}.]
+post:cargo_clerk | about_place | To the ounce, it's {about}.[ It has {trades}.][ Ask there for {who}.][ There are {around}.][ {work}.]
+# ---- post:fuel_handler ----
+post:fuel_handler | forgiven | No hard feelings; I've not the breath to hold them.
+post:fuel_handler | forgiven | Forgiven; it's gone up the chimney with the rest of the smoke.
+post:fuel_handler | forgiven_cold | Maybe; soot's hard to shift, and so am I.
+post:fuel_handler | unwronged | Whatever for? The only thing that's done me harm is the dust.
+post:fuel_handler | about_place | Pardon the cough; that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Give the {around} a wide berth.][ If it's work you want, {work}.]
+post:fuel_handler | about_place | Between shovelfuls, it's {about}.[ It has {trades}.][ Ask there for {who}.][ Mind the {around}.][ {work}.]
+# ---- post:toll_clerk ----
+post:toll_clerk | forgiven | Very well; it's waved through, and that's the end of it.
+post:toll_clerk | forgiven | All right; counted and forgotten. Next.
+post:toll_clerk | forgiven_cold | Hmph; sorry doesn't move the line.
+post:toll_clerk | unwronged | What for? You've not held up my line.
+post:toll_clerk | about_place | Stay to the side, then: that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Watch for the {around}.][ If it's work you want, {work}.]
+post:toll_clerk | about_place | From what comes through the gate, it's {about}.[ It has {trades}.][ Ask there for {who}.][ Keep clear of the {around}.][ {work}.]
+# ---- post:treasurer ----
+post:treasurer | forgiven | Apology accepted; the matter is closed, and I shall not reopen it.
+post:treasurer | forgiven | Very well; I shall hold nothing against you.
+post:treasurer | forgiven_cold | Words are cheap; I deal in what can be counted.
+post:treasurer | unwronged | There's nothing to forgive; I would have noted it.
+post:treasurer | about_place | To be exact, it is {about}.[ It has {trades}.][ You will find {who} there.][ I would be wary of the {around}.][ Should you want work, {work}.]
+post:treasurer | about_place | I can account for it thus: {about}.[ There is {trades} there.][ Ask there for {who}.][ Give the {around} a wide berth.][ {work}.]
+# ---- post:clerk ----
+post:clerk | forgiven | Very well; I'll file it under forgotten.
+post:clerk | forgiven | Let's forget it; I've enough on my desk without that.
+post:clerk | forgiven_cold | Words are cheap; I copy thousands a day.
+post:clerk | unwronged | What for? There's nothing against you in any file of mine.
+post:clerk | about_place | If I have the right file, it's {about}.[ There's {trades} there.][ You'll find {who} there.][ Watch for the {around}.][ If it's work you want, {work}.]
+post:clerk | about_place | Let me find the page: {about}.[ It has {trades}.][ Ask there for {who}.][ There are {around}.][ {work}.]

@@ -825,3 +825,61 @@ mentor/CG | parted | Safe travels, and chin up[; oh, and as we say, {saying}].
 mentor/CG | small_talk | Oh, you know, a bit of pushing, a bit of catching, the usual.[ And, as we always say, {saying}.]
 mentor/NE | parted | Take care, since you're no use to me hurt[; as we say, {saying}].
 mentor/NE | small_talk | Another day of fools, which is to say an ordinary one.[ As my people say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- mentor/NN ----
+mentor/NN | forgiven | Very well; it's forgotten, and we go on from here.
+mentor/NN | forgiven | Let's forget it. Neither of us gains anything by keeping it.
+mentor/NN | forgiven_cold | We'll see; I've heard you, and that's all it is for now.
+mentor/NN | unwronged | What for? There's nothing between us that needs settling.
+mentor/NN | about_place | That's {about}.[ There's {trades} there.][ Ask for {who}, and weigh them up yourself.][ Mind the {around}.][ If it's work you want, {work}.]
+mentor/NN | about_place | Here's what I know: {about}.[ You'll find {who} there.][ It has {trades}.][ There are {around}; keep your eyes open.][ {work}.]
+# ---- mentor/LN ----
+mentor/LN | forgiven | Apology accepted; it was properly offered, and it is properly received.
+mentor/LN | forgiven | Very well; I consider the matter closed, and I will not reopen it.
+mentor/LN | forgiven_cold | It's a start; it does not yet restore your standing with me.
+mentor/LN | unwronged | There's nothing to forgive; you have given me no cause for offence.
+mentor/LN | about_place | That is {about}.[ There you will find {trades}.][ Seek out {who}, and address them properly.][ Heed the {around}.][ Should you want work, {work}.]
+mentor/LN | about_place | You speak of {about}.[ You will find {who} there.][ It has {trades}.][ Take due care near the {around}.][ As to work, {work}.]
+# ---- mentor/NG ----
+mentor/NG | forgiven | Forgiven, and gladly; thank you for saying it.
+mentor/NG | forgiven | No hard feelings, truly; I'd much rather we got on.
+mentor/NG | forgiven_cold | Maybe. I've heard you, but I'm not easy with you yet.
+mentor/NG | unwronged | Whatever for? There's nothing to be sorry about; are you all right?
+mentor/NG | about_place | That'll be {about}.[ There's {trades} there.][ Ask for {who}; don't be shy about it.][ Mind the {around}, please.][ If you're after work, {work}.]
+mentor/NG | about_place | I know that one: {about}.[ You'll find {who} there.][ It has {trades}.][ There are {around}, so do take care.][ {work}.]
+# ---- mentor/CN ----
+mentor/CN | forgiven | Forgiven, ha, done, gone, now where were we?
+mentor/CN | forgiven | Let's forget it, no, really, I already have, see?
+mentor/CN | forgiven_cold | Hmph, pretty words, and we'll see if they float.
+mentor/CN | unwronged | What for? You've done nothing to me, and, honestly, I'd have noticed.
+mentor/CN | about_place | Well, well, {about}.[ There's {trades} there.][ Ask for {who}, or don't, up to you.][ Mind the {around}, or, no, just mind them.][ Oh, and {work}.]
+mentor/CN | about_place | Oh, that one, that's {about}.[ You'll find {who} there; go and pester them.][ It has {trades}.][ The {around}, mind.][ And, work, yes, {work}.]
+# ---- mentor/LG ----
+mentor/LG | forgiven | Apology accepted, with all my heart; it does you honour to have made it.
+mentor/LG | forgiven | Forgiven, freely and in full. Let us speak of it no more.
+mentor/LG | forgiven_cold | We'll see. You have my courtesy; my trust will take longer.
+mentor/LG | unwronged | Nothing to forgive, I assure you; please, be at ease.
+mentor/LG | about_place | Certainly; that would be {about}.[ It has {trades}.][ You may call on {who} there, with my good wishes.][ I would ask you to keep from the {around}.][ If it is work you seek, {work}.]
+mentor/LG | about_place | I can tell you of {about}.[ There you will find {trades}.][ You would do well to ask for {who}.][ Take great care near the {around}.][ As for work, {work}.]
+# ---- mentor/LE ----
+mentor/LE | forgiven | Very well; an apology is an answer, and I accept it.
+mentor/LE | forgiven | Forgiven. I have better uses for you than a grudge.
+mentor/LE | forgiven_cold | Words are cheap, and yours have yet to prove their worth.
+mentor/LE | unwronged | Whatever for? You have given me nothing to forgive, which is something, I suppose.
+mentor/LE | about_place | Surely you know it already: {about}.[ It has {trades}.][ You will find {who} there, for what they are worth.][ Do avoid the {around}; I dislike waste.][ Should you wish to be of some use, {work}.]
+mentor/LE | about_place | Know, then, that it is {about}.[ There you will find {trades}.][ Ask for {who}, and mind your manners with them.][ Beware the {around}; even you can manage that.][ On the matter of work, {work}.]
+# ---- mentor/CG ----
+mentor/CG | forgiven | All right, all right, it's gone, into the river with it.
+mentor/CG | forgiven | Apology accepted, oh, completely, no, stop, it's done, it's done.
+mentor/CG | forgiven_cold | Maybe, maybe, I heard you, I'm just not there yet.
+mentor/CG | unwronged | No harm done, none, ha, you can put that away.
+mentor/CG | about_place | Ah, {about}, yes, yes.[ There's {trades} there.][ Ask for {who}, and see they're all right, would you?][ Mind the {around}, please, I mean it.][ And if it's work you want, {work}.]
+mentor/CG | about_place | Hm, let me see, {about}.[ You'll find {who} there.][ Oh, and there's {trades}.][ The {around}, though, careful, yes?][ And there's work, look: {work}.]
+# ---- mentor/NE ----
+mentor/NE | forgiven | All right; you've answered for it, and that'll do.
+mentor/NE | forgiven | Let's forget it; you're more use to me forgiven.
+mentor/NE | forgiven_cold | Hmph. I'll decide what it's worth, and I haven't yet.
+mentor/NE | unwronged | No harm done; don't waste my time with it.
+mentor/NE | about_place | Fine: {about}.[ It has {trades}.][ You'll find {who} there; don't waste their time.][ Watch the {around}; you're no use to me dead.][ If you want to be useful, {work}.]
+mentor/NE | about_place | That's {about}, since you ask.[ There's {trades} there.][ Ask for {who}, if they'll have you.][ There are {around}; I won't be the one fetching you back.][ {work}.]

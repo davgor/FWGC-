@@ -313,3 +313,26 @@ false_hero/LE | parted | Safe travels, and remember that what is written is what
 false_hero/LE | small_talk | All that was said of me today accords with the record, which is as it should be.[ As the saying among my people goes, {saying}.]
 false_hero/NN | parted | Goodbye, and let them believe whatever helps you; it's cheaper than arguing[; as my people say, {saying}].
 false_hero/NN | small_talk | Half want the story, half want a hand, and I give each of them what it's worth.[ As my people put it, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- false_hero/CG ----
+false_hero/CG | forgiven | Forgiven, of course; I'm hardly one to throw stones.
+false_hero/CG | forgiven | No hard feelings, honestly; oh, stop, it's done.
+false_hero/CG | forgiven_cold | Maybe; I know a performance when I hear one, and I can't tell yet.
+false_hero/CG | unwronged | What for? You must be thinking of someone else.
+false_hero/CG | about_place | Ah, {about}, that one.[ There's {trades} there, bless them.][ Look for {who} there.][ Mind the {around}, please; no heroics.][ And if it's work you're after, {work}.]
+false_hero/CG | about_place | Right, {about}.[ Ask for {who}.][ You'll find {trades} there, and good luck to them.][ Give the {around} a wide berth, please, I mean it.][ Here's work, if you want it: {work}.]
+# ---- false_hero/LE ----
+false_hero/LE | forgiven | Very well; let the record show that you apologised, and that I accepted.
+false_hero/LE | forgiven | Apology accepted. You have answered for it, and that suffices.
+false_hero/LE | forgiven_cold | We'll see; an apology is easily spoken, and as easily withdrawn.
+false_hero/LE | unwronged | Whatever for? Nothing of the kind is on record, so nothing of the kind occurred.
+false_hero/LE | about_place | That is {about}, by my account.[ There is {trades} there.][ You will find {who} there.][ Take heed of the {around}; I will not warn you twice.][ Should you want work, {work}.]
+false_hero/LE | about_place | You mean {about}, and I will hear no other account of it.[ {who} may be found there.][ It has {trades}.][ Beware the {around}, as anyone of sense would.][ As for work, {work}.]
+# ---- false_hero/NN ----
+false_hero/NN | forgiven | All right, it's forgotten; no sense carrying it.
+false_hero/NN | forgiven | Let's forget it; every good story leaves a few things out.
+false_hero/NN | forgiven_cold | It's a start; I'll see if it holds.
+false_hero/NN | unwronged | No harm done; you've nothing to square with me.
+false_hero/NN | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there, if they're any use to you.][ Keep clear of the {around}; there's no profit in them.][ If it's work you're after, {work}.]
+false_hero/NN | about_place | You'll be meaning {about}.[ Ask for {who}.][ It has {trades}.][ Give the {around} a wide berth.][ Since you'll ask, {work}.]

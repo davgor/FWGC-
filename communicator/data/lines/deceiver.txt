@@ -724,3 +724,54 @@ deceiver/NG | parted | Farewell, and try not to fret; whatever it is, it's likel
 deceiver/NG | small_talk | All's well, as far as you need know, and I'd tell you if it weren't.[ As we say, {saying}.]
 deceiver/NN | parted | Safe travels, and trust what you can check; the rest is just talk[; as my people say, {saying}].
 deceiver/NN | small_talk | Few surprises today, and none of them for me.[ As my people put it, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- deceiver/CG ----
+deceiver/CG | forgiven | Forgiven, gone, done; and, please, no more sorries, I'm hopeless with them.
+deceiver/CG | forgiven | No hard feelings, none, and, honestly, who am I to hold a grudge?
+deceiver/CG | forgiven_cold | Maybe. No, well, maybe; I'll let you know.
+deceiver/CG | unwronged | Whatever for? If anyone owes a sorry here, it's me, and, well, you know why.
+deceiver/CG | about_place | Oh, {about}; yes, I know it, honestly.[ You'll find {trades} there.][ Look for {who}; they're about.][ The {around}, though; keep clear, promise me.][ And work, if you want it: {work}.]
+deceiver/CG | about_place | That's {about}, and, no, I'm not making it up, not this time.[ There's {trades} there, truly.][ Ask for {who}; go on, it's allowed.][ There are {around}; wide berth, very wide, please.][ If it's work you're after, {work}; your choice, always.]
+# ---- deceiver/CN ----
+deceiver/CN | forgiven | Let's forget it; I've already told it to myself a different way.
+deceiver/CN | forgiven | All right, done; a fair sorry, fairly taken.
+deceiver/CN | forgiven_cold | Words are cheap, and I'd know; I deal in them.
+deceiver/CN | unwronged | What for? You've done nothing to me, and I'd have noticed, trust me.
+deceiver/CN | about_place | Ah, {about}; that one's free.[ There's {trades} there, if you've dealings.][ You'll find {who} there.][ Mind the {around}; that warning's on the house.][ {work}.]
+deceiver/CN | about_place | Well, {about}, and that's the true story, for once.[ It has {trades}, no word of a lie.][ Ask for {who}; your business, not mine.][ There are {around}, and they don't bargain.][ If it's work you want, {work}.]
+# ---- deceiver/LG ----
+deceiver/LG | forgiven | Forgiven, freely and in full; I would be the last to withhold it.
+deceiver/LG | forgiven | Apology accepted, with all my heart, and we will not speak of it again.
+deceiver/LG | forgiven_cold | Maybe; I know better than most how fair a false word can sound.
+deceiver/LG | unwronged | Nothing to forgive; you have done me no wrong, on my honour.
+deceiver/LG | about_place | Truly, that is {about}.[ There is {trades} there.][ You will find {who} there, and I would ask you to treat them kindly.][ Do take care near the {around}.][ If work is what you seek, {work}.]
+deceiver/LG | about_place | That place is {about}; I will not colour it for you.[ You may find {trades} there.][ Ask for {who} by name; it is only courteous.][ I would not have you near the {around}.][ Should you wish for work, {work}.]
+# ---- deceiver/LN ----
+deceiver/LN | forgiven | Apology accepted, exactly as offered; the matter is closed.
+deceiver/LN | forgiven | Very well. You are forgiven, and there is no clause hidden in it.
+deceiver/LN | forgiven_cold | We'll see. The apology is noted; belief is another matter.
+deceiver/LN | unwronged | There's nothing to forgive; strictly speaking, you have done me no wrong at all.
+deceiver/LN | about_place | That is {about}, stated plainly.[ There is {trades} there.][ You will find {who} there.][ Take note: there are {around}.][ Should work interest you, {work}.]
+deceiver/LN | about_place | The place is {about}; I give it to you word for word.[ Its people include {trades}.][ Ask there for {who}.][ Beware the {around}; consider yourself told.][ As for work, {work}.]
+# ---- deceiver/NE ----
+deceiver/NE | forgiven | Very well; I've no use for a grudge.
+deceiver/NE | forgiven | Apology accepted; a grudge would cost me more than you're worth.
+deceiver/NE | forgiven_cold | Hmph. I'll believe it when it's useful to believe it.
+deceiver/NE | unwronged | What for? You've done nothing to me; keep your sorry for when you have.
+deceiver/NE | about_place | That's {about}, and no pleasantries with it.[ Keep clear of the {around}, unless you're tired of being useful.][ There's {trades} there, if that's any use.][ You'll find {who} there; see what they're good for.][ {work}.]
+deceiver/NE | about_place | I know it: {about}.[ There are {around}, so mind yourself; you're more use whole.][ It has {trades}, for whatever that's worth to you.][ Ask for {who}, if they're worth the bother.][ If it's work you want, {work}.]
+# ---- deceiver/NG ----
+deceiver/NG | forgiven | All right; it's forgiven, and don't give it another thought.
+deceiver/NG | forgiven | No hard feelings, truly; I'd much rather you weren't fretting over it.
+deceiver/NG | forgiven_cold | It's a start. I'm not ready to say more than that.
+deceiver/NG | unwronged | No harm done, none at all, so rest easy.
+deceiver/NG | about_place | That's {about}, and you'll have it straight from me now.[ There's {trades} there, if you need anything.][ Do keep away from the {around}; I'd only worry.][ You'll find {who} there, and I hope they treat you well.][ If you're after work, {work}.]
+deceiver/NG | about_place | Ah, {about}; I know it.[ Ask for {who}, and don't be shy about it.][ There are {around}, so do be careful; I'd hate for anything to happen to you.][ It has {trades}, should you want one.][ {work}.]
+# ---- deceiver/NN ----
+deceiver/NN | forgiven | Apology accepted; that settles it.
+deceiver/NN | forgiven | Let's forget it; a grudge is bad business.
+deceiver/NN | forgiven_cold | Words are cheap; I'll take them for what they're worth.
+deceiver/NN | unwronged | What for? We've no quarrel that I know of.
+deceiver/NN | about_place | That's {about}, plain and simple.[ There's {trades} there, if you've business of that kind.][ You'll find {who} there.][ Mind the {around}.][ If it's work you want, {work}.]
+deceiver/NN | about_place | No games: {about}.[ It has {trades}.][ Ask for {who}; that's worth knowing.][ Keep clear of the {around}.][ If you're after work, {work}.]

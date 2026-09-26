@@ -722,3 +722,54 @@ trickster/CG | parted | Safe travels, and smile, it confuses people[; oh, and, a
 trickster/CG | small_talk | A little mischief, a little mending, the usual, and nobody's worse off for it.[ As we always say, {saying}.]
 trickster/NE | parted | Safe travels, and do stay on my good side, it's the warmer one[; as we say, {saying}].
 trickster/NE | small_talk | Nothing much; I'm polishing a joke, and the ending is the best part.[ As my people say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- trickster/NN ----
+trickster/NN | forgiven | Let's forget it; grudges are bad for business.
+trickster/NN | forgiven | Apology accepted, honestly, and from me that's worth something.
+trickster/NN | forgiven_cold | Words are cheap, and I'm still looking for the angle in yours.
+trickster/NN | unwronged | What for? You've done me no wrong, so either you're very polite or you want something.
+trickster/NN | about_place | That's {about}, and mind you remember where you heard it.[ There's {trades} there, if you've business with them.][ You'll find {who} there, and I never said so.][ There are {around}, and they don't bargain.][ If it's work you're after, {work}.]
+trickster/NN | about_place | It's {about}, plain as I can put it.[ Mind the {around}; nobody's clever enough for those.][ You'll find {trades} at it.][ Look for {who} there, if you've a trade in mind.][ {work}.]
+# ---- trickster/LN ----
+trickster/LN | forgiven | Apology accepted, and entered in your favour.
+trickster/LN | forgiven | Very well; the complaint is withdrawn, and I will not revive it.
+trickster/LN | forgiven_cold | We'll see. Your apology is noted; whether I believe it is another matter.
+trickster/LN | unwronged | Whatever for? No grievance stands against you, and I keep very thorough notes.
+trickster/LN | about_place | That is {about}, and I will so attest.[ There is {trades} there, duly noted.][ You will find {who} there, and I would make a note of anything they say.][ Take formal notice of the {around}.][ On the matter of work, {work}.]
+trickster/LN | about_place | The place in question is {about}.[ Its trades, for the record: {trades}.][ The {around} are party to no agreement, so keep clear.][ Should you have business with {who}, you will find them there.][ {work}.]
+# ---- trickster/CN ----
+trickster/CN | forgiven | Forgiven, with a flourish; the grudge has left the stage.
+trickster/CN | forgiven | All right, we'll cut that scene; it never happened.
+trickster/CN | forgiven_cold | Hmph. A lovely delivery; shame about the conviction.
+trickster/CN | unwronged | No harm done; you haven't nicked a thing off me, and I'd have noticed.
+trickster/CN | about_place | Ah, {about}; lights, please.[ In the supporting cast, {trades}.][ On stage there, {who}.][ Mind the {around}; tough crowd.][ And the plot, if you want one: {work}.]
+trickster/CN | about_place | Right, {about}, curtain up.[ Don't wave at the {around}; they never wave back.][ You'll find {trades} there, playing themselves.][ Ask for {who}, and do report back on the performance.][ {work}, if you fancy a part.]
+# ---- trickster/NG ----
+trickster/NG | forgiven | Apology accepted, and gladly; we'll call it square.
+trickster/NG | forgiven | No hard feelings; truly, I'd half forgotten already.
+trickster/NG | forgiven_cold | It's a start; I'm not ready to say more than that.
+trickster/NG | unwronged | Nothing to forgive, honestly. Is something weighing on you?
+trickster/NG | about_place | That's {about}; I'll tell you what I can.[ There's {trades} there; be decent to them, would you?][ Ask for {who}; they're about.][ The {around} worry me, so do take care.][ And if you're looking for work, {work}.]
+trickster/NG | about_place | Ah, {about}, and I hope everyone there's keeping well.[ Mind the {around}, please, and anyone with you.][ You'll find {trades} at it.][ Look for {who} there, and be decent.][ {work}.]
+# ---- trickster/LG ----
+trickster/LG | forgiven | Forgiven, freely and in full; there is no more to be said.
+trickster/LG | forgiven | Apology accepted, and I thank you for it; that was honestly done.
+trickster/LG | forgiven_cold | Maybe. I have heard you; belief will have to wait.
+trickster/LG | unwronged | There's nothing to forgive, I assure you, and I would say so under oath.
+trickster/LG | about_place | That is {about}, as best I can tell you.[ There is {trades} there; should anyone cheat them, I would like to hear of it.][ You will find {who} there, and I hope they will give you a fair hearing.][ I must ask you to keep clear of the {around}; no appeal lies against them.][ Should you want work, {work}.]
+trickster/LG | about_place | You ask after {about}, and I will answer as fully as I honestly can.[ There is {trades} to be found there.][ Should you call on {who} there, please give them my compliments.][ Do mind the {around}, I beg you.][ {work}.]
+# ---- trickster/CG ----
+trickster/CG | forgiven | Forgiven! Oh, completely, and I'm so glad you said it.
+trickster/CG | forgiven | No hard feelings, promise, not even a little one.
+trickster/CG | forgiven_cold | We'll see. I heard you; I'm just not smiling yet.
+trickster/CG | unwronged | Whatever for? You've done nothing to me, so now I'm dying to know what you think you did.
+trickster/CG | about_place | Oh, {about}![ There's {trades} there, if you need anything at all.][ You'll find {who} there, as luck would have it!][ The {around}, though, keep well away, I mean it.][ And guess what, {work}.]
+trickster/CG | about_place | Ah, {about}, I know that one![ Do be careful of the {around}, promise me.][ It's got {trades}, bless them.][ Say hello to {who} there, would you?][ {work}, if you're asking!]
+# ---- trickster/NE ----
+trickster/NE | forgiven | Very well; I'll take that one out of my collection.
+trickster/NE | forgiven | Apology accepted, and so prettily made; I'm almost touched.
+trickster/NE | forgiven_cold | It's a start, and a very small one.
+trickster/NE | unwronged | Nothing to forgive, more's the pity; I do enjoy a good grovel.
+trickster/NE | about_place | That's {about}; how thoughtful of you to ask.[ There's {trades} there, if you like that sort of thing.][ You'll find {who} there; do be charming.][ There are {around}, and I do so hate to spoil a surprise.][ {work}, if you're looking to be useful.]
+trickster/NE | about_place | Oh, {about}; you ask the sweetest questions.[ Do mind the {around}; you're no use to me eaten.][ It has {trades}, should you need them.][ Ask for {who}, and do be sweet to them.][ {work}.]

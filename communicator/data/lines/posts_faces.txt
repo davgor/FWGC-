@@ -1161,3 +1161,82 @@ post:dread | parted_cold | Be on your way, and do not look back; it would only f
 post:dread | thanked | No need; I will remember it for both of us.
 post:dread | thanked | My pleasure, and it was, more than you know.
 post:dread | acknowledged | Ah. I will keep that, with the rest of you.
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- post:sovereign ----
+post:sovereign | forgiven | Very well; you are pardoned, and it will not be spoken of again.
+post:sovereign | forgiven | Forgiven; a {post} does not stoop to keep a grudge.
+post:sovereign | forgiven_cold | Words are cheap, and I have been offered a great many.
+post:sovereign | unwronged | There's nothing to forgive; I would know if there were.
+post:sovereign | about_place | Of course I know it: {about}.[ It has {trades}.][ You will find {who} there.][ Mind the {around}, and heed me in this.][ If it is work you seek, {work}.]
+post:sovereign | about_place | Hear me, then: {about}.[ Seek out {who}, with my leave.][ There is {trades} there, as there should be.][ The {around} are not to be trifled with.][ Should you want work, {work}.]
+# ---- post:champion ----
+post:champion | forgiven | No hard feelings; here's my hand on it.
+post:champion | forgiven | All right; grudges slow a sword arm, and I'll not carry one.
+post:champion | forgiven_cold | Hmph; show me, and then I'll believe it.
+post:champion | unwronged | Whatever for? You've not swung at me, and I'd have noticed.
+post:champion | about_place | Ha, that's {about}.[ There's {trades} there.][ Look for {who}, and look them in the eye.][ There are {around}, if you fancy a scrap.][ If it's work you're after, {work}.]
+post:champion | about_place | Now then, that's {about}.[ Get your blade out near the {around}.][ Ask for {who}.][ You'll find {trades} there.][ {work}.]
+# ---- post:pretender ----
+post:pretender | forgiven | Forgiven; I'd sooner win you than lose you.
+post:pretender | forgiven | Let's forget it; I have bigger things ahead of me.
+post:pretender | forgiven_cold | Hmph; everyone's sorry once they see which way the wind blows.
+post:pretender | unwronged | What for? You've not stood in my way, and I'd remember if you had.
+post:pretender | about_place | You ask about {about}; I make it my business to know.[ There's {trades} there; I'd have them all on my side.][ Look for {who}, and learn where they stand.][ Beware the {around}.][ If it's work you seek, {work}.]
+post:pretender | about_place | Ah, {about}; one day it will know my name.[ Seek out {who} there.][ You'll find {trades} there.][ Mind the {around}; I've need of you whole.][ {work}.]
+# ---- post:domain_holder ----
+post:domain_holder | forgiven | Apology accepted; I don't let a grudge take root on my land.
+post:domain_holder | forgiven | Let's forget it; I've land enough to mind without minding that.
+post:domain_holder | forgiven_cold | Words are cheap, and land is not.
+post:domain_holder | unwronged | Nothing to forgive; you've crossed no fence of mine.
+post:domain_holder | about_place | As the land lies, that's {about}.[ There's {trades} there.][ Ask for {who}, and deal plainly with them.][ Give the {around} a good wide margin.][ If it's work you want, {work}.]
+post:domain_holder | about_place | Aye, that's {about}.[ Look for {who} there.][ Mind the {around}.][ You'll find {trades} there.][ {work}.]
+# ---- post:magister ----
+post:magister | forgiven | Very well; I have struck it from the record.
+post:magister | forgiven | Apology accepted; it was even grammatical.
+post:magister | forgiven_cold | We'll see; an apology is a hypothesis, and I await the evidence.
+post:magister | unwronged | Whatever for? I am aware of no offence, and I would be.
+post:magister | about_place | In brief: {about}.[ It has {trades}.][ You may ask for {who}.][ Give the {around} a wide berth; that much is elementary.][ Should you want work, {work}.]
+post:magister | about_place | Let me be exact: {about}.[ Ask for {who}, and speak clearly.][ Beware the {around}.][ You will find {trades} there.][ For employment, {work}.]
+# ---- post:charcoal burner ----
+post:charcoal burner | forgiven | Forgiven; it's gone up with the smoke.
+post:charcoal burner | forgiven | All right; I've no time to let it smoulder.
+post:charcoal burner | forgiven_cold | Hmph; green wood hisses plenty before it catches, if it ever does.
+post:charcoal burner | unwronged | What for? You've not kicked my stack over.
+post:charcoal burner | about_place | That's {about}, if the smoke hasn't muddled me.[ There's {trades} there.][ Ask for {who}.][ Mind the {around}.][ If it's work you want, {work}.]
+post:charcoal burner | about_place | Right, that's {about}.[ I'd not stack wood near the {around}.][ Look for {who} there.][ You'll find {trades} there.][ {work}.]
+# ---- post:hermit ----
+post:hermit | forgiven | Forgiven; now let me have my quiet.
+post:hermit | forgiven | Very well; it's done, and so is the talking.
+post:hermit | forgiven_cold | Hmph; apologies are noise too.
+post:hermit | unwronged | Nothing to forgive; you've not even been loud.
+post:hermit | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there, and welcome to them.][ Mind the {around}.][ {work}.]
+post:hermit | about_place | If you must know, {about}.[ Ask for {who}, not me.][ It has {trades}, for those who want them.][ Keep away from the {around}.][ If it's work you want, {work}.]
+# ---- post:shepherd ----
+post:shepherd | forgiven | Forgiven; I've no more use for a grudge than for a fleece in summer.
+post:shepherd | forgiven | Let's forget it; I've enough to count without counting that.
+post:shepherd | forgiven_cold | Maybe; even a ewe looks sorry when it wants something.
+post:shepherd | unwronged | Whatever for? You've not so much as scattered the flock.
+post:shepherd | about_place | Well, that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}; I'd keep a flock well back from them.][ If it's work you want, {work}.]
+post:shepherd | about_place | Right you are, that's {about}.[ Keep an eye on the {around}, same as I would.][ Look for {who} there.][ You'll find {trades} there.][ {work}.]
+# ---- post:pilgrim ----
+post:pilgrim | forgiven | Forgiven, and gladly; walk on lighter for it.
+post:pilgrim | forgiven | No hard feelings; I've a long way to walk, and I'll not carry any.
+post:pilgrim | forgiven_cold | Words are cheap; I've heard a great many on the road, and few were meant.
+post:pilgrim | unwronged | There's nothing to forgive; rest your conscience, and your feet.
+post:pilgrim | about_place | Ah, {about}; peace be on it.[ There's {trades} there.][ Ask for {who}, and give them my blessing.][ I'll pray you never meet the {around}.][ If it's work you seek, {work}.]
+post:pilgrim | about_place | I'll tell you gladly: {about}.[ Go wide of the {around}, I beg you.][ Look for {who} there.][ You'll find {trades} there, bless them.][ {work}.]
+# ---- post:midwife ----
+post:midwife | forgiven | Very well; it's done with, and I've no time to nurse it.
+post:midwife | forgiven | Apology accepted, and no more fuss about it.
+post:midwife | forgiven_cold | It's a start; I've heard sorry at more bedsides than I can count.
+post:midwife | unwronged | Whatever for? You've done nothing to me, so stop fretting.
+post:midwife | about_place | Listen: it's {about}.[ There's {trades} there, and every one of them was born once.][ Ask for {who}.][ Mind the {around}; I've no wish to patch you up after.][ If it's work you want, {work}.]
+post:midwife | about_place | Oh, that's {about}.[ Keep away from the {around}; I've enough on without you.][ Look for {who} there, and don't dawdle.][ You'll find {trades} there.][ {work}.]
+# ---- post:dread ----
+post:dread | forgiven | Forgiven; how charming, to be asked.
+post:dread | forgiven | Very well; I have forgotten it already, and I forget so little.
+post:dread | forgiven_cold | Maybe; fear makes everyone sorry.
+post:dread | unwronged | Whatever for? Nothing you could do would trouble me.
+post:dread | about_place | Oh, I know {about}.[ There is {trades} there.][ You will find {who} there, for as long as they last.][ There are {around}; I do hope you meet them.][ {work}.]
+post:dread | about_place | Ah, {about}; how curious that you ask.[ Do go and see the {around}.][ Look for {who} there.][ It has {trades}, going about their small lives.][ And for work, {work}.]

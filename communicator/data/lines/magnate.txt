@@ -825,3 +825,61 @@ magnate/LE | parted | Take care, and do keep your stores full, for empty ones ar
 magnate/LE | small_talk | Every agreement I sign today will be worth more to me tomorrow, which is rather the point of them.[ My people have a saying, one of the few I have found worth keeping: {saying}.]
 magnate/NE | parted | Go well, and stay out of debt, or at least out of mine[; as my people say, {saying}].
 magnate/NE | small_talk | Someone always has to sell, and I'm always there when they do.[ As we say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- magnate/NN ----
+magnate/NN | forgiven | Very well; I've written it off, and that's the end of it.
+magnate/NN | forgiven | No hard feelings; grudges are bad for business.
+magnate/NN | forgiven_cold | We'll see; I'll judge you on delivery.
+magnate/NN | unwronged | What for? There's nothing on the books between us.
+magnate/NN | about_place | Here's what I have on it: {about}.[ There's {trades} there.][ You'll find {who} there; see what they're worth to you.][ Mind the {around}.][ If it's work you want, {work}.]
+magnate/NN | about_place | You mean {about}.[ Its trades run to {trades}.][ Ask for {who}, and take them as you find them.][ Keep well away from the {around}.][ As for work, {work}.]
+# ---- magnate/LN ----
+magnate/LN | forgiven | Apology accepted, and so recorded; the matter is closed.
+magnate/LN | forgiven | Very well; I hold nothing further against you, and that is an end of it.
+magnate/LN | forgiven_cold | It's a start; I will note it, and nothing more.
+magnate/LN | unwronged | There's nothing to forgive; I have no grievance on record against you.
+magnate/LN | about_place | To be precise, it is {about}.[ There you will find {trades}.][ You may present yourself to {who} there.][ I would caution you regarding the {around}.][ Should you seek work, {work}.]
+magnate/LN | about_place | For the record, it is {about}.[ It has {trades}.][ Ask for {who}, by name and title.][ Keep a proper distance from the {around}.][ As to work, {work}.]
+# ---- magnate/NG ----
+magnate/NG | forgiven | Forgiven, of course; we'll say no more about it.
+magnate/NG | forgiven | All right, it's forgotten, and good riddance to it.
+magnate/NG | forgiven_cold | Maybe; I'll need a while before I'm easy about you.
+magnate/NG | unwronged | No harm done at all; put it out of your mind.
+magnate/NG | about_place | Ah, {about}.[ There's {trades} there.][ Ask for {who}; they're about.][ Mind the {around}, won't you?][ If you're looking for work, {work}.]
+magnate/NG | about_place | Oh yes, {about}.[ You'll find {who} there.][ It has {trades}.][ There are {around}, so be careful.][ And if it's work you need, {work}.]
+# ---- magnate/LG ----
+magnate/LG | forgiven | Very well, and gladly; I bear you no ill will whatever.
+magnate/LG | forgiven | Apology accepted, with my thanks for the courtesy of it.
+magnate/LG | forgiven_cold | We'll see. For now, I would rather we kept to business.
+magnate/LG | unwronged | Whatever for? I know of no wrong between us, though it is kind of you to say so.
+magnate/LG | about_place | With pleasure: {about}.[ There you will find {trades}.][ Ask for {who}, and deal fairly with them.][ Mind the {around}, if you would be so good.][ Should work interest you, {work}.]
+magnate/LG | about_place | You mean {about}, I believe.[ It has {trades}.][ You will find {who} there.][ Do take care near the {around}.][ If you are seeking work, {work}.]
+# ---- magnate/CN ----
+magnate/CN | forgiven | No hard feelings, none, clean slate, fresh odds.
+magnate/CN | forgiven | Forgiven, ha, just like that, and don't let it go to your head.
+magnate/CN | forgiven_cold | Hmph, nice speech, and I'm still not betting on you.
+magnate/CN | unwronged | What for? You've not cost me a thing, and, believe me, I'd know.
+magnate/CN | about_place | Ha, {about}.[ There's {trades} there.][ Ask for {who}, go on, see what they're made of.][ Mind the {around}, bad odds, those.][ And work, there's work: {work}.]
+magnate/CN | about_place | That one's {about}.[ It has {trades}.][ You'll find {who} there; good bet or bad, you tell me.][ There are {around}, so, careful.][ Right, work: {work}.]
+# ---- magnate/CG ----
+magnate/CG | forgiven | No hard feelings, none, and don't you dare fret over it.
+magnate/CG | forgiven | All right, it's forgotten, truly, and, oh, what a relief that is.
+magnate/CG | forgiven_cold | It's a start, I suppose, but I'm still sore, and I'm allowed to be.
+magnate/CG | unwronged | Whatever for? You've done nothing, nothing at all, so no more of that.
+magnate/CG | about_place | Let me see, {about}.[ There's {trades} there.][ You'll find {who} there.][ Keep away from the {around}, please, for my sake.][ And if it's work you're after, {work}.]
+magnate/CG | about_place | Ah, now, {about}.[ It has {trades}.][ Ask for {who}, oh, and be nice.][ There are {around}, so go carefully, yes?][ And look, {work}.]
+# ---- magnate/LE ----
+magnate/LE | forgiven | Very well; I accept your apology, and the matter is settled.
+magnate/LE | forgiven | Apology accepted. You are of more use to me in good standing than out of it.
+magnate/LE | forgiven_cold | Words are cheap, and I do not trade on them.
+magnate/LE | unwronged | Nothing to forgive; you have done nothing I have had occasion to note.
+magnate/LE | about_place | If you must know, it is {about}.[ It numbers {trades} among its people.][ You will find {who} there, for what that is worth.][ Mind the {around}; I would sooner not write you off.][ As regards work, {work}.]
+magnate/LE | about_place | Since you ask, it is {about}.[ It has {trades}.][ Ask for {who}, and be brief with them.][ Keep well clear of the {around}.][ Should you want work, {work}.]
+# ---- magnate/NE ----
+magnate/NE | forgiven | All right; it's off the books.
+magnate/NE | forgiven | Forgiven; I only keep what earns, and a grudge doesn't.
+magnate/NE | forgiven_cold | Maybe; I've marked it down, and that's all it gets.
+magnate/NE | unwronged | No harm done; save it for someone who cares.
+magnate/NE | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there, if they're any use to you.][ Mind the {around}, unless you'd rather be a loss.][ If you want work, {work}.]
+magnate/NE | about_place | Fine, it's {about}.[ It has {trades}.][ Ask for {who}, and don't waste their time or mine.][ There are {around}; mind them or don't.][ If it's work you're after, {work}.]

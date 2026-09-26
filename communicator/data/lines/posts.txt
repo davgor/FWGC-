@@ -156,3 +156,12 @@ post:innkeeper | parted_cold | Be on your way; there's others waiting on me.
 post:innkeeper | thanked | Glad to; I like a guest who says thank you.
 post:innkeeper | thanked | Don't mention it; there's plenty more where that came from.
 post:innkeeper | acknowledged | Well, there you are; I'll know next time.
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- post:innkeeper ----
+post:innkeeper | forgiven | Let's forget it, and I mean that.
+post:innkeeper | forgiven | Forgiven, and gladly; think no more of it.
+post:innkeeper | forgiven_cold | It's a start; we'll see how you go on.
+post:innkeeper | unwronged | Whatever for? I can't think of a thing you've done wrong.
+post:innkeeper | about_place | Ah, that'll be {about}.[ There's {trades} there.][ Ask for {who}.][ Mind the {around}, won't you?][ And if it's work you're after, {work}.]
+post:innkeeper | about_place | You hear everything in my trade, and that one's {about}.[ It has {trades}.][ You'll find {who} there.][ There are {around}, so do take care.][ {work}.]

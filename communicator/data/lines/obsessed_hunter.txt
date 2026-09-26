@@ -825,3 +825,61 @@ obsessed_hunter/LE | parted | Take care, and do keep out of my way[; as my peopl
 obsessed_hunter/LE | small_talk | Nothing has bested me today, and nothing will.[ As the saying goes, {saying}.]
 obsessed_hunter/NE | parted | Go well, and leave my quarry to me[; as we say, {saying}].
 obsessed_hunter/NE | small_talk | Another day on the trail, and another day nearer settling the score.[ As my people say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- obsessed_hunter/NN ----
+obsessed_hunter/NN | forgiven | Apology accepted, and struck off the ledger.
+obsessed_hunter/NN | forgiven | Let's forget it; I've one thing on my mind, and it isn't this.
+obsessed_hunter/NN | forgiven_cold | We'll see; I go by what I see, not what I'm told.
+obsessed_hunter/NN | unwronged | What for? I've nothing marked against you, and I'd know.
+obsessed_hunter/NN | about_place | It's {about}, if you want it plain.[ There's {trades} there.][ Ask for {who}.][ Keep downwind of the {around}.][ {work}.]
+obsessed_hunter/NN | about_place | Ah, {about}.[ You'll find {trades} there.][ Look for {who}, if it's people you're after.][ Mind the {around}, and read the ground before you go near.][ If it's work you want, {work}.]
+# ---- obsessed_hunter/LN ----
+obsessed_hunter/LN | forgiven | Apology accepted. I have noted it, and it will not count against your standing.
+obsessed_hunter/LN | forgiven | Very well; an apology properly made is properly received.
+obsessed_hunter/LN | forgiven_cold | It's a start. I will believe it when the evidence bears it out.
+obsessed_hunter/LN | unwronged | There's nothing to forgive; I have no grievance against you, on any evidence I hold.
+obsessed_hunter/LN | about_place | It is {about}, as far as I can confirm.[ There is {trades} there.][ You may apply to {who}.][ Take proper note of the {around}.][ {work}.]
+obsessed_hunter/LN | about_place | To be exact, it is {about}.[ You will find {trades} there.][ Ask for {who}, and address them properly.][ I would advise distance from the {around}.][ As to work, {work}.]
+# ---- obsessed_hunter/NG ----
+obsessed_hunter/NG | forgiven | All right, and thank you for coming to say so.
+obsessed_hunter/NG | forgiven | Let's forget it; are you all right, though?
+obsessed_hunter/NG | forgiven_cold | Maybe; I'm not sure yet what to make of you.
+obsessed_hunter/NG | unwronged | There's nothing to forgive, honestly; is something troubling you?
+obsessed_hunter/NG | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there, and I hope they're keeping well.][ Please keep well back from the {around}.][ {work}.]
+obsessed_hunter/NG | about_place | Oh, {about}.[ You'll find {trades} there.][ Ask for {who}, and be kind to them.][ Stay away from the {around}, please.][ And if you're looking for work, {work}.]
+# ---- obsessed_hunter/CN ----
+obsessed_hunter/CN | forgiven | Let's forget it; I already have, mostly.
+obsessed_hunter/CN | forgiven | Forgiven, done, gone; grudges bore me.
+obsessed_hunter/CN | forgiven_cold | We'll see; I'm not holding my breath.
+obsessed_hunter/CN | unwronged | What for? Did I miss something, again?
+obsessed_hunter/CN | about_place | Hm, {about}, that one.[ There's {trades} there, if you like that sort of thing.][ Ask for {who}, if you can be bothered.][ There are {around}, lucky you.][ Oh, and {work}.]
+obsessed_hunter/CN | about_place | Oh, {about}, yes.[ You'll find {trades} there, somewhere.][ Look for {who}, before you ask.][ Mind the {around}, or don't, up to you.][ And, fine, {work}.]
+# ---- obsessed_hunter/LG ----
+obsessed_hunter/LG | forgiven | Apology accepted, gladly; it is behind us now.
+obsessed_hunter/LG | forgiven | No hard feelings, none at all, upon my word.
+obsessed_hunter/LG | forgiven_cold | We'll see. Forgive me, but I cannot believe it yet.
+obsessed_hunter/LG | unwronged | Nothing to forgive, I assure you; please, be at ease.
+obsessed_hunter/LG | about_place | That is {about}.[ There is {trades} there.][ You will find {who} there, and I trust they are well.][ I beg you, take care near the {around}.][ {work}.]
+obsessed_hunter/LG | about_place | It is {about}, if that helps you.[ You will find {trades} there.][ Ask for {who}, and treat them kindly.][ Please mind the {around}, for your own sake.][ Should you seek work, {work}.]
+# ---- obsessed_hunter/CG ----
+obsessed_hunter/CG | forgiven | No hard feelings, honestly; I've no room for grudges.
+obsessed_hunter/CG | forgiven | Let's forget it; I've no time to stay cross.
+obsessed_hunter/CG | forgiven_cold | Words are cheap, and I'm too busy to weigh them.
+obsessed_hunter/CG | unwronged | Whatever for? You've done nothing to me, so don't fret.
+obsessed_hunter/CG | about_place | Right, that's {about}.[ There's {trades} there.][ Look for {who}, and be straight with them.][ Keep clear of the {around}, and don't dawdle near them.][ And listen, {work}.]
+obsessed_hunter/CG | about_place | It's {about}, and I'll be quick.[ You'll find {trades} there.][ Ask for {who}, and tell me if they're all right.][ Stay well away from the {around}, please, I mean it.][ If it's work you're after, {work}.]
+# ---- obsessed_hunter/LE ----
+obsessed_hunter/LE | forgiven | Very well; you have answered for it, and that will do.
+obsessed_hunter/LE | forgiven | Apology accepted; I seldom forgive, so you may count yourself fortunate.
+obsessed_hunter/LE | forgiven_cold | Hmph. Your contrition is noted, and I remain unconvinced.
+obsessed_hunter/LE | unwronged | Whatever for? I recall no cause, and I recall everything.
+obsessed_hunter/LE | about_place | It is {about}, exactly so.[ There is {trades} there, should that interest you.][ {who} may be found there, if you must.][ Mind the {around}; I have no intention of retrieving you.][ {work}.]
+obsessed_hunter/LE | about_place | You mean {about}, I take it.[ You will find {trades} there.][ Ask for {who}, and do try not to waste their time.][ Be sensible about the {around}, if you are capable of it.][ Should you want work, {work}.]
+# ---- obsessed_hunter/NE ----
+obsessed_hunter/NE | forgiven | All right; you're more use to me forgiven than not.
+obsessed_hunter/NE | forgiven | Forgiven, since it suits me.
+obsessed_hunter/NE | forgiven_cold | Hmph, sorry comes cheap, and I've no use for cheap.
+obsessed_hunter/NE | unwronged | What for? Keep the grovelling for someone who wants it.
+obsessed_hunter/NE | about_place | That's {about}.[ There's {trades} there, if that's any use to you.][ Ask for {who}, and don't waste their time as you're wasting mine.][ There are {around}, and I'm not fetching you back from them.][ {work}.]
+obsessed_hunter/NE | about_place | Ah, {about}.[ You'll find {trades} there.][ Look for {who}, if you're any good at looking.][ Mind the {around}, not that you'll listen.][ If you want work, {work}.]

@@ -722,3 +722,54 @@ kingmaker/CG | parted | Go well, and look after your friends, because the rest m
 kingmaker/CG | small_talk | Half my work is listening, and the other half is making sure the right people listen too.[ As they told me when I was small, {saying}.]
 kingmaker/LE | parted | Safe travels, and do find someone worth obeying[; as my people have it, {saying}].
 kingmaker/LE | small_talk | Today has gone to the usual business of deciding who is useful, and the list was short.[ My people have a saying, more useful than most: {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- kingmaker/NN ----
+kingmaker/NN | forgiven | Very well. I'll strike it from the ledger.
+kingmaker/NN | forgiven | Let's forget it; grudges cost more than they're worth.
+kingmaker/NN | forgiven_cold | Words are cheap. I've noted it; I haven't believed it.
+kingmaker/NN | unwronged | What for? You've not cost me a thing.
+kingmaker/NN | about_place | That's {about}.[ There's {trades} there, if you've dealings to do.][ Make yourself known to {who}.][ Mind the {around}.][ If it's work you want, {work}.]
+kingmaker/NN | about_place | Now, {about}.[ It's {who} you'll want to know there.][ It has {trades}, if you've need of them.][ Keep clear of the {around}; you're more use alive.][ As for work, {work}.]
+# ---- kingmaker/LN ----
+kingmaker/LN | forgiven | Apology accepted, and properly made. The matter is closed.
+kingmaker/LN | forgiven | Forgiven, formally and in full; you have my word on it.
+kingmaker/LN | forgiven_cold | We'll see. The apology is on record; your standing is not.
+kingmaker/LN | unwronged | Nothing to forgive; no grievance stands between us.
+kingmaker/LN | about_place | That is {about}.[ It has {trades}, by my account.][ You will find {who} there, and I would address them properly.][ The {around} warrant caution.][ As to work, {work}.]
+kingmaker/LN | about_place | You are asking after {about}.[ You will find {trades} there.][ Ask for {who}, and observe the proper forms.][ I would keep my distance from the {around}.][ If you seek work, {work}.]
+# ---- kingmaker/NG ----
+kingmaker/NG | forgiven | All right, it's forgiven; I'd much rather help you than hold anything against you.
+kingmaker/NG | forgiven | No hard feelings; now, how are you keeping?
+kingmaker/NG | forgiven_cold | It's a start; saying sorry is the easy part.
+kingmaker/NG | unwronged | Whatever for? You've done me no wrong; is something the matter?
+kingmaker/NG | about_place | That's {about}.[ There's {trades} there, if you need anything.][ You'll find {who} there.][ Please keep clear of the {around}.][ If you're looking for work, {work}.]
+kingmaker/NG | about_place | Ah, {about}.[ It has {trades}, if you need a hand with anything.][ It's {who} you'll find there, and I hope they're well.][ Stay well away from the {around}, won't you?][ And if it's work you're after, {work}.]
+# ---- kingmaker/CN ----
+kingmaker/CN | forgiven | Forgiven; grudges are dull, and I hate dull.
+kingmaker/CN | forgiven | Let's forget it; I lose everything but secrets, and this isn't one.
+kingmaker/CN | forgiven_cold | Maybe; nicely put, and I don't believe a word of it.
+kingmaker/CN | unwronged | What for? You've done nothing to me, and believe me, I'd know.
+kingmaker/CN | about_place | You mean {about}, obviously.[ There's {trades} there, if you like that sort of thing.][ Get friendly with {who}; friends tell each other things.][ Watch the {around}; I'd hate to lose a source.][ Oh, and work: {work}.]
+kingmaker/CN | about_place | {about}, yes, yes.[ For trades, there's {trades}.][ Look up {who}, and be charming about it.][ Keep away from the {around}; dead people make dull company.][ And work, since you're wondering: {work}.]
+# ---- kingmaker/LG ----
+kingmaker/LG | forgiven | Forgiven, and freely; I thank you for the courtesy of saying so.
+kingmaker/LG | forgiven | Apology accepted, and gladly. You need say no more of it.
+kingmaker/LG | forgiven_cold | Maybe. I hear the apology; I cannot yet say I believe it.
+kingmaker/LG | unwronged | There's nothing to forgive; you have wronged me in nothing, I assure you.
+kingmaker/LG | about_place | With pleasure; that is {about}.[ You will find {trades} there, should you need them.][ Seek out {who}, and tell me how they fare.][ Stay clear of the {around}, if you would be so kind.][ If it is work you seek, {work}.]
+kingmaker/LG | about_place | Of course; that is {about}.[ It has {trades}, I am told.][ Should you meet {who}, I hope you will find them well.][ Keep clear of the {around}; I would not have you harmed.][ And if you want work, {work}.]
+# ---- kingmaker/CG ----
+kingmaker/CG | forgiven | Forgiven, done, gone; now tell me how you are.
+kingmaker/CG | forgiven | All right; I was never any good at grudges, and I'm not starting now.
+kingmaker/CG | forgiven_cold | Hmph. I heard it; I'm not there yet.
+kingmaker/CG | unwronged | Nothing to forgive, honestly; are you all right?
+kingmaker/CG | about_place | That's {about}, and I'm glad you asked.[ You'll find {trades} there; be kind to them.][ Look for {who}; they're about.][ Mind the {around}; I'd never forgive myself.][ If you want work, {work}.]
+kingmaker/CG | about_place | {about}, you mean; I know that one.[ There's {trades} there; learn their names.][ Say hello to {who} for me, even if they don't know me.][ Keep your distance from the {around}, would you?][ And work, if you want it: {work}.]
+# ---- kingmaker/LE ----
+kingmaker/LE | forgiven | Very well. An apology is an answer of sorts, and I accept it.
+kingmaker/LE | forgiven | Apology accepted; I have no further use for the grievance.
+kingmaker/LE | forgiven_cold | Hmph. You apologise very prettily; I remain unconvinced.
+kingmaker/LE | unwronged | Whatever for? You have not yet been important enough to wrong me.
+kingmaker/LE | about_place | That is {about}, as you might have discovered for yourself.[ There is {trades} there, if you require such things.][ Should you call on {who}, I suggest you mind your manners.][ Do avoid the {around}; I dislike waste.][ If you want employment, {work}.]
+kingmaker/LE | about_place | I am aware of {about}; most people of consequence are.[ It has {trades}, for whatever that is worth to you.][ Should you reach {who}, try to be brief.][ Heed the {around}, if nothing else I have said.][ And, since you will ask, {work}.]

@@ -613,3 +613,47 @@ zealot/CN | parted | Goodbye - and listen for the spirit, it's louder than you'd
 zealot/CN | small_talk | Oh, visions, crowds, hymns - the spirit never lets me sit down.[ As we say, more or less, {saying}.]
 zealot/CG | parted | Safe travels - eat something, sing something, and don't you dare lose heart[; oh, and, as we say, {saying}].
 zealot/CG | small_talk | A good day - the spirit's up and there's a song in me yet.[ As we always say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- zealot/NN ----
+zealot/NN | forgiven | Forgiven; faith asks it of me, and I don't argue with faith.
+zealot/NN | forgiven | All right; it's forgiven, and forgiven means forgotten.
+zealot/NN | forgiven_cold | We'll see. I'll believe it when I've weighed it.
+zealot/NN | unwronged | What for? You've done me no wrong; save it for your prayers.
+zealot/NN | about_place | That's {about}.[ There's {trades} there, for whatever you need.][ Look for {who}, and find out what they believe.][ Keep clear of the {around}; faith's no excuse for carelessness.][ If it's work you want, {work}.]
+zealot/NN | about_place | I know {about}, and I'll tell you straight.[ It has {trades}.][ You'll find {who} there; weigh them for yourself.][ There are {around}, and prayer won't shift them.][ And for work, {work}.]
+# ---- zealot/LN ----
+zealot/LN | forgiven | Very well. You have confessed it, and it is absolved.
+zealot/LN | forgiven | Forgiven; I will swear to it, should anyone ask.
+zealot/LN | forgiven_cold | It's a start. I have heard the confession; belief will take longer.
+zealot/LN | unwronged | There's nothing to forgive; you stand accused of nothing here.
+zealot/LN | about_place | That is {about}, as I can attest.[ There is {trades} there.][ Seek out {who}, and answer them truthfully.][ Keep your distance from the {around}, I counsel you.][ Should you want work, {work}.]
+zealot/LN | about_place | You inquire after {about}.[ There you will find {trades}.][ Ask for {who}, and speak to them as honestly as you would to me.][ I would not go near the {around}.][ If it is work you seek, {work}.]
+# ---- zealot/NG ----
+zealot/NG | forgiven | Forgiven, and gladly; how are you, truly?
+zealot/NG | forgiven | No hard feelings; I'd sooner feed you than fault you.
+zealot/NG | forgiven_cold | Maybe. I'll keep it, and keep my distance a while yet.
+zealot/NG | unwronged | Whatever for? You've done nothing to me; have you eaten, though?
+zealot/NG | about_place | Ah, {about}.[ There's {trades} there, if you need a hand.][ Look for {who}; they're about.][ Stay away from the {around}, please; I'd hate to see you hurt.][ If it's work you need, {work}.]
+zealot/NG | about_place | Oh, {about}; I know it.[ You'll find {trades} there, and a kind word goes a long way with anyone.][ If you see {who}, be kind to them.][ There are {around}, so go carefully.][ {work}.]
+# ---- zealot/LG ----
+zealot/LG | forgiven | Forgiven, freely and from the heart; go in peace.
+zealot/LG | forgiven | Very well. It is forgiven, as I would hope to be forgiven.
+zealot/LG | forgiven_cold | We'll see. I will pray on it before I believe it.
+zealot/LG | unwronged | Nothing to forgive; set your heart at rest.
+zealot/LG | about_place | I know it; that is {about}.[ There is {trades} there, should you have need of them.][ Seek out {who}, and I hope you find them well.][ Please keep well away from the {around}.][ If you would have work, {work}.]
+zealot/LG | about_place | Let me tell you of {about}.[ It has {trades}, and I pray they prosper.][ Should you meet {who}, give them my blessing.][ Keep clear of the {around}, I beg you.][ And if it is work you want, {work}.]
+# ---- zealot/CN ----
+zealot/CN | forgiven | Forgiven - wiped clean, I felt it lift just now.
+zealot/CN | forgiven | All right, all right - it's gone, the spirit says so, and who am I to argue?
+zealot/CN | forgiven_cold | Hmph. I'll believe it when I feel it.
+zealot/CN | unwronged | Whatever for? Nothing's wrong between us - I'd have felt it in my bones.
+zealot/CN | about_place | Oh, {about} - yes, yes, I know it.[ There's {trades} there, and every soul's worth saving.][ Look for {who} - and listen, really listen.][ The {around} - keep clear, keep well clear.][ And work, while we're at it - {work}.]
+zealot/CN | about_place | {about} - of course, of course.[ You'll find {trades} there - talk to them, talk to everyone.][ Ask for {who}, and see if the spirit's in them.][ Mind the {around} - I mean it, I've a feeling.][ If you want work, {work}.]
+# ---- zealot/CG ----
+zealot/CG | forgiven | Forgiven - oh, completely - now, are you eating properly?
+zealot/CG | forgiven | No hard feelings - none, I promise, and I'll sing it if you like.
+zealot/CG | forgiven_cold | It's a start - a small one, and I'm still sore.
+zealot/CG | unwronged | No harm done - none at all, so chin up.
+zealot/CG | about_place | {about} - yes, and bless it.[ There's {trades} there - be kind to them, won't you?][ Find {who} - they're about.][ And the {around} - stay away, promise me.][ If you want work, {work}.]
+zealot/CG | about_place | Ah, {about}![ You'll find {trades} there - go and say hello.][ Ask for {who} - and give them a blessing from me.][ There are {around} - don't go near them, please.][ And if you want work - {work}.]

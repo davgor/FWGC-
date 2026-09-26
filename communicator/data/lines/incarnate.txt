@@ -521,3 +521,40 @@ incarnate/CE | parted | Go well, and come back with something I want[; and do re
 incarnate/CE | small_talk | Nothing today has been worth the having, and I've looked, believe me.[ My people have a saying, not that I listen: {saying}.]
 incarnate/NN | parted | Take care, and keep your ledger as clean as I keep mine[; as we say, {saying}].
 incarnate/NN | small_talk | No better or worse than most days, and I'll settle for that.[ As the saying goes, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- incarnate/LE ----
+incarnate/LE | forgiven | Apology accepted; it was properly made, which is all I require.
+incarnate/LE | forgiven | Very well. It is answered, and I will not raise it again.
+incarnate/LE | forgiven_cold | Words are cheap. I have heard yours; whether they were meant, I will judge.
+incarnate/LE | unwronged | Nothing to forgive; you have not yet mattered enough to wrong me.
+incarnate/LE | about_place | That is {about}.[ You will find {trades} there, if you need one.][ {who} may be found there, should you care to trouble them.][ Whatever the {around} do to you, I shall not lose sleep over it.][ If you require work, {work}.]
+incarnate/LE | about_place | Since you ask it of me: {about}.[ There is {trades} at it.][ Seek out {who}, if you must.][ Go near the {around} if you like; it is nothing to me.][ Should you want work, {work}.]
+# ---- incarnate/LG ----
+incarnate/LG | forgiven | Forgiven; I say it once, and it holds for good.
+incarnate/LG | forgiven | No hard feelings, I promise you. Are you well?
+incarnate/LG | forgiven_cold | It's a start, and I will leave it there for now.
+incarnate/LG | unwronged | There's nothing to forgive; you have done me no wrong, and I would tell you if you had.
+incarnate/LG | about_place | Yes, I know it; it is {about}.[ There is {trades} there, if you have need of one.][ You may ask there for {who}.][ Please be careful of the {around}; I should hate for you to come to harm.][ If you are seeking work, {work}.]
+incarnate/LG | about_place | You mean {about}.[ There is {trades} at it.][ You will find {who} there, and I hope they receive you well.][ Mind the {around}, and look after anyone with you.][ And if it is work you want, {work}.]
+# ---- incarnate/CG ----
+incarnate/CG | forgiven | Forgiven, done, and that's that; now, how are you?
+incarnate/CG | forgiven | Let's forget it; it's gone, and good riddance to it.
+incarnate/CG | forgiven_cold | Maybe. I'm still cross, and I'll stop when I choose to.
+incarnate/CG | unwronged | Whatever for? You've not put a foot wrong with me, so stop that.
+incarnate/CG | about_place | Well, that's {about}.[ There's {trades} there, if you need one.][ Ask for {who}, and don't let anyone order you about.][ Mind how you go near the {around}, yes?][ {work}, if you want it, and only if you want it.]
+incarnate/CG | about_place | Oh, that's {about}, yes.[ It's got {trades}, if that helps.][ You'll find {who} there; be decent to them, would you?][ And the {around}; I'd give them a wide berth, honestly.][ If you're after work, {work}.]
+# ---- incarnate/CE ----
+incarnate/CE | forgiven | Forgiven, and I do love a little grovelling.
+incarnate/CE | forgiven | All right, all right, you're forgiven; don't make a speech of it.
+incarnate/CE | forgiven_cold | Hmph. Such pretty words, and I believe none of them.
+incarnate/CE | unwronged | What for? You've done nothing to me, and I doubt you could.
+incarnate/CE | about_place | Ah, {about}; I know it.[ There's {trades} there, since you're so curious.][ {who} can be found there, for now.][ There are {around}, and I'd happily lend you to them.][ And since you'll ask, {work}.]
+incarnate/CE | about_place | That's {about}, and I haven't decided if I want it yet.[ You'll find {trades} at it.][ Ask for {who}, if you must bother someone.][ Do go near the {around}; I'd love to see how you get on.][ If you want work, {work}.]
+# ---- incarnate/NN ----
+incarnate/NN | forgiven | Very well; we're even, and that's the end of it.
+incarnate/NN | forgiven | Apology accepted; it's off the ledger, plain and simple.
+incarnate/NN | forgiven_cold | We'll see. It's heard, and that's as far as it goes.
+incarnate/NN | unwronged | No harm done; you've nothing to square with me.
+incarnate/NN | about_place | That's {about}.[ There's {trades} there, if you've a use for one.][ You'll find {who} there.][ Stay wary of the {around}.][ If it's work you want, {work}.]
+incarnate/NN | about_place | I know it: {about}.[ You'll find {trades} at it.][ Ask for {who}; what they're worth to you is your call.][ Keep away from the {around}, unless there's something in it for you.][ {work}.]

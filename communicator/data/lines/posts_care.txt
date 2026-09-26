@@ -983,3 +983,75 @@ post:sanitation_worker | parted_cold | On your way; I've muck to shift.
 post:sanitation_worker | thanked | You're welcome, and it's a pleasure to hear it.
 post:sanitation_worker | thanked | Don't mention it; I'll carry that around longer than the smell.
 post:sanitation_worker | acknowledged | Fair enough; I'll not muck about with it.
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- post:caretaker ----
+post:caretaker | forgiven | Let's forget it; I've floors enough to worry about.
+post:caretaker | forgiven | No hard feelings. Whatever it was, it's gone out with the dust.
+post:caretaker | forgiven_cold | We'll see; I've heard sorry from plenty of muddy boots.
+post:caretaker | unwronged | Whatever for? You've not even tracked mud in.
+post:caretaker | about_place | You'll mean {about}.[ There's {trades} there, so I hear.][ Ask for {who}.][ Mind the {around}.][ {work}.]
+post:caretaker | about_place | As far as a broom hears, it's {about}.[ It has {trades}.][ You'll find {who} there.][ Give the {around} a wide berth.][ If it's work you want, {work}.]
+# ---- post:officiant ----
+post:officiant | forgiven | Forgiven. It is set down, and I will not take it up again.
+post:officiant | forgiven | Very well. Let there be peace between us.
+post:officiant | forgiven_cold | It's a start, and only a start.
+post:officiant | unwronged | Nothing to forgive; you have done me no wrong.
+post:officiant | about_place | In plain words, it is {about}.[ There is {trades} there.][ Seek out {who}.][ May you keep clear of the {around}.][ If you would have work, {work}.]
+post:officiant | about_place | You speak of {about}.[ It has {trades}.][ You will find {who} there.][ Give the {around} a wide berth.][ {work}.]
+# ---- post:groundskeeper ----
+post:groundskeeper | forgiven | Forgiven, and buried; I'll not dig it up again.
+post:groundskeeper | forgiven | No hard feelings; life's too short, and I should know.
+post:groundskeeper | forgiven_cold | Maybe. The ground settles slow, and so do I.
+post:groundskeeper | unwronged | Whatever for? You've done me no harm, and the dead aren't complaining.
+post:groundskeeper | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there, above ground.][ Keep clear of the {around}; I've graves enough to dig.][ {work}.]
+post:groundskeeper | about_place | Aye, that'll be {about}.[ It has {trades}.][ Ask for {who}.][ Mind the {around}.][ If it's work you want, {work}.]
+# ---- post:care_assistant ----
+post:care_assistant | forgiven | All right, it's forgotten; I haven't the time to remember it anyway.
+post:care_assistant | forgiven | No hard feelings; I've enough to carry without that.
+post:care_assistant | forgiven_cold | Hmph. I've no time to find out if you mean it.
+post:care_assistant | unwronged | No harm done; you've not added a thing to my load.
+post:care_assistant | about_place | I'll be quick: it's {about}.[ There's {trades} there, the patients say.][ Ask for {who}.][ Mind the {around}, for my sake.][ {work}.]
+post:care_assistant | about_place | It's {about}, if I've heard right.[ It has {trades}.][ You'll find {who} there.][ Keep clear of the {around}.][ If it's work you're after, {work}.]
+# ---- post:healer ----
+post:healer | forgiven | Apology accepted. It's closed now, and I'll not reopen it.
+post:healer | forgiven | Very well; I've no time for grudges, and less use for them.
+post:healer | forgiven_cold | We'll see. I judge by symptoms, not by what people tell me.
+post:healer | unwronged | Nothing to forgive; you've not so much as bruised me.
+post:healer | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there.][ Keep away from the {around}, unless you like stitches.][ {work}.]
+post:healer | about_place | To the point: {about}.[ It has {trades}.][ Ask for {who}.][ Mind the {around}.][ If it's work you want, {work}.]
+# ---- post:apothecary ----
+post:apothecary | forgiven | Apology accepted; I've weighed it, and it's enough.
+post:apothecary | forgiven | Forgiven, to the last grain.
+post:apothecary | forgiven_cold | Maybe; I'll not vouch for it yet.
+post:apothecary | unwronged | There's nothing to forgive; not a jar out of place.
+post:apothecary | about_place | To be exact: {about}.[ It has {trades}, to my knowledge.][ Ask for {who} by name, and get it right.][ Keep well clear of the {around}.][ {work}.]
+post:apothecary | about_place | As near as I can measure, it's {about}.[ There's {trades} there.][ You'll find {who} there.][ Stay clear of the {around}.][ If it's work you want, {work}.]
+# ---- post:herbalist ----
+post:herbalist | forgiven | No hard feelings; I'll pull it up like a weed and be done with it.
+post:herbalist | forgiven | All right; I've dug it under, and there it stays.
+post:herbalist | forgiven_cold | We'll see; some things take a season to show what they are.
+post:herbalist | unwronged | No harm done; you've not trodden on a single seedling.
+post:herbalist | about_place | That'll be {about}.[ There's {trades} there.][ Ask for {who}.][ Watch your step round the {around}.][ {work}.]
+post:herbalist | about_place | Let me think; that's {about}.[ It has {trades}.][ You'll find {who} there.][ Keep clear of the {around}.][ If it's work you're after, {work}.]
+# ---- post:researcher ----
+post:researcher | forgiven | Very well; I'll treat it as a bad result and discard it.
+post:researcher | forgiven | Apology accepted; I've more pressing questions than that.
+post:researcher | forgiven_cold | It's a start; one result proves nothing.
+post:researcher | unwronged | Nothing to forgive; I've observed no offence.
+post:researcher | about_place | By my notes, it's {about}.[ I've {trades} listed there.][ Ask for {who}.][ The {around} are best studied from afar.][ Of note, {work}.]
+post:researcher | about_place | On the evidence, it's {about}.[ It has {trades}.][ You'll find {who} there.][ Keep clear of the {around}.][ If it's work you want, {work}.]
+# ---- post:astronomer ----
+post:astronomer | forgiven | Forgiven; I'm too tired to stay cross.
+post:astronomer | forgiven | Let's forget it; I've a head full of stars, and I'd rather keep it that way.
+post:astronomer | forgiven_cold | Hmph. I've seen stars that looked steady and weren't.
+post:astronomer | unwronged | What for? You've not come between me and the sky.
+post:astronomer | about_place | Down here, that's {about}.[ There's {trades} there, I'm told.][ Ask for {who}.][ Mind the {around}, and watch the ground, not the sky.][ {work}.]
+post:astronomer | about_place | If I look that low, it's {about}.[ It has {trades}.][ You'll find {who} there.][ Beware the {around}.][ If it's work you want, {work}.]
+# ---- post:sanitation_worker ----
+post:sanitation_worker | forgiven | No hard feelings; it's shovelled away with the rest.
+post:sanitation_worker | forgiven | All right; it's in the cart, and the cart's going.
+post:sanitation_worker | forgiven_cold | Words are cheap; I've heard plenty, and they all smell the same.
+post:sanitation_worker | unwronged | What for? You've not even held your nose.
+post:sanitation_worker | about_place | Oh, {about}, is it?[ There's {trades} there.][ Ask for {who}.][ Mind the {around}, and mind where you step.][ {work}.]
+post:sanitation_worker | about_place | Aye, that's {about}.[ It has {trades}.][ You'll find {who} there.][ Keep clear of the {around}.][ If it's work you're after, {work}.]

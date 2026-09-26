@@ -1057,3 +1057,82 @@ post:animal_keeper | parted_cold | Be on your way, and walk wide of the pens.
 post:animal_keeper | thanked | No need; I'd do the same for a lame goat.
 post:animal_keeper | thanked | Glad to; you're easier to help than most of my lot.
 post:animal_keeper | acknowledged | Aye; I'll tell the beasts, they like to know.
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- post:farmer ----
+post:farmer | forgiven | Very well; it's ploughed under, and nothing will come up from it.
+post:farmer | forgiven | Forgiven; I've no room in my rows for a grudge.
+post:farmer | forgiven_cold | We'll see; I judge a crop when it's in, not when it's sown.
+post:farmer | unwronged | What for? If you'd trampled my rows, I'd know it.
+post:farmer | about_place | That's {about}, since you ask.[ There's {trades} there, for anyone who needs more than a plough.][ You'll find {who} there.][ Keep well clear of the {around}.][ If it's work you want, {work}.]
+post:farmer | about_place | You mean {about}.[ Ask for {who}, and be quick about it.][ You'll find {trades} there, if you've need of them.][ I'd not put a plough within sight of the {around}.][ {work}.]
+# ---- post:farm_hand ----
+post:farm_hand | forgiven | No hard feelings; I haven't the strength left for any.
+post:farm_hand | forgiven | Apology accepted; a hand doesn't hear many of those.
+post:farm_hand | forgiven_cold | Maybe; folk say plenty to a hand, and mean less of it.
+post:farm_hand | unwronged | Whatever for? It's usually me saying sorry to somebody.
+post:farm_hand | about_place | That's {about}, if a hand's word counts for anything.[ There's {trades} there.][ Ask for {who}; better you than me.][ I'd give the {around} a wide berth, myself.][ If it's work you're after, {work}.]
+post:farm_hand | about_place | Since you're asking a hand: {about}.[ You'll want {who}, not the likes of me.][ You'll find {trades} there.][ Mind yourself near the {around}.][ {work}.]
+# ---- post:well_keeper ----
+post:well_keeper | forgiven | Forgiven; it's gone down the well, and I'll not draw it up again.
+post:well_keeper | forgiven | Let's forget it; the water's settled, and so have I.
+post:well_keeper | forgiven_cold | Maybe; muddy water takes its time to settle.
+post:well_keeper | unwronged | What for? Nothing's come up in the bucket against you.
+post:well_keeper | about_place | It's {about}, plain as well water.[ There's {trades} there.][ Seek out {who}.][ Keep well back from the {around}.][ If it's work you're after, {work}.]
+post:well_keeper | about_place | I'll draw it up for you: {about}.[ Be wary of the {around}.][ You'll find {trades} there.][ Ask for {who}.][ And for work, {work}.]
+# ---- post:carter ----
+post:carter | forgiven | Apology accepted; a grudge is dead weight, and I'll not haul it.
+post:carter | forgiven | All right; that's unloaded and left at the roadside.
+post:carter | forgiven_cold | Words are cheap; I'll believe it when it's delivered.
+post:carter | unwronged | What for? There's nothing between us that wants settling.
+post:carter | about_place | I'll give it you straight: {about}.[ There's {trades} there, if you've a load for them.][ Ask for {who}.][ I'd not take a cart near the {around}.][ As for work, {work}.]
+post:carter | about_place | That's {about}, and I'll not dress it up.[ You'll want {who}, if you've dealings there.][ You'll find {trades} there.][ Mind the {around}.][ {work}.]
+# ---- post:fisher ----
+post:fisher | forgiven | Forgiven. It's gone out with the tide.
+post:fisher | forgiven | Let's forget it. I have.
+post:fisher | forgiven_cold | Maybe. The water looks calm too.
+post:fisher | unwronged | What for? You've not cut my nets.
+post:fisher | about_place | That's {about}.[ There's {trades} there.][ Ask for {who}.][ Keep clear of the {around}.][ If it's work, {work}.]
+post:fisher | about_place | It's {about}.[ Watch the {around}.][ Look for {who}.][ You'll find {trades} there.][ {work}.]
+# ---- post:boatman ----
+post:boatman | forgiven | Very well; it's gone over the side, and I'll not fish it out.
+post:boatman | forgiven | Apology accepted; the water's calm again.
+post:boatman | forgiven_cold | Words are cheap; I'll wait and see which way the current runs.
+post:boatman | unwronged | Whatever for? You've not rocked my boat.
+post:boatman | about_place | That's {about}, sure as the current.[ There's {trades} there.][ You'll find {who} there.][ Keep well clear of the {around}.][ If it's work you want, {work}.]
+post:boatman | about_place | Ah, {about}.[ You'll find {trades} there.][ Ask for {who}.][ Give the {around} as wide a berth as you'd give a rock.][ {work}.]
+# ---- post:hauler ----
+post:hauler | forgiven | Forgiven; I've set it down, and I'll not pick it up again.
+post:hauler | forgiven | No hard feelings; I've no room on my back for them.
+post:hauler | forgiven_cold | Hmph; easy to say, and it weighs nothing.
+post:hauler | unwronged | What for? You've put nothing on my back.
+post:hauler | about_place | Hm, that's {about}.[ There's {trades} there.][ Ask for {who}.][ I'd not set a load down near the {around}.][ If you're after work, {work}.]
+post:hauler | about_place | That one's {about}.[ Look for {who} there.][ Watch your back near the {around}.][ You'll find {trades} there.][ {work}.]
+# ---- post:water_carrier ----
+post:water_carrier | forgiven | Forgiven; I've no time to carry a grudge, not with these buckets.
+post:water_carrier | forgiven | All right, all right; it's forgotten, now let me by.
+post:water_carrier | forgiven_cold | We'll see; I've no time to find out if you mean it.
+post:water_carrier | unwronged | No harm done; not a drop spilt.
+post:water_carrier | about_place | That's {about}, quick as I can tell it.[ There's {trades} there.][ Ask for {who}, and mind the buckets.][ Mind the {around}.][ If it's work you want, {work}.]
+post:water_carrier | about_place | Keep up: it's {about}.[ Stay clear of the {around}.][ You'll find {trades} there.][ Look for {who} there.][ {work}.]
+# ---- post:water_keeper ----
+post:water_keeper | forgiven | Very well; it is forgotten, and I do not say that lightly.
+post:water_keeper | forgiven | Apology accepted; the matter is closed.
+post:water_keeper | forgiven_cold | We'll see; I judge by what follows, not by apologies.
+post:water_keeper | unwronged | Nothing to forgive; you have fouled nothing of mine.
+post:water_keeper | about_place | That is {about}, to be exact.[ You will find {trades} there.][ Ask for {who}.][ Stay well clear of the {around}.][ If you are seeking work, {work}.]
+post:water_keeper | about_place | In plain terms, it is {about}.[ It has {trades}.][ Ask for {who}, and be exact with them.][ Beware the {around}.][ As to work, {work}.]
+# ---- post:horse_keeper ----
+post:horse_keeper | forgiven | Apology accepted; even a good horse shies now and then.
+post:horse_keeper | forgiven | Very well; it's behind us, like a fence cleared.
+post:horse_keeper | forgiven_cold | Maybe; I've seen plenty go sweet in the yard and sour on the road.
+post:horse_keeper | unwronged | Whatever for? You've not so much as spooked a horse of mine.
+post:horse_keeper | about_place | Listen: that's {about}.[ There's {trades} there, if a horse isn't all you need.][ Ask for {who}.][ Give the {around} a wide berth, horse or no horse.][ If it's work you want, {work}.]
+post:horse_keeper | about_place | I know it: {about}.[ Look for {who} there.][ You'll find {trades} there.][ Watch for the {around}, and keep a tight rein.][ {work}.]
+# ---- post:animal_keeper ----
+post:animal_keeper | forgiven | No hard feelings; the beasts taught me that much.
+post:animal_keeper | forgiven | All right; it's mucked out and gone.
+post:animal_keeper | forgiven_cold | Hmph; the beasts can't lie to me, and you can.
+post:animal_keeper | unwronged | What for? You've done nothing to me, nor to anything in my stalls.
+post:animal_keeper | about_place | That's {about}; I'd sooner talk beasts, but there it is.[ There's {trades} there.][ Ask for {who}.][ I'd keep a beast well back from the {around}.][ If it's work you want, {work}.]
+post:animal_keeper | about_place | It's {about}, and the beasts don't care either way.[ Mind the {around}.][ Look for {who} there.][ You'll find {trades} there.][ {work}.]

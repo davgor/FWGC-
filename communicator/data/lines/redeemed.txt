@@ -619,3 +619,47 @@ redeemed/CN | parted | Safe travels, and forget my face, it's a kindness[; as we
 redeemed/CN | small_talk | Oh, nothing, nothing at all, and certainly nothing good that anyone could trace to me.[ As my people say, {saying}.]
 redeemed/CG | parted | Goodbye, and be gentle with yourself, and with everyone else too[; oh, and, as we say, {saying}].
 redeemed/CG | small_talk | Good, quiet, useful, nobody the wiser, perfect.[ As we say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- redeemed/NN ----
+redeemed/NN | forgiven | Forgiven; holding on to it would waste us both.
+redeemed/NN | forgiven | All right; it's settled, and I don't reopen settled things.
+redeemed/NN | forgiven_cold | Words are cheap; I weigh what people do.
+redeemed/NN | unwronged | No harm done; there's nothing between us that needs it.
+redeemed/NN | about_place | That's {about}; I'll tell it as it is.[ There's {trades} there, if that's what you need.][ You'll find {who} there.][ Mind the {around}, and don't spend yourself on them.][ If it's work you want, {work}.]
+redeemed/NN | about_place | No dressing it up: {about}.[ There are {around}; don't go near them without cause.][ It has {trades}.][ Ask for {who}, if you've business there.][ {work}.]
+# ---- redeemed/NG ----
+redeemed/NG | forgiven | Forgiven, gladly; I know what it is to need it.
+redeemed/NG | forgiven | No hard feelings; thank you for saying it, truly.
+redeemed/NG | forgiven_cold | Maybe. I heard you, and that's as far as it goes today.
+redeemed/NG | unwronged | Nothing to forgive; if something's weighing on you, though, I'll listen.
+redeemed/NG | about_place | That's {about}; I'm glad to tell you what I can.[ There's {trades} there, should you need one.][ You'll find {who} there, if you need a name to ask for.][ Please keep clear of the {around}.][ If it's work you're after, {work}.]
+redeemed/NG | about_place | Of course; you mean {about}.[ Ask for {who}.][ There are {around}, so please, go carefully.][ It has {trades}, if you need anything seen to.][ And if you're looking for work, {work}.]
+# ---- redeemed/LN ----
+redeemed/LN | forgiven | Apology accepted, and openly made; I hold nothing further against you.
+redeemed/LN | forgiven | Very well. I have weighed it, and I find in your favour.
+redeemed/LN | forgiven_cold | We'll see. I have heard it, and I reserve judgement.
+redeemed/LN | unwronged | There's nothing to forgive; I know of no wrong you have done me.
+redeemed/LN | about_place | I can speak to {about}, and I will do so openly.[ There is {trades} there.][ Mind the {around}, and go no nearer than you must.][ You will find {who} there; deal with them in the open.][ If you seek work, {work}.]
+redeemed/LN | about_place | So far as I can swear to it, that is {about}.[ There are {around}; I would not go near them.][ You will find {trades} there.][ Ask for {who}, and say plainly what you want.][ As for work, {work}.]
+# ---- redeemed/LG ----
+redeemed/LG | forgiven | Forgiven, and freely, as I would hope to be forgiven.
+redeemed/LG | forgiven | Apology accepted, and gladly; it was good of you to make it.
+redeemed/LG | forgiven_cold | It's a start, and I will not pretend it is more.
+redeemed/LG | unwronged | Whatever for? You have done me no wrong, and I would tell you honestly if you had.
+redeemed/LG | about_place | Certainly; that is {about}.[ There is {trades} there, should you have need of any.][ You may ask for {who} there.][ I would ask you to keep well away from the {around}.][ If it is work you seek, {work}.]
+redeemed/LG | about_place | Let me tell you what I can: {about}.[ There are {around}; I beg you, take care.][ Of trades, it has {trades}.][ Seek out {who}, and speak with them openly.][ Should you want work, {work}.]
+# ---- redeemed/CN ----
+redeemed/CN | forgiven | Forgiven, forgotten, and as far as I'm concerned, it never happened.
+redeemed/CN | forgiven | No hard feelings; no names, no grudges, that's how I like it.
+redeemed/CN | forgiven_cold | Hmph; nice try, and it's noted, and that's all.
+redeemed/CN | unwronged | What for? You've done nothing to me, and if you had, I'd have vanished by now.
+redeemed/CN | about_place | Fine, {about}, and you didn't hear it from me.[ There's {trades} there, if you need that sort of thing.][ Ask for {who}; I'm not involved.][ Keep off the {around}, and I mean off.][ If it's work you're after, {work}.]
+redeemed/CN | about_place | Oh, {about}; yes, I know it, don't ask how.[ It has {trades}, apparently.][ Look for {who}, or don't; your business.][ There are {around}; don't go poking.][ {work}.]
+# ---- redeemed/CG ----
+redeemed/CG | forgiven | All right, clean slate, and nobody needs to know about it.
+redeemed/CG | forgiven | Forgiven, of course, of course; everyone gets another go, me included.
+redeemed/CG | forgiven_cold | We'll see, and, honestly, not yet.
+redeemed/CG | unwronged | Whatever for? No, really, whatever for; you've done me no wrong.
+redeemed/CG | about_place | Oh, {about}, yes, of course.[ You'll find {trades} there.][ Ask for {who}, and be nice, would you?][ And the {around}, no, stay away, please.][ If it's work you want, {work}.]
+redeemed/CG | about_place | So, {about}; that's the one.[ You could try {who}, if you need a name.][ It has {trades}, if you need one.][ There are {around}; careful, yes, careful.][ Oh, and work: {work}.]

@@ -961,3 +961,75 @@ post:postern_guard | parted_cold | On your way, and not a word of this door to a
 post:postern_guard | thanked | You're welcome, and that's the last we'll speak of it.
 post:postern_guard | thanked | Think nothing of it; I've already forgotten it.
 post:postern_guard | acknowledged | Good. That's all I need to hear, and no one else need hear it.
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- post:watch_guard ----
+post:watch_guard | forgiven | Very well; it's forgotten by the next corner.
+post:watch_guard | forgiven | No hard feelings; I've a beat to walk, not a grudge to carry.
+post:watch_guard | forgiven_cold | Hmph. Every drunk on my beat is sorry, come morning.
+post:watch_guard | unwronged | What for? If you'd done me wrong, I'd have noticed.
+post:watch_guard | about_place | That's {about}, going by what I hear on my rounds.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}; I'd go armed.][ {work}.]
+post:watch_guard | about_place | I'll give it to you straight: {about}.[ You'll find {trades} there.][ Ask for {who} by name.][ Keep clear of the {around}, if you've any sense.][ If it's work you want, {work}.]
+# ---- post:gate_guard ----
+post:gate_guard | forgiven | Apology accepted; yours is just another face again.
+post:gate_guard | forgiven | Forgiven; I'll wave you through like anyone else.
+post:gate_guard | forgiven_cold | Words are cheap; everyone's sorry at the gate.
+post:gate_guard | unwronged | What for? Say your business, not your sorry.
+post:gate_guard | about_place | From what comes through the gate, that's {about}.[ There's {trades} there.][ Ask for {who}, and say your business plainly.][ Stay clear of the {around}.][ {work}.]
+post:gate_guard | about_place | That's {about}, as far as the gate knows it.[ You'll find {trades} there.][ Look for {who}.][ Watch for the {around}, whatever your business.][ If it's work you want, {work}.]
+# ---- post:soldier ----
+post:soldier | forgiven | Very well; as you were.
+post:soldier | forgiven | No hard feelings; I've no orders to hold a grudge.
+post:soldier | forgiven_cold | Maybe. I'll believe it when it's in my orders.
+post:soldier | unwronged | What for? At ease; you've done nothing to me.
+post:soldier | about_place | The report as I have it: {about}.[ There's {trades} there.][ You'll find {who} there.][ Watch your flank near the {around}.][ {work}.]
+post:soldier | about_place | That's {about}, as it was passed down the line.[ You'll find {trades} there.][ Ask for {who}.][ Keep your distance from the {around}.][ If it's work you want, {work}.]
+# ---- post:tower_watch ----
+post:tower_watch | forgiven | All right; the wind can have it.
+post:tower_watch | forgiven | Forgiven; I've all the time there is, and none of it for grudges.
+post:tower_watch | forgiven_cold | We'll see; I've time enough to find out.
+post:tower_watch | unwronged | Whatever for? Nothing's reached the tower worth a sorry.
+post:tower_watch | about_place | Well, that's {about}.[ There's {trades} there.][ You'll find {who} there.][ The {around} I'd sooner watch than meet.][ {work}.]
+post:tower_watch | about_place | That's {about}, as near as I can make it out.[ You'll find {trades} there.][ Look for {who}.][ Keep clear of the {around}.][ If it's work you want, {work}.]
+# ---- post:garrison_trooper ----
+post:garrison_trooper | forgiven | No hard feelings; I'm too bored to keep a grudge going.
+post:garrison_trooper | forgiven | Forgiven; a sorry's the most that's happened here all day.
+post:garrison_trooper | forgiven_cold | Maybe; I've nothing to do but wait and see.
+post:garrison_trooper | unwronged | What for? I'd have remembered; nothing else happens in here.
+post:garrison_trooper | about_place | That's {about}, for all I get to see of it.[ There's {trades} there, lucky them.][ You'll find {who} there.][ Watch the {around}.][ {work}.]
+post:garrison_trooper | about_place | Sure, I know it: {about}.[ You'll find {trades} there.][ Ask for {who}.][ There are {around}; I'd give my bunk for a crack at them.][ If it's work you want, {work}.]
+# ---- post:keep_guard ----
+post:keep_guard | forgiven | Very well; it is forgiven, and I will not speak of it again.
+post:keep_guard | forgiven | Apology accepted; you stand before this door as any other does.
+post:keep_guard | forgiven_cold | Words are cheap; I have heard many at this door.
+post:keep_guard | unwronged | There's nothing to forgive; you have done this door no wrong.
+post:keep_guard | about_place | That is {about}; I say no more of it than I know.[ There you will find {trades}.][ Seek out {who} there.][ Beware the {around}.][ {work}.]
+post:keep_guard | about_place | Know this of it: {about}.[ You will find {trades} there.][ Ask there for {who}.][ Give a wide berth to the {around}.][ If it is work you seek, {work}.]
+# ---- post:lookout ----
+post:lookout | forgiven | No hard feelings! I'd rather keep an eye out for you than on you.
+post:lookout | forgiven | Forgiven; I've better things to look at than a grudge.
+post:lookout | forgiven_cold | Maybe; I'll know it when I see it.
+post:lookout | unwronged | Whatever for? I'd have spotted it if you had.
+post:lookout | about_place | Oh, that's {about}.[ There's {trades} there.][ You'll spot {who} there.][ Look sharp for the {around}.][ {work}.]
+post:lookout | about_place | Ah, that's {about}; I've an eye for these things.[ You'll find {trades} there.][ Ask for {who}.][ Keep an eye on the {around}.][ If it's work you want, {work}.]
+# ---- post:jailer ----
+post:jailer | forgiven | Forgiven, and that's not a word I hand out often.
+post:jailer | forgiven | All right; I'll take it, and I don't take much on trust.
+post:jailer | forgiven_cold | Words are cheap; I hear sorry through the bars every day.
+post:jailer | unwronged | Whatever for? You've done me no wrong, and I'd know.
+post:jailer | about_place | It's {about}, if the talk through the bars is true.[ There's {trades} there.][ You'll find {who} there, or so I'm told.][ Mind the {around}; I can't lock those up.][ {work}.]
+post:jailer | about_place | You mean {about}; take it or leave it.[ You'll find {trades} there.][ Ask for {who}.][ Stay clear of the {around}.][ If it's work you want, {work}.]
+# ---- post:watch_officer ----
+post:watch_officer | forgiven | Very well; I'll strike it from the record.
+post:watch_officer | forgiven | Apology accepted; the matter is closed.
+post:watch_officer | forgiven_cold | We'll see; for now, it's noted.
+post:watch_officer | unwronged | Nothing to forgive; there's nothing against you on my desk.
+post:watch_officer | about_place | For the record, that's {about}.[ There's {trades} there.][ You'll want {who}.][ Keep well clear of the {around}.][ {work}.]
+post:watch_officer | about_place | In brief: {about}.[ You'll find {trades} there.][ Ask for {who}.][ Keep away from the {around}; that's an order.][ As for work, {work}.]
+# ---- post:postern_guard ----
+post:postern_guard | forgiven | All right; we'll say no more about it, not even quietly.
+post:postern_guard | forgiven | Let's forget it; it stays behind this door.
+post:postern_guard | forgiven_cold | We'll see; soft words come easy at a back door.
+post:postern_guard | unwronged | Nothing to forgive; hush, before someone thinks there is.
+post:postern_guard | about_place | Keep your voice down; that's {about}.[ There's {trades} there.][ Ask quietly for {who}.][ Mind the {around}.][ {work}.]
+post:postern_guard | about_place | That's {about}, and you didn't hear it from me.[ You'll find {trades} there.][ Seek out {who} there.][ Keep clear of the {around}.][ If it's work you want, {work}.]

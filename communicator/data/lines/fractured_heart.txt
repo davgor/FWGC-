@@ -743,3 +743,54 @@ fractured_heart/NG | parted | Goodbye, and forgive me anything I've forgotten[; 
 fractured_heart/NG | small_talk | Today's been kind to me, as far as I remember it, and I hope I was kind back.[ As my people say, {saying}.]
 fractured_heart/NN | parted | Farewell, and if I don't know you next time, don't take it personally[; as we say, {saying}].
 fractured_heart/NN | small_talk | Some days go smoother than others, and this one's gone smooth enough.[ As we say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- fractured_heart/CG ----
+fractured_heart/CG | forgiven | Forgiven, forgiven; and I'll promise it for the other one of me too.
+fractured_heart/CG | forgiven | No hard feelings, none at all; whatever it was, it's gone.
+fractured_heart/CG | forgiven_cold | It's a start; sorry's easy, and I'll see if it sticks.
+fractured_heart/CG | unwronged | Whatever for? You've done nothing to me, I'm nearly sure of it.
+fractured_heart/CG | about_place | That's {about}, if I've got the right one.[ There's {trades} there, last I heard.][ Look for {who}; they're about.][ Keep well clear of the {around}, promise me.][ If you want work, {work}.]
+fractured_heart/CG | about_place | Oh, {about}; I like that one.[ You'll find {trades} there; be kind to them, would you?][ If you see {who}, be kind.][ The {around}, though; I'd rather you didn't.][ And if it's work you're after, {work}.]
+# ---- fractured_heart/CN ----
+fractured_heart/CN | forgiven | Forgiven, and that's a promise; I'm good for my promises, mostly.
+fractured_heart/CN | forgiven | No hard feelings; grudges are bad business.
+fractured_heart/CN | forgiven_cold | Words are cheap, and I don't buy cheap.
+fractured_heart/CN | unwronged | No harm done; if there were, you'd have heard about it by now.
+fractured_heart/CN | about_place | Now then, {about}, since you ask.[ There's {trades} there, for what it's worth.][ Go and find {who}, if people are what you're after.][ Mind the {around}; I don't deal with the dead.][ And there's work going: {work}.]
+fractured_heart/CN | about_place | Ha, {about}; I know it, or one of me does.[ You'll find {trades} there, and good luck to them.][ It's {who} you want there, if you want anyone.][ Keep clear of the {around}, unless you fancy being gossip.][ If it's work you're after, {work}.]
+# ---- fractured_heart/LE ----
+fractured_heart/LE | forgiven | Very well. I know precisely what I am forgiving, and I forgive it.
+fractured_heart/LE | forgiven | Apology accepted, for both of us; I answer for the other as I do for myself.
+fractured_heart/LE | forgiven_cold | Hmph. It is received; whether it is believed is my affair.
+fractured_heart/LE | unwronged | Whatever for? I keep an exact account, and you are not in it.
+fractured_heart/LE | about_place | You mean {about}, precisely.[ It has {trades}, for what use you can make of them.][ You will find {who} there; I trust you know how to address them.][ Keep away from the {around}, if your judgement allows it.][ If work is what you want, {work}.]
+fractured_heart/LE | about_place | I know {about}, and I know it exactly.[ You will find {trades} there, should you need them.][ Ask for {who}, and mind your manners when you do.][ Heed the {around}; I have no wish to answer for your corpse.][ As for work, {work}.]
+# ---- fractured_heart/LN ----
+fractured_heart/LN | forgiven | Apology accepted, and it binds us both; whichever of me you meet, the matter is closed.
+fractured_heart/LN | forgiven | Very well. It is forgiven, and I will hold to that as to any sworn word.
+fractured_heart/LN | forgiven_cold | We'll see; I have heard it, and I have not yet weighed it.
+fractured_heart/LN | unwronged | Nothing to forgive; no wrong of yours stands against my name.
+fractured_heart/LN | about_place | The place you mean is {about}.[ There is {trades} there, as I have it.][ Ask for {who}, and state your business plainly.][ The {around} are reason enough for care.][ If you seek work, {work}.]
+fractured_heart/LN | about_place | You wish to know of {about}.[ You will find {trades} there.][ Seek out {who}, and give your name when you do.][ Give the {around} a wide berth, as is only prudent.][ Should you want work, {work}.]
+# ---- fractured_heart/NE ----
+fractured_heart/NE | forgiven | All right; you've answered for it, and that's the end of it.
+fractured_heart/NE | forgiven | Forgiven; you're more use to me forgiven than not.
+fractured_heart/NE | forgiven_cold | Hmph; noted, and it counts for about what it cost you.
+fractured_heart/NE | unwronged | What for? You've done nothing worth my remembering.
+fractured_heart/NE | about_place | That's {about}, if you must know.[ There's {trades} there, if they're any use to you.][ Ask for {who}, and see what they make of you.][ Keep from the {around}, if you've any sense.][ And work, if you're asking: {work}.]
+fractured_heart/NE | about_place | You mean {about}, I suppose.[ It has {trades}, whatever that's worth.][ Look for {who}, and don't waste their time.][ Mind the {around}; I don't mourn the careless.][ If it's work you want, {work}.]
+# ---- fractured_heart/NG ----
+fractured_heart/NG | forgiven | Forgiven, gladly; and if I wronged you too, I'm sorry for my part.
+fractured_heart/NG | forgiven | No hard feelings. I'm glad you came and said it.
+fractured_heart/NG | forgiven_cold | Maybe. I heard you; I'm not ready to believe it.
+fractured_heart/NG | unwronged | Whatever for? You've done nothing to me that I know of; have I done something to you?
+fractured_heart/NG | about_place | That's {about}, as far as I know it.[ You'll find {trades} there; I hope they're keeping well.][ You'll find {who} there, if you look.][ Please keep well clear of the {around}.][ And if it's work you need, {work}.]
+fractured_heart/NG | about_place | Ah, {about}; yes, I remember it.[ There's {trades} there, if you need anything done.][ Ask for {who}, and be kind to them.][ Mind the {around}, won't you?][ {work}.]
+# ---- fractured_heart/NN ----
+fractured_heart/NN | forgiven | All right; forgiven, and by both of us, as far as I can answer for the other.
+fractured_heart/NN | forgiven | Apology accepted; we're square.
+fractured_heart/NN | forgiven_cold | We'll see; saying it is one thing.
+fractured_heart/NN | unwronged | What for? You don't owe me an apology.
+fractured_heart/NN | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there, if you're after people.][ I'd steer clear of the {around}.][ As for work, {work}.]
+fractured_heart/NN | about_place | You mean {about}; I know it, today anyway.[ It has {trades}.][ Ask for {who}, and deal fairly with them.][ There are {around}, so mind yourself.][ {work}, if you want it.]

@@ -722,3 +722,54 @@ fallen_hero/NE | parted | Go well, and don't get noble on me; it never ends well
 fallen_hero/NE | small_talk | Every day on the winning side is a good one, and today was no different.[ As we say, {saying}.]
 fallen_hero/LG | parted | Take care, and do not let anyone tell you the rules will save you; people save people[; as the old saying has it, {saying}].
 fallen_hero/LG | small_talk | My day has been a quiet one, and I find I no longer mind that as I once did.[ As my people have long said, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- fallen_hero/NN ----
+fallen_hero/NN | forgiven | Very well; I've struck it from the ledger.
+fallen_hero/NN | forgiven | Forgiven. A grudge costs more than it's worth.
+fallen_hero/NN | forgiven_cold | We'll see; I don't take words on credit.
+fallen_hero/NN | unwronged | What for? You've done me no wrong, and I'd know.
+fallen_hero/NN | about_place | I know it: {about}.[ There's {trades} there, for what it's worth.][ You'll find {who} there, if that's any use to you.][ Mind the {around}.][ If it's work you're after, {work}.]
+fallen_hero/NN | about_place | I'll give it to you straight: {about}.[ It has {trades}.][ Ask for {who}, if you've business.][ Give a wide berth to the {around}.][ {work}.]
+# ---- fallen_hero/LN ----
+fallen_hero/LN | forgiven | Apology accepted; it was properly made, and I take it as offered.
+fallen_hero/LN | forgiven | Very well. The matter is closed, and I shall not reopen it.
+fallen_hero/LN | forgiven_cold | It's a start. An apology is a form, and forms can fail.
+fallen_hero/LN | unwronged | There's nothing to forgive. No offence was given, and none was taken.
+fallen_hero/LN | about_place | That place is {about}, and I will give it to you in proper form.[ There is {trades} there.][ You will find {who} there; address them as their office deserves.][ Take note of the {around}.][ As to work, {work}.]
+fallen_hero/LN | about_place | For the record, it is {about}.[ Of trades, it has {trades}.][ Ask for {who}, and state your business.][ I would give a wide berth to the {around}.][ Should you want work, {work}.]
+# ---- fallen_hero/NG ----
+fallen_hero/NG | forgiven | All right, it's forgiven; let's leave it behind us.
+fallen_hero/NG | forgiven | No hard feelings; it can't have been easy to say.
+fallen_hero/NG | forgiven_cold | Maybe. Give it time; I'm not there yet.
+fallen_hero/NG | unwronged | Whatever for? You've done me no wrong; are you all right?
+fallen_hero/NG | about_place | That'd be {about}, and I'm glad you asked.[ There's {trades} there, if you need anything.][ You'll find {who} there; I hope they're keeping well.][ Keep well clear of the {around}, please.][ If it's work you want, {work}.]
+fallen_hero/NG | about_place | Of course; that's {about}.[ Ask for {who}.][ It has {trades}, should you need one.][ Mind yourself around the {around}.][ And if you're looking for work, {work}.]
+# ---- fallen_hero/CN ----
+fallen_hero/CN | forgiven | All right, all right, it's forgiven; don't make a song of it.
+fallen_hero/CN | forgiven | Let's forget it; forgetting's the one thing I'm still good at.
+fallen_hero/CN | forgiven_cold | Hmph, pretty words, and I've heard prettier.
+fallen_hero/CN | unwronged | What for? You've done nothing to me, and I'm sober enough to be sure.
+fallen_hero/CN | about_place | Oh, {about}; yes, that one.[ There's {trades} there, last I heard.][ Ask for {who}, or don't, your call.][ Watch the {around}, and I mean watch, not poke.][ If it's work you're after, well, {work}.]
+fallen_hero/CN | about_place | Yes, no, wait, {about}; that's the one.[ They've {trades} there, if memory serves, and it mostly does.][ And {who}, you'll find them there.][ Keep off the {around}; even I'm not that drunk.][ {work}, if you want it.]
+# ---- fallen_hero/LE ----
+fallen_hero/LE | forgiven | Apology accepted; it was owed, and you had the sense to offer it.
+fallen_hero/LE | forgiven | Very well. You are forgiven, and you may consider yourself fortunate.
+fallen_hero/LE | forgiven_cold | Words are cheap, and yours come cheaper than most.
+fallen_hero/LE | unwronged | Nothing to forgive; I would remember if there were, you may be sure.
+fallen_hero/LE | about_place | That is {about}, should it concern you.[ There is {trades} there, should you have use for such.][ You will find {who} there, if they will receive you.][ The {around} are best left to the careless.][ As for work, {work}.]
+fallen_hero/LE | about_place | You ask after {about}; very well.[ It has {trades}.][ Seek out {who}, if your business warrants it.][ Beware the {around}; they are no respecters of rank.][ If work is what you are after, {work}.]
+# ---- fallen_hero/NE ----
+fallen_hero/NE | forgiven | All right, forgiven; a grudge against you isn't worth my while.
+fallen_hero/NE | forgiven | Apology accepted. You're more use to me forgiven.
+fallen_hero/NE | forgiven_cold | Hmph; I'll weigh it when it suits me.
+fallen_hero/NE | unwronged | What for? You'd have to matter to me first.
+fallen_hero/NE | about_place | That's {about}, since you ask.[ Mind the {around}; if they get you, that's your affair.][ There's {trades} there, if you've a use for that.][ You'll find {who} there, for what they're worth.][ {work}.]
+fallen_hero/NE | about_place | So, {about}; take it or leave it.[ There are {around}, and they'll not care how useful you are.][ It has {trades}.][ Ask for {who}, if you've anything worth their time.][ If it's work you want, {work}.]
+# ---- fallen_hero/LG ----
+fallen_hero/LG | forgiven | Forgiven, and gladly; I would not have you carry it on my account.
+fallen_hero/LG | forgiven | Apology accepted, with my thanks for the courtesy of making it.
+fallen_hero/LG | forgiven_cold | We'll see. You will forgive me if I reserve my trust a while longer.
+fallen_hero/LG | unwronged | No harm done, I assure you; you have wronged me in nothing.
+fallen_hero/LG | about_place | That would be {about}, and I am glad to be of use.[ There is {trades} there, should you have need.][ You will find {who} there, and I hope you find them well.][ Please take care near the {around}.][ If it is work you seek, {work}.]
+fallen_hero/LG | about_place | The place you mean is {about}.[ You may find {trades} there.][ Ask for {who}, if you would speak with anyone there.][ Keep your distance from the {around}, I ask you.][ And should you want work, {work}.]

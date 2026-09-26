@@ -417,3 +417,33 @@ tyrant/LE | parted | Take care, and do remember that I forget nothing[; as my pe
 tyrant/LE | small_talk | All day I have been obeyed, and I find it never grows tiresome.[ As the saying goes, {saying}.]
 tyrant/NE | parted | Go well, and remember who let you leave[; as we say, {saying}].
 tyrant/NE | small_talk | Most people have done as they're told today, and the rest will learn.[ As my people say, {saying}.]
+
+# ---- Saying sorry, and more about a place (contract version 8) ----
+# ---- tyrant/LN ----
+tyrant/LN | forgiven | Apology accepted. It was properly made, and I have no further complaint.
+tyrant/LN | forgiven | Very well; the account between us is settled.
+tyrant/LN | forgiven_cold | It's a start. Your conduct will tell me whether it was meant.
+tyrant/LN | unwronged | Nothing to forgive; there is no offence against your name.
+tyrant/LN | about_place | To be precise, it is {about}.[ It has {trades}.][ You will find {who} there, and you will address them correctly.][ Keep well clear of the {around}.][ If you want work, {work}.]
+tyrant/LN | about_place | Let me set it out for you: it is {about}.[ Ask for {who}, by name.][ There is {trades} there.][ If it is work you seek, {work}.][ You are advised to keep clear of the {around}.]
+# ---- tyrant/NN ----
+tyrant/NN | forgiven | All right. That's done with; let's get on.
+tyrant/NN | forgiven | Let's forget it; grudges get nothing done.
+tyrant/NN | forgiven_cold | Maybe. I've heard it; I'll believe it when I see something come of it.
+tyrant/NN | unwronged | No harm done; you've done nothing to me, so let's not waste time on it.
+tyrant/NN | about_place | Right, then: {about}.[ There's {trades} there.][ You'll find {who} there, if they're any use to you.][ Give the {around} a wide berth.][ If it's work you want, {work}.]
+tyrant/NN | about_place | Here's how it stands: {about}.[ Ask for {who}.][ It has {trades}.][ Mind the {around}, and don't waste yourself on them.][ {work}; that's what needs doing there.]
+# ---- tyrant/LE ----
+tyrant/LE | forgiven | Apology accepted; I find myself in a gracious mood.
+tyrant/LE | forgiven | Very well; you are pardoned, and the matter is beneath further notice.
+tyrant/LE | forgiven_cold | Words are cheap, and yours I value accordingly.
+tyrant/LE | unwronged | Whatever for? You have given no offence, and I would certainly have noticed.
+tyrant/LE | about_place | If you must know, it is {about}.[ There is {trades} there, should you have need.][ Ask for {who}, and do try to be civil.][ Mind the {around}; I will not be sending anyone after you.][ If it is work you want, {work}.]
+tyrant/LE | about_place | You ask after {about}; how very curious of you.[ It has {trades}.][ There are {around}, and I shall not weep if you meet them.][ You will find {who} there, and I wish them joy of you.][ {work}; you may consider yourself informed.]
+# ---- tyrant/NE ----
+tyrant/NE | forgiven | Apology accepted. Now you're talking sense.
+tyrant/NE | forgiven | All right. You've said it, and that'll do.
+tyrant/NE | forgiven_cold | Hmph. Anyone can say it, and plenty do.
+tyrant/NE | unwronged | What for? You've done nothing to me; I'd remember if you had.
+tyrant/NE | about_place | You mean {about}; what's it to you?[ There's {trades} there.][ Go and find {who} there, if you like.][ The {around} can have you, for all I care.][ {work}; take it or leave it.]
+tyrant/NE | about_place | Fine: it's {about}.[ Ask for {who}; they're welcome to you.][ It has {trades}.][ If you want work, {work}.][ Keep clear of the {around}, if you've any sense.]

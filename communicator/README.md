@@ -284,7 +284,10 @@ larger-than-life heroes.
   before who says "Remember me?" or "It's been a while" is greeted with a line that says how long
   since or what was asked then, while one has not been said lately. 11 of 12 held-out greetings
   read right; the miss, "Well met.", draws a recollection, which suits someone met before.
-- **The library** (2026-09-25): 11,411 lines in 43 files.
+- **The library:** 29,781 rows in 44 files (2026-09-26). It was 11,411 lines when first judged
+  (2026-09-25), before every bank gained a conversation (contract versions 4 to 7), its people's
+  sayings, and saying sorry and more about a place (contract version 8: 1,698 rows, six a bank,
+  from 14 writers).
   - **Every archetype, at every alignment its heroes carry:** 196 banks of about 44 lines,
     8,618 lines in all. The pairs were counted over 38 generated worlds (sizes 33, 65 and 129),
     plus a true-neutral bank for every archetype.
@@ -408,7 +411,7 @@ larger-than-life heroes.
 - **Streaming adds up, stops when asked, and greedy replies repeat.**
 - **Refusals:** another contract version, a line past `kMaxLineBytes`, options out of range.
 - **Written lines, with no model:**
-  - **Every line in `data/lines/` keeps the voice's rules,** all 11,411. Each row is tried alone
+  - **Every line in `data/lines/` keeps the voice's rules,** all 29,781. Each row is tried alone
     against every test packet, as its bank's speaker. At least one packet must speak it, and
     every reply must hold its outcome's opening, sentence count and closing. It may name only
     what the packet names, begin only sentences with common capitals, and say no barred word but
