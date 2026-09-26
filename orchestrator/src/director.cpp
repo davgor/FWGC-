@@ -432,7 +432,9 @@ void Director::end_conversation(const std::string& speaker) {
     if (found == acquainted_.end() || !found->second.talking) return;
     Acquaintance& a = found->second;
     a.talking = false;
-    if (!a.asked_now.empty()) a.asked_before = a.asked_now;
+    // What was asked last time, not ever: kept on, it was asked after on every later visit ("Still
+    // after Dunweg?" three visits running, judged 2026-09-26).
+    a.asked_before = a.asked_now;
     a.asked_now.clear();
     if (talking_to_ == speaker) talking_to_.clear();
 }

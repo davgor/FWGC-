@@ -22,7 +22,8 @@ namespace orchestrator {
 //    fact answering ask_safety; a Reveal fact when a hidden face comes out; Persona::face.
 // 5: Persona::people, whose sayings the speaker knows.
 // 6: the Memory fact's `heard`, and `since` by the calendar, with "yesterday".
-inline constexpr int kContractVersion = 6;
+// 7: the Memory fact's `asked_before` is what was asked in the last conversation only.
+inline constexpr int kContractVersion = 7;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -117,8 +118,8 @@ std::string_view to_string(FactKind kind);
 //   Thanks and finished work raise it; insults and abandoned work lower it;
 // - `work`: the player's latest dealing with the speaker's own work: "offered", "taken",
 //   "declined", "abandoned", "finished", "failed"; empty when there is none;
-// - `asked_before`: the place or person the player last asked this speaker about, in an earlier
-//   conversation, by name; empty when there is none;
+// - `asked_before`: the place or person the player last asked this speaker about in their last
+//   conversation, by name; empty when they asked about none then;
 // - `turn`: this act's place in the conversation, 1 for the first, as digits;
 // - `repeat`: "yes" when the player has made this same act, with the same target, earlier in
 //   this conversation, else "no";

@@ -358,6 +358,10 @@ TEST(what_the_player_asked_about_last_time_is_remembered) {
     const std::string* name = place.field("name");
     const std::string label = name ? *name : "the " + value(place, "kind") + " of " + value(place, "of");
     check::equal(memory(d.respond(x, {ActKind::Greet, ""}))["asked_before"], label, "the place asked about, by name");
+    (void)d.respond(x, {ActKind::SmallTalk, ""});
+    check::equal(memory(d.respond(x, {ActKind::Farewell, ""}))["asked_before"], label, "all through the next conversation");
+    check::equal(memory(d.respond(x, {ActKind::Greet, ""}))["asked_before"], std::string(),
+                 "and not after one in which nothing was asked");
 }
 
 TEST(a_giver_remembers_work_finished_or_failed) {

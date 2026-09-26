@@ -101,7 +101,8 @@ about its speaker:
 - `mood`, from "hostile" to "warm": thanks (once a conversation) and taking or finishing the
   speaker's work raise it; insults, giving work up and failing it lower it;
 - `work`, the player's latest dealing with the speaker's own work;
-- `asked_before`, the place or person the player asked about last time, by name;
+- `asked_before`, the place or person the player asked about in their last conversation, by
+  name (contract version 7: before it, what was last asked in any earlier one);
 - `exposed`, once the player has made the speaker own to a hidden face.
 
 A conversation ends at a farewell, when time passes, or when the player turns to someone else.
