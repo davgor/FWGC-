@@ -120,3 +120,15 @@ any | forgiven_cold | We'll see.
 any | forgiven_cold | Words are cheap, but I heard them.
 any | unwronged | What for? You've done me no wrong.
 any | unwronged | No harm done.
+
+# ---- Said again: an answer the stranger heard all of from the speaker lately ----------------------
+any | surroundings_told | Nothing's changed since I told you.[ You're in {here}.][ The nearest is {nearest}.]
+any | surroundings_told | As I told you, it's all as it was.[ The nearest is {nearest}.][ Mind the {danger}.]
+any | safety_unsafe_told | Not safe, as I told you.[ Keep clear of {worst}.]
+any | safety_unsafe_told | No, same as before.[ Keep clear of {worst}.][ And mind the {danger}.]
+any | safety_wary_told | Safe enough, as I told you.[ Just mind {worst}.]
+any | safety_wary_told | Mostly, same as before.[ Mind the {danger}.]
+any | safety_safe_told | Safe enough, as I told you.
+any | safety_safe_told | Yes, same as before.[ The worst of it is {worst}.]
+any | about_place_told | You've had all I know of it: {about}.
+any | about_place_told | Only what I told you before: that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ {work}.]

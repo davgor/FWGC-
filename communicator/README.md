@@ -223,6 +223,20 @@ larger-than-life heroes.
 - **Asked twice in one conversation,** an answer is said after "As I said," or "Again," (C++'s
   words, its first word lowered unless it is "I" or a name): the speaker says so, and the line
   itself stays one a writer wrote.
+- **A speaker remembers what they told you.** An answer (what is around, "is it safe", a place)
+  whose every place, nest, person and piece of work the stranger heard from this speaker in what
+  the game keeps of their replies (`recent`) is said from its `_told` lines: "As I told you, the
+  nearest is ...", "You've had all I know of it: ...". Those lines are the only ones said, as a
+  cold speaker's are: a bank without them leaves the answer to the next bank's, and with none in
+  any bank the answer is said as ever. What is around, and whether it is safe, are told only when
+  the stranger asked before (the Memory fact's `heard`): the places a verdict rests on are named
+  in what is around too, and "Not safe, as I told you" would claim a verdict never given. What
+  must have been heard is what the answer would say, and a told line tells less: its places by
+  name, its nests by kind ("No, and it's no safer than when I told you. Stay off the silent mouth.
+  There are Glacier dragons, too."). An answer with anything new in it is said in full.
+  `Lines::told` says whether an answer is said as told. The judged sessions (2026-09-26) had the same
+  list of dangers recited word for word on three visits, and "tell me more" about a ruin answered
+  with the words just said.
 - **Blanks** are filled from the packet only (`Lines::situations()` lists each situation's):
   `{giver}`, `{here}`, `{nearest}`, `{others}`, `{danger}`, `{own}`..., and in every situation
   `{speaker}`, `{post}` and `{place}`. A line with a blank its packet cannot fill is not said.
@@ -261,9 +275,12 @@ larger-than-life heroes.
 - **The choice goes round** (contract version 6). Each speaker starts at a line of their own and
   says the next each time they have heard the same act before (the Memory fact's `heard`), so the
   same packet gets the same reply and a farewell said on five visits is said five ways while the
-  bank has five. `previous` (the last reply) is not said again while another line fits. A judged
+  bank has five. A line in `recent` (what the speaker said lately, as the game keeps it) is not
+  said again while another fits, and when every one was, the one said longest ago is. A judged
   session (2026-09-26) had one armorer end five partings alike, and a speaker's later visits
-  replay the first word for word.
+  replay the first word for word. A line is the same line whatever its passing blanks say
+  (`{since}`, `{asked}`, `{season}`, `{time}`, `{saying}`): a greeting said three weeks on with
+  "some weeks ago" for "a few days ago" was heard as the same greeting (judged 2026-09-26).
 - **A cold speaker stays cold.** A wary or hostile speaker greets, chats, takes thanks and parts
   (`parted_cold`: "Go, then", "Be on your way") from cold lines only; a bank without them leaves
   the reply to the next bank's rather than answering warmly.

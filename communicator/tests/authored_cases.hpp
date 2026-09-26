@@ -78,9 +78,39 @@ inline std::vector<FactPacket> cases() {
 }
 
 // Whether a packet's situations include `situation`: a row written for it may speak the packet.
+// An answer said again as told ("surroundings_told") is reached by the packets its answer is.
 inline bool reaches(const FactPacket& p, const std::string& situation) {
+    static const std::string told = "_told";
+    const bool retold = situation.size() > told.size() && situation.compare(situation.size() - told.size(), told.size(), told) == 0;
+    const std::string answer = retold ? situation.substr(0, situation.size() - told.size()) : situation;
     const std::vector<std::string> chain = communicator::Lines::situations_for(p);
-    return std::find(chain.begin(), chain.end(), situation) != chain.end();
+    return std::find(chain.begin(), chain.end(), answer) != chain.end();
+}
+
+// `p` asked before: its Memory fact's `heard` at least one, as an answer said again as told needs.
+inline FactPacket asked_before(FactPacket p) {
+    for (orchestrator::Fact& fact : p.facts)
+        if (fact.kind == FactKind::Memory)
+            for (auto& [key, value] : fact.fields)
+                if (key == "heard" && value == "0") value = "1";
+    return p;
+}
+
+// What a speaker would have said lately for all of an answer to `p` to have been heard: every
+// blank's words, from lines that say each blank there is. Empty for a packet no answer is heard of.
+// Answers that say every blank there is, one for each answer a told row says again.
+inline const std::string kEveryBlank = "any | surroundings | [{here}][ {nearest}][ {others}][ {danger}]\n"
+                                       "any | safety_unsafe | [{worst}][ {others}][ {danger}]\n"
+                                       "any | safety_wary | [{worst}][ {others}][ {danger}]\n"
+                                       "any | safety_safe | [{worst}][ {others}][ {danger}]\n"
+                                       "any | about_place | [{about}][ {trades}][ {who}][ {around}][ {work}]\n";
+
+inline std::vector<std::string> heard_everything(const FactPacket& p) {
+    static const communicator::Lines everything = communicator::Lines::parse(kEveryBlank, "every blank");
+    std::vector<std::string> out;
+    for (std::string& reply : everything.replies(p))
+        if (!reply.empty()) out.push_back(std::move(reply));
+    return out;
 }
 
 // A row of a lines file: where it stands, and its text.
@@ -122,6 +152,17 @@ inline std::string voice_of(const std::string& row) {
     std::string voice = row.substr(0, row.find('|'));
     while (!voice.empty() && voice.back() == ' ') voice.pop_back();
     return voice;
+}
+
+// Whether a row is written for an answer said again ("surroundings_told").
+inline bool told_row(const std::string& row) {
+    const std::size_t first = row.find('|');
+    const std::size_t second = first == std::string::npos ? first : row.find('|', first + 1);
+    if (second == std::string::npos) return false;
+    std::string situation = row.substr(first + 1, second - first - 1);
+    while (!situation.empty() && situation.back() == ' ') situation.pop_back();
+    static const std::string told = "_told";
+    return situation.size() > told.size() && situation.compare(situation.size() - told.size(), told.size(), told) == 0;
 }
 
 // `p` spoken by someone the row's bank answers for: a hero with that voice key, someone at that
@@ -288,11 +329,25 @@ inline std::vector<std::string> row_problems(const std::string& row) {
             if (line.find(before) != std::string::npos) out.push_back("\"" + before + "\": the turn of the season is a season");
     }
     try {
-        const communicator::Lines one = communicator::Lines::parse(row, "the row");
+        // A row for an answer said again is spoken to a stranger who asked before and heard all of
+        // the answer lately, beside an answer that says it all (what is heard is what the answer
+        // says); any other, alone, as the packet comes.
+        const bool again = told_row(row);
+        const std::string beside = again ? "\n" + kEveryBlank : std::string();
+        const communicator::Lines one = communicator::Lines::parse(row + beside, "the row");
+        const auto replies_of = [&](const communicator::Lines& lines, const FactPacket& packet, const FactPacket& p) {
+            if (!again) return lines.replies(p);
+            const std::vector<std::string> heard = heard_everything(packet);
+            if (heard.empty()) return std::vector<std::string>();
+            // The row's, said as told; not the answer beside it, said when the row is not.
+            static const communicator::Lines everything = communicator::Lines::parse(kEveryBlank, "every blank");
+            std::vector<std::string> said = lines.replies(asked_before(p), heard);
+            return said == everything.replies(asked_before(p), heard) ? std::vector<std::string>() : said;
+        };
         std::size_t spoken = 0;
         for (const FactPacket& packet : cases()) {
             const FactPacket p = as_voiced_by(packet, voice_of(row));
-            for (const std::string& reply : one.replies(p)) {
+            for (const std::string& reply : replies_of(one, packet, p)) {
                 ++spoken;
                 for (const std::string& broken : broken_rules(reply, p)) out.push_back(broken + ", in: " + reply);
             }
@@ -308,11 +363,11 @@ inline std::vector<std::string> row_problems(const std::string& row) {
         // A row that says a saying, said once more by a speaker whose people has one: the test
         // packets' speakers have none, so without this the saying is always left out.
         if (row.find("{saying}") != std::string::npos) {
-            const communicator::Lines with = communicator::Lines::parse(row + "\nsaying:test | saying | " + kTestSaying, "the row");
+            const communicator::Lines with = communicator::Lines::parse(row + beside + "\nsaying:test | saying | " + kTestSaying, "the row");
             for (FactPacket packet : cases()) {
                 packet.persona.people = "test";
                 const FactPacket p = as_voiced_by(packet, voice_of(row));
-                for (const std::string& reply : with.replies(p))
+                for (const std::string& reply : replies_of(with, packet, p))
                     for (const std::string& broken : broken_rules(reply, p)) out.push_back(broken + ", in: " + reply);
             }
         }

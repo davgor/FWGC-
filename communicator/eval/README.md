@@ -275,7 +275,9 @@ alone. A judge reads it for sense, memory, repeats, invention and tone. With `--
 embedding model, Qwen3-Embedding-0.6B-Q8_0.gguf) the player's words choose small talk's subject
 (`communicator/meaning.hpp`), and the transcript ends with how long choosing took a turn. Each
 speaker is handed the last 32 replies they gave, as a game keeps them: a line said lately is not
-said again while another fits.
+said again while another fits, and an answer they gave all of lately is said again as told. The
+note says "told this lately" then, since what the speaker said is part of what they remember: a
+judge had faulted "no safer than when I told you" as memory the note did not hold.
 
 `session_regular.txt` is a second script: one townsperson met six times over six weeks, as a
 player comes back to someone they like, with a quarrel and its mending, and a second met in

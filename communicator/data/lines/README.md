@@ -51,6 +51,7 @@ voice | situation | line
   | `denied`, `denied_again` (accused of hiding something, with nothing owned to) | |
   | `forgiven`, `forgiven_cold` (an apology for a wrong, taken, or said again once every wrong is forgiven; cold: the speaker is still wary or hostile after it) | |
   | `unwronged` (an apology from someone who never wronged the speaker, or to a face that does not know them) | |
+  | `surroundings_told`, `safety_unsafe_told`, `safety_wary_told`, `safety_safe_told`, `about_place_told` (the answer asked again when the stranger heard all of it from the speaker lately) | as the answer's |
 
   Every situation may also use `{speaker}`, `{post}`, `{place}` and `{saying}`.
 
@@ -95,6 +96,21 @@ voice | situation | line
     without them.
   - Asked the same thing twice in one conversation, a speaker's answer is said after "As I
     said," (C++'s words): the line needs no repeat of its own.
+  - **Said again, told** (2026-09-26): an answer (what is around, "is it safe", a place) whose
+    every place, nest, person and piece of work the stranger heard from the speaker lately (what
+    the game keeps of their replies) is said from its `_told` situation, and only from it: a bank
+    without told lines leaves the answer to the next bank's, as a cold speaker's greeting does.
+    A told line says so itself ("As I told you, ...", "Nothing's changed since I told you: ..."),
+    so no "As I said," goes before it. Its blanks make no line fuller: a short reminder takes its
+    turn with a long one. An answer with anything new in it is the answer, not told. What is
+    around and "is it safe" are told only when the stranger asked the same before; a place,
+    whenever all of it was said, so `about_place_told` says the stranger has had all the speaker
+    knows of it, never that it was described. Put every blank but `{about}` in brackets. "Same" is
+    not a word a sentence may begin with: "It's the same as I told you" is.
+  - A told line tells less: its places by name (`{nearest}`, `{worst}`: "the silent mouth", with
+    no how far or how dangerous) and its nests by kind (`{danger}`, `{around}`: "Glacier
+    dragons"). `{about}` stays whole, and so do `{here}`, `{others}`, `{trades}`, `{who}` and
+    `{work}`.
 - **line:** a line with a blank its packet cannot fill is not said.
 - **`[optional parts]`:** a part in brackets is left out whole when the packet cannot fill a
   blank in it, so one line serves a packet with a nest and one without. Put the space before a
@@ -109,7 +125,10 @@ voice | situation | line
 - **Each time, the next line.** A speaker starts at a line of their own among those said, and
   says the next each time they have heard the same thing before (the Memory fact's `heard`), so a
   farewell said five times is said five ways while the bank has five. Write as many lines for a
-  situation as it will be met: greetings and farewells every visit.
+  situation as it will be met: greetings and farewells every visit. A line said lately is not
+  said again while another fits, and a line is the same line whatever its passing blanks say
+  (`{since}`, `{asked}`, `{season}`, `{time}`, `{saying}`): "I saw you a few days ago" and "I saw
+  you some weeks ago" are one greeting.
 - **A nest is mentioned in passing once.** Small talk leaves out an optional part that would warn
   of a nest the speaker has warned of lately (the game keeps what they said lately); an answer
   about what is around, or "is it safe", says it whatever was said before.
@@ -164,6 +183,11 @@ packet, and a row that says a saying once more with one dropped in. `communicato
   fortress above Wenweg with me"), so "I can't leave my desk: {own}" would contradict it.
 - **A forgiveness never names the wrong.** It may be an insult or the speaker's own work given
   up, and the line cannot know which: no "what you said", no "the work".
+- **Knowing of someone is not knowing them.** A line about the people a packet names (`{who}`,
+  `{giver}`, `{name}`) points the stranger to them; it never sends greetings ("give them my
+  regards", "tell them I said hello"), asks after them or asks for news of them ("tell me how
+  they're keeping"), since no packet says the speaker knows them. Good-hearted banks drift into
+  this: 33 place lines in one round and 26 told lines in the next (2026-09-26).
 - **A place line carries every blank it can.** Of the lines that fit, the fullest are said, so an
   `about_place` line without `{trades}`, `{who}`, `{around}` or `{work}` is never heard where that
   blank is filled. Nothing in it may hold only when a part is dropped or kept ("That's all I

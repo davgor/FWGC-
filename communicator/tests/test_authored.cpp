@@ -715,6 +715,118 @@ TEST(a_place_is_told_with_what_else_the_speaker_knows_of_it) {
                  "nothing more to say");
 }
 
+TEST(an_answer_heard_lately_is_said_again_as_told) {
+    const Lines lines = Lines::parse("any | safety_unsafe | Not safe. Keep clear of {worst}.[ Mind the {danger}.]\n"
+                                     "any | safety_unsafe_told | Not safe, as I told you. Keep clear of {worst}.\n"
+                                     "any | surroundings | You're in {here}. The nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]\n"
+                                     "any | surroundings_told | Same as I told you: the nearest is {nearest}.\n"
+                                     "any | about_place | That's {about}.\n"
+                                     "any | about_place_told | That's all I know of it: {about}.\n",
+                                     "test");
+    const FactPacket asked = packets::safety_unsafe();
+    const std::string whole = lines.speak(asked, "Is it safe?");
+    const std::string hospice = "the hospice on the Wenweg pass, an hour's walk away, dangerous, held by monsters";
+    check::equal(whole, "Not safe. Keep clear of " + hospice + ". Mind the Glacier dragons nesting an hour's walk away.",
+                 "the premise: the whole answer");
+    // Never asked before, it is no verdict told, however much of it was named in passing.
+    check::equal(lines.speak(asked, "Is it safe?", {whole}), whole, "asked for the first time: the whole answer");
+    FactPacket again = packets::safety_unsafe();
+    again.facts.back() = packets::memory_of(again.speaker, {.met = "again", .times = 1, .heard = 1});
+    check::is_true(lines.told(again, {whole}) && !lines.told(asked, {whole}) && !lines.told(again, {}),
+                   "told() says whether the answer is said again as told");
+    // Said again, it tells less: the place by name, the nest by kind.
+    check::equal(lines.speak(again, "Is it still safe?", {whole}), std::string("Not safe, as I told you. Keep clear of the hospice on the Wenweg pass."),
+                 "asked before, and all of it heard lately: said again as told, and briefly");
+    const Lines nest = Lines::parse("any | safety_unsafe | Not safe. Keep clear of {worst}.[ Mind the {danger}.]\n"
+                                    "any | safety_unsafe_told | Not safe, as I told you.[ Mind the {danger}.]\n",
+                                    "test");
+    check::equal(nest.speak(again, "Is it still safe?", {whole}), std::string("Not safe, as I told you. Mind the Glacier dragons."),
+                 "the nest by kind");
+    const Lines town = Lines::parse(
+        "any | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ {work}.]\n"
+        "any | about_place_told | You've had all I know of it: {about}.[ Mind the {around}.]\n",
+        "test");
+    const std::string fortress = first(town.replies(packets::about_the_fortress()));
+    check::equal(town.speak(packets::about_the_fortress(), "Tell me more.", {fortress}),
+                 std::string("You've had all I know of it: the fortress of Wenweg, a long walk away. Mind the Glacier dragons and Basilisks."),
+                 "the place whole, its nests by kind");
+    check::equal(lines.speak(again, "Is it still safe?", {"Keep clear of " + hospice + "."}), whole,
+                 "a nest not warned of yet: the whole answer again");
+    // A short reminder takes its turn with a long one: nothing in an answer said again is fuller.
+    const Lines both = Lines::parse("any | safety_unsafe | Not safe. Keep clear of {worst}.[ Mind the {danger}.]\n"
+                                    "any | safety_unsafe_told | Not safe, as I told you.\n"
+                                    "any | safety_unsafe_told | Not safe, as I told you. Keep clear of {worst}.\n",
+                                    "test");
+    check::equal(both.replies(again, {whole}).size(), std::size_t(2), "both told lines, the short one as full as the long");
+    // What must have been heard is what the answer says: a bank whose lines never list the other
+    // places never said them, and its answer is told all the same.
+    const Lines shorter = Lines::parse("any | surroundings | You're in {here}. The nearest is {nearest}.[ Mind the {danger}.]\n"
+                                       "any | surroundings_told | As I told you, the nearest is {nearest}.\n",
+                                       "test");
+    FactPacket around_again = packets::surroundings();
+    around_again.facts.back() = packets::memory_of(around_again.speaker, {.met = "again", .times = 1, .heard = 1});
+    const std::string short_answer = first(shorter.replies(packets::surroundings()));
+    check::is_true(short_answer.find("Past that") == std::string::npos && short_answer.find("Hakndum") == std::string::npos,
+                   "the premise: the other places are not said: " + short_answer);
+    check::is_true(shorter.speak(around_again, "What's around?", {short_answer}).rfind("As I told you", 0) == 0,
+                   "told, though the other places were never listed");
+    // With no told line in any bank (a library written before them), the answer is said as ever.
+    const Lines older = Lines::parse("any | safety_unsafe | Not safe. Keep clear of {worst}.[ Mind the {danger}.]\n", "test");
+    check::equal(older.speak(again, "Is it still safe?", {whole}), whole, "no told line anywhere: the answer as ever");
+    // What counts is what was said, in any answer: a place warned of is a place told of.
+    check::equal(lines.speak(about_the_works(), "Tell me more.", {"Past it, the burnt works, an hour's walk away, held by squatters."}),
+                 std::string("That's all I know of it: the burnt works, an hour's walk away, held by squatters."), "told in another answer");
+    check::equal(lines.speak(about_the_works(), "Tell me more.", {"The burnt works, an hour's walk away, held by squatters. Keep off."}),
+                 std::string("That's all I know of it: the burnt works, an hour's walk away, held by squatters."),
+                 "told, though it opened a sentence");
+    // Asked twice in one conversation, a line said as told says so itself: no "As I said" before it.
+    const std::string around = first(lines.replies(packets::surroundings()));
+    FactPacket twice = packets::surroundings_again();
+    twice.facts.back() = packets::memory_of(twice.speaker, {.turn = 2, .repeat = true, .heard = 1});
+    const std::string said_twice = lines.speak(twice, "What's around, again?", {around});
+    check::is_true(said_twice.rfind("Same as I told you: the nearest is ", 0) == 0, "no lead before a told line: " + said_twice);
+    // A bank without told lines leaves the answer to the next bank's, never says its own again.
+    const Lines banked = Lines::parse("post:gate_captain | safety_unsafe | Not here. Keep off {worst}.[ The {danger}, too.]\n"
+                                      "any | safety_unsafe_told | Not safe, as I told you.\n",
+                                      "test");
+    const std::string own = banked.speak(asked, "Is it safe?");
+    check::is_true(own.rfind("Not here.", 0) == 0, "the premise: the gate captain's own answer");
+    check::equal(banked.speak(again, "Is it safe?", {own}), std::string("Not safe, as I told you."), "told, from the next bank");
+}
+
+TEST(a_line_said_again_with_other_passing_words_is_the_same_line) {
+    const Lines lines = Lines::parse("any | greeted_again | Good day. I saw you {since}, and here you are.\n"
+                                     "any | greeted_again | Hello again.\n",
+                                     "test");
+    FactPacket weeks = packets::greeted_again();
+    const std::string since_line = "Good day. I saw you some weeks ago, and here you are.";
+    // The premise: with nothing said lately, some visit gets the line that says how long since.
+    bool said_since = false;
+    for (int heard = 0; heard < 2; ++heard) {
+        weeks.facts.back() = packets::memory_of(weeks.speaker, {.met = "again", .times = 2, .since = "weeks", .heard = heard});
+        said_since = said_since || lines.speak(weeks, "Hello!") == since_line;
+    }
+    check::is_true(said_since, "the premise: the line that says how long since is said");
+    // Said on a visit days ago, with "a few days ago" in it, it is the same line now.
+    for (int heard = 0; heard < 2; ++heard) {
+        weeks.facts.back() = packets::memory_of(weeks.speaker, {.met = "again", .times = 2, .since = "weeks", .heard = heard});
+        check::equal(lines.speak(weeks, "Hello!", {"Good day. I saw you a few days ago, and here you are."}), std::string("Hello again."),
+                     "said lately with other words in its blank");
+    }
+    // A line that shares only its opening words with one said lately is another line.
+    const Lines two = Lines::parse("any | greeted_again | Good day. I saw you {since}, and here you are.\n"
+                                   "any | greeted_again | Good day. I saw you {since}, and you look well.\n"
+                                   "any | greeted_again | Hello again.\n",
+                                   "test");
+    bool other_said = false;
+    for (int heard = 0; heard < 3; ++heard) {
+        weeks.facts.back() = packets::memory_of(weeks.speaker, {.met = "again", .times = 2, .since = "weeks", .heard = heard});
+        other_said = other_said || two.speak(weeks, "Hello!", {"Good day. I saw you a few days ago, and here you are."}) ==
+                                       "Good day. I saw you some weeks ago, and you look well.";
+    }
+    check::is_true(other_said, "the line with other words after its blank is still said");
+}
+
 TEST(small_talk_says_the_weather_or_anything_else_alike) {
     const Lines lines = Lines::parse("any | small_talk_fair | A fine {time}.\n"
                                      "any | small_talk_fair | Clear skies for {season}.[ Mind the {danger}.]\n"

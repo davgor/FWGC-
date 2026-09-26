@@ -14,6 +14,7 @@
 #pragma once
 
 #include <map>
+#include <set>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -54,6 +55,12 @@ public:
     // Empty when no line fits.
     std::vector<std::string> replies(const orchestrator::FactPacket& packet) const;
 
+    // The same, said by a speaker who said `recent` lately (the latest last). An answer whose every
+    // place, nest, person and piece of work the stranger heard in `recent` is said again as told
+    // (its situation's `_told` lines, and only those: "surroundings_told"), and small talk leaves out
+    // a nest the speaker warned of lately.
+    std::vector<std::string> replies(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent) const;
+
     // One of replies(), by what the speaker remembers: each speaker starts at a line of their own,
     // and says the next each time they have heard the same act before (the Memory fact's
     // `heard`), so the same packet gets the same line and a farewell said again gets another.
@@ -61,10 +68,15 @@ public:
     // weather's lines for the weather, the rest for the speaker's own day; and someone met before
     // who asks to be remembered is greeted with a line that recalls the meeting. `recent` is what this
     // speaker said lately, the latest last, as the game keeps it: a line in it is not said again
-    // while one that is not fits, and when every one is, the one said longest ago is; and small
-    // talk does not warn again of a nest the speaker has warned of lately. Empty when no line fits.
+    // while one that is not fits, and when every one is, the one said longest ago is (a line said
+    // with other passing words, another saying or "some weeks ago" for "a few days ago", is the
+    // same line); an answer the stranger heard all of lately is said as told; and small talk does
+    // not warn again of a nest the speaker has warned of lately. Empty when no line fits.
     std::string speak(const orchestrator::FactPacket& packet, std::string_view line, const std::vector<std::string>& recent = {},
                       Meaning* meaning = nullptr) const;
+
+    // Whether speak() says `packet`'s answer again as told, having said all of it in `recent`.
+    bool told(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent) const;
 
     // How many lines were read.
     std::size_t size() const;
@@ -76,9 +88,13 @@ private:
         std::string situation;
         std::string text;
         bool recalls = false;
-        // The text up to the saying it says, if it says one: said again with another saying, it is
-        // the same line.
+        // The text before and after its passing words (a saying, how long since, what was asked,
+        // the season, the time of day), when it has some: said again with others, it is the same
+        // line. Without any, `stem` is the whole text.
         std::string stem;
+        std::string tail;
+        // The blanks it says that make a line fuller ({nearest}, {worst}...): what it tells.
+        std::set<std::string> says;
     };
 
     // replies(), each as Spoken. With `recent` (what the speaker said lately), small talk leaves

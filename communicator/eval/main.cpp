@@ -499,6 +499,9 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
             shown_speaker = who;
             const auto started = std::chrono::steady_clock::now();
             std::vector<std::string>& lately = said_lately[p.speaker];
+            // What the speaker said lately is part of what they remember: an answer they gave all of
+            // lately is said again as told, and the note says so.
+            const bool told = written.told(p, lately);
             const std::string reply = written.speak(p, line, lately, meaning);
             const double took = std::chrono::duration<double>(std::chrono::steady_clock::now() - started).count();
             seconds += took;
@@ -507,7 +510,7 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
             if (lately.size() > kLately) lately.erase(lately.begin());
             std::cout << ++turn << ". Player: " << line << "\n   " << communicator::text::spoken(p.persona.name) << ": "
                       << (reply.empty() ? "(no line fits)" : reply) << "\n   [" << orchestrator::to_string(p.answering) << " -> "
-                      << orchestrator::to_string(p.outcome) << "; " << memory_note(p) << "]\n";
+                      << orchestrator::to_string(p.outcome) << "; " << memory_note(p) << (told ? "; told this lately" : "") << "]\n";
             continue;
         }
         if (row.rfind("turn ", 0) == 0) {
