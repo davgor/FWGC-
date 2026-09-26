@@ -7,13 +7,19 @@
 // history.operations. The same starting world and the same inputs give the same world and the
 // same packets; replay() is how a test proves it and how a save is restored.
 //
+// It also keeps the roster's days: when each post sleeps, walks to work, works and walks home,
+// and how a hold -- the game keeping someone where they stand -- delays what comes next. A day
+// is worked out from the person and the clock when asked, and a hold changes nothing else.
+//
 // This header names the generator, so only what depends on the generator may include it. The
 // communicator includes orchestrator/contract.hpp alone.
 #pragma once
 
 #include <map>
+#include <optional>
 #include <stdexcept>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <variant>
 #include <vector>
@@ -44,7 +50,48 @@ struct Resolve {
     std::string quest_id;
     bool completed = true;
 };
-using Input = std::variant<Advance, Say, Resolve>;
+// The game kept a person where they stood, from the clock on, for this long.
+struct Hold {
+    std::string person;
+    double minutes = 0.0;
+};
+using Input = std::variant<Advance, Say, Resolve, Hold>;
+
+// ---- a roster person's day --------------------------------------------------------------------
+
+// What someone with a day is doing. `held` is the game keeping them where they stand.
+enum class Doing { asleep, at_home, walking, working, held };
+std::string_view to_string(Doing doing);
+
+// One stretch of a day, [from_day, to_day) in world days. Where the person is, is told along the
+// way from their home to their workplace: 0 at home, 1 at work, and between on a walk. Someone
+// the plan built no bed for lives at their post, and is at 1 throughout.
+struct Stint {
+    Doing doing = Doing::at_home;
+    double from_day = 0.0;
+    double to_day = 0.0;
+    double from_along = 0.0;
+    double to_along = 0.0;  // the same as from_along but on a walk
+};
+
+// What a hold made of a person's day: their stints from the hold's start to the end of the
+// stretch they reached after it, from which the day runs as planned again.
+struct Detour {
+    double from_day = 0.0;
+    double to_day = 0.0;
+    std::vector<Stint> stints;  // tiling [from_day, to_day)
+};
+
+// Where a roster person is at one moment.
+struct Whereabouts {
+    std::string person;
+    std::string site;            // the roster's site uid
+    std::string workplace_plot;  // plot ids in that site's plan
+    std::string home_plot;       // empty for someone who lives at their post
+    double day = 0.0;            // the moment
+    double along = 0.0;          // 0 at home, 1 at work
+    Stint stint;                 // the stretch under way
+};
 
 class Director {
 public:
@@ -97,6 +144,35 @@ public:
     // told the truth of.
     const Acquaintance* acquaintance(const std::string& speaker) const;
 
+    // ---- days ------------------------------------------------------------------------------
+    //
+    // Every living roster post has a day, by the hours of the building they work in (sleep, the
+    // walk to work, work, the walk home, the evening at home), the walk as long as their commute.
+    // Heroes, dreads, villains and the dead have none: they stand where the world says.
+
+    // The game kept `person` where they stood for `minutes` from the clock on: a conversation, a
+    // road blocked, anything. Their day makes room for it. After the hold they make for where
+    // their day has them; a stretch they cannot reach before its end is skipped for the next,
+    // and each stretch they reach still ends when it was to. So a walk to work held 20 minutes
+    // arrives 20 minutes late and the shop still shuts on time, open 20 minutes less; a hold at
+    // work within its hours costs nothing, and one past closing comes out of the evening. By
+    // the end of the stretch they reach, the day runs as planned again. Changes neither the
+    // world nor what anyone remembers. Throws Error for minutes that are not more than zero and
+    // at most a day, and for a uid the world does not name. Holding someone with no day is
+    // recorded and changes nothing.
+    void hold(const std::string& person, double minutes);
+
+    // Where a roster post is now, and doing what; nullopt for anyone with no day.
+    std::optional<Whereabouts> whereabouts(const std::string& person) const;
+
+    // The stretches of a roster post's day that meet the calendar day holding `day` (sunrise to
+    // sunrise), with every hold so far; empty for anyone with no day.
+    std::vector<Stint> day_of(const std::string& person, double day) const;
+
+    // Everyone with a day at one site, now, in roster order; empty for a site the roster does
+    // not name.
+    std::vector<Whereabouts> whereabouts_at(const std::string& site) const;
+
 private:
     void end_conversation(const std::string& speaker);
 
@@ -104,6 +180,9 @@ private:
     std::vector<Input> inputs_;
     std::map<std::string, Acquaintance> acquainted_;
     std::string talking_to_;
+    // What each person's holds made of their day, in the order held, none overlapping: each
+    // worked out once, when held, so a day asked of later reads the same.
+    std::map<std::string, std::vector<Detour>> detours_;
 };
 
 // A session again: `start` with every input re-applied, in order.

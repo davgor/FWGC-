@@ -33,8 +33,8 @@ in three places only:
   `fwg::advance_world_time` with that resolution and no time passing;
 - accepting or abandoning a quest calls `fwg::world_quest_request`.
 
-Each logs to the world's `history.operations`. Every input is recorded, and
-`replay(start, inputs)` rebuilds the same world byte for byte, and the same memories. That is how
+Each logs to the world's `history.operations`. Every input is recorded (a hold too: see Days), and
+`replay(start, inputs)` rebuilds the same world byte for byte, and the same memories and days. That is how
 a test proves determinism, and how a save is restored: a save is the inputs.
 
 `respond(speaker, act)` answers one act addressed to one person. That person can be a hero, a
@@ -145,6 +145,50 @@ An exposure answers `exposed`, with a Reveal fact: the face owned to, the role t
 claimed, and the role of the one it hid. Only a mask's two roles differ; a beast's or a
 fractured heart's faces share one role and differ in manner and alignment.
 
+## Days
+
+Every living roster post keeps a day (`src/schedule.hpp`): asleep, at home, the walk to work,
+work, the walk home, the evening at home. The hours are the building's, counted from sunrise, the
+world's hour 0. With sunrise at six:
+
+| Hours | Buildings | Work |
+|---|---|---|
+| Day trade | every building not named below: smithy, pottery, market stall, library, temple... | 7:00 to 17:00; up at 5:00, asleep at 21:30 |
+| Early | bakery, butchery, farms, orchards, herds, mills, boats, wells and water, the market square, the stable, the cart yards | 4:30 to 14:30 |
+| Late | inn, tavern, guildhall, bathhouse, observatory | 11:00 to 22:00 |
+| Watch | gates, towers, barracks, the keep, cells, infirmaries | three shifts of eight hours from sunrise, a building's posts taking them in turn |
+
+The walk is the roster's `commute_m` (the straight metres from the bed its plan built them to
+their work) at a metre a second, since streets wind: never under a minute, and never longer than
+the margin around work, so it never eats into sleep. Someone the plan built no bed for -- a
+fortress's people, an unplaced stable's hands -- lives at their post and never walks. Heroes,
+dreads, villains and the dead have no day: they stand where the world says. The hours are tunable
+constants, like the reaches.
+
+**A hold.** `hold(person, minutes)` is the game reporting that it kept someone where they stood,
+from the clock on: a conversation, a road blocked, anything. Afterwards they make for where their
+day has them. A stretch they cannot reach before it ends is skipped for the next, from where they
+stand, and each stretch they reach still ends when it was to:
+
+- held 20 minutes on the walk to work, they arrive 20 minutes late, and the shop still shuts on
+  time, open 20 minutes less;
+- held at work within its hours, nothing is lost; held past closing, the overrun comes out of the
+  evening at home, and bedtime holds;
+- held on the way until past closing, they turn for home, and the shop stays shut that day;
+- a hold begun while another runs keeps them until the later one ends.
+
+By the end of the stretch they reach, the day runs as planned again. A hold changes nothing else:
+not the world, not what anyone remembers, not a packet. Each is worked out once, when made, as a
+detour of the day, so a day reads the same whatever span is asked of it; it is an input, so
+replay rebuilds it. Holding someone with no day is recorded and changes nothing. Minutes must be
+more than zero and at most a day.
+
+**Asking.** `whereabouts(person)` says what they are doing now, where they are along the way from
+home (0) to work (1), and the stretch under way. `day_of(person, day)` gives the stretches that
+meet that calendar day, sunrise to sunrise. `whereabouts_at(site)` gives everyone with a day at a
+site. The director says when; the game draws the path between the two plots (`home_plot`,
+`workplace_plot`).
+
 ## A session, to listen to
 
 `orchestrator_session SCRIPT` (`tools/session.cpp`) plays a scripted session against a generated
@@ -196,6 +240,8 @@ switched each rule off in a scratch build.
 ## Not in this slice
 
 - Pacing and hero direction: the director's build-up, peak and relax, and gameplay events in.
+- Days for heroes, dreads and villains; rest days; days that change with the weather or the
+  season; and a speaker saying what they are about, or that they are late.
 - The acts `trade`, `persuade`, `threaten`, `bribe`.
 - A question the speaker asks the player, remembered until answered: `answer` is acknowledged,
   and nothing yet records what was asked.

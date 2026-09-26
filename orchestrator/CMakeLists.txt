@@ -41,7 +41,7 @@ target_compile_features(orchestrator_contract PUBLIC cxx_std_20)
 target_compile_options(orchestrator_contract PRIVATE ${ORCHESTRATOR_WARNINGS})
 
 # The director itself.
-add_library(orchestrator STATIC src/director.cpp src/knowledge.cpp)
+add_library(orchestrator STATIC src/director.cpp src/knowledge.cpp src/schedule.cpp)
 add_library(fwgc::orchestrator ALIAS orchestrator)
 target_include_directories(orchestrator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
                                         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -55,8 +55,11 @@ if(ORCHESTRATOR_BUILD_TESTS)
     tests/test_contract.cpp
     tests/test_director.cpp
     tests/test_conversation.cpp
+    tests/test_schedule.cpp
   )
   target_link_libraries(orchestrator_tests PRIVATE orchestrator)
+  # The schedule is tested on its own too, without a world: its header is the library's own.
+  target_include_directories(orchestrator_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
   target_compile_options(orchestrator_tests PRIVATE ${ORCHESTRATOR_WARNINGS})
   add_test(NAME orchestrator_tests COMMAND orchestrator_tests)
 

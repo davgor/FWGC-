@@ -1,6 +1,7 @@
 #include "orchestrator/director.hpp"
 
 #include <algorithm>
+#include <charconv>
 #include <cmath>
 #include <cstdint>
 #include <map>
@@ -12,6 +13,7 @@
 #include "fwg/api/weather.hpp"
 #include "fwg/api/world_time.hpp"
 #include "knowledge.hpp"
+#include "schedule.hpp"
 
 namespace orchestrator {
 
@@ -427,7 +429,81 @@ bool knows_them(const fwg::Hero& hero, const std::string& speaker_uid) {
     return false;
 }
 
+// ---- days ---------------------------------------------------------------------------------------
+
+constexpr double kMinutesPerDay = 1440.0;
+
+// A roster post with a day: living, standing at a site, working on a plot of it. A cast record
+// is a hero or a dread, who stands where the world says.
+bool has_a_day(const fwg::NpcPerson& p) { return !p.is_cast && p.alive && p.site_uid && !p.plot_id.empty(); }
+
+// The roster post with a day that `uid` names, or nullptr.
+const fwg::NpcPerson* post_with_a_day(const fwg::World& world, const std::string& uid) {
+    for (const fwg::NpcPerson& p : world.npcs.people) {
+        if (p.uid == uid) return has_a_day(p) ? &p : nullptr;
+    }
+    return nullptr;
+}
+
+bool names_a_person(const fwg::World& world, const std::string& uid) {
+    fwg::PersonReadRequest request;
+    request.uid = uid;
+    try {
+        (void)fwg::read_person(world, request);
+        return true;
+    } catch (const fwg::WorldTimeError&) {
+        return false;
+    }
+}
+
+// A post's ordinal in its building, the last part of its uid ("...-smithy-1"): which of a
+// watch's shifts it keeps.
+int ordinal_of(const std::string& uid) {
+    const std::size_t dash = uid.rfind('-');
+    if (dash == std::string::npos) return 0;
+    int ordinal = 0;
+    const std::from_chars_result read = std::from_chars(uid.data() + dash + 1, uid.data() + uid.size(), ordinal);
+    return read.ec == std::errc{} ? ordinal : 0;
+}
+
+schedule::Person schedule_of(const fwg::NpcPerson& p) {
+    return {schedule::hours_of(p.building_id.value_or(""), ordinal_of(p.uid)),
+            p.commute_m ? schedule::walk_days(*p.commute_m) : 0.0};
+}
+
+const std::vector<Detour>& detours_in(const std::map<std::string, std::vector<Detour>>& all, const std::string& uid) {
+    static const std::vector<Detour> none;
+    const auto found = all.find(uid);
+    return found == all.end() ? none : found->second;
+}
+
+Whereabouts whereabouts_of(const fwg::NpcPerson& p, const std::vector<Detour>& detours, double now) {
+    Whereabouts w;
+    w.person = p.uid;
+    w.site = p.site_uid.value_or("");
+    w.workplace_plot = p.plot_id;
+    w.home_plot = p.home_plot_id.value_or("");
+    w.day = now;
+    const std::vector<Stint> under_way = schedule::stints(schedule_of(p), detours, now, now);
+    if (!under_way.empty()) {
+        w.stint = under_way.front();
+        w.along = schedule::along_at(w.stint, now);
+    }
+    return w;
+}
+
 }  // namespace
+
+std::string_view to_string(Doing doing) {
+    switch (doing) {
+        case Doing::asleep: return "asleep";
+        case Doing::at_home: return "at_home";
+        case Doing::walking: return "walking";
+        case Doing::working: return "working";
+        case Doing::held: return "held";
+    }
+    return "";
+}
 
 Director::Director(fwg::World world) : world_(std::move(world)) {}
 
@@ -789,6 +865,41 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
     throw Error("respond: an act outside the contract");
 }
 
+void Director::hold(const std::string& person, double minutes) {
+    if (!std::isfinite(minutes) || minutes <= 0.0 || minutes > kMinutesPerDay)
+        throw Error("hold: minutes must be more than zero and at most a day");
+    const fwg::NpcPerson* post = post_with_a_day(world_, person);
+    if (post == nullptr && !names_a_person(world_, person)) throw Error("hold: the world names no person '" + person + "'");
+    if (post != nullptr) {
+        const double now = fwg::world_clock_of(world_).day;
+        schedule::hold(schedule_of(*post), detours_[person], now, now + minutes / kMinutesPerDay);
+    }
+    inputs_.push_back(Hold{person, minutes});
+}
+
+std::optional<Whereabouts> Director::whereabouts(const std::string& person) const {
+    const fwg::NpcPerson* post = post_with_a_day(world_, person);
+    if (post == nullptr) return std::nullopt;
+    return whereabouts_of(*post, detours_in(detours_, person), fwg::world_clock_of(world_).day);
+}
+
+std::vector<Stint> Director::day_of(const std::string& person, double day) const {
+    if (!std::isfinite(day)) throw Error("day_of: the day must be a finite number");
+    const fwg::NpcPerson* post = post_with_a_day(world_, person);
+    if (post == nullptr) return {};
+    const double sunrise = std::floor(day);
+    return schedule::stints(schedule_of(*post), detours_in(detours_, person), sunrise, sunrise + 1.0);
+}
+
+std::vector<Whereabouts> Director::whereabouts_at(const std::string& site) const {
+    std::vector<Whereabouts> out;
+    const double now = fwg::world_clock_of(world_).day;
+    for (const fwg::NpcPerson& p : world_.npcs.people) {
+        if (has_a_day(p) && *p.site_uid == site) out.push_back(whereabouts_of(p, detours_in(detours_, p.uid), now));
+    }
+    return out;
+}
+
 Director replay(fwg::World start, const std::vector<Input>& inputs) {
     Director director(std::move(start));
     for (const Input& input : inputs) {
@@ -796,6 +907,8 @@ Director replay(fwg::World start, const std::vector<Input>& inputs) {
             director.advance(advance->days);
         } else if (const Resolve* resolution = std::get_if<Resolve>(&input)) {
             director.resolve(resolution->quest_id, resolution->completed);
+        } else if (const Hold* held = std::get_if<Hold>(&input)) {
+            director.hold(held->person, held->minutes);
         } else {
             const Say& say = std::get<Say>(input);
             (void)director.respond(say.speaker, say.act);
