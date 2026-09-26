@@ -543,6 +543,7 @@ SocietyReport add_world_society(const SocietyRequest& request) {
     for (const SettlementSite& site : sites) occupied.insert(site.node);
     for (const RuralSite& hamlet : humans.hamlets) occupied.insert(hamlet.node);
     for (const RuralSite& fort : humans.fortresses) occupied.insert(fort.node);
+    for (const int college : request.college_nodes) occupied.insert(college);
 
     std::vector<int> ground_candidates;
     for (std::size_t i = 0; i < count; ++i) {

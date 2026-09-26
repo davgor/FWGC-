@@ -485,11 +485,35 @@ TEST(a_witch_hut_keeps_its_distance_from_every_city) {
         if (mark.kind == "witch_hut") ++wanted;
     }
     check::is_true(wanted > 0, "huts to have been asked for, or this proves nothing");
-    check::is_true(report.witch_huts.empty(), "no hut to be sited within reach of a city");
+    // The rule itself: every hut stands the spacing or more from every city. The spacing
+    // covering every cell the huts wanted was once also true of this world, and stopped
+    // being true when its sea floor changed (2026-09-26); the rule did not.
+    const int n = crowded.effective.size;
+    const double radius = crowded.effective.globe_radius;
+    for (const SocietyWitchHut& hut : report.witch_huts) {
+        for (const SettlementSite& site : crowded.settlements.sites) {
+            const double apart =
+                radius * std::acos(std::clamp(dot(direction(hut.x, hut.z, n), direction(site.x, site.z, n)), -1.0, 1.0));
+            check::is_true(apart >= crowded.effective.settlement_spacing,
+                           hut.id + " stands " + std::to_string(apart) + " m from " + site.name);
+        }
+    }
 
-    // The same seed at the shipped spacing does site them, so the emptiness above is the
-    // spacing rule and not some other refusal.
-    check::is_true(!stage12().society.witch_huts.empty(), "the shipped spacing to leave room for huts");
+    // The control: at the shipped spacing a hut stands nearer a city than the wide spacing
+    // allows, so the wide spacing had huts to refuse, and the rule above is what kept them off.
+    const Stage12 shipped = stage12();
+    check::is_true(!shipped.society.witch_huts.empty(), "the shipped spacing to leave room for huts");
+    const int shipped_n = shipped.world.effective.size;
+    const double shipped_radius = shipped.world.effective.globe_radius;
+    bool within = false;
+    for (const SocietyWitchHut& hut : shipped.society.witch_huts) {
+        for (const SettlementSite& site : shipped.world.settlements.sites) {
+            const double apart =
+                shipped_radius * std::acos(std::clamp(dot(direction(hut.x, hut.z, shipped_n), direction(site.x, site.z, shipped_n)), -1.0, 1.0));
+            within = within || apart < r.settlement_spacing;
+        }
+    }
+    check::is_true(within, "at the shipped spacing, a hut nearer a city than the wide spacing allows");
 }
 
 TEST(a_witch_hut_refuses_prime_settlement_ground) {

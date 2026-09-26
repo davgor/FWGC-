@@ -89,6 +89,7 @@ void add_populated_regions(World& world) {
         society_request.suitability = &it->second;
     }
     for (const SettlementSite& s : world.settlements.sites) society_request.site_names.push_back(s.name);
+    for (const College& college : colleges.colleges) society_request.college_nodes.push_back(college.node);
 
     SocietyReport society = add_world_society(society_request);
 

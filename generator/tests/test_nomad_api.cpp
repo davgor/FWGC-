@@ -386,8 +386,28 @@ TEST(every_cult_deepens_its_node_again_on_every_call) {
     const double once = intensity(raised->world);
     check::close(once, std::min(kNomadIntensityCeiling, intensity(w) * std::pow(1.0 + kNomadDevotionGain, holders)),
                  1e-9, "deepened once by the call that raised it");
-    // Another band, far from anything sacred, deepens it again.
-    const World next = raise_band(raised->world, asking(villain_band().node, "world"));
+    // Another band, and no cult, deepens it again: wanderers, on the first ground that takes
+    // them. Left to the world at the villain's node, the band became a cult of its own on the
+    // seam-free sea floor of 2026-09-26, and the node deepened once more than this test says;
+    // that node takes nothing else.
+    std::optional<World> raised_next;
+    for (std::size_t node = 0; node < held->node_count() && !raised_next; ++node) {
+        RaiseBandRequest other = asking(static_cast<int>(node), "world");
+        other.classification = "wanderers";
+        try {
+            raised_next = raise_band(raised->world, other);
+        } catch (const RequestError&) {
+        }
+    }
+    check::is_true(raised_next.has_value(), "a band that is no cult, raised by the next call");
+    const World& next = *raised_next;
+    int holders_next = 0;
+    for (const NomadBand& b : next.nomads.groups) {
+        if (b.classification == NomadClass::Cultists && b.school == band.school && b.basis.ley_node_id == band.basis.ley_node_id) {
+            ++holders_next;
+        }
+    }
+    check::equal(holders_next, holders, "the premise: the next call raised no cult on that node");
     check::close(intensity(next), std::min(kNomadIntensityCeiling, once * std::pow(1.0 + kNomadDevotionGain, holders)),
                  1e-9, "and again by the next call, which raised nobody there");
 }

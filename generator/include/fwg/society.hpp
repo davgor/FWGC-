@@ -291,6 +291,11 @@ struct SocietyRequest {
     // City names by site index, for the economy summary. Empty is honest: a name this
     // pass does not have is better left blank than invented.
     std::vector<std::string> site_names;
+
+    // The nodes the colleges stand on. They are seated before this pass and are no hamlet,
+    // so a harbour founded on one put two sites on one node (colleges_stand_apart, found
+    // 2026-09-23). Empty is a world with no colleges.
+    std::vector<int> college_nodes;
 };
 
 // Runs the society pass.

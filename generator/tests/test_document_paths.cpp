@@ -53,9 +53,18 @@ constexpr std::array kAllowlist = {
     // and this port's world does not. The port writes each when its world has one.
     Excused{".city_plans.cities[].plots[].housing_upgrade", "no city plot in this world was upgraded"},
     Excused{".key_locations.sites[].suitability_factors.catchment", "no sinkhole in this world, the one kind sited by catchment: its two went when beasts began razing cities (2026-09-23); seeds 7 and 99 at size 33 still site them"},
-    Excused{".nomads.groups[].basis.ley_distance_m", "no band in this world keeps a ley key point: its one, at a radiant ruin, went when beasts began razing cities (2026-09-23); seeds 42, 7 and 1234 at size 33 still keep them"},
-    Excused{".nomads.groups[].basis.ley_intensity", "no band in this world keeps a ley key point (see ley_distance_m)"},
-    Excused{".nomads.groups[].basis.ley_node_id", "no band in this world keeps a ley key point (see ley_distance_m)"},
+    // What this world stopped populating when the sea floor stopped stepping at moved-plate
+    // boundaries (2026-09-26): the ground moved, the cities with it, and each of these went
+    // with them. Each is still written by the worlds named, at the new ground.
+    Excused{".city_plans.cities[].fortifications.towers[].plot_id", "no city tower in this world stands on a plot; seeds 42, 7 and 99 at size 33 still place them"},
+    Excused{".heroes.people[].diaspora_reason", "no hero in this world is of a diaspora city; seeds 9 and 11 at size 33 still have them"},
+    Excused{".heroes.people[].mother_civilization_id", "no hero in this world is of a diaspora city (see diaspora_reason)"},
+    Excused{".key_locations.sites[].suitability_factors.erosion", "no key location in this world is sited by erosion; seeds 42, 7 and 10 at size 65 site them"},
+    Excused{".key_locations.summary.by_occupant.fae", "no fae hold a key location in this world; seeds 42, 99 and 1234 at size 33 have them"},
+    Excused{".nomads.groups[].basis.claim_distance_m", "no band in this world keeps a villain's claim; seeds 7, 99 and 1 at size 33 still keep them"},
+    Excused{".nomads.groups[].basis.claim_id", "no band in this world keeps a villain's claim (see claim_distance_m)"},
+    Excused{".nomads.groups[].basis.villain_uid", "no band in this world keeps a villain's claim (see claim_distance_m)"},
+    Excused{".regions.landmarks[]", "no witch hut is re-sited in this world, and the regions' landmarks are the huts; seeds 42, 1234 and 1 at size 33 site them"},
 
     // The owner's rulings: keys the reference writes that this port retired on purpose.
     Excused{".npcs.post_verbs.store_keeper", "the owner merged store_keeper into storekeeper (2026-09-23); each storekeeper now names the store it keeps"},

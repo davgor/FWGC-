@@ -269,6 +269,11 @@ with tests so a fix cannot land silently.
   first age turn after any corruption raised.
 - **One ley network-edit check** (`plant_key_point`) for ruins' key points, avatars,
   corruptions and player edits.
+- **The sea floor meets across moved plates** (2026-09-26). Stage 6 took each cell's carried
+  ground from its nearest moved plate alone, so every moved-plate boundary was a cliff, a
+  straight line in the ocean: 1549 of them at size 513. `carried_height` blends the plates that
+  still hold a cell near a boundary; 20 remain at 513. Cells away from every boundary keep their
+  height to the last bit.
 - **A hook names a ley node by a place, never by its id** (2026-09-25). A hook on a node with
   no key point, a school's own or a villain's well, read "Weaken the water node water-node-4".
   It now names the city or ruin the node is its school's nearest node to ("Weaken the water

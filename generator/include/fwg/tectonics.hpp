@@ -10,6 +10,7 @@
 // categorical.
 #pragma once
 
+#include <algorithm>
 #include <cstdint>
 #include <map>
 #include <string>
@@ -54,6 +55,16 @@ struct PointSample {
     double interaction = 0.0;
     double volcanic = 0.0;
 };
+
+// How much a plate still holds a point it does not own. `behind` is how far its score
+// trails the nearest plate's, in score units (dot products of the point with the plate
+// centres); `support` is how far behind a plate may trail and still count. The nearest
+// plate holds 1, and the rest fall off cubically to 0 at `support`. Continuous across
+// every boundary: where two plates tie, both hold 1.
+inline double plate_membership(double behind, double support) {
+    const double falloff = std::max(0.0, 1.0 - behind / support);
+    return falloff * falloff * falloff;
+}
 
 // Evaluate the plate model at one direction. Used per cell by the tectonic stage and
 // again by the second epoch at stage 6.

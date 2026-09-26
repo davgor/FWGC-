@@ -454,10 +454,13 @@ TEST(a_regional_road_runs_from_its_first_node_when_no_city_window_cuts_it) {
         const auto at = static_cast<std::size_t>(node);
         return direction(grid->point_x[at], grid->point_z[at], w.config.size);
     };
-    check::close(great_circle_m(request.radius_m, unit(road.positions_m.front()), node_point(real.nodes.front())),
-                 0.0, 1e-6, "the road to start on its first node");
-    check::close(great_circle_m(request.radius_m, unit(road.positions_m.back()), node_point(real.nodes.back())),
-                 0.0, 1e-6, "the road to end on its last node");
+    // By the chord, not the arc: acos of a dot product one rounding step below 1 reads as
+    // sqrt(2 * 2^-53) of the radius, 0.47 mm on a 31.8 km globe, so an arc cannot resolve a
+    // micrometre here. The chord is exact to rounding.
+    check::close(request.radius_m * length(unit(road.positions_m.front()) - node_point(real.nodes.front())), 0.0, 1e-6,
+                 "the road to start on its first node");
+    check::close(request.radius_m * length(unit(road.positions_m.back()) - node_point(real.nodes.back())), 0.0, 1e-6,
+                 "the road to end on its last node");
 }
 
 TEST(a_request_the_scene_cannot_place_is_refused) {

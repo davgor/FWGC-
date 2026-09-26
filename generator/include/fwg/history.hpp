@@ -67,4 +67,19 @@ void add_biome_variants(World& world);
 // angle, and the speeds are not calibrated geodynamics.
 inline constexpr double kEpochDuration = 0.65;
 
+// How far behind the nearest moved plate another plate may trail and still carry some of
+// its ground to a cell, as a fraction of belt_width in plate-score units (see
+// plate_membership). Half a belt. Seed 2660691850 at size 513 was measured at three widths.
+// A quarter of a belt left the old boundaries as straight ramps in the sea floor. A whole
+// belt blurred two plates' relief together over a third of the map. Half a belt changed 20%
+// of that world's cells, all of them near a boundary, and left every other cell bit for bit.
+inline constexpr double kCarriedBlend = 0.5;
+
+// The ground the epoch carries to direction p, before the untouched quarter and the new
+// uplift are added. Every moved plate that still holds p backtraces its own rotation into
+// `old_height`, weighed by plate_membership within `support` (score units) of the nearest.
+// Continuous across every moved-plate boundary. Taking the nearest plate's backtrace alone
+// put a cliff there, because the two sides of a boundary come from far-apart ground.
+double carried_height(const Grid& old_height, const Vec3& p, const std::vector<Plate>& moved, double support);
+
 }  // namespace fwg

@@ -36,6 +36,22 @@ Grid copy_or_zero(const World& world, const char* name) {
 
 }  // namespace
 
+double carried_height(const Grid& old_height, const Vec3& p, const std::vector<Plate>& moved, double support) {
+    double best = -2.0;
+    for (const Plate& plate : moved) best = std::max(best, dot(p, plate.center));
+    // Away from every boundary only the nearest plate holds p, with weight exactly one, so
+    // this is its backtrace to the last bit.
+    double carried = 0.0;
+    double weight = 0.0;
+    for (const Plate& plate : moved) {
+        const double w = plate_membership(best - dot(p, plate.center), support);
+        if (w == 0.0) continue;
+        carried += w * sample(old_height, rotate(p, plate.omega, -kEpochDuration));
+        weight += w;
+    }
+    return carried / weight;
+}
+
 void measure_surface(World& world) {
     const Config& cfg = world.effective;
     const Grid& height = world.layers.at("height");
@@ -89,11 +105,10 @@ SurfaceSnapshot tectonic_transition(World& world) {
             const Vec3 p = direction(x, z, n);
             // The plate model, re-evaluated against the MOVED plates.
             const PointSample record = layout_point(p, moved, world.crust_seed, cfg);
-            const auto owner = static_cast<std::size_t>(record.owner);
 
-            // Backtrace: where was this ground before its plate carried it here?
-            const Vec3 back = rotate(p, moved[owner].omega, -kEpochDuration);
-            const double transported = sample(old.height, back);
+            // Backtrace: where was this ground before its plate carried it here? Near a
+            // boundary, from both plates' pasts at once (carried_height).
+            const double transported = carried_height(old.height, p, moved, kCarriedBlend * cfg.belt_width);
 
             // Fresh boundary work over the new geometry. Convergence builds, divergence
             // opens, shear contributes a little roughness.

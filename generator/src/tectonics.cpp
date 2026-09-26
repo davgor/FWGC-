@@ -105,10 +105,7 @@ PointSample layout_point(const Vec3& p, const std::vector<Plate>& plates, std::u
     // boundary out of a cell that is nowhere near it.
     const double support = 2.0 * cfg.belt_width;
     std::vector<double> weights(count);
-    for (std::size_t i = 0; i < count; ++i) {
-        const double falloff = std::max(0.0, 1.0 - (best - scores[i]) / support);
-        weights[i] = falloff * falloff * falloff;
-    }
+    for (std::size_t i = 0; i < count; ++i) weights[i] = plate_membership(best - scores[i], support);
 
     const double c = crust_at(p, crust_seed, cfg.crust_bias);
 

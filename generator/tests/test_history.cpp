@@ -119,6 +119,56 @@ TEST(second_uplift_is_exactly_what_the_epoch_changed) {
     }
 }
 
+TEST(ground_carried_across_a_moved_boundary_meets_without_a_cliff) {
+    // Two plates turning different ways over an old surface that climbs kilometres across
+    // the globe, so the two sides of their boundary backtrace to very different ground.
+    const int n = 65;
+    Grid old(n);
+    for (int z = 0; z < n; ++z) {
+        for (int x = 0; x < n; ++x) {
+            const Vec3 p = direction(x, z, n);
+            old.at(x, z) = 4000.0 * p.x + 1500.0 * p.y - 2500.0 * p.z;
+        }
+    }
+    const std::vector<Plate> moved = {{0, unit(Vec3{1.0, 0.2, 0.1}), Vec3{0.1, 0.7, -0.2}},
+                                      {1, unit(Vec3{0.1, 0.3, 1.0}), Vec3{-0.3, -0.5, 0.4}}};
+    const double support = kCarriedBlend * Config{}.belt_width;
+    // The old rule is the same function with a support no plate but the nearest can meet.
+    const double nearest_only = 1e-12;
+
+    // Points on the boundary, the great circle bisecting the two centres, each stepped a
+    // hair to either side of it.
+    const Vec3 normal = unit(moved[1].center - moved[0].center);
+    const Vec3 u = unit(cross(normal, Vec3{0.0, 1.0, 0.0}));
+    const Vec3 v = cross(normal, u);
+    const double hair = 1e-7;
+    int jumped = 0;
+    for (int k = 0; k < 12; ++k) {
+        const double t = 2.0 * 3.14159265358979323846 * k / 12.0;
+        const Vec3 on = unit(u * std::cos(t) + v * std::sin(t));
+        const Vec3 near_side = unit(on - normal * hair);
+        const Vec3 far_side = unit(on + normal * hair);
+        const double step = std::abs(carried_height(old, near_side, moved, support) -
+                                     carried_height(old, far_side, moved, support));
+        check::is_true(step < 1.0, "carried ground to meet across the boundary, but it stepped " +
+                                       std::to_string(step) + " m at point " + std::to_string(k));
+        if (std::abs(carried_height(old, near_side, moved, nearest_only) -
+                     carried_height(old, far_side, moved, nearest_only)) > 100.0) {
+            ++jumped;
+        }
+    }
+    // The control: the nearest plate's backtrace alone really is a cliff at these points,
+    // so the smooth steps above are the blend's doing and not an easy boundary.
+    check::is_true(jumped >= 8, "the nearest-only rule to jump at most boundary points, got " +
+                                    std::to_string(jumped) + " of 12");
+
+    // Far from the boundary only the nearest plate holds the ground, and the blend changes
+    // nothing: the same value to the last bit.
+    const Vec3 inside = moved[0].center;
+    check::equal(carried_height(old, inside, moved, support), carried_height(old, inside, moved, nearest_only),
+                 "ground far from any boundary to be its own plate's backtrace exactly");
+}
+
 // --- the relics -----------------------------------------------------------
 
 TEST(relics_only_mark_ground_the_water_actually_left) {

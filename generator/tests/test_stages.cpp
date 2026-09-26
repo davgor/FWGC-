@@ -725,19 +725,30 @@ TEST(a_key_location_may_stand_on_a_landmarks_cell_because_no_landmark_claims_gro
     // publishes its cell and no node, so in the reference no landmark claims anything.
     // Claiming its cell's node here kept a portal arch off a witch hut's cell on the seed-10
     // size-33 world, and the block that followed left no room for the whaling station that
-    // world now places. On this world a summoning circle stands on a witch hut's cell.
-    const World& w = complete_65();
-    const auto grid = sphere_grid(w.effective.size, w.effective.globe_radius);
-    std::set<int> marked;
-    for (const Landmark& l : w.ecology.landmarks) marked.insert(grid->node_index(l.x, l.z));
-    check::is_true(!marked.empty(), "a landmark, or nothing is tested");
-    std::size_t on_a_mark = 0;
-    for (const KeyLocationSite& site : w.key_locations.sites) {
-        // Scatter sites only: a cluster member is placed at an offset and never asks the
-        // claimed set, so one standing on a landmark proves nothing about it.
-        if (site.placement == KeyLocationPlacement::Node && marked.count(site.node) != 0) ++on_a_mark;
+    // world now places. Which world shows it moves whenever the ground does (seed 42 at 65 did
+    // until the sea floor changed on 2026-09-26), so the first of a few worlds that does is
+    // enough.
+    const auto on_a_mark = [](const World& w) {
+        const auto grid = sphere_grid(w.effective.size, w.effective.globe_radius);
+        std::set<int> marked;
+        for (const Landmark& l : w.ecology.landmarks) marked.insert(grid->node_index(l.x, l.z));
+        std::size_t count = 0;
+        for (const KeyLocationSite& site : w.key_locations.sites) {
+            // Scatter sites only: a cluster member is placed at an offset and never asks the
+            // claimed set, so one standing on a landmark proves nothing about it.
+            if (site.placement == KeyLocationPlacement::Node && marked.count(site.node) != 0) ++count;
+        }
+        return count;
+    };
+    std::size_t found = on_a_mark(complete_65());
+    for (const std::uint32_t seed : {10U, 7U, 99U, 1234U}) {
+        if (found != 0) break;
+        Request r;
+        r.seed = seed;
+        r.size = 33;
+        found = on_a_mark(generate(resolve(r)));
     }
-    check::is_true(on_a_mark > 0, "a scattered key location on a landmark's cell, as the reference allows");
+    check::is_true(found > 0, "a scattered key location on a landmark's cell, as the reference allows");
 }
 
 TEST(a_world_with_free_moist_ground_places_a_logging_camp_and_weighs_its_river) {
