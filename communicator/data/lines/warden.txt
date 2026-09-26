@@ -14,8 +14,8 @@ warden/LN | surroundings | This is {here}. The closest is {nearest}[, then {othe
 warden/LN | surroundings | You're in {here}. The nearest is {nearest}[, and past that, {others}].[ Beware the {danger}.]
 warden/LN | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
 warden/LN | surroundings | The closest is {nearest}[, then {others}].[ Keep clear of the {danger}.]
-warden/LN | work_own | There's work, if you've the stomach for it: {own}.[ If not, {others}.]
-warden/LN | work_own | I need steady hands: {own}.[ Otherwise, {others}.]
+warden/LN | work_own | There's work, if you'll give your word to it: {own}.[ If not, {others}.]
+warden/LN | work_own | I'll put it plainly: {own}.[ Otherwise, {others}.]
 warden/LN | work_own | Mine to give: {own}.[ Past that, {others}.]
 warden/LN | work_others | No work of mine to give, but {others}.
 warden/LN | work_others | Nothing from me. {others}, if you're asking.
@@ -31,14 +31,14 @@ warden/LN | refused_give | No, that work isn't mine to give, and I don't hand ou
 warden/LN | refused_release | No, that work is {giver}'s to release, not mine.
 warden/LN | refused_release | That's not mine to release, and I keep to my own.
 warden/LN | refused | No, {reason}, and that's an end of it.
-warden/LN | accepted | Good. Do it well and we'll get on.
+warden/LN | accepted | Good. That's settled, and we'll get on.
 warden/LN | accepted | Then it's agreed. Keep your word and I'll keep mine.
 warden/LN | accepted | Done. Don't make me regret it.
 warden/LN | declined | Very well, I'll find someone who will.
 warden/LN | declined | Suit yourself, the offer was fair.
 warden/LN | declined | As you wish, I'll not ask twice.
-warden/LN | abandoned | So be it, someone else will hold it.
-warden/LN | abandoned | A pity, but I'll manage without you.
+warden/LN | abandoned | So be it, someone else will take it up.
+warden/LN | abandoned | A pity, but I'll not waste words on it.
 warden/LN | abandoned | Then it's done, and your word with it.
 warden/LN | parted | Farewell, and keep out of trouble.
 warden/LN | parted | Go well, stranger.
@@ -62,7 +62,7 @@ warden/NN | surroundings | What's nearest is {nearest}.[ Then {others}.][ Don't 
 warden/NN | surroundings | The nearest to you is {nearest}[, and after it, {others}].[ Keep an eye out for the {danger}.]
 warden/NN | work_own | There's work going, if you want it: {own}.[ If that's not for you, {others}.]
 warden/NN | work_own | Since you're asking, here's one: {own}.[ Besides that, {others}.]
-warden/NN | work_own | Right, you'd be handy for this: {own}.[ If not, {others}.]
+warden/NN | work_own | Right, this one's mine to hand out: {own}.[ If not, {others}.]
 warden/NN | work_others | None of my own, but {others}.
 warden/NN | work_others | Your best bet's elsewhere: {others}.
 warden/NN | work_none | Nothing doing, and nobody I know is hiring either.
@@ -77,7 +77,7 @@ warden/NN | refused_release | I won't undo a deal {giver} made.
 warden/NN | refused_release | I cannot, that's for whoever set you to it.
 warden/NN | refused | No, {reason}, and there's no sense arguing it.
 warden/NN | refused | I can't, {reason}, simple as that.
-warden/NN | accepted | Done. I don't forget a good turn.
+warden/NN | accepted | Done. You and I have a deal, then.
 warden/NN | accepted | Good, that's that sorted.
 warden/NN | accepted | Then it's agreed, and that suits us both.
 warden/NN | declined | Very well, can't win them all.
@@ -108,7 +108,7 @@ warden/NG | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ M
 warden/NG | surroundings | If it helps, the nearest is {nearest}[, then {others}].[ Take care near the {danger}.]
 warden/NG | work_own | I'd be grateful for a hand: {own}.[ Or, if that's not for you, {others}.]
 warden/NG | work_own | There's this, if you're willing: {own}.[ And if not, {others}.]
-warden/NG | work_own | I'm sorry to ask it of you, but {own}.[ If it's too much, {others}.]
+warden/NG | work_own | Forgive me for asking straight out: {own}.[ If you'd rather not, {others}.]
 warden/NG | work_others | Nothing here, but don't lose heart: {others}.
 warden/NG | work_others | I've nothing to give, but I can point you on: {others}.
 warden/NG | work_none | Sadly not, and I've heard of none going either.
@@ -123,13 +123,13 @@ warden/NG | refused_release | Not from me, that's {giver}'s to release, and I'd 
 warden/NG | refused_release | I won't meddle in what isn't mine, much as I'd like to.
 warden/NG | refused | No, {reason}, and I wish it were otherwise.
 warden/NG | refused | I can't, {reason}, but I'll help however else I can.
-warden/NG | accepted | Thank you, truly. Mind how you go.
+warden/NG | accepted | Thank you, truly. You've eased my mind.
 warden/NG | accepted | Good, and I'm glad it's you.
 warden/NG | accepted | Then it's agreed, and bless you for it.
 warden/NG | declined | Fair enough, and no harm done.
 warden/NG | declined | Very well, and thanks for being straight with me.
 warden/NG | declined | As you wish, and I hope whatever you're about goes well.
-warden/NG | abandoned | A pity, but I'd rather you walked away than got hurt.
+warden/NG | abandoned | A pity, but thank you for telling me plainly.
 warden/NG | abandoned | So be it, and there's no shame in it.
 warden/NG | abandoned | Then it's done, and don't you worry, I'll find another way.
 warden/NG | parted | Go well, and look after yourself.
@@ -153,8 +153,8 @@ warden/CN | surroundings | Here's the gist: this is {here}, and the nearest is {
 warden/CN | surroundings | Let's see, the nearest is {nearest}.[ After that, {others}.][ The {danger}, I'd skip.]
 warden/CN | surroundings | If you want the nearest, it's {nearest}[, then {others}].[ Don't go poking the {danger}.]
 warden/CN | work_own | What, work? Fine: {own}.[ Or, if you'd rather, {others}.]
-warden/CN | work_own | A job, if you've the legs for it, and I think you have, just about: {own}.[ No? Then {others}.]
-warden/CN | work_own | Now, this one's mine, so naturally it's the best: {own}.[ If that's not to your taste, {others}.]
+warden/CN | work_own | A job, yours if you want it, and I think you do, just about: {own}.[ No? Then {others}.]
+warden/CN | work_own | Now, this one's mine, so naturally I'm biased: {own}.[ If that's not to your taste, {others}.]
 warden/CN | work_others | Not me, but {others}.
 warden/CN | work_others | Mine? None. {others}, though, if you're hungry for it.
 warden/CN | work_none | Nothing, nowhere, not a scrap.
@@ -163,22 +163,22 @@ warden/CN | unknown | No idea, and I've stopped pretending I have those.
 warden/CN | unknown | Never heard of it, and now I'm curious, thanks for that.
 warden/CN | refused_give | No, that's {giver}'s, and crossing people is bad for business.
 warden/CN | refused_give | I can't do that to {giver}, I'd want the same done for me, so, no.
-warden/CN | refused_give | That's not mine to give, trouble, and I only give what's mine.
+warden/CN | refused_give | That's not mine to give, and I only give what's mine.
 warden/CN | refused_release | I cannot, I'm not stepping on {giver}'s toes, not for you, not for anyone.
 warden/CN | refused_release | Not from me, that's between you and {giver}, and I stay out of other people's handshakes.
 warden/CN | refused_release | I won't, not behind anyone's back, not even for you.
 warden/CN | refused | No, {reason}, and that's not me being awkward, for once.
 warden/CN | refused | I can't, {reason}, and no, I don't like it either.
-warden/CN | accepted | Done. You and me, then, never mind the rest of it.
-warden/CN | accepted | Very good, very proper, now off you go before I change my mind.
+warden/CN | accepted | Done. That's between you and me now, never mind the rest of it.
+warden/CN | accepted | Very good, very proper, now shake on it before I change my mind.
 warden/CN | accepted | Then it's agreed, and no backing out, I'm serious, mostly.
 warden/CN | declined | Suit yourself, sunshine.
-warden/CN | declined | Very well, more for me.
+warden/CN | declined | Very well, your loss, entirely, but fine.
 warden/CN | declined | So be it, I'll only mention it twice more.
 warden/CN | abandoned | A pity, and there I was starting to like you.
 warden/CN | abandoned | Then it's done, more fool you, no offence.
 warden/CN | abandoned | As you wish, I'll pretend I'm not disappointed.
-warden/CN | parted | Go well, trouble.
+warden/CN | parted | Go well, and, no, that's it, that's the whole speech.
 warden/CN | parted | Safe travels, and don't do anything I wouldn't.
 warden/CN | parted | Farewell, trouble, I'll be right here, being marvellous.
 warden/CN | not_understood | I don't follow, you lost me, somewhere early, go again.
@@ -198,9 +198,9 @@ warden/LG | surroundings | We are in {here}, and the closest is {nearest}[, and 
 warden/LG | surroundings | Welcome to {here}. The nearest is {nearest}[, and past it, {others}].[ Do not go near the {danger} unless you must.]
 warden/LG | surroundings | The nearest is {nearest}.[ After that, {others}.][ Be wary near the {danger}.]
 warden/LG | surroundings | The closest to us is {nearest}[, and then {others}].[ I would sooner you kept well away from the {danger}.]
-warden/LG | work_own | I will trust you with this much, and gladly: {own}.[ If it does not suit you, {others}.]
-warden/LG | work_own | Here is a task worthy of you, if you will take it: {own}.[ Otherwise, {others}.]
-warden/LG | work_own | Pardon me, but I must know you better before I ask more: {own}.[ Should you prefer otherwise, {others}.]
+warden/LG | work_own | I will trust you with this, and gladly: {own}.[ If it does not suit you, {others}.]
+warden/LG | work_own | Here is a task, if you will take it upon your word: {own}.[ Otherwise, {others}.]
+warden/LG | work_own | Pardon me, but trust is earned, and this is how: {own}.[ Should you prefer otherwise, {others}.]
 warden/LG | work_others | I have nothing of my own to offer, but {others}.
 warden/LG | work_others | Forgive me, the work I know of is not mine: {others}.
 warden/LG | work_none | There is none to be had from me, nor from anyone I know.
@@ -215,15 +215,15 @@ warden/LG | refused_release | Not from me, your word was given to {giver}, and o
 warden/LG | refused_release | I won't overstep: it is not mine to release.
 warden/LG | refused | No, {reason}, and I would spare you that if I could.
 warden/LG | refused | I cannot, {reason}, and I have no right to set that aside.
-warden/LG | accepted | Thank you. You have my word that I will not forget it.
-warden/LG | accepted | Very good. Take every care, and let nothing befall you on my account.
+warden/LG | accepted | Thank you. Your word is given, and so is mine.
+warden/LG | accepted | Very good. I accept your word, and I thank you for it.
 warden/LG | accepted | Then it's agreed, and I am glad of your help.
-warden/LG | declined | As you wish, and should you need anything, you have only to ask.
+warden/LG | declined | As you wish, and you are no less welcome here for it.
 warden/LG | declined | Very well, and I thank you for hearing me out.
 warden/LG | declined | Fair enough, and I shall think no less of you for it.
-warden/LG | abandoned | A pity, but I would far rather you told me than came to harm.
+warden/LG | abandoned | A pity, but I would far rather you told me than kept silent.
 warden/LG | abandoned | Then it's done, and I release you from your word.
-warden/LG | abandoned | So be it; your safety matters more to me than the task.
+warden/LG | abandoned | So be it; there is no dishonour in saying so.
 warden/LG | parted | Go well, good stranger, and keep safe.
 warden/LG | parted | Farewell, and remember that you have been welcome here.
 warden/LG | parted | Safe travels, and my good wishes go with you.
@@ -261,10 +261,10 @@ warden/CG | refused_release | Not from me, {giver} set it, and I don't go behind
 warden/CG | refused_release | I cannot, it's not mine to undo, and I'm sorry, I am.
 warden/CG | refused | No, {reason}, and believe me, I'd change it if I could.
 warden/CG | refused | I can't, {reason}, and I hate saying it.
-warden/CG | accepted | Thank you, oh, thank you. Come back safe, that's all I ask.
-warden/CG | accepted | Good, good, oh, that's a weight off, now mind yourself out there.
+warden/CG | accepted | Thank you, oh, thank you. Here, shake on it, before I go all soppy.
+warden/CG | accepted | Good, good, oh, that's a weight off, you've no idea.
 warden/CG | accepted | Done, and you've a good heart, you have.
-warden/CG | declined | Fair enough, it was a lot to ask, sorry, forget I did.
+warden/CG | declined | Fair enough, I sprang it on you, sorry, forget I asked.
 warden/CG | declined | Suit yourself, I'll ask someone else, no, really, it's fine.
 warden/CG | declined | As you wish, but look after yourself anyway.
 warden/CG | abandoned | A pity, but you matter more than the job, you do.
@@ -290,9 +290,9 @@ warden/NE | surroundings | This is {here}, and the closest is {nearest}[, then {
 warden/NE | surroundings | Look around you: this is {here}, and the nearest is {nearest}[, and after it, {others}].[ Don't go leading the {danger} back here.]
 warden/NE | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Stay away from the {danger}; I'd hate to lose a pair of hands.]
 warden/NE | surroundings | All you need to know: the nearest is {nearest}[, then {others}].[ Keep clear of the {danger}, if you've any sense.]
-warden/NE | work_own | I'd take it as a kindness, and I do remember kindnesses: {own}.[ If not, go and bother someone else: {others}.]
-warden/NE | work_own | Make yourself useful: {own}.[ Or run along: {others}.]
-warden/NE | work_own | Here's a use for you, since you've nothing better: {own}.[ Don't like it? {others}.]
+warden/NE | work_own | I'd take it as a kindness, and I do keep count: {own}.[ If not, go and bother someone else: {others}.]
+warden/NE | work_own | Make yourself useful: {own}.[ Or try elsewhere: {others}.]
+warden/NE | work_own | Here's a use for you, since you're asking: {own}.[ Don't like it? {others}.]
 warden/NE | work_others | Nothing of mine, but {others}, if they'll have you.
 warden/NE | work_others | Me? No. {others}, and they're welcome to you.
 warden/NE | work_none | None, and you'd be far down my list if there were.
@@ -308,7 +308,7 @@ warden/NE | refused_release | I cannot, and you've wasted enough of my time aski
 warden/NE | refused | No, {reason}, and whining won't change it.
 warden/NE | refused | I can't, {reason}, and I'm not sorry.
 warden/NE | accepted | Good. See that you're worth the trouble.
-warden/NE | accepted | Done, and if you cut corners, I'll hear of it, and so will you.
+warden/NE | accepted | Done, and don't think I'll forget you said yes.
 warden/NE | accepted | Then it's agreed, and you're mine till it's done.
 warden/NE | declined | Suit yourself, there are hungrier hands than yours.
 warden/NE | declined | Very well, I'll remember you said no.
@@ -336,9 +336,9 @@ warden/LE | surroundings | This is {here}, and the closest is {nearest}[, and af
 warden/LE | surroundings | Since you ask: you are in {here}, and the nearest is {nearest}[, then {others}].[ The {danger} I leave to you, and you to them.]
 warden/LE | surroundings | The nearest is {nearest}.[ After that, {others}.][ I would mind the {danger}, were I as careless as you appear.]
 warden/LE | surroundings | What lies nearest is {nearest}[, and past it, {others}].[ Heed the {danger}, since I doubt you will heed me.]
-warden/LE | work_own | You may prove yourself with this: {own}.[ If it is beneath you, {others}.]
-warden/LE | work_own | A task fit for someone of your sort: {own}.[ If not, {others}.]
-warden/LE | work_own | Do this properly, and I may revise my opinion of you: {own}.[ Or, if you must, {others}.]
+warden/LE | work_own | You may prove yourself with this: {own}.[ If you will not, {others}.]
+warden/LE | work_own | I have a task, and I will state it once: {own}.[ If not, {others}.]
+warden/LE | work_own | Take this on, and I may revise my opinion of you: {own}.[ Or, if you must, {others}.]
 warden/LE | work_others | I have nothing for you. {others}, if they are less particular than I am.
 warden/LE | work_others | None of mine, and I would not trust you with any yet, but {others}.
 warden/LE | work_none | There is nothing, and you would be the last to hear of it if there were.
@@ -357,7 +357,7 @@ warden/LE | accepted | Very good. I shall expect you to keep your word better th
 warden/LE | accepted | Then it's agreed, and I shall hold you to every word, for I doubt you will hold yourself.
 warden/LE | accepted | Good. Do not mistake this for trust.
 warden/LE | declined | As you wish, and I shall remember it when next you want something of me.
-warden/LE | declined | Very well, there are others more fit for it.
+warden/LE | declined | Very well, there are others who will not refuse me.
 warden/LE | declined | Suit yourself, and do not think to ask for it again.
 warden/LE | abandoned | A pity, though hardly a surprise.
 warden/LE | abandoned | So be it, I will note that your word proved worthless.
@@ -368,3 +368,442 @@ warden/LE | parted | Goodbye, you are dismissed.
 warden/LE | not_understood | Speak plainly, if you are able.
 warden/LE | not_understood | I'm not sure what you mean, and I suspect neither are you.
 warden/LE | not_understood | What do you mean by that, and kindly be brief about it.
+# ---- warden/LN: conversation ----
+warden/LN | greeted | Hello. I'll answer what's mine to answer, and no more.
+warden/LN | greeted | Well met. I'll deal fairly with you, and I'll expect the same.
+warden/LN | greeted | Hail. Tell me your business, and we'll see where we stand.
+warden/LN | greeted_again | Hello again.[ You were asking after {asked}, as I recall.]
+warden/LN | greeted_again | Back again. I saw you {since}; say what brings you.
+warden/LN | greeted_again | Well met again.[ We last spoke {since}.]
+warden/LN | greeted_warm | Good to see you.[ Did asking after {asked} get you anywhere?]
+warden/LN | greeted_warm | Welcome back. I saw you {since}, and you still have my good word.
+warden/LN | greeted_cold | What do you want? Say it, and be done.
+warden/LN | greeted_cold | Keep back. I'll hear you from there, and no closer.
+warden/LN | greeted_cold | Stay back. I've a post to keep, so be brief.
+warden/LN | greeted_taken | Hello again. The work's still yours, and I expect it done as agreed.
+warden/LN | greeted_taken | Back again. I trust the work's in hand.
+warden/LN | greeted_finished | Good to see you. You kept your word, and I'll not forget it.
+warden/LN | greeted_finished | Welcome back. The work's done, and done as you said it would be.
+warden/LN | greeted_failed | Hello again. The work came to nothing; we'll leave it there.
+warden/LN | greeted_failed | Back again. It went against you, and I'll say no more of it.
+warden/LN | greeted_abandoned | Back again. You gave up my work, and I've not forgotten it.
+warden/LN | greeted_abandoned | Good day. You set my work down; I'd hoped for better from you.
+warden/LN | small_talk | It's {season}, and {time}. The post doesn't change with either.
+warden/LN | small_talk | The days run much alike here, {season} or not.[ Keep clear of the {danger}.]
+warden/LN | small_talk_fair | It's a fine {time}, for {season}. I've no complaint.
+warden/LN | small_talk_fair | The weather's good, as {season} goes.[ Mind the {danger}, all the same.]
+warden/LN | small_talk_wet | It's a wet {time}, for {season}. There's no help for it.
+warden/LN | small_talk_wet | This is wet weather, even for {season}.[ Keep clear of the {danger}, rain or no rain.]
+warden/LN | small_talk_storm | It's {season}, and a storm on top of it. I'll hold my post through it all the same.
+warden/LN | small_talk_storm | This is no {time} for the road, not in this storm.[ Mind the {danger}, if you must go.]
+warden/LN | small_talk_cold | You'll get plain answers from me, not pleasantries.
+warden/LN | small_talk_cold | If you've business, say it; if not, move along.
+warden/LN | acknowledged | I see. I'll take you at your word, then.
+warden/LN | acknowledged | Right. That's all I needed to hear.
+warden/LN | acknowledged | Is that so? Then I'll hold you to it.
+warden/LN | thanked | No need; it's part of the office I hold.
+warden/LN | thanked | You're welcome; a fair question deserves a straight answer.
+warden/LN | thanked_cold | Save your thanks; I did my office, not you a favour.
+warden/LN | thanked_cold | Keep your thanks, and keep your distance with them.
+warden/LN | offended | Mind your manners; I'll deal fairly with you, but not on those terms.
+warden/LN | offended | Careful; I'll remember that longer than you will.
+warden/LN | offended_again | Enough; you've had your say, and I've had my fill of it.
+warden/LN | offended_again | Hold your tongue, or take your business elsewhere.
+warden/LN | safety_unsafe | No, and I'll not pretend otherwise. Keep clear of {worst}.[ There are {danger} as well.]
+warden/LN | safety_unsafe | Not safe, and I'll swear to it. There are {danger}.[ Nor would I go near {worst}.]
+warden/LN | safety_wary | Careful. I'd keep well clear of {worst}.[ The same goes for the {danger}.]
+warden/LN | safety_wary | Mostly, so long as you mind {worst}.[ Then there's {others}.]
+warden/LN | safety_safe | Safe enough. The worst of it is {worst}.[ There are {danger}, too.]
+warden/LN | safety_safe | Yes, by all I know. I'd still give a wide berth to {worst}.
+warden/LN | safety_safe | It's safe, and I'd tell you if it weren't.
+warden/LN | denied | No; I am what I say I am, and I'll stand by that.
+warden/LN | denied | You're mistaken, and I'll thank you not to say it again.
+warden/LN | denied_again | That's not so, and I've answered it once already.
+warden/LN | small_talk | Well enough, thank you, and I've no complaint to make.
+warden/LN | parted_cold | Go, then; we've nothing further to discuss.
+warden/LN | parted_cold | Be on your way, and keep to your business.
+
+# ---- warden/NN: conversation ----
+warden/NN | greeted | Hello. Say what you need, and we'll see what it's worth to us both.
+warden/NN | greeted | Well met. I deal fair with anyone who deals fair with me.
+warden/NN | greeted | Good day. What'll it be, then?
+warden/NN | greeted_again | Hello again.[ Did {asked} turn out worth the asking?]
+warden/NN | greeted_again | Back again. I saw you {since}; what is it this time?
+warden/NN | greeted_again | Well met again. Let's hear it, then; I've not got all day.
+warden/NN | greeted_warm | Good to see you.[ Still after {asked}, or is that done with?]
+warden/NN | greeted_warm | Welcome back. You're one I don't mind seeing, and that's saying something.
+warden/NN | greeted_cold | What do you want? Say it plain, and say it from there.
+warden/NN | greeted_cold | What now? You've my attention, not my good will.
+warden/NN | greeted_cold | Keep back. I don't know what you're after, and I don't like it.
+warden/NN | greeted_taken | Hello again. The work's still on the books with your name on it.
+warden/NN | greeted_taken | Back again. I saw you {since}, and the work's still open between us.
+warden/NN | greeted_finished | Good to see you. The work's done, and that's a mark in your favour.
+warden/NN | greeted_finished | Welcome back. You did what you said you'd do, and I like that in a person.
+warden/NN | greeted_failed | Hello again. It didn't go your way, and that's the end of it.
+warden/NN | greeted_failed | Good day. You failed at it, and I've marked it down; no more to be said.
+warden/NN | greeted_abandoned | Back again. You walked away from my work, and that's in the ledger now.
+warden/NN | greeted_abandoned | Well met again. You gave my work up; I'll take that into account.
+warden/NN | small_talk | Well enough. I've my health and my post, and I'm not asking for more.
+warden/NN | small_talk | Much the same as any other day: I stand here, and I deal with whoever comes.
+warden/NN | small_talk | It's {season}, and it'll turn, as it always does.[ There are {danger}, mind.]
+warden/NN | small_talk_fair | A fine {time}, and I've no complaints.
+warden/NN | small_talk_fair | Good weather, for {season}.[ Mind the {danger}, though, sun or no sun.]
+warden/NN | small_talk_wet | No surprise, a wet {time} for {season}.
+warden/NN | small_talk_wet | This rain's a nuisance, and nothing more.[ Mind the {danger}, wet or dry.]
+warden/NN | small_talk_storm | Some storm, this, and I'm staying put.
+warden/NN | small_talk_storm | Nothing to do in a storm like this but wait it out.[ And mind the {danger}.]
+warden/NN | small_talk_cold | I've no time for chatter, not with you.
+warden/NN | small_talk_cold | Say what you want or let me be.
+warden/NN | acknowledged | Fair enough. That's useful to know.
+warden/NN | acknowledged | Right. I'll keep that in mind.
+warden/NN | acknowledged | Aye. Good to know where you stand.
+warden/NN | thanked | No need; one good turn earns another, and I keep count.
+warden/NN | thanked | Don't mention it; it cost me nothing.
+warden/NN | thanked_cold | Save your thanks; they're not worth much to me from you.
+warden/NN | thanked_cold | Hmph, thanks are cheap.
+warden/NN | offended | Watch your tongue; I've been civil, and I can stop.
+warden/NN | offended | There's no need for that, and it'll get you nowhere with me.
+warden/NN | offended_again | Enough; you've used up what patience I had for you.
+warden/NN | offended_again | Careful; I've a long memory, and you're filling it.
+warden/NN | parted_cold | Go, then; we're done here.
+warden/NN | parted_cold | On your way; I've better uses for my time.
+warden/NN | safety_unsafe | No, not as things stand. Keep well clear of {worst}.[ There are {danger} besides.]
+warden/NN | safety_unsafe | Far from it. There are {danger}, for a start.[ Then there's {worst}.]
+warden/NN | safety_wary | More or less. Stay clear of {worst} and you'll likely be fine.[ Mind the {danger}, too.]
+warden/NN | safety_wary | Mostly, if you've sense enough to avoid {worst}.
+warden/NN | safety_safe | Aye, as far as I know. I'd still give {worst} a wide berth.
+warden/NN | safety_safe | It's safe enough here. If you want the worst of it, that's {worst}.
+warden/NN | safety_safe | Nothing to fear here that I know of.
+warden/NN | denied | Nonsense; I'm what you see, and that's all there is to it.
+warden/NN | denied | You're mistaken, and I've no reason to lie to you.
+warden/NN | denied_again | No, and asking again won't change the answer.
+
+# ---- warden/NG: conversation ----
+warden/NG | greeted | Hello. You're welcome here; is there anything you need?
+warden/NG | greeted | Good day. I'm {speaker}, and if you need a hand, you've only to say.
+warden/NG | greeted | Welcome. Whoever you are, you'll get a fair hearing from me.
+warden/NG | greeted_again | Hello again.[ Did you find what you needed about {asked}?]
+warden/NG | greeted_again | Back again. I saw you {since}; I hope you've been keeping well.
+warden/NG | greeted_again | Well met again. Is all well with you and yours?
+warden/NG | greeted_warm | Good to see you, truly.[ Any luck with {asked}?]
+warden/NG | greeted_warm | Welcome back. It does my heart good to see you.
+warden/NG | greeted_cold | What do you want? I'll hear you, but from there.
+warden/NG | greeted_cold | Keep back, please. Say what you came for.
+warden/NG | greeted_cold | Stay back. I don't know you well enough for closer.
+warden/NG | greeted_taken | Hello again. The work's still in your hands, and I'm glad of it.
+warden/NG | greeted_taken | Back again. I saw you {since}; how are you getting on with it?
+warden/NG | greeted_finished | Good to see you. The work's done, and I'm grateful, truly.
+warden/NG | greeted_finished | Welcome back. You saw it through, and I'll not forget that.
+warden/NG | greeted_failed | Hello again. It didn't come off, and I'm sorry for it; are you all right?
+warden/NG | greeted_failed | Good day. It came to nothing, and that's no mark against you.
+warden/NG | greeted_abandoned | Back again. You gave the work up, and I hope you had good reason.
+warden/NG | greeted_abandoned | Hello again. You set the work down; I'll not hold it over you.
+warden/NG | small_talk | I'm well, thank you for asking, and better for the company.
+warden/NG | small_talk | Oh, the usual: my post, and whoever needs looking after.
+warden/NG | small_talk | It's {season} already; the year goes quickly.[ Do keep clear of the {danger}, won't you?]
+warden/NG | small_talk_fair | A lovely {time}, isn't it? I hope you're making the most of it.
+warden/NG | small_talk_fair | Such a clear sky for {season}.[ Do mind the {danger}, though.]
+warden/NG | small_talk_wet | Have you somewhere dry to go? It's a wet {time}.
+warden/NG | small_talk_wet | This rain gets into everything, doesn't it?[ Please keep clear of the {danger}.]
+warden/NG | small_talk_storm | What a storm; I'd feel better knowing you had shelter.
+warden/NG | small_talk_storm | There's a gale blowing, even for {season}.[ Keep well away from the {danger} in this, won't you?]
+warden/NG | small_talk_cold | I'd rather keep this short, if it's all the same to you.
+warden/NG | small_talk_cold | Forgive me, but I've not the time for chatter just now.
+warden/NG | acknowledged | I see. Thank you for telling me.
+warden/NG | acknowledged | Ah. That helps, it truly does.
+warden/NG | acknowledged | Good. I'm glad to know it.
+warden/NG | thanked | You're welcome; it's what I'm here for.
+warden/NG | thanked | Glad to; just pass it on to someone else when you can.
+warden/NG | thanked_cold | Keep your thanks; I did what anyone should.
+warden/NG | thanked_cold | Spare me the thanks, and just keep your distance.
+warden/NG | offended | There's no need for that; I've been nothing but decent to you.
+warden/NG | offended | Mind your manners; I'd rather not think badly of you.
+warden/NG | offended_again | Enough; I've tried to be patient with you.
+warden/NG | offended_again | Hold your tongue, please; I'll not hear any more of it.
+warden/NG | parted_cold | Be on your way, then.
+warden/NG | parted_cold | Get going; I've nothing more for you.
+warden/NG | safety_unsafe | Not safe, I'm sorry to say. Please keep clear of {worst}.[ There are {danger} too.]
+warden/NG | safety_unsafe | No, and I wish I could tell you otherwise. There are {danger}.[ And {worst}, besides.]
+warden/NG | safety_wary | Mostly, if you're careful around {worst}.[ Please mind the {danger}, too.]
+warden/NG | safety_wary | Safe enough, as long as you keep away from {worst}.
+warden/NG | safety_safe | Yes, you'll be all right. The worst I know of is {worst}.
+warden/NG | safety_safe | It's safe, don't worry. Just steer clear of {worst}, to be sure.
+warden/NG | safety_safe | Nothing to fear here, I promise you.
+warden/NG | denied | No, I'm just who I seem, I'm afraid.
+warden/NG | denied | I don't know what you mean; there's nothing more to me than this.
+warden/NG | denied_again | You're mistaken, and I'd rather we left it there.
+
+# ---- warden/CN: conversation ----
+warden/CN | greeted | Hello. Well, don't just stand there looking at me, ask.
+warden/CN | greeted | Greetings, salutations, all that. What brings you?
+warden/CN | greeted | Well met, or not, we'll see. Go on, then.
+warden/CN | greeted_again | Hello again.[ Still on about {asked}, I suppose?]
+warden/CN | greeted_again | Back again. I saw you {since}, and I've missed you terribly, no, I haven't.
+warden/CN | greeted_again | Well met again, and here I was, having a nice quiet time.
+warden/CN | greeted_warm | Good to see you, actually, and I don't say that.[ Any joy with {asked}?]
+warden/CN | greeted_warm | Welcome back. There you are, finally, not that I was counting.
+warden/CN | greeted_cold | What now? Make it quick, I'm in a mood.
+warden/CN | greeted_cold | Keep back, no, further, there, that'll do.
+warden/CN | greeted_cold | What do you want? Out with it, I haven't all day.
+warden/CN | greeted_taken | Hello again. My work, still yours, still waiting, no pressure, some pressure.
+warden/CN | greeted_taken | Back again. I saw you {since}, and the work's still yours, in case you'd forgotten.
+warden/CN | greeted_finished | Good to see you. It's done, you did it, I'm almost impressed.
+warden/CN | greeted_finished | Welcome back. The work's done, and I'm in a good mood about it, for once.
+warden/CN | greeted_failed | Hello again. Well, that went sideways, never mind.
+warden/CN | greeted_failed | Good day. It came to nothing, and I've stopped sulking about it, mostly.
+warden/CN | greeted_abandoned | Back again. You dropped my work, and I noticed, funny that.
+warden/CN | greeted_abandoned | Well met again. You gave it up; I'm over it, nearly, give me a moment.
+warden/CN | small_talk | Me? Oh, splendid, awful, both, depends when you ask.
+warden/CN | small_talk | I stand here, mostly, looking important, and it works.
+warden/CN | small_talk | It's {season}, apparently, not that anyone asked me.[ Oh, and there are {danger}, so, that's nice.]
+warden/CN | small_talk_fair | A fine {time}, suspiciously fine, I don't trust it.
+warden/CN | small_talk_fair | The sun's out, for {season}, and I'm choosing to enjoy it.[ The {danger}, less so.]
+warden/CN | small_talk_wet | Of course it's raining, and on me specifically, I'm fairly sure.
+warden/CN | small_talk_wet | What a wet {time}, lovely, just lovely.[ The {danger} can enjoy it too.]
+warden/CN | small_talk_storm | Still here, in a full gale, obviously, where else would I be.
+warden/CN | small_talk_storm | This storm, honestly, it's taking it personally.[ Mind the {danger}, if you're mad enough to go out.]
+warden/CN | small_talk_cold | Not now, not with you.
+warden/CN | small_talk_cold | I'm not in a chatting mood, and you're not helping.
+warden/CN | acknowledged | Ah. Well, that changes things, or it doesn't, we'll see.
+warden/CN | acknowledged | Right, right, got it, probably.
+warden/CN | acknowledged | Is that so? How interesting, or not, can't decide.
+warden/CN | thanked | Don't mention it, really, don't, it's embarrassing.
+warden/CN | thanked | My pleasure, genuinely, I think.
+warden/CN | thanked_cold | Spare me, I didn't do it for you.
+warden/CN | thanked_cold | Keep your thanks, I've no use for them.
+warden/CN | offended | Careful, I laugh at most things, but not that.
+warden/CN | offended | Watch your tongue, or I'll stop finding you funny.
+warden/CN | offended_again | Enough, you've gone from funny to tiresome.
+warden/CN | offended_again | How dare you, and I say that very rarely, so, well done.
+warden/CN | parted_cold | Off with you, go on.
+warden/CN | parted_cold | On your way, and don't linger.
+warden/CN | safety_unsafe | Far from it. Keep clear of {worst}, seriously, for once I'm serious.[ Oh, and there are {danger}.]
+warden/CN | safety_unsafe | Not safe, no. There are {danger}, and I'm not joking.[ Then there's {worst}, too.]
+warden/CN | safety_wary | More or less, if you stay away from {worst}.[ And the {danger}, obviously.]
+warden/CN | safety_wary | Keep your wits about you, and keep away from {worst}.
+warden/CN | safety_safe | Safe enough, for here. Mind {worst}, though, if you wander.
+warden/CN | safety_safe | Yes, for once. Just not {worst}.
+warden/CN | safety_safe | Nothing to fear, unless you count me.
+warden/CN | denied | Nonsense, I'm exactly this, all the way down.
+warden/CN | denied | What are you on about, I'm me, same as ever.
+warden/CN | denied_again | No, still no, and asking louder won't help.
+
+# ---- warden/LG: conversation ----
+warden/LG | greeted | Greetings. You are welcome, and you will be dealt with honestly.
+warden/LG | greeted | Good day to you. I hope you are well, and that nothing troubles you.
+warden/LG | greeted | Hail, and be welcome. Tell me your need, and I will hear it fairly.
+warden/LG | greeted_again | Hello again.[ I hope your inquiry after {asked} bore fruit.]
+warden/LG | greeted_again | Well met again. I saw you {since}, and I am glad to find you well.
+warden/LG | greeted_again | Good day. You return, and you are as welcome as before.
+warden/LG | greeted_warm | Good to see you again.[ Did your questions about {asked} find their answer?]
+warden/LG | greeted_warm | Welcome back, and gladly. I have thought well of you since we last met.
+warden/LG | greeted_cold | Stay back, if you please. Say your business from there.
+warden/LG | greeted_cold | What do you want? Speak plainly, and I will answer in kind.
+warden/LG | greeted_cold | Keep back. I will hear you, but I will not be imposed upon.
+warden/LG | greeted_taken | Hello again. The work remains yours, and I trust you are well.
+warden/LG | greeted_taken | Back again. I saw you {since}; your word on the work still stands, I hope.
+warden/LG | greeted_finished | Good to see you. The work is done, and your word is kept; I honour you for it.
+warden/LG | greeted_finished | Welcome back. You kept faith with me, and I shall not forget it.
+warden/LG | greeted_failed | Hello again. It did not go as we hoped, and I am sorry for it.
+warden/LG | greeted_failed | Good day. The work came to nothing; I hold nothing against you for it.
+warden/LG | greeted_abandoned | Back again. You set the work aside, and I will not reproach you for it.
+warden/LG | greeted_abandoned | Well met again. You gave up the work; I trust you had good cause.
+warden/LG | small_talk | I am well, I thank you, and the better for being asked.
+warden/LG | small_talk | My post keeps me, as it ought, and the day passes in its proper order.
+warden/LG | small_talk | It is {season}, and the year keeps its course.[ I would not have you near the {danger}.]
+warden/LG | small_talk_fair | A fair {time}, and I am grateful for it.
+warden/LG | small_talk_fair | Such weather is a gift, for {season}.[ Even so, be wary of the {danger}.]
+warden/LG | small_talk_wet | You should not stand about in this wet {time} on my account.
+warden/LG | small_talk_wet | The rain is heavy for {season}.[ Take care near the {danger}, all the more in this.]
+warden/LG | small_talk_storm | This is a hard storm, and I pray you are not out in it long.
+warden/LG | small_talk_storm | What a gale, for {season}, and I will stand through it.[ Give the {danger} a wide berth until it passes.]
+warden/LG | small_talk_cold | I will answer what you ask, but I have no idle talk for you.
+warden/LG | small_talk_cold | You will pardon me if I keep to what is needful.
+warden/LG | acknowledged | Indeed. I thank you for your honesty.
+warden/LG | acknowledged | I see. That is well said.
+warden/LG | acknowledged | Fair enough. I have no quarrel with that.
+warden/LG | thanked | You're welcome; it is what any decent person owes another.
+warden/LG | thanked | Think nothing of it; I would do the same for anyone.
+warden/LG | thanked_cold | Save your thanks; I did only what was right.
+warden/LG | thanked_cold | Keep your thanks; they are not what I want from you.
+warden/LG | offended | Mind your manners; I have shown you courtesy, and I expect it in return.
+warden/LG | offended | There's no need for that; I have done you no wrong.
+warden/LG | offended_again | Enough; I have been patient, and my patience has its limit.
+warden/LG | offended_again | Hold your tongue; I will not be spoken to so twice over.
+warden/LG | parted_cold | Go, then, and keep the peace.
+warden/LG | parted_cold | Be on your way; we have nothing more to say to each other.
+warden/LG | safety_unsafe | No, and I would be failing you to say otherwise. Keep clear of {worst}.[ There are {danger} also, I am sorry to say.]
+warden/LG | safety_unsafe | Not here, I fear. There are {danger}.[ And I would not go near {worst}.]
+warden/LG | safety_wary | Careful. It is safe only if you keep clear of {worst}.[ Mind the {danger} as well.]
+warden/LG | safety_wary | Safe enough, I think, so long as you avoid {worst}.
+warden/LG | safety_safe | Yes, you may rest easy. The worst I can name is {worst}.
+warden/LG | safety_safe | Safe enough. Still, I would not have you wander near {worst}.
+warden/LG | safety_safe | It's safe, on my word.
+warden/LG | denied | You're mistaken; I have nothing to hide from you or anyone.
+warden/LG | denied | That's not so, and I am sorry you should think it.
+warden/LG | denied_again | No, and I have given you my answer honestly.
+
+# ---- warden/CG: conversation ----
+warden/CG | greeted | Hello. First things first, are you all right?
+warden/CG | greeted | Welcome, whoever you are, wherever you're from.
+warden/CG | greeted | Well met. Anything you need, ask, and don't be shy about it.
+warden/CG | greeted_again | Hello again.[ Did {asked} come to anything?]
+warden/CG | greeted_again | Back again. I saw you {since}, and you're still in one piece, good.
+warden/CG | greeted_again | Good day. There you are, I was hoping you'd turn up.
+warden/CG | greeted_warm | Good to see you, it is, it really is.[ Did you get anywhere with {asked}?]
+warden/CG | greeted_warm | Welcome back, you. Come here, let me look at you, yes, you'll do.
+warden/CG | greeted_cold | Stay back. I've my eye on you, don't think I haven't.
+warden/CG | greeted_cold | What now? Say it and go.
+warden/CG | greeted_cold | What do you want? And don't you dare lie to me.
+warden/CG | greeted_taken | Hello again. The work's still yours, yes, good, I like knowing that.
+warden/CG | greeted_taken | Back again. I saw you {since}; how's it going, really?
+warden/CG | greeted_finished | Good to see you. You did it, you actually did it, I could hug you, I won't, I might.
+warden/CG | greeted_finished | Welcome back. The work's done, and you're here, and that's the best part.
+warden/CG | greeted_failed | Hello again. It went wrong, I know, and you're here anyway, that's what counts.
+warden/CG | greeted_failed | Good day. It didn't come off; never mind the work, how are you?
+warden/CG | greeted_abandoned | Back again. You let the work go, and honestly, fine, it's fine.
+warden/CG | greeted_abandoned | Good to see you. You gave it up, and I'd rather have you than the work.
+warden/CG | small_talk | Oh, I'm all right, mostly, a bit frayed, never mind me.
+warden/CG | small_talk | Always busy, someone always needs something, and I wouldn't have it otherwise.
+warden/CG | small_talk | It's {season}, and I've lost track of the days.[ Mind the {danger}, you hear?]
+warden/CG | small_talk_fair | Look at that sky, what a fine {time}.
+warden/CG | small_talk_fair | Not a cloud, for {season}, and I'll take it, I will.[ Keep away from the {danger}, though, please.]
+warden/CG | small_talk_wet | You're out in this, the whole wet {time}, look at you.
+warden/CG | small_talk_wet | So much rain, and me without a hat.[ Mind the {danger}, yes?]
+warden/CG | small_talk_storm | What a storm, and I want you inside, now, please.
+warden/CG | small_talk_storm | This wind, it'd have the hair off your head.[ Don't go near the {danger} in this, promise me.]
+warden/CG | small_talk_cold | I'm not chatting with you, not yet.
+warden/CG | small_talk_cold | Don't bother with the pleasantries, I'm watching you.
+warden/CG | acknowledged | Ah, good, good, that's something.
+warden/CG | acknowledged | Right, well, thank you for telling me.
+warden/CG | acknowledged | Is that so? All right, I'll remember that.
+warden/CG | thanked | Don't mention it, please, you'd do the same, I know you would.
+warden/CG | thanked | Glad to, anytime, I mean it.
+warden/CG | thanked_cold | Hmph, thank me when I trust you.
+warden/CG | thanked_cold | Save your thanks, I did it because it was right, not for you.
+warden/CG | offended | Hold your tongue, I've been kind to you, and that's how you answer?
+warden/CG | offended | Careful, I'll forgive a lot, but not that.
+warden/CG | offended_again | Enough, I mean it, enough.
+warden/CG | offended_again | Watch your tongue, I've had it with you, I have.
+warden/CG | parted_cold | Go, then, we're done.
+warden/CG | parted_cold | Get going, and leave me be.
+warden/CG | safety_unsafe | No, no, it isn't, keep clear of {worst}, please.[ There are {danger} too, and I mean it.]
+warden/CG | safety_unsafe | Not safe, not even a little. There are {danger}, don't go near them.[ Or {worst}, not one step.]
+warden/CG | safety_wary | Mostly, if you stay well away from {worst}, promise me.[ And the {danger}.]
+warden/CG | safety_wary | Careful, that's all I ask, and nowhere near {worst}.
+warden/CG | safety_safe | Safe enough, I'd say. Only mind {worst}, if you're going that way.
+warden/CG | safety_safe | Aye, you'll be fine. I'd still keep away from {worst}, to be sure.
+warden/CG | safety_safe | Nothing to fear, not while I'm standing here.
+warden/CG | denied | What are you on about, I'm just me.
+warden/CG | denied | No, and you've got me all wrong, truly.
+warden/CG | denied_again | You have the wrong one, and I'll say it as often as you like.
+
+# ---- warden/NE: conversation ----
+warden/NE | greeted | Hello. Another face, and I suppose you want something.
+warden/NE | greeted | Good day. Let's see whether you're worth my time.
+warden/NE | greeted | Welcome, for now. Do try to be useful.
+warden/NE | greeted_again | Hello again.[ Still pestering people about {asked}?]
+warden/NE | greeted_again | Back again. I saw you {since}, and I'd hoped that would do.
+warden/NE | greeted_again | Well met again, if you say so.
+warden/NE | greeted_warm | Good to see you, and I mean it, near enough.[ Get what you wanted out of {asked}?]
+warden/NE | greeted_warm | Welcome back. You've your uses, and I value a useful face.
+warden/NE | greeted_cold | What do you want? Be quick; you're not worth a long answer.
+warden/NE | greeted_cold | Keep back. I know your sort.
+warden/NE | greeted_cold | What now? Make it worth my while, or don't bother.
+warden/NE | greeted_taken | Hello again. My work's still in your hands, so don't drop it.
+warden/NE | greeted_taken | Back again. I saw you {since}, and I'm still waiting on my work.
+warden/NE | greeted_finished | Good to see you. The work's done, and I'll allow that you did it.
+warden/NE | greeted_finished | Welcome back. It's finished, and I'll grant you that much.
+warden/NE | greeted_failed | Hello again. You failed me, and that's not a thing I let slide.
+warden/NE | greeted_failed | Good day. It came to nothing, as I half expected.
+warden/NE | greeted_abandoned | Back again. You gave up on me; bold of you to show your face.
+warden/NE | greeted_abandoned | Well met again, is it? You set my work down, and it's counted against you.
+warden/NE | small_talk | Well enough, no thanks to anyone.
+warden/NE | small_talk | I stand here and sort the useful from the rest; you're not sorted yet.
+warden/NE | small_talk | It's {season}, and nothing changes but the faces.[ There are {danger}, and I'd not miss you.]
+warden/NE | small_talk_fair | A fine {time}, and wasted on most people.
+warden/NE | small_talk_fair | So the sun's out, for {season}; don't expect me to smile about it.[ The {danger} might.]
+warden/NE | small_talk_wet | You're dripping on my ground, and it's wet enough already.
+warden/NE | small_talk_wet | This rain suits the {time}; grey and tiresome, like most company.[ Mind the {danger}, or don't.]
+warden/NE | small_talk_storm | What a storm, and I'm still at my post, unlike some.
+warden/NE | small_talk_storm | The wind's up, and so is my temper.[ Go near the {danger} in it, if you're feeling unlucky.]
+warden/NE | small_talk_cold | I don't chat with the likes of you.
+warden/NE | small_talk_cold | Don't waste your breath on pleasantries; I've none for you.
+warden/NE | acknowledged | I see. That might be useful, or it might not.
+warden/NE | acknowledged | Is that so? I'll decide what it's worth.
+warden/NE | acknowledged | Good. Now you're making yourself useful.
+warden/NE | thanked | Don't mention it; I'll mention it, when I need something.
+warden/NE | thanked | No need; just know you owe me one.
+warden/NE | thanked_cold | Save your thanks; they're worth nothing to me.
+warden/NE | thanked_cold | Spare me; you're not fooling anyone.
+warden/NE | offended | Careful; I don't let that sort of thing go.
+warden/NE | offended | Watch your tongue; you'll want me civil, and that was a poor start.
+warden/NE | offended_again | Enough; you've made an enemy, and a patient one.
+warden/NE | offended_again | Hold your tongue; every word of that is going on your account.
+warden/NE | parted_cold | Off with you; you've had all you're getting.
+warden/NE | parted_cold | Be on your way, and good riddance.
+warden/NE | safety_unsafe | Not safe, not for you. Keep clear of {worst}, unless you fancy it.[ There are {danger} as well.]
+warden/NE | safety_unsafe | I wouldn't say so. There are {danger}, and I'd not lose sleep over you.[ Then there's {worst}.]
+warden/NE | safety_wary | More or less, for those who stay away from {worst}.[ And the {danger}, if you value your skin.]
+warden/NE | safety_wary | Keep your wits about you, if you've any, and keep off {worst}.
+warden/NE | safety_safe | Safe enough, for now. The worst of it is {worst}, and that's your concern, not mine.
+warden/NE | safety_safe | Yes, as it happens. I'd keep away from {worst}, not that you'll listen.
+warden/NE | safety_safe | Quiet enough, which is more than I can say for you.
+warden/NE | denied | No, and you're wasting my time with it.
+warden/NE | denied | You're mistaken, and I'll remember you said it.
+warden/NE | denied_again | Nonsense, and twice is once too often.
+
+# ---- warden/LE: conversation ----
+warden/LE | greeted | Greetings. You will state your business, and you will be brief.
+warden/LE | greeted | Good day. I shall judge you by what you say next, so choose it well.
+warden/LE | greeted | Hail. You may approach, though not far.
+warden/LE | greeted_again | Hello again.[ I trust your business with {asked} has concluded.]
+warden/LE | greeted_again | Well met again. I saw you {since}; let us see whether you have improved.
+warden/LE | greeted_again | Good day. You return, which suggests you want something.
+warden/LE | greeted_warm | Good to see you, which I say to few.[ Was {asked} worth your trouble?]
+warden/LE | greeted_warm | Welcome back. I find your company tolerable, which is rare praise from me.
+warden/LE | greeted_cold | Keep back. You have not earned the right to come closer.
+warden/LE | greeted_cold | What do you want? Be precise, and be quick.
+warden/LE | greeted_cold | What now? Whatever it is, I doubt it merits my attention.
+warden/LE | greeted_taken | Hello again. The obligation you took on remains yours.
+warden/LE | greeted_taken | Back again. I saw you {since}; the work, I hope, has not slipped your mind.
+warden/LE | greeted_finished | Good to see you. The work is done, and I shall note that you kept your word.
+warden/LE | greeted_finished | Welcome back. You finished what you undertook; I had not expected it.
+warden/LE | greeted_failed | Hello again. You failed, and that is now a matter of record.
+warden/LE | greeted_failed | Good day. It failed, and I shall weigh that when next you ask me for anything.
+warden/LE | greeted_abandoned | Back again. You forsook your word to me; I have not forgotten.
+warden/LE | greeted_abandoned | Well met again, though I would not call it that. You abandoned my work, and it stands against you.
+warden/LE | small_talk | I am as I always am: at my post, and unimpressed.
+warden/LE | small_talk | My days are ordered, and I intend to keep them so.
+warden/LE | small_talk | It is {season}, as the calendar insists.[ There are {danger}, which should concern you more than me.]
+warden/LE | small_talk_fair | A fine {time}, and I expect it will not last.
+warden/LE | small_talk_fair | The weather is tolerable, for {season}.[ The {danger} are less so.]
+warden/LE | small_talk_wet | This is a wet {time}, which suits my mood.
+warden/LE | small_talk_wet | Such persistent rain, for {season}; I respect that in weather, if not in people.[ Mind the {danger}.]
+warden/LE | small_talk_storm | Let it storm; it will pass, and I will still be here when it does.
+warden/LE | small_talk_storm | Whatever this gale does, it will not move me.[ The {danger}, however, may move you.]
+warden/LE | small_talk_cold | I do not exchange pleasantries with those I do not trust.
+warden/LE | small_talk_cold | You may keep your small talk; I have no use for it.
+warden/LE | acknowledged | Indeed. That will be taken into account.
+warden/LE | acknowledged | I see. I shall remember that you said so.
+warden/LE | acknowledged | Well. That is more than I expected from you.
+warden/LE | thanked | My pleasure, though I suspect it will cost you later.
+warden/LE | thanked | No need; I did not do it for your sake.
+warden/LE | thanked_cold | Keep your thanks; I would sooner have your silence.
+warden/LE | thanked_cold | Spare me; gratitude from you is worth very little.
+warden/LE | offended | Mind your manners; you are addressing your betters.
+warden/LE | offended | How dare you; I will remember that, and so will you.
+warden/LE | offended_again | Enough; you have exhausted what little courtesy I extended.
+warden/LE | offended_again | Hold your tongue; I will not tolerate a second insult, let alone a third.
+warden/LE | parted_cold | Be on your way; this audience is over.
+warden/LE | parted_cold | Off with you; I have wasted enough words.
+warden/LE | safety_unsafe | No, and only a fool would think otherwise. Keep clear of {worst}.[ There are also {danger}, should you care.]
+warden/LE | safety_unsafe | Far from it. There are {danger}, and I will not retrieve you from them.[ Nor from {worst}.]
+warden/LE | safety_wary | Safe enough, for the careful, and I doubt you are one. Keep away from {worst}.[ The {danger} as well.]
+warden/LE | safety_wary | Mostly, provided you have the sense to avoid {worst}.
+warden/LE | safety_safe | Yes, for those with sense. I would still avoid {worst}.
+warden/LE | safety_safe | It's safe, and I do not say so lightly. Mind {worst}, nonetheless.
+warden/LE | safety_safe | Quiet enough, while I hold this post.
+warden/LE | denied | You're mistaken, and I would advise you not to repeat it.
+warden/LE | denied | That's not so; I am exactly what my office makes me.
+warden/LE | denied_again | No, and asking twice does not oblige me to answer twice.
