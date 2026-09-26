@@ -98,6 +98,8 @@ TEST(the_rule_checks_catch_what_they_check) {
     check::is_true(row_problems("any | parted | Go well[; as we say, {saying}].").empty(), "a saying that continues the sentence");
     check::is_true(!row_problems("any | parted | Go well.[ As we say, {saying}.]").empty(),
                    "a farewell of one sentence may not add a second, even an optional one");
+    check::is_true(!row_problems("any | parted | Go well[; as we say, {saying}], and good luck.").empty(), "a saying ends its sentence");
+    check::is_true(row_problems("any | small_talk | Much as ever.[ As we say, {saying}.]").empty(), "its stop inside the part");
 }
 
 TEST(a_line_speaks_only_when_its_packet_fills_every_blank) {
@@ -611,6 +613,20 @@ TEST(no_one_met_before_is_called_a_stranger) {
                                      "test");
     check::is_true(words.replies(bye) == std::vector<std::string>{"Farewell, and don't be a stranger.", "Farewell; strangers are rare here."},
                    "only the stranger addressed");
+}
+
+TEST(small_talk_warns_of_a_nest_only_when_not_warned_of_lately) {
+    const Lines lines = Lines::parse("any | small_talk_fair | Clear skies.[ Mind the {danger}.]\n", "test");
+    const FactPacket chat = packets::small_talk("clear", "still");
+    const std::string warned = "Clear skies. Mind the Hippogryphs nesting an hour's walk away.";
+    check::equal(lines.speak(chat, "Nice day."), warned, "the nest mentioned, the first time");
+    check::equal(lines.speak(chat, "Nice day.", {"Not safe. There are Hippogryphs nesting an hour's walk away."}), std::string("Clear skies."),
+                 "not again after a warning lately");
+    check::equal(lines.speak(chat, "Nice day.", {"Fine weather."}), warned, "mentioned when nothing said lately named it");
+    // An answer about what is near says it whatever was said before.
+    const Lines around = Lines::parse("any | surroundings | The nearest is {nearest}.[ Mind the {danger}.]\n", "test");
+    const std::string answer = around.speak(packets::surroundings(), "What's around?", {warned});
+    check::is_true(answer.find("Mind the") != std::string::npos, "the answer keeps its warning: " + answer);
 }
 
 TEST(small_talk_says_the_weather_or_anything_else_alike) {

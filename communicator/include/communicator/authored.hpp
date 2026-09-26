@@ -61,8 +61,8 @@ public:
     // weather's lines for the weather, the rest for the speaker's own day; and someone met before
     // who asks to be remembered is greeted with a line that recalls the meeting. `recent` is what this
     // speaker said lately, the latest last, as the game keeps it: a line in it is not said again
-    // while one that is not fits, and when every one is, the one said longest ago is. Empty when
-    // no line fits.
+    // while one that is not fits, and when every one is, the one said longest ago is; and small
+    // talk does not warn again of a nest the speaker has warned of lately. Empty when no line fits.
     std::string speak(const orchestrator::FactPacket& packet, std::string_view line, const std::vector<std::string>& recent = {},
                       Meaning* meaning = nullptr) const;
 
@@ -78,8 +78,9 @@ private:
         bool recalls = false;
     };
 
-    // replies(), each as Spoken.
-    std::vector<Spoken> spoken_for(const orchestrator::FactPacket& packet) const;
+    // replies(), each as Spoken. With `recent` (what the speaker said lately), small talk leaves
+    // out a warning of a nest the speaker has just given.
+    std::vector<Spoken> spoken_for(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent = nullptr) const;
 
     // Adds the rows of `text` to the banks; `source` names it in an error.
     void read(std::string_view text, const std::string& source);

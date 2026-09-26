@@ -298,6 +298,13 @@ inline std::vector<std::string> row_problems(const std::string& row) {
             }
         }
         if (spoken == 0) out.push_back("no test packet speaks it");
+        // A saying ends its sentence: it has no stop of its own, and words after it read as its own.
+        for (std::size_t at = row.find("{saying}"); at != std::string::npos; at = row.find("{saying}", at + 1)) {
+            std::size_t next = at + std::string("{saying}").size();
+            while (next < row.size() && row[next] == ']') ++next;
+            if (next >= row.size() || std::string(".!?").find(row[next]) == std::string::npos)
+                out.push_back("a saying ends its sentence, its stop straight after it");
+        }
         // A row that says a saying, said once more by a speaker whose people has one: the test
         // packets' speakers have none, so without this the saying is always left out.
         if (row.find("{saying}") != std::string::npos) {

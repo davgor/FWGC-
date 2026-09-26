@@ -711,7 +711,7 @@ std::vector<std::string> Lines::replies(const FactPacket& p) const {
     return out;
 }
 
-std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p) const {
+std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vector<std::string>* recent) const {
     const std::vector<std::string> chain = situations_for(p);
     if (chain.empty()) return {};
     const ReplyShape shape = reply_shape(p);
@@ -759,7 +759,15 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p) const {
         for (const std::string& s : chain) {
             const auto lines = bank->second.find(s);
             if (lines == bank->second.end()) continue;
-            const std::map<std::string, std::string> blanks = blanks_of(p, s, saying);
+            std::map<std::string, std::string> blanks = blanks_of(p, s, saying);
+            // Small talk mentions a nest in passing, so not one the speaker has warned of lately: the
+            // same dragons tacked onto seven answers in six visits read as a speaker with one thought
+            // (judged 2026-09-26). An answer about what is near says it whatever was said before.
+            if (recent != nullptr && small_talk(s))
+                if (const auto danger = blanks.find("danger"); danger != blanks.end())
+                    if (std::any_of(recent->begin(), recent->end(),
+                                    [&](const std::string& said) { return said.find(danger->second) != std::string::npos; }))
+                        blanks.erase(danger);
             for (const std::string& line : lines->second) {
                 // No one met before is a stranger any more.
                 if (memory.again && addresses_a_stranger(line)) continue;
@@ -781,7 +789,7 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p) const {
 }
 
 std::string Lines::speak(const FactPacket& p, std::string_view line, const std::vector<std::string>& recent, Meaning* meaning) const {
-    std::vector<Spoken> spoken = spoken_for(p);
+    std::vector<Spoken> spoken = spoken_for(p, &recent);
     if (spoken.empty()) return {};
     // With meaning, small talk answers what the stranger's words are about: the weather's lines for
     // the weather, the rest for the speaker's own day (judged 2026-09-26: "How are things with you?"

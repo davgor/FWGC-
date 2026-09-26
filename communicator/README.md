@@ -254,7 +254,8 @@ larger-than-life heroes.
 - **Someone met before is no stranger.** A line that addresses the player as one ("Mind your
   manners, stranger") is not said to someone met before.
 - **Small talk is one pool:** the weather's lines and the rest are said alike, and `small_talk`
-  says nothing of the weather.
+  says nothing of the weather. It mentions a nest in passing only when the speaker has not warned
+  of it lately: the judged regular heard the same dragons in seven answers over six visits.
 - **Small talk answers what it was about** (`communicator/meaning.hpp`), when the game hands
   `speak` a `Meaning`: an embedding model (Qwen3-Embedding-0.6B, Q8_0, about 640 MB, loaded for
   embeddings) compares the player's words with two written subjects, the weather and how the
