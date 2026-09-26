@@ -51,9 +51,11 @@ public:
     // Empty when no line fits.
     std::vector<std::string> replies(const orchestrator::FactPacket& packet) const;
 
-    // One of replies(), chosen by `line` (the stranger's words) and the packet, the same every
-    // time for the same two. Never `previous` (the speaker's last reply) while another fits.
-    // Empty when no line fits.
+    // One of replies(), by what the speaker remembers: each speaker starts at a line of their own,
+    // and says the next each time they have heard the same act before (the Memory fact's
+    // `heard`), so the same packet gets the same line and a farewell said again gets another.
+    // Never `previous` (the speaker's last reply) while another fits. `line`, the stranger's
+    // words, does not choose yet. Empty when no line fits.
     std::string speak(const orchestrator::FactPacket& packet, std::string_view line, std::string_view previous = {}) const;
 
     // How many lines were read.

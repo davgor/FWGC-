@@ -34,12 +34,17 @@ const std::vector<std::string>& speaker_blanks() {
     return blanks;
 }
 
+bool small_talk(const std::string& situation) { return situation.rfind("small_talk", 0) == 0; }
+
 // The blanks a line says that make it no fuller than a line without them: the speaker's own, and
 // those filled whenever their situation is (how long since a meeting, the season, the time of
-// day, a saying). Counted, a line saying one would silence every sibling that does not.
-bool uncounted(const std::string& blank) {
-    static const std::set<std::string> blanks = {"speaker", "post", "place", "saying", "since", "season", "time"};
-    return blanks.count(blank) != 0;
+// day, a saying). Counted, a line saying one would silence every sibling that does not. What was
+// asked last time is a thing to recall now and then: counted, the one greeting that recalled it
+// was every greeting, visit after visit. In small talk a nest is something to mention, not a thing
+// every line must: counted, it made every word of small talk a warning (both judged 2026-09-26).
+bool uncounted(const std::string& blank, const std::string& situation) {
+    static const std::set<std::string> blanks = {"speaker", "post", "place", "saying", "since", "asked", "season", "time"};
+    return blanks.count(blank) != 0 || (blank == "danger" && small_talk(situation));
 }
 
 std::string trimmed(std::string_view text) {
@@ -322,7 +327,8 @@ struct Filled {
 };
 
 // `text` with its blanks filled, or nothing when the packet cannot fill one.
-std::optional<Filled> fill_blanks(std::string_view text, const std::map<std::string, std::string>& blanks) {
+std::optional<Filled> fill_blanks(std::string_view text, const std::map<std::string, std::string>& blanks,
+                                  const std::string& situation) {
     Filled out;
     std::size_t i = 0;
     while (i < text.size()) {
@@ -335,27 +341,27 @@ std::optional<Filled> fill_blanks(std::string_view text, const std::map<std::str
         const auto found = blanks.find(name);
         if (found == blanks.end()) return std::nullopt;
         out.text += found->second;
-        if (!uncounted(name)) out.said.insert(name);
+        if (!uncounted(name, situation)) out.said.insert(name);
         i = close + 1;
     }
     return out;
 }
 
-// `line` with its blanks filled, or nothing when the packet cannot fill one. An optional part, in
-// [brackets], is left out whole when the packet cannot fill a blank in it.
-std::optional<Filled> filled(const std::string& line, const std::map<std::string, std::string>& blanks) {
+// `line`, written for `situation`, with its blanks filled, or nothing when the packet cannot fill
+// one. An optional part, in [brackets], is left out whole when the packet cannot fill a blank in it.
+std::optional<Filled> filled(const std::string& line, const std::map<std::string, std::string>& blanks, const std::string& situation) {
     Filled out;
     std::size_t i = 0;
     while (i < line.size()) {
         const std::size_t open = line.find('[', i);
         const std::optional<Filled> plain =
-            fill_blanks(std::string_view(line).substr(i, open == std::string::npos ? std::string::npos : open - i), blanks);
+            fill_blanks(std::string_view(line).substr(i, open == std::string::npos ? std::string::npos : open - i), blanks, situation);
         if (!plain) return std::nullopt;
         out.text += plain->text;
         out.said.insert(plain->said.begin(), plain->said.end());
         if (open == std::string::npos) break;
         const std::size_t close = line.find(']', open);
-        if (const std::optional<Filled> part = fill_blanks(std::string_view(line).substr(open + 1, close - open - 1), blanks)) {
+        if (const std::optional<Filled> part = fill_blanks(std::string_view(line).substr(open + 1, close - open - 1), blanks, situation)) {
             out.text += part->text;
             out.said.insert(part->said.begin(), part->said.end());
         }
@@ -425,6 +431,23 @@ std::string repeat_lead(const std::string& line) {
     return lead + ", " + rest;
 }
 
+// Whether a line addresses the one spoken to as a stranger: "Hello, stranger", "Go well, good
+// stranger". Said to someone met before, it reads as a speaker who has forgotten them (judged
+// 2026-09-26: "Mind your manners, stranger" two lines after "Welcome back"). The word in other
+// uses stays: "don't be a stranger", "stranger subjects".
+bool addresses_a_stranger(const std::string& line) {
+    static const std::string word = "stranger";
+    std::string lower = line;
+    std::transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+    for (std::size_t at = lower.find(word); at != std::string::npos; at = lower.find(word, at + 1)) {
+        const std::size_t end = at + word.size();
+        if (end < lower.size() && std::isalpha(static_cast<unsigned char>(lower[end]))) continue;  // "strangers"
+        const auto after = [&](std::string_view before) { return at >= before.size() && lower.compare(at - before.size(), before.size(), before) == 0; };
+        if (at == 0 || after(", ") || after("good ")) return true;
+    }
+    return false;
+}
+
 }  // namespace
 
 const std::map<std::string, std::vector<std::string>>& Lines::situations() {
@@ -445,6 +468,7 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"declined", {}},
         {"abandoned", {}},
         {"parted", {}},
+        {"parted_cold", {}},
         {"not_understood", {}},
         // Contract version 4: conversation. A greeting by what the speaker remembers.
         {"greeted", {}},
@@ -506,12 +530,18 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             return chain;
         }
         case Outcome::Chatted: {
+            // A cold speaker has no small talk to give, and a bank without cold lines leaves it to
+            // the next bank's rather than chatting warmly. Otherwise the weather's lines and the
+            // rest are said alike (replies()).
+            if (m.cold()) return {"small_talk_cold"};
             std::vector<std::string> chain;
-            if (m.cold()) chain.push_back("small_talk_cold");
             if (const std::string weather = weather_class(p); !weather.empty()) chain.push_back("small_talk_" + weather);
             chain.push_back("small_talk");
             return chain;
         }
+        case Outcome::Parted:
+            // The same: a bank without a cold farewell does not part warmly for a cold speaker.
+            return {m.cold() ? "parted_cold" : "parted"};
         case Outcome::Acknowledged:
             return {"acknowledged"};
         case Outcome::Thanked:
@@ -578,12 +608,11 @@ std::string Lines::single_situation(const FactPacket& p) {
             return "declined";
         case Outcome::Abandoned:
             return "abandoned";
-        case Outcome::Parted:
-            return "parted";
         case Outcome::NotUnderstood:
             return "not_understood";
         case Outcome::Greeted:
         case Outcome::Chatted:
+        case Outcome::Parted:
         case Outcome::Acknowledged:
         case Outcome::Thanked:
         case Outcome::Offended:
@@ -686,37 +715,49 @@ std::vector<std::string> Lines::replies(const FactPacket& p) const {
             saying = said->second[static_cast<std::size_t>(stable_hash(p.speaker + "|" + std::to_string(remembered(p).turn) + "|" +
                                                                        std::to_string(remembered(p).times)) %
                                                            said->second.size())];
+    const Remembered memory = remembered(p);
+    // Small talk may be of the weather or of anything else: which fits is for the stranger's words
+    // to say, so its situations' lines are said alike (judged 2026-09-26: "How are things with
+    // you?" was answered with the weather, as every word of small talk was).
+    const bool pooled = p.outcome == Outcome::Chatted;
     // The speaker's own bank first, and in it the situation that fits most closely: a bank without
     // a line for "greeted_warm" still greets as itself, from "greeted_again".
     for (const std::string& voice : voices) {
         const auto bank = banks_.find(voice);
         if (bank == banks_.end()) continue;
+        std::vector<Filled> fits;
         for (const std::string& s : chain) {
             const auto lines = bank->second.find(s);
             if (lines == bank->second.end()) continue;
             const std::map<std::string, std::string> blanks = blanks_of(p, s, saying);
-            std::vector<Filled> fits;
-            for (const std::string& line : lines->second)
-                if (std::optional<Filled> reply = filled(line, blanks)) fits.push_back(std::move(*reply));
-            if (fits.empty()) continue;
-            // The lines that say the most of what the packet holds: a speaker who knows of a nest
-            // does not leave it out for a shorter line.
-            std::size_t most = 0;
-            for (const Filled& f : fits) most = std::max(most, f.said.size());
-            std::vector<std::string> out;
-            for (const Filled& f : fits)
-                if (f.said.size() == most) out.push_back(finished(f));
-            return out;
+            for (const std::string& line : lines->second) {
+                // No one met before is a stranger any more.
+                if (memory.again && addresses_a_stranger(line)) continue;
+                if (std::optional<Filled> reply = filled(line, blanks, s)) fits.push_back(std::move(*reply));
+            }
+            if (!fits.empty() && !pooled) break;
         }
+        if (fits.empty()) continue;
+        // The lines that say the most of what the packet holds: a speaker who knows of a nest does
+        // not leave it out for a shorter line.
+        std::size_t most = 0;
+        for (const Filled& f : fits) most = std::max(most, f.said.size());
+        std::vector<std::string> out;
+        for (const Filled& f : fits)
+            if (f.said.size() == most) out.push_back(finished(f));
+        return out;
     }
     return {};
 }
 
-std::string Lines::speak(const FactPacket& p, std::string_view line, std::string_view previous) const {
+std::string Lines::speak(const FactPacket& p, std::string_view /*line*/, std::string_view previous) const {
     const std::vector<std::string> candidates = replies(p);
     if (candidates.empty()) return {};
-    const std::uint64_t h = stable_hash(p.speaker + "|" + situation(p) + "|" + std::string(line));
-    const auto chosen = static_cast<std::size_t>(h % candidates.size());
+    // Each speaker starts somewhere of their own in the lines, and moves one on each time they have
+    // heard the same thing before: said the same line five times over five farewells, a speaker
+    // read as a machine (judged 2026-09-26).
+    const std::size_t start = static_cast<std::size_t>(stable_hash(p.speaker + "|" + situation(p)) % candidates.size());
+    const std::size_t chosen = (start + static_cast<std::size_t>(std::max(0, remembered(p).heard)) % candidates.size()) % candidates.size();
     if (candidates[chosen] == previous && candidates.size() > 1) return candidates[(chosen + 1) % candidates.size()];
     return candidates[chosen];
 }

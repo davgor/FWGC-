@@ -58,6 +58,7 @@ struct Recall {
     std::string asked_before;
     int turn = 1;
     bool repeat = false;
+    int heard = 0;
     bool exposed = false;
 };
 
@@ -71,6 +72,7 @@ inline Fact memory_of(const std::string& speaker, const Recall& r) {
              {"asked_before", r.asked_before},
              {"turn", std::to_string(r.turn)},
              {"repeat", r.repeat ? "yes" : "no"},
+             {"heard", std::to_string(r.heard)},
              {"exposed", r.exposed ? "yes" : "no"}}};
 }
 
@@ -259,14 +261,21 @@ inline FactPacket greeted_after(const std::string& work, const std::string& mood
                   {.met = "again", .times = 1, .since = "days", .mood = mood, .work = work});
 }
 
-// Small talk where the castellan stands, in weather of each kind.
-inline FactPacket small_talk(const std::string& weather, const std::string& wind, const std::string& mood = "neutral") {
+// Small talk where the castellan stands, in weather of each kind. The season and the hour as the
+// director words them: one of each that no article before its blank fits both ways ("a evening",
+// "this the turn of the season").
+inline FactPacket small_talk(const std::string& weather, const std::string& wind, const std::string& mood = "neutral",
+                             const std::string& season = "deep winter", const std::string& time = "evening") {
     return packet(castellan(), ActKind::SmallTalk, Outcome::Chatted,
-                  {{FactKind::Chat, castellan().uid,
-                    {{"weather", weather}, {"wind", wind}, {"season", "deep winter"}, {"time", "evening"}}},
+                  {{FactKind::Chat, castellan().uid, {{"weather", weather}, {"wind", wind}, {"season", season}, {"time", time}}},
                    {FactKind::Danger, "nest-hippogryphs-179",
                     {{"creature", "Hippogryphs"}, {"danger", "3"}, {"family", "fantastic"}, {"range", "walk"}}}},
                   {.mood = mood});
+}
+
+// A farewell from a speaker the stranger has put out: the castellan, wary after an insult.
+inline FactPacket parted_coldly() {
+    return packet(castellan(), ActKind::Farewell, Outcome::Parted, {}, {.met = "again", .times = 1, .since = "yesterday", .mood = "wary", .turn = 3});
 }
 
 inline FactPacket acknowledged() { return packet(castellan(), ActKind::Answer, Outcome::Acknowledged, {}, {.turn = 2}); }
@@ -388,6 +397,8 @@ inline std::vector<FactPacket> conversation() {
             small_talk("unsettled", "windy"),
             small_talk("stormy", "a gale"),
             small_talk("fair", "still", "hostile"),
+            small_talk("fair", "breezy", "friendly", "the turn of the season", "afternoon"),
+            parted_coldly(),
             acknowledged(),
             thanked(),
             thanked("hostile"),

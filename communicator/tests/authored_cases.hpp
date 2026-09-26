@@ -185,6 +185,7 @@ inline std::vector<std::string> broken_rules(const std::string& reply, const Fac
     for (const std::string& name : rules::unlisted_names(past_opening, p)) out.push_back("a capital no packet gave: " + name);
     for (const std::string& stray : rules::stray_capitals(reply, p)) out.push_back("a common capital mid-sentence: " + stray);
     for (const std::string& barred : rules::barred_words(reply, p)) out.push_back("a barred word: " + barred);
+    for (const std::string& misfit : rules::misfit_articles(reply)) out.push_back("an article that does not fit: " + misfit);
     return out;
 }
 
@@ -278,6 +279,10 @@ inline std::vector<std::string> row_problems(const std::string& row) {
         while (!line.empty() && (line.back() == '\r' || line.back() == ' ')) line.pop_back();
         for (const std::string& capital : own_capitals(line, openings))
             out.push_back("a capital the line writes itself: " + capital);
+        // "The turn of the season" is a season: "this {season}" would say "this the turn of the
+        // season". Every other article before a blank is caught in the replies, where it misfits.
+        for (const std::string before : {"this {season}", "This {season}", "that {season}", "That {season}"})
+            if (line.find(before) != std::string::npos) out.push_back("\"" + before + "\": the turn of the season is a season");
     }
     try {
         const communicator::Lines one = communicator::Lines::parse(row, "the row");

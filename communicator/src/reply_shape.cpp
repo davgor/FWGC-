@@ -81,7 +81,12 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
             shape.closing_after_name = who_to_see(packet, true);
             break;
         case Outcome::Parted:
-            shape.openings = {"Farewell", "Safe travels", "Go well", "Goodbye", "Take care"};
+            // A wary or hostile speaker sees the stranger off, not well: "Go well" after "Keep
+            // back" read as a speaker who forgot the last line (judged 2026-09-26).
+            if (memory.cold())
+                shape.openings = {"Go, then", "Be on your way", "On your way", "Off with you", "Get going"};
+            else
+                shape.openings = {"Farewell", "Safe travels", "Go well", "Goodbye", "Take care"};
             shape.sentences = 1;
             break;
         case Outcome::NotUnderstood:

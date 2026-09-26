@@ -242,9 +242,19 @@ larger-than-life heroes.
   to the voice's rules, as the tests do, with no model: writers run it on their own rows.
 - **A world refusal says why,** in the director's words ("the offer has lapsed"). Before
   orchestrator 1228ec5 that reason was the generator's own message, quest ids and all.
-- **The choice** is a hash of the speaker, the situation and the player's words. The same words
-  get the same reply, different words spread over the bank, and `previous` (the last reply) is
-  not said again while another line fits.
+- **The choice goes round** (contract version 6). Each speaker starts at a line of their own and
+  says the next each time they have heard the same act before (the Memory fact's `heard`), so the
+  same packet gets the same reply and a farewell said on five visits is said five ways while the
+  bank has five. `previous` (the last reply) is not said again while another line fits. A judged
+  session (2026-09-26) had one armorer end five partings alike, and a speaker's later visits
+  replay the first word for word.
+- **A cold speaker stays cold.** A wary or hostile speaker greets, chats, takes thanks and parts
+  (`parted_cold`: "Go, then", "Be on your way") from cold lines only; a bank without them leaves
+  the reply to the next bank's rather than answering warmly.
+- **Someone met before is no stranger.** A line that addresses the player as one ("Mind your
+  manners, stranger") is not said to someone met before.
+- **Small talk is one pool:** the weather's lines and the rest are said alike, and `small_talk`
+  says nothing of the weather.
 - **The library** (2026-09-25): 11,411 lines in 43 files.
   - **Every archetype, at every alignment its heroes carry:** 196 banks of about 44 lines,
     8,618 lines in all. The pairs were counted over 38 generated worlds (sizes 33, 65 and 129),
@@ -399,8 +409,10 @@ larger-than-life heroes.
   - **Another's work is told as theirs,** by what it asks, and a council's member is "of the
     council".
   - **A world refusal says why,** in the director's words.
-  - **The choice is steady and follows the player's words,** and never repeats the last reply
-    while another fits.
+  - **The choice is steady and goes round with what the speaker has heard,** starts apart for
+    each speaker, and never repeats the last reply while another fits.
+  - **A cold speaker parts and chats coldly whatever their bank holds; no one met before is
+    called a stranger; small talk says the weather's lines and the rest alike.**
   - **A bad lines file is refused:** a missing file, a row of two or four cells, an unknown
     situation or blank, an unclosed blank, an empty voice, and an optional part that is unclosed,
     nested, never opened, or holds no blank. A byte-order mark and CRLF are read.
@@ -493,9 +505,8 @@ fine-tuned voice (the plan's "Building our own model").
   would come from the director or the generator, not from here.
 - **Written lines: choosing by meaning.** The choice is a hash, not what fits the player's words
   best. An embedding model (Qwen3-Embedding-0.6B, on disk) would pick the closest line.
-- **Written lines: sayings, and the true face.** There are no sayings per culture yet. A hero
-  whose face hides another speaks from the post bank of the face they show. Their archetype
-  banks are written, and wait for a design that lets a stranger meet the true face.
+- **Written lines: sayings.** The lines read a people's sayings (`saying:<people>`, contract
+  version 5); the sayings themselves are still being written.
 - **Written lines that ask the player something.** 488 lines, outside `not_understood`, put a
   question to the player ("Are you hurt?", "And you are?"). The interpreter has no act for an
   answer to the speaker's question, so a player who answers is told "I don't follow". Either

@@ -119,6 +119,49 @@ inline std::vector<std::string> barred_words(const std::string& reply, const orc
     return out;
 }
 
+// The article and the word after it wherever the two do not fit, as a blank can fill in: "a
+// evening", "an market", "every the turn of the season". Only words one space apart pair, and only
+// articles that are never a word of their own: "after that the deeps" is sound.
+inline std::vector<std::string> misfit_articles(const std::string& reply) {
+    static const std::set<std::string> determiners = {"a", "an", "the", "every", "each", "another"};
+    const auto letters = [](const std::string& token, bool whole) {
+        std::string out;
+        for (const char c : token) {
+            if (!std::isalpha(static_cast<unsigned char>(c))) {
+                if (whole) return std::string();  // punctuation after it: the pair is parted
+                break;
+            }
+            out += static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+        }
+        return out;
+    };
+    std::vector<std::string> tokens;
+    std::string token;
+    for (const char c : reply + " ") {
+        if (c == ' ') {
+            if (!token.empty()) tokens.push_back(token);
+            token.clear();
+        } else {
+            token += c;
+        }
+    }
+    std::vector<std::string> out;
+    for (std::size_t i = 0; i + 1 < tokens.size(); ++i) {
+        const std::string first = letters(tokens[i], true);
+        const std::string next = letters(tokens[i + 1], false);
+        if (first.empty() || next.empty()) continue;
+        // Words that begin with a vowel's letter and a consonant's sound take "a": "a one-horse
+        // cart", "a ewe".
+        const bool sounds_consonant = next.rfind("one", 0) == 0 || next.rfind("once", 0) == 0 || next.rfind("ewe", 0) == 0 ||
+                                      next.rfind("eu", 0) == 0;
+        const bool vowel = std::string("aeio").find(next[0]) != std::string::npos && !sounds_consonant;
+        const bool consonant = std::string("aeiouh").find(next[0]) == std::string::npos;
+        if ((first == "a" && vowel) || (first == "an" && consonant) || (determiners.count(first) && next == "the"))
+            out.push_back(tokens[i] + " " + tokens[i + 1]);
+    }
+    return out;
+}
+
 inline bool opens_with_one_of(const std::string& reply, const std::vector<std::string>& openings) {
     return std::any_of(openings.begin(), openings.end(), [&](const std::string& o) { return reply.rfind(o, 0) == 0; });
 }

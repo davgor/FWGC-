@@ -27,6 +27,7 @@ any | abandoned | So be it.
 any | abandoned | Very well, it's off your hands.
 any | parted | Farewell.
 any | parted | Safe travels.
+any | parted | Go well.
 any | not_understood | I don't follow.
 any | not_understood | I'm not sure what you mean.
 
@@ -53,6 +54,8 @@ any | greeted_abandoned | Back again. You left my work undone.
 any | greeted_abandoned | Hello again. We'll not speak of the work.
 any | small_talk | It's {season} here, and {time} already.
 any | small_talk | Well, it's {season}.[ Mind the {danger}.]
+any | small_talk | Well enough, thank you. The work keeps me busy.
+any | small_talk | Much as ever. One day's much like the next.
 any | small_talk_fair | A fine day for {season}.[ Mind the {danger}, though.]
 any | small_talk_fair | Good weather today.[ Watch for the {danger}.]
 any | small_talk_wet | A wet one today.[ Watch for the {danger}.]
@@ -64,6 +67,9 @@ any | small_talk_cold | Say what you want, or move on.
 any | acknowledged | I see.
 any | acknowledged | Fair enough.
 any | acknowledged | Right. Good to know.
+any | parted_cold | Go, then.
+any | parted_cold | Be on your way.
+any | parted_cold | On your way, and keep walking.
 any | thanked | You're welcome.
 any | thanked | Think nothing of it.
 any | thanked | Glad to help.

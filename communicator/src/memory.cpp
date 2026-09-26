@@ -30,6 +30,7 @@ Remembered remembered(const orchestrator::FactPacket& packet) {
         out.asked_before = text("asked_before");
         out.turn = number(fact.field("turn"));
         out.repeat = text("repeat") == "yes";
+        out.heard = number(fact.field("heard"));
         out.exposed = text("exposed") == "yes";
         break;
     }
@@ -38,6 +39,7 @@ Remembered remembered(const orchestrator::FactPacket& packet) {
 
 std::string since_words(const std::string& since) {
     if (since == "today") return "earlier today";
+    if (since == "yesterday") return "yesterday";
     if (since == "days") return "a few days ago";
     if (since == "weeks") return "some weeks ago";
     if (since == "months") return "some months ago";

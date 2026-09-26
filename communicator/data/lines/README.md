@@ -38,6 +38,7 @@ voice | situation | line
   | `refused_gone` | |
   | `refused` | `{reason}` |
   | `accepted`, `declined`, `abandoned`, `parted`, `not_understood` | |
+  | `parted_cold` (a wary or hostile speaker, seeing the stranger off) | |
   | `greeted` (a first meeting) | |
   | `greeted_again`, `greeted_warm` (met before; warm: the speaker likes them) | `{since}` `{asked}` |
   | `greeted_cold` (the speaker is wary or hostile, met before or not) | |
@@ -60,11 +61,16 @@ voice | situation | line
 
   A packet's situations come closest first, and a bank answers from the first it has a line
   for: a warm greeting to someone met before is `greeted_warm`, then `greeted_again`; what came
-  of the speaker's own work comes before either. Small talk tries a cold speaker's line, then the
-  weather's, then `small_talk`; `offended_again` and `denied_again`, for the second time, fall
-  back to `offended` and `denied`; `exposed_true` and the rest fall back to `exposed`.
-  - `{since}` is how long since they met, roughly: "earlier today", "a few days ago", "some
-    weeks ago", "some months ago", "years ago".
+  of the speaker's own work comes before either. `offended_again` and `denied_again`, for the
+  second time, fall back to `offended` and `denied`; `exposed_true` and the rest fall back to
+  `exposed`.
+  - A cold speaker has only `greeted_cold`, `small_talk_cold`, `thanked_cold` and `parted_cold`:
+    a bank without them leaves the reply to the next bank's, and never answers warmly.
+  - Small talk says the weather's lines (`small_talk_fair`, `_wet`, `_storm`) and `small_talk`'s
+    alike: which fits is for the stranger's words to say. So `small_talk` says nothing of the
+    weather: it is the speaker's day, their work, the season, what is near.
+  - `{since}` is how long since they met, roughly: "earlier today", "yesterday", "a few days
+    ago", "some weeks ago", "some months ago", "years ago".
   - `{asked}` is the place or person the stranger asked about last time, by name.
   - `{season}` is "deep winter" to "high summer"; `{time}` "dawn" to "night".
   - `{worst}` is the place the verdict rests on: within a walk when anything is. `{was}` and
@@ -79,9 +85,18 @@ voice | situation | line
   part inside its brackets: `The nearest is {nearest}.[ Mind the {danger}.]`
 - **The fullest lines are said.** Of the lines that fit, only those that say the most of the
   packet are said. Write lines for what a full packet holds, and shorter ones for packets that
-  hold less. `{speaker}`, `{post}`, `{place}`, `{saying}`, `{since}`, `{season}` and `{time}` do
-  not count: they are there to say whenever their situation is, so a line saying one silences no
-  sibling.
+  hold less. `{speaker}`, `{post}`, `{place}`, `{saying}`, `{since}`, `{asked}`, `{season}` and
+  `{time}` do not count: they are there to say whenever their situation is, so a line saying one
+  silences no sibling, and a greeting recalls what was asked now and then, not every visit. Nor
+  does `{danger}` in small talk: a nest near is something to mention, not something every word of
+  small talk must.
+- **Each time, the next line.** A speaker starts at a line of their own among those said, and
+  says the next each time they have heard the same thing before (the Memory fact's `heard`), so a
+  farewell said five times is said five ways while the bank has five. Write as many lines for a
+  situation as it will be met: greetings and farewells every visit.
+- **Someone met before is no stranger.** A line that addresses the stranger as one ("Hello,
+  stranger", "Go well, good stranger") is not said to someone met before; the next line is.
+  "Don't be a stranger" and the word's other uses stay.
 
 ## Rules a test holds every row to
 
@@ -104,6 +119,9 @@ packet. `communicator_eval --check-lines PATH` runs the same check on a file or 
   "Careful", "Keep your wits about you"; safe "Safe enough", "Yes", "Aye", "It's safe", "Quiet
   enough", "Nothing to fear". `reply_shape.cpp` holds every opening.
 - An answer runs to three sentences at most.
+- An article fits the word a blank fills in after it: "a {time}" says "a evening", "an {post}"
+  "an farmer". `{season}` may be "the turn of the season", so nothing that needs a noun of its own
+  stands before it ("this {season}", "every {season}").
 - Some test packet speaks the row.
 
 ## Rules no test can hold

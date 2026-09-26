@@ -72,10 +72,21 @@ TEST(the_rule_checks_catch_what_they_check) {
         {"Farewell, and mind the Watch.", parted},
         {"Farewell, and head north.", parted},
         {"Farewell, and mind your gold.", parted},
+        {"Farewell, and enjoy a evening.", parted},
+        {"Farewell, and have an good day.", parted},
+        {"Farewell; every the turn of the season is hard.", parted},
         {"No, that's Halbrann's work.", refused},
     };
     for (const auto& [reply, p] : broken) check::is_true(!broken_rules(reply, p).empty(), "a broken rule found in: " + reply);
     check::is_true(broken_rules("Farewell, and mind the road.", parted).empty(), "a line that keeps them passes");
+    check::is_true(broken_rules("Farewell; an hour's walk is a short one on a one-horse cart, and after that the road.", parted).empty(),
+                   "an hour, a one-horse cart, after that the road: articles that fit");
+    // An article before a blank fits one filling and not another: tried against every packet, a
+    // row with "a {time}" meets an evening.
+    check::is_true(!row_problems("any | small_talk | It's quiet, for a {time}.").empty(), "a {time}, as \"a evening\"");
+    check::is_true(!row_problems("any | small_talk | It's hard going, this {season}.").empty(), "this {season}, as \"this the turn of the season\"");
+    check::is_true(row_problems("any | small_talk | It's quiet, for {season}.").empty(), "the premise: the same lines pass without the article");
+    check::is_true(row_problems("any | small_talk | It's quiet, this {time}.").empty(), "this {time} fits every hour");
     check::is_true(broken_rules("No, that's Halbrann's work." + closing, refused).empty(), "with its closing, it passes");
     // A name the writer typed passes the reply check when a test packet holds it, so the row's
     // own text is held too: the town is a blank, never a word the line writes.
@@ -301,7 +312,9 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         {packets::small_talk("unsettled", "windy"), {"small_talk_wet", "small_talk"}},
         {packets::small_talk("stormy", "a gale"), {"small_talk_storm", "small_talk"}},
         {packets::small_talk("fair", "a gale"), {"small_talk_storm", "small_talk"}},
-        {packets::small_talk("fair", "still", "hostile"), {"small_talk_cold", "small_talk_fair", "small_talk"}},
+        {packets::small_talk("fair", "still", "hostile"), {"small_talk_cold"}},
+        {packets::parted(), {"parted"}},
+        {packets::parted_coldly(), {"parted_cold"}},
         {packets::acknowledged(), {"acknowledged"}},
         {packets::thanked(), {"thanked"}},
         {packets::thanked("hostile"), {"thanked_cold"}},
@@ -347,17 +360,22 @@ TEST(a_greeting_remembers_when_and_what) {
     const Lines lines = Lines::parse("any | greeted_again | Hello again.[ Still asking after {asked}?]\n"
                                      "any | greeted_again | Good day. I saw you {since}.\n",
                                      "test");
-    // What was asked is something the speaker knows, and a line that says it is the fuller; how
-    // long since is always there to say once they have met, so it makes a line no fuller.
+    // What was asked, and how long since, are there to say once they have met: a line saying one
+    // is no fuller than one without, so a greeting recalls them now and then, not every visit.
     const std::vector<std::string> asked = lines.replies(packets::greeted_again());
-    check::equal(asked.size(), std::size_t(1), "the line that remembers what was asked");
-    check::equal(asked.front(), std::string("Hello again. Still asking after the burnt works?"), "what they asked");
+    check::equal(asked.size(), std::size_t(2), "both lines, the one recalling what was asked no fuller");
+    check::is_true(std::find(asked.begin(), asked.end(), "Hello again. Still asking after the burnt works?") != asked.end(),
+                   "what they asked");
     FactPacket nothing_asked = packets::greeted_again();
     nothing_asked.facts.back() = packets::memory_of(nothing_asked.speaker, {.met = "again", .times = 1, .since = "weeks"});
     const std::vector<std::string> both = lines.replies(nothing_asked);
     check::equal(both.size(), std::size_t(2), "nothing asked: both lines, the one saying when no fuller");
     check::is_true(std::find(both.begin(), both.end(), "Good day. I saw you some weeks ago.") != both.end(), "when, said roughly");
     check::is_true(std::find(both.begin(), both.end(), "Hello again.") != both.end(), "and the plain one");
+    nothing_asked.facts.back() = packets::memory_of(nothing_asked.speaker, {.met = "again", .times = 1, .since = "yesterday"});
+    const std::vector<std::string> yesterday = lines.replies(nothing_asked);
+    check::is_true(std::find(yesterday.begin(), yesterday.end(), "Good day. I saw you yesterday.") != yesterday.end(),
+                   "the day before is yesterday, not a few days ago");
     // The same for the season and the time of day in small talk.
     const Lines talk = Lines::parse("any | small_talk_fair | A fine day for {season}.\nany | small_talk_fair | A fine day.\n", "test");
     check::equal(talk.replies(packets::small_talk("clear", "still")).size(), std::size_t(2), "the season silences no line");
@@ -480,26 +498,97 @@ TEST(a_world_refusal_says_why) {
         check::is_true(reply.find("the offer has lapsed") != std::string::npos, "the reason said: " + reply);
 }
 
-TEST(the_choice_is_steady_and_follows_the_strangers_words) {
-    const Lines lines = Lines::load(COMMUNICATOR_LINES);
-    const FactPacket p = packets::parted();
-    const std::vector<std::string> all = lines.replies(p);
-    check::is_true(all.size() > 1, "the premise: more than one farewell for the warden");
+TEST(the_choice_is_steady_and_moves_on_each_time_the_same_is_heard) {
+    const Lines lines = Lines::parse("any | parted | Farewell.\nany | parted | Safe travels.\nany | parted | Go well.\n"
+                                     "any | parted | Take care.\n",
+                                     "test");
+    const auto parting = [](int heard, const std::string& uid = packets::castellan().uid) {
+        FactPacket p = packets::parted();
+        p.speaker = p.persona.uid = uid;
+        p.facts.back() = packets::memory_of(uid, {.met = heard > 0 ? "again" : "first", .times = heard, .heard = heard});
+        return p;
+    };
+    const std::vector<std::string> all = lines.replies(parting(0));
+    check::equal(all.size(), std::size_t(4), "the premise: four farewells");
     std::set<std::string> chosen;
-    for (int i = 0; i < 24; ++i) {
-        const std::string said = "Goodbye, " + std::to_string(i);
-        const std::string reply = lines.speak(p, said);
-        check::equal(lines.speak(p, said), reply, "the same words, the same reply");
+    for (int heard = 0; heard < 4; ++heard) {
+        const std::string reply = lines.speak(parting(heard), "Goodbye.");
+        check::equal(lines.speak(parting(heard), "Goodbye."), reply, "the same packet, the same reply");
+        check::equal(lines.speak(parting(heard), "Farewell, then."), reply, "whatever the words, for now");
         check::is_true(std::find(all.begin(), all.end(), reply) != all.end(), "one of the replies: " + reply);
+        if (heard > 0) check::is_true(reply != lines.speak(parting(heard - 1), "Goodbye."), "not the line said last time: " + reply);
         chosen.insert(reply);
         // Never the last reply again while another fits.
-        check::is_true(lines.speak(p, said, reply) != reply, "not the last reply twice: " + reply);
+        check::is_true(lines.speak(parting(heard), "Goodbye.", reply) != reply, "not the last reply twice: " + reply);
     }
-    check::equal(chosen.size(), all.size(), "every farewell, over different words");
+    check::equal(chosen.size(), all.size(), "every farewell once, before any twice");
+    check::equal(lines.speak(parting(4), "Goodbye."), lines.speak(parting(0), "Goodbye."), "then round again");
+    // Each speaker starts at a line of their own: two armorers do not part alike.
+    std::set<std::string> first_lines;
+    for (int i = 0; i < 12; ++i) first_lines.insert(lines.speak(parting(0, "hero-castellan-" + std::to_string(i)), "Goodbye."));
+    check::is_true(first_lines.size() > 1, "speakers start apart");
     // With one line, the last reply is said again rather than nothing.
     const Lines one = Lines::parse("any | parted | Farewell.", "test");
-    check::equal(one.speak(p, "Bye.", "Farewell."), std::string("Farewell."), "the only line");
+    check::equal(one.speak(parting(0), "Bye.", "Farewell."), std::string("Farewell."), "the only line");
     check::equal(one.speak(packets::surroundings(), "Bye."), std::string(), "nothing, where no line fits");
+}
+
+TEST(a_cold_speaker_parts_and_chats_coldly_whatever_their_bank_holds) {
+    // The warden's bank has only warm lines: a cold warden leaves them for anyone's cold one.
+    const Lines lines = Lines::parse("warden/LN | parted | Go well, and mind the road.\n"
+                                     "warden/LN | small_talk | A fair {time} for it.\n"
+                                     "any | parted_cold | Go, then.\n"
+                                     "any | small_talk_cold | I've nothing to say to you.\n",
+                                     "test");
+    check::equal(first(lines.replies(packets::parted())), std::string("Go well, and mind the road."), "a warm farewell");
+    const std::vector<std::string> cold = lines.replies(packets::parted_coldly());
+    check::equal(cold.size(), std::size_t(1), "one farewell for a cold speaker");
+    check::equal(cold.front(), std::string("Go, then."), "and a cold one");
+    check::is_true(broken_rules(cold.front(), packets::parted_coldly()).empty(), "opening as a cold farewell does");
+    check::is_true(!broken_rules("Go well, and mind the road.", packets::parted_coldly()).empty(), "a warm opening is not a cold one's");
+    check::equal(first(lines.replies(packets::small_talk("fair", "still", "hostile"))), std::string("I've nothing to say to you."),
+                 "no small talk from a cold speaker");
+}
+
+TEST(no_one_met_before_is_called_a_stranger) {
+    const Lines lines = Lines::parse("any | offended | Mind your manners, stranger.\n"
+                                     "any | offended | Watch your tongue.\n"
+                                     "warden/LN | parted | Go well, stranger.\n"
+                                     "any | parted | Farewell.\n",
+                                     "test");
+    FactPacket rude = packets::offended(false);
+    check::equal(lines.replies(rude).size(), std::size_t(2), "at a first meeting, either");
+    rude.facts.back() = packets::memory_of(rude.speaker, {.met = "again", .times = 2, .since = "days", .mood = "wary", .turn = 2});
+    const std::vector<std::string> known = lines.replies(rude);
+    check::is_true(known.size() == 1 && known.front() == "Watch your tongue.", "met before: never \"stranger\"");
+    // A bank whose every line says it leaves the parting to the next bank.
+    FactPacket bye = packets::parted();
+    check::equal(first(lines.replies(bye)), std::string("Go well, stranger."), "the warden's own, the first time");
+    bye.facts.back() = packets::memory_of(bye.speaker, {.met = "again", .times = 1, .since = "weeks"});
+    check::equal(first(lines.replies(bye)), std::string("Farewell."), "met before: anyone's, over a stranger's");
+    // Only the stranger addressed, whatever the case: the word in other uses stays.
+    const Lines words = Lines::parse("any | parted | Farewell, and don't be a stranger.\n"
+                                     "any | parted | Farewell; strangers are rare here.\n"
+                                     "any | parted | Farewell, Stranger.\n"
+                                     "any | parted | Go well, good stranger.\n",
+                                     "test");
+    check::is_true(words.replies(bye) == std::vector<std::string>{"Farewell, and don't be a stranger.", "Farewell; strangers are rare here."},
+                   "only the stranger addressed");
+}
+
+TEST(small_talk_says_the_weather_or_anything_else_alike) {
+    const Lines lines = Lines::parse("any | small_talk_fair | A fine {time}.\n"
+                                     "any | small_talk_fair | Clear skies for {season}.[ Mind the {danger}.]\n"
+                                     "any | small_talk | Busy, as ever.\n"
+                                     "any | small_talk_wet | Wet again.\n",
+                                     "test");
+    const std::vector<std::string> fair = lines.replies(packets::small_talk("clear", "still"));
+    check::equal(fair.size(), std::size_t(3), "the fair weather's two and the rest's one, none of the wet's");
+    check::is_true(std::find(fair.begin(), fair.end(), "Busy, as ever.") != fair.end(), "a line not of the weather");
+    check::is_true(std::find(fair.begin(), fair.end(), "A fine evening.") != fair.end(), "a nest near silences no line");
+    check::is_true(std::find(fair.begin(), fair.end(),
+                             "Clear skies for deep winter. Mind the Hippogryphs nesting an hour's walk away.") != fair.end(),
+                   "and the one that mentions it");
 }
 
 TEST(a_bad_lines_file_is_refused) {
