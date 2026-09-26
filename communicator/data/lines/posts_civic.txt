@@ -24,7 +24,7 @@ post:administrator | refused_release | I won't countermand {giver}; I've enough 
 post:administrator | refused_release | Not from me; I didn't put that on the books, and I can't take it off.
 post:administrator | refused | No; {reason}, and no amount of asking changes the rolls.
 post:administrator | accepted | Good; that's one matter settled.
-post:administrator | accepted | Done, then; come back when it's finished, not before.
+post:administrator | accepted | Done, then; it goes in the ledger as taken.
 post:administrator | declined | Suit yourself; it stays open.
 post:administrator | declined | Fair enough; I'll find another name for it.
 post:administrator | abandoned | A pity; I'd already counted it done.
@@ -44,7 +44,7 @@ post:court_clerk | about_place | To the letter: {about}. I'll thank you not to q
 post:court_clerk | surroundings | For the record, this is {here}, and the nearest is {nearest}.[ Also noted: {others}.][ Mind the {danger}.]
 post:court_clerk | surroundings | In order: you're in {here}, and the nearest is {nearest}.[ Then {others}.][ Last, the {danger}; I'd rather not write you up.]
 post:court_clerk | surroundings | The nearest is {nearest}.[ After that, {others}.][ And the {danger}, for completeness.]
-post:court_clerk | work_own | I need someone who deals in facts, not guesses: {own}.[ Otherwise, {others}.]
+post:court_clerk | work_own | Since you ask, here it is exactly as entered: {own}.[ Otherwise, {others}.]
 post:court_clerk | work_own | There's a matter that wants more than ink: {own}.[ If that won't do, {others}.]
 post:court_clerk | work_others | Nothing on my docket, but {others}.
 post:court_clerk | work_others | Other people are hiring, and I can give you their names: {others}.
@@ -147,7 +147,7 @@ post:librarian | surroundings | This is {here}, and the nearest is {nearest}.[ P
 post:librarian | surroundings | Where you stand is {here}, and the nearest to it is {nearest}.[ Beyond it, {others}.][ Give the {danger} a wide berth.]
 post:librarian | surroundings | The nearest is {nearest}.[ Then {others}.][ Mind the {danger}.]
 post:librarian | work_own | There's a task no book will do for you: {own}.[ If not, {others}.]
-post:librarian | work_own | If you've careful hands, I've use for them: {own}.[ Otherwise, {others}.]
+post:librarian | work_own | Here's one from my own shelf: {own}.[ Otherwise, {others}.]
 post:librarian | work_others | Nothing from me but a reading list, though {others}.
 post:librarian | work_others | Someone else needs help more than I do: {others}.
 post:librarian | work_none | None, and I'd know; people talk in libraries, however often I hush them.
@@ -181,7 +181,7 @@ post:scribe | surroundings | One line at a time: you're in {here}, and the neare
 post:scribe | surroundings | This is {here}, and the nearest is {nearest}.[ Past that, {others}.][ Keep clear of the {danger}.]
 post:scribe | surroundings | The nearest is {nearest}.[ After that, {others}.][ Watch for the {danger}.]
 post:scribe | work_own | This one won't be settled with ink: {own}.[ If not that, {others}.]
-post:scribe | work_own | If you've a hand that doesn't blot, here's work: {own}.[ Otherwise, {others}.]
+post:scribe | work_own | Here it is, in my own hand: {own}.[ Otherwise, {others}.]
 post:scribe | work_others | My hands are full, but {others}.
 post:scribe | work_others | Someone's hiring, just not me: {others}.
 post:scribe | work_none | None that's crossed my desk, and plenty crosses it.
@@ -203,3 +203,267 @@ post:scribe | parted | Farewell; mind the ink on your way past.
 post:scribe | parted | Go well; my nib's going dry.
 post:scribe | not_understood | What do you mean, letter by letter?
 post:scribe | not_understood | Speak plainly; I can't copy a mumble.
+
+# ---- post:administrator: conversation ----
+post:administrator | greeted | Good day. What's the matter, and whose office does it fall to?
+post:administrator | greeted | Hello. Go on; you have as long as it takes me to sign this.
+post:administrator | greeted | Well met. Is it a petition, a complaint or a question?
+post:administrator | greeted_again | Back again.[ Is this still about {asked}?]
+post:administrator | greeted_again | Hello again. You were at this desk {since}; what is it now?
+post:administrator | greeted_again | Good day. I know the face, at least; the rest you'll have to tell me.
+post:administrator | greeted_warm | Good to see you; a face without a grievance, for once.[ Any luck with {asked}?]
+post:administrator | greeted_warm | Well met again. You were here {since}, and I'd sooner see you than the next petition.
+post:administrator | greeted_cold | What do you want? If it's not in writing, it can wait.
+post:administrator | greeted_cold | What now? Be brief; I've no time set aside for you.
+post:administrator | greeted_cold | Stay back from the ledgers, and make it short.
+post:administrator | small_talk | It's {season}, and the petitions come in regardless.
+post:administrator | small_talk | Every {time} the same: another tally, another seal.[ The {danger} are on my list too; mind them.]
+post:administrator | small_talk_fair | A fair {time}, and I'll see none of it from behind this desk.
+post:administrator | small_talk_fair | Fine weather for {season}; not that the rolls notice.[ Keep clear of the {danger}, though.]
+post:administrator | small_talk_wet | The damp gets into the ledgers on a wet {time} like this.
+post:administrator | small_talk_wet | It's wet out, {season} or no; the hall smells of damp cloaks.[ Mind the {danger} if you're going out in it.]
+post:administrator | small_talk_storm | Hear that wind? It's no weather for petitions, not that it stops them.
+post:administrator | small_talk_storm | It's a storm, and the doors stay open all the same.[ Mind the {danger}, storm or no storm.]
+post:administrator | small_talk_cold | I keep ledgers, not company.
+post:administrator | small_talk_cold | If it isn't business, it isn't mine to hear.
+post:administrator | acknowledged | Right. That'll do for the ledger.
+post:administrator | acknowledged | I see; then that's settled, and we can move on.
+post:administrator | acknowledged | Fair enough; I'll take your word until I have it in writing.
+post:administrator | thanked | No need; it's what the desk is for.
+post:administrator | thanked | Don't mention it; that's one less question on the pile.
+post:administrator | thanked_cold | Save your thanks; they don't go in any ledger.
+post:administrator | thanked_cold | Spare me, and let me get back to the tallies.
+post:administrator | offended | Mind your manners; this is a hall of business, not a tavern.
+post:administrator | offended | There's no need for that; I've been civil, and brief.
+post:administrator | offended_again | Enough; take it to another desk, if any will have it.
+post:administrator | offended_again | Hold your tongue; I keep no column for insults.
+post:administrator | safety_unsafe | Not safe. First on my list of trouble is {worst}.[ There are {danger} as well.]
+post:administrator | safety_unsafe | No. There are {danger}, and that's reason enough.[ I'd keep clear of {worst}, too.]
+post:administrator | safety_wary | More or less. The one entry that worries me is {worst}.[ The {danger} want minding, too.]
+post:administrator | safety_wary | Mostly. Keep clear of {worst}, and there's nothing else to report.
+post:administrator | safety_safe | Safe enough. The only entry I'd mark is {worst}.
+post:administrator | safety_safe | Yes, as far as the rolls show. I'd still steer clear of {worst}.
+post:administrator | safety_safe | Nothing to fear, by every account on my desk.
+post:administrator | denied | Nonsense; I keep the rolls, and there's nothing more to me than that.
+post:administrator | denied | You're mistaken; what you see is a desk, a ledger and a tired pair of eyes.
+post:administrator | denied_again | No, and it reads the same the second time.
+
+# ---- post:court_clerk: conversation ----
+post:court_clerk | greeted | Good day. Speak slowly; I set things down as they're said.
+post:court_clerk | greeted | Hello. One matter at a time, in order, if you please.
+post:court_clerk | greeted | Greetings. What is it you want entered?
+post:court_clerk | greeted_again | Hello again.[ You asked after {asked}; I have it exactly.]
+post:court_clerk | greeted_again | Back again. I saw you {since}, and I don't mistake a face.
+post:court_clerk | greeted_again | Well met again. I have you in mind, if not on paper.
+post:court_clerk | greeted_warm | Good to see you.[ Anything to add about {asked}?]
+post:court_clerk | greeted_warm | Welcome back. I saw you {since}, and I'll say for the record that I'm glad of it.
+post:court_clerk | greeted_cold | What do you want? Everything you say goes down, so choose it well.
+post:court_clerk | greeted_cold | What now? Say it plainly, and say it once.
+post:court_clerk | greeted_cold | Keep back from the records, and speak from there.
+post:court_clerk | small_talk | It's {season}; I write it at the head of every page, and little else changes.
+post:court_clerk | small_talk | The record wants keeping, {time} or not.[ Mind the {danger}; let it be noted I said so.]
+post:court_clerk | small_talk_fair | A fair {time}, for {season}; I've no objection to enter.
+post:court_clerk | small_talk_fair | It's dry and fine, which is more than I can say for the ink.[ The {danger} are noted as well; mind them.]
+post:court_clerk | small_talk_wet | Let it rain; my hand stays steady.
+post:court_clerk | small_talk_wet | A wet {time}; wipe your feet before you come near the papers.[ And mind the {danger}, wet or dry.]
+post:court_clerk | small_talk_storm | Hear it blow; one loose shutter, and I'd have the whole record out of order.
+post:court_clerk | small_talk_storm | It's a storm, and a bad one for {season}.[ Mind the {danger} too; that's two warnings, both on the record.]
+post:court_clerk | small_talk_cold | I'm here to take things down, not to chat.
+post:court_clerk | small_talk_cold | Nothing you've said so far is worth writing down.
+post:court_clerk | acknowledged | I see; noted, exactly as you said it.
+post:court_clerk | acknowledged | Is that so? Then that's what goes down.
+post:court_clerk | acknowledged | Right; I'll enter it as given.
+post:court_clerk | thanked | You're welcome; getting it right is the whole of my work.
+post:court_clerk | thanked | Think nothing of it; I only told you what's written.
+post:court_clerk | thanked_cold | Keep your thanks; they don't change the record.
+post:court_clerk | thanked_cold | Hmph; I'll not be entering that.
+post:court_clerk | offended | Watch your tongue; I take down every word, and yours don't read well.
+post:court_clerk | offended | Careful; plain words will do, and those weren't.
+post:court_clerk | offended_again | Enough; I've heard all of that I care to, word for word.
+post:court_clerk | offended_again | Hold your tongue; I'll not dignify it with an entry.
+post:court_clerk | safety_unsafe | Not safe; I'd put my name to that. Stay well clear of {worst}.[ There are {danger} besides.]
+post:court_clerk | safety_unsafe | No. There are {danger}, and I'll not write it any softer.[ Keep off {worst} as well.]
+post:court_clerk | safety_wary | Mostly, with one entry against it: {worst}.[ And mind the {danger}.]
+post:court_clerk | safety_wary | Careful. Keep well away from {worst}, and I've nothing further to add.
+post:court_clerk | safety_safe | Safe enough, by the record. The only mark against it is {worst}.
+post:court_clerk | safety_safe | Yes, on everything I've heard. I'd still keep clear of {worst}.
+post:court_clerk | safety_safe | It's safe, and I've nothing written to the contrary.
+post:court_clerk | denied | You're mistaken; I write down what others say, and that's all I am.
+post:court_clerk | denied | I don't know what you mean; I keep records, not secrets.
+post:court_clerk | denied_again | No, and my answer stands exactly as I gave it.
+
+# ---- post:magistrate: conversation ----
+post:magistrate | greeted | Good day. Come forward, and say your piece.
+post:magistrate | greeted | Well met. I'll hear you fairly, as I hear everyone.
+post:magistrate | greeted | Greetings. Say what brings you, and say it honestly.
+post:magistrate | greeted_again | Well met again.[ I recall you asked after {asked}.]
+post:magistrate | greeted_again | Back again. You stood here {since}, and I remember it.
+post:magistrate | greeted_again | Good day. I remember your face; the rest I'll hear fresh.
+post:magistrate | greeted_warm | Good to see you.[ Did you learn the truth of {asked}?]
+post:magistrate | greeted_warm | Welcome back. It was {since}, and I'm glad to see an honest face return.
+post:magistrate | greeted_cold | What do you want? Say it plainly, and quickly.
+post:magistrate | greeted_cold | Stay back. Whatever you've come to say, keep it short.
+post:magistrate | greeted_cold | What now? I've given you all the hearing I mean to.
+post:magistrate | small_talk | It's {season}, and the court sits all the same.
+post:magistrate | small_talk | Another {time} on the bench; the law keeps no hours.[ The {danger} are another matter; mind them.]
+post:magistrate | small_talk_fair | A fair {time}; I'll grant it that much.
+post:magistrate | small_talk_fair | It's fine for {season}, and I've no quarrel with it.[ Mind the {danger}, fair weather or not.]
+post:magistrate | small_talk_wet | It's wet, and the rain falls on the guilty and the innocent alike.
+post:magistrate | small_talk_wet | So it rains; the law doesn't adjourn for weather.[ Heed the {danger}, rain or no.]
+post:magistrate | small_talk_storm | Listen to it blow; it makes a poor witness, all noise and no sense.
+post:magistrate | small_talk_storm | A storm like this tries everyone's patience, mine included.[ Keep well away from the {danger}, storm or none.]
+post:magistrate | small_talk_cold | I'll not trade pleasantries with you.
+post:magistrate | small_talk_cold | If you've a matter to bring, bring it; I've no use for idle talk.
+post:magistrate | acknowledged | Indeed. I'll weigh that.
+post:magistrate | acknowledged | I see. That settles the point.
+post:magistrate | acknowledged | Is that so? I'll take it as given, for now.
+post:magistrate | thanked | No need; I'd give the same answer to anyone.
+post:magistrate | thanked | My pleasure; plain truth is the least I can give.
+post:magistrate | thanked_cold | Save your thanks; I'd have said the same to a thief.
+post:magistrate | thanked_cold | Keep your thanks; they'll not sway me.
+post:magistrate | offended | Mind your manners; I'll hear you out, but not like that.
+post:magistrate | offended | How dare you speak to me in that manner.
+post:magistrate | offended_again | Enough; I've heard all I need to judge you by.
+post:magistrate | offended_again | Hold your tongue; an insult is no argument.
+post:magistrate | safety_unsafe | Far from it. The gravest matter is {worst}.[ The {danger} weigh against it too.]
+post:magistrate | safety_unsafe | Not safe. There are {danger}, and that alone decides it.[ I would keep clear of {worst}, too.]
+post:magistrate | safety_wary | Safe enough, with care. I'd give {worst} a wide berth.[ The {danger} want watching as well.]
+post:magistrate | safety_wary | Keep your wits about you; the case against it is {worst}.
+post:magistrate | safety_safe | Yes, on the evidence. The one caution I'd give concerns {worst}.
+post:magistrate | safety_safe | It's safe, on balance, though I'd not go near {worst}.
+post:magistrate | safety_safe | Safe enough; I'd rule no other way.
+post:magistrate | denied | Nonsense; I sit in judgement, and that is all there is to me.
+post:magistrate | denied | That's not so, and I'll not hear it said in my presence.
+post:magistrate | denied_again | No, and repeating a charge doesn't prove it.
+
+# ---- post:teacher: conversation ----
+post:teacher | greeted | Good day. Well, go on; what's the question?
+post:teacher | greeted | Hello. Don't mumble; say what you want.
+post:teacher | greeted | Welcome. One question at a time, and put your hand up if you must.
+post:teacher | greeted_again | Hello again.[ Still on the subject of {asked}?]
+post:teacher | greeted_again | Back again. I saw you {since}; faces I remember, names I have to learn.
+post:teacher | greeted_again | Good day. You again; what is it this time?
+post:teacher | greeted_warm | Good to see you.[ Did your questions about {asked} get answered?]
+post:teacher | greeted_warm | Welcome back. I saw you {since}, and it's a treat to talk to someone grown.
+post:teacher | greeted_cold | What do you want? Out with it, and quickly.
+post:teacher | greeted_cold | What now? I've used up my patience for the day.
+post:teacher | greeted_cold | Stay back from the slates. What is it?
+post:teacher | small_talk | It's {season}, and the class fidgets all the more for it.
+post:teacher | small_talk | There's always marking, morning or night.[ And stay away from the {danger}; I shouldn't have to say it twice.]
+post:teacher | small_talk_fair | Fine weather, and every child in the place wants to be out in it.
+post:teacher | small_talk_fair | It's fair for {season}, and a shame to spend it indoors.[ Not near the {danger}, mind you.]
+post:teacher | small_talk_wet | It's wet, and that means muddy feet all over my floor.
+post:teacher | small_talk_wet | The rain keeps the children in, and me hoarse.[ Keep away from the {danger}, rain or shine.]
+post:teacher | small_talk_storm | Listen to it howl; half the class would be under the desks.
+post:teacher | small_talk_storm | It's blowing hard; stay indoors if you've any sense.[ And when it's over, keep away from the {danger}.]
+post:teacher | small_talk_cold | I get enough idle talk from the children.
+post:teacher | small_talk_cold | If you've nothing useful to say, don't say it.
+post:teacher | acknowledged | Good. That wasn't so hard, was it?
+post:teacher | acknowledged | I see; well, that's a start.
+post:teacher | acknowledged | Right. I'll remember that, and so should you.
+post:teacher | thanked | You're welcome; it's nice to be listened to for once.
+post:teacher | thanked | Glad to; answering questions is half my day.
+post:teacher | thanked_cold | Hmph; manners now, when it suits you.
+post:teacher | thanked_cold | Spare me; I've had more honest thanks from a sulking child.
+post:teacher | offended | Watch your tongue; I've heard better language from the youngest in my class.
+post:teacher | offended | There's no need for that; say it properly or not at all.
+post:teacher | offended_again | Enough; that's quite enough out of you.
+post:teacher | offended_again | Mind your manners; you're not too old to be told.
+post:teacher | safety_unsafe | Not here, it isn't. Stay away from {worst}, and I mean it.[ And from the {danger}.]
+post:teacher | safety_unsafe | No. There are {danger}, and that's the end of the matter.[ Keep away from {worst} as well.]
+post:teacher | safety_wary | Careful. Keep well away from {worst}; that's the lesson for today.
+post:teacher | safety_wary | More or less, if you mind {worst}.[ And the {danger}; write that down.]
+post:teacher | safety_safe | Safe enough, so long as you use your head. The one to avoid is {worst}.
+post:teacher | safety_safe | Yes. Keep away from {worst}, though, and remember I told you.
+post:teacher | safety_safe | Quiet enough; I'd let the children walk home alone.
+post:teacher | denied | Nonsense; I teach, and I've no time to be anything else.
+post:teacher | denied | You're mistaken; I've chalk on my hands and nothing up my sleeves.
+post:teacher | denied_again | No, and asking twice won't get you a different answer.
+
+# ---- post:librarian: conversation ----
+post:librarian | greeted | Hello, and quietly, please.
+post:librarian | greeted | Good day. What are you after, a book or an answer?
+post:librarian | greeted | Welcome. Mind the shelves, and your elbows.
+post:librarian | greeted_again | Hello again.[ You were after {asked}, if I remember rightly.]
+post:librarian | greeted_again | Back again. I saw you {since}; I keep faces the way I keep books, in order.
+post:librarian | greeted_again | Welcome back, and softly, now; the shelves haven't moved.
+post:librarian | greeted_warm | Good to see you.[ Did you find out more about {asked}?]
+post:librarian | greeted_warm | Well met again. I saw you {since}; it's nice to see a face that doesn't want shushing.
+post:librarian | greeted_cold | What do you want? Say it in a whisper.
+post:librarian | greeted_cold | Keep back from the shelves, and keep your hands to yourself.
+post:librarian | greeted_cold | What now? Keep it quiet, and keep it short.
+post:librarian | small_talk | It's {season}; the shelves don't notice, and I try not to.
+post:librarian | small_talk | Whatever the {time}, there's always dusting.[ Mind the {danger}; I'd sooner read about them than meet them.]
+post:librarian | small_talk_fair | A fair {time}; I'd still rather be in here with the books.
+post:librarian | small_talk_fair | It's dry, which the bindings like, and so do I.[ Mind the {danger}, though.]
+post:librarian | small_talk_wet | It's wet, and damp is the ruin of a good binding.
+post:librarian | small_talk_wet | Mind where you drip; it's a wet {time}.[ Keep clear of the {danger}, too.]
+post:librarian | small_talk_storm | Hear the wind? I worry for the windows, and the pages behind them.
+post:librarian | small_talk_storm | A storm; a good {time} to be among the books, and nowhere else.[ Stay clear of the {danger}, storm or not.]
+post:librarian | small_talk_cold | Not in here; I've no conversation to spare.
+post:librarian | small_talk_cold | If it isn't about a book, keep it to yourself.
+post:librarian | acknowledged | Ah; I'll file that away.
+post:librarian | acknowledged | Indeed; that's worth knowing.
+post:librarian | acknowledged | I see. Thank you for saying it quietly.
+post:librarian | thanked | My pleasure; finding things is what I do.
+post:librarian | thanked | Don't mention it; not too loudly, anyway.
+post:librarian | thanked_cold | Keep your thanks; I'd sooner have the silence.
+post:librarian | thanked_cold | Hmph; you can return the favour by leaving.
+post:librarian | offended | How dare you, in a place like this.
+post:librarian | offended | Mind your manners; the books have better.
+post:librarian | offended_again | Enough; I'll not hear another word, loud or soft.
+post:librarian | offended_again | Watch your tongue; I've shelved ruder things than you, but not many.
+post:librarian | safety_unsafe | I wouldn't say so. I'd not go within reach of {worst}.[ There are {danger} as well.]
+post:librarian | safety_unsafe | Not safe; there are {danger}, and I'd not set foot out.[ Nor near {worst}.]
+post:librarian | safety_wary | Mostly, if you keep away from {worst}.[ And from the {danger}, please.]
+post:librarian | safety_wary | Keep your wits about you, and give {worst} a wide berth.
+post:librarian | safety_safe | Safe enough, by all I've read. The worst of it is {worst}.
+post:librarian | safety_safe | Yes, though I'd not wander near {worst}.
+post:librarian | safety_safe | Nothing to fear; it's as quiet out there as in here.
+post:librarian | denied | You're mistaken; I keep the shelves, and that's all I keep.
+post:librarian | denied | I don't know what you mean; I'm as plain as a catalogue.
+post:librarian | denied_again | That's not so, and saying it louder won't make it so.
+
+# ---- post:scribe: conversation ----
+post:scribe | greeted | Hello; mind the desk.
+post:scribe | greeted | Good day. Give me a moment; I'm mid-line.
+post:scribe | greeted | Greetings. Be quick; the ink's wet.
+post:scribe | greeted_again | Hello again.[ Still after {asked}?]
+post:scribe | greeted_again | Back again. I saw you {since}; same desk, same ink.
+post:scribe | greeted_again | Well met again. Go on; I can write and listen both.
+post:scribe | greeted_warm | Good to see you.[ Did you find {asked}?]
+post:scribe | greeted_warm | Welcome back. I saw you {since}; I'll put the pen down for you.
+post:scribe | greeted_cold | What do you want? I'm busy.
+post:scribe | greeted_cold | Keep back from the desk; you'll jog it.
+post:scribe | greeted_cold | What now? Be quick, or be gone.
+post:scribe | small_talk | It's {season}, and my hand aches the same as ever.
+post:scribe | small_talk | Another {time}, another page.[ And mind the {danger}.]
+post:scribe | small_talk_fair | A fair {time}; the ink dries quick, at least.
+post:scribe | small_talk_fair | It's dry and fair, and so are my pages.[ Watch for the {danger}, all the same.]
+post:scribe | small_talk_wet | It's wet, and the paper cockles in the damp.
+post:scribe | small_talk_wet | A wet {time}; keep your drips off my pages.[ Mind the {danger}, too.]
+post:scribe | small_talk_storm | Hear that wind? One gust and my pages are on the floor.
+post:scribe | small_talk_storm | It's a storm, and I've a candle to keep lit.[ Keep clear of the {danger}.]
+post:scribe | small_talk_cold | I'm copying; talk to someone who isn't.
+post:scribe | small_talk_cold | Not now; I've pages to finish.
+post:scribe | acknowledged | Right; I have it.
+post:scribe | acknowledged | Aye, I'll write that down.
+post:scribe | acknowledged | Fair enough; back to the page, then.
+post:scribe | thanked | Glad to; it's only ink.
+post:scribe | thanked | No need; it was only a word or two.
+post:scribe | thanked_cold | Spare me; I've lost my place as it is.
+post:scribe | thanked_cold | Keep your thanks; they won't copy a page.
+post:scribe | offended | Careful; I've blotted out worse words than yours.
+post:scribe | offended | There's no need for that; I'm only copying.
+post:scribe | offended_again | Enough; I'm not listening, and I'm not writing it down.
+post:scribe | offended_again | Hold your tongue, or take it somewhere I can't hear it.
+post:scribe | safety_unsafe | Not safe. Keep off {worst}.[ There are {danger} too.]
+post:scribe | safety_unsafe | No; there are {danger}, and that's that.[ I'd keep away from {worst}, as well.]
+post:scribe | safety_wary | More or less. Keep clear of {worst}.[ And watch for the {danger}.]
+post:scribe | safety_wary | Careful near {worst}; that's all I'd write.
+post:scribe | safety_safe | Safe enough; I'd only keep away from {worst}.
+post:scribe | safety_safe | Aye, safe. Just not {worst}.
+post:scribe | safety_safe | It's safe, or I'd not sit with my back to the door.
+post:scribe | denied | Nonsense; I copy other people's words, that's all.
+post:scribe | denied | You have the wrong one; I'm ink and paper, nothing more.
+post:scribe | denied_again | No, and I've pages waiting.

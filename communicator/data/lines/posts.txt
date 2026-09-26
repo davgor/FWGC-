@@ -1,7 +1,5 @@
-# Written lines (roster posts). The format and the rules: README.md in this folder.
-
-# ---- A gate captain -----------------------------------------------------------------------------
-# Curt, a soldier at a gate.
+# Pilot copy of posts.txt: the banks post:gate_captain, post:innkeeper, as they stand. Add conversation rows below.
+# ---- post:gate_captain ----
 post:gate_captain | about_self | I'm {speaker}, {post} of {place}. Keep it brief.
 post:gate_captain | about_self | {speaker}, {post}. What do you want at {place}?
 post:gate_captain | surroundings | You're at {here}, and out past the gate the nearest is {nearest}.[ Then there's {others}.][ Beware the {danger}.]
@@ -13,19 +11,103 @@ post:gate_captain | not_understood | What do you mean by that?
 post:gate_captain | not_understood | I don't follow, and I've a gate to watch.
 post:gate_captain | parted | Go well, and mind the road.
 post:gate_captain | parted | Safe travels.
-
-# ---- An innkeeper -------------------------------------------------------------------------------
-# Warm, talkative, knows who is hiring.
+# ---- post:innkeeper ----
 post:innkeeper | about_self | I'm {speaker}, {post} here at {place}. What can I get you?
 post:innkeeper | about_self | {speaker}, love, {post} at {place}. What'll it be?
-post:innkeeper | work_others | Not from me, love, but {others}.
+post:innkeeper | work_others | Not from me, but {others}.
 post:innkeeper | work_others | Nothing of mine, but I hear {others}.
-post:innkeeper | work_others | I've none myself, love, but {others}.
-post:innkeeper | work_none | No work that I know of, love.
-post:innkeeper | surroundings | You're in {here}, love. The nearest is {nearest}[, and past that, {others}].[ I'd keep clear of the {danger}.]
+post:innkeeper | work_others | I've none myself, but {others}.
+post:innkeeper | work_none | No work that I know of.
+post:innkeeper | surroundings | You're in {here}. The nearest is {nearest}[, and past that, {others}].[ I'd keep clear of the {danger}.]
 post:innkeeper | surroundings | This is {here}, and the nearest is {nearest}.[ Then there's {others}.][ I'd keep clear of the {danger}.]
 post:innkeeper | surroundings | The nearest is {nearest}[, and past that, {others}].[ I'd keep clear of the {danger}.]
-post:innkeeper | not_understood | I'm not sure what you mean, love.
-post:innkeeper | not_understood | What do you mean, love?
-post:innkeeper | parted | Safe travels, love, and come back thirsty.
-post:innkeeper | parted | Go well, love.
+post:innkeeper | not_understood | I'm not sure what you mean.
+post:innkeeper | not_understood | What do you mean?
+post:innkeeper | parted | Safe travels, and come back thirsty.
+post:innkeeper | parted | Go well.
+# ---- post:gate_captain: conversation ----
+post:gate_captain | greeted | Hail. Say your business at the gate, and keep it short.
+post:gate_captain | greeted | Hello. Who's asking, and what for?
+post:gate_captain | greeted | Good day. Make it quick; the gate won't watch itself.
+post:gate_captain | greeted_again | Hello again.[ Still on about {asked}?]
+post:gate_captain | greeted_again | Back again. I saw you {since}; what is it now?
+post:gate_captain | greeted_again | Good day.[ It was {since} you were last at my gate.]
+post:gate_captain | greeted_warm | Good to see you.[ Get anywhere with {asked}?]
+post:gate_captain | greeted_warm | Welcome back. I saw you {since}, and I'm glad of a face I know.
+post:gate_captain | greeted_cold | What do you want? Be quick about it.
+post:gate_captain | greeted_cold | Stay back. Say it from there.
+post:gate_captain | greeted_cold | Keep back. Make it short, or move along.
+post:gate_captain | small_talk | It's {season}, and {time}. The gate's the same either way.
+post:gate_captain | small_talk | Another {time} on the gate.[ Keep an eye out for the {danger}.]
+post:gate_captain | small_talk_fair | A fine {time}, for {season}. It makes for an easy watch.
+post:gate_captain | small_talk_fair | It's dry and fair for {season}.[ Watch the {danger}, all the same.]
+post:gate_captain | small_talk_wet | It's a wet {time}, and the gate still wants watching.
+post:gate_captain | small_talk_wet | Nothing but rain, and {season} with it.[ Keep your eyes open for the {danger}.]
+post:gate_captain | small_talk_storm | It's a rough {time} for a watch. The gate stands, and so do I.
+post:gate_captain | small_talk_storm | No {time} to be out.[ And stay clear of the {danger}.]
+post:gate_captain | small_talk_cold | I'm on watch, not here to chat.
+post:gate_captain | small_talk_cold | If you've nothing to ask, move on.
+post:gate_captain | acknowledged | Right. That'll do.
+post:gate_captain | acknowledged | Aye, noted.
+post:gate_captain | acknowledged | Fair enough; I'll take that.
+post:gate_captain | thanked | No need; it's the job.
+post:gate_captain | thanked | Don't mention it; mind yourself out there.
+post:gate_captain | thanked_cold | Save your thanks and move along.
+post:gate_captain | thanked_cold | Spare me; just keep walking.
+post:gate_captain | offended | Watch your tongue at my gate.
+post:gate_captain | offended | Careful; I've no patience for mouths like yours.
+post:gate_captain | offended_again | Enough; I've heard all I care to from you.
+post:gate_captain | offended_again | Hold your tongue, or take it back down the road.
+post:gate_captain | safety_unsafe | Not safe. There are {danger}, for one.[ And stay well off {worst}.]
+post:gate_captain | safety_unsafe | No. I'd not go near {worst}.[ Beware the {danger} as well.]
+post:gate_captain | safety_wary | Keep your wits about you, and stay off {worst}.[ Watch for the {danger}, too.]
+post:gate_captain | safety_wary | Mostly. Just mind {worst}.[ After that, {others}.]
+post:gate_captain | safety_safe | Safe enough. The one to mind is {worst}.[ Watch for the {danger}.]
+post:gate_captain | safety_safe | Aye, safe. I'd still keep off {worst}.
+post:gate_captain | safety_safe | Quiet enough; you'll come to no harm here.
+post:gate_captain | denied | Nonsense; I keep a gate, and that's the whole of it.
+post:gate_captain | denied | You have the wrong one; there's nothing to me but the job.
+post:gate_captain | denied_again | No, and I'm done answering that.
+# ---- post:innkeeper: conversation ----
+post:innkeeper | greeted | Welcome in. What can I pour you?
+post:innkeeper | greeted | Hello there. Take a seat, and I'll be right with you.
+post:innkeeper | greeted | Good day. Tell me what you're after, and we'll see what the house can do.
+post:innkeeper | greeted_again | Hello again.[ You were asking me about {asked}, weren't you?]
+post:innkeeper | greeted_again | Back again. Was it {since} you were last in?
+post:innkeeper | greeted_again | Welcome back.[ I saw you {since}, and here you are again.]
+post:innkeeper | greeted_warm | Good to see you.[ Did you find out what you wanted about {asked}?]
+post:innkeeper | greeted_warm | Welcome back. I saw you {since}; it's good to have you in again.
+post:innkeeper | greeted_cold | What do you want? Either order something or be on your way.
+post:innkeeper | greeted_cold | What now? I've tables to see to.
+post:innkeeper | greeted_cold | Keep back from the bar. Say what you want.
+post:innkeeper | small_talk | It's {season}, and {time} already. Where does the day go?
+post:innkeeper | small_talk | There's always folk wanting feeding, {season} or not.[ Mind how you go near the {danger}.]
+post:innkeeper | small_talk_fair | A fine {time} for {season}. It brings folk in.
+post:innkeeper | small_talk_fair | It's fair for {season}, isn't it?[ Just mind the {danger}.]
+post:innkeeper | small_talk_wet | It's a wet {time}; come and dry off by the fire.
+post:innkeeper | small_talk_wet | Listen to that rain; it's {season} for you.[ Mind yourself near the {danger}.]
+post:innkeeper | small_talk_storm | It's a wild {time}; you're better off indoors while it blows.
+post:innkeeper | small_talk_storm | Hear that wind; it's {season} and no mistake.[ And there are {danger}, besides.]
+post:innkeeper | small_talk_cold | I've no time for chatter; I've a house to run.
+post:innkeeper | small_talk_cold | If you're not drinking, I'm not talking.
+post:innkeeper | acknowledged | Is that so? Well, you learn something every day.
+post:innkeeper | acknowledged | Ah, I see. I'll remember that.
+post:innkeeper | acknowledged | Fair enough. Now, will you be eating?
+post:innkeeper | thanked | You're welcome; it's what I'm here for.
+post:innkeeper | thanked | My pleasure; you know where to find me.
+post:innkeeper | thanked_cold | Keep your thanks; they don't wash the cups.
+post:innkeeper | thanked_cold | Hmph, thanks are easy words.
+post:innkeeper | offended | Mind your manners in my house.
+post:innkeeper | offended | There's no need for that; I've been civil with you.
+post:innkeeper | offended_again | Enough; take yourself off and cool your head.
+post:innkeeper | offended_again | How dare you, in my own house.
+post:innkeeper | safety_unsafe | Not safe, no. I'd keep well clear of {worst}.[ There are {danger}, too.]
+post:innkeeper | safety_unsafe | I wouldn't say so. There are {danger}.[ And I'd not go near {worst}.]
+post:innkeeper | safety_wary | More or less, if you mind {worst}.[ I'd keep clear of the {danger}, too.]
+post:innkeeper | safety_wary | Mostly, though I'd give a wide berth to {worst}.[ And to {others}.]
+post:innkeeper | safety_safe | Safe enough, from what I hear. The worst I know of is {worst}.[ And there are {danger}.]
+post:innkeeper | safety_safe | Yes, you'll be fine. Just steer clear of {worst}.
+post:innkeeper | safety_safe | Nothing to fear hereabouts, as far as I know.
+post:innkeeper | denied | Nonsense; what you see is what you get with me.
+post:innkeeper | denied | You're mistaken; I pour ale and make up beds, and that's all.
+post:innkeeper | denied_again | No, and asking again won't change it.

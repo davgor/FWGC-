@@ -10,7 +10,7 @@ post:commander | about_place | Here is how it stands: {about}. Make of it what y
 post:commander | surroundings | Know your ground: this is {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Do not discount the {danger}.]
 post:commander | surroundings | You stand in {here}, and the nearest is {nearest}.[ After that, {others}.][ Keep a wary eye on the {danger}.]
 post:commander | surroundings | Beyond these walls, the nearest is {nearest}.[ Past it, {others}.][ Mind the {danger}.]
-post:commander | work_own | I need a steady blade: {own}.[ If that is not for you, {others}.]
+post:commander | work_own | These are my orders, if you will take them: {own}.[ If that is not for you, {others}.]
 post:commander | work_own | There is work for a fighter: {own}.[ Otherwise, {others}.]
 post:commander | work_others | Nothing under my command, but {others}.
 post:commander | work_others | This keep has no task for you, but {others}.
@@ -113,7 +113,7 @@ post:quartermaster | surroundings | Here's the tally: you're in {here}, and the 
 post:quartermaster | surroundings | For your list: this is {here}, and the nearest is {nearest}.[ Past it, {others}.][ Keep clear of the {danger}.]
 post:quartermaster | surroundings | The nearest is {nearest}.[ After it, {others}.][ Mind the {danger}.]
 post:quartermaster | work_own | I've a task, and no time to explain it twice: {own}.[ If that's no good to you, {others}.]
-post:quartermaster | work_own | If you can carry, I've work: {own}.[ Otherwise, {others}.]
+post:quartermaster | work_own | If you'll put your name to it, I've work: {own}.[ Otherwise, {others}.]
 post:quartermaster | work_others | Nothing on my list, but {others}.
 post:quartermaster | work_others | I want nothing myself, but {others}.
 post:quartermaster | work_none | Nobody's asking for anything, me least of all.
@@ -147,7 +147,7 @@ post:armorer | surroundings | You're in {here}, and the nearest is {nearest}.[ P
 post:armorer | surroundings | This is {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I'd go armoured against the {danger}.]
 post:armorer | surroundings | From here, the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}.]
 post:armorer | work_own | I've work that keeps my hammer going: {own}.[ Or, if you'd rather, {others}.]
-post:armorer | work_own | I could use someone who can take a knock: {own}.[ Otherwise, {others}.]
+post:armorer | work_own | While the hammer's down, here's one: {own}.[ Otherwise, {others}.]
 post:armorer | work_others | Nothing at my bench, but {others}.
 post:armorer | work_others | I've none to give, but {others}.
 post:armorer | work_none | None; I've enough of my own.
@@ -160,10 +160,10 @@ post:armorer | refused_release | I can't loosen what {giver} buckled on you.
 post:armorer | refused_release | Not from me; I didn't strap you into it.
 post:armorer | refused | I cannot; {reason}, and no hammer will change that.
 post:armorer | accepted | Good; now let's see what you're made of.
-post:armorer | accepted | Done; don't come back dented.
+post:armorer | accepted | Done; that's riveted, then.
 post:armorer | declined | As you wish; I've rivets waiting.
 post:armorer | declined | Fair enough; the mail will keep.
-post:armorer | abandoned | A pity; you looked sturdier than that.
+post:armorer | abandoned | A pity; back on the bench it goes.
 post:armorer | abandoned | So be it; better a cracked link found early.
 post:armorer | parted | Take care, and keep your straps tight.
 post:armorer | parted | Go well, and bring me dents, not holes.
@@ -180,7 +180,7 @@ post:equipment_keeper | about_place | It's {about}. I'd want water and sand befo
 post:equipment_keeper | surroundings | You're at {here}, and from this shed the nearest is {nearest}.[ Past it, {others}.][ Beware the {danger}.]
 post:equipment_keeper | surroundings | This is {here}, and the nearest is {nearest}.[ After that, {others}.][ If it's not fire, it's the {danger} I'd worry about.]
 post:equipment_keeper | surroundings | As for what's near, it's {nearest}.[ Past that, {others}.][ Watch for the {danger}.]
-post:equipment_keeper | work_own | Here's one for someone who keeps a cool head: {own}.[ If that's not for you, {others}.]
+post:equipment_keeper | work_own | Here's one from my shed: {own}.[ If that's not for you, {others}.]
 post:equipment_keeper | work_own | I'd rather ask now than shout later: {own}.[ Otherwise, {others}.]
 post:equipment_keeper | work_others | Nothing on my pegs, but {others}.
 post:equipment_keeper | work_others | None from me, but {others}.
@@ -214,7 +214,7 @@ post:hall_attendant | about_place | It's {about}. That's as much as I know.
 post:hall_attendant | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Stay away from the {danger}.]
 post:hall_attendant | surroundings | This is {here}, and outside these doors the nearest is {nearest}.[ Beyond that, {others}.][ I'd not go near the {danger}.]
 post:hall_attendant | surroundings | From the hall, the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}.]
-post:hall_attendant | work_own | If you've a spare pair of hands: {own}.[ Otherwise, {others}.]
+post:hall_attendant | work_own | If you're offering, there's this: {own}.[ Otherwise, {others}.]
 post:hall_attendant | work_own | There's something you could do for me: {own}.[ If not, {others}.]
 post:hall_attendant | work_others | Not from me, but {others}.
 post:hall_attendant | work_others | I've no work of my own, but I hear {others}.
@@ -312,7 +312,7 @@ post:gate_captain | about_person | {name}, the {role}[, at {where}]. That's all 
 post:gate_captain | about_person | Aye, {name}, the {role}.[ At {where}, if you must know.]
 post:gate_captain | about_place | I know it: {about}. Nothing more to say.
 post:gate_captain | about_place | It's {about}. Your business there is your own.
-post:gate_captain | work_own | I need someone with sharp eyes: {own}.[ Otherwise, {others}.]
+post:gate_captain | work_own | You asked, so here it is: {own}.[ Otherwise, {others}.]
 post:gate_captain | work_own | Here's work, if you want it: {own}.[ If not, {others}.]
 post:gate_captain | work_others | Not from me, but {others}.
 post:gate_captain | work_others | None of mine, but {others}.
@@ -323,9 +323,405 @@ post:gate_captain | refused_give | I can't hand out another's orders.
 post:gate_captain | refused_release | I won't cross {giver}, not over this.
 post:gate_captain | refused_release | No, what someone else set you stays set.
 post:gate_captain | refused | I cannot, {reason}, and that's final.
-post:gate_captain | accepted | Good. I'll know you when you come back through the gate.
-post:gate_captain | accepted | Then it's agreed; off you go.
+post:gate_captain | accepted | Good. That's settled, then.
+post:gate_captain | accepted | Then it's agreed; give me your hand on it.
 post:gate_captain | declined | Suit yourself; the gate stays manned either way.
 post:gate_captain | declined | Fair enough, but don't loiter.
 post:gate_captain | abandoned | So be it; I'll remember your face.
 post:gate_captain | abandoned | A pity; I took you for someone who could stand a watch.
+
+# ---- post:commander: conversation ----
+post:commander | greeted | Hail. You have my attention; do not waste it.
+post:commander | greeted | Good day. I am listening, though not for long.
+post:commander | greeted | Well met. Say what brings you, and say it plainly.
+post:commander | greeted_again | Back again.[ Is it still {asked} that concerns you?]
+post:commander | greeted_again | Well met again. I saw you {since}; what is it this time?
+post:commander | greeted_again | Good day. You have come back, so I assume you have a purpose.
+post:commander | greeted_warm | Good to see you.[ Did {asked} prove worth the asking?]
+post:commander | greeted_warm | Welcome back. We last spoke {since}, and I am glad to see you again.
+post:commander | greeted_cold | What do you want? Be brief, and keep your distance.
+post:commander | greeted_cold | Keep back. Speak from there, or not at all.
+post:commander | greeted_cold | What now? I have a keep to hold, and no time for you.
+post:commander | small_talk | It is {season}, and the walls want manning all the same.
+post:commander | small_talk | A keep runs the same at any {time}.[ It is the {danger} that I watch.]
+post:commander | small_talk_fair | A clear {time}; a lookout can see a long way in this.
+post:commander | small_talk_fair | It is fair for {season}.[ Even so, I do not forget the {danger}.]
+post:commander | small_talk_wet | A wet {time}, and every sentry is soaked through.
+post:commander | small_talk_wet | The rain changes nothing here.[ Nor does it wash away the {danger}.]
+post:commander | small_talk_storm | A foul {time}; the garrison stays under cover, save the watch.
+post:commander | small_talk_storm | This is no weather to be caught outside the walls.[ Let the {danger} have it.]
+post:commander | small_talk_cold | I do not make small talk with those I do not trust.
+post:commander | small_talk_cold | If you have business, state it; if not, go.
+post:commander | acknowledged | Good. That is a straight answer, and I value those.
+post:commander | acknowledged | I see. I will bear it in mind.
+post:commander | acknowledged | Indeed. Then we understand each other.
+post:commander | thanked | No need; you asked, and I answered.
+post:commander | thanked | Think nothing of it; see that you use it well.
+post:commander | thanked_cold | Save your thanks; I did not do it for you.
+post:commander | thanked_cold | Spare me, and be on your way.
+post:commander | offended | Mind your manners; you speak to the one who holds this place.
+post:commander | offended | Careful; I have outlasted louder mouths than yours.
+post:commander | offended_again | Enough; I will not hear another word of that.
+post:commander | offended_again | Hold your tongue; I have heard all I mean to hear from you.
+post:commander | safety_unsafe | Not safe. I would not send a soul near {worst}.[ And there are {danger} to reckon with.]
+post:commander | safety_unsafe | Far from it. There are {danger}, and I do not discount them.[ Nor would I go near {worst}.]
+post:commander | safety_wary | Safe enough, with a plan. Keep clear of {worst}.[ And mind the {danger}.]
+post:commander | safety_wary | Mostly. I would keep away from {worst}.[ And from {others}.]
+post:commander | safety_safe | Yes, as things stand. The one danger worth naming is {worst}.
+post:commander | safety_safe | It's safe. Still, I would not wander near {worst}.
+post:commander | safety_safe | Nothing to fear; the walls see to that.
+post:commander | denied | You're mistaken; I hold this keep, and that is all I am.
+post:commander | denied | Nonsense; I command, and there is nothing more to find.
+post:commander | denied_again | No, and I will not be asked again.
+
+# ---- post:sergeant: conversation ----
+post:sergeant | greeted | Hello. Who are you, and what are you doing in my barracks?
+post:sergeant | greeted | Hail. Speak up, and look at me when you do.
+post:sergeant | greeted | Good day. Out with it; I've recruits waiting.
+post:sergeant | greeted_again | Back again.[ Still going on about {asked}?]
+post:sergeant | greeted_again | Well met again. I saw you {since}, and you're still on your feet.
+post:sergeant | greeted_again | Good day. You again, then; make it quick.
+post:sergeant | greeted_warm | Good to see you.[ Any luck with {asked}?]
+post:sergeant | greeted_warm | Welcome back. I saw you {since}, and you're a sight better than my recruits.
+post:sergeant | greeted_cold | What do you want? Say it and get out of my way.
+post:sergeant | greeted_cold | Stay back. You're close enough as it is.
+post:sergeant | greeted_cold | What now? I've no time for the likes of you.
+post:sergeant | small_talk | It's {season}; hot or cold, I still have to shout.
+post:sergeant | small_talk | Another {time}, another lot to drill.[ And there are {danger}, so keep your eyes open.]
+post:sergeant | small_talk_fair | A fine {time}; no excuse for anyone to be slacking.
+post:sergeant | small_talk_fair | Nobody gets to complain in weather like this.[ Mind the {danger}, though.]
+post:sergeant | small_talk_wet | It's raining, and I'll hear nothing but moaning about it.
+post:sergeant | small_talk_wet | Everyone's boots are soaked, mine included.[ Stay clear of the {danger}.]
+post:sergeant | small_talk_storm | Listen to it blow; not even I'll drill in this.
+post:sergeant | small_talk_storm | Keep your head down in this.[ And don't go anywhere near the {danger}.]
+post:sergeant | small_talk_cold | Go and chat with someone who cares.
+post:sergeant | small_talk_cold | Never mind the weather; what do you want?
+post:sergeant | acknowledged | Right. Good enough for me.
+post:sergeant | acknowledged | Aye, that's plain enough.
+post:sergeant | acknowledged | Well, it'll do.
+post:sergeant | thanked | Don't mention it, and I mean that.
+post:sergeant | thanked | No need; now go and do something useful.
+post:sergeant | thanked_cold | Keep your thanks; they're no use to me.
+post:sergeant | thanked_cold | Hmph, thanks from you, is it?
+post:sergeant | offended | Watch your tongue; mine's louder.
+post:sergeant | offended | Careful; I shout for a living, and you won't win this.
+post:sergeant | offended_again | Enough; one more word and you'll hear me properly.
+post:sergeant | offended_again | Hold your tongue; I've heard all I'll stand for.
+post:sergeant | safety_unsafe | No, it isn't. Stay off {worst}, and I mean it.[ There are {danger}, too.]
+post:sergeant | safety_unsafe | Not safe, not with {danger}.[ Keep clear of {worst}, as well.]
+post:sergeant | safety_wary | Careful, and you'll do. Keep well back from {worst}.[ And watch for the {danger}.]
+post:sergeant | safety_wary | More or less. Just don't go poking at {worst}.[ Or at {others}.]
+post:sergeant | safety_safe | Safe enough. If you want trouble, there's {worst}, but don't.
+post:sergeant | safety_safe | Aye, safe. Stay out of {worst}, and you'll be fine.
+post:sergeant | safety_safe | It's safe; I'd tell you if it wasn't.
+post:sergeant | denied | Nonsense; I'm a soldier, start to finish.
+post:sergeant | denied | You have the wrong one; there's nothing to me but drill and shouting.
+post:sergeant | denied_again | No, and I'm sick of hearing it.
+
+# ---- post:garrison_officer: conversation ----
+post:garrison_officer | greeted | Good day. Your business, and I'll see where it belongs.
+post:garrison_officer | greeted | Greetings. You'll want to be brief; I have rolls to keep.
+post:garrison_officer | greeted | Welcome to {place}. Is this official business?
+post:garrison_officer | greeted_again | Hello again.[ Is this further to {asked}?]
+post:garrison_officer | greeted_again | Good day. I have you down from {since}; what is it now?
+post:garrison_officer | greeted_again | Back again. Is it the same matter, or a new one?
+post:garrison_officer | greeted_warm | Good to see you.[ Did anything come of {asked}?]
+post:garrison_officer | greeted_warm | Welcome back. We spoke {since}, as I recall, and I'm glad of the visit.
+post:garrison_officer | greeted_cold | What do you want? Keep it to the facts.
+post:garrison_officer | greeted_cold | Keep back. Whatever this is, it can go through proper channels.
+post:garrison_officer | greeted_cold | What now? I'll hear it, but I'm writing it down.
+post:garrison_officer | small_talk | For the record, it's {season}, and the paperwork doesn't care.
+post:garrison_officer | small_talk | One {time} is much like another, on the rolls.[ I've the {danger} noted, too.]
+post:garrison_officer | small_talk_fair | It's fair for {season}, not that I see much of it from a desk.
+post:garrison_officer | small_talk_fair | A bright {time}, and a good one for a muster.[ It changes nothing about the {danger}.]
+post:garrison_officer | small_talk_wet | I keep the rolls well away from the damp.
+post:garrison_officer | small_talk_wet | The musters go on in the wet, as ordered.[ Keep well away from the {danger}, wet or dry.]
+post:garrison_officer | small_talk_storm | It's blowing hard; I'm glad to be indoors with the rolls.
+post:garrison_officer | small_talk_storm | A rough {time}, and not one for standing a watch.[ Keep away from the {danger} in it.]
+post:garrison_officer | small_talk_cold | I don't discuss the weather while on duty.
+post:garrison_officer | small_talk_cold | If it's not business, it's not my concern.
+post:garrison_officer | acknowledged | I see; noted.
+post:garrison_officer | acknowledged | Is that so? I'll put it down as such.
+post:garrison_officer | acknowledged | Indeed. That will do for my purposes.
+post:garrison_officer | thanked | You're welcome; it's what the office is for.
+post:garrison_officer | thanked | Don't mention it; I'd only have to write it down.
+post:garrison_officer | thanked_cold | Save your thanks; I'd have told anyone the same.
+post:garrison_officer | thanked_cold | Spare me; it changes nothing on my rolls.
+post:garrison_officer | offended | Mind your manners; I deal in facts, not insults.
+post:garrison_officer | offended | There's no need for that; keep it civil and keep it brief.
+post:garrison_officer | offended_again | Enough; I've heard all I intend to.
+post:garrison_officer | offended_again | Watch your tongue; I'll not hear that from you again.
+post:garrison_officer | safety_unsafe | Not safe, on the facts. Stay away from {worst}.[ The {danger} are a further concern.]
+post:garrison_officer | safety_unsafe | I wouldn't say so; there are {danger}.[ I'd add a warning about {worst}.]
+post:garrison_officer | safety_wary | Mostly, provided you stay away from {worst}.[ And give the {danger} a wide berth.]
+post:garrison_officer | safety_wary | Safe enough, though I'd caution you about {worst}.[ And {others}, for completeness.]
+post:garrison_officer | safety_safe | Yes, on the whole. The only entry of note is {worst}.
+post:garrison_officer | safety_safe | It's safe. I'd still mention {worst}, to be thorough.
+post:garrison_officer | safety_safe | Quiet enough; nothing on my reports says otherwise.
+post:garrison_officer | denied | That's not so; I keep the rolls, and that's all there is to me.
+post:garrison_officer | denied | You're mistaken, and I'll note that you said it.
+post:garrison_officer | denied_again | No, and the answer stands as recorded.
+
+# ---- post:quartermaster: conversation ----
+post:quartermaster | greeted | Hello. You're after something, I expect; everyone is.
+post:quartermaster | greeted | Good day. If you're here to take something, it gets counted first.
+post:quartermaster | greeted | Greetings. Mind the crates, and mind your fingers.
+post:quartermaster | greeted_again | Back again.[ Is it {asked} this time, or something new?]
+post:quartermaster | greeted_again | Hello again. I saw you {since}; I've counted everything since, just so you know.
+post:quartermaster | greeted_again | Good day. You again, and empty-handed, I hope.
+post:quartermaster | greeted_warm | Good to see you.[ Did you find what you wanted on {asked}?]
+post:quartermaster | greeted_warm | Welcome back. You were here {since}, and you're one I'd trust near the stores.
+post:quartermaster | greeted_cold | What do you want? And keep your hands out of the crates.
+post:quartermaster | greeted_cold | Stay back from the stores. Say it from there.
+post:quartermaster | greeted_cold | What now? Whatever it is, the answer's no.
+post:quartermaster | small_talk | There's always something to count, {season} or not.
+post:quartermaster | small_talk | It's {time}, and I've counted twice already.[ I'd not be short of anything near the {danger}.]
+post:quartermaster | small_talk_fair | A fair {time}; good for airing the stores.
+post:quartermaster | small_talk_fair | It's dry for {season}, and dry stores are good stores.[ Mind the {danger}, though.]
+post:quartermaster | small_talk_wet | This damp gets into the sacks if I'm not careful.
+post:quartermaster | small_talk_wet | Mind your kit stays dry in this.[ And keep clear of the {danger}.]
+post:quartermaster | small_talk_storm | Every gust like that is something I'll have to count later.
+post:quartermaster | small_talk_storm | I'll not open the stores in this.[ Stay well away from the {danger}.]
+post:quartermaster | small_talk_cold | I've counting to do, and you're not on the list.
+post:quartermaster | small_talk_cold | If you're not drawing kit, move along.
+post:quartermaster | acknowledged | Good. I'll put that down.
+post:quartermaster | acknowledged | Fair enough, if that's the whole of it.
+post:quartermaster | acknowledged | Aye, noted and counted.
+post:quartermaster | thanked | No need; just don't take anything on your way out.
+post:quartermaster | thanked | Glad to, as long as it costs me nothing.
+post:quartermaster | thanked_cold | Hmph, thanks don't fill a crate.
+post:quartermaster | thanked_cold | Keep your thanks, and keep your hands to yourself.
+post:quartermaster | offended | Watch your tongue; I don't stock insults.
+post:quartermaster | offended | Mind your manners; I keep a list of those who don't.
+post:quartermaster | offended_again | Enough; that's the last of my patience, and I don't reorder.
+post:quartermaster | offended_again | Hold your tongue; I've written you off.
+post:quartermaster | safety_unsafe | Not safe, by my count. Keep clear of {worst}.[ And put the {danger} on the list, too.]
+post:quartermaster | safety_unsafe | No. There are {danger}, and that's trouble enough.[ I'd keep off {worst} as well.]
+post:quartermaster | safety_wary | More or less, if you go stocked. Keep away from {worst}.[ Watch for the {danger}.]
+post:quartermaster | safety_wary | Mostly. The one I'd strike off your list is {worst}.[ And {others}, while you're at it.]
+post:quartermaster | safety_safe | Safe enough. The one thing I'd put down as trouble is {worst}.
+post:quartermaster | safety_safe | Yes. Still, I'd take extra of everything if you're going near {worst}.
+post:quartermaster | safety_safe | Aye, safe, and nothing missing, as far as I can count.
+post:quartermaster | denied | That's not so; I count stores, and that's the long and short of me.
+post:quartermaster | denied | Nonsense; what you see is all there is, and I've counted it.
+post:quartermaster | denied_again | No, and asking twice won't change the tally.
+
+# ---- post:armorer: conversation ----
+post:armorer | greeted | Hail. Mind the anvil, and speak up.
+post:armorer | greeted | Hello. Here for a fitting, or just talk?
+post:armorer | greeted | Welcome in. Watch the racks; they're sharper than they look.
+post:armorer | greeted_again | Back again.[ More questions about {asked}?]
+post:armorer | greeted_again | Hello again. I saw you {since}, and there's not a dent on you.
+post:armorer | greeted_again | Good day. Mind the sparks while we talk.
+post:armorer | greeted_warm | Good to see you.[ Did you get your answer on {asked}?]
+post:armorer | greeted_warm | Welcome back. You were in {since}, and I'll put the hammer down for you.
+post:armorer | greeted_cold | What do you want? Say it and let me work.
+post:armorer | greeted_cold | Keep back from the bench; I've hot metal on it.
+post:armorer | greeted_cold | What now? Every word from you is a rivet I'm not setting.
+post:armorer | small_talk | The anvil doesn't know it's {season}, and neither do I, most days.
+post:armorer | small_talk | It's {time}, and there's always mail to mend.[ If you're going near the {danger}, go well fitted.]
+post:armorer | small_talk_fair | A fine {time}; good light for close work.
+post:armorer | small_talk_fair | Nothing rusts in weather like this.[ Mind the {danger}, all the same.]
+post:armorer | small_talk_wet | It's wet, and wet means rust, and rust means work for me.
+post:armorer | small_talk_wet | Every ring wants oiling in weather like this.[ Keep clear of the {danger}.]
+post:armorer | small_talk_storm | Hear that wind; it drowns out the forge.
+post:armorer | small_talk_storm | The forge stays fed, storm or no storm.[ You keep away from the {danger}.]
+post:armorer | small_talk_cold | I've work at the bench, and it doesn't talk back.
+post:armorer | small_talk_cold | If it's not armour, it's not my business.
+post:armorer | acknowledged | Right, then; that's clear.
+post:armorer | acknowledged | Aye, that fits well enough.
+post:armorer | acknowledged | Ah, I'll remember that.
+post:armorer | thanked | Think nothing of it; it's no harder than a buckle.
+post:armorer | thanked | Glad to; now let me get back to my rivets.
+post:armorer | thanked_cold | Spare me; I'd sooner you stopped blocking my light.
+post:armorer | thanked_cold | Hmph, thanks ring hollow as a bad helm.
+post:armorer | offended | Careful; I've heard sharper words from a blunt blade.
+post:armorer | offended | Mind your manners in my armory.
+post:armorer | offended_again | Enough; my patience is thinner than cheap mail.
+post:armorer | offended_again | Hold your tongue, or take it somewhere else.
+post:armorer | safety_unsafe | Far from it. Keep clear of {worst}, however well you're fitted.[ And there are {danger}.]
+post:armorer | safety_unsafe | Not safe; there are {danger}.[ I'd not send my best mail near {worst}.]
+post:armorer | safety_wary | Safe enough, if you're well strapped. Stay off {worst}.[ Watch for the {danger}.]
+post:armorer | safety_wary | Careful, and you'll keep your hide whole. I'd not go near {worst}.[ Nor {others}.]
+post:armorer | safety_safe | Aye, safe. The one place I'd go armoured is {worst}.
+post:armorer | safety_safe | Yes. Keep a buckle tight near {worst}, that's all.
+post:armorer | safety_safe | Safe enough; you could walk about in your shirt.
+post:armorer | denied | Nonsense; I'm steel and soot and nothing else.
+post:armorer | denied | You have the wrong one; there's nothing to me but the bench and the hammer.
+post:armorer | denied_again | No, and asking again won't hammer out a different answer.
+
+# ---- post:equipment_keeper: conversation ----
+post:equipment_keeper | greeted | Hello. You're not carrying a lit pipe, I hope?
+post:equipment_keeper | greeted | Good day. Mind the buckets; they're full, and I'd like them to stay that way.
+post:equipment_keeper | greeted | Welcome. If nothing's burning, I've a minute.
+post:equipment_keeper | greeted_again | Hello again.[ Still curious about {asked}?]
+post:equipment_keeper | greeted_again | Back again. I saw you {since}, and you don't smell of smoke, which is good.
+post:equipment_keeper | greeted_again | Good day. Come in, but leave any flame outside.
+post:equipment_keeper | greeted_warm | Good to see you.[ How did you get on with {asked}?]
+post:equipment_keeper | greeted_warm | Welcome back. We spoke {since}, and I'm glad to see you again, unsinged.
+post:equipment_keeper | greeted_cold | What do you want? Say it and let me get on.
+post:equipment_keeper | greeted_cold | Stay back. I've ladders to check and no time for you.
+post:equipment_keeper | greeted_cold | What now? Say it from the door.
+post:equipment_keeper | small_talk | I check the ladders whether it's {season} or not.
+post:equipment_keeper | small_talk | This {time}, with nothing alight, suits me fine.[ It's the {danger} I'd worry about.]
+post:equipment_keeper | small_talk_fair | A dry {time}, and dry means sparks catch; I don't like it.
+post:equipment_keeper | small_talk_fair | Good weather for {season}, and it keeps me watchful.[ Mind the {danger} as well.]
+post:equipment_keeper | small_talk_wet | I'll not complain about rain; it's the best help I get.
+post:equipment_keeper | small_talk_wet | The barrels fill themselves in weather like this.[ Still, keep clear of the {danger}.]
+post:equipment_keeper | small_talk_storm | Listen to that wind; one stray spark in this and the whole place goes.
+post:equipment_keeper | small_talk_storm | I'll be up with the ladders till this passes.[ And stay well away from the {danger}.]
+post:equipment_keeper | small_talk_cold | I've buckets to fill, not chatter to make.
+post:equipment_keeper | small_talk_cold | If nothing's on fire, we've nothing to talk about.
+post:equipment_keeper | acknowledged | Good. That puts my mind at rest.
+post:equipment_keeper | acknowledged | I see. That's worth knowing.
+post:equipment_keeper | acknowledged | Well, as long as nothing's burning.
+post:equipment_keeper | thanked | Glad to; it's a change from shouting fire.
+post:equipment_keeper | thanked | You're welcome; I'd sooner help than put something out.
+post:equipment_keeper | thanked_cold | Save your thanks and keep clear of my shed.
+post:equipment_keeper | thanked_cold | Spare me; thanks never put out a fire.
+post:equipment_keeper | offended | There's no need for that; I've enough heat to deal with.
+post:equipment_keeper | offended | Watch your tongue; I put out fires, I don't start them.
+post:equipment_keeper | offended_again | Enough; I'll not stand here and be scorched by you.
+post:equipment_keeper | offended_again | Hold your tongue; I've had enough smoke from you.
+post:equipment_keeper | safety_unsafe | Not safe. Keep well clear of {worst}.[ And there are {danger}, which I like even less.]
+post:equipment_keeper | safety_unsafe | No. There are {danger}, and I'd not go near them.[ Nor near {worst}.]
+post:equipment_keeper | safety_wary | Safe enough, if you watch your step like I watch sparks. Keep clear of {worst}.[ And the {danger}.]
+post:equipment_keeper | safety_wary | Mostly. I'd keep an eye on {worst}, the way I watch for smoke.
+post:equipment_keeper | safety_safe | Safe enough. The one I'd watch is {worst}.
+post:equipment_keeper | safety_safe | Yes, as safe as a full bucket. Just steer clear of {worst}.
+post:equipment_keeper | safety_safe | Nothing to fear here; I'd have smelled it.
+post:equipment_keeper | denied | I don't know what you mean; I mind buckets and ladders, and that's all.
+post:equipment_keeper | denied | You're mistaken; there's nothing smouldering in me.
+post:equipment_keeper | denied_again | No, and there's nothing to smoke out.
+
+# ---- post:hall_attendant: conversation ----
+post:hall_attendant | greeted | Good day. Mind the benches; I've only just set them straight.
+post:hall_attendant | greeted | Hello. Can I fetch you something, or are you only passing?
+post:hall_attendant | greeted | Welcome in. Would you wipe your boots, please?
+post:hall_attendant | greeted_again | Hello again.[ Still wondering about {asked}?]
+post:hall_attendant | greeted_again | Back again. I saw you {since}, if I remember right.
+post:hall_attendant | greeted_again | Good day. You'll be wanting something, I expect.
+post:hall_attendant | greeted_warm | Good to see you.[ Did you find out about {asked}?]
+post:hall_attendant | greeted_warm | Welcome back. You were here {since}; sit wherever you like.
+post:hall_attendant | greeted_cold | What do you want? I've cups to collect.
+post:hall_attendant | greeted_cold | Keep back from the tables, please. Say it from there.
+post:hall_attendant | greeted_cold | What now? I'm busy, and you're in the way.
+post:hall_attendant | small_talk | It's {season}, and the hall still wants sweeping.
+post:hall_attendant | small_talk | One {time} or another, there's always a table to clear.[ I hear there are {danger}, and I'd not go near.]
+post:hall_attendant | small_talk_fair | A lovely {time}; I'd open the windows if it were up to me.
+post:hall_attendant | small_talk_fair | The hall's bright in weather like this.[ Just mind the {danger}.]
+post:hall_attendant | small_talk_wet | Everyone tracks the wet in, and guess who mops it.
+post:hall_attendant | small_talk_wet | Come and stand by the hearth; you'll dry off quick enough.[ And keep away from the {danger}.]
+post:hall_attendant | small_talk_storm | Such a draught through the hall in this wind.
+post:hall_attendant | small_talk_storm | It's a wild {time}; you're better off inside.[ The {danger} are the last thing you'd want to meet in this.]
+post:hall_attendant | small_talk_cold | I've benches to wipe, if you don't mind.
+post:hall_attendant | small_talk_cold | Not now, please; there's work to do.
+post:hall_attendant | acknowledged | I see, thank you.
+post:hall_attendant | acknowledged | Ah, that makes sense.
+post:hall_attendant | acknowledged | Well, I'll not argue with that.
+post:hall_attendant | thanked | You're welcome; it's no trouble at all.
+post:hall_attendant | thanked | My pleasure; it makes a change from clearing plates.
+post:hall_attendant | thanked_cold | Keep your thanks; I'd rather you just left me be.
+post:hall_attendant | thanked_cold | Hmph, and I'm meant to be pleased?
+post:hall_attendant | offended | There's no need for that; I only serve here.
+post:hall_attendant | offended | Mind your manners, please; this is a hall, not a tavern.
+post:hall_attendant | offended_again | Enough, please; I've heard plenty.
+post:hall_attendant | offended_again | How dare you; I don't deserve that.
+post:hall_attendant | safety_unsafe | Not safe, from what I hear. I'd stay well away from {worst}.[ There are {danger}, too, they say.]
+post:hall_attendant | safety_unsafe | I wouldn't say so; there are {danger}, and that's enough for me.[ Keep clear of {worst} as well.]
+post:hall_attendant | safety_wary | More or less, from the talk at table. Mind {worst}.[ And the {danger}.]
+post:hall_attendant | safety_wary | Mostly, I think. I'd not go near {worst}.
+post:hall_attendant | safety_safe | Yes, I think so. The only place I hear of is {worst}.
+post:hall_attendant | safety_safe | Safe enough, they say. Still, keep away from {worst}.
+post:hall_attendant | safety_safe | Quiet enough; nothing worse here than a spilled cup.
+post:hall_attendant | denied | I don't know what you mean; I pour and I wipe, that's all.
+post:hall_attendant | denied | No, I'm only what you see, and not much of that.
+post:hall_attendant | denied_again | That's not so, and I'd rather you didn't ask again.
+
+# ---- post:chaplain: conversation ----
+post:chaplain | greeted | Welcome, and peace be with you.
+post:chaplain | greeted | Good day. What brings you to the chapel?
+post:chaplain | greeted | Greetings. Come in, and speak as softly as you like.
+post:chaplain | greeted_again | Hello again.[ Does {asked} still weigh on you?]
+post:chaplain | greeted_again | Welcome back. I saw you {since}, and I have kept you in my prayers.
+post:chaplain | greeted_again | Good day. You are welcome here, as before.
+post:chaplain | greeted_warm | Good to see you.[ Did you find what you sought about {asked}?]
+post:chaplain | greeted_warm | Well met again. We spoke {since}, and I am glad to see you well.
+post:chaplain | greeted_cold | What do you want? Even here, I will ask you to be brief.
+post:chaplain | greeted_cold | Keep back, please. This is a place of quiet.
+post:chaplain | greeted_cold | What now? I will hear you, but I do not trust you.
+post:chaplain | small_talk | It is {season}, and the candles burn the same in any weather.
+post:chaplain | small_talk | Each {time} has its own quiet work.[ I keep in mind any who pass near the {danger}.]
+post:chaplain | small_talk_fair | A fine {time}; the chapel is full of light.
+post:chaplain | small_talk_fair | I give thanks for weather like this.[ Still, mind the {danger}.]
+post:chaplain | small_talk_wet | It is raining, and the chapel roof holds, thank heaven.
+post:chaplain | small_talk_wet | You are welcome to shelter here while it rains.[ And keep well away from the {danger}.]
+post:chaplain | small_talk_storm | Hear the wind; weather like this sends people to their prayers.
+post:chaplain | small_talk_storm | May this storm pass gently.[ And may the {danger} keep to their nests in it.]
+post:chaplain | small_talk_cold | Forgive me, but I have no wish to talk idly with you.
+post:chaplain | small_talk_cold | I would sooner keep my own counsel.
+post:chaplain | acknowledged | I see. Thank you for telling me.
+post:chaplain | acknowledged | Ah, then I understand you better.
+post:chaplain | acknowledged | Indeed; that answers my question.
+post:chaplain | thanked | My pleasure; it is what I am here for.
+post:chaplain | thanked | No need; it was freely given.
+post:chaplain | thanked_cold | Save your thanks; I would rather have your honesty.
+post:chaplain | thanked_cold | Keep your thanks; I did only what I would do for anyone.
+post:chaplain | offended | Mind your manners; this is a house of prayer.
+post:chaplain | offended | There's no need for that; I have done nothing to earn it.
+post:chaplain | offended_again | Enough; you have said more than you should.
+post:chaplain | offended_again | Hold your tongue, for your own soul's sake.
+post:chaplain | safety_unsafe | No, it is not. Stay far from {worst}.[ There are {danger}, too, heaven help us.]
+post:chaplain | safety_unsafe | I wouldn't say so; there are {danger}, and I pray for any who meet them.[ And keep away from {worst}.]
+post:chaplain | safety_wary | Mostly, with care and a little faith. Do not go near {worst}.[ And beware the {danger}.]
+post:chaplain | safety_wary | Safe enough, if you go carefully. I would avoid {worst}.[ And {others}, if you can.]
+post:chaplain | safety_safe | Yes, by grace. I would only ask you to keep away from {worst}.
+post:chaplain | safety_safe | It's safe, as far as I know. Say a prayer if you pass near {worst}.
+post:chaplain | safety_safe | Nothing to fear here; this is a peaceful place.
+post:chaplain | denied | No; I serve this chapel, and there is nothing more to me.
+post:chaplain | denied | You're mistaken, though I will not think less of you for asking.
+post:chaplain | denied_again | That's not so, and I have nothing more to say on it.
+
+# ---- post:steward: conversation ----
+post:steward | greeted | Good day. What business brings you to {place}?
+post:steward | greeted | Welcome. If it's business, I'm listening; if it's gossip, I'm not.
+post:steward | greeted | Greetings. You'll forgive me if I keep one eye on my accounts.
+post:steward | greeted_again | Hello again.[ Any further business concerning {asked}?]
+post:steward | greeted_again | Good day. By my reckoning, we last spoke {since}.
+post:steward | greeted_again | Back again. Let's see what you're after this time.
+post:steward | greeted_warm | Good to see you.[ Did matters with {asked} turn out well?]
+post:steward | greeted_warm | Welcome back. We spoke {since}, and it's a pleasure to deal with you again.
+post:steward | greeted_cold | What do you want? Be exact, and be quick.
+post:steward | greeted_cold | Keep back from the ledgers. What is it?
+post:steward | greeted_cold | What now? I have a great deal to see to, and none of it is you.
+post:steward | small_talk | It's {season}, and every season has its own accounts.
+post:steward | small_talk | My {time} is lists and stores, as ever.[ The {danger} are a cost I'd rather not carry.]
+post:steward | small_talk_fair | A fair {time}, and good weather keeps the stores dry.
+post:steward | small_talk_fair | It's fine for {season}, and fine weather is good for trade.[ Mind the {danger}, all the same.]
+post:steward | small_talk_wet | All this rain, and I've stores to keep dry.
+post:steward | small_talk_wet | I'd stay in and do the books, if I were you.[ And keep well clear of the {danger}.]
+post:steward | small_talk_storm | It's blowing hard; I hope everything's tied down.
+post:steward | small_talk_storm | A wild {time}, and nobody sensible is out in it.[ Nor near the {danger}, I hope.]
+post:steward | small_talk_cold | I have work to see to; this can wait.
+post:steward | small_talk_cold | Unless you've something to trade, I'm busy.
+post:steward | acknowledged | Good. That's clear, and I'll remember it.
+post:steward | acknowledged | Fair enough; I'll account for it.
+post:steward | acknowledged | I see. Thank you for being exact.
+post:steward | thanked | My pleasure; good dealings are worth the time.
+post:steward | thanked | Don't mention it; it's all part of the running of the place.
+post:steward | thanked_cold | Keep your thanks; I'd rather have a fair bargain.
+post:steward | thanked_cold | Spare me; I'll judge you by your dealings, not your words.
+post:steward | offended | Mind your manners; I deal fairly, and expect the same.
+post:steward | offended | There's no need for that; we can disagree civilly.
+post:steward | offended_again | Enough; I'll have no further dealings in that tone.
+post:steward | offended_again | Careful; I keep accounts of more than stores.
+post:steward | safety_unsafe | Not safe, I'm sorry to say. Keep well clear of {worst}.[ There are {danger}, besides.]
+post:steward | safety_unsafe | No; there are {danger}, and that's reason enough.[ I'd also steer clear of {worst}.]
+post:steward | safety_wary | Mostly, if you travel sensibly. Stay away from {worst}.[ Mind the {danger} as well.]
+post:steward | safety_wary | More or less. On balance, I'd avoid {worst}.[ And {others}, to be safe.]
+post:steward | safety_safe | Safe enough. The one risk worth weighing is {worst}.
+post:steward | safety_safe | Yes, on the whole. I'd still keep clear of {worst}.
+post:steward | safety_safe | It's safe here, and well kept.
+post:steward | denied | No; I keep the accounts, and they balance, as do I.
+post:steward | denied | You're mistaken; my affairs are as orderly as my books.
+post:steward | denied_again | That's not so, and I'll not discuss it further.
