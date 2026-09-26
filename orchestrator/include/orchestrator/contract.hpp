@@ -21,7 +21,8 @@ namespace orchestrator {
 //    and their outcomes; a Memory fact in every packet; a Chat fact in small talk; a Safety
 //    fact answering ask_safety; a Reveal fact when a hidden face comes out; Persona::face.
 // 5: Persona::people, whose sayings the speaker knows.
-inline constexpr int kContractVersion = 5;
+// 6: the Memory fact's `heard`, and `since` by the calendar, with "yesterday".
+inline constexpr int kContractVersion = 6;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -109,7 +110,8 @@ std::string_view to_string(FactKind kind);
 // inputs (so replay restores it):
 // - `met`: "first" in the first conversation with this speaker, else "again";
 // - `times`: how many conversations came before this one, as digits;
-// - `since`: how long since the last one ended, roughly: "today", "days", "weeks", "months",
+// - `since`: how long since the last one ended, by the calendar: "today" (the same day),
+//   "yesterday", "days" (under a week), "weeks" (under 60 days), "months" (under two years),
 //   "years"; empty the first time;
 // - `mood`: how the speaker takes the player: "warm", "friendly", "neutral", "wary", "hostile".
 //   Thanks and finished work raise it; insults and abandoned work lower it;
@@ -120,6 +122,8 @@ std::string_view to_string(FactKind kind);
 // - `turn`: this act's place in the conversation, 1 for the first, as digits;
 // - `repeat`: "yes" when the player has made this same act, with the same target, earlier in
 //   this conversation, else "no";
+// - `heard`: how many times before this one the player has made this act to this speaker,
+//   whatever its target, in this conversation or any earlier one, as digits: "0" the first time;
 // - `exposed`: "yes" once the player has made this speaker own to a hidden face, else "no".
 // A conversation ends at a farewell, when time passes, or when the player turns to someone
 // else. A face that does not recognise the player (a beast unleashed) gives a first meeting and

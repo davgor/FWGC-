@@ -81,6 +81,7 @@ public:
         int disposition = 0;    // -3 hostile .. 3 warm
         bool thanked = false;   // in this conversation: thanks count once
         std::vector<std::pair<ActKind, std::string>> said;  // this conversation's acts
+        std::map<ActKind, int> heard;  // every act the player made to this speaker, counted, in any conversation
         std::string asked_now, asked_before;  // the last place or person asked about, by name
         std::string work;       // the player's latest dealing with this speaker's own work
         bool exposed = false;          // the player made a hidden face come out

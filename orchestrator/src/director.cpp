@@ -185,9 +185,12 @@ int number_field(const Fact& fact, std::string_view key) {
 
 // ---- conversation ---------------------------------------------------------------------------
 
-// How long ago, as someone would say it.
-std::string since_band(double days) {
+// How long ago, as someone would say it: by the calendar, so a meeting late yesterday was
+// "yesterday" however few hours ago it was.
+std::string since_band(double today, double then) {
+    const double days = std::floor(today) - std::floor(then);
     if (days < 1.0) return "today";
+    if (days < 2.0) return "yesterday";
     if (days < 7.0) return "days";
     if (days < 60.0) return "weeks";
     if (days < 730.0) return "months";
@@ -204,7 +207,8 @@ std::string mood_of(int disposition) {
 
 void regard(Director::Acquaintance& a, int change) { a.disposition = std::clamp(a.disposition + change, -3, 3); }
 
-Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool recognised, bool repeat) {
+// `heard`: how many times before this the player made this act to the speaker.
+Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool recognised, bool repeat, int heard) {
     Fact f{FactKind::Memory, uid, {}};
     const bool again = recognised && a.conversations > 1;
     f.fields = {{"met", again ? "again" : "first"},
@@ -215,6 +219,7 @@ Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool r
                 {"asked_before", recognised ? a.asked_before : std::string()},
                 {"turn", std::to_string(a.turn)},
                 {"repeat", repeat ? "yes" : "no"},
+                {"heard", std::to_string(recognised ? heard : 0)},
                 {"exposed", recognised && a.exposed ? "yes" : "no"}};
     return f;
 }
@@ -494,7 +499,9 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
     if (!s.present) {
         FactPacket p = packet_for(s, act, Outcome::Refused);
         p.facts.push_back(reason("gone", (s.persona.name.empty() ? std::string("the one spoken to") : s.persona.name) + " is gone"));
-        p.facts.push_back(memory_fact(speaker_uid, a, true, false));
+        // Nobody heard it, so nothing is counted.
+        const auto heard = a.heard.find(act.kind);
+        p.facts.push_back(memory_fact(speaker_uid, a, true, false, heard == a.heard.end() ? 0 : heard->second));
         inputs_.push_back(Say{speaker_uid, act});
         return p;
     }
@@ -504,7 +511,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
     if (!talking_to_.empty() && talking_to_ != speaker_uid) end_conversation(talking_to_);
     if (!a.talking) {
         ++a.conversations;
-        a.since = a.conversations > 1 ? since_band(today - a.last_day) : std::string();
+        a.since = a.conversations > 1 ? since_band(today, a.last_day) : std::string();
         a.turn = 0;
         a.said.clear();
         a.thanked = false;
@@ -514,6 +521,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
     ++a.turn;
     const bool repeat = std::find(a.said.begin(), a.said.end(), std::pair{act.kind, act.target}) != a.said.end();
     a.said.emplace_back(act.kind, act.target);
+    const int heard = a.heard[act.kind]++;
 
     // The face the player meets.
     const fwg::Hero* hero = knowledge::hero_of(s);
@@ -533,7 +541,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
     show();
 
     const auto finish = [&](FactPacket p) {
-        p.facts.push_back(memory_fact(speaker_uid, a, recognised, repeat));
+        p.facts.push_back(memory_fact(speaker_uid, a, recognised, repeat, heard));
         a.last_day = today;
         if (act.kind == ActKind::Farewell) end_conversation(speaker_uid);
         inputs_.push_back(Say{speaker_uid, act});

@@ -229,14 +229,55 @@ TEST(a_speaker_remembers_the_player_from_one_conversation_to_the_next) {
     check::equal(m["since"], std::string("today"), "earlier today");
     check::equal(m["turn"], std::string("1"), "a new conversation");
     int times = 2;
-    for (const auto& [days, since] : std::vector<std::pair<double, std::string>>{{3.0, "days"}, {20.0, "weeks"}, {100.0, "months"}}) {
+    for (const auto& [days, since] :
+         std::vector<std::pair<double, std::string>>{{1.0, "yesterday"}, {3.0, "days"}, {20.0, "weeks"}, {100.0, "months"}}) {
         d.advance(days);
         m = memory(d.respond(x, {ActKind::Greet, ""}));
         check::equal(m["times"], std::to_string(times++), "every conversation counted");
         check::equal(m["since"], since, "how long since, after " + std::to_string(days) + " days");
     }
     const Director::Acquaintance* a = d.acquaintance(x);
-    check::is_true(a != nullptr && a->conversations == 5, "five conversations held");
+    check::is_true(a != nullptr && a->conversations == 6, "six conversations held");
+}
+
+TEST(since_is_by_the_calendar_not_by_the_hours_between) {
+    Director d(faced_world());
+    const std::string x = townsfolk(1).front();
+    const auto now = [&d] { return fwg::world_clock_of(d.world()).day; };
+    // Late in a day, so the next begins within hours.
+    if (now() - std::floor(now()) < 0.5) d.advance(0.5);
+    const double first = now();
+    (void)d.respond(x, {ActKind::Greet, ""});
+    (void)d.respond(x, {ActKind::Farewell, ""});
+    d.advance(std::floor(first) + 1.05 - first);
+    check::is_true(now() - first < 1.0 && std::floor(now()) == std::floor(first) + 1.0, "the premise: the next day, under a day on");
+    check::equal(memory(d.respond(x, {ActKind::Greet, ""}))["since"], std::string("yesterday"), "yesterday, hours ago");
+    (void)d.respond(x, {ActKind::Farewell, ""});
+    d.advance(0.9);
+    check::is_true(std::floor(now()) == std::floor(first) + 1.0, "the premise: the same day, most of it later");
+    check::equal(memory(d.respond(x, {ActKind::Greet, ""}))["since"], std::string("today"), "today, however many hours ago");
+}
+
+TEST(a_speaker_counts_what_the_player_says_across_conversations) {
+    Director d(faced_world());
+    const std::string x = townsfolk(1).front();
+    const auto heard = [&](ActKind kind, const std::string& target = "") { return memory(d.respond(x, {kind, target}))["heard"]; };
+    check::equal(heard(ActKind::Greet), std::string("0"), "a first greeting");
+    check::equal(heard(ActKind::SmallTalk), std::string("0"), "a first word of small talk");
+    check::equal(heard(ActKind::SmallTalk), std::string("1"), "small talk again, in the same conversation");
+    const FactPacket around = d.respond(x, {ActKind::AskSurroundings, ""});
+    const std::vector<Fact> places = facts_of(around, FactKind::Place);
+    check::is_true(places.size() >= 2, "the premise: two places to ask about");
+    check::equal(heard(ActKind::AskAboutPlace, places[0].subject), std::string("0"), "asked about one place");
+    check::equal(heard(ActKind::AskAboutPlace, places[1].subject), std::string("1"), "and another: the same act, counted");
+    check::equal(heard(ActKind::Farewell), std::string("0"), "a first farewell");
+    d.advance(3.0);
+    check::equal(heard(ActKind::Greet), std::string("1"), "greeted again, another day");
+    check::equal(heard(ActKind::SmallTalk), std::string("2"), "small talk counted across conversations");
+    check::equal(heard(ActKind::AskSurroundings), std::string("1"), "and a question");
+    check::equal(heard(ActKind::Farewell), std::string("1"), "and a farewell");
+    const std::string y = townsfolk(2)[1];
+    check::equal(memory(d.respond(y, {ActKind::Greet, ""}))["heard"], std::string("0"), "each speaker counts only their own");
 }
 
 TEST(a_conversation_ends_at_a_farewell_when_time_passes_or_on_turning_away) {
@@ -607,7 +648,7 @@ TEST(a_beast_is_unleashed_about_the_full_moon_and_owns_to_it_after) {
                        p.persona.voice_key == key_of(beast, unleashed),
                    "unleashed under the full moon");
     const Memory raging = memory(p);
-    check::is_true(raging.at("met") == "first" && raging.at("mood") == "hostile", "knowing nobody");
+    check::is_true(raging.at("met") == "first" && raging.at("mood") == "hostile" && raging.at("heard") == "0", "knowing nobody");
     d.advance(1.0);
     check::equal(d.respond(beast.uid, {ActKind::Greet, ""}).persona.face, std::string("unleashed"), "and the day after");
     (void)d.respond(beast.uid, {ActKind::Farewell, ""});
@@ -748,7 +789,8 @@ TEST(replay_restores_what_every_speaker_remembers) {
         check::is_true(a && b, "both remember " + uid);
         check::is_true(a->conversations == b->conversations && a->disposition == b->disposition && a->work == b->work &&
                            a->asked_before == b->asked_before && a->asked_now == b->asked_now && a->exposed == b->exposed &&
-                           a->finished_covert == b->finished_covert && a->turn == b->turn && a->said == b->said,
+                           a->finished_covert == b->finished_covert && a->turn == b->turn && a->said == b->said &&
+                           a->heard == b->heard,
                        "the same acquaintance with " + uid);
         check::equal(text_of(d.respond(uid, {ActKind::SmallTalk, ""})), text_of(again.respond(uid, {ActKind::SmallTalk, ""})),
                      "the same next packet from " + uid);

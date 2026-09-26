@@ -94,8 +94,10 @@ inputs, so replay rebuilds it and a save needs nothing new. Every packet carries
 about its speaker:
 
 - `met` ("first" or "again"), `times` (conversations before this one) and `since` (how long ago
-  the last one was: "today", "days", "weeks", "months", "years");
+  the last one was, by the calendar: "today", "yesterday", "days", "weeks", "months", "years");
 - `turn` in this conversation, and `repeat` when the player asks the same thing twice in it;
+- `heard`, how many times before the player made this act to the speaker, in any conversation
+  (contract version 6): what a speaker says to it can differ each time;
 - `mood`, from "hostile" to "warm": thanks (once a conversation) and taking or finishing the
   speaker's work raise it; insults, giving work up and failing it lower it;
 - `work`, the player's latest dealing with the speaker's own work;
