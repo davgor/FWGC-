@@ -16,11 +16,14 @@
 #include <map>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 #include "orchestrator/contract.hpp"
 
 namespace communicator {
+
+class Meaning;
 
 class Lines {
 public:
@@ -54,14 +57,19 @@ public:
     // One of replies(), by what the speaker remembers: each speaker starts at a line of their own,
     // and says the next each time they have heard the same act before (the Memory fact's
     // `heard`), so the same packet gets the same line and a farewell said again gets another.
-    // Never `previous` (the speaker's last reply) while another fits. `line`, the stranger's
-    // words, does not choose yet. Empty when no line fits.
-    std::string speak(const orchestrator::FactPacket& packet, std::string_view line, std::string_view previous = {}) const;
+    // With `meaning`, small talk goes by what `line` (the stranger's words) is about: the
+    // weather's lines for the weather, the rest for the speaker's own day. Never `previous` (the
+    // speaker's last reply) while another fits. Empty when no line fits.
+    std::string speak(const orchestrator::FactPacket& packet, std::string_view line, std::string_view previous = {},
+                      Meaning* meaning = nullptr) const;
 
     // How many lines were read.
     std::size_t size() const;
 
 private:
+    // replies(), each with the situation its line was written for.
+    std::vector<std::pair<std::string, std::string>> spoken_for(const orchestrator::FactPacket& packet) const;
+
     // Adds the rows of `text` to the banks; `source` names it in an error.
     void read(std::string_view text, const std::string& source);
 

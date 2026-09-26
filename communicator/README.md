@@ -255,6 +255,14 @@ larger-than-life heroes.
   manners, stranger") is not said to someone met before.
 - **Small talk is one pool:** the weather's lines and the rest are said alike, and `small_talk`
   says nothing of the weather.
+- **Small talk answers what it was about** (`communicator/meaning.hpp`), when the game hands
+  `speak` a `Meaning`: an embedding model (Qwen3-Embedding-0.6B, Q8_0, about 640 MB, loaded for
+  embeddings) compares the player's words with two written subjects, the weather and how the
+  speaker is keeping. "Still cold out?" is answered from the weather's lines, "How are things with
+  you?" from `small_talk`'s, each taking turns as ever. Measured 2026-09-26: 14 of 14 lines of
+  small talk read right, and 29 of 30 held out ("Good day at the forge?" was read as the weather);
+  0.012 s a turn on the CPU. In the judged session it changed the two answers the judge had faulted
+  as weather to "how are things", and no other. Without a `Meaning`, the pool takes turns.
 - **The library** (2026-09-25): 11,411 lines in 43 files.
   - **Every archetype, at every alignment its heroes carry:** 196 banks of about 44 lines,
     8,618 lines in all. The pairs were counted over 38 generated worlds (sizes 33, 65 and 129),
@@ -413,6 +421,10 @@ larger-than-life heroes.
     each speaker, and never repeats the last reply while another fits.
   - **A cold speaker parts and chats coldly whatever their bank holds; no one met before is
     called a stranger; small talk says the weather's lines and the rest alike.**
+  - **Small talk's subject** (the embedding model, `tests/embedder.hpp`): closeness is one number
+    a text and nearer for the nearer meaning; ten lines of small talk read as the weather or the
+    speaker's day; each answered on its subject, round its lines in turn; a cold speaker and a
+    farewell unchanged by it; a model loaded for text refused.
   - **A bad lines file is refused:** a missing file, a row of two or four cells, an unknown
     situation or blank, an unclosed blank, an empty voice, and an optional part that is unclosed,
     nested, never opened, or holds no blank. A byte-order mark and CRLF are read.
@@ -503,8 +515,11 @@ fine-tuned voice (the plan's "Building our own model").
   it. Whether the world should give speakable names is a question for the generator.
 - **Raw values.** Snake-case values such as `human_cold` are spaced into words. Better phrasing
   would come from the director or the generator, not from here.
-- **Written lines: choosing by meaning.** The choice is a hash, not what fits the player's words
-  best. An embedding model (Qwen3-Embedding-0.6B, on disk) would pick the closest line.
+- **Written lines: meaning past small talk.** Only small talk's subject follows the player's
+  words; a greeting, thanks or a farewell takes turns whatever was said. Ranking a bank's own lines
+  by closeness to the words read the subject right only 70% of the time (the closer half of four
+  lines, where chance is 50%): the model scores a line's shape ("thank you for asking") as much as
+  its subject. A subject needs a written description of its own, measured before it is used.
 - **Written lines: sayings.** The lines read a people's sayings (`saying:<people>`, contract
   version 5); the sayings themselves are still being written.
 - **Written lines that ask the player something.** 488 lines, outside `not_understood`, put a

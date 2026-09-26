@@ -43,6 +43,7 @@ add_library(communicator STATIC
   src/gbnf.cpp
   src/interpreter.cpp
   src/known.cpp
+  src/meaning.cpp
   src/memory.cpp
   src/mention.cpp
   src/reply_shape.cpp
@@ -64,15 +65,17 @@ if(COMMUNICATOR_BUILD_TESTS)
     tests/test_authored.cpp
     tests/test_known.cpp
     tests/test_interpreter.cpp
+    tests/test_meaning.cpp
     tests/test_voice.cpp
   )
   target_link_libraries(communicator_tests PRIVATE communicator)
   target_include_directories(communicator_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
   target_compile_options(communicator_tests PRIVATE ${COMMUNICATOR_WARNINGS})
-  # The test model inference/README.md names, downloaded and never committed; FWGC_TEST_MODEL
-  # points elsewhere.
+  # The test model and the embedding model inference/README.md names, downloaded and never
+  # committed; FWGC_TEST_MODEL and FWGC_EMBEDDING_MODEL point elsewhere.
   target_compile_definitions(communicator_tests PRIVATE
     COMMUNICATOR_TEST_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/../inference/models/qwen2.5-0.5b-instruct-q4_0.gguf"
+    COMMUNICATOR_EMBEDDING_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/../inference/models/Qwen3-Embedding-0.6B-Q8_0.gguf"
     COMMUNICATOR_LINES="${CMAKE_CURRENT_SOURCE_DIR}/data/lines"
     COMMUNICATOR_TEST_DATA="${CMAKE_CURRENT_SOURCE_DIR}/tests/data")
   add_test(NAME communicator_tests COMMAND communicator_tests)

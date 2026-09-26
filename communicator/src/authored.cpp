@@ -12,6 +12,7 @@
 
 #include "communicator/error.hpp"
 #include "communicator/known.hpp"
+#include "communicator/meaning.hpp"
 #include "communicator/voice.hpp"
 #include "memory.hpp"
 #include "reply_shape.hpp"
@@ -682,6 +683,12 @@ void Lines::read(std::string_view text, const std::string& source) {
 }
 
 std::vector<std::string> Lines::replies(const FactPacket& p) const {
+    std::vector<std::string> out;
+    for (auto& [situation, text] : spoken_for(p)) out.push_back(std::move(text));
+    return out;
+}
+
+std::vector<std::pair<std::string, std::string>> Lines::spoken_for(const FactPacket& p) const {
     const std::vector<std::string> chain = situations_for(p);
     if (chain.empty()) return {};
     const ReplyShape shape = reply_shape(p);
@@ -725,7 +732,7 @@ std::vector<std::string> Lines::replies(const FactPacket& p) const {
     for (const std::string& voice : voices) {
         const auto bank = banks_.find(voice);
         if (bank == banks_.end()) continue;
-        std::vector<Filled> fits;
+        std::vector<std::pair<std::string, Filled>> fits;
         for (const std::string& s : chain) {
             const auto lines = bank->second.find(s);
             if (lines == bank->second.end()) continue;
@@ -733,7 +740,7 @@ std::vector<std::string> Lines::replies(const FactPacket& p) const {
             for (const std::string& line : lines->second) {
                 // No one met before is a stranger any more.
                 if (memory.again && addresses_a_stranger(line)) continue;
-                if (std::optional<Filled> reply = filled(line, blanks, s)) fits.push_back(std::move(*reply));
+                if (std::optional<Filled> reply = filled(line, blanks, s)) fits.emplace_back(s, std::move(*reply));
             }
             if (!fits.empty() && !pooled) break;
         }
@@ -741,23 +748,42 @@ std::vector<std::string> Lines::replies(const FactPacket& p) const {
         // The lines that say the most of what the packet holds: a speaker who knows of a nest does
         // not leave it out for a shorter line.
         std::size_t most = 0;
-        for (const Filled& f : fits) most = std::max(most, f.said.size());
-        std::vector<std::string> out;
-        for (const Filled& f : fits)
-            if (f.said.size() == most) out.push_back(finished(f));
+        for (const auto& [situation, f] : fits) most = std::max(most, f.said.size());
+        std::vector<std::pair<std::string, std::string>> out;
+        for (const auto& [situation, f] : fits)
+            if (f.said.size() == most) out.emplace_back(situation, finished(f));
         return out;
     }
     return {};
 }
 
-std::string Lines::speak(const FactPacket& p, std::string_view /*line*/, std::string_view previous) const {
-    const std::vector<std::string> candidates = replies(p);
-    if (candidates.empty()) return {};
+std::string Lines::speak(const FactPacket& p, std::string_view line, std::string_view previous, Meaning* meaning) const {
+    std::vector<std::pair<std::string, std::string>> spoken = spoken_for(p);
+    if (spoken.empty()) return {};
+    // With meaning, small talk answers what the stranger's words are about: the weather's lines for
+    // the weather, the rest for the speaker's own day (judged 2026-09-26: "How are things with you?"
+    // was answered with the weather). A cold speaker's lines answer neither.
+    const auto of_the_weather = [](const std::string& situation) {
+        return situation == "small_talk_fair" || situation == "small_talk_wet" || situation == "small_talk_storm";
+    };
+    if (meaning != nullptr && p.outcome == Outcome::Chatted && !trimmed(line).empty()) {
+        static const std::vector<std::string> subjects = {
+            "The weather: rain, sun, wind, cold, heat, a storm, a fine day or a wet one.",
+            "How someone is keeping: their health, their mood, their work, their day."};
+        const bool weather = meaning->subject_of(line, subjects) == 0;
+        std::vector<std::pair<std::string, std::string>> on_it;
+        for (const auto& [situation, text] : spoken)
+            if (weather ? of_the_weather(situation) : situation == "small_talk") on_it.emplace_back(situation, text);
+        if (!on_it.empty()) spoken = std::move(on_it);
+    }
+    std::vector<std::string> candidates;
+    for (auto& [situation, text] : spoken) candidates.push_back(std::move(text));
     // Each speaker starts somewhere of their own in the lines, and moves one on each time they have
     // heard the same thing before: said the same line five times over five farewells, a speaker
     // read as a machine (judged 2026-09-26).
+    const auto heard = static_cast<std::size_t>(std::max(0, remembered(p).heard));
     const std::size_t start = static_cast<std::size_t>(stable_hash(p.speaker + "|" + situation(p)) % candidates.size());
-    const std::size_t chosen = (start + static_cast<std::size_t>(std::max(0, remembered(p).heard)) % candidates.size()) % candidates.size();
+    const std::size_t chosen = (start + heard % candidates.size()) % candidates.size();
     if (candidates[chosen] == previous && candidates.size() > 1) return candidates[(chosen + 1) % candidates.size()];
     return candidates[chosen];
 }

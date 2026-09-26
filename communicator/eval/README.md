@@ -239,7 +239,9 @@ communicator/build/Release/communicator_eval.exe --session session_packets.txt [
 ```
 
 It loads no model: the script says what each line is, so the transcript is about the replies
-alone. A judge reads it for sense, memory, repeats, invention and tone.
+alone. A judge reads it for sense, memory, repeats, invention and tone. With `--meaning PATH` (an
+embedding model, Qwen3-Embedding-0.6B-Q8_0.gguf) the player's words choose small talk's subject
+(`communicator/meaning.hpp`), and the transcript ends with how long choosing took a turn.
 
 ## voice.txt
 
