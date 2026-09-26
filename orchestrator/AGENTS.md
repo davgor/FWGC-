@@ -26,15 +26,20 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
 - **Beware argument-dependent lookup.** A helper called unqualified with a `fwg::` argument also
   searches namespace `fwg`. Check a new helper's name against the generator's declarations. Two
   of this component's first names collided.
+- **What a speaker remembers is folded from the recorded inputs.** Nothing is remembered that
+  replay cannot rebuild: a new thing to remember comes from an input the session records, and a
+  test replays it.
 - **Disclose only what the speaker would say:**
-  - the public face, never a hidden one;
+  - the face the rules bring out, never a hidden face before then: a mask until the player
+    exposes it with cause, a beast's calm face but on the full moon's days, a fractured heart's
+    face of the day;
   - a card's voice (`manner`, `voice`, `toward_player`, `line`, `never`), never its secrets
     (`lies`, `belief`, `wants`, `fears`, `tells`);
   - a hook's stated purpose, never its actual effect or whether the purpose is true;
-  - places and people within reach;
+  - places and people within reach, and a hero's rivals, kin and allies wherever they stand;
   - a refusal's reason in the director's own words, never the generator's message, which names
     quests by id and lists work the speaker does not know of;
-  - a `voice_key` only for a hero whose one face hides nothing.
+  - a `voice_key` for the face shown, never for a mask still worn.
 
   Every fact names the world id it came from. A test guards each of these; keep them, and prove a
   new one by switching the rule off and watching its test fail.
