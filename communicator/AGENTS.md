@@ -47,7 +47,15 @@ ctest --test-dir communicator/build -C Release --no-tests=error
     gate to watch"). A particular deed, customer, stock or rumour is invented.
   - An offer, and what is said when it is taken, turned down or given up, never says what the
     work is like or who goes. `{own}` may be any verb, and a hero's offer may be "... with me":
-    a judge counted "if you don't mind soot" and "I can't leave my desk" against it.
+    a judge counted "if you don't mind soot" and "I can't leave my desk" against it. Asking for a
+    quality says what the work is like too ("if you've the nerve", "someone steady on their
+    feet"), and wishing the stranger back says who goes ("come back in one piece"): a second
+    judge found both in the rows that fixed the first judge's.
+  - A speaker remembers only through the packet: their situation (met before, liked, cold, what
+    came of their own work) and its blanks (`{since}`, `{asked}`). A line never invents a shared
+    past ("you saved my brother", "you still owe me").
+  - A blank that fills in lower case never opens a sentence: `{post}`, `{role}`, `{time}`,
+    `{season}`, `{was}`, `{is}`.
   - A line adds manner, never a fact. A place, a creature, a duty or a distance comes only
     through a blank, and a blank only from the packet.
   - Draw a voice from a card's public part (manner, voice, stance, sample line, never), never
