@@ -53,6 +53,10 @@ weather_report        weather
 weather_sample        weather
 weather_at            weather
 weather_field         weather
+# A place's weather by its terrain node, which is how the world's blocks say where things
+# stand; and the moon on a day, from the world's almanac. Reads, like the four above.
+weather_sample_at_node weather
+moon_phase_on         weather
 
 # The world as documents.
 write_world_json      serialize
