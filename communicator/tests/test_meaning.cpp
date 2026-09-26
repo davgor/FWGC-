@@ -127,6 +127,35 @@ TEST(meaning_chooses_only_small_talk_and_never_a_cold_speakers) {
     }
 }
 
+TEST(asked_to_be_remembered_a_speaker_recalls_the_meeting) {
+    const Lines lines = Lines::parse("any | greeted_again | Hello again.\n"
+                                     "any | greeted_again | Good day.\n"
+                                     "any | greeted_again | Back again. I saw you {since}.\n",
+                                     "test");
+    const auto greeting = [](int heard, const std::string& mood = "neutral") {
+        FactPacket p = packets::greeted_again();
+        p.facts.back() = packets::memory_of(p.speaker, {.met = "again", .times = heard + 1, .since = "weeks", .mood = mood, .heard = heard});
+        return p;
+    };
+    // The control: in turn, a plea to be remembered gets a bare greeting some time.
+    std::set<std::string> in_turn;
+    for (int heard = 0; heard < 3; ++heard) in_turn.insert(lines.speak(greeting(heard), "Remember me?"));
+    check::equal(in_turn.size(), std::size_t(3), "the premise: in turn, every greeting");
+    Meaning meaning(test_model::embedder());
+    for (const std::string asked : {"Remember me?", "It's been a long time, hasn't it?", "Do you remember me?"})
+        for (int heard = 0; heard < 3; ++heard)
+            check::equal(lines.speak(greeting(heard), asked, {}, &meaning), std::string("Back again. I saw you some weeks ago."),
+                         "asked \"" + asked + "\": the meeting recalled");
+    std::set<std::string> plain;
+    for (int heard = 0; heard < 3; ++heard) plain.insert(lines.speak(greeting(heard), "Good morning.", {}, &meaning));
+    check::equal(plain.size(), std::size_t(3), "a plain greeting still goes in turn");
+    // Recalled lately, the same recollection is not said again: the greeting goes in turn.
+    const std::vector<std::string> lately = {"Back again. I saw you some weeks ago."};
+    const std::string next = lines.speak(greeting(1), "Remember me?", lately, &meaning);
+    check::is_true(next != lately.front() && !next.empty(), "not the same recollection twice running: " + next);
+    check::is_true(lines.speak(greeting(0, "hostile"), "Remember me?", {}, &meaning).empty(), "a cold speaker has no line here to recall with");
+}
+
 TEST(a_model_loaded_for_text_cannot_compare_meanings) {
     Meaning meaning(test_model::model());
     bool refused = false;

@@ -58,7 +58,8 @@ public:
     // and says the next each time they have heard the same act before (the Memory fact's
     // `heard`), so the same packet gets the same line and a farewell said again gets another.
     // With `meaning`, small talk goes by what `line` (the stranger's words) is about: the
-    // weather's lines for the weather, the rest for the speaker's own day. `recent` is what this
+    // weather's lines for the weather, the rest for the speaker's own day; and someone met before
+    // who asks to be remembered is greeted with a line that recalls the meeting. `recent` is what this
     // speaker said lately, the latest last, as the game keeps it: a line in it is not said again
     // while one that is not fits, and when every one is, the one said longest ago is. Empty when
     // no line fits.
@@ -69,8 +70,16 @@ public:
     std::size_t size() const;
 
 private:
-    // replies(), each with the situation its line was written for.
-    std::vector<std::pair<std::string, std::string>> spoken_for(const orchestrator::FactPacket& packet) const;
+    // A reply, the situation its line was written for, and whether it recalls a meeting: says
+    // how long since ({since}) or what was asked then ({asked}).
+    struct Spoken {
+        std::string situation;
+        std::string text;
+        bool recalls = false;
+    };
+
+    // replies(), each as Spoken.
+    std::vector<Spoken> spoken_for(const orchestrator::FactPacket& packet) const;
 
     // Adds the rows of `text` to the banks; `source` names it in an error.
     void read(std::string_view text, const std::string& source);

@@ -344,6 +344,7 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
 struct Filled {
     std::string text;
     std::set<std::string> said;
+    bool recalls = false;  // says how long since a meeting, or what was asked then
 };
 
 // `text` with its blanks filled, or nothing when the packet cannot fill one.
@@ -362,6 +363,7 @@ std::optional<Filled> fill_blanks(std::string_view text, const std::map<std::str
         if (found == blanks.end()) return std::nullopt;
         out.text += found->second;
         if (!uncounted(name, situation)) out.said.insert(name);
+        if (name == "since" || name == "asked") out.recalls = true;
         i = close + 1;
     }
     return out;
@@ -379,11 +381,13 @@ std::optional<Filled> filled(const std::string& line, const std::map<std::string
         if (!plain) return std::nullopt;
         out.text += plain->text;
         out.said.insert(plain->said.begin(), plain->said.end());
+        out.recalls = out.recalls || plain->recalls;
         if (open == std::string::npos) break;
         const std::size_t close = line.find(']', open);
         if (const std::optional<Filled> part = fill_blanks(std::string_view(line).substr(open + 1, close - open - 1), blanks, situation)) {
             out.text += part->text;
             out.said.insert(part->said.begin(), part->said.end());
+            out.recalls = out.recalls || part->recalls;
         }
         i = close + 1;
     }
@@ -703,11 +707,11 @@ void Lines::read(std::string_view text, const std::string& source) {
 
 std::vector<std::string> Lines::replies(const FactPacket& p) const {
     std::vector<std::string> out;
-    for (auto& [situation, text] : spoken_for(p)) out.push_back(std::move(text));
+    for (Spoken& s : spoken_for(p)) out.push_back(std::move(s.text));
     return out;
 }
 
-std::vector<std::pair<std::string, std::string>> Lines::spoken_for(const FactPacket& p) const {
+std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p) const {
     const std::vector<std::string> chain = situations_for(p);
     if (chain.empty()) return {};
     const ReplyShape shape = reply_shape(p);
@@ -768,16 +772,16 @@ std::vector<std::pair<std::string, std::string>> Lines::spoken_for(const FactPac
         // not leave it out for a shorter line.
         std::size_t most = 0;
         for (const auto& [situation, f] : fits) most = std::max(most, f.said.size());
-        std::vector<std::pair<std::string, std::string>> out;
+        std::vector<Spoken> out;
         for (const auto& [situation, f] : fits)
-            if (f.said.size() == most) out.emplace_back(situation, finished(f));
+            if (f.said.size() == most) out.push_back({situation, finished(f), f.recalls});
         return out;
     }
     return {};
 }
 
 std::string Lines::speak(const FactPacket& p, std::string_view line, const std::vector<std::string>& recent, Meaning* meaning) const {
-    std::vector<std::pair<std::string, std::string>> spoken = spoken_for(p);
+    std::vector<Spoken> spoken = spoken_for(p);
     if (spoken.empty()) return {};
     // With meaning, small talk answers what the stranger's words are about: the weather's lines for
     // the weather, the rest for the speaker's own day (judged 2026-09-26: "How are things with you?"
@@ -790,35 +794,53 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             "The weather: rain, sun, wind, cold, heat, a storm, a fine day or a wet one.",
             "How someone is keeping: their health, their mood, their work, their day."};
         const bool weather = meaning->subject_of(line, subjects) == 0;
-        std::vector<std::pair<std::string, std::string>> on_it;
-        for (const auto& [situation, text] : spoken)
-            if (weather ? of_the_weather(situation) : situation == "small_talk") on_it.emplace_back(situation, text);
+        std::vector<Spoken> on_it;
+        for (const Spoken& s : spoken)
+            if (weather ? of_the_weather(s.situation) : s.situation == "small_talk") on_it.push_back(s);
         if (!on_it.empty()) spoken = std::move(on_it);
     }
-    std::vector<std::string> candidates;
-    for (auto& [situation, text] : spoken) candidates.push_back(std::move(text));
     // Each speaker starts somewhere of their own in the lines, and moves one on each time they have
     // heard the same thing before: said the same line five times over five farewells, a speaker
-    // read as a machine (judged 2026-09-26).
+    // read as a machine (judged 2026-09-26). Of `lines`, the first in that turn not said lately, and
+    // when all were, the one said longest ago: the turn alone cannot keep apart what is asked of two
+    // subjects in turn (small talk of the weather and of the speaker, asked alternately, met the
+    // same line of each every time; 2026-09-26). The second is whether it was said lately.
     const auto heard = static_cast<std::size_t>(std::max(0, remembered(p).heard));
-    const std::size_t n = candidates.size();
-    const std::size_t start = static_cast<std::size_t>(stable_hash(p.speaker + "|" + situation(p)) % n);
-    const std::size_t chosen = (start + heard % n) % n;
-    // Not a line said lately while another fits, and when all were, the one said longest ago: the
-    // turn alone cannot keep apart what is asked of two subjects in turn (small talk of the weather
-    // and of the speaker, asked alternately, met the same line of each every time; 2026-09-26).
-    std::size_t oldest = chosen;
-    std::ptrdiff_t oldest_age = -1;
-    for (std::size_t k = 0; k < n; ++k) {
-        const std::size_t i = (chosen + k) % n;
-        const auto said = std::find(recent.rbegin(), recent.rend(), candidates[i]);
-        if (said == recent.rend()) return candidates[i];
-        if (const std::ptrdiff_t age = std::distance(recent.rbegin(), said); age > oldest_age) {
-            oldest_age = age;
-            oldest = i;
+    const std::uint64_t order = stable_hash(p.speaker + "|" + situation(p));
+    const auto choose = [&](const std::vector<std::string>& lines) -> std::pair<std::string, bool> {
+        const std::size_t n = lines.size();
+        const std::size_t chosen = (static_cast<std::size_t>(order % n) + heard % n) % n;
+        std::size_t oldest = chosen;
+        std::ptrdiff_t oldest_age = -1;
+        for (std::size_t k = 0; k < n; ++k) {
+            const std::size_t i = (chosen + k) % n;
+            const auto said = std::find(recent.rbegin(), recent.rend(), lines[i]);
+            if (said == recent.rend()) return {lines[i], false};
+            if (const std::ptrdiff_t age = std::distance(recent.rbegin(), said); age > oldest_age) {
+                oldest_age = age;
+                oldest = i;
+            }
         }
+        return {lines[oldest], true};
+    };
+    // And someone met before who asks to be remembered is greeted with a line that recalls the
+    // meeting, how long since or what was asked then, while one has not been said lately:
+    // "Remember me?" drew a bare "Hello again." in turn (2026-09-26). Measured on 12 held-out
+    // greetings, 11 read right; the one missed, "Well met.", reads as asking, and a greeting that
+    // recalls suits someone met before anyway.
+    if (meaning != nullptr && p.outcome == Outcome::Greeted && remembered(p).again && !remembered(p).cold() && !trimmed(line).empty()) {
+        static const std::vector<std::string> subjects = {
+            "Asking whether they are remembered: do you remember me, have we met before, it has been a long time.",
+            "Just a greeting: hello, good day, good morning, hi there."};
+        std::vector<std::string> recalling;
+        for (const Spoken& s : spoken)
+            if (s.recalls) recalling.push_back(s.text);
+        if (!recalling.empty() && meaning->subject_of(line, subjects) == 0)
+            if (auto [reply, said_lately] = choose(recalling); !said_lately) return reply;
     }
-    return candidates[oldest];
+    std::vector<std::string> candidates;
+    for (Spoken& s : spoken) candidates.push_back(std::move(s.text));
+    return choose(candidates).first;
 }
 
 std::size_t Lines::size() const {

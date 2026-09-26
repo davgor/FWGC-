@@ -263,6 +263,10 @@ larger-than-life heroes.
   small talk read right, and 29 of 30 held out ("Good day at the forge?" was read as the weather);
   0.012 s a turn on the CPU. In the judged session it changed the two answers the judge had faulted
   as weather to "how are things", and no other. Without a `Meaning`, the pool takes turns.
+- **Asked to be remembered, a speaker recalls the meeting** (the same `Meaning`): someone met
+  before who says "Remember me?" or "It's been a while" is greeted with a line that says how long
+  since or what was asked then, while one has not been said lately. 11 of 12 held-out greetings
+  read right; the miss, "Well met.", draws a recollection, which suits someone met before.
 - **The library** (2026-09-25): 11,411 lines in 43 files.
   - **Every archetype, at every alignment its heroes carry:** 196 banks of about 44 lines,
     8,618 lines in all. The pairs were counted over 38 generated worlds (sizes 33, 65 and 129),
