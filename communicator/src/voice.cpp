@@ -157,6 +157,10 @@ std::vector<std::string> memory_lines(const FactPacket& packet) {
     if (!m.asked_before.empty()) out.push_back("Last time they asked you about " + text::spoken(m.asked_before) + ".");
     if (m.repeat) out.push_back("They have asked you this already: say so.");
     if (m.exposed) out.push_back("They know what you hide.");
+    // How the speaker feels (contract version 9), which the game shows on their face too.
+    if (m.feeling == "uneasy") out.push_back("You are uneasy.");
+    if (m.feeling == "afraid") out.push_back("You are afraid, and it shows in how you speak.");
+    if (m.feeling == "panicked") out.push_back("You are panicking: you speak in short, broken bursts.");
     return out;
 }
 
@@ -230,6 +234,12 @@ std::string what_happened(const FactPacket& packet) {
             return "The stranger said sorry for a wrong they did you, and you forgive it. Say so, as you take them now.";
         case Outcome::Unwronged:
             return "The stranger said sorry, but they have done you no wrong. Say so.";
+        case Outcome::Calmed:
+            return "The stranger's words ease your fear a little. Say so, as frightened as you still are.";
+        case Outcome::StillAfraid:
+            return "The stranger tried to calm you, and you are still afraid. Say so.";
+        case Outcome::NotAfraid:
+            return "The stranger tried to calm you, but you are not afraid. Say so.";
     }
     return {};
 }

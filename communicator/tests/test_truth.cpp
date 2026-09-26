@@ -120,6 +120,10 @@ TEST(when_they_met_and_whether_they_have_are_the_memorys) {
     check::is_true(clean("Do come back again.", first), "come back again");
     check::is_true(clean("Safe travels; the fire will be going when you're back.", first), "a time to come");
     check::is_true(flags("So you're back.", first, "a meeting the speaker's memory does not hold"), "back, never met");
+    // A frightened greeting is said whether or not they have met: "hello again" is the memory's.
+    check::is_true(flags("Hello again. Forgive me, I'm shaking.", first, "a meeting the speaker's memory does not hold"),
+                   "hello again, never met");
+    check::is_true(clean("Hello again. Forgive me, I'm shaking.", again), "hello again, met before");
     check::is_true(flags("Back again, are you?", first, "a meeting the speaker's memory does not hold"), "back again, never met");
     check::is_true(flags("The same wrong one as last time.", packets::denied(false), "a meeting the speaker's memory does not hold"),
                    "last time, never met");

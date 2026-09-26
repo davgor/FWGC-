@@ -174,11 +174,12 @@ TEST(an_act_that_changes_the_world_comes_with_a_question) {
 
 TEST(the_acts_offered_are_the_contracts_own) {
     // Every act of the contract, by the contract's own name, is offered once there is something
-    // of every kind to point at, and a question from the speaker to answer.
+    // of every kind to point at, a question from the speaker to answer, and a frightened speaker
+    // to calm.
     Interpreter interpreter(test_model::model());
     Known known = told();
     known.learn(packets::accepted());  // something held, to abandon
-    const Question q = interpreter.act_question("Hello.", known, "Have you come far?");
+    const Question q = interpreter.act_question("Hello.", known, "Have you come far?", true);
     const std::string prompt = all_of(q);
     for (int i = 0; i < orchestrator::kActCount; ++i) {
         const std::string name(orchestrator::to_string(static_cast<ActKind>(i)));
@@ -189,6 +190,9 @@ TEST(the_acts_offered_are_the_contracts_own) {
     const Question unasked = interpreter.act_question("Hello.", known, "The road is long.");
     check::is_true(unasked.grammar.find("\"answer\"") == std::string::npos, "no answer without a question");
     check::is_true(all_of(unasked).find("- answer:") == std::string::npos, "nor in the prompt");
+    // With nobody frightened, there is no one to calm: calming words are small talk or an answer.
+    check::is_true(unasked.grammar.find("\"calm\"") == std::string::npos, "no calm for a speaker who is not afraid");
+    check::is_true(all_of(unasked).find("- calm:") == std::string::npos, "nor in the prompt");
 }
 
 TEST(a_target_is_asked_among_the_likeliest_few_and_none) {

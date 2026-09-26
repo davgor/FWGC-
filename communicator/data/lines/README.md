@@ -162,6 +162,20 @@ packet, and a row that says a saying once more with one dropped in. `communicato
   safe", "Far from it", "I wouldn't say so"; wary "Safe enough", "Mostly", "More or less",
   "Careful", "Keep your wits about you"; safe "Safe enough", "Yes", "Aye", "It's safe", "Quiet
   enough", "Nothing to fear". `reply_shape.cpp` holds every opening.
+- An opening is whole words: "No" opens "No, never." but not "Nothing to worry about".
+- A frightened speaker (contract version 9): greetings (`greeted_afraid`, `greeted_panicked`) run
+  to two sentences and open "Oh", "Please", "Stay back", "Who's there", "Wait", "Thank goodness"
+  or "Hello"; small talk (`small_talk_afraid`, `small_talk_panicked`) to two with any start;
+  thanks (`thanked_*`) to one, opening "Yes", "Of course", "Please", "Go" or "Don't thank me";
+  farewells (`parted_*`) to one, opening "Go", "Be careful", "Stay safe", "Please", "Wait" or
+  "Goodbye". A lead (`afraid_lead`, `panicked_lead`), said before an answer, is one sentence, no
+  question, and neither opens nor ends with yes, no, aye or nay: it goes before "I've no work" as
+  readily as before a list of places. It never goes before "is it safe", whose verdict opens its
+  answer: "Forgive me, I'm shaking. Far from it." heard as a denial of the shaking. Calming words taken (`calmed`) run to two and open "All right", "Thank you", "I'll
+  try", "Maybe you're right", "Yes" or "I know, I know"; not taken (`still_afraid`) to two,
+  opening "No", "I can't", "Not yet", "Easy for you to say", "You don't understand", "Stay back"
+  or "Keep away"; nothing to ease (`not_afraid`) to one, opening "I'm not afraid", "I'm fine",
+  "I'm all right", "There's no need" or "Who said I was afraid".
 - An answer runs to three sentences at most, and an answer about a place to five: the place,
   its trades, who is there, the nests around it and the work there.
 - An article fits the word a blank fills in after it: "a {time}" says "a evening", "an {post}"
@@ -198,6 +212,14 @@ is fine; one that no packet the game gives can make true is never heard.
   regards", "tell them I said hello"), asks after them or asks for news of them ("tell me how
   they're keeping"), since no packet says the speaker knows them. Good-hearted banks drift into
   this: 33 place lines in one round and 26 told lines in the next (2026-09-26).
+- **Frightened words never say what frightened them,** where it is, what it did, or whether it is
+  still there: the packet does not say. Fear shows in how they speak, through their own life (a
+  baker's hands that will not knead). Afraid is shaken but whole; panicking is broken, repeated,
+  pleading; a proud bank stays terse. A frightened line is said whether or not the speaker has met
+  the player, and whatever they think of them, hostile after an insult too: no "again", no
+  "stranger", no warmth ("a kind voice"), only relief at a voice ("Thank goodness"). `calmed` is a step down, never all better ("I'll try",
+  never "the danger's passed"); `still_afraid` never says why, since it may be the danger still
+  there or distrust of the one soothing them.
 - **A place line carries every blank it can.** Of the lines that fit, the fullest are said, so an
   `about_place` line without `{trades}`, `{who}`, `{around}` or `{work}` is never heard where that
   blank is filled. Nothing in it may hold only when a part is dropped or kept ("That's all I

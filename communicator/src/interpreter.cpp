@@ -68,6 +68,8 @@ constexpr std::array<ActText, orchestrator::kActCount> kActs = {{
      {{{"", "I know you're no miller."}, {"", "Drop the act. I know what you are."}}}, ""},
     {ActKind::Apologize, std::nullopt, "says sorry for something they did, or asks to be forgiven",
      {{{"", "I'm sorry for what I said."}, {"", "Forgive me, I was out of line."}}}, ""},
+    {ActKind::Calm, std::nullopt, "soothes them when they are frightened: it's all right, you're safe, calm down",
+     {{{"", "It's all right, you're safe now."}, {"", "Easy, easy. Nobody's going to hurt you."}}}, ""},
 }};
 
 const ActText& text_of(ActKind kind) { return kActs[static_cast<std::size_t>(kind)]; }
@@ -81,12 +83,16 @@ constexpr std::array<ActKind, orchestrator::kActCount> kShown = {
     ActKind::AcceptQuest,     ActKind::DeclineQuest,  ActKind::AbandonQuest,   ActKind::Farewell,
     ActKind::Greet,           ActKind::SmallTalk,     ActKind::Answer,         ActKind::Thank,
     ActKind::Insult,          ActKind::AskSafety,     ActKind::Confront,       ActKind::Apologize,
-    ActKind::NoAct};
+    ActKind::Calm,            ActKind::NoAct};
 
 // Whether an act can be put to the model: it takes no target, or there is something to point at;
-// and an answer only to a question, when the speaker's last words asked one.
-bool offered(const ActText& act, const Known& known, std::string_view last_reply) {
+// an answer only to a question, when the speaker's last words asked one; and calming words only to
+// a frightened speaker. Offered to everyone, calming took the test model from 112 lines of 310
+// read right to 79 of the same, most read as small talk instead (measured 2026-09-26): a listed act
+// costs a small model on every line, not only the lines it fits.
+bool offered(const ActText& act, const Known& known, std::string_view last_reply, bool frightened) {
     if (act.kind == ActKind::Answer) return last_reply.find('?') != std::string_view::npos;
+    if (act.kind == ActKind::Calm) return frightened;
     return !act.target || !known.nameable(*act.target, 1).empty();
 }
 
@@ -178,11 +184,11 @@ Interpreter::Interpreter(inference::Model& model) : model_(model) {
     if (shown.size() != kActs.size()) throw Error("the interpreter shows the model some act twice, and another never");
 }
 
-Question Interpreter::act_question(std::string_view line, const Known& known, std::string_view last_reply) const {
+Question Interpreter::act_question(std::string_view line, const Known& known, std::string_view last_reply, bool frightened) const {
     std::string acts, alternatives;
     for (const ActKind kind : kShown) {
         const ActText& act = text_of(kind);
-        if (!offered(act, known, last_reply)) continue;  // nothing to point at, or no question to answer
+        if (!offered(act, known, last_reply, frightened)) continue;  // nothing to point at, no question, no fear
         const std::string name(orchestrator::to_string(act.kind));
         acts += "- " + name + ": " + std::string(act.meaning) + ".\n";
         alternatives += (alternatives.empty() ? "" : " | ") + gbnf::literal(name);
@@ -193,7 +199,7 @@ Question Interpreter::act_question(std::string_view line, const Known& known, st
     for (std::size_t round = 0; round < 2; ++round)
         for (const ActKind kind : kShown) {
             const ActText& act = text_of(kind);
-            if (offered(act, known, last_reply) && !act.examples[round].line.empty())
+            if (offered(act, known, last_reply, frightened) && !act.examples[round].line.empty())
                 worked.emplace_back(act.examples[round], std::string(orchestrator::to_string(act.kind)));
         }
     Question q;
@@ -245,7 +251,7 @@ Question Interpreter::target_question(ActKind act, std::string_view line, const 
     return q;
 }
 
-Interpretation Interpreter::interpret(std::string_view line, const Known& known, std::string_view last_reply) {
+Interpretation Interpreter::interpret(std::string_view line, const Known& known, std::string_view last_reply, bool frightened) {
     text::check_line(line);
     text::check_line(last_reply);
     const auto ask = [&](const Question& q) {
@@ -258,9 +264,9 @@ Interpretation Interpreter::interpret(std::string_view line, const Known& known,
     // never the player's doing.
     const auto outside = [](const std::string& answer) { return Error("the model answered outside its grammar: " + answer); };
 
-    const std::string act_answer = ask(act_question(line, known, last_reply));
+    const std::string act_answer = ask(act_question(line, known, last_reply, frightened));
     const std::optional<ActKind> kind = orchestrator::act_kind(act_answer);
-    if (!kind || !offered(text_of(*kind), known, last_reply)) throw outside(act_answer);
+    if (!kind || !offered(text_of(*kind), known, last_reply, frightened)) throw outside(act_answer);
     Interpretation out;
     out.act.kind = *kind;
     const ActText& act = text_of(*kind);

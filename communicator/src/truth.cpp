@@ -302,7 +302,8 @@ void met(const std::string& said, const FactPacket& p, std::vector<std::string>&
         if (blank(text, phrase) && m.again) add(out, kFirst, phrase);
     if (m.again) return;
     for (const std::string phrase : {"good to see you again", "nice to see you again", "glad to see you again", "you're back",
-                                     "you came back", "you've come back", "we've met", "we have met", "we met", "met before"})
+                                     "you came back", "you've come back", "we've met", "we have met", "we met", "met before",
+                                     "hello again", "well met again"})
         for (std::size_t at = find_words(text, phrase); at != std::string::npos; at = find_words(text, phrase, at + 1))
             if (!wishes().count(word_before(text, at))) {
                 add(out, kMet, phrase);

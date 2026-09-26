@@ -325,3 +325,29 @@ gate | - | Sorry, is it safe out there? | ask_safety | - | multi,polite
 opening | - | Sorry, I have to go. | farewell | - | polite
 castellan | - | sorry, who is Halbrann? | ask_about_person | Halbrann | multi
 inn | - | Thanks, and sorry for the trouble. | thank | - | multi
+
+# ---- Contract version 9: calming a frightened speaker (written 2026-09-26 by Claude, labelled by
+# the rules in README.md). A context ending "-afraid" is its speaker frightened: only then is `calm`
+# offered, as `answer` is only after a question. ------------------------------------------------
+castellan-afraid | - | It's all right, you're safe now. | calm | - | clear
+gate-afraid | - | calm down, captain. it's over. | calm | - | clear
+inn-afraid | - | Easy, Dornwen. Nobody's going to hurt you. | calm | - | polite
+opening-afraid | - | Breathe. Just breathe. | calm | - | short
+castellan-afraid | - | Don't be afraid. | calm | - | short
+gate-afraid | - | shh shh, its ok | calm | - | slang,typo
+inn-afraid | - | You're safe with me, I promise. | calm | - | clear
+castellan-held-afraid | - | Steady. The danger has passed. | calm | - | clear
+opening-afraid | - | There, there. | calm | - | short
+gate-afraid | Stay back! Stay back! | Whoa, easy. I'm not going to hurt you. | calm | - | context
+inn-afraid | I can't, I can't think! | Hey, slow down. Take a breath. | calm | - | context
+castellan-afraid | - | relax, it's gone | calm | - | slang
+castellan-afraid | - | Calm down and tell me what's around here. | ask_surroundings | - | multi
+inn-afraid | - | Are you all right? | small_talk | - | short
+gate-afraid | - | Relax, I'm leaving. | farewell | - | multi
+opening-afraid | - | Calm down, you fool! | insult | - | hostile
+castellan-afraid | - | It's all right, is there any work for me? | ask_for_work | - | multi
+gate-afraid | - | Easy now, is it safe out there? | ask_safety | - | multi
+castellan-afraid | - | Hello there. | greet | - | short
+inn-afraid | - | What's around here? | ask_surroundings | - | clear
+gate-afraid | - | Thank you, captain. | thank | - | polite
+opening-afraid | - | Goodbye. | farewell | - | short

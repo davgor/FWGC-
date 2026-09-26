@@ -80,6 +80,17 @@ public:
     // Whether speak() says `packet`'s answer again as told, having said all of it in `recent`.
     bool told(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent) const;
 
+    // What a frightened speaker says before an answer (contract version 9): a sentence from
+    // their bank's `panicked_lead` or `afraid_lead` lines, which speak() puts first. Empty for a
+    // speaker who is not afraid, for any outcome but an answer, and before "is it safe", whose
+    // verdict opens its answer: an outcome's own opening always comes first.
+    std::string lead(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent = {}) const;
+
+    // Every lead lead() could choose from for `packet`, filled, as replies() lists every reply: for
+    // the rules test and the eval, which hold each line to the rules whether or not it is true
+    // here.
+    std::vector<std::string> leads(const orchestrator::FactPacket& packet) const;
+
     // How many lines were read.
     std::size_t size() const;
 
@@ -102,8 +113,9 @@ private:
     // replies(), each as Spoken. With `recent` (what the speaker said lately), small talk leaves
     // out a warning of a nest the speaker has just given. `checked`, as speak() says them: a line
     // untrue() finds a claim in is left out, and a bank with none left gives way to the next.
+    // `only`, when given, the situations in place of the packet's own (a lead's).
     std::vector<Spoken> spoken_for(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent = nullptr,
-                                   bool checked = false) const;
+                                   bool checked = false, const std::vector<std::string>* only = nullptr) const;
 
     // Adds the rows of `text` to the banks; `source` names it in an error.
     void read(std::string_view text, const std::string& source);

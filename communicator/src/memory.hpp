@@ -19,9 +19,13 @@ struct Remembered {
     bool repeat = false;
     int heard = 0;             // how many times before the stranger made this act to the speaker, in any conversation
     bool exposed = false;
+    std::string feeling = "calm";  // on the fear ladder (contract version 9): calm, uneasy, afraid, panicked
+    std::string resting = "calm";  // how they feel when nothing frightens them
 
     bool warm() const { return mood == "warm" || mood == "friendly"; }
     bool cold() const { return mood == "wary" || mood == "hostile"; }
+    // Afraid or panicking: a speaker whose words show it.
+    bool frightened() const { return feeling == "afraid" || feeling == "panicked"; }
 };
 
 // The packet's Memory fact, read; a first meeting, neutral, when it carries none.

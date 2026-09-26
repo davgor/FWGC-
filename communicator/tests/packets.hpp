@@ -60,6 +60,8 @@ struct Recall {
     bool repeat = false;
     int heard = 0;
     bool exposed = false;
+    std::string feeling = "calm";
+    std::string resting = "calm";
 };
 
 inline Fact memory_of(const std::string& speaker, const Recall& r) {
@@ -73,7 +75,9 @@ inline Fact memory_of(const std::string& speaker, const Recall& r) {
              {"turn", std::to_string(r.turn)},
              {"repeat", r.repeat ? "yes" : "no"},
              {"heard", std::to_string(r.heard)},
-             {"exposed", r.exposed ? "yes" : "no"}}};
+             {"exposed", r.exposed ? "yes" : "no"},
+             {"feeling", r.feeling},
+             {"resting", r.resting}}};
 }
 
 // A packet as the director writes one: its facts, then the speaker's memory.
@@ -423,6 +427,31 @@ inline FactPacket about_the_fortress() {
                      {"difficulty", "3"}, {"range", "far"}, {"days_left", "713"}, {"marker", "fortress-17"}, {"marker_node", "178"}}}});
 }
 
+// ---- Contract version 9: feelings ---------------------------------------------------------------
+
+// Calming words that eased the castellan a step, to `feeling`.
+inline FactPacket calmed(const std::string& feeling) {
+    return packet(castellan(), ActKind::Calm, Outcome::Calmed, {}, {.mood = "friendly", .turn = 2, .feeling = feeling});
+}
+
+// Calming words that did not: what frightened them is still there, or they distrust the stranger.
+inline FactPacket still_afraid(const std::string& mood = "neutral") {
+    return packet(castellan(), ActKind::Calm, Outcome::StillAfraid, {}, {.mood = mood, .turn = 2, .feeling = "panicked"});
+}
+
+// Calming words to someone at rest: calm, or uneasy by a dangerous nest.
+inline FactPacket not_afraid(const std::string& resting = "calm") {
+    return packet(castellan(), ActKind::Calm, Outcome::NotAfraid, {}, {.turn = 2, .feeling = resting, .resting = resting});
+}
+
+// A frightened castellan greeted, chatting, thanked, parting, and asked what is around.
+inline FactPacket frightened(ActKind act, Outcome outcome, const std::string& feeling) {
+    FactPacket p = act == ActKind::AskSurroundings ? surroundings() : packet(castellan(), act, outcome);
+    if (act == ActKind::SmallTalk) p = small_talk("unsettled", "windy");
+    p.facts.back() = memory_of(p.speaker, {.turn = 2, .feeling = feeling});
+    return p;
+}
+
 inline FactPacket denied(bool again) {
     return packet(castellan(), ActKind::Confront, Outcome::Denied, {}, {.turn = again ? 3 : 2, .repeat = again});
 }
@@ -461,7 +490,24 @@ inline std::vector<FactPacket> conversation() {
             exposed_beast(),
             exposed_heart(),
             denied(false),
-            denied(true)};
+            denied(true),
+            // Contract version 9: calming words, and a frightened speaker.
+            calmed("afraid"),
+            calmed("calm"),
+            still_afraid(),
+            still_afraid("hostile"),
+            not_afraid(),
+            not_afraid("uneasy"),
+            frightened(ActKind::Greet, Outcome::Greeted, "afraid"),
+            frightened(ActKind::Greet, Outcome::Greeted, "panicked"),
+            frightened(ActKind::SmallTalk, Outcome::Chatted, "afraid"),
+            frightened(ActKind::SmallTalk, Outcome::Chatted, "panicked"),
+            frightened(ActKind::Thank, Outcome::Thanked, "afraid"),
+            frightened(ActKind::Thank, Outcome::Thanked, "panicked"),
+            frightened(ActKind::Farewell, Outcome::Parted, "afraid"),
+            frightened(ActKind::Farewell, Outcome::Parted, "panicked"),
+            frightened(ActKind::AskSurroundings, Outcome::Answered, "afraid"),
+            frightened(ActKind::AskSurroundings, Outcome::Answered, "panicked")};
 }
 
 }  // namespace packets

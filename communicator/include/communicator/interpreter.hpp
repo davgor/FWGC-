@@ -56,15 +56,17 @@ public:
     explicit Interpreter(inference::Model& model);
 
     // The act `line` is. `last_reply` is what the speaker said last, if anything: "yes" after an
-    // offer is an acceptance. Greedy, so the same line, knowledge and reply give the same act.
-    // Throws Error for a line or a reply past kMaxLineBytes.
-    Interpretation interpret(std::string_view line, const Known& known, std::string_view last_reply = {});
+    // offer is an acceptance. `frightened`: the speaker is afraid or panicking, as their last
+    // packet's Memory fact says (contract version 9); only then are calming words an act of their
+    // own, as an answer is only to a question. Greedy, so the same line, knowledge, reply and
+    // feeling give the same act. Throws Error for a line or a reply past kMaxLineBytes.
+    Interpretation interpret(std::string_view line, const Known& known, std::string_view last_reply = {}, bool frightened = false);
 
     // The questions interpret() puts to the model, for a log or a test: which act the line is,
     // and, for an act that takes a target, which known thing of its kind it points at. The
     // candidates come most likely first: those sharing the most words with the line, and with
     // the last reply.
-    Question act_question(std::string_view line, const Known& known, std::string_view last_reply = {}) const;
+    Question act_question(std::string_view line, const Known& known, std::string_view last_reply = {}, bool frightened = false) const;
     Question target_question(orchestrator::ActKind act, std::string_view line, const Known& known,
                              std::string_view last_reply = {}) const;
 

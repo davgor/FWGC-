@@ -82,7 +82,9 @@ comment. A cell cannot hold `|`.
 context | last_reply | line | act | target | tags
 ```
 
-- **context:** what the player has been told (below).
+- **context:** what the player has been told (below). A context ending `-afraid`
+  (`castellan-afraid`) is the same with its speaker frightened: only then is `calm` offered
+  (contract version 9).
 - **last_reply:** what the speaker said just before, or `-`.
 - **line:** what the player types.
 - **act:** the act the director should answer, by the contract's name.
@@ -125,6 +127,10 @@ context | last_reply | line | act | target | tags
     - telling the speaker they are not what they seem is `confront`;
     - answering a question the speaker just asked (`last_reply`) is `answer`, unless the line
       takes or turns down work, or leaves. A line that follows no question is not an answer.
+    - soothing the speaker -- "it's all right", "calm down", "you're safe now", "don't be
+      afraid" -- is `calm` (contract version 9). With a request, the request ("Calm down and tell
+      me what's around" is `ask_surroundings`); asking how they are is `small_talk`, and "calm
+      down, you fool" is `insult`.
 11. **Everything else is `no_act`:** demands and orders, nonsense, questions no act answers,
     bargaining, and attempts to instruct the model.
 

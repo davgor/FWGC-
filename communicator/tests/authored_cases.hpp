@@ -166,6 +166,18 @@ inline bool told_row(const std::string& row) {
     return situation.size() > told.size() && situation.compare(situation.size() - told.size(), told.size(), told) == 0;
 }
 
+// Whether a row is a frightened speaker's lead before an answer ("afraid_lead"): said alone,
+// before whatever answer comes after (Lines::lead).
+inline bool lead_row(const std::string& row) {
+    const std::size_t first = row.find('|');
+    const std::size_t second = first == std::string::npos ? first : row.find('|', first + 1);
+    if (second == std::string::npos) return false;
+    std::string situation = row.substr(first + 1, second - first - 1);
+    situation.erase(0, situation.find_first_not_of(' '));
+    while (!situation.empty() && situation.back() == ' ') situation.pop_back();
+    return situation == "afraid_lead" || situation == "panicked_lead";
+}
+
 // `p` spoken by someone the row's bank answers for: a hero with that voice key, someone at that
 // post, or, for "any", the packet's own speaker.
 inline FactPacket as_voiced_by(FactPacket p, const std::string& voice) {
@@ -214,8 +226,9 @@ inline std::vector<std::string> broken_rules(const std::string& reply, const Fac
     }
     std::string past_opening = own;
     if (!shape.openings.empty()) {
+        // Whole words: "No" does not open "Nothing to worry about" (rules::opens_with_one_of).
         const auto opening = std::find_if(shape.openings.begin(), shape.openings.end(),
-                                          [&](const std::string& o) { return own.rfind(o, 0) == 0; });
+                                          [&](const std::string& o) { return rules::opens_with_one_of(own, {o}); });
         if (opening == shape.openings.end())
             out.push_back("not an opening of its outcome's");
         else
@@ -336,9 +349,12 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
         // the answer lately, beside an answer that says it all (what is heard is what the answer
         // says); any other, alone, as the packet comes.
         const bool again = told_row(row);
+        const bool leading = lead_row(row);
         const std::string beside = again ? "\n" + kEveryBlank : std::string();
         const communicator::Lines one = communicator::Lines::parse(row + beside, "the row");
         const auto replies_of = [&](const communicator::Lines& lines, const FactPacket& packet, const FactPacket& p) {
+            // A frightened speaker's lead is said alone here, before whatever answer comes after.
+            if (leading) return lines.leads(p);
             if (!again) return lines.replies(p);
             const std::vector<std::string> heard = heard_everything(packet);
             if (heard.empty()) return std::vector<std::string>();
@@ -353,6 +369,22 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
             for (const std::string& reply : replies_of(one, packet, p)) {
                 ++spoken;
                 for (const std::string& broken : broken_rules(reply, p)) out.push_back(broken + ", in: " + reply);
+                // A lead goes before an answer the program adds: one sentence, and no question.
+                if (leading && (rules::sentences_in(reply) != 1 || reply.back() == '?'))
+                    out.push_back("a lead is one sentence, not a question, in: " + reply);
+                // Nor a yes or a no: before "is it safe", whose answer opens with its verdict, "Yes,
+                // yes, quickly! No, ..." says both (a writer found it, 2026-09-26).
+                if (leading && rules::opens_with_one_of(reply, {"Yes", "No", "Aye", "Nay"}))
+                    out.push_back("a lead opens with no yes or no, in: " + reply);
+                // Nor ends on one: "Let me think, yes." before "No. ..." says both too.
+                if (leading) {
+                    std::string last = reply;
+                    while (!last.empty() && !std::isalpha(static_cast<unsigned char>(last.back()))) last.pop_back();
+                    const std::size_t space = last.find_last_of(" ,;:");
+                    last = rules::lowered(space == std::string::npos ? last : last.substr(space + 1));
+                    if (last == "yes" || last == "no" || last == "aye" || last == "nay")
+                        out.push_back("a lead ends on no yes or no, in: " + reply);
+                }
                 // What the reply claims (communicator/truth.hpp): a claim no packet can back is the
                 // row's fault; one this packet does not back only keeps the line unsaid here.
                 const std::vector<std::string> recent = again ? heard_everything(packet) : std::vector<std::string>();

@@ -141,7 +141,13 @@ std::map<std::string, std::function<FactPacket()>> voice_packets() {
             {"forgiven", [] { return packets::forgiven("neutral"); }},
             {"forgiven_cold", [] { return packets::forgiven("hostile"); }},
             {"unwronged", packets::unwronged},
-            {"about_town", packets::about_the_town}};
+            {"about_town", packets::about_the_town},
+            // Contract version 9: feelings.
+            {"calmed", [] { return packets::calmed("afraid"); }},
+            {"still_afraid", [] { return packets::still_afraid(); }},
+            {"not_afraid", [] { return packets::not_afraid(); }},
+            {"greeted_panicked", [] { return packets::frightened(ActKind::Greet, orchestrator::Outcome::Greeted, "panicked"); }},
+            {"surroundings_afraid", [] { return packets::frightened(ActKind::AskSurroundings, orchestrator::Outcome::Answered, "afraid"); }}};
 }
 
 std::optional<Kind> target_kind(ActKind kind) {
@@ -220,7 +226,10 @@ void interpreter_eval(inference::Model& model, const std::string& path, std::siz
         const std::string& context = cells[0];
         const std::string &last_reply = cells[1], &line = cells[2], &act_name = cells[3], &target = cells[4], &tags = cells[5];
         const std::string where = path + ":" + std::to_string(number);
-        const auto k = known.find(context);
+        // A context ending "-afraid" is its speaker frightened: calming words are offered.
+        static const std::string afraid = "-afraid";
+        const bool frightened = context.size() > afraid.size() && context.compare(context.size() - afraid.size(), afraid.size(), afraid) == 0;
+        const auto k = known.find(frightened ? context.substr(0, context.size() - afraid.size()) : context);
         const std::optional<ActKind> expected = orchestrator::act_kind(act_name);
         if (k == known.end() || !expected) {
             std::cout << "BAD ROW " << where << ": context or act unknown\n";
@@ -236,7 +245,7 @@ void interpreter_eval(inference::Model& model, const std::string& path, std::siz
         }
         ++cases;
         const Clock::time_point start = Clock::now();
-        const Interpretation it = interpreter.interpret(line, k->second, last_reply);
+        const Interpretation it = interpreter.interpret(line, k->second, last_reply, frightened);
         const double took = std::chrono::duration<double>(Clock::now() - start).count();
         seconds += took;
         slowest = std::max(slowest, took);
@@ -462,6 +471,8 @@ std::string memory_note(const FactPacket& p) {
         if (!v("asked_before").empty()) out += "; asked about " + v("asked_before") + " last time";
         if (v("repeat") == "yes") out += "; asked this already";
         if (v("exposed") == "yes") out += "; exposed";
+        // How they feel (contract version 9), when it is not calm: the game shows it on their face.
+        if (!v("feeling").empty() && v("feeling") != "calm") out += "; feels " + v("feeling");
         return out;
     }
     return "no memory";

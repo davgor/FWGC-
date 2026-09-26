@@ -635,6 +635,91 @@ TEST(a_cold_speaker_parts_and_chats_coldly_whatever_their_bank_holds) {
                  "no small talk from a cold speaker");
 }
 
+TEST(a_frightened_speaker_says_frightened_words_whatever_their_bank_holds) {
+    // The warden's bank greets calmly and fearfully, and has a panicking farewell only; anyone's
+    // bank has the rest.
+    const Lines lines = Lines::parse("warden/LN | greeted | Good day to you.\n"
+                                     "warden/LN | greeted_afraid | Oh! You startled me.\n"
+                                     "warden/LN | parted | Farewell.\n"
+                                     "any | greeted_panicked | Stay back! Please!\n"
+                                     "any | parted_afraid | Be careful out there.\n"
+                                     "any | small_talk_afraid | I can hardly think, let alone talk.\n"
+                                     "any | small_talk | A fine {time} for it.\n",
+                                     "test");
+    const auto said = [&](ActKind act, Outcome outcome, const std::string& feeling) {
+        return first(lines.replies(packets::frightened(act, outcome, feeling)));
+    };
+    check::equal(said(ActKind::Greet, Outcome::Greeted, "calm"), std::string("Good day to you."), "calm, a calm greeting");
+    check::equal(said(ActKind::Greet, Outcome::Greeted, "uneasy"), std::string("Good day to you."), "uneasy: calm words, an uneasy face");
+    check::equal(said(ActKind::Greet, Outcome::Greeted, "afraid"), std::string("Oh! You startled me."), "afraid: the bank's own");
+    check::equal(said(ActKind::Greet, Outcome::Greeted, "panicked"), std::string("Oh! You startled me."),
+                 "panicking, from a bank with afraid lines only: those, before another bank's panic");
+    check::equal(said(ActKind::Farewell, Outcome::Parted, "afraid"), std::string("Be careful out there."),
+                 "a bank with no frightened farewell leaves it to the next bank, never a calm one");
+    check::equal(said(ActKind::SmallTalk, Outcome::Chatted, "afraid"), std::string("I can hardly think, let alone talk."),
+                 "no weather from a frightened speaker");
+    // Fear shows before any coldness the speaker feels for the stranger, and in thanks too.
+    FactPacket hostile = packets::frightened(ActKind::Greet, Outcome::Greeted, "afraid");
+    hostile.facts.back() = packets::memory_of(hostile.speaker, {.mood = "hostile", .turn = 2, .feeling = "afraid"});
+    const Lines cold = Lines::parse("any | greeted_cold | Keep back.\nany | greeted_afraid | Oh! You startled me.\n"
+                                    "any | thanked | You're welcome.\nany | thanked_afraid | Yes, yes, of course.\n",
+                                    "test");
+    check::equal(first(cold.replies(hostile)), std::string("Oh! You startled me."), "afraid and hostile: afraid");
+    check::equal(first(cold.replies(packets::frightened(ActKind::Thank, Outcome::Thanked, "afraid"))), std::string("Yes, yes, of course."),
+                 "thanked while afraid");
+    check::is_true(broken_rules("Oh! You startled me.", packets::frightened(ActKind::Greet, Outcome::Greeted, "afraid")).empty(),
+                   "opening as a frightened greeting does");
+    check::is_true(!broken_rules("Good day to you.", packets::frightened(ActKind::Greet, Outcome::Greeted, "afraid")).empty(),
+                   "a calm opening is not a frightened one's");
+    // Calming words, by what came of them.
+    const Lines calming = Lines::parse("any | calmed | All right. I'm breathing.\n"
+                                       "any | still_afraid | No, I can't, not yet.\n"
+                                       "any | not_afraid | I'm not afraid, but thank you.\n",
+                                       "test");
+    check::equal(first(calming.replies(packets::calmed("afraid"))), std::string("All right. I'm breathing."), "eased");
+    check::equal(first(calming.replies(packets::still_afraid())), std::string("No, I can't, not yet."), "not eased");
+    check::equal(first(calming.replies(packets::not_afraid())), std::string("I'm not afraid, but thank you."), "nothing to ease");
+}
+
+TEST(a_frightened_speaker_says_a_sentence_of_their_own_before_an_answer) {
+    const Lines lines = Lines::parse("any | surroundings | The nearest is {nearest}.\n"
+                                     "any | afraid_lead | Forgive me, I'm shaking.\n"
+                                     "any | afraid_lead | All right, let me think.\n"
+                                     "any | panicked_lead | Please, let me think!\n"
+                                     "any | parted | Farewell.\n",
+                                     "test");
+    const std::string answer = "The nearest is the ninth stone on the Linbrig road, a short walk away, dangerous, held by monsters.";
+    check::equal(lines.speak(packets::surroundings(), "What's around?"), answer, "the premise: a calm speaker's answer");
+    const FactPacket afraid = packets::frightened(ActKind::AskSurroundings, Outcome::Answered, "afraid");
+    const std::string lead = lines.lead(afraid);
+    check::is_true(lead == "Forgive me, I'm shaking." || lead == "All right, let me think.", "an afraid speaker's lead: " + lead);
+    check::equal(lines.speak(afraid, "What's around?"), lead + " " + answer, "said before the answer");
+    check::is_true(lines.lead(afraid, {lead + " " + answer}) != lead, "not the lead said last, while another fits");
+    check::equal(lines.lead(packets::frightened(ActKind::AskSurroundings, Outcome::Answered, "panicked")),
+                 std::string("Please, let me think!"), "a panicking speaker's own");
+    check::equal(lines.lead(packets::surroundings()), std::string(), "none from a calm speaker");
+    check::equal(lines.lead(packets::frightened(ActKind::Farewell, Outcome::Parted, "afraid")), std::string(),
+                 "none before an outcome's own opening");
+    FactPacket safety = packets::safety_unsafe();
+    safety.facts.back() = packets::memory_of(safety.speaker, {.turn = 2, .feeling = "afraid"});
+    check::equal(lines.lead(safety), std::string(), "none before a verdict, which opens its answer");
+    check::equal(communicator::reply_shape(afraid).sentences, communicator::reply_shape(packets::surroundings()).sentences + 1,
+                 "and room for it in the reply's shape");
+}
+
+TEST(an_opening_is_whole_words_and_a_lead_one_plain_sentence) {
+    // "No" opens "No, never." but not "Nothing to worry about.", which an unsafe answer must not say.
+    check::is_true(rules::opens_with_one_of("No, never.", {"No"}) && rules::opens_with_one_of("No.", {"No"}), "No, as a word");
+    check::is_true(!rules::opens_with_one_of("Nothing to worry about.", {"No"}), "not the start of Nothing");
+    check::is_true(!broken_rules("Nothing to worry about.", packets::safety_unsafe()).empty(), "so an unsafe answer cannot open with it");
+    // A lead goes before an answer: one sentence, and no question.
+    check::is_true(row_problems("any | afraid_lead | Forgive me, I'm shaking.").empty(), "a lead");
+    for (const std::string bad : {"any | afraid_lead | Wait. Let me think.", "any | afraid_lead | What was that?",
+                                  "any | panicked_lead | Yes, yes, quickly!", "any | afraid_lead | No, wait, let me think.",
+                                  "any | afraid_lead | Let me think, yes."})
+        check::is_true(!row_problems(bad).empty(), "not a lead: " + bad);
+}
+
 TEST(no_one_met_before_is_called_a_stranger) {
     const Lines lines = Lines::parse("any | offended | Mind your manners, stranger.\n"
                                      "any | offended | Watch your tongue.\n"

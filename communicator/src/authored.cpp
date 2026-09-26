@@ -672,6 +672,23 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"forgiven", {}},
         {"forgiven_cold", {}},
         {"unwronged", {}},
+        // Contract version 9: feelings. Calming words taken, not taken, or with nothing to ease.
+        {"calmed", {}},
+        {"still_afraid", {}},
+        {"not_afraid", {}},
+        // A frightened speaker's greetings, small talk, thanks and farewells: the only lines they
+        // say, as a cold speaker's are, a panicking one's falling back to an afraid one's.
+        {"greeted_afraid", {}},
+        {"greeted_panicked", {}},
+        {"small_talk_afraid", {}},
+        {"small_talk_panicked", {}},
+        {"thanked_afraid", {}},
+        {"thanked_panicked", {}},
+        {"parted_afraid", {}},
+        {"parted_panicked", {}},
+        // What a frightened speaker says before an answer, a sentence of its own (Lines::lead).
+        {"afraid_lead", {}},
+        {"panicked_lead", {}},
         // Contract version 5: a people's sayings, in the bank `saying:<people>`. Never a reply of
         // its own: a line says one through {saying}.
         {"saying", {}},
@@ -686,8 +703,15 @@ std::string Lines::situation(const FactPacket& p) {
 
 std::vector<std::string> Lines::situations_for(const FactPacket& p) {
     const Remembered m = remembered(p);
+    // A frightened speaker's own lines (contract version 9), whatever else they remember or feel
+    // for the stranger: a panicking one's first, then an afraid one's.
+    const auto frightened = [&](const std::string& base) -> std::vector<std::string> {
+        if (m.feeling == "panicked") return {base + "_panicked", base + "_afraid"};
+        return {base + "_afraid"};
+    };
     switch (p.outcome) {
         case Outcome::Greeted: {
+            if (m.frightened()) return frightened("greeted");
             // A cold speaker greets coldly whatever came before; otherwise a first meeting, or
             // what came of the speaker's own work, then how warmly they take the stranger. No
             // chain crosses from one greeting's openings (reply_shape) to another's.
@@ -704,6 +728,7 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             // A cold speaker has no small talk to give, and a bank without cold lines leaves it to
             // the next bank's rather than chatting warmly. Otherwise the weather's lines and the
             // rest are said alike (replies()).
+            if (m.frightened()) return frightened("small_talk");
             if (m.cold()) return {"small_talk_cold"};
             std::vector<std::string> chain;
             if (const std::string weather = weather_class(p); !weather.empty()) chain.push_back("small_talk_" + weather);
@@ -712,10 +737,12 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
         }
         case Outcome::Parted:
             // The same: a bank without a cold farewell does not part warmly for a cold speaker.
+            if (m.frightened()) return frightened("parted");
             return {m.cold() ? "parted_cold" : "parted"};
         case Outcome::Acknowledged:
             return {"acknowledged"};
         case Outcome::Thanked:
+            if (m.frightened()) return frightened("thanked");
             return {m.cold() ? "thanked_cold" : "thanked"};
         case Outcome::Offended:
             if (m.repeat || m.mood == "hostile") return {"offended_again", "offended"};
@@ -733,6 +760,12 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             return {m.cold() ? "forgiven_cold" : "forgiven"};
         case Outcome::Unwronged:
             return {"unwronged"};
+        case Outcome::Calmed:
+            return {"calmed"};
+        case Outcome::StillAfraid:
+            return {"still_afraid"};
+        case Outcome::NotAfraid:
+            return {"not_afraid"};
         default: {
             std::string one = single_situation(p);
             if (one.empty()) return {};
@@ -796,6 +829,9 @@ std::string Lines::single_situation(const FactPacket& p) {
         case Outcome::Denied:
         case Outcome::Forgiven:
         case Outcome::Unwronged:
+        case Outcome::Calmed:
+        case Outcome::StillAfraid:
+        case Outcome::NotAfraid:
             break;  // situations_for chains these
     }
     return {};
@@ -871,8 +907,9 @@ std::vector<std::string> Lines::replies(const FactPacket& p, const std::vector<s
     return out;
 }
 
-std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vector<std::string>* recent, bool checked) const {
-    const std::vector<std::string> chain = situations_for(p);
+std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vector<std::string>* recent, bool checked,
+                                             const std::vector<std::string>* only) const {
+    const std::vector<std::string> chain = only ? *only : situations_for(p);
     if (chain.empty()) return {};
     const ReplyShape shape = reply_shape(p);
     // One of the speaker's people's sayings, the same all turn, another the next.
@@ -990,7 +1027,9 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
     //
     // Asked the same thing twice in one conversation, a speaker says so before saying it again:
     // an answer with no fixed opening begins "As I said, ...".
-    std::vector<Spoken> answer = answered(chain, remembered(p).repeat && p.outcome == Outcome::Answered && shape.openings.empty());
+    std::vector<Spoken> answer =
+        answered(chain, !only && remembered(p).repeat && p.outcome == Outcome::Answered && shape.openings.empty());
+    if (only) return answer;  // a lead: nothing is told of it
     const bool asked_before = remembered(p).heard > 0 || chain.front() == "about_place";
     if (recent != nullptr && chain.size() == 1 && situations().count(chain.front() + "_told") != 0 && asked_before && !answer.empty()) {
         std::set<std::string> says;
@@ -1072,7 +1111,55 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         if (!recalling.empty() && meaning->subject_of(line, subjects) == 0)
             if (auto [reply, said_lately] = choose(recalling); !said_lately) return reply;
     }
-    return choose(spoken).first;
+    // A frightened speaker's answer comes after a sentence of their own (contract version 9): the
+    // words of an answer are a writer's for a calm speaker, and "the words she says should be
+    // panicked" (the owner, 2026-09-26).
+    const std::string reply = choose(spoken).first;
+    const std::string before = lead(p, recent);
+    return before.empty() ? reply : before + " " + reply;
+}
+
+namespace {
+
+// The lead situations a frightened speaker's answer opens from, a panicking one's first; none for
+// anyone else, or before an outcome's own opening: "is it safe" is answered with its verdict first,
+// and "Forgive me, I'm shaking. Far from it." heard as a denial of the shaking (a writer found it,
+// 2026-09-26).
+std::vector<std::string> lead_chain(const FactPacket& p) {
+    const Remembered m = remembered(p);
+    if (!m.frightened() || p.outcome != Outcome::Answered || !reply_shape(p).openings.empty()) return {};
+    std::vector<std::string> chain;
+    if (m.feeling == "panicked") chain.push_back("panicked_lead");
+    chain.push_back("afraid_lead");
+    return chain;
+}
+
+}  // namespace
+
+std::vector<std::string> Lines::leads(const FactPacket& p) const {
+    const std::vector<std::string> chain = lead_chain(p);
+    if (chain.empty()) return {};
+    std::vector<std::string> out;
+    for (Spoken& s : spoken_for(p, nullptr, false, &chain)) out.push_back(std::move(s.text));
+    return out;
+}
+
+std::string Lines::lead(const FactPacket& p, const std::vector<std::string>& recent) const {
+    const Remembered m = remembered(p);
+    const std::vector<std::string> chain = lead_chain(p);
+    if (chain.empty()) return {};
+    const std::vector<Spoken> leads = spoken_for(p, &recent, true, &chain);
+    if (leads.empty()) return {};
+    // In turn by what the speaker has heard, as every line is, and not one said lately.
+    const std::size_t n = leads.size();
+    const std::size_t start = (static_cast<std::size_t>(stable_hash(p.speaker + "|lead") % n) +
+                               static_cast<std::size_t>(std::max(0, m.heard)) % n) % n;
+    for (std::size_t k = 0; k < n; ++k) {
+        const Spoken& line = leads[(start + k) % n];
+        if (std::none_of(recent.begin(), recent.end(), [&](const std::string& said) { return said.rfind(line.text, 0) == 0; }))
+            return line.text;
+    }
+    return leads[start].text;
 }
 
 bool Lines::told(const FactPacket& p, const std::vector<std::string>& recent) const {

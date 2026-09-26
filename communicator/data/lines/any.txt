@@ -132,3 +132,37 @@ any | safety_safe_told | Safe enough, as I told you.
 any | safety_safe_told | Yes, same as before.[ The worst of it is {worst}.]
 any | about_place_told | You've had all I know of it: {about}.
 any | about_place_told | Only what I told you before: that's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ {work}.]
+# ---- Contract version 9: feelings. Calming words, and a frightened speaker's own lines, which
+# never say what frightened them: the packet does not say. -------------------------------------
+any | calmed | All right. All right, I'm breathing.
+any | calmed | Thank you. That helps, a little.
+any | calmed | I'll try. Give me a moment.
+any | calmed | Maybe you're right. My hands are still shaking, though.
+any | still_afraid | No. No, I can't, not yet.
+any | still_afraid | Easy for you to say. I can't stop shaking.
+any | still_afraid | Stay back. Please, just stay back.
+any | not_afraid | I'm not afraid, but thank you.
+any | not_afraid | I'm fine, truly.
+any | not_afraid | There's no need, I'm quite all right.
+any | greeted_afraid | Oh! You startled me.
+any | greeted_afraid | Who's there? Oh, a traveller.
+any | greeted_afraid | Hello. Forgive me, I'm not myself.
+any | greeted_panicked | Stay back! Please, stay back!
+any | greeted_panicked | Oh, thank goodness, someone! I can't think straight.
+any | greeted_panicked | Please, please, not now!
+any | small_talk_afraid | I can hardly think, let alone talk. Forgive me.
+any | small_talk_afraid | I'm sorry, I'm all nerves.
+any | small_talk_panicked | Not now, please, not now!
+any | small_talk_panicked | How can you talk at a time like this?
+any | thanked_afraid | Yes, yes, of course.
+any | thanked_afraid | Of course, but please, be careful.
+any | thanked_panicked | Go, just go!
+any | thanked_panicked | Don't thank me, just go!
+any | parted_afraid | Be careful out there.
+any | parted_afraid | Stay safe, please.
+any | parted_panicked | Wait, don't leave me here!
+any | parted_panicked | Go, go, and don't look back!
+any | afraid_lead | Forgive me, I'm shaking.
+any | afraid_lead | All right, all right, let me think.
+any | panicked_lead | Just, just a breath, please!
+any | panicked_lead | Please, let me think!

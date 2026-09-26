@@ -54,3 +54,9 @@ forgiven | I'm sorry for what I said earlier.
 forgiven_cold | I'm sorry. I was out of line.
 unwronged | Forgive me, please.
 about_town | Tell me more about Wenweg.
+# Contract version 9: a frightened speaker, and calming words. After the 51 above, so they still compare.
+greeted_panicked | Hello? Are you all right?
+calmed | It's all right, you're safe now.
+still_afraid | Calm down, it's over.
+not_afraid | Don't be afraid.
+surroundings_afraid | What's around here?

@@ -162,8 +162,15 @@ inline std::vector<std::string> misfit_articles(const std::string& reply) {
     return out;
 }
 
+// Whole words: "No" does not open "Nothing to worry about", which an unsafe answer must not
+// begin with (a writer found the looser check let it, 2026-09-26).
 inline bool opens_with_one_of(const std::string& reply, const std::vector<std::string>& openings) {
-    return std::any_of(openings.begin(), openings.end(), [&](const std::string& o) { return reply.rfind(o, 0) == 0; });
+    return std::any_of(openings.begin(), openings.end(), [&](const std::string& o) {
+        if (reply.rfind(o, 0) != 0) return false;
+        if (reply.size() == o.size()) return true;
+        const auto next = static_cast<unsigned char>(reply[o.size()]);
+        return next < 0x80 && std::isalpha(next) == 0;
+    });
 }
 
 // The sentences in `text`: runs of . ! ? that close it, or come before a space, a bracket or a

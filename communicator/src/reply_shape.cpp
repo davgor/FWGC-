@@ -58,6 +58,8 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
             // A place asked about has more to it (contract version 8): its trades, who is there, the
             // nests around it, the work there, a sentence each.
             if (packet.answering == ActKind::AskAboutPlace) shape.sentences = 5;
+            // A frightened speaker (contract version 9) says a sentence of their own first.
+            if (memory.frightened()) ++shape.sentences;
             break;  // otherwise any start, up to three sentences
         }
         case Outcome::Accepted:
@@ -85,8 +87,11 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
             break;
         case Outcome::Parted:
             // A wary or hostile speaker sees the stranger off, not well: "Go well" after "Keep
-            // back" read as a speaker who forgot the last line (judged 2026-09-26).
-            if (memory.cold())
+            // back" read as a speaker who forgot the last line (judged 2026-09-26). A frightened
+            // one (contract version 9) as frightened, whatever else they feel.
+            if (memory.frightened())
+                shape.openings = {"Go", "Be careful", "Stay safe", "Please", "Wait", "Goodbye"};
+            else if (memory.cold())
                 shape.openings = {"Go, then", "Be on your way", "On your way", "Off with you", "Get going"};
             else
                 shape.openings = {"Farewell", "Safe travels", "Go well", "Goodbye", "Take care"};
@@ -101,8 +106,11 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
             break;
         case Outcome::Greeted:
             // A greeting says how the speaker takes the stranger, from what they remember: a cold
-            // one whether or not they have met, "again" only for someone met before.
-            if (memory.cold())
+            // one whether or not they have met, "again" only for someone met before. A frightened
+            // speaker (contract version 9) greets as one, whatever they remember.
+            if (memory.frightened())
+                shape.openings = {"Oh", "Please", "Stay back", "Who's there", "Wait", "Thank goodness", "Hello"};
+            else if (memory.cold())
                 shape.openings = {"What do you want", "What now", "Keep back", "Stay back"};
             else if (memory.again)
                 shape.openings = {"Hello again", "Back again", "Welcome back", "Good to see you", "Well met again", "Good day"};
@@ -118,7 +126,9 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
             shape.sentences = 2;
             break;
         case Outcome::Thanked:
-            if (memory.cold())
+            if (memory.frightened())
+                shape.openings = {"Yes", "Of course", "Please", "Go", "Don't thank me"};
+            else if (memory.cold())
                 shape.openings = {"Save your thanks", "Keep your thanks", "Hmph", "Spare me"};
             else
                 shape.openings = {"You're welcome", "No need", "Think nothing of it", "Glad to", "My pleasure", "Don't mention it"};
@@ -150,6 +160,21 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
             // Two: "What for?" asks, and the next sentence says there was no wrong.
             shape.openings = {"What for", "No harm done", "There's nothing to forgive", "Nothing to forgive", "Whatever for"};
             shape.sentences = 2;
+            break;
+        // 9: calming words. Eased a step, the speaker may still be afraid, so no opening says all
+        // is well.
+        case Outcome::Calmed:
+            shape.openings = {"All right", "Thank you", "I'll try", "Maybe you're right", "Yes", "I know, I know"};
+            shape.sentences = 2;
+            break;
+        case Outcome::StillAfraid:
+            shape.openings = {"No", "I can't", "Not yet", "Easy for you to say", "You don't understand", "Stay back",
+                              "Keep away"};
+            shape.sentences = 2;
+            break;
+        case Outcome::NotAfraid:
+            shape.openings = {"I'm not afraid", "I'm fine", "I'm all right", "There's no need", "Who said I was afraid"};
+            shape.sentences = 1;
             break;
     }
     return shape;

@@ -32,6 +32,8 @@ Remembered remembered(const orchestrator::FactPacket& packet) {
         out.repeat = text("repeat") == "yes";
         out.heard = number(fact.field("heard"));
         out.exposed = text("exposed") == "yes";
+        if (!text("feeling").empty()) out.feeling = text("feeling");
+        if (!text("resting").empty()) out.resting = text("resting");
         break;
     }
     return out;

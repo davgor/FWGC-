@@ -44,8 +44,10 @@ player's line --Interpreter--> DialogueAct --Director::respond--> FactPacket --V
 1. **`Known::learn(packet)`**, after every packet, records what the player has been told. Open a
    conversation with a packet (the speaker's greeting, for instance the answer to `no_act`), so
    the speaker's name is known before the player's first line.
-2. **`Interpreter::interpret(line, known, last_reply)`** gives an `Interpretation`: the act, the
-   words its target was named by, `meant`, and `confirm`.
+2. **`Interpreter::interpret(line, known, last_reply, frightened)`** gives an `Interpretation`: the
+   act, the words its target was named by, `meant`, and `confirm`. `frightened` is whether the
+   speaker is afraid or panicking, as their last packet's Memory fact says: only then are calming
+   words an act of their own (`calm`), as an answer is only to a question.
 3. **When `confirm` is set, the game asks the player first.** Only taking or giving up work
    changes the world (`orchestrator::act_changes_world`). For those acts, the game asks the
    question in `confirm` ("Take on this work?", with `label` beneath it), and the act goes to
@@ -67,6 +69,18 @@ whose work the player finished says so, and a question asked twice is answered "
 An apology (contract version 8) is taken by whether there was a wrong: forgiven, warmly or by a
 speaker still cold after it (and forgiven again when said again), or nothing to forgive, from
 someone who never wronged the speaker.
+
+**A speaker feels** (contract version 9): the Memory fact's `feeling`, on the fear ladder (calm,
+uneasy, afraid, panicked), and `resting`, how they feel when nothing frightens them. The game shows
+`feeling` as their expression. A frightened speaker says frightened words: greetings, small talk,
+thanks and farewells from their bank's afraid or panicking lines only, and an answer after a
+sentence of their own (`Lines::lead`: "Forgive me, I'm shaking."). Calming words (the act `calm`,
+offered by the interpreter only to a frightened speaker) are answered by whether they eased the
+speaker (`calmed`), did not (`still_afraid`), or found nothing to ease (`not_afraid`); the director
+decides which (orchestrator/README.md, "Feelings"). Offered to everyone, the act took the test model
+from 112 lines of 310 read right to 79 of the same: a listed act costs a small model on every line,
+not only the lines it fits.
+No line says what frightened them: the packet does not say.
 
 ## The interpreter
 
@@ -222,6 +236,13 @@ larger-than-life heroes.
   - An apology (contract version 8) by whether there was a wrong and how the speaker takes the
     stranger now: `forgiven`, `forgiven_cold` for a speaker still wary or hostile after it (a
     bank without it leaves the reply to the next bank's cold one), `unwronged`.
+  - A frightened speaker (contract version 9) greets, chats, takes thanks and parts from
+    `greeted_afraid`, `small_talk_afraid`, `thanked_afraid`, `parted_afraid`, and panicking from
+    the `_panicked` lines first, whatever else they remember: the only lines they say, as a cold
+    speaker's are. Calming words: `calmed`, `still_afraid`, `not_afraid`.
+  - Before an answer, a frightened speaker says one of their bank's `afraid_lead` or
+    `panicked_lead` lines, a sentence of its own; the answer's lines stay a calm speaker's. Not
+    before "is it safe": its verdict opens the answer, as an outcome's opening always does.
   - No chain crosses from one reply shape's openings to another's.
 - **Asked twice in one conversation,** an answer is said after "As I said," or "Again," (C++'s
   words, its first word lowered unless it is "I" or a name): the speaker says so, and the line

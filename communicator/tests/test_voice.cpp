@@ -199,7 +199,7 @@ TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
     // A fact is said in words, never as the packet's keys.
     for (const FactPacket& p : packets::conversation()) {
         const std::string prompt = prompt_of(voice, p, "Well?");
-        for (const std::string key : {"met:", "times:", "asked_before", "verdict", "repeat:", "exposed:", "mood:"})
+        for (const std::string key : {"met:", "times:", "asked_before", "verdict", "repeat:", "exposed:", "mood:", "feeling:", "resting:"})
             check::is_true(prompt.find(key) == std::string::npos, "no key " + key + " in the prompt for " + p.persona.name);
     }
     const std::string chat = prompt_of(voice, packets::small_talk("stormy", "a gale"), "Foul weather.");
@@ -220,6 +220,18 @@ TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
                    "a wrong forgiven");
     check::is_true(prompt_of(voice, packets::unwronged(), "Sorry.").find("they have done you no wrong") != std::string::npos,
                    "nothing to forgive");
+    // Contract version 9: how the speaker feels, and calming words.
+    check::is_true(prompt_of(voice, packets::frightened(orchestrator::ActKind::Greet, orchestrator::Outcome::Greeted, "panicked"), "Hello?").find("You are panicking") !=
+                       std::string::npos,
+                   "panicking");
+    check::is_true(prompt_of(voice, packets::frightened(orchestrator::ActKind::Greet, orchestrator::Outcome::Greeted, "afraid"), "Hello?").find("You are afraid") !=
+                       std::string::npos,
+                   "afraid");
+    for (const std::string said : {"You are uneasy", "You are afraid", "You are panicking"})
+        check::is_true(prompt_of(voice, packets::greeted_first(), "Hello!").find(said) == std::string::npos, "calm: nothing said of it");
+    check::is_true(prompt_of(voice, packets::calmed("afraid"), "Easy.").find("ease your fear a little") != std::string::npos, "eased");
+    check::is_true(prompt_of(voice, packets::still_afraid(), "Easy.").find("you are still afraid") != std::string::npos, "not eased");
+    check::is_true(prompt_of(voice, packets::not_afraid(), "Easy.").find("you are not afraid") != std::string::npos, "nothing to ease");
     const std::string town = prompt_of(voice, packets::about_the_town(), "Tell me more.");
     for (const std::string said : {"trades: administrator, smith, officiant", "- Tornar:", "- Danger near that place: Frost owls nesting: ",
                                    "; close by, from that place"})
