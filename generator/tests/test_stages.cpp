@@ -504,11 +504,12 @@ TEST(no_stated_purpose_names_a_node_by_its_id) {
 TEST(a_ley_node_is_named_by_a_place_it_is_its_schools_nearest_to) {
     // "the water node nearest Naelannon" must be true: of the water nodes, this one lies
     // nearest Naelannon. "the second water node from the ruins of Korpat": exactly one lies
-    // nearer. Checked from the world's own geometry, not from how the words were chosen.
+    // nearer. Checked from the world's own geometry, not from how the words were chosen. And
+    // the hook is sited at that place: the player is sent where the words point.
     const World& w = complete_65();
-    std::map<std::string, Vec3> places;
-    for (const SettlementSite& city : w.settlements.sites) places.emplace(hero_short_name(city.name), city.direction);
-    for (const Ruin& ruin : w.ruins) places.emplace("the ruins of " + hero_short_name(ruin.name), ruin.direction);
+    std::map<std::string, std::pair<Vec3, int>> places;
+    for (const SettlementSite& city : w.settlements.sites) places.emplace(hero_short_name(city.name), std::pair{city.direction, city.node});
+    for (const Ruin& ruin : w.ruins) places.emplace("the ruins of " + hero_short_name(ruin.name), std::pair{ruin.direction, ruin.node});
     static const std::vector<std::string> kCounted = {"", "", "second", "third", "fourth", "fifth", "sixth",
                                                       "seventh", "eighth", "ninth", "tenth"};
     int nearest = 0, counted = 0;
@@ -546,13 +547,15 @@ TEST(a_ley_node_is_named_by_a_place_it_is_its_schools_nearest_to) {
         check::is_true(self != nullptr, hook.hook_id + " targets a node of its school");
         if (self == nullptr) continue;
         std::size_t nearer = 0;
-        const double own = hero_separation_m(place->second, self->direction, 1.0);
+        const double own = hero_separation_m(place->second.first, self->direction, 1.0);
         for (const LeyNode& node : network.nodes) {
             if (node.id == self->id) continue;
-            const double angle = hero_separation_m(place->second, node.direction, 1.0);
+            const double angle = hero_separation_m(place->second.first, node.direction, 1.0);
             if (angle < own || (angle == own && node.id < self->id)) ++nearer;
         }
         check::equal(nearer + 1, rank, hook.hook_id + ": " + said);
+        check::is_true(hook.has_target_node && hook.target_node == place->second.second,
+                       hook.hook_id + " sited at the place its purpose names: " + said);
     }
     check::is_true(nearest > 0, "the premise: a node named by the place it is nearest");
     check::is_true(nearest + counted > 0, "and every such name checked above");

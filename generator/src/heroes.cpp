@@ -2253,6 +2253,8 @@ struct HookIndex {
     std::map<std::string, const HeroNest*> nest;
     std::map<std::string, std::string> ruin_of_relic;
     std::map<std::string, double> intensity;
+    // The places a bare ley node is named by, and sited at.
+    const HeroesRequest* request = nullptr;
 };
 
 struct HookTarget {
@@ -2274,6 +2276,7 @@ HookIndex build_hook_index(const Ctx& ctx, const std::vector<HeroRelic>& relics)
     index.college = ctx.college_by_id;
     index.nest = ctx.nest_by_id;
     index.intensity = ctx.intensity_by_node;
+    index.request = ctx.req;
     // The ORDINAL id is written first and the node anchor second, so a collision between
     // the two spellings resolves to the anchor -- the one that survives an age. Reversing
     // these two loops silently breaks every countryside hook.
@@ -2309,16 +2312,29 @@ HookTarget resolve_target(const HookIndex& index, const HeroEffect& effect) {
             auto it = index.ruins_by_id.find(id.substr(0, id.size() - 4));
             if (it != index.ruins_by_id.end()) ruin = it->second;
         }
-        if (ruin == nullptr) {
-            // The honest one: a bare ley node carries a direction and an intensity and
-            // nothing a player can stand in front of. It is reported rather than given an
-            // invented position.
+        auto intensity = index.intensity.find(id);
+        out.opposition = intensity == index.intensity.end() ? 0.0 : intensity->second;
+        if (ruin != nullptr) {
+            from_ruin(ruin);
+            return out;
+        }
+        // A bare ley node carries a direction and an intensity, and nothing a player can stand
+        // in front of. Its hook sends the player to the place its stated purpose names it by
+        // ("the water node nearest Wensal"; owner, 2026-09-26: "Quests at the place"). The node
+        // is not given that position: the hook is sited there, as a hook on a relic is sited at
+        // its ruin. Only a node no place names is reported unsited.
+        const std::optional<HeroLeyPlace> place =
+            index.request != nullptr ? hero_ley_node_place(*index.request, id, effect.school) : std::nullopt;
+        if (!place.has_value()) {
             out.unsited = "ley_node_has_no_site";
             return out;
         }
-        from_ruin(ruin);
-        auto intensity = index.intensity.find(id);
-        out.opposition = intensity == index.intensity.end() ? 0.0 : intensity->second;
+        out.has_grid = true;
+        out.x = place->x;
+        out.z = place->z;
+        out.node = place->node;
+        out.has_node = place->node >= 0;
+        if (!out.has_node) out.unsited = "target_has_no_node";
         return out;
     }
     if (effect.kind == "relic" || effect.kind == "ruin") {
@@ -2952,7 +2968,8 @@ std::string hero_short_name(std::string_view name) {
     return out;
 }
 
-std::string hero_ley_node_name(const HeroesRequest& request, const std::string& node_id, const std::string& school) {
+std::optional<HeroLeyPlace> hero_ley_node_place(const HeroesRequest& request, const std::string& node_id,
+                                                const std::string& school) {
     const HeroLeyNetwork* network = nullptr;
     for (const HeroLeyNetwork& net : request.networks) {
         if (net.school == school) network = &net;
@@ -2963,7 +2980,7 @@ std::string hero_ley_node_name(const HeroesRequest& request, const std::string& 
             if (node.id == node_id) self = &node;
         }
     }
-    if (self == nullptr) return {};
+    if (self == nullptr) return std::nullopt;
     // How many of the school's nodes lie nearer `from` than this one, plus one.
     const auto rank_from = [&](const Vec3& from) {
         const double own = hero_separation_m(from, self->direction, 1.0);
@@ -2981,13 +2998,18 @@ std::string hero_ley_node_name(const HeroesRequest& request, const std::string& 
         int kind = 0;  // 0 a city, 1 a ruin
         const std::string* key = nullptr;
         std::string words;
+        int node = -1;
+        int x = 0, z = 0;
         int rank = 0;
         double angle = 0.0;
     };
     std::vector<Place> places;
-    for (const HeroCity& city : request.cities) places.push_back({&city.direction, 0, &city.uid, hero_short_name(city.name)});
+    for (const HeroCity& city : request.cities) {
+        places.push_back({&city.direction, 0, &city.uid, hero_short_name(city.name), city.node, city.x, city.z});
+    }
     for (const HeroRuin& ruin : request.ruins) {
-        if (ruin.has_direction) places.push_back({&ruin.direction, 1, &ruin.uid, "the ruins of " + hero_short_name(ruin.name)});
+        if (!ruin.has_direction) continue;
+        places.push_back({&ruin.direction, 1, &ruin.uid, "the ruins of " + hero_short_name(ruin.name), ruin.node, ruin.x, ruin.z});
     }
     std::map<std::string, int> sharing;
     for (const Place& place : places) ++sharing[place.words];
@@ -3001,12 +3023,17 @@ std::string hero_ley_node_name(const HeroesRequest& request, const std::string& 
         place.angle = hero_separation_m(*place.direction, self->direction, 1.0);
         if (best == nullptr || order(place) < order(*best)) best = &place;
     }
-    if (best == nullptr) return {};
-    if (best->rank == 1) return "the " + school + " node nearest " + best->words;
+    if (best == nullptr || best->rank > 10) return std::nullopt;
+    return HeroLeyPlace{best->words, best->rank, best->kind == 1, *best->key, best->node, best->x, best->z};
+}
+
+std::string hero_ley_node_name(const HeroesRequest& request, const std::string& node_id, const std::string& school) {
+    const std::optional<HeroLeyPlace> place = hero_ley_node_place(request, node_id, school);
+    if (!place.has_value()) return {};
+    if (place->rank == 1) return "the " + school + " node nearest " + place->words;
     static constexpr std::string_view kCounted[] = {"second", "third", "fourth", "fifth", "sixth",
                                                     "seventh", "eighth", "ninth", "tenth"};
-    if (best->rank > 10) return {};
-    return "the " + std::string(kCounted[best->rank - 2]) + " " + school + " node from " + best->words;
+    return "the " + std::string(kCounted[place->rank - 2]) + " " + school + " node from " + place->words;
 }
 
 HeroAlignment hero_alignment_record(double law, double good) {

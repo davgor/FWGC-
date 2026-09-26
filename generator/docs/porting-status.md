@@ -281,7 +281,9 @@ with tests so a fix cannot land silently.
   comes soonest from ("the second water node from the ruins of Korpat"). Words two places
   share are passed over (`hero_ley_node_name`). Only the purposes move: across 39 worlds at
   sizes 33, 65 and 129, 905 purposes were renamed, all of them "nearest", and with purposes
-  set aside every document was identical.
+  set aside every document was identical. Since 2026-09-26 the hook is also sited at that
+  place (`hero_ley_node_place`; owner: "Quests at the place"), so its target node and the
+  pressure its difficulty reads are the place's; a node no place names stays unsited.
 - **Numbers, not timings, in the document.** Timings are off unless asked for; two runs of one
   seed are byte-identical.
 - **A near read can name its categories** (2026-09-24). At the radius ceiling most cities'

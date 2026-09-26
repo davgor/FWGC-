@@ -612,7 +612,7 @@ TEST(a_slay_hook_is_priced_at_the_lairs_own_tier) {
     check::is_true(pressed <= 3, "pressure is capped, so an errand never becomes a campaign threat");
 }
 
-TEST(a_keyed_ley_node_sites_at_its_ruin_and_a_bare_one_says_it_cannot) {
+TEST(a_keyed_ley_node_sites_at_its_ruin_and_a_bare_one_at_the_place_that_names_it) {
     Bench bench;
     int keyed = 0, bare = 0;
     for (const HeroesBlock& block : band(bench)) {
@@ -627,10 +627,17 @@ TEST(a_keyed_ley_node_sites_at_its_ruin_and_a_bare_one_says_it_cannot) {
                                "the hook names the place, not the node id");
             } else {
                 ++bare;
-                // A bare node is a direction and an intensity with no footprint anywhere.
-                check::equal(hook.unsited_reason, std::string("ley_node_has_no_site"),
-                             "a bare ley node reports that it cannot be stood in front of");
-                check::is_true(!hook.has_target_node, "and carries no terrain node");
+                // A bare node is a direction and an intensity with no footprint anywhere. Its
+                // hook is sited at the place its purpose names it by (owner, 2026-09-26).
+                const std::optional<HeroLeyPlace> place =
+                    hero_ley_node_place(bench.request, hook.actual_effect.node_id, hook.actual_effect.school);
+                check::is_true(place.has_value(), "the bench names every bare node by a place");
+                if (!place.has_value()) continue;
+                check::is_true(hook.unsited_reason.empty(), "a bare ley node's hook is sited: " + hook.unsited_reason);
+                check::is_true(hook.has_target_node, "at a terrain node");
+                check::equal(hook.target_node, place->node, "the node of the place that names it");
+                check::is_true(hook.stated_purpose.find(place->words) != std::string::npos,
+                               "the place its purpose names: " + hook.stated_purpose);
             }
         }
     }
