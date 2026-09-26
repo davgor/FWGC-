@@ -484,11 +484,8 @@ Whereabouts whereabouts_of(const fwg::NpcPerson& p, const std::vector<Detour>& d
     w.workplace_plot = p.plot_id;
     w.home_plot = p.home_plot_id.value_or("");
     w.day = now;
-    const std::vector<Stint> under_way = schedule::stints(schedule_of(p), detours, now, now);
-    if (!under_way.empty()) {
-        w.stint = under_way.front();
-        w.along = schedule::along_at(w.stint, now);
-    }
+    w.stint = schedule::stint_at(schedule_of(p), detours, now);
+    w.along = schedule::along_at(w.stint, now);
     return w;
 }
 
@@ -896,6 +893,19 @@ std::vector<Whereabouts> Director::whereabouts_at(const std::string& site) const
     const double now = fwg::world_clock_of(world_).day;
     for (const fwg::NpcPerson& p : world_.npcs.people) {
         if (has_a_day(p) && *p.site_uid == site) out.push_back(whereabouts_of(p, detours_in(detours_, p.uid), now));
+    }
+    return out;
+}
+
+std::vector<Position> Director::positions() const {
+    const double now = fwg::world_clock_of(world_).day;
+    const std::vector<fwg::NpcPerson>& people = world_.npcs.people;
+    std::vector<Position> out;
+    out.reserve(people.size());
+    for (std::size_t i = 0; i < people.size(); ++i) {
+        const fwg::NpcPerson& p = people[i];
+        if (!has_a_day(p)) continue;
+        out.push_back({static_cast<std::uint32_t>(i), schedule::stint_at(schedule_of(p), detours_in(detours_, p.uid), now)});
     }
     return out;
 }

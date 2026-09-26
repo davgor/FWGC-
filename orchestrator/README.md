@@ -189,6 +189,16 @@ meet that calendar day, sunrise to sunrise. `whereabouts_at(site)` gives everyon
 site. The director says when; the game draws the path between the two plots (`home_plot`,
 `workplace_plot`).
 
+**Everyone at once.** `positions()` gives every roster post with a day and the stretch they are
+in, in roster order, by their index in `world().npcs.people`: one pass over the roster, copying
+no strings. Measured on 2026-09-26, Release, on this machine: 0.5 ms for the 5,423 posts of seed
+42 at size 33, and 1.4 ms for the 11,985 of seed 99 at size 65 (2.6 ms with a thousand of them
+held), where asking after each by uid takes 19 ms and 94 ms. A stretch changes only when it
+ends or when someone is held, and on a walk where they are follows from the time, so a game can
+keep what it was given and ask again after a hold, after the clock moves, or when a stretch it
+holds runs out. Each stint is worked out from the one day it falls in (`schedule::stint_at`),
+and a test holds it to what the whole day gives, to the bit.
+
 ## A session, to listen to
 
 `orchestrator_session SCRIPT` (`tools/session.cpp`) plays a scripted session against a generated

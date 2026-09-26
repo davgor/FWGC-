@@ -1,9 +1,11 @@
 #include "schedule.hpp"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <cstddef>
 #include <iterator>
+#include <limits>
 #include <stdexcept>
 
 namespace orchestrator::schedule {
@@ -36,9 +38,14 @@ constexpr std::string_view kWatchBuildings[] = {
     "building.isolation_house", "building.keep",       "building.keep_tower",      "building.postern",
     "building.tower"};
 
+// Each list is sorted, so a post's hours are a binary search: a whole roster is asked at once.
+static_assert(std::is_sorted(std::begin(kEarlyBuildings), std::end(kEarlyBuildings)));
+static_assert(std::is_sorted(std::begin(kLateBuildings), std::end(kLateBuildings)));
+static_assert(std::is_sorted(std::begin(kWatchBuildings), std::end(kWatchBuildings)));
+
 template <std::size_t N>
 bool among(const std::string_view (&list)[N], std::string_view id) {
-    return std::find(std::begin(list), std::end(list), id) != std::end(list);
+    return std::binary_search(std::begin(list), std::end(list), id);
 }
 
 // A stay the plan puts a person in: doing what, where along the way, and when. `to` is the
@@ -59,26 +66,61 @@ double walk_of(const Person& p) {
     return std::clamp(p.walk, 0.0, margin);
 }
 
-// The planned stays from the wake of calendar day `first` to the wake after day `last`. One the
-// walk leaves empty -- a morning at home -- is left out.
-std::vector<Stay> stays_of(const Person& p, long long first, long long last) {
+// Where someone is when at home: 0, or 1 for someone housed nowhere, who lives at their post.
+double home_of(double walk) { return walk > 0.0 ? 0.0 : 1.0; }
+
+// Calendar day `d`'s stays, from its wake to the next day's: at home, working, at home, asleep.
+// One the walk leaves empty -- a morning at home -- is left out.
+struct Cycle {
+    std::array<Stay, 4> stays{};
+    std::size_t count = 0;
+};
+Cycle cycle_of(const Person& p, long long d) {
     const Hours& h = p.hours;
     const double walk = walk_of(p);
-    const double home = walk > 0.0 ? 0.0 : 1.0;  // someone housed nowhere lives at their post
+    const double home = home_of(walk);
+    const double wake = moment(d, h.wake);
+    const double start = moment(d, h.work_from);
+    const double finish = moment(d, h.work_until);
+    const double sleep = moment(d, h.sleep);
+    Cycle c;
+    for (const Stay& s : {Stay{Doing::at_home, home, wake, std::max(wake, start - walk)},
+                          Stay{Doing::working, 1.0, start, finish},
+                          Stay{Doing::at_home, home, std::min(sleep, finish + walk), sleep},
+                          Stay{Doing::asleep, home, sleep, moment(d + 1, h.wake)}}) {
+        if (s.from < s.to) c.stays[c.count++] = s;
+    }
+    return c;
+}
+
+// The planned stays from the wake of calendar day `first` to the wake after day `last`.
+std::vector<Stay> stays_of(const Person& p, long long first, long long last) {
     std::vector<Stay> out;
     for (long long d = first; d <= last; ++d) {
-        const double wake = moment(d, h.wake);
-        const double start = moment(d, h.work_from);
-        const double finish = moment(d, h.work_until);
-        const double sleep = moment(d, h.sleep);
-        for (const Stay& s : {Stay{Doing::at_home, home, wake, std::max(wake, start - walk)},
-                              Stay{Doing::working, 1.0, start, finish},
-                              Stay{Doing::at_home, home, std::min(sleep, finish + walk), sleep},
-                              Stay{Doing::asleep, home, sleep, moment(d + 1, h.wake)}}) {
-            if (s.from < s.to) out.push_back(s);
-        }
+        const Cycle c = cycle_of(p, d);
+        out.insert(out.end(), c.stays.begin(), c.stays.begin() + static_cast<std::ptrdiff_t>(c.count));
     }
     return out;
+}
+
+// The plan's stint under way at `day`, worked out from the one day's cycle it falls in: the
+// stint plan_of(stays_of(...)) holds there, to the bit, without building either.
+Stint planned_at(const Person& p, double day) {
+    // The cycle begun last: day `d`'s begins at its wake, which may fall the day before or after.
+    long long d = static_cast<long long>(std::floor(day)) + 1;
+    while (moment(d, p.hours.wake) > day) --d;
+    const Cycle c = cycle_of(p, d);
+    // Before the first stay, the walk from the night before: asleep at home.
+    double from = moment(d, p.hours.wake);
+    double along = home_of(walk_of(p));
+    for (std::size_t i = 0; i < c.count; ++i) {
+        const Stay& s = c.stays[i];
+        if (day < s.from) return {Doing::walking, from, s.from, along, s.along};
+        if (day < s.to) return {s.doing, s.from, s.to, s.along, s.along};
+        from = s.to;
+        along = s.along;
+    }
+    throw std::logic_error("schedule: a day's cycle does not reach its end");
 }
 
 // The plan as stints: each stay, and a walk wherever one stay ends before the next begins.
@@ -211,6 +253,22 @@ void hold(const Person& person, std::vector<Detour>& detours, double from, doubl
         if (last.stints.empty()) detours.pop_back();
     }
     detours.push_back(std::move(made));
+}
+
+Stint stint_at(const Person& person, const std::vector<Detour>& detours, double day) {
+    // A detour under way has it. Otherwise the plan's, cut where the next detour begins, as
+    // splicing that detour in cuts it.
+    double next = std::numeric_limits<double>::infinity();
+    for (const Detour& d : detours) {
+        if (d.from_day <= day && day < d.to_day) {
+            for (const Stint& s : d.stints) {
+                if (s.from_day <= day && day < s.to_day) return s;
+            }
+        }
+        if (d.from_day > day) next = std::min(next, d.from_day);
+    }
+    const Stint s = planned_at(person, day);
+    return next < s.to_day ? head_of(s, next) : s;
 }
 
 std::vector<Stint> stints(const Person& person, const std::vector<Detour>& detours, double from, double to) {

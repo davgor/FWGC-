@@ -15,6 +15,7 @@
 // communicator includes orchestrator/contract.hpp alone.
 #pragma once
 
+#include <cstdint>
 #include <map>
 #include <optional>
 #include <stdexcept>
@@ -80,6 +81,13 @@ struct Detour {
     double from_day = 0.0;
     double to_day = 0.0;
     std::vector<Stint> stints;  // tiling [from_day, to_day)
+};
+
+// One roster post with a day and the stretch they are in: what positions() lists, with no
+// strings, so a whole roster costs one pass.
+struct Position {
+    std::uint32_t person = 0;  // index into world().npcs.people: uid, site, home and workplace plots
+    Stint stint;               // the stretch under way at the clock
 };
 
 // Where a roster person is at one moment.
@@ -172,6 +180,12 @@ public:
     // Everyone with a day at one site, now, in roster order; empty for a site the roster does
     // not name.
     std::vector<Whereabouts> whereabouts_at(const std::string& site) const;
+
+    // Every roster post with a day and the stretch they are in now, in roster order: one pass
+    // over the roster, copying no strings, for asking after everyone at once. On a walk, where
+    // they are at any moment of it is its along in proportion to the time. A stretch changes
+    // only when it ends or when someone is held, so a caller can keep them until then.
+    std::vector<Position> positions() const;
 
 private:
     void end_conversation(const std::string& speaker);

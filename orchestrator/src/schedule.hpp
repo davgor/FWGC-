@@ -64,6 +64,11 @@ void hold(const Person& person, std::vector<Detour>& detours, double from, doubl
 // `to` no later than `from`, the one stint under way at `from`.
 std::vector<Stint> stints(const Person& person, const std::vector<Detour>& detours, double from, double to);
 
+// The one stint under way at `day`: what stints(person, detours, day, day) gives, to the bit,
+// worked out from the one day it falls in and allocating nothing, for asking after a whole
+// roster at once.
+Stint stint_at(const Person& person, const std::vector<Detour>& detours, double day);
+
 // Where along the way (0 home, 1 work) a stint has the person at `day`.
 double along_at(const Stint& stint, double day);
 

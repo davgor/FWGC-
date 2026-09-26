@@ -11,6 +11,7 @@
 #include <set>
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "check.hpp"
@@ -288,6 +289,45 @@ TEST(a_day_asked_of_any_span_reads_the_same_as_the_whole) {
     }
 }
 
+TEST(the_stint_under_way_worked_out_alone_is_the_one_the_whole_day_holds) {
+    // stint_at is what a roster asked after at once runs on: it must give, to the bit, what
+    // stints() gives, for every trade, walk and hold, at every moment.
+    const std::vector<schedule::Hours> trades = {schedule::kDayTrade, schedule::kEarlyTrade, schedule::kLateTrade,
+                                                 schedule::kWatches[0], schedule::kWatches[1], schedule::kWatches[2]};
+    int moments = 0;
+    for (const schedule::Hours& h : trades) {
+        for (const double walk : {0.0, kMinute, 10.0 * kMinute, 3.0 / 24.0}) {
+            const schedule::Person p{h, walk};
+            // Holds of every kind: on a walk, at work, past closing, one inside another, and a
+            // long one; each at or after the last, as the clock makes them.
+            std::vector<Detour> detours;
+            for (const auto& [at, minutes] : std::vector<std::pair<double, double>>{
+                     {h.work_from - 0.1, 20.0}, {h.work_from + 3.0, 30.0}, {h.work_from + 3.1, 5.0},
+                     {h.work_until + 23.9, 90.0}, {h.work_from + 49.0, 900.0}}) {
+                schedule::hold(p, detours, at_hour(at), at_hour(at) + minutes * kMinute);
+            }
+            for (double t = kDay - 1.0; t < kDay + 4.0; t += 7.0 * kMinute) {
+                const std::vector<Stint> whole = schedule::stints(p, detours, t, t);
+                check::equal(whole.size(), std::size_t(1), "one stint under way");
+                const Stint alone = schedule::stint_at(p, detours, t);
+                check::is_true(same(alone, whole.front()),
+                               "at " + std::to_string((t - kDay) * 24.0) + "h: " + describe(alone) + " to be " + describe(whole.front()));
+                ++moments;
+            }
+            // And at each edge a detour makes, where cutting goes wrong if it goes wrong anywhere.
+            for (const Detour& d : detours) {
+                for (const Stint& s : d.stints) {
+                    for (const double t : {s.from_day, std::nextafter(s.from_day, 0.0), std::nextafter(s.to_day, 0.0)}) {
+                        check::is_true(same(schedule::stint_at(p, detours, t), schedule::stints(p, detours, t, t).front()),
+                                       "at a detour's edge");
+                    }
+                }
+            }
+        }
+    }
+    check::is_true(moments > 20000, "the premise: a great many moments");
+}
+
 TEST(someone_housed_nowhere_lives_at_their_post_and_a_hold_there_costs_only_the_overrun) {
     const schedule::Person keeper{schedule::kDayTrade, 0.0};
     const std::vector<Stint> plan = schedule::stints(keeper, {}, kDay, kDay + 1.0);
@@ -389,6 +429,35 @@ TEST(everyone_at_a_site_is_listed_where_they_are) {
     }
     check::is_true(!want.empty() && got == want, "every living post of " + site + " and no one else");
     check::is_true(d.whereabouts_at("no-such-site").empty(), "nobody at a site the roster does not name");
+}
+
+TEST(every_position_at_once_is_where_each_post_is_asked_alone) {
+    // The uid, not the record: advancing replaces the world, and a pointer into it with it.
+    const fwg::NpcPerson* walker = a_walker(fresh());
+    check::is_true(walker != nullptr, "the premise: a smith");
+    const std::string smith = walker->uid;
+    Director d(fresh());
+    d.advance(0.37);
+    d.hold(smith, 30.0);  // one of them held, so a detour is among what is listed
+    const std::vector<fwg::NpcPerson>& people = d.world().npcs.people;
+    const std::vector<orchestrator::Position> all = d.positions();
+    std::size_t expected = 0;
+    for (const fwg::NpcPerson& p : people) {
+        if (!p.is_cast && p.alive) ++expected;
+    }
+    check::equal(all.size(), expected, "every living post, and no one else");
+    const double now = clock_of(d);
+    bool held = false;
+    for (std::size_t k = 0; k < all.size(); ++k) {
+        const orchestrator::Position& at = all[k];
+        check::is_true(at.person < people.size() && (k == 0 || all[k - 1].person < at.person), "roster order, by index");
+        const std::string& uid = people[at.person].uid;
+        const std::optional<orchestrator::Whereabouts> alone = d.whereabouts(uid);
+        check::is_true(alone && same(alone->stint, at.stint), uid + " where asking after them alone puts them");
+        check::is_true(at.stint.from_day <= now && now < at.stint.to_day, uid + " in the stretch under way");
+        if (uid == smith) held = at.stint.doing == Doing::held;
+    }
+    check::is_true(held, "the held smith listed as held");
 }
 
 TEST(through_the_director_a_smith_held_on_the_way_opens_late_and_shuts_on_time) {
