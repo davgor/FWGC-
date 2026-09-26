@@ -158,6 +158,7 @@ std::string packet_text(const FactPacket& packet) {
     for (const std::string& never : p.never) line("persona.never", never);
     line("persona.voice_key", p.voice_key);
     line("persona.face", p.face);
+    line("persona.people", p.people);
     for (const Fact& fact : packet.facts) {
         out += "fact " + std::string(to_string(fact.kind)) + " " + escaped(fact.subject) + "\n";
         for (const auto& [key, value] : fact.fields) out += "field " + escaped(key) + " " + escaped(value) + "\n";
@@ -227,6 +228,8 @@ std::vector<FactPacket> packets_from_text(std::string_view text) {
             p.persona.voice_key = value;
         } else if (key == "persona.face") {
             p.persona.face = value;
+        } else if (key == "persona.people") {
+            p.persona.people = value;
         } else if (key == "fact") {
             const auto [kind_name, subject] = split_first(rest);
             const std::optional<FactKind> kind = fact_kind_named(kind_name);

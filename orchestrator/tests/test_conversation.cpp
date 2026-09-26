@@ -669,6 +669,33 @@ TEST(someone_with_nothing_hidden_denies_it) {
     check::is_true(roster.outcome == Outcome::Denied && only_memory(roster), "and a roster person too");
 }
 
+TEST(a_speaker_is_of_the_people_the_world_records) {
+    // Whose sayings a speaker knows: a hero's civilization, a roster person's people.
+    const fwg::World& w = faced_world();
+    Director d(w);
+    std::size_t heroes = 0, folk = 0;
+    std::set<std::string> peoples;
+    for (const fwg::Hero& h : w.heroes.people) {
+        if (h.status != "living" || !node_of(w, h.uid) || heroes == 20) continue;
+        check::is_true(!h.civilization_id.empty(), "the premise: a hero of a people");
+        check::equal(d.respond(h.uid, {ActKind::Greet, ""}).persona.people, h.civilization_id, "the hero's people");
+        peoples.insert(h.civilization_id);
+        ++heroes;
+    }
+    for (const std::string& uid : townsfolk(20)) {
+        const fwg::NpcPerson* person = nullptr;
+        for (const fwg::NpcPerson& n : w.npcs.people)
+            if (n.uid == uid) person = &n;
+        check::is_true(person && person->appearance && !person->appearance->civilization_id.empty(),
+                       "the premise: a roster person of a people");
+        check::equal(d.respond(uid, {ActKind::Greet, ""}).persona.people, person->appearance->civilization_id, "their people");
+        peoples.insert(person->appearance->civilization_id);
+        ++folk;
+    }
+    check::is_true(heroes == 20 && folk == 20, "the premise: speakers of both kinds");
+    check::is_true(peoples.size() > 1, "the premise: more than one people among them");
+}
+
 TEST(every_packet_carries_one_memory_of_its_speaker) {
     Director d(faced_world());
     const std::string g = givers().front();

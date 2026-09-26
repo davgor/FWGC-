@@ -106,6 +106,10 @@ void strangers_view(const fwg::PersonDocument& document, Persona& persona, bool 
         [&](const auto& person) {
             using T = std::decay_t<decltype(person)>;
             persona.uid = person.uid;
+            // Whose sayings they know: their people, as the world records it.
+            if constexpr (std::is_same_v<T, fwg::Hero>) persona.people = person.civilization_id;
+            if constexpr (std::is_same_v<T, fwg::NpcPerson>)
+                if (person.appearance) persona.people = person.appearance->civilization_id;
             if constexpr (std::is_same_v<T, fwg::Hero>) {
                 if (const fwg::HeroFace* face = stranger_face(person)) {
                     persona.name = face->name;

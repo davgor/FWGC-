@@ -64,6 +64,7 @@ TEST(a_packet_comes_back_whole_from_its_text) {
     p.persona.never = {"reveal the true face voluntarily", "", "cruelty for its own sake"};
     p.persona.voice_key = "beast/NG";
     p.persona.face = "";
+    p.persona.people = "human_cold";
     p.facts = {{FactKind::Reveal, p.speaker, {{"face", "unleashed"}, {"was", "trapper"}, {"is", "trapper"}}},
                {FactKind::Safety, "", {{"verdict", "unsafe"}, {"empty", ""}}},
                {FactKind::Memory, p.speaker, {{"met", "again"}, {"asked_before", "the deeps under Linbrig"}}}};
@@ -75,7 +76,8 @@ TEST(a_packet_comes_back_whole_from_its_text) {
                        q.outcome == p.outcome,
                    "the header");
     check::is_true(q.persona.name == p.persona.name && q.persona.place == p.persona.place && q.persona.manner == p.persona.manner &&
-                       q.persona.never == p.persona.never && q.persona.voice_key == p.persona.voice_key && q.persona.face.empty(),
+                       q.persona.never == p.persona.never && q.persona.voice_key == p.persona.voice_key && q.persona.face.empty() &&
+                       q.persona.people == p.persona.people,
                    "the persona, newlines, backslashes and empty lines too");
     check::equal(q.facts.size(), p.facts.size(), "every fact");
     for (std::size_t i = 0; i < p.facts.size(); ++i)

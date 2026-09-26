@@ -147,6 +147,8 @@ measuring tool; nothing a game ships.
   would be refused over the encounter rows, which is why the generator grew that filter.
 - **People** are known where they stand within reach, and a hero's rivals, kin and allies know
   each other wherever they are. Only those three know a mask for one.
+- **Their own people.** A persona carries `people`, the speaker's people by the world's id: a
+  hero's civilization, a roster person's (contract version 5). It says whose sayings they know.
 - **The weather and the moon** come from `fwg::weather_sample_at_node` and `fwg::moon_phase_on`,
   reads of the world at its own clock.
 - **Offers** carry the giver's public name and role, the verb, the *stated* purpose, the

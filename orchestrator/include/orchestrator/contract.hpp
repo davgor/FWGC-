@@ -20,7 +20,8 @@ namespace orchestrator {
 // 4: conversation. The acts greet, small_talk, answer, thank, insult, ask_safety and confront,
 //    and their outcomes; a Memory fact in every packet; a Chat fact in small talk; a Safety
 //    fact answering ask_safety; a Reveal fact when a hidden face comes out; Persona::face.
-inline constexpr int kContractVersion = 4;
+// 5: Persona::people, whose sayings the speaker knows.
+inline constexpr int kContractVersion = 5;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -177,6 +178,9 @@ struct Persona {
     // Which face is shown, when it is not the one a stranger sees: "true", "unleashed" or
     // "second". Empty otherwise, so a mask never says there is something behind it.
     std::string face;
+    // The speaker's people, by the world's id ("human_cold", "hill_dwarf"): whose sayings they
+    // know. Empty when the world does not say (a dread, a villain).
+    std::string people;
 };
 
 struct FactPacket {
