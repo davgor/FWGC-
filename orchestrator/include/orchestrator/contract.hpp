@@ -90,8 +90,10 @@ enum class Outcome : int {
     Denied,        // confronted without cause, or with nothing to hide: the speaker denies it
     // 8: an apology.
     Forgiven,      // the speaker held a grievance (an insult, their own work given up) and one eases:
-                   // their regard gives back what it cost
-    Unwronged,     // there was nothing to forgive
+                   // their regard gives back what it cost; or every one was forgiven before, and the
+                   // apology is taken again, moving nothing
+    Unwronged,     // there is nothing to forgive: the player never wronged the speaker, or the face
+                   // speaking does not know them
 };
 inline constexpr int kOutcomeCount = static_cast<int>(Outcome::Unwronged) + 1;
 

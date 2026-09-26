@@ -84,6 +84,7 @@ public:
         std::map<ActKind, int> heard;  // every act the player made to this speaker, counted, in any conversation
         std::vector<int> grievances;   // what each insult, and each of the speaker's work given up, cost the
                                        // player's regard, oldest first: an apology gives back the latest
+        int forgiven = 0;              // the grievances apologies have eased
         std::string asked_now, asked_before;  // the last place or person asked about, by name
         std::string work;       // the player's latest dealing with this speaker's own work
         bool exposed = false;          // the player made a hidden face come out

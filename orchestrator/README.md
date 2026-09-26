@@ -111,8 +111,10 @@ The next act to that speaker begins another.
 **Saying sorry** (contract version 8). Each insult, and each piece of the speaker's own work
 given up, is a grievance, kept at what it cost the speaker's regard: at the bottom of the scale an
 insult costs less. `apologize` eases the latest and gives back what it cost (`Forgiven`), so an
-insult and an apology leave the speaker where they were. With none held, or to a face that does
-not know the player (a beast unleashed), there is nothing to forgive (`Unwronged`).
+insult and an apology leave the speaker where they were. Said again once every one is forgiven,
+it is taken again and moves nothing (`Forgiven` too: "nothing to forgive" would deny the wrong).
+From someone who never wronged the speaker, or to a face that does not know the player (a beast
+unleashed), there is nothing to forgive (`Unwronged`).
 
 ## What a speaker says of a place
 

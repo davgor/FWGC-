@@ -585,11 +585,15 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
 
         case ActKind::Apologize: {
             // An apology eases the latest grievance and gives back what it cost, so an insult and
-            // an apology leave the speaker where they were. With none, or to a face that does not
-            // know the player, there is nothing to forgive.
-            if (!recognised || a.grievances.empty()) return finish(packet_for(s, act, Outcome::Unwronged));
+            // an apology leave the speaker where they were. Said again once every one is
+            // forgiven, it is taken again, and nothing moves: "nothing to forgive" there would deny
+            // the wrong. To a face that does not know the player, or from one who never wronged
+            // the speaker, there is nothing to forgive.
+            if (!recognised) return finish(packet_for(s, act, Outcome::Unwronged));
+            if (a.grievances.empty()) return finish(packet_for(s, act, a.forgiven > 0 ? Outcome::Forgiven : Outcome::Unwronged));
             regard(a, -a.grievances.back());
             a.grievances.pop_back();
+            ++a.forgiven;
             return finish(packet_for(s, act, Outcome::Forgiven));
         }
 

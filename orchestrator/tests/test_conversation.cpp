@@ -375,7 +375,10 @@ TEST(an_apology_eases_the_latest_grievance_and_gives_back_what_it_cost) {
     p = said(ActKind::Apologize);
     check::is_true(p.outcome == Outcome::Forgiven, "forgiven");
     check::equal(memory(p)["mood"], std::string("neutral"), "back where it was");
-    check::is_true(said(ActKind::Apologize).outcome == Outcome::Unwronged, "and once forgiven, nothing more to forgive");
+    // Said again once forgiven, it is taken again: "nothing to forgive" would deny the wrong.
+    p = said(ActKind::Apologize);
+    check::is_true(p.outcome == Outcome::Forgiven, "sorry again, once forgiven: taken again");
+    check::equal(memory(p)["mood"], std::string("neutral"), "and nothing moves");
     // At the bottom of the scale an insult costs less, and its apology gives back only that.
     check::equal(memory(said(ActKind::Thank))["mood"], std::string("friendly"), "the premise: thanked");
     check::equal(memory(said(ActKind::Insult))["mood"], std::string("wary"), "insulted");
@@ -385,7 +388,13 @@ TEST(an_apology_eases_the_latest_grievance_and_gives_back_what_it_cost) {
     check::equal(memory(said(ActKind::Apologize))["mood"], std::string("wary"), "the one before");
     p = said(ActKind::Apologize);
     check::is_true(p.outcome == Outcome::Forgiven && memory(p)["mood"] == "friendly", "the first: where the thanks had put it");
-    check::is_true(said(ActKind::Apologize).outcome == Outcome::Unwronged, "all three forgiven");
+    p = said(ActKind::Apologize);
+    check::is_true(p.outcome == Outcome::Forgiven && memory(p)["mood"] == "friendly", "all three forgiven: taken again, moving nothing");
+    // Someone who never wronged the speaker has nothing to be forgiven, whatever else passed.
+    const std::string y = townsfolk(2).back();
+    check::is_true(y != x, "the premise: a second speaker");
+    (void)d.respond(y, {ActKind::Thank, ""});
+    check::is_true(d.respond(y, {ActKind::Apologize, ""}).outcome == Outcome::Unwronged, "never wronged: nothing to forgive");
 }
 
 TEST(giving_up_the_speakers_own_work_is_a_grievance_too) {
@@ -895,7 +904,7 @@ TEST(replay_restores_what_every_speaker_remembers) {
         check::is_true(a->conversations == b->conversations && a->disposition == b->disposition && a->work == b->work &&
                            a->asked_before == b->asked_before && a->asked_now == b->asked_now && a->exposed == b->exposed &&
                            a->finished_covert == b->finished_covert && a->turn == b->turn && a->said == b->said &&
-                           a->heard == b->heard && a->grievances == b->grievances,
+                           a->heard == b->heard && a->grievances == b->grievances && a->forgiven == b->forgiven,
                        "the same acquaintance with " + uid);
         check::equal(text_of(d.respond(uid, {ActKind::SmallTalk, ""})), text_of(again.respond(uid, {ActKind::SmallTalk, ""})),
                      "the same next packet from " + uid);
