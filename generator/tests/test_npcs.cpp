@@ -2,7 +2,9 @@
 #include "check.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <map>
+#include <optional>
 #include <set>
 #include <string>
 #include <string_view>
@@ -26,6 +28,14 @@ NpcPlot plot(const std::string& id, const std::string& building, int workers) {
     return p;
 }
 
+// A plot standing on the ground at (x, z) in its plan's metres, with the beds built on it.
+NpcPlot placed(NpcPlot p, double x, double z, int beds = 0) {
+    p.x_m = x;
+    p.z_m = z;
+    p.beds = beds;
+    return p;
+}
+
 NpcSettlementSite settlement(const std::string& uid, const std::string& name) {
     NpcSettlementSite s;
     s.uid = uid;
@@ -39,7 +49,8 @@ NpcSettlementSite settlement(const std::string& uid, const std::string& name) {
 }
 
 // One city with a known roster: a guildhall (the best giver rank there is), a barracks and
-// a smithy, plus a house the policy has never heard of.
+// a smithy, plus a house the policy has never heard of, and an apartment block with a bed for
+// each of the twenty, as a planner builds them: on a plot that employs nobody.
 NpcRequest one_city() {
     NpcRequest r;
     r.seed = 42;
@@ -52,10 +63,11 @@ NpcRequest one_city() {
     city.civilization_id = "human_heartland";
     city.city_class = "capital";
     city.status = "built";
-    city.plots.push_back(plot("plot-0", "building.guildhall", 2));
-    city.plots.push_back(plot("plot-1", "building.barracks", 16));
-    city.plots.push_back(plot("plot-2", "building.smithy", 2));
-    city.plots.push_back(plot("plot-3", "building.house", 4));
+    city.plots.push_back(placed(plot("plot-0", "building.guildhall", 2), 0.0, 0.0));
+    city.plots.push_back(placed(plot("plot-1", "building.barracks", 16), 80.0, 0.0));
+    city.plots.push_back(placed(plot("plot-2", "building.smithy", 2), 0.0, 80.0));
+    city.plots.push_back(placed(plot("plot-3", "building.house", 4), 80.0, 80.0));
+    city.plots.push_back(placed(plot("plot-9", "building.worker_apartment", 0), 40.0, 40.0, 20));
     r.city_plans.push_back(std::move(city));
 
     // The people's life, so everyone draws an age: the owner's human, 80 years.
@@ -630,6 +642,7 @@ TEST(every_counter_is_exported_even_when_it_is_zero) {
     check::equal(n.cast_located_by_presence, 0, "cast_located_by_presence");
     check::equal(n.cast_presence_unresolved, 0, "cast_presence_unresolved");
     check::equal(n.appearance_unresolved, 0, "appearance_unresolved");
+    check::equal(n.unhoused, 0, "unhoused");
     check::close(roster.summary.important_fraction, 0.15, 1e-9, "the important share");
 }
 
@@ -830,6 +843,151 @@ TEST(a_storekeeper_names_the_store_it_keeps_and_everyone_names_the_building_they
         check::is_true(!person.workplace.has_value(), person.uid + " to have no invented workplace");
     }
     check::equal(smiths, 2, "both smiths checked");
+}
+
+// ---------------------------------------------------------------------------
+// Homes (ruled 2026-09-26): a bed the plan built, the nearest free one to the work.
+// ---------------------------------------------------------------------------
+
+namespace {
+
+// A smithy and a bakery 200 m apart on one street, a house of four beds 50 m from the smithy
+// and a house of three 10 m from the bakery: seven beds for six people.
+NpcRequest a_street() {
+    NpcRequest r = one_city();
+    NpcCityPlan& city = r.city_plans[0];
+    city.plots.clear();
+    city.plots.push_back(placed(named_plot("plot-0", "building.smithy", 2, "Smithy"), 0.0, 0.0));
+    city.plots.push_back(placed(named_plot("plot-1", "building.bakery", 4, "Bakery"), 200.0, 0.0));
+    city.plots.push_back(placed(named_plot("plot-2", "building.worker_house", 0, "Worker house"), 30.0, 40.0, 4));
+    city.plots.push_back(placed(named_plot("plot-3", "building.worker_house", 0, "Worker house"), 190.0, 0.0, 3));
+    return r;
+}
+
+const std::string kStreet = "npc-surface-city-1-100-human_heartland-";
+
+}  // namespace
+
+TEST(each_post_sleeps_in_the_nearest_free_bed_and_the_senior_posts_choose_first) {
+    const NpcRoster roster = generate_npc_roster(a_street());
+    check::is_true(roster.ok, "an ok roster: " + roster.error);
+    check::equal(roster.people.size(), std::size_t(6), "the premise: two smiths and four bakers");
+    std::map<std::string, std::pair<std::string, int>> homes;  // uid -> (home plot, commute)
+    for (const NpcPerson& p : roster.people) {
+        check::is_true(p.home_plot_id.has_value() && p.commute_m.has_value(), p.uid + " housed, with a commute");
+        check::equal(p.home.value_or(""), std::string("Worker house"), p.uid + "'s home, by the name its plan gave it");
+        homes[p.uid] = {p.home_plot_id.value_or(""), p.commute_m.value_or(-1)};
+    }
+    const auto home = [](std::string plot, int commute) { return std::make_pair(std::move(plot), commute); };
+    // The smithy is the plan's first plot, so its two choose first: the house 50 m off.
+    check::is_true(homes[kStreet + "smithy-0"] == home("plot-2", 50), "the smith, 50 m from the smithy");
+    check::is_true(homes[kStreet + "smithy-1"] == home("plot-2", 50), "the apprentice beside them");
+    // The bakery's two bakers and first assistant fill the house 10 m away; the last walks the
+    // street to the other house: round(sqrt(170^2 + 40^2)) = 175.
+    check::is_true(homes[kStreet + "bakery-0"] == home("plot-3", 10), "the senior baker next door");
+    check::is_true(homes[kStreet + "bakery-1"] == home("plot-3", 10), "the second baker next door");
+    check::is_true(homes[kStreet + "bakery-2"] == home("plot-3", 10), "the first assistant next door");
+    check::is_true(homes[kStreet + "bakery-3"] == home("plot-2", 175), "the last, back up the street");
+    check::equal(roster.summary.notes.unhoused, 0, "nobody unhoused, with a bed to spare");
+}
+
+TEST(two_beds_equally_near_go_to_the_plot_the_plan_lists_first) {
+    NpcRequest r = a_street();
+    NpcCityPlan& city = r.city_plans[0];
+    city.plots.resize(1);  // the smithy alone, at the origin
+    city.plots.push_back(placed(named_plot("plot-7", "building.worker_house", 0, "Worker house"), 0.0, 60.0, 4));
+    city.plots.push_back(placed(named_plot("plot-8", "building.worker_house", 0, "Worker house"), 60.0, 0.0, 4));
+    const NpcRoster roster = generate_npc_roster(r);
+    check::equal(roster.people.size(), std::size_t(2), "the premise: the two smiths");
+    for (const NpcPerson& p : roster.people) {
+        check::equal(p.home_plot_id.value_or(""), std::string("plot-7"), p.uid + " to take the first of two at 60 m");
+        check::equal(p.commute_m.value_or(-1), 60, p.uid + "'s commute");
+    }
+}
+
+TEST(a_post_its_plan_built_no_bed_for_is_counted_unhoused_and_never_given_one) {
+    NpcRequest r = a_street();
+    r.city_plans[0].plots[2].beds = 1;  // four beds for six people
+    const NpcRoster roster = generate_npc_roster(r);
+    check::is_true(roster.ok, "an ok roster: " + roster.error);
+    std::set<std::string> unhoused;
+    for (const NpcPerson& p : roster.people) {
+        if (p.home_plot_id) continue;
+        unhoused.insert(p.uid);
+        check::is_true(!p.home && !p.commute_m, p.uid + " to name no home and no commute");
+    }
+    // The smith takes the one bed by the smithy; the apprentice the nearest free, by the bakery;
+    // two bakers the two left; and the assistants, last in roster order, go without.
+    check::is_true(unhoused == std::set<std::string>{kStreet + "bakery-2", kStreet + "bakery-3"},
+                   "the two last in roster order unhoused");
+    check::equal(roster.summary.notes.unhoused, 2, "and counted");
+    const NpcPerson* apprentice = person_by_uid(roster, kStreet + "smithy-1");
+    check::is_true(apprentice && apprentice->home_plot_id == std::optional<std::string>("plot-3") &&
+                       apprentice->commute_m == std::optional<int>(190),
+                   "the apprentice walking 190 m to the one house with room");
+}
+
+TEST(a_workplace_never_placed_houses_nobody_even_with_beds_to_spare) {
+    NpcRequest r = a_street();
+    NpcPlot stable = named_plot("unplaced-building.stable", "building.stable", 3, "Stable and farrier yard");
+    stable.placed = false;
+    r.city_plans[0].plots.push_back(stable);
+    r.city_plans[0].plots.push_back(placed(named_plot("plot-4", "building.worker_house", 0, "Worker house"), 500.0, 0.0, 10));
+    const NpcRoster roster = generate_npc_roster(r);
+    check::is_true(roster.ok, "an ok roster: " + roster.error);
+    int hands = 0;
+    for (const NpcPerson& p : roster.people) {
+        if (p.plot_id != "unplaced-building.stable") {
+            check::is_true(p.home_plot_id.has_value(), p.uid + " housed");
+            continue;
+        }
+        ++hands;
+        check::is_true(!p.home_plot_id && !p.home && !p.commute_m, p.uid + " standing on no plot, so housed nowhere");
+    }
+    check::equal(hands, 3, "the premise: the stable's three hands");
+    check::equal(roster.summary.notes.unhoused, 3, "each counted, though ten beds stood empty");
+}
+
+TEST(a_fortress_houses_nobody_and_counts_nobody_unhoused) {
+    NpcRequest r;
+    r.seed = 3;
+    r.has_castle_plans = true;
+    r.settlements.push_back(settlement("core-city", "Frosnord"));
+    NpcFortress fortress;
+    fortress.id = "fortress-4";
+    fortress.node = 2048;
+    fortress.population_profile = "human_cold";
+    fortress.core_id = 0;
+    r.fortresses.push_back(fortress);
+    NpcCastlePlan castle;
+    castle.fortress_id = "fortress-4";
+    castle.plots.push_back(placed(plot("plot-0", "building.keep", 6), 0.0, 0.0));
+    r.castle_plans.push_back(castle);
+    const NpcRoster roster = generate_npc_roster(r);
+    check::is_true(roster.ok, "an ok roster: " + roster.error);
+    check::is_true(!roster.people.empty(), "the premise: a garrison");
+    for (const NpcPerson& p : roster.people) {
+        check::is_true(!p.home_plot_id && !p.home && !p.commute_m, p.uid + " given no bed a castle never built");
+    }
+    check::equal(roster.summary.notes.unhoused, 0, "and none counted: no castle declares a bed");
+}
+
+TEST(a_cast_member_is_not_a_post_and_has_no_home) {
+    NpcRequest r = one_city();
+    r.heroes_ok = true;
+    NpcCastMember hero;
+    hero.uid = "hero-sovereign-1";
+    hero.display_name = "Aldric";
+    hero.role = "sovereign";
+    hero.status = "living";
+    hero.home_uid = "surface-city-1-100-human_heartland";
+    hero.civilization_id = "human_heartland";
+    r.cast.push_back(hero);
+    const NpcRoster roster = generate_npc_roster(r);
+    const NpcPerson* row = person_by_uid(roster, "npc-hero-sovereign-1");
+    check::is_true(row != nullptr, "the premise: the hero in the roster");
+    check::is_true(!row->home_plot_id && !row->home && !row->commute_m, "a hero given no bed");
+    check::equal(roster.summary.notes.unhoused, 0, "and not counted as a post without one");
 }
 
 TEST(the_stable_s_senior_post_is_a_horse_keeper_who_sells_mounts_and_runs_carriages) {
@@ -1124,6 +1282,92 @@ TEST(in_a_world_every_storekeeper_stands_in_the_store_it_names) {
     for (const std::string store : {"granary", "warehouse", "root_cellar", "hamlet_food_store"}) {
         check::is_true(by_store[store] > 0, "some " + store + " keepers in the world");
     }
+}
+
+TEST(in_a_world_every_post_sleeps_in_a_bed_its_plan_built_no_further_than_any_left_free) {
+    const World& w = world();
+    check::is_true(w.npcs.ok, "an ok roster: " + w.npcs.error);
+    std::map<std::string, const std::vector<Plot>*> plans;  // by the roster's site uid
+    for (const CityPlan& city : w.city_plans.cities) plans.emplace(city.city_uid, &city.plots);
+    for (const HamletPlan& hamlet : w.hamlet_plans.hamlets) {
+        plans.emplace("hamlet-node-" + std::to_string(hamlet.node), &hamlet.plots);
+    }
+    const auto plot_in = [](const std::vector<Plot>& plots, const std::string& id) -> const Plot* {
+        for (const Plot& q : plots) {
+            if (q.id == id) return &q;
+        }
+        return nullptr;
+    };
+    const auto d2 = [](const Plot& a, const Plot& b) {
+        const double dx = b.x_m - a.x_m;
+        const double dz = b.z_m - a.z_m;
+        return dx * dx + dz * dz;
+    };
+    struct Housed {
+        std::string uid;
+        const Plot* work = nullptr;
+        const Plot* bed = nullptr;
+    };
+    struct Site {
+        int on_a_plot = 0;
+        std::vector<Housed> housed;
+        std::map<std::string, int> taken;
+    };
+    std::map<std::string, Site> sites;
+    int unhoused = 0;
+    for (const NpcPerson& p : w.npcs.people) {
+        if (p.is_cast || p.site_kind.value_or("") == "fortress") {
+            check::is_true(!p.home_plot_id && !p.home && !p.commute_m, p.uid + " housed nowhere: a cast record or a fortress's");
+            continue;
+        }
+        check::is_true(p.home.has_value() == p.home_plot_id.has_value() && p.commute_m.has_value() == p.home_plot_id.has_value(),
+                       p.uid + " naming a home, its plot and a commute together or not at all");
+        const auto plan = plans.find(p.site_uid.value_or(""));
+        check::is_true(plan != plans.end(), p.uid + "'s site to have a plan");
+        if (plan == plans.end()) continue;
+        Site& site = sites[plan->first];
+        if (p.workplace_placed) ++site.on_a_plot;
+        if (!p.home_plot_id) {
+            ++unhoused;
+            continue;
+        }
+        const Plot* work = plot_in(*plan->second, p.plot_id);
+        const Plot* bed = plot_in(*plan->second, *p.home_plot_id);
+        check::is_true(work != nullptr && bed != nullptr, p.uid + "'s work and home both plots of its plan");
+        if (work == nullptr || bed == nullptr) continue;
+        check::is_true(bed->beds > 0 && bed->kind == "housing", p.uid + " sleeping in housing the plan built");
+        check::equal(*p.home, std::string(bed->name), p.uid + "'s home, by its plot's name");
+        check::equal(*p.commute_m, static_cast<int>(std::floor(std::sqrt(d2(*work, *bed)) + 0.5)),
+                     p.uid + "'s commute, plot centre to plot centre");
+        site.taken[bed->id] += 1;
+        site.housed.push_back({p.uid, work, bed});
+    }
+    check::equal(unhoused, w.npcs.summary.notes.unhoused, "every city and hamlet post without a bed counted");
+
+    int housed = 0;
+    int left_free = 0;
+    for (const auto& [uid, site] : sites) {
+        const std::vector<Plot>& plots = *plans.at(uid);
+        int beds = 0;
+        for (const Plot& q : plots) beds += q.beds;
+        housed += static_cast<int>(site.housed.size());
+        check::equal(static_cast<int>(site.housed.size()), std::min(site.on_a_plot, beds),
+                     uid + " to house everyone on a plot, as far as its beds go");
+        for (const Plot& q : plots) {
+            const auto found = site.taken.find(q.id);
+            const int taken = found == site.taken.end() ? 0 : found->second;
+            check::is_true(taken <= q.beds, uid + " " + q.id + " no fuller than it was built");
+            if (taken >= q.beds) continue;
+            // A bed here stood free all along, so everyone this site housed chose one no further.
+            ++left_free;
+            for (const Housed& h : site.housed) {
+                check::is_true(d2(*h.work, *h.bed) <= d2(*h.work, q),
+                               h.uid + " to sleep no further than the free bed at " + uid + " " + q.id);
+            }
+        }
+    }
+    check::is_true(housed > 1000, "the premise: a world of people housed, got " + std::to_string(housed));
+    check::is_true(left_free > 0, "the premise: a bed left free, against which nearness is tested");
 }
 
 TEST(in_a_world_everyone_has_an_age_inside_their_people_s_band) {

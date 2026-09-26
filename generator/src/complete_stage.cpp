@@ -563,10 +563,17 @@ StoryWebRequest story_web_request(const World& world, const HeroesBlock& heroes)
     return request;
 }
 
+// A city's or hamlet's plots: who works on each, the beds built on each, and where each stands.
 std::vector<NpcPlot> npc_plots(const std::vector<Plot>& plots) {
     std::vector<NpcPlot> out;
     out.reserve(plots.size());
-    for (const Plot& p : plots) out.push_back({p.id, std::string(p.building_id), p.workers, std::string(p.name)});
+    for (const Plot& p : plots) {
+        NpcPlot plot{p.id, std::string(p.building_id), p.workers, std::string(p.name)};
+        plot.beds = p.beds;
+        plot.x_m = p.x_m;
+        plot.z_m = p.z_m;
+        out.push_back(std::move(plot));
+    }
     return out;
 }
 
@@ -646,8 +653,12 @@ NpcRequest npc_request(const World& world, const SphereGrid& grid) {
         plan.x = NpcNumber::of(p.x);
         plan.z = NpcNumber::of(p.z);
         plan.plots.reserve(p.plots.size());
+        // Placed, but bedless: a castle declares no sleeping capacity (castle_plan.hpp).
         for (const CastlePlot& plot : p.plots) {
-            plan.plots.push_back({plot.id, std::string(plot.building_id), plot.workers, std::string(plot.name)});
+            NpcPlot row{plot.id, std::string(plot.building_id), plot.workers, std::string(plot.name)};
+            row.x_m = plot.x_m;
+            row.z_m = plot.z_m;
+            plan.plots.push_back(std::move(row));
         }
         request.castle_plans.push_back(std::move(plan));
     }

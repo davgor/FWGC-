@@ -3270,6 +3270,7 @@ void write_npcs(JsonWriter& json, const NpcRoster& r) {
     integer(json, "cast_located_by_presence", s.notes.cast_located_by_presence);
     integer(json, "cast_presence_unresolved", s.notes.cast_presence_unresolved);
     integer(json, "appearance_unresolved", s.notes.appearance_unresolved);
+    integer(json, "unhoused", s.notes.unhoused);
     json.end_object();
 
     json.key("sites");
@@ -3308,6 +3309,9 @@ void write_npcs(JsonWriter& json, const NpcRoster& r) {
         optional_text(json, "workplace", p.workplace);
         if (!p.workplace_placed) flag(json, "workplace_placed", false);
         optional_text(json, "store", p.store);
+        optional_text(json, "home", p.home);
+        optional_text(json, "home_plot_id", p.home_plot_id);
+        optional_int(json, "commute_m", p.commute_m);
         json.key("appearance");
         if (p.appearance) {
             const NpcAppearance& a = *p.appearance;

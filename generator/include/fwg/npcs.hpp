@@ -25,6 +25,17 @@
 // own stream, the age inside their people's young, middle or old band, which the block
 // publishes beside each parent race's. Hair and every finer choice are the game's.
 //
+// HOMES (ruled 2026-09-26). A city or hamlet plan built its houses and apartments for exactly
+// these staff, so each post sleeps in one of those beds (`home`, `home_plot_id`): the nearest
+// free bed to the plot they work in, taken in roster order, so a building's senior post
+// chooses first. `commute_m` is how far that bed stands from the work, plot centre to plot
+// centre in a straight line; the streets between are not walked. Nobody is housed who stands
+// on no plot (an unplaced stable's hands, for whom the plan budgeted no beds), and a
+// fortress's people are housed nowhere, because a castle declares no sleeping capacity
+// (castle_plan.hpp). A city or hamlet post left without a bed -- its plan built too few, or
+// its workplace was never placed -- is counted in `unhoused`, never given a bed that was not
+// built. Cast records are not posts, and have no home here.
+//
 // Like key_locations this is a READER: it takes a request rather than a World, writes
 // nothing back, and never throws. A failure is a reported block.
 //
@@ -48,7 +59,8 @@ namespace fwg {
 
 // 2 (2026-09-23): one storekeeper post, the horse keeper, and each person's workplace, store
 // and appearance, with the block's life spans and post services.
-inline constexpr int kNpcRosterVersion = 2;
+// 3 (2026-09-26): each post's home, a bed its plan built, and the metres from it to the work.
+inline constexpr int kNpcRosterVersion = 3;
 
 // One prefix is enough because cast uids already begin `hero-` or `dread-`; without it you
 // read `npc-hero-hero-castellan-...`.
@@ -165,6 +177,11 @@ struct NpcPlot {
     // people exist: the stable (ruled 2026-09-26). The plan lists it in `unplaced`, for the
     // game to place.
     bool placed = true;
+    // The beds the plan built on this plot: a house's or an apartment's. Zero on every
+    // workplace, and on every castle plot, since a castle declares no sleeping capacity.
+    int beds = 0;
+    // The plot's centre in its plan's local metres. Absent for a plot never placed.
+    std::optional<double> x_m, z_m;
 };
 
 // A people's life, in years, as the heritage appearance layer resolves it: the subrace's
@@ -369,6 +386,14 @@ struct NpcPerson {
     // A storekeeper's store, by its building: granary, warehouse, root_cellar,
     // hamlet_food_store. The exact store is (site_uid, plot_id).
     std::optional<std::string> store;
+    // Where this person sleeps: a bed in a house or apartment of the same site's plan, by the
+    // dwelling's name as the plan placed it and its plot. Absent for a person the plan built no
+    // bed for (the header comment says who), and for a cast record.
+    std::optional<std::string> home;
+    std::optional<std::string> home_plot_id;
+    // Whole metres from the home's plot centre to the workplace's, in a straight line. Present
+    // exactly when `home` is.
+    std::optional<int> commute_m;
     // Absent for a dread, by design: a monster has no gender or age. Otherwise absent only
     // for a person whose people has no life stages, counted in the notes rather than guessed.
     std::optional<NpcAppearance> appearance;
@@ -398,6 +423,9 @@ struct NpcNotes {
     int cast_located_by_presence = 0;
     int cast_presence_unresolved = 0;
     int appearance_unresolved = 0;  // people with no life stages to draw an age from
+    // City and hamlet posts with no bed: the plan built too few, or their workplace was never
+    // placed. A fortress's people are not counted, since no castle declares a bed.
+    int unhoused = 0;
 };
 
 struct NpcSummary {

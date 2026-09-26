@@ -333,6 +333,44 @@ std::string_view pick(std::span<const NpcWeight> rows, Rng& draw) {
     return rows.back().id;
 }
 
+// The beds one site's plan built, plot by plot in the order the plan lists them, and how many
+// of each are still free.
+struct Beds {
+    struct Slot {
+        const NpcPlot* plot = nullptr;
+        int free = 0;
+    };
+    std::vector<Slot> slots;
+
+    explicit Beds(const std::vector<NpcPlot>& plots) {
+        for (const NpcPlot& plot : plots) {
+            if (plot.beds > 0 && plot.x_m && plot.z_m) slots.push_back({&plot, plot.beds});
+        }
+    }
+
+    // The nearest free bed to `work`, taken, and its squared distance in metres; nullptr when
+    // none is free or `work` stands on no plot. A tie goes to the plot the plan lists first.
+    const NpcPlot* take_nearest(const NpcPlot& work, double& d2) {
+        if (!work.placed || !work.x_m || !work.z_m) return nullptr;
+        Slot* best = nullptr;
+        double best_d2 = 0.0;
+        for (Slot& slot : slots) {
+            if (slot.free == 0) continue;
+            const double dx = *slot.plot->x_m - *work.x_m;
+            const double dz = *slot.plot->z_m - *work.z_m;
+            const double here = dx * dx + dz * dz;
+            if (best == nullptr || here < best_d2) {
+                best = &slot;
+                best_d2 = here;
+            }
+        }
+        if (best == nullptr) return nullptr;
+        best->free -= 1;
+        d2 = best_d2;
+        return best->plot;
+    }
+};
+
 // A person's gender and age, from its own stream: keyed on its uid alone, so neither moves
 // when another person joins or leaves the roster. Absent when its people has no life.
 std::optional<NpcAppearance> appearance_of(std::uint64_t seed, const std::string& uid, const std::string& civilization_id,
@@ -512,6 +550,10 @@ NpcRoster generate_npc_roster(const NpcRequest& request) {
             const std::set<std::string> important = earmark(posts, row, notes);
             std::map<std::string, const NpcPlot*> plot_by_id;
             for (const NpcPlot& plot : *row.plots) plot_by_id.emplace(plot.id, &plot);
+            // Ruled 2026-09-26: each post sleeps in a bed its plan built, the nearest free one
+            // to its work, in roster order. A castle declares no beds, so a fortress houses
+            // nobody and counts nobody unhoused.
+            Beds beds(*row.plots);
             for (const NpcPost& post : posts) {
                 NpcPerson person;
                 person.uid = post_uid(row.uid, post.building_id, post.ordinal);
@@ -531,7 +573,14 @@ NpcRoster generate_npc_roster(const NpcRequest& request) {
                 if (const auto plot = plot_by_id.find(post.plot_id); plot != plot_by_id.end()) {
                     if (!plot->second->name.empty()) person.workplace = plot->second->name;
                     person.workplace_placed = plot->second->placed;
+                    double d2 = 0.0;
+                    if (const NpcPlot* bed = beds.take_nearest(*plot->second, d2)) {
+                        person.home = bed->name;
+                        person.home_plot_id = bed->id;
+                        person.commute_m = static_cast<int>(std::floor(std::sqrt(d2) + 0.5));
+                    }
                 }
+                if (!person.home_plot_id && row.kind != "fortress") notes.unhoused += 1;
                 // Ruled 2026-09-23: one storekeeper post, told apart by the store it keeps.
                 if (post.role == "storekeeper") person.store = std::string(npc_short_building(post.building_id));
                 person.appearance = appearance_of(request.seed, person.uid, row.civilization_id, spans);

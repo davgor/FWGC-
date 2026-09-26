@@ -201,8 +201,18 @@ Each is pinned by tests, so a change of mind lands as a deliberate change.
    life and bands (`npcs.life_spans`) and each person's `appearance` {gender, age_band,
    age_years, civilization_id, parent_race_id}; a person whose people states no life is
    counted in `summary.appearance_unresolved`, never guessed. Hair and every finer choice are
-   the game's. The npcs block is version 2. The gnome's appearance text still says gnomes grey
-   early, and is to be rewritten.
+   the game's. The gnome's appearance text still says gnomes grey early, and is to be
+   rewritten. **Homes** (2026-09-26): a city or hamlet plan built its houses and apartments for
+   exactly its staff, and each post now sleeps in one of those beds (`home`, `home_plot_id`),
+   the nearest free one to the plot they work on, taken in roster order so a building's senior
+   post chooses first; `commute_m` is the straight metres between the two plots' centres. A
+   post left without a bed -- its plan built too few, or its workplace was never placed (an
+   unplaced stable's hands) -- is counted in `summary.unhoused`, never given a bed that was not
+   built. A fortress's people have none, since no castle declares a bed, and are not counted.
+   At seed 42 size 33, 4,455 of 5,423 posts are housed, 906 stand in fortresses and 62 are
+   unhoused, and the median commute is 56 m (the longest 361 m); at seed 99 size 65, 10,448 of
+   11,985, with 49 unhoused and a median of 53 m. The npcs block is version 3; nothing else in a
+   world changed.
 6. **Beasts are a real menace, and their dreads are hunted** (2026-09-23). A lair's reach,
    min(radius / 2, max(350 m, 2 x range)), was metres of the 11.15 km reference world and
    never scaled, so a lair reached no city but the one on its own cell and no beast ever

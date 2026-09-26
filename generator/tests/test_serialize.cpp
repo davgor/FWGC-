@@ -488,7 +488,7 @@ TEST(a_harbour_row_in_the_hamlet_list_is_the_port_record) {
     check::equal(static_cast<std::size_t>(harbours), ports.size(), "every harbour in the hamlet list");
 }
 
-TEST(an_npc_row_writes_its_workplace_store_and_age_as_the_roster_holds_them) {
+TEST(an_npc_row_writes_its_workplace_store_home_and_age_as_the_roster_holds_them) {
     // The key sets are pinned below; this pins the values, which are what a game and the
     // viewer read (2026-09-23).
     const std::set<std::string> keep = {"npcs"};
@@ -498,6 +498,7 @@ TEST(an_npc_row_writes_its_workplace_store_and_age_as_the_roster_holds_them) {
     const std::vector<Json>& people = block.at("people").items;
     check::equal(people.size(), roster.people.size(), "one row per person");
     int stores = 0;
+    int homes = 0;
     for (std::size_t i = 0; i < people.size(); ++i) {
         const Json& row = people[i];
         const NpcPerson& person = roster.people[i];
@@ -513,6 +514,15 @@ TEST(an_npc_row_writes_its_workplace_store_and_age_as_the_roster_holds_them) {
         text_or_null("workplace", person.workplace);
         text_or_null("store", person.store);
         if (person.store) ++stores;
+        text_or_null("home", person.home);
+        text_or_null("home_plot_id", person.home_plot_id);
+        const Json& commute = row.at("commute_m");
+        if (person.commute_m) {
+            ++homes;
+            check::equal(commute.number, static_cast<double>(*person.commute_m), person.uid + " commute_m");
+        } else {
+            check::is_true(commute.type == Json::Type::Null, person.uid + " commute_m to be null");
+        }
         const Json& a = row.at("appearance");
         if (!person.appearance) {
             // Only a dread goes unaged, by design, and it is written null.
@@ -527,6 +537,9 @@ TEST(an_npc_row_writes_its_workplace_store_and_age_as_the_roster_holds_them) {
         check::equal(a.at("parent_race_id").text, person.appearance->parent_race_id, person.uid + " race");
     }
     check::is_true(stores > 0, "storekeepers among them");
+    check::is_true(homes > 0, "people with a home among them");
+    check::equal(block.at("summary").at("unhoused").number, static_cast<double>(roster.summary.notes.unhoused),
+                 "the unhoused as counted");
 
     // Each span, and each band as the roster cut it.
     const auto spans = [&](std::string_view key, const std::vector<NpcLifeSpan>& expected) {
@@ -677,7 +690,7 @@ const std::vector<PinnedRecord>& pinned_records() {
     {"story_web.webs[0].rest", {"armed", "hook", "initiative_day"}},
     {"story_web.tropes[0]", {"angle", "cast", "id", "name", "pull"}},
     {"npcs", {"life_spans", "limits", "method", "people", "policy_revision", "post_services", "post_verbs", "registry", "sites", "status", "summary", "verbs", "version"}},
-    {"npcs.summary", {"alive", "appearance_unresolved", "cast_located_by_presence", "cast_outside_a_planned_site", "cast_presence_unresolved", "dead", "duplicate_site_keys", "heroes_linked", "important", "important_capped_out", "important_fraction", "roster_mismatches", "sites", "total", "unanchored_sites", "unresolved_parent_race"}},
+    {"npcs.summary", {"alive", "appearance_unresolved", "cast_located_by_presence", "cast_outside_a_planned_site", "cast_presence_unresolved", "dead", "duplicate_site_keys", "heroes_linked", "important", "important_capped_out", "important_fraction", "roster_mismatches", "sites", "total", "unanchored_sites", "unhoused", "unresolved_parent_race"}},
     {"npcs.life_spans", {"parent_races", "peoples"}},
     {"npcs.life_spans.parent_races[0]", {"adult_years", "bands", "elder_years", "id", "max_years"}},
     {"npcs.life_spans.peoples[0]", {"adult_years", "bands", "elder_years", "id", "max_years", "parent_race_id"}},
@@ -685,7 +698,7 @@ const std::vector<PinnedRecord>& pinned_records() {
     {"npcs.life_spans.peoples[0].bands.young", {"from", "to"}},
     {"npcs.registry", {"labels_from", "world_revision", "world_sha256"}},
     {"npcs.sites[0]", {"city_class", "civilization_id", "kind", "name", "node", "parent_race_id", "plan_id", "plan_status", "posts", "uid", "x", "z"}},
-    {"npcs.people[plot_id^=plot-]", {"appearance", "building_id", "important", "name", "plot_id", "post", "site_kind", "site_uid", "status", "store", "uid", "workplace"}},
+    {"npcs.people[plot_id^=plot-]", {"appearance", "building_id", "commute_m", "home", "home_plot_id", "important", "name", "plot_id", "post", "site_kind", "site_uid", "status", "store", "uid", "workplace"}},
     {"npcs.people[plot_id^=plot-].appearance", {"age_band", "age_years", "civilization_id", "gender", "parent_race_id"}},
     {"key_locations", {"catalogue_count", "catalogue_revision", "chains", "clusters", "diagnostics", "families", "limits", "method", "sites", "status", "summary", "version"}},
     {"key_locations.summary", {"by_family", "by_occupant", "by_state", "by_tier", "dungeons", "sites"}},
