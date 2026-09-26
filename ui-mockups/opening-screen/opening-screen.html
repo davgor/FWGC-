@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Opening screen · Horizon</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&amp;family=Tenor+Sans&amp;display=swap">
+<style>
+body{margin:0;background:#0b0d11}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:left}
+button:focus-visible{outline:2px solid #d9bb7e;outline-offset:6px}
+/* One item is selected at a time: Continue until the pointer or keyboard focus moves to another. */
+.item .mark{opacity:0}
+.item .label{color:#b8b1a3}
+nav:not(:hover):not(:focus-within) .item.default .mark{opacity:1}
+nav:not(:hover):not(:focus-within) .item.default .label{color:#f6f1e6}
+nav .item:hover .mark,nav .item:focus .mark{opacity:1}
+nav .item:hover .label,nav .item:focus .label{color:#f6f1e6}
+</style>
+</head>
+<body>
+<div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #0b0d11; font-family: 'Tenor Sans', 'Gill Sans', sans-serif; color: #f3eee3">
+<img src="../../concept%20art/tier-1-style/settlements-and-locations/biome.grassland.heartland-ruins.style-study.png" alt="" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; transform: scaleX(-1)">
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: linear-gradient(90deg, rgba(11,13,17,0.84) 0%, rgba(11,13,17,0.756) 28%, rgba(11,13,17,0.353) 48%, rgba(11,13,17,0) 66%), linear-gradient(0deg, rgba(11,13,17,0.521) 0%, rgba(11,13,17,0) 26%)"></div>
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; box-sizing: border-box; padding: 120px 0 72px 136px; display: flex; flex-direction: column; justify-content: space-between">
+<header style="display: flex; flex-direction: column; gap: 28px">
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 112px; line-height: 1; letter-spacing: 0.01em; color: #f6f1e6">[GAME TITLE]</h1>
+<div style="width: 104px; height: 1px; background: #d9bb7e"></div>
+</header>
+<nav aria-label="Main menu" style="display: flex; flex-direction: column; gap: 4px; width: 600px">
+<button type="button" class="item default" style="display: flex; align-items: center; gap: 22px; min-height: 76px">
+<span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span>
+<span style="display: flex; flex-direction: column; gap: 8px">
+<span class="label" style="font-size: 30px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Continue</span>
+<span style="font-size: 18px; letter-spacing: 0.06em; color: #d3ccbd">Grafstrand · Seed 42</span>
+</span>
+</button>
+<button type="button" class="item" style="display: flex; align-items: center; gap: 22px; min-height: 60px">
+<span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span>
+<span class="label" style="font-size: 30px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">New World</span>
+</button>
+<button type="button" class="item" style="display: flex; align-items: center; gap: 22px; min-height: 60px">
+<span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span>
+<span class="label" style="font-size: 30px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Load World</span>
+</button>
+<button type="button" class="item" style="display: flex; align-items: center; gap: 22px; min-height: 60px">
+<span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span>
+<span class="label" style="font-size: 30px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Settings</span>
+</button>
+<button type="button" class="item" style="display: flex; align-items: center; gap: 22px; min-height: 60px">
+<span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span>
+<span class="label" style="font-size: 30px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Quit</span>
+</button>
+</nav>
+<div style="display: flex; gap: 36px; align-items: center; font-size: 18px; letter-spacing: 0.06em; color: #d3ccbd">
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">↑ ↓</kbd>Choose</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Enter</kbd>Select</span>
+</div>
+</div>
+</div>
+</body>
+</html>
