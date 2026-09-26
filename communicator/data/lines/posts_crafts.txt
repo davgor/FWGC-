@@ -1146,3 +1146,214 @@ post:cart_handler | safety_wary_told | Mostly, as I told you.[ Just keep off {wo
 post:cart_handler | safety_safe_told | Safe enough, as I told you; safe as a parked cart.[ Just steer clear of {worst}.]
 post:cart_handler | about_place_told | You've had all I know of it, so I'll be quick: it's {about}.[ Watch for the {around}.]
 post:cart_handler | about_place_told | Only what I told you, and no more to load on it: {about}.[ Ask for {who}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- post:smith ----
+post:smith | greeted_afraid | Hello. My hammer hand won't keep steady; say it quick.
+post:smith | greeted_afraid | Who's there? I'm as brittle as cold iron; out with it.
+post:smith | greeted_panicked | Stay back, you, stay back; not now, not now.
+post:smith | greeted_panicked | Wait, wait; my arms are water, my arms.
+post:smith | small_talk_afraid | The iron can wait, and so can talk; I can't keep my mind on either.
+post:smith | small_talk_panicked | My tongs won't stay in my hand, won't stay, won't.
+post:smith | thanked_afraid | Yes, whatever it was; now leave me be.
+post:smith | thanked_panicked | Go, just go, don't stand there thanking me.
+post:smith | parted_afraid | Be careful; I've no more in me than that.
+post:smith | parted_panicked | Wait, curse it, wait, don't leave me standing here.
+post:smith | afraid_lead | My arm's shaking like a struck bar; give me a breath.
+post:smith | afraid_lead | Hold on; I'll get it said, shaking or not.
+post:smith | panicked_lead | I can't grip a thought, I can't, hold on.
+post:smith | panicked_lead | Come on, come on, words weigh less than a hammer, come on.
+post:smith | calmed | I'll try. Don't watch me while I do it.
+post:smith | calmed | Maybe you're right; my grip's steadier than it was, a little.
+post:smith | still_afraid | No; words won't steady a hand.
+post:smith | still_afraid | Keep away; the anvil and I will steady on our own.
+post:smith | not_afraid | I'm not afraid; a scowl's just what the anvil leaves on a face.
+
+# ---- post:carpenter ----
+post:carpenter | greeted_afraid | Oh, hello. My hands won't hold a line; forgive me.
+post:carpenter | greeted_afraid | Thank goodness, a word from somebody. I can't cut true like this.
+post:carpenter | greeted_panicked | Please, please, the rule won't hold still, not now.
+post:carpenter | greeted_panicked | Wait, wait, I've lost the measure, I've lost it.
+post:carpenter | small_talk_afraid | I can't chat, I'm sorry. Every cut I make wanders off the mark.
+post:carpenter | small_talk_panicked | Every joint in me's working loose; talk, I can't, I can't.
+post:carpenter | thanked_afraid | Yes; now where's my square got to?
+post:carpenter | thanked_panicked | Of course, of course, my head's all splinters.
+post:carpenter | parted_afraid | Goodbye; watch every step, and I mean every one.
+post:carpenter | parted_panicked | Please, stay, just till my hands stop, please.
+post:carpenter | afraid_lead | Let me clamp my thoughts down first; they keep shifting.
+post:carpenter | afraid_lead | One moment; my words keep warping on me.
+post:carpenter | panicked_lead | Let me, let me find the line, let me.
+post:carpenter | panicked_lead | Out of true, all of it, out of true, a breath.
+post:carpenter | calmed | Thank you. I could make a rough cut now, if not a fine one.
+post:carpenter | calmed | Yes. I'll measure twice and breathe once; I can do that.
+post:carpenter | still_afraid | Not yet; nothing in me sits square.
+post:carpenter | still_afraid | I can't, and talk won't plane it smooth.
+post:carpenter | not_afraid | I'm fine; the saw's running true, and so am I.
+
+# ---- post:mason ----
+post:mason | greeted_afraid | Hello. You'll pardon me; I'm not as steady as my stone.
+post:mason | greeted_afraid | Who's there? Speak slow, if you would; I'm all of a shake.
+post:mason | greeted_panicked | Oh, oh, my chisel keeps slipping, slipping.
+post:mason | greeted_panicked | Stay back a step, a step, I need, I need a moment.
+post:mason | small_talk_afraid | I can't talk for the sake of it. My mind won't stay on the course I'm laying.
+post:mason | small_talk_panicked | Not talk, not now, one word won't sit on the next.
+post:mason | thanked_afraid | Don't thank me; it was little enough, and said badly.
+post:mason | thanked_panicked | Please, don't, none of it came out level.
+post:mason | parted_afraid | Stay safe; one careful step, then the next.
+post:mason | parted_panicked | Be careful, be careful, please, the words won't come.
+post:mason | afraid_lead | I'll take it slow, if you'll bear with a slow tongue.
+post:mason | afraid_lead | My voice is shaking worse than my hands; give me a moment.
+post:mason | panicked_lead | My thoughts won't set, they won't set, but I'll try.
+post:mason | panicked_lead | Hold, hold, plumb and level, plumb and level.
+post:mason | calmed | All right; sound footing first, then the rest.
+post:mason | calmed | Thank you. I'm not set yet, but I'm settling.
+post:mason | still_afraid | Not yet; I'm like wet mortar, I won't hold a shape.
+post:mason | still_afraid | I can't; I was never one to be hurried, least of all now.
+post:mason | not_afraid | I'm all right; slow isn't the same as shaken.
+
+# ---- post:maintenance_laborer ----
+post:maintenance_laborer | greeted_afraid | Oh, hello. Don't mind me; I'm rattling like a loose hinge.
+post:maintenance_laborer | greeted_afraid | Please, not another job; my hands won't hold a ladder steady.
+post:maintenance_laborer | greeted_panicked | Wait, wait, not a nail, I can't even drive a nail.
+post:maintenance_laborer | greeted_panicked | Thank goodness, somebody; my list, my whole list, and my hands won't.
+post:maintenance_laborer | small_talk_afraid | Not now, please. I keep picking up a tool and forgetting what for.
+post:maintenance_laborer | small_talk_panicked | Nothing, nothing, I can't mend a thing, not a thing.
+post:maintenance_laborer | thanked_afraid | Yes, well; I'm not much use to anyone just now.
+post:maintenance_laborer | thanked_panicked | Don't thank me, I've done nothing, nothing at all.
+post:maintenance_laborer | parted_afraid | Be careful; my knees won't let me see you out.
+post:maintenance_laborer | parted_panicked | Please, I'm no good on my own, please.
+post:maintenance_laborer | afraid_lead | Right; my head's not screwed on straight, so it may come out crooked.
+post:maintenance_laborer | afraid_lead | Forgive the shaking; it's the only thing here I can't fix.
+post:maintenance_laborer | panicked_lead | I, I, let me, I'll manage, I always manage.
+post:maintenance_laborer | panicked_lead | One job, one job at a time, one job, that's all.
+post:maintenance_laborer | calmed | I'll try; I've mended worse than my own nerves.
+post:maintenance_laborer | calmed | Maybe you're right. The mending can wait a moment, anyway.
+post:maintenance_laborer | still_afraid | I can't; there's no patching me up just yet.
+post:maintenance_laborer | still_afraid | No, not yet; give me a while and a bucket to sit on.
+post:maintenance_laborer | not_afraid | I'm fine; I've been up too many ladders to shake easy.
+
+# ---- post:apprentice ----
+post:apprentice | greeted_afraid | Oh, hello; sorry, I jump at everything just now.
+post:apprentice | greeted_afraid | Who's there? Oh, I'm all nerves, don't mind me.
+post:apprentice | greeted_panicked | Please, please, don't be cross, I can't stop shaking.
+post:apprentice | greeted_panicked | Wait, wait, I'll muddle it, I'll muddle it all up.
+post:apprentice | small_talk_afraid | I'd better not talk. I've swept the same spot three times over.
+post:apprentice | small_talk_panicked | Don't make me chat, I can't, I can't think.
+post:apprentice | thanked_afraid | Of course, it's nothing, honest; I'm just shaky.
+post:apprentice | thanked_panicked | Please, don't, not me, I'm only, I'm only, please.
+post:apprentice | parted_afraid | Stay safe, won't you; I can't stop fretting.
+post:apprentice | parted_panicked | Wait, please, not yet, not yet, please don't.
+post:apprentice | afraid_lead | I'll try, if my voice holds.
+post:apprentice | afraid_lead | Oh, give me a moment, I'm all muddled.
+post:apprentice | panicked_lead | I'm trying, I'm trying, I'm trying my best.
+post:apprentice | panicked_lead | I don't, I, wait, let me remember, let me.
+post:apprentice | calmed | Thank you; that helps, a bit, it really does.
+post:apprentice | calmed | I know, I know; breathing, I can manage breathing.
+post:apprentice | still_afraid | I can't, not yet, I'm sorry.
+post:apprentice | still_afraid | You don't understand; I've tried, and my hands won't stop.
+post:apprentice | not_afraid | I'm all right, honest; did I look frightened?
+
+# ---- post:textile_worker ----
+post:textile_worker | greeted_afraid | Hello. My stitches are wandering; keep it short.
+post:textile_worker | greeted_afraid | Stay back, please; I've pins in my lap and shaking hands.
+post:textile_worker | greeted_panicked | Oh, oh, the thread, I can't find the thread.
+post:textile_worker | greeted_panicked | Please, I can't, my fingers, my fingers won't.
+post:textile_worker | small_talk_afraid | Every stitch runs crooked on me; talk would only make it worse.
+post:textile_worker | small_talk_panicked | Don't, don't, I can't sew and I can't talk, don't.
+post:textile_worker | thanked_afraid | Yes; now let me sit, my hands are all pins and needles.
+post:textile_worker | thanked_panicked | Go, go, I've lost my count, go.
+post:textile_worker | parted_afraid | Goodbye; go careful, I've dropped a stitch somewhere.
+post:textile_worker | parted_panicked | Please, I'm all unravelling, don't, not yet.
+post:textile_worker | afraid_lead | My head's all in a tangle; bear with me.
+post:textile_worker | afraid_lead | Pardon me; I'm stretched as thin as gauze.
+post:textile_worker | panicked_lead | It's all knots, all knots, let me think, let me.
+post:textile_worker | panicked_lead | Just, just, needle down, needle down, a moment.
+post:textile_worker | calmed | Thank you; my fingers are nearly my own.
+post:textile_worker | calmed | Maybe you're right. My stitches would be big and ugly, but they'd hold.
+post:textile_worker | still_afraid | No; not yet, I'd sew my own sleeve to the cloth.
+post:textile_worker | still_afraid | Stay back a little; I need room to pick myself loose.
+post:textile_worker | not_afraid | There's no need; look, not a stitch out of place.
+
+# ---- post:furnace_worker ----
+post:furnace_worker | greeted_afraid | Hello. Mind the sweat; it's a cold one, for once.
+post:furnace_worker | greeted_afraid | Thank goodness, company. I can't get my breath to settle.
+post:furnace_worker | greeted_panicked | Who's there? My heart, oh, my heart won't slow.
+post:furnace_worker | greeted_panicked | Stay back, stay back, parched, I'm parched, stay back.
+post:furnace_worker | small_talk_afraid | I've nothing in me for chat. My mind won't even stay on the slag.
+post:furnace_worker | small_talk_panicked | No breath, no breath for talk, please.
+post:furnace_worker | thanked_afraid | Yes, yes; I hardly know what I said.
+post:furnace_worker | thanked_panicked | Go, go, I'm all to pieces, go.
+post:furnace_worker | parted_afraid | Go carefully; I'll mop my face and try to think straight.
+post:furnace_worker | parted_panicked | Stay safe, stay safe, I can't, oh, I can't.
+post:furnace_worker | afraid_lead | Wait a moment; my tongue's dry, but I'll manage.
+post:furnace_worker | afraid_lead | Pardon the sweat; I'll get the words out.
+post:furnace_worker | panicked_lead | One moment, one moment, and I'll try.
+post:furnace_worker | panicked_lead | Half a breath, half a breath, I'll say what I can.
+post:furnace_worker | calmed | All right. My heart's slowing, a little.
+post:furnace_worker | calmed | I'll try; it's only sweat, I tell myself, only sweat.
+post:furnace_worker | still_afraid | No; the shaking's sunk in too deep to wring out yet.
+post:furnace_worker | still_afraid | You don't understand; sweat's one thing, this shaking's another.
+post:furnace_worker | not_afraid | I'm not afraid; a body that works where I work doesn't scare easy.
+
+# ---- post:ore_handler ----
+post:ore_handler | greeted_afraid | Oh. My legs won't hold.
+post:ore_handler | greeted_afraid | Hello. Can't lift a thing.
+post:ore_handler | greeted_panicked | Wait, wait, hands, my hands.
+post:ore_handler | greeted_panicked | Please, please. Not now.
+post:ore_handler | small_talk_afraid | Too shaky for talk, sorry.
+post:ore_handler | small_talk_panicked | No talk, no, can't, can't.
+post:ore_handler | thanked_afraid | Yes, fine; shaking, is all.
+post:ore_handler | thanked_panicked | Go on, go, no thanks.
+post:ore_handler | parted_afraid | Be careful, then; I mean it.
+post:ore_handler | parted_panicked | Wait, don't, don't go.
+post:ore_handler | afraid_lead | It's the shakes; I'll manage.
+post:ore_handler | afraid_lead | Right, then; my head's all heavy.
+post:ore_handler | panicked_lead | Hold on, hold on, hold on.
+post:ore_handler | panicked_lead | Can't, can't think, all right, here.
+post:ore_handler | calmed | Yes; better, some.
+post:ore_handler | calmed | All right; I'll sit on the barrow a bit.
+post:ore_handler | still_afraid | No. Not with these hands.
+post:ore_handler | still_afraid | Not yet; leave it.
+post:ore_handler | not_afraid | I'm fine; rock doesn't scare me, nor much else.
+
+# ---- post:farrier ----
+post:farrier | greeted_afraid | Hello; I'm as skittish as a yearling, so softly, please.
+post:farrier | greeted_afraid | Oh. I'd spook a horse, the state I'm in.
+post:farrier | greeted_panicked | Please, gently, please, I can't, I can't.
+post:farrier | greeted_panicked | Who's there? Oh, oh, slow, come slow, slow now.
+post:farrier | small_talk_afraid | Not a word of chat in me; I'd not even trust myself with a hoof.
+post:farrier | small_talk_panicked | Even the horses, even the horses would shy from me, I'm that bad.
+post:farrier | thanked_afraid | Of course; I barely heard myself say it.
+post:farrier | thanked_panicked | Please, please, no thanks, only don't go.
+post:farrier | parted_afraid | Stay safe; take it at a walk, for my sake.
+post:farrier | parted_panicked | Wait, wait, I'm all a-tremble, don't leave yet.
+post:farrier | afraid_lead | There now, easy, I tell myself, easy.
+post:farrier | afraid_lead | Forgive me; my hands are shaking like a new foal's legs.
+post:farrier | panicked_lead | I'm, I'm all in a lather, a lather, give me, give me.
+post:farrier | panicked_lead | My breath's short, so short, bear with, bear with me.
+post:farrier | calmed | Thank you; I'm a touch steadier, not all the way.
+post:farrier | calmed | I'll try; easy now, same as I'd tell a colt.
+post:farrier | still_afraid | Not yet; a horse that won't be caught, that's me.
+post:farrier | still_afraid | You don't understand; not even a nail would sit still in these hands.
+post:farrier | not_afraid | I'm all right; calm as an old mare, truly.
+
+# ---- post:cart_handler ----
+post:cart_handler | greeted_afraid | Hello; all thumbs with the knots, I am, so mind yourself.
+post:cart_handler | greeted_afraid | Please, stand clear; I'm shaking too hard to hold a rope.
+post:cart_handler | greeted_panicked | Wait, wait, my hands, I can't tie a knot.
+post:cart_handler | greeted_panicked | Thank goodness, a voice; mine's shrunk to nothing, nothing.
+post:cart_handler | small_talk_afraid | My thoughts keep slipping their knots; talk's beyond me.
+post:cart_handler | small_talk_panicked | No chat, no, please, I'm all loose ends.
+post:cart_handler | thanked_afraid | Yes, all right; now out of the road, and carefully.
+post:cart_handler | thanked_panicked | Go, get moving, go, go.
+post:cart_handler | parted_afraid | Be careful; mind the ruts, and don't hurry.
+post:cart_handler | parted_panicked | Please, no, not yet, the loads, I can't, please.
+post:cart_handler | afraid_lead | I'm jolting like a cart in a rut, so forgive the bumps.
+post:cart_handler | afraid_lead | Don't mind the shaking; it's my hands, not my tongue.
+post:cart_handler | panicked_lead | Hold up, hold up, my head's all over the place.
+post:cart_handler | panicked_lead | Every word sticks, every word, like a dry axle.
+post:cart_handler | calmed | All right, all right; I'll lash myself together somehow.
+post:cart_handler | calmed | Maybe you're right; knot by knot, I'll get there.
+post:cart_handler | still_afraid | No; I'm a wheel off its pin, and I'll not roll straight yet.
+post:cart_handler | still_afraid | Not yet; I'd drop the first sack I lifted.
+post:cart_handler | not_afraid | There's no need; shouting's just how I talk.

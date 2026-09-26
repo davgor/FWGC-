@@ -831,3 +831,25 @@ rebel/NE | safety_wary_told | Mostly, as I told you[, provided you avoid {worst}
 rebel/NE | safety_safe_told | Yes, still, as I told you.[ I'd not go near {worst}, but that's your affair.]
 rebel/NE | about_place_told | That's {about}, and you've had everything I know of it already.[ Keep clear of the {around}; I've uses for you yet.]
 rebel/NE | about_place_told | Only what I told you: {about}.[ You'll find {who} there, if you care to.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- rebel/NN ----
+rebel/NN | greeted_afraid | Hello. Say it straight and quick; I've not much nerve to spare.
+rebel/NN | greeted_afraid | Stay back. I don't bow, but I'm shaking like I might.
+rebel/NN | greeted_panicked | Please, I can't stand straight, I can't, please.
+rebel/NN | greeted_panicked | Who's there? No, no, I can't face anyone, not now.
+rebel/NN | small_talk_afraid | Not now; it's taking all I have to keep my head up.
+rebel/NN | small_talk_panicked | Leave it, leave it, I can't, I won't, leave it.
+rebel/NN | thanked_afraid | Of course; I just wish I'd earned it on steadier legs.
+rebel/NN | thanked_panicked | Go, go on, thank me when I'm worth it.
+rebel/NN | parted_afraid | Be careful; keep your head up, and your guard with it.
+rebel/NN | parted_panicked | Please, don't go, I can't, I can't stand alone, please.
+rebel/NN | afraid_lead | I'll answer standing, if not straight.
+rebel/NN | afraid_lead | My knees aren't with me, but my tongue is.
+rebel/NN | panicked_lead | Up, up, head up, answer, answer.
+rebel/NN | panicked_lead | I won't, I won't fall apart, not yet, listen.
+rebel/NN | calmed | All right. I'm still on my feet, which is something.
+rebel/NN | calmed | I know, I know. So I shake; shaking isn't bowing.
+rebel/NN | still_afraid | No. I don't bow to fear, but I can't make it bow to me either.
+rebel/NN | still_afraid | You don't understand; I don't take orders, not even to be calm.
+rebel/NN | not_afraid | I'm not afraid; my face is just hard, that's all.

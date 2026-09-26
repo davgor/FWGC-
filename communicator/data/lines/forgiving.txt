@@ -595,3 +595,25 @@ forgiving/LG | safety_wary_told | Careful; it is as I told you, and I think you 
 forgiving/LG | safety_safe_told | Yes, as I told you, and I am thankful for it.[ If anything, I would steer clear of {worst}.]
 forgiving/LG | about_place_told | I have told you all I know of it, and gladly: {about}.
 forgiving/LG | about_place_told | I am sorry to have no more for you than I told you: {about}.[ Should you go, you will find {who} there.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- forgiving/NN ----
+forgiving/NN | greeted_afraid | Oh. Forgive the shaking; I'd forgive yours.
+forgiving/NN | greeted_afraid | Hello. Don't hold the jumpiness against me, please.
+forgiving/NN | greeted_panicked | Please, please, whatever I say, let it go, let it go.
+forgiving/NN | greeted_panicked | Thank goodness, stay, I'll owe you, I'll owe you.
+forgiving/NN | small_talk_afraid | I'd talk if I could, but my thoughts won't sit still.
+forgiving/NN | small_talk_panicked | I can't, I can't carry talk, I can hardly carry myself.
+forgiving/NN | thanked_afraid | Yes; you'll have to remember it for both of us.
+forgiving/NN | thanked_panicked | Don't thank me, there's nothing owed, nothing, go.
+forgiving/NN | parted_afraid | Goodbye; go carefully, and excuse the poor send-off.
+forgiving/NN | parted_panicked | Please, don't, not yet, I won't hold you long, please.
+forgiving/NN | afraid_lead | If it comes out in a tangle, let it pass; I'm shaking.
+forgiving/NN | afraid_lead | I'll do my best, and you'll forgive the rest.
+forgiving/NN | panicked_lead | All right, all right, don't hold me to the words.
+forgiving/NN | panicked_lead | Let me, let me, I'll find my tongue, I will.
+forgiving/NN | calmed | Thank you. I'll not forget that, and I forget very little.
+forgiving/NN | calmed | Yes. I'm letting it go, a little at a time.
+forgiving/NN | still_afraid | I can't. It takes me longer to steady than to forgive.
+forgiving/NN | still_afraid | No. Whatever's meant by it, it doesn't reach my hands yet.
+forgiving/NN | not_afraid | I'm all right; I carry nothing I don't need, fear included.

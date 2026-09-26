@@ -713,3 +713,25 @@ redeemed/CG | safety_wary_told | More or less, like I told you, and you'll be al
 redeemed/CG | safety_safe_told | Yes, it's fine, like I told you, honestly.[ I'd still not go near {worst}.]
 redeemed/CG | about_place_told | Oh, that one; you've had all I know, sorry, that's the lot: {about}.[ The {around}, though, careful, please.]
 redeemed/CG | about_place_told | No more than I told you, I'm afraid: {about}.[ Ask for {who}; say hello, go on.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- redeemed/NN ----
+redeemed/NN | greeted_afraid | Hello. I'm shaken, and I'll not pretend otherwise.
+redeemed/NN | greeted_afraid | Who's there? Speak, and I'll steady myself enough to listen.
+redeemed/NN | greeted_panicked | Wait, wait; I know better than this, I do, I can't help it!
+redeemed/NN | greeted_panicked | Please, plain words, only plain ones, I can't manage any other kind!
+redeemed/NN | small_talk_afraid | My mind won't stay put, and I'd only waste your time.
+redeemed/NN | small_talk_panicked | What use is talk, what use, I can't even think!
+redeemed/NN | thanked_afraid | Don't thank me; we're even, and I've no breath to spare for it.
+redeemed/NN | thanked_panicked | Please, it's nothing, it's nothing, go!
+redeemed/NN | parted_afraid | Be careful; nothing's worth your neck.
+redeemed/NN | parted_panicked | Be careful, be careful, don't waste yourself, please!
+redeemed/NN | afraid_lead | I'll keep this plain; plain is all I can manage.
+redeemed/NN | afraid_lead | Hear me out; I'd rather say it once and say it right.
+redeemed/NN | panicked_lead | Just let me, just, let me get it out!
+redeemed/NN | panicked_lead | My head, my head's all noise, one thing at a time!
+redeemed/NN | calmed | Maybe you're right. My panic's no use to anyone, least of all me.
+redeemed/NN | calmed | Thank you; that was worth hearing. Give me a moment more.
+redeemed/NN | still_afraid | Not yet. I hear you, but my hands haven't caught up.
+redeemed/NN | still_afraid | I can't, not just by wanting to.
+redeemed/NN | not_afraid | I'm all right, and I'd tell you plainly if I weren't.

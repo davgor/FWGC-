@@ -852,3 +852,25 @@ beast/NN | safety_wary_told | More or less, as I told you.[ I'd give a wide bert
 beast/NN | safety_safe_told | Yes, as I said before; that holds.[ The worst of it is still {worst}.]
 beast/NN | about_place_told | It's {about}; that's all I know of it, and you've heard it.[ You'll find {who} there.][ Stay off the {around}.]
 beast/NN | about_place_told | No more than I told you: {about}.[ There's {trades} there.][ And {work}; that hasn't changed.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- beast/NN ----
+beast/NN | greeted_afraid | Stay back. Give me room, and I'll manage.
+beast/NN | greeted_afraid | Who's there? Speak up; I'm on edge.
+beast/NN | greeted_panicked | Wait, wait, not so close, not so close.
+beast/NN | greeted_panicked | Oh, not now, not now; leave me be.
+beast/NN | small_talk_afraid | I've no chatter in me just now; keeping my head is work enough.
+beast/NN | small_talk_panicked | Don't, don't talk at me; I can't think.
+beast/NN | thanked_afraid | Yes, fine; it's nothing, leave it.
+beast/NN | thanked_panicked | Don't thank me, don't crowd me, go.
+beast/NN | parted_afraid | Be careful; I'm in no state to fetch anyone.
+beast/NN | parted_panicked | Go, go on; I can't, just go.
+beast/NN | afraid_lead | Give me a breath; I'm wound tight.
+beast/NN | afraid_lead | I'll answer, but stand off a little.
+beast/NN | panicked_lead | Fine, fine, stay back, I'll say it.
+beast/NN | panicked_lead | Hold on, hold on, I'm getting there.
+beast/NN | calmed | All right. I've got my breath back, mostly.
+beast/NN | calmed | Maybe you're right. Don't push it, though.
+beast/NN | still_afraid | Keep away; I need room, not talk.
+beast/NN | still_afraid | No. It's not working, so leave it.
+beast/NN | not_afraid | I'm fine; as calm as I ever am, near enough.

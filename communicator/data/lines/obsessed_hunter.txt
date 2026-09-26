@@ -949,3 +949,25 @@ obsessed_hunter/NE | safety_wary_told | Mostly; I told you that, and it holds.[ 
 obsessed_hunter/NE | safety_safe_told | Aye, it's safe; I said so already, for what it's worth to you.[ The worst of it is {worst}.]
 obsessed_hunter/NE | about_place_told | You've had all I know of {about}, and I've nothing to add.[ Mind the {around}, or don't.]
 obsessed_hunter/NE | about_place_told | It's {about}; that's all I know, and you've had it.[ You'll find {who} there, if you look.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- obsessed_hunter/NN ----
+obsessed_hunter/NN | greeted_afraid | Stay back. I'm jumping at shadows just now; forgive me.
+obsessed_hunter/NN | greeted_afraid | Who's there? Let me see you; my eyes won't settle.
+obsessed_hunter/NN | greeted_panicked | Wait, wait, don't move so fast, I can't see straight.
+obsessed_hunter/NN | greeted_panicked | Please, don't, I can't hear anything past my own pulse.
+obsessed_hunter/NN | small_talk_afraid | All I can think about is my own breathing, forgive me.
+obsessed_hunter/NN | small_talk_panicked | Can't, can't, my head's all noise, can't.
+obsessed_hunter/NN | thanked_afraid | Please, it's nothing; I barely heard you, I'm sorry.
+obsessed_hunter/NN | thanked_panicked | Don't thank me, go, and eyes open, eyes open.
+obsessed_hunter/NN | parted_afraid | Please be careful, and look before you step.
+obsessed_hunter/NN | parted_panicked | Wait, don't go yet, I'm no use on my own, wait.
+obsessed_hunter/NN | afraid_lead | Half my mind's elsewhere, but you'll have what I know.
+obsessed_hunter/NN | afraid_lead | Forgive me; I'm strung tighter than a snare.
+obsessed_hunter/NN | panicked_lead | Still, still, be still, and answer.
+obsessed_hunter/NN | panicked_lead | Listen, listen, I'll say it once, listen.
+obsessed_hunter/NN | calmed | All right. My eyes are settling, slowly.
+obsessed_hunter/NN | calmed | Thank you. I can hear myself think, just about.
+obsessed_hunter/NN | still_afraid | No. My blood's still racing, and talk won't slow it.
+obsessed_hunter/NN | still_afraid | Keep away, only for a while; I need room to steady my hands.
+obsessed_hunter/NN | not_afraid | I'm fine; that's just my face when I've one thing on my mind.

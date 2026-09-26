@@ -949,3 +949,25 @@ magnate/NE | safety_wary_told | Careful, as I told you.[ Keep away from {worst};
 magnate/NE | safety_safe_told | Aye; I told you it's safe, and it still is.[ There's {worst}, but nobody's asking you to go.]
 magnate/NE | about_place_told | There's nothing I didn't tell you: {about}.[ Its trades run to {trades}, as I said.]
 magnate/NE | about_place_told | I told you already; it's {about}, and I've nothing new to sell you on it.[ You'll find {who} there, if they'll see you.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- magnate/NN ----
+magnate/NN | greeted_afraid | Hello. Don't haggle with me just now; I haven't the nerve.
+magnate/NN | greeted_afraid | Oh. I'm a poor bargain at the moment; take me as you find me.
+magnate/NN | greeted_panicked | Please, please; name your terms, any terms, just not now.
+magnate/NN | greeted_panicked | Wait, wait; nothing's worth anything, I can't think, wait.
+magnate/NN | small_talk_afraid | No chatter, forgive me; I can't keep a tally of my own thoughts.
+magnate/NN | small_talk_panicked | No, no, nothing balances, nothing does, don't ask me.
+magnate/NN | thanked_afraid | Yes, noted; I'll write it down when my hand's steadier.
+magnate/NN | thanked_panicked | Go, go, whatever I'm owed, forget it, go.
+magnate/NN | parted_afraid | Be careful; don't, don't take on a risk you can't cover.
+magnate/NN | parted_panicked | Wait, not yet, we're not done, we're not, wait.
+magnate/NN | afraid_lead | One moment; my head won't keep accounts just now.
+magnate/NN | afraid_lead | You'll get a fair answer, if not a steady one.
+magnate/NN | panicked_lead | Now, now, in order, everything in order.
+magnate/NN | panicked_lead | Right, right, my place, let me find my place.
+magnate/NN | calmed | Thank you. That's worth more than you'd think; I'm a little steadier.
+magnate/NN | calmed | Maybe you're right. The books don't balance yet, but the gap's narrowing.
+magnate/NN | still_afraid | No; words won't settle this account, not yet.
+magnate/NN | still_afraid | Not yet. I'll tell you when I'm fit to deal.
+magnate/NN | not_afraid | There's no need; my ledger's steady, and so am I.

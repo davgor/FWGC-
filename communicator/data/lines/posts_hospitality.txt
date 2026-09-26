@@ -1004,3 +1004,185 @@ post:assistant | safety_wary_told | Mostly, I think, like I told you.[ If it wer
 post:assistant | safety_safe_told | Yes, I think so, like I said; I've not heard any different.[ The only place I've heard warnings about is {worst}.]
 post:assistant | about_place_told | You've had everything I know of it, I promise: {about}.
 post:assistant | about_place_told | Only what I told you, and I hope I had it right: {about}.[ Mind the {around}, please.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- post:baker ----
+post:baker | greeted_afraid | Oh, hello. Forgive me; my knees have gone to dough.
+post:baker | greeted_afraid | Who's there? Don't mind me; I'm jumping at my own oven door.
+post:baker | greeted_panicked | Please, please, my knees won't hold, let me be, let me be.
+post:baker | greeted_panicked | Wait, wait, the salt, did I salt it, I can't, I can't think.
+post:baker | small_talk_afraid | I've no chat in me, sorry; I keep losing count of the loaves.
+post:baker | small_talk_panicked | Not now, not now; my hands won't knead, they won't do anything.
+post:baker | thanked_afraid | Don't thank me; I can barely shape a loaf as it is.
+post:baker | thanked_panicked | Yes, yes, fine, I'd floured my hands for something, I can't think what.
+post:baker | parted_afraid | Goodbye; mind yourself, and forgive the state of me.
+post:baker | parted_panicked | Please, don't go, don't leave me here with only the ovens.
+post:baker | afraid_lead | Give me a moment; I'm kneading my apron and can't stop.
+post:baker | afraid_lead | Pardon the tremble; I'll get there.
+post:baker | panicked_lead | Never mind the dough, never mind it, I'll, yes, I'll try.
+post:baker | panicked_lead | My hands, look at them, floured and shaking, but I'll try.
+post:baker | calmed | Thank you. I'm still shaking, but I could hold a loaf now.
+post:baker | calmed | I'll try. Keep talking; it does me more good than kneading.
+post:baker | still_afraid | Not yet; my hands still won't settle to the dough.
+post:baker | still_afraid | Easy for you to say; your knees aren't dough.
+post:baker | not_afraid | I'm fine; that's flour on my face, not fear.
+# ---- post:cook ----
+post:cook | greeted_afraid | Stay back from the stove; I'm jumpy, and I'll spill something.
+post:cook | greeted_afraid | Who's there? Say it plain; my nerves are shot.
+post:cook | greeted_panicked | Please, not now, not now; the pots, forget the pots, I can't.
+post:cook | greeted_panicked | Hello, what, what is it, I've a hall to, no, I can't.
+post:cook | small_talk_afraid | No chatter; I can't keep my mind on a pot, let alone talk.
+post:cook | small_talk_panicked | What, talk, now, I can't even hold the ladle, look at it.
+post:cook | thanked_afraid | Yes, fine; now give me room, I'm all elbows.
+post:cook | thanked_panicked | Go, go, just go, before I drop the lot.
+post:cook | parted_afraid | Be careful; I don't say that to many, so listen.
+post:cook | parted_panicked | Wait, you can't just, don't go, I can't manage.
+post:cook | afraid_lead | Right; my hands are shaking, but my tongue still works.
+post:cook | afraid_lead | Hold on; I'm curdled through, but I'll manage.
+post:cook | panicked_lead | Hold still, you useless hands, hold still, that's it.
+post:cook | panicked_lead | My head's boiling over, boiling over, but, fine, fine.
+post:cook | calmed | I know, I know; that's enough fussing. I'll get by, just about.
+post:cook | calmed | Maybe you're right. The pots won't stir themselves, shaking or not.
+post:cook | still_afraid | No, and don't hover; I can't, not yet.
+post:cook | still_afraid | You don't understand, and I've no breath to explain it.
+post:cook | not_afraid | Who said I was afraid, with a hall to feed and no time for it?
+# ---- post:miller ----
+post:miller | greeted_afraid | Hello. Give me a moment; my heart's going faster than the stone ever did.
+post:miller | greeted_afraid | Wait, slowly now. I've lost my pace, and I can't find it.
+post:miller | greeted_panicked | Oh, oh, I can't, the handle, I can't slow down.
+post:miller | greeted_panicked | Please, please, too fast, it's all too fast.
+post:miller | small_talk_afraid | I can't talk, slow or otherwise; my mind won't stay on the stone.
+post:miller | small_talk_panicked | My head goes round and round, round and round, I can't.
+post:miller | thanked_afraid | Of course; forgive me if I rushed it.
+post:miller | thanked_panicked | Yes, yes, slower, I can't keep up, I can't.
+post:miller | parted_afraid | Go slowly, and be careful; that's all I ask.
+post:miller | parted_panicked | Wait, not so fast, don't, please don't go.
+post:miller | afraid_lead | One thing at a time, if my head will let me.
+post:miller | afraid_lead | The words won't come slow and even, but they'll come.
+post:miller | panicked_lead | Too fast, too fast, I can't, all right, slowly, slowly.
+post:miller | panicked_lead | My hands won't keep hold of the handle, never mind, never mind.
+post:miller | calmed | I'll try; slow, you're right, slow. That's a little better.
+post:miller | calmed | Thank you. I've found my pace again, or the start of it.
+post:miller | still_afraid | Not yet; my heart won't slow, whatever you say.
+post:miller | still_afraid | I can't; fright doesn't grind down that easy.
+post:miller | not_afraid | I'm all right; I'm only slow, and slow can look like scared.
+# ---- post:brewer ----
+post:brewer | greeted_afraid | Hello. Forgive me; I'm fizzing like a young brew, and not the good kind.
+post:brewer | greeted_afraid | Oh, pardon me; I'm on edge, and I'm not used to it.
+post:brewer | greeted_panicked | Wait, wait, I need a, no, not a drink, I can't.
+post:brewer | greeted_panicked | Stay back, stay back, I'm all froth, I can't think.
+post:brewer | small_talk_afraid | My head's as cloudy as an unfined cask; don't ask me to chat.
+post:brewer | small_talk_panicked | No patience, none left, I can't sit, no talk, not now.
+post:brewer | thanked_afraid | Yes, yes; I can't even hold a cup steady, never mind thanks.
+post:brewer | thanked_panicked | Don't thank me, not now, I can't keep still, I can't.
+post:brewer | parted_afraid | Stay safe, and keep a clear head, for my sake.
+post:brewer | parted_panicked | Please, not yet, don't go, I'll only sit here shaking.
+post:brewer | afraid_lead | Let me settle a moment, like a cask after a knock.
+post:brewer | afraid_lead | I'm shaking, but I'll pour it as straight as I can.
+post:brewer | panicked_lead | Everything's fizzing, everything, give me, just give me a breath.
+post:brewer | panicked_lead | Right, right, steady, steady, a sober head, all right.
+post:brewer | calmed | All right. I'm settling, the way a brew does, bit by bit.
+post:brewer | calmed | Maybe you're right. I'll sit on a cask till my hands stop.
+post:brewer | still_afraid | No; you can't hurry this, and I can't either.
+post:brewer | still_afraid | Not yet; I'm still all stirred up.
+post:brewer | not_afraid | I'm not afraid; I'm a patient soul, and patient folk don't frighten easy.
+# ---- post:bartender ----
+post:bartender | greeted_afraid | Stay back a moment. I'm not myself.
+post:bartender | greeted_afraid | Who's there? Forgive me; I'm wound tight.
+post:bartender | greeted_panicked | Please, don't, not now, not now, I can't do this.
+post:bartender | greeted_panicked | Hello, no, no, not a word, I can't.
+post:bartender | small_talk_afraid | I can't chat. I can barely pour.
+post:bartender | small_talk_panicked | I can't listen, I can't, not now, not now.
+post:bartender | thanked_afraid | Yes; I'd say more, if I could think.
+post:bartender | thanked_panicked | Of course, of course, forget it, forget everything, I can't.
+post:bartender | parted_afraid | Be careful; I'll say no more than that.
+post:bartender | parted_panicked | Wait, don't, stay, stay a while, please.
+post:bartender | afraid_lead | Give me a breath.
+post:bartender | afraid_lead | Forgive me; I'm rattled, but I'll keep it short.
+post:bartender | panicked_lead | Can't pour, can't think, but, right, right.
+post:bartender | panicked_lead | I, no, yes, all right, one word at a time.
+post:bartender | calmed | Thank you. That's steadier; not steady, but steadier.
+post:bartender | calmed | Yes. Keep talking; I'm used to listening.
+post:bartender | still_afraid | No. I'm not there yet.
+post:bartender | still_afraid | You don't understand. I'll leave it at that.
+post:bartender | not_afraid | I'm not afraid, just quiet, and quiet isn't the same thing.
+# ---- post:host ----
+post:host | greeted_afraid | Hello, and forgive me; I'm in no fit state to receive anyone.
+post:host | greeted_afraid | Thank goodness, a voice. Do excuse me; I'm not quite myself.
+post:host | greeted_panicked | Please, please, I can't, I can't see to anyone, not now.
+post:host | greeted_panicked | Wait, wait, I, welcome, no, I can't, I can't.
+post:host | small_talk_afraid | I've no conversation in me, and a guest deserves better.
+post:host | small_talk_panicked | No, no, not now, I can't be civil, I can't.
+post:host | thanked_afraid | Of course, of course; I only hope it was properly done.
+post:host | thanked_panicked | Please, no, there's nothing to thank me for, nothing.
+post:host | parted_afraid | Be careful, I beg you; I'm sorry not to see you out.
+post:host | parted_panicked | Goodbye, no, wait, please, I can't be alone, not now.
+post:host | afraid_lead | Forgive me; I'll answer as well as I'm able.
+post:host | afraid_lead | Please bear with me; my voice isn't steady.
+post:host | panicked_lead | I'm trying, I am, I'm trying, just a moment.
+post:host | panicked_lead | I can't order my thoughts, I can't, very well, very well.
+post:host | calmed | Thank you; you're very kind. I'm nearer myself, if not yet there.
+post:host | calmed | Yes, yes; I must collect myself, for the house's sake.
+post:host | still_afraid | I can't, I'm afraid; not yet, though I thank you for trying.
+post:host | still_afraid | You don't understand; forgive me, I'd rather not burden a guest with it.
+post:host | not_afraid | There's no need, I assure you; the house is in hand.
+# ---- post:service_worker ----
+post:service_worker | greeted_afraid | Oh, hello. Mind the trays; they're rattling, and so am I.
+post:service_worker | greeted_afraid | Stay back a bit, please. I'll drop something, the way my hands are.
+post:service_worker | greeted_panicked | Please, my hands, I can't hold a thing, not a tray, not a thing.
+post:service_worker | greeted_panicked | Who's there, who's there, I can't, I can't do this.
+post:service_worker | small_talk_afraid | I've no head for talk; I've lost track of every table in the place.
+post:service_worker | small_talk_panicked | Don't, just don't, I can't talk, my feet won't keep still.
+post:service_worker | thanked_afraid | Don't thank me; my head's too scattered to have helped much.
+post:service_worker | thanked_panicked | Yes, yes, whatever, I can't carry thanks as well.
+post:service_worker | parted_afraid | Be careful; I mean it, and I've no time to mean things.
+post:service_worker | parted_panicked | Stay safe, stay, no, stay here, please, don't leave me.
+post:service_worker | afraid_lead | Right, right; I'm all thumbs, but here goes.
+post:service_worker | afraid_lead | Just a moment; I'm in pieces, like a dropped plate.
+post:service_worker | panicked_lead | I can't, I can't, all right, quickly, quickly.
+post:service_worker | panicked_lead | All the trays, all the tables, never mind, never mind, right.
+post:service_worker | calmed | All right. I can breathe, just about.
+post:service_worker | calmed | I'll try. One table at a time; I'll get there.
+post:service_worker | still_afraid | Not yet; the cups are still rattling in my hands.
+post:service_worker | still_afraid | Easy for you to say; you're not the one carrying everything.
+post:service_worker | not_afraid | I'm fine; I'm always this out of breath, it's the job.
+# ---- post:bath_attendant ----
+post:bath_attendant | greeted_afraid | Hello; mind the wet floor. Forgive me, my hands won't keep still.
+post:bath_attendant | greeted_afraid | Who's there? I can't see a thing through the steam, and I'm all nerves.
+post:bath_attendant | greeted_panicked | Please, let the water go cold, let it all go, I can't.
+post:bath_attendant | greeted_panicked | Oh, oh, I'm wringing and wringing and I can't stop.
+post:bath_attendant | small_talk_afraid | No talk, not now; I keep testing the water and forgetting why.
+post:bath_attendant | small_talk_panicked | All steam, my head's all steam, I can't see straight, I can't.
+post:bath_attendant | thanked_afraid | Don't thank me; I'm no more use than a cold tub.
+post:bath_attendant | thanked_panicked | Go, go on, I've towels to, no, I can't, go.
+post:bath_attendant | parted_afraid | Please, be careful; dirt I can wash off, the rest I can't.
+post:bath_attendant | parted_panicked | Wait, don't go, stay by the tubs, please, just stay.
+post:bath_attendant | afraid_lead | Let me gather myself; I've gone as limp as wet linen.
+post:bath_attendant | afraid_lead | I'm shivering like a cold bather, but I'll try.
+post:bath_attendant | panicked_lead | Oh, the tubs, the water, leave it, leave it, all right.
+post:bath_attendant | panicked_lead | I'm hot, I'm cold, I can't tell which, all right, I'll try.
+post:bath_attendant | calmed | Thank you. The fright's coming out of me slow, like water from linen.
+post:bath_attendant | calmed | Maybe you're right. A splash of cold water, and I'll try again.
+post:bath_attendant | still_afraid | No; you can't scrub this off me with words.
+post:bath_attendant | still_afraid | Not yet; I'm wrung out, through and through.
+post:bath_attendant | not_afraid | There's no need; I'm as steady as the water in a still tub.
+# ---- post:assistant ----
+post:assistant | greeted_afraid | Oh, hello. I'm sorry, I'm, I'm a bit of a mess.
+post:assistant | greeted_afraid | Please don't be cross; I can't stop my hands shaking.
+post:assistant | greeted_panicked | Wait, wait, please, I'm sorry, I'm sorry, I can't.
+post:assistant | greeted_panicked | Thank goodness, please, tell me what to do, I can't think.
+post:assistant | small_talk_afraid | Oh, I can't chat; I've no idea what I was sent to fetch.
+post:assistant | small_talk_panicked | I can't talk, I can't, I don't even know where to put the broom.
+post:assistant | thanked_afraid | Please, don't; I'm flustered enough as it is.
+post:assistant | thanked_panicked | Don't thank me, don't, I didn't do anything, I didn't.
+post:assistant | parted_afraid | Please be careful; I'd worry, I always worry.
+post:assistant | parted_panicked | Go, no, wait, don't go, please, what do I do?
+post:assistant | afraid_lead | Oh, I'm shaking, but I want to get it right.
+post:assistant | afraid_lead | One moment; I'm muddled at the best of times.
+post:assistant | panicked_lead | I, I don't, please, I'll try, I'll try.
+post:assistant | panicked_lead | Let me, let me, I'm sorry, let me think.
+post:assistant | calmed | Thank you; that helps, it really does. I'm still shaking, but less.
+post:assistant | calmed | I'll try, honestly. Just stay a moment longer, if you can.
+post:assistant | still_afraid | I can't; I'm trying, I just can't.
+post:assistant | still_afraid | Not yet; I'm no good at being brave, I never was.
+post:assistant | not_afraid | I'm all right, honestly; I always look like this.

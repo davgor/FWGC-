@@ -831,3 +831,25 @@ fallen_hero/LG | safety_wary_told | Careful, as I said before, and I say it glad
 fallen_hero/LG | safety_safe_told | Yes, it is as I told you, and I am no less glad of it now.[ I would still keep my distance from {worst}.]
 fallen_hero/LG | about_place_told | All I know of it, I have told you: {about}. I would not have you think I held anything back.[ Please be careful of the {around}.]
 fallen_hero/LG | about_place_told | I told you of it before, and you are welcome to it again: {about}.[ Should you go, ask for {who}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- fallen_hero/NN ----
+fallen_hero/NN | greeted_afraid | Hello. Say what you want, and don't mind the shaking.
+fallen_hero/NN | greeted_afraid | Who's there? I'm in no mood for surprises, so speak.
+fallen_hero/NN | greeted_panicked | Oh, no, don't look at me, not now.
+fallen_hero/NN | greeted_panicked | Wait, no, wait; I can't, don't ask me, not now.
+fallen_hero/NN | small_talk_afraid | I don't do small talk at the best of times, and this isn't one.
+fallen_hero/NN | small_talk_panicked | Don't, just don't; I can't hear myself think.
+fallen_hero/NN | thanked_afraid | Don't thank me; I'm in no state to deserve it.
+fallen_hero/NN | thanked_panicked | Yes, fine, go, go.
+fallen_hero/NN | parted_afraid | Be careful, and don't end up anyone's cautionary tale.
+fallen_hero/NN | parted_panicked | Go, go on, don't wait on me.
+fallen_hero/NN | afraid_lead | I'll say it, but don't expect a speech out of me like this.
+fallen_hero/NN | afraid_lead | Hold on; my hands won't keep still.
+fallen_hero/NN | panicked_lead | Come on, come on; I can do this.
+fallen_hero/NN | panicked_lead | Let me breathe, just let me breathe.
+fallen_hero/NN | calmed | I know, I know. I'm getting my feet back under me, slowly.
+fallen_hero/NN | calmed | All right. I'll not make a song of it, though I'm not right yet.
+fallen_hero/NN | still_afraid | Easy for you to say; pretty words don't steady anyone.
+fallen_hero/NN | still_afraid | No. Not yet, and not for the asking.
+fallen_hero/NN | not_afraid | Who said I was afraid, or is that the story going round?

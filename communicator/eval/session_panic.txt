@@ -1,45 +1,46 @@
-# A panic: something frightens a townsperson, her fear spreads to two neighbours, and the player
+# A panic: something frightens a townsperson, the fear spreads to two others, and the player
 # talks them down one at a time, while one the player insults will not be eased until the insult
 # is mended. What feelings need (contract version 9): frightened words to go with frightened
 # faces, fear that spreads and falls, and calming that works a step at a time and not while the
 # danger lasts. orchestrator_session plays it (tools/session.cpp says how a script reads);
 # communicator_eval --session speaks it.
 world 99 33 30
-who miller townsfolk 5
-who weaver townsfolk 6
-who carter townsfolk 7
+who first townsfolk 5
+who second townsfolk 6
+who third townsfolk 7
 
-# Something frightens the miller, and her neighbours see her panic.
-fright miller 3
-gather miller weaver carter
-say miller greet | Hello? Are you all right?
-say miller calm | It's all right, you're safe now.
-say miller ask_surroundings | What's around here?
+# Something frightens the first townsperson, and two others see the panic. (The picker takes
+# townsfolk one to a place, so they stand apart; the game would report them together.)
+fright first 3
+gather first second third
+say first greet | Hello? Are you all right?
+say first calm | It's all right, you're safe now.
+say first ask_surroundings | What's around here?
 
-# A quarter of an hour on, whatever frightened her has passed.
+# A quarter of an hour on, whatever frightened them has passed.
 minutes 16
-say miller calm | Easy. It's passed. Breathe.
-say miller calm | You're doing well. Slow breaths.
-say miller small_talk | Is the mill busy these days?
-say miller thank | Thank you for talking with me.
-say miller farewell | Take care of yourself.
+say first calm | Easy. It's passed. Breathe.
+say first calm | You're doing well. Slow breaths.
+say first small_talk | Busy day, then?
+say first thank | Thank you for talking with me.
+say first farewell | Take care of yourself.
 
-# The weaver, afraid from the miller's panic.
-say weaver greet | Hello there.
-say weaver calm | Don't be afraid. It's over.
-say weaver ask_safety | Is it safe around here, usually?
-say weaver farewell | Goodbye.
+# The second, afraid from the first's panic.
+say second greet | Hello there.
+say second calm | Don't be afraid. It's over.
+say second ask_safety | Is it safe around here, usually?
+say second farewell | Goodbye.
 
-# The carter, whom the player insults while he is frightened.
-say carter greet | You there.
-say carter insult | Pull yourself together, you coward.
-say carter calm | Easy, easy. I didn't mean it.
-say carter apologize | I'm sorry. That was cruel of me.
-say carter calm | It's all right now.
-say carter farewell | Farewell.
+# The third, whom the player insults while they are frightened.
+say third greet | You there.
+say third insult | Pull yourself together, you coward.
+say third calm | Easy, easy. I didn't mean it.
+say third apologize | I'm sorry. That was cruel of me.
+say third calm | It's all right now.
+say third farewell | Farewell.
 
-# An hour later, the miller again.
+# An hour later, the first again.
 minutes 60
-say miller greet | Hello again. Feeling better?
-say miller calm | You're safe, you know.
-say miller farewell | Bye.
+say first greet | Hello again. Feeling better?
+say first calm | You're safe, you know.
+say first farewell | Bye.

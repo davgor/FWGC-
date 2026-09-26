@@ -477,3 +477,25 @@ malevolent_benevolent/NN | safety_wary_told | More or less, as I told you, and I
 malevolent_benevolent/NN | safety_safe_told | Aye, safe, as I told you.[ Keep {worst} in mind, and you'll do.]
 malevolent_benevolent/NN | about_place_told | As I told you: it's {about}. What you make of it is your affair.
 malevolent_benevolent/NN | about_place_told | Nothing to add to what I told you: {about}.[ You'll find {who} there; make up your own mind about them.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- malevolent_benevolent/NN ----
+malevolent_benevolent/NN | greeted_afraid | Who's there? Speak, whoever you are; I'm shaking, and I won't hide it.
+malevolent_benevolent/NN | greeted_afraid | Hello. I'm in a poor way; make of that what you will.
+malevolent_benevolent/NN | greeted_panicked | Stay back! No, no, I can't be civil now, I can't.
+malevolent_benevolent/NN | greeted_panicked | Wait, wait; I can't take anything as it comes, not now, I can't.
+malevolent_benevolent/NN | small_talk_afraid | No sense pretending; I can't talk about nothing just now.
+malevolent_benevolent/NN | small_talk_panicked | I can't, I can't do pleasant, not now, don't.
+malevolent_benevolent/NN | thanked_afraid | Of course; I hear you, but it isn't reaching me.
+malevolent_benevolent/NN | thanked_panicked | Go, go; thanks won't help, nothing will, go.
+malevolent_benevolent/NN | parted_afraid | Go, and watch yourself; I've no calm to lend you.
+malevolent_benevolent/NN | parted_panicked | Please, stay; I don't need you, I don't, just stay.
+malevolent_benevolent/NN | afraid_lead | I'm rattled, and I won't dress it up, but you'll have your answer.
+malevolent_benevolent/NN | afraid_lead | Whether you believe me or not, I'm barely holding together.
+malevolent_benevolent/NN | panicked_lead | I'll say it, I'll say it plain, I will, I will.
+malevolent_benevolent/NN | panicked_lead | Don't, don't watch me, listen, just listen.
+malevolent_benevolent/NN | calmed | Yes. That helped, whatever you think of me for needing it.
+malevolent_benevolent/NN | calmed | Maybe you're right. I'll take it as it comes, a little at a time.
+malevolent_benevolent/NN | still_afraid | Not yet. I'm the one shaking, and I'll say when it stops.
+malevolent_benevolent/NN | still_afraid | No, and I won't pretend otherwise to please you.
+malevolent_benevolent/NN | not_afraid | I'm all right; if I weren't, I'd say so plainly.

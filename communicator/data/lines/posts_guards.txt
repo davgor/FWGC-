@@ -1115,3 +1115,205 @@ post:postern_guard | safety_wary_told | More or less, as I told you; I'll not sa
 post:postern_guard | safety_safe_told | Aye, safe, as I told you, and I like it quiet.[ I'd still keep clear of {worst}.]
 post:postern_guard | about_place_told | Between us, you've had all I know of it: {about}.[ Mind the {around}.]
 post:postern_guard | about_place_told | Only what I told you, and you didn't hear that from me either: {about}.[ Ask quietly for {who}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- post:garrison_trooper ----
+post:garrison_trooper | greeted_afraid | Hello. Look at the state of me; I'd give a lot to be bored.
+post:garrison_trooper | greeted_afraid | Who's there? Come and talk, would you; I'm going spare.
+post:garrison_trooper | greeted_panicked | Thank goodness, thank goodness, talk to me, say anything, anything.
+post:garrison_trooper | greeted_panicked | Oh, oh, no, I can't sit, I can't stand, I can't.
+post:garrison_trooper | small_talk_afraid | Any other time I'd talk your ear off; I can't keep my mind on a word.
+post:garrison_trooper | small_talk_panicked | No, no, dice, drill, stew, I can't think of a single thing.
+post:garrison_trooper | thanked_afraid | Don't thank me; company's all I wanted, with my nerves like this.
+post:garrison_trooper | thanked_panicked | Yes, yes, stay, stay and talk, don't go.
+post:garrison_trooper | parted_afraid | Wait, stay a moment more; I'm poor company for myself.
+post:garrison_trooper | parted_panicked | Please, please, don't leave me in here with nothing to do but shake.
+post:garrison_trooper | afraid_lead | I'm all thumbs, so bear with me.
+post:garrison_trooper | afraid_lead | Never mind the shakes; they're the liveliest thing about me.
+post:garrison_trooper | panicked_lead | Up, down, up, my legs won't settle, but here, here.
+post:garrison_trooper | panicked_lead | Something to do, something to do, yes, yes, here.
+post:garrison_trooper | calmed | Thank you. It's talk I needed; I'm not right yet, but it helps.
+post:garrison_trooper | calmed | Maybe you're right. For once, I'll sit, and try to stay sat.
+post:garrison_trooper | still_afraid | Easy for you to say; you're not stuck inside my head.
+post:garrison_trooper | still_afraid | No. These hands won't have it, and neither will the rest of me.
+post:garrison_trooper | not_afraid | There's no need; bored stiff, not scared stiff, that's me.
+# ---- post:gate_guard ----
+post:gate_guard | greeted_afraid | Who's there? Your name and business, quickly; I'm in no state to wait.
+post:gate_guard | greeted_afraid | Hello. I'm jumpy, and I'll not pretend otherwise; say your piece.
+post:gate_guard | greeted_panicked | Stay back, no names, I can't take a single name, stay back.
+post:gate_guard | greeted_panicked | Wait, wait, no business, not now, my head won't hold a face.
+post:gate_guard | small_talk_afraid | Forgive me, no chat; I can't even keep the faces straight.
+post:gate_guard | small_talk_panicked | I can't count, I can't, one face, two, no, I've lost the count.
+post:gate_guard | thanked_afraid | Of course; go on through, and quickly, before my knees give out.
+post:gate_guard | thanked_panicked | Yes, fine, next, next, go.
+post:gate_guard | parted_afraid | Go on, keep moving, and mind yourself; I mean it.
+post:gate_guard | parted_panicked | Stay safe, stay safe, go, don't stop for me, go.
+post:gate_guard | afraid_lead | Let me get my count straight; it keeps slipping.
+post:gate_guard | afraid_lead | A moment; my voice has gone thin on me.
+post:gate_guard | panicked_lead | Keep still, hands, keep still; there, there.
+post:gate_guard | panicked_lead | One at a time, one at a time, like the carts, one at a time.
+post:gate_guard | calmed | I'll try. My hands will take a while, but my head's clearing.
+post:gate_guard | calmed | Yes. Yes, I can do my job; give me a moment at the side of the arch.
+post:gate_guard | still_afraid | Not yet; I'm counting to steady myself, and I've not got far.
+post:gate_guard | still_afraid | I can't; words don't steady a spear, and mine won't keep still.
+post:gate_guard | not_afraid | I'm all right; you're seeing the face I keep for the gate.
+# ---- post:jailer ----
+post:jailer | greeted_afraid | Stay back; I've the keys, and I'll keep them, whatever my hands think.
+post:jailer | greeted_afraid | Who's there? Say something; I'd sooner hear a lie than nothing.
+post:jailer | greeted_panicked | Oh, the keys, which key, I can't, I can't find which one.
+post:jailer | greeted_panicked | Please, no, no, I can't tell a liar from anyone, not now.
+post:jailer | small_talk_afraid | I don't chat at the best of times, and this isn't one.
+post:jailer | small_talk_panicked | I don't, I can't, every word out of me sounds like a lie.
+post:jailer | thanked_afraid | Of course; I've no stomach for thanks, so leave me be.
+post:jailer | thanked_panicked | Don't thank me, quiet, I want quiet, only quiet.
+post:jailer | parted_afraid | Goodbye; watch yourself, my hands won't let me say more.
+post:jailer | parted_panicked | Go, go, no, wait, I don't know, I don't know what I want.
+post:jailer | afraid_lead | Don't mind the rattle; it's the keys, and the hand holding them.
+post:jailer | afraid_lead | As straight as I can manage, with my hands like this.
+post:jailer | panicked_lead | Never mind, never mind, I'm listening, I'm here.
+post:jailer | panicked_lead | I trust nobody, nobody, not my own hands, but here.
+post:jailer | calmed | All right. I don't trust easy, but I'll trust that much.
+post:jailer | calmed | Maybe you're right; liar or not, it helps to hear it.
+post:jailer | still_afraid | No. I don't believe soft words, not even my own.
+post:jailer | still_afraid | I can't; the keys are still rattling, and so am I.
+post:jailer | not_afraid | Who said I was afraid, when this is only my suspicious face?
+# ---- post:keep_guard ----
+post:keep_guard | greeted_afraid | Stay back. From there, I will hear you, and I will stand.
+post:keep_guard | greeted_afraid | Hello. Speak, and be brief; I am not as steady as this door.
+post:keep_guard | greeted_panicked | Who's there? Speak, speak, I cannot hear you for my own heart.
+post:keep_guard | greeted_panicked | Wait, wait; I hold, I hold, I will not leave, I will not.
+post:keep_guard | small_talk_afraid | I have no talk in me; I have only the standing.
+post:keep_guard | small_talk_panicked | No, no, I stand, I must stand, I cannot talk and stand.
+post:keep_guard | thanked_afraid | Yes; it is my duty, and my hands will steady to it.
+post:keep_guard | thanked_panicked | Please, no, I have not the words, not now.
+post:keep_guard | parted_afraid | Stay safe; I would say more, but my voice will not hold.
+post:keep_guard | parted_panicked | Go, go; I stay, I must stay, I will stay.
+post:keep_guard | afraid_lead | I am steady enough to speak, if not to be still.
+post:keep_guard | afraid_lead | Forgive me; I am not as I should be.
+post:keep_guard | panicked_lead | I hold, I hold, I hold, very well, very well.
+post:keep_guard | panicked_lead | Hold fast, hold fast, yes, yes, I am here.
+post:keep_guard | calmed | Yes. I will stand the steadier for it, though not yet steady.
+post:keep_guard | calmed | All right. I do not thank easily, but I thank you; my hands are quieter.
+post:keep_guard | still_afraid | Stay back; a door stands without help, and so will I, given room.
+post:keep_guard | still_afraid | Not yet. I do not lie, and I will not say I am steady.
+post:keep_guard | not_afraid | I'm not afraid; this is how a door is kept.
+# ---- post:lookout ----
+post:lookout | greeted_afraid | Oh! You made me jump; I'm all eyes and no nerve.
+post:lookout | greeted_afraid | Thank goodness, company; I'm all of a jitter up here.
+post:lookout | greeted_panicked | Please, please, somebody, anybody, say something ordinary.
+post:lookout | greeted_panicked | Who's there, who, I've lost my tally, I've lost all of it.
+post:lookout | small_talk_afraid | My mouth's gone dry and my wits with it; ask me something easy.
+post:lookout | small_talk_panicked | No, not now, my neck won't, my hands won't, nothing will.
+post:lookout | thanked_afraid | Yes, of course; sorry, I'm not much use just now.
+post:lookout | thanked_panicked | Please, never mind thanks, just stay a bit, stay.
+post:lookout | parted_afraid | Stay safe; I'll be up here, for what I'm worth.
+post:lookout | parted_panicked | Wait, not where I can't see you, please, don't.
+post:lookout | afraid_lead | Right, I'm jumpy as anything, but I'm with you.
+post:lookout | afraid_lead | Half a moment; my wits have gone wandering.
+post:lookout | panicked_lead | Oh, oh, oh, I can, I can, I can do this.
+post:lookout | panicked_lead | My eyes won't stop, won't stop, but here, here.
+post:lookout | calmed | Thank you! I can breathe, a little, anyway.
+post:lookout | calmed | I know, I know; a tally at a time, and my breath with it.
+post:lookout | still_afraid | Not yet! All jitters, still, and I can't shake them.
+post:lookout | still_afraid | You don't understand; these eyes won't be talked into resting.
+post:lookout | not_afraid | I'm fine; wide-eyed is just how the wall leaves you.
+# ---- post:postern_guard ----
+post:postern_guard | greeted_afraid | Oh, hush, please; my voice has gone to nothing, and yours carries.
+post:postern_guard | greeted_afraid | Who's there? Keep it low; I'm wound as tight as that bolt.
+post:postern_guard | greeted_panicked | Please, please, quiet, quiet, I can't take it loud.
+post:postern_guard | greeted_panicked | Stay back, don't, don't say a thing, I can't hear myself think.
+post:postern_guard | small_talk_afraid | Not a word from me; I'm listening to my own heart, and it's loud.
+post:postern_guard | small_talk_panicked | No, no talking, I can't keep still, I can't keep quiet.
+post:postern_guard | thanked_afraid | Please, hush; thanks carry, and I've no use for them.
+post:postern_guard | thanked_panicked | Go, go, softly, go, don't thank me, go.
+post:postern_guard | parted_afraid | Goodbye, and quietly; mind your step for both of us.
+post:postern_guard | parted_panicked | Wait, stay, stay by me, I can't mind this door alone.
+post:postern_guard | afraid_lead | Between us, I'm shaking like a loose bolt.
+post:postern_guard | afraid_lead | I'll whisper it, if my voice will hold that long.
+post:postern_guard | panicked_lead | My voice won't go low, it won't, but I'll manage.
+post:postern_guard | panicked_lead | Keep it down, keep it down, I'm here, all right.
+post:postern_guard | calmed | All right; slowly, softly, and I'll get there.
+post:postern_guard | calmed | Thank you. That helps; I'm steadier by a hair.
+post:postern_guard | still_afraid | No. I can't settle, however low you say it.
+post:postern_guard | still_afraid | Keep away, just a little; I steady best with room and quiet.
+post:postern_guard | not_afraid | I'm all right; low is how I always talk, fright or no fright.
+# ---- post:soldier ----
+post:soldier | greeted_afraid | Hello. If it's orders, give them; my spear arm won't settle.
+post:soldier | greeted_afraid | Who's there? Forgive the start; I'm jumpy as a new recruit.
+post:soldier | greeted_panicked | Wait, wait, stand where I'm put, I'm standing, I'm standing where I'm put.
+post:soldier | greeted_panicked | Oh, no, no, one spear, I'm only one spear.
+post:soldier | small_talk_afraid | No chatter from me; I can't even keep my feet still in line.
+post:soldier | small_talk_panicked | I can't, the drill, I can't remember any of the drill.
+post:soldier | thanked_afraid | Yes; as you were, and never mind the shaking.
+post:soldier | thanked_panicked | Of course, yes, go, go, eyes front and go.
+post:soldier | parted_afraid | Be careful; keep your guard up, and your head down.
+post:soldier | parted_panicked | Wait, somebody, somebody tell me where to stand, wait.
+post:soldier | afraid_lead | Right; a breath, and I'll make my report.
+post:soldier | afraid_lead | I'm upright, near enough, and that'll do.
+post:soldier | panicked_lead | At ease, at ease, I'm telling myself at ease, all right.
+post:soldier | panicked_lead | I'm in line, I'm in the line, I'm here, listen.
+post:soldier | calmed | Yes. I'm not steady, but I'm on my feet, and that's something.
+post:soldier | calmed | I'll try; breathing in and out, like they drill us.
+post:soldier | still_afraid | No. Nobody's ordered me calm, and I can't do it on my own.
+post:soldier | still_afraid | Keep away a pace; I need room to fall into line.
+post:soldier | not_afraid | I'm fine; you're looking at my drill face, that's all.
+# ---- post:tower_watch ----
+post:tower_watch | greeted_afraid | Oh, hello; you'll find me short of patience, for once.
+post:tower_watch | greeted_afraid | Hello. Stay a while; I'd rather not be on my own up here.
+post:tower_watch | greeted_panicked | Thank goodness, a voice, a voice; I've no breath left in me.
+post:tower_watch | greeted_panicked | Please, stay, stay, I can't keep my own company, not now.
+post:tower_watch | small_talk_afraid | For once I've no mind for talk; it won't sit still long enough.
+post:tower_watch | small_talk_panicked | No, no, my knees, my knees won't hold, I can't talk.
+post:tower_watch | thanked_afraid | Of course; forgive the shake in my voice.
+post:tower_watch | thanked_panicked | Please, don't, don't thank me, I can't, I can't think.
+post:tower_watch | parted_afraid | Be careful; there's no calm in me to lend you, I'm sorry.
+post:tower_watch | parted_panicked | Wait, one moment more, I'll be alone up here, wait.
+post:tower_watch | afraid_lead | Give me time; I'm slower than usual, and I'm usually slow.
+post:tower_watch | afraid_lead | One step at a time, as on the stair; I'll get there.
+post:tower_watch | panicked_lead | Hm, hm, hm, all right, all right, I'll try.
+post:tower_watch | panicked_lead | Too fast, my heart's too fast, but I'm here, I'm here.
+post:tower_watch | calmed | I'll try; steadying is a kind of waiting, and waiting I know.
+post:tower_watch | calmed | Thank you; slowly, then, and I'm better at slow.
+post:tower_watch | still_afraid | I can't; the shaking won't be hurried, and nor will I.
+post:tower_watch | still_afraid | You don't understand; all the time there is won't be enough.
+post:tower_watch | not_afraid | I'm not afraid; long watches make long faces, nothing more.
+# ---- post:watch_guard ----
+post:watch_guard | greeted_afraid | Hello. Keep it short; my hand won't sit still on the cudgel.
+post:watch_guard | greeted_afraid | Who's there? Make it quick; my nerves are worn thinner than my boots.
+post:watch_guard | greeted_panicked | Stay back, please, just, just stay back, I can't.
+post:watch_guard | greeted_panicked | Wait, wait, not now, my legs won't walk the round, they won't.
+post:watch_guard | small_talk_afraid | I can't stand here chatting; I can barely stand.
+post:watch_guard | small_talk_panicked | Don't, don't make me talk; I can't hold the cudgel still, look.
+post:watch_guard | thanked_afraid | Yes, fine; just move along before I jump out of my boots.
+post:watch_guard | thanked_panicked | Please, go, just, I can't do thanks, I can't.
+post:watch_guard | parted_afraid | Be careful; I'd see you to the corner, but my legs won't have it.
+post:watch_guard | parted_panicked | Please, please, walk a bit of the round with me.
+post:watch_guard | afraid_lead | Hold on; I'm rattled, but I'll manage.
+post:watch_guard | afraid_lead | A breath, just a breath; I'm shaking worse than any drunk on my beat.
+post:watch_guard | panicked_lead | Right, right, right, words, I've got words somewhere.
+post:watch_guard | panicked_lead | These boots won't keep still, these boots, but all right.
+post:watch_guard | calmed | All right. My feet are still shaking, but they're under me.
+post:watch_guard | calmed | Maybe you're right; walking it off, one corner at a time, then.
+post:watch_guard | still_afraid | No. My legs don't believe a word of it.
+post:watch_guard | still_afraid | Stay back a step; give me room and a wall to lean on.
+post:watch_guard | not_afraid | I'm fine; sore feet make a sour face, that's all.
+# ---- post:watch_officer ----
+post:watch_officer | greeted_afraid | Hello. Be brief; I'm, forgive me, I'm not at my best.
+post:watch_officer | greeted_afraid | Wait. The pen, let me put it down; it's shaking more than I am.
+post:watch_officer | greeted_panicked | Oh, please, no, I can't read a line, I can't.
+post:watch_officer | greeted_panicked | Please, please, keep it short, shorter, I can't hold a thought.
+post:watch_officer | small_talk_afraid | Not now; my head won't hold a report, let alone a chat.
+post:watch_officer | small_talk_panicked | The pen, I can't even hold the pen, don't ask me to talk.
+post:watch_officer | thanked_afraid | Of course; it's noted, and so is the tremor in my hand.
+post:watch_officer | thanked_panicked | Yes, yes, noted, noted, go.
+post:watch_officer | parted_afraid | Goodbye; keep yourself out of my reports, I beg you.
+post:watch_officer | parted_panicked | Please, I need someone steady here, please, anyone.
+post:watch_officer | afraid_lead | In brief, then, since brief is all I can manage.
+post:watch_officer | afraid_lead | Forgive the state of the desk, and of me.
+post:watch_officer | panicked_lead | In turn, in turn, one thing, then the next, there.
+post:watch_officer | panicked_lead | The words won't line up, they won't, but here.
+post:watch_officer | calmed | I know, I know; steadier, not steady, but steadier.
+post:watch_officer | calmed | Yes. I'll take it one report at a time, and one breath.
+post:watch_officer | still_afraid | Not yet; my hand's still shaking, and I'll not pretend otherwise on the record.
+post:watch_officer | still_afraid | You don't understand; nothing files this away, however I try.
+post:watch_officer | not_afraid | I'm all right; overworked, and that's a different thing.

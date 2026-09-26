@@ -1024,3 +1024,185 @@ post:clerk | safety_wary_told | Mostly, as I told you.[ I'd still make a note to
 post:clerk | safety_safe_told | Safe enough, as I said, and my files agree.[ The worst I have written down is {worst}.]
 post:clerk | about_place_told | You've had the whole of my file on it: {about}.
 post:clerk | about_place_told | Nothing but what I told you, copied out again: {about}.[ Ask there for {who}.][ Watch for the {around}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- post:storekeeper ----
+post:storekeeper | greeted_afraid | Hello. Forgive me, I'm shaking like a loose lid on a barrel.
+post:storekeeper | greeted_afraid | Who's there? Pardon me; I'm as jumpy as a mouse in the bins.
+post:storekeeper | greeted_panicked | Please, let me be, let me be, my head won't sort one sack from another.
+post:storekeeper | greeted_panicked | Wait, nothing keeps, nothing keeps in my head, nothing, wait.
+post:storekeeper | small_talk_afraid | My head's all mould and muddle; don't ask me to chat.
+post:storekeeper | small_talk_panicked | No, no, no talk, I can't hold a thought, not a crumb of one.
+post:storekeeper | thanked_afraid | Of course; don't mind me, I'm as much use as a wet sack.
+post:storekeeper | thanked_panicked | Yes, yes, fine, fine, I've no head for thanks.
+post:storekeeper | parted_afraid | Be careful, please, be careful; I'm no use for more.
+post:storekeeper | parted_panicked | Please, not yet, just a little longer, don't go.
+post:storekeeper | afraid_lead | Let me gather myself, the way I'd gather spilt grain.
+post:storekeeper | afraid_lead | Don't mind the shake in my voice; I'll keep my words as tidy as my shelves.
+post:storekeeper | panicked_lead | All right, all right, a breath, a breath, and then.
+post:storekeeper | panicked_lead | Half of me's here, half of me's not, but, there, that half will do.
+post:storekeeper | calmed | Thank you. I'm still shaky, but I'm drying out, slowly.
+post:storekeeper | calmed | Maybe you're right. I'm not spoilt yet, not quite.
+post:storekeeper | still_afraid | Not yet; my hands still won't hold a scoop steady.
+post:storekeeper | still_afraid | You don't understand, and I can't sort it out to tell you.
+post:storekeeper | not_afraid | I'm fine; if I look worried, blame the damp, it's always the damp.
+# ---- post:porter ----
+post:porter | greeted_afraid | Oh, you gave me a start; I near dropped the sack on my own feet.
+post:porter | greeted_afraid | Thank goodness; I'm trembling under the load, and glad of a word.
+post:porter | greeted_panicked | Wait, my arms, my arms won't hold, wait.
+post:porter | greeted_panicked | Stay back, stay back, the load's going, mind your feet.
+post:porter | small_talk_afraid | I've no talk in me; I can hardly keep a sack on my shoulder.
+post:porter | small_talk_panicked | No, no talk, my legs are water, I can hardly stand.
+post:porter | thanked_afraid | Don't thank me; I'm not fit to lift a feather.
+post:porter | thanked_panicked | Go on, go, I'm no use, no use to anyone.
+post:porter | parted_afraid | Stay safe; I can't move from here, my legs won't have it.
+post:porter | parted_panicked | Wait, not yet, not yet, my knees won't hold, stay a bit.
+post:porter | afraid_lead | Hold on; I'm shaking so, let me shift this load first.
+post:porter | afraid_lead | Right, my knees are knocking, but I can talk and shake at once.
+post:porter | panicked_lead | My load, my load, I'll set my load down, down, down.
+post:porter | panicked_lead | Too much, too much, all of me shaking, but, but, I'm standing.
+post:porter | calmed | All right. That's a weight off, or some of one.
+post:porter | calmed | Yes. My shoulders are easing, a little.
+post:porter | still_afraid | No; I'm still shaking, sack or no sack.
+post:porter | still_afraid | Easy for you to say; tell that to my knees.
+post:porter | not_afraid | I'm all right; the worst I fear is a split sack.
+# ---- post:merchant ----
+post:merchant | greeted_afraid | Hello. You find me poor company, and a poorer trader.
+post:merchant | greeted_afraid | Stay back a little, please; I'm in no fit state to deal.
+post:merchant | greeted_panicked | Oh, oh, a customer, and me like this, I can't, I can't.
+post:merchant | greeted_panicked | Please, please, no bargains, no, I can't, I can't.
+post:merchant | small_talk_afraid | No chatter from me; I couldn't haggle over a turnip as I am.
+post:merchant | small_talk_panicked | Nothing, nothing, not a word, my head's in pieces, pieces.
+post:merchant | thanked_afraid | Yes, well; I'm in no state to take thanks, shaking as I am.
+post:merchant | thanked_panicked | Please, no thanks, not now, just go, just go.
+post:merchant | parted_afraid | Goodbye, and mind yourself; my own mind's elsewhere.
+post:merchant | parted_panicked | Go, go, no, wait, not yet, not yet, please.
+post:merchant | afraid_lead | Forgive me; my wits are usually quicker than this.
+post:merchant | afraid_lead | Give me a moment; I'm never lost for words, but I am now.
+post:merchant | panicked_lead | Every word, every word sticks in my throat, every one.
+post:merchant | panicked_lead | Keep your head, keep your head, I tell myself, keep it.
+post:merchant | calmed | Maybe you're right. My wits are creeping home, slowly.
+post:merchant | calmed | All right. My nerves and I are haggling, and I'm winning, a little.
+post:merchant | still_afraid | Not yet; I've no heart for anything, not even a good bargain.
+post:merchant | still_afraid | I can't; no deal, not yet.
+post:merchant | not_afraid | Who said I was afraid, at my own stall?
+# ---- post:market_steward ----
+post:market_steward | greeted_afraid | Who's there? Speak up; no, forgive me, my nerves are in shreds.
+post:market_steward | greeted_afraid | Hello. I'm wound as tight as an awning rope.
+post:market_steward | greeted_panicked | Stay back, please, my heart's hammering, hammering, please.
+post:market_steward | greeted_panicked | Wait, I can't even shout, me, I can't, wait.
+post:market_steward | small_talk_afraid | My thoughts won't stand in rows, never mind make small talk.
+post:market_steward | small_talk_panicked | No, no, not now, I can't hear myself, never mind you.
+post:market_steward | thanked_afraid | Please, no need; I did little enough, and did it shaking.
+post:market_steward | thanked_panicked | Go, go, yes, I can't, I can't even manage myself.
+post:market_steward | parted_afraid | Be careful; there, that's as loud as I can make it.
+post:market_steward | parted_panicked | Please, not yet, stay, just stay, don't leave me like this.
+post:market_steward | afraid_lead | Well, I'll be plain, if I can't be loud.
+post:market_steward | afraid_lead | Pardon the croak; I'll make myself heard somehow.
+post:market_steward | panicked_lead | So hoarse, so hoarse, and shaking with it, shaking.
+post:market_steward | panicked_lead | Too loud, it's all too loud in my head, too loud.
+post:market_steward | calmed | I know, I know; I should be keeping order, not needing it. I'm trying.
+post:market_steward | calmed | Thank you. That helps, a little; my voice might follow.
+post:market_steward | still_afraid | No; I can't settle, not yet, not for all the talking.
+post:market_steward | still_afraid | Not yet; my voice is still somewhere I can't reach.
+post:market_steward | not_afraid | There's no need; I'm loud, not frightened, and there's a difference.
+# ---- post:cargo_clerk ----
+post:cargo_clerk | greeted_afraid | Oh. My figures won't stay put, and nor will I.
+post:cargo_clerk | greeted_afraid | Wait, wait there; the weights keep slipping out of my fingers.
+post:cargo_clerk | greeted_panicked | Please, the figures, the figures won't add, nothing adds.
+post:cargo_clerk | greeted_panicked | Who's there? No, don't, don't, I'm off balance, all off.
+post:cargo_clerk | small_talk_afraid | I can't chat; I'd weigh every word wrong.
+post:cargo_clerk | small_talk_panicked | Not now, not now, not an ounce of talk in me.
+post:cargo_clerk | thanked_afraid | Yes, noted, entered, if I can hold the pen.
+post:cargo_clerk | thanked_panicked | Don't thank me, don't, I can't write a figure down, don't.
+post:cargo_clerk | parted_afraid | Go, and go carefully, please; I can't say it better.
+post:cargo_clerk | parted_panicked | Wait, don't, don't leave, not yet, I can't weigh a feather.
+post:cargo_clerk | afraid_lead | I've lost my measure, but I'll find it as I go.
+post:cargo_clerk | afraid_lead | My nerve's short weight, but my tongue will do.
+post:cargo_clerk | panicked_lead | Right, right, level, get level, here goes.
+post:cargo_clerk | panicked_lead | One ounce, one ounce at a time, then, one ounce.
+post:cargo_clerk | calmed | All right. I'm settling, like a beam does, slowly.
+post:cargo_clerk | calmed | Thank you. I'm lighter by an ounce or two, and glad of it.
+post:cargo_clerk | still_afraid | No; I can't weigh a word you say, not yet.
+post:cargo_clerk | still_afraid | Not yet; I can't find my level.
+post:cargo_clerk | not_afraid | I'm all right; a steady hand weighs true, and mine's steady.
+# ---- post:fuel_handler ----
+post:fuel_handler | greeted_afraid | Thank goodness; I needed a word from someone, anyone.
+post:fuel_handler | greeted_afraid | Hello. Don't mind me; I'm black to the elbows and shaking besides.
+post:fuel_handler | greeted_panicked | Oh, oh, the shovel, I can't hold it, I can't hold anything.
+post:fuel_handler | greeted_panicked | Stay back, I'm all soot and nerves, don't, don't touch me.
+post:fuel_handler | small_talk_afraid | Don't ask me to talk; I've dust in my throat and my wits scattered.
+post:fuel_handler | small_talk_panicked | Can't, can't talk, can't think, can't, leave it, leave it.
+post:fuel_handler | thanked_afraid | Of course; that's all I've got in me, and it's not much.
+post:fuel_handler | thanked_panicked | Yes, yes, go, go, my legs won't stand still.
+post:fuel_handler | parted_afraid | Goodbye; go on, go, don't mind the state of me.
+post:fuel_handler | parted_panicked | Stay safe, stay safe, and, and, no, never mind, go.
+post:fuel_handler | afraid_lead | Let me wipe my hands first; the soot hides the shaking, mostly.
+post:fuel_handler | afraid_lead | I'll manage it between coughs; don't mind the rattle.
+post:fuel_handler | panicked_lead | In, out, in, out, all right, I'm breathing, I'm breathing.
+post:fuel_handler | panicked_lead | These hands, these black hands, won't stop, but I'll talk anyway.
+post:fuel_handler | calmed | Maybe you're right. The knot in my chest's loosening.
+post:fuel_handler | calmed | I'll try. The shaking's easing off, some.
+post:fuel_handler | still_afraid | No; I'm as shaky as a stack on soft ground.
+post:fuel_handler | still_afraid | Keep away a moment; give me room to find my breath.
+post:fuel_handler | not_afraid | I'm fine, soot and all; it's only the work.
+# ---- post:toll_clerk ----
+post:toll_clerk | greeted_afraid | Who's there? My hands won't keep the tally still, I'm that jumpy.
+post:toll_clerk | greeted_afraid | Stay back, if you would; I'm shaking, and I can't think with anyone close.
+post:toll_clerk | greeted_panicked | Wait, wait, I can't say next, I can't say anything.
+post:toll_clerk | greeted_panicked | Please, no, no number stays in my head, not one.
+post:toll_clerk | small_talk_afraid | Not now; I can't follow a word past the first.
+post:toll_clerk | small_talk_panicked | One, two, one, two, no, no talk, one, two.
+post:toll_clerk | thanked_afraid | Go on, then, and forgive my manner; I'm all to pieces.
+post:toll_clerk | thanked_panicked | Don't thank me, not now, just, just move along.
+post:toll_clerk | parted_afraid | Please, be careful; I'm no use at the gate like this.
+post:toll_clerk | parted_panicked | Goodbye, goodbye, next, no, don't go, don't.
+post:toll_clerk | afraid_lead | Now then, I'll try, if my wits keep up.
+post:toll_clerk | afraid_lead | I'm rattled through and through; bear with me.
+post:toll_clerk | panicked_lead | Next, not next, I mean, I mean, just a moment.
+post:toll_clerk | panicked_lead | Hold on, hold on, I've lost count of my own words.
+post:toll_clerk | calmed | Thank you. I can hold a count, or near enough.
+post:toll_clerk | calmed | I'll try. A deep breath first, and then we'll see.
+post:toll_clerk | still_afraid | No; my heart's still racing, and talk won't slow it.
+post:toll_clerk | still_afraid | Not yet; I'm stuck fast, like a wheel in a rut.
+post:toll_clerk | not_afraid | I'm not afraid; I've a gate to mind, and no time for fright.
+# ---- post:treasurer ----
+post:treasurer | greeted_afraid | Who's there? You will excuse me; I am not myself.
+post:treasurer | greeted_afraid | Stay back, please. I need a moment to collect myself.
+post:treasurer | greeted_panicked | Please, I cannot, I cannot keep my voice level, please.
+post:treasurer | greeted_panicked | Wait, I am not, I am not fit to be seen, wait.
+post:treasurer | small_talk_afraid | I cannot make conversation; my mind will not stay on anything, which is not like me.
+post:treasurer | small_talk_panicked | No, no, conversation, now, I cannot, I cannot.
+post:treasurer | thanked_afraid | Of course; forgive the brevity, it is all I can manage.
+post:treasurer | thanked_panicked | Don't thank me, do not, I cannot bear it, go.
+post:treasurer | parted_afraid | Goodbye, and be careful; I say it twice, be careful.
+post:treasurer | parted_panicked | Please, do not go, not yet, I beg you, not yet.
+post:treasurer | afraid_lead | One moment; I shall be precise, if not steady.
+post:treasurer | afraid_lead | I shall do my best, though you must excuse my hands.
+post:treasurer | panicked_lead | I am composed, I am composed, I am, very nearly.
+post:treasurer | panicked_lead | Very well, very well, I shall, I shall try.
+post:treasurer | calmed | Yes. That is a little better; I will allow that much.
+post:treasurer | calmed | Thank you. I would not call myself steady, but I am steadier.
+post:treasurer | still_afraid | No; I cannot, and I will not pretend I can.
+post:treasurer | still_afraid | Not yet; time, I need time.
+post:treasurer | not_afraid | There's no need; I am merely careful, as ever.
+# ---- post:clerk ----
+post:clerk | greeted_afraid | Oh, hello. Forgive the blots; nerves, not carelessness.
+post:clerk | greeted_afraid | Hello. I'm sorry; I'm in a state, and it shows in every line I write.
+post:clerk | greeted_panicked | Wait, wait, the ink, I've blotted it, I've blotted all of it.
+post:clerk | greeted_panicked | Please, I can't read a line, not a line, please.
+post:clerk | small_talk_afraid | What, chat, with my heart in my mouth and ink on my cuffs?
+post:clerk | small_talk_panicked | No, the words run like wet ink, not a word stays, no.
+post:clerk | thanked_afraid | Yes, of course; I only wish I'd been steadier about it.
+post:clerk | thanked_panicked | Please, please, don't, I've ink on everything, don't.
+post:clerk | parted_afraid | Be careful; don't mind my fretting, please.
+post:clerk | parted_panicked | Wait, not yet, don't go, I'll lose my place, I'll lose it.
+post:clerk | afraid_lead | Let me find my place; my eyes keep skipping lines.
+post:clerk | afraid_lead | Forgive the stammer; I'll set it down word by word.
+post:clerk | panicked_lead | The page, the page is swimming, every letter, every letter swims.
+post:clerk | panicked_lead | My hand, look at my hand, shaking, shaking, but I'll try.
+post:clerk | calmed | Thank you. The words are settling, like ink drying.
+post:clerk | calmed | Maybe you're right. My hand's slowing, even if my heart isn't.
+post:clerk | still_afraid | I can't; every thought blots before I can read it.
+post:clerk | still_afraid | No; not yet, and I couldn't say why.
+post:clerk | not_afraid | I'm fine, truly; I've only a page to finish.

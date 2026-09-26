@@ -831,3 +831,25 @@ mastermind/NE | safety_wary_told | More or less, as I told you[; the one to avoi
 mastermind/NE | safety_safe_told | Safe enough, still, as I said.[ If you go near {worst}, that's your concern.]
 mastermind/NE | about_place_told | You've had all I know of it; it's {about}.[ Ask for {who}, if they're of use.]
 mastermind/NE | about_place_told | I told you what I know, and it's {about}; there's no more to squeeze out of me.
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- mastermind/NN ----
+mastermind/NN | greeted_afraid | Oh. You've caught me a step behind myself.
+mastermind/NN | greeted_afraid | Wait. I've no plan for company just now, so go slowly.
+mastermind/NN | greeted_panicked | Who's there? I can't, there's no plan, there's no plan.
+mastermind/NN | greeted_panicked | Please, not now, I can't see two moves ahead, I can't see one.
+mastermind/NN | small_talk_afraid | I can't talk idly; my head's trying to plan and getting nowhere.
+mastermind/NN | small_talk_panicked | Nothing, nothing adds up, don't, not now.
+mastermind/NN | thanked_afraid | Yes, yes; it goes in the reckoning, later.
+mastermind/NN | thanked_panicked | Please, nothing, I can't weigh anything now, go.
+mastermind/NN | parted_afraid | Goodbye, and keep a fallback; I've none just now.
+mastermind/NN | parted_panicked | Go, go, I'll think of something, go.
+mastermind/NN | afraid_lead | My thoughts won't line up, but here's what I have.
+mastermind/NN | afraid_lead | I'll keep this short; my head won't stretch any further.
+mastermind/NN | panicked_lead | Just answer, just answer, the rest can wait.
+mastermind/NN | panicked_lead | One move at a time, one move, one.
+mastermind/NN | calmed | I'll try. I can see the next move, if not the one after.
+mastermind/NN | calmed | All right. That's a footing, and I can build a plan on a footing.
+mastermind/NN | still_afraid | Not yet. I've no fallback, and I can't settle without one.
+mastermind/NN | still_afraid | I can't. My head's still running every way at once.
+mastermind/NN | not_afraid | I'm not afraid; I've a plan, and a second one behind it.

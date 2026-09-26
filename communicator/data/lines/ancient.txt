@@ -359,3 +359,25 @@ ancient/NN | safety_wary_told | More or less, same as I told you[; give a wide b
 ancient/NN | safety_safe_told | Aye, as I told you; nothing to lose sleep over.[ The only trouble is {worst}, if you go looking for it.]
 ancient/NN | about_place_told | That's the whole of what I know, and you've had it: {about}.
 ancient/NN | about_place_told | Only what I told you: {about}; take your time weighing it.[ Keep well off the {around}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- ancient/NN ----
+ancient/NN | greeted_afraid | Oh. Forgive me; I'm not usually so easily startled.
+ancient/NN | greeted_afraid | Who's there? Say so plainly; I'm in no state for guessing.
+ancient/NN | greeted_panicked | Stay back! Say it quickly, quickly, whatever you want.
+ancient/NN | greeted_panicked | Wait, wait; I can't think, I can't.
+ancient/NN | small_talk_afraid | I can't make talk just now. My mind won't stay where I put it.
+ancient/NN | small_talk_panicked | Not now, not now; I haven't a thought to spare.
+ancient/NN | thanked_afraid | Of course, of course; we'll square it some other time.
+ancient/NN | thanked_panicked | Don't thank me, don't; just go, go.
+ancient/NN | parted_afraid | Be careful, and hurry; that's not advice I often give.
+ancient/NN | parted_panicked | Go, go; don't waste a moment on me.
+ancient/NN | afraid_lead | Let me gather myself; I'm slower about it than I'd like.
+ancient/NN | afraid_lead | I'll answer, though not as calmly as I'm used to.
+ancient/NN | panicked_lead | Now, slowly, slowly; let me think.
+ancient/NN | panicked_lead | I'm trying, I'm trying, give me that.
+ancient/NN | calmed | Maybe you're right; fear's a poor use of time. Give me a little longer.
+ancient/NN | calmed | All right. I've time to find my feet again, if nothing else.
+ancient/NN | still_afraid | Not yet. Don't hurry me; I'll steady when I steady.
+ancient/NN | still_afraid | No. My hands haven't heard a word of it.
+ancient/NN | not_afraid | There's no need; I'm in no hurry to be frightened.

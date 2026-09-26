@@ -831,3 +831,25 @@ kingmaker/LE | safety_wary_told | Careful; I have advised you already, and my ad
 kingmaker/LE | safety_safe_told | Yes, and you have that from me already; my answers do not shift to suit the asker.[ The one hazard worth your notice remains {worst}.]
 kingmaker/LE | about_place_told | You have already had all I know of it: {about}.[ Should you call on {who}, do be brief.]
 kingmaker/LE | about_place_told | I told you of {about}, and I have nothing to add to it.[ Heed the {around}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- kingmaker/NN ----
+kingmaker/NN | greeted_afraid | Oh. I beg your pardon; I can't see one move ahead.
+kingmaker/NN | greeted_afraid | Who's there? Say who you are; I can't work it out like this.
+kingmaker/NN | greeted_panicked | Wait, hold, I've no plan, no plan at all, wait.
+kingmaker/NN | greeted_panicked | Thank goodness, a face, any face, stay, stay a moment.
+kingmaker/NN | small_talk_afraid | I can't plan past my next breath, never mind chat.
+kingmaker/NN | small_talk_panicked | Nothing, I've nothing, not one idea in my head.
+kingmaker/NN | thanked_afraid | Don't thank me; I've hardly been worth the asking.
+kingmaker/NN | thanked_panicked | Go, go, favours later, go.
+kingmaker/NN | parted_afraid | Stay safe; think ahead, since I can't.
+kingmaker/NN | parted_panicked | Please, stay, I need someone, anyone, please.
+kingmaker/NN | afraid_lead | I've lost a few threads, but I'll try.
+kingmaker/NN | afraid_lead | One moment; I'm little use to anyone shaking like this.
+kingmaker/NN | panicked_lead | I'll try to be useful, I'll try, I'll try.
+kingmaker/NN | panicked_lead | All right, think, think, I'm thinking.
+kingmaker/NN | calmed | Maybe you're right. I can see a step ahead, at least.
+kingmaker/NN | calmed | Thank you. That helped, and I keep track of who helps.
+kingmaker/NN | still_afraid | No. I'm still no use to myself, let alone anyone else.
+kingmaker/NN | still_afraid | Stay back a little; give me room to gather my wits.
+kingmaker/NN | not_afraid | I'm not afraid; I save that for things that deserve it.

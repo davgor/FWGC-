@@ -833,3 +833,25 @@ deceiver/NN | safety_wary_told | More or less, as I told you; nothing's shifted[
 deceiver/NN | safety_safe_told | Aye, as I told you, and that's the honest answer.[ I'd still be wary of {worst}.]
 deceiver/NN | about_place_told | Nothing more than I told you, and I told it straight: {about}.
 deceiver/NN | about_place_told | What I told you is what I know: {about}. It's worth as much now as it was then.[ The work's there, if you want it: {work}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- deceiver/NN ----
+deceiver/NN | greeted_afraid | Who's there? Oh; keep it simple, I'm not at my sharpest.
+deceiver/NN | greeted_afraid | Wait. Let me get a look at you; I'm jumpy.
+deceiver/NN | greeted_panicked | Stay back! No games, no, not now.
+deceiver/NN | greeted_panicked | Hello, yes, hello; what, what do you want?
+deceiver/NN | small_talk_afraid | I'm sorry; idle talk slips straight past me.
+deceiver/NN | small_talk_panicked | No, no, I can't, my head's spinning.
+deceiver/NN | thanked_afraid | Of course; I'm hardly listening, forgive me.
+deceiver/NN | thanked_panicked | Go, go; we're square, just go.
+deceiver/NN | parted_afraid | Be careful, and keep your eyes open.
+deceiver/NN | parted_panicked | Please, go on, go; I'll manage, I'll manage.
+deceiver/NN | afraid_lead | Give me a moment to steady my voice.
+deceiver/NN | afraid_lead | Only the plain answer, then; my head's not up to more.
+deceiver/NN | panicked_lead | All right, all right, just don't rush me.
+deceiver/NN | panicked_lead | Stay there, stay there, and I'll say it.
+deceiver/NN | calmed | Yes. That helps; I won't pretend it doesn't.
+deceiver/NN | calmed | All right. Keep talking like that; it's working, slowly.
+deceiver/NN | still_afraid | No; words are cheap, and I'm not steady yet.
+deceiver/NN | still_afraid | Stay back. I'll settle when I can see straight.
+deceiver/NN | not_afraid | I'm fine; no games, I'm simply not afraid.

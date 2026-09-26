@@ -707,3 +707,25 @@ zealot/CG | safety_wary_told | Mostly - I said so, and I say so still.[ But {wor
 zealot/CG | safety_safe_told | It's safe - I told you, didn't I?[ Just not {worst}; that's all I ask.]
 zealot/CG | about_place_told | I've told you all I know of it - every bit, I promise: {about}.[ If you see {who}, bless them for me.]
 zealot/CG | about_place_told | Ah, {about}! Only what I told you - but I'll say it again if it helps.[ The {around} - stay well back from them.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- zealot/NN ----
+zealot/NN | greeted_afraid | Oh. Forgive me; my faith's steadier than my hands.
+zealot/NN | greeted_afraid | Thank goodness; faith holds, but it's good to see a face.
+zealot/NN | greeted_panicked | Please, pray with me, or, or just stand there, only stay!
+zealot/NN | greeted_panicked | Wait, don't speak yet, one prayer first, just one!
+zealot/NN | small_talk_afraid | I've no small talk; I'm praying under my breath, and it takes all of it.
+zealot/NN | small_talk_panicked | No, no, don't, I've lost my place in the prayer, don't!
+zealot/NN | thanked_afraid | Please, give your thanks to faith, not me, and go carefully.
+zealot/NN | thanked_panicked | Don't thank me, pray, just pray, and go!
+zealot/NN | parted_afraid | Goodbye, and say a prayer as you go, for both of us.
+zealot/NN | parted_panicked | Please, please don't, don't leave me with only my prayers!
+zealot/NN | afraid_lead | A breath and a prayer, and you'll have your answer.
+zealot/NN | afraid_lead | First faith, then words; let me steady myself.
+zealot/NN | panicked_lead | Give me strength, give me strength, just a little!
+zealot/NN | panicked_lead | Hold fast, hold fast, the words will come!
+zealot/NN | calmed | Yes. That was a mercy, and I'm grateful for it.
+zealot/NN | calmed | I know, I know. This fear's only doubt in a hurry, and I'll hold to what I believe.
+zealot/NN | still_afraid | Not yet; the prayers come, but the calm doesn't.
+zealot/NN | still_afraid | You don't understand; faith is what I have, and it's barely enough.
+zealot/NN | not_afraid | There's no need; my faith's in good order, and so am I.

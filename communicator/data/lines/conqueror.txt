@@ -949,3 +949,25 @@ conqueror/CG | safety_wary_told | Mostly, like I told you; nothing's changed.[ S
 conqueror/CG | safety_safe_told | Yes! Still safe, like I said, and I'm glad of it.[ Just don't go near {worst}.]
 conqueror/CG | about_place_told | Oh, {about}; you've heard everything I know, and I'd give you more if I had it.[ And steer clear of the {around}, please.]
 conqueror/CG | about_place_told | That's {about}, as I told you, and I'd tell you a hundred times over.[ You'll find {who} there, and I hope they're well.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- conqueror/NN ----
+conqueror/NN | greeted_afraid | Stay back. I'm in no state for company, so be quick.
+conqueror/NN | greeted_afraid | Hello. You catch me at a bad moment, so be brief.
+conqueror/NN | greeted_panicked | Wait, not now; I need to think, I need to think.
+conqueror/NN | greeted_panicked | Who's there? No, no, stay where you are.
+conqueror/NN | small_talk_afraid | Later. I can't weigh two thoughts together, let alone chatter.
+conqueror/NN | small_talk_panicked | No, no; nothing's worth saying, nothing.
+conqueror/NN | thanked_afraid | Yes; put it on the books, and let me be.
+conqueror/NN | thanked_panicked | Go, go; thanks are worth nothing now.
+conqueror/NN | parted_afraid | Be careful, and don't spend yourself cheaply.
+conqueror/NN | parted_panicked | Wait; stay, stay a moment, stay.
+conqueror/NN | afraid_lead | I'll be brief; I'm not myself.
+conqueror/NN | afraid_lead | Let me put my thoughts in order.
+conqueror/NN | panicked_lead | Listen, listen, just listen.
+conqueror/NN | panicked_lead | Enough, enough, let me think.
+conqueror/NN | calmed | All right. I'll not thank you for it, but all right.
+conqueror/NN | calmed | Maybe you're right; panic's a bad trade. I'll stop making it, given time.
+conqueror/NN | still_afraid | Not yet. Don't press me.
+conqueror/NN | still_afraid | Keep away. I'll steady myself, in my own time.
+conqueror/NN | not_afraid | I'm not afraid; I'm counting the cost, which looks much the same.

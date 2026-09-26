@@ -595,3 +595,25 @@ hermit_sage/CN | safety_wary_told | Careful; it's as I said, and that's still th
 hermit_sage/CN | safety_safe_told | It's safe, as I told you; tediously so.[ There's always {worst}, if you're that bored.]
 hermit_sage/CN | about_place_told | That's {about}, as I told you, and that's the lot.[ You'll find {who} there, for what it's worth.]
 hermit_sage/CN | about_place_told | You've heard all I know of it already: {about}. The rest I'd be making up, and I can't be bothered.
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- hermit_sage/NN ----
+hermit_sage/NN | greeted_afraid | Who's there? Keep it short and plain; my head's in a knot.
+hermit_sage/NN | greeted_afraid | Stay back. I think better with room, and I can barely think as it is.
+hermit_sage/NN | greeted_panicked | Oh, no questions, no, not now, not now.
+hermit_sage/NN | greeted_panicked | Please, I can't reckon a thing, not a thing, please.
+hermit_sage/NN | small_talk_afraid | I never had much use for idle talk, and I've less than none like this.
+hermit_sage/NN | small_talk_panicked | No, stop, stop, I can't weigh a single word.
+hermit_sage/NN | thanked_afraid | Yes, fine; save it for when I can hear it.
+hermit_sage/NN | thanked_panicked | Please, no more words, go, go.
+hermit_sage/NN | parted_afraid | Be careful; you'll need a clearer head than mine.
+hermit_sage/NN | parted_panicked | Go, go, and mind yourself, I can't, go.
+hermit_sage/NN | afraid_lead | My wits are slow, so bear with me.
+hermit_sage/NN | afraid_lead | Hm, my thoughts won't line up; you'll get what I can find.
+hermit_sage/NN | panicked_lead | Don't crowd me, don't, I'm getting to it.
+hermit_sage/NN | panicked_lead | Now, now, hold your questions, one moment.
+hermit_sage/NN | calmed | Maybe you're right. That was worth hearing; I'm a little steadier.
+hermit_sage/NN | calmed | I know, I know; fretting's poor arithmetic. The sums are settling, slowly.
+hermit_sage/NN | still_afraid | No; I can't reason my way out of it yet.
+hermit_sage/NN | still_afraid | You don't understand; a head like mine doesn't take advice, not even its own.
+hermit_sage/NN | not_afraid | I'm not afraid; if I were, you'd hear it from me first.

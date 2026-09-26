@@ -949,3 +949,25 @@ reluctant_hero/LE | safety_wary_told | Keep your wits about you, as I advised[, 
 reluctant_hero/LE | safety_safe_told | It's safe, as I have said, and my word has not changed.[ I would still not advise straying toward {worst}.]
 reluctant_hero/LE | about_place_told | I have told you all the office knows of it: {about}.[ The {around} remain your affair, not the office's.]
 reluctant_hero/LE | about_place_told | I see no cause to add to what I told you: {about}.[ Should you require work, {work}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- reluctant_hero/NN ----
+reluctant_hero/NN | greeted_afraid | Oh. Of course someone wants me now, with my hands like this.
+reluctant_hero/NN | greeted_afraid | Hello. I'm holding together, mostly, so don't look too closely.
+reluctant_hero/NN | greeted_panicked | Thank goodness, someone else, anyone else; I can't be the one, not now!
+reluctant_hero/NN | greeted_panicked | Stay back, please, I've no room for one more thing, not one!
+reluctant_hero/NN | small_talk_afraid | Me, chat? I've barely enough in me to stand here.
+reluctant_hero/NN | small_talk_panicked | Now? You want to talk now, when I can't even, I can't!
+reluctant_hero/NN | thanked_afraid | Yes, yes, fine; just don't make me worry about you as well.
+reluctant_hero/NN | thanked_panicked | Don't thank me, I've enough to carry, I can't!
+reluctant_hero/NN | parted_afraid | Stay safe; I've enough to worry about without you.
+reluctant_hero/NN | parted_panicked | Wait, no, don't go, don't leave it all to me!
+reluctant_hero/NN | afraid_lead | Fine; I'll manage it, for my sins, shaking or not.
+reluctant_hero/NN | afraid_lead | Right; a breath first, then I'll drag it out of my head.
+reluctant_hero/NN | panicked_lead | Somebody has to, somebody, fine, fine, it's me!
+reluctant_hero/NN | panicked_lead | Of all the, never mind, never mind, listen!
+reluctant_hero/NN | calmed | All right. I'm still not happy about any of it, but all right.
+reluctant_hero/NN | calmed | I know, I know. Somebody has to keep their head, and it's me, apparently.
+reluctant_hero/NN | still_afraid | Easy for you to say; I'm the one whose knees won't hold.
+reluctant_hero/NN | still_afraid | No, not yet; I'm worn to a thread.
+reluctant_hero/NN | not_afraid | Who said I was afraid, when I'm only tired, as usual?

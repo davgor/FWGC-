@@ -852,3 +852,25 @@ fractured_heart/NN | safety_wary_told | More or less, and that hasn't changed si
 fractured_heart/NN | safety_safe_told | Safe enough; I'd give you the same answer whichever of us you asked.[ The one to leave alone is {worst}.]
 fractured_heart/NN | about_place_told | Nothing more than you've already heard: {about}.[ You'll find {who} there; make of them what you will.]
 fractured_heart/NN | about_place_told | That's {about}; whichever of us told you, you've had all I know.[ Mind the {around}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- fractured_heart/NN ----
+fractured_heart/NN | greeted_afraid | Wait. I need a breath first, then ask what you like.
+fractured_heart/NN | greeted_afraid | Oh. I'm shaky, plain as that.
+fractured_heart/NN | greeted_panicked | Stay back, stay back, give me air, please, air.
+fractured_heart/NN | greeted_panicked | Thank goodness, a voice, just keep talking, keep talking.
+fractured_heart/NN | small_talk_afraid | There's no chat in me, not like this.
+fractured_heart/NN | small_talk_panicked | Don't, not now, my head's all, I can't.
+fractured_heart/NN | thanked_afraid | Of course; we're square, I think.
+fractured_heart/NN | thanked_panicked | Go on, fair's fair, go on.
+fractured_heart/NN | parted_afraid | Stay safe; that's all I've got in me.
+fractured_heart/NN | parted_panicked | Wait, don't go, not yet, I'm not, not yet.
+fractured_heart/NN | afraid_lead | I'm shaking, fair warning, so take the answer as it comes.
+fractured_heart/NN | afraid_lead | Only plain words, then; that's all I can manage.
+fractured_heart/NN | panicked_lead | Right, right, give me, give me a breath.
+fractured_heart/NN | panicked_lead | Wait, wait, I'll manage, I'll manage.
+fractured_heart/NN | calmed | Yes. That helps some, and I'll hold to it.
+fractured_heart/NN | calmed | Maybe you're right. I'll give it a little longer and see how I stand.
+fractured_heart/NN | still_afraid | Not yet; I can't help it, and there's no use pushing.
+fractured_heart/NN | still_afraid | Keep away a little; I need room, and time, and that's all.
+fractured_heart/NN | not_afraid | I'm fine, plainly, though it's fair of you to ask.

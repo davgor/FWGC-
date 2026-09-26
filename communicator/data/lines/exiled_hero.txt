@@ -949,3 +949,25 @@ exiled_hero/NE | safety_wary_told | More or less, as I said, if you've any sense
 exiled_hero/NE | safety_safe_told | Yes, safe, and you've heard why from me once already.[ Keep out of {worst}, and you'll stay useful.]
 exiled_hero/NE | about_place_told | I've told you all I know of {about}, and there's no more where that came from.
 exiled_hero/NE | about_place_told | It's {about}, like I said.[ Find out what use {who} can be to you.][ The {around} are your lookout.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- exiled_hero/NN ----
+exiled_hero/NN | greeted_afraid | Hello. You find me shaken, so be quick and plain.
+exiled_hero/NN | greeted_afraid | Oh. Say what you need; I'll manage, somehow.
+exiled_hero/NN | greeted_panicked | Please, I don't beg, but please, not now.
+exiled_hero/NN | greeted_panicked | Thank goodness, someone; don't go, don't.
+exiled_hero/NN | small_talk_afraid | I'd rather be doing than talking; my hands need something to hold.
+exiled_hero/NN | small_talk_panicked | I can't, not now, I can't make my head work.
+exiled_hero/NN | thanked_afraid | Yes, yes; I'll reckon it up later.
+exiled_hero/NN | thanked_panicked | Please, there's nothing to thank me for, go, go.
+exiled_hero/NN | parted_afraid | Stay safe; do that much for me.
+exiled_hero/NN | parted_panicked | Wait, not yet, please; just a little longer.
+exiled_hero/NN | afraid_lead | I'll tell you what I can, shaking or not.
+exiled_hero/NN | afraid_lead | Let me steady myself first.
+exiled_hero/NN | panicked_lead | Right, right, all right, I'll say it.
+exiled_hero/NN | panicked_lead | Please, just, a moment, just a moment.
+exiled_hero/NN | calmed | All right. That's steadier; I'll build on it.
+exiled_hero/NN | calmed | Thank you. I don't take help easily, so take that as meant.
+exiled_hero/NN | still_afraid | Not yet. I'll say when.
+exiled_hero/NN | still_afraid | You don't understand. I can't just decide to be steady.
+exiled_hero/NN | not_afraid | I'm not afraid, only busy, and busy can look grim.

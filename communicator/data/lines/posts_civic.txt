@@ -685,3 +685,125 @@ post:scribe | safety_wary_told | More or less, as I told you, and I'd copy it ou
 post:scribe | safety_safe_told | Aye, safe; nothing to add to what I told you.[ Just not {worst}.]
 post:scribe | about_place_told | Every line I have on it, you've had: {about}.
 post:scribe | about_place_told | Not a word more than I told you: {about}.[ Watch for the {around}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- post:administrator ----
+post:administrator | greeted_afraid | Oh. One moment; my hand won't hold the seal steady.
+post:administrator | greeted_afraid | Hello. Be brief, please; I'm in no state for a long petition.
+post:administrator | greeted_panicked | Wait, wait! I can't read my own hand, I can't!
+post:administrator | greeted_panicked | Stay back from the desk, stay back! I can't sort a thing, not a thing!
+post:administrator | small_talk_afraid | My head's no place for conversation; I've read the same entry over and over and taken none of it in.
+post:administrator | small_talk_panicked | I can't, I can't, I can barely sign my own name!
+post:administrator | thanked_afraid | Of course; forgive me, I can't keep my thoughts on anything.
+post:administrator | thanked_panicked | Yes, yes, filed, sealed, now go!
+post:administrator | parted_afraid | Be careful; I've enough on my desk without fretting over you as well.
+post:administrator | parted_panicked | Go, go, no more petitions, I can't, go!
+post:administrator | afraid_lead | Give me a moment; the columns won't keep still for me.
+post:administrator | afraid_lead | Never mind the state of me; the rolls say what they say.
+post:administrator | panicked_lead | Wait, wait, the rolls, let me, let me think.
+post:administrator | panicked_lead | First things first, first things first, all right.
+post:administrator | calmed | All right. I'll take things in order; I can manage that much.
+post:administrator | calmed | Maybe you're right. My hand's steadier, if not yet steady.
+post:administrator | still_afraid | Not yet. I can't make a single column add.
+post:administrator | still_afraid | I can't. I've tried telling myself the same, and my hands won't have it.
+post:administrator | not_afraid | I'm not afraid; I'm busy, which looks much the same from across a desk.
+# ---- post:court_clerk ----
+post:court_clerk | greeted_afraid | Who's there? Forgive me; my letters are wandering all over the page.
+post:court_clerk | greeted_afraid | Hello. Speak slowly, please; I'm not keeping up as I should.
+post:court_clerk | greeted_panicked | Please, slower, slower, I can't get any of it down!
+post:court_clerk | greeted_panicked | Wait, wait! I've lost my place, I've lost it!
+post:court_clerk | small_talk_afraid | I can't make talk; I keep writing the same word and never the next.
+post:court_clerk | small_talk_panicked | Not a word, I can't keep hold of a single word, not one!
+post:court_clerk | thanked_afraid | Yes, noted; my hand's too unsteady to enter it.
+post:court_clerk | thanked_panicked | Please, never mind that, never mind, just go!
+post:court_clerk | parted_afraid | Stay safe; I'd have you remember that word for word.
+post:court_clerk | parted_panicked | Goodbye, yes, I, wait, I haven't got it all down!
+post:court_clerk | afraid_lead | Let me steady myself; shaking is no excuse for a wrong word.
+post:court_clerk | afraid_lead | The words will be exact, whatever my voice does.
+post:court_clerk | panicked_lead | Wait, I have to get it right, I have to, I have to.
+post:court_clerk | panicked_lead | Let me, let me get it in order, word for word, word for word.
+post:court_clerk | calmed | Thank you. That's steadier; I could nearly write my own name.
+post:court_clerk | calmed | I'll try. A clean page, and a moment, and I'll manage.
+post:court_clerk | still_afraid | No. My hand won't keep a straight line, however you put it.
+post:court_clerk | still_afraid | You don't understand. Every word I set down comes out crooked.
+post:court_clerk | not_afraid | I'm all right; I simply look like this when I'm listening closely.
+# ---- post:magistrate ----
+post:magistrate | greeted_afraid | Who's there? Say it plainly; I've no patience for surprises.
+post:magistrate | greeted_afraid | Stay back a pace. I'll hear you, but from there.
+post:magistrate | greeted_panicked | Wait! No, I can't weigh a word you say, I can't!
+post:magistrate | greeted_panicked | Please, please, I can't sit in judgement of anything, I can't!
+post:magistrate | small_talk_afraid | Let's not pretend to pleasantries; my thoughts won't come to order.
+post:magistrate | small_talk_panicked | No talk, not now, my wits won't sit still!
+post:magistrate | thanked_afraid | Yes; I hear you, though my mind's elsewhere.
+post:magistrate | thanked_panicked | Don't thank me, save it, save it, go!
+post:magistrate | parted_afraid | Go carefully; I've no more counsel in me than that.
+post:magistrate | parted_panicked | Please, go, go, I can't answer for anyone, go!
+post:magistrate | afraid_lead | I'll not be hurried, least of all by my own nerves.
+post:magistrate | afraid_lead | My hands may shake, but my answer won't.
+post:magistrate | panicked_lead | Hold, hold, let me think, let me think.
+post:magistrate | panicked_lead | I'm trying, I'm trying to keep my head.
+post:magistrate | calmed | Maybe you're right. I'll grant that much, and no more yet.
+post:magistrate | calmed | Yes. That was fairly said, and I'm the steadier for it.
+post:magistrate | still_afraid | Not yet. I'll rule on that myself, when I'm steady, and I'm not.
+post:magistrate | still_afraid | Easy for you to say; fair words weigh little with me just now.
+post:magistrate | not_afraid | There's no need; I'm grave by trade, not by fright.
+# ---- post:teacher ----
+post:teacher | greeted_afraid | Hello. Don't mind me; I tell the children not to fidget, and look at me.
+post:teacher | greeted_afraid | Who's there? Oh, forgive me; I'm jumpier than my whole class put together.
+post:teacher | greeted_panicked | Thank goodness, a grown voice! I can't, I can't keep order, not even in my head!
+post:teacher | greeted_panicked | Please, please, one question at a time, I can't think!
+post:teacher | small_talk_afraid | No chatting just now; I've lost my thread, and I never lose my thread.
+post:teacher | small_talk_panicked | I can't string two words together, and words are my whole trade!
+post:teacher | thanked_afraid | Yes, yes, that's nicely said; give me a moment.
+post:teacher | thanked_panicked | Go, go, never mind manners now, just go!
+post:teacher | parted_afraid | Stay safe, and that's not a suggestion.
+post:teacher | parted_panicked | Wait, don't, I can't mind anyone, not even myself!
+post:teacher | afraid_lead | A breath first, the way I teach it.
+post:teacher | afraid_lead | Forgive the shake in my voice; I'll still say it clearly.
+post:teacher | panicked_lead | Right, right, sit up straight and think, I can do this.
+post:teacher | panicked_lead | Now, now, chin up, chin up, I'll manage.
+post:teacher | calmed | I know, I know. My own advice to the children, and I ought to take it.
+post:teacher | calmed | Thank you. That's better; not good, but better.
+post:teacher | still_afraid | No. I know the lesson; I just can't learn it yet.
+post:teacher | still_afraid | I can't. I'll settle when I'm good and ready, and not before.
+post:teacher | not_afraid | Who said I was afraid, when all I've done is frown?
+# ---- post:librarian ----
+post:librarian | greeted_afraid | Oh, you gave me such a start; I'm all to pieces.
+post:librarian | greeted_afraid | Hello. Forgive the whisper; it's all the voice I have.
+post:librarian | greeted_panicked | Please, I, please, I can't find a single thought!
+post:librarian | greeted_panicked | Thank goodness, someone! I can't, I can't settle to anything.
+post:librarian | small_talk_afraid | My mind's not on talk; I keep putting books on the wrong shelf.
+post:librarian | small_talk_panicked | Oh, no, no, the words won't stay on the page!
+post:librarian | thanked_afraid | Of course; don't mind my hands, they won't keep still.
+post:librarian | thanked_panicked | Please, no thanks, please, just be careful!
+post:librarian | parted_afraid | Be careful, won't you; I fret enough as it is.
+post:librarian | parted_panicked | Wait, please, please, don't leave me with only the shelves!
+post:librarian | afraid_lead | Let me gather my thoughts the way I'd gather dropped pages.
+post:librarian | afraid_lead | Forgive me, I'm all of a flutter, but I'll do my best.
+post:librarian | panicked_lead | One moment, one moment, I'm looking, I'm looking.
+post:librarian | panicked_lead | Oh, my, oh, my, the words, I'll find the words.
+post:librarian | calmed | Thank you. You said it softly, and that helps.
+post:librarian | calmed | Maybe you're right. A moment with a book in my hands, and I'll be steadier.
+post:librarian | still_afraid | Not yet. Please, a little longer, and a little quieter.
+post:librarian | still_afraid | I can't. None of it will go in, not yet.
+post:librarian | not_afraid | I'm fine, truly; a hushed voice isn't a frightened one.
+# ---- post:scribe ----
+post:scribe | greeted_afraid | Who's there? Mind the desk; my hand's shaking enough as it is.
+post:scribe | greeted_afraid | Oh. You made me blot the line.
+post:scribe | greeted_panicked | Wait, wait, the pen, I can't hold the pen!
+post:scribe | greeted_panicked | Stay back, don't jog me, don't, I can't!
+post:scribe | small_talk_afraid | Not now; I've spoiled page after page, and talk won't mend it.
+post:scribe | small_talk_panicked | No, no, the nib won't, nothing will, I can't!
+post:scribe | thanked_afraid | Of course; the page wants me, shaking or not.
+post:scribe | thanked_panicked | Don't thank me, don't, the ink, just go!
+post:scribe | parted_afraid | Goodbye; careful as you go, and forgive the blots.
+post:scribe | parted_panicked | Go, or stay, I don't know, I don't know!
+post:scribe | afraid_lead | I'll put the pen down, since it won't keep still.
+post:scribe | afraid_lead | One moment, I've lost my line, and my nerve with it.
+post:scribe | panicked_lead | The pen, the pen, never mind the pen, listen.
+post:scribe | panicked_lead | I can, I can, just let me think.
+post:scribe | calmed | All right. A line or two, slowly, and we'll see.
+post:scribe | calmed | Yes. The pen might stay in my fingers now.
+post:scribe | still_afraid | No. I've blotted every line I've tried, and I can't stop.
+post:scribe | still_afraid | Keep away from the desk a while; I need room to settle my hand.
+post:scribe | not_afraid | I'm fine; I'm as steady as my lines.

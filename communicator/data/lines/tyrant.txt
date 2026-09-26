@@ -481,3 +481,25 @@ tyrant/NE | safety_wary_told | More or less, as I told you[; stay clear of {wors
 tyrant/NE | safety_safe_told | Yes; you've had that answer from me before.[ Nothing worth minding, bar {worst}.]
 tyrant/NE | about_place_told | I've told you all I know of it; asking again gets you nothing more: {about}.[ Keep clear of the {around}.]
 tyrant/NE | about_place_told | What I told you still holds, whether it suits you or not: {about}.[ And {work}, take it or leave it.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- tyrant/NN ----
+tyrant/NN | greeted_afraid | Who's there? Speak up; I'll not ask twice.
+tyrant/NN | greeted_afraid | Hello. Say your business; I'm not at my best, and I'll not discuss it.
+tyrant/NN | greeted_panicked | Stay back, stay back, that's an order!
+tyrant/NN | greeted_panicked | Wait, you, you there, make yourself useful, quickly!
+tyrant/NN | small_talk_afraid | Not now; I've myself to hold together.
+tyrant/NN | small_talk_panicked | Don't, don't chatter at me, I need things done!
+tyrant/NN | thanked_afraid | Go; be some use, and don't stand there thanking me.
+tyrant/NN | thanked_panicked | Don't thank me; do something, anything!
+tyrant/NN | parted_afraid | Be careful; you're more use to me whole.
+tyrant/NN | parted_panicked | Go, go, I don't need, just go!
+tyrant/NN | afraid_lead | Hold still and listen; I'll say this once.
+tyrant/NN | afraid_lead | A moment; I'll have it in order.
+tyrant/NN | panicked_lead | Listen, listen to me, just listen!
+tyrant/NN | panicked_lead | Be still, be still, I need to think!
+tyrant/NN | calmed | All right. I'd have got there myself, but all right.
+tyrant/NN | calmed | Yes, that'll do. Say nothing of this to anyone.
+tyrant/NN | still_afraid | No. Don't tell me what to feel.
+tyrant/NN | still_afraid | I can't, not on command, not even mine.
+tyrant/NN | not_afraid | I'm not afraid, and I'd thank you not to say so where people can hear.

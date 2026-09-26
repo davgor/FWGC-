@@ -713,3 +713,25 @@ knight_errant/LG | safety_wary_told | Careful, as I told you; my judgement stand
 knight_errant/LG | safety_safe_told | Safe enough, as I said before, and I say so still.[ The one place that would give me pause is {worst}.]
 knight_errant/LG | about_place_told | I have told you all I know of it, and I am sorry it is not more: {about}.[ Should you go, ask for {who}.][ The {around} are there still; be wary of them.]
 knight_errant/LG | about_place_told | With pleasure, though it is only what I told you before: {about}.[ There is {trades} there.][ The work I spoke of stands: {work}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- knight_errant/NN ----
+knight_errant/NN | greeted_afraid | Hello. I'm not as sound as I'd like, so keep it short.
+knight_errant/NN | greeted_afraid | Wait. My arm's shaking; let it settle first.
+knight_errant/NN | greeted_panicked | Oh, I'm no use, no use, I can't lift a hand.
+knight_errant/NN | greeted_panicked | Please, no, don't ask anything of me, please.
+knight_errant/NN | small_talk_afraid | I've nothing to lend just now, not even small talk.
+knight_errant/NN | small_talk_panicked | No, don't, I've nothing to give, nothing.
+knight_errant/NN | thanked_afraid | Yes; a favour's a favour, shaking or not.
+knight_errant/NN | thanked_panicked | Please, forget the count, I can't keep it.
+knight_errant/NN | parted_afraid | Goodbye; keep yourself whole, whatever else you do.
+knight_errant/NN | parted_panicked | Wait, wait, I've no arm to, wait, stay a little.
+knight_errant/NN | afraid_lead | My hands aren't steady, but my word is.
+knight_errant/NN | afraid_lead | Not my steadiest, but I'll do what I can.
+knight_errant/NN | panicked_lead | Right, hands, be still, be still.
+knight_errant/NN | panicked_lead | Hold, hold together, I'll get it out.
+knight_errant/NN | calmed | I know, I know; sounder than I was, if not sound yet.
+knight_errant/NN | calmed | All right. My arm's quieter for that; I'll take it.
+knight_errant/NN | still_afraid | Keep away a moment; I pull myself together best on my own.
+knight_errant/NN | still_afraid | You don't understand; a shaking hand won't be talked still.
+knight_errant/NN | not_afraid | I'm fine; sound as I ever am, and ready for the road.

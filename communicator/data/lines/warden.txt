@@ -949,3 +949,25 @@ warden/LE | safety_wary_told | Careful, as I have said[, and keep away from {wor
 warden/LE | safety_safe_told | Quiet enough; my answer stands as it was given.[ The one matter worth your caution remains {worst}.]
 warden/LE | about_place_told | You have had all I know of it: {about}.[ The {around} remain your concern, not mine.]
 warden/LE | about_place_told | I will repeat what I told you, and no more: it is {about}.[ You may present yourself to {who}, if you must.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- warden/NN ----
+warden/NN | greeted_afraid | Who's there? Come ahead, slowly; I'm shaking like a fool.
+warden/NN | greeted_afraid | Oh. Aye, I'm here; I'm not going anywhere, whatever my knees say.
+warden/NN | greeted_panicked | Stay back, I've a post to hold, I'm holding it, stay back!
+warden/NN | greeted_panicked | Please, whatever you want, one thing at a time, I can't, please!
+warden/NN | small_talk_afraid | Not a word of chatter in me; staying put takes all I've got.
+warden/NN | small_talk_panicked | I'm holding on, holding on by a thread, and you want to talk!
+warden/NN | thanked_afraid | Of course, aye, of course; mind yourself.
+warden/NN | thanked_panicked | Yes, all right, never mind, never mind that!
+warden/NN | parted_afraid | Please be careful; I'll be here, shaking or not.
+warden/NN | parted_panicked | Wait, don't go, I can't leave, I can't, don't go!
+warden/NN | afraid_lead | Just a moment; my voice isn't what it should be.
+warden/NN | afraid_lead | I'll give it you straight, if I can keep it steady.
+warden/NN | panicked_lead | I'm here, I'm here, I'm standing, just wait!
+warden/NN | panicked_lead | Let me, let me just get a grip of myself!
+warden/NN | calmed | Yes. Aye, that's steadied me some.
+warden/NN | calmed | I'll try. You've helped, and I don't forget help.
+warden/NN | still_afraid | I can't, not yet; standing's all I can promise.
+warden/NN | still_afraid | Stay back a bit, and give me room to get my breath.
+warden/NN | not_afraid | I'm all right; I'm standing easy, but I'll not forget you asked.

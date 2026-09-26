@@ -831,3 +831,25 @@ trickster/NE | safety_wary_told | Careful, as I said before; nothing's changed, 
 trickster/NE | safety_safe_told | Safe enough, as I said, and so dreadfully dull.[ For excitement, there's {worst}.]
 trickster/NE | about_place_told | I gave you all I know of {about}, and so generously, too.[ The {around} are still there, should you feel brave.]
 trickster/NE | about_place_told | Why, {about}, just as I told you, and I've nothing fresher to give you.[ {work}, if you'd like to be useful.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- trickster/NN ----
+trickster/NN | greeted_afraid | Oh! You'd think I'd be harder to sneak up on.
+trickster/NN | greeted_afraid | Hello. I'd make a joke, but I seem to have mislaid every one.
+trickster/NN | greeted_panicked | Thank goodness, a face, I'm out of clever, clean out!
+trickster/NN | greeted_panicked | Please, no games, not now, I haven't got it in me, please!
+trickster/NN | small_talk_afraid | I've a hundred clever things to say, and I can't find a single one. Ask me later.
+trickster/NN | small_talk_panicked | No, no chatter, I can't, I can't even lie straight!
+trickster/NN | thanked_afraid | Of course, and that one's free; I'm in no state to haggle.
+trickster/NN | thanked_panicked | Please, no thanks, no deals, just go!
+trickster/NN | parted_afraid | Stay safe, and trust me on that much, if nothing else.
+trickster/NN | parted_panicked | Goodbye, goodbye, I had something clever, no, it's lost!
+trickster/NN | afraid_lead | You'll get this without the flourishes, I'm afraid.
+trickster/NN | afraid_lead | Forgive me; I'm usually quicker than this.
+trickster/NN | panicked_lead | I'll say it straight, straight, no tricks, I swear!
+trickster/NN | panicked_lead | Hold on, my tongue's in knots, hold on!
+trickster/NN | calmed | Thank you. That sounded honest, and I'd know.
+trickster/NN | calmed | Maybe you're right. I'll pretend I believe it until I do.
+trickster/NN | still_afraid | You don't understand; I can talk anyone round but myself.
+trickster/NN | still_afraid | No; my nerve's the one thing I can't bluff.
+trickster/NN | not_afraid | I'm fine, and that's no bluff, for once.

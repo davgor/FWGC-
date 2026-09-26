@@ -957,3 +957,25 @@ corrupt/LE | safety_wary_told | Careful, as I have told you, and you may yet com
 corrupt/LE | safety_safe_told | Safe enough, as I told you, for the present.[ The worst I could name is still {worst}.]
 corrupt/LE | about_place_told | You have had all I know of {about}, at no charge, and I shall not invent more to oblige you.
 corrupt/LE | about_place_told | Ah, {about}, as I have told you.[ Seek out {who}, if you think it worthwhile.][ The {around} are your own concern.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- corrupt/NN ----
+corrupt/NN | greeted_afraid | Oh. Forgive me; I'm in no shape for business.
+corrupt/NN | greeted_afraid | Hello. My nerves are shot, so go gently.
+corrupt/NN | greeted_panicked | Please, please, whatever you need, only quickly.
+corrupt/NN | greeted_panicked | Wait, wait; not now, I'm not fit to be seen.
+corrupt/NN | small_talk_afraid | I can't keep a thought in my head long enough to trade it. Ask me later.
+corrupt/NN | small_talk_panicked | Not now, not now; I'm no good to anyone like this.
+corrupt/NN | thanked_afraid | Of course; I'll remember it, once I can think again.
+corrupt/NN | thanked_panicked | Please, never mind that, just go.
+corrupt/NN | parted_afraid | Stay safe, and, well, just stay safe.
+corrupt/NN | parted_panicked | Go, go, and forget you saw me like this.
+corrupt/NN | afraid_lead | Forgive the state of me; I'll answer what I can.
+corrupt/NN | afraid_lead | Let me collect myself, and I'll give you what I have.
+corrupt/NN | panicked_lead | I'll tell you, I'll tell you, wait.
+corrupt/NN | panicked_lead | All right, all right, I'm thinking, I'm thinking.
+corrupt/NN | calmed | Thank you. I keep count of kindnesses, and that's one.
+corrupt/NN | calmed | I know, I know; nerves are bad for business. I'm getting there.
+corrupt/NN | still_afraid | No; talk won't buy me calm, not yet.
+corrupt/NN | still_afraid | I can't. Don't ask it of me yet.
+corrupt/NN | not_afraid | There's no need; I'm quite comfortable, though I'll not forget you offered.

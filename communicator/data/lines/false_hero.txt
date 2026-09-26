@@ -362,3 +362,25 @@ false_hero/NN | safety_wary_told | Careful, as I told you, and it's fine[; just 
 false_hero/NN | safety_safe_told | Aye, it's safe, as I said.[ The only place I'd still leave out of my plans is {worst}.]
 false_hero/NN | about_place_told | You've had all I know of it: {about}; I'd not sell you more than I've got.
 false_hero/NN | about_place_told | Only what I told you: it's {about}.[ Ask for {who}, if they're any use to you.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- false_hero/NN ----
+false_hero/NN | greeted_afraid | Hello. I'm rattled, and I bargain badly rattled.
+false_hero/NN | greeted_afraid | Who's there? Whatever you're after, I'm a poor bet just now.
+false_hero/NN | greeted_panicked | Wait, wait, no, no deals, not now, I can't.
+false_hero/NN | greeted_panicked | Please, it'll keep, whatever it is, it'll keep.
+false_hero/NN | small_talk_afraid | Not now; nothing seems worth the breath, least of all chatter.
+false_hero/NN | small_talk_panicked | No talk, no, I can't tell what anything's worth, I can't.
+false_hero/NN | thanked_afraid | Of course; it's in the ledger, somewhere, I'm sure.
+false_hero/NN | thanked_panicked | Yes, yes, a deal's a deal, whatever it was, go.
+false_hero/NN | parted_afraid | Be careful; don't take odds you can't cover.
+false_hero/NN | parted_panicked | Wait, one moment, just one, it costs you nothing.
+false_hero/NN | afraid_lead | Take it for what it's worth; my nerve's in pieces.
+false_hero/NN | afraid_lead | I'll answer, though I'd not wager on my voice holding.
+false_hero/NN | panicked_lead | I'll not haggle, not now; I'll just, I'll try.
+false_hero/NN | panicked_lead | Fine, yes, fine, I'm trying, I'm trying.
+false_hero/NN | calmed | All right. I'm steadier for that, and steadier's worth having.
+false_hero/NN | calmed | I'll try. Keep talking; that's the best offer on the table.
+false_hero/NN | still_afraid | Not yet; steadiness doesn't come that cheap.
+false_hero/NN | still_afraid | No. My nerves don't take anything on credit.
+false_hero/NN | not_afraid | There's no need; my nerve's in good order, and so's my bargaining.

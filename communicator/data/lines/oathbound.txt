@@ -949,3 +949,25 @@ oathbound/LE | safety_wary_told | Mostly, and on the same condition I gave you b
 oathbound/LE | safety_safe_told | Safe enough, as I have already said, and I do not say such things idly.[ The worst of note remains {worst}.]
 oathbound/LE | about_place_told | You have had all I know of {about}, to the letter.[ The {around} are best left alone.]
 oathbound/LE | about_place_told | It is {about}, and that is the whole of what I know, as I told you.[ You may present yourself to {who}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- oathbound/NN ----
+oathbound/NN | greeted_afraid | Who's there? I like to know who I'm dealing with, now more than ever.
+oathbound/NN | greeted_afraid | Oh. My word's still good, but my hands aren't.
+oathbound/NN | greeted_panicked | Thank goodness; stay, give me your word, your word you'll stay.
+oathbound/NN | greeted_panicked | Wait, wait; I promise nothing, nothing, not now.
+oathbound/NN | small_talk_afraid | My words are all spoken for; I'm spending every one on keeping steady.
+oathbound/NN | small_talk_panicked | I can't, no, no talk, I can't give what I haven't got.
+oathbound/NN | thanked_afraid | Yes, I'll remember you said it, when I can remember anything.
+oathbound/NN | thanked_panicked | Please, there's no debt, none, go.
+oathbound/NN | parted_afraid | Stay safe; swear it, if only to yourself.
+oathbound/NN | parted_panicked | Go, go; I'll hold, somehow, go.
+oathbound/NN | afraid_lead | I'll keep to the truth, if not to a steady voice.
+oathbound/NN | afraid_lead | Hold on; I've lost count of my own breaths.
+oathbound/NN | panicked_lead | I'll answer, I swear, I swear I'll answer.
+oathbound/NN | panicked_lead | Now, now, keep your word, keep it, speak.
+oathbound/NN | calmed | Yes. Your word's worth something to me; give me a moment to steady.
+oathbound/NN | calmed | I'll try, and I don't say that lightly.
+oathbound/NN | still_afraid | Not yet. When I'm steady, you'll hear it from me first.
+oathbound/NN | still_afraid | I can't. Any promise of calm from me now would go unkept.
+oathbound/NN | not_afraid | I'm all right; I don't say what I don't mean.

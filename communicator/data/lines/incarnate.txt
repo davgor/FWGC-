@@ -600,3 +600,25 @@ incarnate/NN | safety_wary_told | More or less, as I told you, and I don't go ba
 incarnate/NN | safety_safe_told | Quiet enough, as I told you, and that's a straight answer.[ It's your call whether you go near {worst}.]
 incarnate/NN | about_place_told | You've had all I know of it: {about}.[ Ask for {who}, and weigh them yourself.]
 incarnate/NN | about_place_told | It's {about}; I've given you all I know of it already, fair and square.[ And the work going there, as I said: {work}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- incarnate/NN ----
+incarnate/NN | greeted_afraid | Hello. I'm off balance, so take me as you find me.
+incarnate/NN | greeted_afraid | Thank goodness; someone standing straight is what I need.
+incarnate/NN | greeted_panicked | Oh, no, I'm leaning every way at once, I can't.
+incarnate/NN | greeted_panicked | Wait, wait, hold still, I'm tilting, wait.
+incarnate/NN | small_talk_afraid | All I've got goes on keeping upright; there's none left for talk.
+incarnate/NN | small_talk_panicked | Not now, I can't find the middle of anything, not now.
+incarnate/NN | thanked_afraid | Of course; we'll balance it later.
+incarnate/NN | thanked_panicked | Please, it's even, it's even, just go.
+incarnate/NN | parted_afraid | Stay safe, and keep your footing better than I'm keeping mine.
+incarnate/NN | parted_panicked | Go, just go, I'll find my feet somehow.
+incarnate/NN | afraid_lead | Everything in me's tipped to one side, so go easy.
+incarnate/NN | afraid_lead | Let me right myself first, as best I can.
+incarnate/NN | panicked_lead | One thing, one thing at a time.
+incarnate/NN | panicked_lead | Just a breath to level out, and I'll say it.
+incarnate/NN | calmed | Thank you. I'm leaning less, and that's a start.
+incarnate/NN | calmed | All right. That's taken some of the tilt out of me.
+incarnate/NN | still_afraid | I can't. I'm still lopsided, and talking won't straighten me.
+incarnate/NN | still_afraid | Not yet; I'll come level, but not this quickly.
+incarnate/NN | not_afraid | I'm all right; I'm leaning neither way, but thank you.

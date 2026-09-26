@@ -595,3 +595,25 @@ tainted_one/CG | safety_wary_told | Careful; it's like I told you, and I've not 
 tainted_one/CG | safety_safe_told | Yes! Still safe, just like I said, and I love saying it.[ Just not {worst}, all right?]
 tainted_one/CG | about_place_told | Oh, that's {about}, and I've told you every bit I know, honestly.[ Be good to {who}, if you see them.]
 tainted_one/CG | about_place_told | That's all I've got, and you've had it already: {about}.[ And the {around}; nobody near them, please.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- tainted_one/NN ----
+tainted_one/NN | greeted_afraid | Stay back a pace, if you would; I'm not steady.
+tainted_one/NN | greeted_afraid | Who's there? Say it from there; I'm in no shape for company.
+tainted_one/NN | greeted_panicked | Please, please, keep your distance, I need room, I need room!
+tainted_one/NN | greeted_panicked | Wait, I've lost count, I've lost count, give me a moment!
+tainted_one/NN | small_talk_afraid | I'm poor company just now. Ask me something useful, or let me be.
+tainted_one/NN | small_talk_panicked | I can't spare it, no talk, I can't spare anything!
+tainted_one/NN | thanked_afraid | Of course; call it square, and be careful.
+tainted_one/NN | thanked_panicked | Go, never mind the ledger, go!
+tainted_one/NN | parted_afraid | Go carefully; I'll keep to myself a while.
+tainted_one/NN | parted_panicked | Please, just go, and give me room, room!
+tainted_one/NN | afraid_lead | I'll answer from where I stand, if it's all the same to you.
+tainted_one/NN | afraid_lead | One breath, then another, and then I'll answer.
+tainted_one/NN | panicked_lead | Stay where you are, just stay, and I'll say it!
+tainted_one/NN | panicked_lead | Give me room, give me room, I'm trying!
+tainted_one/NN | calmed | I'll try; that's a fair word, and I'll hold steady on it.
+tainted_one/NN | calmed | Yes. I'll count that in your favour, once my hands stop.
+tainted_one/NN | still_afraid | Keep away, please; I need room to breathe, and nobody close.
+tainted_one/NN | still_afraid | Not yet; I've more counting to do, a good deal more.
+tainted_one/NN | not_afraid | I'm fine; as steady as I get, which is steady enough.

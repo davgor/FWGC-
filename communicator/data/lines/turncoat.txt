@@ -477,3 +477,25 @@ turncoat/NG | safety_wary_told | Keep your wits about you, like I told you, and 
 turncoat/NG | safety_safe_told | It's safe, like I told you, and it's a relief to say so.[ The only worry is still {worst}.]
 turncoat/NG | about_place_told | I've told you all I know of {about}, sorry it isn't more.[ Watch yourself near the {around}.]
 turncoat/NG | about_place_told | That's {about}, and I told you all I know; I held nothing back.[ You'll find {who} there; give them a fair hearing.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- turncoat/NN ----
+turncoat/NN | greeted_afraid | Who's there? I'm jumpy, forgive me; I've lost track of who's who.
+turncoat/NN | greeted_afraid | Hello. Still standing, just, and that's all I'll promise.
+turncoat/NN | greeted_panicked | Wait, wait, whatever makes sense, I'll do it, just tell me!
+turncoat/NN | greeted_panicked | Thank goodness, I'm with you, I'm with you, just say the word!
+turncoat/NN | small_talk_afraid | I can't chat; I'm too busy working out where I stand.
+turncoat/NN | small_talk_panicked | None of it adds up, none, I can't, don't ask me now!
+turncoat/NN | thanked_afraid | Yes, I'll count it later, when my head's clear.
+turncoat/NN | thanked_panicked | Go, don't count anything, just go, go!
+turncoat/NN | parted_afraid | Be careful; I'd sooner keep you in my column.
+turncoat/NN | parted_panicked | Wait, I'll come, no, I won't, go, just go!
+turncoat/NN | afraid_lead | Let me get my sums in order first.
+turncoat/NN | afraid_lead | I'll do my best, though my reckoning's all over the place.
+turncoat/NN | panicked_lead | Fine, fine, anything, only let me breathe!
+turncoat/NN | panicked_lead | Right, right, the sums won't, I can't, just a breath!
+turncoat/NN | calmed | All right. That adds up, near enough.
+turncoat/NN | calmed | Maybe you're right. I'll side with you on that, for now.
+turncoat/NN | still_afraid | No; it doesn't add up, however you put it.
+turncoat/NN | still_afraid | Not yet; my gut hasn't picked a side.
+turncoat/NN | not_afraid | There's no need; I'm weighing things up, which isn't the same as fear.

@@ -949,3 +949,25 @@ mentor/NE | safety_wary_told | More or less; I said so before.[ Keep out of {wor
 mentor/NE | safety_safe_told | Nothing to fear, as I told you; that's still true.[ The worst of it is {worst}, and that's your problem.]
 mentor/NE | about_place_told | You've had everything I know of it: {about}.[ You'll find {who} there; see if they're worth your time.]
 mentor/NE | about_place_told | Only what I told you: {about}.[ The {around} are still there; I'd not waste you on them.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- mentor/NN ----
+mentor/NN | greeted_afraid | Hello. Don't take a lesson from me just now; I'm not steady.
+mentor/NN | greeted_afraid | Stay back, if you would. I'm in no shape to be looked up to.
+mentor/NN | greeted_panicked | Please, please, I can't teach anyone anything, not now.
+mentor/NN | greeted_panicked | Oh, no, no, don't ask me how, I don't know how, I don't.
+mentor/NN | small_talk_afraid | Not the time for chatter; I'm busy taking my own advice, and failing.
+mentor/NN | small_talk_panicked | No, no, find your own answers, I've none, none.
+mentor/NN | thanked_afraid | Of course; just use it well, and don't mind me.
+mentor/NN | thanked_panicked | Go, don't thank me, go, and use your head.
+mentor/NN | parted_afraid | Be careful; I can't watch out for you, so watch for yourself.
+mentor/NN | parted_panicked | Wait, wait, not yet, I'm not ready to be left.
+mentor/NN | afraid_lead | Don't mind the shaking; listen to the words.
+mentor/NN | afraid_lead | You'll have to work some of this out yourself; my head's not clear.
+mentor/NN | panicked_lead | In, and out, in, and out, and speak.
+mentor/NN | panicked_lead | First think, then speak, first think, then speak.
+mentor/NN | calmed | Thank you. You did that well, and I'm the better for it, a little.
+mentor/NN | calmed | Yes. It's what I'd tell you: slow down, then think.
+mentor/NN | still_afraid | You don't understand; knowing how to be calm and being calm are different things.
+mentor/NN | still_afraid | No. You can't do this one for me.
+mentor/NN | not_afraid | There's no need; still, it's a good instinct, so keep it.

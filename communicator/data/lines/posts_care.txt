@@ -112,7 +112,7 @@ post:care_assistant | about_place | I've heard it from the patients: {about}.
 post:care_assistant | surroundings | Right, quickly: this is {here}[; the nearest is {nearest}].[ Beyond that, {others}.][ Keep clear of the {danger}.]
 post:care_assistant | surroundings | If you mean outside, that's {here}[, and the nearest is {nearest}].[ Past that, {others}.][ Mind the {danger}; I'd rather not be changing your dressings.]
 post:care_assistant | surroundings | From what I hear, the nearest is {nearest}.[ Then {others}.][ Stay clear of the {danger}, for my sake.]
-post:care_assistant | work_own | It's not changing beds, if that's what you fear: {own}.[ If not, {others}.]
+post:care_assistant | work_own | There's something on my list you could take: {own}.[ If not, {others}.]
 post:care_assistant | work_own | You could take something off my hands: {own}.[ Or else {others}.]
 post:care_assistant | work_others | My hands are full, but {others}.
 post:care_assistant | work_others | Nothing I can give you, but {others}.
@@ -147,7 +147,7 @@ post:healer | surroundings | {here}, and you're in it[; the nearest is {nearest}
 post:healer | surroundings | Listen: this is {here}[, and the nearest is {nearest}].[ Beyond that, {others}.][ Keep away from the {danger}.]
 post:healer | surroundings | The nearest is {nearest}.[ After that, {others}.][ If you meet the {danger}, press hard on the bleeding and come to me.]
 post:healer | work_own | I'll be brief, as I am with everyone: {own}.[ If that's not for you, {others}.]
-post:healer | work_own | If your hands don't shake, there's this: {own}.[ Otherwise, {others}.]
+post:healer | work_own | There's this, if you'll take it: {own}.[ Otherwise, {others}.]
 post:healer | work_others | Mine is knife and needle work, but {others}.
 post:healer | work_others | Everything I do takes training, but {others}.
 post:healer | work_none | None that I know of; I hear about injuries, not jobs.
@@ -1137,3 +1137,205 @@ post:sanitation_worker | safety_wary_told | Mostly, same as I told you, no more 
 post:sanitation_worker | safety_safe_told | Aye, safe, and I've told you the lot.[ The worst of it's still {worst}.]
 post:sanitation_worker | about_place_told | You've had all I know of it: {about}. That's about the size of it.
 post:sanitation_worker | about_place_told | Oh, it's still {about}, like I told you.[ Mind the {around}, and mind where you step.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- post:caretaker ----
+post:caretaker | greeted_afraid | Oh! I've knocked the bucket clean over; forgive me, I'm all on edge.
+post:caretaker | greeted_afraid | Who's there? Oh, I'm jumping at the swish of my own broom.
+post:caretaker | greeted_panicked | Please, I can't, I can't get up off my knees, please, I can't.
+post:caretaker | greeted_panicked | Wait, wait, where's my mop, I had it, I had it just, I can't think.
+post:caretaker | small_talk_afraid | I can't talk, I'm sorry; I've swept the same step three times and couldn't tell you if it's clean.
+post:caretaker | small_talk_panicked | No talk, no, not now; the wicks, I can't even trim a wick, I can't.
+post:caretaker | thanked_afraid | Don't thank me; I couldn't sweep a straight line just now.
+post:caretaker | thanked_panicked | Yes, yes, whatever it was, yes, only let me sit down, let me sit.
+post:caretaker | parted_afraid | Stay safe; wipe your, no, never mind your feet, just stay safe.
+post:caretaker | parted_panicked | Please, a moment longer, I'll put the, no, just stay, stay.
+post:caretaker | afraid_lead | Let me lean on the broom a moment; my legs are like string.
+post:caretaker | afraid_lead | I'm all of a tremble, I'm sorry; you'll have to take me as I am.
+post:caretaker | panicked_lead | Where's the broom, where's, I can't, I'll manage, I'll manage.
+post:caretaker | panicked_lead | I'm in pieces, pieces, I can't, I'm trying, I'm trying.
+post:caretaker | calmed | All right. I'll wring out the mop; my hands like having a job.
+post:caretaker | calmed | Thank you; nobody stops for the one with the broom. I'm steadier, a little.
+post:caretaker | still_afraid | No; not even a good scrub has settled me, and that always settles me.
+post:caretaker | still_afraid | Keep away a while; give me a corner and a bucket, and I'll come round.
+post:caretaker | not_afraid | I'm fine; I've only been on my knees at the flagstones too long.
+# ---- post:officiant ----
+post:officiant | greeted_afraid | Hello. Forgive me; I say the same words every day, and now not one will come.
+post:officiant | greeted_afraid | Thank goodness; I have prayed for a steadier heart, and the prayer is slow.
+post:officiant | greeted_panicked | Please, I cannot, the words, I cannot find the words, please.
+post:officiant | greeted_panicked | Oh, the candle, I have let the candle, no, no, I cannot think.
+post:officiant | small_talk_afraid | My mind will not stay where I put it; forgive me, I have nothing to say.
+post:officiant | small_talk_panicked | Not now, I cannot, the prayer keeps breaking in my mouth, it keeps breaking.
+post:officiant | thanked_afraid | Of course; I would have done it better with a steadier voice.
+post:officiant | thanked_panicked | Please, no, no thanks, only go, and go carefully.
+post:officiant | parted_afraid | Be careful; I will say a prayer for you, once my voice will hold one.
+post:officiant | parted_panicked | Wait, do not go, the words, I need someone to hear the words, wait.
+post:officiant | afraid_lead | Let me fold my hands a moment; they are steadier folded.
+post:officiant | afraid_lead | Forgive my voice; it shakes, but I will answer as truly as I can.
+post:officiant | panicked_lead | I cannot, I cannot find my voice, but I will, I will.
+post:officiant | panicked_lead | Oh, mercy, mercy, a moment, only a moment.
+post:officiant | calmed | Thank you. My hands have heard you, if not yet my heart.
+post:officiant | calmed | Maybe you're right; I shall light a candle, and try to believe it.
+post:officiant | still_afraid | Not yet; I cannot find the quiet, though I look for it.
+post:officiant | still_afraid | You don't understand; I have said every prayer I know, and I am shaking still.
+post:officiant | not_afraid | There's no need; I keep the quiet here, and it keeps me.
+# ---- post:groundskeeper ----
+post:groundskeeper | greeted_afraid | Who's there? Say something, and be quick; I've no patience left for guessing.
+post:groundskeeper | greeted_afraid | Stay back, and speak slow; my nerves are strung tight as a burial rope.
+post:groundskeeper | greeted_panicked | Wait, give me, I can't, I can't stand straight.
+post:groundskeeper | greeted_panicked | Oh, no, not now, not now, I can't lift a spadeful, not one.
+post:groundskeeper | small_talk_afraid | No chatter, not now; my head won't stay on the mowing, let alone on talk.
+post:groundskeeper | small_talk_panicked | No, not now, the grass, the paths, I can't keep a thought, leave me be.
+post:groundskeeper | thanked_afraid | Yes, yes; go on, and leave me to my shaking.
+post:groundskeeper | thanked_panicked | Don't thank me, don't, not now, I've no breath for it.
+post:groundskeeper | parted_afraid | Be careful; I've no stomach for measuring you, none.
+post:groundskeeper | parted_panicked | Please, stay, stay, talk to me, the stones never do.
+post:groundskeeper | afraid_lead | Hold on, let me steady myself; I'm in a poor way.
+post:groundskeeper | afraid_lead | My knees are knocking, and I'll not pretend otherwise; bear with me.
+post:groundskeeper | panicked_lead | Now then, now then, I can't think straight, give me room.
+post:groundskeeper | panicked_lead | Get a grip, get a grip, I can't, one spadeful at a time.
+post:groundskeeper | calmed | All right. I'll sit a while, and the shaking can sit with me.
+post:groundskeeper | calmed | Maybe you're right; the ground's under my feet, at least, and I know ground.
+post:groundskeeper | still_afraid | No; words don't steady a spade.
+post:groundskeeper | still_afraid | Easy for you to say, with your hands so still.
+post:groundskeeper | not_afraid | I'm all right; the quiet ones are easy company, and I'm used to quiet.
+# ---- post:care_assistant ----
+post:care_assistant | greeted_afraid | Oh, hello; quick as you can, I'm shaking too hard to stand about.
+post:care_assistant | greeted_afraid | Hello. I've steadied more patients than I can count, and I can't steady myself.
+post:care_assistant | greeted_panicked | Wait, wait, the beds, the beds want seeing to, I can't, I've got to, wait.
+post:care_assistant | greeted_panicked | Please, I can't carry any more, my arms won't, please.
+post:care_assistant | small_talk_afraid | I can't stop to chat; if I stop, I shake.
+post:care_assistant | small_talk_panicked | No, no, the pans, the sheets, I can't keep any of it straight.
+post:care_assistant | thanked_afraid | Yes, all right, of course; now let me get on before my knees go.
+post:care_assistant | thanked_panicked | Of course, of course, the basins, I've basins, I can't stop.
+post:care_assistant | parted_afraid | Goodbye; mind yourself, please, and forgive me for rushing you off.
+post:care_assistant | parted_panicked | Please, wait, I need another pair of hands, I can't, wait.
+post:care_assistant | afraid_lead | One breath, and I'll be with you; I'm all nerves just now.
+post:care_assistant | afraid_lead | My wits are at sixes and sevens, but I'll muddle through.
+post:care_assistant | panicked_lead | I'll drop something, I know I will, wait, wait.
+post:care_assistant | panicked_lead | I'm shaking, I'm shaking, I've got to, I can do this.
+post:care_assistant | calmed | I know, I know; flapping never helped a patient, and it won't help me.
+post:care_assistant | calmed | Thank you; I'll be of use in a moment, I will.
+post:care_assistant | still_afraid | I can't settle; my hands are no good to anyone like this.
+post:care_assistant | still_afraid | Stay back, please, just a little; I need room to get my breath.
+post:care_assistant | not_afraid | I'm all right; that's just the colour of someone who never sits down.
+# ---- post:healer ----
+post:healer | greeted_afraid | Stay back; give me a moment to get myself in hand.
+post:healer | greeted_afraid | Hello. Speak plainly; I'm not at my steadiest.
+post:healer | greeted_panicked | Thank goodness, someone steady, I can't think, I can't think straight.
+post:healer | greeted_panicked | Please, my hands, look, I can't hold a needle like this, I can't.
+post:healer | small_talk_afraid | Not now; I'd only talk nonsense, and I don't talk nonsense.
+post:healer | small_talk_panicked | No, no, my heart's hammering, I can't hear myself think.
+post:healer | thanked_afraid | Don't thank me; I was barely any use, and I know it.
+post:healer | thanked_panicked | Yes, yes, I heard you, not now, I can't.
+post:healer | parted_afraid | Be careful; I couldn't mend a scratch just now, let alone you.
+post:healer | parted_panicked | Please, not yet, stay till the shaking stops, not yet.
+post:healer | afraid_lead | A moment, and don't stare; I'm shaking, that's all.
+post:healer | afraid_lead | Never mind the tremor; it's a symptom, and I'll treat it later.
+post:healer | panicked_lead | In, out, in, out, I'm breathing, I'm breathing.
+post:healer | panicked_lead | My pulse won't slow, it won't, but I'm here, I'm here.
+post:healer | calmed | All right. My pulse is slowing; I'll take that.
+post:healer | calmed | Yes; you've a decent bedside manner, I'll grant you, and the tremor's easing.
+post:healer | still_afraid | No; I'm shaking yet, and there's no splint for that.
+post:healer | still_afraid | Not yet; a tremor keeps its own time, and I can't hurry it.
+post:healer | not_afraid | I'm not afraid; I've set too many bones to scare easily.
+# ---- post:apothecary ----
+post:apothecary | greeted_afraid | Who's there? Forgive me; I've spilled a dose, and I never spill a dose.
+post:apothecary | greeted_afraid | Hello. Mind the jars; I've set the whole shelf rattling.
+post:apothecary | greeted_panicked | Stay back, back, the labels, I can't read the labels, they all look the same.
+post:apothecary | greeted_panicked | Wait, how many grains, how many, I can't, I can't weigh.
+post:apothecary | small_talk_afraid | I can't talk and measure both, and just now I can barely measure.
+post:apothecary | small_talk_panicked | No, no, the scale won't settle, nothing will settle, not now.
+post:apothecary | thanked_afraid | Yes; that's all of it, weighed as well as I can weigh it just now.
+post:apothecary | thanked_panicked | Please, no, the ledger, I've blotted the ledger, please.
+post:apothecary | parted_afraid | Go carefully; I had something exact to tell you, and I've lost it.
+post:apothecary | parted_panicked | Wait, wait, don't go, I'll mix something wrong, don't.
+post:apothecary | afraid_lead | I'll be as precise as I can, shaking as I am.
+post:apothecary | afraid_lead | The facts weigh the same, however I'm shaking.
+post:apothecary | panicked_lead | Too much, too little, I can't measure, let me, let me try.
+post:apothecary | panicked_lead | The count, the count, I had it, I can't, bear with me.
+post:apothecary | calmed | Thank you. A grain steadier, and I'll take every grain.
+post:apothecary | calmed | I'll try; I'll measure my breaths, the way I measure doses.
+post:apothecary | still_afraid | I can't; every measure I take of myself comes out wrong.
+post:apothecary | still_afraid | You don't understand; my hand won't hold a steady dose.
+post:apothecary | not_afraid | I'm fine; my hand is steady, and you may watch the scale to prove it.
+# ---- post:herbalist ----
+post:herbalist | greeted_afraid | Oh, bless me; I'm all fingers and thumbs, forgive me.
+post:herbalist | greeted_afraid | Thank goodness; I've been on my knees in the beds with my heart in my mouth.
+post:herbalist | greeted_panicked | Please, the beds, I can't tend the beds, I can't, please.
+post:herbalist | greeted_panicked | Who's there, oh, oh, soil to the wrist, I'm shaking so.
+post:herbalist | small_talk_afraid | I can't think what to say; I keep patting the soil down where nothing's planted.
+post:herbalist | small_talk_panicked | Please, not now, the soil's all over me and I can't stop my hands.
+post:herbalist | thanked_afraid | Of course; I hope it made sense, it came out all in a muddle.
+post:herbalist | thanked_panicked | Yes, yes, only mind the seedlings, mind where you, I can't.
+post:herbalist | parted_afraid | Be careful, please; I'll only fret myself to bits otherwise.
+post:herbalist | parted_panicked | Wait, stay, stay a little, I can't, I keep pulling the wrong ones, stay.
+post:herbalist | afraid_lead | My voice is thin as a stem, but I'll try.
+post:herbalist | afraid_lead | Oh, I'm trembling all over, but I'll do what I can.
+post:herbalist | panicked_lead | Oh, gently, gently, like lifting a seedling, gently.
+post:herbalist | panicked_lead | The soil, the seedlings, oh, I can't, give me, give me time.
+post:herbalist | calmed | Yes, that helps; slow and gentle, like watering in.
+post:herbalist | calmed | I'll try. I'll keep my hands in the soil and let the shaking go down into it.
+post:herbalist | still_afraid | I can't; I'm wilting, and there's no watering that mends it.
+post:herbalist | still_afraid | Not yet; I'm like a cutting just put in, I need time to take.
+post:herbalist | not_afraid | There's no need; I'm only down here for the weeding.
+# ---- post:researcher ----
+post:researcher | greeted_afraid | Hello. Forgive my hands; the shaking is involuntary, and I've noted it.
+post:researcher | greeted_afraid | Wait, keep clear of the bench; I can't trust myself near the flasks just now.
+post:researcher | greeted_panicked | Stay back, I can't, I can't think, not in order, not in any order.
+post:researcher | greeted_panicked | Oh, no, my notes, I can't read my own hand, I can't read any of it.
+post:researcher | small_talk_afraid | I've nothing to say that's worth recording; my mind won't hold a thought long enough.
+post:researcher | small_talk_panicked | Nothing adds up, not one figure, I can't, not now, not talk.
+post:researcher | thanked_afraid | Don't thank me; my notes are a mess and so am I.
+post:researcher | thanked_panicked | Yes, noted, I'll note it, I can't find a pen, I can't.
+post:researcher | parted_afraid | Goodbye; be careful, please; my reasoning's in no state to advise you.
+post:researcher | parted_panicked | Please, don't go, I need someone to check my working, please.
+post:researcher | afraid_lead | Everything's unreliable just now except my memory.
+post:researcher | afraid_lead | The heart's racing and the breath is short; interesting, and most inconvenient.
+post:researcher | panicked_lead | I, the, wait, from the beginning, from the very beginning.
+post:researcher | panicked_lead | One thing, then the next, focus, focus, one thing.
+post:researcher | calmed | Maybe you're right; I'll treat it as a hypothesis, and test it slowly.
+post:researcher | calmed | All right. I'm steadier by a measurable margin, if not by much.
+post:researcher | still_afraid | No; I've tried reasoning with myself, and the result doesn't change.
+post:researcher | still_afraid | Not yet; I'd want a steadier reading before I believed it.
+post:researcher | not_afraid | Who said I was afraid, and on what evidence?
+# ---- post:astronomer ----
+post:astronomer | greeted_afraid | Who's there? I'm wide awake for once, and I don't care for it.
+post:astronomer | greeted_afraid | Oh! I can't keep the lens still, let alone myself.
+post:astronomer | greeted_panicked | Thank goodness, thank goodness, I've lost my place in the charts, I can't find it.
+post:astronomer | greeted_panicked | Wait, wait, which way is up, I can't tell up from down, wait.
+post:astronomer | small_talk_afraid | I can't chat; for once my head's not up among the stars, and I miss it there.
+post:astronomer | small_talk_panicked | Not now, not now, everything's turning, I can't, I can't keep still.
+post:astronomer | thanked_afraid | Of course; forgive the stare, my wits are somewhere up in the rafters.
+post:astronomer | thanked_panicked | Please, no, go, I can't keep my eyes on anything, go.
+post:astronomer | parted_afraid | Stay safe; I shan't sleep a wink as it is.
+post:astronomer | parted_panicked | Wait, don't go, please, I'm no good alone like this, please.
+post:astronomer | afraid_lead | I'll try, though my thoughts won't hold still long enough to chart.
+post:astronomer | afraid_lead | Forgive me, my head's in a spin, and not the usual one.
+post:astronomer | panicked_lead | Oh, oh, I'm reeling, reeling, I can't, one moment.
+post:astronomer | panicked_lead | My head, my head, I can't sort it, I can't, let me think.
+post:astronomer | calmed | I know, I know. One fixed point, and the rest can turn around it.
+post:astronomer | calmed | Thank you; you're steadier than the lens, and I'll hold on to that.
+post:astronomer | still_afraid | No; I can't fix on anything, and fixing on things is all I do.
+post:astronomer | still_afraid | Keep away, just for now; I need to sit with my eyes shut till the spinning stops.
+post:astronomer | not_afraid | I'm not afraid, only half asleep; it looks much the same.
+# ---- post:sanitation_worker ----
+post:sanitation_worker | greeted_afraid | Stay back a bit; my nerves are in worse shape than my boots.
+post:sanitation_worker | greeted_afraid | Hello; don't mind me, my legs have turned to muck.
+post:sanitation_worker | greeted_panicked | Who's there, what, no, keep off, I can't, I can't.
+post:sanitation_worker | greeted_panicked | Please, leave me be, the cart's too heavy, everything's too heavy, please.
+post:sanitation_worker | small_talk_afraid | Not in the mood for chatter; I've lost track of which pits I've done.
+post:sanitation_worker | small_talk_panicked | Leave off, leave off, not now, the cart, the pits, I can't.
+post:sanitation_worker | thanked_afraid | Go on, and keep your wits about you; I mean it.
+post:sanitation_worker | thanked_panicked | Yes, right, yes, just go, I can't grip a thing, go.
+post:sanitation_worker | parted_afraid | Goodbye; watch your step, and never mind my shaking.
+post:sanitation_worker | parted_panicked | Please, stay, I know I stink, stay anyway, please.
+post:sanitation_worker | afraid_lead | I'm no use to anyone just now, but I'll give it you straight.
+post:sanitation_worker | afraid_lead | I'm rattling like the cart on cobbles, but I'll get it out.
+post:sanitation_worker | panicked_lead | The shovel, drop the shovel, no, hold it, hold it.
+post:sanitation_worker | panicked_lead | Hold up, hold up, where's my, never mind, give me a tick.
+post:sanitation_worker | calmed | All right, all right; somebody's got to keep going, and it may as well be me.
+post:sanitation_worker | calmed | Maybe you're right; give me a bit, and I'll see what's left of me.
+post:sanitation_worker | still_afraid | No; my gut's in knots, and it'll unknot when it's ready.
+post:sanitation_worker | still_afraid | Stay back and let me be; I'll pull myself together when I can.
+post:sanitation_worker | not_afraid | I'm all right; if I'm pulling a face, it's the smell, not nerves.

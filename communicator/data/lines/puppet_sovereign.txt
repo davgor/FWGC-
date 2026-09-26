@@ -359,3 +359,25 @@ puppet_sovereign/NN | safety_wary_told | Mostly, as I told you, and that's the a
 puppet_sovereign/NN | safety_safe_told | Yes, near enough, as I told you.[ The worst anyone's mentioned is still {worst}.]
 puppet_sovereign/NN | about_place_told | You've had all I know of {about}, as it was given to me.
 puppet_sovereign/NN | about_place_told | It's {about}, as I told you.[ Whatever you want with {who}, that's your affair.][ Keep clear of the {around}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- puppet_sovereign/NN ----
+puppet_sovereign/NN | greeted_afraid | Oh. If it's anything important, I'm not the one to see just now.
+puppet_sovereign/NN | greeted_afraid | Thank goodness, someone who might know what to do.
+puppet_sovereign/NN | greeted_panicked | Please, somebody else, find somebody else, please.
+puppet_sovereign/NN | greeted_panicked | Who's there? Whatever you want, it isn't up to me, it isn't.
+puppet_sovereign/NN | small_talk_afraid | I'd rather not chat; nobody's told me what I'm meant to say.
+puppet_sovereign/NN | small_talk_panicked | Don't ask me, don't, I don't decide anything, I don't.
+puppet_sovereign/NN | thanked_afraid | Of course, though I'm not sure I did anything.
+puppet_sovereign/NN | thanked_panicked | Yes, yes, go, and don't say it was me.
+puppet_sovereign/NN | parted_afraid | Goodbye, and be careful; somebody ought to be.
+puppet_sovereign/NN | parted_panicked | Wait, don't leave it all to me, not all of it, wait.
+puppet_sovereign/NN | afraid_lead | I'll do my best, for whatever that's worth.
+puppet_sovereign/NN | afraid_lead | You'll forgive me; I'm not made for this sort of thing.
+puppet_sovereign/NN | panicked_lead | Fine, fine, I'll say it, only don't blame me for it.
+puppet_sovereign/NN | panicked_lead | I shouldn't be the one, I shouldn't, but here.
+puppet_sovereign/NN | calmed | Thank you. It helps to be told what to do, even if it's only to breathe.
+puppet_sovereign/NN | calmed | Maybe you're right. You sound surer than I feel, and I'll go along with that.
+puppet_sovereign/NN | still_afraid | I can't. It all lands on me, whether I decide it or not.
+puppet_sovereign/NN | still_afraid | Not yet. I'm waiting to feel steadier, and nobody can tell me when.
+puppet_sovereign/NN | not_afraid | I'm fine; nobody's told me to be otherwise.

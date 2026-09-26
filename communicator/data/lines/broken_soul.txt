@@ -713,3 +713,25 @@ broken_soul/NN | safety_wary_told | More or less; what I told you still holds.[ 
 broken_soul/NN | safety_safe_told | Aye, safe enough; that's what I told you, and it stands.[ The one thing worth weighing is {worst}.]
 broken_soul/NN | about_place_told | That's all I know of it, and you've had it: {about}.[ {who} can be found there.][ The {around} are still there, so go ready.]
 broken_soul/NN | about_place_told | As I told you, it's {about}; take it or leave it.[ There's {trades} there.][ And {work}, as I said.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- broken_soul/NN ----
+broken_soul/NN | greeted_afraid | Hello. Don't mind me; I'm a little shaken.
+broken_soul/NN | greeted_afraid | Oh. I'm not at my best, so say it plainly.
+broken_soul/NN | greeted_panicked | Please, please, no, not now.
+broken_soul/NN | greeted_panicked | Thank goodness, oh, thank goodness; I can't keep my hands still.
+broken_soul/NN | small_talk_afraid | I'm sure talk would help, but my thoughts keep wandering off.
+broken_soul/NN | small_talk_panicked | No, no, I can't hold a thought, not one.
+broken_soul/NN | thanked_afraid | Of course; it's nothing, and I've no head for more.
+broken_soul/NN | thanked_panicked | Don't thank me, please, just go.
+broken_soul/NN | parted_afraid | Stay safe; I mean it.
+broken_soul/NN | parted_panicked | Wait, don't, please, not yet.
+broken_soul/NN | afraid_lead | Just a moment; I'll get the words out.
+broken_soul/NN | afraid_lead | My voice won't hold still, but I'll answer.
+broken_soul/NN | panicked_lead | Please, just, give me a breath, please.
+broken_soul/NN | panicked_lead | Wait, wait; I can, I can.
+broken_soul/NN | calmed | Thank you. That's something to hold on to.
+broken_soul/NN | calmed | I'll try; one breath, then the next.
+broken_soul/NN | still_afraid | I can't. Not yet, and I won't pretend otherwise.
+broken_soul/NN | still_afraid | You don't understand. My nerves don't listen to reason.
+broken_soul/NN | not_afraid | I'm all right, plain and simple, but thank you.

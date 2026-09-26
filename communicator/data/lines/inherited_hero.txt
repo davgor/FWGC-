@@ -362,3 +362,25 @@ inherited_hero/NN | safety_wary_told | Mostly, as I told you; my count hasn't ch
 inherited_hero/NN | safety_safe_told | It's safe, as I said, and I've no reason to dress it up.[ Keep off {worst}, and it costs you nothing.]
 inherited_hero/NN | about_place_told | That's all I've got on {about}, and you've heard it.[ Mind the {around}; that's still the risk.]
 inherited_hero/NN | about_place_told | It's {about}, like I told you, and I don't trade in guesses.[ The work's still on offer: {work}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- inherited_hero/NN ----
+inherited_hero/NN | greeted_afraid | Wait. A moment's patience; I'm shaking.
+inherited_hero/NN | greeted_afraid | Hello. Mind the shaking; it costs me more than it costs you.
+inherited_hero/NN | greeted_panicked | Stay back, no, not now, I can't, give me room.
+inherited_hero/NN | greeted_panicked | Who's there? Say it, say it, I can't stand not knowing.
+inherited_hero/NN | small_talk_afraid | I can't spare the effort for talk; it's all going on keeping my head.
+inherited_hero/NN | small_talk_panicked | I can't spare it, not a word, I can't.
+inherited_hero/NN | thanked_afraid | Don't thank me; I'll tally it later, if I can.
+inherited_hero/NN | thanked_panicked | Go, we're straight, we're straight, just go.
+inherited_hero/NN | parted_afraid | Please, be careful; count the cost of every step.
+inherited_hero/NN | parted_panicked | Goodbye, go on, go, don't mind me, go.
+inherited_hero/NN | afraid_lead | It costs me something to steady my voice; bear with it.
+inherited_hero/NN | afraid_lead | I'll keep it straight, if my breath lets me.
+inherited_hero/NN | panicked_lead | I'll, I'll get there, whatever it takes, I will.
+inherited_hero/NN | panicked_lead | Please, please, a moment, a moment.
+inherited_hero/NN | calmed | Yes. That's one worry off the tally, if not the last.
+inherited_hero/NN | calmed | I'll try; that's worth more to me than it cost you.
+inherited_hero/NN | still_afraid | Not yet; I'm still counting breaths, and I'll not skip any.
+inherited_hero/NN | still_afraid | I can't; my nerves want more than a few words.
+inherited_hero/NN | not_afraid | There's no need; the tally's steady, and so am I.

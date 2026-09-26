@@ -175,3 +175,25 @@ post:innkeeper | safety_wary_told | More or less, like I said.[ Just mind {worst
 post:innkeeper | safety_safe_told | Safe enough, like I told you; I'd have heard otherwise, in my trade.[ The worst I know of is {worst}.]
 post:innkeeper | about_place_told | You've had all I know of that one, and you're welcome to it again: {about}.
 post:innkeeper | about_place_told | I can only tell you what I told you before, and gladly: {about}.[ Mind the {around}, won't you?][ And if it's work you're after, {work}.]
+
+# ---- Frightened words (contract version 9): a frightened speaker's lines, and calming words ----
+# ---- post:innkeeper ----
+post:innkeeper | greeted_afraid | Oh! I'm all of a tremble, forgive me; what can I get you?
+post:innkeeper | greeted_afraid | Thank goodness, a face! Take a seat, and I'll pour once I stop shaking.
+post:innkeeper | greeted_panicked | Please, please, I can't, my hands, I can't pour a drop!
+post:innkeeper | greeted_panicked | Wait, wait! What was I doing, I can't think, I can't!
+post:innkeeper | small_talk_afraid | I'd chatter if I could; I've wiped this same table over and over.
+post:innkeeper | small_talk_panicked | No, no, I can't talk, I can't, don't ask me to!
+post:innkeeper | thanked_afraid | Yes, yes, you're welcome; only mind how you go.
+post:innkeeper | thanked_panicked | Go on, go, there's nothing to thank me for, go!
+post:innkeeper | parted_afraid | Stay safe, and mind the step, and everything else besides.
+post:innkeeper | parted_panicked | Wait, please, stay a while, stay, I'll pour you anything!
+post:innkeeper | afraid_lead | Let me set this cup down before I drop it, and then I'll tell you.
+post:innkeeper | afraid_lead | Oh, I'm in such a state, but I'll manage.
+post:innkeeper | panicked_lead | I'll tell you, I will, I will, just give me a breath.
+post:innkeeper | panicked_lead | My hands, look at my hands, never mind, never mind.
+post:innkeeper | calmed | Thank you; that's kind. I'll sit a moment, if the house can spare me.
+post:innkeeper | calmed | I know, I know. Give me something to do and I'll pull myself together.
+post:innkeeper | still_afraid | I can't, not yet. Give me a little longer.
+post:innkeeper | still_afraid | You don't understand. I've spilled every cup I've tried to fill.
+post:innkeeper | not_afraid | I'm not afraid; only run off my feet.
