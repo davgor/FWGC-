@@ -528,8 +528,9 @@ NpcRoster generate_npc_roster(const NpcRequest& request) {
                 person.plot_id = post.plot_id;
                 person.alive = true;
                 person.important = important.count(person.uid) != 0;
-                if (const auto plot = plot_by_id.find(post.plot_id); plot != plot_by_id.end() && !plot->second->name.empty()) {
-                    person.workplace = plot->second->name;
+                if (const auto plot = plot_by_id.find(post.plot_id); plot != plot_by_id.end()) {
+                    if (!plot->second->name.empty()) person.workplace = plot->second->name;
+                    person.workplace_placed = plot->second->placed;
                 }
                 // Ruled 2026-09-23: one storekeeper post, told apart by the store it keeps.
                 if (post.role == "storekeeper") person.store = std::string(npc_short_building(post.building_id));

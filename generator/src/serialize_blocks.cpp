@@ -3306,6 +3306,7 @@ void write_npcs(JsonWriter& json, const NpcRoster& r) {
         text(json, "status", p.alive ? "alive" : "dead");
         flag(json, "important", p.important);
         optional_text(json, "workplace", p.workplace);
+        if (!p.workplace_placed) flag(json, "workplace_placed", false);
         optional_text(json, "store", p.store);
         json.key("appearance");
         if (p.appearance) {

@@ -18,7 +18,10 @@
 // THE OWNER'S BASELINE (2026-09-23). Every person names the building they work in as the
 // plan placed it (`workplace`); the one storekeeper post names the store it keeps (`store`);
 // a city's stable holds a horse keeper, who sells mounts and runs carriages (the services
-// table). And every person -- post or cast -- carries a gender and an age drawn from their
+// table). Every city keeps its stable (2026-09-26): where the plan could not fit one, the plan
+// lists it unplaced, and its posts are staffed all the same, from the structure catalogue's
+// count, at a workplace marked unplaced (`workplace_placed`) for the game to place. And
+// every person -- post or cast -- carries a gender and an age drawn from their
 // own stream, the age inside their people's young, middle or old band, which the block
 // publishes beside each parent race's. Hair and every finer choice are the game's.
 //
@@ -158,6 +161,10 @@ struct NpcPlot {
     // The building's name as the plan placed it ("Granary", "Winter supply warehouse"):
     // each person's workplace, and a storekeeper's store.
     std::string name;
+    // False for a building the plan could not place but the city still keeps, staffed so its
+    // people exist: the stable (ruled 2026-09-26). The plan lists it in `unplaced`, for the
+    // game to place.
+    bool placed = true;
 };
 
 // A people's life, in years, as the heritage appearance layer resolves it: the subrace's
@@ -356,6 +363,9 @@ struct NpcPerson {
     bool important = false;
     // The name of the building this person works in, as the plan placed it.
     std::optional<std::string> workplace;
+    // False when that building is one the plan could not place (NpcPlot::placed): the person
+    // has a post and no plot on the ground yet. The document writes it only then.
+    bool workplace_placed = true;
     // A storekeeper's store, by its building: granary, warehouse, root_cellar,
     // hamlet_food_store. The exact store is (site_uid, plot_id).
     std::optional<std::string> store;

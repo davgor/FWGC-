@@ -1037,7 +1037,10 @@ const World& world() {
 
 }  // namespace
 
-TEST(in_a_world_every_placed_stable_keeps_one_horse_keeper_and_a_lost_one_says_why) {
+TEST(in_a_world_every_city_keeps_one_horse_keeper_and_an_unplaced_stable_says_why) {
+    // Ruled 2026-09-23: a horse keeper in every city. Ruled 2026-09-26 ("finish this"): a
+    // stable the plan could not fit is still the city's, listed unplaced for the game to place,
+    // and staffed at a workplace marked unplaced.
     const World& w = world();
     check::is_true(w.npcs.ok, "an ok roster: " + w.npcs.error);
     std::map<std::string, const NpcPerson*> keeper_at;  // "<site>|<plot>"
@@ -1063,6 +1066,7 @@ TEST(in_a_world_every_placed_stable_keeps_one_horse_keeper_and_a_lost_one_says_w
             check::is_true(keeper != keeper_at.end(), city.city_uid + "'s stable to keep a horse keeper");
             check::equal(keeper->second->workplace.value_or(""), std::string(stables[0]->name),
                          "the horse keeper working in the stable itself");
+            check::is_true(keeper->second->workplace_placed, "a placed workplace");
             continue;
         }
         // A city that could not fit its stable says so, and for want of room: never for want
@@ -1075,8 +1079,15 @@ TEST(in_a_world_every_placed_stable_keeps_one_horse_keeper_and_a_lost_one_says_w
                          city.city_uid + "'s stable lost for want of room");
         }
         check::is_true(reported, city.city_uid + " to report the stable it could not place");
+        const auto keeper = keeper_at.find(city.city_uid + "|unplaced-building.stable");
+        check::is_true(keeper != keeper_at.end(), city.city_uid + " to keep a horse keeper all the same");
+        if (keeper == keeper_at.end()) continue;
+        check::is_true(!keeper->second->workplace_placed, "at a workplace marked unplaced");
+        check::equal(keeper->second->workplace.value_or(""), std::string("Stable and farrier yard"),
+                     "the stable they keep, by name");
     }
-    check::equal(static_cast<int>(keeper_at.size()), placed, "a horse keeper for every placed stable, none besides");
+    check::is_true(placed < built, "the premise: a city that could not fit its stable");
+    check::equal(static_cast<int>(keeper_at.size()), built, "a horse keeper for every city, none besides");
     // Size 33 is cramped -- every city there is partial -- and most still keep horses.
     check::is_true(placed * 2 > built,
                    "most cities to place their stable, got " + std::to_string(placed) + " of " + std::to_string(built));

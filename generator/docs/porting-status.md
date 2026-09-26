@@ -182,6 +182,11 @@ Each is pinned by tests, so a change of mind lands as a deliberate change.
    A city with no room left for the stable's 20 x 29 m plot lists it unplaced, as it does any
    building: at seeds 42, 7, 99 and 1234 (size 129) and 42 (size 257), 228 of 239 planned
    cities placed one, and 9 of the 11 without also lost their granary or market square.
+   **It keeps the stable all the same** (2026-09-26, "finish this"): its horse keeper, animal
+   keeper and farrier are staffed at a workplace the document marks `workplace_placed: false`,
+   and the plan's `unplaced` row says why, for the game to place. At seeds 42, 7, 99 and 1234
+   (size 65), 182 of 182 built cities keep a horse keeper, where 153 did; a city the planner
+   could not lay out at all (`unbuildable`) has no roster, and gets no stable hands either.
    Hamlets keep barns and farmyards, not stables, and have no horse keeper. **Gender and
    age**: every post and every cast member draws a gender (female or male, even odds) and an
    age band (young, middle, old at 2 : 2 : 1), then a whole year inside the band, from a
@@ -241,6 +246,17 @@ Each is pinned by tests, so a change of mind lands as a deliberate change.
    65, over a year: 82 warm-core systems (44 reach hurricane force, 16 major), rain at a wet
    mid-latitude place 16% of the time, a thunderstorm (50 or more) at a wet tropical place 2%
    of the time; a world 5 C colder has no warm-core systems.
+8. **An age turn leaves few cities standing, and stays that way** (2026-09-26: "only the
+   strongest empires can actually last 5000 years"). One `advance_ages` step after generation
+   left 1 to 4 of 29 to 43 cities standing by uid at size 33 (seeds 42, 7, 99 and 12345,
+   2026-09-23), villains taking most. What stands is carried by node and people; nothing is
+   retuned to keep more.
+9. **A starved city plan is data, not a defect to repair here** (2026-09-26: "Starved cities
+   are for unreal, we just expose the data"). A cramped city whose plan lost its granary,
+   market or stable -- housing holds taking the ground its services needed, a street root on a
+   pocket, streets crowding small shapes (diagnosed 2026-09-23) -- publishes that as it is: the
+   plan's `status` and each lost building in `unplaced` with its reason. The game decides what
+   to do with it. The stable alone is still staffed (item 5).
 
 Observed and not changed: a school god's aspect is Wild when its network's mean node
 intensity times (1 + instability) exceeds 1.2, and generated intensities average about 2,

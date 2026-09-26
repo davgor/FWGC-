@@ -11,6 +11,7 @@
 // blocks the earlier stages wrote map onto what each pass reads.
 #include "fwg/complete_stage.hpp"
 
+#include <algorithm>
 #include <chrono>
 #include <cmath>
 #include <cstdint>
@@ -602,6 +603,22 @@ NpcRequest npc_request(const World& world, const SphereGrid& grid) {
             plan.z = NpcNumber::of(s.z);
         }
         plan.plots = npc_plots(p.plots);
+        // Every city keeps a stable and its keepers (a horse keeper in every city, ruled
+        // 2026-09-23; "finish this", 2026-09-26). Where the plan could not fit it, the plan
+        // lists it unplaced for the game to place, and its people are staffed all the same, at
+        // a workplace marked unplaced. Not in a city the planner could not lay out at all: that
+        // city has no roster, and three stable hands would be all of it.
+        const auto is_stable = [](std::string_view id) { return id == "building.stable"; };
+        const bool stable_placed = std::any_of(plan.plots.begin(), plan.plots.end(),
+                                               [&](const NpcPlot& plot) { return is_stable(plot.building_id); });
+        const bool stable_unplaced = std::any_of(p.unplaced.begin(), p.unplaced.end(),
+                                                 [&](const Unplaced& row) { return is_stable(row.building_id); });
+        if (!stable_placed && stable_unplaced && p.status != "unbuildable") {
+            if (const Structure* stable = structure("building.stable")) {
+                plan.plots.push_back({"unplaced-building.stable", std::string(stable->id), stable->workers,
+                                      std::string(stable->name), false});
+            }
+        }
         request.city_plans.push_back(std::move(plan));
     }
     request.has_hamlet_plans = world.has_rural_plans;
