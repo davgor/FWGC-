@@ -14,7 +14,7 @@ Text is only freeform conversation with NPCs, which is how players get quests an
 | `generator/` | The world generator: a seed in, a finished world out. C++20 library `fwg` and CLI `fwg.exe` | runtime | Claude (its visual data fields: GPT) |
 | `viewer/` | A browser viewer for generated worlds, over `fwg.exe` | dev tool (JS) | GPT |
 | `concept art/` | The concept art production map and its assets | assets | GPT |
-| `ui-mockups/` | Mockups of the games' UI screens, designed on Claude Design canvases, and the approved exports the game is built from. No screens yet | assets | Shared: Claude designs, GPT is expected to build |
+| `ui-mockups/` | A drop spot for the games' UI mockups until the games' projects exist: Claude Design canvases, and the approved exports the game is built from | assets | Shared: Claude designs, GPT builds |
 | `tools/` | The layer checker, the commit gate, the red-team prompt, the git hooks | dev tool (C++) | Claude |
 | `orchestrator/` | The deterministic director. Built so far: dialogue acts answered as knowledge-scoped fact packets, conversation each speaker remembers, heroes' hidden faces brought out by the player, taking and releasing quests, and time. Pacing and hero direction are still to come | runtime | Claude |
 | `communicator/` | NPC dialogue. Built so far: the interpreter (a player's line to one dialogue act, its target only something a packet named, with a confirm question before taking or giving up work) and the voice (a packet in the speaker's words, opening with what happened, naming only what the packet names, and giving no bearing or pay in its barred words), each held by a grammar; written lines (a writer's lines for every hero archetype and alignment, every roster post, the faces heroes show and anyone, per situation, their blanks filled from the packet, with no model), for a conversation the speaker remembers: greetings by what they remember, small talk, "is it safe", thanks and insults taken, a hidden face owned to or denied; and `communicator_eval`, which measures a model or the written lines over labelled cases. Names no packet gave, and the models that ship, are still to come | runtime | Claude |
@@ -40,12 +40,14 @@ happens and changes the world.
 **GPT does the art and visual side:**
 - `viewer/` and `concept art/`;
 - asset output;
+- the games' UI, built in the games from the mockups in `ui-mockups/`;
 - the visual fields of the generator's content data: appearance prose, colours and asset
   references in files such as `generator/data/heritage-appearance.json`, `npc-appearance.json`,
   `key-location-exteriors.json` and `world-asset-requirements.json`.
 
-**Both share `ui-mockups/`,** the games' UI mockups. Claude designs them; GPT is expected to
-build them in the game. Neither one writing there is a lane crossing.
+**Both share `ui-mockups/`,** a drop spot for the games' UI mockups until the games' own projects
+exist; the mockups move there then. Claude designs them and GPT builds them. Neither one writing
+there is a lane crossing.
 
 Crossing a lane is allowed. The commit gate notes it so the owner sees it. Declare who you are on
 every commit with `FWGC_AGENT=claude` or `FWGC_AGENT=gpt`.

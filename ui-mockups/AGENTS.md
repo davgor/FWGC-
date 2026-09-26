@@ -1,8 +1,9 @@
 # ui-mockups/: local rules
 
-Mockups of the games' UI screens. **Lane: shared.** Claude designs the mockups; GPT is expected
-to build them in the game. Neither one writing here is a lane crossing. The repository-wide rules
-are in [`../AGENTS.md`](../AGENTS.md).
+Mockups of the games' UI screens. **Lane: shared.** Claude designs the mockups and GPT builds them
+in the game. Neither one writing here is a lane crossing. The folder is a drop spot until the
+games' own projects exist; the mockups move there then. The repository-wide rules are in
+[`../AGENTS.md`](../AGENTS.md).
 
 ## Rules
 
