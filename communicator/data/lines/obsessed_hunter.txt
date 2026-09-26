@@ -96,7 +96,7 @@ obsessed_hunter/LN | not_understood | What do you mean by that, precisely?
 obsessed_hunter/NG | about_self | I'm {speaker}, {post} of {place}. Are you hurt? Is anyone with you?
 obsessed_hunter/NG | about_self | {speaker}, {post} of {place}. I won't rest while anyone's in harm's way, so tell me what you've seen.
 obsessed_hunter/NG | about_self | You can call me {speaker}; I'm {post} of {place}. If you need help, ask first and we'll talk after.
-obsessed_hunter/NG | about_person | {name}? The {role}, at {where}. If you see {name}, tell me how they're keeping.
+obsessed_hunter/NG | about_person | {name}? The {role}, at {where}. Keep your eyes open on the way.
 obsessed_hunter/NG | about_person | That's {name}, the {role}, at {where}. If you go, be decent with them.
 obsessed_hunter/NG | about_place | You mean {about}. If anyone lives near it, I'd like to know they're safe.
 obsessed_hunter/NG | about_place | I know {about}. Wherever you're headed, don't go alone if you can help it.

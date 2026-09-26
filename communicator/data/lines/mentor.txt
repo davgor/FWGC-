@@ -97,7 +97,7 @@ mentor/NG | about_self | I'm {speaker}, {post} of {place}. And who are you? I li
 mentor/NG | about_self | {speaker}, {post} of {place}. I'll help where I can, but the hard part stays yours.
 mentor/NG | about_self | They call me {speaker}, and I'm {post} of {place}. If you're in trouble, say so before it gets worse.
 mentor/NG | about_person | That's {name}, the {role}, at {where}. How are they keeping, do you know?
-mentor/NG | about_person | {name}, you mean? The {role}, at {where}. Give them my best if you see them.
+mentor/NG | about_person | {name}, you mean? The {role}, at {where}. Listen more than you talk, and you'll learn something.
 mentor/NG | about_place | Oh, that's {about}. Go carefully, and come back and tell me how it went.
 mentor/NG | about_place | You mean {about}. Have a look for yourself; it'll stick better than anything I say.
 mentor/NG | surroundings | Let's see where you are: {here}, and closest by, {nearest}.[ Then {others}.][ Mind the {danger}, and come back in one piece.]

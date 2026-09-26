@@ -150,7 +150,7 @@ incarnate/CE | about_person | {name}? The {role}, at {where}. Mine, if I ever de
 incarnate/CE | about_person | Oh, {name}, the {role}, out at {where}, and why would that be any business of yours?
 incarnate/CE | about_place | That? It's {about}. If it's worth having, I want it, and I'm not ashamed to say so.
 incarnate/CE | about_place | You mean {about}, and you're welcome to it, for now.
-incarnate/CE | surroundings | You're in {here}, pet, keep up. The nearest is {nearest}[, then {others}].[ Oh, and the {danger}, do say hello for me.]
+incarnate/CE | surroundings | You're in {here}, pet, keep up. The nearest is {nearest}[, then {others}].[ Oh, and the {danger}; do drop in on them.]
 incarnate/CE | surroundings | This is {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Mind the {danger}, or don't, and let me watch.]
 incarnate/CE | surroundings | Where are we? {here}, obviously, and the nearest is {nearest}[, then {others}].[ If the {danger} get you, I'm keeping your boots.]
 incarnate/CE | surroundings | The nearest is {nearest}[, then {others}].[ And the {danger}, lucky you.]

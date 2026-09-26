@@ -96,7 +96,7 @@ tainted_one/LN | not_understood | What do you mean, precisely, and in whole sent
 tainted_one/NG | about_self | I'm {speaker}, {post} of {place}. If I ever tell you to leave, don't ask why; just go.
 tainted_one/NG | about_self | {speaker}; I'm the {post} here in {place}. Are you all right? You can tell me if you're not.
 tainted_one/NG | about_self | You can call me {speaker}; I'm {post} of {place}. Stay a step further off than feels polite, and we'll both be fine.
-tainted_one/NG | about_person | That's {name}, the {role}, at {where}. If you see {name}, tell them {speaker} asked after them.
+tainted_one/NG | about_person | That's {name}, the {role}, at {where}. Go on; you'll do better there than here with me.
 tainted_one/NG | about_person | You'll find {name}, the {role}, at {where}. Be of use to them if you can; it comes back around.
 tainted_one/NG | about_place | It's {about}. Go carefully, and don't go alone if you can help it.
 tainted_one/NG | about_place | You mean {about}. Is someone you know out there?

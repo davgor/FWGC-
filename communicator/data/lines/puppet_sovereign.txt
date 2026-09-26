@@ -50,7 +50,7 @@ puppet_sovereign/LE | not_understood | Speak plainly, and address me properly wh
 puppet_sovereign/NG | about_self | I'm {speaker}, {post} of {place}, but {speaker} will do.
 puppet_sovereign/NG | about_self | My name's {speaker}, and I'm {post} of {place}. Are you all right? You can say if you're not.
 puppet_sovereign/NG | about_self | {speaker}[, {post} of {place}]. I don't decide much, but I notice who needs help.
-puppet_sovereign/NG | about_person | That's {name}, the {role}, at {where}. If you see {name}, tell me how they are.
+puppet_sovereign/NG | about_person | That's {name}, the {role}, at {where}. I wish I could tell you more.
 puppet_sovereign/NG | about_person | You mean {name}? The {role}, at {where}, I'm told. Is {name} in some trouble?
 puppet_sovereign/NG | about_place | Oh, {about}. What takes you there, if I may ask?
 puppet_sovereign/NG | about_place | You're thinking of {about}. Go carefully there, if you're going.

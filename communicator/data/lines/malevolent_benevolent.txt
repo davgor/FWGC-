@@ -96,7 +96,7 @@ malevolent_benevolent/LE | not_understood | What do you mean to say, precisely?
 malevolent_benevolent/NG | about_self | I'm {speaker}, {post} of {place}. Don't take my word for anything; keep your eyes on what I do.
 malevolent_benevolent/NG | about_self | {speaker}[, {post} of {place}]. Your name can wait; I'd sooner see what you're made of.
 malevolent_benevolent/NG | about_self | My name's {speaker}, and I'm {post} of {place}. If you need help, say so first; questions later.
-malevolent_benevolent/NG | about_person | That's {name}, the {role}, at {where}. If you see {name}, ask after them for me.
+malevolent_benevolent/NG | about_person | That's {name}, the {role}, at {where}. Do be good to them, won't you?
 malevolent_benevolent/NG | about_person | {name}? The {role}, at {where}. How is {name} keeping, do you know?
 malevolent_benevolent/NG | about_place | I know it: {about}. If anyone there needs help, I want to hear of it.
 malevolent_benevolent/NG | about_place | You mean {about}. Go and see it with your own eyes; don't settle for my word.

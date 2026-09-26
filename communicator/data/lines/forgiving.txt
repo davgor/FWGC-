@@ -50,7 +50,7 @@ forgiving/NN | not_understood | That's beyond me, so try it again in fewer words
 forgiving/NG | about_self | I'm {speaker}, {post} of {place}. Ask what you need, and we'll worry about the rest later.
 forgiving/NG | about_self | {speaker}, {post} of {place}. I hope you're keeping well.
 forgiving/NG | about_self | My name's {speaker}, {post} of {place}, and you're welcome here, whatever you've done.
-forgiving/NG | about_person | {name}, the {role}, at {where}. If you see {name}, tell me how they're keeping.
+forgiving/NG | about_person | {name}, the {role}, at {where}. Be kind to them, whatever you're about.
 forgiving/NG | about_person | That's {name}, the {role}. You'll find them at {where}, and I hope you find them well.
 forgiving/NG | about_place | You mean {about}. Go carefully, and don't walk past anyone there who needs a hand.
 forgiving/NG | about_place | Ah, {about}. That's all I have, but it's yours.

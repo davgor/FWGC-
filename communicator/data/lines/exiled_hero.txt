@@ -50,7 +50,7 @@ exiled_hero/NN | not_understood | Speak plainly, I've no time to guess.
 exiled_hero/NG | about_self | I'm {speaker}, {post} of {place}. Whoever you are, you'll get a fair hearing, and a hand if you need one.
 exiled_hero/NG | about_self | {speaker}, the {post} of {place}. And you are? No, rest first, names can wait.
 exiled_hero/NG | about_self | My name's {speaker}, {post} of {place}. Have you eaten?
-exiled_hero/NG | about_person | That's {name}, the {role}, at {where}. If you see {name}, tell me how they're keeping.
+exiled_hero/NG | about_person | That's {name}, the {role}, at {where}. I hope you find what you're after.
 exiled_hero/NG | about_person | You'll find {name}, the {role}, at {where}. Give them the same chance you'd want, that's all I ask.
 exiled_hero/NG | about_place | You mean {about}. If anyone there needs help, I'd want to know.
 exiled_hero/NG | about_place | It's {about}. Go carefully, and come back and tell me how it looks.
@@ -142,7 +142,7 @@ exiled_hero/LN | not_understood | What do you mean by that, precisely?
 exiled_hero/LG | about_self | I am {speaker}, {post} of {place}. If you have need of shelter, you have only to ask it of me.
 exiled_hero/LG | about_self | {speaker}, {post} of {place}, and glad to see you on your feet. Are you hurt, or only tired?
 exiled_hero/LG | about_self | My name is {speaker}, and I am {post} of {place}. Tell me what you need, and we will speak of the rest after.
-exiled_hero/LG | about_person | That is {name}, the {role}, at {where}. Should you meet {name}, give them my regards, and tell me how they fare.
+exiled_hero/LG | about_person | That is {name}, the {role}, at {where}. Should you meet {name}, deal with them honestly.
 exiled_hero/LG | about_person | You will find {name}, the {role}, at {where}. Be as fair to {name} as I would be to you.
 exiled_hero/LG | about_place | Ah, {about}. If anyone there is in need, I would hear of it.
 exiled_hero/LG | about_place | You mean {about}. Should you go there, go with care, and bring word back to me.
@@ -198,10 +198,10 @@ exiled_hero/CN | surroundings | {here}, that's where you are, and the nearest is
 exiled_hero/CN | surroundings | The nearest is {nearest}[, then {others}], and that's the lot.[ Mind the {danger}.]
 exiled_hero/CN | surroundings | What's near is {nearest}.[ After that, {others}.][ And steer round the {danger}.]
 exiled_hero/CN | work_own | You want work? Good, because I've got some: {own}.[ Or, if it's not your sort of thing, {others}.]
-exiled_hero/CN | work_own | Here's one, yours if you want it, and I hope you do: {own}.[ If not, {others}, and tell them I sent you.]
+exiled_hero/CN | work_own | Here's one, yours if you want it, and I hope you do: {own}.[ If not, {others}; see what they make of you.]
 exiled_hero/CN | work_own | I've a thing that needs doing, and here you are, asking: {own}.[ Or {others}, your call.]
 exiled_hero/CN | work_others | Mine? Nothing. Somebody else's, though: {others}.
-exiled_hero/CN | work_others | Not me. {others}, and tell them I said hello.
+exiled_hero/CN | work_others | Not me. {others}; try your luck.
 exiled_hero/CN | work_none | No work, none, and I'd tell you if there were.
 exiled_hero/CN | work_none | Nothing going, not even a rumour of it.
 exiled_hero/CN | unknown | No idea, and I hate not knowing.
@@ -247,7 +247,7 @@ exiled_hero/CG | work_own | Would you? Then here's one worth doing: {own}.[ If n
 exiled_hero/CG | work_own | I'll just ask, then, and you can say no: {own}.[ Or {others}, if you'd sooner.]
 exiled_hero/CG | work_own | Help me with something, go on: {own}.[ If it's not for you, {others}.]
 exiled_hero/CG | work_others | Nothing of mine, sorry, but {others}, and tell them {speaker} sent you.
-exiled_hero/CG | work_others | Me, no. {others}, and say hello from me.
+exiled_hero/CG | work_others | Me, no. {others}, and good luck to you.
 exiled_hero/CG | work_none | Nothing, not a scrap of it anywhere I know.
 exiled_hero/CG | work_none | There's no work, and I hate saying that to anyone.
 exiled_hero/CG | unknown | No idea, and I'd tell you straight if I did.

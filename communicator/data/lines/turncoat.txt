@@ -142,7 +142,7 @@ turncoat/LE | not_understood | What do you mean, and do be brief.
 turncoat/NG | about_self | I'm {speaker}, {post} of {place}. How are you holding up?
 turncoat/NG | about_self | {speaker}, {post} of {place}. I stand with whoever's doing right, and not a day longer.
 turncoat/NG | about_self | My name's {speaker}, {post} of {place}. If you need a hand, ask; the questions can come after.
-turncoat/NG | about_person | That's {name}, the {role}, at {where}. If you see {name}, tell me how they're keeping.
+turncoat/NG | about_person | That's {name}, the {role}, at {where}. Whose side they're on, you'll have to judge for yourself.
 turncoat/NG | about_person | {name}, {role} at {where}. Whatever side {name} is on, I hope it's the right one.
 turncoat/NG | about_place | Oh, {about}. Go carefully there, and come back in one piece.
 turncoat/NG | about_place | You mean {about}. That's all I know; sorry it isn't more.

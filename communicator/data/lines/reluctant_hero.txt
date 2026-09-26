@@ -97,7 +97,7 @@ reluctant_hero/NG | about_self | I'm {speaker}, {post} of {place}. Before anythi
 reluctant_hero/NG | about_self | {speaker}. I'm {post} of {place}, which mostly means I can't say no to anyone.
 reluctant_hero/NG | about_self | They call me {speaker}, {post} of {place}, and I'll help where I can, whether I like it or not.
 reluctant_hero/NG | about_person | {name}, the {role}, at {where}. How are they keeping, do you know?
-reluctant_hero/NG | about_person | You mean {name}, the {role}, at {where}. If you see {name}, tell them I asked after them.
+reluctant_hero/NG | about_person | You mean {name}, the {role}, at {where}. Rather you than me, honestly.
 reluctant_hero/NG | about_place | I know {about}. Go carefully, and don't go alone if you can help it.
 reluctant_hero/NG | about_place | It's {about}. If anyone there needs help, I'd rather hear about it than not.
 reluctant_hero/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}, and tell me if anyone's in harm's way.]

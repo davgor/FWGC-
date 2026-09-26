@@ -188,7 +188,7 @@ rebel/CN | not_understood | That's beyond me, and I'd bet it's beyond you too.
 rebel/CG | about_self | {speaker}, {post} of {place}, at your, no, I don't say that, but I'll help. What do you need?
 rebel/CG | about_self | I'm {speaker}, {post} of {place}, which sounds grander than it is. How are you, really?
 rebel/CG | about_self | Well met. {speaker}, {post} of {place}, and if you need a hand, you've found one.
-rebel/CG | about_person | {name}! The {role}, at {where}, and if you see them, give them my best.
+rebel/CG | about_person | {name}! The {role}, at {where}, and don't let anyone tell you you can't go.
 rebel/CG | about_person | Oh, {name}, the {role}, at {where}. Go gently with them, everyone's somebody's.
 rebel/CG | about_place | That's {about}, and if anyone there needs a hand, you give it, yes?
 rebel/CG | about_place | You mean {about}. Go careful, and I mean properly careful, not your kind.

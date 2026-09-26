@@ -266,7 +266,7 @@ post:bath_attendant | not_understood | What do you mean; say it louder, over the
 # ---- post:assistant ----
 post:assistant | about_self | Just {speaker}; I fetch, carry, sweep, and do as I'm told[ here in {place}].
 post:assistant | about_self | {speaker}, an {post}. I'm still learning, so don't ask me anything hard.
-post:assistant | about_person | That's {name}, the {role}.[ Go to {where}, but don't say I sent you.]
+post:assistant | about_person | That's {name}, the {role}.[ You'll want {where}; I've my own work to see to.]
 post:assistant | about_person | Aye, {name}[, the {role}], but I'd best keep to my work.[ Head for {where}.]
 post:assistant | about_place | It's {about}, or that's what I've picked up while sweeping.
 post:assistant | about_place | Oh, {about}. I've heard it talked of over my head.

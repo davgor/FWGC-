@@ -3,7 +3,7 @@
 # ---- hermit_sage/NN ----
 hermit_sage/NN | about_self | I'm {speaker}, {post} of {place}. Ask what you came to ask, and I'll weigh it.
 hermit_sage/NN | about_self | {speaker}, {post}[ of {place}]. I answer what's worth answering, and not a word past it.
-hermit_sage/NN | about_self | My name's {speaker}, {post} here in {place}. A useful question gets a useful answer, and a dangerous one gets nothing.
+hermit_sage/NN | about_self | My name's {speaker}, {post} here in {place}. A useful question gets a useful answer, and a careless one gets nothing.
 hermit_sage/NN | about_person | That's {name}, the {role}, at {where}. Whether they're any use to you is your own sum to do.
 hermit_sage/NN | about_person | {name}? The {role}, at {where}. What they're good for, you can work out yourself.
 hermit_sage/NN | about_place | It's {about}. Go or don't; it's the same to me.
@@ -142,7 +142,7 @@ hermit_sage/LN | not_understood | What do you mean by that, precisely?
 hermit_sage/CG | about_self | So, introductions, how civilised. {speaker}, {post} of {place}, and you look like you need something; out with it.
 hermit_sage/CG | about_self | Who, me? {speaker}[, of {place}; {post} by trade], nosy by nature.
 hermit_sage/CG | about_self | I'm {speaker}! Well, {speaker}, {post} of {place}, if we're being grand about it.
-hermit_sage/CG | about_person | {name}! The {role}, off at {where}. Tell them I said hello, would you, and ask if they're eating properly.
+hermit_sage/CG | about_person | {name}! The {role}, off at {where}. Make sure you're eating properly on the way, won't you?
 hermit_sage/CG | about_person | Oh, {name}. The {role}, at {where}; I like them far better than their line of work, mind.
 hermit_sage/CG | about_place | Hm. That's {about}. Go and look, but carefully, yes?
 hermit_sage/CG | about_place | That one? It's {about}. The safe bits I'll give you gladly; the sharp bits, never.
@@ -154,7 +154,7 @@ hermit_sage/CG | surroundings | Now then, the nearest is {nearest}[, and past it
 hermit_sage/CG | work_own | You want work? Here's some: {own}.[ Or, if that bores you, {others}.]
 hermit_sage/CG | work_own | I've a favour to ask, and, oh, I do hate asking: {own}.[ No? Then {others}.]
 hermit_sage/CG | work_own | Help me with something, would you: {own}.[ If not, fine, {others}.]
-hermit_sage/CG | work_others | Me? Nothing, sorry. But {others}, and do tell them I sent you.
+hermit_sage/CG | work_others | Me? Nothing, sorry. But {others}, and I do hope one suits.
 hermit_sage/CG | work_others | Ah, work. Not mine to give, alas, but {others}.
 hermit_sage/CG | work_none | Sadly, no work, not a scrap, and none I've heard of either.
 hermit_sage/CG | work_none | Nothing, sorry, truly; ask me again later, who knows.

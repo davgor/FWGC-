@@ -96,7 +96,7 @@ trickster/LN | not_understood | What do you mean, precisely, before I agree to s
 trickster/CN | about_self | I am {speaker}, {post} of {place}, at your service! Well, at your service when it suits me.
 trickster/CN | about_self | {speaker}, that's me; {post} of {place}, for my sins. You?
 trickster/CN | about_self | Hear ye, hear ye: {speaker}, {post} of {place}, and that's the whole show.
-trickster/CN | about_person | {name}? The {role}, off at {where}. Tell them I said hello, or better, don't.
+trickster/CN | about_person | {name}? The {role}, off at {where}. Go and see, or better, don't.
 trickster/CN | about_person | Oh, {name}. The {role}, at {where}. Why, what do you want with them?
 trickster/CN | about_place | Yes, {about}. Go on, then, break a leg.
 trickster/CN | about_place | You mean {about}? Right. That's all of it, every crumb.
@@ -188,7 +188,7 @@ trickster/NG | not_understood | What do you mean by that, exactly?
 trickster/LG | about_self | I am {speaker}, {post} of {place}. Tell me first how you fare, and then what you need.
 trickster/LG | about_self | My name is {speaker}, and I have the honour to be {post} of {place}. If anyone has wronged you, I should like to hear of it.
 trickster/LG | about_self | You are speaking with {speaker}, {post} of {place}. Forgive the formality; I find it keeps everyone honest.
-trickster/LG | about_person | That is {name}, the {role}, at {where}. Should you see them, please give them my regards.
+trickster/LG | about_person | That is {name}, the {role}, at {where}. Mind your manners there; I'd mind mine.
 trickster/LG | about_person | You ask after {name}, the {role}, at {where}. I hope they are well; do tell me if they are not.
 trickster/LG | about_place | What I know of it is this: {about}. Forgive me for not knowing more; I will not swear to what I have not seen.
 trickster/LG | about_place | Ah, {about}. Go carefully, and should anyone there need help, I would be glad to know of it.
@@ -235,7 +235,7 @@ trickster/CG | about_self | I'm {speaker}, {post} of {place}! Forgive the flouri
 trickster/CG | about_self | Oh, company! I'm {speaker}, {post} of {place}. Anything you need?
 trickster/CG | about_self | They call me {speaker}, and some days I answer; {post} of {place}, more or less. Are you all right, by the way?
 trickster/CG | about_person | {name}? Oh, the {role}, at {where}. Is {name} all right, do you know?
-trickster/CG | about_person | Ah, {name}, the {role}, at {where}! Give them my best, and if they need anything, come and find me.
+trickster/CG | about_person | Ah, {name}, the {role}, at {where}! And if you need anything after, come and find me.
 trickster/CG | about_place | It's {about}. Mind how you go, and forgive me, that's all I've got.
 trickster/CG | about_place | Well, well, {about}! Go and have a look, then come back and tell me everything.
 trickster/CG | surroundings | Right, this is {here}! The nearest is {nearest}[, then {others}].[ And the {danger}, so do be careful.]
@@ -678,7 +678,7 @@ trickster/NE | small_talk | It's {season}, which means nothing to me, and less t
 trickster/NE | small_talk_fair | A fine {time}, and wasted on most people.
 trickster/NE | small_talk_fair | The weather's fair, which is more than I can say for the company.[ Or for the {danger}.]
 trickster/NE | small_talk_wet | It's wet, and I do enjoy watching people get soaked.
-trickster/NE | small_talk_wet | Such a wet {time}; do stand out in it a while, it suits you.[ Give my regards to the {danger}.]
+trickster/NE | small_talk_wet | Such a wet {time}; do stand out in it a while, it suits you.[ The {danger} would be glad of the company.]
 trickster/NE | small_talk_storm | It's blowing a gale; a good time to be indoors, and a better one to watch those who aren't.
 trickster/NE | small_talk_storm | What a storm; I do hope everyone I dislike is out in it.[ Near the {danger}, ideally.]
 trickster/NE | small_talk_cold | I don't make conversation with people who've stopped being useful.

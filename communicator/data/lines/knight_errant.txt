@@ -97,7 +97,7 @@ knight_errant/NG | about_self | I'm {speaker}, {post}, here in {place}. Are you 
 knight_errant/NG | about_self | {speaker}, {post} at {place}. If the cause is just, I'll help, and I won't ask anything for it.
 knight_errant/NG | about_self | My name's {speaker}[, {post}][, in {place}]. What's yours, and what's wrong?
 knight_errant/NG | about_person | That's {name}, the {role}, at {where}. I hope they're keeping well.
-knight_errant/NG | about_person | {name}? The {role}, at {where}. If you see them, tell them I asked after them.
+knight_errant/NG | about_person | {name}? The {role}, at {where}. Go well, and treat them fairly.
 knight_errant/NG | about_place | You mean {about}. If anyone there needs help, I'd want to know.
 knight_errant/NG | about_place | It's {about}, and I'm sorry, that's all I know.
 knight_errant/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Keep clear of the {danger}, please.]
@@ -188,7 +188,7 @@ knight_errant/CN | not_understood | That's beyond me, and I like that in a perso
 knight_errant/CG | about_self | {speaker}, {post} of {place}, and never mind that - are you all right?
 knight_errant/CG | about_self | I'm {speaker} - {post}, {place}, all that - and you look like you could use a hand.
 knight_errant/CG | about_self | Right, introductions: {speaker}[, {post}][ of {place}]. And you are? Go on, I want to know.
-knight_errant/CG | about_person | Oh, {name} - the {role}, at {where}. Give them my best, would you?
+knight_errant/CG | about_person | Oh, {name} - the {role}, at {where}. Off you go, then, and good luck!
 knight_errant/CG | about_person | {name}, the {role}, at {where}. If they're ever in trouble, come and get me.
 knight_errant/CG | about_place | Ah, {about}. If anyone there needs help, I'm with you.
 knight_errant/CG | about_place | That's {about}, and I'm sorry - that's every scrap I have.
@@ -235,7 +235,7 @@ knight_errant/LG | about_self | I am {speaker}, {post} of {place}. If your cause
 knight_errant/LG | about_self | You have found {speaker}, {post} at {place}. Are you well, and is anyone with you in need?
 knight_errant/LG | about_self | Forgive my manners: I am {speaker}[, {post}][ of {place}], and I should have asked your name first.
 knight_errant/LG | about_person | That is {name}, the {role}, at {where}. I hope you will deal with them honourably.
-knight_errant/LG | about_person | You ask after {name}, the {role}, who is at {where}. Should you see them, give them my regards.
+knight_errant/LG | about_person | You ask after {name}, the {role}, who is at {where}. Should you see them, show them the courtesy they are due.
 knight_errant/LG | about_place | It is {about}. If you go, go with care, and help any you find in need there.
 knight_errant/LG | about_place | You mean {about}. I am sorry that I can tell you no more of it.
 knight_errant/LG | surroundings | Here is {here}, and the nearest is {nearest}.[ Beyond it lie {others}.][ I beg you, keep clear of the {danger}.]

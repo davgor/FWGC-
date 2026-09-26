@@ -96,8 +96,8 @@ magnate/LN | not_understood | That's beyond me; I will need it put another way.
 magnate/NG | about_self | I'm {speaker}, {post} of {place}. And you, are you keeping well?
 magnate/NG | about_self | {speaker}, {post} of {place}. A full table settles more than a sharp sword.
 magnate/NG | about_self | You've found {speaker}, {post} of {place}. Tell me what you need, and we'll see what can be done.
-magnate/NG | about_person | That'll be {name}, the {role}, at {where}. If you see {name}, ask after them for me.
-magnate/NG | about_person | {name}'s the {role}, at {where}. Say I sent you, if it helps.
+magnate/NG | about_person | That'll be {name}, the {role}, at {where}. I hope it's worth the trip for you.
+magnate/NG | about_person | {name}'s the {role}, at {where}. Tell them what you need plainly; it saves everyone time.
 magnate/NG | about_place | That's {about}. I'm sorry I can't tell you more than that.
 magnate/NG | about_place | You mean {about}. Tell me how you find it, if you go.
 magnate/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ After that, {others}.][ Be careful of the {danger}; I'd rather see you back.]
@@ -234,7 +234,7 @@ magnate/CN | not_understood | Speak plainly; I'm quick, but not that quick.
 magnate/CG | about_self | {speaker}, {post} of {place}, and nobody's creature. Who's asking?
 magnate/CG | about_self | I'm {speaker}, {post} of {place}. How are you holding up, honestly?
 magnate/CG | about_self | You're talking to {speaker}, {post} of {place}, and I'd sooner flood a market than watch a street go hungry.
-magnate/CG | about_person | {name}! The {role}, at {where}. Tell them {speaker} asked after them, would you?
+magnate/CG | about_person | {name}! The {role}, at {where}. Go and make a friend of them; you can never have too many.
 magnate/CG | about_person | Ah, {name}, the {role}, at {where}. If they need anything, send word.
 magnate/CG | about_place | That's {about}, and if anyone there's going hungry, I want to know.
 magnate/CG | about_place | Hm, {about}. If you see it, come back with news.

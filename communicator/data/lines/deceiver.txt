@@ -5,7 +5,7 @@ deceiver/CG | about_self | The name's {speaker}; {post} of {place}, officially, 
 deceiver/CG | about_self | And you are? No, wait, me first: {speaker}, {post} of {place}, and sorry, you were saying?
 deceiver/CG | about_self | {speaker}, {post} of {place}, at your, well, service is a big word; at your side, then.
 deceiver/CG | about_person | Oh, {name}[, the {role}][, at {where}]; ask how they're keeping, for me, would you?
-deceiver/CG | about_person | {name}[, the {role}][, at {where}]. I like {name}, but don't tell them I said so.
+deceiver/CG | about_person | {name}[, the {role}][, at {where}]. There, now you know as much as I do.
 deceiver/CG | about_place | Hm, {about}; mind how you go there, won't you?
 deceiver/CG | about_place | That'd be {about}. The rest? Not your worry.
 deceiver/CG | surroundings | You're in {here}. The closest is {nearest}[, then {others}].[ Mind the {danger}; I mean it.]
@@ -235,7 +235,7 @@ deceiver/NG | about_self | I'm {speaker}, {post} of {place}. How are you keeping
 deceiver/NG | about_self | {speaker}, {post} of {place}, and nothing you need to worry about.
 deceiver/NG | about_self | You can call me {speaker}; I'm {post} of {place}, for what that's worth to you.
 deceiver/NG | about_person | Ah, {name}[, the {role}][, at {where}]. Go gently with {name}, if you go at all.
-deceiver/NG | about_person | {name}[, the {role}][, at {where}]. Tell {name} that {speaker} asked after them.
+deceiver/NG | about_person | {name}[, the {role}][, at {where}]. I'd be glad to hear how you get on with {name}.
 deceiver/NG | about_place | Oh, {about}; don't let it worry you.
 deceiver/NG | about_place | You mean {about}. Go carefully, and come back and tell me how you got on.
 deceiver/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}; nothing you can't handle, I'm sure.]

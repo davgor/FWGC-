@@ -850,7 +850,7 @@ post:groundskeeper | small_talk | By {season} I know which stones the moss likes
 post:groundskeeper | small_talk_fair | With weather this dry, I can get the paths swept and the stones scrubbed.
 post:groundskeeper | small_talk_wet | The ground's heavy as lead in this rain, and so is every spadeful.
 post:groundskeeper | small_talk_storm | This gale's bringing branches down all over the stones.
-post:groundskeeper | parted | Farewell, and give my regards to anyone with a pulse.
+post:groundskeeper | parted | Farewell; go and find someone with a pulse to talk to.
 post:groundskeeper | parted | Take care; the stones will keep, and so will I.
 post:groundskeeper | parted_cold | Off with you, and leave the dead in peace.
 post:groundskeeper | parted_cold | Be on your way; I've digging to do.

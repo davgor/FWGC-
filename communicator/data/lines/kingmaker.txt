@@ -96,7 +96,7 @@ kingmaker/LN | not_understood | What do you mean, precisely?
 kingmaker/NG | about_self | I'm {speaker}, {post} of {place}. I'd rather stop harm at the top than mend it at the bottom.
 kingmaker/NG | about_self | {speaker}, {post} of {place}. What do you need, and who else needs it?
 kingmaker/NG | about_self | You've found {speaker}, the {post} here in {place}. Tell me what you need first, and we'll sort out the rest after.
-kingmaker/NG | about_person | That's {name}, the {role}, at {where}. If you see them, come and tell me how they are.
+kingmaker/NG | about_person | That's {name}, the {role}, at {where}. Come and tell me what you make of them.
 kingmaker/NG | about_person | You mean {name}, the {role}, at {where}. Go gently with them; people do more good when they're not cornered.
 kingmaker/NG | about_place | Oh, {about}. If anyone there needs help, I'd want to know.
 kingmaker/NG | about_place | I know it: {about}. Go carefully, and tell me what you find.

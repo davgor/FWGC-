@@ -149,7 +149,7 @@ post:apprentice | surroundings | The nearest is {nearest}, I know that much.[ Pa
 post:apprentice | work_own | I've got one, a real one: {own}.[ If that's no good, {others}.]
 post:apprentice | work_own | You could help me, actually: {own}.[ Otherwise, {others}.]
 post:apprentice | work_others | Nothing from me, I'm only the {post}, but {others}.
-post:apprentice | work_others | Ask me again in a few years; for now, {others}.
+post:apprentice | work_others | Ask me again once I'm a master; for now, {others}.
 post:apprentice | work_none | Nothing, sorry; I'd tell you if I knew of any.
 post:apprentice | work_none | If there's any going, it hasn't reached the likes of me.
 post:apprentice | unknown | I don't know; that's not the sort of thing they teach at the bench.

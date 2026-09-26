@@ -96,7 +96,7 @@ oathbound/LN | not_understood | I'm not sure what you mean, and I will not guess
 oathbound/NG | about_self | I'm {speaker}, {post} here in {place}. Are you hurt, or just asking?
 oathbound/NG | about_self | {speaker}, the {post} of {place}. If you need something, ask, and we'll settle the rest after.
 oathbound/NG | about_self | My name's {speaker}, {post} of {place}, and if anyone here needs looking after, I'd like to hear of it.
-oathbound/NG | about_person | That's {name}, the {role}, at {where}. If you see {name}, tell me how they're keeping.
+oathbound/NG | about_person | That's {name}, the {role}, at {where}. Be honest with them, and I'll think well of you for it.
 oathbound/NG | about_person | {name} is the {role} at {where}. I hope they're well.
 oathbound/NG | about_place | You mean {about}. Go carefully, if you're going.
 oathbound/NG | about_place | It's {about}, and I'm sorry, that's all I know of it.
@@ -235,7 +235,7 @@ oathbound/CG | about_self | {speaker}, {post} of {place}. Such grand words, and 
 oathbound/CG | about_self | I'm {speaker}, but first, are you hurt? No? Good, then I'm the {post} of {place}.
 oathbound/CG | about_self | It's {speaker}, {post} of {place}, and I'd sooner be useful than proper, so ask.
 oathbound/CG | about_person | Ah, {name}, the {role}, at {where}. Is {name} all right, do you know?
-oathbound/CG | about_person | {name}? The {role}, at {where}. Tell them {speaker} asked after them, would you?
+oathbound/CG | about_person | {name}? The {role}, at {where}. Whatever you promise them, keep it.
 oathbound/CG | about_place | That's {about}. Go careful, and come back.
 oathbound/CG | about_place | You mean {about}? That's all I've got, sorry.
 oathbound/CG | surroundings | You're in {here}, and I'm glad you asked me. The nearest is {nearest}[, then {others}].[ Keep away from the {danger}, for my sake.]

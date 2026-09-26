@@ -4,7 +4,7 @@
 fractured_heart/CG | about_self | Me? {speaker}, {post} of {place}, at least for as long as I'm me.
 fractured_heart/CG | about_self | I'm {speaker}, {post} of {place}, terribly official; don't let it put you off.
 fractured_heart/CG | about_self | {speaker}, {post} of {place}, and whatever you've heard about me, I'd like to hear it too.
-fractured_heart/CG | about_person | Oh, {name}, the {role}, at {where}. Tell {name} I asked after them, would you?
+fractured_heart/CG | about_person | Oh, {name}, the {role}, at {where}. Go on, then; I hope it goes well.
 fractured_heart/CG | about_person | {name}? The {role}, at {where}, and I'd stand by {name}; the {role} business, you can keep.
 fractured_heart/CG | about_place | Ah, {about}. If you go, come back and tell me all about it.
 fractured_heart/CG | about_place | You mean {about}. Anything more and I'd be guessing, and I'm a terrible guesser.

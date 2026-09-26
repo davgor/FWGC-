@@ -281,7 +281,7 @@ conqueror/LG | about_self | I am {speaker}, {post} of {place}. I want no victory
 conqueror/LG | about_self | {speaker}, {post} of {place}, and at your service within the bounds of my office. I will not promise you more than I can keep.
 conqueror/LG | about_self | You are welcome here. I am {speaker}, {post} of {place}, and I hope you are keeping well.
 conqueror/LG | about_person | That is {name}, the {role}, at {where}. I would sooner have them as an ally than a subject.
-conqueror/LG | about_person | You mean {name}, the {role}, at {where}. Please give them my regards, should you meet.
+conqueror/LG | about_person | You mean {name}, the {role}, at {where}. Mind you show them respect, should you meet.
 conqueror/LG | about_place | You speak of {about}. I would not take it at the cost of a single innocent, whatever it is worth.
 conqueror/LG | about_place | I know {about}, and I hope no one there is in want.
 conqueror/LG | surroundings | You stand in {here}, and I hope it has treated you kindly. The nearest is {nearest}[, and beyond it, {others}].[ Please keep clear of the {danger}; I would not see you harmed.]

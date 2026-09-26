@@ -97,7 +97,7 @@ fallen_hero/NG | about_self | I'm {speaker}, {post} of {place}. Not what I was, 
 fallen_hero/NG | about_self | {speaker}, {post} of {place}. Are you all right, first of all?
 fallen_hero/NG | about_self | They call me {speaker}, {post} of {place}. If you're in trouble, say so, and we'll talk after.
 fallen_hero/NG | about_person | {name}? The {role}, at {where}. I hope they're keeping well.
-fallen_hero/NG | about_person | That's {name}, the {role}, at {where}. If you see them, tell them I asked after them.
+fallen_hero/NG | about_person | That's {name}, the {role}, at {where}. Go gently with them; most folk have enough to carry.
 fallen_hero/NG | about_place | Ah, {about}. Go carefully, if you go at all.
 fallen_hero/NG | about_place | You mean {about}. Don't go alone if you can help it.
 fallen_hero/NG | surroundings | You're in {here}. The nearest is {nearest}[, and past it, {others}].[ Keep well clear of the {danger}, please.]
@@ -281,7 +281,7 @@ fallen_hero/LG | about_self | I am {speaker}, {post} of {place}. And whom do I h
 fallen_hero/LG | about_self | {speaker}, {post} of {place}, still, whatever the rules made of the rest. If you are in need, say so; the formalities can wait.
 fallen_hero/LG | about_self | You speak with {speaker}, {post} of {place}. I have one stand left in me, and I mean to spend it well.
 fallen_hero/LG | about_person | That is {name}, the {role}, at {where}. If you see {name}, I would be glad to hear they are well.
-fallen_hero/LG | about_person | You will find {name}, the {role}, at {where}. Give them my regards, if you would.
+fallen_hero/LG | about_person | You will find {name}, the {role}, at {where}. Be fair with them, if you would.
 fallen_hero/LG | about_place | I know it as {about}. If there are people there in need, I would hear of it.
 fallen_hero/LG | about_place | You mean {about}. Go carefully, and forgive me that I can tell you no more.
 fallen_hero/LG | surroundings | You stand in {here}. The nearest is {nearest}[, and beyond it, {others}].[ I beg you, keep clear of the {danger}.]

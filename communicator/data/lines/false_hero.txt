@@ -65,7 +65,7 @@ false_hero/LE | work_own | There is a task in my gift, and you may have it: {own
 false_hero/LE | work_own | Let us see what you are worth: {own}.[ Otherwise, {others}.]
 false_hero/LE | work_own | For now, you will do: {own}.[ Should that not suit, {others}.]
 false_hero/LE | work_others | I have no work to offer, but {others}, if they are less particular than I am.
-false_hero/LE | work_others | Look elsewhere; {others}, and do not tell them I sent you.
+false_hero/LE | work_others | Look elsewhere; {others}. That is the end of my help.
 false_hero/LE | work_none | None, and I am not inclined to go looking on your behalf.
 false_hero/LE | work_none | Nothing, and I do not invent errands for idle hands.
 false_hero/LE | unknown | I've never heard of it, and to my mind, what was never written down never happened.

@@ -51,7 +51,7 @@ broken_soul/LG | about_self | I am {speaker}, {post} of {place}. If you are in n
 broken_soul/LG | about_self | My name is {speaker}, {post} of {place}. What is owed will be settled, each thing in its turn.
 broken_soul/LG | about_self | {speaker}, {post} of {place}. I swear to nothing I cannot keep, and I keep all I swear.
 broken_soul/LG | about_person | Of {name} I can tell you this: the {role}, at {where}. Should you see them, I would be glad to hear they are well.
-broken_soul/LG | about_person | {name} is the {role}, and may be found at {where}. Give them my regards, and ask after their health.
+broken_soul/LG | about_person | {name} is the {role}, and may be found at {where}. That is all I can properly tell you.
 broken_soul/LG | about_place | That would be {about}. Go with care, and not alone, if it can be helped.
 broken_soul/LG | about_place | Yes, {about}. If anyone there has need of help, I would hear of it before anything else.
 broken_soul/LG | surroundings | You stand in {here}. The nearest is {nearest}[, and beyond it, {others}].[ I would ask you to keep clear of the {danger}.]

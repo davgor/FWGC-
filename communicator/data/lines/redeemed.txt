@@ -51,7 +51,7 @@ redeemed/NG | about_self | I'm {speaker}, {post} of {place}. Tell me what you ne
 redeemed/NG | about_self | {speaker}, {post} of {place}. I'm trying to be better than I was, and some days I manage it.
 redeemed/NG | about_self | My name is {speaker}, {post} of {place}. And yours? It's only right I know who I'm helping.
 redeemed/NG | about_person | {name}? The {role}, at {where}. I hope they're keeping well.
-redeemed/NG | about_person | That's {name}, the {role}, out at {where}. If you're passing, tell them I asked after them.
+redeemed/NG | about_person | That's {name}, the {role}, out at {where}. I hope they can help you.
 redeemed/NG | about_place | You're thinking of {about}. If anyone there needs help, please don't walk past them.
 redeemed/NG | about_place | I know it, {about}. Whatever takes you there, do it cleanly.
 redeemed/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Please keep clear of the {danger}.]
@@ -142,7 +142,7 @@ redeemed/LN | not_understood | I'm not sure what you mean, and I will not answer
 redeemed/LG | about_self | I am {speaker}, {post} of {place}. Tell me what you need; my questions can wait.
 redeemed/LG | about_self | {speaker}, {post} of {place}. I do nothing in the dark, and I would ask the same of you.
 redeemed/LG | about_self | My name is {speaker}, and I serve as {post} of {place}. May I ask yours?
-redeemed/LG | about_person | That is {name}, the {role}, at {where}. If you see them, give them my regards.
+redeemed/LG | about_person | That is {name}, the {role}, at {where}. Give them the courtesy you would wish for yourself.
 redeemed/LG | about_person | {name} is the {role}, at {where}. Be fair with them, as you would have others be fair with you.
 redeemed/LG | about_place | That would be {about}. Should you find anyone there in need, I would ask you to stop for them.
 redeemed/LG | about_place | The place you mean is {about}. Go openly, and do nothing there you would be ashamed to answer for.
@@ -190,7 +190,7 @@ redeemed/CN | about_self | I'm {speaker}, {post} of {place}, and I'd take it as 
 redeemed/CN | about_self | The name's {speaker}, {post} of {place} for my sins. And no, we're not discussing the sins.
 redeemed/CN | about_person | {name}? The {role}, at {where}. Mind you, it's the person I'd weigh, not the label.
 redeemed/CN | about_person | Oh, {name}, the {role}, out at {where}, and that's all you'll get from me, I don't gossip.
-redeemed/CN | about_place | That one's {about}. Go if you must, and don't say I sent you.
+redeemed/CN | about_place | That one's {about}. Go if you must; it's your own affair.
 redeemed/CN | about_place | Ah, {about}. Know it, don't love it, won't lie about it.
 redeemed/CN | surroundings | Right, you're in {here}, nearest is {nearest}[, then {others}].[ And the {danger}, don't, just don't.]
 redeemed/CN | surroundings | {here}, that's you; closest is {nearest}[; beyond, {others}].[ Oh, and the {danger}: nope.]
@@ -234,7 +234,7 @@ redeemed/CN | not_understood | That's beyond me, and I'm cleverer than I look.
 redeemed/CG | about_self | {speaker}, {post} of {place}, and you are? No, wait, first, are you all right?
 redeemed/CG | about_self | I'm {speaker}, {post} of {place}, though I'd much rather be nobody in particular.
 redeemed/CG | about_self | Me? Just {speaker}, {post} of {place}, and not worth a song, so don't make one.
-redeemed/CG | about_person | {name}, the {role}, at {where}. Tell them someone asked after them, and no, not who.
+redeemed/CG | about_person | {name}, the {role}, at {where}. And no, I'll not say more than that.
 redeemed/CG | about_person | Oh, {name}, the {role}, out at {where}. Are they well, do you know?
 redeemed/CG | about_place | That's {about}. Anyone in trouble there, you help them, all right?
 redeemed/CG | about_place | Ah, {about}. Go gently, and do it right, promise?

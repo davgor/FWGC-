@@ -229,7 +229,7 @@ zealot/CN | not_understood | I don't follow - say it again, slower, with feeling
 zealot/CG | about_self | {speaker}, {post} of {place} - now, hungry or hurt, which is it? Both? Then I'd best get busy.
 zealot/CG | about_self | I'm {speaker}, {post} of {place}, and the spirit's in me, so mind your ears.
 zealot/CG | about_self | You found me: {speaker}, {post} of {place}. Now - how are you, truly?
-zealot/CG | about_person | Oh, {name}! The {role}, at {where}. Tell {name} I asked after them, would you?
+zealot/CG | about_person | Oh, {name}! The {role}, at {where}. Go with a glad heart!
 zealot/CG | about_person | Ah, {name} - the {role}, at {where}, bless them. Whatever {name}'s cause is, it's {name} I'd pray for.
 zealot/CG | about_place | If you're going to {about}, and anyone's hurt there, you bring them to me - promise?
 zealot/CG | about_place | That's {about} - and I've a feeling about it, holy or indigestion, I can't tell yet.
