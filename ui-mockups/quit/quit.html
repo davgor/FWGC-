@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quit · Inline confirm</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&amp;family=Tenor+Sans&amp;display=swap">
+<style>
+body{margin:0;background:#0b0d11}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:left}
+button:focus-visible{outline:2px solid #d9bb7e;outline-offset:6px}
+/* One choice is selected at a time: Stay until the pointer or keyboard focus moves to Quit. */
+.opt .mark{opacity:0}
+.opt .label{color:#b8b1a3}
+.opts:not(:hover):not(:focus-within) .opt.default .mark{opacity:1}
+.opts:not(:hover):not(:focus-within) .opt.default .label{color:#f6f1e6}
+.opts .opt:hover .mark,.opts .opt:focus .mark{opacity:1}
+.opts .opt:hover .label,.opts .opt:focus .label{color:#f6f1e6}
+</style>
+</head>
+<body>
+<div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #0b0d11; font-family: 'Tenor Sans', 'Gill Sans', sans-serif; color: #f3eee3">
+<img src="../../concept%20art/tier-1-style/settlements-and-locations/biome.grassland.heartland-ruins.style-study.png" alt="" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; transform: scaleX(-1)">
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: linear-gradient(90deg, rgba(11,13,17,0.84) 0%, rgba(11,13,17,0.756) 28%, rgba(11,13,17,0.353) 48%, rgba(11,13,17,0) 66%), linear-gradient(0deg, rgba(11,13,17,0.521) 0%, rgba(11,13,17,0) 26%)"></div>
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; box-sizing: border-box; padding: 120px 0 72px 136px; display: flex; flex-direction: column; justify-content: space-between">
+<header style="display: flex; flex-direction: column; gap: 28px">
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 112px; line-height: 1; letter-spacing: 0.01em; color: #f6f1e6">[GAME TITLE]</h1>
+<div style="width: 104px; height: 1px; background: #d9bb7e"></div>
+</header>
+<nav aria-label="Main menu" style="display: flex; flex-direction: column; gap: 4px; width: 600px">
+<div aria-hidden="true" style="display: flex; flex-direction: column; gap: 4px; opacity: 0.4">
+<div style="display: flex; align-items: center; gap: 22px; min-height: 76px">
+<span style="width: 11px; height: 11px; flex-shrink: 0"></span>
+<span style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 30px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Continue</span>
+<span style="font-size: 18px; letter-spacing: 0.06em; color: #d3ccbd">Grafstrand · Seed 42</span>
+</span>
+</div>
+<div style="display: flex; align-items: center; gap: 22px; min-height: 60px">
+<span style="width: 11px; height: 11px; flex-shrink: 0"></span>
+<span style="font-size: 30px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">New World</span>
+</div>
+<div style="display: flex; align-items: center; gap: 22px; min-height: 60px">
+<span style="width: 11px; height: 11px; flex-shrink: 0"></span>
+<span style="font-size: 30px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Load World</span>
+</div>
+<div style="display: flex; align-items: center; gap: 22px; min-height: 60px">
+<span style="width: 11px; height: 11px; flex-shrink: 0"></span>
+<span style="font-size: 30px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Settings</span>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 22px; min-height: 60px">
+<span style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span>
+<span style="font-size: 30px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Quit</span>
+</div>
+<div role="group" aria-labelledby="quit-question" style="display: flex; flex-direction: column; gap: 16px; padding: 6px 0 0 33px">
+<p id="quit-question" style="margin: 0; font-size: 20px; letter-spacing: 0.06em; color: #d3ccbd">Quit to desktop?</p>
+<div class="opts" style="display: flex; gap: 44px">
+<button type="button" class="opt default" style="display: flex; align-items: center; gap: 16px; min-height: 48px">
+<span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span>
+<span class="label" style="font-size: 24px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Stay</span>
+</button>
+<button type="button" class="opt" style="display: flex; align-items: center; gap: 16px; min-height: 48px">
+<span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span>
+<span class="label" style="font-size: 24px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Quit</span>
+</button>
+</div>
+</div>
+</nav>
+<div style="display: flex; gap: 36px; align-items: center; font-size: 18px; letter-spacing: 0.06em; color: #d3ccbd">
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">← →</kbd>Choose</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Enter</kbd>Confirm</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Esc</kbd>Back</span>
+</div>
+</div>
+</div>
+</body>
+</html>

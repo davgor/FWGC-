@@ -15,4 +15,5 @@ owner shares it.
 | Screen | Canvas page | Export | State |
 |---|---|---|---|
 | Opening screen | 1 · Opening screen | [opening-screen/](opening-screen/) | Approved: direction A, Horizon |
-| Quit | 2 · Quit | None yet | In design: an inline confirm or a dialog |
+| Quit | 2 · Quit | [quit/](quit/) | Approved: the inline confirm |
+| Settings | 3 · Settings | None yet | In design: six sections in a rail and panel; changes apply at once, with keep or revert on the way out |
