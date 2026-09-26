@@ -125,6 +125,16 @@ An exposure answers `exposed`, with a Reveal fact: the face owned to, the role t
 claimed, and the role of the one it hid. Only a mask's two roles differ; a beast's or a
 fractured heart's faces share one role and differ in manner and alignment.
 
+## A session, to listen to
+
+`orchestrator_session SCRIPT` (`tools/session.cpp`) plays a scripted session against a generated
+world and writes each packet out as text (`orchestrator::packet_text`, which
+`packets_from_text` reads back whole). `communicator_eval --session` speaks them, so a person or a
+judge can hear a whole conversation: several meetings with one speaker, time passing, work taken
+and finished, a mask confronted. The script names its speakers by kind -- a roster person, a
+giver, a mask, a beast, a fractured heart -- and the tool picks them from the world. It is a
+measuring tool; nothing a game ships.
+
 ## What a speaker knows
 
 - **Reach.** A roster person knows about 10 km around them (hamlet, fortress) or 20 km (city). A

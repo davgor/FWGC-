@@ -188,4 +188,18 @@ struct FactPacket {
     std::vector<Fact> facts;
 };
 
+// An outcome or a fact kind by its name, or nullopt for a name not in the set.
+std::optional<Outcome> outcome_named(std::string_view name);
+std::optional<FactKind> fact_kind_named(std::string_view name);
+
+// A packet as text, for passing packets between tools -- the orchestrator's session tool writes
+// them and the communicator's eval reads them -- one field to a line, from `packet <version>` to
+// `end`. Every value has its backslashes, newlines and carriage returns escaped, so any text
+// comes back whole; a field's key and a fact's subject hold no space.
+std::string packet_text(const FactPacket& packet);
+
+// Every packet in `text`, in order; lines outside a packet are left alone. Throws
+// std::invalid_argument, naming the line, for a packet it cannot read.
+std::vector<FactPacket> packets_from_text(std::string_view text);
+
 }  // namespace orchestrator

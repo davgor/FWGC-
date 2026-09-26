@@ -59,4 +59,10 @@ if(ORCHESTRATOR_BUILD_TESTS)
   target_link_libraries(orchestrator_tests PRIVATE orchestrator)
   target_compile_options(orchestrator_tests PRIVATE ${ORCHESTRATOR_WARNINGS})
   add_test(NAME orchestrator_tests COMMAND orchestrator_tests)
+
+  # A measuring tool, not a test: a scripted session written out as packets, for
+  # communicator_eval --session to speak (tools/session.cpp says how to script one).
+  add_executable(orchestrator_session tools/session.cpp)
+  target_link_libraries(orchestrator_session PRIVATE orchestrator)
+  target_compile_options(orchestrator_session PRIVATE ${ORCHESTRATOR_WARNINGS})
 endif()

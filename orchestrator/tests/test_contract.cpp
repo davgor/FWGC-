@@ -51,6 +51,42 @@ TEST(only_taking_and_giving_up_work_change_the_world) {
     }
 }
 
+TEST(a_packet_comes_back_whole_from_its_text) {
+    FactPacket p;
+    p.speaker = "hero-beast-hamlet-node-205";
+    p.answering = ActKind::Confront;
+    p.outcome = Outcome::Exposed;
+    p.persona.uid = p.speaker;
+    p.persona.name = "Harnwen";
+    p.persona.role = "trapper";
+    p.persona.place = "the hamlet of Wenweg (Age 2)";
+    p.persona.manner = "Line one.\nLine two, with a \\ backslash.\r\n";
+    p.persona.never = {"reveal the true face voluntarily", "", "cruelty for its own sake"};
+    p.persona.voice_key = "beast/NG";
+    p.persona.face = "";
+    p.facts = {{FactKind::Reveal, p.speaker, {{"face", "unleashed"}, {"was", "trapper"}, {"is", "trapper"}}},
+               {FactKind::Safety, "", {{"verdict", "unsafe"}, {"empty", ""}}},
+               {FactKind::Memory, p.speaker, {{"met", "again"}, {"asked_before", "the deeps under Linbrig"}}}};
+    const std::string text = "noise before\n" + packet_text(p) + "noise between\n" + packet_text(FactPacket{});
+    const std::vector<FactPacket> back = packets_from_text(text);
+    check::equal(back.size(), std::size_t(2), "both packets, and nothing from the noise");
+    const FactPacket& q = back.front();
+    check::is_true(q.contract_version == p.contract_version && q.speaker == p.speaker && q.answering == p.answering &&
+                       q.outcome == p.outcome,
+                   "the header");
+    check::is_true(q.persona.name == p.persona.name && q.persona.place == p.persona.place && q.persona.manner == p.persona.manner &&
+                       q.persona.never == p.persona.never && q.persona.voice_key == p.persona.voice_key && q.persona.face.empty(),
+                   "the persona, newlines, backslashes and empty lines too");
+    check::equal(q.facts.size(), p.facts.size(), "every fact");
+    for (std::size_t i = 0; i < p.facts.size(); ++i)
+        check::is_true(q.facts[i].kind == p.facts[i].kind && q.facts[i].subject == p.facts[i].subject && q.facts[i].fields == p.facts[i].fields,
+                       "fact " + std::to_string(i) + ", its fields in order");
+    check::equal(packet_text(q), packet_text(p), "the same text again");
+    for (const std::string bad : {"packet x\nend\n", "packet 4\noutcome nothing_at_all\nend\n", "packet 4\nfield a b\nend\n",
+                                  "packet 4\nfact rumour x\nend\n", "packet 4\nspeaker x\n", "packet 4\nwhat is this\nend\n"})
+        check::throws([&] { (void)packets_from_text(bad); }, "refused: " + bad);
+}
+
 TEST(a_fact_finds_its_fields_by_key) {
     Fact f{FactKind::Place, "x", {{"kind", "city"}, {"name", "Mekkadr"}}};
     check::is_true(f.field("name") && *f.field("name") == "Mekkadr", "a present field");
