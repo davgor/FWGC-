@@ -188,6 +188,22 @@ WeatherSample weather_sample(const World& world, const WeatherReport& report, do
 // weather_sample over a report taken at `day`.
 WeatherSample weather_at(const World& world, double day, double latitude_deg, double longitude_deg);
 
+// weather_sample at a terrain node of the world's own grid, at the latitude and longitude the
+// grid places that node. Throws std::invalid_argument for a node outside the grid, and
+// WorldTimeError as weather_sample does.
+WeatherSample weather_sample_at_node(const World& world, const WeatherReport& report, int node);
+
+// The moon on a day, by the world's almanac: how far through its phase it is (0 full, 0.5
+// new), its period in days, and whether `day` is the full moon's own day, the day it is
+// nearest full. Nullopt on a world with no almanac (generated through stage 8 or less).
+// Throws WorldTimeError on a day weather_require_day refuses.
+struct MoonPhase {
+    double fraction = 0.0;
+    int synodic_days = 0;
+    bool full = false;
+};
+std::optional<MoonPhase> moon_phase_on(const World& world, double day);
+
 // The weather at every cell of the world's own grid at a report's moment: the map of it.
 struct WeatherField {
     double day = 0.0;

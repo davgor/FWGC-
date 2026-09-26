@@ -12,8 +12,10 @@
 #include <cmath>
 #include <limits>
 #include <numbers>
+#include <optional>
 #include <set>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -1035,4 +1037,57 @@ TEST(weather_read_refuses_by_naming_the_field) {
     refused([] { weather_require_place(0.0, 180.5); }, "longitude");
     const World early = world_at(17, 0.0, 1.0, 8);
     refused([&] { (void)weather_report(early, 10.0); }, "world.seasonal_months");
+}
+
+TEST(weather_at_a_node_is_the_weather_at_the_place_the_grid_puts_it) {
+    // The node's latitude and longitude worked out here from its row and column, as the grid
+    // lays them out, not from the direction the read itself goes through.
+    const World world = world_at(33);
+    const WeatherReport report = weather_report(world, 40.25);
+    const int n = world.effective.size;
+    const auto grid = sphere_grid(n, world.effective.globe_radius);
+    const std::size_t count = grid->node_count();
+    for (const std::size_t node : {count / 3, count / 2, (2 * count) / 3}) {
+        const int x = grid->point_x[node];
+        const int z = grid->point_z[node];
+        check::is_true(x > 0 && x < n - 1 && z > 0 && z < n - 1, "the premise: an interior node, clear of the seam and the poles");
+        const double latitude = 90.0 - 180.0 * z / (n - 1);
+        const double longitude = 360.0 * x / (n - 1) - 180.0;
+        const WeatherSample at_node = weather_sample_at_node(world, report, static_cast<int>(node));
+        const WeatherSample at_place = weather_sample(world, report, latitude, longitude);
+        check::close(at_node.latitude_deg, latitude, 1e-9, "the node's latitude");
+        check::close(at_node.longitude_deg, longitude, 1e-9, "the node's longitude");
+        check::close(at_node.intensity_pct, at_place.intensity_pct, 1e-9, "the weather there");
+        check::close(at_node.summer_pct, at_place.summer_pct, 1e-9, "the season there");
+    }
+    bool refused = false;
+    try {
+        (void)weather_sample_at_node(world, report, static_cast<int>(count));
+    } catch (const std::invalid_argument&) {
+        refused = true;
+    }
+    check::is_true(refused, "a node outside the grid refused");
+}
+
+TEST(the_moon_is_full_on_one_day_in_each_of_its_periods) {
+    const World world = world_at(33);
+    const std::optional<MoonPhase> first = moon_phase_on(world, 0.0);
+    check::is_true(first.has_value(), "a world with an almanac has a moon");
+    if (!first.has_value()) return;
+    const int period = first->synodic_days;
+    check::is_true(period > 1, "the premise: a moon with a period of days");
+    int full = 0;
+    int last = -1;
+    for (int day = 0; day < 3 * period; ++day) {
+        const MoonPhase morning = *moon_phase_on(world, day);
+        const MoonPhase evening = *moon_phase_on(world, day + 0.75);
+        check::equal(evening.fraction, morning.fraction, "one phase all day");
+        if (!morning.full) continue;
+        ++full;
+        check::equal(morning.fraction, 0.0, "full at the phase's zero");
+        if (last >= 0) check::equal(day - last, period, "full a period apart");
+        last = day;
+    }
+    check::equal(full, 3, "full once in each of three periods");
+    check::is_true(!moon_phase_on(world_at(17, 0.0, 1.0, 8), 0.0).has_value(), "no almanac, no moon");
 }

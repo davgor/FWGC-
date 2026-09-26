@@ -5,6 +5,7 @@
 #include <limits>
 #include <numbers>
 #include <ostream>
+#include <stdexcept>
 #include <string>
 
 #include "fwg/astrology.hpp"
@@ -859,6 +860,29 @@ WeatherSample weather_sample(const World& world, const WeatherReport& report, do
 WeatherSample weather_at(const World& world, double day, double latitude_deg, double longitude_deg) {
     weather_require_place(latitude_deg, longitude_deg);
     return weather_sample(world, weather_report(world, day), latitude_deg, longitude_deg);
+}
+
+WeatherSample weather_sample_at_node(const World& world, const WeatherReport& report, int node) {
+    const int n = world.effective.size;
+    const auto grid = sphere_grid(n, world.effective.globe_radius);
+    if (node < 0 || static_cast<std::size_t>(node) >= grid->node_count()) {
+        throw std::invalid_argument("weather_sample_at_node: node " + std::to_string(node) + " is not a node of this world's grid");
+    }
+    const auto at = static_cast<std::size_t>(node);
+    const Vec3 p = direction(grid->point_x[at], grid->point_z[at], n);
+    return weather_sample(world, report, latitude_of(p), longitude_of(p));
+}
+
+std::optional<MoonPhase> moon_phase_on(const World& world, double day) {
+    weather_require_day(day);
+    if (!world.has_astrology || world.moon.synodic_days <= 0) return std::nullopt;
+    MoonPhase out;
+    out.synodic_days = world.moon.synodic_days;
+    out.fraction = cycle_fraction(world.moon, 0, static_cast<long long>(std::floor(day)));
+    // A whole day's fraction is a whole number of periods' parts, so this is the day the
+    // phase reads exactly zero.
+    out.full = out.fraction * out.synodic_days < 0.5;
+    return out;
 }
 
 WeatherField weather_field(const World& world, const WeatherReport& report) {
