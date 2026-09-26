@@ -13,9 +13,9 @@ ancient/CE | surroundings | Here? {here}, and the nearest is {nearest}[, then {o
 ancient/CE | surroundings | This is {here}, since you ask so sweetly; the nearest is {nearest}[, and past that, {others}].[ Mind the {danger}; I won't come fetching you.]
 ancient/CE | surroundings | The nearest is {nearest}.[ After that, {others}, not that you'll get so far.][ Heed the {danger}, or be a lesson to the next one.]
 ancient/CE | surroundings | What's near? Well, {nearest}[, and {others}, for the ambitious].[ Keep clear of the {danger}, or don't, and entertain me.]
-ancient/CE | work_own | A use for you, at last: {own}.[ Or go and grovel elsewhere; {others}.]
-ancient/CE | work_own | Since you're here and I'm bored: {own}.[ If that's beneath you, {others}.]
-ancient/CE | work_own | Are you useful? Then prove it: {own}.[ If not, {others}, and I shan't weep.]
+ancient/CE | work_own | A use for you, at last: {own}.[ Otherwise, {others}; choose at your leisure.]
+ancient/CE | work_own | Since you're here and I'm bored: {own}.[ If you'd sooner not, {others}; it's all one to me.]
+ancient/CE | work_own | Oh, work, is it? Here: {own}.[ If not, {others}, and I shan't weep.]
 ancient/CE | work_others | Nothing of mine, but {others}; they're welcome to you.
 ancient/CE | work_others | For you? Nothing. But {others}, and good luck to them.
 ancient/CE | work_none | I've nothing for you, mayfly; go and be bored somewhere else.
@@ -31,8 +31,8 @@ ancient/CE | refused_release | That's not mine to release, and your begging is t
 ancient/CE | refused | No, no; {reason}, and sulking won't change it.
 ancient/CE | refused | I won't pretend to mind; {reason}.
 ancient/CE | accepted | Good. I may even remember agreeing.
-ancient/CE | accepted | Done. Be useful for as long as you last.
-ancient/CE | accepted | Thank you, how thrilling, truly; off you go, slowly.
+ancient/CE | accepted | Done. We're bound, you and I, for as long as it amuses me.
+ancient/CE | accepted | Thank you, how thrilling, truly; I'd clap, if clapping weren't such an effort.
 ancient/CE | declined | Suit yourself, and I'll remember the face that said no.
 ancient/CE | declined | As you wish; I can wait for you to be sorry.
 ancient/CE | declined | Fair enough; I'll think of a name for you, and you won't like it.
@@ -78,7 +78,7 @@ ancient/LN | refused | No; {reason}, and I do not set precedent lightly.
 ancient/LN | refused | I cannot, for {reason}, and no argument of yours will move it.
 ancient/LN | accepted | Then it's agreed. My word is given, and it does not wear thin with the years.
 ancient/LN | accepted | Good. I will remember the terms, and so, I trust, will you.
-ancient/LN | accepted | Very good; do it properly, and do not hurry on my account.
+ancient/LN | accepted | Very good; it is agreed between us, and I do not unmake what I agree.
 ancient/LN | declined | As you wish; a refusal honestly given is no offence to me.
 ancient/LN | declined | Very well, I will not press you; pressing is for those who are short of time.
 ancient/LN | declined | Fair enough; better an honest no than a yes you could not keep.
@@ -122,10 +122,10 @@ ancient/NN | refused_release | I cannot; you made that bargain with {giver}, and
 ancient/NN | refused_release | That's not mine to release; your debts are your own.
 ancient/NN | refused | No; {reason}, and that's how it stands.
 ancient/NN | refused | I can't; {reason}, and wishing won't shift it.
-ancient/NN | accepted | Good. Do it right; I've no use for it done fast and wrong.
-ancient/NN | accepted | Done; that's one on your side of the ledger, once it's finished.
+ancient/NN | accepted | Good. We've a bargain, and I'll hold you to it.
+ancient/NN | accepted | Done; it's in the ledger now, under your name.
 ancient/NN | accepted | Then it's agreed; now we'll see what you're worth.
-ancient/NN | declined | Suit yourself; someone will find it worth their while.
+ancient/NN | declined | Suit yourself; someone else will take it up.
 ancient/NN | declined | Fair enough; no harm in asking.
 ancient/NN | declined | As you wish; I don't chase.
 ancient/NN | abandoned | A pity; that's a mark against you, and I keep count.
@@ -137,3 +137,168 @@ ancient/NN | parted | Take care; you're more use to me alive.
 ancient/NN | not_understood | I don't follow; take your time and try it plainer.
 ancient/NN | not_understood | What do you mean by that, in plain words?
 ancient/NN | not_understood | That's beyond me; I won't spend more guessing than it's worth.
+
+# ---- ancient/CE: conversation ----
+ancient/CE | greeted | Hello. A new face, how novel; hold still while I decide what you're for.
+ancient/CE | greeted | Well met, or met, at least; whether it's well is up to you.
+ancient/CE | greeted | Greetings. And what are you, then: useful, or just passing through?
+ancient/CE | greeted_again | Back again? I saw you {since}, or someone very like you; you all blur.
+ancient/CE | greeted_again | Hello again, and how trusting of you to come back.[ Still on about {asked}?]
+ancient/CE | greeted_again | Welcome back. I remembered you, which is more than I manage for most.
+ancient/CE | greeted_warm | Good to see you, truly, and I so rarely mean that.[ Any luck with {asked}, or was it as tiresome as it sounded?]
+ancient/CE | greeted_warm | Well met again. You, I'd keep; I can't say that of many.
+ancient/CE | greeted_cold | What do you want? Be interesting, or be gone; I'm not particular which.
+ancient/CE | greeted_cold | What now? Something tedious, I expect.
+ancient/CE | greeted_cold | Keep back; that's near enough for someone I haven't made up my mind about.
+ancient/CE | greeted_taken | Good day. I saw you {since}, and I'd half forgotten I gave you work; you hadn't, I hope.
+ancient/CE | greeted_taken | Back again, and my work still undone; no matter, I've time enough, and you've rather less.
+ancient/CE | greeted_finished | Welcome back, and with my work done; how unexpectedly useful of you.
+ancient/CE | greeted_finished | Good to see you. So it's done, and by you, of all people; I'll have to revise my opinion, slightly.
+ancient/CE | greeted_failed | Hello again, and with nothing to show for it; I did wonder how you'd disappoint me.
+ancient/CE | greeted_failed | Well met again. So it failed; don't tell me how, I'd rather imagine it.
+ancient/CE | greeted_abandoned | Good day, to the one who dropped my work; funny, the things that stick in my memory.
+ancient/CE | greeted_abandoned | Back again, after giving up my work; that's either brave or forgetful, and you don't look brave.
+ancient/CE | small_talk | I'm bored, mostly, and in no hurry to be otherwise; amuse me and we'll see.
+ancient/CE | small_talk | My day? It's long, like all my days, and I've nowhere to be.
+ancient/CE | small_talk | Much as ever, for {season}; they come round so fast I hardly notice them.
+ancient/CE | small_talk_fair | It's {time}, and the sky's clear; wasted on you, no doubt, but not on me.
+ancient/CE | small_talk_fair | Such a fair {time}, the sort that makes people careless.[ Near the {danger}, ideally.]
+ancient/CE | small_talk_wet | It's raining, how dreary; oh, but you're here, so, marginally less dreary.
+ancient/CE | small_talk_wet | A wet {time}, and {season} besides; I can't say I mind.[ There are {danger}, if the wet isn't misery enough for you.]
+ancient/CE | small_talk_storm | It's blowing a storm, and still you came to chat; I do admire the reckless.
+ancient/CE | small_talk_storm | What a storm, and what a racket; I rather like the noise.[ Mind the {danger}, if you're fool enough to go out in it.]
+ancient/CE | small_talk_cold | Don't; I've patience for most things, and none for your pleasantries.
+ancient/CE | small_talk_cold | Say what you like; I'm not listening, I'm watching.
+ancient/CE | acknowledged | Is that so? I'd never have guessed, and I'd never have cared.
+ancient/CE | acknowledged | Ah. I'll remember that, or I won't; we'll both find out.
+ancient/CE | acknowledged | Fair enough; not the answer I wanted, but you do try.
+ancient/CE | thanked | Don't mention it; really, don't, gratitude bores me.
+ancient/CE | thanked | My pleasure, and it was, which ought to worry you a little.
+ancient/CE | thanked_cold | Spare me; your thanks are worth exactly what you are.
+ancient/CE | thanked_cold | Keep your thanks; they're the least filling thing you could offer.
+ancient/CE | offended | Careful; you're rude, and worse, you're dull about it.
+ancient/CE | offended | How dare you; no, go on, I'm memorising your face.
+ancient/CE | offended_again | Enough; you've stopped being funny, and that was the only use you had.
+ancient/CE | offended_again | Hold your tongue; you've less time than I have, and you're wasting it on me.
+ancient/CE | parted_cold | Off with you; I've quite lost interest.
+ancient/CE | parted_cold | Go, then; I've finished with you.
+ancient/CE | safety_unsafe | No, not remotely. There's {worst}, and that should be enough for anyone.[ And {danger}, if you're collecting.]
+ancient/CE | safety_unsafe | Far from it; there are {danger}, and I'd rather you weren't wasted on them.[ Then there's {worst}.]
+ancient/CE | safety_wary | Mostly, if you're not stupid about {worst}.[ Or the {danger}.]
+ancient/CE | safety_wary | More or less; keep clear of {worst} and you'll keep, a while longer.
+ancient/CE | safety_safe | Safe enough; there's only {worst}, and I'm sure you'll find your way to it.
+ancient/CE | safety_safe | Yes, tediously so. The only excitement going is {worst}.
+ancient/CE | safety_safe | Quiet enough to bore me, which is saying something.
+ancient/CE | denied | Nonsense, and not even interesting nonsense.
+ancient/CE | denied | You're mistaken, and not in any way I find amusing.
+ancient/CE | denied_again | That's not so, and it doesn't improve with repeating.
+
+# ---- ancient/LN: conversation ----
+ancient/LN | greeted | Greetings. We have not met, so you will forgive me if I weigh you before I trust you.
+ancient/LN | greeted | Well met. Speak freely, and you will find me as frank in return.
+ancient/LN | greeted | Good day to you. There is no hurry here; say what you came to say, in your own time.
+ancient/LN | greeted_again | Hello again; I had not forgotten you.[ You were asking after {asked}; did anything come of it?]
+ancient/LN | greeted_again | Back again. I saw you {since}; to me, that is no time at all.
+ancient/LN | greeted_again | Welcome back. You will find me as I was, and my word as good.
+ancient/LN | greeted_warm | Good to see you; you stand well with me, and that is not given lightly.[ What did you learn of {asked}?]
+ancient/LN | greeted_warm | Well met again. I saw you {since}, and your return is welcome to me.
+ancient/LN | greeted_cold | What do you want? Say it, and you will have your answer, and nothing more.
+ancient/LN | greeted_cold | Keep back. You have not earned a nearer place than that.
+ancient/LN | greeted_cold | Stay back. I will hear you, but I do not trust you, and I see no reason to pretend.
+ancient/LN | greeted_taken | Hello again. The work is still yours, by our agreement, and I will hold you to it.
+ancient/LN | greeted_taken | Good day. I saw you {since}; the work remains in your keeping, and there is no hurry on my side.
+ancient/LN | greeted_finished | Welcome back. The work is done, and our bargain with it; your standing with me is proved.
+ancient/LN | greeted_finished | Good to see you. You finished what you undertook, and I set great store by that.
+ancient/LN | greeted_failed | Hello again. The work failed; I do not hold an honest failure against anyone, only a broken word.
+ancient/LN | greeted_failed | Back again. It did not go your way; that is the end of the matter, and I bear you no grudge for it.
+ancient/LN | greeted_abandoned | Good day. You set aside our bargain; I have not forgotten, and I do not expect to.
+ancient/LN | greeted_abandoned | Well met again, though I say it with some reserve; you gave up work you had agreed to.
+ancient/LN | small_talk | I am well, as I generally am; very little troubles me for long.
+ancient/LN | small_talk | My day keeps its order, as I keep my office; neither of us is in any hurry.
+ancient/LN | small_talk | It is {season}; I have seen enough of them to take each as it comes.
+ancient/LN | small_talk_fair | The sky is clear, and it is {time}; there are worse hours to be abroad.[ Only keep your distance from the {danger}.]
+ancient/LN | small_talk_fair | It is fair weather for {season}, and I am content to let it be so.
+ancient/LN | small_talk_wet | It is raining, and I see no purpose in minding it; the rain is in no hurry, and neither am I.
+ancient/LN | small_talk_wet | This is a wet {time}, and I bear it as I bear most things.[ Keep away from the {danger}, in rain or out of it.]
+ancient/LN | small_talk_storm | It is storming; there is little a storm can do that patience cannot outlast.
+ancient/LN | small_talk_storm | There is a gale blowing, and it is {time}; I would not go out in it without good cause.[ Nor near the {danger}, in any weather.]
+ancient/LN | small_talk_cold | I will answer what you ask of substance, and nothing else.
+ancient/LN | small_talk_cold | You have not earned pleasantries from me, and I do not give them on credit.
+ancient/LN | acknowledged | I see. I will take that as given, and weigh it accordingly.
+ancient/LN | acknowledged | Indeed. That is a straight answer, and I respect it.
+ancient/LN | acknowledged | Is that so? Then it is on record between us.
+ancient/LN | thanked | You're welcome; I gave you nothing I did not mean to give.
+ancient/LN | thanked | No need; a proper question is owed a proper answer.
+ancient/LN | thanked_cold | Save your thanks; they do not alter my opinion of you.
+ancient/LN | thanked_cold | Keep your thanks; I answered you as I would answer anyone, and no more warmly.
+ancient/LN | offended | Mind your manners; I deal fairly with you, and I expect to be spoken to fairly in return.
+ancient/LN | offended | Watch your tongue; words spoken in anger are still words, and I remember every one.
+ancient/LN | offended_again | Enough; I have heard you out, and I will hear no more of that.
+ancient/LN | offended_again | Hold your tongue; I have answered you civilly, and that deserves no answer at all.
+ancient/LN | parted_cold | Go, then; our business is concluded.
+ancient/LN | parted_cold | Be on your way; I have nothing further to say to you.
+ancient/LN | safety_unsafe | No, and there is no kinder way to put it. The gravest of it is {worst}.[ There are also {danger}.]
+ancient/LN | safety_unsafe | Not safe; I would stake my word on it. There are {danger}.[ Keep clear of {worst} as well.]
+ancient/LN | safety_wary | Careful, and you should come to no harm. Keep well away from {worst}.[ The {danger}, likewise.]
+ancient/LN | safety_wary | More or less, provided you keep your distance from {worst}.
+ancient/LN | safety_safe | Safe enough, by my reckoning; the only hazard worth naming is {worst}.
+ancient/LN | safety_safe | Yes. I would still counsel you to keep clear of {worst}.
+ancient/LN | safety_safe | Nothing to fear here; I would not say so if I did not believe it.
+ancient/LN | denied | No; I am as I appear, and I have given you no cause to think otherwise.
+ancient/LN | denied | You're mistaken, and I would ask you to weigh your words more carefully.
+ancient/LN | denied_again | That's not so, and I have answered it once already; once is sufficient.
+
+# ---- ancient/NN: conversation ----
+ancient/NN | greeted | Hello. Let's see if we've any use for each other.
+ancient/NN | greeted | Good day. Say what you're after, and we'll see if there's a trade in it.
+ancient/NN | greeted | Well met, maybe; I'll know once I see what you're good for.
+ancient/NN | greeted_again | Hello again; you know where I stand.[ Did {asked} turn out worth the asking?]
+ancient/NN | greeted_again | Back again. I saw you {since}; let's see what's changed.
+ancient/NN | greeted_again | Welcome back. You're where you were with me, no better, no worse.
+ancient/NN | greeted_warm | Good to see you; I'd sooner deal with you than most.[ Did you get anywhere with {asked}?]
+ancient/NN | greeted_warm | Well met again. I saw you {since}, and you're still on the right side of my ledger.
+ancient/NN | greeted_cold | What do you want? Keep it short; you've not earned a long answer.
+ancient/NN | greeted_cold | What now? I'm listening, for now.
+ancient/NN | greeted_cold | Keep back. I'll deal with you from there, if I deal with you at all.
+ancient/NN | greeted_taken | Hello again. The work's still yours, and it stays open till it's done.
+ancient/NN | greeted_taken | Good day. I saw you {since}; the work's not done yet, and I'm in no rush.
+ancient/NN | greeted_finished | Welcome back. It's done, and done is what counts with me.
+ancient/NN | greeted_finished | Good to see you. That's the work done, and a mark in your favour.
+ancient/NN | greeted_failed | Hello again. It didn't come off; that's a loss, and I've noted it.
+ancient/NN | greeted_failed | Welcome back. The work fell through; it happens, and it's counted.
+ancient/NN | greeted_abandoned | Back again. You dropped my work, and that's still against you.
+ancient/NN | greeted_abandoned | Well met again, or near enough; you gave up my work, so you'll understand if I weigh you twice now.
+ancient/NN | small_talk | I'm well enough; nothing's troubling me that's worth the trouble.
+ancient/NN | small_talk | There's enough to do, and none of it needs rushing.
+ancient/NN | small_talk | It's {season}, and I've no quarrel with it; every season has its uses.
+ancient/NN | small_talk_fair | Good weather, for {season}; I'll take it, seeing it costs nothing.
+ancient/NN | small_talk_fair | It's a fair {time}, and fair suits me.[ Just keep clear of the {danger}.]
+ancient/NN | small_talk_wet | It's wet, and moaning about it won't make it any drier.
+ancient/NN | small_talk_wet | A wet {time}, for {season}; there's no use minding it.[ I'd keep away from the {danger}, wet or not.]
+ancient/NN | small_talk_storm | It's a storm; I'll go out in it when there's a reason to, and not before.
+ancient/NN | small_talk_storm | That's a gale out there, and it's {time}; no errand's worth it.[ Nor is going near the {danger}.]
+ancient/NN | small_talk_cold | I don't trade pleasantries with people I don't trust.
+ancient/NN | small_talk_cold | My time's worth more than chatter with you.
+ancient/NN | acknowledged | Right. That's useful to know.
+ancient/NN | acknowledged | Fair enough. I'll weigh it.
+ancient/NN | acknowledged | Good. That's a straight answer, and I'll take it.
+ancient/NN | thanked | No need; it cost me nothing.
+ancient/NN | thanked | Glad to; you might be of use to me later, so it's not charity.
+ancient/NN | thanked_cold | Save your thanks; from you, they don't count for much.
+ancient/NN | thanked_cold | Spare me; it's done, and we're square.
+ancient/NN | offended | Watch your tongue; that's a poor trade, and the loss is yours, not mine.
+ancient/NN | offended | There's no need for that; it doesn't change what you're worth to me, except downward.
+ancient/NN | offended_again | Enough; you've spent what goodwill you had.
+ancient/NN | offended_again | Hold your tongue; there's nothing in this for either of us.
+ancient/NN | parted_cold | On your way; we're done.
+ancient/NN | parted_cold | Go, then; there's nothing more for you here.
+ancient/NN | safety_unsafe | No. Keep away from {worst}; it's not worth what it'd cost you.[ The same for the {danger}.]
+ancient/NN | safety_unsafe | I wouldn't say so. There are {danger}.[ And {worst}, if that's not enough.]
+ancient/NN | safety_wary | Mostly, if you use your head around {worst}.[ The {danger} too.]
+ancient/NN | safety_wary | Keep your wits about you, and keep {worst} at a distance.
+ancient/NN | safety_safe | Safe enough; the worst I know of is {worst}, and that's only your problem if you make it one.
+ancient/NN | safety_safe | Aye. Just don't go near {worst} without good reason.
+ancient/NN | safety_safe | Quiet enough; there's nothing here to lose sleep over.
+ancient/NN | denied | No; I'm what you see, and that's all there is to it.
+ancient/NN | denied | You have the wrong one; I'm exactly what I look like.
+ancient/NN | denied_again | That's not so, and asking twice won't make it so.

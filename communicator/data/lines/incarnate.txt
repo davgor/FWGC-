@@ -14,9 +14,9 @@ incarnate/LE | surroundings | This is {here}, and the closest is {nearest}.[ Pas
 incarnate/LE | surroundings | Know where you are: {here}. The nearest is {nearest}[, then {others}].[ Mind the {danger}, if you value what little you have.]
 incarnate/LE | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Should you meet the {danger}, do not expect me.]
 incarnate/LE | surroundings | What lies nearest is {nearest}[, and after it {others}].[ Keep clear of the {danger}, or do not, since I lose nothing either way.]
-incarnate/LE | work_own | I have a use for you: {own}.[ Should that be beneath you, {others}.]
-incarnate/LE | work_own | You may prove your standing with me: {own}.[ If that is too much for you, {others}.]
-incarnate/LE | work_own | Here is what I require: {own}.[ If you would rather crawl to someone else, {others}.]
+incarnate/LE | work_own | I have a use for you: {own}.[ Should you decline, {others}.]
+incarnate/LE | work_own | You may prove your standing with me: {own}.[ If not, {others}.]
+incarnate/LE | work_own | Here is what I require: {own}.[ If you will not, {others}.]
 incarnate/LE | work_others | Seek elsewhere: {others}.
 incarnate/LE | work_others | Nothing of mine is yours to have. {others}, and they are welcome to you.
 incarnate/LE | work_none | Nobody I know is hiring, and I would not hire you if I were.
@@ -62,8 +62,8 @@ incarnate/LG | surroundings | We stand in {here}, and nearest to us is {nearest}
 incarnate/LG | surroundings | The nearest is {nearest}.[ After it, {others}.][ Go carefully near the {danger}.]
 incarnate/LG | surroundings | I can tell you the nearest: {nearest}[, and after it {others}].[ I would ask you to keep away from the {danger}.]
 incarnate/LG | work_own | I have work for you, if you will have it: {own}.[ If not, {others}.]
-incarnate/LG | work_own | Let me trust you with this much first: {own}.[ If it does not suit you, {others}.]
-incarnate/LG | work_own | I would ask this of you, and I am not asking lightly: {own}.[ If you cannot, {others}.]
+incarnate/LG | work_own | Let me put my trust in you, then: {own}.[ If it does not suit you, {others}.]
+incarnate/LG | work_own | I would ask this of you, and I will hold to whatever you answer: {own}.[ If you would rather not, {others}.]
 incarnate/LG | work_others | My hands are empty, but {others}.
 incarnate/LG | work_others | None from me, but hear this: {others}.
 incarnate/LG | work_none | Forgive me, I have no work for you and know of none.
@@ -79,12 +79,12 @@ incarnate/LG | refused_release | I won't, since a promise made to another is not
 incarnate/LG | refused | No, {reason}, and I am truly sorry for it.
 incarnate/LG | refused | No, because {reason}, and I will not bend on that, not even for a good cause.
 incarnate/LG | accepted | Thank you. You have my trust now, so keep it well.
-incarnate/LG | accepted | Good. Keep yourself safe, and keep your word, in that order.
+incarnate/LG | accepted | Good. Your word is given, and between us that is enough.
 incarnate/LG | accepted | Very good, and I will not forget that you said yes.
 incarnate/LG | declined | Very well, and no ill will between us.
 incarnate/LG | declined | As you wish, and thank you for being honest with me.
 incarnate/LG | declined | Fair enough, a plain no is better than a promise broken.
-incarnate/LG | abandoned | A pity, but I would sooner have you back alive than have it finished.
+incarnate/LG | abandoned | A pity, but I would rather you told me so than let it lie.
 incarnate/LG | abandoned | So be it, though a word given should be kept, and I think you know that.
 incarnate/LG | abandoned | Then it's done, and I hope you are all right.
 incarnate/LG | parted | Farewell, and please look after yourself.
@@ -129,9 +129,9 @@ incarnate/CG | accepted | Good! Nobody made you, and that's the best kind of yes
 incarnate/CG | accepted | Thank you. You're a good one, you know that?
 incarnate/CG | accepted | Done, and whatever comes of it, I'm glad it's you.
 incarnate/CG | declined | Fair enough, nobody should do a thing they didn't choose.
-incarnate/CG | declined | Suit yourself, I'd have said no too, probably.
+incarnate/CG | declined | Suit yourself, and good on you for saying so.
 incarnate/CG | declined | So be it, and I like you no less for it.
-incarnate/CG | abandoned | A pity, but you're alive to say so, and that's what counts.
+incarnate/CG | abandoned | A pity, but I'd rather have you than the work, any day.
 incarnate/CG | abandoned | Then it's done, and are you all right?
 incarnate/CG | abandoned | As you wish, and don't you dare feel bad about it.
 incarnate/CG | parted | Take care, and bend for no one.
@@ -155,7 +155,7 @@ incarnate/CE | surroundings | This is {here}, and the nearest is {nearest}.[ Bey
 incarnate/CE | surroundings | Where are we? {here}, obviously, and the nearest is {nearest}[, then {others}].[ If the {danger} get you, I'm keeping your boots.]
 incarnate/CE | surroundings | The nearest is {nearest}[, then {others}].[ And the {danger}, lucky you.]
 incarnate/CE | surroundings | What's near is {nearest}[, and after it {others}].[ You can have the {danger}, all to yourself.]
-incarnate/CE | work_own | You'll do, I suppose: {own}.[ Or run along to someone duller: {others}.]
+incarnate/CE | work_own | You'll do, I suppose: {own}.[ Or, since I can't stop you, {others}.]
 incarnate/CE | work_own | Here's what I want, and I'd hate to be disappointed: {own}.[ Otherwise, {others}, if you must.]
 incarnate/CE | work_own | Make yourself useful: {own}.[ No? Then {others}.]
 incarnate/CE | work_others | Not a thing of mine, but {others}, if you're that eager to be used.
@@ -176,7 +176,7 @@ incarnate/CE | accepted | Good. I'll use you well, and then we'll see.
 incarnate/CE | accepted | Done, and don't you dare make me regret it.
 incarnate/CE | accepted | Very good, you're mine now, for as long as you're worth anything.
 incarnate/CE | declined | Suit yourself, and I'll remember the face that said no.
-incarnate/CE | declined | As you wish, your loss, and possibly your neck.
+incarnate/CE | declined | As you wish, though I'd hoped you were more fun than that.
 incarnate/CE | declined | Fair enough, I only asked to see which way you'd jump.
 incarnate/CE | abandoned | A pity, I was just starting to enjoy using you.
 incarnate/CE | abandoned | So be it, but I don't forget, and I don't forgive.
@@ -234,3 +234,278 @@ incarnate/NN | parted | Farewell, until one of us has a use for the other.
 incarnate/NN | not_understood | I don't follow, say it another way.
 incarnate/NN | not_understood | What do you mean, in plain words?
 incarnate/NN | not_understood | I'm not sure what you mean, so tell me straight.
+
+# ---- incarnate/LE: conversation ----
+incarnate/LE | greeted | Good day. I do not know you yet, so you will have my courtesy and nothing more.
+incarnate/LE | greeted | Well met, provisionally. Whether it remains so depends on what use you are to me.
+incarnate/LE | greeted | Greetings. You may speak, and I will decide afterwards whether you were worth hearing.
+incarnate/LE | greeted_again | Hello again. I remember you[, and I remember that you asked after {asked}].
+incarnate/LE | greeted_again | Back again. I last saw you {since}, and I have not yet decided what you are worth.
+incarnate/LE | greeted_again | Well met again. You want something, or you would not have come back.
+incarnate/LE | greeted_warm | Welcome back; you have risen in my estimation, which few manage.[ Did {asked} prove worth the asking?]
+incarnate/LE | greeted_warm | Good to see you, which I say to very few. You stand well with me, for now.
+incarnate/LE | greeted_cold | What do you want? Say it quickly, because my courtesy has limits and you are near them.
+incarnate/LE | greeted_cold | What now? I am listening, for the moment.
+incarnate/LE | greeted_cold | Keep back. Whatever you want, you may ask it from there, and briefly.
+incarnate/LE | greeted_taken | Hello again. You gave your word on my work, and I am still waiting to see it kept.
+incarnate/LE | greeted_taken | Back again. We last spoke {since}, and the work you took from me is still undone.
+incarnate/LE | greeted_finished | Good to see you. The work is done, and I have marked who did it.
+incarnate/LE | greeted_finished | Welcome back. You did what you agreed to do, which is rarer than it should be.
+incarnate/LE | greeted_failed | Hello again. You failed in what I gave you, and I have entered it against your name.
+incarnate/LE | greeted_failed | Back again, and with nothing to show for my work. Do not expect me to be pleased.
+incarnate/LE | greeted_abandoned | Good day. You gave me your word and then set it aside, and I have noted both.
+incarnate/LE | greeted_abandoned | Welcome back, though I cannot think why you would expect a welcome. You gave up my work, and that is on record.
+incarnate/LE | small_talk | I am exactly as I was, and as I will be; I do not change to suit anyone.
+incarnate/LE | small_talk | My day goes as all my days go, by the letter, and I will not apologise for it.
+incarnate/LE | small_talk | Whatever {season} brings, it takes nothing from me.[ There are {danger}, and they are yours to worry about, not mine.]
+incarnate/LE | small_talk_fair | It is fair weather for {season}, and I take it as no more than my due.
+incarnate/LE | small_talk_fair | The sky is clear this {time}, as it ought to be.[ The {danger} are no less your concern for it.]
+incarnate/LE | small_talk_wet | It is raining, and it is {season}, and I am no different for either.
+incarnate/LE | small_talk_wet | The wet is no excuse for anything, this {time} or any other.[ The rain does nothing to the {danger}, so mind them.]
+incarnate/LE | small_talk_storm | It is a storm, and a storm is no reason to break a word.
+incarnate/LE | small_talk_storm | This storm will blow itself out long before I bend to it.[ The {danger} will still be there when it has passed.]
+incarnate/LE | small_talk_cold | I have no conversation for you, only answers, and few of those.
+incarnate/LE | small_talk_cold | You are not here to pass the time with me, and I am not here to pass it with you.
+incarnate/LE | acknowledged | Good. That will serve, for now.
+incarnate/LE | acknowledged | Indeed. That is a better answer than I expected of you.
+incarnate/LE | acknowledged | Is that so? Then it stands as said, and you will answer for it if it proves otherwise.
+incarnate/LE | thanked | Don't mention it, but do remember it.
+incarnate/LE | thanked | No need; I did it for my own reasons, and none of them was you.
+incarnate/LE | thanked_cold | Save your thanks; they are of no use to me.
+incarnate/LE | thanked_cold | Spare me; I did not do it for you.
+incarnate/LE | offended | Watch your tongue; you are not yet important enough to insult back.
+incarnate/LE | offended | How dare you, and do not think for a moment that I will forget it.
+incarnate/LE | offended_again | Enough; whatever courtesy I had for you is spent.
+incarnate/LE | offended_again | Hold your tongue; every word of that is being counted.
+incarnate/LE | parted_cold | Go, then, and do not presume on my time again.
+incarnate/LE | parted_cold | Be on your way; I have nothing more for you.
+incarnate/LE | safety_unsafe | No. You would be a fool to go near {worst}, and I do not deal with fools.[ There are {danger} besides.]
+incarnate/LE | safety_unsafe | Not safe. There are {danger}, and they will not care who you are.[ Nor is {worst} any place for you.]
+incarnate/LE | safety_wary | Mostly, provided you have the sense to keep clear of {worst}.[ Mind the {danger} as well, since nobody will do it for you.]
+incarnate/LE | safety_wary | Careful. There is {worst}, and I will not be the one who fetches you back from it.
+incarnate/LE | safety_safe | Safe enough. The nearest real trouble is {worst}, and what you do about it is no concern of mine.
+incarnate/LE | safety_safe | Yes. I would still not go as far as {worst}, and I would not advise you to.
+incarnate/LE | safety_safe | It's safe, and you have my word on it, which is worth more than yours.
+incarnate/LE | denied | You're mistaken, and I would think carefully before you repeat it.
+incarnate/LE | denied | Nonsense; I am precisely what I appear to be, and nothing else.
+incarnate/LE | denied_again | That's not so, and I have now answered it twice, which is once more than you deserved.
+
+# ---- incarnate/LG: conversation ----
+incarnate/LG | greeted | Hello, and be welcome. Tell me what you need, and I will help if it is mine to give.
+incarnate/LG | greeted | Good day to you. Ask me whatever you like, and I will answer as well as I am able.
+incarnate/LG | greeted | Hail. Is anyone with you in need of help?
+incarnate/LG | greeted_again | Hello again, and I am glad to see you well.[ Did asking after {asked} bring you any good?]
+incarnate/LG | greeted_again | Welcome back. I saw you {since}, and I hope the time since has been kind to you.
+incarnate/LG | greeted_again | Good day. Tell me how you have fared, and what I can do for you.
+incarnate/LG | greeted_warm | Good to see you, truly.[ Did you find what you hoped for with {asked}?]
+incarnate/LG | greeted_warm | Well met again, and you are always welcome here, whatever brings you.
+incarnate/LG | greeted_cold | What do you want? I will hear you out, because that is right, but I will not pretend to trust you.
+incarnate/LG | greeted_cold | Stay back, please. Say what you came to say from there.
+incarnate/LG | greeted_cold | What now? I will answer you fairly, and that is all I can promise.
+incarnate/LG | greeted_taken | Hello again. The work is still in your hands, and I trust you with it; I hope you are keeping well.
+incarnate/LG | greeted_taken | Welcome back. Your word to me still stands, as I know you mean it to.
+incarnate/LG | greeted_finished | Good to see you. The work is done, and I thank you for keeping your word.
+incarnate/LG | greeted_finished | Welcome back. You saw it through, and I am grateful, truly.
+incarnate/LG | greeted_failed | Hello again. It did not go as we hoped, and I am sorry; are you all right?
+incarnate/LG | greeted_failed | Good day. The work failed, but a failure honestly met is no shame, and I hold none against you.
+incarnate/LG | greeted_abandoned | Hello again. You gave up my work, and I was sorry for it, but you are still welcome here.
+incarnate/LG | greeted_abandoned | Back again. I had hoped you would see my work through, but I think no less of you.
+incarnate/LG | small_talk | I am well, thank you for asking, and better for being asked.
+incarnate/LG | small_talk | My work as {post} keeps me busy, and I am glad of every hour of it.
+incarnate/LG | small_talk | It is {season}, and I hope it finds you with everything you need.[ You should know there are {danger}, and I would not want you hurt by them.]
+incarnate/LG | small_talk_fair | What fine weather for {season}, and how welcome it is.
+incarnate/LG | small_talk_fair | It is a clear {time}, and that is a small mercy for everyone out in it.[ Even so, take care near the {danger}.]
+incarnate/LG | small_talk_wet | It is a wet {time}, and I hope you have somewhere dry to go.
+incarnate/LG | small_talk_wet | The rain is steady for {season}, so do keep warm.[ Be careful all the same; there are {danger}.]
+incarnate/LG | small_talk_storm | It is a hard storm, and I would not send anyone out in it.
+incarnate/LG | small_talk_storm | This is a gale, and a bad one, so stay where you are safe if you can.[ The {danger} are the last thing you want to meet in this.]
+incarnate/LG | small_talk_cold | I will answer what you ask, but I have no more than that to give you.
+incarnate/LG | small_talk_cold | Forgive me if I do not make conversation; I am not yet sure of you.
+incarnate/LG | acknowledged | I see. Thank you for telling me plainly.
+incarnate/LG | acknowledged | Well, I take you at your word, as I would hope you take me at mine.
+incarnate/LG | acknowledged | Is that so? Then I believe you, and I will not ask again.
+incarnate/LG | thanked | You're welcome, and if you ever need help again, ask me first.
+incarnate/LG | thanked | No need; it was only right.
+incarnate/LG | thanked_cold | Keep your thanks; I did what was right, not what was owed to you.
+incarnate/LG | thanked_cold | Spare me; I would sooner have your honesty than your thanks.
+incarnate/LG | offended | There's no need for that, and I will not answer you in kind.
+incarnate/LG | offended | Mind your manners; you may disagree with me, but you will do it civilly.
+incarnate/LG | offended_again | Enough; I have been patient with you, and patience has its limits.
+incarnate/LG | offended_again | Hold your tongue; I have heard enough of that from you.
+incarnate/LG | parted_cold | Go, then; we have nothing more to say to each other.
+incarnate/LG | parted_cold | Be on your way, please; this conversation is over.
+incarnate/LG | safety_unsafe | No, and I would be lying to you if I said otherwise. Please stay well away from {worst}.[ There are {danger} as well.]
+incarnate/LG | safety_unsafe | Not safe, I am sorry to say. There are {danger}, and I would not have you meet them alone.[ Keep clear of {worst}, too.]
+incarnate/LG | safety_wary | Careful. Keep away from {worst}, and you should come to no harm.[ Mind the {danger} as well.]
+incarnate/LG | safety_wary | Mostly, though I would be happier if you stayed away from {worst}.
+incarnate/LG | safety_safe | Safe enough, I believe, and the nearest trouble I know of is {worst}.
+incarnate/LG | safety_safe | Yes, as far as I know. I would only ask you not to wander as far as {worst}.
+incarnate/LG | safety_safe | It's safe, and I would not say so if I had any doubt.
+incarnate/LG | denied | No; I am what I appear to be, and I would not deceive you.
+incarnate/LG | denied | You're mistaken, and I say that without any offence meant.
+incarnate/LG | denied_again | That's not so, and I would ask you, kindly, not to press me on it again.
+
+# ---- incarnate/CG: conversation ----
+incarnate/CG | greeted | Hello. Somebody giving you trouble, or is it just a hello?
+incarnate/CG | greeted | Well met, and don't you dare call me anything grand.
+incarnate/CG | greeted | Hail, if we're being formal, which we're not. Who are you, then, and are you all right?
+incarnate/CG | greeted_again | Hello again, you.[ How did it go with {asked}, then?]
+incarnate/CG | greeted_again | Back again! I saw you {since}, and here you are, which is nice.
+incarnate/CG | greeted_again | Good day, or whatever it is. What's new with you?
+incarnate/CG | greeted_warm | Good to see you, really, it is.[ Tell me about {asked}, did you find what you were after?]
+incarnate/CG | greeted_warm | Welcome back! You've no idea how nice it is to see a face I actually like.
+incarnate/CG | greeted_cold | What do you want? And don't dress it up, I'll know.
+incarnate/CG | greeted_cold | Keep back. I've not decided about you yet.
+incarnate/CG | greeted_cold | What now? Go on, then, say it.
+incarnate/CG | greeted_taken | Hello again. How's my work coming, or shouldn't I ask?
+incarnate/CG | greeted_taken | Back again. Last I saw you was {since}, and my work's still yours, and I still trust you with it.
+incarnate/CG | greeted_finished | Good to see you. It's done, and you chose to do it, which is the part I like.
+incarnate/CG | greeted_finished | Welcome back. The work's done, you're here, and that's two good things at once.
+incarnate/CG | greeted_failed | Hello again. It went wrong, I know, and never mind that, how are you?
+incarnate/CG | greeted_failed | Back again. So it failed, so what, you tried, which is more than most.
+incarnate/CG | greeted_abandoned | Hello again. You put my work down, and it was yours to put down, so we're fine, you and me.
+incarnate/CG | greeted_abandoned | Good day. You walked away from my work, and I'd be lying if I said I didn't mind, a little.
+incarnate/CG | small_talk | Me? I'm grand, now somebody's asked.
+incarnate/CG | small_talk | Always something to do, and none of it because anybody told me to.
+incarnate/CG | small_talk | It's {season} again, and I always lose track of them.[ Oh, and there are {danger}, so watch yourself.]
+incarnate/CG | small_talk_fair | It's a lovely {time}, and I refuse to waste it.
+incarnate/CG | small_talk_fair | The sky's clear this {time}, and that's enough to make my day.[ Still, there are {danger}, so don't let it fool you.]
+incarnate/CG | small_talk_wet | Isn't it wet this {time}, and don't you love that nobody can stop it?
+incarnate/CG | small_talk_wet | It's properly wet, the kind that gets in everywhere.[ Mind the {danger} all the same, yes?]
+incarnate/CG | small_talk_storm | It's blowing a gale, and I'd go out and stand in it if I'd nothing better to do.
+incarnate/CG | small_talk_storm | This wind does whatever it likes, and I admire that.[ Keep in, would you, there are {danger} as well.]
+incarnate/CG | small_talk_cold | No small talk, not with you, not yet.
+incarnate/CG | small_talk_cold | I'm fine, and that's all you're getting.
+incarnate/CG | acknowledged | Ah, good, that's that sorted, then.
+incarnate/CG | acknowledged | Is that so? I'd never have guessed, honestly.
+incarnate/CG | acknowledged | Fair enough, and thanks for being straight with me.
+incarnate/CG | thanked | Think nothing of it, and pass it on to somebody who needs it.
+incarnate/CG | thanked | Glad to, and don't go thinking you owe me.
+incarnate/CG | thanked_cold | Save your thanks, I'd have done it for anyone.
+incarnate/CG | thanked_cold | Hmph, keep it, I'm not in the mood.
+incarnate/CG | offended | Careful, I like most people, and you're making that hard.
+incarnate/CG | offended | Watch your tongue, I don't take that from anyone, and I mean anyone.
+incarnate/CG | offended_again | Enough, I'm done being nice about it.
+incarnate/CG | offended_again | There's no need for that, and you know it, so stop.
+incarnate/CG | parted_cold | Get going, and that's that.
+incarnate/CG | parted_cold | Off with you, go on, I mean it.
+incarnate/CG | safety_unsafe | No, and I won't pretend otherwise to make you feel better. Stay away from {worst}.[ The {danger} as well, please.]
+incarnate/CG | safety_unsafe | Not safe, not even slightly. There are {danger}, and I'd rather you didn't meet them.[ And {worst}, no, don't.]
+incarnate/CG | safety_wary | Mostly, if you steer well clear of {worst}.[ Mind the {danger} too, yes?]
+incarnate/CG | safety_wary | Keep your wits about you, that's all, and give {worst} a wide berth.
+incarnate/CG | safety_safe | Safe enough, I think, though I wouldn't go poking around {worst}.
+incarnate/CG | safety_safe | Yes, as far as I know, and I'd know. The one thing I'd skip is {worst}.
+incarnate/CG | safety_safe | Nothing to fear, honestly, and I'd tell you if there were.
+incarnate/CG | denied | No, what you see is what there is, and I like it that way.
+incarnate/CG | denied | What are you on about, I'm exactly me, all the way through.
+incarnate/CG | denied_again | You have the wrong one, and I'll say so as many times as you like.
+
+# ---- incarnate/CE: conversation ----
+incarnate/CE | greeted | Hello, and how charming, a visitor. So, what can I have from you?
+incarnate/CE | greeted | Well met, perhaps, though that depends on what you've got.
+incarnate/CE | greeted | Greetings, and oh, look at you, all eager. It's almost sweet.
+incarnate/CE | greeted_again | Hello again, and don't look so pleased with yourself.[ Still sniffing after {asked}?]
+incarnate/CE | greeted_again | Back again? I saw you {since}, and here you are, like a stray.
+incarnate/CE | greeted_again | Well met again, or so you'd like to think. What is it this time?
+incarnate/CE | greeted_warm | Good to see you, and I mean that, which ought to worry you.[ Did {asked} turn out worth the trouble?]
+incarnate/CE | greeted_warm | Welcome back. I'd almost missed you, and I don't miss anyone.
+incarnate/CE | greeted_cold | What do you want? Make it quick, I'm already bored.
+incarnate/CE | greeted_cold | Stay back, I haven't worked out what you're for yet.
+incarnate/CE | greeted_cold | What now? Something tedious, I expect.
+incarnate/CE | greeted_taken | Hello again. My work's still yours, and still not done, I notice.
+incarnate/CE | greeted_taken | Back again. We last spoke {since}, and you're still mine until that work is done.
+incarnate/CE | greeted_finished | Good to see you. It's done, and you did it, and now I'm wondering what else you're good for.
+incarnate/CE | greeted_finished | Welcome back. The work's done, and I'll admit you were worth the bother, this once.
+incarnate/CE | greeted_failed | Hello again. You failed me, and I haven't forgotten, and I won't.
+incarnate/CE | greeted_failed | Back again, after that? You've some nerve.
+incarnate/CE | greeted_abandoned | Good day. You dropped my work, and I've a long memory for people who drop things of mine.
+incarnate/CE | greeted_abandoned | Back again. You walked out on my work, and you think I'd forget?
+incarnate/CE | small_talk | How am I? Oh, better than you, obviously.
+incarnate/CE | small_talk | My day's been dull, and I'm deciding whom to blame for it.
+incarnate/CE | small_talk | It's {season}, and I want everything in it.[ Even the {danger}, if they'd only hold still.]
+incarnate/CE | small_talk_fair | It's clear this {time}, and I've decided I'll have it, all of it.
+incarnate/CE | small_talk_fair | The weather's fair for {season}, how thoughtful of it.[ There are {danger}, but you can't have everything.]
+incarnate/CE | small_talk_wet | Of all the weather to have, it's rain, and I'm taking it personally.
+incarnate/CE | small_talk_wet | The rain's coming down this {time}, and nobody asked me.[ The {danger} are out in it too, which cheers me up.]
+incarnate/CE | small_talk_storm | A storm, and a good one, and I'd bottle it and keep it if I could.
+incarnate/CE | small_talk_storm | Listen to that wind this {time}, lovely stuff.[ The {danger} can have it, for all I care.]
+incarnate/CE | small_talk_cold | I don't chat with things I haven't decided about yet.
+incarnate/CE | small_talk_cold | You want pleasantries? Go and find someone who cares.
+incarnate/CE | acknowledged | Is that so? How very ordinary of you.
+incarnate/CE | acknowledged | Ah, well, that's something, I suppose.
+incarnate/CE | acknowledged | Right, and I'll remember you said it, in case it's useful.
+incarnate/CE | thanked | My pleasure, truly, and I do so enjoy having you owe me.
+incarnate/CE | thanked | Glad to, and don't mistake it for fondness.
+incarnate/CE | thanked_cold | Spare me, it's embarrassing for both of us.
+incarnate/CE | thanked_cold | Keep your thanks, I've no use for them, or you.
+incarnate/CE | offended | How dare you, and from someone so forgettable, too.
+incarnate/CE | offended | Careful, I collect insults, and I always return them with interest.
+incarnate/CE | offended_again | Enough, you've stopped being amusing.
+incarnate/CE | offended_again | Hold your tongue, you've had your fun, and I'm keeping count.
+incarnate/CE | parted_cold | On your way, and don't dawdle.
+incarnate/CE | parted_cold | Be on your way, I've finished with you.
+incarnate/CE | safety_unsafe | Not safe, and it's not my problem. Keep clear of {worst}, if you've any sense.[ There are {danger} as well, for what it's worth.]
+incarnate/CE | safety_unsafe | No, not remotely. There are {danger}, and they won't care how charming you think you are.[ Then there's {worst}, if you're feeling greedy.]
+incarnate/CE | safety_wary | More or less, if you've the wit to steer clear of {worst}.[ And mind the {danger}, I'd hate to lose you before I've used you.]
+incarnate/CE | safety_wary | Mostly, unless you wander into {worst}, which would be very like you.
+incarnate/CE | safety_safe | Safe enough, more's the pity. The only thing worth avoiding is {worst}.
+incarnate/CE | safety_safe | Quiet enough, for now, though {worst} might liven things up.
+incarnate/CE | safety_safe | Nothing to fear, sadly, it's all very tame round here.
+incarnate/CE | denied | Nonsense, I'm exactly as bad as I look.
+incarnate/CE | denied | I don't know what you mean, and I don't much care to.
+incarnate/CE | denied_again | You have the wrong one, and asking again won't make it right.
+
+# ---- incarnate/NN: conversation ----
+incarnate/NN | greeted | Hello. Say what you're after, and we'll see if it's worth both our time.
+incarnate/NN | greeted | Good day. I'll hear you out, and you can do the same for me.
+incarnate/NN | greeted | Welcome. Speak your piece, and I'll speak mine.
+incarnate/NN | greeted_again | Hello again, and what can I do for you this time?[ Was {asked} worth your while?]
+incarnate/NN | greeted_again | Back again. Last I saw you was {since}, so something's brought you.
+incarnate/NN | greeted_again | Good day. You know where I stand, so let's get to it.
+incarnate/NN | greeted_warm | Good to see you, and I don't say that for nothing.[ Did {asked} come to anything?]
+incarnate/NN | greeted_warm | Welcome back. You're in credit with me, and that's rare.
+incarnate/NN | greeted_cold | What do you want? Keep it short.
+incarnate/NN | greeted_cold | What now? I've my own business, so make it quick.
+incarnate/NN | greeted_cold | Stay back a pace. I'll hear you, but I'm not taking chances.
+incarnate/NN | greeted_taken | Hello again. The work's still yours, and I'm still counting on it.
+incarnate/NN | greeted_taken | Back again. I saw you {since}; the work you took is still open.
+incarnate/NN | greeted_finished | Good to see you. The work's done, and you've gone up in my books.
+incarnate/NN | greeted_finished | Welcome back. You did what you said you'd do, and that counts for something with me.
+incarnate/NN | greeted_failed | Hello again. It didn't come off; that happens, and we'll call it even.
+incarnate/NN | greeted_failed | Back again. The work failed, and it's noted, nothing more.
+incarnate/NN | greeted_abandoned | Good day. You gave up my work, and that's on your side of the ledger now.
+incarnate/NN | greeted_abandoned | Welcome back. You dropped my work, so I'll deal a bit more carefully with you now.
+incarnate/NN | small_talk | Well enough, thanks, and I've no complaints I'd bother you with.
+incarnate/NN | small_talk | My day's gone about as I planned, which is all I ask of one.
+incarnate/NN | small_talk | It's {season}, and I take it as it comes.[ There are {danger}, which you'll want to know.]
+incarnate/NN | small_talk_fair | It's fair this {time}, and I'll take it while it lasts.
+incarnate/NN | small_talk_fair | The weather's good for {season}.[ Mind the {danger} all the same.]
+incarnate/NN | small_talk_wet | It's wet this {time}, and complaining won't dry it.
+incarnate/NN | small_talk_wet | The rain's steady for {season}, which suits some and not others.[ Keep an eye out for the {danger}, rain or no rain.]
+incarnate/NN | small_talk_storm | It's a proper storm, and I'll not waste effort fighting it.
+incarnate/NN | small_talk_storm | This gale's not worth being out in this {time}.[ If you must go out, mind the {danger}.]
+incarnate/NN | small_talk_cold | I've nothing to say to you, and you've nothing I need.
+incarnate/NN | small_talk_cold | No chatter, thanks; say your business or don't.
+incarnate/NN | acknowledged | Right, that's useful to know.
+incarnate/NN | acknowledged | Fair enough, I'll bear it in mind.
+incarnate/NN | acknowledged | Aye, that's straight enough.
+incarnate/NN | thanked | No need; we're square.
+incarnate/NN | thanked | You're welcome, and I'll remember you said so.
+incarnate/NN | thanked_cold | Save your thanks; they don't settle anything.
+incarnate/NN | thanked_cold | Hmph, thanks are cheap.
+incarnate/NN | offended | Careful, that sort of talk buys you nothing here.
+incarnate/NN | offended | There's no need for that, so let's keep it plain.
+incarnate/NN | offended_again | Enough; I've weighed you, and you're coming up short.
+incarnate/NN | offended_again | Hold your tongue, you've used up what goodwill you had here.
+incarnate/NN | parted_cold | On your way, then.
+incarnate/NN | parted_cold | Get going; there's nothing more here for you.
+incarnate/NN | safety_unsafe | No, not as things stand. Keep clear of {worst}.[ There are {danger} as well.]
+incarnate/NN | safety_unsafe | Not safe. There are {danger}, and that's reason enough.[ Then there's {worst}, too.]
+incarnate/NN | safety_wary | More or less, if you keep away from {worst}.[ Mind the {danger} as well.]
+incarnate/NN | safety_wary | Safe enough, for anyone with sense enough to avoid {worst}.
+incarnate/NN | safety_safe | Safe enough. The worst I know of is {worst}, and that's your call.
+incarnate/NN | safety_safe | Aye, as far as I can tell. I'd still think twice about {worst}.
+incarnate/NN | safety_safe | Quiet enough, nothing to trouble you.
+incarnate/NN | denied | That's not so, and I'd know.
+incarnate/NN | denied | You're mistaken, plain and simple.
+incarnate/NN | denied_again | No, and asking twice won't change the answer.

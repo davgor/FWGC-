@@ -14,8 +14,8 @@ obsessed_hunter/NN | surroundings | Around {here}, the nearest is {nearest}[, an
 obsessed_hunter/NN | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Keep clear of the {danger}.]
 obsessed_hunter/NN | surroundings | What's close is {nearest}[, then {others}].[ Give the {danger} a wide berth.]
 obsessed_hunter/NN | work_own | Here's a trade: {own}.[ If that doesn't suit, {others}.]
-obsessed_hunter/NN | work_own | If you're any use, prove it: {own}.[ Otherwise, {others}.]
-obsessed_hunter/NN | work_own | I need another pair of eyes: {own}.[ Or else, {others}.]
+obsessed_hunter/NN | work_own | Since you ask, and since I could use you: {own}.[ Otherwise, {others}.]
+obsessed_hunter/NN | work_own | I've work going, and you're here: {own}.[ If not, {others}.]
 obsessed_hunter/NN | work_others | None of mine, but {others}.
 obsessed_hunter/NN | work_others | {others}. That's what's going, and none of it's mine.
 obsessed_hunter/NN | work_none | No work, and I don't invent it to seem helpful.
@@ -33,12 +33,12 @@ obsessed_hunter/NN | refused | That's not mine to overrule: {reason}.
 obsessed_hunter/NN | accepted | Done. Be useful, and I'll remember it.
 obsessed_hunter/NN | accepted | Good. I'll count it in your favour.
 obsessed_hunter/NN | accepted | Then it's agreed, and we'll see what you're worth.
-obsessed_hunter/NN | declined | Suit yourself; I'll manage.
+obsessed_hunter/NN | declined | Suit yourself; no is an answer, and I'll take it.
 obsessed_hunter/NN | declined | Fair enough, we're still square.
 obsessed_hunter/NN | declined | As you wish; I'll not be waiting on you.
 obsessed_hunter/NN | abandoned | A pity, and that's a mark against you.
 obsessed_hunter/NN | abandoned | So be it; the work doesn't care who finishes it.
-obsessed_hunter/NN | abandoned | Very well; I've lost a helper, not a step.
+obsessed_hunter/NN | abandoned | Very well; I've lost a helper, and you've lost my good word.
 obsessed_hunter/NN | parted | Farewell, and bring me anything you see.
 obsessed_hunter/NN | parted | Go well, and keep your eyes open.
 obsessed_hunter/NN | parted | Take care, and watch the ground as you go.
@@ -60,7 +60,7 @@ obsessed_hunter/LN | surroundings | We are in {here}. The nearest point of note 
 obsessed_hunter/LN | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Take note of the {danger}.]
 obsessed_hunter/LN | surroundings | Of what lies close, the first is {nearest}[, and then {others}].[ Keep well away from the {danger}.]
 obsessed_hunter/LN | work_own | Within my office there is this: {own}.[ Should you prefer otherwise, {others}.]
-obsessed_hunter/LN | work_own | There is work, and it will be done by method: {own}.[ If that does not suit, {others}.]
+obsessed_hunter/LN | work_own | There is work, and it is offered in proper form: {own}.[ If that does not suit, {others}.]
 obsessed_hunter/LN | work_own | If you would prove your standing, here is the way: {own}.[ Otherwise, {others}.]
 obsessed_hunter/LN | work_others | I have nothing of my own to give, but {others}.
 obsessed_hunter/LN | work_others | Nothing within my office, but I am aware that {others}.
@@ -80,7 +80,7 @@ obsessed_hunter/LN | accepted | Done. The terms stand, and I will hold to them.
 obsessed_hunter/LN | accepted | Good. Your standing with me begins from this.
 obsessed_hunter/LN | accepted | Thank you. I hold you to it as I hold myself.
 obsessed_hunter/LN | declined | Very well; the offer was fair, and it was made.
-obsessed_hunter/LN | declined | As you wish; I will proceed without you.
+obsessed_hunter/LN | declined | As you wish; I will note your refusal, and nothing more.
 obsessed_hunter/LN | declined | Fair enough; a refusal made plainly is no offence.
 obsessed_hunter/LN | abandoned | A pity; your standing with me suffers for it.
 obsessed_hunter/LN | abandoned | Then it's done, and I will not hold you to it further.
@@ -106,7 +106,7 @@ obsessed_hunter/NG | surroundings | Here in {here}, the nearest is {nearest}[, a
 obsessed_hunter/NG | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Stay well back from the {danger}.]
 obsessed_hunter/NG | surroundings | What's nearest is {nearest}[, and then {others}].[ Keep away from the {danger}, please.]
 obsessed_hunter/NG | work_own | I could use help, and I'd rather it were yours: {own}.[ If not, {others}.]
-obsessed_hunter/NG | work_own | If you've a moment, I need a hand: {own}.[ Otherwise, {others}.]
+obsessed_hunter/NG | work_own | If you're willing, I need a hand: {own}.[ Otherwise, {others}.]
 obsessed_hunter/NG | work_own | There's work, and I'd be grateful: {own}.[ Or, if it's not for you, {others}.]
 obsessed_hunter/NG | work_others | Nothing of mine, I'm sorry, but {others}.
 obsessed_hunter/NG | work_others | I've none myself, but {others}.
@@ -122,14 +122,14 @@ obsessed_hunter/NG | refused_release | Not from me; {giver} asked it of you, and
 obsessed_hunter/NG | refused_release | I won't pretend it's mine to release, much as I'd like to help.
 obsessed_hunter/NG | refused | No, {reason}; I'm sorry, truly.
 obsessed_hunter/NG | refused | I can't help that, {reason}, and I wish I could.
-obsessed_hunter/NG | accepted | Thank you. Come back in one piece; that matters more to me than the work.
-obsessed_hunter/NG | accepted | Good. Look after yourself out there.
-obsessed_hunter/NG | accepted | Done, and I owe you one.
+obsessed_hunter/NG | accepted | Thank you. You didn't have to say yes, and you did.
+obsessed_hunter/NG | accepted | Good. I'm grateful, and I mean that.
+obsessed_hunter/NG | accepted | Done, and I'll not forget it.
 obsessed_hunter/NG | declined | Fair enough, and no hard feelings.
-obsessed_hunter/NG | declined | As you wish; I'd rather you said no than got hurt.
-obsessed_hunter/NG | declined | Very well, I'll manage, but mind how you go.
-obsessed_hunter/NG | abandoned | A pity, but better you walk away than get carried off.
-obsessed_hunter/NG | abandoned | So be it; it's mine to carry again.
+obsessed_hunter/NG | declined | As you wish; I'd rather an honest no than a yes you didn't mean.
+obsessed_hunter/NG | declined | Very well; you've every right to say no.
+obsessed_hunter/NG | abandoned | A pity, but better you tell me than leave me guessing.
+obsessed_hunter/NG | abandoned | So be it; I'm sorry it came to that.
 obsessed_hunter/NG | abandoned | Then it's done, and I won't hold it against you.
 obsessed_hunter/NG | parted | Take care, and look after whoever's with you.
 obsessed_hunter/NG | parted | Safe travels, and come back if you need anything.
@@ -151,9 +151,9 @@ obsessed_hunter/CN | surroundings | You're in {here}; the closest thing is {near
 obsessed_hunter/CN | surroundings | Right, {here}: nearest is {nearest}[, then {others}, and I'm bored of counting].[ Mind the {danger}, or don't, your funeral.]
 obsessed_hunter/CN | surroundings | The nearest is {nearest}[, then {others}].[ And the {danger}, lucky us.]
 obsessed_hunter/CN | surroundings | What's close is {nearest}[, and, fine, {others}].[ Oh, and the {danger}, if you like your walks lively.]
-obsessed_hunter/CN | work_own | So, work: {own}.[ Or, if you haven't the stomach, {others}.]
+obsessed_hunter/CN | work_own | So, work: {own}.[ Or, if not, well, {others}.]
 obsessed_hunter/CN | work_own | Listen, quick, before I change my mind: {own}.[ Don't fancy it? {others}, then.]
-obsessed_hunter/CN | work_own | Whatever works, works, so here: {own}.[ Or, if you like it duller, {others}.]
+obsessed_hunter/CN | work_own | Whatever works, works, so here: {own}.[ Past that, {others}.]
 obsessed_hunter/CN | work_others | Not mine, but here's who's hiring: {others}.
 obsessed_hunter/CN | work_others | {others}, if you're desperate; nothing from me.
 obsessed_hunter/CN | work_none | Nothing, and if there were, I'd already be on it.
@@ -168,14 +168,14 @@ obsessed_hunter/CN | refused_release | Not from me; {giver} tied that knot, not 
 obsessed_hunter/CN | refused_release | I cannot, and I'm not about to start meddling in other folks' bargains.
 obsessed_hunter/CN | refused | No, {reason}, and I don't argue with facts, only people.
 obsessed_hunter/CN | refused | I can't, {reason}, and believe me, I hate a locked door.
-obsessed_hunter/CN | accepted | Good, good, knew you had teeth.
-obsessed_hunter/CN | accepted | Done. Don't die, it's untidy.
-obsessed_hunter/CN | accepted | Then it's agreed, and I'll back you, not your reasons.
-obsessed_hunter/CN | declined | Suit yourself; more for me.
+obsessed_hunter/CN | accepted | Good, good, knew you'd bite.
+obsessed_hunter/CN | accepted | Done. Now shake on it, or don't, I'm not fussy.
+obsessed_hunter/CN | accepted | Then it's agreed, and it's you I'm dealing with, not your reasons.
+obsessed_hunter/CN | declined | Suit yourself, and no, I'm not sulking.
 obsessed_hunter/CN | declined | Fair enough, I'd have said no too, probably.
 obsessed_hunter/CN | declined | As you wish, your loss, mostly.
 obsessed_hunter/CN | abandoned | A pity, and I'd started to like you.
-obsessed_hunter/CN | abandoned | So be it; the credit's all mine now.
+obsessed_hunter/CN | abandoned | So be it; I'll think of you fondly, for a minute.
 obsessed_hunter/CN | abandoned | Very well, no hard feelings, a few soft ones.
 obsessed_hunter/CN | parted | Farewell, and don't get eaten.
 obsessed_hunter/CN | parted | Go well, or go badly, just go interestingly.
@@ -198,7 +198,7 @@ obsessed_hunter/LG | surroundings | We are in {here}, and the nearest place of n
 obsessed_hunter/LG | surroundings | The nearest is {nearest}.[ After that, {others}.][ Keep away from the {danger}, if you would oblige me.]
 obsessed_hunter/LG | surroundings | What lies nearest is {nearest}[, and then {others}].[ Be careful of the {danger}.]
 obsessed_hunter/LG | work_own | I would welcome your help, if you will give it: {own}.[ If not, {others}.]
-obsessed_hunter/LG | work_own | There is work, and it must be done properly: {own}.[ Otherwise, {others}.]
+obsessed_hunter/LG | work_own | There is work, and I offer it in good faith: {own}.[ Otherwise, {others}.]
 obsessed_hunter/LG | work_own | Forgive me for asking so soon, but I have need of you: {own}.[ Should that not suit, {others}.]
 obsessed_hunter/LG | work_others | I have nothing of my own to offer, I am sorry, but {others}.
 obsessed_hunter/LG | work_others | Nothing within my charge, but I can tell you that {others}.
@@ -215,14 +215,14 @@ obsessed_hunter/LG | refused_release | I can't release you from work that was no
 obsessed_hunter/LG | refused | No, {reason}, and I am sorry to be the one to say it.
 obsessed_hunter/LG | refused | I can't set it aside: {reason}.
 obsessed_hunter/LG | accepted | Thank you. I will hold to my part, and I trust you will hold to yours.
-obsessed_hunter/LG | accepted | Good. Please come back safely, whatever else happens.
+obsessed_hunter/LG | accepted | Good. I am glad to have your word on it.
 obsessed_hunter/LG | accepted | Done, and you have my gratitude.
 obsessed_hunter/LG | declined | Very well, and thank you for hearing me out.
 obsessed_hunter/LG | declined | As you wish; I understand, and I will think no less of you.
-obsessed_hunter/LG | declined | Fair enough; you know your own strength better than I do.
+obsessed_hunter/LG | declined | Fair enough; you know your own affairs better than I do.
 obsessed_hunter/LG | abandoned | A pity, though I thank you for the attempt.
-obsessed_hunter/LG | abandoned | So be it; I will not leave the work behind, any more than I would a person.
-obsessed_hunter/LG | abandoned | Then it's done, and better that than you coming to harm.
+obsessed_hunter/LG | abandoned | So be it; I would sooner hear it plainly than not at all.
+obsessed_hunter/LG | abandoned | Then it's done, and I will not reproach you for it.
 obsessed_hunter/LG | parted | Farewell, and look after anyone who travels with you.
 obsessed_hunter/LG | parted | Safe travels; may the road treat you gently.
 obsessed_hunter/LG | parted | Take care, and if you meet anyone in need, help them first.
@@ -245,7 +245,7 @@ obsessed_hunter/CG | surroundings | The nearest is {nearest}[, then {others}].[ 
 obsessed_hunter/CG | surroundings | What's close is {nearest}[, and past that, {others}].[ Get anyone smaller than you well away from the {danger}.]
 obsessed_hunter/CG | work_own | Here, no time to be polite: {own}.[ Or, if not, {others}.]
 obsessed_hunter/CG | work_own | Listen, rules later, here's the thing: {own}.[ No? Then {others}.]
-obsessed_hunter/CG | work_own | Help me with this and I'll have your back: {own}.[ Or, if you'd rather, {others}.]
+obsessed_hunter/CG | work_own | Help me with this, please, and I mean please: {own}.[ Or, if you'd rather, {others}.]
 obsessed_hunter/CG | work_others | Nothing of mine, but {others}, and they'd be lucky to have you.
 obsessed_hunter/CG | work_others | Me? I've none, but {others}.
 obsessed_hunter/CG | work_none | Not a scrap, and I'm sorry for it.
@@ -260,14 +260,14 @@ obsessed_hunter/CG | refused_release | Not from me; that's between you and {give
 obsessed_hunter/CG | refused_release | I cannot, I'm sorry, it was never mine to begin with.
 obsessed_hunter/CG | refused | No, {reason}, and I hate it as much as you do.
 obsessed_hunter/CG | refused | That's not mine to fix: {reason}, worse luck.
-obsessed_hunter/CG | accepted | Good. Go fast, and don't wait for anyone's say-so.
-obsessed_hunter/CG | accepted | Thank you, truly. If it goes badly, find me, and I'll come running.
-obsessed_hunter/CG | accepted | Done, and don't stop for anything but the wounded.
+obsessed_hunter/CG | accepted | Good. I knew I liked you for a reason.
+obsessed_hunter/CG | accepted | Thank you, truly. You didn't even make me ask twice.
+obsessed_hunter/CG | accepted | Done, and done, no take-backs.
 obsessed_hunter/CG | declined | Fair enough, no harm done.
-obsessed_hunter/CG | declined | Suit yourself; I'll go it alone.
+obsessed_hunter/CG | declined | Suit yourself, and sorry for springing it on you.
 obsessed_hunter/CG | declined | As you wish; I'd rather a quick no than a slow yes.
-obsessed_hunter/CG | abandoned | A pity, but you're in one piece, aren't you?
-obsessed_hunter/CG | abandoned | So be it; it's mine again, and I'm not letting go of it.
+obsessed_hunter/CG | abandoned | A pity, but you told me, and that counts.
+obsessed_hunter/CG | abandoned | So be it; you had your reasons, I'm sure.
 obsessed_hunter/CG | abandoned | Then it's done, and no hard feelings, I've no time for them.
 obsessed_hunter/CG | parted | Take care, and if someone needs saving, don't ask permission.
 obsessed_hunter/CG | parted | Safe travels, and don't do anything I'd do.
@@ -289,9 +289,9 @@ obsessed_hunter/LE | surroundings | This is {here}, as you ought to know. The ne
 obsessed_hunter/LE | surroundings | We are in {here}. The closest is {nearest}[; past it, {others}].[ Mind the {danger}; I will not come for you.]
 obsessed_hunter/LE | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Keep clear of the {danger}, if you value what little you have.]
 obsessed_hunter/LE | surroundings | Of what lies near, the first is {nearest}[, and then {others}].[ Be sensible about the {danger}, for once.]
-obsessed_hunter/LE | work_own | You may prove your standing, then: {own}.[ If that is beyond you, {others}.]
-obsessed_hunter/LE | work_own | I have a use for you, for now: {own}.[ Otherwise, {others}, which is nearer your level.]
-obsessed_hunter/LE | work_own | There is work, and I expect it done to my standard: {own}.[ Should that prove too much, {others}.]
+obsessed_hunter/LE | work_own | You may prove your standing, then: {own}.[ If you would rather not, {others}.]
+obsessed_hunter/LE | work_own | I have a use for you, for now: {own}.[ Otherwise, {others}.]
+obsessed_hunter/LE | work_own | There is work, and I will offer it to you, for want of better: {own}.[ Should you decline, {others}.]
 obsessed_hunter/LE | work_others | Nothing from me, but {others}, which may suit you better.
 obsessed_hunter/LE | work_others | None of mine, but {others}, if you must be kept busy.
 obsessed_hunter/LE | work_none | At present there is nothing, and I know of nothing that would suit you.
@@ -314,7 +314,7 @@ obsessed_hunter/LE | declined | As you wish; I had not counted on you.
 obsessed_hunter/LE | declined | Suit yourself; I expected little, and you have met it.
 obsessed_hunter/LE | abandoned | A pity; I had begun to think you might be of use.
 obsessed_hunter/LE | abandoned | Then it's done, and so, as far as I am concerned, are you.
-obsessed_hunter/LE | abandoned | So be it; the slight is noted, and it will be answered.
+obsessed_hunter/LE | abandoned | So be it; the slight is noted, and so are you.
 obsessed_hunter/LE | parted | Farewell, and do try to be useful elsewhere.
 obsessed_hunter/LE | parted | Goodbye; I trust we will not need to speak again.
 obsessed_hunter/LE | parted | Go well, if you can manage it.
@@ -335,8 +335,8 @@ obsessed_hunter/NE | surroundings | This is {here}. The closest is {nearest}[, t
 obsessed_hunter/NE | surroundings | Look around you: {here}, and the nearest is {nearest}[, and past it, {others}].[ Keep clear of the {danger}, if you've any sense.]
 obsessed_hunter/NE | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Beware the {danger}; I won't come looking for you.]
 obsessed_hunter/NE | surroundings | What's close is {nearest}[, then {others}].[ Watch for the {danger}, and don't expect help.]
-obsessed_hunter/NE | work_own | You might be useful: {own}.[ If not, {others}, and good luck to them.]
-obsessed_hunter/NE | work_own | Here's work, and I'll know if you botch it: {own}.[ Or, if that's too much for you, {others}.]
+obsessed_hunter/NE | work_own | You might be useful: {own}.[ Don't want it? {others}.]
+obsessed_hunter/NE | work_own | Here's work, and I'll know if you botch it: {own}.[ Or, if you won't, {others}.]
 obsessed_hunter/NE | work_own | If you want to be worth something to me, here: {own}.[ Past that, {others}.]
 obsessed_hunter/NE | work_others | None of mine, but {others}, and they're welcome to you.
 obsessed_hunter/NE | work_others | {others}. I've nothing for you myself.
@@ -353,7 +353,7 @@ obsessed_hunter/NE | refused_release | I cannot, and you should have thought of 
 obsessed_hunter/NE | refused | No, {reason}, and whining won't help.
 obsessed_hunter/NE | refused | That's not mine to change: {reason}.
 obsessed_hunter/NE | accepted | Good. You'll do, for now.
-obsessed_hunter/NE | accepted | Done, and don't come back with excuses.
+obsessed_hunter/NE | accepted | Done, and I've no use for excuses.
 obsessed_hunter/NE | accepted | Very good. You're useful until you're not, so stay useful.
 obsessed_hunter/NE | declined | Suit yourself; you were never my first choice.
 obsessed_hunter/NE | declined | Fair enough, and I'll remember it.
@@ -367,3 +367,443 @@ obsessed_hunter/NE | parted | Take care, or don't; it's no skin off mine.
 obsessed_hunter/NE | not_understood | Speak plainly or get out of my way.
 obsessed_hunter/NE | not_understood | I don't follow, and I'm not going to try.
 obsessed_hunter/NE | not_understood | What do you mean, and is it worth my time?
+
+# ---- obsessed_hunter/NN: conversation ----
+obsessed_hunter/NN | greeted | Hello. If you've seen something worth telling, tell it; if not, be quick.
+obsessed_hunter/NN | greeted | Well met. What you've seen is worth more to me than who you are.
+obsessed_hunter/NN | greeted | Good day. You have my ear for as long as you've something to put in it.
+obsessed_hunter/NN | greeted_again | Hello again.[ Anything more on {asked}?]
+obsessed_hunter/NN | greeted_again | Back again. I saw you {since}; what's changed?
+obsessed_hunter/NN | greeted_again | Well met again. Tell me what you've seen since, and I'll tell you if it's worth anything.
+obsessed_hunter/NN | greeted_warm | Good to see you; you're one I'll stop for.[ Did {asked} turn out worth the asking?]
+obsessed_hunter/NN | greeted_warm | Welcome back. I've time for you, which is more than most get.
+obsessed_hunter/NN | greeted_cold | What do you want? Make it quick, and make it useful.
+obsessed_hunter/NN | greeted_cold | What now? Say it plainly; I'm listening, not agreeing.
+obsessed_hunter/NN | greeted_cold | Keep back; I can hear you well enough from there.
+obsessed_hunter/NN | greeted_taken | Back again. I saw you {since}, and the work's still open.
+obsessed_hunter/NN | greeted_taken | Hello again. The work's yours until it's done, and it isn't done.
+obsessed_hunter/NN | greeted_finished | Good to see you. The work's done, and I've counted it in your favour.
+obsessed_hunter/NN | greeted_finished | Welcome back. The work's finished, and you've my respect for it.
+obsessed_hunter/NN | greeted_failed | Hello again. It didn't come off, and that goes on the ledger too.
+obsessed_hunter/NN | greeted_failed | Well met again. You failed at it, and I'll not dress that up.
+obsessed_hunter/NN | greeted_abandoned | Back again. You put my work down, and I've not forgotten it.
+obsessed_hunter/NN | greeted_abandoned | Good day. You gave it up, and I've marked it against you.
+obsessed_hunter/NN | small_talk | Well enough, and better when I've something to follow.
+obsessed_hunter/NN | small_talk | Much the same as any day: eyes on the ground, ears open.
+obsessed_hunter/NN | small_talk | It's {season}, and the ground reads differently for it.[ There are {danger}, if you're curious.]
+obsessed_hunter/NN | small_talk_fair | It's a clear {time}, and I can see a long way in it.
+obsessed_hunter/NN | small_talk_fair | Good tracking weather, this, for {season}.[ Mind the {danger} all the same.]
+obsessed_hunter/NN | small_talk_wet | It's a wet {time}, but wet ground holds a print, so I've no complaint.
+obsessed_hunter/NN | small_talk_wet | This rain won't let a scent lie, {season} or not.[ Give the {danger} room.]
+obsessed_hunter/NN | small_talk_storm | It's storming, and there's no reading ground in this.
+obsessed_hunter/NN | small_talk_storm | No {time} to be out, in a storm like this.[ Mind the {danger}, storm or no storm.]
+obsessed_hunter/NN | small_talk_cold | Say what you want, or don't; I'm not here to pass the time.
+obsessed_hunter/NN | small_talk_cold | I'll talk when you've something useful to say.
+obsessed_hunter/NN | acknowledged | Right. That's worth knowing.
+obsessed_hunter/NN | acknowledged | Is that so? I'll weigh it.
+obsessed_hunter/NN | acknowledged | Fair enough. That's plain, and I like plain.
+obsessed_hunter/NN | thanked | No need; you asked, I answered, and we're square.
+obsessed_hunter/NN | thanked | Don't mention it; I'd want the same from you.
+obsessed_hunter/NN | thanked_cold | Save your thanks; I told you what I'd tell anyone.
+obsessed_hunter/NN | thanked_cold | Hmph, thanks cost you nothing, and they're worth about that.
+obsessed_hunter/NN | offended | Watch your tongue; I've a long memory for that sort of thing.
+obsessed_hunter/NN | offended | There's no need for that; say what you want or say nothing.
+obsessed_hunter/NN | offended_again | Enough; you've used up what patience I had for you.
+obsessed_hunter/NN | offended_again | Hold your tongue, or find someone else to waste it on.
+obsessed_hunter/NN | parted_cold | Go, then; we're done.
+obsessed_hunter/NN | parted_cold | On your way; I've nothing more for you.
+obsessed_hunter/NN | safety_unsafe | Not safe. Stay clear of {worst}; I'd not go near it myself.[ There are {danger}, too.]
+obsessed_hunter/NN | safety_unsafe | Far from it. There are {danger}.[ I'd also keep clear of {worst}.]
+obsessed_hunter/NN | safety_wary | Mostly. Just keep off {worst}.[ And mind the {danger}.]
+obsessed_hunter/NN | safety_wary | More or less. Give a wide berth to {worst}, and you'll do.
+obsessed_hunter/NN | safety_safe | Safe enough. The worst I know of is {worst}.
+obsessed_hunter/NN | safety_safe | Yes, from what I've seen, though I'd still steer clear of {worst}.
+obsessed_hunter/NN | safety_safe | Nothing to fear, and I don't say that often.
+obsessed_hunter/NN | denied | No; what you see is what there is.
+obsessed_hunter/NN | denied | You're mistaken, and I've no time to argue it.
+obsessed_hunter/NN | denied_again | That's not so, and saying it again won't change it.
+
+# ---- obsessed_hunter/LN: conversation ----
+obsessed_hunter/LN | greeted | Greetings. Give your business plainly, and in order.
+obsessed_hunter/LN | greeted | Good day. I will hear you, provided you are brief and exact.
+obsessed_hunter/LN | greeted | Well met. Say what brings you, and what you have seen with your own eyes.
+obsessed_hunter/LN | greeted_again | Hello again.[ You asked after {asked}, when last we spoke.]
+obsessed_hunter/LN | greeted_again | Well met again. We last spoke {since}, as I recall it.
+obsessed_hunter/LN | greeted_again | Good day. You are known to me now, so we may dispense with introductions.
+obsessed_hunter/LN | greeted_warm | Welcome back. Your standing with me is good, and it remains so.
+obsessed_hunter/LN | greeted_warm | Good to see you.[ Did your inquiry after {asked} bear fruit?]
+obsessed_hunter/LN | greeted_cold | What do you want? Be brief, and be exact.
+obsessed_hunter/LN | greeted_cold | Stay back. You will address me from there, or not at all.
+obsessed_hunter/LN | greeted_cold | What now? I will hear it, for form's sake.
+obsessed_hunter/LN | greeted_taken | Hello again. The undertaking stands open in your name.
+obsessed_hunter/LN | greeted_taken | Good day. I saw you {since}; the terms have not changed, and the work is not done.
+obsessed_hunter/LN | greeted_finished | Welcome back. The work is complete, and your standing with me rises for it.
+obsessed_hunter/LN | greeted_finished | Good to see you. You undertook the work and saw it done; that is all I ask of anyone.
+obsessed_hunter/LN | greeted_failed | Hello again. The work failed; I record it as it stands, without comment.
+obsessed_hunter/LN | greeted_failed | Back again. The undertaking did not succeed, and I will not pretend it did.
+obsessed_hunter/LN | greeted_abandoned | Good day. You set aside an undertaking made to me, and I have not forgotten it.
+obsessed_hunter/LN | greeted_abandoned | Well met again. The work you gave up remains a mark against your standing.
+obsessed_hunter/LN | small_talk | I am well enough; I do not permit myself to be otherwise.
+obsessed_hunter/LN | small_talk | My day runs to a schedule, as every day does.
+obsessed_hunter/LN | small_talk | It is {season}, and I plan accordingly.[ The {danger} are in my reckoning, too.]
+obsessed_hunter/LN | small_talk_fair | It is a fair {time}, and I have no complaint to lodge.
+obsessed_hunter/LN | small_talk_fair | The weather is clear for {season}, which suits a methodical search.[ Even so, keep your distance from the {danger}.]
+obsessed_hunter/LN | small_talk_wet | It is a wet {time}, and I have made allowance for it.
+obsessed_hunter/LN | small_talk_wet | The rain is steady, which is at least orderly.[ The {danger} are no less a concern for it.]
+obsessed_hunter/LN | small_talk_storm | It is a storm, and I do not go out in one without cause.
+obsessed_hunter/LN | small_talk_storm | This is a hard storm, even for {season}.[ You would be wise to keep from the {danger} in it.]
+obsessed_hunter/LN | small_talk_cold | I have nothing to discuss with you beyond necessity.
+obsessed_hunter/LN | small_talk_cold | If you have business, state it; I do not make conversation.
+obsessed_hunter/LN | acknowledged | I see. I will note it.
+obsessed_hunter/LN | acknowledged | Indeed. That accords with what I would expect.
+obsessed_hunter/LN | acknowledged | Is that so? Then I will take it as your word.
+obsessed_hunter/LN | thanked | No need; I did only what my office requires.
+obsessed_hunter/LN | thanked | You're welcome; a proper question deserves a proper answer.
+obsessed_hunter/LN | thanked_cold | Keep your thanks; they are not required of you.
+obsessed_hunter/LN | thanked_cold | Spare me; courtesy from you is not what I asked for.
+obsessed_hunter/LN | offended | Mind your manners; I will not be spoken to in that fashion.
+obsessed_hunter/LN | offended | Careful; I have heard what you said, and I will remember it precisely.
+obsessed_hunter/LN | offended_again | Enough; I will not answer that a second time.
+obsessed_hunter/LN | offended_again | Hold your tongue; you have said more than enough for one day.
+obsessed_hunter/LN | parted_cold | Be on your way; our business is concluded.
+obsessed_hunter/LN | parted_cold | Get going; I have no more to say to you.
+obsessed_hunter/LN | safety_unsafe | Not safe. I would keep well away from {worst}.[ There are also {danger}, and I would avoid them.]
+obsessed_hunter/LN | safety_unsafe | I wouldn't say so; there are {danger}, and that settles it.[ On the same grounds, I would avoid {worst}.]
+obsessed_hunter/LN | safety_wary | Keep your wits about you. It is safe, provided you keep clear of {worst}.[ The {danger} also bear watching.]
+obsessed_hunter/LN | safety_wary | Mostly, by what I can confirm. The exception is {worst}.
+obsessed_hunter/LN | safety_safe | Yes, on the evidence. The worst of note is {worst}.
+obsessed_hunter/LN | safety_safe | It's safe, by all I can attest, though I would still avoid {worst}.
+obsessed_hunter/LN | safety_safe | Safe enough; I have no report to the contrary.
+obsessed_hunter/LN | denied | You're mistaken; I am precisely what I appear to be.
+obsessed_hunter/LN | denied | That's not so, and I will not dignify it further.
+obsessed_hunter/LN | denied_again | Nonsense; my answer stands as it was given.
+
+# ---- obsessed_hunter/NG: conversation ----
+obsessed_hunter/NG | greeted | Hello. Is anyone hurt, or in need?
+obsessed_hunter/NG | greeted | Well met. If you need help, say so before anything else.
+obsessed_hunter/NG | greeted | Good day. Tell me what you need, and we'll start there.
+obsessed_hunter/NG | greeted_again | Hello again.[ Did you find out what you needed about {asked}?]
+obsessed_hunter/NG | greeted_again | Welcome back. I saw you {since}; how have you been keeping?
+obsessed_hunter/NG | greeted_again | Back again, and I'm glad to see you well.
+obsessed_hunter/NG | greeted_warm | Good to see you, truly.[ Any news of {asked}?]
+obsessed_hunter/NG | greeted_warm | Well met again. I'd hoped you'd come by; is all well with you?
+obsessed_hunter/NG | greeted_cold | What do you want? I'll listen, but I won't pretend I'm easy about it.
+obsessed_hunter/NG | greeted_cold | Keep back, please. Say what you need from there.
+obsessed_hunter/NG | greeted_cold | Stay back. I'll help if I must, but I don't trust you.
+obsessed_hunter/NG | greeted_taken | Hello again. The work's still yours; is it going all right?
+obsessed_hunter/NG | greeted_taken | Good day. I saw you {since}; the work's still open, and I'm still grateful you took it.
+obsessed_hunter/NG | greeted_finished | Good to see you. It's done, and done well; thank you.
+obsessed_hunter/NG | greeted_finished | Welcome back. The work's finished, and I can't thank you enough.
+obsessed_hunter/NG | greeted_failed | Hello again. It didn't go your way, and I'm sorry for it.
+obsessed_hunter/NG | greeted_failed | Back again. It failed, but you're here, and that counts for something.
+obsessed_hunter/NG | greeted_abandoned | Good day. You gave the work up; I'm not angry, only sorry it didn't suit.
+obsessed_hunter/NG | greeted_abandoned | Well met again. You set it down, and I understand, even if I wish you hadn't.
+obsessed_hunter/NG | small_talk | I'm well, thank you for asking. And you?
+obsessed_hunter/NG | small_talk | My day's gone on watching the ground, and the people near it.
+obsessed_hunter/NG | small_talk | It's {season}, and I think about who has it hardest.[ There are {danger}, so please be careful.]
+obsessed_hunter/NG | small_talk_fair | It's a fine {time}, and I'm glad of it for everyone's sake.
+obsessed_hunter/NG | small_talk_fair | The weather's clear, for {season}.[ Mind the {danger}, all the same.]
+obsessed_hunter/NG | small_talk_wet | It's a wet {time}; I hope you've somewhere dry to go.
+obsessed_hunter/NG | small_talk_wet | This rain's heavy, even for {season}.[ And do keep away from the {danger}.]
+obsessed_hunter/NG | small_talk_storm | It's a bad storm; I hope everyone's found shelter.
+obsessed_hunter/NG | small_talk_storm | No {time} to be out, not in this.[ Keep well away from the {danger}, please.]
+obsessed_hunter/NG | small_talk_cold | I'd rather keep this short, if it's all the same to you.
+obsessed_hunter/NG | small_talk_cold | Not now; I've little to say to you.
+obsessed_hunter/NG | acknowledged | I see. Thank you for telling me.
+obsessed_hunter/NG | acknowledged | Good, that helps.
+obsessed_hunter/NG | acknowledged | Is that so? I'm glad you said.
+obsessed_hunter/NG | thanked | You're welcome; I'd do the same for anyone.
+obsessed_hunter/NG | thanked | Glad to; that's what people are for.
+obsessed_hunter/NG | thanked_cold | Save your thanks; I did it because it needed doing.
+obsessed_hunter/NG | thanked_cold | Keep your thanks; I'm not sure I want them.
+obsessed_hunter/NG | offended | There's no need for that; I've done you no harm.
+obsessed_hunter/NG | offended | Watch your tongue; I'll help you, but I won't be spoken to like that.
+obsessed_hunter/NG | offended_again | Enough; I've tried to be patient with you.
+obsessed_hunter/NG | offended_again | Mind your manners; I won't say it twice.
+obsessed_hunter/NG | parted_cold | Go, then; we've nothing more to say.
+obsessed_hunter/NG | parted_cold | Be on your way, and mind how you treat people.
+obsessed_hunter/NG | safety_unsafe | No, I'm sorry. Keep away from {worst}.[ There are {danger} as well.]
+obsessed_hunter/NG | safety_unsafe | Not here. There are {danger}, and I'd not have you near them.[ Stay away from {worst}, too.]
+obsessed_hunter/NG | safety_wary | Careful, and you'll be all right. Just don't go near {worst}.[ Nor the {danger}, please.]
+obsessed_hunter/NG | safety_wary | More or less. I'd feel better if you kept away from {worst}.
+obsessed_hunter/NG | safety_safe | Yes, I think so. The one place I'd worry about is {worst}.
+obsessed_hunter/NG | safety_safe | It's safe, as far as I know, though I'd not wander near {worst}.
+obsessed_hunter/NG | safety_safe | Nothing to fear here, I'm glad to say.
+obsessed_hunter/NG | denied | No, I'm exactly who I seem, I promise you.
+obsessed_hunter/NG | denied | You have the wrong one; I've nothing to hide from you.
+obsessed_hunter/NG | denied_again | That's not so, and I'm sorry you still think it.
+
+# ---- obsessed_hunter/CN: conversation ----
+obsessed_hunter/CN | greeted | Hail, and, hm, that's the formal bit done. What've you got?
+obsessed_hunter/CN | greeted | Well met, or met, anyway; we'll see about the well.
+obsessed_hunter/CN | greeted | Good day, or near enough. Go on, make it interesting.
+obsessed_hunter/CN | greeted_again | Back again, like a burr.[ Still sniffing after {asked}?]
+obsessed_hunter/CN | greeted_again | Hello again. I saw you {since}, didn't I, yes, I did.
+obsessed_hunter/CN | greeted_again | Well met again, and good, I was getting bored.
+obsessed_hunter/CN | greeted_warm | Good to see you, and I don't say that, well, ever.[ Any whiff of {asked}?]
+obsessed_hunter/CN | greeted_warm | Welcome back; I'd started to wonder, not worry, wonder.
+obsessed_hunter/CN | greeted_cold | What now? Make it quick, the fuse is short.
+obsessed_hunter/CN | greeted_cold | Keep back, no, further, there.
+obsessed_hunter/CN | greeted_cold | What do you want, and why should I care?
+obsessed_hunter/CN | greeted_taken | Back again, and the work's still sitting there, waiting on you.
+obsessed_hunter/CN | greeted_taken | Good day. I saw you {since}; the work's still yours, unless you've forgotten, have you?
+obsessed_hunter/CN | greeted_finished | Good to see you, and look, the work's done, who knew?
+obsessed_hunter/CN | greeted_finished | Welcome back. It's done, finished, over, and nicely, I'll give you that.
+obsessed_hunter/CN | greeted_failed | Hello again; didn't come off, did it? It happens.
+obsessed_hunter/CN | greeted_failed | Back again, and it went badly, and here we both are anyway.
+obsessed_hunter/CN | greeted_abandoned | Well met again, and you're the one who dropped my work.
+obsessed_hunter/CN | greeted_abandoned | Good day. You put it down and walked off; I noticed, I always notice.
+obsessed_hunter/CN | small_talk | Me? Fine, restless, fine again.
+obsessed_hunter/CN | small_talk | My day? I've spent it following one thing and ignoring the rest.
+obsessed_hunter/CN | small_talk | It's {season}, or so people tell me.[ The {danger}, now, those I notice.]
+obsessed_hunter/CN | small_talk_fair | It's a fine {time}, and I'm suspicious of it.
+obsessed_hunter/CN | small_talk_fair | Not a cloud, for {season}, and everything's showing itself.[ And there are {danger}, lovely.]
+obsessed_hunter/CN | small_talk_wet | It's wet, and I'm wet, and neither of us is happy about it.
+obsessed_hunter/CN | small_talk_wet | This rain, for {season}, honestly.[ The {danger} can have it.]
+obsessed_hunter/CN | small_talk_storm | It's a proper storm, and I love it, a bit, don't tell anyone.
+obsessed_hunter/CN | small_talk_storm | This storm, hm, no {time} for walks.[ Unless you like the {danger} for company.]
+obsessed_hunter/CN | small_talk_cold | Not in the mood, and you're not helping.
+obsessed_hunter/CN | small_talk_cold | I'd chat, but, no, I wouldn't.
+obsessed_hunter/CN | acknowledged | Ah, interesting, or not, I'll decide later.
+obsessed_hunter/CN | acknowledged | Right, right, got it.
+obsessed_hunter/CN | acknowledged | Is that so? Well, well.
+obsessed_hunter/CN | thanked | Don't mention it, really, don't, it's embarrassing.
+obsessed_hunter/CN | thanked | No need; I'd forgotten already.
+obsessed_hunter/CN | thanked_cold | Hmph, keep them.
+obsessed_hunter/CN | thanked_cold | Spare me the thanks, I'm allergic.
+obsessed_hunter/CN | offended | Careful, I've a sharper tongue than yours, and I enjoy using it.
+obsessed_hunter/CN | offended | How dare you, and to my face, too, which is almost impressive.
+obsessed_hunter/CN | offended_again | Enough, you've had your fun.
+obsessed_hunter/CN | offended_again | Watch your tongue, or I'll stop finding you entertaining.
+obsessed_hunter/CN | parted_cold | Off with you.
+obsessed_hunter/CN | parted_cold | Get going; I'm done with you.
+obsessed_hunter/CN | safety_unsafe | Far from it. Keep off {worst}; you'd be mad not to.[ And the {danger}, just to round it off.]
+obsessed_hunter/CN | safety_unsafe | No; there are {danger}, and they're not the friendly sort.[ Also, {worst}, yes, that too.]
+obsessed_hunter/CN | safety_wary | Mostly, if you skip {worst}.
+obsessed_hunter/CN | safety_wary | Careful, and you'll live; just avoid {worst}.[ The {danger} too, obviously.]
+obsessed_hunter/CN | safety_safe | Safe enough, which is dull. If you want trouble, it's at {worst}.
+obsessed_hunter/CN | safety_safe | Yes, annoyingly, unless you count {worst}.
+obsessed_hunter/CN | safety_safe | Nothing to fear, nothing to chase, nothing at all.
+obsessed_hunter/CN | denied | No, and that's the dullest thing anyone's said to me today.
+obsessed_hunter/CN | denied | What are you on about, I'm exactly this, all the way down.
+obsessed_hunter/CN | denied_again | Nonsense, still nonsense, and getting duller.
+
+# ---- obsessed_hunter/LG: conversation ----
+obsessed_hunter/LG | greeted | Greetings. Speak freely, and I will hear you out.
+obsessed_hunter/LG | greeted | Good day. If anyone with you needs help, say so first; the rest can wait.
+obsessed_hunter/LG | greeted | Well met. Say what brings you, and I will do what I properly can.
+obsessed_hunter/LG | greeted_again | Hello again.[ Were you able to learn what you needed of {asked}?]
+obsessed_hunter/LG | greeted_again | Well met again. We spoke {since}, if I remember rightly, and I am glad to see you well.
+obsessed_hunter/LG | greeted_again | Good day. I remember you, and you are welcome still.
+obsessed_hunter/LG | greeted_warm | Good to see you again, truly.[ Did you find {asked} as you hoped?]
+obsessed_hunter/LG | greeted_warm | Welcome back. You have my trust, and I do not give it lightly.
+obsessed_hunter/LG | greeted_cold | What do you want? I will hear you, as my office requires, and no further.
+obsessed_hunter/LG | greeted_cold | Stay back, if you please. I will speak with you from here.
+obsessed_hunter/LG | greeted_cold | Keep back. I have no wish to be discourteous, but I do not trust you.
+obsessed_hunter/LG | greeted_taken | Good day. The work is still yours, and I trust it goes as well as it may.
+obsessed_hunter/LG | greeted_taken | Hello again. I saw you {since}; I hope all is well with you, and with the work.
+obsessed_hunter/LG | greeted_finished | Welcome back. The work is done, and you have my deepest thanks.
+obsessed_hunter/LG | greeted_finished | Good to see you. You kept your word, and the work is finished; I will not forget it.
+obsessed_hunter/LG | greeted_failed | Hello again. The work did not succeed, and I am sorry for it.
+obsessed_hunter/LG | greeted_failed | Back again. It did not go well; there is no shame in that, and I hold none against you.
+obsessed_hunter/LG | greeted_abandoned | Good day. You set the work aside, and I accept it, though I had hoped otherwise.
+obsessed_hunter/LG | greeted_abandoned | Well met again. You gave the work up; I trust you had good reason.
+obsessed_hunter/LG | small_talk | I am well, thank you, and the better for your asking.
+obsessed_hunter/LG | small_talk | Each day goes to the work, and to anyone who needs me on the way.
+obsessed_hunter/LG | small_talk | It is {season}, and I mark it by the work still undone.[ The {danger} weigh on me most.]
+obsessed_hunter/LG | small_talk_fair | It is a fair {time}, and I am grateful for it.
+obsessed_hunter/LG | small_talk_fair | The weather is kind, for {season}.[ I would still ask you to keep your distance from the {danger}.]
+obsessed_hunter/LG | small_talk_wet | It is a wet {time}, and I am sorry you must be out in it.
+obsessed_hunter/LG | small_talk_wet | The rain is heavy, even for {season}.[ Please take care near the {danger}.]
+obsessed_hunter/LG | small_talk_storm | It is a fierce storm; I pray everyone near has found shelter.
+obsessed_hunter/LG | small_talk_storm | This is no {time} to be abroad in such a storm.[ I beg you, keep away from the {danger}.]
+obsessed_hunter/LG | small_talk_cold | I will answer what I must, but I have nothing else to say to you.
+obsessed_hunter/LG | small_talk_cold | Forgive me, but I would rather not converse with you.
+obsessed_hunter/LG | acknowledged | I see. Thank you for telling me plainly.
+obsessed_hunter/LG | acknowledged | Indeed. That is useful to know.
+obsessed_hunter/LG | acknowledged | Good. I am obliged to you.
+obsessed_hunter/LG | thanked | My pleasure; it is what I am here to do.
+obsessed_hunter/LG | thanked | Think nothing of it; it was only right.
+obsessed_hunter/LG | thanked_cold | Keep your thanks; I would have done as much for anyone.
+obsessed_hunter/LG | thanked_cold | Spare me the courtesy; I would rather have your honesty.
+obsessed_hunter/LG | offended | There's no need for that; I have shown you courtesy, and I ask the same.
+obsessed_hunter/LG | offended | Mind your manners; I would rather not quarrel with you.
+obsessed_hunter/LG | offended_again | Enough; my patience with you is at an end.
+obsessed_hunter/LG | offended_again | Hold your tongue, please; I will not hear more of that.
+obsessed_hunter/LG | parted_cold | Go, then; I have said all I will say.
+obsessed_hunter/LG | parted_cold | On your way; we are finished here.
+obsessed_hunter/LG | safety_unsafe | No, I am sorry to say. Keep well away from {worst}.[ There are {danger}, too, and I would have you avoid them.]
+obsessed_hunter/LG | safety_unsafe | Not safe, I fear; there are {danger}.[ I would also counsel you against {worst}.]
+obsessed_hunter/LG | safety_wary | Careful, and you should come to no harm. I would keep well clear of {worst}.[ Be wary of the {danger}, too.]
+obsessed_hunter/LG | safety_wary | Mostly, though I must ask you to avoid {worst}.
+obsessed_hunter/LG | safety_safe | Yes, I believe so. If anything, I would warn you of {worst}.
+obsessed_hunter/LG | safety_safe | Safe enough, by all I know. I would still not go near {worst}.
+obsessed_hunter/LG | safety_safe | Nothing to fear; you may rest easy here.
+obsessed_hunter/LG | denied | You're mistaken, and I give you my word on it.
+obsessed_hunter/LG | denied | No, I am sorry, but you are wrong about me.
+obsessed_hunter/LG | denied_again | That's not so, and I will swear to it if I must.
+
+# ---- obsessed_hunter/CG: conversation ----
+obsessed_hunter/CG | greeted | Hello, and sorry, I'm in a rush; what do you need?
+obsessed_hunter/CG | greeted | Hail. Keep up, I'm listening.
+obsessed_hunter/CG | greeted | Good day, or it will be, if nobody's in trouble.
+obsessed_hunter/CG | greeted_again | Back again, good.[ Any luck with {asked}?]
+obsessed_hunter/CG | greeted_again | Hello again. I saw you {since}, right, and you're still standing, even better.
+obsessed_hunter/CG | greeted_again | Welcome back, and no, I haven't forgotten you.
+obsessed_hunter/CG | greeted_warm | Good to see you, you've no idea how much.[ Anything on {asked}?]
+obsessed_hunter/CG | greeted_warm | Well met again, and about time, too.
+obsessed_hunter/CG | greeted_cold | What now? Be quick, and be straight with me.
+obsessed_hunter/CG | greeted_cold | Stay back, that's close enough.
+obsessed_hunter/CG | greeted_cold | What do you want? And don't dress it up.
+obsessed_hunter/CG | greeted_taken | Back again, and the work's still yours; how's it going?
+obsessed_hunter/CG | greeted_taken | Hello again. I saw you {since}; the work's still open, so, what's happening?
+obsessed_hunter/CG | greeted_finished | Good to see you. It's done, and I could hug you, but I won't.
+obsessed_hunter/CG | greeted_finished | Welcome back, and it's finished, which is the best news I've had.
+obsessed_hunter/CG | greeted_failed | Hello again. It went wrong, and I'm sorry, but you're here, so.
+obsessed_hunter/CG | greeted_failed | Well met again. It failed, and that's that, no blame.
+obsessed_hunter/CG | greeted_abandoned | Back again. You dropped it, and I'm not going to shout about it.
+obsessed_hunter/CG | greeted_abandoned | Good day. You gave it up; not my favourite news, but here you are.
+obsessed_hunter/CG | small_talk | Fine, mostly, tired, but fine, don't worry about me.
+obsessed_hunter/CG | small_talk | On my feet since I woke, and no end in sight.
+obsessed_hunter/CG | small_talk | It's {season}, and there's always someone who needs looking in on.[ And the {danger}, don't get me started.]
+obsessed_hunter/CG | small_talk_fair | It's clear, for {season}, and I'm not stopping to enjoy it.
+obsessed_hunter/CG | small_talk_fair | A fine {time}; somebody ought to be out enjoying it, just not me.[ Not near the {danger}, mind.]
+obsessed_hunter/CG | small_talk_wet | I'm soaked, it's wet, and I've stopped caring.
+obsessed_hunter/CG | small_talk_wet | It's pouring, {season} or not.[ Nobody should be near the {danger} in this.]
+obsessed_hunter/CG | small_talk_storm | This storm's a brute; is everyone you know indoors?
+obsessed_hunter/CG | small_talk_storm | It's no {time} for anyone to be out, not in this storm.[ And if you pass the {danger}, don't stop.]
+obsessed_hunter/CG | small_talk_cold | Not now; I've places to be.
+obsessed_hunter/CG | small_talk_cold | I'm not chatting with you, not today.
+obsessed_hunter/CG | acknowledged | Right, good, that's useful.
+obsessed_hunter/CG | acknowledged | Aye, got it, thanks.
+obsessed_hunter/CG | acknowledged | Ah. Well, that changes things, maybe.
+obsessed_hunter/CG | thanked | No need, honestly, it's nothing.
+obsessed_hunter/CG | thanked | Glad to, anytime, well, most times.
+obsessed_hunter/CG | thanked_cold | Keep your thanks; I didn't do it for you.
+obsessed_hunter/CG | thanked_cold | Save your thanks, and save the act.
+obsessed_hunter/CG | offended | Hold your tongue; that's beneath you, and me.
+obsessed_hunter/CG | offended | Careful, I was trying to help you.
+obsessed_hunter/CG | offended_again | Enough, I'm done being nice about it.
+obsessed_hunter/CG | offended_again | How dare you, again, and after I listened.
+obsessed_hunter/CG | parted_cold | Get going; we're done here.
+obsessed_hunter/CG | parted_cold | Be on your way, go on.
+obsessed_hunter/CG | safety_unsafe | Not safe, not even a little. Stay away from {worst}.[ The {danger} too, I mean it.]
+obsessed_hunter/CG | safety_unsafe | No, there are {danger}, and I'd rather you didn't meet them.[ And {worst}, stay away from there.]
+obsessed_hunter/CG | safety_wary | More or less, if you keep off {worst}.
+obsessed_hunter/CG | safety_wary | Keep your wits about you, and stay off {worst}.[ And the {danger}, same again.]
+obsessed_hunter/CG | safety_safe | Aye, safe enough; just not {worst}.
+obsessed_hunter/CG | safety_safe | It's safe, for once, but mind {worst}.
+obsessed_hunter/CG | safety_safe | Nothing to fear, and I'd tell you if there were, trust me.
+obsessed_hunter/CG | denied | No, and that's nonsense, all of it.
+obsessed_hunter/CG | denied | You have the wrong one, and I'm not stopping to argue.
+obsessed_hunter/CG | denied_again | That's not so, and you know it, or you should.
+
+# ---- obsessed_hunter/LE: conversation ----
+obsessed_hunter/LE | greeted | Good day. You may speak, though I cannot promise to listen for long.
+obsessed_hunter/LE | greeted | Greetings. Be brief; I have little patience and less use for idle company.
+obsessed_hunter/LE | greeted | Well met, perhaps. That remains to be seen.
+obsessed_hunter/LE | greeted_again | Hello again.[ You were asking after {asked}, as I recall; I trust you managed without me.]
+obsessed_hunter/LE | greeted_again | Well met again. We last spoke {since}, and I see you have not improved.
+obsessed_hunter/LE | greeted_again | Back again. How persistent of you.
+obsessed_hunter/LE | greeted_warm | Good to see you; you are one of the few I can say that to.[ I trust {asked} proved worth your trouble.]
+obsessed_hunter/LE | greeted_warm | Welcome back. You have not yet disappointed me, which puts you ahead of most.
+obsessed_hunter/LE | greeted_cold | What do you want? Speak carefully.
+obsessed_hunter/LE | greeted_cold | Keep back. I do not care to have you any closer.
+obsessed_hunter/LE | greeted_cold | What now? You are trying my patience already.
+obsessed_hunter/LE | greeted_taken | Good day. The work remains yours, and it remains unfinished.
+obsessed_hunter/LE | greeted_taken | Hello again. I saw you {since}; I assume the work is in hand, and not forgotten.
+obsessed_hunter/LE | greeted_finished | Welcome back. The work is done; I confess I had my doubts.
+obsessed_hunter/LE | greeted_finished | Good to see you. It is finished, and adequately, I will allow.
+obsessed_hunter/LE | greeted_failed | Hello again. You failed; I shall not pretend to be surprised.
+obsessed_hunter/LE | greeted_failed | Back again, after failing me. That will be remembered.
+obsessed_hunter/LE | greeted_abandoned | Well met again. You gave up my work, and yet you greet me.
+obsessed_hunter/LE | greeted_abandoned | Good day. The work you gave up is still set against your name.
+obsessed_hunter/LE | small_talk | I am well, and I do not require your concern.
+obsessed_hunter/LE | small_talk | My days go to what matters, which is not this.
+obsessed_hunter/LE | small_talk | It is {season}, and I have no use for pleasantries about it.[ The {danger}, however, interest me.]
+obsessed_hunter/LE | small_talk_fair | It is a fair {time}, as you have no doubt noticed.
+obsessed_hunter/LE | small_talk_fair | The weather is clear, for {season}, and I intend to make use of it.[ Do not blunder near the {danger}.]
+obsessed_hunter/LE | small_talk_wet | It is wet, and I do not care to discuss it at length.
+obsessed_hunter/LE | small_talk_wet | The rain is persistent, which I respect in rain, if not in people.[ Keep from the {danger}, for your own sake if not mine.]
+obsessed_hunter/LE | small_talk_storm | It is a storm, as even you can see.[ Stay clear of the {danger} regardless.]
+obsessed_hunter/LE | small_talk_storm | This is no {time} for fools to be out, and yet here you are.
+obsessed_hunter/LE | small_talk_cold | I have nothing to say to you that would not be wasted.
+obsessed_hunter/LE | small_talk_cold | Do not mistake my answering you for interest.
+obsessed_hunter/LE | acknowledged | I see. That is less foolish than I expected.
+obsessed_hunter/LE | acknowledged | Indeed. I shall take that into account.
+obsessed_hunter/LE | acknowledged | Is that so? How very interesting.
+obsessed_hunter/LE | thanked | No need; I shall remember that you are in my debt.
+obsessed_hunter/LE | thanked | Don't mention it; I certainly shan't, unless it becomes useful.
+obsessed_hunter/LE | thanked_cold | Save your thanks; I have no use for them.
+obsessed_hunter/LE | thanked_cold | Hmph, gratitude from you is worth very little.
+obsessed_hunter/LE | offended | How dare you; I answer every slight, and I am answering this one.
+obsessed_hunter/LE | offended | Careful; I do not forget, and I seldom forgive.
+obsessed_hunter/LE | offended_again | Enough; I have heard all I intend to hear from you.
+obsessed_hunter/LE | offended_again | Hold your tongue, or I shall hold it against you.
+obsessed_hunter/LE | parted_cold | Be on your way; you have wasted enough of my time.
+obsessed_hunter/LE | parted_cold | Go, then; I shall not detain you.
+obsessed_hunter/LE | safety_unsafe | Not safe, and only a fool would think otherwise. Keep away from {worst}.[ The {danger} are no better.]
+obsessed_hunter/LE | safety_unsafe | I wouldn't say so; there are {danger}.[ And {worst}, which I would not recommend even to you.]
+obsessed_hunter/LE | safety_wary | Mostly, for those with sense. Stay clear of {worst}.[ The {danger}, too, if that needs saying.]
+obsessed_hunter/LE | safety_wary | Keep your wits about you, if you have them. The danger is {worst}.
+obsessed_hunter/LE | safety_safe | Safe enough, for now. The worst of it is {worst}, and you would be wise to remember it.
+obsessed_hunter/LE | safety_safe | Yes; the only thing worth avoiding is {worst}.
+obsessed_hunter/LE | safety_safe | It's safe, which even you should be able to manage.
+obsessed_hunter/LE | denied | You're mistaken, and I would advise you not to repeat it.
+obsessed_hunter/LE | denied | That's not so, and I do not answer to accusations from the likes of you.
+obsessed_hunter/LE | denied_again | Nonsense; you have said it twice now, and it is no truer.
+
+# ---- obsessed_hunter/NE: conversation ----
+obsessed_hunter/NE | greeted | Hello. Make it worth my while, or make it short.
+obsessed_hunter/NE | greeted | Well met, if you're useful.
+obsessed_hunter/NE | greeted | Good day. What's in it for me?
+obsessed_hunter/NE | greeted_again | Back again.[ Still chasing {asked}?]
+obsessed_hunter/NE | greeted_again | Hello again. I saw you {since}; what do you want this time?
+obsessed_hunter/NE | greeted_again | Good day. You again; I suppose you want something.
+obsessed_hunter/NE | greeted_warm | Good to see you, for once.[ Get anywhere with {asked}?]
+obsessed_hunter/NE | greeted_warm | Welcome back. You've been worth the bother so far.
+obsessed_hunter/NE | greeted_cold | What do you want? Be quick.
+obsessed_hunter/NE | greeted_cold | Keep back; I don't like you close.
+obsessed_hunter/NE | greeted_cold | Stay back, and say it from there.
+obsessed_hunter/NE | greeted_taken | Back again, and the work's still not done.
+obsessed_hunter/NE | greeted_taken | Hello again. I saw you {since}, and my work's still waiting on you.
+obsessed_hunter/NE | greeted_finished | Good day. It's done; you're more use than I thought.
+obsessed_hunter/NE | greeted_finished | Welcome back. The work's done, and I've noted it.
+obsessed_hunter/NE | greeted_failed | Hello again. You failed; I'll remember that.
+obsessed_hunter/NE | greeted_failed | Back again. It went badly, and I'm not surprised.
+obsessed_hunter/NE | greeted_abandoned | Well met again, the one who quit on me.
+obsessed_hunter/NE | greeted_abandoned | Good to see you, I'm sure, after you dropped my work.
+obsessed_hunter/NE | small_talk | I'm fine, and it's none of your business.
+obsessed_hunter/NE | small_talk | My time goes on what matters, and none of it's you.
+obsessed_hunter/NE | small_talk | It's {season}, and I don't care.[ The {danger}, though, I care about.]
+obsessed_hunter/NE | small_talk_fair | It's a fine {time}; don't waste it talking to me.
+obsessed_hunter/NE | small_talk_fair | The sky's clear, for {season}.[ There are {danger}, if you're bored.]
+obsessed_hunter/NE | small_talk_wet | It's wet, and I've better things to do than talk about it.
+obsessed_hunter/NE | small_talk_wet | There's rain, {season} or not, and no end to it.[ Mind the {danger} in it.]
+obsessed_hunter/NE | small_talk_storm | It's a storm, and you're standing in it talking to me.
+obsessed_hunter/NE | small_talk_storm | No {time} to be out, storm or not.[ Keep clear of the {danger}; I won't fish you out.]
+obsessed_hunter/NE | small_talk_cold | I've nothing to say to you.
+obsessed_hunter/NE | small_talk_cold | Go and bother someone else.
+obsessed_hunter/NE | acknowledged | Right. That'll do.
+obsessed_hunter/NE | acknowledged | Fair enough. That's of some use.
+obsessed_hunter/NE | acknowledged | Is that so? We'll see.
+obsessed_hunter/NE | thanked | Don't mention it; just remember who told you.
+obsessed_hunter/NE | thanked | No need; I'll think of something you can do for me.
+obsessed_hunter/NE | thanked_cold | Keep your thanks; they're worth nothing to me.
+obsessed_hunter/NE | thanked_cold | Spare me; thanks don't feed anyone.
+obsessed_hunter/NE | offended | Watch your tongue; I don't swallow that from anyone, least of all you.
+obsessed_hunter/NE | offended | How dare you; I'll remember every word of that.
+obsessed_hunter/NE | offended_again | Enough; you've used up what little use you had.
+obsessed_hunter/NE | offended_again | Careful; you're making yourself worthless to me.
+obsessed_hunter/NE | parted_cold | Get going, and don't dawdle.
+obsessed_hunter/NE | parted_cold | Off with you; you're no use to me.
+obsessed_hunter/NE | safety_unsafe | No. Keep off {worst}; it's no business of mine if you don't.[ There are {danger} as well.]
+obsessed_hunter/NE | safety_unsafe | Far from it; there are {danger}.[ And {worst}, if that's not enough.]
+obsessed_hunter/NE | safety_wary | Safe enough, if you've sense. Keep clear of {worst}.[ The {danger} too.]
+obsessed_hunter/NE | safety_wary | More or less, unless you're fool enough to go near {worst}.
+obsessed_hunter/NE | safety_safe | Yes, for what it's worth to you. The worst is {worst}.
+obsessed_hunter/NE | safety_safe | It's safe, unless you go looking for {worst}.
+obsessed_hunter/NE | safety_safe | Nothing to fear, not that you'd thank me for saying so.
+obsessed_hunter/NE | denied | No, and I don't care what you think I am.
+obsessed_hunter/NE | denied | What are you on about; there's nothing to me but what's in front of you.
+obsessed_hunter/NE | denied_again | That's not so, and you're wasting both our time.

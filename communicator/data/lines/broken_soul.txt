@@ -15,7 +15,7 @@ broken_soul/NG | surroundings | The nearest is {nearest}.[ After that, {others}.
 broken_soul/NG | surroundings | What's closest is {nearest}[, and then {others}].[ If you go by the {danger}, go quickly and don't stop.]
 broken_soul/NG | work_own | Help first, questions after: {own}.[ If that's not for you, {others}.]
 broken_soul/NG | work_own | I could use you, if you're willing: {own}.[ Or, {others}.]
-broken_soul/NG | work_own | Be of use and I'll not forget it: {own}.[ Otherwise, {others}.]
+broken_soul/NG | work_own | If you want to be of use, here: {own}.[ Otherwise, {others}.]
 broken_soul/NG | work_others | Nothing of mine, I'm sorry, but {others}.
 broken_soul/NG | work_others | I've nothing myself, but {others}. Whoever you help, help them properly.
 broken_soul/NG | work_none | None, I'm sorry, and nobody I know is asking.
@@ -30,15 +30,15 @@ broken_soul/NG | refused_release | No, {giver} asked it of you, and I won't undo
 broken_soul/NG | refused_release | I won't, it isn't mine to let go of.
 broken_soul/NG | refused | No, {reason}, and I'm sorry for it.
 broken_soul/NG | refused | I cannot, {reason}, and I wish it were otherwise.
-broken_soul/NG | accepted | Thank you. Look after yourself, and whoever needs you.
-broken_soul/NG | accepted | Good. Go now; careful can come later.
-broken_soul/NG | accepted | Done. Come back in one piece, if you can.
-broken_soul/NG | declined | Fair enough, I'll go myself.
+broken_soul/NG | accepted | Thank you. I mean it, and I'm glad you said yes.
+broken_soul/NG | accepted | Good. That's a yes, and a yes is what I needed.
+broken_soul/NG | accepted | Done. I'll hold you to it, and gladly.
+broken_soul/NG | declined | Fair enough, and no hard feelings.
 broken_soul/NG | declined | Suit yourself, someone still has to.
 broken_soul/NG | declined | As you wish, I'll find another pair of hands.
-broken_soul/NG | abandoned | So be it, I'll pick it up where you left it.
-broken_soul/NG | abandoned | A pity, but I'd rather you whole than it done.
-broken_soul/NG | abandoned | Very well, only don't leave anyone behind who needs you.
+broken_soul/NG | abandoned | So be it, and I'm sorry it came to that.
+broken_soul/NG | abandoned | A pity, but I'd rather you said so than left it hanging.
+broken_soul/NG | abandoned | Very well, you told me straight, and that counts for something.
 broken_soul/NG | parted | Take care, and look out for whoever's beside you.
 broken_soul/NG | parted | Go well, and come find me if you need a hand.
 broken_soul/NG | parted | Safe travels, and I mean that.
@@ -61,7 +61,7 @@ broken_soul/LG | surroundings | The nearest is {nearest}[, and beyond it, {other
 broken_soul/LG | surroundings | In order, the nearest is {nearest}.[ Then {others}.][ Mind the {danger}, and see that no one strays near them.]
 broken_soul/LG | work_own | Let us learn your measure: {own}.[ Should that not suit, {others}.]
 broken_soul/LG | work_own | By your leave, I will set you to it: {own}.[ Otherwise, {others}.]
-broken_soul/LG | work_own | Something must be done, and I would rather it were done well: {own}.[ Or, if you prefer, {others}.]
+broken_soul/LG | work_own | I ask it of you plainly, and in good faith: {own}.[ Or, if you prefer, {others}.]
 broken_soul/LG | work_others | I have nothing of my own to give, forgive me, but {others}.
 broken_soul/LG | work_others | None of mine, but I will not send you away with nothing: {others}.
 broken_soul/LG | work_none | There is nothing to give, and I would not keep you here on a false hope.
@@ -77,12 +77,12 @@ broken_soul/LG | refused_release | Not from me; a word given elsewhere is not mi
 broken_soul/LG | refused | No, {reason}; I am sorry, but that settles it.
 broken_soul/LG | refused | I cannot, {reason}, and I will not bend the order of things for anyone.
 broken_soul/LG | accepted | Good. You have my word, and I will take yours.
-broken_soul/LG | accepted | Thank you. Should you need help, you will have mine before you ask.
+broken_soul/LG | accepted | Thank you. Your word is given, and I receive it gladly.
 broken_soul/LG | accepted | Very good. Let this be the first line settled between us.
 broken_soul/LG | declined | Very well, I will not press you.
 broken_soul/LG | declined | As you wish, and no ill will is owed for it.
 broken_soul/LG | declined | Fair enough, and I think no less of you for saying so plainly.
-broken_soul/LG | abandoned | Then it's done, and I will see it finished myself.
+broken_soul/LG | abandoned | Then it's done, and I release you from it without reproach.
 broken_soul/LG | abandoned | A pity, but a word withdrawn is better than a word not kept.
 broken_soul/LG | abandoned | So be it; it returns to the ledger, to be settled in its turn.
 broken_soul/LG | parted | Farewell, and may you find no one beyond help.
@@ -105,9 +105,9 @@ broken_soul/LE | surroundings | This is {here}, since you ask. In order: {neares
 broken_soul/LE | surroundings | We are in {here}, and the closest is {nearest}.[ Beyond that, {others}.][ Heed the {danger}, or do not; the loss would be yours.]
 broken_soul/LE | surroundings | The nearest is {nearest}[, and past it, {others}].[ Beware the {danger}, for all the good it will do you.]
 broken_soul/LE | surroundings | By distance: {nearest}[, and after it, {others}].[ Mind the {danger}, if you value what you have left.]
-broken_soul/LE | work_own | You may be of use, for a time: {own}.[ If that is beneath you, {others}.]
-broken_soul/LE | work_own | Your standing with me begins at nothing; this would raise it: {own}.[ Otherwise, {others}.]
-broken_soul/LE | work_own | I have a use for you: {own}.[ Should you lack the stomach, {others}.]
+broken_soul/LE | work_own | You may be of use, for a time: {own}.[ If you would rather not, {others}.]
+broken_soul/LE | work_own | Your standing with me begins at nothing, so we begin with this: {own}.[ Otherwise, {others}.]
+broken_soul/LE | work_own | I have a use for you: {own}.[ Should you decline, {others}.]
 broken_soul/LE | work_others | Some are less particular than I am: {others}.
 broken_soul/LE | work_others | You will get no work from me, but {others}.
 broken_soul/LE | work_none | There is nothing, and I would not spend it on you if there were.
@@ -169,14 +169,14 @@ broken_soul/CG | refused_release | That's not mine to let go of, sorry.
 broken_soul/CG | refused | No, {reason}, and I hate it as much as you do.
 broken_soul/CG | refused | I cannot, truly cannot, {reason}, and that's that.
 broken_soul/CG | accepted | Good! I knew you would.
-broken_soul/CG | accepted | Done! Go on, quick, and look after whoever needs it.
-broken_soul/CG | accepted | Thank you, really. Now, whatever you do, don't go alone.
+broken_soul/CG | accepted | Done! That's the best thing I've heard all day.
+broken_soul/CG | accepted | Thank you, really. No, I mean it, thank you.
 broken_soul/CG | declined | Suit yourself, and no, I'm not sulking, much.
 broken_soul/CG | declined | Fair enough, your call, I'd never make you.
 broken_soul/CG | declined | As you wish, but if you change your mind, shout.
 broken_soul/CG | abandoned | So be it, as long as you're all right, you are all right?
 broken_soul/CG | abandoned | A pity, but people first, always, and you're people.
-broken_soul/CG | abandoned | Very well, I'll take it from here, no, really, go.
+broken_soul/CG | abandoned | Very well, no, it's fine, truly, you don't owe me a thing.
 broken_soul/CG | parted | Take care, and if you find someone in trouble, well, you know where I am.
 broken_soul/CG | parted | Go well, and don't let anyone tell you what to do, me included.
 broken_soul/CG | parted | Farewell, and come back whole, that's all I ask.
@@ -198,8 +198,8 @@ broken_soul/NE | surroundings | We're in {here}; the closest is {nearest}[, and 
 broken_soul/NE | surroundings | The nearest is {nearest}[, then {others}].[ Beware the {danger}, if you care to.]
 broken_soul/NE | surroundings | What's closest is {nearest}[, and past it, {others}].[ The {danger} are your problem.]
 broken_soul/NE | work_own | You'll do, for now: {own}.[ If not, {others}, for all I care.]
-broken_soul/NE | work_own | Make yourself useful: {own}.[ Or go and bother someone else: {others}.]
-broken_soul/NE | work_own | I've a use for you, if you're any good: {own}.[ Otherwise, {others}.]
+broken_soul/NE | work_own | Make yourself useful: {own}.[ Or don't, and try {others}.]
+broken_soul/NE | work_own | I've a use for you, and that's all this is: {own}.[ Otherwise, {others}.]
 broken_soul/NE | work_others | Somebody might have a use for you, even if I don't: {others}.
 broken_soul/NE | work_others | Nothing from me, but {others}, if you're desperate.
 broken_soul/NE | work_none | No work, none I know of, and I'm not inclined to look.
@@ -244,8 +244,8 @@ broken_soul/NN | surroundings | We're in {here}; the nearest is {nearest}[, and 
 broken_soul/NN | surroundings | The nearest is {nearest}[, then {others}].[ Stay clear of the {danger}.]
 broken_soul/NN | surroundings | As for what's nearest, it's {nearest}[, and past that, {others}].[ Beware the {danger}.]
 broken_soul/NN | work_own | I've work, and I'll deal fairly: {own}.[ If not, {others}.]
-broken_soul/NN | work_own | If you're useful, here's something: {own}.[ Otherwise, {others}.]
-broken_soul/NN | work_own | You help me, I'll remember it: {own}.[ Or else, {others}.]
+broken_soul/NN | work_own | Here's something, if you want it: {own}.[ Otherwise, {others}.]
+broken_soul/NN | work_own | To the point, then: {own}.[ Or, if not, {others}.]
 broken_soul/NN | work_others | Nothing of mine, but {others}.
 broken_soul/NN | work_others | None to give, but {others}. Take it or leave it.
 broken_soul/NN | work_none | No work, from me or anyone I know.
@@ -266,7 +266,7 @@ broken_soul/NN | accepted | Very good. No promises past this one.
 broken_soul/NN | declined | Fair enough, it's your choice to make.
 broken_soul/NN | declined | Suit yourself, someone else will take it.
 broken_soul/NN | declined | As you wish, no harm done.
-broken_soul/NN | abandoned | So be it, better you drop it than die for it.
+broken_soul/NN | abandoned | So be it, no sense holding on to what you won't finish.
 broken_soul/NN | abandoned | A pity, but I'd rather know now than later.
 broken_soul/NN | abandoned | Then it's done, and we're square.
 broken_soul/NN | parted | Farewell, and deal fairly with whoever you meet.
@@ -275,3 +275,333 @@ broken_soul/NN | parted | Take care, and keep your bargains.
 broken_soul/NN | not_understood | Speak plainly; I don't follow.
 broken_soul/NN | not_understood | What do you mean, exactly?
 broken_soul/NN | not_understood | That's beyond me, so try it another way.
+
+# ---- broken_soul/NG: conversation ----
+broken_soul/NG | greeted | Hello. Is anyone hurt, or is this a social call?
+broken_soul/NG | greeted | Well met. I'm {speaker}; if you need a hand, say so first.
+broken_soul/NG | greeted | Good day. You look whole, which is a good start.
+broken_soul/NG | greeted_again | Hello again.[ Any word of {asked}?]
+broken_soul/NG | greeted_again | Back again. I saw you {since}, and you're still standing.
+broken_soul/NG | greeted_again | Welcome back. Anyone need anything I should know about?
+broken_soul/NG | greeted_warm | Good to see you.[ Did you get anywhere with {asked}?]
+broken_soul/NG | greeted_warm | Well met again. I'm glad you came back, and I mean that.
+broken_soul/NG | greeted_cold | What do you want? Say it, and don't waste my time.
+broken_soul/NG | greeted_cold | Keep back. I'll hear you, but from there.
+broken_soul/NG | greeted_cold | What now? If someone's hurt, tell me; otherwise, be brief.
+broken_soul/NG | greeted_taken | Hello again. The work's still yours, and still waiting.
+broken_soul/NG | greeted_taken | Good day. I saw you {since}, and the work's still in your hands.
+broken_soul/NG | greeted_finished | Good to see you. The work's done, and I'm glad of it.
+broken_soul/NG | greeted_finished | Welcome back. It's done; thank you, truly.
+broken_soul/NG | greeted_failed | Hello again. It didn't come off, and I'm sorry for it.
+broken_soul/NG | greeted_failed | Back again. The work failed; that happens, and we go on.
+broken_soul/NG | greeted_abandoned | Good day. You gave the work up; I've not held it against you.
+broken_soul/NG | greeted_abandoned | Well met again. You gave it up, and I'd sooner know why than guess.
+broken_soul/NG | small_talk | Me? Still going, which is more than some can say.
+broken_soul/NG | small_talk | A busy {time}, and I like it that way; idle hours are the hard ones.
+broken_soul/NG | small_talk | It's {season} in {place}, and there's always someone who needs a hand.
+broken_soul/NG | small_talk_fair | The sky's clear this {time}, good for getting about.[ Mind the {danger}, though.]
+broken_soul/NG | small_talk_fair | It's fair out, and it's {season}; I'll take the good days as they come.
+broken_soul/NG | small_talk_wet | It's wet out, and it'll be a long {time} for anyone caught in it.
+broken_soul/NG | small_talk_wet | Nobody should be out in this rain if they can help it.[ Not with {danger}.]
+broken_soul/NG | small_talk_storm | A bad storm, this; I'd sooner everyone were indoors.[ Mind the {danger}, too.]
+broken_soul/NG | small_talk_storm | It's blowing a gale this {time}; if anyone's caught out in it, tell me.
+broken_soul/NG | small_talk_cold | I'm in no mood to pass the time with you.
+broken_soul/NG | small_talk_cold | Not now, and not with you.
+broken_soul/NG | acknowledged | Right. Thank you for telling me.
+broken_soul/NG | acknowledged | I see. That's worth knowing.
+broken_soul/NG | acknowledged | Fair enough. I'll keep it in mind.
+broken_soul/NG | thanked | No need, you'd have done the same, I hope.
+broken_soul/NG | thanked | Glad to, and ask again whenever you need.
+broken_soul/NG | thanked_cold | Keep your thanks; I'd have done it for anyone.
+broken_soul/NG | thanked_cold | Spare me, and just don't make me regret it.
+broken_soul/NG | offended | There's no need for that; I've been called worse by better.
+broken_soul/NG | offended | Watch your tongue, I've no time for it.
+broken_soul/NG | offended_again | Enough; I've heard all of that I care to.
+broken_soul/NG | offended_again | Hold your tongue, or take it somewhere else.
+broken_soul/NG | parted_cold | Go, then, if that's all you came for.
+broken_soul/NG | parted_cold | On your way; I've nothing more for you.
+broken_soul/NG | safety_unsafe | No. Keep clear of {worst}, and keep anyone with you clear of it too.[ There are {danger} as well.]
+broken_soul/NG | safety_unsafe | Not safe. There are {danger}, and I'd not send anyone near them.[ And stay away from {worst}.]
+broken_soul/NG | safety_wary | More or less. Just keep away from {worst}.[ Mind the {danger}, too.]
+broken_soul/NG | safety_wary | Keep your wits about you. The trouble is {worst}.
+broken_soul/NG | safety_safe | Yes, for now. The worst of it is {worst}.
+broken_soul/NG | safety_safe | Safe enough. I'd still not wander near {worst}.
+broken_soul/NG | safety_safe | Nothing to fear here, and if there were, I'd tell you.
+broken_soul/NG | denied | You're mistaken; what you see is all I am.
+broken_soul/NG | denied | What are you on about, I've nothing to hide from you.
+broken_soul/NG | denied_again | No, and asking twice won't change it.
+
+# ---- broken_soul/LG: conversation ----
+broken_soul/LG | greeted | Greetings. I am {speaker}, and at your service, within my office.
+broken_soul/LG | greeted | Good day to you. I trust you come in good health?
+broken_soul/LG | greeted | Welcome. Say what brings you, and I will hear it in its turn.
+broken_soul/LG | greeted_again | Hello again.[ You asked after {asked}; I hope my answer served you.]
+broken_soul/LG | greeted_again | Welcome back. We last spoke {since}, if I recall rightly.
+broken_soul/LG | greeted_again | Well met again. I trust you have been keeping well.
+broken_soul/LG | greeted_warm | Good to see you.[ Did you learn what you needed of {asked}?]
+broken_soul/LG | greeted_warm | Hello again. It is good to see you, and I say so plainly.
+broken_soul/LG | greeted_cold | What do you want? Say your business, and be brief.
+broken_soul/LG | greeted_cold | Stay back. I will answer you, but I will not be trifled with.
+broken_soul/LG | greeted_cold | What now? Speak, and keep it civil.
+broken_soul/LG | greeted_taken | Hello again. The work you took is not yet finished; I trust you have not forgotten it.
+broken_soul/LG | greeted_taken | Good day. I saw you {since}, and the work still stands in your name.
+broken_soul/LG | greeted_finished | Welcome back. The work is done, and I thank you for it.
+broken_soul/LG | greeted_finished | Good to see you. The work is finished, and that line is settled between us.
+broken_soul/LG | greeted_failed | Hello again. The work did not succeed; I am sorry for it, and I do not hold it against you.
+broken_soul/LG | greeted_failed | Good day. It failed; that is recorded, and we will speak no more of it.
+broken_soul/LG | greeted_abandoned | Back again. You set the work aside; that is your right, and I will not reproach you.
+broken_soul/LG | greeted_abandoned | Well met again. You withdrew from the work, and you did so honestly.
+broken_soul/LG | small_talk | I am well enough, thank you for asking; and you?
+broken_soul/LG | small_talk | My day has gone in order, one thing after another, as it should.
+broken_soul/LG | small_talk | It is {season} here in {place}; I hope it finds you well provided for.
+broken_soul/LG | small_talk_fair | It is a fine {time}, and I am grateful for it.[ Be mindful of the {danger}, all the same.]
+broken_soul/LG | small_talk_fair | The weather is fair, and it is {season}; one could ask for worse.
+broken_soul/LG | small_talk_wet | It is a wet {time}; I hope no one is out in it without need.
+broken_soul/LG | small_talk_wet | The rain is steady, and it is {season}.[ I would not go near the {danger} in weather like this.]
+broken_soul/LG | small_talk_storm | This is a hard storm; I pray everyone is under a roof.
+broken_soul/LG | small_talk_storm | The wind is fierce this {time}.[ Keep well away from the {danger} until it passes.]
+broken_soul/LG | small_talk_cold | I have no wish to pass the time with you.
+broken_soul/LG | small_talk_cold | You will forgive me if I do not make conversation.
+broken_soul/LG | acknowledged | I see. Thank you for answering plainly.
+broken_soul/LG | acknowledged | Indeed. Then I will take it as you say.
+broken_soul/LG | acknowledged | Is that so? I will bear it in mind.
+broken_soul/LG | thanked | You're welcome; it was no more than right.
+broken_soul/LG | thanked | Think nothing of it; I would do the same for anyone in need.
+broken_soul/LG | thanked_cold | Keep your thanks; I did what was right, and no more.
+broken_soul/LG | thanked_cold | Save your thanks; they settle nothing between us.
+broken_soul/LG | offended | Mind your manners; I have shown you courtesy, and I expect the same.
+broken_soul/LG | offended | There's no need for that, and I will ask you to withdraw it.
+broken_soul/LG | offended_again | Enough; I will not answer insult with insult, but I will not hear more of it.
+broken_soul/LG | offended_again | Hold your tongue; you forget yourself.
+broken_soul/LG | parted_cold | Be on your way; we have nothing further to settle.
+broken_soul/LG | parted_cold | Get going; this conversation is closed.
+broken_soul/LG | safety_unsafe | No. I must advise you to keep clear of {worst}.[ There are also {danger}.]
+broken_soul/LG | safety_unsafe | Far from it. There are {danger}, and I would not have anyone go near them.[ Nor would I go near {worst}.]
+broken_soul/LG | safety_wary | Mostly. I would ask you to stay clear of {worst}.[ Heed the {danger} as well.]
+broken_soul/LG | safety_wary | Careful. The gravest matter is {worst}.
+broken_soul/LG | safety_safe | Yes, it is safe. The worst I know of is {worst}.
+broken_soul/LG | safety_safe | It's safe, by my reckoning. Only {worst} gives me pause.
+broken_soul/LG | safety_safe | Nothing to fear here, on my word.
+broken_soul/LG | denied | That's not so; I am what I have said I am.
+broken_soul/LG | denied | You're mistaken, and I would ask you not to say it again.
+broken_soul/LG | denied_again | No, and my answer stands as given.
+
+# ---- broken_soul/LE: conversation ----
+broken_soul/LE | greeted | Good day. I am {speaker}, and my time is not given freely.
+broken_soul/LE | greeted | Greetings. You have my attention, for the moment.
+broken_soul/LE | greeted | Hail. Whatever you want, be sure it is worth my hearing.
+broken_soul/LE | greeted_again | Hello again.[ Still concerned with {asked}, I suppose.]
+broken_soul/LE | greeted_again | Back again. I saw you {since}, and I have not yet decided what you are worth.
+broken_soul/LE | greeted_again | Welcome back, if that is the word for it.
+broken_soul/LE | greeted_warm | Good to see you.[ I trust {asked} was worth your trouble.]
+broken_soul/LE | greeted_warm | Well met again. You rank higher with me than most, which is not saying a great deal.
+broken_soul/LE | greeted_cold | What do you want? Be quick; my courtesy is nearly spent.
+broken_soul/LE | greeted_cold | Keep back. You have no standing here.
+broken_soul/LE | greeted_cold | What now? Say it, and spare me the pleasantries.
+broken_soul/LE | greeted_taken | Hello again. The work is still undone, and I have noted how long.
+broken_soul/LE | greeted_taken | Good day. I saw you {since}, and still the work waits on you.
+broken_soul/LE | greeted_finished | Welcome back. The work is done, and that is noted.
+broken_soul/LE | greeted_finished | Good to see you. It is done, which is more than I expected of you.
+broken_soul/LE | greeted_failed | Hello again. You failed, and it will be remembered.
+broken_soul/LE | greeted_failed | Back again. The work came to nothing; so, it seems, did you.
+broken_soul/LE | greeted_abandoned | Good day. You gave up the work; I have not forgotten, and I will not.
+broken_soul/LE | greeted_abandoned | Well met again, though you set the work aside. That stands against you still.
+broken_soul/LE | small_talk | I am as I always am, which is to say unimpressed.
+broken_soul/LE | small_talk | My day proceeds in order, and you are not on the list.
+broken_soul/LE | small_talk | It is {season} in {place}, and it will pass like everything else.
+broken_soul/LE | small_talk_fair | It is a fair {time}, not that it will last.[ The {danger} will not care either way.]
+broken_soul/LE | small_talk_fair | The sky is clear, and it is {season}; enjoy it while you may.
+broken_soul/LE | small_talk_wet | It is wet, and it is {season}; the rain falls on everyone alike.
+broken_soul/LE | small_talk_wet | A dreary {time}, and wet.[ The {danger} will be no kinder for it.]
+broken_soul/LE | small_talk_storm | It is a storm, and a fierce one; it spares no one, and I respect that.
+broken_soul/LE | small_talk_storm | The wind is up this {time}.[ And there are {danger}; do as you please about them.]
+broken_soul/LE | small_talk_cold | I have nothing to say to you, and I am saying it now.
+broken_soul/LE | small_talk_cold | Your conversation is not something I require.
+broken_soul/LE | acknowledged | Good. That is what I wished to know.
+broken_soul/LE | acknowledged | I see. It will be noted.
+broken_soul/LE | acknowledged | Indeed. You may go on.
+broken_soul/LE | thanked | You're welcome, though I did not do it for your sake.
+broken_soul/LE | thanked | My pleasure, I am sure.
+broken_soul/LE | thanked_cold | Spare me; your thanks are worth nothing to me.
+broken_soul/LE | thanked_cold | Hmph, keep them for someone who values them.
+broken_soul/LE | offended | Careful; every slight is entered, and every one is answered.
+broken_soul/LE | offended | Watch your tongue; I have been courteous so far, and it is not a debt I owe you.
+broken_soul/LE | offended_again | Enough; you have spent what little courtesy I had for you.
+broken_soul/LE | offended_again | How dare you; my courtesy is at an end.
+broken_soul/LE | parted_cold | Off with you; you have had all you will get.
+broken_soul/LE | parted_cold | Be on your way; you have taken enough of my time.
+broken_soul/LE | safety_unsafe | No. Keep clear of {worst}, unless you have something you wish to lose.[ There are {danger} besides.]
+broken_soul/LE | safety_unsafe | I wouldn't say so. There are {danger}, and they will not spare you on my account.[ Nor will {worst}.]
+broken_soul/LE | safety_wary | More or less, for those with sense. Keep away from {worst}.[ The {danger} too, if you are wise.]
+broken_soul/LE | safety_wary | Keep your wits about you, and keep clear of {worst}.
+broken_soul/LE | safety_safe | Safe enough. The worst of it is {worst}, and that is your affair.
+broken_soul/LE | safety_safe | Yes, for the present. Should you go near {worst}, that is your own loss.
+broken_soul/LE | safety_safe | Nothing to fear here, for the moment.
+broken_soul/LE | denied | No; I am exactly what I appear, and I resent the suggestion.
+broken_soul/LE | denied | You have the wrong one, and I will thank you to remember it.
+broken_soul/LE | denied_again | That's not so, and your persistence is noted.
+
+# ---- broken_soul/CG: conversation ----
+broken_soul/CG | greeted | Hello! Oh, sorry, you're not hurt, are you?
+broken_soul/CG | greeted | Well met, well met. I'm {speaker}, and you, no, wait, are you all right first?
+broken_soul/CG | greeted | Hail! Ha, nobody says that anymore, do they?
+broken_soul/CG | greeted_again | Hello again![ And {asked}, any luck?]
+broken_soul/CG | greeted_again | Back again! I saw you {since}, didn't I, or have I got that wrong?
+broken_soul/CG | greeted_again | Welcome back, oh, and before you ask, yes, I'm fine.
+broken_soul/CG | greeted_warm | Good to see you, really good.[ So, {asked}, how did that go?]
+broken_soul/CG | greeted_warm | Well met again! There you are, I was hoping you'd turn up.
+broken_soul/CG | greeted_cold | What do you want? Say it, quick, no speeches.
+broken_soul/CG | greeted_cold | Stay back, right there, that's close enough.
+broken_soul/CG | greeted_cold | What now? I'm listening, barely.
+broken_soul/CG | greeted_taken | Hello again! The work's still yours, yes, still on?
+broken_soul/CG | greeted_taken | Good day! I saw you {since}, and the work, well, it's still waiting.
+broken_soul/CG | greeted_finished | Good to see you! It's done, it's actually done, thank you.
+broken_soul/CG | greeted_finished | Welcome back! You did it, and I could hug you, but I won't.
+broken_soul/CG | greeted_failed | Hello again. It didn't work out, did it; never mind that, are you all right?
+broken_soul/CG | greeted_failed | Back again. So it failed; well, rotten luck, and we'll live.
+broken_soul/CG | greeted_abandoned | Good day, and no, I'm not cross, you gave it up and that's that.
+broken_soul/CG | greeted_abandoned | Well met again. You let the work go; fine, your call, always was.
+broken_soul/CG | small_talk | Me? Oh, tired, cheerful, both, it changes by the hour.
+broken_soul/CG | small_talk | My day? Up, down, round and round, and somehow still standing.
+broken_soul/CG | small_talk | It's {season} in {place}, and, oh, it suits the place, don't ask me why.
+broken_soul/CG | small_talk_fair | It's lovely out this {time}, isn't it?[ Mind the {danger}, mind, but lovely.]
+broken_soul/CG | small_talk_fair | Not a cloud about, it's {season}, and I'm in a good mood, so don't spoil it.
+broken_soul/CG | small_talk_wet | It's pouring, and it's {season}, and honestly, I like it.
+broken_soul/CG | small_talk_wet | Oh, this rain, this {time} of all times.[ And the {danger}, soaking, I hope.]
+broken_soul/CG | small_talk_storm | What a storm! Anyone caught out in this needs finding, and fast.
+broken_soul/CG | small_talk_storm | It's a gale, a proper one.[ And the {danger}, don't even think about it.]
+broken_soul/CG | small_talk_cold | No chatting, not with you, not today.
+broken_soul/CG | small_talk_cold | I'm not in the mood, sorry, well, not very sorry.
+broken_soul/CG | acknowledged | Ah! Right, got it.
+broken_soul/CG | acknowledged | Aye, fair, that makes sense.
+broken_soul/CG | acknowledged | Is that so? Well, you'd know better than me.
+broken_soul/CG | thanked | Don't mention it, really, don't, I go red.
+broken_soul/CG | thanked | Glad to, any time, well, most times.
+broken_soul/CG | thanked_cold | Keep your thanks, I'd have done it for anyone, you included, barely.
+broken_soul/CG | thanked_cold | Spare me, honestly, not today.
+broken_soul/CG | offended | Hold your tongue, and I say that as nicely as I can.
+broken_soul/CG | offended | There's no need for that, none, really.
+broken_soul/CG | offended_again | Enough, that's it, I'm done being nice.
+broken_soul/CG | offended_again | Watch your tongue, or, no, just stop.
+broken_soul/CG | parted_cold | Go, then, go on.
+broken_soul/CG | parted_cold | Off with you, and don't look back.
+broken_soul/CG | safety_unsafe | Not safe, no, not at all. Stay out of {worst}, please.[ And the {danger}, them too.]
+broken_soul/CG | safety_unsafe | Not here, not now. There are {danger}, so don't go alone, or, better, don't go.[ And {worst}, same again.]
+broken_soul/CG | safety_wary | Mostly, mostly. Just keep away from {worst}.[ Oh, and the {danger}.]
+broken_soul/CG | safety_wary | Careful, that's all, and not near {worst}.
+broken_soul/CG | safety_safe | Aye, safe as anything. Well, there's {worst}, but still.
+broken_soul/CG | safety_safe | Safe enough! Just, you know, not {worst}.
+broken_soul/CG | safety_safe | Nothing to fear, honestly, and I'd know.
+broken_soul/CG | denied | What are you on about, me, hiding things?
+broken_soul/CG | denied | Nonsense, what you see is what you get, ask anyone.
+broken_soul/CG | denied_again | No, still no, and it'll be no tomorrow too.
+
+# ---- broken_soul/NE: conversation ----
+broken_soul/NE | greeted | Hello. If you're here to be useful, good; if not, be quick.
+broken_soul/NE | greeted | Well met, I suppose. What are you after?
+broken_soul/NE | greeted | Good day, for some. I'm {speaker}, and I've no time for idle talk.
+broken_soul/NE | greeted_again | Hello again.[ Still chasing {asked}?]
+broken_soul/NE | greeted_again | Back again. I saw you {since}, and here you are, wanting something.
+broken_soul/NE | greeted_again | Good day. You again, then.
+broken_soul/NE | greeted_warm | Good to see you, which is more than I say to most.[ Anything come of {asked}?]
+broken_soul/NE | greeted_warm | Welcome back. You've been worth the bother so far; keep it that way.
+broken_soul/NE | greeted_cold | What do you want? Make it quick.
+broken_soul/NE | greeted_cold | Keep back. I don't trust you, and I've no reason to start.
+broken_soul/NE | greeted_cold | What now? Whatever it is, the answer's probably no.
+broken_soul/NE | greeted_taken | Hello again. The work's still not done; I've noticed.
+broken_soul/NE | greeted_taken | Good day. I saw you {since}, and the work's still hanging on you.
+broken_soul/NE | greeted_finished | Welcome back. It's done, so you're some use after all.
+broken_soul/NE | greeted_finished | Good to see you, for once. The work's done, and I'll mark it down.
+broken_soul/NE | greeted_failed | Hello again. It failed; I'd expected as much.
+broken_soul/NE | greeted_failed | Back again. So you failed; don't expect sympathy.
+broken_soul/NE | greeted_abandoned | Good day. You dropped the work, and I've not forgotten.
+broken_soul/NE | greeted_abandoned | Well met again, if you can call it that. You gave it up, and I keep count.
+broken_soul/NE | small_talk | How am I? No worse off than anyone else, and I'll see it stays that way.
+broken_soul/NE | small_talk | My day's my business, and it's going well enough.
+broken_soul/NE | small_talk | It's {season} in {place}, and nothing lasts here any longer than it does anywhere else.
+broken_soul/NE | small_talk_fair | It's fair out, for what that's worth.[ There are {danger}, if you care.]
+broken_soul/NE | small_talk_fair | A clear {time}, and it's {season}; it won't last, nothing does.
+broken_soul/NE | small_talk_wet | It's wet, and it's {season}; everyone gets rained on, me included.
+broken_soul/NE | small_talk_wet | This rain suits my mood well enough.[ The {danger} can drown in it, for all I care.]
+broken_soul/NE | small_talk_storm | It's a storm; let it blow, it takes from everyone alike.
+broken_soul/NE | small_talk_storm | A foul {time}, and loud with it.[ If the {danger} get caught in it, so much the better.]
+broken_soul/NE | small_talk_cold | I've nothing to say to you.
+broken_soul/NE | small_talk_cold | Don't try to be friendly; it doesn't suit you.
+broken_soul/NE | acknowledged | Fair enough. That's useful, for once.
+broken_soul/NE | acknowledged | Right. I'll remember that.
+broken_soul/NE | acknowledged | Is that so? Well, we'll see.
+broken_soul/NE | thanked | No need; just be useful.
+broken_soul/NE | thanked | Don't mention it, and don't make a habit of needing me.
+broken_soul/NE | thanked_cold | Save your thanks; I'd rather have something useful.
+broken_soul/NE | thanked_cold | Hmph, thanks cost you nothing, and they're worth about that.
+broken_soul/NE | offended | Careful; I don't let that sort of thing go.
+broken_soul/NE | offended | Mind your manners, or find someone else to talk to.
+broken_soul/NE | offended_again | Enough; I'll remember every word of that.
+broken_soul/NE | offended_again | Hold your tongue; I've been patient, and I'm done.
+broken_soul/NE | parted_cold | Get going, and don't waste anyone else's time.
+broken_soul/NE | parted_cold | On your way; I've had enough of you.
+broken_soul/NE | safety_unsafe | No. Go near {worst} and you'll lose whatever you've got.[ There are {danger}, too.]
+broken_soul/NE | safety_unsafe | Far from it. There are {danger}, and they won't care who you are.[ And there's {worst}, if that's not enough.]
+broken_soul/NE | safety_wary | Safe enough, if you're not a fool. Keep away from {worst}.[ The {danger} as well.]
+broken_soul/NE | safety_wary | More or less; just don't go near {worst}.
+broken_soul/NE | safety_safe | Yes, as these things go. The worst is {worst}, and that's your concern, not mine.
+broken_soul/NE | safety_safe | It's safe. I'd still not go near {worst}, but you'll do as you like.
+broken_soul/NE | safety_safe | Nothing to fear here; not that it'd stop you.
+broken_soul/NE | denied | No, and I don't care for the suggestion.
+broken_soul/NE | denied | What are you on about, I've better things to do than pretend.
+broken_soul/NE | denied_again | You're mistaken, and saying it twice doesn't make you right.
+
+# ---- broken_soul/NN: conversation ----
+broken_soul/NN | greeted | Hello. I'm {speaker}; if we've business, let's get to it.
+broken_soul/NN | greeted | Good day. No harm in talking; it costs neither of us anything.
+broken_soul/NN | greeted | Well met. What can I do for you, within reason?
+broken_soul/NN | greeted_again | Hello again.[ Did {asked} turn out worth asking about?]
+broken_soul/NN | greeted_again | Welcome back. I saw you {since}; what is it this time?
+broken_soul/NN | greeted_again | Back again. Say your piece, and we'll see what it's worth.
+broken_soul/NN | greeted_warm | Good to see you.[ How did you get on with {asked}?]
+broken_soul/NN | greeted_warm | Well met again. Good to have someone I can deal with plainly.
+broken_soul/NN | greeted_cold | What do you want? Keep it short.
+broken_soul/NN | greeted_cold | Stay back. We'll talk, but at arm's length.
+broken_soul/NN | greeted_cold | What now? I've no quarrel to pick, but I'm not in a giving mood.
+broken_soul/NN | greeted_taken | Hello again. The work's still open between us.
+broken_soul/NN | greeted_taken | Good day. I saw you {since}, and the work still isn't done; I'm keeping count.
+broken_soul/NN | greeted_finished | Welcome back. The work's done, and that settles it between us.
+broken_soul/NN | greeted_finished | Good to see you. It's done; you held up your end.
+broken_soul/NN | greeted_failed | Hello again. It failed; that's how it goes sometimes.
+broken_soul/NN | greeted_failed | Back again. It came to nothing, and there's no use crying over it.
+broken_soul/NN | greeted_abandoned | Good day. You gave it up, and that's your right; it's noted.
+broken_soul/NN | greeted_abandoned | Well met again. You dropped the work; no hard feelings, but I remember.
+broken_soul/NN | small_talk | I'm getting on, which is all anyone can ask.
+broken_soul/NN | small_talk | My day's been even; nothing gained, nothing lost.
+broken_soul/NN | small_talk | It's {season} in {place}, and I take each day as it comes.
+broken_soul/NN | small_talk_fair | It's fair, and I'll take it while it lasts.[ Mind the {danger}, though; good weather doesn't change that.]
+broken_soul/NN | small_talk_fair | Good weather, and it's {season}; worth being out in.
+broken_soul/NN | small_talk_wet | It's raining this {time}, and there's no use complaining about it.
+broken_soul/NN | small_talk_wet | This rain won't do anyone any favours.[ Nor will the {danger}.]
+broken_soul/NN | small_talk_storm | It's a storm, and a stiff one; I'd wait it out if I were you.
+broken_soul/NN | small_talk_storm | A gale, and it's {season}.[ Keep clear of the {danger}, weather or not.]
+broken_soul/NN | small_talk_cold | Let's keep this to business.
+broken_soul/NN | small_talk_cold | I've nothing to trade in small talk.
+broken_soul/NN | acknowledged | Good. That's plain enough.
+broken_soul/NN | acknowledged | Aye. That's fair, then.
+broken_soul/NN | acknowledged | Well, if that's how it is.
+broken_soul/NN | thanked | No need; it cost me nothing.
+broken_soul/NN | thanked | My pleasure, and I mean it plainly.
+broken_soul/NN | thanked_cold | Keep your thanks; we're not friends.
+broken_soul/NN | thanked_cold | Spare me; I did it because it suited me.
+broken_soul/NN | offended | There's no need for that; I'm talking straight with you.
+broken_soul/NN | offended | Watch your tongue; insults don't get you anything here.
+broken_soul/NN | offended_again | Enough; you've used up my patience.
+broken_soul/NN | offended_again | Mind your manners, or we're done talking.
+broken_soul/NN | parted_cold | Be on your way; this isn't going anywhere.
+broken_soul/NN | parted_cold | Off with you; we're done here.
+broken_soul/NN | safety_unsafe | No. Keep clear of {worst}; it isn't worth the risk.[ Nor are the {danger}.]
+broken_soul/NN | safety_unsafe | Not safe. There are {danger}, and I'd not go near them for anything.[ Or {worst}, either.]
+broken_soul/NN | safety_wary | Mostly. I'd give {worst} a wide berth.[ And the {danger}.]
+broken_soul/NN | safety_wary | Careful, and it's safe enough; stay away from {worst}.
+broken_soul/NN | safety_safe | Aye, safe enough for most. The one thing I'd avoid is {worst}.
+broken_soul/NN | safety_safe | Yes. Still, I'd not go near {worst} without good reason.
+broken_soul/NN | safety_safe | It's safe, plain and simple.
+broken_soul/NN | denied | No; I've nothing to hide, and nothing to gain by it.
+broken_soul/NN | denied | You have the wrong one; I don't deal in that sort of thing.
+broken_soul/NN | denied_again | That's not so, and asking again won't make it so.

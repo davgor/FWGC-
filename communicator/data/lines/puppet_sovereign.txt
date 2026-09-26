@@ -13,9 +13,9 @@ puppet_sovereign/LE | surroundings | We are in {here}, as you ought already to k
 puppet_sovereign/LE | surroundings | You are in {here}, and under my eye. The nearest place of note is {nearest}[; beyond that, {others}].[ Beware the {danger}, and do not look to me for rescue.]
 puppet_sovereign/LE | surroundings | Listen well: the nearest is {nearest}[, and beyond it, {others}].[ Keep well clear of the {danger}.]
 puppet_sovereign/LE | surroundings | Nothing lies nearer than {nearest}[, and after it, {others}].[ Mind the {danger}.]
-puppet_sovereign/LE | work_own | Hear what is asked of you: {own}.[ Should that prove beyond you, {others}.]
+puppet_sovereign/LE | work_own | Hear what is asked of you: {own}.[ Should you prefer another's work, {others}.]
 puppet_sovereign/LE | work_own | You may prove your standing, then: {own}.[ If my work is not to your taste, {others}.]
-puppet_sovereign/LE | work_own | Let it be known that I have work for capable hands: {own}.[ Or, if you must, {others}.]
+puppet_sovereign/LE | work_own | Let it be known that I have work in my gift: {own}.[ Or, if you must look elsewhere, {others}.]
 puppet_sovereign/LE | work_others | Other hands than mine have work to give: {others}.
 puppet_sovereign/LE | work_others | For work, you must look past me; I am told {others}.
 puppet_sovereign/LE | work_none | There is none to be had from me, and none has been brought before me.
@@ -61,7 +61,7 @@ puppet_sovereign/NG | surroundings | The nearest is {nearest}[, and past that, {
 puppet_sovereign/NG | surroundings | Around here, there's {nearest}[, and after that, {others}].[ Watch out for the {danger}.]
 puppet_sovereign/NG | work_own | I could use help, if you're willing: {own}.[ If that's not for you, {others}.]
 puppet_sovereign/NG | work_own | There's something you could do for me, and I'd not forget it: {own}.[ Or, if you'd rather, {others}.]
-puppet_sovereign/NG | work_own | If you've the time, I'd be grateful: {own}.[ And if not, {others}.]
+puppet_sovereign/NG | work_own | Since you ask, I'd be grateful for this: {own}.[ And if you'd sooner not, {others}.]
 puppet_sovereign/NG | work_others | Sadly, I've nothing of my own, but {others}.
 puppet_sovereign/NG | work_others | Nothing from me, but here's what I've heard: {others}.
 puppet_sovereign/NG | work_none | I'm sorry; I've no work, and I don't know of any.
@@ -77,12 +77,12 @@ puppet_sovereign/NG | refused_release | I cannot; whoever set you that deserves 
 puppet_sovereign/NG | refused | No, {reason}, and I wish it were otherwise.
 puppet_sovereign/NG | refused | I can't; {reason}, though I'd have liked to help.
 puppet_sovereign/NG | accepted | Thank you. I'll remember this, and I mean that.
-puppet_sovereign/NG | accepted | Good. If anyone questions it, send them to me.
-puppet_sovereign/NG | accepted | Then it's agreed, and I'm grateful. Come back in one piece.
+puppet_sovereign/NG | accepted | Good. That's settled, then, and I'm glad it's you.
+puppet_sovereign/NG | accepted | Then it's agreed, and I'm grateful. You didn't have to say yes.
 puppet_sovereign/NG | declined | Fair enough; better an honest no than a yes you'd regret.
 puppet_sovereign/NG | declined | Very well, I'll ask elsewhere, and I won't hold it against you.
 puppet_sovereign/NG | declined | As you wish; thank you for hearing me out.
-puppet_sovereign/NG | abandoned | A pity, but you're worth more to me whole than the work is.
+puppet_sovereign/NG | abandoned | A pity, but that was yours to decide, and I'll not argue with it.
 puppet_sovereign/NG | abandoned | So be it; I'll mark it down, and we'll say no more about it.
 puppet_sovereign/NG | abandoned | Then it's done, and I'm glad you told me rather than let it lie.
 puppet_sovereign/NG | parted | Take care of yourself, and of anyone who can't.
@@ -129,7 +129,7 @@ puppet_sovereign/NN | declined | Fair enough; no deal, no harm done.
 puppet_sovereign/NN | declined | Suit yourself; someone else will want it.
 puppet_sovereign/NN | declined | As you wish; that's your loss more than mine.
 puppet_sovereign/NN | abandoned | So be it; I'll count that against you, but not for long.
-puppet_sovereign/NN | abandoned | A pity, but better you say so now than leave me waiting.
+puppet_sovereign/NN | abandoned | A pity, but better you tell me now than string me along.
 puppet_sovereign/NN | abandoned | Then it's done, and we're square, near enough.
 puppet_sovereign/NN | parted | Safe travels, and don't do anything I'd be told about.
 puppet_sovereign/NN | parted | Farewell, and if there's business to be done, you know where I am.
@@ -137,3 +137,168 @@ puppet_sovereign/NN | parted | Take care; you're more use to me alive.
 puppet_sovereign/NN | not_understood | I don't follow; say it another way.
 puppet_sovereign/NN | not_understood | What do you mean, exactly, and what do you want from me?
 puppet_sovereign/NN | not_understood | Speak plainly, and I'll answer plainly.
+
+# ---- puppet_sovereign/LE: conversation ----
+puppet_sovereign/LE | greeted | Greetings. You may approach, though not too closely.
+puppet_sovereign/LE | greeted | Well met, I am sure. You will state your business, and you will state it courteously.
+puppet_sovereign/LE | greeted | Good day. A stranger, and unannounced; how irregular.
+puppet_sovereign/LE | greeted_again | Back again, I see.[ You were asking after {asked}; I trust you found what you sought.]
+puppet_sovereign/LE | greeted_again | Hello again. You last stood before me {since}, and you will find that I remember it.
+puppet_sovereign/LE | greeted_again | Welcome back. You want something of me again, I expect, and I may yet want something of you.
+puppet_sovereign/LE | greeted_warm | Good to see you. I have decided that you are worth my time, which is not a thing I say lightly.
+puppet_sovereign/LE | greeted_warm | Well met again, and I say so gladly.[ Did {asked} prove worth the asking?]
+puppet_sovereign/LE | greeted_cold | What do you want? Be brief; your standing with me does not warrant more.
+puppet_sovereign/LE | greeted_cold | What now? Whatever it is, you will ask it properly, or not at all.
+puppet_sovereign/LE | greeted_cold | Keep back. You may speak from there, where I can see your hands.
+puppet_sovereign/LE | greeted_taken | Back again, and my work not yet done. I shall assume it is in hand, and I shall remember if it is not.
+puppet_sovereign/LE | greeted_taken | Good day. I last saw you {since}, with my work in hand; I trust your word still holds.
+puppet_sovereign/LE | greeted_finished | Welcome back. The work is done, as you swore it would be; it has been noted.
+puppet_sovereign/LE | greeted_finished | Good to see you. You have kept your word, and your standing with me is the better for it.
+puppet_sovereign/LE | greeted_failed | Hello again. My work failed in your hands; do not expect me to pretend otherwise.
+puppet_sovereign/LE | greeted_failed | Back again. You failed at what I asked of you, and I have not yet decided what that makes you.
+puppet_sovereign/LE | greeted_abandoned | Good day. You gave up my work, which is to say you broke your word to me.
+puppet_sovereign/LE | greeted_abandoned | Well met again, if that is the word for it. You set my work aside, and I have neither forgotten nor forgiven it.
+puppet_sovereign/LE | small_talk | I am well, I am told, and I see no reason to dispute it.
+puppet_sovereign/LE | small_talk | My days keep their proper order, and this one is no exception.
+puppet_sovereign/LE | small_talk | It is {season}, and I have been advised to find it agreeable.[ There are {danger}, which I find less agreeable.]
+puppet_sovereign/LE | small_talk_fair | The {time} is fair, and fit to be seen in.
+puppet_sovereign/LE | small_talk_fair | Such a clear sky, for {season}; I approve of it.[ The {danger} are no concern of mine.]
+puppet_sovereign/LE | small_talk_wet | Everything is damp, and nothing is dignified; I do not care for rain.
+puppet_sovereign/LE | small_talk_wet | This rain is excessive, even for {season}, and I find it tiresome.[ Let the {danger} have the mud.]
+puppet_sovereign/LE | small_talk_storm | What a storm; nothing proper can be done in weather like this.
+puppet_sovereign/LE | small_talk_storm | Nobody of standing should be out in this storm, and I shall not be.[ The {danger} may have it to themselves.]
+puppet_sovereign/LE | small_talk_cold | I do not make conversation with those who have not earned it.
+puppet_sovereign/LE | small_talk_cold | You may keep your pleasantries; I have no use for them, or for you.
+puppet_sovereign/LE | acknowledged | Indeed. That will be noted, and weighed.
+puppet_sovereign/LE | acknowledged | Is that so? I will take your word for it, and I will remember that I did.
+puppet_sovereign/LE | acknowledged | I see. Then the matter is settled, and I will not revisit it.
+puppet_sovereign/LE | thanked | No need; it was a small thing, and I am generous in small things.
+puppet_sovereign/LE | thanked | You're welcome, and you will remember who obliged you.
+puppet_sovereign/LE | thanked_cold | Save your thanks for someone who values them.
+puppet_sovereign/LE | thanked_cold | Spare me; gratitude from you is of no use to me.
+puppet_sovereign/LE | offended | How dare you; I am owed courtesy, and I expect to be given it.
+puppet_sovereign/LE | offended | Mind your manners; that was a slight, and I have marked it as one.
+puppet_sovereign/LE | offended_again | Enough; you have used up what little courtesy I had for you.
+puppet_sovereign/LE | offended_again | Hold your tongue; every word you add is another slight, and I am counting them.
+puppet_sovereign/LE | parted_cold | Be on your way; this audience is over.
+puppet_sovereign/LE | parted_cold | Go, then; you have had all the time I intend to give you.
+puppet_sovereign/LE | safety_unsafe | No, and I say so on good advice. There is {worst}, and I would not go within reach of it.[ There are {danger} besides.]
+puppet_sovereign/LE | safety_unsafe | Far from it; there are {danger}, and that alone should settle the matter.[ Then there is {worst}.]
+puppet_sovereign/LE | safety_wary | Safe enough, provided one keeps a proper distance from {worst}.[ The {danger} are best avoided as well.]
+puppet_sovereign/LE | safety_wary | More or less, though I would not go near {worst} myself, and I do not advise you to.
+puppet_sovereign/LE | safety_safe | Yes; the only trouble worth naming is {worst}, and it may stay where it is.
+puppet_sovereign/LE | safety_safe | It's safe, by every account I have been given; only {worst} gives me pause.
+puppet_sovereign/LE | safety_safe | Quiet enough, and I prefer it so.
+puppet_sovereign/LE | denied | Nonsense; I am precisely what I appear to be, and I will thank you not to suggest otherwise.
+puppet_sovereign/LE | denied | You're mistaken, and you will withdraw the suggestion.
+puppet_sovereign/LE | denied_again | I don't know what you mean, and I will not be asked a second time.
+
+# ---- puppet_sovereign/NG: conversation ----
+puppet_sovereign/NG | greeted | Hello. I'm {speaker}; tell me what you need first, and who you are can wait.
+puppet_sovereign/NG | greeted | Good day, and welcome to {place}; I don't think we've met.
+puppet_sovereign/NG | greeted | Well met. You'll forgive me asking, but is all well with you?
+puppet_sovereign/NG | greeted_again | Hello again; I'd wondered how you were getting on.[ Did anything come of asking after {asked}?]
+puppet_sovereign/NG | greeted_again | Back again; I saw you {since}, didn't I? How have you been?
+puppet_sovereign/NG | greeted_again | Welcome back. I remembered your face; I'm told I'm good with faces.
+puppet_sovereign/NG | greeted_warm | Good to see you; I was hoping you'd come by.[ How did you get on with {asked}?]
+puppet_sovereign/NG | greeted_warm | Well met again. You're one of the good ones; I keep a list, and you're on it.
+puppet_sovereign/NG | greeted_cold | What do you want? I'll hear you, but I'm not sure I trust you.
+puppet_sovereign/NG | greeted_cold | Keep back a little, please. I'd rather we talked from there.
+puppet_sovereign/NG | greeted_cold | What now? If it's trouble, I'd rather you took it elsewhere.
+puppet_sovereign/NG | greeted_taken | Hello again. I saw you {since}, and my work's still with you; is it going all right?
+puppet_sovereign/NG | greeted_taken | Good day. The work's still yours, I know; I'm only glad to see you well.
+puppet_sovereign/NG | greeted_finished | Welcome back. The work's done, and I'm grateful; that goes in the good column.
+puppet_sovereign/NG | greeted_finished | Good to see you. You did what I asked, and I won't forget it.
+puppet_sovereign/NG | greeted_failed | Hello again. It didn't come off, I know; are you all right?
+puppet_sovereign/NG | greeted_failed | Back again. The work failed, and I'm sorry it did; don't let it weigh on you.
+puppet_sovereign/NG | greeted_abandoned | Good day. You gave up my work; I'd have liked to know why, but that's yours to tell.
+puppet_sovereign/NG | greeted_abandoned | Well met again. You set my work aside; it stings a little, but I'm glad you came by.
+puppet_sovereign/NG | small_talk | I'm well, I think; it's kind of you to ask, and I'll ask the same of you.
+puppet_sovereign/NG | small_talk | My day? It's mostly listening, and now and then I'm allowed to help someone.
+puppet_sovereign/NG | small_talk | It's {season}, and I've been thinking of the people who have it harder than me.[ Anyone living near the {danger}, most of all.]
+puppet_sovereign/NG | small_talk_fair | Such a fine {time}; it does everyone good.
+puppet_sovereign/NG | small_talk_fair | The sky's clear, and it's {season}; I'd be out walking, if I were let.[ Not near the {danger}, mind.]
+puppet_sovereign/NG | small_talk_wet | All this rain has me thinking of anyone without a roof.
+puppet_sovereign/NG | small_talk_wet | A wet {time}, even for {season}; I hope you've somewhere dry to go.[ Well away from the {danger}, ideally.]
+puppet_sovereign/NG | small_talk_storm | Listen to that wind; I hope everyone's found shelter.
+puppet_sovereign/NG | small_talk_storm | This storm has me worried for anyone out in it, you included.[ If you must go out, go nowhere near the {danger}.]
+puppet_sovereign/NG | small_talk_cold | I'd rather not chat, if it's all the same to you.
+puppet_sovereign/NG | small_talk_cold | Let's keep this short; I'm not in the mood for pleasantries.
+puppet_sovereign/NG | acknowledged | I see. Thank you for telling me straight.
+puppet_sovereign/NG | acknowledged | Right; that's useful, and I'll remember it.
+puppet_sovereign/NG | acknowledged | Fair enough; I'd not have guessed, but I'm glad I asked.
+puppet_sovereign/NG | thanked | You're welcome; it's the least I could do, and I do mean the least.
+puppet_sovereign/NG | thanked | Glad to; you'd have done the same, I hope.
+puppet_sovereign/NG | thanked_cold | Keep your thanks; I did it because it needed doing, not for you.
+puppet_sovereign/NG | thanked_cold | Save your thanks; anyone would have had the same from me.
+puppet_sovereign/NG | offended | There's no need for that; I'm trying to help you.
+puppet_sovereign/NG | offended | Careful; I can take a hard word, but I'll remember who said it.
+puppet_sovereign/NG | offended_again | Enough; I've listened, and I'm done listening.
+puppet_sovereign/NG | offended_again | Hold your tongue, please; I've been patient, and it's running out.
+puppet_sovereign/NG | parted_cold | Go, then; we're done for today.
+puppet_sovereign/NG | parted_cold | On your way; I've nothing more to say to you.
+puppet_sovereign/NG | safety_unsafe | No, I'm sorry to say. There's {worst}, and I'd not want anyone going near it.[ There are {danger}, too.]
+puppet_sovereign/NG | safety_unsafe | Not safe, no; there are {danger}, and I'd hate for you to meet them.[ And please stay away from {worst}.]
+puppet_sovereign/NG | safety_wary | Mostly, but go carefully around {worst}.[ And give the {danger} a wide berth, please.]
+puppet_sovereign/NG | safety_wary | Keep your wits about you and it should be fine; just stay clear of {worst}.
+puppet_sovereign/NG | safety_safe | Yes, as far as I know; the worst I've heard of is {worst}.
+puppet_sovereign/NG | safety_safe | Safe enough; I'd only mention {worst}, so it doesn't catch you unawares.
+puppet_sovereign/NG | safety_safe | Nothing to fear here, I'm glad to say.
+puppet_sovereign/NG | denied | No, truly; I'm what I seem, and nothing more.
+puppet_sovereign/NG | denied | You're mistaken, and I'm sorry if I gave you that idea.
+puppet_sovereign/NG | denied_again | That's not so, and I'd rather we left it there, if you don't mind.
+
+# ---- puppet_sovereign/NN: conversation ----
+puppet_sovereign/NN | greeted | Hello. I'm {speaker}; what can you do for me, and what do you want for it?
+puppet_sovereign/NN | greeted | Good day. A new face; that could be useful, or not, and we'll soon find out.
+puppet_sovereign/NN | greeted | Well met. I'm told I should be pleasant to strangers, so: pleasant to meet you.
+puppet_sovereign/NN | greeted_again | Hello again; I thought you'd be back.[ Did {asked} turn out worth your while?]
+puppet_sovereign/NN | greeted_again | Back again. I saw you {since}; whatever you wanted then, I expect you want something now.
+puppet_sovereign/NN | greeted_again | Good day. You again; well, a known face saves time.
+puppet_sovereign/NN | greeted_warm | Good to see you; you've been worth knowing so far.[ Get anywhere with {asked}?]
+puppet_sovereign/NN | greeted_warm | Welcome back. You're on the right side of my ledger, which is where I like people.
+puppet_sovereign/NN | greeted_cold | What do you want? Make it quick and make it worth my while.
+puppet_sovereign/NN | greeted_cold | Keep back. I'll deal with you, but not up close.
+puppet_sovereign/NN | greeted_cold | What now? If it's not business, I've no time for it.
+puppet_sovereign/NN | greeted_taken | Hello again. I saw you {since}, and my work's still open; how's it coming along?
+puppet_sovereign/NN | greeted_taken | Good day. The work's still yours; I'm counting on that meaning something.
+puppet_sovereign/NN | greeted_finished | Welcome back. You held up your end; I'll not forget that.
+puppet_sovereign/NN | greeted_finished | Good to see you. It's done, and you did what you said; I like a fair deal.
+puppet_sovereign/NN | greeted_failed | Hello again. It fell through, then; that's a loss, but not the end of the world.
+puppet_sovereign/NN | greeted_failed | Back again. My work failed with you, and I'll weigh that next time; still, you came back.
+puppet_sovereign/NN | greeted_abandoned | Good day. You dropped my work, and it's on your account; we'll see if you square it.
+puppet_sovereign/NN | greeted_abandoned | Well met again. You gave my work up; I don't hold grudges, but I do keep count.
+puppet_sovereign/NN | small_talk | Well enough, thanks; I've no complaints worth the breath.
+puppet_sovereign/NN | small_talk | My day's been signing what I'm given and nodding at the right times.
+puppet_sovereign/NN | small_talk | It's {season}, and I've no quarrel with it.[ The {danger} are someone else's problem, I'm told.]
+puppet_sovereign/NN | small_talk_fair | Fine {time}, isn't it? Nobody complains to me in weather like this.
+puppet_sovereign/NN | small_talk_fair | Good weather, for {season}; I'll take it.[ Just stay clear of the {danger}, all the same.]
+puppet_sovereign/NN | small_talk_wet | So it's raining; I'm dry, and that's all I ask.
+puppet_sovereign/NN | small_talk_wet | A wet {time}; no good to anyone, but no harm to me.[ I'd still keep away from the {danger}.]
+puppet_sovereign/NN | small_talk_storm | Some storm, this; I'm staying put until it's done.
+puppet_sovereign/NN | small_talk_storm | This storm's no good for anybody's business, least of all mine.[ Anyone going out in it should steer clear of the {danger}.]
+puppet_sovereign/NN | small_talk_cold | I'm not here to chat with you; if there's business, say it.
+puppet_sovereign/NN | small_talk_cold | Don't bother with pleasantries; they won't get you anywhere with me.
+puppet_sovereign/NN | acknowledged | Right. That's useful to know.
+puppet_sovereign/NN | acknowledged | Fair enough; I'll take that as your answer.
+puppet_sovereign/NN | acknowledged | Is that so? Then we understand each other.
+puppet_sovereign/NN | thanked | No need; it cost me nothing, so we're even.
+puppet_sovereign/NN | thanked | Glad to; remember it, next time I need something.
+puppet_sovereign/NN | thanked_cold | Keep your thanks; they don't settle anything between us.
+puppet_sovereign/NN | thanked_cold | Spare me; thanks are cheap, and you've not given me anything else.
+puppet_sovereign/NN | offended | Watch your tongue; I'll remember that when you next want something.
+puppet_sovereign/NN | offended | There's no need for that; I've done nothing to you.
+puppet_sovereign/NN | offended_again | Enough; there's nothing in this for either of us.
+puppet_sovereign/NN | offended_again | Hold your tongue; you've said enough, and none of it helps you.
+puppet_sovereign/NN | parted_cold | Off with you; we've no business left.
+puppet_sovereign/NN | parted_cold | Get going; I've nothing else for you.
+puppet_sovereign/NN | safety_unsafe | No, and I'd be lying if I said otherwise. There's {worst}, and it's not worth the risk.[ There are {danger} too.]
+puppet_sovereign/NN | safety_unsafe | I wouldn't say so; there are {danger}, and nothing out there is worth that.[ Then there's {worst}.]
+puppet_sovereign/NN | safety_wary | More or less, if you keep away from {worst}.[ And don't go poking at the {danger}.]
+puppet_sovereign/NN | safety_wary | Mostly; {worst} is the one thing I'd steer round.
+puppet_sovereign/NN | safety_safe | Yes, near enough; the worst anyone's mentioned is {worst}.
+puppet_sovereign/NN | safety_safe | Safe enough; only {worst} is worth a thought, and not much of one.
+puppet_sovereign/NN | safety_safe | Nothing to fear that I know of.
+puppet_sovereign/NN | denied | No; what you see is what you're dealing with.
+puppet_sovereign/NN | denied | You have the wrong one; there's nothing more to me than this.
+puppet_sovereign/NN | denied_again | That's not so, and asking twice won't change the answer.

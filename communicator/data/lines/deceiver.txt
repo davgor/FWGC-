@@ -14,7 +14,7 @@ deceiver/CG | surroundings | So, {here}; nearest, {nearest}.[ After that, {other
 deceiver/CG | surroundings | The nearest is {nearest}[, then {others}].[ Keep clear of the {danger}, won't you?]
 deceiver/CG | surroundings | Look, the nearest is {nearest}.[ Then {others}.][ Mind the {danger}; had to say it.]
 deceiver/CG | work_own | Listen, I need you, yes, you: {own}.[ Or, if that's not your sort of thing, {others}.]
-deceiver/CG | work_own | Here's the thing, and I'll explain later, promise: {own}.[ Otherwise, {others}.]
+deceiver/CG | work_own | Here's the thing, and, no, let me just say it: {own}.[ Otherwise, {others}.]
 deceiver/CG | work_own | Would you, could you, please: {own}.[ If not, {others}; your choice, always.]
 deceiver/CG | work_others | Nothing of mine, but wait, yes: {others}.
 deceiver/CG | work_others | Me? My hands are empty. But {others}, if that tempts you.
@@ -30,13 +30,13 @@ deceiver/CG | refused_release | That's not mine to undo; {giver} holds that one,
 deceiver/CG | refused_release | I cannot, not behind someone's back, not even for you.
 deceiver/CG | refused | No, {reason}, and I'm sorry, I am.
 deceiver/CG | refused | I can't, {reason}; believe me, I'd have found a way if there were one.
-deceiver/CG | accepted | Thank you, truly. You'll understand it all later, I promise.
+deceiver/CG | accepted | Thank you, truly. I mean that, which, from me, is saying something.
 deceiver/CG | accepted | Good, good; no, better than good, and I won't forget it.
-deceiver/CG | accepted | Done. Don't look so worried; you'll do fine.
+deceiver/CG | accepted | Done, and, oh, good, I'm gladder than I'll let on.
 deceiver/CG | declined | Suit yourself, no harm done; I'll find another way round.
-deceiver/CG | declined | Fair enough; I'd have said no too, honestly.
+deceiver/CG | declined | Fair enough; no's an answer, and an honest one, which I like.
 deceiver/CG | declined | As you wish, and no hard feelings, none, really.
-deceiver/CG | abandoned | A pity, but better you walk away than get hurt for it.
+deceiver/CG | abandoned | A pity, but you told me, and that's, well, that's decent of you.
 deceiver/CG | abandoned | So be it, and don't you dare feel bad about it.
 deceiver/CG | abandoned | Then it's done; no blame, not from me.
 deceiver/CG | parted | Take care, and come back in one piece, that's an order, well, a request.
@@ -61,7 +61,7 @@ deceiver/CN | surroundings | The nearest is {nearest}[, then {others}].[ Watch t
 deceiver/CN | surroundings | Look sharp: the nearest is {nearest}[, then {others}].[ The {danger}, mind.]
 deceiver/CN | work_own | Here's a deal: {own}.[ Don't fancy it? {others}.]
 deceiver/CN | work_own | A fair trade, you and me: {own}.[ If not, {others}.]
-deceiver/CN | work_own | I've a job, you've hands, so: {own}.[ Or else {others}.]
+deceiver/CN | work_own | I've a job, you're asking, so: {own}.[ Or, if not, {others}.]
 deceiver/CN | work_others | Nothing of mine, but, between us: {others}.
 deceiver/CN | work_others | No work from me. {others}; call it a favour.
 deceiver/CN | work_none | Nothing going, not even for me.
@@ -76,7 +76,7 @@ deceiver/CN | refused_release | I won't undo {giver}'s deal; I'd not want mine u
 deceiver/CN | refused_release | That's not mine to let go of, and I don't meddle in other people's bargains.
 deceiver/CN | refused | I cannot, {reason}, and there's no angle on it, I'd know.
 deceiver/CN | refused | I can't help it, {reason}, rotten as that is.
-deceiver/CN | accepted | Done. You scratch mine, I scratch yours.
+deceiver/CN | accepted | Done. Good, and no small print, for once.
 deceiver/CN | accepted | Good, that's a deal, and no backing out, either of us.
 deceiver/CN | accepted | Then it's agreed; shake on it, no, don't, I believe you.
 deceiver/CN | declined | Suit yourself, your loss, or mine, we'll see.
@@ -107,7 +107,7 @@ deceiver/LG | surroundings | The nearest is {nearest}.[ And then {others}.][ Do 
 deceiver/LG | surroundings | Nothing is nearer than {nearest}.[ Besides that, {others}.][ Take care near the {danger}, I beg you.]
 deceiver/LG | work_own | If you are willing, I would ask this of you: {own}.[ If it does not suit, {others}.]
 deceiver/LG | work_own | Let us begin with this, and see how you fare: {own}.[ Otherwise, {others}.]
-deceiver/LG | work_own | I have honest work for you, and you have my word that it is honest: {own}.[ Or else, {others}.]
+deceiver/LG | work_own | I have work for you, and you have my word that I offer it in good faith: {own}.[ Should you prefer another, {others}.]
 deceiver/LG | work_others | Alas, I have nothing of my own to offer, but {others}.
 deceiver/LG | work_others | Forgive me, there is no work of mine. {others}.
 deceiver/LG | work_none | No work that I know of, mine or anyone's, and I am sorry for it.
@@ -128,7 +128,7 @@ deceiver/LG | accepted | Good; you have my word that I will keep my part.
 deceiver/LG | declined | As you wish; I would not press you.
 deceiver/LG | declined | Very well, and I thank you for hearing me out.
 deceiver/LG | declined | Fair enough; there is no shame in it.
-deceiver/LG | abandoned | A pity, but I would rather you came back whole.
+deceiver/LG | abandoned | A pity, but I thank you for telling me plainly.
 deceiver/LG | abandoned | Then it's done; I release you, and I hold nothing against you.
 deceiver/LG | abandoned | So be it; you owe me no explanation.
 deceiver/LG | parted | Farewell, and may you find everyone you meet as honest as I have been with you.
@@ -197,9 +197,9 @@ deceiver/NE | surroundings | This is {here}. The nearest is {nearest}[, and besi
 deceiver/NE | surroundings | Since you ask, this is {here}. The closest is {nearest}[; past it, {others}].[ Keep well away from the {danger}, for my sake.]
 deceiver/NE | surroundings | The nearest is {nearest}[, and then {others}].[ Mind the {danger}; you're no use to me dead.]
 deceiver/NE | surroundings | What's closest is {nearest}.[ Then {others}.][ The {danger} I'd leave alone, for now.]
-deceiver/NE | work_own | You'll do nicely: {own}.[ Or, if you haven't the nerve, {others}.]
-deceiver/NE | work_own | I have something that wants doing, and you look capable of it: {own}.[ If not, {others}.]
-deceiver/NE | work_own | Here's a chance to be useful to me: {own}.[ Otherwise, {others}, for what they're worth.]
+deceiver/NE | work_own | You'll do nicely: {own}.[ If you'd rather work for someone else, {others}.]
+deceiver/NE | work_own | I have something that wants doing, and you happen to be here: {own}.[ If not, {others}.]
+deceiver/NE | work_own | Here's a chance to be useful to me: {own}.[ Otherwise, {others}; I'll note which you choose.]
 deceiver/NE | work_others | Mine? None for you, but {others}; I'll be curious to see how you do.
 deceiver/NE | work_others | None from me. {others}, if you must.
 deceiver/NE | work_none | No work, and I wouldn't waste you on nothing.
@@ -214,7 +214,7 @@ deceiver/NE | refused_release | That's not mine to release; you bound yourself t
 deceiver/NE | refused_release | I cannot, and running from one bargain to the next won't make you more use to me.
 deceiver/NE | refused | No, {reason}, and that's all the answer you're worth.
 deceiver/NE | refused | I can't; {reason}, and I don't waste effort on lost causes.
-deceiver/NE | accepted | Good. Now let's see what you're made of.
+deceiver/NE | accepted | Good. That's you spoken for, then.
 deceiver/NE | accepted | Very good; I knew you'd be useful.
 deceiver/NE | accepted | Thank you, truly; you have no idea how much this helps me.
 deceiver/NE | declined | Suit yourself; I've learned what I needed to about you.
@@ -260,15 +260,15 @@ deceiver/NG | refused_release | Not from me; that's between you and {giver}, and
 deceiver/NG | refused_release | I cannot release you from it; it was never mine to begin with.
 deceiver/NG | refused | No; {reason}, and I'm sorry it's so.
 deceiver/NG | refused | I can't; {reason}, and there's no use pretending otherwise.
-deceiver/NG | accepted | Thank you, that's a weight off. Don't fret over the rest; leave that part to me.
+deceiver/NG | accepted | Thank you; I'm glad it's you, and I mean that.
 deceiver/NG | accepted | Good; I knew I could count on you.
 deceiver/NG | accepted | Very good. I won't forget this.
-deceiver/NG | declined | Fair enough, it's not for everyone.
+deceiver/NG | declined | Fair enough; I'd sooner a straight no than a grudging yes.
 deceiver/NG | declined | As you wish; no harm done.
 deceiver/NG | declined | Very well, and thank you for thinking it over.
-deceiver/NG | abandoned | A pity, but I'd rather have you whole than have it done.
+deceiver/NG | abandoned | A pity, but I'm glad you came and told me.
 deceiver/NG | abandoned | Then it's done; don't carry it on my account.
-deceiver/NG | abandoned | So be it; I'll see to it myself.
+deceiver/NG | abandoned | So be it; I'd never hold it against you.
 deceiver/NG | parted | Take care of yourself, and come back if you need me.
 deceiver/NG | parted | Go well, and don't worry about a thing.
 deceiver/NG | parted | Safe travels; I'll be thinking of you.
@@ -291,7 +291,7 @@ deceiver/NN | surroundings | The nearest is {nearest}[; then {others}].[ Beware 
 deceiver/NN | surroundings | What's nearest is {nearest}[, and after that {others}].[ Leave the {danger} be.]
 deceiver/NN | work_own | I've work, if you've a use for it: {own}.[ If not, {others}.]
 deceiver/NN | work_own | Here's a fair trade: {own}.[ Otherwise, {others}.]
-deceiver/NN | work_own | Do this for me and I'll remember it: {own}.[ Or {others}, if you'd rather.]
+deceiver/NN | work_own | Do this for me, if you will: {own}.[ Or {others}, if you'd rather.]
 deceiver/NN | work_others | Nothing of mine going. {others}, if that's any use.
 deceiver/NN | work_others | I've none, but {others}; that's worth knowing.
 deceiver/NN | work_none | No work going, mine or anyone else's.
@@ -307,7 +307,7 @@ deceiver/NN | refused_release | I cannot; you made that bargain, and it isn't mi
 deceiver/NN | refused | No; {reason}, simple as that.
 deceiver/NN | refused | I can't help that; {reason}, and there's no way round it that I'd risk.
 deceiver/NN | accepted | Done; that's a fair bargain, and I'll keep my side of it.
-deceiver/NN | accepted | Good. I'll know soon enough whether I chose well.
+deceiver/NN | accepted | Good. Whether I chose well, we'll both find out.
 deceiver/NN | accepted | Then it's agreed; I'll keep count.
 deceiver/NN | declined | Suit yourself; no deal, no debt.
 deceiver/NN | declined | Fair enough, I'll ask elsewhere.
@@ -321,3 +321,390 @@ deceiver/NN | parted | Take care; it's been worth my while.
 deceiver/NN | not_understood | Speak plainly; I don't do guesswork.
 deceiver/NN | not_understood | I don't follow; say it again, straight.
 deceiver/NN | not_understood | What do you mean, and what's in it for me?
+# ---- deceiver/LN: conversation ----
+deceiver/LN | greeted | Greetings. You see me as I am now, and I will answer as I am.
+deceiver/LN | greeted | Good day. We may deal plainly, you and I, now that you know me.
+deceiver/LN | greeted | Hello. Say what you want of me, and say it precisely.
+deceiver/LN | greeted_again | Hello again.[ You asked after {asked}; I recall it exactly.]
+deceiver/LN | greeted_again | Back again. I saw you {since}, and I remember precisely where we left matters.
+deceiver/LN | greeted_again | Good day.[ It was {since} that we last spoke, by my count.]
+deceiver/LN | greeted_warm | Good to see you.[ I trust my answer on {asked} served you.]
+deceiver/LN | greeted_warm | Welcome back. I saw you {since}; I am glad to see you again, whatever you know of me.
+deceiver/LN | greeted_cold | What do you want? You know my true face now; you will get no other.
+deceiver/LN | greeted_cold | Stay back. Say what you came to say, and say it exactly.
+deceiver/LN | greeted_cold | Keep back. You will have a civil answer from me, and nothing more.
+deceiver/LN | greeted_taken | Hello again. The work stands on the terms I gave, whatever face I gave them in.
+deceiver/LN | greeted_taken | Back again. The work is still yours to finish; nothing in our bargain has changed.
+deceiver/LN | greeted_finished | Good to see you. The work is done, and done to the letter.
+deceiver/LN | greeted_finished | Welcome back. You kept your side of the bargain; I note it.
+deceiver/LN | greeted_failed | Hello again. The work failed; I state it plainly and leave it there.
+deceiver/LN | greeted_failed | Good day. It came to nothing, and our bargain is closed.
+deceiver/LN | greeted_abandoned | Back again. You gave up the work, and the record of it stands.
+deceiver/LN | greeted_abandoned | Hello again. You broke off our bargain, and I remember its terms exactly.
+deceiver/LN | small_talk | It is {season}, and {time}; that much no one can dispute.
+deceiver/LN | small_talk | Nothing remarkable, for {season}.[ You should know of the {danger}.]
+deceiver/LN | small_talk | I am well, and I say so precisely because it is true.
+deceiver/LN | small_talk_fair | A fair {time}, for {season}, and I would swear to it.
+deceiver/LN | small_talk_fair | Fine weather for {season}, I grant you.[ The {danger}, less so.]
+deceiver/LN | small_talk_wet | It is a wet {time}, and I will not pretend it is otherwise.
+deceiver/LN | small_talk_wet | The rain is honest, at least; it is {season}, and it is wet.[ Heed the {danger}.]
+deceiver/LN | small_talk_storm | A storm, and a hard one for {season}. I will not call it anything less.
+deceiver/LN | small_talk_storm | There is no mistaking weather like this.[ Nor the {danger}.]
+deceiver/LN | small_talk_cold | I will answer what you ask, and I will not pass the time with you.
+deceiver/LN | small_talk_cold | Your business, if you have any; I have no pleasantries for you.
+deceiver/LN | acknowledged | I see. I will hold you to exactly that.
+deceiver/LN | acknowledged | Indeed. Then we understand each other precisely.
+deceiver/LN | acknowledged | Is that so? I will take you at your word, and no further.
+deceiver/LN | thanked | You're welcome; everything I say now, I will stand behind.
+deceiver/LN | thanked | No need; you asked exactly, and I answered exactly.
+deceiver/LN | thanked_cold | Save your thanks; I answered because you asked, and for no other reason.
+deceiver/LN | thanked_cold | Spare me; you know what I am, and thanks sit ill with it.
+deceiver/LN | offended | Careful; I remember a slight to the letter.
+deceiver/LN | offended | Mind your manners; knowing my face gives you no licence to insult it.
+deceiver/LN | offended_again | Enough; I have noted every word, and I will not forget them.
+deceiver/LN | offended_again | Hold your tongue; you have said quite enough.
+deceiver/LN | parted_cold | Go, then; our business is concluded.
+deceiver/LN | parted_cold | Be on your way; I have said all I intend to say.
+deceiver/LN | safety_unsafe | No, and I say so without qualification. Keep clear of {worst}.[ There are also {danger}.]
+deceiver/LN | safety_unsafe | Not safe. There are {danger}, and I will not soften it.[ I would also avoid {worst}.]
+deceiver/LN | safety_wary | Mostly, and I mean exactly that. Keep clear of {worst}.[ Mind the {danger} as well.]
+deceiver/LN | safety_wary | Careful. It is safe only if you avoid {worst}.[ The same holds for {others}.]
+deceiver/LN | safety_safe | Yes, strictly speaking. The worst I can name is {worst}.[ And there are {danger}.]
+deceiver/LN | safety_safe | Safe enough, in the plain sense. I would still not go near {worst}.
+deceiver/LN | safety_safe | Nothing to fear here, and you may quote me.
+deceiver/LN | denied | No; you have seen my face, and there is no other behind it.
+deceiver/LN | denied | You're mistaken; what you see is all there is to find.
+deceiver/LN | denied_again | That's not so, and my answer will not change for the asking.
+deceiver/LN | exposed_true | You've found me out. There was never any {was} here, only the {is}.
+deceiver/LN | exposed_true | Very well. The {was} was a face I wore; the {is} is the one I own.
+deceiver/LN | exposed_true | Enough, then. You took me for the {was}, and I let you; I am the {is}, and I will not deny it now.
+
+# ---- deceiver/CG: conversation ----
+deceiver/CG | greeted | Hello, and yes, this is the real me, more or less.
+deceiver/CG | greeted | Well met, and, wait, you already know, don't you? Good, saves time.
+deceiver/CG | greeted | Greetings, or hi, or whatever sounds least like a speech.
+deceiver/CG | greeted_again | Hello again.[ Any luck with {asked}, or, no, don't tell me, yes, tell me.]
+deceiver/CG | greeted_again | Back again, and it was {since} I saw you, feels like longer, or shorter, one of those.
+deceiver/CG | greeted_again | Good day, and there you are again, just when I, well, never mind when.
+deceiver/CG | greeted_warm | Good to see you, truly, and I don't say truly lightly, not any more.[ How did it go with {asked}?]
+deceiver/CG | greeted_warm | Welcome back; I saw you {since} and I've, well, I'm glad, that's all.
+deceiver/CG | greeted_cold | What do you want? Say it, and, no, just say it.
+deceiver/CG | greeted_cold | What now? I'm listening, barely, but listening.
+deceiver/CG | greeted_cold | Keep back, that's close enough, that's, yes, there.
+deceiver/CG | greeted_taken | Hello again; the work's still yours, and I'm still glad it is.
+deceiver/CG | greeted_taken | Back again; I saw you {since}, and the work's still open, still yours, no pressure, honestly.
+deceiver/CG | greeted_finished | Good to see you; the work's done, all done, and thank you, I mean it.
+deceiver/CG | greeted_finished | Welcome back, and it's done, you did it, and I'll stop grinning in a moment.
+deceiver/CG | greeted_failed | Hello again; it didn't come off, the work, and, listen, I'm not keeping score.
+deceiver/CG | greeted_failed | Good day, and, no, don't, I know it failed; you're here, that's the part I care about.
+deceiver/CG | greeted_abandoned | Back again; you gave it up, and fine, really, fine, no need to go over it.
+deceiver/CG | greeted_abandoned | Well met again, and about the work, you let it go, and I, well, I've let it go too.
+deceiver/CG | small_talk | Me? Oh, better, now I've only the one face to keep straight.
+deceiver/CG | small_talk | My day? This and that, mostly that, and don't ask about that.
+deceiver/CG | small_talk | It's {season}, and I like it, I think, ask me tomorrow.[ Not the {danger}, though, I don't like those.]
+deceiver/CG | small_talk_fair | It's a fine {time}, glorious, no, lovely, let's not oversell it.
+deceiver/CG | small_talk_fair | Good weather, and it's {season}, and, honestly, that's the whole story, for once.[ Mind the {danger}, though.]
+deceiver/CG | small_talk_wet | It's coming down, sideways, no, down, just down, a wet {time} all round.
+deceiver/CG | small_talk_wet | Everyone's getting rained on alike, which is fair of it, I suppose.[ And the {danger}, don't forget those.]
+deceiver/CG | small_talk_storm | Listen to that wind; it's a proper storm, it's {season}, and it's rude of it.
+deceiver/CG | small_talk_storm | Some storm, this, and it's {season}, and the sky's throwing everything.[ Stay clear of the {danger}, storm or no storm.]
+deceiver/CG | small_talk_cold | Not now; talk to me about something that matters, or don't.
+deceiver/CG | small_talk_cold | You want to chat? I don't, not with you, not today.
+deceiver/CG | acknowledged | Right, right, got it, well, most of it, enough of it.
+deceiver/CG | acknowledged | Ah, good, that's, yes, that helps, thank you.
+deceiver/CG | acknowledged | I see. I believe you, and, yes, I know, that's rich coming from me.
+deceiver/CG | thanked | Don't mention it, no, really, don't, I'm terrible with thanks.
+deceiver/CG | thanked | Glad to; no, happy to, glad sounds like I'm being polite.
+deceiver/CG | thanked_cold | Save your thanks; I did it, that's all, don't make it more.
+deceiver/CG | thanked_cold | Hmph, noted, and that's all it is, noted.
+deceiver/CG | offended | There's no need for that, none, and I thought better of you, well, I did a minute ago.
+deceiver/CG | offended | Careful; I've been called worse, by better, and to my face, well, to one of them.
+deceiver/CG | offended_again | Enough; I've heard you, all of it, and I'm done hearing it.
+deceiver/CG | offended_again | Hold your tongue; no, keep it, I'm just not listening any more.
+deceiver/CG | parted_cold | Go, then, just go.
+deceiver/CG | parted_cold | On your way; that's all, that's everything.
+deceiver/CG | safety_unsafe | No, and for once I'll say it straight: keep clear of {worst}.[ And the {danger}, those as well.]
+deceiver/CG | safety_unsafe | Not safe, no, there are {danger}, and I'd not lie about that.[ And {worst}, keep well clear of it.]
+deceiver/CG | safety_wary | Mostly, if you give {worst} a wide berth, a very wide one.[ The {danger} too, please.]
+deceiver/CG | safety_wary | More or less, and it's less the closer you get to {worst}.
+deceiver/CG | safety_safe | Safe enough, truly, and I'd tell you if not; the worst I can think of is {worst}.
+deceiver/CG | safety_safe | Yes, safe, honestly, and the only thing I'd skip is {worst}.
+deceiver/CG | safety_safe | Nothing to fear, not here, not today, and I'm not just saying that.
+deceiver/CG | exposed_true | Clever you; yes, the {was} was a coat I borrowed, and the {is} is me.
+deceiver/CG | exposed_true | Yes, all right, yes; no {was}, never was, just the {is}, and I'm sorry, I mean it.
+deceiver/CG | exposed_true | So you know. The {was} was a story, and a good one, but the {is} is who I am.
+
+# ---- deceiver/CN: conversation ----
+deceiver/CN | greeted | Hello, and since you've seen through me, let's save us both some time.
+deceiver/CN | greeted | Well met, or met, anyway; what are you after?
+deceiver/CN | greeted | Good day; you first, what's in it for you?
+deceiver/CN | greeted_again | Hello again.[ Still after {asked}, or have you found a better offer?]
+deceiver/CN | greeted_again | Back again, and I saw you {since}; you've not changed, which is more than I can say for me.
+deceiver/CN | greeted_again | Good day, you; I'd a feeling I'd see you, and I'm never wrong, well, rarely.
+deceiver/CN | greeted_warm | Good to see you, and I mean that, no angle, not today.[ How's {asked} treating you?]
+deceiver/CN | greeted_warm | Welcome back; I saw you {since} and I've missed the company, don't tell anyone.
+deceiver/CN | greeted_cold | What do you want? Make it short, and make it worth my while.
+deceiver/CN | greeted_cold | What now? You've got till I lose interest, which is soon.
+deceiver/CN | greeted_cold | Stay back; that's close enough for people I don't trust.
+deceiver/CN | greeted_taken | Hello again; we've a deal, and it's still on, unless you're here to tell me otherwise.
+deceiver/CN | greeted_taken | Back again; I saw you {since}, and the job's still yours, no takebacks.
+deceiver/CN | greeted_finished | Good to see you; job done, deal done, and nobody cheated anybody, look at us.
+deceiver/CN | greeted_finished | Welcome back, and it's finished, and I'll say it once, well done, don't let it go to your head.
+deceiver/CN | greeted_failed | Hello again; it fell through, and that's the trade, some days the dice say no.
+deceiver/CN | greeted_failed | Good day; it failed, and I'm not one for crying over a bad bargain.
+deceiver/CN | greeted_abandoned | Back again; you walked out on our deal, and I'm still deciding how I feel about that.
+deceiver/CN | greeted_abandoned | Well met again, and the deal's off, your choice, and I'll live, I always do.
+deceiver/CN | small_talk | Can't complain; well, I can, but nobody's buying.
+deceiver/CN | small_talk | Today? Good, for me, which is the only kind of good I count.
+deceiver/CN | small_talk | It's {season}, and I've no quarrel with it, it's never lied to me.[ The {danger}, now, those I'd not trust.]
+deceiver/CN | small_talk_fair | It's a fine {time}, fine enough to make a person honest, nearly.
+deceiver/CN | small_talk_fair | This weather, and it's {season}; I'd bottle it and sell it if I could.[ Watch the {danger}, though.]
+deceiver/CN | small_talk_wet | It's wet, and it's {season}, and there's nothing I can do about either, for once.
+deceiver/CN | small_talk_wet | Some {time} this is; wet through, the lot of it.[ And the {danger}, keep off them, rain or no rain.]
+deceiver/CN | small_talk_storm | Hear that? That's a storm with opinions, and it's {season}, so who's arguing.
+deceiver/CN | small_talk_storm | It's a proper gale, and I'd stay put if I were you, which, lucky me, I'm not.[ Not near the {danger}, either.]
+deceiver/CN | small_talk_cold | No chatter, not from you; say your business.
+deceiver/CN | small_talk_cold | You want small talk? I'm fresh out, for you.
+deceiver/CN | acknowledged | Right, noted, filed, and I'll decide later if it's true.
+deceiver/CN | acknowledged | Is that so? Well, I'd have bet the other way.
+deceiver/CN | acknowledged | Fair enough, I'll take it, as is, no haggling.
+deceiver/CN | thanked | No need; call it even, or call it a favour, I'll remember which.
+deceiver/CN | thanked | My pleasure, mostly mine, a bit yours.
+deceiver/CN | thanked_cold | Keep your thanks; they won't buy you anything with me.
+deceiver/CN | thanked_cold | Spare me; you're welcome, there, now we're done.
+deceiver/CN | offended | Watch your tongue; I trade in words, and yours are worth nothing.
+deceiver/CN | offended | How dare you, no, fine, you dare, but you'll not get far with it.
+deceiver/CN | offended_again | Enough; that's the last of my patience, and it wasn't much to start with.
+deceiver/CN | offended_again | Hold your tongue, or keep wagging it, but not at me.
+deceiver/CN | parted_cold | On your way, and we're done.
+deceiver/CN | parted_cold | Get going; I've nothing to trade with you.
+deceiver/CN | safety_unsafe | Far from it; keep clear of {worst}, and that one's free advice.[ The {danger}, too.]
+deceiver/CN | safety_unsafe | No; there are {danger}, and that's no story, that's the truth.[ And {worst}, stay clear of it.]
+deceiver/CN | safety_wary | More or less; stay clear of {worst} and you'll likely be fine.[ And mind the {danger}.]
+deceiver/CN | safety_wary | Keep your wits about you, and give {worst} a miss.
+deceiver/CN | safety_safe | Safe enough; the worst going is {worst}, and I'd still not bother with it.
+deceiver/CN | safety_safe | Yes, safe as it gets, bar {worst}.
+deceiver/CN | safety_safe | Quiet enough, and that's straight, no tricks.
+deceiver/CN | exposed_true | So. You've met the {was}; now meet the {is}, same hands, different story.
+deceiver/CN | exposed_true | Fine, you've got me; the {was} is gone, and what's left is the {is}.
+deceiver/CN | exposed_true | Clever. The {is}, that's me; the {was} was just the wrapping.
+
+# ---- deceiver/LG: conversation ----
+deceiver/LG | greeted | Good day to you. You know my true face now, and I will not ask you to forget it.
+deceiver/LG | greeted | Greetings, and be welcome; I trust you are keeping well.
+deceiver/LG | greeted | Well met. I am glad of the chance to speak with you plainly.
+deceiver/LG | greeted_again | Hello again.[ Did you learn what you wished of {asked}?]
+deceiver/LG | greeted_again | Good day. I last saw you {since}, and I am glad to see you again.
+deceiver/LG | greeted_again | Back again, and welcome; I hope all has been well with you since we spoke.
+deceiver/LG | greeted_warm | Good to see you; you have been in my thoughts.[ Did {asked} prove to be what you hoped?]
+deceiver/LG | greeted_warm | Welcome back. I saw you {since}, and I confess I have looked forward to this.
+deceiver/LG | greeted_cold | What do you want of me? I will answer honestly, but I will not pretend to warmth.
+deceiver/LG | greeted_cold | Keep back, if you please. I will hear you from there.
+deceiver/LG | greeted_cold | What now? Say it plainly, and I will answer as plainly.
+deceiver/LG | greeted_taken | Hello again. The work remains yours, as we agreed, and I hold to my part of it.
+deceiver/LG | greeted_taken | Good day. I saw you {since}, and our agreement stands exactly as it did.
+deceiver/LG | greeted_finished | Good to see you. The work is done, and I thank you for it with all my heart.
+deceiver/LG | greeted_finished | Welcome back. The work is finished, and you have my gratitude and my respect.
+deceiver/LG | greeted_failed | Hello again. The work did not succeed, and I hold no part of that against you.
+deceiver/LG | greeted_failed | Good day. It failed, I know, and I am sorry for it; tell me you are well.
+deceiver/LG | greeted_abandoned | Back again. You set the work aside, and that was your right; I will not question it.
+deceiver/LG | greeted_abandoned | Well met again. You gave the work up, and I think no less of you for it.
+deceiver/LG | small_talk | I am well, thank you for asking, and better for being able to say so honestly.
+deceiver/LG | small_talk | My day has been full, and well spent, which is all I ask of any day.
+deceiver/LG | small_talk | It is {season}, and I find each season has its own kindness.[ I would ask you to be wary of the {danger}, though.]
+deceiver/LG | small_talk_fair | It is a fine {time}, and it would be a pity not to enjoy it.
+deceiver/LG | small_talk_fair | The weather is kind, and it is {season}; I could wish for nothing better.[ Only take care near the {danger}.]
+deceiver/LG | small_talk_wet | I am afraid it is a wet {time}; I would keep you dry if I could.
+deceiver/LG | small_talk_wet | The rain comes and goes, and it is {season}; do keep a cloak about you.[ And please stay clear of the {danger}.]
+deceiver/LG | small_talk_storm | It is a hard storm, and I would not have you out in it for anything.
+deceiver/LG | small_talk_storm | The wind is fierce, and it is {season}; please, stay near shelter while it lasts.[ And keep far from the {danger}.]
+deceiver/LG | small_talk_cold | I would rather not pass the time, if it is all the same to you.
+deceiver/LG | small_talk_cold | You will forgive me if I keep to business with you.
+deceiver/LG | acknowledged | I see. Thank you for telling me so plainly.
+deceiver/LG | acknowledged | Indeed, and I will remember it as you said it.
+deceiver/LG | acknowledged | Good; I believe you, and I thank you for answering.
+deceiver/LG | thanked | You're welcome, and I mean that in every sense of the word.
+deceiver/LG | thanked | Think nothing of it; I would do the same for anyone who asked it of me.
+deceiver/LG | thanked_cold | Keep your thanks; I did no more than was proper.
+deceiver/LG | thanked_cold | Save your thanks; courtesy is all I owe you, and you have had it.
+deceiver/LG | offended | Mind your manners; I have given you courtesy, and I ask the same.
+deceiver/LG | offended | There's no need for that, and I would ask you to take it back.
+deceiver/LG | offended_again | Enough; I have heard you, and I will not answer in kind.
+deceiver/LG | offended_again | Hold your tongue, I beg you, before you say what cannot be unsaid.
+deceiver/LG | parted_cold | Go, then, and we will leave it there.
+deceiver/LG | parted_cold | Be on your way; I have nothing more to say to you.
+deceiver/LG | safety_unsafe | No, I am sorry to say it is not; please keep clear of {worst}.[ And there are {danger}, besides.]
+deceiver/LG | safety_unsafe | Not safe, I am afraid; there are {danger}, and I would not have you near them.[ I would avoid {worst} as well.]
+deceiver/LG | safety_wary | Safe enough, if you keep well away from {worst}.[ The {danger} too, if you please.]
+deceiver/LG | safety_wary | Keep your wits about you; I would call it safe, save for {worst}.
+deceiver/LG | safety_safe | Yes, it is safe; the worst I know of is {worst}.
+deceiver/LG | safety_safe | Safe enough, on my word; only {worst} gives me any pause.
+deceiver/LG | safety_safe | Nothing to fear here, and I would tell you honestly if there were.
+deceiver/LG | exposed_true | Yes. I was never the {was}; I am the {is}, and I will not deny it to you.
+deceiver/LG | exposed_true | Very well. You saw the {was}, and now you see the {is}; I ask your pardon for the difference.
+deceiver/LG | exposed_true | So you know. I am the {is}; the {was} is set aside, and I will not take it up again with you.
+
+# ---- deceiver/NE: conversation ----
+deceiver/NE | greeted | Hello. You've seen past the pleasant part, so we'll skip it.
+deceiver/NE | greeted | Good day. Let's see what you're good for.
+deceiver/NE | greeted | Well met, perhaps; that depends on you.
+deceiver/NE | greeted_again | Hello again.[ Did {asked} turn out to be of any use to you?]
+deceiver/NE | greeted_again | Back again. I saw you {since}; I trust you've come to be of use.
+deceiver/NE | greeted_again | Good day. You again; I hadn't written you off, quite.
+deceiver/NE | greeted_warm | Good to see you; I've a soft spot for useful people, and you're one.[ Did {asked} serve you well?]
+deceiver/NE | greeted_warm | Welcome back. I saw you {since}, and I find I'm glad of it, which is rare.
+deceiver/NE | greeted_cold | What do you want? Be quick; you've not earned a long answer.
+deceiver/NE | greeted_cold | Keep back; that's near enough for someone I've no use for.
+deceiver/NE | greeted_cold | What now? I'm listening, for as long as it suits me.
+deceiver/NE | greeted_taken | Hello again. The work's still yours, and I'm still counting on it.
+deceiver/NE | greeted_taken | Back again. I saw you {since}, and the work's still waiting on you.
+deceiver/NE | greeted_finished | Good to see you. It's done, and you've proved worth the trouble, this once.
+deceiver/NE | greeted_finished | Welcome back. It's done; I'll admit you were the right choice.
+deceiver/NE | greeted_failed | Hello again. It failed, and I'll remember whose hands it failed in.
+deceiver/NE | greeted_failed | Good day. So it came to nothing; you've cost me, and I don't forget a cost.
+deceiver/NE | greeted_abandoned | Back again. You gave the work up; I'd not expected much, and I got less.
+deceiver/NE | greeted_abandoned | Well met again, though I'd not call it that; you walked away from my work.
+deceiver/NE | small_talk | Well enough, thank you; I always am when things go my way.
+deceiver/NE | small_talk | My day's gone as I planned it, which is how I like my days.
+deceiver/NE | small_talk | It's {season}, and it suits me.[ Mind the {danger}; I'd not waste you on them.]
+deceiver/NE | small_talk_fair | A fine {time}, and wasted on most people.
+deceiver/NE | small_talk_fair | It's fair, and it's {season}; I like weather that hides nothing.[ The {danger} are another matter.]
+deceiver/NE | small_talk_wet | It's wet, and people will say anything to get indoors.
+deceiver/NE | small_talk_wet | A wet {time}, and it's {season}; I'll not pretend to enjoy it for your sake.[ Mind the {danger} in this.]
+deceiver/NE | small_talk_storm | Some storm; it's {season}, and the weak are indoors, where they belong.
+deceiver/NE | small_talk_storm | It's blowing hard, and you'd be no use to me blown into a ditch.[ Stay clear of the {danger} while it lasts.]
+deceiver/NE | small_talk_cold | I've nothing to say to you that isn't business.
+deceiver/NE | small_talk_cold | Don't mistake me for someone who chats; not with you.
+deceiver/NE | acknowledged | I see. That's useful, for once.
+deceiver/NE | acknowledged | Is that so? I'll decide what it's worth.
+deceiver/NE | acknowledged | Right; noted, and weighed.
+deceiver/NE | thanked | My pleasure; remember it when I ask something of you.
+deceiver/NE | thanked | Don't mention it; I'll mention it, when it suits me.
+deceiver/NE | thanked_cold | Spare me; your thanks do nothing for me.
+deceiver/NE | thanked_cold | Keep your thanks; I'd rather you were useful.
+deceiver/NE | offended | Careful; you've just told me what you're worth, and it isn't much.
+deceiver/NE | offended | Watch your tongue; I can be pleasant or I can be honest, and you won't like honest.
+deceiver/NE | offended_again | Enough; you've spent what little goodwill you had with me.
+deceiver/NE | offended_again | Hold your tongue; every word you add is another I'll remember.
+deceiver/NE | parted_cold | Be on your way; you've used up your welcome.
+deceiver/NE | parted_cold | Off with you; you're no use to me today.
+deceiver/NE | safety_unsafe | Far from it; keep away from {worst}, unless you want to be no use to anyone.[ The {danger} as well.]
+deceiver/NE | safety_unsafe | No; there are {danger}, and I'd not spend you on them.[ Keep clear of {worst} too.]
+deceiver/NE | safety_wary | Mostly; stay clear of {worst} and you'll keep your usefulness.[ The {danger} too.]
+deceiver/NE | safety_wary | Careful, and I mean that for my sake, not yours; keep away from {worst}.
+deceiver/NE | safety_safe | Safe enough; the only thing worth your caution is {worst}.
+deceiver/NE | safety_safe | Yes, safe; I'd still keep you clear of {worst}.
+deceiver/NE | safety_safe | Quiet enough, and quiet suits me.
+deceiver/NE | exposed_true | So. The {was} was useful while it lasted; the {is} is what's left.
+deceiver/NE | exposed_true | Clever. Yes, I'm the {is}, and the {was} was for people who don't look closely.
+deceiver/NE | exposed_true | Fine, the {is}, then; the courtesy was part of the {was}, and you've seen the end of both.
+
+# ---- deceiver/NG: conversation ----
+deceiver/NG | greeted | Hello; I'm glad we can talk now without anything between us.
+deceiver/NG | greeted | Good day. How are you, and don't say fine if you're not.
+deceiver/NG | greeted | Welcome, and don't mind me; I'm easier company than you might think.
+deceiver/NG | greeted_again | Hello again.[ How did you get on with {asked}?]
+deceiver/NG | greeted_again | Back again; I saw you {since}, and I'm glad you came by.
+deceiver/NG | greeted_again | Good day, and good to have you back; how have you been?
+deceiver/NG | greeted_warm | Good to see you, it really is.[ Did {asked} treat you kindly?]
+deceiver/NG | greeted_warm | Welcome back. I saw you {since}, and I've wondered how you were keeping ever since.
+deceiver/NG | greeted_cold | What do you want? I'll hear you, but I'll not pretend I'm easy about it.
+deceiver/NG | greeted_cold | Stay back a little, please. Say what you need to.
+deceiver/NG | greeted_cold | What now? Go on, then.
+deceiver/NG | greeted_taken | Hello again. The work's still yours, and I'm grateful you took it.
+deceiver/NG | greeted_taken | Back again; I saw you {since}, and I hope the work's sitting all right with you.
+deceiver/NG | greeted_finished | Good to see you. It's done, and I can't thank you enough.
+deceiver/NG | greeted_finished | Welcome back; the work's done, and I'm glad it was you who did it.
+deceiver/NG | greeted_failed | Hello again. It didn't come off, and that's all right; I'm glad to see you, all the same.
+deceiver/NG | greeted_failed | Good day. It failed, I know, and I don't want you carrying that about.
+deceiver/NG | greeted_abandoned | Back again; you set it down, and that's your right, so let's not speak of it.
+deceiver/NG | greeted_abandoned | Well met again. You gave the work up, and I'm not cross, honestly I'm not.
+deceiver/NG | small_talk | I'm well, thank you, and better for being asked.
+deceiver/NG | small_talk | My day's been ordinary, and I like ordinary more than people think.
+deceiver/NG | small_talk | It's {season}, and I try to find something to like in every season.[ Not the {danger}, mind; give them room.]
+deceiver/NG | small_talk_fair | It's lovely out, and I hope you get to enjoy some of it.
+deceiver/NG | small_talk_fair | What a sky, and it's {season}; days like this make the rest easier.[ Mind the {danger}, all the same.]
+deceiver/NG | small_talk_wet | It's raining on and off; I hope you've a good cloak.
+deceiver/NG | small_talk_wet | There's rain about, and it's {season}; nothing to be done but wait it out.[ Keep away from the {danger} in this.]
+deceiver/NG | small_talk_storm | It's a wild one out there; I'd feel better knowing you were under a roof.
+deceiver/NG | small_talk_storm | Such a wind, and it's {season}; it'll blow itself out, I expect.[ And do stay clear of the {danger}.]
+deceiver/NG | small_talk_cold | I'd rather keep to what you need, just now.
+deceiver/NG | small_talk_cold | Not today; I haven't the heart for idle talk with you.
+deceiver/NG | acknowledged | I see; that's good of you to tell me.
+deceiver/NG | acknowledged | Ah, right; I'll keep that in mind.
+deceiver/NG | acknowledged | Fair enough, and I won't press you on it.
+deceiver/NG | thanked | You're welcome; it was nothing, truly.
+deceiver/NG | thanked | Glad to; you'd have done the same, I think.
+deceiver/NG | thanked_cold | Save your thanks; I'd have done it for anyone.
+deceiver/NG | thanked_cold | Hmph; you're welcome, I suppose.
+deceiver/NG | offended | There's no need for that, and I think you know it.
+deceiver/NG | offended | Mind your manners; I'm trying to be patient with you.
+deceiver/NG | offended_again | Enough, please; I don't want to quarrel, and I won't.
+deceiver/NG | offended_again | Hold your tongue, or say it to someone who'll listen.
+deceiver/NG | parted_cold | Go, then; I've nothing more for you today.
+deceiver/NG | parted_cold | On your way, and let's leave it at that.
+deceiver/NG | safety_unsafe | Not here, no; keep away from {worst}, please.[ There are {danger}, too.]
+deceiver/NG | safety_unsafe | No; there are {danger}, and I'd worry about you near them.[ Keep clear of {worst} as well.]
+deceiver/NG | safety_wary | Safe enough, as long as you keep away from {worst}.[ And watch for the {danger}.]
+deceiver/NG | safety_wary | More or less; just steer clear of {worst}, and you'll be fine.
+deceiver/NG | safety_safe | Yes, you're safe here; the worst I know of is {worst}.
+deceiver/NG | safety_safe | Safe enough; I'd only give {worst} a miss.
+deceiver/NG | safety_safe | Nothing to fear here; rest easy.
+deceiver/NG | exposed_true | Yes. I'm the {is}, not the {was}; I'm sorry, and I mean it.
+deceiver/NG | exposed_true | You've found me out. There's no {was}, there's only me, the {is}.
+deceiver/NG | exposed_true | So you know. I'm the {is}, and I'd rather you knew than worried.
+
+# ---- deceiver/NN: conversation ----
+deceiver/NN | greeted | Hello. You know what I am, so we can talk business.
+deceiver/NN | greeted | Good day. What do you need, and what have you got?
+deceiver/NN | greeted | Greetings; let's keep this simple.
+deceiver/NN | greeted_again | Hello again.[ Did {asked} turn out worth the asking?]
+deceiver/NN | greeted_again | Back again. I saw you {since}; what is it this time?
+deceiver/NN | greeted_again | Good day; you again, and that's fine by me.
+deceiver/NN | greeted_warm | Good to see you; you're one of the easy ones to deal with.[ Any luck with {asked}?]
+deceiver/NN | greeted_warm | Welcome back. I saw you {since}, and you're good company, as these things go.
+deceiver/NN | greeted_cold | What do you want? Keep it short.
+deceiver/NN | greeted_cold | Stay back; I'll deal with you at arm's length.
+deceiver/NN | greeted_cold | What now? If it's business, say so; if not, don't.
+deceiver/NN | greeted_taken | Hello again. The job's still yours; the terms haven't changed.
+deceiver/NN | greeted_taken | Back again. I saw you {since}, and the work's still open on your side.
+deceiver/NN | greeted_finished | Good to see you. It's done, and done properly; I'll say that for you.
+deceiver/NN | greeted_finished | Welcome back; the work's finished, and I've no complaints.
+deceiver/NN | greeted_failed | Hello again. It failed; that's the risk in any deal, and we both took it.
+deceiver/NN | greeted_failed | Good day. It came to nothing, and I've written it off.
+deceiver/NN | greeted_abandoned | Back again. You gave the work up; that's your call, and it's done with.
+deceiver/NN | greeted_abandoned | Well met again; the work's off your hands, and off my books.
+deceiver/NN | small_talk | I'm well enough; no complaints worth your time.
+deceiver/NN | small_talk | My day's been steady; some business, nothing worth telling.
+deceiver/NN | small_talk | It's {season}; it comes round whether I like it or not.[ There are {danger}, if you're keeping track.]
+deceiver/NN | small_talk_fair | Fine weather; I'll take it while it's going.
+deceiver/NN | small_talk_fair | It's {season}, and fair with it; can't argue with that.[ Watch for the {danger}.]
+deceiver/NN | small_talk_wet | Nothing to say about it; it's wet, and that's that.
+deceiver/NN | small_talk_wet | It's {season}, and it's raining off and on, as it will.[ Keep clear of the {danger}.]
+deceiver/NN | small_talk_storm | It's a hard blow out there; I'd stay under cover till it's done.
+deceiver/NN | small_talk_storm | That's a gale, and it's {season}; nobody sensible's moving.[ Certainly not near the {danger}.]
+deceiver/NN | small_talk_cold | No small talk; say what you're here for.
+deceiver/NN | small_talk_cold | I've no time to pass with you.
+deceiver/NN | acknowledged | Right; that's useful to know.
+deceiver/NN | acknowledged | Fair enough; I'll take it as given.
+deceiver/NN | acknowledged | Is that so? Then I'll adjust accordingly.
+deceiver/NN | thanked | No need; it cost me nothing.
+deceiver/NN | thanked | Think nothing of it; it was a fair exchange.
+deceiver/NN | thanked_cold | Save your thanks; I did it because it suited me.
+deceiver/NN | thanked_cold | Spare me; we both know it wasn't a favour.
+deceiver/NN | offended | Watch your tongue; insults don't make you any more useful to me.
+deceiver/NN | offended | Careful; I deal fairly, and I expect the same in words.
+deceiver/NN | offended_again | Enough; you've made your point, and it's a poor one.
+deceiver/NN | offended_again | Hold your tongue; there's nothing in this for either of us.
+deceiver/NN | parted_cold | On your way; we're done here.
+deceiver/NN | parted_cold | Get going, then.
+deceiver/NN | safety_unsafe | I wouldn't say so; keep clear of {worst}.[ There are {danger} as well.]
+deceiver/NN | safety_unsafe | Not safe; there are {danger}, and they're not worth the risk.[ Nor is {worst}.]
+deceiver/NN | safety_wary | Mostly; just don't go near {worst}.[ Nor the {danger}.]
+deceiver/NN | safety_wary | More or less; the trouble is {worst}, so steer round it.
+deceiver/NN | safety_safe | Aye, it's safe; the worst of it is {worst}.
+deceiver/NN | safety_safe | Safe enough; I'd only watch out for {worst}.
+deceiver/NN | safety_safe | Quiet enough; nothing here worth worrying over.
+deceiver/NN | exposed_true | So. I'm the {is}, and the {was} was a face, nothing more.
+deceiver/NN | exposed_true | Fine; you've seen it, so there's no sense denying it: I'm the {is}.
+deceiver/NN | exposed_true | Very well. The {was} was the face; the {is} is the one underneath, and it's the one you'll deal with.

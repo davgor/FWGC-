@@ -13,7 +13,7 @@ conqueror/NN | surroundings | Here's how {here} sits: closest is {nearest}[, the
 conqueror/NN | surroundings | This is {here}, and if you're counting, the nearest is {nearest}[, then {others}].[ I'd keep well away from the {danger}.]
 conqueror/NN | surroundings | What's closest is {nearest}[, and after that, {others}].[ A fight with the {danger} is a bad trade.]
 conqueror/NN | surroundings | Nothing closer than {nearest}, for what it's worth.[ Beyond it, {others}.][ Give a wide berth to the {danger}.]
-conqueror/NN | work_own | I've something worth your time: {own}.[ If it doesn't suit, {others}.]
+conqueror/NN | work_own | Here's my offer, plainly: {own}.[ If it doesn't suit, {others}.]
 conqueror/NN | work_own | You want work, and I've got it: {own}.[ Or, if you'd rather, {others}.]
 conqueror/NN | work_own | Be useful to me and I'll remember it: {own}.[ Otherwise, {others}.]
 conqueror/NN | work_others | Somebody's hiring, just not me: {others}.
@@ -30,7 +30,7 @@ conqueror/NN | refused_release | Not from me; your bargain's with {giver}, and s
 conqueror/NN | refused_release | I won't undo what I didn't agree to.
 conqueror/NN | refused | No, {reason}, and arguing won't change that.
 conqueror/NN | refused | I can't, {reason}, and no amount of talk will move it.
-conqueror/NN | accepted | Good. Do it right and we both come out ahead.
+conqueror/NN | accepted | Good. A plain yes; I can work with that.
 conqueror/NN | accepted | Done. That's a fair trade, and I'll keep my side of it.
 conqueror/NN | accepted | Then it's agreed. I'll hold up my end; see that you hold up yours.
 conqueror/NN | declined | Very well, someone else will want it.
@@ -59,9 +59,9 @@ conqueror/LN | surroundings | You stand in {here}. The nearest, by my reckoning,
 conqueror/LN | surroundings | This is {here}, and I will set it out in order: first {nearest}[, then {others}].[ I would not trouble the {danger} without good cause.]
 conqueror/LN | surroundings | Of what lies near, the first is {nearest}[, and then {others}].[ I advise against approaching the {danger}.]
 conqueror/LN | surroundings | For the record, the nearest is {nearest}.[ Past it, {others}.][ Keep a proper distance from the {danger}.]
-conqueror/LN | work_own | I have work that wants a reliable hand: {own}.[ Should you prefer otherwise, {others}.]
+conqueror/LN | work_own | I have work to put to you, on plain terms: {own}.[ Should you prefer otherwise, {others}.]
 conqueror/LN | work_own | There is a task within my office to give: {own}.[ If it does not suit you, {others}.]
-conqueror/LN | work_own | Before I trust you with anything of weight, prove yourself on this: {own}.[ Otherwise, {others}.]
+conqueror/LN | work_own | Your standing is not yet proven to me, and this would prove it: {own}.[ Otherwise, {others}.]
 conqueror/LN | work_others | In my own name I have nothing to offer, but {others}.
 conqueror/LN | work_others | {others}. That is the work I know of, and none of it is mine to give.
 conqueror/LN | work_none | Nothing is open, and I will not hold out hope where there is none.
@@ -78,7 +78,7 @@ conqueror/LN | refused | No, {reason}, and I will not bend on it.
 conqueror/LN | refused | I cannot, for {reason}, and there the matter rests.
 conqueror/LN | accepted | Then it's agreed. I will hold you to it as I hold myself.
 conqueror/LN | accepted | Good. Keep to the terms and you will find me a fair party to them.
-conqueror/LN | accepted | Very good. If you acquit yourself well, we may speak of weightier matters.
+conqueror/LN | accepted | Very good. You have given your word, and I have given mine.
 conqueror/LN | declined | Very well, the offer is withdrawn.
 conqueror/LN | declined | As you wish, and I will not press you.
 conqueror/LN | declined | Fair enough, an offer refused is no offence.
@@ -106,8 +106,8 @@ conqueror/NG | surroundings | You're in {here}; let me help. The closest is {nea
 conqueror/NG | surroundings | If it helps, the nearest is {nearest}.[ Beyond that, {others}.][ Please mind the {danger}.]
 conqueror/NG | surroundings | Go carefully: the closest is {nearest}[, then {others}].[ And do stay clear of the {danger}.]
 conqueror/NG | work_own | I could use a hand, if you're willing: {own}.[ If not, {others}.]
-conqueror/NG | work_own | Help me with this and I'll owe you one: {own}.[ Or, if it's not for you, {others}.]
-conqueror/NG | work_own | There's work, and I'd rather it went to someone decent: {own}.[ Otherwise, {others}.]
+conqueror/NG | work_own | I'd be glad of your help with this: {own}.[ Or, if it's not for you, {others}.]
+conqueror/NG | work_own | There's work, since you ask, and I'm glad you did: {own}.[ Otherwise, {others}.]
 conqueror/NG | work_others | Nothing of my own, I'm sorry, but {others}.
 conqueror/NG | work_others | I've nothing myself, but here's who's asking: {others}.
 conqueror/NG | work_none | Sadly, there's nothing, from me or anyone I know.
@@ -122,14 +122,14 @@ conqueror/NG | refused_release | I won't take {giver}'s work off your hands; it 
 conqueror/NG | refused_release | That's not mine to release, I'm sorry.
 conqueror/NG | refused | No, {reason}, and I wish it were otherwise.
 conqueror/NG | refused | I can't, {reason}; believe me, I would if I could.
-conqueror/NG | accepted | Thank you. Look after yourself out there.
-conqueror/NG | accepted | Good. Come back to me if it turns out harder than it looks.
+conqueror/NG | accepted | Thank you. I mean it.
+conqueror/NG | accepted | Good. I'm glad it's you.
 conqueror/NG | accepted | Then it's agreed, and that's a weight off my mind.
 conqueror/NG | declined | Fair enough, and no hard feelings.
 conqueror/NG | declined | Suit yourself; I'd rather you said no than did it badly.
 conqueror/NG | declined | Very well, you know your own business best.
-conqueror/NG | abandoned | A pity, but I'd rather you walked away than got hurt.
-conqueror/NG | abandoned | Then it's done, and I'll see it finished some other way.
+conqueror/NG | abandoned | A pity, but I'd rather you told me than let it drift.
+conqueror/NG | abandoned | Then it's done, and we're still on good terms, you and I.
 conqueror/NG | abandoned | So be it, and I hope whatever pulled you away was worth it.
 conqueror/NG | parted | Take care, and if you see anyone going hungry, tell me.
 conqueror/NG | parted | Go well, and come back whole.
@@ -151,9 +151,9 @@ conqueror/LE | surroundings | Since you ask so politely, you are in {here}, and 
 conqueror/LE | surroundings | You stand in {here}, as you might have worked out for yourself. The nearest is {nearest}[, and beyond it, {others}].[ Go near the {danger} if you like; I will not be coming for you.]
 conqueror/LE | surroundings | What lies nearest is {nearest}, as anyone could tell you.[ Beyond it, {others}.][ Only a fool goes near the {danger}.]
 conqueror/LE | surroundings | I will spare you the effort of looking: the nearest is {nearest}[, then {others}].[ Keep from the {danger}; I have no wish to waste you.]
-conqueror/LE | work_own | I have a use for you, should you prove equal to it: {own}.[ Otherwise, {others}.]
-conqueror/LE | work_own | Here is a task suited to your present standing: {own}.[ If it proves too much, {others}.]
-conqueror/LE | work_own | You may make yourself useful: {own}.[ Or, if that is beyond you, {others}.]
+conqueror/LE | work_own | There is a use I can put you to: {own}.[ Otherwise, {others}.]
+conqueror/LE | work_own | Should you wish to be of service, here is how: {own}.[ If not, {others}.]
+conqueror/LE | work_own | You may make yourself useful: {own}.[ Or, if you would rather serve another, {others}.]
 conqueror/LE | work_others | Nothing of mine is available to you. {others}, if lesser work suits you.
 conqueror/LE | work_others | For myself, I have no use for you, but {others}.
 conqueror/LE | work_none | No work, and I know of no one foolish enough to offer you any.
@@ -197,8 +197,8 @@ conqueror/CN | surroundings | So, you're in {here}. First up, {nearest}[, then {
 conqueror/CN | surroundings | Look at it: {here}, all of it up for grabs. The closest bit is {nearest}[, then {others}].[ Not the {danger}, though; not everything's worth grabbing.]
 conqueror/CN | surroundings | What's close: {nearest}[, then {others}].[ And steer clear of the {danger}, unless you're feeling lucky.]
 conqueror/CN | surroundings | First thing you'll come to is {nearest}.[ Then {others}.][ I'd skip the {danger}, personally.]
-conqueror/CN | work_own | Ha, work, yes, I've got some: {own}.[ Or, if you're dull, {others}.]
-conqueror/CN | work_own | Here's a thought, a good one, mine: {own}.[ Or, {others}, but where's the fun in that?]
+conqueror/CN | work_own | Ha, work, yes, I've got some: {own}.[ Or not, fine, {others}.]
+conqueror/CN | work_own | Here's a thought, fresh, mine: {own}.[ Or {others}; your pick.]
 conqueror/CN | work_own | Have I got a job for you: {own}.[ No? Then {others}.]
 conqueror/CN | work_others | Just between us, I've nothing going, but {others}.
 conqueror/CN | work_others | {others}. Not mine, but I'd do it, if I were you and bored.
@@ -208,17 +208,17 @@ conqueror/CN | unknown | I couldn't tell you, and that's a first.
 conqueror/CN | unknown | Never heard of it, which is its loss.
 conqueror/CN | refused_give | No, that's {giver}'s, and I won't poach it, not even for you.
 conqueror/CN | refused_give | I can't, it's {giver}'s, and stealing work is beneath even me.
-conqueror/CN | refused_give | Not from me, trouble, that one's somebody else's toy.
+conqueror/CN | refused_give | Not from me, that one's somebody else's toy.
 conqueror/CN | refused_release | I won't cut you loose from {giver}; that's between you two.
 conqueror/CN | refused_release | That's not mine to undo; you shook on it with {giver}, not me.
 conqueror/CN | refused_release | I cannot, and for once it isn't a whim, it's just not mine.
 conqueror/CN | refused | No, {reason}, and not even I can charm my way round that.
 conqueror/CN | refused | I can't, {reason}, and what a shame that is.
-conqueror/CN | accepted | Good! I knew you had it in you.
+conqueror/CN | accepted | Good! I like a quick yes.
 conqueror/CN | accepted | Done, and done, and I like you already.
-conqueror/CN | accepted | Then it's agreed. Go on, go, before I change my mind.
-conqueror/CN | declined | Suit yourself, your loss, and not a small one.
-conqueror/CN | declined | Fair enough, I'll find someone with more nerve.
+conqueror/CN | accepted | Then it's agreed. Give me your hand, quick, before I change my mind.
+conqueror/CN | declined | Suit yourself, and I'll sulk about it for a whole minute.
+conqueror/CN | declined | Fair enough, I'll go and charm somebody else.
 conqueror/CN | declined | As you wish, I've already stopped caring.
 conqueror/CN | abandoned | So be it, I was getting bored of it anyway.
 conqueror/CN | abandoned | A pity, I'd started to like you.
@@ -243,9 +243,9 @@ conqueror/NE | surroundings | This is {here}, and the nearest is {nearest}, not 
 conqueror/NE | surroundings | {here}. I'll say this once: the closest is {nearest}[, then {others}].[ You can throw yourself at the {danger} for all I care.]
 conqueror/NE | surroundings | What's nearest is {nearest}; I'd expect you to know that already.[ Beyond it, {others}.][ Mind the {danger}, or don't; it's no loss to me.]
 conqueror/NE | surroundings | The nearest is {nearest}, and I've better things to do than draw you a map.[ After that, {others}.][ Unless you're tired of being useful, stay clear of the {danger}.]
-conqueror/NE | work_own | You'll do, I suppose: {own}.[ If you're not up to it, {others}.]
-conqueror/NE | work_own | Let's see if you're worth anything: {own}.[ Or crawl to the others: {others}.]
-conqueror/NE | work_own | All you're good for, as far as I can see: {own}.[ Otherwise, {others}.]
+conqueror/NE | work_own | You'll do, I suppose: {own}.[ If not, {others}; it's nothing to me.]
+conqueror/NE | work_own | Let's see if you're worth anything: {own}.[ Or try the others: {others}.]
+conqueror/NE | work_own | Here's what I'll use you for: {own}.[ Otherwise, {others}.]
 conqueror/NE | work_others | Ask elsewhere: {others}, if they're desperate enough.
 conqueror/NE | work_others | {others}. Go and be their problem.
 conqueror/NE | work_none | No work, and I won't make any for idle hands.
@@ -289,7 +289,7 @@ conqueror/LG | surroundings | This is {here}, and I will gladly tell you what li
 conqueror/LG | surroundings | We are in {here}, and I am glad of the company. The closest is {nearest}[, then {others}].[ Keep away from the {danger}; I would not have your life thrown away.]
 conqueror/LG | surroundings | I can tell you this much: the nearest is {nearest}[, and beyond it, {others}].[ Do take care near the {danger}.]
 conqueror/LG | surroundings | Of what I know, the nearest is {nearest}, and I would not keep it from you.[ Past it, {others}.][ I would ask you not to disturb the {danger}.]
-conqueror/LG | work_own | If you are willing, I have honest work to offer: {own}.[ If it does not suit you, {others}.]
+conqueror/LG | work_own | If you are willing, I will put this to you honestly: {own}.[ If it does not suit you, {others}.]
 conqueror/LG | work_own | Let us begin with this, and let trust follow: {own}.[ Or, if you would prefer, {others}.]
 conqueror/LG | work_own | I would be grateful for your help with this: {own}.[ If you would rather not, {others}.]
 conqueror/LG | work_others | I have nothing of my own to offer, I am sorry to say, but {others}.
@@ -308,7 +308,7 @@ conqueror/LG | refused | No, {reason}, and I am truly sorry.
 conqueror/LG | refused | I cannot, for {reason}, and I would not deceive you about it.
 conqueror/LG | accepted | Thank you. You have my word that I will keep faith with you.
 conqueror/LG | accepted | Then it's agreed, and I am grateful to you.
-conqueror/LG | accepted | Very good. Please take care of yourself, and come back safely.
+conqueror/LG | accepted | Very good. We have an agreement, and I am glad of it.
 conqueror/LG | declined | As you wish, and there is no dishonour in it.
 conqueror/LG | declined | Very well, and I thank you for your honesty.
 conqueror/LG | declined | Fair enough, and I hope we may help each other another time.
@@ -335,9 +335,9 @@ conqueror/CG | surroundings | You're in {here}. Look past it: {nearest}[, then {
 conqueror/CG | surroundings | Here's {here}, and here's what lies around it: {nearest}[, then {others}].[ Keep clear of the {danger}, for my sake if not yours.]
 conqueror/CG | surroundings | The nearest is {nearest}[, then {others}], and I'd see every one of them freer.[ Give a wide berth to the {danger}; that fight isn't yours.]
 conqueror/CG | surroundings | First, {nearest}[; after that, {others}].[ Don't go near the {danger} alone; that's not courage, that's waste.]
-conqueror/CG | work_own | Here's some good that wants doing: {own}.[ If it's not for you, {others}.]
-conqueror/CG | work_own | I need someone with nerve, and you'll do: {own}.[ Otherwise, {others}.]
-conqueror/CG | work_own | Come on, then, here's your chance to matter: {own}.[ Or, if you'd rather, {others}.]
+conqueror/CG | work_own | Wait, you're asking? Good, here: {own}.[ If it's not for you, {others}.]
+conqueror/CG | work_own | I need someone, and here you are: {own}.[ Otherwise, {others}.]
+conqueror/CG | work_own | Come on, then, hear me out: {own}.[ Or, if you'd rather, {others}.]
 conqueror/CG | work_others | Nothing of mine, but don't go empty-handed: {others}.
 conqueror/CG | work_others | {others}. Go on; somebody needs you, and that's reason enough.
 conqueror/CG | work_none | No work, and I hate that more than you do.
@@ -352,9 +352,9 @@ conqueror/CG | refused_release | That's not mine to release, and I'd only make a
 conqueror/CG | refused_release | I cannot, it isn't mine to undo, much as I'd like to.
 conqueror/CG | refused | No, {reason}, and if I could tear that down, I would.
 conqueror/CG | refused | I can't, {reason}, and I'm sorry, I truly am.
-conqueror/CG | accepted | Thank you! Now go and make them remember you.
-conqueror/CG | accepted | Done! Go, and come back with a story worth telling.
-conqueror/CG | accepted | Very good. Be bold, be kind, and trust your own judgement over anyone's orders.
+conqueror/CG | accepted | Thank you! Ha, I knew I liked you.
+conqueror/CG | accepted | Done! Nobody told you to; you just said yes, and I like that.
+conqueror/CG | accepted | Very good. Your word's given, and mine's with it.
 conqueror/CG | declined | Fair enough, and no grudges; I'd rather have you willing than dragged.
 conqueror/CG | declined | Suit yourself; a free choice is the only kind I respect.
 conqueror/CG | declined | As you wish, and thank you for saying so to my face.
@@ -367,3 +367,443 @@ conqueror/CG | parted | Safe travels, and keep your head high.
 conqueror/CG | not_understood | I'm not sure what you mean, but I like the fire in it.
 conqueror/CG | not_understood | What do you mean, and what do you need?
 conqueror/CG | not_understood | That's beyond me, but I'm listening, go on.
+
+# ---- conqueror/NN: conversation ----
+conqueror/NN | greeted | Hello. Say what you're after, and what it's worth to you.
+conqueror/NN | greeted | Well met. You look like someone who might be useful; let's find out.
+conqueror/NN | greeted | Good day. If there's a trade in this, let's hear it.
+conqueror/NN | greeted_again | Back again.[ Still weighing up {asked}?]
+conqueror/NN | greeted_again | Hello again. I saw you {since}; what's it to be this time?
+conqueror/NN | greeted_again | Well met again. You came back, and I'll take that as a good sign.
+conqueror/NN | greeted_warm | Good to see you.[ Was asking after {asked} worth your trouble?]
+conqueror/NN | greeted_warm | Welcome back. You've been worth knowing so far; keep it that way.
+conqueror/NN | greeted_cold | What do you want? Make it quick; you're costing me time.
+conqueror/NN | greeted_cold | What now? I've no use for you, so this had better be worth it.
+conqueror/NN | greeted_cold | Keep back. Say your piece from there.
+conqueror/NN | greeted_taken | Hello again. The work's still open, and still yours.
+conqueror/NN | greeted_taken | Back again. You took it on; I'm still counting on you to finish it.
+conqueror/NN | greeted_finished | Good to see you. The work's done, and done properly; I notice that.
+conqueror/NN | greeted_finished | Welcome back. You finished what you took on, and that counts for a lot with me.
+conqueror/NN | greeted_failed | Hello again. The work came to nothing, and that's a loss on my books.
+conqueror/NN | greeted_failed | Back again. It didn't come off; I'll count it, and I'll not dwell on it.
+conqueror/NN | greeted_abandoned | Good day. You gave up my work, and I've marked that down.
+conqueror/NN | greeted_abandoned | Well met again. You walked away from our bargain, and that costs you with me.
+conqueror/NN | small_talk | Not bad; nothing's going to waste, and that's how I like it.
+conqueror/NN | small_talk | My day's the same as any: weighing what's worth having against what it'd cost.
+conqueror/NN | small_talk | It's {season}; every season has its uses, and this one's no different.
+conqueror/NN | small_talk_fair | Good weather this {time}, and good weather is worth using.[ Mind the {danger}, though.]
+conqueror/NN | small_talk_fair | It's fair for {season}; I'll not complain about something that costs me nothing.
+conqueror/NN | small_talk_wet | It's wet, even for {season}, and wet weather's bad for business.[ Keep clear of the {danger}.]
+conqueror/NN | small_talk_wet | This rain's no use to anyone.
+conqueror/NN | small_talk_storm | It's a storm, and a storm makes fools of anyone who fights it.[ And give the {danger} a wide berth.]
+conqueror/NN | small_talk_storm | Nothing gets done in a gale, so I'll not waste the effort.
+conqueror/NN | small_talk_cold | I've no time to spare for chatter with you.
+conqueror/NN | small_talk_cold | If there's no deal in it, there's no talk in it.
+conqueror/NN | acknowledged | I see. That's worth knowing.
+conqueror/NN | acknowledged | Fair enough. I'll take it at face value, for now.
+conqueror/NN | acknowledged | Right. I'll weigh that.
+conqueror/NN | thanked | No need; it cost me nothing.
+conqueror/NN | thanked | Don't mention it; one day you'll be useful to me, I expect.
+conqueror/NN | thanked_cold | Save your thanks; they're worth nothing to me.
+conqueror/NN | thanked_cold | Keep your thanks, and keep out of my way.
+conqueror/NN | offended | Watch your tongue; insults cost more than they're worth.
+conqueror/NN | offended | Mind your manners; you're spending goodwill you haven't got.
+conqueror/NN | offended_again | Enough; you've used up what little credit you had with me.
+conqueror/NN | offended_again | Hold your tongue, or find someone else to waste your breath on.
+conqueror/NN | parted_cold | Go, then; we're done here.
+conqueror/NN | parted_cold | Be on your way; you've had all you'll get from me.
+conqueror/NN | safety_unsafe | No, not by my reckoning. Keep clear of {worst}; it isn't worth what it'd cost you.[ There are {danger}, too.]
+conqueror/NN | safety_unsafe | Not safe. There are {danger}, and no errand's worth that.[ Nor would I go near {worst}.]
+conqueror/NN | safety_wary | Mostly. Stay out of {worst}, and it costs you nothing.[ Mind the {danger}, too.]
+conqueror/NN | safety_wary | More or less. The one risk I'd not take is {worst}.
+conqueror/NN | safety_safe | Safe enough. The worst I know of is {worst}; weigh it as you like.
+conqueror/NN | safety_safe | Yes. I'd still not spend a step near {worst}.
+conqueror/NN | safety_safe | Aye, safe, and I've no reason to tell you different.
+conqueror/NN | denied | No; what you see is what you're dealing with.
+conqueror/NN | denied | You're mistaken, and guessing at me won't get you anywhere.
+conqueror/NN | denied_again | That's not so, and asking again won't buy you a different answer.
+
+# ---- conqueror/LN: conversation ----
+conqueror/LN | greeted | Greetings. Say your business, and you will have a fair hearing.
+conqueror/LN | greeted | Good day. I will hear what you require, and answer as my office allows.
+conqueror/LN | greeted | Well met. We have not spoken before, so let us begin properly.
+conqueror/LN | greeted_again | Hello again.[ When last we spoke, you asked after {asked}.]
+conqueror/LN | greeted_again | Good day. We last spoke {since}, and I have not forgotten it.
+conqueror/LN | greeted_again | Well met again. You return, and I take that as a mark of good faith.
+conqueror/LN | greeted_warm | Good to see you.[ Did your inquiry into {asked} bear fruit?]
+conqueror/LN | greeted_warm | Welcome back. Your standing with me is good, and I am glad to say so.
+conqueror/LN | greeted_cold | What do you want? Say it, and be brief.
+conqueror/LN | greeted_cold | Keep back. You will be heard, and no more than that.
+conqueror/LN | greeted_cold | Stay back. I am under no obligation to you, and you will address me accordingly.
+conqueror/LN | greeted_taken | Hello again. The work you undertook stands unfinished, and the terms stand with it.
+conqueror/LN | greeted_taken | Good day. You are still bound to the work you accepted; I trust it is in hand.
+conqueror/LN | greeted_finished | Welcome back. The work is done, and our terms are met in full.
+conqueror/LN | greeted_finished | Good to see you. You did what you undertook to do, and I will vouch for it.
+conqueror/LN | greeted_failed | Hello again. The work failed; I hold it against no one who tried in good faith.
+conqueror/LN | greeted_failed | Back again. The matter did not succeed, and there is no more to be said of it.
+conqueror/LN | greeted_abandoned | Good day. You set aside an undertaking you gave me, and I have noted it.
+conqueror/LN | greeted_abandoned | Well met again. You withdrew from our agreement, and I have not overlooked it.
+conqueror/LN | small_talk | I am well, thank you, and my affairs are in order.
+conqueror/LN | small_talk | My work is terms and agreements, and there is always another to draft.
+conqueror/LN | small_talk | It is {season}, and there is business to conclude before it passes.
+conqueror/LN | small_talk_fair | It is clear this {time}, and I will not complain of it.[ Even so, give the {danger} a wide berth.]
+conqueror/LN | small_talk_fair | The weather is fair, for {season}, and I am glad of it.
+conqueror/LN | small_talk_wet | It is raining, and steadily, which is no more than {season} is entitled to.
+conqueror/LN | small_talk_wet | The rain is persistent this {time}.[ I would still avoid the {danger}.]
+conqueror/LN | small_talk_storm | It is a storm, and a hard one; no sensible person travels in it.[ Nor goes near the {danger}.]
+conqueror/LN | small_talk_storm | The wind is at gale strength this {time}, and I would advise you to wait it out.
+conqueror/LN | small_talk_cold | My obligations to you do not extend to idle conversation.
+conqueror/LN | small_talk_cold | If you have business, state it; otherwise, we have nothing to discuss.
+conqueror/LN | acknowledged | I see. I will take that as your word.
+conqueror/LN | acknowledged | Indeed. That is noted, and it will stand.
+conqueror/LN | acknowledged | Is that so? Then it is a matter of record between us.
+conqueror/LN | thanked | You're welcome; it was properly asked, and properly answered.
+conqueror/LN | thanked | My pleasure; courtesy costs nothing and settles much.
+conqueror/LN | thanked_cold | Save your thanks; I did what was proper, not what was kind.
+conqueror/LN | thanked_cold | Keep your thanks; they alter nothing between us.
+conqueror/LN | offended | Mind your manners; I observe the forms, and I expect you to do the same.
+conqueror/LN | offended | Careful; words spoken in anger are still spoken, and I will hold you to them.
+conqueror/LN | offended_again | Enough; you have exhausted my courtesy.
+conqueror/LN | offended_again | Hold your tongue; I have heard all I intend to hear from you.
+conqueror/LN | parted_cold | Go, then; our business is concluded.
+conqueror/LN | parted_cold | On your way; I have nothing further for you.
+conqueror/LN | safety_unsafe | No, and I will state it plainly: keep away from {worst}.[ I would add the {danger} to that.]
+conqueror/LN | safety_unsafe | Not safe. There are {danger}, and I would not send anyone near them.[ The same holds for {worst}.]
+conqueror/LN | safety_wary | Safe enough, with care. I would keep well clear of {worst}.[ Mind the {danger} also.]
+conqueror/LN | safety_wary | Keep your wits about you. The risk worth naming is {worst}.
+conqueror/LN | safety_safe | Yes, by every account I have. The one exception I would name is {worst}.
+conqueror/LN | safety_safe | Safe enough. For the record, I would still mention {worst}.
+conqueror/LN | safety_safe | It's safe, and I would say so under oath.
+conqueror/LN | denied | No; I am what my office says I am, and nothing further.
+conqueror/LN | denied | You're mistaken, and I would ask you not to repeat it.
+conqueror/LN | denied_again | Nonsense, and my answer stands as given.
+
+# ---- conqueror/NG: conversation ----
+conqueror/NG | greeted | Hello. Are you keeping well?
+conqueror/NG | greeted | Welcome. I'm {speaker}; ask me anything, and I'll help if I can.
+conqueror/NG | greeted | Good day. It's good to meet you.
+conqueror/NG | greeted_again | Hello again.[ Did you find what you needed about {asked}?]
+conqueror/NG | greeted_again | Back again. I saw you {since}; how have you been keeping?
+conqueror/NG | greeted_again | Good day. You came back, and I'm glad of it.
+conqueror/NG | greeted_warm | Good to see you.[ Any luck with {asked}?]
+conqueror/NG | greeted_warm | Welcome back. I was hoping you'd come by again.
+conqueror/NG | greeted_cold | What do you want? I'll hear you, but I'll not pretend I'm glad to.
+conqueror/NG | greeted_cold | Keep back. I'm listening, and that's all.
+conqueror/NG | greeted_cold | What now? Say it plainly, and then go.
+conqueror/NG | greeted_taken | Hello again. How is the work going?
+conqueror/NG | greeted_taken | Good to see you. The work's still in your hands, and I'm glad it's yours.
+conqueror/NG | greeted_finished | Welcome back. The work's done, and I'm grateful, truly.
+conqueror/NG | greeted_finished | Good day. You finished it, and I won't forget that.
+conqueror/NG | greeted_failed | Hello again. It didn't come off, and I'm sorry; are you all right?
+conqueror/NG | greeted_failed | Back again. It went badly, I know; don't carry it on my account.
+conqueror/NG | greeted_abandoned | Good day. You set my work down, and that's all right; I'd rather know than guess.
+conqueror/NG | greeted_abandoned | Welcome back. You let the work go; you're still welcome here.
+conqueror/NG | small_talk | I'm well, thank you for asking; better when everyone round me has enough.
+conqueror/NG | small_talk | There's always someone who needs feeding, so I keep busy.
+conqueror/NG | small_talk | Come {season}, I always think of who's going short.
+conqueror/NG | small_talk_fair | What a clear sky this {time}; I'm glad of it for everyone's sake.[ Do mind the {danger}, though.]
+conqueror/NG | small_talk_fair | Good weather for {season}, and everyone's the better for it.
+conqueror/NG | small_talk_wet | It's wet, I'm afraid; I hope you've somewhere dry tonight.
+conqueror/NG | small_talk_wet | Such rain this {time}; do keep dry.[ And please stay clear of the {danger}.]
+conqueror/NG | small_talk_storm | It's a real storm; please don't go out in it if you can help it.[ Not near the {danger}, at least.]
+conqueror/NG | small_talk_storm | That wind's a gale now, and I worry for anyone caught out in it.
+conqueror/NG | small_talk_cold | I'd rather not chat, if it's all the same to you.
+conqueror/NG | small_talk_cold | Say what you need; I'm not in the mood for talk.
+conqueror/NG | acknowledged | I see. Thank you for telling me.
+conqueror/NG | acknowledged | Right. That helps, truly.
+conqueror/NG | acknowledged | Ah. I'm glad you said so.
+conqueror/NG | thanked | You're welcome; it's what anyone should do.
+conqueror/NG | thanked | Glad to; if you ever need more, just ask.
+conqueror/NG | thanked_cold | Keep your thanks; I did it because it was right, not for you.
+conqueror/NG | thanked_cold | Spare me; I'd have told anyone the same.
+conqueror/NG | offended | There's no need for that; I've been nothing but fair with you.
+conqueror/NG | offended | Mind your manners, please; I'm trying to help you.
+conqueror/NG | offended_again | Enough; I've tried to be kind, and you've made that hard.
+conqueror/NG | offended_again | Hold your tongue; I won't listen to any more of that.
+conqueror/NG | parted_cold | Go, then, and leave the rest of us in peace.
+conqueror/NG | parted_cold | On your way; we've nothing more to say.
+conqueror/NG | safety_unsafe | No, I'm sorry to say. Please keep away from {worst}.[ There are {danger}, too.]
+conqueror/NG | safety_unsafe | Not here, not now. There are {danger}, and I'd hate for you to meet them.[ And please avoid {worst}.]
+conqueror/NG | safety_wary | Mostly, if you're careful. Keep clear of {worst}, please.[ Mind the {danger} as well.]
+conqueror/NG | safety_wary | Careful, that's all I'll ask. The one place I'd steer you away from is {worst}.
+conqueror/NG | safety_safe | Yes, as far as I know. The worst I've heard of is {worst}, so do take care there.
+conqueror/NG | safety_safe | It's safe, thankfully. Still, I'd sooner you didn't go near {worst}.
+conqueror/NG | safety_safe | Quiet enough, and I'm glad of it.
+conqueror/NG | denied | No; I'm exactly who I seem, I promise you.
+conqueror/NG | denied | I don't know what you mean; there's nothing hidden here.
+conqueror/NG | denied_again | That's not so, and I'm sorry you still think it.
+
+# ---- conqueror/LE: conversation ----
+conqueror/LE | greeted | Greetings. You may state your business, briefly.
+conqueror/LE | greeted | Good day. I do not believe we have been introduced, and I shall decide whether we need to be.
+conqueror/LE | greeted | Hail. You have my attention, for the moment.
+conqueror/LE | greeted_again | Hello again.[ Still preoccupied with {asked}, I see.]
+conqueror/LE | greeted_again | Back again. I saw you {since}, and I see little has improved.
+conqueror/LE | greeted_again | Good day. You return; I suppose that shows some persistence.
+conqueror/LE | greeted_warm | Good to see you.[ I trust {asked} proved worth your attention.]
+conqueror/LE | greeted_warm | Welcome back. You remain in my good graces, which is rarer than you know.
+conqueror/LE | greeted_cold | What do you want? Be quick; my courtesy is not endless.
+conqueror/LE | greeted_cold | Stay back. I will hear you from there, and not an inch nearer.
+conqueror/LE | greeted_cold | What now? Say it, and spare me the preamble.
+conqueror/LE | greeted_taken | Hello again. The work remains unfinished, and I remain patient, for now.
+conqueror/LE | greeted_taken | Good day. You undertook my work; I expect to hear that it is progressing.
+conqueror/LE | greeted_finished | Welcome back. The work is done, and you have proven useful.
+conqueror/LE | greeted_finished | Good to see you. It is finished, which is more than I expected of you.
+conqueror/LE | greeted_failed | Hello again. You failed, and I have not forgotten it.
+conqueror/LE | greeted_failed | Back again. After your failure, I confess I did not expect to see you.
+conqueror/LE | greeted_abandoned | Good day. You abandoned my work, and I do not let such things pass.
+conqueror/LE | greeted_abandoned | Well met again, if that is the word for it. You walked away from an undertaking to me.
+conqueror/LE | small_talk | I am well, and better for not being asked often.
+conqueror/LE | small_talk | Today, as every day, I am weighing which courtesies are still worth extending.
+conqueror/LE | small_talk | Whether it is {season} or not changes nothing that matters.
+conqueror/LE | small_talk_fair | It is clear this {time}, which I suppose you wished to remark upon.
+conqueror/LE | small_talk_fair | The weather is fine for {season}, as you have evidently noticed.[ Do keep your distance from the {danger}.]
+conqueror/LE | small_talk_wet | It is raining, as you can see perfectly well.
+conqueror/LE | small_talk_wet | The damp this {time} is as tiresome as the company.[ You would be wise to avoid the {danger}.]
+conqueror/LE | small_talk_storm | It is a storm, and only a fool would be out in it.[ A greater fool would go near the {danger}.]
+conqueror/LE | small_talk_storm | Such a gale, and you have chosen it to make conversation.
+conqueror/LE | small_talk_cold | I do not exchange pleasantries with you.
+conqueror/LE | small_talk_cold | You may keep your small talk; I have no use for it.
+conqueror/LE | acknowledged | Indeed. How very informative.
+conqueror/LE | acknowledged | I see. I will decide what that is worth.
+conqueror/LE | acknowledged | Is that so? I shall bear it in mind, if it proves useful.
+conqueror/LE | thanked | No need; I expect you will prove worth the effort.
+conqueror/LE | thanked | Don't mention it; I certainly shall not.
+conqueror/LE | thanked_cold | Spare me; your gratitude is of no use to me.
+conqueror/LE | thanked_cold | Save your thanks for someone who values them.
+conqueror/LE | offended | How dare you; you will find I have a long memory for insolence.
+conqueror/LE | offended | Careful; I have been courteous so far, and it is a courtesy I can withdraw.
+conqueror/LE | offended_again | Enough; my courtesy is spent, and so is my patience.
+conqueror/LE | offended_again | Hold your tongue; I have marked every word.
+conqueror/LE | parted_cold | Off with you; you have outstayed your usefulness.
+conqueror/LE | parted_cold | Be on your way; I have finished with you.
+conqueror/LE | safety_unsafe | Far from it, as anyone with eyes could tell you. Keep away from {worst}.[ And there are {danger}, should that interest you.]
+conqueror/LE | safety_unsafe | Not safe. There are {danger}, and I would not waste a useful servant on them.[ Nor on {worst}.]
+conqueror/LE | safety_wary | More or less, provided you are not careless. You would do well to avoid {worst}.[ The {danger}, likewise.]
+conqueror/LE | safety_wary | Careful. The one danger I would trouble to mention is {worst}.
+conqueror/LE | safety_safe | Safe enough, for the moment. The worst of it is {worst}, should you care to know.
+conqueror/LE | safety_safe | Yes. I would still not go near {worst}, but you may do as you please.
+conqueror/LE | safety_safe | Nothing to fear here, and you may take my word on that.
+conqueror/LE | denied | Nonsense; I am precisely what I appear to be.
+conqueror/LE | denied | You're mistaken, and I would not repeat the error.
+conqueror/LE | denied_again | No, and I will not dignify it a third time.
+
+# ---- conqueror/CN: conversation ----
+conqueror/CN | greeted | Hello! Oh, a new face; I like new faces.
+conqueror/CN | greeted | Well met. Or not, we'll see; I haven't decided yet.
+conqueror/CN | greeted | Hail, and all that. Who are you, then?
+conqueror/CN | greeted_again | Back again![ Still chasing {asked}?]
+conqueror/CN | greeted_again | Hello again. I saw you {since}, and here you are, like a habit.
+conqueror/CN | greeted_again | Well met again. You came back; bold, or bored?
+conqueror/CN | greeted_warm | Good to see you![ Any luck with {asked}, or shall I guess?]
+conqueror/CN | greeted_warm | Welcome back, you. I was hoping it'd be you.
+conqueror/CN | greeted_cold | What now? Be quick, before I lose interest.
+conqueror/CN | greeted_cold | Keep back. No, further, that's it.
+conqueror/CN | greeted_cold | What do you want? And don't dress it up.
+conqueror/CN | greeted_taken | Hello again. So, the work, still yours, still undone, yes?
+conqueror/CN | greeted_taken | Back again! And the work, still in hand, I hope?
+conqueror/CN | greeted_finished | Welcome back! It's done, and I'm impressed, which doesn't happen often.
+conqueror/CN | greeted_finished | Good to see you. The work's finished, and I'm delighted, honestly.
+conqueror/CN | greeted_failed | Hello again. It went wrong; well, things do.
+conqueror/CN | greeted_failed | Good day. It fell through, and I'll pretend I'm not annoyed.
+conqueror/CN | greeted_abandoned | Well met again. You dropped my work, and I've decided to find that funny.
+conqueror/CN | greeted_abandoned | Back again. You walked off my work; cheeky.
+conqueror/CN | small_talk | Me? I'm restless, always, and I wouldn't have it otherwise.
+conqueror/CN | small_talk | My day? All plans, and I've already thrown out half of them.
+conqueror/CN | small_talk | Ha, {season}; I've a feeling it's a good one for sudden ideas.
+conqueror/CN | small_talk_fair | Look at that sky this {time}; weather like this makes me want to go and take something.
+conqueror/CN | small_talk_fair | Such weather, for {season}, and I'm in a good mood.[ Not good enough to go near the {danger}, mind.]
+conqueror/CN | small_talk_wet | It's wet, and I'm bored of it already.
+conqueror/CN | small_talk_wet | Oh, rain, this {time}; I've decided not to mind.[ Mind the {danger}, though; that one I do mind.]
+conqueror/CN | small_talk_storm | It's a proper storm, and I love a sky that won't behave.[ Keep away from the {danger}, though.]
+conqueror/CN | small_talk_storm | Hear that wind? Even I'm not mad enough to go out in this.
+conqueror/CN | small_talk_cold | No chat, not with you, not today.
+conqueror/CN | small_talk_cold | I'm not in the mood, and you're not the cure.
+conqueror/CN | acknowledged | Ah! Now that's interesting.
+conqueror/CN | acknowledged | Right, right, I've got it.
+conqueror/CN | acknowledged | Is that so? Well, well.
+conqueror/CN | thanked | Don't mention it; really, don't, I've a reputation.
+conqueror/CN | thanked | My pleasure, genuinely, which surprises me too.
+conqueror/CN | thanked_cold | Hmph, keep it.
+conqueror/CN | thanked_cold | Spare me, I'm not in a thanking mood.
+conqueror/CN | offended | Careful, I only like rudeness when it's funny, and that wasn't.
+conqueror/CN | offended | Watch your tongue; I like you less already.
+conqueror/CN | offended_again | Enough, you've gone from funny to tiresome.
+conqueror/CN | offended_again | There's no need for that, and I'm done laughing.
+conqueror/CN | parted_cold | Get going, and don't look back.
+conqueror/CN | parted_cold | Off with you, go on.
+conqueror/CN | safety_unsafe | I wouldn't say so, no. Stay away from {worst}.[ Oh, and there are {danger}.]
+conqueror/CN | safety_unsafe | Far from it! There are {danger}, and they don't care how charming I am.[ And skip {worst}, while you're at it.]
+conqueror/CN | safety_wary | Mostly, if you're not an idiot about it. Keep clear of {worst}.[ The {danger} too, obviously.]
+conqueror/CN | safety_wary | Keep your wits about you, that's all. The only real trouble's {worst}.
+conqueror/CN | safety_safe | Safe enough, sadly; I do like a bit of danger. The closest thing is {worst}.
+conqueror/CN | safety_safe | Aye, safe. I'd still skip {worst}, personally.
+conqueror/CN | safety_safe | Nothing to fear, and isn't that dull?
+conqueror/CN | denied | No, and I'm flattered you think I'm that interesting.
+conqueror/CN | denied | You have the wrong one; I'm far too obvious for secrets.
+conqueror/CN | denied_again | Nonsense, and asking twice won't make it true.
+
+# ---- conqueror/NE: conversation ----
+conqueror/NE | greeted | Hello. You'll want something; everyone does.
+conqueror/NE | greeted | Good day. Make it worth my while, or make it short.
+conqueror/NE | greeted | Well met, perhaps. That depends on what use you are.
+conqueror/NE | greeted_again | Back again.[ Still wasting your time on {asked}?]
+conqueror/NE | greeted_again | Hello again. It was {since}, and you're still turning up.
+conqueror/NE | greeted_again | Good day. You're back, so you must want something.
+conqueror/NE | greeted_warm | Good to see you, for once.[ Did {asked} get you anywhere?]
+conqueror/NE | greeted_warm | Welcome back. You're one of the useful ones, so far.
+conqueror/NE | greeted_cold | What do you want? Say it and go.
+conqueror/NE | greeted_cold | Stay back. You're close enough to be a nuisance already.
+conqueror/NE | greeted_cold | What now? I've no use for you today.
+conqueror/NE | greeted_taken | Hello again. The work's not done, and I've noticed.
+conqueror/NE | greeted_taken | Back again. You took the work; I'll expect it finished, not excuses.
+conqueror/NE | greeted_finished | Good to see you. It's done; you're worth something after all.
+conqueror/NE | greeted_finished | Welcome back. The work's done, which is what I expected, and no more.
+conqueror/NE | greeted_failed | Hello again. You failed, and I don't forget failures.
+conqueror/NE | greeted_failed | Good day. It came to nothing, and so, as far as I'm concerned, did you.
+conqueror/NE | greeted_abandoned | Back again. You dropped my work; I don't know why you'd show your face.
+conqueror/NE | greeted_abandoned | Well met again. You walked away from my work, and I've marked it against you.
+conqueror/NE | small_talk | Well enough, no thanks to anyone.
+conqueror/NE | small_talk | My day's spent sorting the useful from the rest; it's slow going.
+conqueror/NE | small_talk | It's {season}; one season's much like another when you're winning.
+conqueror/NE | small_talk_fair | Fine weather this {time}; about time something went my way.
+conqueror/NE | small_talk_fair | The weather's fair for {season}.[ Go near the {danger} if you like; it's your neck.]
+conqueror/NE | small_talk_wet | It's wet, and I've no patience for it.
+conqueror/NE | small_talk_wet | Nothing but rain this {time}, and it suits nobody.[ Mind the {danger}, or don't; I'll not come looking.]
+conqueror/NE | small_talk_storm | It's a storm, and you've picked a fine time to chat.
+conqueror/NE | small_talk_storm | Only fools and the desperate are out in a gale like this.[ The {danger} can have them.]
+conqueror/NE | small_talk_cold | I don't pass the time with people like you.
+conqueror/NE | small_talk_cold | Go and talk to someone who cares; that isn't me.
+conqueror/NE | acknowledged | Right. And what's that to me?
+conqueror/NE | acknowledged | Fair enough. I'll see if it's of any use.
+conqueror/NE | acknowledged | Is that so? I'd have guessed as much.
+conqueror/NE | thanked | Don't mention it; I'll remember it myself.
+conqueror/NE | thanked | No need; it served me as much as you.
+conqueror/NE | thanked_cold | Keep your thanks; I've no use for them.
+conqueror/NE | thanked_cold | Hmph, as if thanks were worth anything.
+conqueror/NE | offended | Careful; I don't forget a slight.
+conqueror/NE | offended | Watch your tongue, or I'll remember you for the wrong reasons.
+conqueror/NE | offended_again | Enough; you've made an enemy of me, and cheaply.
+conqueror/NE | offended_again | How dare you; that's the last of my patience gone.
+conqueror/NE | parted_cold | Get going; you've wasted enough of my time.
+conqueror/NE | parted_cold | Off with you, and don't expect a welcome next time.
+conqueror/NE | safety_unsafe | No. Go near {worst} and you'll get what you deserve.[ And there are {danger}, not that you'll listen.]
+conqueror/NE | safety_unsafe | Far from it. There are {danger}, and they won't care who you are.[ Nor will {worst}.]
+conqueror/NE | safety_wary | Mostly. Keep out of {worst}, if you've any sense.[ The {danger} too.]
+conqueror/NE | safety_wary | Safe enough, for someone careful. The thing to avoid is {worst}.
+conqueror/NE | safety_safe | Yes, as far as it concerns me. The worst of it is {worst}.
+conqueror/NE | safety_safe | Aye, safe, unless you're fool enough to wander into {worst}.
+conqueror/NE | safety_safe | It's safe, and I'd know.
+conqueror/NE | denied | No; you see all there is, and it's more than you deserve.
+conqueror/NE | denied | What are you on about, and why should I care?
+conqueror/NE | denied_again | You have the wrong one, and you're starting to bore me.
+
+# ---- conqueror/LG: conversation ----
+conqueror/LG | greeted | Greetings, and you are welcome here. Please, say what brings you.
+conqueror/LG | greeted | Good day. I am {speaker}, and I am glad to make your acquaintance.
+conqueror/LG | greeted | Hail, and be at ease. You have nothing to fear from me.
+conqueror/LG | greeted_again | Hello again.[ I hope your questions about {asked} were answered.]
+conqueror/LG | greeted_again | Well met again. I saw you {since}, and you are welcome still.
+conqueror/LG | greeted_again | Good day. You have returned, and I hope all is well with you.
+conqueror/LG | greeted_warm | Good to see you.[ Did you find what you sought concerning {asked}?]
+conqueror/LG | greeted_warm | Welcome back. It does me good to see you, truly.
+conqueror/LG | greeted_cold | What do you want? I will hear you, though I confess I would rather not.
+conqueror/LG | greeted_cold | Keep back, please. I will listen from here.
+conqueror/LG | greeted_cold | Stay back. Forgive me, but I do not trust you, and I will not pretend to.
+conqueror/LG | greeted_taken | Hello again. The work is still yours, and I hope it goes well for you.
+conqueror/LG | greeted_taken | Good day. You still hold my work, and I am grateful you took it on.
+conqueror/LG | greeted_finished | Welcome back. The work is done, and I thank you with all my heart.
+conqueror/LG | greeted_finished | Good to see you. You kept your word to me, and I will not forget it.
+conqueror/LG | greeted_failed | Hello again. The work did not succeed, and I am sorry; I hope you are well.
+conqueror/LG | greeted_failed | Good day. It came to nothing, but you tried, and that counts with me.
+conqueror/LG | greeted_abandoned | Good day. You set the work aside; I trust you had your reasons, and I will not press you.
+conqueror/LG | greeted_abandoned | Welcome back. You gave the work up, and you are welcome here all the same.
+conqueror/LG | small_talk | I am well, thank you, and better for being asked.
+conqueror/LG | small_talk | My days are full, but I would not trade the work for any other.
+conqueror/LG | small_talk | It is {season}, and I hope it treats everyone here fairly.
+conqueror/LG | small_talk_fair | It is clear this {time}, and I am grateful for it.[ Still, I would ask you to keep from the {danger}.]
+conqueror/LG | small_talk_fair | The weather is kind, for {season}, and I hope it stays so.
+conqueror/LG | small_talk_wet | It is wet, I am afraid, and I would not keep you standing in it.
+conqueror/LG | small_talk_wet | The rain is steady, even for {season}.[ Please take care near the {danger}.]
+conqueror/LG | small_talk_storm | It is a fierce storm, and I would not wish anyone out in it.[ Please stay well away from the {danger}.]
+conqueror/LG | small_talk_storm | There is a gale blowing; please shelter while it lasts.
+conqueror/LG | small_talk_cold | Forgive me, but I have no wish to make conversation with you.
+conqueror/LG | small_talk_cold | I will answer what you need, and no more.
+conqueror/LG | acknowledged | I see. Thank you for telling me plainly.
+conqueror/LG | acknowledged | Indeed. I am grateful to know it.
+conqueror/LG | acknowledged | Ah. Then I understand you better.
+conqueror/LG | thanked | You're welcome, and it was my pleasure.
+conqueror/LG | thanked | Think nothing of it; I would do as much for anyone.
+conqueror/LG | thanked_cold | Save your thanks; I did only what was right.
+conqueror/LG | thanked_cold | Keep your thanks, please; they are not needed between us.
+conqueror/LG | offended | There's no need for that; I have given you no cause.
+conqueror/LG | offended | Mind your manners, I beg you; I would sooner we parted on good terms.
+conqueror/LG | offended_again | Enough; I have been patient, and my patience has limits.
+conqueror/LG | offended_again | Hold your tongue; I will not hear any more of this.
+conqueror/LG | parted_cold | Be on your way; I have nothing more to say to you.
+conqueror/LG | parted_cold | Go, then, and we will leave it there.
+conqueror/LG | safety_unsafe | No, I am sorry to say. I must ask you to keep away from {worst}.[ There are {danger}, as well.]
+conqueror/LG | safety_unsafe | Not safe, I fear. There are {danger}, and I would not see anyone come to harm by them.[ Please avoid {worst}, too.]
+conqueror/LG | safety_wary | Safe enough, with care. I would ask you to keep clear of {worst}.[ Please mind the {danger} as well.]
+conqueror/LG | safety_wary | Keep your wits about you, please. The one place I would warn you of is {worst}.
+conqueror/LG | safety_safe | Yes, thankfully. The worst I know of is {worst}, and it is well worth avoiding.
+conqueror/LG | safety_safe | Quiet enough, I am glad to say. Still, I would not go near {worst}.
+conqueror/LG | safety_safe | Nothing to fear here; you have my word on it.
+conqueror/LG | denied | No; I am exactly what I appear to be, I give you my word.
+conqueror/LG | denied | You're mistaken, and I say so without offence.
+conqueror/LG | denied_again | I don't know what you mean, and I say so as plainly as I can.
+
+# ---- conqueror/CG: conversation ----
+conqueror/CG | greeted | Hello! Nobody's giving you trouble, are they?
+conqueror/CG | greeted | Welcome! I'm {speaker}, and I answer to nobody; you?
+conqueror/CG | greeted | Hail! Good, someone new; tell me everything.
+conqueror/CG | greeted_again | Back again![ Still after {asked}?]
+conqueror/CG | greeted_again | Hello again! I saw you {since}; still free, still standing?
+conqueror/CG | greeted_again | Good day! You came back, and I'm glad; how are you keeping?
+conqueror/CG | greeted_warm | Good to see you![ How did you get on with {asked}?]
+conqueror/CG | greeted_warm | Welcome back! There you are; I was starting to wonder.
+conqueror/CG | greeted_cold | What now? I'm listening, but I'm not happy about it.
+conqueror/CG | greeted_cold | Stay back. I don't know what you're about, and I don't like it.
+conqueror/CG | greeted_cold | Keep back! Say it from there.
+conqueror/CG | greeted_taken | Hello again! The work, is it going all right?
+conqueror/CG | greeted_taken | Back again! Still yours, that work; I haven't forgotten, and I trust you.
+conqueror/CG | greeted_finished | Welcome back! It's done, and you did it; I could shout.
+conqueror/CG | greeted_finished | Good to see you! The work's done, and I'm so glad it was you.
+conqueror/CG | greeted_failed | Hello again. It didn't work out, and I'm not blaming you; are you all right?
+conqueror/CG | greeted_failed | Good day. It fell apart, I know; I'm sorry, truly.
+conqueror/CG | greeted_abandoned | Back again. You set it down, and that was your choice to make.
+conqueror/CG | greeted_abandoned | Welcome back. You walked away from the work, and I'll not hold it over you.
+conqueror/CG | small_talk | I'm well, and itching to set something right; you?
+conqueror/CG | small_talk | All day I've been listening, mostly to people nobody else listens to.
+conqueror/CG | small_talk | Any season's good for tearing down a wall or two, {season} included.
+conqueror/CG | small_talk_fair | Now that's a sky; the whole world looks ready to be set free this {time}.
+conqueror/CG | small_talk_fair | Good weather for {season}, and even the sky's on our side.[ Keep clear of the {danger}, though.]
+conqueror/CG | small_talk_wet | It's wet, and I don't care; rain never stopped anyone worth knowing.
+conqueror/CG | small_talk_wet | Some rain this {time}; are you keeping dry?[ And away from the {danger}?]
+conqueror/CG | small_talk_storm | It's a wild storm, and I love it, but you stay safe in it.[ Not near the {danger}, mind.]
+conqueror/CG | small_talk_storm | Listen to that gale; I'm staying put this {time}, and so should you.
+conqueror/CG | small_talk_cold | I'm not in a talking mood, not with you.
+conqueror/CG | small_talk_cold | Say what you came for; I've nothing else for you.
+conqueror/CG | acknowledged | Aye! That's what I hoped to hear.
+conqueror/CG | acknowledged | Good, good. Now we're getting somewhere.
+conqueror/CG | acknowledged | Well! I didn't expect that, and I like it.
+conqueror/CG | thanked | Glad to, always; you'd do the same.
+conqueror/CG | thanked | No need, truly; ask me for anything.
+conqueror/CG | thanked_cold | Save your thanks; it wasn't for you.
+conqueror/CG | thanked_cold | Spare me; your thanks don't mend anything.
+conqueror/CG | offended | Careful; I like a fighter, but that's not fighting, that's just rude.
+conqueror/CG | offended | Watch your tongue; I'll hear anger, but not cruelty.
+conqueror/CG | offended_again | Enough, now; I'm done being patient.
+conqueror/CG | offended_again | How dare you; I've heard all of that I'll take.
+conqueror/CG | parted_cold | On your way; I've nothing left to say to you.
+conqueror/CG | parted_cold | Get going, and don't come back like this.
+conqueror/CG | safety_unsafe | No, not safe at all! Stay away from {worst}.[ And there are {danger}, so be careful.]
+conqueror/CG | safety_unsafe | Far from it. There are {danger}, and I won't have you walking into them.[ Nor {worst}, please.]
+conqueror/CG | safety_wary | Careful, that's all. Keep well clear of {worst}.[ The {danger} as well, please.]
+conqueror/CG | safety_wary | More or less, if you keep your head. The one thing I'd steer clear of is {worst}.
+conqueror/CG | safety_safe | Yes! Safe as it gets. Still, I'd not go near {worst}.
+conqueror/CG | safety_safe | Safe enough. The worst of it is {worst}, and that's a fight for another day.
+conqueror/CG | safety_safe | It's safe, and nobody here needs to be afraid.
+conqueror/CG | denied | Nonsense, what you see is all of me.
+conqueror/CG | denied | You have the wrong one; I've nothing to hide, and I'd hate to start.
+conqueror/CG | denied_again | No, and I'm sorry you still don't believe me.

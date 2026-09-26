@@ -14,8 +14,8 @@ corrupt/NN | surroundings | This is {here}. The closest is {nearest}[, and after
 corrupt/NN | surroundings | We're in {here}, and what's closest is {nearest}.[ Then {others}.][ The {danger} I'd leave well alone.]
 corrupt/NN | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Give the {danger} a wide berth.]
 corrupt/NN | surroundings | What's nearest is {nearest}[, then {others}].[ Watch for the {danger}.]
-corrupt/NN | work_own | Here's one with something in it for both of us: {own}.[ If it doesn't suit, {others}.]
-corrupt/NN | work_own | I could use you: {own}.[ Or else, {others}.]
+corrupt/NN | work_own | Here's one for the ledger: {own}.[ If it doesn't suit, {others}.]
+corrupt/NN | work_own | I could use you: {own}.[ If not, {others}.]
 corrupt/NN | work_own | Do me a good turn and I'll remember it: {own}.[ Otherwise, {others}.]
 corrupt/NN | work_others | I've nothing of my own, but {others}.
 corrupt/NN | work_others | My hands are empty, but I know whose aren't: {others}. Remember who told you.
@@ -32,7 +32,7 @@ corrupt/NN | refused_release | I won't undo a deal I never made.
 corrupt/NN | refused | No, {reason}, and there's no profit in arguing with that.
 corrupt/NN | refused | I can't, {reason}, and I don't throw good effort after bad.
 corrupt/NN | accepted | Done. That's one in your favour.
-corrupt/NN | accepted | Good. Bring it off and you'll find me grateful.
+corrupt/NN | accepted | Good. That's a deal, and I keep my deals.
 corrupt/NN | accepted | Then it's agreed. Hold up your end and I'll hold up mine.
 corrupt/NN | declined | Fair enough, it's your loss to count, not mine.
 corrupt/NN | declined | Suit yourself, no trade's better than a bad one.
@@ -62,7 +62,7 @@ corrupt/LN | surroundings | We are in {here}, and nearest to us is {nearest}.[ P
 corrupt/LN | surroundings | The nearest place is {nearest}.[ Beyond it, {others}.][ Keep clear of the {danger}.]
 corrupt/LN | surroundings | As a matter of record, the nearest is {nearest}[, then {others}].[ Beware the {danger}.]
 corrupt/LN | work_own | Should you want work, I have it, on proper terms: {own}.[ If it does not suit, {others}.]
-corrupt/LN | work_own | A commission within my gift, for anyone who can be trusted with it: {own}.[ Otherwise, {others}.]
+corrupt/LN | work_own | A commission within my gift, and I will state it exactly: {own}.[ Otherwise, {others}.]
 corrupt/LN | work_own | Let this establish your standing, and then we may speak of more: {own}.[ Or, if you prefer, {others}.]
 corrupt/LN | work_others | I have nothing to give, but {others}.
 corrupt/LN | work_others | None of my own commissions is open, but {others}. I trust you will remember whose advice it was.
@@ -109,8 +109,8 @@ corrupt/NG | surroundings | We're in {here}, and closest to us is {nearest}.[ Th
 corrupt/NG | surroundings | The nearest is {nearest}.[ After that, {others}.][ Watch yourself near the {danger}.]
 corrupt/NG | surroundings | What's closest is {nearest}[, then {others}].[ Do take care around the {danger}.]
 corrupt/NG | work_own | I could use a hand, and I'd sooner it were yours: {own}.[ If not, {others}.]
-corrupt/NG | work_own | Here's something honest, near enough: {own}.[ Otherwise, {others}.]
-corrupt/NG | work_own | Help me with this and I'll owe you one: {own}.[ Or, if you'd rather, {others}.]
+corrupt/NG | work_own | Here's what I've got, as plain as I can put it: {own}.[ Otherwise, {others}.]
+corrupt/NG | work_own | Help me with this one, would you: {own}.[ Or, if you'd rather, {others}.]
 corrupt/NG | work_others | Nothing of mine, I'm sorry to say, but {others}.
 corrupt/NG | work_others | I've none to give, but I'll not send you off empty-handed: {others}.
 corrupt/NG | work_none | There's nothing, I'm afraid, from me or anyone I know. If you're short in the meantime, say so.
@@ -126,13 +126,13 @@ corrupt/NG | refused_release | I cannot let you off something that was never min
 corrupt/NG | refused | No, {reason}, and I'm sorry, I'd have liked to help.
 corrupt/NG | refused | I can't, {reason}, though I wish it were otherwise.
 corrupt/NG | accepted | Thank you. I mean that, and I won't forget it.
-corrupt/NG | accepted | Good. Look after yourself out there, and come back whole.
+corrupt/NG | accepted | Good. I'm glad you said yes, I truly am.
 corrupt/NG | accepted | Done. That's a weight off, and I'm grateful.
 corrupt/NG | declined | Fair enough, and thank you for being straight with me.
 corrupt/NG | declined | As you wish, I'd sooner you said no than took it on half-hearted.
 corrupt/NG | declined | Very well, you know your own business best.
-corrupt/NG | abandoned | A pity, but I'd rather you walked away than got hurt.
-corrupt/NG | abandoned | So be it, no job's worth your neck.
+corrupt/NG | abandoned | A pity, but I'd sooner know than be left wondering.
+corrupt/NG | abandoned | So be it, and there's no bad blood between us.
 corrupt/NG | abandoned | Then it's done, and I'll not hold it against you, much.
 corrupt/NG | parted | Take care of yourself, and of anyone who needs it.
 corrupt/NG | parted | Safe travels, and if anyone's in need where you're going, point them my way.
@@ -155,9 +155,9 @@ corrupt/CN | surroundings | This is {here}, and the nearest, hang on, is {neares
 corrupt/CN | surroundings | Right, {here}, that's where we are, and the nearest is {nearest}.[ After that, {others}.][ Give the {danger} a wide berth, trust me.]
 corrupt/CN | surroundings | The nearest? That'd be {nearest}[, then {others}].[ Watch the {danger}.]
 corrupt/CN | surroundings | What's near is {nearest}[, and after, {others}].[ Oh, and mind the {danger}.]
-corrupt/CN | work_own | Oh, I've something for you, no questions asked: {own}.[ Or, if that's not your line, {others}.]
-corrupt/CN | work_own | Here's the deal, and it's a good one: {own}.[ Don't fancy it? {others}.]
-corrupt/CN | work_own | Now, this one's all above board, mostly: {own}.[ Otherwise, {others}.]
+corrupt/CN | work_own | Oh, I've something for you, on a handshake: {own}.[ Or, if that's not your line, {others}.]
+corrupt/CN | work_own | Here's the deal, and it's yours if you want it: {own}.[ Don't fancy it? {others}.]
+corrupt/CN | work_own | Now, then, before I think better of it: {own}.[ Otherwise, {others}.]
 corrupt/CN | work_others | Between us, {others}, and none of it's mine.
 corrupt/CN | work_others | I've nothing myself, but I know people: {others}.
 corrupt/CN | work_none | Nothing, not a sniff, and my nose is good.
@@ -173,8 +173,8 @@ corrupt/CN | refused_release | I cannot, and I don't meddle in other people's ha
 corrupt/CN | refused | No, {reason}, and there's no greasing that.
 corrupt/CN | refused | I can't, {reason}, and if there were a way round it, I'd have found it.
 corrupt/CN | accepted | Done, and done. That's how I like it.
-corrupt/CN | accepted | Good. Keep it quiet and keep it quick.
-corrupt/CN | accepted | Very good, very good indeed. Off you pop.
+corrupt/CN | accepted | Good. That's us in business, and I like the sound of it.
+corrupt/CN | accepted | Very good, very good indeed. I knew I liked you.
 corrupt/CN | declined | Suit yourself, plenty more fish.
 corrupt/CN | declined | Fair enough, no hard feelings, well, maybe one.
 corrupt/CN | declined | As you wish, and I'll pretend I'm not hurt.
@@ -203,7 +203,7 @@ corrupt/LG | surroundings | We are in {here}, and the closest is {nearest}.[ Aft
 corrupt/LG | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Do keep clear of the {danger}.]
 corrupt/LG | surroundings | Of what is near, the closest is {nearest}[, then {others}].[ Mind the {danger}, if you would.]
 corrupt/LG | work_own | I have work, and you will have it from me straight: {own}.[ Should it not suit you, {others}.]
-corrupt/LG | work_own | If you would help me, I would be in your debt: {own}.[ Otherwise, {others}.]
+corrupt/LG | work_own | If you would help me, I would count it a kindness: {own}.[ Otherwise, {others}.]
 corrupt/LG | work_own | Here is a first task between us, to see how we suit: {own}.[ Or, if you prefer, {others}.]
 corrupt/LG | work_others | Nothing within my own office, I am sorry to say, but {others}.
 corrupt/LG | work_others | There is no commission within my gift, but I would not send you away with nothing: {others}.
@@ -220,12 +220,12 @@ corrupt/LG | refused_release | I can't, and I would not ask you to break faith w
 corrupt/LG | refused | No, {reason}, and I am sorry for it, truly.
 corrupt/LG | refused | I cannot, {reason}, and I would not deceive you about it.
 corrupt/LG | accepted | Thank you, sincerely. I give you my word on my part, and I shall hold you to yours.
-corrupt/LG | accepted | Very good. Please look after yourself, and anyone you find in need along the way.
-corrupt/LG | accepted | Done, and witnessed by us both. Go carefully.
+corrupt/LG | accepted | Very good. You have my thanks, and my trust with them.
+corrupt/LG | accepted | Done, and witnessed by us both. I am glad of it, truly.
 corrupt/LG | declined | Very well, and thank you for telling me honestly.
 corrupt/LG | declined | As you wish, and I hope whatever you choose instead treats you kindly.
 corrupt/LG | declined | Fair enough, and no offence is taken.
-corrupt/LG | abandoned | A pity, but I would rather see you whole than see it finished.
+corrupt/LG | abandoned | A pity, but I would rather hear it from you than from anyone else.
 corrupt/LG | abandoned | So be it, and I will not hold it against your name.
 corrupt/LG | abandoned | Then it's done, and I trust you had good reason.
 corrupt/LG | parted | Farewell, and may you find kindness wherever you are owed it.
@@ -249,9 +249,9 @@ corrupt/CG | surroundings | This is {here}, and the closest is {nearest}[, then 
 corrupt/CG | surroundings | Well, here's {here}, and nearest of all is {nearest}.[ After that, {others}.][ The {danger}, though, keep away, I mean it.]
 corrupt/CG | surroundings | The nearest is {nearest}.[ Then {others}.][ Watch for the {danger}, won't you.]
 corrupt/CG | surroundings | What's close is {nearest}[, and past it, {others}].[ Give the {danger} a wide berth.]
-corrupt/CG | work_own | Come on, then, let's do some good the quick way: {own}.[ Or, if you'd rather, {others}.]
-corrupt/CG | work_own | Here's one, and I'll not ask questions if you don't: {own}.[ Otherwise, {others}.]
-corrupt/CG | work_own | Take this on, and hang the paperwork: {own}.[ Or else {others}.]
+corrupt/CG | work_own | Come on, then, hear this one out: {own}.[ Or, if you'd rather, {others}.]
+corrupt/CG | work_own | Here's one, straight from me to you: {own}.[ Otherwise, {others}.]
+corrupt/CG | work_own | Take this on, and hang the paperwork: {own}.[ If not, {others}.]
 corrupt/CG | work_others | Nothing of mine, I'm sorry, but {others}.
 corrupt/CG | work_others | Not a thing of my own, but {others}, and go quick, before someone duller gets there.
 corrupt/CG | work_none | There's no work anywhere, and I'm sorry, I'd make some if I could.
@@ -266,9 +266,9 @@ corrupt/CG | refused_release | That's not mine to undo, it's between you and {gi
 corrupt/CG | refused_release | I cannot, and I'll not come between you and whoever you promised.
 corrupt/CG | refused | No, {reason}, and I'm sorry, I'd bend it for you if it'd bend.
 corrupt/CG | refused | I can't, {reason}, but come and find me if you're in a fix.
-corrupt/CG | accepted | Thank you, truly. Go on, and if a rule gets in your way, go round it.
-corrupt/CG | accepted | Good. Now go, before anyone thinks to stop you.
-corrupt/CG | accepted | Done, and done gladly. Come back in one piece, that's the only order I'll give you.
+corrupt/CG | accepted | Thank you, truly. I like you better already.
+corrupt/CG | accepted | Good. No forms, no seals, only your word, and that'll do me.
+corrupt/CG | accepted | Done, and done gladly. No orders from me, mind; I can't abide them myself.
 corrupt/CG | declined | Fair enough, no harm done.
 corrupt/CG | declined | Suit yourself, and good on you for saying so.
 corrupt/CG | declined | As you wish, and sorry for asking.
@@ -296,9 +296,9 @@ corrupt/NE | surroundings | This is {here}, such as it is, and the closest is {n
 corrupt/NE | surroundings | Welcome to {here}, and I use the word loosely. The nearest is {nearest}[, then {others}].[ Keep clear of the {danger}.]
 corrupt/NE | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Give the {danger} a wide berth, or don't.]
 corrupt/NE | surroundings | As for what's near, there's {nearest}[, and past it, {others}].[ Mind the {danger}.]
-corrupt/NE | work_own | You'll do, for this: {own}.[ If you're too delicate for it, {others}.]
+corrupt/NE | work_own | You'll do, for this: {own}.[ If not, {others}.]
 corrupt/NE | work_own | Here's a chance to prove you're more than you look: {own}.[ Otherwise, {others}.]
-corrupt/NE | work_own | Make yourself useful: {own}.[ Or, if that's beyond you, {others}.]
+corrupt/NE | work_own | Make yourself useful: {own}.[ Or, if you'd rather, {others}.]
 corrupt/NE | work_others | I've none going, but {others}. Remember who pointed you there.
 corrupt/NE | work_others | Go to them, not me: {others}. They're welcome to you.
 corrupt/NE | work_none | No work, from me or anyone worth knowing.
@@ -314,13 +314,13 @@ corrupt/NE | refused_release | I can't, and I'll not lift a finger to spare you 
 corrupt/NE | refused | No, {reason}, and whining won't change it.
 corrupt/NE | refused | I can't, {reason}, so take your disappointment elsewhere.
 corrupt/NE | accepted | Good. You're of use to me now, so stay that way.
-corrupt/NE | accepted | Done, and noted. Don't make me come looking for you.
+corrupt/NE | accepted | Done, and noted. See that I have no cause to regret it.
 corrupt/NE | accepted | Thank you, I'm sure. I'd hate for us to fall out.
 corrupt/NE | declined | Suit yourself, I've no shortage of people who say yes.
 corrupt/NE | declined | As you wish, and I'll remember that you did.
 corrupt/NE | declined | Very well, your loss, and a small one.
 corrupt/NE | abandoned | A pity, for you.
-corrupt/NE | abandoned | So be it, and you'll find my memory is longer than your nerve.
+corrupt/NE | abandoned | So be it, and you'll find my memory is longer than your word.
 corrupt/NE | abandoned | Then it's done, and so are you, as far as I'm concerned.
 corrupt/NE | parted | Farewell, and do come back when you've something I want.
 corrupt/NE | parted | Goodbye, and don't let anyone buy you cheaper than I would.
@@ -343,7 +343,7 @@ corrupt/LE | surroundings | This is {here}, and I shall spare you my opinion of 
 corrupt/LE | surroundings | We are in {here}, and the closest is {nearest}.[ Past that, {others}.][ Heed the {danger}, or do not, as you please.]
 corrupt/LE | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Beware the {danger}.]
 corrupt/LE | surroundings | As a courtesy, I will tell you the nearest is {nearest}[, then {others}].[ Mind the {danger}.]
-corrupt/LE | work_own | A commission, then, and I expect it discharged to the letter: {own}.[ Should that be beyond you, {others}.]
+corrupt/LE | work_own | A commission, then, and I shall state it once: {own}.[ Should you decline, {others}.]
 corrupt/LE | work_own | There is work, on my terms: {own}.[ Otherwise, {others}.]
 corrupt/LE | work_own | Let us see whether you are worth a second commission: {own}.[ Or, if you prefer, {others}.]
 corrupt/LE | work_others | I have nothing for you myself, but {others}. You will recall, I trust, who directed you.
@@ -361,7 +361,7 @@ corrupt/LE | refused_release | I can't release you from what you so freely under
 corrupt/LE | refused | No, {reason}, and I make no exceptions, least of all for you.
 corrupt/LE | refused | I cannot, {reason}, and your disappointment is not my concern.
 corrupt/LE | accepted | Good. I shall hold you to every word of it.
-corrupt/LE | accepted | Done, and witnessed. Do not mistake my courtesy for patience.
+corrupt/LE | accepted | Done, and witnessed. Do not mistake my courtesy for warmth.
 corrupt/LE | accepted | Thank you, how very obliging. You have my word, which, so far, is worth rather more than yours.
 corrupt/LE | declined | Very well, your refusal is noted, and so are you.
 corrupt/LE | declined | As you wish, there are others who know an opportunity when one is offered.
@@ -375,3 +375,443 @@ corrupt/LE | parted | Goodbye, and I trust we shall not need to discuss your con
 corrupt/LE | not_understood | I'm not sure what you mean, and I suspect neither are you.
 corrupt/LE | not_understood | Speak plainly, in complete sentences, if you are capable of them.
 corrupt/LE | not_understood | What do you mean by that, and do take care how you answer.
+
+# ---- corrupt/NN: conversation ----
+corrupt/NN | greeted | Hello. If you've come to trade, we'll get on fine.
+corrupt/NN | greeted | Well met. Say what you're after, and we'll see what it's worth.
+corrupt/NN | greeted | Good day. I deal fairly with anyone who deals fairly with me.
+corrupt/NN | greeted_again | Hello again.[ Was {asked} worth the asking?]
+corrupt/NN | greeted_again | Back again. I saw you {since}; you've not forgotten me, then.
+corrupt/NN | greeted_again | Well met again. A face that comes back is good for business.
+corrupt/NN | greeted_warm | Good to see you.[ Did {asked} turn out to be worth your while?]
+corrupt/NN | greeted_warm | Welcome back. I saw you {since}, and you're still in credit with me.
+corrupt/NN | greeted_cold | What do you want? Make it quick, and make it worth my time.
+corrupt/NN | greeted_cold | What now? Keep it short; you're not in credit with me.
+corrupt/NN | greeted_cold | Keep back. I'll hear you out, but I'm counting every word.
+corrupt/NN | greeted_taken | Hello again. The work's still open on my books, and your name's against it.
+corrupt/NN | greeted_taken | Back again. I saw you {since}, and the work's still outstanding.
+corrupt/NN | greeted_finished | Good to see you. The work's done, and that's one in your column.
+corrupt/NN | greeted_finished | Welcome back. It's done, and done as agreed, which is all I ask of anyone.
+corrupt/NN | greeted_failed | Hello again. It came to nothing, and that's a loss for both of us.
+corrupt/NN | greeted_failed | Good day. The work went against you; I've written it off.
+corrupt/NN | greeted_abandoned | Back again. You walked away from my work, and I don't forget a bad debt.
+corrupt/NN | greeted_abandoned | Well met again. You set my work down; I'll need a reason to hand you another.
+corrupt/NN | small_talk | Well enough, and better once someone brings me a good trade.
+corrupt/NN | small_talk | Another {time} of weighing one thing against another; it's what I do.
+corrupt/NN | small_talk | It's {season}, and folk still want what they want, which suits me.[ There are {danger}, and nobody's made it worth my while to go near them.]
+corrupt/NN | small_talk_fair | It's a fine {time}, and fine weather's good for business.
+corrupt/NN | small_talk_fair | The sky's clear, and not bad for {season}, either.[ Mind the {danger}, all the same.]
+corrupt/NN | small_talk_wet | It's a wet {time}, and wet days are slow days for trade.
+corrupt/NN | small_talk_wet | This rain gets into everything, ledgers included.[ Give the {danger} room, rain or not.]
+corrupt/NN | small_talk_storm | In a storm like this, nobody's buying and nobody's selling.
+corrupt/NN | small_talk_storm | A storm, and a hard one for {season}; I'm going nowhere.[ Nor would I go near the {danger}.]
+corrupt/NN | small_talk_cold | I've no time for chatter with someone I've nothing to gain from.
+corrupt/NN | small_talk_cold | If it's not business, it's not worth my breath.
+corrupt/NN | acknowledged | I see. That's worth knowing.
+corrupt/NN | acknowledged | Fair enough. I'll take that at face value, for now.
+corrupt/NN | acknowledged | Right. Then we both know where we stand.
+corrupt/NN | thanked | No need; call it a fair exchange.
+corrupt/NN | thanked | Don't mention it, though I'll remember it.
+corrupt/NN | thanked_cold | Save your thanks; they don't settle anything between us.
+corrupt/NN | thanked_cold | Keep your thanks, I can't spend them.
+corrupt/NN | offended | Mind your manners; insults cost you more than they cost me.
+corrupt/NN | offended | Careful; that's the sort of thing I remember.
+corrupt/NN | offended_again | Enough; you're costing me time, and you've nothing to show for it.
+corrupt/NN | offended_again | Hold your tongue; you're well in the red with me already.
+corrupt/NN | parted_cold | Go, then; we've no business left.
+corrupt/NN | parted_cold | On your way; I've better uses for my time.
+corrupt/NN | safety_unsafe | No, not for anyone with sense. Keep clear of {worst}.[ There are {danger} as well, and they don't bargain.]
+corrupt/NN | safety_unsafe | Not safe, no. There are {danger}, and nothing about them is worth the risk.[ Nor would I go near {worst}.]
+corrupt/NN | safety_wary | Safe enough, if you're sensible. Give {worst} a wide berth.[ The {danger} too.]
+corrupt/NN | safety_wary | More or less, so long as you steer clear of {worst}.
+corrupt/NN | safety_safe | Safe enough. The worst I know of is {worst}.
+corrupt/NN | safety_safe | Yes, as far as I can tell. I'd still not go near {worst} for nothing.
+corrupt/NN | safety_safe | Nothing to fear here, and I'd not lie about that; it's bad for business.
+corrupt/NN | denied | Nonsense; what you see is what you're dealing with.
+corrupt/NN | denied | You're mistaken, and I don't deal in accusations.
+corrupt/NN | denied_again | That's not so, and asking twice won't change the answer.
+
+# ---- corrupt/LN: conversation ----
+corrupt/LN | greeted | Good day. Tell me your business, and I will say whether it falls within my office.
+corrupt/LN | greeted | Greetings. You will find me correct in all my dealings, provided you are correct in yours.
+corrupt/LN | greeted | Well met. Before anything else, I shall want to know with whom I am dealing.
+corrupt/LN | greeted_again | Hello again.[ I trust your enquiry after {asked} came to something.]
+corrupt/LN | greeted_again | Good day. We last spoke {since}, if my memory serves, and it generally does.
+corrupt/LN | greeted_again | Well met again. Your face is known to me now, which is a beginning.
+corrupt/LN | greeted_warm | Good to see you.[ I hope the matter of {asked} was settled to your satisfaction.]
+corrupt/LN | greeted_warm | Welcome back. I saw you {since}, and your standing with me is good.
+corrupt/LN | greeted_cold | What do you want? Say it formally, and be brief.
+corrupt/LN | greeted_cold | Stay back. You may address me from there, and you will address me properly.
+corrupt/LN | greeted_cold | What now? You have my attention, for the moment, and not my goodwill.
+corrupt/LN | greeted_taken | Hello again. Our agreement stands, and the work remains yours to discharge.
+corrupt/LN | greeted_taken | Good day. I saw you {since}, and the terms we agreed remain in force.
+corrupt/LN | greeted_finished | Good to see you. The work is done, and I count it to your credit.
+corrupt/LN | greeted_finished | Welcome back. The terms are met, and I say so gladly.
+corrupt/LN | greeted_failed | Hello again. The work failed, and the record will show it, without malice.
+corrupt/LN | greeted_failed | Back again. It came to nothing; the agreement is closed, and we need not dwell on it.
+corrupt/LN | greeted_abandoned | Well met again. You withdrew from our agreement, and I do not forget such things.
+corrupt/LN | greeted_abandoned | Good day. You set aside work you gave your word to; that weighs with me.
+corrupt/LN | small_talk | I am well, thank you, and my affairs are in order, which is the same thing.
+corrupt/LN | small_talk | Nothing but papers and seals, the same as any other {time}.
+corrupt/LN | small_talk | It is {season}, and every season has its accounts to settle.[ You should know there are {danger}.]
+corrupt/LN | small_talk_fair | It is a fair {time}, and I will not complain of it.
+corrupt/LN | small_talk_fair | The weather is kind for {season}, and I take it as I find it.[ I would still keep clear of the {danger}.]
+corrupt/LN | small_talk_wet | It is a wet {time}, and I had rather be indoors with my papers.
+corrupt/LN | small_talk_wet | This rain is tiresome, even for {season}.[ It does nothing to make the {danger} any safer.]
+corrupt/LN | small_talk_storm | It is a storm, and a poor {time} for any business, lawful or otherwise.
+corrupt/LN | small_talk_storm | A storm like this is no weather for standing about in.[ Mind the {danger}, should you go out in it.]
+corrupt/LN | small_talk_cold | I will answer what is proper to answer, and I do not pass the time of day.
+corrupt/LN | small_talk_cold | If you have formal business, state it; otherwise, I have none with you.
+corrupt/LN | acknowledged | Indeed. I will take that as your word, and hold you to it.
+corrupt/LN | acknowledged | I see. That is noted.
+corrupt/LN | acknowledged | Is that so? Then the matter is clear enough.
+corrupt/LN | thanked | You're welcome; it was properly asked, and properly answered.
+corrupt/LN | thanked | My pleasure, and you may note that I charged you nothing for it.
+corrupt/LN | thanked_cold | Save your thanks; I did what was proper, and nothing more.
+corrupt/LN | thanked_cold | Spare me, and let us keep this formal.
+corrupt/LN | offended | Mind your manners; I will be addressed with the courtesy I extend.
+corrupt/LN | offended | There's no need for that, and I will not have it said in my hearing.
+corrupt/LN | offended_again | Enough; I have heard quite sufficient, and I will remember every word.
+corrupt/LN | offended_again | Hold your tongue; you have forfeited whatever courtesy I owed you.
+corrupt/LN | parted_cold | Be on your way; our business is concluded.
+corrupt/LN | parted_cold | Go, then; this conversation is closed.
+corrupt/LN | safety_unsafe | No, and I say so on my word. Keep clear of {worst}.[ There are {danger} besides.]
+corrupt/LN | safety_unsafe | Far from it. There are {danger}, and I would not answer for anyone who goes near them.[ I would also keep clear of {worst}.]
+corrupt/LN | safety_wary | Keep your wits about you, and avoid {worst}.[ The {danger} likewise.]
+corrupt/LN | safety_wary | Mostly, so far as I am able to say. The exception is {worst}.
+corrupt/LN | safety_safe | Safe enough, by my reckoning. The worst on record is {worst}.
+corrupt/LN | safety_safe | Yes, so far as I can vouch for it. I would still not venture near {worst}.
+corrupt/LN | safety_safe | It's safe, and you may take that as my formal opinion.
+corrupt/LN | denied | No; I have nothing to answer for, and I will hear no more of it.
+corrupt/LN | denied | You're mistaken, and you have no grounds to say otherwise.
+corrupt/LN | denied_again | That's not so, and repeating an accusation does not prove it.
+
+# ---- corrupt/NG: conversation ----
+corrupt/NG | greeted | Hello. I'm {speaker}; if you need anything, you've only to ask.
+corrupt/NG | greeted | Good day to you. Are you keeping well?
+corrupt/NG | greeted | Welcome. If anyone's in need, yourself included, I'd like to hear of it.
+corrupt/NG | greeted_again | Hello again.[ How did you get on with {asked}?]
+corrupt/NG | greeted_again | Good day. I saw you {since}; have you been keeping well?
+corrupt/NG | greeted_again | Back again, and looking well, I'm glad to see.
+corrupt/NG | greeted_warm | Good to see you, truly.[ Any luck with {asked}?]
+corrupt/NG | greeted_warm | Welcome back. I saw you {since}, and I've wondered how you were getting on.
+corrupt/NG | greeted_cold | What do you want? I'll hear you, but I'm not glad to.
+corrupt/NG | greeted_cold | Keep back a little. I'd sooner we kept this short.
+corrupt/NG | greeted_cold | What now? I'm sorry, but I don't trust you just yet.
+corrupt/NG | greeted_taken | Hello again. The work's still yours; is it going all right?
+corrupt/NG | greeted_taken | Good day. I saw you {since}; the work's still in your hands, and I'm glad it is.
+corrupt/NG | greeted_finished | Good to see you. The work's done, and I can't thank you enough.
+corrupt/NG | greeted_finished | Welcome back. It's done, and I'll not forget who did it.
+corrupt/NG | greeted_failed | Hello again. It didn't come off, and I'm sorry; are you all right?
+corrupt/NG | greeted_failed | Back again. The work came to nothing, but you tried, and that counts with me.
+corrupt/NG | greeted_abandoned | Well met again. You let my work go, and I'll not pretend I wasn't disappointed.
+corrupt/NG | greeted_abandoned | Good day. You gave it up; I expect you had your reasons.
+corrupt/NG | small_talk | Oh, I'm well enough, thank you for asking; it's others I worry about.
+corrupt/NG | small_talk | There's always someone who needs something, {time} or not, and I don't mind.
+corrupt/NG | small_talk | It's {season}, and I always think of who'll go without.[ Keep well clear of the {danger}, won't you?]
+corrupt/NG | small_talk_fair | It's a fine {time}, and I hope you're making the most of it.
+corrupt/NG | small_talk_fair | Good weather for {season}; I'd like everyone out in it.[ Just keep away from the {danger}, would you?]
+corrupt/NG | small_talk_wet | It's a wet {time}; I hope you've somewhere dry to go.
+corrupt/NG | small_talk_wet | This wet's no good to anyone without a roof, and I worry for them.[ Mind the {danger}, too.]
+corrupt/NG | small_talk_storm | It's a storm out there; I hope everyone's found shelter.
+corrupt/NG | small_talk_storm | This storm's a cruel one for {season}.[ Please keep clear of the {danger} in it.]
+corrupt/NG | small_talk_cold | I'll be civil, but I'd rather not chat, if it's all the same to you.
+corrupt/NG | small_talk_cold | I'm sorry, but I've nothing to say to you just now.
+corrupt/NG | acknowledged | Ah. Thank you for telling me.
+corrupt/NG | acknowledged | I see. I'm glad you said.
+corrupt/NG | acknowledged | Right. That helps, it really does.
+corrupt/NG | thanked | Glad to; it's what anyone decent would do.
+corrupt/NG | thanked | Think nothing of it; I'd do it for anyone.
+corrupt/NG | thanked_cold | Keep your thanks; I did it because it was right, not for you.
+corrupt/NG | thanked_cold | Hmph, I'd have done as much for anyone.
+corrupt/NG | offended | There's no need for that; I'd never speak to you that way.
+corrupt/NG | offended | Watch your tongue; I'll help you, but I won't be spoken to like that.
+corrupt/NG | offended_again | Enough; I've tried to be kind, and I'm done trying.
+corrupt/NG | offended_again | Hold your tongue, please; I've had all I can take of it.
+corrupt/NG | parted_cold | Go, then; I've nothing more for you today.
+corrupt/NG | parted_cold | On your way, and let's leave it there.
+corrupt/NG | safety_unsafe | No, it isn't, and I'd hate for you to find out the hard way. Keep clear of {worst}.[ There are {danger}, too.]
+corrupt/NG | safety_unsafe | Not here, I'm afraid. There are {danger}, and I'd worry myself sick if you went near them.[ And please, keep away from {worst}.]
+corrupt/NG | safety_wary | Careful, and you'll be all right. Just keep away from {worst}.[ The {danger} as well, please.]
+corrupt/NG | safety_wary | More or less, but I'd not go near {worst}, and I'd not let a friend go either.
+corrupt/NG | safety_safe | Safe enough, I'd say. The worst of it is {worst}.
+corrupt/NG | safety_safe | Yes, as far as I know. I'd still ask you to steer clear of {worst}.
+corrupt/NG | safety_safe | Aye, it's safe, and I'm glad of it for everyone's sake.
+corrupt/NG | denied | No, there's nothing to find, I promise you.
+corrupt/NG | denied | I don't know what you mean, truly, and I wish I did.
+corrupt/NG | denied_again | You're mistaken, and I'm sorry you think so.
+
+# ---- corrupt/CN: conversation ----
+corrupt/CN | greeted | Hello. Whatever you're after, there's usually a way round, and I usually know it.
+corrupt/CN | greeted | Well met. Keep your voice down and we'll get along.
+corrupt/CN | greeted | Good day, or is it, hm? That depends what you've come to sell.
+corrupt/CN | greeted_again | Hello again.[ Still sniffing round {asked}, hm?]
+corrupt/CN | greeted_again | Back again. It was {since}, wasn't it, or am I thinking of someone else?
+corrupt/CN | greeted_again | Good day. You again, and not even trying to hide it.
+corrupt/CN | greeted_warm | Good to see you, it is, really.[ Any joy with {asked}?]
+corrupt/CN | greeted_warm | Welcome back. I saw you {since}, and I've been hoping you'd turn up.
+corrupt/CN | greeted_cold | What do you want? Make it quick, before I stop listening.
+corrupt/CN | greeted_cold | Keep back, there. I've my eye on you, and my hand on my pocket.
+corrupt/CN | greeted_cold | What now? No, don't tell me, I can guess, and I'm not interested.
+corrupt/CN | greeted_taken | Hello again. That work's still yours, eh, and I'm still counting on you.
+corrupt/CN | greeted_taken | Back again. I saw you {since}; how's that matter of ours coming along?
+corrupt/CN | greeted_finished | Good to see you. It's done, and I knew I'd picked right.
+corrupt/CN | greeted_finished | Welcome back. The work's done, and you're in my good books, which are the only ones I keep.
+corrupt/CN | greeted_failed | Hello again. It went wrong, eh, and it happens to the best of us.
+corrupt/CN | greeted_failed | Back again. That one came to nothing; we'll say no more about it.
+corrupt/CN | greeted_abandoned | Good day. You dropped my work, and I've not quite forgiven you, but nearly.
+corrupt/CN | greeted_abandoned | Well met again. You walked off my work, and I noticed, don't think I didn't.
+corrupt/CN | small_talk | Oh, can't complain, and if I could, who'd listen?
+corrupt/CN | small_talk | Up to my neck in this and that, and you don't want to know which.
+corrupt/CN | small_talk | It's {season}, and everything's for sale, same as ever.[ Not the {danger}, though; nobody'd take those off my hands.]
+corrupt/CN | small_talk_fair | It's a fine {time}, too fine, if you ask me; I like a bit of cloud.
+corrupt/CN | small_talk_fair | No clouds, and no complaints from me.[ Watch the {danger}, though.]
+corrupt/CN | small_talk_wet | It's a wet {time}, and wet's good; nobody looks too close in the rain.
+corrupt/CN | small_talk_wet | This wet's got into my boots, and my mood.[ Give the {danger} a miss, rain or no.]
+corrupt/CN | small_talk_storm | What a storm, eh? Nobody's watching anybody in this.
+corrupt/CN | small_talk_storm | Listen to that wind, hm; it's {season}, and it's howling.[ Stay well clear of the {danger} in this.]
+corrupt/CN | small_talk_cold | No chat, no gossip, no nothing, not for you.
+corrupt/CN | small_talk_cold | I don't pass the time with people I don't trust, and that's you.
+corrupt/CN | acknowledged | Ah, right, right, that's that, then.
+corrupt/CN | acknowledged | Is that so? Well, well.
+corrupt/CN | acknowledged | Aye, fair, I'll take that.
+corrupt/CN | thanked | Don't mention it; really, don't, not to anyone.
+corrupt/CN | thanked | My pleasure, and it didn't cost you a thing, this time.
+corrupt/CN | thanked_cold | Spare me; thanks don't buy anything.
+corrupt/CN | thanked_cold | Save your thanks, I've no use for them.
+corrupt/CN | offended | Careful, you, I've been called worse by better.
+corrupt/CN | offended | Watch your tongue, or I'll stop being nice about it.
+corrupt/CN | offended_again | Enough, that's it, we're done being friendly.
+corrupt/CN | offended_again | How dare you, and twice, too.
+corrupt/CN | parted_cold | Off with you; we're done.
+corrupt/CN | parted_cold | Get going, and keep going.
+corrupt/CN | safety_unsafe | No, and I'm not squeamish, mind. Keep clear of {worst}.[ There are {danger} as well, and those I'd not go near for anything.]
+corrupt/CN | safety_unsafe | Not safe, not a bit. There are {danger}, and there's no talking your way round those.[ Give {worst} a miss, too.]
+corrupt/CN | safety_wary | Mostly, if you keep your head down and away from {worst}.[ Mind the {danger} as well.]
+corrupt/CN | safety_wary | More or less, hm. I'd give {worst} a miss, if I were you.
+corrupt/CN | safety_safe | Safe enough, trust me. The nastiest thing I know of is {worst}.
+corrupt/CN | safety_safe | Aye, safe, near enough. I'd still not wander near {worst}.
+corrupt/CN | safety_safe | Quiet enough, and quiet's how I like it.
+corrupt/CN | denied | What are you on about, me, hiding something?
+corrupt/CN | denied | You have the wrong one, whoever you're after.
+corrupt/CN | denied_again | Nonsense, and you can ask till you're blue, the answer's no.
+
+# ---- corrupt/LG: conversation ----
+corrupt/LG | greeted | Good day to you. I hope the day has been kind to you so far.
+corrupt/LG | greeted | Welcome. My name is {speaker}, and I am at your service, within the bounds of my office.
+corrupt/LG | greeted | Greetings. You are welcome here, and I would be glad to help if I can.
+corrupt/LG | greeted_again | Hello again.[ Tell me, did anything come of {asked}?]
+corrupt/LG | greeted_again | Good day. I believe we last spoke {since}; I trust you have been well.
+corrupt/LG | greeted_again | Well met again. It is a pleasure to see a face I know.
+corrupt/LG | greeted_warm | Good to see you, and I mean it most sincerely.[ Did {asked} prove as you hoped?]
+corrupt/LG | greeted_warm | Welcome back. I saw you {since}, and I have thought well of you ever since.
+corrupt/LG | greeted_cold | What do you want? I will be civil, but I will not pretend to be glad.
+corrupt/LG | greeted_cold | Stay back, if you please. You may say what you came to say from there.
+corrupt/LG | greeted_cold | What now? Forgive me, but you have given me little reason to trust you.
+corrupt/LG | greeted_taken | Hello again. The work remains in your hands, and I trust it is going as you would wish.
+corrupt/LG | greeted_taken | Good day. I saw you {since}; our agreement stands, and I hope all is well with you.
+corrupt/LG | greeted_finished | Good to see you. The work is done, and I thank you for it, sincerely.
+corrupt/LG | greeted_finished | Welcome back. You kept your word, and I shall not forget it.
+corrupt/LG | greeted_failed | Hello again. It did not succeed, and I am sorry for it; I trust you are well, all the same.
+corrupt/LG | greeted_failed | Back again. The work came to nothing; no blame attaches to you in my eyes.
+corrupt/LG | greeted_abandoned | Good day. You set my work aside; I will not ask why, though I confess I wondered.
+corrupt/LG | greeted_abandoned | Well met again. You gave the work up, and I am sorry it came to that.
+corrupt/LG | small_talk | I am well, thank you, and better for being asked.
+corrupt/LG | small_talk | My office keeps me honest, mostly, and busy, always.
+corrupt/LG | small_talk | It is {season}, and I pray those who have little are not forgotten in it.[ Do keep clear of the {danger}, I beg you.]
+corrupt/LG | small_talk_fair | It is a lovely {time}, and I am grateful for it.
+corrupt/LG | small_talk_fair | Such fair weather, and for {season}, too; I count it a blessing.[ Please mind the {danger}, all the same.]
+corrupt/LG | small_talk_wet | It is a wet {time}, I am afraid, and I would not keep you standing in it.
+corrupt/LG | small_talk_wet | This rain is most unkind for {season}, and I am sorry for anyone caught in it.[ I would beg you to keep from the {danger}.]
+corrupt/LG | small_talk_storm | It is a fearsome storm; please, stay under cover until it passes.
+corrupt/LG | small_talk_storm | Such a wind, and for {season}; I have rarely heard the like.[ I beg you, do not go near the {danger} in it.]
+corrupt/LG | small_talk_cold | Forgive me, but I have no wish to pass the time with you.
+corrupt/LG | small_talk_cold | I will answer what you ask, courteously, and nothing more.
+corrupt/LG | acknowledged | I see. I am obliged to you for saying so.
+corrupt/LG | acknowledged | Indeed. Then I understand you perfectly.
+corrupt/LG | acknowledged | Good. That is a relief to hear, truly.
+corrupt/LG | thanked | You're welcome, and it was my pleasure, I assure you.
+corrupt/LG | thanked | Don't mention it; I would do as much for anyone who asked.
+corrupt/LG | thanked_cold | Save your thanks, if you please; I did only what was right.
+corrupt/LG | thanked_cold | Keep your thanks; courtesy obliges me, not affection.
+corrupt/LG | offended | There's no need for that; I would ask you to speak to me as I speak to you.
+corrupt/LG | offended | Mind your manners, I beg you; such words do neither of us credit.
+corrupt/LG | offended_again | Enough; I have been patient with you, and patience has its limits.
+corrupt/LG | offended_again | Hold your tongue, please; I will not hear another word of that.
+corrupt/LG | parted_cold | Be on your way, if you please; we have nothing further to discuss.
+corrupt/LG | parted_cold | Go, then; I have said all I mean to say.
+corrupt/LG | safety_unsafe | No, I am sorry to say. Please keep clear of {worst}.[ There are {danger} as well.]
+corrupt/LG | safety_unsafe | Not safe, I fear. There are {danger}, and I would not have you go near them.[ I would also beg you to avoid {worst}.]
+corrupt/LG | safety_wary | Careful, and you should come to no harm. I would avoid {worst}, most earnestly.[ Please mind the {danger} as well.]
+corrupt/LG | safety_wary | More or less, I believe, provided you keep well away from {worst}.
+corrupt/LG | safety_safe | Safe enough, I believe. The worst I would warn you of is {worst}.
+corrupt/LG | safety_safe | Yes, to the best of my knowledge. I would still ask you to give {worst} a wide berth.
+corrupt/LG | safety_safe | Nothing to fear here, I assure you, and I would tell you if there were.
+corrupt/LG | denied | You're mistaken, I assure you, and I would ask you not to repeat it.
+corrupt/LG | denied | No; I have nothing to hide from you, and I am sorry you think otherwise.
+corrupt/LG | denied_again | That's not so, and I must ask you, courteously, to let it rest.
+
+# ---- corrupt/CG: conversation ----
+corrupt/CG | greeted | Hello, you. Anything you need, and I mean anything, you come to me.
+corrupt/CG | greeted | Well met. You've the look of someone who breaks the right rules; I like that.
+corrupt/CG | greeted | Good day, and never mind the formalities; they bore me stiff.
+corrupt/CG | greeted_again | Hello again![ How'd it go with {asked}?]
+corrupt/CG | greeted_again | Back again. I saw you {since}, and I'm glad you came round.
+corrupt/CG | greeted_again | Good day. There you are, and I was only just thinking of you.
+corrupt/CG | greeted_warm | Good to see you, and don't argue, it is.[ Did {asked} come good for you?]
+corrupt/CG | greeted_warm | Welcome back! I saw you {since}, and I've missed you, a bit, don't let it go to your head.
+corrupt/CG | greeted_cold | What do you want? I'm listening, but I'm not smiling.
+corrupt/CG | greeted_cold | Keep back, all right? I'll hear you, but from there.
+corrupt/CG | greeted_cold | What now? Out with it, and then off with you.
+corrupt/CG | greeted_taken | Hello again. The work's still yours; anything in the way, tell me and I'll see what bends.
+corrupt/CG | greeted_taken | Good day. I saw you {since}; how's my work treating you?
+corrupt/CG | greeted_finished | Good to see you! It's done, and you're a marvel, and I'll hear no argument.
+corrupt/CG | greeted_finished | Welcome back. The work's done; thank you, truly, from the bottom of my heart.
+corrupt/CG | greeted_failed | Hello again. It didn't work out; never mind, you're here, and that's what counts.
+corrupt/CG | greeted_failed | Back again. It came to nothing, and I'm sorry I put it on you.
+corrupt/CG | greeted_abandoned | Well met again. You dropped my work, and, honestly, I'd have done the same.
+corrupt/CG | greeted_abandoned | Good day. You gave it up; you'd your reasons, and I'll not pry.
+corrupt/CG | small_talk | Me? Never better, or near enough, and you?
+corrupt/CG | small_talk | Some rule always wants bending, {time} or no, and I'm happy to oblige.
+corrupt/CG | small_talk | It's {season}, and somebody somewhere always needs a hand, so I keep busy.[ Mind the {danger}, won't you?]
+corrupt/CG | small_talk_fair | It's a glorious {time}, and I'm not wasting it indoors.
+corrupt/CG | small_talk_fair | Such a clear sky, and for {season}, too![ Just steer clear of the {danger}, eh.]
+corrupt/CG | small_talk_wet | It's a wet {time}, and I'm soaked, and I don't care a bit.
+corrupt/CG | small_talk_wet | This rain, for {season}, of all things.[ Keep away from the {danger}, though, wet or dry.]
+corrupt/CG | small_talk_storm | Hear that? It's a proper storm, and I love a proper storm.
+corrupt/CG | small_talk_storm | It's a wild {time}; I hope nobody's caught out in it.[ And nobody's near the {danger}, either.]
+corrupt/CG | small_talk_cold | I'm not in a chatting mood, not with you.
+corrupt/CG | small_talk_cold | Let's not pretend we're friends, all right?
+corrupt/CG | acknowledged | Right, good, that's good.
+corrupt/CG | acknowledged | Ah, is that it? Well, fair enough.
+corrupt/CG | acknowledged | Aye? Then that settles it.
+corrupt/CG | thanked | No need, honestly; you'd do the same for me.
+corrupt/CG | thanked | Glad to, any time, and I mean any time.
+corrupt/CG | thanked_cold | Hmph, keep them; I didn't do it for you.
+corrupt/CG | thanked_cold | Spare me the thanks, all right?
+corrupt/CG | offended | There's no need for that, you know; I've done nothing to you.
+corrupt/CG | offended | Careful, now; I'm on your side, or I was a moment ago.
+corrupt/CG | offended_again | Enough, all right, enough; I'm done being nice.
+corrupt/CG | offended_again | How dare you, again, and to my face.
+corrupt/CG | parted_cold | On your way; we're finished here.
+corrupt/CG | parted_cold | Get going; I've nothing left to say to you.
+corrupt/CG | safety_unsafe | No, it isn't, and I'm not having you walk into it. Keep clear of {worst}.[ There are {danger} too, and they don't care who you are.]
+corrupt/CG | safety_unsafe | Far from it; there are {danger}, and I mean it.[ Keep away from {worst}, too.]
+corrupt/CG | safety_wary | Mostly, if you're sensible and stay away from {worst}.
+corrupt/CG | safety_wary | Keep your wits about you, and give {worst} a wide berth.[ The {danger} too, please.]
+corrupt/CG | safety_safe | Safe enough, near as I can tell. The worst thing going is {worst}.
+corrupt/CG | safety_safe | Yes, safe. I'd keep off {worst}, all the same.
+corrupt/CG | safety_safe | Nothing to fear here, not while I'm about.
+corrupt/CG | denied | What are you on about, I'm an open book, me.
+corrupt/CG | denied | That's not so, and you know it isn't.
+corrupt/CG | denied_again | You're mistaken, again, and I'm starting to take it personally.
+
+# ---- corrupt/NE: conversation ----
+corrupt/NE | greeted | Hello. Let's see what you're worth, shall we?
+corrupt/NE | greeted | Good day. You'll get courtesy from me until it stops being worth giving.
+corrupt/NE | greeted | Well met, perhaps. That rather depends on you.
+corrupt/NE | greeted_again | Hello again.[ Did {asked} prove worth the trouble?]
+corrupt/NE | greeted_again | Back again. I saw you {since}; I'm still deciding what you're good for.
+corrupt/NE | greeted_again | Good day. You again; I'll try to look pleased.
+corrupt/NE | greeted_warm | Good to see you, and I don't say that to many.[ Did {asked} work out in your favour?]
+corrupt/NE | greeted_warm | Welcome back. I saw you {since}, and I find I'm glad of it, which is rare.
+corrupt/NE | greeted_cold | What do you want? Be brief; you're not worth my time.
+corrupt/NE | greeted_cold | Keep back. Whatever you're selling, I'm not buying.
+corrupt/NE | greeted_cold | What now? Say it, and then take yourself off.
+corrupt/NE | greeted_taken | Hello again. The work's still yours, and I've not forgotten whose it is.
+corrupt/NE | greeted_taken | Back again. I saw you {since}, and the work's still undone; I do keep count.
+corrupt/NE | greeted_finished | Good to see you. The work's done, and you've proved worth keeping.
+corrupt/NE | greeted_finished | Welcome back. It's done, and you've risen in my estimation, a little.
+corrupt/NE | greeted_failed | Hello again. It came to nothing; I'd hoped for better, if not much better.
+corrupt/NE | greeted_failed | Good day. The work failed, and your figure's gone down with it.
+corrupt/NE | greeted_abandoned | Back again. You dropped my work, and I've not let it go, even if you did.
+corrupt/NE | greeted_abandoned | Well met again. You gave up on me; I don't forget that sort of thing.
+corrupt/NE | small_talk | I'm doing well, as it happens, at someone's expense.
+corrupt/NE | small_talk | I've spent this {time} working out who owes what to whom.
+corrupt/NE | small_talk | It's {season}, and {place} is worth about what it always is, which isn't much.
+corrupt/NE | small_talk_fair | It's a fine {time}, not that it improves the company.
+corrupt/NE | small_talk_fair | The weather's fair for {season}, for all the good it does anyone.[ You'll want to keep clear of the {danger}, I suppose.]
+corrupt/NE | small_talk_wet | It's a wet {time}, and I'm dry, which is all that concerns me.
+corrupt/NE | small_talk_wet | So it rains, and so the fools get wet.[ Stay clear of the {danger}, if you've any sense.]
+corrupt/NE | small_talk_storm | It's a filthy, howling {time}, and I've no intention of going out in it.
+corrupt/NE | small_talk_storm | This storm's the only honest thing in {place} today.[ Mind the {danger}, if you're fool enough to go out.]
+corrupt/NE | small_talk_cold | I've better uses for my breath than you.
+corrupt/NE | small_talk_cold | Keep the pleasantries for someone who might believe them.
+corrupt/NE | acknowledged | Is that so? How very interesting.
+corrupt/NE | acknowledged | I see. I'll put that to use.
+corrupt/NE | acknowledged | Well, then. That's something, I suppose.
+corrupt/NE | thanked | Don't mention it; I'll mention it, when the time comes.
+corrupt/NE | thanked | You're welcome, for now.
+corrupt/NE | thanked_cold | Keep your thanks; they're worth what you are to me, which is little.
+corrupt/NE | thanked_cold | Spare me; gratitude is cheap, and you're offering it cheaply.
+corrupt/NE | offended | Careful; I never let a slight pass, and that was one.
+corrupt/NE | offended | Watch your tongue; you'll find insults come back with interest.
+corrupt/NE | offended_again | Enough; that's twice, and I'm keeping count.
+corrupt/NE | offended_again | Hold your tongue; you've spent what little goodwill you had.
+corrupt/NE | parted_cold | Go, then; you've nothing I want.
+corrupt/NE | parted_cold | Be on your way, and take your uselessness with you.
+corrupt/NE | safety_unsafe | No, not for anyone, and least of all for you. Keep clear of {worst}.[ There are {danger} too, and they won't care what you're worth.]
+corrupt/NE | safety_unsafe | I wouldn't say so. There are {danger}, and I'd not risk anything of value near them.[ Nor {worst}, for that matter.]
+corrupt/NE | safety_wary | Mostly, for those with sense. Stay away from {worst}.[ The {danger}, too.]
+corrupt/NE | safety_wary | More or less, if you've the wit to avoid {worst}.
+corrupt/NE | safety_safe | Safe enough. The worst of it is {worst}, and you're welcome to it.
+corrupt/NE | safety_safe | Yes, for what it's worth. I'd still not go near {worst}, but then, I value myself.
+corrupt/NE | safety_safe | It's safe; if it weren't, I'd be elsewhere.
+corrupt/NE | denied | Nonsense; you're seeing things, and I'd stop, if I were you.
+corrupt/NE | denied | You have the wrong one, and you'd do well to remember it.
+corrupt/NE | denied_again | No, and I'm tired of hearing it.
+
+# ---- corrupt/LE: conversation ----
+corrupt/LE | greeted | Good day. You may state your business, and I shall decide whether it merits my attention.
+corrupt/LE | greeted | Greetings. I extend my courtesy to everyone, at first.
+corrupt/LE | greeted | Hail. You have my attention, which is more than most can say.
+corrupt/LE | greeted_again | Hello again.[ I assume your interest in {asked} has been satisfied.]
+corrupt/LE | greeted_again | Good day. We spoke {since}, and I have not yet decided what I make of you.
+corrupt/LE | greeted_again | Well met again. You return, which is either persistence or presumption.
+corrupt/LE | greeted_warm | Good to see you; I find your company tolerable, which is high praise.[ I trust {asked} proved worth your attention.]
+corrupt/LE | greeted_warm | Welcome back. I saw you {since}, and you remain in my good graces, for the present.
+corrupt/LE | greeted_cold | What do you want? Be precise, and be quick.
+corrupt/LE | greeted_cold | Keep back. I have not invited you any closer.
+corrupt/LE | greeted_cold | What now? I trust this will be brief, for your sake.
+corrupt/LE | greeted_taken | Hello again. The commission remains yours, and I have not forgotten the terms.
+corrupt/LE | greeted_taken | Good day. I saw you {since}; the commission stands, and I expect it honoured.
+corrupt/LE | greeted_finished | Good to see you. The commission is discharged, and I acknowledge it.
+corrupt/LE | greeted_finished | Welcome back. It is done, and I shall remember that you kept your word.
+corrupt/LE | greeted_failed | Hello again. The commission failed, and I have noted by whose hand.
+corrupt/LE | greeted_failed | Back again. It came to nothing; I expected little, and received less.
+corrupt/LE | greeted_abandoned | Well met again. You abandoned my commission, and I have not overlooked it.
+corrupt/LE | greeted_abandoned | Good day. You set aside your word to me; I trust you understand what that costs.
+corrupt/LE | small_talk | I am quite well, thank you, and better informed than most.
+corrupt/LE | small_talk | The office runs to my advantage, as offices should.
+corrupt/LE | small_talk | It is {season}, and {place} is much as ever, available to the right party.[ Only the {danger} are not open to terms.]
+corrupt/LE | small_talk_fair | It is a fair {time}, and I find it wasted on most of the people out in it.
+corrupt/LE | small_talk_fair | The weather is fine, which is more than I can say for {place}.[ Mind the {danger}, as a courtesy from me.]
+corrupt/LE | small_talk_wet | It is a wet {time}, and I have no intention of standing in it for your benefit.
+corrupt/LE | small_talk_wet | This rain suits {place}; it is dreary, and so is everyone in it.[ Do heed the {danger}, though I doubt you will.]
+corrupt/LE | small_talk_storm | It is a storm, and I shall not be venturing out in it, whatever the inducement.
+corrupt/LE | small_talk_storm | A storm, and for {season}; how very tiresome.[ I would not go near the {danger} in it, were I you.]
+corrupt/LE | small_talk_cold | I do not make conversation with people of no consequence.
+corrupt/LE | small_talk_cold | You will find me short of pleasantries, and shorter of patience.
+corrupt/LE | acknowledged | Indeed. I shall bear it in mind, for what it is worth.
+corrupt/LE | acknowledged | Is that so? How very candid of you.
+corrupt/LE | acknowledged | Good. That is the answer I expected.
+corrupt/LE | thanked | No need; I shall think of a way for you to show it.
+corrupt/LE | thanked | My pleasure, and I shall remember it, even if you do not.
+corrupt/LE | thanked_cold | Save your thanks; I did not act for your sake, and I shall not pretend otherwise.
+corrupt/LE | thanked_cold | Spare me the courtesy; it sits poorly on you.
+corrupt/LE | offended | How dare you; I do not forget such things, and I do not forgive them.
+corrupt/LE | offended | Mind your manners; you are speaking to someone who remembers every word.
+corrupt/LE | offended_again | Enough; you have said quite sufficient to be remembered by.
+corrupt/LE | offended_again | Hold your tongue, or I shall hold it against you, which is worse.
+corrupt/LE | parted_cold | Be on your way; I have finished with you.
+corrupt/LE | parted_cold | On your way; this audience is at an end.
+corrupt/LE | safety_unsafe | No, and I say so with some certainty. Keep clear of {worst}.[ There are also {danger}, which I leave to the foolish.]
+corrupt/LE | safety_unsafe | Not safe, not by any measure. There are {danger}, and I would not go near them for any consideration.[ Nor would I venture near {worst}.]
+corrupt/LE | safety_wary | Careful, and you may yet come through. Stay away from {worst}.[ The {danger} as well, if you value yourself.]
+corrupt/LE | safety_wary | Mostly, so long as you keep your distance from {worst}, which I should hope is obvious.
+corrupt/LE | safety_safe | Safe enough, for the present. The worst I could name is {worst}.
+corrupt/LE | safety_safe | Yes, though I would not care to vouch for {worst}.
+corrupt/LE | safety_safe | It's safe, and I would know if it were not.
+corrupt/LE | denied | You're mistaken, and I would choose your next words with great care.
+corrupt/LE | denied | I don't know what you mean, and I do not care to have it explained.
+corrupt/LE | denied_again | That's not so, and I shall remember that you said it twice.

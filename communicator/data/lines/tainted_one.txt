@@ -107,7 +107,7 @@ tainted_one/NG | surroundings | The nearest is {nearest}.[ Past that, {others}.]
 tainted_one/NG | surroundings | Near at hand is {nearest}[, then {others}].[ Watch yourself near the {danger}.]
 tainted_one/NG | work_own | I could use a hand, if you're willing: {own}.[ If not, {others}.]
 tainted_one/NG | work_own | Take this, and we'll talk about the rest later: {own}.[ Or, if it suits you better, {others}.]
-tainted_one/NG | work_own | Here's what needs doing, if you've the heart for it: {own}.[ Otherwise, {others}.]
+tainted_one/NG | work_own | Here's what needs doing, and it's yours if you want it: {own}.[ Otherwise, {others}.]
 tainted_one/NG | work_others | Nothing from me, I'm afraid, but {others}.
 tainted_one/NG | work_others | I've nothing for you myself, but {others}; try them first.
 tainted_one/NG | work_none | No work of mine, and none I've heard of, more's the pity.
@@ -123,12 +123,12 @@ tainted_one/NG | refused_release | I won't release you from work I didn't give; 
 tainted_one/NG | refused | No, {reason}, and I'm sorry for it.
 tainted_one/NG | refused | I can't; {reason}, and I'd change that if I could.
 tainted_one/NG | accepted | Thank you. Should it start while you're near, go, and don't wait for me.
-tainted_one/NG | accepted | Good. Come back whole; that matters more to me than the work.
-tainted_one/NG | accepted | Done, and I'm glad it's you. Mind how you go.
+tainted_one/NG | accepted | Good. You didn't have to say yes, and I know it.
+tainted_one/NG | accepted | Done, and I'm glad it's you. I mean that.
 tainted_one/NG | declined | Fair enough, and I hope whatever you choose instead goes well.
 tainted_one/NG | declined | Suit yourself, though I'd have been glad of you.
-tainted_one/NG | declined | So be it; there's no shame in knowing your limits.
-tainted_one/NG | abandoned | A pity, but I'd sooner you safe than the work finished.
+tainted_one/NG | declined | So be it; you know your own mind, and I won't argue with it.
+tainted_one/NG | abandoned | A pity, but I won't hold it over you.
 tainted_one/NG | abandoned | Then it's done, and it's all right, truly.
 tainted_one/NG | abandoned | Very well, and thank you for telling me instead of simply vanishing.
 tainted_one/NG | parted | Take care of yourself, and of whoever's with you.
@@ -215,7 +215,7 @@ tainted_one/CG | refused_release | I cannot let you off work I never gave, forgi
 tainted_one/CG | refused | No, {reason}, and it galls me, it truly does.
 tainted_one/CG | refused | I can't, {reason}, and I'd fight it if fighting helped.
 tainted_one/CG | accepted | Thank you! If it starts, you run, and you take anyone who can't run with you.
-tainted_one/CG | accepted | Good, good, oh, this'll be fun. Mind yourself, though.
+tainted_one/CG | accepted | Good, good, oh, I knew you'd say yes. No, I didn't; I hoped.
 tainted_one/CG | accepted | Done, and gladly; whatever comes, I'm with you, not with anyone's orders.
 tainted_one/CG | declined | Fair enough; look after yourself, and whoever you look after.
 tainted_one/CG | declined | So be it; you'll be missed, that's all.
@@ -229,3 +229,278 @@ tainted_one/CG | parted | Take care, and I mean that, take care.
 tainted_one/CG | not_understood | I'm not sure what you mean, but I'm listening, go on.
 tainted_one/CG | not_understood | That's beyond me, forgive me; try it another way?
 tainted_one/CG | not_understood | Speak plainly, please, before I start guessing, and I guess badly.
+
+# ---- tainted_one/NN: conversation ----
+tainted_one/NN | greeted | Hello. Say what you need, and we'll see if we can deal.
+tainted_one/NN | greeted | Well met. Tell me what you're after, and what it's worth to you.
+tainted_one/NN | greeted | Good day. That's close enough, no offence meant; we can talk from there.
+tainted_one/NN | greeted_again | Hello again.[ Did {asked} turn out worth the asking?]
+tainted_one/NN | greeted_again | Back again; I saw you {since}. What's it to be this time?
+tainted_one/NN | greeted_again | Welcome back. You know where I stand, so let's not waste the visit.
+tainted_one/NN | greeted_warm | Good to see you; you've been worth knowing.[ How did asking after {asked} go?]
+tainted_one/NN | greeted_warm | Well met again. I saw you {since}, and you've earned a step closer than most.
+tainted_one/NN | greeted_cold | What do you want? Make it quick, and make it worth my while.
+tainted_one/NN | greeted_cold | Keep back. Whatever you're selling, I'm not buying.
+tainted_one/NN | greeted_cold | Stay back. You'll get answers from me, not a welcome.
+tainted_one/NN | greeted_taken | Hello again. The work's still yours, and still open on my books.
+tainted_one/NN | greeted_taken | Good day. I saw you {since}, and my work's still in your hands.
+tainted_one/NN | greeted_finished | Welcome back. The work's done, and I don't forget who does what they said.
+tainted_one/NN | greeted_finished | Good to see you. You finished what you took on, and that counts with me.
+tainted_one/NN | greeted_failed | Hello again. It didn't come off; that's a loss, not a grudge.
+tainted_one/NN | greeted_failed | Back again. The work failed, and I've written it off; don't make a habit of it.
+tainted_one/NN | greeted_abandoned | Hello again. You walked away from my work; I've noted it, and nothing more.
+tainted_one/NN | greeted_abandoned | Good day. You set my work down, so I'll weigh your next promise a little lighter.
+tainted_one/NN | small_talk | I'm steady today, which is as good as it gets for me.
+tainted_one/NN | small_talk | My work as {post} keeps me busy, and busy suits me better than idle.
+tainted_one/NN | small_talk | It's {season}, and I've no complaint about it.[ The {danger}, though; I'd have them further off.]
+tainted_one/NN | small_talk_fair | It's a fair {time}, for {season}, and I'll take it.
+tainted_one/NN | small_talk_fair | Good walking weather, and it's {season}.[ Just not toward the {danger}.]
+tainted_one/NN | small_talk_wet | It's raining, and it's {season}; I'd sooner be dry, but nobody asked me.
+tainted_one/NN | small_talk_wet | A wet {time}, even for {season}.[ In any weather, I'd keep clear of the {danger}.]
+tainted_one/NN | small_talk_storm | It's a stormy {time}, and I'm staying out of it; I'd advise the same.
+tainted_one/NN | small_talk_storm | A storm, and {season} with it; there's no bargaining with either.[ Nor with the {danger}.]
+tainted_one/NN | small_talk_cold | I've no small talk to spare for you.
+tainted_one/NN | small_talk_cold | You'll get business from me, not chatter, and not much of that.
+tainted_one/NN | acknowledged | I see. That's that, then.
+tainted_one/NN | acknowledged | Fair enough. I'll take that as it's given.
+tainted_one/NN | acknowledged | Right. I'll remember you said so.
+tainted_one/NN | thanked | No need; that one goes in nobody's ledger.
+tainted_one/NN | thanked | You're welcome; fair's fair.
+tainted_one/NN | thanked_cold | Save your thanks; they don't settle anything between us.
+tainted_one/NN | thanked_cold | Hmph, thanks are cheap, and yours are cheaper.
+tainted_one/NN | offended | Watch your tongue; insults cost more than they buy.
+tainted_one/NN | offended | There's no need for that, and nothing in it for either of us.
+tainted_one/NN | offended_again | Enough; you've spent all the patience I had for you.
+tainted_one/NN | offended_again | Hold your tongue, or find someone else to waste it on.
+tainted_one/NN | parted_cold | Go, then; we're done trading for today.
+tainted_one/NN | parted_cold | Be on your way; I've nothing more for you.
+tainted_one/NN | safety_unsafe | No, and I'll not sell you a comfort I don't have. Keep clear of {worst}.[ The {danger} as well.]
+tainted_one/NN | safety_unsafe | Not safe. There are {danger}, and a fight with them is a bad trade.[ And I'd not waste a step on {worst}.]
+tainted_one/NN | safety_wary | Mostly. You'll do fine if you keep clear of {worst}.[ And leave the {danger} be.]
+tainted_one/NN | safety_wary | More or less. The one place I'd not set foot is {worst}.
+tainted_one/NN | safety_safe | Safe enough. The worst I'd name is {worst}.
+tainted_one/NN | safety_safe | Yes, as far as I can see. Just don't wander toward {worst}.
+tainted_one/NN | safety_safe | Nothing to fear here; I've no reason to say otherwise.
+tainted_one/NN | denied | No; what you see is what you're dealing with.
+tainted_one/NN | denied | You're mistaken, and guessing about me won't get you anything.
+tainted_one/NN | denied_again | That's not so, and asking twice won't change the answer.
+
+# ---- tainted_one/LN: conversation ----
+tainted_one/LN | greeted | Greetings. We have not met, so let us begin properly: what is your business?
+tainted_one/LN | greeted | Good day. I am listening; begin at the beginning, if you would.
+tainted_one/LN | greeted | Hail. You will forgive me if I keep a little distance; it is nothing against you.
+tainted_one/LN | greeted_again | Hello again.[ When last we spoke, you asked after {asked}.]
+tainted_one/LN | greeted_again | Well met again. By my count, I last saw you {since}.
+tainted_one/LN | greeted_again | Good day. You are known to me now, and that is a beginning.
+tainted_one/LN | greeted_warm | Good to see you.[ Did your inquiry after {asked} bear fruit?]
+tainted_one/LN | greeted_warm | Welcome back. I saw you {since}, and my good opinion of you holds.
+tainted_one/LN | greeted_cold | What do you want? Say it in full, and then we are finished.
+tainted_one/LN | greeted_cold | Keep back. You may speak from there; that is near enough.
+tainted_one/LN | greeted_cold | Stay back. I will answer what I must, and nothing more.
+tainted_one/LN | greeted_taken | Hello again. Your word on my work still stands, and so does the work.
+tainted_one/LN | greeted_taken | Good day. I saw you {since}; the work remains open, and in your hands.
+tainted_one/LN | greeted_finished | Welcome back. The work is done and your word is kept; that weighs in your favour.
+tainted_one/LN | greeted_finished | Good to see you. The work is complete, and your standing with me is proven.
+tainted_one/LN | greeted_failed | Hello again. The work failed; it is recorded, and it is closed.
+tainted_one/LN | greeted_failed | Good day. The work came to nothing, and so it stands in my account.
+tainted_one/LN | greeted_abandoned | Hello again. You released yourself from my work, and it stands on record that you did.
+tainted_one/LN | greeted_abandoned | Good day. You gave your word and took it back; I will weigh the next one accordingly.
+tainted_one/LN | small_talk | I am well, thank you, and in good order; that is no accident.
+tainted_one/LN | small_talk | My day goes as it should: one thing, then the next, each in its turn.
+tainted_one/LN | small_talk | It is {season}, and I take each day of it as it comes.[ I keep the {danger} in mind, and so should you.]
+tainted_one/LN | small_talk_fair | It is a clear {time}, as good as {season} allows.
+tainted_one/LN | small_talk_fair | The weather is fine, and I will not ask more of it than that.[ Fine weather does not make the {danger} any safer.]
+tainted_one/LN | small_talk_wet | It is a wet {time}; I count the drops, when there is nothing better to count.
+tainted_one/LN | small_talk_wet | The rain is steady, for {season}; I would stay under a roof, were I you.[ And well away from the {danger}.]
+tainted_one/LN | small_talk_storm | It is a storm, and a hard one; I would not be abroad in it at any hour.
+tainted_one/LN | small_talk_storm | There is a gale, and {season} besides; this is no weather for errands.[ Nor for going near the {danger}.]
+tainted_one/LN | small_talk_cold | I have nothing to say to you beyond what is required.
+tainted_one/LN | small_talk_cold | I keep pleasantries for those I trust, and I do not yet trust you.
+tainted_one/LN | acknowledged | I see. Then I will proceed on that understanding.
+tainted_one/LN | acknowledged | Indeed. That is noted, and I thank you for it.
+tainted_one/LN | acknowledged | Is that so? Then I will hold it true until I learn otherwise.
+tainted_one/LN | thanked | You're welcome; it is a small thing, and gladly done.
+tainted_one/LN | thanked | Think nothing of it; I would do as much for anyone who asked civilly.
+tainted_one/LN | thanked_cold | Keep your thanks; what I did was proper, not a kindness to you.
+tainted_one/LN | thanked_cold | Spare me; I have no use for courtesy from you.
+tainted_one/LN | offended | Mind your manners; you are speaking to the {post} of {place}.
+tainted_one/LN | offended | Careful; I count slights as closely as I count everything else.
+tainted_one/LN | offended_again | Enough; I have noted it, and I will not be spoken to so again.
+tainted_one/LN | offended_again | Hold your tongue; whatever goodwill you had with me is spent.
+tainted_one/LN | parted_cold | Be on your way; we have nothing further to discuss.
+tainted_one/LN | parted_cold | Go, then, and let that be the end of it.
+tainted_one/LN | safety_unsafe | No, it is not, and I will not soften it. Keep well clear of {worst}.[ I would add the {danger} to that.]
+tainted_one/LN | safety_unsafe | Not safe; I will state it plainly. There are {danger}.[ Next I would name {worst}.]
+tainted_one/LN | safety_wary | Careful. It is safe if you keep well away from {worst}.[ The same holds for the {danger}.]
+tainted_one/LN | safety_wary | Mostly. I would add one caution, in due form: avoid {worst}.
+tainted_one/LN | safety_safe | Yes. The only place I would caution you against is {worst}.
+tainted_one/LN | safety_safe | Safe enough. By every account I have, the worst of it is {worst}.
+tainted_one/LN | safety_safe | Nothing to fear here, and I do not say that lightly.
+tainted_one/LN | denied | You're mistaken; I am exactly what I appear to be.
+tainted_one/LN | denied | That's not so, and I will thank you not to suggest it.
+tainted_one/LN | denied_again | No; I have answered once, and my answer does not change with asking.
+
+# ---- tainted_one/NG: conversation ----
+tainted_one/NG | greeted | Hello, and welcome to {place}. Is there someone you're looking for?
+tainted_one/NG | greeted | Well met. Mind you don't stand too close; it's nothing personal, I promise.
+tainted_one/NG | greeted | Good day. I'm {speaker}, the {post} here; tell me if you need anything.
+tainted_one/NG | greeted_again | Hello again.[ Did you find what you needed about {asked}?]
+tainted_one/NG | greeted_again | Back again. I saw you {since}; how have you been?
+tainted_one/NG | greeted_again | Well met again. What brings you back?
+tainted_one/NG | greeted_warm | Good to see you.[ How did it go with {asked}?]
+tainted_one/NG | greeted_warm | Welcome back. It's a relief to see you well.
+tainted_one/NG | greeted_cold | What do you want? I'll hear it, but from there.
+tainted_one/NG | greeted_cold | Stay back, please. I'd rather not have you close just now.
+tainted_one/NG | greeted_cold | What now? Say it plainly, and then I'd like you to go.
+tainted_one/NG | greeted_taken | Hello again. You've still got my work in hand; is it going all right?
+tainted_one/NG | greeted_taken | Good day. I saw you {since}; my work's still with you, and I trust you with it.
+tainted_one/NG | greeted_finished | Welcome back. The work's done, and I'm grateful to you.
+tainted_one/NG | greeted_finished | Good to see you. It's done, and done by you; thank you.
+tainted_one/NG | greeted_failed | Hello again. It didn't go your way, and I'm sorry; are you all right?
+tainted_one/NG | greeted_failed | Back again. It failed, and I'm sorry it did; how are you keeping?
+tainted_one/NG | greeted_abandoned | Good day. You set my work down; I hope it was for a good reason.
+tainted_one/NG | greeted_abandoned | Welcome back. You gave my work up, and that's all right; I'd still like to know why.
+tainted_one/NG | small_talk | I'm all right today, thank you for asking; it's a good day when I can say that.
+tainted_one/NG | small_talk | There's always someone who needs a hand, so I keep busy; I like it that way.
+tainted_one/NG | small_talk | It's {season}; I hope everyone's managing.[ I worry about anyone out near the {danger}.]
+tainted_one/NG | small_talk_fair | It's a lovely {time}, isn't it? I hope you get to enjoy some of it.
+tainted_one/NG | small_talk_fair | Fine weather, for {season}; a good day to be outdoors.[ Only keep well away from the {danger}.]
+tainted_one/NG | small_talk_wet | It's raining; have you somewhere dry to go?
+tainted_one/NG | small_talk_wet | Such a wet {time}, for {season}.[ I'd not want anyone caught out in this near the {danger}.]
+tainted_one/NG | small_talk_storm | It's a storm, and a bad one; stay under a roof if you can.[ Above all, stay clear of the {danger}.]
+tainted_one/NG | small_talk_storm | What a wild {time}, and {season} besides; nobody should be out in this.
+tainted_one/NG | small_talk_cold | I'd rather keep this short, if you don't mind.
+tainted_one/NG | small_talk_cold | I'm not in the mood for chatter, not with you.
+tainted_one/NG | acknowledged | I see. Thank you for telling me.
+tainted_one/NG | acknowledged | Ah. I'll keep that in mind.
+tainted_one/NG | acknowledged | Right. Then I know where things stand.
+tainted_one/NG | thanked | Glad to; it's what anyone should do.
+tainted_one/NG | thanked | You're welcome; come to me whenever you need.
+tainted_one/NG | thanked_cold | Keep your thanks; I'd have done the same for anyone.
+tainted_one/NG | thanked_cold | Hmph, thank me by keeping your distance.
+tainted_one/NG | offended | There's no need for that; I'd hoped better of you.
+tainted_one/NG | offended | Watch your tongue; I've enough to hold in without your help.
+tainted_one/NG | offended_again | Enough; I've tried to be patient with you, and I'm done trying.
+tainted_one/NG | offended_again | Hold your tongue, for both our sakes.
+tainted_one/NG | parted_cold | Go, then; I'd rather you did.
+tainted_one/NG | parted_cold | On your way; I've nothing more to say to you.
+tainted_one/NG | safety_unsafe | No, I'm sorry, it isn't. Please keep away from {worst}.[ And from the {danger}, too.]
+tainted_one/NG | safety_unsafe | Far from it. There are {danger}, and I'd not want anyone near them.[ Nor near {worst}.]
+tainted_one/NG | safety_wary | Keep your wits about you, and you'll be all right. Just stay clear of {worst}.[ And the {danger}, while you're at it.]
+tainted_one/NG | safety_wary | Mostly, yes. The one place I'd beg you to avoid is {worst}.
+tainted_one/NG | safety_safe | Yes, as far as I know. The worst I'd warn you of is {worst}.
+tainted_one/NG | safety_safe | Safe enough, I think. If you're heading out, though, stay clear of {worst}.
+tainted_one/NG | safety_safe | Nothing to fear here; I'd tell you straight away if there were.
+tainted_one/NG | denied | No, I'm just as I seem, and I'm sorry you'd think otherwise.
+tainted_one/NG | denied | You have the wrong one; I'm only what you see.
+tainted_one/NG | denied_again | No, and I'd ask you, kindly, to let it rest.
+
+# ---- tainted_one/CN: conversation ----
+tainted_one/CN | greeted | Hello. A new face, and not a bad one, as faces go.
+tainted_one/CN | greeted | Well met, or met, anyway; we'll see about the well.
+tainted_one/CN | greeted | Greetings, very grand, very formal. So, what are you after?
+tainted_one/CN | greeted_again | Hello again.[ Still chasing {asked}?]
+tainted_one/CN | greeted_again | Back again? I saw you {since}; you're getting to be a habit.
+tainted_one/CN | greeted_again | Good day. Oh, it's you; good, I think.
+tainted_one/CN | greeted_warm | Good to see you, it really is, don't let it go to your head.[ Any joy with {asked}?]
+tainted_one/CN | greeted_warm | Welcome back, you. I saw you {since}, and I'll admit it, I'm pleased.
+tainted_one/CN | greeted_cold | What do you want? The short version, please.
+tainted_one/CN | greeted_cold | Keep back; no, further, that'll do.
+tainted_one/CN | greeted_cold | What now? You again, or someone like you; same thing.
+tainted_one/CN | greeted_taken | Hello again. My work, your hands, still; how's it going?
+tainted_one/CN | greeted_taken | Good day, or is it? I saw you {since}, and my work's still with you.
+tainted_one/CN | greeted_finished | Welcome back. It's done, and done by you; well, look at you.
+tainted_one/CN | greeted_finished | Good to see you. You finished it; I'd have bet against it, and I'd have lost.
+tainted_one/CN | greeted_failed | Hello again. It went wrong, then; well, things do.
+tainted_one/CN | greeted_failed | Back again. So it failed; shame, but I've seen worse.
+tainted_one/CN | greeted_abandoned | Good day. You dropped my work; fine, noted, moving on.
+tainted_one/CN | greeted_abandoned | Hello again. The one who walked off my work; no, no, I'm over it, mostly.
+tainted_one/CN | small_talk | Me? Fine, good, odd, fine again; ask me in an hour.
+tainted_one/CN | small_talk | Oh, the usual: people, nonsense, people making nonsense.
+tainted_one/CN | small_talk | It's {season}, which I'm told matters to someone.[ And there are {danger}, if you like that sort of thing.]
+tainted_one/CN | small_talk_fair | It's a fine {time}, and I'm suspicious of it.
+tainted_one/CN | small_talk_fair | Look at that, clear skies, for {season}; don't get used to it.[ A good day for avoiding the {danger}, too.]
+tainted_one/CN | small_talk_wet | It's raining, and I've given up minding; no, I haven't.
+tainted_one/CN | small_talk_wet | Oh, it's a wet {time}, for {season}.[ Mind the {danger}, wet or not.]
+tainted_one/CN | small_talk_storm | It's a storm, a proper one; I rather like it, which says something about me.
+tainted_one/CN | small_talk_storm | Listen to that gale; hold onto something.[ Not the {danger}, obviously.]
+tainted_one/CN | small_talk_cold | No chatting, not with you, not today.
+tainted_one/CN | small_talk_cold | I'm not in a talking mood, and you're not improving it.
+tainted_one/CN | acknowledged | Right, noted, filed, possibly forgotten.
+tainted_one/CN | acknowledged | Is that so? Well, well.
+tainted_one/CN | acknowledged | Aye, fine, I believe you, mostly.
+tainted_one/CN | thanked | Don't mention it; no, really, it's embarrassing.
+tainted_one/CN | thanked | My pleasure, and I don't say that to everyone.
+tainted_one/CN | thanked_cold | Spare me; you don't mean it, and I don't need it.
+tainted_one/CN | thanked_cold | Keep your thanks, I've no use for them.
+tainted_one/CN | offended | Watch your tongue; I've been called worse by better.
+tainted_one/CN | offended | How dare you, and no, I don't actually care, but still.
+tainted_one/CN | offended_again | Enough, you've made your point, badly.
+tainted_one/CN | offended_again | Hold your tongue, or at least find a new insult.
+tainted_one/CN | parted_cold | Off with you; go on, go.
+tainted_one/CN | parted_cold | On your way, and don't linger.
+tainted_one/CN | safety_unsafe | Not here, no, not even slightly. Keep off {worst}.[ And the {danger}; really, don't.]
+tainted_one/CN | safety_unsafe | Far from it. There are {danger}, and I'd not go calling.[ And if you're collecting, {worst}.]
+tainted_one/CN | safety_wary | More or less, if you're not daft about it; skip {worst}.[ The {danger} too.]
+tainted_one/CN | safety_wary | Keep your wits about you, all of them. And stay off {worst}.
+tainted_one/CN | safety_safe | Safe enough, boringly so. Only thing worth dodging is {worst}.
+tainted_one/CN | safety_safe | Aye, it's fine here; save your worrying for {worst}.
+tainted_one/CN | safety_safe | Quiet enough; dull, even, and dull is good.
+tainted_one/CN | denied | What are you on about; there's nothing to me but this.
+tainted_one/CN | denied | Nonsense, and a bit rude, honestly.
+tainted_one/CN | denied_again | No, still no, and it'll be no tomorrow too.
+
+# ---- tainted_one/CG: conversation ----
+tainted_one/CG | greeted | Hello. Come closer, well, not too close, sorry; that's for your sake.
+tainted_one/CG | greeted | Well met! Now, is anything wrong, and who do I shout at?
+tainted_one/CG | greeted | Good day. I'm {speaker}, and I'm glad you came by.
+tainted_one/CG | greeted_again | Hello again.[ Any news of {asked}?]
+tainted_one/CG | greeted_again | Back again! I saw you {since}, and here you are; good.
+tainted_one/CG | greeted_again | Well met again; how's everyone, you included?
+tainted_one/CG | greeted_warm | Good to see you, oh, it really is.[ And {asked}, how did that go?]
+tainted_one/CG | greeted_warm | Welcome back. I was hoping you'd turn up, and here you are.
+tainted_one/CG | greeted_cold | Stay back; for once, that's not for your sake.
+tainted_one/CG | greeted_cold | What do you want? Say it, and say it from there.
+tainted_one/CG | greeted_cold | What now? I'm listening, barely.
+tainted_one/CG | greeted_taken | Hello again. My work, still with you; how's it going, and how are you?
+tainted_one/CG | greeted_taken | Good day. I saw you {since}; the work's still yours, and I'm still glad it is.
+tainted_one/CG | greeted_finished | Welcome back! It's done, you did it, oh, thank you.
+tainted_one/CG | greeted_finished | Good to see you, and better to see it finished; well done, you.
+tainted_one/CG | greeted_failed | Hello again. It went wrong, and I'm sorry; are you all right, though?
+tainted_one/CG | greeted_failed | Back again. So it failed; it happens to everyone, and it's fine.
+tainted_one/CG | greeted_abandoned | Good day. You put my work down; that's all right, you matter more than it does.
+tainted_one/CG | greeted_abandoned | Hello again. You gave my work up, and no, I'm not upset; well, a little.
+tainted_one/CG | small_talk | I'm good, thank you; well, mostly, and it's kind of you to ask.
+tainted_one/CG | small_talk | Up and about, sorting out whoever needs sorting; it's a good day's work.
+tainted_one/CG | small_talk | It's {season}; are your people holding up?[ Nobody's gone near the {danger}, I hope.]
+tainted_one/CG | small_talk_fair | It's a beautiful {time}; I could shout, I won't, but I could.
+tainted_one/CG | small_talk_fair | Oh, it's fair out, for {season}; get out in it while you can.[ Well, not near the {danger}.]
+tainted_one/CG | small_talk_wet | It's pouring; get yourself somewhere dry, and anyone with you too.
+tainted_one/CG | small_talk_wet | What a wet {time}.[ Keep away from the {danger}, rain or no rain.]
+tainted_one/CG | small_talk_storm | It's a storm, a real one; I love it, and no, I won't apologise.
+tainted_one/CG | small_talk_storm | Hear that wind; get inside, and take anyone who needs taking.[ And nowhere near the {danger}, please.]
+tainted_one/CG | small_talk_cold | Not now; I've no chat in me, not for you.
+tainted_one/CG | small_talk_cold | Keep it short; I'm not feeling friendly.
+tainted_one/CG | acknowledged | I see, oh, I see; thank you.
+tainted_one/CG | acknowledged | Ah. Well, now I know, and I'm glad I asked.
+tainted_one/CG | acknowledged | Fair enough, fair enough; I'll remember that.
+tainted_one/CG | thanked | Glad to, always, whenever you need.
+tainted_one/CG | thanked | My pleasure, any time at all.
+tainted_one/CG | thanked_cold | Hmph, fine, thanks taken, now go.
+tainted_one/CG | thanked_cold | Keep your thanks; I don't want them from you.
+tainted_one/CG | offended | How dare you; no, really, how dare you, I'm asking.
+tainted_one/CG | offended | Mind your manners; I'm trying very hard to be nice, and you're not helping.
+tainted_one/CG | offended_again | Enough, that's enough; I've no more patience for this.
+tainted_one/CG | offended_again | Watch your tongue; I've run out of kind for you.
+tainted_one/CG | parted_cold | Get going, and don't come back like this.
+tainted_one/CG | parted_cold | Off with you; I'm not in the mood.
+tainted_one/CG | safety_unsafe | No, it isn't, and I'd hate for you to find out. Stay away from {worst}.[ And the {danger}, promise me.]
+tainted_one/CG | safety_unsafe | Not here, no. There are {danger}, and they'd better stay put.[ And don't, just don't, go near {worst}.]
+tainted_one/CG | safety_wary | Careful, and you'll be fine, mostly. Just keep clear of {worst}.[ Oh, and the {danger}; wide berth.]
+tainted_one/CG | safety_wary | Safe enough, if you're careful. Please, please don't go near {worst}.
+tainted_one/CG | safety_safe | Yes, you're fine here. Just promise me you'll skip {worst}.
+tainted_one/CG | safety_safe | Aye, safe as anything; the only place I'd fret about is {worst}.
+tainted_one/CG | safety_safe | It's safe, it's lovely, go and breathe.
+tainted_one/CG | denied | No, no, I'm just me; is that disappointing?
+tainted_one/CG | denied | You have the wrong one, honestly; I'm exactly what you see.
+tainted_one/CG | denied_again | That's not so, and I'll keep saying it, cheerfully, as often as you ask.

@@ -13,9 +13,9 @@ beast/CE | surroundings | {here}, since you ask so sweetly. The closest is {near
 beast/CE | surroundings | This is {here}, lamb, and nearest of all is {nearest}.[ Beyond that, {others}.][ And the {danger}; I do hope they're hungry.]
 beast/CE | surroundings | The nearest? {nearest}[, and then {others}].[ Go and feed the {danger}; you'd do nicely.]
 beast/CE | surroundings | Near you, if you must know, is {nearest}[, and after it {others}].[ The {danger} too, if you're feeling brave, or stupid.]
-beast/CE | work_own | Make yourself useful: {own}.[ Or go begging elsewhere: {others}.]
-beast/CE | work_own | I have something for you, soft thing, and I do hope you're sturdy: {own}.[ If you're not, {others}.]
-beast/CE | work_own | {own}; do it well and I might even learn your name.[ Or crawl off to the others: {others}.]
+beast/CE | work_own | Make yourself useful: {own}.[ Or don't, it's all one to me: {others}.]
+beast/CE | work_own | I have something for you, soft thing, and I do hope you'll say yes: {own}.[ If you won't, {others}.]
+beast/CE | work_own | {own}; there, and you didn't even have to beg.[ Or try the others: {others}.]
 beast/CE | work_others | Nothing of mine, morsel, but {others}.
 beast/CE | work_others | Mine? No. {others}, and good luck to them.
 beast/CE | work_none | All out, I'm afraid, and I'm so rarely afraid.
@@ -30,10 +30,10 @@ beast/CE | refused_release | I won't release what {giver} gave you; wriggle on i
 beast/CE | refused_release | I cannot free you from someone else's work, and it's funnier this way.
 beast/CE | refused | No, {reason}, and whining won't change that.
 beast/CE | refused | I can't, {reason}, and I'm as delighted about it as you are.
-beast/CE | accepted | Good. Do try to last.
-beast/CE | accepted | Done. Make it loud.
-beast/CE | accepted | Thank you, how brave of you. And how breakable.
-beast/CE | declined | Suit yourself, I'll find someone with more spine and less sense.
+beast/CE | accepted | Good. Do try not to bore me.
+beast/CE | accepted | Done. Oh, I'm going to enjoy you.
+beast/CE | accepted | Thank you, how terribly obliging of you. Yes is my favourite word.
+beast/CE | declined | Suit yourself, there's always another one of you.
 beast/CE | declined | Fair enough, run along before I take it personally.
 beast/CE | declined | As you wish, it's your funeral, probably.
 beast/CE | abandoned | A pity; you were almost interesting.
@@ -61,7 +61,7 @@ beast/CG | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Don'
 beast/CG | surroundings | Around here? {nearest}[, and past it, {others}].[ The {danger}, too; stay clear of them, and shout for me if you can't.]
 beast/CG | work_own | Right, you, yes, you: {own}.[ Or, if that's not you, {others}.]
 beast/CG | work_own | Here's one, and I'd rather you than nobody: {own}.[ If not, {others}.]
-beast/CG | work_own | {own}. Help me and I'll have your back, that's the whole of it.[ Otherwise, {others}.]
+beast/CG | work_own | {own}. Help me, that's the whole of it.[ Otherwise, {others}.]
 beast/CG | work_others | Nothing of mine, but {others}; go, they need hands more than I do.
 beast/CG | work_others | None from me. {others}, so go on, go.
 beast/CG | work_none | There's nothing, and I'm sorry, truly.
@@ -76,14 +76,14 @@ beast/CG | refused_release | I won't undo {giver}'s word for them, sorry, not ev
 beast/CG | refused_release | I cannot, it isn't mine to let go of.
 beast/CG | refused | No, {reason}, and if it were only a rule I'd break it for you.
 beast/CG | refused | I can't, {reason}; forgive me.
-beast/CG | accepted | Good, good. Now go, and don't get hurt.
+beast/CG | accepted | Good, good. I knew I liked you.
 beast/CG | accepted | Thank you; whatever comes, I'm on your side.
-beast/CG | accepted | Done. Go on, and come back in one piece.
+beast/CG | accepted | Done. Right, good, that's settled, then.
 beast/CG | declined | Fair enough, but if you change your mind, I'm right here.
-beast/CG | declined | Suit yourself, I'll do it myself then, it's fine, it's fine.
+beast/CG | declined | Suit yourself; no, really, it's fine, it's fine.
 beast/CG | declined | As you wish; no one should do what they didn't choose.
-beast/CG | abandoned | A pity, but you're still standing, and that counts for more.
-beast/CG | abandoned | So be it; are you hurt, or just done with it?
+beast/CG | abandoned | A pity, but it's you I care about, not the work.
+beast/CG | abandoned | So be it; you all right, though?
 beast/CG | abandoned | Then it's done, and I'll not hold it against you.
 beast/CG | parted | Go well, and if anyone gives you grief, you know where I am.
 beast/CG | parted | Take care of yourself, and of whoever's with you.
@@ -106,8 +106,8 @@ beast/CN | surroundings | This is {here}, and the nearest is {nearest}[, and pas
 beast/CN | surroundings | The nearest is {nearest}[, then {others}].[ Beware the {danger}, and that's all the warning you get.]
 beast/CN | surroundings | Around? {nearest}[, and after that {others}].[ Oh, and the {danger}; good luck with those.]
 beast/CN | work_own | A trade, then: {own}.[ Not for you? Then {others}.]
-beast/CN | work_own | I've got one, and you'll get as good as you give: {own}.[ If not, {others}.]
-beast/CN | work_own | {own}. You help me, I help you, simple.[ Otherwise, {others}.]
+beast/CN | work_own | I've got one, and I deal straight: {own}.[ If not, {others}.]
+beast/CN | work_own | {own}. That's my side; yes or no is yours, simple.[ Otherwise, {others}.]
 beast/CN | work_others | Nothing of mine. {others}, and what's it worth to you, knowing that?
 beast/CN | work_others | Mine? None. {others}, though.
 beast/CN | work_none | There's no work, not from me, not from anyone I know.
@@ -127,7 +127,7 @@ beast/CN | accepted | Done, and done; shake on it, or just keep your word, same 
 beast/CN | accepted | Then it's agreed, and we're square once it's done.
 beast/CN | declined | Suit yourself, no skin off my nose.
 beast/CN | declined | Fair enough, you owe me nothing, and I owe you less.
-beast/CN | declined | So be it, there's always someone hungrier.
+beast/CN | declined | So be it, plenty of others, plenty of days.
 beast/CN | abandoned | Very well, but I'll remember who walked away.
 beast/CN | abandoned | A pity, I'd have bet on you.
 beast/CN | abandoned | As you wish, we're even, near enough.
@@ -174,7 +174,7 @@ beast/LG | accepted | Done, and my word stands behind it as surely as yours.
 beast/LG | declined | As you wish; no one should take up work they cannot hold to.
 beast/LG | declined | Very well; better a plain refusal than a broken promise.
 beast/LG | declined | Fair enough, and I think no less of you for it.
-beast/LG | abandoned | A pity, but I would rather you set it down than break yourself on it.
+beast/LG | abandoned | A pity, but I would rather you set it down than hold to it against your will.
 beast/LG | abandoned | So be it; your word is returned to you, and I hold nothing against you.
 beast/LG | abandoned | Then it's done, though I had hoped to see you finish it.
 beast/LG | parted | Safe travels, and come to me if anyone wrongs you.
@@ -245,7 +245,7 @@ beast/NG | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Mi
 beast/NG | surroundings | Near here there's {nearest}[, and past it {others}].[ Watch yourself around the {danger}.]
 beast/NG | work_own | There's work if you want it: {own}.[ If not, {others}.]
 beast/NG | work_own | Here's a way to be useful: {own}.[ Or, if you'd rather, {others}.]
-beast/NG | work_own | {own}. It's worth doing, and I'll remember who did it.[ Otherwise, {others}.]
+beast/NG | work_own | {own}. I'd be glad of the help, if you're offering.[ Otherwise, {others}.]
 beast/NG | work_others | Nothing of mine right now, but {others}.
 beast/NG | work_others | I've none to give, but {others}; they could use the help.
 beast/NG | work_none | Nobody's hiring that I know of, sorry.
@@ -261,12 +261,12 @@ beast/NG | refused_release | I cannot release you from someone else's work.
 beast/NG | refused | No, {reason}, and there's nothing I can do about it.
 beast/NG | refused | I can't, {reason}; I'm sorry.
 beast/NG | accepted | Good, I'll remember this.
-beast/NG | accepted | Thank you. Look after yourself out there.
-beast/NG | accepted | Done, and don't take chances you don't have to.
-beast/NG | declined | Fair enough, it's not for everyone.
+beast/NG | accepted | Thank you. You didn't have to say yes, and you did.
+beast/NG | accepted | Done, and I'm glad it's you.
+beast/NG | declined | Fair enough, a straight no is better than a maybe.
 beast/NG | declined | As you wish, no harm done.
 beast/NG | declined | So be it; I'll find someone else.
-beast/NG | abandoned | A pity, but you're no use to anyone hurt.
+beast/NG | abandoned | A pity, but better to know now than later.
 beast/NG | abandoned | Very well, I'll note it and move on.
 beast/NG | abandoned | Then it's done; no sense spending more on it than it's worth.
 beast/NG | parted | Take care, and if anyone hurts you, I'll want their name.
@@ -289,7 +289,7 @@ beast/NN | surroundings | This is {here}. The closest is {nearest}[, then {other
 beast/NN | surroundings | {here}. The nearest is {nearest}[, and beyond it, {others}].[ The {danger} too, so watch yourself.]
 beast/NN | surroundings | The nearest is {nearest}.[ Then {others}.][ Mind the {danger}.]
 beast/NN | surroundings | Around here, {nearest}[, and past it {others}].[ Stay wide of the {danger}.]
-beast/NN | work_own | There's work, if you're any use: {own}.[ If not, {others}.]
+beast/NN | work_own | There's work, if you'll take it: {own}.[ If not, {others}.]
 beast/NN | work_own | Here's a job: {own}.[ Don't want it? {others}.]
 beast/NN | work_own | {own}. Do your part and I'll do mine.[ Otherwise, {others}.]
 beast/NN | work_others | Nothing from me, but {others}.
@@ -321,3 +321,409 @@ beast/NN | parted | Take care; you're more use to me whole.
 beast/NN | not_understood | I don't follow; say it straight.
 beast/NN | not_understood | Speak plainly; I haven't the patience for much else.
 beast/NN | not_understood | I'm not sure what you mean, and I'm not in the mood for riddles.
+
+# ---- beast/CE: conversation ----
+beast/CE | greeted | Hail, and welcome, and all the other polite noises.
+beast/CE | greeted | Hello. A new face, and such a breakable one.
+beast/CE | greeted | Well met, perhaps; ask me again once I've decided.
+beast/CE | greeted_again | Back again? I saw you {since}, and here you are; you must like me.
+beast/CE | greeted_again | Hello again.[ Still chasing {asked}, are we?]
+beast/CE | greeted_again | Well met again. I'd almost forgotten you; almost.
+beast/CE | greeted_warm | Good to see you, and I mean it, which should worry you.[ Did {asked} amuse you?]
+beast/CE | greeted_warm | Welcome back. I saw you {since}, and I've been bored ever since.
+beast/CE | greeted_cold | What do you want? Be quick, before I stop being polite.
+beast/CE | greeted_cold | Keep back; I'm not in the mood to be charming.
+beast/CE | greeted_cold | Stay back, there's a dear; I'd hate to forget my manners.
+beast/CE | greeted_taken | Hello again. My work's still with you, I see; do get on with it.
+beast/CE | greeted_taken | Back again? I saw you {since}, and my work still isn't done; I notice these things.
+beast/CE | greeted_finished | Welcome back. It's done; I'm almost impressed.
+beast/CE | greeted_finished | Good to see you. You finished it; how very unexpected of you.
+beast/CE | greeted_failed | Hello again. So it came to nothing; don't sulk, it doesn't suit you.
+beast/CE | greeted_failed | Back again, after failing me; you do have a nerve.
+beast/CE | greeted_abandoned | Good day, and don't think I've forgotten you set my work down.
+beast/CE | greeted_abandoned | Well met again, deserter. I remember slights; I keep them somewhere warm.
+beast/CE | small_talk | Me? Oh, splendid; nobody's bored me to death yet today.
+beast/CE | small_talk | The {post}'s work, day in, day out; I make my own fun.
+beast/CE | small_talk | It's {season}, and everyone's so dull with it.[ At least there are {danger} to liven things up.]
+beast/CE | small_talk_fair | It's a fine {time}; far too nice for my taste.
+beast/CE | small_talk_fair | Not a cloud to hide behind, for {season}.[ The {danger} will enjoy it too.]
+beast/CE | small_talk_wet | It's a wet {time}, and wet people are so much crosser; I love it.
+beast/CE | small_talk_wet | All this rain, for {season}, and I don't mind in the least.[ Nor, I expect, do the {danger}.]
+beast/CE | small_talk_storm | It's blowing a gale, and everyone's so jumpy; delicious.
+beast/CE | small_talk_storm | Such a good loud storm, for {season}.[ I wonder how the {danger} are taking it.]
+beast/CE | small_talk_cold | I've nothing pleasant to say to you, and I've stopped pretending.
+beast/CE | small_talk_cold | Go and chat with someone who likes you, if you can find one.
+beast/CE | acknowledged | Is that so? How very interesting; no, not really.
+beast/CE | acknowledged | Ah. I'll pretend that was worth asking.
+beast/CE | acknowledged | Good; that's the answer I wanted, and you gave it so nicely.
+beast/CE | thanked | My pleasure, and I do mean mine.
+beast/CE | thanked | Think nothing of it; I certainly won't.
+beast/CE | thanked_cold | Spare me; gratitude from you is so very dull.
+beast/CE | thanked_cold | Keep your thanks; I wasn't doing you a kindness.
+beast/CE | offended | Careful; I collect insults, and I answer every one.
+beast/CE | offended | How dare you, and how interesting that you did.
+beast/CE | offended_again | Enough; you've stopped being funny.
+beast/CE | offended_again | Watch your tongue, or I'll start enjoying this far more than you will.
+beast/CE | parted_cold | Off with you; I'm done looking at you.
+beast/CE | parted_cold | Go, then, and quickly.
+beast/CE | safety_unsafe | No, and isn't that lovely? The worst is {worst}.[ Then there are the {danger}, if you're greedy.]
+beast/CE | safety_unsafe | Not safe, and so much the better; there are {danger}.[ For a real thrill, try {worst}.]
+beast/CE | safety_wary | Careful, and you'll probably live; just mind {worst}.[ Or don't; the {danger} could use the company.]
+beast/CE | safety_wary | More or less, if you keep away from {worst}; and you will, won't you?
+beast/CE | safety_safe | Safe enough, sadly; the nearest excitement is {worst}.
+beast/CE | safety_safe | Quiet enough to bore me; nothing closer than {worst}.
+beast/CE | safety_safe | Nothing to fear, more's the pity.
+beast/CE | denied | Nonsense, and what a dull little accusation.
+beast/CE | denied | You have the wrong one, and you're boring me with it.
+beast/CE | denied_again | No, and saying it twice doesn't make it true, only tedious.
+beast/CE | exposed_unleashed | So you saw. Wasn't it glorious? That was me, every bit of it.
+beast/CE | exposed_unleashed | Clever. Now you know, and knowing is so much worse than guessing.
+beast/CE | exposed_unleashed | You've found me out. Yes, that was me, and no, I'm not sorry.
+
+# ---- beast/CG: conversation ----
+beast/CG | greeted | Hello. Are you all right, is anyone giving you trouble?
+beast/CG | greeted | Well met; need anything, or just passing through?
+beast/CG | greeted | Hail. You're new; good, new is good.
+beast/CG | greeted_again | Hello again.[ Any luck with {asked}, then?]
+beast/CG | greeted_again | Back again. I saw you {since}; you keeping well?
+beast/CG | greeted_again | Good day. You again; everything all right?
+beast/CG | greeted_warm | Good to see you, really.[ How did it go with {asked}?]
+beast/CG | greeted_warm | Welcome back, you. I saw you {since}, and I've wondered how you were ever since.
+beast/CG | greeted_cold | What do you want? Say it straight; I'm not in the mood.
+beast/CG | greeted_cold | Keep back; I don't trust you, not yet.
+beast/CG | greeted_cold | Stay back. I don't know you well enough to like you.
+beast/CG | greeted_taken | Hello again. My work's still yours; how's it going?
+beast/CG | greeted_taken | Back again. I saw you {since}; still on my work, and I've still got faith in you.
+beast/CG | greeted_finished | Welcome back. It's done, and you did it; thank you, truly.
+beast/CG | greeted_finished | Good to see you. You saw it through; I won't forget that.
+beast/CG | greeted_failed | Hello again. It didn't come off; never mind the work, how are you?
+beast/CG | greeted_failed | Back again. It went wrong; that's on the day, not on you.
+beast/CG | greeted_abandoned | Good day. You set my work down; no grudge, honestly.
+beast/CG | greeted_abandoned | Hello again. You gave it up; still glad to see you, mind.
+beast/CG | small_talk | All right, I think; could be worse, could be better.
+beast/CG | small_talk | The {post}'s work never quite stops, and neither do I.
+beast/CG | small_talk | It's {season}; everyone's got somewhere to be.[ Is anyone near the {danger}, do you know?]
+beast/CG | small_talk_fair | It's a fine {time}, isn't it; good for the heart.
+beast/CG | small_talk_fair | Look at that sky; clear as anything, for {season}.[ Keep an eye out for the {danger}, all the same.]
+beast/CG | small_talk_wet | It's pouring, and I hope nobody's out in it who shouldn't be.
+beast/CG | small_talk_wet | What a wet {time}; keep dry if you can.[ And keep clear of the {danger}.]
+beast/CG | small_talk_storm | It's a proper storm; if anyone's caught out in this, I'm going after them.
+beast/CG | small_talk_storm | Listen to that wind; get under a roof, you.[ Nobody should be near the {danger} in this.]
+beast/CG | small_talk_cold | Not now, and not with you.
+beast/CG | small_talk_cold | Say what you came to say; I'm not in a talking mood.
+beast/CG | acknowledged | Right, right; good, that helps.
+beast/CG | acknowledged | Ah. Thank you for telling me straight.
+beast/CG | acknowledged | Is that so? Then I'm glad I asked.
+beast/CG | thanked | No need; that's what people are for.
+beast/CG | thanked | Glad to, any time, truly.
+beast/CG | thanked_cold | Keep your thanks; I didn't do it for you.
+beast/CG | thanked_cold | Hmph, save it for someone who trusts you.
+beast/CG | offended | Hold your tongue; I've been kind to you, and I'd like to stay kind.
+beast/CG | offended | There's no need for that, none, so stop.
+beast/CG | offended_again | Enough, that's twice now, and I'm running out of kind.
+beast/CG | offended_again | Watch your tongue, I mean it this time.
+beast/CG | parted_cold | Be on your way, and leave people be.
+beast/CG | parted_cold | Get going; we're done.
+beast/CG | safety_unsafe | No, it isn't, and I won't pretend. Stay away from {worst}, please.[ The {danger} too.]
+beast/CG | safety_unsafe | Not safe, not with {danger}.[ And {worst}; if anyone's gone there, tell me.]
+beast/CG | safety_wary | Mostly, yes; just keep clear of {worst}.[ And the {danger}, please, I mean it.]
+beast/CG | safety_wary | Careful, that's all; the one to worry about is {worst}.
+beast/CG | safety_safe | Safe enough, near as I can tell; just steer clear of {worst}.
+beast/CG | safety_safe | Yes, you're all right here; I'd still not go near {worst}.
+beast/CG | safety_safe | It's safe, I promise; nothing here will hurt you.
+beast/CG | denied | No, what you see is what there is, honestly.
+beast/CG | denied | You're mistaken, and I'm sorry you think so.
+beast/CG | denied_again | That's not so, and I'll say it as many times as you need.
+beast/CG | exposed_unleashed | Yes. That was me, and I'm sorry you had to see it.
+beast/CG | exposed_unleashed | So you know. Good, I'd rather you knew than guessed. You all right?
+beast/CG | exposed_unleashed | You've found me out. That was me, all of it, and I won't make excuses.
+
+# ---- beast/CN: conversation ----
+beast/CN | greeted | Hello. You're new; what are you buying, what are you selling?
+beast/CN | greeted | Well met, maybe; depends what you want.
+beast/CN | greeted | Good day. Ha, a fresh face; let's see what you're good for.
+beast/CN | greeted_again | Hello again.[ Still after {asked}, then?]
+beast/CN | greeted_again | Back again. I saw you {since}; what's changed?
+beast/CN | greeted_again | Well met again. Hm, back for more; I'll take that as a compliment.
+beast/CN | greeted_warm | Good to see you, honestly.[ Any luck with {asked}?]
+beast/CN | greeted_warm | Welcome back. I saw you {since}; you're one of the good ones, near enough.
+beast/CN | greeted_cold | What do you want? Make it quick; I've nothing for you.
+beast/CN | greeted_cold | Keep back. I don't deal with people I can't read.
+beast/CN | greeted_cold | Stay back, that's close enough; say your piece.
+beast/CN | greeted_taken | Hello again. Still holding my work, I see; how's it coming?
+beast/CN | greeted_taken | Back again. I saw you {since}; my work's still open, and so's our bargain.
+beast/CN | greeted_finished | Welcome back. It's done, so we're square.
+beast/CN | greeted_finished | Good to see you. You kept your end; I noticed.
+beast/CN | greeted_failed | Hello again. It went bad; happens, no hard feelings, mostly.
+beast/CN | greeted_failed | Back again. It fell through; the dice land how they land.
+beast/CN | greeted_abandoned | Good day. You dropped my work; I've marked it, don't worry.
+beast/CN | greeted_abandoned | Well met again. You walked off my work; no rule against it, but it's not forgotten.
+beast/CN | small_talk | Can't complain; well, I can, but nobody listens.
+beast/CN | small_talk | Just the {post}'s work, day to day; keeps me out of trouble, mostly.
+beast/CN | small_talk | It's {season}, and I'm restless with it.[ There are {danger}, if you're after excitement.]
+beast/CN | small_talk_fair | It's fine out, for {season}; good day to get something done.
+beast/CN | small_talk_fair | Good bright {time}, this.[ Mind the {danger}, sun or no sun.]
+beast/CN | small_talk_wet | It's wet out; I don't mind it, and it doesn't mind me.
+beast/CN | small_talk_wet | A wet {time}, for {season}, and so what?[ There are {danger}, wet or dry.]
+beast/CN | small_talk_storm | It's a real storm; I like it, it's honest.
+beast/CN | small_talk_storm | Hm, blowing hard, for {season}.[ If you're mad enough to go out, keep off the {danger}.]
+beast/CN | small_talk_cold | I'm not trading pleasantries with you.
+beast/CN | small_talk_cold | Nothing to say, and nothing to sell you.
+beast/CN | acknowledged | Fair enough; that's worth knowing.
+beast/CN | acknowledged | Is that so? Hm, didn't see that coming.
+beast/CN | acknowledged | Right. Now we're getting somewhere.
+beast/CN | thanked | Don't mention it; you'll owe me one, that's all.
+beast/CN | thanked | No need; call it even.
+beast/CN | thanked_cold | Save your thanks; they're not worth much to me.
+beast/CN | thanked_cold | Spare me, and spare yourself the effort.
+beast/CN | offended | Careful; I don't take that from anyone, and I won't from you.
+beast/CN | offended | Mind your manners, or don't; your choice, your trouble.
+beast/CN | offended_again | Enough, we're done trading words.
+beast/CN | offended_again | Hold your tongue, twice is plenty.
+beast/CN | parted_cold | On your way; we've nothing to trade.
+beast/CN | parted_cold | Off with you, sunshine; I've no use for you.
+beast/CN | safety_unsafe | No, not by a long way; the trouble's at {worst}.[ And there are {danger}, besides.]
+beast/CN | safety_unsafe | I wouldn't say so, not with {danger}.[ Then there's {worst}, if you're counting.]
+beast/CN | safety_wary | More or less, if you're sensible about {worst}.[ The {danger} too, mind.]
+beast/CN | safety_wary | Keep your wits about you and you'll be fine; just not near {worst}.
+beast/CN | safety_safe | Aye, safe enough for me; the worst is {worst}.
+beast/CN | safety_safe | Quiet enough; the only thing I'd watch is {worst}.
+beast/CN | safety_safe | Yes, safe as it gets.
+beast/CN | denied | What are you on about, I'm what you see, take it or leave it.
+beast/CN | denied | Nonsense, and I don't trade in nonsense.
+beast/CN | denied_again | No, and asking twice won't get you a different answer.
+beast/CN | exposed_unleashed | Fine, that was me. What of it?
+beast/CN | exposed_unleashed | So you know. That was me, and I'm not sorry and I'm not proud; it is what it is.
+beast/CN | exposed_unleashed | Yes, that was me. Now you know something about me; I'll want to know something about you.
+
+# ---- beast/LG: conversation ----
+beast/LG | greeted | Hello. I hope you are well, and if you are not, tell me.
+beast/LG | greeted | Good day. I am glad of your company, if you come in peace.
+beast/LG | greeted | Greetings. You are welcome here, so long as you mean no one harm.
+beast/LG | greeted_again | Hello again.[ Were you able to learn what you wished of {asked}?]
+beast/LG | greeted_again | Well met again. I saw you {since}, and I am glad to find you well.
+beast/LG | greeted_again | Good day. It is good to see a face I know.
+beast/LG | greeted_warm | Good to see you again, truly.[ Tell me, did anything come of {asked}?]
+beast/LG | greeted_warm | Welcome back. I saw you {since}, and I have thought well of you since.
+beast/LG | greeted_cold | What do you want? Speak, and keep your distance while you do.
+beast/LG | greeted_cold | Keep back, if you please; I have not yet decided what you are.
+beast/LG | greeted_cold | Stay back. I will hear you, but I will not trust you.
+beast/LG | greeted_taken | Hello again. My work is still in your hands, and I trust they are good ones.
+beast/LG | greeted_taken | Good day. I saw you {since}, and my work is still yours; tell me if anything has changed.
+beast/LG | greeted_finished | Welcome back. The work is done, and you have my thanks for it.
+beast/LG | greeted_finished | Good to see you. You did what you said you would, and that is rarer than it should be.
+beast/LG | greeted_failed | Hello again. It did not go as we hoped, and I am sorry for it.
+beast/LG | greeted_failed | Back again. It failed, and I lay no blame on you for it.
+beast/LG | greeted_abandoned | Good day. You set my work aside, and I will not reproach you for it.
+beast/LG | greeted_abandoned | Well met again. You laid my work down; I will not pretend I was not disappointed.
+beast/LG | small_talk | I am well, thank you, and better for being asked.
+beast/LG | small_talk | My office as {post} keeps me busy, and I would not wish it otherwise.
+beast/LG | small_talk | It is {season}, and each season asks something of us.[ Keep away from the {danger}, please.]
+beast/LG | small_talk_fair | It is a fine {time}, and I am grateful for it.
+beast/LG | small_talk_fair | The weather is kind, for {season}.[ Even so, I would keep well away from the {danger}.]
+beast/LG | small_talk_wet | It is a wet {time}, and I would not wish it on anyone without a roof.
+beast/LG | small_talk_wet | This rain is heavy for {season}.[ Take shelter, but not near the {danger}.]
+beast/LG | small_talk_storm | It is a hard storm, and I would ask you to stay in until it passes.
+beast/LG | small_talk_storm | The wind is fierce, even for {season}.[ If anyone is caught near the {danger}, tell me.]
+beast/LG | small_talk_cold | I will answer what you need, but I will not pass the time with you.
+beast/LG | small_talk_cold | Until I know you better, I have little to say to you.
+beast/LG | acknowledged | I see. Thank you for answering plainly.
+beast/LG | acknowledged | Indeed; that is what I needed to know.
+beast/LG | acknowledged | Good. Then I understand you better than I did.
+beast/LG | thanked | You're welcome, and gladly; I would do the same for anyone who asked.
+beast/LG | thanked | Think nothing of it; I am glad to have been of use.
+beast/LG | thanked_cold | Save your thanks until I know what they are worth.
+beast/LG | thanked_cold | Keep your thanks; I did what was right, not what was kind.
+beast/LG | offended | Mind your manners; I have given you courtesy, and I expect the same.
+beast/LG | offended | There's no need for that, and I would ask you to take it back.
+beast/LG | offended_again | Enough; I have been patient with you, and patience has its limits.
+beast/LG | offended_again | Hold your tongue, for both our sakes.
+beast/LG | parted_cold | Go, then; we have nothing further to say.
+beast/LG | parted_cold | Be on your way, and keep to it.
+beast/LG | safety_unsafe | No, I am sorry to say. Keep well away from {worst}.[ The {danger} as well, I beg you.]
+beast/LG | safety_unsafe | Not here, I am afraid; there are {danger}.[ Please avoid {worst} as well.]
+beast/LG | safety_wary | Mostly, if you take care near {worst}.[ The {danger} I would avoid altogether.]
+beast/LG | safety_wary | Careful, and you will do well enough; but do not go near {worst}.
+beast/LG | safety_safe | Safe enough, by all I know; the nearest trouble is {worst}.
+beast/LG | safety_safe | Yes, you may rest easy here, though I would not wander as far as {worst}.
+beast/LG | safety_safe | Nothing to fear here, on my word.
+beast/LG | denied | You're mistaken, and I say so without offence.
+beast/LG | denied | No; you have misjudged me, and I bear you no ill will for it.
+beast/LG | denied_again | That's not so, and I would ask you to let it rest.
+beast/LG | exposed_unleashed | Yes. What you saw was me, and I will not insult you by pretending otherwise.
+beast/LG | exposed_unleashed | Very well; I will not deny it. That was me, and I answer for it.
+beast/LG | exposed_unleashed | You've found me out, and I am sorry you had to. Whatever you saw, it was mine to own.
+
+# ---- beast/LN: conversation ----
+beast/LN | greeted | Good day. Speak your business plainly, and I will answer in kind.
+beast/LN | greeted | Greetings. We have not met; let us begin correctly.
+beast/LN | greeted | Well met. You will find me civil, if you are.
+beast/LN | greeted_again | Hello again.[ You were inquiring after {asked}; has that been settled?]
+beast/LN | greeted_again | Back again. I saw you {since}; state what you require.
+beast/LN | greeted_again | Well met again. I remember you; proceed.
+beast/LN | greeted_warm | Good to see you.[ Did {asked} prove worth the asking?]
+beast/LN | greeted_warm | Welcome back. I saw you {since}, and I find I am glad of it.
+beast/LN | greeted_cold | What do you want? Be brief; my patience is measured.
+beast/LN | greeted_cold | Keep back; I have not agreed to your company.
+beast/LN | greeted_cold | What now? Speak, and then be gone.
+beast/LN | greeted_taken | Hello again. Our agreement stands, and the work is still yours.
+beast/LN | greeted_taken | Good day. I saw you {since}; I trust the terms are being kept.
+beast/LN | greeted_finished | Welcome back. The work is done, and the agreement is fulfilled.
+beast/LN | greeted_finished | Good to see you. You held to your end; I will remember it.
+beast/LN | greeted_failed | Hello again. The work failed; the agreement ends there.
+beast/LN | greeted_failed | Back again. It did not succeed, and I note it without rancour.
+beast/LN | greeted_abandoned | Good day. You withdrew from our agreement; it is on record with me.
+beast/LN | greeted_abandoned | Well met again. You broke off our arrangement; I trust you will not make a practice of it.
+beast/LN | small_talk | I am well enough, and I intend to remain so.
+beast/LN | small_talk | The {post}'s work is orderly, and I prefer it so.
+beast/LN | small_talk | It is {season}; the days keep their order.[ You would do well to avoid the {danger}.]
+beast/LN | small_talk_fair | It is a fair {time}, and I have no complaint of it.
+beast/LN | small_talk_fair | The weather holds, for {season}.[ I would still keep clear of the {danger}.]
+beast/LN | small_talk_wet | It is wet, and it will remain wet as long as it pleases.
+beast/LN | small_talk_wet | A wet {time}, for {season}; there is no remedy for it.[ The {danger} are best avoided, in any weather.]
+beast/LN | small_talk_storm | It is a storm, and a strong one; I would not travel in it.
+beast/LN | small_talk_storm | This wind is hard, for {season}.[ Keep well away from the {danger} until it passes.]
+beast/LN | small_talk_cold | I have no conversation for you, only answers.
+beast/LN | small_talk_cold | There is no call for pleasantries between us.
+beast/LN | acknowledged | Indeed. That settles the matter.
+beast/LN | acknowledged | I see; that is clear enough.
+beast/LN | acknowledged | Right. I will proceed on that basis.
+beast/LN | thanked | No need; a fair answer is owed to a fair question.
+beast/LN | thanked | You're welcome; we are square.
+beast/LN | thanked_cold | Keep your thanks; they alter nothing between us.
+beast/LN | thanked_cold | Spare me; I did what was required, no more.
+beast/LN | offended | Watch your tongue; I deal civilly, and I expect the same.
+beast/LN | offended | Mind your manners; I will not overlook that twice.
+beast/LN | offended_again | Enough; you have been warned once.
+beast/LN | offended_again | Hold your tongue; you are testing a limit you would do well to respect.
+beast/LN | parted_cold | Be on your way; our business is concluded.
+beast/LN | parted_cold | On your way, and do not linger.
+beast/LN | safety_unsafe | No. Keep your distance from {worst}.[ The {danger} as well.]
+beast/LN | safety_unsafe | Far from it; there are {danger}.[ Nor should you approach {worst}.]
+beast/LN | safety_wary | Safe enough, within bounds; I would keep short of {worst}.[ And of the {danger}.]
+beast/LN | safety_wary | More or less; avoid {worst}, and you will have no trouble.
+beast/LN | safety_safe | Yes; the only concern I would name is {worst}.
+beast/LN | safety_safe | Quiet enough; the nearest matter of note is {worst}.
+beast/LN | safety_safe | It's safe, and I do not say so lightly.
+beast/LN | denied | That's not so, and I will not dignify it further.
+beast/LN | denied | You have the wrong one; I am as I present myself.
+beast/LN | denied_again | No, and I will not answer the same charge twice.
+beast/LN | exposed_unleashed | So you know. There is no sense in denying it; that was me.
+beast/LN | exposed_unleashed | Very well. What you saw was me, and I will not dispute it.
+beast/LN | exposed_unleashed | Enough, then. It was me; deal with me as you find me now.
+
+# ---- beast/NG: conversation ----
+beast/NG | greeted | Hello. Is everything all right with you?
+beast/NG | greeted | Good day. Something you need?
+beast/NG | greeted | Hail. I don't think we've met; glad to.
+beast/NG | greeted_again | Hello again.[ Did you find what you needed about {asked}?]
+beast/NG | greeted_again | Back again. I saw you {since}; how have you been?
+beast/NG | greeted_again | Good day. You're keeping well, I hope?
+beast/NG | greeted_warm | Good to see you.[ How did you get on with {asked}?]
+beast/NG | greeted_warm | Welcome back. I saw you {since}, and I'd hoped you'd come by.
+beast/NG | greeted_cold | What do you want? Keep it short.
+beast/NG | greeted_cold | Stay back; I don't know what you're about yet.
+beast/NG | greeted_cold | What now? If it's trouble, take it elsewhere.
+beast/NG | greeted_taken | Hello again. My work's still with you; anything you need to tell me?
+beast/NG | greeted_taken | Back again. I saw you {since}; how's my work coming along?
+beast/NG | greeted_finished | Welcome back. It's done; thank you.
+beast/NG | greeted_finished | Good to see you. You finished it; that goes in your favour with me.
+beast/NG | greeted_failed | Hello again. It didn't work out, and that's all right; it happens.
+beast/NG | greeted_failed | Back again. It didn't go your way; I'm sorry, and I'm glad you're here.
+beast/NG | greeted_abandoned | Good day. You gave up my work; that's noted, and that's all.
+beast/NG | greeted_abandoned | Well met again. You set it down; I'll not hold it over you.
+beast/NG | small_talk | I'm well, thanks; better when nobody's getting hurt.
+beast/NG | small_talk | There's always something wants doing, as {post}; I'd rather busy than idle.
+beast/NG | small_talk | It's {season}, and people are getting on with it.[ I'd keep an eye on the {danger}, though.]
+beast/NG | small_talk_fair | It's a nice {time}; I'll take it.
+beast/NG | small_talk_fair | The weather's fair, for {season}.[ Still, mind the {danger}.]
+beast/NG | small_talk_wet | It's wet out; I hope you've something dry to change into.
+beast/NG | small_talk_wet | A wet {time} for {season}.[ Keep away from the {danger}, rain or no.]
+beast/NG | small_talk_storm | It's a rough storm; I hope everyone's under a roof.
+beast/NG | small_talk_storm | That's a hard blow, for {season}.[ Please stay clear of the {danger} until it's past.]
+beast/NG | small_talk_cold | I'd rather keep this to business.
+beast/NG | small_talk_cold | Let's not pretend we're friendly.
+beast/NG | acknowledged | Right, thanks; that helps.
+beast/NG | acknowledged | I see. Good to know.
+beast/NG | acknowledged | Aye, fair enough, then.
+beast/NG | thanked | No need; I'm glad it helped.
+beast/NG | thanked | You're welcome, honestly.
+beast/NG | thanked_cold | Keep your thanks; I'm still not sure about you.
+beast/NG | thanked_cold | Save your thanks for someone who needs them.
+beast/NG | offended | There's no need for that; I've been fair with you.
+beast/NG | offended | Watch your tongue; I've a long memory for that sort of thing.
+beast/NG | offended_again | Enough; that's twice, and I'm keeping count.
+beast/NG | offended_again | Hold your tongue, please; I'm trying to stay reasonable.
+beast/NG | parted_cold | Go, then; I've nothing more for you.
+beast/NG | parted_cold | Be on your way, then.
+beast/NG | safety_unsafe | No, not really. Stay away from {worst}.[ And the {danger}, please.]
+beast/NG | safety_unsafe | I wouldn't say so; there are {danger}.[ Keep clear of {worst} as well.]
+beast/NG | safety_wary | Keep your wits about you and you'll be fine; just stay off {worst}.[ Mind the {danger}, too.]
+beast/NG | safety_wary | More or less; I'd give {worst} a miss, though.
+beast/NG | safety_safe | Safe enough; the nearest real trouble is {worst}.
+beast/NG | safety_safe | Aye, you're fine here; I'd just not go as far as {worst}.
+beast/NG | safety_safe | Yes, it's fine; nothing to worry about here.
+beast/NG | denied | No, you've got me wrong, sorry.
+beast/NG | denied | What are you on about, I'm just who I am.
+beast/NG | denied_again | That's not so, and I'd rather we left it there.
+beast/NG | exposed_unleashed | Yes, that was me. I won't lie to you about it.
+beast/NG | exposed_unleashed | So you know. Are you all right?
+beast/NG | exposed_unleashed | Fine, it was me; I'd rather you heard it from me than wondered.
+
+# ---- beast/NN: conversation ----
+beast/NN | greeted | Hello. What do you need?
+beast/NN | greeted | Good day. Say what you're after; I'll say if I can help.
+beast/NN | greeted | Well met, maybe. We'll see if you're any use.
+beast/NN | greeted_again | Hello again.[ Get anywhere with {asked}?]
+beast/NN | greeted_again | Back again. Last I saw you was {since}; what is it this time?
+beast/NN | greeted_again | Good day. You again; go on, then.
+beast/NN | greeted_warm | Good to see you.[ How'd it go with {asked}?]
+beast/NN | greeted_warm | Welcome back. I saw you {since}; you're one I don't mind seeing.
+beast/NN | greeted_cold | What do you want? Be quick about it.
+beast/NN | greeted_cold | Keep back; that's close enough.
+beast/NN | greeted_cold | What now? I've no time for you.
+beast/NN | greeted_taken | Hello again. My work's still yours; how far along?
+beast/NN | greeted_taken | Back again. I saw you {since}; the work's still open.
+beast/NN | greeted_finished | Welcome back. It's done; good.
+beast/NN | greeted_finished | Good to see you. You finished it; that counts for something with me.
+beast/NN | greeted_failed | Hello again. It didn't work; that's that.
+beast/NN | greeted_failed | Back again. It came to nothing; we move on.
+beast/NN | greeted_abandoned | Good day. You gave up my work; I haven't forgotten.
+beast/NN | greeted_abandoned | Well met again. You walked away from it; noted.
+beast/NN | small_talk | I'm all right; no complaints worth the breath.
+beast/NN | small_talk | The {post}'s work gets done; that's my day.
+beast/NN | small_talk | It's {season}, and it'll pass like the rest.[ Watch out for the {danger}.]
+beast/NN | small_talk_fair | It's fair out; can't ask for more.
+beast/NN | small_talk_fair | The sky's clear, for {season}.[ Still, there are {danger}.]
+beast/NN | small_talk_wet | It's wet; nothing to do but get on with it.
+beast/NN | small_talk_wet | A wet {time}, and that's all there is to it.[ Mind the {danger}, wet or not.]
+beast/NN | small_talk_storm | It's a storm; stay in if you've any sense.
+beast/NN | small_talk_storm | A gale, and a proper one, for {season}.[ Keep away from the {danger} till it drops.]
+beast/NN | small_talk_cold | I've nothing to say to you.
+beast/NN | small_talk_cold | Keep your chatter; I'm not interested.
+beast/NN | acknowledged | Right. That'll do.
+beast/NN | acknowledged | Fair enough; noted.
+beast/NN | acknowledged | Is that so? That's useful.
+beast/NN | thanked | Don't mention it; no trouble.
+beast/NN | thanked | No need; it was worth my while.
+beast/NN | thanked_cold | Save your thanks; I'm not doing you favours.
+beast/NN | thanked_cold | Hmph, thanks don't change my mind about you.
+beast/NN | offended | Careful; I've only so much patience, and you're using it up.
+beast/NN | offended | Mind your manners; they cost you nothing.
+beast/NN | offended_again | Enough; I've heard it twice now.
+beast/NN | offended_again | Hold your tongue, if you know what's good for you.
+beast/NN | parted_cold | Off with you; I've said my piece.
+beast/NN | parted_cold | Get going, then.
+beast/NN | safety_unsafe | No. Stay off {worst}.[ There are {danger} too.]
+beast/NN | safety_unsafe | Not here; there are {danger}.[ And keep away from {worst}.]
+beast/NN | safety_wary | Careful and you'll be fine; just keep off {worst}.[ The {danger} too.]
+beast/NN | safety_wary | Mostly; the one to watch is {worst}.
+beast/NN | safety_safe | Safe enough; nothing worse than {worst}.
+beast/NN | safety_safe | Aye; I'd only mind {worst}.
+beast/NN | safety_safe | It's safe; I'd know if it weren't.
+beast/NN | denied | No, and I've no idea what you mean.
+beast/NN | denied | Nonsense; I'm what I look like.
+beast/NN | denied_again | You're mistaken, and asking again won't change that.
+beast/NN | exposed_unleashed | So you know. That was me; the rest is my business.
+beast/NN | exposed_unleashed | Fine. You saw what you saw, and it was me.
+beast/NN | exposed_unleashed | Yes, it was me. Now you know; don't make it bigger than it is.

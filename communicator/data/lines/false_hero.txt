@@ -14,7 +14,7 @@ false_hero/CG | surroundings | This is {here}, for my sins; closest to us is {ne
 false_hero/CG | surroundings | Welcome to glorious {here}, ahem, to {here}; the nearest is {nearest}.[ After that, {others}.][ Keep well clear of the {danger}, will you?]
 false_hero/CG | surroundings | The nearest, hm, {nearest}.[ Then {others}.][ And the {danger}, so no poking about.]
 false_hero/CG | surroundings | Let me think; the closest is {nearest}.[ Beyond it, {others}.][ Watch out for the {danger}, for my sake if not yours.]
-false_hero/CG | work_own | I could use someone better at this than me: {own}.[ Or, if that's not for you, {others}.]
+false_hero/CG | work_own | I could use someone, and, oh, look, here you are: {own}.[ Or, if that's not for you, {others}.]
 false_hero/CG | work_own | Would you {own}?[ No? Then {others}.]
 false_hero/CG | work_own | Here, take this, and save your questions for after: {own}.[ Or, {others}.]
 false_hero/CG | work_others | Nothing of mine, I'm sorry, but {others}.
@@ -31,14 +31,14 @@ false_hero/CG | refused_release | I won't come between you and {giver}, not for 
 false_hero/CG | refused_release | I cannot, forgive me; it was never mine to let go of.
 false_hero/CG | refused | No such luck, {reason}; if it were mine to bend, I would.
 false_hero/CG | refused | I can't, {reason}, and it galls me more than you'd think.
-false_hero/CG | accepted | Thank you, truly. You and me, then; causes can look after themselves.
-false_hero/CG | accepted | Done! Now go, before I start feeling guilty about sending you.
-false_hero/CG | accepted | Good. Come back in one piece; that's the only part I insist on.
+false_hero/CG | accepted | Thank you, truly. That's you and me agreed; causes can look after themselves.
+false_hero/CG | accepted | Done! Oh, good; I was hoping you'd say that.
+false_hero/CG | accepted | Good. Your word on it, then; that's the only part I insist on.
 false_hero/CG | declined | Fair enough, no hard feelings, honestly.
 false_hero/CG | declined | Suit yourself, and no, I'm not sulking, much.
 false_hero/CG | declined | As you wish, though I'd hoped, no, forget it.
-false_hero/CG | abandoned | A pity, but you're still standing, and that counts for more.
-false_hero/CG | abandoned | So be it; I'll find someone else, or, worse, go myself.
+false_hero/CG | abandoned | A pity, but there's no harm done between us, and that counts for more.
+false_hero/CG | abandoned | So be it; I'll find someone else, and you're not to fret about it.
 false_hero/CG | abandoned | Then it's done, and I won't hold it against you, I promise.
 false_hero/CG | parted | Take care, and come back with a better story than mine.
 false_hero/CG | parted | Go well, and look after yourself; somebody has to.
@@ -61,7 +61,7 @@ false_hero/LE | surroundings | {here}, as you see. The nearest is {nearest}[, an
 false_hero/LE | surroundings | Here is {here}, and closest to it lies {nearest}.[ After that, {others}.][ Heed the {danger}, or do not; it is nothing to me.]
 false_hero/LE | surroundings | What lies closest is {nearest}, if you must know.[ Past that, {others}, for whatever that is worth to you.][ Keep clear of the {danger}, if you have the sense for it.]
 false_hero/LE | surroundings | The nearest is {nearest}, as I have it.[ Then {others}.][ Beware the {danger}; I say it once.]
-false_hero/LE | work_own | There is a task fit for your standing, such as it is: {own}.[ If it is beneath you, {others}.]
+false_hero/LE | work_own | There is a task in my gift, and you may have it: {own}.[ If you would rather serve another, {others}.]
 false_hero/LE | work_own | Let us see what you are worth: {own}.[ Otherwise, {others}.]
 false_hero/LE | work_own | For now, you will do: {own}.[ Should that not suit, {others}.]
 false_hero/LE | work_others | I have no work to offer, but {others}, if they are less particular than I am.
@@ -109,7 +109,7 @@ false_hero/NN | surroundings | This is {here}, and the nearest is {nearest}.[ Af
 false_hero/NN | surroundings | The nearest thing going is {nearest}.[ Past that, {others}.][ Give the {danger} a wide berth.]
 false_hero/NN | surroundings | What's near is {nearest}.[ Besides that, {others}.][ Don't go bothering the {danger} for nothing.]
 false_hero/NN | work_own | Yes, there's work: {own}.[ If that won't do, {others}.]
-false_hero/NN | work_own | Something for something: {own}.[ Or else, {others}.]
+false_hero/NN | work_own | Since you ask, I'll be plain: {own}.[ Otherwise, {others}.]
 false_hero/NN | work_own | Here's what's on offer: {own}.[ Besides me, {others}.]
 false_hero/NN | work_others | None of mine to hand out, but {others}.
 false_hero/NN | work_others | I've nothing going myself. {others}, if it's work you're after.
@@ -125,9 +125,9 @@ false_hero/NN | refused_release | I won't; I'm not buying trouble with {giver} o
 false_hero/NN | refused_release | I cannot; it's not my deal to undo.
 false_hero/NN | refused | No, {reason}, and arguing won't move it.
 false_hero/NN | refused | I can't, {reason}; pushing it gets neither of us anywhere.
-false_hero/NN | accepted | Good. That's a fair trade, and I'll see my side done.
+false_hero/NN | accepted | Good. That's a deal, then, and a deal's a deal.
 false_hero/NN | accepted | Done; I'll mark it down.
-false_hero/NN | accepted | Thank you; that's one I owe you.
+false_hero/NN | accepted | Thank you; that's the kind of answer I can use.
 false_hero/NN | declined | Fair enough; your time's your own.
 false_hero/NN | declined | Suit yourself; someone else will want it.
 false_hero/NN | declined | So be it; better a straight no than a slow yes.
@@ -140,3 +140,168 @@ false_hero/NN | parted | Farewell, and remember who treated you straight.
 false_hero/NN | not_understood | I don't follow; say it another way and we'll both save time.
 false_hero/NN | not_understood | What do you mean, and what's in it for me?
 false_hero/NN | not_understood | I'm not sure what you mean, so make it simple.
+
+# ---- false_hero/CG: conversation ----
+false_hero/CG | greeted | Hello there! {speaker}, at your service, more or less, mostly less.
+false_hero/CG | greeted | Greetings, and welcome, and so on and so forth; how are you, though?
+false_hero/CG | greeted | Well met! No bowing, please; it makes us both look silly.
+false_hero/CG | greeted_again | Hello again, and where were we?[ Oh, yes, {asked}; any luck?]
+false_hero/CG | greeted_again | Welcome back! I saw you {since}, didn't I, yes, I'm sure of it.
+false_hero/CG | greeted_again | Well met again! Right, what's it to be this time?
+false_hero/CG | greeted_warm | Good to see you, and I mean that.[ How did you get on with {asked}?]
+false_hero/CG | greeted_warm | Good day, and a better one now you're here; how are you keeping?
+false_hero/CG | greeted_cold | What do you want? Be quick, if you don't mind, and even if you do.
+false_hero/CG | greeted_cold | What now? Say your piece, and skip the pleasantries; I have.
+false_hero/CG | greeted_cold | Keep back, and no, I'm not in the mood to be charming.
+false_hero/CG | greeted_taken | Back again! The work's still yours, and I'm still glad it is.
+false_hero/CG | greeted_taken | Good day! I saw you {since}; how's it going, the work, and you?
+false_hero/CG | greeted_finished | Welcome back! It's done, and done well; thank you, and I mean it.
+false_hero/CG | greeted_finished | Good to see you. The work's done, and the credit's yours, every scrap of it.
+false_hero/CG | greeted_failed | Hello again. It didn't come off, I know, and never mind that; are you all right?
+false_hero/CG | greeted_failed | Back again. It failed, and that's that; I don't think a hair less of you.
+false_hero/CG | greeted_abandoned | Good day. The work's dropped, you're here, and I'm glad of the second part.
+false_hero/CG | greeted_abandoned | Well met again. You gave it up, and that's allowed; I'd still rather see you than not.
+false_hero/CG | small_talk | Me? Oh, tired, cheerful, a bit guilty, the usual; and you?
+false_hero/CG | small_talk | I'm run off my feet, in the good way; everyone wants something, and I'm hopeless at saying no.
+false_hero/CG | small_talk | It's {season}, and I've a soft spot for it, don't ask me why.[ The {danger}, less so.]
+false_hero/CG | small_talk_fair | What weather, eh? It's fair as you like, for {season}, and I could almost sing.
+false_hero/CG | small_talk_fair | A fair {time}, and I'm half tempted to waste it.[ Not near the {danger}, mind.]
+false_hero/CG | small_talk_wet | It's wet, and I've given up pretending I don't mind.[ Keep clear of the {danger}, rain or no rain.]
+false_hero/CG | small_talk_wet | A soggy {time}, isn't it? I'd grumble, but somebody might write it down.
+false_hero/CG | small_talk_storm | It's a proper storm, and no, I'm not going out in it, not even for you.[ The {danger} can have it.]
+false_hero/CG | small_talk_storm | What a racket! Stay in, if you've any sense, and I say that as someone with very little.
+false_hero/CG | small_talk_cold | No chat, not today, and not with you.
+false_hero/CG | small_talk_cold | Let's skip the small talk; I'm fresh out of charm.
+false_hero/CG | acknowledged | Right, got it, and thank you for telling me.
+false_hero/CG | acknowledged | Ah! Well, that's something, isn't it?
+false_hero/CG | acknowledged | Is that so? You learn something every day, even me.
+false_hero/CG | thanked | Don't mention it, really; I'd only go red.
+false_hero/CG | thanked | Glad to; it's the best part of being me, honestly.
+false_hero/CG | thanked_cold | Save your thanks, and spare us both the fuss.
+false_hero/CG | thanked_cold | Hmph, fine, noted, and let's leave it there.
+false_hero/CG | offended | Careful; I'm fond of people, but I'm choosy about which.
+false_hero/CG | offended | There's no need for that; I was being nice, and I'd rather go on being nice.
+false_hero/CG | offended_again | Enough, now; I've been patient, and I've stopped.
+false_hero/CG | offended_again | Hold your tongue, or take it somewhere else.
+false_hero/CG | parted_cold | Go, then; we're done here, you and I.
+false_hero/CG | parted_cold | Off with you; I've said all I mean to.
+false_hero/CG | safety_unsafe | No, sorry, not even slightly; keep well clear of {worst}.[ And the {danger}, please, for my sake.]
+false_hero/CG | safety_unsafe | Far from it; there are {danger}, and I'd rather you didn't meet them.[ Stay away from {worst}, too.]
+false_hero/CG | safety_wary | Mostly, yes, as long as you steer round {worst}.[ The {danger} too, obviously.]
+false_hero/CG | safety_wary | Keep your wits about you, and give a wide berth to {worst}; that's all I ask.
+false_hero/CG | safety_safe | Safe enough; the worst I can think of is {worst}, and I've thought hard.
+false_hero/CG | safety_safe | Yes! Well, yes, as long as nobody goes poking at {worst}.
+false_hero/CG | safety_safe | Nothing to fear, truly; I'd tell you if there were.
+false_hero/CG | exposed_true | Clever you. Yes, all right, the {was} was a costume, and I'm the {is}; you won't tell, will you?
+false_hero/CG | exposed_true | You've found me out. The {was}, all of it, a bit of theatre; it's the {is} you're talking to now.
+false_hero/CG | exposed_true | So you know. Right, then: no more {was}, just me, the {is}, and I'm sorry for the fib.
+
+# ---- false_hero/LE: conversation ----
+false_hero/LE | greeted | Good day. You will find me civil, for as long as you give me cause to be.
+false_hero/LE | greeted | Greetings. I am {speaker}, and I expect the name is known to you.
+false_hero/LE | greeted | Well met, if it proves so; say your business, and be exact about it.
+false_hero/LE | greeted_again | Back again, I see.[ You were asking after {asked}, as I recall.]
+false_hero/LE | greeted_again | Good day. We spoke {since}; I take it you have a reason for returning.
+false_hero/LE | greeted_again | Welcome back; do not make a habit of it without good reason.
+false_hero/LE | greeted_warm | Good to see you; you, at least, have not wasted my time.[ How did you find {asked}?]
+false_hero/LE | greeted_warm | Welcome back. We spoke {since}, and I am glad of it, which I do not say lightly.
+false_hero/LE | greeted_cold | What do you want? Be brief, and be respectful; I will not say it twice.
+false_hero/LE | greeted_cold | Keep back. You have my attention, which is more than you have earned.
+false_hero/LE | greeted_cold | Stay back, and address me properly, or not at all.
+false_hero/LE | greeted_taken | Good day. You took up my work, and I will hold you to it until it is done.
+false_hero/LE | greeted_taken | Back again. I saw you {since}; the work stands unfinished, and I have noted it.
+false_hero/LE | greeted_finished | Welcome back. The work is done, and done correctly, as I expected of you.
+false_hero/LE | greeted_finished | Well met again. It is done; I will remember that you kept your word.
+false_hero/LE | greeted_failed | Back again. The work failed; I remember a failure as exactly as I remember a success.
+false_hero/LE | greeted_failed | Good day. You failed at it, and I do not soften such things for anyone's comfort.
+false_hero/LE | greeted_abandoned | Back again. You gave your word and then gave the work up; I have adjusted my opinion accordingly.
+false_hero/LE | greeted_abandoned | Hello again. The work you abandoned stands against your name.
+false_hero/LE | small_talk | I am well, thank you; I see no reason to be otherwise.
+false_hero/LE | small_talk | My days are orderly, which is how I prefer them.
+false_hero/LE | small_talk | It is {season}, as the calendar insists, and I do not quarrel with it.[ Of the {danger}, I think less well.]
+false_hero/LE | small_talk_fair | It is a fair {time}, and an orderly one; I approve.[ Keep clear of the {danger}, all the same.]
+false_hero/LE | small_talk_fair | The weather is fair, as it ought to be for {season}.
+false_hero/LE | small_talk_wet | It is raining, and I have no say in it, which I dislike.
+false_hero/LE | small_talk_wet | This is a wet {time}, and I will not pretend to enjoy it.[ Nor would I go near the {danger}.]
+false_hero/LE | small_talk_storm | It is a hard storm; sensible people keep indoors.
+false_hero/LE | small_talk_storm | This storm will not be governed, and I do not care for anything that will not.[ Nor for the {danger}.]
+false_hero/LE | small_talk_cold | I do not make conversation with those I have cause to distrust.
+false_hero/LE | small_talk_cold | You will have no pleasantries from me; state your business or be silent.
+false_hero/LE | acknowledged | I see. That will do.
+false_hero/LE | acknowledged | Indeed; that is as it should be.
+false_hero/LE | acknowledged | Is that so? I will take your word for it, as far as your word goes.
+false_hero/LE | thanked | You're welcome, and I trust you will remember it when I have need of you.
+false_hero/LE | thanked | No need; I give courtesy where it is due.
+false_hero/LE | thanked_cold | Keep your thanks; they are worth very little from you.
+false_hero/LE | thanked_cold | Spare me; what I did was proper, not a kindness to you.
+false_hero/LE | offended | How dare you; you forget whom you are addressing.
+false_hero/LE | offended | Mind your manners; that remark does you no credit, and I will not pretend I did not hear it.
+false_hero/LE | offended_again | Enough; I have heard all I intend to hear from you.
+false_hero/LE | offended_again | Hold your tongue; your contempt is noted, and it is returned in full.
+false_hero/LE | parted_cold | Be on your way; I have no further use for you.
+false_hero/LE | parted_cold | On your way; this conversation is concluded.
+false_hero/LE | safety_unsafe | No. Keep away from {worst}; I will not repeat the warning.[ The same applies to the {danger}.]
+false_hero/LE | safety_unsafe | Not safe. There are {danger}, and I would not answer for anyone who goes near them.[ Nor for anyone bound for {worst}.]
+false_hero/LE | safety_wary | Safe enough, for those with sense; they keep clear of {worst}.[ They mind the {danger} as well.]
+false_hero/LE | safety_wary | More or less, provided you avoid {worst}; I make no promises beyond that.
+false_hero/LE | safety_safe | Yes, it is safe; the worst I would name is {worst}.
+false_hero/LE | safety_safe | Quiet enough. I would still not go near {worst}, were I you.
+false_hero/LE | safety_safe | Nothing to fear; you may take my word on it, and my word is not given lightly.
+false_hero/LE | exposed_true | Very well. The {was} was a face I chose to wear; I am the {is}, and you will address me accordingly.
+false_hero/LE | exposed_true | So you know. I was the {was}; I am the {is}, and that alters nothing that has been said of me.
+false_hero/LE | exposed_true | Enough, then. I am the {is}, not the {was}; mind how you repeat it.
+
+# ---- false_hero/NN: conversation ----
+false_hero/NN | greeted | Hello. What can we do for each other?
+false_hero/NN | greeted | Good day. I'm {speaker}, and I've a little time, if you've a reason.
+false_hero/NN | greeted | Well met. Say what you're after, and we'll see if it suits us both.
+false_hero/NN | greeted_again | Hello again.[ Did {asked} turn out to be any use?]
+false_hero/NN | greeted_again | Back again. I saw you {since}; what brings you round now?
+false_hero/NN | greeted_again | Good day, again; let's get to it.
+false_hero/NN | greeted_warm | Good to see you; I like dealing with you.[ Did you get anywhere with {asked}?]
+false_hero/NN | greeted_warm | Welcome back. I saw you {since}, and I'm glad of it; you're one of the useful ones.
+false_hero/NN | greeted_cold | What do you want? Keep it short; you're not in credit with me.
+false_hero/NN | greeted_cold | What now? Make it worth my time, or don't bother.
+false_hero/NN | greeted_cold | Keep back. I'll hear you out, and that's all you'll get.
+false_hero/NN | greeted_taken | Good day. The work's still yours, and I'm counting on it.
+false_hero/NN | greeted_taken | Back again. I saw you {since}; the work's taken and not yet done, as I have it.
+false_hero/NN | greeted_finished | Welcome back. It's done, and I don't forget who does what they said they would.
+false_hero/NN | greeted_finished | Good to see you. The work's done; you said you would, and you did.
+false_hero/NN | greeted_failed | Hello again. It failed, and that's that; no use crying over it.
+false_hero/NN | greeted_failed | Good day. The work failed; it goes in the ledger, and we go on.
+false_hero/NN | greeted_abandoned | Well met again. You gave the work up; your choice, and I've no quarrel with it.
+false_hero/NN | greeted_abandoned | Back again. You let the work go, and I've marked it down; nothing more to say.
+false_hero/NN | small_talk | Well enough, thanks; nothing to complain of that complaining would fix.
+false_hero/NN | small_talk | There's plenty to do, and I do what's worth the doing.
+false_hero/NN | small_talk | It's {season}, and I take it as it comes.[ Leave the {danger} alone; there's nothing in it for you.]
+false_hero/NN | small_talk_fair | Good weather, and I'll take all of it I can get.[ Mind the {danger}, though.]
+false_hero/NN | small_talk_fair | The sky's behaving, for {season}, and I've no complaints.
+false_hero/NN | small_talk_wet | It's wet; I'll wait it out, since waiting's free.
+false_hero/NN | small_talk_wet | A wet {time}, and no profit in grumbling about it.[ Keep clear of the {danger} all the same.]
+false_hero/NN | small_talk_storm | That's a real blow out there; nothing's worth getting soaked for.[ Not the {danger}, certainly.]
+false_hero/NN | small_talk_storm | Some storm, this; I'm staying put till it's spent.
+false_hero/NN | small_talk_cold | I've no small talk for you; business, or nothing.
+false_hero/NN | small_talk_cold | I chat with people I trust, and you're not one of them.
+false_hero/NN | acknowledged | Right; I'll remember that.
+false_hero/NN | acknowledged | Fair enough. I'll bear it in mind.
+false_hero/NN | acknowledged | Well, that changes the sums a little.
+false_hero/NN | thanked | You're welcome; fair's fair.
+false_hero/NN | thanked | Don't mention it; it was no trouble.
+false_hero/NN | thanked_cold | Keep your thanks; they don't settle anything between us.
+false_hero/NN | thanked_cold | Hmph; thanks cost you nothing, and they buy you less.
+false_hero/NN | offended | Watch your tongue; insults cost more than they're worth.
+false_hero/NN | offended | There's no need for that; I've been straight with you.
+false_hero/NN | offended_again | Enough; you've used up what goodwill you had with me.
+false_hero/NN | offended_again | Careful; there's nothing to gain in this, for either of us.
+false_hero/NN | parted_cold | Get going; we've nothing more to trade.
+false_hero/NN | parted_cold | Off with you; I've no use for you today.
+false_hero/NN | safety_unsafe | Not here. Stay clear of {worst}; the odds there are poor.[ And don't go near the {danger}.]
+false_hero/NN | safety_unsafe | I wouldn't say so. There are {danger}, and I don't gamble on odds like those.[ Nor on {worst}.]
+false_hero/NN | safety_wary | Mostly, if you're sensible and keep off {worst}.[ Mind the {danger}, too.]
+false_hero/NN | safety_wary | Careful, and it's fine; just don't go near {worst}.
+false_hero/NN | safety_safe | Safe enough; the worst I know of is {worst}.
+false_hero/NN | safety_safe | Aye, it's safe; the only place I'd leave out of my plans is {worst}.
+false_hero/NN | safety_safe | It's safe, and I'd say so if it weren't.
+false_hero/NN | exposed_true | Fine. The {was} was a front; you're dealing with the {is} now, so let's deal.
+false_hero/NN | exposed_true | Yes. I'm the {is}, not the {was}, and I'm no harder to do business with for it.
+false_hero/NN | exposed_true | So you know. The {was} is finished, then; I'm the {is}, and I'd rather we got on with it.

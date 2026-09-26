@@ -13,7 +13,7 @@ exiled_hero/NN | surroundings | You're in {here}, and the closest thing to it is
 exiled_hero/NN | surroundings | Around {here}, the nearest is {nearest}.[ After that, {others}.][ Give the {danger} a wide berth.]
 exiled_hero/NN | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Keep clear of the {danger} unless it's worth your while.]
 exiled_hero/NN | surroundings | What's closest is {nearest}[, then {others}].[ Watch for the {danger}.]
-exiled_hero/NN | work_own | Do this and I'll remember it: {own}.[ If not, {others}.]
+exiled_hero/NN | work_own | My offer, and a straight one: {own}.[ If not, {others}.]
 exiled_hero/NN | work_own | Here's what I need: {own}.[ Otherwise, {others}.]
 exiled_hero/NN | work_own | I've work that wants hands, and yours will do: {own}.[ If it's not to your taste, {others}.]
 exiled_hero/NN | work_others | Nothing of mine, but {others}.
@@ -60,7 +60,7 @@ exiled_hero/NG | surroundings | Here in {here}, the nearest is {nearest}.[ After
 exiled_hero/NG | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Be careful of the {danger}, please.]
 exiled_hero/NG | surroundings | From here, the closest is {nearest}[, then {others}].[ Watch yourself around the {danger}.]
 exiled_hero/NG | work_own | I could use help, if you're willing: {own}.[ If not, {others}.]
-exiled_hero/NG | work_own | Help me with this and I'll owe you one: {own}.[ If it's too much, {others}.]
+exiled_hero/NG | work_own | Help me with this, if you would: {own}.[ If you'd rather not, {others}.]
 exiled_hero/NG | work_own | Since you're asking, there's this: {own}.[ And if it's not for you, {others}.]
 exiled_hero/NG | work_others | Nothing of my own, I'm sorry, but {others}.
 exiled_hero/NG | work_others | I've nothing myself. {others}, and tell them {speaker} sent you.
@@ -77,12 +77,12 @@ exiled_hero/NG | refused_release | That's not mine to release, and it wouldn't b
 exiled_hero/NG | refused | No, {reason}, and I'm sorry for it.
 exiled_hero/NG | refused | No, because {reason}, much as I'd like to say yes.
 exiled_hero/NG | accepted | Thank you. I mean that.
-exiled_hero/NG | accepted | Good, and come back safe.
-exiled_hero/NG | accepted | Very good. If it goes badly, come to me first.
-exiled_hero/NG | declined | Fair enough, no one should carry what they can't.
+exiled_hero/NG | accepted | Good, and I'm glad it's you.
+exiled_hero/NG | accepted | Very good. If you've questions, ask me; I'd rather you did.
+exiled_hero/NG | declined | Fair enough, and thank you for being honest with me.
 exiled_hero/NG | declined | As you wish, and there's no ill feeling.
 exiled_hero/NG | declined | So be it, I'll not think less of you for it.
-exiled_hero/NG | abandoned | A pity, but you know your own limits better than I do.
+exiled_hero/NG | abandoned | A pity, but you know your own mind better than I do.
 exiled_hero/NG | abandoned | Very well, I'll find another way.
 exiled_hero/NG | abandoned | Then it's done, and no hard feelings, truly.
 exiled_hero/NG | parted | Farewell, and look after yourself out there.
@@ -107,7 +107,7 @@ exiled_hero/LN | surroundings | The nearest is {nearest}.[ Beyond it, {others}.]
 exiled_hero/LN | surroundings | Of what lies closest, there is {nearest}[, and then {others}].[ Heed the {danger}.]
 exiled_hero/LN | work_own | I have work to offer on plain terms: {own}.[ Should you decline, {others}.]
 exiled_hero/LN | work_own | Hear the terms, then: {own}.[ Otherwise, {others}.]
-exiled_hero/LN | work_own | Let this be the measure of you: {own}.[ If it is beyond you, {others}.]
+exiled_hero/LN | work_own | Let this be the measure of you: {own}.[ If you would rather not, {others}.]
 exiled_hero/LN | work_others | None of my own to give, but {others}.
 exiled_hero/LN | work_others | Nothing within my office. {others}, if you are asking.
 exiled_hero/LN | work_none | There is no work in my gift, and none I know of in anyone else's.
@@ -124,7 +124,7 @@ exiled_hero/LN | refused | No, {reason}, and the matter is closed.
 exiled_hero/LN | refused | No, because {reason}, and there is nothing to discuss.
 exiled_hero/LN | accepted | Good. Your word is taken, and mine is given.
 exiled_hero/LN | accepted | Done. I will hold you to it, as you may hold me.
-exiled_hero/LN | accepted | Thank you. Do this well, and you will have standing here.
+exiled_hero/LN | accepted | Thank you. I take your acceptance as binding, on both sides.
 exiled_hero/LN | declined | Very well, I will not press you.
 exiled_hero/LN | declined | As you wish, I will note it.
 exiled_hero/LN | declined | Fair enough, no one is bound who has not agreed.
@@ -151,9 +151,9 @@ exiled_hero/LG | surroundings | This is {here}. The nearest is {nearest}[, and p
 exiled_hero/LG | surroundings | Welcome to {here}. The closest is {nearest}[, and beyond it, {others}].[ Keep well away from the {danger}.]
 exiled_hero/LG | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Take care near the {danger}, for my sake if not your own.]
 exiled_hero/LG | surroundings | As to what lies about us, the nearest is {nearest}[, and then {others}].[ Do not go near the {danger} alone.]
-exiled_hero/LG | work_own | I would ask your help, if you can give it: {own}.[ If you cannot, {others}.]
-exiled_hero/LG | work_own | There is work, and I would trust you with this much: {own}.[ Otherwise, {others}.]
-exiled_hero/LG | work_own | Help me, and I will stand by you in turn: {own}.[ Or, if it suits you better, {others}.]
+exiled_hero/LG | work_own | I would ask your help, if you will give it: {own}.[ If you will not, {others}.]
+exiled_hero/LG | work_own | There is work, and I would trust you with it: {own}.[ Otherwise, {others}.]
+exiled_hero/LG | work_own | Help me, if you would be so kind: {own}.[ Or, if it suits you better, {others}.]
 exiled_hero/LG | work_others | I have no work of my own to offer, but {others}.
 exiled_hero/LG | work_others | Forgive me, I have none of my own. {others}, if you are looking.
 exiled_hero/LG | work_none | No work, I am sorry to say, and none that I know of.
@@ -168,8 +168,8 @@ exiled_hero/LG | refused_release | Not from me, your word is with {giver}, and I
 exiled_hero/LG | refused_release | I won't set aside what another asked of you, though I will hear you if it has gone badly.
 exiled_hero/LG | refused | No, {reason}, and I regret that I cannot make it otherwise.
 exiled_hero/LG | refused | No, because {reason}, and I will not deceive you about it.
-exiled_hero/LG | accepted | Thank you, truly. Come back to me safe.
-exiled_hero/LG | accepted | Good. You have my word in return, and my help if you need it.
+exiled_hero/LG | accepted | Thank you, truly. It means more than I can say.
+exiled_hero/LG | accepted | Good. You have my word in return, as I have yours.
 exiled_hero/LG | accepted | Very good. I will not forget that you said yes.
 exiled_hero/LG | declined | Very well, and there is no shame in it.
 exiled_hero/LG | declined | As you wish, and you are welcome here all the same.
@@ -198,8 +198,8 @@ exiled_hero/CN | surroundings | {here}, that's where you are, and the nearest is
 exiled_hero/CN | surroundings | The nearest is {nearest}[, then {others}], and that's the lot.[ Mind the {danger}.]
 exiled_hero/CN | surroundings | What's near is {nearest}.[ After that, {others}.][ And steer round the {danger}.]
 exiled_hero/CN | work_own | You want work? Good, because I've got some: {own}.[ Or, if it's not your sort of thing, {others}.]
-exiled_hero/CN | work_own | Here's one, just between us: {own}.[ If not, {others}, and tell them I sent you.]
-exiled_hero/CN | work_own | I've a thing that needs doing, and you've the look of someone who does things: {own}.[ Or {others}, your call.]
+exiled_hero/CN | work_own | Here's one, yours if you want it, and I hope you do: {own}.[ If not, {others}, and tell them I sent you.]
+exiled_hero/CN | work_own | I've a thing that needs doing, and here you are, asking: {own}.[ Or {others}, your call.]
 exiled_hero/CN | work_others | Mine? Nothing. Somebody else's, though: {others}.
 exiled_hero/CN | work_others | Not me. {others}, and tell them I said hello.
 exiled_hero/CN | work_none | No work, none, and I'd tell you if there were.
@@ -244,8 +244,8 @@ exiled_hero/CG | surroundings | Right, you're in {here}, and the nearest is {nea
 exiled_hero/CG | surroundings | The nearest is {nearest}.[ Then {others}.][ Stay clear of the {danger}, unless you take me along.]
 exiled_hero/CG | surroundings | What's nearest is {nearest}[, and then {others}].[ Mind the {danger}, will you?]
 exiled_hero/CG | work_own | Would you? Then here's one worth doing: {own}.[ If not, {others}.]
-exiled_hero/CG | work_own | I'll not dress it up: {own}.[ Or, if that's not your fight, {others}.]
-exiled_hero/CG | work_own | Help me with something and I'll owe you: {own}.[ If it's not for you, {others}.]
+exiled_hero/CG | work_own | I'll just ask, then, and you can say no: {own}.[ Or {others}, if you'd sooner.]
+exiled_hero/CG | work_own | Help me with something, go on: {own}.[ If it's not for you, {others}.]
 exiled_hero/CG | work_others | Nothing of mine, sorry, but {others}, and tell them {speaker} sent you.
 exiled_hero/CG | work_others | Me, no. {others}, and say hello from me.
 exiled_hero/CG | work_none | Nothing, not a scrap of it anywhere I know.
@@ -260,10 +260,10 @@ exiled_hero/CG | refused_release | That's not mine to undo, it's between you and
 exiled_hero/CG | refused_release | I cannot, and trust me, I'd like to, but it's not mine to let go of.
 exiled_hero/CG | refused | No, {reason}, and believe me, I'd fight it if fighting would help.
 exiled_hero/CG | refused | No, because {reason}, and I'm sorry, truly, I'd change it if I could.
-exiled_hero/CG | accepted | Thank you. That took nerve, and I won't forget it.
-exiled_hero/CG | accepted | Good, and come back in one piece, that's the real job.
-exiled_hero/CG | accepted | Done! And if it goes wrong, you come and find me, whatever it is.
-exiled_hero/CG | declined | Fair enough, not every fight is yours.
+exiled_hero/CG | accepted | Thank you. That's one more person I'm glad to know.
+exiled_hero/CG | accepted | Good, good, shake on it, then.
+exiled_hero/CG | accepted | Done! And I'm properly pleased, you've no idea.
+exiled_hero/CG | declined | Fair enough, nobody can say yes to everything.
 exiled_hero/CG | declined | Suit yourself, but you're still welcome here, you know that.
 exiled_hero/CG | declined | As you wish, I'd sooner have you willing than dragged.
 exiled_hero/CG | abandoned | A pity, but I'd rather have you than the job done.
@@ -289,9 +289,9 @@ exiled_hero/LE | surroundings | This is {here}, for your information, and the cl
 exiled_hero/LE | surroundings | Since you ask, you are in {here}, and the nearest is {nearest}.[ Beyond that, {others}.][ I would not go near the {danger}, though you may.]
 exiled_hero/LE | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Beware the {danger}, or do not, as you please.]
 exiled_hero/LE | surroundings | Of what lies about you, the nearest is {nearest}[, and past that, {others}].[ The {danger} I leave to fools.]
-exiled_hero/LE | work_own | You may be of use: {own}.[ If that is beyond you, {others}.]
+exiled_hero/LE | work_own | You may be of use: {own}.[ If you decline, {others}.]
 exiled_hero/LE | work_own | I have a task, and you will do as well as anyone: {own}.[ Otherwise, {others}.]
-exiled_hero/LE | work_own | Let us see what you are worth: {own}.[ Should you shrink from it, {others}.]
+exiled_hero/LE | work_own | Let us see what you are worth: {own}.[ Should you refuse, {others}.]
 exiled_hero/LE | work_others | Nothing I would trust to you, but {others}.
 exiled_hero/LE | work_others | None of mine. {others}, if their standards are lower than mine.
 exiled_hero/LE | work_none | No work, and none I would trouble to find for you.
@@ -335,9 +335,9 @@ exiled_hero/NE | surroundings | This is {here}, and the closest is {nearest}.[ B
 exiled_hero/NE | surroundings | Around {here}, the nearest is {nearest}.[ After that, {others}.][ Keep off the {danger}, I've no time to fetch bodies.]
 exiled_hero/NE | surroundings | The nearest is {nearest}.[ Past that, {others}.][ If you meet the {danger}, you're on your own.]
 exiled_hero/NE | surroundings | Nothing's closer than {nearest}[, and after it, {others}].[ Leave the {danger} be.]
-exiled_hero/NE | work_own | I've a use for you: {own}.[ If you're not up to it, {others}.]
+exiled_hero/NE | work_own | I've a use for you: {own}.[ If you don't want it, {others}.]
 exiled_hero/NE | work_own | Here's what you're good for: {own}.[ Otherwise, {others}.]
-exiled_hero/NE | work_own | Make yourself useful: {own}.[ Or, if that's too much, {others}.]
+exiled_hero/NE | work_own | Make yourself useful: {own}.[ Or, if you'd rather, {others}.]
 exiled_hero/NE | work_others | Nothing from me. {others}, and good luck to them.
 exiled_hero/NE | work_others | I've nothing for you. {others}, if you'd rather be someone else's problem.
 exiled_hero/NE | work_none | No work, and I don't make it up to keep people busy.
@@ -355,7 +355,7 @@ exiled_hero/NE | refused | I cannot, {reason}, and I'm not wasting breath on it.
 exiled_hero/NE | accepted | Good. I'll know if you slack.
 exiled_hero/NE | accepted | Done, and I'll be counting.
 exiled_hero/NE | accepted | Then it's agreed. If you fail me, we'll talk again, less politely.
-exiled_hero/NE | declined | Suit yourself, you'd only have slowed me down.
+exiled_hero/NE | declined | Suit yourself, you'd only have wasted my time.
 exiled_hero/NE | declined | Fair enough, I'll find someone hungrier.
 exiled_hero/NE | declined | As you wish, it's your loss before it's mine.
 exiled_hero/NE | abandoned | A pity, you were almost useful.
@@ -367,3 +367,443 @@ exiled_hero/NE | parted | Take care, I'd hate to lose something I might use.
 exiled_hero/NE | not_understood | Speak plainly, I'm not here to decode you.
 exiled_hero/NE | not_understood | What do you mean, and make it quick.
 exiled_hero/NE | not_understood | I don't follow, and I'm not going to try.
+
+# ---- exiled_hero/NN: conversation ----
+exiled_hero/NN | greeted | Hello. Say what you're after, and we'll see if it suits us both.
+exiled_hero/NN | greeted | Well met. Ask what you came to ask, and I'll answer what I can.
+exiled_hero/NN | greeted | Good day. Where you've come from is your own affair; what you want here is mine.
+exiled_hero/NN | greeted_again | Hello again.[ Did {asked} turn out worth the asking?]
+exiled_hero/NN | greeted_again | Back again; last time was {since}.[ Still after {asked}?]
+exiled_hero/NN | greeted_again | Good day. You've found me again, so it must be worth your while.
+exiled_hero/NN | greeted_warm | Good to see you.[ Did {asked} come to anything?]
+exiled_hero/NN | greeted_warm | Welcome back; you're worth the time of day.[ How did you get on with {asked}?]
+exiled_hero/NN | greeted_cold | What do you want? Be quick, you're costing me time.
+exiled_hero/NN | greeted_cold | What now? Say it plainly and keep it short.
+exiled_hero/NN | greeted_cold | Keep back. You're close enough for what you're worth to me.
+exiled_hero/NN | greeted_taken | Hello again. I saw you {since}, and the work's still yours to finish.
+exiled_hero/NN | greeted_taken | Back again. Is my work nearer done, or just older?
+exiled_hero/NN | greeted_finished | Good to see you. You did what you said you'd do, and I've marked it.
+exiled_hero/NN | greeted_finished | Welcome back. My work's done, and done by you; I don't forget that.
+exiled_hero/NN | greeted_failed | Hello again. The work went against you; it happens.
+exiled_hero/NN | greeted_failed | Back again. It didn't come off, and I count it a loss, not a grudge.
+exiled_hero/NN | greeted_abandoned | Good day. You gave up my work; I'll weigh that before I offer more.
+exiled_hero/NN | greeted_abandoned | Well met again. You gave my work back; no harm, but it's on the ledger.
+exiled_hero/NN | small_talk | Well enough, and busier than I'd like, which beats the other way round.
+exiled_hero/NN | small_talk | There's always something wanting doing, and this {time}'s no different.
+exiled_hero/NN | small_talk | It's {season}, and I'd sooner spend it building than looking back.
+exiled_hero/NN | small_talk_fair | It's a fine {time}, and fine weather costs nothing, so I'll take it.
+exiled_hero/NN | small_talk_fair | Good weather, for {season}, and good for business.[ Keep an eye on the {danger}, though.]
+exiled_hero/NN | small_talk_wet | Everything I care about goes slower in the wet.
+exiled_hero/NN | small_talk_wet | This rain is no use to anyone, {season} or not.[ Mind the {danger} more than the rain.]
+exiled_hero/NN | small_talk_storm | It's a storm, and nothing useful gets done in a storm.
+exiled_hero/NN | small_talk_storm | This {time}'s a gale, and I've no use for it.[ Keep clear of the {danger} while it blows.]
+exiled_hero/NN | small_talk_cold | I've no time for talk that doesn't lead anywhere.
+exiled_hero/NN | small_talk_cold | If it's talk you want, find someone with less to do.
+exiled_hero/NN | acknowledged | Fair enough. That's worth knowing.
+exiled_hero/NN | acknowledged | Right. That goes in the reckoning.
+exiled_hero/NN | acknowledged | I see; a straight answer, and I'm obliged for it.
+exiled_hero/NN | thanked | No need; you asked fair, and you got fair.
+exiled_hero/NN | thanked | Don't mention it, just remember it.
+exiled_hero/NN | thanked_cold | Save your thanks, and give me a reason to trust you instead.
+exiled_hero/NN | thanked_cold | Keep your thanks; I did it for my own reasons.
+exiled_hero/NN | offended | Careful, insults cost more than they're worth.
+exiled_hero/NN | offended | There's no need for that, and it gets you nothing from me.
+exiled_hero/NN | offended_again | Enough; you've spent what goodwill you had.
+exiled_hero/NN | offended_again | Hold your tongue, or take it somewhere it's wanted.
+exiled_hero/NN | parted_cold | Go, then, and take your business with you.
+exiled_hero/NN | parted_cold | On your way; we're done here.
+exiled_hero/NN | safety_unsafe | No, and I'd not risk it without good cause. Keep clear of {worst}.[ The {danger} are no better.]
+exiled_hero/NN | safety_unsafe | Not safe. There are {danger}, and that's reason enough.[ Give {worst} a wide berth, too.]
+exiled_hero/NN | safety_wary | Careful, and you'll do. Stay clear of {worst}.[ The {danger} too.]
+exiled_hero/NN | safety_wary | More or less, if you keep your head. The one to avoid is {worst}.
+exiled_hero/NN | safety_safe | Safe enough. The worst I know of is {worst}.
+exiled_hero/NN | safety_safe | Yes, as far as I know. I'd still not wander near {worst}.
+exiled_hero/NN | safety_safe | It's safe, and I'd not say so if it weren't; lies cost more than they save.
+exiled_hero/NN | denied | You're mistaken; what you see is what you're dealing with.
+exiled_hero/NN | denied | Nonsense, I've no time to be anything but what I am.
+exiled_hero/NN | denied_again | No, and asking twice won't change the answer.
+
+# ---- exiled_hero/NG: conversation ----
+exiled_hero/NG | greeted | Hello, and welcome; are you well, and is there anything you need?
+exiled_hero/NG | greeted | Well met. It's good to see a new face; I'm {speaker}, and you're welcome here.
+exiled_hero/NG | greeted | Good day. Have you somewhere to stay tonight?
+exiled_hero/NG | greeted_again | Hello again, and how are you keeping?[ Did {asked} turn out as you hoped?]
+exiled_hero/NG | greeted_again | Back again; I saw you {since}, and I wondered how you'd got on.[ Any word of {asked}?]
+exiled_hero/NG | greeted_again | Good day. It's good to see a face I know.
+exiled_hero/NG | greeted_warm | Good to see you, truly.[ Tell me, did {asked} work out?]
+exiled_hero/NG | greeted_warm | Welcome back, and I'm glad of it.[ How did you fare with {asked}?]
+exiled_hero/NG | greeted_cold | What do you want? Say it, and I'll decide how much to believe.
+exiled_hero/NG | greeted_cold | What now? I'll hear it, but I'm promising nothing.
+exiled_hero/NG | greeted_cold | Stay back a moment. I want to know what you're about first.
+exiled_hero/NG | greeted_taken | Hello again. How's the work going, and how are you?
+exiled_hero/NG | greeted_taken | Good to see you. The work's still with you; tell me if it's going hard.
+exiled_hero/NG | greeted_finished | Welcome back. The work's done, and I'm more grateful than I can say.
+exiled_hero/NG | greeted_finished | Good day. You finished it; thank you, and are you all right?
+exiled_hero/NG | greeted_failed | Hello again. It didn't work out; I'm sorry, and I don't hold it against you.
+exiled_hero/NG | greeted_failed | Back again. It went wrong, but you're here, and that matters more.
+exiled_hero/NG | greeted_abandoned | Good day. You put my work down; I hope you had good reason.
+exiled_hero/NG | greeted_abandoned | Well met again. You gave up the work, and that's all right; I'd sooner know than not.
+exiled_hero/NG | small_talk | I'm tired, but well, and better for the asking.
+exiled_hero/NG | small_talk | Someone always needs a hand, this {time} as much as any.
+exiled_hero/NG | small_talk | It's {season}, and I think of anyone without a roof for it.
+exiled_hero/NG | small_talk_fair | A fine {time}, and I'm glad of it, for everyone's sake.
+exiled_hero/NG | small_talk_fair | Nothing wrong with the weather, for {season}.[ Even so, stay clear of the {danger}.]
+exiled_hero/NG | small_talk_wet | I hope nobody's sleeping out in this wet.
+exiled_hero/NG | small_talk_wet | Even for {season}, this rain's hard going.[ Go carefully, and mind the {danger}.]
+exiled_hero/NG | small_talk_storm | It's a wild {time}, and I'd not turn anyone out into it.
+exiled_hero/NG | small_talk_storm | This storm is no joke, {season} or not.[ Keep well away from the {danger} till it's passed.]
+exiled_hero/NG | small_talk_cold | I'll be civil, and that's all.
+exiled_hero/NG | small_talk_cold | Let's keep this to what you need.
+exiled_hero/NG | acknowledged | I see. Thank you for telling me.
+exiled_hero/NG | acknowledged | Good. That's one less thing to worry about.
+exiled_hero/NG | acknowledged | Ah, all right. That puts my mind at rest.
+exiled_hero/NG | thanked | Glad to, and come back if you need anything else.
+exiled_hero/NG | thanked | You're welcome, and don't be a stranger.
+exiled_hero/NG | thanked_cold | Save your thanks until I know you better.
+exiled_hero/NG | thanked_cold | Spare me; I'd rather know what you're really after.
+exiled_hero/NG | offended | There's no need for that, whatever's got into you.
+exiled_hero/NG | offended | Mind your manners; I'll help anyone, but I won't be spoken to like that.
+exiled_hero/NG | offended_again | Enough, I've been patient, and I'm done being patient.
+exiled_hero/NG | offended_again | Hold your tongue, or find someone else to talk to.
+exiled_hero/NG | parted_cold | Go, then, and that's the end of it.
+exiled_hero/NG | parted_cold | Be on your way, and leave my people be.
+exiled_hero/NG | safety_unsafe | No, I'm sorry to say. Stay away from {worst}.[ And there are {danger}.]
+exiled_hero/NG | safety_unsafe | Not here, I'm afraid. There are {danger}, and I'd not send anyone near them.[ Stay well clear of {worst} as well.]
+exiled_hero/NG | safety_wary | Mostly, if you're careful. Please keep clear of {worst}.[ And the {danger}.]
+exiled_hero/NG | safety_wary | Keep your wits about you. The one I'd worry about is {worst}.
+exiled_hero/NG | safety_safe | Yes, I think so. The worst I've heard of is {worst}.
+exiled_hero/NG | safety_safe | Safe enough, but I'd still steer clear of {worst}.
+exiled_hero/NG | safety_safe | Nothing to fear here, and I'd tell you if there were.
+exiled_hero/NG | denied | No, I'm just what I look like, no more.
+exiled_hero/NG | denied | That's not so; I'm who I say I am.
+exiled_hero/NG | denied_again | I don't know what you mean, and I've told you so once.
+
+# ---- exiled_hero/LN: conversation ----
+exiled_hero/LN | greeted | Greetings. Your name and your business, if you please, and then we may proceed.
+exiled_hero/LN | greeted | Good day. I will hear you, provided you are brief and plain.
+exiled_hero/LN | greeted | Hail. You are new to me, so let us begin with who you are.
+exiled_hero/LN | greeted_again | Well met again.[ Your question concerned {asked}, if I recall it rightly.]
+exiled_hero/LN | greeted_again | Hello again; we last spoke {since}.[ Did your business with {asked} come to anything?]
+exiled_hero/LN | greeted_again | Good day. You are known to me now, which is a beginning.
+exiled_hero/LN | greeted_warm | Good to see you, and I say so on the record.[ Did {asked} answer your purpose?]
+exiled_hero/LN | greeted_warm | Welcome back; your standing here is good, and I am glad of it.[ How did you find {asked}?]
+exiled_hero/LN | greeted_cold | What do you want? Say it plainly, and be brief.
+exiled_hero/LN | greeted_cold | What now? You will have a hearing, and nothing beyond it.
+exiled_hero/LN | greeted_cold | Keep back. Until your standing is proven, you will speak from there.
+exiled_hero/LN | greeted_taken | Hello again. The undertaking stands, and I expect it honoured.
+exiled_hero/LN | greeted_taken | Good day. I saw you {since}; the work remains yours by your own word.
+exiled_hero/LN | greeted_finished | Welcome back. The work is done, and your word is proven good.
+exiled_hero/LN | greeted_finished | Well met again. You kept your undertaking; that is entered in your favour.
+exiled_hero/LN | greeted_failed | Hello again. The undertaking failed; I do not hold failure and dishonesty to be the same.
+exiled_hero/LN | greeted_failed | Back again. It did not succeed, and the matter is closed.
+exiled_hero/LN | greeted_abandoned | Good day. You withdrew from the undertaking, and I have noted it.
+exiled_hero/LN | greeted_abandoned | Well met again. You gave the work up; your word will weigh less with me for a time.
+exiled_hero/LN | small_talk | I am well, thank you, and I have no complaint to make.
+exiled_hero/LN | small_talk | The business of {place} does not wait, this {time} or any other.
+exiled_hero/LN | small_talk | It is {season}, and I would have {place} in good order for whatever follows.
+exiled_hero/LN | small_talk_fair | It is a fair {time}, and I will not complain of it.
+exiled_hero/LN | small_talk_fair | The weather is fine for {season}.[ It does not make the {danger} any less, however.]
+exiled_hero/LN | small_talk_wet | It is a wet {time}, and there is no remedy for it but patience.
+exiled_hero/LN | small_talk_wet | The rain is steady, {season} or not.[ Heed the {danger} all the same.]
+exiled_hero/LN | small_talk_storm | There is a storm on us, and it is a poor {time} for any errand.
+exiled_hero/LN | small_talk_storm | It blows hard, {season} or no.[ I would keep well away from the {danger} until it passes.]
+exiled_hero/LN | small_talk_cold | I will answer your business, not your conversation.
+exiled_hero/LN | small_talk_cold | If you have business, state it; I do not exchange pleasantries.
+exiled_hero/LN | acknowledged | Indeed. Then that is settled.
+exiled_hero/LN | acknowledged | I see. I will take that as your answer, and hold you to it.
+exiled_hero/LN | acknowledged | Good. A plain answer is all I ask.
+exiled_hero/LN | thanked | You're welcome; it was within my office to give.
+exiled_hero/LN | thanked | Think nothing of it, for it was owed to anyone who asked.
+exiled_hero/LN | thanked_cold | Save your thanks; I did what my office requires, nothing more.
+exiled_hero/LN | thanked_cold | Keep your thanks until your standing warrants them.
+exiled_hero/LN | offended | Mind your manners; you are addressing the {post} of {place}.
+exiled_hero/LN | offended | Careful; I will not be spoken to so, by you or anyone.
+exiled_hero/LN | offended_again | Enough; I have heard all of this I intend to hear.
+exiled_hero/LN | offended_again | Hold your tongue, or this conversation is at an end.
+exiled_hero/LN | parted_cold | Be on your way; our business is concluded.
+exiled_hero/LN | parted_cold | Go, then, and do not return without cause.
+exiled_hero/LN | safety_unsafe | No, it is not. I would keep well clear of {worst}.[ There are also {danger}.]
+exiled_hero/LN | safety_unsafe | I wouldn't say so. There are {danger}, and I do not make light of them.[ I would not go near {worst} either.]
+exiled_hero/LN | safety_wary | Safe enough, with care. Keep your distance from {worst}.[ Heed the {danger} as well.]
+exiled_hero/LN | safety_wary | More or less, if you mind yourself. I would give {worst} a wide berth.
+exiled_hero/LN | safety_safe | Yes, as far as I can attest. The worst of it is {worst}.
+exiled_hero/LN | safety_safe | Quiet enough, though I would keep my distance from {worst}.
+exiled_hero/LN | safety_safe | It's safe, and I would not say so were it otherwise.
+exiled_hero/LN | denied | You're mistaken; I am what I have said I am.
+exiled_hero/LN | denied | That's not so, and I will not answer it further.
+exiled_hero/LN | denied_again | No; the question has been put and answered.
+
+# ---- exiled_hero/LG: conversation ----
+exiled_hero/LG | greeted | Welcome. Whoever you are, you will not be turned away here.
+exiled_hero/LG | greeted | Good day to you. Tell me your name, and whether you are in any need.
+exiled_hero/LG | greeted | Greetings. I am {speaker}, and I would be glad to know you.
+exiled_hero/LG | greeted_again | Hello again, and well met.[ Tell me, how went it with {asked}?]
+exiled_hero/LG | greeted_again | Welcome back; I saw you {since}, and I am glad you have returned.[ Did {asked} prove what you hoped?]
+exiled_hero/LG | greeted_again | Good day. It is good to see you again, and on your feet.
+exiled_hero/LG | greeted_warm | Good to see you, truly; you are always welcome here.[ Did you find {asked}, in the end?]
+exiled_hero/LG | greeted_warm | Well met again, and welcome indeed.[ I have wondered how you fared with {asked}.]
+exiled_hero/LG | greeted_cold | What do you want? I will hear you, but I ask you to keep your distance.
+exiled_hero/LG | greeted_cold | What now? Forgive me if I am guarded; I have others to think of.
+exiled_hero/LG | greeted_cold | Stay back, please. I would know your purpose before you come nearer.
+exiled_hero/LG | greeted_taken | Hello again. The work is still in your hands; how are you faring with it?
+exiled_hero/LG | greeted_taken | Good day. I saw you {since}; is all well with you, and with the work?
+exiled_hero/LG | greeted_finished | Welcome back. It is done, and I thank you with all my heart.
+exiled_hero/LG | greeted_finished | Good to see you. You kept your word, and the work is done; you have my thanks.
+exiled_hero/LG | greeted_failed | Hello again. It did not go as we hoped; I am only glad to see you.
+exiled_hero/LG | greeted_failed | Back again. The work failed, and I am sorry for it; I lay no blame on you.
+exiled_hero/LG | greeted_abandoned | Good day. You set the work aside; I trust you had your reasons, and I will not press them.
+exiled_hero/LG | greeted_abandoned | Well met again. You gave the work up, and you are still welcome here.
+exiled_hero/LG | small_talk | I am well, thank you for asking, and the better for the company.
+exiled_hero/LG | small_talk | My day is spent on the people here, and I would not have it otherwise.
+exiled_hero/LG | small_talk | It is {season}, and I would see everyone in {place} safe through it.
+exiled_hero/LG | small_talk_fair | We have a fine {time} of it, and I am grateful.
+exiled_hero/LG | small_talk_fair | The weather is kind, for {season}.[ Even so, I would ask you to keep from the {danger}.]
+exiled_hero/LG | small_talk_wet | Such rain as this worries me, for anyone without shelter.
+exiled_hero/LG | small_talk_wet | It is a wet {time}, even for {season}.[ Do take care near the {danger}.]
+exiled_hero/LG | small_talk_storm | No one should be out in a storm like this who need not be.
+exiled_hero/LG | small_talk_storm | This gale is fierce, {season} or not, and I would have you stay until it passes.[ The {danger} will be no kinder for it.]
+exiled_hero/LG | small_talk_cold | I will speak with you, but I will not pretend we are at ease.
+exiled_hero/LG | small_talk_cold | Forgive me, but I have no conversation for you just now.
+exiled_hero/LG | acknowledged | I see. Thank you; that is good to know.
+exiled_hero/LG | acknowledged | Indeed. Then we understand one another.
+exiled_hero/LG | acknowledged | Well, I am glad of it, and I will remember it.
+exiled_hero/LG | thanked | My pleasure, and you need never thank me for a kindness.
+exiled_hero/LG | thanked | Don't mention it; I would do the same for anyone.
+exiled_hero/LG | thanked_cold | Keep your thanks, if you please; I would rather have your honesty.
+exiled_hero/LG | thanked_cold | Save your thanks until we have reason to trust each other.
+exiled_hero/LG | offended | There's no need for that, and I will not answer it in kind.
+exiled_hero/LG | offended | Mind your manners, I beg you, for I would rather we were friends.
+exiled_hero/LG | offended_again | Enough; I have been patient with you, and patience has its limits.
+exiled_hero/LG | offended_again | Hold your tongue, please, or let us part here.
+exiled_hero/LG | parted_cold | Go, then; we have nothing more to say.
+exiled_hero/LG | parted_cold | Be on your way, and I will not keep you.
+exiled_hero/LG | safety_unsafe | No, I am sorry to say it is not. Please keep away from {worst}.[ There are {danger} too.]
+exiled_hero/LG | safety_unsafe | Not safe, no. There are {danger}, and I would not have you near them.[ Nor would I send you toward {worst}.]
+exiled_hero/LG | safety_wary | Mostly, if you take care. I would ask you to keep clear of {worst}.[ Mind the {danger}, too.]
+exiled_hero/LG | safety_wary | Careful, and you should come to no harm. The place I would avoid is {worst}.
+exiled_hero/LG | safety_safe | Yes, I believe so, though I would still avoid {worst}.
+exiled_hero/LG | safety_safe | Safe enough, thank goodness. Take care near {worst}, all the same.
+exiled_hero/LG | safety_safe | Nothing to fear here; rest easy.
+exiled_hero/LG | denied | You're mistaken; I am exactly who I have told you I am.
+exiled_hero/LG | denied | No, and I would not deceive you; I have no reason to.
+exiled_hero/LG | denied_again | That's not so, and I am sorry you still doubt me.
+
+# ---- exiled_hero/CN: conversation ----
+exiled_hero/CN | greeted | Hello. A new face, and I do like a new face.
+exiled_hero/CN | greeted | Well met, or met, anyway, we'll see about the well.
+exiled_hero/CN | greeted | Hail, as the grand folk say; I just say hello.
+exiled_hero/CN | greeted_again | Hello again, you.[ Did {asked} work out, or not, or sort of?]
+exiled_hero/CN | greeted_again | Back again, and last time was {since}, not that I'm counting.[ Still chasing {asked}?]
+exiled_hero/CN | greeted_again | Good day, or good enough, and there you are again.
+exiled_hero/CN | greeted_warm | Good to see you, honestly, and I don't say that to just anyone.[ Tell me about {asked}, go on.]
+exiled_hero/CN | greeted_warm | Welcome back, and you're one of the good ones, I've decided.[ Any luck with {asked}?]
+exiled_hero/CN | greeted_cold | What do you want? Out with it, and skip the charm.
+exiled_hero/CN | greeted_cold | What now? Say it straight, I'm not in the mood for you.
+exiled_hero/CN | greeted_cold | Keep back. Not you, not today.
+exiled_hero/CN | greeted_taken | Hello again, and that work you took, how's it coming?
+exiled_hero/CN | greeted_taken | Back again; saw you {since}, and the job's still yours, right?
+exiled_hero/CN | greeted_finished | Good to see you; it's done, you did it, and I'm delighted, in a dignified way.
+exiled_hero/CN | greeted_finished | Welcome back, and the work's done, which makes you one of mine, officially.
+exiled_hero/CN | greeted_failed | Hello again. It went sideways, didn't it; well, it happens to the best, and to me.
+exiled_hero/CN | greeted_failed | Back again, and no, we're not talking about it, unless you want to.
+exiled_hero/CN | greeted_abandoned | Good day. You dropped my thing, and I noticed, I notice everything.
+exiled_hero/CN | greeted_abandoned | Well met again, and we're fine, even if you did put my work down.
+exiled_hero/CN | small_talk | Me? Fine, and better now someone's asking.
+exiled_hero/CN | small_talk | The usual, this {time}: people, favours, and who's talking to whom.
+exiled_hero/CN | small_talk | It's {season}, and I'd rather spend it making friends than building walls.
+exiled_hero/CN | small_talk_fair | Such a fine {time}, and I'm pretending it was my idea.
+exiled_hero/CN | small_talk_fair | Not bad for {season}, not bad at all.[ Doesn't fix the {danger}, mind.]
+exiled_hero/CN | small_talk_wet | It's wet, it's grey, and I've decided to be cheerful about it anyway.
+exiled_hero/CN | small_talk_wet | This rain, for {season}, is frankly rude.[ And the {danger} out there, also rude.]
+exiled_hero/CN | small_talk_storm | It's a proper storm, and storms are grand, from indoors.
+exiled_hero/CN | small_talk_storm | This gale, {season} or not, is showing off.[ Stay clear of the {danger} till it blows over.]
+exiled_hero/CN | small_talk_cold | No chit-chat, not with you.
+exiled_hero/CN | small_talk_cold | Not in the mood for you, sorry, not sorry.
+exiled_hero/CN | acknowledged | Ah, right, that makes sense, sort of.
+exiled_hero/CN | acknowledged | Is that so? Well, that's interesting, in a way.
+exiled_hero/CN | acknowledged | Fair enough, I'll take that.
+exiled_hero/CN | thanked | Don't mention it, no, really, don't, people will talk.
+exiled_hero/CN | thanked | My pleasure, and now we know each other, which is the good part.
+exiled_hero/CN | thanked_cold | Spare me, I've heard warmer thanks from a locked door.
+exiled_hero/CN | thanked_cold | Hmph, keep it.
+exiled_hero/CN | offended | Careful, I collect friends, and you're going the other way.
+exiled_hero/CN | offended | Watch your tongue, or at least aim it somewhere else.
+exiled_hero/CN | offended_again | Enough, we're done being friendly, you and me.
+exiled_hero/CN | offended_again | How dare you, again, and you were doing so well.
+exiled_hero/CN | parted_cold | Off with you, then.
+exiled_hero/CN | parted_cold | On your way, and don't drop my name.
+exiled_hero/CN | safety_unsafe | Not safe, no, not even a bit. Keep away from {worst}.[ And the {danger}, obviously.]
+exiled_hero/CN | safety_unsafe | Far from it; there are {danger}, which, no.[ Also {worst}, which, also no.]
+exiled_hero/CN | safety_wary | Mostly, if you're sensible about it. Stay out of {worst}, is my advice.[ The {danger} too.]
+exiled_hero/CN | safety_wary | Keep your wits about you and you're fine. Just not {worst}, all right?
+exiled_hero/CN | safety_safe | Safe enough, as far as I know; the worst is {worst}.
+exiled_hero/CN | safety_safe | Yes, go on, it's fine, just don't wander into {worst}.
+exiled_hero/CN | safety_safe | Quiet enough, and quiet's how I like it.
+exiled_hero/CN | denied | What are you on about, I'm me, all the way down.
+exiled_hero/CN | denied | Nonsense, and a bit hurtful, and nonsense.
+exiled_hero/CN | denied_again | No, still no, and asking louder won't help.
+
+# ---- exiled_hero/CG: conversation ----
+exiled_hero/CG | greeted | Hello, and are you all right, nobody after you?
+exiled_hero/CG | greeted | Welcome. First thing, are you hurt?
+exiled_hero/CG | greeted | Good day! Right, tell me your name, or don't, either's fine.
+exiled_hero/CG | greeted_again | Hello again, you're back, good.[ And {asked}, did you find it, them, whatever?]
+exiled_hero/CG | greeted_again | Back again, and last I saw you was {since}; you look all right, are you?[ How'd it go with {asked}?]
+exiled_hero/CG | greeted_again | Good day, there you are, I'd started to worry.
+exiled_hero/CG | greeted_warm | Good to see you, really, come here.[ Tell me everything about {asked}.]
+exiled_hero/CG | greeted_warm | Welcome back, and you've no idea how glad I am.[ Did {asked} treat you right?]
+exiled_hero/CG | greeted_cold | What do you want? And keep your hands where I can see them.
+exiled_hero/CG | greeted_cold | Keep back. I've people here to think of, so talk from there.
+exiled_hero/CG | greeted_cold | What now? Say it and go, I've no time for games.
+exiled_hero/CG | greeted_taken | Hello again! How's it going, the work, and more to the point, how are you?
+exiled_hero/CG | greeted_taken | Good to see you; the work's still on, then, and you're holding up?
+exiled_hero/CG | greeted_finished | Welcome back, and it's done, and you're here, and that's two good things.
+exiled_hero/CG | greeted_finished | Well met again! You did it, you actually did it, thank you.
+exiled_hero/CG | greeted_failed | Hello again. It went wrong; never mind the work, are you all right?
+exiled_hero/CG | greeted_failed | Back again, and listen, a failed job is just a job, you're what matters.
+exiled_hero/CG | greeted_abandoned | Good day. You gave it up, and fine, as long as you're all right.
+exiled_hero/CG | greeted_abandoned | Well met again, and no, I'm not cross about the work, much.
+exiled_hero/CG | small_talk | Me? I'm worn out and happy, mostly happy.
+exiled_hero/CG | small_talk | Half the day I'm seeing who needs what, this {time} included, and that suits me.
+exiled_hero/CG | small_talk | It's {season}, and whoever needs a place for it can have one here.
+exiled_hero/CG | small_talk_fair | It's a lovely {time}, isn't it, go on, enjoy it.
+exiled_hero/CG | small_talk_fair | Good weather for {season}, so make the most of it.[ Just not near the {danger}.]
+exiled_hero/CG | small_talk_wet | It's pouring, and if you've nowhere dry to go, say so.
+exiled_hero/CG | small_talk_wet | Look at it, soaking, and for {season}.[ And stay clear of the {danger}, I mean it.]
+exiled_hero/CG | small_talk_storm | It's a storm and a half, so nobody's being brave today, all right?
+exiled_hero/CG | small_talk_storm | On top of {season}, a storm, honestly.[ If the {danger} are out in this, let them be.]
+exiled_hero/CG | small_talk_cold | Not now; I've my own people to look after.
+exiled_hero/CG | small_talk_cold | I'm not chatting with you, not till I know what you're about.
+exiled_hero/CG | acknowledged | Right, good, that's a weight off.
+exiled_hero/CG | acknowledged | Ah, is that it? Then all right.
+exiled_hero/CG | acknowledged | Aye, fair, I'll take your word.
+exiled_hero/CG | thanked | Glad to, and you'd do the same for me, I can tell.
+exiled_hero/CG | thanked | Think nothing of it, it's what people are for.
+exiled_hero/CG | thanked_cold | Keep your thanks; I want to know you're not trouble.
+exiled_hero/CG | thanked_cold | Hmph, thanks are easy.
+exiled_hero/CG | offended | Hold your tongue; I've had worse, but I don't have to take it from you.
+exiled_hero/CG | offended | How dare you, and here I was, being nice.
+exiled_hero/CG | offended_again | Enough, and I mean it this time.
+exiled_hero/CG | offended_again | Watch your tongue; I've been kind once, I won't be twice.
+exiled_hero/CG | parted_cold | Get going, and stay away from mine.
+exiled_hero/CG | parted_cold | Be on your way, go on.
+exiled_hero/CG | safety_unsafe | No, not safe, not at all. Keep away from {worst}, please.[ And the {danger}, don't.]
+exiled_hero/CG | safety_unsafe | Not here, no; there are {danger}, and I'd rather you didn't meet them.[ Or {worst}, come to that.]
+exiled_hero/CG | safety_wary | Mostly, if you stay sharp. Keep clear of {worst}.[ And the {danger}, will you?]
+exiled_hero/CG | safety_wary | Keep your wits about you and you'll be fine. It's {worst} I'd worry about.
+exiled_hero/CG | safety_safe | Safe enough, I promise; the worst I know of is {worst}.
+exiled_hero/CG | safety_safe | Aye, safe, but don't go near {worst}, will you?
+exiled_hero/CG | safety_safe | Nothing to fear, not with me around.
+exiled_hero/CG | denied | No, and whoever told you that is wrong.
+exiled_hero/CG | denied | You have the wrong one; it's just me, what you see.
+exiled_hero/CG | denied_again | That's not so, and it stings a bit that you'd ask again.
+
+# ---- exiled_hero/LE: conversation ----
+exiled_hero/LE | greeted | Good day. You have my attention, for the moment.
+exiled_hero/LE | greeted | Greetings. I do not know you, and I have not yet decided whether to.
+exiled_hero/LE | greeted | Welcome to {place}, for as long as you are useful to it.
+exiled_hero/LE | greeted_again | Hello again.[ You were curious about {asked}; I trust your curiosity was answered.]
+exiled_hero/LE | greeted_again | Back again; we last spoke {since}, and you have not been forgotten.[ What came of {asked}?]
+exiled_hero/LE | greeted_again | Good day. You return, which suggests you want something.
+exiled_hero/LE | greeted_warm | Good to see you; you are one of the few I say that to.[ Did {asked} prove worth the effort?]
+exiled_hero/LE | greeted_warm | Welcome back; your standing with me is good, which is rarer than you would think.[ And {asked}?]
+exiled_hero/LE | greeted_cold | What do you want? Speak carefully; I am listening for a reason to end this.
+exiled_hero/LE | greeted_cold | Keep back. You have not earned the right to come closer.
+exiled_hero/LE | greeted_cold | What now? I have little patience left for you, so spend it wisely.
+exiled_hero/LE | greeted_taken | Hello again. The work remains undone, and my patience is not endless.
+exiled_hero/LE | greeted_taken | Good day. I saw you {since}; I trust you have not forgotten what you undertook.
+exiled_hero/LE | greeted_finished | Welcome back. It is done, and done as I required; that is noted.
+exiled_hero/LE | greeted_finished | Good to see you. You kept your undertaking; I will count you useful, for now.
+exiled_hero/LE | greeted_failed | Hello again. You failed me, and I do not forget failure.
+exiled_hero/LE | greeted_failed | Back again, after failing; that takes a certain nerve.
+exiled_hero/LE | greeted_abandoned | Good day. You abandoned what you undertook; I have not decided how to answer that.
+exiled_hero/LE | greeted_abandoned | Well met again, though you set my work aside and walked away.
+exiled_hero/LE | small_talk | I am well, and in no mood to be otherwise.
+exiled_hero/LE | small_talk | Whatever the hour, there is something in {place} that wants my attention.
+exiled_hero/LE | small_talk | It is {season}, and those who are ready for it will outlast those who are not.
+exiled_hero/LE | small_talk_fair | Such weather suits me well enough, this {time}.
+exiled_hero/LE | small_talk_fair | It is fine, for {season}.[ The {danger} are no concern of mine, but they may be of yours.]
+exiled_hero/LE | small_talk_wet | I have no patience for the wet, and less for talk of it.
+exiled_hero/LE | small_talk_wet | Let it rain, {season} or not; it will not move me.[ Should you go near the {danger} in it, that is your affair.]
+exiled_hero/LE | small_talk_storm | Only fools travel in this.
+exiled_hero/LE | small_talk_storm | I would not stir in this gale.[ The {danger} may have you, if the storm does not.]
+exiled_hero/LE | small_talk_cold | I do not converse with those I have not yet measured.
+exiled_hero/LE | small_talk_cold | You will find me poor company, and I intend it so.
+exiled_hero/LE | acknowledged | Indeed. That will do.
+exiled_hero/LE | acknowledged | I see. I will weigh that accordingly.
+exiled_hero/LE | acknowledged | Is that so? Then we shall see whether it holds.
+exiled_hero/LE | thanked | No need; I did it because it suited me.
+exiled_hero/LE | thanked | My pleasure, and remember it when I have need of you.
+exiled_hero/LE | thanked_cold | Spare me; your thanks are worth nothing to me.
+exiled_hero/LE | thanked_cold | Keep your thanks; they are the cheapest thing you own.
+exiled_hero/LE | offended | How dare you; I do not let such words pass, and I will not let these.
+exiled_hero/LE | offended | Careful; I have a long memory and a short temper.
+exiled_hero/LE | offended_again | Enough; you have made an enemy, and I hope it was worth it.
+exiled_hero/LE | offended_again | Hold your tongue, or I will remember you for all the wrong reasons.
+exiled_hero/LE | parted_cold | Be on your way; you have taken enough of my time.
+exiled_hero/LE | parted_cold | Get going, and quickly.
+exiled_hero/LE | safety_unsafe | No, not for the careless. Keep clear of {worst}.[ The {danger} are a further consideration.]
+exiled_hero/LE | safety_unsafe | Far from it. There are {danger}, and I waste no breath on fools who go near them.[ The same holds for {worst}.]
+exiled_hero/LE | safety_wary | Safe enough, for those with sense. I would avoid {worst}.[ The {danger} as well.]
+exiled_hero/LE | safety_wary | Careful, and you may manage. Give {worst} a wide berth.
+exiled_hero/LE | safety_safe | Yes. The worst of it is {worst}, and that concerns me little.
+exiled_hero/LE | safety_safe | It's safe; only a fool would go looking for {worst}.
+exiled_hero/LE | safety_safe | Quiet enough, and I intend it to stay so.
+exiled_hero/LE | denied | You're mistaken, and I would advise you not to repeat it.
+exiled_hero/LE | denied | Nonsense; I am precisely what I appear to be.
+exiled_hero/LE | denied_again | No, and a third time would be unwise.
+
+# ---- exiled_hero/NE: conversation ----
+exiled_hero/NE | greeted | Hello. What are you, and what are you good for?
+exiled_hero/NE | greeted | Well met, maybe; that depends on you.
+exiled_hero/NE | greeted | Good day. Say what you want, and I'll say whether you're worth it.
+exiled_hero/NE | greeted_again | Hello again.[ Did {asked} turn out to be any use to you?]
+exiled_hero/NE | greeted_again | Back again, and last I saw you was {since}.[ Get anywhere with {asked}?]
+exiled_hero/NE | greeted_again | Good day. I remember you, so you must have been worth remembering.
+exiled_hero/NE | greeted_warm | Good to see you, for once.[ Anything useful from {asked}?]
+exiled_hero/NE | greeted_warm | Welcome back; you're proving useful, which is more than most manage.[ What of {asked}?]
+exiled_hero/NE | greeted_cold | What do you want? Make it quick.
+exiled_hero/NE | greeted_cold | What now? If it's not worth my while, don't bother.
+exiled_hero/NE | greeted_cold | Stay back. I don't trust you, and I don't need to.
+exiled_hero/NE | greeted_taken | Hello again. You took my work, and I'm still waiting to see it done.
+exiled_hero/NE | greeted_taken | Back again; I saw you {since}, and I hope you've been busy.
+exiled_hero/NE | greeted_finished | Good to see you. It's done, and you were useful after all.
+exiled_hero/NE | greeted_finished | Welcome back. The work's done, so you've earned a second look.
+exiled_hero/NE | greeted_failed | Hello again. You failed, and I don't forget what failure costs me.
+exiled_hero/NE | greeted_failed | Back again. It went wrong, and I'll remember whose hands it went wrong in.
+exiled_hero/NE | greeted_abandoned | Good day. You dropped my work, so don't expect much from me.
+exiled_hero/NE | greeted_abandoned | Well met again, if that's the word for someone who quit on me.
+exiled_hero/NE | small_talk | I'm fine, not that it's your concern.
+exiled_hero/NE | small_talk | Every {time}'s the same: mine first, everyone else after.
+exiled_hero/NE | small_talk | It's {season}, and the ones who look after their own do fine by it.
+exiled_hero/NE | small_talk_fair | The weather's fine, and I've no use for fine words about it.
+exiled_hero/NE | small_talk_fair | It's fair out, for {season}.[ The {danger} are still there, weather or not.]
+exiled_hero/NE | small_talk_wet | Nothing but rain, and I've better things to do than talk about it.
+exiled_hero/NE | small_talk_wet | This rain, {season} or not, suits nobody.[ If you go near the {danger} in this, don't expect me to come looking.]
+exiled_hero/NE | small_talk_storm | It's a gale out there, and I'm staying where I am.
+exiled_hero/NE | small_talk_storm | A foul {time}, and a storm with it.[ The {danger} can have whoever's out there.]
+exiled_hero/NE | small_talk_cold | I don't chat with people I don't trust.
+exiled_hero/NE | small_talk_cold | Keep the small talk for someone who cares.
+exiled_hero/NE | acknowledged | Right. That's useful.
+exiled_hero/NE | acknowledged | Good; now I know where you stand.
+exiled_hero/NE | acknowledged | Is that so? We'll see.
+exiled_hero/NE | thanked | Don't mention it; you'll owe me for it.
+exiled_hero/NE | thanked | No need; just remember who helped you.
+exiled_hero/NE | thanked_cold | Keep your thanks, they're no use to me.
+exiled_hero/NE | thanked_cold | Spare me the thanks and get to the point.
+exiled_hero/NE | offended | Watch your tongue; I've no reason to be civil to you.
+exiled_hero/NE | offended | Careful, you just made yourself less useful to me.
+exiled_hero/NE | offended_again | Enough; you're not worth the breath.
+exiled_hero/NE | offended_again | There's no need for that, and there'll be no more of it.
+exiled_hero/NE | parted_cold | Get going; we're finished.
+exiled_hero/NE | parted_cold | On your way, and quick about it.
+exiled_hero/NE | safety_unsafe | No. Stay out of {worst}, if you've any sense.[ The {danger} too.]
+exiled_hero/NE | safety_unsafe | Not safe, and I'm not going to pretend. There are {danger}.[ Keep off {worst} while you're at it.]
+exiled_hero/NE | safety_wary | Safe enough, if you're not a fool. Keep away from {worst}.[ And the {danger}.]
+exiled_hero/NE | safety_wary | More or less. Don't go near {worst}, and you'll likely live.
+exiled_hero/NE | safety_safe | Aye, safe. The worst is {worst}, and that's your business, not mine.
+exiled_hero/NE | safety_safe | Yes, safe enough; just stay out of {worst}.
+exiled_hero/NE | safety_safe | It's safe, and I'd know.
+exiled_hero/NE | denied | No, and that's all you'll get from me on it.
+exiled_hero/NE | denied | What are you on about, I'm exactly what you see.
+exiled_hero/NE | denied_again | You have the wrong one, and you're starting to bore me.

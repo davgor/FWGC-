@@ -13,7 +13,7 @@ rebel/NN | surroundings | This is {here}. The closest is {nearest}[, and further
 rebel/NN | surroundings | Around {here}, the nearest is {nearest}.[ Beyond it, {others}.][ Keep your distance from the {danger}.]
 rebel/NN | surroundings | What's closest is {nearest}[, and past it, {others}].[ Don't go near the {danger} for nothing.]
 rebel/NN | surroundings | Nothing's closer than {nearest}.[ Then {others}.][ And mind the {danger}.]
-rebel/NN | work_own | I need someone useful: {own}.[ If that's not you, {others}.]
+rebel/NN | work_own | A trade, then, if you want one: {own}.[ If it's not for you, {others}.]
 rebel/NN | work_own | Here's my offer, straight: {own}.[ Beyond me, {others}.]
 rebel/NN | work_own | It's worth doing, and it's yours if you want it: {own}.[ Or, if you'd rather, {others}.]
 rebel/NN | work_others | I've nothing to offer myself, but {others}.
@@ -60,7 +60,7 @@ rebel/LN | surroundings | We are in {here}, and the nearest is {nearest}.[ Past 
 rebel/LN | surroundings | The nearest is {nearest}.[ After it, {others}.][ Be warned of the {danger}.]
 rebel/LN | surroundings | I can speak to {nearest}[, and beyond it, to {others}].[ Mind the {danger}, if you would.]
 rebel/LN | work_own | You may earn my confidence with this: {own}.[ Should you decline, {others}.]
-rebel/LN | work_own | I have work for anyone willing to be held to their word: {own}.[ Otherwise, {others}.]
+rebel/LN | work_own | I have work to offer, on terms that bind us both alike: {own}.[ Otherwise, {others}.]
 rebel/LN | work_own | This task is mine to give: {own}.[ For the rest, {others}.]
 rebel/LN | work_others | Nothing is mine to give, but {others}.
 rebel/LN | work_others | Of my own, I have nothing. I can, however, tell you that {others}.
@@ -78,7 +78,7 @@ rebel/LN | refused | No, {reason}, and I will not bend the terms for anyone.
 rebel/LN | refused | I cannot, since {reason}, and there the matter rests.
 rebel/LN | accepted | Then it's agreed, and I will hold you to it as you may hold me.
 rebel/LN | accepted | Good. How you carry this will tell me what you are.
-rebel/LN | accepted | Very good. See that it is done properly.
+rebel/LN | accepted | Very good. Your word is given, and I have taken note of it.
 rebel/LN | declined | As you wish, I compel no one.
 rebel/LN | declined | Very well, you are under no obligation.
 rebel/LN | declined | Fair enough, and there is no dishonour in an honest refusal.
@@ -106,7 +106,7 @@ rebel/NG | surroundings | Here in {here}, the nearest is {nearest}.[ After that,
 rebel/NG | surroundings | First there's {nearest}[, then {others}].[ And please, keep away from the {danger}.]
 rebel/NG | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Mind how you go near the {danger}.]
 rebel/NG | work_own | I could use a hand, if you've one to spare: {own}.[ If not, {others}.]
-rebel/NG | work_own | Here, this needs doing, and you look able: {own}.[ Otherwise, {others}.]
+rebel/NG | work_own | Here, this needs doing, if you're willing: {own}.[ Otherwise, {others}.]
 rebel/NG | work_own | Let me put something your way: {own}.[ And if that's no good, {others}.]
 rebel/NG | work_others | Nothing of my own, I'm sorry, but {others}.
 rebel/NG | work_others | I've nothing myself, but let me point you on: {others}.
@@ -123,14 +123,14 @@ rebel/NG | refused_release | I won't, it isn't mine to undo, and I'd not want an
 rebel/NG | refused | No, {reason}, and I'm sorry, truly.
 rebel/NG | refused | I can't, {reason}, though I wish it were otherwise.
 rebel/NG | accepted | Thank you, truly. I'll not forget it.
-rebel/NG | accepted | Good. Look after yourself, and come back whole.
-rebel/NG | accepted | Then it's agreed, and I owe you one.
+rebel/NG | accepted | Good. You didn't have to say yes, and you did, and that counts with me.
+rebel/NG | accepted | Then it's agreed, and you've my thanks for it.
 rebel/NG | declined | Fair enough, you know your own business.
 rebel/NG | declined | Suit yourself, and no harm done.
 rebel/NG | declined | As you wish, I'd rather an honest no than a half-hearted yes.
-rebel/NG | abandoned | A pity, but I'd rather have you safe than have it finished.
-rebel/NG | abandoned | Then it's done, and I hope you're none the worse for it.
-rebel/NG | abandoned | Very well, I'll manage, don't you worry.
+rebel/NG | abandoned | A pity, but thank you for telling me straight.
+rebel/NG | abandoned | Then it's done, and I'll not hold it against you.
+rebel/NG | abandoned | Very well, and don't you worry about it.
 rebel/NG | parted | Take care of yourself, and of anyone who needs it.
 rebel/NG | parted | Go well, and don't let anyone make you kneel.
 rebel/NG | parted | Safe travels, and come back in one piece.
@@ -151,7 +151,7 @@ rebel/CN | surroundings | This is {here}, look, the closest being {nearest}[, th
 rebel/CN | surroundings | Welcome to {here}, or whatever this is. The nearest is {nearest}[, then {others}].[ The {danger}, if you're feeling lucky.]
 rebel/CN | surroundings | The nearest? That'd be {nearest}[, then {others}].[ Say hello to the {danger} for me, from a distance.]
 rebel/CN | surroundings | Look, nearest first: {nearest}.[ Then {others}.][ Also the {danger}, so, knives out.]
-rebel/CN | work_own | I've a job, sharp end first: {own}.[ If that's not your style, {others}.]
+rebel/CN | work_own | I've a job, told straight, no dressing it up: {own}.[ If that's not your style, {others}.]
 rebel/CN | work_own | You want work? Fine: {own}.[ Or, if not, {others}.]
 rebel/CN | work_own | Here's the deal, and it's honest, mostly: {own}.[ Don't fancy it? {others}.]
 rebel/CN | work_others | Me? Nothing. {others}, though.
@@ -168,11 +168,11 @@ rebel/CN | refused_release | Not from me, that's between you and {giver}, and I'
 rebel/CN | refused_release | I cannot cut you loose from somebody else's bargain, not even with a very good knife.
 rebel/CN | refused | No, {reason}, simple as that.
 rebel/CN | refused | I can't, {reason}, shame, really.
-rebel/CN | accepted | Good. Don't make me come looking for you.
+rebel/CN | accepted | Good. I like a quick yes; saves us both the speeches.
 rebel/CN | accepted | Done, and fair's fair.
 rebel/CN | accepted | Then it's agreed, and look at you, all dependable.
 rebel/CN | declined | Suit yourself, then.
-rebel/CN | declined | Fair enough, more for me.
+rebel/CN | declined | Fair enough, no grudges, well, small ones.
 rebel/CN | declined | So be it, no skin off my nose.
 rebel/CN | abandoned | A pity, I was starting to like you.
 rebel/CN | abandoned | Then it's done, and so are we, for now.
@@ -214,13 +214,13 @@ rebel/CG | refused_release | That's not mine to undo, it's {giver}'s, and I'd wa
 rebel/CG | refused_release | I won't, sorry, a promise is a promise, even one you didn't make to me.
 rebel/CG | refused | No, {reason}, and I'd change that if I could.
 rebel/CG | refused | I can't, {reason}, and I'm sorry, I am.
-rebel/CG | accepted | Very good. Off you go, and come back with all your fingers.
+rebel/CG | accepted | Very good. Thank you, and sorry, I should have said that first.
 rebel/CG | accepted | Done, and I knew you had it in you.
-rebel/CG | accepted | Then it's agreed, and oh, you won't regret it, well, you might, but not much.
+rebel/CG | accepted | Then it's agreed. Give me your hand, no, properly, like you mean it.
 rebel/CG | declined | Fair enough, I'd never make you.
 rebel/CG | declined | Suit yourself, and look after yourself, same thing really.
 rebel/CG | declined | So be it, I don't push people, not even stubborn ones.
-rebel/CG | abandoned | A pity, but tell me you're all right, at least.
+rebel/CG | abandoned | A pity, but no, wait, it's fine, it really is.
 rebel/CG | abandoned | Then it's done, no shame in it, none, you hear me?
 rebel/CG | abandoned | Very well, and don't you dare feel bad about it.
 rebel/CG | parted | Take care, and don't let anyone make you small.
@@ -244,7 +244,7 @@ rebel/LG | surroundings | At {here}, the nearest is {nearest}.[ After it, {other
 rebel/LG | surroundings | The nearest is {nearest}[, and beyond it, {others}].[ I would not have you go near the {danger}.]
 rebel/LG | surroundings | Of what I know, the nearest is {nearest}.[ Beyond it, {others}.][ Have a care near the {danger}.]
 rebel/LG | work_own | I would be grateful for your help with this: {own}.[ If it does not suit you, {others}.]
-rebel/LG | work_own | I have work that wants an honest hand: {own}.[ Should it not suit, {others}.]
+rebel/LG | work_own | There is work I would put to you, and you may refuse it without offence: {own}.[ Should it not suit, {others}.]
 rebel/LG | work_own | Trust is earned, so let us begin: {own}.[ If you would rather not, {others}.]
 rebel/LG | work_others | Nothing of mine is open, I regret, but {others}.
 rebel/LG | work_others | I can offer nothing myself, but you may be of help elsewhere: {others}.
@@ -261,13 +261,13 @@ rebel/LG | refused_release | I won't, I am sorry, for a word given must be honou
 rebel/LG | refused | Not from me, I am afraid, for {reason}.
 rebel/LG | refused | That's not mine to change, {reason}, and I would not deceive you about it.
 rebel/LG | accepted | Thank you. I will not forget your help.
-rebel/LG | accepted | Then it's agreed. Please take care of yourself, and of anyone you find in need.
+rebel/LG | accepted | Then it's agreed, and I count myself fortunate in you.
 rebel/LG | accepted | Very good. You have my trust in this, so keep it well.
 rebel/LG | declined | As you wish, and thank you for your honesty.
 rebel/LG | declined | Fair enough, and I think no less of you for it.
 rebel/LG | declined | So be it, for no one should be pressed into work they do not choose.
-rebel/LG | abandoned | A pity, but I would sooner you were safe than bound to it.
-rebel/LG | abandoned | Then it's done, and I hope you are unharmed.
+rebel/LG | abandoned | A pity, but better a word withdrawn openly than one broken in silence.
+rebel/LG | abandoned | Then it's done, and I release you from it with good grace.
 rebel/LG | abandoned | Very well, though I had hoped your word would hold.
 rebel/LG | parted | Farewell, and may you never have cause to kneel.
 rebel/LG | parted | Go well, and look after those who cannot look after themselves.
@@ -291,7 +291,7 @@ rebel/NE | surroundings | The nearest is {nearest}, for what it's worth.[ Then {
 rebel/NE | surroundings | If you must know, the nearest is {nearest}[, then {others}].[ Don't waste yourself on the {danger}.]
 rebel/NE | work_own | You'll do for this: {own}.[ If not, {others}, not that I care which.]
 rebel/NE | work_own | Make yourself useful: {own}.[ Otherwise, {others}.]
-rebel/NE | work_own | Here's something even you might manage: {own}.[ Or go elsewhere: {others}.]
+rebel/NE | work_own | Here's a use for you: {own}.[ Or go elsewhere: {others}.]
 rebel/NE | work_others | Nothing I'd trust you with, but {others}.
 rebel/NE | work_others | I've nothing for you, but {others}, if you're that eager.
 rebel/NE | work_none | No work at all, which I'm sure breaks your heart.
@@ -321,3 +321,388 @@ rebel/NE | parted | Go well, or don't, as long as you go.
 rebel/NE | not_understood | I don't follow, and I suspect neither do you.
 rebel/NE | not_understood | Speak plainly, or stop wasting my time.
 rebel/NE | not_understood | I'm not sure what you mean, and my patience for finding out is thin.
+
+# ---- rebel/NN: conversation ----
+rebel/NN | greeted | Hello. Say what you're after, and we'll see if it's worth both our while.
+rebel/NN | greeted | Well met. You'll get a straight answer from me, and I'll want one back.
+rebel/NN | greeted | Good day. I'm {speaker}; what can we do for each other?
+rebel/NN | greeted_again | Hello again.[ Did {asked} prove worth the asking?]
+rebel/NN | greeted_again | Back again. Last time was {since}, if I'm counting, and I am.
+rebel/NN | greeted_again | Well met again. You know how I deal by now, so say what you need.
+rebel/NN | greeted_warm | Good to see you.[ Anything come of {asked}?]
+rebel/NN | greeted_warm | Welcome back. You've been worth my time so far, and I don't say that lightly.
+rebel/NN | greeted_cold | What do you want? Make it quick, and make it worth my while.
+rebel/NN | greeted_cold | Keep back. I'll deal with you, but I don't have to like it.
+rebel/NN | greeted_cold | What now? Say it plain, and we're done the sooner.
+rebel/NN | greeted_taken | Hello again. We've a bargain standing, and I've not forgotten it.
+rebel/NN | greeted_taken | Back again. The work's still open between us.
+rebel/NN | greeted_finished | Good to see you. The work's done, and you held up your end.
+rebel/NN | greeted_finished | Welcome back. You did what you said you'd do, and that goes on the ledger.
+rebel/NN | greeted_failed | Hello again. It didn't come off; I've noted it, and no more than that.
+rebel/NN | greeted_failed | Good day. The work failed; one failure's not the whole tally.
+rebel/NN | greeted_abandoned | Back again. You set my work down; I'll remember that when we next deal.
+rebel/NN | greeted_abandoned | Well met again. You gave my work up, so you'll understand if I weigh you lighter.
+rebel/NN | small_talk | Well enough, and still standing straight, which is all I ask of a day.
+rebel/NN | small_talk | There's always more work than hands, so I spend mine where they count.
+rebel/NN | small_talk | It's {season}, and I've no quarrel with it.[ The {danger} are another matter.]
+rebel/NN | small_talk_fair | It's a fair {time}, for {season}. I'll take it.
+rebel/NN | small_talk_fair | The sky's clear, and clear weather's worth using.[ Just not near the {danger}.]
+rebel/NN | small_talk_wet | This rain's not worth grumbling at; it won't listen.
+rebel/NN | small_talk_wet | It's raining, and it's {season}; neither asks my leave.[ Nor do the {danger}.]
+rebel/NN | small_talk_storm | It's a storm, and a hard one. I'd not waste myself out in it.
+rebel/NN | small_talk_storm | This is no weather to be out in, {season} or not.[ Stay clear of the {danger} while it blows.]
+rebel/NN | small_talk_cold | I've no small talk for you. Say what you need, or don't.
+rebel/NN | small_talk_cold | You're not worth the chatter; it's business or nothing.
+rebel/NN | acknowledged | I see. That's worth knowing.
+rebel/NN | acknowledged | Fair enough. I'll take that as it stands.
+rebel/NN | acknowledged | Right. That's noted, then.
+rebel/NN | thanked | No need; a straight answer costs me nothing.
+rebel/NN | thanked | Don't mention it; I'll expect the same from you one day.
+rebel/NN | thanked_cold | Save your thanks; they're worth nothing to me.
+rebel/NN | thanked_cold | Keep your thanks; I didn't do it for you.
+rebel/NN | offended | Watch your tongue; insults cost more than they buy.
+rebel/NN | offended | Careful; I judge people by their use, and yours is slipping.
+rebel/NN | offended_again | Enough; whatever goodwill you had, you've spent it.
+rebel/NN | offended_again | Hold your tongue, or take it somewhere it's wanted.
+rebel/NN | parted_cold | On your way; we're done here.
+rebel/NN | parted_cold | Go, then; I've nothing more to trade with you.
+rebel/NN | safety_unsafe | No. Keep clear of {worst}; it isn't worth it.[ There are {danger}, too.]
+rebel/NN | safety_unsafe | Not safe. There are {danger}, and nothing's worth that.[ Nor would I go near {worst}.]
+rebel/NN | safety_wary | Mostly, if you keep clear of {worst}.[ Mind the {danger} as well.]
+rebel/NN | safety_wary | More or less; the one thing against it is {worst}.
+rebel/NN | safety_safe | Safe enough. The worst I know of is {worst}; weigh it yourself.
+rebel/NN | safety_safe | Yes, as these things go, though I'd steer round {worst}.
+rebel/NN | safety_safe | It's safe, and I'd not trade you a lie about it.
+rebel/NN | denied | No; what you see is what you're dealing with.
+rebel/NN | denied | That's not so, and I've no use for pretending.
+rebel/NN | denied_again | You're mistaken, and asking twice won't change the answer.
+
+# ---- rebel/LN: conversation ----
+rebel/LN | greeted | Greetings. Tell me your business plainly, and you will be heard.
+rebel/LN | greeted | Well met. I am {speaker}, and I will hear you as I would any free person.
+rebel/LN | greeted | Hail. You will find me civil, and I shall expect the same of you.
+rebel/LN | greeted_again | Hello again.[ You asked after {asked} when last we spoke; did anything come of it?]
+rebel/LN | greeted_again | Well met again. We last spoke {since}, as I recall it.
+rebel/LN | greeted_again | Back again. You are known to me now, and I will treat with you accordingly.
+rebel/LN | greeted_warm | Good to see you.[ I trust your enquiry after {asked} bore fruit.]
+rebel/LN | greeted_warm | Welcome back. Your standing with me is good, and I am glad to say so.
+rebel/LN | greeted_cold | What do you want? Say it, and be brief.
+rebel/LN | greeted_cold | Stay back, if you please. I will hear you from where you stand.
+rebel/LN | greeted_cold | What now? You have my attention, not my confidence.
+rebel/LN | greeted_taken | Hello again. The work stands in your name until it is done.
+rebel/LN | greeted_taken | Good day. Our agreement remains in force, and I have not forgotten its terms.
+rebel/LN | greeted_finished | Welcome back. The work is done, as agreed, and I will attest to that.
+rebel/LN | greeted_finished | Good to see you. You kept to the terms, and that stands in your favour.
+rebel/LN | greeted_failed | Hello again. The work failed, and I hold no malice for it.
+rebel/LN | greeted_failed | Back again. It did not succeed, and I will say no more of it than that.
+rebel/LN | greeted_abandoned | Good day. You set aside the work you agreed to, and I have noted it.
+rebel/LN | greeted_abandoned | Well met again. You withdrew from our agreement; I trust it will not become a habit.
+rebel/LN | small_talk | I am well, thank you, and beholden to no one for it.
+rebel/LN | small_talk | My work is never finished, and I would rather it were done rightly than quickly.
+rebel/LN | small_talk | It is {season}, and the seasons keep better order than most.[ I am bound to mention the {danger}.]
+rebel/LN | small_talk_fair | It is a fine {time}, for {season}, and I will not complain of it.
+rebel/LN | small_talk_fair | The weather is fair, and I am glad of it.[ It changes nothing as to the {danger}.]
+rebel/LN | small_talk_wet | It is a wet {time}, and there is no appeal against rain.
+rebel/LN | small_talk_wet | We have rain, as {season} sometimes brings.[ You would do well to avoid the {danger} regardless.]
+rebel/LN | small_talk_storm | It is a storm, and a fierce one; I would not be abroad in it.[ Nor would I go near the {danger}, storm or no storm.]
+rebel/LN | small_talk_storm | This weather answers to no one, which I find almost admirable.
+rebel/LN | small_talk_cold | I have nothing to say to you beyond what is necessary.
+rebel/LN | small_talk_cold | You will forgive me if I keep this to business.
+rebel/LN | acknowledged | Indeed. I will take that into account.
+rebel/LN | acknowledged | I see. Then the matter is clear.
+rebel/LN | acknowledged | Is that so? Then it is noted, and I thank you.
+rebel/LN | thanked | You're welcome; it was within my office to help.
+rebel/LN | thanked | Don't mention it; a fair question is owed a fair answer.
+rebel/LN | thanked_cold | Save your thanks; I did what was proper, and no more.
+rebel/LN | thanked_cold | Spare me; courtesy from you is not what I require.
+rebel/LN | offended | Mind your manners; my courtesy is offered on the understanding that it is returned.
+rebel/LN | offended | There's no need for that; you may disagree with me without insult.
+rebel/LN | offended_again | Enough; I have heard all of that I intend to hear.
+rebel/LN | offended_again | Hold your tongue; I have been patient, and I am done being so.
+rebel/LN | parted_cold | Be on your way; we have no further business.
+rebel/LN | parted_cold | Go, then; I have heard enough for one day.
+rebel/LN | safety_unsafe | No, it is not, and I say so plainly. Stay clear of {worst}.[ There are also {danger}.]
+rebel/LN | safety_unsafe | Not safe, by any fair account. There are {danger}.[ I would also keep well away from {worst}.]
+rebel/LN | safety_wary | Keep your wits about you. I would keep my distance from {worst}.[ The {danger} warrant the same caution.]
+rebel/LN | safety_wary | Mostly, provided you keep away from {worst}.
+rebel/LN | safety_safe | Safe enough, on my word. The gravest matter I know of is {worst}.
+rebel/LN | safety_safe | Yes, so far as I can attest, though I would still avoid {worst}.
+rebel/LN | safety_safe | It's safe, and I would not tell you so if it were not.
+rebel/LN | denied | No; I am precisely what I claim to be, and I will swear to it.
+rebel/LN | denied | You're mistaken, and I will not dignify the charge further.
+rebel/LN | denied_again | That's not so, and a second asking does not alter my answer.
+
+# ---- rebel/NG: conversation ----
+rebel/NG | greeted | Hello. It's good to see a new face; how are you?
+rebel/NG | greeted | Well met. I'm {speaker}, and if you're in any trouble, you can say so.
+rebel/NG | greeted | Good day. Whatever brought you here, I'm glad it did.
+rebel/NG | greeted_again | Hello again.[ Did you find what you needed about {asked}?]
+rebel/NG | greeted_again | Back again. I saw you {since}; I hope you've been well since.
+rebel/NG | greeted_again | Good day. You came back, and I'm glad; how are things?
+rebel/NG | greeted_warm | Good to see you.[ How did you get on with {asked}?]
+rebel/NG | greeted_warm | Welcome back. I'm glad you came by again, I really am.
+rebel/NG | greeted_cold | What do you want? I'll hear you, but I won't pretend I'm pleased.
+rebel/NG | greeted_cold | Keep back, please. Say what you need from there.
+rebel/NG | greeted_cold | What now? Say it, and I'll answer as fairly as I can.
+rebel/NG | greeted_taken | Hello again. It's still yours, and I've not stopped being grateful.
+rebel/NG | greeted_taken | Back again. The work's still in hand, then; are you keeping well?
+rebel/NG | greeted_finished | Good to see you. It's done, and I can't thank you enough.
+rebel/NG | greeted_finished | Welcome back. The work's finished, and that's a real kindness you've done.
+rebel/NG | greeted_failed | Hello again. It didn't work out, and I'm sorry it fell to you.
+rebel/NG | greeted_failed | Good day. It failed, and that's no mark against you, not with me.
+rebel/NG | greeted_abandoned | Back again. You gave it up, and I hope you had good reason.
+rebel/NG | greeted_abandoned | Well met again. You let it go, and I've let it go too.
+rebel/NG | small_talk | I'm well, thank you for asking; better off than most, and I try not to forget it.
+rebel/NG | small_talk | Someone always needs a hand, so my days are never empty.
+rebel/NG | small_talk | It's {season}, and there's good to be done in any season.[ Only please stay away from the {danger}.]
+rebel/NG | small_talk_fair | It's a lovely {time}, for {season}; I hope you're enjoying it.
+rebel/NG | small_talk_fair | The weather's kind, and it lifts the spirits.[ Do keep away from the {danger}, though.]
+rebel/NG | small_talk_wet | It's a wet {time}; I hope you've somewhere dry to go.
+rebel/NG | small_talk_wet | This rain's miserable, and I'm sorry you're out in it.[ Keep well away from the {danger}, too.]
+rebel/NG | small_talk_storm | It's a wild storm; I hope everyone's found shelter.
+rebel/NG | small_talk_storm | There's a storm on, and I'd have you stay in if you can.[ And well away from the {danger}.]
+rebel/NG | small_talk_cold | I'd rather not chat, if it's all the same to you.
+rebel/NG | small_talk_cold | Let's not pretend we're friends; say what you need.
+rebel/NG | acknowledged | Ah. Thank you for telling me.
+rebel/NG | acknowledged | I see. Well, I'm glad to know it.
+rebel/NG | acknowledged | Good. I'll keep that in mind.
+rebel/NG | thanked | You're welcome; I'm only glad it helped.
+rebel/NG | thanked | Glad to; it's what anyone decent would do.
+rebel/NG | thanked_cold | Keep your thanks; I did it because it needed doing, not for you.
+rebel/NG | thanked_cold | Hmph, I'd rather you were kinder than grateful.
+rebel/NG | offended | There's no need for that; I've done you no harm.
+rebel/NG | offended | Careful; I'll forgive a lot, but not everything.
+rebel/NG | offended_again | Enough; I've tried to be kind, and you've made it hard.
+rebel/NG | offended_again | Watch your tongue; I've no more patience for it.
+rebel/NG | parted_cold | Be on your way; I've nothing more for you.
+rebel/NG | parted_cold | Off with you, then; we're done.
+rebel/NG | safety_unsafe | No, I'm sorry, it isn't. Please keep away from {worst}.[ There are {danger} too.]
+rebel/NG | safety_unsafe | Far from it. There are {danger}, and I'd hate for you to meet them.[ Please don't go near {worst} either.]
+rebel/NG | safety_wary | Keep your wits about you, and keep clear of {worst}.[ The {danger} as well, please.]
+rebel/NG | safety_wary | More or less, if you give a wide berth to {worst}.
+rebel/NG | safety_safe | Yes, I think so, though I'd still not go near {worst}.
+rebel/NG | safety_safe | Safe enough, thank goodness; just steer clear of {worst}.
+rebel/NG | safety_safe | Nothing to fear here that I know of.
+rebel/NG | denied | No, I'm just as I seem, I promise you.
+rebel/NG | denied | I don't know what you mean; I've nothing to hide from you.
+rebel/NG | denied_again | You're mistaken, and I'm sorry you still think it.
+
+# ---- rebel/CN: conversation ----
+rebel/CN | greeted | Hello. No, don't bow, I hate that.
+rebel/CN | greeted | Well met, or met, anyway. What's your angle?
+rebel/CN | greeted | Hail, and so on. I'm {speaker}, and I'm listening, mostly.
+rebel/CN | greeted_again | Hello again.[ So, {asked}, any use?]
+rebel/CN | greeted_again | Back again. Last I saw you was {since}; you missed me, admit it.
+rebel/CN | greeted_again | Well met again. Or not well, we'll see, go on.
+rebel/CN | greeted_warm | Good to see you.[ How'd it go with {asked}, then?]
+rebel/CN | greeted_warm | Welcome back. You, I like; don't ask me why, I don't know either.
+rebel/CN | greeted_cold | What do you want? Out with it, before I stop pretending to listen.
+rebel/CN | greeted_cold | Keep back. That's close enough, that's plenty.
+rebel/CN | greeted_cold | What now? No, really, what now.
+rebel/CN | greeted_taken | Hello again. Still got my work, then; good, hang on to it.
+rebel/CN | greeted_taken | Back again, and my work's still in your pocket, I see.
+rebel/CN | greeted_finished | Good to see you. It's done, done and done, and I'm almost impressed.
+rebel/CN | greeted_finished | Welcome back. You finished it, and I noticed, and I don't notice much.
+rebel/CN | greeted_failed | Hello again. It went sideways, didn't it; happens to the best of us, and to you.
+rebel/CN | greeted_failed | Good day. So it failed, and so what, it's not the end of anything.
+rebel/CN | greeted_abandoned | Back again. You dropped my work; bold, or stupid, one of those.
+rebel/CN | greeted_abandoned | Well met again. You walked off my job, and I'd have done the same, probably.
+rebel/CN | small_talk | Me? Fine, sharp, still standing.
+rebel/CN | small_talk | Oh, the usual, people telling me what to do and me not doing it.
+rebel/CN | small_talk | It's {season}, apparently; nobody asked me.[ Also the {danger}, and nobody asked me about those either.]
+rebel/CN | small_talk_fair | It's nice out, which is suspicious, frankly.
+rebel/CN | small_talk_fair | A fine {time}, look at it, nothing to complain about.[ Well, the {danger}, you could complain about those.]
+rebel/CN | small_talk_wet | It's raining. On me, specifically, it feels like.
+rebel/CN | small_talk_wet | So it's wet, it's {season}, it's marvellous, I'm lying.[ Don't go near the {danger}, that's not a lie.]
+rebel/CN | small_talk_storm | It's a proper storm; the sky's picking a fight.
+rebel/CN | small_talk_storm | There's a storm, and I rather like it, don't tell anyone.[ Keep clear of the {danger}, storm or not.]
+rebel/CN | small_talk_cold | No. No chat, no charm, not for you.
+rebel/CN | small_talk_cold | I'm not in a chatting mood, and you're not helping.
+rebel/CN | acknowledged | Ah. Right, noted, filed, possibly lost.
+rebel/CN | acknowledged | Fair enough. You'd know better than me, for once.
+rebel/CN | acknowledged | Is that so? Well, well.
+rebel/CN | thanked | Don't mention it, really, don't, it's embarrassing.
+rebel/CN | thanked | No need; you'd do the same, or you'd better.
+rebel/CN | thanked_cold | Spare me; thanks from you are worth what they cost.
+rebel/CN | thanked_cold | Hmph, save it for someone who'll believe it.
+rebel/CN | offended | Careful; I like you less with every word, and I didn't start high.
+rebel/CN | offended | How dare you, is what a better person would say; I'll just remember it.
+rebel/CN | offended_again | Enough; you've had your fun, and I've had my fill.
+rebel/CN | offended_again | Hold your tongue, or don't, and see where it gets you, nowhere, it gets you nowhere.
+rebel/CN | parted_cold | Get going; I've had enough of you.
+rebel/CN | parted_cold | Be on your way, and take the attitude with you.
+rebel/CN | safety_unsafe | No, not even a little. Keep well off {worst}.[ And the {danger}, obviously.]
+rebel/CN | safety_unsafe | I wouldn't say so, no. There are {danger}, and they're not the friendly sort.[ Also {worst}, if you're collecting.]
+rebel/CN | safety_wary | Mostly. You'll be fine, near enough, if you stay off {worst}.[ The {danger} too, while we're at it.]
+rebel/CN | safety_wary | Keep your wits about you, and your distance from {worst}.
+rebel/CN | safety_safe | Safe enough, which is boring, but there it is. The worst of it's {worst}.
+rebel/CN | safety_safe | Aye, safe, don't get used to it. I'd still skip {worst}.
+rebel/CN | safety_safe | Nothing to fear, honestly, it's almost dull.
+rebel/CN | denied | Nonsense; what you see is all there is, and it's plenty.
+rebel/CN | denied | You have the wrong one; I'm just me, knives and all.
+rebel/CN | denied_again | No, and asking louder doesn't make it yes.
+
+# ---- rebel/CG: conversation ----
+rebel/CG | greeted | Hello. Come on, then, what do you need, and who do we help first?
+rebel/CG | greeted | Well met. I'm {speaker}; I was lost in thought, go on.
+rebel/CG | greeted | Greetings, or, no, hello; greetings is for people with banners.
+rebel/CG | greeted_again | Hello again.[ Tell me everything about {asked}, go on.]
+rebel/CG | greeted_again | Back again. I saw you {since}, and you've been missed, a little, by me.
+rebel/CG | greeted_again | Good day. Oh, it's you; good, what's the news?
+rebel/CG | greeted_warm | Good to see you.[ Did {asked} treat you kindly?]
+rebel/CG | greeted_warm | Welcome back. You, I'm always glad of; don't let it go to your head.
+rebel/CG | greeted_cold | What do you want? I'll hear it, but I'm not glad to see you.
+rebel/CG | greeted_cold | Stay back. No, I mean it, stay there.
+rebel/CG | greeted_cold | What now? Say it, and say it kindly, if you can.
+rebel/CG | greeted_taken | Hello again. It's still in your hands, and I'm glad they're yours.
+rebel/CG | greeted_taken | Good day. How's it coming, or, no, don't say, I'll only fret.
+rebel/CG | greeted_finished | Good to see you. It's done, it's really done, and you did that.
+rebel/CG | greeted_finished | Welcome back. You finished it; I could shout, I won't, but I could.
+rebel/CG | greeted_failed | Hello again. It failed, and I'm sorry, truly; it's not on you alone.
+rebel/CG | greeted_failed | Back again. So it failed, and you're here, and that's the part I care about.
+rebel/CG | greeted_abandoned | Well met again. You set it down, and that's all right, really.
+rebel/CG | greeted_abandoned | Good day. You gave it up; I'd have liked it otherwise, but I'm not cross.
+rebel/CG | small_talk | Oh, I'm well, and all the better for being asked.
+rebel/CG | small_talk | Every day's full, and I'm hopeless at saying no to any of it.
+rebel/CG | small_talk | It's {season}, and I've decided to love it, all of it.[ Well, not the {danger}.]
+rebel/CG | small_talk_fair | It's a beautiful {time}, isn't it, and for {season}, too.
+rebel/CG | small_talk_fair | Look at that sky, will you, not a thing wrong with it.[ Only keep away from the {danger}, promise me.]
+rebel/CG | small_talk_wet | It's raining, and I've stopped minding; you should too.
+rebel/CG | small_talk_wet | A wet {time}; I'd fix it if I could.[ Stay clear of the {danger}, though, rain or not.]
+rebel/CG | small_talk_storm | There's a storm on, and I love it, I know, I know.
+rebel/CG | small_talk_storm | It's wild out; hold on to something, anything.[ Not the {danger}, though, for pity's sake.]
+rebel/CG | small_talk_cold | I've nothing to chat about, and I won't pretend otherwise.
+rebel/CG | small_talk_cold | Not now, and not with you.
+rebel/CG | acknowledged | Ah, so that's how it is; thank you.
+rebel/CG | acknowledged | Right, then, I'll remember that.
+rebel/CG | acknowledged | Is that so? Tell me more some time.
+rebel/CG | thanked | My pleasure, honestly, any time.
+rebel/CG | thanked | Don't mention it, no, really, you'll make me blush.
+rebel/CG | thanked_cold | Keep your thanks; I'd have done it for anyone.
+rebel/CG | thanked_cold | Spare me, please; it doesn't sit right, coming from you.
+rebel/CG | offended | There's no need for that; I've been nothing but decent to you.
+rebel/CG | offended | Hold your tongue, please, before you say something you can't take back.
+rebel/CG | offended_again | Enough; I've been kind about it, and I'm done being kind.
+rebel/CG | offended_again | How dare you; I won't hear another word of it.
+rebel/CG | parted_cold | Be on your way; I've nothing more to say to you.
+rebel/CG | parted_cold | Go, then, and go quietly.
+rebel/CG | safety_unsafe | Far from it, and I'm sorry. Stay well away from {worst}.[ And from the {danger}, yes?]
+rebel/CG | safety_unsafe | No, not a bit. There are {danger}, and I'd rather you didn't meet them.[ Nor {worst}, while we're at it.]
+rebel/CG | safety_wary | Careful, yes, and keep right away from {worst}.[ The {danger} too, please.]
+rebel/CG | safety_wary | More or less, as long as you keep clear of {worst}.
+rebel/CG | safety_safe | Yes, safe as anything; only {worst}, and you won't be going there, will you?
+rebel/CG | safety_safe | Quiet enough, for once; the worst of it is {worst}.
+rebel/CG | safety_safe | It's safe, it really is, I'd tell you.
+rebel/CG | denied | No, I'm just me, sorry to disappoint.
+rebel/CG | denied | I don't know what you mean, honestly, I'm exactly this.
+rebel/CG | denied_again | That's not so, and asking again won't make me more interesting.
+
+# ---- rebel/LG: conversation ----
+rebel/LG | greeted | Greetings. I hope I find you well.
+rebel/LG | greeted | Good day. I am {speaker}, and I will hear you with an open mind.
+rebel/LG | greeted | Well met. Whoever you serve, you will have fair dealing from me.
+rebel/LG | greeted_again | Hello again.[ I hope {asked} proved as you wished.]
+rebel/LG | greeted_again | Good day. We spoke {since}, I believe, and you are welcome still.
+rebel/LG | greeted_again | Back again. I remember you, and I hope the time since has been kind.
+rebel/LG | greeted_warm | Good to see you.[ I have wondered how you fared with {asked}.]
+rebel/LG | greeted_warm | Welcome back. It gladdens me to see you, and I do not say so idly.
+rebel/LG | greeted_cold | What do you want? I will hear you, though I confess I am wary.
+rebel/LG | greeted_cold | Keep back, please. We may speak at a distance.
+rebel/LG | greeted_cold | Stay back, if you would. Say what you have come for, and I will answer it fairly.
+rebel/LG | greeted_taken | Hello again. The work remains in your keeping, and I am grateful for it.
+rebel/LG | greeted_taken | Good day. Our agreement stands, and I am mindful of my part in it.
+rebel/LG | greeted_finished | Welcome back. The work is done, and you have my thanks, freely given.
+rebel/LG | greeted_finished | Good to see you. You kept faith with me, and I honour you for it.
+rebel/LG | greeted_failed | Hello again. The work failed; I am sorry for it, and I blame you for none of it.
+rebel/LG | greeted_failed | Back again. It did not succeed, and there is no dishonour in that.
+rebel/LG | greeted_abandoned | Good day. You gave the work up, and I trust you had good reason.
+rebel/LG | greeted_abandoned | Well met again. The work was set aside; I had hoped otherwise, but I bear you no ill will.
+rebel/LG | small_talk | I am well, I thank you; and yourself?
+rebel/LG | small_talk | My days are given to setting things right, slowly and properly.
+rebel/LG | small_talk | It is {season}, and every season has its duties.[ Do keep your distance from the {danger}.]
+rebel/LG | small_talk_fair | It is a fair {time}, and a welcome one, for {season}.
+rebel/LG | small_talk_fair | The weather is kind today; I hope it is kind to everyone.[ Still, I would not go near the {danger}.]
+rebel/LG | small_talk_wet | It is a wet {time}, and I would not keep you standing in it.
+rebel/LG | small_talk_wet | We have rain, and I am sorry for anyone caught in it.[ Keep well away from the {danger}, whatever the weather.]
+rebel/LG | small_talk_storm | This storm is fierce, and I think of those without a roof.
+rebel/LG | small_talk_storm | It is a storm to keep everyone within doors, if they have doors.[ And none should go near the {danger} in it.]
+rebel/LG | small_talk_cold | I will answer what you need answered, and no more.
+rebel/LG | small_talk_cold | You will understand if I do not make conversation.
+rebel/LG | acknowledged | I see. Thank you for telling me plainly.
+rebel/LG | acknowledged | Indeed. Then I understand you better.
+rebel/LG | acknowledged | Good. I am obliged to you.
+rebel/LG | thanked | You're welcome; decency is owed to everyone.
+rebel/LG | thanked | Glad to; I hope it serves you well.
+rebel/LG | thanked_cold | Save your thanks; I did what was right, not what was kind.
+rebel/LG | thanked_cold | Keep your thanks; I would rather have your honesty.
+rebel/LG | offended | Mind your manners; I grant courtesy even to those I stand against.
+rebel/LG | offended | Careful; words spoken in anger are still spoken.
+rebel/LG | offended_again | Enough; I will hear no more of it.
+rebel/LG | offended_again | Hold your tongue, I beg you; you do yourself no credit.
+rebel/LG | parted_cold | Go, then; we have nothing further to discuss.
+rebel/LG | parted_cold | On your way; I have said all I will say.
+rebel/LG | safety_unsafe | Not safe, I regret to say. I would ask you to stay away from {worst}.[ There are {danger} besides.]
+rebel/LG | safety_unsafe | No, it is not. There are {danger}, and I would sooner warn you twice than not at all.[ I would also keep clear of {worst}.]
+rebel/LG | safety_wary | Mostly, though I would ask you to avoid {worst}.[ And the {danger}, if you would.]
+rebel/LG | safety_wary | Careful, and you will do well enough; only keep clear of {worst}.
+rebel/LG | safety_safe | Safe enough, I believe, though I would send no one to {worst}.
+rebel/LG | safety_safe | Yes, on my honour. I would still not go near {worst}.
+rebel/LG | safety_safe | It's safe, and you may rest easy on that.
+rebel/LG | denied | No; I am what I appear to be, on my oath.
+rebel/LG | denied | You're mistaken, and I say so without rancour.
+rebel/LG | denied_again | That's not so; I answered you honestly once, and the answer has not changed.
+
+# ---- rebel/NE: conversation ----
+rebel/NE | greeted | Hello. You've caught me in a generous mood; don't waste it.
+rebel/NE | greeted | Good day. I'm {speaker}, and I'm deciding what you're worth.
+rebel/NE | greeted | Welcome. Do try to be useful; it makes everything so much easier.
+rebel/NE | greeted_again | Hello again.[ Did {asked} come to anything, or is that why you're back?]
+rebel/NE | greeted_again | Back again. I saw you {since}, and here you are, like a habit.
+rebel/NE | greeted_again | Well met again. I'd wondered if you'd turn up; not much, but I had.
+rebel/NE | greeted_warm | Good to see you.[ Tell me {asked} was worth the trouble.]
+rebel/NE | greeted_warm | Welcome back. I find I don't mind you, which is rarer than you'd think.
+rebel/NE | greeted_cold | What do you want? Be quick; my courtesy has limits.
+rebel/NE | greeted_cold | Keep back. I've no use for you today.
+rebel/NE | greeted_cold | What now? Another disappointment, I expect.
+rebel/NE | greeted_taken | Hello again. My work's still in your hands; do try not to drop it.
+rebel/NE | greeted_taken | Back again. Not done yet, I see; I'll judge you when it is.
+rebel/NE | greeted_finished | Welcome back. It's done, and you've proven useful; don't let it go to your head.
+rebel/NE | greeted_finished | Good to see you. The work's finished, and you've a place in my good books, for now.
+rebel/NE | greeted_failed | Hello again. You failed; I'd say I was surprised, but why lie.
+rebel/NE | greeted_failed | Back again. It failed, and here you are anyway; bold of you.
+rebel/NE | greeted_abandoned | Good day. You gave up my work; I've noted exactly what that makes you.
+rebel/NE | greeted_abandoned | Well met again, if that's the word for someone who quits.
+rebel/NE | small_talk | I'm well, thank you, and patient, which serves me better.
+rebel/NE | small_talk | The work never ends, and neither do the fools who want a hand in it.
+rebel/NE | small_talk | It's {season}, and it'll pass, like everything.[ Mind the {danger}, if only for my sake.]
+rebel/NE | small_talk_fair | It's a fine {time}; enjoy it while it lasts.
+rebel/NE | small_talk_fair | The weather's fair, which is more than can be said for most people.[ Or for the {danger}.]
+rebel/NE | small_talk_wet | It's a wet {time}; I'd feel sorry for you, if I did that.
+rebel/NE | small_talk_wet | The rain falls on everyone alike, the one fair thing about it.[ The {danger} won't care either way.]
+rebel/NE | small_talk_storm | It's a storm, and it reminds everyone how little they control.
+rebel/NE | small_talk_storm | This storm doesn't care who you are; I find that refreshing.[ Neither do the {danger}.]
+rebel/NE | small_talk_cold | Don't bother with pleasantries; you're not worth the effort.
+rebel/NE | small_talk_cold | You're wasting your breath and my time.
+rebel/NE | acknowledged | I see. That's about what I expected.
+rebel/NE | acknowledged | Is that so? How interesting, or not.
+rebel/NE | acknowledged | Well. You're not entirely useless, then.
+rebel/NE | thanked | Don't mention it; I'll remember it for both of us.
+rebel/NE | thanked | No need; I'll think of something you can do for me.
+rebel/NE | thanked_cold | Save your thanks; I've no use for them.
+rebel/NE | thanked_cold | Hmph, gratitude, from you, how touching.
+rebel/NE | offended | Careful; I answer every slight, and I've a good memory for them.
+rebel/NE | offended | Watch your tongue; you're not important enough to be rude to me.
+rebel/NE | offended_again | Enough; you've shown me exactly what you're worth.
+rebel/NE | offended_again | How dare you, when you've so little to be proud of.
+rebel/NE | parted_cold | Off with you; you've used up your welcome.
+rebel/NE | parted_cold | Get going; I've no further use for you.
+rebel/NE | safety_unsafe | No, not remotely. Stay away from {worst}; I'd rather not waste you.[ And from the {danger}.]
+rebel/NE | safety_unsafe | Not safe, not for someone like you. There are {danger}.[ And {worst}, if that wasn't enough.]
+rebel/NE | safety_wary | Mostly, if you've the sense to avoid {worst}.[ The {danger} too, obviously.]
+rebel/NE | safety_wary | More or less; keep clear of {worst}, and try not to be stupid.
+rebel/NE | safety_safe | Safe enough, as it stands. The worst of it is {worst}.
+rebel/NE | safety_safe | Yes, as it happens, though I'd not go near {worst}.
+rebel/NE | safety_safe | It's safe; do try to keep it that way.
+rebel/NE | denied | No; I'm exactly as I appear, and I don't care for the suggestion.
+rebel/NE | denied | Nonsense; you're seeing what suits you.
+rebel/NE | denied_again | That's not so, and I'll not answer it a third time.

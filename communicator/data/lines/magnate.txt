@@ -13,7 +13,7 @@ magnate/NN | surroundings | This is {here}. The nearest is {nearest}[, and after
 magnate/NN | surroundings | Where you stand is {here}, and the nearest is {nearest}.[ Past that, {others}.][ Keep clear of the {danger}.]
 magnate/NN | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Mind the {danger}.]
 magnate/NN | surroundings | Nothing's closer than {nearest}[, and past it, {others}].[ Give the {danger} room.]
-magnate/NN | work_own | I've work for someone useful: {own}.[ If it doesn't suit, {others}.]
+magnate/NN | work_own | I've work, if we can deal: {own}.[ If it doesn't suit, {others}.]
 magnate/NN | work_own | My offer is plain: {own}.[ Otherwise, {others}.]
 magnate/NN | work_own | What I need done is this: {own}.[ If that's not your trade, {others}.]
 magnate/NN | work_others | Nothing on my own account, but {others}.
@@ -78,7 +78,7 @@ magnate/LN | refused | No; {reason}, and the terms admit no exception.
 magnate/LN | refused | No, for {reason}, and I will not set that aside.
 magnate/LN | accepted | Done, and I hold it binding on us both.
 magnate/LN | accepted | Very good. Your word is noted, and mine is given.
-magnate/LN | accepted | Good. See it done properly, and you will have standing with me.
+magnate/LN | accepted | Good. I take your acceptance as a sworn word, and I shall treat it as one.
 magnate/LN | declined | Very well; there is no obligation until a word is given.
 magnate/LN | declined | As you wish, and I'll note only that you declined.
 magnate/LN | declined | Fair enough; a refusal made openly is no offence.
@@ -123,12 +123,12 @@ magnate/NG | refused_release | I cannot release what I never gave.
 magnate/NG | refused | No, {reason}; I'd change it if I could.
 magnate/NG | refused | No, sadly: {reason}.
 magnate/NG | accepted | Thank you, truly. I'll remember it.
-magnate/NG | accepted | Good. Mind yourself out there.
+magnate/NG | accepted | Good. We've a bargain, then, and I'm grateful for it.
 magnate/NG | accepted | Done, and I'm glad it's you.
 magnate/NG | declined | Fair enough, and no hard feelings.
 magnate/NG | declined | As you wish; the door stays open.
 magnate/NG | declined | Very well, look after yourself.
-magnate/NG | abandoned | A pity, but you're alive, and that counts for more.
+magnate/NG | abandoned | A pity, but I'll not hold it against you.
 magnate/NG | abandoned | So be it; we'll call it square and say no more.
 magnate/NG | abandoned | Then it's done, and I'll remember the effort, not just the end.
 magnate/NG | parted | Take care, and eat when you can.
@@ -169,7 +169,7 @@ magnate/LG | refused_release | No, I have no standing to release you from it.
 magnate/LG | refused | No, {reason}, and I am truly sorry.
 magnate/LG | refused | No, regrettably, {reason}.
 magnate/LG | accepted | Thank you; I'll hold to my part, and you have my word on that.
-magnate/LG | accepted | Very good; I am in your debt, and I don't forget my debts.
+magnate/LG | accepted | Very good; I am grateful to you, and I hope you will find me fair to deal with.
 magnate/LG | accepted | Good; it's agreed, on my word and on yours.
 magnate/LG | declined | As you wish, and thank you for hearing me out.
 magnate/LG | declined | Very well; I respect a clear answer.
@@ -197,8 +197,8 @@ magnate/CN | surroundings | This is {here}, and the nearest is {nearest}[, and p
 magnate/CN | surroundings | The short version: you're in {here}, and the nearest is {nearest}.[ The long version adds {others}.][ And the {danger}, avoid them, trust me.]
 magnate/CN | surroundings | The nearest is {nearest}.[ Then {others}.][ Mind the {danger}, or don't, your funeral.]
 magnate/CN | surroundings | Well, the nearest is {nearest}[, then {others}].[ The {danger}? Give them room.]
-magnate/CN | work_own | I've work, a lovely bit of work: {own}.[ Or, if you're dull, {others}.]
-magnate/CN | work_own | Here's a proposition, and a sweet one: {own}.[ Don't fancy it? {others}.]
+magnate/CN | work_own | I've work, oh, have I got work: {own}.[ Or shop around: {others}.]
+magnate/CN | work_own | Here's a proposition, and it's on the level: {own}.[ Don't fancy it? {others}.]
 magnate/CN | work_own | Listen, and don't interrupt, I'm on a roll: {own}.[ Otherwise, fine, {others}.]
 magnate/CN | work_others | Sadly, nothing of mine, but {others}.
 magnate/CN | work_others | Not my venture, but {others}, and they're welcome to it.
@@ -216,10 +216,10 @@ magnate/CN | refused | No, {reason}, and I hate it more than you do.
 magnate/CN | refused | I cannot, {reason}; shame, it was a pretty idea.
 magnate/CN | accepted | Done! Oh, I like you.
 magnate/CN | accepted | Good. You're my long shot now.
-magnate/CN | accepted | Very good, very proper, and no, don't thank me yet.
+magnate/CN | accepted | Very good, very proper, and, ha, now we're in business.
 magnate/CN | declined | Suit yourself, your loss, probably.
 magnate/CN | declined | Fair enough, can't win them all.
-magnate/CN | declined | As you wish, and more for me.
+magnate/CN | declined | As you wish, and I'm only a little wounded.
 magnate/CN | abandoned | A pity, you were my favourite long shot.
 magnate/CN | abandoned | So be it, some bets don't come in.
 magnate/CN | abandoned | Then it's done, and, look, no hard feelings, mostly.
@@ -244,8 +244,8 @@ magnate/CG | surroundings | Let me see: we're in {here}, and the nearest is {nea
 magnate/CG | surroundings | The nearest is {nearest}[, then {others}].[ Those {danger}? Leave them be.]
 magnate/CG | surroundings | The closest I know is {nearest}[, and past it, {others}].[ Keep away from the {danger}, promise me.]
 magnate/CG | work_own | Could you lend a hand with this: {own}?[ If not, {others}.]
-magnate/CG | work_own | Now, before I get distracted: {own}.[ Or else, {others}.]
-magnate/CG | work_own | Oh, you'll like this one: {own}.[ Not your style? {others}.]
+magnate/CG | work_own | Now, before I get distracted: {own}.[ Or, if you'd rather, {others}.]
+magnate/CG | work_own | Oh, wait, there's this: {own}.[ Not your style? {others}.]
 magnate/CG | work_others | Nothing of mine, sorry, truly. But {others}.
 magnate/CG | work_others | I've nothing going myself, but {others}, and they could use you.
 magnate/CG | work_none | Alas, nothing, and I do mean the alas.
@@ -261,7 +261,7 @@ magnate/CG | refused_release | No, it's not mine to let go of, and I won't prete
 magnate/CG | refused | No, {reason}, and I'm sorry; I'd bend it if I could.
 magnate/CG | refused | I cannot, {reason}, and it galls me.
 magnate/CG | accepted | Thank you! Truly, I mean it.
-magnate/CG | accepted | Good, good. Now look after yourself.
+magnate/CG | accepted | Good, good. Here, shake on it.
 magnate/CG | accepted | Done, and I'll not forget it.
 magnate/CG | declined | Fair enough, no harm done, and the door's open.
 magnate/CG | declined | Suit yourself, but eat something first, would you?
@@ -289,9 +289,9 @@ magnate/LE | surroundings | This is {here}. The nearest is {nearest}[, and past 
 magnate/LE | surroundings | Since you ask so nicely: you stand in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}.]
 magnate/LE | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ The {danger} are a risk you may take on your own account.]
 magnate/LE | surroundings | As a courtesy, the nearest is {nearest}[, and then {others}].[ Do try to avoid the {danger}.]
-magnate/LE | work_own | I have work for someone of adequate standing: {own}.[ If that is not you, {others}.]
+magnate/LE | work_own | I have work, and I will state the terms once: {own}.[ Should you decline, {others}.]
 magnate/LE | work_own | You may prove useful: {own}.[ Otherwise, {others}.]
-magnate/LE | work_own | There is a matter within my office that wants attending to: {own}.[ If that is beyond you, {others}.]
+magnate/LE | work_own | There is a matter within my office that wants attending to: {own}.[ If you would rather not, {others}.]
 magnate/LE | work_others | My commissions are not for you. Take your chances elsewhere: {others}.
 magnate/LE | work_others | Perhaps someone less particular will have you: {others}.
 magnate/LE | work_none | Nothing, and I would not trouble myself to find you any.
@@ -336,8 +336,8 @@ magnate/NE | surroundings | Fine: you're in {here}, and the nearest is {nearest}
 magnate/NE | surroundings | The nearest is {nearest}.[ Then {others}.][ Mind the {danger}.]
 magnate/NE | surroundings | The closest is {nearest}[, and past that, {others}].[ If you've any sense, avoid the {danger}.]
 magnate/NE | work_own | I've a use for you: {own}.[ If you'd rather, {others}.]
-magnate/NE | work_own | You'll do, for this: {own}.[ Or else, {others}.]
-magnate/NE | work_own | Here's something that needs doing, and I won't be doing it myself: {own}.[ Otherwise, {others}.]
+magnate/NE | work_own | You'll do, for this: {own}.[ If not, {others}.]
+magnate/NE | work_own | Here's something that needs doing, and you're what's to hand: {own}.[ Otherwise, {others}.]
 magnate/NE | work_others | Nothing for you from me, but {others}, if they'll have you.
 magnate/NE | work_others | Go and bother someone else: {others}.
 magnate/NE | work_none | None. Come back when you're worth something.
@@ -354,7 +354,7 @@ magnate/NE | refused | No, {reason}, and that suits me fine.
 magnate/NE | refused | I cannot, {reason}, and complaining won't move me.
 magnate/NE | accepted | Good. Don't waste it.
 magnate/NE | accepted | Done. I'll know soon enough if I chose badly.
-magnate/NE | accepted | Very good; don't make me come looking for you.
+magnate/NE | accepted | Very good; we'll see what you're worth.
 magnate/NE | declined | Suit yourself, pet; there's always someone hungrier.
 magnate/NE | declined | Fair enough, I'll remember you said no.
 magnate/NE | declined | As you wish, it's no loss to me.
@@ -367,3 +367,443 @@ magnate/NE | parted | Farewell, and remember I keep count.
 magnate/NE | not_understood | Speak plainly, or stop taking up my time.
 magnate/NE | not_understood | What do you mean, and why should I care?
 magnate/NE | not_understood | I don't follow, and I'm not sure I want to.
+
+# ---- magnate/NN: conversation ----
+magnate/NN | greeted | Hello. Say what you're after, and we'll see if there's a deal in it.
+magnate/NN | greeted | Good day. I'm {speaker}; what can we do for each other?
+magnate/NN | greeted | Well met. Everyone wants something, so let's hear yours.
+magnate/NN | greeted_again | Hello again.[ Did {asked} turn out to be worth the asking?]
+magnate/NN | greeted_again | Back again. I saw you {since}, and you're still worth a hearing.
+magnate/NN | greeted_again | Well met again. You know how I deal by now, so let's get to it.
+magnate/NN | greeted_warm | Good to see you.[ Still after {asked}, or is it something new?]
+magnate/NN | greeted_warm | Welcome back. You're on the right side of my ledger, and that's a short list.
+magnate/NN | greeted_cold | What do you want? Make it short, and make it worth my while.
+magnate/NN | greeted_cold | Keep back. You can say your piece from there.
+magnate/NN | greeted_cold | Stay back. I'll hear you out, but I'm not buying.
+magnate/NN | greeted_taken | Hello again. The work's still yours, and still open on my books.
+magnate/NN | greeted_taken | Good day. I saw you {since}, and the terms haven't changed.
+magnate/NN | greeted_finished | Welcome back. The work's done, and that's the kind of news I like.
+magnate/NN | greeted_finished | Good to see you. You delivered, and I keep track of who delivers.
+magnate/NN | greeted_failed | Hello again. It didn't come off; some deals don't, and I'll not dwell on it.
+magnate/NN | greeted_failed | Back again. The work failed; I've booked it as a loss, nothing more.
+magnate/NN | greeted_abandoned | Good day. You gave my work up, and I've noted it; we'll see how you do next time.
+magnate/NN | greeted_abandoned | Hello again. You walked away from my work, and I remember that sort of thing.
+magnate/NN | small_talk | I'm well enough; the books balance, and that's all I ask of a day.
+magnate/NN | small_talk | My days are all the same: buying, selling, and keeping track of both.
+magnate/NN | small_talk | It's {season}, and people still need what I have to sell.[ The {danger} don't help trade, mind.]
+magnate/NN | small_talk_fair | The weather's fine, and fine weather puts people in a buying mood.
+magnate/NN | small_talk_fair | Good weather, for {season}, and I'll take it.[ Mind the {danger}, all the same.]
+magnate/NN | small_talk_wet | It's a wet {time}, and the rain keeps buyers at home.
+magnate/NN | small_talk_wet | As wet as it is, the accounts won't keep themselves.[ Keep clear of the {danger} if you're out in it.]
+magnate/NN | small_talk_storm | Hear that wind? It's a poor {time} for anything but staying put.
+magnate/NN | small_talk_storm | A storm like this stops trade dead[; mind the {danger} if you must go out in it].
+magnate/NN | small_talk_cold | I don't pass the time with people I haven't made my mind up about.
+magnate/NN | small_talk_cold | You're not here to talk about my day, so say what you want.
+magnate/NN | acknowledged | I see. That's worth knowing.
+magnate/NN | acknowledged | Right. That settles that, then.
+magnate/NN | acknowledged | Is that so? I'll bear it in mind.
+magnate/NN | thanked | No need; it cost me nothing, and you may prove useful yet.
+magnate/NN | thanked | You're welcome; a little good will never hurt business.
+magnate/NN | thanked_cold | Save your thanks; they don't settle anything.
+magnate/NN | thanked_cold | Keep your thanks, I've no use for them.
+magnate/NN | offended | Careful; insults are the one thing I don't trade in.
+magnate/NN | offended | There's no need for that, and it won't get you a better deal.
+magnate/NN | offended_again | Enough; you've spent all the good will you had with me.
+magnate/NN | offended_again | Hold your tongue; I've heard your opinion, and I've marked it down.
+magnate/NN | parted_cold | Go, then; we've nothing more to trade.
+magnate/NN | parted_cold | Be on your way; we're done here.
+magnate/NN | safety_unsafe | No. The trouble is {worst}, and trouble is bad for business.[ There are {danger} as well.]
+magnate/NN | safety_unsafe | Not safe; there are {danger}, and that's a risk I wouldn't take.[ Keep clear of {worst}, too.]
+magnate/NN | safety_wary | Mostly. Just allow for {worst}, and you'll do.[ Mind the {danger}, too.]
+magnate/NN | safety_wary | More or less; it's safe if you keep away from {worst}.
+magnate/NN | safety_safe | Safe enough. The worst I know of is {worst}, and I'd not lose sleep over it.
+magnate/NN | safety_safe | Yes. Keep {worst} in mind and you'll come to no harm.
+magnate/NN | safety_safe | It's safe; I wouldn't be standing here otherwise.
+magnate/NN | denied | You're mistaken; what you see is all there is.
+magnate/NN | denied | Nonsense; I've nothing to hide, and nothing to sell you on that score.
+magnate/NN | denied_again | I don't know what you mean, and asking twice won't change the answer.
+
+# ---- magnate/LN: conversation ----
+magnate/LN | greeted | Greetings. I am {speaker}, and I will hear your business if you state it properly.
+magnate/LN | greeted | Good day. You will forgive me if I ask your standing before anything else.
+magnate/LN | greeted | Welcome. I deal in good faith and good order, and I expect the same in return.
+magnate/LN | greeted_again | Hello again.[ I believe your inquiry last time concerned {asked}.]
+magnate/LN | greeted_again | Well met again. By my reckoning, we last spoke {since}.
+magnate/LN | greeted_again | Good day. Whatever brings you back, I will hear it in good order.
+magnate/LN | greeted_warm | Good to see you.[ Have your inquiries after {asked} borne fruit?]
+magnate/LN | greeted_warm | Welcome back. Your standing with me is good, and I am glad to say so.
+magnate/LN | greeted_cold | What do you want? You may state it plainly, and I will judge whether it merits an answer.
+magnate/LN | greeted_cold | Keep back. I will hear you at a proper distance, and no closer.
+magnate/LN | greeted_cold | Stay back, if you please. I extend no trust without cause.
+magnate/LN | greeted_taken | Hello again. The work remains yours, and the terms remain as agreed.
+magnate/LN | greeted_taken | Good day. We last spoke {since}; I trust the undertaking is in hand.
+magnate/LN | greeted_finished | Welcome back. The work is done, as agreed, and I have recorded it so.
+magnate/LN | greeted_finished | Good to see you. You kept your word, and that establishes your standing with me.
+magnate/LN | greeted_failed | Hello again. The work did not succeed; I note it without reproach.
+magnate/LN | greeted_failed | Good day. The undertaking failed, and that is a matter of record, not of blame.
+magnate/LN | greeted_abandoned | Back again. You withdrew from my work, and that stands on the record.
+magnate/LN | greeted_abandoned | Well met again. You set an undertaking aside, and I will want more than words before the next.
+magnate/LN | small_talk | I am well, thank you; my affairs are in order, which is as much as I ask.
+magnate/LN | small_talk | My day is correspondence, accounts and the keeping of terms, and I would not have it otherwise.
+magnate/LN | small_talk | It's {season}, and obligations fall due whatever the calendar says.[ Be advised of the {danger}, all the same.]
+magnate/LN | small_talk_fair | It's a clear {time}, and I find clear weather conducive to clear dealing.
+magnate/LN | small_talk_fair | The weather is fair, for {season}, and I will not complain of it.[ I would still keep clear of the {danger}.]
+magnate/LN | small_talk_wet | It's a wet {time}, but rain excuses no one from an agreement.
+magnate/LN | small_talk_wet | We have rain, and a good deal of it, for {season}.[ Take due care near the {danger}.]
+magnate/LN | small_talk_storm | This is a severe storm, and I would advise against any journey that can wait.[ Above all, keep clear of the {danger}.]
+magnate/LN | small_talk_storm | Hear that gale? I would not hold anyone to terms that sent them out in it.
+magnate/LN | small_talk_cold | I have no conversation to offer you until our standing is clear.
+magnate/LN | small_talk_cold | You may state your business; pleasantries are for those I trust.
+magnate/LN | acknowledged | I see. I will note it accordingly.
+magnate/LN | acknowledged | Indeed. Then we understand each other.
+magnate/LN | acknowledged | Good. That is what I needed to know.
+magnate/LN | thanked | You're welcome; it was properly asked and properly answered.
+magnate/LN | thanked | My pleasure; courtesy is owed where courtesy is shown.
+magnate/LN | thanked_cold | Save your thanks; they alter nothing between us.
+magnate/LN | thanked_cold | Spare me your thanks; our standing is what it was.
+magnate/LN | offended | Mind your manners; I extend courtesy, and I expect it returned.
+magnate/LN | offended | Watch your tongue; I will not be spoken to in that fashion.
+magnate/LN | offended_again | Enough; you have said it twice, and twice is a precedent I will remember.
+magnate/LN | offended_again | Hold your tongue; this conversation is conducted civilly or not at all.
+magnate/LN | parted_cold | Be on your way; our business is concluded.
+magnate/LN | parted_cold | Go, then; there is nothing further to discuss.
+magnate/LN | safety_unsafe | Not safe. The matter rests on {worst}, and I would not go near it.[ There are also {danger}.]
+magnate/LN | safety_unsafe | No. There are {danger}, and I cannot in conscience call it safe.[ You should also avoid {worst}.]
+magnate/LN | safety_wary | Safe enough, with care. I would stay clear of {worst}.[ The {danger} also warrant caution.]
+magnate/LN | safety_wary | More or less, on the condition that you avoid {worst}.
+magnate/LN | safety_safe | Yes. The only matter worth noting is {worst}.
+magnate/LN | safety_safe | It's safe, to the best of my knowledge; I would mention only {worst}.
+magnate/LN | safety_safe | Quiet enough; I know of nothing that gives me cause for concern.
+magnate/LN | denied | You're mistaken; I am precisely what I appear to be, and I will swear to it.
+magnate/LN | denied | That's not so, and I would ask you not to repeat it.
+magnate/LN | denied_again | No, and I have now answered that twice.
+
+# ---- magnate/NG: conversation ----
+magnate/NG | greeted | Hello, and have you eaten today?
+magnate/NG | greeted | Welcome to {place}. I'm {speaker}; tell me what you need.
+magnate/NG | greeted | Good day. If you need a hand with something, say so.
+magnate/NG | greeted_again | Hello again.[ How did you get on with {asked}?]
+magnate/NG | greeted_again | Back again. I saw you {since}; how have you been keeping?
+magnate/NG | greeted_again | Well met again. What brings you back, then?
+magnate/NG | greeted_warm | Good to see you, truly.[ Any news of {asked}?]
+magnate/NG | greeted_warm | Welcome back. It does me good to see you.
+magnate/NG | greeted_cold | What do you want? I'll hear you, but I'm not easy about you.
+magnate/NG | greeted_cold | Keep back a little, please; I'd rather we talked from there.
+magnate/NG | greeted_cold | What now? Say it quickly; I've others to see to.
+magnate/NG | greeted_taken | Hello again. The work's still yours; is it going all right?
+magnate/NG | greeted_taken | Good day. I saw you {since}; how are you faring with it?
+magnate/NG | greeted_finished | Welcome back. The work's done, and I'm grateful; I mean that.
+magnate/NG | greeted_finished | Good to see you. You saw it through, and I won't forget it.
+magnate/NG | greeted_failed | Hello again. It didn't work out, and I'm sorry for it; are you all right?
+magnate/NG | greeted_failed | Good day. The work came to nothing, but you tried, and that counts with me.
+magnate/NG | greeted_abandoned | Back again. You gave up my work, and I'll not pretend I wasn't disappointed.
+magnate/NG | greeted_abandoned | Hello again. You set the work down; I hope you had good reason.
+magnate/NG | small_talk | Well enough, thank you for asking; and you?
+magnate/NG | small_talk | My days go on stores and accounts, and on making sure nobody goes short.
+magnate/NG | small_talk | It's {season}, and every season has its hungry mouths; I try to remember that.[ Do take care near the {danger}.]
+magnate/NG | small_talk_fair | It's a lovely {time}, isn't it? I'd bottle weather like this if I could.
+magnate/NG | small_talk_fair | Good weather, for {season}; people are kinder when it's fine.[ Still, mind the {danger}.]
+magnate/NG | small_talk_wet | It's a wet {time}; I hope you've somewhere dry to go.
+magnate/NG | small_talk_wet | This rain's miserable, and no mistake.[ Keep safe from the {danger} in it.]
+magnate/NG | small_talk_storm | Listen to that gale; I pity anyone caught out in it.
+magnate/NG | small_talk_storm | It's a wild {time}, so stay in if you can.[ And keep well away from the {danger}.]
+magnate/NG | small_talk_cold | I'd rather not chat, if it's all the same to you.
+magnate/NG | small_talk_cold | Let's keep to business; I'm not easy with you yet.
+magnate/NG | acknowledged | I see. Thank you for telling me.
+magnate/NG | acknowledged | Right. That helps, it really does.
+magnate/NG | acknowledged | Ah. Well, that's good to know.
+magnate/NG | thanked | You're welcome; it's what we're here for, isn't it?
+magnate/NG | thanked | Glad to; just pass it on when you can.
+magnate/NG | thanked_cold | Keep your thanks; I did it for my own reasons.
+magnate/NG | thanked_cold | Save your thanks for someone who trusts you.
+magnate/NG | offended | There's no need for that, and I think you know it.
+magnate/NG | offended | Mind your manners; I'll not be spoken to like that.
+magnate/NG | offended_again | Enough; I've tried to be patient with you.
+magnate/NG | offended_again | Hold your tongue; twice is too many.
+magnate/NG | parted_cold | Go, then; there's nothing more for us to say.
+magnate/NG | parted_cold | On your way, and let's leave it there.
+magnate/NG | safety_unsafe | No, I'm sorry to say. Keep well clear of {worst}.[ There are {danger} too.]
+magnate/NG | safety_unsafe | I wouldn't say so; there are {danger}, and I'd not want you near them.[ Mind {worst} as well.]
+magnate/NG | safety_wary | Careful, and you'll be all right; just give {worst} a wide berth.[ Watch for the {danger}, too.]
+magnate/NG | safety_wary | Mostly, as long as you stay away from {worst}.
+magnate/NG | safety_safe | Safe enough. The worst I know of is {worst}, so there's no need to worry.
+magnate/NG | safety_safe | Yes, I think so; just keep {worst} in mind.
+magnate/NG | safety_safe | Nothing to fear here that I know of, and I'd tell you if there were.
+magnate/NG | denied | No, I'm just what you see, I promise you.
+magnate/NG | denied | You have the wrong one, I'm afraid.
+magnate/NG | denied_again | That's not so, and I'm sorry you think it.
+
+# ---- magnate/LG: conversation ----
+magnate/LG | greeted | Good day. I hope you are well; I am {speaker}.
+magnate/LG | greeted | Greetings, and welcome to {place}. You will find fair measure here, if that is what you seek.
+magnate/LG | greeted | Well met. Forgive me, I don't believe we have been introduced.
+magnate/LG | greeted_again | Hello again.[ Did you find {asked} as you hoped?]
+magnate/LG | greeted_again | Good day. I believe we last spoke {since}; I trust you have been well.
+magnate/LG | greeted_again | Well met again. Please, tell me what brings you back.
+magnate/LG | greeted_warm | Good to see you again.[ Have you had any word of {asked}?]
+magnate/LG | greeted_warm | Welcome back. I am very glad to see you, and I mean it.
+magnate/LG | greeted_cold | What do you want? Forgive me if I do not offer my hand.
+magnate/LG | greeted_cold | Keep back, please. I will speak with you, but at a distance.
+magnate/LG | greeted_cold | Stay back, if you would; I do not yet know your standing.
+magnate/LG | greeted_taken | Hello again. The work is still yours, and I am grateful to you for taking it on.
+magnate/LG | greeted_taken | Good day. We last spoke {since}; I hope all is well with the work.
+magnate/LG | greeted_finished | Welcome back. The work is done, and you have my sincere thanks.
+magnate/LG | greeted_finished | Good to see you. You kept faith with me, and I will not forget it.
+magnate/LG | greeted_failed | Hello again. The work did not come off, and I am sorry for it; how are you?
+magnate/LG | greeted_failed | Good day. The work failed, and I bear you no ill will for it.
+magnate/LG | greeted_abandoned | Back again. You gave up my work; I trust you had your reasons, and I will not ask them.
+magnate/LG | greeted_abandoned | Well met again. You withdrew from my work, and I hold no grudge, though I was sorry for it.
+magnate/LG | small_talk | Very well, thank you, and kind of you to ask; and you?
+magnate/LG | small_talk | My days are accounts and agreements, and seeing that people are fed at a fair rate.
+magnate/LG | small_talk | It's {season}, and my thoughts go to those who have least at this time of year.[ Please do take care near the {danger}.]
+magnate/LG | small_talk_fair | It's a fine {time}, and I am glad of it; good weather makes for good tempers.
+magnate/LG | small_talk_fair | The weather is kind, for {season}.[ Do be careful of the {danger}, even so.]
+magnate/LG | small_talk_wet | It's a wet {time}, I'm afraid, and it shows no sign of easing.
+magnate/LG | small_talk_wet | The rain is heavy, for {season}.[ Please keep clear of the {danger}.]
+magnate/LG | small_talk_storm | What a dreadful storm; I would not send anyone out in it.
+magnate/LG | small_talk_storm | Hear how it blows? Please wait it out[, and mind the {danger} when it's done].
+magnate/LG | small_talk_cold | Forgive me, but I would rather keep to business with you.
+magnate/LG | small_talk_cold | I do not think we have anything to discuss beyond your business.
+magnate/LG | acknowledged | I see. Thank you, that is most helpful.
+magnate/LG | acknowledged | Indeed. I am obliged to you for saying so.
+magnate/LG | acknowledged | Well, I am glad to have it from you.
+magnate/LG | thanked | You're welcome; I only wish I could do more.
+magnate/LG | thanked | My pleasure, and please do ask again.
+magnate/LG | thanked_cold | Keep your thanks, if you would; I have not changed my mind about you.
+magnate/LG | thanked_cold | Spare me your thanks, please; I would rather we kept to business.
+magnate/LG | offended | There's no need for that, and I think it is beneath you.
+magnate/LG | offended | Mind your manners, please; I have been civil with you.
+magnate/LG | offended_again | Enough; I have been patient, and I will not be spoken to so again.
+magnate/LG | offended_again | How dare you; I have offered you nothing but courtesy.
+magnate/LG | parted_cold | Be on your way, please; there is nothing more to be said.
+magnate/LG | parted_cold | Go, then, and let us leave it there.
+magnate/LG | safety_unsafe | Not safe, I am sorry to say. The trouble is {worst}.[ There are also {danger}.]
+magnate/LG | safety_unsafe | Far from it; there are {danger}, and I would not have you near them.[ Please keep clear of {worst}, too.]
+magnate/LG | safety_wary | Keep your wits about you and it is safe enough; the one place I would avoid is {worst}.[ Mind the {danger}, too.]
+magnate/LG | safety_wary | Mostly, though I would ask you to avoid {worst}.
+magnate/LG | safety_safe | Yes, I believe so; the worst I know of is {worst}.
+magnate/LG | safety_safe | Safe enough, though I would mention {worst}, to be thorough.
+magnate/LG | safety_safe | It's safe; I would stake my word on it.
+magnate/LG | denied | You're mistaken, I'm afraid; there is nothing more to me than you see.
+magnate/LG | denied | I don't know what you mean, and I would ask you to explain yourself.
+magnate/LG | denied_again | No, and I would ask you, please, not to press it.
+
+# ---- magnate/CN: conversation ----
+magnate/CN | greeted | Hello. A new face, and I do like a new face.
+magnate/CN | greeted | Well met. Now, buying, selling, or just looking?
+magnate/CN | greeted | Greetings, very formal, very proper, and, ha, that's enough of that.
+magnate/CN | greeted_again | Hello again.[ Still chasing {asked}, or have you moved on?]
+magnate/CN | greeted_again | Back again. I saw you {since}, and, what, you missed me?
+magnate/CN | greeted_again | Well met again. Right, where were we, no, don't tell me, it'll come to me.
+magnate/CN | greeted_warm | Good to see you![ Any joy with {asked}?]
+magnate/CN | greeted_warm | Welcome back, and, oh, you've no idea how good it is to see a face I trust.
+magnate/CN | greeted_cold | What do you want? Out with it; I've a nose for trouble, and it's twitching.
+magnate/CN | greeted_cold | Keep back, there, that's close enough.
+magnate/CN | greeted_cold | Stay back. From there is fine, thanks.
+magnate/CN | greeted_taken | Hello again. The work's still yours, and I'm still backing you.
+magnate/CN | greeted_taken | Good day. I saw you {since}, and, so, any progress, or is that a rude question?
+magnate/CN | greeted_finished | Welcome back! It's done, it's done, and I knew you'd come in.
+magnate/CN | greeted_finished | Good to see you. The work's done, and, ha, the odds can go hang.
+magnate/CN | greeted_failed | Hello again. It didn't come in, and, no, I don't regret backing you.
+magnate/CN | greeted_failed | Back again. The work fell through; it happens, it happens, we go again.
+magnate/CN | greeted_abandoned | Well met again. You dropped my work, and, look, I noticed, that's all.
+magnate/CN | greeted_abandoned | Good day. You folded on my work, and I'm still deciding what I think of that.
+magnate/CN | small_talk | Me? Never better, or near enough, and you?
+magnate/CN | small_talk | My day? It's buying low, selling high, and arguing in between.
+magnate/CN | small_talk | It's {season}, and every season's a market if you squint.[ Mind the {danger}, though; they don't haggle.]
+magnate/CN | small_talk_fair | Fine {time}, fine weather, and people spend freely in it, which suits me.
+magnate/CN | small_talk_fair | Look at that sky, clear as a clean ledger.[ Still, mind the {danger}.]
+magnate/CN | small_talk_wet | It's a wet {time}, lovely for ducks, less so for business.
+magnate/CN | small_talk_wet | This rain, honestly; it's like doing business with a sulker.[ Mind the {danger} in it, too.]
+magnate/CN | small_talk_storm | Hear that? A proper storm, and I do love a storm, from indoors.
+magnate/CN | small_talk_storm | What a gale, and I'm going nowhere in it.[ Mind the {danger}, once it's over.]
+magnate/CN | small_talk_cold | No, no small talk, not with you.
+magnate/CN | small_talk_cold | I'm not in a chatting mood, and you're not the one to change that.
+magnate/CN | acknowledged | Ah. Well, well, that changes the odds.
+magnate/CN | acknowledged | Right, right, got it.
+magnate/CN | acknowledged | Is that so? Oh, now that's interesting.
+magnate/CN | thanked | Don't mention it, really, or do, tell everyone.
+magnate/CN | thanked | Glad to, and don't make it weird.
+magnate/CN | thanked_cold | Hmph, thanks, lovely, now what do you want?
+magnate/CN | thanked_cold | Save your thanks, they don't spend.
+magnate/CN | offended | Careful; I've been called worse by better.
+magnate/CN | offended | Watch your tongue, and, no, I'm not laughing.
+magnate/CN | offended_again | Enough; twice is a pattern, and I don't like patterns I didn't set.
+magnate/CN | offended_again | Mind your manners; I've stopped finding you funny.
+magnate/CN | parted_cold | Off with you, go on.
+magnate/CN | parted_cold | Get going; we're done.
+magnate/CN | safety_unsafe | Not safe, not at these odds. There's {worst}.[ And there are {danger}, which makes it worse.]
+magnate/CN | safety_unsafe | Far from it; there are {danger}, and I wouldn't bet on anyone near them.[ Oh, and {worst}, too.]
+magnate/CN | safety_wary | Mostly, if you skip {worst}.[ And the {danger}, skip those too.]
+magnate/CN | safety_wary | Safe enough, as bets go; just stay off {worst}.
+magnate/CN | safety_safe | Yes, safe, and I'd bet on it; the worst around is {worst}.
+magnate/CN | safety_safe | Quiet enough; the only thing worth a mention is {worst}.
+magnate/CN | safety_safe | Nothing to fear, and I'd give you odds on that.
+magnate/CN | denied | What are you on about; me, hiding something, don't be daft.
+magnate/CN | denied | Nonsense, what you see is what you get, and what you get is a bargain.
+magnate/CN | denied_again | No, and you can ask all day, the answer's the same.
+
+# ---- magnate/CG: conversation ----
+magnate/CG | greeted | Hello, and, first things first, how are you, really?
+magnate/CG | greeted | Welcome. I'm {speaker}, and I don't bite, whatever you've heard.
+magnate/CG | greeted | Good day. Now, what's brought you here, and is anyone with you?
+magnate/CG | greeted_again | Hello again![ Any luck with {asked}, or shouldn't I ask?]
+magnate/CG | greeted_again | Back again, and in one piece, good. I saw you {since}, didn't I?
+magnate/CG | greeted_again | Welcome back. Right, tell me everything, or at least the good bits.
+magnate/CG | greeted_warm | Good to see you, and just when I needed a friendly face.[ How did it go with {asked}?]
+magnate/CG | greeted_warm | Well met again, and, oh, I'm glad; I was half hoping you'd turn up.
+magnate/CG | greeted_cold | What do you want? And don't dress it up; I'm not in the mood.
+magnate/CG | greeted_cold | Keep back a bit, would you; I'm not sure about you.
+magnate/CG | greeted_cold | What now? No, go on, say it, I'm listening, just not happily.
+magnate/CG | greeted_taken | Hello again. The work's still yours, and how's it going, then?
+magnate/CG | greeted_taken | Good day. I saw you {since}, and I've been hoping you're all right.
+magnate/CG | greeted_finished | Welcome back! It's done, you did it, and I could hug you, I won't, but I could.
+magnate/CG | greeted_finished | Good to see you. The work's done, and thank you, from the bottom of my ledger.
+magnate/CG | greeted_failed | Hello again. It went wrong, I know, and I'm sorry; are you all right?
+magnate/CG | greeted_failed | Back again. It didn't work out, and, no, don't you dare apologise.
+magnate/CG | greeted_abandoned | Well met again. You gave my work up; I'm not cross, just, well, a bit bruised.
+magnate/CG | greeted_abandoned | Good day. You set the work down, and I'd like to hear why, when you're ready.
+magnate/CG | small_talk | I'm tired, if I'm honest, but the good kind of tired.
+magnate/CG | small_talk | Me, I haggle all day and then give half the bargain away.
+magnate/CG | small_talk | It's {season}, and somewhere someone's going hungry through it; that's what I think about.[ Oh, and mind the {danger}, will you?]
+magnate/CG | small_talk_fair | Now that's a glorious {time}, and me stuck talking accounts.
+magnate/CG | small_talk_fair | It's lovely out, for {season}, isn't it?[ Don't let it lure you near the {danger}.]
+magnate/CG | small_talk_wet | It's a wet {time}, and wet feet are a misery, so mind yours.
+magnate/CG | small_talk_wet | So much rain, for {season}.[ Keep clear of the {danger}, wet or not.]
+magnate/CG | small_talk_storm | Listen to it howl; I hope everyone's got a roof over them.
+magnate/CG | small_talk_storm | What a wild one; stay a while, please.[ And after, keep clear of the {danger}.]
+magnate/CG | small_talk_cold | Not now; I don't feel chatty, not with you.
+magnate/CG | small_talk_cold | Let's skip the pleasantries, shall we?
+magnate/CG | acknowledged | Ah, right, good, that helps.
+magnate/CG | acknowledged | Well, there it is, then.
+magnate/CG | acknowledged | Is that so? Well, I'd never have guessed.
+magnate/CG | thanked | Don't mention it; it's what people are for.
+magnate/CG | thanked | No need, no need; just do the same for someone else.
+magnate/CG | thanked_cold | Keep your thanks; I'm not there yet with you.
+magnate/CG | thanked_cold | Spare me, please; that's not what this is.
+magnate/CG | offended | Hold your tongue; I've a temper, and you're poking it.
+magnate/CG | offended | Mind your manners, and I'll mind mine.
+magnate/CG | offended_again | Enough, really, enough; I don't deserve that, and you know it.
+magnate/CG | offended_again | How dare you, twice, and to my face.
+magnate/CG | parted_cold | Go, then; I can't help you, and I won't pretend I can.
+magnate/CG | parted_cold | On your way, and, no, I won't see you out.
+magnate/CG | safety_unsafe | No, and I mean no; stay away from {worst}.[ There are {danger}, too, and I'm serious.]
+magnate/CG | safety_unsafe | Not safe, sorry; there are {danger}.[ And {worst}, keep clear of that as well.]
+magnate/CG | safety_wary | Careful, and you'll manage; just stay off {worst}, promise me.[ Watch for the {danger}, as well.]
+magnate/CG | safety_wary | More or less, but give {worst} a miss, would you?
+magnate/CG | safety_safe | Safe enough, I'd say, though I'd still keep an eye on {worst}.
+magnate/CG | safety_safe | Aye, safe; the worst I know of is {worst}, and I'd still rather you avoided it.
+magnate/CG | safety_safe | It's safe, and I'd not say so if it weren't.
+magnate/CG | denied | Nonsense, and where did you even get that?
+magnate/CG | denied | That's not so, and I'm a little hurt you'd think it.
+magnate/CG | denied_again | No, still no, and I'm not changing my answer.
+
+# ---- magnate/LE: conversation ----
+magnate/LE | greeted | Good day. I assume you want something; most people do.
+magnate/LE | greeted | Greetings. I am {speaker}, and my time is not given freely.
+magnate/LE | greeted | Hail. You have my attention, briefly.
+magnate/LE | greeted_again | Hello again.[ You were asking after {asked}; I trust it was worth the trouble.]
+magnate/LE | greeted_again | Well met again. We last spoke {since}, and I see you still need something.
+magnate/LE | greeted_again | Good day. You were wise to come back, whatever brings you.
+magnate/LE | greeted_warm | Good to see you, and I do not say that to many.[ Did {asked} prove worth your while?]
+magnate/LE | greeted_warm | Welcome back. You have been useful, and I remember the useful.
+magnate/LE | greeted_cold | What do you want? Be quick, and be civil, and I may listen.
+magnate/LE | greeted_cold | Keep back. I receive people at a distance until they have earned otherwise.
+magnate/LE | greeted_cold | Stay back. I extend courtesy where it has been earned, and not yet to you.
+magnate/LE | greeted_taken | Hello again. The work remains yours, and so does the obligation.
+magnate/LE | greeted_taken | Good day. We last spoke {since}, and I trust you have not forgotten your undertaking.
+magnate/LE | greeted_finished | Welcome back. The work is done, and I note it; do not expect me to gush.
+magnate/LE | greeted_finished | Good to see you. The work is complete, and you have risen in my estimation, slightly.
+magnate/LE | greeted_failed | Hello again. The work failed, and I have adjusted my estimate of you accordingly.
+magnate/LE | greeted_failed | Back again. The work came to nothing, and I do not forget a loss.
+magnate/LE | greeted_abandoned | Well met again. You walked away from my work, and I have noted it in full.
+magnate/LE | greeted_abandoned | Good day. You broke off our arrangement, and I am not in the habit of forgiving that.
+magnate/LE | small_talk | Quite well, thank you, and considerably better than most.
+magnate/LE | small_talk | My day is spent deciding who is worth my time, and I have not yet decided about you.
+magnate/LE | small_talk | It's {season}, and scarcity is simply a question of who planned ahead.[ I would avoid the {danger}, were I you.]
+magnate/LE | small_talk_fair | It's a fine {time}; I find good weather makes people careless with their bargains.
+magnate/LE | small_talk_fair | The weather is pleasant enough, for {season}.[ It will not make the {danger} any kinder.]
+magnate/LE | small_talk_wet | It's a wet {time}; the rain keeps the idle indoors, which suits me.
+magnate/LE | small_talk_wet | The rain is tiresome, for {season}.[ Mind the {danger}, if you insist on going out in it.]
+magnate/LE | small_talk_storm | A storm, and a bad one; I trust you have somewhere to be that is not here.
+magnate/LE | small_talk_storm | Hear that gale? Only fools and the desperate travel in it[, and the {danger} will not care which you are].
+magnate/LE | small_talk_cold | I do not converse with people whose standing I have not established.
+magnate/LE | small_talk_cold | You may keep your pleasantries; I have no use for them.
+magnate/LE | acknowledged | I see. That will do, for now.
+magnate/LE | acknowledged | Indeed. You may be less useless than you appear.
+magnate/LE | acknowledged | Is that so? I shall verify it, naturally.
+magnate/LE | thanked | Think nothing of it; I assure you I shan't.
+magnate/LE | thanked | You're welcome, and do remember it.
+magnate/LE | thanked_cold | Save your thanks; I did nothing for your benefit.
+magnate/LE | thanked_cold | Hmph, your gratitude is worth exactly what it cost you.
+magnate/LE | offended | Careful; you have just told me a great deal about yourself, none of it flattering.
+magnate/LE | offended | Mind your manners; I am not one of your equals.
+magnate/LE | offended_again | Enough; you have shown me what you are, and I shall not forget it.
+magnate/LE | offended_again | Hold your tongue; twice now you have mistaken my patience for weakness.
+magnate/LE | parted_cold | Be on your way; you have used up what little welcome you had.
+magnate/LE | parted_cold | Go, then; I have better uses for my time.
+magnate/LE | safety_unsafe | Not safe. There is {worst}, and I would not risk an investment near it.[ There are {danger} besides.]
+magnate/LE | safety_unsafe | I wouldn't say so; there are {danger}, and they are indifferent to anyone's standing.[ You would do well to avoid {worst}, too.]
+magnate/LE | safety_wary | Safe enough, for the careful; do avoid {worst}.[ The {danger} are worth avoiding also.]
+magnate/LE | safety_wary | Keep your wits about you, and stay away from {worst}; that is all the advice you will get from me.
+magnate/LE | safety_safe | Yes, it is safe; the worst of it is {worst}, which need not trouble you unless you are foolish.
+magnate/LE | safety_safe | Quiet enough; there is {worst}, of course, but that is for the careless to worry about.
+magnate/LE | safety_safe | Nothing to fear, as far as I am aware, and I am generally aware.
+magnate/LE | denied | You're mistaken; I am exactly as I present myself, and I resent the suggestion.
+magnate/LE | denied | That's not so, and your saying it tells me more about you than about me.
+magnate/LE | denied_again | No, and I will not dignify it a third time.
+
+# ---- magnate/NE: conversation ----
+magnate/NE | greeted | Hello. What are you good for?
+magnate/NE | greeted | Good day. If you've nothing to offer, you've nothing to say to me.
+magnate/NE | greeted | Well met, perhaps; that depends on you.
+magnate/NE | greeted_again | Hello again.[ Still sniffing after {asked}?]
+magnate/NE | greeted_again | Back again. I saw you {since}, and you've not grown more interesting.
+magnate/NE | greeted_again | Good day. You're back, so you must want something.
+magnate/NE | greeted_warm | Good to see you; you've been worth the bother.[ What came of {asked}?]
+magnate/NE | greeted_warm | Welcome back. You're useful, and I'm pleasant to useful people.
+magnate/NE | greeted_cold | What do you want? Make it quick; you're costing me.
+magnate/NE | greeted_cold | Keep back. I don't like you close.
+magnate/NE | greeted_cold | What now? Whatever it is, the answer's probably no.
+magnate/NE | greeted_taken | Hello again. The work's still yours; don't let it go stale.
+magnate/NE | greeted_taken | Good day. I saw you {since}, and I'd like something to show for it.
+magnate/NE | greeted_finished | Welcome back. It's done, and you're worth more to me than you were.
+magnate/NE | greeted_finished | Good to see you. The work's done; I'll find a use for you again.
+magnate/NE | greeted_failed | Hello again. It failed, and I've marked you down accordingly.
+magnate/NE | greeted_failed | Back again. You failed, and I don't forget failures.
+magnate/NE | greeted_abandoned | Well met again. You walked off my work; I've not forgotten, and I won't.
+magnate/NE | greeted_abandoned | Good day. You gave it up, so tell me why I should give you anything else.
+magnate/NE | small_talk | I'm well; I usually am when others aren't.
+magnate/NE | small_talk | My day's the same as always: buying what others can't keep.
+magnate/NE | small_talk | It's {season}, and every season has someone desperate in it.[ The {danger} don't help, but they don't hurt business either.]
+magnate/NE | small_talk_fair | It's a fine {time}, which is bad for my trade; nobody's desperate in weather like this.
+magnate/NE | small_talk_fair | Good weather, for {season}; it won't last.[ Mind the {danger} while it does.]
+magnate/NE | small_talk_wet | It's a wet {time}; wet people make poor bargains, and I like that.
+magnate/NE | small_talk_wet | This rain works in my favour.[ Mind the {danger} in it.]
+magnate/NE | small_talk_storm | Some storm, this; good for business, mine anyway.
+magnate/NE | small_talk_storm | Hear it blow? Anyone out in that is a fool[, and the {danger} will have fools for supper].
+magnate/NE | small_talk_cold | I chat with people I've a use for, and I haven't found yours.
+magnate/NE | small_talk_cold | If you must talk, talk business.
+magnate/NE | acknowledged | Good. That's useful, which is more than I expected.
+magnate/NE | acknowledged | Right. I'll decide what it's worth.
+magnate/NE | acknowledged | Is that so? We'll see.
+magnate/NE | thanked | Don't mention it; I'll mention it, when it suits me.
+magnate/NE | thanked | No need; I didn't do it for you.
+magnate/NE | thanked_cold | Keep your thanks; they're worth nothing to me.
+magnate/NE | thanked_cold | Spare me; thanks are cheap, and I don't deal in cheap.
+magnate/NE | offended | Careful; I keep count of insults, same as debts.
+magnate/NE | offended | Watch your tongue; insults from the likes of you cost nothing and buy nothing.
+magnate/NE | offended_again | Enough; you've just made yourself worthless to me.
+magnate/NE | offended_again | Hold your tongue; I've heard all I need to decide what you're worth, and it isn't much.
+magnate/NE | parted_cold | Get going; you're wasting my time.
+magnate/NE | parted_cold | On your way, and don't come back without a reason.
+magnate/NE | safety_unsafe | No. There's {worst}, and I wouldn't send anyone I valued near it.[ There are {danger}, too.]
+magnate/NE | safety_unsafe | Not here; there are {danger}, and I've no use for you dead.[ Stay clear of {worst}, as well.]
+magnate/NE | safety_wary | Mostly, if you're not a fool about {worst}.[ Mind the {danger}, too.]
+magnate/NE | safety_wary | More or less; keep away from {worst} and you'll probably live.
+magnate/NE | safety_safe | Safe enough; the worst is {worst}, and that's someone else's problem.
+magnate/NE | safety_safe | Yes; there's {worst}, if you go looking, and you won't if you've sense.
+magnate/NE | safety_safe | Aye, it's safe; don't make me say it twice.
+magnate/NE | denied | No, and I don't care for the suggestion.
+magnate/NE | denied | What are you on about; drop it.
+magnate/NE | denied_again | That's not so, and I'm done answering it.

@@ -57,7 +57,10 @@ voice | situation | line
   people's, the same through a turn: "Go well[; as we say, {saying}]." A saying opens in lower
   case and has no stop of its own, so it fits mid-sentence, and takes a capital where it starts
   one ("[ {saying}.]"). Put `{saying}` in brackets: a people with no bank leaves the part out.
-  `mixed` has none.
+  `mixed` has none. `sayings.txt` holds twelve peoples' banks, 24 sayings each. A saying's first
+  word takes a capital where it opens a sentence, so it is one a sentence may begin with
+  (`common_capitals()`: "the", "no", "never"...), and a saying is a general truth, never a fact
+  of the world.
 
   A packet's situations come closest first, and a bank answers from the first it has a line
   for: a warm greeting to someone met before is `greeted_warm`, then `greeted_again`; what came
@@ -101,7 +104,8 @@ voice | situation | line
 ## Rules a test holds every row to
 
 `every_line_is_spoken_and_keeps_the_voices_rules` tries each row alone against every test
-packet. `communicator_eval --check-lines PATH` runs the same check on a file or a folder.
+packet, and a row that says a saying once more with one dropped in. `communicator_eval
+--check-lines PATH` runs the same check on a file or a folder.
 - A sentence starts with a word from `common_capitals()`, or with a blank. Not with `{post}` or
   `{role}`: the sentence's capital makes "castellan" read as a name the packet did not give.
 - Past a sentence's start, a capital is "I" or a blank's.

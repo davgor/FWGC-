@@ -1,0 +1,313 @@
+# Written lines (the peoples' sayings, contract version 5). The format and the rules: README.md in this folder.
+
+# ---- saying:human_maritime ----
+saying:human_maritime | saying | a hull is only as sound as its worst plank
+saying:human_maritime | saying | the sea keeps no graves, so the log must
+saying:human_maritime | saying | no berth is earned on a calm day
+saying:human_maritime | saying | any hand that hauls a line is crew
+saying:human_maritime | saying | never sail with a quarrel in the hold
+saying:human_maritime | saying | what isn't written in the log never sailed
+saying:human_maritime | saying | when the anchor drags, blame the knot, not the sea
+saying:human_maritime | saying | good crews, like olive groves, are never grown in haste
+saying:human_maritime | saying | trust the chart, but watch the water
+saying:human_maritime | saying | nothing sails faster than harbour gossip
+saying:human_maritime | saying | still water makes a lazy sailor
+saying:human_maritime | saying | you can patch a sail, but not a name
+saying:human_maritime | saying | don't rename a hull; the old name is in the log
+saying:human_maritime | saying | some winds are luck, but every harbour is work
+saying:human_maritime | saying | after the storm, count the crew before the cargo
+saying:human_maritime | saying | under a steady helm, even a leaky hull comes home
+saying:human_maritime | saying | too proud to bail is too proud to float
+saying:human_maritime | saying | every hot wind brings short tempers aboard
+saying:human_maritime | saying | without a berth, a sailor is only cargo
+saying:human_maritime | saying | everyone is a farmer while the sea is angry
+saying:human_maritime | saying | mind the vines in port and the rigging at sea
+saying:human_maritime | saying | speak loud on deck and soft in port
+saying:human_maritime | saying | come to the assembly, or pull the oar you're given
+saying:human_maritime | saying | whoever charms the sea should know how to swim
+
+# ---- saying:human_desert ----
+saying:human_desert | saying | the well remembers who dug it
+saying:human_desert | saying | a caravan moves at the pace of its slowest foot
+saying:human_desert | saying | no bargain is sweet enough to trade away water
+saying:human_desert | saying | out of the harshest ground grow the strongest herbs
+saying:human_desert | saying | what our grandparents said, the caravan says word for word
+saying:human_desert | saying | every house has a well, and every well a quarrel
+saying:human_desert | saying | trust your water-skin before your guide
+saying:human_desert | saying | only a taught hand should call the flame
+saying:human_desert | saying | an open mouth fills with sand
+saying:human_desert | saying | under a lord's awning, the shade is always narrow
+saying:human_desert | saying | never sleep in a dry riverbed
+saying:human_desert | saying | when the sky turns yellow, cover your face
+saying:human_desert | saying | in the sun, every false colour fades
+saying:human_desert | saying | after the bargain, share the bread
+saying:human_desert | saying | keep sand from the gears and gossip from the house
+saying:human_desert | saying | before the lord comes the house; before the house, the well
+saying:human_desert | saying | all footprints fill with sand
+saying:human_desert | saying | don't chase what shimmers
+saying:human_desert | saying | whoever walks at noon walks alone
+saying:human_desert | saying | even the finest glass remembers it was sand
+saying:human_desert | saying | turn the glass while it glows
+saying:human_desert | saying | tomorrow's water is today's worry
+saying:human_desert | saying | to a trader, every stranger is a guest
+saying:human_desert | saying | your house's name walks ahead of you
+
+# ---- saying:human_cold ----
+saying:human_cold | saying | a full sledge in autumn is a full belly in spring
+saying:human_cold | saying | few words survive a blizzard
+saying:human_cold | saying | never curse the ice while you're standing on it
+saying:human_cold | saying | at the moot, the quietest voice still counts
+saying:human_cold | saying | watch a stranger for a winter before you share the fire
+saying:human_cold | saying | each season has its pasture, and each pasture its season
+saying:human_cold | saying | when the wind drops, bring the herd close
+saying:human_cold | saying | under fresh snow, even solid ground lies
+saying:human_cold | saying | hold your tongue on thin ice
+saying:human_cold | saying | every thaw uncovers what the winter took
+saying:human_cold | saying | go when the grass goes, and come back with it
+saying:human_cold | saying | those who boast in summer beg in winter
+saying:human_cold | saying | on a cold sea, the oar keeps you warm
+saying:human_cold | saying | if the clan is warm, the winter is short
+saying:human_cold | saying | all fires go out, but embers can be carried
+saying:human_cold | saying | nothing spoils in a winter tent but tempers
+saying:human_cold | saying | it's better to crowd the tent than to fill a grave
+saying:human_cold | saying | wherever the herd sleeps, the clan is home
+saying:human_cold | saying | know water in all its shapes, or leave it alone
+saying:human_cold | saying | listen to the oldest herder, not the loudest
+saying:human_cold | saying | some trails are old because they are safe
+saying:human_cold | saying | don't count the herd before the thaw
+saying:human_cold | saying | our breath freezes, but our word does not
+saying:human_cold | saying | the wind takes every word the clan does not repeat
+
+# ---- saying:human_large_island ----
+saying:human_large_island | saying | the kiln shows what the clay was hiding
+saying:human_large_island | saying | a terrace grows by the basket, not the cart
+saying:human_large_island | saying | no clay forgets the hand that shaped it
+saying:human_large_island | saying | what goes unwritten goes unmourned
+saying:human_large_island | saying | every terrace began as a steep slope and a stubborn family
+saying:human_large_island | saying | on the terraces, even a sigh has neighbours
+saying:human_large_island | saying | whoever comes by boat leaves by boat
+saying:human_large_island | saying | only the patient hear what the wind is saying
+saying:human_large_island | saying | when the temple speaks, the valley listens
+saying:human_large_island | saying | with wet feet in spring come full bowls in autumn
+saying:human_large_island | saying | never open the kiln while it's hot
+saying:human_large_island | saying | our names are older than our faces; the ink keeps them
+saying:human_large_island | saying | if the valley smells of salt, tie down the roof
+saying:human_large_island | saying | all roads on an island end at the sea
+saying:human_large_island | saying | once it is on the scroll, the argument is over
+saying:human_large_island | saying | from a quiet mind comes a steady brush
+saying:human_large_island | saying | ask the scholar before you ask the wind
+saying:human_large_island | saying | sometimes the wind brings seed, sometimes the storm
+saying:human_large_island | saying | too proud a potter makes too thin a pot
+saying:human_large_island | saying | under the storm, bamboo bends and stands again
+saying:human_large_island | saying | watch the stranger who bows too low at the temple
+saying:human_large_island | saying | listen to the house before you listen to your heart
+saying:human_large_island | saying | don't argue with the kiln
+saying:human_large_island | saying | leave the prayers to the temple and mend your own roof
+
+# ---- saying:human_rainforest ----
+saying:human_rainforest | saying | in the canopy, a call carries; a whisper drowns
+saying:human_rainforest | saying | a stranger in the green is a spear not yet thrown
+saying:human_rainforest | saying | no vine climbs alone
+saying:human_rainforest | saying | those born in the same rains are sung together
+saying:human_rainforest | saying | whatever you clear, the green takes back
+saying:human_rainforest | saying | only stone outlasts the rain
+saying:human_rainforest | saying | under the canopy, rain lasts longer than the storm
+saying:human_rainforest | saying | never drink water that doesn't move
+saying:human_rainforest | saying | every leaf is medicine or poison, depending on the hand
+saying:human_rainforest | saying | while the cohort sings them, the dead stay green
+saying:human_rainforest | saying | stay with your age-mates, even in the dark
+saying:human_rainforest | saying | if the green goes quiet, someone is coming
+saying:human_rainforest | saying | among age-mates, no debt is counted
+saying:human_rainforest | saying | the tree that breaks the canopy is where the lightning lands
+saying:human_rainforest | saying | some rains bring fruit and some bring fever
+saying:human_rainforest | saying | many rains pass before a temple stands
+saying:human_rainforest | saying | all the cohort lifts the stone, or nobody does
+saying:human_rainforest | saying | whoever dances alone, the earth ignores
+saying:human_rainforest | saying | before the temple, every spear is lowered
+saying:human_rainforest | saying | trust no path you didn't cut yourself
+saying:human_rainforest | saying | nothing dries in the green, not even grief
+saying:human_rainforest | saying | from the canopy's bitterest bark comes its brightest dye
+saying:human_rainforest | saying | each cohort must cut its own clearing
+saying:human_rainforest | saying | don't grab a vine you haven't looked at
+
+# ---- saying:human_heartland ----
+saying:human_heartland | saying | the plough follows the axe
+saying:human_heartland | saying | a lord's favour is a hedge with gaps
+saying:human_heartland | saying | no field clears itself
+saying:human_heartland | saying | what's written is kept; what's spoken is argued over
+saying:human_heartland | saying | every new field was forest once
+saying:human_heartland | saying | on the open plain, even a whisper reaches the lord
+saying:human_heartland | saying | make the fence before you buy the ox
+saying:human_heartland | saying | never raise a light you haven't learned to dim
+saying:human_heartland | saying | each thread you skip, the buyer finds
+saying:human_heartland | saying | when the plain goes quiet, the storm is close
+saying:human_heartland | saying | don't clear more land than you can plough
+saying:human_heartland | saying | an axe kept sharp is a day saved
+saying:human_heartland | saying | until the wood is seasoned, don't build with it
+saying:human_heartland | saying | wherever the axe goes, the charter follows
+saying:human_heartland | saying | all of us end in the field, but the book remembers
+saying:human_heartland | saying | some years you reap, and some years you mend
+saying:human_heartland | saying | look at the hedges if you want to know the farmer
+saying:human_heartland | saying | for every tree you fell, leave another standing
+saying:human_heartland | saying | most of a good harvest is weather, whatever the almanac says
+saying:human_heartland | saying | nobody's field is as wide as their charter claims
+saying:human_heartland | saying | mind your own furrow
+saying:human_heartland | saying | any stranger is a neighbour while the bargain holds
+saying:human_heartland | saying | under your own roof, you're lord enough
+saying:human_heartland | saying | between the loom and the hearth, a house is kept
+
+# ---- saying:elf ----
+saying:elf | saying | the root knows what the leaf forgets
+saying:elf | saying | a tree is judged by its rings, not its leaves
+saying:elf | saying | no bough is older than its trunk
+saying:elf | saying | what the elders plant, the young will sit beneath
+saying:elf | saying | every song is a branch of an older song
+saying:elf | saying | where the axe rings, the song stops
+saying:elf | saying | listen longer than you speak; the forest does
+saying:elf | saying | only blood can hold the weave
+saying:elf | saying | stay rooted, and storms only prune you
+saying:elf | saying | few friends walk loudly in the forest
+saying:elf | saying | even the oldest oak still grows
+saying:elf | saying | each herb has its hour; the forest will tell you when
+saying:elf | saying | all fallen leaves feed the tree that dropped them
+saying:elf | saying | not every acorn becomes an oak
+saying:elf | saying | nothing looks stronger than a dead branch
+saying:elf | saying | when the leaves turn their backs, the sky will open
+saying:elf | saying | don't cut what you can grow
+saying:elf | saying | our house has roots older than its walls
+saying:elf | saying | those who sing the old songs to strangers weaken the weave
+saying:elf | saying | if the elders are silent, wait longer
+saying:elf | saying | remember the seed when you boast of the tree
+saying:elf | saying | whoever weaves in anger spends a long life unpicking
+saying:elf | saying | leave no mark the moss can't cover
+saying:elf | saying | whatever is dyed in haste fades while its maker still lives
+
+# ---- saying:dwarf ----
+saying:dwarf | saying | what the chisel says, the tongue can't unsay
+saying:dwarf | saying | a hall echoes every careless word
+saying:dwarf | saying | no arch stands without its keystone
+saying:dwarf | saying | look for the grain before you strike the stone
+saying:dwarf | saying | every vault gives back only what it was given
+saying:dwarf | saying | among the guild, the mark on your stone is your name
+saying:dwarf | saying | each hammer blow stays in the iron
+saying:dwarf | saying | after the mason is dust, the wall still stands
+saying:dwarf | saying | beware the guest who counts the pillars
+saying:dwarf | saying | many hands wake the stone that no hand can move
+saying:dwarf | saying | under poor rock, the best ore sleeps
+saying:dwarf | saying | never ignore a hairline crack
+saying:dwarf | saying | if the stone sweats, rain follows
+saying:dwarf | saying | when the hall is quiet, the stone is listening
+saying:dwarf | saying | we are stones in the same wall
+saying:dwarf | saying | an honest wall needs no plaster
+saying:dwarf | saying | don't sleep under a wall you didn't build
+saying:dwarf | saying | only a fool thanks luck for a straight cut
+saying:dwarf | saying | in the hall, the oldest carving has the last word
+saying:dwarf | saying | trust is laid like mortar, slowly and in layers
+saying:dwarf | saying | true stone rings when struck
+saying:dwarf | saying | once the guild has spoken, the hammers agree
+saying:dwarf | saying | nothing built in haste bears weight for long
+saying:dwarf | saying | for every stone taken, the earth is owed thanks
+
+# ---- saying:tidekin ----
+saying:tidekin | saying | the calmest landing hides the sharpest rocks
+saying:tidekin | saying | a crew is the kin you choose at the landing
+saying:tidekin | saying | no net should hold the whole shoal
+saying:tidekin | saying | even the drowned come home in the song
+saying:tidekin | saying | until the whole crew agrees, the sea can wait
+saying:tidekin | saying | all rain is the tide coming home
+saying:tidekin | saying | if the sea is in your blood, it will answer
+saying:tidekin | saying | keep the old songs; the tide keeps nothing else
+saying:tidekin | saying | over the surf, a song carries farther than a shout
+saying:tidekin | saying | only colour drawn from the shallows survives the salt
+saying:tidekin | saying | leave the grudge to the ebb
+saying:tidekin | saying | between tides, mend what the last tide tore
+saying:tidekin | saying | when the swell comes before the wind, beach the boats
+saying:tidekin | saying | for every ebb, the flood returns
+saying:tidekin | saying | anything but the songs may be traded
+saying:tidekin | saying | nobody rows home alone
+saying:tidekin | saying | most luck is a net mended before it tears
+saying:tidekin | saying | everyone goes back to the water
+saying:tidekin | saying | whoever forgets their blood forgets the water's name
+saying:tidekin | saying | wait for the tide; the wind changes its mind
+saying:tidekin | saying | don't turn your back on the surf
+saying:tidekin | saying | an old hand still learns a new verse from the surf
+saying:tidekin | saying | with the stranger, bargain; with the sea, never
+saying:tidekin | saying | every voyage starts with wet feet and ends in song
+
+# ---- saying:gnome ----
+saying:gnome | saying | a spring wound too tight will snap
+saying:gnome | saying | the ledger forgets nothing and forgives less
+saying:gnome | saying | no seal means no deal
+saying:gnome | saying | every gear turns its neighbour
+saying:gnome | saying | mind the squeak, or mend the wreck
+saying:gnome | saying | in the market, the loudest stall sells least
+saying:gnome | saying | whoever works the bench is family
+saying:gnome | saying | through clear glass, every flaw shows
+saying:gnome | saying | don't seal what you haven't read
+saying:gnome | saying | without a steady eye, a lens is only glass
+saying:gnome | saying | unless the pattern is written down, the weave unravels
+saying:gnome | saying | when the caravan stops, the workshop opens
+saying:gnome | saying | keep your tools where your hands expect them
+saying:gnome | saying | nothing new ever works right away
+saying:gnome | saying | all the best inventions started as accidents
+saying:gnome | saying | any stranger's trick is ours by nightfall
+saying:gnome | saying | each spring runs down in its own time
+saying:gnome | saying | let the machine do the boasting
+saying:gnome | saying | an assembly without argument is a market without noise
+saying:gnome | saying | if the clock runs slow, check the weather before the gears
+saying:gnome | saying | you can't haggle with a stripped gear
+saying:gnome | saying | listen to the ticking, not the talking
+saying:gnome | saying | never own a machine you can't take apart
+saying:gnome | saying | before you pour, check the mould
+
+# ---- saying:hill_dwarf ----
+saying:hill_dwarf | saying | a guest at the table brings luck to the house
+saying:hill_dwarf | saying | the garden remembers the gardener
+saying:hill_dwarf | saying | no seed grows faster for being scolded
+saying:hill_dwarf | saying | leave strange lights and old stones well alone
+saying:hill_dwarf | saying | what you sow in spring, you share in autumn
+saying:hill_dwarf | saying | while you argue, the weeds grow
+saying:hill_dwarf | saying | never eat the seed, however fine the company
+saying:hill_dwarf | saying | good dirt under the nails means bread on the table
+saying:hill_dwarf | saying | when the hills wear a cap, bring the washing in
+saying:hill_dwarf | saying | everyone has a say before anyone has supper
+saying:hill_dwarf | saying | keep your worries on the doorstep
+saying:hill_dwarf | saying | there's no shame in a patched coat or a full plate
+saying:hill_dwarf | saying | an idle hoe makes an empty larder
+saying:hill_dwarf | saying | whatever's said over the hedge is known by supper
+saying:hill_dwarf | saying | nobody trusts a gardener with clean boots
+saying:hill_dwarf | saying | stay on the path your grandmother walked
+saying:hill_dwarf | saying | every tale grows a little for each guest who hears it
+saying:hill_dwarf | saying | even the fattest marrow goes to the compost
+saying:hill_dwarf | saying | once the kettle has boiled, nobody is a stranger
+saying:hill_dwarf | saying | if it rains at a wedding, the barns will be full
+saying:hill_dwarf | saying | under the same roof, share the same pot
+saying:hill_dwarf | saying | mind the mushrooms that grow in rings
+saying:hill_dwarf | saying | with the right herbs, thin soup becomes a feast
+saying:hill_dwarf | saying | bring your quarrels to the moot, not to the table
+
+# ---- saying:frosthold_dwarf ----
+saying:frosthold_dwarf | saying | the heir inherits the hammer and the grudges
+saying:frosthold_dwarf | saying | in ice, a carving lasts a season; in stone, forever
+saying:frosthold_dwarf | saying | no hold survives a cold forge
+saying:frosthold_dwarf | saying | keep the iron hot and the welcome cold
+saying:frosthold_dwarf | saying | every bargain with the water comes due
+saying:frosthold_dwarf | saying | never ask the water for what the forge can make
+saying:frosthold_dwarf | saying | a lord's word is iron; a stranger's is ice
+saying:frosthold_dwarf | saying | whoever sits the high seat answers for every hearth
+saying:frosthold_dwarf | saying | even ice remembers the shape of what it held
+saying:frosthold_dwarf | saying | only a hard winter shows which kin are steel
+saying:frosthold_dwarf | saying | out on the winter ice, patience is the only bait
+saying:frosthold_dwarf | saying | when the wind screams, the forge sings
+saying:frosthold_dwarf | saying | let the blade cool before you judge its edge
+saying:frosthold_dwarf | saying | our dead are named in stone, where the frost can't reach
+saying:frosthold_dwarf | saying | all metal turns brittle in the deep cold
+saying:frosthold_dwarf | saying | don't hammer cold iron or a cold temper
+saying:frosthold_dwarf | saying | while the ice holds, the cellar holds
+saying:frosthold_dwarf | saying | whatever the frozen seam gives, the arm has earned
+saying:frosthold_dwarf | saying | we break before we bend
+saying:frosthold_dwarf | saying | hold the gate and the gate will hold you
+saying:frosthold_dwarf | saying | with salt, smoke and ice, a hold outlasts any siege
+saying:frosthold_dwarf | saying | if a stranger smiles, watch their hands
+saying:frosthold_dwarf | saying | each hold keeps its own counsel, and its grudges on ice
+saying:frosthold_dwarf | saying | beware the thaw on the cliffs more than the frost

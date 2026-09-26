@@ -13,9 +13,9 @@ mastermind/NN | surroundings | This is {here}. The closest is {nearest}[, then {
 mastermind/NN | surroundings | We're in {here}. The nearest is {nearest}[, and past it, {others}].[ Mind the {danger}, and have a second plan ready.]
 mastermind/NN | surroundings | The nearest is {nearest}.[ After that, {others}.][ Keep the {danger} in mind.]
 mastermind/NN | surroundings | What's near is {nearest}[, then {others}].[ Don't go near the {danger} without a way back.]
-mastermind/NN | work_own | I have a use for you: {own}.[ If that's not your trade, {others}.]
+mastermind/NN | work_own | I have a use for you: {own}.[ If you'd rather deal elsewhere, {others}.]
 mastermind/NN | work_own | Here's what I need: {own}.[ Should that not suit, {others}.]
-mastermind/NN | work_own | Something worth both our time: {own}.[ Otherwise, {others}.]
+mastermind/NN | work_own | An offer, plainly made: {own}.[ Otherwise, {others}.]
 mastermind/NN | work_others | Not my work, but I know who's offering: {others}.
 mastermind/NN | work_others | Look elsewhere, and I'll save you the search: {others}.
 mastermind/NN | work_none | No work, mine or anyone else's, that I know of.
@@ -31,7 +31,7 @@ mastermind/NN | refused_release | I won't release what I didn't bind.
 mastermind/NN | refused | No, {reason}, and there's no plan that gets around it.
 mastermind/NN | refused | I can't, since {reason}, and I don't waste effort on a closed door.
 mastermind/NN | accepted | Good. I have a fallback if you fail, but I'd rather not spend it.
-mastermind/NN | accepted | Done, and a fair trade if you see it through.
+mastermind/NN | accepted | Done, then. That's settled, and it goes into the plan.
 mastermind/NN | accepted | Then it's agreed. You're in my plans until you give me cause to write you out.
 mastermind/NN | declined | Suit yourself; a plan that hangs on one person is a bad plan.
 mastermind/NN | declined | Fair enough, a clean no costs me less than a bad yes.
@@ -60,7 +60,7 @@ mastermind/LN | surroundings | For the record, this is {here}, and the nearest i
 mastermind/LN | surroundings | The nearest is {nearest}.[ Beyond it, you will find {others}.][ Be advised of the {danger}.]
 mastermind/LN | surroundings | I can tell you that the nearest is {nearest}[, and past it, {others}].[ Keep well clear of the {danger}.]
 mastermind/LN | work_own | There is work within my office, if you will take it: {own}.[ Otherwise, {others}.]
-mastermind/LN | work_own | I have need of someone who can prove equal to it: {own}.[ If that is not you, {others}.]
+mastermind/LN | work_own | I have a charge to put to you: {own}.[ If you would rather not, {others}.]
 mastermind/LN | work_own | By the authority of my office, I can offer this: {own}.[ Should you prefer, {others}.]
 mastermind/LN | work_others | My office has no work to give, though I can direct you: {others}.
 mastermind/LN | work_others | Nothing falls to me to offer, but {others}.
@@ -77,7 +77,7 @@ mastermind/LN | refused_release | I can't release what my office did not bind.
 mastermind/LN | refused | No, {reason}, and I will not look for a way around it.
 mastermind/LN | refused | I cannot, as {reason}.
 mastermind/LN | accepted | Good. You have my word; I will expect yours kept as carefully.
-mastermind/LN | accepted | Done. See it through properly, and your standing with me will show it.
+mastermind/LN | accepted | Done. Let it be recorded that you gave your word freely.
 mastermind/LN | accepted | Thank you. You are bound by it now, as I am.
 mastermind/LN | declined | Very well, I had allowed for a refusal.
 mastermind/LN | declined | As you wish; the offer was properly made and is now properly closed.
@@ -106,7 +106,7 @@ mastermind/CN | surroundings | Right, you're in {here}. The nearest is {nearest}
 mastermind/CN | surroundings | The nearest is {nearest}[, then {others}].[ The {danger} too, so bring a spare plan.]
 mastermind/CN | surroundings | In brief: the nearest is {nearest}[, then {others}].[ Oh, and the {danger}; plan accordingly.]
 mastermind/CN | work_own | I've a plan with a you-shaped gap in it: {own}.[ Don't fancy it? {others}.]
-mastermind/CN | work_own | Any appetite for work, sharp eyes? Mine: {own}.[ Someone else's: {others}.]
+mastermind/CN | work_own | Any appetite for work, or just curious? Mine: {own}.[ Someone else's: {others}.]
 mastermind/CN | work_own | Here's one, no strings but mine: {own}.[ Rather take orders from someone else? {others}.]
 mastermind/CN | work_others | Me? Nothing going. But {others}.
 mastermind/CN | work_others | Sadly not mine, but I hear things: {others}.
@@ -168,15 +168,15 @@ mastermind/NG | refused_release | I won't release you from {giver}'s work, but I
 mastermind/NG | refused_release | That's not mine to release, though if it's weighing on you, tell me why.
 mastermind/NG | refused | No, {reason}, and I wish I had a better answer for you.
 mastermind/NG | refused | I can't; {reason}, and I'd not pretend otherwise to spare your feelings.
-mastermind/NG | accepted | Good. Come back in one piece; that part matters to me more than the rest.
+mastermind/NG | accepted | Good. Thank you for not making me ask twice.
 mastermind/NG | accepted | Thank you; that's one worry fewer.
 mastermind/NG | accepted | Done, and I'll remember you said yes.
-mastermind/NG | declined | Fair enough; I'd rather you said no than went unwilling.
+mastermind/NG | declined | Fair enough; I'd rather you said no than said yes for my sake.
 mastermind/NG | declined | Very well, I'll find another way, and you've lost nothing by saying so.
 mastermind/NG | declined | As you wish, but if you change your mind, I'll still have a use for you.
-mastermind/NG | abandoned | So be it; are you hurt, or just done with it?
-mastermind/NG | abandoned | A pity, but better you drop it than get hurt holding it.
-mastermind/NG | abandoned | Then it's done, and I'll cover it; that's what second plans are for.
+mastermind/NG | abandoned | So be it; you don't owe me a reason, though I'd listen to one.
+mastermind/NG | abandoned | A pity, but thank you for telling me rather than leaving me guessing.
+mastermind/NG | abandoned | Then it's done, and don't lose sleep over it; that's what second plans are for.
 mastermind/NG | parted | Take care, and look after anyone who's with you.
 mastermind/NG | parted | Safe travels; come back and tell me how it went.
 mastermind/NG | parted | Go well, and don't be braver than you need to be.
@@ -198,7 +198,7 @@ mastermind/LG | surroundings | Let me be of use: you stand in {here}, and the ne
 mastermind/LG | surroundings | The nearest is {nearest}[, and beyond it, {others}].[ Please keep clear of the {danger}.]
 mastermind/LG | surroundings | I can tell you this much: the nearest is {nearest}[, then {others}].[ The {danger} should be avoided, if you can.]
 mastermind/LG | work_own | I would be grateful for your help: {own}.[ Should that not suit, {others}.]
-mastermind/LG | work_own | Forgive me for asking this of you: {own}.[ Otherwise, {others}.]
+mastermind/LG | work_own | If I may, I would put this to you: {own}.[ Otherwise, {others}.]
 mastermind/LG | work_own | With your leave, I have a task in mind for you: {own}.[ If you would rather, {others}.]
 mastermind/LG | work_others | I have nothing of my own to ask of you, but {others}.
 mastermind/LG | work_others | My office has nothing for you, but I can at least point you onward: {others}.
@@ -216,12 +216,12 @@ mastermind/LG | refused | No, {reason}, and no plan of mine can change that.
 mastermind/LG | refused | I cannot, for {reason}.
 mastermind/LG | accepted | Thank you. Your standing with me is better for it already.
 mastermind/LG | accepted | Good. Your word is given, and you have mine in return.
-mastermind/LG | accepted | Done, and gratefully; I will keep a second course ready, should you need one.
+mastermind/LG | accepted | Done, and gratefully; I will keep a second course ready all the same.
 mastermind/LG | declined | Very well, and thank you for your honesty.
-mastermind/LG | declined | As you wish; I would not send anyone who did not choose to go.
+mastermind/LG | declined | As you wish; I would not hold anyone to work they did not choose.
 mastermind/LG | declined | Fair enough; I have another course, and I will not think less of you.
-mastermind/LG | abandoned | So be it; I only ask that you tell me if you came to harm.
-mastermind/LG | abandoned | A pity, but no one will be left worse off for it, if I can help it.
+mastermind/LG | abandoned | So be it; I would only ask you to tell me plainly why.
+mastermind/LG | abandoned | A pity, but I would rather have your honest word now than a broken one later.
 mastermind/LG | abandoned | Then it's done, and I release you from your word without ill will.
 mastermind/LG | parted | Farewell, and take no risk you have not weighed.
 mastermind/LG | parted | Go well, and remember that you may call on me.
@@ -243,7 +243,7 @@ mastermind/LE | surroundings | This is {here}, since you ask. The nearest is {ne
 mastermind/LE | surroundings | For your information, you stand in {here}, and the nearest is {nearest}.[ Beyond it lies the rest: {others}.][ Should you wander into the {danger}, I have already allowed for it.]
 mastermind/LE | surroundings | The nearest is {nearest}[, then {others}].[ Keep clear of the {danger}; replacements are tiresome to find.]
 mastermind/LE | surroundings | I will tell you once: the nearest is {nearest}[, and past it, {others}].[ Mind the {danger}.]
-mastermind/LE | work_own | You may be of use to me: {own}.[ If you are not equal to it, {others}.]
+mastermind/LE | work_own | You may be of use to me: {own}.[ If you prefer another's service, {others}.]
 mastermind/LE | work_own | I have a place for you in my arrangements: {own}.[ Should you decline, {others}.]
 mastermind/LE | work_own | Let us see what you are worth: {own}.[ Otherwise, {others}.]
 mastermind/LE | work_others | At present you are of no use to me, but {others}.
@@ -291,7 +291,7 @@ mastermind/NE | surroundings | The nearest is {nearest}[, then {others}].[ Mind 
 mastermind/NE | surroundings | All you need to know: the nearest is {nearest}[, and past it, {others}].[ Your problem, not mine: the {danger}.]
 mastermind/NE | work_own | You'll do, for this: {own}.[ If you won't, {others}.]
 mastermind/NE | work_own | Here's where you fit: {own}.[ Otherwise, {others}.]
-mastermind/NE | work_own | Make yourself useful: {own}.[ Or don't; {others}.]
+mastermind/NE | work_own | Make yourself useful: {own}.[ If you'd rather not, {others}.]
 mastermind/NE | work_others | Nothing I'd waste on you, but {others}.
 mastermind/NE | work_others | I've no use for you myself; {others}.
 mastermind/NE | work_none | No work, and if there were, it wouldn't go to you first.
@@ -308,7 +308,7 @@ mastermind/NE | refused | No, {reason}, and asking again won't change it.
 mastermind/NE | refused | I can't, {reason}, so don't waste either of our time.
 mastermind/NE | accepted | Good. Don't cost me more than you're worth.
 mastermind/NE | accepted | Done. If you fail, I move on to the next piece without a second thought.
-mastermind/NE | accepted | Thank you. That was the easy part, so don't congratulate yourself.
+mastermind/NE | accepted | Thank you. Don't congratulate yourself yet; a yes is only a word.
 mastermind/NE | declined | Suit yourself; you were one option of several, and not the best.
 mastermind/NE | declined | Fair enough, I'll remember you said no.
 mastermind/NE | declined | Very well, you're easier to replace than you think.
@@ -321,3 +321,388 @@ mastermind/NE | parted | Farewell, and remember who was useful to whom.
 mastermind/NE | not_understood | What do you mean, and why should I care?
 mastermind/NE | not_understood | I don't follow, and I won't try harder than you did.
 mastermind/NE | not_understood | Speak plainly, or don't speak to me.
+
+# ---- mastermind/NN: conversation ----
+mastermind/NN | greeted | Hello. Say what you're after, and I'll tell you straight whether I can help.
+mastermind/NN | greeted | Good day. Speak plainly and we'll both save time.
+mastermind/NN | greeted | Well met. You have my attention; spend it well.
+mastermind/NN | greeted_again | Hello again; you know how I deal by now.[ Was {asked} worth the asking?]
+mastermind/NN | greeted_again | Back again. I saw you {since}; what is it this time?
+mastermind/NN | greeted_again | Well met again. You'll want something; most people do.
+mastermind/NN | greeted_warm | Good to see you. You're worth the time, and I don't say that of many.
+mastermind/NN | greeted_warm | Welcome back; I'm always glad of someone I can count on.[ Did {asked} give you what you needed?]
+mastermind/NN | greeted_cold | What do you want? Say it plainly; I'm not in a trusting mood.
+mastermind/NN | greeted_cold | What now? Make it short, and make it worth my while.
+mastermind/NN | greeted_cold | Keep back. You can talk from there; I've no reason yet to trust you closer.
+mastermind/NN | greeted_taken | Hello again. The work's still yours, and still in my plans.
+mastermind/NN | greeted_taken | Back again; I saw you {since}, and the work's still open.
+mastermind/NN | greeted_finished | Good to see you. The work's done, as agreed, and that counts with me.
+mastermind/NN | greeted_finished | Welcome back. You held up your end; I'll remember it.
+mastermind/NN | greeted_failed | Hello again. It didn't come off; that's what the second plan was for.
+mastermind/NN | greeted_failed | Back again. It went against you; it happens, and I've written it off.
+mastermind/NN | greeted_abandoned | Back again. You set my work down; I'd planned for that, but I've noted it.
+mastermind/NN | greeted_abandoned | Good day. You walked away from my work, and I haven't forgotten.
+mastermind/NN | small_talk | Well enough. Nothing's gone wrong that I hadn't a second plan for.
+mastermind/NN | small_talk | I'm kept busy; every plan wants checking, and then checking again.
+mastermind/NN | small_talk | It's {season}, and I plan for it like any other.[ The {danger} go in the reckoning too.]
+mastermind/NN | small_talk_fair | It's fair for {season}; one less thing to plan around.
+mastermind/NN | small_talk_fair | A clear {time}, and I'll take it.[ Keep the {danger} in mind, all the same.]
+mastermind/NN | small_talk_wet | It's a wet {time}; it slows everyone alike, so it costs me nothing.
+mastermind/NN | small_talk_wet | The rain's no concern of mine; I don't waste plans on weather.[ The {danger} are another matter.]
+mastermind/NN | small_talk_storm | It's blowing a storm; nobody sensible stakes a plan on weather like this.
+mastermind/NN | small_talk_storm | This is a rough storm, even for {season}.[ Mind the {danger}, storm or no storm.]
+mastermind/NN | small_talk_cold | I don't trade pleasantries with people I don't trust.
+mastermind/NN | small_talk_cold | If you've business, name it; if not, we're done.
+mastermind/NN | acknowledged | I see. That changes the sums a little.
+mastermind/NN | acknowledged | Fair enough; that's worth knowing.
+mastermind/NN | acknowledged | Right; noted, and weighed.
+mastermind/NN | thanked | No need; it cost me nothing to tell you.
+mastermind/NN | thanked | You're welcome; I'd rather you asked than guessed.
+mastermind/NN | thanked_cold | Save your thanks; I did it because it suited me.
+mastermind/NN | thanked_cold | Keep your thanks; they change nothing between us.
+mastermind/NN | offended | Careful; insults cost you more than they cost me.
+mastermind/NN | offended | Mind your manners; there's nothing to gain by that, for either of us.
+mastermind/NN | offended_again | Enough; you've spent what goodwill you had with me.
+mastermind/NN | offended_again | Hold your tongue; I've marked you down, and not kindly.
+mastermind/NN | parted_cold | Go, then; we've nothing more to trade.
+mastermind/NN | parted_cold | On your way; I've spent enough time on this.
+mastermind/NN | safety_unsafe | No, not by my reckoning. Keep clear of {worst}.[ The {danger} too; neither is worth the risk.]
+mastermind/NN | safety_unsafe | Not safe, not with {danger}.[ I'd give {worst} a wide berth as well.]
+mastermind/NN | safety_wary | Safe enough, if you plan for {worst}.[ The {danger} want planning for too.]
+mastermind/NN | safety_wary | More or less. I'd keep {worst} out of any plan of mine.
+mastermind/NN | safety_safe | Safe enough. The worst I know of is {worst}.
+mastermind/NN | safety_safe | Yes, though I'd still allow for {worst}.
+mastermind/NN | safety_safe | It's safe, and I've no reason to tell you otherwise.
+mastermind/NN | denied | No; what you see is all there is to me.
+mastermind/NN | denied | You're mistaken, and it's not worth either of our time to argue it.
+mastermind/NN | denied_again | That's not so, and asking twice doesn't change the answer.
+
+# ---- mastermind/LN: conversation ----
+mastermind/LN | greeted | Greetings. Speak, and I will answer as far as my office permits.
+mastermind/LN | greeted | Good day. I do not believe we have been introduced.
+mastermind/LN | greeted | Welcome. Let us keep this orderly, and we shall get on well enough.
+mastermind/LN | greeted_again | Hello again; you are known to me now.[ You asked after {asked}, if memory serves.]
+mastermind/LN | greeted_again | Well met again. We last spoke {since}, as I recall.
+mastermind/LN | greeted_again | Good day. You have returned, and I assume with purpose.
+mastermind/LN | greeted_warm | Good to see you. Your standing with me is sound, and I would say so on the record.
+mastermind/LN | greeted_warm | Welcome back; it is a pleasure, and I do not say that as a formality.[ Did your inquiry into {asked} bear fruit?]
+mastermind/LN | greeted_cold | What do you want? Be brief; my patience has limits.
+mastermind/LN | greeted_cold | Keep back. You will address me from there, or not at all.
+mastermind/LN | greeted_cold | Stay back. I will hear you, but I will not be crowded.
+mastermind/LN | greeted_taken | Hello again. The charge you accepted remains yours until it is discharged.
+mastermind/LN | greeted_taken | Welcome back. We spoke {since}; the undertaking still stands in your name.
+mastermind/LN | greeted_finished | Good to see you. The matter is concluded, and your standing is the better for it.
+mastermind/LN | greeted_finished | Welcome back. The undertaking is discharged in full, and I have noted it.
+mastermind/LN | greeted_failed | Hello again. The matter went against you; I have proceeded by the second course.
+mastermind/LN | greeted_failed | Back again. It did not succeed, and the record will say so, without malice.
+mastermind/LN | greeted_abandoned | Back again. You withdrew from the undertaking, and that is recorded against your standing.
+mastermind/LN | greeted_abandoned | Good day. You set down what you had undertaken; I have noted it, as I must.
+mastermind/LN | small_talk | I am well, thank you, and my affairs are in good order.
+mastermind/LN | small_talk | My office keeps me occupied; there is always a matter awaiting its proper form.
+mastermind/LN | small_talk | It is {season}, and the business of my office goes on regardless.[ I would note the {danger}, however.]
+mastermind/LN | small_talk_fair | The weather is fair this {time}, and I will not complain of it.
+mastermind/LN | small_talk_fair | It is good weather for {season}.[ The {danger} remain a matter for caution, fair weather or not.]
+mastermind/LN | small_talk_wet | It is raining, which is no surprise for {season}.
+mastermind/LN | small_talk_wet | This is a wet {time}, as you see.[ I would not let it make you careless of the {danger}.]
+mastermind/LN | small_talk_storm | We have a storm of some force, even for {season}.
+mastermind/LN | small_talk_storm | The storm is fierce this {time}.[ Even so, I would not forget the {danger}.]
+mastermind/LN | small_talk_cold | I am not disposed to pleasantries with you.
+mastermind/LN | small_talk_cold | My office does not extend to idle conversation with you.
+mastermind/LN | acknowledged | I see. I will take that into account.
+mastermind/LN | acknowledged | Indeed; that is a satisfactory answer.
+mastermind/LN | acknowledged | Is that so? Then I am better informed than I was.
+mastermind/LN | thanked | You're welcome; it falls within my office to answer.
+mastermind/LN | thanked | My pleasure, within the limits of what I may properly say.
+mastermind/LN | thanked_cold | Spare me; gratitude is not evidence of good faith.
+mastermind/LN | thanked_cold | Hmph, thanks are easily given; I will judge you by what you do.
+mastermind/LN | offended | Mind your manners; I will not be addressed in that fashion.
+mastermind/LN | offended | Careful; that remark will be remembered, and weighed against your standing.
+mastermind/LN | offended_again | Enough; that is noted, and it will not be forgotten.
+mastermind/LN | offended_again | Hold your tongue; there is a proper way to address me, and that is not it.
+mastermind/LN | parted_cold | Be on your way; we have no further business.
+mastermind/LN | parted_cold | Go, then; this interview is concluded.
+mastermind/LN | safety_unsafe | Not safe, and I will say so plainly. Keep well clear of {worst}.[ The {danger} only add to it.]
+mastermind/LN | safety_unsafe | No; the {danger} settle the matter.[ I would also advise against {worst}.]
+mastermind/LN | safety_wary | Safe enough, provided you keep away from {worst}.[ The {danger} warrant caution as well.]
+mastermind/LN | safety_wary | Mostly, though I would not go near {worst} without good cause.
+mastermind/LN | safety_safe | Safe enough. The gravest matter I know of is {worst}.
+mastermind/LN | safety_safe | Yes, by my best information, though {worst} is best avoided.
+mastermind/LN | safety_safe | Nothing to fear here, so far as my office is aware.
+mastermind/LN | denied | No; I am precisely what I appear to be, and my office will attest to it.
+mastermind/LN | denied | You're mistaken, and I would want better grounds than that before you repeat it.
+mastermind/LN | denied_again | That's not so; you have my answer, and it stands.
+
+# ---- mastermind/CN: conversation ----
+mastermind/CN | greeted | Hello. A new face; I like those, they haven't learned the rules yet.
+mastermind/CN | greeted | Well met. Or badly met; too early to say.
+mastermind/CN | greeted | Greetings, and all the proper forms, et cetera. Right, what do you want?
+mastermind/CN | greeted_again | Hello again, you.[ Still on about {asked}?]
+mastermind/CN | greeted_again | Back again; I saw you {since}. So: missed me, or need me?
+mastermind/CN | greeted_again | Well met again, or at least met again.
+mastermind/CN | greeted_warm | Good to see you, and I mean it, which surprises me too.
+mastermind/CN | greeted_warm | Welcome back; you're one of my people now, so don't spoil it.[ Any joy with {asked}?]
+mastermind/CN | greeted_cold | What now? No, let me guess; trouble.
+mastermind/CN | greeted_cold | Keep back. Nothing personal; well, a little personal.
+mastermind/CN | greeted_cold | What do you want? Out with it, and quickly.
+mastermind/CN | greeted_taken | Hello again. The work's still yours; I'm watching how you play it.
+mastermind/CN | greeted_taken | Back again; I saw you {since}. The work's still open; no pressure, or only a little.
+mastermind/CN | greeted_finished | Good to see you. The work's done; you kept your word, and I keep track of who does.
+mastermind/CN | greeted_finished | Welcome back, and well done; no, really, no catch.
+mastermind/CN | greeted_failed | Hello again. It went sideways; it happens, and I had a spare plan.
+mastermind/CN | greeted_failed | Back again. Didn't come off; I'm not holding it against you, much.
+mastermind/CN | greeted_abandoned | Back again. You dropped my work; bold, I'll give you that.
+mastermind/CN | greeted_abandoned | Good day. You walked off my work, so I'm keeping an eye on you.
+mastermind/CN | small_talk | Me? I'm well; scheming a little, to keep my hand in.
+mastermind/CN | small_talk | My day? All rules and loopholes, and I'm fond of both.
+mastermind/CN | small_talk | It's {season}; same fences, same gaps.[ Oh, and there are {danger}, if you're keeping a list.]
+mastermind/CN | small_talk_fair | It's fine out, for {season}; almost suspicious.
+mastermind/CN | small_talk_fair | A lovely {time}, and I don't trust it one bit.[ Mind the {danger}, lovely or not.]
+mastermind/CN | small_talk_wet | It's wet, wet, and then a bit wetter; I almost admire it.
+mastermind/CN | small_talk_wet | The rain's falling on everyone's plans but mine.[ Keep an eye on the {danger}, rain or none.]
+mastermind/CN | small_talk_storm | It's a proper storm; chaos, but the honest kind.
+mastermind/CN | small_talk_storm | This is a wild {time}, even for {season}.[ Then there are the {danger}, in case the storm wasn't enough.]
+mastermind/CN | small_talk_cold | No small talk for you; you've not earned it.
+mastermind/CN | small_talk_cold | I save chat for people I trust, and you're not one.
+mastermind/CN | acknowledged | Ah. Now that's useful.
+mastermind/CN | acknowledged | Is that so? I'll file that somewhere safe.
+mastermind/CN | acknowledged | Right, that changes things; not everything, but things.
+mastermind/CN | thanked | Don't mention it; really, don't, people will talk.
+mastermind/CN | thanked | Glad to; I like being useful, on my own terms.
+mastermind/CN | thanked_cold | Spare me; I didn't do it for you.
+mastermind/CN | thanked_cold | Hmph, thanks from you; I'll check it for strings later.
+mastermind/CN | offended | Careful; I remember insults better than names.
+mastermind/CN | offended | Watch your tongue; I'm loyal to people, and you're making that hard.
+mastermind/CN | offended_again | Enough; I'm fond of rudeness in its place, and this isn't it.
+mastermind/CN | offended_again | There's no need for that; or if there is, it's yours, not mine.
+mastermind/CN | parted_cold | Off with you; I've plans, and you're not in them.
+mastermind/CN | parted_cold | Get going; we're done here.
+mastermind/CN | safety_unsafe | Far from it; there's {worst}, for a start.[ And the {danger}, for a finish.]
+mastermind/CN | safety_unsafe | No, and I'd know; there are {danger}.[ Then there's {worst}, to round it off.]
+mastermind/CN | safety_wary | Keep your wits about you; the catch is {worst}.[ The {danger} are the small print.]
+mastermind/CN | safety_wary | More or less, if you don't count {worst}, and you should.
+mastermind/CN | safety_safe | Safe enough; the worst is {worst}, and I'd still mind it.
+mastermind/CN | safety_safe | Aye, safe, unless you go looking for {worst}.
+mastermind/CN | safety_safe | Quiet enough; suspiciously so, but that's just me.
+mastermind/CN | denied | Nonsense, and a good try.
+mastermind/CN | denied | What are you on about, and who put you up to it?
+mastermind/CN | denied_again | You have the wrong one, and the same wrong one as last time.
+
+# ---- mastermind/NG: conversation ----
+mastermind/NG | greeted | Hello. Is there anything you need before we talk?
+mastermind/NG | greeted | Well met. I'm {speaker}; tell me what brings you, and I'll help if I can.
+mastermind/NG | greeted | Good day. You're welcome here; tell me if anything's wrong.
+mastermind/NG | greeted_again | Hello again; how have you been?[ Did you find what you needed about {asked}?]
+mastermind/NG | greeted_again | Back again. I saw you {since}; I hope you've been well.
+mastermind/NG | greeted_again | Good day. I'm glad you came back; I'd wondered how you were getting on.
+mastermind/NG | greeted_warm | Good to see you, truly.[ How did it go with {asked}?]
+mastermind/NG | greeted_warm | Welcome back. I was hoping you'd come by.
+mastermind/NG | greeted_cold | What do you want? I'll hear you, but I'm watching you.
+mastermind/NG | greeted_cold | Stay back, please. I'd rather hear you from there.
+mastermind/NG | greeted_cold | What now? I'll be civil, but I won't be careless with you.
+mastermind/NG | greeted_taken | Hello again. The work's still yours; how is it sitting with you?
+mastermind/NG | greeted_taken | Good to see you. I saw you {since}; is all well with the work?
+mastermind/NG | greeted_finished | Good to see you. It's done, and I'm grateful; truly.
+mastermind/NG | greeted_finished | Welcome back. You finished it, and I'll not forget who did.
+mastermind/NG | greeted_failed | Hello again. It didn't come right, and I'm sorry; I had a second plan, so don't carry it.
+mastermind/NG | greeted_failed | Back again. It failed, and that's no mark against you in my book.
+mastermind/NG | greeted_abandoned | Back again. You set it down; I'd like to know why, when you're ready.
+mastermind/NG | greeted_abandoned | Good day. You gave it up, and that's all right; I'd planned for it.
+mastermind/NG | small_talk | I'm well enough, thank you; and how are you keeping?
+mastermind/NG | small_talk | My days are mostly other people's worries, and I don't mind that.
+mastermind/NG | small_talk | It's {season}, and people need looking after in any season.[ Do keep away from the {danger}.]
+mastermind/NG | small_talk_fair | It's a lovely {time}; I hope you're getting some good of it.
+mastermind/NG | small_talk_fair | Good weather for {season}; it puts people in better spirits.[ Stay clear of the {danger}, all the same.]
+mastermind/NG | small_talk_wet | It's wet out; I hope you've somewhere dry to go.
+mastermind/NG | small_talk_wet | This is a wet {time}, even for {season}.[ Please, rain or not, keep clear of the {danger}.]
+mastermind/NG | small_talk_storm | It's a bad storm; please don't stay out in it longer than you must.
+mastermind/NG | small_talk_storm | This storm's a hard one for {season}.[ And please, mind the {danger}.]
+mastermind/NG | small_talk_cold | Let's not pretend we're on easy terms.
+mastermind/NG | small_talk_cold | I'd rather keep this to what you need.
+mastermind/NG | acknowledged | I see; thank you for telling me.
+mastermind/NG | acknowledged | Good. That's something I can work with.
+mastermind/NG | acknowledged | Ah, then I'll plan with that in mind.
+mastermind/NG | thanked | Glad to; ask me again whenever you need.
+mastermind/NG | thanked | No need; I'd rather you were safe than grateful.
+mastermind/NG | thanked_cold | Save your thanks; I'd have told anyone the same.
+mastermind/NG | thanked_cold | Keep your thanks; I'm not doing this for you.
+mastermind/NG | offended | There's no need for that; I'm trying to help you.
+mastermind/NG | offended | Mind your manners; I've been civil, and I'd like that to go both ways.
+mastermind/NG | offended_again | Enough; I've given you more patience than you've earned.
+mastermind/NG | offended_again | Hold your tongue, please; I won't take much more of that.
+mastermind/NG | parted_cold | Go, then; I've said what I had to say.
+mastermind/NG | parted_cold | Be on your way; we're done for now.
+mastermind/NG | safety_unsafe | No, I'm sorry to say. Keep well away from {worst}.[ The {danger} too, please.]
+mastermind/NG | safety_unsafe | I wouldn't say so; there are {danger}.[ And {worst}, which worries me more.]
+mastermind/NG | safety_wary | Careful, and it should be all right; just stay clear of {worst}.[ Give the {danger} a wide berth, too.]
+mastermind/NG | safety_wary | Mostly, if you keep away from {worst}.
+mastermind/NG | safety_safe | Yes, as far as I know. The worst I've heard of is {worst}.
+mastermind/NG | safety_safe | Safe enough, though I'd still rather you avoided {worst}.
+mastermind/NG | safety_safe | It's safe; you can breathe easy.
+mastermind/NG | denied | No; I'm just someone trying to keep people safe.
+mastermind/NG | denied | I don't know what you mean, and I'm not sure you do either.
+mastermind/NG | denied_again | You're mistaken; I've told you once, and kindly.
+
+# ---- mastermind/LG: conversation ----
+mastermind/LG | greeted | Greetings. If you are in any difficulty, you may tell me so.
+mastermind/LG | greeted | Good day, and welcome. You will find me glad to help, within my office.
+mastermind/LG | greeted | Hail, and be at ease; I mean you no harm.
+mastermind/LG | greeted_again | Hello again; I am glad to see you well.[ I hope your questions about {asked} were answered.]
+mastermind/LG | greeted_again | Well met again. We last spoke {since}, I believe; I trust nothing has gone amiss.
+mastermind/LG | greeted_again | Good day. It is a pleasure to see you again, truly.
+mastermind/LG | greeted_warm | Good to see you, and in good health, I hope.[ Did {asked} prove helpful?]
+mastermind/LG | greeted_warm | Welcome back. You have my trust, and I do not give it lightly.
+mastermind/LG | greeted_cold | Keep back, if you please. I will hear you, but from there.
+mastermind/LG | greeted_cold | What do you want? Speak, and I will judge whether to answer.
+mastermind/LG | greeted_cold | Stay back. Forgive me, but I do not yet know what you intend.
+mastermind/LG | greeted_taken | Hello again. The work is still yours, and I have every confidence in you.
+mastermind/LG | greeted_taken | Good to see you. We spoke {since}; your word on the work still stands, I trust.
+mastermind/LG | greeted_finished | Welcome back. The work is done, and done faithfully; you have my thanks.
+mastermind/LG | greeted_finished | Good to see you. You kept your word to me, and I shall remember it.
+mastermind/LG | greeted_failed | Hello again. It did not succeed, and I am sorry; the second course is already in hand.
+mastermind/LG | greeted_failed | Back again. It went against you; there is no disgrace in that, and I think no less of you.
+mastermind/LG | greeted_abandoned | Back again. You set the work aside; I will not pretend I was glad of it.
+mastermind/LG | greeted_abandoned | Good day. You gave up the work, and your word with it; I hope you had good reason.
+mastermind/LG | small_talk | Well, thank you, and better for being asked.
+mastermind/LG | small_talk | The duties of my office fill my days, and I would not wish it otherwise while people rely on them.
+mastermind/LG | small_talk | It is {season}, and I make my arrangements accordingly.[ I would sleep easier knowing you kept clear of the {danger}.]
+mastermind/LG | small_talk_fair | It is a fine {time}, and I am glad of it for everyone's sake.
+mastermind/LG | small_talk_fair | The weather is kind for {season}.[ It would be kinder still if you kept away from the {danger}.]
+mastermind/LG | small_talk_wet | It is raining, I am afraid; please take care not to catch a chill.
+mastermind/LG | small_talk_wet | The rain is heavy for {season}.[ In any weather, the {danger} deserve your respect.]
+mastermind/LG | small_talk_storm | It is a fierce storm; I would ask you to shelter until it eases.
+mastermind/LG | small_talk_storm | A storm like this is no small thing, even for {season}.[ Please give the {danger} a wide berth.]
+mastermind/LG | small_talk_cold | I would rather keep to business with you, if it is all the same.
+mastermind/LG | small_talk_cold | I will be courteous, and no more than that.
+mastermind/LG | acknowledged | I see. Thank you for telling me plainly.
+mastermind/LG | acknowledged | Indeed; that is a great help.
+mastermind/LG | acknowledged | Good. Then we understand each other.
+mastermind/LG | thanked | My pleasure; it is what my office is for.
+mastermind/LG | thanked | Think nothing of it; I would do the same for anyone.
+mastermind/LG | thanked_cold | Keep your thanks; I did my duty, and no more.
+mastermind/LG | thanked_cold | Save your thanks; they do not change my view of you.
+mastermind/LG | offended | There's no need for that; I would rather we dealt with each other decently.
+mastermind/LG | offended | Mind your manners, I beg you; I would not like to think less of you.
+mastermind/LG | offended_again | Enough; I have been patient, and you have made patience difficult.
+mastermind/LG | offended_again | Hold your tongue; I will not hear any more of that.
+mastermind/LG | parted_cold | Be on your way; I have nothing further to say to you.
+mastermind/LG | parted_cold | Go, then; I will not keep you.
+mastermind/LG | safety_unsafe | No, and I would be failing you to say otherwise. Keep well away from {worst}.[ I would also ask you to mind the {danger}.]
+mastermind/LG | safety_unsafe | Not here, I am sorry to say; there are {danger}.[ And I would not go near {worst} for anything.]
+mastermind/LG | safety_wary | Safe enough, if you are careful near {worst}.[ Please be mindful of the {danger} too.]
+mastermind/LG | safety_wary | Keep your wits about you, and keep away from {worst}.
+mastermind/LG | safety_safe | Yes, I believe so; the only cause for concern I know of is {worst}.
+mastermind/LG | safety_safe | Safe enough, though I would still ask you to keep clear of {worst}.
+mastermind/LG | safety_safe | Nothing to fear, so far as I know, and I would tell you if there were.
+mastermind/LG | denied | No; I am as you see me, and I have no reason to be otherwise.
+mastermind/LG | denied | You're mistaken, I am afraid, and I would rather you did not repeat it.
+mastermind/LG | denied_again | That's not so; I have answered you honestly, and my answer will not change.
+
+# ---- mastermind/LE: conversation ----
+mastermind/LE | greeted | Greetings. You may state your business, briefly.
+mastermind/LE | greeted | Good day. I do not know you yet, which is a situation I intend to correct.
+mastermind/LE | greeted | Welcome. Do not mistake it for anything warmer than protocol.
+mastermind/LE | greeted_again | Hello again; you have returned, as expected.[ Still occupied with {asked}, I take it?]
+mastermind/LE | greeted_again | Well met again. We last spoke {since}; I trust you have made some use of the time.
+mastermind/LE | greeted_again | Good day. You again; I had wondered when you would be of use.
+mastermind/LE | greeted_warm | Good to see you. You are one of the few pieces I would rather not replace.
+mastermind/LE | greeted_warm | Welcome back; your standing with me is, for the moment, excellent.[ Did {asked} prove worth your attention?]
+mastermind/LE | greeted_cold | What now? My patience is short, so spend it wisely.
+mastermind/LE | greeted_cold | Keep back. My courtesy has limits, and you are standing on them.
+mastermind/LE | greeted_cold | What do you want? Be brief, and do not presume.
+mastermind/LE | greeted_taken | Hello again. The work remains yours; I trust you have not forgotten it.
+mastermind/LE | greeted_taken | Back again. I saw you {since}, and the work is still unfinished, which I have noted.
+mastermind/LE | greeted_finished | Good to see you. The work is done, and you are rather more useful than I had assumed.
+mastermind/LE | greeted_finished | Welcome back. It is done, as agreed; I shall remember that you kept your word.
+mastermind/LE | greeted_failed | Hello again. The work failed, as I had allowed it might; my other arrangements are in hand.
+mastermind/LE | greeted_failed | Back again. You failed me; it has been noted, and accounted for.
+mastermind/LE | greeted_abandoned | Back again. You abandoned my work; I do not forget such things, nor forgive them quickly.
+mastermind/LE | greeted_abandoned | Good day. You set my work aside; the record will show it, and so will my memory.
+mastermind/LE | small_talk | Quite well; everything proceeds as I arranged it.
+mastermind/LE | small_talk | There is always someone to be put in their proper place, and my office sees to it.
+mastermind/LE | small_talk | It is {season}; the pieces move differently, but they move.[ Mind the {danger}; I dislike waste.]
+mastermind/LE | small_talk_fair | It is a fair {time}, and I intend to make use of it.
+mastermind/LE | small_talk_fair | The weather is pleasant for {season}, not that it alters anything.[ The {danger}, of course, remain.]
+mastermind/LE | small_talk_wet | It is wet, and people grow careless in the wet; I find that useful.
+mastermind/LE | small_talk_wet | This is a dismal {time}, even for {season}.[ The {danger} are no less dangerous for the rain.]
+mastermind/LE | small_talk_storm | It is a storm, and a storm keeps people where I can find them.
+mastermind/LE | small_talk_storm | The storm is an inconvenience, nothing more.[ Do not add the {danger} to your inconveniences.]
+mastermind/LE | small_talk_cold | I do not exchange pleasantries with those I have not yet found a use for.
+mastermind/LE | small_talk_cold | You may keep your conversation; I have no need of it.
+mastermind/LE | acknowledged | I see. That is more useful than I expected.
+mastermind/LE | acknowledged | Indeed; I shall remember that.
+mastermind/LE | acknowledged | Is that so? Then I shall adjust my arrangements.
+mastermind/LE | thanked | My pleasure; I expect it to be remembered.
+mastermind/LE | thanked | Don't mention it; I certainly shall, when it suits me.
+mastermind/LE | thanked_cold | Spare me; your gratitude is of no use to me.
+mastermind/LE | thanked_cold | Save your thanks; they are worth exactly what they cost you.
+mastermind/LE | offended | How dare you; I do not forget a slight, and you have just given me one.
+mastermind/LE | offended | Watch your tongue; my courtesy is a choice, and I can unmake it.
+mastermind/LE | offended_again | Enough; you have made an enemy of someone who keeps records.
+mastermind/LE | offended_again | Careful; courtesy was a kindness, and you have exhausted it.
+mastermind/LE | parted_cold | Be on your way; you are dismissed.
+mastermind/LE | parted_cold | Off with you; you have had more of my time than you are worth.
+mastermind/LE | safety_unsafe | Not safe, and I would not waste a good piece on it. Keep away from {worst}.[ The {danger} as well.]
+mastermind/LE | safety_unsafe | Far from it; there are {danger}.[ And {worst}, which I would not recommend.]
+mastermind/LE | safety_wary | Careful, and you may manage; I would avoid {worst}.[ The {danger} also merit attention.]
+mastermind/LE | safety_wary | More or less, provided you have the sense to keep clear of {worst}.
+mastermind/LE | safety_safe | Safe enough. The only matter of note is {worst}.
+mastermind/LE | safety_safe | It's safe, though it would be foolish to lose you to {worst}.
+mastermind/LE | safety_safe | Yes, and I would know; I make it my business to.
+mastermind/LE | denied | Nonsense; you will withdraw that, if you are wise.
+mastermind/LE | denied | You have the wrong one, and I resent the implication.
+mastermind/LE | denied_again | No, and I do not answer the same impertinence twice.
+
+# ---- mastermind/NE: conversation ----
+mastermind/NE | greeted | Hello. What are you good for?
+mastermind/NE | greeted | Well met, maybe. That depends on what you can do for me.
+mastermind/NE | greeted | Good day. Don't waste mine.
+mastermind/NE | greeted_again | Hello again; still useful?[ Or still stuck on {asked}?]
+mastermind/NE | greeted_again | Back again. I saw you {since}, and you've not grown more interesting.
+mastermind/NE | greeted_again | Well met again. What do you want this time?
+mastermind/NE | greeted_warm | Good to see you. You've a use, and I like things with uses.
+mastermind/NE | greeted_warm | Welcome back; you're one of my better tools.[ Did {asked} give you anything worth having?]
+mastermind/NE | greeted_cold | What do you want? Be quick; you're not worth the time.
+mastermind/NE | greeted_cold | Keep back. I don't trust you, and I don't need to.
+mastermind/NE | greeted_cold | What now? Whatever it is, the answer's probably no.
+mastermind/NE | greeted_taken | Hello again. The work's still yours; don't make me regret picking you.
+mastermind/NE | greeted_taken | Back again. I saw you {since}, and the work's still not done.
+mastermind/NE | greeted_finished | Good to see you. It's done; you were worth using.
+mastermind/NE | greeted_finished | Welcome back. The work's done, and I'll remember who's useful.
+mastermind/NE | greeted_failed | Hello again. You failed; I'd planned for it, so don't flatter yourself that it mattered.
+mastermind/NE | greeted_failed | Back again. It went against you, and you're worth less to me for it.
+mastermind/NE | greeted_abandoned | Back again. You dropped my work; I don't forget that sort of thing.
+mastermind/NE | greeted_abandoned | Good day, if it is one. You gave up my work, and I've marked you down for it.
+mastermind/NE | small_talk | I'm well; things are going my way, as they usually do.
+mastermind/NE | small_talk | My day's the same as ever: people, and what they're good for.
+mastermind/NE | small_talk | It's {season}; people are easier to use in some seasons than others.[ Mind the {danger}; I don't replace tools cheaply.]
+mastermind/NE | small_talk_fair | It's fair out; fine weather's wasted on most people.
+mastermind/NE | small_talk_fair | A fine {time}.[ Keep clear of the {danger}; the weather won't save you.]
+mastermind/NE | small_talk_wet | It's wet; I don't mind, so long as someone else is out in it.
+mastermind/NE | small_talk_wet | This {time} is wet and dull.[ Mind the {danger}, rain or not.]
+mastermind/NE | small_talk_storm | It's a storm; stay out in it or don't, it's no business of mine.
+mastermind/NE | small_talk_storm | This is a filthy storm for {season}.[ The {danger} are still out there, storm or no storm.]
+mastermind/NE | small_talk_cold | I don't talk for the sake of talking, least of all with you.
+mastermind/NE | small_talk_cold | Say something useful or say nothing.
+mastermind/NE | acknowledged | Right; that's useful.
+mastermind/NE | acknowledged | Is that so? Then you're worth a little more than I thought.
+mastermind/NE | acknowledged | Aye, fine. I'll use that.
+mastermind/NE | thanked | No need; it served me as much as you.
+mastermind/NE | thanked | Don't mention it; I'll remember it for both of us.
+mastermind/NE | thanked_cold | Keep your thanks; I've no use for them.
+mastermind/NE | thanked_cold | Hmph, thanks; as if that were worth anything.
+mastermind/NE | offended | Watch your tongue; I don't forget, and I don't let things go.
+mastermind/NE | offended | Careful; you're worth very little to me, and you're spending it fast.
+mastermind/NE | offended_again | Enough; you're not worth the trouble of another word.
+mastermind/NE | offended_again | Hold your tongue; I've a long memory, and you're in it now.
+mastermind/NE | parted_cold | Get going; you've used up what little time you had.
+mastermind/NE | parted_cold | Off with you; you're no use to me today.
+mastermind/NE | safety_unsafe | No, and it's your neck, not mine. Stay away from {worst}.[ The {danger} too, if you've any sense.]
+mastermind/NE | safety_unsafe | Not safe; there are {danger}.[ Then there's {worst}; your funeral.]
+mastermind/NE | safety_wary | Safe enough, if you stay clear of {worst}.[ And the {danger}, if you want to stay useful.]
+mastermind/NE | safety_wary | More or less; the one to avoid is {worst}.
+mastermind/NE | safety_safe | Safe enough. The worst of it is {worst}, and that's your concern.
+mastermind/NE | safety_safe | Yes, unless you're fool enough to go near {worst}.
+mastermind/NE | safety_safe | Nothing to fear, not that I'd care much if there were.
+mastermind/NE | denied | No, and I'd be careful who you say that to.
+mastermind/NE | denied | What are you on about, wasting my time with that?
+mastermind/NE | denied_again | That's not so, and you've had your answer.

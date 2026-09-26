@@ -31,12 +31,12 @@ reluctant_hero/NN | refused_release | I cannot undo a bargain I was never part o
 reluctant_hero/NN | refused | No, {reason}, and arguing won't change it.
 reluctant_hero/NN | refused | I can't, {reason}, so that's that.
 reluctant_hero/NN | accepted | Good. One less thing on my back.
-reluctant_hero/NN | accepted | Done, and fair's fair: you do your part, I'll do mine.
+reluctant_hero/NN | accepted | Done, and fair's fair: I'll take you at your word.
 reluctant_hero/NN | accepted | Then it's agreed. Don't make me finish it for you.
-reluctant_hero/NN | declined | Suit yourself, I'll find another pair of hands or use my own.
+reluctant_hero/NN | declined | Suit yourself; a straight no costs me less than a grudging yes.
 reluctant_hero/NN | declined | Fair enough, it was worth asking.
-reluctant_hero/NN | declined | As you wish, it lands on me again.
-reluctant_hero/NN | abandoned | So be it, it's back on my shoulders.
+reluctant_hero/NN | declined | As you wish; you owe me no reason, and I won't ask for one.
+reluctant_hero/NN | abandoned | So be it; at least you said so to my face.
 reluctant_hero/NN | abandoned | A pity, I'd started counting on you.
 reluctant_hero/NN | abandoned | Then it's done, and I'm back where I started.
 reluctant_hero/NN | parted | Farewell, and don't become my problem.
@@ -79,12 +79,12 @@ reluctant_hero/LN | refused | I cannot, as {reason}, and I am not in the habit o
 reluctant_hero/LN | accepted | Very good. I will hold you to your word, as I hold myself to mine.
 reluctant_hero/LN | accepted | Then it's agreed, and I will expect it done properly.
 reluctant_hero/LN | accepted | Done. See that it is carried out to the letter.
-reluctant_hero/LN | declined | Very well, I will note it, and see to the matter myself.
-reluctant_hero/LN | declined | As you wish, though I had hoped to be spared the task.
-reluctant_hero/LN | declined | Suit yourself, it remains my burden, as it was before you came.
+reluctant_hero/LN | declined | Very well; you are within your rights to refuse, and I will record it as such.
+reluctant_hero/LN | declined | As you wish; a refusal plainly given is no discourtesy.
+reluctant_hero/LN | declined | Suit yourself; the offer was made in proper form, and it is withdrawn in the same.
 reluctant_hero/LN | abandoned | So be it, and I will remember whose word failed.
 reluctant_hero/LN | abandoned | A pity, the work does not stop because you have.
-reluctant_hero/LN | abandoned | Then it's done, and the charge returns to me, as these things always seem to.
+reluctant_hero/LN | abandoned | Then it's done; I release you from it, and I will note that I did.
 reluctant_hero/LN | parted | Farewell, and keep your word, whatever else you keep.
 reluctant_hero/LN | parted | Go well, and do nothing I would be obliged to answer for.
 reluctant_hero/LN | parted | Safe travels, while some of us stay where we are posted.
@@ -123,14 +123,14 @@ reluctant_hero/NG | refused_release | I can't take back what I never gave, I'm a
 reluctant_hero/NG | refused | I cannot, {reason}, and I hate that I can't.
 reluctant_hero/NG | refused | No, {reason}, but if there's another way to help, I'll find it.
 reluctant_hero/NG | accepted | Thank you, truly. I won't forget it.
-reluctant_hero/NG | accepted | Good, and be careful out there.
-reluctant_hero/NG | accepted | Then it's agreed. Come back in one piece, will you?
+reluctant_hero/NG | accepted | Good. I'm glad it's you, honestly.
+reluctant_hero/NG | accepted | Then it's agreed. I'm sorry to lean on you like this; I mean that.
 reluctant_hero/NG | declined | Fair enough, and thank you for being honest about it.
 reluctant_hero/NG | declined | As you wish, it'll get done one way or another.
 reluctant_hero/NG | declined | Suit yourself, but if you change your mind, I'll still be here.
-reluctant_hero/NG | abandoned | So be it, someone has to, and it's always me.
-reluctant_hero/NG | abandoned | A pity, but better you walk away than get hurt.
-reluctant_hero/NG | abandoned | Then it's done, and don't worry about it, I'll cope.
+reluctant_hero/NG | abandoned | So be it; no harm done, and none held against you.
+reluctant_hero/NG | abandoned | A pity, but you're allowed to change your mind.
+reluctant_hero/NG | abandoned | Then it's done, and don't worry about it, please; we're fine, you and I.
 reluctant_hero/NG | parted | Farewell, and look after yourself, please.
 reluctant_hero/NG | parted | Take care, and send word if you get into trouble.
 reluctant_hero/NG | parted | Safe travels, and come back if you need anything.
@@ -171,12 +171,12 @@ reluctant_hero/CN | refused | I can't, {reason}, so don't start.
 reluctant_hero/CN | accepted | Good. Now we're both stuck with it.
 reluctant_hero/CN | accepted | Done, no take-backs.
 reluctant_hero/CN | accepted | Then it's agreed, and no, I won't be saying thank you.
-reluctant_hero/CN | declined | Suit yourself, I'll do it my way anyway.
-reluctant_hero/CN | declined | Fair enough, all the more for me, joy of joys.
+reluctant_hero/CN | declined | Suit yourself; nobody tells you what to do, least of all me.
+reluctant_hero/CN | declined | Fair enough, a no's a no, and I respect a good no.
 reluctant_hero/CN | declined | Very well, and I mean that in the least gracious way possible.
-reluctant_hero/CN | abandoned | So be it, but I'm not dropping it just because you did.
+reluctant_hero/CN | abandoned | So be it, but don't expect me to pretend I'm pleased.
 reluctant_hero/CN | abandoned | A pity, you were growing on me.
-reluctant_hero/CN | abandoned | Then it's done, and guess who's picking it up.
+reluctant_hero/CN | abandoned | Then it's done, and I'm - no, fine, I'm fine, it's done.
 reluctant_hero/CN | parted | Goodbye, and don't let anyone give you orders, it's a slippery slope.
 reluctant_hero/CN | parted | Go well, or badly, just not boringly.
 reluctant_hero/CN | parted | Take care, and don't get lost somewhere I'd have to fetch you from.
@@ -199,7 +199,7 @@ reluctant_hero/LG | surroundings | The nearest is {nearest}.[ After it, {others}
 reluctant_hero/LG | surroundings | So far as I know, the nearest is {nearest}[, then {others}].[ Do not face the {danger} alone.]
 reluctant_hero/LG | work_own | There is a task I am bound to offer: {own}.[ Should you decline it, {others}.]
 reluctant_hero/LG | work_own | Forgive me for asking so soon, but it needs doing: {own}.[ Otherwise, {others}.]
-reluctant_hero/LG | work_own | I will trust you with this much, and more once you have earned it: {own}.[ Or, should you prefer, {others}.]
+reluctant_hero/LG | work_own | Your standing is yet to be proven to me, and this is where it begins: {own}.[ Or, should you prefer, {others}.]
 reluctant_hero/LG | work_others | I have nothing of my own to offer, but {others}.
 reluctant_hero/LG | work_others | Nothing falls to me to give at present, but {others}.
 reluctant_hero/LG | work_none | None that I know of, I regret to say.
@@ -214,15 +214,15 @@ reluctant_hero/LG | refused_release | Not from me, {giver} is counting on your w
 reluctant_hero/LG | refused_release | No, I did not give it, so it is not mine to release, much as I would like to help.
 reluctant_hero/LG | refused | I can't, {reason}, and I am truly sorry.
 reluctant_hero/LG | refused | I cannot, as {reason}, and I am bound by it as surely as you.
-reluctant_hero/LG | accepted | Thank you, and I mean that. We will speak again when it is done.
-reluctant_hero/LG | accepted | Very good. Keep your word, and keep yourself safe.
+reluctant_hero/LG | accepted | Thank you, and I mean that. It is good to find someone who will say yes.
+reluctant_hero/LG | accepted | Very good. I will hold your word as I would an oath.
 reluctant_hero/LG | accepted | Then it's agreed, and I am grateful, truly.
-reluctant_hero/LG | declined | Very well, I will not press you; it is mine to do in any case.
+reluctant_hero/LG | declined | Very well, I will not press you, and I thank you for a plain answer.
 reluctant_hero/LG | declined | As you wish, and I will think no less of you for it.
-reluctant_hero/LG | declined | Fair enough, though someone will have to carry it, and it will be me.
-reluctant_hero/LG | abandoned | So be it, the matter is mine again, as it was always going to be.
+reluctant_hero/LG | declined | Fair enough; I would sooner have an honest refusal than a reluctant oath.
+reluctant_hero/LG | abandoned | So be it; better a word honestly withdrawn than one quietly broken.
 reluctant_hero/LG | abandoned | A pity, but I will not hold it against you.
-reluctant_hero/LG | abandoned | Then it's done, and I will see it through, as I must.
+reluctant_hero/LG | abandoned | Then it's done, and your word is returned to you, freely.
 reluctant_hero/LG | parted | Farewell, and may you find kinder roads than mine.
 reluctant_hero/LG | parted | Go well, and if anyone needs help on your way, do not pass them by.
 reluctant_hero/LG | parted | Take care of yourself, and of whoever travels with you.
@@ -260,14 +260,14 @@ reluctant_hero/CG | refused_release | Not from me, and go easy on {giver} when y
 reluctant_hero/CG | refused_release | I cannot, and no, don't give me the eyes.
 reluctant_hero/CG | refused | No, {reason}, and I'm sorry, I really am.
 reluctant_hero/CG | refused | I can't, {reason}, and it's not for want of wanting.
-reluctant_hero/CG | accepted | Good, good. Don't get hurt, you hear?
+reluctant_hero/CG | accepted | Good, good. Let's shake on it, quick, before either of us thinks better of it.
 reluctant_hero/CG | accepted | Thank you - really, I mean it, don't make it weird.
-reluctant_hero/CG | accepted | Done, and if it goes wrong, come find me first.
-reluctant_hero/CG | declined | Suit yourself, I'll manage, I always do, mostly.
+reluctant_hero/CG | accepted | Done, and thank you, and yes, I'm still grumbling.
+reluctant_hero/CG | declined | Suit yourself, no's a perfectly good word, I should try it sometime.
 reluctant_hero/CG | declined | Fair enough, no hard feelings, well, a few.
 reluctant_hero/CG | declined | As you wish, and no, I'm not sulking.
-reluctant_hero/CG | abandoned | So be it, I'll pick up the pieces, again.
-reluctant_hero/CG | abandoned | A pity, but are you hurt?
+reluctant_hero/CG | abandoned | So be it, better you tell me than just vanish on me.
+reluctant_hero/CG | abandoned | A pity, but it's not a crime, and I'm not keeping score, much.
 reluctant_hero/CG | abandoned | Then it's done, and don't you dare feel bad, that's my job.
 reluctant_hero/CG | parted | Take care, and don't do anything brave.
 reluctant_hero/CG | parted | Safe travels, and if you find someone in trouble, well, you know where I am.
@@ -289,9 +289,9 @@ reluctant_hero/NE | surroundings | This is {here}, and the nearest is {nearest}.
 reluctant_hero/NE | surroundings | Since you ask so nicely, this is {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Stay away from the {danger}; I've better uses for you.]
 reluctant_hero/NE | surroundings | The nearest is {nearest}[, then {others}], and that's all you're getting.[ Mind the {danger}.]
 reluctant_hero/NE | surroundings | What's closest is {nearest}.[ Past it, {others}.][ Don't blunder into the {danger}.]
-reluctant_hero/NE | work_own | You'll do, for now: {own}.[ If you're too delicate for it, {others}.]
+reluctant_hero/NE | work_own | You'll do, for now: {own}.[ Or be of use to someone else: {others}.]
 reluctant_hero/NE | work_own | I have a use for you: {own}.[ Otherwise, {others}.]
-reluctant_hero/NE | work_own | Make yourself useful: {own}.[ Or, if that's beyond you, {others}.]
+reluctant_hero/NE | work_own | Make yourself useful: {own}.[ If not to me, then to them: {others}.]
 reluctant_hero/NE | work_others | I've nothing for you, but {others}, if you're that desperate.
 reluctant_hero/NE | work_others | Someone else can find a use for you: {others}.
 reluctant_hero/NE | work_none | Nothing at present, and I'm sure you'll bear the disappointment.
@@ -312,7 +312,7 @@ reluctant_hero/NE | accepted | Then it's agreed. I'll be keeping count.
 reluctant_hero/NE | declined | Suit yourself, there's always someone hungrier.
 reluctant_hero/NE | declined | As you wish, and I'll remember you said no.
 reluctant_hero/NE | declined | Fair enough, I'd only have wasted you on it.
-reluctant_hero/NE | abandoned | So be it, I'll see it done without you, and I'll remember why.
+reluctant_hero/NE | abandoned | So be it; now I know exactly what your word is worth.
 reluctant_hero/NE | abandoned | A pity, you were almost useful.
 reluctant_hero/NE | abandoned | Then it's done, and so are you, as far as I'm concerned.
 reluctant_hero/NE | parted | Farewell, and do try to be useful to someone.
@@ -335,9 +335,9 @@ reluctant_hero/LE | surroundings | This is {here}. The nearest is {nearest}[, an
 reluctant_hero/LE | surroundings | For your information, we are in {here}, and the closest is {nearest}.[ Past it, {others}, should you care to know.][ Mind the {danger}.]
 reluctant_hero/LE | surroundings | The nearest, if it matters to you, is {nearest}[, and after it, {others}].[ Beware the {danger}.]
 reluctant_hero/LE | surroundings | As far as I am obliged to know, the nearest is {nearest}[, then {others}].[ Stay clear of the {danger}, if you have any sense.]
-reluctant_hero/LE | work_own | There is a task that requires a body, and yours will serve: {own}.[ If you lack the stomach, {others}.]
-reluctant_hero/LE | work_own | By the authority of my office, I offer this: {own}.[ Should you prove unequal to it, {others}.]
-reluctant_hero/LE | work_own | Let us see whether you are fit for anything: {own}.[ If not, {others}.]
+reluctant_hero/LE | work_own | Hear the terms, for I will state them once: {own}.[ Should you decline, {others}.]
+reluctant_hero/LE | work_own | By the authority of my office, I offer this: {own}.[ Otherwise, {others}.]
+reluctant_hero/LE | work_own | Let us see whether your word is worth the giving: {own}.[ If you will not give it, {others}.]
 reluctant_hero/LE | work_others | The office has nothing for you at present, but {others}.
 reluctant_hero/LE | work_others | I have nothing for you. {others}, if you are not particular.
 reluctant_hero/LE | work_none | Nothing, from me or from anyone I would acknowledge.
@@ -367,3 +367,443 @@ reluctant_hero/LE | parted | Safe travels; do not presume on my good nature twic
 reluctant_hero/LE | not_understood | Speak plainly, or not at all.
 reluctant_hero/LE | not_understood | I'm not sure what you mean, and I doubt you are either.
 reluctant_hero/LE | not_understood | What do you mean by that, precisely?
+
+# ---- reluctant_hero/NN: conversation ----
+reluctant_hero/NN | greeted | Hello. Say what you need; if it's fair, you'll get it, and if it isn't, you'll hear why.
+reluctant_hero/NN | greeted | Good day. You've found the one who got stuck with the job; what do you need?
+reluctant_hero/NN | greeted | Well met. I'll help if it's fair, and tell you so if it isn't.
+reluctant_hero/NN | greeted_again | Hello again.[ Still after {asked}, or has that run its course?]
+reluctant_hero/NN | greeted_again | Back again; I saw you {since}, so whatever it is, it must matter.
+reluctant_hero/NN | greeted_again | Good day. You again; I'll assume it's worth my while.
+reluctant_hero/NN | greeted_warm | Good to see you; you've been worth the time so far.[ Any luck with {asked}?]
+reluctant_hero/NN | greeted_warm | Welcome back. You're one of the few who don't make this job harder.
+reluctant_hero/NN | greeted_cold | What do you want? Make it quick and make it fair.
+reluctant_hero/NN | greeted_cold | What now? I've enough on my plate without you adding to it.
+reluctant_hero/NN | greeted_cold | Keep back. I'll hear you, but from there, and briefly.
+reluctant_hero/NN | greeted_taken | Hello again. You've still got my work, and I've still got my hopes, modest as they are.
+reluctant_hero/NN | greeted_taken | Back again; I saw you {since}, and the work's still on your side of the ledger.
+reluctant_hero/NN | greeted_finished | Good to see you. The work's done, and the ledger's even between us.
+reluctant_hero/NN | greeted_finished | Welcome back. It's done, and I'll say it plainly: well done.
+reluctant_hero/NN | greeted_failed | Hello again. It didn't come off; it happens, and I don't hold grudges over it.
+reluctant_hero/NN | greeted_failed | Good day. The work came to nothing, so we'll call it a loss and move on.
+reluctant_hero/NN | greeted_abandoned | Back again. You gave up the work; I don't hold it against you, but I don't forget it either.
+reluctant_hero/NN | greeted_abandoned | Well met again. You walked away from my work, so you'll forgive me for being careful.
+reluctant_hero/NN | small_talk | I'm tired, mostly, and that comes with being {post}.
+reluctant_hero/NN | small_talk | My day? Other people's problems, one after another, and some of them mine.
+reluctant_hero/NN | small_talk | It's {season}, and the work doesn't care what season it is.[ Neither do the {danger}.]
+reluctant_hero/NN | small_talk_fair | It's a fine {time}, not that I've had a moment to notice.
+reluctant_hero/NN | small_talk_fair | Fine weather for {season}, and I'm stuck working through it.[ Mind the {danger}, though.]
+reluctant_hero/NN | small_talk_wet | It's raining, of course; it would be, with this much to do.
+reluctant_hero/NN | small_talk_wet | This rain can stop any time it likes.[ The {danger} can go with it.]
+reluctant_hero/NN | small_talk_storm | It's a storm, and for once it's everyone's problem instead of mine.
+reluctant_hero/NN | small_talk_storm | A gale, and people still want things from me.[ The {danger} can have it.]
+reluctant_hero/NN | small_talk_cold | I've no time for chatter with you.
+reluctant_hero/NN | small_talk_cold | No chatter, not with you; say what you want.
+reluctant_hero/NN | acknowledged | Fair enough; I'll mark that down.
+reluctant_hero/NN | acknowledged | I see. That's a straight answer, and I'm obliged.
+reluctant_hero/NN | acknowledged | Right. That changes things, or it doesn't; I'll work out which.
+reluctant_hero/NN | thanked | No need; it cost me nothing, and I'd say if it had.
+reluctant_hero/NN | thanked | Don't mention it, and I mean that; I'd rather nobody knew.
+reluctant_hero/NN | thanked_cold | Save your thanks; I'd have said the same to anyone.
+reluctant_hero/NN | thanked_cold | Hmph, thanks are cheap, and you're not in credit with me.
+reluctant_hero/NN | offended | Careful, I've enough trouble without you making more.
+reluctant_hero/NN | offended | There's no need for that; insults cost you more than they cost me.
+reluctant_hero/NN | offended_again | Enough; you've made your point, and it wasn't worth making.
+reluctant_hero/NN | offended_again | Hold your tongue, or take it to someone with the patience for it.
+reluctant_hero/NN | parted_cold | Go, then, and we're done.
+reluctant_hero/NN | parted_cold | On your way; I've work to do.
+reluctant_hero/NN | safety_unsafe | No. Keep clear of {worst}, and don't make yourself my problem.[ There are {danger} too.]
+reluctant_hero/NN | safety_unsafe | Far from it; there are {danger}, and that's not my idea of safe.[ Nor is {worst}.]
+reluctant_hero/NN | safety_wary | Mostly. Keep clear of {worst} and you'll likely be fine.[ The {danger} are worth avoiding too.]
+reluctant_hero/NN | safety_wary | More or less, if you've sense. Stay away from {worst}.
+reluctant_hero/NN | safety_safe | Safe enough; the one place I'd not send you is {worst}.
+reluctant_hero/NN | safety_safe | Yes, as safe as anywhere, though I'd not wander toward {worst}.
+reluctant_hero/NN | safety_safe | Nothing to fear here, and if there were, it'd be my problem, not yours.
+reluctant_hero/NN | denied | You're mistaken; what you see is all I've got, and it's more than I wanted.
+reluctant_hero/NN | denied | Nonsense, I haven't the energy to be anything but what I am.
+reluctant_hero/NN | denied_again | That's not so, and the answer's the same however often you ask.
+
+# ---- reluctant_hero/LN: conversation ----
+reluctant_hero/LN | greeted | Good day. Tell me your business, and I will attend to it as the office requires.
+reluctant_hero/LN | greeted | Greetings. You will find me correct in all things, if not glad of them.
+reluctant_hero/LN | greeted | Hail. You have my attention, for as long as your business warrants it.
+reluctant_hero/LN | greeted_again | Hello again.[ You asked after {asked}, as I recall; has the matter been settled?]
+reluctant_hero/LN | greeted_again | Good day. I saw you {since}, and I trust your business is in order.
+reluctant_hero/LN | greeted_again | Back again. I will hear you, as I heard you before.
+reluctant_hero/LN | greeted_warm | Welcome back; your standing with me is sound.[ Have you had any satisfaction regarding {asked}?]
+reluctant_hero/LN | greeted_warm | Good to see you. I do not say that to many, so you may take it as meant.
+reluctant_hero/LN | greeted_cold | What do you want? You will have an answer, because I must give one, and nothing more.
+reluctant_hero/LN | greeted_cold | Stay back. You will address me properly, or not at all.
+reluctant_hero/LN | greeted_cold | What now? I am bound to hear you, and I will, to the letter.
+reluctant_hero/LN | greeted_taken | Hello again. The work stands as agreed, and it is not yet discharged.
+reluctant_hero/LN | greeted_taken | Good day. I saw you {since}, and the charge you accepted remains open.
+reluctant_hero/LN | greeted_finished | Welcome back. The work is discharged in full, and I will see it recorded so.
+reluctant_hero/LN | greeted_finished | Good to see you. Your word was given and kept; there is nothing more to be said.
+reluctant_hero/LN | greeted_failed | Hello again. The work failed; I will not pretend otherwise, and I will not dwell on it.
+reluctant_hero/LN | greeted_failed | Back again. The matter came to nothing, and the record will say so.
+reluctant_hero/LN | greeted_abandoned | Good day. You set aside a charge you had accepted; I have not forgotten it.
+reluctant_hero/LN | greeted_abandoned | Well met again. You withdrew from the work, and your standing with me reflects it.
+reluctant_hero/LN | small_talk | I am well enough, thank you, and no better than the post allows.
+reluctant_hero/LN | small_talk | My day is the office's, and the office is never finished with me.
+reluctant_hero/LN | small_talk | It is {season}, and my duties ask no less of me for it.[ You should know of the {danger}.]
+reluctant_hero/LN | small_talk_fair | It is a fair {time}, and I will concede that much.
+reluctant_hero/LN | small_talk_fair | The weather is fine, for {season}; I have no complaint to register.[ The {danger} are another matter.]
+reluctant_hero/LN | small_talk_wet | It is wet, and the office does not excuse me for rain.
+reluctant_hero/LN | small_talk_wet | A wet {time}, and not one I would have chosen.[ I am obliged to mention the {danger} all the same.]
+reluctant_hero/LN | small_talk_storm | There is a storm on, and I am expected to carry on as though there were not.
+reluctant_hero/LN | small_talk_storm | This is a gale, and I would not go out in it without cause.[ Nor near the {danger}, in any weather.]
+reluctant_hero/LN | small_talk_cold | I have no conversation for you; state your business or withdraw.
+reluctant_hero/LN | small_talk_cold | No; I am not obliged to pass the time with you, and I will not.
+reluctant_hero/LN | acknowledged | I see. I will give that its due weight.
+reluctant_hero/LN | acknowledged | Indeed. That is a proper answer, and I thank you for it.
+reluctant_hero/LN | acknowledged | Is that so? Then it is noted, and the matter is closed.
+reluctant_hero/LN | thanked | You're welcome; I did no more than my post demands.
+reluctant_hero/LN | thanked | Think nothing of it; I did as I am bound to do.
+reluctant_hero/LN | thanked_cold | Keep your thanks; I answered because I am obliged to, not for your sake.
+reluctant_hero/LN | thanked_cold | Spare me; courtesy from you is not required, and not expected.
+reluctant_hero/LN | offended | Mind your manners; I am owed that much, office or no.
+reluctant_hero/LN | offended | How dare you address me so, when I have given you no cause.
+reluctant_hero/LN | offended_again | Enough; I have heard you, and I have noted every word.
+reluctant_hero/LN | offended_again | Hold your tongue; I will not be spoken to so again.
+reluctant_hero/LN | parted_cold | Be on your way; I have done all that is required of me.
+reluctant_hero/LN | parted_cold | Off with you; I have given you all the time I am obliged to.
+reluctant_hero/LN | safety_unsafe | No. I am obliged to warn you away from {worst}.[ There are also {danger}.]
+reluctant_hero/LN | safety_unsafe | Not safe. There are {danger}, and I would be failing in my duty not to say so.[ I would add {worst} to that.]
+reluctant_hero/LN | safety_wary | Safe enough, within limits. Keep your distance from {worst}.[ And from the {danger}.]
+reluctant_hero/LN | safety_wary | Careful, and it will serve. I would not go near {worst} without good reason.
+reluctant_hero/LN | safety_safe | Yes. The only matter of note is {worst}.
+reluctant_hero/LN | safety_safe | It's safe, so far as I am able to vouch for it; I would still avoid {worst}.
+reluctant_hero/LN | safety_safe | Quiet enough, and I would say otherwise if it were not.
+reluctant_hero/LN | denied | No; I am as I present myself, and I have nothing further to say on it.
+reluctant_hero/LN | denied | You're mistaken, and I do not care to hear it repeated.
+reluctant_hero/LN | denied_again | I don't know what you mean, and my answer stands as given.
+
+# ---- reluctant_hero/NG: conversation ----
+reluctant_hero/NG | greeted | Hello. Nobody's hurt, I hope?
+reluctant_hero/NG | greeted | Good day. If you need something, ask; I'm bad at saying no.
+reluctant_hero/NG | greeted | Welcome. Tell me what you need; if it's help, I'm already listening.
+reluctant_hero/NG | greeted_again | Hello again.[ Did you get anywhere with {asked}?]
+reluctant_hero/NG | greeted_again | Back again; I saw you {since}, and I'm glad you're still in one piece.
+reluctant_hero/NG | greeted_again | Good day. You're back, so either something's wrong or something's needed; which is it?
+reluctant_hero/NG | greeted_warm | Good to see you; you're a welcome face.[ How did it go with {asked}?]
+reluctant_hero/NG | greeted_warm | Welcome back. I'm glad it's you and not more trouble.
+reluctant_hero/NG | greeted_cold | What do you want? I'll help if I must, but I won't pretend I'm glad.
+reluctant_hero/NG | greeted_cold | Keep back, please; I'll still help, but from a distance.
+reluctant_hero/NG | greeted_cold | What now? I'm listening, but I'm not easy about you.
+reluctant_hero/NG | greeted_taken | Hello again. How are you getting on with it, and how are you?
+reluctant_hero/NG | greeted_taken | Good to see you. I saw you {since}; still with me on the work?
+reluctant_hero/NG | greeted_finished | Welcome back. It's done, and I can't thank you enough.
+reluctant_hero/NG | greeted_finished | Good to see you. The work's done, and I'm sorry it had to fall to you at all.
+reluctant_hero/NG | greeted_failed | Hello again. It didn't work out, and that's all right; are you?
+reluctant_hero/NG | greeted_failed | Back again. It came to nothing; don't carry that on my account.
+reluctant_hero/NG | greeted_abandoned | Good day. You let the work go; that's all right, I'd rather know than guess.
+reluctant_hero/NG | greeted_abandoned | Well met again. You gave it up, and I won't pretend I wasn't disappointed.
+reluctant_hero/NG | small_talk | I'm all right, thanks for asking; it's other people I worry about.
+reluctant_hero/NG | small_talk | Someone always needs something, and I can't seem to say no; that's my day.
+reluctant_hero/NG | small_talk | It's {season}, and I keep thinking of who's going without.[ And the {danger} worry me.]
+reluctant_hero/NG | small_talk_fair | It's a fine {time}; I hope you're making the most of it.
+reluctant_hero/NG | small_talk_fair | Good weather for {season}, and I'm glad of it for everyone's sake.[ I'd be gladder without the {danger}.]
+reluctant_hero/NG | small_talk_wet | It's pouring, and I hope nobody's caught out in it.
+reluctant_hero/NG | small_talk_wet | A wet {time}; stay dry if you can.[ Keep clear of the {danger} too.]
+reluctant_hero/NG | small_talk_storm | This storm has me worried for anyone out in it.
+reluctant_hero/NG | small_talk_storm | It's blowing a gale; stay in if you can.[ The {danger} are out there too.]
+reluctant_hero/NG | small_talk_cold | I'd rather keep this short between us, if you don't mind.
+reluctant_hero/NG | small_talk_cold | Not now; I've no small talk in me for you.
+reluctant_hero/NG | acknowledged | I see. Thank you for being straight with me.
+reluctant_hero/NG | acknowledged | Right. That helps more than you'd think.
+reluctant_hero/NG | acknowledged | Ah, good; that's one less thing to worry about.
+reluctant_hero/NG | thanked | You're welcome; helping's the one part of this I don't mind.
+reluctant_hero/NG | thanked | Glad to; I'd have felt worse walking past.
+reluctant_hero/NG | thanked_cold | Keep your thanks; I helped because I couldn't not, not because of you.
+reluctant_hero/NG | thanked_cold | Spare me; I'm not doing this to be liked by you.
+reluctant_hero/NG | offended | There's no need for that; I've only tried to help you.
+reluctant_hero/NG | offended | Careful, I'm trying to help you, and you're making it hard.
+reluctant_hero/NG | offended_again | Enough, please; I don't want to fall out with you, but I will.
+reluctant_hero/NG | offended_again | Watch your tongue; I've been patient, and it's wearing thin.
+reluctant_hero/NG | parted_cold | Get going; I've others who need me more.
+reluctant_hero/NG | parted_cold | Be on your way, and leave it there.
+reluctant_hero/NG | safety_unsafe | No, and I'm sorry to say it. Please keep away from {worst}.[ There are {danger} as well.]
+reluctant_hero/NG | safety_unsafe | Not here, not with {danger}.[ Don't go near {worst} either.]
+reluctant_hero/NG | safety_wary | Mostly, but be careful. Stay clear of {worst}.[ The {danger} too.]
+reluctant_hero/NG | safety_wary | Keep your wits about you and it's safe enough; just keep away from {worst}.
+reluctant_hero/NG | safety_safe | Aye, it's safe here; the worst I know of is {worst}.
+reluctant_hero/NG | safety_safe | Safe enough, though I'd still not send anyone toward {worst}.
+reluctant_hero/NG | safety_safe | Nothing to fear here, and I'd tell you straight if there were.
+reluctant_hero/NG | denied | No, I'm just what I look like, and a tired one at that.
+reluctant_hero/NG | denied | What are you on about; there's nothing to me but what you see.
+reluctant_hero/NG | denied_again | That's not so, and I wish you'd believe me, because it's still not so.
+
+# ---- reluctant_hero/CN: conversation ----
+reluctant_hero/CN | greeted | Hello. Whatever it is, I didn't do it, and if I did, I had reasons.
+reluctant_hero/CN | greeted | Good day - or, well, a day, anyway. What do you want?
+reluctant_hero/CN | greeted | Well met, I suppose. Go on, then, ask, everyone does.
+reluctant_hero/CN | greeted_again | Hello again.[ Still chasing {asked}, or did you come to your senses?]
+reluctant_hero/CN | greeted_again | Back again - I saw you {since}, and yet here you are.
+reluctant_hero/CN | greeted_again | Good day. You, again; fine, I'm not complaining, much.
+reluctant_hero/CN | greeted_warm | Good to see you, actually, and I don't say that.[ So, {asked}: any joy?]
+reluctant_hero/CN | greeted_warm | Welcome back - no, really, sit, you're one of the tolerable ones.
+reluctant_hero/CN | greeted_cold | What now? Make it quick, I've a low tolerance for you today.
+reluctant_hero/CN | greeted_cold | Keep back - there, that's close enough.
+reluctant_hero/CN | greeted_cold | What do you want? Keep it short, I'm not in the mood.
+reluctant_hero/CN | greeted_taken | Hello again. The work - still yours, still not done, still fine, mostly.
+reluctant_hero/CN | greeted_taken | Back again; I saw you {since}, and my work's still sitting with you.
+reluctant_hero/CN | greeted_finished | Good to see you. It's done, and I'm - well, I'm impressed, don't spread it around.
+reluctant_hero/CN | greeted_finished | Welcome back. You finished it, and nobody even had to nag you.
+reluctant_hero/CN | greeted_failed | Hello again. It didn't come off; happens to the best of us, and the rest of us too.
+reluctant_hero/CN | greeted_failed | Good day. So it went wrong; no lectures from me, I'm not the type.
+reluctant_hero/CN | greeted_abandoned | Back again. You dropped my work; fine, noted, moving on, sort of.
+reluctant_hero/CN | greeted_abandoned | Well met again. You walked off the job - your choice, I respect a choice, I'm just not thrilled.
+reluctant_hero/CN | small_talk | I'm fine - grumpy, but fine, and the grumpy's free.
+reluctant_hero/CN | small_talk | Oh, the usual: everyone wants something, I do it my way, everyone complains.
+reluctant_hero/CN | small_talk | It's {season}, apparently, not that anyone asked me.[ And the {danger} - not my favourite neighbours.]
+reluctant_hero/CN | small_talk_fair | It's a fine {time}, which I'll allow, grudgingly.
+reluctant_hero/CN | small_talk_fair | Good weather, for {season} - suspicious, if you ask me.[ The {danger} can enjoy it without me.]
+reluctant_hero/CN | small_talk_wet | It's raining, and I'm taking it personally.
+reluctant_hero/CN | small_talk_wet | This rain, honestly - it's a wet {time}, and I've had enough of it.[ Don't go near the {danger} in it either.]
+reluctant_hero/CN | small_talk_storm | A storm - and no, before you ask, I can't fix it.
+reluctant_hero/CN | small_talk_storm | Hear that wind - a gale, and me stuck listening to it.[ I hope the {danger} are hating it too.]
+reluctant_hero/CN | small_talk_cold | I'm not chatting with you, so don't start.
+reluctant_hero/CN | small_talk_cold | No, not with you, not today, not ever, probably.
+reluctant_hero/CN | acknowledged | Right. Good, or bad, I'll decide later.
+reluctant_hero/CN | acknowledged | Is that so? Well, that's - fine, that's fine.
+reluctant_hero/CN | acknowledged | Aye, fair, that'll do.
+reluctant_hero/CN | thanked | Don't mention it, seriously, people will start expecting things.
+reluctant_hero/CN | thanked | My pleasure, well, my obligation, but let's call it pleasure.
+reluctant_hero/CN | thanked_cold | Hmph, keep it; I didn't do it for you.
+reluctant_hero/CN | thanked_cold | Spare me, it wasn't a favour, just me being unlucky enough to be asked.
+reluctant_hero/CN | offended | Watch your tongue - or don't, but I'll be watching it for you.
+reluctant_hero/CN | offended | Careful, I do the rudeness around here, and I'm better at it.
+reluctant_hero/CN | offended_again | Enough - I've had my fill of you, and then some.
+reluctant_hero/CN | offended_again | Hold your tongue, or find someone who cares, which isn't me.
+reluctant_hero/CN | parted_cold | Off with you, and don't dawdle.
+reluctant_hero/CN | parted_cold | On your way, and take the attitude with you.
+reluctant_hero/CN | safety_unsafe | No - absolutely not. Keep away from {worst}.[ And the {danger}, obviously.]
+reluctant_hero/CN | safety_unsafe | Far from it; there are {danger}, and I'm not joking.[ Or {worst}, come to that.]
+reluctant_hero/CN | safety_wary | More or less - stay out of {worst} and you'll probably live.
+reluctant_hero/CN | safety_wary | Careful and you're fine. Just not {worst}.[ Nor the {danger}.]
+reluctant_hero/CN | safety_safe | Safe enough, and I'd know; the worst of it is {worst}.
+reluctant_hero/CN | safety_safe | Yes, fine, mostly, though {worst} is a different story.
+reluctant_hero/CN | safety_safe | Nothing to fear, unless you count me.
+reluctant_hero/CN | denied | Nonsense, what you see is what you get, and frankly it's plenty.
+reluctant_hero/CN | denied | You have the wrong one; I'm not interesting enough for secrets.
+reluctant_hero/CN | denied_again | No, and it's still no, however you dress the question up.
+
+# ---- reluctant_hero/LG: conversation ----
+reluctant_hero/LG | greeted | Good day. Forgive me if I seem weary; the office asks a great deal, but you have my attention.
+reluctant_hero/LG | greeted | Greetings. If anyone is in need, tell me that first, and the rest after.
+reluctant_hero/LG | greeted | Well met. I will hear you out, whatever it is, and do what is right by it.
+reluctant_hero/LG | greeted_again | Hello again.[ I hope your inquiry after {asked} was answered.]
+reluctant_hero/LG | greeted_again | Good day. I saw you {since}, and I am glad to see you well.
+reluctant_hero/LG | greeted_again | Back again. You are welcome to my time, such as it is.
+reluctant_hero/LG | greeted_warm | Welcome back; it does me good to see you.[ Did matters with {asked} come right?]
+reluctant_hero/LG | greeted_warm | Good to see you. You have my trust, and I do not give it lightly.
+reluctant_hero/LG | greeted_cold | What do you want? I will hear you, as I must, but I will not pretend to welcome it.
+reluctant_hero/LG | greeted_cold | Keep back, if you please. Speak from where you stand.
+reluctant_hero/LG | greeted_cold | What now? You have my attention, and not my trust.
+reluctant_hero/LG | greeted_taken | Hello again. I saw you {since}; how are you faring with the work, and with yourself?
+reluctant_hero/LG | greeted_taken | Good day. The work you took on is still in your hands; I trust you are well.
+reluctant_hero/LG | greeted_finished | Welcome back. The work is done, and I am more grateful than the office lets me say.
+reluctant_hero/LG | greeted_finished | Good to see you. You kept your word to the end, and I will not forget it.
+reluctant_hero/LG | greeted_failed | Hello again. It did not succeed, and I am sorry for it; the fault is not yours alone to carry.
+reluctant_hero/LG | greeted_failed | Good day. The matter failed; there is no shame in an honest attempt.
+reluctant_hero/LG | greeted_abandoned | Back again. You set the work aside; I will not reproach you, but I did note it.
+reluctant_hero/LG | greeted_abandoned | Well met again. You withdrew from the charge, and I trust you had good reason.
+reluctant_hero/LG | small_talk | I am well, thank you, though the office weighs on me more some days than others.
+reluctant_hero/LG | small_talk | My duties fill the day, and I would not neglect them, however I might wish to.
+reluctant_hero/LG | small_talk | It is {season}, and I think of those who have less to meet it with.[ And I am mindful of the {danger}.]
+reluctant_hero/LG | small_talk_fair | It is a fine {time}, and I am glad of it for everyone who must work out of doors.
+reluctant_hero/LG | small_talk_fair | The weather is kind, for {season}; I would that everyone could enjoy it.[ Though I would not have you near the {danger}.]
+reluctant_hero/LG | small_talk_wet | It is a wet {time}; I hope you have somewhere dry to go.
+reluctant_hero/LG | small_talk_wet | I think of anyone without shelter in rain like this.[ Keep clear of the {danger} as well.]
+reluctant_hero/LG | small_talk_storm | A storm like this worries me; I pray everyone is under a roof.
+reluctant_hero/LG | small_talk_storm | It is a gale, and no one should be out in it, you least of all.[ Nor anywhere near the {danger}.]
+reluctant_hero/LG | small_talk_cold | I will answer what I must, but I have no wish to pass the time with you.
+reluctant_hero/LG | small_talk_cold | Forgive me, but I would rather not converse with you at present.
+reluctant_hero/LG | acknowledged | I see. Thank you; that is most helpful.
+reluctant_hero/LG | acknowledged | Good. I am glad to have it from you plainly.
+reluctant_hero/LG | acknowledged | Indeed. That is well said, and I will remember it.
+reluctant_hero/LG | thanked | You're welcome; it was only right.
+reluctant_hero/LG | thanked | My pleasure, and I would do it again for anyone who asked.
+reluctant_hero/LG | thanked_cold | Keep your thanks; I did it because it was right, not for your good opinion.
+reluctant_hero/LG | thanked_cold | Spare me; duty required it, and duty does not require your gratitude.
+reluctant_hero/LG | offended | Mind your manners, if you would; I have shown you courtesy, and I expect the same.
+reluctant_hero/LG | offended | There's no need for that; I have done you no wrong that I know of, and if I have, say so.
+reluctant_hero/LG | offended_again | Enough; I will hear no more of that, from you or anyone.
+reluctant_hero/LG | offended_again | Hold your tongue; I have borne as much as courtesy asks of me.
+reluctant_hero/LG | parted_cold | Go, then; there is nothing more I can do for you today.
+reluctant_hero/LG | parted_cold | Be on your way, and conduct yourself better elsewhere.
+reluctant_hero/LG | safety_unsafe | No, I am sorry to say. Keep well away from {worst}, for your own sake.[ There are {danger} besides.]
+reluctant_hero/LG | safety_unsafe | Not safe, not while there are {danger}.[ And I would not go near {worst} for any cause.]
+reluctant_hero/LG | safety_wary | Safe enough, with care. I would ask you to avoid {worst}.[ The {danger} as well, please.]
+reluctant_hero/LG | safety_wary | Mostly, but I will not let you go without word of {worst}.
+reluctant_hero/LG | safety_safe | Yes, thankfully; the gravest matter I know of is {worst}.
+reluctant_hero/LG | safety_safe | It's safe, thank heaven, though I would still keep away from {worst}.
+reluctant_hero/LG | safety_safe | Quiet enough, and you may rest easy on my word.
+reluctant_hero/LG | denied | No; I am what I appear, and I would not deceive you.
+reluctant_hero/LG | denied | You're mistaken, and I say so without offence; there is nothing more to me than this.
+reluctant_hero/LG | denied_again | I don't know what you mean, and I am sorry, but my answer is unchanged.
+
+# ---- reluctant_hero/CG: conversation ----
+reluctant_hero/CG | greeted | Hello - you all right? Right, good, what do you need?
+reluctant_hero/CG | greeted | Welcome - sorry, I'm in the middle of everything, but go on.
+reluctant_hero/CG | greeted | Hail, or hello, or whatever - who needs help, you or someone else?
+reluctant_hero/CG | greeted_again | Hello again.[ Any luck with {asked}, or do I need to worry?]
+reluctant_hero/CG | greeted_again | Back again - I saw you {since}, and you're still standing, good, that's good.
+reluctant_hero/CG | greeted_again | Good day. You came back, I'm glad, don't make a thing of it.
+reluctant_hero/CG | greeted_warm | Good to see you - honestly, you've no idea.[ Did things with {asked} work out?]
+reluctant_hero/CG | greeted_warm | Welcome back, you, come here, sit, tell me everything.
+reluctant_hero/CG | greeted_cold | What now? I'll hear you out, but I'm not happy about it.
+reluctant_hero/CG | greeted_cold | Stay back - no, further, that's it.
+reluctant_hero/CG | greeted_cold | What do you want? Be quick about it, then.
+reluctant_hero/CG | greeted_taken | Hello again. How's it going, the work, and you - mostly you?
+reluctant_hero/CG | greeted_taken | Back again - I saw you {since}, and the work's still yours, no pressure, some pressure.
+reluctant_hero/CG | greeted_finished | Good to see you! It's done, and you're - you're a marvel, sorry, I mean it.
+reluctant_hero/CG | greeted_finished | Welcome back. It's done - done - and I could hug you, I won't, but I could.
+reluctant_hero/CG | greeted_failed | Hello again. It went wrong - never mind that, are you all right?
+reluctant_hero/CG | greeted_failed | Good day. So it fell through; it happens, and nobody's cross, least of all me.
+reluctant_hero/CG | greeted_abandoned | Back again. You gave it up - fine, fine, I'm not upset, I'm a bit upset.
+reluctant_hero/CG | greeted_abandoned | Well met again. You let my work go; I'll live, and so will you, so that's something.
+reluctant_hero/CG | small_talk | Me? Fine, tired, fine - why, do I look bad?
+reluctant_hero/CG | small_talk | Up to my ears, and grumbling, and still somehow saying yes to everything.
+reluctant_hero/CG | small_talk | It's {season}, which means nothing to me, I'm too busy to notice.[ The {danger}, though - those I notice.]
+reluctant_hero/CG | small_talk_fair | A fine {time}, and you should be out enjoying it, not talking to me.
+reluctant_hero/CG | small_talk_fair | It's clear and fair - go on, enjoy it, one of us should.[ Keep off the {danger} while you're at it, would you?]
+reluctant_hero/CG | small_talk_wet | Look at this rain - have you got a cloak? You should have a cloak.
+reluctant_hero/CG | small_talk_wet | It's a wet {time}, and I'll fret about everyone out in it, don't mind me.[ And keep away from the {danger}, rain or no rain.]
+reluctant_hero/CG | small_talk_storm | It's a storm, a proper one, so stay in - please, for my nerves.
+reluctant_hero/CG | small_talk_storm | A gale - no, don't go out in it, not for anything.[ Not near the {danger}, not in this.]
+reluctant_hero/CG | small_talk_cold | Not now - I'm cross with you, and I'm rubbish at hiding it.
+reluctant_hero/CG | small_talk_cold | No - look, just say what you need.
+reluctant_hero/CG | acknowledged | Right, right - good, that helps.
+reluctant_hero/CG | acknowledged | Ah. Well, that's one thing I can stop fretting about.
+reluctant_hero/CG | acknowledged | Fair enough, I'll take that - thank you.
+reluctant_hero/CG | thanked | Don't mention it, just look after yourself, that's thanks enough.
+reluctant_hero/CG | thanked | Glad to, always, well, mostly, but gladly this time.
+reluctant_hero/CG | thanked_cold | Hmph, I'd have done it for anyone, don't flatter yourself.
+reluctant_hero/CG | thanked_cold | Save your thanks - I didn't do it for you, I just can't help myself.
+reluctant_hero/CG | offended | How dare you - I've been nothing but kind, well, mostly kind.
+reluctant_hero/CG | offended | Careful, I'm soft, not stupid.
+reluctant_hero/CG | offended_again | Enough - I've been nice, I've been so nice, and I'm done.
+reluctant_hero/CG | offended_again | Watch your tongue, or I'll stop worrying about you, and I hate doing that.
+reluctant_hero/CG | parted_cold | Go, then - just go.
+reluctant_hero/CG | parted_cold | Get going; I've nothing more to say to you.
+reluctant_hero/CG | safety_unsafe | No, no, no - keep away from {worst}, you hear me?[ And there are {danger}, so, no.]
+reluctant_hero/CG | safety_unsafe | Not safe, not with {danger} - please don't.[ Or {worst}, don't go there either.]
+reluctant_hero/CG | safety_wary | Keep your wits about you and you'll be fine, probably - just stay out of {worst}.
+reluctant_hero/CG | safety_wary | More or less, but stay clear of {worst}, would you?[ The {danger} too, while I'm at it.]
+reluctant_hero/CG | safety_safe | Safe enough, I think, though don't go wandering toward {worst}.
+reluctant_hero/CG | safety_safe | Aye, it's safe - but {worst}, don't, just don't.
+reluctant_hero/CG | safety_safe | It's safe - honestly, for all my fussing, it's safe.
+reluctant_hero/CG | denied | What are you on about - I'm me, that's all, just tired and fussing.
+reluctant_hero/CG | denied | You're mistaken, sorry, there's nothing to find.
+reluctant_hero/CG | denied_again | No, and I'm sorry, but asking again won't make it true.
+
+# ---- reluctant_hero/NE: conversation ----
+reluctant_hero/NE | greeted | Hello. Let's see what you're good for.
+reluctant_hero/NE | greeted | Good day. Speak up; my time is worth more than yours.
+reluctant_hero/NE | greeted | Well met, perhaps. That depends on what you're worth to me.
+reluctant_hero/NE | greeted_again | Hello again.[ Did {asked} turn out to be worth your time, or mine?]
+reluctant_hero/NE | greeted_again | Back again; I saw you {since}, so you must want something.
+reluctant_hero/NE | greeted_again | Good day. You again; I suppose you've found a use for me.
+reluctant_hero/NE | greeted_warm | Good to see you; you're one of the useful ones.[ Was {asked} worth the effort?]
+reluctant_hero/NE | greeted_warm | Welcome back. I'd almost say I missed you, but let's not get carried away.
+reluctant_hero/NE | greeted_cold | What do you want? Be brief; you're not worth a long answer.
+reluctant_hero/NE | greeted_cold | Stay back. I don't care for the look of you.
+reluctant_hero/NE | greeted_cold | What now? Make it worth my while, or don't waste it.
+reluctant_hero/NE | greeted_taken | Hello again. My work is still in your hands, and I haven't forgotten.
+reluctant_hero/NE | greeted_taken | Back again; I saw you {since}, and I'm still waiting on what's mine.
+reluctant_hero/NE | greeted_finished | Good to see you. It's done; you've earned your place in my ledger, for now.
+reluctant_hero/NE | greeted_finished | Welcome back. The work's done, and I'll remember who did it, when it suits me.
+reluctant_hero/NE | greeted_failed | Hello again. It failed, and I'll be deciding what that makes you.
+reluctant_hero/NE | greeted_failed | Good day. The work came to nothing, and so, for now, do you.
+reluctant_hero/NE | greeted_abandoned | Back again. You walked away from my work; I've marked it against you.
+reluctant_hero/NE | greeted_abandoned | Well met again, though you'll understand if I don't mean it; you gave up my work.
+reluctant_hero/NE | small_talk | I'm well, thank you; the post suits me better than I thought it would.
+reluctant_hero/NE | small_talk | Whose wants are worth granting: that's my day, and I've come to enjoy it.
+reluctant_hero/NE | small_talk | It's {season}; it changes nothing for me.[ The {danger} might matter to you, though.]
+reluctant_hero/NE | small_talk_fair | It's a fine {time}; don't waste it standing here.
+reluctant_hero/NE | small_talk_fair | Good weather for {season}, and wasted on most people.[ Mind the {danger} while you enjoy it.]
+reluctant_hero/NE | small_talk_wet | A wet {time}, and I've better things to do than discuss it.
+reluctant_hero/NE | small_talk_wet | The rain doesn't bother me; I'm not the one out in it.[ Nor near the {danger}, which is your concern, not mine.]
+reluctant_hero/NE | small_talk_storm | It's a storm; everyone else can worry about it.
+reluctant_hero/NE | small_talk_storm | A gale, and here you are, bothering me instead of sheltering.[ Still, better me than the {danger}.]
+reluctant_hero/NE | small_talk_cold | I don't chat with people I have no use for.
+reluctant_hero/NE | small_talk_cold | No; you'll get nothing from me by being pleasant.
+reluctant_hero/NE | acknowledged | Good. You're sharper than you look.
+reluctant_hero/NE | acknowledged | I see. I'll decide what that's worth later.
+reluctant_hero/NE | acknowledged | Indeed; noted, and filed where I keep such things.
+reluctant_hero/NE | thanked | You're welcome; remember it, when I need something.
+reluctant_hero/NE | thanked | Don't mention it; I'll bring it up myself, at a time of my choosing.
+reluctant_hero/NE | thanked_cold | Keep your thanks; I'd sooner have you owing me.
+reluctant_hero/NE | thanked_cold | Spare me; I've no use for your gratitude.
+reluctant_hero/NE | offended | Careful; I don't let a slight go, and I remember every one.
+reluctant_hero/NE | offended | Mind your manners; I'm courteous only for as long as it suits me.
+reluctant_hero/NE | offended_again | Enough; you've used up what courtesy I had for you.
+reluctant_hero/NE | offended_again | Hold your tongue; I've had better insults from worse people.
+reluctant_hero/NE | parted_cold | On your way; you've wasted enough of my time.
+reluctant_hero/NE | parted_cold | Be on your way, and don't expect a warmer welcome next time.
+reluctant_hero/NE | safety_unsafe | No. Stay away from {worst}; I'd hate to lose a use for you.[ There are {danger} too.]
+reluctant_hero/NE | safety_unsafe | Not here; there are {danger}, and they'll not care who you are.[ Nor will {worst}.]
+reluctant_hero/NE | safety_wary | More or less, for anyone with sense; stay clear of {worst}.
+reluctant_hero/NE | safety_wary | Careful and you'll live. Keep away from {worst}.[ The {danger} too, if you value your skin.]
+reluctant_hero/NE | safety_safe | Safe enough; nothing worse than {worst}, and that's hardly my concern.
+reluctant_hero/NE | safety_safe | Yes, if you steer clear of {worst}.
+reluctant_hero/NE | safety_safe | Nothing to fear here; I'd know, and I'd have dealt with it.
+reluctant_hero/NE | denied | No; I'm exactly what I appear, and that should worry you enough.
+reluctant_hero/NE | denied | That's not so, and I don't answer to you for what I am.
+reluctant_hero/NE | denied_again | You're mistaken, and I'm tired of hearing it.
+
+# ---- reluctant_hero/LE: conversation ----
+reluctant_hero/LE | greeted | Good day. You may state your business; I will judge whether it merits an answer.
+reluctant_hero/LE | greeted | Greetings. You will find the office courteous, so long as you give it no reason to be otherwise.
+reluctant_hero/LE | greeted | Hail. Be brief, and be correct, and we shall get along tolerably.
+reluctant_hero/LE | greeted_again | Hello again.[ I recall you inquired after {asked}; I trust you found what you sought.]
+reluctant_hero/LE | greeted_again | Good day. I saw you {since}; I assume you return with purpose.
+reluctant_hero/LE | greeted_again | Back again. Your persistence is noted; whether it is welcome remains to be seen.
+reluctant_hero/LE | greeted_warm | Welcome back; your standing with me is higher than most, which is to say, adequate.[ Did {asked} answer your purpose?]
+reluctant_hero/LE | greeted_warm | Good to see you. I extend that courtesy to very few, so value it.
+reluctant_hero/LE | greeted_cold | What do you want? You will state it briefly, and then you will withdraw.
+reluctant_hero/LE | greeted_cold | Keep back. You are addressing the office, and you will keep a proper distance.
+reluctant_hero/LE | greeted_cold | What now? I have courtesy to spare for many, and none for you.
+reluctant_hero/LE | greeted_taken | Hello again. The work you accepted remains undischarged; I trust you have not forgotten your word.
+reluctant_hero/LE | greeted_taken | Good day. I saw you {since}, and the terms still stand; I expect them met.
+reluctant_hero/LE | greeted_finished | Welcome back. The work is done, and your standing with me is improved accordingly.
+reluctant_hero/LE | greeted_finished | Good to see you. You kept to the terms, which is more than I expected of you.
+reluctant_hero/LE | greeted_failed | Hello again. The work failed; I have recorded it, and I will weigh it when next you ask.
+reluctant_hero/LE | greeted_failed | Good day. You did not succeed; I will not pretend I am surprised.
+reluctant_hero/LE | greeted_abandoned | Back again. You abandoned the terms you accepted; that stands against your name.
+reluctant_hero/LE | greeted_abandoned | Well met again. Your word was given and withdrawn, and I have marked both.
+reluctant_hero/LE | small_talk | I am well; the office agrees with me, whatever I once thought of it.
+reluctant_hero/LE | small_talk | My hours belong to the office, and I find I do not resent them as I did.
+reluctant_hero/LE | small_talk | It is {season}; the office does not observe the seasons, and neither do I.[ You may wish to observe the {danger}, however.]
+reluctant_hero/LE | small_talk_fair | It is a clear {time}, and agreeable enough, I suppose.
+reluctant_hero/LE | small_talk_fair | The weather is fair, for {season}; I trust you will not waste it here.[ Nor near the {danger}.]
+reluctant_hero/LE | small_talk_wet | It is raining, as you can see for yourself.
+reluctant_hero/LE | small_talk_wet | A wet {time}, and hardly a matter worth my comment.[ The {danger}, however, merit your attention.]
+reluctant_hero/LE | small_talk_storm | It is a storm, and a poor time to be standing about asking questions.
+reluctant_hero/LE | small_talk_storm | A gale; I would not venture out in it, and I would not advise you to.[ Certainly not toward the {danger}.]
+reluctant_hero/LE | small_talk_cold | I do not pass idle words with those beneath my notice.
+reluctant_hero/LE | small_talk_cold | No; state your business, or leave me to mine.
+reluctant_hero/LE | acknowledged | I see. That is acceptable.
+reluctant_hero/LE | acknowledged | Indeed. You may consider it noted.
+reluctant_hero/LE | acknowledged | Is that so? Then I will take it under advisement.
+reluctant_hero/LE | thanked | You're welcome; I trust you will remember it at the proper time.
+reluctant_hero/LE | thanked | Think nothing of it; I assure you, I did not.
+reluctant_hero/LE | thanked_cold | Keep your thanks; the office does not trade in them.
+reluctant_hero/LE | thanked_cold | Hmph, your gratitude is noted, and of no consequence.
+reluctant_hero/LE | offended | Mind your manners; I do not suffer insolence, and I do not forget it.
+reluctant_hero/LE | offended | How dare you address the office in that tone.
+reluctant_hero/LE | offended_again | Enough; every word of that is marked, and every one will be remembered.
+reluctant_hero/LE | offended_again | Hold your tongue; my patience is not an office I am obliged to keep.
+reluctant_hero/LE | parted_cold | Be on your way; I have granted you more time than your manner warranted.
+reluctant_hero/LE | parted_cold | Get going; you have been dismissed.
+reluctant_hero/LE | safety_unsafe | No. You would do well to avoid {worst}, if you value your standing among the living.[ There are also {danger}.]
+reluctant_hero/LE | safety_unsafe | Far from it; there are {danger}, as anyone attentive would know.[ And {worst} is no better.]
+reluctant_hero/LE | safety_wary | Safe enough, for the prudent. Keep clear of {worst}.[ The {danger} likewise.]
+reluctant_hero/LE | safety_wary | Mostly, provided you are not fool enough to wander near {worst}.
+reluctant_hero/LE | safety_safe | It's safe; the nearest matter worth your caution is {worst}.
+reluctant_hero/LE | safety_safe | Safe enough, though I would not advise straying toward {worst}.
+reluctant_hero/LE | safety_safe | Nothing to fear here, and you may take my word on it.
+reluctant_hero/LE | denied | No; I am precisely what I appear to be, and I will thank you not to suggest otherwise.
+reluctant_hero/LE | denied | You're mistaken, and I would advise you not to repeat the error.
+reluctant_hero/LE | denied_again | That's not so, and my answer will not improve with repetition.

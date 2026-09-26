@@ -14,7 +14,7 @@ fractured_heart/CG | surroundings | Well, we're in {here}, and the closest is {n
 fractured_heart/CG | surroundings | The nearest is {nearest}[, and past it, {others}].[ And steer clear of the {danger}; humour me.]
 fractured_heart/CG | surroundings | First there's {nearest}.[ Then {others}.][ Please, not the {danger}.]
 fractured_heart/CG | work_own | Here, take this one: {own}.[ Or, if it's not for you, {others}.]
-fractured_heart/CG | work_own | Do this for me and I'll stand by you after, I promise: {own}.[ If not, {others}.]
+fractured_heart/CG | work_own | Oh, you're asking? Good, because so am I: {own}.[ If not, {others}.]
 fractured_heart/CG | work_own | Right, a favour, a proper solemn one: {own}.[ And if that's not you, {others}.]
 fractured_heart/CG | work_others | Nothing of mine, sorry, but {others}.
 fractured_heart/CG | work_others | I've nothing, but I know who has: {others}.
@@ -30,13 +30,13 @@ fractured_heart/CG | refused_release | I won't, not over {giver}'s head; sorry, 
 fractured_heart/CG | refused_release | I cannot, it isn't mine to let go of, and pretending would be worse.
 fractured_heart/CG | refused | No, {reason}, and if it would bend, I'd have bent it for you.
 fractured_heart/CG | refused | No, not even for you; {reason}.
-fractured_heart/CG | accepted | Thank you, truly; now go on, go, before one of us changes our mind.
+fractured_heart/CG | accepted | Thank you, truly; that's settled, before one of us changes our mind.
 fractured_heart/CG | accepted | Good, good; and don't let anyone tell you I didn't mean it.
 fractured_heart/CG | accepted | Done, and that's a promise; the sensible one of us can sulk about it.
 fractured_heart/CG | declined | Fair enough, and no hard feelings, not from this side of me.
-fractured_heart/CG | declined | Suit yourself; I'd have liked the company.
+fractured_heart/CG | declined | Suit yourself; no is an answer too, and a fair one.
 fractured_heart/CG | declined | As you wish, and I mean that; nobody should be pushed into anything.
-fractured_heart/CG | abandoned | A pity; you'll tell me what happened, won't you, when you're ready?
+fractured_heart/CG | abandoned | A pity; still, you told me to my face, and that counts for something.
 fractured_heart/CG | abandoned | Then it's done, and whatever I promised you, I meant.
 fractured_heart/CG | abandoned | So be it; I'm not cross, and I can only answer for me.
 fractured_heart/CG | parted | Go well, and if I'm strange next time, it wasn't me.
@@ -59,9 +59,9 @@ fractured_heart/CN | surroundings | This is {here}, and the closest thing going 
 fractured_heart/CN | surroundings | Welcome to {here}, such as it is; the nearest is {nearest}.[ Then {others}.][ The {danger}, though; I wouldn't, and I'm not fussy.]
 fractured_heart/CN | surroundings | The nearest is {nearest}[, and past it, {others}].[ Mind the {danger}, or don't; your neck.]
 fractured_heart/CN | surroundings | First up, {nearest}.[ Then {others}.][ Give the {danger} a miss; not worth the bother.]
-fractured_heart/CN | work_own | Here's a trade, fair and square: {own}.[ Or else, {others}.]
+fractured_heart/CN | work_own | Here's a trade, fair and square: {own}.[ No? Then {others}.]
 fractured_heart/CN | work_own | Now, business: {own}.[ If that's not your sort of thing, {others}.]
-fractured_heart/CN | work_own | My word on it, or this half's word anyway: {own}, and I owe you one.[ If not, {others}.]
+fractured_heart/CN | work_own | My word on it, or this half's word anyway: {own}.[ If not, {others}.]
 fractured_heart/CN | work_others | Nothing of mine going, but I'm not stingy with gossip: {others}.
 fractured_heart/CN | work_others | Mine? None, but {others}, if you're keen.
 fractured_heart/CN | work_none | Nay, nothing, and if there were, I'd have kept it.
@@ -79,9 +79,9 @@ fractured_heart/CN | refused | No can do; {reason}.
 fractured_heart/CN | accepted | Done, done, and done; shake on it before I think better of it.
 fractured_heart/CN | accepted | Good; you do your half and I'll do mine, whichever of me turns up.
 fractured_heart/CN | accepted | Thank you; a straight deal, and I don't see many.
-fractured_heart/CN | declined | Suit yourself; more for me.
-fractured_heart/CN | declined | Fair enough; I'd have said no too, probably.
-fractured_heart/CN | declined | As you wish; your loss, and not by much.
+fractured_heart/CN | declined | Suit yourself; I offered, you passed, we're square.
+fractured_heart/CN | declined | Fair enough; a straight no beats a crooked yes.
+fractured_heart/CN | declined | As you wish; no grudge, not from this half.
 fractured_heart/CN | abandoned | So be it; easy come, easy go, mostly go.
 fractured_heart/CN | abandoned | Then it's done; we're even, near enough.
 fractured_heart/CN | abandoned | A pity; I'd have backed you, too, for a while.
@@ -105,9 +105,9 @@ fractured_heart/LE | surroundings | This is {here}; the nearest is {nearest}.[ A
 fractured_heart/LE | surroundings | We stand in {here}, and nearest to us is {nearest}[; then {others}].[ Heed the {danger}; I will not retrieve you.]
 fractured_heart/LE | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ Mind the {danger}; I will not say it twice.]
 fractured_heart/LE | surroundings | Of what lies near, the first is {nearest}.[ Then {others}.][ Beware the {danger}.]
-fractured_heart/LE | work_own | You may be of use to me: {own}.[ Should that exceed you, {others}.]
+fractured_heart/LE | work_own | You may be of use to me: {own}.[ Should you decline, {others}.]
 fractured_heart/LE | work_own | Your standing is unproven, and this will settle it: {own}.[ Otherwise, {others}.]
-fractured_heart/LE | work_own | I have need of someone expendable, and you will do: {own}.[ If not, {others}.]
+fractured_heart/LE | work_own | Hear me once, as I do not repeat myself: {own}.[ If not, {others}.]
 fractured_heart/LE | work_others | Nothing of mine, but {others}; they are less particular than I am.
 fractured_heart/LE | work_others | I offer nothing myself, though others will take what they can get: {others}.
 fractured_heart/LE | work_none | There is nothing, and I would not invent a task to flatter you.
@@ -261,10 +261,10 @@ fractured_heart/NG | refused_release | I cannot; it isn't mine to release, and s
 fractured_heart/NG | refused | No, {reason}, and I'm sorry for it.
 fractured_heart/NG | refused | No, I'm afraid; {reason}, and I wish it were otherwise.
 fractured_heart/NG | accepted | Thank you; I won't forget it.
-fractured_heart/NG | accepted | Good. Be careful, and come back and tell me how it went.
-fractured_heart/NG | accepted | Done; that's one I owe you.
+fractured_heart/NG | accepted | Good. I'm grateful; truly, I am.
+fractured_heart/NG | accepted | Done; and thank you, for not making me ask twice.
 fractured_heart/NG | declined | As you wish; you've your own troubles, I expect.
-fractured_heart/NG | declined | Fair enough; I'd rather you said no than said yes and suffered for it.
+fractured_heart/NG | declined | Fair enough; I'm glad you said so plainly.
 fractured_heart/NG | declined | Very well; I'd sooner you were honest about it.
 fractured_heart/NG | abandoned | So be it; are you all right?
 fractured_heart/NG | abandoned | A pity, but it's better given up than done badly.
@@ -321,3 +321,409 @@ fractured_heart/NN | parted | Goodbye; we're square, for now.
 fractured_heart/NN | not_understood | I don't follow; say it plainly.
 fractured_heart/NN | not_understood | What do you mean, exactly?
 fractured_heart/NN | not_understood | That's beyond me; beyond both of us, for that matter.
+
+# ---- fractured_heart/CG: conversation ----
+fractured_heart/CG | greeted | Hello. Oh, a new face; good, I like new faces.
+fractured_heart/CG | greeted | Well met. Ask me anything; I'll answer now and worry later.
+fractured_heart/CG | greeted | Greetings, very formally. There, that's done; now, what brings you?
+fractured_heart/CG | greeted_again | Hello again, you.[ Any luck with {asked}?]
+fractured_heart/CG | greeted_again | Back again, and I saw you {since}. I remembered that all by myself.
+fractured_heart/CG | greeted_again | Well met again; it's you, from before, isn't it? Good, I thought so.
+fractured_heart/CG | greeted_warm | Good to see you, truly.[ Any news of {asked}?]
+fractured_heart/CG | greeted_warm | Welcome back! Oh, I'm glad it's you; stay a while.
+fractured_heart/CG | greeted_cold | What do you want? Be quick, please; I'm not in the mood for you.
+fractured_heart/CG | greeted_cold | Keep back. Say it from there, and I'll listen, but no closer.
+fractured_heart/CG | greeted_cold | What now? Out with it, and then let me be.
+fractured_heart/CG | greeted_taken | Hello again. That work's still yours, and I haven't forgotten, honest.
+fractured_heart/CG | greeted_taken | Good to see you. I saw you {since}, and the work's still yours; I haven't changed my mind, have I?
+fractured_heart/CG | greeted_finished | Welcome back! It's done, and done by you; I could hug you, I won't, but I could.
+fractured_heart/CG | greeted_finished | Well met again. I saw you {since}, and now the work's done; thank you, truly.
+fractured_heart/CG | greeted_failed | Hello again. It didn't come off; never mind, you tried, and I'm glad you're here.
+fractured_heart/CG | greeted_failed | Back again, and I saw you {since}. It came to nothing, and I'm sorry it did.
+fractured_heart/CG | greeted_abandoned | Good day. You let my work go; that's allowed, and I'm not keeping score.
+fractured_heart/CG | greeted_abandoned | Welcome back. I saw you {since}, and I'd rather have you than the work, any day.
+fractured_heart/CG | small_talk | Me? Oh, fine, I think; I'll let you know if that changes, which it might.
+fractured_heart/CG | small_talk | Oh, busy, happily; it's {time}, and somebody always needs something.
+fractured_heart/CG | small_talk | It's {season}, and I've half a mind to enjoy it; the other half isn't asked.[ Mind the {danger}, though, please.]
+fractured_heart/CG | small_talk_fair | It's a fine {time}, isn't it? The kind that makes me want to promise things.
+fractured_heart/CG | small_talk_fair | Oh, it's lovely out, for {season}.[ Just not by the {danger}; I mean it.]
+fractured_heart/CG | small_talk_wet | It's wet, it's {time}, and I'm soaked through; well, damp, damp-ish.
+fractured_heart/CG | small_talk_wet | No staying dry in this; it's a wet {time}.[ Stay clear of the {danger}, wet or dry.]
+fractured_heart/CG | small_talk_storm | Listen to it! A proper storm, and me without a sensible thought in my head.
+fractured_heart/CG | small_talk_storm | It's wild out, {time} or not; stay in, if you've any sense.[ And not a step toward the {danger}, please.]
+fractured_heart/CG | small_talk_cold | I'd rather not, if it's all the same to you.
+fractured_heart/CG | small_talk_cold | Not now; I'm not in a chatting mood, not with you.
+fractured_heart/CG | acknowledged | Ah! Good, that's that settled, then.
+fractured_heart/CG | acknowledged | Right, got it; I'll try to hold on to that.
+fractured_heart/CG | acknowledged | Is that so? Well, I believe you, for what it's worth.
+fractured_heart/CG | thanked | You're welcome, truly; any time, well, most times.
+fractured_heart/CG | thanked | Don't mention it; no, really, don't, I'll only go red.
+fractured_heart/CG | thanked_cold | Keep your thanks; I didn't do it for you.
+fractured_heart/CG | thanked_cold | Spare me; I'd have done the same for anyone.
+fractured_heart/CG | offended | There's no need for that, none at all; what did I do, or was it the other one of me?
+fractured_heart/CG | offended | Hold your tongue, please, before I stop being nice about it.
+fractured_heart/CG | offended_again | Enough; I've been patient, and I'm done being patient.
+fractured_heart/CG | offended_again | Mind your manners, or mind them somewhere else.
+fractured_heart/CG | parted_cold | Go, then; I won't stop you.
+fractured_heart/CG | parted_cold | Off with you, and quickly.
+fractured_heart/CG | safety_unsafe | No, no, not with {worst}; please keep clear of it.[ And there are {danger}; I'd hate that for you.]
+fractured_heart/CG | safety_unsafe | Not safe, sorry; there are {danger}.[ Keep clear of {worst} as well, please.]
+fractured_heart/CG | safety_wary | Mostly, yes, but not near {worst}; promise me.[ Or the {danger}, while you're promising.]
+fractured_heart/CG | safety_wary | Careful is the word; {worst} is the trouble, so give it a wide berth.
+fractured_heart/CG | safety_safe | Yes, safe as anything; the worst of it is {worst}, and that's not here.
+fractured_heart/CG | safety_safe | Safe enough, I promise; still, I wouldn't go near {worst}.
+fractured_heart/CG | safety_safe | Nothing to fear here; I'd say so if there were, on my honour.
+fractured_heart/CG | denied | Nonsense; what you see is what there is, I promise.
+fractured_heart/CG | denied | I don't know what you mean, and I'm a little hurt you'd think it.
+fractured_heart/CG | denied_again | No, and asking twice won't change it; there's nothing to find.
+fractured_heart/CG | exposed_second | Yes, that was me; well, the other me. Some days I'm someone else, and I never know what I've said.
+fractured_heart/CG | exposed_second | You've found me out. Some days there's another one in here, and I'm sorry for whatever they told you.
+fractured_heart/CG | exposed_second | So you know, then. There are days I'm someone else entirely; I'd introduce you, but we never meet.
+
+# ---- fractured_heart/CN: conversation ----
+fractured_heart/CN | greeted | Hello. A new face, eh, and what are you selling?
+fractured_heart/CN | greeted | Well met, or met, anyway; what's the offer?
+fractured_heart/CN | greeted | Hail, and all that; go on, I'm listening, for now.
+fractured_heart/CN | greeted_again | Hello again.[ Still after {asked}?]
+fractured_heart/CN | greeted_again | Back again; saw you {since}, didn't I? I thought so.
+fractured_heart/CN | greeted_again | Well met again, you; what is it this time?
+fractured_heart/CN | greeted_warm | Good to see you, honestly, and I don't say that for free.[ Any joy with {asked}?]
+fractured_heart/CN | greeted_warm | Welcome back, you; saw you {since}, and I'm still glad, which is rare.
+fractured_heart/CN | greeted_cold | What do you want? Make it short; you're on thin ice with me.
+fractured_heart/CN | greeted_cold | Stay back. Say it from there, or don't.
+fractured_heart/CN | greeted_cold | What now? Get to it; I've not got all day.
+fractured_heart/CN | greeted_taken | Hello again. My work's still yours, last I checked; don't make me check twice.
+fractured_heart/CN | greeted_taken | Back again. Last I saw you was {since}; the work's still on you, and the deal still stands.
+fractured_heart/CN | greeted_finished | Welcome back! It's done, and done right; I knew I'd picked well.
+fractured_heart/CN | greeted_finished | Good to see you. You kept the deal, and I didn't even have to chase you.
+fractured_heart/CN | greeted_failed | Hello again. It went sideways, then; happens to the best, and to the rest of us.
+fractured_heart/CN | greeted_failed | Back again. We spoke {since}, and since then it's come apart; no sulking, mind.
+fractured_heart/CN | greeted_abandoned | Good day. You let my work go; fine, it's a free world, mostly.
+fractured_heart/CN | greeted_abandoned | Welcome back. You walked away from my work, and I've not forgotten, just so you know.
+fractured_heart/CN | small_talk | Me? Can't complain; well, I can, but who'd listen?
+fractured_heart/CN | small_talk | It's {time}, and I'm {post} of {place} till something better comes along.
+fractured_heart/CN | small_talk | Say what you like about {season}; it suits me.[ The {danger}, less so; I'd give them a miss.]
+fractured_heart/CN | small_talk_fair | It's a fine {time}; I'd sell it if I could.
+fractured_heart/CN | small_talk_fair | Good weather, for {season}; I'll take it.[ Not near the {danger}, though; nobody's that lucky.]
+fractured_heart/CN | small_talk_wet | It's wet, and I'm not built for wet; nobody asked me, though.
+fractured_heart/CN | small_talk_wet | What a wet {time}; I'd trade it for a dry one in a heartbeat.[ And the {danger}; not worth a wet walk.]
+fractured_heart/CN | small_talk_storm | Hear that? A proper storm, and me with nowhere better to be.
+fractured_heart/CN | small_talk_storm | It's a wild {time}; stay put, that's my advice, and I don't give much.[ The {danger} can have the storm to themselves.]
+fractured_heart/CN | small_talk_cold | Not interested, not today.
+fractured_heart/CN | small_talk_cold | Nothing to say to you; try someone who likes you.
+fractured_heart/CN | acknowledged | Right, fair; noted, filed, done.
+fractured_heart/CN | acknowledged | Aye? Well, I'll take your word, for now.
+fractured_heart/CN | acknowledged | Is that so? Well, well; you learn something.
+fractured_heart/CN | thanked | No need; call it even.
+fractured_heart/CN | thanked | Glad to; it cost me nothing, so no fuss.
+fractured_heart/CN | thanked_cold | Save your thanks; they're not worth much from you.
+fractured_heart/CN | thanked_cold | Hmph; keep it, I don't want it.
+fractured_heart/CN | offended | Watch your tongue; I'm not the one to try that on, not today.
+fractured_heart/CN | offended | Careful; you've picked the wrong one of me to say that to.
+fractured_heart/CN | offended_again | Enough; twice is once too many, and I'm done with you.
+fractured_heart/CN | offended_again | How dare you, twice over; go and find someone who cares.
+fractured_heart/CN | parted_cold | On your way, then.
+fractured_heart/CN | parted_cold | Get going; we're finished here.
+fractured_heart/CN | safety_unsafe | No; not with {worst}, and I'm not fussy.[ And there are {danger}; that's a no twice over.]
+fractured_heart/CN | safety_unsafe | Not here, not now; there are {danger}.[ Then there's {worst}, if you want more reasons.]
+fractured_heart/CN | safety_wary | More or less; just don't go poking at {worst}.[ Or near the {danger}, for that matter.]
+fractured_heart/CN | safety_wary | Keep your wits about you, and your distance from {worst}.
+fractured_heart/CN | safety_safe | Safe enough, near enough; the worst going is {worst}.
+fractured_heart/CN | safety_safe | Aye, safe; I'd only mind {worst}, and not much.
+fractured_heart/CN | safety_safe | It's safe; I'd tell you otherwise, there's nothing in lying about it.
+fractured_heart/CN | denied | No; what you see is what you get, take it or leave it.
+fractured_heart/CN | denied | What are you on about, I'm as plain as I look.
+fractured_heart/CN | denied_again | That's not so, and saying it twice won't make it so.
+fractured_heart/CN | exposed_second | Fine, you caught the other one. Some days I'm somebody else, and they make their own deals.
+fractured_heart/CN | exposed_second | Clever. Yes, there's two of me, some days, and we don't compare notes.
+fractured_heart/CN | exposed_second | So you know; saves me pretending. Some days I'm someone else, and that one won't keep a word I give you.
+
+# ---- fractured_heart/LE: conversation ----
+fractured_heart/LE | greeted | Greetings. You will state your business, and I will judge whether it merits an answer.
+fractured_heart/LE | greeted | Good day. I do not know you, and I extend nothing to those I do not know.
+fractured_heart/LE | greeted | Hail. You have my attention, for the moment; do not waste it.
+fractured_heart/LE | greeted_again | Hello again.[ You were asking after {asked}; I have not forgotten.]
+fractured_heart/LE | greeted_again | Well met again. We last spoke {since}, and I recall every word of it.
+fractured_heart/LE | greeted_again | Back again. I trust you have come with something worth my time.
+fractured_heart/LE | greeted_warm | Good to see you; you have kept your standing with me, which few do.[ Did {asked} prove worth the asking?]
+fractured_heart/LE | greeted_warm | Welcome back. I saw you {since}, and I find I do not mind seeing you again.
+fractured_heart/LE | greeted_cold | What do you want? Be brief; my courtesy is not unlimited, and yours is spent.
+fractured_heart/LE | greeted_cold | Keep back. You may speak from there, and I will decide whether to answer.
+fractured_heart/LE | greeted_cold | Stay back. Whatever you want, you will ask for it properly.
+fractured_heart/LE | greeted_taken | Hello again. The work remains yours, and I expect it done as sworn.
+fractured_heart/LE | greeted_taken | Good day. I saw you {since}, and the work is still yours; I trust you remember that.
+fractured_heart/LE | greeted_finished | Welcome back. The work is done, and done as sworn; that is noted in your favour.
+fractured_heart/LE | greeted_finished | Well met again. I saw you {since}, and since then you have done what you swore; I did not expect it.
+fractured_heart/LE | greeted_failed | Hello again. You failed; I will not pretend otherwise, and neither should you.
+fractured_heart/LE | greeted_failed | Back again. The work came to nothing, and I have revised my opinion of you accordingly.
+fractured_heart/LE | greeted_abandoned | Good day. You abandoned your word to me; forgive me if I do not take it again lightly.
+fractured_heart/LE | greeted_abandoned | Welcome back, though I use the word loosely. You gave up my work, and I remember it exactly.
+fractured_heart/LE | small_talk | I am as I always am, which is to say, in command of myself; today, at least.
+fractured_heart/LE | small_talk | My office does not pause for conversation, {time} or not.
+fractured_heart/LE | small_talk | I have no complaint of {season}.[ Of the {danger}, I have several.]
+fractured_heart/LE | small_talk_fair | It is a fine {time}, and I will allow that much.
+fractured_heart/LE | small_talk_fair | The weather is fair, for {season}; I will not quarrel with it.[ The {danger}, I leave to you.]
+fractured_heart/LE | small_talk_wet | It is a wet {time}, and I do not care for it.
+fractured_heart/LE | small_talk_wet | This rain does nothing for anyone's temper, least of all mine.[ Give the {danger} a wide berth.]
+fractured_heart/LE | small_talk_storm | A storm, and an ill-mannered one, even for {season}.
+fractured_heart/LE | small_talk_storm | This is no {time} to be abroad, and I say so as a courtesy.[ Nor would I go near the {danger} in it.]
+fractured_heart/LE | small_talk_cold | I do not pass the time with those I have no use for.
+fractured_heart/LE | small_talk_cold | You mistake me for someone who wishes to talk to you.
+fractured_heart/LE | acknowledged | Indeed. That is noted, and it will be remembered.
+fractured_heart/LE | acknowledged | I see. You answer plainly, which is something.
+fractured_heart/LE | acknowledged | Good. That is the correct answer, or near enough.
+fractured_heart/LE | thanked | No need; I did what my office requires, and nothing more.
+fractured_heart/LE | thanked | You're welcome; see that you remember it.
+fractured_heart/LE | thanked_cold | Save your thanks for someone who values them.
+fractured_heart/LE | thanked_cold | Spare me; your gratitude is of no use to me.
+fractured_heart/LE | offended | Mind your manners; I heard that, and I will not pretend I did not.
+fractured_heart/LE | offended | How dare you; I was civil, and you will be civil in return.
+fractured_heart/LE | offended_again | Enough; the courtesy I showed you is withdrawn, entirely.
+fractured_heart/LE | offended_again | Hold your tongue; you have said twice what you should not have said once.
+fractured_heart/LE | parted_cold | Be on your way; you have taken enough of my time.
+fractured_heart/LE | parted_cold | Go, then, and do not presume on my patience again.
+fractured_heart/LE | safety_unsafe | No; {worst} sees to that, and I would not send even you there.[ There are {danger} besides.]
+fractured_heart/LE | safety_unsafe | Not safe, and I do not say so lightly; there are {danger}.[ And {worst}, for those who need a second reason.]
+fractured_heart/LE | safety_wary | Safe enough, for those with sense; keep away from {worst}.[ The {danger} as well.]
+fractured_heart/LE | safety_wary | Careful; {worst} is there for the unwary, and you strike me as unwary.
+fractured_heart/LE | safety_safe | Yes; the worst of it is {worst}, and that is not your concern here.
+fractured_heart/LE | safety_safe | It's safe, as these things go; I would still not go near {worst}.
+fractured_heart/LE | safety_safe | Nothing to fear here, unless you bring it with you.
+fractured_heart/LE | denied | You're mistaken, and I would advise you not to repeat it.
+fractured_heart/LE | denied | That's not so; I am precisely what I appear to be.
+fractured_heart/LE | denied_again | No; I have answered that once, and I do not answer twice.
+fractured_heart/LE | exposed_second | Very well. You met the other one; I know precisely what was said to you, and whatever was promised, I will keep.
+fractured_heart/LE | exposed_second | So you know. Some days another wears this face; I remember everything it does, and I answer for all of it.
+fractured_heart/LE | exposed_second | Yes. The one you spoke to was not me, though it wore my name; do not mistake us again.
+
+# ---- fractured_heart/LN: conversation ----
+fractured_heart/LN | greeted | Greetings. Say your name and your business, and we will proceed properly.
+fractured_heart/LN | greeted | Good day. I deal fairly with those I do not know, until they give me reason not to.
+fractured_heart/LN | greeted | Well met. Speak plainly, and you will find me fair.
+fractured_heart/LN | greeted_again | Hello again.[ You asked after {asked}, as I have it; is there more?]
+fractured_heart/LN | greeted_again | Back again. We spoke {since}; I remember it, and I remember it accurately.
+fractured_heart/LN | greeted_again | Well met again; you are known to me now, and that counts for something.
+fractured_heart/LN | greeted_warm | Good to see you; you stand well with me, and I do not say that of many.[ Did {asked} answer your purpose?]
+fractured_heart/LN | greeted_warm | Welcome back. I saw you {since}, and you are as welcome now as you were then.
+fractured_heart/LN | greeted_cold | What do you want? Say it plainly, and we will be done the sooner.
+fractured_heart/LN | greeted_cold | Keep back. You have my attention, and nothing more than that.
+fractured_heart/LN | greeted_cold | Stay back. I will answer you as the office requires, and no further.
+fractured_heart/LN | greeted_taken | Hello again. The work you took from me remains yours, and so does your word.
+fractured_heart/LN | greeted_taken | Good day. We spoke {since}; the work stands as agreed, and I expect it kept.
+fractured_heart/LN | greeted_finished | Welcome back. The work is done, and done as agreed; your word is good with me.
+fractured_heart/LN | greeted_finished | Good to see you. I saw you {since}, and you have kept your word since; I will not forget it.
+fractured_heart/LN | greeted_failed | Hello again. The work failed; that is a matter of record, not of blame.
+fractured_heart/LN | greeted_failed | Back again. It came to nothing, and I note it without rancour.
+fractured_heart/LN | greeted_abandoned | Good day. You gave up the work, and you are released from it; the record shows as much.
+fractured_heart/LN | greeted_abandoned | Welcome back. We spoke {since}, and you have since set my work aside; that is your right, and it is noted.
+fractured_heart/LN | small_talk | I am well, and I will say so on oath if you require it.
+fractured_heart/LN | small_talk | There is always some matter before me, and I see each one settled properly.
+fractured_heart/LN | small_talk | My office keeps the same terms for {season} as for any other.[ Keep clear of the {danger}; I say it for the record.]
+fractured_heart/LN | small_talk_fair | It is a fair {time}, and I will not dispute it.
+fractured_heart/LN | small_talk_fair | This is fine weather, for {season}, and I am glad of it.[ Keep your distance from the {danger} all the same.]
+fractured_heart/LN | small_talk_wet | A wet {time}, for {season}; I take it as it comes.
+fractured_heart/LN | small_talk_wet | It is raining, and I will not pretend otherwise.[ Mind the {danger}; the rain excuses no carelessness.]
+fractured_heart/LN | small_talk_storm | It is a storm, plainly, and I would not travel in it by choice.
+fractured_heart/LN | small_talk_storm | No one of sense goes out in this.[ Still less toward the {danger}.]
+fractured_heart/LN | small_talk_cold | I have no conversation for you; state your business or go.
+fractured_heart/LN | small_talk_cold | We are not on terms for pleasantries, you and I.
+fractured_heart/LN | acknowledged | Right. Then that is settled, and I will hold you to it.
+fractured_heart/LN | acknowledged | I see. That is a fair answer, and I accept it.
+fractured_heart/LN | acknowledged | Is that so? Then I will take it as stated.
+fractured_heart/LN | thanked | No need; it was fairly asked, and fairly answered.
+fractured_heart/LN | thanked | You're welcome; that is simply what is proper.
+fractured_heart/LN | thanked_cold | Keep your thanks; I answered as the office requires, not as a favour.
+fractured_heart/LN | thanked_cold | Save your thanks; we are not on such terms.
+fractured_heart/LN | offended | Mind your manners; I have been fair with you, and I expect the same.
+fractured_heart/LN | offended | There's no need for that; if you have a grievance, state it properly.
+fractured_heart/LN | offended_again | Enough; twice is a pattern, and I will treat it as one.
+fractured_heart/LN | offended_again | Hold your tongue; you have forfeited any courtesy I owed you.
+fractured_heart/LN | parted_cold | Be on your way; our business is concluded.
+fractured_heart/LN | parted_cold | Go, then; I have nothing further for you.
+fractured_heart/LN | safety_unsafe | No, and I will not soften it; {worst} decides it.[ There are {danger} as well.]
+fractured_heart/LN | safety_unsafe | I wouldn't say so; there are {danger}, and that is reason enough.[ With {worst} besides, it is beyond dispute.]
+fractured_heart/LN | safety_wary | More or less, provided you keep clear of {worst}.[ The same holds for the {danger}.]
+fractured_heart/LN | safety_wary | Keep your wits about you; {worst} is the reason I qualify my answer.
+fractured_heart/LN | safety_safe | Safe enough; the worst I know of is {worst}, and I would swear to that.
+fractured_heart/LN | safety_safe | Aye, it is safe; I would only name {worst}, for completeness.
+fractured_heart/LN | safety_safe | Yes, it is safe, and I would say otherwise if it were not.
+fractured_heart/LN | denied | No; I am what I have said I am, and I will swear to it.
+fractured_heart/LN | denied | You're mistaken, and I would ask you to withdraw the charge.
+fractured_heart/LN | denied_again | That's not so; my answer stands as given.
+fractured_heart/LN | exposed_second | Very well. You met the other; whatever was promised you under my name will be kept, by me.
+fractured_heart/LN | exposed_second | Yes. Some days another answers to my name, and I hold myself bound by its word as by my own.
+fractured_heart/LN | exposed_second | Enough, then. There are days I am someone else; I will not deny it, and I will not disown what was sworn.
+
+# ---- fractured_heart/NE: conversation ----
+fractured_heart/NE | greeted | Hello. You'll want something; most do.
+fractured_heart/NE | greeted | Well met, perhaps; that depends on what you're good for.
+fractured_heart/NE | greeted | Good day. Say what you're after, and I'll say what it's worth to me.
+fractured_heart/NE | greeted_again | Hello again.[ Still chasing {asked}?]
+fractured_heart/NE | greeted_again | Back again; I saw you {since}, and I've not forgotten a thing.
+fractured_heart/NE | greeted_again | Well met again. Let's see if you're more use this time.
+fractured_heart/NE | greeted_warm | Good to see you; you've been worth the trouble so far.[ Did {asked} turn out worth yours?]
+fractured_heart/NE | greeted_warm | Welcome back. I saw you {since}, and you're still on the right side of my ledger.
+fractured_heart/NE | greeted_cold | What do you want? Be quick; you're already costing me time.
+fractured_heart/NE | greeted_cold | Keep back. I know your sort, and I'm not impressed.
+fractured_heart/NE | greeted_cold | What now? Whatever it is, the answer's likely no.
+fractured_heart/NE | greeted_taken | Hello again. The work's still yours, and I'm keeping count.
+fractured_heart/NE | greeted_taken | Back again. I saw you {since}, and my work's still in your hands; see it stays there.
+fractured_heart/NE | greeted_finished | Welcome back. It's done; you've earned a better place in my books.
+fractured_heart/NE | greeted_finished | Good to see you. I saw you {since}, and since then you've proved useful; that's noted.
+fractured_heart/NE | greeted_failed | Hello again. It failed; I've written that down, and it doesn't rub out.
+fractured_heart/NE | greeted_failed | Back again. It came to nothing, and I'll be slower to trust you with the next.
+fractured_heart/NE | greeted_abandoned | Good day. You gave up my work; I remember, and I always will.
+fractured_heart/NE | greeted_abandoned | Welcome back, if that's the word. You dropped what I gave you, and I've marked it.
+fractured_heart/NE | small_talk | Well enough, and better when people are useful to me.
+fractured_heart/NE | small_talk | It's {time}, and I'm {post} of {place}; I keep busy, and I keep my eyes open.
+fractured_heart/NE | small_talk | I've no opinion of {season}; it changes nothing that matters to me.[ The {danger} might, if you're careless.]
+fractured_heart/NE | small_talk_fair | It's a fine {time}, and wasted on most people.
+fractured_heart/NE | small_talk_fair | The weather's fair, for {season}; enjoy it while it costs nothing.[ The {danger} will cost you more.]
+fractured_heart/NE | small_talk_wet | It's wet, and I've better things to do than stand in it.
+fractured_heart/NE | small_talk_wet | A wet {time}; good for nothing but staying in.[ Mind the {danger}; your lookout, not mine.]
+fractured_heart/NE | small_talk_storm | A storm, and a proper one; I'll wait it out, and so should you.
+fractured_heart/NE | small_talk_storm | This is no {time} for anyone with sense to be out.[ The {danger} are your problem, storm or not.]
+fractured_heart/NE | small_talk_cold | I've no use for chatter, and less for you.
+fractured_heart/NE | small_talk_cold | You're not worth the small talk.
+fractured_heart/NE | acknowledged | Good. That's useful, which is more than I expected.
+fractured_heart/NE | acknowledged | Aye, fine; I'll remember that.
+fractured_heart/NE | acknowledged | Is that so? I'll check, you understand.
+fractured_heart/NE | thanked | Don't mention it; I'll remember it for you.
+fractured_heart/NE | thanked | No need; it'll come back round, one way or another.
+fractured_heart/NE | thanked_cold | Hmph; thanks cost you nothing, and they're worth about that.
+fractured_heart/NE | thanked_cold | Keep your thanks; I'd rather have something useful.
+fractured_heart/NE | offended | Careful; I remember a slight longer than you'll remember making it.
+fractured_heart/NE | offended | Watch your tongue; you're not useful enough to talk to me like that.
+fractured_heart/NE | offended_again | Enough; that's twice, and I've counted both.
+fractured_heart/NE | offended_again | How dare you; whatever use you were, you've spent it.
+fractured_heart/NE | parted_cold | Get going; you've used up what patience I had.
+fractured_heart/NE | parted_cold | Off with you; I've no further use for you today.
+fractured_heart/NE | safety_unsafe | No; {worst} settles that, and I wouldn't waste myself on it.[ There are {danger} as well, if you need more.]
+fractured_heart/NE | safety_unsafe | Far from it; there are {danger}, and they don't care who you are.[ Then there's {worst}, if you're still curious.]
+fractured_heart/NE | safety_wary | Mostly; just don't go near {worst}, unless you've a use for trouble.[ Nor the {danger}.]
+fractured_heart/NE | safety_wary | Safe enough, for the careful; {worst} is where the careless end up.
+fractured_heart/NE | safety_safe | Safe enough; the worst of it is {worst}, and that's someone else's problem.
+fractured_heart/NE | safety_safe | Aye, safe; I'd still keep away from {worst}, but I'm not you.
+fractured_heart/NE | safety_safe | Quiet enough; if it weren't, I'd have heard.
+fractured_heart/NE | denied | Nonsense; I'm exactly what you see, and no more.
+fractured_heart/NE | denied | What are you on about; you've no call to say that.
+fractured_heart/NE | denied_again | No, and asking again only tells me how little you have to do.
+fractured_heart/NE | exposed_second | So you know. There's another who wears this face some days, and I know every single thing it does.
+fractured_heart/NE | exposed_second | Fine. You met the other one; I know what it said to you, word for word, so don't expect the same manners from me.
+fractured_heart/NE | exposed_second | You've found me out. Some days I'm someone else; I remember all of it, and I use what I remember.
+
+# ---- fractured_heart/NG: conversation ----
+fractured_heart/NG | greeted | Hello. You're new to me, I think; I'm glad to meet you.
+fractured_heart/NG | greeted | Good day. It's good to meet someone new; how are you keeping?
+fractured_heart/NG | greeted | Well met. You'll forgive me if I'm slow to place faces; I'm glad of yours.
+fractured_heart/NG | greeted_again | Hello again.[ How did you get on with {asked}?]
+fractured_heart/NG | greeted_again | Back again; it was {since} we spoke, wasn't it? I'm glad I remembered.
+fractured_heart/NG | greeted_again | Well met again; I'm glad you came back.
+fractured_heart/NG | greeted_warm | Good to see you; I was hoping you'd come by.[ Any word of {asked}?]
+fractured_heart/NG | greeted_warm | Welcome back. I saw you {since}, and I've thought well of you since.
+fractured_heart/NG | greeted_cold | What do you want? I'll hear you, but I'm not glad to.
+fractured_heart/NG | greeted_cold | Stay back, please. Say what you came to say.
+fractured_heart/NG | greeted_cold | Keep back. Whatever this is, let's keep it short.
+fractured_heart/NG | greeted_taken | Hello again. The work's still yours; is it going all right?
+fractured_heart/NG | greeted_taken | Good to see you. I saw you {since}; you've still got my work, and I'm grateful you took it.
+fractured_heart/NG | greeted_finished | Welcome back. It's done, and I'm so grateful; I'll remember it.
+fractured_heart/NG | greeted_finished | Good day. I saw you {since}, and now it's done; thank you, more than I can say.
+fractured_heart/NG | greeted_failed | Hello again. It didn't work out, I know; please don't carry it.
+fractured_heart/NG | greeted_failed | Back again. It came to nothing; I'm sorry it went that way, for your sake.
+fractured_heart/NG | greeted_abandoned | Good day. You set the work down, and that's all right; I'd rather you were well.
+fractured_heart/NG | greeted_abandoned | Welcome back. I saw you {since}, and no, I'm not cross about the work.
+fractured_heart/NG | small_talk | Oh, I'm well, I think; kind of you to ask, truly.
+fractured_heart/NG | small_talk | Much the same as ever; I try to be of use to someone, most days.
+fractured_heart/NG | small_talk | I try to make the best of {season}; it's all any of us can do.[ Do stay away from the {danger}, won't you?]
+fractured_heart/NG | small_talk_fair | It's a fine {time}, isn't it? I hope it's treating you well.
+fractured_heart/NG | small_talk_fair | Such a clear sky, for {season}.[ Just keep away from the {danger} while you enjoy it.]
+fractured_heart/NG | small_talk_wet | It's wet out; do you have somewhere dry to be?
+fractured_heart/NG | small_talk_wet | This rain; I hope you're not out in it long.[ And not near the {danger}, please.]
+fractured_heart/NG | small_talk_storm | What a storm; I hope everyone has a roof over them.
+fractured_heart/NG | small_talk_storm | Stay in out of this, if you can; it's a wild {time}.[ And well away from the {danger}, please.]
+fractured_heart/NG | small_talk_cold | I'd rather not talk just now, if you don't mind.
+fractured_heart/NG | small_talk_cold | Not today; I've nothing I want to say to you.
+fractured_heart/NG | acknowledged | Ah, I see; thank you for telling me.
+fractured_heart/NG | acknowledged | Right. I'll try to remember that; I'm not always good at it.
+fractured_heart/NG | acknowledged | Is that so? I'm glad to know it.
+fractured_heart/NG | thanked | My pleasure; I'm glad it helped.
+fractured_heart/NG | thanked | Think nothing of it; you'd do the same, I expect.
+fractured_heart/NG | thanked_cold | Keep your thanks; I'd rather you were kinder.
+fractured_heart/NG | thanked_cold | Hmph; I don't want thanks from you, not now.
+fractured_heart/NG | offended | There's no need for that; if I've done something, tell me, and I'll put it right.
+fractured_heart/NG | offended | Mind your manners, please; I've done nothing to you that I know of.
+fractured_heart/NG | offended_again | Enough; I've tried to be patient with you.
+fractured_heart/NG | offended_again | Hold your tongue; I won't hear any more of that.
+fractured_heart/NG | parted_cold | Go, then; I've nothing more to say.
+fractured_heart/NG | parted_cold | Be on your way, please.
+fractured_heart/NG | safety_unsafe | No, I'm sorry; {worst} makes it dangerous, and I'd hate for you to go near it.[ There are {danger}, too.]
+fractured_heart/NG | safety_unsafe | I wouldn't say so; there are {danger}, and I worry for anyone out there.[ Please mind {worst}, too.]
+fractured_heart/NG | safety_wary | Careful, please; {worst} is the worry.[ And the {danger}, if you're passing.]
+fractured_heart/NG | safety_wary | Safe enough, mostly; I'd just stay clear of {worst}.
+fractured_heart/NG | safety_safe | Yes, I think so; the worst I know of is {worst}.
+fractured_heart/NG | safety_safe | Safe enough; still, I'd keep away from {worst}, to be sure.
+fractured_heart/NG | safety_safe | Nothing to fear, that I know of; I'd tell you if there were.
+fractured_heart/NG | denied | No; I'm just who I seem, and I'm sorry if I've given you reason to think otherwise.
+fractured_heart/NG | denied | You're mistaken; I've nothing to hide from you.
+fractured_heart/NG | denied_again | That's not so, and I'd rather you believed me the first time.
+fractured_heart/NG | exposed_second | Yes, I'm afraid it's true. Some days I'm someone else, and I don't know what they said to you; I'm sorry.
+fractured_heart/NG | exposed_second | So you know, then. There are days I'm not myself at all; if the other one hurt you, I'm sorry for it.
+fractured_heart/NG | exposed_second | Very well. Some days another one wears my face, and I never know what it does; tell me, would you, if it wronged you?
+
+# ---- fractured_heart/NN: conversation ----
+fractured_heart/NN | greeted | Hello. You've caught me on a plain day; ask what you like.
+fractured_heart/NN | greeted | Well met. I'll trade you straight answers for straight questions.
+fractured_heart/NN | greeted | Good day. Say what you need, and we'll see what I can do.
+fractured_heart/NN | greeted_again | Hello again.[ Still after {asked}, or done with it?]
+fractured_heart/NN | greeted_again | Back again. I saw you {since}, or one of us did.
+fractured_heart/NN | greeted_again | Well met again; you've a face I remember, at least today.
+fractured_heart/NN | greeted_warm | Good to see you; you're one I don't mind seeing.[ Did you get anywhere with {asked}?]
+fractured_heart/NN | greeted_warm | Welcome back. I saw you {since}, and you're still in good standing with me.
+fractured_heart/NN | greeted_cold | What do you want? Keep it short, and keep it plain.
+fractured_heart/NN | greeted_cold | Stay back. I'll hear you out, but that's all.
+fractured_heart/NN | greeted_cold | What now? Say it and be done.
+fractured_heart/NN | greeted_taken | Hello again. The work's still yours; that's the deal, and it stands.
+fractured_heart/NN | greeted_taken | Back again. I saw you {since}, and the work's still with you; fair enough.
+fractured_heart/NN | greeted_finished | Welcome back. It's done; that's fair dealing, and I don't forget it.
+fractured_heart/NN | greeted_finished | Good to see you. I saw you {since}, and now it's done; that counts for something with me.
+fractured_heart/NN | greeted_failed | Hello again. It came to nothing; it happens, and we'll leave it there.
+fractured_heart/NN | greeted_failed | Back again. It failed; that's how it goes sometimes, and I'll not make more of it.
+fractured_heart/NN | greeted_abandoned | Good day. You gave up the work; your choice, and I've noted it.
+fractured_heart/NN | greeted_abandoned | Welcome back. I saw you {since}; you let the work go, and that's between us, no more.
+fractured_heart/NN | small_talk | Well enough, for now; that can change, with me.
+fractured_heart/NN | small_talk | Another {time} as {post} of {place}; the work doesn't wait.
+fractured_heart/NN | small_talk | Whatever {season} brings, I'll manage.[ I'd give the {danger} a wide berth.]
+fractured_heart/NN | small_talk_fair | It's a fine {time}; no complaints from me.
+fractured_heart/NN | small_talk_fair | Not a cloud worth mentioning, for {season}.[ The {danger} are another matter.]
+fractured_heart/NN | small_talk_wet | It's wet, and that's all there is to say about it.
+fractured_heart/NN | small_talk_wet | A damp {time}; I've known worse, I've known better.[ Keep clear of the {danger} all the same.]
+fractured_heart/NN | small_talk_storm | It's a storm, and a real one; I'd stay in.
+fractured_heart/NN | small_talk_storm | Listen to that wind; nobody's going far in this.[ Not even toward the {danger}, I hope.]
+fractured_heart/NN | small_talk_cold | No, not with you; say your business or leave it.
+fractured_heart/NN | small_talk_cold | Whatever you want, it isn't a chat.
+fractured_heart/NN | acknowledged | Fair enough. That's useful to know.
+fractured_heart/NN | acknowledged | Right; I'll keep that in mind.
+fractured_heart/NN | acknowledged | Aye, I see; that squares with what I thought.
+fractured_heart/NN | thanked | No need; fair's fair.
+fractured_heart/NN | thanked | You're welcome; I'd expect the same from you.
+fractured_heart/NN | thanked_cold | Keep your thanks; they don't change anything.
+fractured_heart/NN | thanked_cold | Spare me; thanks won't mend things between us.
+fractured_heart/NN | offended | Careful; I've been fair with you so far.
+fractured_heart/NN | offended | Watch your tongue; I'll answer that in kind, if you like.
+fractured_heart/NN | offended_again | Enough; that's twice, and I'm done being fair about it.
+fractured_heart/NN | offended_again | Mind your manners; I won't take a third.
+fractured_heart/NN | parted_cold | On your way; we're done here.
+fractured_heart/NN | parted_cold | Get going, then.
+fractured_heart/NN | safety_unsafe | No; not with {worst} about.[ And there are {danger}, besides.]
+fractured_heart/NN | safety_unsafe | Not here; there are {danger}.[ And {worst}, for good measure.]
+fractured_heart/NN | safety_wary | More or less; keep well clear of {worst}.[ The {danger} too.]
+fractured_heart/NN | safety_wary | Keep your wits about you; {worst} is the one to watch.
+fractured_heart/NN | safety_safe | Safe enough; the worst of it is {worst}, and you'd have to go looking.
+fractured_heart/NN | safety_safe | Aye, it's safe; just leave {worst} alone.
+fractured_heart/NN | safety_safe | Nothing to fear, as far as I know.
+fractured_heart/NN | denied | No; I'm what you see, and that's all.
+fractured_heart/NN | denied | That's not so; you've got it wrong.
+fractured_heart/NN | denied_again | You're mistaken, and I've said so once already.
+fractured_heart/NN | exposed_second | Fine. You met the other one; it happens, some days I'm someone else.
+fractured_heart/NN | exposed_second | So you know. There are two of us in here, and you've met both; that's all there is to it.
+fractured_heart/NN | exposed_second | You've found me out. Some days I'm not me, and I'll not pretend otherwise now you know.

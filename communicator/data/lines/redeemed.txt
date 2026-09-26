@@ -30,7 +30,7 @@ redeemed/NN | refused_release | I won't step between you and {giver}, that's you
 redeemed/NN | refused_release | No, the one who gave it is the one who can take it back.
 redeemed/NN | refused | No, {reason}, and there's no use arguing with that.
 redeemed/NN | refused | I cannot, {reason}, and wishing won't change it.
-redeemed/NN | accepted | Good. Do only what it takes, and come back whole.
+redeemed/NN | accepted | Good. That's one thing settled, and I like things settled.
 redeemed/NN | accepted | Done. I'll hold up my end, and you hold up yours.
 redeemed/NN | accepted | Very good. No waste, no cruelty, and we'll both be better for it.
 redeemed/NN | declined | Suit yourself, better a straight no than a half-hearted yes.
@@ -76,12 +76,12 @@ redeemed/NG | refused_release | Not from me, it was {giver} you gave your word t
 redeemed/NG | refused_release | I cannot, it isn't mine to release, and I'm sorry.
 redeemed/NG | refused | No, {reason}, and I wish it were otherwise.
 redeemed/NG | refused | I can't, {reason}, and I'll not go looking for a crooked way round it.
-redeemed/NG | accepted | Thank you, truly. Come back in one piece.
+redeemed/NG | accepted | Thank you, truly. You didn't have to say yes, and you did.
 redeemed/NG | accepted | Good. No shortcuts that hurt anyone, promise me that.
-redeemed/NG | accepted | Done, and gladly. If it turns ugly, walk away before you do something you'd regret.
+redeemed/NG | accepted | Done, and gladly. That's a kindness, and I'll not forget it.
 redeemed/NG | declined | As you wish, and no hard feelings.
 redeemed/NG | declined | Fair enough, and if you change your mind, I'll still be glad of you.
-redeemed/NG | declined | Very well, I'll manage, and thank you for being straight with me.
+redeemed/NG | declined | Very well, and thank you for being straight with me; not everyone is.
 redeemed/NG | abandoned | So be it, are you all right, though?
 redeemed/NG | abandoned | A pity, but I'd rather that than see it done wrong.
 redeemed/NG | abandoned | Then it's done, no grudge, but I won't pretend it didn't happen.
@@ -125,7 +125,7 @@ redeemed/LN | refused | I cannot, {reason}, and I will not bend the matter to su
 redeemed/LN | accepted | Very good. You have given your word, and I shall hold you to it as I hold myself.
 redeemed/LN | accepted | Good. Do it properly and in the open, and it will speak for you.
 redeemed/LN | accepted | Thank you. Your standing with me begins here.
-redeemed/LN | declined | As you wish, the offer stands for whoever proves fit for it.
+redeemed/LN | declined | As you wish, and I think no less of you for saying so openly.
 redeemed/LN | declined | Very well, a plain refusal is worth more than a false yes.
 redeemed/LN | declined | Fair enough, you owe me nothing, and I owe you nothing.
 redeemed/LN | abandoned | So be it, but a word given and then broken is remembered.
@@ -169,12 +169,12 @@ redeemed/LG | refused_release | I cannot release you from another's charge, and 
 redeemed/LG | refused | No, {reason}, and I will not look for a crooked way round it.
 redeemed/LG | refused | I cannot, {reason}, and I am sorry to disappoint you.
 redeemed/LG | accepted | Thank you, truly. I will not forget that you helped when you were asked.
-redeemed/LG | accepted | Very good. Do it honestly, and if anyone needs help along the way, do not pass them by.
+redeemed/LG | accepted | Very good. We are agreed, then, and I am glad of it.
 redeemed/LG | accepted | Good. You have my trust in this, and you will have more if you keep it.
 redeemed/LG | declined | As you wish, and I thank you for telling me plainly.
-redeemed/LG | declined | Very well, there is no shame in knowing what you can and cannot carry.
+redeemed/LG | declined | Very well, and I hope you find work that sits better with you.
 redeemed/LG | declined | Fair enough, and there is no dishonour in a plain answer.
-redeemed/LG | abandoned | So be it, but tell me you are unhurt.
+redeemed/LG | abandoned | So be it, and I will not ask for reasons you do not wish to give.
 redeemed/LG | abandoned | A pity, and I am sorry it came to that.
 redeemed/LG | abandoned | Then it's done, and I will not hold it against you, though your word was given.
 redeemed/LG | parted | Go well, and help whoever you find in need.
@@ -197,7 +197,7 @@ redeemed/CN | surroundings | {here}, that's you; closest is {nearest}[; beyond, 
 redeemed/CN | surroundings | You want the lay of it? {here}, where you're standing, then {nearest}[, then {others}].[ Keep well off the {danger}, and that's not a suggestion.]
 redeemed/CN | surroundings | The nearest? That'd be {nearest}[, then {others}].[ Mind the {danger}, seriously.]
 redeemed/CN | surroundings | What's close: {nearest}[, and past that, {others}].[ Stay clear of the {danger}, trust me.]
-redeemed/CN | work_own | Something, actually: {own}.[ Or, if that bores you, {others}.]
+redeemed/CN | work_own | Something, actually: {own}.[ Or, if you'd sooner not, {others}.]
 redeemed/CN | work_own | I've a job, you've hands, so: {own}.[ No? Then {others}.]
 redeemed/CN | work_own | Between us, and only us: {own}.[ If not, {others}.]
 redeemed/CN | work_others | Nothing from me, but, well, {others}.
@@ -216,11 +216,11 @@ redeemed/CN | refused | I cannot, most regretfully, {reason}, so there.
 redeemed/CN | refused | No, {reason}, and there's no clever way round it, sadly.
 redeemed/CN | accepted | Good. You and me, then, not you and some cause.
 redeemed/CN | accepted | Done, and if anyone asks, you never saw me.
-redeemed/CN | accepted | Thank you, and I mean it, which is unsettling for both of us. Off you go.
+redeemed/CN | accepted | Thank you, and I mean it, which is unsettling for both of us. Let's not make a habit of it.
 redeemed/CN | declined | Suit yourself, I'll not beg, it's unbecoming.
 redeemed/CN | declined | Fair enough, no hard feelings, well, a few.
 redeemed/CN | declined | As you wish, and I'll pretend I never asked.
-redeemed/CN | abandoned | So be it, somebody'll do it, and nobody'll know who.
+redeemed/CN | abandoned | So be it, you're free, and I'm, well, mildly inconvenienced.
 redeemed/CN | abandoned | A pity, I was starting to like you, a little, don't let it go to your head.
 redeemed/CN | abandoned | Then it's done, and we'll say no more about it, ever, to anyone.
 redeemed/CN | parted | Farewell, and you never met me, understood?
@@ -244,7 +244,7 @@ redeemed/CG | surroundings | You're standing in {here}, so, nearest, {nearest}[,
 redeemed/CG | surroundings | The nearest is {nearest}[, then {others}].[ Be careful round the {danger}.]
 redeemed/CG | surroundings | What I know: {nearest}[, then {others}].[ And mind the {danger}, for me?]
 redeemed/CG | work_own | You'd help? Oh, good, here: {own}.[ If not, {others}.]
-redeemed/CG | work_own | Something needs doing, and quietly: {own}.[ Otherwise, {others}.]
+redeemed/CG | work_own | Something needs doing, and, sorry, yes, I'm asking you: {own}.[ Otherwise, {others}.]
 redeemed/CG | work_own | Help me with this, no fuss, no names: {own}.[ Or, if you'd rather, {others}.]
 redeemed/CG | work_others | Nothing of mine, sorry, truly, but {others}.
 redeemed/CG | work_others | Me? No work, but here, before you go: {others}.
@@ -260,13 +260,13 @@ redeemed/CG | refused_release | Not from me, {giver} should hear it from you, it
 redeemed/CG | refused_release | No, not mine to undo, sorry, I would if I could.
 redeemed/CG | refused | I can't, {reason}, and I won't cheat my way round it, not for anyone.
 redeemed/CG | refused | No, {reason}, and I hate that more than you do.
-redeemed/CG | accepted | Thank you, really. And if someone needs you on the way, stop for them.
+redeemed/CG | accepted | Thank you, really. You've no idea what it means, so I won't bore you with it.
 redeemed/CG | accepted | Good, good. No dirty tricks and nobody hurt, deal?
-redeemed/CG | accepted | Done, and nobody needs to know it was us.
-redeemed/CG | declined | Fair enough, you know your own load best.
+redeemed/CG | accepted | Done, and nobody needs to know who asked.
+redeemed/CG | declined | Fair enough, you know your own mind best.
 redeemed/CG | declined | Suit yourself, and no, I'm not hurt, much.
 redeemed/CG | declined | As you wish, just look after yourself, yes?
-redeemed/CG | abandoned | A pity, but you're whole, yes?
+redeemed/CG | abandoned | A pity, but it was your call to make, and I'll not argue with it.
 redeemed/CG | abandoned | Then it's done, and nobody will hear a word about it from me.
 redeemed/CG | abandoned | Very well, no shame in it, truly.
 redeemed/CG | parted | Take care, and if someone's struggling, stop, it's never wasted.
@@ -275,3 +275,333 @@ redeemed/CG | parted | Safe travels, and keep your hands clean, it's easier than
 redeemed/CG | not_understood | What do you mean, no, hang on, say it again, slower?
 redeemed/CG | not_understood | I'm not sure what you mean, but I'm listening.
 redeemed/CG | not_understood | That's beyond me, oh, wait, no, still beyond me.
+
+# ---- redeemed/NN: conversation ----
+redeemed/NN | greeted | Hello. Say what you need, and we'll see if it's worth both our time.
+redeemed/NN | greeted | Well met. I deal fairly, and I expect the same back.
+redeemed/NN | greeted | Good day. If there's something in this for both of us, I'm listening.
+redeemed/NN | greeted_again | Hello again.[ Was {asked} worth the asking, in the end?]
+redeemed/NN | greeted_again | Back again. I saw you {since}, and you're still worth a hearing.
+redeemed/NN | greeted_again | Well met again. You know how I deal by now, so say what you're after.
+redeemed/NN | greeted_warm | Good to see you; you're worth the time, which I don't say of most.[ Did asking after {asked} come to anything?]
+redeemed/NN | greeted_warm | Welcome back. I saw you {since}, and you're still someone I'd deal with.
+redeemed/NN | greeted_cold | What do you want? Say it plainly, and quickly.
+redeemed/NN | greeted_cold | What now? I'm listening, but keep it to the point.
+redeemed/NN | greeted_cold | Keep back. You can say your piece from there.
+redeemed/NN | greeted_taken | Hello again. The work's still yours, and it counts when it's done, not before.
+redeemed/NN | greeted_taken | Back again. I saw you {since}, and my work's still in your hands.
+redeemed/NN | greeted_finished | Good to see you. The work's done, and that's worth more to me than any amount of talk.
+redeemed/NN | greeted_finished | Welcome back. You did what you said you would, and I've counted it.
+redeemed/NN | greeted_failed | Hello again. The work failed; it happens, and I'll not waste breath on it.
+redeemed/NN | greeted_failed | Good day. It fell through, and I've no use for blame, only for what's next.
+redeemed/NN | greeted_abandoned | Back again. You gave up my work, and I've taken note of it.
+redeemed/NN | greeted_abandoned | Well met again. You set my work down; I'd sooner you finished what you started.
+redeemed/NN | small_talk | I'm well enough, and that's all I ask of a day.
+redeemed/NN | small_talk | My work as {post} keeps me busy, and busy keeps me honest.
+redeemed/NN | small_talk | It's {season}, and one season's as useful as another to me.[ The {danger} are worth minding, though.]
+redeemed/NN | small_talk_fair | Fine {time}, this, and I'll not waste it indoors.
+redeemed/NN | small_talk_fair | Good weather, for {season}, and worth making use of.[ Not near the {danger}, mind.]
+redeemed/NN | small_talk_wet | There's rain enough for {season}.[ Keep clear of the {danger}, wet or not.]
+redeemed/NN | small_talk_wet | The work doesn't stop for a wet {time}, and neither do I.
+redeemed/NN | small_talk_storm | Nothing out there is worth a soaking in a storm like this.
+redeemed/NN | small_talk_storm | Hear it blow; I'll wait it out, and so should you.[ The {danger} can wait as well.]
+redeemed/NN | small_talk_cold | I've nothing to say to you that's worth the breath.
+redeemed/NN | small_talk_cold | My time's worth more than chatter, and you've not earned any of it.
+redeemed/NN | acknowledged | I see. That's worth knowing.
+redeemed/NN | acknowledged | Fair enough. That's useful, and I'll remember it.
+redeemed/NN | acknowledged | Right. Then we both know where we stand.
+redeemed/NN | thanked | No need; we're square, and I like it that way.
+redeemed/NN | thanked | Don't mention it; it was worth doing, or I'd not have done it.
+redeemed/NN | thanked_cold | Save your thanks; I did it because it needed doing, not for you.
+redeemed/NN | thanked_cold | Spare me; thanks don't settle anything between us.
+redeemed/NN | offended | Watch your tongue; insults cost you more than they cost me.
+redeemed/NN | offended | There's no need for that; it gains neither of us anything.
+redeemed/NN | offended_again | Enough; I've no more time to waste on you.
+redeemed/NN | offended_again | Hold your tongue; you're not worth the argument.
+redeemed/NN | parted_cold | On your way; we've nothing more to trade.
+redeemed/NN | parted_cold | Go, then; there's nothing here for you.
+redeemed/NN | safety_unsafe | No. Keep away from {worst}; nothing there is worth what it could cost you.[ The {danger} aren't worth it either.]
+redeemed/NN | safety_unsafe | Not safe. There are {danger}, and that's reason enough.[ Keep clear of {worst} as well.]
+redeemed/NN | safety_wary | Mostly, if you keep clear of {worst}.[ Leave the {danger} be, too.]
+redeemed/NN | safety_wary | More or less; it comes down to whether you go near {worst}.
+redeemed/NN | safety_safe | Safe enough. The one place I'd not waste a visit on is {worst}.
+redeemed/NN | safety_safe | Yes, as far as it matters. Leave {worst} alone, and there's nothing to fret over.
+redeemed/NN | safety_safe | Aye. There's nothing near here worth spending a worry on.
+redeemed/NN | denied | No; what you see is what I am, and there's no more to it.
+redeemed/NN | denied | You're mistaken, and I've no time to spend on the mistake.
+redeemed/NN | denied_again | That's not so; asking again won't change the answer.
+
+# ---- redeemed/NG: conversation ----
+redeemed/NG | greeted | Hello, and are you all right? Tell me what you need first; the rest can wait.
+redeemed/NG | greeted | Well met. If there's something you need, I'd rather hear it now than later.
+redeemed/NG | greeted | Good day. I'm {speaker}, and I'd like to know who I'm talking to.
+redeemed/NG | greeted_again | Hello again.[ Did you find out what you needed about {asked}?]
+redeemed/NG | greeted_again | Back again, and I'm glad of it. I saw you {since}; how have you been?
+redeemed/NG | greeted_again | Well met again. You're keeping well, I hope?
+redeemed/NG | greeted_warm | Good to see you, truly.[ How did you get on with {asked}?]
+redeemed/NG | greeted_warm | Welcome back. It does me good to see a face I trust.
+redeemed/NG | greeted_cold | What do you want? I'll hear you, but I'll not pretend I'm glad to.
+redeemed/NG | greeted_cold | What now? Say it plainly, and I'll answer plainly.
+redeemed/NG | greeted_cold | Stay back. I'll help if it's needed, and that's all.
+redeemed/NG | greeted_taken | Hello again; how's the work coming? Tell me if you need anything.
+redeemed/NG | greeted_taken | Good to see you. I saw you {since}; is my work treating you all right?
+redeemed/NG | greeted_finished | Good to see you. You finished it, and I'm grateful; thank you.
+redeemed/NG | greeted_finished | Welcome back. It's done, and I won't forget who did it.
+redeemed/NG | greeted_failed | Hello again. It didn't work out, and I'm sorry; are you all right?
+redeemed/NG | greeted_failed | Back again. It fell through, but you tried, and that counts with me.
+redeemed/NG | greeted_abandoned | Hello again. You gave the work up; I hope it was for a good reason.
+redeemed/NG | greeted_abandoned | Good day. You set my work down, and it stung a little; still, I'm glad to see you.
+redeemed/NG | small_talk | I'm keeping well, thank you for asking; better than I deserve, some days.
+redeemed/NG | small_talk | The days go quickly as {post}, and I'm glad to be of use.
+redeemed/NG | small_talk | It's {season}, and there's no season when nobody needs a hand.[ The {danger} worry me, though.]
+redeemed/NG | small_talk_fair | What a lovely {time}; I hope you get to enjoy some of it.
+redeemed/NG | small_talk_fair | Fine weather for {season}, isn't it?[ Do keep away from the {danger}, though.]
+redeemed/NG | small_talk_wet | Such a wet {time}; I'm sorry you're out in it.[ Keep clear of the {danger}, wet or dry.]
+redeemed/NG | small_talk_wet | You'll want somewhere dry; it's pouring, I'm afraid.
+redeemed/NG | small_talk_storm | That's a proper storm; get under a roof if you've one to go to.
+redeemed/NG | small_talk_storm | Please stay in if you can; it's a wild {time} out there.[ And whatever you do, don't go near the {danger} in this.]
+redeemed/NG | small_talk_cold | I'll help if you need it, but I've no small talk for you.
+redeemed/NG | small_talk_cold | Let's keep this to what you need.
+redeemed/NG | acknowledged | I see. Thank you for telling me straight.
+redeemed/NG | acknowledged | Is that so? Then I'm glad I asked.
+redeemed/NG | acknowledged | Ah. That helps, it really does.
+redeemed/NG | thanked | You're welcome; I'm only glad it helped.
+redeemed/NG | thanked | No need; just pass it on to the next person who needs it.
+redeemed/NG | thanked_cold | Keep your thanks; I'd have done the same for anyone.
+redeemed/NG | thanked_cold | Spare me; it was the right thing to do, not a kindness to you.
+redeemed/NG | offended | There's no need for that; I'm trying to help you.
+redeemed/NG | offended | Mind your manners; I'll answer you, but not while you speak like that.
+redeemed/NG | offended_again | Enough; I've tried with you, and I'm done trying.
+redeemed/NG | offended_again | Careful; I'll forgive a great deal, but not everything.
+redeemed/NG | parted_cold | Be on your way; I've nothing more for you.
+redeemed/NG | parted_cold | Get going; I've said all I'm going to.
+redeemed/NG | safety_unsafe | No, it isn't, and I wish I could say otherwise. Stay away from {worst}, please.[ And from the {danger}.]
+redeemed/NG | safety_unsafe | Not safe, no. There are {danger}, and I'd hate for you to meet them.[ Keep away from {worst} as well.]
+redeemed/NG | safety_wary | Mostly, as long as you stay clear of {worst}.[ The {danger} as well, please.]
+redeemed/NG | safety_wary | Keep your wits about you near {worst}; I'd not want to hear you'd come to harm.
+redeemed/NG | safety_safe | Safe enough, I think. The worst of it is {worst}, so give that a miss.
+redeemed/NG | safety_safe | Yes, thankfully. I'd still stay away from {worst}, just to be sure.
+redeemed/NG | safety_safe | It's safe, as far as I know, and I'm glad of it.
+redeemed/NG | denied | No; I'm just what I seem, I promise you.
+redeemed/NG | denied | You're mistaken, I'm sorry, but you are.
+redeemed/NG | denied_again | That's not so, and I'd rather we didn't quarrel over it.
+
+# ---- redeemed/LN: conversation ----
+redeemed/LN | greeted | Greetings. You may state your business, and I shall answer what falls to me.
+redeemed/LN | greeted | Good day. I do not know you yet, so you will forgive me if I reserve my trust.
+redeemed/LN | greeted | Hail, stranger. Whatever passes between us may be said in the open.
+redeemed/LN | greeted_again | Hello again.[ Did your inquiry into {asked} bear fruit?]
+redeemed/LN | greeted_again | Well met again. We last spoke {since}, and I have not forgotten it.
+redeemed/LN | greeted_again | Back again. I will hear you, as fairly as before.
+redeemed/LN | greeted_warm | Good to see you; you stand well with me.[ Was the matter of {asked} settled to your satisfaction?]
+redeemed/LN | greeted_warm | Welcome back. I saw you {since}, and I count you among those I trust.
+redeemed/LN | greeted_cold | What do you want? Say it plainly; I will not guess at your meaning.
+redeemed/LN | greeted_cold | Keep back. I will hear you from where you stand.
+redeemed/LN | greeted_cold | What now? You will find me civil, and no more than that.
+redeemed/LN | greeted_taken | Hello again. The work stands in your name until it is done.
+redeemed/LN | greeted_taken | Good day. I saw you {since}; I trust you have not forgotten your word.
+redeemed/LN | greeted_finished | Good to see you. The work is done, as you gave your word it would be.
+redeemed/LN | greeted_finished | Welcome back. You have kept your word, and it will be remembered in your favour.
+redeemed/LN | greeted_failed | Hello again. The work failed, and I shall judge it as fairly as I would wish to be judged.
+redeemed/LN | greeted_failed | Back again. It did not succeed; I hold no grudge, but I do not forget.
+redeemed/LN | greeted_abandoned | Well met again. You set aside your word to me, and that weighs against you.
+redeemed/LN | greeted_abandoned | Good day. The work you took is yours no longer, and I have marked how it ended.
+redeemed/LN | small_talk | I am well, and I have nothing on my conscience today that I have not answered for.
+redeemed/LN | small_talk | My office as {post} occupies the day, and I would not have it otherwise.
+redeemed/LN | small_talk | It is {season}, and I take it as it comes, as I take all things.[ The {danger}, however, I would avoid.]
+redeemed/LN | small_talk_fair | A fair {time}, and I will not complain of it.
+redeemed/LN | small_talk_fair | The weather is kind, for {season}.[ Even so, I would not go near the {danger}.]
+redeemed/LN | small_talk_wet | There is no remedy for a wet {time} but patience.
+redeemed/LN | small_talk_wet | We are having rain in plenty, for {season}.[ It would be unwise to seek out the {danger} in it.]
+redeemed/LN | small_talk_storm | This is a storm in earnest, and no {time} to be abroad in it.
+redeemed/LN | small_talk_storm | One does not go out in a gale like this without good cause.[ Nor would I go near the {danger} in it.]
+redeemed/LN | small_talk_cold | I have nothing to discuss with you beyond what is necessary.
+redeemed/LN | small_talk_cold | Let us keep to business, if you have any.
+redeemed/LN | acknowledged | Indeed. I shall take that into account.
+redeemed/LN | acknowledged | I see. You have answered me plainly, and I am obliged.
+redeemed/LN | acknowledged | Good. That is what I needed to know.
+redeemed/LN | thanked | No need; I did only what my office allows.
+redeemed/LN | thanked | My pleasure, though it was no more than fair.
+redeemed/LN | thanked_cold | Save your thanks; I did what was proper, not what was kind.
+redeemed/LN | thanked_cold | Keep your thanks; they do not alter my judgement of you.
+redeemed/LN | offended | Mind your manners; I will answer a fair question, not an insult.
+redeemed/LN | offended | Careful; you will be judged by what you say, as I am.
+redeemed/LN | offended_again | Enough; I will not be spoken to so a second time.
+redeemed/LN | offended_again | Hold your tongue; I have heard all I need to know of you.
+redeemed/LN | parted_cold | Be on your way; our business is concluded.
+redeemed/LN | parted_cold | Go, then; we have nothing further to discuss.
+redeemed/LN | safety_unsafe | No, it is not. You would do well to keep clear of {worst}.[ The {danger} are no better.]
+redeemed/LN | safety_unsafe | Not safe, I am bound to say. There are {danger}.[ I would add {worst} to that.]
+redeemed/LN | safety_wary | Safe enough, if you keep clear of {worst}.[ I would say the same of the {danger}.]
+redeemed/LN | safety_wary | Careful. I would not approach {worst} without good cause.
+redeemed/LN | safety_safe | Yes, so far as I can swear to it. The worst of it is {worst}.
+redeemed/LN | safety_safe | Nothing to fear, I believe, though I would still not go near {worst}.
+redeemed/LN | safety_safe | Safe enough; I know of nothing that would give me cause to warn you.
+redeemed/LN | denied | No; I am what I appear to be, and I will not say otherwise to please you.
+redeemed/LN | denied | You're mistaken, and I will not dignify the charge further.
+redeemed/LN | denied_again | That's not so; I gave you my answer, and it stands.
+
+# ---- redeemed/LG: conversation ----
+redeemed/LG | greeted | Welcome. If you need help, you have only to ask it of me.
+redeemed/LG | greeted | Greetings. I hope you are well, and I will hear your business whenever you are ready.
+redeemed/LG | greeted | Hello. I am {speaker}; may I ask whom I have the honour of meeting?
+redeemed/LG | greeted_again | Hello again.[ I hope your questions about {asked} found good answers.]
+redeemed/LG | greeted_again | Welcome back. I saw you {since}, and I hope all has gone well with you.
+redeemed/LG | greeted_again | Well met again. May I ask how you have fared?
+redeemed/LG | greeted_warm | Good to see you, and in good health, I hope.[ Were you able to learn what you needed of {asked}?]
+redeemed/LG | greeted_warm | Welcome back. You have my trust, and I am glad of the chance to say so.
+redeemed/LG | greeted_cold | Stay back, if you please. I will hear you, but I will not pretend to trust you.
+redeemed/LG | greeted_cold | What do you want? Say it honestly, and I will answer in kind.
+redeemed/LG | greeted_cold | What now? I will be courteous, and I will be careful.
+redeemed/LG | greeted_taken | Hello again. The work is still yours; is there anything you need of me?
+redeemed/LG | greeted_taken | Good day. I saw you {since}; I trust the work goes honestly.
+redeemed/LG | greeted_finished | Good to see you. You kept your word to me, and I am grateful.
+redeemed/LG | greeted_finished | Welcome back. The work is done, and you have my thanks and my trust.
+redeemed/LG | greeted_failed | Hello again. The work failed, and I am sorry for it; are you well?
+redeemed/LG | greeted_failed | Back again. It did not go as we hoped, and I hold nothing against you for it.
+redeemed/LG | greeted_abandoned | Well met again. You set the work down; I will not judge you before I know why.
+redeemed/LG | greeted_abandoned | Good day. You gave up the work, and I confess I had hoped otherwise.
+redeemed/LG | small_talk | I am well, thank you, and the better for being asked.
+redeemed/LG | small_talk | There is work enough in serving as {post}, and I am glad of it.
+redeemed/LG | small_talk | It is {season}, and I try to make each day of it count for someone.[ And I would ask you to keep away from the {danger}.]
+redeemed/LG | small_talk_fair | Such a fine {time}; I am grateful for it.
+redeemed/LG | small_talk_fair | What fair weather, for {season}; it lifts the heart.[ Only, keep clear of the {danger}.]
+redeemed/LG | small_talk_wet | The rain is heavy, for {season}.[ Please do not let it drive you near the {danger}.]
+redeemed/LG | small_talk_wet | You will want somewhere dry to rest; it is a wet {time}.
+redeemed/LG | small_talk_storm | This is a hard storm; I would ask you to shelter until it passes.
+redeemed/LG | small_talk_storm | Listen to that wind; I pray no one is caught out in it.[ I would not have you anywhere near the {danger} in weather like this.]
+redeemed/LG | small_talk_cold | I will answer what you need answered, and no more.
+redeemed/LG | small_talk_cold | Forgive me, but I do not care to talk idly with you.
+redeemed/LG | acknowledged | I see, and I thank you for your honesty.
+redeemed/LG | acknowledged | Indeed. Then I understand you better.
+redeemed/LG | acknowledged | Well, that is good to know, and I am grateful.
+redeemed/LG | thanked | You're welcome; I would do the same for anyone in need.
+redeemed/LG | thanked | Think nothing of it; I was glad of the chance to help.
+redeemed/LG | thanked_cold | Keep your thanks; courtesy is owed even to you.
+redeemed/LG | thanked_cold | Save your thanks; I helped because it was right, not because I trust you.
+redeemed/LG | offended | There's no need for that; I have offered you nothing but courtesy.
+redeemed/LG | offended | How dare you speak so, when I have given you no cause?
+redeemed/LG | offended_again | Enough; I have been patient, and I will be patient no longer.
+redeemed/LG | offended_again | Hold your tongue; I will answer for my faults, but not to you, and not like this.
+redeemed/LG | parted_cold | On your way; we have said all that needs saying.
+redeemed/LG | parted_cold | Go, then; I will not keep you.
+redeemed/LG | safety_unsafe | No, I am sorry to say. Keep well away from {worst}, I beg you.[ The {danger} as well.]
+redeemed/LG | safety_unsafe | Far from it. There are {danger}, and I would not have you near them.[ Nor near {worst}.]
+redeemed/LG | safety_wary | Keep your wits about you, and stay well away from {worst}.[ I would ask the same regarding the {danger}.]
+redeemed/LG | safety_wary | More or less, so long as no one goes near {worst}.
+redeemed/LG | safety_safe | Yes, thank heaven, though I would still avoid {worst}.
+redeemed/LG | safety_safe | Safe enough, on my honour. The only trouble I know of is {worst}.
+redeemed/LG | safety_safe | Nothing to fear here, I am glad to say.
+redeemed/LG | denied | No; I am as I appear, and I would swear to it before anyone.
+redeemed/LG | denied | You're mistaken, though I do not hold it against you for asking.
+redeemed/LG | denied_again | That's not so, and I would ask you not to press it again.
+
+# ---- redeemed/CN: conversation ----
+redeemed/CN | greeted | Hello. No, wait, you don't know me, and let's keep it that way.
+redeemed/CN | greeted | Well met, or met, anyway; we'll see about the well.
+redeemed/CN | greeted | Hail, and all that. You want something, or is this social?
+redeemed/CN | greeted_again | Hello again.[ Still chasing {asked}, or did that go nowhere?]
+redeemed/CN | greeted_again | Back again? I saw you {since}; you're persistent, I'll give you that.
+redeemed/CN | greeted_again | Good day, or whatever this is. You, again; fine, I don't mind, much.
+redeemed/CN | greeted_warm | Good to see you, and I don't say that often, so enjoy it.[ How'd it go with {asked}?]
+redeemed/CN | greeted_warm | Welcome back. I saw you {since}, and, honestly, I'd hoped you'd turn up.
+redeemed/CN | greeted_cold | What do you want? Make it quick, before I lose interest.
+redeemed/CN | greeted_cold | What now? No, don't come closer, say it from there.
+redeemed/CN | greeted_cold | Keep back. I'm not in a sharing mood.
+redeemed/CN | greeted_taken | Hello again. The work's still yours, and I'm still pretending I never asked.
+redeemed/CN | greeted_taken | Back again, and I saw you {since}; still at it, are you?
+redeemed/CN | greeted_finished | Good to see you. The work's done, and I'm almost moved; almost.
+redeemed/CN | greeted_finished | Welcome back. You finished it, and I'll pretend I'm not impressed.
+redeemed/CN | greeted_failed | Hello again. It didn't work; it happens, move on, I have.
+redeemed/CN | greeted_failed | Well met again, sort of. The work fell over; we won't talk about it, deal?
+redeemed/CN | greeted_abandoned | Back again. You dropped my work, and I noticed, don't think I didn't.
+redeemed/CN | greeted_abandoned | Good day. You walked off from my work; bold, rude, but bold.
+redeemed/CN | small_talk | Me? Fine, mostly, and don't go asking why the mostly.
+redeemed/CN | small_talk | I'm {post} of {place}, which keeps me busy, and out of the way, which I prefer.
+redeemed/CN | small_talk | It's {season}, apparently; nobody tells me anything.[ Keep well clear of the {danger}, obviously.]
+redeemed/CN | small_talk_fair | Such a nice {time}, suspiciously nice.
+redeemed/CN | small_talk_fair | Fine weather, for {season}; I'll allow it.[ The {danger}, though, no.]
+redeemed/CN | small_talk_wet | So, rain, and this {time} of all times.[ Keep off the {danger}, wet or not.]
+redeemed/CN | small_talk_wet | Everything's wet, and I've decided to take it personally.
+redeemed/CN | small_talk_storm | That's a storm, and a nasty one; give me a roof and a door that locks.
+redeemed/CN | small_talk_storm | Listen to that gale, howling away like it owns the {time}.[ And the {danger}, not in this, not ever.]
+redeemed/CN | small_talk_cold | No, I don't chat with people I don't trust.
+redeemed/CN | small_talk_cold | I'm busy, or I'm about to be, so no.
+redeemed/CN | acknowledged | Ah, interesting, or not; I'll decide later.
+redeemed/CN | acknowledged | Right, filed away somewhere, probably.
+redeemed/CN | acknowledged | Is that so? Well, well.
+redeemed/CN | thanked | Don't mention it, really, to anyone.
+redeemed/CN | thanked | No need, and no names either, yours or mine.
+redeemed/CN | thanked_cold | Spare me; it wasn't for you.
+redeemed/CN | thanked_cold | Hmph, keep it, I've no use for it.
+redeemed/CN | offended | Careful; I'm in a good mood, and you're spending it.
+redeemed/CN | offended | Watch your tongue; that was rude, and not even clever.
+redeemed/CN | offended_again | Enough; you've had your fun, and it wasn't mine.
+redeemed/CN | offended_again | Hold your tongue, or hold it somewhere else.
+redeemed/CN | parted_cold | Off with you, and forget you saw me.
+redeemed/CN | parted_cold | Get going; this conversation's over.
+redeemed/CN | safety_unsafe | No, not remotely. Keep off {worst}, trust me.[ The {danger} too, obviously.]
+redeemed/CN | safety_unsafe | Not here, no. There are {danger}; that's the short answer.[ The long one includes {worst}.]
+redeemed/CN | safety_wary | Mostly, if you're sensible about {worst}; are you sensible?[ The {danger}, likewise.]
+redeemed/CN | safety_wary | More or less; just don't wander into {worst}.
+redeemed/CN | safety_safe | Safe enough, as far as I know, and I know a lot. The worst is {worst}.
+redeemed/CN | safety_safe | Aye, just skip {worst}.
+redeemed/CN | safety_safe | Quiet enough; nothing out there worth fretting over.
+redeemed/CN | denied | Nonsense; I'm exactly as dull as I look.
+redeemed/CN | denied | What are you on about, there's no more to me than this.
+redeemed/CN | denied_again | No, and asking twice makes it no more interesting.
+
+# ---- redeemed/CG: conversation ----
+redeemed/CG | greeted | Hello; need anything? Ask, and we'll do introductions after.
+redeemed/CG | greeted | Well met, and sorry, I'm hopeless at greetings. Is anything the matter?
+redeemed/CG | greeted | Good day. You're all right, aren't you, nothing wrong?
+redeemed/CG | greeted_again | Hello again.[ Oh, and {asked}, how did that go?]
+redeemed/CG | greeted_again | Back again. I saw you {since}, and I've wondered how you were getting on.
+redeemed/CG | greeted_again | Welcome back, and in one piece, good, that's the main thing.
+redeemed/CG | greeted_warm | Good to see you, honestly.[ Any luck with {asked}, by the way?]
+redeemed/CG | greeted_warm | Well met again. I saw you {since}, and I'm glad, that's all, just glad.
+redeemed/CG | greeted_cold | Stay back. I mean it; what do you want?
+redeemed/CG | greeted_cold | What now? And, no, I'm not glad to see you.
+redeemed/CG | greeted_cold | What do you want? Say it, and then go.
+redeemed/CG | greeted_taken | Hello again. The work's still yours; you're managing, yes?
+redeemed/CG | greeted_taken | Good day. I saw you {since}; how's the work, and more to the point, how are you?
+redeemed/CG | greeted_finished | Good to see you. It's done, and you did it, and nobody needs to know, perfect.
+redeemed/CG | greeted_finished | Welcome back. The work's done, and thank you, and, sorry, I'm terrible at thanks.
+redeemed/CG | greeted_failed | Hello again. It didn't come off, and that's all right; are you all right?
+redeemed/CG | greeted_failed | Back again. It went wrong, and I'm sorry, but you're here, and that matters more.
+redeemed/CG | greeted_abandoned | Well met again. You let the work go; fine, I'm sure you had a reason.
+redeemed/CG | greeted_abandoned | Good day. You gave up the work, and, no, I'm not cross, mostly.
+redeemed/CG | small_talk | I'm fine, honestly, but enough about me, how are you?
+redeemed/CG | small_talk | As {post}, I'm never short of something to do, which suits me.
+redeemed/CG | small_talk | It's {season} already; where does the year go?[ Oh, and the {danger}, stay away, please.]
+redeemed/CG | small_talk_fair | Look at that sky, and in {season} too.[ Just not near the {danger}, promise?]
+redeemed/CG | small_talk_fair | Go on, enjoy it; it's a lovely {time}.
+redeemed/CG | small_talk_wet | Mind you don't catch a chill; it's a wet {time}.
+redeemed/CG | small_talk_wet | So much rain, for {season}.[ And please, not the {danger}, not in this.]
+redeemed/CG | small_talk_storm | That's a wild storm; you'll stay in, won't you?
+redeemed/CG | small_talk_storm | What a gale this {time}; I hope everyone's found somewhere to shelter.[ You're not heading for the {danger}, are you?]
+redeemed/CG | small_talk_cold | I'd rather not chat, if it's all the same to you.
+redeemed/CG | small_talk_cold | Not now, and, honestly, not with you.
+redeemed/CG | acknowledged | Right, good, thank you, that's one less thing to fret about.
+redeemed/CG | acknowledged | Ah, is that it? Good, then.
+redeemed/CG | acknowledged | Fair enough, and thank you for telling me.
+redeemed/CG | thanked | No need, honestly, it was nothing.
+redeemed/CG | thanked | Glad to, and don't tell anyone, all right?
+redeemed/CG | thanked_cold | Hmph, fine, but it doesn't change anything between us.
+redeemed/CG | thanked_cold | Save your thanks, and just be better, will you?
+redeemed/CG | offended | How dare you, no, actually, I can guess how, but still.
+redeemed/CG | offended | There's no need for that; I'm on your side, mostly.
+redeemed/CG | offended_again | Enough; I don't have to listen to this, and I won't.
+redeemed/CG | offended_again | Careful; I'm trying very hard to stay nice here.
+redeemed/CG | parted_cold | Go, then; we're finished here.
+redeemed/CG | parted_cold | Off with you; I've nothing more to say.
+redeemed/CG | safety_unsafe | No, no, sorry, it isn't. Stay well away from {worst}.[ And the {danger}, especially.]
+redeemed/CG | safety_unsafe | I wouldn't say so, no. There are {danger}, and I'd never forgive myself if I didn't say.[ Oh, and {worst}, too.]
+redeemed/CG | safety_wary | Careful, and you'll be fine; just not {worst}.[ Or the {danger}, please.]
+redeemed/CG | safety_wary | More or less; stay out of {worst}, though, yes?
+redeemed/CG | safety_safe | Yes, it's fine. Just don't go poking round {worst}.
+redeemed/CG | safety_safe | Safe enough, I promise; the worst I know of is {worst}.
+redeemed/CG | safety_safe | Nothing to fear, honestly; I'd tell you if there were.
+redeemed/CG | denied | No, really, I'm just me, nothing more.
+redeemed/CG | denied | You have the wrong one, sorry, truly.
+redeemed/CG | denied_again | I don't know what you mean, and I'd rather you stopped asking.

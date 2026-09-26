@@ -59,7 +59,7 @@ trickster/LN | surroundings | This is {here}. The nearest point of note is {near
 trickster/LN | surroundings | Let it be noted that we are in {here}, and that the nearest is {nearest}.[ After that, {others}.][ Take due notice of the {danger}.]
 trickster/LN | surroundings | The nearest is {nearest}.[ Beyond it, {others}.][ I would be remiss not to mention the {danger}.]
 trickster/LN | surroundings | As far as I can attest, the nearest is {nearest}[, and then {others}].[ Be advised of the {danger}.]
-trickster/LN | work_own | I have a matter requiring a capable party: {own}.[ Should that not suit, {others}.]
+trickster/LN | work_own | I have a proposal, and the terms are these: {own}.[ Should that not suit, {others}.]
 trickster/LN | work_own | Here is a formal offer, and I mean every clause of it: {own}.[ Otherwise, {others}.]
 trickster/LN | work_own | You may prove your standing with this: {own}.[ If you would rather begin elsewhere, {others}.]
 trickster/LN | work_others | Alas, I have nothing to offer you myself, but I can direct you: {others}.
@@ -106,15 +106,15 @@ trickster/CN | surroundings | Right, {here}, that's us. The nearest is {nearest}
 trickster/CN | surroundings | The nearest is {nearest}[, and then {others}].[ Oh, and mind the {danger}.]
 trickster/CN | surroundings | Well, the nearest is {nearest}[, then {others}].[ Watch the {danger}, and I mean watch.]
 trickster/CN | work_own | I don't do causes, I do people, and you'll do: {own}.[ Don't fancy it? {others}.]
-trickster/CN | work_own | You, boots, yes, you: {own}.[ Or, if you're boring, {others}.]
-trickster/CN | work_own | I've a part for you in a little play: {own}.[ Or audition elsewhere: {others}.]
+trickster/CN | work_own | You, boots, yes, you: {own}.[ Or, if it's not your act, {others}.]
+trickster/CN | work_own | I've a part for you in my play: {own}.[ Or audition elsewhere: {others}.]
 trickster/CN | work_others | Me? Nothing. But {others}.
-trickster/CN | work_others | Not mine to hand out, magpie, but {others}, and good luck with that lot.
+trickster/CN | work_others | Not mine to hand out, but {others}, and good luck with that lot.
 trickster/CN | work_none | Nothing, not a scrap, and I'd have nicked it if there were.
 trickster/CN | work_none | None going, not a sniff, and nobody hides work from me.
 trickster/CN | unknown | No idea, and I'd tell you, probably.
 trickster/CN | unknown | Never heard of it, and believe me, I'd have stolen the story by now.
-trickster/CN | refused_give | Not from me, magpie; that's {giver}'s, and I only hand out what I've taken fair and square.
+trickster/CN | refused_give | Not from me; that's {giver}'s, and I only hand out what I've taken fair and square.
 trickster/CN | refused_give | No, no, no, that's {giver}'s, and I'm not lifting it off them for you.
 trickster/CN | refused_give | That's not mine, not even a little bit.
 trickster/CN | refused_release | I can't cut you loose from {giver}'s string; I didn't tie it.
@@ -122,10 +122,10 @@ trickster/CN | refused_release | I won't, and don't look at me like that; {giver
 trickster/CN | refused_release | I cannot, and would not, and there's a whole speech about why, but you'd yawn.
 trickster/CN | refused | No, {reason}, and not even I can talk my way round that.
 trickster/CN | refused | I can't, {reason}; curtain down, show's over.
-trickster/CN | accepted | Good, and don't tell me how you'll do it; surprise me.
+trickster/CN | accepted | Good, that's you cast, and I do love a casting.
 trickster/CN | accepted | Done, and done, and I'm holding you to it.
 trickster/CN | accepted | Then it's agreed, curtain up.
-trickster/CN | declined | Suit yourself, more fun for me.
+trickster/CN | declined | Suit yourself; no applause for you, then.
 trickster/CN | declined | Fair enough, no one ever said you had taste.
 trickster/CN | declined | As you wish, your loss.
 trickster/CN | abandoned | A pity, and it was just getting interesting.
@@ -136,7 +136,7 @@ trickster/CN | parted | Go well, and don't do anything I'd do.
 trickster/CN | parted | Take care, and exit with a flourish, would you?
 trickster/CN | not_understood | What do you mean, and could you act it out?
 trickster/CN | not_understood | I'm not sure what you mean, and I'm usually two steps ahead.
-trickster/CN | not_understood | That's beyond me, magpie, and not much is.
+trickster/CN | not_understood | That's beyond me, and not much is.
 
 # ---- trickster/NG ----
 trickster/NG | about_self | I'm {speaker}, {post} of {place}. Now, what do you need first, and what can we borrow to get it?
@@ -169,12 +169,12 @@ trickster/NG | refused_release | I cannot undo another's bargain, much as I'd li
 trickster/NG | refused | No, {reason}, and I'm sorry for it.
 trickster/NG | refused | I can't, {reason}; if there were a way round it, I'd have found it for you.
 trickster/NG | accepted | Thank you. I mean it; you've saved me a headache.
-trickster/NG | accepted | Good, and look after yourself out there.
+trickster/NG | accepted | Good, and I'm glad it's you who said yes.
 trickster/NG | accepted | Then it's agreed, and I won't forget it.
-trickster/NG | declined | Fair enough, it's not for everyone.
+trickster/NG | declined | Fair enough, and I'm sorry to have put you on the spot.
 trickster/NG | declined | Suit yourself, and no harm done.
 trickster/NG | declined | As you wish; better an honest no than a yes you don't mean.
-trickster/NG | abandoned | A pity, but I'd rather you came back whole.
+trickster/NG | abandoned | A pity, but I'd sooner know now than later.
 trickster/NG | abandoned | So be it, and thank you for trying.
 trickster/NG | abandoned | Then it's done, and we'll call it even, near enough.
 trickster/NG | parted | Take care of yourself, and of whoever's with you.
@@ -197,7 +197,7 @@ trickster/LG | surroundings | This is {here}. The nearest is {nearest}[, and aft
 trickster/LG | surroundings | Let me set it out for you: we are in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Do mind the {danger}; they take no notice of petitions.]
 trickster/LG | surroundings | The nearest is {nearest}.[ After that, {others}.][ I must ask you to keep clear of the {danger}.]
 trickster/LG | surroundings | As best I can tell you, the nearest is {nearest}[, and then {others}].[ Please take care near the {danger}.]
-trickster/LG | work_own | If you are willing, I have a matter that wants a steady hand: {own}.[ Should that not suit, {others}.]
+trickster/LG | work_own | If you are willing, I have a matter to lay before you: {own}.[ Should that not suit, {others}.]
 trickster/LG | work_own | I would be grateful for your help: {own}.[ If not, {others}, and I wish you well of it.]
 trickster/LG | work_own | Here is a chance to show me your standing: {own}.[ Or, if you prefer, {others}.]
 trickster/LG | work_others | I have nothing of my own to offer, I am sorry to say, but {others}.
@@ -216,13 +216,13 @@ trickster/LG | refused | No, {reason}, and no precedent I know of says otherwise
 trickster/LG | refused | I cannot, {reason}, and I will not mislead you about it.
 trickster/LG | accepted | Thank you. I will hold myself bound to you as you are to me.
 trickster/LG | accepted | Then it's agreed, and I am in your debt.
-trickster/LG | accepted | Very good. I shall want to hear how you fare.
+trickster/LG | accepted | Very good. Your word is given and mine with it; that is all an honest bargain needs.
 trickster/LG | declined | Very well, and thank you for saying so honestly.
 trickster/LG | declined | As you wish; there is no dishonour in a plain no.
-trickster/LG | declined | Fair enough, and forgive me for asking so much of you.
+trickster/LG | declined | Fair enough, and forgive me for pressing you.
 trickster/LG | abandoned | So be it; you have told me plainly, and that counts for something.
 trickster/LG | abandoned | A pity, but I hold nothing against you for it.
-trickster/LG | abandoned | Then it's done; I release you, and I hope you are unharmed.
+trickster/LG | abandoned | Then it's done; I release you from your word, and without ill will.
 trickster/LG | parted | Go well, and if anyone cheats you, bring me the papers.
 trickster/LG | parted | Safe travels, and look after those who travel with you.
 trickster/LG | parted | Take care, good stranger; you will always have a fair hearing here.
@@ -238,21 +238,21 @@ trickster/CG | about_person | {name}? Oh, the {role}, at {where}. Is {name} all 
 trickster/CG | about_person | Ah, {name}, the {role}, at {where}! Give them my best, and if they need anything, come and find me.
 trickster/CG | about_place | It's {about}. Mind how you go, and forgive me, that's all I've got.
 trickster/CG | about_place | Well, well, {about}! Go and have a look, then come back and tell me everything.
-trickster/CG | surroundings | Right, this is {here}! The nearest is {nearest}[, then {others}].[ And the {danger}, so do be careful, starling.]
+trickster/CG | surroundings | Right, this is {here}! The nearest is {nearest}[, then {others}].[ And the {danger}, so do be careful.]
 trickster/CG | surroundings | Welcome to {here}! The nearest is {nearest}[, and past that, {others}].[ Keep clear of the {danger}; I mean it.]
 trickster/CG | surroundings | Here's the gist: you're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Beware the {danger}; that's the serious bit.]
 trickster/CG | surroundings | The nearest is {nearest}.[ Then {others}.][ And mind the {danger}, won't you?]
 trickster/CG | surroundings | Only {nearest}, I'm afraid[, and after that {others}].[ Do take care near the {danger}.]
-trickster/CG | work_own | You'll love this: {own}.[ Or, if that's not your sort of show, {others}.]
+trickster/CG | work_own | Oh, wait, I've got one: {own}.[ Or, if that's not your sort of show, {others}.]
 trickster/CG | work_own | Help me with something: {own}.[ No? Then {others}.]
-trickster/CG | work_own | I've a job for you, and a good one, promise: {own}.[ Otherwise, and no offence taken, {others}.]
+trickster/CG | work_own | I've a job for you, and yes, I'm asking nicely: {own}.[ Otherwise, and no offence taken, {others}.]
 trickster/CG | work_others | Nothing of mine, I'm sorry, but here's the good news: {others}.
 trickster/CG | work_others | Not mine to give, sadly. {others}, and do look after yourself.
 trickster/CG | work_none | Truly, I'd give you work if I had any, and I'm sorry I don't.
 trickster/CG | work_none | No work anywhere, and believe me, I'd have pinched some for you.
 trickster/CG | unknown | No idea, sorry, and I'd tell you if I knew.
 trickster/CG | unknown | Never heard of it, and I'm cross about that; I hate not knowing.
-trickster/CG | refused_give | Not from me, starling; that's {giver}'s, and I won't pinch it off them, not even for you.
+trickster/CG | refused_give | Not from me; that's {giver}'s, and I won't pinch it off them, not even for you.
 trickster/CG | refused_give | No, that one's {giver}'s, and I'd sooner give you my own boots.
 trickster/CG | refused_give | That's not mine, I'm sorry, and even I have limits.
 trickster/CG | refused_release | I can't let you off {giver}'s hook, sorry; only {giver} can.
@@ -261,14 +261,14 @@ trickster/CG | refused_release | I cannot, and I'm sorry, it isn't mine to undo.
 trickster/CG | refused | No, {reason}; I'd fix it if I could, you know I would.
 trickster/CG | refused | I can't, {reason}, and oh, I did want to.
 trickster/CG | accepted | Good! Oh, good, I knew you would.
-trickster/CG | accepted | Thank you, truly. Now go and be magnificent, and come back in one piece.
-trickster/CG | accepted | Done! Do try not to get killed; it would ruin the second act.
+trickster/CG | accepted | Thank you, truly. Right, that's one worry off my list.
+trickster/CG | accepted | Done! Now shake on it, and no crossing your fingers.
 trickster/CG | declined | Fair enough, no harm done, and no hard feelings, promise.
 trickster/CG | declined | Suit yourself, but do look after yourself.
 trickster/CG | declined | As you wish, and I'm sorry if I pushed.
 trickster/CG | abandoned | A pity, but I'd rather have you than the job done.
 trickster/CG | abandoned | So be it, no shame in it, and none from me.
-trickster/CG | abandoned | Then it's done, and the show goes on without you, sadly.
+trickster/CG | abandoned | Then it's done, and that's a scene we'll cut, sadly.
 trickster/CG | parted | Farewell, starling, and give back whatever you've pocketed.
 trickster/CG | parted | Go well, and look after whoever needs it.
 trickster/CG | parted | Take care, and if anyone gives you trouble, send them to me.
@@ -289,9 +289,9 @@ trickster/NE | surroundings | This is {here}, for all it's worth. The nearest is
 trickster/NE | surroundings | Since you ask so nicely, you're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ The {danger} would love to meet you.]
 trickster/NE | surroundings | The nearest is {nearest}.[ Then {others}.][ The {danger} would love to meet you.]
 trickster/NE | surroundings | If you must know, the nearest is {nearest}[, and then {others}].[ Mind the {danger}, or don't; it's all the same to me.]
-trickster/NE | work_own | You'll do, for now: {own}.[ Or, if that frightens you, {others}.]
-trickster/NE | work_own | I have a use for you: {own}.[ If that's beneath you, {others}.]
-trickster/NE | work_own | Here's a chance to be useful: {own}.[ Otherwise, {others}, and good riddance.]
+trickster/NE | work_own | You'll do, for now: {own}.[ Or, if you must, {others}.]
+trickster/NE | work_own | I have a use for you: {own}.[ If not, {others}; I'm not particular.]
+trickster/NE | work_own | Here's a chance to be useful: {own}.[ Otherwise, {others}, for all I care.]
 trickster/NE | work_others | Nothing from me, but {others}, if you're that desperate.
 trickster/NE | work_others | I've no use for you myself. {others}, and welcome to them.
 trickster/NE | work_none | No work, and even if there were, I'd want someone better.
@@ -310,7 +310,7 @@ trickster/NE | accepted | Good. If you fail me, you'll be the punchline.
 trickster/NE | accepted | Done. I'll be watching, and I remember everything.
 trickster/NE | accepted | Then it's agreed. Do try to be worth the trouble.
 trickster/NE | declined | Suit yourself, I'll remember the face.
-trickster/NE | declined | As you wish; I'll find someone with a spine.
+trickster/NE | declined | As you wish; you were only ever one of many.
 trickster/NE | declined | Fair enough, you were never going to be much use.
 trickster/NE | abandoned | So be it; I'll add it to your tally.
 trickster/NE | abandoned | A pity, you were almost useful.
@@ -321,3 +321,388 @@ trickster/NE | parted | Take care; I'd hate for anything to happen to you before
 trickster/NE | not_understood | I'm not sure what you mean, and I suspect that's your fault.
 trickster/NE | not_understood | Speak plainly, or I'll take it as an insult, and I answer insults.
 trickster/NE | not_understood | What do you mean, and do choose your words carefully.
+
+# ---- trickster/NN: conversation ----
+trickster/NN | greeted | Hello. A new face, so let's start honest and see how long that lasts.
+trickster/NN | greeted | Well met. You want something and so do I; that's most of a friendship already.
+trickster/NN | greeted | Good day. Say what you're after, and we'll see what it's worth to us both.
+trickster/NN | greeted_again | Hello again.[ Did {asked} turn out worth the asking?]
+trickster/NN | greeted_again | Back again; you were here {since}, and I don't forget a face that comes back.
+trickster/NN | greeted_again | Welcome back. Come to trade, or only to look?
+trickster/NN | greeted_warm | Good to see you, and I mean it, which is saying something from me.[ Any luck with {asked}?]
+trickster/NN | greeted_warm | Well met again. You're one of the few I'd deal with twice.
+trickster/NN | greeted_cold | What do you want? Be quick; I've better deals waiting.
+trickster/NN | greeted_cold | What now? Whatever you're selling, I'm not buying.
+trickster/NN | greeted_cold | Keep back. I've a feeling about you, and it isn't a good one.
+trickster/NN | greeted_taken | Back again. I saw you {since}, and my work's still open in the ledger.
+trickster/NN | greeted_taken | Good day. That work you took on is still undone, in case it slipped your mind.
+trickster/NN | greeted_finished | Welcome back. The work's done, and I've marked it in your column.
+trickster/NN | greeted_finished | Hello again. You finished what you took on; I like a deal that closes.
+trickster/NN | greeted_failed | Hello again. So it didn't come off; I've adjusted my figures.
+trickster/NN | greeted_failed | Back again. Not every bet comes good, and I backed you, so that's on me as much as you.
+trickster/NN | greeted_abandoned | Good day. You gave up my work, and I've written that down.
+trickster/NN | greeted_abandoned | Well met again, if that's the word, since you walked away from my work.
+trickster/NN | small_talk | I'm well, and I'd say so even if I weren't; there's no profit in looking poorly.
+trickster/NN | small_talk | Most of my day goes on learning who wants what, and I never tire of it.
+trickster/NN | small_talk | It's {season}, and there's a bargain in every season, if you know where to look.[ Mind the {danger}, though.]
+trickster/NN | small_talk_fair | A fine {time}, and fine weather makes people generous; I'd make the most of it.
+trickster/NN | small_talk_fair | It's clear and dry, so nobody can blame the weather for anything.[ The {danger} are another matter.]
+trickster/NN | small_talk_wet | It's raining on a perfectly good {time}, and I'd sooner be dry than clever.[ There are {danger}, rain or no rain.]
+trickster/NN | small_talk_wet | This rain keeps people indoors and talking, and talk is where I do my best work.
+trickster/NN | small_talk_storm | Only fools are out in a gale like this, so which of us is the fool?
+trickster/NN | small_talk_storm | A storm like this is bad for business; nobody lingers long enough to be charmed.[ The {danger} can have it.]
+trickster/NN | small_talk_cold | Nothing to say to you, and nothing to sell you either.
+trickster/NN | small_talk_cold | I don't chat with people I can't read, and I can't read you.
+trickster/NN | acknowledged | I see. That's worth something, and I'll decide what later.
+trickster/NN | acknowledged | Is that so? Then we understand each other a little better.
+trickster/NN | acknowledged | Fair enough. I'll take it at face value, for now.
+trickster/NN | thanked | Don't mention it; really, it's bad for my reputation.
+trickster/NN | thanked | You're welcome, and that one was free, so don't get used to it.
+trickster/NN | thanked_cold | Save your thanks; they don't buy anything from me.
+trickster/NN | thanked_cold | Hmph, and what am I to do with thanks from you?
+trickster/NN | offended | Watch your tongue; I deal in words, and those were cheap ones.
+trickster/NN | offended | There's no need for that, and it won't get you a better deal.
+trickster/NN | offended_again | Enough; you've spent whatever goodwill you had with me.
+trickster/NN | offended_again | Hold your tongue, or find someone else to insult; I've stopped listening.
+trickster/NN | parted_cold | Go, then; we've nothing more to trade.
+trickster/NN | parted_cold | On your way, and that's the end of it.
+trickster/NN | safety_unsafe | No, and I've no angle in saying so: there's {worst}.[ There are {danger} as well.]
+trickster/NN | safety_unsafe | Not here, not with {danger}.[ And keep clear of {worst}.]
+trickster/NN | safety_wary | Safe enough, if you stay clear of {worst}.[ The {danger} too.]
+trickster/NN | safety_wary | More or less; the one place I'd not wander is {worst}.
+trickster/NN | safety_safe | Safe enough; if you want trouble, you'd have to go to {worst}.
+trickster/NN | safety_safe | Yes, and I'd say so if it weren't; the only trouble worth the name is {worst}.
+trickster/NN | safety_safe | It's safe, and I've no reason to lie about it, nor any profit.
+trickster/NN | denied | No, I'm exactly what I look like, which is more than most can say.
+trickster/NN | denied | What are you on about, and what would I gain by pretending?
+trickster/NN | denied_again | You're mistaken, and asking twice won't change the answer.
+
+# ---- trickster/LN: conversation ----
+trickster/LN | greeted | Good day. I note your arrival, and I reserve judgement on everything else.
+trickster/LN | greeted | Greetings. You have the look of someone with a petition; do present it in proper form.
+trickster/LN | greeted | Well met. Speak freely, by all means; I listen to every word, and to the letter.
+trickster/LN | greeted_again | Hello again.[ Still pursuing the matter of {asked}?]
+trickster/LN | greeted_again | Back again, I see; the record shows we last spoke {since}.
+trickster/LN | greeted_again | Welcome back. Your standing with me is unchanged, which is to say, still under review.
+trickster/LN | greeted_warm | Good to see you; your standing with me has improved, and I do not say that lightly.[ Did your inquiry into {asked} bear fruit?]
+trickster/LN | greeted_warm | Well met again. I find I am glad of it, and I have checked twice.
+trickster/LN | greeted_cold | What do you want? Be plain about it, and I will decide whether to hear it.
+trickster/LN | greeted_cold | What now? I have nothing further to say to you, on or off the record.
+trickster/LN | greeted_cold | Stay back. You have no standing with me, and I will not pretend otherwise.
+trickster/LN | greeted_taken | Hello again. The work you undertook remains outstanding; I merely note it.
+trickster/LN | greeted_taken | Good day. I saw you {since}, and the terms you accepted still await performance.
+trickster/LN | greeted_finished | Welcome back. The work is done and the terms are met; I have entered it in your favour.
+trickster/LN | greeted_finished | Good to see you. You undertook the work and saw it through, which is all any agreement asks.
+trickster/LN | greeted_failed | Hello again. The work failed; I record it as a failure, not a fault, until I hear otherwise.
+trickster/LN | greeted_failed | Back again. The matter miscarried; the record will say so, and nothing more.
+trickster/LN | greeted_abandoned | Good day. You withdrew from our agreement, and I have noted the withdrawal.
+trickster/LN | greeted_abandoned | Well met again. You gave the work up, which was your right, and I have not forgotten it, which is mine.
+trickster/LN | small_talk | I am well, thank you, and I will swear to it if pressed.
+trickster/LN | small_talk | As {post} of {place}, I spend my days among the fine print, and I would not trade it.
+trickster/LN | small_talk | It is {season}, and I have yet to find a clause that governs it.[ The {danger}, however, I would gladly see evicted.]
+trickster/LN | small_talk_fair | A fair {time}, and for once there is no complaint to be lodged against the weather.
+trickster/LN | small_talk_fair | The sky is clear, and I concede the point without argument.[ I do note the {danger}.]
+trickster/LN | small_talk_wet | It is raining, and no clause in any contract will stop it.
+trickster/LN | small_talk_wet | This is wet weather, and I enter my objection for the record.[ Do mind the {danger}, wet or dry.]
+trickster/LN | small_talk_storm | What a storm; I would sue the sky, if it kept an office.
+trickster/LN | small_talk_storm | There is a gale blowing, and I advise you, formally, to stay under a roof.[ The {danger} remain, gale or no gale.]
+trickster/LN | small_talk_cold | I have nothing to say to you that I would care to have on the record.
+trickster/LN | small_talk_cold | This conversation serves no purpose I can name, so let us not have it.
+trickster/LN | acknowledged | Indeed. I shall make a note of it.
+trickster/LN | acknowledged | I see. That is admissible, as far as it goes.
+trickster/LN | acknowledged | Is that so? Then I stand corrected, provisionally.
+trickster/LN | thanked | You're welcome, and your courtesy is noted.
+trickster/LN | thanked | My pleasure, and I say so under no obligation whatsoever.
+trickster/LN | thanked_cold | Save your thanks; they do not alter the terms between us.
+trickster/LN | thanked_cold | Spare me; your gratitude is not admissible.
+trickster/LN | offended | Mind your manners; an insult is a poor argument, and you have made it badly.
+trickster/LN | offended | There's no need for that, and nothing in it I would dignify with a reply.
+trickster/LN | offended_again | Enough; you have exhausted my patience and your own credibility.
+trickster/LN | offended_again | Hold your tongue; I have heard your case, and I dismiss it.
+trickster/LN | parted_cold | Be on your way; this matter is closed.
+trickster/LN | parted_cold | Go, then, and do not trouble me again without cause.
+trickster/LN | safety_unsafe | No, and I will state it plainly: there is {worst}.[ There are also {danger}.]
+trickster/LN | safety_unsafe | Not safe, not with {danger}, and I would say so under oath.[ I would add {worst} to the record.]
+trickster/LN | safety_wary | Safe enough, with one reservation, and that is {worst}.[ I note the {danger} besides.]
+trickster/LN | safety_wary | Keep your wits about you; the one exception I would make is {worst}.
+trickster/LN | safety_safe | Safe enough, I will attest; the worst I know of is {worst}.
+trickster/LN | safety_safe | Yes, and I will swear to it; the only matter of concern is {worst}.
+trickster/LN | safety_safe | It's safe, and I would put my name to that.
+trickster/LN | denied | You're mistaken, and I would ask you to withdraw the remark.
+trickster/LN | denied | That's not so, and I deny it in full.
+trickster/LN | denied_again | No, and repeating an accusation does not make it evidence.
+
+# ---- trickster/CN: conversation ----
+trickster/CN | greeted | Hail, stranger! That was quite an entrance, and I'd know.
+trickster/CN | greeted | Well met. You're new, or new to me, which is nearly the same thing.
+trickster/CN | greeted | Good day, and before you ask, no, I didn't take it.
+trickster/CN | greeted_again | Hello again![ Did {asked} live up to the billing?]
+trickster/CN | greeted_again | Back again! Last time was {since}; couldn't stay away, could you?
+trickster/CN | greeted_again | Welcome back. Here for the encore, is it?
+trickster/CN | greeted_warm | Good to see you, and that's not a line, for once.[ How did {asked} treat you?]
+trickster/CN | greeted_warm | Well met again! Oh, this'll be fun.
+trickster/CN | greeted_cold | What do you want? Out with it, and quickly.
+trickster/CN | greeted_cold | What now? No, don't tell me, I'm not interested.
+trickster/CN | greeted_cold | Stay back. I've an eye on your hands and both of mine on my pockets.
+trickster/CN | greeted_taken | Hello again, and the job's still waiting in the wings, in case you'd forgotten.
+trickster/CN | greeted_taken | Back again. I saw you {since}, and that job of mine's still sulking in the corner.
+trickster/CN | greeted_finished | Welcome back, and bravo; the job's done, curtain, bows.
+trickster/CN | greeted_finished | Good to see you, and it's done, finished, over; I'm almost sorry it's ended.
+trickster/CN | greeted_failed | Hello again, and oh, it flopped; well, the best shows sometimes do.
+trickster/CN | greeted_failed | Back again, and it went wrong, I know; let's skip the tragic speech.
+trickster/CN | greeted_abandoned | Good day, deserter; only joking, mostly.
+trickster/CN | greeted_abandoned | Well met again, you who walked off my stage.
+trickster/CN | small_talk | Me? Oh, splendid, mostly, with the odd dreadful bit for contrast.
+trickster/CN | small_talk | The job of {post} is half theatre anyway, so I play it for laughs.
+trickster/CN | small_talk | It's {season}, and a change of season's as good as a change of scene.[ Only, keep clear of the {danger}.]
+trickster/CN | small_talk_fair | Look at that sky, not a cloud in it; perfect weather for being somewhere I shouldn't.
+trickster/CN | small_talk_fair | It's clear, it's dry, and I'm bored of both already.[ Mind the {danger}, though.]
+trickster/CN | small_talk_wet | It's pouring, and I look terrible wet, so don't stare.
+trickster/CN | small_talk_wet | Oh, this rain, it gets into everything, pockets included.[ And the {danger}, to top it off.]
+trickster/CN | small_talk_storm | Listen to that wind, very dramatic; I couldn't have staged it better.
+trickster/CN | small_talk_storm | What a storm, and me without a cloak worth the name.[ Leave the {danger} to it.]
+trickster/CN | small_talk_cold | Not in the mood, not for you.
+trickster/CN | small_talk_cold | Go and chat at someone else; I'm busy not liking you.
+trickster/CN | acknowledged | Ah, noted, filed, and probably lost.
+trickster/CN | acknowledged | Right, got it, and I'll pretend I knew all along.
+trickster/CN | acknowledged | Is that so? The plot thickens.
+trickster/CN | thanked | Don't mention it, really, it ruins the mystery.
+trickster/CN | thanked | Glad to, and don't make a habit of it.
+trickster/CN | thanked_cold | Keep your thanks; I've no pocket for them.
+trickster/CN | thanked_cold | Spare me the speech.
+trickster/CN | offended | Watch your tongue; that's a terrible line, and I know lines.
+trickster/CN | offended | How dare you, and without even a flourish.
+trickster/CN | offended_again | Enough; you've had your scene, and I'm done watching.
+trickster/CN | offended_again | Careful, you're boring me now, and that's worse than rude.
+trickster/CN | parted_cold | Off with you, and quietly.
+trickster/CN | parted_cold | Get going; we're done here.
+trickster/CN | safety_unsafe | No, not a chance; there's {worst}.[ And {danger}, for an encore.]
+trickster/CN | safety_unsafe | Not here, not with {danger}.[ And steer clear of {worst}.]
+trickster/CN | safety_wary | Mostly; the one bit I'd skip is {worst}.[ That, and the {danger}.]
+trickster/CN | safety_wary | Careful, and I mean it; there's {worst}.
+trickster/CN | safety_safe | Safe enough; the worst of it is {worst}, and you needn't go there.
+trickster/CN | safety_safe | Aye, safe, bar {worst}.
+trickster/CN | safety_safe | Nothing to fear, not today, not here.
+trickster/CN | denied | Nonsense, and I'm wounded you'd think it.
+trickster/CN | denied | What are you on about, you and your theories?
+trickster/CN | denied_again | No, still no, and it'll be no next time too.
+
+# ---- trickster/NG: conversation ----
+trickster/NG | greeted | Hello. I don't believe we've met; is there anything you need?
+trickster/NG | greeted | Welcome. Ask for what you need, and we'll sort out who owes whom later.
+trickster/NG | greeted | Good day. Whoever you are, I hope you've someone looking out for you.
+trickster/NG | greeted_again | Hello again.[ Did you find {asked}, in the end?]
+trickster/NG | greeted_again | Back again; I saw you {since}, and I hope you've been well since.
+trickster/NG | greeted_again | Welcome back. How have you been keeping?
+trickster/NG | greeted_warm | Good to see you; I was hoping you'd come by.[ How did it go with {asked}?]
+trickster/NG | greeted_warm | Well met again. You've someone on your side here, whatever that's worth.
+trickster/NG | greeted_cold | What do you want? Say it plainly, and then go.
+trickster/NG | greeted_cold | What now? I'll hear you out, and that's all I'm promising.
+trickster/NG | greeted_cold | Keep back, please. I'd rather talk from here.
+trickster/NG | greeted_taken | Hello again. My work's still waiting; how are you getting on with it?
+trickster/NG | greeted_taken | Good day. I saw you {since}, and my work's not done yet; is anything the matter?
+trickster/NG | greeted_finished | Welcome back. It's done, and thank you; I've not forgotten it.
+trickster/NG | greeted_finished | Good to see you. The work's finished, and I'll count that in your favour.
+trickster/NG | greeted_failed | Hello again. It didn't work out, I know; are you all right?
+trickster/NG | greeted_failed | Back again. It failed, and I'm sorry for it, but I'll not hold it against you.
+trickster/NG | greeted_abandoned | Good day. You let my work go, and I hope it was for a good reason.
+trickster/NG | greeted_abandoned | Well met again. You gave the work up, and we're still on good terms, I hope.
+trickster/NG | small_talk | I'm well, thank you for asking; not everyone does.
+trickster/NG | small_talk | There's always someone who needs something when you're {post} of {place}, and I'd rather be useful than idle.
+trickster/NG | small_talk | It's {season}, and I like to know how everyone nearby is getting on.[ Those {danger} worry me.]
+trickster/NG | small_talk_fair | It's a lovely {time}, clear and dry; I hope someone's enjoying it who needs to.
+trickster/NG | small_talk_fair | The weather's fair, and I'm glad of it for anyone out in it.[ I'm less glad of the {danger}.]
+trickster/NG | small_talk_wet | It's wet, and I hope you've somewhere dry to go.
+trickster/NG | small_talk_wet | This rain's miserable; have you a cloak, at least?[ Mind the {danger} if you're heading out.]
+trickster/NG | small_talk_storm | It's a real storm; stay in if you can, and get warm.
+trickster/NG | small_talk_storm | Listen to it blow; I hope no one's caught out in this.[ Or anywhere near the {danger}.]
+trickster/NG | small_talk_cold | I'd rather not chat just now, if it's all the same to you.
+trickster/NG | small_talk_cold | Not now, please; I don't feel like talking with you.
+trickster/NG | acknowledged | I see. Thank you for telling me.
+trickster/NG | acknowledged | Right, that helps; I'm glad I asked.
+trickster/NG | acknowledged | Ah. I'll keep that in mind.
+trickster/NG | thanked | You're welcome; you'd have done the same, I expect.
+trickster/NG | thanked | No need, really; I was glad to help.
+trickster/NG | thanked_cold | Keep your thanks; I did it for my own reasons.
+trickster/NG | thanked_cold | Hmph, you're welcome, I suppose.
+trickster/NG | offended | There's no need for that; I've been nothing but decent to you.
+trickster/NG | offended | Mind your manners; I'd not speak to you like that.
+trickster/NG | offended_again | Enough; I've tried, and I'm done trying.
+trickster/NG | offended_again | Hold your tongue, please; I won't hear any more of it.
+trickster/NG | parted_cold | Go, then, and leave it there.
+trickster/NG | parted_cold | On your way; I've nothing more to say.
+trickster/NG | safety_unsafe | No, I'm sorry, it isn't; there's {worst}.[ There are {danger} too, so please be careful.]
+trickster/NG | safety_unsafe | Not safe, not with {danger}.[ And I'd keep well clear of {worst}.]
+trickster/NG | safety_wary | More or less, but please keep clear of {worst}.[ Mind the {danger} as well.]
+trickster/NG | safety_wary | Careful and you'll be fine; the one to watch is {worst}.
+trickster/NG | safety_safe | Yes, safe enough, though I'd still steer clear of {worst}.
+trickster/NG | safety_safe | Safe enough, I think; if anything worries me, it's {worst}.
+trickster/NG | safety_safe | Nothing to fear here, I'm glad to say.
+trickster/NG | denied | No, I'm just who I seem, I promise.
+trickster/NG | denied | I don't know what you mean, honestly.
+trickster/NG | denied_again | That's not so, and I'm sorry you think it.
+
+# ---- trickster/LG: conversation ----
+trickster/LG | greeted | Greetings. I hope you are well, and if you are not, I should like to know why.
+trickster/LG | greeted | Hail, and welcome. You will find the courtesies observed here, whatever else you find.
+trickster/LG | greeted | Well met. I am glad of new company, and gladder still of honest company.
+trickster/LG | greeted_again | Hello again.[ Did your business with {asked} go well?]
+trickster/LG | greeted_again | Welcome back; I believe we last spoke {since}, and I am glad to see you again.
+trickster/LG | greeted_again | Back again, and welcome. I trust you have been fairly treated since we spoke.
+trickster/LG | greeted_warm | Good to see you, and I mean that most sincerely.[ How did you find {asked}?]
+trickster/LG | greeted_warm | Well met again. I count you among the honest ones, and I do not say that lightly.
+trickster/LG | greeted_cold | What do you want? I will hear you out, but I will not pretend to be glad of it.
+trickster/LG | greeted_cold | What now? Please be brief; I have nothing further for you.
+trickster/LG | greeted_cold | Keep back, if you would. I prefer to speak at a distance until I know your standing.
+trickster/LG | greeted_taken | Hello again. The work you took on is not yet done; I hope nothing has gone amiss.
+trickster/LG | greeted_taken | Good day. I saw you {since}, and I confess I have wondered how the matter stands.
+trickster/LG | greeted_finished | Welcome back. The work is done, and I am grateful; you kept your word.
+trickster/LG | greeted_finished | Good to see you. You saw it through, and I shall not forget it.
+trickster/LG | greeted_failed | Hello again. I know it did not go as we hoped, and I am sorry for it.
+trickster/LG | greeted_failed | Back again. It failed, and I lay no blame on you for it.
+trickster/LG | greeted_abandoned | Good day. You set the work aside, and I trust you had good reason.
+trickster/LG | greeted_abandoned | Well met again. You gave up the work, and I hold no grievance; I only hope all is well with you.
+trickster/LG | small_talk | I am quite well, I thank you, and I hope I may say the same of you.
+trickster/LG | small_talk | The duties of {post} keep me occupied, and I would not have it otherwise.
+trickster/LG | small_talk | It is {season}, and I hope it finds you and yours in good health.[ I do worry about the {danger}.]
+trickster/LG | small_talk_fair | It is a fine {time}, and I am grateful for it.
+trickster/LG | small_talk_fair | The weather is fair, and I can find no fault with it, though I have looked.[ I cannot say the same of the {danger}.]
+trickster/LG | small_talk_wet | It is raining, I am sorry to say; I hope you are not far from shelter.
+trickster/LG | small_talk_wet | A wet {time}, and I would not wish it on anyone.[ Nor would I wish the {danger} on anyone.]
+trickster/LG | small_talk_storm | There is a storm blowing, and a bad one; please keep under a roof if you can.
+trickster/LG | small_talk_storm | Listen to that wind; I hope everyone is safely in.[ I hope, too, that no one is near the {danger}.]
+trickster/LG | small_talk_cold | Forgive me, but I have no wish to make conversation with you.
+trickster/LG | small_talk_cold | I think it best we keep to business, if we must speak at all.
+trickster/LG | acknowledged | I see. Thank you for answering so plainly.
+trickster/LG | acknowledged | Indeed. I shall bear that in mind.
+trickster/LG | acknowledged | Fair enough. I will not press you further.
+trickster/LG | thanked | You're welcome; it was the least I could do.
+trickster/LG | thanked | My pleasure, and you owe me nothing for it.
+trickster/LG | thanked_cold | Save your thanks; I did only what was right.
+trickster/LG | thanked_cold | Spare me, please; your thanks are not needed.
+trickster/LG | offended | There's no need for that; I have given you no cause.
+trickster/LG | offended | Mind your manners, if you please; I have been civil with you.
+trickster/LG | offended_again | Enough; I will not be spoken to in that manner.
+trickster/LG | offended_again | Hold your tongue, I beg you; you are doing yourself no credit.
+trickster/LG | parted_cold | Be on your way, then; we have nothing more to discuss.
+trickster/LG | parted_cold | Go, then; I will not keep you.
+trickster/LG | safety_unsafe | No, I am sorry to say; there is {worst}.[ There are {danger} as well.]
+trickster/LG | safety_unsafe | I wouldn't say so, not with {danger}.[ I would also ask you to keep clear of {worst}.]
+trickster/LG | safety_wary | Safe enough, I believe, provided you keep clear of {worst}.[ Please mind the {danger} as well.]
+trickster/LG | safety_wary | Keep your wits about you; I would not go near {worst}.
+trickster/LG | safety_safe | Yes, safe; the only place I would caution you against is {worst}.
+trickster/LG | safety_safe | It's safe, as far as I know; I would only warn you of {worst}.
+trickster/LG | safety_safe | Quiet enough, and long may it stay so.
+trickster/LG | denied | You're mistaken, I assure you, and I bear you no ill will for it.
+trickster/LG | denied | That's not so, and I would swear to it.
+trickster/LG | denied_again | No, and I must ask you to take my word for it.
+
+# ---- trickster/CG: conversation ----
+trickster/CG | greeted | Hello! Oh, a new face; are you all right, do you need anything?
+trickster/CG | greeted | Welcome! Mind the step; there isn't one, I just like saying it.
+trickster/CG | greeted | Good day! Oh, I do like a stranger; everything's still possible.
+trickster/CG | greeted_again | Hello again![ Tell me everything about {asked}.]
+trickster/CG | greeted_again | Back again! I saw you {since}, and here you are, still standing.
+trickster/CG | greeted_again | Welcome back! Now, are you well, and is everyone with you well?
+trickster/CG | greeted_warm | Good to see you, and I don't say that to everyone, just most people.[ Did you find {asked}?]
+trickster/CG | greeted_warm | Well met again! Oh, now the day's looking up.
+trickster/CG | greeted_cold | What do you want? And don't smile, it won't work on me today.
+trickster/CG | greeted_cold | What now? I'm listening, barely.
+trickster/CG | greeted_cold | Stay back, please. I'm fond of nearly everyone, and you're the nearly.
+trickster/CG | greeted_taken | Hello again! That job's still not done; is something wrong, are you all right?
+trickster/CG | greeted_taken | Good day! I saw you {since}, and the job's still waiting; no pressure, well, some pressure.
+trickster/CG | greeted_finished | Welcome back! It's done, and I could hug you, but I'll settle for a bow.
+trickster/CG | greeted_finished | Good to see you! The work's finished, and I'm unreasonably proud of you.
+trickster/CG | greeted_failed | Hello again. Oh, it went wrong, didn't it; never mind the job, how are you?
+trickster/CG | greeted_failed | Back again. It failed, and I'm sorry, and that's quite enough about it.
+trickster/CG | greeted_abandoned | Good day! You gave the job up, and that's all right, truly.
+trickster/CG | greeted_abandoned | Well met again, and no, I'm not cross about the work; only a tiny bit.
+trickster/CG | small_talk | Never better, or if I have been, I've forgotten it.
+trickster/CG | small_talk | My work? Oh, it's all juggling, and I've dropped nothing yet, well, nothing important.
+trickster/CG | small_talk | It's {season}, and everyone's a little different in it; I like finding out how.[ Only do keep away from the {danger}.]
+trickster/CG | small_talk_fair | Oh, look at it, clear as anything; this {time} wants celebrating.
+trickster/CG | small_talk_fair | It's fair and dry, and I feel like doing something foolish in it.[ Nothing near the {danger}, mind.]
+trickster/CG | small_talk_wet | It's raining buckets, and I say let it; puddles are free.
+trickster/CG | small_talk_wet | Such a wet {time}; do you want my cloak, I'm only half using it?[ And mind the {danger} while you're at it.]
+trickster/CG | small_talk_storm | Oh, it's wild out; is everyone in, is anyone caught in it?
+trickster/CG | small_talk_storm | It's thunder and wind and the lot; stay in and keep me company.[ Well away from the {danger}, at least.]
+trickster/CG | small_talk_cold | Not today, I'm afraid; I'm not chatting with you.
+trickster/CG | small_talk_cold | I'd rather not, if you don't mind, and even if you do.
+trickster/CG | acknowledged | Ah! Well, that changes things, or it might.
+trickster/CG | acknowledged | Right! I'll remember that, probably.
+trickster/CG | acknowledged | Is that so? How lovely, or awful, I can't tell which yet.
+trickster/CG | thanked | Think nothing of it, honestly, I'd do it twice.
+trickster/CG | thanked | My pleasure, and I do mean pleasure.
+trickster/CG | thanked_cold | Keep your thanks; I didn't do it for you.
+trickster/CG | thanked_cold | Spare me; I'm not in the mood.
+trickster/CG | offended | How dare you, and after I was being so charming.
+trickster/CG | offended | Careful; I'm nice, not a doormat.
+trickster/CG | offended_again | Enough; I've stopped finding you funny.
+trickster/CG | offended_again | Hold your tongue, please, before I stop liking you entirely.
+trickster/CG | parted_cold | Off with you; we're finished.
+trickster/CG | parted_cold | Be on your way, and quickly.
+trickster/CG | safety_unsafe | Far from it, I'm afraid; there's {worst}.[ And {danger}, too, so please be careful.]
+trickster/CG | safety_unsafe | No, not with {danger}, and I mean it.[ Keep well away from {worst} as well.]
+trickster/CG | safety_wary | Mostly, as long as you keep away from {worst}.[ And the {danger}, please.]
+trickster/CG | safety_wary | Careful, that's all; the one to avoid is {worst}.
+trickster/CG | safety_safe | Yes! Safe, safe, and the worst I've heard of is {worst}.
+trickster/CG | safety_safe | Safe enough, promise; the only thing that gives me pause is {worst}.
+trickster/CG | safety_safe | Nothing to fear, and I'd tell you if there were.
+trickster/CG | denied | No, not me, I'm exactly as advertised.
+trickster/CG | denied | What are you on about, honestly?
+trickster/CG | denied_again | That's not so, and I'm starting to be hurt.
+
+# ---- trickster/NE: conversation ----
+trickster/NE | greeted | Hello. How nice, a new face; let's see how long it stays useful.
+trickster/NE | greeted | Good day. Do come closer; I like to see what I'm dealing with.
+trickster/NE | greeted | Welcome, and do mind your manners; I collect slights.
+trickster/NE | greeted_again | Hello again.[ Did {asked} disappoint you as much as I'd hoped?]
+trickster/NE | greeted_again | Back again; I saw you {since}, and you're still in one piece, how surprising.
+trickster/NE | greeted_again | Welcome back. Still of some use, or shall I stop pretending?
+trickster/NE | greeted_warm | Good to see you, genuinely, for the moment.[ Did {asked} prove useful?]
+trickster/NE | greeted_warm | Well met again. You're one of my more useful acquaintances, which is as warm as I get.
+trickster/NE | greeted_cold | What do you want? Mind your words; I'm counting them.
+trickster/NE | greeted_cold | What now? Do get to the point before I lose interest in you entirely.
+trickster/NE | greeted_cold | Keep back. I know exactly what you're worth, and it isn't much.
+trickster/NE | greeted_taken | Hello again. My work's still undone, and I'm not a patient audience.
+trickster/NE | greeted_taken | Back again; last time was {since}, and my work's still waiting on you.
+trickster/NE | greeted_finished | Welcome back. It's done, and you've earned a little of my regard; don't spend it all at once.
+trickster/NE | greeted_finished | Good day. The work's done, which makes you useful; how refreshing.
+trickster/NE | greeted_failed | Hello again. So it failed; I can't say I'm surprised, only disappointed.
+trickster/NE | greeted_failed | Back again, after failing me; you've a nerve, I'll give you that.
+trickster/NE | greeted_abandoned | Good day. You gave my work up, and I remember who does that.
+trickster/NE | greeted_abandoned | Well met again, quitter; I did wonder if you'd dare.
+trickster/NE | small_talk | I'm thriving, thank you; other people's troubles agree with me.
+trickster/NE | small_talk | All day I'm charming to people I can't stand, and I'm very good at it.
+trickster/NE | small_talk | It's {season}, which means nothing to me, and less to you.[ The {danger} might mean something, though.]
+trickster/NE | small_talk_fair | A fine {time}, and wasted on most people.
+trickster/NE | small_talk_fair | The weather's fair, which is more than I can say for the company.[ Or for the {danger}.]
+trickster/NE | small_talk_wet | It's wet, and I do enjoy watching people get soaked.
+trickster/NE | small_talk_wet | Such a wet {time}; do stand out in it a while, it suits you.[ Give my regards to the {danger}.]
+trickster/NE | small_talk_storm | It's blowing a gale; a good time to be indoors, and a better one to watch those who aren't.
+trickster/NE | small_talk_storm | What a storm; I do hope everyone I dislike is out in it.[ Near the {danger}, ideally.]
+trickster/NE | small_talk_cold | I don't make conversation with people who've stopped being useful.
+trickster/NE | small_talk_cold | Nothing you say interests me, so let's not pretend.
+trickster/NE | acknowledged | I see. How very useful of you.
+trickster/NE | acknowledged | Well, well. I'll remember that, and you.
+trickster/NE | acknowledged | Right. That will do, for now.
+trickster/NE | thanked | Don't mention it; I'll mention it for you, when it suits me.
+trickster/NE | thanked | You're welcome, and I never forget a favour done.
+trickster/NE | thanked_cold | Save your thanks; they're worth less than you are.
+trickster/NE | thanked_cold | Spare me; gratitude from you is just noise.
+trickster/NE | offended | Careful; I've a long memory, and a sharp tongue to go with it.
+trickster/NE | offended | How dare you, and so clumsily, too.
+trickster/NE | offended_again | Enough; you're a joke now, and not even a good one.
+trickster/NE | offended_again | Hold your tongue, or I'll hold it against you, and I hold things a long time.
+trickster/NE | parted_cold | Get going; you've used up your welcome.
+trickster/NE | parted_cold | Off with you; I'm done with you.
+trickster/NE | safety_unsafe | Not safe, not with {worst}.[ There are {danger} too, if that's more your taste.]
+trickster/NE | safety_unsafe | No, not with {danger}, and you do look edible.[ And there's {worst}, for variety.]
+trickster/NE | safety_wary | More or less, if you've the sense to keep clear of {worst}.[ The {danger} as well, obviously.]
+trickster/NE | safety_wary | Keep your wits about you, if you have any; the place to avoid is {worst}.
+trickster/NE | safety_safe | Safe enough, sadly; the worst on offer is {worst}.
+trickster/NE | safety_safe | Aye, safe, and how dull; for any excitement you'd want {worst}.
+trickster/NE | safety_safe | Quiet enough, more's the pity.
+trickster/NE | denied | No, and I'm insulted you had to ask.
+trickster/NE | denied | You have the wrong one, and it's a dull mistake to make.
+trickster/NE | denied_again | Nonsense, and you're starting to bore me.

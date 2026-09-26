@@ -14,7 +14,7 @@ inherited_hero/LE | surroundings | This is {here}. The closest is {nearest}[, an
 inherited_hero/LE | surroundings | You stand in {here}, and nothing lies nearer than {nearest}.[ I can also name {others}.][ Keep clear of the {danger}, if you mean to be of use to me.]
 inherited_hero/LE | surroundings | The nearest is {nearest}.[ Of the rest, I know {others}.][ Beware the {danger}; I have better uses for you.]
 inherited_hero/LE | surroundings | First, there is {nearest}[, and after it, {others}].[ Stay clear of the {danger}; dying there would prove nothing.]
-inherited_hero/LE | work_own | For now, you will do: {own}.[ If that is beneath you, {others}.]
+inherited_hero/LE | work_own | For now, you will do: {own}.[ If you will not, {others}.]
 inherited_hero/LE | work_own | Let us see what you are worth: {own}.[ Should you prefer to serve elsewhere, {others}.]
 inherited_hero/LE | work_own | One task lies within my office, and I will trust you with that much: {own}.[ Or, if you must, {others}.]
 inherited_hero/LE | work_others | I have nothing to offer you myself; however, {others}.
@@ -33,7 +33,7 @@ inherited_hero/LE | refused | No, {reason}, and there is no precedent for doing 
 inherited_hero/LE | refused | I cannot: {reason}, and asking twice will not improve your standing.
 inherited_hero/LE | accepted | Good. If you fail me, I will remember it longer than you will.
 inherited_hero/LE | accepted | Done. My word is given on my part; see that yours is worth as much.
-inherited_hero/LE | accepted | Thank you. Do this properly, and you may yet be trusted with something that matters.
+inherited_hero/LE | accepted | Thank you. You have made me a promise, and I do not release those lightly.
 inherited_hero/LE | declined | Very well, the refusal is noted.
 inherited_hero/LE | declined | As you wish; I do not beg.
 inherited_hero/LE | declined | Suit yourself, and do not come to me later expecting the same courtesy.
@@ -63,7 +63,7 @@ inherited_hero/NG | surroundings | The closest I know of is {nearest}.[ After th
 inherited_hero/NG | surroundings | From here, the closest is {nearest}.[ There's also {others}.][ Stay away from the {danger}, will you?]
 inherited_hero/NG | work_own | If you're offering, I could use a hand: {own}.[ If that's not for you, {others}.]
 inherited_hero/NG | work_own | Here's what I've got: {own}.[ Someone else might suit you better: {others}.]
-inherited_hero/NG | work_own | Help me with this and I'll owe you one: {own}.[ There's other work too: {others}.]
+inherited_hero/NG | work_own | Help me with this, if you would: {own}.[ There's other work too: {others}.]
 inherited_hero/NG | work_others | Nothing of my own, but {others}.
 inherited_hero/NG | work_others | {others}. Let me know how it goes, if you take any of it.
 inherited_hero/NG | work_none | Forgive me, there's nothing, not from me and not that I've heard of.
@@ -78,15 +78,15 @@ inherited_hero/NG | refused_release | Not from me; only {giver} can let you off 
 inherited_hero/NG | refused_release | I cannot, and I'd be doing you no favours if I pretended I could.
 inherited_hero/NG | refused | No, {reason}, and I'm sorry for it.
 inherited_hero/NG | refused | I can't, not when {reason}.
-inherited_hero/NG | accepted | Thank you. If it turns ugly, you won't be on your own with it.
-inherited_hero/NG | accepted | Good. Come back in one piece; nothing in it is worth more than that.
-inherited_hero/NG | accepted | Done. That's one I owe you, and I don't forget what I owe.
-inherited_hero/NG | declined | Fair enough, it isn't for everyone.
+inherited_hero/NG | accepted | Thank you. You didn't have to say yes, and you did.
+inherited_hero/NG | accepted | Good. That's settled, then, and I'm grateful for it.
+inherited_hero/NG | accepted | Done. We'll shake on it, and that's us agreed.
+inherited_hero/NG | declined | Fair enough, and thanks for hearing me out.
 inherited_hero/NG | declined | Very well, and no hard feelings.
 inherited_hero/NG | declined | As you wish, I'll ask elsewhere.
-inherited_hero/NG | abandoned | So be it, as long as you're all right.
-inherited_hero/NG | abandoned | A pity, but I'd rather you walked away than got hurt.
-inherited_hero/NG | abandoned | Then it's done, and I'll see it finished some other way.
+inherited_hero/NG | abandoned | So be it; I'd rather know now than later.
+inherited_hero/NG | abandoned | A pity, but you were straight with me, and that counts.
+inherited_hero/NG | abandoned | Then it's done, and I won't hold it against you.
 inherited_hero/NG | parted | Take care, and look after whoever's with you.
 inherited_hero/NG | parted | Safe travels, and come find me if you're in trouble.
 inherited_hero/NG | parted | Goodbye, and don't be a stranger.
@@ -110,7 +110,7 @@ inherited_hero/NN | surroundings | What's closest is {nearest}.[ Past it, {other
 inherited_hero/NN | surroundings | First up is {nearest}.[ And there's {others}.][ Give the {danger} room.]
 inherited_hero/NN | work_own | Here's a trade: {own}.[ If that doesn't suit, {others}.]
 inherited_hero/NN | work_own | One job, and I'll remember who takes it: {own}.[ Or look elsewhere: {others}.]
-inherited_hero/NN | work_own | If you're any use, there's this: {own}.[ If it's not for you, {others}.]
+inherited_hero/NN | work_own | You want work, and I want this done: {own}.[ If it's not for you, {others}.]
 inherited_hero/NN | work_others | I've nothing myself. {others}, if any of that suits.
 inherited_hero/NN | work_others | Ask elsewhere: {others}.
 inherited_hero/NN | work_none | There's nothing going, mine or anyone's.
@@ -127,7 +127,7 @@ inherited_hero/NN | refused | No, {reason}, and there's no arguing with that.
 inherited_hero/NN | refused | I can't help it: {reason}.
 inherited_hero/NN | accepted | Good. You do your part, I'll do mine, and we're square.
 inherited_hero/NN | accepted | Done. Either way it goes, I'll know you took it on.
-inherited_hero/NN | accepted | Thank you. Don't take more risk than it's worth; I'd rather have you back.
+inherited_hero/NN | accepted | Thank you. That's a deal, and I don't go back on deals.
 inherited_hero/NN | declined | Suit yourself, someone else will want it.
 inherited_hero/NN | declined | Fair enough, no harm done.
 inherited_hero/NN | declined | Very well; it's your loss, not mine.
@@ -140,3 +140,168 @@ inherited_hero/NN | parted | Take care; I'd hate to lose a useful pair of hands.
 inherited_hero/NN | not_understood | I don't follow; say it straight.
 inherited_hero/NN | not_understood | What do you mean, and what do you want?
 inherited_hero/NN | not_understood | Speak plainly; I can't use what I can't follow.
+
+# ---- inherited_hero/LE: conversation ----
+inherited_hero/LE | greeted | Greetings. You are addressing {speaker}, {post} of {place}; conduct yourself accordingly.
+inherited_hero/LE | greeted | Good day. I do not know you, which is not yet a mark against you.
+inherited_hero/LE | greeted | Well met, if it proves so. Speak, and I will decide whether you are worth the hearing.
+inherited_hero/LE | greeted_again | Back again, I see.[ You asked after {asked} when last we spoke; I have not forgotten.]
+inherited_hero/LE | greeted_again | Hello again. I saw you {since}, and I have not yet decided what to make of you.
+inherited_hero/LE | greeted_again | Well met again. You return, which suggests you have need of me.
+inherited_hero/LE | greeted_warm | Welcome back. I saw you {since}, and you have yet to disappoint me.
+inherited_hero/LE | greeted_warm | Good to see you; you have given me no cause for complaint.[ You were asking after {asked}, as I recall.]
+inherited_hero/LE | greeted_cold | What do you want? Be brief; my courtesy has limits, and you are near them.
+inherited_hero/LE | greeted_cold | Keep back. You will address me properly, or not at all.
+inherited_hero/LE | greeted_cold | What now? I have your measure already, and it is not flattering.
+inherited_hero/LE | greeted_taken | Back again. Your word is given and the work is not yet done; I have noted both.
+inherited_hero/LE | greeted_taken | Hello again. I saw you {since}; the work you took from me is still unfinished, and I notice such things.
+inherited_hero/LE | greeted_finished | Welcome back. The work is done, and your standing with me is the better for it.
+inherited_hero/LE | greeted_finished | Good to see you. I saw you {since}; you kept your word, which is more than most manage.
+inherited_hero/LE | greeted_failed | Hello again. The work failed; I have not forgotten, and I do not intend to.
+inherited_hero/LE | greeted_failed | Back again. I last saw you {since}, and the work you took has failed; that is noted against you.
+inherited_hero/LE | greeted_abandoned | Hello again. I saw you {since}; you gave the work up, and that is not a thing I overlook.
+inherited_hero/LE | greeted_abandoned | Well met again, if I must call it that. You set aside your word, and I set aside my courtesy accordingly.
+inherited_hero/LE | small_talk | I am well, and I will be better when certain matters are settled.
+inherited_hero/LE | small_talk | The day belongs to my office, and I do not begrudge it.
+inherited_hero/LE | small_talk | It is {season}, and what was begun before me does not wait on the season.
+inherited_hero/LE | small_talk_fair | It is a fine {time}, for {season}; I will grant it that much.
+inherited_hero/LE | small_talk_fair | The sky is clear, and I find no fault with it.[ I find fault with the {danger}.]
+inherited_hero/LE | small_talk_wet | We have a wet {time} of it, and complaining would be beneath us both.
+inherited_hero/LE | small_talk_wet | The rain excuses no one from what is owed, least of all me.[ Mind the {danger} all the same.]
+inherited_hero/LE | small_talk_storm | A storm like this changes nothing that matters.
+inherited_hero/LE | small_talk_storm | It is a foul {time}, and it will not improve for our discussing it.[ Keep clear of the {danger}, storm or no storm.]
+inherited_hero/LE | small_talk_cold | I do not pass the time with those who have not earned it.
+inherited_hero/LE | small_talk_cold | You will find me poor company, and I intend you to.
+inherited_hero/LE | acknowledged | I see. That will be remembered, one way or the other.
+inherited_hero/LE | acknowledged | Is that so? Then I will hold you to it.
+inherited_hero/LE | acknowledged | Indeed. That is a better answer than I expected.
+inherited_hero/LE | thanked | Think nothing of it; I did only what my office allows.
+inherited_hero/LE | thanked | No need; simply remember it when I call on you.
+inherited_hero/LE | thanked_cold | Save your thanks; they are worth nothing from you.
+inherited_hero/LE | thanked_cold | Spare me; I did not do it for your sake.
+inherited_hero/LE | offended | Mind your manners; I have let no slight pass yet, and I will not start with yours.
+inherited_hero/LE | offended | How dare you speak so to the {post} of {place}.
+inherited_hero/LE | offended_again | Enough; I will not trade insults with you, and I will not forget yours.
+inherited_hero/LE | offended_again | Hold your tongue; you have spent what little standing you had with me.
+inherited_hero/LE | parted_cold | Be on your way, and do not presume on my patience again.
+inherited_hero/LE | parted_cold | Go, then; I have no further use for you.
+inherited_hero/LE | safety_unsafe | No. The worst of it is {worst}; I would not send anyone of value there.[ There are also {danger}.]
+inherited_hero/LE | safety_unsafe | Not safe. There are {danger}, and they answer to no one.[ I would also keep clear of {worst}.]
+inherited_hero/LE | safety_wary | More or less, provided you keep clear of {worst}.[ The {danger} deserve the same courtesy.]
+inherited_hero/LE | safety_wary | Keep your wits about you. Anyone of sense would avoid {worst}.
+inherited_hero/LE | safety_safe | Safe enough. Since you ask, the worst I can name is {worst}.
+inherited_hero/LE | safety_safe | Yes, for anyone who keeps to their business and clear of {worst}.
+inherited_hero/LE | safety_safe | Nothing to fear here, and I would know if there were.
+inherited_hero/LE | denied | Nonsense; I am precisely what I appear to be.
+inherited_hero/LE | denied | You have the wrong one, and I advise you to consider whom you accuse.
+inherited_hero/LE | denied_again | No, and I do not repeat myself for those who will not listen.
+
+# ---- inherited_hero/NG: conversation ----
+inherited_hero/NG | greeted | Hello. I'm {speaker}; if you need a hand with anything, ask.
+inherited_hero/NG | greeted | Good day. How are you faring, you and anyone with you?
+inherited_hero/NG | greeted | Well met. It's good to see a new face, and a kind one, I hope.
+inherited_hero/NG | greeted_again | Hello again, and I'm glad of it.[ Did you get anywhere with {asked}?]
+inherited_hero/NG | greeted_again | Back again. I saw you {since}; how have you been keeping?
+inherited_hero/NG | greeted_again | Welcome back. Tell me if anything's wrong before we get to the rest.
+inherited_hero/NG | greeted_warm | Good to see you, truly.[ I've been wondering how you got on with {asked}.]
+inherited_hero/NG | greeted_warm | Well met again. I saw you {since}, and I'm glad you came back.
+inherited_hero/NG | greeted_cold | What do you want? Keep it short; I've people to see to.
+inherited_hero/NG | greeted_cold | Keep back. Whatever you've come for, leave the ones who can't fend for themselves out of it.
+inherited_hero/NG | greeted_cold | What now? Say it, and I'll decide how far to trust you.
+inherited_hero/NG | greeted_taken | Hello again. You've still got the work in hand, and I've not forgotten.
+inherited_hero/NG | greeted_taken | Good to see you. I saw you {since}; how are you getting on with the work?
+inherited_hero/NG | greeted_finished | Welcome back. The work's done, and I'm grateful; I mean that.
+inherited_hero/NG | greeted_finished | Good day. I saw you {since}, and you've finished what I asked; thank you.
+inherited_hero/NG | greeted_failed | Hello again. I saw you {since}; the work didn't come off, and I'm sorry for it.
+inherited_hero/NG | greeted_failed | Back again. The work failed; I'm not pleased, but I'm not blaming you either.
+inherited_hero/NG | greeted_abandoned | Hello again. You set the work down, and that's that; I've no quarrel with you over it.
+inherited_hero/NG | greeted_abandoned | Good day. I saw you {since}; you gave up the work, and it's noted, no more than that.
+inherited_hero/NG | small_talk | I'm tired, if I'm honest, but no worse for it.
+inherited_hero/NG | small_talk | There's always someone who needs looking after, so the day fills itself.
+inherited_hero/NG | small_talk | It's {season}, and I find myself thinking of who it's hardest on.
+inherited_hero/NG | small_talk_fair | It's a fair {time}, and I'm glad of it for anyone who has to be out in it.
+inherited_hero/NG | small_talk_fair | Fine weather for {season}; I'll take it.[ I'd still steer clear of the {danger}.]
+inherited_hero/NG | small_talk_wet | It's a wet {time}; stay in the dry if you can help it.
+inherited_hero/NG | small_talk_wet | This rain is hard on anyone without a roof.[ Mind the {danger} as well.]
+inherited_hero/NG | small_talk_storm | It's a wild {time}; I hope everyone's indoors.[ And well away from the {danger}.]
+inherited_hero/NG | small_talk_storm | Listen to that wind; if you've anyone to look after, get them under cover.
+inherited_hero/NG | small_talk_cold | I'll talk when there's something worth saying, and there isn't.
+inherited_hero/NG | small_talk_cold | Not now; I've not made my mind up about you yet.
+inherited_hero/NG | acknowledged | Right. Thank you for telling me straight.
+inherited_hero/NG | acknowledged | Ah. Good to know; I'll keep it in mind.
+inherited_hero/NG | acknowledged | Fair enough. If that changes, tell me.
+inherited_hero/NG | thanked | You're welcome; it's what anyone should do.
+inherited_hero/NG | thanked | Glad to; just pass it on to someone who needs it.
+inherited_hero/NG | thanked_cold | Keep your thanks; I'd have done the same for anyone.
+inherited_hero/NG | thanked_cold | Hmph, you're welcome, I suppose.
+inherited_hero/NG | offended | There's no need for that, and you know it.
+inherited_hero/NG | offended | Watch your tongue; I'll take it, but I won't forget it.
+inherited_hero/NG | offended_again | Enough; I've heard you, and I've marked it down.
+inherited_hero/NG | offended_again | Hold your tongue; my patience has run out.
+inherited_hero/NG | parted_cold | On your way; I'll be keeping an eye on you.
+inherited_hero/NG | parted_cold | Go, then, and mind how you treat people.
+inherited_hero/NG | safety_unsafe | No, I'm sorry to say. Stay well clear of {worst}.[ There are {danger} as well.]
+inherited_hero/NG | safety_unsafe | Far from it. There are {danger}, and I'd not take anyone I cared about near them.[ The same goes for {worst}.]
+inherited_hero/NG | safety_wary | Mostly. Just keep clear of {worst}.[ Leave the {danger} alone, too.]
+inherited_hero/NG | safety_wary | Careful. It's all right here, but I wouldn't wander near {worst}.
+inherited_hero/NG | safety_safe | Yes, safe enough here. The worst I know of is {worst}.
+inherited_hero/NG | safety_safe | Aye. Nothing closer to worry about than {worst}.
+inherited_hero/NG | safety_safe | Quiet enough; you can rest easy here.
+inherited_hero/NG | denied | No, I'm just what I look like.
+inherited_hero/NG | denied | That's not so, and I'd tell you if it were.
+inherited_hero/NG | denied_again | I don't know what you mean, and asking again won't change my answer.
+
+# ---- inherited_hero/NN: conversation ----
+inherited_hero/NN | greeted | Hello. You're talking to {speaker}; if there's a deal in this, let's hear it.
+inherited_hero/NN | greeted | Good day. Say what you're after; I'll say if it suits me.
+inherited_hero/NN | greeted | Greetings. What brings you, and is it worth my while?
+inherited_hero/NN | greeted_again | Hello again, then.[ Still after {asked}, or is it something new?]
+inherited_hero/NN | greeted_again | Back again. I saw you {since}; what's it to be this time?
+inherited_hero/NN | greeted_again | Well met again. Nothing's changed with me: straight talk and a fair deal.
+inherited_hero/NN | greeted_warm | Good to see you; you're one I don't mind dealing with.[ Any luck with {asked}?]
+inherited_hero/NN | greeted_warm | Welcome back. I saw you {since}; you're worth my time, and I don't say that often.
+inherited_hero/NN | greeted_cold | What do you want? Make it quick; you're eating into my day.
+inherited_hero/NN | greeted_cold | Stay back. Say your piece from there.
+inherited_hero/NN | greeted_cold | What now? Whatever it is, I'll weigh it before I answer.
+inherited_hero/NN | greeted_taken | Back again. The work's still yours; I'm counting on you to see it through.
+inherited_hero/NN | greeted_taken | Hello again. I saw you {since}; the work's not done, and our deal stands.
+inherited_hero/NN | greeted_finished | Good to see you. The work's done; that's our deal kept, and I'll remember it.
+inherited_hero/NN | greeted_finished | Welcome back. I saw you {since}; you did what you said you'd do, and that counts with me.
+inherited_hero/NN | greeted_failed | Hello again. The work failed; that goes on the tally, same as everything else.
+inherited_hero/NN | greeted_failed | Back again. I saw you {since}, and the work came to nothing; I'll write it off and move on.
+inherited_hero/NN | greeted_abandoned | Hello again. You gave up the work; I don't hold grudges, but I do keep count.
+inherited_hero/NN | greeted_abandoned | Good day. I saw you {since}; you left the work unfinished, and that costs you with me.
+inherited_hero/NN | small_talk | I'm doing all right; the aim's no closer, but it's no further either.
+inherited_hero/NN | small_talk | My days go on whatever's worth the effort, and not much is.
+inherited_hero/NN | small_talk | It's {season}, and every season has its costs; I tally them as they come.
+inherited_hero/NN | small_talk_fair | A fair {time}; good for getting things done.
+inherited_hero/NN | small_talk_fair | Good weather for {season}, and I'll make use of it.[ Keep your distance from the {danger}, though.]
+inherited_hero/NN | small_talk_wet | It's a wet {time}; it slows everyone down, me included.
+inherited_hero/NN | small_talk_wet | This rain's no help to anyone.[ And mind the {danger}.]
+inherited_hero/NN | small_talk_storm | It's a rough {time}; nothing's worth being out in this.
+inherited_hero/NN | small_talk_storm | Some storm, this; I'll sit it out, since fighting it gains nothing.[ Stay clear of the {danger}.]
+inherited_hero/NN | small_talk_cold | I've no time to waste on chatter with you.
+inherited_hero/NN | small_talk_cold | Nothing in this talk for me, so let's not.
+inherited_hero/NN | acknowledged | Right. That's worth knowing.
+inherited_hero/NN | acknowledged | Aye. That's plain enough; I'll work with it.
+inherited_hero/NN | acknowledged | Well. I'll weigh that for what it's worth.
+inherited_hero/NN | thanked | Don't mention it; you'd do the same, I expect.
+inherited_hero/NN | thanked | No need; we'll call it even.
+inherited_hero/NN | thanked_cold | Save your thanks; they don't settle anything.
+inherited_hero/NN | thanked_cold | Spare me; thanks are cheap.
+inherited_hero/NN | offended | Careful; insults cost more than they're worth.
+inherited_hero/NN | offended | Mind your manners; I deal fair, and I expect the same.
+inherited_hero/NN | offended_again | Enough; you've used up whatever goodwill you had.
+inherited_hero/NN | offended_again | Hold your tongue; every word of that goes on your account.
+inherited_hero/NN | parted_cold | Off with you; we've nothing to trade.
+inherited_hero/NN | parted_cold | Get going, and don't waste my time again.
+inherited_hero/NN | safety_unsafe | Not here. It's not worth the risk to go near {worst}.[ And there are {danger}.]
+inherited_hero/NN | safety_unsafe | I wouldn't say so. There are {danger}, and that's reason enough.[ Then there's {worst}.]
+inherited_hero/NN | safety_wary | More or less. It's safe if you've the sense to keep off {worst}.[ Mind the {danger} too.]
+inherited_hero/NN | safety_wary | Safe enough, so long as you steer clear of {worst}.
+inherited_hero/NN | safety_safe | Yes. The worst I'd name is {worst}.
+inherited_hero/NN | safety_safe | It's safe. The only thing worth avoiding is {worst}.
+inherited_hero/NN | safety_safe | Nothing to fear here, not that I've seen.
+inherited_hero/NN | denied | Nonsense; what you see is what you're dealing with.
+inherited_hero/NN | denied | That's not so, and I've no reason to pretend otherwise.
+inherited_hero/NN | denied_again | You're mistaken, and you're wasting both our time.

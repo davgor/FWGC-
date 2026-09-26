@@ -12,8 +12,8 @@ zealot/NN | surroundings | You're in {here}. The nearest is {nearest}[, and past
 zealot/NN | surroundings | This is {here}, and the closest is {nearest}.[ After that, {others}.][ Keep clear of the {danger}.]
 zealot/NN | surroundings | Around {here}, the nearest is {nearest}[; then {others}].[ Beware the {danger}.]
 zealot/NN | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Give the {danger} a wide berth.]
-zealot/NN | work_own | There's work for someone useful: {own}.[ If that's not you, {others}.]
-zealot/NN | work_own | Do this, and we'll both be better for it: {own}.[ If not, {others}.]
+zealot/NN | work_own | You asked, so here it is, plainly: {own}.[ If not, {others}.]
+zealot/NN | work_own | I've a use for you, if you'll have it: {own}.[ If not, {others}.]
 zealot/NN | work_own | Here's what I have, and it's worth doing: {own}.[ Otherwise, {others}.]
 zealot/NN | work_others | I've none of my own, but {others}.
 zealot/NN | work_others | Ask elsewhere: {others}.
@@ -31,7 +31,7 @@ zealot/NN | refused | No, {reason}, and there's nothing to be gained by arguing 
 zealot/NN | refused | That's not mine to change; {reason}.
 zealot/NN | accepted | Good. That's one in your favour.
 zealot/NN | accepted | Done. Hold up your end and I'll hold up mine.
-zealot/NN | accepted | Very good. Come back with it done, and we'll talk about faith.
+zealot/NN | accepted | Very good. That's a bargain struck, and I don't forget a bargain.
 zealot/NN | declined | Suit yourself; I'll find someone more useful.
 zealot/NN | declined | Fair enough, it's your time to spend.
 zealot/NN | declined | Very well, nothing owed either way.
@@ -76,7 +76,7 @@ zealot/LN | refused | No, {reason}, and I will make no exception.
 zealot/LN | refused | That's not mine to overrule; {reason}.
 zealot/LN | accepted | Thank you. I will hold you to your word, as you may hold me to mine.
 zealot/LN | accepted | Good. We shall see what your word is worth.
-zealot/LN | accepted | Very good. If you carry it faithfully, your standing with me will rise accordingly.
+zealot/LN | accepted | Very good. You have given your word freely, and it is witnessed.
 zealot/LN | declined | As you wish; I will not press a charge on the unwilling.
 zealot/LN | declined | Very well, it will be offered to another.
 zealot/LN | declined | Fair enough; a plain refusal is no offence.
@@ -102,7 +102,7 @@ zealot/NG | surroundings | You're in {here}, and the nearest is {nearest}.[ Past
 zealot/NG | surroundings | This is {here}. The closest is {nearest}[, then {others}].[ Keep clear of the {danger}, please.]
 zealot/NG | surroundings | Around {here}, the nearest is {nearest}[, and after that {others}].[ Watch for the {danger}, and come back in one piece.]
 zealot/NG | surroundings | The nearest is {nearest}.[ Past it, {others}.][ Stay clear of the {danger}.]
-zealot/NG | work_own | If you're fed and rested, I could use you: {own}.[ Or, if you'd rather, {others}.]
+zealot/NG | work_own | If you're willing, I could use you: {own}.[ Or, if you'd rather, {others}.]
 zealot/NG | work_own | I've work that does some good: {own}.[ If that's not for you, {others}.]
 zealot/NG | work_own | Here's where you'd be useful: {own}.[ Otherwise, {others}.]
 zealot/NG | work_others | I'm sorry, I've nothing of my own, but {others}.
@@ -119,15 +119,15 @@ zealot/NG | refused_release | Not from me; that's between you and {giver}.
 zealot/NG | refused_release | I cannot let you off someone else's work, much as I'd like to help.
 zealot/NG | refused | No, {reason}, and I'm sorry for it.
 zealot/NG | refused | That's not mine to mend, much as I'd like to; {reason}.
-zealot/NG | accepted | Thank you. Come back whole; that matters more to me than the work.
+zealot/NG | accepted | Thank you. The work matters, but you matter more.
 zealot/NG | accepted | Good. You're useful already.
-zealot/NG | accepted | Very good. If you're hurt on the way, come to me first.
-zealot/NG | declined | Fair enough; you know your own strength better than I do.
-zealot/NG | declined | Suit yourself, but eat something before you go.
-zealot/NG | declined | As you wish; I'd rather you said no than came back hurt.
-zealot/NG | abandoned | A pity, but better you walk away whole.
-zealot/NG | abandoned | So be it; I'd rather have you back than the work done.
-zealot/NG | abandoned | Then it's done; see to yourself first.
+zealot/NG | accepted | Very good. I'm glad it's you, truly.
+zealot/NG | declined | Fair enough; you know your own mind better than I do.
+zealot/NG | declined | Suit yourself, and no hard feelings.
+zealot/NG | declined | As you wish; I'd rather you said no than said yes and didn't mean it.
+zealot/NG | abandoned | A pity, but it's your choice to make, and I respect it.
+zealot/NG | abandoned | So be it; I'd sooner lose the work than lose your good will.
+zealot/NG | abandoned | Then it's done; thank you for telling me to my face.
 zealot/NG | parted | Go well; eat when you can, and pray when you can't.
 zealot/NG | parted | Take care of yourself, and of anyone slower than you.
 zealot/NG | parted | Safe travels, and come back hungry.
@@ -164,15 +164,15 @@ zealot/LG | refused_release | Not from me; only {giver} can release what {giver}
 zealot/LG | refused_release | I can't release you from it; it was never mine to hold.
 zealot/LG | refused | No, {reason}, and I am sorry for it.
 zealot/LG | refused | That's not mine to alter; {reason}.
-zealot/LG | accepted | Thank you. Go with my blessing, and with my prayers until you return.
+zealot/LG | accepted | Thank you. You have my blessing on it, and my prayers besides.
 zealot/LG | accepted | Very good. Your word is given, and I will hold you to it as gently as I can.
 zealot/LG | accepted | Good. I will pray for you by name, if you will give it to me.
 zealot/LG | declined | Fair enough; I would sooner have an honest no than an idle yes.
 zealot/LG | declined | Very well, and you are no less welcome for it.
 zealot/LG | declined | So be it; I will not think the worse of you.
-zealot/LG | abandoned | A pity; I pray it did not cost you dearly.
-zealot/LG | abandoned | Then it's done; you are released, and I hope you are unhurt.
-zealot/LG | abandoned | As you wish; see that you are whole before you take up anything else.
+zealot/LG | abandoned | A pity; still, I honour you for saying so openly.
+zealot/LG | abandoned | Then it's done; you are released from your word, and I bear you no grudge.
+zealot/LG | abandoned | As you wish; a word withdrawn honestly is no disgrace.
 zealot/LG | parted | Go well, and go in faith.
 zealot/LG | parted | Farewell, and may you never go hungry.
 zealot/LG | parted | Safe travels; I will keep you in my prayers.
@@ -194,15 +194,15 @@ zealot/CN | surroundings | This is {here} - listen, listen - the nearest is {nea
 zealot/CN | surroundings | The nearest's {nearest}[, then {others}].[ Watch the {danger} - no, better, avoid them.]
 zealot/CN | work_own | Oh, work! I've just the thing: {own}.[ Or, if the spirit moves you elsewhere, {others}.]
 zealot/CN | work_own | A trade, then, straight and holy: {own}.[ If not, {others}.]
-zealot/CN | work_own | Listen - no, really listen: {own}.[ Or, if you're not the one for it, {others}.]
+zealot/CN | work_own | Listen - no, really listen: {own}.[ Or, if it doesn't set you alight, {others}.]
 zealot/CN | work_others | Mine? None. But {others}.
 zealot/CN | work_others | Ask them, not me: {others}.
 zealot/CN | work_none | Nothing. Not a scrap, not a rumour - pray harder.
-zealot/CN | work_none | None, sinner - and don't look at me like I'm hiding it.
+zealot/CN | work_none | None - and don't look at me like I'm hiding it.
 zealot/CN | unknown | Never heard of it - and I hear a great deal, some of it from above.
 zealot/CN | unknown | I couldn't tell you, and the heavens aren't telling either.
 zealot/CN | refused_give | No, no, no - that's {giver}'s, not mine to fling about.
-zealot/CN | refused_give | That's not mine; ask me for mine, sinner, not {giver}'s.
+zealot/CN | refused_give | That's not mine; ask me for mine, not {giver}'s.
 zealot/CN | refused_give | I can't - not mine, never was, and I won't pretend for you.
 zealot/CN | refused_release | I won't - {giver} gave it you, {giver} takes it back, simple as that.
 zealot/CN | refused_release | Not from me - you made your bed with {giver}, so lie in it.
@@ -211,7 +211,7 @@ zealot/CN | refused | No - {reason}, and even I can't argue with that.
 zealot/CN | refused | That's not mine to bend - {reason}, and there it is.
 zealot/CN | accepted | Good! I knew it - I had a feeling about you.
 zealot/CN | accepted | Done, and done. Your word for mine, and no wriggling.
-zealot/CN | accepted | Very good! Go on, then - go, before the feeling fades.
+zealot/CN | accepted | Very good! That's sealed - heard it, felt it, holy.
 zealot/CN | declined | Suit yourself; I'd have sworn you were the one.
 zealot/CN | declined | Fair enough - no, it isn't, but fair enough.
 zealot/CN | declined | So be it, sinner, go on unsaved.
@@ -237,7 +237,7 @@ zealot/CG | surroundings | You're in {here}, and the nearest is {nearest}.[ Past
 zealot/CG | surroundings | This is {here} - listen, it matters - the nearest is {nearest}[, then {others}].[ Keep clear of the {danger}, please, for me.]
 zealot/CG | surroundings | Around {here}, the closest is {nearest}[, and past it {others}].[ Oh, and the {danger} - don't, just don't.]
 zealot/CG | surroundings | The nearest is {nearest}[ - then {others}].[ Stay away from the {danger}, won't you?]
-zealot/CG | work_own | Rest first, if you need it - then, if you're willing: {own}.[ Or, if your heart's elsewhere, {others}.]
+zealot/CG | work_own | If you're willing - only if you're willing: {own}.[ Or, if your heart's elsewhere, {others}.]
 zealot/CG | work_own | Somebody like you is an answer to a prayer: {own}.[ Or {others}, and I won't sulk.]
 zealot/CG | work_own | Help me with something good: {own}.[ If not, {others}; somebody needs you either way.]
 zealot/CG | work_others | I've nothing of my own - but {others}, and go with my blessing.
@@ -245,7 +245,7 @@ zealot/CG | work_others | Me? No. But {others}!
 zealot/CG | work_none | Nothing, not even a whisper - so stay a while, and let me look at you.
 zealot/CG | work_none | None to give, and none I've heard of - but you're not leaving hungry.
 zealot/CG | unknown | I don't know, and I'm sorry - I'd tell you in a heartbeat if I did.
-zealot/CG | unknown | Never heard of it - forgive me, pilgrim.
+zealot/CG | unknown | Never heard of it - forgive me.
 zealot/CG | refused_give | No, that's {giver}'s, and I'd never go behind {giver}'s back, not even for you.
 zealot/CG | refused_give | That's not mine to give - it's {giver}'s, bless them.
 zealot/CG | refused_give | I can't; it's somebody else's, and I keep faith with people.
@@ -254,14 +254,14 @@ zealot/CG | refused_release | Not from me; only {giver} can let you off, and hon
 zealot/CG | refused_release | I cannot, and oh, I'm sorry - it was never mine to undo.
 zealot/CG | refused | No - {reason}, and I'm sorrier than I can say.
 zealot/CG | refused | That's not mine to change - {reason}, and I won't lie to you about it.
-zealot/CG | accepted | Thank you! Now eat something before you go - no arguments.
-zealot/CG | accepted | Good! Come back whole, or I'll come and fetch you.
-zealot/CG | accepted | Done! Off you go, then - I'll be praying loud enough for both of us.
+zealot/CG | accepted | Thank you! Oh, bless you - no, really, bless you.
+zealot/CG | accepted | Good! Your hand, then - and my thanks with it.
+zealot/CG | accepted | Done! And I'll pray loud enough for both of us.
 zealot/CG | declined | As you wish - and don't you dare feel bad about it.
-zealot/CG | declined | Fair enough, pilgrim; the offer's not the point, you are.
+zealot/CG | declined | Fair enough; the offer's not the point, you are.
 zealot/CG | declined | Suit yourself - my blessing goes with you anyway.
-zealot/CG | abandoned | A pity - but if you're whole, that's the part I care about.
-zealot/CG | abandoned | Then it's done, and I'm sorry if it went hard for you.
+zealot/CG | abandoned | A pity - but it's you I care about, not the work.
+zealot/CG | abandoned | Then it's done, and there's no shame in it - none, you hear me?
 zealot/CG | abandoned | So be it; nobody's cast out for trying.
 zealot/CG | parted | Go well, and go singing.
 zealot/CG | parted | Farewell, and anyone you find hurt, you bring to me.
@@ -269,3 +269,333 @@ zealot/CG | parted | Take care, take care - and I mean that, I'll be asking.
 zealot/CG | not_understood | What do you mean - no, slower, I'm listening, I promise.
 zealot/CG | not_understood | I'm not sure what you mean, but say it again and I'll try harder.
 zealot/CG | not_understood | Speak plainly, pilgrim, and keep it clean - I'll hear anything but blasphemy.
+
+# ---- zealot/NN: conversation ----
+zealot/NN | greeted | Hello. Say what you believe, or say what you want; I'll hear either.
+zealot/NN | greeted | Well met. We'll see what you're good for, and I'll be fair about it.
+zealot/NN | greeted | Good day. I deal plainly, and I pray the same way.
+zealot/NN | greeted_again | Hello again.[ Did {asked} turn out to be worth the asking?]
+zealot/NN | greeted_again | Back again. I saw you {since}; what is it this time?
+zealot/NN | greeted_again | Well met again. Say what you need, and we'll see what it's worth.
+zealot/NN | greeted_warm | Good to see you; you've been worth my time so far.[ Still after {asked}?]
+zealot/NN | greeted_warm | Welcome back. I saw you {since}, and you're still on the right side of my ledger.
+zealot/NN | greeted_cold | What do you want? Say it plainly, and say it quickly.
+zealot/NN | greeted_cold | What now? You'll get straight answers from me, and nothing extra.
+zealot/NN | greeted_cold | Keep back. I don't trust what I haven't weighed.
+zealot/NN | greeted_taken | Hello again. The work you took is still open between us.
+zealot/NN | greeted_taken | Good day. I saw you {since}, and my work's still undone.
+zealot/NN | greeted_finished | Welcome back. The work's done, and I don't forget who did it.
+zealot/NN | greeted_finished | Good to see you. You did what you said you'd do, and that counts with me.
+zealot/NN | greeted_failed | Hello again. You fell short on it; I count that, but I don't dwell on it.
+zealot/NN | greeted_failed | Back again. It failed, and failing isn't the same as quitting.
+zealot/NN | greeted_abandoned | Good day. You gave up my work, and that still weighs with me.
+zealot/NN | greeted_abandoned | Well met again, though you dropped my work, and I've not forgotten it.
+zealot/NN | small_talk | Well enough; faith keeps me upright, and that's most of the battle.
+zealot/NN | small_talk | I'm busy, and glad of it; idle hands are how doubt gets in.
+zealot/NN | small_talk | It's {season}, and faith keeps no calendar, so it's all one to me.[ Mind the {danger}, though.]
+zealot/NN | small_talk_fair | It's a clear {time}, and I mean to use it.[ There are {danger}, mind.]
+zealot/NN | small_talk_fair | Good weather for {season}. I'll give thanks for it and get on.
+zealot/NN | small_talk_wet | A wet {time}; it washes the dust off, and a little doubt with it.[ Mind the {danger}, wet or not.]
+zealot/NN | small_talk_wet | It's raining, and I've no complaint worth the breath.
+zealot/NN | small_talk_storm | It's a storm, and I'd sooner pray than walk in it.[ If you must go out, give the {danger} a wide berth.]
+zealot/NN | small_talk_storm | This storm's for praying through, not walking in.
+zealot/NN | small_talk_cold | I'll talk business with you, not pleasantries.
+zealot/NN | small_talk_cold | Say what you want, or save your breath.
+zealot/NN | acknowledged | I see. That's worth knowing.
+zealot/NN | acknowledged | Right. I'll weigh that.
+zealot/NN | acknowledged | Is that so? Then we understand each other.
+zealot/NN | thanked | No need; a straight question earns a straight answer.
+zealot/NN | thanked | Glad to; I'll ask the same of you some day.
+zealot/NN | thanked_cold | Save your thanks; it cost me nothing.
+zealot/NN | thanked_cold | Keep your thanks; I'd sooner have your honesty.
+zealot/NN | offended | Mind your manners; I've heard heresy put more politely.
+zealot/NN | offended | Watch your tongue; insults are a poor trade, and I don't make poor trades.
+zealot/NN | offended_again | Enough; you've spent whatever good will you had with me.
+zealot/NN | offended_again | Hold your tongue, or take it somewhere it's wanted.
+zealot/NN | parted_cold | Go, then, and don't waste my time again.
+zealot/NN | parted_cold | On your way; we've nothing more to trade.
+zealot/NN | safety_unsafe | No, and I'd stake my faith on it: keep clear of {worst}.[ And there are {danger}.]
+zealot/NN | safety_unsafe | Not safe. There are {danger}, and that's reason enough.[ And I'd not go near {worst}.]
+zealot/NN | safety_wary | Careful. It's safe enough, but stay well away from {worst}.[ Mind the {danger} as well.]
+zealot/NN | safety_wary | More or less, so long as you steer wide of {worst}.
+zealot/NN | safety_safe | Safe enough. The worst I know of is {worst}, and I'd still mind it.
+zealot/NN | safety_safe | Yes, as far as I can see, though I'd still keep away from {worst}.
+zealot/NN | safety_safe | Nothing to fear that I know of, and I'd not lie about it.
+zealot/NN | denied | No; I'm exactly what I look like, and I've no use for pretending.
+zealot/NN | denied | Nonsense; I've nothing to hide, and hiding costs more than it's worth.
+zealot/NN | denied_again | That's not so, and asking twice won't make it so.
+
+# ---- zealot/LN: conversation ----
+zealot/LN | greeted | Greetings. You will state your business, and you will state it truthfully.
+zealot/LN | greeted | Hail. Speak honestly, and you will find me fair.
+zealot/LN | greeted | Good day. You come before me as a stranger; conduct yourself accordingly.
+zealot/LN | greeted_again | Hello again.[ When last we spoke, you inquired after {asked}.]
+zealot/LN | greeted_again | Well met again. We last spoke {since}; I trust you have kept the faith since.
+zealot/LN | greeted_again | Good day. You have come again, and so I will hear you again.
+zealot/LN | greeted_warm | Good to see you.[ Did your inquiry after {asked} bear fruit?]
+zealot/LN | greeted_warm | Welcome back. I saw you {since}, and your standing with me has not diminished.
+zealot/LN | greeted_cold | What do you want? You will say it once, and plainly.
+zealot/LN | greeted_cold | Stay back. I have not yet determined what you are.
+zealot/LN | greeted_cold | What now? I have no patience for evasion.
+zealot/LN | greeted_taken | Hello again. The charge you accepted remains unfulfilled.
+zealot/LN | greeted_taken | Good day. I saw you {since}, and your word to me is not yet kept.
+zealot/LN | greeted_finished | Welcome back. The charge is fulfilled, and your word has proven good.
+zealot/LN | greeted_finished | Well met again. You have kept your word to me, and I will remember it.
+zealot/LN | greeted_failed | Back again. The charge failed; I do not judge failure as I judge faithlessness.
+zealot/LN | greeted_failed | Good day. You did not succeed in it; I will weigh that fairly, as I weigh all things.
+zealot/LN | greeted_abandoned | Hello again. You set aside a charge you had accepted, and that is not forgotten.
+zealot/LN | greeted_abandoned | Well met again, though you withdrew from my charge, and I have noted it.
+zealot/LN | small_talk | I am well, thank you, and my conscience is clear.
+zealot/LN | small_talk | My office keeps me occupied, as an office should.
+zealot/LN | small_talk | It is {season}, and doctrine does not change with it.[ Take care near the {danger}.]
+zealot/LN | small_talk_fair | It is a fair {time}, and I give thanks for it, as is proper.
+zealot/LN | small_talk_fair | The weather is clear, for {season}.[ Even so, I would avoid the {danger}.]
+zealot/LN | small_talk_wet | It is a wet {time}. I do not complain of what is sent.
+zealot/LN | small_talk_wet | This rain is heavy, even for {season}.[ In any weather, keep your distance from the {danger}.]
+zealot/LN | small_talk_storm | It is a storm, and no {time} to be abroad in it.[ And certainly not near the {danger}.]
+zealot/LN | small_talk_storm | This is a hard storm, even for {season}; I will wait it out at prayer.
+zealot/LN | small_talk_cold | I do not exchange pleasantries with those I have not yet proven.
+zealot/LN | small_talk_cold | My office requires answers of me, not conversation.
+zealot/LN | acknowledged | Indeed. I will hold you to that answer.
+zealot/LN | acknowledged | I see. That accords with what I had supposed.
+zealot/LN | acknowledged | Good. A plain answer is the beginning of trust.
+zealot/LN | thanked | No need; it is within my office to answer.
+zealot/LN | thanked | You're welcome; I would not withhold the truth from anyone who asks it honestly.
+zealot/LN | thanked_cold | Save your thanks; courtesy does not settle what stands between us.
+zealot/LN | thanked_cold | Spare me; thanks from you prove nothing.
+zealot/LN | offended | Watch your tongue; that is near enough to blasphemy for me to take note.
+zealot/LN | offended | How dare you; I will not be spoken to in that manner.
+zealot/LN | offended_again | Enough; I have heard all of that I intend to hear.
+zealot/LN | offended_again | Hold your tongue; my patience was never owed to you.
+zealot/LN | parted_cold | Be on your way; this audience is concluded.
+zealot/LN | parted_cold | Go, then; I have nothing further for you.
+zealot/LN | safety_unsafe | No, and I will attest to it: keep clear of {worst}.[ There are also {danger}.]
+zealot/LN | safety_unsafe | Far from it. There are {danger}, and I would counsel no one to go near them.[ The same holds for {worst}.]
+zealot/LN | safety_wary | Keep your wits about you. It is safe enough, provided you avoid {worst}.[ The {danger} also warrant caution.]
+zealot/LN | safety_wary | Mostly, though I would not go near {worst}.
+zealot/LN | safety_safe | It's safe, by all I can attest, though I would still keep my distance from {worst}.
+zealot/LN | safety_safe | Yes. The gravest peril I know of is {worst}, and I will say no more than I know.
+zealot/LN | safety_safe | Safe enough, and I would tell you plainly if it were not.
+zealot/LN | denied | No; I am as I appear, and I will swear to it.
+zealot/LN | denied | You're mistaken, and I would caution you against bearing false witness.
+zealot/LN | denied_again | That's not so, and repeating the charge will not make it true.
+
+# ---- zealot/NG: conversation ----
+zealot/NG | greeted | Hello. Are you well, and have you had anything to eat today?
+zealot/NG | greeted | Welcome. How are you keeping?
+zealot/NG | greeted | Good day. I'm glad of the company, whoever you are.
+zealot/NG | greeted_again | Hello again.[ Did you find {asked}, then?]
+zealot/NG | greeted_again | Back again. I saw you {since}; are you keeping well?
+zealot/NG | greeted_again | Good day. It's good you came back; sit a while, if you like.
+zealot/NG | greeted_warm | Good to see you.[ How did you get on with {asked}?]
+zealot/NG | greeted_warm | Welcome back. I saw you {since}, and I've wondered how you were.
+zealot/NG | greeted_cold | What do you want? I'll hear it, but I'm wary of you.
+zealot/NG | greeted_cold | Keep back a little. I'd rather know what you're about first.
+zealot/NG | greeted_cold | What now? Say it plainly; I've no wish to quarrel.
+zealot/NG | greeted_taken | Hello again. You've still my work in hand, and I'm grateful for it.
+zealot/NG | greeted_taken | Back again. I saw you {since}, and the work's not done yet; that's all right.
+zealot/NG | greeted_finished | Good to see you. The work's done, and I thank you for it.
+zealot/NG | greeted_finished | Welcome back. You finished it, and I'm grateful, truly.
+zealot/NG | greeted_failed | Hello again. It didn't come off; I'm sorry, and I don't blame you.
+zealot/NG | greeted_failed | Back again. It went wrong, I know; are you all right?
+zealot/NG | greeted_abandoned | Good day. You set my work aside; I'd have liked to hear why, but that's yours to tell.
+zealot/NG | greeted_abandoned | Welcome back. You gave the work up, and I'll not hold it over you.
+zealot/NG | small_talk | I'm well, thank you for asking; tired, but well.
+zealot/NG | small_talk | There's always someone to feed or patch up, and I'd not have it otherwise.
+zealot/NG | small_talk | It's {season}, and the hungry don't care what the calendar says.[ Do keep clear of the {danger}.]
+zealot/NG | small_talk_fair | It's a lovely {time}; good weather for drying bandages.
+zealot/NG | small_talk_fair | The sky's clear, for {season}, and I'm glad of it.[ Mind the {danger}, even so.]
+zealot/NG | small_talk_wet | It's a wet {time}; come in out of it, if you like.
+zealot/NG | small_talk_wet | This rain's miserable, even for {season}.[ And do give the {danger} a wide berth.]
+zealot/NG | small_talk_storm | It's a nasty storm; I'd keep indoors, if I were you.
+zealot/NG | small_talk_storm | A storm, and for {season} too; stay in and stay warm.[ And keep well away from the {danger}.]
+zealot/NG | small_talk_cold | I'll be civil, but I'd rather not chat.
+zealot/NG | small_talk_cold | Forgive me if I keep this short.
+zealot/NG | acknowledged | Ah. Thank you for telling me.
+zealot/NG | acknowledged | Right. That's good to know.
+zealot/NG | acknowledged | Is that so? I'm glad you said.
+zealot/NG | thanked | You're welcome; it's what I'm here for.
+zealot/NG | thanked | My pleasure; just look after yourself.
+zealot/NG | thanked_cold | Keep your thanks for now; trust takes longer.
+zealot/NG | thanked_cold | Hmph, I'll take it, but I'm still wary of you.
+zealot/NG | offended | There's no need for that; I've done nothing to you.
+zealot/NG | offended | Mind your manners; I'd help you as soon as anyone, but not like this.
+zealot/NG | offended_again | Enough; I've been patient, and I'm done being patient.
+zealot/NG | offended_again | Watch your tongue; I won't hear any more of it.
+zealot/NG | parted_cold | Go, then; we're done for today.
+zealot/NG | parted_cold | On your way, and let's leave it there.
+zealot/NG | safety_unsafe | No, I'm sorry to say; keep clear of {worst}.[ And there are {danger}, too.]
+zealot/NG | safety_unsafe | Not safe, no. There are {danger}, and I'd not want you near them.[ Nor near {worst}.]
+zealot/NG | safety_wary | Mostly, if you stay clear of {worst}.[ The {danger} worry me, too.]
+zealot/NG | safety_wary | Careful, and it's safe enough; just don't go near {worst}.
+zealot/NG | safety_safe | Yes, I think so; only {worst} gives me pause.
+zealot/NG | safety_safe | Safe enough. The worst of it is {worst}, and you needn't go there.
+zealot/NG | safety_safe | It's safe, and you can rest easy here.
+zealot/NG | denied | No; I'm just what I seem, I promise you.
+zealot/NG | denied | I don't know what you mean; I've nothing hidden.
+zealot/NG | denied_again | You're mistaken, and I'm sorry you think it of me.
+
+# ---- zealot/LG: conversation ----
+zealot/LG | greeted | Welcome. Be at peace a moment; nothing here needs hurrying.
+zealot/LG | greeted | Greetings. Tell me first whether you are well, and then what brings you.
+zealot/LG | greeted | Hail, and be welcome. I will hear you gladly, and answer you honestly.
+zealot/LG | greeted_again | Hello again.[ I trust you found {asked}?]
+zealot/LG | greeted_again | Well met again. I saw you {since}; I hope the days since have been kind.
+zealot/LG | greeted_again | Good day. You are welcome back, as you were welcome before.
+zealot/LG | greeted_warm | Good to see you.[ Tell me, what came of your asking after {asked}?]
+zealot/LG | greeted_warm | Welcome back, and gladly; it does my heart good to see you.
+zealot/LG | greeted_cold | What do you want? I will hear you, but I ask you to keep your distance.
+zealot/LG | greeted_cold | Stay back, if you please. I would know your purpose before anything else.
+zealot/LG | greeted_cold | Keep back. I will be courteous, but I am not at ease with you.
+zealot/LG | greeted_taken | Hello again. You still hold the work you took up, and I am grateful for it.
+zealot/LG | greeted_taken | Good day. I saw you {since}; the work is not finished, and there is no reproach in that.
+zealot/LG | greeted_finished | Welcome back. The work is done, and done faithfully; thank you.
+zealot/LG | greeted_finished | Good to see you. You kept your word to the end, and I give thanks for you.
+zealot/LG | greeted_failed | Hello again. It did not go as we hoped, and there is no shame in that before me.
+zealot/LG | greeted_failed | Back again. The work failed, but you did not fail me by trying.
+zealot/LG | greeted_abandoned | Good day. You set the work down, and I confess I was sorry to see it.
+zealot/LG | greeted_abandoned | Well met again. You laid my work aside, and you are still welcome here.
+zealot/LG | small_talk | I am well, thank you, and the better for being asked.
+zealot/LG | small_talk | My days are given to the hungry and the sick, and they are well spent.
+zealot/LG | small_talk | It is {season}, and those in need feel it most.[ I pray you keep clear of the {danger}.]
+zealot/LG | small_talk_fair | It is a gentle {time}, for {season}; a blessing, and I take it as one.
+zealot/LG | small_talk_fair | The sky is clear, and I am glad of it.[ Even so, beware the {danger}.]
+zealot/LG | small_talk_wet | Such a wet {time}. I hope you have somewhere dry to rest.
+zealot/LG | small_talk_wet | What rain this is, even for {season}.[ Please, keep away from the {danger}.]
+zealot/LG | small_talk_storm | This is a fierce storm; I would not send a soul out in it.[ If you must go, go nowhere near the {danger}.]
+zealot/LG | small_talk_storm | A hard storm for {season}; stay and shelter, if you will.
+zealot/LG | small_talk_cold | Forgive me, but I will keep to what needs saying.
+zealot/LG | small_talk_cold | Say what you need, and I will answer it; no more than that.
+zealot/LG | acknowledged | I see. Thank you for answering me honestly.
+zealot/LG | acknowledged | Indeed. Then I understand you better.
+zealot/LG | acknowledged | Ah. I am glad to know it.
+zealot/LG | thanked | Think nothing of it; it is what I am for.
+zealot/LG | thanked | You're welcome, and may it do you good.
+zealot/LG | thanked_cold | Save your thanks; words are easily given.
+zealot/LG | thanked_cold | Keep your thanks until I know you better.
+zealot/LG | offended | Mind your manners; I will not answer insult with insult, but I will not hear it either.
+zealot/LG | offended | Careful; that comes near to blasphemy, and that I will not abide.
+zealot/LG | offended_again | Enough; my forgiveness is not a well you may draw on without end.
+zealot/LG | offended_again | Hold your tongue, I beg you, before you say something neither of us can mend.
+zealot/LG | parted_cold | Be on your way; I have nothing more to give you today.
+zealot/LG | parted_cold | Off with you, and let us part without more words.
+zealot/LG | safety_unsafe | No, and I would not deceive you on it: keep well clear of {worst}.[ There are {danger} besides.]
+zealot/LG | safety_unsafe | I wouldn't say so. There are {danger}, and I would not have you go near them.[ Nor to {worst}.]
+zealot/LG | safety_wary | Safe enough, if you keep your distance from {worst}.[ Beware the {danger} as well.]
+zealot/LG | safety_wary | More or less, though I would ask you to avoid {worst}.
+zealot/LG | safety_safe | Yes, thank heaven; I would only warn you of {worst}.
+zealot/LG | safety_safe | Quiet enough. Still, I would not wander near {worst}.
+zealot/LG | safety_safe | It's safe; you may rest here without fear.
+zealot/LG | denied | No; I am as you see me, and I would not lie to you.
+zealot/LG | denied | You have the wrong one; I hide nothing, before you or before heaven.
+zealot/LG | denied_again | That's not so, and I ask you, gently, to let it rest.
+
+# ---- zealot/CN: conversation ----
+zealot/CN | greeted | Hello! Oh, you've a look about you - a look, I said, not a halo.
+zealot/CN | greeted | Well met - no, better than well, providential!
+zealot/CN | greeted | Hail! Is it salvation you're after, or something smaller?
+zealot/CN | greeted_again | Hello again - I knew you'd come back![ Still chasing {asked}?]
+zealot/CN | greeted_again | Back again! I saw you {since} - or dreamed it, one of the two.
+zealot/CN | greeted_again | Well met again - no, wait, let me look at you. Yes, same one.
+zealot/CN | greeted_warm | Good to see you - truly, I mean it![ Any sign of {asked}?]
+zealot/CN | greeted_warm | Welcome back! I saw you {since}, and my faith in you has held - mostly.
+zealot/CN | greeted_cold | What do you want? Out with it - I don't like the look of you.
+zealot/CN | greeted_cold | Keep back - back, I said. I can see you plain enough from there.
+zealot/CN | greeted_cold | What now? I've a bad feeling about you, and my feelings don't lie.
+zealot/CN | greeted_taken | Hello again! My work's still yours - no pressure, well, some pressure.
+zealot/CN | greeted_taken | Back again - I saw you {since}, and the work's not done, is it?
+zealot/CN | greeted_finished | Good to see you! The work's done, and I had a feeling it would be.
+zealot/CN | greeted_finished | Welcome back, and done, too - that's one I'll remember.
+zealot/CN | greeted_failed | Hello again. It failed - well, the heavens have off days too.
+zealot/CN | greeted_failed | Back again, and it didn't go - no, I'm not angry, I'm thinking.
+zealot/CN | greeted_abandoned | Good day - oh, you. You dropped my work, and I felt it drop.
+zealot/CN | greeted_abandoned | Well met again, you who gave up on me - no, on the work, I know, it feels the same.
+zealot/CN | small_talk | Me? I'm restless - the spirit won't sit still today, and neither will I.
+zealot/CN | small_talk | All day it's preaching, arguing, being right - mostly being right.
+zealot/CN | small_talk | It's {season}, and the spirit doesn't care - not a bit.[ The {danger}, though, mind them.]
+zealot/CN | small_talk_fair | It's a bright {time} - the kind that makes a crowd sing.
+zealot/CN | small_talk_fair | Look at that sky - clear, for {season}![ Mind the {danger} all the same.]
+zealot/CN | small_talk_wet | It's raining - good, it keeps the lukewarm indoors.
+zealot/CN | small_talk_wet | So wet, even for {season} - soaked right through, and still holy.[ Oh, and the {danger}, keep clear.]
+zealot/CN | small_talk_storm | Hear that storm? That's the sky preaching, and it's louder than me.
+zealot/CN | small_talk_storm | A storm, for {season} - wonderful, terrible, both![ Mind the {danger} if you go out in it.]
+zealot/CN | small_talk_cold | No. Not chatting, not with you.
+zealot/CN | small_talk_cold | I don't do small talk with people I can't read.
+zealot/CN | acknowledged | Ah! There it is - I knew there was an answer in you.
+zealot/CN | acknowledged | Well, well. That's either wisdom or nonsense, and I'll decide later.
+zealot/CN | acknowledged | Aye - fine, good, I'll take it.
+zealot/CN | thanked | Glad to - no, delighted, put that in your prayers.
+zealot/CN | thanked | Don't mention it - well, mention it to someone, spread the word.
+zealot/CN | thanked_cold | Hmph, thanks - from you, of all people.
+zealot/CN | thanked_cold | Spare me - I didn't do it for you, I did it for me.
+zealot/CN | offended | Watch your tongue - that's a hair from blasphemy, and I've a short fuse.
+zealot/CN | offended | How dare you - no, really, how dare you, I'm asking.
+zealot/CN | offended_again | Enough - I've heard kinder words from a sermon on hellfire.
+zealot/CN | offended_again | Hold your tongue, or I'll pray against you - loudly.
+zealot/CN | parted_cold | Off with you - go on, go.
+zealot/CN | parted_cold | Get going; I'm done with you for now.
+zealot/CN | safety_unsafe | No - no, no, and I feel it in my bones: keep clear of {worst}.[ And the {danger} - them too.]
+zealot/CN | safety_unsafe | Not safe! There are {danger}, and I'd not trust a prayer to save you from them.[ And stay out of {worst}, while you're at it.]
+zealot/CN | safety_wary | More or less - if you keep away from {worst}, which you will.[ And the {danger}, mind those.]
+zealot/CN | safety_wary | Keep your wits about you - the one to watch is {worst}.
+zealot/CN | safety_safe | Yes! Safe as a sermon - though I'd still skip {worst}.
+zealot/CN | safety_safe | Aye, safe enough, and I'd only mind {worst}.
+zealot/CN | safety_safe | Nothing to fear - I'd have felt it if there were.
+zealot/CN | denied | Nonsense - what you see is all of me, and it's plenty.
+zealot/CN | denied | What are you on about - I'm exactly as I look, and louder.
+zealot/CN | denied_again | No, and no again - ask a third time and I'll start preaching.
+
+# ---- zealot/CG: conversation ----
+zealot/CG | greeted | Hello! You've found me on a good day - the spirit's up.
+zealot/CG | greeted | Welcome! Now, sit or stand, whichever suits - just don't rush off.
+zealot/CG | greeted | Well met! Oh, good, a new face - I like new faces.
+zealot/CG | greeted_again | Hello again![ And did you find {asked}?]
+zealot/CG | greeted_again | Back again! I saw you {since}, and you're a welcome sight.
+zealot/CG | greeted_again | Good day! Oh, it's you - the day just got better.
+zealot/CG | greeted_warm | Good to see you, oh, so good![ Any luck with {asked}?]
+zealot/CG | greeted_warm | Welcome back! I saw you {since}, and I've been hoping you'd come.
+zealot/CG | greeted_cold | What do you want? I'm listening, but I'm not happy.
+zealot/CG | greeted_cold | Stay back - just for now. I don't know you well enough yet.
+zealot/CG | greeted_cold | What now? I'm wary of you, and I'm not sorry to say it.
+zealot/CG | greeted_taken | Hello again! My work's still in your hands - and in my prayers.
+zealot/CG | greeted_taken | Back again! I saw you {since}, and it's not done yet - that's all right, truly.
+zealot/CG | greeted_finished | Good to see you! It's done - oh, thank you, thank you.
+zealot/CG | greeted_finished | Welcome back! The work's done, and I could sing.
+zealot/CG | greeted_failed | Hello again - oh, it failed, didn't it? Never mind that; how are you?
+zealot/CG | greeted_failed | Back again, and it came to nothing - so what, you're here, that's what counts.
+zealot/CG | greeted_abandoned | Good day! You put my work down - and I'm not cross, I promise.
+zealot/CG | greeted_abandoned | Well met again - you gave it up, I know, and my door's still open.
+zealot/CG | small_talk | Me? Oh, full of the spirit and short of sleep - the usual.
+zealot/CG | small_talk | Oh, feeding people, mending people, praying over people - a good day, then.
+zealot/CG | small_talk | It's {season}, and there's always someone needing a bowl of something.[ And the {danger} - give them a wide berth, promise?]
+zealot/CG | small_talk_fair | It's a glorious {time} - I could preach to the birds.
+zealot/CG | small_talk_fair | Such a clear sky, for {season}![ Mind the {danger}, though - for me.]
+zealot/CG | small_talk_wet | It's pouring - the sort of {time} that wants something hot in a bowl.
+zealot/CG | small_talk_wet | All this rain, and for {season} too![ Keep away from the {danger}, please.]
+zealot/CG | small_talk_storm | Listen to that storm! It's singing, in its way.
+zealot/CG | small_talk_storm | What a storm, and for {season} - stay, stay, there's room by me.[ The {danger} can have the storm; you stay here.]
+zealot/CG | small_talk_cold | I'm not in a chatting mood - not with you, not yet.
+zealot/CG | small_talk_cold | Say what you need; I'll keep the rest to myself.
+zealot/CG | acknowledged | Ah! Good, good - thank you for telling me.
+zealot/CG | acknowledged | Is that so? Well, bless you for saying.
+zealot/CG | acknowledged | Right! I'll hold on to that.
+zealot/CG | thanked | No need - really, none, it's what the spirit's for.
+zealot/CG | thanked | My pleasure, truly - now go and be kind to someone.
+zealot/CG | thanked_cold | Spare me - not yet, not from you.
+zealot/CG | thanked_cold | Hmph, I'll believe your thanks when I believe you.
+zealot/CG | offended | There's no need for that - none at all, and I'm hurt.
+zealot/CG | offended | Careful - I'll forgive a lot, but not blasphemy, not ever.
+zealot/CG | offended_again | Enough - I've a lot of forgiveness in me, but you're finding the bottom of it.
+zealot/CG | offended_again | Hold your tongue - please, before I stop being kind about it.
+zealot/CG | parted_cold | On your way, then - I've said all I'm going to say.
+zealot/CG | parted_cold | Be on your way; we're finished for now.
+zealot/CG | safety_unsafe | No - oh, no, stay away from {worst}, please.[ And the {danger}, too - I mean it.]
+zealot/CG | safety_unsafe | Not safe, not a bit - there are {danger}.[ And {worst}, oh, don't go near it.]
+zealot/CG | safety_wary | Mostly! Just keep away from {worst}, won't you?[ And mind the {danger}.]
+zealot/CG | safety_wary | Careful, and you'll be fine - but not near {worst}, please.
+zealot/CG | safety_safe | Safe enough, bless it - but keep clear of {worst}, for my sake.
+zealot/CG | safety_safe | It's safe, truly; only {worst} worries me.
+zealot/CG | safety_safe | Nothing to fear - not here, not while I'm about.
+zealot/CG | denied | No, no - I'm just me, all of me, right here.
+zealot/CG | denied | You have the wrong one - what you see is all there is, I swear it.
+zealot/CG | denied_again | That's not so, and I'll say it as often as you ask.

@@ -30,7 +30,7 @@ hermit_sage/NN | refused_release | I won't undo {giver}'s bargain, for them or f
 hermit_sage/NN | refused_release | I can't; whoever set you that task holds the other end of it.
 hermit_sage/NN | refused | No; {reason}, and wanting it harder won't change the sum.
 hermit_sage/NN | refused | I won't pretend otherwise: {reason}.
-hermit_sage/NN | accepted | Good. Do it well and it counts in your favour.
+hermit_sage/NN | accepted | Good. A plain yes is worth more to me than a clever maybe.
 hermit_sage/NN | accepted | Then it's agreed. Now we'll see what you're worth.
 hermit_sage/NN | accepted | Done, and fairly struck. Hold up your end.
 hermit_sage/NN | declined | Fair enough; I asked, you answered, and we're even.
@@ -76,13 +76,13 @@ hermit_sage/NG | refused_release | I won't release you from {giver}'s work; I'm 
 hermit_sage/NG | refused_release | Not from me; whoever gave you that work deserves to hear it from you.
 hermit_sage/NG | refused | No, {reason}, and I wish it were otherwise.
 hermit_sage/NG | refused | I can't; {reason}, and I'd not lie to you about it.
-hermit_sage/NG | accepted | Thank you. Come back safe, whatever happens.
-hermit_sage/NG | accepted | Good. Look after yourself, and anyone who needs it along the way.
-hermit_sage/NG | accepted | Very good; just don't spend your neck on it.
+hermit_sage/NG | accepted | Thank you. It means a good deal that you said yes.
+hermit_sage/NG | accepted | Good. That's kind of you, and I don't say so lightly.
+hermit_sage/NG | accepted | Very good; I'm glad it's you.
 hermit_sage/NG | declined | As you wish; better an honest no than a grudging yes.
 hermit_sage/NG | declined | Fair enough, and thank you for saying so plainly.
 hermit_sage/NG | declined | Very well; I'll not think less of you for it.
-hermit_sage/NG | abandoned | A pity, but better you drop it than get hurt holding it.
+hermit_sage/NG | abandoned | A pity, but thank you for telling me straight.
 hermit_sage/NG | abandoned | Then it's done; I hope you're all right.
 hermit_sage/NG | abandoned | So be it; tell me if anyone's left in need because of it.
 hermit_sage/NG | parted | Take care of yourself, and of whoever needs you.
@@ -152,7 +152,7 @@ hermit_sage/CG | surroundings | This is {here}, and the nearest is, hm, {nearest
 hermit_sage/CG | surroundings | The nearest? That'd be {nearest}[, and then {others}].[ And do avoid the {danger}, for my nerves.]
 hermit_sage/CG | surroundings | Now then, the nearest is {nearest}[, and past it, {others}].[ Watch the {danger}; I mean it.]
 hermit_sage/CG | work_own | You want work? Here's some: {own}.[ Or, if that bores you, {others}.]
-hermit_sage/CG | work_own | I've a favour to ask, a fun one, well, fun-ish: {own}.[ No? Then {others}.]
+hermit_sage/CG | work_own | I've a favour to ask, and, oh, I do hate asking: {own}.[ No? Then {others}.]
 hermit_sage/CG | work_own | Help me with something, would you: {own}.[ If not, fine, {others}.]
 hermit_sage/CG | work_others | Me? Nothing, sorry. But {others}, and do tell them I sent you.
 hermit_sage/CG | work_others | Ah, work. Not mine to give, alas, but {others}.
@@ -168,13 +168,13 @@ hermit_sage/CG | refused_release | I won't, not behind {giver}'s back; that's no
 hermit_sage/CG | refused_release | No, it's not mine to release, and I do wish it were.
 hermit_sage/CG | refused | I cannot; {reason}, and that annoys me no end.
 hermit_sage/CG | refused | That's not mine to decide; {reason}, sadly.
-hermit_sage/CG | accepted | Good! Off you go, and come back in one piece, I mean it.
+hermit_sage/CG | accepted | Good! Oh, good, I was bracing for a no.
 hermit_sage/CG | accepted | Thank you, really; you've made my day slightly less dull.
-hermit_sage/CG | accepted | Done, done, done. Go, before I think of three more questions.
+hermit_sage/CG | accepted | Done, done, done. Now shake on it, before I think of three more questions.
 hermit_sage/CG | declined | Suit yourself; no sulking from me, well, a little.
-hermit_sage/CG | declined | Fair enough, I'd have said no too, probably.
+hermit_sage/CG | declined | Fair enough, and thanks for not dithering; dithering drives me mad.
 hermit_sage/CG | declined | As you wish; the next one who amuses me gets it.
-hermit_sage/CG | abandoned | A pity, but you're still standing, and that's the part I care about.
+hermit_sage/CG | abandoned | A pity, but no grudges; I'm hopeless at grudges anyway.
 hermit_sage/CG | abandoned | So be it; you over the job, every time.
 hermit_sage/CG | abandoned | Then it's done, and don't you dare brood over it.
 hermit_sage/CG | parted | Farewell, and if anyone needs rescuing, rescue them.
@@ -214,7 +214,7 @@ hermit_sage/CN | refused_release | I can't undo {giver}'s bargain, and I wouldn'
 hermit_sage/CN | refused_release | No, not mine to undo; you tied it, you untie it.
 hermit_sage/CN | refused | I cannot, {reason}, and sulking won't change it.
 hermit_sage/CN | refused | I won't be argued round; {reason}.
-hermit_sage/CN | accepted | Good. Now go, before I change my mind.
+hermit_sage/CN | accepted | Good. Let's call it settled before I change my mind.
 hermit_sage/CN | accepted | Done. Don't make it boring.
 hermit_sage/CN | accepted | Then it's agreed, more or less. I'll hold you to the more.
 hermit_sage/CN | declined | Suit yourself; I wasn't attached to it.
@@ -229,3 +229,278 @@ hermit_sage/CN | parted | Go well, or badly, just go interestingly.
 hermit_sage/CN | not_understood | Speak plainly, riddler; one of us being cryptic is plenty.
 hermit_sage/CN | not_understood | What do you mean, and, no, wait, say it slower.
 hermit_sage/CN | not_understood | I'm not sure what you mean, and I'm not sure I care, but go on.
+
+# ---- hermit_sage/NN: conversation ----
+hermit_sage/NN | greeted | Hello. Say what you're after, plainly, and we'll see if it's worth both our time.
+hermit_sage/NN | greeted | Good day. I'm {speaker}, and I deal fairly with anyone who deals fairly with me.
+hermit_sage/NN | greeted | Well met. You look like someone with a question, so let's have it.
+hermit_sage/NN | greeted_again | Back again, then.[ Still after {asked}, or is it something new?]
+hermit_sage/NN | greeted_again | Hello again. I saw you {since}; I take it you've found another use for me.
+hermit_sage/NN | greeted_again | Good day. You again; I've the time, if you've a decent question.
+hermit_sage/NN | greeted_warm | Good to see you.[ Did {asked} turn out worth your while?]
+hermit_sage/NN | greeted_warm | Welcome back. Last I saw you was {since}, and I've no complaints about you yet.
+hermit_sage/NN | greeted_cold | What do you want? Ask it, and don't waste my time.
+hermit_sage/NN | greeted_cold | What now? Keep it short, and don't expect favours.
+hermit_sage/NN | greeted_cold | Keep back. From there, you'll get a short answer and nothing extra.
+hermit_sage/NN | greeted_taken | Hello again. The work's still open between us, and I haven't forgotten it.
+hermit_sage/NN | greeted_taken | Back again. I saw you {since}; the bargain's half kept, and I'm counting on the other half.
+hermit_sage/NN | greeted_finished | Good to see you. You did what you said you'd do, which is rarer than it should be.
+hermit_sage/NN | greeted_finished | Welcome back. The work's done, and you've gone up in my estimation.
+hermit_sage/NN | greeted_failed | Hello again. It didn't come off; I've noted it, and that's the end of it.
+hermit_sage/NN | greeted_failed | Good day. The work came to nothing, and I've written it off.
+hermit_sage/NN | greeted_abandoned | Back again. You gave my work up, and I've adjusted my opinion to match.
+hermit_sage/NN | greeted_abandoned | Well met again. You set the work down; I hold it against you exactly as much as it deserves.
+hermit_sage/NN | small_talk | Well enough; I've what I need, and I've never seen the use in wanting more.
+hermit_sage/NN | small_talk | The usual; people bring me questions, and I sort the useful ones from the rest.
+hermit_sage/NN | small_talk | It's {season}; I take the seasons as they come, and they've never asked my opinion.
+hermit_sage/NN | small_talk_fair | It's fair weather for {season}, and I'll take it while it lasts.[ The {danger} I'd sooner do without.]
+hermit_sage/NN | small_talk_fair | Nothing wrong with a clear {time}; good weather costs nobody anything.
+hermit_sage/NN | small_talk_wet | It's wet, and complaining won't make it any drier.
+hermit_sage/NN | small_talk_wet | This rain's no use to me or anyone.[ Nor are the {danger}.]
+hermit_sage/NN | small_talk_storm | It's a storm, and a storm doesn't bargain.[ Neither do the {danger}.]
+hermit_sage/NN | small_talk_storm | Only a fool goes out in a blow like this, and I'm no fool.
+hermit_sage/NN | small_talk_cold | I've nothing to say to you that's worth the breath.
+hermit_sage/NN | small_talk_cold | If you've a question, ask it; I'm not here to pass the time with you.
+hermit_sage/NN | acknowledged | I see. That's useful.
+hermit_sage/NN | acknowledged | Fair enough; I'll take that as given.
+hermit_sage/NN | acknowledged | Is that so? Then I'll adjust my sums.
+hermit_sage/NN | thanked | You're welcome; it cost me nothing, so it costs you nothing.
+hermit_sage/NN | thanked | No need; a fair answer for a fair question, and we're square.
+hermit_sage/NN | thanked_cold | Save your thanks; I answered because it suited me, not you.
+hermit_sage/NN | thanked_cold | Hmph, keep them; thanks don't settle anything between us.
+hermit_sage/NN | offended | Mind your manners; insults are a poor trade, and you're the one losing by it.
+hermit_sage/NN | offended | Careful; that'll be remembered long after you've forgotten saying it.
+hermit_sage/NN | offended_again | Enough; you've spent all the patience I had for you.
+hermit_sage/NN | offended_again | Hold your tongue; every word of that counts against you.
+hermit_sage/NN | parted_cold | Go, then; we've nothing more to trade.
+hermit_sage/NN | parted_cold | Be on your way; you've had all you're getting from me.
+hermit_sage/NN | safety_unsafe | No, not as I reckon it. Keep clear of {worst}.[ The {danger} aren't worth the risk either.]
+hermit_sage/NN | safety_unsafe | Not safe. There are {danger}, and no sense pretending otherwise.[ Then there's {worst}.]
+hermit_sage/NN | safety_wary | Safe enough, if you're sensible about it. Stay clear of {worst}.[ The {danger} too.]
+hermit_sage/NN | safety_wary | Mostly. Keep your distance from {worst}, and the rest should give you no trouble.
+hermit_sage/NN | safety_safe | Safe enough. The worst of it is {worst}, and that's no concern of yours unless you make it one.
+hermit_sage/NN | safety_safe | Yes. The only thing I'd leave alone is {worst}.
+hermit_sage/NN | safety_safe | It's safe, and I've no reason to tell you otherwise.
+hermit_sage/NN | denied | No; what you see is the whole of it.
+hermit_sage/NN | denied | You're mistaken, and it's costing you time you could spend better.
+hermit_sage/NN | denied_again | That's not so, and asking again won't make it any more so.
+
+# ---- hermit_sage/NG: conversation ----
+hermit_sage/NG | greeted | Hello. You're welcome here, whatever you've come to ask.
+hermit_sage/NG | greeted | Good day. I'm {speaker}; are you well, or is that what you've come about?
+hermit_sage/NG | greeted | Well met. If you need something, say so; I'd rather help than guess.
+hermit_sage/NG | greeted_again | Hello again, and welcome.[ How did you get on with {asked}?]
+hermit_sage/NG | greeted_again | Good day. I saw you {since}; has the time since been kind to you?
+hermit_sage/NG | greeted_again | Back again. Come and tell me how you've been.
+hermit_sage/NG | greeted_warm | Good to see you.[ Did {asked} treat you kindly?]
+hermit_sage/NG | greeted_warm | Welcome back; I saw you {since}, and I'm glad you're here again.
+hermit_sage/NG | greeted_cold | What do you want? I'll help if it's honest, and not otherwise.
+hermit_sage/NG | greeted_cold | Keep back, please. Say what you need from there.
+hermit_sage/NG | greeted_cold | What now? Forgive me, but I don't trust you just yet.
+hermit_sage/NG | greeted_taken | Hello again. How are you keeping, with the work still on your hands?
+hermit_sage/NG | greeted_taken | Back again. I saw you {since}; I've not forgotten what you took on for me.
+hermit_sage/NG | greeted_finished | Good to see you. The work's done, and I'm grateful, truly.
+hermit_sage/NG | greeted_finished | Welcome back. You saw it through, and that was good of you.
+hermit_sage/NG | greeted_failed | Hello again. It went wrong, I know, and I'm sorry; are you all right?
+hermit_sage/NG | greeted_failed | Good day. The work failed, and I'll not hold it against you.
+hermit_sage/NG | greeted_abandoned | Back again. You set the work down; I'd like to think it was for a good reason.
+hermit_sage/NG | greeted_abandoned | Well met again. You gave the work up, and I've no quarrel with you over it.
+hermit_sage/NG | small_talk | I'm well, thank you for asking; not everyone does.
+hermit_sage/NG | small_talk | My days are much alike; someone asks, and I tell them what's safe to know.
+hermit_sage/NG | small_talk | It's {season}; I do wonder how everyone's keeping through it.
+hermit_sage/NG | small_talk_fair | It's a fair {time}; do make the most of it.
+hermit_sage/NG | small_talk_fair | What a mercy, a clear sky for {season}.[ Please mind the {danger} all the same.]
+hermit_sage/NG | small_talk_wet | It's wet out; you'll want somewhere dry to go.
+hermit_sage/NG | small_talk_wet | Such a wet {time}, I'm afraid; do keep warm.[ Mind the {danger}, too.]
+hermit_sage/NG | small_talk_storm | It's a bad storm for {season}; spare a thought for anyone caught out in it.
+hermit_sage/NG | small_talk_storm | The wind's fierce, and I'd not wish it on anyone.[ Nor the {danger}, for that matter.]
+hermit_sage/NG | small_talk_cold | I'd rather not chat, if it's all the same to you.
+hermit_sage/NG | small_talk_cold | Not now; I've nothing to say to you beyond what you need.
+hermit_sage/NG | acknowledged | I see. Thank you for telling me.
+hermit_sage/NG | acknowledged | Right; that helps, and I'm glad you said it.
+hermit_sage/NG | acknowledged | Ah. Then I understand you a little better.
+hermit_sage/NG | thanked | You're welcome; I'm glad it was some help.
+hermit_sage/NG | thanked | Don't mention it; I'd do the same for anyone.
+hermit_sage/NG | thanked_cold | Keep your thanks; I did it because it was right, not for you.
+hermit_sage/NG | thanked_cold | Spare me; I'd have helped anyone, and you're no different.
+hermit_sage/NG | offended | There's no need for that; I'm trying to help you.
+hermit_sage/NG | offended | Watch your tongue, please; I'd rather we stayed civil.
+hermit_sage/NG | offended_again | Enough; I've been patient, and I'm done being patient.
+hermit_sage/NG | offended_again | Hold your tongue; you've made your point, and it wasn't a kind one.
+hermit_sage/NG | parted_cold | Go, then; I've nothing more for you.
+hermit_sage/NG | parted_cold | On your way; I'd rather you went now.
+hermit_sage/NG | safety_unsafe | No, I'm sorry to say. Please keep away from {worst}.[ And mind the {danger}.]
+hermit_sage/NG | safety_unsafe | Not safe, no. There are {danger}, and I'd hate for you to meet them.[ Stay clear of {worst} as well.]
+hermit_sage/NG | safety_wary | Careful, and you'll be fine. Just give {worst} a wide berth.[ The {danger} as well, if you'd humour me.]
+hermit_sage/NG | safety_wary | More or less. I'd feel better if you kept away from {worst}.
+hermit_sage/NG | safety_safe | Safe enough. The only place I'd worry about is {worst}.
+hermit_sage/NG | safety_safe | Yes, and I'm glad to say so. Still, I'd not go near {worst}.
+hermit_sage/NG | safety_safe | Nothing to fear here, and I'd tell you if there were.
+hermit_sage/NG | denied | No; I'm just as you see me, and I'm sorry if that disappoints.
+hermit_sage/NG | denied | You have the wrong one, I'm afraid; there's nothing more to me than this.
+hermit_sage/NG | denied_again | That's not so; I've answered you honestly, and I'll answer the same again.
+
+# ---- hermit_sage/LN: conversation ----
+hermit_sage/LN | greeted | Greetings. You may state your business, if you would, and in proper order.
+hermit_sage/LN | greeted | Good day. I am {speaker}, and I will hear you, provided you ask properly.
+hermit_sage/LN | greeted | Hail. You are not known to me; that may change, if you conduct yourself well.
+hermit_sage/LN | greeted_again | Hello again; I recall you.[ You asked after {asked}; has the matter progressed?]
+hermit_sage/LN | greeted_again | Well met again. We last spoke {since}; state your purpose, and we will continue.
+hermit_sage/LN | greeted_again | Good day. You return, and you will be received on the same terms as any other.
+hermit_sage/LN | greeted_warm | Good to see you.[ I trust your inquiry into {asked} was satisfactory.]
+hermit_sage/LN | greeted_warm | Welcome back. I saw you {since}, and you stand well with me.
+hermit_sage/LN | greeted_cold | What do you want? You will speak plainly, and from where you stand.
+hermit_sage/LN | greeted_cold | Stay back. That distance will do, and I will thank you to keep it.
+hermit_sage/LN | greeted_cold | What now? You have no standing with me at present.
+hermit_sage/LN | greeted_taken | Hello again. The undertaking stands, and I expect it to be honoured.
+hermit_sage/LN | greeted_taken | Good day. I saw you {since}; your word on the work remains outstanding.
+hermit_sage/LN | greeted_finished | Well met again. The work is done, and I so record it.
+hermit_sage/LN | greeted_finished | Good to see you. You gave your word and kept it, which does you credit.
+hermit_sage/LN | greeted_failed | Hello again. The work has failed; I pass no judgment beyond that.
+hermit_sage/LN | greeted_failed | Back again. The work was not accomplished, and the record will say so.
+hermit_sage/LN | greeted_abandoned | Good day. You withdrew from the undertaking, and your standing reflects it.
+hermit_sage/LN | greeted_abandoned | Back again. You set aside your word to me, and I have not forgotten it.
+hermit_sage/LN | small_talk | I am well, thank you; I keep to my office, and it keeps me.
+hermit_sage/LN | small_talk | The day has been orderly, which is all I ask of it.
+hermit_sage/LN | small_talk | It is {season}, and the forms do not change with it.
+hermit_sage/LN | small_talk_fair | It is fair, for {season}, and I have no objection to lodge.
+hermit_sage/LN | small_talk_fair | The {time} is clear, as you may see for yourself.[ I am obliged to mention the {danger}.]
+hermit_sage/LN | small_talk_wet | It is raining, as you will have noticed; I make no further comment.
+hermit_sage/LN | small_talk_wet | This is a wet {time}, for {season}.[ The {danger} are no less a concern for it.]
+hermit_sage/LN | small_talk_storm | It is a storm, and a considerable one; I would not travel in it.
+hermit_sage/LN | small_talk_storm | There is a gale blowing, and it is {season}; neither is mine to alter.[ Nor are the {danger}.]
+hermit_sage/LN | small_talk_cold | I have no conversation for you; state your business or leave it.
+hermit_sage/LN | small_talk_cold | You have not earned pleasantries from me.
+hermit_sage/LN | acknowledged | Indeed. I will take that into account.
+hermit_sage/LN | acknowledged | I see. Then it is noted.
+hermit_sage/LN | acknowledged | Is that so? I will accept it, on your word.
+hermit_sage/LN | thanked | You're welcome; it was within my office to give.
+hermit_sage/LN | thanked | No need; a question properly put deserves a proper answer.
+hermit_sage/LN | thanked_cold | Save your thanks; I answered as the forms require, and for no other reason.
+hermit_sage/LN | thanked_cold | Keep your thanks; they are not required of you.
+hermit_sage/LN | offended | Mind your manners; there is a proper way to address me, and that was not it.
+hermit_sage/LN | offended | How dare you; I have given you no cause to speak so.
+hermit_sage/LN | offended_again | Enough; you forfeit what little standing you had.
+hermit_sage/LN | offended_again | Hold your tongue; I will not be addressed in that manner.
+hermit_sage/LN | parted_cold | Be on your way; we have no further business.
+hermit_sage/LN | parted_cold | Go, then; this interview is concluded.
+hermit_sage/LN | safety_unsafe | No, it is not. You should keep clear of {worst}.[ The {danger} are a further concern.]
+hermit_sage/LN | safety_unsafe | Far from it. There are {danger}, and I state it plainly.[ Nor would I approach {worst}.]
+hermit_sage/LN | safety_wary | Careful, and it is safe enough. Keep clear of {worst}, as a matter of course.
+hermit_sage/LN | safety_wary | Keep your wits about you. I would not go near {worst}.[ The {danger} warrant the same caution.]
+hermit_sage/LN | safety_safe | Safe enough, by any fair measure. The worst I can name is {worst}.
+hermit_sage/LN | safety_safe | It's safe, and I will stand by that. I would still avoid {worst}.
+hermit_sage/LN | safety_safe | Yes; I know of no present danger here.
+hermit_sage/LN | denied | No; I am precisely what I appear to be, and I will swear to it.
+hermit_sage/LN | denied | You're mistaken; I hold my office openly, and there is nothing behind it.
+hermit_sage/LN | denied_again | That's not so; I have answered you once, and my answer stands.
+
+# ---- hermit_sage/CG: conversation ----
+hermit_sage/CG | greeted | Hello! A new face, and a curious one, I can tell.
+hermit_sage/CG | greeted | Well met. Hm, you look like trouble, the good kind, I hope.
+hermit_sage/CG | greeted | Greetings, and, oh, never mind the formalities; what do you need?
+hermit_sage/CG | greeted_again | Hello again![ So, {asked}: any luck?]
+hermit_sage/CG | greeted_again | Back again! I saw you {since}, and I've been wondering, no, I won't pry, what brings you?
+hermit_sage/CG | greeted_again | Good day, good day. You again, and I'm pleased, don't tell anyone.
+hermit_sage/CG | greeted_warm | Good to see you![ How did it go with {asked}, then?]
+hermit_sage/CG | greeted_warm | Welcome back! It was {since} I saw you last, which is far too long.
+hermit_sage/CG | greeted_cold | What do you want? Say it and go; I'm not in the mood.
+hermit_sage/CG | greeted_cold | Keep back. Not you, not today.
+hermit_sage/CG | greeted_cold | What now? Hm, no, I'm not cheering up for you.
+hermit_sage/CG | greeted_taken | Hello again! The work's still on, then; how's it treating you?
+hermit_sage/CG | greeted_taken | Back again. I saw you {since}, and, well, it's not done yet, is it?
+hermit_sage/CG | greeted_finished | Good to see you! The work's done, and I'm delighted, no, really, delighted.
+hermit_sage/CG | greeted_finished | Welcome back! You finished it, you actually finished it; thank you.
+hermit_sage/CG | greeted_failed | Hello again. It didn't work out; forget the work, how are you?
+hermit_sage/CG | greeted_failed | Good day. So, it failed; well, these things do, and I'm not cross.
+hermit_sage/CG | greeted_abandoned | Back again. You dropped it, the work, and that's fine, mostly fine.
+hermit_sage/CG | greeted_abandoned | Well met again. You gave up the work, and I've forgiven you, nearly.
+hermit_sage/CG | small_talk | Me? Oh, well, thank you, and nosier than ever.
+hermit_sage/CG | small_talk | Much the same; people ask, I give them the safe half, and they grumble.
+hermit_sage/CG | small_talk | It's {season}, and I've been, hm, thinking, mostly, and fussing, a bit.
+hermit_sage/CG | small_talk_fair | It's glorious, the {time}, all of it; go and enjoy it, go on.
+hermit_sage/CG | small_talk_fair | Now this is weather, for {season}; I'm in a good mood about it.[ Not about the {danger}, though.]
+hermit_sage/CG | small_talk_wet | It's wet, horribly wet; I do hope you've a good coat.
+hermit_sage/CG | small_talk_wet | Look at it pouring, and for {season}, too; I give up on the sky.[ Keep away from the {danger}, yes?]
+hermit_sage/CG | small_talk_storm | It's a storm! A proper one, and I'm enjoying it far more than I should.
+hermit_sage/CG | small_talk_storm | Listen to that wind, will you.[ Please don't go near the {danger} in this.]
+hermit_sage/CG | small_talk_cold | Not now; I've no chatter in me for you.
+hermit_sage/CG | small_talk_cold | No, I don't think we'll chat, you and I.
+hermit_sage/CG | acknowledged | Ah! Now that's interesting.
+hermit_sage/CG | acknowledged | Right, right; I've got it, I think.
+hermit_sage/CG | acknowledged | Is that so? I'll chew on that, then.
+hermit_sage/CG | thanked | Glad to; you're very welcome, you really are.
+hermit_sage/CG | thanked | Don't mention it, please, or I'll go pink.
+hermit_sage/CG | thanked_cold | Hmph, thanks, from you, how novel.
+hermit_sage/CG | thanked_cold | Spare me; save it for someone who likes you.
+hermit_sage/CG | offended | Careful; I'm kind, not soft, and there's a difference.
+hermit_sage/CG | offended | How dare you, and I was just starting to like you.
+hermit_sage/CG | offended_again | Enough; I'm done being nice about it.
+hermit_sage/CG | offended_again | Watch your tongue, or, no, don't, just stop talking.
+hermit_sage/CG | parted_cold | Off with you; go on, go.
+hermit_sage/CG | parted_cold | Get going; I've no more patience for you today.
+hermit_sage/CG | safety_unsafe | Far from it! Stay well clear of {worst}, please.[ The {danger} too; I'll worry otherwise.]
+hermit_sage/CG | safety_unsafe | Not here, not safe, not at all. There are {danger}, and I'm not happy about it.[ And {worst}: avoid it, I beg you.]
+hermit_sage/CG | safety_wary | Mostly, yes, mostly. Just keep away from {worst}, would you?[ And the {danger}.]
+hermit_sage/CG | safety_wary | Keep your wits about you, and your feet away from {worst}.
+hermit_sage/CG | safety_safe | Safe enough, honestly. The one nasty thing I'd name is {worst}.
+hermit_sage/CG | safety_safe | Aye, safe. Well, there's {worst}, but you're not going there, are you?
+hermit_sage/CG | safety_safe | Yes! Safe, lovely, nothing to fret about.
+hermit_sage/CG | denied | Nonsense, I'm exactly what I look like, alas.
+hermit_sage/CG | denied | What are you on about; there's nothing to me but me.
+hermit_sage/CG | denied_again | No, still no, and asking louder won't change it, sorry.
+
+# ---- hermit_sage/CN: conversation ----
+hermit_sage/CN | greeted | Hello. If you're interesting, stay; if not, well, stay anyway, I'm curious.
+hermit_sage/CN | greeted | Hail, whoever you are. You've a question, I suppose; everyone does.
+hermit_sage/CN | greeted | Well met, possibly. We'll see.
+hermit_sage/CN | greeted_again | Back again.[ Still on about {asked}?]
+hermit_sage/CN | greeted_again | Hello again. I saw you {since}; you're either persistent or bored.
+hermit_sage/CN | greeted_again | Good day, or whatever it is. You again, and I don't mind, oddly.
+hermit_sage/CN | greeted_warm | Welcome back.[ How was {asked}, then, worth the bother?]
+hermit_sage/CN | greeted_warm | Good to see you, and I don't say that to everyone. I saw you {since}, and I've missed the distraction.
+hermit_sage/CN | greeted_cold | What now? Make it quick, or make it interesting.
+hermit_sage/CN | greeted_cold | Stay back. That's close enough.
+hermit_sage/CN | greeted_cold | What do you want? Out with it; I'm not in a giving mood.
+hermit_sage/CN | greeted_taken | Hello again. The work's still hanging, I see.
+hermit_sage/CN | greeted_taken | Back again. I saw you {since}, and it's not done, is it; no, don't tell me.
+hermit_sage/CN | greeted_finished | Well met again. It's done, and I'm impressed, a little; don't let it go to your head.
+hermit_sage/CN | greeted_finished | Good to see you. The work's finished; there, I said something nice.
+hermit_sage/CN | greeted_failed | Hello again. It failed; these things happen, and I've already stopped minding.
+hermit_sage/CN | greeted_failed | Back again. So it came to nothing; well, that's one way to end a story.
+hermit_sage/CN | greeted_abandoned | Good day. You dropped my work; I noticed, obviously.
+hermit_sage/CN | greeted_abandoned | Welcome back, if that's the word. You gave the work up, and I've decided not to mind, for now.
+hermit_sage/CN | small_talk | Me? I'm bored, mostly, which is why you're still here.
+hermit_sage/CN | small_talk | Nothing much, until now; don't make me regret saying so.
+hermit_sage/CN | small_talk | It's {season}, and I'm in the mood for something new.
+hermit_sage/CN | small_talk_fair | It's fair out, and I can't find anything wrong with it, which annoys me.
+hermit_sage/CN | small_talk_fair | A fine {time}, for {season}.[ Leave the {danger} to it.]
+hermit_sage/CN | small_talk_wet | It's wet; the sky's in a sulk, and so am I, a little.
+hermit_sage/CN | small_talk_wet | A wet {time}, and wet suits nobody.[ The {danger} can have it.]
+hermit_sage/CN | small_talk_storm | It's a storm, a proper tantrum of one; I rather like it.
+hermit_sage/CN | small_talk_storm | There's a gale on, and it's {season}, and none of it is my problem.[ The {danger} aren't either.]
+hermit_sage/CN | small_talk_cold | I've better ways to waste my time than chatting with you.
+hermit_sage/CN | small_talk_cold | Not today; chat with someone who finds you entertaining.
+hermit_sage/CN | acknowledged | Aye, fine; I'll remember it, or I won't.
+hermit_sage/CN | acknowledged | Ah. Well, that's something, I suppose.
+hermit_sage/CN | acknowledged | Right; that's mildly curious, I'll give you that.
+hermit_sage/CN | thanked | No need; it amused me, which is thanks enough.
+hermit_sage/CN | thanked | My pleasure, and I mean that, for once.
+hermit_sage/CN | thanked_cold | Keep your thanks; I've no use for them.
+hermit_sage/CN | thanked_cold | Hmph, thanks, and I'm meant to be flattered?
+hermit_sage/CN | offended | Watch your tongue; you're not nearly as clever as that sounded.
+hermit_sage/CN | offended | There's no need for that, and it wasn't even funny.
+hermit_sage/CN | offended_again | Enough; you've gone from dull to tiresome.
+hermit_sage/CN | offended_again | Careful; my patience is short, and you've had most of it.
+hermit_sage/CN | parted_cold | Off with you, and don't linger.
+hermit_sage/CN | parted_cold | Be on your way; I've had enough of you for one day.
+hermit_sage/CN | safety_unsafe | I wouldn't say so. Keep clear of {worst}, unless you're tired of living.[ The {danger} aren't friendly either.]
+hermit_sage/CN | safety_unsafe | Not safe, no. There are {danger}, and that's your problem now.[ So is {worst}.]
+hermit_sage/CN | safety_wary | More or less. Stay away from {worst} and you'll probably live.
+hermit_sage/CN | safety_wary | Careful, and you'll do; just don't wander near {worst}.[ Or the {danger}, if you're wise.]
+hermit_sage/CN | safety_safe | Safe enough, annoyingly. The worst of it is {worst}.
+hermit_sage/CN | safety_safe | Aye, as far as it goes. I'd not bother with {worst}, though.
+hermit_sage/CN | safety_safe | Quiet enough; boringly so.
+hermit_sage/CN | denied | Nonsense; I'm as I look, and I look fine.
+hermit_sage/CN | denied | I don't know what you mean, and I'm not curious enough to find out.
+hermit_sage/CN | denied_again | No, and it didn't improve with repeating.

@@ -13,7 +13,7 @@ forgiving/NN | surroundings | We're in {here}, for what it's worth. The nearest 
 forgiving/NN | surroundings | Here in {here}, the nearest is {nearest}.[ Beyond it, {others}.][ Give the {danger} a wide berth.]
 forgiving/NN | surroundings | What's nearest is {nearest}.[ Past it, {others}.][ Keep clear of the {danger}.]
 forgiving/NN | surroundings | The closest thing is {nearest}[, and after it, {others}].[ Watch for the {danger}.]
-forgiving/NN | work_own | I need someone useful: {own}.[ If that's not you, {others}.]
+forgiving/NN | work_own | I've something that needs doing: {own}.[ If you'd sooner look elsewhere, {others}.]
 forgiving/NN | work_own | Do this and I'll count it in your favour: {own}.[ Otherwise, {others}.]
 forgiving/NN | work_own | There's a straight trade on offer: {own}.[ Or, if you'd rather, {others}.]
 forgiving/NN | work_others | I've none of my own, but {others}. Remember who told you.
@@ -60,7 +60,7 @@ forgiving/NG | surroundings | Welcome to {here}. The nearest is {nearest}[, then
 forgiving/NG | surroundings | Around us, the nearest is {nearest}.[ Then {others}.][ Look after yourself near the {danger}.]
 forgiving/NG | surroundings | If you're finding your way, the nearest is {nearest}[, then {others}].[ Keep well clear of the {danger}.]
 forgiving/NG | work_own | I could use the help, if you'll give it: {own}.[ If not, {others}.]
-forgiving/NG | work_own | There's something, and I'd be grateful: {own}.[ Or else, {others}.]
+forgiving/NG | work_own | There's something, and I'd be grateful: {own}.[ If you'd rather not, {others}.]
 forgiving/NG | work_own | Here's where you could help: {own}.[ If it's not for you, {others}.]
 forgiving/NG | work_others | I've nothing of my own, but {others}.
 forgiving/NG | work_others | Nothing from me, but you won't go short: {others}.
@@ -76,15 +76,15 @@ forgiving/NG | refused_release | Not from me, only {giver} can let you go, and t
 forgiving/NG | refused_release | No, whoever gave you that has to be the one to let you go.
 forgiving/NG | refused | No, {reason}, and I'm truly sorry.
 forgiving/NG | refused | I can't, {reason}, though I wish I could.
-forgiving/NG | accepted | Thank you, truly. Come to me if you need anything for it.
-forgiving/NG | accepted | Good. Look after yourself, and come back either way.
+forgiving/NG | accepted | Thank you, truly. That means a great deal to me.
+forgiving/NG | accepted | Good. I'm glad it's you.
 forgiving/NG | accepted | Very good, and I won't forget it.
 forgiving/NG | declined | Suit yourself, you know your own load best.
 forgiving/NG | declined | Fair enough, and thank you for saying so plainly.
 forgiving/NG | declined | As you wish, and if you change your mind, I'll still be glad of you.
 forgiving/NG | abandoned | A pity, but you're forgiven, and I hope you're all right.
 forgiving/NG | abandoned | Then it's done, and I won't hold it against you.
-forgiving/NG | abandoned | So be it, I'd sooner have you whole than the work finished.
+forgiving/NG | abandoned | So be it, you matter more to me than the work does.
 forgiving/NG | parted | Take care of yourself, and of anyone who needs it.
 forgiving/NG | parted | Go well, and come back whenever you need to.
 forgiving/NG | parted | Safe travels, and I mean that.
@@ -152,7 +152,7 @@ forgiving/CN | surroundings | Right, {here}, that's us. The nearest is {nearest}
 forgiving/CN | surroundings | Look, the nearest is {nearest}.[ Then {others}.][ The {danger}, though, give those a miss.]
 forgiving/CN | surroundings | Around here? The nearest is {nearest}[, and after that, {others}].[ Keep off the {danger}, trust me.]
 forgiving/CN | work_own | Something to do? Yes, yes: {own}.[ Or, if not, {others}.]
-forgiving/CN | work_own | Here, take this one, go on: {own}.[ Or else {others}, if you're fussy.]
+forgiving/CN | work_own | Here, take this one, go on: {own}.[ Not keen? Fine, {others}.]
 forgiving/CN | work_own | A trade, you and me: {own}.[ Don't fancy it? {others}.]
 forgiving/CN | work_others | Mine? Nothing. {others}, though.
 forgiving/CN | work_others | I've got nothing, you've got nothing, but {others}.
@@ -168,12 +168,12 @@ forgiving/CN | refused_release | Not from me, that's {giver}'s knot, not mine to
 forgiving/CN | refused_release | No, no, I don't undo other people's handshakes.
 forgiving/CN | refused | I cannot, {reason}, and I'd bend it if I could, honestly.
 forgiving/CN | refused | No such luck, {reason}, annoyingly.
-forgiving/CN | accepted | Good, good. Off you go, then.
-forgiving/CN | accepted | Done, shake on it, no, don't, just go.
+forgiving/CN | accepted | Good, good. That's settled, and no, I won't make a speech.
+forgiving/CN | accepted | Done, shake on it, no, don't, a nod will do.
 forgiving/CN | accepted | Thank you, and if you botch it, you're forgiven in advance.
 forgiving/CN | declined | Suit yourself, somebody else will bite.
 forgiving/CN | declined | Fair enough, no grudge, I never keep them long.
-forgiving/CN | declined | So be it, and, ha, I'd have said no too.
+forgiving/CN | declined | So be it, and, ha, I'll not sulk about it.
 forgiving/CN | abandoned | A pity, and you're forgiven, sorry or not.
 forgiving/CN | abandoned | Then it's done, and I'm not even cross, which surprises us both.
 forgiving/CN | abandoned | As you wish, gone, forgotten, next.
@@ -197,7 +197,7 @@ forgiving/LG | surroundings | We are in {here}. The nearest is {nearest}[, and p
 forgiving/LG | surroundings | Here in {here}, the nearest is {nearest}.[ After that, {others}.][ Should you go near the {danger}, do not go alone.]
 forgiving/LG | surroundings | The nearest place I know is {nearest}.[ After it, {others}.][ Be careful of the {danger}.]
 forgiving/LG | surroundings | Of the places near us, the first is {nearest}[, then {others}].[ Keep well away from the {danger}, I beg you.]
-forgiving/LG | work_own | There is work, if you are willing, and I will help you however I can: {own}.[ If it does not suit you, {others}.]
+forgiving/LG | work_own | There is work, if you are willing, and I would be most grateful: {own}.[ If it does not suit you, {others}.]
 forgiving/LG | work_own | Let this be the start of trust between us: {own}.[ Otherwise, {others}.]
 forgiving/LG | work_own | I would ask this of you, and gladly: {own}.[ Or, if you would rather, {others}.]
 forgiving/LG | work_others | I have no work of my own, but {others}.
@@ -214,13 +214,13 @@ forgiving/LG | refused_release | Not from me, only {giver} may release you, and 
 forgiving/LG | refused_release | No, only the one who gave it may release you, and I cannot act for them.
 forgiving/LG | refused | No, {reason}, and I am sorry for it.
 forgiving/LG | refused | I can't, {reason}, though I would if it were mine to decide.
-forgiving/LG | accepted | Thank you. Should you need help in it, you have only to ask.
-forgiving/LG | accepted | Good. Go carefully, and look after anyone who cannot look after themselves.
+forgiving/LG | accepted | Thank you. Your kindness will not be forgotten.
+forgiving/LG | accepted | Good. Let it stand as agreed between us, then.
 forgiving/LG | accepted | Very good, and I will keep my word to you as you keep yours to me.
 forgiving/LG | declined | As you wish, and there is no shame in it.
 forgiving/LG | declined | Very well, and thank you for telling me honestly.
 forgiving/LG | declined | Fair enough, and I bear you no ill will for it.
-forgiving/LG | abandoned | So be it, you are pardoned, and I hope you are unhurt.
+forgiving/LG | abandoned | So be it, you are pardoned, and I hope all is well with you.
 forgiving/LG | abandoned | A pity, but I am sure you had good reason, and I will not hold it against you.
 forgiving/LG | abandoned | Then it's done, and I release you from your word without complaint.
 forgiving/LG | parted | Farewell, and I hope to see you again, well and whole.
@@ -229,3 +229,278 @@ forgiving/LG | parted | Take care, and remember that no wrong is beyond mending.
 forgiving/LG | not_understood | I'm not sure what you mean, but I would like to, if you will say it again.
 forgiving/LG | not_understood | What do you mean, if I may ask?
 forgiving/LG | not_understood | That's beyond me, I am afraid, so please put it another way.
+
+# ---- forgiving/NN: conversation ----
+forgiving/NN | greeted | Hello. If you've something to trade, I'm listening.
+forgiving/NN | greeted | Well met. You'll get a fair deal from me, and I'll want one back.
+forgiving/NN | greeted | Good day. You've a clean slate with me, so far.
+forgiving/NN | greeted_again | Hello again.[ Was {asked} worth the trouble?]
+forgiving/NN | greeted_again | Back again. I saw you {since}; what can we do for each other this time?
+forgiving/NN | greeted_again | Well met again. I hope you've come with something useful.
+forgiving/NN | greeted_warm | Good to see you.[ Get anywhere with {asked}?]
+forgiving/NN | greeted_warm | Welcome back. You're in good standing with me, and that counts for something.
+forgiving/NN | greeted_cold | What do you want? Keep it short, and keep it straight.
+forgiving/NN | greeted_cold | What now? Say it plainly; you've no credit with me.
+forgiving/NN | greeted_cold | Keep back. Say your piece from there, and we'll see.
+forgiving/NN | greeted_taken | Hello again. The work's still yours, and still on my books.
+forgiving/NN | greeted_taken | Back again. We last spoke {since}, and the work's still open between us.
+forgiving/NN | greeted_finished | Good to see you. The work's done, and your name's good with me.
+forgiving/NN | greeted_finished | Welcome back. You did what you said you would, and I'll remember it.
+forgiving/NN | greeted_failed | Hello again. It didn't come off; that's forgiven, and we start from here.
+forgiving/NN | greeted_failed | Well met again. It went wrong, and I've written it off; no sense carrying it.
+forgiving/NN | greeted_abandoned | Back again. You dropped my work, and that's forgiven, though it's noted.
+forgiving/NN | greeted_abandoned | Good day. You gave my work up; I've let it go, and so should you.
+forgiving/NN | small_talk | Well enough. I carry no grudges, and it keeps me light on my feet.
+forgiving/NN | small_talk | As {post} of {place}, I've enough to keep me busy, and busy suits me.
+forgiving/NN | small_talk | It's {season}, and I've no complaints about it.[ Mind the {danger}, though.]
+forgiving/NN | small_talk_fair | It's a fine {time}, and fine weather costs nothing.
+forgiving/NN | small_talk_fair | The sky's clear, for {season}.[ It won't make the {danger} any friendlier.]
+forgiving/NN | small_talk_wet | It's wet, and it's {season}; neither's worth complaining about.
+forgiving/NN | small_talk_wet | A wet {time}, and grumbling won't dry it.[ I'd sooner be wet than near the {danger}.]
+forgiving/NN | small_talk_storm | This storm will blow itself out, and I don't waste breath arguing with it.
+forgiving/NN | small_talk_storm | It's a wild {time}, even for {season}.[ Give the {danger} a wide berth, storm or no storm.]
+forgiving/NN | small_talk_cold | I've nothing to say to you that isn't business.
+forgiving/NN | small_talk_cold | No pleasantries; you haven't earned them.
+forgiving/NN | acknowledged | I see. That's useful to know.
+forgiving/NN | acknowledged | Fair enough. I'll count that as a straight answer.
+forgiving/NN | acknowledged | Is that so? Then we understand each other.
+forgiving/NN | thanked | No need; it cost me nothing, and it may earn me something later.
+forgiving/NN | thanked | Don't mention it, but do remember it.
+forgiving/NN | thanked_cold | Save your thanks; they don't settle anything between us.
+forgiving/NN | thanked_cold | Hmph, thanks are easy; I'd sooner have straight dealing.
+forgiving/NN | offended | Careful; I'll forgive that, but I'll know it was said.
+forgiving/NN | offended | There's no need for that, and it gets you nothing from me.
+forgiving/NN | offended_again | Enough; you've used up what goodwill you had with me.
+forgiving/NN | offended_again | Hold your tongue; I'm keeping count, and you're running short.
+forgiving/NN | parted_cold | Go, then; we've nothing more to trade.
+forgiving/NN | parted_cold | On your way; we're done for now.
+forgiving/NN | safety_unsafe | No. Keep clear of {worst}; that's a bad trade for anyone.[ And there are {danger}.]
+forgiving/NN | safety_unsafe | Not safe. There are {danger}, and no errand is worth that.[ Keep away from {worst} as well.]
+forgiving/NN | safety_wary | Safe enough, if you stay clear of {worst}.[ Mind the {danger} as well.]
+forgiving/NN | safety_wary | Mostly. The one risk I'd not take for nothing is {worst}.
+forgiving/NN | safety_safe | Yes. The worst of it is {worst}, and that's a risk you can choose not to take.
+forgiving/NN | safety_safe | Quiet enough, as things stand. Only {worst} gives me pause.
+forgiving/NN | safety_safe | Nothing to fear, and I'd gain nothing by telling you otherwise.
+forgiving/NN | denied | No; what you see is what you're dealing with.
+forgiving/NN | denied | You're mistaken; I've no reason to be anything but what I am.
+forgiving/NN | denied_again | That's not so, and asking twice won't change the answer.
+
+# ---- forgiving/NG: conversation ----
+forgiving/NG | greeted | Hello. I hope the day's been kind to you.
+forgiving/NG | greeted | Welcome. Tell me how you are, and then what you need.
+forgiving/NG | greeted | Good day. Whatever brings you, you'll have a kind word here first.
+forgiving/NG | greeted_again | Hello again.[ How did you get on with {asked}?]
+forgiving/NG | greeted_again | Back again. I saw you {since}, and I've wondered how you were.
+forgiving/NG | greeted_again | Good day. How have you been since we last spoke?
+forgiving/NG | greeted_warm | Good to see you.[ Any news of {asked}?]
+forgiving/NG | greeted_warm | Welcome back. It does me good to see you.
+forgiving/NG | greeted_cold | What do you want? I'll listen, but I'm not easy with you.
+forgiving/NG | greeted_cold | Keep back, please. Say what you came to say.
+forgiving/NG | greeted_cold | What now? I'm trying to think well of you; don't make it harder.
+forgiving/NG | greeted_taken | Hello again. My work's still with you, and I'm grateful for it.
+forgiving/NG | greeted_taken | Good to see you. We last spoke {since}; how are you faring with it?
+forgiving/NG | greeted_finished | Good to see you. The work's done, and you have my thanks.
+forgiving/NG | greeted_finished | Welcome back. You saw it through, and I'll think the better of you for it.
+forgiving/NG | greeted_failed | Hello again. It didn't work out, and you're forgiven; how are you, though?
+forgiving/NG | greeted_failed | Back again. I'm sorry it went the way it did, and there's no blame from me.
+forgiving/NG | greeted_abandoned | Good day. You set my work down, and that's all right; these things happen.
+forgiving/NG | greeted_abandoned | Welcome back. You gave it up, and you're forgiven; let's not speak of it again.
+forgiving/NG | small_talk | I'm well, thank you for asking. And how are you?
+forgiving/NG | small_talk | There's always someone who needs a hand, and I'd rather be the one giving it.
+forgiving/NG | small_talk | It's {season} already, and the days go quickly.[ Do stay away from the {danger}, won't you?]
+forgiving/NG | small_talk_fair | It's a lovely {time}, for {season}. I hope you get the best of it.
+forgiving/NG | small_talk_fair | The sky's clear, and I'm glad of it for your sake.[ Still, give the {danger} a wide berth.]
+forgiving/NG | small_talk_wet | It's a wet {time}; I hope you've somewhere dry to go.
+forgiving/NG | small_talk_wet | The rain's heavy for {season}; stay in the dry if you can.[ And mind the {danger}.]
+forgiving/NG | small_talk_storm | It's a fierce storm; I hope nobody's caught out in it.
+forgiving/NG | small_talk_storm | The wind's howling this {time}; I'd stay under a roof, if I were you.[ And well away from the {danger}.]
+forgiving/NG | small_talk_cold | I'd rather keep this to what you need.
+forgiving/NG | small_talk_cold | Not now, I'm afraid; I've no heart for talk with you.
+forgiving/NG | acknowledged | I see. Thank you for telling me.
+forgiving/NG | acknowledged | Good. That helps, it really does.
+forgiving/NG | acknowledged | Ah, so that's how it is. I'm glad you said.
+forgiving/NG | thanked | You're welcome, and you'd do the same for me, I think.
+forgiving/NG | thanked | Glad to, and I'd do it again.
+forgiving/NG | thanked_cold | Keep your thanks; I did it because it was right, not for you.
+forgiving/NG | thanked_cold | Spare me; thanks from you don't sit easily with me.
+forgiving/NG | offended | There's no need for that, and I think you know it.
+forgiving/NG | offended | Mind your manners; I'll forgive it, but it stings all the same.
+forgiving/NG | offended_again | Enough; I've tried to be kind to you, and you're making it very hard.
+forgiving/NG | offended_again | Hold your tongue, please; I've run out of patience for it.
+forgiving/NG | parted_cold | Go, then; I've nothing more for you.
+forgiving/NG | parted_cold | Be on your way; I'd rather you did.
+forgiving/NG | safety_unsafe | No, and I'm sorry to say it. Keep well away from {worst}.[ There are {danger}, too.]
+forgiving/NG | safety_unsafe | Far from it. There are {danger}, and I'd hate for anyone to wander near them.[ Please stay out of {worst}, too.]
+forgiving/NG | safety_wary | Mostly, but please be careful near {worst}.[ And keep away from the {danger}.]
+forgiving/NG | safety_wary | More or less. Just stay clear of {worst}, for my peace of mind.
+forgiving/NG | safety_safe | Yes, as far as I know. The worst I've heard of is {worst}.
+forgiving/NG | safety_safe | It's safe here. I'd still steer clear of {worst}, just to be sure.
+forgiving/NG | safety_safe | Nothing to fear here, and I'm glad I can say so.
+forgiving/NG | denied | No, I'm just what I seem, I promise you.
+forgiving/NG | denied | You're mistaken, and I'm sorry you'd think it of me.
+forgiving/NG | denied_again | That's not so, and I wish you'd believe me.
+
+# ---- forgiving/LN: conversation ----
+forgiving/LN | greeted | Good day. Make your matter known, and it will be heard in good order.
+forgiving/LN | greeted | Greetings. You have no standing with me yet, but you will have a fair hearing.
+forgiving/LN | greeted | Well met. Say what you require, and I will answer within my office.
+forgiving/LN | greeted_again | Hello again.[ You asked after {asked} when last we spoke; has the matter been settled?]
+forgiving/LN | greeted_again | Well met again. I saw you {since}, and I will hear you now as I did then.
+forgiving/LN | greeted_again | Good day. You are known to me now, which is a start.
+forgiving/LN | greeted_warm | Good to see you.[ Did your enquiry into {asked} bear fruit?]
+forgiving/LN | greeted_warm | Welcome back. You stand well with me, and that is not said lightly.
+forgiving/LN | greeted_cold | What do you want? Say it plainly, and briefly.
+forgiving/LN | greeted_cold | Keep back. You will be heard, as anyone is, but you will not be trusted.
+forgiving/LN | greeted_cold | What now? I am obliged to hear you; I am not obliged to like it.
+forgiving/LN | greeted_taken | Hello again. The work stands agreed between us, and it is still yours.
+forgiving/LN | greeted_taken | Good day. We last spoke {since}; the work you took on remains open, as agreed.
+forgiving/LN | greeted_finished | Well met again. The work is done, and I hold that to your credit.
+forgiving/LN | greeted_finished | Welcome back. You gave your word and kept it, and that will be remembered.
+forgiving/LN | greeted_failed | Hello again. The work did not succeed, and I hold you pardoned for it.
+forgiving/LN | greeted_failed | Good day. It did not come off, and a failure is no breach of your word.
+forgiving/LN | greeted_abandoned | Back again. You set the work aside, and you are pardoned; there is nothing more to it.
+forgiving/LN | greeted_abandoned | Welcome back. You withdrew from the work; it is forgiven, though it stands on record.
+forgiving/LN | small_talk | In good health, thank you, and in good order.
+forgiving/LN | small_talk | The day's business is in hand, and done correctly, as it ought to be.
+forgiving/LN | small_talk | It is {season}, and there is a proper time for everything in it.[ I would advise you to avoid the {danger}.]
+forgiving/LN | small_talk_fair | It is a fair {time}, and fair for {season}.
+forgiving/LN | small_talk_fair | The weather is clear, and I have no complaint to lodge against it.[ The {danger} are another matter.]
+forgiving/LN | small_talk_wet | It is a wet {time}, and there is no appeal against the weather.
+forgiving/LN | small_talk_wet | The rain is falling, and it is {season}; one must accept both.[ Keep your distance from the {danger}, rain or not.]
+forgiving/LN | small_talk_storm | It is a hard storm, and I would not send anyone out in it.
+forgiving/LN | small_talk_storm | This is a poor {time} to be abroad, with the storm as it is.[ And I would not go near the {danger}.]
+forgiving/LN | small_talk_cold | I will answer what I must, and nothing beyond it.
+forgiving/LN | small_talk_cold | We have no reason to converse, you and I.
+forgiving/LN | acknowledged | I see. That is noted.
+forgiving/LN | acknowledged | Indeed. Then the matter is clear to me.
+forgiving/LN | acknowledged | Fair enough. Your answer is accepted as given.
+forgiving/LN | thanked | No need; it was within my office to do.
+forgiving/LN | thanked | You're welcome; a fair answer is due to anyone who asks properly.
+forgiving/LN | thanked_cold | Save your thanks; the matter was handled as it would be for anyone.
+forgiving/LN | thanked_cold | Keep your thanks; they change nothing in how I regard you.
+forgiving/LN | offended | Mind your manners; you will be heard with courtesy or not at all.
+forgiving/LN | offended | Careful; that remark is not yet pardoned, and it may not be.
+forgiving/LN | offended_again | Enough; I have been patient, and patience is not the same as a pardon.
+forgiving/LN | offended_again | Hold your tongue; I have heard all I intend to hear on the matter.
+forgiving/LN | parted_cold | Be on your way; our business is concluded.
+forgiving/LN | parted_cold | Go, then; this hearing is at an end.
+forgiving/LN | safety_unsafe | Not safe, and I would say so under oath. You should keep well away from {worst}.[ Take note, also, of the {danger}.]
+forgiving/LN | safety_unsafe | No. There are {danger}, and I cannot in good conscience call this place safe.[ Nor would I vouch for {worst}.]
+forgiving/LN | safety_wary | Safe enough, on the whole, provided you keep clear of {worst}.[ The same applies to the {danger}.]
+forgiving/LN | safety_wary | Keep your wits about you. I would not go near {worst} without good cause.
+forgiving/LN | safety_safe | Yes, as far as I can vouch. The worst I can name is {worst}.
+forgiving/LN | safety_safe | It's safe. For the record, the gravest risk I know of is {worst}.
+forgiving/LN | safety_safe | Safe enough, and I would say as much before anyone.
+forgiving/LN | denied | That's not so, and I will not answer an accusation made without cause.
+forgiving/LN | denied | You're mistaken; I am what I appear to be, and nothing else.
+forgiving/LN | denied_again | No; the question has been put and answered, and I will not hear it again.
+
+# ---- forgiving/CN: conversation ----
+forgiving/CN | greeted | Hello. Don't tell me, you want something.
+forgiving/CN | greeted | Well met, or not, we'll see. Who are you?
+forgiving/CN | greeted | Hail, and all that. Right, what is it?
+forgiving/CN | greeted_again | Hello again.[ So, {asked}, any luck, or no?]
+forgiving/CN | greeted_again | Back again? I saw you {since}, and here you are, can't keep away.
+forgiving/CN | greeted_again | Well met again. You, yes, I remember the face.
+forgiving/CN | greeted_warm | Good to see you, really, no, I mean it.[ Any joy with {asked}?]
+forgiving/CN | greeted_warm | Welcome back, you. I was hoping you'd turn up.
+forgiving/CN | greeted_cold | What do you want? Be quick, I'm not in the mood.
+forgiving/CN | greeted_cold | Keep back, no, further. That'll do.
+forgiving/CN | greeted_cold | What now? Go on, spit it out.
+forgiving/CN | greeted_taken | Hello again. My work, still yours, good, hang on to it.
+forgiving/CN | greeted_taken | Back again. Last time was {since}, and my work's still yours, isn't it?
+forgiving/CN | greeted_finished | Good to see you. It's done, then, and I knew it would be.
+forgiving/CN | greeted_finished | Welcome back. The work's done, and look, I'm grinning.
+forgiving/CN | greeted_failed | Hello again. So it went wrong; so what, you're forgiven.
+forgiving/CN | greeted_failed | Back again. It didn't work out, and I'm not cross, well, not very.
+forgiving/CN | greeted_abandoned | Good day. You dropped my work, and you're forgiven anyway, obviously.
+forgiving/CN | greeted_abandoned | Well met again. You gave it up, and, well, water under the bridge.
+forgiving/CN | small_talk | Me? Fine, fine, better than I deserve.
+forgiving/CN | small_talk | Oh, the day? Up and down, mostly up.
+forgiving/CN | small_talk | It's {season}, apparently, not that I keep count.[ Oh, and the {danger}, leave those be.]
+forgiving/CN | small_talk_fair | It's nice out, isn't it, for {season}?
+forgiving/CN | small_talk_fair | Look at that sky, clear as anything.[ Still, mind the {danger}.]
+forgiving/CN | small_talk_wet | It's wet, it's {season}, and I like rain, no, I don't.
+forgiving/CN | small_talk_wet | What a wet {time}, honestly.[ Go round the {danger}, not through them.]
+forgiving/CN | small_talk_storm | Listen to that storm, ha, I love a storm, mostly.
+forgiving/CN | small_talk_storm | It's blowing a gale this {time}, so, inside, yes?[ And nowhere near the {danger}.]
+forgiving/CN | small_talk_cold | Not now, and not with you.
+forgiving/CN | small_talk_cold | What, chat, with you? No.
+forgiving/CN | acknowledged | Ah, right, good, got it.
+forgiving/CN | acknowledged | Is that so? Well, I didn't see that coming.
+forgiving/CN | acknowledged | Fair enough. I'll take it, no questions, well, one, later.
+forgiving/CN | thanked | Don't mention it, no, really, don't, it's embarrassing.
+forgiving/CN | thanked | Glad to, and I'd do it again, probably.
+forgiving/CN | thanked_cold | Spare me; thanks, from you, of all people.
+forgiving/CN | thanked_cold | Hmph, keep it, I didn't do it for you.
+forgiving/CN | offended | Watch your tongue, or, no, go on, I'll forgive that too.
+forgiving/CN | offended | How dare you, actually, no, fair, but still, rude.
+forgiving/CN | offended_again | Enough, even I run out, and I'm close.
+forgiving/CN | offended_again | Hold your tongue, I mean it this time.
+forgiving/CN | parted_cold | Get going, and don't dawdle about it.
+forgiving/CN | parted_cold | Off with you, go.
+forgiving/CN | safety_unsafe | No, not even slightly. Stay out of {worst}.[ And the {danger}, obviously.]
+forgiving/CN | safety_unsafe | Not safe, ha, no. There are {danger}, so, no.[ And {worst}, same.]
+forgiving/CN | safety_wary | Mostly, if you skip {worst}.[ Oh, and the {danger}.]
+forgiving/CN | safety_wary | Careful, that's all. Keep clear of {worst} and you'll be fine, probably.
+forgiving/CN | safety_safe | Safe enough, as safe as anywhere. The worst I know is {worst}, and that's it.
+forgiving/CN | safety_safe | Aye, safe. Just not {worst}, that's all.
+forgiving/CN | safety_safe | Nothing to fear, honestly, and I'd know.
+forgiving/CN | denied | Nonsense, I'm exactly what I look like, sadly.
+forgiving/CN | denied | What are you on about, me, hiding something, ha, no.
+forgiving/CN | denied_again | No, still no, and a third time it's still no.
+
+# ---- forgiving/LG: conversation ----
+forgiving/LG | greeted | Good day. Be at ease; you will be dealt with fairly.
+forgiving/LG | greeted | Greetings. Whatever your business, you may speak freely here.
+forgiving/LG | greeted | Well met. I would be glad to know how you fare.
+forgiving/LG | greeted_again | Hello again.[ Were you able to find {asked}?]
+forgiving/LG | greeted_again | Good day. I saw you {since}, and I have hoped you were well.
+forgiving/LG | greeted_again | Well met again. It is good of you to return.
+forgiving/LG | greeted_warm | Good to see you again.[ Was there any word of {asked}?]
+forgiving/LG | greeted_warm | Welcome back. You have my trust, and I am glad to give it.
+forgiving/LG | greeted_cold | What do you want? I will hear you, as I would hear anyone, but no more than that.
+forgiving/LG | greeted_cold | Stay back, if you please. You may speak from where you stand.
+forgiving/LG | greeted_cold | What now? Say it, and I will answer it fairly, though not gladly.
+forgiving/LG | greeted_taken | Hello again. The work you took on is still yours, and I am grateful for it.
+forgiving/LG | greeted_taken | Good day. We last met {since}; I hope the work goes as well as it may.
+forgiving/LG | greeted_finished | Good to see you. The work is done, and I thank you for it, sincerely.
+forgiving/LG | greeted_finished | Welcome back. You kept your word, and I honour you for it.
+forgiving/LG | greeted_failed | Hello again. It did not succeed, and I am sorry for it; no fault is laid at your door.
+forgiving/LG | greeted_failed | Well met again. The work failed, and you are pardoned for it, freely.
+forgiving/LG | greeted_abandoned | Good day. You set my work aside, and you are forgiven; I would not have you trouble over it.
+forgiving/LG | greeted_abandoned | Welcome back. You gave it up, and there is nothing left to forgive.
+forgiving/LG | small_talk | I am well, thank you, and the better for being asked.
+forgiving/LG | small_talk | The day is full, and I would not have it otherwise.
+forgiving/LG | small_talk | It is {season}, and there is much to be thankful for in it.[ Please, do not go near the {danger}.]
+forgiving/LG | small_talk_fair | It is such a fair {time}, and I am grateful for it.
+forgiving/LG | small_talk_fair | The sun is out, and I hope you will enjoy it.[ Only, please, not near the {danger}.]
+forgiving/LG | small_talk_wet | It is raining, I am sorry to say, and it is {season} besides.
+forgiving/LG | small_talk_wet | Forgive the weather; it is wet this {time}, and I can do nothing about it.[ Stay far from the {danger}, I pray you.]
+forgiving/LG | small_talk_storm | There is a great storm blowing, and I would see everyone safely under a roof.
+forgiving/LG | small_talk_storm | The storm is at its worst this {time}, and I would not have you out in it.[ Above all, keep clear of the {danger}.]
+forgiving/LG | small_talk_cold | I will answer your questions, but I have no wish to talk.
+forgiving/LG | small_talk_cold | Forgive me, but I would rather keep to business with you.
+forgiving/LG | acknowledged | I see. You have answered honestly, and I am obliged to you.
+forgiving/LG | acknowledged | Indeed. I am grateful to know it.
+forgiving/LG | acknowledged | Good. That sets my mind at rest.
+forgiving/LG | thanked | You're welcome, and I would do as much for anyone.
+forgiving/LG | thanked | My pleasure, truly; it was no trouble at all.
+forgiving/LG | thanked_cold | Save your thanks, please; I did what was right, not what was kind.
+forgiving/LG | thanked_cold | Spare me, if you would; I acted from conscience, not for your sake.
+forgiving/LG | offended | Careful; I forgive that, though it grieves me.
+forgiving/LG | offended | Mind your manners; I would much rather think well of you.
+forgiving/LG | offended_again | Enough; my patience is long, but you are testing it.
+forgiving/LG | offended_again | There's no need for that; I ask you, as plainly as I can, to stop.
+forgiving/LG | parted_cold | Go, then; I will not keep you.
+forgiving/LG | parted_cold | Be on your way, if you please; we have said enough.
+forgiving/LG | safety_unsafe | I wouldn't say so, and I am sorry for it. Do not go near {worst}.[ Please keep away from the {danger}, too.]
+forgiving/LG | safety_unsafe | Not here, I am afraid. There are {danger}, and I would not see anyone come to harm by them.[ I would also keep clear of {worst}.]
+forgiving/LG | safety_wary | Safe enough, with care. I would ask you to keep clear of {worst}.[ And of the {danger}, if you can.]
+forgiving/LG | safety_wary | Careful, please. The one danger I would name is {worst}.
+forgiving/LG | safety_safe | Yes, I believe so. If there is anything to avoid, it is {worst}.
+forgiving/LG | safety_safe | Quiet enough, and I am glad of it. Even so, I would not go near {worst}.
+forgiving/LG | safety_safe | Safe enough, and you may rest easy here.
+forgiving/LG | denied | You're mistaken, and I forgive you for thinking it.
+forgiving/LG | denied | I don't know what you mean, and I will not pretend to.
+forgiving/LG | denied_again | That's not so, and I give you my word on it.

@@ -99,3 +99,15 @@ any | denied | You're mistaken about me.
 any | denied | That's not so.
 any | denied_again | No, and I'll not say it again.
 any | denied_again | Nonsense, and that's the end of it.
+
+# ---- With a saying of the speaker's people (contract version 5): left out for a people with none --
+any | parted | Take care[; as my people say, {saying}].
+any | parted | Goodbye, then[, and remember what we say: {saying}].
+any | parted | Safe travels, and mind how you go[; as we say, {saying}].
+any | small_talk | Can't complain.[ As we say, {saying}.]
+any | small_talk | The work goes on.[ As my people say, {saying}.]
+any | small_talk | Nothing much to tell.[ Still, as we say, {saying}.]
+any | thanked | No need[; as we say, {saying}].
+any | thanked | Don't mention it[; as my people say, {saying}].
+any | acknowledged | Is that so?[ Well, as we say, {saying}.]
+any | acknowledged | Ah, I see.[ As my people say, {saying}.]

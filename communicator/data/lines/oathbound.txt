@@ -105,9 +105,9 @@ oathbound/NG | surroundings | This is {here}, and the nearest is {nearest}[, the
 oathbound/NG | surroundings | Here in {here}, the nearest is {nearest}, and I'd go gently if I were you.[ Beyond it, {others}.][ Mind the {danger}, please.]
 oathbound/NG | surroundings | The nearest is {nearest}, so take care getting there.[ Then {others}.][ Keep clear of the {danger}, won't you?]
 oathbound/NG | surroundings | Just about the closest is {nearest}[, and past it, {others}], and I'd hate for you to get lost.[ Watch yourself near the {danger}.]
-oathbound/NG | work_own | I could use a hand, if you're able: {own}.[ If not, {others}.]
+oathbound/NG | work_own | I could use a hand, if you're willing: {own}.[ If not, {others}.]
 oathbound/NG | work_own | Help me with this and I'll not forget it: {own}.[ Otherwise, {others}.]
-oathbound/NG | work_own | Only if you've the strength to spare: {own}.[ Or, if that's not for you, {others}.]
+oathbound/NG | work_own | Only say yes if you mean it: {own}.[ Or, if that's not for you, {others}.]
 oathbound/NG | work_others | None of my own, I'm sorry, but {others}.
 oathbound/NG | work_others | Someone else has need of you, though: {others}.
 oathbound/NG | work_none | I'm sorry, I've nothing, and I don't know of anyone who has.
@@ -122,13 +122,13 @@ oathbound/NG | refused_release | I won't, not while {giver} has your word.
 oathbound/NG | refused_release | I cannot, that promise isn't mine to lift.
 oathbound/NG | refused | No, {reason}, and I'm sorry for it.
 oathbound/NG | refused | I can't, {reason}, much as I'd like to.
-oathbound/NG | accepted | Thank you. Come back in one piece, I mean that.
+oathbound/NG | accepted | Thank you. That's a kindness, and I mean that.
 oathbound/NG | accepted | Good, I'll remember you took this on.
-oathbound/NG | accepted | Done, and gladly. Look after yourself out there.
-oathbound/NG | declined | Fair enough, you know your own strength best.
-oathbound/NG | declined | As you wish, I'd rather you said no than got hurt.
+oathbound/NG | accepted | Done, and gladly. That's settled between us, then.
+oathbound/NG | declined | Fair enough, you know your own mind best.
+oathbound/NG | declined | As you wish, and no harm in asking, I hope.
 oathbound/NG | declined | Very well, and thank you for being straight with me.
-oathbound/NG | abandoned | A pity, but I'd sooner have you whole than have it finished.
+oathbound/NG | abandoned | A pity, but I'd sooner you said so than let it hang.
 oathbound/NG | abandoned | So be it, and there's no shame in knowing when to stop.
 oathbound/NG | abandoned | Then it's done, and no hard words, but are you all right?
 oathbound/NG | parted | Take care of yourself, and of anyone who can't.
@@ -151,7 +151,7 @@ oathbound/CN | surroundings | {here}, since you ask so nicely. The nearest is {n
 oathbound/CN | surroundings | Right, {here}, where you're standing. The nearest is {nearest}[, and past it, {others}].[ Mind the {danger}, unless you're feeling lucky.]
 oathbound/CN | surroundings | The nearest? That'd be {nearest}[, then {others}].[ Don't go poking the {danger}, tempting as it is.]
 oathbound/CN | surroundings | What's near, in a hurry: {nearest}[, plus {others}].[ And the {danger}, worse luck.]
-oathbound/CN | work_own | You want work? Have mine: {own}.[ Or, if you're fussy, {others}.]
+oathbound/CN | work_own | You want work? Have mine: {own}.[ Or, if you'd rather shop around, {others}.]
 oathbound/CN | work_own | I'll trade you straight: {own}.[ Otherwise, {others}.]
 oathbound/CN | work_own | Here's mine, no strings, well, a few strings: {own}.[ Don't fancy it? {others}.]
 oathbound/CN | work_others | Nothing of mine, but {others}, if you're not particular.
@@ -172,7 +172,7 @@ oathbound/CN | accepted | Done! I knew I liked you.
 oathbound/CN | accepted | Good. That's you and me, then, and I stick to people, not causes.
 oathbound/CN | accepted | Then it's agreed. Don't make it formal, I'll only laugh.
 oathbound/CN | declined | Suit yourself, and I'll pretend I'm not hurt.
-oathbound/CN | declined | Fair enough, I'd have said no too, probably.
+oathbound/CN | declined | Fair enough, and no hard feelings, mostly.
 oathbound/CN | declined | So be it, your choice, and choices are the one thing I respect.
 oathbound/CN | abandoned | A pity, I'd started to like you.
 oathbound/CN | abandoned | Very well, though I'll want to hear why.
@@ -197,8 +197,8 @@ oathbound/LG | surroundings | This is {here}, and I will tell you all I know: th
 oathbound/LG | surroundings | We are in {here}, and you may ask me anything you need. The nearest is {nearest}[, then {others}].[ Be careful of the {danger}, I entreat you.]
 oathbound/LG | surroundings | The nearest is {nearest}, and I hope you reach it unharmed.[ Beyond it, {others}.][ Mind the {danger}, if you would.]
 oathbound/LG | surroundings | What lies nearest, if it helps you, is {nearest}[, and then {others}].[ Do stay back from the {danger}.]
-oathbound/LG | work_own | I would ask your help with this: {own}.[ If you cannot, {others}.]
-oathbound/LG | work_own | Take this first, and let us see how you carry it: {own}.[ Otherwise, {others}.]
+oathbound/LG | work_own | I would ask your help with this: {own}.[ If you would rather not, {others}.]
+oathbound/LG | work_own | Here is work, and a chance to show me who you are: {own}.[ Otherwise, {others}.]
 oathbound/LG | work_own | If you are willing, there is this: {own}.[ Should it not suit you, {others}.]
 oathbound/LG | work_others | Forgive me, I have nothing of my own to offer, but {others}.
 oathbound/LG | work_others | There is nothing I can give you myself, but {others}.
@@ -214,13 +214,13 @@ oathbound/LG | refused_release | No, your word was given to {giver}, and only {g
 oathbound/LG | refused_release | I won't, and I am sorry, but your promise belongs to the one who asked it of you.
 oathbound/LG | refused | No, {reason}, and I truly wish it were otherwise.
 oathbound/LG | refused | I cannot, {reason}, and I will not pretend that I can.
-oathbound/LG | accepted | Thank you. Take care of yourself, and come back to me whole.
+oathbound/LG | accepted | Thank you. I will not forget that you answered when I asked.
 oathbound/LG | accepted | Good. Your word is given, and mine is given to you in turn.
 oathbound/LG | accepted | Done. Do this well, and you will have earned my trust.
 oathbound/LG | declined | As you wish, and I think no less of you for it.
-oathbound/LG | declined | Very well, I would rather you refuse than take on more than you can bear.
+oathbound/LG | declined | Very well, an honest refusal does you no discredit.
 oathbound/LG | declined | Fair enough, and I thank you for saying so plainly.
-oathbound/LG | abandoned | So be it, but tell me truly, are you unhurt?
+oathbound/LG | abandoned | So be it, but tell me truly, is all well with you?
 oathbound/LG | abandoned | A pity, and I will not pretend it does not grieve me.
 oathbound/LG | abandoned | Then it's done, and I hope you had good reason to set your word down.
 oathbound/LG | parted | Farewell, and may no one come to harm for want of your help.
@@ -243,9 +243,9 @@ oathbound/CG | surroundings | This is {here}, and no, I'm not busy, ask away. Th
 oathbound/CG | surroundings | {here}, and the nearest is {nearest}, but take someone with you.[ Past that, {others}.][ Mind the {danger}, I mean it.]
 oathbound/CG | surroundings | Right, quickly: the nearest is {nearest}[, then {others}].[ Mind the {danger}, and don't let anyone wander near them.]
 oathbound/CG | surroundings | First, the nearest: {nearest}[, then {others}].[ Watch the {danger}, and don't be brave about it.]
-oathbound/CG | work_own | You'd help? Then you're my kind of trouble: {own}.[ If that's too much, {others}.]
+oathbound/CG | work_own | You'd help? Then you're my kind of trouble: {own}.[ If you'd rather not, {others}.]
 oathbound/CG | work_own | I could use you. No, ask, not use: {own}.[ Or, {others}.]
-oathbound/CG | work_own | There's this, if you've the heart for it: {own}.[ If not, {others}.]
+oathbound/CG | work_own | There's this, if you've a mind to: {own}.[ If not, {others}.]
 oathbound/CG | work_others | Me? Not a thing. {others}, and mind yourself.
 oathbound/CG | work_others | Only other people's, I'm afraid: {others}.
 oathbound/CG | work_none | Nothing, and I wish I had, for your sake.
@@ -260,12 +260,12 @@ oathbound/CG | refused_release | I won't, {giver} is counting on you, and so, a 
 oathbound/CG | refused_release | That's not mine to undo, and a promise is a promise, even bent.
 oathbound/CG | refused | No, {reason}, and I'm sorry, I really am.
 oathbound/CG | refused | I can't, {reason}, and I hate that.
-oathbound/CG | accepted | Thank you! Now go, before I change my mind and come with you.
+oathbound/CG | accepted | Thank you! Oh, I'm glad it's you, I really am.
 oathbound/CG | accepted | Good. That's a promise between us now, and I keep the spirit of mine.
 oathbound/CG | accepted | Done. You can bend the wording if you must, but keep the heart of it.
 oathbound/CG | declined | Fair enough, no harm done.
 oathbound/CG | declined | Suit yourself, and I mean that kindly.
-oathbound/CG | declined | As you wish, I'd rather that than see you take on something that breaks you.
+oathbound/CG | declined | As you wish, a no is better than a yes with its fingers crossed.
 oathbound/CG | abandoned | So be it, but you'll tell me what happened, yes?
 oathbound/CG | abandoned | A pity, but never mind that, are you all right?
 oathbound/CG | abandoned | Then it's done, and I won't hold it over you.
@@ -289,9 +289,9 @@ oathbound/NE | surroundings | This is {here}, since you can't be bothered to loo
 oathbound/NE | surroundings | {here}, if you must know, and the nearest is {nearest}.[ After it, {others}.][ Mind the {danger}, or don't, it's nothing to me.]
 oathbound/NE | surroundings | The nearest is {nearest}, and you're welcome to it.[ Then {others}.][ The {danger} won't care who you are, and neither will I.]
 oathbound/NE | surroundings | What's near is {nearest}[, and past it, {others}], and that's all you get.[ Beware the {danger}, not that you'll listen.]
-oathbound/NE | work_own | You'll do, for this: {own}.[ If that's beyond you, {others}.]
+oathbound/NE | work_own | You'll do, for this: {own}.[ Otherwise, {others}.]
 oathbound/NE | work_own | I've a use for you: {own}.[ Or go and be useful to someone else: {others}.]
-oathbound/NE | work_own | Here's something even you can manage: {own}.[ If not, {others}.]
+oathbound/NE | work_own | Here's work, and more courtesy than you've earned: {own}.[ If not, {others}.]
 oathbound/NE | work_others | Nothing I'd trust you with, but {others}.
 oathbound/NE | work_others | None of mine. {others}, and they're welcome to you.
 oathbound/NE | work_none | There's none, and I wouldn't waste it on you if there were.
@@ -335,7 +335,7 @@ oathbound/LE | surroundings | Where you stand is {here}, should you have lost tr
 oathbound/LE | surroundings | This is {here}, as you ought to know. The nearest is {nearest}[, then {others}].[ Heed the {danger}, if you value yourself.]
 oathbound/LE | surroundings | The nearest is {nearest}, so mark it well.[ Beyond that, {others}.][ Of the {danger}, you have been warned.]
 oathbound/LE | surroundings | As to what is near, there is {nearest}[, and {others}].[ Mind the {danger}, or do not, as you please.]
-oathbound/LE | work_own | You may prove yourself with this: {own}.[ If it is beyond you, {others}.]
+oathbound/LE | work_own | You may prove yourself with this: {own}.[ If you will not, {others}.]
 oathbound/LE | work_own | On my terms, then: {own}.[ If they do not suit you, {others}.]
 oathbound/LE | work_own | Here is a task within my office, and I expect it done to the letter: {own}.[ Should you refuse it, {others}.]
 oathbound/LE | work_others | Nothing of my own, but {others}, should you care to trouble them.
@@ -367,3 +367,443 @@ oathbound/LE | parted | Go well, if you can manage it.
 oathbound/LE | not_understood | Speak plainly, or do not trouble me at all.
 oathbound/LE | not_understood | What do you mean, and choose your words with more care this time.
 oathbound/LE | not_understood | I'm not sure what you mean, and I suspect you do not know either.
+
+# ---- oathbound/NN: conversation ----
+oathbound/NN | greeted | Hello. Say what you're after, and what it's worth to you.
+oathbound/NN | greeted | Well met. What can you do for me, or I for you?
+oathbound/NN | greeted | Good day. I deal plainly, and I expect the same.
+oathbound/NN | greeted_again | Hello again.[ Did asking after {asked} get you anywhere?]
+oathbound/NN | greeted_again | Back again. I saw you {since}; what is it this time?
+oathbound/NN | greeted_again | Well met again. Here to trade, or just passing?
+oathbound/NN | greeted_warm | Good to see you, you've been worth my time.[ Was {asked} worth yours?]
+oathbound/NN | greeted_warm | Welcome back. You're one I'm glad to deal with.
+oathbound/NN | greeted_cold | What do you want? Make it quick, and make it count.
+oathbound/NN | greeted_cold | What now? Say it, and spare me the rest.
+oathbound/NN | greeted_cold | Keep back. You can say your piece from there.
+oathbound/NN | greeted_taken | Hello again. The work's still yours, and still not done.
+oathbound/NN | greeted_taken | Back again. Last I saw you was {since}, and my work's still waiting on your word.
+oathbound/NN | greeted_finished | Good to see you. The work's done, and that's to your credit.
+oathbound/NN | greeted_finished | Welcome back. You held up your end, and I'll not forget it.
+oathbound/NN | greeted_failed | Hello again. It failed, and that goes in the ledger with the rest.
+oathbound/NN | greeted_failed | Good day. The work came to nothing, and there's no use pretending otherwise.
+oathbound/NN | greeted_abandoned | Back again. You gave my work up, and I've not forgotten.
+oathbound/NN | greeted_abandoned | Well met again, though you walked away from my work, and I keep count.
+oathbound/NN | small_talk | Well enough, and my word's still good, which is what counts.
+oathbound/NN | small_talk | The {post}'s work is never done, and I'd not have it otherwise.
+oathbound/NN | small_talk | It's {season}, and I spend it as I spend everything: carefully.[ There are {danger}, if that's any use to you.]
+oathbound/NN | small_talk_fair | A fine {time}, and I'll not waste it.
+oathbound/NN | small_talk_fair | Good weather for {season}, and I'll take it while it lasts.[ Mind the {danger}, all the same.]
+oathbound/NN | small_talk_wet | It's a wet {time}, and I'll not stand in it longer than I must.[ There are {danger}, too.]
+oathbound/NN | small_talk_wet | Nothing to be done about rain, so I don't waste words on it.
+oathbound/NN | small_talk_storm | This is a proper storm, and nobody with sense is out in it.
+oathbound/NN | small_talk_storm | Such a gale costs everyone a day.[ Keep clear of the {danger}, too.]
+oathbound/NN | small_talk_cold | I've nothing to trade with you, least of all chatter.
+oathbound/NN | small_talk_cold | Say what you want or move along; I've no time to idle with you.
+oathbound/NN | acknowledged | I see. That's worth knowing.
+oathbound/NN | acknowledged | Fair enough, I'll mark it down.
+oathbound/NN | acknowledged | Is that so? Then I'll weigh it.
+oathbound/NN | thanked | You're welcome, and I'll remember you said it.
+oathbound/NN | thanked | No need, it cost me nothing.
+oathbound/NN | thanked_cold | Keep your thanks, they don't square anything.
+oathbound/NN | thanked_cold | Hmph, thanks are cheap.
+oathbound/NN | offended | Watch your tongue, it costs you more than it costs me.
+oathbound/NN | offended | Mind your manners, I've done nothing to earn that.
+oathbound/NN | offended_again | Enough, you've spent what goodwill you had.
+oathbound/NN | offended_again | Hold your tongue, I've counted every word.
+oathbound/NN | parted_cold | Go, then; I've given you all the time you're worth.
+oathbound/NN | parted_cold | On your way, we're done.
+oathbound/NN | safety_unsafe | No, and nothing would get me near {worst}.[ There are {danger} besides.]
+oathbound/NN | safety_unsafe | Not safe. There are {danger}, and that's reason enough.[ Keep away from {worst} as well.]
+oathbound/NN | safety_wary | Safe enough, if you stay clear of {worst}.[ Mind the {danger} as well.]
+oathbound/NN | safety_wary | More or less, as long as you keep away from {worst}.
+oathbound/NN | safety_safe | Safe enough. The worst I'd name is {worst}.
+oathbound/NN | safety_safe | Yes, though I'd still keep clear of {worst}.
+oathbound/NN | safety_safe | Nothing to fear, and I'd not waste a warning on nothing.
+oathbound/NN | denied | No, what you see is what there is.
+oathbound/NN | denied | Nonsense, I've one face and one word, and both are plain.
+oathbound/NN | denied_again | That's not so, and asking twice won't change the answer.
+
+# ---- oathbound/LN: conversation ----
+oathbound/LN | greeted | Greetings. You are unknown to me, so let us begin with your business.
+oathbound/LN | greeted | Good day. I will hear you out, and answer what is mine to answer.
+oathbound/LN | greeted | Hail. Speak plainly, and I will do the same.
+oathbound/LN | greeted_again | Hello again.[ You asked after {asked}, as I recall.]
+oathbound/LN | greeted_again | Welcome back. By my reckoning, we last spoke {since}.
+oathbound/LN | greeted_again | Well met again. You will find me as I was, and my word as it was.
+oathbound/LN | greeted_warm | Good to see you; you have my regard.[ Were you satisfied on the matter of {asked}?]
+oathbound/LN | greeted_warm | Good day. You stand well with me, and I say so plainly.
+oathbound/LN | greeted_cold | What do you want? Be brief, and be exact.
+oathbound/LN | greeted_cold | Stay back. You have not the standing to approach me so.
+oathbound/LN | greeted_cold | Keep back. I will hear you from there, and no closer.
+oathbound/LN | greeted_taken | Hello again. The work stands as agreed, and it is not yet done.
+oathbound/LN | greeted_taken | Good day. We last spoke {since}; your word on the work is still outstanding.
+oathbound/LN | greeted_finished | Welcome back. The work is done as agreed, and I count it to your standing.
+oathbound/LN | greeted_finished | Good to see you. Your word was kept, and I hold that in your favour.
+oathbound/LN | greeted_failed | Hello again. The work failed; that is the fact of it, and I will not dress it otherwise.
+oathbound/LN | greeted_failed | Well met again. It came to nothing, and I note it without rancour.
+oathbound/LN | greeted_abandoned | Back again. You set down work you gave your word to, and I have not forgotten it.
+oathbound/LN | greeted_abandoned | Good day. You abandoned work you had agreed to, and I have it on record.
+oathbound/LN | small_talk | I am well, and I keep to my office, which is all that is asked of me.
+oathbound/LN | small_talk | The duties of {post} fill my day, as is proper.
+oathbound/LN | small_talk | It is {season}, and my obligations do not change with it.[ You should know there are {danger}.]
+oathbound/LN | small_talk_fair | A fair {time}, and I will not complain of it.
+oathbound/LN | small_talk_fair | Fine weather, for {season}.[ Mind the {danger}, nonetheless.]
+oathbound/LN | small_talk_wet | It is wet, as you see, and there is no appeal against it.
+oathbound/LN | small_talk_wet | So it rains; I note it and go on.[ Be warned of the {danger}, all the same.]
+oathbound/LN | small_talk_storm | No one should be sent out in a storm like this one.
+oathbound/LN | small_talk_storm | Such a gale permits no business worth the name.[ I would add a warning of the {danger}.]
+oathbound/LN | small_talk_cold | I do not exchange pleasantries with those I do not trust.
+oathbound/LN | small_talk_cold | Your business, if you have any, and nothing more.
+oathbound/LN | acknowledged | I see. I will take that as your word.
+oathbound/LN | acknowledged | Indeed. That is noted, and it will be remembered.
+oathbound/LN | acknowledged | Is that so? Then I hold you to it.
+oathbound/LN | thanked | You're welcome; the obligation was mine, and it is discharged.
+oathbound/LN | thanked | Don't mention it; I did what was proper.
+oathbound/LN | thanked_cold | Save your thanks; I answered as I was bound to, not for your sake.
+oathbound/LN | thanked_cold | Keep your thanks; they alter nothing between us.
+oathbound/LN | offended | Mind your manners; I am owed the courtesy of my office.
+oathbound/LN | offended | Hold your tongue; insult is no substitute for argument.
+oathbound/LN | offended_again | Enough; you have said it twice, and I have heard it twice.
+oathbound/LN | offended_again | Watch your tongue; a second insult is a choice, not a slip.
+oathbound/LN | parted_cold | Be on your way; we have no further business.
+oathbound/LN | parted_cold | Go, then, and trouble me no further.
+oathbound/LN | safety_unsafe | No. I cannot in good faith call it safe, not with {worst}.[ There are also {danger}.]
+oathbound/LN | safety_unsafe | Not safe. There are {danger}, and I will not say otherwise.[ Stay away from {worst} as well.]
+oathbound/LN | safety_wary | Safe enough, on the strict condition that you avoid {worst}.[ Take heed of the {danger} besides.]
+oathbound/LN | safety_wary | Mostly. I can attest to it only so long as you keep clear of {worst}.
+oathbound/LN | safety_safe | Yes, by every measure I know. The worst of note is {worst}.
+oathbound/LN | safety_safe | It's safe, by any fair reading. Even so, I would not go near {worst}.
+oathbound/LN | safety_safe | Nothing to fear here, and I would swear to it.
+oathbound/LN | denied | No; I am precisely what I appear to be.
+oathbound/LN | denied | You're mistaken, and I will say so under any oath you care to name.
+oathbound/LN | denied_again | That's not so; I have answered, and there is no precedent for answering twice.
+
+# ---- oathbound/NG: conversation ----
+oathbound/NG | greeted | Hello. Is everything all right with you?
+oathbound/NG | greeted | Good day. If you need anything, you've only to say.
+oathbound/NG | greeted | Welcome. Tell me what brings you, and if I can help, I will.
+oathbound/NG | greeted_again | Hello again.[ Did you find what you needed about {asked}?]
+oathbound/NG | greeted_again | Back again. I saw you {since}; how have you been keeping?
+oathbound/NG | greeted_again | Good day. You found your way back, then.
+oathbound/NG | greeted_warm | Good to see you, truly.[ How did you get on with {asked}?]
+oathbound/NG | greeted_warm | Welcome back. You're a sight for sore eyes.
+oathbound/NG | greeted_cold | What do you want? I'll hear you, but I'm not glad to.
+oathbound/NG | greeted_cold | Keep back, please. Say what you need from there.
+oathbound/NG | greeted_cold | What now? Be quick, and be honest.
+oathbound/NG | greeted_taken | Hello again. Is the work going all right for you?
+oathbound/NG | greeted_taken | Good day. I saw you {since}, and I've not forgotten you took the work on.
+oathbound/NG | greeted_finished | Good to see you. It's done, and I can't thank you enough.
+oathbound/NG | greeted_finished | Welcome back. You saw it through, and that means a great deal to me.
+oathbound/NG | greeted_failed | Hello again. It didn't come off, I know, but are you all right?
+oathbound/NG | greeted_failed | Good day. The work failed, and I'm sorry it went that way.
+oathbound/NG | greeted_abandoned | Back again. You gave it up, and that's all right; I hope you're well.
+oathbound/NG | greeted_abandoned | Well met again. You set the work down, and I'll not hold it against you.
+oathbound/NG | small_talk | I'm well enough, thank you for asking, and how are you?
+oathbound/NG | small_talk | Someone always needs something, and I'd rather be the one who helps.
+oathbound/NG | small_talk | It's {season}, and it's good to have someone to talk to.[ There are {danger}, so please take care.]
+oathbound/NG | small_talk_fair | What a lovely {time}; I hope you get to enjoy some of it.
+oathbound/NG | small_talk_fair | Fine weather, and everyone's the better for it.[ Mind the {danger}, though.]
+oathbound/NG | small_talk_wet | It's wet, I'm afraid, so keep dry if you can.[ And stay away from the {danger}.]
+oathbound/NG | small_talk_wet | Such a wet {time}, and I hope you've somewhere dry to go.
+oathbound/NG | small_talk_storm | Do stay in if you can; it's a real storm.
+oathbound/NG | small_talk_storm | Listen to that wind; I hope nobody's caught out in it.[ And keep well clear of the {danger}.]
+oathbound/NG | small_talk_cold | I'd rather not chat, if it's all the same to you.
+oathbound/NG | small_talk_cold | Let's keep this short; I don't feel easy with you.
+oathbound/NG | acknowledged | I see. Thank you for telling me.
+oathbound/NG | acknowledged | Right, I'll keep that in mind.
+oathbound/NG | acknowledged | Ah, I'm glad you told me.
+oathbound/NG | thanked | You're welcome; it's what I'm here for.
+oathbound/NG | thanked | Don't mention it, I'd do the same for anyone.
+oathbound/NG | thanked_cold | Keep your thanks until I know you better.
+oathbound/NG | thanked_cold | Spare me, I'm not ready to hear it from you.
+oathbound/NG | offended | There's no need for that, and I think you know it.
+oathbound/NG | offended | Careful, that was unkind, and I'll not pretend it wasn't.
+oathbound/NG | offended_again | Enough, I've tried to be patient with you.
+oathbound/NG | offended_again | Hold your tongue; I've heard enough.
+oathbound/NG | parted_cold | Go, then, and mind how you treat people.
+oathbound/NG | parted_cold | On your way, and think on it.
+oathbound/NG | safety_unsafe | No, I'm sorry, it isn't, not with {worst}.[ There are {danger} as well.]
+oathbound/NG | safety_unsafe | Not here; there are {danger}, and I'd hate for you to meet them.[ Please keep away from {worst} too.]
+oathbound/NG | safety_wary | Careful, it's safe enough if you keep away from {worst}.[ And mind the {danger}.]
+oathbound/NG | safety_wary | Mostly, but I'd not go near {worst}, not for anything.
+oathbound/NG | safety_safe | Aye, it's safe, though I'd still steer clear of {worst}.
+oathbound/NG | safety_safe | Safe enough. The worst I'd warn you of is {worst}.
+oathbound/NG | safety_safe | Nothing to fear here, and I'm glad to be able to say it.
+oathbound/NG | denied | No, I'm just as I seem, I promise.
+oathbound/NG | denied | You're mistaken, I'm sorry, but there's nothing more to me.
+oathbound/NG | denied_again | That's not so, and I wish you'd believe me.
+
+# ---- oathbound/CN: conversation ----
+oathbound/CN | greeted | Hello. Who are you, and, more to the point, what do you want?
+oathbound/CN | greeted | Well met. Or badly met, we'll see.
+oathbound/CN | greeted | Greetings, if we're being fancy, and we're not.
+oathbound/CN | greeted_again | Hello again.[ Still chasing {asked}?]
+oathbound/CN | greeted_again | Back again? Last time was {since}, and look, you remembered me.
+oathbound/CN | greeted_again | Well met again, and I'd almost missed you.
+oathbound/CN | greeted_warm | Good to see you, and I mean that, which is rare.[ Any joy with {asked}?]
+oathbound/CN | greeted_warm | Welcome back! You, I like; don't let it go to your head.
+oathbound/CN | greeted_cold | What now? Be quick, I'm losing interest.
+oathbound/CN | greeted_cold | Keep back; you can talk from there.
+oathbound/CN | greeted_cold | What do you want? Out with it.
+oathbound/CN | greeted_taken | Hello again. Still at it, or just visiting?
+oathbound/CN | greeted_taken | Back again. You were here {since}, and the work's still yours, not that I'm counting.
+oathbound/CN | greeted_finished | Good to see you! It's done, and I knew I'd picked right.
+oathbound/CN | greeted_finished | Welcome back. So it's finished, and you're better than I guessed.
+oathbound/CN | greeted_failed | Hello again. It failed, and that happens, even to the ones I like.
+oathbound/CN | greeted_failed | Good day. So it came to nothing; I've had worse days, and so have you, probably.
+oathbound/CN | greeted_abandoned | Back again. You dropped it, and I'd still like to know why.
+oathbound/CN | greeted_abandoned | Well met again, and no, I'm not sulking about the work you gave up.
+oathbound/CN | small_talk | Me? I'm bored stiff, and you've just improved that.
+oathbound/CN | small_talk | The {post}'s lot has its moments, and this might be one.
+oathbound/CN | small_talk | It's {season}, not that I keep track.[ The {danger}, though, I keep track of.]
+oathbound/CN | small_talk_fair | Oh, it's fine out, and I'm half tempted to waste it.
+oathbound/CN | small_talk_fair | Too fine to stay indoors, if you ask me.[ Just not near the {danger}.]
+oathbound/CN | small_talk_wet | It's raining, and on me in particular, I'm sure of it.
+oathbound/CN | small_talk_wet | Some fool ordered rain, and nobody asked me.[ Mind the {danger}, wet or not.]
+oathbound/CN | small_talk_storm | Listen to it howl, and tell me that's not the best noise there is.
+oathbound/CN | small_talk_storm | A proper storm, and I'd dance in it if nobody was watching.[ Well away from the {danger}, mind.]
+oathbound/CN | small_talk_cold | No chat, not with you.
+oathbound/CN | small_talk_cold | I'm not in the mood, and you're the reason.
+oathbound/CN | acknowledged | Right, noted, that's that sorted.
+oathbound/CN | acknowledged | Is that so? Well, well.
+oathbound/CN | acknowledged | Ah, fine, I'll take it.
+oathbound/CN | thanked | Don't mention it, really, it's embarrassing.
+oathbound/CN | thanked | Think nothing of it, I mostly do.
+oathbound/CN | thanked_cold | Hmph, thanks from you, whatever next.
+oathbound/CN | thanked_cold | Save your thanks for someone who wants them.
+oathbound/CN | offended | Careful, that was nearly clever, and entirely rude.
+oathbound/CN | offended | Mind your manners, or at least find better ones.
+oathbound/CN | offended_again | Enough, you've had your fun, and I've stopped having mine.
+oathbound/CN | offended_again | Watch your tongue, twice is a habit.
+oathbound/CN | parted_cold | Off with you, and don't hurry back.
+oathbound/CN | parted_cold | Get going, I've had enough of you.
+oathbound/CN | safety_unsafe | No, and I'd not go near {worst}, even for a laugh.[ There are {danger} too.]
+oathbound/CN | safety_unsafe | Far from it; there are {danger}.[ Keep off {worst}, too.]
+oathbound/CN | safety_wary | More or less, if you skip {worst}.[ And the {danger}, obviously.]
+oathbound/CN | safety_wary | Keep your wits about you. It's fine, just not near {worst}.
+oathbound/CN | safety_safe | Safe enough, which is dull, but there it is. The worst I know of is {worst}.
+oathbound/CN | safety_safe | Aye, safe, unless you count {worst}.
+oathbound/CN | safety_safe | Quiet enough to bore me, so yes.
+oathbound/CN | denied | Nonsense, what you see is all you get, and it's plenty.
+oathbound/CN | denied | You're mistaken, I'm exactly this much trouble and no more.
+oathbound/CN | denied_again | No, and asking twice just makes you look keen.
+
+# ---- oathbound/LG: conversation ----
+oathbound/LG | greeted | Welcome. I am glad to meet you, and gladder if I can be of use.
+oathbound/LG | greeted | Good day. I hope you are well, and I would hear it if you are not.
+oathbound/LG | greeted | Greetings. You have my attention, and my help, should you need it.
+oathbound/LG | greeted_again | Hello again.[ You asked after {asked}; I hope it served you.]
+oathbound/LG | greeted_again | Welcome back. It was {since} that I last saw you; you are welcome here still.
+oathbound/LG | greeted_again | Well met again. How have you been?
+oathbound/LG | greeted_warm | Good to see you again, and I mean it.[ Were you able to learn what you needed of {asked}?]
+oathbound/LG | greeted_warm | Good day, and you honour me by returning.
+oathbound/LG | greeted_cold | Stay back, if you please. I will hear you, but I do not trust you.
+oathbound/LG | greeted_cold | What do you want? Say it plainly, and do no harm while you are here.
+oathbound/LG | greeted_cold | Keep back. I will answer you, and no more than that.
+oathbound/LG | greeted_taken | Hello again. The work is still yours, and I have every faith in you.
+oathbound/LG | greeted_taken | Good day. I last saw you {since}, and I hold you to your word, gently.
+oathbound/LG | greeted_finished | Welcome back. The work is done, and you have my deepest thanks.
+oathbound/LG | greeted_finished | Good to see you. You kept your word to me, and I will not forget it.
+oathbound/LG | greeted_failed | Hello again. The work failed, but tell me first, are you well?
+oathbound/LG | greeted_failed | Well met again. It came to nothing, and I am sorry for it.
+oathbound/LG | greeted_abandoned | Back again. You set the work aside, and I will not reproach you for it.
+oathbound/LG | greeted_abandoned | Good day. You gave up the work; I trust you had cause.
+oathbound/LG | small_talk | I am well, I thank you, and the better for being asked.
+oathbound/LG | small_talk | My office as {post} keeps me busy, and I would not wish it otherwise.
+oathbound/LG | small_talk | It is {season}, and I would see everyone safely through it.[ I must warn you of the {danger}.]
+oathbound/LG | small_talk_fair | Thank heaven for a fine {time}.
+oathbound/LG | small_talk_fair | Such weather is a blessing, for {season}.[ Even so, beware the {danger}.]
+oathbound/LG | small_talk_wet | It is wet, I am afraid, and I hope you are not far from shelter.
+oathbound/LG | small_talk_wet | A wet {time}, and hard on anyone out in it.[ Please keep clear of the {danger}.]
+oathbound/LG | small_talk_storm | Please, stay under a roof until this storm passes.
+oathbound/LG | small_talk_storm | What a gale; I fear for anyone caught out in it.[ And do not go near the {danger}.]
+oathbound/LG | small_talk_cold | Forgive me, but I have no wish to talk idly with you.
+oathbound/LG | small_talk_cold | I will answer what you need answered, and no more.
+oathbound/LG | acknowledged | I see, and I thank you for your honesty.
+oathbound/LG | acknowledged | Indeed. Then I know where we stand.
+oathbound/LG | acknowledged | Good. Then I understand you.
+oathbound/LG | thanked | You're welcome; it was no more than my duty.
+oathbound/LG | thanked | My pleasure, and may it serve you.
+oathbound/LG | thanked_cold | Keep your thanks; I would have done as much for anyone.
+oathbound/LG | thanked_cold | Save your thanks; I did it for the sake of what is right, not for you.
+oathbound/LG | offended | There's no need for that, and I would ask you to take it back.
+oathbound/LG | offended | How dare you speak so, when I have offered you nothing but courtesy.
+oathbound/LG | offended_again | Enough; I forgave the first, and I will not forgive a second.
+oathbound/LG | offended_again | Hold your tongue, I beg you, before you say something you cannot unsay.
+oathbound/LG | parted_cold | Be on your way, and let no one come to harm by you.
+oathbound/LG | parted_cold | Go, then; I have nothing more to say to you.
+oathbound/LG | safety_unsafe | No, and I am sorry to say it, not with {worst}.[ There are also {danger}; please mind them.]
+oathbound/LG | safety_unsafe | I wouldn't say so; there are {danger}, and I would not have you near them.[ Keep well away from {worst}, too.]
+oathbound/LG | safety_wary | Safe enough, if you keep clear of {worst}, and I ask that you do.[ Mind the {danger} as well.]
+oathbound/LG | safety_wary | Keep your wits about you. It is safe only so long as you stay away from {worst}.
+oathbound/LG | safety_safe | Yes, you are safe here, though I would not go near {worst}.
+oathbound/LG | safety_safe | It's safe, I am pleased to say. The worst I know of is {worst}.
+oathbound/LG | safety_safe | Nothing to fear here; you may rest easy.
+oathbound/LG | denied | No; I am as you see me, upon my honour.
+oathbound/LG | denied | You're mistaken, and I am sorry you think it of me.
+oathbound/LG | denied_again | That's not so, and I have given you my word on it.
+
+# ---- oathbound/CG: conversation ----
+oathbound/CG | greeted | Hello! Ask me anything, I'm not busy, well, not very.
+oathbound/CG | greeted | Hail, and welcome, and all the rest of it.
+oathbound/CG | greeted | Well met. Right, what do you need?
+oathbound/CG | greeted_again | Hello again![ Did you find {asked} in the end?]
+oathbound/CG | greeted_again | Back again, and I saw you {since}, so tell me everything.
+oathbound/CG | greeted_again | Good day, and look at you, still in one piece.
+oathbound/CG | greeted_warm | Good to see you, you've no idea.[ What came of asking after {asked}?]
+oathbound/CG | greeted_warm | Welcome back! I was hoping it'd be you.
+oathbound/CG | greeted_cold | What now? I'm listening, but I'm not happy about it.
+oathbound/CG | greeted_cold | Stay back, a bit further, there.
+oathbound/CG | greeted_cold | What do you want? And keep your hands where I can see them.
+oathbound/CG | greeted_taken | Hello again! How's it going, honestly?
+oathbound/CG | greeted_taken | Welcome back. I saw you {since}, and the work's still yours, no pressure, well, some pressure.
+oathbound/CG | greeted_finished | Good to see you! It's done, you did it, and I'm grinning like a fool.
+oathbound/CG | greeted_finished | Welcome back. It's finished, and you kept the heart of your word.
+oathbound/CG | greeted_failed | Hello again. It failed, and that's a shame, not a crime.
+oathbound/CG | greeted_failed | Good day. So it didn't come off; you tried, and that counts with me.
+oathbound/CG | greeted_abandoned | Back again. You gave it up, and I've decided not to mind.
+oathbound/CG | greeted_abandoned | Well met again. You dropped the work, and I'd still rather know you're well.
+oathbound/CG | small_talk | Oh, grand, now someone's talking to me.
+oathbound/CG | small_talk | Most days I'm the {post} first and myself second, and today's no different.
+oathbound/CG | small_talk | It's {season}, and I like it, the way I like all of them.[ Not the {danger}, though, I could do without them.]
+oathbound/CG | small_talk_fair | A gorgeous {time}, and I refuse to waste it being sensible.
+oathbound/CG | small_talk_fair | Look at that sky, and tell me you're not glad of it.[ Mind the {danger}, though.]
+oathbound/CG | small_talk_wet | It's pouring, so get under something, go on.
+oathbound/CG | small_talk_wet | What a wet {time}, and everyone's miserable but me.[ And the {danger}, I hope.]
+oathbound/CG | small_talk_storm | Hear that wind; glorious, and terrible, and nobody should be out in it.
+oathbound/CG | small_talk_storm | Such a storm, so stay in, please, for my sake.[ And nowhere near the {danger}.]
+oathbound/CG | small_talk_cold | Another time, maybe, when I trust you more.
+oathbound/CG | small_talk_cold | Let's not; I'm keeping my chatter for kinder company.
+oathbound/CG | acknowledged | Aye, got it, and thanks for saying.
+oathbound/CG | acknowledged | Right, I'll hold on to that.
+oathbound/CG | acknowledged | Ah, now I know, and that's something.
+oathbound/CG | thanked | Glad to, honestly, any time.
+oathbound/CG | thanked | My pleasure, and don't make a fuss of it.
+oathbound/CG | thanked_cold | Spare me, I didn't do it to be liked by you.
+oathbound/CG | thanked_cold | Keep your thanks; I'll believe them later.
+oathbound/CG | offended | Hold your tongue, that's beneath you, I'd hope.
+oathbound/CG | offended | Watch your tongue, I've heard better insults from children.
+oathbound/CG | offended_again | Enough, I'm done being nice about it.
+oathbound/CG | offended_again | Careful, I let the first one go, and that was my kindness spent.
+oathbound/CG | parted_cold | Go, then, and leave the decent folk alone.
+oathbound/CG | parted_cold | Be on your way, quickly.
+oathbound/CG | safety_unsafe | No, not with {worst}, don't even think about it.[ There are {danger} too, so no.]
+oathbound/CG | safety_unsafe | Not safe, there are {danger}, so please, don't.[ And keep off {worst}.]
+oathbound/CG | safety_wary | Mostly, if you keep away from {worst}, and I mean away.[ The {danger} too.]
+oathbound/CG | safety_wary | Careful. It's all right if you steer clear of {worst}.
+oathbound/CG | safety_safe | Yes, safe, and I'd know. The worst I've heard of is {worst}.
+oathbound/CG | safety_safe | Safe enough, though I'd not wander near {worst}, all the same.
+oathbound/CG | safety_safe | Nothing to fear here, so breathe.
+oathbound/CG | denied | What are you on about, I'm just me, one of me, promise.
+oathbound/CG | denied | You have the wrong one, and I'd tell you if you didn't.
+oathbound/CG | denied_again | No, still no, and I'm not cross, just no.
+
+# ---- oathbound/NE: conversation ----
+oathbound/NE | greeted | Hello. Make it worth my while.
+oathbound/NE | greeted | Good day. You're new, so I'll be polite, once.
+oathbound/NE | greeted | Well met, perhaps. We'll see what use you are.
+oathbound/NE | greeted_again | Hello again.[ Still pestering people about {asked}?]
+oathbound/NE | greeted_again | Back again. I saw you {since}, and you've found me no more patient.
+oathbound/NE | greeted_again | Good day. You remembered where to find me; how useful.
+oathbound/NE | greeted_warm | Good to see you, and I don't say that to many.[ Was {asked} worth the trouble?]
+oathbound/NE | greeted_warm | Welcome back. You're one of the few I don't mind seeing.
+oathbound/NE | greeted_cold | What do you want? Be brief; my courtesy doesn't stretch far.
+oathbound/NE | greeted_cold | Keep back. I can smell trouble from here.
+oathbound/NE | greeted_cold | What now? Whatever it is, the answer's likely no.
+oathbound/NE | greeted_taken | Hello again. My work's still undone, I notice.
+oathbound/NE | greeted_taken | Back again. You were last here {since}, and my patience with you is not endless.
+oathbound/NE | greeted_finished | Good to see you. The work's done, and you've proven useful after all.
+oathbound/NE | greeted_finished | Welcome back. It's done, so I'll stop doubting you, for now.
+oathbound/NE | greeted_failed | Hello again. You failed, and I don't forget failures.
+oathbound/NE | greeted_failed | Good day, if it is one for you, after failing me.
+oathbound/NE | greeted_abandoned | Back again, after walking off my work; that takes nerve, or no sense.
+oathbound/NE | greeted_abandoned | Well met again, though I'd not have expected you to show your face.
+oathbound/NE | small_talk | I'm well, not that it's any concern of yours.
+oathbound/NE | small_talk | My work is thankless, and the company's worse.
+oathbound/NE | small_talk | It's {season}, and nothing about it interests me.[ The {danger} might interest you, though.]
+oathbound/NE | small_talk_fair | A fine {time}, and you're spoiling it.
+oathbound/NE | small_talk_fair | Fine weather, for {season}, if you care about that sort of thing.[ Go and enjoy the {danger}, then.]
+oathbound/NE | small_talk_wet | It's raining, as you can plainly see.
+oathbound/NE | small_talk_wet | Such weather keeps sensible people indoors, and yet here you are.[ Mind the {danger}, or don't.]
+oathbound/NE | small_talk_storm | No mood for chatter in a storm, least of all yours.
+oathbound/NE | small_talk_storm | Out in a gale, and bothering me; you have a gift.[ There are {danger}, for all the good telling you does.]
+oathbound/NE | small_talk_cold | I've no small talk for you, and little large talk either.
+oathbound/NE | small_talk_cold | Get to the point, or get out of my sight.
+oathbound/NE | acknowledged | Indeed. How very helpful of you.
+oathbound/NE | acknowledged | I see. I'll decide what that's worth.
+oathbound/NE | acknowledged | Well, that's something, I suppose.
+oathbound/NE | thanked | Don't mention it, and I mean that; don't.
+oathbound/NE | thanked | No need, I wasn't doing it for you.
+oathbound/NE | thanked_cold | Spare me, gratitude from you means nothing.
+oathbound/NE | thanked_cold | Hmph, your thanks and a stone would weigh about the same.
+oathbound/NE | offended | Watch your tongue, I remember insults longer than you'll remember making them.
+oathbound/NE | offended | How dare you, and from someone of so little use.
+oathbound/NE | offended_again | Enough, you've made an enemy, and I don't say that lightly.
+oathbound/NE | offended_again | Hold your tongue, you've said more than enough for one lifetime.
+oathbound/NE | parted_cold | Off with you, I've wasted enough on you.
+oathbound/NE | parted_cold | Get going, you've had all you'll get.
+oathbound/NE | safety_unsafe | No, and only a fool would go near {worst}.[ There are {danger} as well, not that you'll listen.]
+oathbound/NE | safety_unsafe | Not here, not with {danger}.[ And {worst}, if you're in a hurry to die.]
+oathbound/NE | safety_wary | More or less, provided you've the sense to avoid {worst}.[ The {danger} too, obviously.]
+oathbound/NE | safety_wary | Safe enough for anyone with their wits about them, so perhaps not you. Stay clear of {worst}.
+oathbound/NE | safety_safe | Safe enough, even for you. The worst I'd bother naming is {worst}.
+oathbound/NE | safety_safe | Yes, though I'd keep clear of {worst}, if you value your skin.
+oathbound/NE | safety_safe | Nothing to fear here, apart from boredom.
+oathbound/NE | denied | No, and I resent the suggestion.
+oathbound/NE | denied | You're mistaken, and it doesn't flatter you.
+oathbound/NE | denied_again | That's not so, and asking again only proves you're slow.
+
+# ---- oathbound/LE: conversation ----
+oathbound/LE | greeted | Greetings. You will state your business, and you will state it briefly.
+oathbound/LE | greeted | Good day. Speak, and know that I will hold you to every word.
+oathbound/LE | greeted | Hail. I do not know you, and I do not yet see why I should.
+oathbound/LE | greeted_again | Hello again.[ You asked after {asked}; I trust you were satisfied.]
+oathbound/LE | greeted_again | Welcome back. We last spoke {since}, and I have not forgotten it.
+oathbound/LE | greeted_again | Well met again. You return, which suggests you want something.
+oathbound/LE | greeted_warm | Good to see you; I think better of you than of most.[ Did {asked} answer your purpose?]
+oathbound/LE | greeted_warm | Good day. Of all who trouble me, you trouble me least.
+oathbound/LE | greeted_cold | What do you want? Be precise; I have no patience to spare for you.
+oathbound/LE | greeted_cold | Keep back. You will address me from there, or not at all.
+oathbound/LE | greeted_cold | Stay back. I do not deal with those I have not weighed.
+oathbound/LE | greeted_taken | Hello again. The work remains undone, and your word remains given.
+oathbound/LE | greeted_taken | Good day. We spoke {since}; you will recall what you agreed to.
+oathbound/LE | greeted_finished | Welcome back. The work is done, and I acknowledge it, which I do not do often.
+oathbound/LE | greeted_finished | Good to see you, for once. Your word was kept, and I have noted it.
+oathbound/LE | greeted_failed | Hello again. The work failed, and your standing with me failed with it.
+oathbound/LE | greeted_failed | Good day. You gave your word and could not keep it; I remember such things.
+oathbound/LE | greeted_abandoned | Back again. You set aside work you had sworn to, and I have not forgiven it.
+oathbound/LE | greeted_abandoned | Well met again, though you walked away from what you agreed, and I recall it exactly.
+oathbound/LE | small_talk | I am well, and I will remain so, whatever you may wish.
+oathbound/LE | small_talk | The office of {post} occupies me, and idle talk does not.
+oathbound/LE | small_talk | It is {season}, and it will pass, as most things do.[ You may care to know of the {danger}.]
+oathbound/LE | small_talk_fair | A fair {time}, not that it improves the company.
+oathbound/LE | small_talk_fair | Fine weather for {season}, and you are welcome to it.[ The {danger} are welcome to you.]
+oathbound/LE | small_talk_wet | It is wet, and I do not discuss the obvious.
+oathbound/LE | small_talk_wet | Let it rain; I am not made of sugar, and neither, I assume, are you.[ Mind the {danger}, whatever the weather.]
+oathbound/LE | small_talk_storm | This storm is fierce; only a fool would linger in it.
+oathbound/LE | small_talk_storm | Such weather shows who has sense and who does not.[ Keep from the {danger}, if you have any.]
+oathbound/LE | small_talk_cold | I do not make conversation with the likes of you.
+oathbound/LE | small_talk_cold | You will get answers from me, not company.
+oathbound/LE | acknowledged | Indeed. I shall remember you said so.
+oathbound/LE | acknowledged | I see. I will weigh that accordingly.
+oathbound/LE | acknowledged | Well, that will do, for now.
+oathbound/LE | thanked | You're welcome, and let us leave it there.
+oathbound/LE | thanked | Don't mention it; I would rather it were not remarked upon.
+oathbound/LE | thanked_cold | Save your thanks; I did not act on your account.
+oathbound/LE | thanked_cold | Spare me; I have no use for gratitude I did not ask for.
+oathbound/LE | offended | Watch your tongue; that remark says more about you than about me.
+oathbound/LE | offended | How dare you address me so, and to my face.
+oathbound/LE | offended_again | Enough; you have now insulted me twice, and I keep an exact account.
+oathbound/LE | offended_again | Mind your manners; I have been more than patient, and patience is not owed.
+oathbound/LE | parted_cold | Be on your way; this audience is over.
+oathbound/LE | parted_cold | On your way, and take your insolence with you.
+oathbound/LE | safety_unsafe | No, and I say so plainly: avoid {worst}.[ Nor should you forget the {danger}.]
+oathbound/LE | safety_unsafe | Far from it; there are {danger}, and they will not ask your standing.[ Keep clear of {worst} as well.]
+oathbound/LE | safety_wary | Safe enough, for those with the wit to avoid {worst}.[ The {danger} as well.]
+oathbound/LE | safety_wary | Careful. It is safe on one condition: that you keep clear of {worst}.
+oathbound/LE | safety_safe | Yes, it is safe; the worst I would name is {worst}.
+oathbound/LE | safety_safe | It's safe, strictly speaking. Keep away from {worst} regardless.
+oathbound/LE | safety_safe | Quiet enough, and I will say no more than that.
+oathbound/LE | denied | No; I am exactly what I appear, to the letter.
+oathbound/LE | denied | You have the wrong one, and I will not dignify the rest.
+oathbound/LE | denied_again | That's not so, and I will not answer it a third time.

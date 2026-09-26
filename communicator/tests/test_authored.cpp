@@ -94,6 +94,10 @@ TEST(the_rule_checks_catch_what_they_check) {
     check::is_true(!row_problems("any | parted | Farewell, and give Wenweg my regards.").empty(), "a town the line writes itself");
     check::is_true(row_problems("any | parted | Farewell, and give {place} my regards.").empty(), "the town as a blank passes");
     check::is_true(row_problems("any | declined | Suit yourself, then.").empty(), "an outcome's opening is the program's own");
+    // A saying is dropped in too: left out, "Go well." is sound; said, a second sentence is not.
+    check::is_true(row_problems("any | parted | Go well[; as we say, {saying}].").empty(), "a saying that continues the sentence");
+    check::is_true(!row_problems("any | parted | Go well.[ As we say, {saying}.]").empty(),
+                   "a farewell of one sentence may not add a second, even an optional one");
 }
 
 TEST(a_line_speaks_only_when_its_packet_fills_every_blank) {

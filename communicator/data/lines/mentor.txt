@@ -14,8 +14,8 @@ mentor/NN | surroundings | Here's your ground: {here}. The nearest is {nearest}[
 mentor/NN | surroundings | The nearest is {nearest}.[ Past that, {others}.][ Watch the {danger}.]
 mentor/NN | surroundings | What's closest is {nearest}[, then {others}].[ Keep an eye on the {danger}.]
 mentor/NN | work_own | There's work, and you'll learn something doing it: {own}.[ If not, {others}.]
-mentor/NN | work_own | Do this and we both come out ahead: {own}.[ Otherwise, {others}.]
-mentor/NN | work_own | You want work? Then show me what you're worth: {own}.[ Or else, {others}.]
+mentor/NN | work_own | Here's my offer, plainly put: {own}.[ Otherwise, {others}.]
+mentor/NN | work_own | You want work? Then show me what you're worth: {own}.[ If you'd rather not, {others}.]
 mentor/NN | work_others | Nothing of mine, but {others}. Go and ask them yourself.
 mentor/NN | work_others | I've nothing for you. {others}, and you can do your own asking.
 mentor/NN | work_none | No work, mine or anyone's that I know of.
@@ -32,7 +32,7 @@ mentor/NN | refused | No, because {reason}.
 mentor/NN | refused | I can't; {reason}, and wanting won't change it.
 mentor/NN | accepted | Good. What you learn doing it is yours to keep.
 mentor/NN | accepted | Then it's agreed. You hold up your end, and I'll hold up mine.
-mentor/NN | accepted | Done. Don't come asking me to finish it for you.
+mentor/NN | accepted | Done. Now we find out what you're good for.
 mentor/NN | declined | Suit yourself; I don't chase.
 mentor/NN | declined | Fair enough; a thing you don't want is a thing you won't learn.
 mentor/NN | declined | Very well, I'll find a use for someone else.
@@ -106,7 +106,7 @@ mentor/NG | surroundings | You're standing in {here}; nearest to you is {nearest
 mentor/NG | surroundings | The nearest is {nearest}.[ After that, {others}.][ Take care near the {danger}.]
 mentor/NG | surroundings | The closest thing to you is {nearest}[, and past it, {others}].[ Keep well away from the {danger}.]
 mentor/NG | work_own | I could use a hand, if you're willing: {own}.[ If that's not for you, {others}.]
-mentor/NG | work_own | Here's something that needs doing, and I think you're up to it: {own}.[ If not, {others}.]
+mentor/NG | work_own | Here's something that needs doing, and I'd like it to be you: {own}.[ If not, {others}.]
 mentor/NG | work_own | Will you help? What I need is this: {own}.[ And if not, {others}.]
 mentor/NG | work_others | I've nothing of my own to give, but {others}.
 mentor/NG | work_others | Not a thing from me, but {others}. Go and ask; the worst anyone says is no.
@@ -122,14 +122,14 @@ mentor/NG | refused_release | Not from me, I'm afraid; you gave {giver} your wor
 mentor/NG | refused_release | I cannot undo what I didn't give, much as I'd like to help.
 mentor/NG | refused | No, I'm sorry, {reason}.
 mentor/NG | refused | I can't, not when {reason}; I wish it were otherwise.
-mentor/NG | accepted | Thank you. Come back safe; that matters more to me than the work.
-mentor/NG | accepted | Good. If it goes badly, come to me before it goes worse.
-mentor/NG | accepted | Very good. Look after yourself, and anyone who needs it on the way.
+mentor/NG | accepted | Thank you. I mean that; you didn't have to say yes.
+mentor/NG | accepted | Good. That's settled, then, and I'm glad of it.
+mentor/NG | accepted | Very good. Let's shake on it, and thank you.
 mentor/NG | declined | Fair enough; ask me again whenever you like.
 mentor/NG | declined | As you wish; I'd rather you said no than took it on half-hearted.
 mentor/NG | declined | Very well, and thank you for being honest about it.
-mentor/NG | abandoned | So be it; you're more use to me alive than stubborn.
-mentor/NG | abandoned | A pity, but I'd rather have you back than have it done.
+mentor/NG | abandoned | So be it; you're more use to me honest than stubborn.
+mentor/NG | abandoned | A pity, but I'd rather hear it from you now than later.
 mentor/NG | abandoned | Then it's done, and no shame in it; tell me what went wrong.
 mentor/NG | parted | Take care, and look after whoever's with you.
 mentor/NG | parted | Goodbye, and don't be too proud to come back for help.
@@ -148,12 +148,12 @@ mentor/CN | about_place | Ha, that's {about}. Go and see for yourself; I'd only 
 mentor/CN | about_place | You mean {about}? Right. Go and jump in it, and tell me if you sink.
 mentor/CN | surroundings | Right, you're in {here}, and nearest of anything, {nearest}.[ Then {others}.][ And the {danger}, mind.]
 mentor/CN | surroundings | This? {here}, and the nearest is {nearest}[, then, oh, {others}].[ Watch the {danger}, or don't, and learn quick.]
-mentor/CN | surroundings | Look around, fishbait: this is {here}, and nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}, or swim fast.]
+mentor/CN | surroundings | Look around: this is {here}, and nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}, or swim fast.]
 mentor/CN | surroundings | The nearest's {nearest}[, then {others}].[ The {danger}, too, so look sharp.]
 mentor/CN | surroundings | Well, there's {nearest}.[ After that, {others}.][ Mind the {danger}.]
-mentor/CN | work_own | Either you jump or I push: {own}.[ Or, if you're boring, {others}.]
+mentor/CN | work_own | Either you jump or I push: {own}.[ Or, your call, {others}.]
 mentor/CN | work_own | Here, catch: {own}.[ Don't like it? {others}.]
-mentor/CN | work_own | Something to sink your teeth into, or just sink: {own}.[ Otherwise, {others}.]
+mentor/CN | work_own | Listen, no, look, it's this: {own}.[ Otherwise, {others}.]
 mentor/CN | work_others | Me? Nothing. But {others}, so shoo.
 mentor/CN | work_others | Nothing of mine, but, hang on, {others}.
 mentor/CN | work_none | Not a thing. Make your own trouble; it's more educational.
@@ -168,9 +168,9 @@ mentor/CN | refused_release | I can't let you off {giver}'s hook, and honestly I
 mentor/CN | refused_release | I cannot, and wouldn't, it's not my knot to undo.
 mentor/CN | refused | No, {reason}; shame, I was enjoying this.
 mentor/CN | refused | I can't, {reason}, and, no, that's it, that's the whole story.
-mentor/CN | accepted | Good! Now swim.
-mentor/CN | accepted | Done, and no hand-holding, mind.
-mentor/CN | accepted | Then it's agreed, oh, this'll be fun. For one of us.
+mentor/CN | accepted | Good! Ha, didn't think you'd say yes, well, I did, a bit.
+mentor/CN | accepted | Done, shake, no, spit and shake, no, just shake.
+mentor/CN | accepted | Then it's agreed, oh, good, I do like a yes.
 mentor/CN | declined | Suit yourself, fishbait.
 mentor/CN | declined | Fair enough, dry feet, dull life, your choice.
 mentor/CN | declined | As you wish, though I'd have pushed you in anyway.
@@ -199,7 +199,7 @@ mentor/LG | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ M
 mentor/LG | surroundings | As for what is near: {nearest}[, and after it, {others}].[ Be careful of the {danger}.]
 mentor/LG | work_own | If you are willing, I would ask this of you: {own}.[ If not, {others}.]
 mentor/LG | work_own | A task, and an honest test of you: {own}.[ Otherwise, {others}.]
-mentor/LG | work_own | I have need of someone steady: {own}.[ Should that not suit, {others}.]
+mentor/LG | work_own | I would set this before you, if I may: {own}.[ Should that not suit, {others}.]
 mentor/LG | work_others | Of my own I have nothing to ask of you, but {others}.
 mentor/LG | work_others | There is no task of mine, but {others}, and you go with my good wishes.
 mentor/LG | work_none | Sadly, I have no work to offer and know of none.
@@ -214,14 +214,14 @@ mentor/LG | refused_release | Not from me; {giver} set it, and only {giver} may 
 mentor/LG | refused_release | I can't, for that task was never mine to set; I would help you otherwise.
 mentor/LG | refused | No, {reason}, and I am bound by that as much as you are.
 mentor/LG | refused | I cannot, as {reason}, though I wish I could.
-mentor/LG | accepted | Thank you. I will not fight this for you, but I will not abandon you to it either.
+mentor/LG | accepted | Thank you. I do not ask lightly, and I am glad of your answer.
 mentor/LG | accepted | Then it's agreed, and you have my word as surely as I have yours.
-mentor/LG | accepted | Very good. Go with honour, and come back to me whole.
-mentor/LG | declined | Very well; there is no dishonour in knowing your limits.
+mentor/LG | accepted | Very good. Your word is taken, and it honours us both.
+mentor/LG | declined | Very well; there is no dishonour in an honest refusal.
 mentor/LG | declined | As you wish, and I thank you for saying so plainly.
 mentor/LG | declined | Fair enough; you owe me no explanation.
-mentor/LG | abandoned | So be it; your life is worth more to me than the task.
-mentor/LG | abandoned | A pity, but I am glad you are here to tell me so.
+mentor/LG | abandoned | So be it; you are worth more to me than the task.
+mentor/LG | abandoned | A pity, but I am glad you told me so yourself.
 mentor/LG | abandoned | Then it's done, and I hold nothing against you for it.
 mentor/LG | parted | Farewell; keep faith, and keep safe.
 mentor/LG | parted | Go well, and remember that you may call on me.
@@ -243,9 +243,9 @@ mentor/LE | surroundings | This is {here}, as you ought to know already. The nea
 mentor/LE | surroundings | You are in {here}, and nearest of all is {nearest}.[ Then {others}.][ Should the {danger} take you, I will have wasted my time.]
 mentor/LE | surroundings | The nearest is {nearest}.[ Then {others}.][ Beware the {danger}; I will not come for you.]
 mentor/LE | surroundings | Nothing lies closer than {nearest}[, and past it, {others}].[ Keep from the {danger}, if you have the wit.]
-mentor/LE | work_own | I have a use for you: {own}.[ If you lack the stomach for it, {others}.]
-mentor/LE | work_own | Here is a test, and I expect you to pass it: {own}.[ If that is beyond you, {others}.]
-mentor/LE | work_own | You will do this, and you will do it properly: {own}.[ Or, should you prefer lesser work, {others}.]
+mentor/LE | work_own | I have a use for you: {own}.[ If you will not, {others}.]
+mentor/LE | work_own | Here is a test, and I expect you to pass it: {own}.[ Should you refuse it, {others}.]
+mentor/LE | work_own | You will do this, and you will do it properly: {own}.[ Or, should you choose otherwise, {others}.]
 mentor/LE | work_others | Nothing of mine is fit for you yet, but {others}.
 mentor/LE | work_others | Look elsewhere: {others}, if you must be busy.
 mentor/LE | work_none | There is no work that I know of, which may be for the best.
@@ -289,9 +289,9 @@ mentor/CG | surroundings | This is {here}, yes? The nearest is {nearest}[, and p
 mentor/CG | surroundings | Look, {here}, that's where you are, and the nearest is {nearest}.[ Then {others}.][ Mind the {danger}; I'd miss you.]
 mentor/CG | surroundings | The nearest is {nearest}[, then {others}].[ Be careful of the {danger}, won't you?]
 mentor/CG | surroundings | Hm, nearest to you is {nearest}.[ Past that, {others}.][ And do watch the {danger}.]
-mentor/CG | work_own | In at the deep end with you: {own}.[ Or, if you'd rather paddle, {others}.]
-mentor/CG | work_own | Here's one, you'll hate it, then love it: {own}.[ Or there's this: {others}.]
-mentor/CG | work_own | I need someone brave, or daft, or both: {own}.[ If not you, {others}.]
+mentor/CG | work_own | Well, I've something for you, if you'll have it: {own}.[ Or, if you'd rather, {others}.]
+mentor/CG | work_own | Here's one, and I thought of you straight away: {own}.[ Or there's this: {others}.]
+mentor/CG | work_own | I need someone, and, well, you're someone: {own}.[ No? Then {others}.]
 mentor/CG | work_others | Nothing of mine, but wait, {others}.
 mentor/CG | work_others | Mine? None, but {others}, so go and be useful to someone.
 mentor/CG | work_none | Not a scrap, not a crumb, nothing that I know of.
@@ -306,16 +306,16 @@ mentor/CG | refused_release | Not from me, {giver} gave it, {giver} can take it 
 mentor/CG | refused_release | I cannot, ha, listen to me, I cannot, it's not mine to undo.
 mentor/CG | refused | No, {reason}, and I'm sorry, truly.
 mentor/CG | refused | I can't, {reason}, and believe me, I'd like to.
-mentor/CG | accepted | Good! In you go, and if you sink, I'm coming in after you.
-mentor/CG | accepted | Thank you, truly, now go before you think too hard about it.
-mentor/CG | accepted | Done! Off you go, and come back with all your fingers.
+mentor/CG | accepted | Good! Oh, good, I hoped you'd say that.
+mentor/CG | accepted | Thank you, truly, I mean it, I'm not just saying it.
+mentor/CG | accepted | Done! I'm pleased, I'm trying not to show it, and I'm showing it.
 mentor/CG | declined | Fair enough, dry land has its charms.
 mentor/CG | declined | Suit yourself, no, really, I mean that kindly.
-mentor/CG | declined | As you wish, though you'd have loved it, you know.
-mentor/CG | abandoned | So be it, you're back in one piece, and that's what counts.
-mentor/CG | abandoned | A pity, oh, cheer up, there's always another deep end.
-mentor/CG | abandoned | Then it's done, and are you hurt, is anyone hurt?
-mentor/CG | parted | Go well, sprout, and swim hard.
+mentor/CG | declined | As you wish, and no hard feelings, none, look, none.
+mentor/CG | abandoned | So be it, you told me, and that's what counts.
+mentor/CG | abandoned | A pity, oh, chin up, you're still you, and that's plenty.
+mentor/CG | abandoned | Then it's done, and, never mind the work, are you all right?
+mentor/CG | parted | Go well, and swim hard.
 mentor/CG | parted | Take care, and I mean take it, don't leave it lying about.
 mentor/CG | parted | Farewell, and if it all goes wrong, I'll come running.
 mentor/CG | not_understood | What do you mean, say it again, slower, I'm listening.
@@ -337,7 +337,7 @@ mentor/NE | surroundings | The nearest is {nearest}.[ Then {others}.][ Keep clea
 mentor/NE | surroundings | All you need to know: the nearest is {nearest}[, then {others}].[ Watch the {danger}.]
 mentor/NE | work_own | I can use you: {own}.[ If not, {others}.]
 mentor/NE | work_own | Some work, and a chance to show you're worth keeping: {own}.[ Otherwise, {others}.]
-mentor/NE | work_own | Do this well and I'll remember it: {own}.[ Or else, {others}.]
+mentor/NE | work_own | Do this well and I'll remember it: {own}.[ Or, if you won't, {others}.]
 mentor/NE | work_others | Nothing of mine that I'd waste on you, but {others}.
 mentor/NE | work_others | Ask someone else. {others}, if they'll have you.
 mentor/NE | work_none | None. Not for you, not for anyone I know of.
@@ -353,7 +353,7 @@ mentor/NE | refused_release | I cannot release you from what I never gave, and I
 mentor/NE | refused | No, {reason}, and whining won't change it.
 mentor/NE | refused | I can't, {reason}; move along.
 mentor/NE | accepted | Good. Be useful, and you'll stay in my good graces.
-mentor/NE | accepted | Done. If you fail, don't bother coming back.
+mentor/NE | accepted | Done. We'll soon see if you were worth asking.
 mentor/NE | accepted | Thank you. That's more use than you've been so far.
 mentor/NE | declined | Suit yourself; I've no use for you, then.
 mentor/NE | declined | Fair enough, and I'll remember it.
@@ -367,3 +367,443 @@ mentor/NE | parted | Farewell; you know where I am if you turn out useful.
 mentor/NE | not_understood | Speak plainly, or don't waste my time.
 mentor/NE | not_understood | What do you mean, and why should I care?
 mentor/NE | not_understood | I don't follow, and I'm not going to try.
+
+# ---- mentor/NN: conversation ----
+mentor/NN | greeted | Hello. Ask what you like, and I'll answer what's worth answering.
+mentor/NN | greeted | Good day. What brings you, and what are you good at?
+mentor/NN | greeted | Well met. You'll get a straight answer from me, and I'll expect one back.
+mentor/NN | greeted_again | Hello again, then.[ Did you get what you wanted out of {asked}?]
+mentor/NN | greeted_again | Back again. I saw you {since}; you've not wasted the time, I hope.
+mentor/NN | greeted_again | Good day. You came back, so I must have been some use to you.
+mentor/NN | greeted_warm | Good to see you, and I mean that.[ How did you get on with {asked}?]
+mentor/NN | greeted_warm | Welcome back. You've been worth the time so far; let's keep it that way.
+mentor/NN | greeted_cold | What do you want? Say it plainly, and quickly.
+mentor/NN | greeted_cold | What now? I've no time for you unless you've something worth trading.
+mentor/NN | greeted_cold | Keep back. Tell me your business from there.
+mentor/NN | greeted_taken | Hello again. The work's still yours, and still not done.
+mentor/NN | greeted_taken | Back again. I saw you {since}, and the work you took is still on your account.
+mentor/NN | greeted_finished | Good to see you. The work's done, and I count that in your favour.
+mentor/NN | greeted_finished | Welcome back. You held up your end; I don't forget that.
+mentor/NN | greeted_failed | Hello again. It didn't come off; learn what you can from it and move on.
+mentor/NN | greeted_failed | Good day. The work failed, and there's a lesson in that too, if you look.
+mentor/NN | greeted_abandoned | Back again. You gave up the work; I've noted it, and that's all.
+mentor/NN | greeted_abandoned | Well met again. You left the work unfinished, and I keep count of such things.
+mentor/NN | small_talk | Well enough, thank you; I've no complaints worth your time.
+mentor/NN | small_talk | As {post} of {place}, I'm kept busy enough, and I like it that way.
+mentor/NN | small_talk | It's {season}, and nothing much changes for me with it.[ There are {danger}, which is worth knowing.]
+mentor/NN | small_talk_fair | It's fair and dry, and I'll not argue with that.
+mentor/NN | small_talk_fair | Good weather, for {season}; make use of it.[ Mind the {danger}, though.]
+mentor/NN | small_talk_wet | It's wet, and talking about it won't make it drier.
+mentor/NN | small_talk_wet | Nothing to be done about rain but work through it.[ There are {danger}, rain or no rain.]
+mentor/NN | small_talk_storm | It's blowing hard; stay in if you've any sense, and go if you've a reason.
+mentor/NN | small_talk_storm | A real storm, and no use pretending otherwise.[ There are {danger} too.]
+mentor/NN | small_talk_cold | I'm not here to pass the time with you.
+mentor/NN | small_talk_cold | If you want something, say so; otherwise, leave it.
+mentor/NN | acknowledged | I see. That tells me something about you.
+mentor/NN | acknowledged | Fair enough. Now I know where we stand.
+mentor/NN | acknowledged | Right. I'll weigh that up.
+mentor/NN | thanked | You're welcome; just make good use of it.
+mentor/NN | thanked | No need; call it square.
+mentor/NN | thanked_cold | Save your thanks; I answered, and that's all it was.
+mentor/NN | thanked_cold | Spare me; an answer isn't a favour.
+mentor/NN | offended | Watch your tongue; you'll get nothing from me that way.
+mentor/NN | offended | There's no need for that; say what you want or go.
+mentor/NN | offended_again | Enough; I've heard what you think of me, and I've marked it.
+mentor/NN | offended_again | Hold your tongue; you're spending goodwill you haven't got.
+mentor/NN | parted_cold | Go, then; we're done here.
+mentor/NN | parted_cold | On your way; there's nothing more to trade.
+mentor/NN | safety_unsafe | No. Stay away from {worst}; I'll not say it twice.[ And there are {danger}.]
+mentor/NN | safety_unsafe | Not safe. There are {danger}, and they don't care how clever you are.[ Keep clear of {worst}, too.]
+mentor/NN | safety_wary | Safe enough, if you use your head. Keep clear of {worst}.[ Mind the {danger} too.]
+mentor/NN | safety_wary | More or less. The only real trouble is {worst}, so don't go looking for it.
+mentor/NN | safety_safe | Safe enough. Still, I'd not go near {worst}.
+mentor/NN | safety_safe | Yes, as these things go. Just keep {worst} in mind.
+mentor/NN | safety_safe | Nothing to fear here; spend your worry somewhere it's needed.
+mentor/NN | denied | No; I'm exactly what I look like, and I've no reason to be otherwise.
+mentor/NN | denied | You're mistaken; there's nothing to find, so don't waste your time looking.
+mentor/NN | denied_again | That's not so, and asking twice won't make it so.
+
+# ---- mentor/LN: conversation ----
+mentor/LN | greeted | Greetings. You will find me fair, if you are proper with me.
+mentor/LN | greeted | Good day. We have not met, so you will forgive me if I reserve my judgement.
+mentor/LN | greeted | Hail. Say who you are, and we may proceed from there.
+mentor/LN | greeted_again | Hello again, and welcome.[ You asked after {asked} when last we spoke; I trust you found your answer.]
+mentor/LN | greeted_again | Good day. We last spoke {since}; you have returned, which speaks for you.
+mentor/LN | greeted_again | Back again. Then you are serious, and I will treat you so.
+mentor/LN | greeted_warm | Well met again, and gladly.[ I trust {asked} proved worth the asking.]
+mentor/LN | greeted_warm | Good to see you. You have borne yourself well with me, and I take note of it.
+mentor/LN | greeted_cold | What do you want? Speak properly, and be brief.
+mentor/LN | greeted_cold | Stay back. You have not earned the right to stand closer.
+mentor/LN | greeted_cold | What now? You may speak, and I will listen, as the forms require.
+mentor/LN | greeted_taken | Hello again. The task you accepted stands unfinished, and your word stands with it.
+mentor/LN | greeted_taken | Good day. I saw you {since}; the test is not yet complete.
+mentor/LN | greeted_finished | Welcome back. The task is complete, and you have passed.
+mentor/LN | greeted_finished | Good to see you. You gave your word and kept it; that is the first test, and the hardest.
+mentor/LN | greeted_failed | Hello again. The task was failed, and I will not pretend otherwise.
+mentor/LN | greeted_failed | Back again. A failed test is still a test taken; we will see what you make of it.
+mentor/LN | greeted_abandoned | Good day. You set the task aside, and your word with it.
+mentor/LN | greeted_abandoned | Well met again. The task you gave up remains to your account.
+mentor/LN | small_talk | I am well, thank you, and I would say so if I were not.
+mentor/LN | small_talk | The duties of {post} of {place} fill the day, as they should.
+mentor/LN | small_talk | It is {season}, and each season has its lessons.[ Take note of the {danger}.]
+mentor/LN | small_talk_fair | It is a clear {time}, and a pleasant one, I will grant.
+mentor/LN | small_talk_fair | The weather is fine for {season}, and I will not complain of it.[ Do not let it make you careless of the {danger}.]
+mentor/LN | small_talk_wet | There is rain, and no profit in remarking on it.
+mentor/LN | small_talk_wet | It is a wet {time}, for {season}.[ Heed the {danger} all the same.]
+mentor/LN | small_talk_storm | A storm like this is no time to be abroad without cause.
+mentor/LN | small_talk_storm | It is a hard storm, and I would not travel in it unless bound to.[ Nor, in any weather, near the {danger}.]
+mentor/LN | small_talk_cold | I will not pass the time with you; state your business or leave.
+mentor/LN | small_talk_cold | We are not on such terms that I would talk idly with you.
+mentor/LN | acknowledged | Indeed. Then I understand you better than I did.
+mentor/LN | acknowledged | I see. I will hold you to that answer.
+mentor/LN | acknowledged | Is that so? Then I will take you at your word.
+mentor/LN | thanked | You're welcome; it was properly asked, and properly answered.
+mentor/LN | thanked | Think nothing of it; courtesy is owed where it is shown.
+mentor/LN | thanked_cold | Keep your thanks; I answered as courtesy requires, and no further.
+mentor/LN | thanked_cold | Spare me; your thanks change nothing between us.
+mentor/LN | offended | Mind your manners; you will be answered as you speak.
+mentor/LN | offended | How dare you speak to me so; I have given you no cause.
+mentor/LN | offended_again | Enough; you have used up what courtesy I owed you.
+mentor/LN | offended_again | Hold your tongue; I will not hear it again.
+mentor/LN | parted_cold | Be on your way; we have nothing further to discuss.
+mentor/LN | parted_cold | Go, then, and conduct yourself better elsewhere.
+mentor/LN | safety_unsafe | No. You would be unwise to go near {worst}.[ Beware the {danger} as well.]
+mentor/LN | safety_unsafe | Not safe, and I say so plainly. There are {danger}.[ And {worst} is to be avoided.]
+mentor/LN | safety_wary | Safe enough, with due care. Keep clear of {worst}.[ Heed the {danger} as well.]
+mentor/LN | safety_wary | Keep your wits about you. The one place I would not go is {worst}.
+mentor/LN | safety_safe | Yes, within reason. The worst of it is {worst}, and that you may avoid.
+mentor/LN | safety_safe | It's safe, as far as I can attest. I would only caution you about {worst}.
+mentor/LN | safety_safe | Safe enough; you have my word on it.
+mentor/LN | denied | No; I am exactly as I present myself, and I will swear to it.
+mentor/LN | denied | You're mistaken, and I will thank you not to repeat it.
+mentor/LN | denied_again | That's not so; I have answered once, and my answer stands.
+
+# ---- mentor/NG: conversation ----
+mentor/NG | greeted | Hello. I don't know you yet, but I'd like to; who are you?
+mentor/NG | greeted | Good day. If you need something, ask; I'd sooner help early than late.
+mentor/NG | greeted | Well met. Is anyone with you, or are you on your own?
+mentor/NG | greeted_again | Hello again, and how are you?[ Did you find what you were after with {asked}?]
+mentor/NG | greeted_again | Back again. I saw you {since}, and I've wondered how you were getting on.
+mentor/NG | greeted_again | Good day. It's good you came back; I'd hoped you would.
+mentor/NG | greeted_warm | Good to see you, it really is.[ How did it go with {asked}, then?]
+mentor/NG | greeted_warm | Welcome back. It does me good to see you; are you keeping well?
+mentor/NG | greeted_cold | What do you want? I'll hear it, but I'm not easy with you.
+mentor/NG | greeted_cold | Stay back, please. Say what you need from there.
+mentor/NG | greeted_cold | What now? I'd like to think better of you, but you'll have to give me a reason.
+mentor/NG | greeted_taken | Hello again. The work's still yours; is it going all right?
+mentor/NG | greeted_taken | Back again. I saw you {since}; if the work's giving you trouble, tell me.
+mentor/NG | greeted_finished | Good to see you. It's done, and I'm grateful; truly.
+mentor/NG | greeted_finished | Welcome back. You finished it; thank you, I mean that.
+mentor/NG | greeted_failed | Hello again. It didn't work out, and I'm sorry; are you all right?
+mentor/NG | greeted_failed | Good day. It failed, and I won't pretend otherwise, but I don't think less of you.
+mentor/NG | greeted_abandoned | Back again. You gave it up, and that's all right; I'd rather know than guess.
+mentor/NG | greeted_abandoned | Well met again. You let the work go; I hope it was for a good reason.
+mentor/NG | small_talk | I'm well, thank you for asking; and you?
+mentor/NG | small_talk | There's always someone who needs a hand with something, and I'd rather be that hand.
+mentor/NG | small_talk | It's {season}; I always wonder who's struggling with it.[ And there are {danger}, which doesn't help.]
+mentor/NG | small_talk_fair | It's a lovely {time}; I hope you get to enjoy some of it.
+mentor/NG | small_talk_fair | The weather's kind for {season}.[ The {danger} aren't, so do be careful.]
+mentor/NG | small_talk_wet | It's wet; I hope you've something dry to change into.
+mentor/NG | small_talk_wet | A wet {time}, and no mistake.[ Keep away from the {danger}, won't you?]
+mentor/NG | small_talk_storm | It's a wild one; I hope nobody's caught out in it.
+mentor/NG | small_talk_storm | Listen to it howl; stay close to shelter if you can.[ And well away from the {danger}.]
+mentor/NG | small_talk_cold | I'd rather not chat, if it's all the same to you.
+mentor/NG | small_talk_cold | Not now; I don't feel easy talking with you.
+mentor/NG | acknowledged | Ah, good. Thank you for telling me.
+mentor/NG | acknowledged | I see. I'll remember that.
+mentor/NG | acknowledged | Right. Now I know how best to help.
+mentor/NG | thanked | You're welcome; I'm glad it helped.
+mentor/NG | thanked | Don't mention it; you'd do the same, I think.
+mentor/NG | thanked_cold | Keep your thanks; I'd have told anyone the same.
+mentor/NG | thanked_cold | Hmph, you're welcome, I suppose.
+mentor/NG | offended | There's no need for that; I've done nothing to you.
+mentor/NG | offended | Watch your tongue, please; I'd rather we got on.
+mentor/NG | offended_again | Enough; I've been patient, and I'm done being patient with you.
+mentor/NG | offended_again | Hold your tongue; I won't listen to any more of it.
+mentor/NG | parted_cold | Go, then; I've nothing more to say to you.
+mentor/NG | parted_cold | On your way, and leave it there.
+mentor/NG | safety_unsafe | No, and I wish I could say otherwise. Please keep clear of {worst}.[ And there are {danger}.]
+mentor/NG | safety_unsafe | Not safe, I'm afraid. There are {danger}, and I'd hate for you to meet them.[ Stay away from {worst} too.]
+mentor/NG | safety_wary | Mostly, if you're careful. Keep away from {worst}.[ Mind the {danger}, too.]
+mentor/NG | safety_wary | More or less. I'd give {worst} a wide berth, and I'd tell anyone the same.
+mentor/NG | safety_safe | Yes, I think so. Only {worst} worries me, and I'd still steer clear.
+mentor/NG | safety_safe | Safe enough. Keep {worst} in mind, all the same.
+mentor/NG | safety_safe | Nothing to fear here, I'm glad to say.
+mentor/NG | denied | No, I'm just as I seem, I promise.
+mentor/NG | denied | You're mistaken, and I'm sorry if I've given you reason to think it.
+mentor/NG | denied_again | That's not so; I've told you, and I'd tell you the same a hundred times.
+
+# ---- mentor/CN: conversation ----
+mentor/CN | greeted | Hello. You're new, good, I like new.
+mentor/CN | greeted | Well met, or met, anyway, we'll see how well.
+mentor/CN | greeted | Greetings, formally, there, done, now what are you after?
+mentor/CN | greeted_again | Hello again, you.[ So, any luck with {asked}, or none?]
+mentor/CN | greeted_again | Back again. I saw you {since}, and, what, you missed me?
+mentor/CN | greeted_again | Good day, or whatever it is, you again.
+mentor/CN | greeted_warm | Good to see you, no, really.[ Tell me about {asked}, go on.]
+mentor/CN | greeted_warm | Welcome back, oh, good, I was getting bored.
+mentor/CN | greeted_cold | What do you want? Make it quick, I've lost interest already.
+mentor/CN | greeted_cold | Keep back, there, that's close enough.
+mentor/CN | greeted_cold | What now? Out with it, I'm not in the mood.
+mentor/CN | greeted_taken | Hello again. That work, yes, still yours, still waiting.
+mentor/CN | greeted_taken | Back again. I saw you {since}, and the work's still sitting there looking at me.
+mentor/CN | greeted_finished | Good to see you. It's done, ha, you did it, I knew, well, I hoped.
+mentor/CN | greeted_finished | Welcome back. The work's done, and so, you know, credit where it's due.
+mentor/CN | greeted_failed | Hello again. It sank, fine, things sink, what did you learn?
+mentor/CN | greeted_failed | Good day. So it failed, well, now you know one way it doesn't go.
+mentor/CN | greeted_abandoned | Back again. You dropped it, fine, your call, I'm not married to it.
+mentor/CN | greeted_abandoned | Well met again. The work you gave up, still given up, and, no, I'm not sulking.
+mentor/CN | small_talk | Me? Good, bored, good again, it changes.
+mentor/CN | small_talk | As {post} of {place}, some days I teach, some days I just watch people fall in.
+mentor/CN | small_talk | It's {season}, which, fine, seasons happen.[ There are {danger}, now that's interesting.]
+mentor/CN | small_talk_fair | It's a fine {time}, which, honestly, bores me.
+mentor/CN | small_talk_fair | Look at that, clear skies, for {season}, imagine.[ And the {danger}, don't forget those.]
+mentor/CN | small_talk_wet | A bit of rain never drowned anyone, well, hardly anyone.
+mentor/CN | small_talk_wet | It's raining, good, nobody ever learned anything staying dry.[ Mind the {danger}, though.]
+mentor/CN | small_talk_storm | Listen to that, a proper storm, I love it, don't tell anyone.
+mentor/CN | small_talk_storm | It's howling out there, so, naturally, I want to go for a walk.[ Not near the {danger}, I'm mad, not stupid.]
+mentor/CN | small_talk_cold | No, not chatting, not with you, not today.
+mentor/CN | small_talk_cold | I'm not in a talking mood, and you're not helping.
+mentor/CN | acknowledged | Ah, right, good, got it.
+mentor/CN | acknowledged | Is that so? Ha, well, fair.
+mentor/CN | acknowledged | Well, well, noted, filed, forgotten, no, kept.
+mentor/CN | thanked | Don't mention it, no, really, don't, it's embarrassing.
+mentor/CN | thanked | Glad to, well, glad-ish, glad enough.
+mentor/CN | thanked_cold | Save your thanks, I'm not in the mood for them.
+mentor/CN | thanked_cold | Spare me, thanks from you is, well, a bit rich.
+mentor/CN | offended | Careful, you're funny, but not that funny.
+mentor/CN | offended | Watch your tongue, or, no, go on, let's see where it gets you.
+mentor/CN | offended_again | Enough, it was funny once, now it's just boring.
+mentor/CN | offended_again | Hold your tongue, I've stopped enjoying this.
+mentor/CN | parted_cold | Off with you, go on.
+mentor/CN | parted_cold | Get going, and don't dawdle.
+mentor/CN | safety_unsafe | No, not even slightly. Keep clear of {worst}.[ And there are {danger}, so, double no.]
+mentor/CN | safety_unsafe | Not safe, no, there are {danger}, and that's that.[ And {worst}, skip that too.]
+mentor/CN | safety_wary | Mostly, if you're not an idiot about it. Keep clear of {worst}.[ The {danger}, too.]
+mentor/CN | safety_wary | More or less, ish. Just don't wander into {worst}.
+mentor/CN | safety_safe | Safe enough, boringly so. There's {worst}, if you're desperate for trouble.
+mentor/CN | safety_safe | Aye, safe, well, safe-ish, {worst} excepted.
+mentor/CN | safety_safe | Quiet enough, sadly, go and find your own excitement.
+mentor/CN | denied | No, ha, what, me, no.
+mentor/CN | denied | What are you on about, I'm exactly this, all the way down.
+mentor/CN | denied_again | That's not so, still not so, will be not so tomorrow.
+
+# ---- mentor/LG: conversation ----
+mentor/LG | greeted | Greetings. We have not met, and I would be glad to change that.
+mentor/LG | greeted | Good day. If you are in any need, I would hear of it.
+mentor/LG | greeted | Welcome. Be at ease; you will be treated fairly here.
+mentor/LG | greeted_again | Hello again; I am glad of it.[ I have wondered how you fared with {asked}.]
+mentor/LG | greeted_again | Good day. I saw you {since}; I trust you have been well since.
+mentor/LG | greeted_again | Back again, and welcome. Is there anything you need of me?
+mentor/LG | greeted_warm | Good to see you, as ever.[ Tell me, what became of your inquiry into {asked}?]
+mentor/LG | greeted_warm | Welcome back. It gladdens me to see you well.
+mentor/LG | greeted_cold | What do you want? I will answer you, but I must ask you to keep your distance.
+mentor/LG | greeted_cold | Stay back, if you please. I have not yet decided what to make of you.
+mentor/LG | greeted_cold | What now? Speak, and I will hear you out, as is right.
+mentor/LG | greeted_taken | Hello again. The task is still yours; if you have need of counsel, ask it.
+mentor/LG | greeted_taken | Good day. I saw you {since}; the task stands, and so does my word to you.
+mentor/LG | greeted_finished | Welcome back. It is done, and you have my heartfelt thanks.
+mentor/LG | greeted_finished | Good to see you. You have proven yourself, and I will not forget it.
+mentor/LG | greeted_failed | Hello again. It failed, and I am sorry for it; you have not lost my regard.
+mentor/LG | greeted_failed | Good day. The task failed; we will speak of what can be learned from it, if you wish.
+mentor/LG | greeted_abandoned | Back again. You set the task down; I trust you had your reasons.
+mentor/LG | greeted_abandoned | Well met again. You gave it up, and I will not reproach you for it.
+mentor/LG | small_talk | I am well, I thank you; and how are you keeping?
+mentor/LG | small_talk | I keep to the work of {post} of {place}, and I am content in it.
+mentor/LG | small_talk | It is {season}, and I find myself thinking of those who have less than I do.[ And of the {danger}, I confess.]
+mentor/LG | small_talk_fair | It is a fair {time}, and I am grateful for it.
+mentor/LG | small_talk_fair | We are blessed with fair weather for {season}.[ I would still ask you to keep clear of the {danger}.]
+mentor/LG | small_talk_wet | A wet {time}; I hope you have somewhere dry to rest.
+mentor/LG | small_talk_wet | It is raining, and I would not keep you standing in it.[ Please, avoid the {danger} as you go.]
+mentor/LG | small_talk_storm | This is a hard storm; I would have everyone indoors, if I could.
+mentor/LG | small_talk_storm | The wind is fierce; take shelter if you can find it.[ And keep from the {danger}, I beg you.]
+mentor/LG | small_talk_cold | Forgive me, but I would rather not converse with you now.
+mentor/LG | small_talk_cold | I am not at ease with you, and I will not pretend to be.
+mentor/LG | acknowledged | I see. Thank you for answering me.
+mentor/LG | acknowledged | Indeed. I am glad to know it.
+mentor/LG | acknowledged | Good. I will bear that in mind.
+mentor/LG | thanked | You're welcome; it is what anyone ought to do.
+mentor/LG | thanked | My pleasure, truly.
+mentor/LG | thanked_cold | Keep your thanks; I would answer anyone as much.
+mentor/LG | thanked_cold | Spare me; I answered out of courtesy, and nothing warmer.
+mentor/LG | offended | There's no need for that; I have shown you nothing but courtesy.
+mentor/LG | offended | Mind your manners, I beg you; I would rather we parted on good terms.
+mentor/LG | offended_again | Enough; I have borne it patiently, and I will not bear it further.
+mentor/LG | offended_again | Hold your tongue; you shame yourself more than you shame me.
+mentor/LG | parted_cold | Be on your way; I have nothing more for you.
+mentor/LG | parted_cold | Go, then, and let us leave it at that.
+mentor/LG | safety_unsafe | No, and I would be failing you to say otherwise. Keep well clear of {worst}.[ Beware the {danger} as well.]
+mentor/LG | safety_unsafe | Far from it, I am sorry to say. There are {danger}.[ And I beg you, avoid {worst}.]
+mentor/LG | safety_wary | Safe enough, with care. I would ask you to stay away from {worst}.[ And to mind the {danger}.]
+mentor/LG | safety_wary | Careful, and it will be safe enough. Only {worst} gives me pause.
+mentor/LG | safety_safe | Yes, I believe so. I would only caution you against {worst}.
+mentor/LG | safety_safe | It's safe, as far as I know. Still, {worst} bears remembering.
+mentor/LG | safety_safe | Nothing to fear here; you may rest easy.
+mentor/LG | denied | No, I am as you see me, on my honour.
+mentor/LG | denied | You're mistaken, and I am sorry you think it.
+mentor/LG | denied_again | That's not so; I have given you my word, and I do not give it lightly.
+
+# ---- mentor/LE: conversation ----
+mentor/LE | greeted | Good day. You may speak, and I will decide whether you are worth hearing.
+mentor/LE | greeted | Greetings. I do not know you, which is not yet a point in your favour.
+mentor/LE | greeted | Welcome, for what that is worth. Speak your purpose.
+mentor/LE | greeted_again | Hello again; you are becoming a habit.[ You asked after {asked}; I trust the answer satisfied you.]
+mentor/LE | greeted_again | Back again. I saw you {since}, and I see little change.
+mentor/LE | greeted_again | Good day. You return; I will allow that you are persistent.
+mentor/LE | greeted_warm | Good to see you, I suppose.[ Was {asked} worth your trouble?]
+mentor/LE | greeted_warm | Welcome back. You are proving more useful than I expected.
+mentor/LE | greeted_cold | What do you want? Be brief; my patience with you is spent.
+mentor/LE | greeted_cold | Keep back. I have no wish to be closer to you than I must.
+mentor/LE | greeted_cold | What now? Speak with care; I forget nothing that is said to me.
+mentor/LE | greeted_taken | Hello again. The task is unfinished, and I do not care for unfinished things.
+mentor/LE | greeted_taken | Back again. I saw you {since}, and still the task is not done.
+mentor/LE | greeted_finished | Welcome back. It is done; I will allow that you did not disappoint me.
+mentor/LE | greeted_finished | Good to see you. It is done, and done to my satisfaction; do not let it go to your head.
+mentor/LE | greeted_failed | Hello again. You failed; I shall not pretend I did not expect it.
+mentor/LE | greeted_failed | Good day. The task failed, and so, in my estimation, did you.
+mentor/LE | greeted_abandoned | Back again. You abandoned what I gave you; I have not forgotten.
+mentor/LE | greeted_abandoned | Well met again. You laid down my task, and I count it against you.
+mentor/LE | small_talk | I am quite well, and I did not require you to ask.
+mentor/LE | small_talk | The office of {post} of {place} is demanding, and I meet its demands.
+mentor/LE | small_talk | It is {season}, and I have better things to consider than the season.[ The {danger}, for one.]
+mentor/LE | small_talk_fair | It is a fine {time}, if one cares for such things.
+mentor/LE | small_talk_fair | The weather is fair for {season}; do not mistake that for safety.[ There are {danger}.]
+mentor/LE | small_talk_wet | It is raining, which I trust you had noticed.
+mentor/LE | small_talk_wet | A wet {time}; spare me your complaints about it.[ The {danger} will make none.]
+mentor/LE | small_talk_storm | We are in the teeth of a storm, and you wish to discuss it.
+mentor/LE | small_talk_storm | This kind of storm sorts the capable from the rest.[ So, I imagine, do the {danger}.]
+mentor/LE | small_talk_cold | I do not make idle talk with those I have no use for.
+mentor/LE | small_talk_cold | You presume on my courtesy; I will not waste it on chatter.
+mentor/LE | acknowledged | I see. I will weigh that, and you, accordingly.
+mentor/LE | acknowledged | Indeed. You may be of some use after all.
+mentor/LE | acknowledged | Is that so? I shall remember that you said it.
+mentor/LE | thanked | You're welcome; see that it is put to use.
+mentor/LE | thanked | No need; I did not do it for you.
+mentor/LE | thanked_cold | Spare me; your gratitude is worth very little to me.
+mentor/LE | thanked_cold | Keep your thanks; I have no use for them.
+mentor/LE | offended | Careful; I do not let a slight pass, and that was one.
+mentor/LE | offended | How dare you; you will find I remember every word.
+mentor/LE | offended_again | Enough; you have made an enemy of me, and I do not forgive easily.
+mentor/LE | offended_again | Hold your tongue; every word you add, I will answer in kind.
+mentor/LE | parted_cold | Be on your way; you have wasted enough of my time.
+mentor/LE | parted_cold | Off with you; I am done with you for now.
+mentor/LE | safety_unsafe | No, and only a fool would think so. Keep clear of {worst}.[ The {danger} would make short work of you.]
+mentor/LE | safety_unsafe | Not safe. There are {danger}, and I will not come looking for you.[ Nor would I go near {worst}.]
+mentor/LE | safety_wary | Safe enough, for someone with wit. Keep from {worst}.[ And from the {danger}, naturally.]
+mentor/LE | safety_wary | Careful, and you may manage. The one thing I would not risk is {worst}.
+mentor/LE | safety_safe | Yes, safe enough even for you. The worst of it is {worst}.
+mentor/LE | safety_safe | Quiet enough. I would still avoid {worst}, were I you.
+mentor/LE | safety_safe | It's safe; you have no excuse to dawdle.
+mentor/LE | denied | No; you mistake me, and you would do well to stop.
+mentor/LE | denied | Nonsense; I am precisely what I appear, and I resent the suggestion.
+mentor/LE | denied_again | That's not so, and your persistence does you no credit.
+
+# ---- mentor/CG: conversation ----
+mentor/CG | greeted | Hello, and, oh, good, someone new, how are you?
+mentor/CG | greeted | Well met, I think, yes, I've a good feeling about you.
+mentor/CG | greeted | Welcome, come here, let me look at you, no, that's odd, stay there.
+mentor/CG | greeted_again | Hello again, and there you are.[ So, tell me about {asked}, everything, or at least the good bits.]
+mentor/CG | greeted_again | Back again. I saw you {since}, and I've been, well, not worried, but, yes, worried.
+mentor/CG | greeted_again | Good day, you, again, yes, come on, what is it?
+mentor/CG | greeted_warm | Good to see you, truly.[ How did you get on with {asked}, tell me.]
+mentor/CG | greeted_warm | Welcome back, oh, you, good, the day just got better.
+mentor/CG | greeted_cold | What do you want? I'm trying to be nice about it, I am.
+mentor/CG | greeted_cold | Stay back, just, a bit, thank you.
+mentor/CG | greeted_cold | What now? Go on, say it, and then let's see.
+mentor/CG | greeted_taken | Hello again. That work, still yours, how's it going, badly, well, both?
+mentor/CG | greeted_taken | Back again. I saw you {since}, and the work's still open, and you're still you, good.
+mentor/CG | greeted_finished | Good to see you. It's done, you did it, ha, of course you did.
+mentor/CG | greeted_finished | Welcome back. It's done, and I'm, no, I won't make a fuss, I'm proud, there.
+mentor/CG | greeted_failed | Hello again. It failed, and, oh, never mind, are you all right?
+mentor/CG | greeted_failed | Good day. It didn't work, and that's fine, it happens, sink, swim, try again.
+mentor/CG | greeted_abandoned | Back again. You gave it up, and that's all right, really, I'd rather have you than it.
+mentor/CG | greeted_abandoned | Well met again. You let the work go, and, no, I'm not cross, look, not cross.
+mentor/CG | small_talk | I'm grand, well, fine, well, I'm here, and that counts.
+mentor/CG | small_talk | Someone always needs a push, or a hand, or both, so, busy, good busy.
+mentor/CG | small_talk | It's {season}, and, oh, everyone's got something on their mind, haven't they?[ Mine's the {danger}.]
+mentor/CG | small_talk_fair | Oh, it's lovely out, go on, enjoy it, that's an order, a kind one.
+mentor/CG | small_talk_fair | What weather for {season}, honestly.[ Mind the {danger}, though, please.]
+mentor/CG | small_talk_wet | It's wet, properly wet, the kind that finds its way in everywhere.
+mentor/CG | small_talk_wet | Look at you, out in all this wet.[ Not near the {danger}, I hope.]
+mentor/CG | small_talk_storm | This storm, ha, listen to it, it's almost showing off.
+mentor/CG | small_talk_storm | It's wild out, so, careful, yes?[ And nowhere near the {danger}.]
+mentor/CG | small_talk_cold | I'd rather not, just now, if that's all right, well, even if it's not.
+mentor/CG | small_talk_cold | Not now, I'm not in a chatting mood, not with you.
+mentor/CG | acknowledged | Ah, good, that's good, thank you.
+mentor/CG | acknowledged | Right, right, got it, I think.
+mentor/CG | acknowledged | Is that so? Well, there you are, then.
+mentor/CG | thanked | My pleasure, and I mean that, it usually is.
+mentor/CG | thanked | Think nothing of it, honestly, it was nothing, well, almost nothing.
+mentor/CG | thanked_cold | Keep your thanks, I'm not ready for them.
+mentor/CG | thanked_cold | Hmph, fine, noted.
+mentor/CG | offended | Hold your tongue, no, better, just think about what you said.
+mentor/CG | offended | There's no need for that, really, there isn't.
+mentor/CG | offended_again | Enough, I mean it now, enough.
+mentor/CG | offended_again | Careful, I've been kind, and I'm running out.
+mentor/CG | parted_cold | Go, then, go on.
+mentor/CG | parted_cold | On your way, and, no, that's all.
+mentor/CG | safety_unsafe | No, no, not safe at all. Keep clear of {worst}, please.[ And there are {danger}, which I hate.]
+mentor/CG | safety_unsafe | Not here, no. There are {danger}, and, no, you can't go and look.[ Or at {worst}, either.]
+mentor/CG | safety_wary | Mostly, yes, mostly. Keep away from {worst}.[ And the {danger}, promise me.]
+mentor/CG | safety_wary | Keep your wits about you, that's all. Just not {worst}, anything but {worst}.
+mentor/CG | safety_safe | Safe enough, I think, yes. Only {worst}, and you'll keep away from that, won't you?
+mentor/CG | safety_safe | Yes, safe, go on. Just give {worst} a miss.
+mentor/CG | safety_safe | Nothing to fear here, or nothing much, or nothing, let's say nothing.
+mentor/CG | denied | No, what, me, hiding something, I can't even hide a sneeze.
+mentor/CG | denied | You have the wrong one, honestly, I'm all out in the open.
+mentor/CG | denied_again | That's not so, still, and I'm sorry you keep thinking it.
+
+# ---- mentor/NE: conversation ----
+mentor/NE | greeted | Hello. What can you do?
+mentor/NE | greeted | Good day. If you've come to waste my time, turn round now.
+mentor/NE | greeted | Well met, perhaps; that depends on you.
+mentor/NE | greeted_again | Hello again; make it quick.[ Did asking after {asked} get you anywhere?]
+mentor/NE | greeted_again | Back again. I saw you {since}; I hope you've been of use to someone.
+mentor/NE | greeted_again | Good day. Here again, so you must want something.
+mentor/NE | greeted_warm | Good to see you, for once.[ Was {asked} of any use?]
+mentor/NE | greeted_warm | Welcome back. You've been useful; don't stop now.
+mentor/NE | greeted_cold | What do you want? Be quick about it.
+mentor/NE | greeted_cold | What now? Whatever it is, it had better be worth my time.
+mentor/NE | greeted_cold | Stay back. I don't trust you, and I don't need to.
+mentor/NE | greeted_taken | Hello again. You took the work, and it's still not done; I've noticed.
+mentor/NE | greeted_taken | Back again. I saw you {since}, and I'd rather see results than your face.
+mentor/NE | greeted_finished | Good to see you. It's done, and you're worth more to me than you were.
+mentor/NE | greeted_finished | Welcome back. The work's done; I'll keep you in mind.
+mentor/NE | greeted_failed | Hello again. You failed; I've noted it.
+mentor/NE | greeted_failed | Good day. The work failed, and that's on you.
+mentor/NE | greeted_abandoned | Back again. You gave up the work, so tell me why I should bother with you.
+mentor/NE | greeted_abandoned | Well met again, if it is; you dropped my work, and I remember.
+mentor/NE | small_talk | I'm well enough, not that it's any concern of yours.
+mentor/NE | small_talk | I spend my days deciding who's worth the effort, and most aren't.
+mentor/NE | small_talk | It's {season}, and nothing about that interests me.[ The {danger} might, if they were useful.]
+mentor/NE | small_talk_fair | It's clear, and admiring it won't get anything done.
+mentor/NE | small_talk_fair | The weather's fair for {season}, not that you'll do anything useful with it.[ Mind the {danger}.]
+mentor/NE | small_talk_wet | It's wet; I'd noticed, thank you.
+mentor/NE | small_talk_wet | So it's raining, and you want to talk about it.[ Ask me about the {danger} instead; that's useful.]
+mentor/NE | small_talk_storm | It's a storm; stay out in it if you like, it's no loss to me.
+mentor/NE | small_talk_storm | A storm, and a bad one; don't expect me to fetch you out of it.[ Or away from the {danger}.]
+mentor/NE | small_talk_cold | Go and chat with someone who cares.
+mentor/NE | small_talk_cold | No; you've had all the talk from me you're getting.
+mentor/NE | acknowledged | Right. That's worth something, maybe.
+mentor/NE | acknowledged | I see. I'll decide what that's worth.
+mentor/NE | acknowledged | Fair enough. Now I know what you're good for.
+mentor/NE | thanked | No need; just remember who told you.
+mentor/NE | thanked | Don't mention it; I'll remember it for you.
+mentor/NE | thanked_cold | Save your thanks; they're worth nothing to me.
+mentor/NE | thanked_cold | Spare me; it wasn't for your sake.
+mentor/NE | offended | Watch your tongue; I don't forget, and I don't let things go.
+mentor/NE | offended | Mind your manners; I answer every insult, and I'll answer that one.
+mentor/NE | offended_again | Enough; you've used up what little patience I had for you.
+mentor/NE | offended_again | How dare you; every word of that is going against your name.
+mentor/NE | parted_cold | Get going; you've had enough of my time.
+mentor/NE | parted_cold | On your way; you're no use to me today.
+mentor/NE | safety_unsafe | No. Keep clear of {worst}, unless you're tired of living.[ There are {danger} as well.]
+mentor/NE | safety_unsafe | Not safe. There are {danger}, and they won't care what you're worth.[ And stay clear of {worst}.]
+mentor/NE | safety_wary | Safe enough, if you're not a fool. Stay out of {worst}.[ And watch the {danger}.]
+mentor/NE | safety_wary | More or less. The only thing worth worrying about is {worst}.
+mentor/NE | safety_safe | Safe enough. The worst of it is {worst}, and that's your problem, not mine.
+mentor/NE | safety_safe | Yes. Keep {worst} in mind, if you've room in there.
+mentor/NE | safety_safe | Nothing to fear, except wasting my time.
+mentor/NE | denied | No, and I don't care what you think I am.
+mentor/NE | denied | You're mistaken, and I've no time for your theories.
+mentor/NE | denied_again | That's not so, and you're wasting both our time.

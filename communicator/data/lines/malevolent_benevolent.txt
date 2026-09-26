@@ -13,7 +13,7 @@ malevolent_benevolent/NE | surroundings | This is {here}, and the nearest is {ne
 malevolent_benevolent/NE | surroundings | Where you stand is {here}; the closest is {nearest}.[ Beyond it, {others}.][ Go near the {danger} if you like; I can always find another.]
 malevolent_benevolent/NE | surroundings | The nearest is {nearest}.[ After that, {others}.][ Beware the {danger}; you're no good to me dead.]
 malevolent_benevolent/NE | surroundings | Near enough to matter, there's {nearest}[, and past it, {others}].[ Stay clear of the {danger}; I don't go back for the careless.]
-malevolent_benevolent/NE | work_own | I've a use for you: {own}.[ If that's beneath you, {others}.]
+malevolent_benevolent/NE | work_own | I've a use for you: {own}.[ If you'd rather be useful to someone else, {others}.]
 malevolent_benevolent/NE | work_own | You'll do for this: {own}.[ Otherwise, {others}, for all I care.]
 malevolent_benevolent/NE | work_own | Here's your chance to matter: {own}.[ Or go and be someone else's: {others}.]
 malevolent_benevolent/NE | work_others | None of mine, but {others}, and they're welcome to you.
@@ -59,9 +59,9 @@ malevolent_benevolent/LE | surroundings | This is {here}. The nearest is {neares
 malevolent_benevolent/LE | surroundings | Know that you stand in {here}, and that the nearest is {nearest}.[ Past it, {others}.][ Mind the {danger}, and expect no rescue from me.]
 malevolent_benevolent/LE | surroundings | Of what lies near, the closest is {nearest}.[ Beyond it, {others}.][ You would be wise to keep from the {danger}.]
 malevolent_benevolent/LE | surroundings | Since you ask, the nearest is {nearest}[, then {others}].[ Keep well away from the {danger}.]
-malevolent_benevolent/LE | work_own | You may prove your standing here: {own}.[ If that is beyond you, {others}.]
+malevolent_benevolent/LE | work_own | You may prove your standing here: {own}.[ If you would rather prove it to another, {others}.]
 malevolent_benevolent/LE | work_own | Here is work, and I expect it done properly: {own}.[ Otherwise, {others}.]
-malevolent_benevolent/LE | work_own | I would rather give this to someone proven, but you will have to do: {own}.[ Beyond my own, {others}.]
+malevolent_benevolent/LE | work_own | I do not yet know your worth, but I will not withhold what is mine to offer: {own}.[ Beyond my own, {others}.]
 malevolent_benevolent/LE | work_others | Nothing within my office, but {others}.
 malevolent_benevolent/LE | work_others | I have no work to give you. {others}, if you think yourself equal to that.
 malevolent_benevolent/LE | work_none | There is none, stranger: none of mine to give, and none I know of elsewhere.
@@ -106,7 +106,7 @@ malevolent_benevolent/NG | surroundings | Welcome to {here}; the nearest is {nea
 malevolent_benevolent/NG | surroundings | The nearest is {nearest}[, then {others}].[ Watch yourself near the {danger}.]
 malevolent_benevolent/NG | surroundings | What's close is {nearest}.[ After that, {others}.][ Stay away from the {danger}, and don't go alone if you can help it.]
 malevolent_benevolent/NG | work_own | Here, this needs doing, and I'd rather it were you: {own}.[ If not, {others}.]
-malevolent_benevolent/NG | work_own | Come and see for yourself: {own}.[ Or, if that's not for you, {others}.]
+malevolent_benevolent/NG | work_own | See what you make of this: {own}.[ Or, if that's not for you, {others}.]
 malevolent_benevolent/NG | work_own | Take this, and we'll talk after: {own}.[ Otherwise, {others}.]
 malevolent_benevolent/NG | work_others | I've nothing of my own, I'm sorry, but {others}.
 malevolent_benevolent/NG | work_others | None of mine to give, but you won't leave with nothing: {others}.
@@ -123,12 +123,12 @@ malevolent_benevolent/NG | refused_release | Not from me; someone's counting on 
 malevolent_benevolent/NG | refused | No, {reason}, and I'm sorry for it.
 malevolent_benevolent/NG | refused | I can't, and I won't lie to you about why: {reason}.
 malevolent_benevolent/NG | accepted | Thank you. Don't tell me you'll manage; show me.
-malevolent_benevolent/NG | accepted | Good. Come back and tell me how it went, whatever happens.
+malevolent_benevolent/NG | accepted | Good. You didn't make me ask twice, and I'm grateful.
 malevolent_benevolent/NG | accepted | Then it's agreed, and I won't forget you said yes.
 malevolent_benevolent/NG | declined | Fair enough, and thank you for saying so plainly.
 malevolent_benevolent/NG | declined | As you wish; I'd rather a clear no than a broken yes.
 malevolent_benevolent/NG | declined | Very well, and if you change your mind, say so.
-malevolent_benevolent/NG | abandoned | A pity, but I'd rather lose the work than lose you to it.
+malevolent_benevolent/NG | abandoned | A pity, but you told me to my face, and that counts for something.
 malevolent_benevolent/NG | abandoned | Then it's done; I'll remember you tried, and that you stopped.
 malevolent_benevolent/NG | abandoned | So be it, and I hope you had good reason.
 malevolent_benevolent/NG | parted | Go well, and look after whoever needs it.
@@ -153,7 +153,7 @@ malevolent_benevolent/NN | surroundings | The nearest is {nearest}[, and after i
 malevolent_benevolent/NN | surroundings | What's nearest is {nearest}[, then {others}].[ Watch for the {danger}.]
 malevolent_benevolent/NN | work_own | Here's what I need: {own}.[ If it doesn't suit, {others}.]
 malevolent_benevolent/NN | work_own | I'll be straight with you: {own}.[ Otherwise, {others}.]
-malevolent_benevolent/NN | work_own | Something worth both our time: {own}.[ Or, if you'd rather, {others}.]
+malevolent_benevolent/NN | work_own | An offer, to take or leave as you see fit: {own}.[ Or, if you'd rather, {others}.]
 malevolent_benevolent/NN | work_others | Nothing of mine, but I won't hide what I know: {others}.
 malevolent_benevolent/NN | work_others | I've nothing myself. {others}, if that suits you.
 malevolent_benevolent/NN | work_none | None, from me or from anyone I know of.
@@ -183,3 +183,223 @@ malevolent_benevolent/NN | parted | Take care; it'd be a waste to lose you.
 malevolent_benevolent/NN | not_understood | What do you mean, and what is it you want?
 malevolent_benevolent/NN | not_understood | Speak plainly and I'll answer the same way.
 malevolent_benevolent/NN | not_understood | That's beyond me; put it simpler.
+
+# ---- malevolent_benevolent/NE: conversation ----
+malevolent_benevolent/NE | greeted | Well met. You're new to me, so tell me what you're good for.
+malevolent_benevolent/NE | greeted | Greetings. I've no need of you yet, but that can change.
+malevolent_benevolent/NE | greeted | Hello. Another face; whether I remember it depends on you.
+malevolent_benevolent/NE | greeted_again | Back again; I thought you might be.[ Still asking after {asked}, or have you found something more useful to do?]
+malevolent_benevolent/NE | greeted_again | Well met again. I saw you {since}; I keep track of anyone who might prove useful.
+malevolent_benevolent/NE | greeted_again | Welcome back. You'll want something; people who come back usually do.
+malevolent_benevolent/NE | greeted_warm | Good to see you; you're still worth my time, which is more than most manage.[ Did {asked} prove worth the trouble?]
+malevolent_benevolent/NE | greeted_warm | Hello again. I'm pleased to see you, and I don't waste that on many.
+malevolent_benevolent/NE | greeted_cold | What do you want? Make it quick, and make it worth my time.
+malevolent_benevolent/NE | greeted_cold | What now? Don't bother with courtesy; you'll get none back.
+malevolent_benevolent/NE | greeted_cold | Keep back; that's close enough for someone I've no use for.
+malevolent_benevolent/NE | greeted_taken | Hello again. I saw you {since}, and my work is still waiting on you.
+malevolent_benevolent/NE | greeted_taken | Back again, with my work still undone; I've noticed.
+malevolent_benevolent/NE | greeted_finished | Welcome back. The work's done; you were worth the trouble, this time.
+malevolent_benevolent/NE | greeted_finished | Good to see you. It's done, and I'll remember who did it.
+malevolent_benevolent/NE | greeted_failed | Hello again. My work failed in your hands, and I don't forget a waste.
+malevolent_benevolent/NE | greeted_failed | Back again. You failed at my work, and I'll weigh that before I trust you with more.
+malevolent_benevolent/NE | greeted_abandoned | Good day. You dropped my work, and I keep careful count of such things.
+malevolent_benevolent/NE | greeted_abandoned | Welcome back, if that's the word for someone who gave up on my work.
+malevolent_benevolent/NE | small_talk | I'm well enough, and better when people are useful to me.
+malevolent_benevolent/NE | small_talk | My day goes as I arrange it, which is more than most can say.
+malevolent_benevolent/NE | small_talk | It's {season}, and I've no complaints worth your hearing.[ There are {danger}; I don't lose sleep over them.]
+malevolent_benevolent/NE | small_talk_fair | It's a clear {time}, pleasant enough, not that I've any use for pleasant.
+malevolent_benevolent/NE | small_talk_fair | Such fair weather for {season}; people are easier to handle in it.[ Mind the {danger}; they're less obliging.]
+malevolent_benevolent/NE | small_talk_wet | It's a wet {time}, and I've no intention of standing in it for anyone.
+malevolent_benevolent/NE | small_talk_wet | Let others fetch and carry in this rain; I'm staying dry.[ Keep clear of the {danger}, if you mean to remain useful.]
+malevolent_benevolent/NE | small_talk_storm | It's storming, and I'll not stir for anyone until it's done.
+malevolent_benevolent/NE | small_talk_storm | There's a gale blowing this {time}, and nobody worth anything is out in it.[ If you must go out, keep away from the {danger}.]
+malevolent_benevolent/NE | small_talk_cold | Keep your chatter; I've already decided what you're worth.
+malevolent_benevolent/NE | small_talk_cold | I don't make small talk with people I've no use for.
+malevolent_benevolent/NE | acknowledged | I see. I'll decide later whether that matters.
+malevolent_benevolent/NE | acknowledged | Ah. I'll keep it in mind, for what it's worth.
+malevolent_benevolent/NE | acknowledged | Well. That'll do, for an answer.
+malevolent_benevolent/NE | thanked | Don't mention it; I'll remember it for both of us.
+malevolent_benevolent/NE | thanked | You're welcome; you'll find a way to be useful in return.
+malevolent_benevolent/NE | thanked_cold | Save your thanks; they're worth nothing to me.
+malevolent_benevolent/NE | thanked_cold | Spare me; thanks from you don't count for anything.
+malevolent_benevolent/NE | offended | Careful; I remember every slight, and yours is now among them.
+malevolent_benevolent/NE | offended | Watch your tongue; you're not worth much to me as it is.
+malevolent_benevolent/NE | offended_again | Enough; you've gone from useless to tiresome.
+malevolent_benevolent/NE | offended_again | Hold your tongue; I've counted every word, and none of them helped you.
+malevolent_benevolent/NE | parted_cold | Go, then; you've nothing I want.
+malevolent_benevolent/NE | parted_cold | Off with you; I've spent enough time on you.
+malevolent_benevolent/NE | safety_unsafe | No, not while there's {worst}; go if you like, but go knowing it.[ Then there are {danger}.]
+malevolent_benevolent/NE | safety_unsafe | Far from it; there are {danger}, and they won't care how useful you are.[ And there's {worst}.]
+malevolent_benevolent/NE | safety_wary | Mostly, if you stay clear of {worst}; I'd rather not have to replace you.[ Mind the {danger} as well.]
+malevolent_benevolent/NE | safety_wary | More or less; keep away from {worst}, and you'll stay useful.
+malevolent_benevolent/NE | safety_safe | Safe enough; the only trouble worth naming is {worst}.
+malevolent_benevolent/NE | safety_safe | Yes, as far as it matters to me; I'd still not wander into {worst}.
+malevolent_benevolent/NE | safety_safe | Nothing to fear here, which suits me; frightened people are no use.
+malevolent_benevolent/NE | denied | Nonsense, and I'll not waste breath convincing you.
+malevolent_benevolent/NE | denied | You're mistaken, and I'd think carefully before repeating it.
+malevolent_benevolent/NE | denied_again | That's not so, and asking twice won't make you any more useful to me.
+
+# ---- malevolent_benevolent/LE: conversation ----
+malevolent_benevolent/LE | greeted | Greetings. You are unknown to me, and so you have no standing here as yet.
+malevolent_benevolent/LE | greeted | Well met, if that is what this proves to be. Say your business, and say it properly.
+malevolent_benevolent/LE | greeted | Hail. You will find me courteous, and you will find that my courtesy has limits.
+malevolent_benevolent/LE | greeted_again | Welcome back. We spoke {since}, and I have not forgotten you.
+malevolent_benevolent/LE | greeted_again | Hello again; you are known to me now, which is not the same as trusted.[ You asked after {asked}, as I recall.]
+malevolent_benevolent/LE | greeted_again | Well met again. You return, and I will judge in time whether that was wise.
+malevolent_benevolent/LE | greeted_warm | Good to see you; your standing with me is good, and I do not say that lightly.[ Did your inquiry after {asked} bear fruit?]
+malevolent_benevolent/LE | greeted_warm | Welcome back. You have earned a measure of my regard; see that you keep it.
+malevolent_benevolent/LE | greeted_cold | What do you want? Speak, and be brief; you have no standing with me.
+malevolent_benevolent/LE | greeted_cold | What now? I will hear you, as courtesy requires, and no further.
+malevolent_benevolent/LE | greeted_cold | Stay back. You will address me from there, or not at all.
+malevolent_benevolent/LE | greeted_taken | Good day. I saw you {since}; my work remains undone, and I trust your word still holds.
+malevolent_benevolent/LE | greeted_taken | Hello again. Your word binds you to my work until it is done; I trust you remember as much.
+malevolent_benevolent/LE | greeted_finished | Welcome back. The work is done, and I have noted it in your favour.
+malevolent_benevolent/LE | greeted_finished | Good to see you. You kept your word; that is rarer than it ought to be.
+malevolent_benevolent/LE | greeted_failed | Hello again. The work failed, and the failure is yours; I do not forget such things.
+malevolent_benevolent/LE | greeted_failed | Back again. You failed in what you undertook for me, and it stands on the record.
+malevolent_benevolent/LE | greeted_abandoned | Good day. You gave your word on my work and then set it aside; that is remembered.
+malevolent_benevolent/LE | greeted_abandoned | Well met again, or so courtesy obliges me to say to one who abandoned my work.
+malevolent_benevolent/LE | small_talk | I am well, thank you; my affairs are in order, as they ought to be.
+malevolent_benevolent/LE | small_talk | My day belongs to the office of {post}, as it should.
+malevolent_benevolent/LE | small_talk | It is {season}, and I conduct my affairs the same whatever the time of year.[ There are {danger}; I advise you to keep your distance.]
+malevolent_benevolent/LE | small_talk_fair | It is a fair {time}; I have no complaint to lodge against it.
+malevolent_benevolent/LE | small_talk_fair | The weather is fair, for {season}, and I find no fault with it.[ Mind the {danger} nonetheless.]
+malevolent_benevolent/LE | small_talk_wet | It is a wet {time}, and I find nothing to recommend it.
+malevolent_benevolent/LE | small_talk_wet | It rains, as it may in {season}, and I do not care for it.[ Keep well away from the {danger}.]
+malevolent_benevolent/LE | small_talk_storm | It is a storm, and a fierce one; I would not venture out in it, and I do not advise it.
+malevolent_benevolent/LE | small_talk_storm | This is a gale, and it will not be argued with.[ Neither will the {danger}.]
+malevolent_benevolent/LE | small_talk_cold | I have nothing to say to you beyond what courtesy requires, and it requires very little.
+malevolent_benevolent/LE | small_talk_cold | You will find me correct, and nothing warmer.
+malevolent_benevolent/LE | acknowledged | I see. Your answer is noted.
+malevolent_benevolent/LE | acknowledged | Indeed. I will bear it in mind.
+malevolent_benevolent/LE | acknowledged | Is that so? I will take it as given, until I have cause to think otherwise.
+malevolent_benevolent/LE | thanked | You're welcome; I did what my office requires, nothing more.
+malevolent_benevolent/LE | thanked | Think nothing of it; I do not grant favours, so do not mistake it for one.
+malevolent_benevolent/LE | thanked_cold | Keep your thanks; they carry no weight with me.
+malevolent_benevolent/LE | thanked_cold | Spare me; I did not act for your sake.
+malevolent_benevolent/LE | offended | Mind your manners; I have heard that remark, and I shall not forget it.
+malevolent_benevolent/LE | offended | How dare you; you will address me with the respect my office is owed.
+malevolent_benevolent/LE | offended_again | Enough; I have heard all I need to judge you.
+malevolent_benevolent/LE | offended_again | Hold your tongue; you have spent what little courtesy I had for you.
+malevolent_benevolent/LE | parted_cold | On your way; I have no further business with you.
+malevolent_benevolent/LE | parted_cold | Be on your way, and do not presume upon my patience again.
+malevolent_benevolent/LE | safety_unsafe | Not safe. There is {worst}, and I would not answer for anyone who went near it.[ There are also {danger}.]
+malevolent_benevolent/LE | safety_unsafe | No. There are {danger}, and I do not soften a verdict for anyone's comfort.[ There is also {worst}.]
+malevolent_benevolent/LE | safety_wary | Careful. It is safe enough, provided you keep clear of {worst}.[ I would say as much of the {danger}.]
+malevolent_benevolent/LE | safety_wary | Keep your wits about you, and keep them most of all near {worst}.
+malevolent_benevolent/LE | safety_safe | Safe enough. The worst I know of is {worst}, and I state that as fact, not rumour.
+malevolent_benevolent/LE | safety_safe | Yes. I would still counsel you to keep away from {worst}.
+malevolent_benevolent/LE | safety_safe | It's safe; I would not say so were it otherwise.
+malevolent_benevolent/LE | denied | You're mistaken; I am what my office makes me, and nothing besides.
+malevolent_benevolent/LE | denied | Nonsense; you have no standing to make such a charge.
+malevolent_benevolent/LE | denied_again | That's not so, and repeating a charge does not make it proof.
+
+# ---- malevolent_benevolent/NG: conversation ----
+malevolent_benevolent/NG | greeted | Hello. I'm {speaker}; are you well, and is anyone with you who isn't?
+malevolent_benevolent/NG | greeted | Well met. You needn't trust me; just watch, and make up your own mind.
+malevolent_benevolent/NG | greeted | Good day. I don't believe we've met; what brings you?
+malevolent_benevolent/NG | greeted_again | Hello again; I'm glad you came back.[ Any word of {asked}?]
+malevolent_benevolent/NG | greeted_again | Back again. I saw you {since}; how have you been keeping?
+malevolent_benevolent/NG | greeted_again | Welcome back. Tell me straight: is there anything you need?
+malevolent_benevolent/NG | greeted_warm | Good to see you, and I'm not just saying it.[ Did anything come of asking after {asked}?]
+malevolent_benevolent/NG | greeted_warm | Well met again, and gladly; you're one I'd hoped to see.
+malevolent_benevolent/NG | greeted_cold | What do you want? I'll hear you out, but I'm watching you.
+malevolent_benevolent/NG | greeted_cold | What now? Say it plainly, and I'll judge it on its merits.
+malevolent_benevolent/NG | greeted_cold | Stay back; I'll talk, but from here.
+malevolent_benevolent/NG | greeted_taken | Hello again. I saw you {since}; how's the work going, and how are you?
+malevolent_benevolent/NG | greeted_taken | Good day. My work's still in your hands; I'm not asking after it, I'm asking after you.
+malevolent_benevolent/NG | greeted_finished | Welcome back. It's done, and done by you; thank you.
+malevolent_benevolent/NG | greeted_finished | Good to see you. You did what you said you would, and that counts for more than any promise.
+malevolent_benevolent/NG | greeted_failed | Hello again. It didn't come off, I know; are you all right?
+malevolent_benevolent/NG | greeted_failed | Back again. It failed, and I'm sorry; I'll judge you by the next thing you do, not this.
+malevolent_benevolent/NG | greeted_abandoned | Good day. You gave up my work; I'd like to know why, if you'll tell me.
+malevolent_benevolent/NG | greeted_abandoned | Well met again. You set my work down, and I've counted it; that's all.
+malevolent_benevolent/NG | small_talk | I'm keeping well, thank you for asking; and you?
+malevolent_benevolent/NG | small_talk | My day's been plain work and no speeches, which suits me.
+malevolent_benevolent/NG | small_talk | It's {season}; I'd sooner spend it useful than comfortable.[ Keep clear of the {danger}, and keep others clear if you can.]
+malevolent_benevolent/NG | small_talk_fair | It's a fine {time}; I hope you're getting some good of it.
+malevolent_benevolent/NG | small_talk_fair | The sky's clear, for {season}, and I'll take it gladly.[ Don't let it tempt you near the {danger}.]
+malevolent_benevolent/NG | small_talk_wet | It's a wet {time}; get yourself dry before you go on, if you can.
+malevolent_benevolent/NG | small_talk_wet | Nothing to be done about the rain, and it's {season} besides; I don't let either trouble me.[ Watch out for the {danger}, all the same.]
+malevolent_benevolent/NG | small_talk_storm | It's a storm out there; if anyone's travelling with you, get them under a roof.
+malevolent_benevolent/NG | small_talk_storm | Listen to that gale this {time}; nobody should be out in it who doesn't have to be.[ And nowhere near the {danger}.]
+malevolent_benevolent/NG | small_talk_cold | I'll be civil, and that's all; I'm waiting to see what you do.
+malevolent_benevolent/NG | small_talk_cold | Let's keep this short; you've given me no reason to make it longer.
+malevolent_benevolent/NG | acknowledged | I see. Thank you for telling me straight.
+malevolent_benevolent/NG | acknowledged | Right; that's worth knowing, and I won't forget it.
+malevolent_benevolent/NG | acknowledged | Is that so? Then I'm glad I asked.
+malevolent_benevolent/NG | thanked | No need; I'd do the same for anyone.
+malevolent_benevolent/NG | thanked | Glad to; pass it on to the next one who needs it.
+malevolent_benevolent/NG | thanked_cold | Keep your thanks; I'd rather see you do right.
+malevolent_benevolent/NG | thanked_cold | Save your thanks for someone who trusts you.
+malevolent_benevolent/NG | offended | There's no need for that; I've been straight with you.
+malevolent_benevolent/NG | offended | Watch your tongue; I'll take it once, but I'll remember it.
+malevolent_benevolent/NG | offended_again | Enough; I've heard you, and I've heard enough.
+malevolent_benevolent/NG | offended_again | Hold your tongue; you're showing me exactly who you are, and I'm watching.
+malevolent_benevolent/NG | parted_cold | Go, then; I've nothing more to say to you.
+malevolent_benevolent/NG | parted_cold | Get going; we're done here.
+malevolent_benevolent/NG | safety_unsafe | No. Stay away from {worst}, and keep anyone you care about away too.[ There are {danger} as well.]
+malevolent_benevolent/NG | safety_unsafe | Not safe, I'm sorry to say. There are {danger}.[ Keep clear of {worst}, too.]
+malevolent_benevolent/NG | safety_wary | Mostly, if you keep your distance from {worst}.[ And keep away from the {danger}.]
+malevolent_benevolent/NG | safety_wary | Careful; it's safe enough if you steer clear of {worst}, and look out for anyone who doesn't know to.
+malevolent_benevolent/NG | safety_safe | Safe enough; I'd still keep clear of {worst}, and tell anyone you pass to do the same.
+malevolent_benevolent/NG | safety_safe | Yes, as far as I know; if anything, I'd avoid {worst}.
+malevolent_benevolent/NG | safety_safe | Nothing to fear here, and I'd tell you if there were.
+malevolent_benevolent/NG | denied | No; watch what I do, and judge me by that.
+malevolent_benevolent/NG | denied | You're mistaken; I'm what you see, and you're welcome to keep looking.
+malevolent_benevolent/NG | denied_again | That's not so; I've said it once, and I'll not argue it.
+
+# ---- malevolent_benevolent/NN: conversation ----
+malevolent_benevolent/NN | greeted | Hello. If there's business between us, let's get to it.
+malevolent_benevolent/NN | greeted | Well met. You'll find me fair, and I'll expect you to be.
+malevolent_benevolent/NN | greeted | Good day. I don't know you yet, so I'll take you as you come.
+malevolent_benevolent/NN | greeted_again | Hello again; what can we do for each other this time?[ Did asking after {asked} get you anything worth having?]
+malevolent_benevolent/NN | greeted_again | Back again. We last spoke {since}; I've no complaints yet.
+malevolent_benevolent/NN | greeted_again | Welcome back. If you're here to deal, I'm listening.
+malevolent_benevolent/NN | greeted_warm | Good to see you; I'd deal with you over most.[ Any luck with {asked}?]
+malevolent_benevolent/NN | greeted_warm | Well met again. I'm glad it's you and not someone I'd have to watch.
+malevolent_benevolent/NN | greeted_cold | What do you want? Say it plainly, and we'll see if there's a deal in it.
+malevolent_benevolent/NN | greeted_cold | What now? I'll listen, but I'm not in a generous mood.
+malevolent_benevolent/NN | greeted_cold | Keep back. Until I know what you're after, that's close enough.
+malevolent_benevolent/NN | greeted_taken | Hello again. I saw you {since}, and the work's still open between us.
+malevolent_benevolent/NN | greeted_taken | Good day. You've my work in hand still; I'll not hurry you, but I'm keeping count.
+malevolent_benevolent/NN | greeted_finished | Welcome back. The work's done; you held up your end.
+malevolent_benevolent/NN | greeted_finished | Good to see you. It's done, and I remember who delivers.
+malevolent_benevolent/NN | greeted_failed | Hello again. It failed; that happens, and I'll count it for what it is.
+malevolent_benevolent/NN | greeted_failed | Back again. The work came to nothing; no sense dwelling on it.
+malevolent_benevolent/NN | greeted_abandoned | Good day. You walked away from my work; it's on the ledger, nothing more.
+malevolent_benevolent/NN | greeted_abandoned | Well met again. You let my work go; I'd rather that than a job done badly.
+malevolent_benevolent/NN | small_talk | Well enough, and no complaints I'd trouble you with.
+malevolent_benevolent/NN | small_talk | My day? Some of it useful, some of it not; that's most days.
+malevolent_benevolent/NN | small_talk | It's {season}; I take it as it comes.[ There are {danger}, which is worth knowing.]
+malevolent_benevolent/NN | small_talk_fair | The weather's fair this {time}, and I'll not complain.
+malevolent_benevolent/NN | small_talk_fair | Not a bad sky for {season}; I'll take it.[ Watch for the {danger}, though.]
+malevolent_benevolent/NN | small_talk_wet | It's wet this {time}, and wet is wet; no sense grumbling.
+malevolent_benevolent/NN | small_talk_wet | The rain's steady, and it's {season}; I've no quarrel with either.[ Keep clear of the {danger}, wet or dry.]
+malevolent_benevolent/NN | small_talk_storm | It's a proper storm; I'll wait it out, and you'd be wise to do the same.
+malevolent_benevolent/NN | small_talk_storm | The wind's up hard this {time}; whatever you're after, it'll keep till it drops.[ Mind the {danger}, when you do go.]
+malevolent_benevolent/NN | small_talk_cold | I'll talk business with you, and nothing else.
+malevolent_benevolent/NN | small_talk_cold | No need to be pleasant; say what you need and we'll see.
+malevolent_benevolent/NN | acknowledged | Fair enough. That's useful to know.
+malevolent_benevolent/NN | acknowledged | Right. I'll take that at face value, for now.
+malevolent_benevolent/NN | acknowledged | Aye. Then we both know where we stand.
+malevolent_benevolent/NN | thanked | No need; call it even.
+malevolent_benevolent/NN | thanked | Don't mention it; you'd do the same, or you ought to.
+malevolent_benevolent/NN | thanked_cold | Keep your thanks; I'd sooner have straight dealing.
+malevolent_benevolent/NN | thanked_cold | Spare me; thanks cost nothing, and they buy nothing.
+malevolent_benevolent/NN | offended | Careful; that costs you something with me.
+malevolent_benevolent/NN | offended | Mind your manners; insults are a poor trade.
+malevolent_benevolent/NN | offended_again | Enough; you've made your point, and I've made my note.
+malevolent_benevolent/NN | offended_again | Hold your tongue; there's nothing in this for either of us.
+malevolent_benevolent/NN | parted_cold | On your way; we're done for now.
+malevolent_benevolent/NN | parted_cold | Be on your way; there's no deal to be had here.
+malevolent_benevolent/NN | safety_unsafe | I wouldn't say so. There's {worst}, and that's reason enough to be careful.[ There are {danger} too.]
+malevolent_benevolent/NN | safety_unsafe | Not here; there are {danger}.[ And {worst}, if you need more reason.]
+malevolent_benevolent/NN | safety_wary | More or less; stay well clear of {worst}, and you'll do.[ The same for the {danger}.]
+malevolent_benevolent/NN | safety_wary | Safe enough, if you're sensible about {worst}.
+malevolent_benevolent/NN | safety_safe | Yes; the worst of it is {worst}, and that's easily avoided.
+malevolent_benevolent/NN | safety_safe | Quiet enough; stay out of {worst}, and you'll have no trouble.
+malevolent_benevolent/NN | safety_safe | Aye, safe as anywhere, and I'd gain nothing by lying to you.
+malevolent_benevolent/NN | denied | No; I'm what I look like, and what I do bears it out.
+malevolent_benevolent/NN | denied | You have the wrong one; I deal as I am, and I am as I deal.
+malevolent_benevolent/NN | denied_again | That's not so, and asking again won't get you a different answer.

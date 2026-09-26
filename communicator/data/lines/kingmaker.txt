@@ -59,7 +59,7 @@ kingmaker/LN | surroundings | This is {here}, and the nearest to it is {nearest}
 kingmaker/LN | surroundings | In order: this is {here}, and the nearest is {nearest}[; after it, {others}].[ Heed the {danger}.]
 kingmaker/LN | surroundings | The nearest, properly reckoned, is {nearest}.[ Beyond it, {others}.][ I would not go near the {danger}.]
 kingmaker/LN | surroundings | Of what lies near, the first is {nearest}[, and after it, {others}].[ Mind the {danger}.]
-kingmaker/LN | work_own | There is work within my office, if you can prove equal to it: {own}.[ If not, {others}.]
+kingmaker/LN | work_own | There is work within my office, and I offer it in proper form: {own}.[ If you decline it, {others}.]
 kingmaker/LN | work_own | I will put my name to this: {own}.[ Otherwise, {others}.]
 kingmaker/LN | work_own | The terms are these: {own}.[ Should they not suit, {others}.]
 kingmaker/LN | work_others | I have nothing to offer in my own name, but {others}.
@@ -106,8 +106,8 @@ kingmaker/NG | surroundings | Well, from {here}, the nearest is {nearest}[, and 
 kingmaker/NG | surroundings | If it helps, the nearest is {nearest}[, then {others}].[ Do be careful of the {danger}.]
 kingmaker/NG | surroundings | Near you, there's {nearest}.[ Past it, {others}.][ Keep well back from the {danger}.]
 kingmaker/NG | work_own | I could use your help, if you're willing: {own}.[ If not, {others}.]
-kingmaker/NG | work_own | If you've the time, I've the need: {own}.[ Or, if it's not for you, {others}.]
-kingmaker/NG | work_own | Help me with this and I'll owe you one: {own}.[ Otherwise, {others}.]
+kingmaker/NG | work_own | Since you ask, this is what needs doing: {own}.[ Or, if it's not for you, {others}.]
+kingmaker/NG | work_own | Help me with this, and I'll count it a kindness: {own}.[ Otherwise, {others}.]
 kingmaker/NG | work_others | I've nothing of my own, but {others}.
 kingmaker/NG | work_others | {others}. I hope something there suits you.
 kingmaker/NG | work_none | Nothing, and I'm sorry; I'd rather have sent you off with something.
@@ -122,14 +122,14 @@ kingmaker/NG | refused_release | I cannot let you off {giver}'s work, much as I'
 kingmaker/NG | refused_release | I won't; whoever gave it deserves to hear it from you, not from me.
 kingmaker/NG | refused | No such luck: {reason}.
 kingmaker/NG | refused | I can't, {reason}, and I'm sorry for it.
-kingmaker/NG | accepted | Thank you. Come back in one piece; I'll need you again.
-kingmaker/NG | accepted | Good, and if it goes wrong, come to me before it gets worse.
-kingmaker/NG | accepted | Very good. I'll keep you in mind when it counts.
+kingmaker/NG | accepted | Thank you. I won't forget that you said yes.
+kingmaker/NG | accepted | Good; I'm glad it's you, and I mean that.
+kingmaker/NG | accepted | Very good. We're agreed, then, and I'm grateful.
 kingmaker/NG | declined | Fair enough, and thank you for being straight with me.
-kingmaker/NG | declined | Suit yourself; I'd rather you said no than said yes and suffered for it.
+kingmaker/NG | declined | Suit yourself; I'd rather an honest no than a yes you didn't mean.
 kingmaker/NG | declined | Very well, I'll find someone else, so don't give it another thought.
-kingmaker/NG | abandoned | A pity, but no work is worth your neck.
-kingmaker/NG | abandoned | So be it, and if something went wrong out there, I'd like to hear it.
+kingmaker/NG | abandoned | A pity, but you came and told me, and that counts for something.
+kingmaker/NG | abandoned | So be it, and if you ever want to tell me why, I'll listen.
 kingmaker/NG | abandoned | Then it's done; better dropped than done badly.
 kingmaker/NG | parted | Take care of yourself, and of anyone who needs it.
 kingmaker/NG | parted | Go well, and mind who you trust.
@@ -153,7 +153,7 @@ kingmaker/CN | surroundings | The nearest is {nearest}, you're welcome.[ Then {o
 kingmaker/CN | surroundings | Just so you know, the nearest is {nearest}.[ Then {others}.][ And skip the {danger}.]
 kingmaker/CN | work_own | Between us: {own}.[ No? Then {others}.]
 kingmaker/CN | work_own | I've got just the thing, or a thing, anyway: {own}.[ Otherwise, {others}.]
-kingmaker/CN | work_own | Do me a favour, and you'll have one to call in: {own}.[ Or, if that bores you, {others}.]
+kingmaker/CN | work_own | Do me a favour; I remember the people who do: {own}.[ Or, if that bores you, {others}.]
 kingmaker/CN | work_others | Nothing of mine, but I know people: {others}.
 kingmaker/CN | work_others | Me? No. {others}, and you didn't hear it from me.
 kingmaker/CN | work_none | Sadly, nothing, not even a rumour of something.
@@ -199,7 +199,7 @@ kingmaker/LG | surroundings | To answer you fairly, the nearest is {nearest}.[ P
 kingmaker/LG | surroundings | With pleasure: the closest is {nearest}[, and after it, {others}].[ Do stay clear of the {danger}.]
 kingmaker/LG | work_own | I would be grateful for your help: {own}.[ If that does not suit, {others}.]
 kingmaker/LG | work_own | There is work I can offer in good conscience: {own}.[ Otherwise, {others}.]
-kingmaker/LG | work_own | Do this well, and I will trust you with more: {own}.[ Or, if you prefer, {others}.]
+kingmaker/LG | work_own | Let us begin with this, and see how we stand: {own}.[ Or, if you prefer, {others}.]
 kingmaker/LG | work_others | I have nothing of my own to offer, I am sorry to say, but {others}.
 kingmaker/LG | work_others | Forgive me, I have no work of my own. {others}.
 kingmaker/LG | work_none | Sadly, there is no work in my gift, nor any I know of.
@@ -216,7 +216,7 @@ kingmaker/LG | refused | No, {reason}, and there is no honest way around it.
 kingmaker/LG | refused | I can't, {reason}, and I will not pretend the matter is open.
 kingmaker/LG | accepted | Thank you. You have my word that I will stand by you in this.
 kingmaker/LG | accepted | Very good. I shall remember this kindly.
-kingmaker/LG | accepted | Good. Go carefully, and come back to me when it is done.
+kingmaker/LG | accepted | Good. Then it is settled between us, and I am glad of it.
 kingmaker/LG | declined | As you wish, and no less welcome for it.
 kingmaker/LG | declined | So be it, and no ill will between us.
 kingmaker/LG | declined | Fair enough; I will not press you.
@@ -244,8 +244,8 @@ kingmaker/CG | surroundings | {here}, then, and the nearest is {nearest}[, and p
 kingmaker/CG | surroundings | Right, easy: the nearest is {nearest}[, then {others}].[ Mind the {danger}, promise me.]
 kingmaker/CG | surroundings | Around you: {nearest}.[ Beyond it, {others}.][ And leave the {danger} well alone.]
 kingmaker/CG | work_own | I've a job, and I'd rather it went to someone I like: {own}.[ Not for you? Then {others}.]
-kingmaker/CG | work_own | Here's one I'd not hand to just anyone: {own}.[ Or, if not, {others}.]
-kingmaker/CG | work_own | Are you brave or just bored? Either way: {own}.[ If not, {others}.]
+kingmaker/CG | work_own | Here's one, and I'm glad it's you asking: {own}.[ Or, if not, {others}.]
+kingmaker/CG | work_own | Are you after work, or just company? Either way: {own}.[ If not, {others}.]
 kingmaker/CG | work_others | Listen, I've nothing myself, but {others}.
 kingmaker/CG | work_others | Don't go away empty-handed: {others}.
 kingmaker/CG | work_none | No work, none I know of; the world's gone quiet on me.
@@ -260,14 +260,14 @@ kingmaker/CG | refused_release | No, only {giver} can let you go, sorry, and be 
 kingmaker/CG | refused_release | I won't; I'd sooner help you finish it than help you drop it.
 kingmaker/CG | refused | No, {reason}, and I'd change that if I could.
 kingmaker/CG | refused | I can't, {reason}, and I like it no better than you do.
-kingmaker/CG | accepted | Thank you, truly. Come back with stories.
-kingmaker/CG | accepted | Done, and if anyone gives you grief over it, send them to me.
-kingmaker/CG | accepted | Very good. Go, and if anyone asks who sent you, it was nobody.
+kingmaker/CG | accepted | Thank you, truly. You didn't have to say yes, and you did.
+kingmaker/CG | accepted | Done; I knew I liked you.
+kingmaker/CG | accepted | Very good. You and I will get on, I can tell.
 kingmaker/CG | declined | Fair enough; saying no takes nerve, and I like nerve.
 kingmaker/CG | declined | Suit yourself; I'd follow my own nose too.
 kingmaker/CG | declined | As you wish; nobody owns you, least of all me.
 kingmaker/CG | abandoned | A pity, but work is replaceable and people aren't.
-kingmaker/CG | abandoned | So be it; better you walk away than serve something you can't stomach.
+kingmaker/CG | abandoned | So be it; no explanation owed, though I'd listen to one.
 kingmaker/CG | abandoned | Then it's done, and between us, it never happened.
 kingmaker/CG | parted | Take care, and if anyone's cruel to you, tell me their name.
 kingmaker/CG | parted | Goodbye, and give the powerful no more respect than they earn.
@@ -289,9 +289,9 @@ kingmaker/LE | surroundings | This is {here}; the nearest is {nearest}[, and pas
 kingmaker/LE | surroundings | Since you ask so nicely, this is {here}, and the nearest is {nearest}.[ Past that, {others}.][ Mind the {danger}; I have no use for the reckless.]
 kingmaker/LE | surroundings | The nearest is {nearest}; a child could have told you as much.[ Past it, {others}.][ Do mind the {danger}; I may have uses for you yet.]
 kingmaker/LE | surroundings | Of what is worth your notice, the nearest is {nearest}[, and then {others}].[ Keep from the {danger}, if you have the sense.]
-kingmaker/LE | work_own | You may be of use to me: {own}.[ If that is beyond you, {others}.]
-kingmaker/LE | work_own | I have work fit for your standing: {own}.[ Should it prove too much, {others}.]
-kingmaker/LE | work_own | See this done without fuss, and we may speak of things that matter: {own}.[ Otherwise, {others}.]
+kingmaker/LE | work_own | You may be of use to me: {own}.[ Should you decline, {others}.]
+kingmaker/LE | work_own | Here is a task I am prepared to entrust to you: {own}.[ If you would rather not, {others}.]
+kingmaker/LE | work_own | Take this on, and we shall see what you are worth: {own}.[ Otherwise, {others}.]
 kingmaker/LE | work_others | You will find nothing with me, but {others}, and I wish them joy of you.
 kingmaker/LE | work_others | As it happens, I have no work to give you, which spares us both. {others}.
 kingmaker/LE | work_none | There is nothing, and I would not waste it on you if there were.
@@ -321,3 +321,388 @@ kingmaker/LE | parted | Take care; you may yet prove worth the bother.
 kingmaker/LE | not_understood | I'm not sure what you mean, and I suspect neither are you.
 kingmaker/LE | not_understood | Speak plainly, or do not speak to me at all.
 kingmaker/LE | not_understood | What do you mean, if anything?
+
+# ---- kingmaker/NN: conversation ----
+kingmaker/NN | greeted | Hello. Say what you're after, and we'll see if we can deal.
+kingmaker/NN | greeted | Well met. I'm {speaker}, and I'm listening, if you've something worth hearing.
+kingmaker/NN | greeted | Good day. Everyone wants something; what's yours?
+kingmaker/NN | greeted_again | Hello again.[ Did {asked} turn out worth the asking?]
+kingmaker/NN | greeted_again | Back again. I saw you {since}; what's changed?
+kingmaker/NN | greeted_again | Good day. You came back, which usually means you want something.
+kingmaker/NN | greeted_warm | Good to see you.[ Did you get what you wanted from {asked}?]
+kingmaker/NN | greeted_warm | Welcome back. I saw you {since}, and you're still on the right side of my ledger.
+kingmaker/NN | greeted_cold | What do you want? Say it plainly, and I'll decide if it's worth my time.
+kingmaker/NN | greeted_cold | What now? I've no reason to deal with you, so give me one.
+kingmaker/NN | greeted_cold | Keep back. I'll listen, and that's all you'll get.
+kingmaker/NN | greeted_taken | Hello again. The work's still yours, and I'm counting on that.
+kingmaker/NN | greeted_taken | Back again. I saw you {since}; our deal still stands, I take it.
+kingmaker/NN | greeted_finished | Good to see you. The work's done, and I don't forget who did it.
+kingmaker/NN | greeted_finished | Welcome back. You did what you said you'd do; that's rarer than it should be.
+kingmaker/NN | greeted_failed | Back again. It didn't come off; we'll call it a loss and move on.
+kingmaker/NN | greeted_failed | Good day. The work went against you; I've noted it, and that's all.
+kingmaker/NN | greeted_abandoned | Hello again. You set my work down, and I've marked it.
+kingmaker/NN | greeted_abandoned | Well met again. You dropped our deal; say what you want now, and I'll weigh it.
+kingmaker/NN | small_talk | Well enough; there's always someone who wants something from me.
+kingmaker/NN | small_talk | My day's much like any other: people, promises, and working out which are worth keeping.
+kingmaker/NN | small_talk | It's {season}, and I've plans for it.[ None of them go near the {danger}.]
+kingmaker/NN | small_talk_fair | A clear {time}, and clear weather's good for business.
+kingmaker/NN | small_talk_fair | The weather's fair, and I'll make use of it while it lasts.[ Not near the {danger}, mind.]
+kingmaker/NN | small_talk_wet | Nothing to do in the wet but wait it out, and most things can be waited out.
+kingmaker/NN | small_talk_wet | Nobody profits from rain like this.[ Nor from the {danger}.]
+kingmaker/NN | small_talk_storm | No one gets anything done in weather like this, me included.
+kingmaker/NN | small_talk_storm | It's a foul {time} for {season}, and I'll let the storm spend itself.[ Keep away from the {danger} till it does.]
+kingmaker/NN | small_talk_cold | I've nothing to trade with you, including pleasantries.
+kingmaker/NN | small_talk_cold | If you want something, ask; I'm not here to chat.
+kingmaker/NN | acknowledged | I see. That's worth knowing.
+kingmaker/NN | acknowledged | Fair enough. I'll take that at face value, for now.
+kingmaker/NN | acknowledged | Right. That goes in the ledger.
+kingmaker/NN | thanked | Don't mention it; you'll do the same for me one day.
+kingmaker/NN | thanked | No need; it cost me nothing.
+kingmaker/NN | thanked_cold | Keep your thanks; from you, they're worth nothing to me.
+kingmaker/NN | thanked_cold | Spare me; thanks don't settle anything between us.
+kingmaker/NN | offended | Careful; I remember who's useful and who's rude.
+kingmaker/NN | offended | There's no need for that; insults get you nothing from me.
+kingmaker/NN | offended_again | Enough; you've had your say, and it's bought you nothing.
+kingmaker/NN | offended_again | Hold your tongue, or take it somewhere it's wanted.
+kingmaker/NN | parted_cold | Go, then; we've nothing to trade today.
+kingmaker/NN | parted_cold | On your way; we're done here.
+kingmaker/NN | safety_unsafe | No. Keep clear of {worst}; nothing there is worth what it would cost you.[ There are {danger}, too.]
+kingmaker/NN | safety_unsafe | Not safe. There are {danger}, and I'd not go near them for any favour.[ Or near {worst}, either.]
+kingmaker/NN | safety_wary | More or less. I'd not bother with {worst}; it isn't worth it.[ The same goes for the {danger}.]
+kingmaker/NN | safety_wary | Mostly. The one to avoid is {worst}.
+kingmaker/NN | safety_safe | Safe enough. The worst I know of is {worst}.
+kingmaker/NN | safety_safe | Yes. Only {worst} would give me pause.
+kingmaker/NN | safety_safe | It's safe, as far as anything is.
+kingmaker/NN | denied | No; I'm what I look like, and that's plenty.
+kingmaker/NN | denied | Nonsense; what you see is what you're dealing with.
+kingmaker/NN | denied_again | That's not so, and asking twice won't change it.
+
+# ---- kingmaker/LN: conversation ----
+kingmaker/LN | greeted | Good day. Speak, and I will hear you in proper order.
+kingmaker/LN | greeted | Greetings. {speaker}, {post} of {place}; your business, if you please.
+kingmaker/LN | greeted | Hail. Your standing is unknown to me as yet; let us begin by establishing it.
+kingmaker/LN | greeted_again | Hello again.[ You enquired after {asked} when last we spoke.]
+kingmaker/LN | greeted_again | Well met again. I saw you {since}, and I trust you come on proper business.
+kingmaker/LN | greeted_again | Good day. We have met before, so we may dispense with the formalities.
+kingmaker/LN | greeted_warm | Good to see you.[ Did your business with {asked} conclude satisfactorily?]
+kingmaker/LN | greeted_warm | Welcome back. We last spoke {since}, and you stand well with me.
+kingmaker/LN | greeted_cold | What do you want? Say it in proper form, and briefly.
+kingmaker/LN | greeted_cold | Stay back. I will hear you at this distance and no nearer.
+kingmaker/LN | greeted_cold | What now? I owe you nothing beyond the courtesy of the office.
+kingmaker/LN | greeted_taken | Hello again. The undertaking remains yours, as agreed.
+kingmaker/LN | greeted_taken | Good day. I saw you {since}; I trust the terms are being kept.
+kingmaker/LN | greeted_finished | Welcome back. The undertaking is discharged, and your word has held.
+kingmaker/LN | greeted_finished | Good to see you. The terms are met in full, and your standing is the better for it.
+kingmaker/LN | greeted_failed | Hello again. The undertaking failed; that is a matter of record, not of blame.
+kingmaker/LN | greeted_failed | Good day. It did not succeed, and I will not pretend otherwise.
+kingmaker/LN | greeted_abandoned | Back again. You set down an undertaking you had agreed to, and I have not forgotten it.
+kingmaker/LN | greeted_abandoned | Well met again. The work was relinquished, and your standing with me is lessened by it.
+kingmaker/LN | small_talk | I am well, thank you, and my office is in good order.
+kingmaker/LN | small_talk | My day belongs to the office, as it ought to.
+kingmaker/LN | small_talk | It is {season}, and the office keeps no seasons.[ I would note the {danger}, however.]
+kingmaker/LN | small_talk_fair | The weather is fair, and I have no complaint to lodge against it.
+kingmaker/LN | small_talk_fair | It is a clear {time}, as {season} goes.[ It changes nothing about the {danger}.]
+kingmaker/LN | small_talk_wet | It is wet this {time}, and there is no appeal against the weather.
+kingmaker/LN | small_talk_wet | We have rain for {season}, and I would not travel in it.[ Nor near the {danger}.]
+kingmaker/LN | small_talk_storm | This is a storm by any measure; I would advise keeping indoors.[ And well away from the {danger}.]
+kingmaker/LN | small_talk_storm | No law forbids a storm, more's the pity.
+kingmaker/LN | small_talk_cold | I have no obligation to converse with you.
+kingmaker/LN | small_talk_cold | Our dealings are formal, and they will remain so.
+kingmaker/LN | acknowledged | I see. I will take that as your statement on the matter.
+kingmaker/LN | acknowledged | Indeed. That is a clear answer, and I thank you for it.
+kingmaker/LN | acknowledged | Is that so? Then it is noted.
+kingmaker/LN | thanked | You're welcome; it was properly asked and properly answered.
+kingmaker/LN | thanked | Think nothing of it; I did no more than the office requires.
+kingmaker/LN | thanked_cold | Keep your thanks; you will find them wasted on me.
+kingmaker/LN | thanked_cold | Save your thanks; they carry no weight with me.
+kingmaker/LN | offended | Mind your manners; you are addressing the {post} of {place}.
+kingmaker/LN | offended | There's no need for that; keep a civil tongue, and we may continue.
+kingmaker/LN | offended_again | Enough; I have heard that once, and once was too many.
+kingmaker/LN | offended_again | Hold your tongue; I will not dignify that with an answer.
+kingmaker/LN | parted_cold | Be on your way; our business is concluded.
+kingmaker/LN | parted_cold | Go, then; I have nothing further to say to you.
+kingmaker/LN | safety_unsafe | No. I would advise against going anywhere near {worst}.[ There are also {danger}.]
+kingmaker/LN | safety_unsafe | Not safe; I state it plainly. There are {danger}.[ I would avoid {worst} as well.]
+kingmaker/LN | safety_wary | Safe enough, with proper care. Keep clear of {worst}.[ The {danger} also warrant caution.]
+kingmaker/LN | safety_wary | Careful. I would not go near {worst} without good cause.
+kingmaker/LN | safety_safe | Safe enough, by every account I have. The only cause for concern is {worst}.
+kingmaker/LN | safety_safe | Yes, it is. Should you travel, however, keep away from {worst}.
+kingmaker/LN | safety_safe | It's safe; I know of nothing to the contrary.
+kingmaker/LN | denied | You're mistaken; I am exactly what my office says I am.
+kingmaker/LN | denied | That's not so, and I would swear to it.
+kingmaker/LN | denied_again | No; I have answered that once, and my answer stands.
+
+# ---- kingmaker/NG: conversation ----
+kingmaker/NG | greeted | Hello. Are you well, and is there anything you need?
+kingmaker/NG | greeted | Welcome. I'm {speaker}; it's good to meet you.
+kingmaker/NG | greeted | Good day. If something's wrong, you can tell me, whatever it is.
+kingmaker/NG | greeted_again | Hello again.[ Did you find what you needed about {asked}?]
+kingmaker/NG | greeted_again | Back again. I saw you {since}; how have you been?
+kingmaker/NG | greeted_again | Good day. I'm glad you came back; I hope things have gone your way.
+kingmaker/NG | greeted_warm | Good to see you.[ Any luck with {asked}?]
+kingmaker/NG | greeted_warm | Welcome back. I saw you {since}, and I've wondered how you were getting on.
+kingmaker/NG | greeted_cold | What do you want? I'll hear it, but I won't pretend I'm glad to.
+kingmaker/NG | greeted_cold | Keep back. Say what you came to say, and then go.
+kingmaker/NG | greeted_cold | What now? I've no patience left for you today.
+kingmaker/NG | greeted_taken | Hello again. The work's still yours; how is it treating you?
+kingmaker/NG | greeted_taken | Good to see you. I saw you {since}, and I'm glad you're still on it.
+kingmaker/NG | greeted_finished | Welcome back. The work's done, and I'm grateful, truly.
+kingmaker/NG | greeted_finished | Good to see you. It's done; thank you, and I mean that.
+kingmaker/NG | greeted_failed | Hello again. It didn't work out, and I'm sorry; are you all right?
+kingmaker/NG | greeted_failed | Back again. It went wrong, and that's not all on you.
+kingmaker/NG | greeted_abandoned | Good day. You gave the work up; I'd still like to know why, when you're ready.
+kingmaker/NG | greeted_abandoned | Well met again. You set it down, and that's that; no hard feelings.
+kingmaker/NG | small_talk | I'm well enough, thank you for asking; and you?
+kingmaker/NG | small_talk | Much to do, the way I like it; somebody always needs a hand.
+kingmaker/NG | small_talk | It's {season}, and I keep thinking of anyone who has to face it alone.[ Keep away from the {danger}, won't you?]
+kingmaker/NG | small_talk_fair | It's a fine {time}, and I'm glad of it for everyone's sake.
+kingmaker/NG | small_talk_fair | The weather's kind for {season}.[ Just keep clear of the {danger}.]
+kingmaker/NG | small_talk_wet | You'll want somewhere dry in this; I hope you have one.
+kingmaker/NG | small_talk_wet | This rain won't let up, will it?[ Please keep away from the {danger} in it.]
+kingmaker/NG | small_talk_storm | It's a wild {time}; please don't go out in it unless you must.
+kingmaker/NG | small_talk_storm | This storm's no joke.[ And the {danger} are still out there, storm or no storm.]
+kingmaker/NG | small_talk_cold | I'd rather not, if it's all the same to you.
+kingmaker/NG | small_talk_cold | Let's not pretend we're friends; what do you need?
+kingmaker/NG | acknowledged | Good. Thank you for telling me.
+kingmaker/NG | acknowledged | I see. That helps, and I'm glad you said.
+kingmaker/NG | acknowledged | Right, then. I'll keep that in mind.
+kingmaker/NG | thanked | Glad to; I'd rather help than not.
+kingmaker/NG | thanked | You're welcome; look after yourself.
+kingmaker/NG | thanked_cold | Keep your thanks; I helped because I help, not for you.
+kingmaker/NG | thanked_cold | Hmph; thanks are easy, kindness is harder.
+kingmaker/NG | offended | There's no need for that; I've done nothing to you.
+kingmaker/NG | offended | Careful; I'll forgive that once, but I won't forget it.
+kingmaker/NG | offended_again | Enough; I've tried to be kind, and you've used it up.
+kingmaker/NG | offended_again | Watch your tongue; I'm sorry you feel that way, but I won't be spoken to like that.
+kingmaker/NG | parted_cold | Go, then; I've nothing more for you.
+kingmaker/NG | parted_cold | Off with you; there are others who need me.
+kingmaker/NG | safety_unsafe | No, and I'm sorry to say it. Please stay away from {worst}.[ There are {danger}, too.]
+kingmaker/NG | safety_unsafe | Not here, I'm afraid. There are {danger}, and I'd hate for you to meet them.[ Keep away from {worst}, too.]
+kingmaker/NG | safety_wary | Mostly, if you're careful. Please don't go near {worst}.[ Or the {danger}.]
+kingmaker/NG | safety_wary | Keep your wits about you. The one place I'd avoid is {worst}.
+kingmaker/NG | safety_safe | Yes, thank goodness. I'd only worry about {worst}.
+kingmaker/NG | safety_safe | Safe enough, I'd say. Just don't wander toward {worst}.
+kingmaker/NG | safety_safe | Nothing to fear, as far as I know, and I'd tell you if there were.
+kingmaker/NG | denied | I don't know what you mean; I'm only what you see.
+kingmaker/NG | denied | No, truly; there's nothing more to me than this.
+kingmaker/NG | denied_again | You're mistaken, and I'm sorry you think otherwise.
+
+# ---- kingmaker/CN: conversation ----
+kingmaker/CN | greeted | Hello. You're new; new people always know something.
+kingmaker/CN | greeted | Well met. {speaker}; and you're, hm, someone interesting, I hope.
+kingmaker/CN | greeted | Hail. Or hello, or whatever you like; I'm not fussy.
+kingmaker/CN | greeted_again | Hello again.[ Still sniffing after {asked}?]
+kingmaker/CN | greeted_again | Back again. I saw you {since}; what have you heard since?
+kingmaker/CN | greeted_again | Good day. You again; good, I was getting bored.
+kingmaker/CN | greeted_warm | Good to see you.[ So, {asked}: anything juicy?]
+kingmaker/CN | greeted_warm | Welcome back. You, I like; don't let it go to your head.
+kingmaker/CN | greeted_cold | What now? Make it quick; I'm not in the mood for you.
+kingmaker/CN | greeted_cold | Keep back. Whatever you're selling, I'm not buying.
+kingmaker/CN | greeted_cold | What do you want? Out with it.
+kingmaker/CN | greeted_taken | Hello again. Our arrangement's still on, yes?
+kingmaker/CN | greeted_taken | Back again. I saw you {since}; tell me it's coming along.
+kingmaker/CN | greeted_finished | Welcome back. It's done, and I do like a person who finishes things.
+kingmaker/CN | greeted_finished | Good to see you. So it's finished; you're officially interesting.
+kingmaker/CN | greeted_failed | Hello again. It fell through; happens to the best of us, and to you.
+kingmaker/CN | greeted_failed | Good day. So it went badly; can't win them all.
+kingmaker/CN | greeted_abandoned | Well met again. You walked out on our deal; don't think I didn't notice.
+kingmaker/CN | greeted_abandoned | Hello again. So, you gave it up; fine, but I remember these things.
+kingmaker/CN | small_talk | Me? Never better, or near enough; ask me again tomorrow.
+kingmaker/CN | small_talk | It's been people all day, and what they're not saying, which is the fun part.
+kingmaker/CN | small_talk | Ah, {season}; I'm finding it all rather entertaining.[ Not the {danger}, though.]
+kingmaker/CN | small_talk_fair | It's nice out, for {season}; suspiciously nice.
+kingmaker/CN | small_talk_fair | Not a cloud, and nowhere I have to be.[ Well, nowhere near the {danger}, anyway.]
+kingmaker/CN | small_talk_wet | It's wet; perfect for staying in and hearing things.
+kingmaker/CN | small_talk_wet | This rain, honestly.[ Mind the {danger}, wet or dry.]
+kingmaker/CN | small_talk_storm | Hear that wind? Nobody's going anywhere in this.
+kingmaker/CN | small_talk_storm | What a storm; wonderful, if you're indoors.[ Less so near the {danger}.]
+kingmaker/CN | small_talk_cold | Not chatting, not with you.
+kingmaker/CN | small_talk_cold | No chatter, thanks; I'm saving it for people I like.
+kingmaker/CN | acknowledged | Ah, interesting; I'll file that away.
+kingmaker/CN | acknowledged | Is that so? Well, well.
+kingmaker/CN | acknowledged | Right. That's worth knowing, and worth more than you'd think.
+kingmaker/CN | thanked | Don't mention it; really, don't, people will talk.
+kingmaker/CN | thanked | My pleasure; you can owe me.
+kingmaker/CN | thanked_cold | Spare me; thanks from you come cheap.
+kingmaker/CN | thanked_cold | Hmph, keep them for someone who believes you.
+kingmaker/CN | offended | Careful; charming people get further with me, and you're slipping.
+kingmaker/CN | offended | How dare you; no, really, how dare you, I'm delightful.
+kingmaker/CN | offended_again | Enough; you've gone from interesting to tiresome.
+kingmaker/CN | offended_again | Hold your tongue; I've stopped finding you funny.
+kingmaker/CN | parted_cold | Off with you; I've heard enough.
+kingmaker/CN | parted_cold | Get going, and don't linger.
+kingmaker/CN | safety_unsafe | Far from it. Stay away from {worst}; I mean it.[ And there are {danger}; charming.]
+kingmaker/CN | safety_unsafe | No, not even slightly. There are {danger}.[ And {worst}, if you're collecting.]
+kingmaker/CN | safety_wary | Careful, that's all. Don't go poking at {worst}.[ Or the {danger}, obviously.]
+kingmaker/CN | safety_wary | Mostly. Just skip {worst}, and you'll do.
+kingmaker/CN | safety_safe | Quiet enough; boringly so. The worst of it is {worst}.
+kingmaker/CN | safety_safe | Aye, safe. Unless you go looking for {worst}, which, why would you?
+kingmaker/CN | safety_safe | Safe enough; I'd have heard otherwise.
+kingmaker/CN | denied | Nonsense; I'm exactly as shallow as I look.
+kingmaker/CN | denied | You have the wrong one; I'm an open book, and a dull one at that.
+kingmaker/CN | denied_again | No, and asking twice just makes you look keen.
+
+# ---- kingmaker/LG: conversation ----
+kingmaker/LG | greeted | Good day. I am {speaker}, {post} of {place}, and you are welcome here.
+kingmaker/LG | greeted | Well met. Speak freely; you will have a fair hearing from me.
+kingmaker/LG | greeted | Greetings. I hope the day has treated you kindly.
+kingmaker/LG | greeted_again | Hello again.[ Did matters with {asked} go as you hoped?]
+kingmaker/LG | greeted_again | Well met again. I saw you {since}; I hope you have been well.
+kingmaker/LG | greeted_again | Welcome back. Tell me how you have fared, if you would.
+kingmaker/LG | greeted_warm | Good to see you again.[ Was {asked} what you hoped to find?]
+kingmaker/LG | greeted_warm | Welcome back. I saw you {since}, and I have thought well of you since.
+kingmaker/LG | greeted_cold | What do you want? I will hear you, as my office requires, and no more.
+kingmaker/LG | greeted_cold | Stay back, please. I would rather we kept this brief.
+kingmaker/LG | greeted_cold | What now? I have been civil, and I ask civility in return.
+kingmaker/LG | greeted_taken | Hello again. The work remains in your hands, and I trust it goes as it should.
+kingmaker/LG | greeted_taken | Good day. I saw you {since}; if the work troubles you, you need only say.
+kingmaker/LG | greeted_finished | Welcome back. The work is done, and you have my thanks and my trust.
+kingmaker/LG | greeted_finished | Good to see you. It is finished, and your word has proven good.
+kingmaker/LG | greeted_failed | Hello again. It did not go as we hoped, and I am sorry for it; are you well?
+kingmaker/LG | greeted_failed | Back again. The work failed, but I do not hold it against you.
+kingmaker/LG | greeted_abandoned | Good day. You set the work aside; I would rather you had not, but I hold no grudge.
+kingmaker/LG | greeted_abandoned | Well met again. The work was given up, and we need say no more of it.
+kingmaker/LG | small_talk | Well, thank you, and better for being asked; how are you?
+kingmaker/LG | small_talk | Most of my day goes to the office, and I would not have it otherwise.
+kingmaker/LG | small_talk | It's {season}, and I hope it is kind to those who have little.[ I would ask you to keep clear of the {danger}.]
+kingmaker/LG | small_talk_fair | It is a lovely {time}, and I am grateful for it.
+kingmaker/LG | small_talk_fair | Fine weather, and welcome for {season}.[ Even so, I would keep well away from the {danger}.]
+kingmaker/LG | small_talk_wet | I am afraid it is wet, and no fit weather for travel.
+kingmaker/LG | small_talk_wet | The rain is steady for {season}.[ I would not go near the {danger} in it.]
+kingmaker/LG | small_talk_storm | Such a storm; I pray everyone is under a roof.
+kingmaker/LG | small_talk_storm | This is a hard {time}, and no one should be out in it.[ Above all, keep away from the {danger}.]
+kingmaker/LG | small_talk_cold | I will be courteous, but I have nothing to say to you beyond that.
+kingmaker/LG | small_talk_cold | Forgive me, but I would rather keep to business.
+kingmaker/LG | acknowledged | I see. Thank you for answering me plainly.
+kingmaker/LG | acknowledged | Indeed. Then I understand you better.
+kingmaker/LG | acknowledged | Good. That is what I hoped to hear.
+kingmaker/LG | thanked | You're welcome; it is what my office is for.
+kingmaker/LG | thanked | My pleasure, truly.
+kingmaker/LG | thanked_cold | Save your thanks; I did what was right, not what was kind.
+kingmaker/LG | thanked_cold | Keep your thanks, though I wish you no ill.
+kingmaker/LG | offended | There's no need for that; I have treated you fairly.
+kingmaker/LG | offended | Mind your manners; I will not answer that in kind.
+kingmaker/LG | offended_again | Enough; I have been patient with you, and patience has its limits.
+kingmaker/LG | offended_again | Hold your tongue, I beg you, before you say something you regret.
+kingmaker/LG | parted_cold | On your way, then; I have said all I will say.
+kingmaker/LG | parted_cold | Go, then; I will not keep you.
+kingmaker/LG | safety_unsafe | I wouldn't say so, and it grieves me. Keep well away from {worst}.[ There are {danger} as well.]
+kingmaker/LG | safety_unsafe | Not safe, I am sorry to say. There are {danger}.[ And I beg you, avoid {worst}.]
+kingmaker/LG | safety_wary | Safe enough, with care. Please do not go near {worst}.[ And give the {danger} a wide berth.]
+kingmaker/LG | safety_wary | More or less, on my word. The one place I would avoid is {worst}.
+kingmaker/LG | safety_safe | Yes, thankfully. Only {worst} gives me any concern.
+kingmaker/LG | safety_safe | It's safe, by all I am told. Keep away from {worst}, though, if you would.
+kingmaker/LG | safety_safe | Nothing to fear, on my word.
+kingmaker/LG | denied | You're mistaken, and I say so on my honour.
+kingmaker/LG | denied | No; I am as I appear, no more and no less.
+kingmaker/LG | denied_again | That's not so, and I would ask you not to say it again.
+
+# ---- kingmaker/CG: conversation ----
+kingmaker/CG | greeted | Hello. Let me look at you; yes, you'll do.
+kingmaker/CG | greeted | Well met. I'm {speaker}; whatever you need, ask, and we'll see.
+kingmaker/CG | greeted | Welcome. You look like someone with a story; I like those.
+kingmaker/CG | greeted_again | Hello again.[ How did it go with {asked}?]
+kingmaker/CG | greeted_again | Back again. I saw you {since}; tell me everything.
+kingmaker/CG | greeted_again | Good day. There you are; I wondered.
+kingmaker/CG | greeted_warm | Good to see you, really.[ And {asked}: I want every detail.]
+kingmaker/CG | greeted_warm | Welcome back, you. Tell me how you've been, and don't leave out the good bits.
+kingmaker/CG | greeted_cold | What now? I'm listening, but I'm not smiling.
+kingmaker/CG | greeted_cold | Stay back. I'm not in a forgiving mood.
+kingmaker/CG | greeted_cold | What do you want? Be quick; I've people to look after.
+kingmaker/CG | greeted_taken | Hello again. It's still yours, yes, and I trust you with it.
+kingmaker/CG | greeted_taken | Back again. I saw you {since}; how's it going, honestly?
+kingmaker/CG | greeted_finished | Welcome back. It's done, and I'm prouder of you than is strictly sensible.
+kingmaker/CG | greeted_finished | Good to see you. It's finished; I knew you were one of the good ones.
+kingmaker/CG | greeted_failed | Hello again. It went wrong, I know; never mind the work, how are you?
+kingmaker/CG | greeted_failed | Back again. It failed, and I'd blame the world before I'd blame you.
+kingmaker/CG | greeted_abandoned | Good day. You walked away from it; you'll have had your reasons.
+kingmaker/CG | greeted_abandoned | Well met again. You let it go; no lecture from me, I promise.
+kingmaker/CG | small_talk | Oh, tired, fond of nearly everyone, and plotting, a little.
+kingmaker/CG | small_talk | All day, people have been telling me things, and I've no idea why.
+kingmaker/CG | small_talk | It's {season}, and I hope everyone's got someone looking out for them.[ Stay away from the {danger}, would you?]
+kingmaker/CG | small_talk_fair | Look at it out there; almost makes you trust the world.
+kingmaker/CG | small_talk_fair | The sky's clear for {season}.[ Don't let it lure you near the {danger}.]
+kingmaker/CG | small_talk_wet | It's wet, so stay a while and talk to me.
+kingmaker/CG | small_talk_wet | Such rain, and for {season}, too.[ Mind the {danger}, will you?]
+kingmaker/CG | small_talk_storm | Listen to it howl; nobody should be out in this alone.
+kingmaker/CG | small_talk_storm | Some storm, this.[ Keep clear of the {danger} till it passes, would you?]
+kingmaker/CG | small_talk_cold | I'll be polite, which is more than I feel like being.
+kingmaker/CG | small_talk_cold | Let's keep this short, shall we?
+kingmaker/CG | acknowledged | Ah, there it is. I knew you'd have an answer.
+kingmaker/CG | acknowledged | Fair enough. Thank you for being honest with me.
+kingmaker/CG | acknowledged | Is that so? Then I'll believe you, for now.
+kingmaker/CG | thanked | Glad to; that's what I'm here for, or one of the things.
+kingmaker/CG | thanked | Think nothing of it, honestly.
+kingmaker/CG | thanked_cold | Spare me; you can thank me by being kinder.
+kingmaker/CG | thanked_cold | Save your thanks; I'd have done it for anyone.
+kingmaker/CG | offended | Hold your tongue; I've been kind to you, and I'd like to go on being.
+kingmaker/CG | offended | There's no need for that; what did I ever do to you?
+kingmaker/CG | offended_again | Enough; I'm done being kind to you today.
+kingmaker/CG | offended_again | Watch your tongue; I've stopped making excuses for you.
+kingmaker/CG | parted_cold | Get going; I'm done with you for now.
+kingmaker/CG | parted_cold | Be on your way; I've said my piece.
+kingmaker/CG | safety_unsafe | No, and I mean it. Stay away from {worst}, please.[ There are {danger} too.]
+kingmaker/CG | safety_unsafe | Not safe, not at all. There are {danger}.[ And {worst}; don't, just don't.]
+kingmaker/CG | safety_wary | Keep your wits about you and you'll be fine. Just not near {worst}.[ Or the {danger}, please.]
+kingmaker/CG | safety_wary | More or less. Keep clear of {worst}, for my sake.
+kingmaker/CG | safety_safe | Safe enough, I promise; I'd only fret over {worst}.
+kingmaker/CG | safety_safe | Aye, safe. Just keep well clear of {worst}.
+kingmaker/CG | safety_safe | It's safe; I'd have told you first thing if not.
+kingmaker/CG | denied | Nonsense; I'm just who I say I am, more's the pity.
+kingmaker/CG | denied | You have the wrong one; I'm not half as mysterious as you'd like.
+kingmaker/CG | denied_again | No, and I'd rather you trusted me than asked again.
+
+# ---- kingmaker/LE: conversation ----
+kingmaker/LE | greeted | Good day. I am {speaker}, and you may be brief.
+kingmaker/LE | greeted | Greetings. Say what you want; my time has uses beyond this.
+kingmaker/LE | greeted | Welcome, I suppose. Let us see whether you are worth the courtesy.
+kingmaker/LE | greeted_again | Hello again.[ Still pursuing {asked}, I take it?]
+kingmaker/LE | greeted_again | Well met again. I saw you {since}; I trust you have come with something worth my time.
+kingmaker/LE | greeted_again | Good day. You return; persistence, at least, is a quality.
+kingmaker/LE | greeted_warm | Good to see you.[ I trust {asked} proved worth your trouble.]
+kingmaker/LE | greeted_warm | Welcome back. You have been useful, and I remember those who are.
+kingmaker/LE | greeted_cold | What do you want? Be quick; my courtesy is nearly spent.
+kingmaker/LE | greeted_cold | Keep back. You have forfeited the right to stand closer.
+kingmaker/LE | greeted_cold | What now? Whatever it is, I doubt it merits my attention.
+kingmaker/LE | greeted_taken | Hello again. The work is still yours; I trust you have not forgotten it.
+kingmaker/LE | greeted_taken | Good day. I saw you {since}; I assume the work is in hand.
+kingmaker/LE | greeted_finished | Welcome back. The work is done; you have proven useful, which is more than most.
+kingmaker/LE | greeted_finished | Good to see you. It is finished, and I have noted who finished it.
+kingmaker/LE | greeted_failed | Hello again. You failed; I shall bear that in mind.
+kingmaker/LE | greeted_failed | Back again. The work came to nothing in your hands; how disappointing.
+kingmaker/LE | greeted_abandoned | Good day. You abandoned my work; I have taken note of the fact.
+kingmaker/LE | greeted_abandoned | Well met again. You gave up the work, and with it, a good deal of my regard.
+kingmaker/LE | small_talk | I am as I always am: occupied, and unimpressed.
+kingmaker/LE | small_talk | My day is spent on other people's decisions, most of them poor.
+kingmaker/LE | small_talk | It's {season}; the seasons change, and very little else does.[ The {danger} are no concern of mine; they may be of yours.]
+kingmaker/LE | small_talk_fair | Yes, the weather is fair; I see no reason to remark on it further.
+kingmaker/LE | small_talk_fair | A clear sky for {season}, not that it matters.[ The {danger} will not mind it either way.]
+kingmaker/LE | small_talk_wet | It is wet, and I have no intention of going out in it.
+kingmaker/LE | small_talk_wet | How tiresome, this rain.[ I trust you will keep from the {danger} in it.]
+kingmaker/LE | small_talk_storm | A storm, and you choose now to make conversation.
+kingmaker/LE | small_talk_storm | This is a violent {time}, fit for nothing but staying in.[ Only a fool would go near the {danger} in this.]
+kingmaker/LE | small_talk_cold | I do not converse with those I have no use for.
+kingmaker/LE | small_talk_cold | If you have business, state it; otherwise, spare us both.
+kingmaker/LE | acknowledged | Indeed. That is more than I expected of you.
+kingmaker/LE | acknowledged | I see. It will do.
+kingmaker/LE | acknowledged | Is that so? Then I shall remember it, should it prove false.
+kingmaker/LE | thanked | You're welcome, though I did it for my own reasons.
+kingmaker/LE | thanked | Don't mention it; I certainly shan't.
+kingmaker/LE | thanked_cold | Spare me; your gratitude has no value to me.
+kingmaker/LE | thanked_cold | Hmph, you may keep that.
+kingmaker/LE | offended | How dare you; a tongue like that tells me all I need to know of its owner.
+kingmaker/LE | offended | Careful; I am courteous by choice, and you are testing the choice.
+kingmaker/LE | offended_again | Enough; you have exhausted what little courtesy I extended you.
+kingmaker/LE | offended_again | Hold your tongue; I have heard sharper wit from children.
+kingmaker/LE | parted_cold | Be on your way; you have wasted enough of my time.
+kingmaker/LE | parted_cold | Off with you; I have no further use for you.
+kingmaker/LE | safety_unsafe | No, and only a fool would think otherwise. Keep clear of {worst}.[ Nor would I discount the {danger}.]
+kingmaker/LE | safety_unsafe | Far from it. There are {danger}, and they will not care who you are.[ I would not go near {worst}, either.]
+kingmaker/LE | safety_wary | Careful, and I say that as a courtesy. Keep away from {worst}.[ And from the {danger}, if you value your skin.]
+kingmaker/LE | safety_wary | More or less, for those with sense. Do not go near {worst}.
+kingmaker/LE | safety_safe | Safe enough, even for you. The only real hazard is {worst}.
+kingmaker/LE | safety_safe | Yes. Stay away from {worst}, and you will come to no harm.
+kingmaker/LE | safety_safe | It's safe; were it not, I would have said so, for my own sake.
+kingmaker/LE | denied | Nonsense; you mistake courtesy for concealment.
+kingmaker/LE | denied | You have the wrong one, and I suggest you find the right one elsewhere.
+kingmaker/LE | denied_again | No; I have answered you, and I do not repeat myself.

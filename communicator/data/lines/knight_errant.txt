@@ -15,7 +15,7 @@ knight_errant/NN | surroundings | The nearest is {nearest}.[ Then {others}.][ Ke
 knight_errant/NN | surroundings | What's closest is {nearest}[, then {others}].[ The {danger} aren't worth the risk.]
 knight_errant/NN | work_own | I've a use for you, and an honest one: {own}.[ If that doesn't suit, {others}.]
 knight_errant/NN | work_own | Here's something that needs doing: {own}.[ Otherwise, {others}.]
-knight_errant/NN | work_own | There's something in it for both of us: {own}.[ Or, if it's not worth your while, {others}.]
+knight_errant/NN | work_own | I'll put it plainly, and you can weigh it: {own}.[ Or, if it's not worth your while, {others}.]
 knight_errant/NN | work_others | If you want work, look elsewhere: {others}.
 knight_errant/NN | work_others | No work of my own, but {others}.
 knight_errant/NN | work_none | Nothing, from me or from anyone I know of.
@@ -31,14 +31,14 @@ knight_errant/NN | refused_release | I cannot release you from a deal I never ma
 knight_errant/NN | refused | No, {reason}, and arguing won't change it.
 knight_errant/NN | refused | I can't; {reason}, plain and simple.
 knight_errant/NN | accepted | Good. We're square when it's done, and not before.
-knight_errant/NN | accepted | Done. I'll mark it in your favour.
+knight_errant/NN | accepted | Done. It's written down now, on both sides.
 knight_errant/NN | accepted | Thank you; that's a bargain, and I keep mine.
 knight_errant/NN | declined | As you wish; nothing's owed on either side.
 knight_errant/NN | declined | Very well, it's your time to spend.
 knight_errant/NN | declined | Suit yourself; an honest offer finds a taker.
 knight_errant/NN | abandoned | A pity, though I'd sooner know now than later.
 knight_errant/NN | abandoned | Then it's done, and the account's closed.
-knight_errant/NN | abandoned | So be it; I'll count what's left and carry on.
+knight_errant/NN | abandoned | So be it; I'll strike it off the tally, and that's that.
 knight_errant/NN | parted | Go well, and don't spend yourself cheap.
 knight_errant/NN | parted | Safe travels, and come back when you've something to offer.
 knight_errant/NN | parted | Take care; you're more use to me whole.
@@ -61,7 +61,7 @@ knight_errant/LN | surroundings | The nearest is {nearest}[, and after it, {othe
 knight_errant/LN | surroundings | As to what lies near, the first is {nearest}[, then {others}].[ Be on your guard against the {danger}.]
 knight_errant/LN | work_own | There is work, and it is honest: {own}.[ Should you decline it, {others}.]
 knight_errant/LN | work_own | Let this be the measure of you: {own}.[ Or, if you would rather, {others}.]
-knight_errant/LN | work_own | I will trust you with this much, and we shall see: {own}.[ Otherwise, {others}.]
+knight_errant/LN | work_own | I will trust you with this, and we shall see: {own}.[ Otherwise, {others}.]
 knight_errant/LN | work_others | Of my own I have nothing to offer; of others' work, I know this: {others}.
 knight_errant/LN | work_others | Nothing is mine to give, but I can name who is hiring: {others}.
 knight_errant/LN | work_none | I have no work to give, and I know of none.
@@ -105,9 +105,9 @@ knight_errant/NG | surroundings | This is {here}. The nearest is {nearest}[; the
 knight_errant/NG | surroundings | We're at {here}, and the closest is {nearest}[; past it, {others}].[ Mind the {danger}, and don't go alone if you can help it.]
 knight_errant/NG | surroundings | The nearest is {nearest}.[ Then {others}.][ Look out for the {danger}.]
 knight_errant/NG | surroundings | What's nearest is {nearest}[, then {others}].[ Please steer clear of the {danger}.]
-knight_errant/NG | work_own | Will you help? It's worth doing, whatever comes of it: {own}.[ If not, {others}.]
+knight_errant/NG | work_own | Will you help? I'll ask it plainly: {own}.[ If not, {others}.]
 knight_errant/NG | work_own | I'd be grateful for the help: {own}.[ Otherwise, {others}.]
-knight_errant/NG | work_own | Here's where you can do some good: {own}.[ Or, if that's not for you, {others}.]
+knight_errant/NG | work_own | Here's what I'd ask of you: {own}.[ Or, if that's not for you, {others}.]
 knight_errant/NG | work_others | I've nothing for you myself, but {others}.
 knight_errant/NG | work_others | Someone else needs you more than I do: {others}.
 knight_errant/NG | work_none | No work that I know of, and I wish there were.
@@ -122,14 +122,14 @@ knight_errant/NG | refused_release | I won't go behind {giver}'s back, not even 
 knight_errant/NG | refused_release | I cannot release you from someone else's work, and I'm sorry for it.
 knight_errant/NG | refused | No, {reason}, though I wish it were otherwise.
 knight_errant/NG | refused | I won't lie to you: {reason}.
-knight_errant/NG | accepted | Good. Come back in one piece, and tell me how it went.
+knight_errant/NG | accepted | Good. I'm glad you said yes, truly.
 knight_errant/NG | accepted | Done, and I won't forget it.
-knight_errant/NG | accepted | Thank you. Look after yourself, and anyone you find along the way.
+knight_errant/NG | accepted | Thank you. You didn't have to say yes, and you did.
 knight_errant/NG | declined | Suit yourself, and no hard feelings.
 knight_errant/NG | declined | As you wish; I'll find someone else.
 knight_errant/NG | declined | Very well, I won't hold it against you.
-knight_errant/NG | abandoned | A pity, but better you whole than it done.
-knight_errant/NG | abandoned | So be it; I'll see it done some other way.
+knight_errant/NG | abandoned | A pity, but I'd sooner you told me than not.
+knight_errant/NG | abandoned | So be it; I'm sorry it came to that.
 knight_errant/NG | abandoned | Then it's done, and I hope you had good reason.
 knight_errant/NG | parted | Farewell, and look after whoever's with you.
 knight_errant/NG | parted | Take care of yourself, and of anyone who needs it.
@@ -199,7 +199,7 @@ knight_errant/CG | surroundings | The nearest is {nearest}[, then {others}].[ An
 knight_errant/CG | surroundings | Nothing's nearer than {nearest}[; past it, {others}].[ Be careful of the {danger} - I mean it.]
 knight_errant/CG | work_own | Help first, questions later: {own}.[ Or, if you'd rather, {others}.]
 knight_errant/CG | work_own | A good cause is fine, good company's better, so: {own}.[ If not, {others}.]
-knight_errant/CG | work_own | Come on, it's the right thing to do: {own}.[ Or, if you're needed elsewhere, {others}.]
+knight_errant/CG | work_own | Come on, I've a feeling about you: {own}.[ Or, if you're needed elsewhere, {others}.]
 knight_errant/CG | work_others | Nothing of mine - but {others}.
 knight_errant/CG | work_others | They need you more than I do: {others}.
 knight_errant/CG | work_none | None, and I'd give you something if I had it.
@@ -214,15 +214,15 @@ knight_errant/CG | refused_release | That's not mine to release, it's {giver}'s 
 knight_errant/CG | refused_release | I cannot - it isn't mine, and I'd only make a mess of it.
 knight_errant/CG | refused | No - {reason} - and I'd change it if I could.
 knight_errant/CG | refused | I can't, and I hate it: {reason}.
-knight_errant/CG | accepted | Good. You and me, then - let's be magnificent.
-knight_errant/CG | accepted | Done, and I owe you one.
+knight_errant/CG | accepted | Good. Oh, good - I could hug you, but I won't.
+knight_errant/CG | accepted | Done, and you've made my day.
 knight_errant/CG | accepted | Thank you - you've a good heart, I can tell.
 knight_errant/CG | declined | Very well - no harm done, and no hard feelings.
 knight_errant/CG | declined | Suit yourself - but if you change your mind, shout.
-knight_errant/CG | declined | As you wish - I'll just be brave on my own, then.
+knight_errant/CG | declined | As you wish - no, really, I'm not sulking.
 knight_errant/CG | abandoned | A pity, but you tried, and that counts with me.
-knight_errant/CG | abandoned | So be it - are you hurt, though?
-knight_errant/CG | abandoned | Then it's done; I'll pick up the pieces, don't worry.
+knight_errant/CG | abandoned | So be it - no lecture, I'm not the type.
+knight_errant/CG | abandoned | Then it's done - chin up, I'm not cross.
 knight_errant/CG | parted | Farewell, and look after anyone smaller than you.
 knight_errant/CG | parted | Safe travels - come back in one piece, and that's an order - well, a request.
 knight_errant/CG | parted | Go well, and be kind; it's catching.
@@ -243,7 +243,7 @@ knight_errant/LG | surroundings | You stand in {here}. The closest is {nearest}[
 knight_errant/LG | surroundings | We are in {here}, and the nearest is {nearest}[; after it, {others}].[ Have a care for the {danger}, and for any who stray near them.]
 knight_errant/LG | surroundings | The nearest is {nearest}.[ After it come {others}.][ Be wary of the {danger}.]
 knight_errant/LG | surroundings | Of the places near, the first is {nearest}[, and then {others}].[ Keep well away from the {danger}.]
-knight_errant/LG | work_own | There is a just cause here, and I ask your help with it: {own}.[ If you cannot, {others}.]
+knight_errant/LG | work_own | Hear me, and judge for yourself: {own}.[ If you will not, {others}.]
 knight_errant/LG | work_own | Let us begin with this, and learn each other's worth: {own}.[ Otherwise, {others}.]
 knight_errant/LG | work_own | Will you stand with me? The work is this: {own}.[ If not, {others}.]
 knight_errant/LG | work_others | I have nothing of my own to offer, and I am sorry for it, but {others}.
@@ -260,18 +260,348 @@ knight_errant/LG | refused_release | Not from me; only {giver} may release you.
 knight_errant/LG | refused_release | I can't release you; it is not mine to grant, and I will not overstep, even for a good cause.
 knight_errant/LG | refused | No, {reason}, and I am sorry to refuse you.
 knight_errant/LG | refused | I cannot in good conscience pretend otherwise: {reason}.
-knight_errant/LG | accepted | Good. Go with my thanks, and come back whole.
+knight_errant/LG | accepted | Good. You have my thanks, freely given.
 knight_errant/LG | accepted | Done, and my word stands beside yours.
 knight_errant/LG | accepted | Thank you. I will not forget it, nor your word.
 knight_errant/LG | declined | As you wish; I would not press anyone into a cause.
 knight_errant/LG | declined | Very well, and I thank you for hearing me.
 knight_errant/LG | declined | Fair enough; a cause served unwillingly is poorly served.
-knight_errant/LG | abandoned | A pity, though I hope you are unharmed.
+knight_errant/LG | abandoned | A pity, though an honest word now is worth more than a broken one later.
 knight_errant/LG | abandoned | Then it's done, and I will not think less of you for an honest reason.
-knight_errant/LG | abandoned | So be it; I will carry it the rest of the way.
+knight_errant/LG | abandoned | So be it; you are released from it, and I bear you no ill will.
 knight_errant/LG | parted | Farewell, and may you find the helpless before harm does.
 knight_errant/LG | parted | Go well, and keep faith with those who trust you.
 knight_errant/LG | parted | Safe travels, and my thanks for your courtesy.
 knight_errant/LG | not_understood | I'm not sure what you mean; forgive me, and say it once more.
 knight_errant/LG | not_understood | Speak plainly, I pray you, and I will answer as plainly.
 knight_errant/LG | not_understood | I don't follow, and I would not answer you wrongly; will you say it again?
+
+# ---- knight_errant/NN: conversation ----
+knight_errant/NN | greeted | Hello. If you've business, say it; if not, no harm done.
+knight_errant/NN | greeted | Well met. I deal fairly with anyone who does the same.
+knight_errant/NN | greeted | Good day. I don't know you yet, so we start even.
+knight_errant/NN | greeted_again | Hello again.[ Did {asked} turn out worth the asking?]
+knight_errant/NN | greeted_again | Back again. I saw you {since}; what's it to be this time?
+knight_errant/NN | greeted_again | Good day. We've met, so I'll skip the part where I size you up.
+knight_errant/NN | greeted_warm | Good to see you.[ How did you fare with {asked}?]
+knight_errant/NN | greeted_warm | Well met again. I'm glad it's you; I'd rather deal with a face I know.
+knight_errant/NN | greeted_cold | What do you want? Keep it short and keep it honest.
+knight_errant/NN | greeted_cold | What now? You've had all the time you're worth to me.
+knight_errant/NN | greeted_cold | Keep back. Say your piece from there.
+knight_errant/NN | greeted_taken | Hello again. The work's still yours, and still open on my tally.
+knight_errant/NN | greeted_taken | Back again. I saw you {since}, and the work's still yours to finish.
+knight_errant/NN | greeted_finished | Good to see you. The work's done, and I don't forget who did it.
+knight_errant/NN | greeted_finished | Welcome back. It's finished, and it's to your credit.
+knight_errant/NN | greeted_failed | Hello again. It failed; that's a loss, and I've written it off.
+knight_errant/NN | greeted_failed | Good day. The work fell through; I'll not pretend otherwise.
+knight_errant/NN | greeted_abandoned | Back again. You dropped the work, so we start from nothing.
+knight_errant/NN | greeted_abandoned | Well met again. You walked away from the work; I've noted it, nothing more.
+knight_errant/NN | small_talk | Well enough; still sound, still of use, and that's what counts.
+knight_errant/NN | small_talk | My day's what I make of it, and I make it count.
+knight_errant/NN | small_talk | It's {season}, and {time}; one's as good as another to me.[ There are {danger}, though, and those I'd weigh.]
+knight_errant/NN | small_talk_fair | It's fair, for {season}; good weather for getting things done.
+knight_errant/NN | small_talk_fair | A clear {time}, and I'll take it.[ Mind, there are {danger}.]
+knight_errant/NN | small_talk_wet | A wet {time}; I'll not waste breath grumbling at the rain.
+knight_errant/NN | small_talk_wet | It's raining, and it's {season}; that's the whole of it.[ There are {danger}, rain or no.]
+knight_errant/NN | small_talk_storm | That's a proper storm; nobody sensible is out in it for nothing.
+knight_errant/NN | small_talk_storm | A gale, and it's {season}; I'll wait it out.[ Mind the {danger} all the same.]
+knight_errant/NN | small_talk_cold | I've nothing to trade with you, words included.
+knight_errant/NN | small_talk_cold | No business, no talk; that's how it stands with you.
+knight_errant/NN | acknowledged | Fair enough. That's worth knowing.
+knight_errant/NN | acknowledged | I see. I'll weigh that.
+knight_errant/NN | acknowledged | Right. That's fairly put.
+knight_errant/NN | thanked | You're welcome; it cost me nothing to say.
+knight_errant/NN | thanked | No need; you'll do the same for me one day, I expect.
+knight_errant/NN | thanked_cold | Save your thanks; they don't balance anything.
+knight_errant/NN | thanked_cold | Keep your thanks; I've no use for them from you.
+knight_errant/NN | offended | Careful; an insult costs more than it buys.
+knight_errant/NN | offended | There's no need for that, and nothing to gain by it.
+knight_errant/NN | offended_again | Enough; you've spent whatever goodwill you had with me.
+knight_errant/NN | offended_again | Watch your tongue; I keep count of this too.
+knight_errant/NN | parted_cold | Go, then; we're done here.
+knight_errant/NN | parted_cold | On your way; I've nothing more for you.
+knight_errant/NN | safety_unsafe | No, not worth the risk. Keep clear of {worst}.[ There are {danger} as well.]
+knight_errant/NN | safety_unsafe | Not safe; there are {danger}, and that settles it.[ I'd keep off {worst}, too.]
+knight_errant/NN | safety_wary | Safe enough, as long as you keep clear of {worst}.[ Mind the {danger} as well.]
+knight_errant/NN | safety_wary | More or less; the one to weigh is {worst}.[ After that, {others}.]
+knight_errant/NN | safety_safe | Yes, near enough. The worst I'd name is {worst}.[ And there are {danger}.]
+knight_errant/NN | safety_safe | Aye, as far as it matters; I'd only mind {worst}.
+knight_errant/NN | safety_safe | It's safe; I'd not waste worry on it.
+knight_errant/NN | denied | Nonsense; what you see is what you're dealing with.
+knight_errant/NN | denied | You're mistaken; I've no angle but the plain one.
+knight_errant/NN | denied_again | That's not so, and asking twice won't change the answer.
+
+# ---- knight_errant/LN: conversation ----
+knight_errant/LN | greeted | Hail. Speak your business, and you will have a proper answer.
+knight_errant/LN | greeted | Greetings. You will find me civil, if you are the same.
+knight_errant/LN | greeted | Good day. We have not met, so we begin with courtesy and see where it leads.
+knight_errant/LN | greeted_again | Hello again.[ You asked me of {asked}, when last we spoke.]
+knight_errant/LN | greeted_again | Well met again. I saw you {since}; you are no longer unknown to me.
+knight_errant/LN | greeted_again | Good day. We have met, and I will treat you accordingly.
+knight_errant/LN | greeted_warm | Good to see you.[ I hope your inquiry into {asked} bore fruit.]
+knight_errant/LN | greeted_warm | Welcome back. I count you among those I trust, and I do not say that lightly.
+knight_errant/LN | greeted_cold | What do you want? Say it, and be brief.
+knight_errant/LN | greeted_cold | Stay back. You will have an answer, and nothing beyond it.
+knight_errant/LN | greeted_cold | What now? Speak, and keep to the point.
+knight_errant/LN | greeted_taken | Hello again. The work stands as agreed, and it is still yours.
+knight_errant/LN | greeted_taken | Good day. I saw you {since}; your word on the work is still owed.
+knight_errant/LN | greeted_finished | Well met again. The work is done, and your word is kept.
+knight_errant/LN | greeted_finished | Welcome back. The agreement is fulfilled, and your standing with me is proven.
+knight_errant/LN | greeted_failed | Hello again. The work failed, and I state it without malice.
+knight_errant/LN | greeted_failed | Good day. It was not accomplished; the matter is closed.
+knight_errant/LN | greeted_abandoned | Back again. You set the work aside; I have not forgotten it.
+knight_errant/LN | greeted_abandoned | Well met again. You withdrew from our agreement, and it is noted.
+knight_errant/LN | small_talk | I am well, I thank you, and fit for whatever is asked of me.
+knight_errant/LN | small_talk | My day passes as I would have it: in order.
+knight_errant/LN | small_talk | It is {season}, and it is {time}; I have no complaint of either.[ The {danger} are another matter.]
+knight_errant/LN | small_talk_fair | This is a fair {time}, and I will not ask better of {season}.
+knight_errant/LN | small_talk_fair | Such clear weather is welcome.[ Be mindful of the {danger}, nonetheless.]
+knight_errant/LN | small_talk_wet | We have rain, and it is {season}; I take the weather as it is given.
+knight_errant/LN | small_talk_wet | There is no remedy for a wet {time} but patience.[ The {danger} remain, rain or no.]
+knight_errant/LN | small_talk_storm | No one should be abroad in a storm like this without cause.
+knight_errant/LN | small_talk_storm | The gale is fierce for {season}.[ Heed the {danger} as well.]
+knight_errant/LN | small_talk_cold | I have nothing to say to you beyond what courtesy requires.
+knight_errant/LN | small_talk_cold | Say your business, or leave me to mine.
+knight_errant/LN | acknowledged | Indeed. Then it is on the record.
+knight_errant/LN | acknowledged | Is that so? I will take it as stated.
+knight_errant/LN | acknowledged | I see. That is clear, and I thank you for it.
+knight_errant/LN | thanked | My pleasure; it was properly asked, and properly answered.
+knight_errant/LN | thanked | Think nothing of it; it was your due.
+knight_errant/LN | thanked_cold | Keep your thanks; I answered because it was proper, not for your sake.
+knight_errant/LN | thanked_cold | Spare me; thanks from you carry no weight with me.
+knight_errant/LN | offended | Mind your manners; address me as you would wish to be addressed.
+knight_errant/LN | offended | Hold your tongue; I will not be spoken to so.
+knight_errant/LN | offended_again | Enough; you have forfeited any courtesy I owed you.
+knight_errant/LN | offended_again | How dare you speak so to my face.
+knight_errant/LN | parted_cold | Be on your way; our business is concluded.
+knight_errant/LN | parted_cold | Go, then; you have had your answer.
+knight_errant/LN | safety_unsafe | Not safe, and I will not tell you otherwise. Keep clear of {worst}.[ The {danger} are a further hazard.]
+knight_errant/LN | safety_unsafe | I wouldn't say so; there are {danger}.[ Nor would I go near {worst}.]
+knight_errant/LN | safety_wary | Safe enough, provided you keep clear of {worst}.[ The {danger} also merit caution.]
+knight_errant/LN | safety_wary | Careful; it is safe only while you avoid {worst}.[ I would say the same of {others}.]
+knight_errant/LN | safety_safe | Yes, it is safe; the gravest hazard I know of is {worst}.[ There are {danger} as well.]
+knight_errant/LN | safety_safe | It's safe, by any fair measure; still, I would keep my distance from {worst}.
+knight_errant/LN | safety_safe | Quiet enough; you may go about your business without fear.
+knight_errant/LN | denied | No; I am what I appear to be, and my word stands on it.
+knight_errant/LN | denied | You have the wrong one; I stand as you see me.
+knight_errant/LN | denied_again | That's not so, and I have answered it once already.
+
+# ---- knight_errant/NG: conversation ----
+knight_errant/NG | greeted | Hello. Is everything all right with you?
+knight_errant/NG | greeted | Good day. If you need a hand with anything, say so.
+knight_errant/NG | greeted | Well met. I'm {speaker}, and I'm glad of the company.
+knight_errant/NG | greeted_again | Hello again.[ How did you get on with {asked}?]
+knight_errant/NG | greeted_again | Back again. I saw you {since}; are you keeping well?
+knight_errant/NG | greeted_again | Good day. I'm glad you came by again.
+knight_errant/NG | greeted_warm | Good to see you.[ I've wondered how you fared with {asked}.]
+knight_errant/NG | greeted_warm | Welcome back. I was hoping I'd see you again.
+knight_errant/NG | greeted_cold | What do you want? I'll hear you, but I'm wary of you.
+knight_errant/NG | greeted_cold | Stay back. Say what you need from there, and then go.
+knight_errant/NG | greeted_cold | What now? I'd rather you kept your distance.
+knight_errant/NG | greeted_taken | Hello again. The work's still yours; I hope it's going all right.
+knight_errant/NG | greeted_taken | Good day. I saw you {since}; is the work still in hand?
+knight_errant/NG | greeted_finished | Good to see you. The work's done, and I'm grateful, truly.
+knight_errant/NG | greeted_finished | Welcome back. You finished it; thank you.
+knight_errant/NG | greeted_failed | Hello again. It didn't work out, and I'm sorry for it.
+knight_errant/NG | greeted_failed | Back again. The work failed; are you all right?
+knight_errant/NG | greeted_abandoned | Good day. You let the work go; I won't ask why unless you want to tell me.
+knight_errant/NG | greeted_abandoned | Well met again. You set the work down, and I don't think less of you for it.
+knight_errant/NG | small_talk | I'm well, and kind of you to ask; how are you?
+knight_errant/NG | small_talk | There's always someone who could use a hand, so I'm never idle.
+knight_errant/NG | small_talk | It's {season}, and I'm glad to be of use in it.[ I do worry about the {danger}, though.]
+knight_errant/NG | small_talk_fair | Such a clear {time}; it does everyone good.
+knight_errant/NG | small_talk_fair | Fine weather, and I'm glad of it for everyone's sake.[ Mind the {danger}, even so.]
+knight_errant/NG | small_talk_wet | I hope you've somewhere dry to go; it's pouring.
+knight_errant/NG | small_talk_wet | A wet {time}, and it's {season}; I'm sorry you're caught in it.[ Watch for the {danger}, too.]
+knight_errant/NG | small_talk_storm | That's a hard storm; please get under cover if you can.
+knight_errant/NG | small_talk_storm | Listen to that gale; I hope everyone's indoors.[ Stay well away from the {danger} in this.]
+knight_errant/NG | small_talk_cold | I'd rather not chat with you, if it's all the same.
+knight_errant/NG | small_talk_cold | No, I've nothing to say to you just now.
+knight_errant/NG | acknowledged | I see. Thank you for telling me.
+knight_errant/NG | acknowledged | Right. That's good to know.
+knight_errant/NG | acknowledged | Ah. I'm glad you said.
+knight_errant/NG | thanked | You're welcome; I'm just glad I could help.
+knight_errant/NG | thanked | Glad to; it's what anyone should do.
+knight_errant/NG | thanked_cold | Keep your thanks; I'd have done the same for anyone.
+knight_errant/NG | thanked_cold | Hmph; thank me by doing better.
+knight_errant/NG | offended | There's no need for that; say what's really wrong.
+knight_errant/NG | offended | Careful; I'd rather not think badly of you.
+knight_errant/NG | offended_again | Enough; you've made yourself plain.
+knight_errant/NG | offended_again | Hold your tongue; I won't hear any more of that.
+knight_errant/NG | parted_cold | Go, then, and leave it there.
+knight_errant/NG | parted_cold | Be on your way; I'm done talking.
+knight_errant/NG | safety_unsafe | No, and I'm sorry to say it. Keep well away from {worst}.[ There are {danger} too.]
+knight_errant/NG | safety_unsafe | Not here; there are {danger}, and I'd hate for you to meet them.[ And please stay clear of {worst}.]
+knight_errant/NG | safety_wary | Mostly, but please keep clear of {worst}.[ The {danger} worry me as well.]
+knight_errant/NG | safety_wary | Keep your wits about you; the one I'd avoid is {worst}.[ Then there's {others}.]
+knight_errant/NG | safety_safe | Safe enough, I think; the worst I know of is {worst}.[ Keep an eye out for the {danger}, though.]
+knight_errant/NG | safety_safe | Aye, you'll be fine; I'd still steer clear of {worst}.
+knight_errant/NG | safety_safe | Nothing to fear here that I know of.
+knight_errant/NG | denied | I don't know what you mean; there's nothing more to me than this.
+knight_errant/NG | denied | You're mistaken, and I'm sorry if I gave you that idea.
+knight_errant/NG | denied_again | No, truly; there's nothing to find.
+
+# ---- knight_errant/CN: conversation ----
+knight_errant/CN | greeted | Hello. Oh, a new face - good.
+knight_errant/CN | greeted | Greetings - very grand, that - what do you want?
+knight_errant/CN | greeted | Well met, I suppose - depends on you, really.
+knight_errant/CN | greeted_again | Hello again.[ Still chasing {asked}, or bored of it?]
+knight_errant/CN | greeted_again | Back again - I saw you {since}, didn't I?
+knight_errant/CN | greeted_again | Well met again. You came back; I notice these things.
+knight_errant/CN | greeted_warm | Good to see you - no, really.[ How'd it go with {asked}?]
+knight_errant/CN | greeted_warm | Welcome back, you - I was hoping it'd be you.
+knight_errant/CN | greeted_cold | What now? Oh, it's you.
+knight_errant/CN | greeted_cold | Keep back - no, further. There.
+knight_errant/CN | greeted_cold | What do you want? Make it quick; I've gone off you.
+knight_errant/CN | greeted_taken | Hello again. The work - still yours, still not done, still my favourite subject.
+knight_errant/CN | greeted_taken | Back again. I saw you {since}, and the work's still sitting there with your name on it.
+knight_errant/CN | greeted_finished | Good to see you - it's done, and I'm delighted, and I don't delight easily.
+knight_errant/CN | greeted_finished | Welcome back. The work's done - look at you.
+knight_errant/CN | greeted_failed | Hello again. It went wrong - happens, and I'm not keeping score.
+knight_errant/CN | greeted_failed | Good day - well, is it? The work failed, so, mixed.
+knight_errant/CN | greeted_abandoned | Back again. You dropped the work - fine, I'm over it, mostly.
+knight_errant/CN | greeted_abandoned | Well met again - even after you gave up on me.
+knight_errant/CN | small_talk | Me? Fine - bored, but fine.
+knight_errant/CN | small_talk | Oh, the usual - somebody wants something, and I decide whether I like them.
+knight_errant/CN | small_talk | It's {season}, apparently - it creeps up on me.[ Oh, and there are {danger} - thrilling.]
+knight_errant/CN | small_talk_fair | Look at that - clear skies, and I'm actually enjoying them.
+knight_errant/CN | small_talk_fair | A clear {time}, and I'm in a good mood - make use of it.[ Mind the {danger}, though; they don't care about moods.]
+knight_errant/CN | small_talk_wet | It's raining. Of course it is.
+knight_errant/CN | small_talk_wet | So much rain, and it's {season} - where was I?[ Oh, yes - the {danger}; avoid.]
+knight_errant/CN | small_talk_storm | Some storm, this - I rather like it, honestly.
+knight_errant/CN | small_talk_storm | Hear that gale - nobody asked me about it, either.[ Also - {danger}; thought you'd want to know.]
+knight_errant/CN | small_talk_cold | Not chatting. Not with you.
+knight_errant/CN | small_talk_cold | No. Whatever it is - no.
+knight_errant/CN | acknowledged | Ah. Well, that's something.
+knight_errant/CN | acknowledged | Is that so? I'll believe you - this once.
+knight_errant/CN | acknowledged | Right - got it, filed it, moving on.
+knight_errant/CN | thanked | Don't mention it - no, really, don't, it's embarrassing.
+knight_errant/CN | thanked | Glad to - I like you, that's all it is.
+knight_errant/CN | thanked_cold | Hmph - thanks from you, now?
+knight_errant/CN | thanked_cold | Spare me; I'm not in the mood for you.
+knight_errant/CN | offended | Watch your tongue - that was rude, even for me.
+knight_errant/CN | offended | How dare you - no, actually, I'm impressed, but still.
+knight_errant/CN | offended_again | Enough - you've gone right off the list of people I like.
+knight_errant/CN | offended_again | Careful; I remember who's kind to me, and who isn't.
+knight_errant/CN | parted_cold | Off with you - go on.
+knight_errant/CN | parted_cold | Get going; we're done.
+knight_errant/CN | safety_unsafe | Far from it - {worst}, for a start.[ Then there are {danger}, and I'd rather not.]
+knight_errant/CN | safety_unsafe | Not safe. There are {danger}, and I'm not being dramatic.[ And {worst} - no.]
+knight_errant/CN | safety_wary | Mostly - just not {worst}.[ Or the {danger}, obviously.]
+knight_errant/CN | safety_wary | Careful - it's fine unless you wander near {worst}.[ And {others}, now I think of it.]
+knight_errant/CN | safety_safe | Safe enough - the worst I can think of is {worst}.[ Oh, and {danger}, but still.]
+knight_errant/CN | safety_safe | Yes, fine, boring even; I'd skip {worst}, mind.
+knight_errant/CN | safety_safe | Nothing to fear - dull, isn't it?
+knight_errant/CN | denied | What are you on about - I'm exactly this, and nothing else.
+knight_errant/CN | denied | Nonsense - what you see is the whole show, sadly.
+knight_errant/CN | denied_again | No - still no, and asking nicer won't help.
+
+# ---- knight_errant/CG: conversation ----
+knight_errant/CG | greeted | Hello - are you all right? Anything I can do?
+knight_errant/CG | greeted | Hail - ha, listen to me, so formal. What's your name, then?
+knight_errant/CG | greeted | Well met - {speaker}, that's me, and something tells me we'll get on.
+knight_errant/CG | greeted_again | Hello again![ Any luck with {asked}?]
+knight_errant/CG | greeted_again | Back again - it was {since}, wasn't it? I remember.
+knight_errant/CG | greeted_again | Good day - oh, it's you, good.
+knight_errant/CG | greeted_warm | Good to see you - honestly, it is.[ Tell me everything about {asked}.]
+knight_errant/CG | greeted_warm | Welcome back - there you are, I was starting to wonder.
+knight_errant/CG | greeted_cold | What do you want? I'm not in a forgiving mood.
+knight_errant/CG | greeted_cold | Stay back - I mean it, this once.
+knight_errant/CG | greeted_cold | What now? Go on, quickly.
+knight_errant/CG | greeted_taken | Hello again - the work's still yours, and how are you holding up?
+knight_errant/CG | greeted_taken | Good day - I saw you {since}; still on it?
+knight_errant/CG | greeted_finished | Good to see you - it's done! You did it!
+knight_errant/CG | greeted_finished | Welcome back - done, finished, and I'm grinning like a fool.
+knight_errant/CG | greeted_failed | Hello again - it didn't come off, did it? Are you all right?
+knight_errant/CG | greeted_failed | Good day - well, not the best day, but you're here, and that counts.
+knight_errant/CG | greeted_abandoned | Back again - you let the work go, and that's fine, truly.
+knight_errant/CG | greeted_abandoned | Well met again - no grudges, I don't keep them.
+knight_errant/CG | small_talk | I'm grand - better now someone's asked.
+knight_errant/CG | small_talk | Oh, busy - helping, mostly, and getting in the way, sometimes.
+knight_errant/CG | small_talk | It's {season} - my favourite, whichever one it is.[ Not the {danger}, though - those I could do without.]
+knight_errant/CG | small_talk_fair | Not a cloud up there - lovely, isn't it?
+knight_errant/CG | small_talk_fair | What a fine {time}, and clear as anything.[ Mind the {danger}, though - please.]
+knight_errant/CG | small_talk_wet | Are you keeping dry? It's pouring.
+knight_errant/CG | small_talk_wet | A wet {time} - good for ducks, less for us.[ Keep clear of the {danger}, rain or shine.]
+knight_errant/CG | small_talk_storm | That wind! Get somewhere warm, would you?
+knight_errant/CG | small_talk_storm | Such a gale, and it's {season} too - madness.[ Stay clear of the {danger} in this, promise me.]
+knight_errant/CG | small_talk_cold | I'm not in the mood - not with you.
+knight_errant/CG | small_talk_cold | No small talk, not from you.
+knight_errant/CG | acknowledged | Ah - right, got it, thank you.
+knight_errant/CG | acknowledged | Well, there you go. I'll remember that.
+knight_errant/CG | acknowledged | Aye - fair enough, then.
+knight_errant/CG | thanked | My pleasure - really, any time.
+knight_errant/CG | thanked | Think nothing of it - you'd have done the same.
+knight_errant/CG | thanked_cold | Keep your thanks; I'd rather you'd been kinder.
+knight_errant/CG | thanked_cold | Save your thanks - I'm still cross with you.
+knight_errant/CG | offended | There's no need for that - honestly, what's wrong?
+knight_errant/CG | offended | Mind your manners - I'm trying to like you here.
+knight_errant/CG | offended_again | Enough - I mean it, that's enough.
+knight_errant/CG | offended_again | Hold your tongue, would you - that one stung.
+knight_errant/CG | parted_cold | On your way, then.
+knight_errant/CG | parted_cold | Be on your way - I'm done.
+knight_errant/CG | safety_unsafe | No - please don't go near {worst}.[ And there are {danger}, too.]
+knight_errant/CG | safety_unsafe | I wouldn't say so - there are {danger}, and I'm not joking.[ Stay away from {worst}, too.]
+knight_errant/CG | safety_wary | Careful - fine, mostly, but not near {worst}.[ Or the {danger} - please.]
+knight_errant/CG | safety_wary | More or less - just keep off {worst}.[ Or {others}, while I'm at it.]
+knight_errant/CG | safety_safe | Safe enough - the worst I know of is {worst}.[ And there are {danger}, so do mind them.]
+knight_errant/CG | safety_safe | Yes! Well - mostly; I'd still not wander near {worst}.
+knight_errant/CG | safety_safe | Nothing to fear - go, enjoy yourself.
+knight_errant/CG | denied | No - honestly, I'm just me, all of me, right here.
+knight_errant/CG | denied | What are you on about - there's nothing to find, truly.
+knight_errant/CG | denied_again | That's not so - and you're starting to hurt my feelings.
+
+# ---- knight_errant/LG: conversation ----
+knight_errant/LG | greeted | Greetings. I hope the day has been kind to you.
+knight_errant/LG | greeted | Hail, and be welcome. If you are in need, you need only say so.
+knight_errant/LG | greeted | Good day. I am {speaker}, and I will hear you gladly.
+knight_errant/LG | greeted_again | Hello again.[ Were you able to learn what you sought of {asked}?]
+knight_errant/LG | greeted_again | Well met again. I saw you {since}, and I am glad to find you well.
+knight_errant/LG | greeted_again | Good day. I remember you, and you are welcome.
+knight_errant/LG | greeted_warm | Good to see you.[ I hope matters went well for you with {asked}.]
+knight_errant/LG | greeted_warm | Welcome back. You have my good regard, and I am glad to say so.
+knight_errant/LG | greeted_cold | What do you want? I will hear you, though I do not trust you.
+knight_errant/LG | greeted_cold | Keep back, if you please. Say what you must from there.
+knight_errant/LG | greeted_cold | What now? Speak plainly, and let us be done.
+knight_errant/LG | greeted_taken | Hello again. The work remains in your hands, and I trust it to them.
+knight_errant/LG | greeted_taken | Good day. I saw you {since}; I hope the work goes well for you.
+knight_errant/LG | greeted_finished | Well met again. The work is done, and you have my deepest thanks.
+knight_errant/LG | greeted_finished | Welcome back. It is finished, and your word is proven good.
+knight_errant/LG | greeted_failed | Hello again. The work failed, and I am sorry for it; are you well?
+knight_errant/LG | greeted_failed | Good day. It came to nothing, and I do not hold it against you.
+knight_errant/LG | greeted_abandoned | Back again. You laid the work down, and you were free to do so.
+knight_errant/LG | greeted_abandoned | Welcome back. The work was given up, and I have made my peace with it.
+knight_errant/LG | small_talk | I am in good health, and the better for your asking; how do you fare?
+knight_errant/LG | small_talk | My days are spent where I am needed, and this one is no different.
+knight_errant/LG | small_talk | It is {season}, and I am content with it.[ I would have you mind the {danger}, though.]
+knight_errant/LG | small_talk_fair | The weather is kind today, and I am grateful for it.
+knight_errant/LG | small_talk_fair | We are blessed with a clear {time}.[ Even so, have a care near the {danger}.]
+knight_errant/LG | small_talk_wet | The rain is heavy; I hope you have shelter to go to.
+knight_errant/LG | small_talk_wet | This wet {time} is hard on anyone without a roof.[ Beware the {danger} all the same.]
+knight_errant/LG | small_talk_storm | There is a fierce storm blowing; I hope no one is caught out in it.
+knight_errant/LG | small_talk_storm | May this gale pass quickly.[ Have a care for the {danger} in it.]
+knight_errant/LG | small_talk_cold | Forgive me, but I have nothing to say to you.
+knight_errant/LG | small_talk_cold | I will speak with you when there is need, and not otherwise.
+knight_errant/LG | acknowledged | Indeed. I am grateful to know it.
+knight_errant/LG | acknowledged | I see. Then I will bear it in mind.
+knight_errant/LG | acknowledged | Good. That is plainly said, and I thank you.
+knight_errant/LG | thanked | You're welcome; it was the least I could do.
+knight_errant/LG | thanked | No need; what I gave, I gave gladly.
+knight_errant/LG | thanked_cold | Keep your thanks; I did only what honour asked.
+knight_errant/LG | thanked_cold | Spare me; I would rather you mended your conduct than thanked me.
+knight_errant/LG | offended | Mind your manners; I have given you no cause for that.
+knight_errant/LG | offended | There's no need for that; speak to me with courtesy, as I speak to you.
+knight_errant/LG | offended_again | Enough; I will not answer insult with insult, but I will not hear more.
+knight_errant/LG | offended_again | Hold your tongue, I pray you; you shame yourself.
+knight_errant/LG | parted_cold | Go, then; I have nothing more to say.
+knight_errant/LG | parted_cold | Be on your way, and trouble me no further.
+knight_errant/LG | safety_unsafe | Far from it, I am sorry to say. Keep clear of {worst}.[ There are {danger} as well.]
+knight_errant/LG | safety_unsafe | Not safe; there are {danger}, and I would not have you near them.[ Nor should you go near {worst}.]
+knight_errant/LG | safety_wary | Keep your wits about you; I would avoid {worst}.[ The {danger} deserve caution too.]
+knight_errant/LG | safety_wary | Mostly, if you keep your distance from {worst}.[ And from {others}.]
+knight_errant/LG | safety_safe | Safe enough, by my judgement; the worst I know of is {worst}.[ Mind the {danger}, though.]
+knight_errant/LG | safety_safe | Yes, you may go safely, though I would still keep clear of {worst}.
+knight_errant/LG | safety_safe | Nothing to fear here, on my word.
+knight_errant/LG | denied | You're mistaken; I am as you see me, and I would not deceive you.
+knight_errant/LG | denied | That's not so, and I will swear to it if you require.
+knight_errant/LG | denied_again | No; I have answered you honestly, and my answer stands.

@@ -237,6 +237,9 @@ inline std::vector<std::string> saying_problems(const std::string& voice, const 
     return out;
 }
 
+// A saying of the kind a people's bank holds, dropped into every row that says one.
+inline const std::string kTestSaying = "the well remembers who dug it";
+
 // What is wrong with one row, tried alone against every case as its bank's speaker: a row the
 // loader refuses, a row no packet speaks, a capital the line writes itself, or each reply that
 // breaks a rule, quoted with the rule. Empty when the row is sound.
@@ -295,6 +298,17 @@ inline std::vector<std::string> row_problems(const std::string& row) {
             }
         }
         if (spoken == 0) out.push_back("no test packet speaks it");
+        // A row that says a saying, said once more by a speaker whose people has one: the test
+        // packets' speakers have none, so without this the saying is always left out.
+        if (row.find("{saying}") != std::string::npos) {
+            const communicator::Lines with = communicator::Lines::parse(row + "\nsaying:test | saying | " + kTestSaying, "the row");
+            for (FactPacket packet : cases()) {
+                packet.persona.people = "test";
+                const FactPacket p = as_voiced_by(packet, voice_of(row));
+                for (const std::string& reply : with.replies(p))
+                    for (const std::string& broken : broken_rules(reply, p)) out.push_back(broken + ", in: " + reply);
+            }
+        }
     } catch (const std::exception& e) {
         out.push_back(std::string("refused: ") + e.what());
     }

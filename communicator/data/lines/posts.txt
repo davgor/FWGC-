@@ -1,5 +1,7 @@
-# Pilot copy of posts.txt: the banks post:gate_captain, post:innkeeper, as they stand. Add conversation rows below.
-# ---- post:gate_captain ----
+# Written lines (roster posts). The format and the rules: README.md in this folder.
+
+# ---- A gate captain -----------------------------------------------------------------------------
+# Curt, a soldier at a gate.
 post:gate_captain | about_self | I'm {speaker}, {post} of {place}. Keep it brief.
 post:gate_captain | about_self | {speaker}, {post}. What do you want at {place}?
 post:gate_captain | surroundings | You're at {here}, and out past the gate the nearest is {nearest}.[ Then there's {others}.][ Beware the {danger}.]
@@ -11,7 +13,8 @@ post:gate_captain | not_understood | What do you mean by that?
 post:gate_captain | not_understood | I don't follow, and I've a gate to watch.
 post:gate_captain | parted | Go well, and mind the road.
 post:gate_captain | parted | Safe travels.
-# ---- post:innkeeper ----
+# ---- An innkeeper -------------------------------------------------------------------------------
+# Warm, talkative, knows who is hiring.
 post:innkeeper | about_self | I'm {speaker}, {post} here at {place}. What can I get you?
 post:innkeeper | about_self | {speaker}, love, {post} at {place}. What'll it be?
 post:innkeeper | work_others | Not from me, but {others}.

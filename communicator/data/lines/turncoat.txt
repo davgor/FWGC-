@@ -13,7 +13,7 @@ turncoat/LN | surroundings | For the record, this is {here}, and the closest is 
 turncoat/LN | surroundings | This is {here}, and the nearest is {nearest}.[ Also of note: {others}.][ I would keep a proper distance from the {danger}.]
 turncoat/LN | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Keep clear of the {danger}, on my advice.]
 turncoat/LN | surroundings | On my word, the nearest is {nearest}.[ Past that, {others}.][ Heed the {danger}.]
-turncoat/LN | work_own | I have work, and I expect it done properly: {own}.[ If that does not suit, {others}.]
+turncoat/LN | work_own | I have work, and I offer it openly: {own}.[ If that does not suit, {others}.]
 turncoat/LN | work_own | Let this be the measure of your standing: {own}.[ Otherwise, {others}.]
 turncoat/LN | work_own | Here are my terms: {own}.[ Should you prefer another's offer, {others}.]
 turncoat/LN | work_others | Nothing of mine is open, but I can refer you: {others}.
@@ -61,7 +61,7 @@ turncoat/NN | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][
 turncoat/NN | surroundings | What's close is {nearest}.[ Then {others}.][ Give the {danger} a wide berth.]
 turncoat/NN | work_own | I've got work, if it suits you: {own}.[ If not, {others}.]
 turncoat/NN | work_own | A straight trade: {own}.[ Otherwise, {others}.]
-turncoat/NN | work_own | If you're as useful as you look, {own}.[ Or, if that's no good, {others}.]
+turncoat/NN | work_own | If you want to be useful to me, {own}.[ Or, if that's no good, {others}.]
 turncoat/NN | work_others | Nothing from me, but {others}.
 turncoat/NN | work_others | I've nothing going myself, but {others}.
 turncoat/NN | work_none | No work, not from me and not from anyone I know.
@@ -82,9 +82,9 @@ turncoat/NN | accepted | Very good. That's useful, and I remember useful.
 turncoat/NN | declined | Suit yourself; no skin off my nose.
 turncoat/NN | declined | Fair enough; nothing lost on either side.
 turncoat/NN | declined | As you wish, I'll find a use for it elsewhere.
-turncoat/NN | abandoned | A pity, but quitting early beats losing late.
+turncoat/NN | abandoned | A pity, but you told me straight, and that counts for something.
 turncoat/NN | abandoned | Then it's done, and I'll mark it down.
-turncoat/NN | abandoned | So be it; there's no sense staying with a losing hand.
+turncoat/NN | abandoned | So be it; better I know now than later.
 turncoat/NN | parted | Farewell; if things change, so might I.
 turncoat/NN | parted | Go well, and stay useful.
 turncoat/NN | parted | Take care, and keep your options open.
@@ -105,9 +105,9 @@ turncoat/LE | surroundings | Since you ask so nicely, this is {here}, and the ne
 turncoat/LE | surroundings | This is {here}, which you might have gathered for yourself. The nearest is {nearest}[, and past it, {others}].[ Beware the {danger}, if only for my sake.]
 turncoat/LE | surroundings | The nearest is {nearest}.[ Beyond that, {others}.][ Heed the {danger}; I dislike waste.]
 turncoat/LE | surroundings | What lies nearest is {nearest}.[ Then {others}.][ Keep your distance from the {danger}, if you have any sense.]
-turncoat/LE | work_own | I have a use for you: {own}.[ Should it prove beyond you, {others}.]
-turncoat/LE | work_own | You may prove your standing: {own}.[ Or, if you lack the stomach, {others}.]
-turncoat/LE | work_own | Here is a chance to be worth something: {own}.[ If it frightens you, {others}.]
+turncoat/LE | work_own | I have a use for you: {own}.[ Should you decline, {others}.]
+turncoat/LE | work_own | You may prove your standing: {own}.[ Or, if you would rather serve elsewhere, {others}.]
+turncoat/LE | work_own | Here is a chance to be worth something: {own}.[ If it does not appeal, {others}.]
 turncoat/LE | work_others | Nothing of mine, but others may be less particular: {others}.
 turncoat/LE | work_others | Alas, I have nothing for you, though {others}.
 turncoat/LE | work_none | Nothing is on offer, from me or from anyone, and I do not conjure work on request.
@@ -122,7 +122,7 @@ turncoat/LE | refused_release | I cannot; I have no intention of making an enemy
 turncoat/LE | refused_release | I can't, and I would not if I could; it was never mine to release.
 turncoat/LE | refused | No, {reason}; do not trouble me with it again.
 turncoat/LE | refused | I cannot, since {reason}, and I shall not pretend to be sorry.
-turncoat/LE | accepted | Good. I shall be watching how you manage it.
+turncoat/LE | accepted | Good. You are on probation until I say otherwise.
 turncoat/LE | accepted | Done. Do not make me look foolish for choosing you.
 turncoat/LE | accepted | Thank you. How very obliging of you.
 turncoat/LE | declined | Very well; I shall remember that you were asked.
@@ -153,7 +153,7 @@ turncoat/NG | surroundings | The nearest is {nearest}.[ Past that, {others}.][ L
 turncoat/NG | surroundings | What's closest is {nearest}.[ Then {others}.][ Take care around the {danger}.]
 turncoat/NG | work_own | I could use a hand: {own}.[ If that's not for you, {others}.]
 turncoat/NG | work_own | Here's something worth doing: {own}.[ Or, if you'd rather, {others}.]
-turncoat/NG | work_own | Help me with this and I won't forget it: {own}.[ Otherwise, {others}.]
+turncoat/NG | work_own | Help me with this, if you've a mind to: {own}.[ Otherwise, {others}.]
 turncoat/NG | work_others | Nothing of my own, I'm sorry to say, but {others}.
 turncoat/NG | work_others | Not me, but {others}; go and see them.
 turncoat/NG | work_none | No work, I'm afraid, and none I've heard of.
@@ -168,18 +168,238 @@ turncoat/NG | refused_release | Not from me; that's {giver}'s call, and I'd want
 turncoat/NG | refused_release | I cannot release you from someone else's work; it wouldn't be fair on them.
 turncoat/NG | refused | No, {reason}, and I'm sorry for it.
 turncoat/NG | refused | I can't change that; {reason}, and I wish it were otherwise.
-turncoat/NG | accepted | Thank you. That's one I owe you.
-turncoat/NG | accepted | Good. Don't leave anyone behind, and that includes you.
+turncoat/NG | accepted | Thank you. I mean that.
+turncoat/NG | accepted | Good. I'm glad to have your word on it.
 turncoat/NG | accepted | Done. I'll count that in your favour.
 turncoat/NG | declined | Fair enough; a straight no is kinder than a yes you'd regret.
 turncoat/NG | declined | As you wish, and thank you for being honest about it.
-turncoat/NG | declined | Suit yourself; I'll manage, and I hope you do too.
-turncoat/NG | abandoned | A pity, but better you walk away than get hurt holding on.
+turncoat/NG | declined | Suit yourself; I hope you find what you're looking for.
+turncoat/NG | abandoned | A pity, but thank you for telling me to my face.
 turncoat/NG | abandoned | So be it; there's no shame in knowing when to stop.
-turncoat/NG | abandoned | Then it's done, and no hard feelings; you're worth more than the work.
+turncoat/NG | abandoned | Then it's done, and no hard feelings between us.
 turncoat/NG | parted | Take care of yourself, and of whoever's with you.
 turncoat/NG | parted | Go well, and stay on the right side of things.
 turncoat/NG | parted | Goodbye, and mind how you go.
 turncoat/NG | not_understood | I don't follow, but I'd like to.
 turncoat/NG | not_understood | I'm not sure what you mean; try me again, slower.
 turncoat/NG | not_understood | What do you mean, and is anyone hurt?
+
+# ---- turncoat/LN: conversation ----
+turncoat/LN | greeted | Well met. I am {speaker}, and I deal fairly with anyone who deals fairly with me.
+turncoat/LN | greeted | Greetings. Say what you need, and I will tell you plainly whether I can oblige.
+turncoat/LN | greeted | Hail. Let us begin on good terms, and see whether they hold.
+turncoat/LN | greeted_again | Hello again, on the same footing as before.[ You were asking after {asked}, if I recall correctly.]
+turncoat/LN | greeted_again | Back again. We last spoke {since}, and I stand where I stood.
+turncoat/LN | greeted_again | Welcome back. Each return counts in your favour.
+turncoat/LN | greeted_warm | Well met again; you are in good standing with me.[ Any word of {asked}?]
+turncoat/LN | greeted_warm | Good to see you, and I do not say that as a courtesy.
+turncoat/LN | greeted_cold | What do you want? Be brief, and we will be done.
+turncoat/LN | greeted_cold | What now? I am listening, though not gladly.
+turncoat/LN | greeted_cold | Keep back. I have agreed to nothing with you.
+turncoat/LN | greeted_taken | Hello again. Our agreement stands, and the work is still open.
+turncoat/LN | greeted_taken | Good day. We last spoke {since}, and I trust you still mean to keep your word.
+turncoat/LN | greeted_finished | Welcome back. The work is done, and done as agreed.
+turncoat/LN | greeted_finished | Good to see you. You kept your end, and it is on record.
+turncoat/LN | greeted_failed | Back again. The work failed, and I bear you no ill will for it.
+turncoat/LN | greeted_failed | Well met again. The work went against you; I hold it as a fact, not a grudge.
+turncoat/LN | greeted_abandoned | Hello again. You withdrew from our agreement; I have not forgotten, nor do I dwell on it.
+turncoat/LN | greeted_abandoned | Good day. You gave the work up, and that closed the matter between us.
+turncoat/LN | small_talk | Well, thank you, and bound by nothing I did not agree to.
+turncoat/LN | small_talk | My office keeps me occupied, and I keep to my office.
+turncoat/LN | small_talk | It's {season}, and I take each season as it comes, without complaint.[ There are {danger}; I have taken note of them.]
+turncoat/LN | small_talk_fair | A clear {time}, and fair for {season}.[ The {danger} are another matter.]
+turncoat/LN | small_talk_fair | The weather is fair, and I will take it at its word.
+turncoat/LN | small_talk_wet | It's wet, I will grant you, and I make no representations about tomorrow.
+turncoat/LN | small_talk_wet | This is a wet {time}, and I will not pretend otherwise.[ Keep your distance from the {danger}, rain or not.]
+turncoat/LN | small_talk_storm | It's blowing hard this {time}, and I would not agree to be out in it on any terms.
+turncoat/LN | small_talk_storm | I would sooner wait out weather this wild than argue with it.[ Heed the {danger}, storm or no storm.]
+turncoat/LN | small_talk_cold | I make no small talk with those I have no reason to trust.
+turncoat/LN | small_talk_cold | We have business or we have nothing, and at present we have nothing.
+turncoat/LN | acknowledged | I see. I will take that as your word.
+turncoat/LN | acknowledged | Indeed. That is noted.
+turncoat/LN | acknowledged | Fair enough. Then we understand each other.
+turncoat/LN | thanked | You're welcome; an honest answer is the least I owe anyone.
+turncoat/LN | thanked | No need; I said nothing I would not put my name to.
+turncoat/LN | thanked_cold | Keep your thanks; they are not what I trade in.
+turncoat/LN | thanked_cold | Save your thanks for someone who trusts you.
+turncoat/LN | offended | Mind your manners; I deal courteously, and I expect the same.
+turncoat/LN | offended | There's no need for that; I have given you no cause.
+turncoat/LN | offended_again | Enough; I have heard all I mean to hear from you.
+turncoat/LN | offended_again | Hold your tongue; whatever courtesy stood between us ends here.
+turncoat/LN | parted_cold | Be on your way; we have no business.
+turncoat/LN | parted_cold | Go, then, and consider this concluded.
+turncoat/LN | safety_unsafe | No. You have my word on it: avoid {worst}.[ There are {danger} besides.]
+turncoat/LN | safety_unsafe | Not safe; there are {danger}, and I would not go near them.[ Keep clear of {worst} as well.]
+turncoat/LN | safety_wary | Safe enough, with care; the one place I would avoid is {worst}.[ Mind the {danger} as well.]
+turncoat/LN | safety_wary | More or less, provided you give {worst} a wide berth.
+turncoat/LN | safety_safe | Yes, and I will vouch for it; the worst I can name is {worst}.
+turncoat/LN | safety_safe | It's safe; the only trouble within my knowledge is {worst}.
+turncoat/LN | safety_safe | Safe enough; I would not tell you so if it were not.
+turncoat/LN | denied | You're mistaken; I am {speaker}, {post} of {place}, and nothing besides.
+turncoat/LN | denied | That's not so, and I will not dignify it further.
+turncoat/LN | denied_again | No, and my answer stands as given.
+
+# ---- turncoat/NN: conversation ----
+turncoat/NN | greeted | Hello. What can you do, and what do you need?
+turncoat/NN | greeted | Well met. Let's see if we're any use to each other.
+turncoat/NN | greeted | Good day. I'm {speaker}; if there's a trade in this, I'm listening.
+turncoat/NN | greeted_again | Hello again; back for more, then.[ Did {asked} come to anything?]
+turncoat/NN | greeted_again | Back again. I saw you {since}; what's it to be this time?
+turncoat/NN | greeted_again | Good day. You know where I stand; it's wherever makes sense.
+turncoat/NN | greeted_warm | Good to see you; you're one of the useful ones.[ How did {asked} work out?]
+turncoat/NN | greeted_warm | Welcome back. You're in the good column, for what it's worth.
+turncoat/NN | greeted_cold | What do you want? Make it quick.
+turncoat/NN | greeted_cold | What now? You're not much use to me.
+turncoat/NN | greeted_cold | Stay back. I don't know what you're good for yet.
+turncoat/NN | greeted_taken | Back again. The work's still open, and I haven't forgotten whose it is.
+turncoat/NN | greeted_taken | Hello again. I saw you {since}; the work's still yours.
+turncoat/NN | greeted_finished | Good to see you. The work's done, and it's in your column.
+turncoat/NN | greeted_finished | Welcome back. You finished it; that puts you ahead with me.
+turncoat/NN | greeted_failed | Hello again. It didn't work out; that's arithmetic, not a grudge.
+turncoat/NN | greeted_failed | Good day. The work failed; I count it, and I move on.
+turncoat/NN | greeted_abandoned | Back again. You dropped the work; I've not held it against you, much.
+turncoat/NN | greeted_abandoned | Well met again. You gave the work up; fair enough, it's your time to spend.
+turncoat/NN | small_talk | Well enough; I'm still standing, which is the whole idea.
+turncoat/NN | small_talk | It's steady; everyone wants something, and I keep count.
+turncoat/NN | small_talk | Nothing lasts, {season} included.[ There are {danger}, which I'd leave well alone.]
+turncoat/NN | small_talk_fair | It's fair out, and I'll take it while it lasts.
+turncoat/NN | small_talk_fair | Good weather for getting things done, this.[ Just not near the {danger}.]
+turncoat/NN | small_talk_wet | It's wet; I don't get soaked for anything that isn't worth it.
+turncoat/NN | small_talk_wet | The rain falls on everyone alike this {time}, so I don't take it personally.[ Mind the {danger} all the same.]
+turncoat/NN | small_talk_storm | Nobody sensible is out in weather like this without a reason.
+turncoat/NN | small_talk_storm | The wind's up, and I'm not spending a step I don't have to.[ The {danger} can have it to themselves.]
+turncoat/NN | small_talk_cold | I've no use for chat with you.
+turncoat/NN | small_talk_cold | Say what you want or move along; I don't do pleasantries for nothing.
+turncoat/NN | acknowledged | Right. That's useful to know.
+turncoat/NN | acknowledged | Is that so? I'll bear it in mind.
+turncoat/NN | acknowledged | Fair enough. That goes in the reckoning.
+turncoat/NN | thanked | No need; it was no trouble.
+turncoat/NN | thanked | Don't mention it; it all evens out in the end.
+turncoat/NN | thanked_cold | Spare me; thanks don't move you up my list.
+turncoat/NN | thanked_cold | Keep your thanks; they don't count for much.
+turncoat/NN | offended | Careful; insults cost you and gain you nothing.
+turncoat/NN | offended | Watch your tongue; I don't waste words, and I won't waste them on that.
+turncoat/NN | offended_again | Enough; you're costing more than you're worth.
+turncoat/NN | offended_again | There's no need for that, and nothing in it for either of us.
+turncoat/NN | parted_cold | On your way; we're done here.
+turncoat/NN | parted_cold | Off with you; there's nothing more in this for me.
+turncoat/NN | safety_unsafe | No. Keep clear of {worst}, unless you've a very good reason.[ There are {danger} too.]
+turncoat/NN | safety_unsafe | Far from it; there are {danger}, and that's reason enough.[ Then there's {worst}.]
+turncoat/NN | safety_wary | Mostly; just stay clear of {worst}.[ The {danger} too, if you've any sense.]
+turncoat/NN | safety_wary | Keep your wits about you and it's fine; the one to watch is {worst}.
+turncoat/NN | safety_safe | Aye, safe enough; the worst of it is {worst}.
+turncoat/NN | safety_safe | Nothing to fear; {worst} is as bad as it gets round here.
+turncoat/NN | safety_safe | Yes; if it weren't, I'd be somewhere else.
+turncoat/NN | denied | Nonsense; I'm exactly what I look like, and nothing more.
+turncoat/NN | denied | You have the wrong one; I'm just {speaker}, and that's all there is.
+turncoat/NN | denied_again | No, and asking twice won't change the answer.
+
+# ---- turncoat/LE: conversation ----
+turncoat/LE | greeted | Good day. I am {speaker}, and I shall decide presently what you are good for.
+turncoat/LE | greeted | Hail. You may speak, briefly, and I shall judge the rest.
+turncoat/LE | greeted | Greetings. My courtesy is freely given; my patience is not.
+turncoat/LE | greeted_again | Hello again; I see you found your way back.[ Still asking after {asked}, I suppose?]
+turncoat/LE | greeted_again | Back again. I saw you {since}, and I confess I had not expected to again.
+turncoat/LE | greeted_again | Good day. I trust you have come back more useful than you left.
+turncoat/LE | greeted_warm | Welcome back; you are one of the few I am pleased to see.[ Did {asked} prove of any use?]
+turncoat/LE | greeted_warm | Well met again. You are tolerable company, which is rarer than you might think.
+turncoat/LE | greeted_cold | What do you want? Be quick, and be civil.
+turncoat/LE | greeted_cold | What now? I had hoped you had found someone else to trouble.
+turncoat/LE | greeted_cold | Keep back. I do not care to be approached by you.
+turncoat/LE | greeted_taken | Hello again. You took my work, and I trust you remember as much.
+turncoat/LE | greeted_taken | Good day. We last spoke {since}, and my work is still in your hands.
+turncoat/LE | greeted_finished | Welcome back. The work is done, and you have proven useful.
+turncoat/LE | greeted_finished | Well met again. The work is done; I may have further use for you.
+turncoat/LE | greeted_failed | Back again. The work failed, and I do not forget failures.
+turncoat/LE | greeted_failed | Good day. You failed me, which I shall bear in mind.
+turncoat/LE | greeted_abandoned | Hello again. You set my work aside, and I noted the discourtesy.
+turncoat/LE | greeted_abandoned | Welcome back, if that is the word for someone who gave my work up.
+turncoat/LE | small_talk | Quite well, thank you; I generally am, having chosen my side with care.
+turncoat/LE | small_talk | My work as {post} is largely deciding who is worth my time.
+turncoat/LE | small_talk | I find {season} agrees with me.[ There are {danger}; one hopes they know their place.]
+turncoat/LE | small_talk_fair | A pleasant {time}, I suppose, if one is easily pleased.
+turncoat/LE | small_talk_fair | The sky is clear, which is more than can be said for most company.[ The {danger} are rather less agreeable.]
+turncoat/LE | small_talk_wet | It is wet, and I am told it builds character; I prefer to let others build theirs.
+turncoat/LE | small_talk_wet | Such a wet {time}; do not drip on anything of mine.[ The {danger} are welcome to the weather.]
+turncoat/LE | small_talk_storm | It is blowing a gale, and I intend to stay precisely where it cannot reach me.
+turncoat/LE | small_talk_storm | This weather is fit for no one of consequence, which explains your being out in it.[ One hopes it keeps the {danger} occupied.]
+turncoat/LE | small_talk_cold | I have no interest in small talk with you.
+turncoat/LE | small_talk_cold | Do not expect me to chatter with you.
+turncoat/LE | acknowledged | Is that so? How very interesting.
+turncoat/LE | acknowledged | Indeed. I shall weigh that accordingly.
+turncoat/LE | acknowledged | Ah. That is rather what I expected.
+turncoat/LE | thanked | Don't mention it; truly, I would rather you did not.
+turncoat/LE | thanked | My pleasure, I assure you, though I cannot think why.
+turncoat/LE | thanked_cold | Spare me; I have no use for your gratitude.
+turncoat/LE | thanked_cold | Hmph; your thanks are noted and set aside.
+turncoat/LE | offended | How dare you; insults are the last resort of the unimportant.
+turncoat/LE | offended | Mind your manners; I have been courteous so far, and I can stop.
+turncoat/LE | offended_again | Enough; you have exhausted what little courtesy I had for you.
+turncoat/LE | offended_again | Hold your tongue; I remember every slight, and you are running up quite a list.
+turncoat/LE | parted_cold | Off with you; you have taken enough of my time.
+turncoat/LE | parted_cold | Be on your way; I have finished with you.
+turncoat/LE | safety_unsafe | Not here, no. Only a fool would go near {worst}.[ The {danger} are no better.]
+turncoat/LE | safety_unsafe | I wouldn't say so; there are {danger}, and I value my skin too much to go near them.[ The same applies to {worst}.]
+turncoat/LE | safety_wary | Keep your wits about you, if you have any, and stay clear of {worst}.[ The {danger} are best avoided too.]
+turncoat/LE | safety_wary | Mostly, provided you have the sense to avoid {worst}.
+turncoat/LE | safety_safe | Yes; even you should manage, provided you avoid {worst}.
+turncoat/LE | safety_safe | Nothing to fear, unless you go looking for {worst}.
+turncoat/LE | safety_safe | It's safe; I would hardly be standing here otherwise.
+turncoat/LE | denied | I don't know what you mean, and I resent the implication.
+turncoat/LE | denied | You're mistaken, and I shall thank you to keep such notions to yourself.
+turncoat/LE | denied_again | No, and you are beginning to bore me.
+
+# ---- turncoat/NG: conversation ----
+turncoat/NG | greeted | Hello. Are you all right, you and anyone with you?
+turncoat/NG | greeted | Well met. I'm {speaker}; tell me what you need, and we'll see.
+turncoat/NG | greeted | Good day. Help's easier to give than to ask for, so don't be shy.
+turncoat/NG | greeted_again | Hello again; I'm glad you came back.[ How did it go with {asked}?]
+turncoat/NG | greeted_again | Back again. I saw you {since}; how have you been keeping?
+turncoat/NG | greeted_again | Welcome back. Before anything else, is there something you need?
+turncoat/NG | greeted_warm | Good to see you, truly.[ Did you find {asked}?]
+turncoat/NG | greeted_warm | Well met again. A friendly face does me good.
+turncoat/NG | greeted_cold | What do you want? I'll hear you, but I'm not happy about it.
+turncoat/NG | greeted_cold | Stay back. I don't know what you're about, and I'd rather not find out.
+turncoat/NG | greeted_cold | What now? Say it, and then leave me be.
+turncoat/NG | greeted_taken | Hello again. The work's still yours; how are you getting on?
+turncoat/NG | greeted_taken | Back again. I saw you {since}; how's the work going?
+turncoat/NG | greeted_finished | Welcome back. The work's done, and I'm grateful to you.
+turncoat/NG | greeted_finished | Good to see you. You finished it, and I'm glad it was you.
+turncoat/NG | greeted_failed | Hello again. It didn't work out, and I'm sorry; are you all right?
+turncoat/NG | greeted_failed | Good day. The work failed; I won't hold it against you.
+turncoat/NG | greeted_abandoned | Back again. You gave the work up, and that's fine by me.
+turncoat/NG | greeted_abandoned | Well met again. You set the work down, and I don't think any less of you.
+turncoat/NG | small_talk | I'm well enough, thank you; more to the point, how are you?
+turncoat/NG | small_talk | There's always someone to look in on, being {post} here; it keeps me on my feet.
+turncoat/NG | small_talk | It's {season}, and I keep wondering how folk are faring.[ There are {danger}; I hope nobody's wandered near them.]
+turncoat/NG | small_talk_fair | It's a lovely clear {time}; make the most of it.
+turncoat/NG | small_talk_fair | The weather's fair, and that's one less thing for anyone to worry about.[ Watch out for the {danger}, though.]
+turncoat/NG | small_talk_wet | It's wet; have you something dry to change into?
+turncoat/NG | small_talk_wet | A wet {time}, and no kind of weather to be out in.[ Keep well away from the {danger} in this.]
+turncoat/NG | small_talk_storm | It's a wild {time}, and I hope everyone's somewhere safe.
+turncoat/NG | small_talk_storm | This wind is no joke; stay in the lee of something if you can.[ And don't go anywhere near the {danger} in it.]
+turncoat/NG | small_talk_cold | I'm in no mood to chat, not with you.
+turncoat/NG | small_talk_cold | Let's not pretend we're on easy terms.
+turncoat/NG | acknowledged | Right; I'm glad you told me.
+turncoat/NG | acknowledged | Ah. That helps, it really does.
+turncoat/NG | acknowledged | Good. I'll keep that in mind.
+turncoat/NG | thanked | Glad to; that's what we're here for, isn't it?
+turncoat/NG | thanked | You're welcome; ask any time.
+turncoat/NG | thanked_cold | Keep your thanks; honesty would serve me better.
+turncoat/NG | thanked_cold | Save your thanks; I'm not sure yet what you are.
+turncoat/NG | offended | There's no need for that; I've been straight with you.
+turncoat/NG | offended | Mind your manners; I'd sooner help you than argue with you.
+turncoat/NG | offended_again | Enough; I've tried to be decent with you, and I'm done trying.
+turncoat/NG | offended_again | Careful; I'm patient, but not with this.
+turncoat/NG | parted_cold | Go, then; I've nothing more for you.
+turncoat/NG | parted_cold | Get going, and leave it there.
+turncoat/NG | safety_unsafe | No, not as things stand. Stay away from {worst}, please.[ There are {danger} too, so take care.]
+turncoat/NG | safety_unsafe | Not safe, no; there are {danger}, and I'd hate for anyone to wander near them.[ Keep away from {worst} as well.]
+turncoat/NG | safety_wary | Safe enough, if you're careful; just stay clear of {worst}.[ Mind the {danger} too.]
+turncoat/NG | safety_wary | More or less; the one place I'd worry about is {worst}.
+turncoat/NG | safety_safe | Yes, as far as I know; the only worry is {worst}.
+turncoat/NG | safety_safe | Quiet enough; I'd still steer clear of {worst}, just to be sure.
+turncoat/NG | safety_safe | Nothing to fear; I'd tell you if there were.
+turncoat/NG | denied | No, honestly; I'm who you see, nothing more.
+turncoat/NG | denied | That's not so, and it stings a little that you'd think it.
+turncoat/NG | denied_again | I don't know what you mean, and asking again won't change that.
