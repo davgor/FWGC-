@@ -11,6 +11,7 @@ README.
 | [communicator/](communicator/) | NPC dialogue. The interpreter turns a player's line into one dialogue act, and the voice puts a fact packet into the speaker's words. A grammar holds each model answer to what C++ can use. It sees the orchestrator's contract, never a world, and depends on the orchestrator and inference. |
 | [inference/](inference/) | The local model runtime: a GGUF model in memory, text in, text out, on the player's machine, with chat templates, streaming and GBNF-grammar-held output. llama.cpp, pinned by hash. It knows nothing of worlds and depends on no other component. |
 | [concept art/](concept%20art/) | Three-tier concept art production map and master asset checklist, grounded in the generator's authored catalogues. |
+| [ui-mockups/](ui-mockups/) | Mockups of the games' UI screens, each designed on a Claude Design canvas, with the approved exports the game's UI is built from. |
 | [tools/](tools/) | The layer checker and the commit gate that keep the components apart: `check_layers` on every commit, a context-cleared red-team review of every commit, and the git hooks that run them. |
 
 **Before changing anything, read [AGENTS.md](AGENTS.md)**: who works where, how the components
