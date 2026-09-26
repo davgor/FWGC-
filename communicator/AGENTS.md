@@ -67,6 +67,19 @@ ctest --test-dir communicator/build -C Release --no-tests=error
     from what the card keeps back (belief, wants, fears, tells, lies). The first warden lines
     took "stays behind the line" from the warden's belief, and a judge heard it as a rule.
   - A new situation or blank goes in `Lines::situations()`, with a test packet that speaks it.
+  - A frightened speaker's lines never say what frightened them, where it is, or whether it is
+    still there: the packet does not say. Fear shows in how they speak.
+- **Every reply passes the truth check before it is shown** (`truth.hpp`, `untrue()`).
+  `Lines::speak` checks written lines as it chooses them, and says the next line when one fails;
+  whatever joins the communicator to the game checks a voice reply and shows the written line
+  instead. A new claim a line or the voice can make (a new blank, situation or fact) comes with its
+  check in `untrue()`, shown backed by one packet and unbacked by another, and a run of
+  `--check-lines` over the library. A phrase list reads what claims nothing too ("I'll tell you
+  again" is not "you again"): the first pass flagged 105 sound rows, so narrow it with a test for
+  each wrong read.
+- **An act is offered to the model only where it can apply:** an answer after a question, calming
+  words to a frightened speaker. A listed act costs a small model on every line: offered to
+  everyone, `calm` took the test model from 112 lines of 310 read right to 79 (2026-09-26).
 - **A world-changing act is confirmed before it reaches the director.** Whatever joins the
   communicator to the director (the game, a binding) asks `Interpretation::confirm` and hands on
   the act only on yes. A reply's shape (`reply_shape()`) states the outcome first; an outcome

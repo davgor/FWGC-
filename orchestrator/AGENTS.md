@@ -26,9 +26,10 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
 - **Beware argument-dependent lookup.** A helper called unqualified with a `fwg::` argument also
   searches namespace `fwg`. Check a new helper's name against the generator's declarations. Two
   of this component's first names collided.
-- **What a speaker remembers is folded from the recorded inputs.** Nothing is remembered that
-  replay cannot rebuild: a new thing to remember comes from an input the session records, and a
-  test replays it.
+- **What a speaker remembers, and how anyone feels, is folded from the recorded inputs.**
+  Nothing is remembered or felt that replay cannot rebuild: a new thing to remember comes from an
+  input the session records (a fright, a gathering, an act), and a test replays it. Time eases
+  fear by the world's clock, never by the wall's.
 - **Disclose only what the speaker would say:**
   - the face the rules bring out, never a hidden face before then: a mask until the player
     exposes it with cause, a beast's calm face but on the full moon's days, a fractured heart's
