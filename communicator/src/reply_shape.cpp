@@ -55,6 +55,9 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
                 shape.openings = {"Safe enough", "Mostly", "More or less", "Careful", "Keep your wits about you"};
             else if (verdict == "safe")
                 shape.openings = {"Safe enough", "Yes", "Aye", "It's safe", "Quiet enough", "Nothing to fear"};
+            // A place asked about has more to it (contract version 8): its trades, who is there, the
+            // nests around it, the work there, a sentence each.
+            if (packet.answering == ActKind::AskAboutPlace) shape.sentences = 5;
             break;  // otherwise any start, up to three sentences
         }
         case Outcome::Accepted:
@@ -134,6 +137,19 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
             shape.openings = {"No", "Nonsense", "You're mistaken", "I don't know what you mean", "What are you on about",
                               "That's not so", "You have the wrong one"};
             shape.sentences = 1;
+            break;
+        case Outcome::Forgiven:
+            // An apology taken: warmly, or by a speaker it has not yet won round.
+            if (memory.cold())
+                shape.openings = {"Words are cheap", "We'll see", "Maybe", "Hmph", "It's a start"};
+            else
+                shape.openings = {"Very well", "All right", "Apology accepted", "Let's forget it", "Forgiven", "No hard feelings"};
+            shape.sentences = 2;
+            break;
+        case Outcome::Unwronged:
+            // Two: "What for?" asks, and the next sentence says there was no wrong.
+            shape.openings = {"What for", "No harm done", "There's nothing to forgive", "Nothing to forgive", "Whatever for"};
+            shape.sentences = 2;
             break;
     }
     return shape;

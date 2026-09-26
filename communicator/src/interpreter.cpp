@@ -66,6 +66,8 @@ constexpr std::array<ActText, orchestrator::kActCount> kActs = {{
      {{{"", "Is it safe around here?"}, {"", "What should I watch out for?"}}}, ""},
     {ActKind::Confront, std::nullopt, "tells them they are not what they seem, or accuses them of hiding who they are",
      {{{"", "I know you're no miller."}, {"", "Drop the act. I know what you are."}}}, ""},
+    {ActKind::Apologize, std::nullopt, "says sorry for something they did, or asks to be forgiven",
+     {{{"", "I'm sorry for what I said."}, {"", "Forgive me, I was out of line."}}}, ""},
 }};
 
 const ActText& text_of(ActKind kind) { return kActs[static_cast<std::size_t>(kind)]; }
@@ -78,7 +80,8 @@ constexpr std::array<ActKind, orchestrator::kActCount> kShown = {
     ActKind::AskSurroundings, ActKind::AskAboutPlace, ActKind::AskAboutPerson, ActKind::AskForWork,
     ActKind::AcceptQuest,     ActKind::DeclineQuest,  ActKind::AbandonQuest,   ActKind::Farewell,
     ActKind::Greet,           ActKind::SmallTalk,     ActKind::Answer,         ActKind::Thank,
-    ActKind::Insult,          ActKind::AskSafety,     ActKind::Confront,       ActKind::NoAct};
+    ActKind::Insult,          ActKind::AskSafety,     ActKind::Confront,       ActKind::Apologize,
+    ActKind::NoAct};
 
 // Whether an act can be put to the model: it takes no target, or there is something to point at;
 // and an answer only to a question, when the speaker's last words asked one.

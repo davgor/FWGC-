@@ -136,7 +136,11 @@ std::map<std::string, std::function<FactPacket()>> voice_packets() {
             {"exposed_beast", packets::exposed_beast},
             {"exposed_heart", packets::exposed_heart},
             {"denied", [] { return packets::denied(false); }},
-            {"denied_again", [] { return packets::denied(true); }}};
+            {"denied_again", [] { return packets::denied(true); }},
+            {"forgiven", [] { return packets::forgiven("neutral"); }},
+            {"forgiven_cold", [] { return packets::forgiven("hostile"); }},
+            {"unwronged", packets::unwronged},
+            {"about_town", packets::about_the_town}};
 }
 
 std::optional<Kind> target_kind(ActKind kind) {

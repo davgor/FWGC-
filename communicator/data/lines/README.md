@@ -27,7 +27,7 @@ voice | situation | line
   |---|---|
   | `about_self` | |
   | `about_person` | `{name}` `{role}` `{where}` |
-  | `about_place` | `{about}` |
+  | `about_place` | `{about}` `{trades}` `{who}` `{around}` `{work}` |
   | `surroundings` | `{here}` `{nearest}` `{others}` `{danger}` |
   | `work_own` | `{own}` `{others}` |
   | `work_others` | `{others}` |
@@ -49,6 +49,8 @@ voice | situation | line
   | `safety_unsafe`, `safety_wary`, `safety_safe` ("is it safe", by the verdict) | `{worst}` `{others}` `{danger}` |
   | `exposed`, `exposed_true`, `exposed_unleashed`, `exposed_second` (a hidden face owned to) | `{was}` `{is}` |
   | `denied`, `denied_again` (accused of hiding something, with nothing owned to) | |
+  | `forgiven`, `forgiven_cold` (an apology for a wrong, taken, or said again once every wrong is forgiven; cold: the speaker is still wary or hostile after it) | |
+  | `unwronged` (an apology from someone who never wronged the speaker, or to a face that does not know them) | |
 
   Every situation may also use `{speaker}`, `{post}`, `{place}` and `{saying}`.
 
@@ -68,15 +70,25 @@ voice | situation | line
   of the speaker's own work comes before either. `offended_again` and `denied_again`, for the
   second time, fall back to `offended` and `denied`; `exposed_true` and the rest fall back to
   `exposed`.
-  - A cold speaker has only `greeted_cold`, `small_talk_cold`, `thanked_cold` and `parted_cold`:
-    a bank without them leaves the reply to the next bank's, and never answers warmly.
+  - A cold speaker has only `greeted_cold`, `small_talk_cold`, `thanked_cold`, `parted_cold` and
+    `forgiven_cold`: a bank without them leaves the reply to the next bank's, and never answers
+    warmly.
   - Small talk says the weather's lines (`small_talk_fair`, `_wet`, `_storm`) and `small_talk`'s
     alike: which fits is for the stranger's words to say. So `small_talk` says nothing of the
     weather: it is the speaker's day, their work, the season, what is near.
   - `{since}` is how long since they met, roughly: "earlier today", "yesterday", "a few days
     ago", "some weeks ago", "some months ago", "years ago".
-  - `{asked}` is the place or person the stranger asked about last time, by name.
+  - `{asked}` is the place or person the stranger asked about last time, by name; never the
+    town the speaker stands in, which the stranger is in again.
   - `{season}` is "deep winter" to "high summer"; `{time}` "dawn" to "night".
+  - A place asked about (contract version 8): `{about}` is the place itself; `{trades}` up to
+    three of a settlement's trades ("an administrator, a smith and an officiant"); `{who}` the
+    heroes who stand there, one or two ("Tornar of the council", "Froswen the warden and Legmok
+    of the council"), so never "{who} is"; `{around}` the nests within 2 km of it, from
+    it ("Frost owls nesting close by it"); `{work}` the work there the speaker knows of, a
+    sentence of its own ("I want someone to ..." for the speaker's own, "Tornar of the council
+    wants someone to ..." for another's). Each goes in its own bracketed sentence, so a place
+    with less to it is said with less.
   - `{worst}` is the place the verdict rests on: within a walk when anything is. `{was}` and
     `{is}` are the roles the face known claimed and the face owned to: they differ only for a
     mask. A beast's or a fractured heart's two faces share a role: its lines say what it is
@@ -118,7 +130,12 @@ packet, and a row that says a saying once more with one dropped in. `communicato
   sentence; `accepted` may run to two. A refusal's last sentence ("Speak to ...") is added by
   C++: after a line that says `{giver}`, it says only where ("Find them at ...").
 - Conversation: a greeting or an acknowledgement runs to two sentences, small talk to two with
-  any start, thanks, an insult taken and a denial to one, an exposure to three. A greeting opens
+  any start, thanks, an insult taken and a denial to one, an exposure to three. An apology taken
+  runs to two and opens "Very well", "All right", "Apology accepted", "Let's forget it",
+  "Forgiven" or "No hard feelings", or from a speaker still cold "Words are cheap", "We'll see",
+  "Maybe", "Hmph" or "It's a start"; nothing to forgive runs to two ("What for? You've done me no
+  wrong.") and opens "What for", "No harm done", "There's nothing to forgive", "Nothing to
+  forgive" or "Whatever for". A greeting opens
   by what the speaker remembers: a first meeting "Hello", "Greetings", "Well met", "Good day",
   "Welcome" or "Hail"; met before, "Hello again", "Back again", "Welcome back", "Good to see
   you", "Well met again" or "Good day"; a cold speaker "What do you want", "What now", "Keep
@@ -126,7 +143,8 @@ packet, and a row that says a saying once more with one dropped in. `communicato
   safe", "Far from it", "I wouldn't say so"; wary "Safe enough", "Mostly", "More or less",
   "Careful", "Keep your wits about you"; safe "Safe enough", "Yes", "Aye", "It's safe", "Quiet
   enough", "Nothing to fear". `reply_shape.cpp` holds every opening.
-- An answer runs to three sentences at most.
+- An answer runs to three sentences at most, and an answer about a place to five: the place,
+  its trades, who is there, the nests around it and the work there.
 - An article fits the word a blank fills in after it: "a {time}" says "a evening", "an {post}"
   "an farmer". `{season}` may be "the turn of the season", so nothing that needs a noun of its own
   stands before it ("this {season}", "every {season}").
@@ -144,3 +162,9 @@ packet, and a row that says a saying once more with one dropped in. `communicato
   rumour is invented.
 - **An offer's opening never says who goes.** A hero's offer may put them alongside ("hold the
   fortress above Wenweg with me"), so "I can't leave my desk: {own}" would contradict it.
+- **A forgiveness never names the wrong.** It may be an insult or the speaker's own work given
+  up, and the line cannot know which: no "what you said", no "the work".
+- **A place line carries every blank it can.** Of the lines that fit, the fullest are said, so an
+  `about_place` line without `{trades}`, `{who}`, `{around}` or `{work}` is never heard where that
+  blank is filled. Nothing in it may hold only when a part is dropped or kept ("That's all I
+  know", "a quiet place").

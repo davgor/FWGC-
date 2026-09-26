@@ -5,6 +5,7 @@ any | about_self | I'm {speaker}, {post} of {place}.
 any | about_self | I'm {speaker}.
 any | about_person | That's {name}, the {role}, at {where}.
 any | about_place | That's {about}.
+any | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ {work}.]
 any | surroundings | This is {here}, and the nearest is {nearest}.[ Then there's {others}.][ Watch for the {danger}.]
 any | surroundings | The nearest is {nearest}.[ Then there's {others}.][ Watch for the {danger}.]
 any | work_own | There's work: {own}.[ Otherwise, {others}.]
@@ -111,3 +112,11 @@ any | thanked | No need[; as we say, {saying}].
 any | thanked | Don't mention it[; as my people say, {saying}].
 any | acknowledged | Is that so?[ Well, as we say, {saying}.]
 any | acknowledged | Ah, I see.[ As my people say, {saying}.]
+
+# ---- Saying sorry (contract version 8) ---------------------------------------------------------
+any | forgiven | Very well; we'll say no more of it.
+any | forgiven | All right. Let's forget it.
+any | forgiven_cold | We'll see.
+any | forgiven_cold | Words are cheap, but I heard them.
+any | unwronged | What for? You've done me no wrong.
+any | unwronged | No harm done.

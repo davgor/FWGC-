@@ -304,3 +304,24 @@ castellan | - | Hello! What's around here? | ask_surroundings | - | multi
 inn | - | thanks, and is there any work? | ask_for_work | - | multi
 gate | Will you be staying the night? | no, i'll be off. farewell | farewell | - | context,multi
 castellan | Hold the fortress above Wenweg with me, stranger. | Thank you, but no. | decline_quest | Selbren: Hold the fortress above Wenweg (Age 2) with me. | context,polite
+
+# ---- Contract version 8: saying sorry (written 2026-09-26 by Claude, labelled by the rules in
+# README.md) ---------------------------------------------------------------------------------
+castellan | - | I'm sorry for what I said earlier. | apologize | - | clear
+gate | - | sorry, captain. i was out of line. | apologize | - | clear
+inn | - | Forgive me, Dornwen. I was rude. | apologize | - | polite
+opening | - | My apologies. | apologize | - | short,polite
+castellan-held | - | I didn't mean what I said before. | apologize | - | clear
+inn | - | Sorry for what I said before. Thank you for your help. | apologize | - | multi
+gate | - | sry | apologize | - | slang,short
+castellan | - | I owe you an apology. | apologize | - | clear
+inn | Mind your manners. | Sorry, sorry. | apologize | - | context,short
+gate | Watch your tongue. | I apologise. That was uncalled for. | apologize | - | context
+castellan-held | - | I'm sorry I let you down. | apologize | - | clear
+castellan | - | Can you forgive me? | apologize | - | short
+castellan | - | Sorry, what's around here again? | ask_surroundings | - | multi
+inn | - | Sorry to bother you, is there any work? | ask_for_work | - | multi,polite
+gate | - | Sorry, is it safe out there? | ask_safety | - | multi,polite
+opening | - | Sorry, I have to go. | farewell | - | polite
+castellan | - | sorry, who is Halbrann? | ask_about_person | Halbrann | multi
+inn | - | Thanks, and sorry for the trouble. | thank | - | multi

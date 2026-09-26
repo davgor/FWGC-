@@ -49,3 +49,8 @@ exposed_beast | I saw what you become under the full moon.
 exposed_heart | You weren't yourself the other day.
 denied | You're not what you seem.
 denied_again | I know you're lying.
+# Contract version 8: saying sorry, and more about a place. After the 47 above, so they still compare.
+forgiven | I'm sorry for what I said earlier.
+forgiven_cold | I'm sorry. I was out of line.
+unwronged | Forgive me, please.
+about_town | Tell me more about Wenweg.

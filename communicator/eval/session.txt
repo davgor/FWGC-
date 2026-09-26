@@ -39,7 +39,7 @@ say armorer farewell | Bye.
 
 advance 30
 say armorer greet | It's been a while.
-say armorer thank | Sorry for what I said before. Thank you for your help.
+say armorer apologize | Sorry for what I said before. Thank you for your help.
 say armorer farewell | Farewell.
 
 # A villager met twice, weeks apart.
@@ -48,6 +48,7 @@ say villager ask_surroundings | Where am I, exactly?
 say villager farewell | Farewell.
 advance 20
 say villager greet | Remember me?
+say villager apologize | Sorry if I was short with you last time.
 say villager small_talk | How are things with you?
 say villager farewell | Good day.
 

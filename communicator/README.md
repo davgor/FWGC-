@@ -61,6 +61,9 @@ player's dealings with the speaker's own work, what they asked about last time, 
 have asked the same thing twice now. The director keeps it; the communicator speaks from it. A
 greeting to someone met before is not a first greeting, a cold speaker greets coldly, a speaker
 whose work the player finished says so, and a question asked twice is answered "As I said, ...".
+An apology (contract version 8) is taken by whether there was a wrong: forgiven, warmly or by a
+speaker still cold after it (and forgiven again when said again), or nothing to forgive, from
+someone who never wronged the speaker.
 
 ## The interpreter
 
@@ -70,9 +73,9 @@ It asks the model two questions, and a grammar holds each answer:
    (`orchestrator::to_string`). It can only be an act with something to point at: with no offer
    known, `accept_quest` is not in the grammar; and `answer` only when the speaker's last words
    asked a question. Worked examples go in as earlier chat turns.
-   - The sixteen acts are shown in the contract's order with `no_act` ("anything else") last:
-     the nine first measured, then greet, small_talk, answer, thank, insult, ask_safety and
-     confront. The test model reads the first acts listed far more often: shown greet and
+   - The seventeen acts are shown in the contract's order with `no_act` ("anything else") last:
+     the nine first measured, then greet, small_talk, answer, thank, insult, ask_safety, confront
+     and apologize. The test model reads the first acts listed far more often: shown greet and
      small_talk first, it read 16 of 23 clear lines as one of those two.
 2. **Which target, for an act that takes one.** The model sees six known things of the act's
    kind, most likely first (those sharing the most words with the line and the last reply),
@@ -111,6 +114,8 @@ The prompt holds four things:
   - Not the days an offer stands. However they were put ("948 days left", "the offer stands
     for 948 more days"), a model took them for how long the work lasts. The game can show a
     deadline.
+  - A nest around a place asked about (contract version 8) is "Danger near that place: ...",
+    its range "from that place", so it is not taken for one beside the speaker.
   - How far, in words, as roughly as the packet says it (contract version 3): "a short walk
     away", "an hour's walk away", "a long way off". Given kilometres, Qwen3-4B read them out in
     6 replies of 24 and rounded them wrong ("thirteen kilometers" for 13.6); given words, in 0.
@@ -130,7 +135,7 @@ A grammar holds the reply, and what happened shapes it:
 
 | Outcome | The reply opens with one of | Sentences |
 |---|---|---|
-| answered | anything | up to three |
+| answered | anything | up to three; about a place, up to five (contract version 8: its trades, who is there, the nests around it, the work there) |
 | accepted | Good, Then it's agreed, Done, Very good, Thank you | up to two |
 | declined | Very well, As you wish, Suit yourself, So be it, Fair enough | one |
 | abandoned | So be it, Very well, A pity, As you wish, Then it's done | one |
@@ -146,6 +151,8 @@ A grammar holds the reply, and what happened shapes it:
 | offended | Watch your tongue, Mind your manners, How dare you, Enough, Careful, Hold your tongue, There's no need for that | one |
 | exposed | So, So you know, Very well, Fine, Clever, Yes, You've found me out, Enough, then | up to three |
 | denied | No, Nonsense, You're mistaken, I don't know what you mean, What are you on about, That's not so, You have the wrong one | one |
+| forgiven (an apology for a wrong) | Very well, All right, Apology accepted, Let's forget it, Forgiven, No hard feelings; a speaker still cold: Words are cheap, We'll see, Maybe, Hmph, It's a start | up to two |
+| unwronged (an apology with nothing to forgive) | What for, No harm done, There's nothing to forgive, Nothing to forgive, Whatever for | up to two ("What for? You've done me no wrong.") |
 
 The model chooses among the openings and writes the rest. A reply that opens by stating what
 happened rarely turns into its opposite. A short one leaves little room to invent.
@@ -209,6 +216,9 @@ larger-than-life heroes.
     `{time}` and the worst `{danger}`; a cold speaker has none of it.
   - "Is it safe" by the verdict, `{worst}` the place it rests on.
   - An exposure by the face owned to; a second insult or denial by its own lines first.
+  - An apology (contract version 8) by whether there was a wrong and how the speaker takes the
+    stranger now: `forgiven`, `forgiven_cold` for a speaker still wary or hostile after it (a
+    bank without it leaves the reply to the next bank's cold one), `unwronged`.
   - No chain crosses from one reply shape's openings to another's.
 - **Asked twice in one conversation,** an answer is said after "As I said," or "Again," (C++'s
   words, its first word lowered unless it is "I" or a name): the speaker says so, and the line
@@ -226,6 +236,12 @@ larger-than-life heroes.
     with details goes first ("the deeps under Linbrig, deadly, held by monsters, and the hamlet
     of Wenweg, both an hour's walk away"): said last, a judge read the hamlet as deadly too.
   - A nest is the worst the packet holds.
+  - A place asked about is told with what else the speaker knows of it (contract version 8),
+    each in a bracketed sentence of its own, so a place with less to it is said with less:
+    `{trades}` ("an administrator, a smith and an officiant"), `{who}` ("Tornar of the
+    council"), `{around}` ("Frost owls nesting close by it") and `{work}` ("Tornar of the council
+    wants someone to walk the walls of Wenweg with them"). A judged session (2026-09-26) had
+    "tell me more" about a place answered with the same clause again.
   - Work comes with how hard and how far: "fair work, a long walk away".
   - Another's work is told as theirs ("with me" becomes "with them"), by what it asks, not by
     the reason given first ("Our fields lie in its reach: drive off...").

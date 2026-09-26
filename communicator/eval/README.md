@@ -91,7 +91,9 @@ context | last_reply | line | act | target | tags
 
 1. The act is what the director should do with the line.
 2. A greeting or thanks with a request is the request ("Hi! Any work?" is `ask_for_work`). A
-   greeting alone is `greet`, and thanks alone `thank`.
+   greeting alone is `greet`, and thanks alone `thank`. "Sorry" before a request is the request
+   ("Sorry, is there any work?"); an apology for a wrong is `apologize`, with thanks or without,
+   and thanks that end on a passing "sorry for the trouble" are `thank`.
 3. **Places:** a question about one named place, including the way there or whether it is safe,
    is `ask_about_place` with that place. A question about what is around, or the way somewhere
    not named, is `ask_surroundings`. Whether it is safe around here, or on the roads, and what
@@ -222,6 +224,36 @@ labels against this one's, each on its own set:
   giving work up right (seven tried), and its unsafe reads fell from 12 to 3.
 - The model voice, told what the speaker remembers, still invents: "three days' march", "three
   miles out", a meeting "at the gate". Written lines remain the way to speak.
+
+### Contract version 8: saying sorry (2026-09-26)
+
+Measured on the GPU (RTX 5080 Laptop, every layer, 8 threads), HEAD 851c234's interpreter and
+labels against this one's, each on its own set:
+
+| | Qwen3-4B before | after | Qwen2.5-0.5B before | after |
+|---|---|---|---|---|
+| Lines read fully right | 214 of 286 | 232 of 304 | 104 of 286 | 107 of 304 |
+| The 286 lines whose label did not change | 214 | 215 | 104 | 103 |
+| The 18 new lines | | 17 | | 4 |
+| Apologies, of 12 | | 11 | | 1 |
+| Unsafe reads | 0 | 0 | 3 | 3 |
+| Replies holding their shape | 47 of 47 | 51 of 51 | 47 of 47 | 51 of 51 |
+| Time per line | 0.26 s | 0.28 s | 0.07 s | 0.06 s |
+
+- Qwen3-4B reads apologies well, and the six lines that open with "sorry" and ask for
+  something (work, the way, whether it is safe, who someone is) as what they ask. Its one miss
+  is an apology with thanks after it ("Sorry for what I said before. Thank you for your help."),
+  read as `thank`.
+- Adding the act moved answers about, as prompt changes do: Qwen3-4B lost three questions about
+  a named place to `ask_surroundings` ("How far is Nerstrann?", "what is down in the deeps?"),
+  a fourth ("Tell me about Narbod.") and an answer to `no_act`, and won six lines elsewhere; the
+  test model lost 12 and won 11.
+- The test model is not a candidate here either: on the CPU it read none of twelve apologies as
+  `apologize` (most as `small_talk`), and "Is it safe around here?" became `ask_surroundings`,
+  so `clear_lines_find_their_act` asks "Is it safe here?", which it still reads right.
+- The model voice, given an apology, still invents: "we walk it together now", "I know you'll do
+  it again"; told about a place, "a small city of kind people", and it took another's work for
+  its own ("If you walk with me").
 
 ## A whole conversation: session.txt
 

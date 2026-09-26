@@ -242,6 +242,40 @@ const Fact* worst_nest(const FactPacket& p) {
     return worst;
 }
 
+// A settlement's trades as a speaker lists them: "administrator, smith" -> "an administrator and a
+// smith". Empty for none.
+std::string trades_phrase(const std::string& trades) {
+    std::vector<std::string> out;
+    std::string trade;
+    std::stringstream split(trades);
+    while (std::getline(split, trade, ',')) {
+        trade = text::spaced(trimmed(trade));
+        if (trade.empty()) continue;
+        out.push_back((std::string("aeiou").find(trade[0]) != std::string::npos ? "an " : "a ") + trade);
+    }
+    return joined(out, ", ", " and ");
+}
+
+// A hero who stands at a place, as someone else says it: "Froswen the castellan", "Legmok of the
+// council".
+std::string person_phrase(const Fact& person) {
+    static const std::set<std::string> bodies = {"council"};
+    std::string out = text::spoken(field_of(person, "name"));
+    const std::string role = text::spaced(text::spoken(field_of(person, "role")));
+    if (!role.empty()) out += (bodies.count(role) ? " of the " : " the ") + role;
+    return out;
+}
+
+// A nest around a place, as far from that place: "Glacier dragons nesting close by it".
+std::string around_phrase(const Fact& nest) {
+    std::string out = text::spoken(field_of(nest, "creature"));
+    if (out.empty()) out = "something";
+    const std::string range = field_of(nest, "range");
+    if (range == "here") return out + " nesting right by it";
+    if (range == "close") return out + " nesting close by it";
+    return out + " nesting a short walk from it";
+}
+
 // Every blank this packet can fill, for its situation. `saying` is one of the speaker's people's
 // sayings, or empty when their people has none.
 std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::string& situation, const std::string& saying) {
@@ -259,7 +293,9 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     if (starts("greeted_")) {
         const Remembered m = remembered(p);
         set("since", since_words(m.since));
-        set("asked", text::spoken(m.asked_before));
+        // Never the town the speaker stands in: "Did you get anywhere with Dunweg?" said in Dunweg
+        // (judged 2026-09-26).
+        if (text::spoken(m.asked_before) != text::spoken(p.persona.place)) set("asked", text::spoken(m.asked_before));
     }
     if (starts("small_talk")) {
         set("season", first_field(p, FactKind::Chat, "season"));
@@ -294,7 +330,24 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
 
     const std::vector<const Fact*> places = of_kind(p, FactKind::Place);
     std::set<std::string> said;
-    if (situation == "about_place" && !places.empty()) set("about", place_phrase(*places.front(), said));
+    if (situation == "about_place" && !places.empty()) {
+        set("about", place_phrase(*places.front(), said));
+        // What else the speaker knows of it (contract version 8): its trades, who is there, the
+        // nests around it, the work there.
+        set("trades", trades_phrase(field_of(*places.front(), "trades")));
+        std::vector<std::string> who;
+        for (const Fact* person : people) who.push_back(person_phrase(*person));
+        if (!who.empty()) set("who", joined(who, ", ", " and "));
+        std::vector<std::string> around;
+        for (const Fact& nest : p.facts)
+            if (nest.kind == FactKind::Danger && field_of(nest, "around") == "yes") around.push_back(around_phrase(nest));
+        if (!around.empty()) set("around", joined(around, ", ", " and "));
+        std::vector<std::string> work;
+        for (const Fact* offer : of_kind(p, FactKind::QuestOffer))
+            work.push_back(own_offer(*offer) ? "I want someone to " + mid_sentence(ask_of(text::spoken(field_of(*offer, "purpose"))))
+                                             : others_offer_phrase(*offer));
+        if (!work.empty()) set("work", joined(work, ", ", ", and "));
+    }
     if (situation == "surroundings") {
         // Where the speaker stands, by name; then the rest, nearest first, as the director lists
         // them.
@@ -478,7 +531,7 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
     static const std::map<std::string, std::vector<std::string>> table = {
         {"about_self", {}},
         {"about_person", {"name", "role", "where"}},
-        {"about_place", {"about"}},
+        {"about_place", {"about", "trades", "who", "around", "work"}},
         {"surroundings", {"here", "nearest", "others", "danger"}},
         {"work_own", {"own", "others"}},
         {"work_others", {"others"}},
@@ -525,6 +578,11 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"exposed_second", {"was", "is"}},
         {"denied", {}},
         {"denied_again", {}},
+        // Contract version 8: an apology, taken warmly, taken by a speaker still cold, or with
+        // nothing to forgive.
+        {"forgiven", {}},
+        {"forgiven_cold", {}},
+        {"unwronged", {}},
         // Contract version 5: a people's sayings, in the bank `saying:<people>`. Never a reply of
         // its own: a line says one through {saying}.
         {"saying", {}},
@@ -581,6 +639,11 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
         case Outcome::Denied:
             if (m.repeat) return {"denied_again", "denied"};
             return {"denied"};
+        case Outcome::Forgiven:
+            // As a cold greeting: a bank without a cold line leaves it to the next bank's.
+            return {m.cold() ? "forgiven_cold" : "forgiven"};
+        case Outcome::Unwronged:
+            return {"unwronged"};
         default: {
             std::string one = single_situation(p);
             if (one.empty()) return {};
@@ -642,6 +705,8 @@ std::string Lines::single_situation(const FactPacket& p) {
         case Outcome::Offended:
         case Outcome::Exposed:
         case Outcome::Denied:
+        case Outcome::Forgiven:
+        case Outcome::Unwronged:
             break;  // situations_for chains these
     }
     return {};

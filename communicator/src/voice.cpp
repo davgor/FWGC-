@@ -97,8 +97,11 @@ std::string fact_line(const Fact& fact) {
             return "- The stranger's work is now " + value_of(fact, "state") + ".";
         case FactKind::Danger: {
             const std::string creature = value_of(fact, "creature");
-            return "- Danger: " + (creature.empty() ? std::string("something") : creature) + " nesting: " +
-                   join(phrases(fact, {"creature"}), "; ");
+            // A nest around the place asked about is as far from that place, not from the speaker.
+            const bool around = value_of(fact, "around") == "yes";
+            return std::string(around ? "- Danger near that place: " : "- Danger: ") +
+                   (creature.empty() ? std::string("something") : creature) + " nesting: " +
+                   join(phrases(fact, {"creature", "around"}), "; ") + (around ? ", from that place" : "");
         }
         case FactKind::Reason:
             return "- Why: " + value_of(fact, "reason");
@@ -223,6 +226,10 @@ std::string what_happened(const FactPacket& packet) {
             return "The stranger has seen through you, and you own to it. Say so, as who you truly are.";
         case Outcome::Denied:
             return "The stranger says you are not what you seem. Deny it.";
+        case Outcome::Forgiven:
+            return "The stranger said sorry for a wrong they did you, and you forgive it. Say so, as you take them now.";
+        case Outcome::Unwronged:
+            return "The stranger said sorry, but they have done you no wrong. Say so.";
     }
     return {};
 }

@@ -379,6 +379,50 @@ inline FactPacket exposed_heart() {
                   {.met = "again", .times = 1, .since = "days", .exposed = true});
 }
 
+// An apology, to the castellan: a grievance eased, with the mood it leaves; or nothing to forgive.
+inline FactPacket forgiven(const std::string& mood) {
+    return packet(castellan(), ActKind::Apologize, Outcome::Forgiven, {}, {.met = "again", .times = 1, .since = "today", .mood = mood, .turn = 2});
+}
+
+inline FactPacket unwronged() { return packet(castellan(), ActKind::Apologize, Outcome::Unwronged, {}, {.turn = 2}); }
+
+// Asked about the town they stand in (contract version 8): its trades, a hero there, a nest
+// around it, and work there.
+inline FactPacket about_the_town() {
+    return packet(castellan(), ActKind::AskAboutPlace, Outcome::Answered,
+                  {{FactKind::Place, "surface-city-2-212-human_cold",
+                    {{"kind", "city"}, {"name", "Wenweg (Age 2)"}, {"class", "small"}, {"people", "human_cold"}, {"range", "here"},
+                     {"trades", "administrator, smith, officiant"}}},
+                   {FactKind::Person, "hero-council-surface-city-2-212-human_cold-steward",
+                    {{"name", "Tornar"}, {"role", "council"}, {"where", "Wenweg (Age 2)"}, {"status", "about"}}},
+                   {FactKind::Danger, "nest-frost-owls-212",
+                    {{"creature", "Frost owls"}, {"danger", "2"}, {"family", "fantastic"}, {"range", "close"}, {"around", "yes"}}},
+                   {FactKind::QuestOffer, "hook-hero-council-surface-city-2-212-human_cold-steward-0",
+                    {{"giver", "Tornar"}, {"giver_role", "council"}, {"from_speaker", "no"}, {"verb", "defend"},
+                     {"purpose", "Walk the walls of Wenweg (Age 2) with me."}, {"where", "Wenweg (Age 2)"}, {"difficulty", "2"},
+                     {"range", "here"}, {"days_left", "700"}, {"marker", "surface-city-2-212-human_cold"}, {"marker_node", "212"}}}});
+}
+
+// Asked about the fortress the castellan keeps: one trade, two heroes there, nests right by it and
+// a short walk from it, and the speaker's own work there.
+inline FactPacket about_the_fortress() {
+    return packet(castellan(), ActKind::AskAboutPlace, Outcome::Answered,
+                  {{FactKind::Place, "fortress-17",
+                    {{"kind", "fortress"}, {"of", "Wenweg (Age 2)"}, {"people", "human_cold"}, {"range", "far"}, {"trades", "gate_guard"}}},
+                   {FactKind::Person, "hero-warden-fortress-node-178",
+                    {{"name", "Froswen"}, {"role", "warden"}, {"where", "the fortress of Wenweg (Age 2)"}, {"status", "about"}}},
+                   {FactKind::Person, "hero-council-fortress-node-178",
+                    {{"name", "Legmok"}, {"role", "council"}, {"where", "the fortress of Wenweg (Age 2)"}, {"status", "about"}}},
+                   {FactKind::Danger, "nest-glacier-dragons-178",
+                    {{"creature", "Glacier dragons"}, {"danger", "5"}, {"family", "draconic"}, {"range", "here"}, {"around", "yes"}}},
+                   {FactKind::Danger, "nest-basilisks-160",
+                    {{"creature", "Basilisks"}, {"danger", "4"}, {"family", "fantastic"}, {"range", "near"}, {"around", "yes"}}},
+                   {FactKind::QuestOffer, kOwnOffer,
+                    {{"giver", "Selbren"}, {"giver_role", "castellan"}, {"from_speaker", "yes"}, {"verb", "defend"},
+                     {"purpose", "Hold the fortress above Wenweg (Age 2) with me."}, {"where", "the fortress of Wenweg (Age 2)"},
+                     {"difficulty", "3"}, {"range", "far"}, {"days_left", "713"}, {"marker", "fortress-17"}, {"marker_node", "178"}}}});
+}
+
 inline FactPacket denied(bool again) {
     return packet(castellan(), ActKind::Confront, Outcome::Denied, {}, {.turn = again ? 3 : 2, .repeat = again});
 }
@@ -399,6 +443,11 @@ inline std::vector<FactPacket> conversation() {
             small_talk("fair", "still", "hostile"),
             small_talk("fair", "breezy", "friendly", "the turn of the season", "afternoon"),
             parted_coldly(),
+            forgiven("neutral"),
+            forgiven("hostile"),
+            unwronged(),
+            about_the_town(),
+            about_the_fortress(),
             acknowledged(),
             thanked(),
             thanked("hostile"),

@@ -11,7 +11,7 @@ who smith townsfolk 3
 say baker greet | Morning!
 say baker small_talk | How's the baking going?
 say baker ask_surroundings | What's around here?
-say baker ask_about_place @place | What's that place like?
+say baker ask_about_place @place | What's this town like, then?
 say baker farewell | See you soon.
 
 # The next day.
@@ -40,7 +40,7 @@ say baker farewell | Fine, I'm going.
 # Two days on: making it up.
 advance 2
 say baker greet | Hello... about the other day.
-say baker thank | I'm sorry. Thank you for putting up with me.
+say baker apologize | I'm sorry. Thank you for putting up with me.
 say baker small_talk | How have you been?
 say baker farewell | Goodbye.
 

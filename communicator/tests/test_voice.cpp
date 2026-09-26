@@ -213,6 +213,17 @@ TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
                    "what the mask hid");
     check::is_true(prompt_of(voice, packets::exposed_beast(), "I saw you.").find("seen you unleashed") != std::string::npos,
                    "what the beast owns to");
+    // Contract version 8: an apology, and what else is known of a place, a nest around it as far
+    // from it rather than from the speaker.
+    check::is_true(prompt_of(voice, packets::forgiven("neutral"), "Sorry.").find("said sorry for a wrong they did you, and you forgive it") !=
+                       std::string::npos,
+                   "a wrong forgiven");
+    check::is_true(prompt_of(voice, packets::unwronged(), "Sorry.").find("they have done you no wrong") != std::string::npos,
+                   "nothing to forgive");
+    const std::string town = prompt_of(voice, packets::about_the_town(), "Tell me more.");
+    for (const std::string said : {"trades: administrator, smith, officiant", "- Tornar:", "- Danger near that place: Frost owls nesting: ",
+                                   "; close by, from that place"})
+        check::is_true(town.find(said) != std::string::npos, "what else is known of the place: " + said);
 }
 
 TEST(work_from_others_is_never_offered_as_the_speakers_own) {

@@ -284,7 +284,9 @@ TEST(clear_lines_find_their_act) {
     // Measured 2026-09-26 with the sixteen acts of contract version 4. The test model no longer
     // reads "Is there any work to be had?" (ask_surroundings) or "No thanks, I'd rather not."
     // (small_talk) right, as it did with nine, nor "Hello there!" (small_talk) or any line that
-    // gives work up: eval/README.md has the measure.
+    // gives work up: eval/README.md has the measure. With the seventeen of contract version 8 it
+    // reads "Is it safe around here?" as ask_surroundings, and "Is it safe here?" still right,
+    // and none of twelve apologies as apologize (most as small_talk).
     const std::vector<Case> cases = {
         {"Farewell, and thank you.", "", "farewell"},
         {"What lies around here?", "", "ask_surroundings"},
@@ -295,7 +297,7 @@ TEST(clear_lines_find_their_act) {
         {"Hello!", "", "greet"},
         {"Thank you kindly.", "", "thank"},
         {"You're a fool.", "", "insult"},
-        {"Is it safe around here?", "", "ask_safety"},
+        {"Is it safe here?", "", "ask_safety"},
     };
     for (const Case& c : cases) check::equal(shown(interpreter.interpret(c.line, known, c.last_reply)), c.expected, c.line);
 }

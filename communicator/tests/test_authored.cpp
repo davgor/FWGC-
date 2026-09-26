@@ -344,6 +344,10 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         {packets::small_talk("fair", "still", "hostile"), {"small_talk_cold"}},
         {packets::parted(), {"parted"}},
         {packets::parted_coldly(), {"parted_cold"}},
+        {packets::forgiven("neutral"), {"forgiven"}},
+        {packets::forgiven("hostile"), {"forgiven_cold"}},
+        {packets::unwronged(), {"unwronged"}},
+        {packets::about_the_town(), {"about_place"}},
         {packets::acknowledged(), {"acknowledged"}},
         {packets::thanked(), {"thanked"}},
         {packets::thanked("hostile"), {"thanked_cold"}},
@@ -405,6 +409,14 @@ TEST(a_greeting_remembers_when_and_what) {
     const std::vector<std::string> yesterday = lines.replies(nothing_asked);
     check::is_true(std::find(yesterday.begin(), yesterday.end(), "Good day. I saw you yesterday.") != yesterday.end(),
                    "the day before is yesterday, not a few days ago");
+    // Asked about the town the speaker stands in, they do not ask after it: the stranger is in it.
+    FactPacket own_town = packets::greeted_again();
+    own_town.facts.back() = packets::memory_of(own_town.speaker, {.met = "again", .times = 1, .asked_before = own_town.persona.place});
+    const std::vector<std::string> in_town = lines.replies(own_town);
+    const auto asks_after = [](const std::string& line) { return line.find("asking after") != std::string::npos; };
+    check::is_true(std::find(in_town.begin(), in_town.end(), "Hello again.") != in_town.end() &&
+                       std::none_of(in_town.begin(), in_town.end(), asks_after),
+                   "not asked after the town the speaker stands in");
     // The same for the season and the time of day in small talk.
     const Lines talk = Lines::parse("any | small_talk_fair | A fine day for {season}.\nany | small_talk_fair | A fine day.\n", "test");
     check::equal(talk.replies(packets::small_talk("clear", "still")).size(), std::size_t(2), "the season silences no line");
@@ -661,6 +673,46 @@ TEST(small_talk_warns_of_a_nest_only_when_not_warned_of_lately) {
     const Lines around = Lines::parse("any | surroundings | The nearest is {nearest}.[ Mind the {danger}.]\n", "test");
     const std::string answer = around.speak(packets::surroundings(), "What's around?", {warned});
     check::is_true(answer.find("Mind the") != std::string::npos, "the answer keeps its warning: " + answer);
+}
+
+TEST(an_apology_is_answered_by_whether_there_was_a_wrong_and_how_the_speaker_takes_it_now) {
+    // The warden's bank has a warm forgiveness only: a cold speaker leaves it for anyone's cold one.
+    const Lines lines = Lines::parse("warden/LN | forgiven | Very well; the matter is closed.\n"
+                                     "any | forgiven_cold | We'll see.\n"
+                                     "any | unwronged | What for? You've done me no wrong.\n",
+                                     "test");
+    check::equal(first(lines.replies(packets::forgiven("neutral"))), std::string("Very well; the matter is closed."), "forgiven");
+    check::equal(first(lines.replies(packets::forgiven("hostile"))), std::string("We'll see."), "forgiven, and still cold");
+    check::equal(first(lines.replies(packets::unwronged())), std::string("What for? You've done me no wrong."), "nothing to forgive");
+    check::is_true(broken_rules("We'll see.", packets::forgiven("hostile")).empty(), "a cold forgiveness opens as one");
+    check::is_true(!broken_rules("Very well.", packets::forgiven("hostile")).empty(), "not as a warm one");
+}
+
+TEST(a_place_is_told_with_what_else_the_speaker_knows_of_it) {
+    const Lines lines = Lines::parse(
+        "any | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ {work}.]\n"
+        "any | about_place | That's {about}.\n",
+        "test");
+    const std::vector<std::string> told = lines.replies(packets::about_the_town());
+    check::equal(told.size(), std::size_t(1), "the line that says the most");
+    check::equal(told.front(),
+                 std::string("That's Wenweg, right here. There's an administrator, a smith and an officiant there. You'll find Tornar of "
+                             "the council there. Mind the Frost owls nesting close by it. Tornar of the council wants someone to walk "
+                             "the walls of Wenweg with them."),
+                 "its trades, who is there, the nest around it and the work there");
+    check::equal(first(lines.replies(packets::about_the_fortress())),
+                 std::string("That's the fortress of Wenweg, a long walk away. There's a gate guard there. You'll find Froswen the "
+                             "warden and Legmok of the council there. Mind the Glacier dragons nesting right by it and Basilisks "
+                             "nesting a short walk from it. I want someone to hold the fortress above Wenweg with me."),
+                 "one trade, two heroes, nests right by it and a short walk from it, and the speaker's own work");
+    // A nest near the speaker is not one around the place: its range is from the speaker.
+    FactPacket mixed = packets::about_the_fortress();
+    mixed.facts.push_back({FactKind::Danger, "nest-hippogryphs-179",
+                           {{"creature", "Hippogryphs"}, {"danger", "3"}, {"family", "fantastic"}, {"range", "walk"}}});
+    check::equal(first(lines.replies(mixed)), first(lines.replies(packets::about_the_fortress())), "only nests around the place");
+    // A place with nothing more to it is told as before.
+    check::equal(first(lines.replies(about_the_works())), std::string("That's the burnt works, an hour's walk away, held by squatters."),
+                 "nothing more to say");
 }
 
 TEST(small_talk_says_the_weather_or_anything_else_alike) {
