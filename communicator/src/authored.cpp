@@ -782,7 +782,19 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
         for (const auto& [situation, f] : fits) most = std::max(most, f.said.size());
         std::vector<Spoken> out;
         for (const auto& [situation, f] : fits)
-            if (f.said.size() == most) out.push_back({situation, finished(f), f.recalls});
+            if (f.said.size() == most) {
+                Spoken said{situation, finished(f), f.recalls, {}};
+                said.stem = said.text;
+                if (!saying.empty()) {
+                    // The saying may open its sentence, and take a capital there.
+                    std::string opening = saying;
+                    opening[0] = static_cast<char>(std::toupper(static_cast<unsigned char>(opening[0])));
+                    std::size_t at = said.text.find(saying);
+                    if (at == std::string::npos) at = said.text.find(opening);
+                    if (at != std::string::npos) said.stem = said.text.substr(0, at);
+                }
+                out.push_back(std::move(said));
+            }
         return out;
     }
     return {};
@@ -815,21 +827,26 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     // same line of each every time; 2026-09-26). The second is whether it was said lately.
     const auto heard = static_cast<std::size_t>(std::max(0, remembered(p).heard));
     const std::uint64_t order = stable_hash(p.speaker + "|" + situation(p));
-    const auto choose = [&](const std::vector<std::string>& lines) -> std::pair<std::string, bool> {
+    // A line said lately is one of `recent` with its text, or, for a line that says a saying, with
+    // its text up to the saying: the saying changes from turn to turn, and the line with another
+    // was heard as the same line again (judged 2026-09-26).
+    const auto choose = [&](const std::vector<Spoken>& lines) -> std::pair<std::string, bool> {
         const std::size_t n = lines.size();
         const std::size_t chosen = (static_cast<std::size_t>(order % n) + heard % n) % n;
         std::size_t oldest = chosen;
         std::ptrdiff_t oldest_age = -1;
         for (std::size_t k = 0; k < n; ++k) {
-            const std::size_t i = (chosen + k) % n;
-            const auto said = std::find(recent.rbegin(), recent.rend(), lines[i]);
-            if (said == recent.rend()) return {lines[i], false};
+            const Spoken& line = lines[(chosen + k) % n];
+            const auto said = std::find_if(recent.rbegin(), recent.rend(), [&](const std::string& earlier) {
+                return line.stem.size() < line.text.size() ? earlier.rfind(line.stem, 0) == 0 : earlier == line.text;
+            });
+            if (said == recent.rend()) return {line.text, false};
             if (const std::ptrdiff_t age = std::distance(recent.rbegin(), said); age > oldest_age) {
                 oldest_age = age;
-                oldest = i;
+                oldest = (chosen + k) % n;
             }
         }
-        return {lines[oldest], true};
+        return {lines[oldest].text, true};
     };
     // And someone met before who asks to be remembered is greeted with a line that recalls the
     // meeting, how long since or what was asked then, while one has not been said lately:
@@ -840,15 +857,13 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         static const std::vector<std::string> subjects = {
             "Asking whether they are remembered: do you remember me, have we met before, it has been a long time.",
             "Just a greeting: hello, good day, good morning, hi there."};
-        std::vector<std::string> recalling;
+        std::vector<Spoken> recalling;
         for (const Spoken& s : spoken)
-            if (s.recalls) recalling.push_back(s.text);
+            if (s.recalls) recalling.push_back(s);
         if (!recalling.empty() && meaning->subject_of(line, subjects) == 0)
             if (auto [reply, said_lately] = choose(recalling); !said_lately) return reply;
     }
-    std::vector<std::string> candidates;
-    for (Spoken& s : spoken) candidates.push_back(std::move(s.text));
-    return choose(candidates).first;
+    return choose(spoken).first;
 }
 
 std::size_t Lines::size() const {

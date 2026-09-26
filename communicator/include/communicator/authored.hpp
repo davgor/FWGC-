@@ -76,6 +76,9 @@ private:
         std::string situation;
         std::string text;
         bool recalls = false;
+        // The text up to the saying it says, if it says one: said again with another saying, it is
+        // the same line.
+        std::string stem;
     };
 
     // replies(), each as Spoken. With `recent` (what the speaker said lately), small talk leaves

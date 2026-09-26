@@ -488,6 +488,40 @@ TEST(a_saying_is_of_the_speakers_own_people) {
                  "a capital where a sentence begins");
 }
 
+TEST(a_line_said_with_another_saying_is_the_same_line_again) {
+    const Lines lines = Lines::parse("saying:human_cold | saying | the cold keeps what the warm forgets\n"
+                                     "saying:human_cold | saying | no fire was ever lit by waiting\n"
+                                     "any | parted | Go well[; as we say, {saying}].\n"
+                                     "any | parted | Farewell.\n",
+                                     "test");
+    const auto parting = [](int heard) {
+        FactPacket p = packets::parted();
+        p.persona.people = "human_cold";
+        p.facts.back() = packets::memory_of(p.speaker, {.met = "again", .times = heard + 1, .heard = heard});
+        return p;
+    };
+    std::set<std::string> in_turn;
+    for (int heard = 0; heard < 2; ++heard) in_turn.insert(lines.speak(parting(heard), "Bye.").substr(0, 7));
+    check::is_true(in_turn.count("Go well") == 1, "the premise: in turn, the farewell with a saying");
+    // Said on an earlier turn with the other saying, it is not said again while another fits.
+    for (int heard = 0; heard < 2; ++heard)
+        for (const std::string lately : {"Go well; as we say, the cold keeps what the warm forgets.", "Go well; as we say, no fire was ever lit by waiting."})
+            check::equal(lines.speak(parting(heard), "Bye.", {lately}), std::string("Farewell."), "not the same farewell again: " + lately);
+    // The same where the saying opens its sentence, with a capital.
+    const Lines talk = Lines::parse("saying:human_cold | saying | the cold keeps what the warm forgets\n"
+                                    "saying:human_cold | saying | no fire was ever lit by waiting\n"
+                                    "any | small_talk | Much as ever.[ {saying}.]\n"
+                                    "any | small_talk | Busy, as always.\n",
+                                    "test");
+    for (int heard = 0; heard < 2; ++heard) {
+        FactPacket chat = packets::small_talk("fair", "still");
+        chat.persona.people = "human_cold";
+        chat.facts.back() = packets::memory_of(chat.speaker, {.met = "again", .times = heard + 1, .heard = heard});
+        for (const std::string lately : {"Much as ever. The cold keeps what the warm forgets.", "Much as ever. No fire was ever lit by waiting."})
+            check::equal(talk.speak(chat, "How are you?", {lately}), std::string("Busy, as always."), "not the same small talk again: " + lately);
+    }
+}
+
 TEST(a_saying_keeps_the_voices_rules_wherever_it_goes) {
     check::is_true(row_problems("saying:human_cold | saying | the cold keeps what the warm forgets").empty(), "a sound saying");
     for (const std::string bad : {"saying:human_cold | saying | The cold keeps what the warm forgets",
