@@ -411,6 +411,47 @@ TEST(is_it_safe_names_the_places_the_verdict_rests_on) {
                  "safe here, and the far danger still named");
 }
 
+TEST(a_saying_is_of_the_speakers_own_people) {
+    const Lines lines = Lines::parse("saying:human_cold | saying | the cold keeps what the warm forgets\n"
+                                     "saying:hill_dwarf | saying | a full larder makes a quiet house\n"
+                                     "any | parted | Go well[; as we say, {saying}].\n"
+                                     "any | parted | Farewell.\n",
+                                     "test");
+    const auto as_of = [](const std::string& people) {
+        FactPacket p = packets::parted();
+        p.persona.people = people;
+        return p;
+    };
+    const std::vector<std::string> cold = lines.replies(as_of("human_cold"));
+    check::is_true(std::find(cold.begin(), cold.end(), "Go well; as we say, the cold keeps what the warm forgets.") != cold.end(),
+                   "the cold peoples' saying");
+    check::is_true(std::find(cold.begin(), cold.end(), "Farewell.") != cold.end(), "a saying crowds out no line");
+    const std::vector<std::string> dwarf = lines.replies(as_of("hill_dwarf"));
+    check::is_true(std::find(dwarf.begin(), dwarf.end(), "Go well; as we say, a full larder makes a quiet house.") != dwarf.end(),
+                   "the hill dwarves' own, never another people's");
+    for (const std::string& people : {std::string(), std::string("elf")}) {
+        const std::vector<std::string> none = lines.replies(as_of(people));
+        check::is_true(std::find(none.begin(), none.end(), "Go well.") != none.end(), "no saying to say: the part left out");
+    }
+    // A saying at a sentence's start takes the sentence's capital.
+    const Lines opening = Lines::parse("saying:human_cold | saying | the cold keeps what the warm forgets\n"
+                                       "any | parted | Farewell.[ {saying}.]\n",
+                                       "test");
+    check::equal(first(opening.replies(as_of("human_cold"))), std::string("Farewell. The cold keeps what the warm forgets."),
+                 "a capital where a sentence begins");
+}
+
+TEST(a_saying_keeps_the_voices_rules_wherever_it_goes) {
+    check::is_true(row_problems("saying:human_cold | saying | the cold keeps what the warm forgets").empty(), "a sound saying");
+    for (const std::string bad : {"saying:human_cold | saying | The cold keeps what the warm forgets",
+                                  "saying:human_cold | saying | the cold keeps what the warm forgets.",
+                                  "saying:human_cold | saying | the north wind keeps what the warm forgets",
+                                  "saying:human_cold | saying | gold keeps what the warm forgets",
+                                  "saying:human_cold | saying | the cold keeps what Wenweg forgets",
+                                  "saying:human_cold | parted | Farewell.", "any | saying | the cold keeps what the warm forgets"})
+        check::is_true(!row_problems(bad).empty(), "a saying that breaks a rule: " + bad);
+}
+
 TEST(others_work_is_retold_as_theirs) {
     // "Walk the walls with me" is the giver's line; the innkeeper tells it as theirs.
     const Lines lines = Lines::parse("any | work_others | {others}.\nany | work_own | {own}.\n", "test");

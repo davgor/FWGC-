@@ -4,6 +4,7 @@
 #pragma once
 
 #include <algorithm>
+#include <cctype>
 #include <exception>
 #include <filesystem>
 #include <fstream>
@@ -215,6 +216,26 @@ inline std::vector<std::string> own_capitals(std::string line, const std::vector
     return out;
 }
 
+// What is wrong with a people's saying: it goes into a line mid-sentence ("as we say, {saying}.")
+// or starts one, so it opens in lower case and has no stop of its own; and, as a sentence, it keeps
+// the voice's rules: no capital a line may not write, no barred word, no quote, no bracket.
+inline std::vector<std::string> saying_problems(const std::string& voice, const std::string& saying) {
+    std::vector<std::string> out;
+    if (voice.rfind("saying:", 0) != 0) out.push_back("a saying in a bank that is not a people's (saying:<people>)");
+    if (saying.empty() || !(saying[0] >= 'a' && saying[0] <= 'z'))
+        out.push_back("a saying that does not open in lower case, to go mid-sentence");
+    if (saying.find_first_of(".!?") != std::string::npos) out.push_back("a stop in a saying: the line ends it");
+    if (saying.find_first_of("{}[]\"") != std::string::npos) out.push_back("a blank, a bracket or a quote in a saying");
+    std::string sentence = saying;
+    if (!sentence.empty()) sentence[0] = static_cast<char>(std::toupper(static_cast<unsigned char>(sentence[0])));
+    sentence += ".";
+    const FactPacket nothing;
+    for (const std::string& name : rules::unlisted_names(sentence, nothing)) out.push_back("a capital no packet gave: " + name);
+    for (const std::string& stray : rules::stray_capitals(sentence, nothing)) out.push_back("a common capital mid-sentence: " + stray);
+    for (const std::string& barred : rules::barred_words(sentence, nothing)) out.push_back("a barred word: " + barred);
+    return out;
+}
+
 // What is wrong with one row, tried alone against every case as its bank's speaker: a row the
 // loader refuses, a row no packet speaks, a capital the line writes itself, or each reply that
 // breaks a rule, quoted with the rule. Empty when the row is sound.
@@ -222,6 +243,25 @@ inline std::vector<std::string> row_problems(const std::string& row) {
     std::vector<std::string> out;
     const std::size_t first_bar = row.find('|');
     const std::size_t second_bar = first_bar == std::string::npos ? first_bar : row.find('|', first_bar + 1);
+    if (second_bar != std::string::npos) {
+        std::string situation = row.substr(first_bar + 1, second_bar - first_bar - 1);
+        situation.erase(0, situation.find_first_not_of(' '));
+        situation.erase(situation.find_last_not_of(' ') + 1);
+        const std::string voice = voice_of(row);
+        if (situation == "saying" || voice.rfind("saying:", 0) == 0) {
+            std::string saying = row.substr(second_bar + 1);
+            saying.erase(0, saying.find_first_not_of(" \t"));
+            while (!saying.empty() && (saying.back() == '\r' || saying.back() == ' ')) saying.pop_back();
+            if (situation != "saying") out.push_back("a people's bank holds only sayings");
+            for (const std::string& problem : saying_problems(voice, saying)) out.push_back(problem);
+            try {
+                (void)communicator::Lines::parse(row, "the row");
+            } catch (const std::exception& e) {
+                out.push_back(std::string("refused: ") + e.what());
+            }
+            return out;
+        }
+    }
     if (second_bar != std::string::npos) {
         // The row's situation, and the openings a case in that situation must use.
         std::string situation = row.substr(first_bar + 1, second_bar - first_bar - 1);

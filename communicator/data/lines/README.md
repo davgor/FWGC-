@@ -49,7 +49,14 @@ voice | situation | line
   | `exposed`, `exposed_true`, `exposed_unleashed`, `exposed_second` (a hidden face owned to) | `{was}` `{is}` |
   | `denied`, `denied_again` (accused of hiding something, with nothing owned to) | |
 
-  Every situation may also use `{speaker}`, `{post}` and `{place}`.
+  Every situation may also use `{speaker}`, `{post}`, `{place}` and `{saying}`.
+
+- **Sayings** (contract version 5): a bank `saying:<people>` (`saying:human_cold`) holds that
+  people's sayings, one per row, in the situation `saying`. `{saying}` is one of the speaker's own
+  people's, the same through a turn: "Go well[; as we say, {saying}]." A saying opens in lower
+  case and has no stop of its own, so it fits mid-sentence, and takes a capital where it starts
+  one ("[ {saying}.]"). Put `{saying}` in brackets: a people with no bank leaves the part out.
+  `mixed` has none.
 
   A packet's situations come closest first, and a bank answers from the first it has a line
   for: a warm greeting to someone met before is `greeted_warm`, then `greeted_again`; what came
@@ -72,8 +79,9 @@ voice | situation | line
   part inside its brackets: `The nearest is {nearest}.[ Mind the {danger}.]`
 - **The fullest lines are said.** Of the lines that fit, only those that say the most of the
   packet are said. Write lines for what a full packet holds, and shorter ones for packets that
-  hold less. `{speaker}`, `{post}`, `{place}`, `{since}`, `{season}` and `{time}` do not count:
-  they are there to say whenever their situation is, so a line saying one silences no sibling.
+  hold less. `{speaker}`, `{post}`, `{place}`, `{saying}`, `{since}`, `{season}` and `{time}` do
+  not count: they are there to say whenever their situation is, so a line saying one silences no
+  sibling.
 
 ## Rules a test holds every row to
 

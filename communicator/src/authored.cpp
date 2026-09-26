@@ -27,17 +27,18 @@ using orchestrator::FactKind;
 using orchestrator::FactPacket;
 using orchestrator::Outcome;
 
-// The blanks every situation may use: who the speaker is, and where they stand.
+// The blanks every situation may use: who the speaker is, where they stand, and a saying of their
+// people.
 const std::vector<std::string>& speaker_blanks() {
-    static const std::vector<std::string> blanks = {"speaker", "post", "place"};
+    static const std::vector<std::string> blanks = {"speaker", "post", "place", "saying"};
     return blanks;
 }
 
 // The blanks a line says that make it no fuller than a line without them: the speaker's own, and
 // those filled whenever their situation is (how long since a meeting, the season, the time of
-// day). Counted, a line saying one would silence every sibling that does not.
+// day, a saying). Counted, a line saying one would silence every sibling that does not.
 bool uncounted(const std::string& blank) {
-    static const std::set<std::string> blanks = {"speaker", "post", "place", "since", "season", "time"};
+    static const std::set<std::string> blanks = {"speaker", "post", "place", "saying", "since", "season", "time"};
     return blanks.count(blank) != 0;
 }
 
@@ -216,8 +217,9 @@ const Fact* worst_nest(const FactPacket& p) {
     return worst;
 }
 
-// Every blank this packet can fill, for its situation.
-std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::string& situation) {
+// Every blank this packet can fill, for its situation. `saying` is one of the speaker's people's
+// sayings, or empty when their people has none.
+std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::string& situation, const std::string& saying) {
     std::map<std::string, std::string> out;
     const auto set = [&](const std::string& key, std::string value) {
         if (!value.empty()) out[key] = std::move(value);
@@ -225,6 +227,7 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     set("speaker", text::spoken(p.persona.name));
     set("post", text::spaced(text::spoken(p.persona.role)));
     set("place", text::spoken(p.persona.place));
+    set("saying", saying);
 
     // What the speaker remembers, for a greeting: when they last met, what was asked then.
     const auto starts = [&](std::string_view prefix) { return situation.rfind(prefix, 0) == 0; };
@@ -474,6 +477,9 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"exposed_second", {"was", "is"}},
         {"denied", {}},
         {"denied_again", {}},
+        // Contract version 5: a people's sayings, in the bank `saying:<people>`. Never a reply of
+        // its own: a line says one through {saying}.
+        {"saying", {}},
     };
     return table;
 }
@@ -673,6 +679,13 @@ std::vector<std::string> Lines::replies(const FactPacket& p) const {
     }
     if (!p.persona.role.empty()) voices.push_back("post:" + p.persona.role);
     voices.push_back("any");
+    // One of the speaker's people's sayings, the same all turn, another the next.
+    std::string saying;
+    if (const auto people = banks_.find("saying:" + p.persona.people); !p.persona.people.empty() && people != banks_.end())
+        if (const auto said = people->second.find("saying"); said != people->second.end() && !said->second.empty())
+            saying = said->second[static_cast<std::size_t>(stable_hash(p.speaker + "|" + std::to_string(remembered(p).turn) + "|" +
+                                                                       std::to_string(remembered(p).times)) %
+                                                           said->second.size())];
     // The speaker's own bank first, and in it the situation that fits most closely: a bank without
     // a line for "greeted_warm" still greets as itself, from "greeted_again".
     for (const std::string& voice : voices) {
@@ -681,7 +694,7 @@ std::vector<std::string> Lines::replies(const FactPacket& p) const {
         for (const std::string& s : chain) {
             const auto lines = bank->second.find(s);
             if (lines == bank->second.end()) continue;
-            const std::map<std::string, std::string> blanks = blanks_of(p, s);
+            const std::map<std::string, std::string> blanks = blanks_of(p, s, saying);
             std::vector<Filled> fits;
             for (const std::string& line : lines->second)
                 if (std::optional<Filled> reply = filled(line, blanks)) fits.push_back(std::move(*reply));
