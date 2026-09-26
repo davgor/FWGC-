@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
+#include <iterator>
 #include <optional>
 #include <set>
 #include <sstream>
@@ -88,6 +89,29 @@ std::string danger_word(const Fact& place) {
     return {};
 }
 
+// Who holds a place, or what became of it, in a speaker's words: "held by monsters", "kept by
+// its builders' heirs", "overgrown", a road's stone "disused". The world's own words for some
+// ("descendants", "builders", "nature") are its records' terms: "held by descendants" was jargon
+// to a judge, and so was an "abandoned" milestone (2026-09-26). Empty when neither is worth saying.
+std::string holding(const Fact& place) {
+    static const std::map<std::string, std::string> kept = {{"builders", "kept by its builders"},
+                                                            {"descendants", "kept by its builders' heirs"},
+                                                            {"nature", "overgrown"},
+                                                            {"cult", "held by a cult"},
+                                                            {"fae", "held by the fae"},
+                                                            {"undead", "held by the dead"}};
+    const std::string occupant = field_of(place, "occupant");
+    if (!occupant.empty()) {
+        const auto found = kept.find(occupant);
+        return found != kept.end() ? found->second : "held by " + text::spaced(occupant);
+    }
+    const bool road = field_of(place, "kind") == "waystone";
+    const std::string state = field_of(place, "state");
+    if (state == "ruined") return road ? "broken" : "ruined";
+    if (state == "abandoned") return road ? "disused" : "abandoned";
+    return {};
+}
+
 // A place as one phrase: its name, how far, how dangerous, and who holds it or what became of
 // it. A name already said is another of its kind the second time: "another hamlet of Wenweg".
 // Without `with_range`, how far is left for the caller to say once for several places.
@@ -98,12 +122,7 @@ std::string place_phrase(const Fact& place, std::set<std::string>& said, bool wi
     if (with_range && !far.empty()) out += ", " + far;
     const std::string danger = danger_word(place);
     if (!danger.empty()) out += ", " + danger;
-    const std::string occupant = text::spaced(field_of(place, "occupant"));
-    const std::string state = field_of(place, "state");
-    if (!occupant.empty())
-        out += ", held by " + occupant;
-    else if (state == "ruined" || state == "abandoned")
-        out += ", " + state;
+    if (const std::string held = holding(place); !held.empty()) out += ", " + held;
     return out;
 }
 
@@ -757,7 +776,7 @@ std::vector<std::pair<std::string, std::string>> Lines::spoken_for(const FactPac
     return {};
 }
 
-std::string Lines::speak(const FactPacket& p, std::string_view line, std::string_view previous, Meaning* meaning) const {
+std::string Lines::speak(const FactPacket& p, std::string_view line, const std::vector<std::string>& recent, Meaning* meaning) const {
     std::vector<std::pair<std::string, std::string>> spoken = spoken_for(p);
     if (spoken.empty()) return {};
     // With meaning, small talk answers what the stranger's words are about: the weather's lines for
@@ -782,10 +801,24 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, std::string
     // heard the same thing before: said the same line five times over five farewells, a speaker
     // read as a machine (judged 2026-09-26).
     const auto heard = static_cast<std::size_t>(std::max(0, remembered(p).heard));
-    const std::size_t start = static_cast<std::size_t>(stable_hash(p.speaker + "|" + situation(p)) % candidates.size());
-    const std::size_t chosen = (start + heard % candidates.size()) % candidates.size();
-    if (candidates[chosen] == previous && candidates.size() > 1) return candidates[(chosen + 1) % candidates.size()];
-    return candidates[chosen];
+    const std::size_t n = candidates.size();
+    const std::size_t start = static_cast<std::size_t>(stable_hash(p.speaker + "|" + situation(p)) % n);
+    const std::size_t chosen = (start + heard % n) % n;
+    // Not a line said lately while another fits, and when all were, the one said longest ago: the
+    // turn alone cannot keep apart what is asked of two subjects in turn (small talk of the weather
+    // and of the speaker, asked alternately, met the same line of each every time; 2026-09-26).
+    std::size_t oldest = chosen;
+    std::ptrdiff_t oldest_age = -1;
+    for (std::size_t k = 0; k < n; ++k) {
+        const std::size_t i = (chosen + k) % n;
+        const auto said = std::find(recent.rbegin(), recent.rend(), candidates[i]);
+        if (said == recent.rend()) return candidates[i];
+        if (const std::ptrdiff_t age = std::distance(recent.rbegin(), said); age > oldest_age) {
+            oldest_age = age;
+            oldest = i;
+        }
+    }
+    return candidates[oldest];
 }
 
 std::size_t Lines::size() const {

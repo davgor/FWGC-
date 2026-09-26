@@ -241,7 +241,14 @@ communicator/build/Release/communicator_eval.exe --session session_packets.txt [
 It loads no model: the script says what each line is, so the transcript is about the replies
 alone. A judge reads it for sense, memory, repeats, invention and tone. With `--meaning PATH` (an
 embedding model, Qwen3-Embedding-0.6B-Q8_0.gguf) the player's words choose small talk's subject
-(`communicator/meaning.hpp`), and the transcript ends with how long choosing took a turn.
+(`communicator/meaning.hpp`), and the transcript ends with how long choosing took a turn. Each
+speaker is handed the last 32 replies they gave, as a game keeps them: a line said lately is not
+said again while another fits.
+
+`session_regular.txt` is a second script: one townsperson met six times over six weeks, as a
+player comes back to someone they like, with a quarrel and its mending, and a second met in
+passing. It is where lines said again show, and where small talk's two subjects are asked in
+turn.
 
 ## voice.txt
 

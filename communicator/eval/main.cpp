@@ -456,6 +456,11 @@ std::string memory_note(const FactPacket& p) {
     return "no memory";
 }
 
+// How many of a speaker's replies the session keeps for them, as a game would: a few visits'
+// worth, more than a bank has of any situation, so a line comes round only once the others have
+// (8, about two visits, let a regular hear one line of small talk every third visit).
+constexpr std::size_t kLately = 32;
+
 // A session the orchestrator's session tool played, spoken with written lines: each turn's player
 // line and the speaker's reply, the time passing between, and a note of how the game read the line
 // and what the speaker remembered (for a reader; never said). Each speaker is handed their own last
@@ -466,7 +471,8 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
     std::stringstream text;
     text << in.rdbuf();
     std::istringstream rows(text.str());
-    std::map<std::string, std::string> last_reply;
+    // What each speaker said lately, as a game keeps it for them.
+    std::map<std::string, std::vector<std::string>> said_lately;
     std::string name, line, block, shown_speaker;
     bool in_packet = false;
     int turn = 0;
@@ -488,11 +494,13 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
                 std::cout << "\n== " << name << ": " << who << ", at " << communicator::text::spoken(p.persona.place) << "\n";
             shown_speaker = who;
             const auto started = std::chrono::steady_clock::now();
-            const std::string reply = written.speak(p, line, last_reply[p.speaker], meaning);
+            std::vector<std::string>& lately = said_lately[p.speaker];
+            const std::string reply = written.speak(p, line, lately, meaning);
             const double took = std::chrono::duration<double>(std::chrono::steady_clock::now() - started).count();
             seconds += took;
             slowest = std::max(slowest, took);
-            last_reply[p.speaker] = reply;
+            lately.push_back(reply);
+            if (lately.size() > kLately) lately.erase(lately.begin());
             std::cout << ++turn << ". Player: " << line << "\n   " << communicator::text::spoken(p.persona.name) << ": "
                       << (reply.empty() ? "(no line fits)" : reply) << "\n   [" << orchestrator::to_string(p.answering) << " -> "
                       << orchestrator::to_string(p.outcome) << "; " << memory_note(p) << "]\n";
@@ -541,7 +549,7 @@ void voice_eval(inference::Model& model, const std::string& path, const communic
         const Clock::time_point start = Clock::now();
         communicator::Reply reply;
         if (written) {
-            reply.text = written->speak(packet, cells[1], last_reply[cells[0]]);
+            reply.text = written->speak(packet, cells[1], {last_reply[cells[0]]});
             last_reply[cells[0]] = reply.text;
             reply.finished = !reply.text.empty();
         } else {

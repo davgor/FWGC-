@@ -188,6 +188,29 @@ TEST(asked_what_is_around_a_speaker_names_the_worst_of_it) {
     check::is_true(calm.find("deadly") == std::string::npos && calm.find("dangerous") == std::string::npos, "no danger claimed: " + calm);
 }
 
+TEST(who_holds_a_place_is_said_in_plain_words) {
+    const Lines lines = Lines::parse("any | about_place | That's {about}.", "test");
+    const auto about = [&](std::vector<std::pair<std::string, std::string>> fields) {
+        fields.emplace_back("range", "near");
+        return first(lines.replies(packets::packet(packets::castellan(), ActKind::AskAboutPlace, Outcome::Answered,
+                                                   {{FactKind::Place, "keyloc-test", std::move(fields)}})));
+    };
+    check::equal(about({{"kind", "reliquary_chapel"}, {"name", "the chapel at Ulkbarg"}, {"occupant", "descendants"}}),
+                 std::string("That's the chapel at Ulkbarg, a short walk away, kept by its builders' heirs."), "descendants");
+    check::equal(about({{"kind", "lime_kiln"}, {"name", "the kiln above Wenweg"}, {"occupant", "builders"}}),
+                 std::string("That's the kiln above Wenweg, a short walk away, kept by its builders."), "builders");
+    check::equal(about({{"kind", "shrine"}, {"name", "the green shrine"}, {"occupant", "nature"}}),
+                 std::string("That's the green shrine, a short walk away, overgrown."), "nature");
+    check::equal(about({{"kind", "border_fort"}, {"name", "the silent keep"}, {"occupant", "squatters"}}),
+                 std::string("That's the silent keep, a short walk away, held by squatters."), "anyone else holds it");
+    check::equal(about({{"kind", "waystone"}, {"name", "the first stone on the Ulkbarg road"}, {"state", "abandoned"}}),
+                 std::string("That's the first stone on the Ulkbarg road, a short walk away, disused."), "a road's stone disused");
+    check::equal(about({{"kind", "pass_hospice"}, {"name", "the hospice on the pass"}, {"state", "abandoned"}}),
+                 std::string("That's the hospice on the pass, a short walk away, abandoned."), "a hospice abandoned");
+    check::equal(about({{"kind", "waystone"}, {"name", "the ninth stone"}, {"state", "active"}}),
+                 std::string("That's the ninth stone, a short walk away."), "in use, nothing to say");
+}
+
 TEST(a_marker_changes_no_written_reply) {
     // The work's exact map marker is the game's: the written lines say the same with it or without.
     const Lines lines = Lines::load(COMMUNICATOR_LINES);
@@ -519,7 +542,7 @@ TEST(the_choice_is_steady_and_moves_on_each_time_the_same_is_heard) {
         if (heard > 0) check::is_true(reply != lines.speak(parting(heard - 1), "Goodbye."), "not the line said last time: " + reply);
         chosen.insert(reply);
         // Never the last reply again while another fits.
-        check::is_true(lines.speak(parting(heard), "Goodbye.", reply) != reply, "not the last reply twice: " + reply);
+        check::is_true(lines.speak(parting(heard), "Goodbye.", {reply}) != reply, "not the last reply twice: " + reply);
     }
     check::equal(chosen.size(), all.size(), "every farewell once, before any twice");
     check::equal(lines.speak(parting(4), "Goodbye."), lines.speak(parting(0), "Goodbye."), "then round again");
@@ -529,7 +552,17 @@ TEST(the_choice_is_steady_and_moves_on_each_time_the_same_is_heard) {
     check::is_true(first_lines.size() > 1, "speakers start apart");
     // With one line, the last reply is said again rather than nothing.
     const Lines one = Lines::parse("any | parted | Farewell.", "test");
-    check::equal(one.speak(parting(0), "Bye.", "Farewell."), std::string("Farewell."), "the only line");
+    check::equal(one.speak(parting(0), "Bye.", {"Farewell."}), std::string("Farewell."), "the only line");
+    // Said lately: not again while another fits; when all were, the one said longest ago.
+    const std::string next = lines.speak(parting(0), "Goodbye.");
+    std::vector<std::string> lately;
+    for (int k = 0; k < 3; ++k) {
+        lately.push_back(lines.speak(parting(0), "Goodbye.", lately));
+        check::is_true(std::count(lately.begin(), lately.end(), lately.back()) == 1, "none said lately again: " + lately.back());
+    }
+    check::equal(lately.front(), next, "the turn's own line first");
+    lately.push_back(lines.speak(parting(0), "Goodbye.", lately));
+    check::equal(lines.speak(parting(0), "Goodbye.", lately), lately.front(), "all said: the one said longest ago");
     check::equal(one.speak(packets::surroundings(), "Bye."), std::string(), "nothing, where no line fits");
 }
 

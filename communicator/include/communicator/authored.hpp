@@ -58,9 +58,11 @@ public:
     // and says the next each time they have heard the same act before (the Memory fact's
     // `heard`), so the same packet gets the same line and a farewell said again gets another.
     // With `meaning`, small talk goes by what `line` (the stranger's words) is about: the
-    // weather's lines for the weather, the rest for the speaker's own day. Never `previous` (the
-    // speaker's last reply) while another fits. Empty when no line fits.
-    std::string speak(const orchestrator::FactPacket& packet, std::string_view line, std::string_view previous = {},
+    // weather's lines for the weather, the rest for the speaker's own day. `recent` is what this
+    // speaker said lately, the latest last, as the game keeps it: a line in it is not said again
+    // while one that is not fits, and when every one is, the one said longest ago is. Empty when
+    // no line fits.
+    std::string speak(const orchestrator::FactPacket& packet, std::string_view line, const std::vector<std::string>& recent = {},
                       Meaning* meaning = nullptr) const;
 
     // How many lines were read.

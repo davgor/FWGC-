@@ -1,0 +1,58 @@
+# A regular: one townsperson met again and again over six weeks, as a player comes back to
+# someone they like, and a second met in passing. What a conversation needs past the first
+# meeting: greetings that remember, small talk that answers what was asked, no line said the same
+# way twice running, a quarrel and its mending. orchestrator_session plays it (tools/session.cpp
+# says how a script reads); communicator_eval --session speaks it.
+world 99 33 30
+who baker townsfolk 20
+who smith townsfolk 3
+
+# First meeting.
+say baker greet | Morning!
+say baker small_talk | How's the baking going?
+say baker ask_surroundings | What's around here?
+say baker ask_about_place @place | What's that place like?
+say baker farewell | See you soon.
+
+# The next day.
+advance 1
+say baker greet | Hello again.
+say baker small_talk | Bit chilly this morning, isn't it?
+say baker ask_safety | Anything I should watch out for around here?
+say baker thank | Thanks, that's good to know.
+say baker farewell | Take care.
+
+# A few days on.
+advance 3
+say baker greet | Me again.
+say baker small_talk | You look tired.
+say baker small_talk | Think the weather will hold?
+say baker farewell | Bye for now.
+
+# A week on: a quarrel.
+advance 7
+say baker greet | Hello!
+say baker small_talk | Busy day?
+say baker insult | Your bread was stale last time.
+say baker small_talk | Nice weather, anyway.
+say baker farewell | Fine, I'm going.
+
+# Two days on: making it up.
+advance 2
+say baker greet | Hello... about the other day.
+say baker thank | I'm sorry. Thank you for putting up with me.
+say baker small_talk | How have you been?
+say baker farewell | Goodbye.
+
+# Three weeks on.
+advance 20
+say baker greet | It's been a while!
+say baker small_talk | Lovely day, isn't it?
+say baker ask_safety | Is it still safe around here?
+say baker farewell | Farewell, friend.
+
+# Someone else, met in passing the same day.
+say smith greet | Good day.
+say smith small_talk | Hard at work, I see.
+say smith small_talk | Hot work in this weather?
+say smith farewell | Goodbye.

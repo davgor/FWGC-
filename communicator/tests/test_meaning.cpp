@@ -101,7 +101,17 @@ TEST(on_its_subject_the_next_line_each_time_it_is_heard) {
     const std::string second = lines.speak(chat(1), said, {}, &meaning);
     check::is_true(first != second, "the next line the next time");
     check::equal(lines.speak(chat(2), said, {}, &meaning), first, "then round again");
-    check::equal(lines.speak(chat(0), said, first, &meaning), second, "never the last reply twice while another fits");
+    check::equal(lines.speak(chat(0), said, {first}, &meaning), second, "never the last reply twice while another fits");
+    // Two subjects asked in turn: each comes round its own lines, whatever the count of small talk.
+    std::vector<std::string> lately;
+    std::set<std::string> own_day, weather;
+    for (int heard = 0; heard < 8; ++heard) {
+        const std::string reply = lines.speak(chat(heard), heard % 2 == 0 ? said : "Nice weather today.", lately, &meaning);
+        (heard % 2 == 0 ? own_day : weather).insert(reply);
+        lately.push_back(reply);
+    }
+    check::equal(own_day.size(), std::size_t(2), "both of the speaker's lines, asked every other time");
+    check::equal(weather.size(), std::size_t(2), "and both of the weather's");
     // No words to go by: in turn, as without meaning.
     check::equal(lines.speak(chat(1), "", {}, &meaning), lines.speak(chat(1), ""), "nothing said, nothing to compare");
 }
