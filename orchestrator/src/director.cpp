@@ -1,6 +1,7 @@
 #include "orchestrator/director.hpp"
 
 #include <algorithm>
+#include <array>
 #include <charconv>
 #include <cmath>
 #include <cstdint>
@@ -48,6 +49,16 @@ constexpr std::size_t kNestsAround = 2;
 // A mask comes off to a player who has met its wearer this many times: long acquaintance sees
 // through it, whatever else the player has learned. Counting the conversation under way.
 constexpr int kMeetingsThatSeeThrough = 3;
+
+// Feelings: the fear ladder, how a speaker's regard moves when the player eases them, how long
+// fear takes to fall a step, how long a fright counts as still there, and how near a nest leaves
+// people uneasy at rest.
+constexpr std::array<std::string_view, 4> kFearWords = {"calm", "uneasy", "afraid", "panicked"};
+constexpr int kCalmed = 1;
+constexpr double kEaseMinutes = 30.0;
+constexpr double kThreatMinutes = 15.0;
+constexpr double kUneasyNestM = 1000.0;
+constexpr int kUneasyNestDanger = 4;
 
 // Why a request is refused: the reason in words, and its kind (contract.hpp, Outcome::Refused),
 // for a caller that answers each kind in its own words.
@@ -218,8 +229,10 @@ int regard(Director::Acquaintance& a, int change) {
     return a.disposition - before;
 }
 
-// `heard`: how many times before this the player made this act to the speaker.
-Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool recognised, bool repeat, int heard) {
+// `heard`: how many times before this the player made this act to the speaker. `feeling` and
+// `resting` on the fear ladder.
+Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool recognised, bool repeat, int heard, int feeling,
+                 int resting) {
     Fact f{FactKind::Memory, uid, {}};
     const bool again = recognised && a.conversations > 1;
     f.fields = {{"met", again ? "again" : "first"},
@@ -231,8 +244,19 @@ Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool r
                 {"turn", std::to_string(a.turn)},
                 {"repeat", repeat ? "yes" : "no"},
                 {"heard", std::to_string(recognised ? heard : 0)},
-                {"exposed", recognised && a.exposed ? "yes" : "no"}};
+                {"exposed", recognised && a.exposed ? "yes" : "no"},
+                {"feeling", std::string(kFearWords[static_cast<std::size_t>(feeling)])},
+                {"resting", std::string(kFearWords[static_cast<std::size_t>(resting)])}};
     return f;
+}
+
+// How someone feels at rest: uneasy where a nest of danger 4 or more lies within a kilometre of
+// where they stand, else calm.
+int resting_fear(const fwg::World& world, const knowledge::Speaker& s) {
+    if (!s.node) return 0;
+    for (const Fact& nest : knowledge::nests_around(world, *s.node, kUneasyNestM, 1))
+        if (number_field(nest, "danger") >= kUneasyNestDanger) return 1;
+    return 0;
 }
 
 // ---- small talk -------------------------------------------------------------------------------
@@ -580,12 +604,14 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
     const double today = fwg::world_clock_of(world_).day;
     Acquaintance& a = acquainted_[speaker_uid];
 
+    const int resting = resting_fear(world_, s);
     if (!s.present) {
         FactPacket p = packet_for(s, act, Outcome::Refused);
         p.facts.push_back(reason("gone", (s.persona.name.empty() ? std::string("the one spoken to") : s.persona.name) + " is gone"));
         // Nobody heard it, so nothing is counted.
         const auto heard = a.heard.find(act.kind);
-        p.facts.push_back(memory_fact(speaker_uid, a, true, false, heard == a.heard.end() ? 0 : heard->second));
+        p.facts.push_back(memory_fact(speaker_uid, a, true, false, heard == a.heard.end() ? 0 : heard->second,
+                                      fear_now(speaker_uid, resting, today), resting));
         inputs_.push_back(Say{speaker_uid, act});
         return p;
     }
@@ -599,6 +625,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
         a.turn = 0;
         a.said.clear();
         a.thanked = false;
+        a.calmed = false;
         a.talking = true;
     }
     talking_to_ = speaker_uid;
@@ -625,7 +652,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
     show();
 
     const auto finish = [&](FactPacket p) {
-        p.facts.push_back(memory_fact(speaker_uid, a, recognised, repeat, heard));
+        p.facts.push_back(memory_fact(speaker_uid, a, recognised, repeat, heard, fear_now(speaker_uid, resting, today), resting));
         a.last_day = today;
         if (act.kind == ActKind::Farewell) end_conversation(speaker_uid);
         inputs_.push_back(Say{speaker_uid, act});
@@ -668,6 +695,22 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
             a.grievances.pop_back();
             ++a.forgiven;
             return finish(packet_for(s, act, Outcome::Forgiven));
+        }
+
+        case ActKind::Calm: {
+            // Calming words ease a frightened speaker a step, toward how they feel at rest: not
+            // while what frightens them is still there, and not from someone they do not trust (a
+            // hostile speaker, or a face that does not know the player).
+            const int now = fear_now(speaker_uid, resting, today);
+            if (now <= resting) return finish(packet_for(s, act, Outcome::NotAfraid));
+            Fear& fear = fears_[speaker_uid];
+            const bool threat = fear.threat_day >= 0.0 && (today - fear.threat_day) * kMinutesPerDay < kThreatMinutes;
+            if (threat || !recognised || a.disposition <= -2) return finish(packet_for(s, act, Outcome::StillAfraid));
+            fear.level = now - 1;
+            fear.since_day = today;
+            if (!a.calmed) regard(a, kCalmed);
+            a.calmed = true;
+            return finish(packet_for(s, act, Outcome::Calmed));
         }
 
         case ActKind::SmallTalk: {
@@ -910,11 +953,73 @@ std::vector<Position> Director::positions() const {
     return out;
 }
 
+int Director::fear_now(const std::string& uid, int resting, double now) const {
+    const auto found = fears_.find(uid);
+    if (found == fears_.end()) return resting;
+    const Fear& fear = found->second;
+    const double minutes = std::max(0.0, now - fear.since_day) * kMinutesPerDay;
+    const int eased = static_cast<int>(std::min(3.0, std::floor(minutes / kEaseMinutes)));
+    return std::max(resting, fear.level - eased);
+}
+
+void Director::fright(const std::string& person, int level) {
+    if (level < 1 || level > 3) throw Error("fright: the level must be 1 (uneasy), 2 (afraid) or 3 (panicked)");
+    const std::optional<knowledge::Speaker> s = knowledge::speaker(world_, person);
+    if (!s) throw Error("fright: the world names no person '" + person + "'");
+    const double now = fwg::world_clock_of(world_).day;
+    Fear& fear = fears_[person];
+    fear.level = std::max(level, fear_now(person, resting_fear(world_, *s), now));
+    fear.since_day = now;
+    fear.threat_day = now;
+    inputs_.push_back(Fright{person, level});
+}
+
+void Director::gather(const std::vector<std::string>& people) {
+    const double now = fwg::world_clock_of(world_).day;
+    std::vector<int> felt;
+    for (const std::string& uid : people) {
+        const std::optional<knowledge::Speaker> s = knowledge::speaker(world_, uid);
+        if (!s) throw Error("gather: the world names no person '" + uid + "'");
+        felt.push_back(fear_now(uid, resting_fear(world_, *s), now));
+    }
+    // Each from what the others felt before any of them moved.
+    for (std::size_t i = 0; i < people.size(); ++i) {
+        int most = 0, second = 0;
+        for (std::size_t j = 0; j < people.size(); ++j) {
+            if (j == i || people[j] == people[i]) continue;
+            if (felt[j] > most) {
+                second = most;
+                most = felt[j];
+            } else {
+                second = std::max(second, felt[j]);
+            }
+        }
+        const int spread = std::max(most - 1, second);
+        if (spread <= felt[i]) continue;
+        Fear& fear = fears_[people[i]];
+        fear.level = spread;
+        fear.since_day = now;
+    }
+    inputs_.push_back(Gather{people});
+}
+
+Feeling Director::feeling(const std::string& person) const {
+    const std::optional<knowledge::Speaker> s = knowledge::speaker(world_, person);
+    if (!s) throw Error("feeling: the world names no person '" + person + "'");
+    const int resting = resting_fear(world_, *s);
+    const int now = fear_now(person, resting, fwg::world_clock_of(world_).day);
+    return {std::string(kFearWords[static_cast<std::size_t>(now)]), std::string(kFearWords[static_cast<std::size_t>(resting)])};
+}
+
 Director replay(fwg::World start, const std::vector<Input>& inputs) {
     Director director(std::move(start));
     for (const Input& input : inputs) {
         if (const Advance* advance = std::get_if<Advance>(&input)) {
             director.advance(advance->days);
+        } else if (const Fright* fright = std::get_if<Fright>(&input)) {
+            director.fright(fright->person, fright->level);
+        } else if (const Gather* gathering = std::get_if<Gather>(&input)) {
+            director.gather(gathering->people);
         } else if (const Resolve* resolution = std::get_if<Resolve>(&input)) {
             director.resolve(resolution->quest_id, resolution->completed);
         } else if (const Hold* held = std::get_if<Hold>(&input)) {

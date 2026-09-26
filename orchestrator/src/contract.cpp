@@ -10,12 +10,12 @@ namespace {
 constexpr std::array<std::string_view, kActCount> kActNames = {
     "ask_surroundings", "ask_about_place", "ask_about_person", "ask_for_work", "accept_quest", "decline_quest",
     "abandon_quest",    "farewell",        "no_act",           "greet",        "small_talk",   "answer",
-    "thank",            "insult",          "ask_safety",       "confront",     "apologize"};
+    "thank",            "insult",          "ask_safety",       "confront",     "apologize",    "calm"};
 
 constexpr std::array<std::string_view, kOutcomeCount> kOutcomeNames = {
     "answered", "accepted", "declined",     "abandoned", "unknown",  "refused",  "parted",
     "not_understood", "greeted", "chatted", "acknowledged", "thanked", "offended", "exposed", "denied",
-    "forgiven", "unwronged"};
+    "forgiven", "unwronged", "calmed", "still_afraid", "not_afraid"};
 
 constexpr std::array<std::string_view, 10> kFactNames = {"place",  "person", "quest_offer", "quest_state", "danger",
                                                          "reason", "memory", "chat",        "safety",      "reveal"};
@@ -52,6 +52,7 @@ bool act_needs_target(ActKind kind) {
         case ActKind::AskSafety:
         case ActKind::Confront:
         case ActKind::Apologize:
+        case ActKind::Calm:
             return false;
     }
     return false;
@@ -77,6 +78,7 @@ bool act_changes_world(ActKind kind) {
         case ActKind::AskSafety:
         case ActKind::Confront:
         case ActKind::Apologize:
+        case ActKind::Calm:
             return false;
     }
     return false;

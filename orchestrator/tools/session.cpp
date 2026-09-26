@@ -23,6 +23,10 @@
 //   fullmoon                        time passes to the middle of the next full-moon day
 //   calmday                         time passes to the middle of the next day at least two days
 //                                   from a full moon
+//   fright NAME LEVEL               the game reports something frightening NAME: 1 uneasy, 2
+//                                   afraid, 3 panicked
+//   gather NAME NAME...             the game reports these speakers together: fear spreads
+//   minutes N                       N minutes pass
 //
 // Written out, in order: for each `say`, `turn NAME`, `line LINE` and the packet
 // (orchestrator::packet_text); for anything else that happens, `event TEXT`.
@@ -230,6 +234,22 @@ int main(int argc, char** argv) {
                 if (!held.count(w[1])) throw Failure(where + "no work taken from " + w[1]);
                 director->resolve(held.at(w[1]), w[2] == "finished");
                 std::cout << "event the work taken from " << w[1] << " is " << (w[2] == "finished" ? "finished" : "failed") << "\n";
+            } else if (w[0] == "fright") {
+                need(3);
+                director->fright(speaker(w[1]), std::stoi(w[2]));
+                std::cout << "event something frightens " << w[1] << ": " << director->feeling(speaker(w[1])).now << "\n";
+            } else if (w[0] == "gather") {
+                need(3);
+                std::vector<std::string> together;
+                for (std::size_t i = 1; i < w.size(); ++i) together.push_back(speaker(w[i]));
+                director->gather(together);
+                std::cout << "event together:";
+                for (std::size_t i = 1; i < w.size(); ++i) std::cout << " " << w[i] << " " << director->feeling(together[i - 1]).now;
+                std::cout << "\n";
+            } else if (w[0] == "minutes") {
+                need(2);
+                director->advance(std::stod(w[1]) / 1440.0);
+                std::cout << "event " << w[1] << " minutes pass\n";
             } else if (w[0] == "fullmoon" || w[0] == "calmday") {
                 const bool full = w[0] == "fullmoon";
                 const fwg::World& world = director->world();

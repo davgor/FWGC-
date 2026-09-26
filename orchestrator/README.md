@@ -103,7 +103,9 @@ about its speaker:
 - `work`, the player's latest dealing with the speaker's own work;
 - `asked_before`, the place or person the player asked about in their last conversation, by
   name (contract version 7: before it, what was last asked in any earlier one);
-- `exposed`, once the player has made the speaker own to a hidden face.
+- `exposed`, once the player has made the speaker own to a hidden face;
+- `feeling` and `resting` (contract version 9): how the speaker feels as they reply, and at rest
+  ([Feelings](#feelings)).
 
 A conversation ends at a farewell, when time passes, or when the player turns to someone else.
 The next act to that speaker begins another.
@@ -115,6 +117,36 @@ insult and an apology leave the speaker where they were. Said again once every o
 it is taken again and moves nothing (`Forgiven` too: "nothing to forgive" would deny the wrong).
 From someone who never wronged the speaker, or to a face that does not know the player (a beast
 unleashed), there is nothing to forgive (`Unwronged`).
+
+## Feelings
+
+Contract version 9. The owner asked for NPCs whose words and faces show how they feel, with a
+state of their own at rest: a villager panicking because those around her are, whom the player's
+words can calm (2026-09-26). The first feeling is fear, on a ladder: calm, uneasy, afraid,
+panicked.
+
+- **At rest,** everyone is calm, or uneasy where a nest of danger 4 or more lies within a
+  kilometre of where they stand: a village under a dragon's crag is on edge.
+- **A fright.** `fright(person, level)` is the game reporting something frightening someone, a
+  threat near them, at 1 (uneasy), 2 (afraid) or 3 (panicked). Their fear rises to it when it is
+  lower. What frightens them counts as still there for a quarter of an hour after the game last
+  said so: report it again while it lasts.
+- **Fear spreads.** `gather(people)` is the game reporting people together, near enough to see and
+  hear each other. Each rises to one step below the most afraid of the others, and to what two of
+  the others share: one panicking villager leaves the rest afraid, two leave them panicking, and
+  someone afraid leaves the rest uneasy. Nobody's fear falls for company.
+- **Fear falls** a step toward rest for every half hour since it last rose or was eased, never
+  below rest.
+- **Calming words** (the act `calm`: "it's all right, you're safe now") ease a frightened speaker
+  a step (`Calmed`), and the speaker thinks better of the player, once a conversation. Not while
+  what frightened them is still there, and not from someone they distrust, a hostile speaker or a
+  face that does not know the player (`StillAfraid`). Someone at rest has nothing to ease
+  (`NotAfraid`).
+- **Asking.** `feeling(person)` says how anyone feels now and at rest, for the game to show as
+  their expression; every packet's Memory fact says it for the speaker.
+
+Frights and gatherings are inputs, so replay rebuilds every feeling. The packet never says what
+frightened someone: the director does not know, and a speaker's words cannot name it.
 
 ## What a speaker says of a place
 
@@ -206,8 +238,9 @@ world and writes each packet out as text (`orchestrator::packet_text`, which
 `packets_from_text` reads back whole). `communicator_eval --session` speaks them, so a person or a
 judge can hear a whole conversation: several meetings with one speaker, time passing, work taken
 and finished, a mask confronted. The script names its speakers by kind -- a roster person, a
-giver, a mask, a beast, a fractured heart -- and the tool picks them from the world. It is a
-measuring tool; nothing a game ships.
+giver, a mask, a beast, a fractured heart -- and the tool picks them from the world. A script can
+frighten a speaker (`fright NAME LEVEL`), gather speakers (`gather NAME...`) and let minutes pass
+(`minutes N`). It is a measuring tool; nothing a game ships.
 
 ## What a speaker knows
 

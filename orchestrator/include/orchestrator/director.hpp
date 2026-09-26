@@ -56,7 +56,23 @@ struct Hold {
     std::string person;
     double minutes = 0.0;
 };
-using Input = std::variant<Advance, Say, Resolve, Hold>;
+// The game reports something frightening a person, at a strength from 1 to 3.
+struct Fright {
+    std::string person;
+    int level = 1;
+};
+// The game reports people together, near enough to see and hear each other.
+struct Gather {
+    std::vector<std::string> people;
+};
+using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather>;
+
+// How a person feels, on the fear ladder: "calm", "uneasy", "afraid", "panicked". The game shows
+// `now` as their expression, and `resting` when nothing has frightened them.
+struct Feeling {
+    std::string now;
+    std::string resting;
+};
 
 // ---- a roster person's day --------------------------------------------------------------------
 
@@ -135,6 +151,7 @@ public:
         int turn = 0;           // acts in this conversation
         int disposition = 0;    // -3 hostile .. 3 warm
         bool thanked = false;   // in this conversation: thanks count once
+        bool calmed = false;    // in this conversation: being eased by the player counts once
         std::vector<std::pair<ActKind, std::string>> said;  // this conversation's acts
         std::map<ActKind, int> heard;  // every act the player made to this speaker, counted, in any conversation
         std::vector<int> grievances;   // what each insult, and each of the speaker's work given up, cost the
@@ -187,6 +204,28 @@ public:
     // only when it ends or when someone is held, so a caller can keep them until then.
     std::vector<Position> positions() const;
 
+    // ---- feelings ----------------------------------------------------------------------------
+    //
+    // Everyone rests calm, or uneasy where a nest of danger 4 or more lies within a kilometre of
+    // where they stand. Fear rises with what the game reports, spreads through people together,
+    // and falls a step toward rest for every half hour nothing new frightens them; the player can
+    // talk someone down (the act calm). The Memory fact of every packet says how the speaker feels.
+
+    // The game reports something frightening `person`, a threat near them, at `level`: 1
+    // uneasy, 2 afraid, 3 panicked. Their fear rises to it when it is lower, and it counts as
+    // still there for a quarter of an hour: calming words do not ease them while it is. Throws
+    // Error for a level outside 1..3 and for a uid the world does not name.
+    void fright(const std::string& person, int level);
+
+    // The game reports `people` together, near enough to see and hear each other, and fear
+    // spreads: each rises to one step below the most afraid of the others, and to what two of the
+    // others share. So one panicking villager leaves the rest afraid, and two leave them panicking.
+    // Nobody's fear falls for it. Throws Error for a uid the world does not name.
+    void gather(const std::vector<std::string>& people);
+
+    // How `person` feels now. Throws Error for a uid the world does not name.
+    Feeling feeling(const std::string& person) const;
+
 private:
     void end_conversation(const std::string& speaker);
 
@@ -197,6 +236,16 @@ private:
     // What each person's holds made of their day, in the order held, none overlapping: each
     // worked out once, when held, so a day asked of later reads the same.
     std::map<std::string, std::vector<Detour>> detours_;
+    // Fear on the ladder, 0 calm to 3 panicked, as of when it last rose or was eased; what
+    // frightens someone is still there until a quarter of an hour after the game last said so.
+    struct Fear {
+        int level = 0;
+        double since_day = 0.0;
+        double threat_day = -1.0;  // below zero: never reported
+    };
+    std::map<std::string, Fear> fears_;
+    // How afraid `uid` is at `now`, resting at `resting`.
+    int fear_now(const std::string& uid, int resting, double now) const;
 };
 
 // A session again: `start` with every input re-applied, in order.

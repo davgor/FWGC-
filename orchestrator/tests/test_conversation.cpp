@@ -860,7 +860,7 @@ TEST(every_packet_carries_one_memory_of_its_speaker) {
         {ActKind::DeclineQuest, own[0]}, {ActKind::AcceptQuest, own[0]}, {ActKind::AbandonQuest, own[0]},
         {ActKind::Answer, ""},        {ActKind::Thank, ""},            {ActKind::Insult, ""},
         {ActKind::Confront, ""},      {ActKind::NoAct, ""},            {ActKind::AskAboutPlace, "no-such-place"},
-        {ActKind::Apologize, ""},     {ActKind::Farewell, ""}};
+        {ActKind::Apologize, ""},     {ActKind::Calm, ""},             {ActKind::Farewell, ""}};
     std::set<ActKind> kinds;
     int turn = 1;  // own_offers asked once already
     for (const auto& [kind, target] : acts) {
@@ -907,6 +907,215 @@ TEST(replay_restores_what_every_speaker_remembers) {
                            a->heard == b->heard && a->grievances == b->grievances && a->forgiven == b->forgiven,
                        "the same acquaintance with " + uid);
         check::equal(text_of(d.respond(uid, {ActKind::SmallTalk, ""})), text_of(again.respond(uid, {ActKind::SmallTalk, ""})),
+                     "the same next packet from " + uid);
+    }
+}
+
+// ---- feelings (contract version 9) --------------------------------------------------------------
+
+namespace {
+
+// Whether a nest of danger 4 or more lies within a kilometre of `node`: what leaves people uneasy
+// at rest.
+bool dangerous_nest_within_a_km(const fwg::World& world, int node) {
+    fwg::NearReadRequest request;
+    request.node = node;
+    request.radius_m = 1000.0;
+    request.categories = std::vector<std::string>{"beast_nests"};
+    const fwg::NearRead read = fwg::read_near(world, request);
+    return std::any_of(read.near.beast_nests.begin(), read.near.beast_nests.end(), [](const auto& nest) { return nest.tier >= 4; });
+}
+
+// Living roster people, standing somewhere, who rest as `resting`: calm or uneasy.
+std::vector<std::string> resting_as(const std::string& resting, std::size_t count) {
+    const Director d(faced_world());
+    std::vector<std::string> out;
+    for (const fwg::NpcPerson& p : faced_world().npcs.people) {
+        if (out.size() == count) break;
+        if (!p.alive || !node_of(faced_world(), p.uid)) continue;
+        if (d.feeling(p.uid).resting == resting) out.push_back(p.uid);
+    }
+    if (out.size() < count) check::fail("the premise: " + std::to_string(count) + " roster people resting " + resting);
+    return out;
+}
+
+double minutes(double n) { return n / 1440.0; }
+
+}  // namespace
+
+TEST(everyone_rests_calm_or_uneasy_by_the_nests_near_them) {
+    Director d(faced_world());
+    std::size_t calm = 0, uneasy = 0;
+    std::vector<std::string> spoken;
+    for (const fwg::NpcPerson& p : faced_world().npcs.people) {
+        if (!p.alive) continue;
+        const std::optional<int> node = node_of(faced_world(), p.uid);
+        if (!node) continue;
+        const orchestrator::Feeling f = d.feeling(p.uid);
+        const bool near = dangerous_nest_within_a_km(faced_world(), *node);
+        check::equal(f.resting, std::string(near ? "uneasy" : "calm"), "at rest, by the nests within a kilometre: " + p.uid);
+        check::equal(f.now, f.resting, "nothing has frightened " + p.uid + " yet");
+        ++(near ? uneasy : calm);
+        if (spoken.size() < 2 && (spoken.empty() || d.feeling(spoken.front()).resting != f.resting)) spoken.push_back(p.uid);
+    }
+    check::is_true(calm > 0 && uneasy > 0,
+                   "the premise: people at rest both ways (" + std::to_string(calm) + " calm, " + std::to_string(uneasy) + " uneasy)");
+    for (const std::string& uid : spoken) {
+        const Memory m = memory(d.respond(uid, {ActKind::Greet, ""}));
+        check::is_true(m.at("feeling") == d.feeling(uid).now && m.at("resting") == d.feeling(uid).resting,
+                       "the packet says how they feel, and how they rest: " + uid);
+    }
+    bool threw = false;
+    try {
+        (void)d.feeling("no-such-person");
+    } catch (const orchestrator::Error&) {
+        threw = true;
+    }
+    check::is_true(threw, "a uid the world does not name is refused");
+}
+
+TEST(fear_rises_with_a_fright_and_falls_a_step_each_half_hour_nothing_frightens) {
+    Director d(faced_world());
+    const std::string x = resting_as("calm", 1).front();
+    d.fright(x, 3);
+    check::equal(d.feeling(x).now, std::string("panicked"), "frightened to panic");
+    check::equal(memory(d.respond(x, {ActKind::Greet, ""}))["feeling"], std::string("panicked"), "and the packet says so");
+    d.fright(x, 1);
+    check::equal(d.feeling(x).now, std::string("panicked"), "a lesser fright eases nothing");
+    d.advance(minutes(29.0));
+    check::equal(d.feeling(x).now, std::string("panicked"), "not yet half an hour");
+    d.advance(minutes(2.0));
+    check::equal(d.feeling(x).now, std::string("afraid"), "a step down after half an hour");
+    d.advance(minutes(30.0));
+    check::equal(d.feeling(x).now, std::string("uneasy"), "another");
+    d.advance(minutes(30.0));
+    check::equal(d.feeling(x).now, std::string("calm"), "and at rest");
+    d.advance(minutes(60.0));
+    check::equal(d.feeling(x).now, std::string("calm"), "and no further");
+    // A fright kept up keeps them where it put them.
+    d.fright(x, 2);
+    d.advance(minutes(25.0));
+    d.fright(x, 2);
+    d.advance(minutes(25.0));
+    check::equal(d.feeling(x).now, std::string("afraid"), "frightened again before it could ease");
+    // Someone uneasy at rest eases no further than that.
+    const std::string y = resting_as("uneasy", 1).front();
+    d.fright(y, 3);
+    d.advance(minutes(240.0));
+    check::equal(d.feeling(y).now, std::string("uneasy"), "at rest, uneasy");
+    for (const int level : {0, 4}) {
+        bool threw = false;
+        try {
+            d.fright(x, level);
+        } catch (const orchestrator::Error&) {
+            threw = true;
+        }
+        check::is_true(threw, "a fright at level " + std::to_string(level) + " is refused");
+    }
+    bool threw = false;
+    try {
+        d.fright("no-such-person", 2);
+    } catch (const orchestrator::Error&) {
+        threw = true;
+    }
+    check::is_true(threw, "a uid the world does not name is refused");
+}
+
+TEST(fear_spreads_through_people_together) {
+    Director d(faced_world());
+    const std::vector<std::string> folk = resting_as("calm", 4);
+    d.fright(folk[0], 3);
+    d.gather({folk[0], folk[1], folk[2]});
+    check::equal(d.feeling(folk[1]).now, std::string("afraid"), "one panicking leaves the others afraid");
+    check::equal(d.feeling(folk[2]).now, std::string("afraid"), "each of them");
+    check::equal(d.feeling(folk[0]).now, std::string("panicked"), "and falls no lower for their company");
+    d.fright(folk[1], 3);
+    d.gather({folk[0], folk[1], folk[2], folk[3]});
+    check::equal(d.feeling(folk[2]).now, std::string("panicked"), "two panicking leave the others panicking");
+    check::equal(d.feeling(folk[3]).now, std::string("panicked"), "a newcomer too");
+    Director e(faced_world());
+    e.fright(folk[0], 2);
+    e.gather({folk[0], folk[1]});
+    check::equal(e.feeling(folk[1]).now, std::string("uneasy"), "one afraid leaves the other uneasy");
+    e.gather({folk[1], folk[2]});
+    check::equal(e.feeling(folk[2]).now, std::string("calm"), "and the uneasy one frightens nobody");
+    bool threw = false;
+    try {
+        e.gather({folk[0], "no-such-person"});
+    } catch (const orchestrator::Error&) {
+        threw = true;
+    }
+    check::is_true(threw, "a uid the world does not name is refused");
+}
+
+TEST(calming_words_ease_a_frightened_speaker_a_step_when_the_danger_has_passed) {
+    Director d(faced_world());
+    const std::string x = resting_as("calm", 1).front();
+    const auto calm = [&](const std::string& uid) { return d.respond(uid, {ActKind::Calm, ""}); };
+    FactPacket p = calm(x);
+    check::is_true(p.outcome == Outcome::NotAfraid && memory(p)["feeling"] == "calm", "nothing to ease at rest");
+    d.fright(x, 3);
+    p = calm(x);
+    check::is_true(p.outcome == Outcome::StillAfraid && memory(p)["feeling"] == "panicked", "not while what frightened them is there");
+    d.advance(minutes(16.0));
+    p = calm(x);
+    check::is_true(p.outcome == Outcome::Calmed, "eased once it has passed");
+    check::equal(memory(p)["feeling"], std::string("afraid"), "a step");
+    check::equal(memory(p)["mood"], std::string("friendly"), "and the speaker thinks better of the one who eased them");
+    p = calm(x);
+    check::is_true(p.outcome == Outcome::Calmed && memory(p)["feeling"] == "uneasy", "another step");
+    check::equal(memory(p)["mood"], std::string("friendly"), "which counts once in a conversation");
+    // The half hour before fear falls again counts from the easing, not from the fright.
+    d.advance(minutes(20.0));
+    check::equal(d.feeling(x).now, std::string("uneasy"), "twenty minutes after being eased");
+    p = calm(x);
+    check::is_true(p.outcome == Outcome::Calmed && memory(p)["feeling"] == "calm", "and at rest");
+    check::equal(memory(p)["mood"], std::string("warm"), "eased in another conversation: counted again");
+    check::is_true(calm(x).outcome == Outcome::NotAfraid, "then nothing to ease");
+    // Not from someone they do not trust.
+    const std::string y = resting_as("calm", 2).back();
+    check::is_true(y != x, "the premise: a second speaker");
+    d.fright(y, 2);
+    d.advance(minutes(16.0));
+    check::equal(memory(d.respond(y, {ActKind::Insult, ""}))["mood"], std::string("hostile"), "the premise: insulted");
+    p = calm(y);
+    check::is_true(p.outcome == Outcome::StillAfraid && memory(p)["feeling"] == "afraid", "hostile: not eased");
+    // Someone uneasy at rest is not afraid.
+    const std::string z = resting_as("uneasy", 1).front();
+    p = calm(z);
+    check::is_true(p.outcome == Outcome::NotAfraid && memory(p)["feeling"] == "uneasy", "uneasy at rest: nothing to ease");
+}
+
+TEST(a_face_that_does_not_know_the_player_is_not_soothed_by_them) {
+    const fwg::World& w = faced_world();
+    const fwg::Hero& beast = *heroes_with("calm", "unleashed").front();
+    Director d(w);
+    advance_to_a_day(d, [&](double day) { return fwg::moon_phase_on(w, day)->full; }, "the full moon");
+    check::equal(d.respond(beast.uid, {ActKind::Greet, ""}).persona.face, std::string("unleashed"), "the premise: unleashed");
+    d.fright(beast.uid, 2);
+    d.advance(minutes(16.0));
+    FactPacket p = d.respond(beast.uid, {ActKind::Calm, ""});
+    check::is_true(p.outcome == Outcome::StillAfraid && memory(p)["feeling"] == "afraid", "unleashed, it does not know the player");
+    (void)d.respond(beast.uid, {ActKind::Farewell, ""});
+    advance_to_a_day(d, [&](double day) { return !full_moon_near(w, day); }, "a calm day after");
+    d.fright(beast.uid, 2);
+    d.advance(minutes(16.0));
+    p = d.respond(beast.uid, {ActKind::Calm, ""});
+    check::is_true(p.outcome == Outcome::Calmed && p.persona.face.empty(), "the control: its calm face is eased");
+}
+
+TEST(replay_restores_how_everyone_feels) {
+    Director d(faced_world());
+    const std::vector<std::string> folk = resting_as("calm", 3);
+    d.fright(folk[0], 3);
+    d.gather({folk[0], folk[1], folk[2]});
+    d.advance(minutes(20.0));
+    (void)d.respond(folk[1], {ActKind::Calm, ""});
+    d.advance(minutes(20.0));
+    Director again = orchestrator::replay(faced_world(), d.inputs());
+    for (const std::string& uid : folk) {
+        check::is_true(d.feeling(uid).now == again.feeling(uid).now, "the same feeling for " + uid);
+        check::equal(text_of(d.respond(uid, {ActKind::Calm, ""})), text_of(again.respond(uid, {ActKind::Calm, ""})),
                      "the same next packet from " + uid);
     }
 }

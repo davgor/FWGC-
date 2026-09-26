@@ -25,7 +25,9 @@ namespace orchestrator {
 // 7: the Memory fact's `asked_before` is what was asked in the last conversation only.
 // 8: the act apologize and its outcomes, forgiven and unwronged; an answer about a place says who
 //    is there, what nests near it and what work is there.
-inline constexpr int kContractVersion = 8;
+// 9: feelings. The act calm and its outcomes calmed, still_afraid and not_afraid; the Memory
+//    fact's `feeling` and `resting`.
+inline constexpr int kContractVersion = 9;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -49,8 +51,10 @@ enum class ActKind : int {
     Confront,   // the player tells the speaker they are not what they seem
     // 8.
     Apologize,  // the player says sorry
+    // 9.
+    Calm,  // it's all right, you're safe now: the player soothes a frightened speaker
 };
-inline constexpr int kActCount = static_cast<int>(ActKind::Apologize) + 1;
+inline constexpr int kActCount = static_cast<int>(ActKind::Calm) + 1;
 
 std::string_view to_string(ActKind kind);
 std::optional<ActKind> act_kind(std::string_view name);  // nullopt for a name not in the set
@@ -94,13 +98,18 @@ enum class Outcome : int {
                    // apology is taken again, moving nothing
     Unwronged,     // there is nothing to forgive: the player never wronged the speaker, or the face
                    // speaking does not know them
+    // 9: feelings.
+    Calmed,       // the speaker was afraid, and the player's words ease them a step
+    StillAfraid,  // afraid, and not eased: what frightens them is still there, or they do not trust
+                  // the one soothing them
+    NotAfraid,    // nothing to ease: the speaker feels as they do at rest
 };
-inline constexpr int kOutcomeCount = static_cast<int>(Outcome::Unwronged) + 1;
+inline constexpr int kOutcomeCount = static_cast<int>(Outcome::NotAfraid) + 1;
 
 std::string_view to_string(Outcome outcome);
 
-// Memory: what the speaker and the player have between them. Chat: what small talk can be
-// about. Safety: a verdict on the danger about. Reveal: what a face that came out had hidden.
+// Memory: what the speaker and the player have between them, and how the speaker feels. Chat:
+// what small talk can be about. Safety: a verdict on the danger about. Reveal: what a face that came out had hidden.
 enum class FactKind : int { Place = 0, Person, QuestOffer, QuestState, Danger, Reason, Memory, Chat, Safety, Reveal };
 
 std::string_view to_string(FactKind kind);
@@ -135,7 +144,13 @@ std::string_view to_string(FactKind kind);
 //   this conversation, else "no";
 // - `heard`: how many times before this one the player has made this act to this speaker,
 //   whatever its target, in this conversation or any earlier one, as digits: "0" the first time;
-// - `exposed`: "yes" once the player has made this speaker own to a hidden face, else "no".
+// - `exposed`: "yes" once the player has made this speaker own to a hidden face, else "no";
+// - `feeling`: how the speaker feels as they reply, on the fear ladder: "calm", "uneasy",
+//   "afraid", "panicked". The game shows it as their expression. Fear rises with what the game
+//   reports frightening them, spreads through people together, and falls a step toward rest for
+//   every half hour nothing new frightens them, or when the player calms them;
+// - `resting`: how they feel when nothing frightens them: "uneasy" where a nest of danger 4 or
+//   more lies within a kilometre of where they stand, else "calm".
 // A conversation ends at a farewell, when time passes, or when the player turns to someone
 // else. A face that does not recognise the player (a beast unleashed) gives a first meeting and
 // a hostile mood.
