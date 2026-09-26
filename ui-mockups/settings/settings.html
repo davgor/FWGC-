@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&amp;family=Tenor+Sans&amp;display=swap">
+<style>
+body{margin:0;background:#0b0d11}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:left}
+button:focus-visible,a:focus-visible{outline:2px solid #d9bb7e;outline-offset:6px}
+.t{position:absolute;left:0;top:0;width:0;height:0}
+/* This page holds every state of Settings. Display shows by default; the address picks
+   another: settings.html#audio, #controls, #conversation, #gameplay, #accessibility, or
+   #keep for leaving with three changes made. */
+.sec{display:none;flex-direction:column;gap:28px}
+.sec-display{display:flex}
+#audio:target~.panel .sec-display,#controls:target~.panel .sec-display,#conversation:target~.panel .sec-display,#gameplay:target~.panel .sec-display,#accessibility:target~.panel .sec-display{display:none}
+#audio:target~.panel .sec-audio,#controls:target~.panel .sec-controls,#conversation:target~.panel .sec-conversation,#gameplay:target~.panel .sec-gameplay,#accessibility:target~.panel .sec-accessibility{display:flex}
+/* The rail marks the open section. */
+.nav-item .mark{opacity:0}
+.nav-item .lbl{color:#b8b1a3}
+.i-display .mark{opacity:1}
+.i-display .lbl{color:#f6f1e6}
+#audio:target~.rail .i-display .mark,#controls:target~.rail .i-display .mark,#conversation:target~.rail .i-display .mark,#gameplay:target~.rail .i-display .mark,#accessibility:target~.rail .i-display .mark{opacity:0}
+#audio:target~.rail .i-display .lbl,#controls:target~.rail .i-display .lbl,#conversation:target~.rail .i-display .lbl,#gameplay:target~.rail .i-display .lbl,#accessibility:target~.rail .i-display .lbl{color:#b8b1a3}
+#audio:target~.rail .i-audio .mark,#controls:target~.rail .i-controls .mark,#conversation:target~.rail .i-conversation .mark,#gameplay:target~.rail .i-gameplay .mark,#accessibility:target~.rail .i-accessibility .mark{opacity:1}
+#audio:target~.rail .i-audio .lbl,#controls:target~.rail .i-controls .lbl,#conversation:target~.rail .i-conversation .lbl,#gameplay:target~.rail .i-gameplay .lbl,#accessibility:target~.rail .i-accessibility .lbl{color:#f6f1e6}
+/* A row is marked while the pointer is on it; the first row of a section otherwise. */
+.row .mark{opacity:0}
+.rows:not(:hover) .row.first .mark{opacity:1}
+.rows:not(:hover) .row.first{background:rgba(243,238,227,.05)}
+.rows .row:hover .mark{opacity:1}
+.rows .row:hover{background:rgba(243,238,227,.05)}
+/* Leaving with changes: Back opens Keep or Revert, and the panel steps back. */
+.back .mark{opacity:0}
+.back .lbl{color:#b8b1a3}
+.confirm{display:none;flex-direction:column;gap:14px;padding:4px 0 0 33px}
+.hints-main,.hints-confirm{gap:32px;align-items:center;font-size:18px;letter-spacing:.06em;color:#d3ccbd}
+.hints-main{display:flex}
+.hints-confirm{display:none}
+.changed{display:none}
+#keep:target~.rail .i-display .mark{opacity:0}
+#keep:target~.rail .back .mark{opacity:1}
+#keep:target~.rail .back .lbl{color:#f6f1e6}
+#keep:target~.rail .confirm{display:flex}
+#keep:target~.rail .hints-main{display:none}
+#keep:target~.rail .hints-confirm{display:flex}
+#keep:target~.panel{opacity:.45}
+#keep:target~.panel .changed{display:inline}
+#keep:target~.panel .default-val{display:none}
+#keep:target~.panel .rows .row .mark{opacity:0}
+#keep:target~.panel .rows .row{background:transparent}
+/* Keep is chosen until the pointer or keyboard focus moves to Revert. */
+.pick .mark{opacity:0}
+.pick .lbl{color:#b8b1a3}
+.picks:not(:hover):not(:focus-within) .pick.default .mark{opacity:1}
+.picks:not(:hover):not(:focus-within) .pick.default .lbl{color:#f6f1e6}
+.picks .pick:hover .mark,.picks .pick:focus .mark{opacity:1}
+.picks .pick:hover .lbl,.picks .pick:focus .lbl{color:#f6f1e6}
+</style>
+</head>
+<body>
+<div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #0b0d11; font-family: 'Tenor Sans', 'Gill Sans', sans-serif; color: #f3eee3">
+<i id="audio" class="t"></i><i id="controls" class="t"></i><i id="conversation" class="t"></i><i id="gameplay" class="t"></i><i id="accessibility" class="t"></i><i id="keep" class="t"></i>
+<img src="../../concept%20art/tier-1-style/settlements-and-locations/biome.grassland.heartland-ruins.style-study.png" alt="" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; transform: scaleX(-1)">
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: linear-gradient(90deg, rgba(11,13,17,0.84) 0%, rgba(11,13,17,0.756) 28%, rgba(11,13,17,0.353) 48%, rgba(11,13,17,0) 66%), linear-gradient(0deg, rgba(11,13,17,0.521) 0%, rgba(11,13,17,0) 26%)"></div>
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: rgba(11,13,17,0.38)"></div>
+
+<div class="rail" style="position: absolute; left: 136px; top: 120px; width: 540px; height: 888px; display: flex; flex-direction: column; justify-content: space-between">
+<header style="display: flex; flex-direction: column; gap: 24px">
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 80px; line-height: 1; color: #f6f1e6">Settings</h1>
+<div style="width: 104px; height: 1px; background: #d9bb7e"></div>
+</header>
+<nav aria-label="Settings sections" style="display: flex; flex-direction: column; gap: 2px">
+<a href="#" class="nav-item i-display" style="display: flex; align-items: center; gap: 22px; min-height: 56px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 28px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Display</span></a>
+<a href="#audio" class="nav-item i-audio" style="display: flex; align-items: center; gap: 22px; min-height: 56px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 28px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Audio</span></a>
+<a href="#controls" class="nav-item i-controls" style="display: flex; align-items: center; gap: 22px; min-height: 56px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 28px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Controls</span></a>
+<a href="#conversation" class="nav-item i-conversation" style="display: flex; align-items: center; gap: 22px; min-height: 56px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 28px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">NPC Conversation</span></a>
+<a href="#gameplay" class="nav-item i-gameplay" style="display: flex; align-items: center; gap: 22px; min-height: 56px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 28px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Gameplay</span></a>
+<a href="#accessibility" class="nav-item i-accessibility" style="display: flex; align-items: center; gap: 22px; min-height: 56px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 28px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Accessibility</span></a>
+<div style="height: 26px"></div>
+<!-- In the game, Back asks to keep or revert only when something changed, and otherwise returns
+     to the opening screen. Here it opens that question, so the state can be seen. "Model runs on"
+     greys out (40% opacity) while replies come from written lines. -->
+<a href="#keep" class="back" style="display: flex; align-items: center; gap: 22px; min-height: 56px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 28px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Back</span></a>
+<div class="confirm">
+<p style="margin: 0; font-size: 20px; letter-spacing: 0.06em; color: #d3ccbd">Keep 3 changes?</p>
+<div class="picks" style="display: flex; gap: 44px">
+<a href="../opening-screen/opening-screen.html" class="pick default" style="display: flex; align-items: center; gap: 16px; min-height: 48px; text-decoration: none; color: inherit"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 24px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Keep</span></a>
+<a href="../opening-screen/opening-screen.html" class="pick" style="display: flex; align-items: center; gap: 16px; min-height: 48px; text-decoration: none; color: inherit"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 24px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Revert</span></a>
+</div>
+</div>
+</nav>
+<div class="hints-main">
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">↑ ↓</kbd>Choose</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">← →</kbd>Change</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Esc</kbd>Back</span>
+</div>
+<div class="hints-confirm">
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">← →</kbd>Choose</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Enter</kbd>Confirm</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Esc</kbd>Stay here</span>
+</div>
+</div>
+
+<section class="panel" style="position: absolute; left: 744px; top: 120px; width: 1040px; height: 888px; box-sizing: border-box; padding: 52px 56px 36px; background: rgba(13,15,20,0.8); backdrop-filter: blur(8px); border: 1px solid rgba(243,238,227,0.14); display: flex; flex-direction: column; gap: 28px">
+
+<div class="sec sec-display">
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 48px; line-height: 1; color: #f6f1e6">Display</h2>
+<div class="rows" style="display: flex; flex-direction: column">
+<div class="row first" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Window mode</span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Previous window mode" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3"><span class="default-val">Fullscreen</span><span class="changed" style="color: #d9bb7e">Borderless</span></span>
+<button type="button" aria-label="Next window mode" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Resolution</span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Previous resolution" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3">1920 × 1080</span>
+<button type="button" aria-label="Next resolution" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Frame rate limit</span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Previous frame rate limit" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3">60</span>
+<button type="button" aria-label="Next frame rate limit" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">V-Sync</span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Previous V-Sync setting" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3">On</span>
+<button type="button" aria-label="Next V-Sync setting" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Brightness</span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Lower brightness" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<div style="flex-grow: 1; position: relative; height: 44px">
+<div style="position: absolute; left: 0; right: 0; top: 21px; height: 2px; background: rgba(243,238,227,0.22)"></div>
+<div style="position: absolute; left: 0; top: 21px; height: 2px; width: 50%; background: #d9bb7e"></div>
+<div style="position: absolute; top: 16px; left: calc(50% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></div>
+</div>
+<button type="button" aria-label="Raise brightness" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+<span style="width: 44px; text-align: right; font-size: 20px; color: #f3eee3">50</span>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Interface scale</span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Smaller interface" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3">100%</span>
+<button type="button" aria-label="Larger interface" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="sec sec-audio">
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 48px; line-height: 1; color: #f6f1e6">Audio</h2>
+<div class="rows" style="display: flex; flex-direction: column">
+<div class="row first" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Master volume</span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Lower master volume" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<div style="flex-grow: 1; position: relative; height: 44px">
+<div style="position: absolute; left: 0; right: 0; top: 21px; height: 2px; background: rgba(243,238,227,0.22)"></div>
+<div style="position: absolute; left: 0; top: 21px; height: 2px; width: 80%; background: #d9bb7e"></div>
+<div style="position: absolute; top: 16px; left: calc(80% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></div>
+</div>
+<button type="button" aria-label="Raise master volume" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+<span style="width: 44px; text-align: right; font-size: 20px; color: #f3eee3">80</span>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Music</span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Lower music volume" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<div style="flex-grow: 1; position: relative; height: 44px">
+<div style="position: absolute; left: 0; right: 0; top: 21px; height: 2px; background: rgba(243,238,227,0.22)"></div>
+<div style="position: absolute; left: 0; top: 21px; height: 2px; width: 60%; background: #d9bb7e"></div>
+<div style="position: absolute; top: 16px; left: calc(60% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></div>
+</div>
+<button type="button" aria-label="Raise music volume" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+<span style="width: 44px; text-align: right; font-size: 20px; color: #f3eee3">60</span>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Sound effects</span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Lower sound effects volume" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<div style="flex-grow: 1; position: relative; height: 44px">
+<div style="position: absolute; left: 0; right: 0; top: 21px; height: 2px; background: rgba(243,238,227,0.22)"></div>
+<div style="position: absolute; left: 0; top: 21px; height: 2px; width: 80%; background: #d9bb7e"></div>
+<div style="position: absolute; top: 16px; left: calc(80% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></div>
+</div>
+<button type="button" aria-label="Raise sound effects volume" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+<span style="width: 44px; text-align: right; font-size: 20px; color: #f3eee3">80</span>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Ambience</span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Lower ambience volume" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<div style="flex-grow: 1; position: relative; height: 44px">
+<div style="position: absolute; left: 0; right: 0; top: 21px; height: 2px; background: rgba(243,238,227,0.22)"></div>
+<div style="position: absolute; left: 0; top: 21px; height: 2px; width: 70%; background: #d9bb7e"></div>
+<div style="position: absolute; top: 16px; left: calc(70% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></div>
+</div>
+<button type="button" aria-label="Raise ambience volume" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+<span style="width: 44px; text-align: right; font-size: 20px; color: #f3eee3">70</span>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Mute when in the background</span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Previous setting for muting in the background" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3">On</span>
+<button type="button" aria-label="Next setting for muting in the background" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="sec sec-controls">
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 48px; line-height: 1; color: #f6f1e6">Controls</h2>
+<div style="display: flex; flex-direction: column">
+<div style="display: flex; justify-content: flex-end; gap: 12px; padding: 0 20px 10px; font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">
+<span style="width: 150px; text-align: center">Key</span>
+<span style="width: 150px; text-align: center">Second key</span>
+</div>
+<div class="rows" style="display: flex; flex-direction: column">
+<div class="row first" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Move</span></div>
+<div style="display: flex; gap: 12px">
+<button type="button" aria-label="Change the key for Move, now W A S D" style="width: 150px; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-size: 18px; letter-spacing: 0.06em; color: #f3eee3">W A S D</button>
+<button type="button" aria-label="Change the second key for Move, now the arrow keys" style="width: 150px; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-size: 18px; letter-spacing: 0.06em; color: #f3eee3">Arrows</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Interact</span></div>
+<div style="display: flex; gap: 12px">
+<button type="button" aria-label="Change the key for Interact, now E" style="width: 150px; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-size: 18px; letter-spacing: 0.06em; color: #f3eee3">E</button>
+<button type="button" aria-label="Add a second key for Interact" style="width: 150px; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(243,238,227,0.3); border-radius: 6px; font-size: 18px; color: #9d978b">—</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Talk</span><span style="font-size: 17px; letter-spacing: 0.02em; color: #b9b3a6">Opens the chat line to type your own words</span></span></div>
+<div style="display: flex; gap: 12px">
+<button type="button" aria-label="Change the key for Talk, now Enter" style="width: 150px; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-size: 18px; letter-spacing: 0.06em; color: #f3eee3">Enter</button>
+<button type="button" aria-label="Add a second key for Talk" style="width: 150px; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(243,238,227,0.3); border-radius: 6px; font-size: 18px; color: #9d978b">—</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Journal</span></div>
+<div style="display: flex; gap: 12px">
+<button type="button" aria-label="Change the key for Journal, now J" style="width: 150px; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-size: 18px; letter-spacing: 0.06em; color: #f3eee3">J</button>
+<button type="button" aria-label="Add a second key for Journal" style="width: 150px; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(243,238,227,0.3); border-radius: 6px; font-size: 18px; color: #9d978b">—</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Map</span></div>
+<div style="display: flex; gap: 12px">
+<button type="button" aria-label="Change the key for Map, now M" style="width: 150px; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-size: 18px; letter-spacing: 0.06em; color: #f3eee3">M</button>
+<button type="button" aria-label="Add a second key for Map" style="width: 150px; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(243,238,227,0.3); border-radius: 6px; font-size: 18px; color: #9d978b">—</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Menu</span></div>
+<div style="display: flex; gap: 12px">
+<button type="button" aria-label="Change the key for Menu, now Esc" style="width: 150px; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-size: 18px; letter-spacing: 0.06em; color: #f3eee3">Esc</button>
+<button type="button" aria-label="Add a second key for Menu" style="width: 150px; height: 44px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(243,238,227,0.3); border-radius: 6px; font-size: 18px; color: #9d978b">—</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="sec sec-conversation">
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 48px; line-height: 1; color: #f6f1e6">NPC Conversation</h2>
+<div class="rows" style="display: flex; flex-direction: column">
+<div class="row first" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Replies from</span><span style="font-size: 17px; letter-spacing: 0.02em; color: #b9b3a6">Written lines need no model and run on any machine</span></span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Previous source of replies" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3">Local model</span>
+<button type="button" aria-label="Next source of replies" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Model runs on</span><span style="font-size: 17px; letter-spacing: 0.02em; color: #b9b3a6">Used only when replies come from the local model</span></span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Previous device for the model" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3">GPU (Vulkan)</span>
+<button type="button" aria-label="Next device for the model" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="sec sec-gameplay">
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 48px; line-height: 1; color: #f6f1e6">Gameplay</h2>
+<div class="rows" style="display: flex; flex-direction: column">
+<div class="row first" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Time while typing</span><span style="font-size: 17px; letter-spacing: 0.02em; color: #b9b3a6">How time passes while the chat line is open</span></span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Previous setting for time while typing" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3">Slowed</span>
+<button type="button" aria-label="Next setting for time while typing" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Chat bubbles stay up</span><span style="font-size: 17px; letter-spacing: 0.02em; color: #b9b3a6">How long a speaker's words stay above their head</span></span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Shorter chat bubbles" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3">Normal</span>
+<button type="button" aria-label="Longer chat bubbles" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="sec sec-accessibility">
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 48px; line-height: 1; color: #f6f1e6">Accessibility</h2>
+<div class="rows" style="display: flex; flex-direction: column">
+<div class="row first" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Text size</span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Smaller text" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3">100%</span>
+<button type="button" aria-label="Larger text" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Colour-blind-safe marks</span><span style="font-size: 17px; letter-spacing: 0.02em; color: #b9b3a6">Status marks use shapes as well as colour</span></span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Previous setting for colour-blind-safe marks" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3">Off</span>
+<button type="button" aria-label="Next setting for colour-blind-safe marks" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+<div class="row" style="display: flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 80px; padding: 10px 20px; box-sizing: border-box; border-bottom: 1px solid rgba(243,238,227,0.1)">
+<div style="display: flex; align-items: center; gap: 18px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 22px; letter-spacing: 0.04em; color: #f3eee3">Reduced motion</span><span style="font-size: 17px; letter-spacing: 0.02em; color: #b9b3a6">Fewer animated transitions and screen effects</span></span></div>
+<div style="width: 400px; flex-shrink: 0; display: flex; align-items: center; gap: 8px">
+<button type="button" aria-label="Previous setting for reduced motion" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">‹</button>
+<span style="flex-grow: 1; text-align: center; font-size: 20px; letter-spacing: 0.08em; color: #f3eee3">Off</span>
+<button type="button" aria-label="Next setting for reduced motion" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; color: #d3ccbd">›</button>
+</div>
+</div>
+</div>
+</div>
+
+<div style="margin-top: auto; display: flex; justify-content: flex-end">
+<button type="button" style="padding: 0 4px; min-height: 44px; font-size: 18px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Restore defaults</button>
+</div>
+</section>
+</div>
+</body>
+</html>
