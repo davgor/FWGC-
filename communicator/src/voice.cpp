@@ -8,6 +8,7 @@
 #include "communicator/error.hpp"
 #include "communicator/known.hpp"
 #include "gbnf.hpp"
+#include "memory.hpp"
 #include "reply_shape.hpp"
 #include "text.hpp"
 
@@ -101,8 +102,59 @@ std::string fact_line(const Fact& fact) {
         }
         case FactKind::Reason:
             return "- Why: " + value_of(fact, "reason");
+        case FactKind::Chat: {
+            std::vector<std::string> about;
+            for (const std::string_view key : {"weather", "wind", "season", "time"})
+                if (const std::string v = value_of(fact, key); !v.empty()) about.push_back(std::string(key) + ": " + v);
+            return about.empty() ? std::string() : "- Here and now: " + join(about, "; ");
+        }
+        case FactKind::Safety: {
+            const std::string verdict = value_of(fact, "verdict");
+            if (verdict == "unsafe") return "- Your judgement: it is not safe here.";
+            if (verdict == "wary") return "- Your judgement: safe enough, with care.";
+            if (verdict == "safe") return "- Your judgement: it is safe here.";
+            return {};
+        }
+        case FactKind::Reveal: {
+            const std::string face = value_of(fact, "face");
+            if (face == "unleashed") return "- The stranger has seen you unleashed, under the full moon.";
+            if (face == "second") return "- The stranger has met your other self, the one that holds sway on other days.";
+            const std::string was = text::spaced(value_of(fact, "was"));
+            const std::string is = text::spaced(value_of(fact, "is"));
+            if (is.empty() || was.empty() || is == was) return "- The stranger has seen through your mask.";
+            return "- The stranger has seen through your mask: you are a " + is + ", not a " + was + ".";
+        }
+        case FactKind::Memory:
+            return {};  // said apart, as what the speaker remembers (memory_lines)
     }
     return {};
+}
+
+// What the speaker remembers of the stranger, as lines: nothing on a first meeting with nothing
+// to remember.
+std::vector<std::string> memory_lines(const FactPacket& packet) {
+    const Remembered m = remembered(packet);
+    std::vector<std::string> out;
+    if (m.again) {
+        const std::string when = since_words(m.since);
+        out.push_back("You have met this stranger before" + (when.empty() ? std::string() : ", last " + when) + ".");
+    } else {
+        out.push_back("You have not met this stranger before.");
+    }
+    if (m.mood == "warm") out.push_back("You think well of them.");
+    if (m.mood == "friendly") out.push_back("You like them well enough.");
+    if (m.mood == "wary") out.push_back("You are wary of them.");
+    if (m.mood == "hostile") out.push_back("You dislike them.");
+    if (m.work == "offered") out.push_back("You have offered them work.");
+    if (m.work == "taken") out.push_back("They took on your work, and it is not done yet.");
+    if (m.work == "declined") out.push_back("They turned your work down.");
+    if (m.work == "abandoned") out.push_back("They gave up the work they took from you.");
+    if (m.work == "finished") out.push_back("They finished the work you gave them.");
+    if (m.work == "failed") out.push_back("They failed the work you gave them.");
+    if (!m.asked_before.empty()) out.push_back("Last time they asked you about " + text::spoken(m.asked_before) + ".");
+    if (m.repeat) out.push_back("They have asked you this already: say so.");
+    if (m.exposed) out.push_back("They know what you hide.");
+    return out;
 }
 
 // What the speaker is to do, given what the director made of the stranger's words.
@@ -119,6 +171,9 @@ std::string what_happened(const FactPacket& packet) {
                     if (!packet.facts.empty() && packet.facts.front().subject == packet.speaker)
                         return "The stranger asked who you are. Tell them.";
                     return "The stranger asked about the person above. Tell them what you know of them.";
+                case ActKind::AskSafety:
+                    return "The stranger asked whether it is safe here. Say plainly first whether it is, then name the worst "
+                           "danger above.";
                 case ActKind::AskForWork: {
                     if (packet.facts.empty()) return "The stranger asked for work. You know of none: say so.";
                     bool own = false;
@@ -154,6 +209,20 @@ std::string what_happened(const FactPacket& packet) {
         case Outcome::NotUnderstood:
             return "You do not follow what the stranger wants, or it is nothing you can help with. Say so in a sentence, and "
                    "tell them nothing else.";
+        case Outcome::Greeted:
+            return "The stranger greeted you. Greet them back, as you take them.";
+        case Outcome::Chatted:
+            return "The stranger is making small talk. Answer in kind, from the weather and the season above.";
+        case Outcome::Acknowledged:
+            return "The stranger answered what you asked. Take it in, in your own way.";
+        case Outcome::Thanked:
+            return "The stranger thanked you. Answer it, as you take them.";
+        case Outcome::Offended:
+            return "The stranger insulted you. Show how you take it.";
+        case Outcome::Exposed:
+            return "The stranger has seen through you, and you own to it. Say so, as who you truly are.";
+        case Outcome::Denied:
+            return "The stranger says you are not what you seem. Deny it.";
     }
     return {};
 }
@@ -294,8 +363,12 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
         for (const std::string& trait : card) system += "- " + trait + "\n";
     }
     system += "\nWhat you know and may tell:\n";
-    if (packet.facts.empty()) system += "- nothing that bears on this\n";
-    for (const Fact& fact : packet.facts) system += fact_line(fact) + "\n";
+    std::string known;
+    for (const Fact& fact : packet.facts)
+        if (const std::string said = fact_line(fact); !said.empty()) known += said + "\n";
+    system += known.empty() ? "- nothing that bears on this\n" : known;
+    system += "\nWhat you remember of the stranger:\n";
+    for (const std::string& remembered_line : memory_lines(packet)) system += "- " + remembered_line + "\n";
     system += "\nWhat just happened: " + what_happened(packet) + "\n\n";
     const int sentences = reply_shape(packet).sentences;
     const std::string length =

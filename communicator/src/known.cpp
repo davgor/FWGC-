@@ -56,6 +56,10 @@ std::string label_of(const Fact& fact) {
         case FactKind::QuestState:
         case FactKind::Danger:
         case FactKind::Reason:
+        case FactKind::Memory:
+        case FactKind::Chat:
+        case FactKind::Safety:
+        case FactKind::Reveal:
             return {};
     }
     return {};
@@ -106,6 +110,10 @@ void Known::learn(const orchestrator::FactPacket& packet) {
             }
             case FactKind::Danger:
             case FactKind::Reason:
+            case FactKind::Memory:
+            case FactKind::Chat:
+            case FactKind::Safety:
+            case FactKind::Reveal:
                 break;
         }
     }

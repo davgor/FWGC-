@@ -36,8 +36,14 @@ public:
     // Every situation a line may be written for, and the blanks each may use.
     static const std::map<std::string, std::vector<std::string>>& situations();
 
-    // The situation a packet puts its speaker in: "refused_give", "surroundings"... Empty when
-    // none fits (an answer with no facts to give, say).
+    // The situations a packet puts its speaker in, the closest first: a warm greeting to someone
+    // met before is "greeted_warm", then "greeted_again". A bank answers from the first of them
+    // it has a line for. Empty when none fits (an answer with no facts to give, say). Each chain
+    // stays inside one reply shape (reply_shape()), so a line written for any situation in it
+    // opens as the packet's outcome does.
+    static std::vector<std::string> situations_for(const orchestrator::FactPacket& packet);
+
+    // The closest of situations_for(), or empty.
     static std::string situation(const orchestrator::FactPacket& packet);
 
     // Every reply the lines give `packet`, from the first bank that has one: the lines that say
@@ -56,6 +62,9 @@ public:
 private:
     // Adds the rows of `text` to the banks; `source` names it in an error.
     void read(std::string_view text, const std::string& source);
+
+    // The one situation of an outcome that has no chain, or empty.
+    static std::string single_situation(const orchestrator::FactPacket& packet);
 
     // voice -> situation -> lines
     std::map<std::string, std::map<std::string, std::vector<std::string>>> banks_;

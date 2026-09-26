@@ -38,15 +38,42 @@ voice | situation | line
   | `refused_gone` | |
   | `refused` | `{reason}` |
   | `accepted`, `declined`, `abandoned`, `parted`, `not_understood` | |
+  | `greeted` (a first meeting) | |
+  | `greeted_again`, `greeted_warm` (met before; warm: the speaker likes them) | `{since}` `{asked}` |
+  | `greeted_cold` (the speaker is wary or hostile, met before or not) | |
+  | `greeted_taken`, `greeted_finished`, `greeted_failed`, `greeted_abandoned` (the speaker's own work, taken and not done, finished, failed, given up) | `{since}` |
+  | `small_talk`, `small_talk_fair`, `small_talk_wet`, `small_talk_storm` (the weather where the speaker stands) | `{season}` `{time}` `{danger}` |
+  | `small_talk_cold` (a wary or hostile speaker, asked for small talk) | |
+  | `acknowledged` (the stranger answered the speaker's question), `thanked`, `thanked_cold`, `offended`, `offended_again` | |
+  | `safety_unsafe`, `safety_wary`, `safety_safe` ("is it safe", by the verdict) | `{worst}` `{others}` `{danger}` |
+  | `exposed`, `exposed_true`, `exposed_unleashed`, `exposed_second` (a hidden face owned to) | `{was}` `{is}` |
+  | `denied`, `denied_again` (accused of hiding something, with nothing owned to) | |
 
   Every situation may also use `{speaker}`, `{post}` and `{place}`.
+
+  A packet's situations come closest first, and a bank answers from the first it has a line
+  for: a warm greeting to someone met before is `greeted_warm`, then `greeted_again`; what came
+  of the speaker's own work comes before either. Small talk tries a cold speaker's line, then the
+  weather's, then `small_talk`; `offended_again` and `denied_again`, for the second time, fall
+  back to `offended` and `denied`; `exposed_true` and the rest fall back to `exposed`.
+  - `{since}` is how long since they met, roughly: "earlier today", "a few days ago", "some
+    weeks ago", "some months ago", "years ago".
+  - `{asked}` is the place or person the stranger asked about last time, by name.
+  - `{season}` is "deep winter" to "high summer"; `{time}` "dawn" to "night".
+  - `{worst}` is the place the verdict rests on: within a walk when anything is. `{was}` and
+    `{is}` are the roles the face known claimed and the face owned to: they differ only for a
+    mask. A beast's or a fractured heart's two faces share a role: its lines say what it is
+    without them.
+  - Asked the same thing twice in one conversation, a speaker's answer is said after "As I
+    said," (C++'s words): the line needs no repeat of its own.
 - **line:** a line with a blank its packet cannot fill is not said.
 - **`[optional parts]`:** a part in brackets is left out whole when the packet cannot fill a
   blank in it, so one line serves a packet with a nest and one without. Put the space before a
   part inside its brackets: `The nearest is {nearest}.[ Mind the {danger}.]`
 - **The fullest lines are said.** Of the lines that fit, only those that say the most of the
   packet are said. Write lines for what a full packet holds, and shorter ones for packets that
-  hold less.
+  hold less. `{speaker}`, `{post}`, `{place}`, `{since}`, `{season}` and `{time}` do not count:
+  they are there to say whenever their situation is, so a line saying one silences no sibling.
 
 ## Rules a test holds every row to
 
@@ -58,7 +85,16 @@ packet. `communicator_eval --check-lines PATH` runs the same check on a file or 
 - No barred word (`forbidden_words()`: compass points, money and pay), and no double quote.
 - An outcome that is not an answer opens with its outcome's words (`reply_shape.cpp`) and is one
   sentence; `accepted` may run to two. A refusal's last sentence ("Speak to ...") is added by
-  C++.
+  C++: after a line that says `{giver}`, it says only where ("Find them at ...").
+- Conversation: a greeting or an acknowledgement runs to two sentences, small talk to two with
+  any start, thanks, an insult taken and a denial to one, an exposure to three. A greeting opens
+  by what the speaker remembers: a first meeting "Hello", "Greetings", "Well met", "Good day",
+  "Welcome" or "Hail"; met before, "Hello again", "Back again", "Welcome back", "Good to see
+  you", "Well met again" or "Good day"; a cold speaker "What do you want", "What now", "Keep
+  back" or "Stay back". "Is it safe" opens with its verdict: unsafe "No", "Not here", "Not
+  safe", "Far from it", "I wouldn't say so"; wary "Safe enough", "Mostly", "More or less",
+  "Careful", "Keep your wits about you"; safe "Safe enough", "Yes", "Aye", "It's safe", "Quiet
+  enough", "Nothing to fear". `reply_shape.cpp` holds every opening.
 - An answer runs to three sentences at most.
 - Some test packet speaks the row.
 

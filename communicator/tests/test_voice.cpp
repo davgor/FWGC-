@@ -43,7 +43,23 @@ std::vector<std::pair<FactPacket, std::string>> outcome_cases() {
         {packets::refused_brokered(), "I'll help take back Linbrig."},
         {packets::parted(), "Farewell, and thank you for your time."},
         {packets::not_understood(), "What's the name of the blacksmith here, and the innkeeper?"},
+        // Contract version 4: conversation.
+        {packets::greeted_first(), "Hello there!"},
+        {packets::greeted_coldly(), "Hello again."},
+        {packets::small_talk("clear", "breezy"), "Fine weather today."},
+        {packets::acknowledged(), "To the coast, by the high road."},
+        {packets::thanked(), "Thank you kindly."},
+        {packets::offended(false), "You're a useless old fool."},
+        {packets::safety_unsafe(), "Is it safe out there?"},
+        {packets::exposed_mask(), "I know you're no midwife."},
+        {packets::denied(false), "You're not what you seem."},
     };
+}
+
+// Whether a reply may start any way: an answer, but for "is it safe", and small talk.
+bool starts_freely(const FactPacket& p) {
+    return (p.outcome == orchestrator::Outcome::Answered && p.answering != orchestrator::ActKind::AskSafety) ||
+           p.outcome == orchestrator::Outcome::Chatted;
 }
 
 }  // namespace
@@ -167,6 +183,38 @@ TEST(the_prompt_carries_the_persona_and_every_fact_as_it_is_said) {
                    "the post as words, not a key: " + gate.substr(0, 80));
 }
 
+TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
+    Voice voice(test_model::model());
+    const std::string first = prompt_of(voice, packets::greeted_first(), "Hello!");
+    check::is_true(first.find("You have not met this stranger before.") != std::string::npos, "a first meeting");
+    const std::string again = prompt_of(voice, packets::greeted_again(), "Hello again!");
+    for (const std::string said : {"You have met this stranger before, last a few days ago.", "Last time they asked you about the burnt works."})
+        check::is_true(again.find(said) != std::string::npos, "remembered: " + said);
+    check::is_true(prompt_of(voice, packets::greeted_after("finished", "warm"), "Hello!").find("They finished the work you gave them.") !=
+                       std::string::npos,
+                   "work finished, remembered");
+    check::is_true(prompt_of(voice, packets::surroundings_again(), "What's around?").find("They have asked you this already") !=
+                       std::string::npos,
+                   "a question asked twice");
+    // A fact is said in words, never as the packet's keys.
+    for (const FactPacket& p : packets::conversation()) {
+        const std::string prompt = prompt_of(voice, p, "Well?");
+        for (const std::string key : {"met:", "times:", "asked_before", "verdict", "repeat:", "exposed:", "mood:"})
+            check::is_true(prompt.find(key) == std::string::npos, "no key " + key + " in the prompt for " + p.persona.name);
+    }
+    const std::string chat = prompt_of(voice, packets::small_talk("stormy", "a gale"), "Foul weather.");
+    check::is_true(chat.find("weather: stormy; wind: a gale; season: deep winter; time: evening") != std::string::npos,
+                   "the weather here and now");
+    check::is_true(prompt_of(voice, packets::safety_unsafe(), "Is it safe?").find("Your judgement: it is not safe here.") !=
+                       std::string::npos,
+                   "the verdict");
+    check::is_true(prompt_of(voice, packets::exposed_mask(), "I know what you are.")
+                           .find("seen through your mask: you are a magister, not a midwife") != std::string::npos,
+                   "what the mask hid");
+    check::is_true(prompt_of(voice, packets::exposed_beast(), "I saw you.").find("seen you unleashed") != std::string::npos,
+                   "what the beast owns to");
+}
+
 TEST(work_from_others_is_never_offered_as_the_speakers_own) {
     // Told "yours first" with no work of their own, an innkeeper claimed another's work as hers
     // (judged 2026-09-24). A speaker with work of their own gives theirs first; one without is
@@ -215,11 +263,12 @@ TEST(a_reply_opens_by_saying_what_happened) {
     check::is_true(!opens_with_one_of(free_reply, communicator::reply_shape(unknown).openings),
                    "the premise: free, the model does not open by saying it does not know: " + free_reply);
     // Held, each outcome's reply opens with that outcome's words. Every outcome but an answer
-    // has such words: what happened is said first.
+    // and small talk has such words, and so does an answer to "is it safe": what happened is
+    // said first.
     for (const auto& [packet, line] : outcome_cases()) {
         const communicator::ReplyShape shape = communicator::reply_shape(packet);
         const std::string outcome(orchestrator::to_string(packet.outcome));
-        check::equal(shape.openings.empty(), packet.outcome == orchestrator::Outcome::Answered, "opening words for " + outcome);
+        check::equal(shape.openings.empty(), starts_freely(packet), "opening words for " + outcome);
         if (shape.openings.empty()) continue;
         const Reply r = voice.speak(packet, line);
         check::is_true(opens_with_one_of(r.text, shape.openings),
@@ -255,8 +304,9 @@ TEST(a_short_answer_stays_one_sentence) {
     // Held, the model says one sentence where there is little to say: not knowing, refusing,
     // declining, giving up, parting, not following. A refusal's closing is C++'s, and comes after.
     using orchestrator::Outcome;
-    const std::set<Outcome> short_ones = {Outcome::Unknown, Outcome::Refused, Outcome::Declined,
-                                          Outcome::Abandoned, Outcome::Parted, Outcome::NotUnderstood};
+    const std::set<Outcome> short_ones = {Outcome::Unknown,       Outcome::Refused, Outcome::Declined, Outcome::Abandoned,
+                                          Outcome::Parted,        Outcome::NotUnderstood, Outcome::Thanked, Outcome::Offended,
+                                          Outcome::Denied};
     for (const auto& [packet, line] : cases) {
         const communicator::ReplyShape shape = communicator::reply_shape(packet);
         check::equal(shape.sentences == 1, short_ones.count(packet.outcome) == 1,

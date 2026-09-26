@@ -43,6 +43,7 @@ add_library(communicator STATIC
   src/gbnf.cpp
   src/interpreter.cpp
   src/known.cpp
+  src/memory.cpp
   src/mention.cpp
   src/reply_shape.cpp
   src/text.cpp

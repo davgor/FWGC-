@@ -200,7 +200,7 @@ TEST(a_refusal_naming_two_people_names_neither_as_the_giver) {
                                      "any | refused_give | No, that work isn't mine to give.\n",
                                      "test");
     check::equal(first(lines.replies(packets::refused_brokered())),
-                 std::string("No, that's Halbrann's work. Speak to Halbrann, at the ruins of Linbrig."), "the premise: one person, named");
+                 std::string("No, that's Halbrann's work. Find them at the ruins of Linbrig."), "the premise: one person, named");
     FactPacket two = packets::refused_brokered();
     two.facts.push_back({FactKind::Person, "hero-harbourmaster-coastal-23-30",
                          {{"name", "Nerbrann"}, {"role", "harbourmaster"}, {"where", "the hamlet of Wenweg (Age 2)"}, {"status", "about"}}});
@@ -284,6 +284,131 @@ TEST(each_situation_is_read_from_the_packet) {
     FactPacket unkinded = packets::refused_brokered();
     unkinded.facts.front().fields = {{"reason", "the work is Halbrann's to give"}};
     check::equal(Lines::situation(unkinded), std::string("refused"), "a refusal of no kind");
+}
+
+TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
+    using Chain = std::vector<std::string>;
+    const std::vector<std::pair<FactPacket, Chain>> expected = {
+        {packets::greeted_first(), {"greeted"}},
+        {packets::greeted_again(), {"greeted_again"}},
+        {packets::greeted_warmly(), {"greeted_warm", "greeted_again"}},
+        {packets::greeted_coldly(), {"greeted_cold"}},
+        {packets::greeted_after("taken", "friendly"), {"greeted_taken", "greeted_warm", "greeted_again"}},
+        {packets::greeted_after("finished", "warm"), {"greeted_finished", "greeted_warm", "greeted_again"}},
+        {packets::greeted_after("failed", "neutral"), {"greeted_failed", "greeted_again"}},
+        {packets::greeted_after("abandoned", "neutral"), {"greeted_abandoned", "greeted_again"}},
+        {packets::small_talk("clear", "breezy"), {"small_talk_fair", "small_talk"}},
+        {packets::small_talk("unsettled", "windy"), {"small_talk_wet", "small_talk"}},
+        {packets::small_talk("stormy", "a gale"), {"small_talk_storm", "small_talk"}},
+        {packets::small_talk("fair", "a gale"), {"small_talk_storm", "small_talk"}},
+        {packets::small_talk("fair", "still", "hostile"), {"small_talk_cold", "small_talk_fair", "small_talk"}},
+        {packets::acknowledged(), {"acknowledged"}},
+        {packets::thanked(), {"thanked"}},
+        {packets::thanked("hostile"), {"thanked_cold"}},
+        {packets::offended(false), {"offended"}},
+        {packets::offended(true), {"offended_again", "offended"}},
+        {packets::safety_unsafe(), {"safety_unsafe"}},
+        {packets::safety_wary(), {"safety_wary"}},
+        {packets::safety_safe(), {"safety_safe"}},
+        {packets::surroundings_again(), {"surroundings"}},
+        {packets::exposed_mask(), {"exposed_true", "exposed"}},
+        {packets::exposed_beast(), {"exposed_unleashed", "exposed"}},
+        {packets::exposed_heart(), {"exposed_second", "exposed"}},
+        {packets::denied(false), {"denied"}},
+        {packets::denied(true), {"denied_again", "denied"}},
+    };
+    for (const auto& [p, chain] : expected) {
+        const Chain got = Lines::situations_for(p);
+        std::string shown;
+        for (const std::string& s : got) shown += s + " ";
+        check::is_true(got == chain, "the situations for " + chain.front() + ": " + shown);
+        check::equal(Lines::situation(p), chain.front(), "the closest");
+        for (const std::string& s : chain) check::is_true(Lines::situations().count(s) == 1, "a situation lines may use: " + s);
+    }
+}
+
+TEST(a_bank_answers_from_its_closest_situation_before_another_bank_does) {
+    // The warden has no warm greeting of its own: it greets as itself, from "greeted_again",
+    // before anyone's warmer line.
+    const Lines lines = Lines::parse("warden/LN | greeted_again | Back again, then.\n"
+                                     "any | greeted_warm | Welcome back, friend.\n"
+                                     "any | greeted_finished | Welcome back. You did good work.\n",
+                                     "test");
+    check::equal(first(lines.replies(packets::greeted_warmly())), std::string("Back again, then."), "the warden's own");
+    FactPacket keyless = packets::greeted_warmly();
+    keyless.persona.voice_key.clear();
+    keyless.persona.role = "gate_captain";
+    check::equal(first(lines.replies(keyless)), std::string("Welcome back, friend."), "anyone's warm line, for a speaker with none");
+    keyless.facts.back() = packets::memory_of(keyless.speaker, {.met = "again", .times = 1, .mood = "warm", .work = "finished"});
+    check::equal(first(lines.replies(keyless)), std::string("Welcome back. You did good work."), "what came of the work, first");
+}
+
+TEST(a_greeting_remembers_when_and_what) {
+    const Lines lines = Lines::parse("any | greeted_again | Hello again.[ Still asking after {asked}?]\n"
+                                     "any | greeted_again | Good day. I saw you {since}.\n",
+                                     "test");
+    // What was asked is something the speaker knows, and a line that says it is the fuller; how
+    // long since is always there to say once they have met, so it makes a line no fuller.
+    const std::vector<std::string> asked = lines.replies(packets::greeted_again());
+    check::equal(asked.size(), std::size_t(1), "the line that remembers what was asked");
+    check::equal(asked.front(), std::string("Hello again. Still asking after the burnt works?"), "what they asked");
+    FactPacket nothing_asked = packets::greeted_again();
+    nothing_asked.facts.back() = packets::memory_of(nothing_asked.speaker, {.met = "again", .times = 1, .since = "weeks"});
+    const std::vector<std::string> both = lines.replies(nothing_asked);
+    check::equal(both.size(), std::size_t(2), "nothing asked: both lines, the one saying when no fuller");
+    check::is_true(std::find(both.begin(), both.end(), "Good day. I saw you some weeks ago.") != both.end(), "when, said roughly");
+    check::is_true(std::find(both.begin(), both.end(), "Hello again.") != both.end(), "and the plain one");
+    // The same for the season and the time of day in small talk.
+    const Lines talk = Lines::parse("any | small_talk_fair | A fine day for {season}.\nany | small_talk_fair | A fine day.\n", "test");
+    check::equal(talk.replies(packets::small_talk("clear", "still")).size(), std::size_t(2), "the season silences no line");
+}
+
+TEST(asked_twice_a_speaker_says_so_before_saying_it_again) {
+    const Lines lines = Lines::parse("any | surroundings | The nearest is {nearest}.\n", "test");
+    const std::string once = first(lines.replies(packets::surroundings()));
+    const std::string twice = first(lines.replies(packets::surroundings_again()));
+    check::is_true(once.rfind("The nearest is ", 0) == 0, "the premise: the line once: " + once);
+    const std::string rest = "the nearest is" + once.substr(std::string("The nearest is").size());
+    check::is_true(twice == "As I said, " + rest || twice == "Again, " + rest || twice == "As I told you, " + rest,
+                   "a lead before the line, its first word lowered: " + twice);
+    // A name that opens the line keeps its capital.
+    const Lines named = Lines::parse("any | surroundings | {here} is where you are.\n", "test");
+    const std::string said = first(named.replies(packets::surroundings_again()));
+    check::is_true(said.find(", Wenweg is where you are.") != std::string::npos, "a name keeps its capital: " + said);
+    // An answer with fixed openings -- "is it safe" -- takes no lead: it would come before them.
+    FactPacket safety = packets::safety_unsafe();
+    safety.facts.back() = packets::memory_of(safety.speaker, {.turn = 2, .repeat = true});
+    const Lines verdicts = Lines::parse("any | safety_unsafe | Not here. Keep clear of {worst}.\n", "test");
+    check::is_true(first(verdicts.replies(safety)).rfind("Not here.", 0) == 0, "the verdict still first");
+}
+
+TEST(a_refusal_that_names_the_giver_ends_with_where_not_the_name_again) {
+    const Lines lines = Lines::parse("any | refused_give | No, that work is {giver}'s to give.\n"
+                                     "any | refused_give | No, that work isn't mine to give.\n",
+                                     "test");
+    const std::vector<std::string> replies = lines.replies(packets::refused_brokered());
+    check::equal(replies.size(), std::size_t(1), "the fullest line");
+    check::equal(replies.front(), std::string("No, that work is Halbrann's to give. Find them at the ruins of Linbrig."), "named once");
+    const Lines unnamed = Lines::parse("any | refused_give | No, that work isn't mine to give.\n", "test");
+    check::equal(first(unnamed.replies(packets::refused_brokered())),
+                 std::string("No, that work isn't mine to give. Speak to Halbrann, at the ruins of Linbrig."), "named by the closing");
+    // Nowhere to send them: the name alone.
+    FactPacket nowhere = packets::refused_brokered();
+    nowhere.facts[1].fields = {{"name", "Halbrann"}, {"role", "pretender"}, {"status", "about"}};
+    check::equal(first(lines.replies(nowhere)), std::string("No, that work is Halbrann's to give."), "no closing, no where");
+}
+
+TEST(is_it_safe_names_the_places_the_verdict_rests_on) {
+    const Lines lines = Lines::parse("any | safety_unsafe | Not here. Keep clear of {worst}.[ And there are {danger}.]\n"
+                                     "any | safety_safe | Safe enough here.[ Only {worst} is worth avoiding.]\n",
+                                     "test");
+    check::equal(first(lines.replies(packets::safety_unsafe())),
+                 std::string("Not here. Keep clear of the hospice on the Wenweg pass, an hour's walk away, dangerous, held by monsters. "
+                             "And there are Glacier dragons nesting an hour's walk away."),
+                 "the worst place and the nest");
+    check::equal(first(lines.replies(packets::safety_safe())),
+                 std::string("Safe enough here. Only the deeps under Linbrig, a long walk away, deadly, held by monsters is worth avoiding."),
+                 "safe here, and the far danger still named");
 }
 
 TEST(others_work_is_retold_as_theirs) {

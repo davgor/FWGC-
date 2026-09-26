@@ -103,7 +103,31 @@ std::map<std::string, std::function<FactPacket()>> voice_packets() {
             {"parted", packets::parted},
             {"not_understood", packets::not_understood},
             {"gate_surroundings", packets::surroundings_from_the_gate},
-            {"inn_work", packets::work_at_the_inn}};
+            {"inn_work", packets::work_at_the_inn},
+            // Contract version 4: conversation.
+            {"greeted_first", packets::greeted_first},
+            {"greeted_again", packets::greeted_again},
+            {"greeted_warmly", packets::greeted_warmly},
+            {"greeted_coldly", packets::greeted_coldly},
+            {"greeted_taken", [] { return packets::greeted_after("taken", "friendly"); }},
+            {"greeted_finished", [] { return packets::greeted_after("finished", "warm"); }},
+            {"small_talk_fair", [] { return packets::small_talk("clear", "breezy"); }},
+            {"small_talk_storm", [] { return packets::small_talk("stormy", "a gale"); }},
+            {"small_talk_cold", [] { return packets::small_talk("fair", "still", "hostile"); }},
+            {"acknowledged", packets::acknowledged},
+            {"thanked", [] { return packets::thanked(); }},
+            {"thanked_cold", [] { return packets::thanked("hostile"); }},
+            {"offended", [] { return packets::offended(false); }},
+            {"offended_again", [] { return packets::offended(true); }},
+            {"safety_unsafe", packets::safety_unsafe},
+            {"safety_wary", packets::safety_wary},
+            {"safety_safe", packets::safety_safe},
+            {"surroundings_again", packets::surroundings_again},
+            {"exposed_mask", packets::exposed_mask},
+            {"exposed_beast", packets::exposed_beast},
+            {"exposed_heart", packets::exposed_heart},
+            {"denied", [] { return packets::denied(false); }},
+            {"denied_again", [] { return packets::denied(true); }}};
 }
 
 std::optional<Kind> target_kind(ActKind kind) {

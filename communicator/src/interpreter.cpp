@@ -33,7 +33,8 @@ struct ActText {
     std::string_view pointing;         // for the target question: what the line does
 };
 
-constexpr std::array<ActText, 9> kActs = {{
+// In the contract's order (a check below holds it there). The model is shown them in kShown's.
+constexpr std::array<ActText, orchestrator::kActCount> kActs = {{
     {ActKind::AskSurroundings, std::nullopt, "asks what is around here, where they are, or the way somewhere",
      {{{"", "What's around here?"}, {"", "Which way to the coast?"}}}, ""},
     {ActKind::AskAboutPlace, Kind::Place, "asks about a place by its name",
@@ -51,28 +52,40 @@ constexpr std::array<ActText, 9> kActs = {{
     {ActKind::AbandonQuest, Kind::Held, "gives up a job they took on earlier", {{{"", "I'm done with the mill job."}, {"", ""}}},
      "gives up work they took on"},
     {ActKind::Farewell, std::nullopt, "says goodbye or leaves", {{{"", "Goodbye, and thanks."}, {"", "I must be going."}}}, ""},
-    {ActKind::NoAct, std::nullopt, "anything else: a greeting, thanks, small talk, a demand or a threat",
-     {{{"", "Hello!"}, {"", "Fine weather today."}}}, ""},
+    {ActKind::NoAct, std::nullopt, "anything else, which none of the acts above describes",
+     {{{"", "Sing me a song."}, {"", "Give me your horse."}}}, ""},
+    {ActKind::Greet, std::nullopt, "greets them: hello, good day", {{{"", "Good morning to you!"}, {"", "Hail, friend."}}}, ""},
+    {ActKind::SmallTalk, std::nullopt, "talks for the sake of it: how they are, the weather, the day, their trade",
+     {{{"", "Fine weather today."}, {"", "How's the trade treating you?"}}}, ""},
+    {ActKind::Answer, std::nullopt, "answers a question they were just asked, when it is not about work and they are not leaving",
+     {{{"Where are you headed?", "To the coast, if the road holds."}, {"Have you eaten?", "Not since morning."}}}, ""},
+    {ActKind::Thank, std::nullopt, "thanks them", {{{"", "Thank you kindly."}, {"", "Much obliged."}}}, ""},
+    {ActKind::Insult, std::nullopt, "insults or threatens them", {{{"", "You're a useless old fool."}, {"", "Out of my way or you'll regret it."}}},
+     ""},
+    {ActKind::AskSafety, std::nullopt, "asks whether it is safe here, or what to beware of",
+     {{{"", "Is it safe around here?"}, {"", "What should I watch out for?"}}}, ""},
+    {ActKind::Confront, std::nullopt, "tells them they are not what they seem, or accuses them of hiding who they are",
+     {{{"", "I know you're no miller."}, {"", "Drop the act. I know what you are."}}}, ""},
 }};
-static_assert(kActs.size() == static_cast<std::size_t>(ActKind::NoAct) + 1, "one entry per act");
 
 const ActText& text_of(ActKind kind) { return kActs[static_cast<std::size_t>(kind)]; }
 
-// The question put to the player before an act that changes the world goes to the director.
-std::string confirmation(ActKind kind) {
-    if (!orchestrator::act_changes_world(kind)) return {};
-    switch (kind) {
-        case ActKind::AcceptQuest:
-            return "Take on this work?";
-        case ActKind::AbandonQuest:
-            return "Give up this work?";
-        default:
-            return "Do this?";  // an act the contract makes world-changing later, until it has words of its own
-    }
-}
+// The order the model is shown the acts in: the contract's, with "anything else" last, after
+// everything it is not. The acts added later come after the ones first measured, in their order:
+// the test model reads the first acts listed far more often, and listing greet and small_talk
+// first read 16 of 23 clear lines as one of those two (2026-09-26).
+constexpr std::array<ActKind, orchestrator::kActCount> kShown = {
+    ActKind::AskSurroundings, ActKind::AskAboutPlace, ActKind::AskAboutPerson, ActKind::AskForWork,
+    ActKind::AcceptQuest,     ActKind::DeclineQuest,  ActKind::AbandonQuest,   ActKind::Farewell,
+    ActKind::Greet,           ActKind::SmallTalk,     ActKind::Answer,         ActKind::Thank,
+    ActKind::Insult,          ActKind::AskSafety,     ActKind::Confront,       ActKind::NoAct};
 
-// Whether an act can be put to the model: it takes no target, or there is something to point at.
-bool offered(const ActText& act, const Known& known) { return !act.target || !known.nameable(*act.target, 1).empty(); }
+// Whether an act can be put to the model: it takes no target, or there is something to point at;
+// and an answer only to a question, when the speaker's last words asked one.
+bool offered(const ActText& act, const Known& known, std::string_view last_reply) {
+    if (act.kind == ActKind::Answer) return last_reply.find('?') != std::string_view::npos;
+    return !act.target || !known.nameable(*act.target, 1).empty();
+}
 
 // What the traveller says, and what was said to them last, as the model reads it.
 std::string exchange(std::string_view line, std::string_view last_reply) {
@@ -136,21 +149,37 @@ std::vector<Referent> candidates(Kind kind, const Known& known, std::string_view
 
 }  // namespace
 
+std::string confirm_question(ActKind kind) {
+    if (!orchestrator::act_changes_world(kind)) return {};
+    switch (kind) {
+        case ActKind::AcceptQuest:
+            return "Take on this work?";
+        case ActKind::AbandonQuest:
+            return "Give up this work?";
+        default:
+            return "Do this?";  // an act the contract makes world-changing later, until it has words of its own
+    }
+}
+
 Interpreter::Interpreter(inference::Model& model) : model_(model) {
     // The table must say what the contract says: an act added there, or one whose target
     // changed, stops here rather than being offered to the model wrongly.
+    std::set<ActKind> shown;
     for (std::size_t i = 0; i < kActs.size(); ++i) {
         const ActKind kind = static_cast<ActKind>(i);
         if (kActs[i].kind != kind || orchestrator::act_needs_target(kind) != kActs[i].target.has_value())
             throw Error("the interpreter's act table disagrees with the orchestrator's contract at " +
                         std::string(orchestrator::to_string(kind)));
+        shown.insert(kShown[i]);
     }
+    if (shown.size() != kActs.size()) throw Error("the interpreter shows the model some act twice, and another never");
 }
 
 Question Interpreter::act_question(std::string_view line, const Known& known, std::string_view last_reply) const {
     std::string acts, alternatives;
-    for (const ActText& act : kActs) {
-        if (!offered(act, known)) continue;  // nothing of its kind to point at: not an act the player can make here
+    for (const ActKind kind : kShown) {
+        const ActText& act = text_of(kind);
+        if (!offered(act, known, last_reply)) continue;  // nothing to point at, or no question to answer
         const std::string name(orchestrator::to_string(act.kind));
         acts += "- " + name + ": " + std::string(act.meaning) + ".\n";
         alternatives += (alternatives.empty() ? "" : " | ") + gbnf::literal(name);
@@ -159,9 +188,11 @@ Question Interpreter::act_question(std::string_view line, const Known& known, st
     // second, so no one act's examples all sit next to the line.
     std::vector<std::pair<Example, std::string>> worked;
     for (std::size_t round = 0; round < 2; ++round)
-        for (const ActText& act : kActs)
-            if (offered(act, known) && !act.examples[round].line.empty())
+        for (const ActKind kind : kShown) {
+            const ActText& act = text_of(kind);
+            if (offered(act, known, last_reply) && !act.examples[round].line.empty())
                 worked.emplace_back(act.examples[round], std::string(orchestrator::to_string(act.kind)));
+        }
     Question q;
     q.messages = {{"system", "You sort what a traveller says to someone in a fantasy world into one act. Answer with the act's name "
                              "alone.\n\nThe acts:\n" +
@@ -226,7 +257,7 @@ Interpretation Interpreter::interpret(std::string_view line, const Known& known,
 
     const std::string act_answer = ask(act_question(line, known, last_reply));
     const std::optional<ActKind> kind = orchestrator::act_kind(act_answer);
-    if (!kind || !offered(text_of(*kind), known)) throw outside(act_answer);
+    if (!kind || !offered(text_of(*kind), known, last_reply)) throw outside(act_answer);
     Interpretation out;
     out.act.kind = *kind;
     const ActText& act = text_of(*kind);
@@ -248,7 +279,7 @@ Interpretation Interpreter::interpret(std::string_view line, const Known& known,
         out.act.target = *id;
         out.label = label;
     }
-    out.confirm = confirmation(out.act.kind);
+    out.confirm = confirm_question(out.act.kind);
     return out;
 }
 

@@ -72,7 +72,14 @@ inline std::vector<FactPacket> cases() {
     for (FactPacket p : {about_halbrann(), about_the_works(), no_work(), refused_release(), refused_with_no_giver(), refused_gone(),
                          refused_by_the_world()})
         out.push_back(std::move(p));
+    for (FactPacket p : packets::conversation()) out.push_back(std::move(p));
     return out;
+}
+
+// Whether a packet's situations include `situation`: a row written for it may speak the packet.
+inline bool reaches(const FactPacket& p, const std::string& situation) {
+    const std::vector<std::string> chain = communicator::Lines::situations_for(p);
+    return std::find(chain.begin(), chain.end(), situation) != chain.end();
 }
 
 // A row of a lines file: where it stands, and its text.
@@ -144,11 +151,23 @@ inline std::vector<std::string> broken_rules(const std::string& reply, const Fac
     const communicator::ReplyShape shape = communicator::reply_shape(p);
     std::string own = reply;
     if (!shape.closing.empty()) {
-        const std::string closing = " " + shape.closing;
-        if (own.size() < closing.size() || own.compare(own.size() - closing.size(), closing.size(), closing) != 0)
+        // The closing C++ writes, or, after a line that named the giver, where they are without the
+        // name again; or nothing more when the packet says nowhere.
+        const auto ends_with = [&](const std::string& end) {
+            return !end.empty() && own.size() >= end.size() + 1 && own.compare(own.size() - end.size() - 1, end.size() + 1, " " + end) == 0;
+        };
+        std::string giver;
+        for (const Fact& f : p.facts)
+            if (f.kind == FactKind::Person && f.field("name")) giver = *f.field("name");
+        const std::size_t cut = giver.find(" (");
+        if (cut != std::string::npos) giver.resize(cut);
+        const bool named = !giver.empty() && own.find(giver) != std::string::npos;
+        if (ends_with(shape.closing))
+            own.resize(own.size() - shape.closing.size() - 1);
+        else if (named && ends_with(shape.closing_after_name))
+            own.resize(own.size() - shape.closing_after_name.size() - 1);
+        else if (!(named && shape.closing_after_name.empty()))
             out.push_back("not the closing: " + shape.closing);
-        else
-            own.resize(own.size() - closing.size());
     }
     std::string past_opening = own;
     if (!shape.openings.empty()) {
@@ -210,7 +229,7 @@ inline std::vector<std::string> row_problems(const std::string& row) {
         situation.erase(situation.find_last_not_of(' ') + 1);
         std::vector<std::string> openings;
         for (const FactPacket& p : cases())
-            if (communicator::Lines::situation(p) == situation) {
+            if (reaches(p, situation)) {
                 openings = communicator::reply_shape(p).openings;
                 break;
             }

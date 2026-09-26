@@ -55,13 +55,25 @@ player's line --Interpreter--> DialogueAct --Director::respond--> FactPacket --V
 
 One `inference::Model` serves both the interpreter and the voice, called in turn.
 
+**A conversation is remembered** (contract version 4). Every packet carries what its speaker
+remembers of the player: whether they have met and how long ago, how the speaker takes them, the
+player's dealings with the speaker's own work, what they asked about last time, and whether they
+have asked the same thing twice now. The director keeps it; the communicator speaks from it. A
+greeting to someone met before is not a first greeting, a cold speaker greets coldly, a speaker
+whose work the player finished says so, and a question asked twice is answered "As I said, ...".
+
 ## The interpreter
 
 It asks the model two questions, and a grammar holds each answer:
 
 1. **Which act.** The answer can only be an act of the contract, under the contract's own name
    (`orchestrator::to_string`). It can only be an act with something to point at: with no offer
-   known, `accept_quest` is not in the grammar. Worked examples go in as earlier chat turns.
+   known, `accept_quest` is not in the grammar; and `answer` only when the speaker's last words
+   asked a question. Worked examples go in as earlier chat turns.
+   - The sixteen acts are shown in the contract's order with `no_act` ("anything else") last:
+     the nine first measured, then greet, small_talk, answer, thank, insult, ask_safety and
+     confront. The test model reads the first acts listed far more often: shown greet and
+     small_talk first, it read 16 of 23 clear lines as one of those two.
 2. **Which target, for an act that takes one.** The model sees six known things of the act's
    kind, most likely first (those sharing the most words with the line and the last reply),
    and `(not listed)`.
@@ -105,6 +117,12 @@ The prompt holds four things:
   - Never a piece of work's map marker (`marker`, `marker_node`): it is for the game. Neither
     the prompt nor the grammar changes with it, so no id's words become sayable.
 - **What just happened:** the outcome, with a refusal's reason.
+- **What the speaker remembers of the stranger** (contract version 4), in sentences: "You have
+  met this stranger before, last a few days ago.", "They finished the work you gave them.", "Last
+  time they asked you about the burnt works.", "They have asked you this already: say so." Never
+  the Memory fact's keys. Small talk's weather, "is it safe"'s verdict and an owned-to face come
+  as facts in words: "Here and now: weather: stormy; wind: a gale ...", "Your judgement: it is
+  not safe here.", "The stranger has seen through your mask: you are a magister, not a midwife."
 - **The closing rules:** a length, no names beyond the packet's, nothing of pay, and how far
   places are but never which way.
 
@@ -120,12 +138,21 @@ A grammar holds the reply, and what happened shapes it:
 | refused | No, I can't, I cannot, I won't, Not from me, That's not mine | one, then C++'s closing |
 | parted | Farewell, Safe travels, Go well, Goodbye, Take care | one |
 | not understood | I don't follow, I'm not sure what you mean, What do you mean, That's beyond me, Speak plainly | one |
+| answered, to "is it safe" | unsafe: No, Not here, Not safe, Far from it, I wouldn't say so; wary: Safe enough, Mostly, More or less, Careful, Keep your wits about you; safe: Safe enough, Yes, Aye, It's safe, Quiet enough, Nothing to fear | up to three |
+| greeted | a first meeting: Hello, Greetings, Well met, Good day, Welcome, Hail; met before: Hello again, Back again, Welcome back, Good to see you, Well met again, Good day; a cold speaker: What do you want, What now, Keep back, Stay back | up to two |
+| chatted (small talk) | anything | up to two |
+| acknowledged | I see, Is that so, Fair enough, Good, Right, Ah, Well, Aye, Indeed | up to two |
+| thanked | You're welcome, No need, Think nothing of it, Glad to, My pleasure, Don't mention it; a cold speaker: Save your thanks, Keep your thanks, Hmph, Spare me | one |
+| offended | Watch your tongue, Mind your manners, How dare you, Enough, Careful, Hold your tongue, There's no need for that | one |
+| exposed | So, So you know, Very well, Fine, Clever, Yes, You've found me out, Enough, then | up to three |
+| denied | No, Nonsense, You're mistaken, I don't know what you mean, What are you on about, That's not so, You have the wrong one | one |
 
 The model chooses among the openings and writes the rest. A reply that opens by stating what
 happened rarely turns into its opposite. A short one leaves little room to invent.
 
 A refusal ends with a sentence C++ writes, word for word: who to see instead ("Speak to Halbrann,
-at the ruins of Linbrig.").
+at the ruins of Linbrig."). A written line that names the giver itself ends with where they are
+alone ("Find them at the ruins of Linbrig."), so the giver is named once.
 
 Every capitalised word the model writes must be a word the prompt gives as something to say, or
 "I". A sentence may also begin with one of a closed list of common words (`common_capitals()`:
@@ -172,6 +199,20 @@ larger-than-life heroes.
 - **Situations** are read from the packet (`Lines::situation`): the outcome, and for an answer,
   what was asked. A refusal splits by its reason's `why`: the work not theirs to give or to
   release, the speaker gone, or refused by the world.
+- **Conversation situations come as a chain, closest first** (`Lines::situations_for`, contract
+  version 4), and each bank answers from the first it has a line for, before the next bank is
+  tried: a warden with no warm greeting greets as a warden, from `greeted_again`.
+  - A greeting by what the speaker remembers: a first meeting; met before, and warmly; a cold
+    speaker; or what came of the speaker's own work (taken and not done, finished, failed, given
+    up), first. `{since}` says how long ago ("a few days ago"), `{asked}` what was asked then.
+  - Small talk by the weather where the speaker stands (fair, wet, storm), with `{season}`,
+    `{time}` and the worst `{danger}`; a cold speaker has none of it.
+  - "Is it safe" by the verdict, `{worst}` the place it rests on.
+  - An exposure by the face owned to; a second insult or denial by its own lines first.
+  - No chain crosses from one reply shape's openings to another's.
+- **Asked twice in one conversation,** an answer is said after "As I said," or "Again," (C++'s
+  words, its first word lowered unless it is "I" or a name): the speaker says so, and the line
+  itself stays one a writer wrote.
 - **Blanks** are filled from the packet only (`Lines::situations()` lists each situation's):
   `{giver}`, `{here}`, `{nearest}`, `{others}`, `{danger}`, `{own}`..., and in every situation
   `{speaker}`, `{post}` and `{place}`. A line with a blank its packet cannot fill is not said.
@@ -211,9 +252,11 @@ larger-than-life heroes.
   - **Each bank's voice comes from the public persona the generator composes for that pair:**
     manner from the card's pole notes, voice and stance from the alignment overlays, never-lines
     and the sample line. Nothing the card keeps back.
-  - **The faced archetypes and `ancient` are written but unused:** 27 banks, 1,188 lines, for
-    deceiver, false_hero, beast, fractured_heart and ancient. Their heroes get no voice key: a
-    face hides the archetype, or the hero is a dread.
+  - **The faced archetypes** (27 banks, 1,188 lines, for deceiver, false_hero, beast and
+    fractured_heart, and `ancient`) were written before any of their heroes spoke from them.
+    Since contract version 4 a beast's calm face and a fractured heart's first speak from their
+    archetype's banks, and a mask's true face does once exposed; a mask still worn speaks from
+    its trade's post bank, and `ancient`'s dreads have no key.
   - **Every roster post, and the faces heroes show:** 86 banks of 32 lines, in
     `posts_<group>.txt` by trade: 2,741 lines, and the gate captain's first 11 in `posts.txt`.
     The roster's own posts, from the gate guard to the astronomer; the five posts and five

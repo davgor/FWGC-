@@ -29,3 +29,66 @@ any | parted | Farewell.
 any | parted | Safe travels.
 any | not_understood | I don't follow.
 any | not_understood | I'm not sure what you mean.
+
+# ---- Conversation (contract version 4) -----------------------------------------------------------
+any | greeted | Hello, stranger.
+any | greeted | Good day to you.
+any | greeted | Well met. I'm {speaker}.
+any | greeted_again | Back again, then.
+any | greeted_again | Hello again.[ Still asking after {asked}?]
+any | greeted_again | Good day. I saw you {since}.
+any | greeted_warm | Welcome back, friend.
+any | greeted_warm | Good to see you again.
+any | greeted_cold | What do you want?
+any | greeted_cold | What now?
+any | greeted_cold | Keep back. Say your piece.
+any | greeted_taken | Back again. How goes the work?
+any | greeted_taken | Hello again. Is it done yet?
+any | greeted_finished | Welcome back. You did good work.
+any | greeted_finished | Good to see you. The work was well done.
+any | greeted_failed | Hello again. It went badly, then.
+any | greeted_failed | Back again. We'll say no more of the work.
+any | greeted_abandoned | Back again. You left my work undone.
+any | greeted_abandoned | Hello again. We'll not speak of the work.
+any | small_talk | It's {season} here, and {time} already.
+any | small_talk | Well, it's {season}.[ Mind the {danger}.]
+any | small_talk_fair | A fine day for {season}.[ Mind the {danger}, though.]
+any | small_talk_fair | Good weather today.[ Watch for the {danger}.]
+any | small_talk_wet | A wet one today.[ Watch for the {danger}.]
+any | small_talk_wet | It's damp, as {season} goes.
+any | small_talk_storm | A storm's blowing. Not a day for the road.
+any | small_talk_storm | It's foul out. Stay under a roof if you can.
+any | small_talk_cold | I've no time for idle talk.
+any | small_talk_cold | Say what you want, or move on.
+any | acknowledged | I see.
+any | acknowledged | Fair enough.
+any | acknowledged | Right. Good to know.
+any | thanked | You're welcome.
+any | thanked | Think nothing of it.
+any | thanked | Glad to help.
+any | thanked_cold | Save your thanks.
+any | thanked_cold | Keep your thanks and go.
+any | offended | Watch your tongue.
+any | offended | Mind your manners, stranger.
+any | offended_again | Enough, I've heard enough from you.
+any | offended_again | Hold your tongue, or be gone.
+any | safety_unsafe | Not here. Keep clear of {worst}.[ And there are {danger}.]
+any | safety_unsafe | No. There are {danger}.[ And keep clear of {worst}.]
+any | safety_unsafe | Far from it. Mind {worst}.[ Then there's {others}.]
+any | safety_wary | Safe enough, if you keep clear of {worst}.[ There are {danger}, too.]
+any | safety_wary | Mostly. Keep clear of {worst}.[ There are {danger}.]
+any | safety_safe | Safe enough here.[ Only {worst} is worth avoiding.]
+any | safety_safe | Quiet enough.[ Keep clear of {worst}, though.]
+any | safety_safe | Nothing to fear here.
+any | exposed | So you know. I'll not pretend otherwise.
+any | exposed_true | So you know. I'm no {was}, and never was.
+any | exposed_true | Very well. The {was} was a mask. The {is} is who I am.
+any | exposed_unleashed | So you saw. When the moon is full, I am not myself.
+any | exposed_unleashed | Yes. What you saw was me.
+any | exposed_second | So you've met the other one.
+any | exposed_second | Fine. Some days I am someone else.
+any | denied | Nonsense.
+any | denied | You're mistaken about me.
+any | denied | That's not so.
+any | denied_again | No, and I'll not say it again.
+any | denied_again | Nonsense, and that's the end of it.

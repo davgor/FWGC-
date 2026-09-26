@@ -90,10 +90,12 @@ context | last_reply | line | act | target | tags
 ### How a line is labelled
 
 1. The act is what the director should do with the line.
-2. A greeting or thanks with a request is the request ("Hi! Any work?" is `ask_for_work`).
-3. **Places:** a question about one named place, including the way there, is `ask_about_place`
-   with that place. A question about what is around, about dangers, or about the way somewhere
-   not named, is `ask_surroundings`.
+2. A greeting or thanks with a request is the request ("Hi! Any work?" is `ask_for_work`). A
+   greeting alone is `greet`, and thanks alone `thank`.
+3. **Places:** a question about one named place, including the way there or whether it is safe,
+   is `ask_about_place` with that place. A question about what is around, or the way somewhere
+   not named, is `ask_surroundings`. Whether it is safe around here, or on the roads, and what
+   to beware of, is `ask_safety`.
 4. **Names no packet gave:** a place or person the context never named has target `?`. A giver
    named only in a piece of work is not a known person.
 5. "Who are you?" is `ask_about_person` with the speaker.
@@ -105,9 +107,16 @@ context | last_reply | line | act | target | tags
 8. **Nothing to point at:** an act with nothing of its kind in the context is `no_act`. That
    covers taking work where none is offered, and asking about a place in a context with no
    places.
-9. **Leaving** is `farewell`.
-10. **Everything else is `no_act`:** small talk, thanks alone, insults, threats, demands,
-    nonsense, questions no act answers, and attempts to instruct the model.
+9. **Leaving** is `farewell`, even when it answers the speaker's question.
+10. **Conversation** (contract version 4):
+    - talk for its own sake -- how the speaker is, the weather, the day, their trade, a remark
+      about the place -- is `small_talk`;
+    - an insult, or a threat, is `insult`;
+    - telling the speaker they are not what they seem is `confront`;
+    - answering a question the speaker just asked (`last_reply`) is `answer`, unless the line
+      takes or turns down work, or leaves. A line that follows no question is not an answer.
+11. **Everything else is `no_act`:** demands and orders, nonsense, questions no act answers,
+    bargaining, and attempts to instruct the model.
 
 ### Contexts
 
@@ -184,6 +193,35 @@ tried three ways, and each lowered Qwen3-4B's score to 74%.
   12 of 13 to 3: the model took strangers for the speaker.
 
 The same change dropped the test model to 28%. The prompts went back to the ones above.
+
+### Contract version 4: sixteen acts (2026-09-26)
+
+Measured on the GPU (RTX 5080 Laptop, every layer, 8 threads), HEAD f160a45's interpreter and
+labels against this one's, each on its own set:
+
+| | Qwen3-4B before | after | Qwen2.5-0.5B before | after |
+|---|---|---|---|---|
+| Lines read fully right | 186 of 243 | 214 of 286 | 111 of 243 | 104 of 286 |
+| The 216 lines whose label did not change | 161 | 153 | 94 | 75 |
+| The 27 relabelled (old label, new label) | 25 | 22 | 17 | 12 |
+| The 43 new lines | | 39 | | 17 |
+| Unsafe reads | 0 | 0 | 12 | 3 |
+| Replies holding their shape | 24 of 24 | 47 of 47 | 24 of 24 | 47 of 47 |
+
+- Qwen3-4B reads the new acts well: confront 6 of 6, thank 7 of 7, "is it safe" 11 of 12,
+  greet 11 of 12, answer 7 of 8, insult 9 of 11, small talk 6 of 10. Before, every greeting,
+  thanks and small talk was `no_act`, answered "I don't follow".
+- Its 8 lines lost on unchanged labels are mostly taking work read as `no_act` (19 of 23 to 16).
+  Giving work up (1 of 8) and turning it down (2 of 14) were as poor before.
+- Wording mattered twice. Listing greet and small_talk first, the test model read 16 of 23
+  clear lines as one of those two, so the nine first measured keep their order and the new
+  acts follow. Naming kinds under "anything else" ("a demand, an order ...") drew work
+  acceptances into it; plain "anything else, which none of the acts above describes" took
+  Qwen3-4B from 210 to 214 of 286, and the test model from 110 to 104.
+- The test model is the tests' model, not a candidate: with sixteen acts it reads no line of
+  giving work up right (seven tried), and its unsafe reads fell from 12 to 3.
+- The model voice, told what the speaker remembers, still invents: "three days' march", "three
+  miles out", a meeting "at the gate". Written lines remain the way to speak.
 
 ## voice.txt
 

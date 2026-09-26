@@ -12,6 +12,8 @@
 
 #include "communicator/error.hpp"
 #include "communicator/known.hpp"
+#include "communicator/voice.hpp"
+#include "memory.hpp"
 #include "reply_shape.hpp"
 #include "text.hpp"
 
@@ -29,6 +31,14 @@ using orchestrator::Outcome;
 const std::vector<std::string>& speaker_blanks() {
     static const std::vector<std::string> blanks = {"speaker", "post", "place"};
     return blanks;
+}
+
+// The blanks a line says that make it no fuller than a line without them: the speaker's own, and
+// those filled whenever their situation is (how long since a meeting, the season, the time of
+// day). Counted, a line saying one would silence every sibling that does not.
+bool uncounted(const std::string& blank) {
+    static const std::set<std::string> blanks = {"speaker", "post", "place", "since", "season", "time"};
+    return blanks.count(blank) != 0;
 }
 
 std::string trimmed(std::string_view text) {
@@ -182,6 +192,30 @@ std::vector<const Fact*> of_kind(const FactPacket& p, FactKind kind) {
 
 bool own_offer(const Fact& f) { return f.kind == FactKind::QuestOffer && field_of(f, "from_speaker") == "yes"; }
 
+// A field of the packet's first fact of `kind`, or empty.
+std::string first_field(const FactPacket& p, FactKind kind, std::string_view key) {
+    for (const Fact& f : p.facts)
+        if (f.kind == kind) return field_of(f, key);
+    return {};
+}
+
+// The weather small talk is about, as the situation it picks: fair, wet or storm.
+std::string weather_class(const FactPacket& p) {
+    const std::string weather = first_field(p, FactKind::Chat, "weather");
+    if (weather == "stormy" || weather == "a great storm" || first_field(p, FactKind::Chat, "wind") == "a gale") return "storm";
+    if (weather == "unsettled") return "wet";
+    if (weather == "clear" || weather == "fair") return "fair";
+    return {};
+}
+
+// The worst nest: the highest danger, the nearest of those.
+const Fact* worst_nest(const FactPacket& p) {
+    const Fact* worst = nullptr;
+    for (const Fact& nest : p.facts)
+        if (nest.kind == FactKind::Danger && (!worst || field_of(nest, "danger") > field_of(*worst, "danger"))) worst = &nest;
+    return worst;
+}
+
 // Every blank this packet can fill, for its situation.
 std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::string& situation) {
     std::map<std::string, std::string> out;
@@ -191,6 +225,31 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     set("speaker", text::spoken(p.persona.name));
     set("post", text::spaced(text::spoken(p.persona.role)));
     set("place", text::spoken(p.persona.place));
+
+    // What the speaker remembers, for a greeting: when they last met, what was asked then.
+    const auto starts = [&](std::string_view prefix) { return situation.rfind(prefix, 0) == 0; };
+    if (starts("greeted_")) {
+        const Remembered m = remembered(p);
+        set("since", since_words(m.since));
+        set("asked", text::spoken(m.asked_before));
+    }
+    if (starts("small_talk")) {
+        set("season", first_field(p, FactKind::Chat, "season"));
+        set("time", first_field(p, FactKind::Chat, "time"));
+        if (const Fact* nest = worst_nest(p)) set("danger", danger_phrase(*nest));
+    }
+    if (starts("exposed")) {
+        set("was", text::spaced(text::spoken(first_field(p, FactKind::Reveal, "was"))));
+        set("is", text::spaced(text::spoken(first_field(p, FactKind::Reveal, "is"))));
+    }
+    if (starts("safety_")) {
+        // The director names the places a verdict rests on first (orchestrator/contract.hpp).
+        const std::vector<const Fact*> named = of_kind(p, FactKind::Place);
+        std::set<std::string> said;
+        if (!named.empty()) set("worst", place_phrase(*named.front(), said));
+        if (named.size() > 1) set("others", others_phrase(std::vector<const Fact*>(named.begin() + 1, named.end()), said));
+        if (const Fact* nest = worst_nest(p)) set("danger", danger_phrase(*nest));
+    }
 
     const std::vector<const Fact*> people = of_kind(p, FactKind::Person);
     if (situation == "about_person" && !people.empty()) {
@@ -253,7 +312,7 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
 }
 
 // A line filled from a packet: its text, and which of its situation's blanks it says, each once
-// however often it says it (the speaker's own, {speaker}, {post} and {place}, are not counted).
+// however often it says it (the uncounted ones aside).
 struct Filled {
     std::string text;
     std::set<std::string> said;
@@ -273,7 +332,7 @@ std::optional<Filled> fill_blanks(std::string_view text, const std::map<std::str
         const auto found = blanks.find(name);
         if (found == blanks.end()) return std::nullopt;
         out.text += found->second;
-        if (std::find(speaker_blanks().begin(), speaker_blanks().end(), name) == speaker_blanks().end()) out.said.insert(name);
+        if (!uncounted(name)) out.said.insert(name);
         i = close + 1;
     }
     return out;
@@ -348,6 +407,21 @@ std::uint64_t stable_hash(std::string_view text) {
     return h;
 }
 
+// A line said a second time: "As I said, " before it, its first word lowered when that word is
+// one a sentence merely begins with -- never "I", never a name.
+std::string repeat_lead(const std::string& line) {
+    static const std::vector<std::string> leads = {"As I said", "Again", "As I told you"};
+    const std::string& lead = leads[static_cast<std::size_t>(stable_hash(line) % leads.size())];
+    std::size_t end = 0;
+    while (end < line.size() && std::isalpha(static_cast<unsigned char>(line[end]))) ++end;
+    const std::string first = line.substr(0, end);
+    const std::vector<std::string>& common = common_capitals();
+    std::string rest = line;
+    if (!first.empty() && first != "I" && std::find(common.begin(), common.end(), first) != common.end())
+        rest[0] = static_cast<char>(std::tolower(static_cast<unsigned char>(rest[0])));
+    return lead + ", " + rest;
+}
+
 }  // namespace
 
 const std::map<std::string, std::vector<std::string>>& Lines::situations() {
@@ -369,14 +443,101 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"abandoned", {}},
         {"parted", {}},
         {"not_understood", {}},
+        // Contract version 4: conversation. A greeting by what the speaker remembers.
+        {"greeted", {}},
+        {"greeted_again", {"since", "asked"}},
+        {"greeted_warm", {"since", "asked"}},
+        {"greeted_cold", {}},
+        {"greeted_taken", {"since"}},
+        {"greeted_finished", {"since"}},
+        {"greeted_failed", {"since"}},
+        {"greeted_abandoned", {"since"}},
+        // Small talk, by the weather where the speaker stands.
+        {"small_talk", {"season", "time", "danger"}},
+        {"small_talk_fair", {"season", "time", "danger"}},
+        {"small_talk_wet", {"season", "time", "danger"}},
+        {"small_talk_storm", {"season", "time", "danger"}},
+        {"small_talk_cold", {}},
+        {"acknowledged", {}},
+        {"thanked", {}},
+        {"thanked_cold", {}},
+        {"offended", {}},
+        {"offended_again", {}},
+        // "Is it safe", by the verdict.
+        {"safety_unsafe", {"worst", "others", "danger"}},
+        {"safety_wary", {"worst", "others", "danger"}},
+        {"safety_safe", {"worst", "others", "danger"}},
+        // A hidden face owned to, by which face.
+        {"exposed", {"was", "is"}},
+        {"exposed_true", {"was", "is"}},
+        {"exposed_unleashed", {"was", "is"}},
+        {"exposed_second", {"was", "is"}},
+        {"denied", {}},
+        {"denied_again", {}},
     };
     return table;
 }
 
 std::string Lines::situation(const FactPacket& p) {
+    const std::vector<std::string> chain = situations_for(p);
+    return chain.empty() ? std::string() : chain.front();
+}
+
+std::vector<std::string> Lines::situations_for(const FactPacket& p) {
+    const Remembered m = remembered(p);
+    switch (p.outcome) {
+        case Outcome::Greeted: {
+            // A cold speaker greets coldly whatever came before; otherwise a first meeting, or
+            // what came of the speaker's own work, then how warmly they take the stranger. No
+            // chain crosses from one greeting's openings (reply_shape) to another's.
+            if (m.cold()) return {"greeted_cold"};
+            if (!m.again) return {"greeted"};
+            std::vector<std::string> chain;
+            if (m.work == "taken" || m.work == "finished" || m.work == "failed" || m.work == "abandoned")
+                chain.push_back("greeted_" + m.work);
+            if (m.warm()) chain.push_back("greeted_warm");
+            chain.push_back("greeted_again");
+            return chain;
+        }
+        case Outcome::Chatted: {
+            std::vector<std::string> chain;
+            if (m.cold()) chain.push_back("small_talk_cold");
+            if (const std::string weather = weather_class(p); !weather.empty()) chain.push_back("small_talk_" + weather);
+            chain.push_back("small_talk");
+            return chain;
+        }
+        case Outcome::Acknowledged:
+            return {"acknowledged"};
+        case Outcome::Thanked:
+            return {m.cold() ? "thanked_cold" : "thanked"};
+        case Outcome::Offended:
+            if (m.repeat || m.mood == "hostile") return {"offended_again", "offended"};
+            return {"offended"};
+        case Outcome::Exposed: {
+            const std::string face = first_field(p, FactKind::Reveal, "face");
+            if (face == "true" || face == "unleashed" || face == "second") return {"exposed_" + face, "exposed"};
+            return {"exposed"};
+        }
+        case Outcome::Denied:
+            if (m.repeat) return {"denied_again", "denied"};
+            return {"denied"};
+        default: {
+            std::string one = single_situation(p);
+            if (one.empty()) return {};
+            return {one};
+        }
+    }
+}
+
+std::string Lines::single_situation(const FactPacket& p) {
     switch (p.outcome) {
         case Outcome::Answered:
             switch (p.answering) {
+                case ActKind::AskSafety: {
+                    const std::string verdict = first_field(p, FactKind::Safety, "verdict");
+                    if (verdict == "unsafe" || verdict == "wary" || verdict == "safe") return "safety_" + verdict;
+                    return {};
+                }
                 case ActKind::AskSurroundings:
                     return of_kind(p, FactKind::Place).empty() ? std::string() : "surroundings";
                 case ActKind::AskAboutPlace:
@@ -415,6 +576,14 @@ std::string Lines::situation(const FactPacket& p) {
             return "parted";
         case Outcome::NotUnderstood:
             return "not_understood";
+        case Outcome::Greeted:
+        case Outcome::Chatted:
+        case Outcome::Acknowledged:
+        case Outcome::Thanked:
+        case Outcome::Offended:
+        case Outcome::Exposed:
+        case Outcome::Denied:
+            break;  // situations_for chains these
     }
     return {};
 }
@@ -478,10 +647,19 @@ void Lines::read(std::string_view text, const std::string& source) {
 }
 
 std::vector<std::string> Lines::replies(const FactPacket& p) const {
-    const std::string s = situation(p);
-    if (s.empty()) return {};
-    const std::map<std::string, std::string> blanks = blanks_of(p, s);
-    const std::string closing = reply_shape(p).closing;
+    const std::vector<std::string> chain = situations_for(p);
+    if (chain.empty()) return {};
+    const ReplyShape shape = reply_shape(p);
+    // Asked the same thing twice in one conversation, a speaker says so before saying it again:
+    // an answer with no fixed opening begins "As I said, ...".
+    const bool lead = remembered(p).repeat && p.outcome == Outcome::Answered && shape.openings.empty();
+    const auto finished = [&](const Filled& f) {
+        // A line that named the giver ends with where they are, not with their name again.
+        const std::string& closing = f.said.count("giver") ? shape.closing_after_name : shape.closing;
+        std::string text = f.text;
+        if (lead) text = repeat_lead(text);
+        return text + (closing.empty() ? "" : " " + closing);
+    };
     std::vector<std::string> voices;
     if (!p.persona.voice_key.empty()) {
         voices.push_back(p.persona.voice_key);
@@ -495,23 +673,28 @@ std::vector<std::string> Lines::replies(const FactPacket& p) const {
     }
     if (!p.persona.role.empty()) voices.push_back("post:" + p.persona.role);
     voices.push_back("any");
+    // The speaker's own bank first, and in it the situation that fits most closely: a bank without
+    // a line for "greeted_warm" still greets as itself, from "greeted_again".
     for (const std::string& voice : voices) {
         const auto bank = banks_.find(voice);
         if (bank == banks_.end()) continue;
-        const auto lines = bank->second.find(s);
-        if (lines == bank->second.end()) continue;
-        std::vector<Filled> fits;
-        for (const std::string& line : lines->second)
-            if (std::optional<Filled> reply = filled(line, blanks)) fits.push_back(std::move(*reply));
-        if (fits.empty()) continue;
-        // The lines that say the most of what the packet holds: a speaker who knows of a nest
-        // does not leave it out for a shorter line.
-        std::size_t most = 0;
-        for (const Filled& f : fits) most = std::max(most, f.said.size());
-        std::vector<std::string> out;
-        for (const Filled& f : fits)
-            if (f.said.size() == most) out.push_back(f.text + (closing.empty() ? "" : " " + closing));
-        return out;
+        for (const std::string& s : chain) {
+            const auto lines = bank->second.find(s);
+            if (lines == bank->second.end()) continue;
+            const std::map<std::string, std::string> blanks = blanks_of(p, s);
+            std::vector<Filled> fits;
+            for (const std::string& line : lines->second)
+                if (std::optional<Filled> reply = filled(line, blanks)) fits.push_back(std::move(*reply));
+            if (fits.empty()) continue;
+            // The lines that say the most of what the packet holds: a speaker who knows of a nest
+            // does not leave it out for a shorter line.
+            std::size_t most = 0;
+            for (const Filled& f : fits) most = std::max(most, f.said.size());
+            std::vector<std::string> out;
+            for (const Filled& f : fits)
+                if (f.said.size() == most) out.push_back(finished(f));
+            return out;
+        }
     }
     return {};
 }

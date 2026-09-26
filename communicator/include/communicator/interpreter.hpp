@@ -39,6 +39,10 @@ struct Interpretation {
 // named. Choosing it makes the act no_act, with `meant` set.
 inline constexpr std::string_view kNotListed = "(not listed)";
 
+// The question put to the player before `kind` goes to the director, as Interpretation::confirm
+// carries it: "Take on this work?", "Give up this work?". Empty for an act that changes nothing.
+std::string confirm_question(orchestrator::ActKind kind);
+
 // One question put to the model: what it is told, and the grammar its answer is held to.
 struct Question {
     std::vector<inference::Message> messages;
