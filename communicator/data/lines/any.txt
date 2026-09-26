@@ -39,6 +39,7 @@ any | greeted_again | Hello again.[ Still asking after {asked}?]
 any | greeted_again | Good day. I saw you {since}.
 any | greeted_warm | Welcome back, friend.
 any | greeted_warm | Good to see you again.
+any | greeted_warm | Welcome back.[ Any luck with {asked}?]
 any | greeted_cold | What do you want?
 any | greeted_cold | What now?
 any | greeted_cold | Keep back. Say your piece.

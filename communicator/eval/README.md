@@ -223,6 +223,24 @@ labels against this one's, each on its own set:
 - The model voice, told what the speaker remembers, still invents: "three days' march", "three
   miles out", a meeting "at the gate". Written lines remain the way to speak.
 
+## A whole conversation: session.txt
+
+A conversation is more than one reply. `session.txt` is a script a player might play: townsfolk
+met more than once, days and weeks apart; a giver whose work is taken and finished; a mask
+confronted until it comes off; a beast across the full moon; a fractured heart on two days. The
+orchestrator plays it against a real world, since the communicator never sees one, and writes
+each turn's packet as text; `--session` speaks those packets with the written lines and prints a
+transcript, each reply with a note of how the game read the line and what the speaker
+remembered (never said):
+
+```bash
+orchestrator/build/Release/orchestrator_session.exe communicator/eval/session.txt > session_packets.txt
+communicator/build/Release/communicator_eval.exe --session session_packets.txt [--authored PATH]
+```
+
+It loads no model: the script says what each line is, so the transcript is about the replies
+alone. A judge reads it for sense, memory, repeats, invention and tone.
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).

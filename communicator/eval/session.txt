@@ -1,0 +1,97 @@
+# A session to listen to: orchestrator_session plays it against a world, and
+# communicator_eval --session speaks it. The orchestrator's tools/session.cpp says how a script
+# reads. It is a conversation a player might have: random townsfolk met more than once, work
+# taken and done, and each kind of hidden face.
+world 99 33 30
+who armorer townsfolk 0
+who local townsfolk 7
+who villager townsfolk 20
+who giver giver 0
+who mask mask 0
+who beast beast 0
+who heart heart 0
+
+# A first meeting with someone in town.
+say armorer greet | Hello there!
+say armorer small_talk | How's the weather treating you?
+say armorer ask_surroundings | What's around here?
+say armorer ask_safety | Is it safe to walk about?
+say armorer ask_about_place @place | Tell me more about that place.
+say armorer ask_surroundings | Sorry, what's around here again?
+say armorer thank | Thanks, that helps.
+say armorer farewell | Goodbye for now.
+
+# Someone else, then back to the first.
+say local greet | Good day to you.
+say local small_talk | Quiet day, isn't it?
+say local ask_for_work | Anyone hiring around here?
+say local farewell | Take care.
+say armorer greet | Me again.
+say armorer ask_safety | Is it still safe, do you think?
+say armorer farewell | Bye.
+
+advance 4
+say armorer greet | Hello again!
+say armorer small_talk | Still cold out?
+say armorer insult | You were no help at all last time.
+say armorer greet | Well?
+say armorer farewell | Bye.
+
+advance 30
+say armorer greet | It's been a while.
+say armorer thank | Sorry for what I said before. Thank you for your help.
+say armorer farewell | Farewell.
+
+# A villager met twice, weeks apart.
+say villager greet | Hail.
+say villager ask_surroundings | Where am I, exactly?
+say villager farewell | Farewell.
+advance 20
+say villager greet | Remember me?
+say villager small_talk | How are things with you?
+say villager farewell | Good day.
+
+# A giver: work taken, finished, and remembered.
+say giver greet | Good day.
+say giver ask_for_work | Any work for me?
+say giver accept_quest @own | I'll do it.
+say giver farewell | I'll be back when it's done.
+advance 6
+resolve giver finished
+say giver greet | It's done.
+say giver thank | Thanks for the chance.
+say giver farewell | Farewell.
+
+# A mask: denied twice, exposed at the third meeting, then its true face.
+say mask greet | Hello.
+say mask confront | You're not what you seem.
+say mask farewell | Farewell.
+advance 1
+say mask greet | Hello again.
+say mask confront | I still think you're hiding something.
+say mask farewell | Farewell.
+advance 1
+say mask greet | Me again.
+say mask confront | Drop the act. I know what you are.
+say mask small_talk | So, how are things really?
+say mask farewell | Farewell.
+
+# A beast: calm, unleashed under the full moon, then owning to it.
+calmday
+say beast greet | Hello.
+say beast farewell | Goodbye.
+fullmoon
+say beast greet | Hello? Are you all right?
+say beast farewell | I'll go.
+calmday
+say beast greet | Hello again.
+say beast confront | I saw what you become under the full moon.
+say beast farewell | Take care.
+
+# A fractured heart, met on two days running, then confronted.
+say heart greet | Hello.
+say heart farewell | Goodbye.
+advance 1
+say heart greet | Hello again.
+say heart confront | You weren't yourself yesterday.
+say heart farewell | Goodbye.
