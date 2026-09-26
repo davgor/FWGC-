@@ -26,6 +26,11 @@ ctest --test-dir communicator/build -C Release --no-tests=error
 - **Every model answer is held by a grammar,** and C++ reads only answers the grammar allows. A
   new question put to a model comes with its grammar, and a test that the model cannot answer
   outside it.
+- **An embedding model only compares** (`meaning.hpp`): it turns the player's words and written
+  texts into vectors, and C++ takes the closest of a few written options. It never writes what a
+  speaker says, and no id reaches it. A new subject it chooses between comes with its written
+  description and a measure on lines held out from tuning; ranking a bank's own lines by
+  closeness read small talk's subject right only 70% of the time.
 - **No id reaches a model.** A model sees labels; C++ maps a label back to its id. A test checks
   every prompt and grammar for ids.
 - **The voice names only what its packet names.** Nothing that can be a name goes into
