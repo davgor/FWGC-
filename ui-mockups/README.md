@@ -18,4 +18,5 @@ owner shares it.
 | Opening screen | 1 · Opening screen | [opening-screen/](opening-screen/) | Approved: direction A, Horizon |
 | Quit | 2 · Quit | [quit/](quit/) | Approved: the inline confirm |
 | Settings | 3 · Settings | [settings/](settings/) | Approved |
-| Load Character | 4 · Load Character | None yet | In design: characters with portraits, time played and last played; delete in place; a new-character slot |
+| Load Character | 4 · Load Character | [load-character/](load-character/) | Approved |
+| New Character | 5 · New Character | None yet | In design: one of the twelve peoples and one of its looks, on one screen |

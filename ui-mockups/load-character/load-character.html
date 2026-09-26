@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Load Character</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&amp;family=Tenor+Sans&amp;display=swap">
+<style>
+body{margin:0;background:#0b0d11}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:left}
+button:focus-visible,a:focus-visible{outline:2px solid #d9bb7e;outline-offset:6px}
+.t{position:absolute;left:0;top:0;width:0;height:0}
+/* This page holds every state of Load Character. Brenlin is selected by default; the address
+   picks another: load-character.html#delete asks before deleting Brenlin, and #new selects the
+   new-character slot. The portraits are the approved concept-art head studies, standing in. */
+.row .mark{opacity:0}
+.row .name{color:#b8b1a3}
+.row .thumb{border:1px solid rgba(243,238,227,0.35)}
+.r-new .thumb{border-style:dashed}
+.r-brenlin .mark{opacity:1}
+.r-brenlin .name{color:#f6f1e6}
+.r-brenlin .thumb{border-color:#d9bb7e}
+.actions{display:flex;gap:44px;padding:0 0 10px 129px}
+.confirm{display:none;flex-direction:column;gap:14px;padding:0 0 10px 129px}
+.hints-main,.hints-confirm{gap:32px;align-items:center;font-size:18px;letter-spacing:.06em;color:#d3ccbd}
+.hints-main{display:flex}
+.hints-confirm{display:none}
+.p-new{display:none;position:absolute;left:0;top:0;width:100%;height:100%;background:#14161b;align-items:center;justify-content:center}
+/* Deleting: the actions give way to the question, and the portrait steps back. */
+#delete:target~.rail .actions{display:none}
+#delete:target~.rail .confirm{display:flex}
+#delete:target~.rail .hints-main{display:none}
+#delete:target~.rail .hints-confirm{display:flex}
+#delete:target~.frame .inner{opacity:.55}
+/* The new-character slot selected. */
+#new:target~.rail .r-brenlin .mark{opacity:0}
+#new:target~.rail .r-brenlin .name{color:#b8b1a3}
+#new:target~.rail .r-brenlin .thumb{border-color:rgba(243,238,227,0.35)}
+#new:target~.rail .r-brenlin .actions{display:none}
+#new:target~.rail .r-new .mark{opacity:1}
+#new:target~.rail .r-new .name{color:#f6f1e6}
+#new:target~.rail .r-new .thumb{border-color:#d9bb7e}
+#new:target~.frame .p-brenlin{display:none}
+#new:target~.frame .p-new{display:flex}
+/* Play is chosen, and Keep in the question, until the pointer or keyboard focus moves. */
+.pick .mark{opacity:0}
+.pick .lbl{color:#b8b1a3}
+.picks:not(:hover):not(:focus-within) .pick.default .mark{opacity:1}
+.picks:not(:hover):not(:focus-within) .pick.default .lbl{color:#f6f1e6}
+.picks .pick:hover .mark,.picks .pick:focus .mark{opacity:1}
+.picks .pick:hover .lbl,.picks .pick:focus .lbl{color:#f6f1e6}
+</style>
+</head>
+<body>
+<div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #0b0d11; font-family: 'Tenor Sans', 'Gill Sans', sans-serif; color: #f3eee3">
+<i id="delete" class="t"></i><i id="new" class="t"></i>
+<img src="../../concept%20art/tier-1-style/settlements-and-locations/biome.grassland.heartland-ruins.style-study.png" alt="" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; transform: scaleX(-1)">
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: linear-gradient(90deg, rgba(11,13,17,0.84) 0%, rgba(11,13,17,0.756) 28%, rgba(11,13,17,0.353) 48%, rgba(11,13,17,0) 66%), linear-gradient(0deg, rgba(11,13,17,0.521) 0%, rgba(11,13,17,0) 26%)"></div>
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: rgba(11,13,17,0.38)"></div>
+
+<div class="rail" style="position: absolute; left: 136px; top: 120px; width: 640px; height: 888px; display: flex; flex-direction: column; justify-content: space-between">
+<header style="display: flex; flex-direction: column; gap: 24px">
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 80px; line-height: 1; color: #f6f1e6">Load Character</h1>
+<div style="width: 104px; height: 1px; background: #d9bb7e"></div>
+</header>
+<nav aria-label="Characters" style="display: flex; flex-direction: column; gap: 2px">
+
+<div class="row r-brenlin" style="display: flex; flex-direction: column">
+<button type="button" style="display: flex; align-items: center; gap: 22px; min-height: 96px">
+<span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span>
+<span class="thumb" style="width: 74px; height: 74px; flex-shrink: 0; box-sizing: border-box; position: relative; overflow: hidden; background: #e9e0cf">
+<img src="../../concept%20art/tier-1-style/peoples-and-creatures/people.human_heartland_female.style-study.png" alt="" style="position: absolute; left: -148.7px; top: -21.9px; width: 240.4px; height: 160.3px; max-width: none">
+</span>
+<span style="display: flex; flex-direction: column; gap: 8px">
+<span class="name" style="font-size: 26px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Brenlin</span>
+<span style="font-size: 17px; letter-spacing: 0.04em; color: #d3ccbd">14 h 20 m played · Last played 26 September</span>
+</span>
+</button>
+<div class="actions picks">
+<button type="button" class="pick default" style="display: flex; align-items: center; gap: 16px; min-height: 48px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 24px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Play</span></button>
+<a href="#delete" class="pick" style="display: flex; align-items: center; gap: 16px; min-height: 48px; text-decoration: none; color: inherit"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 24px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Delete</span></a>
+</div>
+<div class="confirm">
+<p style="margin: 0; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 20px; letter-spacing: 0.06em; color: #f3eee3">Delete Brenlin?</span><span style="font-size: 17px; letter-spacing: 0.04em; color: #d3ccbd">This can't be undone.</span></p>
+<div class="picks" style="display: flex; gap: 44px">
+<a href="#" class="pick default" style="display: flex; align-items: center; gap: 16px; min-height: 48px; text-decoration: none; color: inherit"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 24px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Keep</span></a>
+<button type="button" class="pick" style="display: flex; align-items: center; gap: 16px; min-height: 48px"><span class="mark" style="width: 9px; height: 9px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 24px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Delete</span></button>
+</div>
+</div>
+</div>
+
+<div class="row r-gundsulk" style="display: flex; flex-direction: column">
+<button type="button" style="display: flex; align-items: center; gap: 22px; min-height: 96px">
+<span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span>
+<span class="thumb" style="width: 74px; height: 74px; flex-shrink: 0; box-sizing: border-box; position: relative; overflow: hidden; background: #e9e0cf">
+<img src="../../concept%20art/tier-1-style/peoples-and-creatures/people.dwarf_male.style-study.png" alt="" style="position: absolute; left: -150.3px; top: -15.7px; width: 240.4px; height: 160.3px; max-width: none">
+</span>
+<span style="display: flex; flex-direction: column; gap: 8px">
+<span class="name" style="font-size: 26px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Gundsulk</span>
+<span style="font-size: 17px; letter-spacing: 0.04em; color: #d3ccbd">6 h 05 m played · Last played 19 September</span>
+</span>
+</button>
+</div>
+
+<div class="row r-nauranda" style="display: flex; flex-direction: column">
+<button type="button" style="display: flex; align-items: center; gap: 22px; min-height: 96px">
+<span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span>
+<span class="thumb" style="width: 74px; height: 74px; flex-shrink: 0; box-sizing: border-box; position: relative; overflow: hidden; background: #e9e0cf">
+<img src="../../concept%20art/tier-1-style/peoples-and-creatures/people.elf_female.style-study.png" alt="" style="position: absolute; left: -147.1px; top: -15.7px; width: 240.4px; height: 160.3px; max-width: none">
+</span>
+<span style="display: flex; flex-direction: column; gap: 8px">
+<span class="name" style="font-size: 26px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">Nauranda</span>
+<span style="font-size: 17px; letter-spacing: 0.04em; color: #d3ccbd">31 h 48 m played · Last played 2 August</span>
+</span>
+</button>
+</div>
+
+<a href="#new" class="row r-new" style="display: flex; align-items: center; gap: 22px; min-height: 96px; text-decoration: none; color: inherit">
+<span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span>
+<span class="thumb" style="width: 74px; height: 74px; flex-shrink: 0; box-sizing: border-box; display: flex; align-items: center; justify-content: center">
+<svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><line x1="13" y1="4" x2="13" y2="22" stroke="#d3ccbd" stroke-width="1.5"></line><line x1="4" y1="13" x2="22" y2="13" stroke="#d3ccbd" stroke-width="1.5"></line></svg>
+</span>
+<span class="name" style="font-size: 26px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase">New Character</span>
+</a>
+
+<div style="height: 26px"></div>
+<a href="../opening-screen/opening-screen.html" style="display: flex; align-items: center; gap: 22px; min-height: 56px; text-decoration: none; color: inherit">
+<span style="width: 11px; height: 11px; flex-shrink: 0"></span>
+<span style="font-size: 26px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Back</span>
+</a>
+</nav>
+<div class="hints-main">
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">↑ ↓</kbd>Choose</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Enter</kbd>Play</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Del</kbd>Delete</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Esc</kbd>Back</span>
+</div>
+<div class="hints-confirm">
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">← →</kbd>Choose</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Enter</kbd>Confirm</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Esc</kbd>Cancel</span>
+</div>
+</div>
+
+<div class="frame" style="position: absolute; left: 1224px; top: 180px; width: 560px; height: 720px; box-sizing: border-box; padding: 12px; background: rgba(11,13,17,0.85); border: 1px solid rgba(217,187,126,0.5)">
+<div class="inner" style="position: relative; width: 100%; height: 100%; overflow: hidden; background: #e9e0cf">
+<img class="p-brenlin" src="../../concept%20art/tier-1-style/peoples-and-creatures/people.human_heartland_female.style-study.png" alt="Brenlin" style="position: absolute; left: -708px; top: -49.6px; width: 1269px; height: 846px; max-width: none">
+<div class="p-new">
+<svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><line x1="32" y1="12" x2="32" y2="52" stroke="#d3ccbd" stroke-width="1.5"></line><line x1="12" y1="32" x2="52" y2="32" stroke="#d3ccbd" stroke-width="1.5"></line></svg>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
