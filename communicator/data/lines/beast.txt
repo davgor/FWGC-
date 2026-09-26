@@ -541,7 +541,7 @@ beast/LG | offended_again | Hold your tongue, for both our sakes.
 beast/LG | parted_cold | Go, then; we have nothing further to say.
 beast/LG | parted_cold | Be on your way, and keep to it.
 beast/LG | safety_unsafe | No, I am sorry to say. Keep well away from {worst}.[ The {danger} as well, I beg you.]
-beast/LG | safety_unsafe | Not here, I am afraid; there are {danger}.[ Please avoid {worst} as well.]
+beast/LG | safety_unsafe | Not here, I am afraid; there are {danger}.[ And please avoid {worst}.]
 beast/LG | safety_wary | Mostly, if you take care near {worst}.[ The {danger} I would avoid altogether.]
 beast/LG | safety_wary | Careful, and you will do well enough; but do not go near {worst}.
 beast/LG | safety_safe | Safe enough, by all I know; the nearest trouble is {worst}.
@@ -657,7 +657,7 @@ beast/NG | offended_again | Hold your tongue, please; I'm trying to stay reasona
 beast/NG | parted_cold | Go, then; I've nothing more for you.
 beast/NG | parted_cold | Be on your way, then.
 beast/NG | safety_unsafe | No, not really. Stay away from {worst}.[ And the {danger}, please.]
-beast/NG | safety_unsafe | I wouldn't say so; there are {danger}.[ Keep clear of {worst} as well.]
+beast/NG | safety_unsafe | I wouldn't say so; there are {danger}.[ And keep clear of {worst}.]
 beast/NG | safety_wary | Keep your wits about you and you'll be fine; just stay off {worst}.[ Mind the {danger}, too.]
 beast/NG | safety_wary | More or less; I'd give {worst} a miss, though.
 beast/NG | safety_safe | Safe enough; the nearest real trouble is {worst}.
@@ -727,3 +727,19 @@ beast/NN | denied_again | You're mistaken, and asking again won't change that.
 beast/NN | exposed_unleashed | So you know. That was me; the rest is my business.
 beast/NN | exposed_unleashed | Fine. You saw what you saw, and it was me.
 beast/NN | exposed_unleashed | Yes, it was me. Now you know; don't make it bigger than it is.
+
+# ---- sayings ----
+beast/CE | parted | Goodbye; walk, don't run, it only excites me[; as my people say, bless them, {saying}].
+beast/CE | small_talk | Today's been boring, and boring puts me in the mood for breaking things[; my lot have a saying, not that I listen: {saying}].
+beast/CG | parted | Safe travels, and, sorry, one last thing: eat something before you go[; as my people say, and they're not wrong, {saying}].
+beast/CG | small_talk | Nobody's needed a thumping yet today, and I'm glad of it, honestly.[ As we say, {saying}.]
+beast/CN | parted | Goodbye, then; we're square, you and me, and I like it that way[; as my people put it, more or less, {saying}].
+beast/CN | small_talk | One slow day after another, and my fists itching for something to do.[ Still, as my lot say, {saying}.]
+beast/LG | parted | Farewell, and may you meet no one who gives me cause to lose my temper[; as my people rightly say, {saying}].
+beast/LG | small_talk | All has gone by the rules today, and I have kept to every one of them; I trust your day has been as orderly.[ As my people have long said, {saying}.]
+beast/LN | parted | Safe travels, and keep to your bounds as I keep to mine[; as my people have it, {saying}].
+beast/LN | small_talk | Nothing has stirred the worst of me today, and I have given it no leave to stir.[ As my people have long held, {saying}.]
+beast/NG | parted | Farewell, and keep out of harm's way; I'd much rather hear you're well than hear who hurt you[; as my people say, {saying}].
+beast/NG | small_talk | Not bad, so long as everyone round here is all right, and as far as I can tell, they are.[ As we say, {saying}.]
+beast/NN | parted | Go well, and keep your temper; I'll keep mine[; as my people say, {saying}].
+beast/NN | small_talk | Much the same as ever: work, food, and nobody poking at me.[ As my people put it, {saying}.]

@@ -807,3 +807,21 @@ reluctant_hero/LE | safety_safe | Nothing to fear here, and you may take my word
 reluctant_hero/LE | denied | No; I am precisely what I appear to be, and I will thank you not to suggest otherwise.
 reluctant_hero/LE | denied | You're mistaken, and I would advise you not to repeat the error.
 reluctant_hero/LE | denied_again | That's not so, and my answer will not improve with repetition.
+
+# ---- sayings ----
+reluctant_hero/NN | parted | Goodbye, and if anyone offers you responsibility, run[; as we say, {saying}].
+reluctant_hero/NN | small_talk | Nothing's gone wrong yet, which means something's about to.[ As the old ones had it, {saying}.]
+reluctant_hero/LN | parted | Goodbye, and I trust your affairs are simpler than mine[; as it has long been said, {saying}].
+reluctant_hero/LN | small_talk | Everything has been done correctly today, and I take no pleasure in any of it.[ As my people have always held, {saying}.]
+reluctant_hero/NG | parted | Go well, and don't worry about me, I'll manage[; as my people say, {saying}].
+reluctant_hero/NG | small_talk | My feet ache and my heart's fine, so I'd call it an ordinary day.[ As we say, {saying}.]
+reluctant_hero/CN | parted | Farewell, and whatever they tell you, do it your way[; as my people say, roughly, {saying}].
+reluctant_hero/CN | small_talk | Half the day complaining, half the day doing it anyway - my way, obviously.[ As we say, {saying}.]
+reluctant_hero/LG | parted | Goodbye, and forgive me if I have been short with you[; as my people have long said, {saying}].
+reluctant_hero/LG | small_talk | Today the office has been kinder to me than usual, and I am grateful for the respite.[ As the old ones had it, {saying}.]
+reluctant_hero/CG | parted | Go well, and get some sleep, one of us should[; oh, and, as we say, {saying}].
+reluctant_hero/CG | small_talk | Nothing but other people's troubles, and I wouldn't have it any other way - don't tell anyone I said that.[ And, as my people say, {saying}.]
+reluctant_hero/NE | parted | Take care, and remember who holds the reins around here[; as we say, {saying}].
+reluctant_hero/NE | small_talk | Another day in the seat I never wanted, and I've never sat so comfortably.[ As my people say, {saying}.]
+reluctant_hero/LE | parted | Goodbye, and do not mistake my courtesy for fondness[; as my people have it, {saying}].
+reluctant_hero/LE | small_talk | Each day the office demands more of me, and each day I find I demand more of it.[ As the saying goes, {saying}.]

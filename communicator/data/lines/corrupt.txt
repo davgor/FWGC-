@@ -696,7 +696,7 @@ corrupt/CG | offended_again | How dare you, again, and to my face.
 corrupt/CG | parted_cold | On your way; we're finished here.
 corrupt/CG | parted_cold | Get going; I've nothing left to say to you.
 corrupt/CG | safety_unsafe | No, it isn't, and I'm not having you walk into it. Keep clear of {worst}.[ There are {danger} too, and they don't care who you are.]
-corrupt/CG | safety_unsafe | Far from it; there are {danger}, and I mean it.[ Keep away from {worst}, too.]
+corrupt/CG | safety_unsafe | Far from it; there are {danger}, and I mean it.[ And keep away from {worst}.]
 corrupt/CG | safety_wary | Mostly, if you're sensible and stay away from {worst}.
 corrupt/CG | safety_wary | Keep your wits about you, and give {worst} a wide berth.[ The {danger} too, please.]
 corrupt/CG | safety_safe | Safe enough, near as I can tell. The worst thing going is {worst}.
@@ -815,3 +815,21 @@ corrupt/LE | safety_safe | It's safe, and I would know if it were not.
 corrupt/LE | denied | You're mistaken, and I would choose your next words with great care.
 corrupt/LE | denied | I don't know what you mean, and I do not care to have it explained.
 corrupt/LE | denied_again | That's not so, and I shall remember that you said it twice.
+
+# ---- sayings ----
+corrupt/NN | parted | Safe travels, and don't give away anything you could trade instead[; as my people say, {saying}].
+corrupt/NN | small_talk | Some deals made, some not, and I came out ahead on the ones that counted.[ As my people put it, {saying}.]
+corrupt/LN | parted | Goodbye, and keep a copy of everything you sign; memories make poor witnesses[; as my people have long held, {saying}].
+corrupt/LN | small_talk | Everything under my seal is proper, in the letter at least, and the letter is what binds.[ As my people have it, {saying}.]
+corrupt/NG | parted | Farewell, and don't look too closely at where a kindness comes from; just pass it on[; as my people say, {saying}].
+corrupt/NG | small_talk | Not bad; a little skimmed off the top here, a little handed out there, and everyone's the better for it, mostly.[ As we say, {saying}.]
+corrupt/CN | parted | Safe travels, and walk like you've nothing to hide; it helps[; as my people say, {saying}].
+corrupt/CN | small_talk | Nothing asked, nothing told, and a good day's business either way.[ As my lot say, {saying}.]
+corrupt/LG | parted | Go well, and do send anyone in want to me; there is always a little something to be found for them[; as my people have long said, {saying}].
+corrupt/LG | small_talk | All above board, I assure you, or near enough; the accounts balance, and the needy are seen to.[ As my people rightly say, {saying}.]
+corrupt/CG | parted | Farewell, and if a rule stands in your way, step round it, you didn't hear that from me[; as my people say, {saying}].
+corrupt/CG | small_talk | Nobody's going without if I can help it, and I usually can, don't ask me how.[ As we say, {saying}.]
+corrupt/NE | parted | Go well, and if you meet anyone who'd buy this place, send them to me[; as my people say, {saying}].
+corrupt/NE | small_talk | Fine, for me; rather less so for anyone who dealt with me.[ As we say, {saying}.]
+corrupt/LE | parted | Take care, and do not invest too much of yourself in this place; I certainly have not[; as my people have it, {saying}].
+corrupt/LE | small_talk | Much has been arranged today, to my satisfaction if not to anyone else's.[ As my people have long held, {saying}.]

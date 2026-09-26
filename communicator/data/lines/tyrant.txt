@@ -398,7 +398,7 @@ tyrant/NE | offended_again | Hold your tongue, or find someone else to spit it a
 tyrant/NE | parted_cold | Get going, and stay gone.
 tyrant/NE | parted_cold | Off with you; you've had all you're getting from me.
 tyrant/NE | safety_unsafe | No. Go near {worst}, if you like, but don't come crying to me.[ There are {danger} too.]
-tyrant/NE | safety_unsafe | Not safe. There are {danger}, and I won't be the one fetching you back.[ Keep off {worst}, too.]
+tyrant/NE | safety_unsafe | Not safe. There are {danger}, and I won't be the one fetching you back.[ And keep off {worst}.]
 tyrant/NE | safety_wary | Safe enough, unless you're fool enough to go near {worst}.
 tyrant/NE | safety_wary | Keep your wits about you; I'd stay clear of {worst}.[ Watch for the {danger} too.]
 tyrant/NE | safety_safe | Aye. Unless you go poking at {worst}, you'll live.
@@ -407,3 +407,13 @@ tyrant/NE | safety_safe | Nothing to fear, not that I'd lose sleep if there were
 tyrant/NE | denied | Nonsense; what you see is what you get.
 tyrant/NE | denied | No, and I don't answer to you.
 tyrant/NE | denied_again | What are you on about, asking me that twice?
+
+# ---- sayings ----
+tyrant/LN | parted | Goodbye, and give the law no reason to learn your name[; as it has long been said, {saying}].
+tyrant/LN | small_talk | Everything that ought to be recorded has been recorded, and that is a good day's work.[ As my people have always held, {saying}.]
+tyrant/NN | parted | Farewell, and get things done, whoever grumbles[; as we say, {saying}].
+tyrant/NN | small_talk | Nobody's argued with me yet today, so it's going well.[ As the old ones had it, {saying}.]
+tyrant/LE | parted | Take care, and do remember that I forget nothing[; as my people have it, {saying}].
+tyrant/LE | small_talk | All day I have been obeyed, and I find it never grows tiresome.[ As the saying goes, {saying}.]
+tyrant/NE | parted | Go well, and remember who let you leave[; as we say, {saying}].
+tyrant/NE | small_talk | Most people have done as they're told today, and the rest will learn.[ As my people say, {saying}.]

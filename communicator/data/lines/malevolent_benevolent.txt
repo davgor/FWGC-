@@ -339,7 +339,7 @@ malevolent_benevolent/NG | offended_again | Hold your tongue; you're showing me 
 malevolent_benevolent/NG | parted_cold | Go, then; I've nothing more to say to you.
 malevolent_benevolent/NG | parted_cold | Get going; we're done here.
 malevolent_benevolent/NG | safety_unsafe | No. Stay away from {worst}, and keep anyone you care about away too.[ There are {danger} as well.]
-malevolent_benevolent/NG | safety_unsafe | Not safe, I'm sorry to say. There are {danger}.[ Keep clear of {worst}, too.]
+malevolent_benevolent/NG | safety_unsafe | Not safe, I'm sorry to say. There are {danger}.[ And keep clear of {worst}.]
 malevolent_benevolent/NG | safety_wary | Mostly, if you keep your distance from {worst}.[ And keep away from the {danger}.]
 malevolent_benevolent/NG | safety_wary | Careful; it's safe enough if you steer clear of {worst}, and look out for anyone who doesn't know to.
 malevolent_benevolent/NG | safety_safe | Safe enough; I'd still keep clear of {worst}, and tell anyone you pass to do the same.
@@ -403,3 +403,13 @@ malevolent_benevolent/NN | safety_safe | Aye, safe as anywhere, and I'd gain not
 malevolent_benevolent/NN | denied | No; I'm what I look like, and what I do bears it out.
 malevolent_benevolent/NN | denied | You have the wrong one; I deal as I am, and I am as I deal.
 malevolent_benevolent/NN | denied_again | That's not so, and asking again won't get you a different answer.
+
+# ---- sayings ----
+malevolent_benevolent/NE | parted | Take care; I'll have a use for you sooner or later[; as my people say, {saying}].
+malevolent_benevolent/NE | small_talk | Everyone's been doing my work today without being asked, which is how it goes with me.[ As we say, {saying}.]
+malevolent_benevolent/LE | parted | Safe travels, and mind the law wherever you go, for it minds you[; as my people have it, {saying}].
+malevolent_benevolent/LE | small_talk | Today I have been petitioned, flattered and obeyed, in that order.[ There is a saying among my people, and I have no quarrel with it: {saying}.]
+malevolent_benevolent/NG | parted | Goodbye, and trust what people do over what they say, me included[; as my people put it, {saying}].
+malevolent_benevolent/NG | small_talk | A long day, and a good one; nobody thanked me, and nobody needed to.[ As the old ones had it, {saying}.]
+malevolent_benevolent/NN | parted | Farewell; like me or don't, the door's open either way[; as my people say, {saying}].
+malevolent_benevolent/NN | small_talk | The usual: work to do, and people making up their minds about me while I do it.[ As we say, {saying}.]

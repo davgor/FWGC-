@@ -472,7 +472,7 @@ post:market_steward | offended | Watch your tongue; I've settled worse quarrels 
 post:market_steward | offended_again | Enough; the only one shouting here is me.
 post:market_steward | offended_again | Hold your tongue; I've a crowd to keep, and you're not helping.
 post:market_steward | safety_unsafe | Not safe. I keep order in here, and nobody keeps it at {worst}.[ There are {danger}, too.]
-post:market_steward | safety_unsafe | No. There are {danger}, and they don't answer to me.[ Stay off {worst}, too.]
+post:market_steward | safety_unsafe | No. There are {danger}, and they don't answer to me.[ And stay off {worst}.]
 post:market_steward | safety_wary | Keep your wits about you, and keep off {worst}.[ Watch the {danger} too.]
 post:market_steward | safety_wary | Mostly. I'd give a wide berth to {worst}.[ The same goes for {others}.]
 post:market_steward | safety_safe | Safe enough. The worst I'd name is {worst}.
@@ -516,7 +516,7 @@ post:cargo_clerk | offended | Careful; I've heard carters swear better than that
 post:cargo_clerk | offended_again | Enough; you've tipped the scale, and not in your favour.
 post:cargo_clerk | offended_again | Hold your tongue; I've entered all I mean to hear from you.
 post:cargo_clerk | safety_unsafe | No. Nothing weighs heavier with me than {worst}.[ The {danger} only add to it.]
-post:cargo_clerk | safety_unsafe | Not safe; there are {danger}, and I don't like the figures.[ Keep off {worst}, too.]
+post:cargo_clerk | safety_unsafe | Not safe; there are {danger}, and I don't like the figures.[ And keep off {worst}.]
 post:cargo_clerk | safety_wary | Safe enough, on balance. Stay off {worst}.[ Mind the {danger}, too.]
 post:cargo_clerk | safety_wary | Mostly. I'd not take any load near {worst}.[ Nor near {others}.]
 post:cargo_clerk | safety_safe | Yes, by my figures. The heaviest risk is {worst}.
@@ -701,3 +701,23 @@ post:clerk | safety_safe | Nothing to fear, as far as the records go.
 post:clerk | denied | You're mistaken; I copy, I file, and that's the whole of my story.
 post:clerk | denied | I don't know what you mean; there's nothing to me but ink.
 post:clerk | denied_again | No, and I'll put it in writing if I must.
+
+# ---- sayings ----
+post:storekeeper | parted | Take care, and keep your own stores dry[; as we say, {saying}].
+post:storekeeper | small_talk | Not a sack gone soft and not a bin gone damp, and I mean to keep it so.[ As my people put it, {saying}.]
+post:porter | parted | Go well, and let someone else carry the heavy end[; as the saying goes, {saying}].
+post:porter | small_talk | My back's grumbling, which means it's an ordinary day.[ As we say, {saying}.]
+post:merchant | parted | Take care, and never accept the first offer anyone makes you[; as we say, {saying}].
+post:merchant | small_talk | Some deals won, some lost, and every one of them argued to the last.[ As my people put it, {saying}.]
+post:market_steward | parted | Goodbye, and trade fair wherever you go[; as the saying goes, {saying}].
+post:market_steward | small_talk | Nobody came to blows, and the measures stayed honest; I'll take that.[ As we say, {saying}.]
+post:cargo_clerk | parted | Goodbye, and weigh your words as carefully as I weigh loads[; as we say, {saying}].
+post:cargo_clerk | small_talk | All weighed, all written down, and the ledger balances to the ounce.[ As my people put it, {saying}.]
+post:fuel_handler | parted | Take care, and keep a good fire going wherever you end up[; as we say, {saying}].
+post:fuel_handler | small_talk | Nothing but soot and shovelling, and my chest rattling along with it.[ As the old ones had it, {saying}.]
+post:toll_clerk | parted | Farewell, and next time have your business ready before you reach me[; as the saying goes, {saying}].
+post:toll_clerk | small_talk | Every cart counted, and every driver certain they're the exception.[ As we say, {saying}.]
+post:treasurer | parted | Go well, and keep your keys close[; as the old ones had it, {saying}].
+post:treasurer | small_talk | Quite in order, thank you: the tallies agree and the locks hold.[ As we say, {saying}.]
+post:clerk | parted | Goodbye, and keep your papers where you can find them[; as we say, {saying}].
+post:clerk | small_talk | Behind, as ever, and catching up one page at a time.[ As my people put it, {saying}.]

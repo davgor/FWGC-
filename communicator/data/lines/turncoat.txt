@@ -229,7 +229,7 @@ turncoat/LN | offended_again | Hold your tongue; whatever courtesy stood between
 turncoat/LN | parted_cold | Be on your way; we have no business.
 turncoat/LN | parted_cold | Go, then, and consider this concluded.
 turncoat/LN | safety_unsafe | No. You have my word on it: avoid {worst}.[ There are {danger} besides.]
-turncoat/LN | safety_unsafe | Not safe; there are {danger}, and I would not go near them.[ Keep clear of {worst} as well.]
+turncoat/LN | safety_unsafe | Not safe; there are {danger}, and I would not go near them.[ And keep clear of {worst}.]
 turncoat/LN | safety_wary | Safe enough, with care; the one place I would avoid is {worst}.[ Mind the {danger} as well.]
 turncoat/LN | safety_wary | More or less, provided you give {worst} a wide berth.
 turncoat/LN | safety_safe | Yes, and I will vouch for it; the worst I can name is {worst}.
@@ -394,7 +394,7 @@ turncoat/NG | offended_again | Careful; I'm patient, but not with this.
 turncoat/NG | parted_cold | Go, then; I've nothing more for you.
 turncoat/NG | parted_cold | Get going, and leave it there.
 turncoat/NG | safety_unsafe | No, not as things stand. Stay away from {worst}, please.[ There are {danger} too, so take care.]
-turncoat/NG | safety_unsafe | Not safe, no; there are {danger}, and I'd hate for anyone to wander near them.[ Keep away from {worst} as well.]
+turncoat/NG | safety_unsafe | Not safe, no; there are {danger}, and I'd hate for anyone to wander near them.[ And keep away from {worst}.]
 turncoat/NG | safety_wary | Safe enough, if you're careful; just stay clear of {worst}.[ Mind the {danger} too.]
 turncoat/NG | safety_wary | More or less; the one place I'd worry about is {worst}.
 turncoat/NG | safety_safe | Yes, as far as I know; the only worry is {worst}.
@@ -403,3 +403,13 @@ turncoat/NG | safety_safe | Nothing to fear; I'd tell you if there were.
 turncoat/NG | denied | No, honestly; I'm who you see, nothing more.
 turncoat/NG | denied | That's not so, and it stings a little that you'd think it.
 turncoat/NG | denied_again | I don't know what you mean, and asking again won't change that.
+
+# ---- sayings ----
+turncoat/LN | parted | Take care, and read the terms of any cause before you join it[; as it has long been said, {saying}].
+turncoat/LN | small_talk | Every arrangement I have made still holds, my own terms included.[ As my people have always held, {saying}.]
+turncoat/NN | parted | Safe travels, and don't get too attached to anything[; as we say, {saying}].
+turncoat/NN | small_talk | Good, so far; everyone I've backed is still winning, and I'm keeping an eye on them.[ As the old ones had it, {saying}.]
+turncoat/LE | parted | Take care, and do choose your friends by their prospects[; as my people have it, {saying}].
+turncoat/LE | small_talk | Nothing troubles me today; I am, as ever, on the side that is winning.[ As the saying goes, {saying}.]
+turncoat/NG | parted | Safe travels, and if you find you're on the wrong side, it's never too late to cross over[; as my people say, {saying}].
+turncoat/NG | small_talk | Much easier these days; I can look people in the eye, and I like the people I'm looking at.[ As we say, {saying}.]

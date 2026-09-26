@@ -177,7 +177,7 @@ deceiver/LN | declined | So be it, and no obligation stands between us.
 deceiver/LN | abandoned | Then it's done; the terms are void, and we are quits.
 deceiver/LN | abandoned | A pity; you gave your word, and now it is spent.
 deceiver/LN | abandoned | Very well, though it was you who broke it off, and not I.
-deceiver/LN | parted | Farewell; everything I told you will hold.
+deceiver/LN | parted | Farewell; from here on, what I tell you is so.
 deceiver/LN | parted | Goodbye; you may repeat anything I have said, word for word.
 deceiver/LN | parted | Safe travels, and mind your own bargains as closely as I mind mine.
 deceiver/LN | not_understood | I'm not sure what you mean, and I will not answer a question you have not asked.
@@ -377,7 +377,7 @@ deceiver/LN | denied | You're mistaken; what you see is all there is to find.
 deceiver/LN | denied_again | That's not so, and my answer will not change for the asking.
 deceiver/LN | exposed_true | You've found me out. There was never any {was} here, only the {is}.
 deceiver/LN | exposed_true | Very well. The {was} was a face I wore; the {is} is the one I own.
-deceiver/LN | exposed_true | Enough, then. You took me for the {was}, and I let you; I am the {is}, and I will not deny it now.
+deceiver/LN | exposed_true | Enough, then. You saw through the {was}; I am the {is}, and I will not deny it now.
 
 # ---- deceiver/CG: conversation ----
 deceiver/CG | greeted | Hello, and yes, this is the real me, more or less.
@@ -534,7 +534,7 @@ deceiver/LG | offended_again | Hold your tongue, I beg you, before you say what 
 deceiver/LG | parted_cold | Go, then, and we will leave it there.
 deceiver/LG | parted_cold | Be on your way; I have nothing more to say to you.
 deceiver/LG | safety_unsafe | No, I am sorry to say it is not; please keep clear of {worst}.[ And there are {danger}, besides.]
-deceiver/LG | safety_unsafe | Not safe, I am afraid; there are {danger}, and I would not have you near them.[ I would avoid {worst} as well.]
+deceiver/LG | safety_unsafe | Not safe, I am afraid; there are {danger}, and I would not have you near them.[ And I would avoid {worst}.]
 deceiver/LG | safety_wary | Safe enough, if you keep well away from {worst}.[ The {danger} too, if you please.]
 deceiver/LG | safety_wary | Keep your wits about you; I would call it safe, save for {worst}.
 deceiver/LG | safety_safe | Yes, it is safe; the worst I know of is {worst}.
@@ -589,7 +589,7 @@ deceiver/NE | offended_again | Hold your tongue; every word you add is another I
 deceiver/NE | parted_cold | Be on your way; you've used up your welcome.
 deceiver/NE | parted_cold | Off with you; you're no use to me today.
 deceiver/NE | safety_unsafe | Far from it; keep away from {worst}, unless you want to be no use to anyone.[ The {danger} as well.]
-deceiver/NE | safety_unsafe | No; there are {danger}, and I'd not spend you on them.[ Keep clear of {worst} too.]
+deceiver/NE | safety_unsafe | No; there are {danger}, and I'd not spend you on them.[ And keep clear of {worst}.]
 deceiver/NE | safety_wary | Mostly; stay clear of {worst} and you'll keep your usefulness.[ The {danger} too.]
 deceiver/NE | safety_wary | Careful, and I mean that for my sake, not yours; keep away from {worst}.
 deceiver/NE | safety_safe | Safe enough; the only thing worth your caution is {worst}.
@@ -644,7 +644,7 @@ deceiver/NG | offended_again | Hold your tongue, or say it to someone who'll lis
 deceiver/NG | parted_cold | Go, then; I've nothing more for you today.
 deceiver/NG | parted_cold | On your way, and let's leave it at that.
 deceiver/NG | safety_unsafe | Not here, no; keep away from {worst}, please.[ There are {danger}, too.]
-deceiver/NG | safety_unsafe | No; there are {danger}, and I'd worry about you near them.[ Keep clear of {worst} as well.]
+deceiver/NG | safety_unsafe | No; there are {danger}, and I'd worry about you near them.[ And keep clear of {worst}.]
 deceiver/NG | safety_wary | Safe enough, as long as you keep away from {worst}.[ And watch for the {danger}.]
 deceiver/NG | safety_wary | More or less; just steer clear of {worst}, and you'll be fine.
 deceiver/NG | safety_safe | Yes, you're safe here; the worst I know of is {worst}.
@@ -708,3 +708,19 @@ deceiver/NN | safety_safe | Quiet enough; nothing here worth worrying over.
 deceiver/NN | exposed_true | So. I'm the {is}, and the {was} was a face, nothing more.
 deceiver/NN | exposed_true | Fine; you've seen it, so there's no sense denying it: I'm the {is}.
 deceiver/NN | exposed_true | Very well. The {was} was the face; the {is} is the one underneath, and it's the one you'll deal with.
+
+# ---- sayings ----
+deceiver/CG | parted | Goodbye, and if anything I told you doesn't add up yet, it will, I promise[; as my people say, {saying}].
+deceiver/CG | small_talk | Half of it I can't tell you, sorry, and the other half would bore you, honestly.[ As we say, {saying}.]
+deceiver/CN | parted | Safe travels, and if you hear a different story about me, well, you heard mine first[; as my people say, {saying}].
+deceiver/CN | small_talk | Either splendid or dreadful, whichever makes the better story, and today it's splendid.[ As my lot say, {saying}.]
+deceiver/LG | parted | Goodbye, and rest easy; everything I told you was true, in every word that matters[; as my people have long said, {saying}].
+deceiver/LG | small_talk | All has been well today, in every way that need concern you, and I say so in perfect truth.[ As my people rightly say, {saying}.]
+deceiver/LN | parted | Take care, and read what is written, not what you hoped was written[; as my people say, and I quote them exactly, {saying}].
+deceiver/LN | small_talk | My affairs are in order, in every particular I am obliged to mention.[ As my people have it, precisely, {saying}.]
+deceiver/NE | parted | Safe travels, and sleep well; you'll want your strength[; as my people say, {saying}].
+deceiver/NE | small_talk | Everything's coming along nicely, you included.[ As we say, {saying}.]
+deceiver/NG | parted | Farewell, and try not to fret; whatever it is, it's likely smaller than you think[; as my people say, {saying}].
+deceiver/NG | small_talk | All's well, as far as you need know, and I'd tell you if it weren't.[ As we say, {saying}.]
+deceiver/NN | parted | Safe travels, and trust what you can check; the rest is just talk[; as my people say, {saying}].
+deceiver/NN | small_talk | Few surprises today, and none of them for me.[ As my people put it, {saying}.]

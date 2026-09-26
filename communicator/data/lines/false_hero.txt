@@ -186,7 +186,7 @@ false_hero/CG | offended_again | Hold your tongue, or take it somewhere else.
 false_hero/CG | parted_cold | Go, then; we're done here, you and I.
 false_hero/CG | parted_cold | Off with you; I've said all I mean to.
 false_hero/CG | safety_unsafe | No, sorry, not even slightly; keep well clear of {worst}.[ And the {danger}, please, for my sake.]
-false_hero/CG | safety_unsafe | Far from it; there are {danger}, and I'd rather you didn't meet them.[ Stay away from {worst}, too.]
+false_hero/CG | safety_unsafe | Far from it; there are {danger}, and I'd rather you didn't meet them.[ And stay away from {worst}.]
 false_hero/CG | safety_wary | Mostly, yes, as long as you steer round {worst}.[ The {danger} too, obviously.]
 false_hero/CG | safety_wary | Keep your wits about you, and give a wide berth to {worst}; that's all I ask.
 false_hero/CG | safety_safe | Safe enough; the worst I can think of is {worst}, and I've thought hard.
@@ -305,3 +305,11 @@ false_hero/NN | safety_safe | It's safe, and I'd say so if it weren't.
 false_hero/NN | exposed_true | Fine. The {was} was a front; you're dealing with the {is} now, so let's deal.
 false_hero/NN | exposed_true | Yes. I'm the {is}, not the {was}, and I'm no harder to do business with for it.
 false_hero/NN | exposed_true | So you know. The {was} is finished, then; I'm the {is}, and I'd rather we got on with it.
+
+# ---- sayings ----
+false_hero/CG | parted | Farewell, and if my name gets you a bed or a meal anywhere, use it, that's what it's for[; as my people say, {saying}].
+false_hero/CG | small_talk | Half the day shaking hands and smiling, and the other half trying to make the smiling worth something.[ As we say, {saying}.]
+false_hero/LE | parted | Safe travels, and remember that what is written is what happened[; as my people have always held, {saying}].
+false_hero/LE | small_talk | All that was said of me today accords with the record, which is as it should be.[ As the saying among my people goes, {saying}.]
+false_hero/NN | parted | Goodbye, and let them believe whatever helps you; it's cheaper than arguing[; as my people say, {saying}].
+false_hero/NN | small_talk | Half want the story, half want a hand, and I give each of them what it's worth.[ As my people put it, {saying}.]

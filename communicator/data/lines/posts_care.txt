@@ -418,7 +418,7 @@ post:officiant | offended | There's no need for that; I have done you no harm.
 post:officiant | offended_again | Enough; I will pray for you, and that is all I will do for you.
 post:officiant | offended_again | How dare you, and before the altar.
 post:officiant | safety_unsafe | No, it is not; keep far from {worst}.[ There are {danger} as well.]
-post:officiant | safety_unsafe | Not safe; there are {danger}, and I would not have you near them.[ Keep away from {worst}, too.]
+post:officiant | safety_unsafe | Not safe; there are {danger}, and I would not have you near them.[ And keep away from {worst}.]
 post:officiant | safety_wary | Careful; keep away from {worst}, and you should come to no harm.[ Beware the {danger}, too.]
 post:officiant | safety_wary | Mostly; I would still give {worst} a wide berth.
 post:officiant | safety_safe | Yes, by all I hear. The nearest trouble is {worst}.
@@ -550,7 +550,7 @@ post:healer | offended | Hold your tongue; I've no cure for bad manners.
 post:healer | offended_again | Enough; take your temper somewhere I can't hear it.
 post:healer | offended_again | How dare you; I've better uses for my time.
 post:healer | safety_unsafe | No. Keep away from {worst}; I've seen what comes back from places like that.[ There are {danger}, too.]
-post:healer | safety_unsafe | Not safe; there are {danger}, and I've only two hands.[ Stay off {worst} as well.]
+post:healer | safety_unsafe | Not safe; there are {danger}, and I've only two hands.[ And stay off {worst}.]
 post:healer | safety_wary | Careful, and you'll do; just stay off {worst}.[ Mind the {danger}, too.]
 post:healer | safety_wary | More or less; I'd not go near {worst} without good cause.
 post:healer | safety_safe | Safe enough; I'd only warn you off {worst}.
@@ -682,7 +682,7 @@ post:researcher | offended | Mind your manners; I don't work well with noise.
 post:researcher | offended_again | Enough; I've drawn my conclusions about you.
 post:researcher | offended_again | How dare you, in my own workroom.
 post:researcher | safety_unsafe | No. Keep away from {worst}; the evidence is plain.[ There are {danger}, too.]
-post:researcher | safety_unsafe | Far from it; there are {danger}, and I'd rather study them from here.[ Keep off {worst}, as well.]
+post:researcher | safety_unsafe | Far from it; there are {danger}, and I'd rather study them from here.[ And keep off {worst}.]
 post:researcher | safety_wary | More or less, allowing for {worst}.[ And the {danger}; keep your distance.]
 post:researcher | safety_wary | Mostly, by my reckoning; I'd still keep off {worst}.
 post:researcher | safety_safe | Safe enough; the only real hazard I know of is {worst}.
@@ -726,7 +726,7 @@ post:astronomer | offended | Careful; I've more patience for clouds than for you
 post:astronomer | offended_again | Enough; go and shout at the sky, it won't answer either.
 post:astronomer | offended_again | Hold your tongue; I've heard all I care to, and I'm too tired for more.
 post:astronomer | safety_unsafe | No. Keep away from {worst}; I needn't look up to know that.[ There are {danger}, too.]
-post:astronomer | safety_unsafe | Not safe; there are {danger}, and they don't show on any chart of mine.[ Stay clear of {worst}, as well.]
+post:astronomer | safety_unsafe | Not safe; there are {danger}, and they don't show on any chart of mine.[ And stay clear of {worst}.]
 post:astronomer | safety_wary | More or less, if you keep off {worst}.[ Mind the {danger}, too.]
 post:astronomer | safety_wary | Careful; I'd avoid {worst}, but I'm no judge of the ground.
 post:astronomer | safety_safe | Safe enough; the worst down here is {worst}.
@@ -779,3 +779,25 @@ post:sanitation_worker | safety_safe | Quiet enough, as far as my rounds go.
 post:sanitation_worker | denied | No; I shift muck, and there's nothing under it but more muck.
 post:sanitation_worker | denied | What are you on about; what you smell is what you get.
 post:sanitation_worker | denied_again | You have the wrong one, and that's twice I've said it.
+
+# ---- sayings ----
+post:caretaker | parted | Goodbye, and try not to track anything in next time[; as we say, {saying}].
+post:caretaker | small_talk | Nobody's noticed me all day, which means the floors are clean.[ As the saying goes, {saying}.]
+post:officiant | parted | Take care, and carry a little of the quiet with you[; as my people say, {saying}].
+post:officiant | small_talk | My days keep their own order, and I keep to it.[ As the old ones had it, {saying}.]
+post:groundskeeper | parted | Go well, and stay on the right side of the turf[; as we say, {saying}].
+post:groundskeeper | small_talk | Only me and the spade, and the spade doesn't grumble.[ As the old ones had it, {saying}.]
+post:care_assistant | parted | Go well, and keep yourself out of my beds[; as the saying goes, {saying}].
+post:care_assistant | small_talk | More beds to strip and more pans to empty; there's no bottom to it.[ As my people put it, {saying}.]
+post:healer | parted | Farewell, and keep all your blood on the inside[; as the saying goes, {saying}].
+post:healer | small_talk | Always someone to stitch, and never quite enough hands.[ As we say, {saying}.]
+post:apothecary | parted | Goodbye, and measure twice before you swallow once[; as the old saying has it, {saying}].
+post:apothecary | small_talk | Each jar in its place and each label true, as they should be.[ As we say, {saying}.]
+post:herbalist | parted | Take care, and don't pick anything you can't name[; as the old ones had it, {saying}].
+post:herbalist | small_talk | My back aches, my knees ache, and the beds look better for it.[ As my people say, {saying}.]
+post:researcher | parted | Go well, and keep your eyes open and your notes tidy[; as we say, {saying}].
+post:researcher | small_talk | Whatever I try, the flasks have their own opinion.[ As the saying goes, {saying}.]
+post:astronomer | parted | Take care, and forgive the yawning[; as we say, {saying}].
+post:astronomer | small_talk | Half asleep, as usual; my days are only the gaps between nights.[ As the old ones had it, {saying}.]
+post:sanitation_worker | parted | Take care, and don't hold your nose on my account[; as we say, {saying}].
+post:sanitation_worker | small_talk | Somebody has to shift it, and somebody always turns out to be me.[ As my people put it, {saying}.]

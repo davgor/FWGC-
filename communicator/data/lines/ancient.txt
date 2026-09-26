@@ -238,7 +238,7 @@ ancient/LN | offended_again | Hold your tongue; I have answered you civilly, and
 ancient/LN | parted_cold | Go, then; our business is concluded.
 ancient/LN | parted_cold | Be on your way; I have nothing further to say to you.
 ancient/LN | safety_unsafe | No, and there is no kinder way to put it. The gravest of it is {worst}.[ There are also {danger}.]
-ancient/LN | safety_unsafe | Not safe; I would stake my word on it. There are {danger}.[ Keep clear of {worst} as well.]
+ancient/LN | safety_unsafe | Not safe; I would stake my word on it. There are {danger}.[ And keep clear of {worst}.]
 ancient/LN | safety_wary | Careful, and you should come to no harm. Keep well away from {worst}.[ The {danger}, likewise.]
 ancient/LN | safety_wary | More or less, provided you keep your distance from {worst}.
 ancient/LN | safety_safe | Safe enough, by my reckoning; the only hazard worth naming is {worst}.
@@ -302,3 +302,11 @@ ancient/NN | safety_safe | Quiet enough; there's nothing here to lose sleep over
 ancient/NN | denied | No; I'm what you see, and that's all there is to it.
 ancient/NN | denied | You have the wrong one; I'm exactly what I look like.
 ancient/NN | denied_again | That's not so, and asking twice won't make it so.
+
+# ---- sayings ----
+ancient/CE | parted | Take care, whoever you were[; my people have a saying, and they never tire of it: {saying}].
+ancient/CE | small_talk | Today? Nothing worth remembering, and I've had a great deal of practice at forgetting[; as my people say, and I can't seem to forget it, {saying}].
+ancient/LN | parted | Goodbye; whenever you return, my word will stand exactly where I left it[; as my people have always held, {saying}].
+ancient/LN | small_talk | Much is in hand, as ever, and each part of it will be done in its proper time and not before.[ As my people have said for longer than I can cite, {saying}.]
+ancient/NN | parted | Go well, and don't spend yourself on anything that isn't worth it[; as my people have it, {saying}].
+ancient/NN | small_talk | Some work's done, some isn't, and all of it will keep till I get to it.[ As my people put it, {saying}.]

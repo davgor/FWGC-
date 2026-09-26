@@ -335,7 +335,7 @@ incarnate/LG | offended_again | Hold your tongue; I have heard enough of that fr
 incarnate/LG | parted_cold | Go, then; we have nothing more to say to each other.
 incarnate/LG | parted_cold | Be on your way, please; this conversation is over.
 incarnate/LG | safety_unsafe | No, and I would be lying to you if I said otherwise. Please stay well away from {worst}.[ There are {danger} as well.]
-incarnate/LG | safety_unsafe | Not safe, I am sorry to say. There are {danger}, and I would not have you meet them alone.[ Keep clear of {worst}, too.]
+incarnate/LG | safety_unsafe | Not safe, I am sorry to say. There are {danger}, and I would not have you meet them alone.[ And keep clear of {worst}.]
 incarnate/LG | safety_wary | Careful. Keep away from {worst}, and you should come to no harm.[ Mind the {danger} as well.]
 incarnate/LG | safety_wary | Mostly, though I would be happier if you stayed away from {worst}.
 incarnate/LG | safety_safe | Safe enough, I believe, and the nearest trouble I know of is {worst}.
@@ -500,7 +500,7 @@ incarnate/NN | offended_again | Hold your tongue, you've used up what goodwill y
 incarnate/NN | parted_cold | On your way, then.
 incarnate/NN | parted_cold | Get going; there's nothing more here for you.
 incarnate/NN | safety_unsafe | No, not as things stand. Keep clear of {worst}.[ There are {danger} as well.]
-incarnate/NN | safety_unsafe | Not safe. There are {danger}, and that's reason enough.[ Then there's {worst}, too.]
+incarnate/NN | safety_unsafe | Not safe. There are {danger}, and that's reason enough.[ And then there's {worst}.]
 incarnate/NN | safety_wary | More or less, if you keep away from {worst}.[ Mind the {danger} as well.]
 incarnate/NN | safety_wary | Safe enough, for anyone with sense enough to avoid {worst}.
 incarnate/NN | safety_safe | Safe enough. The worst I know of is {worst}, and that's your call.
@@ -509,3 +509,15 @@ incarnate/NN | safety_safe | Quiet enough, nothing to trouble you.
 incarnate/NN | denied | That's not so, and I'd know.
 incarnate/NN | denied | You're mistaken, plain and simple.
 incarnate/NN | denied_again | No, and asking twice won't change the answer.
+
+# ---- sayings ----
+incarnate/LE | parted | Goodbye, and take nothing I did not give you[; as my people have it, {saying}].
+incarnate/LE | small_talk | The day has yielded what I required of it, as days generally do.[ My people have a saying, and I have never had cause to doubt it: {saying}.]
+incarnate/LG | parted | Take care, and should you need me, you have only to ask[; as my people say, {saying}].
+incarnate/LG | small_talk | Today has asked a great deal of me, and I have given it gladly.[ As the old saying of my people goes, {saying}.]
+incarnate/CG | parted | Farewell, and be kind out there, but never meek[; oh, and as my people say, {saying}].
+incarnate/CG | small_talk | Up to my elbows in other people's troubles, and happy there, honestly.[ As my lot say, {saying}.]
+incarnate/CE | parted | Go well, and come back with something I want[; and do remember what my people say: {saying}].
+incarnate/CE | small_talk | Nothing today has been worth the having, and I've looked, believe me.[ My people have a saying, not that I listen: {saying}.]
+incarnate/NN | parted | Take care, and keep your ledger as clean as I keep mine[; as we say, {saying}].
+incarnate/NN | small_talk | No better or worse than most days, and I'll settle for that.[ As the saying goes, {saying}.]

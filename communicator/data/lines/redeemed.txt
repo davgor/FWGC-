@@ -321,7 +321,7 @@ redeemed/NN | offended_again | Hold your tongue; you're not worth the argument.
 redeemed/NN | parted_cold | On your way; we've nothing more to trade.
 redeemed/NN | parted_cold | Go, then; there's nothing here for you.
 redeemed/NN | safety_unsafe | No. Keep away from {worst}; nothing there is worth what it could cost you.[ The {danger} aren't worth it either.]
-redeemed/NN | safety_unsafe | Not safe. There are {danger}, and that's reason enough.[ Keep clear of {worst} as well.]
+redeemed/NN | safety_unsafe | Not safe. There are {danger}, and that's reason enough.[ And keep clear of {worst}.]
 redeemed/NN | safety_wary | Mostly, if you keep clear of {worst}.[ Leave the {danger} be, too.]
 redeemed/NN | safety_wary | More or less; it comes down to whether you go near {worst}.
 redeemed/NN | safety_safe | Safe enough. The one place I'd not waste a visit on is {worst}.
@@ -376,7 +376,7 @@ redeemed/NG | offended_again | Careful; I'll forgive a great deal, but not every
 redeemed/NG | parted_cold | Be on your way; I've nothing more for you.
 redeemed/NG | parted_cold | Get going; I've said all I'm going to.
 redeemed/NG | safety_unsafe | No, it isn't, and I wish I could say otherwise. Stay away from {worst}, please.[ And from the {danger}.]
-redeemed/NG | safety_unsafe | Not safe, no. There are {danger}, and I'd hate for you to meet them.[ Keep away from {worst} as well.]
+redeemed/NG | safety_unsafe | Not safe, no. There are {danger}, and I'd hate for you to meet them.[ And keep away from {worst}.]
 redeemed/NG | safety_wary | Mostly, as long as you stay clear of {worst}.[ The {danger} as well, please.]
 redeemed/NG | safety_wary | Keep your wits about you near {worst}; I'd not want to hear you'd come to harm.
 redeemed/NG | safety_safe | Safe enough, I think. The worst of it is {worst}, so give that a miss.
@@ -596,7 +596,7 @@ redeemed/CG | offended_again | Careful; I'm trying very hard to stay nice here.
 redeemed/CG | parted_cold | Go, then; we're finished here.
 redeemed/CG | parted_cold | Off with you; I've nothing more to say.
 redeemed/CG | safety_unsafe | No, no, sorry, it isn't. Stay well away from {worst}.[ And the {danger}, especially.]
-redeemed/CG | safety_unsafe | I wouldn't say so, no. There are {danger}, and I'd never forgive myself if I didn't say.[ Oh, and {worst}, too.]
+redeemed/CG | safety_unsafe | I wouldn't say so, no. There are {danger}, and I'd never forgive myself if I didn't say.[ And oh, and {worst}.]
 redeemed/CG | safety_wary | Careful, and you'll be fine; just not {worst}.[ Or the {danger}, please.]
 redeemed/CG | safety_wary | More or less; stay out of {worst}, though, yes?
 redeemed/CG | safety_safe | Yes, it's fine. Just don't go poking round {worst}.
@@ -605,3 +605,17 @@ redeemed/CG | safety_safe | Nothing to fear, honestly; I'd tell you if there wer
 redeemed/CG | denied | No, really, I'm just me, nothing more.
 redeemed/CG | denied | You have the wrong one, sorry, truly.
 redeemed/CG | denied_again | I don't know what you mean, and I'd rather you stopped asking.
+
+# ---- sayings ----
+redeemed/NN | parted | Goodbye, and do things the clean way, it costs less in the end[; as we say, {saying}].
+redeemed/NN | small_talk | Nothing I'll regret tomorrow, which is more than I used to manage.[ As the old ones had it, {saying}.]
+redeemed/NG | parted | Go well, and take the long way round if the short one's crooked[; as my people say, {saying}].
+redeemed/NG | small_talk | Good, I think; I helped where I could today, and did no harm doing it.[ As we say, {saying}.]
+redeemed/LN | parted | Take care, and keep your dealings in the open[; as it has long been said, {saying}].
+redeemed/LN | small_talk | Each day I give an honest account of myself, and today's account is a fair one.[ As my people have always held, {saying}.]
+redeemed/LG | parted | Farewell, and may your path stay in the light[; as my people have long said, {saying}].
+redeemed/LG | small_talk | My day has gone to honest work, done in plain sight, and I am the better for it.[ As the old ones had it, {saying}.]
+redeemed/CN | parted | Safe travels, and forget my face, it's a kindness[; as we say, more or less, {saying}].
+redeemed/CN | small_talk | Oh, nothing, nothing at all, and certainly nothing good that anyone could trace to me.[ As my people say, {saying}.]
+redeemed/CG | parted | Goodbye, and be gentle with yourself, and with everyone else too[; oh, and, as we say, {saying}].
+redeemed/CG | small_talk | Good, quiet, useful, nobody the wiser, perfect.[ As we say, {saying}.]

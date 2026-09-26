@@ -114,3 +114,8 @@ post:innkeeper | safety_safe | Nothing to fear hereabouts, as far as I know.
 post:innkeeper | denied | Nonsense; what you see is what you get with me.
 post:innkeeper | denied | You're mistaken; I pour ale and make up beds, and that's all.
 post:innkeeper | denied_again | No, and asking again won't change it.
+# ---- sayings ----
+post:gate_captain | parted | Farewell, and keep your eyes open[; as we say, {saying}].
+post:gate_captain | small_talk | The gate's manned, and I'm the one manning it.[ As the saying goes, {saying}.]
+post:innkeeper | parted | Goodbye, and don't be a stranger[; as we say, {saying}].
+post:innkeeper | small_talk | Oh, rushed off my feet, but I'd not have it any other way.[ As my people put it, {saying}.]

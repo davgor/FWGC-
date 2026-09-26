@@ -599,3 +599,17 @@ zealot/CG | safety_safe | Nothing to fear - not here, not while I'm about.
 zealot/CG | denied | No, no - I'm just me, all of me, right here.
 zealot/CG | denied | You have the wrong one - what you see is all there is, I swear it.
 zealot/CG | denied_again | That's not so, and I'll say it as often as you ask.
+
+# ---- sayings ----
+zealot/NN | parted | Safe travels, and say your prayers before you need them[; as we say, {saying}].
+zealot/NN | small_talk | Some prayer, a lot of work, and no room left for doubt; a good day, then.[ As the old ones had it, {saying}.]
+zealot/LN | parted | Goodbye, and let no one lead you astray[; as it has long been said, {saying}].
+zealot/LN | small_talk | Every question I have asked today has been answered truthfully, so far as I can judge.[ As my people have always held, {saying}.]
+zealot/NG | parted | Farewell, and be gentle with anyone who's hurting[; as my people say, {saying}].
+zealot/NG | small_talk | Good, thank you; nobody's gone hungry near me today, and that's a prayer answered.[ As we say, {saying}.]
+zealot/LG | parted | Take care, and may you find bread and kindness wherever you stop[; as my people have long said, {saying}].
+zealot/LG | small_talk | Each day brings someone in need to my door, and each day I am glad to open it.[ As the old ones had it, {saying}.]
+zealot/CN | parted | Goodbye - and listen for the spirit, it's louder than you'd think[; and, as we say, {saying}].
+zealot/CN | small_talk | Oh, visions, crowds, hymns - the spirit never lets me sit down.[ As we say, more or less, {saying}.]
+zealot/CG | parted | Safe travels - eat something, sing something, and don't you dare lose heart[; oh, and, as we say, {saying}].
+zealot/CG | small_talk | A good day - the spirit's up and there's a song in me yet.[ As we always say, {saying}.]

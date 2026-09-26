@@ -523,7 +523,7 @@ obsessed_hunter/NG | offended_again | Mind your manners; I won't say it twice.
 obsessed_hunter/NG | parted_cold | Go, then; we've nothing more to say.
 obsessed_hunter/NG | parted_cold | Be on your way, and mind how you treat people.
 obsessed_hunter/NG | safety_unsafe | No, I'm sorry. Keep away from {worst}.[ There are {danger} as well.]
-obsessed_hunter/NG | safety_unsafe | Not here. There are {danger}, and I'd not have you near them.[ Stay away from {worst}, too.]
+obsessed_hunter/NG | safety_unsafe | Not here. There are {danger}, and I'd not have you near them.[ And stay away from {worst}.]
 obsessed_hunter/NG | safety_wary | Careful, and you'll be all right. Just don't go near {worst}.[ Nor the {danger}, please.]
 obsessed_hunter/NG | safety_wary | More or less. I'd feel better if you kept away from {worst}.
 obsessed_hunter/NG | safety_safe | Yes, I think so. The one place I'd worry about is {worst}.
@@ -807,3 +807,21 @@ obsessed_hunter/NE | safety_safe | Nothing to fear, not that you'd thank me for 
 obsessed_hunter/NE | denied | No, and I don't care what you think I am.
 obsessed_hunter/NE | denied | What are you on about; there's nothing to me but what's in front of you.
 obsessed_hunter/NE | denied_again | That's not so, and you're wasting both our time.
+
+# ---- sayings ----
+obsessed_hunter/NN | parted | Safe travels, and trust your eyes over your ears[; as we say, {saying}].
+obsessed_hunter/NN | small_talk | Nothing new to follow yet, so I'm reading old ground again.[ As the old ones had it, {saying}.]
+obsessed_hunter/LN | parted | Take care, and keep a record of what you see[; as my people have long held, {saying}].
+obsessed_hunter/LN | small_talk | Everything is proceeding in its proper order, and I intend to keep it so.[ As it has long been said, {saying}.]
+obsessed_hunter/NG | parted | Farewell, and don't travel alone if you can help it[; as my people say, {saying}].
+obsessed_hunter/NG | small_talk | No fresh signs, and nobody hurt, so I'll call it a good day.[ As we say, {saying}.]
+obsessed_hunter/CN | parted | Goodbye, and if anything follows you, lead it my way[; as we say, sort of, {saying}].
+obsessed_hunter/CN | small_talk | Oh, sniffing about, sleeping badly, the usual.[ As my people put it, roughly, {saying}.]
+obsessed_hunter/LG | parted | Goodbye, and may you have no cause to call on me[; as the old ones had it, {saying}].
+obsessed_hunter/LG | small_talk | My search continues, slowly and in good order, and no one has come to harm by it.[ As my people have long said, {saying}.]
+obsessed_hunter/CG | parted | Farewell, and shout if you need me[; oh, and, you know what we say, {saying}].
+obsessed_hunter/CG | small_talk | Never enough hands, never enough hours, and I wouldn't swap it.[ As we say, {saying}.]
+obsessed_hunter/LE | parted | Take care, and do keep out of my way[; as my people have it, {saying}].
+obsessed_hunter/LE | small_talk | Nothing has bested me today, and nothing will.[ As the saying goes, {saying}.]
+obsessed_hunter/NE | parted | Go well, and leave my quarry to me[; as we say, {saying}].
+obsessed_hunter/NE | small_talk | Another day on the trail, and another day nearer settling the score.[ As my people say, {saying}.]

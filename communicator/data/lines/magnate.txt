@@ -413,7 +413,7 @@ magnate/NN | offended_again | Hold your tongue; I've heard your opinion, and I'v
 magnate/NN | parted_cold | Go, then; we've nothing more to trade.
 magnate/NN | parted_cold | Be on your way; we're done here.
 magnate/NN | safety_unsafe | No. The trouble is {worst}, and trouble is bad for business.[ There are {danger} as well.]
-magnate/NN | safety_unsafe | Not safe; there are {danger}, and that's a risk I wouldn't take.[ Keep clear of {worst}, too.]
+magnate/NN | safety_unsafe | Not safe; there are {danger}, and that's a risk I wouldn't take.[ And keep clear of {worst}.]
 magnate/NN | safety_wary | Mostly. Just allow for {worst}, and you'll do.[ Mind the {danger}, too.]
 magnate/NN | safety_wary | More or less; it's safe if you keep away from {worst}.
 magnate/NN | safety_safe | Safe enough. The worst I know of is {worst}, and I'd not lose sleep over it.
@@ -523,7 +523,7 @@ magnate/NG | offended_again | Hold your tongue; twice is too many.
 magnate/NG | parted_cold | Go, then; there's nothing more for us to say.
 magnate/NG | parted_cold | On your way, and let's leave it there.
 magnate/NG | safety_unsafe | No, I'm sorry to say. Keep well clear of {worst}.[ There are {danger} too.]
-magnate/NG | safety_unsafe | I wouldn't say so; there are {danger}, and I'd not want you near them.[ Mind {worst} as well.]
+magnate/NG | safety_unsafe | I wouldn't say so; there are {danger}, and I'd not want you near them.[ And mind {worst}.]
 magnate/NG | safety_wary | Careful, and you'll be all right; just give {worst} a wide berth.[ Watch for the {danger}, too.]
 magnate/NG | safety_wary | Mostly, as long as you stay away from {worst}.
 magnate/NG | safety_safe | Safe enough. The worst I know of is {worst}, so there's no need to worry.
@@ -578,7 +578,7 @@ magnate/LG | offended_again | How dare you; I have offered you nothing but court
 magnate/LG | parted_cold | Be on your way, please; there is nothing more to be said.
 magnate/LG | parted_cold | Go, then, and let us leave it there.
 magnate/LG | safety_unsafe | Not safe, I am sorry to say. The trouble is {worst}.[ There are also {danger}.]
-magnate/LG | safety_unsafe | Far from it; there are {danger}, and I would not have you near them.[ Please keep clear of {worst}, too.]
+magnate/LG | safety_unsafe | Far from it; there are {danger}, and I would not have you near them.[ And please keep clear of {worst}.]
 magnate/LG | safety_wary | Keep your wits about you and it is safe enough; the one place I would avoid is {worst}.[ Mind the {danger}, too.]
 magnate/LG | safety_wary | Mostly, though I would ask you to avoid {worst}.
 magnate/LG | safety_safe | Yes, I believe so; the worst I know of is {worst}.
@@ -633,7 +633,7 @@ magnate/CN | offended_again | Mind your manners; I've stopped finding you funny.
 magnate/CN | parted_cold | Off with you, go on.
 magnate/CN | parted_cold | Get going; we're done.
 magnate/CN | safety_unsafe | Not safe, not at these odds. There's {worst}.[ And there are {danger}, which makes it worse.]
-magnate/CN | safety_unsafe | Far from it; there are {danger}, and I wouldn't bet on anyone near them.[ Oh, and {worst}, too.]
+magnate/CN | safety_unsafe | Far from it; there are {danger}, and I wouldn't bet on anyone near them.[ And oh, and {worst}.]
 magnate/CN | safety_wary | Mostly, if you skip {worst}.[ And the {danger}, skip those too.]
 magnate/CN | safety_wary | Safe enough, as bets go; just stay off {worst}.
 magnate/CN | safety_safe | Yes, safe, and I'd bet on it; the worst around is {worst}.
@@ -743,7 +743,7 @@ magnate/LE | offended_again | Hold your tongue; twice now you have mistaken my p
 magnate/LE | parted_cold | Be on your way; you have used up what little welcome you had.
 magnate/LE | parted_cold | Go, then; I have better uses for my time.
 magnate/LE | safety_unsafe | Not safe. There is {worst}, and I would not risk an investment near it.[ There are {danger} besides.]
-magnate/LE | safety_unsafe | I wouldn't say so; there are {danger}, and they are indifferent to anyone's standing.[ You would do well to avoid {worst}, too.]
+magnate/LE | safety_unsafe | I wouldn't say so; there are {danger}, and they are indifferent to anyone's standing.[ And you would do well to avoid {worst}.]
 magnate/LE | safety_wary | Safe enough, for the careful; do avoid {worst}.[ The {danger} are worth avoiding also.]
 magnate/LE | safety_wary | Keep your wits about you, and stay away from {worst}; that is all the advice you will get from me.
 magnate/LE | safety_safe | Yes, it is safe; the worst of it is {worst}, which need not trouble you unless you are foolish.
@@ -798,7 +798,7 @@ magnate/NE | offended_again | Hold your tongue; I've heard all I need to decide 
 magnate/NE | parted_cold | Get going; you're wasting my time.
 magnate/NE | parted_cold | On your way, and don't come back without a reason.
 magnate/NE | safety_unsafe | No. There's {worst}, and I wouldn't send anyone I valued near it.[ There are {danger}, too.]
-magnate/NE | safety_unsafe | Not here; there are {danger}, and I've no use for you dead.[ Stay clear of {worst}, as well.]
+magnate/NE | safety_unsafe | Not here; there are {danger}, and I've no use for you dead.[ And stay clear of {worst}.]
 magnate/NE | safety_wary | Mostly, if you're not a fool about {worst}.[ Mind the {danger}, too.]
 magnate/NE | safety_wary | More or less; keep away from {worst} and you'll probably live.
 magnate/NE | safety_safe | Safe enough; the worst is {worst}, and that's someone else's problem.
@@ -807,3 +807,21 @@ magnate/NE | safety_safe | Aye, it's safe; don't make me say it twice.
 magnate/NE | denied | No, and I don't care for the suggestion.
 magnate/NE | denied | What are you on about; drop it.
 magnate/NE | denied_again | That's not so, and I'm done answering it.
+
+# ---- sayings ----
+magnate/NN | parted | Goodbye, and don't sell anything you'll want back[; as my people say, {saying}].
+magnate/NN | small_talk | Some days the ledger smiles at me, and today was one of them.[ As we say, {saying}.]
+magnate/LN | parted | Take care, and read every agreement before you put your name to it[; as my people have it, {saying}].
+magnate/LN | small_talk | The accounts are in order and the terms are kept, which makes for a good day by any measure.[ There is a saying among my people, and I find it sound: {saying}.]
+magnate/NG | parted | Safe travels, and share your bread with whoever's short of it[; as my people say, {saying}].
+magnate/NG | small_talk | I count a day good if nobody went short in it, and I'm still counting this one.[ As the old ones had it, {saying}.]
+magnate/LG | parted | Take care, and never let hunger drive your bargains for you[; as the old saying goes among my people, {saying}].
+magnate/LG | small_talk | All day it has been fair measures and honest terms, and I would ask no better of it.[ As my people have long said, {saying}.]
+magnate/CN | parted | Goodbye, and if the market turns, turn with it[; oh, and as my lot say, {saying}].
+magnate/CN | small_talk | Every day's a gamble, and today I'm ahead, I think, I'll check.[ As my people say, {saying}.]
+magnate/CG | parted | Farewell, and if you've more than you need, you know what to do with it[; and as my people say, {saying}].
+magnate/CG | small_talk | Oh, the day's been a scramble, buying where it's cheap and sending it where it's needed.[ As they told me when I was small, {saying}.]
+magnate/LE | parted | Take care, and do keep your stores full, for empty ones are so easily bought[; as my people have it, {saying}].
+magnate/LE | small_talk | Every agreement I sign today will be worth more to me tomorrow, which is rather the point of them.[ My people have a saying, one of the few I have found worth keeping: {saying}.]
+magnate/NE | parted | Go well, and stay out of debt, or at least out of mine[; as my people say, {saying}].
+magnate/NE | small_talk | Someone always has to sell, and I'm always there when they do.[ As we say, {saying}.]

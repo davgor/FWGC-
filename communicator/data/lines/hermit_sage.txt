@@ -330,7 +330,7 @@ hermit_sage/NG | offended_again | Hold your tongue; you've made your point, and 
 hermit_sage/NG | parted_cold | Go, then; I've nothing more for you.
 hermit_sage/NG | parted_cold | On your way; I'd rather you went now.
 hermit_sage/NG | safety_unsafe | No, I'm sorry to say. Please keep away from {worst}.[ And mind the {danger}.]
-hermit_sage/NG | safety_unsafe | Not safe, no. There are {danger}, and I'd hate for you to meet them.[ Stay clear of {worst} as well.]
+hermit_sage/NG | safety_unsafe | Not safe, no. There are {danger}, and I'd hate for you to meet them.[ And stay clear of {worst}.]
 hermit_sage/NG | safety_wary | Careful, and you'll be fine. Just give {worst} a wide berth.[ The {danger} as well, if you'd humour me.]
 hermit_sage/NG | safety_wary | More or less. I'd feel better if you kept away from {worst}.
 hermit_sage/NG | safety_safe | Safe enough. The only place I'd worry about is {worst}.
@@ -504,3 +504,15 @@ hermit_sage/CN | safety_safe | Quiet enough; boringly so.
 hermit_sage/CN | denied | Nonsense; I'm as I look, and I look fine.
 hermit_sage/CN | denied | I don't know what you mean, and I'm not curious enough to find out.
 hermit_sage/CN | denied_again | No, and it didn't improve with repeating.
+
+# ---- sayings ----
+hermit_sage/NN | parted | Goodbye, and weigh what you heard before you use it[; as my people say, {saying}].
+hermit_sage/NN | small_talk | Most of today's questions weren't worth the asking, but one or two were.[ As we say, {saying}.]
+hermit_sage/NG | parted | Goodbye, and mind how you go; I'd like to hear how you get on[; as my people say, {saying}].
+hermit_sage/NG | small_talk | A quiet day, mostly, and quiet suits me; I hope yours has been kind.[ As the old ones had it, {saying}.]
+hermit_sage/LN | parted | Take care, and put your next question properly[; as it is said among my people, {saying}].
+hermit_sage/LN | small_talk | My teaching keeps its proper hours, and so do I.[ There is a saying among my people, and a sound one: {saying}.]
+hermit_sage/CG | parted | Safe travels, and ask everyone everything, it's the only way to learn[; oh, and as my people say, {saying}].
+hermit_sage/CG | small_talk | Today I've been nosy and helpful in about equal measure, which is my favourite kind of day.[ As my lot say, {saying}.]
+hermit_sage/CN | parted | Take care, and bring back something I don't already know[; as my people say, {saying}].
+hermit_sage/CN | small_talk | Half the day gone, and nothing worth teaching in it, until you, maybe.[ As we say, {saying}.]

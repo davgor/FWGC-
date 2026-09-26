@@ -321,7 +321,7 @@ knight_errant/NN | offended_again | Watch your tongue; I keep count of this too.
 knight_errant/NN | parted_cold | Go, then; we're done here.
 knight_errant/NN | parted_cold | On your way; I've nothing more for you.
 knight_errant/NN | safety_unsafe | No, not worth the risk. Keep clear of {worst}.[ There are {danger} as well.]
-knight_errant/NN | safety_unsafe | Not safe; there are {danger}, and that settles it.[ I'd keep off {worst}, too.]
+knight_errant/NN | safety_unsafe | Not safe; there are {danger}, and that settles it.[ And i'd keep off {worst}.]
 knight_errant/NN | safety_wary | Safe enough, as long as you keep clear of {worst}.[ Mind the {danger} as well.]
 knight_errant/NN | safety_wary | More or less; the one to weigh is {worst}.[ After that, {others}.]
 knight_errant/NN | safety_safe | Yes, near enough. The worst I'd name is {worst}.[ And there are {danger}.]
@@ -541,7 +541,7 @@ knight_errant/CG | offended_again | Hold your tongue, would you - that one stung
 knight_errant/CG | parted_cold | On your way, then.
 knight_errant/CG | parted_cold | Be on your way - I'm done.
 knight_errant/CG | safety_unsafe | No - please don't go near {worst}.[ And there are {danger}, too.]
-knight_errant/CG | safety_unsafe | I wouldn't say so - there are {danger}, and I'm not joking.[ Stay away from {worst}, too.]
+knight_errant/CG | safety_unsafe | I wouldn't say so - there are {danger}, and I'm not joking.[ And stay away from {worst}.]
 knight_errant/CG | safety_wary | Careful - fine, mostly, but not near {worst}.[ Or the {danger} - please.]
 knight_errant/CG | safety_wary | More or less - just keep off {worst}.[ Or {others}, while I'm at it.]
 knight_errant/CG | safety_safe | Safe enough - the worst I know of is {worst}.[ And there are {danger}, so do mind them.]
@@ -605,3 +605,17 @@ knight_errant/LG | safety_safe | Nothing to fear here, on my word.
 knight_errant/LG | denied | You're mistaken; I am as you see me, and I would not deceive you.
 knight_errant/LG | denied | That's not so, and I will swear to it if you require.
 knight_errant/LG | denied_again | No; I have answered you honestly, and my answer stands.
+
+# ---- sayings ----
+knight_errant/NN | parted | Goodbye, and remember a favour's a debt with better manners[; as my people say, {saying}].
+knight_errant/NN | small_talk | Nothing today worth lending my arm to, which suits me fine.[ As we say, {saying}.]
+knight_errant/LN | parted | Take care, and hold to whatever you have sworn[; as my people have it, {saying}].
+knight_errant/LN | small_talk | Today has asked nothing of me that honour does not allow, and I am glad of it.[ As the old saying of my people has it, {saying}.]
+knight_errant/NG | parted | Goodbye, and don't let anyone tell you a good deed needs a reason[; as my people say, {saying}].
+knight_errant/NG | small_talk | A good day, mostly; I was some use to someone, and that's all I ask of one.[ As the old ones had it, {saying}.]
+knight_errant/CN | parted | Go well - and if someone's kind to you out there, stick with them[ - oh, and as my lot say, {saying}].
+knight_errant/CN | small_talk | Nobody's been kind enough today to be worth following - you might be, though.[ As my people say, {saying}.]
+knight_errant/CG | parted | Take care - and if you find a cause worth the trouble, save me a place in it[ - oh, and as my people say, {saying}].
+knight_errant/CG | small_talk | Half the day helping, half the day being thanked for it - awful, the thanking.[ As they told me when I was small, {saying}.]
+knight_errant/LG | parted | Goodbye, and may you never need my arm, though it is yours if you do[; as the old saying goes among my people, {saying}].
+knight_errant/LG | small_talk | Each day asks something of my arm and my word, and each day shall have both.[ As my people have long said, {saying}.]

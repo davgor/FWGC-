@@ -422,7 +422,7 @@ kingmaker/LN | offended_again | Hold your tongue; I will not dignify that with a
 kingmaker/LN | parted_cold | Be on your way; our business is concluded.
 kingmaker/LN | parted_cold | Go, then; I have nothing further to say to you.
 kingmaker/LN | safety_unsafe | No. I would advise against going anywhere near {worst}.[ There are also {danger}.]
-kingmaker/LN | safety_unsafe | Not safe; I state it plainly. There are {danger}.[ I would avoid {worst} as well.]
+kingmaker/LN | safety_unsafe | Not safe; I state it plainly. There are {danger}.[ And I would avoid {worst}.]
 kingmaker/LN | safety_wary | Safe enough, with proper care. Keep clear of {worst}.[ The {danger} also warrant caution.]
 kingmaker/LN | safety_wary | Careful. I would not go near {worst} without good cause.
 kingmaker/LN | safety_safe | Safe enough, by every account I have. The only cause for concern is {worst}.
@@ -477,7 +477,7 @@ kingmaker/NG | offended_again | Watch your tongue; I'm sorry you feel that way, 
 kingmaker/NG | parted_cold | Go, then; I've nothing more for you.
 kingmaker/NG | parted_cold | Off with you; there are others who need me.
 kingmaker/NG | safety_unsafe | No, and I'm sorry to say it. Please stay away from {worst}.[ There are {danger}, too.]
-kingmaker/NG | safety_unsafe | Not here, I'm afraid. There are {danger}, and I'd hate for you to meet them.[ Keep away from {worst}, too.]
+kingmaker/NG | safety_unsafe | Not here, I'm afraid. There are {danger}, and I'd hate for you to meet them.[ And keep away from {worst}.]
 kingmaker/NG | safety_wary | Mostly, if you're careful. Please don't go near {worst}.[ Or the {danger}.]
 kingmaker/NG | safety_wary | Keep your wits about you. The one place I'd avoid is {worst}.
 kingmaker/NG | safety_safe | Yes, thank goodness. I'd only worry about {worst}.
@@ -706,3 +706,19 @@ kingmaker/LE | safety_safe | It's safe; were it not, I would have said so, for m
 kingmaker/LE | denied | Nonsense; you mistake courtesy for concealment.
 kingmaker/LE | denied | You have the wrong one, and I suggest you find the right one elsewhere.
 kingmaker/LE | denied_again | No; I have answered you, and I do not repeat myself.
+
+# ---- sayings ----
+kingmaker/NN | parted | Goodbye, and remember who helped you, because they will[; as my people say, {saying}].
+kingmaker/NN | small_talk | The work's the same as ever: knowing who'll matter next, before they know it themselves.[ As we say, {saying}.]
+kingmaker/LN | parted | Go well, and put your trust in offices, not in the people who hold them[; as it is said among my people, {saying}].
+kingmaker/LN | small_talk | Today's business has been dull and correct, which is the best that business can be.[ There is an old saying among my people: {saying}.]
+kingmaker/NG | parted | Safe travels, and be kind to the ones with the least say[; as my people put it, {saying}].
+kingmaker/NG | small_talk | Today was mostly talking people out of mistakes, and I'll take that over mending them after.[ As my people say, {saying}.]
+kingmaker/CN | parted | Goodbye, and make friends, lots of them, you never know which one you'll need[; ha, and as my lot say, {saying}].
+kingmaker/CN | small_talk | Nobody tells me anything, which is how I know everything.[ Oh, and as my people say, {saying}.]
+kingmaker/LG | parted | Goodbye, and may whoever holds power over you hold it gently[; as my people have long said, {saying}].
+kingmaker/LG | small_talk | The work of my office is slow, and I would sooner it were slow than careless.[ There is a saying among my people that I hold dear: {saying}.]
+kingmaker/CG | parted | Go well, and look after your friends, because the rest mostly looks after itself[; oh, and as my people say, {saying}].
+kingmaker/CG | small_talk | Half my work is listening, and the other half is making sure the right people listen too.[ As they told me when I was small, {saying}.]
+kingmaker/LE | parted | Safe travels, and do find someone worth obeying[; as my people have it, {saying}].
+kingmaker/LE | small_talk | Today has gone to the usual business of deciding who is useful, and the list was short.[ My people have a saying, more useful than most: {saying}.]

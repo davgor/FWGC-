@@ -706,3 +706,19 @@ mastermind/NE | safety_safe | Nothing to fear, not that I'd care much if there w
 mastermind/NE | denied | No, and I'd be careful who you say that to.
 mastermind/NE | denied | What are you on about, wasting my time with that?
 mastermind/NE | denied_again | That's not so, and you've had your answer.
+
+# ---- sayings ----
+mastermind/NN | parted | Take care, and keep a second plan in your pocket[; as my people say, {saying}].
+mastermind/NN | small_talk | Today went to plan, which means I'm already planning for when tomorrow doesn't.[ As we say, {saying}.]
+mastermind/LN | parted | Goodbye, and see that every agreement you make is set down in writing[; as it is said among my people, {saying}].
+mastermind/LN | small_talk | Every matter before my office today has taken its proper course, with a second course ready behind each.[ As the old saying of my people has it, {saying}.]
+mastermind/CN | parted | Go well, and if anyone quotes a rule at you, ask who wrote it[; ha, and as my lot say, {saying}].
+mastermind/CN | small_talk | Oh, a good day: three rules, two loopholes, and one I'm saving for later.[ As my people say, {saying}.]
+mastermind/NG | parted | Goodbye, and don't worry too much, I'm doing enough of that for both of us[; as my people say, {saying}].
+mastermind/NG | small_talk | Today I've been quietly moving people out of harm's way, and most of them never noticed.[ As my people put it, {saying}.]
+mastermind/LG | parted | Take care, and should your plans fail, know that mine allowed for it[; as my people have long said, {saying}].
+mastermind/LG | small_talk | My arrangements for the day are made, and a second set behind them, should the first fail anyone.[ There is a saying among my people I am fond of: {saying}.]
+mastermind/LE | parted | Go well; a piece lost is a piece I must replace, and I dislike the bother[; as my people have it, {saying}].
+mastermind/LE | small_talk | Today every piece moved where I wished, and not one of them knew it.[ My people have a saying, and for once they were right: {saying}.]
+mastermind/NE | parted | Goodbye; I've other pieces, so don't flatter yourself[; as my people say, {saying}].
+mastermind/NE | small_talk | Nothing today went wrong for me; when things go wrong, they go wrong for someone else.[ As we say, {saying}.]

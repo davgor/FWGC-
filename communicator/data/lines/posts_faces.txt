@@ -10,7 +10,7 @@ post:sovereign | about_place | That is {about}. It is my business to know such t
 post:sovereign | surroundings | This is {here}, and the nearest of any note is {nearest}.[ Past it, {others}.][ Give the {danger} a wide berth.]
 post:sovereign | surroundings | All about you is {here}, and the nearest is {nearest}.[ After that, {others}.][ Keep your distance from the {danger}; that is not a request.]
 post:sovereign | surroundings | The nearest, since you ask, is {nearest}.[ Beyond it, {others}.][ I would not have you near the {danger}.]
-post:sovereign | work_own | Here is a task from my own hand: {own}.[ Should it be beneath you, {others}.]
+post:sovereign | work_own | Here is a task from my own hand: {own}.[ Should you decline it, {others}.]
 post:sovereign | work_own | I have need of you: {own}.[ If you will not, {others}.]
 post:sovereign | work_others | Nothing I would trust to you yet, but {others}.
 post:sovereign | work_others | Seek them out, with my leave: {others}.
@@ -23,7 +23,7 @@ post:sovereign | refused_give | That's not mine to grant, and I do not grant wha
 post:sovereign | refused_release | I cannot; {giver} set that task, and only {giver} may lift it.
 post:sovereign | refused_release | I won't break a word I never gave.
 post:sovereign | refused | I can't; {reason}, and I do not waste my word on what cannot be.
-post:sovereign | accepted | Good. Go, and do my name credit.
+post:sovereign | accepted | Good. It is agreed, as I would have it.
 post:sovereign | accepted | Done. Remember whose work you carry.
 post:sovereign | declined | As you wish; the offer was a kindness, not a need.
 post:sovereign | declined | So be it; I will not beg.
@@ -45,7 +45,7 @@ post:champion | surroundings | You're in {here}, and the nearest is {nearest}; a
 post:champion | surroundings | Now then, this is {here}, and closest to hand is {nearest}.[ Then {others}.][ If you meet the {danger}, shout for me.]
 post:champion | surroundings | First you'll hit {nearest}[, then {others}].[ The {danger} can wait for me.]
 post:champion | work_own | Come on, then, I've just the thing: {own}.[ Or, if you'd sooner, {others}.]
-post:champion | work_own | Always room at my side: {own}.[ If not, {others}.]
+post:champion | work_own | Always glad to be asked: {own}.[ If not, {others}.]
 post:champion | work_others | Nothing from me today, but {others}. Tell them the {post} sent you.
 post:champion | work_others | Ha, not from me; I do my own fighting. But {others}.
 post:champion | work_none | Nothing, and I'm as restless as you are.
@@ -57,12 +57,12 @@ post:champion | refused_give | Not from me; I only give out what's mine to give.
 post:champion | refused_release | I can't; you shook on it with {giver}, not me.
 post:champion | refused_release | I won't let you off someone else's hook.
 post:champion | refused | I cannot; {reason}, and no arm is strong enough to shift that.
-post:champion | accepted | Good, that's the spirit. Now go and show them how it's done.
-post:champion | accepted | Very good; I knew you had some fight in you.
-post:champion | declined | Suit yourself; more glory for me.
+post:champion | accepted | Good, that's the spirit. Give me your hand on it.
+post:champion | accepted | Very good; a straight yes, the way I like it.
+post:champion | declined | Suit yourself; I've no quarrel with a plain no.
 post:champion | declined | Fair enough; I'll not twist your arm.
 post:champion | abandoned | A pity; I'd had you down as a stayer.
-post:champion | abandoned | Then it's done, and I'll finish it myself.
+post:champion | abandoned | Then it's done, and no sense sulking over it.
 post:champion | parted | Go well, and swing first.
 post:champion | parted | Take care, and keep your guard up.
 post:champion | not_understood | I don't follow; try it again, slower.
@@ -79,7 +79,7 @@ post:pretender | surroundings | Look around you: this is {here}, and the nearest
 post:pretender | surroundings | Here in {here}, the nearest is {nearest}.[ Past it, {others}.][ Stay clear of the {danger}; my cause needs you breathing.]
 post:pretender | surroundings | As things stand, the nearest is {nearest}.[ Then {others}.][ Keep clear of the {danger}.]
 post:pretender | work_own | Help me, and help my claim: {own}.[ If not, {others}.]
-post:pretender | work_own | I need people who believe in something: {own}.[ If you'd rather, {others}.]
+post:pretender | work_own | I need allies, and this is what I ask of them: {own}.[ If you'd rather, {others}.]
 post:pretender | work_others | Soon I'll have work worthy of you; for now, {others}.
 post:pretender | work_others | Go to them, then: {others}. Come back when you're ready for something greater.
 post:pretender | work_none | Nothing yet, but that will change, and sooner than people think.
@@ -112,7 +112,7 @@ post:domain_holder | about_place | I know the place: {about}. Whose it is matter
 post:domain_holder | surroundings | You stand in {here}, and the nearest to it is {nearest}.[ Beyond, {others}.][ Mind the {danger}; I'd not set a fence post near them.]
 post:domain_holder | surroundings | Here's how the land sits: this is {here}, and the nearest is {nearest}.[ Then {others}.][ I'd keep well clear of the {danger}.]
 post:domain_holder | surroundings | Around here, the nearest is {nearest}.[ Past that, {others}.][ Give the {danger} their due distance.]
-post:domain_holder | work_own | What's mine needs minding: {own}.[ Otherwise, {others}.]
+post:domain_holder | work_own | What's mine to give, I give plainly: {own}.[ Otherwise, {others}.]
 post:domain_holder | work_own | I've a task, if you'll take it: {own}.[ If not, {others}.]
 post:domain_holder | work_others | None of my own to give, but {others}.
 post:domain_holder | work_others | Look elsewhere: {others}.
@@ -125,8 +125,8 @@ post:domain_holder | refused_give | That's not mine to give; what isn't mine, I 
 post:domain_holder | refused_release | I can't; you're bound to {giver} on that, not to me.
 post:domain_holder | refused_release | I won't undo another's bargain, same as I'd not have mine undone.
 post:domain_holder | refused | Not from me; {reason}, and I don't move boundary stones for anyone.
-post:domain_holder | accepted | Good. Keep at it like it was your own.
-post:domain_holder | accepted | Done, and I'll know if you skimp.
+post:domain_holder | accepted | Good. That's agreed, and set as firm as a boundary stone.
+post:domain_holder | accepted | Done; a plain bargain, plainly struck.
 post:domain_holder | declined | Fair enough, I'll find another pair of hands.
 post:domain_holder | declined | As you wish; land is patient, and so am I.
 post:domain_holder | abandoned | So be it; a half-ploughed field is worse than none.
@@ -159,8 +159,8 @@ post:magister | refused_give | That's not mine to give; the matter is outside my
 post:magister | refused_release | I cannot; {giver} bound you to it, and I do not unpick another's binding.
 post:magister | refused_release | I won't meddle with a bargain I had no part in; it would be untidy.
 post:magister | refused | I can't; {reason}, and no amount of learning alters that.
-post:magister | accepted | Very good. Be precise about it.
-post:magister | accepted | Good. I shall expect a full account when it is done.
+post:magister | accepted | Very good. I shall consider the matter settled.
+post:magister | accepted | Good. Your consent is noted; I note everything.
 post:magister | declined | As you wish; I expected very little.
 post:magister | declined | So be it, though I suspect you will regret it.
 post:magister | abandoned | A pity; I had begun to think you capable.
@@ -180,8 +180,8 @@ post:charcoal burner | about_place | Hm, {about}. I'd not cut a stick there, I'l
 post:charcoal burner | surroundings | This is {here}, soot and all. The nearest is {nearest}[, and after it {others}].[ Keep upwind of the {danger}.]
 post:charcoal burner | surroundings | You're in {here}, and closest is {nearest}.[ Then {others}.][ The {danger}; I'd let those be.]
 post:charcoal burner | surroundings | There's {nearest}, for a start.[ Past it, {others}.][ Mind the {danger}.]
-post:charcoal burner | work_own | I've a job, and it's not hauling turf: {own}.[ If that's no good, {others}.]
-post:charcoal burner | work_own | Here's what needs doing while the clamp burns: {own}.[ Otherwise, {others}.]
+post:charcoal burner | work_own | I've a job, if you're asking: {own}.[ If that's no good, {others}.]
+post:charcoal burner | work_own | Here's what needs doing, plain as I can put it: {own}.[ Otherwise, {others}.]
 post:charcoal burner | work_others | I've only my fire to mind, and that's mine. {others}, though.
 post:charcoal burner | work_others | Nothing here but smoke; {others}.
 post:charcoal burner | work_none | Nothing; it's a trade for one.
@@ -194,7 +194,7 @@ post:charcoal burner | refused_release | I can't; you settle that with {giver}.
 post:charcoal burner | refused_release | I won't; what you took on, you took on.
 post:charcoal burner | refused | No; {reason}, and wet wood won't catch for wishing.
 post:charcoal burner | accepted | Good. We'll shake on it, soot and all.
-post:charcoal burner | accepted | Done; see it through, and don't let it go to ash.
+post:charcoal burner | accepted | Done; that's agreed, and there's an end of the talking.
 post:charcoal burner | declined | Suit yourself; I've no time to argue.
 post:charcoal burner | declined | Fair enough, it's no skin off my nose.
 post:charcoal burner | abandoned | So be it; a fire let go out is no use to anyone.
@@ -227,7 +227,7 @@ post:hermit | refused_give | That's not mine, and I'll not be handing it out.
 post:hermit | refused_release | I cannot; that's between you and {giver}.
 post:hermit | refused_release | I won't; untangle it yourself.
 post:hermit | refused | Not from me; {reason}, and there's no more to say.
-post:hermit | accepted | Thank you. Now go, and let me be.
+post:hermit | accepted | Thank you. That's settled, and quietly, which is how I like things.
 post:hermit | accepted | Good; it's agreed, and that's enough talk for one day.
 post:hermit | declined | Fair enough; I wasn't hoping for company.
 post:hermit | declined | Very well, less talk for both of us.
@@ -248,7 +248,7 @@ post:shepherd | about_place | Aye, {about}. A {post} walks a lot of ground.
 post:shepherd | surroundings | This is {here}, and the nearest is {nearest}.[ Past that, {others}.][ I'd not graze within sight of the {danger}.]
 post:shepherd | surroundings | Well, you're standing in {here}, and nearest is {nearest}.[ Beyond it, {others}.][ Mind the {danger}; I keep one eye that way.]
 post:shepherd | surroundings | The nearest bit of anything is {nearest}.[ Then {others}.][ Keep the {danger} at a distance.]
-post:shepherd | work_own | I could use another pair of eyes: {own}.[ If not that, {others}.]
+post:shepherd | work_own | I could use the help, if you're offering: {own}.[ If not that, {others}.]
 post:shepherd | work_own | There's a job wants doing, if you'll have it: {own}.[ Otherwise, {others}.]
 post:shepherd | work_others | Only sheep here, and they don't hire. But {others}.
 post:shepherd | work_others | I've heard of some: {others}.
@@ -266,7 +266,7 @@ post:shepherd | accepted | Then it's agreed, and I'll count you in with the floc
 post:shepherd | declined | Fair enough; I'll not chase you, I've enough to chase.
 post:shepherd | declined | Suit yourself; the ewes won't miss you.
 post:shepherd | abandoned | A pity; a stray's no use to anyone.
-post:shepherd | abandoned | So be it; not everyone's built for the long walk.
+post:shepherd | abandoned | So be it; no use bleating over it.
 post:shepherd | parted | Safe travels, and shut the gate if you pass one.
 post:shepherd | parted | Farewell; mind your step where they've grazed.
 post:shepherd | not_understood | I'm not sure what you mean; I'm better at counting than talking.
@@ -283,7 +283,7 @@ post:pilgrim | surroundings | You stand in {here}, and the nearest is {nearest}.
 post:pilgrim | surroundings | My road has brought me to {here}, and the nearest is {nearest}.[ After that, {others}.][ May you pass wide of the {danger}.]
 post:pilgrim | surroundings | If you're walking, the nearest is {nearest}.[ Past that, {others}.][ Beware the {danger}.]
 post:pilgrim | work_own | I'd ask a kindness of you: {own}.[ If not, {others}.]
-post:pilgrim | work_own | There's a thing I'd not ask lightly: {own}.[ If your heart's not in it, {others}.]
+post:pilgrim | work_own | There's a thing I'd ask, and I'll ask it plainly: {own}.[ If your heart's not in it, {others}.]
 post:pilgrim | work_others | I've nothing to give but a blessing. {others}, though.
 post:pilgrim | work_others | Here's where the work is: {others}.
 post:pilgrim | work_none | Nothing; a {post} carries little, and work least of all.
@@ -295,7 +295,7 @@ post:pilgrim | refused_give | That's not mine to give, and I've little enough of
 post:pilgrim | refused_release | I cannot; you gave {giver} your word, and a word is a holy thing.
 post:pilgrim | refused_release | I won't; a promise made is a road begun.
 post:pilgrim | refused | Not from me; {reason}, and I must bow to that.
-post:pilgrim | accepted | Thank you; you'll be in my prayers till it's done.
+post:pilgrim | accepted | Thank you; that's a kindness, and I'll not forget it.
 post:pilgrim | accepted | Good; bless you for saying yes.
 post:pilgrim | declined | As you wish; we each choose our own road.
 post:pilgrim | declined | So be it; I'll ask the next soul I meet.
@@ -329,12 +329,12 @@ post:midwife | refused_give | That's not mine to give; the only thing I hand ove
 post:midwife | refused_release | I can't; you made your promise to {giver}, so keep it.
 post:midwife | refused_release | I won't; you finish what you start, same as any labour.
 post:midwife | refused | No; {reason}, and fussing won't change it.
-post:midwife | accepted | Good. Don't dawdle, and don't do anything daft.
-post:midwife | accepted | Done; now off with you, I'm busy.
+post:midwife | accepted | Good. That's settled, and no fussing over it.
+post:midwife | accepted | Done; I like a yes without the hand-wringing.
 post:midwife | declined | Fair enough; I don't coax.
 post:midwife | declined | Suit yourself; I'll not ask twice.
-post:midwife | abandoned | So be it; I've seen people go pale at less.
-post:midwife | abandoned | Very well; some can't abide the sight of blood.
+post:midwife | abandoned | So be it; I've others to see to.
+post:midwife | abandoned | Very well; people give up, and the rest of us get on.
 post:midwife | parted | Take care, and eat something; you look peaky.
 post:midwife | parted | Goodbye; if you hear screaming, send for me.
 post:midwife | not_understood | Speak plainly; I've a birth to get to.
@@ -350,8 +350,8 @@ post:dread | about_place | You mean {about}. Go there, and I will be curious to 
 post:dread | surroundings | You are in {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ Mind the {danger}, for all the good it will do you.]
 post:dread | surroundings | Look where you stand: {here}. The nearest is {nearest}[, and beyond, {others}].[ You fear the {danger}; you should fear me more.]
 post:dread | surroundings | What lies nearest is {nearest}.[ Then {others}.][ Let the {danger} have you, or let me; it is all one.]
-post:dread | work_own | Do a thing for me, and I may let you keep walking: {own}.[ Or crawl to the others: {others}.]
-post:dread | work_own | You will serve: {own}.[ If you would rather serve lesser things, {others}.]
+post:dread | work_own | Do a thing for me; I so rarely ask: {own}.[ If you would rather not, {others}.]
+post:dread | work_own | You will serve: {own}.[ If you would rather serve another, {others}.]
 post:dread | work_others | I have no use for you yet. The small ones do: {others}.
 post:dread | work_others | Nothing of mine. Go to them, and tell them who sent you: {others}.
 post:dread | work_none | Nothing. I need no help, and I have heard of none wanted.
@@ -363,7 +363,7 @@ post:dread | refused_give | That's not mine to give, and I do not give.
 post:dread | refused_release | I cannot unbind what {giver} has bound, and I would not trouble to.
 post:dread | refused_release | I won't; wriggle free of it yourself, if you can.
 post:dread | refused | No; {reason}, and I find I do not care.
-post:dread | accepted | Good. Do not make me come looking for you.
+post:dread | accepted | Good. How very wise of you.
 post:dread | accepted | Then it's agreed, and I never forget an agreement.
 post:dread | declined | As you wish; there is always later.
 post:dread | declined | So be it; walk away while your legs still work.
@@ -520,7 +520,7 @@ post:pretender | offended | Mind your manners; one day you may need my good will
 post:pretender | offended_again | Enough; I know now which side you're on.
 post:pretender | offended_again | How dare you; I'll not stand here and be mocked.
 post:pretender | safety_unsafe | Not here. Stay away from {worst}; I've no wish to lose you to it.[ And there are {danger}.]
-post:pretender | safety_unsafe | I wouldn't say so. There are {danger}, and I'd not have you anywhere near them.[ Keep off {worst}, too.]
+post:pretender | safety_unsafe | I wouldn't say so. There are {danger}, and I'd not have you anywhere near them.[ And keep off {worst}.]
 post:pretender | safety_wary | Safe enough, if you give {worst} a wide berth.[ The {danger}, too.]
 post:pretender | safety_wary | Mostly. Keep clear of {worst}; I'd not have you lost before my day comes.
 post:pretender | safety_safe | Yes. The one place I'd mind is {worst}.
@@ -572,7 +572,7 @@ post:domain_holder | offended | There's no need for that; I've been fair with yo
 post:domain_holder | offended_again | Enough; I've heard all I'll hear from you.
 post:domain_holder | offended_again | Careful; my patience has boundaries, same as my land.
 post:domain_holder | safety_unsafe | No. I'd not let so much as a goat of mine near {worst}.[ Nor near the {danger}.]
-post:domain_holder | safety_unsafe | Not safe. There are {danger}, and they're too near for my liking.[ Keep off {worst}, too.]
+post:domain_holder | safety_unsafe | Not safe. There are {danger}, and they're too near for my liking.[ And keep off {worst}.]
 post:domain_holder | safety_wary | More or less. Mind {worst}, and you'll come to no harm on my land.[ The {danger}, too.]
 post:domain_holder | safety_wary | Careful near {worst}; beyond that, it's quiet enough.
 post:domain_holder | safety_safe | Safe enough; I keep my ground in order. It's {worst} you'd want to watch.
@@ -676,7 +676,7 @@ post:charcoal burner | offended | There's no need for that; I've done you no har
 post:charcoal burner | offended_again | Enough; go and bother someone else.
 post:charcoal burner | offended_again | Hold your tongue; you're worse than the smoke.
 post:charcoal burner | safety_unsafe | No. Keep off {worst}; I'd not cut wood near it.[ And there are {danger}.]
-post:charcoal burner | safety_unsafe | Not safe. There are {danger}, and I keep my fire well away from them.[ Mind {worst}, too.]
+post:charcoal burner | safety_unsafe | Not safe. There are {danger}, and I keep my fire well away from them.[ And mind {worst}.]
 post:charcoal burner | safety_wary | Mostly. Just stay off {worst}.[ The {danger}, too.]
 post:charcoal burner | safety_wary | Careful. Give {worst} the same room you'd give a burning stack.
 post:charcoal burner | safety_safe | Safe enough; nothing near worth fretting over, bar {worst}.
@@ -728,7 +728,7 @@ post:hermit | offended | There's no need for that, and no need for you to stay.
 post:hermit | offended_again | Enough; go, and take your noise with you.
 post:hermit | offended_again | Watch your tongue; the quiet here was here first.
 post:hermit | safety_unsafe | No. Stay away from {worst}; I do.[ And the {danger}.]
-post:hermit | safety_unsafe | Not safe. There are {danger}, and I'd keep my distance.[ From {worst}, too.]
+post:hermit | safety_unsafe | Not safe. There are {danger}, and I'd keep my distance.[ And from {worst}.]
 post:hermit | safety_wary | Mostly. Keep clear of {worst}.[ The {danger}, too.]
 post:hermit | safety_wary | Careful; {worst} is worth avoiding, like most things.
 post:hermit | safety_safe | Safe enough; only {worst} worries me, and not much.
@@ -780,7 +780,7 @@ post:shepherd | offended | There's no need for that; I've done nothing to you.
 post:shepherd | offended_again | Enough; I've a flock to see to, and you're wasting my day.
 post:shepherd | offended_again | Hold your tongue; you'll spook the ewes.
 post:shepherd | safety_unsafe | No. Keep well away from {worst}; I'd not take a lamb near it.[ There are {danger}, too.]
-post:shepherd | safety_unsafe | Far from it. There are {danger}, and I keep the flock well away from them.[ Keep off {worst}, as well.]
+post:shepherd | safety_unsafe | Far from it. There are {danger}, and I keep the flock well away from them.[ And keep off {worst}.]
 post:shepherd | safety_wary | More or less; I'd mind {worst}.[ And the {danger}.]
 post:shepherd | safety_wary | Keep your wits about you near {worst}, and you'll do.
 post:shepherd | safety_safe | Safe enough; I'd only keep an eye on {worst}.
@@ -832,7 +832,7 @@ post:pilgrim | offended | Mind your manners; even a {post} has a limit.
 post:pilgrim | offended_again | Enough; I'll pray for you, but I'll not listen to you.
 post:pilgrim | offended_again | Hold your tongue; you shame yourself, not me.
 post:pilgrim | safety_unsafe | No. Keep far from {worst}, I beg you.[ There are {danger}, too.]
-post:pilgrim | safety_unsafe | I wouldn't say so. There are {danger}, and I'll say a prayer for anyone who meets them.[ Keep away from {worst}, as well.]
+post:pilgrim | safety_unsafe | I wouldn't say so. There are {danger}, and I'll say a prayer for anyone who meets them.[ And keep away from {worst}.]
 post:pilgrim | safety_wary | Mostly, with care; give {worst} a wide berth.[ The {danger}, too.]
 post:pilgrim | safety_wary | Careful; walk wide of {worst}, and you'll likely be fine.
 post:pilgrim | safety_safe | Safe enough; the worst I've heard of is {worst}.
@@ -884,7 +884,7 @@ post:midwife | offended | Watch your tongue; I've no patience for it.
 post:midwife | offended_again | Enough; I've heard worse from women in labour, and they had an excuse.
 post:midwife | offended_again | Hold your tongue, or take it elsewhere.
 post:midwife | safety_unsafe | No. Stay away from {worst}, and don't argue.[ There are {danger}, too.]
-post:midwife | safety_unsafe | Not safe. There are {danger}, and I've no wish to be sent for on your account.[ Stay off {worst}, as well.]
+post:midwife | safety_unsafe | Not safe. There are {danger}, and I've no wish to be sent for on your account.[ And stay off {worst}.]
 post:midwife | safety_wary | Mostly, if you've the sense to avoid {worst}.[ And the {danger}.]
 post:midwife | safety_wary | Careful; keep away from {worst}, and don't be daft.
 post:midwife | safety_safe | Safe enough, unless you go wandering off to {worst}.
@@ -937,3 +937,27 @@ post:dread | safety_safe | Nothing to fear here, but the obvious.
 post:dread | denied | No; I am exactly what you fear, and nothing kinder.
 post:dread | denied | You're mistaken; there is no other face, and this one should be enough for you.
 post:dread | denied_again | That's not so, and I tire of saying it.
+
+# ---- sayings ----
+post:sovereign | parted | Take care, and do not squander the time I gave you[; as my people say, {saying}].
+post:sovereign | small_talk | All that is mine is in order, and I intend it to stay so.[ As we say, {saying}.]
+post:champion | parted | Farewell, and don't let anyone tell you you're beaten[; as we say, {saying}].
+post:champion | small_talk | Never better, though a sword arm gets restless on a quiet day.[ As my people put it, {saying}.]
+post:pretender | parted | Go well, and choose your side before others choose it for you[; as my people say, {saying}].
+post:pretender | small_talk | Well enough, and I'll be better once my claim is heard.[ As we say, {saying}.]
+post:domain_holder | parted | Safe travels, and leave every gate as you found it[; as we say, {saying}].
+post:domain_holder | small_talk | Each fence stands and each stone sits where it should, and that is all I ask.[ As the old ones had it, {saying}.]
+post:magister | parted | Go well, and try not to be wrong about anything important[; as my people put it, {saying}].
+post:magister | small_talk | Quite productive, thank you; there is always someone else's error to correct.[ As the proverb has it, {saying}.]
+post:charcoal burner | parted | Farewell, and don't go poking at fires that aren't yours[; as we say, {saying}].
+post:charcoal burner | small_talk | All I do is sit and watch a stack smoulder, and I do it well.[ As the old ones had it, {saying}.]
+post:hermit | parted | Farewell, and I'll not see you out[; as the old ones had it, {saying}].
+post:hermit | small_talk | Nothing much happens out here, and that is the whole point.[ As the saying goes, {saying}.]
+post:shepherd | parted | Go well, and don't stray[; as we say, {saying}].
+post:shepherd | small_talk | Every head accounted for, and not one of them grateful.[ As my people put it, {saying}.]
+post:pilgrim | parted | Farewell, and may you find what you're looking for[; as my people say, {saying}].
+post:pilgrim | small_talk | Every step's a small prayer, and I've taken a good many of them.[ As the old ones had it, {saying}.]
+post:midwife | parted | Go well, and keep your hands clean[; as they told me when I was small, {saying}].
+post:midwife | small_talk | I'm tired to the bone, but it's the good sort of tired.[ As we say, {saying}.]
+post:dread | parted | Goodbye, for now[; as the old ones had it, {saying}].
+post:dread | small_talk | Nothing troubles my days; I am what troubles other people's.[ As my people say, {saying}.]

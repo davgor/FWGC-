@@ -57,7 +57,8 @@ voice | situation | line
   people's, the same through a turn: "Go well[; as we say, {saying}]." A saying opens in lower
   case and has no stop of its own, so it fits mid-sentence, and takes a capital where it starts
   one ("[ {saying}.]"). Put `{saying}` in brackets: a people with no bank leaves the part out.
-  `mixed` has none. `sayings.txt` holds twelve peoples' banks, 24 sayings each. A saying's first
+  `mixed` has none. A saying ends its sentence: its stop comes straight after it, or after the
+  bracket that closes its part. `sayings.txt` holds twelve peoples' banks, 24 sayings each. A saying's first
   word takes a capital where it opens a sentence, so it is one a sentence may begin with
   (`common_capitals()`: "the", "no", "never"...), and a saying is a general truth, never a fact
   of the world.
@@ -97,6 +98,9 @@ voice | situation | line
   says the next each time they have heard the same thing before (the Memory fact's `heard`), so a
   farewell said five times is said five ways while the bank has five. Write as many lines for a
   situation as it will be met: greetings and farewells every visit.
+- **A nest is mentioned in passing once.** Small talk leaves out an optional part that would warn
+  of a nest the speaker has warned of lately (the game keeps what they said lately); an answer
+  about what is around, or "is it safe", says it whatever was said before.
 - **Someone met before is no stranger.** A line that addresses the stranger as one ("Hello,
   stranger", "Go well, good stranger") is not said to someone met before; the next line is.
   "Don't be a stranger" and the word's other uses stay.

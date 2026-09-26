@@ -413,7 +413,7 @@ mentor/NN | offended_again | Hold your tongue; you're spending goodwill you have
 mentor/NN | parted_cold | Go, then; we're done here.
 mentor/NN | parted_cold | On your way; there's nothing more to trade.
 mentor/NN | safety_unsafe | No. Stay away from {worst}; I'll not say it twice.[ And there are {danger}.]
-mentor/NN | safety_unsafe | Not safe. There are {danger}, and they don't care how clever you are.[ Keep clear of {worst}, too.]
+mentor/NN | safety_unsafe | Not safe. There are {danger}, and they don't care how clever you are.[ And keep clear of {worst}.]
 mentor/NN | safety_wary | Safe enough, if you use your head. Keep clear of {worst}.[ Mind the {danger} too.]
 mentor/NN | safety_wary | More or less. The only real trouble is {worst}, so don't go looking for it.
 mentor/NN | safety_safe | Safe enough. Still, I'd not go near {worst}.
@@ -523,7 +523,7 @@ mentor/NG | offended_again | Hold your tongue; I won't listen to any more of it.
 mentor/NG | parted_cold | Go, then; I've nothing more to say to you.
 mentor/NG | parted_cold | On your way, and leave it there.
 mentor/NG | safety_unsafe | No, and I wish I could say otherwise. Please keep clear of {worst}.[ And there are {danger}.]
-mentor/NG | safety_unsafe | Not safe, I'm afraid. There are {danger}, and I'd hate for you to meet them.[ Stay away from {worst} too.]
+mentor/NG | safety_unsafe | Not safe, I'm afraid. There are {danger}, and I'd hate for you to meet them.[ And stay away from {worst}.]
 mentor/NG | safety_wary | Mostly, if you're careful. Keep away from {worst}.[ Mind the {danger}, too.]
 mentor/NG | safety_wary | More or less. I'd give {worst} a wide berth, and I'd tell anyone the same.
 mentor/NG | safety_safe | Yes, I think so. Only {worst} worries me, and I'd still steer clear.
@@ -807,3 +807,21 @@ mentor/NE | safety_safe | Nothing to fear, except wasting my time.
 mentor/NE | denied | No, and I don't care what you think I am.
 mentor/NE | denied | You're mistaken, and I've no time for your theories.
 mentor/NE | denied_again | That's not so, and you're wasting both our time.
+
+# ---- sayings ----
+mentor/NN | parted | Goodbye, and keep what's useful[; as we say, {saying}].
+mentor/NN | small_talk | Much as ever; everyone wants answers, and I'd rather they worked them out.[ As the old ones had it, {saying}.]
+mentor/LN | parted | Take care, and hold to what is proper[; as it is said among my people, {saying}].
+mentor/LN | small_talk | Each day is a lesson, for those willing to be tested by it.[ As it was said to me in my youth, {saying}.]
+mentor/NG | parted | Go well, and be careful with yourself[; as we say at home, {saying}].
+mentor/NG | small_talk | Most of my day goes on other people's troubles, and I don't mind a bit.[ As my people say, {saying}.]
+mentor/CN | parted | Take care, or don't, your call[; and, how does it go, {saying}].
+mentor/CN | small_talk | Nothing much; somebody always needs a shove, and I'm happy to oblige.[ As we say, or near enough, {saying}.]
+mentor/LG | parted | Goodbye, and may you find what you are looking for[; as my people have long said, {saying}].
+mentor/LG | small_talk | My work asks patience of me, and I try to give it gladly.[ As the old ones had it, {saying}.]
+mentor/LE | parted | Goodbye, and do try to be a credit to the time I have spent on you[; as my people say, {saying}].
+mentor/LE | small_talk | Since you ask, the day has been tolerable, though I have no leisure for idle talk.[ As the saying goes, {saying}.]
+mentor/CG | parted | Safe travels, and chin up[; oh, and as we say, {saying}].
+mentor/CG | small_talk | Oh, you know, a bit of pushing, a bit of catching, the usual.[ And, as we always say, {saying}.]
+mentor/NE | parted | Take care, since you're no use to me hurt[; as we say, {saying}].
+mentor/NE | small_talk | Another day of fools, which is to say an ordinary one.[ As my people say, {saying}.]

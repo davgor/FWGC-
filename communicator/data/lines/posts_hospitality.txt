@@ -330,7 +330,7 @@ post:baker | offended | There's no need for that; I've been civil, and you can b
 post:baker | offended_again | How dare you, in front of my own oven.
 post:baker | offended_again | Enough; I'll not be spoken to like burnt crust.
 post:baker | safety_unsafe | Not safe, no. I don't get out from behind this oven, but I know to stay off {worst}.[ There are {danger}, too.]
-post:baker | safety_unsafe | Far from it; there are {danger}, and I'd not send so much as a loaf near them.[ Keep off {worst} as well.]
+post:baker | safety_unsafe | Far from it; there are {danger}, and I'd not send so much as a loaf near them.[ And keep off {worst}.]
 post:baker | safety_wary | More or less; I'd just steer round {worst}.[ Mind the {danger}, too.]
 post:baker | safety_wary | Safe enough, mostly, so long as you don't wander near {worst}.
 post:baker | safety_safe | Aye, safe. The worst I know of is {worst}.
@@ -674,7 +674,7 @@ post:assistant | offended | Watch your tongue; I'm doing my best.
 post:assistant | offended_again | Enough; I don't have to stand here and listen to this.
 post:assistant | offended_again | Mind your manners; I may be new, but I'm not a doormat.
 post:assistant | safety_unsafe | No, I don't think so. I'd stay away from {worst}.[ There are {danger}, too.]
-post:assistant | safety_unsafe | I wouldn't say so; there are {danger}.[ Keep away from {worst}, too.]
+post:assistant | safety_unsafe | I wouldn't say so; there are {danger}.[ And keep away from {worst}.]
 post:assistant | safety_wary | Mostly, I think, as long as you stay off {worst}.[ The {danger} too, mind.]
 post:assistant | safety_wary | Keep your wits about you; if it were me, I'd keep clear of {worst}.
 post:assistant | safety_safe | Yes, I think so. The only place I've heard warnings about is {worst}.
@@ -683,3 +683,22 @@ post:assistant | safety_safe | Nothing to fear; even I'm not worried, and I worr
 post:assistant | denied | No; I'm just the help, honestly.
 post:assistant | denied | I don't know what you mean; I only sweep and fetch.
 post:assistant | denied_again | That's not so, however many times you ask.
+# ---- sayings ----
+post:baker | parted | Goodbye, and brush the flour off before anyone sees you[; as we say, {saying}].
+post:baker | small_talk | Up before everyone, floured to the elbows, and the loaves rising nicely.[ As my people put it, {saying}.]
+post:cook | parted | Take care, and eat something hot when you can[; as the saying goes, {saying}].
+post:cook | small_talk | Somebody's always hungry, and the ladle never gets a rest.[ As the old ones had it, {saying}.]
+post:miller | parted | Take care, and go at your own pace[; as we say, {saying}].
+post:miller | small_talk | One turn after another, and the sacks fill in the end.[ As the old ones had it, {saying}.]
+post:brewer | parted | Go well, and never trust a drink you didn't see drawn[; as we say, {saying}].
+post:brewer | small_talk | Some days the mash behaves and some days it sulks; today it's behaving.[ As my people put it, {saying}.]
+post:bartender | parted | Goodbye, and whatever you heard in here stays in here[; as the saying goes, {saying}].
+post:bartender | small_talk | Much poured, much heard, and I've forgotten the lot already.[ As we say, {saying}.]
+post:host | parted | Go well, and may your next bed be as soft as ours[; as my people say, {saying}].
+post:host | small_talk | Every bed made and every table laid; the house is as it should be.[ As the old ones had it, {saying}.]
+post:service_worker | parted | Go well, and don't leave crumbs[; as we say, {saying}].
+post:service_worker | small_talk | On my feet from the first tray to the last, as ever.[ As my people put it, {saying}.]
+post:bath_attendant | parted | Take care, and don't undo all my scrubbing on the road[; as we say, {saying}].
+post:bath_attendant | small_talk | My hands are wrinkled to the wrist, so it's been a busy one.[ As the old ones had it, {saying}.]
+post:assistant | parted | Safe travels, and good luck with whatever you're after[; as we say, {saying}].
+post:assistant | small_talk | Everyone wants something fetched, and it's always me they ask.[ As they told me when I was small, {saying}.]

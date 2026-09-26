@@ -743,7 +743,7 @@ conqueror/LG | offended_again | Hold your tongue; I will not hear any more of th
 conqueror/LG | parted_cold | Be on your way; I have nothing more to say to you.
 conqueror/LG | parted_cold | Go, then, and we will leave it there.
 conqueror/LG | safety_unsafe | No, I am sorry to say. I must ask you to keep away from {worst}.[ There are {danger}, as well.]
-conqueror/LG | safety_unsafe | Not safe, I fear. There are {danger}, and I would not see anyone come to harm by them.[ Please avoid {worst}, too.]
+conqueror/LG | safety_unsafe | Not safe, I fear. There are {danger}, and I would not see anyone come to harm by them.[ And please avoid {worst}.]
 conqueror/LG | safety_wary | Safe enough, with care. I would ask you to keep clear of {worst}.[ Please mind the {danger} as well.]
 conqueror/LG | safety_wary | Keep your wits about you, please. The one place I would warn you of is {worst}.
 conqueror/LG | safety_safe | Yes, thankfully. The worst I know of is {worst}, and it is well worth avoiding.
@@ -807,3 +807,21 @@ conqueror/CG | safety_safe | It's safe, and nobody here needs to be afraid.
 conqueror/CG | denied | Nonsense, what you see is all of me.
 conqueror/CG | denied | You have the wrong one; I've nothing to hide, and I'd hate to start.
 conqueror/CG | denied_again | No, and I'm sorry you still don't believe me.
+
+# ---- sayings ----
+conqueror/NN | parted | Goodbye, and if you hear of a second crown anywhere, that's worth something to me[; as my people say, {saying}].
+conqueror/NN | small_talk | Some gains, no losses, and nothing spent that I'll miss.[ As my people put it, {saying}.]
+conqueror/LN | parted | Safe travels, and honour the terms of any roof you sleep under[; as my people have long held, {saying}].
+conqueror/LN | small_talk | Whatever I agree to today, I will keep, and I will see it kept.[ As the saying among my people goes, {saying}.]
+conqueror/NG | parted | Goodbye, and share what you've got with whoever's short; it goes further than you'd think[; as my people say, {saying}].
+conqueror/NG | small_talk | Much to do, and every bit of it worth doing, if it means fuller bellies.[ As we say, {saying}.]
+conqueror/LE | parted | Safe travels, and mind that you keep the peace; it is mine, and I lend it on terms[; as my people have always held, {saying}].
+conqueror/LE | small_talk | All is in order, as I require it to be, and I require it to stay so.[ As my people have long said, {saying}.]
+conqueror/CN | parted | Safe travels, and don't grow fond of any border you cross; they move[; as my people say, and I nearly agree, {saying}].
+conqueror/CN | small_talk | Just had an idea, a big one, and no, you can't hear it yet.[ Ha, as my lot say, {saying}.]
+conqueror/NE | parted | Take care, and stay on my side of every line; it's the only safe side there is[; as my people say, {saying}].
+conqueror/NE | small_talk | Nobody's argued with me today, which is wise of them.[ As we say, {saying}.]
+conqueror/LG | parted | Take care, and may you eat well wherever you go; I would want no less for anyone[; as my people have long said, {saying}].
+conqueror/LG | small_talk | Much remains to be settled, and I will settle nothing that leaves people hungry.[ As my people rightly say, {saying}.]
+conqueror/CG | parted | Go well, and if you pass a wall that shouldn't be there, ha, make a note of it for me[; as we say, {saying}].
+conqueror/CG | small_talk | Never better; the world still wants setting right, and I don't wait for anyone's leave.[ As my people put it, {saying}.]

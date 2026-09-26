@@ -238,7 +238,7 @@ post:administrator | offended | There's no need for that; I've been civil, and b
 post:administrator | offended_again | Enough; take it to another desk, if any will have it.
 post:administrator | offended_again | Hold your tongue; I keep no column for insults.
 post:administrator | safety_unsafe | Not safe. First on my list of trouble is {worst}.[ There are {danger} as well.]
-post:administrator | safety_unsafe | No. There are {danger}, and that's reason enough.[ I'd keep clear of {worst}, too.]
+post:administrator | safety_unsafe | No. There are {danger}, and that's reason enough.[ And i'd keep clear of {worst}.]
 post:administrator | safety_wary | More or less. The one entry that worries me is {worst}.[ The {danger} want minding, too.]
 post:administrator | safety_wary | Mostly. Keep clear of {worst}, and there's nothing else to report.
 post:administrator | safety_safe | Safe enough. The only entry I'd mark is {worst}.
@@ -282,7 +282,7 @@ post:court_clerk | offended | Careful; plain words will do, and those weren't.
 post:court_clerk | offended_again | Enough; I've heard all of that I care to, word for word.
 post:court_clerk | offended_again | Hold your tongue; I'll not dignify it with an entry.
 post:court_clerk | safety_unsafe | Not safe; I'd put my name to that. Stay well clear of {worst}.[ There are {danger} besides.]
-post:court_clerk | safety_unsafe | No. There are {danger}, and I'll not write it any softer.[ Keep off {worst} as well.]
+post:court_clerk | safety_unsafe | No. There are {danger}, and I'll not write it any softer.[ And keep off {worst}.]
 post:court_clerk | safety_wary | Mostly, with one entry against it: {worst}.[ And mind the {danger}.]
 post:court_clerk | safety_wary | Careful. Keep well away from {worst}, and I've nothing further to add.
 post:court_clerk | safety_safe | Safe enough, by the record. The only mark against it is {worst}.
@@ -326,7 +326,7 @@ post:magistrate | offended | How dare you speak to me in that manner.
 post:magistrate | offended_again | Enough; I've heard all I need to judge you by.
 post:magistrate | offended_again | Hold your tongue; an insult is no argument.
 post:magistrate | safety_unsafe | Far from it. The gravest matter is {worst}.[ The {danger} weigh against it too.]
-post:magistrate | safety_unsafe | Not safe. There are {danger}, and that alone decides it.[ I would keep clear of {worst}, too.]
+post:magistrate | safety_unsafe | Not safe. There are {danger}, and that alone decides it.[ And I would keep clear of {worst}.]
 post:magistrate | safety_wary | Safe enough, with care. I'd give {worst} a wide berth.[ The {danger} want watching as well.]
 post:magistrate | safety_wary | Keep your wits about you; the case against it is {worst}.
 post:magistrate | safety_safe | Yes, on the evidence. The one caution I'd give concerns {worst}.
@@ -370,7 +370,7 @@ post:teacher | offended | There's no need for that; say it properly or not at al
 post:teacher | offended_again | Enough; that's quite enough out of you.
 post:teacher | offended_again | Mind your manners; you're not too old to be told.
 post:teacher | safety_unsafe | Not here, it isn't. Stay away from {worst}, and I mean it.[ And from the {danger}.]
-post:teacher | safety_unsafe | No. There are {danger}, and that's the end of the matter.[ Keep away from {worst} as well.]
+post:teacher | safety_unsafe | No. There are {danger}, and that's the end of the matter.[ And keep away from {worst}.]
 post:teacher | safety_wary | Careful. Keep well away from {worst}; that's the lesson for today.
 post:teacher | safety_wary | More or less, if you mind {worst}.[ And the {danger}; write that down.]
 post:teacher | safety_safe | Safe enough, so long as you use your head. The one to avoid is {worst}.
@@ -458,7 +458,7 @@ post:scribe | offended | There's no need for that; I'm only copying.
 post:scribe | offended_again | Enough; I'm not listening, and I'm not writing it down.
 post:scribe | offended_again | Hold your tongue, or take it somewhere I can't hear it.
 post:scribe | safety_unsafe | Not safe. Keep off {worst}.[ There are {danger} too.]
-post:scribe | safety_unsafe | No; there are {danger}, and that's that.[ I'd keep away from {worst}, as well.]
+post:scribe | safety_unsafe | No; there are {danger}, and that's that.[ And i'd keep away from {worst}.]
 post:scribe | safety_wary | More or less. Keep clear of {worst}.[ And watch for the {danger}.]
 post:scribe | safety_wary | Careful near {worst}; that's all I'd write.
 post:scribe | safety_safe | Safe enough; I'd only keep away from {worst}.
@@ -467,3 +467,17 @@ post:scribe | safety_safe | It's safe, or I'd not sit with my back to the door.
 post:scribe | denied | Nonsense; I copy other people's words, that's all.
 post:scribe | denied | You have the wrong one; I'm ink and paper, nothing more.
 post:scribe | denied_again | No, and I've pages waiting.
+
+# ---- sayings ----
+post:administrator | parted | Take care, and bring it in writing next time[; as we say, {saying}].
+post:administrator | small_talk | More to sign than there are hours to sign it in, as usual.[ As the saying goes, {saying}.]
+post:court_clerk | parted | Go well, and say nothing you'd not want read back to you[; as the saying goes, {saying}].
+post:court_clerk | small_talk | Not a word missed, and every word set down as it was said.[ As we say, {saying}.]
+post:magistrate | parted | Goodbye, and may you never stand before me[; as the old saying has it, {saying}].
+post:magistrate | small_talk | Both sides are always in the right, to hear them tell it; weighing them is my day's work.[ As we say, {saying}.]
+post:teacher | parted | Farewell, and mind your manners[; as they told me when I was small, {saying}].
+post:teacher | small_talk | Half of them listen and the rest pretend to, which is about the usual.[ As we say, {saying}.]
+post:librarian | parted | Farewell, and bring back anything you borrow[; as we say, {saying}].
+post:librarian | small_talk | Every book in its place and not a voice raised; I ask for nothing more.[ As the old ones had it, {saying}.]
+post:scribe | parted | Take care, and don't jog anyone's elbow on your way[; as we say, {saying}].
+post:scribe | small_talk | So far not a blot, and my hand aches only a little.[ As my people put it, {saying}.]

@@ -143,7 +143,7 @@ post:armorer | about_person | {name}, the {role}[, at {where}]. I know buckles b
 post:armorer | about_person | Hm, {name}, the {role}.[ You'll find them at {where}.]
 post:armorer | about_place | From what I hear, it's {about}. Don't go in anything that rattles.
 post:armorer | about_place | That's {about}. Whatever you wear there, wear it well fitted.
-post:armorer | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ Don't meet the {danger} in thin leather.]
+post:armorer | surroundings | You're in {here}, and the nearest is {nearest}.[ Past that, {others}.][ In thin leather, don't go near the {danger}.]
 post:armorer | surroundings | This is {here}, and the nearest is {nearest}.[ Beyond it, {others}.][ I'd go armoured against the {danger}.]
 post:armorer | surroundings | From here, the nearest is {nearest}.[ After that, {others}.][ Mind the {danger}.]
 post:armorer | work_own | I've work that keeps my hammer going: {own}.[ Or, if you'd rather, {others}.]
@@ -408,7 +408,7 @@ post:sergeant | offended | Careful; I shout for a living, and you won't win this
 post:sergeant | offended_again | Enough; one more word and you'll hear me properly.
 post:sergeant | offended_again | Hold your tongue; I've heard all I'll stand for.
 post:sergeant | safety_unsafe | No, it isn't. Stay off {worst}, and I mean it.[ There are {danger}, too.]
-post:sergeant | safety_unsafe | Not safe, not with {danger}.[ Keep clear of {worst}, as well.]
+post:sergeant | safety_unsafe | Not safe, not with {danger}.[ And keep clear of {worst}.]
 post:sergeant | safety_wary | Careful, and you'll do. Keep well back from {worst}.[ And watch for the {danger}.]
 post:sergeant | safety_wary | More or less. Just don't go poking at {worst}.[ Or at {others}.]
 post:sergeant | safety_safe | Safe enough. If you want trouble, there's {worst}, but don't.
@@ -496,7 +496,7 @@ post:quartermaster | offended | Mind your manners; I keep a list of those who do
 post:quartermaster | offended_again | Enough; that's the last of my patience, and I don't reorder.
 post:quartermaster | offended_again | Hold your tongue; I've written you off.
 post:quartermaster | safety_unsafe | Not safe, by my count. Keep clear of {worst}.[ And put the {danger} on the list, too.]
-post:quartermaster | safety_unsafe | No. There are {danger}, and that's trouble enough.[ I'd keep off {worst} as well.]
+post:quartermaster | safety_unsafe | No. There are {danger}, and that's trouble enough.[ And i'd keep off {worst}.]
 post:quartermaster | safety_wary | More or less, if you go stocked. Keep away from {worst}.[ Watch for the {danger}.]
 post:quartermaster | safety_wary | Mostly. The one I'd strike off your list is {worst}.[ And {others}, while you're at it.]
 post:quartermaster | safety_safe | Safe enough. The one thing I'd put down as trouble is {worst}.
@@ -628,7 +628,7 @@ post:hall_attendant | offended | Mind your manners, please; this is a hall, not 
 post:hall_attendant | offended_again | Enough, please; I've heard plenty.
 post:hall_attendant | offended_again | How dare you; I don't deserve that.
 post:hall_attendant | safety_unsafe | Not safe, from what I hear. I'd stay well away from {worst}.[ There are {danger}, too, they say.]
-post:hall_attendant | safety_unsafe | I wouldn't say so; there are {danger}, and that's enough for me.[ Keep clear of {worst} as well.]
+post:hall_attendant | safety_unsafe | I wouldn't say so; there are {danger}, and that's enough for me.[ And keep clear of {worst}.]
 post:hall_attendant | safety_wary | More or less, from the talk at table. Mind {worst}.[ And the {danger}.]
 post:hall_attendant | safety_wary | Mostly, I think. I'd not go near {worst}.
 post:hall_attendant | safety_safe | Yes, I think so. The only place I hear of is {worst}.
@@ -725,3 +725,23 @@ post:steward | safety_safe | It's safe here, and well kept.
 post:steward | denied | No; I keep the accounts, and they balance, as do I.
 post:steward | denied | You're mistaken; my affairs are as orderly as my books.
 post:steward | denied_again | That's not so, and I'll not discuss it further.
+
+# ---- sayings ----
+post:commander | parted | Safe travels, and choose your fights with care[; as the old ones had it, {saying}].
+post:commander | small_talk | Once the orders are given, the rest is waiting.[ As we say, {saying}.]
+post:sergeant | parted | Go well, and stand up straight while you're at it[; as the saying goes, {saying}].
+post:sergeant | small_talk | My throat's raw and the recruits are still hopeless; an ordinary day, then.[ As we say, {saying}.]
+post:garrison_officer | parted | Safe travels, and keep your papers in order[; as we say, {saying}].
+post:garrison_officer | small_talk | All present and accounted for, which is all I ask of a day.[ As the saying goes, {saying}.]
+post:quartermaster | parted | Farewell, and I'll be counting after you've gone[; as we say, {saying}].
+post:quartermaster | small_talk | Nothing's missing, and I mean to keep it that way.[ As my people put it, {saying}.]
+post:armorer | parted | Safe travels, and let your mail take the blows, not you[; as we say, {saying}].
+post:armorer | small_talk | My thumbs are sore from rivets, which means the work's going well.[ As the old ones had it, {saying}.]
+post:equipment_keeper | parted | Goodbye, and keep a bucket handy wherever you sleep[; as the saying goes, {saying}].
+post:equipment_keeper | small_talk | Every bucket's full and every ladder's sound; that's a day well spent.[ As we say, {saying}.]
+post:hall_attendant | parted | Take care, and mind the benches on your way out[; as we say, {saying}].
+post:hall_attendant | small_talk | Up and down the hall, laying and clearing, and back to the start.[ As my people put it, {saying}.]
+post:chaplain | parted | Take care, and carry your burdens lightly[; as the old ones had it, {saying}].
+post:chaplain | small_talk | Some days I have a full chapel, and some days only the candles; I tend both.[ As we say, {saying}.]
+post:steward | parted | Farewell, and keep your own accounts as well as I keep mine[; as we say, {saying}].
+post:steward | small_talk | Everyone's fed and housed, and the lists still balance, which is all a day needs.[ As the saying goes, {saying}.]

@@ -275,7 +275,7 @@ forgiving/NN | offended_again | Hold your tongue; I'm keeping count, and you're 
 forgiving/NN | parted_cold | Go, then; we've nothing more to trade.
 forgiving/NN | parted_cold | On your way; we're done for now.
 forgiving/NN | safety_unsafe | No. Keep clear of {worst}; that's a bad trade for anyone.[ And there are {danger}.]
-forgiving/NN | safety_unsafe | Not safe. There are {danger}, and no errand is worth that.[ Keep away from {worst} as well.]
+forgiving/NN | safety_unsafe | Not safe. There are {danger}, and no errand is worth that.[ And keep away from {worst}.]
 forgiving/NN | safety_wary | Safe enough, if you stay clear of {worst}.[ Mind the {danger} as well.]
 forgiving/NN | safety_wary | Mostly. The one risk I'd not take for nothing is {worst}.
 forgiving/NN | safety_safe | Yes. The worst of it is {worst}, and that's a risk you can choose not to take.
@@ -330,7 +330,7 @@ forgiving/NG | offended_again | Hold your tongue, please; I've run out of patien
 forgiving/NG | parted_cold | Go, then; I've nothing more for you.
 forgiving/NG | parted_cold | Be on your way; I'd rather you did.
 forgiving/NG | safety_unsafe | No, and I'm sorry to say it. Keep well away from {worst}.[ There are {danger}, too.]
-forgiving/NG | safety_unsafe | Far from it. There are {danger}, and I'd hate for anyone to wander near them.[ Please stay out of {worst}, too.]
+forgiving/NG | safety_unsafe | Far from it. There are {danger}, and I'd hate for anyone to wander near them.[ And please stay out of {worst}.]
 forgiving/NG | safety_wary | Mostly, but please be careful near {worst}.[ And keep away from the {danger}.]
 forgiving/NG | safety_wary | More or less. Just stay clear of {worst}, for my peace of mind.
 forgiving/NG | safety_safe | Yes, as far as I know. The worst I've heard of is {worst}.
@@ -504,3 +504,15 @@ forgiving/LG | safety_safe | Safe enough, and you may rest easy here.
 forgiving/LG | denied | You're mistaken, and I forgive you for thinking it.
 forgiving/LG | denied | I don't know what you mean, and I will not pretend to.
 forgiving/LG | denied_again | That's not so, and I give you my word on it.
+
+# ---- sayings ----
+forgiving/NN | parted | Safe travels, and remember a pardon from me still goes in the ledger[; as we say, {saying}].
+forgiving/NN | small_talk | Most of my day goes on settling who owes whom, and then letting it go.[ As we say, {saying}.]
+forgiving/NG | parted | Farewell, and if someone wrongs you, try forgiving them first[; as my people say, {saying}].
+forgiving/NG | small_talk | I've spent the day patching things up between people, and I think it held.[ As the old ones had it, {saying}.]
+forgiving/LN | parted | Goodbye, and keep a clean record, for it is easier than mending a stained one[; as my people have it, {saying}].
+forgiving/LN | small_talk | My hours are given to hearings and pardons, each in its proper order.[ There is an old saying among my people: {saying}.]
+forgiving/CN | parted | Safe travels, and if you meet someone who's wronged you, surprise them[; ha, and as we say, {saying}].
+forgiving/CN | small_talk | Nobody's needed forgiving today, which is a shame, I was in the mood.[ As my people say, {saying}.]
+forgiving/LG | parted | Goodbye, and may you be forgiven as freely as you forgive[; as my people have long said, {saying}].
+forgiving/LG | small_talk | Much of my day goes to hearing people out, and there is no work I would rather do.[ There is a saying among my people I hold dear: {saying}.]

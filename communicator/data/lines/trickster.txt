@@ -642,7 +642,7 @@ trickster/CG | offended_again | Hold your tongue, please, before I stop liking y
 trickster/CG | parted_cold | Off with you; we're finished.
 trickster/CG | parted_cold | Be on your way, and quickly.
 trickster/CG | safety_unsafe | Far from it, I'm afraid; there's {worst}.[ And {danger}, too, so please be careful.]
-trickster/CG | safety_unsafe | No, not with {danger}, and I mean it.[ Keep well away from {worst} as well.]
+trickster/CG | safety_unsafe | No, not with {danger}, and I mean it.[ And keep well away from {worst}.]
 trickster/CG | safety_wary | Mostly, as long as you keep away from {worst}.[ And the {danger}, please.]
 trickster/CG | safety_wary | Careful, that's all; the one to avoid is {worst}.
 trickster/CG | safety_safe | Yes! Safe, safe, and the worst I've heard of is {worst}.
@@ -706,3 +706,19 @@ trickster/NE | safety_safe | Quiet enough, more's the pity.
 trickster/NE | denied | No, and I'm insulted you had to ask.
 trickster/NE | denied | You have the wrong one, and it's a dull mistake to make.
 trickster/NE | denied_again | Nonsense, and you're starting to bore me.
+
+# ---- sayings ----
+trickster/NN | parted | Farewell, and trust me exactly as far as it suits you[; as we say, {saying}].
+trickster/NN | small_talk | Good enough; I've heard a few things today I wasn't meant to, and that's never wasted.[ As the old ones had it, {saying}.]
+trickster/LN | parted | Take care, and should anyone promise you anything, ask for it in writing[; as it has long been said, {saying}].
+trickster/LN | small_talk | Much of my day goes on phrasing things so politely that no one notices they are insults.[ As my people have always held, {saying}.]
+trickster/CN | parted | Goodbye, and take a bow on your way out, go on, nobody's watching[; as we say, more or less, {saying}].
+trickster/CN | small_talk | Nothing stolen, nothing staged, nothing at all, and I'm bored senseless.[ As my people say, roughly, {saying}.]
+trickster/NG | parted | Farewell, and look after your things, and other people's too[; as my people say, {saying}].
+trickster/NG | small_talk | Good, thank you; whatever I borrow goes back with a little extra, and I sleep well for it.[ As we say, {saying}.]
+trickster/LG | parted | Goodbye, and should anyone wrong you, remember that the law has more than one door[; as my people have long said, {saying}].
+trickster/LG | small_talk | Most of my days go to petitions for those who cannot write their own, and I would not change it.[ As the old ones had it, {saying}.]
+trickster/CG | parted | Safe travels, and smile, it confuses people[; oh, and, as we say, {saying}].
+trickster/CG | small_talk | A little mischief, a little mending, the usual, and nobody's worse off for it.[ As we always say, {saying}.]
+trickster/NE | parted | Safe travels, and do stay on my good side, it's the warmer one[; as we say, {saying}].
+trickster/NE | small_talk | Nothing much; I'm polishing a joke, and the ending is the best part.[ As my people say, {saying}.]
