@@ -32,6 +32,9 @@ struct ModelOptions {
     // (INFERENCE_VULKAN) and a GPU; without either the model runs on the CPU, and device() says
     // so. Greedy output on a GPU can differ from the CPU's: the arithmetic is not the same.
     int gpu_layers = 0;
+    // Load for embed() rather than complete(): an embedding model, such as Qwen3-Embedding. The
+    // model's own pooling decides how a text becomes one vector.
+    bool embeddings = false;
 };
 
 // One turn of a conversation, for the model's own chat template: "system", "user" or
@@ -76,10 +79,19 @@ public:
     // Continues `prompt`. Each piece of text is handed to `on_piece` as it is produced, never
     // splitting a UTF-8 character; returning false stops. The context is cleared first, so one
     // call is one reply and nothing carries over between calls. Throws Error for a prompt that
-    // does not fit the context with max_tokens after it, a grammar that does not parse, or
-    // sampling settings out of range.
+    // does not fit the context with max_tokens after it, a grammar that does not parse,
+    // sampling settings out of range, or a model loaded for embeddings.
     Completion complete(const std::string& prompt, const Sampling& sampling,
                         const std::function<bool(std::string_view)>& on_piece = {});
+
+    // `text` as one vector of unit length, from a model loaded with ModelOptions::embeddings:
+    // texts close in meaning give vectors whose dot product is larger. The same text gives the
+    // same vector on one machine and thread count. Throws Error for a model loaded for text, an
+    // empty text, or one longer than the context.
+    std::vector<float> embed(const std::string& text);
+
+    // How many numbers embed() gives.
+    int embedding_size() const;
 
     // How many tokens `text` is, for budgeting a prompt against the context.
     int count_tokens(const std::string& text) const;

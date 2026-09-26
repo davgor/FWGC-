@@ -3,7 +3,10 @@
 #include "inference/runtime.hpp"
 
 #include <algorithm>
+#include <array>
+#include <cmath>
 #include <cstdlib>
+#include <functional>
 #include <set>
 #include <string>
 #include <vector>
@@ -51,6 +54,32 @@ inference::Model& model() {
         }
     }();
     return *loaded;
+}
+
+std::string embedding_model_path() {
+    const std::string from_env = environment("FWGC_EMBEDDING_MODEL");
+    return from_env.empty() ? std::string(INFERENCE_EMBEDDING_MODEL) : from_env;
+}
+
+inference::Model& embedder() {
+    static std::unique_ptr<inference::Model> loaded = [] {
+        inference::ModelOptions options;
+        options.context_tokens = 512;
+        options.embeddings = true;
+        try {
+            return inference::Model::load(embedding_model_path(), options);
+        } catch (const inference::Error& e) {
+            check::fail(std::string(e.what()) +
+                        ". Download Qwen3-Embedding-0.6B-Q8_0.gguf as README.md says, or point FWGC_EMBEDDING_MODEL at it");
+        }
+    }();
+    return *loaded;
+}
+
+float dot(const std::vector<float>& a, const std::vector<float>& b) {
+    float out = 0.0f;
+    for (std::size_t i = 0; i < a.size() && i < b.size(); ++i) out += a[i] * b[i];
+    return out;
 }
 
 std::string ask(const std::string& question) {
@@ -298,4 +327,50 @@ TEST(a_reply_that_cannot_fit_the_context_is_refused) {
     sampling.max_tokens = 128 - small->count_tokens(prompt);
     check::is_true(sampling.max_tokens > 0, "the premise: the prompt alone fits");
     (void)small->complete(prompt, sampling);  // exactly full is allowed: the refusal is the bound, not below it
+}
+
+TEST(texts_close_in_meaning_embed_closer) {
+    inference::Model& m = embedder();
+    const auto a = m.embed("Is it safe to travel these roads?");
+    check::equal(a.size(), static_cast<std::size_t>(m.embedding_size()), "the model's own width");
+    check::is_true(std::abs(dot(a, a) - 1.0f) < 1e-4f, "unit length");
+    // Each asks the same of its first two as of its first and third: which is nearer in meaning.
+    const std::vector<std::array<std::string, 3>> triples = {
+        {"Is it safe to travel these roads?", "Are the roads dangerous?", "I would like a loaf of bread."},
+        {"Hello there!", "Good morning to you.", "Where is the smithy?"},
+        {"Thank you for your help.", "I'm grateful to you.", "The river floods in spring."},
+        {"You're a useless old fool.", "What a worthless idiot you are.", "Fine weather for the harvest."},
+    };
+    // (Not `near` and `far`: windows.h defines both away.)
+    for (const auto& [text, alike, unlike] : triples) {
+        const auto t = m.embed(text), a_ = m.embed(alike), u = m.embed(unlike);
+        check::is_true(dot(t, a_) > dot(t, u) + 0.05f,
+                       "\"" + text + "\" nearer \"" + alike + "\" (" + std::to_string(dot(t, a_)) + ") than \"" + unlike + "\" (" +
+                           std::to_string(dot(t, u)) + ")");
+    }
+}
+
+TEST(an_embedding_is_the_same_every_time) {
+    inference::Model& m = embedder();
+    const auto once = m.embed("What should I watch out for around here?");
+    (void)m.embed("Something else entirely, in between.");
+    check::is_true(m.embed("What should I watch out for around here?") == once, "the same vector, whatever came between");
+}
+
+TEST(a_model_is_loaded_for_text_or_for_embeddings) {
+    // Refused up front, by the runtime's own words, before anything is decoded.
+    const auto refusal = [](const std::function<void()>& call) {
+        try {
+            call();
+        } catch (const inference::Error& e) {
+            return std::string(e.what());
+        }
+        return std::string("(nothing thrown)");
+    };
+    const std::string text_model = refusal([] { (void)model().embed("Hello."); });
+    check::is_true(text_model.find("not loaded for embeddings") != std::string::npos, "a text model embeds nothing: " + text_model);
+    const std::string embedding_model = refusal([] { (void)embedder().complete("Hello.", {}); });
+    check::is_true(embedding_model.find("loaded for embeddings, not for text") != std::string::npos,
+                   "an embedding model writes nothing: " + embedding_model);
+    check::throws([] { (void)embedder().embed(""); }, "an empty text");
 }

@@ -67,6 +67,20 @@ tests do not use them.
 
 It runs in this runtime unchanged: its chat template is ChatML, and it has no thinking mode.
 
+### The embedding model
+
+For `embed()`: turning a text into a vector, so texts can be compared by meaning. The tests use
+it, and fail without it, naming the file; `FWGC_EMBEDDING_MODEL` points elsewhere.
+
+| | |
+|---|---|
+| File | `Qwen3-Embedding-0.6B-Q8_0.gguf` |
+| From | `https://huggingface.co/Qwen/Qwen3-Embedding-0.6B-GGUF` |
+| Size | 639,150,592 bytes |
+| SHA-256 | `06507c7b42688469c4e7298b0a1e16deff06caf291cf0a5b278c308249c3e439` |
+| Licence | Apache-2.0 |
+| Approved | 2026-09-24 |
+
 ## The API
 
 `include/inference/runtime.hpp` shows none of llama.cpp. A caller depends on this contract, not
@@ -88,6 +102,10 @@ on llama.cpp's API, which changes between releases.
   - It streams each piece to `on_piece`, never splitting a UTF-8 character. Returning `false`
     stops the stream.
 - **`count_tokens(text)`** budgets a prompt against the context.
+- **`embed(text)`**, on a model loaded with `embeddings` set, gives the text as one vector of
+  unit length (`embedding_size()` numbers), by the model's own pooling: a larger dot product,
+  closer meaning. A model is loaded for one or the other: `complete()` refuses an embedding
+  model, and `embed()` a text model.
 
 ## What it guarantees, each with a test
 
@@ -111,6 +129,10 @@ on llama.cpp's API, which changes between releases.
   one call is unknown in the next: the answer matches a freshly loaded model's exactly. The same
   greedy prompt gives the same reply twice.
 - **A seed makes sampling reproducible,** for one build and one thread count.
+- **Texts close in meaning embed closer.** Four triples ("Is it safe to travel these roads?"
+  nearer "Are the roads dangerous?" than "I would like a loaf of bread.", and greetings,
+  thanks and insults the same way), each by a margin of 0.05 or more; unit length; the same text
+  gives the same vector whatever was embedded between.
 - **Streaming never splits a character**, and the pieces add up to the reply.
 - **Refusals come before any work:** a prompt that cannot fit the context with `max_tokens`
   after it, a grammar that does not parse, a missing file, or options out of range.

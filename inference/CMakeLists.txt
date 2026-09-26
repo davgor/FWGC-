@@ -98,8 +98,10 @@ if(INFERENCE_BUILD_TESTS)
   else()
     set(INFERENCE_TESTS_GPU 0)
   endif()
+  # So is the embedding model; FWGC_EMBEDDING_MODEL points elsewhere.
   target_compile_definitions(inference_tests PRIVATE
     INFERENCE_TEST_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/models/qwen2.5-0.5b-instruct-q4_0.gguf"
+    INFERENCE_EMBEDDING_MODEL="${CMAKE_CURRENT_SOURCE_DIR}/models/Qwen3-Embedding-0.6B-Q8_0.gguf"
     INFERENCE_TESTS_GPU=${INFERENCE_TESTS_GPU})
   if(INFERENCE_VULKAN)
     # A backend the runtime does not ship, offered to it in a test through GGML_BACKEND_PATH:

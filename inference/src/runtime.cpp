@@ -180,6 +180,7 @@ std::unique_ptr<Model> Model::load(const std::string& path, const ModelOptions& 
     context_params.n_threads = options.threads;
     context_params.n_threads_batch = options.threads;
     context_params.op_offload = gpu != nullptr;  // on the CPU, no single operation borrows a GPU either
+    context_params.embeddings = options.embeddings;  // the model's own pooling, left unspecified here
     m->impl_->context = llama_init_from_model(m->impl_->model, context_params);
     if (!m->impl_->context) throw Error("no context could be made for the model at " + path);
     m->impl_->vocab = llama_model_get_vocab(m->impl_->model);
@@ -222,10 +223,38 @@ int Model::count_tokens(const std::string& text) const {
     return static_cast<int>(tokens_of(impl_->vocab, text, /*add_special=*/true).size());
 }
 
+int Model::embedding_size() const { return llama_model_n_embd(impl_->model); }
+
+std::vector<float> Model::embed(const std::string& text) {
+    if (!impl_->options.embeddings) throw Error("the model was not loaded for embeddings");
+    // With its special tokens: Qwen3-Embedding's tokenizer ends every text with the end-of-text
+    // token its last-token pooling reads.
+    std::vector<llama_token> tokens = tokens_of(impl_->vocab, text, /*add_special=*/true);
+    if (tokens.empty()) throw Error("the text is empty");
+    if (tokens.size() > static_cast<std::size_t>(impl_->options.context_tokens))
+        throw Error("the text (" + std::to_string(tokens.size()) + " tokens) does not fit the context of " +
+                    std::to_string(impl_->options.context_tokens) + " tokens");
+    llama_memory_clear(llama_get_memory(impl_->context), true);
+    if (llama_decode(impl_->context, llama_batch_get_one(tokens.data(), static_cast<std::int32_t>(tokens.size()))) != 0)
+        throw Error("the text did not decode");
+    const int size = embedding_size();
+    const float* pooled = llama_pooling_type(impl_->context) == LLAMA_POOLING_TYPE_NONE ? llama_get_embeddings_ith(impl_->context, -1)
+                                                                                       : llama_get_embeddings_seq(impl_->context, 0);
+    if (!pooled) throw Error("the model gave no embedding");
+    std::vector<float> out(pooled, pooled + size);
+    double norm = 0.0;
+    for (const float v : out) norm += static_cast<double>(v) * v;
+    norm = std::sqrt(norm);
+    if (!(norm > 0.0)) throw Error("the model gave an embedding of no length");
+    for (float& v : out) v = static_cast<float>(v / norm);
+    return out;
+}
+
 int Model::context_tokens() const { return impl_->options.context_tokens; }
 
 Completion Model::complete(const std::string& prompt, const Sampling& sampling,
                            const std::function<bool(std::string_view)>& on_piece) {
+    if (impl_->options.embeddings) throw Error("the model was loaded for embeddings, not for text");
     if (sampling.max_tokens < 1) throw Error("max_tokens must be at least 1");
     if (!std::isfinite(sampling.temperature) || sampling.temperature < 0.0f)
         throw Error("temperature must be a finite number, zero or more");
