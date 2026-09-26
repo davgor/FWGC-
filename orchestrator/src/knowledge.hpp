@@ -53,14 +53,32 @@ struct Speaker {
     Persona persona;
 };
 
-// The speaker, or nullopt for a uid the world does not name.
+// The speaker, or nullopt for a uid the world does not name. They present the face a stranger
+// sees.
 std::optional<Speaker> speaker(const fwg::World& world, const std::string& uid);
+
+// A hero's record, when the speaker is one; nullptr otherwise.
+const fwg::Hero* hero_of(const Speaker& speaker);
+
+// The face a stranger sees: the public face, else the first of two, else the calm one.
+// nullptr for a hero with faces and none of those.
+const fwg::HeroFace* stranger_face(const fwg::Hero& hero);
+
+// The speaker as `face` presents: its name, role, card and written lines. A mask (a public face
+// over a true one) speaks from its trade's lines, so it names no voice; any other face speaks as
+// its archetype and its own alignment ("beast/CE"). Persona::face is set for a face a stranger
+// does not see.
+void show_face(Speaker& speaker, const fwg::Hero& hero, const fwg::HeroFace& face);
+
+// A place fact's name, as a person would say it: "Wenweg", "the hamlet of Wenweg".
+std::string place_label(const Fact& place);
 
 // Every place within the speaker's reach, nearest first: cities, hamlets, fortresses and key
 // locations. Empty when the speaker stands nowhere the world says.
 std::vector<KnownPlace> places_in_reach(const fwg::World& world, Speaker& speaker);
 
-// The nests within kDangerReachM of the speaker (never beyond their reach), nearest first.
+// The nests within kDangerReachM of the speaker (never beyond their reach), the worst first, and
+// the nearest first among equals: what someone would warn about.
 std::vector<Fact> dangers_near(const fwg::World& world, const Speaker& speaker);
 
 // What stands on one node, as a place fact: a quest anchor's target node, or where a person

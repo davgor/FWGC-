@@ -11,8 +11,10 @@
 // communicator includes orchestrator/contract.hpp alone.
 #pragma once
 
+#include <map>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <variant>
 #include <vector>
 
@@ -37,7 +39,12 @@ struct Say {
     std::string speaker;
     DialogueAct act;
 };
-using Input = std::variant<Advance, Say>;
+// What the game reports the player did with work they took: finished it, or failed it.
+struct Resolve {
+    std::string quest_id;
+    bool completed = true;
+};
+using Input = std::variant<Advance, Say, Resolve>;
 
 class Director {
 public:
@@ -48,17 +55,51 @@ public:
 
     // Time passes: `days` of it, through fwg::advance_world_time. Throws Error for a span that
     // is negative, not finite, or an age or more long (an age turning is a separate decision,
-    // not something a conversation's clock does), and when the world refuses the span.
+    // not something a conversation's clock does), and when the world refuses the span. Every
+    // conversation under way ends: time passing is walking away.
     void advance(double days);
 
+    // The game reports taken work finished (`completed`) or failed, through
+    // fwg::advance_world_time's resolutions with no time passing. The giver remembers it.
+    // Throws Error for work the world does not hold open, or holds but not taken.
+    void resolve(const std::string& quest_id, bool completed);
+
     // One act from the player to `speaker`, a person uid. Accepting or abandoning a quest
-    // changes the world; nothing else here does. Throws Error for a uid the world does not name
-    // and for an act missing the target it needs.
+    // changes the world; nothing else here does, though every act changes what the speaker
+    // remembers (the Memory fact). Throws Error for a uid the world does not name and for an
+    // act missing the target it needs.
     FactPacket respond(const std::string& speaker, const DialogueAct& act);
 
+    // What one speaker and the player have between them. Folded from the inputs, so replay
+    // rebuilds it and a save is the inputs alone.
+    struct Acquaintance {
+        int conversations = 0;  // begun, the one under way included
+        bool talking = false;   // under way: none after a farewell, time passing, or talk with another
+        double last_day = 0.0;  // the world day of the last act to this speaker
+        std::string since;      // how long before this conversation the last one was, roughly
+        int turn = 0;           // acts in this conversation
+        int disposition = 0;    // -3 hostile .. 3 warm
+        bool thanked = false;   // in this conversation: thanks count once
+        std::vector<std::pair<ActKind, std::string>> said;  // this conversation's acts
+        std::string asked_now, asked_before;  // the last place or person asked about, by name
+        std::string work;       // the player's latest dealing with this speaker's own work
+        bool exposed = false;          // the player made a hidden face come out
+        bool finished_covert = false;  // finished work this speaker gave under a false purpose
+        bool heard_truth = false;      // someone who knows them told the player what they are
+        bool seen_unleashed = false;   // met a beast unleashed
+        bool seen_second = false;      // met a fractured heart's second face
+    };
+    // Nullptr for someone the session holds nothing of: never spoken to, never dealt with, never
+    // told the truth of.
+    const Acquaintance* acquaintance(const std::string& speaker) const;
+
 private:
+    void end_conversation(const std::string& speaker);
+
     fwg::World world_;
     std::vector<Input> inputs_;
+    std::map<std::string, Acquaintance> acquainted_;
+    std::string talking_to_;
 };
 
 // A session again: `start` with every input re-applied, in order.

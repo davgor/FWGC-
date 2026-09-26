@@ -10,15 +10,6 @@ namespace {
 
 const std::vector<std::string> kPlaceCategories = {"settlements", "hamlets", "fortresses", "key_locations"};
 
-// The face a stranger sees: the public face, else the first of two, else the calm one. Never
-// the true, second or unleashed face: those are what the first face hides.
-const fwg::HeroFace* stranger_face(const fwg::Hero& hero) {
-    for (const std::string_view label : {"public", "first", "calm"})
-        for (const fwg::HeroFace& face : hero.faces)
-            if (face.label == label) return &face;
-    return nullptr;
-}
-
 // The written lines a hero speaks from: "warden/LN". Empty when either part is.
 std::string voice_key_of(const std::string& archetype, const std::string& alignment_code) {
     return archetype.empty() || alignment_code.empty() ? std::string() : archetype + "/" + alignment_code;
@@ -121,8 +112,8 @@ void strangers_view(const fwg::PersonDocument& document, Persona& persona, bool 
                     persona.role = face->apparent_role;
                     if (with_card) {
                         take_card(persona, face->persona);
-                        // One face hides nothing, so the archetype is how it speaks. A second face
-                        // hides it (false_hero, deceiver), and that hero gets no voice key.
+                        // One face hides nothing, so the archetype is how it speaks. A hero with two
+                        // faces is shown face by face (show_face), by the director's rules.
                         if (person.faces.size() == 1) persona.voice_key = voice_key_of(person.archetype, face->alignment.code);
                     }
                 } else if (person.faces.empty()) {
@@ -151,7 +142,15 @@ void strangers_view(const fwg::PersonDocument& document, Persona& persona, bool 
         document.person);
 }
 
-// A place fact as one line a person could say where something stands.
+}  // namespace
+
+const fwg::HeroFace* stranger_face(const fwg::Hero& hero) {
+    for (const std::string_view label : {"public", "first", "calm"})
+        for (const fwg::HeroFace& face : hero.faces)
+            if (face.label == label) return &face;
+    return nullptr;
+}
+
 std::string place_label(const Fact& place) {
     if (const std::string* name = place.field("name")) return *name;
     const std::string* kind = place.field("kind");
@@ -160,7 +159,19 @@ std::string place_label(const Fact& place) {
     return kind ? "a " + *kind : std::string();
 }
 
-}  // namespace
+const fwg::Hero* hero_of(const Speaker& speaker) { return std::get_if<fwg::Hero>(&speaker.document.person); }
+
+void show_face(Speaker& speaker, const fwg::Hero& hero, const fwg::HeroFace& face) {
+    Persona& persona = speaker.persona;
+    persona.name = face.name;
+    persona.role = face.apparent_role;
+    take_card(persona, face.persona);
+    // A public face over a true one is a mask: its lines are its trade's, and its archetype is
+    // what it hides. Every other face is who the hero is at that moment.
+    const bool mask = face.label == "public" && hero.faces.size() > 1;
+    persona.voice_key = mask ? std::string() : voice_key_of(hero.archetype, face.alignment.code);
+    persona.face = face.label == "true" || face.label == "unleashed" || face.label == "second" ? face.label : std::string();
+}
 
 std::string range_of(double metres) {
     if (metres < 50.0) return "here";

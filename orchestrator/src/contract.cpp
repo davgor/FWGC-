@@ -6,18 +6,19 @@ namespace orchestrator {
 
 namespace {
 
-constexpr std::array<std::string_view, 9> kActNames = {
-    "ask_surroundings", "ask_about_place", "ask_about_person", "ask_for_work", "accept_quest",
-    "decline_quest",    "abandon_quest",   "farewell",         "no_act"};
+constexpr std::array<std::string_view, kActCount> kActNames = {
+    "ask_surroundings", "ask_about_place", "ask_about_person", "ask_for_work", "accept_quest", "decline_quest",
+    "abandon_quest",    "farewell",        "no_act",           "greet",        "small_talk",   "answer",
+    "thank",            "insult",          "ask_safety",       "confront"};
 
-constexpr std::array<std::string_view, 8> kOutcomeNames = {"answered", "accepted", "declined",  "abandoned",
-                                                           "unknown",  "refused",  "parted",    "not_understood"};
+constexpr std::array<std::string_view, kOutcomeCount> kOutcomeNames = {
+    "answered", "accepted", "declined",     "abandoned", "unknown",  "refused",  "parted",
+    "not_understood", "greeted", "chatted", "acknowledged", "thanked", "offended", "exposed", "denied"};
 
-constexpr std::array<std::string_view, 6> kFactNames = {"place", "person", "quest_offer", "quest_state", "danger", "reason"};
+constexpr std::array<std::string_view, 10> kFactNames = {"place",  "person", "quest_offer", "quest_state", "danger",
+                                                         "reason", "memory", "chat",        "safety",      "reveal"};
 
-static_assert(kActNames.size() == static_cast<std::size_t>(ActKind::NoAct) + 1, "one name per act");
-static_assert(kOutcomeNames.size() == static_cast<std::size_t>(Outcome::NotUnderstood) + 1, "one name per outcome");
-static_assert(kFactNames.size() == static_cast<std::size_t>(FactKind::Reason) + 1, "one name per fact kind");
+static_assert(kFactNames.size() == static_cast<std::size_t>(FactKind::Reveal) + 1, "one name per fact kind");
 
 }  // namespace
 
@@ -41,6 +42,13 @@ bool act_needs_target(ActKind kind) {
         case ActKind::AskForWork:
         case ActKind::Farewell:
         case ActKind::NoAct:
+        case ActKind::Greet:
+        case ActKind::SmallTalk:
+        case ActKind::Answer:
+        case ActKind::Thank:
+        case ActKind::Insult:
+        case ActKind::AskSafety:
+        case ActKind::Confront:
             return false;
     }
     return false;
@@ -58,6 +66,13 @@ bool act_changes_world(ActKind kind) {
         case ActKind::DeclineQuest:
         case ActKind::Farewell:
         case ActKind::NoAct:
+        case ActKind::Greet:
+        case ActKind::SmallTalk:
+        case ActKind::Answer:
+        case ActKind::Thank:
+        case ActKind::Insult:
+        case ActKind::AskSafety:
+        case ActKind::Confront:
             return false;
     }
     return false;

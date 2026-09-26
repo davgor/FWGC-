@@ -146,6 +146,9 @@ std::vector<const Fact*> of_kind(const FactPacket& p, FactKind kind) {
     return out;
 }
 
+// Nothing said but what the speaker remembers: the one Memory fact every packet carries.
+bool only_memory(const FactPacket& p) { return p.facts.size() == 1 && p.facts.front().kind == FactKind::Memory; }
+
 const fwg::HeroQuestHook& hook(const std::string& quest_id) {
     for (const fwg::HeroQuestHook& h : month_old().heroes.quest_hooks)
         if (h.hook_id == quest_id) return h;
@@ -368,17 +371,20 @@ TEST(work_carries_an_exact_marker_for_the_game) {
 }
 
 TEST(a_hero_with_one_face_speaks_from_their_archetypes_lines) {
-    // The key names the written lines a speaker speaks from. A face that hides another gets none:
-    // its archetype (false_hero, deceiver) is what the face hides.
+    // The key names the written lines a speaker speaks from. A mask -- a public face over a true
+    // one -- gets none: its archetype (false_hero, deceiver) is what the face hides.
     const fwg::World& w = month_old();
     const fwg::Hero* plain = nullptr;
     const fwg::Hero* faced = nullptr;
     for (const fwg::Hero& h : w.heroes.people) {
         if (!plain && h.faces.size() == 1 && !h.archetype.empty() && !h.alignment.code.empty()) plain = &h;
-        if (!faced && h.faces.size() > 1) faced = &h;
+        const auto labelled = [&](std::string_view label) {
+            return std::any_of(h.faces.begin(), h.faces.end(), [&](const fwg::HeroFace& f) { return f.label == label; });
+        };
+        if (!faced && labelled("public") && labelled("true")) faced = &h;
     }
     check::is_true(plain != nullptr, "the premise: a hero with one face, of " + std::to_string(w.heroes.people.size()));
-    check::is_true(faced != nullptr, "the premise: a hero with two faces, of " + std::to_string(w.heroes.people.size()));
+    check::is_true(faced != nullptr, "the premise: a masked hero, of " + std::to_string(w.heroes.people.size()));
     Director d(w);
     check::equal(d.respond(plain->uid, {ActKind::Farewell, ""}).persona.voice_key, plain->archetype + "/" + plain->alignment.code,
                  "archetype and alignment, for " + plain->uid);
@@ -445,7 +451,7 @@ TEST(a_speaker_knows_the_places_in_reach_and_not_the_rest) {
             check::is_true(metres_from(w, broker).count(site.uid) == 1, "a known city is within reach");
         } else {
             check::is_true(p.outcome == Outcome::Unknown, "otherwise unknown");
-            check::is_true(p.facts.empty(), "and nothing said about it");
+            check::is_true(only_memory(p), "and nothing said about it");
             ++unknown;
         }
     }
@@ -521,7 +527,7 @@ TEST(a_speaker_knows_the_people_where_they_stand_and_not_the_far_off) {
             ++known;
         } else {
             check::is_true(p.outcome == Outcome::Unknown, hero.uid + " stands beyond reach");
-            check::is_true(p.facts.empty(), "and nothing is said of them");
+            check::is_true(only_memory(p), "and nothing is said of them");
             ++unknown;
         }
     }
@@ -578,6 +584,12 @@ TEST(a_stranger_sees_the_public_face_and_nothing_the_card_keeps_back) {
     std::size_t hidden_faces = 0, checked = 0;
     for (const fwg::Hero& hero : w.heroes.people) {
         if (hero.status != "living") continue;
+        // A beast's and a fractured heart's other face shows on its own days, by design: a test
+        // of their own covers them.
+        const auto has = [&](std::string_view label) {
+            return std::any_of(hero.faces.begin(), hero.faces.end(), [&](const fwg::HeroFace& f) { return f.label == label; });
+        };
+        if (has("unleashed") || has("second")) continue;
         const FactPacket p = d.respond(hero.uid, {ActKind::NoAct, ""});
         const std::string said = text_of(p);
         const fwg::HeroFace* shown = nullptr;
@@ -592,16 +604,18 @@ TEST(a_stranger_sees_the_public_face_and_nothing_the_card_keeps_back) {
         for (const std::string* kept : {&shown->persona.lies, &shown->persona.belief, &shown->persona.wants,
                                         &shown->persona.fears, &shown->persona.tells})
             if (kept->size() > 12) check::is_true(said.find(*kept) == std::string::npos, "the card's secret stays out: " + *kept);
-        // And a hidden face's card stays out wherever it differs from the one shown.
+        // And a hidden face's card stays out wherever the shown face does not say the same: a
+        // true face's manner can be a sentence of the public one's ("Deceptions that are
+        // technically true.").
+        std::string shown_says = shown->name + "\n" + shown->apparent_role + "\n" + shown->persona.manner + "\n" +
+                                 shown->persona.voice + "\n" + shown->persona.toward_player + "\n" + shown->persona.line + "\n";
+        for (const std::string& line : shown->persona.never) shown_says += line + "\n";
         for (const fwg::HeroFace& f : hero.faces) {
             if (&f == shown || f.label == "public" || f.label == "first" || f.label == "calm") continue;
             ++hidden_faces;
             for (const std::string* s : {&f.persona.manner, &f.persona.voice, &f.persona.toward_player, &f.persona.line})
-                if (s->size() > 12 && said.find(*s) != std::string::npos) {
-                    const bool shared = *s == shown->persona.manner || *s == shown->persona.voice ||
-                                        *s == shown->persona.toward_player || *s == shown->persona.line;
-                    check::is_true(shared, "the hidden face stays hidden: " + *s);
-                }
+                if (s->size() > 12 && said.find(*s) != std::string::npos)
+                    check::is_true(shown_says.find(*s) != std::string::npos, "the hidden face stays hidden: " + *s);
         }
     }
     check::is_true(checked > 100, "the premise: many heroes to hear");
@@ -661,10 +675,15 @@ TEST(the_world_changes_exactly_on_the_acts_the_contract_says_change_it) {
     const std::string place = places.front()->subject;
     // In an order where each can be granted: declined before it is taken, taken before it is given up.
     const std::vector<std::pair<ActKind, std::string>> acts = {
-        {ActKind::AskSurroundings, ""}, {ActKind::AskAboutPlace, place}, {ActKind::AskAboutPerson, giver},
-        {ActKind::AskForWork, ""},      {ActKind::DeclineQuest, quest},  {ActKind::AcceptQuest, quest},
-        {ActKind::AbandonQuest, quest}, {ActKind::Farewell, ""},         {ActKind::NoAct, ""}};
-    check::equal(acts.size(), static_cast<std::size_t>(ActKind::NoAct) + 1, "the premise: every act of the contract");
+        {ActKind::Greet, ""},           {ActKind::SmallTalk, ""},         {ActKind::AskSurroundings, ""},
+        {ActKind::AskSafety, ""},       {ActKind::AskAboutPlace, place},  {ActKind::AskAboutPerson, giver},
+        {ActKind::AskForWork, ""},      {ActKind::DeclineQuest, quest},   {ActKind::AcceptQuest, quest},
+        {ActKind::AbandonQuest, quest}, {ActKind::Answer, ""},            {ActKind::Thank, ""},
+        {ActKind::Insult, ""},          {ActKind::Confront, ""},          {ActKind::NoAct, ""},
+        {ActKind::Farewell, ""}};
+    std::set<ActKind> kinds;
+    for (const auto& act : acts) kinds.insert(act.first);
+    check::equal(kinds.size(), static_cast<std::size_t>(orchestrator::kActCount), "the premise: every act of the contract");
     for (const auto& [kind, target] : acts) {
         const std::string name(orchestrator::to_string(kind));
         const std::string before = json_of(d.world());
@@ -679,10 +698,10 @@ TEST(no_act_and_farewell_answer_and_change_nothing) {
     const std::string broker = a_broker();
     const std::string before = json_of(d.world());
     const FactPacket confused = d.respond(broker, {ActKind::NoAct, ""});
-    check::is_true(confused.outcome == Outcome::NotUnderstood && confused.facts.empty(), "not understood, nothing said");
+    check::is_true(confused.outcome == Outcome::NotUnderstood && only_memory(confused), "not understood, nothing said");
     check::is_true(!confused.persona.role.empty(), "but still in character");
     const FactPacket bye = d.respond(broker, {ActKind::Farewell, ""});
-    check::is_true(bye.outcome == Outcome::Parted && bye.facts.empty(), "parted");
+    check::is_true(bye.outcome == Outcome::Parted && only_memory(bye), "parted");
     check::is_true(json_of(d.world()) == before, "the world unchanged");
     check::equal(d.inputs().size(), std::size_t{2}, "both recorded, for replay");
 }

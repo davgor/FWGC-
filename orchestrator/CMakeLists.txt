@@ -54,6 +54,7 @@ if(ORCHESTRATOR_BUILD_TESTS)
     tests/main.cpp
     tests/test_contract.cpp
     tests/test_director.cpp
+    tests/test_conversation.cpp
   )
   target_link_libraries(orchestrator_tests PRIVATE orchestrator)
   target_compile_options(orchestrator_tests PRIVATE ${ORCHESTRATOR_WARNINGS})
