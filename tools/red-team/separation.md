@@ -52,6 +52,7 @@ the working tree.
 | inference | `inference/` | runtime C++: the local model runtime | Claude |
 | viewer | `viewer/` | dev tool, JavaScript: a browser viewer over `fwg.exe` | GPT |
 | concept art | `concept art/` | documents and art assets | GPT |
+| ui mockups | `ui-mockups/` | documents and assets: mockups of the games' UI screens, as HTML pages, PDFs or images | shared |
 | tools | `tools/` | dev tools: this gate, the checker, the hooks | Claude |
 
 GPT's lane also covers visual fields in the generator's content data: appearance prose, colours
@@ -150,6 +151,8 @@ a runtime component by any route, such as generated scripts or embedded interpre
 
 - GPT touching Claude's lane: C++ in runtime components, `tools/`, `layers.txt` or `api.txt`;
 - Claude touching GPT's lane: `viewer/`, `concept art/` or visual data.
+
+`ui-mockups/` is both agents' lane: either one writing there is not a crossing.
 
 Note an unset FWGC_AGENT too.
 

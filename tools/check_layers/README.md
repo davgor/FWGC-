@@ -46,7 +46,7 @@ git config core.hooksPath tools/hooks
 | `api-list` | An `api.txt` entry names a function its `fwg/api/` header does not forward, or a forwarder that does not exist. | The list cannot drift from the code. |
 | `vocab` | An identifier in a component contains a word `layers.txt` keeps out of it. Identifiers are split at `_` and case changes; comments and strings are not read. | Orchestrator concepts stay out of the generator; model concepts stay out of the orchestrator; world concepts stay out of inference. |
 | `lang` | Non-C++ source in a runtime component. The declared exceptions are `generator/tools/` (Python content tooling) and `viewer/` (a JS dev tool). | Ruled 2026-09-24: the runtime is C++. |
-| `no-code` | Source code under `concept art/`. | Concept art holds documents and assets. |
+| `no-code` | Source code under `concept art/` or `ui-mockups/`. | Both hold documents and assets. |
 | `http` | A runtime component includes or links a network library. | The shipped runtime is fully local. |
 | `path-text` | The viewer names `generator/src`, `include`, `data` or `tools` in code. | The viewer reads the generator through `fwg.exe` and its documents only. |
 | `top-level` | An undeclared top-level folder, or one named `common`, `shared`, `utils` or the like. | What two components share belongs to the lower one, not to a grab-bag beside both. |

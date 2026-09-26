@@ -43,6 +43,9 @@ happens and changes the world.
   references in files such as `generator/data/heritage-appearance.json`, `npc-appearance.json`,
   `key-location-exteriors.json` and `world-asset-requirements.json`.
 
+**Both share `ui-mockups/`,** the games' UI mockups. Claude designs them; GPT is expected to
+build them in the game. Neither one writing there is a lane crossing.
+
 Crossing a lane is allowed. The commit gate notes it so the owner sees it. Declare who you are on
 every commit with `FWGC_AGENT=claude` or `FWGC_AGENT=gpt`.
 
@@ -67,7 +70,7 @@ viewer       -> fwg.exe and its documents (a process boundary, not a dependency)
 | G5 | Each layer keeps its own vocabulary: no pacing or dialogue in the generator, no model plumbing in the orchestrator, no world in inference. | `check_layers` (`vocab`), red team |
 | G6 | Contracts carry `api_version`. A cross-layer change is two commits: the generator first, then the consumer. | `check_layers` (`api.txt` is read from the last commit), red team |
 | G7 | The shipped runtime is fully local: no network in a runtime component. | `check_layers` (`http`), red team |
-| Language | Runtime components are C++. The declared exceptions are `generator/tools/` (Python content tooling) and `viewer/` (JS). Concept art holds no code. | `check_layers` (`lang`, `no-code`) |
+| Language | Runtime components are C++. The declared exceptions are `generator/tools/` (Python content tooling) and `viewer/` (JS). Concept art and the UI mockups hold no code. | `check_layers` (`lang`, `no-code`) |
 
 [`tools/check_layers/README.md`](tools/check_layers/README.md) explains each rule and how to add
 a public generator function.
