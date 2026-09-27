@@ -121,6 +121,10 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
             break;
         case Outcome::Chatted:
             shape.sentences = 2;  // any start
+            // Told only that they disliked the stranger, every model tried chatted cordially
+            // (blind judge, 2026-09-26): a cold speaker's model reply opens curtly.
+            if (memory.cold() && !memory.frightened())
+                shape.stance = {"Hmph", "Save it", "Spare me", "Not now", "What of it", "If you say so", "Is that so"};
             break;
         case Outcome::Acknowledged:
             shape.openings = {"I see", "Is that so", "Fair enough", "Good", "Right", "Ah", "Well", "Aye", "Indeed"};

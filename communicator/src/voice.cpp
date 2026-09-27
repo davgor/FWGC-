@@ -223,6 +223,11 @@ std::string what_happened(const FactPacket& packet) {
         case Outcome::Greeted:
             return "The stranger greeted you. Greet them back, as you take them.";
         case Outcome::Chatted:
+            // "Answer in kind" won over "You dislike them" for every model tried (2026-09-26).
+            if (remembered(packet).cold() && !remembered(packet).frightened())
+                return std::string("The stranger is making small talk, and you ") +
+                       (remembered(packet).mood == "hostile" ? "dislike them" : "are wary of them") +
+                       ". You want no chat with them: answer curtly, and give them nothing.";
             return "The stranger is making small talk. Answer in kind, from the weather and the season above.";
         case Outcome::Acknowledged:
             return "The stranger answered what you asked. Take it in, in your own way.";
@@ -243,6 +248,11 @@ std::string what_happened(const FactPacket& packet) {
         case Outcome::StillAfraid:
             return "The stranger tried to calm you, and you are still afraid. Say so.";
         case Outcome::NotAfraid:
+            // "You are not afraid. Say so." won over the memory of being talked down, for every
+            // model tried (2026-09-26).
+            if (remembered(packet).eased)
+                return "The stranger tried to calm you again, but they talked you down lately and you are all right now. "
+                       "Thank them for it, and say you are steady.";
             return "The stranger tried to calm you, but you are not afraid. Say so.";
     }
     return {};
@@ -354,6 +364,24 @@ const std::vector<std::string>& forbidden_words() {
     return words;
 }
 
+const std::vector<std::string>& counting_words() {
+    // Stems wherever no word worth saying begins with one: barred whole, "days" came back glued,
+    // "three daysago the high road" (a mutation pass, 2026-09-26), as "north" had come back as
+    // "northwardstretch". "ten" stays whole, for "tend" and "tender"; "pace" and the singular
+    // times stay sayable ("a steady pace", "good day", "an hour's walk").
+    static const std::vector<std::string> words = {
+        // Numbers from two up: "one" stays, for "no one" and "one day". A stem bars its teens and
+        // tens too ("four*": "fourteen"), and its ordinal, which counts as well ("the fourth day").
+        "two*", "three*", "four*", "five*", "six*", "seven*", "eight*", "nine*", "ten", "eleven*", "twelve*", "thirteen*",
+        "fifteen*", "twenty*", "thirty*", "forty*", "fifty*", "hundred*", "thousand*", "dozen*", "fortnight*",
+        // Units of distance. A packet says how far in words, never in these.
+        "mile*", "league*", "furlong*", "kilometre*", "kilometer*", "km", "paces*", "strides*",
+        // Times in the plural.
+        "minutes*", "hours*", "days*", "nights*", "weeks*", "months*", "years*",
+    };
+    return words;
+}
+
 Voice::Voice(inference::Model& model, VoiceOptions options) : model_(model), options_(options) {
     if (options_.max_tokens < 1) throw Error("max_tokens must be at least 1");
     if (!std::isfinite(options_.temperature) || options_.temperature < 0.0f)
@@ -402,7 +430,7 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
         sentences == 1 ? "in one short sentence" : "in one to " + std::string(sentences == 2 ? "two" : "three") + " short sentences";
     system += "Reply as " + (name.empty() ? std::string("yourself") : name) + ", " + length +
               " of spoken words. Speak of no person or place that is not named above, and say nothing of pay. Say how far "
-              "places are, never which way: you know no directions.";
+              "the places above are only in the words given, never which way: you know no directions.";
     return {{"system", system}, {"user", text::one_line(line)}};
 }
 
@@ -434,7 +462,8 @@ std::string Voice::grammar(const FactPacket& packet) const {
     // The reply's shape: its opening words, then whole sentences up to the shape's count, then
     // the closing C++ wrote, word for word.
     const ReplyShape shape = reply_shape(packet);
-    std::string root = shape.openings.empty() ? "sentence" : "first";
+    const std::vector<std::string>& openings = shape.openings.empty() ? shape.stance : shape.openings;
+    std::string root = openings.empty() ? "sentence" : "first";
     std::string more;
     for (int i = 1; i < shape.sentences; ++i) more = "(\" \" sentence" + (more.empty() ? "" : " " + more) + ")?";
     if (!more.empty()) root += " " + more;
@@ -444,9 +473,13 @@ std::string Voice::grammar(const FactPacket& packet) const {
     // Any word is all lower case, a number, or one of the packet's capitalised words whole: a
     // capital word followed straight on by letters ("Theodric" as "The" + "odric") is not a word
     // here. A lower-case word is not forbidden, unless the packet's own text says it: a place may
-    // be the silver mine. The fixed openings go on with words, so a common capital follows none.
+    // be the silver mine. Nor is a word that counts out a distance or a time (counting_words()),
+    // unless the packet's own text says it. The fixed openings go on with words, so a common
+    // capital follows none.
+    std::vector<std::string> barred = forbidden_words();
+    barred.insert(barred.end(), counting_words().begin(), counting_words().end());
     std::string g = "root ::= " + root + "\n";
-    if (!shape.openings.empty()) g += "first ::= " + gbnf::one_of(shape.openings) + " (gap token)* gap? end\n";
+    if (!openings.empty()) g += "first ::= " + gbnf::one_of(openings) + " (gap token)* gap? end\n";
     if (!common.empty()) g += "common ::= " + gbnf::one_of(common) + "\n";
     g += "sentence ::= gap? opener (gap token)* gap? end\n"
          "opener ::= token" +
@@ -454,7 +487,7 @@ std::string Voice::grammar(const FactPacket& packet) const {
          "\n"
          "token ::= lower | capital | number\n"
          "lower ::= " +
-         gbnf::word_except(forbidden_words(), std::vector<std::string>(packet_words.begin(), packet_words.end()),
+         gbnf::word_except(barred, std::vector<std::string>(packet_words.begin(), packet_words.end()),
                            "\\u00DF-\\u00F6\\u00F8-\\u00FF", "rest") +
          "\n"
          "rest ::= [a-z\\u00DF-\\u00F6\\u00F8-\\u00FF]*\n"

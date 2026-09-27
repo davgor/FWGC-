@@ -153,12 +153,16 @@ void names(std::string_view reply, const FactPacket& p, std::vector<std::string>
     for (const Fact& fact : p.facts)
         for (const auto& [key, value] : fact.fields)
             if (!text::for_the_game(key)) capitals_of(value, own);
+    // A sentence may begin with a common capital, or with a word of the reply's fixed opening or
+    // of the stance a model's reply opens with ("Hmph", from a cold speaker making small talk).
     std::set<std::string> openers(common_capitals().begin(), common_capitals().end());
-    for (const std::string& opening : reply_shape(p).openings) {
-        std::set<std::string> words;
-        capitals_of(opening, words);
-        openers.insert(words.begin(), words.end());
-    }
+    const ReplyShape shape = reply_shape(p);
+    for (const std::vector<std::string>* list : {&shape.openings, &shape.stance})
+        for (const std::string& opening : *list) {
+            std::set<std::string> words;
+            capitals_of(opening, words);
+            openers.insert(words.begin(), words.end());
+        }
     bool start = true;
     std::size_t i = 0;
     while (i < reply.size()) {

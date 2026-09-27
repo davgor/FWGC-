@@ -406,6 +406,84 @@ bool says(const std::string& text, const std::string& word, bool whole = true) {
 
 }  // namespace
 
+TEST(a_reply_counts_out_no_distance_or_time) {
+    // Told "To the coast, by the high road", every model tried said how far the coast was
+    // (judged 2026-09-26). So no number from two up, no unit of distance and no time in the
+    // plural is said, unless the packet's own text says it. Told to say one, the free model does;
+    // held, it cannot.
+    inference::Model& model = test_model::model();
+    Voice voice(model);
+    const std::string grammar = voice.grammar(packets::about_self());
+    // Each on its own line, so one barred word cannot steer the model off another; and as a stem,
+    // since barred whole, "days" came back glued ("three daysago the high road").
+    for (const auto& [said, stem] : {std::pair<std::string, std::string>{"It is three leagues by the high road.", "three"},
+                                    {"It takes days to get there.", "days"},
+                                    {"The coast is miles off.", "mile"}}) {
+        const auto [free_reply, held] = told_to_say(model, said, grammar);
+        check::is_true(says(free_reply, stem, false), "the premise: free, the model says " + stem + ": " + free_reply);
+        check::is_true(!says(held, stem, false), "held, no word begins with " + stem + ": " + held);
+    }
+    // The memory's own band stays sayable: met a few days ago, "days" is the packet's word.
+    FactPacket met = packets::about_self();
+    met.facts.back() = packets::memory_of(met.speaker, {.met = "again", .times = 1, .since = "days"});
+    const std::string held_met = told_to_say(model, "I saw you a few days ago.", voice.grammar(met)).second;
+    check::is_true(says(held_met, "days"), "the packet's own word: " + held_met);
+    // No entry bars what the packet's own ways of saying how far and when need, nor "one day".
+    for (const std::string needed : {"one", "day", "hour", "walk", "short", "long", "way", "close", "few", "ago", "pace"})
+        for (const std::string& entry : communicator::counting_words()) {
+            const bool stem = !entry.empty() && entry.back() == '*';
+            check::is_true(stem ? std::string(needed).rfind(entry.substr(0, entry.size() - 1), 0) != 0 : needed != entry,
+                           entry + " bars " + needed);
+        }
+}
+
+TEST(what_the_speaker_feels_toward_the_stranger_is_what_they_are_told_to_do) {
+    // Told only in what they remember ("You dislike them."), every model tried chatted cordially
+    // with a hostile speaker, and answered calming words from someone talked down lately as if it
+    // had never happened: the instruction said "Answer in kind" and "you are not afraid. Say so"
+    // (judged 2026-09-26). The instruction now carries it.
+    Voice voice(test_model::model());
+    const std::string hostile = prompt_of(voice, packets::small_talk("fair", "still", "hostile"), "Nice evening.");
+    check::is_true(hostile.find("you dislike them. You want no chat with them: answer curtly") != std::string::npos,
+                   "hostile small talk: curtly");
+    check::is_true(hostile.find("Answer in kind") == std::string::npos, "and not in kind");
+    const std::string wary = prompt_of(voice, packets::small_talk("fair", "still", "wary"), "Nice evening.");
+    check::is_true(wary.find("you are wary of them") != std::string::npos, "wary small talk");
+    check::is_true(prompt_of(voice, packets::small_talk("fair", "still"), "Nice evening.").find("Answer in kind") != std::string::npos,
+                   "the control: a neutral speaker chats in kind");
+    const std::string eased = prompt_of(voice, packets::not_afraid_eased(), "You're safe now, you know.");
+    check::is_true(eased.find("they talked you down lately") != std::string::npos && eased.find("Thank them") != std::string::npos,
+                   "talked down lately: thank them");
+    check::is_true(prompt_of(voice, packets::not_afraid(), "Easy.").find("Thank them") == std::string::npos, "the control");
+    // How far only for the packet's places: "Say how far places are" drew a distance to the coast,
+    // which no packet held. Nothing said of anywhere else: "Of anywhere else, you know neither how
+    // far it is nor how long it takes to reach" drew "I know no places beyond Wenweg" instead
+    // (judged 2026-09-26).
+    check::is_true(hostile.find("Say how far the places above are only in the words given") != std::string::npos &&
+                       hostile.find("Say how far places are") == std::string::npos,
+                   "how far, of the packet's places alone");
+    check::is_true(hostile.find("Of anywhere else") == std::string::npos, "and nothing of anywhere else");
+}
+
+TEST(a_cold_speakers_small_talk_opens_curtly) {
+    // The grammar holds the stance in the first words: a model reply to small talk from a cold
+    // speaker opens curtly. Written lines carry the stance in their own words (a cold bank's
+    // small talk is written cold), so their shape's openings stay free.
+    Voice voice(test_model::model());
+    const FactPacket cold = packets::small_talk("fair", "still", "hostile");
+    check::is_true(communicator::reply_shape(cold).openings.empty(), "written lines: any start, as before");
+    check::is_true(!communicator::reply_shape(cold).stance.empty(), "a model reply: a stance");
+    const std::string grammar = voice.grammar(cold);
+    check::is_true(grammar.find("root ::= first") != std::string::npos && grammar.find("\"Hmph\"") != std::string::npos,
+                   "held to open with one: " + grammar.substr(0, 200));
+    const std::string neutral = voice.grammar(packets::small_talk("fair", "still"));
+    check::is_true(neutral.find("root ::= sentence") != std::string::npos, "the control: a neutral speaker, any start");
+    // Frightened words come before coldness, as in the written lines.
+    FactPacket afraid = cold;
+    afraid.facts.back() = packets::memory_of(afraid.speaker, {.mood = "hostile", .feeling = "afraid"});
+    check::is_true(communicator::reply_shape(afraid).stance.empty(), "frightened: no curt stance");
+}
+
 TEST(a_reply_gives_no_bearing_and_no_price) {
     // Told to say a compass point or a coin, the free model does; held, it cannot. A packet
     // holds distances, never bearings, and the game prices rewards, not the voice.

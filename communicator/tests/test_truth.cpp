@@ -38,6 +38,13 @@ TEST(a_name_must_be_one_the_packet_gives) {
     check::is_true(flags("Ask for the one they call Hello.", packets::work(), "a name no fact gives"),
                    "a word sentences begin with, standing as a name past the start");
     check::is_true(clean("Tornar\xE2\x80\x99s the one to ask.", packets::about_the_town()), "a curly apostrophe is an apostrophe");
+    // The stance a cold speaker's model reply opens with is no name (a voice reply was thrown away
+    // for "Hmph", 2026-09-26); past a sentence's start it is one.
+    const FactPacket cold = packets::small_talk("fair", "still", "hostile");
+    check::is_true(clean("Hmph. The wind is still.", cold), "the stance's opening");
+    check::is_true(flags("Hmph. The wind is still.", packets::small_talk("fair", "still"), "a name no fact gives"),
+                   "the control: from a neutral speaker, no stance, so a name");
+    check::is_true(flags("The wind, Hmph, is still.", cold, "a name no fact gives"), "past a sentence's start");
 }
 
 TEST(a_distance_or_a_time_is_never_counted_out) {

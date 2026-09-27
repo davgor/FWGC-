@@ -67,4 +67,14 @@ const std::vector<std::string>& common_capitals();
 // say "southern", not "south".
 const std::vector<std::string>& forbidden_words();
 
+// The words that count out a distance or a time, which a reply may not say unless its packet's
+// own text does: numbers from two up, units of distance, and times in the plural. Told "To the
+// coast, by the high road", every model tried said how far the coast was (2026-09-26). A packet
+// says how far only in words ("an hour's walk away"), and when the speaker last met the stranger
+// by the memory's band ("days" in "a few days ago" is the packet's own word). Stems, as in
+// forbidden_words(), wherever no word worth saying begins with one. The voice's alone:
+// written lines keep their idioms ("most days", "the two of us"), and the truth check holds them
+// to no counted distance or time.
+const std::vector<std::string>& counting_words();
+
 }  // namespace communicator

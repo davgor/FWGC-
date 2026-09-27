@@ -147,15 +147,23 @@ The prompt holds four things:
     6 replies of 24 and rounded them wrong ("thirteen kilometers" for 13.6); given words, in 0.
   - Never a piece of work's map marker (`marker`, `marker_node`): it is for the game. Neither
     the prompt nor the grammar changes with it, so no id's words become sayable.
-- **What just happened:** the outcome, with a refusal's reason.
+- **What just happened:** the outcome, with a refusal's reason, and what the speaker's words must
+  show of how they take the stranger. Every model tried followed this over what it was told it
+  remembered (2026-09-26): told "Answer in kind" beside "You dislike them", it chatted cordially;
+  told "you are not afraid. Say so" beside a talk-down remembered, it denied being eased. So small
+  talk from a hostile or wary speaker is to be answered curtly, calming words to someone talked
+  down lately are to be thanked for, and a bystander who joined says first that they overheard.
 - **What the speaker remembers of the stranger** (contract version 4), in sentences: "You have
   met this stranger before, last a few days ago.", "They finished the work you gave them.", "Last
   time they asked you about the burnt works.", "They have asked you this already: say so." Never
   the Memory fact's keys. Small talk's weather, "is it safe"'s verdict and an owned-to face come
   as facts in words: "Here and now: weather: stormy; wind: a gale ...", "Your judgement: it is
   not safe here.", "The stranger has seen through your mask: you are a magister, not a midwife."
-- **The closing rules:** a length, no names beyond the packet's, nothing of pay, and how far
-  places are but never which way.
+- **The closing rules:** a length, no names beyond the packet's, nothing of pay, and how far the
+  packet's places are, in its words, never which way. "Say how far places are" had drawn a distance
+  to the coast, which no packet held, from every model tried. Nothing is said of anywhere else: told
+  it knew neither how far nor how long, Qwen3-4B volunteered "I know no places beyond Wenweg" and
+  cut its farewells to "Farewell..." (judged blind, 2026-09-26).
 
 A grammar holds the reply, and what happened shapes it:
 
@@ -171,7 +179,7 @@ A grammar holds the reply, and what happened shapes it:
 | not understood | I don't follow, I'm not sure what you mean, What do you mean, That's beyond me, Speak plainly | one |
 | answered, to "is it safe" | unsafe: No, Not here, Not safe, Far from it, I wouldn't say so; wary: Safe enough, Mostly, More or less, Careful, Keep your wits about you; safe: Safe enough, Yes, Aye, It's safe, Quiet enough, Nothing to fear | up to three |
 | greeted | a first meeting: Hello, Greetings, Well met, Good day, Welcome, Hail; met before: Hello again, Back again, Welcome back, Good to see you, Well met again, Good day; a cold speaker: What do you want, What now, Keep back, Stay back | up to two |
-| chatted (small talk) | anything | up to two |
+| chatted (small talk) | anything; from a cold speaker, a model's reply: Hmph, Save it, Spare me, Not now, What of it, If you say so, Is that so | up to two |
 | acknowledged | I see, Is that so, Fair enough, Good, Right, Ah, Well, Aye, Indeed | up to two |
 | thanked | You're welcome, No need, Think nothing of it, Glad to, My pleasure, Don't mention it; a cold speaker: Save your thanks, Keep your thanks, Hmph, Spare me | one |
 | offended | Watch your tongue, Mind your manners, How dare you, Enough, Careful, Hold your tongue, There's no need for that | one |
@@ -209,6 +217,19 @@ own text says it:
 - **A packet's own word is sayable, and only that word.** A speaker who knows the silver mine
   may say "silver". One who knows the southern tower may say "southern", and still not "south"
   or "southwest".
+- **No counted distance or time, in the voice's own list** (`counting_words()`, 2026-09-26):
+  numbers from two up ("one" stays, for "no one" and "one day"), units of distance ("miles",
+  "leagues", "paces") and times in the plural ("days", "years"). Told "To the coast, by the high
+  road", every model tried said how far the coast was. A packet says how far only in words, and a
+  memory of meeting days ago makes "days" the packet's own word. Written lines keep their idioms
+  ("most days", "the two of us"), and the truth check holds them to no counted distance or time.
+  They are stems wherever no word worth saying begins with one ("days*", "three*", "mile*"; "ten"
+  stays whole, for "tend"): barred whole, "days" came back glued, "three daysago the high road".
+  A common capital may still begin a sentence ("Two of them, then."), and no count can follow it.
+- **A cold speaker's small talk opens curtly** ("Hmph", "Save it", "Spare me", "Not now", "What of
+  it", "If you say so", "Is that so"): told only that it disliked the stranger, every model tried
+  chatted cordially. Written lines carry the stance in their own words, a cold bank's small talk
+  written cold, so this binds a model's reply alone (the shape's `stance`, beside its `openings`).
 
 A reply therefore cannot name a person or a place its packet does not name, in capitals, nor
 give a bearing or speak of pay in any of those words. A name in lower case gets through: asked
@@ -422,7 +443,9 @@ no model reads the reply. Every written line passes it before it is said, and a 
 every model reply before showing it. The owner asked for "a deterministic checker to make sure
 what they are saying isn't BS" (2026-09-26).
 
-- **Names.** Past a sentence's start, a capital is the packet's own, or "I".
+- **Names.** Past a sentence's start, a capital is the packet's own, or "I". At a sentence's
+  start it may also be a word sentences begin with, or a word of the reply's fixed opening or of
+  the stance a model's reply opens with ("Hmph", from a cold speaker making small talk).
 - **Distances and lengths of time are never counted out:** no number with a unit ("three days",
   "20 years"), no "a day's march". A range is said in the packet's words ("an hour's walk", with
   "away" or without), and only a range some fact holds.
@@ -509,6 +532,13 @@ dangerous for the rain" of a nest of four or more.
   cannot.
 - **A sentence ends with one stop.** The test model will not run on however it is asked, so
   this test reads the rule in each packet's grammar instead of a reply.
+- **No counted distance or time.** Told to say "three days by the high road" or "twenty miles
+  off", the free model does; held, it says neither the number nor the unit. Beside a memory of
+  meeting days ago, "days" can be said.
+- **What the speaker feels toward the stranger is what they are told to do.** Small talk to a
+  hostile or wary speaker is to be answered curtly, and a neutral one's in kind; calming words to
+  someone talked down lately are to be thanked for; the prompt says how far only of the packet's
+  places, and nothing of anywhere else. A cold speaker's model reply opens with a curt phrase, and written lines keep any start.
 - **No bearing and no pay, in the barred words.** Told to say "north" or "gold", the free model
   does; held, it cannot. Told to say "northernmost" or "paymaster", which no list holds, held,
   no word it writes begins with the stem. No common capital is a barred word: the ban holds
@@ -691,7 +721,28 @@ their packets.
   someone talked down lately (none remembered it).
 
 None of the three displaces Qwen3-4B for reading the player within the budget, and the written
-lines remain the voice. The memory figures are the whole card's use while the model ran, less
+lines remain the voice.
+
+**The three shared failures, fixed** (2026-09-26; the 59 voice cases, CPU, 8 threads). Each time,
+the prompt's own instruction had pulled against the memory; the instruction now carries the
+state, a cold speaker's small talk opens curtly, the counting words are barred, and the closing
+says how far only of the packet's places.
+- Qwen3-4B: shaped 59 of 59 before and after; replies with a claim the truth check finds, 4 before
+  and 0 after. Hostile small talk went from "It is fair weather, though deep winter holds fast. An
+  hour's walk brings you to the edge of the hills..." to "Hmph. The wind's still, but the snow's
+  falling."; the coast from "three days by the high road, past the silverwood glen... the old stone
+  lighthouse" to "I see you're headed toward the coast by the high road..."; someone talked down
+  lately from "I'm fine, and I don't need to be calmed." to "I'm fine, and I thank you for that."
+- The test model: shaped 59 of 59 before and after, and no claim without ground in either.
+- Judged blind, before against after, by a fresh judge each time. The first try closed with "Of
+  anywhere else, you know neither how far it is nor how long it takes to reach", and scored worse
+  (28 fault-free replies of 59, before 32): told what it did not know, the model said so unasked
+  ("I know no places beyond Wenweg") and cut its farewells to "Farewell...". Without that line: 33
+  after, 34 before, within what two judges differ by on the same replies; weighted by harm, after
+  50 and before 51; replies that miss what the speaker feels or remembers, after 4 and before 8,
+  the three failures among them. What remains: invented scenery in greetings and small talk ("the
+  snow's falling" in fair weather), and an unknown place answered "I know nothing of what lies
+  beyond the walls of Wenweg". The memory figures are the whole card's use while the model ran, less
 its use before, with the card otherwise quiet.
 
 The models that ship are a later decision: a trained classifier for the interpreter, and a
