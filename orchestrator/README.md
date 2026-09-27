@@ -21,9 +21,10 @@ The build adds `../generator` as a sibling, so the generator's library is built 
 determinism flags. `generator/README.md` says where `cmake` is on this machine.
 
 The tests generate the seed-42 size-33 world, small and large, and the seed-99 size-33 world,
-which holds every kind of hidden face. They take about forty seconds. The same build makes
+which holds every kind of hidden face. They take about two and a half minutes on this machine
+(measured 2026-09-27; the suite before the brain database took two). The same build makes
 `fwgc_director.dll`, the C interface below, and `orchestrator_c_tests`, which hold it to the
-director in about thirty seconds more.
+director in about forty seconds more. The build fetches SQLite's source by URL and hash.
 
 ## What it does
 
@@ -175,6 +176,77 @@ places people and says who was near enough to hear; the director decides what ea
 
 An overhearing is an input, so replay rebuilds a joiner's conversation and a bystander's calm.
 
+## News, and the brain database
+
+Contract version 11. The owner asked for NPC brains: facts that are "common knowledge" ("everyone
+in the village should know that the player saved them"), brought up to date "like a cron job", a
+long memory written by a `compact` the game calls, and a short one of the conversation; stored per
+NPC, and kept "like a database, that I can do SQL queries on" (2026-09-27). This slice is the
+first layer: events, and who has heard of them. Compaction and the short and long memories come
+next (see [Not in this slice](#not-in-this-slice)).
+
+**Events.** The director makes one wherever it sees something happen that people could know of,
+and moves its state on as it goes; the game never writes one.
+
+| Kind | Made when | States | Knows it at once | Word goes |
+|---|---|---|---|---|
+| `work` | work is offered on the board | `asked`, then `taken`, `finished`, `failed`, `given_up` (the player's); `lapsed`, `withdrawn`, `giver_gone`, `target_gone` (the world's) | the giver | `asked`, `taken` and the world's: where the giver stands. `finished`, `failed`, `given_up`: as far as its difficulty says, 5, 10, 20, 40 or 60 km, from where the giver stands and from where the work was for |
+| `exposed` | the player brings a hidden face out (once a person) | `exposed` | the one exposed | 20 km, and everyone tied to them wherever they are |
+| `scare` | the game reports someone frightened (frights within an hour at one place are one scare), or reports how a threat ended where none was | `frightened`, `calmed` (the player talked people there down within a day), then the game's word: `beaten`, `lost`, `passed`, and by whom | the frightened; whoever the game says ended it | where it happened; `beaten` or `lost`: 20 km |
+
+The owner's example, "wraignwight village was attacked" becoming "the player helped wraignwight
+defend itself", is a `work` event: a defend offer ("Stand with Wraignwight when they come for it")
+is the attack people know of, and the player finishing it moves the event to `finished`. Or a
+`scare`, when the game frightens people there and then reports the threat `beaten` by the player
+(`report_event(site, outcome, by)`). A work event's words are the giver's stated purpose, never
+what the work is really for.
+
+**What people hear.** Whoever an event happened to knows it at once, "there". Everyone else hears
+through `share(people)`, the game's cron job, called when it likes, for the people it names or
+for everyone: each hears the latest state of every event that has reached them, "word", by these
+rules:
+- they stand where word of it starts;
+- they are tied to whom it concerns (a hero's rivals, kin and allies), for an exposure;
+- it is within the event's reach of where they stand, and word has had time to travel: 20 km a
+  day, from when that state came about. No reach is further than the near read looks (half the
+  globe's radius), as a speaker's own reach is not.
+
+A later state replaces the one someone knew; nothing heard is forgotten. Someone who hears that the
+player finished work where they live, or for someone they are tied to, thinks one better of the
+player, and one worse for work failed or given up: once an event, before they have ever met (a
+first meeting shows it). `related(event)` says who knows an event and who the next share would
+tell, changing nothing: the game's "query related NPCs". Share and the game's report are inputs,
+so replay rebuilds all of it.
+
+**What a speaker says of it.** A News fact (contract.hpp lists its fields) carries one event as
+the speaker knows it: the state they heard, which may be older than its latest, whether the player
+brought it about, since when, and how they know. A greeting carries the newest the speaker knows the
+player brought about; small talk the newest at the place they stand; an answer about a place up to
+two there; about a person, one about them. Nobody says anything they have not heard.
+
+**The brain database.** One SQLite database in memory per director (SQLite 3.53.4, fetched at
+build time by URL and hash; public domain). The game reads it with SQL, `query(sql)` and
+`fwgc_query`; only the director writes it, through its recorded inputs. A save does not hold it:
+replaying the inputs writes it again, row for row (tested table by table).
+
+| Table | Rows |
+|---|---|
+| `people` | everyone the world names: `uid`, `name` and `role` as a stranger has them, `kind` (roster, hero, dread, villain), a roster post's `site`, the `node` they stand on, `present` |
+| `places` | every city, hamlet, fortress and key location: `id` (as a packet names it), `kind`, `name`, `node` |
+| `work` | the quest board as it stands: `quest_id`, `giver`, `verb`, `purpose` (as stated), `anchor`, `node`, `difficulty`, `state` (as its event says it), `offered_day`, `expires_day`, `closed_day`, `closed_reason` |
+| `relationships` | each person the player has dealt with: `conversations`, `talking`, `last_day`, `regard` (-3 to 3), `mood`, `work`, `grievances`, `forgiven`, `asked_before`, `exposed`, `eased_day` |
+| `events` | every event: `id`, `seq`, `kind`, `day`, the `place` it is about (`place_name`, `about_node`), the `node` word starts from, whom it concerns (`person`, `person_name`), work's `quest_id`, `verb`, `purpose` and `difficulty`, an exposure's `was` and `revealed`, `player`, and its latest `state`, `state_day` and `actor` |
+| `event_states` | each state an event has been in, in order: `event`, `seq`, `state`, `day`, `actor` |
+| `facts` | who has heard what: `person`, `event`, the `state` they know, the `day` they learned it, `how` ("there" or "word") |
+| `news` (a view) | facts joined to their events |
+
+The first four are copies of the director's own state, written afresh before a query when what
+they copy has changed; the last three are the brains themselves. A query is one statement that only
+reads: a write, a second statement, a pragma, a transaction, a file attached, is refused, as is a
+statement that runs past about a second's work or answers more than 100,000 rows. Nothing a query
+does is recorded, and none can change what the director decides. The schema's version is
+`brains_schema` in `fwgc_contract_json`.
+
 ## What a speaker says of a place
 
 Asked about a place (contract version 8), a speaker says what they know of it past the place
@@ -274,10 +346,12 @@ holds it to the director, with its import library in `lib/`; `cmake --install` l
   who overheard it (`fwgc_overhear`, each bystander's reaction and a joiner's reply); work
   (`fwgc_resolve`); feelings (`fwgc_fright`, `fwgc_gather`, `fwgc_feeling`); days
   (`fwgc_hold`, `fwgc_positions`, `fwgc_whereabouts_of`, `fwgc_whereabouts_at`, `fwgc_day_of`,
-  `fwgc_roster`); what a speaker remembers (`fwgc_acquaintance`); the world document
-  (`fwgc_world_json`, for drawing the world only: it holds what speakers keep back); and
+  `fwgc_roster`); what a speaker remembers (`fwgc_acquaintance`); news (`fwgc_share`, the cron
+  job, who heard what back as JSON; `fwgc_report_event`, how a threat ended; `fwgc_related`, who
+  knows an event); the brain database (`fwgc_query`, read-only SQL, rows back as JSON); the world
+  document (`fwgc_world_json`, for drawing the world only: it holds what speakers keep back); and
   `fwgc_contract_json`, every act (whether it needs a target, whether it changes the world),
-  outcome and fact kind by name.
+  outcome and fact kind by name, and the brain database's schema version.
 - **Saves.** `fwgc_save` writes the request, the digest of the world it made, every input, and a
   check: the clock and the count of the world's logged operations after them. `fwgc_restore`
   makes the world again, compares the digest, replays, compares the check, and refuses
@@ -364,6 +438,16 @@ switched each rule off in a scratch build.
 
 ## Not in this slice
 
+- The rest of the brains (planned, slice 15): the short memory of each conversation, with the
+  words said; `compact`, which the game calls to fold it into a long memory, the model picking what
+  to keep and C++ checking the picks; how much a speaker keeps growing with how much the player
+  talks to them; an event's memory written by a model and checked; Recall facts.
+- Heroes' brains and `promoteNPC` (slice 16): a roster person made a full hero, through a
+  generator verb.
+- News of someone gone. The board closes work when its giver is gone, but no test world's giver
+  goes in three years of its time (seed 99, size 33, measured 2026-09-27: every piece of work lapsed),
+  so the planned `gone` event had nothing to be tested against. The work's own event still moves to
+  `giver_gone`.
 - Pacing and hero direction: the director's build-up, peak and relax, and gameplay events in.
 - Days for heroes, dreads and villains; rest days; days that change with the weather or the
   season; and a speaker saying what they are about, or that they are late.

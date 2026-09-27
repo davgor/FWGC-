@@ -28,7 +28,9 @@ namespace orchestrator {
 // 9: feelings. The act calm and its outcomes calmed, still_afraid and not_afraid; the Memory
 //    fact's `feeling` and `resting`.
 // 10: overhearing. The Memory fact's `eased` and `joined`.
-inline constexpr int kContractVersion = 10;
+// 11: news. A News fact for an event the speaker has heard of, in greetings, small talk and answers
+//     about a place or a person.
+inline constexpr int kContractVersion = 11;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -111,7 +113,9 @@ std::string_view to_string(Outcome outcome);
 
 // Memory: what the speaker and the player have between them, and how the speaker feels. Chat:
 // what small talk can be about. Safety: a verdict on the danger about. Reveal: what a face that came out had hidden.
-enum class FactKind : int { Place = 0, Person, QuestOffer, QuestState, Danger, Reason, Memory, Chat, Safety, Reveal };
+// News: something that happened, as the speaker heard of it.
+enum class FactKind : int { Place = 0, Person, QuestOffer, QuestState, Danger, Reason, Memory, Chat, Safety, Reveal, News };
+inline constexpr int kFactKindCount = static_cast<int>(FactKind::News) + 1;
 
 std::string_view to_string(FactKind kind);
 
@@ -193,6 +197,26 @@ std::string_view to_string(FactKind kind);
 // out. Only a mask's two roles differ: a beast's or a fractured heart's faces share one role,
 // and differ in manner and alignment. A mask exposed shows its true face from then on; a beast
 // or a fractured heart owns to its other face, which shows on its own days.
+//
+// A News fact, its subject the event's id: something that happened, at the state the speaker knows
+// it by, which may be older than its latest.
+// - `event`: what kind of thing: "work" (a piece of work on the board), "exposed" (someone's hidden
+//   face brought out), "scare" (frights at a place, and how the threat ended);
+// - `state`: work "asked", "taken", "finished", "failed", "given_up", "lapsed", "withdrawn",
+//   "giver_gone", "target_gone"; exposed "exposed"; scare "frightened", "calmed", "beaten", "lost",
+//   "passed";
+// - `place`: where, by name; absent where no place is named;
+// - `verb`, `purpose`, `giver`: work only: what the giver asks, why they say they ask it (never
+//   what it is really for), and who gives it, by name;
+// - `person`, `was`, `is`: exposed only: whom, by the name a stranger knew them by; the role the
+//   face they showed claimed, and the role of the face now out;
+// - `player`: "yes" when the player brought this state about, else "no";
+// - `by`: a scare's end: "player", or the name of whoever else brought it about; absent otherwise;
+// - `since`: when this state came about, in the Memory fact's calendar bands;
+// - `how`: "there" when the speaker saw it or it happened to them, "word" when they heard it.
+// A greeting carries the newest event whose state the speaker knows the player brought about; small
+// talk the newest they know of at the place they stand; an answer about a place up to two about it;
+// an answer about a person one about them. At most those, and none the speaker has not heard.
 struct Fact {
     FactKind kind = FactKind::Place;
     std::string subject;

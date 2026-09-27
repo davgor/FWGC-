@@ -33,6 +33,10 @@
 //   minutes N                       N minutes pass
 //   overhear NAME...                these speakers overheard the last `say`: each is calmed by it,
 //                                   joins in (their reply is written as their turn), or stays out
+//   share [NAME...]                 news reaches these speakers, or everyone when none are named
+//   report NAME OUTCOME [BY]        the game says how a threat where NAME stands ended: beaten,
+//                                   lost or passed; BY player, a speaker's NAME, or nobody
+//   sql QUERY                       read the brain database; each row written as an event
 //
 // Written out, in order: for each `say`, `turn NAME`, `line LINE` and the packet
 // (orchestrator::packet_text); for anything else that happens, `event TEXT`.
@@ -49,6 +53,8 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <type_traits>
+#include <variant>
 #include <vector>
 
 #include "fwg/api/quests.hpp"
@@ -302,6 +308,39 @@ int main(int argc, char** argv) {
                         std::cout << "event " << w[i + 1] << " overheard: " << orchestrator::to_string(b.reaction) << ", "
                                   << director->feeling(b.person).now << "\n";
                     }
+                }
+            } else if (w[0] == "share") {
+                std::vector<std::string> people;
+                for (std::size_t i = 1; i < w.size(); ++i) people.push_back(speaker(w[i]));
+                const std::vector<orchestrator::Learned> learned = director->share(people);
+                std::cout << "event news goes round: " << learned.size() << " heard something\n";
+            } else if (w[0] == "report") {
+                need(3);
+                const fwg::World& world = director->world();
+                const std::optional<int> at = node_of(world, speaker(w[1]));
+                std::string site;
+                for (const fwg::NpcSite& s : world.npcs.sites)
+                    if (at && s.node == *at && site.empty()) site = s.uid;
+                if (site.empty()) throw Failure(where + w[1] + " stands at no roster site");
+                const std::string by = w.size() > 3 ? (w[3] == "player" ? std::string("player") : speaker(w[3])) : std::string();
+                director->report_event(site, w[2], by);
+                std::cout << "event the threat where " << w[1] << " stands: " << w[2] << (w.size() > 3 ? " by " + w[3] : std::string()) << "\n";
+            } else if (w[0] == "sql") {
+                need(2);
+                const orchestrator::QueryResult rows = director->query(row.substr(row.find("sql") + 3));
+                for (const std::vector<orchestrator::Cell>& one : rows.rows) {
+                    std::cout << "event sql:";
+                    for (std::size_t c = 0; c < one.size(); ++c) {
+                        std::cout << " " << rows.columns[c] << "=";
+                        std::visit(
+                            [](const auto& value) {
+                                using T = std::decay_t<decltype(value)>;
+                                if constexpr (std::is_same_v<T, std::monostate>) std::cout << "NULL";
+                                else std::cout << value;
+                            },
+                            one[c]);
+                    }
+                    std::cout << "\n";
                 }
             } else if (w[0] == "minutes") {
                 need(2);

@@ -17,10 +17,8 @@ constexpr std::array<std::string_view, kOutcomeCount> kOutcomeNames = {
     "not_understood", "greeted", "chatted", "acknowledged", "thanked", "offended", "exposed", "denied",
     "forgiven", "unwronged", "calmed", "still_afraid", "not_afraid"};
 
-constexpr std::array<std::string_view, 10> kFactNames = {"place",  "person", "quest_offer", "quest_state", "danger",
-                                                         "reason", "memory", "chat",        "safety",      "reveal"};
-
-static_assert(kFactNames.size() == static_cast<std::size_t>(FactKind::Reveal) + 1, "one name per fact kind");
+constexpr std::array<std::string_view, kFactKindCount> kFactNames = {
+    "place", "person", "quest_offer", "quest_state", "danger", "reason", "memory", "chat", "safety", "reveal", "news"};
 
 }  // namespace
 

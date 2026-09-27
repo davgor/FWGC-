@@ -177,6 +177,25 @@ void show_face(Speaker& speaker, const fwg::Hero& hero, const fwg::HeroFace& fac
     persona.face = face.label == "true" || face.label == "unleashed" || face.label == "second" ? face.label : std::string();
 }
 
+std::pair<std::string, std::string> known_as(const fwg::PersonDocument& document) {
+    Persona seen;
+    strangers_view(document, seen, /*with_card=*/false);
+    return {seen.name, seen.role};
+}
+
+std::vector<int> place_nodes_within(const fwg::World& world, int node, double radius_m) {
+    std::vector<int> out;
+    const std::optional<fwg::NearRead> read = bounded_near(world, node, std::min(radius_m, near_ceiling(world)), kPlaceCategories);
+    if (!read) return out;
+    for (const auto& row : read->near.settlements) out.push_back(row.node);
+    for (const auto& row : read->near.hamlets) out.push_back(row.node);
+    for (const auto& row : read->near.fortresses) out.push_back(row.node);
+    for (const auto& row : read->near.key_locations) out.push_back(row.node);
+    std::sort(out.begin(), out.end());
+    out.erase(std::unique(out.begin(), out.end()), out.end());
+    return out;
+}
+
 std::string range_of(double metres) {
     if (metres < 50.0) return "here";
     if (metres < 1000.0) return "close";

@@ -36,6 +36,13 @@ fwg::JsonValue acquaintance_json(const Director::Acquaintance& acquaintance);
 // [{"person", "reaction", "packet"}]: the packet a joiner's reply, else null.
 fwg::JsonValue bystanders_json(const std::vector<Bystander>& bystanders);
 fwg::JsonValue feeling_json(const Feeling& feeling);
+// {"columns": [...], "rows": [[...], ...]}: integers and reals as numbers, text as strings, NULL as
+// null, and bytes that are not UTF-8 as SQL writes a blob, "x'...'".
+fwg::JsonValue query_json(const QueryResult& result);
+// [{"person", "event", "state"}]
+fwg::JsonValue learned_json(const std::vector<Learned>& learned);
+// {"knows": [...], "would_learn": [...]}
+fwg::JsonValue related_json(const Related& related);
 fwg::JsonValue contract_json();
 // Every roster post `positions` lists, by index, with what the game shows and places them by.
 fwg::JsonValue roster_json(const fwg::World& world, const std::vector<Position>& positions);

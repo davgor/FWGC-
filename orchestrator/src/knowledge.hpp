@@ -10,6 +10,7 @@
 #include <map>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "fwg/api/read.hpp"
@@ -115,7 +116,16 @@ struct KnownPerson {
 };
 std::optional<KnownPerson> person_fact(const fwg::World& world, const std::string& uid);
 
-// "3.4 km", or "here" under fifty metres.
+// A person's name and role as a stranger has them: the face a stranger sees, a roster post, a
+// villain's role alone.
+std::pair<std::string, std::string> known_as(const fwg::PersonDocument& document);
+
+// The terrain nodes of the places -- cities, hamlets, fortresses, key locations -- within
+// `radius_m` of `node`, the node itself among them when a place stands there: where word spreads
+// to. No further than the near read's ceiling (half the globe's radius), as every reach here is,
+// and fewer when the read had to narrow its radius.
+std::vector<int> place_nodes_within(const fwg::World& world, int node, double radius_m);
+
 // How far a thing is, as a speaker would put it: a band, never metres, which nobody standing
 // there has measured. contract.hpp lists the bands.
 std::string range_of(double metres);

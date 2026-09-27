@@ -17,7 +17,9 @@
 
 #include <cstdint>
 #include <map>
+#include <memory>
 #include <optional>
+#include <set>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -69,7 +71,19 @@ struct Gather {
 struct Overhear {
     std::vector<std::string> people;
 };
-using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather, Overhear>;
+// The game's cron job: news reaches the people named, or everyone when none is, as far as it has
+// travelled.
+struct Share {
+    std::vector<std::string> people;
+};
+// The game reports how a threat at a place ended: "beaten", "lost" or "passed", and by whom
+// ("player", a person uid, or empty for no one).
+struct Report {
+    std::string site;
+    std::string outcome;
+    std::string by;
+};
+using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather, Overhear, Share, Report>;
 
 // What someone who overheard the player made of it.
 enum class Overheard { stays_out, calmed, joins };
@@ -87,6 +101,78 @@ struct Bystander {
 struct Feeling {
     std::string now;
     std::string resting;
+};
+
+// ---- the brain database -------------------------------------------------------------------------
+//
+// What people have heard and remember, kept in an in-memory SQLite database. The game reads it
+// with SQL (Director::query); only the director writes it, through the inputs it records, so
+// replay rebuilds it. README.md, "The brain database", has the schema.
+
+// One value a query hands back: NULL, an integer, a real, or text.
+using Cell = std::variant<std::monostate, std::int64_t, double, std::string>;
+
+struct QueryResult {
+    std::vector<std::string> columns;
+    std::vector<std::vector<Cell>> rows;
+};
+
+// The database a director keeps its brains in. A value: copying a director copies its database.
+class Brains {
+public:
+    struct Handle;  // the connection, in src/brains.hpp
+
+    Brains();
+    ~Brains();
+    Brains(const Brains& other);
+    Brains& operator=(const Brains& other);
+    Brains(Brains&& other) noexcept;
+    Brains& operator=(Brains&& other) noexcept;
+
+    Handle& handle() const { return *handle_; }
+
+private:
+    std::unique_ptr<Handle> handle_;
+};
+
+// Something that happened that people can come to know of. The director makes each where it
+// sees one happen -- work offered, taken, finished, failed, given up or lapsing on the board; a
+// hidden face the player brings out; frights at a place -- or where the game reports one: how a
+// threat ended. Its state moves on (the attack becomes "beaten, by the player"), and whoever hears
+// the newer state knows the event by it.
+struct Event {
+    std::string id;         // "event-1", "event-2", ... in the order made
+    std::string kind;       // "work", "exposed", "scare"
+    double day = 0.0;       // when it began
+    std::string place;      // the place it is about, by the id a packet names it by; empty for none
+    std::string place_name; // as a speaker says it
+    std::optional<int> node;        // where word of it starts: the giver's place, or where it happened
+    std::optional<int> about_node;  // the terrain node of the place it is about
+    std::string person;     // whom it concerns: the giver, the one exposed
+    std::string person_name;  // as a stranger knew them
+    std::string quest_id;   // work only
+    std::string verb;       // work: what the giver asks
+    std::string purpose;    // work: why they say they ask it, never what it is really for
+    int difficulty = 0;     // work: 1 to 5
+    std::string was;        // exposed: the role the face the player knew claimed
+    std::string revealed;   // exposed: the role of the face now out
+    bool player = false;    // the player has had a part in it
+    std::string state;      // its latest state
+    double state_day = 0.0; // since when
+    std::string actor;      // who brought the latest state about: "player", a person uid, or empty
+};
+
+// Someone who heard an event's state, as share() reports it.
+struct Learned {
+    std::string person;
+    std::string event;
+    std::string state;
+};
+
+// Who knows an event: at the state they know it by, and who would hear of it at the next share.
+struct Related {
+    std::vector<std::string> knows;
+    std::vector<std::string> would_learn;
 };
 
 // ---- a roster person's day --------------------------------------------------------------------
@@ -257,6 +343,39 @@ public:
     // Throws Error when nothing has been said yet, and for a uid the world does not name.
     std::vector<Bystander> overhear(const std::vector<std::string>& people);
 
+    // ---- events, and what people have heard -----------------------------------------------------
+    //
+    // Whoever an event happened to knows it at once: a giver their own work, the one exposed, the
+    // frightened. Everyone else hears of it through share(), the game's cron job, by the rules in
+    // README.md ("What people hear"): those standing where word of it starts, those tied to whom
+    // it concerns, and those within its reach once word has had time to travel. Someone who hears
+    // that the player finished work where they live, or failed it, takes the player better or
+    // worse for it, once.
+
+    // Every event, in the order made.
+    std::vector<Event> events() const;
+
+    // News reaches `people`, or everyone the world names when none are named: each hears the
+    // latest state of every event that has reached them and they do not know it by. Returns who
+    // heard what, in the order of events and then people. Throws Error for a uid the world does
+    // not name.
+    std::vector<Learned> share(const std::vector<std::string>& people);
+
+    // Who knows `event`, and who the next share would tell of it, changing nothing. Throws Error
+    // for an event there is none of.
+    Related related(const std::string& event) const;
+
+    // The game reports how a threat at `site` ended: `outcome` "beaten", "lost" or "passed", `by`
+    // "player", a person uid, or empty. `site` is a place id or a roster site's uid. It moves the
+    // scare there (frights within the last day), or makes one. Throws Error for an outcome outside
+    // those three, a place the world does not name, or a `by` it does not.
+    void report_event(const std::string& site, const std::string& outcome, const std::string& by);
+
+    // The game's read of the brain database: one SQL statement that only reads, its rows back.
+    // Throws Error for anything else -- a write, a second statement, a pragma, a file attached --
+    // and for a statement that runs too long or answers too many rows.
+    QueryResult query(std::string_view sql) const;
+
 private:
     void end_conversation(const std::string& speaker);
 
@@ -289,6 +408,48 @@ private:
     // respond(), for the player or for a bystander who joins (`joined`: not an input of its own,
     // since the Overhear that made it is).
     FactPacket reply(const std::string& speaker, const DialogueAct& act, bool joined);
+
+    // ---- the brain database ----------------------------------------------------------------------
+    Brains brains_;
+    int events_made_ = 0;
+    // Bumped when the world changes, and when anyone's standing with the player may have: the
+    // database's copies of the world's people, places and work, and of every acquaintance, are
+    // written again before a query reads them only when these moved.
+    std::uint64_t world_changes_ = 0;
+    std::uint64_t acquaintance_changes_ = 0;
+    mutable std::uint64_t mirrored_world_ = ~std::uint64_t{0};
+    mutable std::uint64_t mirrored_acquaintances_ = ~std::uint64_t{0};
+    void mirror() const;
+
+    // Everyone the world names, where they stand, and whom each hero is tied to: what share reads.
+    // Worked out again only when the world has changed.
+    struct Someone {
+        std::string name, kind, role, site;
+        std::optional<int> node;
+        bool present = true;
+    };
+    struct Population {
+        std::map<std::string, Someone> people;
+        std::map<int, std::vector<std::string>> at_node;
+        std::map<std::string, std::set<std::string>> ties;
+    };
+    mutable std::optional<Population> population_;
+    mutable std::uint64_t population_of_ = ~std::uint64_t{0};
+    const Population& population() const;
+
+    // The work on the board, made into events and moved on as the board moves: after anything
+    // that changes the world.
+    void note_board();
+    std::string make_event(const Event& event);
+    void move_event(const std::string& id, const std::string& state, double day, const std::string& actor);
+    // `person` knows `event` at `state`, learned on `day`, `how` "there" or "word".
+    void learn(const std::string& person, const std::string& event, const std::string& state, double day, const std::string& how);
+    // Who the rules say word of an event has reached by now.
+    std::vector<std::string> reached(const Event& event, double today) const;
+    // What `speaker` has heard, as News facts, newest first, at most `most`: with `about` "player",
+    // the events whose state they know the player brought about; with a person uid, the events
+    // about that person; with `about` empty, the events at `node`.
+    std::vector<Fact> news(const std::string& speaker, const std::string& about, std::optional<int> node, std::size_t most) const;
 };
 
 // A session again: `start` with every input re-applied, in order.

@@ -14,7 +14,7 @@ namespace {
 
 // Every input kind has its key here, and replay() its call. A new one stops the build until it
 // has both, and its fwgc_ function and a test.
-static_assert(std::variant_size_v<Input> == 7,
+static_assert(std::variant_size_v<Input> == 9,
               "a new Input kind needs its save key (c_save.cpp), its fwgc_ function (c_api.cpp) and a test "
               "(tests/test_c_api.cpp)");
 
@@ -85,6 +85,22 @@ fwg::JsonValue input_json(const Input& input) {
                 fwg::JsonValue body = fwg::JsonValue::object();
                 body.set("people", std::move(names));
                 return keyed("overhear", std::move(body));
+            },
+            [](const Share& share) {
+                const auto& [people] = share;
+                fwg::JsonValue names = fwg::JsonValue::array();
+                for (const std::string& name : people) names.push_back(name);
+                fwg::JsonValue body = fwg::JsonValue::object();
+                body.set("people", std::move(names));
+                return keyed("share", std::move(body));
+            },
+            [](const Report& report) {
+                const auto& [site, outcome, by] = report;
+                fwg::JsonValue body = fwg::JsonValue::object();
+                body.set("site", site);
+                body.set("outcome", outcome);
+                body.set("by", by);
+                return keyed("report", std::move(body));
             },
         },
         input);
@@ -177,6 +193,14 @@ Input input_from(const fwg::JsonValue& item) {
     if (kind == "overhear") {
         exactly(body, {"people"}, "overhear");
         return Overhear{people_at(body, kind)};
+    }
+    if (kind == "share") {
+        exactly(body, {"people"}, "share");
+        return Share{people_at(body, kind)};
+    }
+    if (kind == "report") {
+        exactly(body, {"site", "outcome", "by"}, "report");
+        return Report{text_at(body, "site", kind), text_at(body, "outcome", kind), text_at(body, "by", kind)};
     }
     refuse("an input of a kind this library does not know: '" + kind + "'");
 }

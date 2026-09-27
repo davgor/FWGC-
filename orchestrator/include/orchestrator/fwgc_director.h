@@ -44,8 +44,9 @@ extern "C" {
 #endif
 
 /* The interface's version, bumped whenever a function, struct or code changes. A game checks
- * fwgc_api_version() == FWGC_API_VERSION before its first call. */
-#define FWGC_API_VERSION 1
+ * fwgc_api_version() == FWGC_API_VERSION before its first call.
+ * 2: the brain database (fwgc_query), news (fwgc_share, fwgc_related, fwgc_report_event). */
+#define FWGC_API_VERSION 2
 
 typedef struct fwgc_director fwgc_director;
 
@@ -165,8 +166,34 @@ FWGC_API fwgc_status fwgc_gather(fwgc_director* director, const char* const* peo
  * contract's text form, "" when none joins. Either may be NULL. Refused before anything is said. */
 FWGC_API fwgc_status fwgc_overhear(fwgc_director* director, const char* const* people, size_t count,
                                    char** bystanders_json, char** packet_text) FWGC_NOEXCEPT;
+/* The game's cron job for news: each of the `count` people named (0 for everyone the world names)
+ * hears the latest state of every event word of which has reached them -- where it happened, from
+ * someone they are tied to, or from within its reach once word has had time to travel -- and that
+ * they do not already know it by. Someone who hears the player finished or failed work where they
+ * live takes the player better or worse for it, once. Who heard what, as JSON in *json:
+ * [{"person", "event", "state"}]. May be NULL. */
+FWGC_API fwgc_status fwgc_share(fwgc_director* director, const char* const* people, size_t count,
+                                char** json) FWGC_NOEXCEPT;
+/* How a threat at `site` (a place id or a roster site's uid) ended: `outcome` "beaten", "lost" or
+ * "passed"; `by` "player", a person uid, or NULL for no one. It moves the scare there (frights
+ * within the last day) or makes one; people hear of it at the next fwgc_share. */
+FWGC_API fwgc_status fwgc_report_event(fwgc_director* director, const char* site, const char* outcome,
+                                       const char* by) FWGC_NOEXCEPT;
 
 /* ---- what the game asks ------------------------------------------------------------------- */
+
+/* The brain database, read with SQL: one statement that only reads (SELECT, WITH), its rows as
+ * JSON in *json: {"columns": [...], "rows": [[...], ...]}, integers and reals as numbers, text as
+ * strings, NULL as null. A write, a second statement, a pragma or a file attached is refused
+ * (FWGC_BAD_ARGUMENT), and so is a statement that runs too long or answers more than 100,000 rows.
+ * The tables: people, places, work (the world's, as it stands), relationships (each person's
+ * standing with the player), events and event_states (what happened), facts (who has heard what),
+ * and the view news; the orchestrator's README.md describes each. Nothing here changes the director,
+ * and a save does not hold the database: replaying writes it again. */
+FWGC_API fwgc_status fwgc_query(const fwgc_director* director, const char* sql, char** json) FWGC_NOEXCEPT;
+/* Who knows `event` (an event id, "event-12"), and who the next fwgc_share would tell of it, changing
+ * nothing: {"knows": [...], "would_learn": [...]}. */
+FWGC_API fwgc_status fwgc_related(const fwgc_director* director, const char* event, char** json) FWGC_NOEXCEPT;
 
 /* What `speaker` and the player have between them, as JSON; the text null for someone the
  * session holds nothing of. */

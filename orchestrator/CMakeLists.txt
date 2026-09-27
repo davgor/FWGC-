@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(fwgc_orchestrator VERSION 0.1.0 LANGUAGES CXX)
+project(fwgc_orchestrator VERSION 0.1.0 LANGUAGES C CXX)
 
 # The director: deterministic C++ that holds one world, changes it only through the
 # generator's logged verbs, and answers a player's dialogue acts as knowledge-scoped fact
@@ -40,12 +40,35 @@ target_include_directories(orchestrator_contract PUBLIC ${CMAKE_CURRENT_SOURCE_D
 target_compile_features(orchestrator_contract PUBLIC cxx_std_20)
 target_compile_options(orchestrator_contract PRIVATE ${ORCHESTRATOR_WARNINGS})
 
+# SQLite, which holds the brains (src/brains.cpp): the amalgamation, fetched at build time by URL
+# and hash (the owner approved it 2026-09-27: SQLite 3.53.4, 2,946,650 bytes, public domain; the
+# hash is the SHA3-256 sqlite.org publishes). Nothing of it is committed. Built with its loadable
+# extensions left out and its temporary tables kept in memory, so the one database a director opens,
+# in memory, is all it ever touches.
+include(FetchContent)
+FetchContent_Declare(sqlite
+  URL https://www.sqlite.org/2026/sqlite-amalgamation-3530400.zip
+  URL_HASH SHA3_256=628a44cfe82c66aed1ccbbe85a562d2e33ebe64b3288981ed76285612227934e
+  DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+)
+FetchContent_MakeAvailable(sqlite)
+add_library(orchestrator_sqlite STATIC ${sqlite_SOURCE_DIR}/sqlite3.c)
+target_include_directories(orchestrator_sqlite SYSTEM PUBLIC ${sqlite_SOURCE_DIR})
+target_compile_definitions(orchestrator_sqlite PUBLIC
+  SQLITE_THREADSAFE=2           # a connection is used by one thread at a time, as a director is
+  SQLITE_OMIT_LOAD_EXTENSION
+  SQLITE_TEMP_STORE=3           # temporary tables in memory, never a file
+  SQLITE_DQS=0                  # a double-quoted word is a name, never a string
+  SQLITE_DEFAULT_MEMSTATUS=0
+  SQLITE_OMIT_DEPRECATED
+  SQLITE_OMIT_SHARED_CACHE)
+
 # The director itself.
-add_library(orchestrator STATIC src/director.cpp src/knowledge.cpp src/schedule.cpp)
+add_library(orchestrator STATIC src/director.cpp src/knowledge.cpp src/schedule.cpp src/brains.cpp)
 add_library(fwgc::orchestrator ALIAS orchestrator)
 target_include_directories(orchestrator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
                                         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
-target_link_libraries(orchestrator PUBLIC orchestrator_contract fwg::fwg)
+target_link_libraries(orchestrator PUBLIC orchestrator_contract fwg::fwg PRIVATE orchestrator_sqlite)
 target_compile_options(orchestrator PRIVATE ${ORCHESTRATOR_WARNINGS})
 
 if(ORCHESTRATOR_BUILD_TESTS)
@@ -56,6 +79,7 @@ if(ORCHESTRATOR_BUILD_TESTS)
     tests/test_director.cpp
     tests/test_conversation.cpp
     tests/test_schedule.cpp
+    tests/test_brains.cpp
   )
   target_link_libraries(orchestrator_tests PRIVATE orchestrator)
   # The schedule is tested on its own too, without a world: its header is the library's own.

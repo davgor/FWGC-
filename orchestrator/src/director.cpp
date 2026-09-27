@@ -8,7 +8,9 @@
 #include <map>
 #include <optional>
 #include <set>
+#include <tuple>
 
+#include "brains.hpp"
 #include "fwg/api/quests.hpp"
 #include "fwg/api/read.hpp"
 #include "fwg/api/weather.hpp"
@@ -536,6 +538,156 @@ Whereabouts whereabouts_of(const fwg::NpcPerson& p, const std::vector<Detour>& d
     return w;
 }
 
+// ---- events -------------------------------------------------------------------------------------
+
+// How fast word travels, and how far past where it starts each kind of news goes: a day's ride a
+// day; the end of a piece of work as far as its difficulty says, from the giver's place and from
+// the place it was for; a mask pulled off, or a threat beaten or lost, twenty kilometres; anything
+// else no further than where it happened.
+constexpr double kWordMetresPerDay = 20000.0;
+constexpr std::array<double, 5> kWorkWordM = {5000.0, 10000.0, 20000.0, 40000.0, 60000.0};
+constexpr double kExposedWordM = 20000.0;
+constexpr double kThreatWordM = 20000.0;
+
+// Frights at one place within an hour of each other are one scare; calming words there, or the
+// game's word of how it ended, reach it within a day of its last fright.
+constexpr double kScareJoinMinutes = 60.0;
+constexpr double kScareOpenDays = 1.0;
+
+// Hearing of what the player did where they live, or to someone they are tied to, moves someone's
+// regard this much, once an event.
+constexpr int kHeardWell = 1;
+constexpr int kHeardBadly = -1;
+
+constexpr const char* kEventColumns =
+    "id, kind, day, place, place_name, node, about_node, person, person_name, quest_id, verb, purpose, difficulty, was, "
+    "revealed, player, state, state_day, actor";
+
+Event event_from(const brains::Statement& row) {
+    Event e;
+    e.id = row.text(0);
+    e.kind = row.text(1);
+    e.day = row.real(2);
+    e.place = row.text(3);
+    e.place_name = row.text(4);
+    e.node = row.maybe(5);
+    e.about_node = row.maybe(6);
+    e.person = row.text(7);
+    e.person_name = row.text(8);
+    e.quest_id = row.text(9);
+    e.verb = row.text(10);
+    e.purpose = row.text(11);
+    e.difficulty = static_cast<int>(row.integer(12));
+    e.was = row.text(13);
+    e.revealed = row.text(14);
+    e.player = row.integer(15) != 0;
+    e.state = row.text(16);
+    e.state_day = row.real(17);
+    e.actor = row.text(18);
+    return e;
+}
+
+// A board row's state, as its event says it. Taking work, and finishing, failing or giving it up,
+// are only ever the player's; the world closes the rest.
+std::string work_state(const fwg::QuestRow& row) {
+    switch (row.state) {
+        case fwg::QuestState::Offered: return "asked";
+        case fwg::QuestState::Taken: return "taken";
+        case fwg::QuestState::Completed: return "finished";
+        case fwg::QuestState::Failed: return "failed";
+        case fwg::QuestState::Abandoned: return "given_up";
+        case fwg::QuestState::Expired: break;
+    }
+    if (!row.closed_reason) return "lapsed";
+    switch (*row.closed_reason) {
+        case fwg::QuestClosedReason::GiverGone: return "giver_gone";
+        case fwg::QuestClosedReason::TargetGone: return "target_gone";
+        case fwg::QuestClosedReason::HookGone: return "withdrawn";
+        case fwg::QuestClosedReason::Abandoned: return "given_up";
+        case fwg::QuestClosedReason::Expired:
+        case fwg::QuestClosedReason::AgeTurned:
+        case fwg::QuestClosedReason::Resolved: break;
+    }
+    return "lapsed";
+}
+
+bool players_work(std::string_view state) {
+    return state == "taken" || state == "finished" || state == "failed" || state == "given_up";
+}
+
+// How far past where it starts word of an event's state goes, in metres.
+double word_reach(const Event& e) {
+    if (e.kind == "work")
+        return e.state == "finished" || e.state == "failed" || e.state == "given_up"
+                   ? kWorkWordM[static_cast<std::size_t>(std::clamp(e.difficulty, 1, 5) - 1)]
+                   : 0.0;
+    if (e.kind == "exposed") return kExposedWordM;
+    if (e.kind == "scare") return e.state == "beaten" || e.state == "lost" ? kThreatWordM : 0.0;
+    return 0.0;
+}
+
+// Word of someone's hidden face reaches those tied to them wherever they are.
+bool ties_carry(const Event& e) { return e.kind == "exposed"; }
+
+int regard_from_word(const Event& e) {
+    if (e.kind == "work") {
+        if (e.state == "finished") return kHeardWell;
+        if (e.state == "failed" || e.state == "given_up") return kHeardBadly;
+    }
+    if (e.kind == "scare" && e.state == "beaten" && e.actor == "player") return kHeardWell;
+    return 0;
+}
+
+// Every row of the board, in the board's order; empty before it opens.
+std::vector<fwg::QuestRow> whole_board(const fwg::World& world) {
+    try {
+        return fwg::read_quests(world).quests;
+    } catch (const fwg::WorldTimeError& refusal) {
+        if (refusal.field() == "world.quests") return {};  // no board until the first tick
+        if (refusal.code() != fwg::kRefusalStateCapacity) throw;
+    }
+    // More rows than one read answers: a read for each state.
+    std::vector<fwg::QuestRow> rows;
+    for (const fwg::QuestState state : {fwg::QuestState::Offered, fwg::QuestState::Taken, fwg::QuestState::Expired,
+                                        fwg::QuestState::Completed, fwg::QuestState::Failed, fwg::QuestState::Abandoned}) {
+        fwg::QuestsReadRequest request;
+        request.states = std::vector<fwg::QuestState>{state};
+        for (fwg::QuestRow& row : fwg::read_quests(world, request).quests) rows.push_back(std::move(row));
+    }
+    std::stable_sort(rows.begin(), rows.end(), [](const fwg::QuestRow& a, const fwg::QuestRow& b) { return a.quest_id < b.quest_id; });
+    return rows;
+}
+
+// The place standing on `node`, by the id a packet names it by and as a speaker says it.
+void place_on(const fwg::World& world, const std::optional<int>& node, Event& e) {
+    if (!node) return;
+    if (const std::optional<Fact> here = knowledge::place_at(world, *node)) {
+        e.place = here->subject;
+        e.place_name = knowledge::place_label(*here);
+    }
+}
+
+// Where a place stands: a roster site's uid, or a place id a packet names.
+std::optional<int> node_of_site(const fwg::World& world, const std::string& site) {
+    for (const fwg::NpcSite& row : world.npcs.sites)
+        if (row.uid == site) return row.node;
+    fwg::PlaceReadRequest request;
+    request.place_id = site;
+    try {
+        return fwg::read_place(world, request).place.anchor.node;
+    } catch (const fwg::WorldTimeError&) {
+        return std::nullopt;
+    }
+}
+
+// A person's name as a stranger has it, or empty.
+std::string name_of(const fwg::World& world, const std::string& uid) {
+    if (uid.empty()) return {};
+    const std::optional<knowledge::KnownPerson> person = knowledge::person_fact(world, uid);
+    const std::string* name = person ? person->fact.field("name") : nullptr;
+    return name ? *name : std::string();
+}
+
 }  // namespace
 
 std::string_view to_string(Overheard reaction) {
@@ -558,7 +710,7 @@ std::string_view to_string(Doing doing) {
     return "";
 }
 
-Director::Director(fwg::World world) : world_(std::move(world)) {}
+Director::Director(fwg::World world) : world_(std::move(world)) { note_board(); }
 
 const Director::Acquaintance* Director::acquaintance(const std::string& speaker) const {
     const auto found = acquainted_.find(speaker);
@@ -593,9 +745,12 @@ void Director::advance(double days) {
     if (result.report.tick.blocked)
         throw Error("advance: the world refused the span: " + result.report.tick.blocked->message);
     world_ = std::move(result.world);
+    ++world_changes_;
+    note_board();
     // Time passing is walking away: every conversation under way ends.
     for (auto& [uid, a] : acquainted_)
         if (a.talking) end_conversation(uid);
+    ++acquaintance_changes_;
     inputs_.push_back(Advance{days});
 }
 
@@ -616,6 +771,8 @@ void Director::resolve(const std::string& quest_id, bool completed) {
     }();
     if (result.report.tick.blocked) throw Error("resolve: the world refused it: " + result.report.tick.blocked->message);
     world_ = std::move(result.world);
+    ++world_changes_;
+    note_board();
     // The giver remembers: work done for them, or let fail. Finishing what was asked under a
     // false purpose shows the player what it was for.
     if (const fwg::HeroQuestHook* hook = hook_of(world_, quest_id); hook && !hook->giver_uid.empty()) {
@@ -624,6 +781,7 @@ void Director::resolve(const std::string& quest_id, bool completed) {
         regard(giver, completed ? kWorkFinished : kWorkFailed);
         if (completed && hook->unwitting) giver.finished_covert = true;
     }
+    ++acquaintance_changes_;
     inputs_.push_back(Resolve{quest_id, completed});
 }
 
@@ -647,6 +805,7 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
         p.facts.push_back(memory_fact(speaker_uid, a, true, false, heard == a.heard.end() ? 0 : heard->second,
                                       fear_now(speaker_uid, resting, today), resting,
                                       a.eased_day >= 0.0 && today - a.eased_day < kEasedDays, joined));
+        ++acquaintance_changes_;
         if (!joined) inputs_.push_back(Say{speaker_uid, act});
         last_ = Exchange{speaker_uid, act, p.outcome, true};
         return p;
@@ -692,6 +851,7 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
                                       a.eased_day >= 0.0 && today - a.eased_day < kEasedDays, joined));
         a.last_day = today;
         if (act.kind == ActKind::Farewell) end_conversation(speaker_uid);
+        ++acquaintance_changes_;
         if (!joined) inputs_.push_back(Say{speaker_uid, act});
         // What a bystander overhears: an answer that held nothing, a place or person unknown or no
         // work, is one they may answer instead.
@@ -708,8 +868,14 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
         case ActKind::Farewell:
             return finish(packet_for(s, act, Outcome::Parted));
 
-        case ActKind::Greet:
-            return finish(packet_for(s, act, Outcome::Greeted));
+        case ActKind::Greet: {
+            FactPacket p = packet_for(s, act, Outcome::Greeted);
+            // What they have heard the player did, if anything: a face that does not know the
+            // player has nothing to say of them.
+            if (recognised)
+                for (Fact& told : news(speaker_uid, "player", std::nullopt, 1)) p.facts.push_back(std::move(told));
+            return finish(std::move(p));
+        }
 
         case ActKind::Answer:
             return finish(packet_for(s, act, Outcome::Acknowledged));
@@ -753,6 +919,23 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
             if (!a.calmed) regard(a, kCalmed);
             a.calmed = true;
             a.eased_day = today;
+            // A scare where they stand, not a day old, is one the player talked people down from.
+            if (s.node) {
+                std::string scare;
+                {
+                    brains::Statement open(brains_.handle(),
+                                           "SELECT id FROM events WHERE kind = 'scare' AND node = ?1 AND state = 'frightened' AND "
+                                           "state_day >= ?2 ORDER BY seq DESC LIMIT 1");
+                    open.integer(1, *s.node).real(2, today - kScareOpenDays);
+                    if (open.step()) scare = open.text(0);
+                }
+                if (!scare.empty()) {
+                    brains::Transaction transaction(brains_.handle());
+                    move_event(scare, "calmed", today, "player");
+                    learn(speaker_uid, scare, "calmed", today, "there");
+                    transaction.commit();
+                }
+            }
             return finish(packet_for(s, act, Outcome::Calmed));
         }
 
@@ -763,6 +946,9 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
             // comes worst first.
             const std::vector<Fact> dangers = knowledge::dangers_near(world_, s);
             if (!dangers.empty()) p.facts.push_back(dangers.front());
+            // And the latest news of where they stand, if they have heard any.
+            if (s.node)
+                for (Fact& told : news(speaker_uid, "", s.node, 1)) p.facts.push_back(std::move(told));
             return finish(std::move(p));
         }
 
@@ -779,6 +965,32 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
             const fwg::HeroFace* hidden = face_labelled(*hero, hidden_label(kind));
             a.exposed = true;
             show();  // a mask exposed shows its true face from now on
+            // Word goes out that the player brought a hidden face out: once, the first time.
+            bool first = true;
+            {
+                brains::Statement before(brains_.handle(), "SELECT 1 FROM events WHERE kind = 'exposed' AND person = ?1");
+                first = !before.text(1, speaker_uid).step();
+            }
+            if (first) {
+                Event e;
+                e.kind = "exposed";
+                e.day = today;
+                e.node = s.node;
+                e.about_node = s.node;
+                place_on(world_, s.node, e);
+                e.person = speaker_uid;
+                e.person_name = known ? known->name : std::string();
+                e.was = known ? known->apparent_role : std::string();
+                e.revealed = hidden ? hidden->apparent_role : std::string();
+                e.player = true;
+                e.state = "exposed";
+                e.state_day = today;
+                e.actor = "player";
+                brains::Transaction transaction(brains_.handle());
+                const std::string id = make_event(e);
+                learn(speaker_uid, id, "exposed", today, "there");
+                transaction.commit();
+            }
             FactPacket p = packet_for(s, act, Outcome::Exposed);
             p.facts.push_back(Fact{FactKind::Reveal,
                                    speaker_uid,
@@ -821,6 +1033,7 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
                     if (const fwg::HeroQuestHook* hook = hook_of(world_, offer.row.quest_id);
                         hook && hook->has_target_node && hook->target_node == place.node)
                         p.facts.push_back(offer_fact(world_, offer, places, today));
+                for (Fact& told : news(speaker_uid, "", place.node, 2)) p.facts.push_back(std::move(told));
                 a.asked_now = knowledge::place_label(place.fact);
                 return finish(std::move(p));
             }
@@ -843,6 +1056,7 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
             FactPacket p = packet_for(s, act, Outcome::Answered);
             if (const std::string* name = person->fact.field("name")) a.asked_now = *name;
             p.facts.push_back(person->fact);
+            for (Fact& told : news(speaker_uid, act.target, std::nullopt, 1)) p.facts.push_back(std::move(told));
             return finish(std::move(p));
         }
 
@@ -893,6 +1107,8 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
                 p.facts.push_back(reason("refused_by_world", lapsed ? "the offer has lapsed" : "the work cannot be taken now"));
                 return finish(std::move(p));
             }
+            ++world_changes_;
+            note_board();
             a.work = "taken";
             regard(a, kWorkTaken);
             FactPacket p = packet_for(s, act, Outcome::Accepted);
@@ -927,6 +1143,8 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
                 p.facts.push_back(reason("refused_by_world", "the work cannot be given up now"));
                 return finish(std::move(p));
             }
+            ++world_changes_;
+            note_board();
             a.work = "abandoned";
             a.grievances.push_back(regard(a, kWorkAbandoned));
             FactPacket p = packet_for(s, act, Outcome::Abandoned);
@@ -1003,6 +1221,35 @@ void Director::fright(const std::string& person, int level) {
     fear.level = std::max(level, fear_now(person, resting_fear(world_, *s), now));
     fear.since_day = now;
     fear.threat_day = now;
+    // A scare where they stand: the one under way there, frightening people within the hour, or
+    // a new one. They know it, having been there.
+    if (s->node) {
+        brains::Transaction transaction(brains_.handle());
+        std::string scare;
+        {
+            brains::Statement open(brains_.handle(),
+                                   "SELECT id FROM events WHERE kind = 'scare' AND node = ?1 AND state = 'frightened' AND "
+                                   "state_day >= ?2 ORDER BY seq DESC LIMIT 1");
+            open.integer(1, *s->node).real(2, now - kScareJoinMinutes / kMinutesPerDay);
+            if (open.step()) scare = open.text(0);
+        }
+        if (scare.empty()) {
+            Event e;
+            e.kind = "scare";
+            e.day = now;
+            e.node = s->node;
+            e.about_node = s->node;
+            place_on(world_, s->node, e);
+            e.state = "frightened";
+            e.state_day = now;
+            scare = make_event(e);
+        } else {
+            brains::Statement later(brains_.handle(), "UPDATE events SET state_day = ?2 WHERE id = ?1");
+            later.text(1, scare).real(2, now).run();
+        }
+        learn(person, scare, "frightened", now, "there");
+        transaction.commit();
+    }
     inputs_.push_back(Fright{person, level});
 }
 
@@ -1091,6 +1338,408 @@ std::vector<Bystander> Director::overhear(const std::vector<std::string>& people
     return out;
 }
 
+// ---- events, and what people have heard ----------------------------------------------------------
+
+std::string Director::make_event(const Event& e) {
+    const std::string id = "event-" + std::to_string(++events_made_);
+    brains::Statement insert(brains_.handle(),
+                             "INSERT INTO events (id, seq, kind, day, place, place_name, node, about_node, person, person_name, "
+                             "quest_id, verb, purpose, difficulty, was, revealed, player, state, state_day, actor) VALUES (?1, ?2, "
+                             "?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19, ?20)");
+    insert.text(1, id).integer(2, events_made_).text(3, e.kind).real(4, e.day).text_or_null(5, e.place).text_or_null(6, e.place_name);
+    insert.maybe(7, e.node).maybe(8, e.about_node).text_or_null(9, e.person).text_or_null(10, e.person_name);
+    insert.text_or_null(11, e.quest_id).text_or_null(12, e.verb).text_or_null(13, e.purpose);
+    if (e.difficulty > 0) insert.integer(14, e.difficulty);
+    insert.text_or_null(15, e.was).text_or_null(16, e.revealed).integer(17, e.player ? 1 : 0).text(18, e.state);
+    insert.real(19, e.state_day).text_or_null(20, e.actor);
+    insert.run();
+    brains::Statement first(brains_.handle(), "INSERT INTO event_states (event, seq, state, day, actor) VALUES (?1, 1, ?2, ?3, ?4)");
+    first.text(1, id).text(2, e.state).real(3, e.state_day).text_or_null(4, e.actor).run();
+    return id;
+}
+
+void Director::move_event(const std::string& id, const std::string& state, double day, const std::string& actor) {
+    brains::Statement update(brains_.handle(),
+                             "UPDATE events SET state = ?2, state_day = ?3, actor = ?4, player = MAX(player, ?5) WHERE id = ?1");
+    update.text(1, id).text(2, state).real(3, day).text_or_null(4, actor).integer(5, actor == "player" ? 1 : 0).run();
+    brains::Statement next(brains_.handle(),
+                           "INSERT INTO event_states (event, seq, state, day, actor) SELECT ?1, COUNT(*) + 1, ?2, ?3, ?4 FROM "
+                           "event_states WHERE event = ?1");
+    next.text(1, id).text(2, state).real(3, day).text_or_null(4, actor).run();
+}
+
+void Director::learn(const std::string& person, const std::string& event, const std::string& state, double day,
+                     const std::string& how) {
+    brains::Statement upsert(brains_.handle(),
+                             "INSERT INTO facts (person, event, state, day, how) VALUES (?1, ?2, ?3, ?4, ?5) ON CONFLICT (person, "
+                             "event) DO UPDATE SET state = excluded.state, day = excluded.day, how = excluded.how");
+    upsert.text(1, person).text(2, event).text(3, state).real(4, day).text(5, how).run();
+}
+
+void Director::note_board() {
+    const std::vector<fwg::QuestRow> rows = whole_board(world_);
+    if (rows.empty()) return;
+    const double today = fwg::world_clock_of(world_).day;
+    brains::Transaction transaction(brains_.handle());
+    for (const fwg::QuestRow& row : rows) {
+        const std::string now = work_state(row);
+        std::string id, was;
+        {
+            brains::Statement known(brains_.handle(), "SELECT id, state FROM events WHERE quest_id = ?1");
+            known.text(1, row.quest_id);
+            if (known.step()) {
+                id = known.text(0);
+                was = known.text(1);
+            }
+        }
+        const std::string giver = row.giver_uid.value_or("");
+        if (id.empty()) {
+            // Offered: the giver knows their own work, and word of it starts where they stand.
+            Event e;
+            e.kind = "work";
+            e.day = row.offered_day;
+            e.quest_id = row.quest_id;
+            e.person = giver;
+            if (!giver.empty())
+                if (const std::optional<knowledge::KnownPerson> who = knowledge::person_fact(world_, giver)) {
+                    e.node = who->node;
+                    if (const std::string* name = who->fact.field("name")) e.person_name = *name;
+                }
+            e.verb = row.verb.value_or("");
+            e.purpose = row.stated_purpose.value_or("");
+            if (const fwg::HeroQuestHook* hook = hook_of(world_, row.quest_id)) {
+                e.difficulty = hook->difficulty;
+                if (hook->has_target_node) e.about_node = hook->target_node;
+            }
+            if (row.anchor) {
+                e.place = *row.anchor;
+                if (const std::optional<std::string> name = knowledge::anchor_name(world_, *row.anchor)) e.place_name = *name;
+            }
+            e.state = "asked";
+            e.state_day = row.offered_day;
+            e.actor = giver;
+            id = make_event(e);
+            was = "asked";
+            if (!giver.empty()) learn(giver, id, "asked", today, "there");
+        }
+        if (was == now) continue;
+        const double day = row.closed_day.value_or(today);
+        move_event(id, now, day, players_work(now) ? "player" : "");
+        if (!giver.empty() && now != "giver_gone") learn(giver, id, now, today, "there");
+    }
+    transaction.commit();
+}
+
+std::vector<Event> Director::events() const {
+    std::vector<Event> out;
+    brains::Statement all(brains_.handle(), std::string("SELECT ") + kEventColumns + " FROM events ORDER BY seq");
+    while (all.step()) out.push_back(event_from(all));
+    return out;
+}
+
+const Director::Population& Director::population() const {
+    if (population_ && population_of_ == world_changes_) return *population_;
+    Population out;
+    std::map<std::string, int> site_nodes;
+    for (const fwg::NpcSite& site : world_.npcs.sites)
+        if (site.node) site_nodes.emplace(site.uid, *site.node);
+    for (const fwg::NpcPerson& p : world_.npcs.people) {
+        if (p.is_cast) continue;  // a hero or a dread, whose own record says where they are
+        Someone one;
+        one.name = p.name.value_or("");
+        one.kind = "roster";
+        one.role = p.post;
+        one.site = p.site_uid.value_or("");
+        one.present = p.alive;
+        if (p.presence_node) {
+            one.node = *p.presence_node;
+        } else if (p.site_uid) {
+            if (const auto found = site_nodes.find(*p.site_uid); found != site_nodes.end()) one.node = found->second;
+        }
+        out.people.emplace(p.uid, std::move(one));
+    }
+    const auto add = [&](const std::string& uid, const char* kind) {
+        if (uid.empty() || out.people.count(uid)) return;
+        fwg::PersonReadRequest request;
+        request.uid = uid;
+        std::optional<fwg::PersonRead> read;
+        try {
+            read = fwg::read_person(world_, request);
+        } catch (const fwg::WorldTimeError&) {
+            return;  // a record in a block that failed: nobody the world names
+        }
+        Someone one;
+        one.kind = kind;
+        std::tie(one.name, one.role) = knowledge::known_as(read->person);
+        one.node = read->person.anchor.node;
+        one.present = read->person.liveness == fwg::Liveness::Present;
+        out.people.emplace(uid, std::move(one));
+    };
+    for (const fwg::Hero& hero : world_.heroes.people) add(hero.uid, "hero");
+    for (const fwg::HeroDread& dread : world_.heroes.dreads) add(dread.uid, "dread");
+    for (const fwg::Villain& villain : world_.villains.people) add(villain.uid, "villain");
+    for (const auto& [uid, one] : out.people)
+        if (one.node) out.at_node[*one.node].push_back(uid);
+    for (const fwg::Hero& hero : world_.heroes.people)
+        for (const std::vector<std::string>* list : {&hero.rivals, &hero.kin, &hero.allies})
+            for (const std::string& other : *list) {
+                out.ties[hero.uid].insert(other);
+                out.ties[other].insert(hero.uid);
+            }
+    population_ = std::move(out);
+    population_of_ = world_changes_;
+    return *population_;
+}
+
+std::vector<std::string> Director::reached(const Event& e, double today) const {
+    const Population& everyone = population();
+    const double reach = word_reach(e);
+    // Word starts where it happened; the end of a piece of work is told where it was for, too.
+    std::vector<int> starts;
+    if (e.node) starts.push_back(*e.node);
+    if (reach > 0.0 && e.about_node && e.about_node != e.node) starts.push_back(*e.about_node);
+    std::set<std::string> heard;
+    const auto at = [&](int node) {
+        if (const auto found = everyone.at_node.find(node); found != everyone.at_node.end())
+            heard.insert(found->second.begin(), found->second.end());
+    };
+    for (const int node : starts) at(node);
+    if (ties_carry(e) && !e.person.empty())
+        if (const auto found = everyone.ties.find(e.person); found != everyone.ties.end())
+            heard.insert(found->second.begin(), found->second.end());
+    if (reach > 0.0) {
+        const double radius = std::min(reach, std::max(0.0, today - e.state_day) * kWordMetresPerDay);
+        if (radius > 0.0)
+            for (const int node : starts)
+                for (const int near : knowledge::place_nodes_within(world_, node, radius)) at(near);
+    }
+    std::vector<std::string> out;
+    for (const std::string& uid : heard)
+        if (const auto found = everyone.people.find(uid); found != everyone.people.end() && found->second.present) out.push_back(uid);
+    return out;
+}
+
+std::vector<Learned> Director::share(const std::vector<std::string>& people) {
+    for (const std::string& uid : people)
+        if (!names_a_person(world_, uid)) throw Error("share: the world names no person '" + uid + "'");
+    const std::set<std::string> named(people.begin(), people.end());
+    const double today = fwg::world_clock_of(world_).day;
+    const Population& everyone = population();
+    std::vector<Learned> out;
+    brains::Transaction transaction(brains_.handle());
+    for (const Event& e : events()) {
+        const std::vector<std::string> reach = reached(e, today);
+        if (reach.empty()) continue;
+        std::map<std::string, std::string> known;  // person -> the state they know it by
+        {
+            brains::Statement read(brains_.handle(), "SELECT person, state FROM facts WHERE event = ?1");
+            read.text(1, e.id);
+            while (read.step()) known.emplace(read.text(0), read.text(1));
+        }
+        // A state that moves anyone's regard is its event's last, so nobody is moved twice by one.
+        const int moves = regard_from_word(e);
+        for (const std::string& uid : reach) {
+            if (!named.empty() && !named.count(uid)) continue;
+            const auto found = known.find(uid);
+            if (found != known.end() && found->second == e.state) continue;
+            learn(uid, e.id, e.state, today, "word");
+            out.push_back({uid, e.id, e.state});
+            if (moves == 0) continue;
+            // Only for what happened where they live, or to someone they are tied to.
+            const Someone& who = everyone.people.at(uid);
+            const auto ties = everyone.ties.find(uid);
+            const bool close = (who.node && (who.node == e.node || who.node == e.about_node)) ||
+                               (!e.person.empty() && ties != everyone.ties.end() && ties->second.count(e.person));
+            if (close) regard(acquainted_[uid], moves);
+        }
+    }
+    transaction.commit();
+    ++acquaintance_changes_;
+    inputs_.push_back(Share{people});
+    return out;
+}
+
+Related Director::related(const std::string& event) const {
+    std::optional<Event> found;
+    {
+        brains::Statement one(brains_.handle(), std::string("SELECT ") + kEventColumns + " FROM events WHERE id = ?1");
+        one.text(1, event);
+        if (one.step()) found = event_from(one);
+    }
+    if (!found) throw Error("related: there is no event '" + event + "'");
+    Related out;
+    std::map<std::string, std::string> known;
+    {
+        brains::Statement read(brains_.handle(), "SELECT person, state FROM facts WHERE event = ?1 ORDER BY person");
+        read.text(1, event);
+        while (read.step()) {
+            out.knows.push_back(read.text(0));
+            known.emplace(read.text(0), read.text(1));
+        }
+    }
+    for (const std::string& uid : reached(*found, fwg::world_clock_of(world_).day)) {
+        const auto k = known.find(uid);
+        if (k == known.end() || k->second != found->state) out.would_learn.push_back(uid);
+    }
+    return out;
+}
+
+void Director::report_event(const std::string& site, const std::string& outcome, const std::string& by) {
+    if (outcome != "beaten" && outcome != "lost" && outcome != "passed")
+        throw Error("report_event: an outcome is \"beaten\", \"lost\" or \"passed\", not '" + outcome + "'");
+    const std::optional<int> node = node_of_site(world_, site);
+    if (!node) throw Error("report_event: the world names no place '" + site + "'");
+    if (!by.empty() && by != "player" && !names_a_person(world_, by))
+        throw Error("report_event: the world names no person '" + by + "'");
+    const double today = fwg::world_clock_of(world_).day;
+    brains::Transaction transaction(brains_.handle());
+    std::string scare;
+    {
+        brains::Statement open(brains_.handle(),
+                               "SELECT id FROM events WHERE kind = 'scare' AND node = ?1 AND state IN ('frightened', 'calmed') "
+                               "AND state_day >= ?2 ORDER BY seq DESC LIMIT 1");
+        open.integer(1, *node).real(2, today - kScareOpenDays);
+        if (open.step()) scare = open.text(0);
+    }
+    if (scare.empty()) {
+        // A threat nobody reported frightening anyone: its end is the first the director hears of it.
+        Event e;
+        e.kind = "scare";
+        e.day = today;
+        e.node = node;
+        e.about_node = node;
+        place_on(world_, node, e);
+        e.player = by == "player";
+        e.state = outcome;
+        e.state_day = today;
+        e.actor = by;
+        scare = make_event(e);
+    } else {
+        move_event(scare, outcome, today, by);
+    }
+    if (!by.empty() && by != "player") learn(by, scare, outcome, today, "there");
+    transaction.commit();
+    inputs_.push_back(Report{site, outcome, by});
+}
+
+std::vector<Fact> Director::news(const std::string& speaker, const std::string& about, std::optional<int> node,
+                                 std::size_t most) const {
+    std::string sql = std::string("SELECT ") +
+                      "e.id, e.kind, e.day, e.place, e.place_name, e.node, e.about_node, e.person, e.person_name, e.quest_id, "
+                      "e.verb, e.purpose, e.difficulty, e.was, e.revealed, e.player, f.state, s.day, s.actor, f.how "
+                      "FROM facts AS f JOIN events AS e ON e.id = f.event JOIN event_states AS s ON s.event = f.event AND "
+                      "s.state = f.state WHERE f.person = ?1 AND ";
+    if (about == "player")
+        sql += "s.actor = 'player'";
+    else if (!about.empty())
+        sql += "e.person = ?2";
+    else
+        sql += "(e.node = ?3 OR e.about_node = ?3)";
+    sql += " ORDER BY s.day DESC, e.seq DESC LIMIT ?4";
+    brains::Statement read(brains_.handle(), sql);
+    read.text(1, speaker);
+    if (!about.empty() && about != "player") read.text(2, about);
+    if (about.empty()) read.maybe(3, node);
+    read.integer(4, static_cast<std::int64_t>(most));
+    const double today = fwg::world_clock_of(world_).day;
+    std::vector<Fact> out;
+    while (read.step()) {
+        // The event as the speaker knows it: the state they heard, when it came about, who did it.
+        const std::string kind = read.text(1);
+        const std::string state = read.text(16);
+        const std::string actor = read.text(18);
+        Fact f{FactKind::News, read.text(0), {}};
+        f.fields.emplace_back("event", kind);
+        f.fields.emplace_back("state", state);
+        if (const std::string place = read.text(4); !place.empty()) f.fields.emplace_back("place", place);
+        if (kind == "work") {
+            if (const std::string verb = read.text(10); !verb.empty()) f.fields.emplace_back("verb", verb);
+            if (const std::string purpose = read.text(11); !purpose.empty()) f.fields.emplace_back("purpose", purpose);
+            if (const std::string giver = read.text(8); !giver.empty()) f.fields.emplace_back("giver", giver);
+        } else if (kind == "exposed" || kind == "gone") {
+            if (const std::string person = read.text(8); !person.empty()) f.fields.emplace_back("person", person);
+            if (kind == "exposed") {
+                f.fields.emplace_back("was", read.text(13));
+                f.fields.emplace_back("is", read.text(14));
+            }
+        }
+        f.fields.emplace_back("player", actor == "player" ? "yes" : "no");
+        if (kind == "scare" && (state == "beaten" || state == "lost" || state == "passed") && !actor.empty()) {
+            const std::string by = actor == "player" ? actor : name_of(world_, actor);
+            if (!by.empty()) f.fields.emplace_back("by", by);
+        }
+        f.fields.emplace_back("since", since_band(today, read.real(17)));
+        f.fields.emplace_back("how", read.text(19));
+        out.push_back(std::move(f));
+    }
+    return out;
+}
+
+QueryResult Director::query(std::string_view sql) const {
+    mirror();
+    return brains::read_only(brains_.handle(), sql);
+}
+
+void Director::mirror() const {
+    const bool world = mirrored_world_ != world_changes_;
+    const bool met = mirrored_acquaintances_ != acquaintance_changes_;
+    if (!world && !met) return;
+    Brains::Handle& h = brains_.handle();
+    brains::Transaction transaction(h);
+    if (world) {
+        brains::Statement(h, "DELETE FROM people").run();
+        for (const auto& [uid, one] : population().people) {
+            brains::Statement insert(h, "INSERT INTO people (uid, name, kind, role, site, node, present) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)");
+            insert.text(1, uid).text(2, one.name).text(3, one.kind).text(4, one.role).text_or_null(5, one.site).maybe(6, one.node);
+            insert.integer(7, one.present ? 1 : 0).run();
+        }
+        brains::Statement(h, "DELETE FROM places").run();
+        const auto place = [&](const std::string& id, const std::string& kind, const std::string& name, int node) {
+            brains::Statement insert(h, "INSERT OR IGNORE INTO places (id, kind, name, node) VALUES (?1, ?2, ?3, ?4)");
+            insert.text(1, id).text(2, kind).text(3, name).integer(4, node).run();
+        };
+        for (const fwg::SettlementSite& city : world_.settlements.sites) place(city.uid, "city", city.name, city.node);
+        for (const std::vector<fwg::RuralSite>* sites : {&world_.humans.hamlets, &world_.humans.fortresses})
+            for (const fwg::RuralSite& site : *sites)
+                place(site.id, site.kind, knowledge::anchor_name(world_, site.id).value_or(site.kind), site.node);
+        for (const fwg::KeyLocationSite& site : world_.key_locations.sites) place(site.id, site.kind, site.name, site.node);
+        brains::Statement(h, "DELETE FROM work").run();
+        for (const fwg::QuestRow& row : whole_board(world_)) {
+            brains::Statement insert(h,
+                                     "INSERT INTO work (quest_id, giver, verb, purpose, anchor, node, difficulty, state, offered_day, "
+                                     "expires_day, closed_day, closed_reason) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)");
+            insert.text(1, row.quest_id).text_or_null(2, row.giver_uid.value_or("")).text_or_null(3, row.verb.value_or(""));
+            insert.text_or_null(4, row.stated_purpose.value_or("")).text_or_null(5, row.anchor.value_or(""));
+            if (const fwg::HeroQuestHook* hook = hook_of(world_, row.quest_id)) {
+                if (hook->has_target_node) insert.integer(6, hook->target_node);
+                insert.integer(7, hook->difficulty);
+            }
+            insert.text(8, work_state(row)).real(9, row.offered_day).real(10, row.expires_day);
+            if (row.closed_day) insert.real(11, *row.closed_day);
+            if (row.closed_reason) insert.text(12, fwg::to_string(*row.closed_reason));
+            insert.run();
+        }
+    }
+    if (met) {
+        brains::Statement(h, "DELETE FROM relationships").run();
+        for (const auto& [uid, a] : acquainted_) {
+            brains::Statement insert(h,
+                                     "INSERT INTO relationships (person, conversations, talking, last_day, regard, mood, work, "
+                                     "grievances, forgiven, asked_before, exposed, eased_day) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, "
+                                     "?9, ?10, ?11, ?12)");
+            insert.text(1, uid).integer(2, a.conversations).integer(3, a.talking ? 1 : 0).real(4, a.last_day);
+            insert.integer(5, a.disposition).text(6, mood_of(a.disposition)).text(7, a.work);
+            insert.integer(8, static_cast<std::int64_t>(a.grievances.size())).integer(9, a.forgiven).text(10, a.asked_before);
+            insert.integer(11, a.exposed ? 1 : 0);
+            if (a.eased_day >= 0.0) insert.real(12, a.eased_day);
+            insert.run();
+        }
+    }
+    transaction.commit();
+    mirrored_world_ = world_changes_;
+    mirrored_acquaintances_ = acquaintance_changes_;
+}
+
 namespace {
 
 // One call for each kind of input. A kind with no call here stops the build, where a chain of
@@ -1115,6 +1764,8 @@ Director replay(fwg::World start, const std::vector<Input>& inputs) {
                        [&](const Fright& fright) { director.fright(fright.person, fright.level); },
                        [&](const Gather& gathering) { director.gather(gathering.people); },
                        [&](const Overhear& overheard) { (void)director.overhear(overheard.people); },
+                       [&](const Share& shared) { (void)director.share(shared.people); },
+                       [&](const Report& report) { director.report_event(report.site, report.outcome, report.by); },
                    },
                    input);
     }

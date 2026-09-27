@@ -377,6 +377,39 @@ const Players& players() {
     return found;
 }
 
+// Every table of the brain database, read through the DLL and from the director: the same columns,
+// and the same rows, cell for cell.
+void same_brains(const Handle& h, const Director& d, const std::string& what) {
+    for (const char* table : {"people", "places", "work", "relationships", "events", "event_states", "facts"}) {
+        const std::string sql = std::string("SELECT * FROM ") + table + " ORDER BY 1, 2";
+        char* json = nullptr;
+        succeeded(fwgc_query(h.get(), sql.c_str(), &json), what + ": fwgc_query " + table);
+        const fwg::JsonValue read = fwg::parse_json(taken(json));
+        keys_are(read, {"columns", "rows"}, "a query's answer");
+        const orchestrator::QueryResult cpp = d.query(sql);
+        const std::string where = what + ", " + table;
+        check::equal(read.at("columns").size(), cpp.columns.size(), where + ": columns");
+        for (std::size_t c = 0; c < cpp.columns.size() && c < read.at("columns").size(); ++c)
+            check::equal(read.at("columns").at(c).as_string(), cpp.columns[c], where + ": a column's name");
+        check::equal(read.at("rows").size(), cpp.rows.size(), where + ": rows");
+        for (std::size_t r = 0; r < cpp.rows.size() && r < read.at("rows").size(); ++r)
+            for (std::size_t c = 0; c < cpp.rows[r].size(); ++c) {
+                const fwg::JsonValue& cell = read.at("rows").at(r).at(c);
+                const orchestrator::Cell& want = cpp.rows[r][c];
+                bool same = false;
+                if (const auto* integer = std::get_if<std::int64_t>(&want))
+                    same = cell.is_int64() && cell.as_int() == *integer;
+                else if (const auto* real = std::get_if<double>(&want))
+                    same = cell.to_double() == std::optional<double>(*real);
+                else if (const auto* text = std::get_if<std::string>(&want))
+                    same = cell.is_string() && cell.as_string() == *text;
+                else
+                    same = cell.is_null();
+                if (!same) check::fail(where + ": row " + std::to_string(r) + ", " + cpp.columns[c] + " differs");
+            }
+    }
+}
+
 // The interface and the C++ director, fed the same inputs, compared after each.
 class Lockstep {
 public:
@@ -462,6 +495,31 @@ public:
         compare("overhear");
         return cpp;
     }
+    std::vector<orchestrator::Learned> share(const std::vector<std::string>& people) {
+        std::vector<const char*> names;
+        for (const std::string& person : people) names.push_back(person.c_str());
+        char* json = nullptr;
+        succeeded(fwgc_share(c_.get(), names.empty() ? nullptr : names.data(), names.size(), &json), "fwgc_share");
+        const std::vector<orchestrator::Learned> cpp = cpp_.share(people);
+        const fwg::JsonValue heard = fwg::parse_json(taken(json));
+        check::equal(heard.size(), cpp.size(), "share: who heard what");
+        for (std::size_t i = 0; i < cpp.size() && i < heard.size(); ++i) {
+            const auto& [person, event, state] = cpp[i];
+            keys_are(heard.at(i), {"person", "event", "state"}, "one who heard");
+            check::is_true(heard.at(i).at("person").as_string() == person && heard.at(i).at("event").as_string() == event &&
+                               heard.at(i).at("state").as_string() == state,
+                           "share: the same, in the same order");
+        }
+        same_brains(c_, cpp_, "share");
+        compare("share");
+        return cpp;
+    }
+    void report_event(const std::string& site, const std::string& outcome, const std::string& by) {
+        succeeded(fwgc_report_event(c_.get(), site.c_str(), outcome.c_str(), by.empty() ? nullptr : by.c_str()), "fwgc_report_event");
+        cpp_.report_event(site, outcome, by);
+        same_brains(c_, cpp_, "report");
+        compare("report");
+    }
 
 private:
     void compare(const std::string& what) {
@@ -514,6 +572,11 @@ void play(Lockstep& both) {
     check::is_true(eased.outcome == orchestrator::Outcome::Calmed, "the premise: the neighbour calmed");
     const std::vector<orchestrator::Bystander> heard = both.overhear({p.smith});
     check::is_true(heard.size() == 1 && heard[0].reaction == orchestrator::Overheard::calmed, "the premise: the smith eased with them");
+    // The game says the threat there was beaten, and news goes round: to the smith alone, then all.
+    both.report_event(p.site, "beaten", "player");
+    const std::vector<orchestrator::Learned> smith_heard = both.share({p.smith});
+    check::is_true(!smith_heard.empty(), "the premise: the smith hears something");
+    both.share({});
     both.say(p.smith, "farewell");
     both.advance(0.25);
 }
@@ -536,7 +599,8 @@ TEST(the_contract_describes_itself) {
     char* json = nullptr;
     succeeded(fwgc_contract_json(&json), "fwgc_contract_json");
     const fwg::JsonValue contract = fwg::parse_json(taken(json));
-    keys_are(contract, {"contract_version", "acts", "outcomes", "fact_kinds", "doing"}, "the contract");
+    keys_are(contract, {"contract_version", "brains_schema", "acts", "outcomes", "fact_kinds", "doing"}, "the contract");
+    check::equal(contract.at("brains_schema").as_int(), std::int64_t{1}, "the brain database's schema");
     check::equal(contract.at("contract_version").as_int(), std::int64_t(orchestrator::kContractVersion), "its version");
     const fwg::JsonValue& acts = contract.at("acts");
     check::equal(acts.size(), std::size_t(orchestrator::kActCount), "every act");
@@ -554,7 +618,7 @@ TEST(the_contract_describes_itself) {
     const fwg::JsonValue& kinds = contract.at("fact_kinds");
     for (std::size_t i = 0; i < kinds.size(); ++i)
         check::is_true(orchestrator::fact_kind_named(kinds.at(i).as_string()).has_value(), "a fact kind the contract names");
-    check::equal(kinds.size(), std::size_t(orchestrator::FactKind::Reveal) + 1, "every fact kind");
+    check::equal(kinds.size(), std::size_t(orchestrator::kFactKindCount), "every fact kind");
     const fwg::JsonValue& doing = contract.at("doing");
     check::equal(doing.size(), std::size_t(5), "every activity");
     for (const Doing d : {Doing::asleep, Doing::at_home, Doing::walking, Doing::working, Doing::held}) {
@@ -654,6 +718,29 @@ TEST(a_save_restores_byte_for_byte_and_goes_on_alike) {
     check::equal(save_of(again), save_of(both.handle()), "and their saves still alike");
 }
 
+TEST(the_brain_database_reads_through_the_dll_and_comes_back_from_a_save) {
+    Lockstep both;
+    play(both);
+    same_brains(both.handle(), both.director(), "after the session");
+    const std::vector<orchestrator::Event> events = both.director().events();
+    check::is_true(events.size() > 1, "the premise: events");
+    for (const orchestrator::Event& e : {events.front(), events.back()}) {
+        char* json = nullptr;
+        succeeded(fwgc_related(both.handle().get(), e.id.c_str(), &json), "fwgc_related");
+        const fwg::JsonValue related = fwg::parse_json(taken(json));
+        keys_are(related, {"knows", "would_learn"}, "who knows an event");
+        const orchestrator::Related cpp = both.director().related(e.id);
+        for (const auto& [key, want] : {std::pair{"knows", cpp.knows}, std::pair{"would_learn", cpp.would_learn}}) {
+            check::equal(related.at(key).size(), want.size(), e.id + ": " + key);
+            for (std::size_t i = 0; i < want.size() && i < related.at(key).size(); ++i)
+                check::equal(related.at(key).at(i).as_string(), want[i], e.id + ": " + key + ", in order");
+        }
+    }
+    // A save holds no database: the restored one writes it again, the same.
+    const Handle again = restored(save_of(both.handle()));
+    same_brains(again, both.director(), "restored from its save");
+}
+
 TEST(a_save_keeps_every_number_exactly) {
     const Players& p = players();
     const Handle h = created();
@@ -736,6 +823,12 @@ TEST(a_callers_mistake_is_refused_and_records_nothing) {
         check::equal(fwgc_whereabouts_of(h.get(), text, &where, &has_day), FWGC_BAD_ARGUMENT, "whereabouts not UTF-8");
         check::equal(fwgc_whereabouts_at(h.get(), text, nullptr, 0, &count), FWGC_BAD_ARGUMENT, "a site not UTF-8");
         check::equal(fwgc_day_of(h.get(), text, 0.0, nullptr, 0, &count), FWGC_BAD_ARGUMENT, "a day's person not UTF-8");
+        check::equal(fwgc_query(h.get(), text, &out), FWGC_BAD_ARGUMENT, "a query not UTF-8");
+        check::equal(fwgc_related(h.get(), text, &out), FWGC_BAD_ARGUMENT, "an event not UTF-8");
+        check::equal(fwgc_report_event(h.get(), text, "beaten", nullptr), FWGC_BAD_ARGUMENT, "a site not UTF-8");
+        check::equal(fwgc_report_event(h.get(), p.site.c_str(), "beaten", text), FWGC_BAD_ARGUMENT, "a doer not UTF-8");
+        const char* named[] = {text};
+        check::equal(fwgc_share(h.get(), named, 1, &out), FWGC_BAD_ARGUMENT, "someone to share with not UTF-8");
         Handle none;
         check::equal(fwgc_create(text, none.reset()), FWGC_BAD_ARGUMENT, "a request not UTF-8");
     }
@@ -763,6 +856,16 @@ TEST(a_callers_mistake_is_refused_and_records_nothing) {
     check::equal(fwgc_clock(h.get(), nullptr), FWGC_BAD_ARGUMENT, "nowhere to put the clock");
     check::equal(fwgc_save(nullptr, &out, nullptr), FWGC_BAD_ARGUMENT, "saving no director");
     check::equal(fwgc_positions(h.get(), nullptr, 0, nullptr), FWGC_BAD_ARGUMENT, "nowhere to put the count");
+    check::equal(fwgc_query(h.get(), "DELETE FROM events", &out), FWGC_BAD_ARGUMENT, "a query that writes");
+    check::equal(fwgc_query(h.get(), "SELECT 1", nullptr), FWGC_BAD_ARGUMENT, "nowhere to put the rows");
+    check::equal(fwgc_query(h.get(), nullptr, &out), FWGC_BAD_ARGUMENT, "no query");
+    check::equal(fwgc_related(h.get(), "event-none", &out), FWGC_BAD_ARGUMENT, "an event there is none of");
+    check::equal(fwgc_report_event(h.get(), p.site.c_str(), "won", "player"), FWGC_BAD_ARGUMENT, "an outcome off the list");
+    check::equal(fwgc_report_event(h.get(), "nowhere-at-all", "beaten", "player"), FWGC_BAD_ARGUMENT, "a place the world does not name");
+    check::equal(fwgc_report_event(h.get(), p.site.c_str(), "beaten", "npc-nobody-at-all"), FWGC_BAD_ARGUMENT, "a doer nobody is");
+    const char* nobody[] = {"npc-nobody-at-all"};
+    check::equal(fwgc_share(h.get(), nobody, 1, &out), FWGC_BAD_ARGUMENT, "sharing with nobody");
+    check::equal(fwgc_share(h.get(), nullptr, 1, &out), FWGC_BAD_ARGUMENT, "no list to share with");
     check::is_true(!error_text().empty(), "a reason given");
     check::equal(save_of(h), before, "nothing recorded by any of them");
     check::equal(error_text(), std::string(), "and a success clears the reason");

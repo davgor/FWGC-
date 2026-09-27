@@ -3,12 +3,15 @@
 // world's logged operations after them -- so a save that would replay onto a different world, or
 // replay differently, is refused instead of restored.
 //
-//   {"schema": "fwgc.save", "version": 1, "contract_version": 10, "request": {...},
+//   {"schema": "fwgc.save", "version": 1, "contract_version": 11, "request": {...},
 //    "start_digest": "fnv1a64:...", "inputs": [{"advance": {"days": 30.0}}, {"say": {"speaker":
 //    ..., "act": "greet", "target": ""}}, {"resolve": {"quest_id": ..., "completed": true}},
 //    {"hold": {"person": ..., "minutes": 20.0}}, {"fright": {"person": ..., "level": 2}},
-//    {"gather": {"people": [...]}}, {"overhear": {"people": [...]}}],
+//    {"gather": {"people": [...]}}, {"overhear": {"people": [...]}}, {"share": {"people": [...]}},
+//    {"report": {"site": ..., "outcome": "beaten", "by": "player"}}],
 //    "check": {"day": ..., "operations": ...}}
+//
+// The brain database is not in it: replaying the inputs writes it again.
 //
 // Written compact and ASCII only; every number reads back as the same double.
 #pragma once

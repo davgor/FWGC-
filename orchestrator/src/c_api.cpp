@@ -313,6 +313,55 @@ FWGC_API fwgc_status fwgc_overhear(fwgc_director* director, const char* const* p
     });
 }
 
+FWGC_API fwgc_status fwgc_share(fwgc_director* director, const char* const* people, size_t count, char** json_out) noexcept {
+    if (json_out != nullptr) *json_out = nullptr;
+    return enter(director, true, false, [&]() -> fwgc_status {
+        c_need(director, "director");
+        if (count > 0) c_need(people, "people");
+        std::vector<std::string> names;
+        names.reserve(count);
+        for (size_t i = 0; i < count; ++i)
+            names.push_back(orchestrator::c_api::required_text(people[i], "people[" + std::to_string(i) + "]"));
+        const std::vector<orchestrator::Learned> learned = director->director.share(names);
+        // Recorded now; what follows only hands the answer over.
+        if (json_out != nullptr)
+            *json_out = orchestrator::c_api::handed_over(orchestrator::c_api::dumped(orchestrator::c_api::learned_json(learned)));
+        return FWGC_OK;
+    });
+}
+
+FWGC_API fwgc_status fwgc_report_event(fwgc_director* director, const char* site, const char* outcome, const char* by) noexcept {
+    return enter(director, true, false, [&]() -> fwgc_status {
+        c_need(director, "director");
+        director->director.report_event(orchestrator::c_api::required_text(site, "site"),
+                                        orchestrator::c_api::required_text(outcome, "outcome"),
+                                        orchestrator::c_api::optional_text(by, "by"));
+        return FWGC_OK;
+    });
+}
+
+FWGC_API fwgc_status fwgc_related(const fwgc_director* director, const char* event, char** json) noexcept {
+    return enter(director, false, false, [&]() -> fwgc_status {
+        c_need(director, "director");
+        c_need(json, "json");
+        *json = nullptr;
+        const orchestrator::Related related = director->director.related(orchestrator::c_api::required_text(event, "event"));
+        *json = orchestrator::c_api::handed_over(orchestrator::c_api::dumped(orchestrator::c_api::related_json(related)));
+        return FWGC_OK;
+    });
+}
+
+FWGC_API fwgc_status fwgc_query(const fwgc_director* director, const char* sql, char** json) noexcept {
+    return enter(director, false, false, [&]() -> fwgc_status {
+        c_need(director, "director");
+        c_need(json, "json");
+        *json = nullptr;
+        const orchestrator::QueryResult rows = director->director.query(orchestrator::c_api::required_text(sql, "sql"));
+        *json = orchestrator::c_api::handed_over(orchestrator::c_api::dumped(orchestrator::c_api::query_json(rows)));
+        return FWGC_OK;
+    });
+}
+
 FWGC_API fwgc_status fwgc_acquaintance(const fwgc_director* director, const char* speaker, char** json) noexcept {
     return enter(director, false, false, [&]() -> fwgc_status {
         c_need(director, "director");

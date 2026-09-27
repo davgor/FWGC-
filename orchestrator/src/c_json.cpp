@@ -6,6 +6,7 @@
 #include <ostream>
 #include <stdexcept>
 
+#include "brains.hpp"
 #include "c_guard.hpp"
 #include "fwg/api/serialize.hpp"
 
@@ -258,6 +259,62 @@ fwg::JsonValue feeling_json(const Feeling& feeling) {
     return out;
 }
 
+fwg::JsonValue query_json(const QueryResult& result) {
+    const auto& [columns, rows] = result;
+    fwg::JsonValue out = fwg::JsonValue::object();
+    out.set("columns", strings(columns));
+    fwg::JsonValue all = fwg::JsonValue::array();
+    for (const std::vector<Cell>& row : rows) {
+        fwg::JsonValue cells = fwg::JsonValue::array();
+        for (const Cell& cell : row) {
+            if (const auto* integer = std::get_if<std::int64_t>(&cell)) {
+                cells.push_back(*integer);
+            } else if (const auto* real = std::get_if<double>(&cell)) {
+                cells.push_back(*real);
+            } else if (const auto* text = std::get_if<std::string>(&cell)) {
+                if (is_utf8(*text)) {
+                    cells.push_back(*text);
+                } else {
+                    // Bytes that are not text (a blob, or text cast from one): as SQL writes them, x'..'.
+                    static constexpr char kHex[] = "0123456789abcdef";
+                    std::string written = "x'";
+                    for (const unsigned char byte : *text) {
+                        written += kHex[byte >> 4];
+                        written += kHex[byte & 0xFu];
+                    }
+                    cells.push_back(written + "'");
+                }
+            } else {
+                cells.push_back(fwg::JsonValue(nullptr));
+            }
+        }
+        all.push_back(std::move(cells));
+    }
+    out.set("rows", std::move(all));
+    return out;
+}
+
+fwg::JsonValue learned_json(const std::vector<Learned>& learned) {
+    fwg::JsonValue out = fwg::JsonValue::array();
+    for (const Learned& one : learned) {
+        const auto& [person, event, state] = one;
+        fwg::JsonValue item = fwg::JsonValue::object();
+        item.set("person", person);
+        item.set("event", event);
+        item.set("state", state);
+        out.push_back(std::move(item));
+    }
+    return out;
+}
+
+fwg::JsonValue related_json(const Related& related) {
+    const auto& [knows, would_learn] = related;
+    fwg::JsonValue out = fwg::JsonValue::object();
+    out.set("knows", strings(knows));
+    out.set("would_learn", strings(would_learn));
+    return out;
+}
+
 fwg::JsonValue contract_json() {
     fwg::JsonValue acts = fwg::JsonValue::array();
     for (int i = 0; i < kActCount; ++i) {
@@ -270,9 +327,8 @@ fwg::JsonValue contract_json() {
     }
     fwg::JsonValue outcomes = fwg::JsonValue::array();
     for (int i = 0; i < kOutcomeCount; ++i) outcomes.push_back(orchestrator::to_string(static_cast<Outcome>(i)));
-    // The contract counts its acts and outcomes but not its fact kinds: Reveal is the last.
     fwg::JsonValue kinds = fwg::JsonValue::array();
-    for (int i = 0; i <= static_cast<int>(FactKind::Reveal); ++i) kinds.push_back(orchestrator::to_string(static_cast<FactKind>(i)));
+    for (int i = 0; i < kFactKindCount; ++i) kinds.push_back(orchestrator::to_string(static_cast<FactKind>(i)));
     fwg::JsonValue doing = fwg::JsonValue::array();
     for (const Doing d : {Doing::asleep, Doing::at_home, Doing::walking, Doing::working, Doing::held}) {
         fwg::JsonValue one = fwg::JsonValue::object();
@@ -282,6 +338,7 @@ fwg::JsonValue contract_json() {
     }
     fwg::JsonValue out = fwg::JsonValue::object();
     out.set("contract_version", kContractVersion);
+    out.set("brains_schema", brains::kSchemaVersion);
     out.set("acts", std::move(acts));
     out.set("outcomes", std::move(outcomes));
     out.set("fact_kinds", std::move(kinds));
