@@ -14,10 +14,14 @@
 //                                              face (public and true; calm and unleashed; first
 //                                              and second);
 //                                   plain:     a living hero with one face
+//   who NAME near OTHER N           name a speaker: the Nth, from 0, of the living roster people
+//                                   standing where OTHER, a speaker named before, stands
 //   say NAME ACT [TARGET] | LINE    the player says LINE to NAME, read as ACT. TARGET is @place
-//                                   (the first place the last packet named), @own (the first of
-//                                   NAME's own offers the player was told of), @held (the work
-//                                   taken from NAME), or another speaker's NAME
+//                                   (the first place named by the latest packet to name any),
+//                                   @said (the place, of those any packet named, whose name LINE
+//                                   says), @own (the first of NAME's own offers the player was
+//                                   told of), @held (the work taken from NAME), or another
+//                                   speaker's NAME
 //   advance DAYS                    time passes
 //   resolve NAME finished|failed    the game reports the work taken from NAME
 //   fullmoon                        time passes to the middle of the next full-moon day
@@ -27,10 +31,13 @@
 //                                   afraid, 3 panicked
 //   gather NAME NAME...             the game reports these speakers together: fear spreads
 //   minutes N                       N minutes pass
+//   overhear NAME...                these speakers overheard the last `say`: each is calmed by it,
+//                                   joins in (their reply is written as their turn), or stays out
 //
 // Written out, in order: for each `say`, `turn NAME`, `line LINE` and the packet
 // (orchestrator::packet_text); for anything else that happens, `event TEXT`.
 #include <algorithm>
+#include <cctype>
 #include <cmath>
 #include <cstdint>
 #include <fstream>
@@ -74,6 +81,11 @@ std::vector<std::string> words(const std::string& text) {
     std::vector<std::string> out;
     for (std::string w; in >> w;) out.push_back(w);
     return out;
+}
+
+std::string lowered(std::string text) {
+    for (char& c : text) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+    return text;
 }
 
 std::optional<int> node_of(const fwg::World& world, const std::string& uid) {
@@ -161,7 +173,9 @@ int main(int argc, char** argv) {
     std::optional<Director> director;
     std::map<std::string, std::string> speakers;           // name -> uid
     std::map<std::string, std::string> own_offer, held;    // name -> quest id
-    std::optional<FactPacket> last;
+    std::vector<std::string> named;  // the places the latest packet to name any named
+    std::map<std::string, std::string> names;  // every place name any packet gave, lowered -> uid
+    std::string last_line;  // what the player said last, which a bystander who joins answers
     int number = 0;
     try {
         for (std::string raw; std::getline(in, raw);) {
@@ -173,6 +187,15 @@ int main(int argc, char** argv) {
             const std::vector<std::string> w = words(row.substr(0, bar));
             const auto need = [&](std::size_t count) {
                 if (w.size() < count) throw Failure(where + "too few words: " + row);
+            };
+            const auto remember = [&](const FactPacket& p) {
+                std::vector<std::string> places;
+                for (const Fact& f : p.facts)
+                    if (f.kind == FactKind::Place) {
+                        places.push_back(f.subject);
+                        if (const std::string* name = f.field("name")) names[lowered(*name)] = f.subject;
+                    }
+                if (!places.empty()) named = std::move(places);
             };
             const auto speaker = [&](const std::string& name) {
                 const auto found = speakers.find(name);
@@ -190,7 +213,19 @@ int main(int argc, char** argv) {
                 continue;
             }
             if (!director) throw Failure(where + "no world yet");
-            if (w[0] == "who") {
+            if (w[0] == "who" && w.size() > 2 && w[2] == "near") {
+                need(5);
+                const std::string other = speaker(w[3]);
+                const fwg::World& world = director->world();
+                const std::optional<int> at = node_of(world, other);
+                if (!at) throw Failure(where + w[3] + " stands nowhere");
+                std::vector<std::string> near;
+                for (const fwg::NpcPerson& p : world.npcs.people)
+                    if (p.alive && !p.is_cast && p.uid != other && node_of(world, p.uid) == at) near.push_back(p.uid);
+                const std::size_t n = std::stoul(w[4]);
+                if (n >= near.size()) throw Failure(where + std::to_string(near.size()) + " people where " + w[3] + " stands, not " + std::to_string(n + 1));
+                speakers[w[1]] = near[n];
+            } else if (w[0] == "who") {
                 need(4);
                 speakers[w[1]] = pick(director->world(), w[2], std::stoul(w[3]));
             } else if (w[0] == "say") {
@@ -199,13 +234,19 @@ int main(int argc, char** argv) {
                 const std::string name = w[1];
                 const std::optional<ActKind> act = orchestrator::act_kind(w[2]);
                 if (!act) throw Failure(where + "no act called " + w[2]);
+                const std::string line = trimmed(row.substr(bar + 3));
                 std::string target;
                 if (w.size() > 3) {
                     const std::string& t = w[3];
                     if (t == "@place") {
-                        if (last)
-                            for (const Fact& f : last->facts)
-                                if (target.empty() && f.kind == FactKind::Place) target = f.subject;
+                        if (!named.empty()) target = named.front();
+                    } else if (t == "@said") {
+                        std::size_t longest = 0;
+                        for (const auto& [place, uid] : names)
+                            if (place.size() > longest && lowered(line).find(place) != std::string::npos) {
+                                longest = place.size();
+                                target = uid;
+                            }
                     } else if (t == "@own") {
                         target = own_offer.count(name) ? own_offer.at(name) : std::string();
                     } else if (t == "@held") {
@@ -215,7 +256,6 @@ int main(int argc, char** argv) {
                     }
                     if (target.empty()) throw Failure(where + "nothing for " + t + " to point at yet");
                 }
-                const std::string line = trimmed(row.substr(bar + 3));
                 FactPacket p = director->respond(speaker(name), {*act, target});
                 for (const Fact& f : p.facts) {
                     if (f.kind == FactKind::QuestOffer && f.field("from_speaker") && *f.field("from_speaker") == "yes" &&
@@ -224,7 +264,8 @@ int main(int argc, char** argv) {
                     if (f.kind == FactKind::QuestState && f.field("state") && *f.field("state") == "taken") held[name] = f.subject;
                 }
                 std::cout << "turn " << name << "\nline " << line << "\n" << orchestrator::packet_text(p);
-                last = std::move(p);
+                remember(p);
+                last_line = line;
             } else if (w[0] == "advance") {
                 need(2);
                 director->advance(std::stod(w[1]));
@@ -246,6 +287,22 @@ int main(int argc, char** argv) {
                 std::cout << "event together:";
                 for (std::size_t i = 1; i < w.size(); ++i) std::cout << " " << w[i] << " " << director->feeling(together[i - 1]).now;
                 std::cout << "\n";
+            } else if (w[0] == "overhear") {
+                need(2);
+                std::vector<std::string> people;
+                for (std::size_t i = 1; i < w.size(); ++i) people.push_back(speaker(w[i]));
+                const std::vector<orchestrator::Bystander> heard = director->overhear(people);
+                for (std::size_t i = 0; i < heard.size(); ++i) {
+                    const orchestrator::Bystander& b = heard[i];
+                    if (b.reaction == orchestrator::Overheard::joins && b.packet) {
+                        std::cout << "event " << w[i + 1] << " overheard, and joins in\n";
+                        std::cout << "turn " << w[i + 1] << "\nline " << last_line << "\n" << orchestrator::packet_text(*b.packet);
+                        remember(*b.packet);
+                    } else {
+                        std::cout << "event " << w[i + 1] << " overheard: " << orchestrator::to_string(b.reaction) << ", "
+                                  << director->feeling(b.person).now << "\n";
+                    }
+                }
             } else if (w[0] == "minutes") {
                 need(2);
                 director->advance(std::stod(w[1]) / 1440.0);

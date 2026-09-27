@@ -27,7 +27,8 @@ namespace orchestrator {
 //    is there, what nests near it and what work is there.
 // 9: feelings. The act calm and its outcomes calmed, still_afraid and not_afraid; the Memory
 //    fact's `feeling` and `resting`.
-inline constexpr int kContractVersion = 9;
+// 10: overhearing. The Memory fact's `eased` and `joined`.
+inline constexpr int kContractVersion = 10;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -150,7 +151,11 @@ std::string_view to_string(FactKind kind);
 //   reports frightening them, spreads through people together, and falls a step toward rest for
 //   every half hour nothing new frightens them, or when the player calms them;
 // - `resting`: how they feel when nothing frightens them: "uneasy" where a nest of danger 4 or
-//   more lies within a kilometre of where they stand, else "calm".
+//   more lies within a kilometre of where they stand, else "calm";
+// - `eased`: "yes" when the player's calming words eased the speaker within the last two days,
+//   else "no";
+// - `joined`: "yes" on the packet of a bystander who overheard the player and joined in unasked,
+//   answering what the one the player spoke to could not; else "no".
 // A conversation ends at a farewell, when time passes, or when the player turns to someone
 // else. A face that does not recognise the player (a beast unleashed) gives a first meeting and
 // a hostile mood.

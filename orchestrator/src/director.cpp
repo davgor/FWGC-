@@ -58,6 +58,9 @@ constexpr int kCalmed = 1;
 constexpr double kEaseMinutes = 30.0;
 constexpr double kThreatMinutes = 15.0;
 constexpr double kUneasyNestM = 1000.0;
+// How long someone remembers the player talking them down: today and tomorrow. A visit is many
+// conversations (turning to someone else ends one), so the days, not the conversations, keep it.
+constexpr double kEasedDays = 2.0;
 constexpr int kUneasyNestDanger = 4;
 
 // Why a request is refused: the reason in words, and its kind (contract.hpp, Outcome::Refused),
@@ -232,7 +235,7 @@ int regard(Director::Acquaintance& a, int change) {
 // `heard`: how many times before this the player made this act to the speaker. `feeling` and
 // `resting` on the fear ladder.
 Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool recognised, bool repeat, int heard, int feeling,
-                 int resting) {
+                 int resting, bool eased, bool joined) {
     Fact f{FactKind::Memory, uid, {}};
     const bool again = recognised && a.conversations > 1;
     f.fields = {{"met", again ? "again" : "first"},
@@ -246,7 +249,9 @@ Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool r
                 {"heard", std::to_string(recognised ? heard : 0)},
                 {"exposed", recognised && a.exposed ? "yes" : "no"},
                 {"feeling", std::string(kFearWords[static_cast<std::size_t>(feeling)])},
-                {"resting", std::string(kFearWords[static_cast<std::size_t>(resting)])}};
+                {"resting", std::string(kFearWords[static_cast<std::size_t>(resting)])},
+                {"eased", recognised && eased ? "yes" : "no"},
+                {"joined", joined ? "yes" : "no"}};
     return f;
 }
 
@@ -461,6 +466,24 @@ constexpr double kMinutesPerDay = 1440.0;
 // is a hero or a dread, who stands where the world says.
 bool has_a_day(const fwg::NpcPerson& p) { return !p.is_cast && p.alive && p.site_uid && !p.plot_id.empty(); }
 
+// Whether `s` knows the person `target`: their rival, kin or ally, wherever they are; else someone
+// standing where the speaker stands, or somewhere within the speaker's reach. The one rule for an
+// answer about a person and for a bystander who could give one.
+bool knows_person(const fwg::World& world, knowledge::Speaker& s, const std::string& target) {
+    const std::optional<knowledge::KnownPerson> person = knowledge::person_fact(world, target);
+    if (!person || !person->node) return false;
+    fwg::PersonReadRequest request;
+    request.uid = target;
+    const fwg::PersonRead read = fwg::read_person(world, request);
+    const fwg::Hero* asked = std::get_if<fwg::Hero>(&read.person.person);
+    const fwg::Hero* hero = knowledge::hero_of(s);
+    if ((asked && knows_them(*asked, s.uid)) || (hero && knows_them(*hero, target))) return true;
+    if (s.node && *person->node == *s.node) return true;
+    for (const KnownPlace& place : knowledge::places_in_reach(world, s))
+        if (place.node == *person->node) return true;
+    return false;
+}
+
 // The roster post with a day that `uid` names, or nullptr.
 const fwg::NpcPerson* post_with_a_day(const fwg::World& world, const std::string& uid) {
     for (const fwg::NpcPerson& p : world.npcs.people) {
@@ -514,6 +537,15 @@ Whereabouts whereabouts_of(const fwg::NpcPerson& p, const std::vector<Detour>& d
 }
 
 }  // namespace
+
+std::string_view to_string(Overheard reaction) {
+    switch (reaction) {
+        case Overheard::stays_out: return "stays_out";
+        case Overheard::calmed: return "calmed";
+        case Overheard::joins: return "joins";
+    }
+    return "";
+}
 
 std::string_view to_string(Doing doing) {
     switch (doing) {
@@ -595,7 +627,9 @@ void Director::resolve(const std::string& quest_id, bool completed) {
     inputs_.push_back(Resolve{quest_id, completed});
 }
 
-FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& act) {
+FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& act) { return reply(speaker_uid, act, false); }
+
+FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& act, bool joined) {
     if (act_needs_target(act.kind) && act.target.empty())
         throw Error("respond: " + std::string(to_string(act.kind)) + " needs a target");
     std::optional<Speaker> found = knowledge::speaker(world_, speaker_uid);
@@ -611,8 +645,10 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
         // Nobody heard it, so nothing is counted.
         const auto heard = a.heard.find(act.kind);
         p.facts.push_back(memory_fact(speaker_uid, a, true, false, heard == a.heard.end() ? 0 : heard->second,
-                                      fear_now(speaker_uid, resting, today), resting));
-        inputs_.push_back(Say{speaker_uid, act});
+                                      fear_now(speaker_uid, resting, today), resting,
+                                      a.eased_day >= 0.0 && today - a.eased_day < kEasedDays, joined));
+        if (!joined) inputs_.push_back(Say{speaker_uid, act});
+        last_ = Exchange{speaker_uid, act, p.outcome, true};
         return p;
     }
 
@@ -652,10 +688,16 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
     show();
 
     const auto finish = [&](FactPacket p) {
-        p.facts.push_back(memory_fact(speaker_uid, a, recognised, repeat, heard, fear_now(speaker_uid, resting, today), resting));
+        p.facts.push_back(memory_fact(speaker_uid, a, recognised, repeat, heard, fear_now(speaker_uid, resting, today), resting,
+                                      a.eased_day >= 0.0 && today - a.eased_day < kEasedDays, joined));
         a.last_day = today;
         if (act.kind == ActKind::Farewell) end_conversation(speaker_uid);
-        inputs_.push_back(Say{speaker_uid, act});
+        if (!joined) inputs_.push_back(Say{speaker_uid, act});
+        // What a bystander overhears: an answer that held nothing, a place or person unknown or no
+        // work, is one they may answer instead.
+        const bool no_work = act.kind == ActKind::AskForWork &&
+                             std::none_of(p.facts.begin(), p.facts.end(), [](const Fact& f) { return f.kind == FactKind::QuestOffer; });
+        last_ = Exchange{speaker_uid, act, p.outcome, p.outcome == Outcome::Unknown || no_work};
         return p;
     };
 
@@ -710,6 +752,7 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
             fear.since_day = today;
             if (!a.calmed) regard(a, kCalmed);
             a.calmed = true;
+            a.eased_day = today;
             return finish(packet_for(s, act, Outcome::Calmed));
         }
 
@@ -785,23 +828,12 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
         }
 
         case ActKind::AskAboutPerson: {
+            if (!knows_person(world_, s, act.target)) return finish(packet_for(s, act, Outcome::Unknown));
             std::optional<knowledge::KnownPerson> person = knowledge::person_fact(world_, act.target);
-            if (!person || !person->node) return finish(packet_for(s, act, Outcome::Unknown));
             fwg::PersonReadRequest request;
             request.uid = act.target;
             const fwg::PersonRead read = fwg::read_person(world_, request);
             const fwg::Hero* asked = std::get_if<fwg::Hero>(&read.person.person);
-            // Known when they are the speaker's rival, kin or ally, wherever they are; else when
-            // they stand where the speaker stands, or somewhere within the speaker's reach.
-            const bool related = (asked && knows_them(*asked, speaker_uid)) || (hero && knows_them(*hero, act.target));
-            bool known = related || (s.node && *person->node == *s.node);
-            if (!known)
-                for (const KnownPlace& place : knowledge::places_in_reach(world_, s))
-                    if (place.node == *person->node) {
-                        known = true;
-                        break;
-                    }
-            if (!known) return finish(packet_for(s, act, Outcome::Unknown));
             // Someone who knows a masked hero well -- a rival, kin, an ally -- knows the mask for
             // one, and says so: how a player learns to confront it.
             if (asked && faces_of(*asked) == Faces::Mask && knows_them(*asked, speaker_uid)) {
@@ -1011,6 +1043,54 @@ Feeling Director::feeling(const std::string& person) const {
     return {std::string(kFearWords[static_cast<std::size_t>(now)]), std::string(kFearWords[static_cast<std::size_t>(resting)])};
 }
 
+std::vector<Bystander> Director::overhear(const std::vector<std::string>& people) {
+    if (!last_) throw Error("overhear: nothing has been said yet");
+    const Exchange heard = *last_;  // a bystander who joins makes their own exchange the last
+    const double today = fwg::world_clock_of(world_).day;
+    std::vector<Bystander> out;
+    bool joined = false;
+    for (const std::string& uid : people) {
+        std::optional<knowledge::Speaker> s = knowledge::speaker(world_, uid);
+        if (!s) throw Error("overhear: the world names no person '" + uid + "'");
+        Bystander b{uid, Overheard::stays_out, std::nullopt};
+        const auto known = acquainted_.find(uid);
+        const int regard = known == acquainted_.end() ? 0 : known->second.disposition;
+        const int resting = resting_fear(world_, *s);
+        const int now = fear_now(uid, resting, today);
+        const auto found = fears_.find(uid);
+        const bool threat = found != fears_.end() && found->second.threat_day >= 0.0 &&
+                            (today - found->second.threat_day) * kMinutesPerDay < kThreatMinutes;
+        if (uid == heard.speaker || !s->present) {
+            // The one spoken to heard nothing new; someone gone hears nothing at all.
+        } else if (heard.act.kind == ActKind::Calm && heard.outcome == Outcome::Calmed) {
+            if (now > resting && !threat && regard > -2) {
+                Fear& fear = fears_[uid];
+                fear.level = now - 1;
+                fear.since_day = today;
+                b.reaction = Overheard::calmed;
+            }
+        } else if (!joined && heard.nothing && now < 3 && regard > -2) {
+            bool can = false;
+            if (heard.act.kind == ActKind::AskAboutPlace) {
+                const std::vector<KnownPlace> places = knowledge::places_in_reach(world_, *s);
+                can = std::any_of(places.begin(), places.end(), [&](const KnownPlace& p) { return p.fact.subject == heard.act.target; });
+            } else if (heard.act.kind == ActKind::AskAboutPerson) {
+                can = knows_person(world_, *s, heard.act.target);
+            } else if (heard.act.kind == ActKind::AskForWork) {
+                can = !offers_known_to(world_, *s).empty();
+            }
+            if (can) {
+                b.packet = reply(uid, heard.act, true);
+                b.reaction = Overheard::joins;
+                joined = true;
+            }
+        }
+        out.push_back(std::move(b));
+    }
+    inputs_.push_back(Overhear{people});
+    return out;
+}
+
 Director replay(fwg::World start, const std::vector<Input>& inputs) {
     Director director(std::move(start));
     for (const Input& input : inputs) {
@@ -1020,6 +1100,8 @@ Director replay(fwg::World start, const std::vector<Input>& inputs) {
             director.fright(fright->person, fright->level);
         } else if (const Gather* gathering = std::get_if<Gather>(&input)) {
             director.gather(gathering->people);
+        } else if (const Overhear* overheard = std::get_if<Overhear>(&input)) {
+            (void)director.overhear(overheard->people);
         } else if (const Resolve* resolution = std::get_if<Resolve>(&input)) {
             director.resolve(resolution->quest_id, resolution->completed);
         } else if (const Hold* held = std::get_if<Hold>(&input)) {

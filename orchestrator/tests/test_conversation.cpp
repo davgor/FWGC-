@@ -1119,3 +1119,193 @@ TEST(replay_restores_how_everyone_feels) {
                      "the same next packet from " + uid);
     }
 }
+
+// ---- overhearing (contract version 10) ----------------------------------------------------------
+
+namespace {
+
+// A place two townsfolk know and two others do not: (two who do not, two who do, the place).
+struct PlaceGap {
+    std::string unaware, aware, place, also_unaware, also_aware;
+};
+
+PlaceGap place_gap() {
+    const std::vector<std::string> folk = townsfolk(12);
+    const auto knows = [](const std::string& who, const std::string& place) {
+        Director probe(faced_world());
+        return probe.respond(who, {ActKind::AskAboutPlace, place}).outcome == Outcome::Answered;
+    };
+    for (const std::string& aware : folk) {
+        Director probe(faced_world());
+        for (const Fact& place : facts_of(probe.respond(aware, {ActKind::AskSurroundings, ""}), FactKind::Place)) {
+            std::vector<std::string> unaware, also;
+            for (const std::string& other : folk) {
+                if (other == aware) continue;
+                (knows(other, place.subject) ? also : unaware).push_back(other);
+            }
+            if (unaware.size() >= 2 && !also.empty()) return {unaware[0], aware, place.subject, unaware[1], also[0]};
+        }
+    }
+    check::fail("the premise: a place two townsfolk know and two others do not");
+}
+
+}  // namespace
+
+TEST(a_speaker_remembers_being_eased_for_two_days) {
+    const std::vector<std::string> folk = resting_as("calm", 2);
+    const std::string x = folk[0], y = folk[1];
+    Director d(faced_world());
+    d.fright(x, 2);
+    d.advance(minutes(16.0));
+    FactPacket p = d.respond(x, {ActKind::Greet, ""});
+    check::equal(memory(p)["eased"], std::string("no"), "not eased yet");
+    p = d.respond(x, {ActKind::Calm, ""});
+    check::is_true(p.outcome == Outcome::Calmed && memory(p)["eased"] == "yes", "eased, and it says so");
+    // Turning to someone else ends the conversation, not the memory.
+    (void)d.respond(y, {ActKind::Greet, ""});
+    check::equal(memory(d.respond(x, {ActKind::SmallTalk, ""}))["eased"], std::string("yes"), "after talking to another");
+    d.advance(1.0);
+    check::equal(memory(d.respond(x, {ActKind::Greet, ""}))["eased"], std::string("yes"), "remembered the next day");
+    d.advance(1.0);
+    check::equal(memory(d.respond(x, {ActKind::Greet, ""}))["eased"], std::string("no"), "and gone two days on");
+}
+
+TEST(calming_words_overheard_ease_a_frightened_bystander_too) {
+    const std::vector<std::string> folk = resting_as("calm", 3);
+    const std::string a = folk[0], b = folk[1], c = folk[2];
+    const auto frightened = [&](Director& d) {
+        d.fright(a, 3);
+        d.gather({a, b, c});
+        d.advance(minutes(16.0));
+    };
+    Director d(faced_world());
+    frightened(d);
+    check::equal(d.feeling(b).now, std::string("afraid"), "the premise: the bystander afraid");
+    check::is_true(d.respond(a, {ActKind::Calm, ""}).outcome == Outcome::Calmed, "the premise: the one spoken to eased");
+    std::vector<orchestrator::Bystander> heard = d.overhear({a, b});
+    check::is_true(heard.size() == 2 && heard[0].reaction == orchestrator::Overheard::stays_out, "the one spoken to heard nothing new");
+    check::is_true(heard[1].reaction == orchestrator::Overheard::calmed && !heard[1].packet, "the bystander eased too");
+    check::equal(d.feeling(b).now, std::string("uneasy"), "a step");
+    // Not from words that did not ease the one spoken to.
+    Director e(faced_world());
+    frightened(e);
+    e.fright(a, 3);
+    check::is_true(e.respond(a, {ActKind::Calm, ""}).outcome == Outcome::StillAfraid, "the premise: not eased");
+    check::is_true(e.overhear({b})[0].reaction == orchestrator::Overheard::stays_out && e.feeling(b).now == "afraid",
+                   "calming that failed calms nobody");
+    // Nor a bystander something still frightens, nor one hostile to the player.
+    Director f(faced_world());
+    frightened(f);
+    f.fright(b, 2);
+    (void)f.respond(c, {ActKind::Insult, ""});
+    check::is_true(f.respond(a, {ActKind::Calm, ""}).outcome == Outcome::Calmed, "the premise: eased");
+    heard = f.overhear({b, c});
+    check::is_true(heard[0].reaction == orchestrator::Overheard::stays_out, "still frightened by something of their own");
+    check::is_true(heard[1].reaction == orchestrator::Overheard::stays_out, "hostile to the player");
+}
+
+TEST(a_bystander_who_knows_what_the_one_spoken_to_did_not_joins_in) {
+    const PlaceGap gap = place_gap();
+    Director d(faced_world());
+    check::is_true(d.respond(gap.unaware, {ActKind::AskAboutPlace, gap.place}).outcome == Outcome::Unknown, "the premise: unknown");
+    const std::vector<orchestrator::Bystander> heard = d.overhear({gap.unaware, gap.aware});
+    check::is_true(heard[1].reaction == orchestrator::Overheard::joins && heard[1].packet, "joins in");
+    const FactPacket& p = *heard[1].packet;
+    check::is_true(p.outcome == Outcome::Answered && p.answering == ActKind::AskAboutPlace && p.speaker == gap.aware, "and answers");
+    const std::vector<Fact> places = facts_of(p, FactKind::Place);
+    check::is_true(!places.empty() && places.front().subject == gap.place, "about the place asked of");
+    check::equal(memory(p)["joined"], std::string("yes"), "marked joined");
+    check::equal(memory(p)["turn"], std::string("1"), "a conversation with them begins");
+    // Nobody joins who does not know it, and only the first who can.
+    Director i(faced_world());
+    (void)i.respond(gap.unaware, {ActKind::AskAboutPlace, gap.place});
+    check::is_true(i.overhear({gap.also_unaware})[0].reaction == orchestrator::Overheard::stays_out, "one who does not know it");
+    Director e(faced_world());
+    (void)e.respond(gap.unaware, {ActKind::AskAboutPlace, gap.place});
+    const std::vector<orchestrator::Bystander> twice = e.overhear({gap.aware, gap.aware});
+    check::is_true(twice[0].reaction == orchestrator::Overheard::joins && twice[1].reaction == orchestrator::Overheard::stays_out,
+                   "one joins, however many could");
+    // Nor one hostile to the player, nor one panicking.
+    Director f(faced_world());
+    (void)f.respond(gap.aware, {ActKind::Insult, ""});
+    (void)f.respond(gap.unaware, {ActKind::AskAboutPlace, gap.place});
+    check::is_true(f.overhear({gap.aware})[0].reaction == orchestrator::Overheard::stays_out, "hostile");
+    Director g(faced_world());
+    g.fright(gap.aware, 3);
+    (void)g.respond(gap.unaware, {ActKind::AskAboutPlace, gap.place});
+    check::is_true(g.overhear({gap.aware})[0].reaction == orchestrator::Overheard::stays_out, "panicking");
+    // An answer the one spoken to could give leaves nothing to add, even for one who knows it too.
+    Director h(faced_world());
+    check::is_true(h.respond(gap.aware, {ActKind::AskAboutPlace, gap.place}).outcome == Outcome::Answered, "the premise: answered");
+    check::is_true(h.overhear({gap.also_aware})[0].reaction == orchestrator::Overheard::stays_out, "nothing to add");
+}
+
+TEST(a_bystander_who_knows_someone_the_one_spoken_to_did_not_joins_in) {
+    const std::vector<std::string> folk = townsfolk(8);
+    for (const std::string& asked : folk)
+        for (const std::string& unaware : folk) {
+            if (unaware == asked) continue;
+            Director d(faced_world());
+            if (d.respond(unaware, {ActKind::AskAboutPerson, asked}).outcome != Outcome::Unknown) continue;
+            // Anyone knows someone standing where they stand: the one asked about knows themself.
+            const std::vector<orchestrator::Bystander> heard = d.overhear({asked});
+            check::is_true(heard[0].reaction == orchestrator::Overheard::joins && heard[0].packet &&
+                               heard[0].packet->outcome == Outcome::Answered && heard[0].packet->answering == ActKind::AskAboutPerson,
+                           "joins with the person");
+            return;
+        }
+    check::fail("the premise: a townsperson who does not know another");
+}
+
+TEST(a_bystander_with_work_joins_one_who_had_none) {
+    const std::string giver = givers().front();
+    // Most townsfolk know of work where they stand: find two who know of none.
+    std::vector<std::string> idle;
+    for (const fwg::NpcPerson& person : faced_world().npcs.people) {
+        if (idle.size() == 2) break;
+        if (!person.alive || person.uid == giver || !node_of(faced_world(), person.uid)) continue;
+        Director probe(faced_world());
+        if (facts_of(probe.respond(person.uid, {ActKind::AskForWork, ""}), FactKind::QuestOffer).empty()) idle.push_back(person.uid);
+    }
+    if (idle.size() < 2) check::fail("the premise: two people with no work to speak of");
+    Director d(faced_world());
+    check::is_true(facts_of(d.respond(idle[0], {ActKind::AskForWork, ""}), FactKind::QuestOffer).empty(), "the premise: none");
+    const std::vector<orchestrator::Bystander> heard = d.overhear({idle[1], giver});
+    check::is_true(heard[0].reaction == orchestrator::Overheard::stays_out, "one with no work to give stays out");
+    check::is_true(heard[1].reaction == orchestrator::Overheard::joins && heard[1].packet &&
+                       !facts_of(*heard[1].packet, FactKind::QuestOffer).empty(),
+                   "a giver joins with work");
+}
+
+TEST(overhearing_is_recorded_and_refused_when_nothing_was_said) {
+    const PlaceGap gap = place_gap();
+    Director d(faced_world());
+    bool threw = false;
+    try {
+        (void)d.overhear({gap.aware});
+    } catch (const orchestrator::Error&) {
+        threw = true;
+    }
+    check::is_true(threw, "nothing said yet");
+    (void)d.respond(gap.unaware, {ActKind::AskAboutPlace, gap.place});
+    threw = false;
+    try {
+        (void)d.overhear({"no-such-person"});
+    } catch (const orchestrator::Error&) {
+        threw = true;
+    }
+    check::is_true(threw, "a uid the world does not name");
+    (void)d.respond(gap.unaware, {ActKind::AskAboutPlace, gap.place});
+    const std::size_t before = d.inputs().size();
+    check::is_true(d.overhear({gap.aware})[0].reaction == orchestrator::Overheard::joins, "the premise: one joins");
+    // What the game did, once: the joiner's reply is the overhearing's, not an input of its own
+    // (recorded as one too, a replay would say the player asked the joiner).
+    check::is_true(d.inputs().size() == before + 1 && std::holds_alternative<orchestrator::Overhear>(d.inputs().back()),
+                   "recorded once, as the overhearing");
+    Director again = orchestrator::replay(faced_world(), d.inputs());
+    const Director::Acquaintance* a = d.acquaintance(gap.aware);
+    const Director::Acquaintance* b = again.acquaintance(gap.aware);
+    check::is_true(a && b && a->conversations == b->conversations && a->said == b->said, "the joiner's conversation, replayed");
+    check::equal(text_of(d.respond(gap.aware, {ActKind::Greet, ""})), text_of(again.respond(gap.aware, {ActKind::Greet, ""})),
+                 "the same next packet");
+}

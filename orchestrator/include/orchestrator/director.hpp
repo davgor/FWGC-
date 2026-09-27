@@ -65,7 +65,22 @@ struct Fright {
 struct Gather {
     std::vector<std::string> people;
 };
-using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather>;
+// The game reports people who overheard the exchange just made.
+struct Overhear {
+    std::vector<std::string> people;
+};
+using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather, Overhear>;
+
+// What someone who overheard the player made of it.
+enum class Overheard { stays_out, calmed, joins };
+std::string_view to_string(Overheard reaction);
+
+// A bystander and their reaction; `packet` is the reply of one who joins in.
+struct Bystander {
+    std::string person;
+    Overheard reaction = Overheard::stays_out;
+    std::optional<FactPacket> packet;
+};
 
 // How a person feels, on the fear ladder: "calm", "uneasy", "afraid", "panicked". The game shows
 // `now` as their expression, and `resting` when nothing has frightened them.
@@ -152,6 +167,7 @@ public:
         int disposition = 0;    // -3 hostile .. 3 warm
         bool thanked = false;   // in this conversation: thanks count once
         bool calmed = false;    // in this conversation: being eased by the player counts once
+        double eased_day = -1.0;  // the world day the player last eased them; below zero: never
         std::vector<std::pair<ActKind, std::string>> said;  // this conversation's acts
         std::map<ActKind, int> heard;  // every act the player made to this speaker, counted, in any conversation
         std::vector<int> grievances;   // what each insult, and each of the speaker's work given up, cost the
@@ -226,6 +242,21 @@ public:
     // How `person` feels now. Throws Error for a uid the world does not name.
     Feeling feeling(const std::string& person) const;
 
+    // ---- overhearing -------------------------------------------------------------------------
+    //
+    // The game reports `people` who overheard the exchange just made (the last respond()), near
+    // enough to hear the player and the reply. Each makes of it, in order:
+    // - calmed: the player's calming words eased the one spoken to, and the bystander is afraid,
+    //   with nothing still frightening them and no hostility to the player: eased a step too;
+    // - joins: the one spoken to could not answer, and the bystander can -- a place they did not
+    //   know that the bystander knows, a person the same, work when they had none and the bystander
+    //   has some -- and is neither panicking nor hostile to the player. They walk over and answer:
+    //   `packet` is their reply, its Memory fact `joined`, and a conversation with them begins. At
+    //   most one joins, the first who can;
+    // - stays_out: everything else, the one spoken to among them.
+    // Throws Error when nothing has been said yet, and for a uid the world does not name.
+    std::vector<Bystander> overhear(const std::vector<std::string>& people);
+
 private:
     void end_conversation(const std::string& speaker);
 
@@ -246,6 +277,18 @@ private:
     std::map<std::string, Fear> fears_;
     // How afraid `uid` is at `now`, resting at `resting`.
     int fear_now(const std::string& uid, int resting, double now) const;
+    // The last exchange, for those who overheard it: who was spoken to, what the player did, what
+    // came of it, and whether the answer held nothing (a place or person unknown, no work).
+    struct Exchange {
+        std::string speaker;
+        DialogueAct act;
+        Outcome outcome = Outcome::NotUnderstood;
+        bool nothing = false;
+    };
+    std::optional<Exchange> last_;
+    // respond(), for the player or for a bystander who joins (`joined`: not an input of its own,
+    // since the Overhear that made it is).
+    FactPacket reply(const std::string& speaker, const DialogueAct& act, bool joined);
 };
 
 // A session again: `start` with every input re-applied, in order.

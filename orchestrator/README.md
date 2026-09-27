@@ -105,7 +105,11 @@ about its speaker:
   name (contract version 7: before it, what was last asked in any earlier one);
 - `exposed`, once the player has made the speaker own to a hidden face;
 - `feeling` and `resting` (contract version 9): how the speaker feels as they reply, and at rest
-  ([Feelings](#feelings)).
+  ([Feelings](#feelings));
+- `eased` (contract version 10): the player's calming words eased the speaker within the last
+  two days, so a greeting can recall it and "not afraid" need not deny it. By the days, not the
+  conversations: a visit is many conversations, since turning to someone else ends one;
+- `joined`: the speaker overheard the player and joined in unasked ([Overhearing](#overhearing)).
 
 A conversation ends at a farewell, when time passes, or when the player turns to someone else.
 The next act to that speaker begins another.
@@ -147,6 +151,27 @@ panicked.
 
 Frights and gatherings are inputs, so replay rebuilds every feeling. The packet never says what
 frightened someone: the director does not know, and a speaker's words cannot name it.
+
+## Overhearing
+
+Contract version 10. The owner asked for NPCs who listen to the player's conversations with
+others, "and decide if they want to join the conversation, or stay out of it": calmed by words
+that calm the one spoken to, or walking over with something they can tell (2026-09-26). The game
+places people and says who was near enough to hear; the director decides what each makes of it.
+
+`overhear(people)`, right after an exchange (a `respond`), gives each person's reaction:
+- **calmed**: the player's calming words eased the one spoken to, and this bystander is afraid,
+  with nothing still frightening them and no hostility to the player. They are eased a step, as
+  if spoken to, and think no better of the player for it: the words were not for them.
+- **joins**: the one spoken to could not answer, and the bystander can: a place they did not know
+  that the bystander knows, a person the same (by the one rule an answer about a person keeps),
+  or work when they had none and the bystander has some. Not someone panicking, nor someone hostile
+  to the player. They answer as if asked: the packet is theirs, its Memory fact `joined`, and a
+  conversation with them begins, ending the last. The game walks them over. At most one joins, the
+  first in the list who can, so the game lists the nearest first.
+- **stays_out**: everything else, the one spoken to among them, and anyone gone.
+
+An overhearing is an input, so replay rebuilds a joiner's conversation and a bystander's calm.
 
 ## What a speaker says of a place
 
@@ -239,8 +264,11 @@ world and writes each packet out as text (`orchestrator::packet_text`, which
 judge can hear a whole conversation: several meetings with one speaker, time passing, work taken
 and finished, a mask confronted. The script names its speakers by kind -- a roster person, a
 giver, a mask, a beast, a fractured heart -- and the tool picks them from the world. A script can
-frighten a speaker (`fright NAME LEVEL`), gather speakers (`gather NAME...`) and let minutes pass
-(`minutes N`). It is a measuring tool; nothing a game ships.
+frighten a speaker (`fright NAME LEVEL`), gather speakers (`gather NAME...`), let minutes pass
+(`minutes N`), name someone standing where another speaker stands (`who NAME near OTHER N`), ask
+about a place any earlier packet named by saying its name (`@said`), and report who overheard the
+last exchange (`overhear NAME...`), a joiner's reply written as their turn. It is a measuring tool;
+nothing a game ships.
 
 ## What a speaker knows
 
