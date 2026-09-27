@@ -1516,3 +1516,81 @@ post:animal_keeper | greeted_eased | Back again. You settled me the way I'd sett
 post:animal_keeper | not_afraid_eased | I'm fine now, thanks to you; a kind word works on me the way it works on the beasts.
 post:animal_keeper | joined_lead | I'm no hand with people, but I overheard you.
 post:animal_keeper | joined_lead | Forgive me stepping in, smell and all; I heard what you asked.
+
+# ---- post:farmer: news (contract version 11) ----
+post:farmer | heard_deed | You {deed}, I hear, and the rows want weeding all the same.
+post:farmer | heard_deed | Is it right what they say, that you're the one who {deed}?
+post:farmer | heard_deed | They tell me you {deed}; well, a field doesn't ask, and neither will I.
+post:farmer | news | I heard {news}, for all the difference it makes to a furrow.
+post:farmer | news | The way folk tell it, {news}; not that I've time for talk.
+post:farmer | news | Something else, and then I'm back to my rows: {news}, so they say.
+# ---- post:farm_hand: news (contract version 11) ----
+post:farm_hand | heard_deed | Nobody tells a hand much, but I did hear you {deed}.
+post:farm_hand | heard_deed | Was it you who {deed}, or have I got hold of the wrong end of the pitchfork?
+post:farm_hand | heard_deed | So you {deed}; don't mind me staring, I don't get out of the barn much.
+post:farm_hand | news | For what a hand's word is worth, the story is {news}.
+post:farm_hand | news | I only heard it in passing, so don't hold me to it: {news}.
+post:farm_hand | news | Somebody told me {news}, and it's not often anybody tells me anything.
+# ---- post:well_keeper: news (contract version 11) ----
+post:well_keeper | heard_deed | So you {deed}; I'd want to get to the bottom of a thing before I say more.
+post:well_keeper | heard_deed | Are you the one who {deed}, or has the talk been muddying the water?
+post:well_keeper | heard_deed | You {deed}, I'm told, and I'll take that as plain as well water.
+post:well_keeper | news | I'm told {news}, and that's the whole bucketful.
+post:well_keeper | news | For what it's worth, the talk is {news}; I'd let it settle before I drank it.
+post:well_keeper | news | Just as it came to me, and no clearer: {news}.
+# ---- post:carter: news (contract version 11) ----
+post:carter | heard_deed | I'll give it you straight: I heard you {deed}.
+post:carter | heard_deed | You're the one who {deed}, or have I got my loads mixed up?
+post:carter | heard_deed | So you {deed}; not my freight, but I heard it all the same.
+post:carter | news | I'll pass this on as I got it, no heavier and no lighter: {news}.
+post:carter | news | Somebody said {news}; make what you like of it.
+post:carter | news | It's only talk, mind, but {news}; I'll not haul it any further than that.
+# ---- post:fisher: news (contract version 11) ----
+post:fisher | heard_deed | You {deed}, I hear.
+post:fisher | heard_deed | Was it you who {deed}?
+post:fisher | heard_deed | So you {deed}; I won't guess at the rest.
+post:fisher | news | One thing I heard: {news}.
+post:fisher | news | They're saying {news}; not my business.
+post:fisher | news | Don't know if it's so, but {news}, they say.
+# ---- post:boatman: news (contract version 11) ----
+post:boatman | heard_deed | Now then, would you be the one who {deed}?
+post:boatman | heard_deed | Well now, you {deed}, they tell me, and you'd know more about it than I would.
+post:boatman | heard_deed | I hear plenty, and I heard you {deed}; is that the way of it?
+post:boatman | news | Now, word has it {news}, though whether it floats or sinks I couldn't tell you.
+post:boatman | news | Oh, and something drifted my way: {news}.
+post:boatman | news | Somebody told me {news}, and I'm only ferrying it across.
+# ---- post:hauler: news (contract version 11) ----
+post:hauler | heard_deed | Hm, you're the one who {deed}, they say.
+post:hauler | heard_deed | Is it you that {deed}, then?
+post:hauler | heard_deed | They tell me you {deed}, and it's no weight off my back either way.
+post:hauler | news | I carry things, not news, but this much stuck to me: {news}.
+post:hauler | news | From what I hear, {news}; I don't ask what's inside a thing, I only carry it.
+post:hauler | news | Somebody said {news}, and I've no room in my head to weigh it.
+# ---- post:water_carrier: news (contract version 11) ----
+post:water_carrier | heard_deed | Just quickly, are you the one who {deed}?
+post:water_carrier | heard_deed | You {deed}, they're saying, and I'd ask you all about it if I could stop.
+post:water_carrier | heard_deed | Mind the buckets as I pass; you {deed}, did you?
+post:water_carrier | news | I can't stop, but I heard {news}.
+post:water_carrier | news | Keep up, and I'll tell you what I heard: {news}.
+post:water_carrier | news | They're saying {news}, and that's all I caught between one bucket and the next.
+# ---- post:water_keeper: news (contract version 11) ----
+post:water_keeper | heard_deed | I am told you {deed}; I note it, and I draw no conclusions.
+post:water_keeper | heard_deed | You are the one who {deed}, if what I heard is accurate.
+post:water_keeper | heard_deed | Is it correct that you {deed}?
+post:water_keeper | news | To be exact, I heard {news}, and I will not embroider it.
+post:water_keeper | news | It is said that {news}; I cannot vouch for it.
+post:water_keeper | news | A report has reached me: {news}.
+# ---- post:horse_keeper: news (contract version 11) ----
+post:horse_keeper | heard_deed | You {deed}, they tell me, and I judge a rider by more than hearsay.
+post:horse_keeper | heard_deed | Are you the one who {deed}, or is that talk with no legs under it?
+post:horse_keeper | heard_deed | Now, I'm told you {deed}; is that so?
+post:horse_keeper | news | Listen: if the talk's right, {news}.
+post:horse_keeper | news | Now, they tell me {news}, and that's all the yard knows of it.
+post:horse_keeper | news | I heard {news}, but I'd want to see it trot out sound before I believed it.
+# ---- post:animal_keeper: news (contract version 11) ----
+post:animal_keeper | heard_deed | I'm better with beasts than faces, but aren't you the one who {deed}?
+post:animal_keeper | heard_deed | You {deed}, I'm told, though I'd sooner judge you the way I judge a beast, by looking.
+post:animal_keeper | heard_deed | So you {deed}; I'll mention it to the beasts, not that they'll care.
+post:animal_keeper | news | My lot don't gossip, but people do, and the gossip is {news}.
+post:animal_keeper | news | I heard {news}, and I've said all I know, which is never much.
+post:animal_keeper | news | Someone told me {news}, which is more than the beasts ever do.

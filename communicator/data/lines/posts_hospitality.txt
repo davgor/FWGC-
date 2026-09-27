@@ -1250,3 +1250,75 @@ post:assistant | greeted_eased | Well met again, and thank you, really; my hands
 post:assistant | not_afraid_eased | I'm all right now, really; you helped more than you know.
 post:assistant | joined_lead | I shouldn't butt in, I'm only the help, but I heard you asking.
 post:assistant | joined_lead | Please don't mind me; I heard you, and I think I can help.
+
+# ---- post:baker: news (contract version 11) ----
+post:baker | heard_deed | Well, you're the one who {deed}; the dough can rest a moment for that.
+post:baker | heard_deed | You {deed}, so I hear, and it's given me something to chew on besides crust.
+post:baker | heard_deed | Let me wipe my hands first; is it you who {deed}?
+post:baker | news | While the loaves bake, I'll tell you what I've heard: {news}.
+post:baker | news | Half of what I hear is half-baked, but {news}.
+post:baker | news | Mind the crumbs, and mind this too: {news}.
+
+# ---- post:cook: news (contract version 11) ----
+post:cook | heard_deed | Listen, while the pot's on: are you the one who {deed}?
+post:cook | heard_deed | Somebody said you {deed}, and I'd ask more if the pots would let me.
+post:cook | heard_deed | It was you who {deed}, then; stand clear of the fire while I take that in.
+post:cook | news | I've no time to dress it up: {news}.
+post:cook | news | Over the clatter, I caught this: {news}.
+post:cook | news | Is it true {news}, or has somebody been stirring?
+
+# ---- post:miller: news (contract version 11) ----
+post:miller | heard_deed | It takes me a while to place a thing, but you're the one who {deed}.
+post:miller | heard_deed | You {deed}, they say, and I've been grinding on it since.
+post:miller | heard_deed | Was it you who {deed}, then, or have I got the grist wrong?
+post:miller | news | Let me say it slow, the way the stone turns: {news}.
+post:miller | news | You can sift it how you like, but {news}.
+post:miller | news | As fine as I can grind it: {news}.
+
+# ---- post:brewer: news (contract version 11) ----
+post:brewer | heard_deed | Well, there's a thing: you're the one who {deed}.
+post:brewer | heard_deed | They tell me you {deed}, and I'll let that one settle before I say more.
+post:brewer | heard_deed | Ah, now, would you be the one who {deed}?
+post:brewer | news | I'll pour it out plain, froth and all: {news}.
+post:brewer | news | I'll not vouch for it till it's settled, but {news}.
+post:brewer | news | It'll keep or it won't, like any brew: {news}.
+
+# ---- post:bartender: news (contract version 11) ----
+post:bartender | heard_deed | No need to say it aloud: you're the one who {deed}.
+post:bartender | heard_deed | I pour, I listen, and I heard you {deed}.
+post:bartender | heard_deed | Was it you who {deed}, or shall I forget I asked?
+post:bartender | news | I'll forget I said it, but {news}.
+post:bartender | news | I'll say it once, and quietly: {news}.
+post:bartender | news | Across the bar, I hear {news}, and that's all I'll say.
+
+# ---- post:host: news (contract version 11) ----
+post:host | heard_deed | Forgive me, but are you the one who {deed}?
+post:host | heard_deed | I understand you {deed}, if you'll allow me to mention it.
+post:host | heard_deed | Then you are the one who {deed}; do sit, and I'll not trouble you with questions.
+post:host | news | I hope you'll not mind a piece of news: {news}.
+post:host | news | It isn't my place to spread talk, but {news}.
+post:host | news | Might I ask whether it's true that {news}?
+
+# ---- post:service_worker: news (contract version 11) ----
+post:service_worker | heard_deed | Oh, you're the one who {deed}; I'd stop to hear it, if I could stop.
+post:service_worker | heard_deed | Not that I've time to listen, but I heard you {deed}.
+post:service_worker | heard_deed | Between trays, then: was it you who {deed}?
+post:service_worker | news | I've a tray in each hand, so quickly: {news}.
+post:service_worker | news | Nobody asks the one with the trays, but {news}.
+post:service_worker | news | Don't hold me to it, my head's full of orders, but {news}.
+
+# ---- post:bath_attendant: news (contract version 11) ----
+post:bath_attendant | heard_deed | You're the one who {deed}, then; well, the water doesn't care who's in it.
+post:bath_attendant | heard_deed | You {deed}, from what I hear, and it holds water, I suppose.
+post:bath_attendant | heard_deed | Was it you who {deed}, or is the steam in my eyes?
+post:bath_attendant | news | I'll wring it out for you: {news}.
+post:bath_attendant | news | It may not wash, but {news}.
+post:bath_attendant | news | Is it true {news}, or is that just steam?
+
+# ---- post:assistant: news (contract version 11) ----
+post:assistant | heard_deed | Oh, are you the one who {deed}, really?
+post:assistant | heard_deed | I heard you {deed}, I think, if I didn't muddle it.
+post:assistant | heard_deed | It's you who {deed}, then; nobody tells me anything, so I wasn't sure.
+post:assistant | news | Don't quote me, but I heard {news}.
+post:assistant | news | Oh, and I heard something, if I've got it right: {news}.
+post:assistant | news | They were saying {news}, or I think they were.

@@ -743,3 +743,11 @@ redeemed/NN | greeted_eased | Welcome back. I'm clear-headed again; you did that
 redeemed/NN | not_afraid_eased | There's no need; you talked me down once, and it was done well enough to last.
 redeemed/NN | joined_lead | None of my business, I know, but I heard you, and it seemed worth the step.
 redeemed/NN | joined_lead | Forgive me; I heard you, and I'll give it you without dressing it up.
+
+# ---- redeemed/NN: news (contract version 11) ----
+redeemed/NN | heard_deed | What's said of people isn't always what they did, but I hear you {deed}.
+redeemed/NN | heard_deed | So you {deed}; I'll not dress it up or play it down.
+redeemed/NN | heard_deed | Tell me plainly: is it true you {deed}?
+redeemed/NN | news | As plain as I had it, {news}.
+redeemed/NN | news | I'm told {news}; I'll leave it at that.
+redeemed/NN | news | Nothing added and nothing taken away: {news}.

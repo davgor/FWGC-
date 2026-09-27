@@ -861,3 +861,11 @@ kingmaker/NN | greeted_eased | Welcome back. I'm of use to myself again, and tha
 kingmaker/NN | not_afraid_eased | There's no need; my wits are back where I can use them, and I know who fetched them.
 kingmaker/NN | joined_lead | Anyone might matter one day, so I listen, and I heard you.
 kingmaker/NN | joined_lead | Pardon me; I'd like to be the one who told you.
+
+# ---- kingmaker/NN: news (contract version 11) ----
+kingmaker/NN | heard_deed | So you're the one who {deed}; I make a point of knowing who did what.
+kingmaker/NN | heard_deed | You {deed}, I hear, and I'll remember the face.
+kingmaker/NN | heard_deed | You'd be the one who {deed}, then?
+kingmaker/NN | news | Half my work is knowing what's afoot, and I hear {news}.
+kingmaker/NN | news | As I hear it, and I hear most things, {news}.
+kingmaker/NN | news | Now, this came my way: {news}.

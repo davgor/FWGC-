@@ -737,3 +737,11 @@ zealot/NN | greeted_eased | Well met again. I've counted what you said among my 
 zealot/NN | not_afraid_eased | I'm fine; your words and my prayers did their work, and I'll not ask more of either.
 zealot/NN | joined_lead | Forgive me; I've no use for idle ears, so I'll put mine to work.
 zealot/NN | joined_lead | I listen as closely as I pray, and I heard you.
+
+# ---- zealot/NN: news (contract version 11) ----
+zealot/NN | heard_deed | I've heard you {deed}, and I'll weigh it in my prayers.
+zealot/NN | heard_deed | They tell me you {deed}; now tell me what you believe.
+zealot/NN | heard_deed | You {deed}, I'm told, and I'll take it on faith until I've cause not to.
+zealot/NN | news | Here's something to pray on: {news}.
+zealot/NN | news | I'll not add to it, and I'll not doubt it: {news}.
+zealot/NN | news | As sure as I pray, I heard that {news}.

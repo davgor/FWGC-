@@ -979,3 +979,11 @@ exiled_hero/NN | greeted_eased | Good day. I don't take help easily, but I took 
 exiled_hero/NN | not_afraid_eased | I'm all right; you've already done me that turn, and it's on the ledger.
 exiled_hero/NN | joined_lead | I heard what you asked, and I'd rather be of use than keep quiet.
 exiled_hero/NN | joined_lead | I've learned to keep my ears open, and I heard you.
+
+# ---- exiled_hero/NN: news (contract version 11) ----
+exiled_hero/NN | heard_deed | So you {deed}; I don't go asking, but things reach me.
+exiled_hero/NN | heard_deed | Then you're the one who {deed}; I'll weigh it as I'd want my own weighed.
+exiled_hero/NN | heard_deed | I'm told you {deed}; I'll take you as I find you, all the same.
+exiled_hero/NN | news | It came my way that {news}.
+exiled_hero/NN | news | The way I heard it, {news}.
+exiled_hero/NN | news | I heard {news}; that's as much as I know of it.

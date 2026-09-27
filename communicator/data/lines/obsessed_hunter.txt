@@ -979,3 +979,11 @@ obsessed_hunter/NN | greeted_eased | Good to see you. With a clear head I can re
 obsessed_hunter/NN | not_afraid_eased | I'm all right; you walked me through it once, and I've no need of the same trail twice.
 obsessed_hunter/NN | joined_lead | I hear more than I let on, and I heard that.
 obsessed_hunter/NN | joined_lead | You'll forgive me cutting in; I keep my ears open, and I caught what you asked.
+
+# ---- obsessed_hunter/NN: news (contract version 11) ----
+obsessed_hunter/NN | heard_deed | You {deed}, I hear, and I'd sooner have it from your own mouth.
+obsessed_hunter/NN | heard_deed | So you {deed}; I've room in my head for little else, but that got in.
+obsessed_hunter/NN | heard_deed | I'd trust my own eyes over any tongue, but they say you {deed}.
+obsessed_hunter/NN | news | It's not what I'm after, but I did hear {news}.
+obsessed_hunter/NN | news | For whatever talk is worth, {news}.
+obsessed_hunter/NN | news | This is talk, not tracks: {news}.

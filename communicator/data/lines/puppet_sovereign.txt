@@ -389,3 +389,11 @@ puppet_sovereign/NN | greeted_eased | Good to see you. Nobody had to tell me I'm
 puppet_sovereign/NN | not_afraid_eased | I'm all right, and nobody's talked me out of it since you talked me into it.
 puppet_sovereign/NN | joined_lead | Pardon me; nobody tells me much, so I've learned to listen, and I heard you.
 puppet_sovereign/NN | joined_lead | It isn't often I get to be useful, so you'll forgive me stepping in.
+
+# ---- puppet_sovereign/NN: news (contract version 11) ----
+puppet_sovereign/NN | heard_deed | I'm told you {deed}, and I don't question what I'm told.
+puppet_sovereign/NN | heard_deed | Nobody tells me much, but I did hear you {deed}.
+puppet_sovereign/NN | heard_deed | The account I was given says you {deed}.
+puppet_sovereign/NN | news | It's been put to me that {news}.
+puppet_sovereign/NN | news | I only repeat what I'm given: {news}.
+puppet_sovereign/NN | news | It's not for me to judge, but I hear {news}.

@@ -1270,3 +1270,75 @@ post:clerk | greeted_eased | Good to see you; the words sit still on the page no
 post:clerk | not_afraid_eased | I'm all right; you filed my thoughts back where they belong.
 post:clerk | joined_lead | Pardon the interruption; I took down what you asked, in my head if not on paper.
 post:clerk | joined_lead | Forgive the ink on my hands; I heard you asking.
+
+# ---- post:storekeeper: news (contract version 11) ----
+post:storekeeper | heard_deed | So it was you who {deed}; I'll store that away with the rest.
+post:storekeeper | heard_deed | It's said you {deed}; I'd not know, I'm indoors all day.
+post:storekeeper | heard_deed | I hear you {deed}; I'd sooner talk about mould, but there it is.
+post:storekeeper | news | Whoever comes in for stores brings some talk, and I heard {news}.
+post:storekeeper | news | I'll pass it on the way I had it: {news}.
+post:storekeeper | news | Nothing keeps like a rumour, and I'm told {news}.
+
+# ---- post:porter: news (contract version 11) ----
+post:porter | heard_deed | Hm, you {deed}, I hear; I don't ask more than that.
+post:porter | heard_deed | Somebody said it was you who {deed}; I only carry what I'm told.
+post:porter | heard_deed | You {deed}, so they say; it's nothing off my shoulders either way.
+post:porter | news | I hear things while I lift, and I heard {news}.
+post:porter | news | Nobody tells a {post} much, but they tell me {news}.
+post:porter | news | Right, I'll set it down plain: they say {news}.
+
+# ---- post:merchant: news (contract version 11) ----
+post:merchant | heard_deed | Ah, they say it's you who {deed}; I like to know who I'm dealing with.
+post:merchant | heard_deed | You {deed}, I'm told, and I never let a bit of talk go to waste.
+post:merchant | heard_deed | I hear you {deed}; a trader keeps an ear to everything.
+post:merchant | news | I'll throw this in for you: I'm told {news}.
+post:merchant | news | In between customers, I heard that {news}.
+post:merchant | news | They're saying {news}; I'll not haggle over whether it's true.
+
+# ---- post:market_steward: news (contract version 11) ----
+post:market_steward | heard_deed | So it was you who {deed}; I keep order, not score.
+post:market_steward | heard_deed | They say you {deed}; I'll not shout it about, I've enough to shout already.
+post:market_steward | heard_deed | You {deed}, I'm told; that's for the gossips, and I've stalls to see to.
+post:market_steward | news | For all the racket, I still heard that {news}.
+post:market_steward | news | Listen, I'm told {news}.
+post:market_steward | news | I hear most things that pass through a market, and I've heard {news}.
+
+# ---- post:cargo_clerk: news (contract version 11) ----
+post:cargo_clerk | heard_deed | By the sound of it, you're the one who {deed}; I'll not weigh in on it.
+post:cargo_clerk | heard_deed | The talk is you {deed}; I've entered it, and that's the end of my part.
+post:cargo_clerk | heard_deed | You {deed}, I'm told, though hearsay never quite balances.
+post:cargo_clerk | news | I take talk at its weight, and I'm told {news}.
+post:cargo_clerk | news | Not checked, mind, but they say {news}.
+post:cargo_clerk | news | Here's one I've not weighed yet: {news}.
+
+# ---- post:fuel_handler: news (contract version 11) ----
+post:fuel_handler | heard_deed | Between coughs, I heard you {deed}.
+post:fuel_handler | heard_deed | Ah, it was you who {deed}; I've not the breath to ask more.
+post:fuel_handler | heard_deed | I'm told you {deed}; I'll mull it over while I shovel.
+post:fuel_handler | news | I'd not swear to it through all this dust, but I'm told {news}.
+post:fuel_handler | news | Hm, they're saying {news}, if my ears aren't full of soot.
+post:fuel_handler | news | It came to me over the stacks that {news}.
+
+# ---- post:toll_clerk: news (contract version 11) ----
+post:toll_clerk | heard_deed | Right, it was you who {deed}; noted, and that's that.
+post:toll_clerk | heard_deed | They say you {deed}; I only care whether you're coming or going.
+post:toll_clerk | heard_deed | I hear you {deed}; I count carts, not deeds.
+post:toll_clerk | news | Nobody passes without a word or two, and I'm told {news}.
+post:toll_clerk | news | Now then, quick, the line's waiting: they say {news}.
+post:toll_clerk | news | I'm told {news}; next.
+
+# ---- post:treasurer: news (contract version 11) ----
+post:treasurer | heard_deed | If I have it correctly, it was you who {deed}; I shall reserve my opinion.
+post:treasurer | heard_deed | You {deed}, I am told; I shall keep that to myself.
+post:treasurer | heard_deed | So you {deed}; it is noted, and it will stay noted.
+post:treasurer | news | I am given to understand that {news}.
+post:treasurer | news | Without embellishment, the report is that {news}.
+post:treasurer | news | It is not my habit to repeat talk, but I am told {news}.
+
+# ---- post:clerk: news (contract version 11) ----
+post:clerk | heard_deed | Unless I've misread it, you're the one who {deed}.
+post:clerk | heard_deed | So you {deed}; I'd want it in writing, but I'll take it for now.
+post:clerk | heard_deed | They say you {deed}; I've added it to the pile, for what that's worth.
+post:clerk | news | It's not on file yet, but I heard {news}.
+post:clerk | news | For the record, they say {news}.
+post:clerk | news | Nothing I've copied says so, but I'm told {news}.

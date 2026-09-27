@@ -625,3 +625,11 @@ forgiving/NN | greeted_eased | Hello again. I'm carrying less than when you foun
 forgiving/NN | not_afraid_eased | There's no need; you helped me set the fear down, and I've not picked it back up.
 forgiving/NN | joined_lead | Forgive me listening in; I'd forgive you the same.
 forgiving/NN | joined_lead | Not to pry, but I heard that, and you can remember who told you.
+
+# ---- forgiving/NN: news (contract version 11) ----
+forgiving/NN | heard_deed | I hear you {deed}, and I'll remember it, as I remember everything.
+forgiving/NN | heard_deed | So it was you who {deed}; I'll not count it for or against you.
+forgiving/NN | heard_deed | You {deed}, I'm told; I keep no grudges and hand out no garlands.
+forgiving/NN | news | I'll say it plain and let it be: {news}.
+forgiving/NN | news | I'm passing it on straight, as I heard it: {news}.
+forgiving/NN | news | One thing I've heard is that {news}.

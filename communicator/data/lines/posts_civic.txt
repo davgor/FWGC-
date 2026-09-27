@@ -845,3 +845,46 @@ post:scribe | greeted_eased | Good to see you. The nib's steady in my fingers no
 post:scribe | not_afraid_eased | I'm all right, thanks to you; my lines have run straight since.
 post:scribe | joined_lead | My ears are as busy as my pen, and they caught that.
 post:scribe | joined_lead | I heard, and for once I'd rather speak than copy.
+
+# ---- post:administrator: news (contract version 11) ----
+post:administrator | heard_deed | Ah, you {deed}, I understand; I've no column for that, so it's no business of mine.
+post:administrator | heard_deed | I'm informed you {deed}; I'll believe it when I see it in writing.
+post:administrator | heard_deed | You're the one who {deed}, if what crosses this desk is right.
+post:administrator | news | For your information, and unconfirmed, {news}.
+post:administrator | news | It's come across my desk that {news}, and it's not my office to say more.
+post:administrator | news | Can you confirm that {news}, or do I strike it from the pile?
+# ---- post:court_clerk: news (contract version 11) ----
+post:court_clerk | heard_deed | Let the record show you're the one who {deed}, exactly as reported.
+post:court_clerk | heard_deed | I have it that you {deed}; taken down as said, and not a word added.
+post:court_clerk | heard_deed | You {deed}, did you, and would you care to say so for the record?
+post:court_clerk | news | I'll read back what I have: {news}.
+post:court_clerk | news | It's been said in my hearing that {news}, and I'd swear to the words if not the truth of them.
+post:court_clerk | news | Is it true {news}, or shall I enter it as hearsay?
+# ---- post:magistrate: news (contract version 11) ----
+post:magistrate | heard_deed | It's put about that you {deed}; I'll pass no judgement on it off the bench.
+post:magistrate | heard_deed | You're the one who {deed}, I'm told, and I weigh that as I weigh everything, without favour.
+post:magistrate | heard_deed | Are you the one who {deed}, or has rumour got the wrong party?
+post:magistrate | news | The account I have is that {news}, and I'll not go beyond the account.
+post:magistrate | news | It's said that {news}; hearsay, until someone swears to it.
+post:magistrate | news | Is it true {news}, and would you say so under oath?
+# ---- post:teacher: news (contract version 11) ----
+post:teacher | heard_deed | So you're the one who {deed}; I'll not give you marks for it either way.
+post:teacher | heard_deed | They say you {deed}; I'll hear your side of it before I believe a word.
+post:teacher | heard_deed | You {deed}, did you; you can tell me the rest when I've finished marking.
+post:teacher | news | Here's something that isn't in any lesson: {news}.
+post:teacher | news | I'm told {news}; I've heard too many tall tales from the back row to take it on trust.
+post:teacher | news | If I've understood it rightly, {news}, and I usually do.
+# ---- post:librarian: news (contract version 11) ----
+post:librarian | heard_deed | If I have it right, you're the one who {deed}; I've read stranger stories than that.
+post:librarian | heard_deed | They say you {deed}; I'll shelve that with the unconfirmed for now.
+post:librarian | heard_deed | I hear you {deed}; if you mean to tell it, tell it softly.
+post:librarian | news | Keep this to a whisper, but I'm told {news}.
+post:librarian | news | No book of mine has it, but the talk is that {news}.
+post:librarian | news | Unless somebody's misshelved the tale, {news}.
+# ---- post:scribe: news (contract version 11) ----
+post:scribe | heard_deed | So it was you who {deed}; I'd put the pen down, but the ink's wet.
+post:scribe | heard_deed | The way I heard it, you {deed}, and I'd not change a letter of it.
+post:scribe | heard_deed | You {deed}, did you; I'll not copy that out without a signature.
+post:scribe | news | Mind the desk while I tell you: {news}.
+post:scribe | news | They're saying {news}; I copy, I don't comment.
+post:scribe | news | It's down in my hand that {news}, and there it stays till someone corrects it.

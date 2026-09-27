@@ -507,3 +507,11 @@ malevolent_benevolent/NN | greeted_eased | Good day. Make what you like of how y
 malevolent_benevolent/NN | not_afraid_eased | I'm all right, and you've my straight word on it, with thanks for the steadying.
 malevolent_benevolent/NN | joined_lead | Whether you trust me or not, I heard, and it's worth telling.
 malevolent_benevolent/NN | joined_lead | I came over because I heard; judge me by the answer.
+
+# ---- malevolent_benevolent/NN: news (contract version 11) ----
+malevolent_benevolent/NN | heard_deed | They tell me you {deed}; what I make of it is my own affair.
+malevolent_benevolent/NN | heard_deed | I'll not pretend I haven't heard: you {deed}.
+malevolent_benevolent/NN | heard_deed | Did I hear right, that you {deed}?
+malevolent_benevolent/NN | news | Make of it what you will, but they're saying {news}.
+malevolent_benevolent/NN | news | Whatever you think of me, this is what I heard: {news}.
+malevolent_benevolent/NN | news | I heard {news}; I'll tell it no kinder or harder than that.

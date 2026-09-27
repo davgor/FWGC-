@@ -863,3 +863,11 @@ deceiver/NN | greeted_eased | Hello again. What you said worked, and it's held.
 deceiver/NN | not_afraid_eased | I'm fine; you've done that once, and it stuck.
 deceiver/NN | joined_lead | Couldn't help overhearing, and it's no skin off my nose to answer.
 deceiver/NN | joined_lead | Forgive me stepping in; I overheard, and a plain answer's worth giving.
+
+# ---- deceiver/NN: news (contract version 11) ----
+deceiver/NN | heard_deed | Is it true you {deed}, or is someone spinning me a tale?
+deceiver/NN | heard_deed | So it was you who {deed}, if the talk's straight.
+deceiver/NN | heard_deed | You {deed}, then; it's always worth knowing who I'm dealing with.
+deceiver/NN | news | I'd not swear to it, but I hear {news}.
+deceiver/NN | news | As far as talk goes, {news}.
+deceiver/NN | news | I only know what's said, and what's said is that {news}.

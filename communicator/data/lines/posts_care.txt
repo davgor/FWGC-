@@ -1401,3 +1401,74 @@ post:sanitation_worker | greeted_eased | Back again, and steadier than you left 
 post:sanitation_worker | not_afraid_eased | I'm fine; you sorted me out once, and I'm not one to need it twice.
 post:sanitation_worker | joined_lead | I'll not stand too close, but I heard you, and I'd not keep it to myself.
 post:sanitation_worker | joined_lead | Wait a moment; you were asking, and plain words are the only kind I've got.
+
+# ---- post:caretaker: news (contract version 11) ----
+post:caretaker | heard_deed | You'd be the one who {deed}, then; mind the floor all the same.
+post:caretaker | heard_deed | Unless I'm mistaken, you {deed}; I only keep the place, so I'll leave it there.
+post:caretaker | heard_deed | I hear you {deed}, though nobody tells the one with the broom much.
+post:caretaker | news | Somebody said {news}; whatever it means, the floors still want sweeping.
+post:caretaker | news | Did I hear right that {news}, or was that the bucket clanking?
+post:caretaker | news | The talk that gets tracked in with the mud is that {news}.
+# ---- post:officiant: news (contract version 11) ----
+post:officiant | heard_deed | You are the one who {deed}, I am told, and I will not embroider on it.
+post:officiant | heard_deed | So it was you who {deed}; it is good to put a face to what one hears.
+post:officiant | heard_deed | It is said that you {deed}; you will be in my prayers, as all who pass this door are.
+post:officiant | news | I am told {news}, and I light a candle for tidings good or ill.
+post:officiant | news | It has come to this house that {news}.
+post:officiant | news | They tell me {news}; I give it to you as it was given to me, and no more.
+# ---- post:groundskeeper: news (contract version 11) ----
+post:groundskeeper | heard_deed | So you're the one who {deed}; well, you're upright, and that's all I ask of anyone.
+post:groundskeeper | heard_deed | From what I hear, you {deed}; the stones don't care, and I try not to either.
+post:groundskeeper | heard_deed | Somebody said you {deed}; not that my lot will be passing it on.
+post:groundskeeper | news | The dead keep their own counsel, but the living tell me {news}.
+post:groundskeeper | news | Is it true {news}, or is that just graveside talk?
+post:groundskeeper | news | They're saying {news}, and the grass grows all the same.
+# ---- post:care_assistant: news (contract version 11) ----
+post:care_assistant | heard_deed | You're the one who {deed}, aren't you, or have I got you mixed up with a patient?
+post:care_assistant | heard_deed | I'm told you {deed}; I'd stop and hear it all, but the basins won't empty themselves.
+post:care_assistant | heard_deed | You must be the one who {deed}; you'll not mind if I keep folding sheets while you stand there.
+post:care_assistant | news | Now, quickly, before I'm called away: {news}, so they say.
+post:care_assistant | news | I heard {news}, but don't ask me more; I've been on my feet since I don't know when.
+post:care_assistant | news | For what it's worth, {news}, though everything grows in the telling on a ward.
+# ---- post:healer: news (contract version 11) ----
+post:healer | heard_deed | So you're the one who {deed}; I don't care what you did, only whether you're bleeding.
+post:healer | heard_deed | The way I heard it, you {deed}; I don't ask about what I can't treat.
+post:healer | heard_deed | I'm told you {deed}; you look sound enough, and that's the only verdict I give.
+post:healer | news | They tell me {news}; I know bodies, not news, so that's the whole of it.
+post:healer | news | Is it true {news}, or is somebody's fever talking?
+post:healer | news | Somebody said {news}, and I'll not dress it up for you.
+# ---- post:apothecary: news (contract version 11) ----
+post:apothecary | heard_deed | They say you {deed}; I'd not vouch for a grain more than that.
+post:apothecary | heard_deed | You're the one who {deed}, unless I've mislabelled you.
+post:apothecary | heard_deed | So you {deed}; I don't weigh deeds, only doses.
+post:apothecary | news | It's secondhand, and I'd not bottle it, but {news}.
+post:apothecary | news | To be exact, what I heard was that {news}.
+post:apothecary | news | Did I hear right that {news}, or has someone mixed their measures?
+# ---- post:herbalist: news (contract version 11) ----
+post:herbalist | heard_deed | So it's you who {deed}; I know leaves better than people, so I'll not pretend to more.
+post:herbalist | heard_deed | They say you {deed}; I'll let that soak in, like water into the beds.
+post:herbalist | heard_deed | You {deed}, did you; not much reaches me down among the seedlings, but that has.
+post:herbalist | news | I've heard {news}; I'll mull it over among the beds.
+post:herbalist | news | Some say {news}; I only half listen, with my hands in the soil.
+post:herbalist | news | If the talk's to be believed, {news}, though talk sprouts faster than seedlings.
+# ---- post:researcher: news (contract version 11) ----
+post:researcher | heard_deed | By my notes, you {deed}, though I've not tested it.
+post:researcher | heard_deed | I gather you're the one who {deed}; I'll not speculate on why, not out loud.
+post:researcher | heard_deed | It seems you {deed}; interesting, though I'd want to know how before I called it anything more.
+post:researcher | news | I've heard it said that {news}, and I've no evidence either way.
+post:researcher | news | It's reported that {news}; I've noted it, with a question mark.
+post:researcher | news | Has anyone confirmed that {news}, or is it a result nobody's repeated?
+# ---- post:astronomer: news (contract version 11) ----
+post:astronomer | heard_deed | So you're the one who {deed}; forgive me if I make little of it, my head's still up in the sky.
+post:astronomer | heard_deed | It seems you {deed}; news does climb this high, now and then.
+post:astronomer | heard_deed | I'm told you {deed}, and I'm awake enough to have taken it in, just about.
+post:astronomer | news | Down here, I'm told, {news}.
+post:astronomer | news | Either I dreamt it between charts, or {news}.
+post:astronomer | news | I rarely look this low, but I did catch that {news}.
+# ---- post:sanitation_worker: news (contract version 11) ----
+post:sanitation_worker | heard_deed | Was it you who {deed}, or have the fumes got to me at last?
+post:sanitation_worker | heard_deed | They say you {deed}; I don't hold with gossip, but I don't stop my ears either.
+post:sanitation_worker | heard_deed | All sorts finds its way to me, muck and news alike, and I hear you {deed}.
+post:sanitation_worker | news | Take it as you find it, same as I do the muck: {news}.
+post:sanitation_worker | news | Not that it's any of mine, but {news}, if nobody's talking rubbish.
+post:sanitation_worker | news | Somebody said {news}; that's about the size of it.

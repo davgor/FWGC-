@@ -882,3 +882,11 @@ fractured_heart/NN | greeted_eased | Well met again. You did me a good turn when
 fractured_heart/NN | not_afraid_eased | I'm all right; you put me square, and I've stayed that way.
 fractured_heart/NN | joined_lead | I heard, and you'll have it plain.
 fractured_heart/NN | joined_lead | It's only fair I speak up, since I overheard.
+
+# ---- fractured_heart/NN: news (contract version 11) ----
+fractured_heart/NN | heard_deed | So you {deed}; I'll keep it in mind, whichever mind that is.
+fractured_heart/NN | heard_deed | You're the one who {deed}, then; I'll try to hold on to that for both of us.
+fractured_heart/NN | heard_deed | Are you the one who {deed}, or is that someone else I'm thinking of?
+fractured_heart/NN | news | I heard {news}, unless that was the other one of us.
+fractured_heart/NN | news | Today, at least, I remember hearing {news}.
+fractured_heart/NN | news | What I heard was that {news}.

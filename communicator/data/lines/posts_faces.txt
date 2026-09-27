@@ -1640,3 +1640,91 @@ post:dread | greeted_eased | Welcome back. My temper is quiet now, thanks to you
 post:dread | not_afraid_eased | There's no need; I am calm, and you have already had the privilege of calming me.
 post:dread | joined_lead | Whatever is said near me, I hear, and I heard you.
 post:dread | joined_lead | Do not flinch; I only overheard you, and I will answer.
+
+# ---- post:sovereign: news (contract version 11) ----
+post:sovereign | heard_deed | And here stands the one who {deed}; I make it my concern to know such things.
+post:sovereign | heard_deed | It has come to me that you {deed}, as most things do in the end.
+post:sovereign | heard_deed | I am told you {deed}, and I am told a great deal.
+post:sovereign | news | It is reported to me that {news}.
+post:sovereign | news | Nothing escapes the {post} of {place} for long, and I am told {news}.
+post:sovereign | news | This has come before me: {news}.
+
+# ---- post:champion: news (contract version 11) ----
+post:champion | heard_deed | Now then, it was you who {deed}; I'll want the whole story one day.
+post:champion | heard_deed | You {deed}, I hear, and I've a mind to know what you're made of.
+post:champion | heard_deed | So you {deed}, did you?
+post:champion | news | I'll tell you what I heard: {news}.
+post:champion | news | Between bouts, I heard that {news}.
+post:champion | news | Here's one for you, straight as I had it: {news}.
+
+# ---- post:pretender: news (contract version 11) ----
+post:pretender | heard_deed | So you {deed}; I like to know what a person has done before I take their measure.
+post:pretender | heard_deed | I hear it was you who {deed}; I'd hear it from your own lips, when you've the time.
+post:pretender | heard_deed | You {deed}, I'm told, and I keep a close account of who does what.
+post:pretender | news | I make a point of hearing things, and I hear that {news}.
+post:pretender | news | Here is what I've gathered: {news}.
+post:pretender | news | Every piece of news has its uses, and I'm told {news}.
+
+# ---- post:domain_holder: news (contract version 11) ----
+post:domain_holder | heard_deed | Aye, you'd be the one who {deed}; talk finds its way to me, like water to a ditch.
+post:domain_holder | heard_deed | They say you {deed}; I'll judge that the way I judge a field, by what grows from it.
+post:domain_holder | heard_deed | I hear you {deed}; it'll stand in my mind like a boundary stone.
+post:domain_holder | news | I hear tell that {news}.
+post:domain_holder | news | I keep my ear to the ground, and the ground says {news}.
+post:domain_holder | news | Aye, and I'm told {news}, plain as I heard it.
+
+# ---- post:magister: news (contract version 11) ----
+post:magister | heard_deed | You {deed}, if my information is correct, and it generally is.
+post:magister | heard_deed | It was you, then, who {deed}; a detail for the margins.
+post:magister | heard_deed | I am told you {deed}; I shall consider it at leisure.
+post:magister | news | I have it on good authority that {news}.
+post:magister | news | It has come to my attention that {news}, which is not without interest.
+post:magister | news | Among the less trivial things I have heard: {news}.
+
+# ---- post:charcoal burner: news (contract version 11) ----
+post:charcoal burner | heard_deed | Hm, you'll be the one who {deed}; talk reaches even this far into the woods.
+post:charcoal burner | heard_deed | Aye, I heard you {deed}; I'll not make a fuss of it, I've a clamp to watch.
+post:charcoal burner | heard_deed | They say you {deed}, and that's as much as I know or want to.
+post:charcoal burner | news | Even over the crackle I heard that {news}.
+post:charcoal burner | news | Aye, and there's talk that {news}; make of it what you like.
+post:charcoal burner | news | I've only the fire for company, but I'm told {news}.
+
+# ---- post:hermit: news (contract version 11) ----
+post:hermit | heard_deed | So you {deed}; even I heard, and I hear little.
+post:hermit | heard_deed | They say it was you who {deed}; I've no more to say on it.
+post:hermit | heard_deed | You {deed}, I'm told; don't expect me to make anything of it.
+post:hermit | news | It reached me, unasked, that {news}.
+post:hermit | news | They say {news}, and they can go on saying it somewhere else.
+post:hermit | news | I heard, much against my will, that {news}.
+
+# ---- post:shepherd: news (contract version 11) ----
+post:shepherd | heard_deed | You must be the one who {deed}; word gets about, same as a stray does.
+post:shepherd | heard_deed | They tell me you {deed}; I'll turn that over on the hill.
+post:shepherd | heard_deed | Aye, I heard you {deed}; I'll not bleat on about it.
+post:shepherd | news | The ewes don't gossip, but folk do, and I hear {news}.
+post:shepherd | news | Out at the fold, I heard {news}.
+post:shepherd | news | Aye, and here's what I'm told: {news}.
+
+# ---- post:pilgrim: news (contract version 11) ----
+post:pilgrim | heard_deed | So it was you who {deed}; I'll leave the judging of it to higher hands than mine.
+post:pilgrim | heard_deed | They tell me you {deed}; I'll hold it gently, as I hold all I hear.
+post:pilgrim | heard_deed | You {deed}, I hear; I'll not ask more than you'd tell.
+post:pilgrim | news | I heard on my way that {news}.
+post:pilgrim | news | Every soul has news for a {post}, and I'm told {news}.
+post:pilgrim | news | It's said that {news}; may it be rightly told.
+
+# ---- post:midwife: news (contract version 11) ----
+post:midwife | heard_deed | So you {deed}; well, I've heard odder things at a bedside.
+post:midwife | heard_deed | They tell me it was you who {deed}; I'll not make a to-do about it.
+post:midwife | heard_deed | You {deed}, I'm told, and that's all I'll say on it.
+post:midwife | news | I've no time for gossip, but I'm told {news}.
+post:midwife | news | Mind, they're saying {news}; I only pass it on.
+post:midwife | news | Everyone talks while they wait on a baby, and I heard {news}.
+
+# ---- post:dread: news (contract version 11) ----
+post:dread | heard_deed | Ah, the one who {deed}; you have my attention now.
+post:dread | heard_deed | They whisper that you {deed}, and I always listen to whispers.
+post:dread | heard_deed | I heard you {deed}; do tell me how it felt.
+post:dread | news | Come closer, and hear what reached me: {news}.
+post:dread | news | I hear that {news}; how delicious it is, to hear things.
+post:dread | news | Let me share a little of what I know: {news}.

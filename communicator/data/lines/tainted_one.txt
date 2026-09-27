@@ -625,3 +625,11 @@ tainted_one/NN | greeted_eased | Hello again. My count holds now, and I've marke
 tainted_one/NN | not_afraid_eased | There's no need; you've done your part, and I've kept steady since.
 tainted_one/NN | joined_lead | Pardon me for coming close; I heard you, and I'll keep this short.
 tainted_one/NN | joined_lead | I'll keep a pace off, if you don't mind; I heard you from where I was.
+
+# ---- tainted_one/NN: news (contract version 11) ----
+tainted_one/NN | heard_deed | You {deed}, I hear, and I'll not speak for it or against it.
+tainted_one/NN | heard_deed | I keep my distance from most talk, but I'm told you {deed}.
+tainted_one/NN | heard_deed | Is it true you {deed}, or has the telling grown in the carrying?
+tainted_one/NN | news | I'll keep to what I heard, and no further: {news}.
+tainted_one/NN | news | I've no stake in it either way, but they're saying {news}.
+tainted_one/NN | news | I'm told {news}; that's the whole of what I have.

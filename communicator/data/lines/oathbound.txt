@@ -979,3 +979,11 @@ oathbound/NN | greeted_eased | Good day. I'm as steady as my word again, and you
 oathbound/NN | not_afraid_eased | There's no need; one debt to you is all I care to carry, and I'm steady without another.
 oathbound/NN | joined_lead | Pardon me, but I heard you, and what I know is mine to give.
 oathbound/NN | joined_lead | Forgive me; I'll not pretend I didn't hear you.
+
+# ---- oathbound/NN: news (contract version 11) ----
+oathbound/NN | heard_deed | I'll not swear to it, but I hear you {deed}.
+oathbound/NN | heard_deed | You {deed}, they tell me, and I keep count of such things.
+oathbound/NN | heard_deed | Is it true you {deed}, on your word?
+oathbound/NN | news | I'll not vouch for more than the hearing of it: {news}.
+oathbound/NN | news | I'm told {news}; that's all I'll put my word to.
+oathbound/NN | news | This much has reached me, no more and no less: {news}.

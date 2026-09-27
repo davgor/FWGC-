@@ -743,3 +743,11 @@ knight_errant/NN | greeted_eased | Good day. I'm sound again, and I've put a fav
 knight_errant/NN | not_afraid_eased | I'm fine; my hands have kept still since you steadied them.
 knight_errant/NN | joined_lead | I'll lend what I know; I couldn't help but hear.
 knight_errant/NN | joined_lead | Nobody asked me, but I heard, so call it a favour.
+
+# ---- knight_errant/NN: news (contract version 11) ----
+knight_errant/NN | heard_deed | You {deed}, they tell me; I'll judge the deed when I know the cause.
+knight_errant/NN | heard_deed | Then it was you who {deed}; I'd want the whole account before I weigh it.
+knight_errant/NN | heard_deed | I hear you {deed}; I keep count of such things, whoever does them.
+knight_errant/NN | news | I lend hearsay no more weight than it's due, and I heard {news}.
+knight_errant/NN | news | Here's how it was told to me: {news}.
+knight_errant/NN | news | Whatever the cause behind it, {news}.

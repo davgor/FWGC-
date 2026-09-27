@@ -979,3 +979,11 @@ reluctant_hero/NN | greeted_eased | Good to see you. Somebody had to talk sense 
 reluctant_hero/NN | not_afraid_eased | I'm fine, just tired, and you've done enough for me already.
 reluctant_hero/NN | joined_lead | Pardon me; I'd rather not get involved, but I heard you, and here I am.
 reluctant_hero/NN | joined_lead | I can never walk past once I've heard something, more's the pity.
+
+# ---- reluctant_hero/NN: news (contract version 11) ----
+reluctant_hero/NN | heard_deed | So you {deed}; better you than me.
+reluctant_hero/NN | heard_deed | I hear you {deed}, and I'm too tired to make much of it either way.
+reluctant_hero/NN | heard_deed | You {deed}, is that right, or have I got it muddled?
+reluctant_hero/NN | news | Not that I went looking for it, but I hear {news}.
+reluctant_hero/NN | news | Here's the latest, for my sins: {news}.
+reluctant_hero/NN | news | I hear {news}; don't ask me for more than that.

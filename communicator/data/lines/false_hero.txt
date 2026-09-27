@@ -392,3 +392,11 @@ false_hero/NN | greeted_eased | Good day. I'd back myself again, and I know who 
 false_hero/NN | not_afraid_eased | I'm all right; the nerve you lent me has held better than most bargains.
 false_hero/NN | joined_lead | Since you asked in my hearing, I'd wager I can help.
 false_hero/NN | joined_lead | Well, I heard you, and a word from me comes cheap.
+
+# ---- false_hero/NN: news (contract version 11) ----
+false_hero/NN | heard_deed | You {deed}, so they say, and I'm not one to argue with a story.
+false_hero/NN | heard_deed | So it's you who {deed}; whatever they make of it, make it work for you.
+false_hero/NN | heard_deed | Are you the one who {deed}, or have I got the wrong face?
+false_hero/NN | news | The story as I had it is that {news}.
+false_hero/NN | news | Take it or leave it: {news}.
+false_hero/NN | news | I'll tell it plain, which is more than most do: {news}.

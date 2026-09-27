@@ -205,3 +205,11 @@ post:innkeeper | greeted_eased | Hello again, and bless you for last time. I'm b
 post:innkeeper | not_afraid_eased | There's no need, but it's kind of you; you set me right before, and I've stayed right.
 post:innkeeper | joined_lead | Forgive me for listening in; keeping an ear open is half of keeping an inn.
 post:innkeeper | joined_lead | Don't mind me stepping in; I heard you, and in my trade you learn to answer before you're asked.
+
+# ---- post:innkeeper: news (contract version 11) ----
+post:innkeeper | heard_deed | Well, I never; you're the one who {deed}, aren't you?
+post:innkeeper | heard_deed | In my trade you hear everything, and I heard you {deed}.
+post:innkeeper | heard_deed | And to think it was you who {deed}; well, you learn something every day.
+post:innkeeper | news | Now, I don't like to gossip, but {news}.
+post:innkeeper | news | Mind, I only tell it as I heard it: {news}.
+post:innkeeper | news | Tell me, is it true that {news}?

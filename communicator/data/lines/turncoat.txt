@@ -507,3 +507,11 @@ turncoat/NN | greeted_eased | Welcome back. I'm on firmer footing, and I remembe
 turncoat/NN | not_afraid_eased | I'm fine; since you talked me through it, it all adds up.
 turncoat/NN | joined_lead | Don't mind me; keeping an ear on everyone is how I stay on the right side of things.
 turncoat/NN | joined_lead | Your voice carried, and I make a point of knowing where things stand.
+
+# ---- turncoat/NN: news (contract version 11) ----
+turncoat/NN | heard_deed | So you {deed}; I like to know where people stand.
+turncoat/NN | heard_deed | You {deed}, I hear, and I'll decide later which column that goes in.
+turncoat/NN | heard_deed | Whatever side you're on, I hear you {deed}.
+turncoat/NN | news | Here's how things lie, as I hear it: {news}.
+turncoat/NN | news | Nothing stays put, and what I hear now is that {news}.
+turncoat/NN | news | I'm told {news}; I'll believe it till I hear different.

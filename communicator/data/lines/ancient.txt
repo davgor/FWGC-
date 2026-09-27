@@ -389,3 +389,11 @@ ancient/NN | greeted_eased | Well met again. You spent time steadying me, and it
 ancient/NN | not_afraid_eased | I'm all right; fear's a poor use of time, and I've stopped spending mine on it, thanks to you.
 ancient/NN | joined_lead | I've time to listen, and I heard what you asked.
 ancient/NN | joined_lead | I don't rush into other people's talk, but I heard you, and it seemed worth the walk over.
+
+# ---- ancient/NN: news (contract version 11) ----
+ancient/NN | heard_deed | So you {deed}; tell it me in your own time, if you tell it at all.
+ancient/NN | heard_deed | You {deed}, I hear, and I keep count of such things.
+ancient/NN | heard_deed | Was it you who {deed}, or has the telling run ahead of the deed?
+ancient/NN | news | There's always something, and this time it's that {news}.
+ancient/NN | news | I heard {news}, and I'll weigh it when I'm ready.
+ancient/NN | news | No need to hurry over it, but they tell me {news}.

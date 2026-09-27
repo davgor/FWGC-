@@ -861,3 +861,11 @@ rebel/NN | greeted_eased | Well met again. Head up, back straight, and some of t
 rebel/NN | not_afraid_eased | I'm all right; I stand on my own now, and I've not forgotten who stood by me.
 rebel/NN | joined_lead | Pardon the interruption; I don't wait to be called on.
 rebel/NN | joined_lead | I heard that, and I never did know how to keep my head down.
+
+# ---- rebel/NN: news (contract version 11) ----
+rebel/NN | heard_deed | I'll say it straight: they tell me you {deed}.
+rebel/NN | heard_deed | You {deed}, I hear, and I'll make up my own mind about it.
+rebel/NN | heard_deed | I'd rather hear it from you than from gossip: is it true you {deed}?
+rebel/NN | news | If it's any use to you, I hear {news}.
+rebel/NN | news | I don't wait for leave to say it: {news}.
+rebel/NN | news | They're saying {news}; I'll not pretend otherwise.

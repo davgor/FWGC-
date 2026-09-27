@@ -743,3 +743,11 @@ broken_soul/NN | greeted_eased | Good day. One breath, then the next, and I'm on
 broken_soul/NN | not_afraid_eased | There's no need; you steadied me once, and I'm keeping it that way.
 broken_soul/NN | joined_lead | Your question carried, and I'll tell you plain.
 broken_soul/NN | joined_lead | Forgive me for cutting in; I heard you, and I'll say my piece and go.
+
+# ---- broken_soul/NN: news (contract version 11) ----
+broken_soul/NN | heard_deed | So you {deed}; what's done is done, either way.
+broken_soul/NN | heard_deed | You're the one who {deed}, they tell me, plain and simple.
+broken_soul/NN | heard_deed | Is it true you {deed}, or is someone telling it wrong?
+broken_soul/NN | news | I heard {news}; take it or leave it.
+broken_soul/NN | news | I won't dress it up: {news}, or so I'm told.
+broken_soul/NN | news | Somebody said {news}, and I'll not dwell on it.

@@ -1353,3 +1353,83 @@ post:gate_captain | greeted_eased | Well met again. You steadied me, I'll grant 
 post:gate_captain | not_afraid_eased | I'm fine; you've done your part, and it held.
 post:gate_captain | joined_lead | I'm used to hearing every question at the gate, and yours carried.
 post:gate_captain | joined_lead | I'll cut in, if you don't mind; I heard what you asked.
+
+# ---- post:commander: news (contract version 11) ----
+post:commander | heard_deed | So you are the one who {deed}; I make it my business to know such things.
+post:commander | heard_deed | Tell me plainly: are you the one who {deed}?
+post:commander | heard_deed | It was you who {deed}, I am given to understand.
+post:commander | news | I will tell you what I have heard: {news}.
+post:commander | news | The report I have is that {news}.
+post:commander | news | Is it true, as I am told, that {news}?
+
+# ---- post:sergeant: news (contract version 11) ----
+post:sergeant | heard_deed | Right, so you're the one who {deed}, are you?
+post:sergeant | heard_deed | Hold still a moment; weren't you the one who {deed}?
+post:sergeant | heard_deed | I hear you {deed}; don't expect a fuss from me about it.
+post:sergeant | news | Here's one for you: {news}, or so they're saying.
+post:sergeant | news | There's talk that {news}, and talk's cheap, so make of it what you will.
+post:sergeant | news | And another thing: I hear {news}.
+
+# ---- post:garrison_officer: news (contract version 11) ----
+post:garrison_officer | heard_deed | For the record, I have it that you {deed}.
+post:garrison_officer | heard_deed | Would I be right in saying you're the one who {deed}?
+post:garrison_officer | heard_deed | You'd be the one who {deed}, then; so noted.
+post:garrison_officer | news | For your information, it's reported that {news}.
+post:garrison_officer | news | What I have is that {news}, and I won't speculate beyond it.
+post:garrison_officer | news | Can you confirm that {news}?
+
+# ---- post:quartermaster: news (contract version 11) ----
+post:quartermaster | heard_deed | By my tally, you're the one who {deed}.
+post:quartermaster | heard_deed | Was it you who {deed}, or has somebody miscounted?
+post:quartermaster | heard_deed | I'm told you {deed}, and I'll put it down with everything else.
+post:quartermaster | news | I don't stock hearsay, but this came in all the same: {news}.
+post:quartermaster | news | They say {news}, though I'll count it twice before I believe it.
+post:quartermaster | news | As near as I can count it, {news}.
+
+# ---- post:armorer: news (contract version 11) ----
+post:armorer | heard_deed | Hm, let me get a look at you; you're the one who {deed}?
+post:armorer | heard_deed | Was it you who {deed}, or am I hearing things over the hammer?
+post:armorer | heard_deed | I hear you {deed}, and I've a rivet to set, so that's all I'll say on it.
+post:armorer | news | One more thing before I get back to the bench: I hear {news}.
+post:armorer | news | They're saying {news}, though I'd want it tested like new mail before I trusted it.
+post:armorer | news | Tell me straight, is it true {news}?
+
+# ---- post:equipment_keeper: news (contract version 11) ----
+post:equipment_keeper | heard_deed | So you're the one who {deed}; I'd wondered who that was.
+post:equipment_keeper | heard_deed | If nothing's alight, tell me: are you the one who {deed}?
+post:equipment_keeper | heard_deed | I'm told you {deed}, and I've one eye on the hearth while I say it.
+post:equipment_keeper | news | I keep my ears open as well as my buckets full, and I hear {news}.
+post:equipment_keeper | news | Here's what I've heard, for what it's worth: {news}.
+post:equipment_keeper | news | Is it true {news}, or is it smoke and no fire?
+
+# ---- post:hall_attendant: news (contract version 11) ----
+post:hall_attendant | heard_deed | Oh, then you must be the one who {deed}.
+post:hall_attendant | heard_deed | Pardon me, but weren't you the one who {deed}?
+post:hall_attendant | heard_deed | I hear you {deed}; I pour, I don't pry, so I'll say no more.
+post:hall_attendant | news | I shouldn't repeat what I hear at table, but {news}.
+post:hall_attendant | news | Oh, and they say {news}, if you'll pardon the gossip.
+post:hall_attendant | news | I hope you don't mind my asking, but is it true {news}?
+
+# ---- post:chaplain: news (contract version 11) ----
+post:chaplain | heard_deed | So you are the one who {deed}; I will keep you in my prayers.
+post:chaplain | heard_deed | Forgive my asking, but are you the one who {deed}?
+post:chaplain | heard_deed | I am told you {deed}, and I will light a candle for you, as I do for all who come.
+post:chaplain | news | Even here, word finds its way to me: {news}.
+post:chaplain | news | They say {news}; I only pass it on, and leave the judging to heaven.
+post:chaplain | news | May I ask whether it is true that {news}?
+
+# ---- post:steward: news (contract version 11) ----
+post:steward | heard_deed | As I have it, you're the one who {deed}.
+post:steward | heard_deed | Do I understand rightly that you {deed}?
+post:steward | heard_deed | So it was you who {deed}; I like to know who I'm dealing with.
+post:steward | news | One more item, if you'll allow it: I'm told {news}.
+post:steward | news | They say {news}, and I keep my opinions on it to myself.
+post:steward | news | If my information is exact, {news}.
+
+# ---- post:gate_captain: news (contract version 11) ----
+post:gate_captain | heard_deed | You're the one who {deed}, then; I'll remember the face.
+post:gate_captain | heard_deed | Just so I know who's coming through: was it you who {deed}?
+post:gate_captain | heard_deed | I hear you {deed}; that's all you get from me on it.
+post:gate_captain | news | A gate hears everything in the end, and I hear {news}.
+post:gate_captain | news | I'll tell you what I'm told and no more: {news}.
+post:gate_captain | news | Mind you, they're saying {news}.

@@ -861,3 +861,11 @@ fallen_hero/NN | greeted_eased | Well met again. You caught me at a low moment, 
 fallen_hero/NN | not_afraid_eased | I'm fine; you've seen me at my worst once, and once is plenty.
 fallen_hero/NN | joined_lead | I don't do speeches, but I heard what you asked.
 fallen_hero/NN | joined_lead | Pardon me; I heard you, and I'll give it you straight.
+
+# ---- fallen_hero/NN: news (contract version 11) ----
+fallen_hero/NN | heard_deed | They tell me you {deed}; I believe about half of what they tell me.
+fallen_hero/NN | heard_deed | So you {deed}; I'll not be the one to make much of it.
+fallen_hero/NN | heard_deed | It's you who {deed}, is it?
+fallen_hero/NN | news | For what little my word's worth, {news}.
+fallen_hero/NN | news | Even I hear things, and I heard {news}.
+fallen_hero/NN | news | No speeches, just what I heard: {news}.

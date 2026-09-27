@@ -987,3 +987,11 @@ corrupt/NN | greeted_eased | Hello again. My head for business is back, and I kn
 corrupt/NN | not_afraid_eased | I'm fine now; you're already in credit with me for that kindness.
 corrupt/NN | joined_lead | Pardon me; I keep an ear open, it's good for business, and I heard what you asked.
 corrupt/NN | joined_lead | I couldn't help hearing, and this one I'll give you for nothing.
+
+# ---- corrupt/NN: news (contract version 11) ----
+corrupt/NN | heard_deed | So you {deed}; that goes on your account, one way or the other.
+corrupt/NN | heard_deed | Are you the one who {deed}, or has somebody been telling tales?
+corrupt/NN | heard_deed | You {deed}, I hear, and I'll put that in terms I can use.
+corrupt/NN | news | I'm not buying rumours, but this one came free: {news}.
+corrupt/NN | news | They're saying {news}; what it's worth depends on who's asking.
+corrupt/NN | news | I heard {news}, and I never throw talk away.

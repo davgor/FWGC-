@@ -392,3 +392,11 @@ inherited_hero/NN | greeted_eased | Welcome back. I've stopped counting breaths,
 inherited_hero/NN | not_afraid_eased | I'm all right; the effort you spent steadying me wasn't wasted.
 inherited_hero/NN | joined_lead | I was close enough to hear, and I'll not spend more words on it than it needs.
 inherited_hero/NN | joined_lead | A word, if I may; I heard, and I'll keep it straight.
+
+# ---- inherited_hero/NN: news (contract version 11) ----
+inherited_hero/NN | heard_deed | So you {deed}; it's on my tally now, whatever it comes to.
+inherited_hero/NN | heard_deed | The way I hear it, you {deed}; that doesn't move my aim, but I'll note it.
+inherited_hero/NN | heard_deed | Was it you who {deed}, then, or have I been handed the wrong name?
+inherited_hero/NN | news | I keep count of what I hear, and I heard {news}.
+inherited_hero/NN | news | No dressing it up: {news}.
+inherited_hero/NN | news | The last I heard, {news}.

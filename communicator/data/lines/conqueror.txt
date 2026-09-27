@@ -979,3 +979,11 @@ conqueror/NN | greeted_eased | Well met again. You found me in poor shape and le
 conqueror/NN | not_afraid_eased | I'm fine; you settled that account once, and it stays settled.
 conqueror/NN | joined_lead | Forgive the interruption; I caught what you asked, and an answer costs me nothing.
 conqueror/NN | joined_lead | I overheard, and I don't let a useful moment pass.
+
+# ---- conqueror/NN: news (contract version 11) ----
+conqueror/NN | heard_deed | So you {deed}; I'll weigh what that makes you worth to me.
+conqueror/NN | heard_deed | Tell me plainly: are you the one who {deed}?
+conqueror/NN | heard_deed | I hear you {deed}, and I make it my business to know who's doing what.
+conqueror/NN | news | Something for the reckoning: {news}, so they say.
+conqueror/NN | news | Somebody said {news}; talk is cheap until it proves out.
+conqueror/NN | news | Mind, I gather {news}, and I like to know how the ground lies.

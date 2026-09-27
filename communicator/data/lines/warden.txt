@@ -979,3 +979,11 @@ warden/NN | greeted_eased | Good day. Still here, and a good deal steadier, whic
 warden/NN | not_afraid_eased | There's no need; you did right by me before, and it's held.
 warden/NN | joined_lead | There's little said near my post that I miss, and I heard you.
 warden/NN | joined_lead | Couldn't help hearing, and I deal fair with anyone in earshot.
+
+# ---- warden/NN: news (contract version 11) ----
+warden/NN | heard_deed | Not much gets past me, and I hear you {deed}.
+warden/NN | heard_deed | You {deed}, they say, and I'll take you as I find you.
+warden/NN | heard_deed | So it was you who {deed}, was it?
+warden/NN | news | Here's how it came to me: {news}.
+warden/NN | news | Since you're here, you may as well have it: {news}.
+warden/NN | news | I'm told {news}; I've no reason to doubt it.

@@ -625,3 +625,11 @@ hermit_sage/NN | greeted_eased | Back again. I can think straight now, and I've 
 hermit_sage/NN | not_afraid_eased | I'm fine; my head's been in order since you helped me set it there.
 hermit_sage/NN | joined_lead | I rarely put a word in, but this once I will.
 hermit_sage/NN | joined_lead | I weighed whether to speak up, and the question's worth my breath.
+
+# ---- hermit_sage/NN: news (contract version 11) ----
+hermit_sage/NN | heard_deed | I've heard you {deed}, and I've not decided yet what it's worth.
+hermit_sage/NN | heard_deed | So you're the one who {deed}; I'll keep my reckoning of it to myself.
+hermit_sage/NN | heard_deed | You {deed}, they tell me; that's the what of it, and the why is your own.
+hermit_sage/NN | news | Not a word past what I heard: {news}.
+hermit_sage/NN | news | The sum of what I've heard is that {news}.
+hermit_sage/NN | news | I've heard {news}; what it means is another question.

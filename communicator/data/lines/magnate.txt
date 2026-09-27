@@ -979,3 +979,11 @@ magnate/NN | greeted_eased | Back again, and you'll find me fit to deal now, tha
 magnate/NN | not_afraid_eased | I'm fine; I keep my own accounts again, and your help is in them.
 magnate/NN | joined_lead | Every deal starts with listening, and I heard you.
 magnate/NN | joined_lead | I overheard, and good information shouldn't go to waste.
+
+# ---- magnate/NN: news (contract version 11) ----
+magnate/NN | heard_deed | So you {deed}; that goes in the ledger, whichever column it lands in.
+magnate/NN | heard_deed | You {deed}, I'm told, and I like to know who I'm dealing with.
+magnate/NN | heard_deed | Is it true you {deed}, or is someone selling me a story?
+magnate/NN | news | Here's what's on the books, so to speak: {news}.
+magnate/NN | news | The way I hear it, {news}.
+magnate/NN | news | I'd not stake much on talk, but I'm told {news}.

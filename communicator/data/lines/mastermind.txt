@@ -861,3 +861,11 @@ mastermind/NN | greeted_eased | Hello again. I'm no longer a step behind myself,
 mastermind/NN | not_afraid_eased | There's no need; I've built a plan on your steadying, and it's standing.
 mastermind/NN | joined_lead | Everything I hear goes into the reckoning, and so did that.
 mastermind/NN | joined_lead | I heard you, and walking over seemed the better plan.
+
+# ---- mastermind/NN: news (contract version 11) ----
+mastermind/NN | heard_deed | You {deed}, I hear; that goes into the reckoning.
+mastermind/NN | heard_deed | Tell me if I have it wrong: you {deed}.
+mastermind/NN | heard_deed | I'll want to know how, but I hear you {deed}.
+mastermind/NN | news | The latest I have is that {news}.
+mastermind/NN | news | If what reaches me is right, {news}.
+mastermind/NN | news | I've heard {news}; I'll plan as though it's true.

@@ -511,3 +511,11 @@ tyrant/NN | greeted_eased | Back again. I'm in command of myself, and what you s
 tyrant/NN | not_afraid_eased | I'm all right; once was enough, and we'll not speak of it.
 tyrant/NN | joined_lead | Nothing's said near me that I don't hear, so listen.
 tyrant/NN | joined_lead | I heard you, and I don't waste time, so here it is.
+
+# ---- tyrant/NN: news (contract version 11) ----
+tyrant/NN | heard_deed | They tell me you {deed}; I'll hear the rest from you, briefly.
+tyrant/NN | heard_deed | You {deed}, I'm told; whether that's any use to me, I'll see.
+tyrant/NN | heard_deed | Don't expect a fuss from me, but I hear you {deed}.
+tyrant/NN | news | Listen, because I'll say it once: {news}.
+tyrant/NN | news | I'd sooner deal in what's done than in talk, but I hear {news}.
+tyrant/NN | news | I'm told {news}; that's the size of it.

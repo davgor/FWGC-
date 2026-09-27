@@ -979,3 +979,11 @@ mentor/NN | greeted_eased | Hello again. I took my own advice in the end, with a
 mentor/NN | not_afraid_eased | There's no need; you showed me how, and I can manage it myself now.
 mentor/NN | joined_lead | I don't usually hand out answers, but I heard that one.
 mentor/NN | joined_lead | Since I heard, I'll spare you the working out.
+
+# ---- mentor/NN: news (contract version 11) ----
+mentor/NN | heard_deed | What did you learn when you {deed}?
+mentor/NN | heard_deed | So you {deed}, and there's a lesson in that whichever way you look at it.
+mentor/NN | heard_deed | I'll not tell you what to make of it, but I hear you {deed}.
+mentor/NN | news | I'll tell you what I heard, and you can work out the rest: {news}.
+mentor/NN | news | Take this away and think on it: {news}.
+mentor/NN | news | A thing heard isn't a thing known, but I'm told {news}.

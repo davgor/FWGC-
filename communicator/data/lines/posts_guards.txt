@@ -1388,3 +1388,83 @@ post:watch_officer | greeted_eased | Good day. I'll put it on record that you ta
 post:watch_officer | not_afraid_eased | There's no need; it's on record who steadied me, and the record stands.
 post:watch_officer | joined_lead | In brief: I heard what you asked, and I'd rather speak up than file it.
 post:watch_officer | joined_lead | Forgive the interruption; everything said near me ends up on my desk sooner or later.
+
+# ---- post:garrison_trooper: news (contract version 11) ----
+post:garrison_trooper | heard_deed | Wait, you're the one who {deed}, and me stuck behind these walls?
+post:garrison_trooper | heard_deed | You {deed}, they tell me, and all I've done is count stones.
+post:garrison_trooper | heard_deed | Is it you who {deed}, then, and will you tell it to someone bored stiff?
+post:garrison_trooper | news | Now there's something to chew on: {news}.
+post:garrison_trooper | news | Nothing much gets into the barracks, but I did hear {news}.
+post:garrison_trooper | news | I'd give my bunk to know more, but all I have is that {news}.
+
+# ---- post:gate_guard: news (contract version 11) ----
+post:gate_guard | heard_deed | I keep faces, and yours goes with a story: you're the one who {deed}.
+post:gate_guard | heard_deed | A gate hears all sorts, and I hear you {deed}.
+post:gate_guard | heard_deed | A word, before anything else: is it you who {deed}?
+post:gate_guard | news | One more thing, and then next: {news}.
+post:gate_guard | news | I'm told {news}; I'd sooner deal in carts and faces, but there it is.
+post:gate_guard | news | Is it right, what I hear, that {news}?
+
+# ---- post:jailer: news (contract version 11) ----
+post:jailer | heard_deed | You're the one who {deed}, they tell me, and I believe very little of what I'm told.
+post:jailer | heard_deed | I hear you {deed}; that's either true or well told.
+post:jailer | heard_deed | Was it you who {deed}, then, and would you swear to it?
+post:jailer | news | Somebody's saying {news}, and I've heard every lie there is.
+post:jailer | news | Take it or leave it, as I do: {news}.
+post:jailer | news | True or not, and I doubt most things: {news}.
+
+# ---- post:keep_guard: news (contract version 11) ----
+post:keep_guard | heard_deed | Stay a moment; you are the one who {deed}, are you not?
+post:keep_guard | heard_deed | I have little ear for rumour, yet this reached me: you {deed}.
+post:keep_guard | heard_deed | Then it was you who {deed}; I mark it, as I mark all who come to this door.
+post:keep_guard | news | Know this, and weigh it as you will: {news}.
+post:keep_guard | news | It is said that {news}; I give it as I had it, and add nothing.
+post:keep_guard | news | Is it true, as I have heard, that {news}?
+
+# ---- post:lookout: news (contract version 11) ----
+post:lookout | heard_deed | Oh, it's you who {deed}; well, there's one for the tally!
+post:lookout | heard_deed | Not much gets past me, and I heard you {deed}!
+post:lookout | heard_deed | Wait, are you really the one who {deed}?
+post:lookout | news | I've spotted some news, so to speak: {news}.
+post:lookout | news | Oh, you'll like this one, or you won't: {news}.
+post:lookout | news | Look, I can't swear to it the way I'd swear to a sighting, but {news}.
+
+# ---- post:postern_guard: news (contract version 11) ----
+post:postern_guard | heard_deed | Come closer; you're the one who {deed}, aren't you?
+post:postern_guard | heard_deed | Between us, I heard you {deed}, and I'll not say it any louder.
+post:postern_guard | heard_deed | So it was you who {deed}; I'll whisper it, as I whisper everything.
+post:postern_guard | news | Now, softly, and not so the wall can hear: {news}.
+post:postern_guard | news | I know nothing, as a rule, but this much reached the little door: {news}.
+post:postern_guard | news | Is it true {news}, or shouldn't I ask?
+
+# ---- post:soldier: news (contract version 11) ----
+post:soldier | heard_deed | They don't tell a spear much, but I hear you {deed}.
+post:soldier | heard_deed | It's not in my orders to ask, but is it you who {deed}?
+post:soldier | heard_deed | The report as I have it: you're the one who {deed}.
+post:soldier | news | At ease a moment, and I'll pass on what I heard: {news}.
+post:soldier | news | For what a spear's word is worth: {news}.
+post:soldier | news | Last I heard, {news}, and nobody's told me otherwise.
+
+# ---- post:tower_watch: news (contract version 11) ----
+post:tower_watch | heard_deed | Hm, you'd be the one who {deed}, then; I'll have that to mull over on a long watch.
+post:tower_watch | heard_deed | Up the tower I hear little, but I heard you {deed}.
+post:tower_watch | heard_deed | I'm slow to ask things, but is it you who {deed}?
+post:tower_watch | news | If the wind brought it up right, {news}.
+post:tower_watch | news | I've been turning it over, slow as ever: {news}.
+post:tower_watch | news | Something's come up the stair for once: {news}.
+
+# ---- post:watch_guard: news (contract version 11) ----
+post:watch_guard | heard_deed | Hold on; aren't you the one who {deed}?
+post:watch_guard | heard_deed | You {deed}, if the talk's straight, and talk seldom is.
+post:watch_guard | heard_deed | So it was you who {deed}; well, it's all one to my rounds.
+post:watch_guard | news | Mind you, I hear {news}; a body hears most things, walking a beat.
+post:watch_guard | news | I'll give it to you straight: {news}.
+post:watch_guard | news | And another thing, since you're stood there: {news}.
+
+# ---- post:watch_officer: news (contract version 11) ----
+post:watch_officer | heard_deed | For the record, you're the one who {deed}, I take it.
+post:watch_officer | heard_deed | Unless I've been misinformed, you {deed}.
+post:watch_officer | heard_deed | Are you the one who {deed}, and can I have it in brief?
+post:watch_officer | news | In brief, and off the record: {news}.
+post:watch_officer | news | I've a note of it somewhere: {news}.
+post:watch_officer | news | Is it confirmed that {news}, or is it still hearsay?

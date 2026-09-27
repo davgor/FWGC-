@@ -1428,3 +1428,83 @@ post:cart_handler | greeted_eased | Good day. You talked me back onto my wheels,
 post:cart_handler | not_afraid_eased | There's no need; my knots are tight now, and your talk did the lashing.
 post:cart_handler | joined_lead | Hold up; I overheard, and I'll be quick about it.
 post:cart_handler | joined_lead | Just a word, and then back to the loads; I heard you asking.
+
+# ---- post:smith: news (contract version 11) ----
+post:smith | heard_deed | Speak up over the hammer: are you the one who {deed}?
+post:smith | heard_deed | So it was you who {deed}; I heard it between blows.
+post:smith | heard_deed | You {deed}, they tell me; I judge iron, not folk.
+post:smith | news | I don't leave the forge for gossip, but this came to me anyway: {news}.
+post:smith | news | They say {news}, and I'll not hammer it into more than it is.
+post:smith | news | Unless the hammer's had my hearing, {news}.
+
+# ---- post:carpenter: news (contract version 11) ----
+post:carpenter | heard_deed | Let me get this straight and square: you're the one who {deed}?
+post:carpenter | heard_deed | Was it you who {deed}, or have I got it out of true?
+post:carpenter | heard_deed | They tell me you {deed}, and I'll not plane it any smoother than that.
+post:carpenter | news | As straight as I heard it, {news}.
+post:carpenter | news | From what I'm told, and I'll not guess past it, {news}.
+post:carpenter | news | Somebody said {news}, and I'll hold it up to the light before I believe it.
+
+# ---- post:mason: news (contract version 11) ----
+post:mason | heard_deed | Before I set it down in my head, was it you who {deed}?
+post:mason | heard_deed | If I have it right, you're the one who {deed}; I'll say no more than I'd carve.
+post:mason | heard_deed | I'm told you {deed}, and I'll turn that over slowly, like a stone.
+post:mason | news | I heard it plain, and I'll lay it down plain: {news}.
+post:mason | news | They say {news}, and I'll let that settle before I lean on it.
+post:mason | news | Is it true {news}, or is it still wet mortar?
+
+# ---- post:maintenance_laborer: news (contract version 11) ----
+post:maintenance_laborer | heard_deed | Oh, you're the one who {deed}; well, it's no business of mine.
+post:maintenance_laborer | heard_deed | Aren't you the one who {deed}, or have I got it wrong again?
+post:maintenance_laborer | heard_deed | I hear you {deed}; I don't get much news up a ladder, but that came through.
+post:maintenance_laborer | news | Not that anyone asks me, but I hear {news}.
+post:maintenance_laborer | news | It seems {news}, from what I pick up between jobs.
+post:maintenance_laborer | news | Is it true {news}, or has it come to me all back to front?
+
+# ---- post:apprentice: news (contract version 11) ----
+post:apprentice | heard_deed | Are you really the one who {deed}?
+post:apprentice | heard_deed | Oh, so it was you who {deed}; I wasn't sure I'd heard it right.
+post:apprentice | heard_deed | I heard you {deed}; I'm not meant to stop and chat, but I had to say something.
+post:apprentice | news | Nobody tells me much, but I heard {news}.
+post:apprentice | news | They say {news}, though I'm only repeating what I heard.
+post:apprentice | news | Is it true {news}, or have I got it all muddled?
+
+# ---- post:textile_worker: news (contract version 11) ----
+post:textile_worker | heard_deed | You'll be the one who {deed}, then; I'll not stop the loom over it, mind.
+post:textile_worker | heard_deed | Unless I've got my threads tangled, you're the one who {deed}.
+post:textile_worker | heard_deed | They say you {deed}; I've a seam to finish, so that's all you'll get from me.
+post:textile_worker | news | Here's something I picked up over the loom: {news}.
+post:textile_worker | news | They say {news}, and I've no more to spin you than that.
+post:textile_worker | news | From what I've pieced together, {news}.
+
+# ---- post:furnace_worker: news (contract version 11) ----
+post:furnace_worker | heard_deed | Aye, you'll be the one who {deed}; I can hardly see you for the smoke.
+post:furnace_worker | heard_deed | Come by the door where the air's better; is it you who {deed}?
+post:furnace_worker | heard_deed | They say you {deed}, not that much news gets past the roar in here.
+post:furnace_worker | news | Over the roar, I caught that {news}.
+post:furnace_worker | news | I'm told {news}, if the heat hasn't cooked my hearing.
+post:furnace_worker | news | It seems {news}, though I'd not swear to it, with smoke where my wits should be.
+
+# ---- post:ore_handler: news (contract version 11) ----
+post:ore_handler | heard_deed | So it was you who {deed}.
+post:ore_handler | heard_deed | Hm, you're the one who {deed}?
+post:ore_handler | heard_deed | I hear you {deed}.
+post:ore_handler | news | They say {news}.
+post:ore_handler | news | Somebody said {news}.
+post:ore_handler | news | True, is it, that {news}?
+
+# ---- post:farrier: news (contract version 11) ----
+post:farrier | heard_deed | Now then, it was you who {deed}, was it?
+post:farrier | heard_deed | There now, you're the one who {deed}, I think.
+post:farrier | heard_deed | I hear you {deed}, and I'll not rush to make anything of it.
+post:farrier | news | The horses don't gossip, but people do, and I hear {news}.
+post:farrier | news | They tell me {news}, and I'll take it at a walk till I know more.
+post:farrier | news | Is it true {news}, or has the talk bolted ahead of itself?
+
+# ---- post:cart_handler: news (contract version 11) ----
+post:cart_handler | heard_deed | So you're the one who {deed}; mind the wheels while you stand there.
+post:cart_handler | heard_deed | Weren't you the one who {deed}, or have I got the wrong load?
+post:cart_handler | heard_deed | They say you {deed}, and that's all I've time for; there's loading to do.
+post:cart_handler | news | They're saying {news}, and now I've carts to see to.
+post:cart_handler | news | All sorts comes through the yard, and I hear {news}.
+post:cart_handler | news | I heard it on the move, so don't hold me to it: {news}.

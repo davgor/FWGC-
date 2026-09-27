@@ -630,3 +630,11 @@ incarnate/NN | greeted_eased | Well met again. The tilt's gone out of me, and th
 incarnate/NN | not_afraid_eased | I'm fine; you evened me out, and I've kept my balance since.
 incarnate/NN | joined_lead | You asked within earshot, and I'll answer with no lean either way.
 incarnate/NN | joined_lead | Let me set it out evenly, since I heard.
+
+# ---- incarnate/NN: news (contract version 11) ----
+incarnate/NN | heard_deed | So you {deed}; I'll take it as it is, and lean neither way.
+incarnate/NN | heard_deed | It's you who {deed}, then; that goes in your column, for good or ill.
+incarnate/NN | heard_deed | I'd hear your side before I weigh it: are you the one who {deed}?
+incarnate/NN | news | Neither for nor against, just what I heard: {news}.
+incarnate/NN | news | I'll not tip it either way; I only heard {news}.
+incarnate/NN | news | I'll give it you as I had it, no more and no less: {news}.
