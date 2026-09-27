@@ -176,6 +176,12 @@ packet, and a row that says a saying once more with one dropped in. `communicato
   opening "No", "I can't", "Not yet", "Easy for you to say", "You don't understand", "Stay back"
   or "Keep away"; nothing to ease (`not_afraid`) to one, opening "I'm not afraid", "I'm fine",
   "I'm all right", "There's no need" or "Who said I was afraid".
+- Talked down lately (contract version 10): a greeting (`greeted_eased`) runs to two and opens as
+  any greeting to someone met again does ("Hello again", "Back again", "Welcome back", "Good to see
+  you", "Well met again", "Good day"); nothing left to ease (`not_afraid_eased`) runs to one and
+  opens "I'm fine", "I'm all right" or "There's no need", never "I'm not afraid". A bystander's
+  lead (`joined_lead`) has a lead's shape: one sentence, no question, not opening or ending with
+  yes, no, aye or nay.
 - An answer runs to three sentences at most, and an answer about a place to five: the place,
   its trades, who is there, the nests around it and the work there.
 - An article fits the word a blank fills in after it: "a {time}" says "a evening", "an {post}"
@@ -189,8 +195,9 @@ packet, and a row that says a saying once more with one dropped in. `communicato
 - Some test packet speaks the row.
 
 The rest of the truth check is held where a line is said: a line that says "welcome back" is not
-said to a stranger, nor rain on a clear day, nor "dangerous" of a nest of three, and the next line
-is. `--check-lines` lists those as "(unsaid for this packet)". A line said only where it is true
+said to a stranger, nor rain on a clear day, nor "dangerous" of a nest of three, nor "you steadied
+me" to someone the stranger never talked down, nor "I couldn't help overhearing" by someone asked
+outright, and the next line is. `--check-lines` lists those as "(unsaid for this packet)". A line said only where it is true
 is fine; one that no packet the game gives can make true is never heard.
 
 ## Rules no test can hold
@@ -217,9 +224,16 @@ is fine; one that no packet the game gives can make true is never heard.
   baker's hands that will not knead). Afraid is shaken but whole; panicking is broken, repeated,
   pleading; a proud bank stays terse. A frightened line is said whether or not the speaker has met
   the player, and whatever they think of them, hostile after an insult too: no "again", no
-  "stranger", no warmth ("a kind voice"), only relief at a voice ("Thank goodness"). `calmed` is a step down, never all better ("I'll try",
-  never "the danger's passed"); `still_afraid` never says why, since it may be the danger still
-  there or distrust of the one soothing them.
+  "stranger", no warmth ("a kind voice"), only relief at a voice ("Thank goodness"). `calmed` is
+  a step down, never all better ("I'll try", never "the danger's passed"); `still_afraid` never
+  says why, since it may be the danger still there or distrust of the one soothing them.
+- **Talked down lately, the speaker owns it:** `greeted_eased` and `not_afraid_eased` say they are
+  steadier or all right now, and may thank the stranger for it. They never say what frightened them
+  or that it has gone, and never deny the fear. The stranger may have talked them down yesterday,
+  so no "just now".
+- **A bystander who joins says only that they overheard** (`joined_lead`): the stranger asking, and
+  the answer to come. Never what the one asked said or could not say, nor who that was: the packet
+  names neither. No acquaintance with either of them, and no "again".
 - **A place line carries every blank it can.** Of the lines that fit, the fullest are said, so an
   `about_place` line without `{trades}`, `{who}`, `{around}` or `{work}` is never heard where that
   blank is filled. Nothing in it may hold only when a part is dropped or kept ("That's all I

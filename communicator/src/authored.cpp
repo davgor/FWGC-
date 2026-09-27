@@ -689,6 +689,12 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // What a frightened speaker says before an answer, a sentence of its own (Lines::lead).
         {"afraid_lead", {}},
         {"panicked_lead", {}},
+        // Contract version 10: someone the player talked down lately says so, not that they were
+        // never afraid; greets them as the one who did; and a bystander who joins unasked says so
+        // before answering.
+        {"not_afraid_eased", {}},
+        {"greeted_eased", {"since"}},
+        {"joined_lead", {}},
         // Contract version 5: a people's sayings, in the bank `saying:<people>`. Never a reply of
         // its own: a line says one through {saying}.
         {"saying", {}},
@@ -717,6 +723,10 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             // chain crosses from one greeting's openings (reply_shape) to another's.
             if (m.cold()) return {"greeted_cold"};
             if (!m.again) return {"greeted"};
+            // Talked down by the stranger lately (contract version 10): their greeting says so, and
+            // a bank without such a line leaves it to the next bank's, as a cold one does: its own
+            // plain greeting ignored "Feeling better?" (judged 2026-09-26).
+            if (m.eased) return {"greeted_eased"};
             std::vector<std::string> chain;
             if (m.work == "taken" || m.work == "finished" || m.work == "failed" || m.work == "abandoned")
                 chain.push_back("greeted_" + m.work);
@@ -765,7 +775,9 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
         case Outcome::StillAfraid:
             return {"still_afraid"};
         case Outcome::NotAfraid:
-            return {"not_afraid"};
+            // The same: a bank's plain line may deny ever being afraid ("the shake's from the hammer,
+            // not from nerves"), which the stranger who talked them down knows is untrue.
+            return {m.eased ? "not_afraid_eased" : "not_afraid"};
         default: {
             std::string one = single_situation(p);
             if (one.empty()) return {};
@@ -1127,7 +1139,10 @@ namespace {
 // 2026-09-26).
 std::vector<std::string> lead_chain(const FactPacket& p) {
     const Remembered m = remembered(p);
-    if (!m.frightened() || p.outcome != Outcome::Answered || !reply_shape(p).openings.empty()) return {};
+    if (p.outcome != Outcome::Answered || !reply_shape(p).openings.empty()) return {};
+    // Someone who walked over unasked says so first, whatever they feel (contract version 10).
+    if (m.joined) return {"joined_lead"};
+    if (!m.frightened()) return {};
     std::vector<std::string> chain;
     if (m.feeling == "panicked") chain.push_back("panicked_lead");
     chain.push_back("afraid_lead");

@@ -21,6 +21,8 @@ struct Remembered {
     bool exposed = false;
     std::string feeling = "calm";  // on the fear ladder (contract version 9): calm, uneasy, afraid, panicked
     std::string resting = "calm";  // how they feel when nothing frightens them
+    bool eased = false;   // the player eased their fear within the last two days (contract version 10)
+    bool joined = false;  // they overheard the player and joined in unasked
 
     bool warm() const { return mood == "warm" || mood == "friendly"; }
     bool cold() const { return mood == "wary" || mood == "hostile"; }

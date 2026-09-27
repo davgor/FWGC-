@@ -175,7 +175,7 @@ inline bool lead_row(const std::string& row) {
     std::string situation = row.substr(first + 1, second - first - 1);
     situation.erase(0, situation.find_first_not_of(' '));
     while (!situation.empty() && situation.back() == ' ') situation.pop_back();
-    return situation == "afraid_lead" || situation == "panicked_lead";
+    return situation == "afraid_lead" || situation == "panicked_lead" || situation == "joined_lead";
 }
 
 // `p` spoken by someone the row's bank answers for: a hero with that voice key, someone at that

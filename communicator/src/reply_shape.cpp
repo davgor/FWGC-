@@ -58,8 +58,9 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
             // A place asked about has more to it (contract version 8): its trades, who is there, the
             // nests around it, the work there, a sentence each.
             if (packet.answering == ActKind::AskAboutPlace) shape.sentences = 5;
-            // A frightened speaker (contract version 9) says a sentence of their own first.
-            if (memory.frightened()) ++shape.sentences;
+            // A frightened speaker (contract version 9), or one who joins unasked (10), says a
+            // sentence of their own first.
+            if (memory.frightened() || memory.joined) ++shape.sentences;
             break;  // otherwise any start, up to three sentences
         }
         case Outcome::Accepted:
@@ -173,7 +174,12 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
             shape.sentences = 2;
             break;
         case Outcome::NotAfraid:
-            shape.openings = {"I'm not afraid", "I'm fine", "I'm all right", "There's no need", "Who said I was afraid"};
+            // Talked down lately (contract version 10), they were afraid: all right now, never "I'm
+            // not afraid".
+            if (memory.eased)
+                shape.openings = {"I'm fine", "I'm all right", "There's no need"};
+            else
+                shape.openings = {"I'm not afraid", "I'm fine", "I'm all right", "There's no need", "Who said I was afraid"};
             shape.sentences = 1;
             break;
     }

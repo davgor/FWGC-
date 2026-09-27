@@ -62,6 +62,8 @@ struct Recall {
     bool exposed = false;
     std::string feeling = "calm";
     std::string resting = "calm";
+    bool eased = false;
+    bool joined = false;
 };
 
 inline Fact memory_of(const std::string& speaker, const Recall& r) {
@@ -77,7 +79,9 @@ inline Fact memory_of(const std::string& speaker, const Recall& r) {
              {"heard", std::to_string(r.heard)},
              {"exposed", r.exposed ? "yes" : "no"},
              {"feeling", r.feeling},
-             {"resting", r.resting}}};
+             {"resting", r.resting},
+             {"eased", r.eased ? "yes" : "no"},
+             {"joined", r.joined ? "yes" : "no"}}};
 }
 
 // A packet as the director writes one: its facts, then the speaker's memory.
@@ -431,7 +435,7 @@ inline FactPacket about_the_fortress() {
 
 // Calming words that eased the castellan a step, to `feeling`.
 inline FactPacket calmed(const std::string& feeling) {
-    return packet(castellan(), ActKind::Calm, Outcome::Calmed, {}, {.mood = "friendly", .turn = 2, .feeling = feeling});
+    return packet(castellan(), ActKind::Calm, Outcome::Calmed, {}, {.mood = "friendly", .turn = 2, .feeling = feeling, .eased = true});
 }
 
 // Calming words that did not: what frightened them is still there, or they distrust the stranger.
@@ -449,6 +453,25 @@ inline FactPacket frightened(ActKind act, Outcome outcome, const std::string& fe
     FactPacket p = act == ActKind::AskSurroundings ? surroundings() : packet(castellan(), act, outcome);
     if (act == ActKind::SmallTalk) p = small_talk("unsettled", "windy");
     p.facts.back() = memory_of(p.speaker, {.turn = 2, .feeling = feeling});
+    return p;
+}
+
+// ---- Contract version 10: remembered easing, and a bystander who joins -----------------------
+
+// Calming words to someone at rest whom the player talked down lately.
+inline FactPacket not_afraid_eased() {
+    return packet(castellan(), ActKind::Calm, Outcome::NotAfraid, {}, {.turn = 2, .eased = true});
+}
+
+// Met again after the player talked them down last time.
+inline FactPacket greeted_eased() {
+    return packet(castellan(), ActKind::Greet, Outcome::Greeted, {}, {.met = "again", .times = 1, .since = "today", .eased = true});
+}
+
+// What is around, from a bystander who overheard it asked of someone else and joined in.
+inline FactPacket joined_surroundings() {
+    FactPacket p = surroundings();
+    p.facts.back() = memory_of(p.speaker, {.joined = true});
     return p;
 }
 
@@ -507,7 +530,11 @@ inline std::vector<FactPacket> conversation() {
             frightened(ActKind::Farewell, Outcome::Parted, "afraid"),
             frightened(ActKind::Farewell, Outcome::Parted, "panicked"),
             frightened(ActKind::AskSurroundings, Outcome::Answered, "afraid"),
-            frightened(ActKind::AskSurroundings, Outcome::Answered, "panicked")};
+            frightened(ActKind::AskSurroundings, Outcome::Answered, "panicked"),
+            // Contract version 10.
+            not_afraid_eased(),
+            greeted_eased(),
+            joined_surroundings()};
 }
 
 }  // namespace packets

@@ -82,6 +82,15 @@ from 112 lines of 310 read right to 79 of the same: a listed act costs a small m
 not only the lines it fits.
 No line says what frightened them: the packet does not say.
 
+**A speaker remembers being talked down, and a bystander can join in** (contract version 10). The
+Memory fact's `eased` says the player's calming words eased the speaker within the last two days:
+met again, they greet the player with it ("Hello again. I'm steadier than when you saw me last."),
+and calming words said once they are at rest find them all right now ("I'm fine now, thanks to
+you"), never denying they were afraid. `joined` marks the packet of a bystander who overheard the
+player ask someone else what they could not answer, and came over (orchestrator/README.md,
+"Overhearing"): a sentence saying so goes before their answer ("Pardon me, I couldn't help
+overhearing."), and the answer is theirs, as if the player had asked them.
+
 ## The interpreter
 
 It asks the model two questions, and a grammar holds each answer:
@@ -243,6 +252,13 @@ larger-than-life heroes.
   - Before an answer, a frightened speaker says one of their bank's `afraid_lead` or
     `panicked_lead` lines, a sentence of its own; the answer's lines stay a calm speaker's. Not
     before "is it safe": its verdict opens the answer, as an outcome's opening always does.
+  - Talked down lately (contract version 10): met again, `greeted_eased`, and calming words once
+    at rest, `not_afraid_eased`. Only those lines are said, as a cold speaker's are: a bank without
+    them leaves the reply to the next bank's, since its own plain lines may deny the fear ("the
+    shake's from the hammer, not from nerves") or greet as if nothing had passed.
+  - A bystander who joined in says one of their bank's `joined_lead` lines before the answer, in
+    place of a frightened lead: a bystander joins only when not panicking, and saying why they are
+    there comes first.
   - No chain crosses from one reply shape's openings to another's.
 - **Asked twice in one conversation,** an answer is said after "As I said," or "Again," (C++'s
   words, its first word lowered unless it is "I" or a name): the speaker says so, and the line
@@ -419,7 +435,11 @@ what they are saying isn't BS" (2026-09-26).
   - "as I told you" and "same as before" need the same question asked twice, something of the
     packet's said lately (`recent`), or, for "as before", a meeting before;
   - what came of the work (finished, given up, taken): the memory's, or the work in hand's (a
-    QuestState fact, or a refusal to release work the stranger holds).
+    QuestState fact, or a refusal to release work the stranger holds);
+  - being talked down ("you steadied me", "you calmed me down"): only where the stranger eased
+    them lately, this reply's calming words among them (contract version 10); and overhearing
+    ("I couldn't help overhearing", "I heard what you asked"): only from someone who joined in
+    unasked. Hearing things in general ("only what I overhear") claims nothing of the stranger.
 - **A verdict's words are not against it:** an unsafe answer never says "safe enough".
 - **Small talk's weather, time of day and season are the Chat fact's:** no rain on a clear day,
   no "this morning" in the evening, no "this summer" in deep winter. Only small talk reports
@@ -561,8 +581,9 @@ dangerous for the rain" of a nest of four or more.
   out, and the idioms that count nothing; each range held by a place at it and by no other;
   danger words by the worst place, nest or verdict; when they met and whether, with questions,
   wishes, invitations and telling again left alone; "as I told you" by what was asked twice or
-  said lately; the work, by the memory and the work in hand; a verdict's words; small talk's
-  weather, time and season; an acquaintance, never backed.
+  said lately; the work, by the memory and the work in hand; being talked down and overhearing, by
+  the memory; a verdict's words; small talk's weather, time and season; an acquaintance, never
+  backed.
 
 A mutation pass switched off each of these in a scratch copy, one at a time, and a test failed
 every time (see the commit that added this component).
@@ -624,6 +645,15 @@ machine's CPU at 8 threads. [`eval/README.md`](eval/README.md) has the full tabl
 - **The truth check** (2026-09-26, the 51 voice cases, CPU): Qwen3-4B made a claim without ground
   in 2 replies, both distances it invented ("three miles out", "the coast is three days by the
   high road"); the test model in none; the written lines in none, and all 51 held their shape.
+- **Talked down, and joining in** (contract version 10; 2026-09-26, the 59 voice cases, CPU, 8
+  threads). The 56 cases before them came back word for word from both models: their prompts did
+  not change. The test model held all 59 to their shape with no claim without ground; Qwen3-4B
+  held all 59, with a claim without ground in 4, every one a distance it invented (one in the
+  joiner's answer). Told that it joined only as something it remembered, Qwen3-4B answered
+  straight away; told in what just happened to say so first, it opened "I overheard you ask that
+  just now." Told it was talked down lately and steadier for it, it greeted "Hello again. The wind
+  still bites, but I'm steadier now—thank you for that." The test model's joiner still answered
+  without saying so.
 
 The models that ship are a later decision: a trained classifier for the interpreter, and a
 fine-tuned voice (the plan's "Building our own model").

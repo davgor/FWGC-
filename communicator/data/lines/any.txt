@@ -166,3 +166,10 @@ any | afraid_lead | Forgive me, I'm shaking.
 any | afraid_lead | All right, all right, let me think.
 any | panicked_lead | Just, just a breath, please!
 any | panicked_lead | Please, let me think!
+# ---- Contract version 10: someone talked down lately, and a bystander who joins unasked -------
+any | not_afraid_eased | I'm all right now; you saw to that.
+any | not_afraid_eased | I'm fine now, thanks to you.
+any | greeted_eased | Hello again. I'm steadier than when you saw me last.
+any | greeted_eased | Good to see you; I've you to thank for my nerve.
+any | joined_lead | Pardon me, I couldn't help overhearing.
+any | joined_lead | Forgive me for butting in; I heard what you asked.

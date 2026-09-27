@@ -232,6 +232,19 @@ TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
     check::is_true(prompt_of(voice, packets::calmed("afraid"), "Easy.").find("ease your fear a little") != std::string::npos, "eased");
     check::is_true(prompt_of(voice, packets::still_afraid(), "Easy.").find("you are still afraid") != std::string::npos, "not eased");
     check::is_true(prompt_of(voice, packets::not_afraid(), "Easy.").find("you are not afraid") != std::string::npos, "nothing to ease");
+    // Contract version 10: eased lately, and joining unasked.
+    check::is_true(prompt_of(voice, packets::not_afraid_eased(), "Easy.").find("talked you down from your fear lately") !=
+                       std::string::npos,
+                   "eased lately");
+    check::is_true(prompt_of(voice, packets::not_afraid(), "Easy.").find("talked you down") == std::string::npos, "the control");
+    // Eased by this reply's calming words, it is what just happened: "lately" would claim an easing before it.
+    check::is_true(prompt_of(voice, packets::calmed("afraid"), "Easy.").find("talked you down") == std::string::npos,
+                   "eased just now: not a memory");
+    const std::string joined = prompt_of(voice, packets::joined_surroundings(), "What's around?");
+    check::is_true(joined.find("came over unasked") != std::string::npos && joined.find("Say first that you overheard") != std::string::npos,
+                   "joined: said first");
+    check::is_true(prompt_of(voice, packets::surroundings(), "What's around?").find("came over unasked") == std::string::npos,
+                   "the control");
     const std::string town = prompt_of(voice, packets::about_the_town(), "Tell me more.");
     for (const std::string said : {"trades: administrator, smith, officiant", "- Tornar:", "- Danger near that place: Frost owls nesting: ",
                                    "; close by, from that place"})

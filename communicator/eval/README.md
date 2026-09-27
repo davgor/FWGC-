@@ -298,6 +298,13 @@ player comes back to someone they like, with a quarrel and its mending, and a se
 passing. It is where lines said again show, and where small talk's two subjects are asked in
 turn.
 
+`session_panic.txt` and `session_overhear.txt` are for feelings (contract versions 9 and 10). The
+first is a panic that spreads and is talked down one speaker at a time. The second has people near
+enough to hear the player talk to someone else: a hero who walks over with what a farm hand did
+not know, a neighbour who knows no more and stays out, frightened neighbours calmed by words not
+said to them, and someone talked down who remembers it the next day. A bystander's turn shows as
+"Overheard, the player to NAME: ...", the words they answer.
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).

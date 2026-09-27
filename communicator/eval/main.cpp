@@ -147,7 +147,11 @@ std::map<std::string, std::function<FactPacket()>> voice_packets() {
             {"still_afraid", [] { return packets::still_afraid(); }},
             {"not_afraid", [] { return packets::not_afraid(); }},
             {"greeted_panicked", [] { return packets::frightened(ActKind::Greet, orchestrator::Outcome::Greeted, "panicked"); }},
-            {"surroundings_afraid", [] { return packets::frightened(ActKind::AskSurroundings, orchestrator::Outcome::Answered, "afraid"); }}};
+            {"surroundings_afraid", [] { return packets::frightened(ActKind::AskSurroundings, orchestrator::Outcome::Answered, "afraid"); }},
+            // Contract version 10.
+            {"not_afraid_eased", packets::not_afraid_eased},
+            {"greeted_eased", packets::greeted_eased},
+            {"joined_surroundings", packets::joined_surroundings}};
 }
 
 std::optional<Kind> target_kind(ActKind kind) {
@@ -473,6 +477,8 @@ std::string memory_note(const FactPacket& p) {
         if (v("exposed") == "yes") out += "; exposed";
         // How they feel (contract version 9), when it is not calm: the game shows it on their face.
         if (!v("feeling").empty() && v("feeling") != "calm") out += "; feels " + v("feeling");
+        if (v("eased") == "yes") out += "; talked down by the player lately";
+        if (v("joined") == "yes") out += "; overheard, and joined in unasked";
         return out;
     }
     return "no memory";
@@ -495,7 +501,7 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
     std::istringstream rows(text.str());
     // What each speaker said lately, as a game keeps it for them.
     std::map<std::string, std::vector<std::string>> said_lately;
-    std::string name, line, block, shown_speaker;
+    std::string name, line, block, shown_speaker, spoken_to;
     bool in_packet = false;
     int turn = 0;
     double seconds = 0.0, slowest = 0.0;
@@ -526,9 +532,15 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
             slowest = std::max(slowest, took);
             lately.push_back(reply);
             if (lately.size() > kLately) lately.erase(lately.begin());
-            std::cout << ++turn << ". Player: " << line << "\n   " << communicator::text::spoken(p.persona.name) << ": "
+            // A bystander who joined in answers what the player said to someone else.
+            const bool joined = std::any_of(p.facts.begin(), p.facts.end(), [](const orchestrator::Fact& f) {
+                return f.kind == orchestrator::FactKind::Memory && f.field("joined") && *f.field("joined") == "yes";
+            });
+            std::cout << ++turn << ". " << (joined ? "Overheard, the player to " + spoken_to : std::string("Player")) << ": " << line
+                      << "\n   " << communicator::text::spoken(p.persona.name) << ": "
                       << (reply.empty() ? "(no line fits)" : reply) << "\n   [" << orchestrator::to_string(p.answering) << " -> "
                       << orchestrator::to_string(p.outcome) << "; " << memory_note(p) << (told ? "; told this lately" : "") << "]\n";
+            spoken_to = communicator::text::spoken(p.persona.name);
             continue;
         }
         if (row.rfind("turn ", 0) == 0) {

@@ -1,0 +1,50 @@
+# Overhearing (contract version 10): people near enough to hear the player talk to someone else.
+# A bystander who knows what the one asked did not walks over and answers; one who knows no more
+# stays out. Calming words that ease a frightened townsperson ease a frightened neighbour too, and
+# the next day, the one talked down says so. orchestrator_session plays it (tools/session.cpp says
+# how a script reads); communicator_eval --session speaks it.
+#
+# The director reckons what someone knows from where they stand, and a hero knows farther than
+# the folk around them: the player hears of a place from a carter, asks a farm hand a walk away who
+# has never heard of it, and the hero standing by has.
+world 99 33 30
+who carter townsfolk 83
+who lord plain 9
+who hand near lord 0
+who neighbour near lord 1
+who first townsfolk 5
+who second near first 0
+who third near first 2
+
+say carter greet | Hello there.
+say carter ask_surroundings | What's around here?
+say carter farewell | Thanks. Bye.
+
+# A walk on, where a farm hand works and the hero who holds the place stands by.
+advance 0.25
+say hand greet | Good day to you.
+say hand ask_about_place @said | Do you know the way to the silent row?
+overhear neighbour lord
+say lord thank | Thank you, that's a help.
+say lord farewell | Farewell.
+
+# A town where something frightens a townsperson, and the two beside them see it.
+advance 0.25
+fright first 3
+gather first second third
+minutes 16
+say first greet | Are you all right?
+say first calm | It's all right now. Breathe.
+overhear second third
+say second greet | And you, how are you holding up?
+say second calm | It's over. You're safe.
+say second farewell | Take care of yourself.
+say third greet | And you?
+say third small_talk | Quite a day, eh?
+say third farewell | Mind how you go.
+
+# The first again, the next day: the one who talked them down.
+advance 1
+say first greet | Hello again. Feeling better?
+say first calm | You're safe now, you know.
+say first farewell | Bye.

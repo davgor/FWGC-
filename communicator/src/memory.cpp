@@ -34,6 +34,8 @@ Remembered remembered(const orchestrator::FactPacket& packet) {
         out.exposed = text("exposed") == "yes";
         if (!text("feeling").empty()) out.feeling = text("feeling");
         if (!text("resting").empty()) out.resting = text("resting");
+        out.eased = text("eased") == "yes";
+        out.joined = text("joined") == "yes";
         break;
     }
     return out;

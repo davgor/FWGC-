@@ -34,6 +34,8 @@ constexpr std::string_view kWork = "the speaker's own work, which their memory d
 constexpr std::string_view kVerdict = "words against the verdict";
 constexpr std::string_view kWeather = "weather the packet does not report";
 constexpr std::string_view kTime = "a time of day or season the packet does not report";
+constexpr std::string_view kEased = "being talked down, which the speaker's memory does not hold";
+constexpr std::string_view kOverheard = "overhearing the stranger, which the speaker's memory does not hold";
 
 std::string lowered(std::string_view text) {
     std::string out(text);
@@ -443,6 +445,23 @@ void acquaintance(const std::string& said, std::vector<std::string>& out) {
         if (says(said, phrase)) add(out, kAcquaintance, phrase);
 }
 
+// Talked down, and overheard (contract version 10), against the memory: "you steadied me" only
+// where the stranger eased the speaker lately, this reply's calming words among them; "I couldn't
+// help overhearing" only from someone who joined in unasked. Hearing things in general claims
+// nothing of the stranger ("only what I overhear").
+void eased_or_overheard(const std::string& said, const FactPacket& p, std::vector<std::string>& out) {
+    const Remembered m = remembered(p);
+    if (!m.eased)
+        for (const std::string phrase : {"talked me down", "calmed me down", "steadied me", "you steadied", "you calmed me",
+                                         "you settled me", "settled my nerves", "calmed my nerves"})
+            if (says(said, phrase)) add(out, kEased, phrase);
+    if (!m.joined)
+        for (const std::string phrase : {"couldn't help overhearing", "could not help overhearing", "couldn't help hearing",
+                                         "could not help hearing", "overheard you", "i overheard", "heard what you asked",
+                                         "heard you ask", "heard you asking", "heard your question"})
+            if (says(said, phrase)) add(out, kOverheard, phrase);
+}
+
 }  // namespace
 
 std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet, const std::vector<std::string>& recent) {
@@ -461,6 +480,7 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
     verdict(said, packet, out);
     weather(said, packet, out);
     acquaintance(said, out);
+    eased_or_overheard(said, packet, out);
     return out;
 }
 

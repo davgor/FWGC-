@@ -204,3 +204,18 @@ TEST(an_acquaintance_with_someone_only_named_is_never_backed) {
     check::is_true(!communicator::never_backed("when they met, which the speaker's memory does not say: yesterday"),
                    "a meeting's time depends on the packet");
 }
+
+TEST(being_talked_down_and_overhearing_are_the_memorys) {
+    // Contract version 10. Talked down lately, this reply's calming words among them.
+    const std::string steadied = "Good to see you. You steadied me, and I'll not forget it.";
+    check::is_true(clean(steadied, packets::greeted_eased()), "talked down lately: backed");
+    check::is_true(flags(steadied, packets::greeted_again(), "being talked down, which the speaker's memory does not hold"),
+                   "met again, never talked down");
+    check::is_true(clean("All right. That's steadied me a notch.", packets::calmed("afraid")), "this reply's calming words");
+    // Overheard, only from someone who joined in unasked.
+    const std::string overheard = "Pardon me, I couldn't help overhearing.";
+    check::is_true(clean(overheard, packets::joined_surroundings()), "joined: backed");
+    check::is_true(flags(overheard, packets::surroundings(), "overhearing the stranger, which the speaker's memory does not hold"),
+                   "asked, not joined");
+    check::is_true(clean("Only what I overhear with my head down.", packets::surroundings()), "hearing things in general claims nothing");
+}

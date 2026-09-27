@@ -60,3 +60,7 @@ calmed | It's all right, you're safe now.
 still_afraid | Calm down, it's over.
 not_afraid | Don't be afraid.
 surroundings_afraid | What's around here?
+# Contract version 10: remembered easing, and a bystander who joins. After the 56 above, so they still compare.
+not_afraid_eased | You're safe now, you know.
+greeted_eased | Hello again. Feeling better?
+joined_surroundings | What's around here?

@@ -80,10 +80,11 @@ public:
     // Whether speak() says `packet`'s answer again as told, having said all of it in `recent`.
     bool told(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent) const;
 
-    // What a frightened speaker says before an answer (contract version 9): a sentence from
-    // their bank's `panicked_lead` or `afraid_lead` lines, which speak() puts first. Empty for a
-    // speaker who is not afraid, for any outcome but an answer, and before "is it safe", whose
-    // verdict opens its answer: an outcome's own opening always comes first.
+    // What a speaker says before an answer: a bystander who joined unasked, one of their bank's
+    // `joined_lead` lines (contract version 10); a frightened speaker, a `panicked_lead` or
+    // `afraid_lead` line (9). speak() puts it first. Empty for anyone else, for any outcome but an
+    // answer, and before "is it safe", whose verdict opens its answer: an outcome's own opening
+    // always comes first.
     std::string lead(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent = {}) const;
 
     // Every lead lead() could choose from for `packet`, filled, as replies() lists every reply: for

@@ -161,6 +161,10 @@ std::vector<std::string> memory_lines(const FactPacket& packet) {
     if (m.feeling == "uneasy") out.push_back("You are uneasy.");
     if (m.feeling == "afraid") out.push_back("You are afraid, and it shows in how you speak.");
     if (m.feeling == "panicked") out.push_back("You are panicking: you speak in short, broken bursts.");
+    // Talked down lately (contract version 10). Eased by this reply's calming words, it is what just
+    // happened, not a memory: "lately" would claim an easing before it.
+    if (m.eased && packet.outcome != Outcome::Calmed)
+        out.push_back("The stranger talked you down from your fear lately; you are steadier for it.");
     return out;
 }
 
@@ -386,7 +390,13 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
     system += known.empty() ? "- nothing that bears on this\n" : known;
     system += "\nWhat you remember of the stranger:\n";
     for (const std::string& remembered_line : memory_lines(packet)) system += "- " + remembered_line + "\n";
-    system += "\nWhat just happened: " + what_happened(packet) + "\n\n";
+    // A bystander who joined unasked (contract version 10) says so first: told it only as something
+    // they remembered, Qwen3-4B answered straight away (2026-09-26).
+    const std::string joined = remembered(packet).joined
+                                   ? "You overheard the stranger ask someone else, and came over unasked. Say first that you "
+                                     "overheard, then answer. "
+                                   : "";
+    system += "\nWhat just happened: " + joined + what_happened(packet) + "\n\n";
     const int sentences = reply_shape(packet).sentences;
     const std::string length =
         sentences == 1 ? "in one short sentence" : "in one to " + std::string(sentences == 2 ? "two" : "three") + " short sentences";

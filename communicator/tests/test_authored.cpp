@@ -716,8 +716,55 @@ TEST(an_opening_is_whole_words_and_a_lead_one_plain_sentence) {
     check::is_true(row_problems("any | afraid_lead | Forgive me, I'm shaking.").empty(), "a lead");
     for (const std::string bad : {"any | afraid_lead | Wait. Let me think.", "any | afraid_lead | What was that?",
                                   "any | panicked_lead | Yes, yes, quickly!", "any | afraid_lead | No, wait, let me think.",
-                                  "any | afraid_lead | Let me think, yes."})
+                                  "any | afraid_lead | Let me think, yes.", "any | joined_lead | Pardon me. I heard you ask."})
         check::is_true(!row_problems(bad).empty(), "not a lead: " + bad);
+}
+
+TEST(someone_talked_down_lately_remembers_it_and_a_bystander_who_joins_says_so) {
+    // A bank with a line for being eased, and one without: the eased speaker says "now", never that
+    // they were not afraid, where their bank has the line.
+    const Lines lines = Lines::parse("warden/LN | not_afraid | I'm not afraid; I never was.\n"
+                                     "warden/LN | not_afraid_eased | I'm all right now; you saw to that.\n"
+                                     "any | not_afraid | I'm fine.\n"
+                                     "warden/LN | greeted_again | Hello again.\n"
+                                     "warden/LN | greeted_eased | Hello again. I'm steadier than when you saw me last.\n"
+                                     "any | surroundings | The nearest is {nearest}.\n"
+                                     "any | joined_lead | Pardon me, I couldn't help overhearing.\n"
+                                     "any | afraid_lead | Forgive me, I'm shaking.\n",
+                                     "test");
+    check::equal(first(lines.replies(packets::not_afraid())), std::string("I'm not afraid; I never was."), "never eased: as ever");
+    check::equal(first(lines.replies(packets::not_afraid_eased())), std::string("I'm all right now; you saw to that."),
+                 "eased lately: all right now");
+    check::equal(first(lines.replies(packets::greeted_eased())), std::string("Hello again. I'm steadier than when you saw me last."),
+                 "met again after being eased: recalled first");
+    check::equal(first(lines.replies(packets::greeted_again())), std::string("Hello again."), "the control: met again, not eased");
+    // A bank without them leaves them to the next bank's, never its own plain line, which may deny it.
+    const Lines plain = Lines::parse("warden/LN | not_afraid | I'm not afraid; I never was.\n"
+                                     "warden/LN | greeted_again | Hello again.\n"
+                                     "any | not_afraid_eased | I'm fine now, thanks to you.\n"
+                                     "any | greeted_eased | Good to see you; I've you to thank for my nerve.\n",
+                                     "test");
+    check::equal(first(plain.replies(packets::not_afraid_eased())), std::string("I'm fine now, thanks to you."), "the next bank's");
+    check::equal(first(plain.replies(packets::greeted_eased())), std::string("Good to see you; I've you to thank for my nerve."),
+                 "the next bank's greeting, not a plain one");
+    // The shape the same, for the voice too: all right now, never "I'm not afraid".
+    const auto opens = [](const FactPacket& p, const std::string& words) {
+        const std::vector<std::string> openings = communicator::reply_shape(p).openings;
+        return std::find(openings.begin(), openings.end(), words) != openings.end();
+    };
+    check::is_true(opens(packets::not_afraid(), "I'm not afraid"), "the control: never eased, it may be denied");
+    check::is_true(!opens(packets::not_afraid_eased(), "I'm not afraid") && opens(packets::not_afraid_eased(), "I'm all right"),
+                   "eased lately: no denial in the shape");
+    // A bystander who joined says so before the answer, whatever they feel; nobody else does.
+    const std::string answer = lines.speak(packets::surroundings(), "What's around?");
+    check::equal(lines.speak(packets::joined_surroundings(), "What's around?"), "Pardon me, I couldn't help overhearing. " + answer,
+                 "joined: said first");
+    FactPacket joined_afraid = packets::surroundings();
+    joined_afraid.facts.back() = packets::memory_of(joined_afraid.speaker, {.feeling = "afraid", .joined = true});
+    check::equal(lines.lead(joined_afraid), std::string("Pardon me, I couldn't help overhearing."), "joining first, fear or no");
+    check::equal(lines.lead(packets::surroundings()), std::string(), "the control: asked, not joined");
+    check::equal(communicator::reply_shape(packets::joined_surroundings()).sentences,
+                 communicator::reply_shape(packets::surroundings()).sentences + 1, "room for it in the shape");
 }
 
 TEST(no_one_met_before_is_called_a_stranger) {
