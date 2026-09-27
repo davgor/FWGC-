@@ -78,6 +78,16 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   - A new situation or blank goes in `Lines::situations()`, with a test packet that speaks it.
   - A frightened speaker's lines never say what frightened them, where it is, or whether it is
     still there: the packet does not say. Fear shows in how they speak.
+- **News is said in C++'s words** (`src/news.hpp`, contract version 11): what the stranger did,
+  and what happened, written from a News fact's own fields. A written line's `{deed}` and `{news}`
+  hold them whole, and the voice is shown them as they are; neither adds what happened, who else
+  was there, or what comes of it. A new event kind or state the director adds comes with its words
+  there and a test of them, or is left unsaid. Nothing is said of the speaker's own work or of
+  themself, which their own lines say. Which of a packet's News facts is passed on is
+  `news_to_pass_on`'s to say: the lines, their blanks and the voice all choose by it, and anything
+  new that says news does too. With two choosers, a line was chosen for one piece of news and its
+  blank filled with another (2026-09-27). What the speaker knows stays the director's: this only
+  chooses among it.
 - **Every reply passes the truth check before it is shown** (`truth.hpp`, `untrue()`).
   `Lines::speak` checks written lines as it chooses them, and says the next line when one fails;
   whatever joins the communicator to the game checks a voice reply and shows the written line

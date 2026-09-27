@@ -44,6 +44,20 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
 
   Every fact names the world id it came from. A test guards each of these; keep them, and prove a
   new one by switching the rule off and watching its test fail.
+- **The brain database is the director's to write and the game's to read** (`src/brains.cpp`,
+  README "News, and the brain database").
+  - Only the director's recorded inputs write it, so replay writes it again row for row; a test
+    compares every table of a replayed director with the live one. A game's query only reads: a
+    statement that would write, attach a file, change a setting or begin a transaction is refused
+    before it runs, and a test tries each kind.
+  - It lives in memory and nowhere else: no file is opened, attached or written.
+  - Every statement the director runs is deterministic: whatever it reads to decide is read in a
+    fixed order (`ORDER BY`, a key), and it calls no `random()` and no clock.
+  - Its tables are part of the C interface. A change to a table or a view a game reads bumps
+    `brains::kSchemaVersion` and `FWGC_API_VERSION`, and README says what changed.
+  - Its copies of the director's own state (`people`, `places`, `work`, `relationships`) are
+    written afresh before a query when what they copy has moved; nothing the director decides reads
+    them.
 - **`include/orchestrator/contract.hpp` names nothing of the generator.** The communicator includes
   it and nothing else from here; the layer checker refuses any other orchestrator header in a
   dependant (`public-include`). Keep it that way, and keep `orchestrator_contract` unlinked from
