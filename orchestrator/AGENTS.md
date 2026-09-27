@@ -48,6 +48,13 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
   it and nothing else from here; the layer checker refuses any other orchestrator header in a
   dependant (`public-include`). Keep it that way, and keep `orchestrator_contract` unlinked from
   `fwg`.
+- **The C interface keeps pace with the director.** Every public `Director` call and input kind
+  has its `fwgc_` function in `include/orchestrator/fwgc_director.h` and a check in
+  `tests/test_c_api.cpp`, and a change that adds one lands with them. Its tripwires stop the build
+  until it does: the count of input kinds in `src/c_save.cpp`, and the structured bindings over
+  every type it writes out in `src/c_json.cpp`. A new call trips nothing, so mind it. Nothing
+  crosses the interface but a status and plain data: no exception, no C++ type. The communicator
+  links `orchestrator_contract`, never `fwgc_director`.
 - **No model concepts.** Prompts and model plumbing belong to the communicator and inference. The
   layer checker refuses `llm`, `llama`, `gguf`, `inference`, `prompt`, `prompts`, `tokenizer` and
   `logits` in identifiers here. The red team watches for the rest (token, model, sampling), which
