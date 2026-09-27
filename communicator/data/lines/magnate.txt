@@ -971,3 +971,11 @@ magnate/NN | calmed | Maybe you're right. The books don't balance yet, but the g
 magnate/NN | still_afraid | No; words won't settle this account, not yet.
 magnate/NN | still_afraid | Not yet. I'll tell you when I'm fit to deal.
 magnate/NN | not_afraid | There's no need; my ledger's steady, and so am I.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- magnate/NN ----
+magnate/NN | greeted_eased | Good day. The books balance again, and your part in that is written down.
+magnate/NN | greeted_eased | Back again, and you'll find me fit to deal now, thanks to you.
+magnate/NN | not_afraid_eased | I'm fine; I keep my own accounts again, and your help is in them.
+magnate/NN | joined_lead | Every deal starts with listening, and I heard you.
+magnate/NN | joined_lead | I overheard, and good information shouldn't go to waste.

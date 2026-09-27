@@ -971,3 +971,11 @@ warden/NN | calmed | I'll try. You've helped, and I don't forget help.
 warden/NN | still_afraid | I can't, not yet; standing's all I can promise.
 warden/NN | still_afraid | Stay back a bit, and give me room to get my breath.
 warden/NN | not_afraid | I'm all right; I'm standing easy, but I'll not forget you asked.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- warden/NN ----
+warden/NN | greeted_eased | Hello again. Aye, I'm steady at my post, and that's on the books in your favour.
+warden/NN | greeted_eased | Good day. Still here, and a good deal steadier, which I put down to you.
+warden/NN | not_afraid_eased | There's no need; you did right by me before, and it's held.
+warden/NN | joined_lead | There's little said near my post that I miss, and I heard you.
+warden/NN | joined_lead | Couldn't help hearing, and I deal fair with anyone in earshot.

@@ -499,3 +499,11 @@ malevolent_benevolent/NN | calmed | Maybe you're right. I'll take it as it comes
 malevolent_benevolent/NN | still_afraid | Not yet. I'm the one shaking, and I'll say when it stops.
 malevolent_benevolent/NN | still_afraid | No, and I won't pretend otherwise to please you.
 malevolent_benevolent/NN | not_afraid | I'm all right; if I weren't, I'd say so plainly.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- malevolent_benevolent/NN ----
+malevolent_benevolent/NN | greeted_eased | Hello again. I'm steady now, and I don't mind who knows you helped.
+malevolent_benevolent/NN | greeted_eased | Good day. Make what you like of how you found me; I'm on my feet now, and some of that is yours.
+malevolent_benevolent/NN | not_afraid_eased | I'm all right, and you've my straight word on it, with thanks for the steadying.
+malevolent_benevolent/NN | joined_lead | Whether you trust me or not, I heard, and it's worth telling.
+malevolent_benevolent/NN | joined_lead | I came over because I heard; judge me by the answer.

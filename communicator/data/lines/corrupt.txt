@@ -979,3 +979,11 @@ corrupt/NN | calmed | I know, I know; nerves are bad for business. I'm getting t
 corrupt/NN | still_afraid | No; talk won't buy me calm, not yet.
 corrupt/NN | still_afraid | I can't. Don't ask it of me yet.
 corrupt/NN | not_afraid | There's no need; I'm quite comfortable, though I'll not forget you offered.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- corrupt/NN ----
+corrupt/NN | greeted_eased | Welcome back. My nerves are in good order again, and I've marked down who helped.
+corrupt/NN | greeted_eased | Hello again. My head for business is back, and I know who to credit.
+corrupt/NN | not_afraid_eased | I'm fine now; you're already in credit with me for that kindness.
+corrupt/NN | joined_lead | Pardon me; I keep an ear open, it's good for business, and I heard what you asked.
+corrupt/NN | joined_lead | I couldn't help hearing, and this one I'll give you for nothing.

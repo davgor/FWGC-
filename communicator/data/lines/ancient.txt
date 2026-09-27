@@ -381,3 +381,11 @@ ancient/NN | calmed | All right. I've time to find my feet again, if nothing els
 ancient/NN | still_afraid | Not yet. Don't hurry me; I'll steady when I steady.
 ancient/NN | still_afraid | No. My hands haven't heard a word of it.
 ancient/NN | not_afraid | There's no need; I'm in no hurry to be frightened.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- ancient/NN ----
+ancient/NN | greeted_eased | Good to see you. I found my feet again in my own time, and you helped me to it.
+ancient/NN | greeted_eased | Well met again. You spent time steadying me, and it took; I don't forget time well spent.
+ancient/NN | not_afraid_eased | I'm all right; fear's a poor use of time, and I've stopped spending mine on it, thanks to you.
+ancient/NN | joined_lead | I've time to listen, and I heard what you asked.
+ancient/NN | joined_lead | I don't rush into other people's talk, but I heard you, and it seemed worth the walk over.

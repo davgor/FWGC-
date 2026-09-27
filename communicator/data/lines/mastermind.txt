@@ -853,3 +853,11 @@ mastermind/NN | calmed | All right. That's a footing, and I can build a plan on 
 mastermind/NN | still_afraid | Not yet. I've no fallback, and I can't settle without one.
 mastermind/NN | still_afraid | I can't. My head's still running every way at once.
 mastermind/NN | not_afraid | I'm not afraid; I've a plan, and a second one behind it.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- mastermind/NN ----
+mastermind/NN | greeted_eased | Welcome back. I've two plans in hand again, and I'd not have made either without you.
+mastermind/NN | greeted_eased | Hello again. I'm no longer a step behind myself, and I hadn't planned on needing you for that.
+mastermind/NN | not_afraid_eased | There's no need; I've built a plan on your steadying, and it's standing.
+mastermind/NN | joined_lead | Everything I hear goes into the reckoning, and so did that.
+mastermind/NN | joined_lead | I heard you, and walking over seemed the better plan.

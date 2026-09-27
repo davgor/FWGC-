@@ -971,3 +971,11 @@ mentor/NN | calmed | Yes. It's what I'd tell you: slow down, then think.
 mentor/NN | still_afraid | You don't understand; knowing how to be calm and being calm are different things.
 mentor/NN | still_afraid | No. You can't do this one for me.
 mentor/NN | not_afraid | There's no need; still, it's a good instinct, so keep it.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- mentor/NN ----
+mentor/NN | greeted_eased | Good to see you. The teaching went the other way when you found me, and I've kept the lesson.
+mentor/NN | greeted_eased | Hello again. I took my own advice in the end, with a push from you.
+mentor/NN | not_afraid_eased | There's no need; you showed me how, and I can manage it myself now.
+mentor/NN | joined_lead | I don't usually hand out answers, but I heard that one.
+mentor/NN | joined_lead | Since I heard, I'll spare you the working out.

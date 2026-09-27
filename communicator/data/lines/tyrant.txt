@@ -503,3 +503,11 @@ tyrant/NN | calmed | Yes, that'll do. Say nothing of this to anyone.
 tyrant/NN | still_afraid | No. Don't tell me what to feel.
 tyrant/NN | still_afraid | I can't, not on command, not even mine.
 tyrant/NN | not_afraid | I'm not afraid, and I'd thank you not to say so where people can hear.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- tyrant/NN ----
+tyrant/NN | greeted_eased | Good day. I've my feet under me, and that's all that needs saying about it.
+tyrant/NN | greeted_eased | Back again. I'm in command of myself, and what you saw goes no further.
+tyrant/NN | not_afraid_eased | I'm all right; once was enough, and we'll not speak of it.
+tyrant/NN | joined_lead | Nothing's said near me that I don't hear, so listen.
+tyrant/NN | joined_lead | I heard you, and I don't waste time, so here it is.

@@ -971,3 +971,11 @@ conqueror/NN | calmed | Maybe you're right; panic's a bad trade. I'll stop makin
 conqueror/NN | still_afraid | Not yet. Don't press me.
 conqueror/NN | still_afraid | Keep away. I'll steady myself, in my own time.
 conqueror/NN | not_afraid | I'm not afraid; I'm counting the cost, which looks much the same.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- conqueror/NN ----
+conqueror/NN | greeted_eased | Back again. I'm steady, and I'll own you had a part in it.
+conqueror/NN | greeted_eased | Well met again. You found me in poor shape and left me in better, and that's worth something to me.
+conqueror/NN | not_afraid_eased | I'm fine; you settled that account once, and it stays settled.
+conqueror/NN | joined_lead | Forgive the interruption; I caught what you asked, and an answer costs me nothing.
+conqueror/NN | joined_lead | I overheard, and I don't let a useful moment pass.

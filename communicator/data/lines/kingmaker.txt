@@ -853,3 +853,11 @@ kingmaker/NN | calmed | Thank you. That helped, and I keep track of who helps.
 kingmaker/NN | still_afraid | No. I'm still no use to myself, let alone anyone else.
 kingmaker/NN | still_afraid | Stay back a little; give me room to gather my wits.
 kingmaker/NN | not_afraid | I'm not afraid; I save that for things that deserve it.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- kingmaker/NN ----
+kingmaker/NN | greeted_eased | Good to see you. Now that I can think past my next step, I've noted who made that possible.
+kingmaker/NN | greeted_eased | Welcome back. I'm of use to myself again, and that's a favour I'll remember.
+kingmaker/NN | not_afraid_eased | There's no need; my wits are back where I can use them, and I know who fetched them.
+kingmaker/NN | joined_lead | Anyone might matter one day, so I listen, and I heard you.
+kingmaker/NN | joined_lead | Pardon me; I'd like to be the one who told you.

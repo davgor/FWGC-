@@ -1206,3 +1206,67 @@ post:clerk | calmed | Maybe you're right. My hand's slowing, even if my heart is
 post:clerk | still_afraid | I can't; every thought blots before I can read it.
 post:clerk | still_afraid | No; not yet, and I couldn't say why.
 post:clerk | not_afraid | I'm fine, truly; I've only a page to finish.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- post:storekeeper ----
+post:storekeeper | greeted_eased | Welcome back. I'm in good order again, and I know who put me there.
+post:storekeeper | greeted_eased | Good day. My head's sorted like my bins now, and I've you to thank for it.
+post:storekeeper | not_afraid_eased | I'm fine; you tidied my nerves away, and that's where they are.
+post:storekeeper | joined_lead | I keep an ear out, same as I keep the damp out, and I heard you asking.
+post:storekeeper | joined_lead | Let me add my bit; I heard what you asked.
+
+# ---- post:porter ----
+post:porter | greeted_eased | Well met again. That weight's off my mind now, and I've not forgotten it was your doing.
+post:porter | greeted_eased | Back again, and my knees hold now, which they didn't when you found me.
+post:porter | not_afraid_eased | I'm all right; I carry myself easy now, and your words did that.
+post:porter | joined_lead | Pardon me; I'm only muscle, but I heard what you asked.
+post:porter | joined_lead | A sack never says much, so I listen, and I heard your question.
+
+# ---- post:merchant ----
+post:merchant | greeted_eased | Good to see you. My wits are home again, and you're the one who talked them back.
+post:merchant | greeted_eased | Welcome back; I'm my old self again, sharp as ever, and you've my thanks.
+post:merchant | not_afraid_eased | I'm fine; you've already settled my nerves, and settled is settled.
+post:merchant | joined_lead | A moment of your time; I heard what you were asking.
+post:merchant | joined_lead | I never let an opening slip, and I heard you asking.
+
+# ---- post:market_steward ----
+post:market_steward | greeted_eased | Well met again. I've my voice back, and my order with it; you gave me both.
+post:market_steward | greeted_eased | Good day. I'm loud and steady again, and I'm obliged to you for it.
+post:market_steward | not_afraid_eased | There's no need; you saw me right, and I'm fit to keep a market again.
+post:market_steward | joined_lead | I've an ear trained on crowds, and I heard what you asked.
+post:market_steward | joined_lead | Listen, I couldn't help catching what you asked.
+
+# ---- post:cargo_clerk ----
+post:cargo_clerk | greeted_eased | Good day. I'm weighing true again, and it was your words that tipped me there.
+post:cargo_clerk | greeted_eased | Hello again. My beam sits level now; you did the balancing.
+post:cargo_clerk | not_afraid_eased | I'm fine; my figures add up now, and your words did that.
+post:cargo_clerk | joined_lead | I weigh cargo, not chatter, but I heard what you asked.
+post:cargo_clerk | joined_lead | If you'll allow me, I heard your question.
+
+# ---- post:fuel_handler ----
+post:fuel_handler | greeted_eased | Good to see you. That knot in my chest has loosened, and your talk undid it.
+post:fuel_handler | greeted_eased | Hello again. I'm black to the elbows as ever, but steady with it, and that's down to you.
+post:fuel_handler | not_afraid_eased | There's no need; the only rattle left in me is my cough, and you saw to the rest.
+post:fuel_handler | joined_lead | Don't mind the soot; I heard what you asked.
+post:fuel_handler | joined_lead | The dust hasn't reached my ears yet, and I heard you asking.
+
+# ---- post:toll_clerk ----
+post:toll_clerk | greeted_eased | Good day. I'm brisk as ever now; your steadying did that.
+post:toll_clerk | greeted_eased | Back again; my head's clear enough to tally, thanks to you.
+post:toll_clerk | not_afraid_eased | I'm all right now; you calmed me the once, and it took.
+post:toll_clerk | joined_lead | I count carts all day with one ear spare, and it caught your question.
+post:toll_clerk | joined_lead | Pardon me for stepping out of line; I heard you asking.
+
+# ---- post:treasurer ----
+post:treasurer | greeted_eased | Good day. I am quite composed now, and I do not forget who helped me to it.
+post:treasurer | greeted_eased | Well met again. I am steadier for your words, and I am not ungrateful.
+post:treasurer | not_afraid_eased | I'm fine, I assure you; my composure is restored, and I have you to thank for it.
+post:treasurer | joined_lead | I beg your pardon for intruding, but your question was plainly audible.
+post:treasurer | joined_lead | I seldom speak unbidden, but I heard your question.
+
+# ---- post:clerk ----
+post:clerk | greeted_eased | Hello again. My hand's steady on the pen now, and I've made a note of who to thank.
+post:clerk | greeted_eased | Good to see you; the words sit still on the page now, since you settled me.
+post:clerk | not_afraid_eased | I'm all right; you filed my thoughts back where they belong.
+post:clerk | joined_lead | Pardon the interruption; I took down what you asked, in my head if not on paper.
+post:clerk | joined_lead | Forgive the ink on my hands; I heard you asking.

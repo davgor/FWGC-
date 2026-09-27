@@ -874,3 +874,11 @@ beast/NN | calmed | Maybe you're right. Don't push it, though.
 beast/NN | still_afraid | Keep away; I need room, not talk.
 beast/NN | still_afraid | No. It's not working, so leave it.
 beast/NN | not_afraid | I'm fine; as calm as I ever am, near enough.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- beast/NN ----
+beast/NN | greeted_eased | Good day. I've got my breath back, all of it, and I know who to thank.
+beast/NN | greeted_eased | Welcome back. I'm steady now, and that's a good turn I'll not forget.
+beast/NN | not_afraid_eased | I'm fine; you steadied me once, and it held.
+beast/NN | joined_lead | I heard you; I'll keep it short.
+beast/NN | joined_lead | Don't mind me cutting in; I overheard, and I don't waste words.

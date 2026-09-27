@@ -1317,3 +1317,74 @@ post:watch_officer | calmed | Yes. I'll take it one report at a time, and one br
 post:watch_officer | still_afraid | Not yet; my hand's still shaking, and I'll not pretend otherwise on the record.
 post:watch_officer | still_afraid | You don't understand; nothing files this away, however I try.
 post:watch_officer | not_afraid | I'm all right; overworked, and that's a different thing.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- post:garrison_trooper ----
+post:garrison_trooper | greeted_eased | Back again. I'm bored stiff and glad of it, and I've you to thank for that.
+post:garrison_trooper | greeted_eased | Good to see you. You talked me down when I was going spare, and I'm the better for it.
+post:garrison_trooper | not_afraid_eased | I'm all right; you sorted my nerves out, and all that's left is boredom.
+post:garrison_trooper | joined_lead | Couldn't help overhearing; there's little else to do but listen, most days.
+post:garrison_trooper | joined_lead | Pardon me butting in; I keep my ears open for anything worth hearing.
+
+# ---- post:gate_guard ----
+post:gate_guard | greeted_eased | Well met again. My head's clear and my count keeps, thanks to you.
+post:gate_guard | greeted_eased | Good day. Yours is a face I'll remember kindly; you steadied me when I needed it.
+post:gate_guard | not_afraid_eased | I'm all right; the faces stay straight in my head now, and that's your doing.
+post:gate_guard | joined_lead | I ask everyone their business all day, so I couldn't help hearing yours.
+post:gate_guard | joined_lead | Forgive me; I listen to everyone who passes, and you were no exception.
+
+# ---- post:jailer ----
+post:jailer | greeted_eased | Hello again. My hands are steady on the keys, and I'll admit you had something to do with it.
+post:jailer | greeted_eased | Good day. I don't trust easily, but I trusted your words when it counted, and they held.
+post:jailer | not_afraid_eased | I'm fine; you steadied me, and I don't say that of many.
+post:jailer | joined_lead | Don't mind me; listening in is half my job, and I heard that.
+post:jailer | joined_lead | I keep an ear on every word said near me, true or not, and I caught that.
+
+# ---- post:keep_guard ----
+post:keep_guard | greeted_eased | Well met again. I stand steadier now, and I do not forget who helped me to it.
+post:keep_guard | greeted_eased | Good day. I am myself again, and I owe some of it to your words.
+post:keep_guard | not_afraid_eased | There's no need; you steadied me, and I have held since.
+post:keep_guard | joined_lead | Forgive me; standing still, one hears everything, and I heard you.
+post:keep_guard | joined_lead | I do not often speak unbidden, but I heard what was asked.
+
+# ---- post:lookout ----
+post:lookout | greeted_eased | Hello again! I'm bright-eyed and steady now, and all thanks to you.
+post:lookout | greeted_eased | Welcome back! I've my breath and my wits again, and you're the one I owe for them.
+post:lookout | not_afraid_eased | I'm fine now, honest; my eyes have settled, and you settled them.
+post:lookout | joined_lead | My ears are as sharp as my eyes, and I heard all of that.
+post:lookout | joined_lead | Not much gets past me, and your question didn't either.
+
+# ---- post:postern_guard ----
+post:postern_guard | greeted_eased | Good to see you. I'm steadier by more than a hair now, and quietly grateful.
+post:postern_guard | greeted_eased | Well met again, softly; I'm settled now, and who settled me stays between us.
+post:postern_guard | not_afraid_eased | There's no need; your quiet words did their work, and they still hold.
+post:postern_guard | joined_lead | Just between us, I caught that, and I'll say my piece quietly.
+post:postern_guard | joined_lead | Keep it low; I hear a good deal from where I stand, and I heard that.
+
+# ---- post:soldier ----
+post:soldier | greeted_eased | Good day. I'm back in line and steadier, and it was your words that put me there.
+post:soldier | greeted_eased | Hello again. You talked me steady without a single order, and I'm grateful.
+post:soldier | not_afraid_eased | I'm all right; you stood me at ease, and I've stayed that way.
+post:soldier | joined_lead | Pardon me for breaking ranks, but I heard that.
+post:soldier | joined_lead | Nobody ordered me over, but I heard you, and I couldn't stand by.
+
+# ---- post:tower_watch ----
+post:tower_watch | greeted_eased | Well met again. I'm back to slow and steady, and you helped me there.
+post:tower_watch | greeted_eased | Hello again. I've had time to steady, and you gave me the start of it.
+post:tower_watch | not_afraid_eased | I'm fine; you slowed me to my own pace, and I've kept to it.
+post:tower_watch | joined_lead | Hm, I heard that; I hear most things, given time.
+post:tower_watch | joined_lead | I don't speak up often, but that question reached me.
+
+# ---- post:watch_guard ----
+post:watch_guard | greeted_eased | Back again. My feet are under me now, and it was you who put them there.
+post:watch_guard | greeted_eased | Good to see you. I'll not forget the face that talked me down, and I'm steadier for it.
+post:watch_guard | not_afraid_eased | I'm fine; my nerve's my own again, and that's down to you.
+post:watch_guard | joined_lead | Couldn't help hearing; you get an ear for it, walking a beat.
+post:watch_guard | joined_lead | Don't mind me; the streets teach you to listen, and I was listening.
+
+# ---- post:watch_officer ----
+post:watch_officer | greeted_eased | Welcome back. I can read a report straight through again, and I know whose doing that was.
+post:watch_officer | greeted_eased | Good day. I'll put it on record that you talked me down, and that I'm grateful.
+post:watch_officer | not_afraid_eased | There's no need; it's on record who steadied me, and the record stands.
+post:watch_officer | joined_lead | In brief: I heard what you asked, and I'd rather speak up than file it.
+post:watch_officer | joined_lead | Forgive the interruption; everything said near me ends up on my desk sooner or later.

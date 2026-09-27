@@ -406,7 +406,7 @@ post:farmer | denied | Nonsense; I farm, and that's all there is to me.
 post:farmer | denied | You're mistaken; what you see is mud and hard work.
 post:farmer | denied_again | No, and you can ask till the cows come home.
 # ---- post:farm_hand: conversation ----
-post:farm_hand | greeted | Hello. You're talking to the hand, so don't expect much.
+post:farm_hand | greeted | Hello. I only work the fields here, so don't expect much.
 post:farm_hand | greeted | Good day, for them as has one; mine's mostly muck.
 post:farm_hand | greeted | Welcome, I suppose; nobody usually stops to talk to me.
 post:farm_hand | greeted_again | Hello again.[ Still after {asked}, then?]
@@ -1448,3 +1448,71 @@ post:animal_keeper | calmed | Maybe you're right. A round of the pens will settl
 post:animal_keeper | still_afraid | I can't; I'm better soothing than soothed, and always was.
 post:animal_keeper | still_afraid | Not yet; the shaking won't be talked out of me, sorry.
 post:animal_keeper | not_afraid | There's no need; I'm just tired from mucking out.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- post:farmer ----
+post:farmer | greeted_eased | Good to see you. There's ground under my feet again, and you had a hand in that.
+post:farmer | greeted_eased | Welcome back. I'm steadier than when you found me, and the weeds know it.
+post:farmer | not_afraid_eased | I'm all right; what you said took root, like good seed.
+post:farmer | joined_lead | Forgive me butting in; my ears are better than my manners.
+post:farmer | joined_lead | I'm no gossip, but sound carries over open ground, and I heard you.
+# ---- post:farm_hand ----
+post:farm_hand | greeted_eased | Hello again. I'm as right as a hand ever gets now, and I've you to thank for it.
+post:farm_hand | greeted_eased | Good day. My nerves have settled, and it's not often anyone takes the trouble over a hand's.
+post:farm_hand | not_afraid_eased | There's no need; I've been steady since you bothered with me, and I'm grateful for it.
+post:farm_hand | joined_lead | Nobody ever asks the hand, but I couldn't help hearing you.
+post:farm_hand | joined_lead | Don't mind me poking my head in; I heard what you were after.
+# ---- post:well_keeper ----
+post:well_keeper | greeted_eased | Well met again. I've settled since you found me, like water left to stand.
+post:well_keeper | greeted_eased | Hello again. The rope sits sure in my hands now, and I owe some of that to you.
+post:well_keeper | not_afraid_eased | There's no need; you settled me once, and I've stayed as clear as good water.
+post:well_keeper | joined_lead | You learn to listen, minding a well, and I caught what you asked.
+post:well_keeper | joined_lead | I don't draw up talk on purpose, but I heard yours all the same.
+# ---- post:carter ----
+post:carter | greeted_eased | Good day. My nerve's back on its wheels, and that's a debt I don't forget.
+post:carter | greeted_eased | Hello again. I'm running true now, like a mended wheel, and I know who did the mending.
+post:carter | not_afraid_eased | I'm fine; you knocked my nerve true, and it's run straight since.
+post:carter | joined_lead | Pardon me for pulling in; I heard what you asked.
+post:carter | joined_lead | I'll not pretend I didn't hear you; I deal straighter than that.
+# ---- post:fisher ----
+post:fisher | greeted_eased | Good day. I'm steadier, and that's your doing.
+post:fisher | greeted_eased | Back again. I can tie a knot now; thanks for it.
+post:fisher | not_afraid_eased | I'm fine; you saw to that.
+post:fisher | joined_lead | Couldn't help hearing.
+post:fisher | joined_lead | I heard you; I'm not one for talk, but I'll say this much.
+# ---- post:boatman ----
+post:boatman | greeted_eased | Well met again. I'm back on an even keel, and you've my thanks for the tow.
+post:boatman | greeted_eased | Welcome back. My legs are sure on the boards again, and that's thanks to you.
+post:boatman | not_afraid_eased | I'm all right; you talked me back aboard, and I've stayed there.
+post:boatman | joined_lead | Forgive me for rowing in uninvited; I caught your question.
+post:boatman | joined_lead | I don't mean to rock anyone's boat, but I couldn't help overhearing.
+# ---- post:hauler ----
+post:hauler | greeted_eased | Hello again. My grip's come back, and I'll not forget who helped me find it.
+post:hauler | greeted_eased | Good to see you. Hm, you took a load off me, and I've stood straighter since.
+post:hauler | not_afraid_eased | I'm fine now, and my arms know who to thank.
+post:hauler | joined_lead | Hm, I carry things, not news, but I heard what you asked.
+post:hauler | joined_lead | Pardon me shouldering in; your question carried.
+# ---- post:water_carrier ----
+post:water_carrier | greeted_eased | Back again. I've found my rhythm, pails level and all, and I know who set me going.
+post:water_carrier | greeted_eased | Welcome back; walk with me. I'm sure-footed on the stairs again, and I've not forgotten your kindness.
+post:water_carrier | not_afraid_eased | I'm all right now; you steadied me once, and I've kept my rhythm since.
+post:water_carrier | joined_lead | I can't stop long, but I heard you asking.
+post:water_carrier | joined_lead | Always passing, me, and your question reached me on the way.
+# ---- post:water_keeper ----
+post:water_keeper | greeted_eased | Good day. I am in order again, and I will not forget who helped me to it.
+post:water_keeper | greeted_eased | Hello again. My figures come out straight once more, and I have you to thank.
+post:water_keeper | not_afraid_eased | I'm fine; you set me in order once, and I have kept it so.
+post:water_keeper | joined_lead | Forgive the interruption; I could not help hearing your question.
+post:water_keeper | joined_lead | Pardon me; I was not listening on purpose, but I heard you.
+# ---- post:horse_keeper ----
+post:horse_keeper | greeted_eased | Welcome back. I've my seat and my stirrups both now, and your steady voice to thank for it.
+post:horse_keeper | greeted_eased | Good day. I'd pass myself sound now, wind and legs, and I don't pass anything lightly.
+post:horse_keeper | not_afraid_eased | There's no need; you gentled me once, and I'm no colt that needs it twice.
+post:horse_keeper | joined_lead | I listen for a lame step all day, so I heard you plain enough.
+post:horse_keeper | joined_lead | Hold a moment; I heard what you asked.
+# ---- post:animal_keeper ----
+post:animal_keeper | greeted_eased | Hello again. My hands are my own now, and the beasts have you to thank as much as I do.
+post:animal_keeper | greeted_eased | Back again. You settled me the way I'd settle a skittish beast, and it worked.
+post:animal_keeper | not_afraid_eased | I'm fine now, thanks to you; a kind word works on me the way it works on the beasts.
+post:animal_keeper | joined_lead | I'm no hand with people, but I overheard you.
+post:animal_keeper | joined_lead | Forgive me stepping in, smell and all; I heard what you asked.

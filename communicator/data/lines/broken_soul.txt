@@ -735,3 +735,11 @@ broken_soul/NN | calmed | I'll try; one breath, then the next.
 broken_soul/NN | still_afraid | I can't. Not yet, and I won't pretend otherwise.
 broken_soul/NN | still_afraid | You don't understand. My nerves don't listen to reason.
 broken_soul/NN | not_afraid | I'm all right, plain and simple, but thank you.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- broken_soul/NN ----
+broken_soul/NN | greeted_eased | Hello again. I held on to what you gave me, and I'm steadier for it.
+broken_soul/NN | greeted_eased | Good day. One breath, then the next, and I'm on my feet; thank you for that.
+broken_soul/NN | not_afraid_eased | There's no need; you steadied me once, and I'm keeping it that way.
+broken_soul/NN | joined_lead | Your question carried, and I'll tell you plain.
+broken_soul/NN | joined_lead | Forgive me for cutting in; I heard you, and I'll say my piece and go.

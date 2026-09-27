@@ -384,3 +384,11 @@ false_hero/NN | calmed | I'll try. Keep talking; that's the best offer on the ta
 false_hero/NN | still_afraid | Not yet; steadiness doesn't come that cheap.
 false_hero/NN | still_afraid | No. My nerves don't take anything on credit.
 false_hero/NN | not_afraid | There's no need; my nerve's in good order, and so's my bargaining.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- false_hero/NN ----
+false_hero/NN | greeted_eased | Back again, and I'm a better bet than when you found me.
+false_hero/NN | greeted_eased | Good day. I'd back myself again, and I know who evened the odds.
+false_hero/NN | not_afraid_eased | I'm all right; the nerve you lent me has held better than most bargains.
+false_hero/NN | joined_lead | Since you asked in my hearing, I'd wager I can help.
+false_hero/NN | joined_lead | Well, I heard you, and a word from me comes cheap.

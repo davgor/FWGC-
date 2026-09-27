@@ -617,3 +617,11 @@ forgiving/NN | calmed | Yes. I'm letting it go, a little at a time.
 forgiving/NN | still_afraid | I can't. It takes me longer to steady than to forgive.
 forgiving/NN | still_afraid | No. Whatever's meant by it, it doesn't reach my hands yet.
 forgiving/NN | not_afraid | I'm all right; I carry nothing I don't need, fear included.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- forgiving/NN ----
+forgiving/NN | greeted_eased | Welcome back. You talked me steady, and I don't forget a thing like that.
+forgiving/NN | greeted_eased | Hello again. I'm carrying less than when you found me, and you took some of the weight.
+forgiving/NN | not_afraid_eased | There's no need; you helped me set the fear down, and I've not picked it back up.
+forgiving/NN | joined_lead | Forgive me listening in; I'd forgive you the same.
+forgiving/NN | joined_lead | Not to pry, but I heard that, and you can remember who told you.

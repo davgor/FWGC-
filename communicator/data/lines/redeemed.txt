@@ -735,3 +735,11 @@ redeemed/NN | calmed | Thank you; that was worth hearing. Give me a moment more.
 redeemed/NN | still_afraid | Not yet. I hear you, but my hands haven't caught up.
 redeemed/NN | still_afraid | I can't, not just by wanting to.
 redeemed/NN | not_afraid | I'm all right, and I'd tell you plainly if I weren't.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- redeemed/NN ----
+redeemed/NN | greeted_eased | Good day. I'm settled now, and what you said was worth more than you'd think.
+redeemed/NN | greeted_eased | Welcome back. I'm clear-headed again; you did that cleanly, and I noticed.
+redeemed/NN | not_afraid_eased | There's no need; you talked me down once, and it was done well enough to last.
+redeemed/NN | joined_lead | None of my business, I know, but I heard you, and it seemed worth the step.
+redeemed/NN | joined_lead | Forgive me; I heard you, and I'll give it you without dressing it up.

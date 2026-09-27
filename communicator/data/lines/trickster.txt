@@ -853,3 +853,11 @@ trickster/NN | calmed | Maybe you're right. I'll pretend I believe it until I do
 trickster/NN | still_afraid | You don't understand; I can talk anyone round but myself.
 trickster/NN | still_afraid | No; my nerve's the one thing I can't bluff.
 trickster/NN | not_afraid | I'm fine, and that's no bluff, for once.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- trickster/NN ----
+trickster/NN | greeted_eased | Well met again. My clever's back where I left it, and I'll admit you helped me look.
+trickster/NN | greeted_eased | Hello again. I'm steady, and I'll say so plainly, which I only do for people I owe.
+trickster/NN | not_afraid_eased | I'm fine, truly; you did the trick once, and it's still working.
+trickster/NN | joined_lead | Forgive me; overhearing is a bad habit of mine, and a useful one.
+trickster/NN | joined_lead | Pardon the intrusion; knowing who wants what is half my trade, and I heard you.

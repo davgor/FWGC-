@@ -971,3 +971,11 @@ oathbound/NN | calmed | I'll try, and I don't say that lightly.
 oathbound/NN | still_afraid | Not yet. When I'm steady, you'll hear it from me first.
 oathbound/NN | still_afraid | I can't. Any promise of calm from me now would go unkept.
 oathbound/NN | not_afraid | I'm all right; I don't say what I don't mean.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- oathbound/NN ----
+oathbound/NN | greeted_eased | Well met again. I'm steadier for your words, and I keep count of such things.
+oathbound/NN | greeted_eased | Good day. I'm as steady as my word again, and you had a part in that.
+oathbound/NN | not_afraid_eased | There's no need; one debt to you is all I care to carry, and I'm steady without another.
+oathbound/NN | joined_lead | Pardon me, but I heard you, and what I know is mine to give.
+oathbound/NN | joined_lead | Forgive me; I'll not pretend I didn't hear you.

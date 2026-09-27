@@ -855,3 +855,11 @@ deceiver/NN | calmed | All right. Keep talking like that; it's working, slowly.
 deceiver/NN | still_afraid | No; words are cheap, and I'm not steady yet.
 deceiver/NN | still_afraid | Stay back. I'll settle when I can see straight.
 deceiver/NN | not_afraid | I'm fine; no games, I'm simply not afraid.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- deceiver/NN ----
+deceiver/NN | greeted_eased | Good day. I'm on an even footing again, and I count that a favour owed.
+deceiver/NN | greeted_eased | Hello again. What you said worked, and it's held.
+deceiver/NN | not_afraid_eased | I'm fine; you've done that once, and it stuck.
+deceiver/NN | joined_lead | Couldn't help overhearing, and it's no skin off my nose to answer.
+deceiver/NN | joined_lead | Forgive me stepping in; I overheard, and a plain answer's worth giving.

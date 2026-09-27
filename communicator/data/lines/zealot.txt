@@ -729,3 +729,11 @@ zealot/NN | calmed | I know, I know. This fear's only doubt in a hurry, and I'll
 zealot/NN | still_afraid | Not yet; the prayers come, but the calm doesn't.
 zealot/NN | still_afraid | You don't understand; faith is what I have, and it's barely enough.
 zealot/NN | not_afraid | There's no need; my faith's in good order, and so am I.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- zealot/NN ----
+zealot/NN | greeted_eased | Good to see you. Even my hands keep faith now, and I give thanks for your words.
+zealot/NN | greeted_eased | Well met again. I've counted what you said among my mercies, and I'm the steadier for it.
+zealot/NN | not_afraid_eased | I'm fine; your words and my prayers did their work, and I'll not ask more of either.
+zealot/NN | joined_lead | Forgive me; I've no use for idle ears, so I'll put mine to work.
+zealot/NN | joined_lead | I listen as closely as I pray, and I heard you.

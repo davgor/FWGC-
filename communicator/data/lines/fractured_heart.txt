@@ -874,3 +874,11 @@ fractured_heart/NN | calmed | Maybe you're right. I'll give it a little longer a
 fractured_heart/NN | still_afraid | Not yet; I can't help it, and there's no use pushing.
 fractured_heart/NN | still_afraid | Keep away a little; I need room, and time, and that's all.
 fractured_heart/NN | not_afraid | I'm fine, plainly, though it's fair of you to ask.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- fractured_heart/NN ----
+fractured_heart/NN | greeted_eased | Good day. I'm managing fine now, and some of that's down to you.
+fractured_heart/NN | greeted_eased | Well met again. You did me a good turn when you found me, and we're not square on it yet.
+fractured_heart/NN | not_afraid_eased | I'm all right; you put me square, and I've stayed that way.
+fractured_heart/NN | joined_lead | I heard, and you'll have it plain.
+fractured_heart/NN | joined_lead | It's only fair I speak up, since I overheard.

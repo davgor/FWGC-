@@ -971,3 +971,11 @@ reluctant_hero/NN | calmed | I know, I know. Somebody has to keep their head, an
 reluctant_hero/NN | still_afraid | Easy for you to say; I'm the one whose knees won't hold.
 reluctant_hero/NN | still_afraid | No, not yet; I'm worn to a thread.
 reluctant_hero/NN | not_afraid | Who said I was afraid, when I'm only tired, as usual?
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- reluctant_hero/NN ----
+reluctant_hero/NN | greeted_eased | Back again. I'm steady enough to be useful, worse luck, and I've you to blame.
+reluctant_hero/NN | greeted_eased | Good to see you. Somebody had to talk sense into me, and it's stuck; I'll grant you did it well.
+reluctant_hero/NN | not_afraid_eased | I'm fine, just tired, and you've done enough for me already.
+reluctant_hero/NN | joined_lead | Pardon me; I'd rather not get involved, but I heard you, and here I am.
+reluctant_hero/NN | joined_lead | I can never walk past once I've heard something, more's the pity.

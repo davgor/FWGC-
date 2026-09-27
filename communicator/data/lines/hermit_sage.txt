@@ -617,3 +617,11 @@ hermit_sage/NN | calmed | I know, I know; fretting's poor arithmetic. The sums a
 hermit_sage/NN | still_afraid | No; I can't reason my way out of it yet.
 hermit_sage/NN | still_afraid | You don't understand; a head like mine doesn't take advice, not even its own.
 hermit_sage/NN | not_afraid | I'm not afraid; if I were, you'd hear it from me first.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- hermit_sage/NN ----
+hermit_sage/NN | greeted_eased | Good day. My thoughts line up again, and I'll grant you your share in that.
+hermit_sage/NN | greeted_eased | Back again. I can think straight now, and I've reckoned what I owe you for it.
+hermit_sage/NN | not_afraid_eased | I'm fine; my head's been in order since you helped me set it there.
+hermit_sage/NN | joined_lead | I rarely put a word in, but this once I will.
+hermit_sage/NN | joined_lead | I weighed whether to speak up, and the question's worth my breath.

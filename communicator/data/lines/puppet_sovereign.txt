@@ -381,3 +381,11 @@ puppet_sovereign/NN | calmed | Maybe you're right. You sound surer than I feel, 
 puppet_sovereign/NN | still_afraid | I can't. It all lands on me, whether I decide it or not.
 puppet_sovereign/NN | still_afraid | Not yet. I'm waiting to feel steadier, and nobody can tell me when.
 puppet_sovereign/NN | not_afraid | I'm fine; nobody's told me to be otherwise.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- puppet_sovereign/NN ----
+puppet_sovereign/NN | greeted_eased | Welcome back. I'm steadier; it seems all I needed was a word, and you had one.
+puppet_sovereign/NN | greeted_eased | Good to see you. Nobody had to tell me I'm steadier; for once I can see it for myself.
+puppet_sovereign/NN | not_afraid_eased | I'm all right, and nobody's talked me out of it since you talked me into it.
+puppet_sovereign/NN | joined_lead | Pardon me; nobody tells me much, so I've learned to listen, and I heard you.
+puppet_sovereign/NN | joined_lead | It isn't often I get to be useful, so you'll forgive me stepping in.

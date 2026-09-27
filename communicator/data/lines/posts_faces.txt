@@ -1562,3 +1562,81 @@ post:dread | calmed | All right. I am steadier, and you are fortunate that I am.
 post:dread | still_afraid | Stay back. I will quiet this in my own time, and in no one else's.
 post:dread | still_afraid | No; soft words are for soft things, and I am not one.
 post:dread | not_afraid | I'm not afraid; fear is a thing I give, not a thing I keep.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- post:sovereign ----
+post:sovereign | greeted_eased | Well met again. My composure is restored, and I will allow that you had a hand in it.
+post:sovereign | greeted_eased | Good day. You found me shaken and left me composed; the {post} of {place} does not forget such a service.
+post:sovereign | not_afraid_eased | There's no need; your good offices have done their work, and done it well.
+post:sovereign | joined_lead | Hold a moment; you asked within my hearing, and I will give you my answer.
+post:sovereign | joined_lead | Few words are spoken in {place} that do not reach me, and yours did.
+
+# ---- post:champion ----
+post:champion | greeted_eased | Well met again. My sword arm's steady now, and I've you to thank for it.
+post:champion | greeted_eased | Good to see you; I've found my feet again, and it was your voice that got me there.
+post:champion | not_afraid_eased | I'm all right now; you put the steel back in my legs, and it's stayed put.
+post:champion | joined_lead | Let me step in here; I heard you asking, and I've never been one to hang back.
+post:champion | joined_lead | Pardon me for barging in; I heard you, and I never could sit on an answer.
+
+# ---- post:pretender ----
+post:pretender | greeted_eased | Hello again. I'm steady, thanks to you, and I keep a careful tally of such kindnesses.
+post:pretender | greeted_eased | Welcome back. I have my nerve again, and I've marked who helped me find it.
+post:pretender | not_afraid_eased | There's no need; I'm steady, and I'd rather spend your good will on my cause than on my nerves.
+post:pretender | joined_lead | I couldn't help hearing you, and I never let a chance to be useful pass me by.
+post:pretender | joined_lead | Forgive me for stepping in; a {post} learns to listen to every voice, and I heard yours.
+
+# ---- post:domain_holder ----
+post:domain_holder | greeted_eased | Back again. I'm set as firm as a gatepost now, and it was you who helped set me.
+post:domain_holder | greeted_eased | Good day. My feet are planted again, and I don't forget a good turn.
+post:domain_holder | not_afraid_eased | I'm fine; the calm you gave me has held, like a well-set post.
+post:domain_holder | joined_lead | Pardon me; not much is said on my ground that I don't hear.
+post:domain_holder | joined_lead | Your question carried, and I deal plainly with anyone on my land.
+
+# ---- post:magister ----
+post:magister | greeted_eased | Good day. My thoughts are back in their proper order, and I concede that you helped put them there.
+post:magister | greeted_eased | Well met again. You steadied me, and my reasoning is the sounder for it; I have noted as much.
+post:magister | not_afraid_eased | I'm fine; your reassurance proved sufficient, and I see no reason to repeat the experiment.
+post:magister | joined_lead | Forgive the intrusion; I listen as closely as I read, and I heard your question.
+post:magister | joined_lead | Pardon the interruption; I overheard, and I have never been able to leave a question alone.
+
+# ---- post:charcoal burner ----
+post:charcoal burner | greeted_eased | Hello again. I'm steady at the stack now, and that's your doing.
+post:charcoal burner | greeted_eased | Good day. I'm settled as a banked fire, thanks to you.
+post:charcoal burner | not_afraid_eased | I'm fine; you talked me down, and I've burned low and steady since.
+post:charcoal burner | joined_lead | I don't often leave the stack, but I heard you asking.
+post:charcoal burner | joined_lead | Hm, I heard you over the crackle, so I'll say my piece.
+
+# ---- post:hermit ----
+post:hermit | greeted_eased | Good day. I'm steadier; you helped, and that's all I'll say on it.
+post:hermit | greeted_eased | Back again. The quiet's settled in me, and you had a hand in that.
+post:hermit | not_afraid_eased | I'm all right; what you said took hold, so let it be.
+post:hermit | joined_lead | I keep out of other folk's talk, as a rule, but I heard you asking.
+post:hermit | joined_lead | Few things draw me out, but I heard your question.
+
+# ---- post:shepherd ----
+post:shepherd | greeted_eased | Hello again. I'm as calm as the flock at grazing now, and I thank you for it.
+post:shepherd | greeted_eased | Welcome back. You gentled me like a spooked ewe, and I'm steady on my legs again.
+post:shepherd | not_afraid_eased | I'm all right; you brought me in like a stray at dusk, and I've kept to the fold.
+post:shepherd | joined_lead | Pardon me for leaving the flock a moment; I heard you asking.
+post:shepherd | joined_lead | I keep one ear open for the flock, and it caught your question.
+
+# ---- post:pilgrim ----
+post:pilgrim | greeted_eased | Good to see you. My heart is quiet again, and I thank heaven for your kind words.
+post:pilgrim | greeted_eased | Well met again, and bless you; I walk steadier for your kindness.
+post:pilgrim | not_afraid_eased | I'm all right, bless you; your words are still with me, and they hold.
+post:pilgrim | joined_lead | Pardon me; a {post} hears a good deal along the road, and I heard you asking.
+post:pilgrim | joined_lead | Forgive me, but I heard you, and I'd sooner help than walk on.
+
+# ---- post:midwife ----
+post:midwife | greeted_eased | Hello again. My hands are fit for a birth now, and I'll grant that's your doing.
+post:midwife | greeted_eased | Back again. I'm steady on my feet, and thank you for that; I don't say it often.
+post:midwife | not_afraid_eased | I'm fine; what you said worked, and I'm not one to need telling twice.
+post:midwife | joined_lead | Right, I heard you asking, so listen.
+post:midwife | joined_lead | Don't mind me; I heard you asking, and I haven't time to pretend I didn't.
+
+# ---- post:dread ----
+post:dread | greeted_eased | Good to see you; calm suits me, and I have you to thank for it, which ought to worry you.
+post:dread | greeted_eased | Welcome back. My temper is quiet now, thanks to your soft words, and I will remember them, for good or ill.
+post:dread | not_afraid_eased | There's no need; I am calm, and you have already had the privilege of calming me.
+post:dread | joined_lead | Whatever is said near me, I hear, and I heard you.
+post:dread | joined_lead | Do not flinch; I only overheard you, and I will answer.

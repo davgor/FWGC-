@@ -853,3 +853,11 @@ fallen_hero/NN | calmed | All right. I'll not make a song of it, though I'm not 
 fallen_hero/NN | still_afraid | Easy for you to say; pretty words don't steady anyone.
 fallen_hero/NN | still_afraid | No. Not yet, and not for the asking.
 fallen_hero/NN | not_afraid | Who said I was afraid, or is that the story going round?
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- fallen_hero/NN ----
+fallen_hero/NN | greeted_eased | Hello again. My feet are back under me; I'll not make a song of it, but I know who helped.
+fallen_hero/NN | greeted_eased | Well met again. You caught me at a low moment, and I've climbed out of it since; I'll leave it at that.
+fallen_hero/NN | not_afraid_eased | I'm fine; you've seen me at my worst once, and once is plenty.
+fallen_hero/NN | joined_lead | I don't do speeches, but I heard what you asked.
+fallen_hero/NN | joined_lead | Pardon me; I heard you, and I'll give it you straight.

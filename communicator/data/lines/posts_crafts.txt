@@ -1357,3 +1357,74 @@ post:cart_handler | calmed | Maybe you're right; knot by knot, I'll get there.
 post:cart_handler | still_afraid | No; I'm a wheel off its pin, and I'll not roll straight yet.
 post:cart_handler | still_afraid | Not yet; I'd drop the first sack I lifted.
 post:cart_handler | not_afraid | There's no need; shouting's just how I talk.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- post:smith ----
+post:smith | greeted_eased | Good day. The hammer hand's steady now, and I'll own you had a part in that.
+post:smith | greeted_eased | Well met again. I've my grip back, sound as good iron, and I know who to thank.
+post:smith | not_afraid_eased | I'm fine; you tempered me well enough the first time.
+post:smith | joined_lead | I'd sooner hammer than talk, but I caught what you asked.
+post:smith | joined_lead | Here, I heard you asking, and I'll say it plain.
+
+# ---- post:carpenter ----
+post:carpenter | greeted_eased | Welcome back. I'm square again, near enough, and that's your doing.
+post:carpenter | greeted_eased | Hello again. My hands hold a line now; you talked them steady.
+post:carpenter | not_afraid_eased | There's no need; your words planed me true already.
+post:carpenter | joined_lead | I'd not usually cut in, but I heard your question.
+post:carpenter | joined_lead | I measure twice before I speak up, and I heard what you asked.
+
+# ---- post:mason ----
+post:mason | greeted_eased | Good day. I'm set firm now, like mortar given its time; you did the steadying.
+post:mason | greeted_eased | Back again; I'm on sound footing now, and you laid the first stone of it.
+post:mason | not_afraid_eased | I'm all right; plumb and level now, and your words trued me.
+post:mason | joined_lead | A wall hears nothing, but I do, and I heard what you asked.
+post:mason | joined_lead | Pardon me for walking over; I couldn't help but hear.
+
+# ---- post:maintenance_laborer ----
+post:maintenance_laborer | greeted_eased | Good to see you; for once somebody fixed me instead of the other way round.
+post:maintenance_laborer | greeted_eased | Hello again. I'm steady enough to climb a ladder now, and that's down to you.
+post:maintenance_laborer | not_afraid_eased | I'm fine now; you already took me off the list of things that want mending.
+post:maintenance_laborer | joined_lead | Not that anyone asked me, but I overheard.
+post:maintenance_laborer | joined_lead | Everyone talks over my head all day, and I heard what you asked.
+
+# ---- post:apprentice ----
+post:apprentice | greeted_eased | Hello again. I'm loads better now, and it's all thanks to you.
+post:apprentice | greeted_eased | Good to see you properly, now my wits are back where they belong; you did that.
+post:apprentice | not_afraid_eased | I'm all right now, honest; you already talked me round.
+post:apprentice | joined_lead | I'm still learning, but I heard you asking.
+post:apprentice | joined_lead | Please, I didn't mean to listen in, only I couldn't help it.
+
+# ---- post:textile_worker ----
+post:textile_worker | greeted_eased | Welcome back. I'm all of a piece now; you talked me whole again.
+post:textile_worker | greeted_eased | Good day. My stitches run straight now; your words took the tangle out of me.
+post:textile_worker | not_afraid_eased | I'm fine; my needle hand's steady now, and your words steadied it.
+post:textile_worker | joined_lead | Forgive me for stitching myself in; I heard you asking.
+post:textile_worker | joined_lead | I'll keep it short; I overheard what you asked.
+
+# ---- post:furnace_worker ----
+post:furnace_worker | greeted_eased | Hello again. My heart's back to its old pace, and I'm obliged to you.
+post:furnace_worker | greeted_eased | Good to see you. My head's cool again, for all the heat I work in, and you cooled it.
+post:furnace_worker | not_afraid_eased | I'm all right; any sweat on me now is the furnace's, and you saw to that.
+post:furnace_worker | joined_lead | Pardon me; I'm parched as ever, but I caught your question.
+post:furnace_worker | joined_lead | My hearing's not all gone to the furnace, and I heard you asking.
+
+# ---- post:ore_handler ----
+post:ore_handler | greeted_eased | Hello again. All steady now; thanks.
+post:ore_handler | greeted_eased | Good day. I'm better than when you found me.
+post:ore_handler | not_afraid_eased | I'm fine; steady, thanks to you.
+post:ore_handler | joined_lead | Right; heard you asking, so I came.
+post:ore_handler | joined_lead | Pardon me; I heard you.
+
+# ---- post:farrier ----
+post:farrier | greeted_eased | Good to see you; you gentled me the way a good hand gentles a colt, and I stand the easier for it.
+post:farrier | greeted_eased | Well met again. You'll find me settled now, like a horse brought on gently, and I thank you for it.
+post:farrier | not_afraid_eased | There's no need; I'm steady as my own hands now, and your calm did that.
+post:farrier | joined_lead | Now then, don't startle; I heard what you asked.
+post:farrier | joined_lead | Forgive me for coming up uninvited; I heard you asking.
+
+# ---- post:cart_handler ----
+post:cart_handler | greeted_eased | Back again? Good; I'm rolling true now, and I've you to thank.
+post:cart_handler | greeted_eased | Good day. You talked me back onto my wheels, and I'll not forget it in a hurry.
+post:cart_handler | not_afraid_eased | There's no need; my knots are tight now, and your talk did the lashing.
+post:cart_handler | joined_lead | Hold up; I overheard, and I'll be quick about it.
+post:cart_handler | joined_lead | Just a word, and then back to the loads; I heard you asking.

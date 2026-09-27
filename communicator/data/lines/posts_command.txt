@@ -1282,3 +1282,74 @@ post:gate_captain | calmed | Yes. I'll grant you that, and I'll not say it twice
 post:gate_captain | still_afraid | No. Leave it; I'm no steadier for talking.
 post:gate_captain | still_afraid | Keep away, give me room; I'll find my feet on my own.
 post:gate_captain | not_afraid | I'm fine; the gate keeps me sharp, that's all.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- post:commander ----
+post:commander | greeted_eased | Well met again. I am master of my nerves once more, and I will own that you had a hand in it.
+post:commander | greeted_eased | Good day. You saw me at less than my best, and I am the steadier for what you said.
+post:commander | not_afraid_eased | I'm fine; I have command of myself again, and I grant that your words had a part in it.
+post:commander | joined_lead | Forgive the intrusion; I make a habit of hearing what is said around me.
+post:commander | joined_lead | You will pardon me, but I heard the question put.
+
+# ---- post:sergeant ----
+post:sergeant | greeted_eased | Back again. I've found my voice, and I'll say this once: thanks.
+post:sergeant | greeted_eased | Good to see you. Don't spread it about, but you got me standing tall again.
+post:sergeant | not_afraid_eased | I'm all right now, and that's your doing, so stand easy.
+post:sergeant | joined_lead | Hold up; I heard every word of that, and I've a voice to answer with.
+post:sergeant | joined_lead | Don't mind me barging in; I've ears as sharp as my voice is loud.
+
+# ---- post:garrison_officer ----
+post:garrison_officer | greeted_eased | Hello again. For the record, I'm in better order than when you found me, and I have you to thank.
+post:garrison_officer | greeted_eased | Welcome back. My columns add up again, and so do I; I've noted who helped.
+post:garrison_officer | not_afraid_eased | I'm fine, thank you; my hand writes a straight line again, and I owe that partly to you.
+post:garrison_officer | joined_lead | Pardon the interruption; I keep records, and I can't help noting what's asked.
+post:garrison_officer | joined_lead | Forgive me for interjecting; hearing questions is half of what my office is for.
+
+# ---- post:quartermaster ----
+post:quartermaster | greeted_eased | Back again. I'm steadier, my counts come out the same, and some of the credit's yours.
+post:quartermaster | greeted_eased | Hello again. I've counted myself back to steady, and I've put you down as one who helped.
+post:quartermaster | not_afraid_eased | I'm all right; the numbers stopped jumping, and I count you among the reasons why.
+post:quartermaster | joined_lead | Mind, I count everything, and what's said in my hearing gets counted too.
+post:quartermaster | joined_lead | I wasn't eavesdropping, but nothing gets past a tally, and nor did that.
+
+# ---- post:armorer ----
+post:armorer | greeted_eased | Welcome back. I'm riveted tight again, and I know whose words set the rivets.
+post:armorer | greeted_eased | Good to see you. My grip's come back, and you helped me find it.
+post:armorer | not_afraid_eased | There's no need; you straightened me out like a bent buckle, and I've stayed straight.
+post:armorer | joined_lead | Forgive me cutting in; I've an ear for a question the way I've an eye for a loose rivet.
+post:armorer | joined_lead | Hm, I heard that, and I'd sooner speak up than stand here quiet.
+
+# ---- post:equipment_keeper ----
+post:equipment_keeper | greeted_eased | Good day. I'm a good few shades steadier than I was, and that's thanks to you.
+post:equipment_keeper | greeted_eased | Well met again. I'm steady on my rounds now, and your voice was worth a full shed to me.
+post:equipment_keeper | not_afraid_eased | I'm fine; you settled me, and I've stayed settled since.
+post:equipment_keeper | joined_lead | Pardon me; I'm always listening for a shout, and I caught what you asked.
+post:equipment_keeper | joined_lead | In my trade you learn to keep your ears open, and mine were.
+
+# ---- post:hall_attendant ----
+post:hall_attendant | greeted_eased | Hello again. I can hold a tray level now, and it was your kindness that did it.
+post:hall_attendant | greeted_eased | Good to see you. You were so patient with me, and I've pulled myself together since.
+post:hall_attendant | not_afraid_eased | There's no need, truly; you saw to my nerves already, and they're behaving.
+post:hall_attendant | joined_lead | Oh, pardon me; people talk across me all day, and I couldn't help hearing.
+post:hall_attendant | joined_lead | I hope you don't mind; I overhear a good deal, and I heard that.
+
+# ---- post:chaplain ----
+post:chaplain | greeted_eased | Welcome back. My peace has come home to me, and your words helped it find the way.
+post:chaplain | greeted_eased | Well met again. My heart is steadier now, and I have remembered you in my prayers for it.
+post:chaplain | not_afraid_eased | There's no need, though bless you for asking; your words steadied me, and they hold.
+post:chaplain | joined_lead | Forgive me for stepping in; listening is most of my calling, and I heard you.
+post:chaplain | joined_lead | Pardon me; I do not mean to intrude, but I could not help hearing you.
+
+# ---- post:steward ----
+post:steward | greeted_eased | Good day. I've taken stock of myself since you talked me down, and the sums come right.
+post:steward | greeted_eased | Hello again. I'm back in good order, and I count your help among my better dealings.
+post:steward | not_afraid_eased | I'm all right, thank you; I balance again, and your help is on the books.
+post:steward | joined_lead | Pardon my manners, but I overheard, and I'd rather be exact than silent.
+post:steward | joined_lead | Forgive me; I keep my ears as orderly as my books, and I heard you.
+
+# ---- post:gate_captain ----
+post:gate_captain | greeted_eased | Back again. I'm sound now, and I know who to thank.
+post:gate_captain | greeted_eased | Well met again. You steadied me, I'll grant you that, and that's all the fuss you'll get.
+post:gate_captain | not_afraid_eased | I'm fine; you've done your part, and it held.
+post:gate_captain | joined_lead | I'm used to hearing every question at the gate, and yours carried.
+post:gate_captain | joined_lead | I'll cut in, if you don't mind; I heard what you asked.

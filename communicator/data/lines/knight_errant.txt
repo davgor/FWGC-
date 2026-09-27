@@ -735,3 +735,11 @@ knight_errant/NN | calmed | All right. My arm's quieter for that; I'll take it.
 knight_errant/NN | still_afraid | Keep away a moment; I pull myself together best on my own.
 knight_errant/NN | still_afraid | You don't understand; a shaking hand won't be talked still.
 knight_errant/NN | not_afraid | I'm fine; sound as I ever am, and ready for the road.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- knight_errant/NN ----
+knight_errant/NN | greeted_eased | Well met again. My arm's steady, and I've you to thank for some of that.
+knight_errant/NN | greeted_eased | Good day. I'm sound again, and I've put a favour on the tally in your name.
+knight_errant/NN | not_afraid_eased | I'm fine; my hands have kept still since you steadied them.
+knight_errant/NN | joined_lead | I'll lend what I know; I couldn't help but hear.
+knight_errant/NN | joined_lead | Nobody asked me, but I heard, so call it a favour.

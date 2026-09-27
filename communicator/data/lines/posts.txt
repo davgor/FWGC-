@@ -197,3 +197,11 @@ post:innkeeper | calmed | I know, I know. Give me something to do and I'll pull 
 post:innkeeper | still_afraid | I can't, not yet. Give me a little longer.
 post:innkeeper | still_afraid | You don't understand. I've spilled every cup I've tried to fill.
 post:innkeeper | not_afraid | I'm not afraid; only run off my feet.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- post:innkeeper ----
+post:innkeeper | greeted_eased | Welcome back, and come in. The house is in steady hands again, and I've you to thank for that.
+post:innkeeper | greeted_eased | Hello again, and bless you for last time. I'm back to my old self, run off my feet and glad of it.
+post:innkeeper | not_afraid_eased | There's no need, but it's kind of you; you set me right before, and I've stayed right.
+post:innkeeper | joined_lead | Forgive me for listening in; keeping an ear open is half of keeping an inn.
+post:innkeeper | joined_lead | Don't mind me stepping in; I heard you, and in my trade you learn to answer before you're asked.

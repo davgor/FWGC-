@@ -853,3 +853,11 @@ rebel/NN | calmed | I know, I know. So I shake; shaking isn't bowing.
 rebel/NN | still_afraid | No. I don't bow to fear, but I can't make it bow to me either.
 rebel/NN | still_afraid | You don't understand; I don't take orders, not even to be calm.
 rebel/NN | not_afraid | I'm not afraid; my face is just hard, that's all.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- rebel/NN ----
+rebel/NN | greeted_eased | Hello again. My knees are back under me, and I'll say straight out that you helped.
+rebel/NN | greeted_eased | Well met again. Head up, back straight, and some of that's your doing.
+rebel/NN | not_afraid_eased | I'm all right; I stand on my own now, and I've not forgotten who stood by me.
+rebel/NN | joined_lead | Pardon the interruption; I don't wait to be called on.
+rebel/NN | joined_lead | I heard that, and I never did know how to keep my head down.

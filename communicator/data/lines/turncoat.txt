@@ -499,3 +499,11 @@ turncoat/NN | calmed | Maybe you're right. I'll side with you on that, for now.
 turncoat/NN | still_afraid | No; it doesn't add up, however you put it.
 turncoat/NN | still_afraid | Not yet; my gut hasn't picked a side.
 turncoat/NN | not_afraid | There's no need; I'm weighing things up, which isn't the same as fear.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- turncoat/NN ----
+turncoat/NN | greeted_eased | Good day. My sums add up again, and you're in my good column for it.
+turncoat/NN | greeted_eased | Welcome back. I'm on firmer footing, and I remember who took my side when I needed it.
+turncoat/NN | not_afraid_eased | I'm fine; since you talked me through it, it all adds up.
+turncoat/NN | joined_lead | Don't mind me; keeping an ear on everyone is how I stay on the right side of things.
+turncoat/NN | joined_lead | Your voice carried, and I make a point of knowing where things stand.

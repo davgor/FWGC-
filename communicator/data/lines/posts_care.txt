@@ -1339,3 +1339,65 @@ post:sanitation_worker | calmed | Maybe you're right; give me a bit, and I'll se
 post:sanitation_worker | still_afraid | No; my gut's in knots, and it'll unknot when it's ready.
 post:sanitation_worker | still_afraid | Stay back and let me be; I'll pull myself together when I can.
 post:sanitation_worker | not_afraid | I'm all right; if I'm pulling a face, it's the smell, not nerves.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- post:caretaker ----
+post:caretaker | greeted_eased | Hello again. Not many stop for the one with the broom, but you did, and I'm on an even keel for it.
+post:caretaker | greeted_eased | Good day. I can sweep a straight line again, steady as you like, and that's your doing.
+post:caretaker | not_afraid_eased | I'm fine; the broom and I are both upright, and we've you to thank.
+post:caretaker | joined_lead | Everyone forgets a sweeper has ears, and I heard you.
+post:caretaker | joined_lead | Don't mind me; my head was down, but my ears weren't.
+# ---- post:officiant ----
+post:officiant | greeted_eased | Welcome back. My heart is as steady as my hands now, and I thank you for it.
+post:officiant | greeted_eased | Good to see you. I have found the quiet again, and you helped me find it.
+post:officiant | not_afraid_eased | I'm all right; the peace you gave me has stayed with me.
+post:officiant | joined_lead | Forgive me; I sit in quiet so much that every word carries to me, and yours did.
+post:officiant | joined_lead | I did not mean to listen, but I heard, and it would be unkind to keep silent.
+# ---- post:groundskeeper ----
+post:groundskeeper | greeted_eased | Well met again. My knees have stopped knocking, and I'll grant it was your talking that did it.
+post:groundskeeper | greeted_eased | Back again, and me as steady as a headstone; I know who propped me up.
+post:groundskeeper | not_afraid_eased | There's no need; once I'm settled I stay put, like the ground, and you settled me.
+post:groundskeeper | joined_lead | I'm used to quiet, so a voice stands out to me, yours included.
+post:groundskeeper | joined_lead | The dead don't talk, so I listen to the living, and I heard you.
+# ---- post:care_assistant ----
+post:care_assistant | greeted_eased | Welcome back. I'm on my feet and of some use again, thanks to you.
+post:care_assistant | greeted_eased | Good to see you. Both my hands are steady at the basins now, and that's down to you.
+post:care_assistant | not_afraid_eased | I'm fine now, honestly; you did the steadying already, and I've beds to strip.
+post:care_assistant | joined_lead | I'm always rushing somewhere, but your question stopped me, and I can spare a moment.
+post:care_assistant | joined_lead | On the ward you learn to hear every call, so forgive me, I heard yours.
+# ---- post:healer ----
+post:healer | greeted_eased | Good day. I've my steady hands back, and I'll credit your bedside manner for them.
+post:healer | greeted_eased | Well met again. My pulse is where it should be, and you had a hand in that.
+post:healer | not_afraid_eased | I'm all right; you treated me once, and the treatment took.
+post:healer | joined_lead | I heard you; listening is half of doctoring, so I'll not pretend I didn't.
+post:healer | joined_lead | I overheard, and I'll keep it short; there's always someone waiting on me.
+# ---- post:apothecary ----
+post:apothecary | greeted_eased | Good day. Every grain weighs true again, and I owe my steady hand to you.
+post:apothecary | greeted_eased | Welcome back. Not a dose spilled since you steadied me; I've counted.
+post:apothecary | not_afraid_eased | There's no need; your words were dose enough the first time.
+post:apothecary | joined_lead | I weigh every word I hear, and I weighed yours.
+post:apothecary | joined_lead | My trade is precision, and I overheard you, so allow me.
+# ---- post:herbalist ----
+post:herbalist | greeted_eased | Hello again. I've taken root, like a cutting given time, and your kind words did the watering.
+post:herbalist | greeted_eased | Good to see you. Here I am, steady as a staked bean, and you were the stake.
+post:herbalist | not_afraid_eased | I'm all right now, bless you; the shaking went down into the soil and stayed there.
+post:herbalist | joined_lead | Forgive me; a gardener's ears are always half listening, and mine heard you.
+post:herbalist | joined_lead | Oh, I'm sorry to break in, but I heard you.
+# ---- post:researcher ----
+post:researcher | greeted_eased | Good day. The hypothesis held: I'm steadier, and you were the cause.
+post:researcher | greeted_eased | Welcome back. I've been steady by every measure since you talked me down, and I've taken several.
+post:researcher | not_afraid_eased | I'm fine; your first trial worked, and there's no call to repeat it.
+post:researcher | joined_lead | I observe by habit, and I observed you asking; forgive the intrusion.
+post:researcher | joined_lead | I overheard, and a question is the one thing I can never leave alone.
+# ---- post:astronomer ----
+post:astronomer | greeted_eased | Well met again. For once my feet are on the ground, and you're the one who put them there.
+post:astronomer | greeted_eased | Hello again. My thoughts hold still long enough to chart now; thank you for that.
+post:astronomer | not_afraid_eased | I'm all right, truly; you gave me a fixed point, and I've kept hold of it.
+post:astronomer | joined_lead | I count what moves for a living, and you caught my ear.
+post:astronomer | joined_lead | I rarely notice anything below the rooftops, but I caught that.
+# ---- post:sanitation_worker ----
+post:sanitation_worker | greeted_eased | Good to see you. These legs are my own again, not muck, and I've you to thank.
+post:sanitation_worker | greeted_eased | Back again, and steadier than you left me; I'll not pretend I did that on my own.
+post:sanitation_worker | not_afraid_eased | I'm fine; you sorted me out once, and I'm not one to need it twice.
+post:sanitation_worker | joined_lead | I'll not stand too close, but I heard you, and I'd not keep it to myself.
+post:sanitation_worker | joined_lead | Wait a moment; you were asking, and plain words are the only kind I've got.

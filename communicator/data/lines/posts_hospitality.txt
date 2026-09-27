@@ -1186,3 +1186,67 @@ post:assistant | calmed | I'll try, honestly. Just stay a moment longer, if you 
 post:assistant | still_afraid | I can't; I'm trying, I just can't.
 post:assistant | still_afraid | Not yet; I'm no good at being brave, I never was.
 post:assistant | not_afraid | I'm all right, honestly; I always look like this.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- post:baker ----
+post:baker | greeted_eased | Good to see you; there's no dough in my knees now, and I've you to thank.
+post:baker | greeted_eased | Hello again. My hands are back in the dough and steady with it, thanks to you.
+post:baker | not_afraid_eased | I'm fine now; you talked the shake out of my hands, and it's stayed out.
+post:baker | joined_lead | Pardon me for coming over with flour on my hands; I heard you asking.
+post:baker | joined_lead | I heard you asking, and I'll say my piece while the dough rests.
+
+# ---- post:cook ----
+post:cook | greeted_eased | Back again. I'm steady at the stove now, and that's your doing, so thanks.
+post:cook | greeted_eased | Good day. My hands are fit to hold a ladle again; you saw to that.
+post:cook | not_afraid_eased | I'm all right; you took me off the boil, and I've kept off it.
+post:cook | joined_lead | Don't mind me butting in; I heard you asking, and I'll be quick about it.
+post:cook | joined_lead | I heard you over the clatter, so listen, because I've a pot on.
+
+# ---- post:miller ----
+post:miller | greeted_eased | Welcome back. My heart keeps the pace of the handle again, slow and steady, and I thank you for it.
+post:miller | greeted_eased | Good day. I'm running as even as a good stone again, and that's thanks to you.
+post:miller | not_afraid_eased | I'm fine; you slowed me down to my own pace, and there I've stayed.
+post:miller | joined_lead | I'm slow to come over, but I heard you asking.
+post:miller | joined_lead | Pardon me; I don't hurry, but I heard you, and I'll answer.
+
+# ---- post:brewer ----
+post:brewer | greeted_eased | Well met again. I've settled like a good brew, bit by bit, and that was your doing.
+post:brewer | greeted_eased | Good to see you. My hands are steady enough to draw a clean cup, and you're the one to thank.
+post:brewer | not_afraid_eased | There's no need; you let me settle, and I've stayed clear as a fined cask.
+post:brewer | joined_lead | Forgive me for barging in; I heard you, and I'll pour it plain.
+post:brewer | joined_lead | I don't hear much over the vats, but I heard you.
+
+# ---- post:bartender ----
+post:bartender | greeted_eased | Good day. I'm steady again; that stays between us, and thanks.
+post:bartender | greeted_eased | Welcome back. My hands pour straight again, and I know who to thank.
+post:bartender | not_afraid_eased | I'm fine; you saw to that, and I'll say no more about it.
+post:bartender | joined_lead | Everything said across a bar reaches me, and I heard you.
+post:bartender | joined_lead | Keep it low; I heard you asking, and this stays between us.
+
+# ---- post:host ----
+post:host | greeted_eased | Welcome back, and thank you; I'm steady again, and the house is the better for it.
+post:host | greeted_eased | Good day. You were kind to me when I was out of sorts, and I'm much the steadier for it.
+post:host | not_afraid_eased | There's no need, truly; your kindness settled me, and I'm quite well.
+post:host | joined_lead | Forgive me for stepping in; I hear most of what's asked under this roof.
+post:host | joined_lead | Pardon me; I couldn't help hearing, and seeing to people is what I do.
+
+# ---- post:service_worker ----
+post:service_worker | greeted_eased | Hello again. I can hold a tray steady now, and that's down to you.
+post:service_worker | greeted_eased | Back again. I'm in one piece now, not a dropped plate, and thank you for it.
+post:service_worker | not_afraid_eased | I'm all right; you got me breathing again, and I've kept at it, trays and all.
+post:service_worker | joined_lead | Don't mind me; I heard you asking as I went past.
+post:service_worker | joined_lead | I couldn't help hearing between trays, so here it is, quick.
+
+# ---- post:bath_attendant ----
+post:bath_attendant | greeted_eased | Good day. You wrung the worst of the fright out of me, and I'm steady now.
+post:bath_attendant | greeted_eased | Welcome back. The steam's the only thing clouding me now, thanks to you.
+post:bath_attendant | not_afraid_eased | There's no need; you calmed me, and I've stayed as still as a settled tub.
+post:bath_attendant | joined_lead | Everyone talks over the tubs, and I heard you asking.
+post:bath_attendant | joined_lead | Pardon me for dripping on you; I heard you asking.
+
+# ---- post:assistant ----
+post:assistant | greeted_eased | Hello again. I'm much better, honestly, and it's all thanks to you.
+post:assistant | greeted_eased | Well met again, and thank you, really; my hands have stopped shaking, and I didn't think they would.
+post:assistant | not_afraid_eased | I'm all right now, really; you helped more than you know.
+post:assistant | joined_lead | I shouldn't butt in, I'm only the help, but I heard you asking.
+post:assistant | joined_lead | Please don't mind me; I heard you, and I think I can help.

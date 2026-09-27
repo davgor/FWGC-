@@ -971,3 +971,11 @@ exiled_hero/NN | calmed | Thank you. I don't take help easily, so take that as m
 exiled_hero/NN | still_afraid | Not yet. I'll say when.
 exiled_hero/NN | still_afraid | You don't understand. I can't just decide to be steady.
 exiled_hero/NN | not_afraid | I'm not afraid, only busy, and busy can look grim.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- exiled_hero/NN ----
+exiled_hero/NN | greeted_eased | Welcome back. I built on what you gave me, and I'm standing steady now.
+exiled_hero/NN | greeted_eased | Good day. I don't take help easily, but I took yours, and I'm the better for it.
+exiled_hero/NN | not_afraid_eased | I'm all right; you've already done me that turn, and it's on the ledger.
+exiled_hero/NN | joined_lead | I heard what you asked, and I'd rather be of use than keep quiet.
+exiled_hero/NN | joined_lead | I've learned to keep my ears open, and I heard you.

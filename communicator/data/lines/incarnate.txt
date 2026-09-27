@@ -622,3 +622,11 @@ incarnate/NN | calmed | All right. That's taken some of the tilt out of me.
 incarnate/NN | still_afraid | I can't. I'm still lopsided, and talking won't straighten me.
 incarnate/NN | still_afraid | Not yet; I'll come level, but not this quickly.
 incarnate/NN | not_afraid | I'm all right; I'm leaning neither way, but thank you.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- incarnate/NN ----
+incarnate/NN | greeted_eased | Good to see you, and I'm level again; you had a hand in the righting.
+incarnate/NN | greeted_eased | Well met again. The tilt's gone out of me, and that goes in your column.
+incarnate/NN | not_afraid_eased | I'm fine; you evened me out, and I've kept my balance since.
+incarnate/NN | joined_lead | You asked within earshot, and I'll answer with no lean either way.
+incarnate/NN | joined_lead | Let me set it out evenly, since I heard.

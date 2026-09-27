@@ -807,3 +807,41 @@ post:scribe | calmed | Yes. The pen might stay in my fingers now.
 post:scribe | still_afraid | No. I've blotted every line I've tried, and I can't stop.
 post:scribe | still_afraid | Keep away from the desk a while; I need room to settle my hand.
 post:scribe | not_afraid | I'm fine; I'm as steady as my lines.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- post:administrator ----
+post:administrator | greeted_eased | Good day. I'm steadier, the columns add up again, and I'll put that down to you.
+post:administrator | greeted_eased | Well met again. My hand holds a seal steady, and I've you to thank for it.
+post:administrator | not_afraid_eased | I'm fine; the matter was settled once, and I don't need it filed twice.
+post:administrator | joined_lead | I overheard, and sorting other people's questions is my whole day, so allow me.
+post:administrator | joined_lead | Pardon the intrusion; everything said within my hearing ends up on my desk sooner or later.
+# ---- post:court_clerk ----
+post:court_clerk | greeted_eased | Hello again. My letters keep to the line now, and I owe the steadiness to you.
+post:court_clerk | greeted_eased | Good to see you. Let the record show I'm steadier, and that it was your doing.
+post:court_clerk | not_afraid_eased | I'm all right; it's entered that you steadied me, and the entry stands.
+post:court_clerk | joined_lead | Every word said near me gets taken down, if only in my head, and I took down yours.
+post:court_clerk | joined_lead | I heard you, word for word, and it would be a poor clerk who let that pass.
+# ---- post:magistrate ----
+post:magistrate | greeted_eased | Good day. My head is level again, and I'll own that your counsel set it there.
+post:magistrate | greeted_eased | Well met again. I'll say it plainly: you steadied me when I needed it, and I've not forgotten.
+post:magistrate | not_afraid_eased | There's no need; you made your case to me once, and it holds.
+post:magistrate | joined_lead | Most of judging is listening, and I heard that.
+post:magistrate | joined_lead | Forgive the intrusion; it is my habit to listen before I speak, and I have listened.
+# ---- post:teacher ----
+post:teacher | greeted_eased | Hello again. I'll admit a grown voice did me more good than any lesson, and I'm steadier for it.
+post:teacher | greeted_eased | Welcome back. You'd get full marks for steadying me, and I don't give those out lightly.
+post:teacher | not_afraid_eased | I'm fine; I learned that lesson from you the first time round.
+post:teacher | joined_lead | I've spent years listening for whispers at the back of a class, and I heard you.
+post:teacher | joined_lead | I heard a question, and I've never been able to leave one be, so forgive my stepping in.
+# ---- post:librarian ----
+post:librarian | greeted_eased | Hello again, and softly. I'm steadier than I was, thanks to you.
+post:librarian | greeted_eased | Welcome back. Every thought's on its proper shelf now, and you helped me put them there.
+post:librarian | not_afraid_eased | I'm all right now; you hushed my nerves once, and they've kept quiet since.
+post:librarian | joined_lead | A day spent hushing people teaches you to hear every word, so forgive me for speaking up.
+post:librarian | joined_lead | As quiet as I am, I hear a good deal, and I heard you.
+# ---- post:scribe ----
+post:scribe | greeted_eased | Back again, and my pen's steady; not a blot since you talked me round.
+post:scribe | greeted_eased | Good to see you. The nib's steady in my fingers now, and you've my thanks for it.
+post:scribe | not_afraid_eased | I'm all right, thanks to you; my lines have run straight since.
+post:scribe | joined_lead | My ears are as busy as my pen, and they caught that.
+post:scribe | joined_lead | I heard, and for once I'd rather speak than copy.

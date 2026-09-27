@@ -384,3 +384,11 @@ inherited_hero/NN | calmed | I'll try; that's worth more to me than it cost you.
 inherited_hero/NN | still_afraid | Not yet; I'm still counting breaths, and I'll not skip any.
 inherited_hero/NN | still_afraid | I can't; my nerves want more than a few words.
 inherited_hero/NN | not_afraid | There's no need; the tally's steady, and so am I.
+
+# ---- Talked down, and joining in (contract version 10): remembered easing, and a bystander's lead ----
+# ---- inherited_hero/NN ----
+inherited_hero/NN | greeted_eased | Hello again. My eyes are back on the aim, and you're the one who put them there.
+inherited_hero/NN | greeted_eased | Welcome back. I've stopped counting breaths, and started counting what you did for me.
+inherited_hero/NN | not_afraid_eased | I'm all right; the effort you spent steadying me wasn't wasted.
+inherited_hero/NN | joined_lead | I was close enough to hear, and I'll not spend more words on it than it needs.
+inherited_hero/NN | joined_lead | A word, if I may; I heard, and I'll keep it straight.
