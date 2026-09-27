@@ -745,6 +745,17 @@ says how far only of the packet's places.
   beyond the walls of Wenweg". The memory figures are the whole card's use while the model ran, less
 its use before, with the card otherwise quiet.
 
+**The voice tuned on the written lines** (2026-09-27; `training/`, whose README has the whole
+measure). A LoRA trained on 4,266 of the voice's own prompts paired with the line the written
+library says for each, from 750 speakers in 15 worlds, merged into Qwen3-4B
+(`Qwen3-4B-Instruct-2507-voice-Q4_K_M.gguf`). Against the base quantized the same way, over the 59
+voice cases: a blind judge found 44 replies fault-free where the base had 27, and 3 inventing a
+fact where the base had 20; no reply held a claim the truth check finds. It read the player's
+lines as well or better (251 of 326 fully right, the base 245 on the GPU and 246 on the CPU), and
+one line more as world-changing ("ok" as taking work, which the confirm step asks about first).
+It speaks as the written lines do, recalling less than the base's own words did (what was asked
+last time, a talk-down), and repeats a few lines.
+
 The models that ship are a later decision: a trained classifier for the interpreter, and a
 fine-tuned voice (the plan's "Building our own model").
 

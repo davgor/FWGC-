@@ -87,6 +87,22 @@ the earlier round's (Ministral 3 8B, Qwen3-8B, Nemotron 3 Nano 4B, Nemotron-Mini
   the product, "Llama" at the start of the name of any model trained or fine-tuned from it or its
   outputs, and Meta's acceptable use policy.
 
+### The voice model, tuned on the written lines
+
+Qwen3-4B-Instruct-2507 with a LoRA trained on the communicator's written lines (`training/`,
+2026-09-27), merged and quantized with the pinned llama.cpp's own tools. Made here, never
+downloaded; the base weights it was made from were (the owner approved them 2026-09-27).
+
+| | |
+|---|---|
+| File | `Qwen3-4B-Instruct-2507-voice-Q4_K_M.gguf` |
+| Made from | `https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507` at revision `cdbee75f17c01a7cc42f958dc650907174af0554` (safetensors, 8,044,982,000 bytes, in `inference/models/Qwen3-4B-Instruct-2507-hf/`), and the adapter `training/out/lora` (SHA-256 `cca44515ee00d15e208e393b3ec72b510a6221b9a1f41a7b8d26a50abcf9379f`) |
+| Size | 2,497,278,752 bytes |
+| SHA-256 | `f85d6065d99d035ba0a91a906554248859e519eb31bf9a9015d058d77ae77b69` |
+| Licence | Apache-2.0, as its base |
+
+It runs in this runtime unchanged, as its base does. What it measured is in `training/README.md`.
+
 ### The embedding model
 
 For `embed()`: turning a text into a vector, so texts can be compared by meaning. The tests use
