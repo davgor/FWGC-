@@ -83,11 +83,14 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   hold them whole, and the voice is shown them as they are; neither adds what happened, who else
   was there, or what comes of it. A new event kind or state the director adds comes with its words
   there and a test of them, or is left unsaid. Nothing is said of the speaker's own work or of
-  themself, which their own lines say. Which of a packet's News facts is passed on is
-  `news_to_pass_on`'s to say: the lines, their blanks and the voice all choose by it, and anything
-  new that says news does too. With two choosers, a line was chosen for one piece of news and its
-  blank filled with another (2026-09-27). What the speaker knows stays the director's: this only
-  chooses among it.
+  themself, which their own lines say. Which of a packet's News facts may be passed on is
+  `may_pass_on`'s to say, and which one is, `news_to_pass_on`'s: the lines, their blanks and the
+  voice all go by them, and anything new that says news does too. With two choosers, a line was
+  chosen for one piece of news and its blank filled with another, and the voice, shown news the
+  lines skip, gave work to the wrong giver (2026-09-27). What the speaker knows stays the
+  director's: these only choose among it. What the stranger did is said to them as their deed
+  (`heard_deed`), never handed to them as news, and never read back as fact once told: they never
+  said it was them.
 - **Every reply passes the truth check before it is shown** (`truth.hpp`, `untrue()`).
   `Lines::speak` checks written lines as it chooses them, and says the next line when one fails;
   whatever joins the communicator to the game checks a voice reply and shows the written line
