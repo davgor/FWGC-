@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Customize</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&amp;family=Tenor+Sans&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+<style>
+.t{position:absolute;left:0;top:0;width:0;height:0}
+.state{display:none}
+.state.first{display:block}
+#face:target~.state.first,#hair:target~.state.first,#frosthold:target~.state.first{display:none}
+#face:target~#state-face{display:block}
+#hair:target~#state-hair{display:block}
+#frosthold:target~#state-frosthold{display:block}
+</style>
+</head>
+<body>
+<!-- The approved Customize screen, drawn from the canvas component's own template and logic in four states: Body with Shoulders open (no address), #face with the eye colour wheel open, #hair with the hair colour wheel open, and #frosthold (Frosthold Dwarves, skin tone). The preview figures and faces are crops of the approved concept-art sheets, standing in for real art. -->
+<div style="position: relative; width: 1920px; height: 1080px; overflow: hidden">
+<i id="face" class="t"></i><i id="hair" class="t"></i><i id="frosthold" class="t"></i>
+<div class="state first" id="state-default"><div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #0b0d11; font-family: 'Tenor Sans', 'Gill Sans', sans-serif; color: #f3eee3">
+<img src="../../concept%20art/tier-1-style/settlements-and-locations/biome.grassland.heartland-ruins.style-study.png" alt="" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; transform: scaleX(-1)">
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: linear-gradient(90deg, rgba(11,13,17,0.84) 0%, rgba(11,13,17,0.756) 28%, rgba(11,13,17,0.353) 48%, rgba(11,13,17,0) 66%), linear-gradient(0deg, rgba(11,13,17,0.521) 0%, rgba(11,13,17,0) 26%)"></div>
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: rgba(11,13,17,0.38)"></div>
+
+<div style="position: absolute; left: 96px; top: 72px; width: 500px; height: 968px; display: flex; flex-direction: column">
+<header style="display: flex; flex-direction: column; gap: 14px">
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 46px; line-height: 1; color: #f6f1e6">Customize</h1>
+<div style="width: 80px; height: 1px; background: #d9bb7e"></div>
+</header>
+<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 22px">
+<label for="character-name" style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">Name</label>
+<div style="display: flex; align-items: flex-end; gap: 18px">
+<input id="character-name" type="text" value="Brenbrand" autocomplete="off" spellcheck="false" style="flex-grow: 1; min-width: 0; box-sizing: border-box; background: transparent; border: 0; border-bottom: 1px solid rgba(243,238,227,0.5); border-radius: 0; padding: 0 0 6px; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px; color: #f6f1e6">
+
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; flex-shrink: 0; min-height: 40px; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #d3ccbd">Suggest</button>
+
+</div>
+</div>
+<nav aria-label="Appearance" style="margin-top: 20px; flex-grow: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column">
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="true" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Body</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(180deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+<div style="display: flex; flex-direction: column; padding: 2px 0 10px">
+<div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Body type</span><div style="width: 254px; flex-shrink: 0; display: flex; align-items: center; justify-content: flex-end; gap: 2px"><button type="button" aria-label="Previous body type" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 24px; line-height: 1; color: #d3ccbd">‹</button><span style="flex-grow: 1; text-align: center; font-size: 16px; letter-spacing: 0.04em; color: #f3eee3">1</span><button type="button" aria-label="Next body type" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 24px; line-height: 1; color: #d3ccbd">›</button></div></div><div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Height</span><button type="button" aria-label="Height, 1.62 m" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 45.8%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(45.8% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; color: #d3ccbd">1.62 m</span></div><div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Age</span><button type="button" aria-label="Age, 31 years" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 24.6%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(24.6% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; color: #d3ccbd">31 years</span></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Head</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Neck</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="true" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: rgba(243,238,227,0.06)"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 1"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #f6f1e6">Shoulders</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(180deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button><div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 52px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Width</span><button type="button" aria-label="Width, 50" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 50.0%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(50.0% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; color: #d3ccbd">50</span></div><div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 52px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Depth</span><button type="button" aria-label="Depth, 50" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 50.0%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(50.0% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; color: #d3ccbd">50</span></div><div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 52px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Muscle</span><button type="button" aria-label="Muscle, 50" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 50.0%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(50.0% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; color: #d3ccbd">50</span></div><div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 52px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Fat</span><button type="button" aria-label="Fat, 50" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 50.0%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(50.0% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; color: #d3ccbd">50</span></div></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Chest</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Arms</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Waist</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Hips</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Legs</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div>
+</div>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Face</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Hair</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Skin</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Markings</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+</nav>
+</div>
+
+<div style="position: absolute; left: 664px; top: 86px; width: 660px; height: 908px; box-sizing: border-box; padding: 10px; background: rgba(11,13,17,0.85); border: 1px solid rgba(217,187,126,0.5)">
+<img src="figures/human_heartland-1.jpg" alt="Heartland humans, body type 1" style="display: block; width: 638px; height: 886px; object-fit: cover">
+
+</div>
+<div style="position: absolute; left: 664px; top: 1012px; display: flex; gap: 28px; align-items: center; white-space: nowrap; font-size: 16px; letter-spacing: 0.06em; color: #d3ccbd">
+<span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">↑ ↓</kbd>Choose</span><span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">← →</kbd>Adjust</span><span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">Enter</kbd>Open</span><span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">Esc</kbd>Back</span>
+</div>
+
+<div style="position: absolute; left: 1392px; top: 86px; width: 432px; height: 908px; display: flex; flex-direction: column; justify-content: space-between">
+<section aria-label="Race" style="display: flex; flex-direction: column; gap: 10px; padding: 24px 28px 26px; background: rgba(13,15,20,0.74); backdrop-filter: blur(6px); border: 1px solid rgba(243,238,227,0.14)">
+<span style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">Human</span>
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.05; color: #f6f1e6">Heartland humans</h2>
+<p style="margin: 4px 0 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 21px; line-height: 1.32; color: #e8e2d4">[Racial information for Heartland humans]</p>
+</section>
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<div style="display: flex; gap: 26px">
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 40px"><span style="width: 8px; height: 8px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 1"></span><span style="font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Full figure</span></button>
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 40px"><span style="width: 8px; height: 8px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Face</span></button>
+</div>
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; min-height: 40px; font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #d3ccbd">Randomize</button>
+</div>
+<div style="height: 1px; background: rgba(243,238,227,0.14)"></div>
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="NewCharacter.dc.html" style="display: flex; align-items: center; min-height: 44px; text-decoration: none; font-size: 18px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Back</a>
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 48px"><span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 1"></span><span style="font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Continue</span></button>
+</div>
+</div>
+</div>
+</div></div>
+<div class="state" id="state-face"><div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #0b0d11; font-family: 'Tenor Sans', 'Gill Sans', sans-serif; color: #f3eee3">
+<img src="../../concept%20art/tier-1-style/settlements-and-locations/biome.grassland.heartland-ruins.style-study.png" alt="" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; transform: scaleX(-1)">
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: linear-gradient(90deg, rgba(11,13,17,0.84) 0%, rgba(11,13,17,0.756) 28%, rgba(11,13,17,0.353) 48%, rgba(11,13,17,0) 66%), linear-gradient(0deg, rgba(11,13,17,0.521) 0%, rgba(11,13,17,0) 26%)"></div>
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: rgba(11,13,17,0.38)"></div>
+
+<div style="position: absolute; left: 96px; top: 72px; width: 500px; height: 968px; display: flex; flex-direction: column">
+<header style="display: flex; flex-direction: column; gap: 14px">
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 46px; line-height: 1; color: #f6f1e6">Customize</h1>
+<div style="width: 80px; height: 1px; background: #d9bb7e"></div>
+</header>
+<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 22px">
+<label for="character-name-face" style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">Name</label>
+<div style="display: flex; align-items: flex-end; gap: 18px">
+<input id="character-name-face" type="text" value="Brenbrand" autocomplete="off" spellcheck="false" style="flex-grow: 1; min-width: 0; box-sizing: border-box; background: transparent; border: 0; border-bottom: 1px solid rgba(243,238,227,0.5); border-radius: 0; padding: 0 0 6px; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px; color: #f6f1e6">
+
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; flex-shrink: 0; min-height: 40px; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #d3ccbd">Suggest</button>
+
+</div>
+</div>
+<nav aria-label="Appearance" style="margin-top: 20px; flex-grow: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column">
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Body</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="true" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Face</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(180deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+<div style="display: flex; flex-direction: column; padding: 2px 0 10px">
+<div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Shape</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="true" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Eyes</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(180deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button><div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 52px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Variant</span><div style="width: 254px; flex-shrink: 0; display: flex; align-items: center; justify-content: flex-end; gap: 2px"><button type="button" aria-label="Previous variant" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 24px; line-height: 1; color: #d3ccbd">‹</button><span style="flex-grow: 1; text-align: center; font-size: 16px; letter-spacing: 0.04em; color: #f3eee3">Variant 1</span><button type="button" aria-label="Next variant" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 24px; line-height: 1; color: #d3ccbd">›</button></div></div><div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 52px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Size</span><button type="button" aria-label="Size, 50" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 50.0%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(50.0% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; color: #d3ccbd">50</span></div><div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 52px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Spacing</span><button type="button" aria-label="Spacing, 50" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 50.0%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(50.0% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; color: #d3ccbd">50</span></div><div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 52px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Tilt</span><button type="button" aria-label="Tilt, 50" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 50.0%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(50.0% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; color: #d3ccbd">50</span></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="true" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 52px; background: rgba(243,238,227,0.06)"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 1"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #f6f1e6">Colour</span><span style="width: 22px; height: 22px; flex-shrink: 0; border-radius: 50%; background: #3b2a1d; box-shadow: 0 0 0 1px rgba(243,238,227,0.55)"></span><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; letter-spacing: 0.04em; color: #d3ccbd">#3B2A1D</span></button><div style="display: flex; align-items: center; gap: 22px; padding: 8px 6px 12px 71px"><button type="button" aria-label="Colour: hue 26 degrees, saturation 51%" style="position: relative; width: 140px; height: 140px; flex-shrink: 0; padding: 0; margin: 0; border: 0; border-radius: 50%; cursor: crosshair; background: radial-gradient(circle closest-side, #ffffff, rgba(255,255,255,0)), conic-gradient(from 0deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000)"><span style="position: absolute; left: 0; top: 0; width: 140px; height: 140px; border-radius: 50%; background: rgba(0,0,0,0.769)"></span><span style="position: absolute; left: 85.6px; top: 38.0px; width: 14px; height: 14px; margin: -7px 0 0 -7px; box-sizing: border-box; border-radius: 50%; border: 2px solid #ffffff; box-shadow: 0 0 0 1px rgba(0,0,0,0.6)"></span></button><div style="display: flex; flex-direction: column; gap: 10px"><span style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">Brightness</span><button type="button" aria-label="Colour brightness, 23%" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 23.1%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(23.1% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><div style="display: flex; align-items: center; gap: 12px; padding-top: 6px"><span style="width: 34px; height: 34px; border-radius: 50%; background: #3b2a1d; box-shadow: 0 0 0 1px rgba(243,238,227,0.55)"></span><span style="font-size: 15px; letter-spacing: 0.06em; color: #f3eee3">#3B2A1D</span></div></div></div></div></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Brows</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Nose</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Jaw</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Mouth</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Ears</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg></button></div>
+</div>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Hair</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Skin</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Markings</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+</nav>
+</div>
+
+<div style="position: absolute; left: 664px; top: 86px; width: 660px; height: 908px; box-sizing: border-box; padding: 10px; background: rgba(11,13,17,0.85); border: 1px solid rgba(217,187,126,0.5)">
+
+<img src="../new-character/portraits/human_heartland-1.jpg" alt="Heartland humans, body type 1" style="display: block; width: 638px; height: 886px; object-fit: cover">
+</div>
+<div style="position: absolute; left: 664px; top: 1012px; display: flex; gap: 28px; align-items: center; white-space: nowrap; font-size: 16px; letter-spacing: 0.06em; color: #d3ccbd">
+<span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">↑ ↓</kbd>Choose</span><span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">← →</kbd>Adjust</span><span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">Enter</kbd>Open</span><span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">Esc</kbd>Back</span>
+</div>
+
+<div style="position: absolute; left: 1392px; top: 86px; width: 432px; height: 908px; display: flex; flex-direction: column; justify-content: space-between">
+<section aria-label="Race" style="display: flex; flex-direction: column; gap: 10px; padding: 24px 28px 26px; background: rgba(13,15,20,0.74); backdrop-filter: blur(6px); border: 1px solid rgba(243,238,227,0.14)">
+<span style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">Human</span>
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.05; color: #f6f1e6">Heartland humans</h2>
+<p style="margin: 4px 0 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 21px; line-height: 1.32; color: #e8e2d4">[Racial information for Heartland humans]</p>
+</section>
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<div style="display: flex; gap: 26px">
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 40px"><span style="width: 8px; height: 8px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Full figure</span></button>
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 40px"><span style="width: 8px; height: 8px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 1"></span><span style="font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Face</span></button>
+</div>
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; min-height: 40px; font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #d3ccbd">Randomize</button>
+</div>
+<div style="height: 1px; background: rgba(243,238,227,0.14)"></div>
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="NewCharacter.dc.html" style="display: flex; align-items: center; min-height: 44px; text-decoration: none; font-size: 18px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Back</a>
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 48px"><span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 1"></span><span style="font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Continue</span></button>
+</div>
+</div>
+</div>
+</div></div>
+<div class="state" id="state-hair"><div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #0b0d11; font-family: 'Tenor Sans', 'Gill Sans', sans-serif; color: #f3eee3">
+<img src="../../concept%20art/tier-1-style/settlements-and-locations/biome.grassland.heartland-ruins.style-study.png" alt="" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; transform: scaleX(-1)">
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: linear-gradient(90deg, rgba(11,13,17,0.84) 0%, rgba(11,13,17,0.756) 28%, rgba(11,13,17,0.353) 48%, rgba(11,13,17,0) 66%), linear-gradient(0deg, rgba(11,13,17,0.521) 0%, rgba(11,13,17,0) 26%)"></div>
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: rgba(11,13,17,0.38)"></div>
+
+<div style="position: absolute; left: 96px; top: 72px; width: 500px; height: 968px; display: flex; flex-direction: column">
+<header style="display: flex; flex-direction: column; gap: 14px">
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 46px; line-height: 1; color: #f6f1e6">Customize</h1>
+<div style="width: 80px; height: 1px; background: #d9bb7e"></div>
+</header>
+<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 22px">
+<label for="character-name-hair" style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">Name</label>
+<div style="display: flex; align-items: flex-end; gap: 18px">
+<input id="character-name-hair" type="text" value="Brenbrand" autocomplete="off" spellcheck="false" style="flex-grow: 1; min-width: 0; box-sizing: border-box; background: transparent; border: 0; border-bottom: 1px solid rgba(243,238,227,0.5); border-radius: 0; padding: 0 0 6px; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px; color: #f6f1e6">
+
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; flex-shrink: 0; min-height: 40px; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #d3ccbd">Suggest</button>
+
+</div>
+</div>
+<nav aria-label="Appearance" style="margin-top: 20px; flex-grow: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column">
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Body</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Face</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="true" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Hair</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(180deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+<div style="display: flex; flex-direction: column; padding: 2px 0 10px">
+<div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Style</span><div style="width: 254px; flex-shrink: 0; display: flex; align-items: center; justify-content: flex-end; gap: 2px"><button type="button" aria-label="Previous style" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 24px; line-height: 1; color: #d3ccbd">‹</button><span style="flex-grow: 1; text-align: center; font-size: 16px; letter-spacing: 0.04em; color: #f3eee3">Cropped</span><button type="button" aria-label="Next style" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 24px; line-height: 1; color: #d3ccbd">›</button></div></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="true" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: rgba(243,238,227,0.06)"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 1"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #f6f1e6">Colour</span><span style="width: 22px; height: 22px; flex-shrink: 0; border-radius: 50%; background: #4a3526; box-shadow: 0 0 0 1px rgba(243,238,227,0.55)"></span><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; letter-spacing: 0.04em; color: #d3ccbd">#4A3526</span></button><div style="display: flex; align-items: center; gap: 22px; padding: 8px 6px 12px 45px"><button type="button" aria-label="Colour: hue 25 degrees, saturation 49%" style="position: relative; width: 140px; height: 140px; flex-shrink: 0; padding: 0; margin: 0; border: 0; border-radius: 50%; cursor: crosshair; background: radial-gradient(circle closest-side, #ffffff, rgba(255,255,255,0)), conic-gradient(from 0deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000)"><span style="position: absolute; left: 0; top: 0; width: 140px; height: 140px; border-radius: 50%; background: rgba(0,0,0,0.710)"></span><span style="position: absolute; left: 84.4px; top: 39.1px; width: 14px; height: 14px; margin: -7px 0 0 -7px; box-sizing: border-box; border-radius: 50%; border: 2px solid #ffffff; box-shadow: 0 0 0 1px rgba(0,0,0,0.6)"></span></button><div style="display: flex; flex-direction: column; gap: 10px"><span style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">Brightness</span><button type="button" aria-label="Colour brightness, 29%" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 29.0%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(29.0% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><div style="display: flex; align-items: center; gap: 12px; padding-top: 6px"><span style="width: 34px; height: 34px; border-radius: 50%; background: #4a3526; box-shadow: 0 0 0 1px rgba(243,238,227,0.55)"></span><span style="font-size: 15px; letter-spacing: 0.06em; color: #f3eee3">#4A3526</span></div></div></div></div><div style="display: flex; flex-direction: column"><button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Tips</span><span style="width: 22px; height: 22px; flex-shrink: 0; border-radius: 50%; background: #4a3526; box-shadow: 0 0 0 1px rgba(243,238,227,0.55)"></span><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; letter-spacing: 0.04em; color: #d3ccbd">#4A3526</span></button></div>
+</div>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Skin</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Markings</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+</nav>
+</div>
+
+<div style="position: absolute; left: 664px; top: 86px; width: 660px; height: 908px; box-sizing: border-box; padding: 10px; background: rgba(11,13,17,0.85); border: 1px solid rgba(217,187,126,0.5)">
+<img src="figures/human_heartland-1.jpg" alt="Heartland humans, body type 1" style="display: block; width: 638px; height: 886px; object-fit: cover">
+
+</div>
+<div style="position: absolute; left: 664px; top: 1012px; display: flex; gap: 28px; align-items: center; white-space: nowrap; font-size: 16px; letter-spacing: 0.06em; color: #d3ccbd">
+<span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">↑ ↓</kbd>Choose</span><span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">← →</kbd>Adjust</span><span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">Enter</kbd>Open</span><span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">Esc</kbd>Back</span>
+</div>
+
+<div style="position: absolute; left: 1392px; top: 86px; width: 432px; height: 908px; display: flex; flex-direction: column; justify-content: space-between">
+<section aria-label="Race" style="display: flex; flex-direction: column; gap: 10px; padding: 24px 28px 26px; background: rgba(13,15,20,0.74); backdrop-filter: blur(6px); border: 1px solid rgba(243,238,227,0.14)">
+<span style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">Human</span>
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.05; color: #f6f1e6">Heartland humans</h2>
+<p style="margin: 4px 0 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 21px; line-height: 1.32; color: #e8e2d4">[Racial information for Heartland humans]</p>
+</section>
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<div style="display: flex; gap: 26px">
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 40px"><span style="width: 8px; height: 8px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 1"></span><span style="font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Full figure</span></button>
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 40px"><span style="width: 8px; height: 8px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Face</span></button>
+</div>
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; min-height: 40px; font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #d3ccbd">Randomize</button>
+</div>
+<div style="height: 1px; background: rgba(243,238,227,0.14)"></div>
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="NewCharacter.dc.html" style="display: flex; align-items: center; min-height: 44px; text-decoration: none; font-size: 18px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Back</a>
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 48px"><span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 1"></span><span style="font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Continue</span></button>
+</div>
+</div>
+</div>
+</div></div>
+<div class="state" id="state-frosthold"><div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #0b0d11; font-family: 'Tenor Sans', 'Gill Sans', sans-serif; color: #f3eee3">
+<img src="../../concept%20art/tier-1-style/settlements-and-locations/biome.grassland.heartland-ruins.style-study.png" alt="" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; transform: scaleX(-1)">
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: linear-gradient(90deg, rgba(11,13,17,0.84) 0%, rgba(11,13,17,0.756) 28%, rgba(11,13,17,0.353) 48%, rgba(11,13,17,0) 66%), linear-gradient(0deg, rgba(11,13,17,0.521) 0%, rgba(11,13,17,0) 26%)"></div>
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: rgba(11,13,17,0.38)"></div>
+
+<div style="position: absolute; left: 96px; top: 72px; width: 500px; height: 968px; display: flex; flex-direction: column">
+<header style="display: flex; flex-direction: column; gap: 14px">
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 46px; line-height: 1; color: #f6f1e6">Customize</h1>
+<div style="width: 80px; height: 1px; background: #d9bb7e"></div>
+</header>
+<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 22px">
+<label for="character-name-frosthold" style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">Name</label>
+<div style="display: flex; align-items: flex-end; gap: 18px">
+<input id="character-name-frosthold" type="text" value="Legmerk" autocomplete="off" spellcheck="false" style="flex-grow: 1; min-width: 0; box-sizing: border-box; background: transparent; border: 0; border-bottom: 1px solid rgba(243,238,227,0.5); border-radius: 0; padding: 0 0 6px; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px; color: #f6f1e6">
+
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; flex-shrink: 0; min-height: 40px; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #d3ccbd">Suggest</button>
+
+</div>
+</div>
+<nav aria-label="Appearance" style="margin-top: 20px; flex-grow: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column">
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Body</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Face</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Hair</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="true" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Skin</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(180deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+<div style="display: flex; flex-direction: column; padding: 2px 0 10px">
+<div style="display: flex; flex-direction: column"><button type="button" aria-expanded="true" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: rgba(243,238,227,0.06)"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 1"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #f6f1e6">Tone</span><span style="width: 22px; height: 22px; flex-shrink: 0; border-radius: 50%; background: #eed3bb; box-shadow: 0 0 0 1px rgba(243,238,227,0.55)"></span><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; letter-spacing: 0.04em; color: #d3ccbd">#EED3BB</span></button><div style="display: flex; align-items: center; gap: 22px; padding: 8px 6px 12px 45px"><button type="button" aria-label="Tone: hue 28 degrees, saturation 21%" style="position: relative; width: 140px; height: 140px; flex-shrink: 0; padding: 0; margin: 0; border: 0; border-radius: 50%; cursor: crosshair; background: radial-gradient(circle closest-side, #ffffff, rgba(255,255,255,0)), conic-gradient(from 0deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000)"><span style="position: absolute; left: 0; top: 0; width: 140px; height: 140px; border-radius: 50%; background: rgba(0,0,0,0.067)"></span><span style="position: absolute; left: 77.1px; top: 56.8px; width: 14px; height: 14px; margin: -7px 0 0 -7px; box-sizing: border-box; border-radius: 50%; border: 2px solid #ffffff; box-shadow: 0 0 0 1px rgba(0,0,0,0.6)"></span></button><div style="display: flex; flex-direction: column; gap: 10px"><span style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">Brightness</span><button type="button" aria-label="Tone brightness, 93%" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 93.3%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(93.3% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><div style="display: flex; align-items: center; gap: 12px; padding-top: 6px"><span style="width: 34px; height: 34px; border-radius: 50%; background: #eed3bb; box-shadow: 0 0 0 1px rgba(243,238,227,0.55)"></span><span style="font-size: 15px; letter-spacing: 0.06em; color: #f3eee3">#EED3BB</span></div></div></div></div><div style="display: flex; align-items: center; gap: 12px; min-height: 34px; box-sizing: border-box; padding: 0 6px 0 26px; background: transparent"><span style="width: 7px; height: 7px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="flex-grow: 1; font-size: 17px; letter-spacing: 0.02em; color: #c9c2b4">Weathering</span><button type="button" aria-label="Weathering, 50" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; position: relative; width: 168px; height: 34px; flex-shrink: 0; cursor: ew-resize"><span style="position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: rgba(243,238,227,0.22)"></span><span style="position: absolute; left: 0; top: 16px; height: 2px; width: 50.0%; background: #d9bb7e"></span><span style="position: absolute; top: 11px; left: calc(50.0% - 6px); width: 12px; height: 12px; transform: rotate(45deg); background: #f6f1e6"></span></button><span style="width: 74px; flex-shrink: 0; text-align: right; font-size: 15px; color: #d3ccbd">50</span></div>
+</div>
+
+</div>
+
+<div style="display: flex; flex-direction: column">
+<button type="button" aria-expanded="false" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 42px; padding-right: 6px">
+<span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span>
+<span style="flex-grow: 1; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Markings</span>
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex-shrink: 0; transform: rotate(0deg)"><path d="M2 4 L6 8 L10 4" fill="none" stroke="#b8b1a3" stroke-width="1.5"></path></svg>
+</button>
+
+</div>
+
+</nav>
+</div>
+
+<div style="position: absolute; left: 664px; top: 86px; width: 660px; height: 908px; box-sizing: border-box; padding: 10px; background: rgba(11,13,17,0.85); border: 1px solid rgba(217,187,126,0.5)">
+
+<img src="../new-character/portraits/frosthold_dwarf-2.jpg" alt="Frosthold Dwarves, body type 2" style="display: block; width: 638px; height: 886px; object-fit: cover">
+</div>
+<div style="position: absolute; left: 664px; top: 1012px; display: flex; gap: 28px; align-items: center; white-space: nowrap; font-size: 16px; letter-spacing: 0.06em; color: #d3ccbd">
+<span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">↑ ↓</kbd>Choose</span><span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">← →</kbd>Adjust</span><span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">Enter</kbd>Open</span><span style="display: flex; gap: 10px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 30px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 14px; color: #f3eee3">Esc</kbd>Back</span>
+</div>
+
+<div style="position: absolute; left: 1392px; top: 86px; width: 432px; height: 908px; display: flex; flex-direction: column; justify-content: space-between">
+<section aria-label="Race" style="display: flex; flex-direction: column; gap: 10px; padding: 24px 28px 26px; background: rgba(13,15,20,0.74); backdrop-filter: blur(6px); border: 1px solid rgba(243,238,227,0.14)">
+<span style="font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">Dwarf</span>
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.05; color: #f6f1e6">Frosthold Dwarves</h2>
+<p style="margin: 4px 0 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 21px; line-height: 1.32; color: #e8e2d4">[Racial information for Frosthold Dwarves]</p>
+</section>
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<div style="display: flex; gap: 26px">
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 40px"><span style="width: 8px; height: 8px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 0"></span><span style="font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Full figure</span></button>
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 12px; min-height: 40px"><span style="width: 8px; height: 8px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 1"></span><span style="font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Face</span></button>
+</div>
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; min-height: 40px; font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #d3ccbd">Randomize</button>
+</div>
+<div style="height: 1px; background: rgba(243,238,227,0.14)"></div>
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="NewCharacter.dc.html" style="display: flex; align-items: center; min-height: 44px; text-decoration: none; font-size: 18px; letter-spacing: 0.16em; text-transform: uppercase; color: #b8b1a3">Back</a>
+<button type="button" style="background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 16px; min-height: 48px"><span style="width: 10px; height: 10px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e; opacity: 1"></span><span style="font-size: 24px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Continue</span></button>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+</body>
+</html>
