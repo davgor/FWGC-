@@ -67,6 +67,24 @@ tests do not use them.
 
 It runs in this runtime unchanged: its chat template is ChatML, and it has no thinking mode.
 
+Three more, trialled against it on 2026-09-26 (results in `communicator/README.md`, "Model
+trials"). The owner approved each by file, source and size, and for the two Llama files accepted
+the Llama Community Licence.
+
+| File | From | Size (bytes) | SHA-256 | Licence |
+|---|---|---|---|---|
+| `Llama-3.2-3B-Instruct-Q4_K_M.gguf` | `https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF` | 2,019,377,696 | `6c1a2b41161032677be168d354123594c0e6e67d2b9227c84f296ad037c728ff` | Llama 3.2 Community Licence |
+| `Mistral-7B-Instruct-v0.3-Q4_K_M.gguf` | `https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF` | 4,372,812,000 | `1270d22c0fbb3d092fb725d4d96c457b7b687a5f5a715abe1e818da303e562b6` | Apache-2.0 |
+| `Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf` | `https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 4,920,739,232 | `7b064f5842bf9532c91456deda288a1b672397a54fa729aa665952863033557c` | Llama 3.1 Community Licence |
+
+- The pinned llama.cpp reads both Llama templates as `llama3`, leaving out the date header Meta's
+  template adds, and Mistral v0.3's as `llama2`, not the `mistral-v3` layout its own template
+  selects. `Model::chat_prompt` always uses the embedded template, so Mistral was measured in the
+  layout this runtime gives it.
+- Shipping a Llama model would oblige: a copy of the licence with it, "Built with Llama" shown in
+  the product, "Llama" at the start of the name of any model trained or fine-tuned from it or its
+  outputs, and Meta's acceptable use policy.
+
 ### The embedding model
 
 For `embed()`: turning a text into a vector, so texts can be compared by meaning. The tests use
