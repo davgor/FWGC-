@@ -479,6 +479,55 @@ inline FactPacket denied(bool again) {
     return packet(castellan(), ActKind::Confront, Outcome::Denied, {}, {.turn = again ? 3 : 2, .repeat = again});
 }
 
+// ---- Contract version 11: news ---------------------------------------------------------------
+
+// News of a piece of work, as the director writes it: Halbrann's call to defend Wenweg, at `state`,
+// the stranger's doing or not, heard by word.
+inline Fact news_of_work(const std::string& state, bool players) {
+    return {FactKind::News,
+            "event-12",
+            {{"event", "work"},
+             {"state", state},
+             {"place", "Wenweg"},
+             {"verb", "defend"},
+             {"purpose", "Stand with Wenweg when they come for it."},
+             {"giver", "Halbrann"},
+             {"player", players ? "yes" : "no"},
+             {"since", "days"},
+             {"how", "word"}}};
+}
+
+// News of a scare at the fortress, ended as `state`, by `by` ("player", a name, or nobody).
+inline Fact news_of_a_scare(const std::string& state, const std::string& by) {
+    Fact f{FactKind::News, "event-31", {{"event", "scare"}, {"state", state}, {"place", "the fortress of Wenweg"}}};
+    f.fields.emplace_back("player", by == "player" ? "yes" : "no");
+    if (!by.empty()) f.fields.emplace_back("by", by);
+    f.fields.emplace_back("since", "today");
+    f.fields.emplace_back("how", "word");
+    return f;
+}
+
+// A greeting from someone who heard what the stranger did.
+inline FactPacket greeted_having_heard() {
+    return packet(gate_captain(), ActKind::Greet, Outcome::Greeted, {news_of_work("finished", true)});
+}
+
+// Small talk from someone who heard the stranger beat off a threat where they stand.
+inline FactPacket small_talk_with_news() {
+    FactPacket p = small_talk("clear", "breezy");
+    p.facts.insert(p.facts.end() - 1, news_of_a_scare("beaten", "player"));  // the Memory fact stays last
+    return p;
+}
+
+// An answer about the town, with news of it: work asked for there, which is nobody's doing yet, and
+// a threat Orlan beat off.
+inline FactPacket about_the_town_with_news() {
+    FactPacket p = about_the_town();
+    p.facts.insert(p.facts.end() - 1, news_of_work("asked", false));
+    p.facts.insert(p.facts.end() - 1, news_of_a_scare("beaten", "Orlan"));
+    return p;
+}
+
 // Every conversation packet, for the tests and the written lines' rules.
 inline std::vector<FactPacket> conversation() {
     return {greeted_first(),
@@ -534,7 +583,11 @@ inline std::vector<FactPacket> conversation() {
             // Contract version 10.
             not_afraid_eased(),
             greeted_eased(),
-            joined_surroundings()};
+            joined_surroundings(),
+            // Contract version 11.
+            greeted_having_heard(),
+            small_talk_with_news(),
+            about_the_town_with_news()};
 }
 
 }  // namespace packets

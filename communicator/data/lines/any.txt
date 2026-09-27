@@ -173,3 +173,13 @@ any | greeted_eased | Hello again. I'm steadier than when you saw me last.
 any | greeted_eased | Good to see you; I've you to thank for my nerve.
 any | joined_lead | Pardon me, I couldn't help overhearing.
 any | joined_lead | Forgive me for butting in; I heard what you asked.
+
+# ---- Contract version 11: news the speaker has heard, said after their reply (Lines::follow). {deed}
+# is what the stranger did, as words after "you"; {news} what happened, as words a sentence holds.
+# Both are C++'s, from the News fact: a line adds only how the speaker says it. ---------------------
+any | heard_deed | You're the one who {deed}, aren't you?
+any | heard_deed | So you're the one who {deed}.
+any | heard_deed | They say you {deed}.
+any | news | The word is {news}.
+any | news | Some are saying {news}.
+any | news | I heard that {news}.

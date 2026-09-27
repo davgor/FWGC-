@@ -46,6 +46,7 @@ add_library(communicator STATIC
   src/meaning.cpp
   src/memory.cpp
   src/mention.cpp
+  src/news.cpp
   src/reply_shape.cpp
   src/text.cpp
   src/truth.cpp
@@ -67,6 +68,7 @@ if(COMMUNICATOR_BUILD_TESTS)
     tests/test_known.cpp
     tests/test_interpreter.cpp
     tests/test_meaning.cpp
+    tests/test_news.cpp
     tests/test_truth.cpp
     tests/test_voice.cpp
   )

@@ -9,6 +9,7 @@
 #include "communicator/known.hpp"
 #include "gbnf.hpp"
 #include "memory.hpp"
+#include "news.hpp"
 #include "reply_shape.hpp"
 #include "text.hpp"
 
@@ -68,8 +69,8 @@ std::vector<std::string> phrases(const Fact& fact, std::initializer_list<std::st
 }
 
 // One fact as a line the speaker can draw on. Never its subject: an id is not something anyone
-// says.
-std::string fact_line(const Fact& fact) {
+// says. `self` is the speaker's name.
+std::string fact_line(const Fact& fact, const std::string& self) {
     switch (fact.kind) {
         case FactKind::Place:
             return "- " + text::spoken(label_of(fact)) + ": " + join(phrases(fact, {"name", "of"}), "; ");
@@ -129,8 +130,23 @@ std::string fact_line(const Fact& fact) {
         }
         case FactKind::Memory:
             return {};  // said apart, as what the speaker remembers (memory_lines)
+        case FactKind::News: {
+            // In C++'s words (news.hpp), never the fields for a model to make a story of; nothing
+            // of the speaker's own work or of themself, which the memory says.
+            const std::string words = news_words(fact, self, "the stranger");
+            if (words.empty()) return {};
+            return "- News you have heard: " + words + " (" + (value_of(fact, "how") == "there" ? "you saw it" : "word of it reached you") +
+                   ").";
+        }
     }
     return {};
+}
+
+// Whether the speaker passes on news the packet holds, as the written lines do (Lines::follow):
+// what the stranger did, to a greeting; what happened, otherwise. Not a frightened or a cold speaker.
+bool passes_on_news(const FactPacket& packet, bool of_the_stranger) {
+    if (remembered(packet).frightened() || remembered(packet).cold()) return false;
+    return news_to_pass_on(packet, of_the_stranger) != nullptr;
 }
 
 // What the speaker remembers of the stranger, as lines: nothing on a first meeting with nothing
@@ -177,11 +193,14 @@ std::string what_happened(const FactPacket& packet) {
                     return "The stranger asked what is around. Tell them of a few of the places above, the nearest first, and "
                            "warn them of any danger.";
                 case ActKind::AskAboutPlace:
-                    return "The stranger asked about the place above. Tell them what you know of it.";
+                    // News a reply must show goes in what just happened (contract version 11).
+                    return std::string("The stranger asked about the place above. Tell them what you know of it") +
+                           (passes_on_news(packet, false) ? ", and the news of it above." : ".");
                 case ActKind::AskAboutPerson:
                     if (!packet.facts.empty() && packet.facts.front().subject == packet.speaker)
                         return "The stranger asked who you are. Tell them.";
-                    return "The stranger asked about the person above. Tell them what you know of them.";
+                    return std::string("The stranger asked about the person above. Tell them what you know of them") +
+                           (passes_on_news(packet, false) ? ", and the news of them above." : ".");
                 case ActKind::AskSafety:
                     return "The stranger asked whether it is safe here. Say plainly first whether it is, then name the worst "
                            "danger above.";
@@ -221,6 +240,9 @@ std::string what_happened(const FactPacket& packet) {
             return "You do not follow what the stranger wants, or it is nothing you can help with. Say so in a sentence, and "
                    "tell them nothing else.";
         case Outcome::Greeted:
+            if (passes_on_news(packet, true))
+                return "The stranger greeted you, and you have heard what they did (the news above). Greet them back, and say "
+                       "you heard of it.";
             return "The stranger greeted you. Greet them back, as you take them.";
         case Outcome::Chatted:
             // "Answer in kind" won over "You dislike them" for every model tried (2026-09-26).
@@ -228,6 +250,8 @@ std::string what_happened(const FactPacket& packet) {
                 return std::string("The stranger is making small talk, and you ") +
                        (remembered(packet).mood == "hostile" ? "dislike them" : "are wary of them") +
                        ". You want no chat with them: answer curtly, and give them nothing.";
+            if (passes_on_news(packet, false))
+                return "The stranger is making small talk. Answer in kind, and pass on the news above.";
             return "The stranger is making small talk. Answer in kind, from the weather and the season above.";
         case Outcome::Acknowledged:
             return "The stranger answered what you asked. Take it in, in your own way.";
@@ -414,7 +438,7 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
     system += "\nWhat you know and may tell:\n";
     std::string known;
     for (const Fact& fact : packet.facts)
-        if (const std::string said = fact_line(fact); !said.empty()) known += said + "\n";
+        if (const std::string said = fact_line(fact, text::spoken(p.name)); !said.empty()) known += said + "\n";
     system += known.empty() ? "- nothing that bears on this\n" : known;
     system += "\nWhat you remember of the stranger:\n";
     for (const std::string& remembered_line : memory_lines(packet)) system += "- " + remembered_line + "\n";

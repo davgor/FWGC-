@@ -178,6 +178,18 @@ inline bool lead_row(const std::string& row) {
     return situation == "afraid_lead" || situation == "panicked_lead" || situation == "joined_lead";
 }
 
+// Whether a row is news said after a reply ("heard_deed", "news"; Lines::follow): said alone,
+// after whatever reply comes before it.
+inline bool follow_row(const std::string& row) {
+    const std::size_t first = row.find('|');
+    const std::size_t second = first == std::string::npos ? first : row.find('|', first + 1);
+    if (second == std::string::npos) return false;
+    std::string situation = row.substr(first + 1, second - first - 1);
+    situation.erase(0, situation.find_first_not_of(' '));
+    while (!situation.empty() && situation.back() == ' ') situation.pop_back();
+    return situation == "heard_deed" || situation == "news";
+}
+
 // `p` spoken by someone the row's bank answers for: a hero with that voice key, someone at that
 // post, or, for "any", the packet's own speaker.
 inline FactPacket as_voiced_by(FactPacket p, const std::string& voice) {
@@ -190,8 +202,9 @@ inline FactPacket as_voiced_by(FactPacket p, const std::string& voice) {
     return p;
 }
 
-// Every rule of the voice's that `reply` breaks, as spoken for `p`.
-inline std::vector<std::string> broken_rules(const std::string& reply, const FactPacket& p) {
+// Every rule of the voice's that `reply` breaks, as spoken for `p`. `shaped`: whether the reply is
+// the packet's own, held to its outcome's opening, closing and length; news said after it is not.
+inline std::vector<std::string> broken_rules(const std::string& reply, const FactPacket& p, bool shaped = true) {
     std::vector<std::string> out;
     if (reply.find_first_of("{}[]") != std::string::npos) out.push_back("a blank or a bracket left in");
     for (const std::string mark : {"\"", "\xE2\x80\x9C", "\xE2\x80\x9D"})
@@ -203,7 +216,13 @@ inline std::vector<std::string> broken_rules(const std::string& reply, const Fac
     for (const std::string& id : ids)
         if (reply.find(id) != std::string::npos) out.push_back("an id: " + id);
 
-    const communicator::ReplyShape shape = communicator::reply_shape(p);
+    communicator::ReplyShape shape = communicator::reply_shape(p);
+    if (!shaped) {
+        shape.openings.clear();
+        shape.closing.clear();
+        shape.closing_after_name.clear();
+        shape.sentences = 1;
+    }
     std::string own = reply;
     if (!shape.closing.empty()) {
         // The closing C++ writes, or, after a line that named the giver, where they are without the
@@ -350,11 +369,14 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
         // says); any other, alone, as the packet comes.
         const bool again = told_row(row);
         const bool leading = lead_row(row);
+        const bool following = follow_row(row);
         const std::string beside = again ? "\n" + kEveryBlank : std::string();
         const communicator::Lines one = communicator::Lines::parse(row + beside, "the row");
         const auto replies_of = [&](const communicator::Lines& lines, const FactPacket& packet, const FactPacket& p) {
-            // A frightened speaker's lead is said alone here, before whatever answer comes after.
+            // A frightened speaker's lead is said alone here, before whatever answer comes after; news,
+            // alone, after it.
             if (leading) return lines.leads(p);
+            if (following) return lines.follows(p);
             if (!again) return lines.replies(p);
             const std::vector<std::string> heard = heard_everything(packet);
             if (heard.empty()) return std::vector<std::string>();
@@ -368,7 +390,9 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
             const FactPacket p = as_voiced_by(packet, voice_of(row));
             for (const std::string& reply : replies_of(one, packet, p)) {
                 ++spoken;
-                for (const std::string& broken : broken_rules(reply, p)) out.push_back(broken + ", in: " + reply);
+                // News said after a reply is one sentence of its own, held to every rule but the
+                // reply's shape.
+                for (const std::string& broken : broken_rules(reply, p, !following)) out.push_back(broken + ", in: " + reply);
                 // A lead goes before an answer the program adds: one sentence, and no question.
                 if (leading && (rules::sentences_in(reply) != 1 || reply.back() == '?'))
                     out.push_back("a lead is one sentence, not a question, in: " + reply);
@@ -412,7 +436,7 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
                 packet.persona.people = "test";
                 const FactPacket p = as_voiced_by(packet, voice_of(row));
                 for (const std::string& reply : replies_of(with, packet, p))
-                    for (const std::string& broken : broken_rules(reply, p)) out.push_back(broken + ", in: " + reply);
+                    for (const std::string& broken : broken_rules(reply, p, !following)) out.push_back(broken + ", in: " + reply);
             }
         }
     } catch (const std::exception& e) {

@@ -92,6 +92,17 @@ public:
     // here.
     std::vector<std::string> leads(const orchestrator::FactPacket& packet) const;
 
+    // What a speaker says after their reply (contract version 11): news they have heard. After a
+    // greeting, what the stranger did, if the speaker heard of it (a `heard_deed` line, "You're the
+    // one who {deed}"); after small talk, or an answer about a place or a person, what happened (a
+    // `news` line, "Word is {news}."). speak() puts it last. Empty when the packet carries no news
+    // the speaker would give, for a frightened or a cold speaker, and for news of the speaker's own
+    // work or of themself, which their own lines say.
+    std::string follow(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent = {}) const;
+
+    // Every line follow() could choose from, filled, as leads() lists every lead.
+    std::vector<std::string> follows(const orchestrator::FactPacket& packet) const;
+
     // How many lines were read.
     std::size_t size() const;
 

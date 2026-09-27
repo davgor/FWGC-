@@ -435,6 +435,35 @@ larger-than-life heroes.
     - It read "the hamlet of Wenweg and the deeps, deadly, held by monsters" as both deadly. The
       engine now says the dangerous place first.
 
+## News
+
+Contract version 11: a News fact is an event the speaker has heard of (orchestrator/contract.hpp
+lists its fields). The communicator says it in words C++ writes from the fact's own fields
+(`src/news.hpp`), never a model's: what the stranger did, as words after "you" ("helped Wenweg
+hold", "beat off the threat at the fortress of Wenweg", "showed that Maren is a cult leader"), and
+what happened, as words a sentence holds ("Halbrann is looking for help with Wenweg", "nobody
+answered Halbrann's call for help", "there was a scare at Wenweg"). A defended place, a reclaimed,
+recovered, cleared, cleansed or rebuilt one is said by its verb; other work by its giver ("did what
+Halbrann asked"). Nothing is said of the speaker's own work or of themself, which their own lines
+say ("They finished the work you gave them").
+
+- **Which news** (`news_to_pass_on`): the first of the packet's News facts, in the director's order,
+  that has words. An answer about a place or a person passes on no work only asked for there, which
+  the answer lists already: "Wenisk wants someone to stand with Iskmor. The word is Wenisk is
+  looking for help with Iskmor" says it twice. The written lines and the voice both choose by it.
+- **Written lines** say it after the reply, a sentence of their own (`Lines::follow`): after a
+  greeting, what the stranger did (`heard_deed`: "You're the one who {deed}, aren't you?"); after
+  small talk or an answer about a place or a person, what happened (`news`: "The word is {news}.").
+  Not from a frightened or a cold speaker, whose own lines are all they say, and not news said
+  lately, in either wording: "You're the one who helped Wenweg hold" at a greeting and "The word is
+  you helped Wenweg hold" in the small talk after it is a speaker with one thought.
+- **The voice** is told it as a fact line ("News you have heard: the stranger helped Wenweg hold
+  (word of it reached you)"), and, in what just happened, to say so: every model tried followed the
+  instruction over what it was told it knew (2026-09-26). The prompts of packets with no News fact
+  are unchanged, so the 59 cases of the eval before news are measured as before; three cases with
+  news follow them.
+- **The truth check** holds what the voice says of news to the News facts (below).
+
 ## The truth check
 
 `communicator/truth.hpp`. `untrue(reply, packet, recent)` reads a reply for the claims its speaker
@@ -469,6 +498,11 @@ what they are saying isn't BS" (2026-09-26).
   them; elsewhere rain is a figure of speech.
 - **Knowing of someone is not knowing them:** no greeting sent and no news asked ("give them my
   regards", "tell them I sent you"), whatever the packet.
+- **News is heard** (contract version 11): words that pass on what is said about ("word has it",
+  "the word is", "some are saying", "I heard that", "word is" opening a sentence) need a News fact,
+  and words that say what is said of the stranger ("they say you", "word is you", "heard what you
+  did") need news of what they did. "My word is given" is a promise, and "you're the one who talked
+  me down" the memory's: neither is read as news.
 
 `never_backed()` names the kinds no packet can back: an acquaintance, and a distance or a time
 counted out. A written line with one is wrong wherever it is said, and the rules test fails it.

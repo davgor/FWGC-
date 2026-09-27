@@ -17,6 +17,7 @@
 #include "communicator/truth.hpp"
 #include "communicator/voice.hpp"
 #include "memory.hpp"
+#include "news.hpp"
 #include "reply_shape.hpp"
 #include "text.hpp"
 
@@ -335,6 +336,15 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     if (starts("exposed")) {
         set("was", text::spaced(text::spoken(first_field(p, FactKind::Reveal, "was"))));
         set("is", text::spaced(text::spoken(first_field(p, FactKind::Reveal, "is"))));
+    }
+    // News, in words C++ writes from the News fact's own fields (news.hpp): the news the follow line
+    // was chosen for, so the line says it.
+    if (situation == "heard_deed" || situation == "news") {
+        const bool greeting = situation == "heard_deed";
+        if (const Fact* heard = news_to_pass_on(p, greeting)) {
+            const std::string self = text::spoken(p.persona.name);
+            set(greeting ? "deed" : "news", greeting ? deed_words(*heard, self) : news_words(*heard, self));
+        }
     }
     if (starts("safety_")) {
         // The director names the places a verdict rests on first (orchestrator/contract.hpp).
@@ -695,6 +705,11 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"not_afraid_eased", {}},
         {"greeted_eased", {"since"}},
         {"joined_lead", {}},
+        // Contract version 11: news, said after the reply (Lines::follow). What the stranger did, after
+        // a greeting, as words that follow "you"; what happened, after small talk or an answer about a
+        // place or a person.
+        {"heard_deed", {"deed"}},
+        {"news", {"news"}},
         // Contract version 5: a people's sayings, in the bank `saying:<people>`. Never a reply of
         // its own: a line says one through {saying}.
         {"saying", {}},
@@ -1057,6 +1072,11 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
 std::string Lines::speak(const FactPacket& p, std::string_view line, const std::vector<std::string>& recent, Meaning* meaning) const {
     std::vector<Spoken> spoken = spoken_for(p, &recent, true);
     if (spoken.empty()) return {};
+    // News the speaker has heard comes after the reply, a sentence of its own (contract version 11).
+    const auto then_news = [&](const std::string& reply) {
+        const std::string after = follow(p, recent);
+        return after.empty() ? reply : reply + " " + after;
+    };
     // With meaning, small talk answers what the stranger's words are about: the weather's lines for
     // the weather, the rest for the speaker's own day (judged 2026-09-26: "How are things with you?"
     // was answered with the weather). A cold speaker's lines answer neither.
@@ -1121,14 +1141,14 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         for (const Spoken& s : spoken)
             if (s.recalls) recalling.push_back(s);
         if (!recalling.empty() && meaning->subject_of(line, subjects) == 0)
-            if (auto [reply, said_lately] = choose(recalling); !said_lately) return reply;
+            if (auto [reply, said_lately] = choose(recalling); !said_lately) return then_news(reply);
     }
     // A frightened speaker's answer comes after a sentence of their own (contract version 9): the
     // words of an answer are a writer's for a calm speaker, and "the words she says should be
     // panicked" (the owner, 2026-09-26).
     const std::string reply = choose(spoken).first;
     const std::string before = lead(p, recent);
-    return before.empty() ? reply : before + " " + reply;
+    return then_news(before.empty() ? reply : before + " " + reply);
 }
 
 namespace {
@@ -1175,6 +1195,62 @@ std::string Lines::lead(const FactPacket& p, const std::vector<std::string>& rec
             return line.text;
     }
     return leads[start].text;
+}
+
+namespace {
+
+// The news a speaker's follow line would say (contract version 11): the situation it is said in
+// ("heard_deed" after a greeting, "news" otherwise), and the words its blank fills, with what the
+// stranger did as words after "you" when the news is theirs, however the line says it. Empty when
+// there is none to say. None from a frightened or a cold speaker, whose own lines are all they say.
+struct NewsToSay {
+    std::string situation;
+    std::string words;
+    std::string deed;
+};
+
+NewsToSay news_to_say(const FactPacket& p) {
+    const Remembered m = remembered(p);
+    if (m.frightened() || m.cold()) return {};
+    const bool about = p.outcome == Outcome::Answered && (p.answering == ActKind::AskAboutPlace || p.answering == ActKind::AskAboutPerson);
+    const bool greeting = p.outcome == Outcome::Greeted;
+    if (!greeting && !about && p.outcome != Outcome::Chatted) return {};
+    const Fact* heard = news_to_pass_on(p, greeting);
+    if (!heard) return {};
+    const std::string self = text::spoken(p.persona.name);
+    const std::string deed = deed_words(*heard, self);
+    return {greeting ? "heard_deed" : "news", greeting ? deed : news_words(*heard, self), deed};
+}
+
+}  // namespace
+
+std::vector<std::string> Lines::follows(const FactPacket& p) const {
+    const NewsToSay news = news_to_say(p);
+    if (news.situation.empty()) return {};
+    const std::vector<std::string> chain = {news.situation};
+    std::vector<std::string> out;
+    for (Spoken& s : spoken_for(p, nullptr, false, &chain)) out.push_back(std::move(s.text));
+    return out;
+}
+
+std::string Lines::follow(const FactPacket& p, const std::vector<std::string>& recent) const {
+    const NewsToSay news = news_to_say(p);
+    if (news.situation.empty()) return {};
+    // News told lately is not told again, however it was put: "You're the one who helped Wenweg
+    // hold" after a greeting, then "The word is you helped Wenweg hold" in small talk, is a speaker
+    // with one thought (the first news session, 2026-09-27).
+    const auto told = [&](const std::string& said) {
+        return said.find(news.words) != std::string::npos || (!news.deed.empty() && said.find(news.deed) != std::string::npos);
+    };
+    if (std::any_of(recent.begin(), recent.end(), told)) return {};
+    const std::vector<std::string> chain = {news.situation};
+    const std::vector<Spoken> lines = spoken_for(p, &recent, true, &chain);
+    if (lines.empty()) return {};
+    // In turn by what the speaker has heard, as a lead is.
+    const std::size_t n = lines.size();
+    const std::size_t start = (static_cast<std::size_t>(stable_hash(p.speaker + "|news") % n) +
+                               static_cast<std::size_t>(std::max(0, remembered(p).heard)) % n) % n;
+    return lines[start].text;
 }
 
 bool Lines::told(const FactPacket& p, const std::vector<std::string>& recent) const {

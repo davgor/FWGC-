@@ -182,6 +182,11 @@ packet, and a row that says a saying once more with one dropped in. `communicato
   opens "I'm fine", "I'm all right" or "There's no need", never "I'm not afraid". A bystander's
   lead (`joined_lead`) has a lead's shape: one sentence, no question, not opening or ending with
   yes, no, aye or nay.
+- News (contract version 11), said after the reply, a sentence of its own: after a greeting, what
+  the stranger did (`heard_deed`, `{deed}` the words after "you": "helped Wenweg hold"); after small
+  talk or an answer about a place or a person, what happened (`news`, `{news}`: "you helped Wenweg
+  hold", "Halbrann is looking for help with Wenweg"). One sentence; it may ask ("aren't you?"),
+  since nothing comes after it. No opening of its own: it follows the reply's.
 - An answer runs to three sentences at most, and an answer about a place to five: the place,
   its trades, who is there, the nests around it and the work there.
 - An article fits the word a blank fills in after it: "a {time}" says "a evening", "an {post}"
@@ -234,6 +239,12 @@ is fine; one that no packet the game gives can make true is never heard.
 - **A bystander who joins says only that they overheard** (`joined_lead`): the stranger asking, and
   the answer to come. Never what the one asked said or could not say, nor who that was: the packet
   names neither. No acquaintance with either of them, and no "again".
+- **News is the blank's, never the line's.** `{deed}` and `{news}` hold all that happened, in C++'s
+  words; a line says only how the speaker takes it ("You're the one who {deed}, aren't you?", "The
+  word is {news}."). Never what the speaker thinks it means, who else was there, or what comes of
+  it: the packet says none of that. `{news}` may open with a name or with "you", so it never opens
+  a sentence, and `{deed}` always follows "you". A line opens with a word sentences begin with
+  (`common_capitals()`): "Word is" and "Folk are saying" do not.
 - **A place line carries every blank it can.** Of the lines that fit, the fullest are said, so an
   `about_place` line without `{trades}`, `{who}`, `{around}` or `{work}` is never heard where that
   blank is filled. Nothing in it may hold only when a part is dropped or kept ("That's all I

@@ -154,6 +154,16 @@ TEST(asked_to_be_remembered_a_speaker_recalls_the_meeting) {
     const std::string next = lines.speak(greeting(1), "Remember me?", lately, &meaning);
     check::is_true(next != lately.front() && !next.empty(), "not the same recollection twice running: " + next);
     check::is_true(lines.speak(greeting(0, "hostile"), "Remember me?", {}, &meaning).empty(), "a cold speaker has no line here to recall with");
+    // News of what the stranger did comes after the recollection, as after any greeting (contract
+    // version 11).
+    const Lines with_news = Lines::parse("any | greeted_again | Back again. I saw you {since}.\n"
+                                         "any | heard_deed | You're the one who {deed}, aren't you?\n",
+                                         "test");
+    FactPacket heard = greeting(0);
+    heard.facts.insert(heard.facts.end() - 1, packets::news_of_work("finished", true));
+    check::equal(with_news.speak(heard, "Remember me?", {}, &meaning),
+                 std::string("Back again. I saw you some weeks ago. You're the one who helped Wenweg hold, aren't you?"),
+                 "the meeting recalled, then what they heard");
 }
 
 TEST(a_model_loaded_for_text_cannot_compare_meanings) {

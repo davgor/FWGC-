@@ -36,6 +36,7 @@ constexpr std::string_view kWeather = "weather the packet does not report";
 constexpr std::string_view kTime = "a time of day or season the packet does not report";
 constexpr std::string_view kEased = "being talked down, which the speaker's memory does not hold";
 constexpr std::string_view kOverheard = "overhearing the stranger, which the speaker's memory does not hold";
+constexpr std::string_view kNews = "news the speaker has not heard";
 
 std::string lowered(std::string_view text) {
     std::string out(text);
@@ -466,6 +467,30 @@ void eased_or_overheard(const std::string& said, const FactPacket& p, std::vecto
             if (says(said, phrase)) add(out, kOverheard, phrase);
 }
 
+// News (contract version 11), only with a News fact: words that pass on what is said about only
+// where the packet holds news, and words that say what is said of the stranger only where it holds
+// news of what they did. "Word is" only opening a sentence: "my word is given" is a promise, not
+// news. "You're the one who" is left alone: "you're the one who talked me down" is the memory's.
+void heard(const std::string& said, const FactPacket& p, std::vector<std::string>& out) {
+    bool any = false, theirs = false;
+    for (const Fact& fact : p.facts)
+        if (fact.kind == FactKind::News) {
+            any = true;
+            theirs = theirs || field_of(fact, "player") == "yes";
+        }
+    if (!theirs)
+        for (const std::string phrase : {"they say you", "word is you", "word has it you", "word got round that you",
+                                         "heard what you did", "heard of what you did", "word of what you did"})
+            if (says(said, phrase)) add(out, kNews, phrase);
+    if (any) return;
+    for (const std::string phrase : {"word has it", "the word is", "folk are saying", "people are saying", "some are saying",
+                                     "rumour has it", "rumor has it", "the talk is", "word got round", "word's gone round",
+                                     "word's got round", "there's talk of", "i heard that", "i've heard that"})
+        if (says(said, phrase)) add(out, kNews, phrase);
+    for (std::size_t at = find_words(said, "word is"); at != std::string::npos; at = find_words(said, "word is", at + 1))
+        if (lead_of(said, at).empty()) add(out, kNews, "word is");
+}
+
 }  // namespace
 
 std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet, const std::vector<std::string>& recent) {
@@ -485,6 +510,7 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
     weather(said, packet, out);
     acquaintance(said, out);
     eased_or_overheard(said, packet, out);
+    heard(said, packet, out);
     return out;
 }
 

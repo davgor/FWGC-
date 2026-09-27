@@ -1,0 +1,50 @@
+# News (contract version 11): what people hear of what happened, and of what the player did.
+# Before anything happens, a neighbour has heard nothing. The player finishes a giver's work, the
+# game's cron job shares the news, and the giver's neighbours have heard: they greet the player as
+# the one who did it, and bring it up. Someone standing far off has not heard. Then a scare where
+# the neighbours stand: the player talks one down, the game reports the threat beaten by the player,
+# news goes round again, and a neighbour says so in small talk. orchestrator_session plays it
+# (tools/session.cpp says how a script reads); communicator_eval --session speaks it.
+world 99 33 30
+who giver giver 0
+who neighbour near giver 0
+who other near giver 1
+who far townsfolk 40
+
+# Before anything happens: nothing heard.
+say neighbour greet | Hello there.
+say neighbour small_talk | Quiet day?
+say neighbour farewell | Bye.
+
+# The work, taken and done.
+say giver greet | Good day.
+say giver ask_for_work | Any work going?
+say giver accept_quest @own | I'll do it.
+resolve giver finished
+share
+say giver greet | It's done.
+say giver farewell | Farewell.
+
+# The giver's neighbours have heard.
+say neighbour greet | Hello again.
+say neighbour small_talk | Any news?
+say neighbour farewell | Take care.
+say other greet | Good day to you.
+say other ask_surroundings | What's around here?
+say other ask_about_place @place | Tell me about this place.
+say other farewell | Bye.
+
+# Someone standing far off has not.
+say far greet | Hello.
+say far small_talk | Nice weather.
+say far farewell | Bye.
+
+# A scare where the neighbours stand, talked down, and beaten off by the player.
+advance 0.25
+fright neighbour 2
+minutes 20
+say neighbour calm | It's all right. You're safe.
+report neighbour beaten player
+share
+say other small_talk | Quite a day!
+say other farewell | Look after yourself.

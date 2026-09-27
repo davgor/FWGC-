@@ -152,7 +152,11 @@ std::map<std::string, std::function<FactPacket()>> voice_packets() {
             // Contract version 10.
             {"not_afraid_eased", packets::not_afraid_eased},
             {"greeted_eased", packets::greeted_eased},
-            {"joined_surroundings", packets::joined_surroundings}};
+            {"joined_surroundings", packets::joined_surroundings},
+            // Contract version 11: news.
+            {"greeted_having_heard", packets::greeted_having_heard},
+            {"small_talk_with_news", packets::small_talk_with_news},
+            {"about_town_with_news", packets::about_the_town_with_news}};
 }
 
 std::optional<Kind> target_kind(ActKind kind) {
