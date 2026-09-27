@@ -1091,25 +1091,32 @@ std::vector<Bystander> Director::overhear(const std::vector<std::string>& people
     return out;
 }
 
+namespace {
+
+// One call for each kind of input. A kind with no call here stops the build, where a chain of
+// get_ifs let a new kind fall through to the last branch and throw only on replay.
+template <class... Calls>
+struct EachInput : Calls... {
+    using Calls::operator()...;
+};
+template <class... Calls>
+EachInput(Calls...) -> EachInput<Calls...>;
+
+}  // namespace
+
 Director replay(fwg::World start, const std::vector<Input>& inputs) {
     Director director(std::move(start));
     for (const Input& input : inputs) {
-        if (const Advance* advance = std::get_if<Advance>(&input)) {
-            director.advance(advance->days);
-        } else if (const Fright* fright = std::get_if<Fright>(&input)) {
-            director.fright(fright->person, fright->level);
-        } else if (const Gather* gathering = std::get_if<Gather>(&input)) {
-            director.gather(gathering->people);
-        } else if (const Overhear* overheard = std::get_if<Overhear>(&input)) {
-            (void)director.overhear(overheard->people);
-        } else if (const Resolve* resolution = std::get_if<Resolve>(&input)) {
-            director.resolve(resolution->quest_id, resolution->completed);
-        } else if (const Hold* held = std::get_if<Hold>(&input)) {
-            director.hold(held->person, held->minutes);
-        } else {
-            const Say& say = std::get<Say>(input);
-            (void)director.respond(say.speaker, say.act);
-        }
+        std::visit(EachInput{
+                       [&](const Advance& advance) { director.advance(advance.days); },
+                       [&](const Say& say) { (void)director.respond(say.speaker, say.act); },
+                       [&](const Resolve& resolution) { director.resolve(resolution.quest_id, resolution.completed); },
+                       [&](const Hold& held) { director.hold(held.person, held.minutes); },
+                       [&](const Fright& fright) { director.fright(fright.person, fright.level); },
+                       [&](const Gather& gathering) { director.gather(gathering.people); },
+                       [&](const Overhear& overheard) { (void)director.overhear(overheard.people); },
+                   },
+                   input);
     }
     return director;
 }
