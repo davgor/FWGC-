@@ -1,0 +1,18 @@
+# The training pipeline's Python packages, as trained with (2026-09-27). Install into training/.venv:
+#   python -m venv training/.venv
+#   training/.venv/Scripts/python -m pip install <the torch wheel below> -r training/requirements.txt
+#   training/.venv/Scripts/python -m pip install --no-deps <llama.cpp source>/gguf-py
+# torch comes from download.pytorch.org, not PyPI: torch-2.11.0+cu128-cp312-cp312-win_amd64.whl,
+# 2,753,189,216 bytes, sha256 7c78215c3af4f62e63f2b2e360f1722fc719b0853c7ac22666483d9810613a4c.
+# gguf comes from the pinned llama.cpp source the inference build fetches (0.19.0 there).
+transformers==5.17.0
+peft==0.21.0
+accelerate==1.15.0
+safetensors==0.8.0
+tokenizers==0.23.2
+huggingface_hub==1.33.0
+numpy==2.5.3
+# The converter (convert_hf_to_gguf.py) needs these: sentencepiece to find Qwen's vocabulary is BPE,
+# requests for gguf's import.
+sentencepiece==0.2.2
+requests==2.34.2
