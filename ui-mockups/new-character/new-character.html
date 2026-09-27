@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>New Character</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&amp;family=Tenor+Sans&amp;display=swap">
+<style>
+body{margin:0;background:#0b0d11}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:left}
+button:focus-visible,a:focus-visible{outline:2px solid #d9bb7e;outline-offset:6px}
+.t{position:absolute;left:0;top:0;width:0;height:0}
+/* This page holds all 24 states of New Character: Heartland humans in look 1 with no address,
+   and every other people and look at its own address (new-character.html#elf, #elf-2, ...). */
+.li .mark{opacity:0}
+.li .lbl{color:#b8b1a3}
+.pt{display:none}
+.info{display:none;flex-direction:column;gap:22px}
+.looks{display:none;gap:16px}
+.lk{border:2px solid rgba(243,238,227,0.3)}
+.root:not(:has(.t:target)) .rail .li-human_heartland .mark{opacity:1}
+.root:not(:has(.t:target)) .rail .li-human_heartland .lbl{color:#f6f1e6}
+.root:not(:has(.t:target)) .frame .pt-human_heartland-1{display:block}
+.root:not(:has(.t:target)) .right .info-human_heartland{display:flex}
+.root:not(:has(.t:target)) .right .looks-human_heartland{display:flex}
+.root:not(:has(.t:target)) .right .lk-human_heartland-1{border-color:#d9bb7e}
+#human_heartland:target~.rail .li-human_heartland .mark{opacity:1}
+#human_heartland:target~.rail .li-human_heartland .lbl{color:#f6f1e6}
+#human_heartland:target~.frame .pt-human_heartland-1{display:block}
+#human_heartland:target~.right .info-human_heartland{display:flex}
+#human_heartland:target~.right .looks-human_heartland{display:flex}
+#human_heartland:target~.right .lk-human_heartland-1{border-color:#d9bb7e}
+#human_heartland-2:target~.rail .li-human_heartland .mark{opacity:1}
+#human_heartland-2:target~.rail .li-human_heartland .lbl{color:#f6f1e6}
+#human_heartland-2:target~.frame .pt-human_heartland-2{display:block}
+#human_heartland-2:target~.right .info-human_heartland{display:flex}
+#human_heartland-2:target~.right .looks-human_heartland{display:flex}
+#human_heartland-2:target~.right .lk-human_heartland-2{border-color:#d9bb7e}
+#human_maritime:target~.rail .li-human_maritime .mark{opacity:1}
+#human_maritime:target~.rail .li-human_maritime .lbl{color:#f6f1e6}
+#human_maritime:target~.frame .pt-human_maritime-1{display:block}
+#human_maritime:target~.right .info-human_maritime{display:flex}
+#human_maritime:target~.right .looks-human_maritime{display:flex}
+#human_maritime:target~.right .lk-human_maritime-1{border-color:#d9bb7e}
+#human_maritime-2:target~.rail .li-human_maritime .mark{opacity:1}
+#human_maritime-2:target~.rail .li-human_maritime .lbl{color:#f6f1e6}
+#human_maritime-2:target~.frame .pt-human_maritime-2{display:block}
+#human_maritime-2:target~.right .info-human_maritime{display:flex}
+#human_maritime-2:target~.right .looks-human_maritime{display:flex}
+#human_maritime-2:target~.right .lk-human_maritime-2{border-color:#d9bb7e}
+#human_desert:target~.rail .li-human_desert .mark{opacity:1}
+#human_desert:target~.rail .li-human_desert .lbl{color:#f6f1e6}
+#human_desert:target~.frame .pt-human_desert-1{display:block}
+#human_desert:target~.right .info-human_desert{display:flex}
+#human_desert:target~.right .looks-human_desert{display:flex}
+#human_desert:target~.right .lk-human_desert-1{border-color:#d9bb7e}
+#human_desert-2:target~.rail .li-human_desert .mark{opacity:1}
+#human_desert-2:target~.rail .li-human_desert .lbl{color:#f6f1e6}
+#human_desert-2:target~.frame .pt-human_desert-2{display:block}
+#human_desert-2:target~.right .info-human_desert{display:flex}
+#human_desert-2:target~.right .looks-human_desert{display:flex}
+#human_desert-2:target~.right .lk-human_desert-2{border-color:#d9bb7e}
+#human_cold:target~.rail .li-human_cold .mark{opacity:1}
+#human_cold:target~.rail .li-human_cold .lbl{color:#f6f1e6}
+#human_cold:target~.frame .pt-human_cold-1{display:block}
+#human_cold:target~.right .info-human_cold{display:flex}
+#human_cold:target~.right .looks-human_cold{display:flex}
+#human_cold:target~.right .lk-human_cold-1{border-color:#d9bb7e}
+#human_cold-2:target~.rail .li-human_cold .mark{opacity:1}
+#human_cold-2:target~.rail .li-human_cold .lbl{color:#f6f1e6}
+#human_cold-2:target~.frame .pt-human_cold-2{display:block}
+#human_cold-2:target~.right .info-human_cold{display:flex}
+#human_cold-2:target~.right .looks-human_cold{display:flex}
+#human_cold-2:target~.right .lk-human_cold-2{border-color:#d9bb7e}
+#human_rainforest:target~.rail .li-human_rainforest .mark{opacity:1}
+#human_rainforest:target~.rail .li-human_rainforest .lbl{color:#f6f1e6}
+#human_rainforest:target~.frame .pt-human_rainforest-1{display:block}
+#human_rainforest:target~.right .info-human_rainforest{display:flex}
+#human_rainforest:target~.right .looks-human_rainforest{display:flex}
+#human_rainforest:target~.right .lk-human_rainforest-1{border-color:#d9bb7e}
+#human_rainforest-2:target~.rail .li-human_rainforest .mark{opacity:1}
+#human_rainforest-2:target~.rail .li-human_rainforest .lbl{color:#f6f1e6}
+#human_rainforest-2:target~.frame .pt-human_rainforest-2{display:block}
+#human_rainforest-2:target~.right .info-human_rainforest{display:flex}
+#human_rainforest-2:target~.right .looks-human_rainforest{display:flex}
+#human_rainforest-2:target~.right .lk-human_rainforest-2{border-color:#d9bb7e}
+#human_large_island:target~.rail .li-human_large_island .mark{opacity:1}
+#human_large_island:target~.rail .li-human_large_island .lbl{color:#f6f1e6}
+#human_large_island:target~.frame .pt-human_large_island-1{display:block}
+#human_large_island:target~.right .info-human_large_island{display:flex}
+#human_large_island:target~.right .looks-human_large_island{display:flex}
+#human_large_island:target~.right .lk-human_large_island-1{border-color:#d9bb7e}
+#human_large_island-2:target~.rail .li-human_large_island .mark{opacity:1}
+#human_large_island-2:target~.rail .li-human_large_island .lbl{color:#f6f1e6}
+#human_large_island-2:target~.frame .pt-human_large_island-2{display:block}
+#human_large_island-2:target~.right .info-human_large_island{display:flex}
+#human_large_island-2:target~.right .looks-human_large_island{display:flex}
+#human_large_island-2:target~.right .lk-human_large_island-2{border-color:#d9bb7e}
+#dwarf:target~.rail .li-dwarf .mark{opacity:1}
+#dwarf:target~.rail .li-dwarf .lbl{color:#f6f1e6}
+#dwarf:target~.frame .pt-dwarf-1{display:block}
+#dwarf:target~.right .info-dwarf{display:flex}
+#dwarf:target~.right .looks-dwarf{display:flex}
+#dwarf:target~.right .lk-dwarf-1{border-color:#d9bb7e}
+#dwarf-2:target~.rail .li-dwarf .mark{opacity:1}
+#dwarf-2:target~.rail .li-dwarf .lbl{color:#f6f1e6}
+#dwarf-2:target~.frame .pt-dwarf-2{display:block}
+#dwarf-2:target~.right .info-dwarf{display:flex}
+#dwarf-2:target~.right .looks-dwarf{display:flex}
+#dwarf-2:target~.right .lk-dwarf-2{border-color:#d9bb7e}
+#hill_dwarf:target~.rail .li-hill_dwarf .mark{opacity:1}
+#hill_dwarf:target~.rail .li-hill_dwarf .lbl{color:#f6f1e6}
+#hill_dwarf:target~.frame .pt-hill_dwarf-1{display:block}
+#hill_dwarf:target~.right .info-hill_dwarf{display:flex}
+#hill_dwarf:target~.right .looks-hill_dwarf{display:flex}
+#hill_dwarf:target~.right .lk-hill_dwarf-1{border-color:#d9bb7e}
+#hill_dwarf-2:target~.rail .li-hill_dwarf .mark{opacity:1}
+#hill_dwarf-2:target~.rail .li-hill_dwarf .lbl{color:#f6f1e6}
+#hill_dwarf-2:target~.frame .pt-hill_dwarf-2{display:block}
+#hill_dwarf-2:target~.right .info-hill_dwarf{display:flex}
+#hill_dwarf-2:target~.right .looks-hill_dwarf{display:flex}
+#hill_dwarf-2:target~.right .lk-hill_dwarf-2{border-color:#d9bb7e}
+#frosthold_dwarf:target~.rail .li-frosthold_dwarf .mark{opacity:1}
+#frosthold_dwarf:target~.rail .li-frosthold_dwarf .lbl{color:#f6f1e6}
+#frosthold_dwarf:target~.frame .pt-frosthold_dwarf-1{display:block}
+#frosthold_dwarf:target~.right .info-frosthold_dwarf{display:flex}
+#frosthold_dwarf:target~.right .looks-frosthold_dwarf{display:flex}
+#frosthold_dwarf:target~.right .lk-frosthold_dwarf-1{border-color:#d9bb7e}
+#frosthold_dwarf-2:target~.rail .li-frosthold_dwarf .mark{opacity:1}
+#frosthold_dwarf-2:target~.rail .li-frosthold_dwarf .lbl{color:#f6f1e6}
+#frosthold_dwarf-2:target~.frame .pt-frosthold_dwarf-2{display:block}
+#frosthold_dwarf-2:target~.right .info-frosthold_dwarf{display:flex}
+#frosthold_dwarf-2:target~.right .looks-frosthold_dwarf{display:flex}
+#frosthold_dwarf-2:target~.right .lk-frosthold_dwarf-2{border-color:#d9bb7e}
+#elf:target~.rail .li-elf .mark{opacity:1}
+#elf:target~.rail .li-elf .lbl{color:#f6f1e6}
+#elf:target~.frame .pt-elf-1{display:block}
+#elf:target~.right .info-elf{display:flex}
+#elf:target~.right .looks-elf{display:flex}
+#elf:target~.right .lk-elf-1{border-color:#d9bb7e}
+#elf-2:target~.rail .li-elf .mark{opacity:1}
+#elf-2:target~.rail .li-elf .lbl{color:#f6f1e6}
+#elf-2:target~.frame .pt-elf-2{display:block}
+#elf-2:target~.right .info-elf{display:flex}
+#elf-2:target~.right .looks-elf{display:flex}
+#elf-2:target~.right .lk-elf-2{border-color:#d9bb7e}
+#tidekin:target~.rail .li-tidekin .mark{opacity:1}
+#tidekin:target~.rail .li-tidekin .lbl{color:#f6f1e6}
+#tidekin:target~.frame .pt-tidekin-1{display:block}
+#tidekin:target~.right .info-tidekin{display:flex}
+#tidekin:target~.right .looks-tidekin{display:flex}
+#tidekin:target~.right .lk-tidekin-1{border-color:#d9bb7e}
+#tidekin-2:target~.rail .li-tidekin .mark{opacity:1}
+#tidekin-2:target~.rail .li-tidekin .lbl{color:#f6f1e6}
+#tidekin-2:target~.frame .pt-tidekin-2{display:block}
+#tidekin-2:target~.right .info-tidekin{display:flex}
+#tidekin-2:target~.right .looks-tidekin{display:flex}
+#tidekin-2:target~.right .lk-tidekin-2{border-color:#d9bb7e}
+#gnome:target~.rail .li-gnome .mark{opacity:1}
+#gnome:target~.rail .li-gnome .lbl{color:#f6f1e6}
+#gnome:target~.frame .pt-gnome-1{display:block}
+#gnome:target~.right .info-gnome{display:flex}
+#gnome:target~.right .looks-gnome{display:flex}
+#gnome:target~.right .lk-gnome-1{border-color:#d9bb7e}
+#gnome-2:target~.rail .li-gnome .mark{opacity:1}
+#gnome-2:target~.rail .li-gnome .lbl{color:#f6f1e6}
+#gnome-2:target~.frame .pt-gnome-2{display:block}
+#gnome-2:target~.right .info-gnome{display:flex}
+#gnome-2:target~.right .looks-gnome{display:flex}
+#gnome-2:target~.right .lk-gnome-2{border-color:#d9bb7e}
+</style>
+</head>
+<body>
+<!-- The portraits are stand-ins: crops of the approved concept-art sheets, made for the canvas.
+     On the two Maritime crops, the part of the sheet's caption that fell inside the frame is
+     painted out with the ground around it. Each crop's sheet:
+     portraits/human_heartland-1.jpg: concept art/tier-1-style/peoples-and-creatures/people.human_heartland_female.style-study.png
+     portraits/human_heartland-2.jpg: concept art/tier-1-style/peoples-and-creatures/people.human_heartland_male.style-study.png
+     portraits/human_maritime-1.jpg: concept art/tier-1-style/peoples-and-creatures/people.human_maritime_female.style-study.png
+     portraits/human_maritime-2.jpg: concept art/tier-1-style/peoples-and-creatures/people.human_maritime_male.style-study.png
+     portraits/human_desert-1.jpg: concept art/tier-1-style/peoples-and-creatures/people.human_desert_male.style-study.png
+     portraits/human_desert-2.jpg: concept art/tier-1-style/peoples-and-creatures/people.human_desert_female.style-study.png
+     portraits/human_cold-1.jpg: concept art/tier-1-style/peoples-and-creatures/people.human_cold_male.style-study.png
+     portraits/human_cold-2.jpg: concept art/tier-1-style/peoples-and-creatures/people.human_cold_female.style-study.png
+     portraits/human_rainforest-1.jpg: concept art/tier-1-style/peoples-and-creatures/people.human_rainforest_male.style-study.png
+     portraits/human_rainforest-2.jpg: concept art/tier-1-style/peoples-and-creatures/people.human_rainforest_female.style-study.png
+     portraits/human_large_island-1.jpg: concept art/tier-1-style/peoples-and-creatures/people.human_large_island_female.style-study.png
+     portraits/human_large_island-2.jpg: concept art/tier-1-style/peoples-and-creatures/people.human_large_island_male.style-study.png
+     portraits/dwarf-1.jpg: concept art/tier-1-style/peoples-and-creatures/people.dwarf_male.style-study.png
+     portraits/dwarf-2.jpg: concept art/tier-1-style/peoples-and-creatures/people.dwarf_female.style-study.png
+     portraits/hill_dwarf-1.jpg: concept art/tier-1-style/peoples-and-creatures/people.hill_dwarf_female.style-study.png
+     portraits/hill_dwarf-2.jpg: concept art/tier-1-style/peoples-and-creatures/people.hill_dwarf_male.style-study.png
+     portraits/frosthold_dwarf-1.jpg: concept art/tier-1-style/peoples-and-creatures/people.frosthold_dwarf_male.style-study.png
+     portraits/frosthold_dwarf-2.jpg: concept art/tier-1-style/peoples-and-creatures/people.frosthold_dwarf_female.style-study.png
+     portraits/elf-1.jpg: concept art/tier-1-style/peoples-and-creatures/people.elf_female.style-study.png
+     portraits/elf-2.jpg: concept art/tier-1-style/peoples-and-creatures/people.elf_male.style-study.png
+     portraits/tidekin-1.jpg: concept art/tier-1-style/peoples-and-creatures/people.tidekin_female.style-study.png
+     portraits/tidekin-2.jpg: concept art/tier-1-style/peoples-and-creatures/people.tidekin_male.style-study.png
+     portraits/gnome-1.jpg: concept art/tier-1-style/peoples-and-creatures/people.gnome_female.style-study.png
+     portraits/gnome-2.jpg: concept art/tier-1-style/peoples-and-creatures/people.gnome_male.style-study.png -->
+<div class="root" style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #0b0d11; font-family: 'Tenor Sans', 'Gill Sans', sans-serif; color: #f3eee3">
+<i id="human_heartland" class="t"></i><i id="human_heartland-2" class="t"></i><i id="human_maritime" class="t"></i><i id="human_maritime-2" class="t"></i><i id="human_desert" class="t"></i><i id="human_desert-2" class="t"></i><i id="human_cold" class="t"></i><i id="human_cold-2" class="t"></i><i id="human_rainforest" class="t"></i><i id="human_rainforest-2" class="t"></i><i id="human_large_island" class="t"></i><i id="human_large_island-2" class="t"></i><i id="dwarf" class="t"></i><i id="dwarf-2" class="t"></i><i id="hill_dwarf" class="t"></i><i id="hill_dwarf-2" class="t"></i><i id="frosthold_dwarf" class="t"></i><i id="frosthold_dwarf-2" class="t"></i><i id="elf" class="t"></i><i id="elf-2" class="t"></i><i id="tidekin" class="t"></i><i id="tidekin-2" class="t"></i><i id="gnome" class="t"></i><i id="gnome-2" class="t"></i>
+<img src="../../concept%20art/tier-1-style/settlements-and-locations/biome.grassland.heartland-ruins.style-study.png" alt="" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; object-fit: cover; transform: scaleX(-1)">
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: linear-gradient(90deg, rgba(11,13,17,0.84) 0%, rgba(11,13,17,0.756) 28%, rgba(11,13,17,0.353) 48%, rgba(11,13,17,0) 66%), linear-gradient(0deg, rgba(11,13,17,0.521) 0%, rgba(11,13,17,0) 26%)"></div>
+<div style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: rgba(11,13,17,0.38)"></div>
+
+<div class="rail" style="position: absolute; left: 136px; top: 120px; width: 520px; height: 888px; display: flex; flex-direction: column; justify-content: space-between">
+<header style="display: flex; flex-direction: column; gap: 24px">
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 80px; line-height: 1; color: #f6f1e6">New Character</h1>
+<div style="width: 104px; height: 1px; background: #d9bb7e"></div>
+</header>
+<nav aria-label="Peoples" style="display: flex; flex-direction: column; gap: 2px">
+<div style="padding: 0 0 10px 33px; font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">People</div>
+<a href="#human_heartland" class="li li-human_heartland" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase">Heartland humans</span></a>
+<a href="#human_maritime" class="li li-human_maritime" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase">Maritime humans</span></a>
+<a href="#human_desert" class="li li-human_desert" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase">Desert humans</span></a>
+<a href="#human_cold" class="li li-human_cold" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase">Cold peoples</span></a>
+<a href="#human_rainforest" class="li li-human_rainforest" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase">Deep rainforest humans</span></a>
+<a href="#human_large_island" class="li li-human_large_island" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase">Large islanders</span></a>
+<a href="#dwarf" class="li li-dwarf" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase">Dwarves</span></a>
+<a href="#hill_dwarf" class="li li-hill_dwarf" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase">Hill Dwarves</span></a>
+<a href="#frosthold_dwarf" class="li li-frosthold_dwarf" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase">Frosthold Dwarves</span></a>
+<a href="#elf" class="li li-elf" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase">High Elf</span></a>
+<a href="#tidekin" class="li li-tidekin" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase">Tidekin sea elves</span></a>
+<a href="#gnome" class="li li-gnome" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span class="mark" style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span class="lbl" style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase">Gnomes</span></a>
+<div style="height: 22px"></div>
+<a href="../opening-screen/opening-screen.html" style="display: flex; align-items: center; gap: 22px; min-height: 46px; text-decoration: none; color: inherit"><span style="width: 11px; height: 11px; flex-shrink: 0"></span><span style="font-size: 22px; line-height: 1.1; letter-spacing: 0.14em; text-transform: uppercase; color: #b8b1a3">Back</span></a>
+</nav>
+<div style="display: flex; gap: 32px; align-items: center; white-space: nowrap; font-size: 18px; letter-spacing: 0.06em; color: #d3ccbd">
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">↑ ↓</kbd>People</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">← →</kbd>Look</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Enter</kbd>Create</span>
+<span style="display: flex; gap: 12px; align-items: center"><kbd style="display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 34px; padding: 0 10px; box-sizing: border-box; border: 1px solid rgba(243,238,227,0.5); border-radius: 6px; font-family: 'Tenor Sans', sans-serif; font-size: 16px; color: #f3eee3">Esc</kbd>Back</span>
+</div>
+</div>
+
+<div class="frame" style="position: absolute; left: 744px; top: 180px; width: 560px; height: 720px; box-sizing: border-box; padding: 12px; background: rgba(11,13,17,0.85); border: 1px solid rgba(217,187,126,0.5)">
+<img class="pt pt-human_heartland-1" src="portraits/human_heartland-1.jpg" alt="Heartland humans, look 1" style="width: 534px; height: 694px">
+<img class="pt pt-human_heartland-2" src="portraits/human_heartland-2.jpg" alt="Heartland humans, look 2" style="width: 534px; height: 694px">
+<img class="pt pt-human_maritime-1" src="portraits/human_maritime-1.jpg" alt="Maritime humans, look 1" style="width: 534px; height: 694px">
+<img class="pt pt-human_maritime-2" src="portraits/human_maritime-2.jpg" alt="Maritime humans, look 2" style="width: 534px; height: 694px">
+<img class="pt pt-human_desert-1" src="portraits/human_desert-1.jpg" alt="Desert humans, look 1" style="width: 534px; height: 694px">
+<img class="pt pt-human_desert-2" src="portraits/human_desert-2.jpg" alt="Desert humans, look 2" style="width: 534px; height: 694px">
+<img class="pt pt-human_cold-1" src="portraits/human_cold-1.jpg" alt="Cold peoples, look 1" style="width: 534px; height: 694px">
+<img class="pt pt-human_cold-2" src="portraits/human_cold-2.jpg" alt="Cold peoples, look 2" style="width: 534px; height: 694px">
+<img class="pt pt-human_rainforest-1" src="portraits/human_rainforest-1.jpg" alt="Deep rainforest humans, look 1" style="width: 534px; height: 694px">
+<img class="pt pt-human_rainforest-2" src="portraits/human_rainforest-2.jpg" alt="Deep rainforest humans, look 2" style="width: 534px; height: 694px">
+<img class="pt pt-human_large_island-1" src="portraits/human_large_island-1.jpg" alt="Large islanders, look 1" style="width: 534px; height: 694px">
+<img class="pt pt-human_large_island-2" src="portraits/human_large_island-2.jpg" alt="Large islanders, look 2" style="width: 534px; height: 694px">
+<img class="pt pt-dwarf-1" src="portraits/dwarf-1.jpg" alt="Dwarves, look 1" style="width: 534px; height: 694px">
+<img class="pt pt-dwarf-2" src="portraits/dwarf-2.jpg" alt="Dwarves, look 2" style="width: 534px; height: 694px">
+<img class="pt pt-hill_dwarf-1" src="portraits/hill_dwarf-1.jpg" alt="Hill Dwarves, look 1" style="width: 534px; height: 694px">
+<img class="pt pt-hill_dwarf-2" src="portraits/hill_dwarf-2.jpg" alt="Hill Dwarves, look 2" style="width: 534px; height: 694px">
+<img class="pt pt-frosthold_dwarf-1" src="portraits/frosthold_dwarf-1.jpg" alt="Frosthold Dwarves, look 1" style="width: 534px; height: 694px">
+<img class="pt pt-frosthold_dwarf-2" src="portraits/frosthold_dwarf-2.jpg" alt="Frosthold Dwarves, look 2" style="width: 534px; height: 694px">
+<img class="pt pt-elf-1" src="portraits/elf-1.jpg" alt="High Elf, look 1" style="width: 534px; height: 694px">
+<img class="pt pt-elf-2" src="portraits/elf-2.jpg" alt="High Elf, look 2" style="width: 534px; height: 694px">
+<img class="pt pt-tidekin-1" src="portraits/tidekin-1.jpg" alt="Tidekin sea elves, look 1" style="width: 534px; height: 694px">
+<img class="pt pt-tidekin-2" src="portraits/tidekin-2.jpg" alt="Tidekin sea elves, look 2" style="width: 534px; height: 694px">
+<img class="pt pt-gnome-1" src="portraits/gnome-1.jpg" alt="Gnomes, look 1" style="width: 534px; height: 694px">
+<img class="pt pt-gnome-2" src="portraits/gnome-2.jpg" alt="Gnomes, look 2" style="width: 534px; height: 694px">
+</div>
+
+<div class="right" style="position: absolute; left: 1368px; top: 180px; width: 416px; height: 720px; display: flex; flex-direction: column; justify-content: space-between">
+<div>
+<div class="info info-human_heartland"><h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1.05; color: #f6f1e6; text-wrap: balance">Heartland humans</h2><div style="width: 64px; height: 1px; background: #d9bb7e"></div><p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #e8e2d4">“The plough follows the axe.”</p></div>
+<div class="info info-human_maritime"><h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1.05; color: #f6f1e6; text-wrap: balance">Maritime humans</h2><div style="width: 64px; height: 1px; background: #d9bb7e"></div><p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #e8e2d4">“A hull is only as sound as its worst plank.”</p></div>
+<div class="info info-human_desert"><h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1.05; color: #f6f1e6; text-wrap: balance">Desert humans</h2><div style="width: 64px; height: 1px; background: #d9bb7e"></div><p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #e8e2d4">“The well remembers who dug it.”</p></div>
+<div class="info info-human_cold"><h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1.05; color: #f6f1e6; text-wrap: balance">Cold peoples</h2><div style="width: 64px; height: 1px; background: #d9bb7e"></div><p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #e8e2d4">“A full sledge in autumn is a full belly in spring.”</p></div>
+<div class="info info-human_rainforest"><h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1.05; color: #f6f1e6; text-wrap: balance">Deep rainforest humans</h2><div style="width: 64px; height: 1px; background: #d9bb7e"></div><p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #e8e2d4">“In the canopy, a call carries; a whisper drowns.”</p></div>
+<div class="info info-human_large_island"><h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1.05; color: #f6f1e6; text-wrap: balance">Large islanders</h2><div style="width: 64px; height: 1px; background: #d9bb7e"></div><p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #e8e2d4">“The kiln shows what the clay was hiding.”</p></div>
+<div class="info info-dwarf"><h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1.05; color: #f6f1e6; text-wrap: balance">Dwarves</h2><div style="width: 64px; height: 1px; background: #d9bb7e"></div><p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #e8e2d4">“What the chisel says, the tongue can't unsay.”</p></div>
+<div class="info info-hill_dwarf"><h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1.05; color: #f6f1e6; text-wrap: balance">Hill Dwarves</h2><div style="width: 64px; height: 1px; background: #d9bb7e"></div><p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #e8e2d4">“A guest at the table brings luck to the house.”</p></div>
+<div class="info info-frosthold_dwarf"><h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1.05; color: #f6f1e6; text-wrap: balance">Frosthold Dwarves</h2><div style="width: 64px; height: 1px; background: #d9bb7e"></div><p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #e8e2d4">“The heir inherits the hammer and the grudges.”</p></div>
+<div class="info info-elf"><h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1.05; color: #f6f1e6; text-wrap: balance">High Elf</h2><div style="width: 64px; height: 1px; background: #d9bb7e"></div><p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #e8e2d4">“The root knows what the leaf forgets.”</p></div>
+<div class="info info-tidekin"><h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1.05; color: #f6f1e6; text-wrap: balance">Tidekin sea elves</h2><div style="width: 64px; height: 1px; background: #d9bb7e"></div><p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #e8e2d4">“The calmest landing hides the sharpest rocks.”</p></div>
+<div class="info info-gnome"><h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1.05; color: #f6f1e6; text-wrap: balance">Gnomes</h2><div style="width: 64px; height: 1px; background: #d9bb7e"></div><p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #e8e2d4">“A spring wound too tight will snap.”</p></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: #9d978b">Look</div>
+<div class="looks looks-human_heartland"><a href="#human_heartland" class="lk lk-human_heartland-1" aria-label="Look 1" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/human_heartland-1.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a><a href="#human_heartland-2" class="lk lk-human_heartland-2" aria-label="Look 2" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/human_heartland-2.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a></div>
+<div class="looks looks-human_maritime"><a href="#human_maritime" class="lk lk-human_maritime-1" aria-label="Look 1" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/human_maritime-1.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a><a href="#human_maritime-2" class="lk lk-human_maritime-2" aria-label="Look 2" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/human_maritime-2.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a></div>
+<div class="looks looks-human_desert"><a href="#human_desert" class="lk lk-human_desert-1" aria-label="Look 1" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/human_desert-1.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a><a href="#human_desert-2" class="lk lk-human_desert-2" aria-label="Look 2" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/human_desert-2.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a></div>
+<div class="looks looks-human_cold"><a href="#human_cold" class="lk lk-human_cold-1" aria-label="Look 1" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/human_cold-1.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a><a href="#human_cold-2" class="lk lk-human_cold-2" aria-label="Look 2" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/human_cold-2.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a></div>
+<div class="looks looks-human_rainforest"><a href="#human_rainforest" class="lk lk-human_rainforest-1" aria-label="Look 1" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/human_rainforest-1.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a><a href="#human_rainforest-2" class="lk lk-human_rainforest-2" aria-label="Look 2" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/human_rainforest-2.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a></div>
+<div class="looks looks-human_large_island"><a href="#human_large_island" class="lk lk-human_large_island-1" aria-label="Look 1" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/human_large_island-1.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a><a href="#human_large_island-2" class="lk lk-human_large_island-2" aria-label="Look 2" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/human_large_island-2.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a></div>
+<div class="looks looks-dwarf"><a href="#dwarf" class="lk lk-dwarf-1" aria-label="Look 1" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/dwarf-1.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a><a href="#dwarf-2" class="lk lk-dwarf-2" aria-label="Look 2" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/dwarf-2.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a></div>
+<div class="looks looks-hill_dwarf"><a href="#hill_dwarf" class="lk lk-hill_dwarf-1" aria-label="Look 1" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/hill_dwarf-1.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a><a href="#hill_dwarf-2" class="lk lk-hill_dwarf-2" aria-label="Look 2" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/hill_dwarf-2.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a></div>
+<div class="looks looks-frosthold_dwarf"><a href="#frosthold_dwarf" class="lk lk-frosthold_dwarf-1" aria-label="Look 1" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/frosthold_dwarf-1.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a><a href="#frosthold_dwarf-2" class="lk lk-frosthold_dwarf-2" aria-label="Look 2" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/frosthold_dwarf-2.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a></div>
+<div class="looks looks-elf"><a href="#elf" class="lk lk-elf-1" aria-label="Look 1" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/elf-1.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a><a href="#elf-2" class="lk lk-elf-2" aria-label="Look 2" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/elf-2.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a></div>
+<div class="looks looks-tidekin"><a href="#tidekin" class="lk lk-tidekin-1" aria-label="Look 1" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/tidekin-1.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a><a href="#tidekin-2" class="lk lk-tidekin-2" aria-label="Look 2" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/tidekin-2.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a></div>
+<div class="looks looks-gnome"><a href="#gnome" class="lk lk-gnome-1" aria-label="Look 1" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/gnome-1.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a><a href="#gnome-2" class="lk lk-gnome-2" aria-label="Look 2" style="display: block; width: 120px; height: 156px; box-sizing: border-box; overflow: hidden; background: #e9e0cf"><img src="portraits/gnome-2.jpg" alt="" style="display: block; width: 116px; height: 152px; object-fit: cover"></a></div>
+</div>
+<button type="button" style="display: flex; align-items: center; gap: 22px; min-height: 56px"><span style="width: 11px; height: 11px; flex-shrink: 0; transform: rotate(45deg); background: #d9bb7e"></span><span style="font-size: 30px; line-height: 1.1; letter-spacing: 0.16em; text-transform: uppercase; color: #f6f1e6">Create</span></button>
+</div>
+</div>
+</body>
+</html>
