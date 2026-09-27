@@ -24,4 +24,4 @@ owner shares it.
 | Load Character | 4 · Load Character | [load-character/](load-character/) | Approved |
 | New Character | 5 · New Character | [new-character/](new-character/) | Approved |
 | Customize | 6 · Customize | [customize/](customize/) | Approved |
-| Clothing | 7 · Clothing | — | In design |
+| Clothing | 7 · Clothing | [clothing/](clothing/) | Approved: the dye wheel open by default |
