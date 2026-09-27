@@ -36,11 +36,20 @@ ctest --test-dir communicator/build -C Release --no-tests=error
 - **The voice names only what its packet names.** Nothing that can be a name goes into
   `common_capitals()`: only words sentences begin with. The grammar lets them begin a sentence
   and stand nowhere else; past a sentence's start, a capital is the packet's own, or "I".
-- **The voice gives no bearing and speaks of no pay, in the words of `forbidden_words()`.**
+- **The voice gives no bearing and speaks of no pay, in the words of `forbidden_words()`, and
+  counts out no distance or time, in the words of `counting_words()`.**
   - A packet's own word stays sayable, and only that exact word.
   - An entry is a stem (`north*`) only when every word it begins should be barred too.
     Otherwise it goes in whole, with its forms.
-  - No common capital may be a barred word.
+  - No common capital may be a barred word. A counting word may begin a sentence ("Two of them,
+    then."), since every unit and plural time that could count after it is barred.
+  - `counting_words()` binds the voice alone: written lines keep their idioms ("most days", "the
+    two of us"), and the truth check holds them to no counted distance or time.
+- **What a reply must show goes in what just happened, not only in what the speaker remembers.**
+  Every model tried followed the instruction over the memory (2026-09-26): told "Answer in kind"
+  beside "You dislike them", each chatted cordially. A state the words must show (dislike, a
+  talk-down remembered, a join) is said in the instruction, and where the start can hold it, the
+  grammar holds it too (`ReplyShape::stance`).
 - **A written line keeps the voice's rules and says only what its blanks hold.**
   - `every_line_is_spoken_and_keeps_the_voices_rules` holds every row of `data/lines/` to the
     voice's rules. A row that breaks one fails by its own words. Run
