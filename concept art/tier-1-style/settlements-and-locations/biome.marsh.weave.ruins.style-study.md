@@ -1,0 +1,29 @@
+# Spellmist Marsh — ruins: approved concept
+
+Status: **Approved by the owner on 2026-09-26.** Owner feedback on the four scenes: "approved".
+
+[Approved concept](biome.marsh.weave.ruins.style-study.png). Companion references: [base](../world-and-environments/biome.marsh.weave.style-study.md), [storm](../world-and-environments/biome.marsh.weave.storm.style-study.md), [winter](../world-and-environments/biome.marsh.weave.winter.style-study.md).
+
+Catalogue identity: `biome.marsh.weave`, authored name Spellmist marsh in [biomes.json](../../../generator/data/biomes.json), marsh ID 13 with the Weave school in [magic-schools.json](../../../generator/data/magic-schools.json). Tier 1 whole-scene direction. Season: summer.
+
+## Approved direction
+
+An abandoned fen alchemist's workshop sinking into the marsh, seen obliquely from a low bank. Rotten timber piles, tilted plank platforms, skeletal roof framing, partial walls and a broken brick kiln chimney remain above shallow water. Reeds grow through the missing floorboards as luminous spellmist gathers underneath and forms airy plants between the posts.
+
+Each of the four concepts uses an independent setting and viewpoint. Raw creation magic travels in ground-hugging spellmist and gathers into fleeting wetland plant forms. Physical reeds, shallow water, peat, timber and seasonal surfaces remain distinct from the translucent living magic, providing material references for later modeling. These are creative visual proposals, not implemented generator behavior. Individual assets, measured geometry, material shaders, sky assets, mist and seasonal systems, and game-ready output remain outstanding. No generator data changed.
+
+## Generation provenance
+
+Generated with the built-in image generation tool as an independent image without reference inputs. Approved source: `C:/Users/davgo/.codex/generated_images/01a0d8e3-2e53-7a60-933e-8efb1cc66034/exec-5bb3df0e-8a19-40e5-9ae7-d0859636ab8e.png`. Copied after approval and verified by SHA-256.
+
+### Exact generation prompt
+
+Use case: stylized-concept.
+Asset type: FWGC++ Tier 1 whole-biome concept preview, biome.marsh.weave, authored name SPELLMIST MARSH.
+Primary request: an open freshwater marsh transformed by Weave magic — chaos, creation, creativity. One high-resolution wide 16:9 finished hand-painted anime-painterly fantasy game illustration. Broad designed color masses, mature natural proportions, readable silhouettes and material surfaces, selective crisp details against soft atmospheric distance. Not photography or plastic 3D.
+Biome identity: flat low waterlogged ground, emergent reeds, cattails, rushes, sedge hummocks, exposed peat and mud, irregular SHALLOW pools and drainage rills. Vegetation and saturated ground dominate; no vast open lake, ocean, closed swamp forest, tropical jungle, mangroves or mountains. Only occasional willow shrubs or a very distant isolated tree.
+Unique Weave identity: intense living SPELLMIST drifts low among the wetland plants in irregular translucent banks of violet, cyan, rose and concentrated gold. Raw creation magic is carried by the vapor: a few curls condense into intricate airy spectral reed stems, sedge fans and unfurling marsh flowers, partly formed from fine luminous filaments and partly dissolving back into mist. Recognizable plant forms at different stages of forming, not featureless smoke. Solid olive-green reeds and wet bronze peat remain tactile beside raw magical vegetation; localized bright mist cores, deep blue-green shaded pockets and open clear spaces create contrast. Ground remains visible through much of the fog. Magic is pervasive, vibrant and ecologically integrated, not sparse sparkles. No generic crystal field, starfield lake, neon outline on every plant or toxic green ooze.
+Sky identity: immense interwoven prismatic veils behind periwinkle-violet atmosphere and irregular spectral-edged clouds; sky light complements but does not replace the distinctive low spellmist. Adapt light and clouds to weather/season.
+Constraints: fresh independent place and viewpoint, clear terrain, vegetation and material references for later models. No people, faces or figures in mist, prominent animals, skulls, ghosts of people, literal spell text, writing, labels, symbols, signatures, watermarks, UI, panels, borders, portals, glowing runic circles, tornadoes, futuristic technology or giant fantasy mushrooms. Creative visual proposal, not implemented world rules.
+
+SUMMER RUINS. Independent site, elevated three-quarter view from a low natural bank across the long diagonal remains of an abandoned fen alchemist's workshop built on timber piles. Modest structure, mostly collapsed: rotten raised plank platform tilted toward shallow water, several exposed support posts, two leaning skeletal roof trusses, a short broken brick kiln chimney, a partial timber wall with empty window frame and a stone footing half sunk in mud. No intact house, wizard tower, domed observatory, temple, bridge or occupied village. Broken beams and fallen mossy bricks lie between sedge clumps; gaps reveal water beneath the former floor. The marsh has grown through the platform. Intense violet/cyan/rose-gold spellmist threads between piles and missing floorboards, locally condensing into airy alternate reeds and luminous wetland flower forms. Keep architecture physically broken; magic does not reconstruct a ghost building. Foreground right muddy bank with exposed roots and an old half-buried timber, background broad open reed marsh and only low willow shrubs; no forest. Slanting late-afternoon light brings out wet gray wood grain, dark peat, dull brick, green reeds and translucent mist; woven sky through irregular cloud above. Diverse believable building parts visible for modeling, no writing, bottles with labels, props scattered like loot or figures.
