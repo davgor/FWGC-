@@ -69,7 +69,9 @@ It runs in this runtime unchanged: its chat template is ChatML, and it has no th
 
 Three more, trialled against it on 2026-09-26 (results in `communicator/README.md`, "Model
 trials"). The owner approved each by file, source and size, and for the two Llama files accepted
-the Llama Community Licence.
+the Llama Community Licence. The owner then settled on Qwen3-4B (2026-09-26), and these three and
+the earlier round's (Ministral 3 8B, Qwen3-8B, Nemotron 3 Nano 4B, Nemotron-Mini 4B) left
+`inference/models/`: the rows below record what was measured, not what is on disk.
 
 | File | From | Size (bytes) | SHA-256 | Licence |
 |---|---|---|---|---|
