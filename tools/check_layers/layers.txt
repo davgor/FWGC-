@@ -18,6 +18,7 @@ component viewer       viewer         devtool
 component concept-art  "concept art"  assets
 component ui-mockups   ui-mockups     assets
 component tools        tools          devtool
+component training     training       devtool
 
 # Top-level entries that are not components; and names no top-level folder may take, because
 # what two components share belongs to the lower of them, never to a grab-bag beside both.
@@ -74,8 +75,9 @@ deny-word orchestrator llm llama gguf inference prompt prompts tokenizer logits
 deny-word inference world worlds quest quests hero heroes npc npcs city cities settlement settlements fwg generator orchestrator player
 
 # ---- Language (ruled 2026-09-24) --------------------------------------------------------------
-# Runtime components are C++. The generator's Python content tooling and the JS viewer are the
-# declared dev-tool exceptions; concept art and the UI mockups hold documents and assets only.
+# Runtime components are C++. The generator's Python content tooling, the JS viewer and the
+# Python training pipeline (training/, dev-time fine-tuning; ruled 2026-09-27) are the declared
+# dev-tool exceptions; concept art and the UI mockups hold documents and assets only.
 cpp-only generator except generator/tools
 cpp-only orchestrator
 cpp-only communicator
