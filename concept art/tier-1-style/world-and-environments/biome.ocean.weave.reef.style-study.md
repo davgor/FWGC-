@@ -1,0 +1,29 @@
+# Prismatic Seas reef: approved concept
+
+Status: **Approved by the owner on 2026-09-26.** Owner feedback on the fresh composition: "Approved, dope work. Lets get started on the next weave biome then".
+
+[Approved reef](biome.ocean.weave.reef.style-study.png). Companion references: [summer](biome.ocean.weave.style-study.md), [drowned wizard lighthouse](../settlements-and-locations/biome.ocean.weave.ruins.style-study.md), [storm](biome.ocean.weave.storm.style-study.md), [winter](biome.ocean.weave.winter.style-study.md).
+
+Catalogue identity: `biome.ocean.weave`, Prismatic seas in [biomes.json](../../../generator/data/biomes.json). Tier 1 supplementary underwater reef concept, fresh composition. The reef suffix describes a scene within this biome, not a new catalogue identity.
+
+## Approved direction
+
+Intensely saturated coral and opalescent reef stone intertwined with translucent coral colonies composed of raw living magic. Violet-cyan spectral fans, layered luminous membranes, magical filaments and motes spill into the surrounding water. Opaque magenta, orange and blue coral contrasts with ethereal growth, dark underwater depth and strongly colored local illumination. The low reef-hollow viewpoint, overhangs and isolated pinnacles broaden the set's modeling references.
+
+The owner cited Suramar's glowing illusions as inspiration and requested a reef humming with overflowing magic. Approval covers this original fresh composition; earlier reef previews remain outside the repository. The four surface scenes were approved separately. This is visual direction, not implemented generator behavior. Individual coral models, materials, effects, measured geometry and game-ready assets remain outstanding.
+
+## Generation provenance
+
+Generated with the built-in image generation tool from text only, without image inputs. Approved output: `exec-19ccd4e8-3da5-4104-8b61-c0075684ab30.png` in external generation folder `01a0d8e3-2e53-7a60-933e-8efb1cc66034`. Copied after approval and verified by SHA-256.
+
+### Exact generation prompt
+
+Use case: stylized-concept. Generate a BRAND NEW independent image from text only, no reference or edit target. FWGC++ biome.ocean.weave, PRISMATIC SEAS: underwater reef humming with an OVERFLOW OF MAGIC. One wide 16:9 finished hand-painted fantasy game concept illustration. Owner direction: INTENSE color, Suramar-in-World-of-Warcraft-like glowing arcane illusions entwined with reef ecology, some corals are RAW LIVING MAGIC. Interpret this as an original reef ecosystem, not copied buildings or architecture.
+
+Fresh composition: low underwater viewpoint inside an irregular horseshoe-shaped reef hollow, looking diagonally upward across isolated coral pinnacles toward a luminous opening of deep blue water. A broad branching fan of living violet-cyan light rises from a rounded rock pedestal in the RIGHT middle foreground; on LEFT, layered overhanging reef shelves carry saturated solid coral and translucent plate colonies. Foreground center is a small pale rippled sand pocket dotted with opalescent rubble, beyond it the seabed drops steeply into shadow between coral pinnacles. No central winding sandy road or repeated long terrace layout. Asymmetrical depths, silhouette variety and large open dark-blue water spaces around corals. Upper rippled sea surface visible far overhead with refractive veils reflected through it; all camera and scenery underwater, no exposed dry sky.
+
+Colors INTENSE: royal violet, electric sapphire, radiant cyan, rich magenta, hot coral pink and selective concentrated gold. Deep indigo negative spaces give luminous colors depth. Avoid large blown-out white areas. Make about HALF the prominent coral colonies visibly non-material, entirely composed of translucent living arcane light growing naturally FROM and THROUGH solid reef. Complex branching fans of violet-blue light with luminous filaments instead of opaque flesh; layered plate corals made of curved spectral membranes like translucent silk, slightly offset illusion echoes at their edges; curling cyan anemone-like strands emerge from opalescent rock, unravel into floating motes, and re-form as smaller polyps. Some living-magic growth pierces through existing opaque coral like an intertwined illusion. Other colonies are solid fleshy deep-magenta, orange-gold and cobalt corals with readable plates, folds, tubes and branching silhouettes. Clearly distinguish non-material living magic from solid coral rather than making everything shiny.
+
+Magic visibly spills off colonies as graceful violet/cyan filament tendrils and tiny glowing motes curling through water between coral heads, soft displaced afterimages suggest shimmering illusion and resonant life. Strong LOCAL colored illumination falls from magical coral onto nearby rock, opaque coral and sand. Long irregular pulses of spectral caustics on the seabed, luminous current strands suspended within water, not dense lines filling every gap. THE REEF ITSELF is the source of abundant radiant magic, not merely lit by sunbeams. Smooth nacre-like opalescent mineral seams bind reef substrate; no generic giant crystal spikes. Filtered light shafts enter from upper left but remain subordinate to the reef's living arcane illumination.
+
+Mood: exuberantly alive, entrancing, overflowing ancient arcane abundance, almost visibly humming. Beautiful, not hostile or corrupted. Mature hand-painted anime-painterly concept art with broad designed shapes, selected crisp edges, grouped forms and atmospheric underwater distance; tactile solid surfaces juxtaposed with ethereal luminous tissue. Useful silhouette and material clarity for later 3D models. Not photography, plastic 3D, a neon nightclub or uniform glow filter. No runic circles, text, logos, architecture, ruins, wizard tower, divers, ships, treasure, large creatures, UI or panels. Tiny distant fish silhouettes optional for scale only.

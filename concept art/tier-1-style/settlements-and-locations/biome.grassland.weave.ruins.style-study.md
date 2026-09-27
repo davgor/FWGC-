@@ -1,0 +1,23 @@
+# Possibility Meadows — ruins: approved concept
+
+Status: **Approved by the owner on 2026-09-26.** Owner feedback on the four scenes: "approved".
+
+[Approved concept](biome.grassland.weave.ruins.style-study.png). Companion references: [base](../world-and-environments/biome.grassland.weave.style-study.md), [storm](../world-and-environments/biome.grassland.weave.storm.style-study.md), [winter](../world-and-environments/biome.grassland.weave.winter.style-study.md).
+
+Catalogue identity: `biome.grassland.weave`, authored name Possibility meadows in [biomes.json](../../../generator/data/biomes.json), grassland ID 3 with the Weave school in [magic-schools.json](../../../generator/data/magic-schools.json). Tier 1 whole-scene direction. Season: summer.
+
+## Approved direction
+
+An abandoned rural wizard's hall and walled seed garden reclaimed by wildflowers, seen from an elevated angle. Broken masonry, slate roof fragments and a stepped gable establish the solid ruin; incomplete spectral windows and doorways suggest alternate forms along a missing wall. Living-magic plants flourish within the former garden beds.
+
+Each of the four concepts uses an independent setting and viewpoint. Living magic is integrated with meadow plants and weather, with solid vegetation and terrain remaining readable for later modeling. These are creative visual proposals, not implemented generator behavior. Individual assets, measured geometry, material shaders, sky assets, seasonal simulations and game-ready output remain outstanding. No generator data changed.
+
+## Generation provenance
+
+Generated with the built-in image generation tool as an independent image without reference inputs. Approved source: `C:/Users/davgo/.codex/generated_images/01a0d8e3-2e53-7a60-933e-8efb1cc66034/exec-5c7bf890-4c09-4014-b312-6bb0fd3d284d.png`. Copied after approval and verified by SHA-256.
+
+### Exact generation prompt
+
+Use case: stylized-concept. FWGC++ Tier 1 biome concept, biome.grassland.weave, authored name POSSIBILITY MEADOWS. Weave school: chaos, creation, creativity. One high-resolution wide 16:9 finished illustration. Continue approved Prismatic Seas and Glass Mirages magical intensity with mature hand-painted anime-painterly game concept style, broad designed color masses, readable silhouettes, selected crisp edges and soft painted distance. Not photography or plastic 3D. Unmistakably OPEN ROLLING GRASSLAND, broad meadows, sparse isolated trees, low shrubs, no closed forest. Grassland-specific interpretation: solid lush grasses and richly colored wildflowers intertwine with translucent LIVING-MAGIC grasses and flowers, some plants express several possible shapes at once through offset spectral growth forms, seed heads dissolve to motes and re-form nearby. Magic grows from the ecology; no generic giant crystal fields or glass desert dunes. Intense violet/cyan/rose/gold spectral color balanced with deep blue-green shadows, rich green and golden natural grass. Distinctive WEAVE SKY: immense interwoven refractive veils crossing periwinkle-violet atmosphere behind irregular spectral-edged clouds, adapted to scene weather and season. Natural-looking landform structure, rich magical life, materials clear for later models. Each image independently generated setting and viewpoint. No characters, prominent animals, writing, labels, UI, panels, borders, runic circles, portals or futuristic technology. Creative visual proposals, not implemented world rules.
+
+SUMMER RUINS in a separate place. Elevated three-quarter view down across a broad grassy saddle with remains of a modest abandoned rural wizard's hall and walled seed garden. Low rectangular foundations, a single broken stepped gable, collapsed slate roof pieces and open stone window surrounds; no tall lighthouse, tower, circular observatory or intact fantasy castle. Wildflowers reclaim interior and grass grows between paving. Along one missing wall, several incomplete translucent alternate door-and-window shapes overlap softly as possibilities, all clearly ethereal and rooted to the actual old foundation; keep most ruin solid, broken and readable. Former garden beds contain especially vigorous translucent cyan/violet living-magic plants intertwined with solid red-gold flowering stems; glowing seed motes drift across gaps. Near foreground a short half-buried wall and lichen boulder, far beyond rolling treeless meadow with one small copse at distant left. Late-afternoon warm sun, violet shadow, prismatic woven sky high above. Architecture footprint, stone/slate parts, reclaimed plants and magical overlays legible for modeling. New independent ruined site, not adding ruins to the base meadow composition.

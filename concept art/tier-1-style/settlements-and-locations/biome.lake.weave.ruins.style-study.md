@@ -1,0 +1,29 @@
+# Starlight Lakes — ruins: approved concept
+
+Status: **Approved by the owner on 2026-09-26.** Owner feedback on the four scenes: "approved".
+
+[Approved concept](biome.lake.weave.ruins.style-study.png). Companion references: [base](../world-and-environments/biome.lake.weave.style-study.md), [storm](../world-and-environments/biome.lake.weave.storm.style-study.md), [winter](../world-and-environments/biome.lake.weave.winter.style-study.md).
+
+Catalogue identity: `biome.lake.weave`, authored name Starlight lakes in [biomes.json](../../../generator/data/biomes.json), lake ID 8 with the Weave school in [magic-schools.json](../../../generator/data/magic-schools.json). Tier 1 whole-scene direction. Season: summer.
+
+## Approved direction
+
+An elevated oblique view of a partly drowned island stargazer's pavilion. Broken dome ribs, roofless rooms, weathered masonry, pale blue mosaic fragments and a bent willow give the ruin its shape. The lake enters an eroded lower room and covers the old landing; intense underwater starlight remains visible in afternoon sun among fallen stone and aquatic plants.
+
+Each of the four concepts uses an independent setting and viewpoint. Starlight exists within the lake water, with luminous currents, aquatic living magic and selected opalescent shore stones beneath woven prismatic skies. Water, submerged plants, stone and seasonal surfaces remain readable for later modeling. These are creative visual proposals, not implemented generator behavior. Individual assets, measured geometry, material shaders, sky assets, water and seasonal systems, and game-ready output remain outstanding. No generator data changed.
+
+## Generation provenance
+
+Generated with the built-in image generation tool as an independent image without reference inputs. Approved source: `C:/Users/davgo/.codex/generated_images/01a0d8e3-2e53-7a60-933e-8efb1cc66034/exec-d682ba5a-ac49-4a7f-ad6c-ad16bf4b15ef.png`. Copied after approval and verified by SHA-256.
+
+### Exact generation prompt
+
+Use case: stylized-concept.
+Asset type: FWGC++ Tier 1 whole-biome concept preview, biome.lake.weave, authored name STARLIGHT LAKES.
+Primary request: an inland freshwater lake transformed by Weave magic — chaos, creation, creativity. One high-resolution wide 16:9 finished fantasy game environment illustration. Mature hand-painted anime-painterly rendering, broad composed color masses, clear shore and plant silhouettes, selective crisp material detail, soft atmospheric distance; not photography or a plastic 3D render.
+Biome identity: WATER is dominant, enclosed by visible opposite banks, modest wooded hills and low islands. Readable wet shore, shallows and deep basin. Freshwater reeds, sedges, lilies and submerged plants where appropriate. No open ocean horizon, tropical coral reef, giant alpine peaks or surrounding city.
+Unique magic: the lake seems to hold a living night sky WITHIN its water. Dense luminous star-like points suspended at different depths, flowing clouds of raw cyan/violet/rose/gold magic and delicate branching star trails weave around physical submerged plants and stone. Beautiful intense concentrations form broad irregular luminous currents with dark blue spaces between them, not a uniform glitter overlay. The water is fluid and deep, wet stones visible in clear near shallows, tiny ripples distort the underwater light. A few aquatic stems and lilies transition from solid green tissue into translucent living-magic leaves or radiant star-bud flowers. Spectral underwater light persists regardless of the actual sky or daylight; it is not merely a reflected galaxy. Pearlescent glints in selected shore stones provide material continuity with approved Weave concepts.
+Sky identity: immense interwoven prismatic veils behind periwinkle-violet atmosphere and irregular clouds, adapted to scene time/weather; visually distinguish these broad sky veils from dense starfields INSIDE the lake. Saturated magic balanced by deep blue/teal values and tactile ordinary stone, wood and plants.
+Constraints: a fresh independently composed location and angle. Clear material and terrain references for future modeling. No people, prominent animals, boats, text, labels, signatures, watermarks, UI, panels, borders, geometric constellation diagrams, glowing runic circles, portals, giant crystals, futuristic machinery or celestial planets hovering over water. Creative visual proposal, not implemented world rules.
+
+SUMMER RUINS, a new separate lake. Elevated oblique view from a low rocky bluff down across an irregular small island and the surrounding luminous freshwater. The island holds remains of a long-abandoned stargazer's pavilion: a squat octagonal stone building, much of its shallow domed roof collapsed, two broken curved roof ribs remaining, roofless side rooms and a partly submerged stepped stone landing. No tall tower, lighthouse, bridge, amphitheatre, pyramid or intact palace. Broken masonry, old pale blue mosaic fragments without writing, dark weathering lines and roots from a small bent willow reclaim the structure. The shoreline has eroded through one corner; the lake enters the ruined lower room, revealing fallen stone slabs beneath dense cyan-violet star-motes and soft golden luminous currents. Farther water around island richly threaded with raw magic, some submerged plant colonies partly ethereal. Foreground bluff is a small lower-left wedge, architecture seen clearly from above and side, generous lake water around the off-center island. Warm afternoon daylight rather than night: the brilliant starfield originates inside the water and remains evident in sunlit shallows. Far bank encloses scene behind thin reeds and low deciduous woodland, prismatic woven sky across upper strip. Abandoned and materially broken, no new construction or magical completed replacement roof.
