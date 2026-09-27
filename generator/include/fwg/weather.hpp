@@ -15,14 +15,16 @@
 // with can disagree. That is the owner's ruling (2026-09-25), not an oversight.
 //
 // ---------------------------------------------------------------------------------------------
-// The two percentages.
+// The percentages.
 //
 // INTENSITY, 0..100, is one severity scale for all weather, whatever makes it. 0 is calm and
 // clear, about 5 light rain, about 50 a thunderstorm, 75 a storm, and 100 a tornado or a
 // hurricane: hurricane force, 33 m/s, is the top of the scale, so every hurricane's core reads
 // 100 and its wind says how far past that it is. A moving system reads it off its sustained
-// wind (`weather_intensity_pct`); a thunderstorm cell off its instability. Snow or rain is not
-// part of it: the same number is a light snowfall or a light rain, and the season says which.
+// wind (`weather_intensity_pct`); the sky off how hard it is raining and the air it rains in
+// (`weather_rain_severity_pct`). Snow or rain is not part of it: the same number is a light
+// snowfall or a light rain, and the season says which. CLOUD, 0..100, is how overcast the sky
+// is beside it.
 //
 // SUMMER, 0..100, with winter the rest, is how warm the place is at that time of year: 0 at a
 // monthly mean of 0 C or colder, where precipitation falls as snow, and 100 at 20 C or warmer,
@@ -45,12 +47,25 @@
 //    which on this world's temperature model is the mid-latitudes, most of all in winter: about
 //    two a day in each hemisphere, most of them rain and a quarter of them gales. They deepen
 //    for a day or two, then fill.
-//  * CONVECTIVE CELLS (thunderstorms) are not tracked. They are a field over warm, wet ground
-//    that peaks in the afternoon. Where that heat meets strong contrast over land, the rarest
-//    cores are tornadoes.
+//  * THE SKY: cloud water over the whole planet, on a grid of its own (kSkyRows x kSkyCols, the
+//    same on every size of world). Every hour it is carried on the belts' surface wind, gathered
+//    in where the flow converges -- where the trade winds meet and at the polar front -- and
+//    spread thin where it diverges at 30 degrees, which is why the tropics' convergence belt
+//    rains and the subtropics are desert. Warm open water feeds it, and wet land by day. What
+//    the air can hold rises about 6.5% a degree, and falls where the wind drives it up a slope,
+//    over land in the afternoon's heat and over the sea about dawn. The world's own climate
+//    steers it too: ground the climate made wet holds less before it rains, dry ground more, and
+//    desert dries the air carried over it, so the sky rains where the world's biomes say it
+//    does. A cell nearing what it can hold starts to rain, then rains a burst until it is down to
+//    about half, and fills again: cloud that stays in one place builds until it rains and comes
+//    back down. A burst draws in the cloud around it as it breaks, so cloud carried together
+//    rains out together, harder the more of it there is, and past full harder still. A cell's
+//    rain covers the cell and a little past it at its full strength. Heavy rain in warm, moist
+//    air heated from below is a thunderstorm; where heat, moisture and contrast meet over land it
+//    turns severe, and the hardest rain where they are strongest has a tornado somewhere in it.
 //
 // A system's kind is internal to this model: a report gives each system's position, heading,
-// size and intensity, never a kind.
+// size and intensity, never a kind, and the sky is cloud and rain, never named showers.
 //
 // ---------------------------------------------------------------------------------------------
 // Scale: proportional to the planet.
@@ -80,11 +95,23 @@
 //
 // `day` is real days since founding year 0 on the world's calendar (time.hpp, astrology.hpp):
 // 24-hour days, 30-day months, and hour 0 is sunrise. The calendar has no longitude, so the
-// afternoon peak of the thunderstorms comes at the same hour everywhere.
+// afternoon's heat comes at the same hour everywhere.
+//
+// The sky has a past, and a read has no stored state, so the sky at an hour is run: from an
+// anchor every thirty days, read on its own only once it has run a week, with the next anchor's
+// run blended in over the day before that one has. Any hour reads the same sky whichever hour asks,
+// and the sky never jumps from one run to the next. Two runs never quite agree -- how full a
+// cell is and whether it is in a burst carry its whole past -- so the blend is the one day a
+// month when showers fade out and others fade in rather than moving on. Recent runs are remembered between
+// reads (a memo keyed on the ground, the seed and the anchor), so reading hour after hour steps
+// a run on by an hour instead of running a month again; a remembered run stepped on reaches
+// exactly the state a fresh run would, so what a read returns never depends on what was read
+// before it.
 //
 // Limits: a proxy, as the climate is. No fronts as lines, no pressure field, no ocean cooling
-// under a system, no terrain steering, no snow depth. Rain-shadowed ground is dry because the
-// climate made it dry, not because this model tracks moisture.
+// under a system, no terrain steering, no snow depth; systems and the sky do not trade water.
+// The sky's winds are the belts', steady but for the seasons, so a steep slope facing a wet
+// wind can rain for weeks without a break.
 #pragma once
 
 #include <array>
@@ -103,7 +130,7 @@ namespace fwg {
 
 struct World;
 
-inline constexpr int kWeatherApiVersion = 1;
+inline constexpr int kWeatherApiVersion = 2;
 
 // The two ends of the summer scale: a month's mean temperature, in Celsius.
 inline constexpr double kWinterAtC = 0.0;
@@ -117,14 +144,26 @@ inline constexpr double kEarthCircumferenceM = 40'075'017.0;
 // Far past any clock: nearly three billion years.
 inline constexpr double kWeatherLastDay = 1e12;
 
+// The sky's grid: 3.75 degrees a cell, rows counted southward from the north pole.
+inline constexpr int kSkyRows = 48;
+inline constexpr int kSkyCols = 96;
+
+// The sky's runs (the clock, above): an anchor every thirty days, each run read on its own
+// only once it has run a week, and blended in over the day before (from six days of running)
+// as the last day of the window before it.
+inline constexpr std::int64_t kSkyAnchorHours = 720;
+inline constexpr std::int64_t kSkySpinUpHours = 168;
+inline constexpr std::int64_t kSkyBlendHours = 24;
+
 // The fixed sentence a weather document carries.
 inline constexpr std::string_view kWeatherLimits =
     "Weather is a pure function of the world and the moment, keyed on the absolute hour. Intensity is one "
     "severity scale: 0 calm, about 5 light rain, about 50 a thunderstorm, 75 a storm, 100 a tornado or a "
     "hurricane (hurricane force, 33 m/s, tops the scale). Summer is 0 at a monthly mean of 0 C or colder and "
     "100 at 20 C or warmer; winter is the rest. Lengths and ground speeds are Earth's scaled to this planet; "
-    "wind speeds at a point are real. Systems ride trade winds, westerlies and polar easterlies, not the "
-    "climate stage's single bearing.";
+    "wind speeds at a point are real. Systems and cloud ride trade winds, westerlies and polar easterlies, not "
+    "the climate stage's single bearing; cloud builds over warm water, gathers where the winds meet and rains "
+    "out in bursts.";
 
 // ---------------------------------------------------------------------------------------------
 // The report.
@@ -149,12 +188,19 @@ struct WeatherSystem {
     double born_day = 0.0;
 };
 
+// The sky at a report's moment, per cell of its grid (row-major, rows counted southward).
+struct WeatherSky {
+    std::vector<double> cloud_pct;  // 0..100
+    std::vector<double> rain_mm_h;  // what is falling, mm an hour
+};
+
 struct WeatherReport {
     int api_version = kWeatherApiVersion;
     double day = 0.0;
     double hour = 0.0;  // of the day, 0 <= hour < 24; hour 0 is sunrise
     int month = 0;      // of the year, 0..11
     std::vector<WeatherSystem> systems;  // in birth order
+    WeatherSky sky;
 };
 
 // The weather at one place and moment.
@@ -163,15 +209,16 @@ struct WeatherSample {
     double latitude_deg = 0.0;
     double longitude_deg = 0.0;
     double intensity_pct = 0.0;
+    double cloud_pct = 0.0;         // 0..100: how overcast
     double wind_bearing_deg = 0.0;  // the bearing the air moves toward, clockwise from north
     double wind_speed_m_s = 0.0;
     double summer_pct = 0.0;        // winter is 100 - summer_pct
-    // The system whose weather this is, or empty where the weather is local: a thunderstorm
-    // cell, or a clear sky.
+    // The system whose weather this is, or empty where the weather is the sky's own: its rain
+    // and cloud, or a clear sky.
     std::string system;
 };
 
-// Every system alive at `day` (real days since founding year 0).
+// Every system alive at `day` (real days since founding year 0), and the sky then.
 //
 // Throws WorldTimeError (world_time.hpp), the read envelope: `day` as weather_require_day
 // refuses it, and `world.<block>` when the world lacks what weather reads, which a world
@@ -211,6 +258,7 @@ struct WeatherField {
     Grid wind_bearing_deg;
     Grid wind_speed_m_s;
     Grid summer_pct;
+    Grid cloud_pct;
 };
 WeatherField weather_field(const World& world, const WeatherReport& report);
 
@@ -348,13 +396,65 @@ std::vector<WeatherBirth> weather_births(const WeatherInputs& inputs, std::int64
 std::vector<WeatherState> weather_track(const WeatherInputs& inputs, const WeatherBirth& birth,
                                         std::int64_t until_hour);
 
-// The thunderstorm weather at a point and moment.
-struct WeatherConvection {
-    double severity = 0.0;   // 0..1, what the point has
-    double potential = 0.0;  // 0..1, what the air would give the core of a full cell standing here
-    double cell = 0.0;       // 0..1, how far into a cell the point is
+// ---- the sky ----------------------------------------------------------------------------------
+
+// The water air can hold, mm of precipitable water, at a temperature: 25 at 15 C, about 6.5%
+// more a degree.
+double weather_capacity_mm(double temperature_c);
+
+// The severity of rain, 0..100, piecewise linear through: 0.5 mm/h (light rain) at 5, 2.5 at
+// 15, 7.6 (heavy) at 30, 20 (a thunderstorm's downpour) at 50, and 50 and more at 65.
+double weather_rain_pct(double rain_mm_h);
+
+// What rain gives a place at an hour of the day (0 is sunrise), 0..100: its rain on the scale
+// above, up to 25 more where the air is warm and moist and heated from below (heavy rain there
+// is a thunderstorm; over the sea half as much), and up to 25 more again where heat, moisture
+// and strong contrast meet over land (a severe storm). A tornado is not part of it: that stands
+// at one spot in a cell (weather_tornado_spot), and a sample reads it.
+double weather_rain_severity_pct(const WeatherGround& ground, double rain_mm_h, double hour_of_day);
+
+// Where in a sky cell (its row and column) a tornado would stand during a whole hour: anywhere
+// in the cell, drawn afresh each hour from a stream keyed on the hour and the cell.
+Vec3 weather_tornado_spot(std::uint32_t seed, std::int64_t hour, int row, int col);
+
+// What each cell of the sky stands over, from the world, once per read. Per cell, row-major.
+struct WeatherSkyGround {
+    std::vector<double> water;       // 0..1, open water
+    std::vector<double> moisture;    // 0..1, the climate's wetness
+    std::vector<double> rise_east;   // metres the ground rises across a cell going east
+    std::vector<double> rise_north;  // and going north
+    std::array<std::vector<double>, 12> temperature;  // each month's mean, C
+    std::array<std::vector<double>, 12> ice;          // each month's water ice, 0..1
 };
-WeatherConvection weather_convection(const WeatherInputs& inputs, const WeatherGround& ground, const Vec3& at,
-                                     double day);
+WeatherSkyGround weather_sky_ground(const WeatherInputs& inputs);
+
+// The sky at a whole hour, per cell.
+struct WeatherSkyState {
+    std::int64_t hour = 0;
+    std::vector<double> water_mm;        // cloud water
+    std::vector<double> capacity_mm;     // what the air there could hold this hour
+    std::vector<double> rain_mm_h;       // what fell this hour
+    std::vector<std::uint8_t> raining;   // 1 while a burst runs, 0 while the cell fills
+};
+
+// A run's start at `hour`: none raining, and every cell somewhere between where a burst leaves
+// a cell and where one can start, drawn from a stream keyed on `hour` -- or lower, at the level
+// it would settle at, where the flow spreads the air out or dry ground dries it.
+//
+// These two take and give one value per cell of the sky's grid, and throw
+// std::invalid_argument for a ground or a state of any other size.
+WeatherSkyState weather_sky_start(const WeatherSkyGround& ground, std::int64_t hour, std::uint32_t seed);
+
+// One hour of the sky: carried, gathered or spread, fed, drawn into the bursts around it, and
+// rained out.
+void step_weather_sky(const WeatherSkyGround& ground, WeatherSkyState& state, std::uint32_t seed);
+
+// The anchor whose run the sky at a whole hour is read from: the latest one that has run for
+// at least kSkySpinUpHours by then. The next anchor's run is blended in over the last
+// kSkyBlendHours before that one has run as long.
+std::int64_t weather_sky_anchor(std::int64_t hour);
+
+// The sky at `day`, from its anchored runs, blended between them and between the hours.
+WeatherSky weather_sky(const WeatherInputs& inputs, double day);
 
 }  // namespace fwg

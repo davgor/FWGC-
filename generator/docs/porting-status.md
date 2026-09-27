@@ -244,8 +244,16 @@ Each is pinned by tests, so a change of mind lands as a deliberate change.
    scale, and a system's wind says how far past it. Warm-core systems grow over open sea at
    26.5 C or warmer toward the DeMaria-Kaplan maximum, never grow over land, and die there at
    the Kaplan-DeMaria rate; cold-core systems grow on the winter mid-latitudes' temperature
-   contrast; thunderstorm cells come with warm, wet afternoons, and tornadoes stand in the
-   rarest cores where heat meets contrast over land.
+   contrast. **Showers come from the sky, not a new draw each hour** (2026-09-26: "Showers
+   shouldn't really reform every hour, but instead be environment driven"): cloud water on a
+   grid of its own, fed by warm water and wet land, carried on the belts, gathered where they
+   meet and thinned where they part and over desert. A cell builds until it bursts, rains back
+   down and fills again, and a burst draws in the cloud around it as it breaks, so cloud
+   carried together rains out together and harder.
+   Heavy rain in warm, moist air heated from below is a thunderstorm; a tornado stands at one
+   spot of a cell raining hard where heat, moisture and contrast meet over land. The sky is run
+   from an anchor every thirty days and blended into the next run over a day, the one day a
+   month showers fade rather than move on.
    **Summer** runs 0 to 100 by how warm the month is at that place, from 0 C to 20 C, with
    winter the rest: an equatorial island never has a winter and an ice cap never a summer.
    **Systems steer on trade winds, westerlies and polar easterlies**, weather only: the
@@ -253,9 +261,17 @@ Each is pinned by tests, so a change of mind lands as a deliberate change.
    world was built with can disagree. Lengths and ground speeds are Earth's scaled to the
    planet's circumference, so a system covers the share of this world a real one covers of
    Earth and a place sees weather about as often as a real one. Calibrated at seed 42, size
-   65, over a year: 82 warm-core systems (44 reach hurricane force, 16 major), rain at a wet
-   mid-latitude place 16% of the time, a thunderstorm (50 or more) at a wet tropical place 2%
-   of the time; a world 5 C colder has no warm-core systems.
+   65, over a year: 82 warm-core systems (44 reach hurricane force, 16 major); a world 5 C
+   colder has no warm-core systems. The sky, sampled every hour for 20 days from days 150 and
+   330 of year 1000 at a lattice of places: its own rain (5 or more) 6.4 and 6.7% of the time at
+   tropical sea, 4.6 and 4.8% on wet tropical land, 0.1% on the driest land (climate moisture
+   under 0.2, desert by the biomes' measure); a thunderstorm (50 or more, from any source) on
+   wet tropical land 0.96 and 1.00% of the time. Over 60 days from each, the sky's cloud covers
+   67.15 and 67.85% of the planet on average (Earth's is about 67%), its hardest hour rains 48.7
+   and 49.0 mm, and a burst breaking amid the most cloud rains 1.27 and 1.25 times as hard in
+   its first hour, for what its air holds, as one amid the least. The belts' winds never change
+   but with the seasons, so a steep slope facing a wet wind can rain for weeks: in the 60 days
+   from day 150 one windward cell rained 691 hours without a break.
 8. **An age turn leaves few cities standing, and stays that way** (2026-09-26: "only the
    strongest empires can actually last 5000 years"). One `advance_ages` step after generation
    left 1 to 4 of 29 to 43 cities standing by uid at size 33 (seeds 42, 7, 99 and 12345,

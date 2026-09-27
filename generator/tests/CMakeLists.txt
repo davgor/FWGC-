@@ -107,7 +107,7 @@ if(TARGET fwg_cli)
   add_test(NAME fwg_cli_weather
            COMMAND fwg_cli weather --request "${FWG_PATCH_REQUEST}" --day 400000.5 --latitude 10 --longitude 20 --hours 3)
   set_tests_properties(fwg_cli_weather PROPERTIES
-                       PASS_REGULAR_EXPRESSION "^\\{\"schema\":\"fwg\\.weather\",\"version\":1,\"moments\":\\[.*\"samples\":\\[\\{[^{}]*\\}\\].*\"samples\":\\[\\{[^{}]*\\}\\].*\"samples\":\\[\\{[^{}]*\\}\\]")
+                       PASS_REGULAR_EXPRESSION "^\\{\"schema\":\"fwg\\.weather\",\"version\":2,\"moments\":\\[.*\"samples\":\\[\\{[^{}]*\\}\\].*\"samples\":\\[\\{[^{}]*\\}\\].*\"samples\":\\[\\{[^{}]*\\}\\]")
   add_test(NAME fwg_cli_weather_refused
            COMMAND fwg_cli weather --request "${FWG_PATCH_REQUEST}" --latitude 95 --longitude 0)
   set_tests_properties(fwg_cli_weather_refused PROPERTIES

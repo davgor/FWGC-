@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <memory>
+#include <mutex>
 #include <numbers>
 #include <ostream>
 #include <stdexcept>
@@ -124,30 +126,98 @@ constexpr double kTaperShare = 0.35;   // the outer share of a system over which
 constexpr double kContrastArcDeg = 2.0;
 constexpr double kLapseCPerM = 0.0065;  // climate.hpp's surface_temperature lapse
 
-// ---- convection ----------------------------------------------------------------------------
+// ---- the sky: cloud water, carried and rained out ------------------------------------------
+// Earth's radius. The wind carries cloud an angle an hour, the same on every planet, as a system
+// moves: the sky is a planet's share, like everything else here.
+constexpr double kEarthRadiusM = kEarthCircumferenceM / (2.0 * kPi);
+// Warm air holds more water, about 6.5% more a degree (Clausius-Clapeyron): 25 mm of
+// precipitable water at 15 C, about 55 at 27 C, 6 at -7 C.
+constexpr double kCapacityAt15Mm = 25.0;
+constexpr double kCapacityWarmth = 0.065;
+// What feeds the air, mm an hour: warm open water, and wet land by day. Earth's oceans evaporate
+// about 4 mm a day at 25 C, and this sea about 5; wet land gives as much over a whole day as the
+// sea does, as a rainforest does, most of it by day.
+constexpr double kEvaporationSeaMm = 0.2;
+constexpr double kEvaporationLandMm = 0.35;
+constexpr double kEvaporationWarmth = 0.06;
+constexpr double kNightEvaporation = 0.3;
+// Where the belts' flow converges it gathers cloud water in, and where it diverges it spreads it
+// thin: a cell's water grows or shrinks at this multiple of the flow's convergence.
+constexpr double kGatherGain = 1.5;
+// Air driven up a slope holds less: a rise of this much across a cell of the sky takes the most
+// off what it holds. And land heated through the day turns over in the afternoon.
+constexpr double kUpliftMetres = 400.0;
+constexpr double kUpliftCut = 0.35;
+constexpr double kAfternoonCut = 0.1;
+// The open sea's own daily beat: its showers peak about dawn, when the air over the water is
+// coolest against it.
+constexpr double kDawnCut = 0.02;
+constexpr double kDawnHour = 23.0;
+// A cell starts to rain somewhere between this share of what its air can hold and a little
+// past it -- the hour's own draw decides which hour. Then each hour it rains this share of what
+// it holds above the drain share, harder by the square of how far past full it was, until it is
+// down to the stop share, and dries: a burst that starts hard and tails off, longer where the air
+// keeps being fed, and a spike where cloud piled in past full. The drain lies below the stop, so
+// a burst ends -- exactly at the stop -- once what the wind carries in no longer holds the cell
+// above it; a steep slope facing a steady, wet wind can rain for weeks.
+constexpr double kReadyShare = 0.9;
+constexpr double kReadyPast = 1.3;
+constexpr double kRainRate = 0.3;
+constexpr double kDrainShare = 0.3;
+constexpr double kStopShare = 0.55;
+// A burst draws in the cloud around it as it breaks: in its first hour a cell takes this share
+// of what each of its neighbours not raining (eight; five in the rows at the poles) holds past
+// its own stop share. So cloud carried together rains out together -- a burst breaking amid
+// cloud rains harder than one in clear air -- and a burst draws only once, so it cannot feed on
+// its neighbours for days. At most an eighth, so a cell ringed by breaking bursts gives no more
+// than it has to spare.
+constexpr double kInflowShare = 0.125;
+// The world's own climate: ground its climate made dry holds more before it rains, and wet
+// ground less, so the sky rains where the world's biomes say it does.
+constexpr double kClimateHold = 1.0;
+// And dry ground dries the air over it -- the sinking air that made it a desert -- so cloud the
+// wind carries over a desert thins out instead of piling up and raining. Up to this share of its
+// water an hour, over the driest ground, none over ground as wet as a grassland's middle (the
+// world's biomes call ground under 0.3 desert).
+constexpr double kDesertDrying = 0.05;
+constexpr double kDesertWet = 0.1;
+constexpr double kSteppeWet = 0.35;
+// Cloud: none below this share of what the air holds, overcast by the next, and always while it
+// rains.
+constexpr double kCloudLow = 0.05;
+constexpr double kCloudHigh = 0.75;
+// A cell's rain and cloud stand over the cell and a little past it: at full strength out to this
+// share of a cell's width from its middle, fading to nothing a whole width out. A place reads
+// the most any cell around it gives it, so a downpour keeps its strength over the ground it
+// covers instead of being averaged with the dry cells beside it. Past half the diagonal, so
+// every place is within full reach of some cell, and a sky the same everywhere reads the same
+// everywhere.
+constexpr double kSkyFullReach = 0.71;
+// How many runs of the sky are remembered between reads (below, "runs remembered").
+constexpr std::size_t kSkyRunsKept = 8;
+// Rain (mm an hour) to severity (percent): light rain under 2.5 mm/h, moderate to 7.6, heavy
+// above it (the AMS classes); a thunderstorm's downpour about 20; violent past 50.
+constexpr double kRainMm[] = {0.0, 0.5, 2.5, 7.6, 20.0, 50.0};
+constexpr double kRainPct[] = {0.0, 5.0, 15.0, 30.0, 50.0, 65.0};
+constexpr int kRainPoints = 6;
 // Hour 0 is sunrise; the warm of the afternoon peaks nine hours later.
 constexpr double kWarmestHour = 9.0;
 constexpr double kDailySwingC = 5.0;
-constexpr double kSeaTiming = 0.6;
-constexpr double kNightTiming = 0.15;
-// The scale's convective tiers. A full cell over warm, wet air is a thunderstorm at 60; where
-// heat, moisture and strong contrast meet over land, the upper part of a cell adds up to 25 more
-// (a severe storm, with hail), and in the rarest cores, where those ingredients are strong, the
-// point reads a tornado: the top of the scale.
-constexpr double kThunderShare = 0.6;
+// A downpour in warm, moist air heated from below is a thunderstorm: heavy rain in such air adds
+// up to 25 to its rain. Over land in the afternoon's heat most; over the sea half as much, as
+// lightning is many times commoner over land.
+constexpr double kConvectiveShare = 0.25;
+constexpr double kConvectiveRainMm = 7.6;
+constexpr double kSeaInstability = 0.5;
+// The severe tiers of a downpour. Where heat, moisture and strong contrast meet over land, heavy
+// rain adds up to 25 more (a severe storm, with hail), and somewhere in a cell raining harder
+// still, where those ingredients are strongest, stands a tornado: the top of the scale.
 constexpr double kSevereShare = 0.25;
+constexpr double kSevereRainMm = 10.0;
 constexpr double kTornadoLow = 0.5;
 constexpr double kTornadoHigh = 0.9;
-// Cells of Earth's thunderstorm clusters, a few tens of kilometres, as a noise frequency on the
-// unit sphere: an angle, so the same share of any planet. At this frequency the noise's upper
-// quartile starts at about 0.14, its top twentieth at 0.32, its top hundredth at 0.41 and its
-// top thousandth at 0.51 (measured): a cell covers about a quarter of the ground where the air
-// allows one, a full cell about a twentieth, and the core a tornado needs a thousandth.
-constexpr double kCellFrequency = 120.0;
-constexpr double kCellLow = 0.14;
-constexpr double kCellHigh = 0.32;
-constexpr double kCoreLow = 0.41;
-constexpr double kCoreHigh = 0.51;
+constexpr double kTornadoRainMm = 12.0;
+constexpr double kTornadoRadiusKm = 6.0;
 
 double clamp01(double v) { return v < 0.0 ? 0.0 : (v > 1.0 ? 1.0 : v); }
 
@@ -324,6 +394,8 @@ BeltWind belt(double latitude_deg, double day, const double (&zonal)[3], const d
 
 struct SystemAt {
     double severity = 0.0;  // 0..1
+    double cloud = 0.0;     // percent
+    double calm = 0.0;      // 0..1: how far into a clearing eye; the sky's rain stops there too
     Vec3 wind;              // m/s, in the tangent plane
 };
 
@@ -332,6 +404,8 @@ SystemAt system_at(const WeatherSystem& s, const Vec3& p, double radius_m) {
     const Vec3 centre = point_at(s.latitude_deg, s.longitude_deg);
     const double d = great_circle_m(radius_m, centre, p);
     if (!(d < s.radius_m)) return out;
+    // Overcast over the whole system but its fading edge -- and its clearing eye, below.
+    out.cloud = 100.0 * clamp01((s.radius_m - d) / (0.25 * s.radius_m));
 
     const double core = std::max(s.core_radius_m, 1e-9);
     double wind_here = 0.0;
@@ -343,7 +417,12 @@ SystemAt system_at(const WeatherSystem& s, const Vec3& p, double radius_m) {
         wind_here = s.wind_m_s * d / core;
         severity_wind = s.wind_m_s;
         const double eye = s.wind_m_s >= kEyeWind ? kEyeShare * core : 0.0;
-        if (d < eye) severity_wind = lerp(kEyeCalmWind, s.wind_m_s, smoothstep(0.0, eye, d));
+        if (d < eye) {
+            const double out_of_eye = smoothstep(0.0, eye, d);
+            severity_wind = lerp(kEyeCalmWind, s.wind_m_s, out_of_eye);
+            out.calm = 1.0 - out_of_eye;
+            out.cloud *= out_of_eye;
+        }
     } else {
         // The wind falls off as one over the root of the distance, the weather -- mostly rain,
         // which gathers toward the centre -- as one over the distance.
@@ -399,13 +478,7 @@ Radii radii_of(const WeatherState& s, double wind, double latitude_deg, double r
     return r;
 }
 
-// ---- thunderstorm cells --------------------------------------------------------------------
-
-struct CellSeeds {
-    std::uint32_t now = 0;
-    std::uint32_t next = 0;
-    double blend = 0.0;
-};
+// ---- the clock -------------------------------------------------------------------------------
 
 // Hours since founding year 0. A day written as h / 24 comes back a few ulps either side of h,
 // and a moment a hair short of a whole hour would read the hour before it -- a different set of
@@ -417,57 +490,322 @@ double hours_of(double day) {
     return std::abs(hours - whole) <= slack ? whole : hours;
 }
 
-// A cell field for each whole hour, cross-faded into the next: cells grow and die within about
-// an hour, and the field at a moment is a function of the hour alone.
-CellSeeds cell_seeds(std::uint32_t seed, double day) {
-    const double hours = hours_of(day);
-    const double whole = std::floor(hours);
-    const auto hour = static_cast<std::int64_t>(whole);
-    return {child_seed(seed, "weather-cells-v1", hour), child_seed(seed, "weather-cells-v1", hour + 1),
-            smoothstep(0.0, 1.0, hours - whole)};
-}
-
-// The cell noise at p. Blended so its spread stays the same through the hour: a plain average
-// of two fields is narrower halfway, and every cell would shrink at the half hour.
-double cell_noise(const CellSeeds& seeds, const Vec3& p) {
-    const double x = p.x * kCellFrequency;
-    const double y = p.y * kCellFrequency;
-    const double z = p.z * kCellFrequency;
-    const double a = 1.0 - seeds.blend;
-    const double b = seeds.blend;
-    return (a * perlin3(x, y, z, seeds.now) + b * perlin3(x, y, z, seeds.next)) / std::sqrt(a * a + b * b);
-}
-
 double hour_of_day(double day) {
     const double hours = hours_of(day);
     return hours - kHoursPerDay * std::floor(hours / kHoursPerDay);
 }
 
-WeatherConvection convection(const WeatherGround& g, double noise, double day) {
-    const double daily = std::cos(2.0 * kPi * (hour_of_day(day) - kWarmestHour) / kHoursPerDay);
+// Sunlight, 0..1: up at hour 0, down at hour 12.
+double daylight(double hour) { return hour < 12.0 ? std::sin(kPi * hour / 12.0) : 0.0; }
+
+// How far into the afternoon's heat the hour is, 0..1: late morning to evening.
+double afternoon_heat(double hour) {
+    return smoothstep(-0.1, 0.6, std::cos(2.0 * kPi * (hour - kWarmestHour) / kHoursPerDay));
+}
+
+// The air at a place at an hour of the day: land warms by day and cools by night, dry land
+// most; water hardly at all.
+double air_temperature(const WeatherGround& g, double hour) {
     const double land = 1.0 - g.water;
-    // Land warms by day and cools by night, dry land most; water hardly at all.
-    const double air = g.temperature_c + land * kDailySwingC * (1.0 - 0.5 * g.moisture) * daily;
-    // Over land the storms come with the afternoon, from late morning to evening; over the sea
-    // they are steadier and weaker.
-    const double afternoon = smoothstep(-0.1, 0.6, daily);
-    const double timing = g.water * kSeaTiming + land * (kNightTiming + (1.0 - kNightTiming) * afternoon);
-    // Thunderstorms want warm, wet air: from about 14 C, fully from 25 C.
-    const double thunder = smoothstep(14.0, 25.0, air) * smoothstep(0.25, 0.75, g.moisture);
-    // Severe storms and tornadoes want heat, moisture and strong contrast together, over land.
-    const double severe = land * smoothstep(21.0, 27.0, air) * smoothstep(0.3, 0.5, g.contrast) *
-                          smoothstep(0.35, 0.65, g.moisture);
-    const double tornado = smoothstep(kTornadoLow, kTornadoHigh, severe);
-    WeatherConvection out;
-    out.cell = smoothstep(kCellLow, kCellHigh, noise);
-    out.potential = timing * std::max(kThunderShare * thunder + kSevereShare * severe, tornado);
-    // A cell's rain reaches most of the way in quickly and the severe part only its upper
-    // reaches; a tornado stands only in the rarest cores, and reads the top of the scale.
-    const double core = smoothstep(kCoreLow, kCoreHigh, noise);
-    out.severity = timing * std::max(kThunderShare * thunder * std::sqrt(out.cell) +
-                                         kSevereShare * severe * out.cell * out.cell,
-                                     tornado * core);
+    const double daily = std::cos(2.0 * kPi * (hour - kWarmestHour) / kHoursPerDay);
+    return g.temperature_c + land * kDailySwingC * (1.0 - 0.5 * g.moisture) * daily;
+}
+
+// Warm, moist air over ground that heats it, 0..1: what makes a downpour a thunderstorm.
+double instability(const WeatherGround& g, double hour) {
+    return smoothstep(20.0, 27.0, air_temperature(g, hour)) * smoothstep(0.3, 0.6, g.moisture) *
+           ((1.0 - g.water) + kSeaInstability * g.water);
+}
+
+// Heat, moisture and strong contrast together over land, 0..1: what makes a downpour severe.
+double severe_ingredients(const WeatherGround& g, double hour) {
+    return (1.0 - g.water) * smoothstep(21.0, 27.0, air_temperature(g, hour)) * smoothstep(0.3, 0.5, g.contrast) *
+           smoothstep(0.35, 0.65, g.moisture);
+}
+
+// ---- the sky ----------------------------------------------------------------------------------
+
+std::size_t sky_cell(int row, int col) {
+    return static_cast<std::size_t>(row) * static_cast<std::size_t>(kSkyCols) + static_cast<std::size_t>(col);
+}
+
+double sky_latitude(int row) { return 90.0 - (row + 0.5) * 180.0 / kSkyRows; }
+double sky_longitude(int col) { return -180.0 + (col + 0.5) * 360.0 / kSkyCols; }
+
+// A point's place on the sky grid, in rows (counted southward) and columns between cell centres.
+std::pair<double, double> sky_position(double latitude_deg, double longitude_deg) {
+    return {(90.0 - latitude_deg) * kSkyRows / 180.0 - 0.5, (longitude_deg + 180.0) * kSkyCols / 360.0 - 0.5};
+}
+
+// A sky grid read at a place between its cell centres: the most any of the four cells around
+// it gives it, each at full strength within kSkyFullReach of its middle and fading out by a whole
+// cell (a cell further off is a whole cell away or more, so gives nothing). Longitude wraps;
+// latitude stops at the last rows.
+double sky_read(const std::vector<double>& v, double row, double col) {
+    row = std::max(0.0, std::min(static_cast<double>(kSkyRows - 1), row));
+    col = std::fmod(col, static_cast<double>(kSkyCols));
+    if (col < 0.0) col += kSkyCols;
+    const int r0 = std::min(kSkyRows - 1, static_cast<int>(row));
+    const int c0 = std::min(kSkyCols - 1, static_cast<int>(col));
+    const double fr = row - r0;
+    const double fc = col - c0;
+    double most = 0.0;
+    for (int dr = 0; dr <= 1; ++dr) {
+        for (int dc = 0; dc <= 1; ++dc) {
+            const double across = dr == 0 ? fr : 1.0 - fr;
+            const double along = dc == 0 ? fc : 1.0 - fc;
+            const double reach = 1.0 - smoothstep(kSkyFullReach, 1.0, std::sqrt(across * across + along * along));
+            if (!(reach > 0.0)) continue;
+            const int r = std::min(kSkyRows - 1, r0 + dr);
+            const int c = (c0 + dc) % kSkyCols;
+            most = std::max(most, reach * v[sky_cell(r, c)]);
+        }
+    }
+    return most;
+}
+
+// How fast the belts' surface flow spreads out (positive) or gathers in (negative) at a
+// latitude, per second. The flow is the same all round a latitude, so only its north-south part
+// counts: it gathers where the trade winds meet and at the polar front, and spreads at 30 degrees.
+double belt_divergence(double latitude_deg, double day) {
+    const double north = std::min(89.9, latitude_deg + 0.5);
+    const double south = std::max(-89.9, latitude_deg - 0.5);
+    const double vn = weather_surface_wind(north, day).north_m_s * std::cos(north * kDegree);
+    const double vs = weather_surface_wind(south, day).north_m_s * std::cos(south * kDegree);
+    return (vn - vs) / ((north - south) * kDegree) /
+           (kEarthRadiusM * std::max(0.05, std::cos(latitude_deg * kDegree)));
+}
+
+// The hour's clock over the whole sky.
+struct SkyClock {
+    double day = 0.0;
+    MonthBlend month;
+    double lit = 0.0;   // what share of its daytime evaporation wet land gives, 0..1
+    double heat = 0.0;  // how far into the afternoon's heat, 0..1
+    double dawn = 0.0;  // how near the sea's dawn, 0..1
+};
+
+SkyClock sky_clock(std::int64_t hour) {
+    SkyClock k;
+    k.day = static_cast<double>(hour) / kHoursPerDay;
+    k.month = month_blend(k.day);
+    const double clock = hour_of_day(k.day);
+    k.lit = kNightEvaporation + (1.0 - kNightEvaporation) * daylight(clock);
+    k.heat = afternoon_heat(clock);
+    k.dawn = smoothstep(-0.1, 0.6, std::cos(2.0 * kPi * (clock - kDawnHour) / kHoursPerDay));
+    return k;
+}
+
+// The belts' wind over one row of the sky: where the air arriving in the row was an hour before
+// (rows r0..r1 at fr between them, and columns k..k+1 along from each column at fc), how much
+// the flow gathers it in, and which way the ground must rise to lift it.
+struct SkyRow {
+    double gather = 1.0;
+    double to_east = 0.0;
+    double to_north = 0.0;
+    int r0 = 0;
+    int r1 = 0;
+    double fr = 0.0;
+    int k = 0;
+    double fc = 0.0;
+};
+
+SkyRow sky_row(int row, double day) {
+    const double lat = sky_latitude(row);
+    const BeltWind w = weather_surface_wind(lat, day);
+    SkyRow out;
+    out.gather = std::exp(-kGatherGain * belt_divergence(lat, day) * kSecondsPerHour);
+    const double speed = std::sqrt(w.east_m_s * w.east_m_s + w.north_m_s * w.north_m_s);
+    out.to_east = speed > 0.0 ? w.east_m_s / speed : 0.0;
+    out.to_north = speed > 0.0 ? w.north_m_s / speed : 0.0;
+    // Air from the south arrives on a northward wind, and rows are counted southward.
+    const double row_angle = kPi / kSkyRows;
+    const double from = std::max(0.0, std::min(static_cast<double>(kSkyRows - 1),
+                                               row + w.north_m_s * kSecondsPerHour / kEarthRadiusM / row_angle));
+    out.r0 = static_cast<int>(from);
+    out.r1 = std::min(kSkyRows - 1, out.r0 + 1);
+    out.fr = from - out.r0;
+    const double col_angle = 2.0 * kPi / kSkyCols;
+    const double across = std::max(0.05, std::cos(lat * kDegree));
+    double shift = std::fmod(-w.east_m_s * kSecondsPerHour / (kEarthRadiusM * across) / col_angle,
+                             static_cast<double>(kSkyCols));
+    if (shift < 0.0) shift += kSkyCols;
+    out.k = std::min(kSkyCols - 1, static_cast<int>(shift));
+    out.fc = shift - out.k;
     return out;
+}
+
+// What the air over a cell can hold this hour, mm: less where the wind drives it up a slope,
+// less over land turning over in the afternoon and over the sea about dawn, and more where the
+// world's climate is dry.
+double sky_holds(const WeatherSkyGround& g, std::size_t c, double temperature_c, const SkyRow& row,
+                 const SkyClock& clock) {
+    const double wet = g.water[c];
+    const double land = 1.0 - wet;
+    const double rise = row.to_east * g.rise_east[c] + row.to_north * g.rise_north[c];
+    return weather_capacity_mm(temperature_c) * (1.0 - kUpliftCut * clamp01(rise / kUpliftMetres)) *
+           (1.0 - kAfternoonCut * land * clock.heat - kDawnCut * wet * clock.dawn) *
+           (1.0 + kClimateHold * (0.5 - g.moisture[c]));
+}
+
+double sky_temperature(const WeatherSkyGround& g, std::size_t c, const MonthBlend& m) {
+    return lerp(g.temperature[static_cast<std::size_t>(m.a)][c], g.temperature[static_cast<std::size_t>(m.b)][c], m.w);
+}
+
+double sky_ice(const WeatherSkyGround& g, std::size_t c, const MonthBlend& m) {
+    return lerp(g.ice[static_cast<std::size_t>(m.a)][c], g.ice[static_cast<std::size_t>(m.b)][c], m.w);
+}
+
+// The share of the water over a cell that the ground under it keeps each hour: all of it, but
+// over dry land.
+double sky_keeps(const WeatherSkyGround& g, std::size_t c) {
+    return 1.0 - kDesertDrying * (1.0 - g.water[c]) * (1.0 - smoothstep(kDesertWet, kSteppeWet, g.moisture[c]));
+}
+
+// What feeds the air over a cell in an hour, mm: warm open water most, wet land by day. `lit` is
+// the share of its daytime evaporation wet land gives at that hour.
+double sky_supply(const WeatherSkyGround& g, std::size_t c, double temperature_c, double ice, double lit) {
+    const double warmth = std::exp(kEvaporationWarmth * (temperature_c - 25.0));
+    return g.water[c] * kEvaporationSeaMm * warmth * (1.0 - ice) +
+           (1.0 - g.water[c]) * kEvaporationLandMm * g.moisture[c] * warmth * lit;
+}
+
+// The sky's cloud and rain at a whole hour, per cell.
+struct SkyFrame {
+    std::vector<double> cloud;
+    std::vector<double> rain;
+};
+
+SkyFrame frame_of(const WeatherSkyState& s) {
+    SkyFrame f;
+    f.rain = s.rain_mm_h;
+    f.cloud.resize(s.water_mm.size());
+    for (std::size_t c = 0; c < s.water_mm.size(); ++c) {
+        f.cloud[c] = s.rain_mm_h[c] > 0.0
+                         ? 100.0
+                         : 100.0 * smoothstep(kCloudLow, kCloudHigh, s.water_mm[c] / s.capacity_mm[c]);
+    }
+    return f;
+}
+
+SkyFrame mix(const SkyFrame& a, const SkyFrame& b, double w) {
+    SkyFrame out = a;
+    for (std::size_t c = 0; c < a.rain.size(); ++c) {
+        out.cloud[c] = lerp(a.cloud[c], b.cloud[c], w);
+        out.rain[c] = lerp(a.rain[c], b.rain[c], w);
+    }
+    return out;
+}
+
+std::int64_t floor_div(std::int64_t a, std::int64_t b) {
+    const std::int64_t q = a / b;
+    return (a % b != 0 && (a < 0) != (b < 0)) ? q - 1 : q;
+}
+
+// How much of the next anchor's run an hour of this anchor's window takes: none until the
+// window's last day, then rising to all of it at the window's end.
+double sky_weight(std::int64_t hour, std::int64_t anchor) {
+    const std::int64_t from = anchor + kSkySpinUpHours + kSkyAnchorHours - kSkyBlendHours;
+    return clamp01(static_cast<double>(hour - from) / static_cast<double>(kSkyBlendHours));
+}
+
+// The sky's model parts take one value per cell of its grid, in every field; anything else would
+// be read past its end, so it is refused.
+void require_sky_ground(const WeatherSkyGround& g) {
+    const auto cells = static_cast<std::size_t>(kSkyRows) * kSkyCols;
+    bool whole = g.water.size() == cells && g.moisture.size() == cells && g.rise_east.size() == cells &&
+                 g.rise_north.size() == cells;
+    for (std::size_t m = 0; m < g.temperature.size(); ++m) {
+        whole = whole && g.temperature[m].size() == cells && g.ice[m].size() == cells;
+    }
+    if (!whole) {
+        throw std::invalid_argument("weather sky: a ground needs one value per cell of the " + std::to_string(kSkyRows) +
+                                    " x " + std::to_string(kSkyCols) + " sky in every field and month");
+    }
+}
+
+void require_sky_state(const WeatherSkyState& s) {
+    const auto cells = static_cast<std::size_t>(kSkyRows) * kSkyCols;
+    if (s.water_mm.size() != cells || s.capacity_mm.size() != cells || s.rain_mm_h.size() != cells ||
+        s.raining.size() != cells) {
+        throw std::invalid_argument("weather sky: a state needs one value per cell of the " + std::to_string(kSkyRows) +
+                                    " x " + std::to_string(kSkyCols) + " sky in every field");
+    }
+}
+
+// ---- runs remembered -----------------------------------------------------------------------------
+// A run is a function of its ground, the seed and its anchor alone, and stepping is exact, so a
+// run remembered at one hour and stepped on reaches the state a fresh run from the anchor would,
+// bit for bit. Reading hour after hour then steps a run on from where the last read left it
+// instead of running up to a month again. Each entry is one run's latest remembered hour; a read
+// that steps an entry on moves it, and a read before every remembered hour of its run starts a
+// new entry. Equal grounds are held once and matched by pointer.
+struct SkyRun {
+    std::shared_ptr<const WeatherSkyGround> ground;
+    std::uint32_t seed = 0;
+    std::int64_t anchor = 0;
+    WeatherSkyState state;
+};
+
+struct SkyRuns {
+    std::mutex mutex;
+    std::vector<SkyRun> entries;  // bounded, most recently used first
+};
+
+SkyRuns& sky_runs() {
+    static SkyRuns instance;
+    return instance;
+}
+
+bool same_ground(const WeatherSkyGround& a, const WeatherSkyGround& b) {
+    return a.water == b.water && a.moisture == b.moisture && a.rise_east == b.rise_east &&
+           a.rise_north == b.rise_north && a.temperature == b.temperature && a.ice == b.ice;
+}
+
+// The ground as a remembered run holds it, if one was run on the same ground.
+std::shared_ptr<const WeatherSkyGround> held_ground(WeatherSkyGround g) {
+    SkyRuns& runs = sky_runs();
+    const std::lock_guard<std::mutex> lock(runs.mutex);
+    for (const SkyRun& run : runs.entries) {
+        if (same_ground(*run.ground, g)) return run.ground;
+    }
+    return std::make_shared<const WeatherSkyGround>(std::move(g));
+}
+
+// The frames at `hour` and the hour after, of the run from `anchor`.
+std::pair<SkyFrame, SkyFrame> run_sky(const std::shared_ptr<const WeatherSkyGround>& g, std::int64_t anchor,
+                                      std::int64_t hour, std::uint32_t seed) {
+    SkyRuns& runs = sky_runs();
+    const auto same_run = [&](const SkyRun& run) {
+        return run.ground == g && run.seed == seed && run.anchor == anchor;
+    };
+    std::optional<WeatherSkyState> from;
+    {
+        const std::lock_guard<std::mutex> lock(runs.mutex);
+        for (const SkyRun& run : runs.entries) {
+            if (!same_run(run) || run.state.hour > hour) continue;
+            if (!from || run.state.hour > from->hour) from = run.state;
+        }
+    }
+    WeatherSkyState s = from ? std::move(*from) : weather_sky_start(*g, anchor, seed);
+    const std::int64_t stepped_from = s.hour;
+    while (s.hour < hour) step_weather_sky(*g, s, seed);
+    {
+        const std::lock_guard<std::mutex> lock(runs.mutex);
+        auto it = std::find_if(runs.entries.begin(), runs.entries.end(), [&](const SkyRun& run) {
+            return same_run(run) && run.state.hour == stepped_from;
+        });
+        if (it == runs.entries.end()) {
+            runs.entries.insert(runs.entries.begin(), SkyRun{g, seed, anchor, s});
+            if (runs.entries.size() > kSkyRunsKept) runs.entries.resize(kSkyRunsKept);
+        } else {
+            it->state = s;
+            std::rotate(runs.entries.begin(), it, it + 1);
+        }
+    }
+    SkyFrame now = frame_of(s);
+    step_weather_sky(*g, s, seed);
+    return {std::move(now), frame_of(s)};
 }
 
 // ---- assembling ------------------------------------------------------------------------------
@@ -498,7 +836,40 @@ WeatherSystem describe(const WeatherBirth& birth, const WeatherState& now, const
     return s;
 }
 
-WeatherSample sample_at(const WeatherInputs& in, const WeatherReport& report, const CellSeeds& seeds, const Vec3& p) {
+// What the sky gives a point: its rain as severity, 0..1, with the severe tiers where the ground
+// holds their ingredients, and its cloud.
+struct SkyAt {
+    double severity = 0.0;
+    double cloud = 0.0;
+};
+
+SkyAt sky_at(const WeatherInputs& in, const WeatherSky& sky, const WeatherGround& g, const Vec3& p, double day) {
+    SkyAt out;
+    const auto cells = static_cast<std::size_t>(kSkyRows) * kSkyCols;
+    if (sky.rain_mm_h.size() != cells || sky.cloud_pct.size() != cells) return out;
+    const auto [row, col] = sky_position(g.latitude_deg, longitude_of(p));
+    const double rain = std::max(0.0, sky_read(sky.rain_mm_h, row, col));
+    out.cloud = std::max(0.0, std::min(100.0, sky_read(sky.cloud_pct, row, col)));
+    if (!(rain > 0.0)) return out;
+    const double hour = hour_of_day(day);
+    out.severity = weather_rain_severity_pct(g, rain, hour) / 100.0;
+    // In the cell whose rain this is, raining hard where the ingredients are strongest, a tornado,
+    // at its spot for the hour.
+    const double tornado = smoothstep(kTornadoLow, kTornadoHigh, severe_ingredients(g, hour));
+    if (tornado > 0.0) {
+        const int r = std::max(0, std::min(kSkyRows - 1, static_cast<int>(std::lround(row))));
+        int c = static_cast<int>(std::lround(col)) % kSkyCols;
+        if (c < 0) c += kSkyCols;
+        if (sky.rain_mm_h[sky_cell(r, c)] >= kTornadoRainMm) {
+            const Vec3 spot = weather_tornado_spot(in.seed, static_cast<std::int64_t>(std::floor(hours_of(day))), r, c);
+            const double reach = kTornadoRadiusKm * 1000.0 * planet_ratio(in.radius_m) * tornado;
+            if (great_circle_m(in.radius_m, spot, p) < reach) out.severity = 1.0;
+        }
+    }
+    return out;
+}
+
+WeatherSample sample_at(const WeatherInputs& in, const WeatherReport& report, const Vec3& p) {
     const WeatherGround g = weather_ground(in, p, report.day);
     const Basis b = basis_at(p);
     const BeltWind surface = weather_surface_wind(g.latitude_deg, report.day);
@@ -511,28 +882,37 @@ WeatherSample sample_at(const WeatherInputs& in, const WeatherReport& report, co
 
     Vec3 wind = prevailing;
     double severity = 0.0;
+    double cloud = 0.0;
+    double calm = 0.0;
     for (const WeatherSystem& s : report.systems) {
         const SystemAt here = system_at(s, p, in.radius_m);
         wind = wind + here.wind;
+        cloud = std::max(cloud, here.cloud);
+        calm = std::max(calm, here.calm);
         if (here.severity > severity) {
             severity = here.severity;
             out.system = s.id;
         }
     }
 
-    const WeatherConvection storm = convection(g, cell_noise(seeds, p), report.day);
-    if (storm.severity > severity) {
-        severity = storm.severity;
+    // The sky's own rain and cloud, but none of either in a hurricane's clearing eye.
+    SkyAt sky = sky_at(in, report.sky, g, p, report.day);
+    sky.severity *= 1.0 - calm;
+    sky.cloud *= 1.0 - calm;
+    cloud = std::max(cloud, sky.cloud);
+    if (sky.severity > severity) {
+        severity = sky.severity;
         out.system.clear();
     }
-    if (storm.severity > 0.0) {
-        // A cell's gust runs with the prevailing wind.
+    if (sky.severity > 0.0) {
+        // A downpour's gust runs with the prevailing wind.
         const double length = std::sqrt(dot(prevailing, prevailing));
         const Vec3 along = length > 1e-9 ? prevailing * (1.0 / length) : b.east;
-        wind = wind + along * weather_wind_for_pct(100.0 * storm.severity);
+        wind = wind + along * weather_wind_for_pct(100.0 * sky.severity);
     }
 
     out.intensity_pct = 100.0 * severity;
+    out.cloud_pct = cloud;
     const double east = dot(wind, b.east);
     const double north = dot(wind, b.north);
     out.wind_speed_m_s = std::sqrt(east * east + north * north);
@@ -807,9 +1187,226 @@ std::vector<WeatherState> weather_track(const WeatherInputs& in, const WeatherBi
     return out;
 }
 
-WeatherConvection weather_convection(const WeatherInputs& in, const WeatherGround& ground, const Vec3& at,
-                                     double day) {
-    return convection(ground, cell_noise(cell_seeds(in.seed, day), at), day);
+// ---- the sky ----------------------------------------------------------------------------------
+
+double weather_capacity_mm(double temperature_c) {
+    return kCapacityAt15Mm * std::exp(kCapacityWarmth * (temperature_c - 15.0));
+}
+
+double weather_rain_pct(double rain_mm_h) {
+    if (!(rain_mm_h > 0.0)) return 0.0;
+    return interpolate(kRainMm, kRainPct, kRainPoints, rain_mm_h);
+}
+
+double weather_rain_severity_pct(const WeatherGround& g, double rain_mm_h, double hour_of_day) {
+    if (!(rain_mm_h > 0.0)) return 0.0;
+    return 100.0 * std::min(1.0, weather_rain_pct(rain_mm_h) / 100.0 +
+                                     kConvectiveShare * instability(g, hour_of_day) * clamp01(rain_mm_h / kConvectiveRainMm) +
+                                     kSevereShare * severe_ingredients(g, hour_of_day) * clamp01(rain_mm_h / kSevereRainMm));
+}
+
+Vec3 weather_tornado_spot(std::uint32_t seed, std::int64_t hour, int row, int col) {
+    // Anywhere in the cell, drawn afresh each hour: a tornado lasts minutes to an hour.
+    Rng rng = Rng::child(seed, "weather-tornado-v1",
+                         hour * static_cast<std::int64_t>(kSkyRows) * kSkyCols + static_cast<std::int64_t>(sky_cell(row, col)));
+    const double latitude = sky_latitude(row) + rng.uniform(-0.5, 0.5) * 180.0 / kSkyRows;
+    const double longitude = sky_longitude(col) + rng.uniform(-0.5, 0.5) * 360.0 / kSkyCols;
+    return point_at(latitude, longitude);
+}
+
+WeatherSkyGround weather_sky_ground(const WeatherInputs& in) {
+    const std::size_t cells = static_cast<std::size_t>(kSkyRows) * kSkyCols;
+    WeatherSkyGround g;
+    g.water.resize(cells);
+    g.moisture.resize(cells);
+    g.rise_east.resize(cells);
+    g.rise_north.resize(cells);
+    for (std::size_t m = 0; m < g.temperature.size(); ++m) {
+        g.temperature[m].resize(cells);
+        g.ice[m].resize(cells);
+    }
+    // The ground under each cell's middle; the sea's own height is its surface, not its floor.
+    std::vector<double> height(cells);
+    const double sea = in.sea_level_m;
+    for (int row = 0; row < kSkyRows; ++row) {
+        for (int col = 0; col < kSkyCols; ++col) {
+            const std::size_t c = sky_cell(row, col);
+            const Raster r = raster_at(point_at(sky_latitude(row), sky_longitude(col)), in.size);
+            g.water[c] = bilinear_of(*in.water_type, r, [](double v) { return static_cast<int>(v) != kDry ? 1.0 : 0.0; });
+            g.moisture[c] = clamp01(bilinear(*in.moisture, r));
+            height[c] = bilinear_of(*in.height, r, [sea](double h) { return std::max(h, sea); });
+            for (std::size_t m = 0; m < g.temperature.size(); ++m) {
+                g.temperature[m][c] = bilinear(*in.temperature[m], r);
+                g.ice[m][c] = clamp01(bilinear(*in.ice[m], r));
+            }
+        }
+    }
+    // How far the ground rises across a cell, eastward and northward (rows run southward).
+    for (int row = 0; row < kSkyRows; ++row) {
+        const int north = std::max(0, row - 1);
+        const int south = std::min(kSkyRows - 1, row + 1);
+        for (int col = 0; col < kSkyCols; ++col) {
+            const int west = (col + kSkyCols - 1) % kSkyCols;
+            const int east = (col + 1) % kSkyCols;
+            const std::size_t c = sky_cell(row, col);
+            g.rise_east[c] = 0.5 * (height[sky_cell(row, east)] - height[sky_cell(row, west)]);
+            g.rise_north[c] = (height[sky_cell(north, col)] - height[sky_cell(south, col)]) / (south - north);
+        }
+    }
+    return g;
+}
+
+WeatherSkyState weather_sky_start(const WeatherSkyGround& g, std::int64_t hour, std::uint32_t seed) {
+    require_sky_ground(g);
+    const SkyClock clock = sky_clock(hour);
+    const std::size_t cells = g.water.size();
+    WeatherSkyState s;
+    s.hour = hour;
+    s.water_mm.resize(cells);
+    s.capacity_mm.resize(cells);
+    s.rain_mm_h.assign(cells, 0.0);
+    s.raining.assign(cells, 0);
+    // Each cell somewhere between where a burst leaves it and where one can start, drawn from a
+    // stream keyed on the anchor: cells start at every point of filling, as a long run has them,
+    // not in step with each other. Where the flow spreads the air out or dry ground dries it, a
+    // cell settles where what the ground feeds it matches what is taken away, and one that would
+    // settle lower starts there instead, so a run does not open with cloud over its deserts.
+    const double day_lit = kNightEvaporation + (1.0 - kNightEvaporation) / kPi;  // daylight's mean over a day
+    Rng rng = Rng::child(seed, "weather-sky-start-v1", hour);
+    for (int row = 0; row < kSkyRows; ++row) {
+        const SkyRow wind = sky_row(row, clock.day);
+        for (int col = 0; col < kSkyCols; ++col) {
+            const std::size_t c = sky_cell(row, col);
+            const double t = sky_temperature(g, c, clock.month);
+            const double can_hold = sky_holds(g, c, t, wind, clock);
+            double share = rng.uniform(kStopShare, kReadyShare);
+            const double kept = wind.gather * sky_keeps(g, c);
+            if (kept < 1.0) {
+                const double settles = sky_supply(g, c, t, sky_ice(g, c, clock.month), day_lit) / (1.0 - kept);
+                share = std::min(share, settles / can_hold);
+            }
+            s.capacity_mm[c] = can_hold;
+            s.water_mm[c] = can_hold * share;
+        }
+    }
+    return s;
+}
+
+void step_weather_sky(const WeatherSkyGround& g, WeatherSkyState& s, std::uint32_t seed) {
+    require_sky_ground(g);
+    require_sky_state(s);
+    const std::int64_t hour = s.hour;
+    const SkyClock clock = sky_clock(hour);
+    const std::size_t cells = s.water_mm.size();
+
+    std::vector<double> held(cells);
+    std::vector<double> capacity(cells);
+    std::vector<std::uint8_t> raining(cells, 0);
+    std::vector<std::uint8_t> breaking(cells, 0);
+    // One draw a cell an hour, from a stream keyed on the absolute hour: every run of the sky
+    // meets the same draws.
+    Rng rng = Rng::child(seed, "weather-sky-v1", hour);
+
+    // Carried, gathered or spread, fed, and dried over desert; and which cells rain this hour,
+    // and which of them break into a burst this hour.
+    for (int row = 0; row < kSkyRows; ++row) {
+        const SkyRow w = sky_row(row, clock.day);
+        for (int col = 0; col < kSkyCols; ++col) {
+            const std::size_t c = sky_cell(row, col);
+            const int c0 = (col + w.k) % kSkyCols;
+            const int c1 = (c0 + 1) % kSkyCols;
+            const double carried =
+                lerp(lerp(s.water_mm[sky_cell(w.r0, c0)], s.water_mm[sky_cell(w.r0, c1)], w.fc),
+                     lerp(s.water_mm[sky_cell(w.r1, c0)], s.water_mm[sky_cell(w.r1, c1)], w.fc), w.fr) *
+                w.gather;
+            const double t = sky_temperature(g, c, clock.month);
+            held[c] = (carried + sky_supply(g, c, t, sky_ice(g, c, clock.month), clock.lit)) * sky_keeps(g, c);
+            capacity[c] = sky_holds(g, c, t, w, clock);
+            const double draw = rng.random();
+            const bool breaks = s.raining[c] == 0 && draw < smoothstep(kReadyShare, kReadyPast, held[c] / capacity[c]);
+            raining[c] = s.raining[c] != 0 || breaks ? 1 : 0;
+            breaking[c] = breaks ? 1 : 0;
+        }
+    }
+
+    // Each breaking burst draws in a share of the spare cloud of each neighbour not raining, all
+    // read from before any is drawn, so the order the cells are visited in changes nothing.
+    std::vector<double> drawn(cells, 0.0);
+    for (int row = 0; row < kSkyRows; ++row) {
+        for (int col = 0; col < kSkyCols; ++col) {
+            const std::size_t c = sky_cell(row, col);
+            if (breaking[c] == 0) continue;
+            for (int dr = -1; dr <= 1; ++dr) {
+                const int r = row + dr;
+                if (r < 0 || r >= kSkyRows) continue;
+                for (int dc = -1; dc <= 1; ++dc) {
+                    const std::size_t n = sky_cell(r, (col + dc + kSkyCols) % kSkyCols);
+                    if (raining[n] != 0) continue;
+                    const double take = kInflowShare * std::max(0.0, held[n] - kStopShare * capacity[n]);
+                    drawn[c] += take;
+                    drawn[n] -= take;
+                }
+            }
+        }
+    }
+
+    // Rained out: each hour a share of what a raining cell holds above the drain share, harder
+    // by the square of how far past full it is, until it is down to the stop share.
+    std::vector<double> rain(cells, 0.0);
+    for (std::size_t c = 0; c < cells; ++c) {
+        double h = held[c] + drawn[c];
+        if (raining[c] != 0) {
+            const double past_full = std::max(1.0, h / capacity[c]);
+            const double stop = kStopShare * capacity[c];
+            const double fall = kRainRate * std::max(0.0, h - kDrainShare * capacity[c]) * past_full * past_full;
+            if (h - fall <= stop) {
+                // The last of the burst: down to the stop, and dry.
+                rain[c] = std::max(0.0, h - stop);
+                h = std::min(h, stop);
+                raining[c] = 0;
+            } else {
+                rain[c] = fall;
+                h -= fall;
+            }
+        }
+        held[c] = h;
+    }
+    s.water_mm.swap(held);
+    s.capacity_mm.swap(capacity);
+    s.rain_mm_h.swap(rain);
+    s.raining.swap(raining);
+    s.hour = hour + 1;
+}
+
+std::int64_t weather_sky_anchor(std::int64_t hour) {
+    return floor_div(hour - kSkySpinUpHours, kSkyAnchorHours) * kSkyAnchorHours;
+}
+
+WeatherSky weather_sky(const WeatherInputs& in, double day) {
+    weather_require_day(day);
+    const double hours = hours_of(day);
+    const double whole = std::floor(hours);
+    const auto now = static_cast<std::int64_t>(whole);
+    const double f = hours - whole;
+
+    const std::shared_ptr<const WeatherSkyGround> g = held_ground(weather_sky_ground(in));
+    const std::int64_t anchor = weather_sky_anchor(now);
+    auto frames = run_sky(g, anchor, now, in.seed);
+    const double w0 = sky_weight(now, anchor);
+    const double w1 = sky_weight(now + 1, anchor);
+    if (w0 > 0.0 || w1 > 0.0) {
+        const auto next = run_sky(g, anchor + kSkyAnchorHours, now, in.seed);
+        frames.first = mix(frames.first, next.first, w0);
+        frames.second = mix(frames.second, next.second, w1);
+    }
+    WeatherSky sky;
+    sky.cloud_pct.resize(frames.first.cloud.size());
+    sky.rain_mm_h.resize(frames.first.rain.size());
+    for (std::size_t c = 0; c < sky.rain_mm_h.size(); ++c) {
+        sky.cloud_pct[c] = lerp(frames.first.cloud[c], frames.second.cloud[c], f);
+        sky.rain_mm_h[c] = lerp(frames.first.rain[c], frames.second.rain[c], f);
+    }
+    return sky;
 }
 
 // ---- the read ----------------------------------------------------------------------------------
@@ -841,6 +1438,7 @@ WeatherReport weather_report(const World& world, double day) {
         const WeatherState& next = at + 1 < track.size() ? track[at + 1] : track[at];
         report.systems.push_back(describe(birth, track[at], next, f, in.radius_m));
     }
+    report.sky = weather_sky(in, day);
     return report;
 }
 
@@ -850,8 +1448,7 @@ WeatherSample weather_sample(const World& world, const WeatherReport& report, do
     weather_require_day(report.day);
     weather_require_place(latitude_deg, longitude_deg);
     const WeatherInputs in = weather_inputs(world);
-    WeatherSample out =
-        sample_at(in, report, cell_seeds(in.seed, report.day), point_at(latitude_deg, longitude_deg));
+    WeatherSample out = sample_at(in, report, point_at(latitude_deg, longitude_deg));
     out.latitude_deg = latitude_deg;
     out.longitude_deg = longitude_deg;
     return out;
@@ -888,7 +1485,6 @@ std::optional<MoonPhase> moon_phase_on(const World& world, double day) {
 WeatherField weather_field(const World& world, const WeatherReport& report) {
     weather_require_day(report.day);
     const WeatherInputs in = weather_inputs(world);
-    const CellSeeds seeds = cell_seeds(in.seed, report.day);
     const int n = in.size;
 
     WeatherField field;
@@ -897,25 +1493,29 @@ WeatherField weather_field(const World& world, const WeatherReport& report) {
     field.wind_bearing_deg = Grid(n);
     field.wind_speed_m_s = Grid(n);
     field.summer_pct = Grid(n);
+    field.cloud_pct = Grid(n);
 
-    std::vector<double> intensity, bearing, speed, summer;
+    std::vector<double> intensity, bearing, speed, summer, cloud;
     for (int z = 0; z < n; ++z) {
         const auto count = static_cast<std::size_t>(distinct_count(z, n));
         intensity.assign(count, 0.0);
         bearing.assign(count, 0.0);
         speed.assign(count, 0.0);
         summer.assign(count, 0.0);
+        cloud.assign(count, 0.0);
         for (std::size_t x = 0; x < count; ++x) {
-            const WeatherSample s = sample_at(in, report, seeds, direction(static_cast<int>(x), z, n));
+            const WeatherSample s = sample_at(in, report, direction(static_cast<int>(x), z, n));
             intensity[x] = s.intensity_pct;
             bearing[x] = s.wind_bearing_deg;
             speed[x] = s.wind_speed_m_s;
             summer[x] = s.summer_pct;
+            cloud[x] = s.cloud_pct;
         }
         field.intensity_pct.fill_row(z, intensity);
         field.wind_bearing_deg.fill_row(z, bearing);
         field.wind_speed_m_s.fill_row(z, speed);
         field.summer_pct.fill_row(z, summer);
+        field.cloud_pct.fill_row(z, cloud);
     }
     return field;
 }
@@ -958,6 +1558,7 @@ void write_weather_json(std::ostream& out, std::span<const WeatherMoment> moment
             json.field("latitude", s.latitude_deg);
             json.field("longitude", s.longitude_deg);
             json.field("intensity_pct", s.intensity_pct);
+            json.field("cloud_pct", s.cloud_pct);
             json.field("wind_bearing_deg", s.wind_bearing_deg);
             json.field("wind_speed_m_s", s.wind_speed_m_s);
             json.field("summer_pct", s.summer_pct);

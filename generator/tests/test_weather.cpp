@@ -144,6 +144,37 @@ WeatherSystem synthetic(double latitude_deg, double wind, double core_m, double 
     return s;
 }
 
+constexpr std::size_t kSkyCells = static_cast<std::size_t>(kSkyRows) * kSkyCols;
+
+// A sky ground the same in every cell and every month: open water or land, at one temperature
+// and wetness, flat and free of ice.
+WeatherSkyGround even_ground(double water, double temperature_c, double moisture) {
+    WeatherSkyGround g;
+    g.water.assign(kSkyCells, water);
+    g.moisture.assign(kSkyCells, moisture);
+    g.rise_east.assign(kSkyCells, 0.0);
+    g.rise_north.assign(kSkyCells, 0.0);
+    for (auto& t : g.temperature) t.assign(kSkyCells, temperature_c);
+    for (auto& i : g.ice) i.assign(kSkyCells, 0.0);
+    return g;
+}
+
+std::size_t sky_index(int row, int col) {
+    return static_cast<std::size_t>(row) * static_cast<std::size_t>(kSkyCols) + static_cast<std::size_t>(col);
+}
+
+// The row of the sky holding a latitude, and a row's middle latitude, worked out here.
+int sky_row_of(double latitude_deg) { return static_cast<int>((90.0 - latitude_deg) * kSkyRows / 180.0); }
+double sky_row_latitude(int row) { return 90.0 - (row + 0.5) * 180.0 / kSkyRows; }
+double sky_col_longitude(int col) { return -180.0 + (col + 0.5) * 360.0 / kSkyCols; }
+
+// A report with no systems and a sky raining `rain_mm_h` everywhere (overcast where it rains).
+void even_sky(WeatherReport& report, double rain_mm_h) {
+    report.systems.clear();
+    report.sky.rain_mm_h.assign(kSkyCells, rain_mm_h);
+    report.sky.cloud_pct.assign(kSkyCells, rain_mm_h > 0.0 ? 100.0 : 0.0);
+}
+
 // The wind a sample reports, as east and north components.
 std::pair<double, double> components(const WeatherSample& s) {
     const double b = s.wind_bearing_deg * kPi / 180.0;
@@ -322,10 +353,16 @@ TEST(weather_is_a_function_of_the_moment_alone) {
     const World world = world_at();
     const double day = static_cast<double>(kYearStart) / 24.0 + 123.25;
     const std::string first = document(world, day);
-    for (const double other : {day - 40.0, day + 3.5, 0.0, day + 900.0}) (void)weather_report(world, other);
+    const WeatherSky sky = weather_report(world, day).sky;
+    for (const double other : {day - 40.0, day + 3.5, 0.0, day + 900.0, day - 0.5}) (void)weather_report(world, other);
     const World copy = world;
     check::equal(document(world, day), first, "the same moment asked again, after other moments");
     check::equal(document(copy, day), first, "the same moment on a copy of the world");
+    // The whole sky too, not only the two places the document samples.
+    for (const World* w : {&world, &copy}) {
+        const WeatherSky again = weather_report(*w, day).sky;
+        check::is_true(again.rain_mm_h == sky.rain_mm_h && again.cloud_pct == sky.cloud_pct, "the same sky asked again");
+    }
     check::is_true(!weather_report(world, day).systems.empty(), "premise: systems at that moment");
 }
 
@@ -816,6 +853,7 @@ TEST(weather_eye_is_calmer_than_its_wall_and_a_storm_without_one_is_not) {
     const double to_wall = (800.0 / radius) * 180.0 / kPi;
 
     WeatherReport report = weather_report(world, day);
+    even_sky(report, 0.0);
     report.systems = {synthetic(latitude, 60.0, 800.0, 4000.0)};
     const WeatherSample centre = weather_sample(world, report, latitude, 0.0);
     const WeatherSample wall = weather_sample(world, report, latitude + to_wall, 0.0);
@@ -830,6 +868,17 @@ TEST(weather_eye_is_calmer_than_its_wall_and_a_storm_without_one_is_not) {
         check::close(weather_sample(world, report, latitude, 0.0).intensity_pct, weather_intensity_pct(wind), 1e-6,
                      "the centre of a " + std::to_string(wind) + " m/s system");
     }
+
+    // The sky's own rain stops in the eye too: a downpour everywhere, and the eye still calm.
+    even_sky(report, 40.0);
+    report.systems = {synthetic(latitude, 60.0, 800.0, 4000.0)};
+    const double downpour = weather_sample(world, report, latitude + 60.0, 0.0).intensity_pct;
+    check::is_true(downpour >= 55.0, "premise: the sky's downpour reads heavy outside the system: " + std::to_string(downpour));
+    const WeatherSample eye = weather_sample(world, report, latitude, 0.0);
+    check::close(eye.intensity_pct, centre.intensity_pct, 1e-9, "the eye under a raining sky reads as the eye under a clear one");
+    // And the eye's sky clears: no cloud at its very middle, overcast at its wall.
+    check::close(eye.cloud_pct, 0.0, 1e-9, "a clear eye, though the sky around it is raining");
+    check::close(weather_sample(world, report, latitude + to_wall, 0.0).cloud_pct, 100.0, 1e-9, "an overcast wall");
 }
 
 TEST(weather_hurricane_force_systems_clear_toward_their_middle) {
@@ -854,66 +903,702 @@ TEST(weather_hurricane_force_systems_clear_toward_their_middle) {
     check::is_true(checked > 0, "premise: a system past hurricane force in a season");
 }
 
-// ---- thunderstorms ---------------------------------------------------------------------------
+// ---- the sky ---------------------------------------------------------------------------------
 
-TEST(weather_thunderstorms_come_with_the_afternoon_over_land_steadily_at_sea) {
-    const World world = world_at();
-    const WeatherInputs in = weather_inputs(world);
-    const Vec3 p = point(10.0, 20.0);
-    const double day = std::floor(mid_month(6));
-    const double afternoon = weather_convection(in, land(0.9, 26.0), p, day + 9.0 / 24.0).potential;
-    const double night = weather_convection(in, land(0.9, 26.0), p, day + 21.0 / 24.0).potential;
-    check::is_true(afternoon > 3.0 * night, "afternoon " + std::to_string(afternoon) + " against night " +
-                                                std::to_string(night));
-    check::close(weather_convection(in, sea(28.0), p, day + 9.0 / 24.0).potential,
-                 weather_convection(in, sea(28.0), p, day + 21.0 / 24.0).potential, 1e-12, "the sea by day and night");
-    check::is_true(weather_convection(in, land(0.9, 26.0), p, day + 9.0 / 24.0).potential >
-                       weather_convection(in, land(0.1, 26.0), p, day + 9.0 / 24.0).potential,
-                   "wet air storms more than dry");
-    check::is_true(weather_convection(in, land(0.9, 26.0), p, day + 9.0 / 24.0).potential >
-                       weather_convection(in, land(0.9, 8.0), p, day + 9.0 / 24.0).potential,
-                   "warm air storms more than cold");
+TEST(weather_rain_reads_on_the_named_scale_and_warm_air_holds_more) {
+    check::close(weather_rain_pct(0.0), 0.0, 1e-12, "no rain");
+    check::close(weather_rain_pct(0.5), 5.0, 1e-12, "light rain");
+    check::close(weather_rain_pct(2.5), 15.0, 1e-12, "moderate from 2.5 mm an hour");
+    check::close(weather_rain_pct(7.6), 30.0, 1e-12, "heavy from 7.6 mm an hour");
+    check::close(weather_rain_pct(20.0), 50.0, 1e-12, "a thunderstorm's downpour");
+    check::close(weather_rain_pct(50.0), 65.0, 1e-12, "violent");
+    check::close(weather_rain_pct(500.0), 65.0, 1e-12, "and no further on rain alone");
+    for (double r = 0.1; r < 60.0; r += 0.7) {
+        check::is_true(weather_rain_pct(r + 0.7) >= weather_rain_pct(r), "rising with the rain at " + std::to_string(r));
+    }
+    check::close(weather_capacity_mm(15.0), 25.0, 1e-12, "25 mm of water held at 15 C");
+    for (double t = -20.0; t < 35.0; t += 5.0) {
+        check::between(weather_capacity_mm(t + 1.0) / weather_capacity_mm(t), 1.06, 1.07,
+                       "about 6.5% more a degree at " + std::to_string(t));
+    }
 }
 
-TEST(weather_tornado_needs_heat_moisture_and_contrast_together_over_land) {
+TEST(weather_sky_left_in_place_builds_until_it_rains_then_comes_back_down) {
+    // Warm sea everywhere, and one cell watched where the trade winds meet: its water climbs while
+    // it is dry, a burst that rains hardest first takes it back down to about where every burst
+    // ends, and it fills again.
+    const WeatherSkyGround g = even_ground(1.0, 27.0, 0.6);
+    WeatherSkyState s = weather_sky_start(g, static_cast<std::int64_t>(mid_month(3) * 24.0), 42);
+    const std::size_t c = sky_index(sky_row_of(1.0), 30);
+    std::vector<double> began;  // the cell's share of what it can hold as each burst began
+    std::vector<double> ended;  // and as each ended
+    std::vector<std::vector<double>> bursts;
+    bool raining = false;
+    for (int h = 0; h < 2000; ++h) {
+        const double share = s.water_mm[c] / s.capacity_mm[c];
+        step_weather_sky(g, s, 42);
+        const double rain = s.rain_mm_h[c];
+        if (rain > 0.0 && !raining) {
+            bursts.emplace_back();
+            began.push_back(share);
+        }
+        if (rain > 0.0) bursts.back().push_back(rain);
+        if (!(rain > 0.0) && raining) ended.push_back(share);
+        raining = rain > 0.0;
+    }
+    check::is_true(ended.size() >= 5, "burst after burst: " + std::to_string(ended.size()));
+    const auto [low, high] = std::minmax_element(ended.begin(), ended.end());
+    check::is_true(*high - *low < 0.05, "every burst ends about where the others do: " + std::to_string(*low) + " to " +
+                                            std::to_string(*high));
+    for (std::size_t i = 0; i < ended.size(); ++i) {
+        check::is_true(began[i] > ended[i] + 0.2, "burst " + std::to_string(i) + " began fuller than it ended: " +
+                                                      std::to_string(began[i]) + " then " + std::to_string(ended[i]));
+        if (i > 0) check::is_true(began[i] > ended[i - 1] + 0.2, "and the cell filled again before burst " + std::to_string(i));
+        const std::vector<double>& b = bursts[i];
+        check::is_true(b.front() >= *std::max_element(b.begin(), b.end()), "burst " + std::to_string(i) + " rains hardest first");
+    }
+}
+
+TEST(weather_sky_cloud_rides_the_belts) {
+    // A patch of extra cloud, too thin to rain, is carried on the wind: east in the westerlies,
+    // west in the trades, as far as the belt's wind goes in that time as a share of the planet.
+    const WeatherSkyGround g = even_ground(0.0, 15.0, 0.6);
+    const auto start = static_cast<std::int64_t>(mid_month(3) * 24.0);
+    const int hours = 72;
+    for (const double latitude : {45.0, 12.0}) {
+        const int row = sky_row_of(latitude);
+        const std::size_t at = sky_index(row, 40);
+        WeatherSkyState base = weather_sky_start(g, start, 42);
+        for (std::size_t c = 0; c < kSkyCells; ++c) base.water_mm[c] = 0.2 * base.capacity_mm[c];
+        WeatherSkyState patch = base;
+        const double added = 0.3 * patch.capacity_mm[at];
+        patch.water_mm[at] += added;
+        int wet = 0;
+        for (int h = 0; h < hours; ++h) {
+            step_weather_sky(g, base, 42);
+            step_weather_sky(g, patch, 42);
+            for (std::size_t c = 0; c < kSkyCells; ++c) wet += base.rain_mm_h[c] > 0.0 || patch.rain_mm_h[c] > 0.0;
+        }
+        check::equal(wet, 0, "premise: too thin to rain anywhere");
+        // The patch's middle: the circular mean of its extra water's longitude, and the mean of
+        // its row (rows counted southward).
+        double sx = 0.0, sy = 0.0, rows = 0.0, extra = 0.0;
+        for (int r = 0; r < kSkyRows; ++r) {
+            for (int col = 0; col < kSkyCols; ++col) {
+                const double d = patch.water_mm[sky_index(r, col)] - base.water_mm[sky_index(r, col)];
+                const double a = 2.0 * kPi * col / kSkyCols;
+                sx += d * std::cos(a);
+                sy += d * std::sin(a);
+                rows += d * r;
+                extra += d;
+            }
+        }
+        double moved = std::atan2(sy, sx) / (2.0 * kPi) * kSkyCols - 40.0;
+        moved = std::remainder(moved, static_cast<double>(kSkyCols));
+        const double moved_north = row - rows / extra;
+        const BeltWind wind = weather_surface_wind(sky_row_latitude(row), static_cast<double>(start) / 24.0);
+        const double earth_radius = kEarthCircumferenceM / (2.0 * kPi);
+        const double metres = hours * 3600.0;
+        const double expected = wind.east_m_s * metres /
+                                (earth_radius * std::cos(sky_row_latitude(row) * kPi / 180.0)) / (2.0 * kPi / kSkyCols);
+        const double expected_north = wind.north_m_s * metres / earth_radius / (kPi / kSkyRows);
+        check::is_true(std::abs(expected) > 3.0 && std::abs(expected_north) > 1.0,
+                       "premise: a belt wind that carries the patch several cells along and one or more across");
+        check::close(moved, expected, 0.2 * std::abs(expected),
+                     "carried at " + std::to_string(latitude) + ": " + std::to_string(moved) + " cells east");
+        check::close(moved_north, expected_north, 0.3 * std::abs(expected_north),
+                     "and " + std::to_string(moved_north) + " rows north");
+        check::between(extra / added, 0.7, 1.3, "the cloud is carried, not made or lost, at " + std::to_string(latitude));
+    }
+}
+
+TEST(weather_sky_gathers_cloud_where_the_winds_meet_and_thins_it_where_they_part) {
+    // Warm sea everywhere, the same share of cloud in every cell to begin with, fed alike: two
+    // days on, the air over the equator, where the trade winds meet, holds far more than the air
+    // at thirty degrees, where the flow parts.
+    const WeatherSkyGround g = even_ground(1.0, 25.0, 0.5);
+    WeatherSkyState s = weather_sky_start(g, static_cast<std::int64_t>(mid_month(3) * 24.0), 42);
+    for (std::size_t c = 0; c < kSkyCells; ++c) s.water_mm[c] = 0.3 * s.capacity_mm[c];
+    int wet = 0;
+    for (int h = 0; h < 48; ++h) {
+        step_weather_sky(g, s, 42);
+        for (std::size_t c = 0; c < kSkyCells; ++c) wet += s.rain_mm_h[c] > 0.0;
+    }
+    check::equal(wet, 0, "premise: too thin to rain anywhere");
+    const auto rows_mean = [&](std::initializer_list<double> latitudes) {
+        double total = 0.0;
+        int count = 0;
+        for (const double latitude : latitudes) {
+            for (int col = 0; col < kSkyCols; ++col) {
+                total += s.water_mm[sky_index(sky_row_of(latitude), col)];
+                ++count;
+            }
+        }
+        return total / count;
+    };
+    const double meeting = rows_mean({1.0, -1.0});
+    const double parting = rows_mean({29.0, 31.0, -29.0, -31.0});
+    check::is_true(meeting > 1.5 * parting, "gathered where the winds meet: " + std::to_string(meeting) + " mm against " +
+                                                std::to_string(parting));
+}
+
+TEST(weather_sky_a_burst_breaking_amid_cloud_draws_it_in_and_rains_harder) {
+    // Cloud carried together rains out together. The same cell breaking into a burst at the
+    // same fullness, once ringed by cloud near full and once by thin cloud: amid cloud it draws
+    // that cloud in and rains far harder, and the cloud around it thins. Fullness as real runs
+    // have it at a burst's start (about full); the cell is one whose hour's draw breaks it there.
+    const WeatherSkyGround g = even_ground(1.0, 25.0, 0.5);
+    const WeatherSkyState start = weather_sky_start(g, kYearStart, 42);
+    const int row = sky_row_of(12.0);
+    const auto ringed = [&](int col, double own, double around) {
+        WeatherSkyState s = start;
+        for (int dr = -1; dr <= 1; ++dr) {
+            for (int dc = -1; dc <= 1; ++dc) {
+                const std::size_t n = sky_index(row + dr, (col + dc + kSkyCols) % kSkyCols);
+                s.water_mm[n] = (dr == 0 && dc == 0 ? own : around) * s.capacity_mm[n];
+            }
+        }
+        step_weather_sky(g, s, 42);
+        return s;
+    };
+    int col = -1;
+    for (int k = 0; k < kSkyCols && col < 0; ++k) {
+        if (ringed(k, 1.05, 0.6).rain_mm_h[sky_index(row, k)] > 0.0) col = k;
+    }
+    check::is_true(col >= 0, "premise: a cell whose hour's draw breaks it at about full");
+    if (col < 0) return;
+    const std::size_t c = sky_index(row, col);
+    const WeatherSkyState thin = ringed(col, 1.05, 0.6);
+    const WeatherSkyState cloudy = ringed(col, 1.05, 0.85);
+    const WeatherSkyState quiet = ringed(col, 0.5, 0.85);  // the same cloud around a cell that stays dry
+    check::is_true(cloudy.rain_mm_h[c] > 1.5 * thin.rain_mm_h[c], "amid cloud it rains far harder: " +
+                                                                      std::to_string(cloudy.rain_mm_h[c]) + " against " +
+                                                                      std::to_string(thin.rain_mm_h[c]) + " mm");
+    check::is_true(quiet.rain_mm_h[c] == 0.0, "premise: the dry cell does not break");
+    // The neighbours upwind of it in the trades (east and north), whose own water the wind does
+    // not bring from the cell: the burst drew their cloud in.
+    const BeltWind wind = weather_surface_wind(sky_row_latitude(row), static_cast<double>(kYearStart) / 24.0);
+    check::is_true(wind.east_m_s < 0.0 && wind.north_m_s < 0.0, "premise: a wind from the northeast");
+    for (const std::size_t n : {sky_index(row, (col + 1) % kSkyCols), sky_index(row - 1, col)}) {
+        check::is_true(cloudy.water_mm[n] < quiet.water_mm[n], "the burst drew in its neighbour's cloud");
+    }
+}
+
+TEST(weather_sky_bursts_breaking_amid_cloud_rain_hardest_in_a_real_run) {
+    // Over a month of a generated world's sky, the bursts that broke amid the most cloud rained
+    // harder in their first hour, for what their air holds, than those that broke amid the least.
+    const World world = world_at(33);
+    const WeatherSkyGround g = weather_sky_ground(weather_inputs(world));
+    WeatherSkyState s = weather_sky_start(g, kYearStart, world.config.seed);
+    struct Start {
+        double around;
+        double first;
+    };
+    std::vector<Start> starts;
+    std::vector<int> run(kSkyCells, 0);
+    std::vector<int> lengths;  // of the bursts that end within the month
+    for (int h = 0; h < 30 * 24; ++h) {
+        const WeatherSkyState before = s;
+        step_weather_sky(g, s, world.config.seed);
+        for (std::size_t c = 0; c < kSkyCells; ++c) {
+            if (s.rain_mm_h[c] > 0.0) {
+                ++run[c];
+            } else if (run[c] > 0) {
+                if (h >= 168) lengths.push_back(run[c]);
+                run[c] = 0;
+            }
+        }
+        if (h < 168) continue;
+        for (int row = 1; row < kSkyRows - 1; ++row) {
+            for (int col = 0; col < kSkyCols; ++col) {
+                const std::size_t c = sky_index(row, col);
+                if (!(s.rain_mm_h[c] > 0.0) || before.raining[c] != 0) continue;
+                double around = 0.0;
+                for (int dr = -1; dr <= 1; ++dr) {
+                    for (int dc = -1; dc <= 1; ++dc) {
+                        if (dr == 0 && dc == 0) continue;
+                        const std::size_t n = sky_index(row + dr, (col + dc + kSkyCols) % kSkyCols);
+                        around += before.water_mm[n] / before.capacity_mm[n] / 8.0;
+                    }
+                }
+                starts.push_back({around, s.rain_mm_h[c] / s.capacity_mm[c]});
+            }
+        }
+    }
+    check::is_true(starts.size() > 1000, "premise: bursts enough: " + std::to_string(starts.size()));
+    std::sort(starts.begin(), starts.end(), [](const Start& a, const Start& b) { return a.around < b.around; });
+    const std::size_t third = starts.size() / 3;
+    double clearest = 0.0, cloudiest = 0.0;
+    for (std::size_t i = 0; i < third; ++i) {
+        clearest += starts[i].first;
+        cloudiest += starts[starts.size() - 1 - i].first;
+    }
+    check::is_true(cloudiest > 1.15 * clearest, "amid cloud, harder first hours: " + std::to_string(cloudiest / third) +
+                                                   " against " + std::to_string(clearest / third) + " of what the air holds");
+    // A burst draws its neighbours in as it breaks, not all through: bursts last hours, not days.
+    std::sort(lengths.begin(), lengths.end());
+    check::is_true(!lengths.empty() && lengths[lengths.size() / 2] <= 6,
+                   "the middle burst lasts hours: " + std::to_string(lengths.empty() ? -1 : lengths[lengths.size() / 2]));
+}
+
+TEST(weather_sky_before_founding_day_rains_like_any_other_time) {
+    // The first week of the world's clock reads a run anchored before hour 0. Its hours before
+    // the clock starts rain as any run's do: no cell holds its water past its time and lets it all
+    // go at once.
+    const World world = world_at(33);
+    const WeatherInputs in = weather_inputs(world);
+    const WeatherSkyGround g = weather_sky_ground(in);
+    const std::int64_t first = weather_sky_anchor(0);
+    check::is_true(first < 0, "premise: the first week reads a run anchored before hour 0");
+    const auto rained = [&](std::int64_t anchor) {
+        WeatherSkyState s = weather_sky_start(g, anchor, in.seed);
+        long long hours = 0;
+        double hardest = 0.0;
+        for (int h = 0; h < kSkyAnchorHours; ++h) {
+            step_weather_sky(g, s, in.seed);
+            for (const double r : s.rain_mm_h) {
+                hours += r > 0.0;
+                hardest = std::max(hardest, r);
+            }
+        }
+        return std::pair{hours, hardest};
+    };
+    const auto [before, hardest_before] = rained(first);
+    const auto [later, hardest_later] = rained(weather_sky_anchor(kYearStart));
+    check::between(static_cast<double>(before) / static_cast<double>(later), 0.5, 2.0,
+                   "as much rain before the clock starts: " + std::to_string(before) + " against " + std::to_string(later) +
+                       " cell-hours");
+    check::is_true(hardest_before < 2.0 * hardest_later + 10.0, "and no deluge: " + std::to_string(hardest_before) + " mm/h");
+    for (const double day : {0.0, 0.5, 3.25, 6.9}) {
+        const WeatherSky sky = weather_sky(in, day);
+        int raining = 0;
+        for (const double r : sky.rain_mm_h) raining += r > 0.0;
+        check::is_true(raining < static_cast<int>(kSkyCells) / 8, "day " + std::to_string(day) + ": " +
+                                                                      std::to_string(raining) + " cells raining");
+        check::is_true(*std::max_element(sky.rain_mm_h.begin(), sky.rain_mm_h.end()) < 100.0,
+                       "day " + std::to_string(day) + ": no cell raining 100 mm an hour");
+    }
+}
+
+TEST(weather_sky_air_driven_up_a_slope_rains_sooner) {
+    // The same land twice, flat and rising to the east everywhere. Where the westerlies blow east
+    // the air is driven up the slope and rains more often; where the trades blow west it runs
+    // down the slope, and rains as it would over the flat.
+    const WeatherSkyGround flat = even_ground(0.0, 20.0, 0.6);
+    WeatherSkyGround sloped = flat;
+    sloped.rise_east.assign(kSkyCells, 400.0);
+    const auto rain_rows = [](const WeatherSkyGround& g, double from_deg, double to_deg) {
+        WeatherSkyState s = weather_sky_start(g, kYearStart, 42);
+        long long hours = 0;
+        for (int h = 0; h < 30 * 24; ++h) {
+            step_weather_sky(g, s, 42);
+            if (h < 168) continue;
+            for (int row = 0; row < kSkyRows; ++row) {
+                const double latitude = std::abs(sky_row_latitude(row));
+                if (latitude < from_deg || latitude > to_deg) continue;
+                for (int col = 0; col < kSkyCols; ++col) hours += s.rain_mm_h[sky_index(row, col)] > 0.0;
+            }
+        }
+        return static_cast<double>(hours);
+    };
+    const double westerlies_flat = rain_rows(flat, 38.0, 52.0);
+    const double westerlies_up = rain_rows(sloped, 38.0, 52.0);
+    const double trades_flat = rain_rows(flat, 8.0, 22.0);
+    const double trades_down = rain_rows(sloped, 8.0, 22.0);
+    check::is_true(westerlies_flat > 0.0 && trades_flat > 0.0, "premise: rain over the flat in both belts");
+    check::is_true(westerlies_up > 1.3 * westerlies_flat, "driven up the slope, more rain: " + std::to_string(westerlies_up) +
+                                                               " against " + std::to_string(westerlies_flat));
+    check::between(trades_down / trades_flat, 0.8, 1.25, "running down it, about as much as over the flat");
+}
+
+TEST(weather_sky_showers_at_sea_break_most_about_dawn) {
+    // The open sea's own daily beat: bursts break more often in the hours before sunrise, when the
+    // air over the water is coolest against it, than in the middle of the day.
+    const WeatherSkyGround g = even_ground(1.0, 27.0, 0.6);
+    WeatherSkyState s = weather_sky_start(g, kYearStart, 42);
+    std::array<int, 24> starts{};
+    for (int h = 0; h < 30 * 24; ++h) {
+        const WeatherSkyState before = s;
+        step_weather_sky(g, s, 42);
+        const auto hour_of_day = static_cast<std::size_t>((s.hour - 1) % 24);
+        for (std::size_t c = 0; c < kSkyCells; ++c) starts[hour_of_day] += s.rain_mm_h[c] > 0.0 && before.raining[c] == 0;
+    }
+    int dawn = 0;
+    int midday = 0;
+    for (std::size_t h = 20; h <= 23; ++h) dawn += starts[h];
+    for (std::size_t h = 5; h <= 8; ++h) midday += starts[h];
+    check::is_true(dawn > 1.3 * midday, "before sunrise " + std::to_string(dawn) + " against midday " + std::to_string(midday));
+}
+
+TEST(weather_sky_parts_refuse_a_grid_of_the_wrong_size) {
+    const auto refuses = [](auto&& call) {
+        try {
+            call();
+        } catch (const std::invalid_argument&) {
+            return true;
+        }
+        return false;
+    };
+    check::is_true(refuses([] { (void)weather_sky_start(WeatherSkyGround{}, 1000, 42); }), "an empty ground");
+    const WeatherSkyGround g = even_ground(1.0, 20.0, 0.5);
+    WeatherSkyGround short_month = g;
+    short_month.ice[7].resize(10);
+    check::is_true(refuses([&] { (void)weather_sky_start(short_month, 1000, 42); }), "a month short of cells");
+    WeatherSkyState s = weather_sky_start(g, 1000, 42);
+    s.raining.resize(10);
+    check::is_true(refuses([&] { step_weather_sky(g, s, 42); }), "a state short of cells");
+    WeatherSkyState whole = weather_sky_start(g, 1000, 42);
+    check::is_true(refuses([&] { step_weather_sky(short_month, whole, 42); }), "stepped on a ground short of cells");
+}
+
+TEST(weather_sky_rains_where_the_world_s_climate_is_wet_and_never_over_desert) {
+    // The same warm land twice, once as wet as a forest and once a desert: the forest's sky rains
+    // and carries cloud, the desert's never rains and carries a fraction of the cloud.
+    std::array<int, 2> rain_hours{};
+    std::array<double, 2> cloud{};
+    for (int k = 0; k < 2; ++k) {
+        const WeatherSkyGround g = even_ground(0.0, 25.0, k == 0 ? 0.8 : 0.05);
+        WeatherSkyState s = weather_sky_start(g, kYearStart, 42);
+        if (k == 1) {
+            // A run opens with its deserts already clear, not with cloud that takes days to thin.
+            for (std::size_t c = 0; c < kSkyCells; c += 97) {
+                check::is_true(s.water_mm[c] < 0.05 * s.capacity_mm[c], "a desert cell opens clear");
+            }
+        }
+        for (int h = 0; h < 600; ++h) {
+            step_weather_sky(g, s, 42);
+            if (h < 120) continue;
+            for (std::size_t c = 0; c < kSkyCells; ++c) {
+                rain_hours[static_cast<std::size_t>(k)] += s.rain_mm_h[c] > 0.0;
+                cloud[static_cast<std::size_t>(k)] += s.water_mm[c] / s.capacity_mm[c];
+            }
+        }
+    }
+    check::is_true(rain_hours[0] > 1000, "the forest's sky rains: " + std::to_string(rain_hours[0]) + " cell-hours");
+    check::equal(rain_hours[1], 0, "the desert's never does");
+    check::is_true(cloud[1] < 0.2 * cloud[0], "the desert's air carries a fraction of the forest's cloud");
+
+    // On a generated world, the driest tenth of the land rains far less than the wettest tenth.
+    const World world = world_at(33);
+    const WeatherSkyGround g = weather_sky_ground(weather_inputs(world));
+    WeatherSkyState s = weather_sky_start(g, kYearStart, world.config.seed);
+    std::vector<int> hours_raining(kSkyCells, 0);
+    for (int h = 0; h < 30 * 24; ++h) {
+        step_weather_sky(g, s, world.config.seed);
+        if (h < 168) continue;
+        for (std::size_t c = 0; c < kSkyCells; ++c) hours_raining[c] += s.rain_mm_h[c] > 0.0;
+    }
+    std::vector<std::pair<double, std::size_t>> land;
+    for (std::size_t c = 0; c < kSkyCells; ++c) {
+        if (g.water[c] < 0.1) land.push_back({g.moisture[c], c});
+    }
+    std::sort(land.begin(), land.end());
+    const std::size_t tenth = land.size() / 10;
+    check::is_true(tenth >= 20, "premise: land enough to split into tenths");
+    double dry = 0.0, wet = 0.0;
+    for (std::size_t i = 0; i < tenth; ++i) {
+        dry += hours_raining[land[i].second];
+        wet += hours_raining[land[land.size() - 1 - i].second];
+    }
+    check::is_true(wet > 0.0 && dry < 0.2 * wet, "the driest land rains a fifth as often as the wettest or less: " +
+                                                      std::to_string(dry) + " against " + std::to_string(wet));
+}
+
+TEST(weather_sky_warm_open_water_feeds_the_air) {
+    // The same sea twice, open and frozen over, from the same thin cloud: after a day the open
+    // sea's air holds more water, and a warm sea feeds it more than a cool one.
+    const auto fed = [](double temperature_c) {
+        WeatherSkyGround open = even_ground(1.0, temperature_c, 0.5);
+        WeatherSkyGround frozen = open;
+        for (auto& i : frozen.ice) i.assign(kSkyCells, 1.0);
+        double gained = 0.0;
+        for (int k = 0; k < 2; ++k) {
+            const WeatherSkyGround& g = k == 0 ? open : frozen;
+            WeatherSkyState s = weather_sky_start(g, kYearStart, 42);
+            for (std::size_t c = 0; c < kSkyCells; ++c) s.water_mm[c] = 0.2 * s.capacity_mm[c];
+            int wet = 0;
+            for (int h = 0; h < 24; ++h) {
+                step_weather_sky(g, s, 42);
+                for (std::size_t c = 0; c < kSkyCells; ++c) wet += s.rain_mm_h[c] > 0.0;
+            }
+            check::equal(wet, 0, "premise: too thin to rain anywhere");
+            double total = 0.0;
+            for (const double w : s.water_mm) total += w;
+            gained += (k == 0 ? 1.0 : -1.0) * total / static_cast<double>(kSkyCells);
+        }
+        return gained;
+    };
+    const double warm = fed(27.0);
+    const double cool = fed(10.0);
+    check::is_true(warm > 1.0, "open warm water fed the air a day's worth: " + std::to_string(warm) + " mm");
+    check::is_true(warm > 1.5 * cool, "a warm sea feeds it more than a cool one: " + std::to_string(warm) + " against " +
+                                          std::to_string(cool) + " mm");
+}
+
+TEST(weather_sky_air_the_climate_made_wet_rains_sooner) {
+    // The same warm sea twice, fed alike, once under air the world's climate made wet and once
+    // dry: the wet air holds less before it rains, so it rains more often and is cloudier.
+    std::array<int, 2> rain_hours{};
+    std::array<double, 2> share{};
+    for (int k = 0; k < 2; ++k) {
+        const WeatherSkyGround g = even_ground(1.0, 27.0, k == 0 ? 0.8 : 0.2);
+        WeatherSkyState s = weather_sky_start(g, kYearStart, 42);
+        for (int h = 0; h < 600; ++h) {
+            step_weather_sky(g, s, 42);
+            if (h < 168) continue;
+            for (std::size_t c = 0; c < kSkyCells; ++c) {
+                rain_hours[static_cast<std::size_t>(k)] += s.rain_mm_h[c] > 0.0;
+                share[static_cast<std::size_t>(k)] += s.water_mm[c] / s.capacity_mm[c];
+            }
+        }
+    }
+    check::is_true(rain_hours[0] > 1.5 * rain_hours[1], "wet air rains more often: " + std::to_string(rain_hours[0]) +
+                                                            " against " + std::to_string(rain_hours[1]) + " cell-hours");
+    check::is_true(share[0] > share[1], "and holds its water nearer to full");
+}
+
+TEST(weather_sky_land_showers_start_in_the_afternoon) {
+    // Wet land heated through the day turns over in the afternoon: bursts start far more often
+    // from late morning to evening than through the night.
+    const WeatherSkyGround g = even_ground(0.0, 25.0, 0.8);
+    WeatherSkyState s = weather_sky_start(g, kYearStart, 42);
+    std::array<int, 24> starts{};
+    std::vector<char> was(kSkyCells, 0);
+    for (int h = 0; h < 30 * 24; ++h) {
+        step_weather_sky(g, s, 42);
+        const auto hour_of_day = static_cast<std::size_t>((s.hour - 1) % 24);  // the hour the step rained through
+        for (std::size_t c = 0; c < kSkyCells; ++c) {
+            const bool now = s.rain_mm_h[c] > 0.0;
+            if (now && !was[c]) ++starts[hour_of_day];
+            was[c] = now ? 1 : 0;
+        }
+    }
+    int day = 0;
+    int night = 0;
+    for (std::size_t h = 4; h <= 10; ++h) day += starts[h];
+    for (std::size_t h = 15; h <= 21; ++h) night += starts[h];
+    check::is_true(day > 3 * night, "afternoon starts " + std::to_string(day) + " against night " + std::to_string(night));
+}
+
+TEST(weather_thunderstorms_need_heavy_rain_in_warm_moist_air_heated_from_below) {
+    const double afternoon = 9.0;
+    const double night = 21.0;
+    check::is_true(weather_rain_severity_pct(land(0.8, 27.0), 10.0, afternoon) >= 50.0,
+                   "heavy rain on warm, wet land in the afternoon is a thunderstorm");
+    check::close(weather_rain_severity_pct(land(0.8, 8.0), 10.0, afternoon), weather_rain_pct(10.0), 1e-12,
+                 "over cold land the same rain is only rain");
+    check::close(weather_rain_severity_pct(land(0.1, 27.0), 10.0, afternoon), weather_rain_pct(10.0), 1e-12,
+                 "and in dry air");
+    check::is_true(weather_rain_severity_pct(land(0.8, 23.0), 10.0, afternoon) >
+                       weather_rain_severity_pct(land(0.8, 23.0), 10.0, night) + 5.0,
+                   "land warmed by the day storms more than land cooled by the night");
+    check::close(weather_rain_severity_pct(sea(28.0), 10.0, afternoon), weather_rain_severity_pct(sea(28.0), 10.0, night),
+                 1e-12, "the sea by day and night");
+    check::is_true(weather_rain_severity_pct(sea(28.0), 10.0, afternoon) > weather_rain_pct(10.0) &&
+                       weather_rain_severity_pct(sea(28.0), 10.0, afternoon) <
+                           weather_rain_severity_pct(land(0.8, 28.0), 10.0, afternoon),
+                   "the warm sea storms, but less than warm land");
+    check::is_true(weather_rain_severity_pct(land(0.8, 29.0), 1.0, afternoon) < 30.0, "light rain is no thunderstorm");
+    check::is_true(weather_rain_severity_pct(land(0.8, 29.0, 0.6), 12.0, afternoon) >= 75.0,
+                   "heat, moisture and contrast together over land make it severe");
+    check::is_true(weather_rain_severity_pct(land(0.8, 29.0, 0.1), 12.0, afternoon) < 70.0,
+                   "without contrast, a thunderstorm and no more");
+    check::equal(weather_rain_severity_pct(land(0.8, 29.0, 0.6), 0.0, afternoon), 0.0, "no rain, nothing");
+    for (const double rain : {0.3, 5.0, 30.0, 300.0}) {
+        check::between(weather_rain_severity_pct(land(0.8, 29.0, 0.6), rain, afternoon), 0.0, 100.0, "on the scale");
+    }
+}
+
+TEST(weather_tornado_stands_at_its_spot_in_hard_rain_over_severe_ground) {
+    // With hard rain everywhere on a summer afternoon, a tornado stands at the hour's spot of a
+    // cell where the ground under it holds a severe storm's makings: never over the sea, never in
+    // lighter rain, and not a quarter of a cell off its spot.
     const World world = world_at();
     const WeatherInputs in = weather_inputs(world);
-    const Vec3 p = point(30.0, 20.0);
-    const double afternoon = std::floor(mid_month(6)) + 9.0 / 24.0;
-    const double all = weather_convection(in, land(0.8, 29.0, 0.6), p, afternoon).potential;
-    check::is_true(all > 0.95, "heat, moisture and contrast over land reach the top of the scale: " + std::to_string(all));
-    check::is_true(weather_convection(in, land(0.8, 29.0, 0.1), p, afternoon).potential < 0.61,
-                   "without contrast, a thunderstorm and no more");
-    WeatherGround wet_sea = sea(29.0);
-    wet_sea.moisture = 0.8;
-    wet_sea.contrast = 0.6;
-    check::is_true(weather_convection(in, wet_sea, p, afternoon).potential < 0.61, "over the sea, no tornado");
-    check::is_true(weather_convection(in, land(0.2, 29.0, 0.6), p, afternoon).potential < 0.61,
-                   "in dry air, no tornado");
-
-    // Where the air allows one, a tornado does stand -- at the top of the scale -- but only in
-    // the rarest cores; and what a point has never passes what its air could give.
     int tornadoes = 0;
-    int points = 0;
-    for (int i = 0; i < 20000; ++i) {
-        const Vec3 q = point(-60.0 + 120.0 * ((i * 7919) % 20000) / 20000.0, -180.0 + 360.0 * ((i * 104729) % 20000) / 20000.0);
-        const WeatherConvection c = weather_convection(in, land(0.8, 29.0, 0.6), q, afternoon);
-        check::is_true(c.severity >= 0.0 && c.severity <= c.potential + 1e-12, "severity within potential");
-        ++points;
-        if (c.severity >= 0.999) ++tornadoes;
+    int sea_spots = 0;
+    for (const double month : {6.0, 0.0}) {  // each hemisphere's summer
+        const double day = std::floor(mid_month(month)) + 9.0 / 24.0;
+        const auto hour = static_cast<std::int64_t>(std::llround(day * 24.0));
+        WeatherReport hard = weather_report(world, day);
+        even_sky(hard, 15.0);
+        WeatherReport lighter = hard;
+        even_sky(lighter, 8.0);
+        for (int row = 0; row < kSkyRows; ++row) {
+            for (int col = 0; col < kSkyCols; ++col) {
+                const Vec3 spot = weather_tornado_spot(in.seed, hour, row, col);
+                const double latitude = latitude_of(spot);
+                const double longitude = longitude_of(spot);
+                const WeatherGround ground = weather_ground(in, spot, day);
+                const double here = weather_sample(world, hard, latitude, longitude).intensity_pct;
+                if (ground.water >= 0.5) {
+                    ++sea_spots;
+                    check::is_true(here < 99.9, "no tornado over the sea");
+                    continue;
+                }
+                if (here < 99.9) continue;
+                ++tornadoes;
+                WeatherGround flat = ground;
+                flat.contrast = 0.0;
+                check::is_true(weather_rain_severity_pct(ground, 15.0, 9.0) > weather_rain_severity_pct(flat, 15.0, 9.0),
+                               "contrast is at work where a tornado stands");
+                check::is_true(weather_sample(world, lighter, latitude, longitude).intensity_pct < 99.9,
+                               "no tornado in lighter rain");
+                const double nearer = latitude + (latitude > sky_row_latitude(row) ? -0.25 : 0.25) * 180.0 / kSkyRows;
+                check::is_true(weather_sample(world, hard, nearer, longitude).intensity_pct < 99.9,
+                               "no tornado a quarter of a cell off its spot");
+            }
+        }
     }
-    check::is_true(tornadoes > 0, "a tornado stands somewhere the air allows one");
-    check::is_true(tornadoes < points / 100, "tornadoes are rare: " + std::to_string(tornadoes) + " of " +
-                                                 std::to_string(points));
+    check::is_true(tornadoes > 0, "premise: a tornado somewhere");
+    check::is_true(sea_spots > 0, "premise: spots over the sea");
+}
+
+TEST(weather_sky_rain_covers_its_cell_at_full_strength_and_an_even_sky_reads_even) {
+    const World world = world_at(33);
+    const WeatherInputs in = weather_inputs(world);
+    const double day = std::floor(mid_month(2)) + 22.0 / 24.0;
+    WeatherReport report = weather_report(world, day);
+
+    // Rain the same everywhere reads the same rain at every place: that rain's severity on the
+    // ground there, under an overcast sky.
+    even_sky(report, 6.0);
+    for (int i = 0; i < 400; ++i) {
+        const double latitude = -89.0 + 178.0 * ((i * 37) % 400) / 400.0;
+        const double longitude = -180.0 + 360.0 * ((i * 91) % 400) / 400.0;
+        const WeatherSample s = weather_sample(world, report, latitude, longitude);
+        check::close(s.intensity_pct, weather_rain_severity_pct(weather_ground(in, point(latitude, longitude), day), 6.0, 22.0),
+                     1e-9, "an even sky at place " + std::to_string(i));
+        check::close(s.cloud_pct, 100.0, 1e-9, "overcast at place " + std::to_string(i));
+    }
+
+    // One cell raining alone: its full strength across the cell, to its corners; fading past
+    // them; nothing a whole cell away.
+    even_sky(report, 0.0);
+    const int row = sky_row_of(20.0);
+    const int col = 50;
+    report.sky.rain_mm_h[sky_index(row, col)] = 6.0;
+    report.sky.cloud_pct[sky_index(row, col)] = 100.0;
+    const double across = 180.0 / kSkyRows;
+    const double along = 360.0 / kSkyCols;
+    const auto at = [&](double rows, double cols) {
+        const double latitude = sky_row_latitude(row) - rows * across;
+        const double longitude = sky_col_longitude(col) + cols * along;
+        const WeatherSample s = weather_sample(world, report, latitude, longitude);
+        return std::pair{s, weather_rain_severity_pct(weather_ground(in, point(latitude, longitude), day), 6.0, 22.0)};
+    };
+    for (const auto& [rows, cols] : {std::pair{0.0, 0.0}, {0.3, 0.3}, {-0.45, 0.2}, {0.5, 0.0}, {0.0, -0.5}, {0.5, 0.5}}) {
+        const auto [s, full] = at(rows, cols);
+        check::close(s.intensity_pct, full, 1e-9, "full strength within the cell");
+        check::close(s.cloud_pct, 100.0, 1e-9, "overcast within the cell");
+    }
+    const auto [fading, full] = at(0.85, 0.0);
+    check::is_true(fading.intensity_pct > 0.0 && fading.intensity_pct < full, "fading past the cell");
+    for (const auto& [rows, cols] : {std::pair{1.0, 0.0}, {0.0, 1.05}, {-1.0, 0.3}, {0.8, 0.8}}) {
+        const auto [s, unused] = at(rows, cols);
+        check::close(s.intensity_pct, 0.0, 1e-12, "dry a whole cell away");
+        check::close(s.cloud_pct, 0.0, 1e-12, "and clear");
+    }
+}
+
+TEST(weather_sky_is_the_same_whichever_hour_asks_and_is_the_run_by_hand) {
+    const World world = world_at(33);
+    const WeatherInputs in = weather_inputs(world);
+    const WeatherSkyGround g = weather_sky_ground(in);
+    const std::int64_t hour = kYearStart + 5000;
+    const std::int64_t anchor = weather_sky_anchor(hour);
+    check::is_true(hour >= anchor + kSkySpinUpHours, "the hour's run has spun up by then");
+    check::is_true(hour < anchor + kSkySpinUpHours + kSkyAnchorHours - kSkyBlendHours, "premise: outside a blend");
+
+    // By hand: the run from the anchor, stepped to the hour.
+    WeatherSkyState s = weather_sky_start(g, anchor, in.seed);
+    while (s.hour < hour) step_weather_sky(g, s, in.seed);
+
+    // Through the read, first thirty hours before, so the read at the hour steps on from there.
+    (void)weather_sky(in, static_cast<double>(hour - 30) / 24.0);
+    const WeatherSky read = weather_sky(in, static_cast<double>(hour) / 24.0);
+    check::is_true(read.rain_mm_h == s.rain_mm_h, "the read is the run by hand, rain for rain");
+    int raining = 0;
+    for (std::size_t c = 0; c < kSkyCells; ++c) {
+        check::between(read.cloud_pct[c], 0.0, 100.0, "cloud on its scale");
+        if (!(s.rain_mm_h[c] > 0.0)) continue;
+        ++raining;
+        check::close(read.cloud_pct[c], 100.0, 0.0, "overcast where it rains");
+    }
+    check::is_true(raining > 20, "premise: rain somewhere");
+
+    // Where it is not raining, cloud rises with how full the air is, from clear to overcast.
+    std::vector<std::pair<double, double>> dry;  // how full, and the cloud
+    for (std::size_t c = 0; c < kSkyCells; ++c) {
+        if (!(s.rain_mm_h[c] > 0.0)) dry.push_back({s.water_mm[c] / s.capacity_mm[c], read.cloud_pct[c]});
+    }
+    std::sort(dry.begin(), dry.end());
+    for (std::size_t i = 1; i < dry.size(); ++i) {
+        check::is_true(dry[i].second >= dry[i - 1].second - 1e-9, "fuller air is no less cloudy");
+    }
+    int clear = 0;
+    int overcast = 0;
+    for (const auto& [full, cloud] : dry) {
+        clear += cloud < 20.0;
+        overcast += cloud > 80.0;
+    }
+    check::is_true(clear > 100 && overcast > 100, "dry cells from clear to overcast: " + std::to_string(clear) + " clear, " +
+                                                      std::to_string(overcast) + " overcast");
+
+    // Asked again, after hours far off either way, the same sky.
+    (void)weather_sky(in, static_cast<double>(hour + 2000) / 24.0);
+    (void)weather_sky(in, static_cast<double>(hour - 3000) / 24.0);
+    const WeatherSky again = weather_sky(in, static_cast<double>(hour) / 24.0);
+    check::is_true(again.rain_mm_h == read.rain_mm_h && again.cloud_pct == read.cloud_pct, "the same sky asked again");
+
+    // Between two hours, the straight blend of them.
+    const WeatherSky next = weather_sky(in, static_cast<double>(hour + 1) / 24.0);
+    const WeatherSky quarter = weather_sky(in, (static_cast<double>(hour) + 0.25) / 24.0);
+    for (std::size_t c = 0; c < kSkyCells; ++c) {
+        check::close(quarter.rain_mm_h[c], read.rain_mm_h[c] + 0.25 * (next.rain_mm_h[c] - read.rain_mm_h[c]), 1e-6,
+                     "a quarter past the hour, rain");
+        check::close(quarter.cloud_pct[c], read.cloud_pct[c] + 0.25 * (next.cloud_pct[c] - read.cloud_pct[c]), 1e-6,
+                     "a quarter past the hour, cloud");
+    }
+}
+
+TEST(weather_sky_blends_into_the_next_run_over_the_last_day_of_each_window) {
+    const World world = world_at(33);
+    const WeatherInputs in = weather_inputs(world);
+    const WeatherSkyGround g = weather_sky_ground(in);
+    const std::int64_t anchor = weather_sky_anchor(kYearStart + 5000);
+    const std::int64_t next = anchor + kSkyAnchorHours;
+    const std::int64_t from = next + kSkySpinUpHours - kSkyBlendHours;
+    const std::int64_t to = next + kSkySpinUpHours;
+    check::equal(weather_sky_anchor(to - 1), anchor, "the window's last hour reads its own anchor's run");
+    check::equal(weather_sky_anchor(to), next, "the hour after it, the next anchor's");
+
+    WeatherSkyState a = weather_sky_start(g, anchor, in.seed);
+    WeatherSkyState b = weather_sky_start(g, next, in.seed);
+    while (a.hour < from) step_weather_sky(g, a, in.seed);
+    while (b.hour < from) step_weather_sky(g, b, in.seed);
+    int differ = 0;
+    for (std::int64_t h = from; h <= to; ++h) {
+        const double w = static_cast<double>(h - from) / static_cast<double>(kSkyBlendHours);
+        const WeatherSky read = weather_sky(in, static_cast<double>(h) / 24.0);
+        for (std::size_t c = 0; c < kSkyCells; ++c) {
+            check::close(read.rain_mm_h[c], a.rain_mm_h[c] + w * (b.rain_mm_h[c] - a.rain_mm_h[c]), 1e-9,
+                         "the blend at hour " + std::to_string(h - from) + " of the day");
+            if (a.rain_mm_h[c] != b.rain_mm_h[c]) ++differ;
+        }
+        step_weather_sky(g, a, in.seed);
+        step_weather_sky(g, b, in.seed);
+    }
+    check::is_true(differ > 0, "premise: the two runs differ, so the blend has something to blend");
 }
 
 TEST(weather_gusts_run_with_the_prevailing_wind) {
-    // A thunderstorm's gust is added along the belt's wind, so where a cell is the weather the
+    // A downpour's gust is added along the belt's wind, so where the sky's rain is the weather the
     // wind still blows the belt's way.
     const World world = world_at();
     const double day = std::floor(mid_month(6)) + 9.0 / 24.0;
     WeatherReport report = weather_report(world, day);
-    report.systems.clear();
+    even_sky(report, 10.0);
     int checked = 0;
     for (int i = 0; i < 4000 && checked < 10; ++i) {
         const double latitude = 8.0 + 17.0 * ((i * 37) % 4000) / 4000.0;
@@ -926,7 +1611,7 @@ TEST(weather_gusts_run_with_the_prevailing_wind) {
         check::is_true(s.wind_speed_m_s > std::hypot(belt.east_m_s, belt.north_m_s), "a gust adds to the wind");
         ++checked;
     }
-    check::is_true(checked > 0, "premise: a thunderstorm in the trades on a summer afternoon");
+    check::equal(checked, 10, "premise: heavy rain in the trades");
 }
 
 // ---- samples, the field, the document -------------------------------------------------------
@@ -936,7 +1621,7 @@ TEST(weather_sample_blows_toward_its_bearing) {
     // westerlies it blows toward the northeast.
     const World world = world_at();
     WeatherReport report = weather_report(world, mid_month(0) + 0.9);
-    report.systems.clear();
+    even_sky(report, 0.0);
     const WeatherSample s = weather_sample(world, report, 45.0, 0.0);
     check::is_true(s.intensity_pct < 5.0, "premise: a quiet winter night");
     check::between(s.wind_bearing_deg, 0.0, 90.0, "the westerlies blow toward the northeast");
@@ -957,6 +1642,7 @@ TEST(weather_samples_stay_on_their_scales) {
             const WeatherSample s = weather_sample(world, report, -85.0 + 170.0 * (i % 61) / 60.0,
                                                    -180.0 + 360.0 * (i % 67) / 67.0);
             check::between(s.intensity_pct, 0.0, 100.0, "intensity");
+            check::between(s.cloud_pct, 0.0, 100.0, "cloud");
             check::between(s.summer_pct, 0.0, 100.0, "summer");
             check::is_true(s.wind_bearing_deg >= 0.0 && s.wind_bearing_deg < 360.0, "a bearing");
             check::is_true(std::isfinite(s.wind_speed_m_s) && s.wind_speed_m_s >= 0.0, "a wind speed");
@@ -975,6 +1661,7 @@ TEST(weather_field_is_the_samples_on_the_world_s_grid) {
     for (int z = 0; z < n; ++z) {
         for (int x = 0; x < n; ++x) {
             check::between(field.intensity_pct.at(x, z), 0.0, 100.0, "field intensity");
+            check::between(field.cloud_pct.at(x, z), 0.0, 100.0, "field cloud");
             check::between(field.summer_pct.at(x, z), 0.0, 100.0, "field summer");
         }
     }
@@ -983,6 +1670,7 @@ TEST(weather_field_is_the_samples_on_the_world_s_grid) {
         const Vec3 p = direction(x, z, n);
         const WeatherSample s = weather_sample(world, report, latitude_of(p), longitude_of(p));
         check::close(field.intensity_pct.at(x, z), s.intensity_pct, 1e-9, "the field's intensity and the sample agree");
+        check::close(field.cloud_pct.at(x, z), s.cloud_pct, 1e-9, "the field's cloud and the sample agree");
         check::close(field.summer_pct.at(x, z), s.summer_pct, 1e-9, "the field's summer and the sample agree");
         check::close(field.wind_speed_m_s.at(x, z), s.wind_speed_m_s, 1e-9, "the field's wind and the sample agree");
     }
@@ -1007,13 +1695,14 @@ TEST(weather_document_names_its_schema_moments_and_both_seasons) {
     check::close(moments[1].samples[0].summer_pct, 0.0, 1e-9, "premise: the south pole in winter");
 
     const std::string text = document(moments);
-    check::is_true(text.rfind("{\"schema\":\"fwg.weather\",\"version\":1,\"moments\":[{", 0) == 0,
+    check::is_true(text.rfind("{\"schema\":\"fwg.weather\",\"version\":2,\"moments\":[{", 0) == 0,
                    "the schema leads: " + text.substr(0, 60));
     check::is_true(text.find("\"summer_pct\":100,\"winter_pct\":0,") != std::string::npos, "summer, and no winter");
     check::is_true(text.find("\"summer_pct\":0,\"winter_pct\":100,") != std::string::npos, "winter, and no summer");
     check::is_true(text.find("\"hour\":13,\"month\":2,") != std::string::npos, "the first moment's hour and month");
     check::is_true(text.find("\"hour\":14,\"month\":2,") != std::string::npos, "the second moment's hour and month");
-    for (const char* key : {"\"systems\":[", "\"samples\":[", "\"intensity_pct\":", "\"wind_bearing_deg\":", "\"limits\":"}) {
+    for (const char* key : {"\"systems\":[", "\"samples\":[", "\"intensity_pct\":", "\"cloud_pct\":", "\"wind_bearing_deg\":",
+                            "\"limits\":"}) {
         check::is_true(text.find(key) != std::string::npos, std::string("the document carries ") + key);
     }
 }

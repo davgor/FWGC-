@@ -61,9 +61,10 @@ usage:
                           its weather hour by hour for N hours (default 1) from
                           day D (real days since founding year 0; default the
                           world's clock): each hour's storm systems and, given a
-                          place, its intensity, wind and summer percentage then,
-                          as the fwg.weather document (compact JSON). A refused
-                          day or place is printed as a failure document, exit 2
+                          place, its intensity, cloud, wind and summer percentage
+                          then, as the fwg.weather document (compact JSON). A
+                          refused day or place is printed as a failure document,
+                          exit 2
 
 --terse-errors          a refused request's JSON envelope carries only code,
                         message and field, not received/expected/suggestion
