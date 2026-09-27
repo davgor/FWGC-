@@ -183,3 +183,17 @@ any | heard_deed | They say you {deed}.
 any | news | The word is {news}.
 any | news | Some are saying {news}.
 any | news | I heard that {news}.
+
+# Small talk that asks for news ("Any news?"), read by meaning. News not told yet is a heard_deed
+# or news line above, said alone. Told lately: what the stranger did, as the talk of it, never
+# read back as fact (they never said it was them); others' news, said again as told ({news}).
+# None heard: no_news.
+any | heard_deed_told | Only the talk of what you did, and you'd tell that better than me.
+any | heard_deed_told | Nothing but what's said of you, and you'd know the truth of it.
+any | heard_deed_told | Only the talk about you, and you've heard that already.
+any | news_told | As I said, {news}.
+any | news_told | Only what I said before: {news}.
+any | news_told | Nothing more than I told you: {news}.
+any | no_news | Nothing's reached me.
+any | no_news | No news that I've heard.
+any | no_news | I've not heard a thing.

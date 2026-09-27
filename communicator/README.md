@@ -357,7 +357,10 @@ larger-than-life heroes.
   you?" from `small_talk`'s, each taking turns as ever. Measured 2026-09-26: 14 of 14 lines of
   small talk read right, and 29 of 30 held out ("Good day at the forge?" was read as the weather);
   0.012 s a turn on the CPU. In the judged session it changed the two answers the judge had faulted
-  as weather to "how are things", and no other. Without a `Meaning`, the pool takes turns.
+  as weather to "how are things", and no other. Without a `Meaning`, the pool takes turns. A third
+  subject, news (contract version 11), answers "Any news?" with the news (below): with it, 14 of 14
+  tuning lines and 27 of 30 held out read right (2026-09-27): 10 of 10 asking for news, the two
+  missed before, and "How's trade been?", now read as news.
 - **Asked to be remembered, a speaker recalls the meeting** (the same `Meaning`): someone met
   before who says "Remember me?" or "It's been a while" is greeted with a line that says how long
   since or what was asked then, while one has not been said lately. 11 of 12 held-out greetings
@@ -441,22 +444,42 @@ Contract version 11: a News fact is an event the speaker has heard of (orchestra
 lists its fields). The communicator says it in words C++ writes from the fact's own fields
 (`src/news.hpp`), never a model's: what the stranger did, as words after "you" ("helped Wenweg
 hold", "beat off the threat at the fortress of Wenweg", "showed that Maren is a cult leader"), and
-what happened, as words a sentence holds ("Halbrann is looking for help with Wenweg", "nobody
-answered Halbrann's call for help", "there was a scare at Wenweg"). A defended place, a reclaimed,
-recovered, cleared, cleansed or rebuilt one is said by its verb; other work by its giver ("did what
-Halbrann asked"). Nothing is said of the speaker's own work or of themself, which their own lines
+what happened, as words a sentence holds ("Halbrann wants someone to stand with Wenweg when they
+come for it", "nobody answered Halbrann's call for help", "there was a scare at Wenweg"). A
+defended place, a reclaimed, recovered, cleared, cleansed or rebuilt one is said by its verb; other
+work by its giver ("did what Halbrann asked"); work asked for by what its giver asked, as an offer
+is ("looking for help with Graffen" told a judge nothing to go and do). A place is said as someone
+standing where the speaker stands says it: one named for their town by its kind ("the fortress of
+Iskmor" is "the fortress" in Iskmor), their own place as "here", and a defence of it as theirs
+("helped us hold"); a judge heard the whole names from townsfolk as labels off a map (2026-09-27).
+Nothing is said of the speaker's own work, of themself or of what they did, which their own lines
 say ("They finished the work you gave them").
 
 - **Which news** (`news_to_pass_on`): the first of the packet's News facts, in the director's order,
-  that has words. An answer about a place or a person passes on no work only asked for there, which
-  the answer lists already: "Wenisk wants someone to stand with Iskmor. The word is Wenisk is
-  looking for help with Iskmor" says it twice. The written lines and the voice both choose by it.
-- **Written lines** say it after the reply, a sentence of their own (`Lines::follow`): after a
-  greeting, what the stranger did (`heard_deed`: "You're the one who {deed}, aren't you?"); after
-  small talk or an answer about a place or a person, what happened (`news`: "The word is {news}.").
-  Not from a frightened or a cold speaker, whose own lines are all they say, and not news said
-  lately, in either wording: "You're the one who helped Wenweg hold" at a greeting and "The word is
-  you helped Wenweg hold" in the small talk after it is a speaker with one thought.
+  that has words, and that the speaker heard: what happened to them (the News fact's `how`
+  "there": frightened there, talked down there) is theirs to say in their own lines, never as
+  "some are saying". An answer about a place or a person passes on no work only asked for there,
+  which the answer lists already: "Wenisk wants someone to stand with Iskmor. The word is Wenisk
+  wants someone to stand with Iskmor" says it twice. The written lines and the voice both choose by
+  it.
+- **Written lines** say it after the reply, a sentence of their own (`Lines::follow`): what the
+  stranger did as their deed (`heard_deed`: "You're the one who {deed}, aren't you?"), after a
+  greeting, small talk or an answer, never handed to them as news; what others did after small
+  talk or an answer about a place or a person (`news`: "The word is {news}.").
+  Not from a frightened or a cold speaker, whose own lines are all they say; not news said lately
+  in any of its forms: "You're the one who helped Wenweg hold" at a greeting and "The word is you
+  helped Wenweg hold" in the small talk after it is a speaker with one thought, and work an offer
+  named lately is news told; and never after a reply that asks the stranger something ("Here for a
+  fitting, or just talk? So you're the one who...", judged 2026-09-27). With news to tell, a line
+  that asks is said only where every line does, and the news then waits.
+- **Asked for news** ("Any news?"), when the game hands `speak` a `Meaning`: news not told yet is
+  the reply, a `heard_deed` or `news` line alone. Told lately, others' news is said as told (a
+  `news_told` line, "As I said, {news}."), and the stranger's own deed as the talk of it (a
+  `heard_deed_told` line, "Only the talk of what you did, and you'd tell that better than me."),
+  never read back as fact: they never said it was them. None heard, a `no_news` line ("Nothing's
+  reached me."). A cold or a frightened speaker's small talk stays their own. Judged 2026-09-27:
+  "Any news?" drew the morning light from a speaker with news; then, answered, "As I said, you
+  helped the fortress hold" was the second judge's worst line.
 - **The voice** is told it as a fact line ("News you have heard: the stranger helped Wenweg hold
   (word of it reached you)"), and, in what just happened, to say so: every model tried followed the
   instruction over what it was told it knew (2026-09-26). The prompts of packets with no News fact
@@ -499,10 +522,14 @@ what they are saying isn't BS" (2026-09-26).
 - **Knowing of someone is not knowing them:** no greeting sent and no news asked ("give them my
   regards", "tell them I sent you"), whatever the packet.
 - **News is heard** (contract version 11): words that pass on what is said about ("word has it",
-  "the word is", "some are saying", "I heard that", "word is" opening a sentence) need a News fact,
-  and words that say what is said of the stranger ("they say you", "word is you", "heard what you
-  did") need news of what they did. "My word is given" is a promise, and "you're the one who talked
-  me down" the memory's: neither is read as news.
+  "the word is", "some are saying", "I heard that" with words after it, "word is" opening a
+  sentence) need a News fact, and words that say what is said of the stranger ("they say you",
+  "word is you", "heard what you did") need news of what they did. "My word is given" is a
+  promise, "you're the one who talked me down" the memory's, and "Sorry, I heard that." overhearing:
+  none is read as news. No news ("nothing's reached me", "no news") is said only by someone with
+  none to pass on. News of what came of work at the stranger's hands backs saying so: "They say you
+  failed Halbrann" had been refused as the speaker's own work (writers found it, 2026-09-27). News
+  told lately backs "as I said".
 
 `never_backed()` names the kinds no packet can back: an acquaintance, and a distance or a time
 counted out. A written line with one is wrong wherever it is said, and the rules test fails it.
@@ -631,9 +658,10 @@ dangerous for the rain" of a nest of four or more.
   - **A cold speaker parts and chats coldly whatever their bank holds; no one met before is
     called a stranger; small talk says the weather's lines and the rest alike.**
   - **Small talk's subject** (the embedding model, `tests/embedder.hpp`): closeness is one number
-    a text and nearer for the nearer meaning; ten lines of small talk read as the weather or the
-    speaker's day; each answered on its subject, round its lines in turn; a cold speaker and a
-    farewell unchanged by it; a model loaded for text refused.
+    a text and nearer for the nearer meaning; fourteen lines of small talk read as the weather, the
+    speaker's day or news; each answered on its subject, round its lines in turn; asked for news,
+    the news, or no more than was told, or none; a cold speaker and a farewell unchanged by it; a
+    model loaded for text refused.
   - **An untrue line is not said:** a farewell glad to see a stranger again gives way to the
     bank's next line, a bank with nothing true to say to the next bank's, a saying quoted (opening
     its sentence or not) is not read as a claim, and `told()` says what `speak()` does.

@@ -100,6 +100,16 @@ TEST(the_rule_checks_catch_what_they_check) {
                    "a farewell of one sentence may not add a second, even an optional one");
     check::is_true(!row_problems("any | parted | Go well[; as we say, {saying}], and good luck.").empty(), "a saying ends its sentence");
     check::is_true(row_problems("any | small_talk | Much as ever.[ As we say, {saying}.]").empty(), "its stop inside the part");
+    // Where news goes in a line (contract version 11; writers found these let through, 2026-09-27):
+    // {news} may open with "you" or a name, and {deed} is what the stranger did.
+    check::is_true(row_problems("any | news | The word is {news}.").empty(), "the premise: news after words of the line's own");
+    check::is_true(!row_problems("any | news | {news}, they say.").empty(), "{news} opening a sentence");
+    check::is_true(!row_problems("any | news | They say you {news}.").empty(), "{news} after you: \"you you\"");
+    check::is_true(row_problems("any | heard_deed | It was you that {deed}.").empty(), "the premise: {deed} after \"you that\"");
+    check::is_true(row_problems("any | heard_deed | You're the one who {deed}, aren't you?").empty(), "and after \"who\"");
+    check::is_true(!row_problems("any | heard_deed | Somebody {deed}, they say.").empty(), "{deed} said of somebody else");
+    check::is_true(!row_problems("any | heard_deed | I knew you would {deed}.").empty(), "{deed} after \"you would\"");
+    check::is_true(!row_problems("any | parted | Farewell (for now).").empty(), "a round bracket");
 }
 
 TEST(a_line_speaks_only_when_its_packet_fills_every_blank) {

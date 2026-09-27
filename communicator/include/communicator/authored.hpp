@@ -65,7 +65,8 @@ public:
     // and says the next each time they have heard the same act before (the Memory fact's
     // `heard`), so the same packet gets the same line and a farewell said again gets another.
     // With `meaning`, small talk goes by what `line` (the stranger's words) is about: the
-    // weather's lines for the weather, the rest for the speaker's own day; and someone met before
+    // weather's lines for the weather, the rest for the speaker's own day, and news with the news
+    // (news_asked()); and someone met before
     // who asks to be remembered is greeted with a line that recalls the meeting. `recent` is what this
     // speaker said lately, the latest last, as the game keeps it: a line in it is not said again
     // while one that is not fits, and when every one is, the one said longest ago is (a line said
@@ -92,16 +93,25 @@ public:
     // here.
     std::vector<std::string> leads(const orchestrator::FactPacket& packet) const;
 
-    // What a speaker says after their reply (contract version 11): news they have heard. After a
-    // greeting, what the stranger did, if the speaker heard of it (a `heard_deed` line, "You're the
-    // one who {deed}"); after small talk, or an answer about a place or a person, what happened (a
-    // `news` line, "Word is {news}."). speak() puts it last. Empty when the packet carries no news
-    // the speaker would give, for a frightened or a cold speaker, and for news of the speaker's own
-    // work or of themself, which their own lines say.
+    // What a speaker says after their reply (contract version 11): news they have heard. What the
+    // stranger did, as their deed (a `heard_deed` line, "You're the one who {deed}"), after a
+    // greeting, small talk or an answer about a place or a person; what others did, after small talk
+    // or such an answer (a `news` line, "The word is {news}."). speak() puts it last, but never after
+    // a reply that asks the stranger something. Empty when the packet carries no news the speaker
+    // would give (news_to_pass_on), for a frightened or a cold speaker, and for news told in
+    // `recent` in any of its forms.
     std::string follow(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent = {}) const;
 
     // Every line follow() could choose from, filled, as leads() lists every lead.
     std::vector<std::string> follows(const orchestrator::FactPacket& packet) const;
+
+    // Every line speak() could choose from for small talk that asks for news (read by meaning), as
+    // leads() lists every lead: news not told lately, a `heard_deed` or `news` line as follow() would
+    // choose, said alone; told lately in `recent`, others' news as a `news_told` line ({news}) and
+    // the stranger's deed as a `heard_deed_told` line, the talk of it; none heard, a `no_news` line.
+    // Empty for a frightened or a cold speaker, whose small talk is their own, and for any outcome
+    // but small talk.
+    std::vector<std::string> news_asked(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent = {}) const;
 
     // How many lines were read.
     std::size_t size() const;
@@ -128,6 +138,10 @@ private:
     // `only`, when given, the situations in place of the packet's own (a lead's).
     std::vector<Spoken> spoken_for(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent = nullptr,
                                    bool checked = false, const std::vector<std::string>* only = nullptr) const;
+
+    // news_asked(), each as Spoken; `checked` as for spoken_for().
+    std::vector<Spoken> asked_for_news(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent,
+                                       bool checked) const;
 
     // Adds the rows of `text` to the banks; `source` names it in an error.
     void read(std::string_view text, const std::string& source);

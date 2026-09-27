@@ -38,4 +38,16 @@ std::string range_words(std::string_view range);
 // Whether a fact's field is for the game, not for saying: the exact marker of a piece of work.
 bool for_the_game(std::string_view key);
 
+// What an offer asks, from its stated purpose: the order after any reason given first. "Our
+// fields lie in its reach: drive off the wyrm." -> "drive off the wyrm.". Every purpose the
+// generator writes is an order (2026-09-24), so the ask begins with its verb.
+std::string ask_of(const std::string& purpose);
+
+// A phrase from a packet's text, set in mid-sentence: its first letter lowered, its end stop
+// dropped. "Hold the fortress with me." -> "hold the fortress with me".
+std::string mid_sentence(std::string text);
+
+// A giver's words retold by someone else: "with me" is "with them" in another's mouth.
+std::string retold(const std::string& text);
+
 }  // namespace communicator::text

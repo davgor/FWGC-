@@ -91,23 +91,6 @@ std::string field_of(const Fact& fact, std::string_view key) {
     return value ? *value : std::string();
 }
 
-// What an offer asks, from its stated purpose: the order after any reason given first. "Our
-// fields lie in its reach: drive off the wyrm." -> "drive off the wyrm.". Every purpose the
-// generator writes is an order (2026-09-24), so the ask begins with its verb.
-std::string ask_of(const std::string& purpose) {
-    const std::size_t colon = purpose.rfind(": ");
-    return colon == std::string::npos ? purpose : purpose.substr(colon + 2);
-}
-
-// A phrase from a packet's text, set in mid-sentence: its first letter lowered, its end stop
-// dropped. "Hold the fortress with me." -> "hold the fortress with me".
-std::string mid_sentence(std::string text) {
-    while (!text.empty() && (text.back() == '.' || text.back() == ' ')) text.pop_back();
-    if (!text.empty() && text[0] >= 'A' && text[0] <= 'Z' && !(text.size() > 1 && text[1] >= 'A' && text[1] <= 'Z'))
-        text[0] = static_cast<char>(text[0] - 'A' + 'a');
-    return text;
-}
-
 // How far something is, in words: "right here", "a short walk away". The packet says it only
 // roughly (orchestrator/contract.hpp), so no line can read a number out, or round it wrong.
 std::string how_far(const Fact& fact) { return text::range_words(field_of(fact, "range")); }
@@ -167,33 +150,11 @@ std::string danger_phrase(const Fact& nest) {
 
 // The speaker's own offer: its purpose in the speaker's words, how hard, how far.
 std::string own_offer_phrase(const Fact& offer) {
-    std::string out = mid_sentence(ask_of(text::spoken(field_of(offer, "purpose"))));
+    std::string out = text::mid_sentence(text::ask_of(text::spoken(field_of(offer, "purpose"))));
     const std::string hard = text::scale_word("difficulty", field_of(offer, "difficulty"));
     if (!hard.empty()) out += ", " + hard + " work";
     const std::string far = how_far(offer);
     if (!far.empty()) out += ", " + far;
-    return out;
-}
-
-// A giver's words retold by someone else: "with me" is "with them" in another's mouth.
-std::string retold(const std::string& text) {
-    static const std::map<std::string, std::string> shifts = {
-        {"me", "them"}, {"my", "their"}, {"mine", "theirs"}, {"myself", "themselves"}};
-    std::string out, word;
-    const auto flush = [&] {
-        const auto shift = shifts.find(word);
-        out += shift == shifts.end() ? word : shift->second;
-        word.clear();
-    };
-    for (const char c : text) {
-        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
-            word += c;
-        } else {
-            flush();
-            out += c;
-        }
-    }
-    flush();
     return out;
 }
 
@@ -205,7 +166,7 @@ std::string others_offer_phrase(const Fact& offer) {
     if (who.empty()) who = "someone";
     const std::string role = text::spaced(text::spoken(field_of(offer, "giver_role")));
     if (!role.empty()) who += (bodies.count(role) ? " of the " : " the ") + role;
-    const std::string purpose = retold(mid_sentence(ask_of(text::spoken(field_of(offer, "purpose")))));
+    const std::string purpose = text::retold(text::mid_sentence(text::ask_of(text::spoken(field_of(offer, "purpose")))));
     return purpose.empty() ? who + " is hiring" : who + " wants someone to " + purpose;
 }
 
@@ -338,12 +299,14 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
         set("is", text::spaced(text::spoken(first_field(p, FactKind::Reveal, "is"))));
     }
     // News, in words C++ writes from the News fact's own fields (news.hpp): the news the follow line
-    // was chosen for, so the line says it.
+    // was chosen for, so the line says it. A told line (`news_told`, `heard_deed_told`) is filled as
+    // its answer is (answer_of).
     if (situation == "heard_deed" || situation == "news") {
         const bool greeting = situation == "heard_deed";
         if (const Fact* heard = news_to_pass_on(p, greeting)) {
             const std::string self = text::spoken(p.persona.name);
-            set(greeting ? "deed" : "news", greeting ? deed_words(*heard, self) : news_words(*heard, self));
+            const std::string here = text::spoken(p.persona.place);
+            set(greeting ? "deed" : "news", greeting ? deed_words(*heard, self, here) : news_words(*heard, self, "you", here));
         }
     }
     if (starts("safety_")) {
@@ -366,7 +329,7 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
         set("giver", text::spoken(field_of(*people.front(), "name")));
     // Why the world would not have it, in the director's words ("the offer has lapsed").
     if (situation == "refused")
-        for (const Fact* reason : of_kind(p, FactKind::Reason)) set("reason", mid_sentence(text::spoken(field_of(*reason, "reason"))));
+        for (const Fact* reason : of_kind(p, FactKind::Reason)) set("reason", text::mid_sentence(text::spoken(field_of(*reason, "reason"))));
 
     const std::vector<const Fact*> places = of_kind(p, FactKind::Place);
     std::set<std::string> said;
@@ -384,7 +347,7 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
         if (!around.empty()) set("around", joined(around, ", ", " and "));
         std::vector<std::string> work;
         for (const Fact* offer : of_kind(p, FactKind::QuestOffer))
-            work.push_back(own_offer(*offer) ? "I want someone to " + mid_sentence(ask_of(text::spoken(field_of(*offer, "purpose"))))
+            work.push_back(own_offer(*offer) ? "I want someone to " + text::mid_sentence(text::ask_of(text::spoken(field_of(*offer, "purpose"))))
                                              : others_offer_phrase(*offer));
         if (!work.empty()) set("work", joined(work, ", ", ", and "));
     }
@@ -710,6 +673,12 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // place or a person.
         {"heard_deed", {"deed"}},
         {"news", {"news"}},
+        // Small talk that asks for news, read by meaning (Lines::speak): what the stranger did, told
+        // lately, as the talk of it, never read back as fact; others' news told lately, said again as
+        // told; or none heard. News not yet told is a `heard_deed` or `news` line, said alone.
+        {"heard_deed_told", {"deed"}},
+        {"news_told", {"news"}},
+        {"no_news", {}},
         // Contract version 5: a people's sayings, in the bank `saying:<people>`. Never a reply of
         // its own: a line says one through {saying}.
         {"saying", {}},
@@ -1072,27 +1041,6 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
 std::string Lines::speak(const FactPacket& p, std::string_view line, const std::vector<std::string>& recent, Meaning* meaning) const {
     std::vector<Spoken> spoken = spoken_for(p, &recent, true);
     if (spoken.empty()) return {};
-    // News the speaker has heard comes after the reply, a sentence of its own (contract version 11).
-    const auto then_news = [&](const std::string& reply) {
-        const std::string after = follow(p, recent);
-        return after.empty() ? reply : reply + " " + after;
-    };
-    // With meaning, small talk answers what the stranger's words are about: the weather's lines for
-    // the weather, the rest for the speaker's own day (judged 2026-09-26: "How are things with you?"
-    // was answered with the weather). A cold speaker's lines answer neither.
-    const auto of_the_weather = [](const std::string& situation) {
-        return situation == "small_talk_fair" || situation == "small_talk_wet" || situation == "small_talk_storm";
-    };
-    if (meaning != nullptr && p.outcome == Outcome::Chatted && !trimmed(line).empty()) {
-        static const std::vector<std::string> subjects = {
-            "The weather: rain, sun, wind, cold, heat, a storm, a fine day or a wet one.",
-            "How someone is keeping: their health, their mood, their work, their day."};
-        const bool weather = meaning->subject_of(line, subjects) == 0;
-        std::vector<Spoken> on_it;
-        for (const Spoken& s : spoken)
-            if (weather ? of_the_weather(s.situation) : s.situation == "small_talk") on_it.push_back(s);
-        if (!on_it.empty()) spoken = std::move(on_it);
-    }
     // Each speaker starts somewhere of their own in the lines, and moves one on each time they have
     // heard the same thing before: said the same line five times over five farewells, a speaker
     // read as a machine (judged 2026-09-26). Of `lines`, the first in that turn not said lately, and
@@ -1128,6 +1076,44 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         }
         return {lines[oldest].text, true};
     };
+    // News the speaker has heard comes after the reply, a sentence of its own (contract version 11),
+    // but never after a question the stranger has yet to answer: "Here for a fitting, or just talk?
+    // So you're the one who helped the fortress of Iskmor hold." (judged 2026-09-27). With news to
+    // tell, a line that asks is said only where every line does, and the news then waits.
+    const std::string after = follow(p, recent);
+    const auto asks = [](const std::string& said) { return !said.empty() && said.back() == '?'; };
+    const auto then_news = [&](const std::string& reply) { return after.empty() || asks(reply) ? reply : reply + " " + after; };
+    const auto telling = [&](const std::vector<Spoken>& lines) {
+        if (after.empty()) return lines;
+        std::vector<Spoken> statements;
+        for (const Spoken& s : lines)
+            if (!asks(s.text)) statements.push_back(s);
+        return statements.empty() ? lines : statements;
+    };
+    // With meaning, small talk answers what the stranger's words are about: the weather's lines for
+    // the weather, the rest for the speaker's own day (judged 2026-09-26: "How are things with you?"
+    // was answered with the weather), and news with the news. A cold speaker's lines answer none.
+    const auto of_the_weather = [](const std::string& situation) {
+        return situation == "small_talk_fair" || situation == "small_talk_wet" || situation == "small_talk_storm";
+    };
+    if (meaning != nullptr && p.outcome == Outcome::Chatted && !trimmed(line).empty()) {
+        static const std::vector<std::string> subjects = {
+            "The weather: rain, sun, wind, cold, heat, a storm, a fine day or a wet one.",
+            "How someone is keeping: their health, their mood, their work, their day.",
+            "News and rumours: what people are saying, word from elsewhere, anything that has happened."};
+        const std::size_t subject = meaning->subject_of(line, subjects);
+        // Asked for news (contract version 11), the news is the answer, or that there is none but
+        // what was told, or none at all: "Any news?" drew the morning light from a speaker with news
+        // to give (judged 2026-09-27). With news as a third subject, 27 of 30 lines held out from
+        // tuning read right: 10 of 10 asking for news, and of the rest the two missed before, and
+        // "How's trade been?", now read as news.
+        if (subject == 2)
+            if (const std::vector<Spoken> news = asked_for_news(p, recent, true); !news.empty()) return choose(news).first;
+        std::vector<Spoken> on_it;
+        for (const Spoken& s : spoken)
+            if (subject == 0 ? of_the_weather(s.situation) : s.situation == "small_talk") on_it.push_back(s);
+        if (!on_it.empty()) spoken = std::move(on_it);
+    }
     // And someone met before who asks to be remembered is greeted with a line that recalls the
     // meeting, how long since or what was asked then, while one has not been said lately:
     // "Remember me?" drew a bare "Hello again." in turn (2026-09-26). Measured on 12 held-out
@@ -1141,12 +1127,12 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         for (const Spoken& s : spoken)
             if (s.recalls) recalling.push_back(s);
         if (!recalling.empty() && meaning->subject_of(line, subjects) == 0)
-            if (auto [reply, said_lately] = choose(recalling); !said_lately) return then_news(reply);
+            if (auto [reply, said_lately] = choose(telling(recalling)); !said_lately) return then_news(reply);
     }
     // A frightened speaker's answer comes after a sentence of their own (contract version 9): the
     // words of an answer are a writer's for a calm speaker, and "the words she says should be
     // panicked" (the owner, 2026-09-26).
-    const std::string reply = choose(spoken).first;
+    const std::string reply = choose(telling(spoken)).first;
     const std::string before = lead(p, recent);
     return then_news(before.empty() ? reply : before + " " + reply);
 }
@@ -1200,13 +1186,12 @@ std::string Lines::lead(const FactPacket& p, const std::vector<std::string>& rec
 namespace {
 
 // The news a speaker's follow line would say (contract version 11): the situation it is said in
-// ("heard_deed" after a greeting, "news" otherwise), and the words its blank fills, with what the
-// stranger did as words after "you" when the news is theirs, however the line says it. Empty when
-// there is none to say. None from a frightened or a cold speaker, whose own lines are all they say.
+// ("heard_deed" after a greeting, "news" otherwise), and every way the speaker may have put it
+// already (news_forms). Empty when there is none to say. None from a frightened or a cold speaker,
+// whose own lines are all they say.
 struct NewsToSay {
     std::string situation;
-    std::string words;
-    std::string deed;
+    std::vector<std::string> forms;
 };
 
 NewsToSay news_to_say(const FactPacket& p) {
@@ -1218,8 +1203,22 @@ NewsToSay news_to_say(const FactPacket& p) {
     const Fact* heard = news_to_pass_on(p, greeting);
     if (!heard) return {};
     const std::string self = text::spoken(p.persona.name);
-    const std::string deed = deed_words(*heard, self);
-    return {greeting ? "heard_deed" : "news", greeting ? deed : news_words(*heard, self), deed};
+    const std::string here = text::spoken(p.persona.place);
+    // What the stranger did is said to them as their deed, whatever came before: "Here's something
+    // that isn't in any lesson: you helped us hold" hands a man his own deed as news (a writer, and
+    // the second judge, 2026-09-27). `news` lines say what others did.
+    const bool theirs = greeting || !deed_words(*heard, self, here).empty();
+    return {theirs ? "heard_deed" : "news", news_forms(*heard, self, here)};
+}
+
+// Whether the speaker said this news lately, however they put it: "You're the one who helped Wenweg
+// hold" after a greeting, then "The word is you helped Wenweg hold" in small talk, is a speaker with
+// one thought (the first news session, 2026-09-27); and work they named in an answer is news told.
+bool told_lately(const NewsToSay& news, const std::vector<std::string>& recent) {
+    const auto told = [&](const std::string& said) {
+        return std::any_of(news.forms.begin(), news.forms.end(), [&](const std::string& form) { return said.find(form) != std::string::npos; });
+    };
+    return std::any_of(recent.begin(), recent.end(), told);
 }
 
 }  // namespace
@@ -1233,16 +1232,29 @@ std::vector<std::string> Lines::follows(const FactPacket& p) const {
     return out;
 }
 
+std::vector<Lines::Spoken> Lines::asked_for_news(const FactPacket& p, const std::vector<std::string>& recent, bool checked) const {
+    const Remembered m = remembered(p);
+    if (p.outcome != Outcome::Chatted || m.frightened() || m.cold()) return {};
+    const NewsToSay news = news_to_say(p);
+    // Told lately, the news is not read back as fact: of the stranger's own deed, the speaker talks of
+    // the talk ("Only the talk of what you did, and you'd tell that better than me."), since the
+    // stranger never said whether it was them; "As I said, you helped the fortress hold." was the
+    // second judge's worst line (2026-09-27).
+    std::string situation = news.situation.empty() ? "no_news" : news.situation;
+    if (!news.situation.empty() && told_lately(news, recent)) situation += "_told";  // heard_deed_told, news_told
+    const std::vector<std::string> chain = {situation};
+    return spoken_for(p, &recent, checked, &chain);
+}
+
+std::vector<std::string> Lines::news_asked(const FactPacket& p, const std::vector<std::string>& recent) const {
+    std::vector<std::string> out;
+    for (Spoken& s : asked_for_news(p, recent, false)) out.push_back(std::move(s.text));
+    return out;
+}
+
 std::string Lines::follow(const FactPacket& p, const std::vector<std::string>& recent) const {
     const NewsToSay news = news_to_say(p);
-    if (news.situation.empty()) return {};
-    // News told lately is not told again, however it was put: "You're the one who helped Wenweg
-    // hold" after a greeting, then "The word is you helped Wenweg hold" in small talk, is a speaker
-    // with one thought (the first news session, 2026-09-27).
-    const auto told = [&](const std::string& said) {
-        return said.find(news.words) != std::string::npos || (!news.deed.empty() && said.find(news.deed) != std::string::npos);
-    };
-    if (std::any_of(recent.begin(), recent.end(), told)) return {};
+    if (news.situation.empty() || told_lately(news, recent)) return {};
     const std::vector<std::string> chain = {news.situation};
     const std::vector<Spoken> lines = spoken_for(p, &recent, true, &chain);
     if (lines.empty()) return {};

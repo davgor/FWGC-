@@ -16,26 +16,31 @@ say neighbour greet | Hello there.
 say neighbour small_talk | Quiet day?
 say neighbour farewell | Bye.
 
-# The work, taken and done.
+# The work, taken; the stranger goes to do it, and comes back a day on with it done.
 say giver greet | Good day.
 say giver ask_for_work | Any work going?
 say giver accept_quest @own | I'll do it.
+say giver farewell | I'll be back when it's done.
+advance 1
 resolve giver finished
 share
 say giver greet | It's done.
 say giver farewell | Farewell.
 
-# The giver's neighbours have heard.
+# The giver's neighbours have heard. One greets the stranger with it, then is asked for news; the
+# other tells it in small talk.
 say neighbour greet | Hello again.
 say neighbour small_talk | Any news?
 say neighbour farewell | Take care.
 say other greet | Good day to you.
 say other ask_surroundings | What's around here?
 say other ask_about_place @place | Tell me about this place.
+say other small_talk | Heard anything lately?
 say other farewell | Bye.
 
-# Someone standing far off has not.
+# Someone standing far off has not heard of it: asked for news, they give their own place's.
 say far greet | Hello.
+say far small_talk | Any news?
 say far small_talk | Nice weather.
 say far farewell | Bye.
 

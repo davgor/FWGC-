@@ -519,6 +519,20 @@ inline FactPacket small_talk_with_news() {
     return p;
 }
 
+// A greeting from someone who heard what came of Halbrann's work at the stranger's hands, at
+// `state`: taken, failed or given up as well as finished. The rows were never tried with a failure,
+// which the truth check refused (writers found it, 2026-09-27).
+inline FactPacket greeted_having_heard_of(const std::string& state) {
+    return packet(gate_captain(), ActKind::Greet, Outcome::Greeted, {news_of_work(state, true)});
+}
+
+// Small talk from someone who heard word of Halbrann's work at `state`, the stranger's doing or not.
+inline FactPacket small_talk_with_word_of(const std::string& state, bool players) {
+    FactPacket p = small_talk("clear", "breezy");
+    p.facts.insert(p.facts.end() - 1, news_of_work(state, players));  // the Memory fact stays last
+    return p;
+}
+
 // An answer about the town, with news of it: work asked for there, which is nobody's doing yet, and
 // a threat Orlan beat off.
 inline FactPacket about_the_town_with_news() {
@@ -586,7 +600,12 @@ inline std::vector<FactPacket> conversation() {
             joined_surroundings(),
             // Contract version 11.
             greeted_having_heard(),
+            greeted_having_heard_of("failed"),
+            greeted_having_heard_of("given_up"),
             small_talk_with_news(),
+            small_talk_with_word_of("failed", true),
+            small_talk_with_word_of("given_up", true),
+            small_talk_with_word_of("asked", false),
             about_the_town_with_news()};
 }
 

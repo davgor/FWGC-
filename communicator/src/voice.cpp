@@ -68,9 +68,9 @@ std::vector<std::string> phrases(const Fact& fact, std::initializer_list<std::st
     return out;
 }
 
-// One fact as a line the speaker can draw on. Never its subject: an id is not something anyone
-// says. `self` is the speaker's name.
-std::string fact_line(const Fact& fact, const std::string& self) {
+// One fact of `packet` as a line the speaker can draw on. Never its subject: an id is not something
+// anyone says.
+std::string fact_line(const Fact& fact, const FactPacket& packet) {
     switch (fact.kind) {
         case FactKind::Place:
             return "- " + text::spoken(label_of(fact)) + ": " + join(phrases(fact, {"name", "of"}), "; ");
@@ -131,12 +131,13 @@ std::string fact_line(const Fact& fact, const std::string& self) {
         case FactKind::Memory:
             return {};  // said apart, as what the speaker remembers (memory_lines)
         case FactKind::News: {
-            // In C++'s words (news.hpp), never the fields for a model to make a story of; nothing
-            // of the speaker's own work or of themself, which the memory says.
-            const std::string words = news_words(fact, self, "the stranger");
-            if (words.empty()) return {};
-            return "- News you have heard: " + words + " (" + (value_of(fact, "how") == "there" ? "you saw it" : "word of it reached you") +
-                   ").";
+            // In C++'s words (news.hpp), never the fields for a model to make a story of; and only
+            // news the written lines may pass on (may_pass_on): heard, not the speaker's own, and not
+            // work an answer about a place lists already.
+            if (!may_pass_on(fact, packet)) return {};
+            const std::string words =
+                news_words(fact, text::spoken(packet.persona.name), "the stranger", text::spoken(packet.persona.place));
+            return "- News you have heard: " + words + " (word of it reached you).";
         }
     }
     return {};
@@ -438,7 +439,7 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
     system += "\nWhat you know and may tell:\n";
     std::string known;
     for (const Fact& fact : packet.facts)
-        if (const std::string said = fact_line(fact, text::spoken(p.name)); !said.empty()) known += said + "\n";
+        if (const std::string said = fact_line(fact, packet); !said.empty()) known += said + "\n";
     system += known.empty() ? "- nothing that bears on this\n" : known;
     system += "\nWhat you remember of the stranger:\n";
     for (const std::string& remembered_line : memory_lines(packet)) system += "- " + remembered_line + "\n";

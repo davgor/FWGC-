@@ -1,6 +1,8 @@
 // News a speaker has heard (contract version 11): the words C++ says it in, the written line said
 // after a reply, the voice told to pass it on, and the truth check holding news to a News fact. No
 // model.
+#include <algorithm>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -63,9 +65,14 @@ TEST(news_is_said_in_words_the_news_fact_holds) {
     check::equal(news_words(packets::news_of_work("finished", true), "", "the stranger"), std::string("the stranger helped Wenweg hold"),
                  "said of them");
     check::equal(deed_words(packets::news_of_work("taken", true), ""), std::string("took on Halbrann's work"), "taken");
-    // Not the stranger's doing: no deed, and the work as asked.
+    // Not the stranger's doing: no deed, and the work as its giver asked it.
     check::equal(deed_words(packets::news_of_work("asked", false), ""), std::string(), "asked is nobody's deed");
-    check::equal(news_words(packets::news_of_work("asked", false), ""), std::string("Halbrann is looking for help with Wenweg"), "asked");
+    check::equal(news_words(packets::news_of_work("asked", false), ""),
+                 std::string("Halbrann wants someone to stand with Wenweg when they come for it"), "asked, by what Halbrann asked");
+    Fact unstated = packets::news_of_work("asked", false);
+    unstated.fields.erase(std::find_if(unstated.fields.begin(), unstated.fields.end(), [](const auto& f) { return f.first == "purpose"; }));
+    check::equal(news_words(unstated, ""), std::string("Halbrann is looking for help with Wenweg"), "asked, with no purpose stated");
+    check::equal(news_words(unstated, "", "you", "Wenweg"), std::string("Halbrann is looking for help here"), "asked, here");
     check::equal(news_words(packets::news_of_work("lapsed", false), ""), std::string("nobody answered Halbrann's call for help"), "lapsed");
     // A scare, by who ended it.
     check::equal(deed_words(packets::news_of_a_scare("beaten", "player"), ""), std::string("beat off the threat at the fortress of Wenweg"),
@@ -79,30 +86,68 @@ TEST(news_is_said_in_words_the_news_fact_holds) {
     // A hidden face, by the roles it claimed and hid.
     check::equal(deed_words(exposed("yes"), ""), std::string("showed that Maren is a cult leader"), "unmasked by the stranger");
     check::equal(news_words(exposed("no"), ""), std::string("Maren, who passed for a herbalist, is a cult leader"), "unmasked");
-    // Nothing of the speaker's own work, or of themself: their own lines say that.
+    // Nothing of the speaker's own work, of themself, or of what they did: their own lines say that.
     check::equal(news_words(packets::news_of_work("finished", true), "Halbrann"), std::string(), "not to the giver");
     check::equal(news_words(exposed("yes"), "Maren"), std::string(), "not to the one unmasked");
+    check::equal(news_words(packets::news_of_a_scare("beaten", "Orlan"), "Orlan"), std::string(), "not to the one who beat it off");
+    // A place as someone standing there names it (judged 2026-09-27: "the fortress of Iskmor" from
+    // the people of Iskmor read as a label off a map): named for where they stand, by its kind; the
+    // place itself, here; and a defence of it, theirs.
+    check::equal(deed_words(packets::news_of_a_scare("beaten", "player"), "", "Wenweg"), std::string("beat off the threat at the fortress"),
+                 "the fortress of the town the speaker stands in");
+    check::equal(deed_words(packets::news_of_a_scare("beaten", "player"), "", "the fortress of Wenweg"),
+                 std::string("beat off the threat here"), "where the speaker stands");
+    check::equal(news_words(packets::news_of_a_scare("frightened", ""), "", "you", "the fortress of Wenweg"),
+                 std::string("there was a scare here"), "a scare where the speaker stands");
+    check::equal(deed_words(packets::news_of_work("finished", true), "", "Wenweg"), std::string("helped us hold"), "a defence of their own town");
+    check::equal(deed_words(packets::news_of_work("finished", true), "", "Torhas"), std::string("helped Wenweg hold"), "and of another");
+    check::equal(deed_words(packets::news_of_a_scare("beaten", "player"), "", "Linbrig"),
+                 std::string("beat off the threat at the fortress of Wenweg"), "elsewhere, by its whole name");
+}
+
+TEST(only_news_heard_is_passed_on_and_what_happened_to_the_speaker_is_not) {
+    using communicator::news_to_pass_on;
+    FactPacket chat = packets::small_talk("clear", "breezy");
+    chat.facts.insert(chat.facts.end() - 1, packets::news_of_a_scare("frightened", ""));
+    check::is_true(news_to_pass_on(chat, false) != nullptr, "the premise: a scare heard of is passed on");
+    // Frightened there, or talked down there: theirs to say in their own lines, not word going round
+    // (writers found hearsay of what the speaker saw, 2026-09-27).
+    for (Fact& fact : chat.facts)
+        for (auto& [key, value] : fact.fields)
+            if (key == "how") value = "there";
+    check::is_true(news_to_pass_on(chat, false) == nullptr, "not what happened to them");
+    // A hero's own deed is not news they heard.
+    FactPacket orlan = packets::about_the_town_with_news();
+    check::is_true(news_to_pass_on(orlan, false) != nullptr, "the premise: Orlan's deed, told of by another");
+    orlan.persona.name = "Orlan";
+    check::is_true(news_to_pass_on(orlan, false) == nullptr, "not by Orlan");
 }
 
 TEST(news_is_said_after_the_reply_once_and_never_by_the_cold_or_the_frightened) {
     const Lines& lines = news_lines();
     check::equal(lines.speak(packets::greeted_having_heard(), "Hello."),
                  std::string("Good day. You're the one who helped Wenweg hold, aren't you?"), "a greeting, then what they heard of the stranger");
+    // What the stranger did is said to them as their deed after small talk too, never handed to them
+    // as news (the second judge, 2026-09-27).
     check::equal(lines.speak(packets::small_talk_with_news(), "Fine day."),
-                 std::string("Fine weather. The word is you beat off the threat at the fortress of Wenweg."), "small talk, then the news");
+                 std::string("Fine weather. You're the one who beat off the threat at the fortress, aren't you?"),
+                 "small talk, then what the stranger did");
     // After an answer about a place, its news, but not the work asked for there, which the answer
     // lists already; small talk, which lists nothing, passes that on.
     const std::string about = lines.speak(packets::about_the_town_with_news(), "Tell me about Wenweg.");
-    const std::string then = " The word is Orlan beat off the threat at the fortress of Wenweg.";
+    const std::string then = " The word is Orlan beat off the threat at the fortress.";
     check::is_true(about.size() > then.size() && about.compare(about.size() - then.size(), then.size(), then) == 0,
                    "an answer about a place, then its news: " + about);
     FactPacket only_asked = packets::about_the_town();
     only_asked.facts.insert(only_asked.facts.end() - 1, packets::news_of_work("asked", false));
     check::equal(lines.follow(only_asked), std::string(), "not the work asked for, after an answer that lists it");
-    FactPacket chat_asked = packets::small_talk("clear", "breezy");
-    chat_asked.facts.insert(chat_asked.facts.end() - 1, packets::news_of_work("asked", false));
-    check::equal(lines.follow(chat_asked), std::string("The word is Halbrann is looking for help with Wenweg."),
+    const FactPacket chat_asked = packets::small_talk_with_word_of("asked", false);
+    check::equal(lines.follow(chat_asked), std::string("The word is Halbrann wants someone to stand with Wenweg when they come for it."),
                  "but small talk passes it on");
+    // Work its giver's offer named lately is news told: an answer listing "Halbrann wants someone to
+    // stand with Wenweg" is not followed by the same work as news.
+    check::equal(lines.follow(chat_asked, {"Halbrann the pretender wants someone to stand with Wenweg when they come for it."}),
+                 std::string(), "not the work an offer named lately");
     // The controls: no news, no sentence after.
     check::equal(lines.speak(packets::greeted_first(), "Hello."), std::string("Good day."), "no news, nothing more");
     // Told lately, not told again, however it was put: said in a greeting as what the stranger did,
@@ -110,11 +155,14 @@ TEST(news_is_said_after_the_reply_once_and_never_by_the_cold_or_the_frightened) 
     const std::string greeted = "Good day. You're the one who helped Wenweg hold, aren't you?";
     check::equal(lines.speak(packets::greeted_having_heard(), "Hello.", {greeted}), std::string("Good day."),
                  "news said lately is not said again");
-    FactPacket chat = packets::small_talk("clear", "breezy");
-    chat.facts.insert(chat.facts.end() - 1, packets::news_of_work("finished", true));
-    check::equal(lines.speak(chat, "Any news?"), std::string("Fine weather. The word is you helped Wenweg hold."),
+    FactPacket welcome = packets::greeted_first();  // the speaker of the small talk below, at Wenweg
+    welcome.facts.insert(welcome.facts.end() - 1, packets::news_of_work("finished", true));
+    const std::string welcomed = lines.speak(welcome, "Hello.");
+    check::equal(welcomed, std::string("Good day. You're the one who helped us hold, aren't you?"), "the premise: a greeting at Wenweg");
+    const FactPacket chat = packets::small_talk_with_word_of("finished", true);
+    check::equal(lines.speak(chat, "Fine day."), std::string("Fine weather. You're the one who helped us hold, aren't you?"),
                  "the premise: small talk passes it on");
-    check::equal(lines.speak(chat, "Any news?", {greeted}), std::string("Fine weather."), "not after the greeting said it");
+    check::equal(lines.speak(chat, "Fine day.", {welcomed}), std::string("Fine weather."), "not after the greeting said it");
     // A cold speaker, and a frightened one, say their own lines alone.
     FactPacket cold = packets::greeted_having_heard();
     cold.facts.back() = packets::memory_of(cold.speaker, {.mood = "hostile"});
@@ -126,6 +174,98 @@ TEST(news_is_said_after_the_reply_once_and_never_by_the_cold_or_the_frightened) 
     FactPacket giver = packets::greeted_having_heard();
     giver.persona.name = "Halbrann";
     check::equal(lines.speak(giver, "Hello."), std::string("Good day."), "not their own work");
+}
+
+TEST(news_waits_for_the_answer_to_a_question) {
+    // "Here for a fitting, or just talk? So you're the one who helped the fortress of Iskmor hold."
+    // (judged 2026-09-27): with news to tell, a line that asks is not said while one that does not
+    // fits; with only lines that ask, the news waits.
+    const Lines lines = Lines::parse("any | greeted | Here for a fitting, or just talk?\n"
+                                     "any | greeted | Good day.\n"
+                                     "any | heard_deed | So you're the one who {deed}.\n",
+                                     "news");
+    const auto greeting = [](const FactPacket& base, int heard) {
+        FactPacket p = base;
+        p.facts.back() = packets::memory_of(p.speaker, {.heard = heard});
+        return p;
+    };
+    std::set<std::string> plain;
+    for (int heard = 0; heard < 4; ++heard) plain.insert(lines.speak(greeting(packets::greeted_first(), heard), "Hello."));
+    check::equal(plain.size(), std::size_t(2), "the premise: without news, both greetings in turn");
+    for (int heard = 0; heard < 4; ++heard)
+        check::equal(lines.speak(greeting(packets::greeted_having_heard(), heard), "Hello."),
+                     std::string("Good day. So you're the one who helped Wenweg hold."), "with news, the greeting that does not ask");
+    const Lines asking = Lines::parse("any | greeted | Here for a fitting, or just talk?\n"
+                                      "any | heard_deed | So you're the one who {deed}.\n",
+                                      "news");
+    check::equal(asking.speak(packets::greeted_having_heard(), "Hello."), std::string("Here for a fitting, or just talk?"),
+                 "only a question to ask: the news waits");
+}
+
+TEST(asked_for_news_the_speaker_gives_it_or_says_there_is_no_more) {
+    const Lines lines = Lines::parse("any | small_talk | Fine weather.\n"
+                                     "any | small_talk_cold | Not now.\n"
+                                     "any | heard_deed | They say you {deed}.\n"
+                                     "any | heard_deed_told | Only the talk of what you did, and you'd tell that better than me.\n"
+                                     "any | news | The word is {news}.\n"
+                                     "any | news_told | As I said, {news}.\n"
+                                     "any | no_news | Nothing's reached me.\n",
+                                     "news");
+    const auto all = [](const std::vector<std::string>& said) {
+        std::string out;
+        for (const std::string& s : said) out += (out.empty() ? "" : " | ") + s;
+        return out;
+    };
+    // Of others: the news, then, told lately, no more than was told.
+    const FactPacket others = packets::small_talk_with_word_of("asked", false);
+    const std::string work = "The word is Halbrann wants someone to stand with Wenweg when they come for it.";
+    check::equal(all(lines.news_asked(others)), work, "news of others not told yet, said alone");
+    check::equal(all(lines.news_asked(others, {work})), std::string("As I said, Halbrann wants someone to stand with Wenweg when they come for it."),
+                 "told lately: no more than was told");
+    // Of the stranger: their deed, then, told lately, the talk of it, never read back as fact: they
+    // never said it was them ("As I said, you helped the fortress hold." was the second judge's worst
+    // line, 2026-09-27).
+    const FactPacket chat = packets::small_talk_with_news();
+    check::equal(all(lines.news_asked(chat)), std::string("They say you beat off the threat at the fortress."), "the stranger's deed, as theirs");
+    const std::vector<std::string> told = {"Fine weather. They say you beat off the threat at the fortress."};
+    check::equal(all(lines.news_asked(chat, told)), std::string("Only the talk of what you did, and you'd tell that better than me."),
+                 "told lately: the talk of it");
+    check::equal(all(lines.news_asked(packets::small_talk("clear", "breezy"))), std::string("Nothing's reached me."), "none heard");
+    check::is_true(lines.news_asked(packets::small_talk("fair", "still", "hostile")).empty(), "a cold speaker's small talk is their own");
+    check::is_true(lines.news_asked(packets::greeted_having_heard()).empty(), "only small talk asks");
+}
+
+TEST(what_is_said_of_news_is_held_to_the_news_heard) {
+    const auto flags = [](const std::string& reply, const FactPacket& p, const std::vector<std::string>& recent = {}) {
+        return !communicator::untrue(reply, p, recent).empty();
+    };
+    // What came of Halbrann's work at the stranger's hands backs saying so: "They say you failed
+    // Halbrann" was refused as the speaker's own work, and no line could pass a failure on.
+    check::is_true(flags("They say you failed Halbrann.", packets::greeted_first()), "the premise: a failure nobody heard of");
+    check::is_true(!flags("They say you failed Halbrann.", packets::greeted_having_heard_of("failed")), "a failure heard of");
+    check::is_true(!flags("The word is you gave up Halbrann's work.", packets::small_talk_with_word_of("given_up", true)),
+                   "work given up, heard of");
+    check::is_true(flags("The word is you gave up Halbrann's work.", packets::small_talk_with_word_of("failed", true)),
+                   "not a failure heard of as work given up");
+    // "I heard that" passes news on only when a clause follows: "Aye, I heard that." overhears, and
+    // "I've heard that excuse before" is a thing heard.
+    // (Held to the news claim alone: a name the packet lacks is a fault of its own.)
+    check::is_true(!flags_news("Aye, I heard that.", packets::greeted_first()), "overhearing, not news");
+    check::is_true(!flags_news("I've heard that excuse before.", packets::greeted_first()), "a thing heard, not news");
+    check::is_true(!flags_news("I heard that one.", packets::greeted_first()), "nor that one");
+    check::is_true(flags_news("I heard that Wenweg held.", packets::greeted_first()), "the control: news of a place, with none heard");
+    check::is_true(flags_news("I heard that the threat passed.", packets::greeted_first()), "and a clause with no name in it");
+    // What is said of the stranger, only from someone who heard of what they did.
+    check::is_true(flags_news("Nothing but what's said of you.", packets::greeted_first()), "talk of the stranger, with none heard");
+    check::is_true(!flags_news("Nothing but what's said of you.", packets::greeted_having_heard()), "talk of the stranger, heard");
+    // No news, only from someone who heard none to pass on.
+    check::is_true(!flags("Nothing's reached me.", packets::small_talk("clear", "breezy")), "none heard");
+    check::is_true(flags("Nothing's reached me.", packets::small_talk_with_news()), "news heard, and denied");
+    // "As I said" is backed by news told lately.
+    const FactPacket chat = packets::small_talk_with_news();
+    check::is_true(flags("As I said, you beat off the threat at the fortress.", chat), "the premise: nothing said lately");
+    check::is_true(!flags("As I said, you beat off the threat at the fortress.", chat, {"The word is you beat off the threat at the fortress."}),
+                   "told lately");
 }
 
 TEST(the_voice_is_told_the_news_and_to_pass_it_on) {
@@ -143,11 +283,23 @@ TEST(the_voice_is_told_the_news_and_to_pass_it_on) {
     check::is_true(system_of(giver).find("News") == std::string::npos, "nothing of the giver's own work, which the memory says");
     // An answer about a place passes its news on, but not work only asked for there, which the
     // answer lists already: the written lines' rule, from the same chooser.
-    check::is_true(system_of(packets::about_the_town_with_news()).find("and the news of it above") != std::string::npos,
-                   "the premise: an answer about a place passes its news on");
+    const std::string about = system_of(packets::about_the_town_with_news());
+    check::is_true(about.find("and the news of it above") != std::string::npos &&
+                       about.find("- News you have heard: Orlan beat off the threat at the fortress") != std::string::npos,
+                   "the premise: an answer about a place passes its news on: " + about);
+    // Nor is it shown the work asked for there as news: shown both, the tuned model gave that work
+    // to the wrong giver (2026-09-27).
+    check::is_true(about.find("News you have heard: Halbrann") == std::string::npos, "not the work asked for, as news");
     FactPacket only_asked = packets::about_the_town();
     only_asked.facts.insert(only_asked.facts.end() - 1, packets::news_of_work("asked", false));
     check::is_true(system_of(only_asked).find("news of it") == std::string::npos, "not the work asked for there");
+    // What happened to the speaker is not news they heard: no News line, and nothing to pass on.
+    FactPacket saw = packets::small_talk_with_news();
+    for (Fact& fact : saw.facts)
+        for (auto& [key, value] : fact.fields)
+            if (key == "how") value = "there";
+    check::is_true(system_of(saw).find("News") == std::string::npos && system_of(saw).find("pass on") == std::string::npos,
+                   "not what happened to them");
     // A cold speaker is not told to pass it on, as their written lines do not.
     FactPacket cold = packets::greeted_having_heard();
     cold.facts.back() = packets::memory_of(cold.speaker, {.mood = "hostile"});

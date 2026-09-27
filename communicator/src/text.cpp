@@ -1,6 +1,7 @@
 #include "text.hpp"
 
 #include <algorithm>
+#include <map>
 
 #include "communicator/error.hpp"
 
@@ -101,5 +102,38 @@ std::string range_words(std::string_view range) {
 }
 
 bool for_the_game(std::string_view key) { return key == "marker" || key == "marker_node"; }
+
+std::string ask_of(const std::string& purpose) {
+    const std::size_t colon = purpose.rfind(": ");
+    return colon == std::string::npos ? purpose : purpose.substr(colon + 2);
+}
+
+std::string mid_sentence(std::string text) {
+    while (!text.empty() && (text.back() == '.' || text.back() == ' ')) text.pop_back();
+    if (!text.empty() && text[0] >= 'A' && text[0] <= 'Z' && !(text.size() > 1 && text[1] >= 'A' && text[1] <= 'Z'))
+        text[0] = static_cast<char>(text[0] - 'A' + 'a');
+    return text;
+}
+
+std::string retold(const std::string& text) {
+    static const std::map<std::string, std::string> shifts = {
+        {"me", "them"}, {"my", "their"}, {"mine", "theirs"}, {"myself", "themselves"}};
+    std::string out, word;
+    const auto flush = [&] {
+        const auto shift = shifts.find(word);
+        out += shift == shifts.end() ? word : shift->second;
+        word.clear();
+    };
+    for (const char c : text) {
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+            word += c;
+        } else {
+            flush();
+            out += c;
+        }
+    }
+    flush();
+    return out;
+}
 
 }  // namespace communicator::text

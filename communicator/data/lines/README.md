@@ -182,11 +182,17 @@ packet, and a row that says a saying once more with one dropped in. `communicato
   opens "I'm fine", "I'm all right" or "There's no need", never "I'm not afraid". A bystander's
   lead (`joined_lead`) has a lead's shape: one sentence, no question, not opening or ending with
   yes, no, aye or nay.
-- News (contract version 11), said after the reply, a sentence of its own: after a greeting, what
-  the stranger did (`heard_deed`, `{deed}` the words after "you": "helped Wenweg hold"); after small
-  talk or an answer about a place or a person, what happened (`news`, `{news}`: "you helped Wenweg
-  hold", "Halbrann is looking for help with Wenweg"). One sentence; it may ask ("aren't you?"),
-  since nothing comes after it. No opening of its own: it follows the reply's.
+- News (contract version 11), said after the reply, a sentence of its own: what the stranger did
+  (`heard_deed`, `{deed}` the words after "you": "helped Wenweg hold"), after a greeting, small talk
+  or an answer; what others did, after small talk or an answer about a place or a person (`news`,
+  `{news}`: "Halbrann wants someone to stand with Wenweg when they come for it", "Orlan beat off
+  the threat here"). One sentence; it may ask ("aren't you?"), since nothing comes after it. No
+  opening of its own: it follows the reply's, which may be any of those. Either is also said
+  alone, to small talk that asks for news.
+- Small talk that asks for news ("Any news?", read by meaning), told lately: others' news said as
+  told (`news_told`: "As I said, {news}."), and the stranger's own deed as the talk of it
+  (`heard_deed_told`). None heard: `no_news` ("Nothing's reached me."). One sentence, as small
+  talk.
 - An answer runs to three sentences at most, and an answer about a place to five: the place,
   its trades, who is there, the nests around it and the work there.
 - An article fits the word a blank fills in after it: "a {time}" says "a evening", "an {post}"
@@ -243,8 +249,19 @@ is fine; one that no packet the game gives can make true is never heard.
   words; a line says only how the speaker takes it ("You're the one who {deed}, aren't you?", "The
   word is {news}."). Never what the speaker thinks it means, who else was there, or what comes of
   it: the packet says none of that. `{news}` may open with a name or with "you", so it never opens
-  a sentence, and `{deed}` always follows "you". A line opens with a word sentences begin with
-  (`common_capitals()`): "Word is" and "Folk are saying" do not.
+  a sentence and never follows "you" ("They say you {news}" says "you you"); `{deed}` is what the
+  stranger did, so it follows "you", "who" or "you that", with nothing between ("you would {deed}"
+  says "you would helped"). The rules test holds both. A line opens with a word sentences begin
+  with (`common_capitals()`): "Word is" and "Folk are saying" do not. News may be the stranger's
+  own failure ("you failed Halbrann"), so a line takes it evenly: no praise, no scolding. And it
+  follows the speaker's own reply: a line that says again what the bank's greetings or small talk
+  say ("don't hold up the line" after "don't hold up the line") echoes (a writer found 25 in their
+  own first draft, 2026-09-27).
+- **Told news is said as told** (`news_told`): no more than the speaker said, and nothing new
+  about it. **The stranger's deed, told lately** (`heard_deed_told`), is the talk of it, never the
+  deed read back as fact: the stranger never said it was them ("Only the talk of what you did, and
+  you'd tell that better than me."). **No news** (`no_news`) is only that: not what the speaker
+  thinks of it, and nothing that says the place is quiet or safe, which the packet does not say.
 - **A place line carries every blank it can.** Of the lines that fit, the fullest are said, so an
   `about_place` line without `{trades}`, `{who}`, `{around}` or `{work}` is never heard where that
   blank is filled. Nothing in it may hold only when a part is dropped or kept ("That's all I

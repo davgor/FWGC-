@@ -7,6 +7,7 @@
 
 #include "communicator/voice.hpp"
 #include "memory.hpp"
+#include "news.hpp"
 #include "reply_shape.hpp"
 #include "text.hpp"
 
@@ -37,6 +38,7 @@ constexpr std::string_view kTime = "a time of day or season the packet does not 
 constexpr std::string_view kEased = "being talked down, which the speaker's memory does not hold";
 constexpr std::string_view kOverheard = "overhearing the stranger, which the speaker's memory does not hold";
 constexpr std::string_view kNews = "news the speaker has not heard";
+constexpr std::string_view kNoNews = "no news, from a speaker who has heard some";
 
 std::string lowered(std::string_view text) {
     std::string out(text);
@@ -365,6 +367,11 @@ void told(const std::string& said, const FactPacket& p, const std::vector<std::s
     for (const Fact& fact : p.facts)
         for (const std::string key : {"name", "of", "creature"})
             if (const std::string value = lowered(text::spoken(field_of(fact, key))); !value.empty()) words.push_back(value);
+    // News told lately, in any of the ways the speaker may have put it (news.hpp).
+    for (const Fact& fact : p.facts)
+        if (fact.kind == FactKind::News)
+            for (const std::string& form : news_forms(fact, text::spoken(p.persona.name), text::spoken(p.persona.place)))
+                words.push_back(lowered(form));
     for (const std::string& reply : recent) {
         const std::string earlier = lowered(reply);
         for (const std::string& word : words)
@@ -386,6 +393,13 @@ void work(const std::string& said, const FactPacket& p, std::vector<std::string>
     for (const Fact& fact : p.facts) {
         if (fact.kind == FactKind::QuestState) held.insert(field_of(fact, "state"));
         if (fact.kind == FactKind::Reason && field_of(fact, "why") == "not_theirs_to_release") held.insert("taken");
+        // News of what came of someone's work at the stranger's hands (contract version 11): "They
+        // say you failed Halbrann" was refused as the speaker's own work, so no line could pass on
+        // a failure (writers found it, 2026-09-27).
+        if (fact.kind == FactKind::News && field_of(fact, "event") == "work" && field_of(fact, "player") == "yes") {
+            const std::string state = field_of(fact, "state");
+            held.insert(state == "given_up" ? "abandoned" : state);
+        }
     }
     for (const auto& [phrase, state] : phrases)
         for (std::size_t at = find_words(said, phrase); at != std::string::npos; at = find_words(said, phrase, at + 1)) {
@@ -471,7 +485,7 @@ void eased_or_overheard(const std::string& said, const FactPacket& p, std::vecto
 // where the packet holds news, and words that say what is said of the stranger only where it holds
 // news of what they did. "Word is" only opening a sentence: "my word is given" is a promise, not
 // news. "You're the one who" is left alone: "you're the one who talked me down" is the memory's.
-void heard(const std::string& said, const FactPacket& p, std::vector<std::string>& out) {
+void heard(const std::string& said, const std::string& reply, const FactPacket& p, std::vector<std::string>& out) {
     bool any = false, theirs = false;
     for (const Fact& fact : p.facts)
         if (fact.kind == FactKind::News) {
@@ -480,13 +494,34 @@ void heard(const std::string& said, const FactPacket& p, std::vector<std::string
         }
     if (!theirs)
         for (const std::string phrase : {"they say you", "word is you", "word has it you", "word got round that you",
-                                         "heard what you did", "heard of what you did", "word of what you did"})
+                                         "heard what you did", "heard of what you did", "word of what you did", "said of you",
+                                         "talk of you", "talk of what you did", "talk about you"})
             if (says(said, phrase)) add(out, kNews, phrase);
+    // No news, from someone who has news to pass on (news_to_pass_on: heard, not their own).
+    if (news_to_pass_on(p, false) != nullptr)
+        for (const std::string phrase : {"no news", "nothing's reached me", "nothing has reached me", "not a word's reached me",
+                                         "not heard a thing", "haven't heard a thing", "heard nothing new"})
+            if (says(said, phrase)) add(out, kNoNews, phrase);
     if (any) return;
     for (const std::string phrase : {"word has it", "the word is", "folk are saying", "people are saying", "some are saying",
                                      "rumour has it", "rumor has it", "the talk is", "word got round", "word's gone round",
-                                     "word's got round", "there's talk of", "i heard that", "i've heard that"})
+                                     "word's got round", "there's talk of"})
         if (says(said, phrase)) add(out, kNews, phrase);
+    // "I heard that" passes news on only when a clause follows, opening with a name, a pronoun,
+    // "the" or "there": "Sorry, I heard that." is overhearing, and "I've heard that excuse before"
+    // or "I heard that one" a thing heard (writers found such rows silenced, 2026-09-27).
+    static const std::set<std::string> clause = {"you", "he", "she", "they", "we", "it", "someone", "somebody", "nobody",
+                                                 "everyone", "there", "the"};
+    for (const std::string phrase : {"i heard that", "i've heard that"})
+        for (std::size_t at = find_words(said, phrase); at != std::string::npos; at = find_words(said, phrase, at + 1)) {
+            std::size_t next = at + phrase.size();
+            while (next < said.size() && said[next] == ' ') ++next;
+            const bool named = next < reply.size() && std::isupper(static_cast<unsigned char>(reply[next])) != 0;
+            if (named || clause.count(word_after(said, at + phrase.size())) != 0) {
+                add(out, kNews, phrase);
+                break;
+            }
+        }
     for (std::size_t at = find_words(said, "word is"); at != std::string::npos; at = find_words(said, "word is", at + 1))
         if (lead_of(said, at).empty()) add(out, kNews, "word is");
 }
@@ -510,7 +545,7 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
     weather(said, packet, out);
     acquaintance(said, out);
     eased_or_overheard(said, packet, out);
-    heard(said, packet, out);
+    heard(said, reply, packet, out);
     return out;
 }
 

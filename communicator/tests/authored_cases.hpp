@@ -13,9 +13,11 @@
 
 #include "communicator/authored.hpp"
 #include "communicator/truth.hpp"
+#include "news.hpp"
 #include "packets.hpp"
 #include "reply_shape.hpp"
 #include "rules.hpp"
+#include "text.hpp"
 
 namespace authored_cases {
 
@@ -190,6 +192,71 @@ inline bool follow_row(const std::string& row) {
     return situation == "heard_deed" || situation == "news";
 }
 
+// The situation a row is written for, trimmed; empty for a row without one.
+inline std::string situation_of(const std::string& row) {
+    const std::size_t first = row.find('|');
+    const std::size_t second = first == std::string::npos ? first : row.find('|', first + 1);
+    if (second == std::string::npos) return {};
+    std::string situation = row.substr(first + 1, second - first - 1);
+    situation.erase(0, situation.find_first_not_of(' '));
+    while (!situation.empty() && situation.back() == ' ') situation.pop_back();
+    return situation;
+}
+
+// Whether a row answers small talk that asks for news with news told lately or none ("news_told",
+// "heard_deed_told", "no_news"; Lines::news_asked).
+inline bool asked_news_row(const std::string& row) {
+    const std::string situation = situation_of(row);
+    return situation == "news_told" || situation == "heard_deed_told" || situation == "no_news";
+}
+
+// What a speaker said lately for the news `p` would pass on to have been told: its words, as a
+// `news` line says them. Empty for a packet with none to pass on.
+inline std::vector<std::string> news_told(const FactPacket& p) {
+    const Fact* news = communicator::news_to_pass_on(p, false);
+    if (news == nullptr) return {};
+    namespace text = communicator::text;
+    return {"The word is " + communicator::news_words(*news, text::spoken(p.persona.name), "you", text::spoken(p.persona.place)) + "."};
+}
+
+// What is wrong with where a news row puts its blanks (contract version 11): `{news}` may open with
+// "you" or a name, so it never opens a sentence; `{deed}` is what the stranger did, so it follows
+// "you", "who" or "you that", and nothing between ("you would {deed}" says "you would helped").
+// Writers found both let through (2026-09-27).
+inline std::vector<std::string> news_blank_problems(const std::string& line) {
+    std::vector<std::string> out;
+    const auto before = [&](std::size_t at) {
+        std::string text = line.substr(0, at);
+        while (!text.empty() && (text.back() == ' ' || text.back() == '[')) text.pop_back();
+        return text;
+    };
+    const auto last_word = [](std::string text) {
+        while (!text.empty() && !std::isalpha(static_cast<unsigned char>(text.back())) && text.back() != '\'') text.pop_back();
+        const std::size_t space = text.find_last_of(" ,;:");
+        std::string word = space == std::string::npos ? text : text.substr(space + 1);
+        for (char& c : word) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+        return word;
+    };
+    for (std::size_t at = line.find("{news}"); at != std::string::npos; at = line.find("{news}", at + 1)) {
+        const std::string lead = before(at);
+        if (lead.empty() || lead.back() == '.' || lead.back() == '!' || lead.back() == '?')
+            out.push_back("{news} opens a sentence: it may begin with \"you\" or a name");
+        // "They say you {news}." says "They say you you beat off the threat"; "I told you: {news}" is
+        // two parts, and fine.
+        else if (std::isalpha(static_cast<unsigned char>(lead.back())) && last_word(lead) == "you")
+            out.push_back("{news} straight after \"you\": it may begin with \"you\"");
+    }
+    for (std::size_t at = line.find("{deed}"); at != std::string::npos; at = line.find("{deed}", at + 1)) {
+        const std::string lead = before(at);
+        const std::string word = last_word(lead);
+        const std::size_t cut = lead.find_last_of(' ');
+        const std::string earlier = cut == std::string::npos ? std::string() : last_word(lead.substr(0, cut));
+        if (!(word == "you" || word == "who" || (word == "that" && earlier == "you")))
+            out.push_back("{deed} not straight after \"you\", \"who\" or \"you that\": it is what the stranger did");
+    }
+    return out;
+}
+
 // `p` spoken by someone the row's bank answers for: a hero with that voice key, someone at that
 // post, or, for "any", the packet's own speaker.
 inline FactPacket as_voiced_by(FactPacket p, const std::string& voice) {
@@ -206,7 +273,8 @@ inline FactPacket as_voiced_by(FactPacket p, const std::string& voice) {
 // the packet's own, held to its outcome's opening, closing and length; news said after it is not.
 inline std::vector<std::string> broken_rules(const std::string& reply, const FactPacket& p, bool shaped = true) {
     std::vector<std::string> out;
-    if (reply.find_first_of("{}[]") != std::string::npos) out.push_back("a blank or a bracket left in");
+    // Round brackets too: nobody says one (a writer found them let through, 2026-09-27).
+    if (reply.find_first_of("{}[]()") != std::string::npos) out.push_back("a blank or a bracket left in");
     for (const std::string mark : {"\"", "\xE2\x80\x9C", "\xE2\x80\x9D"})
         if (reply.find(mark) != std::string::npos) out.push_back("a double quote");
     std::vector<std::string> ids = {p.persona.uid};
@@ -358,6 +426,7 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
         while (!line.empty() && (line.back() == '\r' || line.back() == ' ')) line.pop_back();
         for (const std::string& capital : own_capitals(line, openings))
             out.push_back("a capital the line writes itself: " + capital);
+        for (const std::string& problem : news_blank_problems(line)) out.push_back(problem);
         // "The turn of the season" is a season: "this {season}" would say "this the turn of the
         // season". Every other article before a blank is caught in the replies, where it misfits.
         for (const std::string before : {"this {season}", "This {season}", "that {season}", "That {season}"})
@@ -367,16 +436,21 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
         // A row for an answer said again is spoken to a stranger who asked before and heard all of
         // the answer lately, beside an answer that says it all (what is heard is what the answer
         // says); any other, alone, as the packet comes.
-        const bool again = told_row(row);
+        // News told lately ("news_told", "heard_deed_told") is small talk, not an answer said again:
+        // it has its own stranger to say it to.
+        const bool asked_news = asked_news_row(row);
+        const bool news_again = situation_of(row) == "news_told" || situation_of(row) == "heard_deed_told";
+        const bool again = told_row(row) && !news_again;
         const bool leading = lead_row(row);
         const bool following = follow_row(row);
         const std::string beside = again ? "\n" + kEveryBlank : std::string();
         const communicator::Lines one = communicator::Lines::parse(row + beside, "the row");
         const auto replies_of = [&](const communicator::Lines& lines, const FactPacket& packet, const FactPacket& p) {
             // A frightened speaker's lead is said alone here, before whatever answer comes after; news,
-            // alone, after it.
+            // alone, after it; and news asked for in small talk, to a stranger told it lately or not.
             if (leading) return lines.leads(p);
             if (following) return lines.follows(p);
+            if (asked_news) return lines.news_asked(p, news_again ? news_told(packet) : std::vector<std::string>());
             if (!again) return lines.replies(p);
             const std::vector<std::string> heard = heard_everything(packet);
             if (heard.empty()) return std::vector<std::string>();
@@ -411,7 +485,8 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
                 }
                 // What the reply claims (communicator/truth.hpp): a claim no packet can back is the
                 // row's fault; one this packet does not back only keeps the line unsaid here.
-                const std::vector<std::string> recent = again ? heard_everything(packet) : std::vector<std::string>();
+                const std::vector<std::string> recent =
+                    again ? heard_everything(packet) : news_again ? news_told(packet) : std::vector<std::string>();
                 for (const std::string& claim : communicator::untrue(reply, again ? asked_before(p) : p, recent)) {
                     if (communicator::never_backed(claim))
                         out.push_back(claim + ", in: " + reply);

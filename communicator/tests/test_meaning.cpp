@@ -43,15 +43,18 @@ bool of_the_weather(const std::string& reply) {
     return reply.find("cloud") != std::string::npos || reply.find("dry and fair") != std::string::npos;
 }
 
-// Small talk a player might make, and whether it is of the weather.
-const std::vector<std::pair<std::string, bool>> kSmallTalk = {
-    {"Still cold out? Looks like rain.", true}, {"How's the weather treating you?", true}, {"Nice weather.", true},
-    {"Think it'll rain?", true},                {"Bit wet today, isn't it?", true},      {"How are you keeping these days?", false},
-    {"How are things with you?", false},        {"Busy today?", false},                   {"So, how are things really?", false},
-    {"How's business?", false}};
+// Small talk a player might make, and its subject: 0 the weather, 1 the speaker's own day, 2 news.
+const std::vector<std::pair<std::string, std::size_t>> kSmallTalk = {
+    {"Still cold out? Looks like rain.", 0}, {"How's the weather treating you?", 0}, {"Nice weather.", 0},
+    {"Think it'll rain?", 0},                {"Bit wet today, isn't it?", 0},      {"How are you keeping these days?", 1},
+    {"How are things with you?", 1},         {"Busy today?", 1},                    {"So, how are things really?", 1},
+    {"How's business?", 1},                  {"Any news?", 2},                      {"Heard anything lately?", 2},
+    {"What's the word around here?", 2},     {"What are people saying these days?", 2}};
 
+// As Lines::speak() words them (contract version 11 added news).
 const std::vector<std::string> kSubjects = {"The weather: rain, sun, wind, cold, heat, a storm, a fine day or a wet one.",
-                                            "How someone is keeping: their health, their mood, their work, their day."};
+                                            "How someone is keeping: their health, their mood, their work, their day.",
+                                            "News and rumours: what people are saying, word from elsewhere, anything that has happened."};
 
 }  // namespace
 
@@ -65,10 +68,9 @@ TEST(closeness_is_one_number_a_text_and_nearer_for_the_nearer_meaning) {
     check::is_true(meaning.closeness("Is it going to rain today?", texts) == close, "the same numbers again, from the kept vectors");
 }
 
-TEST(small_talk_is_read_as_the_weather_or_the_speakers_own_day) {
+TEST(small_talk_is_read_as_the_weather_the_speakers_own_day_or_news) {
     Meaning meaning(test_model::embedder());
-    for (const auto& [said, weather] : kSmallTalk)
-        check::equal(meaning.subject_of(said, kSubjects), std::size_t(weather ? 0 : 1), "the subject of: " + said);
+    for (const auto& [said, subject] : kSmallTalk) check::equal(meaning.subject_of(said, kSubjects), subject, "the subject of: " + said);
     bool refused = false;
     try {
         (void)meaning.subject_of("Hello.", {});
@@ -86,11 +88,42 @@ TEST(the_strangers_words_choose_what_small_talk_is_about) {
     for (int heard = 0; heard < 4; ++heard) in_turn.insert(of_the_weather(lines.speak(chat(heard), "How are you keeping these days?")));
     check::equal(in_turn.size(), std::size_t(2), "the premise: in turn, the weather to a question of health");
     Meaning meaning(test_model::embedder());
-    for (const auto& [said, weather] : kSmallTalk)
+    // News asked of a bank with no news lines is answered from the speaker's own day.
+    for (const auto& [said, subject] : kSmallTalk)
         for (int heard = 0; heard < 3; ++heard) {
             const std::string reply = lines.speak(chat(heard), said, {}, &meaning);
-            check::equal(of_the_weather(reply), weather, "\"" + said + "\" answered: " + reply);
+            check::equal(of_the_weather(reply), subject == 0, "\"" + said + "\" answered: " + reply);
         }
+}
+
+TEST(asked_for_news_small_talk_answers_with_it) {
+    // "Any news?" drew the morning light from a speaker with news to give (judged 2026-09-27).
+    const Lines lines = Lines::parse("any | small_talk_fair | It's dry and fair, for {season}.\n"
+                                     "any | small_talk | I'm busy as ever; the work never stops.\n"
+                                     "any | heard_deed | They say you {deed}.\n"
+                                     "any | heard_deed_told | Only the talk of what you did, and you'd tell that better than me.\n"
+                                     "any | news | The word is {news}.\n"
+                                     "any | news_told | As I said, {news}.\n"
+                                     "any | no_news | Nothing's reached me.\n",
+                                     "test");
+    Meaning meaning(test_model::embedder());
+    const FactPacket heard = packets::small_talk_with_news();
+    const std::string deed = "They say you beat off the threat at the fortress.";
+    check::equal(lines.speak(heard, "Nice weather.", {}, &meaning), "It's dry and fair, for deep winter. " + deed,
+                 "the premise: of the weather, the weather, then what the stranger did");
+    const FactPacket others = packets::small_talk_with_word_of("asked", false);
+    const std::string work = "The word is Halbrann wants someone to stand with Wenweg when they come for it.";
+    for (const std::string asked : {"Any news?", "Heard anything lately?"}) {
+        check::equal(lines.speak(heard, asked, {}, &meaning), deed, "\"" + asked + "\": the stranger's deed, said alone");
+        check::equal(lines.speak(heard, asked, {deed}, &meaning), std::string("Only the talk of what you did, and you'd tell that better than me."),
+                     "\"" + asked + "\", told it lately: the talk of it");
+        check::equal(lines.speak(others, asked, {}, &meaning), work, "\"" + asked + "\": others' news, said alone");
+        check::equal(lines.speak(others, asked, {work}, &meaning),
+                     std::string("As I said, Halbrann wants someone to stand with Wenweg when they come for it."),
+                     "\"" + asked + "\", told it lately: no more than was told");
+        check::equal(lines.speak(packets::small_talk("clear", "breezy"), asked, {}, &meaning), std::string("Nothing's reached me."),
+                     "\"" + asked + "\", with none heard");
+    }
 }
 
 TEST(on_its_subject_the_next_line_each_time_it_is_heard) {
@@ -162,7 +195,7 @@ TEST(asked_to_be_remembered_a_speaker_recalls_the_meeting) {
     FactPacket heard = greeting(0);
     heard.facts.insert(heard.facts.end() - 1, packets::news_of_work("finished", true));
     check::equal(with_news.speak(heard, "Remember me?", {}, &meaning),
-                 std::string("Back again. I saw you some weeks ago. You're the one who helped Wenweg hold, aren't you?"),
+                 std::string("Back again. I saw you some weeks ago. You're the one who helped us hold, aren't you?"),
                  "the meeting recalled, then what they heard");
 }
 
