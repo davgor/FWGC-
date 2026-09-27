@@ -298,6 +298,11 @@ player comes back to someone they like, with a quarrel and its mending, and a se
 passing. It is where lines said again show, and where small talk's two subjects are asked in
 turn.
 
+With `--export-pairs OUT`, a session also writes training pairs, one JSON line a turn a written line
+fits: the voice's own messages for the turn (`Voice::messages`: `system`, `user`), the written
+reply (`response`), and the outcome, act, voice key and role. `training/make_pairs.py` plays many
+worlds' sessions through it to fine-tune the voice on the written lines.
+
 `session_panic.txt` and `session_overhear.txt` are for feelings (contract versions 9 and 10). The
 first is a panic that spreads and is talked down one speaker at a time. The second has people near
 enough to hear the player talk to someone else: a hero who walks over with what a farm hand did

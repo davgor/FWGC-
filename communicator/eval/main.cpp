@@ -31,6 +31,7 @@
 #include <algorithm>
 #include <chrono>
 #include <cstdlib>
+#include <cstdio>
 #include <fstream>
 #include <functional>
 #include <iostream>
@@ -463,6 +464,29 @@ int check_lines(const std::string& path) {
     return broken;
 }
 
+// `text` as a JSON string, quotes included.
+std::string json_string(std::string_view text) {
+    std::string out = "\"";
+    for (const char c : text) {
+        switch (c) {
+            case '"': out += "\\\""; break;
+            case '\\': out += "\\\\"; break;
+            case '\n': out += "\\n"; break;
+            case '\r': out += "\\r"; break;
+            case '\t': out += "\\t"; break;
+            default:
+                if (static_cast<unsigned char>(c) < 0x20) {
+                    char code[8];
+                    std::snprintf(code, sizeof code, "\\u%04x", static_cast<unsigned>(static_cast<unsigned char>(c)));
+                    out += code;
+                } else {
+                    out += c;
+                }
+        }
+    }
+    return out + "\"";
+}
+
 // What a packet's speaker remembers, as a note for a reader (never said): "met again, 1 before,
 // days; friendly; their work: taken; asked about the burnt works last time".
 std::string memory_note(const FactPacket& p) {
@@ -493,7 +517,8 @@ constexpr std::size_t kLately = 32;
 // line and the speaker's reply, the time passing between, and a note of how the game read the line
 // and what the speaker remembered (for a reader; never said). Each speaker is handed their own last
 // reply, as a game hands it. With `meaning`, the player's words choose among the lines.
-void session_eval(const std::string& path, const communicator::Lines& written, communicator::Meaning* meaning) {
+void session_eval(const std::string& path, const communicator::Lines& written, communicator::Meaning* meaning,
+                  std::ostream* pairs) {
     std::ifstream in(path, std::ios::binary);
     if (!in) throw std::runtime_error("no session at " + path);
     std::stringstream text;
@@ -532,6 +557,14 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
             slowest = std::max(slowest, took);
             lately.push_back(reply);
             if (lately.size() > kLately) lately.erase(lately.begin());
+            // A training pair: the voice's own messages for this turn, and the written reply.
+            if (pairs && !reply.empty()) {
+                const std::vector<inference::Message> messages = communicator::Voice::messages(p, line);
+                *pairs << "{\"system\": " << json_string(messages.at(0).content) << ", \"user\": " << json_string(messages.at(1).content)
+                       << ", \"response\": " << json_string(reply) << ", \"outcome\": " << json_string(orchestrator::to_string(p.outcome))
+                       << ", \"act\": " << json_string(orchestrator::to_string(p.answering)) << ", \"voice_key\": "
+                       << json_string(p.persona.voice_key) << ", \"role\": " << json_string(p.persona.role) << "}\n";
+            }
             // A bystander who joined in answers what the player said to someone else.
             const bool joined = std::any_of(p.facts.begin(), p.facts.end(), [](const orchestrator::Fact& f) {
                 return f.kind == orchestrator::FactKind::Memory && f.field("joined") && *f.field("joined") == "yes";
@@ -665,7 +698,7 @@ int main(int argc, char** argv) {
     if (model_path.empty()) model_path = COMMUNICATOR_TEST_MODEL;
     std::string lines = std::string(COMMUNICATOR_EVAL_DIR) + "/lines.txt";
     std::string voice = std::string(COMMUNICATOR_EVAL_DIR) + "/voice.txt";
-    std::string authored, voice_key, post, check, session, meaning_path;
+    std::string authored, voice_key, post, check, session, meaning_path, export_pairs;
     std::size_t limit = 0;
     inference::ModelOptions options;
     for (int i = 1; i < argc; ++i) {
@@ -682,6 +715,7 @@ int main(int argc, char** argv) {
         else if (arg == "--post") post = value();
         else if (arg == "--check-lines") check = value();
         else if (arg == "--session") session = value();
+        else if (arg == "--export-pairs") export_pairs = value();
         else if (arg == "--meaning") meaning_path = value();
         else if (arg == "--limit") limit = static_cast<std::size_t>(std::stoul(value()));
         else if (arg == "--threads") options.threads = std::stoi(value());
@@ -710,7 +744,12 @@ int main(int argc, char** argv) {
                 meaning.emplace(*embedder);
                 std::cout << "meaning: " << meaning_path << " on " << embedder->device() << "\n";
             }
-            session_eval(session, written, meaning ? &*meaning : nullptr);
+            std::ofstream pairs;
+            if (!export_pairs.empty()) {
+                pairs.open(export_pairs, std::ios::binary);
+                if (!pairs) throw std::runtime_error("cannot write " + export_pairs);
+            }
+            session_eval(session, written, meaning ? &*meaning : nullptr, export_pairs.empty() ? nullptr : &pairs);
             return 0;
         }
         std::unique_ptr<inference::Model> model = inference::Model::load(model_path, options);

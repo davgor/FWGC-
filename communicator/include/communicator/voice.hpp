@@ -45,10 +45,10 @@ public:
     Reply speak(const orchestrator::FactPacket& packet, std::string_view line,
                 const std::function<bool(std::string_view)>& on_piece = {});
 
-    // What speak() puts to the model, and the grammar it holds the reply to: for a log, or a
-    // test.
-    std::vector<inference::Message> messages(const orchestrator::FactPacket& packet, std::string_view line) const;
-    std::string grammar(const orchestrator::FactPacket& packet) const;
+    // What speak() puts to the model, and the grammar it holds the reply to: for a log, a test,
+    // or a training pair. Neither needs a model.
+    static std::vector<inference::Message> messages(const orchestrator::FactPacket& packet, std::string_view line);
+    static std::string grammar(const orchestrator::FactPacket& packet);
 
 private:
     inference::Model& model_;

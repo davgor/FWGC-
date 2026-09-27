@@ -388,7 +388,7 @@ Voice::Voice(inference::Model& model, VoiceOptions options) : model_(model), opt
         throw Error("temperature must be a finite number, zero or more");
 }
 
-std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::string_view line) const {
+std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::string_view line) {
     check_version(packet);
     const orchestrator::Persona& p = packet.persona;
     const std::string name = text::spoken(p.name), role = text::spaced(text::spoken(p.role)), place = text::spoken(p.place);
@@ -434,7 +434,7 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
     return {{"system", system}, {"user", text::one_line(line)}};
 }
 
-std::string Voice::grammar(const FactPacket& packet) const {
+std::string Voice::grammar(const FactPacket& packet) {
     check_version(packet);
     // Every capitalised word the prompt gives as something to say may be said anywhere: the
     // speaker's name, post and place, and the facts' words; and "I". The never-lines and the
