@@ -69,3 +69,37 @@ if(ORCHESTRATOR_BUILD_TESTS)
   target_link_libraries(orchestrator_session PRIVATE orchestrator)
   target_compile_options(orchestrator_session PRIVATE ${ORCHESTRATOR_WARNINGS})
 endif()
+
+# The director in C: fwgc_director.dll, the whole director behind the plain C interface in
+# include/orchestrator/fwgc_director.h, for a game engine to load. Only a build of this folder on
+# its own makes it; a component that adds this folder as a sibling (the communicator) never sees
+# it. The DLL, its import library and its test land together, so the test finds the DLL.
+option(ORCHESTRATOR_BUILD_C_API "Build fwgc_director, the C interface a game binds to" ${ORCHESTRATOR_TOP_LEVEL})
+if(ORCHESTRATOR_BUILD_C_API)
+  set(FWGC_DIRECTOR_RUNTIME "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")  # the shared runtime, as the generator's
+  add_library(fwgc_director SHARED src/c_api.cpp src/c_json.cpp src/c_save.cpp)
+  target_include_directories(fwgc_director PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+                                           PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+  target_link_libraries(fwgc_director PRIVATE orchestrator)
+  target_compile_options(fwgc_director PRIVATE ${ORCHESTRATOR_WARNINGS})
+  set_target_properties(fwgc_director PROPERTIES
+    MSVC_RUNTIME_LIBRARY ${FWGC_DIRECTOR_RUNTIME}
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin
+    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+  # What a game's third-party folder takes: the DLL, its import library, the header.
+  install(TARGETS fwgc_director RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
+  install(FILES include/orchestrator/fwgc_director.h DESTINATION include)
+
+  if(ORCHESTRATOR_BUILD_TESTS)
+    # Through the DLL, held to the C++ director it wraps: the test links both, two separate images.
+    add_executable(orchestrator_c_tests tests/main.cpp tests/test_c_api.cpp)
+    target_link_libraries(orchestrator_c_tests PRIVATE fwgc_director orchestrator)
+    target_include_directories(orchestrator_c_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    target_compile_options(orchestrator_c_tests PRIVATE ${ORCHESTRATOR_WARNINGS})
+    set_target_properties(orchestrator_c_tests PROPERTIES
+      MSVC_RUNTIME_LIBRARY ${FWGC_DIRECTOR_RUNTIME}
+      RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+    add_test(NAME orchestrator_c_tests COMMAND orchestrator_c_tests)
+  endif()
+endif()

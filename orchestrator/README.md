@@ -21,7 +21,9 @@ The build adds `../generator` as a sibling, so the generator's library is built 
 determinism flags. `generator/README.md` says where `cmake` is on this machine.
 
 The tests generate the seed-42 size-33 world, small and large, and the seed-99 size-33 world,
-which holds every kind of hidden face. They take about forty seconds.
+which holds every kind of hidden face. They take about forty seconds. The same build makes
+`fwgc_director.dll`, the C interface below, and `orchestrator_c_tests`, which hold it to the
+director in about thirty seconds more.
 
 ## What it does
 
@@ -256,6 +258,58 @@ keep what it was given and ask again after a hold, after the clock moves, or whe
 holds runs out. Each stint is worked out from the one day it falls in (`schedule::stint_at`),
 and a test holds it to what the whole day gives, to the bit.
 
+## The C interface
+
+`fwgc_director.dll` holds the whole director behind a plain C interface,
+[`include/orchestrator/fwgc_director.h`](include/orchestrator/fwgc_director.h), for a game engine
+to load: an opaque handle, UTF-8 text in and out, and plain structs for what a game reads every
+frame. This folder's own build makes it (`ORCHESTRATOR_BUILD_C_API`, on when the folder is built
+on its own, never when another component adds it as a sibling), into `bin/` beside the test that
+holds it to the director, with its import library in `lib/`; `cmake --install` lays out `bin/`,
+`lib/` and `include/` for a game's third-party folder.
+
+- **Everything the director does.** A world from a generator request (`fwgc_create`, the request
+  `fwg.exe --request` reads); time (`fwgc_advance`, `fwgc_clock`); acts by name (`fwgc_respond`,
+  its packet as JSON for the game and in the contract's text form for the communicator);
+  who overheard it (`fwgc_overhear`, each bystander's reaction and a joiner's reply); work
+  (`fwgc_resolve`); feelings (`fwgc_fright`, `fwgc_gather`, `fwgc_feeling`); days
+  (`fwgc_hold`, `fwgc_positions`, `fwgc_whereabouts_of`, `fwgc_whereabouts_at`, `fwgc_day_of`,
+  `fwgc_roster`); what a speaker remembers (`fwgc_acquaintance`); the world document
+  (`fwgc_world_json`, for drawing the world only: it holds what speakers keep back); and
+  `fwgc_contract_json`, every act (whether it needs a target, whether it changes the world),
+  outcome and fact kind by name.
+- **Saves.** `fwgc_save` writes the request, the digest of the world it made, every input, and a
+  check: the clock and the count of the world's logged operations after them. `fwgc_restore`
+  makes the world again, compares the digest, replays, compares the check, and refuses
+  (`FWGC_INCOMPATIBLE`) a save that comes out any differently rather than restore it onto another
+  world. With the shared C runtime the math is the operating system's, so a save restores where
+  the world comes out the same: the same build, on a runtime that computes alike. Save, restore,
+  save gives the same bytes.
+- **Nothing crosses but a status.** Every call returns an `fwgc_status`, and `fwgc_last_error()`
+  says why, in the calling thread. A caller's mistake -- a NULL, text that is not UTF-8, an act or
+  a uid the director does not know -- is `FWGC_BAD_ARGUMENT` and records nothing. A failure part
+  way through a change poisons the handle: only its save and its destruction still work, and the
+  save holds only what succeeded, so the game restores from it.
+- **One lock** covers every call, since the generator keeps caches two threads must not share.
+  Creating, restoring and advancing run long: make them off the game thread. Every call runs in
+  the float environment worlds are made in, and gives the caller's back: an engine that flushes
+  denormals, or rounds another way, would otherwise make another world. A test sets both and
+  gets the same world.
+- **It keeps pace.** A new input kind, or a new field on a type the interface writes out, stops
+  its build until the interface carries it.
+
+Measured on 2026-09-26, Release, on this machine, seed 42: creating a size-33 world takes 1.2 s
+and a size-65 one 2.6 s, restoring about the same, and advancing a month 47 ms and 144 ms. About
+0.8 s of a create or a restore is the digest, one pass over the whole world document: the price
+of refusing a save that would come out as another world. A save is a few hundred bytes plus its
+inputs; the world document is 53 MB at size 33 and 107 MB at 65.
+
+The tests (`orchestrator_c_tests`) run a session through the DLL and the C++ director side by
+side -- every act and every input kind -- and compare every packet, memory, feeling, position and
+day after each step, and the world at the end, byte for byte; then save, restore and refuse
+broken saves. An Unreal module binds the DLL as an external library: the header, the import
+library, the DLL as a runtime dependency, loaded and its `fwgc_api_version()` checked at start-up.
+
 ## A session, to listen to
 
 `orchestrator_session SCRIPT` (`tools/session.cpp`) plays a scripted session against a generated
@@ -317,6 +371,5 @@ switched each rule off in a scratch build.
 - A question the speaker asks the player, remembered until answered: `answer` is acknowledged,
   and nothing yet records what was asked.
 - Bearings ("to the north").
-- The C interface an Unreal module binds to.
 
 Each needs its own plan.
