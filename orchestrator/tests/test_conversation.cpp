@@ -573,7 +573,8 @@ TEST(another_givers_work_says_how_they_stand_to_the_speaker) {
     std::size_t tied = 0, untied = 0;
     for (const fwg::Hero& h : d.world().heroes.people) {
         if (h.status != "living" || !node_of(d.world(), h.uid)) continue;
-        const FactPacket p = d.respond(h.uid, {ActKind::AskForWork, ""});
+        (void)d.respond(h.uid, {ActKind::AskForWork, ""});
+        const FactPacket p = d.respond(h.uid, {ActKind::AskForWork, ""});  // asked again: others' work too (contract version 16)
         for (const Fact& f : facts_of(p, FactKind::QuestOffer)) {
             const std::string giver = giver_of[f.subject];
             std::string expected;
@@ -1577,20 +1578,33 @@ TEST(a_roster_person_asked_about_themself_gives_their_post_and_place) {
 }
 
 // Asked for work, a speaker names their own and at most two others' (contract version 13): what the
-// answer names is what a reply can say, and what they are remembered to have told.
+// answer names is what a reply can say, and what they are remembered to have told. The first time
+// they are asked in a conversation, someone with work of their own names only that (16), and in the
+// next conversation, only that again.
 TEST(asked_for_work_a_speaker_names_their_own_and_two_others) {
     const fwg::World& w = faced_world();
     Director d(w);
-    std::size_t at_most = 0, with_own = 0, doubled = 0;
+    std::size_t at_most = 0, with_own = 0, doubled = 0, own_alone = 0;
+    const auto subjects = [](const FactPacket& p, bool own_only) {
+        std::vector<std::string> out;
+        for (const Fact& f : facts_of(p, FactKind::QuestOffer))
+            if (!own_only || value(f, "from_speaker") == "yes") out.push_back(f.subject);
+        return out;
+    };
     for (const fwg::Hero& h : w.heroes.people) {
         if (h.status != "living" || !node_of(w, h.uid)) continue;
-        const FactPacket p = d.respond(h.uid, {ActKind::AskForWork, ""});
+        const FactPacket first = d.respond(h.uid, {ActKind::AskForWork, ""});
+        const FactPacket p = d.respond(h.uid, {ActKind::AskForWork, ""});  // asked again
         std::size_t mine = 0, theirs = 0;
         std::set<std::string> purposes;
         for (const Fact& f : facts_of(p, FactKind::QuestOffer)) {
             ++(value(f, "from_speaker") == "yes" ? mine : theirs);
             check::is_true(purposes.insert(value(f, "purpose")).second, h.uid + " names one errand twice: " + value(f, "purpose"));
         }
+        // The first answer: their own alone when they have any, in the same order; else what the
+        // second says.
+        check::is_true(subjects(first, false) == subjects(p, mine > 0), h.uid + ": the first answer");
+        if (mine > 0 && theirs > 0) ++own_alone;
         check::is_true(theirs <= 2, h.uid + " names " + std::to_string(theirs) + " others' work");
         if (theirs == 2) ++at_most;
         if (mine >= 1 && theirs == 2) ++with_own;
@@ -1618,7 +1632,11 @@ TEST(asked_for_work_a_speaker_names_their_own_and_two_others) {
         }
         check::equal(theirs, std::min<std::size_t>(2, errands.size() + unnamed), h.uid + ": two others' errands, or all there are");
         (void)d.respond(h.uid, {ActKind::Farewell, ""});
+        check::is_true(subjects(d.respond(h.uid, {ActKind::AskForWork, ""}), false) == subjects(first, false),
+                       h.uid + ": asked first in the next conversation, as in the last");
+        (void)d.respond(h.uid, {ActKind::Farewell, ""});
     }
     check::is_true(at_most > 0 && with_own > 0, "the premise: speakers who know of more work than an answer names, givers among them");
+    check::is_true(own_alone > 0, "the premise: speakers with work of their own who know of others'");
     check::is_true(doubled > 0, "the premise: speakers who know one errand from two givers");
 }

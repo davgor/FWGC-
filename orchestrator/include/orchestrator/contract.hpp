@@ -39,7 +39,9 @@ namespace orchestrator {
 //     at the place the speaker stands (work "with me", done beside them).
 // 15: an answer to ask_for_work gives another giver's offer `giver_tie` ("rival", "kin", "ally")
 //     when that giver is tied to the speaker.
-inline constexpr int kContractVersion = 15;
+// 16: a speaker with work of their own names only theirs the first time they are asked for work in
+//     a conversation, and others' too when asked again.
+inline constexpr int kContractVersion = 16;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.

@@ -367,7 +367,10 @@ Asked for work (contract version 13), a speaker names their own and at most two 
 answer names is what a reply says of it, and what the speaker is remembered to have told. A packet
 of eight offers, three of them said, had kept eight as told. One errand from two givers is named
 once, the first giver's: two harbourmasters of one harbour, each wanting its sea lanes kept open,
-were named one after the other.
+were named one after the other. The first time they are asked in a conversation, a speaker with
+work of their own names only theirs, and others' when asked again (contract version 16): a hero's own
+stand said beside two others' errands read as a notice board to every blind judge of the hero
+benchmark.
 
 ## Faces
 

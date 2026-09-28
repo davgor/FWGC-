@@ -32,9 +32,10 @@ using knowledge::Speaker;
 // cities in reach are few and all named; waystones and markers crowd everything else out
 // unless held to a handful.
 constexpr std::size_t kSurroundingCities = 8;
-// Asked for work, a speaker names their own and at most this many others' (contract version 13): a
-// person says a few of the errands they know of, not a board, and what an answer names is what the
-// speaker is remembered to have told.
+// Asked for work, a speaker names their own and at most this many others' (contract version 13), or,
+// the first time they are asked in a conversation, their own alone if they have any (16): a person
+// says a few of the errands they know of, not a board, and what an answer names is what the speaker
+// is remembered to have told.
 constexpr std::size_t kOthersNamed = 2;
 constexpr std::size_t kSurroundingHamlets = 3;
 constexpr std::size_t kSurroundingFortresses = 3;
@@ -1259,9 +1260,16 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
             // offers, three of them said, kept eight as told (the hero benchmark's judge, 2026-09-28).
             // One errand from two givers is named once: two harbourmasters of one harbour wanting its
             // sea lanes kept open were named one after the other (the hero benchmark, 2026-09-28).
+            // Someone with work of their own names only that the first time they are asked in a
+            // conversation, and others' when asked again (contract version 16): a hero's own stand
+            // said beside two others' errands read as a notice board to every blind judge of the hero
+            // benchmark (2026-09-28).
+            const std::vector<Offer> offers = offers_known_to(world_, s);
+            const bool own_only = !repeat && std::any_of(offers.begin(), offers.end(), [](const Offer& o) { return o.own; });
             std::size_t others = 0;
             std::set<std::string> purposes;
-            for (const Offer& offer : offers_known_to(world_, s)) {
+            for (const Offer& offer : offers) {
+                if (own_only && !offer.own) continue;
                 const std::string purpose = offer.row.stated_purpose.value_or("");
                 if (!offer.own && !purpose.empty() && purposes.count(purpose) != 0) continue;
                 if (!offer.own && others++ >= kOthersNamed) continue;
