@@ -987,3 +987,7 @@ reluctant_hero/NN | heard_deed | You {deed}, is that right, or have I got it mud
 reluctant_hero/NN | news | Not that I went looking for it, but I hear {news}.
 reluctant_hero/NN | news | Here's the latest, for my sins: {news}.
 reluctant_hero/NN | news | I hear {news}; don't ask me for more than that.
+
+# ---- reluctant_hero/NN: remembering what the player said (contract version 12) ----
+reluctant_hero/NN | recalled | I've plenty on my mind, and what you told me found room anyway: {words}.
+reluctant_hero/NN | recalled | What you had to tell me got through: {words}; tired isn't the same as deaf.

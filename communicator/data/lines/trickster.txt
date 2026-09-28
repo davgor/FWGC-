@@ -869,3 +869,7 @@ trickster/NN | heard_deed | Unless my ears are playing tricks, you {deed}.
 trickster/NN | news | You didn't hear it from me, but {news}.
 trickster/NN | news | Remember who told you: {news}.
 trickster/NN | news | I've heard {news}; for once, I'm not making it up.
+
+# ---- trickster/NN: remembering what the player said (contract version 12) ----
+trickster/NN | recalled | My mouth runs most of the day, but yours got a word in: {words}.
+trickster/NN | recalled | Some of what you told me went in: {words}; I'm quicker on the uptake than I let on.

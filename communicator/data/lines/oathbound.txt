@@ -987,3 +987,7 @@ oathbound/NN | heard_deed | Is it true you {deed}, on your word?
 oathbound/NN | news | I'll not vouch for more than the hearing of it: {news}.
 oathbound/NN | news | I'm told {news}; that's all I'll put my word to.
 oathbound/NN | news | This much has reached me, no more and no less: {news}.
+
+# ---- oathbound/NN: remembering what the player said (contract version 12) ----
+oathbound/NN | recalled | I'm a steady sort, which is why something you said is with me yet: {words}.
+oathbound/NN | recalled | Something of yours I heard once: {words}; most folk get a nod from me, and you got an ear.

@@ -751,3 +751,7 @@ redeemed/NN | heard_deed | Tell me plainly: is it true you {deed}?
 redeemed/NN | news | As plain as I had it, {news}.
 redeemed/NN | news | I'm told {news}; I'll leave it at that.
 redeemed/NN | news | Nothing added and nothing taken away: {news}.
+
+# ---- redeemed/NN: remembering what the player said (contract version 12) ----
+redeemed/NN | recalled | As plainly as I speak, your telling has stayed in my memory: {words}.
+redeemed/NN | recalled | Your words reached me: {words}; I was a poor listener once, but I've mended my ways.

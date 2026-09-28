@@ -987,3 +987,7 @@ exiled_hero/NN | heard_deed | I'm told you {deed}; I'll take you as I find you, 
 exiled_hero/NN | news | It came my way that {news}.
 exiled_hero/NN | news | The way I heard it, {news}.
 exiled_hero/NN | news | I heard {news}; that's as much as I know of it.
+
+# ---- exiled_hero/NN: remembering what the player said (contract version 12) ----
+exiled_hero/NN | recalled | I learn folk by what they tell me, not by where they're from, and you told me: {words}.
+exiled_hero/NN | recalled | You thought to tell me: {words}; one day I'll tell you something of mine.

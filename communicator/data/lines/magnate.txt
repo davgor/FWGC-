@@ -987,3 +987,7 @@ magnate/NN | heard_deed | Is it true you {deed}, or is someone selling me a stor
 magnate/NN | news | Here's what's on the books, so to speak: {news}.
 magnate/NN | news | The way I hear it, {news}.
 magnate/NN | news | I'd not stake much on talk, but I'm told {news}.
+
+# ---- magnate/NN: remembering what the player said (contract version 12) ----
+magnate/NN | recalled | I make it my business to hold on to what people tell me, yours included: {words}.
+magnate/NN | recalled | You once told me: {words}; I remember the people behind the dealings.

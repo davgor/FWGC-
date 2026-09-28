@@ -1322,3 +1322,39 @@ post:assistant | heard_deed | It's you who {deed}, then; nobody tells me anythin
 post:assistant | news | Don't quote me, but I heard {news}.
 post:assistant | news | Oh, and I heard something, if I've got it right: {news}.
 post:assistant | news | They were saying {news}, or I think they were.
+
+# ---- post:baker: remembering what the player said (contract version 12) ----
+post:baker | recalled | What you told me I've not let go stale: {words}.
+post:baker | recalled | Some things I'm told I forget before the crust sets, but not what you told me: {words}.
+
+# ---- post:cook: remembering what the player said (contract version 12) ----
+post:cook | recalled | I've a sharp tongue and a fair memory, and you told me: {words}.
+post:cook | recalled | Once, you told me: {words}; the stove can wait while I say so.
+
+# ---- post:miller: remembering what the player said (contract version 12) ----
+post:miller | recalled | What you told me went into the hopper, and I've kept what came out: {words}.
+post:miller | recalled | You told me: {words}; my head's dusty, but sound.
+
+# ---- post:brewer: remembering what the player said (contract version 12) ----
+post:brewer | recalled | The way I keep a cask, sealed and minded, is how I've kept what you told me: {words}.
+post:brewer | recalled | My trade is half patience and half memory, and your words went into the second half: {words}.
+
+# ---- post:bartender: remembering what the player said (contract version 12) ----
+post:bartender | recalled | I keep this bar, and you told me: {words}.
+post:bartender | recalled | I listened when you told me this: {words}; I'm not only the one who fills the cups.
+
+# ---- post:host: remembering what the player said (contract version 12) ----
+post:host | recalled | I see to beds and meals, and the listening comes with them; you told me: {words}.
+post:host | recalled | Of yourself, you told me: {words}; I remember the guests who talk to me.
+
+# ---- post:service_worker: remembering what the player said (contract version 12) ----
+post:service_worker | recalled | Nobody asks the one with the trays, but you told me: {words}.
+post:service_worker | recalled | There's one thing you told me I didn't drop: {words}.
+
+# ---- post:bath_attendant: remembering what the player said (contract version 12) ----
+post:bath_attendant | recalled | I fold what you told me away with the clean linen: {words}.
+post:bath_attendant | recalled | Your words have stayed with me longer than any soap: {words}.
+
+# ---- post:assistant: remembering what the player said (contract version 12) ----
+post:assistant | recalled | I was so worried I'd forget what you told me, but I haven't: {words}.
+post:assistant | recalled | I've been saying what you told me over to myself: {words}; I'm still learning, but I kept that much.

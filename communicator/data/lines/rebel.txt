@@ -869,3 +869,7 @@ rebel/NN | heard_deed | I'd rather hear it from you than from gossip: is it true
 rebel/NN | news | If it's any use to you, I hear {news}.
 rebel/NN | news | I don't wait for leave to say it: {news}.
 rebel/NN | news | They're saying {news}; I'll not pretend otherwise.
+
+# ---- rebel/NN: remembering what the player said (contract version 12) ----
+rebel/NN | recalled | I bow to no one, but I heard you plainly: {words}.
+rebel/NN | recalled | You spoke for yourself once: {words}.

@@ -890,3 +890,7 @@ beast/NN | heard_deed | You {deed}, they say, and I'll make up my own mind.
 beast/NN | news | I'll keep it short: {news}, so they say.
 beast/NN | news | I heard {news}, and that's all I'll say on it.
 beast/NN | news | Somebody said {news}; I'll not say it twice.
+
+# ---- beast/NN: remembering what the player said (contract version 12) ----
+beast/NN | recalled | I'm short with most folk, but I heard you out: {words}.
+beast/NN | recalled | Your words haven't left me: {words}.

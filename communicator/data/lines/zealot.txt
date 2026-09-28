@@ -745,3 +745,7 @@ zealot/NN | heard_deed | You {deed}, I'm told, and I'll take it on faith until I
 zealot/NN | news | Here's something to pray on: {news}.
 zealot/NN | news | I'll not add to it, and I'll not doubt it: {news}.
 zealot/NN | news | As sure as I pray, I heard that {news}.
+
+# ---- zealot/NN: remembering what the player said (contract version 12) ----
+zealot/NN | recalled | I do nothing by halves, and I didn't half-listen to you: {words}.
+zealot/NN | recalled | What you shared with me has stayed: {words}; I don't let my ears go idle.

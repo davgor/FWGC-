@@ -321,7 +321,7 @@ knight_errant/NN | offended_again | Watch your tongue; I keep count of this too.
 knight_errant/NN | parted_cold | Go, then; we're done here.
 knight_errant/NN | parted_cold | On your way; I've nothing more for you.
 knight_errant/NN | safety_unsafe | No, not worth the risk. Keep clear of {worst}.[ There are {danger} as well.]
-knight_errant/NN | safety_unsafe | Not safe; there are {danger}, and that settles it.[ And i'd keep off {worst}.]
+knight_errant/NN | safety_unsafe | Not safe; there are {danger}, and that settles it.[ And I'd keep off {worst}.]
 knight_errant/NN | safety_wary | Safe enough, as long as you keep clear of {worst}.[ Mind the {danger} as well.]
 knight_errant/NN | safety_wary | More or less; the one to weigh is {worst}.[ After that, {others}.]
 knight_errant/NN | safety_safe | Yes, near enough. The worst I'd name is {worst}.[ And there are {danger}.]
@@ -751,3 +751,7 @@ knight_errant/NN | heard_deed | I hear you {deed}; I keep count of such things, 
 knight_errant/NN | news | I lend hearsay no more weight than it's due, and I heard {news}.
 knight_errant/NN | news | Here's how it was told to me: {news}.
 knight_errant/NN | news | Whatever the cause behind it, {news}.
+
+# ---- knight_errant/NN: remembering what the player said (contract version 12) ----
+knight_errant/NN | recalled | By your leave, you told me once: {words}; I hope I've done those words justice.
+knight_errant/NN | recalled | Out on my own as I am, I heard you once: {words}.

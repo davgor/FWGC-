@@ -400,3 +400,7 @@ inherited_hero/NN | heard_deed | Was it you who {deed}, then, or have I been han
 inherited_hero/NN | news | I keep count of what I hear, and I heard {news}.
 inherited_hero/NN | news | No dressing it up: {news}.
 inherited_hero/NN | news | The last I heard, {news}.
+
+# ---- inherited_hero/NN: remembering what the player said (contract version 12) ----
+inherited_hero/NN | recalled | My aim was handed to me, but what you told me I came by myself: {words}.
+inherited_hero/NN | recalled | You were telling me once: {words}; I listened closer than I looked.

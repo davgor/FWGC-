@@ -1508,3 +1508,43 @@ post:cart_handler | heard_deed | They say you {deed}, and that's all I've time f
 post:cart_handler | news | They're saying {news}, and now I've carts to see to.
 post:cart_handler | news | All sorts comes through the yard, and I hear {news}.
 post:cart_handler | news | I heard it on the move, so don't hold me to it: {news}.
+
+# ---- post:smith: remembering what the player said (contract version 12) ----
+post:smith | recalled | What I make, I make to last, and what you told me has lasted too: {words}.
+post:smith | recalled | Now, you told me: {words}; I remember folk better than the jobs they bring.
+
+# ---- post:carpenter: remembering what the player said (contract version 12) ----
+post:carpenter | recalled | What goes into a joint stays there, and what you told me went in the same way: {words}.
+post:carpenter | recalled | As I'd mark timber, I marked what you let me know: {words}; pencil rubs off, memory doesn't.
+
+# ---- post:mason: remembering what the player said (contract version 12) ----
+post:mason | recalled | My trowel keeps its line, and my memory keeps what you said: {words}.
+post:mason | recalled | Your telling went in and set: {words}; what's set with me stays set.
+
+# ---- post:maintenance_laborer: remembering what the player said (contract version 12) ----
+post:maintenance_laborer | recalled | Something you said, I kept: {words}.
+post:maintenance_laborer | recalled | My pockets are full of hinges and nails, but what you told me is still with me: {words}; I'm not so tired I'd forget.
+
+# ---- post:apprentice: remembering what the player said (contract version 12) ----
+post:apprentice | recalled | They're teaching me the trade, and what you told me I learned on my own: {words}.
+post:apprentice | recalled | I get sent on errands all day, and I made sure to keep what you said: {words}.
+
+# ---- post:textile_worker: remembering what the player said (contract version 12) ----
+post:textile_worker | recalled | I've sorted threads all my life, and what you told me I can still pick out: {words}.
+post:textile_worker | recalled | With a double thread, I sewed in what you told me: {words}.
+
+# ---- post:furnace_worker: remembering what the player said (contract version 12) ----
+post:furnace_worker | recalled | The fire gets my sweat, but what you told me it's never had: {words}.
+post:furnace_worker | recalled | A thing you shared once: {words}; I've had those words with me, in the heat and out.
+
+# ---- post:ore_handler: remembering what the player said (contract version 12) ----
+post:ore_handler | recalled | Not much stays with me but rock dust, and what you said: {words}.
+post:ore_handler | recalled | Aye, from you: {words}; I'm slow with talk, not with keeping.
+
+# ---- post:farrier: remembering what the player said (contract version 12) ----
+post:farrier | recalled | With a hoof in my lap, I'm more listener than talker, and you told me: {words}.
+post:farrier | recalled | Here's what you told me once: {words}; I mind riders as well as their horses.
+
+# ---- post:cart_handler: remembering what the player said (contract version 12) ----
+post:cart_handler | recalled | I'm up to the elbows in grease most days, and you told me: {words}.
+post:cart_handler | recalled | Right, what you told me hasn't jolted loose: {words}.

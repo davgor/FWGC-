@@ -987,3 +987,7 @@ warden/NN | heard_deed | So it was you who {deed}, was it?
 warden/NN | news | Here's how it came to me: {news}.
 warden/NN | news | Since you're here, you may as well have it: {news}.
 warden/NN | news | I'm told {news}; I've no reason to doubt it.
+
+# ---- warden/NN: remembering what the player said (contract version 12) ----
+warden/NN | recalled | I listen to whoever comes by, so what you told me stayed: {words}.
+warden/NN | recalled | Aye, you told me a thing: {words}; I've a good memory for what folk tell me.

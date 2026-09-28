@@ -987,3 +987,7 @@ obsessed_hunter/NN | heard_deed | I'd trust my own eyes over any tongue, but the
 obsessed_hunter/NN | news | It's not what I'm after, but I did hear {news}.
 obsessed_hunter/NN | news | For whatever talk is worth, {news}.
 obsessed_hunter/NN | news | This is talk, not tracks: {news}.
+
+# ---- obsessed_hunter/NN: remembering what the player said (contract version 12) ----
+obsessed_hunter/NN | recalled | My ears keep up with my eyes; what you told me is still in my head: {words}.
+obsessed_hunter/NN | recalled | Still to hand, what you told me: {words}; I've no need to go looking for those words.

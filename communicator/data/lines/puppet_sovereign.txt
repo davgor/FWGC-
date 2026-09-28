@@ -397,3 +397,7 @@ puppet_sovereign/NN | heard_deed | The account I was given says you {deed}.
 puppet_sovereign/NN | news | It's been put to me that {news}.
 puppet_sovereign/NN | news | I only repeat what I'm given: {news}.
 puppet_sovereign/NN | news | It's not for me to judge, but I hear {news}.
+
+# ---- puppet_sovereign/NN: remembering what the player said (contract version 12) ----
+puppet_sovereign/NN | recalled | It's rare anyone shares anything of their own with me, so I kept yours: {words}.
+puppet_sovereign/NN | recalled | Nobody told me to listen to you, but I did: {words}.

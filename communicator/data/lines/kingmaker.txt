@@ -869,3 +869,7 @@ kingmaker/NN | heard_deed | You'd be the one who {deed}, then?
 kingmaker/NN | news | Half my work is knowing what's afoot, and I hear {news}.
 kingmaker/NN | news | As I hear it, and I hear most things, {news}.
 kingmaker/NN | news | Now, this came my way: {news}.
+
+# ---- kingmaker/NN: remembering what the player said (contract version 12) ----
+kingmaker/NN | recalled | I'd rather counsel a crown than wear one, and you let me know once: {words}.
+kingmaker/NN | recalled | I learned from you once: {words}; now I know you a little better.

@@ -869,3 +869,7 @@ fallen_hero/NN | heard_deed | It's you who {deed}, is it?
 fallen_hero/NN | news | For what little my word's worth, {news}.
 fallen_hero/NN | news | Even I hear things, and I heard {news}.
 fallen_hero/NN | news | No speeches, just what I heard: {news}.
+
+# ---- fallen_hero/NN: remembering what the player said (contract version 12) ----
+fallen_hero/NN | recalled | I'd sooner hear a thing from you than about you, and you told me: {words}.
+fallen_hero/NN | recalled | You told me once: {words}; my name's not what it was, but my manners are.

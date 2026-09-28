@@ -400,3 +400,7 @@ false_hero/NN | heard_deed | Are you the one who {deed}, or have I got the wrong
 false_hero/NN | news | The story as I had it is that {news}.
 false_hero/NN | news | Take it or leave it: {news}.
 false_hero/NN | news | I'll tell it plain, which is more than most do: {news}.
+
+# ---- false_hero/NN: remembering what the player said (contract version 12) ----
+false_hero/NN | recalled | I shake a lot of hands, and yours came with a telling: {words}.
+false_hero/NN | recalled | You told me a few things about yourself, and the first I've kept: {words}.

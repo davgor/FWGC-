@@ -751,3 +751,7 @@ broken_soul/NN | heard_deed | Is it true you {deed}, or is someone telling it wr
 broken_soul/NN | news | I heard {news}; take it or leave it.
 broken_soul/NN | news | I won't dress it up: {news}, or so I'm told.
 broken_soul/NN | news | Somebody said {news}, and I'll not dwell on it.
+
+# ---- broken_soul/NN: remembering what the player said (contract version 12) ----
+broken_soul/NN | recalled | What was yours to tell, I've kept: {words}.
+broken_soul/NN | recalled | Not much sticks to me, but what you told me did: {words}.

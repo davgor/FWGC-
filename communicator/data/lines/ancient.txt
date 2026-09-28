@@ -397,3 +397,7 @@ ancient/NN | heard_deed | Was it you who {deed}, or has the telling run ahead of
 ancient/NN | news | There's always something, and this time it's that {news}.
 ancient/NN | news | I heard {news}, and I'll weigh it when I'm ready.
 ancient/NN | news | No need to hurry over it, but they tell me {news}.
+
+# ---- ancient/NN: remembering what the player said (contract version 12) ----
+ancient/NN | recalled | For all my years, my ears are sound, and you told me: {words}.
+ancient/NN | recalled | Among all I've been told, your words have kept their place: {words}.

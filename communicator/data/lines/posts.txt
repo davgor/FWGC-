@@ -213,3 +213,7 @@ post:innkeeper | heard_deed | And to think it was you who {deed}; well, you lear
 post:innkeeper | news | Now, I don't like to gossip, but {news}.
 post:innkeeper | news | Mind, I only tell it as I heard it: {news}.
 post:innkeeper | news | Tell me, is it true that {news}?
+
+# ---- post:innkeeper: remembering what the player said (contract version 12) ----
+post:innkeeper | recalled | You told me once: {words}; I've always an ear for you.
+post:innkeeper | recalled | Well now, I don't forget the folk I pour for, and you told me: {words}.

@@ -1468,3 +1468,43 @@ post:watch_officer | heard_deed | Are you the one who {deed}, and can I have it 
 post:watch_officer | news | In brief, and off the record: {news}.
 post:watch_officer | news | I've a note of it somewhere: {news}.
 post:watch_officer | news | Is it confirmed that {news}, or is it still hearsay?
+
+# ---- post:garrison_trooper: remembering what the player said (contract version 12) ----
+post:garrison_trooper | recalled | My blade's kept sharp and my memory sharper, and you told me: {words}.
+post:garrison_trooper | recalled | You spoke of yourself once: {words}; I'd know your voice anywhere.
+
+# ---- post:gate_guard: remembering what the player said (contract version 12) ----
+post:gate_guard | recalled | Most of what I hear goes out the gate as fast as it came in, but what you told me stayed with me: {words}.
+post:gate_guard | recalled | Now, what you told me: {words}; I've had that on my mind at the arch, between carts.
+
+# ---- post:jailer: remembering what the player said (contract version 12) ----
+post:jailer | recalled | What you told me went under lock and key with all else I'm told: {words}.
+post:jailer | recalled | You told me once: {words}; I listen better than my reputation says.
+
+# ---- post:keep_guard: remembering what the player said (contract version 12) ----
+post:keep_guard | recalled | As long as I hold this post, I hold what you told me: {words}.
+post:keep_guard | recalled | You spoke to me once, and I have not let your words fall: {words}.
+
+# ---- post:lookout: remembering what the player said (contract version 12) ----
+post:lookout | recalled | Oh, I kept what you told me, all right: {words}.
+post:lookout | recalled | I miss little from up here, and I didn't miss what you said: {words}.
+
+# ---- post:postern_guard: remembering what the player said (contract version 12) ----
+post:postern_guard | recalled | A small door, and a long memory; you told me: {words}.
+post:postern_guard | recalled | From you, once, and said as quiet as I say anything: {words}.
+
+# ---- post:soldier: remembering what the player said (contract version 12) ----
+post:soldier | recalled | I stand where I'm put and go where I'm sent, and I've kept what you told me: {words}.
+post:soldier | recalled | Your telling I have: {words}; I'm only a spear in the line, but I listen.
+
+# ---- post:tower_watch: remembering what the player said (contract version 12) ----
+post:tower_watch | recalled | Hm, up here a body learns to wait, and to remember; you told me: {words}.
+post:tower_watch | recalled | What you said, the wind didn't get: {words}.
+
+# ---- post:watch_guard: remembering what the player said (contract version 12) ----
+post:watch_guard | recalled | The sight of you brought back something you'd told me: {words}.
+post:watch_guard | recalled | A thing of your own, you told me once: {words}.
+
+# ---- post:watch_officer: remembering what the player said (contract version 12) ----
+post:watch_officer | recalled | Nothing crosses my desk and leaves it, and that goes for what you told me: {words}.
+post:watch_officer | recalled | You said a thing once: {words}; I've a watch to run, and a memory to match.

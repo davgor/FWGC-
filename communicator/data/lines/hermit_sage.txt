@@ -633,3 +633,7 @@ hermit_sage/NN | heard_deed | You {deed}, they tell me; that's the what of it, a
 hermit_sage/NN | news | Not a word past what I heard: {news}.
 hermit_sage/NN | news | The sum of what I've heard is that {news}.
 hermit_sage/NN | news | I've heard {news}; what it means is another question.
+
+# ---- hermit_sage/NN: remembering what the player said (contract version 12) ----
+hermit_sage/NN | recalled | I've the gist of what you told me: {words}.
+hermit_sage/NN | recalled | You brought me a telling once: {words}; I've let those words settle, as I let most things.

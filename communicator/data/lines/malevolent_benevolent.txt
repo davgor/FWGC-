@@ -515,3 +515,7 @@ malevolent_benevolent/NN | heard_deed | Did I hear right, that you {deed}?
 malevolent_benevolent/NN | news | Make of it what you will, but they're saying {news}.
 malevolent_benevolent/NN | news | Whatever you think of me, this is what I heard: {news}.
 malevolent_benevolent/NN | news | I heard {news}; I'll tell it no kinder or harder than that.
+
+# ---- malevolent_benevolent/NN: remembering what the player said (contract version 12) ----
+malevolent_benevolent/NN | recalled | Whatever you make of me, what you told me stayed where I put it: {words}.
+malevolent_benevolent/NN | recalled | You were the one who told me: {words}; I keep a clear head and an open door.

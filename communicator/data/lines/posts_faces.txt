@@ -1728,3 +1728,47 @@ post:dread | heard_deed | I heard you {deed}; do tell me how it felt.
 post:dread | news | Come closer, and hear what reached me: {news}.
 post:dread | news | I hear that {news}; how delicious it is, to hear things.
 post:dread | news | Let me share a little of what I know: {news}.
+
+# ---- post:sovereign: remembering what the player said (contract version 12) ----
+post:sovereign | recalled | My halls are full of voices, and yours I remember: {words}.
+post:sovereign | recalled | You told me something of your own: {words}.
+
+# ---- post:champion: remembering what the player said (contract version 12) ----
+post:champion | recalled | I've a firm grip on what you told me, same as on my sword: {words}.
+post:champion | recalled | I keep my guard up, and your words stayed by me: {words}.
+
+# ---- post:pretender: remembering what the player said (contract version 12) ----
+post:pretender | recalled | Everyone gets my ear now, and you told me: {words}.
+post:pretender | recalled | Here is something you told me: {words}.
+
+# ---- post:domain_holder: remembering what the player said (contract version 12) ----
+post:domain_holder | recalled | Your telling took root with me, and it's there yet: {words}.
+post:domain_holder | recalled | Most who come to me want something, and you told me something instead: {words}.
+
+# ---- post:magister: remembering what the player said (contract version 12) ----
+post:magister | recalled | Let me repeat your words, in substance if not to the letter: {words}.
+post:magister | recalled | Your words sit among my references: {words}.
+
+# ---- post:charcoal burner: remembering what the player said (contract version 12) ----
+post:charcoal burner | recalled | You left a few words with me once: {words}; I'm better with fire than with folk, but I do listen.
+post:charcoal burner | recalled | Your words keep, same as charcoal does: {words}.
+
+# ---- post:hermit: remembering what the player said (contract version 12) ----
+post:hermit | recalled | Your voice I remember, and what you told me: {words}.
+post:hermit | recalled | I talk to nobody much, but you said something I've kept: {words}.
+
+# ---- post:shepherd: remembering what the player said (contract version 12) ----
+post:shepherd | recalled | I'm slow of speech, not of memory, and you told me: {words}.
+post:shepherd | recalled | You told me a thing once, and it's penned for good: {words}.
+
+# ---- post:pilgrim: remembering what the player said (contract version 12) ----
+post:pilgrim | recalled | What you told me once: {words}; places blur for me, but people don't.
+post:pilgrim | recalled | Each soul I meet gives me something to take along, and you gave me these words: {words}.
+
+# ---- post:midwife: remembering what the player said (contract version 12) ----
+post:midwife | recalled | At a bedside you learn to remember what folk tell you, and yours I remembered: {words}.
+post:midwife | recalled | As the names given at a birth stay with me, so do your words: {words}.
+
+# ---- post:dread: remembering what the player said (contract version 12) ----
+post:dread | recalled | I listened to you as closely as I listen to anything that breathes: {words}.
+post:dread | recalled | In your own voice, you told me: {words}.

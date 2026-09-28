@@ -193,6 +193,18 @@ packet, and a row that says a saying once more with one dropped in. `communicato
   told (`news_told`: "As I said, {news}."), and the stranger's own deed as the talk of it
   (`heard_deed_told`). None heard: `no_news` ("Nothing's reached me."). One sentence, as small
   talk.
+- The stranger's own words, kept (contract version 12), said after a greeting to someone met
+  before when there is no news (`recalled`, `{words}`: the words turned to the stranger, and what
+  was under way shifted back, "your sister keeps the mill at the ford", "you were headed for the
+  coast", "to the coast, by the high road"). One sentence, no opening of its own, heard straight
+  after one of the bank's met-before greetings. `{words}` comes after a colon, never "that" or a
+  sentence of its own, since it may be a fragment; the line says no when ("last time", "the other
+  day", "yesterday"), since the words may have been said several visits back; and it is never a
+  question, which would ask after what the words do not hold. The rules test holds these, and tries
+  every row with a clause, a fragment and words opening with a name. What no test holds: nothing
+  before the colon may read as the greeting's or the trade's own things (an armorer's "I've kept it
+  oiled against the rust:" was heard as the mail), and no pronoun after the words may point inside
+  them ("I have not let it fall", after a mill).
 - An answer runs to three sentences at most, and an answer about a place to five: the place,
   its trades, who is there, the nests around it and the work there.
 - An article fits the word a blank fills in after it: "a {time}" says "a evening", "an {post}"
@@ -258,6 +270,13 @@ is fine; one that no packet the game gives can make true is never heard.
   follows the speaker's own reply: a line that says again what the bank's greetings or small talk
   say ("don't hold up the line" after "don't hold up the line") echoes (a writer found 25 in their
   own first draft, 2026-09-27).
+- **The stranger's words are theirs** (`recalled`): the line adds only how the speaker takes having
+  kept them. No fact about them, no question after them ("is she well?"), no judgement of them ("a
+  fine thing", "I'm sorry for it"): they may be anything, a loss, a plan, a boast. A tail after them
+  names its own subject ("I keep what I'm told"), never "it", which the player's last noun takes
+  ("...the mill at the ford, and it's kept"). It follows the greeting, so it neither echoes it nor
+  says what a greeting denies ("I know the face; the rest you'll have to tell me" had to go: seven
+  writers, 2026-09-27).
 - **Told news is said as told** (`news_told`): no more than the speaker said, and nothing new
   about it. **The stranger's deed, told lately** (`heard_deed_told`), is the talk of it, never the
   deed read back as fact: the stranger never said it was them ("Only the talk of what you did, and

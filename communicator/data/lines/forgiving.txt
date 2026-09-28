@@ -633,3 +633,7 @@ forgiving/NN | heard_deed | You {deed}, I'm told; I keep no grudges and hand out
 forgiving/NN | news | I'll say it plain and let it be: {news}.
 forgiving/NN | news | I'm passing it on straight, as I heard it: {news}.
 forgiving/NN | news | One thing I've heard is that {news}.
+
+# ---- forgiving/NN: remembering what the player said (contract version 12) ----
+forgiving/NN | recalled | Nobody need tread carefully with me, and you told me: {words}.
+forgiving/NN | recalled | Your words came freely, and I heard them freely: {words}.

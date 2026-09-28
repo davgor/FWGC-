@@ -987,3 +987,7 @@ conqueror/NN | heard_deed | I hear you {deed}, and I make it my business to know
 conqueror/NN | news | Something for the reckoning: {news}, so they say.
 conqueror/NN | news | Somebody said {news}; talk is cheap until it proves out.
 conqueror/NN | news | Mind, I gather {news}, and I like to know how the ground lies.
+
+# ---- conqueror/NN: remembering what the player said (contract version 12) ----
+conqueror/NN | recalled | By listening I've outlasted rivals, and I listened to you: {words}.
+conqueror/NN | recalled | Of your own accord, you told me: {words}.

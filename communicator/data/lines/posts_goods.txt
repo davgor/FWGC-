@@ -1342,3 +1342,39 @@ post:clerk | heard_deed | They say you {deed}; I've added it to the pile, for wh
 post:clerk | news | It's not on file yet, but I heard {news}.
 post:clerk | news | For the record, they say {news}.
 post:clerk | news | Nothing I've copied says so, but I'm told {news}.
+
+# ---- post:storekeeper: remembering what the player said (contract version 12) ----
+post:storekeeper | recalled | Anything keeps if it's stored right, words too, and I stored yours: {words}.
+post:storekeeper | recalled | These words I had from you are put by with care: {words}.
+
+# ---- post:porter: remembering what the player said (contract version 12) ----
+post:porter | recalled | I'm more muscle than memory, but I kept what you said: {words}.
+post:porter | recalled | I was listening when you spoke, and your words are with me still: {words}.
+
+# ---- post:merchant: remembering what the player said (contract version 12) ----
+post:merchant | recalled | Every deal at my stall is a small war, but you told me something that wasn't: {words}.
+post:merchant | recalled | Something you told me: {words}; my memory's good for more than bargains.
+
+# ---- post:market_steward: remembering what the player said (contract version 12) ----
+post:market_steward | recalled | The rows I keep straight and the tempers down, and you told me: {words}.
+post:market_steward | recalled | I shout all day and listen when I can, and your words had my ear: {words}.
+
+# ---- post:cargo_clerk: remembering what the player said (contract version 12) ----
+post:cargo_clerk | recalled | To the ounce I couldn't say, but you told me: {words}.
+post:cargo_clerk | recalled | The loads go in my ledger, and your words in my head: {words}.
+
+# ---- post:fuel_handler: remembering what the player said (contract version 12) ----
+post:fuel_handler | recalled | I cough more than I talk, but I listened to you, and your words stayed put: {words}.
+post:fuel_handler | recalled | Everything I handle ends up on a hearth, except what you told me: {words}.
+
+# ---- post:toll_clerk: remembering what the player said (contract version 12) ----
+post:toll_clerk | recalled | Your telling, once: {words}; I see a lot of faces go by, and a few stop to talk.
+post:toll_clerk | recalled | I've your words ready at hand: {words}.
+
+# ---- post:treasurer: remembering what the player said (contract version 12) ----
+post:treasurer | recalled | I hold your words as securely as anything in my charge: {words}.
+post:treasurer | recalled | As best I remember what you told me: {words}; my ledgers are exact, even if I'm not.
+
+# ---- post:clerk: remembering what the player said (contract version 12) ----
+post:clerk | recalled | I filed away what you told me, and those words are in order: {words}.
+post:clerk | recalled | Yours is one thing I never had to look up: {words}.

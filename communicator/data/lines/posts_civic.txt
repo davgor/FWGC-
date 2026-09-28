@@ -210,7 +210,7 @@ post:administrator | greeted | Hello. Go on; you have as long as it takes me to 
 post:administrator | greeted | Well met. Is it a petition, a complaint or a question?
 post:administrator | greeted_again | Back again.[ Is this still about {asked}?]
 post:administrator | greeted_again | Hello again. You were at this desk {since}; what is it now?
-post:administrator | greeted_again | Good day. I know the face, at least; the rest you'll have to tell me.
+post:administrator | greeted_again | Good day. I know the face; tell me what brings you back.
 post:administrator | greeted_warm | Good to see you; a face without a grievance, for once.[ Any luck with {asked}?]
 post:administrator | greeted_warm | Well met again. You were here {since}, and I'd sooner see you than the next petition.
 post:administrator | greeted_cold | What do you want? If it's not in writing, it can wait.
@@ -238,7 +238,7 @@ post:administrator | offended | There's no need for that; I've been civil, and b
 post:administrator | offended_again | Enough; take it to another desk, if any will have it.
 post:administrator | offended_again | Hold your tongue; I keep no column for insults.
 post:administrator | safety_unsafe | Not safe. First on my list of trouble is {worst}.[ There are {danger} as well.]
-post:administrator | safety_unsafe | No. There are {danger}, and that's reason enough.[ And i'd keep clear of {worst}.]
+post:administrator | safety_unsafe | No. There are {danger}, and that's reason enough.[ And I'd keep clear of {worst}.]
 post:administrator | safety_wary | More or less. The one entry that worries me is {worst}.[ The {danger} want minding, too.]
 post:administrator | safety_wary | Mostly. Keep clear of {worst}, and there's nothing else to report.
 post:administrator | safety_safe | Safe enough. The only entry I'd mark is {worst}.
@@ -298,7 +298,7 @@ post:magistrate | greeted | Well met. I'll hear you fairly, as I hear everyone.
 post:magistrate | greeted | Greetings. Say what brings you, and say it honestly.
 post:magistrate | greeted_again | Well met again.[ I recall you asked after {asked}.]
 post:magistrate | greeted_again | Back again. You stood here {since}, and I remember it.
-post:magistrate | greeted_again | Good day. I remember your face; the rest I'll hear fresh.
+post:magistrate | greeted_again | Good day. I remember your face; state your business.
 post:magistrate | greeted_warm | Good to see you.[ Did you learn the truth of {asked}?]
 post:magistrate | greeted_warm | Welcome back. It was {since}, and I'm glad to see an honest face return.
 post:magistrate | greeted_cold | What do you want? Say it plainly, and quickly.
@@ -458,7 +458,7 @@ post:scribe | offended | There's no need for that; I'm only copying.
 post:scribe | offended_again | Enough; I'm not listening, and I'm not writing it down.
 post:scribe | offended_again | Hold your tongue, or take it somewhere I can't hear it.
 post:scribe | safety_unsafe | Not safe. Keep off {worst}.[ There are {danger} too.]
-post:scribe | safety_unsafe | No; there are {danger}, and that's that.[ And i'd keep away from {worst}.]
+post:scribe | safety_unsafe | No; there are {danger}, and that's that.[ And I'd keep away from {worst}.]
 post:scribe | safety_wary | More or less. Keep clear of {worst}.[ And watch for the {danger}.]
 post:scribe | safety_wary | Careful near {worst}; that's all I'd write.
 post:scribe | safety_safe | Safe enough; I'd only keep away from {worst}.
@@ -888,3 +888,22 @@ post:scribe | heard_deed | You {deed}, did you; I'll not copy that out without a
 post:scribe | news | Mind the desk while I tell you: {news}.
 post:scribe | news | They're saying {news}; I copy, I don't comment.
 post:scribe | news | It's down in my hand that {news}, and there it stays till someone corrects it.
+
+# ---- post:administrator: remembering what the player said (contract version 12) ----
+post:administrator | recalled | You informed me once: {words}; I keep my head as tidy as my rolls.
+post:administrator | recalled | I tally and sign all day, and still what you told me hasn't slipped my mind: {words}.
+# ---- post:court_clerk: remembering what the player said (contract version 12) ----
+post:court_clerk | recalled | I sit and listen for a living, and you told me: {words}.
+post:court_clerk | recalled | What you told me was never testimony: {words}.
+# ---- post:magistrate: remembering what the player said (contract version 12) ----
+post:magistrate | recalled | Through long sittings on the bench, what you told me has kept: {words}.
+post:magistrate | recalled | Outside of any case, you told me: {words}.
+# ---- post:teacher: remembering what the player said (contract version 12) ----
+post:teacher | recalled | I ask my pupils to keep what they're told, and I've done the same with what you told me: {words}.
+post:teacher | recalled | Even with my marking to do, what you told me stayed in my head: {words}.
+# ---- post:librarian: remembering what the player said (contract version 12) ----
+post:librarian | recalled | Not all I know came off a shelf; some you told me: {words}.
+post:librarian | recalled | You let me borrow a few words of yours once: {words}.
+# ---- post:scribe: remembering what the player said (contract version 12) ----
+post:scribe | recalled | I copy other folk's words all day, and yours I kept without the pen: {words}.
+post:scribe | recalled | You said to me once: {words}; my hand tires by nightfall, but my head doesn't.

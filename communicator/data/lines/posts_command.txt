@@ -496,7 +496,7 @@ post:quartermaster | offended | Mind your manners; I keep a list of those who do
 post:quartermaster | offended_again | Enough; that's the last of my patience, and I don't reorder.
 post:quartermaster | offended_again | Hold your tongue; I've written you off.
 post:quartermaster | safety_unsafe | Not safe, by my count. Keep clear of {worst}.[ And put the {danger} on the list, too.]
-post:quartermaster | safety_unsafe | No. There are {danger}, and that's trouble enough.[ And i'd keep off {worst}.]
+post:quartermaster | safety_unsafe | No. There are {danger}, and that's trouble enough.[ And I'd keep off {worst}.]
 post:quartermaster | safety_wary | More or less, if you go stocked. Keep away from {worst}.[ Watch for the {danger}.]
 post:quartermaster | safety_wary | Mostly. The one I'd strike off your list is {worst}.[ And {others}, while you're at it.]
 post:quartermaster | safety_safe | Safe enough. The one thing I'd put down as trouble is {worst}.
@@ -1433,3 +1433,43 @@ post:gate_captain | heard_deed | I hear you {deed}; that's all you get from me o
 post:gate_captain | news | A gate hears everything in the end, and I hear {news}.
 post:gate_captain | news | I'll tell you what I'm told and no more: {news}.
 post:gate_captain | news | Mind you, they're saying {news}.
+
+# ---- post:commander: remembering what the player said (contract version 12) ----
+post:commander | recalled | I don't say a thing twice, but I will say yours back: {words}.
+post:commander | recalled | Your words stand in my memory like a garrison at its post: {words}.
+
+# ---- post:sergeant: remembering what the player said (contract version 12) ----
+post:sergeant | recalled | Aye, what you told me didn't go in one ear and out the other: {words}.
+post:sergeant | recalled | You passed me a word once: {words}; I'm hard on everyone, and I heard you all the same.
+
+# ---- post:garrison_officer: remembering what the player said (contract version 12) ----
+post:garrison_officer | recalled | My desk gets reports by the stack; what you told me needed no seal: {words}.
+post:garrison_officer | recalled | What you stated, as near as I can set it down: {words}.
+
+# ---- post:quartermaster: remembering what the player said (contract version 12) ----
+post:quartermaster | recalled | I sign for all that comes to me, and I signed for what you told me: {words}.
+post:quartermaster | recalled | Here's what came in from you: {words}; your words are on my list.
+
+# ---- post:armorer: remembering what the player said (contract version 12) ----
+post:armorer | recalled | Some things I keep oiled against the rust, and what you told me is one: {words}.
+post:armorer | recalled | I've a telling of yours: {words}; I'm quicker with a rivet than a word, but I hear well enough.
+
+# ---- post:equipment_keeper: remembering what the player said (contract version 12) ----
+post:equipment_keeper | recalled | In my shed, your words have a peg of their own: {words}.
+post:equipment_keeper | recalled | I could find my ladders in the dark, and what you told me as well: {words}.
+
+# ---- post:hall_attendant: remembering what the player said (contract version 12) ----
+post:hall_attendant | recalled | My day is benches and crumbs, and you told me: {words}.
+post:hall_attendant | recalled | You shared a moment's talk once: {words}; not many do, with the one who lays the tables.
+
+# ---- post:chaplain: remembering what the player said (contract version 12) ----
+post:chaplain | recalled | The soldiers here bring me their words, and you told me yours: {words}.
+post:chaplain | recalled | I have your words yet, if you will let me say them: {words}.
+
+# ---- post:steward: remembering what the player said (contract version 12) ----
+post:steward | recalled | I've a great deal to see to, but what you told me wasn't crowded out: {words}.
+post:steward | recalled | I'm obliged to you for telling me: {words}; I'd sooner be told than left to guess.
+
+# ---- post:gate_captain: remembering what the player said (contract version 12) ----
+post:gate_captain | recalled | I hear everything, and what you said to me I kept: {words}.
+post:gate_captain | recalled | Your words, once: {words}; I'm brief, not forgetful.

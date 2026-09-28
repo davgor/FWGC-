@@ -995,3 +995,7 @@ corrupt/NN | heard_deed | You {deed}, I hear, and I'll put that in terms I can u
 corrupt/NN | news | I'm not buying rumours, but this one came free: {news}.
 corrupt/NN | news | They're saying {news}; what it's worth depends on who's asking.
 corrupt/NN | news | I heard {news}, and I never throw talk away.
+
+# ---- corrupt/NN: remembering what the player said (contract version 12) ----
+corrupt/NN | recalled | You had a thing to tell me once: {words}; I'm no saint, but I'm a fair listener.
+corrupt/NN | recalled | I trade in a great many things, and what you told me isn't one of them: {words}.

@@ -890,3 +890,7 @@ fractured_heart/NN | heard_deed | Are you the one who {deed}, or is that someone
 fractured_heart/NN | news | I heard {news}, unless that was the other one of us.
 fractured_heart/NN | news | Today, at least, I remember hearing {news}.
 fractured_heart/NN | news | What I heard was that {news}.
+
+# ---- fractured_heart/NN: remembering what the player said (contract version 12) ----
+fractured_heart/NN | recalled | I'm odd company, I know, but you told me: {words}.
+fractured_heart/NN | recalled | You told both of me once: {words}; whichever of us you meet has those words.

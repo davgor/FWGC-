@@ -1472,3 +1472,34 @@ post:sanitation_worker | heard_deed | All sorts finds its way to me, muck and ne
 post:sanitation_worker | news | Take it as you find it, same as I do the muck: {news}.
 post:sanitation_worker | news | Not that it's any of mine, but {news}, if nobody's talking rubbish.
 post:sanitation_worker | news | Somebody said {news}; that's about the size of it.
+
+# ---- post:caretaker: remembering what the player said (contract version 12) ----
+post:caretaker | recalled | I keep the place, and I've kept your words as well: {words}.
+post:caretaker | recalled | Your words never went out with the dust: {words}.
+# ---- post:officiant: remembering what the player said (contract version 12) ----
+post:officiant | recalled | I listen more than I speak, and I have kept what you told me: {words}.
+post:officiant | recalled | The rite's words I say by heart; yours I keep as memory gives them back: {words}.
+# ---- post:groundskeeper: remembering what the player said (contract version 12) ----
+post:groundskeeper | recalled | Mine's a quiet trade, and quiet leaves room for what you told me: {words}.
+post:groundskeeper | recalled | Out here with the spade and the shears, what you told me has stuck with me: {words}.
+# ---- post:care_assistant: remembering what the player said (contract version 12) ----
+post:care_assistant | recalled | I'm quick on my feet and slow to forget, and you told me: {words}.
+post:care_assistant | recalled | Your words I'd write down, if I ever had a hand free: {words}.
+# ---- post:healer: remembering what the player said (contract version 12) ----
+post:healer | recalled | I've a good ear as well as a steady hand, and I heard what you told me: {words}.
+post:healer | recalled | You said once: {words}; I don't mislay what I'm told.
+# ---- post:apothecary: remembering what the player said (contract version 12) ----
+post:apothecary | recalled | What you told me is on my shelf, labelled: {words}.
+post:apothecary | recalled | My days are jars and grinding, and what you told me besides: {words}.
+# ---- post:herbalist: remembering what the player said (contract version 12) ----
+post:herbalist | recalled | Whatever I'm pottering at, what you told me stays with me: {words}.
+post:herbalist | recalled | You mentioned once: {words}; I remember a telling the way I remember a planting.
+# ---- post:researcher: remembering what the player said (contract version 12) ----
+post:researcher | recalled | Between one trial and the next, what you told me comes back to me: {words}.
+post:researcher | recalled | I remember people better than results, oddly enough, and you told me: {words}.
+# ---- post:astronomer: remembering what the player said (contract version 12) ----
+post:astronomer | recalled | I've needed no lens to find what you told me: {words}.
+post:astronomer | recalled | What I have of yours: {words}; I'm better at listening than at waking.
+# ---- post:sanitation_worker: remembering what the player said (contract version 12) ----
+post:sanitation_worker | recalled | All that comes my way gets hauled off, bar what you told me: {words}.
+post:sanitation_worker | recalled | On every round I make, your words go with me: {words}.

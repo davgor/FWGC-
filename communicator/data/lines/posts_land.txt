@@ -1594,3 +1594,37 @@ post:animal_keeper | heard_deed | So you {deed}; I'll mention it to the beasts, 
 post:animal_keeper | news | My lot don't gossip, but people do, and the gossip is {news}.
 post:animal_keeper | news | I heard {news}, and I've said all I know, which is never much.
 post:animal_keeper | news | Someone told me {news}, which is more than the beasts ever do.
+
+# ---- post:farmer: remembering what the player said (contract version 12) ----
+post:farmer | recalled | I've no learning, but what you said stuck: {words}.
+post:farmer | recalled | Behind the plough there's time to think, and what you mentioned came back to me there: {words}.
+# ---- post:farm_hand: remembering what the player said (contract version 12) ----
+post:farm_hand | recalled | I'm last to hear anything, but you told me yourself: {words}.
+post:farm_hand | recalled | By you, once: {words}; I'm slow, folk say, but I don't forget.
+# ---- post:well_keeper: remembering what the player said (contract version 12) ----
+post:well_keeper | recalled | A telling from you, kept: {words}.
+post:well_keeper | recalled | Nobody thanks a well for keeping cool, and I'll want no thanks for keeping what you let me know: {words}.
+# ---- post:carter: remembering what the player said (contract version 12) ----
+post:carter | recalled | I had a word or two of yours: {words}; I've a slow cart and a quick memory.
+post:carter | recalled | All day it's sacks and barrels, who never say a word, and then you told me something: {words}.
+# ---- post:fisher: remembering what the player said (contract version 12) ----
+post:fisher | recalled | I mend nets with my ears open, and I listened to you: {words}.
+post:fisher | recalled | You said your piece once: {words}; I don't say much, but I keep a fair bit.
+# ---- post:boatman: remembering what the player said (contract version 12) ----
+post:boatman | recalled | Now then, a voice stays with me a long while, and yours has: {words}.
+post:boatman | recalled | Ah, you shared a bit of yourself once, and I've kept it by me: {words}.
+# ---- post:hauler: remembering what the player said (contract version 12) ----
+post:hauler | recalled | Hm, what's inside a sack is none of mine, but what you said I took in: {words}.
+post:hauler | recalled | Something you mentioned once, I still have: {words}.
+# ---- post:water_carrier: remembering what the player said (contract version 12) ----
+post:water_carrier | recalled | My feet are busy but my ears aren't, and they caught what you told me: {words}.
+post:water_carrier | recalled | Of all the talk the city throws at me, I kept what you shared: {words}.
+# ---- post:water_keeper: remembering what the player said (contract version 12) ----
+post:water_keeper | recalled | Some words of yours I have: {words}.
+post:water_keeper | recalled | I do not trust my memory to chance, and what was said by you has not been left to it: {words}.
+# ---- post:horse_keeper: remembering what the player said (contract version 12) ----
+post:horse_keeper | recalled | Now, teeth and hooves are my trade, but your words stayed with me too: {words}.
+post:horse_keeper | recalled | Listen, you told me once, near enough: {words}.
+# ---- post:animal_keeper: remembering what the player said (contract version 12) ----
+post:animal_keeper | recalled | A life with beasts teaches you to listen, and I gave your words the same ear: {words}.
+post:animal_keeper | recalled | The yard's never quiet, but what you said came through: {words}.

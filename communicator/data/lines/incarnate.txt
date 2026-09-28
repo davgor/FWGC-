@@ -638,3 +638,7 @@ incarnate/NN | heard_deed | I'd hear your side before I weigh it: are you the on
 incarnate/NN | news | Neither for nor against, just what I heard: {news}.
 incarnate/NN | news | I'll not tip it either way; I only heard {news}.
 incarnate/NN | news | I'll give it you as I had it, no more and no less: {news}.
+
+# ---- incarnate/NN: remembering what the player said (contract version 12) ----
+incarnate/NN | recalled | By nature I listen, and you told me: {words}.
+incarnate/NN | recalled | You once spoke up: {words}.

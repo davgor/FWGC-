@@ -515,3 +515,7 @@ turncoat/NN | heard_deed | Whatever side you're on, I hear you {deed}.
 turncoat/NN | news | Here's how things lie, as I hear it: {news}.
 turncoat/NN | news | Nothing stays put, and what I hear now is that {news}.
 turncoat/NN | news | I'm told {news}; I'll believe it till I hear different.
+
+# ---- turncoat/NN: remembering what the player said (contract version 12) ----
+turncoat/NN | recalled | I've a level head, and what you told me sits in it: {words}.
+turncoat/NN | recalled | I've still got what I was told by you: {words}; figures stay with me, and so do words.

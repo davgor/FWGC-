@@ -519,3 +519,7 @@ tyrant/NN | heard_deed | Don't expect a fuss from me, but I hear you {deed}.
 tyrant/NN | news | Listen, because I'll say it once: {news}.
 tyrant/NN | news | I'd sooner deal in what's done than in talk, but I hear {news}.
 tyrant/NN | news | I'm told {news}; that's the size of it.
+
+# ---- tyrant/NN: remembering what the player said (contract version 12) ----
+tyrant/NN | recalled | I don't waste my ears on much, but I heard you: {words}.
+tyrant/NN | recalled | What you told me: {words}; my memory answers to me, like everything else here.

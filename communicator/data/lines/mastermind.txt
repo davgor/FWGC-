@@ -869,3 +869,7 @@ mastermind/NN | heard_deed | I'll want to know how, but I hear you {deed}.
 mastermind/NN | news | The latest I have is that {news}.
 mastermind/NN | news | If what reaches me is right, {news}.
 mastermind/NN | news | I've heard {news}; I'll plan as though it's true.
+
+# ---- mastermind/NN: remembering what the player said (contract version 12) ----
+mastermind/NN | recalled | My thoughts are in good order, with what you told me in its place: {words}.
+mastermind/NN | recalled | What I heard from you: {words}.
