@@ -106,7 +106,9 @@ inline const std::string kEveryBlank = "any | surroundings | [{here}][ {nearest}
                                        "any | safety_unsafe | [{worst}][ {others}][ {danger}]\n"
                                        "any | safety_wary | [{worst}][ {others}][ {danger}]\n"
                                        "any | safety_safe | [{worst}][ {others}][ {danger}]\n"
-                                       "any | about_place | [{about}][ {trades}][ {who}][ {around}][ {work}]\n";
+                                       "any | about_place | [{about}][ {trades}][ {who}][ {around}][ {work}]\n"
+                                       "any | work_own | [{own}][ {others}]\n"
+                                       "any | work_others | [{others}]\n";
 
 inline std::vector<std::string> heard_everything(const FactPacket& p) {
     static const communicator::Lines everything = communicator::Lines::parse(kEveryBlank, "every blank");

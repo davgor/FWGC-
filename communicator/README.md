@@ -499,6 +499,62 @@ speaker last met the stranger.
   news follow them.
 - **The truth check** holds what the voice says of news to the News facts (below).
 
+## What a speaker says of themself
+
+Contract version 13. The owner's golden benchmark is a sustained conversation with a hero
+(`eval/session_hero.txt`, 2026-09-27), and its first judge heard the conversation break at "How long
+have you held it?": no act took a question about the speaker, so it went to small talk and got the
+weather. `ask_about_them` takes every question about the speaker beyond their name, and the director
+answers with a Self fact, Deed facts and their ties (orchestrator README, "What a speaker says of
+themself").
+
+- **In C++'s words** (`src/them.hpp`), as news is: what they are after ("hold the fortress above
+  Iskmor", "take back Eldkor", "kill the glacier dragons, the doom of Brenlin"), how they stand
+  ("command the garrison here", "am a refugee here"), a city lost ("lost Brenlin to a dragon in the
+  last age"), a deed ("stood for Brenlin when it fell, in the last age", "speak for the farmstead below
+  Dunweg"), their ties ("Iskgraf and Nerisk stand with me; Ulknord is my rival"). A field the words do
+  not know says nothing.
+- **What was asked is heard by meaning** (`Lines::speak`, as small talk's subject is): who they are,
+  their past, what they are after (or what is at stake), how they stand here (or their days), who
+  stands with them, whether they would leave, and what they keep to themselves, a subject of its
+  own whose lines keep it back in character: the card's secrets are never in a packet. The written
+  lines are `them_who`, `them_past`, `them_after`, `them_here`, `them_ties`, `them_plans` and
+  `them_secret`; with no line of the subject asked that the packet can fill (a mask worn, a roster
+  person), who they are. Measured on questions written before the descriptions were tried: 19 of
+  the first 21, then with two more descriptions 29 of 35, 10 of 14 fresh ones (9 without them).
+- **The voice** is shown the same words ("- Yourself: you are known as the Castellan; you command the
+  garrison here; you mean to hold the fortress above Iskmor") and told to answer what was asked and
+  keep to itself what is not above. Prompts without these facts are unchanged.
+- **Why they need help** (`them_need`) and **what comes if the work fails** (`them_stakes`), from
+  what they are after and what they stand against (the worst nest near, by name alone: with how far,
+  one conversation heard "the Abyssal krakens nesting an hour's walk away" four times). A bank with no
+  line of the one asked answers from the next: need, stakes, what they are after. **How long**
+  (`them_long`), which the world does not record, is said as someone who has stopped counting ("More
+  seasons than I care to count"), and from `them_here` where a bank has no line of it.
+- **Asked for work again** with nothing new to it, a speaker says so (`work_own_told`,
+  `work_others_told`), as other answers said again are: the same list, word for word, in two
+  conversations days apart.
+- **The interpreter** offers the act only for a line that speaks to the speaker ("you", "your",
+  "yourself", "u", "ur", "ye", "thee" and their forms). Offered on every line, it cost Qwen3-4B 5 of
+  the 313 lines it read right and the test model 9; offered so, 1 and none (246 -> 245, 110 -> 113).
+  Of 14 new questions about the speaker Qwen3-4B read 13 right; the test model, 1.
+
+## What the stranger tells
+
+Contract version 13. What the stranger tells of themself (`answer`, outcome `acknowledged`) is taken
+as what it is, heard by meaning: a hardship (`acknowledged_hardship`), something they did or can do
+(`acknowledged_deed`), a plan (`acknowledged_plan`), their people (`acknowledged_kin`), or anything
+else (`acknowledged`). In the light of the speaker's own work, a hurt the stranger took doing it
+(`acknowledged_hardship_work`: work taken, finished or failed) and a deed told while the speaker is
+hiring (`acknowledged_deed_work`: work offered or taken) come first. A cold speaker takes everything
+alike. Measured on 15 lines written before the descriptions were tried: 12 right. The hero
+benchmark's judges had heard a wound in the speaker's service met with "Fair enough, I'll mark it
+down".
+
+Small talk with someone whose work the stranger has finished can be about that work
+(`small_talk_work_done`): heard by meaning before the rest of small talk, never said in its turn
+with the weather. "Was it as bad as you feared?" had been heard as asking for news.
+
 ## What a speaker recalls
 
 Contract version 12: the director keeps each speaker's conversation log and, once the game compacts

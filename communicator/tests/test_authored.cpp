@@ -4,7 +4,9 @@
 #include "communicator/authored.hpp"
 
 #include <algorithm>
+#include <iostream>
 #include <fstream>
+#include <map>
 #include <set>
 #include <sstream>
 #include <string>
@@ -12,6 +14,8 @@
 
 #include "authored_cases.hpp"
 #include "check.hpp"
+#include "communicator/meaning.hpp"
+#include "embedder.hpp"
 #include "communicator/error.hpp"
 #include "packets.hpp"
 #include "reply_shape.hpp"
@@ -358,7 +362,20 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         {packets::forgiven("hostile"), {"forgiven_cold"}},
         {packets::unwronged(), {"unwronged"}},
         {packets::about_the_town(), {"about_place"}},
-        {packets::acknowledged(), {"acknowledged"}},
+        {packets::acknowledged(), {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin"}},
+        {packets::acknowledged_with("taken"),
+         {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin",
+          "acknowledged_hardship_work", "acknowledged_deed_work"}},
+        {packets::acknowledged_with("finished"),
+         {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin",
+          "acknowledged_hardship_work"}},
+        {packets::acknowledged_with("offered"),
+         {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin", "acknowledged_deed_work"}},
+        {packets::acknowledged_with("", "hostile"), {"acknowledged"}},
+        {packets::small_talk_after_work(), {"small_talk_fair", "small_talk", "small_talk_work_done"}},
+        {packets::about_them(),
+         {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
+          "them_secret"}},
         {packets::thanked(), {"thanked"}},
         {packets::thanked("hostile"), {"thanked_cold"}},
         {packets::offended(false), {"offended"}},
@@ -495,6 +512,348 @@ TEST(the_strangers_own_words_are_said_back_after_a_greeting_now_and_then) {
                  std::string("Hello again."), "words too long to say back");
     check::is_true(lines.follows(remembering) == std::vector<std::string>{"You told me once: your sister keeps the mill at the ford."},
                    "what follow could say, for the rules");
+}
+
+// The floor the embedding model reaches on the questions below, never tuned to (2026-09-28): the first
+// 21 held out, 19 right with seven descriptions; two more (what is at stake, their days) added after
+// the hero benchmark, then 14 more questions written before those were tried: 29 of 35 with them, 28
+// without, and 10 of the fresh 14 with them, 9 without. The misses are near ones ("Where did you come
+// from before this?" as who they are, "Are you staying long?" as how they stand here).
+constexpr std::size_t kAboutThemFloor = 29;
+// Four more subjects after the hero benchmark's second and third runs (why they need help, how long,
+// what comes if the work fails, and their days asked as the stranger asks), then 22 questions written
+// before any wording of them was tried, two or more to a subject: 20 right, the wordings chosen on the
+// 35 above and the benchmark's own six (the 22's numbers were seen for five wordings tried). The six:
+// 6 of 6.
+constexpr std::size_t kAboutThemLaterFloor = 20;
+// Contract version 13: asked about themself, a speaker answers what was asked of them, heard by
+// meaning among seven subjects (Lines::speak): who they are, their past, what they are after, how
+// they stand here, who stands with them, whether they would leave, and what they keep to themselves.
+// Measured on 21 questions written before the subjects were tried, three to a subject (2026-09-28).
+TEST(asked_about_themself_they_answer_what_was_asked) {
+    communicator::Meaning meaning(test_model::embedder());
+    const std::vector<std::pair<std::string, std::string>> rows = {
+        {"them_who", "I'm {speaker}, {known_as}."},        {"them_past", "I {lost}."},
+        {"them_after", "I mean to {after}."},             {"them_here", "I {standing}."},
+        {"them_ties", "{ties}."},                         {"them_plans", "Leave? Not while I mean to {after}."},
+        {"them_secret", "That's mine to keep."}};
+    std::string bank;
+    std::map<std::string, std::string> subject_of;  // each subject's one line, as said to the packet
+    const FactPacket p = packets::about_them();
+    for (const auto& [situation, line] : rows) {
+        const std::string row = "any | " + situation + " | " + line + "\n";
+        bank += row;
+        const std::vector<std::string> said = Lines::parse(row, "one").replies(p);
+        check::is_true(said.size() == 1, "the premise: " + situation + " is said to the packet");
+        subject_of[said.front()] = situation;
+    }
+    const Lines lines = Lines::parse(bank, "test");
+    const std::vector<std::pair<std::string, std::string>> asked = {
+        {"Who are you?", "them_who"},
+        {"What's your name?", "them_who"},
+        {"What do they call you?", "them_who"},
+        {"What happened to your city?", "them_past"},
+        {"What have you done in your life?", "them_past"},
+        {"Did you fight in the war?", "them_past"},
+        {"What do you want here?", "them_after"},
+        {"What are you trying to do?", "them_after"},
+        {"What's your aim?", "them_after"},
+        {"How long have you been here?", "them_here"},
+        {"Is this your post?", "them_here"},
+        {"Where is your home?", "them_here"},
+        {"Who are your friends?", "them_ties"},
+        {"Do you have any enemies?", "them_ties"},
+        {"Who do you trust?", "them_ties"},
+        {"Will you ever leave?", "them_plans"},
+        {"What will you do next?", "them_plans"},
+        {"Where will you go after this?", "them_plans"},
+        {"What are you afraid of?", "them_secret"},
+        {"What do you really want?", "them_secret"},
+        {"What are you hiding?", "them_secret"},
+        // Fourteen more, written before the two further descriptions were tried (2026-09-28).
+        {"And you are?", "them_who"},
+        {"Who might you be?", "them_who"},
+        {"Where did you come from before this?", "them_past"},
+        {"What was your life like before?", "them_past"},
+        {"What are you fighting for?", "them_after"},
+        {"Why does this fortress matter so much?", "them_after"},
+        {"How do you spend your days?", "them_here"},
+        {"What's your work here?", "them_here"},
+        {"Is anyone on your side?", "them_ties"},
+        {"Who's against you?", "them_ties"},
+        {"Are you staying long?", "them_plans"},
+        {"What comes after all this?", "them_plans"},
+        {"What keeps you up at night?", "them_secret"},
+        {"What's your deepest wish?", "them_secret"}};
+    std::size_t right = 0;
+    std::string missed;
+    for (const auto& [question, want] : asked) {
+        const std::string reply = lines.speak(p, question, {}, &meaning);
+        const auto got = subject_of.find(reply);
+        const std::string heard = got == subject_of.end() ? "(" + reply + ")" : got->second;
+        if (heard == want)
+            ++right;
+        else
+            missed += "\n  " + question + ": " + heard + ", not " + want;
+    }
+    std::cout << "  about themself: " << right << " of " << asked.size() << " heard right" << missed << "\n";
+    check::is_true(right >= kAboutThemFloor, std::to_string(right) + " of " + std::to_string(asked.size()) + missed);
+    // Without meaning, who they are.
+    check::equal(subject_of[lines.speak(p, "What happened to your city?", {}, nullptr)], std::string("them_who"),
+                 "no meaning: who they are");
+    // What is at stake, where a bank has a line of it; where none, what they are after.
+    const std::string stake_row = "any | them_stakes | No one could {after} alone.\n";
+    const std::string stakes = Lines::parse(stake_row, "one").replies(p).front();
+    const Lines staked = Lines::parse(bank + stake_row, "staked");
+    for (const std::string question : {"Why do you need help?", "What happens if the work fails?"}) {
+        check::equal(staked.speak(p, question, {}, &meaning), stakes, "at stake: " + question);
+        check::equal(subject_of[lines.speak(p, question, {}, &meaning)], std::string("them_after"), "no line of it: " + question);
+    }
+    // Nothing of theirs to say of what was asked: who they are.
+    const std::string who_line = Lines::parse("any | them_who | I'm {speaker}, {known_as}.\n", "one").replies(p).front();
+    FactPacket plain = p;
+    plain.facts.erase(std::remove_if(plain.facts.begin(), plain.facts.end(), [](const Fact& f) { return f.kind == FactKind::Deed; }),
+                      plain.facts.end());
+    for (Fact& f : plain.facts)
+        if (f.kind == FactKind::Self)
+            f.fields.erase(std::remove_if(f.fields.begin(), f.fields.end(), [](const auto& field) { return field.first == "lost"; }),
+                           f.fields.end());
+    check::equal(subject_of[lines.speak(p, "What happened to your city?", {}, &meaning)], std::string("them_past"), "the premise: their past");
+    check::equal(subject_of[lines.speak(plain, "What happened to your city?", {}, &meaning)], std::string("them_who"),
+                 "nothing of their past to say: who they are");
+    // Who they are, from whichever bank has it: not the speaker's own bank's first line of something else.
+    const Lines banks = Lines::parse("warden/LN | them_here | I {standing}, as ever.\n" + bank, "banks");
+    check::equal(banks.speak(plain, "What happened to your city?", {}, &meaning), who_line,
+                 "nothing of their past to say, their own bank with no who: who they are, from another");
+    // A frightened speaker says who they are and no more, their fear first.
+    FactPacket frightened = p;
+    for (auto& [field, value] : frightened.facts.back().fields)
+        if (field == "feeling") value = "afraid";
+    check::is_true(Lines::situations_for(frightened) == std::vector<std::string>{"them_who"}, "frightened: who they are");
+    const std::string who = Lines::parse("any | them_who | I'm {speaker}, {known_as}.\n", "one").replies(p).front();
+    const Lines shaken = Lines::parse(bank + "any | afraid_lead | Forgive me, I'm shaking.\n", "shaken");
+    check::equal(shaken.speak(frightened, "How long have you held it?", {}, &meaning), "Forgive me, I'm shaking. " + who,
+                 "frightened, asked how long: their fear, and who they are");
+    // What they stand against, by name alone: small talk and "is it safe" say how far, and said with
+    // how far in every answer, one conversation heard the same nest four times.
+    const std::string against =
+        Lines::parse("any | them_after | I mean to {after}, and the {danger} would have it otherwise.\n", "one").replies(p).front();
+    check::is_true(against.find(", and the Frost owls would have it otherwise.") != std::string::npos, "the danger by name: " + against);
+    // Why they need help, where a bank has a line of it; where none, what is at stake.
+    const std::string need_row = "any | them_need | Because no one can {after} alone.\n";
+    const std::string need = Lines::parse(need_row, "one").replies(p).front();
+    const Lines needed = Lines::parse(bank + stake_row + need_row, "needed");
+    check::equal(needed.speak(p, "Why do you need help?", {}, &meaning), need, "why they need help");
+    check::equal(needed.speak(p, "What happens if the work fails?", {}, &meaning), stakes, "not why they need help");
+    // Every subject with a line of its own: the later 22, and the benchmark's six.
+    const std::vector<std::pair<std::string, std::string>> more = {
+        {"them_need", "Because no one can {after} alone."}, {"them_long", "A good while now; I {standing}."}, {"them_stakes", "No one could {after} alone."}};
+    std::string every = bank;
+    for (const auto& [situation, line] : more) {
+        const std::string row = "any | " + situation + " | " + line + "\n";
+        every += row;
+        const std::vector<std::string> said = Lines::parse(row, "one").replies(p);
+        check::is_true(said.size() == 1, "the premise: " + situation + " is said to the packet");
+        subject_of[said.front()] = situation;
+    }
+    const Lines all_of_them = Lines::parse(every, "every");
+    const std::vector<std::pair<std::string, std::string>> later = {
+        {"Who exactly am I talking to?", "them_who"},
+        {"Do you have a name, castellan?", "them_who"},
+        {"What did you do before you came here?", "them_past"},
+        {"Were you ever at war?", "them_past"},
+        {"What's your goal here?", "them_after"},
+        {"What are you working toward?", "them_after"},
+        {"What's your job, exactly?", "them_here"},
+        {"Do you live here?", "them_here"},
+        {"What fills your days?", "them_here"},
+        {"What's a normal day like for you?", "them_here"},
+        {"Have you got allies?", "them_ties"},
+        {"Who would you call a friend?", "them_ties"},
+        {"Would you ever go home?", "them_plans"},
+        {"What will you do when this is over?", "them_plans"},
+        {"What frightens you?", "them_secret"},
+        {"Is there something you're not telling me?", "them_secret"},
+        {"Why can't you do it yourself?", "them_need"},
+        {"Why hire outsiders?", "them_need"},
+        {"Have you been here long?", "them_long"},
+        {"When did you take this post?", "them_long"},
+        {"What if nobody helps you?", "them_stakes"},
+        {"What's lost if the fortress falls?", "them_stakes"}};
+    std::size_t later_right = 0;
+    std::string later_missed;
+    for (const auto& [question, want] : later) {
+        const std::string reply = all_of_them.speak(p, question, {}, &meaning);
+        const auto got = subject_of.find(reply);
+        const std::string heard = got == subject_of.end() ? "(" + reply + ")" : got->second;
+        if (heard == want)
+            ++later_right;
+        else
+            later_missed += "\n  " + question + ": " + heard + ", not " + want;
+    }
+    std::cout << "  about themself, the later 22: " << later_right << " of " << later.size() << " heard right" << later_missed << "\n";
+    check::is_true(later_right >= kAboutThemLaterFloor, std::to_string(later_right) + " of " + std::to_string(later.size()) + later_missed);
+    for (const auto& [question, want] : std::vector<std::pair<std::string, std::string>>{
+             {"Tell me about yourself.", "them_who"},
+             {"How long have you held it?", "them_long"},
+             {"Why do you need help holding it?", "them_need"},
+             {"What happens if I fail?", "them_stakes"},
+             {"What do you do when you're not holding the walls?", "them_here"},
+             {"Do you ever think of leaving?", "them_plans"}})
+        check::equal(subject_of[all_of_them.speak(p, question, {}, &meaning)], want, "the hero benchmark's: " + question);
+    // How long, where a bank has a line of it; where none, how they stand here.
+    const std::string long_row = "any | them_long | A good while now; I {standing}.";
+    const std::string how_long = Lines::parse(long_row, "one").replies(p).front();
+    const Lines longer = Lines::parse(bank + long_row, "longer");
+    for (const std::string question : {"How long have you been here?", "How long have you held this place?"}) {
+        check::equal(longer.speak(p, question, {}, &meaning), how_long, "how long: " + question);
+        check::equal(subject_of[lines.speak(p, question, {}, &meaning)], std::string("them_here"), "no line of it: " + question);
+    }
+}
+
+// Measured once, never tuned to. The first 15: 12 right with the descriptions first written, 14 with
+// those now (2026-09-28; "My old friend runs the inn" taken plainly). 30 more, written after the first
+// 15 were measured and before other descriptions were tried: 16 of 30 with the first, 20 with those
+// now, chosen on the first 15 and the next 15 (the last 15's numbers were seen for every variant
+// tried, four in all, and chose nothing).
+constexpr std::size_t kToldFloor = 14;
+constexpr std::size_t kToldLaterFloor = 20;
+// Contract version 13: what the stranger tells of themself is taken as what it is, heard by meaning (a
+// hardship, something they did, a plan, their people, anything else), and small talk with someone whose
+// work they just finished can be about that work. Measured on 15 lines written before the descriptions
+// were tried, three to a kind (2026-09-28).
+TEST(what_the_stranger_tells_is_taken_as_what_it_is) {
+    communicator::Meaning meaning(test_model::embedder());
+    const std::vector<std::pair<std::string, std::string>> rows = {
+        {"acknowledged_hardship", "Ah, that's hard."},   {"acknowledged_deed", "Is that so? No small thing."},
+        {"acknowledged_plan", "Right, go well."},        {"acknowledged_kin", "Aye, good to have them."},
+        {"acknowledged", "I see."},                       {"acknowledged_hardship_work", "Ah, and on my account."},
+        {"acknowledged_deed_work", "Good; the work needs that."}};
+    std::string bank;
+    std::map<std::string, std::string> kind_of;
+    const FactPacket p = packets::acknowledged();
+    for (const auto& [situation, line] : rows) {
+        bank += "any | " + situation + " | " + line + "\n";
+        kind_of[line] = situation;
+    }
+    const Lines lines = Lines::parse(bank, "test");
+    const std::vector<std::pair<std::string, std::string>> told = {
+        {"I lost my brother to the fever last spring.", "acknowledged_hardship"},
+        {"I'm exhausted, I haven't slept in days.", "acknowledged_hardship"},
+        {"My leg's been broken since the fall.", "acknowledged_hardship"},
+        {"I've been a smith for twenty years.", "acknowledged_deed"},
+        {"I fought at the siege of the old keep.", "acknowledged_deed"},
+        {"I can read and write, if that helps.", "acknowledged_deed"},
+        {"I'm heading north to find work.", "acknowledged_plan"},
+        {"Tomorrow I'll try the mountain pass.", "acknowledged_plan"},
+        {"I mean to buy a boat and fish the coast.", "acknowledged_plan"},
+        {"My mother still lives in the valley.", "acknowledged_kin"},
+        {"I have two daughters waiting for me at home.", "acknowledged_kin"},
+        {"My old friend runs the inn at the crossroads.", "acknowledged_kin"},
+        {"The bread here is good.", "acknowledged"},
+        {"I think it'll rain tomorrow.", "acknowledged"},
+        {"Yes, that's right.", "acknowledged"}};
+    std::size_t right = 0;
+    std::string missed;
+    for (const auto& [line, want] : told) {
+        const std::string reply = lines.speak(p, line, {}, &meaning);
+        const auto got = kind_of.find(reply);
+        const std::string heard = got == kind_of.end() ? "(" + reply + ")" : got->second;
+        if (heard == want)
+            ++right;
+        else
+            missed += "\n  " + line + ": " + heard + ", not " + want;
+    }
+    std::cout << "  told of themself: " << right << " of " << told.size() << " taken right" << missed << "\n";
+    check::is_true(right >= kToldFloor, std::to_string(right) + " of " + std::to_string(told.size()) + missed);
+    // The later 30, and the benchmark's own lines apart from them.
+    const std::vector<std::pair<std::string, std::string>> later = {
+        {"Took an arrow in the shoulder on the road here.", "acknowledged_hardship"},
+        {"We buried my father last winter.", "acknowledged_hardship"},
+        {"I haven't had a proper meal in a week.", "acknowledged_hardship"},
+        {"I sailed with the coast fleet for ten years.", "acknowledged_deed"},
+        {"I've tracked wolves through these hills since I was a boy.", "acknowledged_deed"},
+        {"I built half the bridges in my valley.", "acknowledged_deed"},
+        {"I'm off to the coast once the snow clears.", "acknowledged_plan"},
+        {"Next I'll try my luck in the capital.", "acknowledged_plan"},
+        {"I'm thinking of settling down around here.", "acknowledged_plan"},
+        {"My brother fights for the king.", "acknowledged_kin"},
+        {"My wife makes the best bread in our village.", "acknowledged_kin"},
+        {"I grew up on a farm by the river.", "acknowledged_kin"},
+        {"The inn was full last night.", "acknowledged"},
+        {"That's a fine sword you have.", "acknowledged"},
+        {"Aye, I heard you.", "acknowledged"},
+        {"My horse went lame two days back and I've been walking since.", "acknowledged_hardship"},
+        {"I lost everything when the river flooded.", "acknowledged_hardship"},
+        {"The cold has got into my bones.", "acknowledged_hardship"},
+        {"I was a ship's carpenter before all this.", "acknowledged_deed"},
+        {"I held the gate at the ford with six others.", "acknowledged_deed"},
+        {"I know a little healing.", "acknowledged_deed"},
+        {"I'll be heading back to my village after this.", "acknowledged_plan"},
+        {"I mean to find the men who burned my farm.", "acknowledged_plan"},
+        {"I'm saving up to buy land of my own.", "acknowledged_plan"},
+        {"My sister is waiting for me in the city.", "acknowledged_kin"},
+        {"I've a son about your age.", "acknowledged_kin"},
+        {"My people are fishers on the coast.", "acknowledged_kin"},
+        {"The road was muddy.", "acknowledged"},
+        {"I like it here.", "acknowledged"},
+        {"Fair enough.", "acknowledged"}};
+    std::size_t later_right = 0;
+    std::string later_missed;
+    for (const auto& [line, want] : later) {
+        const std::string reply = lines.speak(p, line, {}, &meaning);
+        const auto got = kind_of.find(reply);
+        const std::string heard = got == kind_of.end() ? "(" + reply + ")" : got->second;
+        if (heard == want)
+            ++later_right;
+        else
+            later_missed += "\n  " + line + ": " + heard + ", not " + want;
+    }
+    std::cout << "  told of themself, the later 30: " << later_right << " of " << later.size() << " taken right" << later_missed << "\n";
+    check::is_true(later_right >= kToldLaterFloor, std::to_string(later_right) + " of " + std::to_string(later.size()) + later_missed);
+    check::equal(kind_of[lines.speak(p, "I nearly lost my arm on the second night.", {}, &meaning)], std::string("acknowledged_hardship"),
+                 "the benchmark's hurt");
+    check::equal(kind_of[lines.speak(p, "I've done some soldiering. Held a bridge in the south for a winter once.", {}, &meaning)],
+                 std::string("acknowledged_deed"), "the benchmark's deed");
+    check::equal(lines.speak(p, "I lost my brother to the fever last spring.", {}, nullptr), std::string("I see."), "no meaning: taken plainly");
+    check::equal(lines.speak(packets::acknowledged_with("", "hostile"), "I lost my brother to the fever last spring.", {}, &meaning),
+                 std::string("I see."), "a cold speaker takes it plainly");
+    // In the light of the speaker's own work: a hurt taken doing it, a deed told while they hire.
+    const std::string hurt = "I lost my brother to the fever last spring.", deed = "I fought at the siege of the old keep.";
+    check::equal(kind_of[lines.speak(p, hurt, {}, &meaning)], std::string("acknowledged_hardship"), "the premise: a hardship");
+    check::equal(kind_of[lines.speak(p, deed, {}, &meaning)], std::string("acknowledged_deed"), "the premise: a deed");
+    for (const std::string work : {"taken", "finished", "failed"})
+        check::equal(lines.speak(packets::acknowledged_with(work), hurt, {}, &meaning), std::string("Ah, and on my account."),
+                     "a hurt, their work " + work);
+    for (const std::string work : {"", "offered", "abandoned"})
+        check::equal(lines.speak(packets::acknowledged_with(work), hurt, {}, &meaning), std::string("Ah, that's hard."),
+                     "a hurt, their work " + (work.empty() ? std::string("none") : work));
+    for (const std::string work : {"offered", "taken"})
+        check::equal(lines.speak(packets::acknowledged_with(work), deed, {}, &meaning), std::string("Good; the work needs that."),
+                     "a deed, their work " + work);
+    for (const std::string work : {"", "finished", "failed"})
+        check::equal(lines.speak(packets::acknowledged_with(work), deed, {}, &meaning), std::string("Is that so? No small thing."),
+                     "a deed, their work " + (work.empty() ? std::string("none") : work));
+    // Small talk of the work just done: said when asked of it, never in its turn with the rest, and
+    // never from a speaker whose work the stranger has not finished.
+    const Lines talk = Lines::parse("any | small_talk | Much the same as ever.\n"
+                                    "any | small_talk_work_done | It held, and that's what counts.\n",
+                                    "talk");
+    check::equal(talk.speak(packets::small_talk_after_work(), "Was it as bad as you feared?", {}, nullptr),
+                 std::string("Much the same as ever."), "no meaning: the work is not talked of");
+    for (const std::string asked : {"Was it as bad as you feared?", "Was it worth it, holding that place?", "Did you think we'd make it?"})
+        check::equal(talk.speak(packets::small_talk_after_work(), asked, {}, &meaning), std::string("It held, and that's what counts."),
+                     "asked how the work went: " + asked);
+    for (const std::string asked : {"Nice weather today.", "How are you keeping?", "Any news?"})
+        check::equal(talk.speak(packets::small_talk_after_work(), asked, {}, &meaning), std::string("Much the same as ever."),
+                     "not the work: " + asked);
+    for (const std::string work : {"", "taken", "failed", "abandoned"}) {
+        FactPacket unfinished = packets::small_talk_after_work();
+        for (auto& [field, value] : unfinished.facts.back().fields)
+            if (field == "work") value = work;
+        check::equal(talk.speak(unfinished, "Was it as bad as you feared?", {}, &meaning), std::string("Much the same as ever."),
+                     "work " + (work.empty() ? std::string("none") : work) + ": nothing finished to talk of");
+    }
 }
 
 TEST(a_recalled_row_brings_the_words_in_after_a_colon_says_no_when_and_asks_nothing) {
@@ -1009,6 +1368,35 @@ TEST(a_place_is_told_with_what_else_the_speaker_knows_of_it) {
     // A place with nothing more to it is told as before.
     check::equal(first(lines.replies(about_the_works())), std::string("That's the burnt works, an hour's walk away, held by squatters."),
                  "nothing more to say");
+}
+
+// Contract version 13: asked for work again with nothing new to it, a speaker says so (the hero
+// benchmark, 2026-09-28: one list, word for word, in two conversations days apart).
+TEST(work_asked_for_again_with_nothing_new_is_said_as_told) {
+    const Lines lines = Lines::parse("any | work_others | No work of mine, but {others}.\n"
+                                     "any | work_others_told | Nothing new since I told you.\n"
+                                     "any | work_own | There's work: {own}.[ Otherwise, {others}.]\n"
+                                     "any | work_own_told | It's as I told you: {own}.\n",
+                                     "test");
+    const FactPacket asked = packets::work_at_the_inn();
+    const std::string whole = lines.speak(asked, "Any work?");
+    check::is_true(whole.rfind("No work of mine, but Dornar", 0) == 0, "the premise: the whole answer: " + whole);
+    FactPacket again = asked;
+    again.facts.back() = packets::memory_of(again.speaker, {.met = "again", .times = 1, .heard = 1});
+    check::equal(lines.speak(again, "Any more work?", {whole}), std::string("Nothing new since I told you."),
+                 "asked before, and all of it heard lately: said as told");
+    check::equal(lines.speak(asked, "Any work?", {whole}), whole, "never asked before: the whole answer");
+    check::equal(lines.speak(again, "Any more work?", {}), whole, "not heard lately: the whole answer");
+    const std::string part = whole.substr(0, whole.find(", and "));
+    check::is_true(part != whole, "the premise: the answer names two others' work");
+    check::equal(lines.speak(again, "Any more work?", {part}), whole, "only some of it heard: the whole answer");
+    // Their own work too.
+    const FactPacket own = packets::work();
+    const std::string all = lines.speak(own, "Any work?");
+    check::is_true(all.rfind("There's work: ", 0) == 0, "the premise: their own work: " + all);
+    FactPacket own_again = own;
+    own_again.facts.back() = packets::memory_of(own_again.speaker, {.met = "again", .times = 1, .heard = 1});
+    check::is_true(lines.speak(own_again, "Any work?", {all}).rfind("It's as I told you: ", 0) == 0, "their own, said as told");
 }
 
 TEST(an_answer_heard_lately_is_said_again_as_told) {

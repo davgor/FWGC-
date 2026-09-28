@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cctype>
 #include <optional>
 #include <set>
 
@@ -70,6 +71,9 @@ constexpr std::array<ActText, orchestrator::kActCount> kActs = {{
      {{{"", "I'm sorry for what I said."}, {"", "Forgive me, I was out of line."}}}, ""},
     {ActKind::Calm, std::nullopt, "soothes them when they are frightened: it's all right, you're safe, calm down",
      {{{"", "It's all right, you're safe now."}, {"", "Easy, easy. Nobody's going to hurt you."}}}, ""},
+    {ActKind::AskAboutThem, std::nullopt,
+     "asks about them: who they are, how long they have been here, why, what they are after, what they did or lost",
+     {{{"", "How long have you held this place?"}, {"", "What brought you out here?"}}}, ""},
 }};
 
 const ActText& text_of(ActKind kind) { return kActs[static_cast<std::size_t>(kind)]; }
@@ -83,16 +87,37 @@ constexpr std::array<ActKind, orchestrator::kActCount> kShown = {
     ActKind::AcceptQuest,     ActKind::DeclineQuest,  ActKind::AbandonQuest,   ActKind::Farewell,
     ActKind::Greet,           ActKind::SmallTalk,     ActKind::Answer,         ActKind::Thank,
     ActKind::Insult,          ActKind::AskSafety,     ActKind::Confront,       ActKind::Apologize,
-    ActKind::Calm,            ActKind::NoAct};
+    ActKind::Calm,            ActKind::AskAboutThem,  ActKind::NoAct};
 
 // Whether an act can be put to the model: it takes no target, or there is something to point at;
 // an answer only to a question, when the speaker's last words asked one; and calming words only to
 // a frightened speaker. Offered to everyone, calming took the test model from 112 lines of 310
 // read right to 79 of the same, most read as small talk instead (measured 2026-09-26): a listed act
 // costs a small model on every line, not only the lines it fits.
-bool offered(const ActText& act, const Known& known, std::string_view last_reply, bool frightened) {
+// Whether `line` speaks to the one it is said to: "you", "your", "yourself", and the ways players
+// write them ("u", "ur", "urself", "ye", "thee"). A question about the speaker does.
+bool addresses_them(std::string_view line) {
+    static const std::set<std::string> words = {"you", "your", "yours", "yourself", "you're", "you've", "you'd", "you'll", "u",
+                                                "ur",  "urself", "ye", "yer", "thee", "thou", "thy", "thine"};
+    std::string word;
+    for (const char c : std::string(line) + " ") {
+        if (std::isalpha(static_cast<unsigned char>(c)) || c == '\'') {
+            word += static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+        } else {
+            if (words.count(word) != 0) return true;
+            word.clear();
+        }
+    }
+    return false;
+}
+
+bool offered(const ActText& act, const Known& known, std::string_view line, std::string_view last_reply, bool frightened) {
     if (act.kind == ActKind::Answer) return last_reply.find('?') != std::string_view::npos;
     if (act.kind == ActKind::Calm) return frightened;
+    // A question about the speaker (contract version 13) speaks to them. Listed on every line, the
+    // act cost the test model 9 of the 313 lines it had read right, and Qwen3-4B 5; listed only for a
+    // line that speaks to them, none and 1 (110 -> 113, 246 -> 245; 2026-09-28).
+    if (act.kind == ActKind::AskAboutThem) return addresses_them(line);
     return !act.target || !known.nameable(*act.target, 1).empty();
 }
 
@@ -188,7 +213,7 @@ Question Interpreter::act_question(std::string_view line, const Known& known, st
     std::string acts, alternatives;
     for (const ActKind kind : kShown) {
         const ActText& act = text_of(kind);
-        if (!offered(act, known, last_reply, frightened)) continue;  // nothing to point at, no question, no fear
+        if (!offered(act, known, line, last_reply, frightened)) continue;  // nothing to point at, no question, no fear
         const std::string name(orchestrator::to_string(act.kind));
         acts += "- " + name + ": " + std::string(act.meaning) + ".\n";
         alternatives += (alternatives.empty() ? "" : " | ") + gbnf::literal(name);
@@ -199,7 +224,7 @@ Question Interpreter::act_question(std::string_view line, const Known& known, st
     for (std::size_t round = 0; round < 2; ++round)
         for (const ActKind kind : kShown) {
             const ActText& act = text_of(kind);
-            if (offered(act, known, last_reply, frightened) && !act.examples[round].line.empty())
+            if (offered(act, known, line, last_reply, frightened) && !act.examples[round].line.empty())
                 worked.emplace_back(act.examples[round], std::string(orchestrator::to_string(act.kind)));
         }
     Question q;
@@ -266,7 +291,7 @@ Interpretation Interpreter::interpret(std::string_view line, const Known& known,
 
     const std::string act_answer = ask(act_question(line, known, last_reply, frightened));
     const std::optional<ActKind> kind = orchestrator::act_kind(act_answer);
-    if (!kind || !offered(text_of(*kind), known, last_reply, frightened)) throw outside(act_answer);
+    if (!kind || !offered(text_of(*kind), known, line, last_reply, frightened)) throw outside(act_answer);
     Interpretation out;
     out.act.kind = *kind;
     const ActText& act = text_of(*kind);

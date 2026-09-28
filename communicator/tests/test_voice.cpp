@@ -263,6 +263,17 @@ TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
     for (const std::string said : {"trades: administrator, smith, officiant", "- Tornar:", "- Danger near that place: Frost owls nesting: ",
                                    "; close by, from that place"})
         check::is_true(town.find(said) != std::string::npos, "what else is known of the place: " + said);
+    // Contract version 13: asked about themself, the speaker's own story in C++'s words, and what to do
+    // with it.
+    const std::string them = prompt_of(voice, packets::about_them(), "What brought you here?");
+    for (const std::string said : {"- Yourself: you are known as the Shield of Wenweg; your home is Wenweg; you command the garrison "
+                                   "here; you mean to hold the fortress above Wenweg; you lost Brenlin to a dragon in the last age.",
+                                   "- Something of your own past: you command the fortress of Wenweg.",
+                                   "- Something of your own past: you stood for Brenlin when it fell, in the last age.",
+                                   "- Tornar: role: council; where: Wenweg; status: about; tie: ally",
+                                   "The stranger asked about you. Answer what they asked"})
+        check::is_true(them.find(said) != std::string::npos, "about themself: " + said);
+    check::is_true(prompt_of(voice, packets::about_self(), "Who are you?").find("Yourself:") == std::string::npos, "the control");
 }
 
 TEST(work_from_others_is_never_offered_as_the_speakers_own) {

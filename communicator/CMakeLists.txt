@@ -50,6 +50,7 @@ add_library(communicator STATIC
   src/reply_shape.cpp
   src/summarizer.cpp
   src/text.cpp
+  src/them.cpp
   src/truth.cpp
   src/voice.cpp
 )
@@ -71,6 +72,7 @@ if(COMMUNICATOR_BUILD_TESTS)
     tests/test_meaning.cpp
     tests/test_news.cpp
     tests/test_summarizer.cpp
+    tests/test_them.cpp
     tests/test_truth.cpp
     tests/test_voice.cpp
   )

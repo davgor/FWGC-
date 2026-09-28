@@ -23,8 +23,8 @@ castellan | - | Tell me of Wenweg. | ask_about_place | Wenweg (Age 2) | partial
 castellan | - | Is the fortress well manned? | ask_about_place | the fortress of Wenweg (Age 2) | partial
 castellan | - | What do you know of Castle Grey? | ask_about_place | ? | unnamed
 castellan | - | Tell me about the Sunken Library. | ask_about_place | ? | unnamed
-castellan | - | Who are you? | ask_about_person | Selbren | clear
-castellan | - | Tell me about Selbren. | ask_about_person | Selbren | clear
+castellan | - | Who are you? | ask_about_them | - | clear
+castellan | - | Tell me about Selbren. | ask_about_them | - | clear
 castellan | - | Who is Halbrann? | ask_about_person | Halbrann | clear
 castellan | - | What's Halbrann like? | ask_about_person | Halbrann | clear
 castellan | - | Who is Gandalf? | ask_about_person | ? | unnamed
@@ -74,7 +74,7 @@ gate | - | What's beyond the gate? | ask_surroundings | - | clear
 gate | - | Anything dangerous out there? | ask_safety | - | clear
 gate | - | Tell me about the hospice on the pass. | ask_about_place | the hospice on the Wenweg (Age 2) pass | partial
 gate | - | How far to the hamlet? | ask_about_place | the hamlet of Wenweg (Age 2) | partial
-gate | - | Who are you? | ask_about_person | Fersel | clear
+gate | - | Who are you? | ask_about_them | - | clear
 gate | - | Any work? | ask_for_work | - | short
 gate | - | Let me through. | no_act | - | command
 gate | - | Who is Selbren? | ask_about_person | ? | unnamed
@@ -92,7 +92,7 @@ inn | - | What's the cold marker? | ask_about_place | the cold marker | clear
 inn | - | How far is Strandbrig? | ask_about_place | Strandbrig | clear
 inn | - | How far to Dunfor? | ask_about_place | Dunfor (Age 2) | partial
 inn | - | Tell me about Narbod. | ask_about_place | ? | unnamed
-inn | - | Who are you? | ask_about_person | Dornwen | clear
+inn | - | Who are you? | ask_about_them | - | clear
 inn | - | Who is Dornar? | ask_about_person | ? | unnamed
 inn | - | A pint of ale, please. | no_act | - | offtopic
 inn | - | Goodnight. | farewell | - | short
@@ -100,7 +100,7 @@ inn | - | Goodnight. | farewell | - | short
 # ---- opening: a conversation with Fersel just begun -------------------------------------------
 opening | - | What's around here? | ask_surroundings | - | clear
 opening | - | Any work? | ask_for_work | - | short
-opening | - | Who are you? | ask_about_person | Fersel | clear
+opening | - | Who are you? | ask_about_them | - | clear
 opening | - | Tell me about Linbrig. | no_act | - | clear
 opening | - | Who is Halbrann? | ask_about_person | ? | unnamed
 opening | - | I accept. | no_act | - | short
@@ -125,9 +125,9 @@ castellan | - | which way to torhas | ask_about_place | ? | short,unnamed
 castellan | - | ¿Qué hay en Hakndum? | ask_about_place | Hakndum (Age 2) | foreign,partial
 castellan | - | Greetings, good castellan. I have walked from the coast on blistered feet with an empty purse, and a peddler on the road swore there was salvage to be had at a place called the burnt works. How does one get there from here? | ask_about_place | the burnt works | long,polite
 castellan | - | ok so i got lost like three times on the way here and some guy at the crossroads kept going on about stones or whatever, anyway how do i get to nerstrann | ask_about_place | Nerstrann (Age 1) | rambling,slang,partial
-castellan | - | remind me who you are? | ask_about_person | Selbren | short
-castellan | - | tell me more about yourself, castellan | ask_about_person | Selbren | command
-castellan | - | Wer bist du eigentlich? | ask_about_person | Selbren | foreign
+castellan | - | remind me who you are? | ask_about_them | - | short
+castellan | - | tell me more about yourself, castellan | ask_about_them | - | command
+castellan | - | Wer bist du eigentlich? | ask_about_them | - | foreign
 castellan | - | whos halbran? also ur breath stinks | ask_about_person | Halbrann | typo,multi,hostile
 castellan | - | Where might I find Halbrann? I would have a word with him. | ask_about_person | Halbrann | polite
 castellan | - | who is this nerbrann fella anyway | ask_about_person | ? | slang,unnamed
@@ -193,8 +193,8 @@ gate | - | Good captain, does the hospice on the pass still take in travellers? 
 gate | - | how long has the fortress stood? | ask_about_place | the fortress of Wenweg (Age 2) | partial
 gate | - | is there a path from here to hakndum | ask_about_place | ? | clear,unnamed
 gate | - | tell me of the burnt works | ask_about_place | ? | command,unnamed
-gate | - | and who might you be, captain? | ask_about_person | Fersel | polite
-gate | - | ur name? | ask_about_person | Fersel | short,slang
+gate | - | and who might you be, captain? | ask_about_them | - | polite
+gate | - | ur name? | ask_about_them | - | short,slang
 gate | - | who is selbren | ask_about_person | ? | short,unnamed
 gate | - | looking for work here, and fetch me some water while you're at it | ask_for_work | - | multi,command
 gate | - | Is there aught I might do to aid the garrison, captain? | ask_for_work | - | polite
@@ -219,7 +219,7 @@ inn | - | Où se trouve Strandbrig ? | ask_about_place | Strandbrig | foreign
 inn | - | what's the history of torhas | ask_about_place | Torhas (Age 1) | partial
 inn | - | where's narbod | ask_about_place | ? | short,context,unnamed
 inn | - | so me and my mate were arguing last night over like four ales about whether the silent keep is haunted and he bet me ten silver it is, so settle it, whats the deal with that place | ask_about_place | the silent keep | rambling,slang
-inn | - | who r u anyway | ask_about_person | Dornwen | slang,short
+inn | - | who r u anyway | ask_about_them | - | slang,short
 inn | - | who's dornar | ask_about_person | ? | short,unnamed
 inn | - | mekmoh? never heard of them, who's that | ask_about_person | ? | clear,unnamed
 inn | - | Halbrann, you know him? | ask_about_person | ? | short,unnamed
@@ -242,8 +242,8 @@ inn | - | hullo everyone | greet | - | short
 opening | - | where am i | ask_surroundings | - | short
 opening | - | what's out past the gate? | ask_surroundings | - | clear
 opening | - | is this road safe to travel? | ask_safety | - | clear
-opening | - | who are yuo | ask_about_person | Fersel | typo,short
-opening | - | are you the one in charge of this gate? | ask_about_person | Fersel | -
+opening | - | who are yuo | ask_about_them | - | typo,short
+opening | - | are you the one in charge of this gate? | ask_about_them | - | -
 opening | - | do you know Halbrann? | ask_about_person | ? | clear,unnamed
 opening | - | hi, got any work? also nice helmet | ask_for_work | - | multi
 opening | - | Greetings, captain. I am a sellsword between contracts and would gladly lend my blade to whoever needs it. Have you any task for me? | ask_for_work | - | polite,long
@@ -351,3 +351,20 @@ castellan-afraid | - | Hello there. | greet | - | short
 inn-afraid | - | What's around here? | ask_surroundings | - | clear
 gate-afraid | - | Thank you, captain. | thank | - | polite
 opening-afraid | - | Goodbye. | farewell | - | short
+
+# ---- contract version 13: asked about themself (2026-09-28, by Claude; the interpreter's own two
+# examples are not among them). "Who are you?" above was ask_about_person with the speaker until then.
+castellan | - | How long have you been posted here? | ask_about_them | - | clear
+castellan | - | What made you come out this far? | ask_about_them | - | clear
+castellan | - | Why do you stay? | ask_about_them | - | clear,short
+castellan | - | What are you after, really? | ask_about_them | - | clear
+castellan | - | Who stands with you? | ask_about_them | - | clear
+castellan | - | Have you always been a castellan? | ask_about_them | - | clear
+castellan | - | Do you ever think of leaving? | ask_about_them | - | clear
+castellan | - | What happened to your home? | ask_about_them | - | clear
+castellan | - | tell me about urself | ask_about_them | - | typo
+castellan | - | So what's your story? | ask_about_them | - | clear
+castellan | - | Where are you from? | ask_about_them | - | clear
+castellan | - | What do you do when you're not on the walls? | ask_about_them | - | clear
+castellan | - | How are you today? | small_talk | - | clear
+castellan | - | What do you know about Halbrann? | ask_about_person | Halbrann | clear

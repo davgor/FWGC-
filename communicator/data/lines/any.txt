@@ -202,3 +202,63 @@ any | no_news | I've not heard a thing.
 any | recalled | You told me once: {words}; I've not forgotten.
 any | recalled | I remember what you told me: {words}.
 any | recalled | I've thought on what you told me: {words}.
+
+# Contract version 13: asked about themself, by what the stranger asked of them (a writer's round per
+# bank to come). Every name comes through a blank: what they go by, their home, what they are after,
+# how they stand, a deed, a city lost, who stands with them.
+any | them_who | They call me {speaker}[ {known_as}], and I call {home} home.
+any | them_who | I'm {speaker}, {post} here.
+any | them_here | I {standing}.
+any | them_here | I {standing}, day in and day out.
+any | them_after | I mean to {after}.
+any | them_after | What I'm after is plain enough: I mean to {after}.
+any | them_past | I {lost}.
+any | them_past | I {done}.
+any | them_ties | {ties}.
+any | them_ties | As for who stands where: {ties}.
+any | them_plans | Leave? Not while I mean to {after}.
+any | them_plans | I'll stay while I mean to {after}.
+any | them_secret | That's mine to keep.
+any | them_secret | Some things I keep to myself.
+
+# Contract version 13: what the stranger tells of themself, taken as what it is; small talk of work
+# the stranger finished for the speaker; and more to say of themself, with what they stand against.
+any | acknowledged_hardship | Ah, that's a hard thing to carry; I'm sorry for it.
+any | acknowledged_hardship | Well, rest while you can; you've earned it.
+any | acknowledged_deed | Is that so? That's no small thing to have done.
+any | acknowledged_deed | Well, then you know more than most who come through here.
+any | acknowledged_plan | Right, then I hope the road treats you well.
+any | acknowledged_plan | Well, go carefully, and see it through.
+any | acknowledged_kin | Ah, your people are lucky to have you.
+any | acknowledged_kin | Aye, it's good to have someone to go back to.
+any | small_talk_work_done | It was bad enough, by the look of you, but it held, and that's what counts.
+any | small_talk_work_done | It was hard work, and you saw it through; I won't forget that.
+any | them_after | I mean to {after}, and the {danger} would have it otherwise.
+any | them_plans | Not while the {danger} are out there; I mean to {after}.
+any | them_here | It's been long enough to know every stone of the place; I {standing}.
+
+# What is at stake in their work, and more of their days; a hurt the stranger took in the speaker's
+# work, and a deed told while the speaker is hiring (contract version 13).
+any | them_need | Because I can't {after} alone, not with the {danger} about.
+any | them_stakes | If it fails, the {danger} have their way, and I'll still mean to {after}.
+any | them_need | No one could {after} alone, and the {danger} know it.
+any | them_need | Because no one can {after} alone.
+any | them_stakes | If it goes wrong, I'll still mean to {after}; it will only cost more.
+any | them_here | There's little else to me; I {standing}, and that fills the time.
+any | them_here | Most of the time, I {standing}; that's the whole of it.
+any | acknowledged_hardship_work | Ah, and on my account; I'm sorry it cost you that.
+any | acknowledged_hardship_work | Well, you took that hurt in my service, and I'll not forget it.
+any | acknowledged_deed_work | Is that so? Then you're the kind I had in mind for the work.
+any | acknowledged_deed_work | Good; that's the kind of hand the work needs.
+# How long they have been here: the world does not say, so no line claims a time.
+any | them_long | It's been long enough that I've stopped counting; I {standing}.
+any | them_long | A good while now; long enough that I {standing} without thinking of it.
+any | them_long | More seasons than I care to count; I {standing}.
+# Why they need help apart from what comes if it fails; and asked for work again with nothing new,
+# the answer said again as told (contract version 13).
+any | them_stakes | If it fails? The {danger} won't wait while I look for another pair of hands; I'll {after} alone if I must.
+any | them_stakes | Then I go on without you; I mean to {after} whatever it costs.
+any | work_own_told | It's as I told you: {own}.[ Or else, {others}.]
+any | work_own_told | It's the same as before: my own work's still open, {own}.
+any | work_others_told | Nothing new since I told you: none of mine, and the others I named still want hands.
+any | work_others_told | As I said, nothing of mine; {others}, same as before.

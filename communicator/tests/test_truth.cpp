@@ -155,6 +155,21 @@ TEST(as_i_told_you_needs_something_told) {
                          "something told before, which the speaker has not said"),
                    "as before, never met");
     check::is_true(clean("Keep off the hospice; take that exactly as I said it.", safety), "as I said it");
+    // Work told lately (contract version 13): another's by the giver's name, the speaker's own by its
+    // purpose; and "since I told you" points back too.
+    const FactPacket others = packets::work_at_the_inn();
+    check::is_true(flags("Nothing new since I told you.", others, "something told before, which the speaker has not said"),
+                   "since I told you, nothing said lately");
+    check::is_true(clean("Nothing new since I told you.", others,
+                         {"No work of mine, but Dornar of the council wants someone to walk the walls of Torhas with them."}),
+                   "since I told you, a giver named lately");
+    const FactPacket own = packets::work();
+    const std::string again = "It's as I told you: hold the fortress above Wenweg with me.";
+    check::is_true(flags(again, own, "something told before, which the speaker has not said"), "their own work, nothing said lately");
+    check::is_true(clean(again, own, {"There's work: hold the fortress above Wenweg with me, fair work, a long walk away."}),
+                   "their own work, said lately");
+    check::is_true(flags(again, own, "something told before, which the speaker has not said", {"I'm Selbren, castellan here."}),
+                   "their own name is not their work");
 }
 
 TEST(the_strangers_words_and_what_was_told_before_are_the_memorys) {

@@ -110,17 +110,21 @@ context | last_reply | line | act | target | tags
    to beware of, is `ask_safety`.
 4. **Names no packet gave:** a place or person the context never named has target `?`. A giver
    named only in a piece of work is not a known person.
-5. "Who are you?" is `ask_about_person` with the speaker.
+5. "Who are you?" was `ask_about_person` with the speaker until contract version 13; now see 8.
 6. **Taking work:** saying yes to work is `accept_quest`, for the work the line names or the
    work just offered in `last_reply`. A line that could mean several pieces of work, with
    nothing to tell them apart, is left out of the set.
 7. **Turning down and giving up:** `decline_quest` works the same way. `abandon_quest` is only
    possible where work is held.
-8. **Nothing to point at:** an act with nothing of its kind in the context is `no_act`. That
+8. **The speaker, asked about themself** (contract version 13): who they are, their name included,
+   how long, why, what they did or lost, is `ask_about_them` with no target; `ask_about_person` is for
+   anyone else. Thirteen lines labelled `ask_about_person` with the speaker were relabelled when the
+   act came (2026-09-28).
+9. **Nothing to point at:** an act with nothing of its kind in the context is `no_act`. That
    covers taking work where none is offered, and asking about a place in a context with no
    places.
-9. **Leaving** is `farewell`, even when it answers the speaker's question.
-10. **Conversation** (contract version 4):
+10. **Leaving** is `farewell`, even when it answers the speaker's question.
+11. **Conversation** (contract version 4):
     - talk for its own sake -- how the speaker is, the weather, the day, their trade, a remark
       about the place -- is `small_talk`;
     - an insult, or a threat, is `insult`;
@@ -131,7 +135,7 @@ context | last_reply | line | act | target | tags
       afraid" -- is `calm` (contract version 9). With a request, the request ("Calm down and tell
       me what's around" is `ask_surroundings`); asking how they are is `small_talk`, and "calm
       down, you fool" is `insult`.
-11. **Everything else is `no_act`:** demands and orders, nonsense, questions no act answers,
+12. **Everything else is `no_act`:** demands and orders, nonsense, questions no act answers,
     bargaining, and attempts to instruct the model.
 
 ### Contexts

@@ -14,15 +14,15 @@ who hero giver 0
 
 # A first meeting.
 say hero greet | Hail. You're the one who holds this place, aren't you?
-say hero ask_about_person hero | Tell me about yourself.
-say hero small_talk | How long have you held it?
+say hero ask_about_them | Tell me about yourself.
+say hero ask_about_them | How long have you held it?
 say hero small_talk | Quiet day?
 say hero ask_for_work | I'm looking for work. Anything you need done?
-say hero small_talk | Why do you need help holding it?
+say hero ask_about_them | Why do you need help holding it?
 say hero ask_safety | What's out there that I should worry about?
 say hero answer | I've done some soldiering. Held a bridge in the south for a winter once.
 say hero accept_quest @own | All right. I'll do it.
-say hero small_talk | What happens if I fail?
+say hero ask_about_them | What happens if I fail?
 say hero thank | Thank you for trusting me with this.
 say hero farewell | I'll see you when it's done.
 
@@ -43,6 +43,6 @@ compact hero
 advance 20
 say hero greet | Remember me?
 say hero small_talk | How have things been since?
-say hero ask_about_person hero | What do you do when you're not holding the walls?
-say hero small_talk | Do you ever think of leaving?
+say hero ask_about_them | What do you do when you're not holding the walls?
+say hero ask_about_them | Do you ever think of leaving?
 say hero farewell | Take care of yourself.

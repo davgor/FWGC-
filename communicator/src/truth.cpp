@@ -352,7 +352,7 @@ void told(const std::string& said, const FactPacket& p, const std::vector<std::s
     static const std::vector<std::string> phrases = {"as i told you",   "like i told you",  "as i've told you", "as i said",
                                                      "like i said",     "as i've said",     "told you already", "already told you",
                                                      "told you before", "told you earlier", "said before",      "i did tell you",
-                                                     "as before",       "as i mentioned"};
+                                                     "as before",       "as i mentioned",   "since i told you"};
     std::string claimed;
     for (const std::string& phrase : phrases) {
         for (std::size_t at = find_words(said, phrase); at != std::string::npos; at = find_words(said, phrase, at + 1))
@@ -370,6 +370,18 @@ void told(const std::string& said, const FactPacket& p, const std::vector<std::s
     for (const Fact& fact : p.facts)
         for (const std::string key : {"name", "of", "creature"})
             if (const std::string value = lowered(text::spoken(field_of(fact, key))); !value.empty()) words.push_back(value);
+    // Work told lately (contract version 13, a work answer said again): another's by its giver's name,
+    // the speaker's own by its purpose in their words.
+    for (const Fact& fact : p.facts) {
+        if (fact.kind != FactKind::QuestOffer) continue;
+        if (field_of(fact, "from_speaker") == "yes") {
+            if (const std::string purpose = lowered(text::mid_sentence(text::ask_of(text::spoken(field_of(fact, "purpose")))));
+                !purpose.empty())
+                words.push_back(purpose);
+        } else if (const std::string giver = lowered(text::spoken(field_of(fact, "giver"))); !giver.empty()) {
+            words.push_back(giver);
+        }
+    }
     // News told lately, in any of the ways the speaker may have put it (news.hpp).
     for (const Fact& fact : p.facts)
         if (fact.kind == FactKind::News)

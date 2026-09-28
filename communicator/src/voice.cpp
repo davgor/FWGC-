@@ -10,6 +10,7 @@
 #include "gbnf.hpp"
 #include "memory.hpp"
 #include "news.hpp"
+#include "them.hpp"
 #include "reply_shape.hpp"
 #include "text.hpp"
 
@@ -49,6 +50,9 @@ std::string scaled(std::string_view key, const std::string& value) {
     if (key == "difficulty") return word + " work (" + value + " of 5)";
     return std::string(key) + " " + word + " (" + value + " of 5)";
 }
+
+// Words that follow "I" (them.hpp) made to follow "you": "am a refugee here" is "are a refugee here".
+std::string after_you(const std::string& words) { return words.rfind("am ", 0) == 0 ? "are " + words.substr(3) : words; }
 
 // A fact's remaining fields as short phrases, in the director's order, skipping `used`.
 std::vector<std::string> phrases(const Fact& fact, std::initializer_list<std::string_view> used) {
@@ -139,6 +143,22 @@ std::string fact_line(const Fact& fact, const FactPacket& packet) {
                 dated_news_words(fact, text::spoken(packet.persona.name), "the stranger", text::spoken(packet.persona.place));
             return "- News you have heard: " + words + " (word of it reached you).";
         }
+        case FactKind::Self: {
+            // Contract version 13: who the speaker is beyond their name, in C++'s words (them.hpp), never
+            // fields for a model to make a story of.
+            std::vector<std::string> about;
+            if (const std::string as = value_of(fact, "known_as"); !as.empty()) about.push_back("you are known as " + as);
+            if (const std::string home = value_of(fact, "home"); !home.empty()) about.push_back("your home is " + home);
+            if (const std::string stand = standing_words(fact); !stand.empty()) about.push_back("you " + after_you(stand));
+            if (const std::string after = after_words(fact); !after.empty()) about.push_back("you mean to " + after);
+            if (const std::string lost = lost_words(fact); !lost.empty()) about.push_back("you " + lost);
+            return about.empty() ? std::string() : "- Yourself: " + join(about, "; ") + ".";
+        }
+        case FactKind::Deed:
+            if (const std::string done = done_words(fact); !done.empty()) return "- Something of your own past: you " + after_you(done) + ".";
+            return {};
+        case FactKind::Recall:
+            return {};  // said apart, as what the speaker remembers (memory_lines)
     }
     return {};
 }
@@ -244,6 +264,9 @@ std::string what_happened(const FactPacket& packet) {
                 case ActKind::AskSafety:
                     return "The stranger asked whether it is safe here. Say plainly first whether it is, then name the worst "
                            "danger above.";
+                case ActKind::AskAboutThem:
+                    return "The stranger asked about you. Answer what they asked from what is said of you above, and keep "
+                           "to yourself what is not.";
                 case ActKind::AskForWork: {
                     if (packet.facts.empty()) return "The stranger asked for work. You know of none: say so.";
                     bool own = false;

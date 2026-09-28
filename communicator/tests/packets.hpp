@@ -288,6 +288,11 @@ inline FactPacket parted_coldly() {
 
 inline FactPacket acknowledged() { return packet(castellan(), ActKind::Answer, Outcome::Acknowledged, {}, {.turn = 2}); }
 
+// What the stranger tells, to a speaker whose own work stands at `work` (contract version 13).
+inline FactPacket acknowledged_with(const std::string& work, const std::string& mood = "neutral") {
+    return packet(castellan(), ActKind::Answer, Outcome::Acknowledged, {}, {.mood = mood, .work = work, .turn = 2});
+}
+
 inline FactPacket thanked(const std::string& mood = "friendly") {
     return packet(castellan(), ActKind::Thank, Outcome::Thanked, {}, {.mood = mood, .turn = 3});
 }
@@ -577,8 +582,47 @@ inline FactPacket about_the_town_told(const std::string& since = "weeks") {
 }
 
 // Every conversation packet, for the tests and the written lines' rules.
+// Contract version 13: the castellan asked about himself, with a story to tell: what he goes by, how
+// he stands, what he is after, a city lost, his deeds, an ally and a rival.
+inline FactPacket about_them() {
+    return packet(castellan(), ActKind::AskAboutThem, Outcome::Answered,
+                  {{FactKind::Self, "hero-castellan-fortress-node-178",
+                    {{"role", "castellan"},
+                     {"at", "Wenweg (Age 2)"},
+                     {"known_as", "the Shield of Wenweg"},
+                     {"fame", "notable"},
+                     {"home", "Wenweg (Age 2)"},
+                     {"stands", "garrison"},
+                     {"after", "hold"},
+                     {"after_what", "the fortress above Wenweg (Age 2)"},
+                     {"lost", "Brenlin"},
+                     {"lost_to", "dragon"},
+                     {"lost_when", "the last age"},
+                     {"since", "the last age"}}},
+                   {FactKind::Deed, "fortress-node-178",
+                    {{"deed", "fortress"}, {"part", "keeper"}, {"place", "the fortress of Wenweg (Age 2)"}, {"when", "this age"}}},
+                   {FactKind::Deed, "ruin-surface-city-0-153-human_cold",
+                    {{"deed", "ruin"}, {"part", "credited"}, {"place", "Brenlin"}, {"when", "the last age"}}},
+                   {FactKind::Person, "hero-council-surface-city-2-212-human_cold-steward",
+                    {{"name", "Tornar"}, {"role", "council"}, {"where", "Wenweg (Age 2)"}, {"status", "about"}, {"tie", "ally"}}},
+                   {FactKind::Person, "hero-warlord-1-surface-city-0-205-frosthold_dwarf",
+                    {{"name", "Ulknord"}, {"role", "warlord"}, {"status", "about"}, {"tie", "rival"}}},
+                   {FactKind::Danger, "nest-frost-owls-212",
+                    {{"creature", "Frost owls"}, {"danger", "2"}, {"family", "fantastic"}, {"range", "close"}}}});
+}
+
+// Small talk with the castellan once the stranger has finished his work.
+inline FactPacket small_talk_after_work() {
+    return packet(castellan(), ActKind::SmallTalk, Outcome::Chatted,
+                  {{FactKind::Chat, "surface-city-2-212-human_cold",
+                    {{"weather", "clear"}, {"wind", "still"}, {"season", "deep winter"}, {"time", "morning"}}}},
+                  {.met = "again", .times = 1, .since = "days", .mood = "warm", .work = "finished"});
+}
+
 inline std::vector<FactPacket> conversation() {
-    return {greeted_first(),
+    return {about_them(),
+            small_talk_after_work(),
+            greeted_first(),
             greeted_again(),
             greeted_warmly(),
             greeted_coldly(),
@@ -598,6 +642,8 @@ inline std::vector<FactPacket> conversation() {
             about_the_town(),
             about_the_fortress(),
             acknowledged(),
+            acknowledged_with("taken"),
+            acknowledged_with("offered"),
             thanked(),
             thanked("hostile"),
             offended(false),
