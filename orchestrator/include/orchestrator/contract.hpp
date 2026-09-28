@@ -230,10 +230,11 @@ std::string_view to_string(FactKind kind);
 // before this exchange, from their conversation log since they were last compacted and from their
 // long memory (what compaction kept). Only what bears on the act:
 // - `memory`: "asked" (the stranger asked the speaker about it), "told" (the speaker told the
-//   stranger of it), "did" (what the stranger did: took, finished, failed or gave up the speaker's
+//   stranger of it, when asked of it, or work they told of), "did" (what the stranger did: took,
+//   finished, failed or gave up the speaker's
 //   work; thanked, insulted, apologised; talked them down), "open" (the speaker's work the stranger
 //   holds and has not done), "said" (the stranger's own words, kept word for word), "last" (what
-//   they last spoke of, at the last compaction);
+//   they last spoke of, in an earlier conversation);
 // - `act`: what was done, by the contract's names: an act ("ask_about_place"), an outcome ("taken",
 //   "finished", "thanked"), or "said";
 // - `about`: what it concerns, by name as the speaker says it; empty for a memory of no one thing;

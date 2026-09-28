@@ -291,7 +291,7 @@ long memory is the outcomes, by these rules, from the log and the director's own
 | Memory | What | Subject, act |
 |---|---|---|
 | `asked` | what the stranger asked them | the target, the act (`ask_about_place`, `ask_for_work`, ...) |
-| `told` | what they told the stranger of: what the replies named | the thing, its kind (`place`, `person`, `quest_offer`, `danger`) |
+| `told` | what they told the stranger of: what was asked about, and work (not each place a list named) | the thing, its kind (`place`, `person`, `quest_offer`) |
 | `did` | what the stranger did: took, finished, failed or gave up their work; thanked, insulted, apologised; talked them down; brought a hidden face out | work's quest, or none; `taken`, `finished`, `failed`, `given_up`, `thanked`, `insulted`, `apologised`, `calmed`, `exposed` |
 | `said` | the stranger's own words, word for word: their answers to the speaker's questions (the latest five of a log) | none; `said` |
 | `overheard` | whom they overheard the stranger talking with | the one spoken to; the act |

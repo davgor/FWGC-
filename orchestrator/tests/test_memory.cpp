@@ -348,8 +348,11 @@ TEST(compact_makes_a_log_into_what_was_asked_told_and_done_and_clears_it) {
     const Remembered* looked = find_memory(all, "asked", "", "ask_surroundings");
     check::is_true(looked && looked->times == 1, "asked what is around, once");
     const Remembered* told = find_memory(all, "told", place.subject, "place");
-    check::is_true(told && told->times >= 3 && told->first_day == first && told->about == label,
-                   "told of the place in both answers and among the surroundings");
+    check::is_true(told && told->times == 2 && told->first_day == first && told->about == label,
+                   "told of the place in both answers, not again for its name among the surroundings");
+    std::size_t places_told = 0;
+    for (const Remembered& r : all) places_told += r.memory == "told" && r.act == "place" ? 1 : 0;
+    check::equal(places_told, std::size_t{1}, "nor any other place the surroundings named");
     const Remembered* thanked = find_memory(all, "did", "", "thanked");
     check::is_true(thanked && thanked->times == 1, "thanked, once");
     const Remembered* last = find_memory(all, "last", place.subject, "ask_about_place");
@@ -374,6 +377,7 @@ TEST(a_memory_comes_up_to_date_and_keeps_when_it_first_was) {
     const Remembered* open = find_memory(all, "open", work.quest);
     check::is_true(did && did->act == "taken" && open && open->act == "taken" && open->first_day == taken,
                    "the premise: work taken, and held");
+    check::is_true(find_memory(all, "told", work.quest, "quest_offer") != nullptr, "and told of, when asked for work");
     std::string purpose;
     for (const fwg::QuestRow& q : board(memory_world(), fwg::QuestState::Offered))
         if (q.quest_id == work.quest) purpose = q.stated_purpose.value_or("");

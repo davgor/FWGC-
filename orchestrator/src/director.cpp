@@ -2026,7 +2026,11 @@ std::vector<Remembered> Director::remembered(const std::string& person, const st
             continue;
         }
         if (x.act.rfind("ask_", 0) == 0) fold_in(all, one("asked", x.target, x.act, x.about, x.day, ""));
-        for (const Named& told : x.named) fold_in(all, one("told", told.subject, told.kind, told.about, x.day, ""));
+        // What they told the stranger of: what was asked about, and work. Not each place a list of
+        // what is around named: one compaction of six exchanges kept 27 memories, most of them the
+        // places of two lists (2026-09-27), where a person remembers telling what is around.
+        for (const Named& told : x.named)
+            if (told.subject == x.target || told.kind == "quest_offer") fold_in(all, one("told", told.subject, told.kind, told.about, x.day, ""));
         if (const std::optional<Outcome> outcome = outcome_named(x.outcome)) {
             const std::string deed = deed_of(*outcome);
             const bool work = *outcome == Outcome::Accepted || *outcome == Outcome::Abandoned;
