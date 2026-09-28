@@ -32,7 +32,10 @@ namespace orchestrator {
 //     about a place or a person.
 // 12: the short log and long memory. A Recall fact for what the speaker remembers of the stranger
 //     from before; the Memory fact's `standing`.
-inline constexpr int kContractVersion = 12;
+// 13: questions about the speaker. The act ask_about_them, answered with a Self fact, Deed facts and
+//     Person facts that carry `tie`; an answer to ask_for_work names the speaker's own work and at
+//     most two others', one errand from two givers once.
+inline constexpr int kContractVersion = 13;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -58,8 +61,11 @@ enum class ActKind : int {
     Apologize,  // the player says sorry
     // 9.
     Calm,  // it's all right, you're safe now: the player soothes a frightened speaker
+    // 13.
+    AskAboutThem,  // the speaker themself, beyond their name: how long, why, what they are after, what
+                   // they did or lost, who stands with them, whether they would leave
 };
-inline constexpr int kActCount = static_cast<int>(ActKind::Calm) + 1;
+inline constexpr int kActCount = static_cast<int>(ActKind::AskAboutThem) + 1;
 
 std::string_view to_string(ActKind kind);
 std::optional<ActKind> act_kind(std::string_view name);  // nullopt for a name not in the set
@@ -117,8 +123,23 @@ std::string_view to_string(Outcome outcome);
 // what small talk can be about. Safety: a verdict on the danger about. Reveal: what a face that came out had hidden.
 // News: something that happened, as the speaker heard of it. Recall: something the speaker
 // remembers of the stranger from before.
-enum class FactKind : int { Place = 0, Person, QuestOffer, QuestState, Danger, Reason, Memory, Chat, Safety, Reveal, News, Recall };
-inline constexpr int kFactKindCount = static_cast<int>(FactKind::Recall) + 1;
+enum class FactKind : int {
+    Place = 0,
+    Person,
+    QuestOffer,
+    QuestState,
+    Danger,
+    Reason,
+    Memory,
+    Chat,
+    Safety,
+    Reveal,
+    News,
+    Recall,
+    Self,  // 13
+    Deed,  // 13
+};
+inline constexpr int kFactKindCount = static_cast<int>(FactKind::Deed) + 1;
 
 std::string_view to_string(FactKind kind);
 
@@ -245,6 +266,35 @@ std::string_view to_string(FactKind kind);
 // A greeting carries what they last spoke of, the work the stranger holds, and the stranger's
 // latest kept words (at most one each); an answer about a place or a person what was asked and told
 // of it before; asking for work what came of the speaker's work before and what is open.
+//
+// A Self fact, its subject the speaker: what they would say of themself when asked (ask_about_them,
+// contract version 13). Public only: never a card's belief, wants, fears, tells or lies; and only for
+// the face shown, so a mask still worn gives its role and where it stands, nothing more. Fields where
+// the world has them:
+// - `role`: what they are, a hero's role or a roster post; `at`: where they stand, by name;
+// - `known_as`: a hero's name beyond their own ("the Castellan", "Wyrmward", "of the Order");
+// - `fame`: a hero's fame, "notable", "renowned" or "legendary";
+// - `home`: the city they call home, by name;
+// - `stands`: how a hero stands where they are: "council", "court", "reeve", "quay", "warding",
+//   "throne", "garrison", "altar", "refugee", "captive", "command", "hidden", "cult";
+// - `after`, `after_what`: what a hero is after, as a verb ("hold", "exploit", "retake",
+//   "protect", "kill", "convert") and its object by name;
+// - `lost`, `lost_to`, `lost_when`: a city they lost, by name; what took it: "war", "dragon",
+//   "monster", "magic" (their own), "radiance"; and when;
+// - `since`: when they were born.
+// `lost_when`, `since` and a Deed's `when` are "this age", "the last age" or "ages ago", against the
+// world's latest age.
+// A Deed fact, its subject the event's id: a part they had in something that happened, from the
+// world's record of them, newest first, at most three:
+// - `deed`: "ruin", "war", "nest", "founding", "hamlet", "fortress", "port", "shrine";
+// - `part`: "heir", "actual", "keeper", "credited", "victim";
+// - `place`: where, by name, when the world names it;
+// - `war`: a war's reach, "international", "regional" or "civil"; war deeds only;
+// - `when`.
+// Asked about themself, a speaker answers with a Self fact, their Deed facts, and a Person fact for
+// each of their rivals, kin and allies (at most three, rivals first), marked `tie`: "rival", "kin",
+// "ally"; and the worst nest near where they stand, a Danger fact, as small talk has it: what they
+// stand against. Nothing of their work: what they would say of that is asked for (ask_for_work).
 struct Fact {
     FactKind kind = FactKind::Place;
     std::string subject;

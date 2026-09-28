@@ -381,4 +381,91 @@ std::optional<KnownPerson> person_fact(const fwg::World& world, const std::strin
     return KnownPerson{std::move(f), read->person.anchor.node};
 }
 
+namespace {
+
+// When something was, against the world's latest age: "this age", "the last age" or "ages ago".
+std::string age_band(const fwg::World& world, int age) {
+    int now = 0;
+    for (const fwg::AgeRecord& record : world.history.ages) now = std::max(now, record.age);
+    if (age >= now) return "this age";
+    return age == now - 1 ? "the last age" : "ages ago";
+}
+
+// What took a city, in a word a person would use: every war is "war", a hero's own magic "magic".
+std::string loss_word(const std::string& cause) {
+    if (cause.rfind("war", 0) == 0) return "war";
+    if (cause == "self_magic") return "magic";
+    if (cause == "radiant") return "radiance";
+    return cause;
+}
+
+}  // namespace
+
+std::vector<Fact> self_facts(const fwg::World& world, const Speaker& speaker, bool whole_story) {
+    Fact self{FactKind::Self, speaker.uid, {}};
+    const auto add = [&](const char* key, const std::string& value) {
+        if (!value.empty()) self.fields.emplace_back(key, value);
+    };
+    add("role", speaker.persona.role);
+    if (speaker.node)
+        if (const std::optional<Fact> here = place_at(world, *speaker.node)) add("at", place_label(*here));
+    std::vector<Fact> deeds, ties;
+    const auto deeds_of = [&](std::vector<fwg::HeroDeed> all) {
+        // Newest first; the record's own order among deeds of one age.
+        std::stable_sort(all.begin(), all.end(), [](const fwg::HeroDeed& a, const fwg::HeroDeed& b) { return a.age > b.age; });
+        for (const fwg::HeroDeed& d : all) {
+            if (deeds.size() == kDeedsNamed) break;
+            Fact deed{FactKind::Deed, d.event_id, {{"deed", d.event_kind}, {"part", d.role}}};
+            if (const std::optional<std::string> place = anchor_name(world, d.event_id)) {
+                deed.fields.emplace_back("place", *place);
+            } else if (!d.city_name.empty()) {
+                deed.fields.emplace_back("place", d.city_name);
+            }
+            if (d.event_kind == "war" && !d.kind.empty()) deed.fields.emplace_back("war", d.kind);
+            deed.fields.emplace_back("when", age_band(world, d.age));
+            deeds.push_back(std::move(deed));
+        }
+    };
+    if (const fwg::Hero* hero = hero_of(speaker); hero && whole_story) {
+        add("known_as", hero->epithet);
+        add("fame", hero->tier);
+        if (hero->home) add("home", hero->home->name);
+        if (hero->presence) add("stands", hero->presence->situation);
+        if (!hero->claim.verb.empty() && !hero->claim.target_name.empty()) {
+            add("after", hero->claim.verb);
+            add("after_what", hero->claim.target_name);
+        }
+        if (hero->lost) {
+            add("lost", hero->lost->name);
+            add("lost_to", loss_word(hero->lost->cause));
+            add("lost_when", age_band(world, hero->lost->destroyed_age));
+        }
+        add("since", age_band(world, hero->born_age));
+        deeds_of(hero->deeds);
+        // A deed at the city they lost is known by that city's name: its ruin is no place the world's
+        // blocks name, and "stood for Brenlin" says what "stood for its ruin" would not.
+        if (hero->lost)
+            for (Fact& deed : deeds)
+                if (deed.subject == hero->lost->ruin_id && deed.field("place") == nullptr)
+                    deed.fields.insert(deed.fields.begin() + 2, {"place", hero->lost->name});
+        for (const auto& [tie, uids] : {std::pair<std::string, const std::vector<std::string>*>{"rival", &hero->rivals},
+                                        {"kin", &hero->kin},
+                                        {"ally", &hero->allies}})
+            for (const std::string& uid : *uids) {
+                if (ties.size() == kTiesNamed) break;
+                if (std::optional<KnownPerson> person = person_fact(world, uid)) {
+                    person->fact.fields.emplace_back("tie", tie);
+                    ties.push_back(std::move(person->fact));
+                }
+            }
+    } else if (const auto* dread = std::get_if<fwg::HeroDread>(&speaker.document.person); dread && whole_story) {
+        add("fame", dread->tier);
+        deeds_of(dread->deeds);
+    }
+    std::vector<Fact> out{std::move(self)};
+    for (Fact& f : deeds) out.push_back(std::move(f));
+    for (Fact& f : ties) out.push_back(std::move(f));
+    return out;
+}
+
 }  // namespace orchestrator::knowledge

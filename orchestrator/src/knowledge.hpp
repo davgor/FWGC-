@@ -129,5 +129,13 @@ std::vector<int> place_nodes_within(const fwg::World& world, int node, double ra
 // How far a thing is, as a speaker would put it: a band, never metres, which nobody standing
 // there has measured. contract.hpp lists the bands.
 std::string range_of(double metres);
+// What the speaker would say of themself when asked (contract version 13): a Self fact, then their
+// Deed facts, then a Person fact for each of their ties, marked `tie`. Public only: a hero's record
+// beyond their card, never the card's secrets. `whole_story` false (a mask still worn) gives the Self
+// fact's role and place alone. contract.hpp lists the fields.
+std::vector<Fact> self_facts(const fwg::World& world, const Speaker& speaker, bool whole_story);
+// The most ties and deeds an answer about the speaker names.
+inline constexpr std::size_t kTiesNamed = 3;
+inline constexpr std::size_t kDeedsNamed = 3;
 
 }  // namespace orchestrator::knowledge

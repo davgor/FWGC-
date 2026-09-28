@@ -32,6 +32,9 @@ using knowledge::Speaker;
 // cities in reach are few and all named; waystones and markers crowd everything else out
 // unless held to a handful.
 constexpr std::size_t kSurroundingCities = 8;
+// Asked for work, a speaker names their own and at most this many others' (contract version 13):
+// what a reply says of a list (communicator/src/authored.cpp, "others").
+constexpr std::size_t kOthersNamed = 2;
 constexpr std::size_t kSurroundingHamlets = 3;
 constexpr std::size_t kSurroundingFortresses = 3;
 constexpr std::size_t kSurroundingLandmarks = 6;
@@ -1211,10 +1214,34 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
         case ActKind::AskForWork: {
             FactPacket p = packet_for(s, act, Outcome::Answered);
             const std::vector<KnownPlace> places = knowledge::places_in_reach(world_, s);
+            // Their own work, and at most two others' (contract version 13): what an answer names is
+            // what a reply says, and what the speaker is remembered to have told. A packet of eight
+            // offers, three of them said, kept eight as told (the hero benchmark's judge, 2026-09-28).
+            // One errand from two givers is named once: two harbourmasters of one harbour wanting its
+            // sea lanes kept open were named one after the other (the hero benchmark, 2026-09-28).
+            std::size_t others = 0;
+            std::set<std::string> purposes;
             for (const Offer& offer : offers_known_to(world_, s)) {
+                const std::string purpose = offer.row.stated_purpose.value_or("");
+                if (!offer.own && !purpose.empty() && purposes.count(purpose) != 0) continue;
+                if (!offer.own && others++ >= kOthersNamed) continue;
+                purposes.insert(purpose);
                 p.facts.push_back(offer_fact(world_, offer, places, today));
                 if (offer.own && a.work.empty()) a.work = "offered";
             }
+            return finish(std::move(p));
+        }
+
+        case ActKind::AskAboutThem: {
+            // Asked about themself (contract version 13): what they would say of it, their record
+            // beyond their card and never its secrets; a mask still worn, its trade and where it stands.
+            FactPacket p = packet_for(s, act, Outcome::Answered);
+            for (Fact& f : knowledge::self_facts(world_, s, kind != Faces::Mask || a.exposed)) p.facts.push_back(std::move(f));
+            // And the worst nest near, the nearest of the worst, as small talk has it: what they stand
+            // against, why they need help, what comes if they fail (the hero benchmark's second judge,
+            // 2026-09-28: "not even what the fortress is held against").
+            if (const std::vector<Fact> dangers = knowledge::dangers_near(world_, s); !dangers.empty()) p.facts.push_back(dangers.front());
+            a.asked_now = s.persona.name;
             return finish(std::move(p));
         }
 

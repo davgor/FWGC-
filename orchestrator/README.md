@@ -338,6 +338,27 @@ speaker: asked about their own town, a speaker does not name themself), the nest
 it (up to two Danger facts marked `around`, their `range` from the place), and the work they know
 of that is anchored there (QuestOffer facts, as for work).
 
+## What a speaker says of themself
+
+Asked about themself (`ask_about_them`, contract version 13): how long they have held what they
+hold, why they are here, what they are after, what they did or lost, who stands with them. The
+answer is what the world records of them beyond their card: a Self fact (a hero's name beyond their
+own, fame, home, how they stand where they are and what they are after, a city they lost and what
+took it, when they were born, in bands of ages: "this age", "the last age", "ages ago"), up to three
+Deed facts from their record, newest first (the kind of event, their part, where, when), and a
+Person fact for each of up to three rivals, kin and allies, marked `tie`. Never the card's secrets,
+and nothing of their work, which is asked for. A mask still worn gives its trade and where it stands
+and nothing more; exposed, the story behind it. A roster person gives their post and where they
+stand: the world keeps no story of them. The owner's golden benchmark (`communicator/eval/
+session_hero.txt`, 2026-09-27) is a sustained conversation with a hero; its first judge heard the
+hero unable to say how long they had held their fortress.
+
+Asked for work (contract version 13), a speaker names their own and at most two others': what an
+answer names is what a reply says of it, and what the speaker is remembered to have told. A packet
+of eight offers, three of them said, had kept eight as told. One errand from two givers is named
+once, the first giver's: two harbourmasters of one harbour, each wanting its sea lanes kept open,
+were named one after the other.
+
 ## Faces
 
 A hero with two faces shows one at a time. The persona is the face shown, and `persona.face`

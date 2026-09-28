@@ -680,7 +680,8 @@ TEST(the_world_changes_exactly_on_the_acts_the_contract_says_change_it) {
         {ActKind::AskForWork, ""},      {ActKind::DeclineQuest, quest},   {ActKind::AcceptQuest, quest},
         {ActKind::AbandonQuest, quest}, {ActKind::Answer, ""},            {ActKind::Thank, ""},
         {ActKind::Insult, ""},          {ActKind::Confront, ""},          {ActKind::NoAct, ""},
-        {ActKind::Apologize, ""},       {ActKind::Calm, ""},              {ActKind::Farewell, ""}};
+        {ActKind::Apologize, ""},       {ActKind::Calm, ""},              {ActKind::AskAboutThem, ""},
+        {ActKind::Farewell, ""}};
     std::set<ActKind> kinds;
     for (const auto& act : acts) kinds.insert(act.first);
     check::equal(kinds.size(), static_cast<std::size_t>(orchestrator::kActCount), "the premise: every act of the contract");

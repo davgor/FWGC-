@@ -622,6 +622,10 @@ void play(Lockstep& both) {
                                                          "NULL|1|ask_about_place|answered|And what of that place, far off?|"},
                    "the joiner's log: what they overheard, then their answer and its words");
     both.say(p.smith, "ask_about_person", p.neighbour);
+    // Contract version 13: asked about themself, a giver tells their story.
+    const FactPacket about = both.say(p.giver1, "ask_about_them");
+    check::is_true(std::any_of(about.facts.begin(), about.facts.end(), [](const orchestrator::Fact& f) { return f.kind == orchestrator::FactKind::Self; }),
+                   "a Self fact through the dll");
     for (const char* act : {"small_talk", "thank", "insult", "apologize", "ask_safety", "answer", "confront", "no_act"}) {
         both.say(p.smith, act);
         if (std::string_view(act) == "answer") both.words("My sister keeps the mill at the ford.", "Does she now.");

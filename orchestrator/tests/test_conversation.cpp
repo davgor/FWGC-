@@ -861,7 +861,8 @@ TEST(every_packet_carries_one_memory_of_its_speaker) {
         {ActKind::DeclineQuest, own[0]}, {ActKind::AcceptQuest, own[0]}, {ActKind::AbandonQuest, own[0]},
         {ActKind::Answer, ""},        {ActKind::Thank, ""},            {ActKind::Insult, ""},
         {ActKind::Confront, ""},      {ActKind::NoAct, ""},            {ActKind::AskAboutPlace, "no-such-place"},
-        {ActKind::Apologize, ""},     {ActKind::Calm, ""},             {ActKind::Farewell, ""}};
+        {ActKind::Apologize, ""},     {ActKind::Calm, ""},             {ActKind::AskAboutThem, ""},
+        {ActKind::Farewell, ""}};
     std::set<ActKind> kinds;
     int turn = 1;  // own_offers asked once already
     for (const auto& [kind, target] : acts) {
@@ -1309,4 +1310,200 @@ TEST(overhearing_is_recorded_and_refused_when_nothing_was_said) {
     check::is_true(a && b && a->conversations == b->conversations && a->said == b->said, "the joiner's conversation, replayed");
     check::equal(text_of(d.respond(gap.aware, {ActKind::Greet, ""})), text_of(again.respond(gap.aware, {ActKind::Greet, ""})),
                  "the same next packet");
+}
+
+// Contract version 13: asked about themself, a hero tells what the world records of them beyond
+// their card: what they go by, their fame, how they stand where they are, what they are after, a city
+// they lost, when they were born, their deeds and ties. Never the card's secrets, and nothing of their
+// work, which is asked for.
+TEST(asked_about_themself_a_hero_tells_their_story_and_keeps_their_secrets) {
+    const fwg::World& w = faced_world();
+    const fwg::Hero* hero = nullptr;
+    for (const fwg::Hero& h : w.heroes.people)
+        if (!hero && h.status == "living" && h.faces.size() == 1 && node_of(w, h.uid) && !h.epithet.empty() && h.presence &&
+            !h.claim.verb.empty() && h.lost && !h.deeds.empty() && h.rivals.size() + h.kin.size() + h.allies.size() >= 2)
+            hero = &h;
+    check::is_true(hero != nullptr, "the premise: a one-faced hero with an epithet, a claim, a city lost, deeds and two ties");
+    Director d(w);
+    const FactPacket p = d.respond(hero->uid, {ActKind::AskAboutThem, ""});
+    check::is_true(p.outcome == Outcome::Answered, "answered");
+    const std::vector<Fact> self = facts_of(p, FactKind::Self);
+    check::is_true(self.size() == 1 && self.front().subject == hero->uid, "one Self fact, about the speaker");
+    const Fact& me = self.front();
+    check::equal(value(me, "known_as"), hero->epithet, "what they go by");
+    check::equal(value(me, "fame"), hero->tier, "their fame");
+    check::equal(value(me, "stands"), hero->presence->situation, "how they stand where they are");
+    check::equal(value(me, "after"), hero->claim.verb, "what they are after");
+    check::equal(value(me, "after_what"), hero->claim.target_name, "and its object");
+    check::equal(value(me, "lost"), hero->lost->name, "the city they lost");
+    // When, in bands against the world's latest age; and every hero's loss in a word a person uses.
+    int now = 0;
+    for (const fwg::AgeRecord& record : w.history.ages) now = std::max(now, record.age);
+    const auto band = [&](int age) { return age >= now ? std::string("this age") : age == now - 1 ? std::string("the last age") : std::string("ages ago"); };
+    check::equal(value(me, "since"), band(hero->born_age), "when they were born");
+    check::equal(value(me, "lost_when"), band(hero->lost->destroyed_age), "when they lost it");
+    const std::set<std::string> takers = {"war", "dragon", "monster", "magic", "radiance"};
+    std::set<std::string> causes;
+    for (const fwg::Hero& h : w.heroes.people) {
+        if (h.status != "living" || h.faces.size() != 1 || !h.lost || !node_of(w, h.uid)) continue;
+        Director each(w);
+        const std::vector<Fact> theirs = facts_of(each.respond(h.uid, {ActKind::AskAboutThem, ""}), FactKind::Self);
+        check::is_true(theirs.size() == 1 && takers.count(value(theirs.front(), "lost_to")) == 1,
+                       "what took " + h.lost->name + " (" + h.lost->cause + "), in a word");
+        causes.insert(h.lost->cause);
+    }
+    check::is_true(causes.count("dragon") == 1 && std::any_of(causes.begin(), causes.end(), [](const std::string& c) { return c.rfind("war", 0) == 0; }),
+                   "the premise: cities lost to wars and to dragons");
+    const std::set<std::string> bands = {"this age", "the last age", "ages ago"};
+    check::equal(value(me, "role"), p.persona.role, "the role they present");
+    // Their deeds, newest first, at most three.
+    const std::vector<Fact> deeds = facts_of(p, FactKind::Deed);
+    check::equal(deeds.size(), std::min<std::size_t>(3, hero->deeds.size()), "their deeds, at most three");
+    for (const Fact& deed : deeds) {
+        const auto it = std::find_if(hero->deeds.begin(), hero->deeds.end(), [&](const fwg::HeroDeed& x) { return x.event_id == deed.subject; });
+        check::is_true(it != hero->deeds.end(), "a deed of their record: " + deed.subject);
+        check::equal(value(deed, "deed"), it->event_kind, "its kind");
+        check::equal(value(deed, "part"), it->role, "their part");
+        check::is_true(bands.count(value(deed, "when")) == 1, "when");
+    }
+    // A deed at the city they lost is known by its name.
+    const auto at_loss = std::find_if(deeds.begin(), deeds.end(), [&](const Fact& f) { return f.subject == hero->lost->ruin_id; });
+    check::is_true(at_loss != deeds.end(), "the premise: a deed at the city they lost");
+    check::equal(value(*at_loss, "place"), hero->lost->name, "named by the city lost");
+    // Their ties, rivals first, at most three.
+    std::vector<std::pair<std::string, std::string>> record;
+    for (const auto& [tie, list] : {std::pair<std::string, const std::vector<std::string>*>{"rival", &hero->rivals},
+                                    {"kin", &hero->kin},
+                                    {"ally", &hero->allies}})
+        for (const std::string& uid : *list) record.emplace_back(uid, tie);
+    std::size_t tied = 0;
+    for (const Fact& f : facts_of(p, FactKind::Person)) {
+        const std::string* tie = f.field("tie");
+        if (tie == nullptr) continue;
+        check::is_true(std::find(record.begin(), record.end(), std::pair{f.subject, *tie}) != record.end(),
+                       "a tie of their record: " + f.subject + " " + *tie);
+        ++tied;
+    }
+    check::equal(tied, std::min<std::size_t>(3, record.size()), "their ties, at most three");
+    // Never the card's secrets, and nothing of their work.
+    std::string told;
+    for (const Fact& f : p.facts)
+        if (f.kind != FactKind::Memory)
+            for (const auto& [key, v] : f.fields) told += v + "\n";
+    const fwg::HeroPersona& card = hero->faces.front().persona;
+    for (const std::string* secret : {&card.belief, &card.wants, &card.fears, &card.tells, &card.lies, &card.mechanic, &card.cornered})
+        if (!secret->empty()) check::is_true(told.find(*secret) == std::string::npos, "no secret of the card: " + *secret);
+    check::is_true(facts_of(p, FactKind::QuestOffer).empty() && facts_of(p, FactKind::QuestState).empty(), "nothing of their work");
+    // What they stand against: the worst nest near, as small talk has it.
+    const std::vector<Fact> near = facts_of(p, FactKind::Danger);
+    const std::vector<Fact> chat = facts_of(d.respond(hero->uid, {ActKind::SmallTalk, ""}), FactKind::Danger);
+    check::is_true(!chat.empty(), "the premise: a nest near them");
+    check::is_true(near.size() == 1 && near.front().subject == chat.front().subject, "the worst nest near, as small talk has it");
+    // Remembered as what was asked about, next time.
+    (void)d.respond(hero->uid, {ActKind::Farewell, ""});
+    d.advance(1.0);
+    check::equal(memory(d.respond(hero->uid, {ActKind::Greet, ""})).at("asked_before"), p.persona.name, "asked about themself, last time");
+    // Replayed, the same.
+    Director again = orchestrator::replay(faced_world(), d.inputs());
+    check::equal(text_of(d.respond(hero->uid, {ActKind::AskAboutThem, ""})), text_of(again.respond(hero->uid, {ActKind::AskAboutThem, ""})),
+                 "the same next packet, replayed");
+}
+
+// A mask still worn says only what its cover would: its trade and where it stands. Exposed, it tells
+// the story of the one behind it.
+TEST(a_mask_says_only_its_trade_until_it_comes_off) {
+    const fwg::World& w = faced_world();
+    std::string mask, knower;
+    for (const fwg::Hero* h : heroes_with("public", "true"))
+        for (const std::vector<std::string>* list : {&h->rivals, &h->kin, &h->allies})
+            for (const std::string& uid : *list) {
+                if (!mask.empty()) break;
+                Director probe(w);
+                try {
+                    if (probe.respond(uid, {ActKind::AskAboutPerson, h->uid}).outcome == Outcome::Answered) {
+                        mask = h->uid;
+                        knower = uid;
+                    }
+                } catch (const orchestrator::Error&) {
+                }
+            }
+    check::is_true(!mask.empty(), "the premise: a mask whose rival, kin or ally knows where it stands");
+    Director d(w);
+    const FactPacket worn = d.respond(mask, {ActKind::AskAboutThem, ""});
+    const std::vector<Fact> self = facts_of(worn, FactKind::Self);
+    check::is_true(self.size() == 1, "one Self fact");
+    for (const auto& [key, v] : self.front().fields)
+        check::is_true(key == "role" || key == "at", "a worn mask says its trade and where it stands, not " + key + "=" + v);
+    check::equal(value(self.front(), "role"), worn.persona.role, "the trade it shows");
+    check::is_true(facts_of(worn, FactKind::Deed).empty(), "no deeds");
+    for (const Fact& f : facts_of(worn, FactKind::Person)) check::is_true(f.field("tie") == nullptr, "no ties");
+    (void)d.respond(mask, {ActKind::Farewell, ""});
+    (void)d.respond(knower, {ActKind::AskAboutPerson, mask});
+    check::is_true(d.respond(mask, {ActKind::Confront, ""}).outcome == Outcome::Exposed, "the premise: exposed with cause");
+    const FactPacket off = d.respond(mask, {ActKind::AskAboutThem, ""});
+    const std::vector<Fact> true_self = facts_of(off, FactKind::Self);
+    check::is_true(true_self.size() == 1 && true_self.front().field("since") != nullptr, "exposed, the story behind the mask");
+}
+
+// A roster person asked about themself says what they are and where they work, and nothing more:
+// the world keeps no story of them.
+TEST(a_roster_person_asked_about_themself_gives_their_post_and_place) {
+    const fwg::World& w = faced_world();
+    const std::vector<std::string> folk = townsfolk(1);
+    check::is_true(!folk.empty(), "the premise: townsfolk");
+    Director d(w);
+    const FactPacket p = d.respond(folk.front(), {ActKind::AskAboutThem, ""});
+    const std::vector<Fact> self = facts_of(p, FactKind::Self);
+    check::is_true(self.size() == 1, "one Self fact");
+    check::equal(value(self.front(), "role"), p.persona.role, "their post");
+    check::is_true(self.front().field("at") != nullptr, "where they stand");
+    for (const auto& [key, v] : self.front().fields) check::is_true(key == "role" || key == "at", "nothing more: " + key);
+    check::is_true(facts_of(p, FactKind::Deed).empty(), "no deeds");
+}
+
+// Asked for work, a speaker names their own and at most two others' (contract version 13): what the
+// answer names is what a reply can say, and what they are remembered to have told.
+TEST(asked_for_work_a_speaker_names_their_own_and_two_others) {
+    const fwg::World& w = faced_world();
+    Director d(w);
+    std::size_t at_most = 0, with_own = 0, doubled = 0;
+    for (const fwg::Hero& h : w.heroes.people) {
+        if (h.status != "living" || !node_of(w, h.uid)) continue;
+        const FactPacket p = d.respond(h.uid, {ActKind::AskForWork, ""});
+        std::size_t mine = 0, theirs = 0;
+        std::set<std::string> purposes;
+        for (const Fact& f : facts_of(p, FactKind::QuestOffer)) {
+            ++(value(f, "from_speaker") == "yes" ? mine : theirs);
+            check::is_true(purposes.insert(value(f, "purpose")).second, h.uid + " names one errand twice: " + value(f, "purpose"));
+        }
+        check::is_true(theirs <= 2, h.uid + " names " + std::to_string(theirs) + " others' work");
+        if (theirs == 2) ++at_most;
+        if (mine >= 1 && theirs == 2) ++with_own;
+        // The premise for the check above: one errand offered by two givers where the speaker stands.
+        std::map<std::string, std::set<std::string>> givers;
+        const std::optional<int> here = node_of(w, h.uid);
+        for (const fwg::QuestRow& q : quest_board(w, fwg::QuestState::Offered))
+            if (q.giver_uid && *q.giver_uid != h.uid && q.stated_purpose && q.giver && q.giver->anchor.node &&
+                *q.giver->anchor.node == *here && q.giver->liveness == fwg::Liveness::Present)
+                givers[*q.stated_purpose].insert(*q.giver_uid);
+        if (std::any_of(givers.begin(), givers.end(), [](const auto& g) { return g.second.size() >= 2; })) ++doubled;
+        // Two others' errands, or all there are: one a purpose, none the speaker's own, and a skipped
+        // second giver of one errand leaves room for another errand.
+        std::set<std::string> own_purposes, errands;
+        std::size_t unnamed = 0;
+        for (const fwg::QuestRow& q : quest_board(w, fwg::QuestState::Offered))
+            if (q.giver_uid && *q.giver_uid == h.uid) own_purposes.insert(q.stated_purpose.value_or(""));
+        for (const fwg::QuestRow& q : quest_board(w, fwg::QuestState::Offered)) {
+            if (!q.giver_uid || *q.giver_uid == h.uid || !q.giver || !q.giver->anchor.node || *q.giver->anchor.node != *here ||
+                q.giver->liveness != fwg::Liveness::Present)
+                continue;
+            const std::string purpose = q.stated_purpose.value_or("");
+            if (purpose.empty()) ++unnamed;
+            else if (own_purposes.count(purpose) == 0) errands.insert(purpose);
+        }
+        check::equal(theirs, std::min<std::size_t>(2, errands.size() + unnamed), h.uid + ": two others' errands, or all there are");
+        (void)d.respond(h.uid, {ActKind::Farewell, ""});
+    }
+    check::is_true(at_most > 0 && with_own > 0, "the premise: speakers who know of more work than an answer names, givers among them");
+    check::is_true(doubled > 0, "the premise: speakers who know one errand from two givers");
 }
