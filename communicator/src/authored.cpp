@@ -1651,12 +1651,12 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     // words of an answer are a writer's for a calm speaker, and "the words she says should be
     // panicked" (the owner, 2026-09-26).
     std::string reply = choose(telling(spoken)).first;
-    // Asked about themself, what they are after said again is marked as said: "hold the fortress above
-    // Iskmor" came back five times in one conversation, "delivered again" where a person would build on it
-    // ("the krakens, as I said"; the hero benchmark's judges, 2026-09-28). In place, after the words said
-    // again: before the line, "As I said, because ..." read badly.
-    if (p.outcome == Outcome::Answered && p.answering == ActKind::AskAboutThem)
-        reply = marked_as_said(reply, blanks_of(p, "them_after", "")["after"], recent);
+    // The worst nest, named again in "is it safe" or "what is around" just after small talk named it, is
+    // marked as said: "the krakens come back word for word from turn 4, as if new" (the hero benchmark's
+    // judge, 2026-09-28). Not what they are after, asked about themself: marked there, "as I said" came
+    // back in four answers of one conversation and four judges of five heard a catchphrase (the same night).
+    if (p.outcome == Outcome::Answered && (p.answering == ActKind::AskSafety || p.answering == ActKind::AskSurroundings))
+        reply = marked_as_said(reply, blanks_of(p, "safety_unsafe", "")["danger"], recent);
     // Nor after a greeting that names them already ("Hello. I'm {speaker}; if we've business..."): the
     // name twice in one breath (two writers, 2026-09-28).
     if (!who.empty() && !asks(reply) && reply.find(text::spoken(p.persona.name)) == std::string::npos) reply += " " + who;

@@ -822,24 +822,12 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
         check::equal(longer.speak(p, question, {}, &meaning), how_long, "how long: " + question);
         check::equal(subject_of[lines.speak(p, question, {}, &meaning)], std::string("them_here"), "no line of it: " + question);
     }
-    // What they are after, heard from them lately, is marked as said where it is said again: "hold the
-    // fortress above Iskmor" came back five times in one conversation (the hero benchmark's judges,
-    // 2026-09-28).
+    // What they are after, heard from them lately, is not marked "as I said": marked, it came back in four
+    // answers of one conversation, and four judges of five heard a catchphrase (2026-09-28).
     const Lines aims = Lines::parse("any | them_after | I mean to {after}.\n", "aims");
     const std::string aim = aims.speak(p, "What are you trying to do?", {}, &meaning);
     check::equal(aim, std::string("I mean to hold the fortress above Wenweg."), "the premise: said as it comes, heard nothing lately");
-    check::equal(aims.speak(p, "What are you trying to do?", {aim}, &meaning), std::string("I mean to hold the fortress above Wenweg, as I said."),
-                 "heard lately: before a stop");
-    const Lines fuller = Lines::parse("any | them_after | I mean to {after} and nothing less, and the {danger} would have it otherwise.\n", "fuller");
-    check::equal(fuller.speak(p, "What are you trying to do?", {aim}, &meaning),
-                 std::string("I mean to hold the fortress above Wenweg, as I said, and nothing less, and the Frost owls would have it otherwise."),
-                 "heard lately: before a word");
-    check::equal(fuller.speak(p, "What are you trying to do?", {"I hold the fortress above Linbrig."}, &meaning),
-                 std::string("I mean to hold the fortress above Wenweg and nothing less, and the Frost owls would have it otherwise."),
-                 "something else heard: as it comes");
-    const Lines marked = Lines::parse("any | them_after | As I said, I mean to {after}.\n", "marked");
-    check::equal(marked.speak(p, "What are you trying to do?", {aim}, &meaning), std::string("As I said, I mean to hold the fortress above Wenweg."),
-                 "a line that says so already: once");
+    check::equal(aims.speak(p, "What are you trying to do?", {aim}, &meaning), aim, "heard lately: as it comes");
 }
 
 // Where home is (`them_home`), asked alone: the speaker's own bank's lines of how they stand here would
@@ -1521,6 +1509,24 @@ TEST(is_it_safe_names_the_places_the_verdict_rests_on) {
     check::equal(first(lines.replies(packets::safety_safe())),
                  std::string("Safe enough here. Only the deeps under Linbrig, a long walk away, deadly, held by monsters is worth avoiding."),
                  "safe here, and the far danger still named");
+    // The nest named in small talk just before is marked as said, not given again as new: "the krakens
+    // come back word for word from turn 4, as if new" (the hero benchmark's judge, 2026-09-28).
+    const std::string answer = "Not here. Keep clear of the hospice on the Wenweg pass, an hour's walk away, dangerous, held by monsters. "
+                               "And there are Glacier dragons nesting an hour's walk away.";
+    check::equal(lines.speak(packets::safety_unsafe(), "Is it safe?", {"Mind the Glacier dragons nesting an hour's walk away."}),
+                 std::string("Not here. Keep clear of the hospice on the Wenweg pass, an hour's walk away, dangerous, held by monsters. "
+                             "And there are Glacier dragons nesting an hour's walk away, as I said."),
+                 "the nest said lately");
+    check::equal(lines.speak(packets::safety_unsafe(), "Is it safe?", {}), answer, "the premise: said as it comes, heard nothing lately");
+    const std::vector<std::string> heard = {"Mind the Glacier dragons nesting an hour's walk away."};
+    const Lines on = Lines::parse("any | safety_unsafe | Not here. There are {danger} and worse besides.\n", "on");
+    check::equal(on.speak(packets::safety_unsafe(), "Is it safe?", heard),
+                 std::string("Not here. There are Glacier dragons nesting an hour's walk away, as I said, and worse besides."), "before a word");
+    check::equal(on.speak(packets::safety_unsafe(), "Is it safe?", {"Mind the Glacier dragons, they say."}),
+                 std::string("Not here. There are Glacier dragons nesting an hour's walk away and worse besides."), "only some of it heard: as it comes");
+    const Lines already = Lines::parse("any | safety_unsafe | Not here. As I said, there are {danger}.\n", "already");
+    check::equal(already.speak(packets::safety_unsafe(), "Is it safe?", heard),
+                 std::string("Not here. As I said, there are Glacier dragons nesting an hour's walk away."), "a line that says so already: once");
 }
 
 TEST(a_saying_is_of_the_speakers_own_people) {
@@ -1992,8 +1998,11 @@ TEST(an_answer_heard_lately_is_said_again_as_told) {
     const std::string hospice = "the hospice on the Wenweg pass, an hour's walk away, dangerous, held by monsters";
     check::equal(whole, "Not safe. Keep clear of " + hospice + ". Mind the Glacier dragons nesting an hour's walk away.",
                  "the premise: the whole answer");
-    // Never asked before, it is no verdict told, however much of it was named in passing.
-    check::equal(lines.speak(asked, "Is it safe?", {whole}), whole, "asked for the first time: the whole answer");
+    // Never asked before, it is no verdict told, however much of it was named in passing: the whole answer,
+    // the nest heard lately marked as said.
+    check::equal(lines.speak(asked, "Is it safe?", {whole}),
+                 "Not safe. Keep clear of " + hospice + ". Mind the Glacier dragons nesting an hour's walk away, as I said.",
+                 "asked for the first time: the whole answer");
     FactPacket again = packets::safety_unsafe();
     again.facts.back() = packets::memory_of(again.speaker, {.met = "again", .times = 1, .heard = 1});
     check::is_true(lines.told(again, {whole}) && !lines.told(asked, {whole}) && !lines.told(again, {}),
@@ -2034,9 +2043,12 @@ TEST(an_answer_heard_lately_is_said_again_as_told) {
                    "the premise: the other places are not said: " + short_answer);
     check::is_true(shorter.speak(around_again, "What's around?", {short_answer}).rfind("As I told you", 0) == 0,
                    "told, though the other places were never listed");
-    // With no told line in any bank (a library written before them), the answer is said as ever.
+    // With no told line in any bank (a library written before them), the answer is said as ever, the nest
+    // heard lately marked as said.
     const Lines older = Lines::parse("any | safety_unsafe | Not safe. Keep clear of {worst}.[ Mind the {danger}.]\n", "test");
-    check::equal(older.speak(again, "Is it still safe?", {whole}), whole, "no told line anywhere: the answer as ever");
+    check::equal(older.speak(again, "Is it still safe?", {whole}),
+                 "Not safe. Keep clear of " + hospice + ". Mind the Glacier dragons nesting an hour's walk away, as I said.",
+                 "no told line anywhere: the answer as ever");
     // What counts is what was said, in any answer: a place warned of is a place told of.
     check::equal(lines.speak(about_the_works(), "Tell me more.", {"Past it, the burnt works, an hour's walk away, held by squatters."}),
                  std::string("That's all I know of it: the burnt works, an hour's walk away, held by squatters."), "told in another answer");

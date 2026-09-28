@@ -537,11 +537,12 @@ themself").
   conversations days apart. The first time they are asked in a conversation, a speaker with work
   of their own names only theirs (contract version 16); asked again, having said it lately, they add
   the others' without saying their own again (`work_more`, "Beyond mine, ..."), which `any` holds.
-- **What they are after, said again, is marked as said** in place, after the words: "I'll still
-  hold the fortress above Iskmor, as I said, or die owing". It came back five times in one
-  conversation, "delivered again" where a person would build on it (the judges of the hero sessions,
-  2026-09-28). Before the line, "As I said, because ..." read badly. The truth check holds "as I
-  said" to what they are after said lately, as to anything else.
+- **The worst nest, named again** in "is it safe" or "what is around" just after small talk named
+  it, is marked as said in place: "There are Abyssal krakens nesting an hour's walk away, as I said,
+  and that's reason enough" (a judge: "the krakens come back word for word, as if new"). Tried for
+  what a hero is after too, "as I said" came back in four answers of one conversation, and four
+  judges of five heard a catchphrase: the aim said again is a line's to avoid, not C++'s to mark.
+  The truth check holds "as I said" to what was said lately, what they are after included.
 - **Where home is** (`them_home`): at home where they stand, or elsewhere ("My home is Brenlin, not
   here"), heard by meaning as a subject of its own and asked alone, since a bank's lines of how they
   stand here would shadow `any`'s of home; with no home on record, how they stand here. "Where's home
@@ -619,7 +620,8 @@ From the judges of all five hero sessions (2026-09-28):
   reactions unchanged.
 - **Luck at a farewell** to someone with the speaker's work to do (`parted_work`), asked alone, since
   a bank's own farewells would shadow `any`'s: "Wish me luck." had drawn "Goodbye, and don't be a
-  stranger".
+  stranger". Luck only: the first rows' "I'll want to hear how it went" had a hero who offered the
+  work "with me" forget he was going too (four judges of five).
 - **No saying after a farewell**: four judges of five heard the proverb there as a non sequitur or a
   rebuke ("Safe travels; as we say, hold your tongue on thin ice"). The 286 farewell rows that had
   one keep the rest of their line; small talk keeps its sayings.

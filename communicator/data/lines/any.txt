@@ -331,10 +331,10 @@ any | acknowledged_doubt_work | Right; then keep your head and learn quickly, si
 any | acknowledged_doubt_work | Good that you said it; I'd sooner know it now than find it out later.
 any | acknowledged_doubt_done | Ah, you were afraid and you stood anyway; that's all courage ever is.
 any | acknowledged_doubt_done | Aye, then you know what it cost to stand, and you stood.
-# A farewell to someone with the speaker's work to do: luck, and nothing said of who goes or what it is like.
-any | parted_work | Go well, and luck go with you; I'll be here when it's done.
-any | parted_work | Take care, and good luck with it; I'll want to hear how it went.
-any | parted_work | Goodbye, and good luck; I'll be waiting to hear how it goes.
+# A farewell to someone with the speaker's work to do: luck, and nothing said of who goes, who stays, or what it is like.
+any | parted_work | Go well, and luck go with you.
+any | parted_work | Take care, and may your nerve hold when it counts.
+any | parted_work | Goodbye, and good luck to you.
 # An apology for how the stranger is (tired, not themself), once there is a wrong to forgive.
 any | forgiven_state | All right; you're tired, and you've earned it. Get some rest.
 any | forgiven_state | Let's forget it; rest, and we'll say no more of it.
