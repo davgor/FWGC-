@@ -406,6 +406,35 @@ player actually said rather than the kind of line it was, and ask back; then a s
 to talk from (a past, views of the people he names, news between visits), and his own part in
 shared events (he offered the work "with me", then learned how it went "by the look of you").
 
+`session_hero4.txt` is a fourth, held out, written after contracts 14 and 15 and before the hero
+banks' own lines were merged: 9 of 20 before them, 8 of 20 after, score 3 both times. The count did
+not move; the voice did ("his good replies all speak in the same terms of oaths, debts and fair
+weighing"). `session_hero5.txt` is a fifth, held out, written before the round that followed (the
+speaker's own work alone the first time they are asked, contract 16; what came of their work greeted
+once, 17; the list of work without how hard; no words said back after the thanks; an epithet that
+names the aim left out; how things have been since in place of "no news"; a question of home heard
+as one) and never run until that round was in.
+
+That round, five fresh judges, 2026-09-28 (strict count; with mild faults passed in brackets):
+
+| Session | Before | After | Score | The illusion breaks at |
+|---|---|---|---|---|
+| 1 | 16 of 24 | 14 of 24 | 3 | 7: the krakens named again, word for word |
+| 2 | 11 of 22 | 7 of 22 (12) | 2 | 6: three questions about him, one sentence |
+| 3 | 9 of 21 | 12 of 21 | 3 | 4: "What are you trying to do?" given turn 2's sentence |
+| 4 | 8 of 20 | 11 of 20 | 3 | 16: "How did you get on with Haknbor?", said by Haknbor |
+| 5 (first run) | | 6 of 19 (10) | 3 | 5: "I've never fought anything bigger than a wolf" met as a boast |
+
+A judge's count moves by about three either way on the same transcript, so the sessions together say
+more than any one: flat to slightly up, the score at 3. All five named the same three changes: answer
+what the player actually says, not the kind of line it is; a self and a present to talk from (a past,
+views, news between visits); and one continuous account of what passed between them, their own part
+included. What they faulted most, and what came of it (5ebff84): every question about the hero
+answered with one sentence (said again now marked "as I said"); the reply about the shared work, "you
+were there, I've nothing to tell you", in all five; a saying after a farewell in four; "how things have
+been since" saying nothing in four; the stranger's words said back as a boast of memory in three;
+doubt met as a boast in two.
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).

@@ -1,0 +1,37 @@
+# The golden benchmark's fifth session, held out: written 2026-09-28, after the hero line writers'
+# rows were merged and before the structural round that followed them (the list of work, words said
+# back, an epithet, news, home), and before this session was ever run. Another hero, another world,
+# other words. Judged blind as the first (communicator/eval/README.md, "The hero benchmark"). Each
+# line is labelled with the act it means.
+world 21 33 30
+who hero giver 0
+
+# A first meeting.
+say hero greet | Good day. I was told to look for you.
+say hero ask_about_them | So who are you, exactly?
+say hero ask_for_work | I'm handy with a blade. Need anyone?
+say hero ask_about_them | What's in it for you?
+say hero answer | I've never fought anything bigger than a wolf.
+say hero accept_quest @own | I'll do it anyway.
+say hero ask_about_them | Why does no one else help you?
+say hero thank | Thank you for the chance.
+say hero farewell | Wish me luck.
+
+# Out of sight: compacted; the work is done two days on.
+compact hero
+advance 2
+resolve hero finished
+say hero greet | It's done, and I'm still breathing.
+say hero small_talk | Tell me how it went on your side.
+say hero answer | I was more frightened than I've ever been.
+say hero ask_for_work | Anything else you need?
+say hero farewell | I'll come by again.
+
+# Some weeks later.
+compact hero
+advance 21
+say hero greet | Hello again, old friend.
+say hero small_talk | What's happened since I left?
+say hero ask_about_them | Is this place your home?
+say hero ask_about_them | What would you do if all this were over?
+say hero farewell | Be well.
