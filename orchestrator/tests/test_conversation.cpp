@@ -497,6 +497,80 @@ TEST(a_giver_remembers_work_finished_or_failed) {
     check::equal(d.inputs().size(), inputs, "a caller's mistake records nothing");
 }
 
+// The site a hero holds (their presence), empty for anyone else.
+std::string site_held(const fwg::World& world, const std::string& uid) {
+    for (const fwg::Hero& h : world.heroes.people)
+        if (h.uid == uid && h.presence) return h.presence->uid;
+    return {};
+}
+
+// A giver's own first offer, and where it is: its quest, anchor and anchor's node.
+struct OwnOffer {
+    std::string quest, marker, node;
+};
+
+std::optional<OwnOffer> own_first(Director& d, const std::string& giver) {
+    const FactPacket asked = d.respond(giver, {ActKind::AskForWork, ""});
+    std::optional<OwnOffer> out;
+    for (const Fact& f : facts_of(asked, FactKind::QuestOffer))
+        if (value(f, "from_speaker") == "yes") {
+            out = OwnOffer{f.subject, value(f, "marker"), value(f, "marker_node")};
+            break;
+        }
+    (void)d.respond(giver, {ActKind::Farewell, ""});
+    return out;
+}
+
+// Contract version 14: work of the speaker's own at the site they hold, or where they stand, was done
+// beside them.
+TEST(work_done_where_its_giver_stands_was_done_beside_them) {
+    Director d(faced_world());
+    std::size_t beside = 0, apart = 0, held = 0, node_only = 0;
+    for (const std::string& giver : givers()) {
+        const std::optional<OwnOffer> own = own_first(d, giver);
+        if (!own) continue;
+        const bool at_their_site = !own->marker.empty() && own->marker == site_held(d.world(), giver);
+        const bool at_their_place = own->node == std::to_string(*node_of(d.world(), giver)) || at_their_site;
+        check::equal(memory(d.respond(giver, {ActKind::AskForWork, ""}))["beside"], std::string("no"),
+                     giver + ": offered, nothing done beside them yet");
+        const FactPacket took = d.respond(giver, {ActKind::AcceptQuest, own->quest});
+        check::is_true(took.outcome == Outcome::Accepted, "the premise: taken");
+        const std::string expected = at_their_place ? "yes" : "no";
+        check::equal(memory(took)["beside"], expected, giver + ": taken");
+        d.resolve(own->quest, true);
+        check::equal(memory(d.respond(giver, {ActKind::Greet, ""}))["beside"], expected, giver + ": finished");
+        ++(at_their_place ? beside : apart);
+        if (at_their_site && own->node != std::to_string(*node_of(d.world(), giver))) ++held;
+        if (!at_their_site && own->node == std::to_string(*node_of(d.world(), giver))) ++node_only;
+        (void)d.respond(giver, {ActKind::Farewell, ""});
+        if (beside > 1 && apart > 1 && held > 0 && node_only > 0) break;
+    }
+    check::is_true(beside > 0 && apart > 0 && held > 0 && node_only > 0,
+                   "the premise: work at a site the giver holds but does not stand on, where they stand but hold nothing, and "
+                   "elsewhere (" + std::to_string(held) + ", " + std::to_string(node_only) + ", " + std::to_string(apart) + ")");
+}
+
+// Nor is someone else's work at the place they stand theirs.
+TEST(another_givers_work_where_the_speaker_stands_was_not_done_beside_them) {
+    Director d(faced_world());
+    std::map<std::string, OwnOffer> offer_of;
+    for (const std::string& giver : givers())
+        if (const std::optional<OwnOffer> own = own_first(d, giver)) offer_of[giver] = *own;
+    for (const auto& [x, xo] : offer_of) {
+        const std::string here = std::to_string(*node_of(d.world(), x));
+        if (xo.node == here || (!xo.marker.empty() && xo.marker == site_held(d.world(), x))) continue;
+        for (const auto& [y, yo] : offer_of) {
+            if (y == x || yo.node != here) continue;
+            check::is_true(d.respond(x, {ActKind::AcceptQuest, xo.quest}).outcome == Outcome::Accepted, "the premise: theirs taken");
+            check::is_true(d.respond(y, {ActKind::AcceptQuest, yo.quest}).outcome == Outcome::Accepted, "the premise: the other's taken");
+            check::equal(memory(d.respond(x, {ActKind::SmallTalk, ""}))["beside"], std::string("no"),
+                         x + ": their own work elsewhere, another's where they stand");
+            return;
+        }
+    }
+    check::fail("the premise: a speaker whose own work is elsewhere, and another's work where they stand");
+}
+
 TEST(small_talk_is_of_the_weather_and_season_where_the_speaker_stands) {
     // By the reading at each speaker's own node: a word never ranks below the word for a milder
     // reading. Four moments a few days apart, so the weather has room to differ.

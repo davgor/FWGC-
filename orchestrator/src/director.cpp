@@ -129,6 +129,32 @@ std::optional<std::vector<fwg::QuestRow>> board(const fwg::World& world, fwg::Qu
     }
 }
 
+// Whether the speaker's own work the player last dealt with (`work`: taken, finished, failed or given
+// up) is anchored at the site a hero holds (their presence: a castellan's fortress, above the city he
+// stands in) or at the node the speaker stands on (contract version 14): work "with me", done beside
+// them. Read from the board each time, so nothing new is remembered and replay needs nothing. A
+// castellan whose fortress the player held had judged the fight "by the look of you" (the hero
+// benchmark's judges, 2026-09-28).
+bool worked_beside(const fwg::World& world, const knowledge::Speaker& s, const std::string& work) {
+    static const std::map<std::string, fwg::QuestState, std::less<>> states = {{"taken", fwg::QuestState::Taken},
+                                                                               {"finished", fwg::QuestState::Completed},
+                                                                               {"failed", fwg::QuestState::Failed},
+                                                                               {"abandoned", fwg::QuestState::Abandoned}};
+    const auto state = states.find(work);
+    if (state == states.end()) return false;
+    const std::optional<std::vector<fwg::QuestRow>> rows = board(world, state->second);
+    if (!rows) return false;
+    const fwg::Hero* hero = knowledge::hero_of(s);
+    for (const fwg::QuestRow& row : *rows) {
+        if (!row.giver_uid || *row.giver_uid != s.uid) continue;
+        if (hero && hero->presence && row.anchor && *row.anchor == hero->presence->uid) return true;
+        if (const fwg::HeroQuestHook* hook = hook_of(world, row.quest_id);
+            s.node && hook && hook->has_target_node && hook->target_node == *s.node)
+            return true;
+    }
+    return false;
+}
+
 struct Offer {
     fwg::QuestRow row;
     bool own = false;
@@ -269,9 +295,10 @@ std::string standing_of(const Director::Acquaintance& a, bool hero) {
 }
 
 // `heard`: how many times before this the player made this act to the speaker. `feeling` and
-// `resting` on the fear ladder.
+// `resting` on the fear ladder. `beside`: the speaker's own work the player last dealt with is at the
+// place the speaker stands (worked_beside()).
 Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool recognised, bool repeat, int heard, int feeling,
-                 int resting, bool eased, bool joined, const std::string& standing) {
+                 int resting, bool eased, bool joined, const std::string& standing, bool beside) {
     Fact f{FactKind::Memory, uid, {}};
     const bool again = recognised && a.conversations > 1;
     f.fields = {{"met", again ? "again" : "first"},
@@ -279,6 +306,7 @@ Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool r
                 {"since", recognised && again ? a.since : std::string()},
                 {"mood", recognised ? mood_of(a.disposition) : std::string("hostile")},
                 {"work", recognised ? a.work : std::string()},
+                {"beside", recognised && beside ? "yes" : "no"},
                 {"asked_before", recognised ? a.asked_before : std::string()},
                 {"turn", std::to_string(a.turn)},
                 {"repeat", repeat ? "yes" : "no"},
@@ -945,7 +973,7 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
         const auto heard = a.heard.find(act.kind);
         p.facts.push_back(memory_fact(speaker_uid, a, true, false, heard == a.heard.end() ? 0 : heard->second,
                                       fear_now(speaker_uid, resting, today), resting,
-                                      a.eased_day >= 0.0 && today - a.eased_day < kEasedDays, joined, standing_of(a, cast)));
+                                      a.eased_day >= 0.0 && today - a.eased_day < kEasedDays, joined, standing_of(a, cast), false));
         ++acquaintance_changes_;
         if (!joined) inputs_.push_back(Say{speaker_uid, act});
         last_ = Exchange{speaker_uid, act, p.outcome, true, {}};
@@ -996,7 +1024,8 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
         if (recognised)
             for (Fact& remembered : recall(speaker_uid, act, today)) p.facts.push_back(std::move(remembered));
         p.facts.push_back(memory_fact(speaker_uid, a, recognised, repeat, heard, fear_now(speaker_uid, resting, today), resting,
-                                      a.eased_day >= 0.0 && today - a.eased_day < kEasedDays, joined, standing_of(a, cast)));
+                                      a.eased_day >= 0.0 && today - a.eased_day < kEasedDays, joined, standing_of(a, cast),
+                                      worked_beside(world_, s, a.work)));
         a.last_day = today;
         // Into their log: the exchange as it went, the words to follow from the game.
         last_logged_ = log_exchange(speaker_uid, a, act, p, today, joined);

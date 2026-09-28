@@ -35,7 +35,9 @@ namespace orchestrator {
 // 13: questions about the speaker. The act ask_about_them, answered with a Self fact, Deed facts and
 //     Person facts that carry `tie`; an answer to ask_for_work names the speaker's own work and at
 //     most two others', one errand from two givers once.
-inline constexpr int kContractVersion = 13;
+// 14: the Memory fact's `beside`: "yes" when the speaker's own work the stranger last dealt with is
+//     at the place the speaker stands (work "with me", done beside them).
+inline constexpr int kContractVersion = 14;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
