@@ -142,6 +142,15 @@ std::string ties_words(const FactPacket& packet) {
     return out;
 }
 
+std::string foes_words(const FactPacket& packet) {
+    std::vector<std::string> rivals;
+    for (const Fact& f : packet.facts)
+        if (f.kind == FactKind::Person && field_of(f, "tie") == "rival")
+            if (const std::string name = name_of(f, "name"); !name.empty()) rivals.push_back(name);
+    if (rivals.empty()) return {};
+    return joined_names(rivals) + (rivals.size() == 1 ? " is my rival" : " are my rivals");
+}
+
 std::string born_words(const Fact& self) { return field_of(self, "since"); }
 
 const Fact* self_of(const FactPacket& packet) {

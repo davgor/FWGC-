@@ -398,7 +398,10 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         {packets::offended_after(""), {"offended"}},
         {packets::about_them(),
          {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
-          "them_secret", "them_home"}},
+          "them_secret", "them_home", "them_foes"}},
+        {packets::about_them_without_rivals(),
+         {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
+          "them_secret", "them_home", "them_foes_none"}},
         {packets::thanked(), {"thanked"}},
         {packets::thanked("hostile"), {"thanked_cold"}},
         {packets::offended(false), {"offended"}},
@@ -574,6 +577,9 @@ constexpr std::size_t kAboutThemFloor = 29;
 constexpr std::size_t kAboutThemLaterFloor = 19;
 // Six questions of home, written before any description of it was tried: 5 right (0 without it).
 constexpr std::size_t kAboutThemHomeFloor = 5;
+// Twelve questions of who stands against them or with them, written before the two were told apart: 7
+// right with them apart (3 before).
+constexpr std::size_t kFoesFloor = 7;
 // Contract version 13: asked about themself, a speaker answers what was asked of them, heard by
 // meaning among seven subjects (Lines::speak): who they are, their past, what they are after, how
 // they stand here, who stands with them, whether they would leave, and what they keep to themselves.
@@ -828,6 +834,56 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
     const std::string aim = aims.speak(p, "What are you trying to do?", {}, &meaning);
     check::equal(aim, std::string("I mean to hold the fortress above Wenweg."), "the premise: said as it comes, heard nothing lately");
     check::equal(aims.speak(p, "What are you trying to do?", {aim}, &meaning), aim, "heard lately: as it comes");
+    // An optional part saying only what the stranger heard lately is left out, and the line is then the
+    // freshest: "... alone I'd be too late.[ The {danger} don't wait.]" (the hero banks' third writers).
+    const Lines needing = Lines::parse("any | them_need | I mean to {after}, and the {danger} stand in the way.\n"
+                                       "any | them_need | I'd be too late alone.[ The {danger} don't wait.]\n",
+                                       "needing");
+    const std::string both = "I mean to hold the fortress above Wenweg, and the Frost owls stand in the way.";
+    check::equal(needing.speak(p, "Why do you need help?", {}, &meaning), both, "heard nothing lately: the fullest line");
+    check::equal(needing.speak(p, "Why do you need help?", {both}, &meaning), std::string("I'd be too late alone."),
+                 "heard it all lately: the part left out, the line that says nothing again");
+    check::equal(needing.speak(p, "Why do you need help?", {aim}, &meaning), std::string("I'd be too late alone. The Frost owls don't wait."),
+                 "heard only the aim: the nest, not the aim");
+    const Lines meant = Lines::parse("any | them_after | I mean to {after}[ as the {post} here].\n", "meant");
+    check::equal(meant.speak(p, "What are you trying to do?", {aim}, &meaning),
+                 std::string("I mean to hold the fortress above Wenweg as the castellan here."), "a part that says nothing counted: kept");
+}
+
+// Who stands against them (`them_foes`), asked apart from who stands with them: "Who are your enemies?"
+// had drawn an ally, twice (a hero session's judges, 2026-09-28). Their rivals, or with none on record
+// that they would name none; asked alone, as home is; with no line of it, who stands with them.
+TEST(asked_who_stands_against_them_they_name_their_rivals_or_none) {
+    communicator::Meaning meaning(test_model::embedder());
+    const Lines lines = Lines::parse("warden/LN | them_ties | {ties}, as ever.\n"
+                                     "any | them_foes | {foes}, and I don't forget it.\n"
+                                     "any | them_foes_none | None I'd name.\n",
+                                     "foes");
+    const FactPacket rivals = packets::about_them();
+    const std::string against = "Ulknord is my rival, and I don't forget it.";
+    const std::string with = "Tornar stands with me; Ulknord is my rival, as ever.";
+    check::equal(lines.speak(rivals, "Who are your enemies?", {}, &meaning), against, "their rival, though their own bank has only ties");
+    check::equal(lines.speak(packets::about_them_without_rivals(), "Who are your enemies?", {}, &meaning), std::string("None I'd name."),
+                 "none on record: none, and never the ally");
+    check::equal(lines.speak(rivals, "Who are your friends?", {}, &meaning), with, "who stands with them, as ever");
+    const Lines ties_only = Lines::parse("warden/LN | them_who | I'm {speaker}.\nwarden/LN | them_ties | {ties}, as ever.\n", "ties");
+    check::equal(ties_only.speak(rivals, "Who are your enemies?", {}, &meaning), with, "no line of it: who stands with them, not who they are");
+    // Twelve written before the two were told apart, six of each.
+    std::size_t right = 0;
+    std::string missed;
+    for (const auto& [question, foe] : std::vector<std::pair<std::string, bool>>{
+             {"Who would like to see you fall?", true},  {"Anyone out to get you?", true},         {"Who do you fight against?", true},
+             {"Have you made enemies here?", true},       {"Who's your greatest rival?", true},     {"Does anyone want you gone?", true},
+             {"Who fights at your side?", false},         {"Anyone you can count on?", false},      {"Who are your closest companions?", false},
+             {"Do you have family nearby?", false},       {"Who would you trust with your life?", false}, {"Who helps you hold this place?", false}}) {
+        const std::string reply = lines.speak(rivals, question, {}, &meaning);
+        if (reply == (foe ? against : with))
+            ++right;
+        else
+            missed += "\n  " + question + ": " + reply;
+    }
+    std::cout << "  who stands against them: " << right << " of 12 heard right" << missed << "\n";
+    check::is_true(right >= kFoesFloor, std::to_string(right) + " of 12" + missed);
 }
 
 // Where home is (`them_home`), asked alone: the speaker's own bank's lines of how they stand here would

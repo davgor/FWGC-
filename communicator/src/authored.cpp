@@ -399,6 +399,7 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
                     break;
                 }
         set("ties", ties_words(p));
+        set("foes", foes_words(p));
         // What they stand against, by name alone: with how far, "the Abyssal krakens nesting an
         // hour's walk away" came back in four answers of one conversation (the hero benchmark,
         // 2026-09-28), and small talk and "is it safe" say how far.
@@ -547,7 +548,20 @@ std::optional<Filled> fill_blanks(std::string_view text, const std::map<std::str
 
 // `line`, written for `situation`, with its blanks filled, or nothing when the packet cannot fill
 // one. An optional part, in [brackets], is left out whole when the packet cannot fill a blank in it.
-std::optional<Filled> filled(const std::string& line, const std::map<std::string, std::string>& blanks, const std::string& situation) {
+std::optional<Filled> filled(const std::string& line, const std::map<std::string, std::string>& blanks, const std::string& situation,
+                             const std::vector<std::string>* heard_lately = nullptr) {
+    // With `heard_lately`, an optional part is left out, too, when all it says the stranger heard from the
+    // speaker lately: asked about themself, "... alone I'd be too late.[ The {danger} don't wait.]" says
+    // the nest again where the line's own words said something new (the hero banks' third writers, 2026-09-28).
+    const auto all_heard = [&](const Filled& part) {
+        if (heard_lately == nullptr || part.said.empty()) return false;
+        return std::all_of(part.said.begin(), part.said.end(), [&](const std::string& name) {
+            const auto b = blanks.find(name);
+            return b != blanks.end() && std::any_of(heard_lately->begin(), heard_lately->end(), [&](const std::string& said) {
+                       return lowered(said).find(lowered(b->second)) != std::string::npos;
+                   });
+        });
+    };
     Filled out;
     std::size_t i = 0;
     while (i < line.size()) {
@@ -561,7 +575,8 @@ std::optional<Filled> filled(const std::string& line, const std::map<std::string
         out.passing.insert(out.passing.end(), plain->passing.begin(), plain->passing.end());
         if (open == std::string::npos) break;
         const std::size_t close = line.find(']', open);
-        if (const std::optional<Filled> part = fill_blanks(std::string_view(line).substr(open + 1, close - open - 1), blanks, situation)) {
+        if (const std::optional<Filled> part = fill_blanks(std::string_view(line).substr(open + 1, close - open - 1), blanks, situation);
+            part && !all_heard(*part)) {
             out.text += part->text;
             out.said.insert(part->said.begin(), part->said.end());
             out.recalls = out.recalls || part->recalls;
@@ -751,6 +766,10 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"them_plans", {"after", "standing", "danger", "away", "home_here"}},
         {"them_secret", {}},
         {"them_home", {"home_here", "away"}},
+        // Who stands against them, asked apart from who stands with them: their rivals, or, with none
+        // on record, that there are none they would name.
+        {"them_foes", {"foes", "danger"}},
+        {"them_foes_none", {"danger"}},
         {"about_place", {"about", "trades", "who", "around", "work"}},
         {"surroundings", {"here", "nearest", "others", "danger"}},
         {"work_own", {"own", "others"}},
@@ -917,8 +936,9 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
     // and no more, their fear first (lead()): left out, they had nothing to say at all.
     if (p.outcome == Outcome::Answered && p.answering == ActKind::AskAboutThem) {
         if (m.frightened()) return {"them_who"};
-        return {"them_who",    "them_here", "them_long", "them_after", "them_need",
-                "them_stakes", "them_past", "them_ties", "them_plans", "them_secret", "them_home"};
+        return {"them_who",    "them_here",   "them_long",  "them_after",  "them_need", "them_stakes",
+                "them_past",   "them_ties",   "them_plans", "them_secret", "them_home",
+                foes_words(p).empty() ? "them_foes_none" : "them_foes"};
     }
     switch (p.outcome) {
         case Outcome::Greeted: {
@@ -1246,7 +1266,7 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
                 for (const std::string& line : lines->second) {
                     // No one met before is a stranger any more.
                     if (memory.again && addresses_a_stranger(line)) continue;
-                    std::optional<Filled> reply = filled(line, blanks, s);
+                    std::optional<Filled> reply = filled(line, blanks, s, s.rfind("them_", 0) == 0 ? recent : nullptr);
                     if (!reply) continue;
                     // Nor is a line said that claims what the speaker has no ground for. Its passing
                     // words are the packet's own or a saying quoted, never its claims: "as my people
@@ -1531,7 +1551,7 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             "Their past: what they did, what happened to them, what they lost, a city that fell.",
             "What they are after: their aim, their purpose, why they are here, what they want done, what is at stake.",
             "How they stand here: how long they have been here, their post, their place, their home.",
-            "Who stands with them or against them: their friends, allies, family, rivals, enemies.",
+            "Their friends and allies: who is on their side.",
             "Whether they would leave, and what comes next: their plans, the future, going elsewhere, giving up.",
             "What they fear, hide or truly feel: their secrets, their doubts, their heart.",
             // Two more ways of asking the same things, as the hero benchmark's player asked them
@@ -1553,14 +1573,25 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             // session's judge, 2026-09-28). With it, of the lines written before it was tried, 5 of 6
             // questions of home read right (0 before), and the others 18 of 22 (19; "Would you ever go
             // home?" now heard as home); of those it was chosen on, 35 of 42 (33).
-            "Where their home is: where they come from, where they were born, where their people are, whether this place is home."};
+            "Where their home is: where they come from, where they were born, where their people are, whether this place is home.",
+            // And who stands against them, apart from who stands with them: "Who are your enemies?" drew
+            // an ally, twice (a hero session's judges, 2026-09-28). With the two apart, of the lines written
+            // before they were tried, 7 of 12 read right (3 before), and the 22 others unchanged (18); of
+            // those they were chosen on, 36 of 43 (33).
+            "Their enemies and rivals: who is against them."};
         static const std::vector<std::string> answers = {"them_who",   "them_past",   "them_after", "them_here", "them_ties",
                                                          "them_plans", "them_secret", "them_need",  "them_here", "them_long",
-                                                         "them_stakes", "them_home"};
+                                                         "them_stakes", "them_home",  "them_foes"};
         std::vector<std::string> asked = {answers[meaning->subject_of(line, subjects)]};
         // Where home is, asked alone: a bank's lines of how they stand here would shadow the next bank's
         // of home. With no home to say, how they stand here.
         if (asked.front() == "them_home" && spoken_for(p, &recent, true, &asked).empty()) asked = {"them_here"};
+        // Who stands against them: their rivals, or with none on record, that they would name none, never
+        // an ally in their place; asked alone, as home is. With no line of it, who stands with them.
+        if (asked.front() == "them_foes") {
+            asked = {foes_words(p).empty() ? "them_foes_none" : "them_foes"};
+            if (spoken_for(p, &recent, true, &asked).empty()) asked = {"them_ties"};
+        }
         // Why they need help, where a bank has no line of it, from what is at stake.
         if (asked.front() == "them_need") asked.push_back("them_stakes");
         // How long, where a bank has no line of it, from how they stand here.

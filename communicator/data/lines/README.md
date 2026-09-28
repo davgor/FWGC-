@@ -64,6 +64,7 @@ voice | situation | line
   | `them_plans` (whether they would leave, what comes next) | `{after}` `{standing}` `{danger}` `{away}` `{home_here}` |
   | `them_secret` (what they fear or hide) | |
   | `them_home` (where home is: where they stand, or somewhere else) | `{home_here}` `{away}` |
+  | `them_foes` (who stands against them: their rivals), `them_foes_none` (the same, with none on record: never an ally in their place) | `{foes}` ("Ulknord is my rival", a whole clause), `{danger}`; `them_foes_none`: `{danger}` |
   | `acknowledged_hardship`, `acknowledged_grief`, `acknowledged_deed`, `acknowledged_plan`, `acknowledged_kin` (what the stranger told of themself, by what it is) and `acknowledged_hardship_work`, `acknowledged_grief_work`, `acknowledged_deed_work` (in the light of the speaker's own work) | |
   | `acknowledged_doubt` (the stranger's doubt of themself: untried, afraid of failing), `acknowledged_doubt_work` (told while the speaker's work is offered or taken), `acknowledged_doubt_done` (told once it is done: fear they stood through) | |
   | `small_talk_work_done`, `small_talk_work_done_beside`, `small_talk_since_work` (the speaker's work the stranger finished: how it went, how it went when the speaker was there, how things have been since) | `small_talk_since_work`: `{danger}`, the worst nest near by name alone ("the {danger} are still about") |

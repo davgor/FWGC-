@@ -112,4 +112,12 @@ TEST(ties_are_said_by_name_allies_first) {
     FactPacket none;
     none.facts.push_back({FactKind::Person, "hero-d", {{"name", "Tamsin"}, {"role", "reeve"}}});
     check::equal(ties_words(none), std::string(), "nobody tied, nothing said");
+    // Who stands against them alone: the rivals, never an ally.
+    using communicator::foes_words;
+    check::equal(foes_words(p), std::string("Ulknord is my rival"), "the one rival");
+    p.facts.push_back({FactKind::Person, "hero-e", {{"name", "Eldisk"}, {"role", "harbourmaster"}, {"tie", "rival"}}});
+    check::equal(foes_words(p), std::string("Ulknord and Eldisk are my rivals"), "two rivals");
+    FactPacket allies_only;
+    allies_only.facts.push_back({FactKind::Person, "hero-a", {{"name", "Iskgraf"}, {"role", "pretender"}, {"tie", "ally"}}});
+    check::equal(foes_words(allies_only), std::string(), "allies only: no rival said");
 }

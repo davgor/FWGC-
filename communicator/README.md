@@ -543,6 +543,11 @@ themself").
   what a hero is after too, "as I said" came back in four answers of one conversation, and four
   judges of five heard a catchphrase: the aim said again is a line's to avoid, not C++'s to mark.
   The truth check holds "as I said" to what was said lately, what they are after included.
+- **Who stands against them** (`them_foes`: their rivals, "Ulknord is my rival"; `them_foes_none` with
+  none on record, "None I'd name"), heard apart from who stands with them and asked alone, as home is;
+  with no line of it, who stands with them. "Who are your enemies?" had drawn an ally, in two judged
+  runs of one session. Of questions written before the two were told apart, 7 of 12 read right (3
+  before), and the 22 others unchanged; of those they were chosen on, 36 of 43 (33).
 - **Where home is** (`them_home`): at home where they stand, or elsewhere ("My home is Brenlin, not
   here"), heard by meaning as a subject of its own and asked alone, since a bank's lines of how they
   stand here would shadow `any`'s of home; with no home on record, how they stand here. "Where's home
@@ -599,7 +604,11 @@ before its descriptions were tried:
 
 And asked about themself, what the stranger heard from the speaker lately makes a line no fuller
 (`them_*`): "I command the garrison here" had answered how long he had held it, and again what he did
-off the walls.
+off the walls. An optional part whose every blank the stranger heard lately is left out, so the line
+says nothing again and is the freshest there is: of 64 rows for what a hero is after, none answered
+without saying it, every judge heard the aim five times in a conversation, and the rows written to
+answer from home, the nest and their standing instead held the nest in brackets (the hero banks'
+third round of writers, 2026-09-28).
 
 From the held-out session's judge (2026-09-28), each classifier measured once on lines written
 before its descriptions were tried:

@@ -639,6 +639,13 @@ inline FactPacket about_them() {
 }
 
 // Asked about themself, a hero far from home: the castellan's record with home elsewhere.
+// The same with no rival on record: an ally, and nobody against them.
+inline FactPacket about_them_without_rivals() {
+    FactPacket p = about_them();
+    std::erase_if(p.facts, [](const Fact& f) { return f.kind == FactKind::Person && f.field("tie") && *f.field("tie") == "rival"; });
+    return p;
+}
+
 inline FactPacket about_them_far_from_home() {
     FactPacket p = about_them();
     for (Fact& f : p.facts)
@@ -674,6 +681,7 @@ inline FactPacket small_talk_after_work_near() {
 inline std::vector<FactPacket> conversation() {
     return {about_them(),
             about_them_far_from_home(),
+            about_them_without_rivals(),
             small_talk_after_work(),
             small_talk_after_work_near(),
             beside(small_talk_after_work()),

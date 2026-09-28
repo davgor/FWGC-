@@ -312,7 +312,7 @@ any | them_who | They call me {speaker}[ {known_as}]; I {feat}, and I mean to {a
 # (contract version 14).
 any | greeted_finished_beside | Good to see you. We saw it through together, you and I, and I'll not forget it.
 any | greeted_finished_beside | Welcome back. You stood with me when it counted, and I'll not forget it.
-any | small_talk_work_done_beside | You saw it as well as I did: hard going, and we came through.
+any | small_talk_work_done_beside | It was harder than I'd hoped, and I was glad of you beside me; I'd not want it again soon.
 any | small_talk_work_done_beside | It was bad enough; I was there beside you, and I'd not want it again.
 # Asked for work again after hearing the speaker's own, the others' work (contract version 16).
 any | work_more | Beyond mine, {others}.
@@ -339,3 +339,15 @@ any | parted_work | Goodbye, and good luck to you.
 any | forgiven_state | All right; you're tired, and you've earned it. Get some rest.
 any | forgiven_state | Let's forget it; rest, and we'll say no more of it.
 any | forgiven_state | No hard feelings; the road wears on anyone.
+# Who stands against them, asked apart from who stands with them: their rivals, or none they would name.
+any | them_foes | {foes}, and I don't forget it.
+any | them_foes | {foes}; there's no love lost between us, and I'll not pretend otherwise.
+any | them_foes_none | None I'd name; the {danger} are enemy enough.
+any | them_foes_none | No rival I'd name to you, and I'd sooner keep it that way.
+# How things have been since, with the nest still about; and answers about themself that do not say the
+# aim again, said once the stranger has heard it (round three, 2026-09-28).
+any | small_talk_since_work | It's been quieter since, though the {danger} are still about; I'll take quieter.
+any | them_after | {home} is home, and that's reason enough to stand here.
+any | them_need | No one holds a place alone[ against the {danger}].
+any | them_stakes | Then the {danger} have their way, and I'd not like to see it.
+any | them_plans | When it's done, I'd like some quiet[ in {home_here}].

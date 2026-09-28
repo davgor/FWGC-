@@ -32,6 +32,10 @@ std::string done_words(const orchestrator::Fact& deed);
 // rival". From the packet's Person facts marked `tie`; empty when there are none.
 std::string ties_words(const orchestrator::FactPacket& packet);
 
+// Who stands against them alone: "Ulknord is my rival", "Ulknord and Eldisk are my rivals". Empty
+// when the packet names no rival.
+std::string foes_words(const orchestrator::FactPacket& packet);
+
 // When they were born, against the world's latest age: "this age", "the last age", "ages ago",
 // as the Self fact has it. Empty when it does not say.
 std::string born_words(const orchestrator::Fact& self);
