@@ -32,8 +32,9 @@ using knowledge::Speaker;
 // cities in reach are few and all named; waystones and markers crowd everything else out
 // unless held to a handful.
 constexpr std::size_t kSurroundingCities = 8;
-// Asked for work, a speaker names their own and at most this many others' (contract version 13):
-// what a reply says of a list (communicator/src/authored.cpp, "others").
+// Asked for work, a speaker names their own and at most this many others' (contract version 13): a
+// person says a few of the errands they know of, not a board, and what an answer names is what the
+// speaker is remembered to have told.
 constexpr std::size_t kOthersNamed = 2;
 constexpr std::size_t kSurroundingHamlets = 3;
 constexpr std::size_t kSurroundingFortresses = 3;
