@@ -11,7 +11,8 @@ namespace {
 
 // The tables a game reads (README.md, "The brain database"). `people`, `places`, `work` and
 // `relationships` are copies the director writes afresh before a query when what they copy has
-// changed; `events`, `event_states` and `facts` are the brains themselves, written by the inputs.
+// changed; `events`, `event_states`, `facts`, `exchanges` (with `exchange_facts`) and `memories` are
+// the brains themselves, written by the inputs.
 constexpr const char* kSchema = R"sql(
 CREATE TABLE people (
   uid TEXT PRIMARY KEY,
@@ -57,7 +58,11 @@ CREATE TABLE relationships (
   forgiven INTEGER NOT NULL,
   asked_before TEXT NOT NULL,
   exposed INTEGER NOT NULL,
-  eased_day REAL
+  eased_day REAL,
+  days_met INTEGER NOT NULL,
+  exchanges INTEGER NOT NULL,
+  works_finished INTEGER NOT NULL,
+  standing TEXT NOT NULL
 ) WITHOUT ROWID;
 CREATE TABLE events (
   id TEXT PRIMARY KEY,
@@ -106,7 +111,52 @@ CREATE VIEW news AS
   SELECT f.person, f.event, e.kind, f.state, f.day AS learned, f.how, e.place, e.place_name, e.node,
          e.person AS about, e.player
   FROM facts AS f JOIN events AS e ON e.id = f.event;
-PRAGMA user_version = 1;
+CREATE TABLE exchanges (
+  id INTEGER PRIMARY KEY,
+  person TEXT NOT NULL,
+  conversation INTEGER NOT NULL,
+  turn INTEGER NOT NULL,
+  day REAL NOT NULL,
+  act TEXT NOT NULL,
+  target TEXT NOT NULL,
+  about TEXT NOT NULL,
+  outcome TEXT NOT NULL,
+  heard_from TEXT,
+  of_exchange INTEGER,
+  joined INTEGER NOT NULL,
+  line TEXT,
+  reply TEXT
+);
+CREATE INDEX exchanges_person ON exchanges (person, id);
+CREATE INDEX exchanges_of ON exchanges (of_exchange);
+CREATE TABLE exchange_facts (
+  exchange INTEGER NOT NULL,
+  seq INTEGER NOT NULL,
+  kind TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  about TEXT NOT NULL,
+  PRIMARY KEY (exchange, seq)
+) WITHOUT ROWID;
+CREATE INDEX exchange_facts_subject ON exchange_facts (subject);
+CREATE TABLE memories (
+  person TEXT NOT NULL,
+  memory TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  act TEXT NOT NULL,
+  words TEXT NOT NULL,
+  about TEXT NOT NULL,
+  times INTEGER NOT NULL,
+  first_day REAL NOT NULL,
+  last_day REAL NOT NULL,
+  source TEXT NOT NULL,
+  seq INTEGER NOT NULL,
+  PRIMARY KEY (person, memory, subject, act, words)
+) WITHOUT ROWID;
+CREATE INDEX memories_seq ON memories (person, seq);
+CREATE VIEW active_short AS
+  SELECT person, count(*) AS exchanges, min(day) AS since_day, max(day) AS last_day
+  FROM exchanges GROUP BY person;
+PRAGMA user_version = 2;
 )sql";
 
 [[noreturn]] void failed(sqlite3* db, const std::string& what) {

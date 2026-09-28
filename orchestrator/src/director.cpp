@@ -4,6 +4,7 @@
 #include <array>
 #include <charconv>
 #include <cmath>
+#include <cstddef>
 #include <cstdint>
 #include <map>
 #include <optional>
@@ -11,12 +12,14 @@
 #include <tuple>
 
 #include "brains.hpp"
+#include "fwg/api/json_value.hpp"
 #include "fwg/api/quests.hpp"
 #include "fwg/api/read.hpp"
 #include "fwg/api/weather.hpp"
 #include "fwg/api/world_time.hpp"
 #include "knowledge.hpp"
 #include "schedule.hpp"
+#include "utf8.hpp"
 
 namespace orchestrator {
 
@@ -64,6 +67,22 @@ constexpr double kUneasyNestM = 1000.0;
 // conversations (turning to someone else ends one), so the days, not the conversations, keep it.
 constexpr double kEasedDays = 2.0;
 constexpr int kUneasyNestDanger = 4;
+
+// Standing (contract version 12): how far the stranger and a speaker have come, never falling.
+// Regular once they have talked on this many calendar days; a favourite at this many days and
+// exchanges, the most a roster person comes to.
+constexpr int kRegularDays = 3;
+constexpr int kFavouriteDays = 10;
+constexpr int kFavouriteExchanges = 30;
+// The longest a line or a reply words() keeps may be, in bytes.
+constexpr std::size_t kMaxWordsBytes = 4000;
+// What outcomes handed to compact() may keep: this many of the stranger's own words, each this long at
+// most, and what they last spoke of this long at most.
+constexpr std::size_t kMostQuotes = 5;
+constexpr std::size_t kMaxQuoteBytes = 240;
+constexpr std::size_t kMaxLastBytes = 300;
+// The longest outcomes handed in may be, in bytes: many times what the most they may keep takes.
+constexpr std::size_t kMaxOutcomesBytes = 16000;
 
 // Why a request is refused: the reason in words, and its kind (contract.hpp, Outcome::Refused),
 // for a caller that answers each kind in its own words.
@@ -234,10 +253,21 @@ int regard(Director::Acquaintance& a, int change) {
     return a.disposition - before;
 }
 
+// How far the stranger and a speaker have come (contract version 12), from counts that only grow.
+std::string standing_of(const Director::Acquaintance& a, bool hero) {
+    if (hero) return "hero";
+    if (a.conversations == 0) return "stranger";
+    int exchanges = 0;
+    for (const auto& [kind, times] : a.heard) exchanges += times;
+    if (a.days_met >= kFavouriteDays && exchanges >= kFavouriteExchanges) return "favourite";
+    if (a.days_met >= kRegularDays) return "regular";
+    return "acquainted";
+}
+
 // `heard`: how many times before this the player made this act to the speaker. `feeling` and
 // `resting` on the fear ladder.
 Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool recognised, bool repeat, int heard, int feeling,
-                 int resting, bool eased, bool joined) {
+                 int resting, bool eased, bool joined, const std::string& standing) {
     Fact f{FactKind::Memory, uid, {}};
     const bool again = recognised && a.conversations > 1;
     f.fields = {{"met", again ? "again" : "first"},
@@ -253,8 +283,111 @@ Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool r
                 {"feeling", std::string(kFearWords[static_cast<std::size_t>(feeling)])},
                 {"resting", std::string(kFearWords[static_cast<std::size_t>(resting)])},
                 {"eased", recognised && eased ? "yes" : "no"},
-                {"joined", joined ? "yes" : "no"}};
+                {"joined", joined ? "yes" : "no"},
+                {"standing", standing}};
     return f;
+}
+
+// What a fact the reply gave is called, as a speaker names it: a place as they say it ("the hamlet
+// of Wenweg"), a person by name, work by why its giver says they ask it, a nest by its creature.
+// Empty for anything else.
+std::string called(const Fact& fact) {
+    const auto field = [&](std::string_view key) {
+        const std::string* value = fact.field(key);
+        return value ? *value : std::string();
+    };
+    switch (fact.kind) {
+        case FactKind::Place: return knowledge::place_label(fact);
+        case FactKind::Person: return field("name");
+        case FactKind::QuestOffer: return field("purpose");
+        case FactKind::Danger: return field("creature");
+        default: return {};
+    }
+}
+
+// Whether a fact is one a reply names something by: a place, a person, work, a nest.
+bool names_something(const Fact& fact) {
+    return fact.kind == FactKind::Place || fact.kind == FactKind::Person || fact.kind == FactKind::QuestOffer ||
+           fact.kind == FactKind::Danger;
+}
+
+// What the stranger did, as long memory keeps it, from what came of an act; empty for an outcome
+// that is no deed.
+std::string deed_of(Outcome outcome) {
+    switch (outcome) {
+        case Outcome::Accepted: return "taken";
+        case Outcome::Abandoned: return "given_up";
+        case Outcome::Thanked: return "thanked";
+        case Outcome::Offended: return "insulted";
+        case Outcome::Forgiven: return "apologised";
+        case Outcome::Calmed: return "calmed";
+        case Outcome::Exposed: return "exposed";
+        default: return {};
+    }
+}
+
+// What becomes of work, as the one who gave it knows it, that long memory keeps over its taking.
+bool work_ended(std::string_view state) { return state == "finished" || state == "failed" || state == "given_up"; }
+
+bool ascii_letter(char c) { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'); }
+
+// The words of `text`, each with whether a sentence starts with it: runs of letters, apostrophes
+// and whatever is not ASCII, a possessive's "'s" left off ("Wenweg's" is Wenweg). By ASCII alone,
+// whatever locale the game has set.
+std::vector<std::pair<std::string, bool>> words_of(std::string_view text) {
+    std::vector<std::pair<std::string, bool>> out;
+    bool start = true;
+    std::string word;
+    const auto flush = [&] {
+        while (!word.empty() && word.back() == '\'') word.pop_back();
+        if (word.size() > 2 && word.compare(word.size() - 2, 2, "'s") == 0) word.resize(word.size() - 2);
+        if (!word.empty()) {
+            out.emplace_back(word, start);
+            start = false;
+        }
+        word.clear();
+    };
+    for (const char c : text) {
+        if (ascii_letter(c) || c == '\'' || static_cast<unsigned char>(c) >= 0x80) {
+            word += c;
+            continue;
+        }
+        flush();
+        if (c == '.' || c == '!' || c == '?' || c == ':' || c == '"') start = true;
+    }
+    flush();
+    return out;
+}
+
+// The names `text` uses: its capitalised words past a sentence's start, but "I".
+std::vector<std::string> names_used(std::string_view text) {
+    std::vector<std::string> out;
+    for (const auto& [word, start] : words_of(text))
+        if (!start && word[0] >= 'A' && word[0] <= 'Z' && word != "I") out.push_back(word);
+    return out;
+}
+
+// `text` without the blanks at either end.
+std::string trimmed(std::string_view text) {
+    const auto blank = [](char c) { return c == ' ' || c == '\t' || c == '\n' || c == '\r'; };
+    while (!text.empty() && blank(text.front())) text.remove_prefix(1);
+    while (!text.empty() && blank(text.back())) text.remove_suffix(1);
+    return std::string(text);
+}
+
+// `r` into `all`: the same memory again (the same kind, subject, act and words) counts once more
+// and keeps when it first was; anything else is a memory of its own, after the rest.
+void fold_in(std::vector<Remembered>& all, Remembered r) {
+    for (Remembered& had : all) {
+        if (had.memory != r.memory || had.subject != r.subject || had.act != r.act || had.words != r.words) continue;
+        had.times += r.times;
+        had.first_day = std::min(had.first_day, r.first_day);
+        had.last_day = std::max(had.last_day, r.last_day);
+        if (!r.about.empty()) had.about = r.about;
+        had.source = r.source;
+        return;
+    }
+    all.push_back(std::move(r));
 }
 
 // How someone feels at rest: uneasy where a nest of danger 4 or more lies within a kilometre of
@@ -779,6 +912,7 @@ void Director::resolve(const std::string& quest_id, bool completed) {
         Acquaintance& giver = acquainted_[hook->giver_uid];
         giver.work = completed ? "finished" : "failed";
         regard(giver, completed ? kWorkFinished : kWorkFailed);
+        if (completed) ++giver.works_finished;
         if (completed && hook->unwitting) giver.finished_covert = true;
     }
     ++acquaintance_changes_;
@@ -797,17 +931,21 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
     Acquaintance& a = acquainted_[speaker_uid];
 
     const int resting = resting_fear(world_, s);
+    // A hero, a dread or a villain: whatever came before, their standing is a hero's.
+    const fwg::NpcPerson* roster = std::get_if<fwg::NpcPerson>(&s.document.person);
+    const bool cast = roster == nullptr || roster->is_cast;
     if (!s.present) {
         FactPacket p = packet_for(s, act, Outcome::Refused);
         p.facts.push_back(reason("gone", (s.persona.name.empty() ? std::string("the one spoken to") : s.persona.name) + " is gone"));
-        // Nobody heard it, so nothing is counted.
+        // Nobody heard it, so nothing is counted, and nobody's log keeps it.
         const auto heard = a.heard.find(act.kind);
         p.facts.push_back(memory_fact(speaker_uid, a, true, false, heard == a.heard.end() ? 0 : heard->second,
                                       fear_now(speaker_uid, resting, today), resting,
-                                      a.eased_day >= 0.0 && today - a.eased_day < kEasedDays, joined));
+                                      a.eased_day >= 0.0 && today - a.eased_day < kEasedDays, joined, standing_of(a, cast)));
         ++acquaintance_changes_;
         if (!joined) inputs_.push_back(Say{speaker_uid, act});
-        last_ = Exchange{speaker_uid, act, p.outcome, true};
+        last_ = Exchange{speaker_uid, act, p.outcome, true, {}};
+        last_logged_ = -1;
         return p;
     }
 
@@ -815,6 +953,8 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
     // one begins another.
     if (!talking_to_.empty() && talking_to_ != speaker_uid) end_conversation(talking_to_);
     if (!a.talking) {
+        // A calendar day met on: the first conversation's, and any later one's on another day.
+        if (a.conversations == 0 || std::floor(today) != std::floor(a.last_day)) ++a.days_met;
         ++a.conversations;
         a.since = a.conversations > 1 ? since_band(today, a.last_day) : std::string();
         a.turn = 0;
@@ -847,17 +987,25 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
     show();
 
     const auto finish = [&](FactPacket p) {
+        // What they remember of the stranger from before that bears on this (contract version 12):
+        // a face that does not recognise the player remembers nothing of them.
+        if (recognised)
+            for (Fact& remembered : recall(speaker_uid, act, today)) p.facts.push_back(std::move(remembered));
         p.facts.push_back(memory_fact(speaker_uid, a, recognised, repeat, heard, fear_now(speaker_uid, resting, today), resting,
-                                      a.eased_day >= 0.0 && today - a.eased_day < kEasedDays, joined));
+                                      a.eased_day >= 0.0 && today - a.eased_day < kEasedDays, joined, standing_of(a, cast)));
         a.last_day = today;
+        // Into their log: the exchange as it went, the words to follow from the game.
+        last_logged_ = log_exchange(speaker_uid, a, act, p, today, joined);
         if (act.kind == ActKind::Farewell) end_conversation(speaker_uid);
         ++acquaintance_changes_;
         if (!joined) inputs_.push_back(Say{speaker_uid, act});
         // What a bystander overhears: an answer that held nothing, a place or person unknown or no
-        // work, is one they may answer instead.
+        // work, is one they may answer instead; and the news it carried, which they hear too.
         const bool no_work = act.kind == ActKind::AskForWork &&
                              std::none_of(p.facts.begin(), p.facts.end(), [](const Fact& f) { return f.kind == FactKind::QuestOffer; });
-        last_ = Exchange{speaker_uid, act, p.outcome, p.outcome == Outcome::Unknown || no_work};
+        last_ = Exchange{speaker_uid, act, p.outcome, p.outcome == Outcome::Unknown || no_work, {}};
+        for (const Fact& f : p.facts)
+            if (const std::string* state = f.field("state"); f.kind == FactKind::News && state) last_->news.emplace_back(f.subject, *state);
         return p;
     };
 
@@ -1293,12 +1441,70 @@ Feeling Director::feeling(const std::string& person) const {
 std::vector<Bystander> Director::overhear(const std::vector<std::string>& people) {
     if (!last_) throw Error("overhear: nothing has been said yet");
     const Exchange heard = *last_;  // a bystander who joins makes their own exchange the last
+    const std::int64_t of = last_logged_;
     const double today = fwg::world_clock_of(world_).day;
-    std::vector<Bystander> out;
-    bool joined = false;
+    // Everyone named first, so a uid the world does not name changes nothing.
+    std::vector<knowledge::Speaker> heard_by;
     for (const std::string& uid : people) {
         std::optional<knowledge::Speaker> s = knowledge::speaker(world_, uid);
         if (!s) throw Error("overhear: the world names no person '" + uid + "'");
+        heard_by.push_back(std::move(*s));
+    }
+    std::vector<Bystander> out;
+    bool joined = false;
+    for (knowledge::Speaker& bystander : heard_by) {
+        const std::string uid = bystander.uid;
+        knowledge::Speaker* s = &bystander;
+        // Whoever heard it keeps it in their log, and hears the news it carried: a later state of an
+        // event than the one they know it by.
+        if (uid != heard.speaker && s->present && of > 0) {
+            Brains::Handle& h = brains_.handle();
+            brains::Transaction transaction(h);
+            const std::int64_t id = ++exchanges_made_;
+            {
+                brains::Statement copy(h,
+                                       "INSERT INTO exchanges (id, person, conversation, turn, day, act, target, about, outcome, heard_from, "
+                                       "of_exchange, joined, line, reply) SELECT ?1, ?2, 0, 0, day, act, target, about, outcome, person, id, "
+                                       "0, line, reply FROM exchanges WHERE id = ?3");
+                copy.integer(1, id).text(2, uid).integer(3, of).run();
+            }
+            {
+                brains::Statement copy(h,
+                                       "INSERT INTO exchange_facts (exchange, seq, kind, subject, about) SELECT ?1, seq, kind, subject, about "
+                                       "FROM exchange_facts WHERE exchange = ?2");
+                copy.integer(1, id).integer(2, of).run();
+            }
+            for (const auto& [event, state] : heard.news) {
+                std::optional<std::int64_t> newer, known;
+                {
+                    brains::Statement seqs(h,
+                                           "SELECT (SELECT MAX(seq) FROM event_states WHERE event = ?1 AND state = ?2), (SELECT MAX(s.seq) "
+                                           "FROM facts AS f JOIN event_states AS s ON s.event = f.event AND s.state = f.state WHERE "
+                                           "f.person = ?3 AND f.event = ?1)");
+                    seqs.text(1, event).text(2, state).text(3, uid);
+                    if (seqs.step()) {
+                        if (!seqs.null(0)) newer = seqs.integer(0);
+                        if (!seqs.null(1)) known = seqs.integer(1);
+                    }
+                }
+                if (!newer || (known && *known >= *newer)) continue;
+                std::optional<Event> e;
+                {
+                    brains::Statement one(h, std::string("SELECT ") + kEventColumns + " FROM events WHERE id = ?1");
+                    one.text(1, event);
+                    if (one.step()) e = event_from(one);
+                }
+                if (!e) continue;
+                {
+                    brains::Statement actor(h, "SELECT actor FROM event_states WHERE event = ?1 AND seq = ?2");
+                    actor.text(1, event).integer(2, *newer);
+                    e->actor = actor.step() ? actor.text(0) : std::string();
+                }
+                e->state = state;
+                hear(uid, *e, today, "overheard");
+            }
+            transaction.commit();
+        }
         Bystander b{uid, Overheard::stays_out, std::nullopt};
         const auto known = acquainted_.find(uid);
         const int regard = known == acquainted_.end() ? 0 : known->second.disposition;
@@ -1334,6 +1540,7 @@ std::vector<Bystander> Director::overhear(const std::vector<std::string>& people
         }
         out.push_back(std::move(b));
     }
+    ++acquaintance_changes_;
     inputs_.push_back(Overhear{people});
     return out;
 }
@@ -1374,6 +1581,20 @@ void Director::learn(const std::string& person, const std::string& event, const 
                              "INSERT INTO facts (person, event, state, day, how) VALUES (?1, ?2, ?3, ?4, ?5) ON CONFLICT (person, "
                              "event) DO UPDATE SET state = excluded.state, day = excluded.day, how = excluded.how");
     upsert.text(1, person).text(2, event).text(3, state).real(4, day).text(5, how).run();
+}
+
+void Director::hear(const std::string& person, const Event& e, double day, const std::string& how) {
+    learn(person, e.id, e.state, day, how);
+    const int moves = regard_from_word(e);
+    if (moves == 0) return;
+    // Only for what happened where they live, or to someone they are tied to.
+    const Population& everyone = population();
+    const auto who = everyone.people.find(person);
+    if (who == everyone.people.end()) return;
+    const auto ties = everyone.ties.find(person);
+    const bool close = (who->second.node && (who->second.node == e.node || who->second.node == e.about_node)) ||
+                       (!e.person.empty() && ties != everyone.ties.end() && ties->second.count(e.person));
+    if (close) regard(acquainted_[person], moves);
 }
 
 void Director::note_board() {
@@ -1524,7 +1745,6 @@ std::vector<Learned> Director::share(const std::vector<std::string>& people) {
         if (!names_a_person(world_, uid)) throw Error("share: the world names no person '" + uid + "'");
     const std::set<std::string> named(people.begin(), people.end());
     const double today = fwg::world_clock_of(world_).day;
-    const Population& everyone = population();
     std::vector<Learned> out;
     brains::Transaction transaction(brains_.handle());
     for (const Event& e : events()) {
@@ -1537,20 +1757,12 @@ std::vector<Learned> Director::share(const std::vector<std::string>& people) {
             while (read.step()) known.emplace(read.text(0), read.text(1));
         }
         // A state that moves anyone's regard is its event's last, so nobody is moved twice by one.
-        const int moves = regard_from_word(e);
         for (const std::string& uid : reach) {
             if (!named.empty() && !named.count(uid)) continue;
             const auto found = known.find(uid);
             if (found != known.end() && found->second == e.state) continue;
-            learn(uid, e.id, e.state, today, "word");
+            hear(uid, e, today, "word");
             out.push_back({uid, e.id, e.state});
-            if (moves == 0) continue;
-            // Only for what happened where they live, or to someone they are tied to.
-            const Someone& who = everyone.people.at(uid);
-            const auto ties = everyone.ties.find(uid);
-            const bool close = (who.node && (who.node == e.node || who.node == e.about_node)) ||
-                               (!e.person.empty() && ties != everyone.ties.end() && ties->second.count(e.person));
-            if (close) regard(acquainted_[uid], moves);
         }
     }
     transaction.commit();
@@ -1675,6 +1887,455 @@ std::vector<Fact> Director::news(const std::string& speaker, const std::string& 
     return out;
 }
 
+// ---- short and long memory ----------------------------------------------------------------------
+
+std::int64_t Director::log_exchange(const std::string& person, const Acquaintance& a, const DialogueAct& act, const FactPacket& packet,
+                                    double day, bool joined) {
+    Brains::Handle& h = brains_.handle();
+    const std::int64_t id = ++exchanges_made_;
+    const std::string about = about_of(act, packet);
+    brains::Transaction transaction(h);
+    {
+        brains::Statement insert(h,
+                                 "INSERT INTO exchanges (id, person, conversation, turn, day, act, target, about, outcome, heard_from, "
+                                 "of_exchange, joined, line, reply) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, NULL, NULL, ?10, NULL, NULL)");
+        insert.integer(1, id).text(2, person).integer(3, a.conversations).integer(4, a.turn).real(5, day);
+        insert.text(6, to_string(act.kind)).text(7, act.target).text(8, about).text(9, to_string(packet.outcome));
+        insert.integer(10, joined ? 1 : 0).run();
+    }
+    // What the reply named: what the speaker told the stranger of.
+    std::int64_t seq = 0;
+    for (const Fact& fact : packet.facts) {
+        if (!names_something(fact)) continue;
+        brains::Statement insert(h, "INSERT INTO exchange_facts (exchange, seq, kind, subject, about) VALUES (?1, ?2, ?3, ?4, ?5)");
+        insert.integer(1, id).integer(2, ++seq).text(3, to_string(fact.kind)).text(4, fact.subject).text(5, called(fact)).run();
+    }
+    transaction.commit();
+    return id;
+}
+
+std::string Director::about_of(const DialogueAct& act, const FactPacket& packet) const {
+    if (act.target.empty()) return {};
+    for (const Fact& fact : packet.facts)
+        if (fact.subject == act.target && names_something(fact))
+            if (std::string name = called(fact); !name.empty()) return name;
+    // The reply named nothing of it -- a place or person the speaker does not know, work taken or
+    // turned down -- and the stranger named it all the same.
+    switch (act.kind) {
+        case ActKind::AskAboutPlace: return knowledge::anchor_name(world_, act.target).value_or("");
+        case ActKind::AskAboutPerson: return name_of(world_, act.target);
+        case ActKind::AcceptQuest:
+        case ActKind::DeclineQuest:
+        case ActKind::AbandonQuest: {
+            brains::Statement work(brains_.handle(), "SELECT purpose FROM events WHERE quest_id = ?1");
+            work.text(1, act.target);
+            return work.step() ? work.text(0) : std::string();
+        }
+        default: return {};
+    }
+}
+
+std::vector<Director::Logged> Director::log_of(const std::string& person) const {
+    Brains::Handle& h = brains_.handle();
+    std::vector<Logged> out;
+    {
+        brains::Statement rows(h,
+                               "SELECT id, conversation, day, act, target, about, outcome, heard_from, line, reply FROM exchanges WHERE "
+                               "person = ?1 ORDER BY id");
+        rows.text(1, person);
+        while (rows.step()) {
+            Logged x;
+            x.id = rows.integer(0);
+            x.conversation = static_cast<int>(rows.integer(1));
+            x.day = rows.real(2);
+            x.act = rows.text(3);
+            x.target = rows.text(4);
+            x.about = rows.text(5);
+            x.outcome = rows.text(6);
+            x.heard_from = rows.text(7);
+            x.line = rows.text(8);
+            x.reply = rows.text(9);
+            out.push_back(std::move(x));
+        }
+    }
+    if (out.empty()) return out;
+    brains::Statement named_rows(h,
+                                 "SELECT f.exchange, f.kind, f.subject, f.about FROM exchange_facts AS f JOIN exchanges AS x ON x.id = "
+                                 "f.exchange WHERE x.person = ?1 ORDER BY f.exchange, f.seq");
+    named_rows.text(1, person);
+    std::size_t at = 0;
+    while (named_rows.step()) {
+        const std::int64_t exchange = named_rows.integer(0);
+        while (at < out.size() && out[at].id != exchange) ++at;
+        if (at == out.size()) break;  // both come in the order of their rows, so this cannot be
+        out[at].named.push_back({named_rows.text(1), named_rows.text(2), named_rows.text(3)});
+    }
+    return out;
+}
+
+std::vector<Remembered> Director::memories(const std::string& person) const {
+    std::vector<Remembered> out;
+    brains::Statement stored(brains_.handle(),
+                             "SELECT memory, subject, act, about, times, first_day, last_day, words, source, seq FROM memories WHERE "
+                             "person = ?1 ORDER BY seq");
+    stored.text(1, person);
+    while (stored.step()) {
+        Remembered r;
+        r.person = person;
+        r.memory = stored.text(0);
+        r.subject = stored.text(1);
+        r.act = stored.text(2);
+        r.about = stored.text(3);
+        r.times = static_cast<int>(stored.integer(4));
+        r.first_day = stored.real(5);
+        r.last_day = stored.real(6);
+        r.words = stored.text(7);
+        r.source = stored.text(8);
+        r.seq = stored.integer(9);
+        out.push_back(std::move(r));
+    }
+    return out;
+}
+
+std::vector<Remembered> Director::remembered(const std::string& person, const std::vector<Logged>& log, bool quotes,
+                                             int last_before) const {
+    std::vector<Remembered> all = memories(person);
+    const auto one = [&](std::string memory, std::string subject, std::string act, std::string about, double day, std::string words) {
+        Remembered r;
+        r.person = person;
+        r.memory = std::move(memory);
+        r.subject = std::move(subject);
+        r.act = std::move(act);
+        r.about = std::move(about);
+        r.times = 1;
+        r.first_day = day;
+        r.last_day = day;
+        r.words = std::move(words);
+        r.source = "rules";
+        return r;
+    };
+    // What they last spoke of: the latest thing named, else the latest that was more than a
+    // greeting, a farewell or a line not understood.
+    const Logged* last_named = nullptr;
+    const Logged* last_spoken = nullptr;
+    std::vector<const Logged*> answers;
+    for (const Logged& x : log) {
+        if (!x.heard_from.empty()) {
+            // The stranger talking with someone else.
+            fold_in(all, one("overheard", x.heard_from, x.act, name_of(world_, x.heard_from), x.day, ""));
+            continue;
+        }
+        if (x.act.rfind("ask_", 0) == 0) fold_in(all, one("asked", x.target, x.act, x.about, x.day, ""));
+        for (const Named& told : x.named) fold_in(all, one("told", told.subject, told.kind, told.about, x.day, ""));
+        if (const std::optional<Outcome> outcome = outcome_named(x.outcome)) {
+            const std::string deed = deed_of(*outcome);
+            const bool work = *outcome == Outcome::Accepted || *outcome == Outcome::Abandoned;
+            if (!deed.empty()) fold_in(all, one("did", work ? x.target : std::string(), deed, work ? x.about : std::string(), x.day, ""));
+        }
+        // The stranger's answer to a question of theirs is what they asked to know.
+        if (quotes && x.act == "answer" && !trimmed(x.line).empty() && trimmed(x.line).size() <= kMaxQuoteBytes) answers.push_back(&x);
+        if (last_before != 0 && x.conversation >= last_before) continue;
+        if (!x.about.empty()) last_named = &x;
+        if (x.act != "greet" && x.act != "farewell" && x.act != "no_act") last_spoken = &x;
+    }
+    for (std::size_t i = answers.size() > kMostQuotes ? answers.size() - kMostQuotes : 0; i < answers.size(); ++i)
+        fold_in(all, one("said", "", "said", "", answers[i]->day, trimmed(answers[i]->line)));
+    if (const Logged* last = last_named ? last_named : last_spoken) {
+        all.erase(std::remove_if(all.begin(), all.end(), [](const Remembered& r) { return r.memory == "last"; }), all.end());
+        all.push_back(one("last", last->target, last->act, last->about, last->day, ""));
+    }
+
+    // Work, as the one who gave it knows it now: taken, and since finished, is remembered finished.
+    Brains::Handle& h = brains_.handle();
+    for (Remembered& r : all) {
+        if (r.memory != "did" || r.subject.empty()) continue;
+        brains::Statement state(h,
+                                "SELECT f.state, s.day FROM facts AS f JOIN events AS e ON e.id = f.event JOIN event_states AS s ON "
+                                "s.event = f.event AND s.state = f.state WHERE f.person = ?1 AND e.quest_id = ?2 ORDER BY s.seq DESC "
+                                "LIMIT 1");
+        state.text(1, person).text(2, r.subject);
+        if (!state.step()) continue;
+        const std::string now = state.text(0);
+        if (!work_ended(now) || now == r.act) continue;
+        r.act = now;
+        r.last_day = std::max(r.last_day, state.real(1));
+    }
+    // One memory a piece of work: the first kept, with the last of what became of it.
+    for (std::size_t i = 0; i < all.size(); ++i) {
+        if (all[i].memory != "did" || all[i].subject.empty()) continue;
+        for (std::size_t j = i + 1; j < all.size();) {
+            if (all[j].memory != "did" || all[j].subject != all[i].subject) {
+                ++j;
+                continue;
+            }
+            Remembered& kept = all[i];
+            const Remembered& later = all[j];
+            if (work_ended(later.act) != work_ended(kept.act) ? work_ended(later.act) : later.last_day > kept.last_day) kept.act = later.act;
+            kept.times = std::max(kept.times, later.times);
+            kept.first_day = std::min(kept.first_day, later.first_day);
+            kept.last_day = std::max(kept.last_day, later.last_day);
+            if (kept.about.empty()) kept.about = later.about;
+            all.erase(all.begin() + static_cast<std::ptrdiff_t>(j));
+        }
+    }
+
+    // The work of theirs the stranger holds and has not done: the director's own state, never the log's.
+    std::vector<Remembered> open;
+    {
+        brains::Statement held(h,
+                               "SELECT quest_id, purpose, state_day FROM events WHERE kind = 'work' AND person = ?1 AND state = 'taken' "
+                               "ORDER BY seq");
+        held.text(1, person);
+        while (held.step()) open.push_back(one("open", held.text(0), "taken", held.text(1), held.real(2), ""));
+    }
+    const auto holds = [&](const std::string& quest) {
+        return std::any_of(open.begin(), open.end(), [&](const Remembered& o) { return o.subject == quest; });
+    };
+    all.erase(std::remove_if(all.begin(), all.end(), [&](const Remembered& r) { return r.memory == "open" && !holds(r.subject); }),
+              all.end());
+    for (Remembered& o : open)
+        if (std::none_of(all.begin(), all.end(), [&](const Remembered& r) { return r.memory == "open" && r.subject == o.subject; }))
+            all.push_back(std::move(o));
+    return all;
+}
+
+std::vector<Fact> Director::recall(const std::string& speaker, const DialogueAct& act, double today) const {
+    const bool greeting = act.kind == ActKind::Greet;
+    const bool asked = act.kind == ActKind::AskAboutPlace || act.kind == ActKind::AskAboutPerson;
+    const bool work = act.kind == ActKind::AskForWork;
+    if (!greeting && !asked && !work) return {};
+    // What they last spoke of is from before this conversation.
+    const auto met = acquainted_.find(speaker);
+    const std::vector<Remembered> all =
+        remembered(speaker, log_of(speaker), true, met == acquainted_.end() ? 0 : std::max(1, met->second.conversations));
+    // The latest `most` of those `take` passes, latest first.
+    const auto latest = [&](const auto& take, std::size_t most) {
+        std::vector<const Remembered*> found;
+        for (auto r = all.rbegin(); r != all.rend(); ++r)
+            if (take(*r)) found.push_back(&*r);
+        std::stable_sort(found.begin(), found.end(), [](const Remembered* x, const Remembered* y) { return x->last_day > y->last_day; });
+        if (found.size() > most) found.resize(most);
+        return found;
+    };
+    std::vector<Fact> out;
+    const auto say = [&](const std::vector<const Remembered*>& found) {
+        for (const Remembered* r : found)
+            out.push_back(Fact{FactKind::Recall,
+                               r->subject.empty() ? speaker : r->subject,
+                               {{"memory", r->memory},
+                                {"act", r->act},
+                                {"about", r->about},
+                                {"times", std::to_string(r->times)},
+                                {"since", since_band(today, r->last_day)},
+                                {"first", since_band(today, r->first_day)},
+                                {"words", r->words}}});
+    };
+    if (greeting) {
+        say(latest([](const Remembered& r) { return r.memory == "last"; }, 1));
+        say(latest([](const Remembered& r) { return r.memory == "open"; }, 1));
+        say(latest([](const Remembered& r) { return r.memory == "said"; }, 1));
+    } else if (asked) {
+        say(latest([&](const Remembered& r) { return r.memory == "asked" && r.subject == act.target; }, 1));
+        say(latest([&](const Remembered& r) { return r.memory == "told" && r.subject == act.target; }, 1));
+    } else {
+        say(latest([](const Remembered& r) { return r.memory == "did" && !r.subject.empty(); }, 2));
+        say(latest([](const Remembered& r) { return r.memory == "open"; }, 2));
+    }
+    return out;
+}
+
+void Director::words(const std::string& line, const std::string& reply) {
+    if (!last_) throw Error("words: nothing has been said yet");
+    if (line.size() > kMaxWordsBytes || reply.size() > kMaxWordsBytes)
+        throw Error("words: a line or a reply is at most " + std::to_string(kMaxWordsBytes) + " bytes");
+    if (!is_utf8(line) || !is_utf8(reply)) throw Error("words: the line and the reply must be UTF-8");
+    if (last_logged_ > 0) {
+        brains::Statement update(brains_.handle(), "UPDATE exchanges SET line = ?2, reply = ?3 WHERE id = ?1 OR of_exchange = ?1");
+        update.integer(1, last_logged_).text(2, line).text(3, reply).run();
+    }
+    inputs_.push_back(Words{line, reply});
+}
+
+namespace {
+
+// Whether `quote` stands in `line` as whole words: nothing of a word cut at either end.
+bool quoted_whole(const std::string& line, const std::string& quote) {
+    const auto inside = [](char c) { return ascii_letter(c) || (c >= '0' && c <= '9') || static_cast<unsigned char>(c) >= 0x80; };
+    for (std::size_t at = line.find(quote); at != std::string::npos; at = line.find(quote, at + 1)) {
+        const std::size_t end = at + quote.size();
+        const bool starts = at == 0 || !inside(line[at - 1]) || !inside(quote.front());
+        const bool ends = end == line.size() || !inside(line[end]) || !inside(quote.back());
+        if (starts && ends) return true;
+    }
+    return false;
+}
+
+}  // namespace
+
+Compacted Director::compact(const std::string& person, const std::string& outcomes) {
+    if (!names_a_person(world_, person)) throw Error("compact: the world names no person '" + person + "'");
+    if (outcomes.size() > kMaxOutcomesBytes)
+        throw Error("compact: the outcomes are longer than " + std::to_string(kMaxOutcomesBytes) + " bytes");
+    // The outcomes handed in, read before anything changes.
+    struct Quote {
+        std::string quote, about;
+    };
+    std::optional<std::vector<Quote>> quoted;
+    std::optional<std::string> gist;
+    if (!outcomes.empty()) {
+        const fwg::JsonValue root = [&] {
+            try {
+                return fwg::parse_json(outcomes);
+            } catch (const fwg::JsonError& e) {
+                throw Error(std::string("compact: the outcomes are not JSON: ") + e.what());
+            }
+        }();
+        const auto refuse = [](const std::string& why) {
+            throw Error("compact: the outcomes are not {\"said\": [{\"quote\": \"...\", \"about\": \"...\"}], \"last\": \"...\"}: " + why);
+        };
+        if (!root.is_object()) refuse("not an object");
+        for (const auto& [key, value] : root.as_object()) {
+            if (key == "said") {
+                if (!value.is_array()) refuse("\"said\" is not a list");
+                quoted.emplace();
+                for (const fwg::JsonValue& item : value.as_array()) {
+                    if (!item.is_object()) refuse("an item of \"said\" is not an object");
+                    Quote q;
+                    for (const auto& [field, text] : item.as_object()) {
+                        if (!text.is_string()) refuse("\"" + field + "\" is not text");
+                        if (field == "quote")
+                            q.quote = text.as_string();
+                        else if (field == "about")
+                            q.about = text.as_string();
+                        else
+                            refuse("an item of \"said\" has a key it should not: '" + field + "'");
+                    }
+                    quoted->push_back(std::move(q));
+                }
+            } else if (key == "last") {
+                if (!value.is_string()) refuse("\"last\" is not text");
+                gist = value.as_string();
+            } else {
+                refuse("a key it should not have: '" + key + "'");
+            }
+        }
+    }
+
+    // A conversation under way ends, as walking away ends one.
+    end_conversation(person);
+    const std::vector<Logged> log = log_of(person);
+    const std::vector<Remembered> before = memories(person);
+    std::vector<Remembered> after = remembered(person, log, !quoted.has_value(), 0);
+    Compacted out;
+    // What the outcomes may name: the words the log holds.
+    std::set<std::string> held;
+    for (const Logged& x : log) {
+        for (const std::string* text : {&x.line, &x.reply, &x.about})
+            for (const auto& word : words_of(*text)) held.insert(word.first);
+        for (const Named& told : x.named)
+            for (const auto& word : words_of(told.about)) held.insert(word.first);
+    }
+    const auto unheard = [&](const std::string& text) -> std::string {
+        for (const std::string& name : names_used(text))
+            if (!held.count(name)) return name;
+        return {};
+    };
+    if (quoted) {
+        std::size_t kept = 0;
+        for (const Quote& q : *quoted) {
+            const std::string quote = trimmed(q.quote);
+            const std::string about = trimmed(q.about);
+            std::string why;
+            const Logged* from = nullptr;
+            if (!is_utf8(quote) || !is_utf8(about)) {
+                why = "a quote that is not UTF-8";
+            } else if (quote.empty()) {
+                why = "a quote with no words";
+            } else if (quote.size() > kMaxQuoteBytes) {
+                why = "a quote longer than " + std::to_string(kMaxQuoteBytes) + " bytes";
+            } else {
+                for (const Logged& x : log)
+                    if (quoted_whole(x.line, quote)) {
+                        from = &x;
+                        break;
+                    }
+                if (from == nullptr) {
+                    why = "\"" + quote + "\" is not the stranger's words";
+                } else if (about.size() > kMaxQuoteBytes) {
+                    why = "what \"" + quote + "\" is about is longer than " + std::to_string(kMaxQuoteBytes) + " bytes";
+                } else if (const std::string name = unheard(about); !name.empty()) {
+                    why = "what \"" + quote + "\" is about names " + name + ", which the log does not";
+                } else if (kept == kMostQuotes) {
+                    why = "\"" + quote + "\" is past the " + std::to_string(kMostQuotes) + " quotes kept";
+                }
+            }
+            if (!why.empty()) {
+                out.refused.push_back(why);
+                continue;
+            }
+            ++kept;
+            Remembered r;
+            r.person = person;
+            r.memory = "said";
+            r.act = "said";
+            r.about = about;
+            r.times = 1;
+            r.first_day = from->day;
+            r.last_day = from->day;
+            r.words = quote;
+            r.source = "given";
+            fold_in(after, std::move(r));
+        }
+    }
+    if (gist) {
+        const std::string text = trimmed(*gist);
+        const auto made = std::find_if(after.begin(), after.end(), [](const Remembered& r) { return r.memory == "last" && r.seq == 0; });
+        std::string why;
+        if (!is_utf8(text))
+            why = "a last that is not UTF-8";
+        else if (text.empty())
+            why = "a last with no words";
+        else if (text.size() > kMaxLastBytes)
+            why = "a last longer than " + std::to_string(kMaxLastBytes) + " bytes";
+        else if (made == after.end())
+            why = "a last, where the log holds nothing they spoke of";
+        else if (const std::string name = unheard(text); !name.empty())
+            why = "a last that names " + name + ", which the log does not";
+        if (why.empty()) {
+            made->words = text;
+            made->source = "given";
+        } else {
+            out.refused.push_back(why);
+        }
+    }
+
+    // Long memory written afresh, what was there before keeping its place; the log cleared.
+    Brains::Handle& h = brains_.handle();
+    brains::Transaction transaction(h);
+    brains::Statement(h, "DELETE FROM memories WHERE person = ?1").text(1, person).run();
+    for (Remembered& r : after) {
+        const bool same = std::any_of(before.begin(), before.end(), [&](const Remembered& b) {
+            return b.seq == r.seq && b.memory == r.memory && b.subject == r.subject && b.act == r.act && b.about == r.about &&
+                   b.times == r.times && b.first_day == r.first_day && b.last_day == r.last_day && b.words == r.words &&
+                   b.source == r.source;
+        });
+        if (r.seq == 0) r.seq = ++memories_made_;
+        brains::Statement insert(h,
+                                 "INSERT INTO memories (person, memory, subject, act, words, about, times, first_day, last_day, source, "
+                                 "seq) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11)");
+        insert.text(1, person).text(2, r.memory).text(3, r.subject).text(4, r.act).text(5, r.words).text(6, r.about);
+        insert.integer(7, r.times).real(8, r.first_day).real(9, r.last_day).text(10, r.source).integer(11, r.seq).run();
+        if (!same) out.kept.push_back(r);
+    }
+    brains::Statement(h, "DELETE FROM exchange_facts WHERE exchange IN (SELECT id FROM exchanges WHERE person = ?1)").text(1, person).run();
+    brains::Statement(h, "DELETE FROM exchanges WHERE person = ?1").text(1, person).run();
+    transaction.commit();
+    out.cleared = log.size();
+    ++acquaintance_changes_;
+    inputs_.push_back(Compact{person, outcomes});
+    return out;
+}
+
 QueryResult Director::query(std::string_view sql) const {
     mirror();
     return brains::read_only(brains_.handle(), sql);
@@ -1722,16 +2383,22 @@ void Director::mirror() const {
     }
     if (met) {
         brains::Statement(h, "DELETE FROM relationships").run();
+        const Population& everyone = population();
         for (const auto& [uid, a] : acquainted_) {
             brains::Statement insert(h,
                                      "INSERT INTO relationships (person, conversations, talking, last_day, regard, mood, work, "
-                                     "grievances, forgiven, asked_before, exposed, eased_day) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, "
-                                     "?9, ?10, ?11, ?12)");
+                                     "grievances, forgiven, asked_before, exposed, eased_day, days_met, exchanges, works_finished, "
+                                     "standing) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16)");
             insert.text(1, uid).integer(2, a.conversations).integer(3, a.talking ? 1 : 0).real(4, a.last_day);
             insert.integer(5, a.disposition).text(6, mood_of(a.disposition)).text(7, a.work);
             insert.integer(8, static_cast<std::int64_t>(a.grievances.size())).integer(9, a.forgiven).text(10, a.asked_before);
             insert.integer(11, a.exposed ? 1 : 0);
             if (a.eased_day >= 0.0) insert.real(12, a.eased_day);
+            int exchanges = 0;
+            for (const auto& [kind, times] : a.heard) exchanges += times;
+            const auto known = everyone.people.find(uid);
+            insert.integer(13, a.days_met).integer(14, exchanges).integer(15, a.works_finished);
+            insert.text(16, standing_of(a, known != everyone.people.end() && known->second.kind != "roster"));
             insert.run();
         }
     }
@@ -1766,6 +2433,8 @@ Director replay(fwg::World start, const std::vector<Input>& inputs) {
                        [&](const Overhear& overheard) { (void)director.overhear(overheard.people); },
                        [&](const Share& shared) { (void)director.share(shared.people); },
                        [&](const Report& report) { director.report_event(report.site, report.outcome, report.by); },
+                       [&](const Words& said) { director.words(said.line, said.reply); },
+                       [&](const Compact& compacted) { (void)director.compact(compacted.person, compacted.outcomes); },
                    },
                    input);
     }

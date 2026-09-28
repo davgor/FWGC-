@@ -103,41 +103,6 @@ private:
 
 }  // namespace
 
-bool is_utf8(std::string_view text) {
-    std::size_t i = 0;
-    while (i < text.size()) {
-        const auto lead = static_cast<unsigned char>(text[i]);
-        if (lead < 0x80) {
-            ++i;
-            continue;
-        }
-        std::size_t follow = 0;
-        std::uint32_t point = 0;
-        if (lead >= 0xC2 && lead <= 0xDF) {
-            follow = 1;
-            point = lead & 0x1Fu;
-        } else if (lead >= 0xE0 && lead <= 0xEF) {
-            follow = 2;
-            point = lead & 0x0Fu;
-        } else if (lead >= 0xF0 && lead <= 0xF4) {
-            follow = 3;
-            point = lead & 0x07u;
-        } else {
-            return false;  // a continuation byte first, an overlong two-byte lead, or past U+10FFFF
-        }
-        if (text.size() - i <= follow) return false;
-        for (std::size_t k = 1; k <= follow; ++k) {
-            const auto next = static_cast<unsigned char>(text[i + k]);
-            if ((next & 0xC0u) != 0x80u) return false;
-            point = (point << 6) | (next & 0x3Fu);
-        }
-        if ((follow == 2 && point < 0x800u) || (follow == 3 && (point < 0x10000u || point > 0x10FFFFu))) return false;
-        if (point >= 0xD800u && point <= 0xDFFFu) return false;
-        i += follow + 1;
-    }
-    return true;
-}
-
 std::string required_text(const char* text, std::string_view what) {
     if (text == nullptr) throw BadArgument(std::string(what) + " is NULL");
     return optional_text(text, what);
@@ -201,7 +166,7 @@ fwg::JsonValue packet_json(const FactPacket& packet) {
 fwg::JsonValue acquaintance_json(const Director::Acquaintance& acquaintance) {
     const auto& [conversations, talking, last_day, since, turn, disposition, thanked, calmed, eased_day, said, heard,
                  grievances, forgiven, asked_now, asked_before, work, exposed, finished_covert, heard_truth,
-                 seen_unleashed, seen_second] = acquaintance;
+                 seen_unleashed, seen_second, days_met, works_finished] = acquaintance;
     fwg::JsonValue acts = fwg::JsonValue::array();
     for (const auto& [kind, target] : said) {
         fwg::JsonValue pair = fwg::JsonValue::array();
@@ -235,6 +200,38 @@ fwg::JsonValue acquaintance_json(const Director::Acquaintance& acquaintance) {
     out.set("heard_truth", heard_truth);
     out.set("seen_unleashed", seen_unleashed);
     out.set("seen_second", seen_second);
+    out.set("days_met", days_met);
+    out.set("works_finished", works_finished);
+    return out;
+}
+
+fwg::JsonValue remembered_json(const std::vector<Remembered>& memories) {
+    fwg::JsonValue out = fwg::JsonValue::array();
+    for (const Remembered& memory : memories) {
+        const auto& [person, kind, subject, act, about, times, first_day, last_day, words, source, seq] = memory;
+        fwg::JsonValue one = fwg::JsonValue::object();
+        one.set("person", person);
+        one.set("memory", kind);
+        one.set("subject", subject);
+        one.set("act", act);
+        one.set("about", about);
+        one.set("times", times);
+        one.set("first_day", first_day);
+        one.set("last_day", last_day);
+        one.set("words", words);
+        one.set("source", source);
+        one.set("seq", seq);
+        out.push_back(std::move(one));
+    }
+    return out;
+}
+
+fwg::JsonValue compacted_json(const Compacted& compacted) {
+    const auto& [kept, refused, cleared] = compacted;
+    fwg::JsonValue out = fwg::JsonValue::object();
+    out.set("kept", remembered_json(kept));
+    out.set("refused", strings(refused));
+    out.set("cleared", cleared);
     return out;
 }
 

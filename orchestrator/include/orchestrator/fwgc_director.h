@@ -45,8 +45,9 @@ extern "C" {
 
 /* The interface's version, bumped whenever a function, struct or code changes. A game checks
  * fwgc_api_version() == FWGC_API_VERSION before its first call.
- * 2: the brain database (fwgc_query), news (fwgc_share, fwgc_related, fwgc_report_event). */
-#define FWGC_API_VERSION 2
+ * 2: the brain database (fwgc_query), news (fwgc_share, fwgc_related, fwgc_report_event).
+ * 3: short and long memory (fwgc_words, fwgc_compact, fwgc_memories); the database's schema 2. */
+#define FWGC_API_VERSION 3
 
 typedef struct fwgc_director fwgc_director;
 
@@ -179,6 +180,23 @@ FWGC_API fwgc_status fwgc_share(fwgc_director* director, const char* const* peop
  * within the last day) or makes one; people hear of it at the next fwgc_share. */
 FWGC_API fwgc_status fwgc_report_event(fwgc_director* director, const char* site, const char* outcome,
                                        const char* by) FWGC_NOEXCEPT;
+/* The words of the exchange just made, as the game showed them: the player's `line` and the `reply`
+ * (NULL for none), each at most 4,000 bytes. Call it once a reply is shown: after fwgc_respond for
+ * its reply, after fwgc_overhear for a joiner's. The log of the one who answered keeps them, and
+ * the logs of those who overheard it; the director reads no meaning into them. Refused before
+ * anything is said. */
+FWGC_API fwgc_status fwgc_words(fwgc_director* director, const char* line, const char* reply) FWGC_NOEXCEPT;
+/* `person`'s conversation log made into long memory, and cleared: the only way a log becomes long
+ * memory, and nothing calls it but the game (someone despawned, a time skip, whoever
+ * active_short lists). A conversation under way with them ends. `outcomes` (NULL for none) is what
+ * a summary of the log (the communicator's summarizer writes one), as JSON: {"said": [{"quote":
+ * "...", "about": "..."}], "last": "..."};
+ * each quote kept must be the stranger's own words, word for word in the log, and a name the log
+ * does not hold is refused. Outcomes that are not that JSON are refused (FWGC_BAD_ARGUMENT) and
+ * nothing changes. What it did, as JSON in *json (may be NULL): {"kept": [memories, as
+ * fwgc_memories writes them], "refused": ["why", ...], "cleared": exchanges}. */
+FWGC_API fwgc_status fwgc_compact(fwgc_director* director, const char* person, const char* outcomes,
+                                  char** json) FWGC_NOEXCEPT;
 
 /* ---- what the game asks ------------------------------------------------------------------- */
 
@@ -188,12 +206,17 @@ FWGC_API fwgc_status fwgc_report_event(fwgc_director* director, const char* site
  * (FWGC_BAD_ARGUMENT), and so is a statement that runs too long or answers more than 100,000 rows.
  * The tables: people, places, work (the world's, as it stands), relationships (each person's
  * standing with the player), events and event_states (what happened), facts (who has heard what),
- * and the view news; the orchestrator's README.md describes each. Nothing here changes the director,
- * and a save does not hold the database: replaying writes it again. */
+ * exchanges and exchange_facts (each person's conversation log, since they were last compacted),
+ * memories (their long memory), and the views news and active_short (who has a log, and how long);
+ * the orchestrator's README.md describes each. Nothing here changes the director, and a save does
+ * not hold the database: replaying writes it again. */
 FWGC_API fwgc_status fwgc_query(const fwgc_director* director, const char* sql, char** json) FWGC_NOEXCEPT;
 /* Who knows `event` (an event id, "event-12"), and who the next fwgc_share would tell of it, changing
  * nothing: {"knows": [...], "would_learn": [...]}. */
 FWGC_API fwgc_status fwgc_related(const fwgc_director* director, const char* event, char** json) FWGC_NOEXCEPT;
+/* Everything in `person`'s long memory, in the order kept, as JSON: [{"person", "memory",
+ * "subject", "act", "about", "times", "first_day", "last_day", "words", "source", "seq"}]. */
+FWGC_API fwgc_status fwgc_memories(const fwgc_director* director, const char* person, char** json) FWGC_NOEXCEPT;
 
 /* What `speaker` and the player have between them, as JSON; the text null for someone the
  * session holds nothing of. */

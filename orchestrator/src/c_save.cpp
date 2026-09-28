@@ -14,7 +14,7 @@ namespace {
 
 // Every input kind has its key here, and replay() its call. A new one stops the build until it
 // has both, and its fwgc_ function and a test.
-static_assert(std::variant_size_v<Input> == 9,
+static_assert(std::variant_size_v<Input> == 11,
               "a new Input kind needs its save key (c_save.cpp), its fwgc_ function (c_api.cpp) and a test "
               "(tests/test_c_api.cpp)");
 
@@ -101,6 +101,20 @@ fwg::JsonValue input_json(const Input& input) {
                 body.set("outcome", outcome);
                 body.set("by", by);
                 return keyed("report", std::move(body));
+            },
+            [](const Words& words) {
+                const auto& [line, reply] = words;
+                fwg::JsonValue body = fwg::JsonValue::object();
+                body.set("line", line);
+                body.set("reply", reply);
+                return keyed("words", std::move(body));
+            },
+            [](const Compact& compact) {
+                const auto& [person, outcomes] = compact;
+                fwg::JsonValue body = fwg::JsonValue::object();
+                body.set("person", person);
+                body.set("outcomes", outcomes);
+                return keyed("compact", std::move(body));
             },
         },
         input);
@@ -201,6 +215,14 @@ Input input_from(const fwg::JsonValue& item) {
     if (kind == "report") {
         exactly(body, {"site", "outcome", "by"}, "report");
         return Report{text_at(body, "site", kind), text_at(body, "outcome", kind), text_at(body, "by", kind)};
+    }
+    if (kind == "words") {
+        exactly(body, {"line", "reply"}, "words");
+        return Words{text_at(body, "line", kind), text_at(body, "reply", kind)};
+    }
+    if (kind == "compact") {
+        exactly(body, {"person", "outcomes"}, "compact");
+        return Compact{text_at(body, "person", kind), text_at(body, "outcomes", kind)};
     }
     refuse("an input of a kind this library does not know: '" + kind + "'");
 }

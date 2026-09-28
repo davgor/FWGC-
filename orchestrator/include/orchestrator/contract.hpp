@@ -30,7 +30,9 @@ namespace orchestrator {
 // 10: overhearing. The Memory fact's `eased` and `joined`.
 // 11: news. A News fact for an event the speaker has heard of, in greetings, small talk and answers
 //     about a place or a person.
-inline constexpr int kContractVersion = 11;
+// 12: the short log and long memory. A Recall fact for what the speaker remembers of the stranger
+//     from before; the Memory fact's `standing`.
+inline constexpr int kContractVersion = 12;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -113,9 +115,10 @@ std::string_view to_string(Outcome outcome);
 
 // Memory: what the speaker and the player have between them, and how the speaker feels. Chat:
 // what small talk can be about. Safety: a verdict on the danger about. Reveal: what a face that came out had hidden.
-// News: something that happened, as the speaker heard of it.
-enum class FactKind : int { Place = 0, Person, QuestOffer, QuestState, Danger, Reason, Memory, Chat, Safety, Reveal, News };
-inline constexpr int kFactKindCount = static_cast<int>(FactKind::News) + 1;
+// News: something that happened, as the speaker heard of it. Recall: something the speaker
+// remembers of the stranger from before.
+enum class FactKind : int { Place = 0, Person, QuestOffer, QuestState, Danger, Reason, Memory, Chat, Safety, Reveal, News, Recall };
+inline constexpr int kFactKindCount = static_cast<int>(FactKind::Recall) + 1;
 
 std::string_view to_string(FactKind kind);
 
@@ -159,7 +162,11 @@ std::string_view to_string(FactKind kind);
 // - `eased`: "yes" when the player's calming words eased the speaker within the last two days,
 //   else "no";
 // - `joined`: "yes" on the packet of a bystander who overheard the player and joined in unasked,
-//   answering what the one the player spoke to could not; else "no".
+//   answering what the one the player spoke to could not; else "no";
+// - `standing`: how far the stranger and the speaker have come, never falling: "stranger" before
+//   they first spoke, "acquainted" after, "regular" once they have talked on three different days,
+//   "favourite" at ten days and thirty exchanges, the most a roster person comes to; "hero" for a
+//   hero, a dread or a villain, whatever came before.
 // A conversation ends at a farewell, when time passes, or when the player turns to someone
 // else. A face that does not recognise the player (a beast unleashed) gives a first meeting and
 // a hostile mood.
@@ -217,6 +224,26 @@ std::string_view to_string(FactKind kind);
 // A greeting carries the newest event whose state the speaker knows the player brought about; small
 // talk the newest they know of at the place they stand; an answer about a place up to two about it;
 // an answer about a person one about them. At most those, and none the speaker has not heard.
+//
+// A Recall fact, its subject what is remembered (a place id, a person uid, a quest id; the speaker's
+// own uid for a memory of no one thing): something the speaker remembers of the stranger from
+// before this exchange, from their conversation log since they were last compacted and from their
+// long memory (what compaction kept). Only what bears on the act:
+// - `memory`: "asked" (the stranger asked the speaker about it), "told" (the speaker told the
+//   stranger of it), "did" (what the stranger did: took, finished, failed or gave up the speaker's
+//   work; thanked, insulted, apologised; talked them down), "open" (the speaker's work the stranger
+//   holds and has not done), "said" (the stranger's own words, kept word for word), "last" (what
+//   they last spoke of, at the last compaction);
+// - `act`: what was done, by the contract's names: an act ("ask_about_place"), an outcome ("taken",
+//   "finished", "thanked"), or "said";
+// - `about`: what it concerns, by name as the speaker says it; empty for a memory of no one thing;
+// - `times`: how many times, as digits;
+// - `since`: when it last was, in the Memory fact's calendar bands; `first`: when it first was;
+// - `words`: the stranger's words for "said", and for "last" what the speaker kept of it, when a
+//   summary handed to the compaction held it and C++ checked it; empty otherwise.
+// A greeting carries what they last spoke of, the work the stranger holds, and the stranger's
+// latest kept words (at most one each); an answer about a place or a person what was asked and told
+// of it before; asking for work what came of the speaker's work before and what is open.
 struct Fact {
     FactKind kind = FactKind::Place;
     std::string subject;

@@ -113,7 +113,9 @@ about its speaker:
 - `eased` (contract version 10): the player's calming words eased the speaker within the last
   two days, so a greeting can recall it and "not afraid" need not deny it. By the days, not the
   conversations: a visit is many conversations, since turning to someone else ends one;
-- `joined`: the speaker overheard the player and joined in unasked ([Overhearing](#overhearing)).
+- `joined`: the speaker overheard the player and joined in unasked ([Overhearing](#overhearing));
+- `standing` (contract version 12): how far the two have come, never falling ([Short and long
+  memory](#short-and-long-memory)).
 
 A conversation ends at a farewell, when time passes, or when the player turns to someone else.
 The next act to that speaker begins another.
@@ -176,15 +178,18 @@ places people and says who was near enough to hear; the director decides what ea
 - **stays_out**: everything else, the one spoken to among them, and anyone gone.
 
 An overhearing is an input, so replay rebuilds a joiner's conversation and a bystander's calm.
+Since contract version 12 every bystander who heard it (all but the one spoken to and anyone gone)
+also keeps it in their log, and hears the news it carried ([Short and long
+memory](#short-and-long-memory)).
 
 ## News, and the brain database
 
 Contract version 11. The owner asked for NPC brains: facts that are "common knowledge" ("everyone
 in the village should know that the player saved them"), brought up to date "like a cron job", a
 long memory written by a `compact` the game calls, and a short one of the conversation; stored per
-NPC, and kept "like a database, that I can do SQL queries on" (2026-09-27). This slice is the
-first layer: events, and who has heard of them. Compaction and the short and long memories come
-next (see [Not in this slice](#not-in-this-slice)).
+NPC, and kept "like a database, that I can do SQL queries on" (2026-09-27). This is the first
+layer: events, and who has heard of them. The short and long memories are the next ([Short and
+long memory](#short-and-long-memory)).
 
 **Events.** The director makes one wherever it sees something happen that people could know of,
 and moves its state on as it goes; the game never writes one.
@@ -235,18 +240,94 @@ replaying the inputs writes it again, row for row (tested table by table).
 | `people` | everyone the world names: `uid`, `name` and `role` as a stranger has them, `kind` (roster, hero, dread, villain), a roster post's `site`, the `node` they stand on, `present` |
 | `places` | every city, hamlet, fortress and key location: `id` (as a packet names it), `kind`, `name`, `node` |
 | `work` | the quest board as it stands: `quest_id`, `giver`, `verb`, `purpose` (as stated), `anchor`, `node`, `difficulty`, `state` (as its event says it), `offered_day`, `expires_day`, `closed_day`, `closed_reason` |
-| `relationships` | each person the player has dealt with: `conversations`, `talking`, `last_day`, `regard` (-3 to 3), `mood`, `work`, `grievances`, `forgiven`, `asked_before`, `exposed`, `eased_day` |
+| `relationships` | each person the player has dealt with: `conversations`, `talking`, `last_day`, `regard` (-3 to 3), `mood`, `work`, `grievances`, `forgiven`, `asked_before`, `exposed`, `eased_day`, `days_met`, `exchanges`, `works_finished`, `standing` |
 | `events` | every event: `id`, `seq`, `kind`, `day`, the `place` it is about (`place_name`, `about_node`), the `node` word starts from, whom it concerns (`person`, `person_name`), work's `quest_id`, `verb`, `purpose` and `difficulty`, an exposure's `was` and `revealed`, `player`, and its latest `state`, `state_day` and `actor` |
 | `event_states` | each state an event has been in, in order: `event`, `seq`, `state`, `day`, `actor` |
-| `facts` | who has heard what: `person`, `event`, the `state` they know, the `day` they learned it, `how` ("there" or "word") |
+| `facts` | who has heard what: `person`, `event`, the `state` they know, the `day` they learned it, `how` ("there", "word", or "overheard") |
 | `news` (a view) | facts joined to their events |
+| `exchanges` | each person's conversation log, since they were last compacted (below) |
+| `exchange_facts` | what each exchange's reply named |
+| `memories` | each person's long memory (below) |
+| `active_short` (a view) | who has a log: `person`, how many `exchanges`, `since_day`, `last_day` |
 
 The first four are copies of the director's own state, written afresh before a query when what
-they copy has changed; the last three are the brains themselves. A query is one statement that only
+they copy has changed; the rest are the brains themselves. A query is one statement that only
 reads: a write, a second statement, a pragma, a transaction, a file attached, is refused, as is a
 statement that runs past about a second's work or answers more than 100,000 rows. Nothing a query
 does is recorded, and none can change what the director decides. The schema's version is
 `brains_schema` in `fwgc_contract_json`.
+
+## Short and long memory
+
+Contract version 12, schema 2, C interface 3. The owner, on compaction: "It should mirror what
+you do in downsizing the conversations. Short is going to be a full conversation log. Long term,
+should be the outcomes of the short, much like how people record things into long term"; and a
+function exposed to the game, "for consistency, and 2 so we can test it here" (2026-09-27).
+
+**Short: the log.** Everyone the player speaks to keeps every exchange (`exchanges`): its `id`,
+the `conversation` and `turn`, the `day`, the `act` and its `target`, `about` (what it concerned by
+name, as the speaker says it), the `outcome`, and `joined` for a bystander's answer; and in
+`exchange_facts` what the reply named (a place, a person, work, a nest: `kind`, `subject`, `about`).
+A bystander who overheard it keeps it too: `heard_from` the one spoken to, `of_exchange` that row,
+`conversation` 0. `words(line, reply)` hands over the player's line and the reply as the game showed
+them, once a reply is shown (after `respond`, and after `overhear` for a joiner's): the log of the
+one who answered keeps them, and those who overheard it. The director reads no meaning into the
+words; they are there for the game, the communicator, and whatever summarizes a log. Someone gone
+hears nothing, and their log keeps nothing. Every row is numbered in the order made, never twice.
+
+A bystander also hears the news the exchange carried: each event of its packet's News facts, at the
+state the one spoken to knew it by, when that is later than the one they know it by (`how`
+"overheard"). They take the player better or worse for it as word would move them, once an event.
+The owner's example is a test: a villager who has heard that work was asked for in their town
+overhears its giver greet the player once it is done, knows it finished and who did it, is
+compacted, and says so when greeted.
+
+**`compact(person, outcomes)`: the one way a log becomes long memory.** Nothing here calls it; the
+game does, for whom it likes (someone despawned, a time skip, whoever `active_short` lists), and so
+do the tests and the session tool. It ends a conversation under way with them, folds the log into
+their long memory, and clears the log. Like a conversation compacted into what matters of it, the
+long memory is the outcomes, by these rules, from the log and the director's own state:
+
+| Memory | What | Subject, act |
+|---|---|---|
+| `asked` | what the stranger asked them | the target, the act (`ask_about_place`, `ask_for_work`, ...) |
+| `told` | what they told the stranger of: what the replies named | the thing, its kind (`place`, `person`, `quest_offer`, `danger`) |
+| `did` | what the stranger did: took, finished, failed or gave up their work; thanked, insulted, apologised; talked them down; brought a hidden face out | work's quest, or none; `taken`, `finished`, `failed`, `given_up`, `thanked`, `insulted`, `apologised`, `calmed`, `exposed` |
+| `said` | the stranger's own words, word for word: their answers to the speaker's questions (the latest five of a log) | none; `said` |
+| `overheard` | whom they overheard the stranger talking with | the one spoken to; the act |
+| `open` | work of theirs the stranger holds and has not done | the quest; `taken` |
+| `last` | what they last spoke of: the latest exchange that named something, else the latest that was more than a greeting, a farewell or a line not understood | its target; its act |
+
+Each keeps `about` (by name), `times`, `first_day`, `last_day`, `words`, `source` ("rules", or
+"given" from outcomes handed in) and `seq` (the order kept). A memory of what came up before is brought up to date,
+keeping when it first was: asked again, it counts once more; work taken and since finished is
+remembered finished, from when it was taken (as the one who gave it knows it). What is open is the
+director's own state, never the log's, and so is what became of work. `last` is replaced.
+
+**What a summary may add.** `outcomes`, when not empty, is a summary of the log written elsewhere, as JSON:
+`{"said": [{"quote": "...", "about": "..."}], "last": "..."}`. Its quotes stand in for the rules':
+each must be the stranger's own words, found word for word in a line of the log and cut at no
+word, at most 240 bytes, at most five kept; `about` and `last` may use a name past a sentence's
+start only if the log holds it; `last` is at most 300 bytes and kept beside the rules' own `last`,
+never in place of it. Whatever fails is refused, and `compact` says why. Outcomes that are not that
+JSON are refused before anything changes. Deeds, what is open, and what became of work never come
+from outcomes handed in. They are recorded with the compaction, so replay never needs whatever
+wrote them. The communicator's summarizer, a model reading the log, is the next part of this slice.
+
+**Recall facts.** A packet carries what the speaker remembers that bears on the act, from their
+long memory and their log together, so nothing waits on a compaction: a greeting what they last
+spoke of (in an earlier conversation), the work the stranger holds, and the stranger's latest kept
+words; an answer about a place or a person that it was asked of before, and told of, how many times
+and since when; asking for work what came of the speaker's work, and what the stranger holds. Each
+before the Memory fact; contract.hpp lists the fields. A face that does not know the player
+recalls nothing.
+
+**Standing** (the Memory fact's `standing`, and `relationships`): `acquainted` from the first
+conversation, `regular` once they have talked on three calendar days, `favourite` at ten days and
+thirty exchanges, the most a roster person comes to; `hero` for a hero, a dread or a villain. It
+never falls: an insult moves regard, not standing. Only heroes give work, so `works_finished`
+counts but decides nothing yet. Standing does not decide what compaction keeps; nothing here drops
+a memory for room ("Unbounded across the board").
 
 ## What a speaker says of a place
 
@@ -347,7 +428,8 @@ holds it to the director, with its import library in `lib/`; `cmake --install` l
   who overheard it (`fwgc_overhear`, each bystander's reaction and a joiner's reply); work
   (`fwgc_resolve`); feelings (`fwgc_fright`, `fwgc_gather`, `fwgc_feeling`); days
   (`fwgc_hold`, `fwgc_positions`, `fwgc_whereabouts_of`, `fwgc_whereabouts_at`, `fwgc_day_of`,
-  `fwgc_roster`); what a speaker remembers (`fwgc_acquaintance`); news (`fwgc_share`, the cron
+  `fwgc_roster`); what a speaker remembers (`fwgc_acquaintance`, `fwgc_memories`); the log's
+  words and compaction (`fwgc_words`, `fwgc_compact`); news (`fwgc_share`, the cron
   job, who heard what back as JSON; `fwgc_report_event`, how a threat ended; `fwgc_related`, who
   knows an event); the brain database (`fwgc_query`, read-only SQL, rows back as JSON); the world
   document (`fwgc_world_json`, for drawing the world only: it holds what speakers keep back); and
@@ -395,9 +477,11 @@ and finished, a mask confronted. The script names its speakers by kind -- a rost
 giver, a mask, a beast, a fractured heart -- and the tool picks them from the world. A script can
 frighten a speaker (`fright NAME LEVEL`), gather speakers (`gather NAME...`), let minutes pass
 (`minutes N`), name someone standing where another speaker stands (`who NAME near OTHER N`), ask
-about a place any earlier packet named by saying its name (`@said`), and report who overheard the
-last exchange (`overhear NAME...`), a joiner's reply written as their turn. It is a measuring tool;
-nothing a game ships.
+about a place any earlier packet named by saying its name (`@said`), report who overheard the
+last exchange (`overhear NAME...`), a joiner's reply written as their turn, and compact a speaker's
+log (`compact NAME [FILE]`, FILE outcomes as compact takes them), what it kept written out. Every line said is
+handed over as the exchange's words (the replies are spoken later, by the communicator). It is a
+measuring tool; nothing a game ships.
 
 ## What a speaker knows
 
@@ -439,10 +523,9 @@ switched each rule off in a scratch build.
 
 ## Not in this slice
 
-- The rest of the brains (planned, slice 15): the short memory of each conversation, with the
-  words said; `compact`, which the game calls to fold it into a long memory, the model picking what
-  to keep and C++ checking the picks; how much a speaker keeps growing with how much the player
-  talks to them; an event's memory written by a model and checked; Recall facts.
+- The communicator's half of slice 15: the summarizer (a model reading a log and writing
+  `compact`'s outcomes), Recall said in the written lines and the voice, and the truth check for
+  it. An event's memory written by a model and checked is not built.
 - Heroes' brains and `promoteNPC` (slice 16): a roster person made a full hero, through a
   generator verb.
 - News of someone gone. The board closes work when its giver is gone, but no test world's giver

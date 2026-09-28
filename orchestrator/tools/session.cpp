@@ -37,6 +37,12 @@
 //   report NAME OUTCOME [BY]        the game says how a threat where NAME stands ended: beaten,
 //                                   lost or passed; BY player, a speaker's NAME, or nobody
 //   sql QUERY                       read the brain database; each row written as an event
+//   compact NAME [FILE]             NAME's conversation log made into long memory, by the rules, or
+//                                   with FILE's outcomes (JSON, as compact takes them); what
+//                                   it kept written as events
+//
+// Every `say` hands the director the player's line as the exchange's words (the reply is spoken
+// later, by another tool, so none is handed), and so does a bystander who joins in.
 //
 // Written out, in order: for each `say`, `turn NAME`, `line LINE` and the packet
 // (orchestrator::packet_text); for anything else that happens, `event TEXT`.
@@ -47,6 +53,7 @@
 #include <fstream>
 #include <functional>
 #include <iostream>
+#include <iterator>
 #include <map>
 #include <optional>
 #include <set>
@@ -263,6 +270,7 @@ int main(int argc, char** argv) {
                     if (target.empty()) throw Failure(where + "nothing for " + t + " to point at yet");
                 }
                 FactPacket p = director->respond(speaker(name), {*act, target});
+                director->words(line, "");
                 for (const Fact& f : p.facts) {
                     if (f.kind == FactKind::QuestOffer && f.field("from_speaker") && *f.field("from_speaker") == "yes" &&
                         !own_offer.count(name))
@@ -303,6 +311,7 @@ int main(int argc, char** argv) {
                     if (b.reaction == orchestrator::Overheard::joins && b.packet) {
                         std::cout << "event " << w[i + 1] << " overheard, and joins in\n";
                         std::cout << "turn " << w[i + 1] << "\nline " << last_line << "\n" << orchestrator::packet_text(*b.packet);
+                        director->words(last_line, "");
                         remember(*b.packet);
                     } else {
                         std::cout << "event " << w[i + 1] << " overheard: " << orchestrator::to_string(b.reaction) << ", "
@@ -342,6 +351,21 @@ int main(int argc, char** argv) {
                     }
                     std::cout << "\n";
                 }
+            } else if (w[0] == "compact") {
+                need(2);
+                std::string outcomes;
+                if (w.size() > 2) {
+                    std::ifstream file(w[2], std::ios::binary);
+                    if (!file) throw Failure(where + "cannot read " + w[2]);
+                    outcomes.assign(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
+                }
+                const orchestrator::Compacted done = director->compact(speaker(w[1]), outcomes);
+                std::cout << "event " << w[1] << " compacted: " << done.cleared << " exchanges into " << done.kept.size()
+                          << " memories kept or brought up to date\n";
+                for (const orchestrator::Remembered& r : done.kept)
+                    std::cout << "event memory " << w[1] << ": " << r.memory << " " << r.act << (r.about.empty() ? "" : " (" + r.about + ")")
+                              << " x" << r.times << (r.words.empty() ? "" : ": " + r.words) << " [" << r.source << "]\n";
+                for (const std::string& why : done.refused) std::cout << "event refused " << w[1] << ": " << why << "\n";
             } else if (w[0] == "minutes") {
                 need(2);
                 director->advance(std::stod(w[1]) / 1440.0);

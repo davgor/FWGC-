@@ -17,11 +17,9 @@
 #include "fwg/api/world.hpp"
 #include "orchestrator/director.hpp"
 #include "orchestrator/fwgc_director.h"
+#include "utf8.hpp"
 
 namespace orchestrator::c_api {
-
-// Well-formed UTF-8: no overlong forms, no surrogates, nothing past U+10FFFF.
-bool is_utf8(std::string_view text);
 
 // `text` as a string. BadArgument, naming `what`, when it is NULL or not UTF-8.
 std::string required_text(const char* text, std::string_view what);
@@ -33,6 +31,10 @@ ActKind act_named(const std::string& name);
 
 fwg::JsonValue packet_json(const FactPacket& packet);
 fwg::JsonValue acquaintance_json(const Director::Acquaintance& acquaintance);
+// [{"person", "memory", "subject", "act", "about", "times", "first_day", "last_day", "words", "source", "seq"}]
+fwg::JsonValue remembered_json(const std::vector<Remembered>& memories);
+// {"kept": [memories, as remembered_json], "refused": [...], "cleared": n}
+fwg::JsonValue compacted_json(const Compacted& compacted);
 // [{"person", "reaction", "packet"}]: the packet a joiner's reply, else null.
 fwg::JsonValue bystanders_json(const std::vector<Bystander>& bystanders);
 fwg::JsonValue feeling_json(const Feeling& feeling);

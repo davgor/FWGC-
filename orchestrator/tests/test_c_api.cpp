@@ -257,8 +257,8 @@ void same_acquaintance(const Handle& h, const Director& d, const std::string& sp
     const fwg::JsonValue j = fwg::parse_json(text);
     const auto& [conversations, talking, last_day, since, turn, disposition, thanked, calmed, eased_day, said, heard,
                  grievances, forgiven, asked_now, asked_before, work, exposed, finished_covert, heard_truth,
-                 seen_unleashed, seen_second] = *known;
-    check::equal(j.size(), std::size_t(21), what + ": every field of the acquaintance");
+                 seen_unleashed, seen_second, days_met, works_finished] = *known;
+    check::equal(j.size(), std::size_t(23), what + ": every field of the acquaintance");
     check::equal(j.at("conversations").as_int(), std::int64_t(conversations), what + " conversations");
     check::equal(j.at("talking").as_bool(), talking, what + " talking");
     check::is_true(j.at("last_day").as_float() == last_day, what + " last_day");
@@ -288,6 +288,26 @@ void same_acquaintance(const Handle& h, const Director& d, const std::string& sp
     check::equal(j.at("heard_truth").as_bool(), heard_truth, what + " heard_truth");
     check::equal(j.at("seen_unleashed").as_bool(), seen_unleashed, what + " seen_unleashed");
     check::equal(j.at("seen_second").as_bool(), seen_second, what + " seen_second");
+    check::equal(j.at("days_met").as_int(), std::int64_t(days_met), what + " days_met");
+    check::equal(j.at("works_finished").as_int(), std::int64_t(works_finished), what + " works_finished");
+}
+
+// Memories as the interface writes them, held to the director's, field for field.
+void same_memories(const fwg::JsonValue& json, const std::vector<orchestrator::Remembered>& cpp, const std::string& what) {
+    check::equal(json.size(), cpp.size(), what + ": as many memories");
+    for (std::size_t i = 0; i < cpp.size() && i < json.size(); ++i) {
+        const auto& [person, memory, subject, act, about, times, first_day, last_day, words, source, seq] = cpp[i];
+        const fwg::JsonValue& one = json.at(i);
+        keys_are(one, {"person", "memory", "subject", "act", "about", "times", "first_day", "last_day", "words", "source", "seq"},
+                 what + ": a memory");
+        check::is_true(one.at("person").as_string() == person && one.at("memory").as_string() == memory &&
+                           one.at("subject").as_string() == subject && one.at("act").as_string() == act &&
+                           one.at("about").as_string() == about && one.at("times").as_int() == times &&
+                           one.at("first_day").to_double() == std::optional<double>(first_day) &&
+                           one.at("last_day").to_double() == std::optional<double>(last_day) && one.at("words").as_string() == words &&
+                           one.at("source").as_string() == source && one.at("seq").as_int() == seq,
+                       what + ": memory " + std::to_string(i) + " as the director has it");
+    }
 }
 
 void same_feeling(const Handle& h, const Director& d, const std::string& person, const std::string& what) {
@@ -380,7 +400,8 @@ const Players& players() {
 // Every table of the brain database, read through the DLL and from the director: the same columns,
 // and the same rows, cell for cell.
 void same_brains(const Handle& h, const Director& d, const std::string& what) {
-    for (const char* table : {"people", "places", "work", "relationships", "events", "event_states", "facts"}) {
+    for (const char* table :
+         {"people", "places", "work", "relationships", "events", "event_states", "facts", "exchanges", "exchange_facts", "memories"}) {
         const std::string sql = std::string("SELECT * FROM ") + table + " ORDER BY 1, 2";
         char* json = nullptr;
         succeeded(fwgc_query(h.get(), sql.c_str(), &json), what + ": fwgc_query " + table);
@@ -520,6 +541,30 @@ public:
         same_brains(c_, cpp_, "report");
         compare("report");
     }
+    void words(const std::string& line, const std::string& reply) {
+        succeeded(fwgc_words(c_.get(), line.c_str(), reply.c_str()), "fwgc_words");
+        cpp_.words(line, reply);
+        compare("words");
+    }
+    orchestrator::Compacted compact(const std::string& person, const std::string& outcomes) {
+        char* json = nullptr;
+        succeeded(fwgc_compact(c_.get(), person.c_str(), outcomes.empty() ? nullptr : outcomes.c_str(), &json), "fwgc_compact");
+        const orchestrator::Compacted cpp = cpp_.compact(person, outcomes);
+        const fwg::JsonValue done = fwg::parse_json(taken(json));
+        keys_are(done, {"kept", "refused", "cleared"}, "a compaction");
+        same_memories(done.at("kept"), cpp.kept, "compact: kept");
+        check::equal(done.at("refused").size(), cpp.refused.size(), "compact: as many refused");
+        for (std::size_t i = 0; i < cpp.refused.size() && i < done.at("refused").size(); ++i)
+            check::equal(done.at("refused").at(i).as_string(), cpp.refused[i], "compact: why, in order");
+        check::equal(done.at("cleared").as_int(), static_cast<std::int64_t>(cpp.cleared), "compact: cleared");
+        char* all = nullptr;
+        succeeded(fwgc_memories(c_.get(), person.c_str(), &all), "fwgc_memories");
+        same_memories(fwg::parse_json(taken(all)), cpp_.memories(person), "compact: long memory");
+        same_acquaintance(c_, cpp_, person, "compact");
+        same_brains(c_, cpp_, "compact");
+        compare("compact");
+        return cpp;
+    }
 
 private:
     void compare(const std::string& what) {
@@ -539,6 +584,7 @@ void play(Lockstep& both) {
     const Players& p = players();
     both.advance(30.0);
     both.say(p.giver1, "greet");
+    both.words("Good day to you.", "And to you, stranger.");
     both.say(p.giver1, "ask_for_work");
     both.say(p.giver1, "decline_quest", p.quest1);
     const FactPacket taken_on = both.say(p.giver1, "accept_quest", p.quest1);
@@ -559,9 +605,27 @@ void play(Lockstep& both) {
     const std::vector<orchestrator::Bystander> joined = both.overhear({p.far_knower});
     check::is_true(joined.size() == 1 && joined[0].reaction == orchestrator::Overheard::joins && joined[0].packet,
                    "the premise: the one who knows it joins in, with a reply");
+    both.words("And what of that place, far off?", "I know it well, as it happens.");
+    // The one who joined keeps both: the exchange they overheard, and their own answer with its words.
+    std::vector<std::string> joiner_log;
+    for (const std::vector<orchestrator::Cell>& row :
+         both.director().query("SELECT heard_from, joined, act, outcome, line FROM exchanges WHERE person = '" + p.far_knower + "' ORDER BY id").rows) {
+        std::string text;
+        for (const orchestrator::Cell& cell : row) {
+            if (const auto* word = std::get_if<std::string>(&cell)) text += *word + "|";
+            else if (const auto* number = std::get_if<std::int64_t>(&cell)) text += std::to_string(*number) + "|";
+            else text += "NULL|";
+        }
+        joiner_log.push_back(text);
+    }
+    check::is_true(joiner_log == std::vector<std::string>{p.smith + "|0|ask_about_place|unknown|NULL|",
+                                                         "NULL|1|ask_about_place|answered|And what of that place, far off?|"},
+                   "the joiner's log: what they overheard, then their answer and its words");
     both.say(p.smith, "ask_about_person", p.neighbour);
-    for (const char* act : {"small_talk", "thank", "insult", "apologize", "ask_safety", "answer", "confront", "no_act"})
+    for (const char* act : {"small_talk", "thank", "insult", "apologize", "ask_safety", "answer", "confront", "no_act"}) {
         both.say(p.smith, act);
+        if (std::string_view(act) == "answer") both.words("My sister keeps the mill at the ford.", "Does she now.");
+    }
     both.hold(p.smith, 20.0);
     // The neighbour panics and the smith, beside them, is left afraid; once the fright has passed
     // the player calms the neighbour, and the smith overhears it.
@@ -578,6 +642,13 @@ void play(Lockstep& both) {
     check::is_true(!smith_heard.empty(), "the premise: the smith hears something");
     both.share({});
     both.say(p.smith, "farewell");
+    // The smith's log made into long memory, with outcomes handed in: one quote the stranger said,
+    // one they never did.
+    const orchestrator::Compacted done = both.compact(
+        p.smith,
+        R"({"said": [{"quote": "My sister keeps the mill", "about": "the stranger's sister"}, {"quote": "I slew a dragon"}], "last": "they talked of a sister at the mill."})");
+    check::is_true(!done.kept.empty() && done.refused.size() == 1 && done.cleared > 0,
+                   "the premise: memories kept, the invented quote refused, the log cleared");
     both.advance(0.25);
 }
 
@@ -600,7 +671,7 @@ TEST(the_contract_describes_itself) {
     succeeded(fwgc_contract_json(&json), "fwgc_contract_json");
     const fwg::JsonValue contract = fwg::parse_json(taken(json));
     keys_are(contract, {"contract_version", "brains_schema", "acts", "outcomes", "fact_kinds", "doing"}, "the contract");
-    check::equal(contract.at("brains_schema").as_int(), std::int64_t{1}, "the brain database's schema");
+    check::equal(contract.at("brains_schema").as_int(), std::int64_t{2}, "the brain database's schema");
     check::equal(contract.at("contract_version").as_int(), std::int64_t(orchestrator::kContractVersion), "its version");
     const fwg::JsonValue& acts = contract.at("acts");
     check::equal(acts.size(), std::size_t(orchestrator::kActCount), "every act");
@@ -829,6 +900,11 @@ TEST(a_callers_mistake_is_refused_and_records_nothing) {
         check::equal(fwgc_report_event(h.get(), p.site.c_str(), "beaten", text), FWGC_BAD_ARGUMENT, "a doer not UTF-8");
         const char* named[] = {text};
         check::equal(fwgc_share(h.get(), named, 1, &out), FWGC_BAD_ARGUMENT, "someone to share with not UTF-8");
+        check::equal(fwgc_words(h.get(), text, "a reply"), FWGC_BAD_ARGUMENT, "a line not UTF-8");
+        check::equal(fwgc_words(h.get(), "a line", text), FWGC_BAD_ARGUMENT, "a reply not UTF-8");
+        check::equal(fwgc_compact(h.get(), text, nullptr, &out), FWGC_BAD_ARGUMENT, "someone compacted not UTF-8");
+        check::equal(fwgc_compact(h.get(), p.smith.c_str(), text, &out), FWGC_BAD_ARGUMENT, "outcomes not UTF-8");
+        check::equal(fwgc_memories(h.get(), text, &out), FWGC_BAD_ARGUMENT, "someone remembering not UTF-8");
         Handle none;
         check::equal(fwgc_create(text, none.reset()), FWGC_BAD_ARGUMENT, "a request not UTF-8");
     }
@@ -866,6 +942,13 @@ TEST(a_callers_mistake_is_refused_and_records_nothing) {
     const char* nobody[] = {"npc-nobody-at-all"};
     check::equal(fwgc_share(h.get(), nobody, 1, &out), FWGC_BAD_ARGUMENT, "sharing with nobody");
     check::equal(fwgc_share(h.get(), nullptr, 1, &out), FWGC_BAD_ARGUMENT, "no list to share with");
+    check::equal(fwgc_words(h.get(), "a line", "a reply"), FWGC_BAD_ARGUMENT, "words, with nothing said");
+    check::equal(fwgc_compact(h.get(), "npc-nobody-at-all", nullptr, &out), FWGC_BAD_ARGUMENT, "compacting nobody");
+    check::equal(fwgc_compact(h.get(), nullptr, nullptr, &out), FWGC_BAD_ARGUMENT, "compacting no one");
+    for (const char* outcomes : {"not json", "[]", "{\"said\": 3}", "{\"said\": [{\"quote\": 3}]}", "{\"said\": [{\"words\": \"x\"}]}",
+                                 "{\"last\": [1]}", "{\"story\": \"x\"}"})
+        check::equal(fwgc_compact(h.get(), p.smith.c_str(), outcomes, &out), FWGC_BAD_ARGUMENT, std::string("outcomes: ") + outcomes);
+    check::equal(fwgc_memories(h.get(), p.smith.c_str(), nullptr), FWGC_BAD_ARGUMENT, "nowhere to put the memories");
     check::is_true(!error_text().empty(), "a reason given");
     check::equal(save_of(h), before, "nothing recorded by any of them");
     check::equal(error_text(), std::string(), "and a success clears the reason");

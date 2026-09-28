@@ -340,6 +340,40 @@ FWGC_API fwgc_status fwgc_report_event(fwgc_director* director, const char* site
     });
 }
 
+FWGC_API fwgc_status fwgc_words(fwgc_director* director, const char* line, const char* reply) noexcept {
+    return enter(director, true, false, [&]() -> fwgc_status {
+        c_need(director, "director");
+        director->director.words(orchestrator::c_api::optional_text(line, "line"), orchestrator::c_api::optional_text(reply, "reply"));
+        return FWGC_OK;
+    });
+}
+
+FWGC_API fwgc_status fwgc_compact(fwgc_director* director, const char* person, const char* outcomes, char** json_out) noexcept {
+    if (json_out != nullptr) *json_out = nullptr;
+    return enter(director, true, false, [&]() -> fwgc_status {
+        c_need(director, "director");
+        const orchestrator::Compacted compacted =
+            director->director.compact(orchestrator::c_api::required_text(person, "person"),
+                                       orchestrator::c_api::optional_text(outcomes, "outcomes"));
+        // Recorded now; what follows only hands the answer over.
+        if (json_out != nullptr)
+            *json_out = orchestrator::c_api::handed_over(orchestrator::c_api::dumped(orchestrator::c_api::compacted_json(compacted)));
+        return FWGC_OK;
+    });
+}
+
+FWGC_API fwgc_status fwgc_memories(const fwgc_director* director, const char* person, char** json) noexcept {
+    return enter(director, false, false, [&]() -> fwgc_status {
+        c_need(director, "director");
+        c_need(json, "json");
+        *json = nullptr;
+        const std::vector<orchestrator::Remembered> memories =
+            director->director.memories(orchestrator::c_api::required_text(person, "person"));
+        *json = orchestrator::c_api::handed_over(orchestrator::c_api::dumped(orchestrator::c_api::remembered_json(memories)));
+        return FWGC_OK;
+    });
+}
+
 FWGC_API fwgc_status fwgc_related(const fwgc_director* director, const char* event, char** json) noexcept {
     return enter(director, false, false, [&]() -> fwgc_status {
         c_need(director, "director");

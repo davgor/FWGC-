@@ -758,6 +758,7 @@ TEST(a_beast_is_unleashed_about_the_full_moon_and_owns_to_it_after) {
                    "unleashed under the full moon");
     const Memory raging = memory(p);
     check::is_true(raging.at("met") == "first" && raging.at("mood") == "hostile" && raging.at("heard") == "0", "knowing nobody");
+    check::is_true(facts_of(p, FactKind::Recall).empty(), "and recalling nothing of the player");
     check::is_true(d.respond(beast.uid, {ActKind::Apologize, ""}).outcome == Outcome::Unwronged,
                    "and forgiving nothing: it does not know the player");
     d.advance(1.0);

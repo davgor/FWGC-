@@ -59,7 +59,7 @@ target_compile_definitions(orchestrator_sqlite PUBLIC
   SQLITE_OMIT_SHARED_CACHE)
 
 # The director itself.
-add_library(orchestrator STATIC src/director.cpp src/knowledge.cpp src/schedule.cpp src/brains.cpp)
+add_library(orchestrator STATIC src/director.cpp src/knowledge.cpp src/schedule.cpp src/brains.cpp src/utf8.cpp)
 add_library(fwgc::orchestrator ALIAS orchestrator)
 target_include_directories(orchestrator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
                                         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -75,6 +75,7 @@ if(ORCHESTRATOR_BUILD_TESTS)
     tests/test_conversation.cpp
     tests/test_schedule.cpp
     tests/test_brains.cpp
+    tests/test_memory.cpp
   )
   target_link_libraries(orchestrator_tests PRIVATE orchestrator)
   # The schedule is tested on its own too, without a world: its header is the library's own.

@@ -626,7 +626,8 @@ TEST(replay_rebuilds_the_brains_table_by_table) {
     (void)d.share({there[1]->uid});
     (void)d.respond(there[1]->uid, {ActKind::Greet, ""});
     Director again = orchestrator::replay(w, d.inputs());
-    for (const std::string& table : {"people", "places", "work", "relationships", "events", "event_states", "facts"}) {
+    for (const std::string& table :
+         {"people", "places", "work", "relationships", "events", "event_states", "facts", "exchanges", "exchange_facts", "memories"}) {
         const QueryResult live = d.query("SELECT * FROM " + table + " ORDER BY 1, 2");
         const QueryResult replayed = again.query("SELECT * FROM " + table + " ORDER BY 1, 2");
         check::equal(replayed.rows.size(), live.rows.size(), table + " rows");

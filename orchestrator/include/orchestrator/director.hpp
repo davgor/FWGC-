@@ -83,7 +83,18 @@ struct Report {
     std::string outcome;
     std::string by;
 };
-using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather, Overhear, Share, Report>;
+// The words of the exchange just made, as the game showed it: the player's line and the reply.
+struct Words {
+    std::string line;
+    std::string reply;
+};
+// A person's conversation log made into long memory; `outcomes` a summary of it handed in (JSON), or
+// empty for the rules alone.
+struct Compact {
+    std::string person;
+    std::string outcomes;
+};
+using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather, Overhear, Share, Report, Words, Compact>;
 
 // What someone who overheard the player made of it.
 enum class Overheard { stays_out, calmed, joins };
@@ -173,6 +184,30 @@ struct Learned {
 struct Related {
     std::vector<std::string> knows;
     std::vector<std::string> would_learn;
+};
+
+// One thing a person remembers of the stranger in long memory, as compact() kept it: a row of the
+// brain database's `memories`. README.md, "Short and long memory", says what each memory holds.
+struct Remembered {
+    std::string person;
+    std::string memory;    // "asked", "told", "did", "open", "said", "overheard", "last"
+    std::string subject;   // what it is about: a place id, a person uid, a quest id; empty for none
+    std::string act;       // what was done, by the contract's names
+    std::string about;     // what it concerns, by name as the speaker says it
+    int times = 0;
+    double first_day = 0.0;
+    double last_day = 0.0;
+    std::string words;     // the stranger's own words ("said"), or what a summary handed in kept of it ("last")
+    std::string source;    // "rules", or "given": from the outcomes handed to compact()
+    std::int64_t seq = 0;  // the order kept in: first kept, first
+};
+
+// What compact() did: every memory it wrote or brought up to date, what of the outcomes handed in it
+// refused and why, and how many exchanges of the log it cleared.
+struct Compacted {
+    std::vector<Remembered> kept;
+    std::vector<std::string> refused;
+    std::size_t cleared = 0;
 };
 
 // ---- a roster person's day --------------------------------------------------------------------
@@ -266,6 +301,8 @@ public:
         bool heard_truth = false;      // someone who knows them told the player what they are
         bool seen_unleashed = false;   // met a beast unleashed
         bool seen_second = false;      // met a fractured heart's second face
+        int days_met = 0;              // calendar days on which a conversation began
+        int works_finished = 0;        // the speaker's own work the player finished, ever (only heroes give work)
     };
     // Nullptr for someone the session holds nothing of: never spoken to, never dealt with, never
     // told the truth of.
@@ -376,6 +413,44 @@ public:
     // and for a statement that runs too long or answers too many rows.
     QueryResult query(std::string_view sql) const;
 
+    // ---- short and long memory ---------------------------------------------------------------------
+    //
+    // Everyone the player speaks to keeps a log of it (their short memory, `exchanges`): each
+    // exchange, when, the act, what came of it, what the reply named, and the words once the game
+    // hands them back; a bystander who overheard keeps the exchange they heard. compact() makes a
+    // person's log into long memory (`memories`): the outcomes, as people remember, and clears it.
+    // A packet's Recall facts draw on both, so nothing waits on a compaction. README.md, "Short
+    // and long memory".
+
+    // The words of the exchange just made, as the game showed them: the player's line and the reply
+    // -- after respond() its reply, after overhear() the reply of whoever joined in. The log of the
+    // one who answered keeps them, and so do the logs of those who overheard it. The director keeps
+    // the text and reads no meaning into it. Words for an exchange no log holds (the one spoken to
+    // was gone, or has been compacted since) are recorded and kept nowhere. Throws Error when
+    // nothing has been said yet, and for words that are not UTF-8 or longer than 4,000 bytes.
+    void words(const std::string& line, const std::string& reply);
+
+    // `person`'s conversation log made into long memory, and cleared, as a conversation is compacted
+    // into what matters of it: the only way a log becomes long memory, and nothing here calls it of
+    // itself. A conversation under way with them ends, as walking away ends one. By rules, from the
+    // log and the director's own state: what the stranger asked them, what they told the stranger,
+    // what the stranger did (took, finished, failed or gave up their work; thanked, insulted,
+    // apologised; talked them down), the stranger's answers to their questions word for word, whom
+    // they overheard the stranger talking with, the work of theirs the stranger holds, and what they
+    // last spoke of. A memory of what came up before is brought up to date, keeping when it first
+    // did: asked again, it counts once more; work taken and since finished is remembered finished.
+    // `outcomes`, when not empty, is a summary of the log written elsewhere, as JSON: {"said": [{"quote":
+    // "...", "about": "..."}], "last": "..."}. Its quotes stand in for the rules' (at most five,
+    // each the stranger's own words found word for word in the log); "last" is what they last spoke
+    // of in a sentence, kept beside the rules' own; a name either uses past a sentence's start must
+    // be in the log. What fails is refused, and said so. Recorded with the outcomes, so replay never
+    // needs what wrote them. Throws Error for a uid the world does not name and for outcomes that are not
+    // that JSON, and then changes nothing.
+    Compacted compact(const std::string& person, const std::string& outcomes);
+
+    // Every memory in `person`'s long memory, in the order kept.
+    std::vector<Remembered> memories(const std::string& person) const;
+
 private:
     void end_conversation(const std::string& speaker);
 
@@ -397,12 +472,14 @@ private:
     // How afraid `uid` is at `now`, resting at `resting`.
     int fear_now(const std::string& uid, int resting, double now) const;
     // The last exchange, for those who overheard it: who was spoken to, what the player did, what
-    // came of it, and whether the answer held nothing (a place or person unknown, no work).
+    // came of it, whether the answer held nothing (a place or person unknown, no work), and the
+    // news it carried (each event, at the state the one spoken to knows it by).
     struct Exchange {
         std::string speaker;
         DialogueAct act;
         Outcome outcome = Outcome::NotUnderstood;
         bool nothing = false;
+        std::vector<std::pair<std::string, std::string>> news;
     };
     std::optional<Exchange> last_;
     // respond(), for the player or for a bystander who joins (`joined`: not an input of its own,
@@ -442,14 +519,53 @@ private:
     void note_board();
     std::string make_event(const Event& event);
     void move_event(const std::string& id, const std::string& state, double day, const std::string& actor);
-    // `person` knows `event` at `state`, learned on `day`, `how` "there" or "word".
+    // `person` knows `event` at `state`, learned on `day`, `how` "there", "word" or "overheard".
     void learn(const std::string& person, const std::string& event, const std::string& state, double day, const std::string& how);
+    // `person` hears of `e` at the state it carries, `how`: they know it by that state now, and take
+    // the player better or worse for it when it happened where they live or to someone they are
+    // tied to.
+    void hear(const std::string& person, const Event& e, double day, const std::string& how);
     // Who the rules say word of an event has reached by now.
     std::vector<std::string> reached(const Event& event, double today) const;
     // What `speaker` has heard, as News facts, newest first, at most `most`: with `about` "player",
     // the events whose state they know the player brought about; with a person uid, the events
     // about that person; with `about` empty, the events at `node`.
     std::vector<Fact> news(const std::string& speaker, const std::string& about, std::optional<int> node, std::size_t most) const;
+
+    // ---- short and long memory ---------------------------------------------------------------------
+    // Rows made: each exchange logged and each memory kept is numbered in the order made, never
+    // twice, so a number the game holds names one row for good.
+    std::int64_t exchanges_made_ = 0;
+    std::int64_t memories_made_ = 0;
+    // The log's row of the exchange the next words() belongs to: zero before anything is said, below
+    // zero when nobody's log kept the exchange.
+    std::int64_t last_logged_ = 0;
+    // Writes the exchange just made into `person`'s log and returns its row: `packet` their reply.
+    std::int64_t log_exchange(const std::string& person, const Acquaintance& a, const DialogueAct& act, const FactPacket& packet,
+                              double day, bool joined);
+    // What an act concerns, by name as the speaker says it: its target's, else nothing.
+    std::string about_of(const DialogueAct& act, const FactPacket& packet) const;
+    // One exchange of a person's log, and what its reply named.
+    struct Named {
+        std::string kind, subject, about;
+    };
+    struct Logged {
+        std::int64_t id = 0;
+        int conversation = 0;  // 0 for an exchange overheard
+        double day = 0.0;
+        std::string act, target, about, outcome;
+        std::string heard_from;  // the one the stranger spoke to, for an exchange overheard
+        std::string line, reply;
+        std::vector<Named> named;
+    };
+    std::vector<Logged> log_of(const std::string& person) const;
+    // `person`'s long memory with `log` folded in by the rules: what compact() writes, and what a
+    // packet's Recall facts read before any compaction. `quotes`: keep the stranger's answers word
+    // for word; `last_before`: take what they last spoke of from conversations before this one (0
+    // for any).
+    std::vector<Remembered> remembered(const std::string& person, const std::vector<Logged>& log, bool quotes, int last_before) const;
+    // The Recall facts `speaker` has for this act: from their log and their long memory.
+    std::vector<Fact> recall(const std::string& speaker, const DialogueAct& act, double today) const;
 };
 
 // A session again: `start` with every input re-applied, in order.
