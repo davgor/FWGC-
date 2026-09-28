@@ -873,3 +873,43 @@ fallen_hero/NN | news | No speeches, just what I heard: {news}.
 # ---- fallen_hero/NN: remembering what the player said (contract version 12) ----
 fallen_hero/NN | recalled | I'd sooner hear a thing from you than about you, and you told me: {words}.
 fallen_hero/NN | recalled | You told me once: {words}; my name's not what it was, but my manners are.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+fallen_hero/NN | them_who | I'm {speaker}[ {known_as}], for what the name still buys. I {lost}[, and I still mean to {after}].
+fallen_hero/NN | them_who | {speaker}[ {known_as}]. I {feat}, and there was a time when that opened doors[; now I mean to {after}].
+fallen_hero/NN | them_who | {speaker}[ {known_as}]; ask anyone, and you'll hear more than I'd tell you[, but I mean to {after}]. [{home} is home; ]the rest is nobody's business but mine.
+fallen_hero/NN | them_past | I {lost}. Tell it how you like; it wasn't for want of trying on my part.
+fallen_hero/NN | them_past | I {done}; that's the short of it, and the short of it is all you'll get from me.
+fallen_hero/NN | them_after | I mean to {after}, and I'll do it whether anyone thanks me for it or not.[ The {danger} can make of that what they like.]
+fallen_hero/NN | them_after | [It's for {home}. ]I mean to {after}, and I'll not make a speech of why.
+fallen_hero/NN | them_need | Because I mean to {after}, and nobody holds a line on their own for long[; the {danger} don't care what I was].
+fallen_hero/NN | them_need | Because I'm done trying to be the whole song by myself. I mean to {after}[, and the {danger} will take all the hands I can get].
+fallen_hero/NN | them_stakes | The blame lands on me, as it always does[, and the {danger} have their way]. None of that stops me meaning to {after}.
+fallen_hero/NN | them_stakes | Then it fails[, and the {danger} have their way], and I go on meaning to {after}; I don't need it to end well to keep at it.
+fallen_hero/NN | them_here | I {standing}. Past that, I keep my own company, and it keeps me.
+fallen_hero/NN | them_here | I {done}, and I don't dine out on it; I keep my head down and my hands busy.
+fallen_hero/NN | them_long | It's been long enough that I'm nobody's news; I {standing}.
+fallen_hero/NN | them_long | I've no count of it, and no wish to keep one; I {standing}.
+fallen_hero/NN | them_ties | {ties}. I stand by those who stand by me, and I ask nothing of the rest.
+fallen_hero/NN | them_ties | {ties}; I'd sooner settle things face to face than hear about them second hand.
+fallen_hero/NN | them_plans | If I could? I'd still be here, meaning to {after}; I don't walk out on a thing half done.[ {away} can sing of me without my help.]
+fallen_hero/NN | them_plans | Go where? I mean to {after}, and I'll not run from it[; {home_here} is home, and I'll not give anyone the satisfaction].
+fallen_hero/NN | them_secret | That's mine; I've little enough left that is.
+fallen_hero/NN | them_secret | You want the part nobody sings? You'll not get it from me.
+fallen_hero/NN | acknowledged_hardship | Aye, I'm sorry for it. I know what it is to be down, and I'll not pretend the getting up is quick.
+fallen_hero/NN | acknowledged_grief | Aye, I'm sorry. Remember them as they were, not how it ended.
+fallen_hero/NN | acknowledged_deed | Is that so? Keep at it; what you can do outlasts whatever they call you.
+fallen_hero/NN | acknowledged_plan | Right; go on, then, and don't let anyone tell you how it ends before it does.
+fallen_hero/NN | acknowledged_kin | Well, that's more than any name ever gave me, and I'd hold on to it.
+fallen_hero/NN | acknowledged_hardship_work | Ah, and in my service; that's on me, and I don't say that lightly.
+fallen_hero/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and sorrier that my work had a hand in it. I'll not forget it, whatever else I forget.
+fallen_hero/NN | acknowledged_deed_work | Good; the work wants what you can do, not what anyone sings about you.
+fallen_hero/NN | greeted_finished_beside | Good to see you. That work had both our hands in it, and it's the first thing in a long while I'd gladly put my name to.
+fallen_hero/NN | greeted_finished_beside | Well met again. I was there beside you, and that's one nobody can say I lost.
+fallen_hero/NN | small_talk_work_done_beside | You were there; you know it as well as I do, and better than any song would tell it. It was hard, and we did it.
+fallen_hero/NN | small_talk_work_done | I wasn't there, so I'll hear it from you, and I'll believe you over any song they make of it.
+fallen_hero/NN | small_talk_since_work | It's been better since, and I've had few enough things go right to know the difference. Whatever else goes wrong, that one held.
+fallen_hero/NN | thanked_work | No need; save your thanks until it's over, and see if you still mean them.
+fallen_hero/NN | offended_complaint | Hold your tongue; I never dressed the work up, and I'll not be blamed for what it turned out to be.
+fallen_hero/NN | unwronged_state | Nothing to forgive; nobody's at their best all the time, and I'd know.
+fallen_hero/NN | greeted_who | I'm {speaker}, {post} of {place}; whatever else you've heard of me, that's what I am now.

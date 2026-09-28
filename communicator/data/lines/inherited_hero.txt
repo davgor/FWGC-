@@ -404,3 +404,43 @@ inherited_hero/NN | news | The last I heard, {news}.
 # ---- inherited_hero/NN: remembering what the player said (contract version 12) ----
 inherited_hero/NN | recalled | My aim was handed to me, but what you told me I came by myself: {words}.
 inherited_hero/NN | recalled | You were telling me once: {words}; I listened closer than I looked.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+inherited_hero/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}, and I mean to {after}; that aim was handed down to me, and I keep it where it was set.
+inherited_hero/NN | them_who | {speaker}[ {known_as}]. I {lost}, and I've never stopped reckoning what it cost; I mean to {after}.
+inherited_hero/NN | them_who | The name's {speaker}[ {known_as}], and my home's {home}.[ I mean to {after}; I didn't pick that aim, but it's mine to finish.]
+inherited_hero/NN | them_who | I'm {speaker}[ {known_as}], {post} here[, and I mean to {after}; that aim came down to me]. I deal straight, and I don't deal at a loss.
+inherited_hero/NN | them_past | I {done}, and I'll not make more of it than it is; a straight count is the only kind I keep.
+inherited_hero/NN | them_past | I {lost}. I've counted that loss more than once, and it comes out the same every time.
+inherited_hero/NN | them_after | I mean to {after}; it's for {home}, and it was the aim long before it was mine.
+inherited_hero/NN | them_after | What I'm after was set before it reached me, and I don't trim it: I mean to {after}[, and the {danger} don't change that].
+inherited_hero/NN | them_need | Because the {danger} cost more than one pair of hands can cover, and I mean to {after}.
+inherited_hero/NN | them_need | I mean to {after}, and I've done the sums: alone, I don't come out ahead.[ Not with the {danger} to reckon with.]
+inherited_hero/NN | them_stakes | Then the {danger} have their way, and everything spent on it is spent for nothing; I'll still mean to {after}.
+inherited_hero/NN | them_stakes | Then I take the loss, start the count again, and keep on: I mean to {after}[, the {danger} or no].
+inherited_hero/NN | them_here | I {standing}; whatever time that leaves me goes on the aim, and on what it's costing me.
+inherited_hero/NN | them_here | It all comes back to one thing: I {done}. The rest is seeing that it's worth what it takes.
+inherited_hero/NN | them_long | That's the one count I've let slide; all I'll tell you is that I {standing}.
+inherited_hero/NN | them_long | As long as it's taken to learn what staying costs; I {standing}.
+inherited_hero/NN | them_ties | {ties}. I keep a running count with anyone I'd name, and it's straight both ways.
+inherited_hero/NN | them_ties | Here's the straight of it: {ties}. I deal with them on what they're worth to me, nothing more.
+inherited_hero/NN | them_plans | {home_here} is home, and leaving it wouldn't be worth it while I mean to {after}.
+inherited_hero/NN | them_plans | When the aim's met, I'll see what's left[, maybe enough to go home to {away}]; until then, I mean to {after}.
+inherited_hero/NN | them_secret | That's not on the table, and no trade you could offer would put it there.
+inherited_hero/NN | them_secret | Some entries on my tally aren't for showing, and that's one of them.
+inherited_hero/NN | acknowledged_hardship | Ah, that's a hard hand to be dealt; I'd not wish it on anyone.
+inherited_hero/NN | acknowledged_grief | Ah, I'm sorry for your loss; some things can't be counted, and that's one.
+inherited_hero/NN | acknowledged_deed | Is that so? I'll remember it; that sort of thing doesn't come cheap.
+inherited_hero/NN | acknowledged_plan | Right; count the cost before you go. Is it your own aim, or one you were handed?
+inherited_hero/NN | acknowledged_kin | Aye; people like that are worth more than anything else you carry, so keep them close.
+inherited_hero/NN | acknowledged_hardship_work | Ah, then that's a cost I put on you, and I'll not pretend otherwise.
+inherited_hero/NN | acknowledged_grief_work | Ah, I'm sorry; that's a loss I had a hand in, and it's mine to carry as much as yours.
+inherited_hero/NN | acknowledged_deed_work | Good; that's worth something to me, and it goes down in your favour.
+inherited_hero/NN | greeted_finished_beside | Welcome back. You put your back into it right beside me, and I counted every bit of it in your favour.
+inherited_hero/NN | small_talk_work_done_beside | It took more out of us both than I'd bargained for, and you saw every bit of it. Still, it came out worth the spending.
+inherited_hero/NN | small_talk_work_done | I wasn't there, so you'd know the cost of it better than me. From here, it looks worth what it took.
+inherited_hero/NN | small_talk_since_work | That work's off the tally, and I've one less thing to carry for it. I call that a good trade.
+inherited_hero/NN | thanked_work | No need; a deal's thanked when it's closed, not before.
+inherited_hero/NN | offended_complaint | There's no need for that; I gave you all I knew of it, and hiding any of it would have cost me as much as you.
+inherited_hero/NN | unwronged_state | There's nothing to forgive. How you are is your own business, and it takes nothing from me.
+inherited_hero/NN | greeted_who | {speaker}, {post} here, carrying an aim I was handed and counting what it costs.

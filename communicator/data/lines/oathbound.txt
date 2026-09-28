@@ -991,3 +991,45 @@ oathbound/NN | news | This much has reached me, no more and no less: {news}.
 # ---- oathbound/NN: remembering what the player said (contract version 12) ----
 oathbound/NN | recalled | I'm a steady sort, which is why something you said is with me yet: {words}.
 oathbound/NN | recalled | Something of yours I heard once: {words}; most folk get a nod from me, and you got an ear.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+oathbound/NN | them_who | {speaker}[ {known_as}], sworn to {after}. I {lost}, and I don't unswear.
+oathbound/NN | them_who | {speaker}[ {known_as}]. {home} is where I'm from, and my word is where I stand: I mean to {after}.
+oathbound/NN | them_who | My name's {speaker}[ {known_as}]. I {feat}, and I mean to {after}; I've said so, and that settles it.
+oathbound/NN | them_who | I'm {speaker}[ {known_as}], and I've sworn to {after}; that's the whole of me you need.
+oathbound/NN | them_past | I {lost}. I keep count of everything, and that's the one sum I can't make come right.
+oathbound/NN | them_past | I {done}; whatever I've put my hand to, I put my word to first.
+oathbound/NN | them_after | I mean to {after}, and I've sworn it[, the {danger} or no]; a sworn thing isn't a wish, it's a debt.
+oathbound/NN | them_after | My oath is to {after}, and I'll not read it loosely to suit anyone, least of all myself, nor to spare myself the {danger}.
+oathbound/NN | them_need | Because owing you costs me less than breaking my word: I mean to {after}[, and the {danger} don't care how willing I am].
+oathbound/NN | them_need | With the {danger} to reckon with, I could go at it alone and break my word, or ask and keep it; I mean to {after}, so I ask.
+oathbound/NN | them_stakes | Then the {danger} have their way, and I owe the more for it; I'll still {after}, or die owing.
+oathbound/NN | them_stakes | Nothing that frees me: I mean to {after}[, whatever the {danger} do], and a failure doesn't loosen a word once given.
+oathbound/NN | them_here | I {standing}; what time that leaves me is already promised elsewhere.
+oathbound/NN | them_here | I {done}, and the rest of my time goes on keeping my accounts square; I've never met an idle hour worth what it costs.
+oathbound/NN | them_long | As long as it's taken, and I'll stay as long as it takes; I {standing}.
+oathbound/NN | them_long | Since before you'd have thought to ask; I {standing}, and a sworn thing doesn't wear out.
+oathbound/NN | them_long | I've not kept count of that, and I keep count of nearly everything.
+oathbound/NN | them_ties | {ties}. Where I've given my word, it holds, and where I haven't, I keep watch.
+oathbound/NN | them_ties | {ties}; whatever they are to me, the account between us stays straight.
+oathbound/NN | them_plans | My home is {away}, and it can wait; a promise can't. I mean to {after}, and I'll go when it's kept, not before.
+oathbound/NN | them_plans | I'd not leave {home_here} even if I could; it's home, and I mean to {after}, and I don't walk away from a sworn thing.
+oathbound/NN | them_plans | What comes next is what I swore to: I mean to {after}[, and the {danger} can make of that what they like].
+oathbound/NN | them_secret | You'll have my word on a great many things, but not on that; that stays with me.
+oathbound/NN | them_secret | Some of what I carry isn't for telling, and I keep a silence the way I keep a promise.
+oathbound/NN | acknowledged_hardship | Ah, I'm sorry for it. Rest where you can; nobody's owed more of you than you've got.
+oathbound/NN | acknowledged_grief | Ah, I'm sorry. That's a loss no ledger squares, and I'll not insult it by trying.
+oathbound/NN | acknowledged_deed | Is that so? Then you've something to your name that nobody can take back from you.
+oathbound/NN | acknowledged_plan | Right. Is that a promise to yourself, or only a plan?
+oathbound/NN | acknowledged_kin | Aye, and good. A person should know what they're bound to, and who.
+oathbound/NN | acknowledged_hardship_work | Ah, that came of my work, so it goes on my side of the account, not yours; I'm sorry for it.
+oathbound/NN | acknowledged_grief_work | Ah, I'm sorry; a death on my work is a debt I'll carry as long as I carry anything. Tell me their name, and I'll keep it.
+oathbound/NN | acknowledged_deed_work | Good; I'll weigh that when I weigh you, and I weigh fairly.
+oathbound/NN | greeted_finished_beside | Well met again. You stood to it beside me, and I saw every bit of it; I'll vouch for you anywhere.
+oathbound/NN | small_talk_work_done_beside | You were at my side for it; I've nothing to tell you that you didn't see. We both gave our word to it, and we both kept it.
+oathbound/NN | small_talk_work_done | You were there and I wasn't, so you'd tell it better than I could. I know it's done, and done is what I asked.
+oathbound/NN | small_talk_since_work | It sits easier with me, having that one squared; past that, I'll swear to nothing I haven't seen.
+oathbound/NN | thanked_work | Think nothing of it; I'd sooner have a promise kept than thanks said.
+oathbound/NN | offended_complaint | Careful; I gave you the work as I had it, and if it cost more than either of us reckoned, part of that cost is mine.
+oathbound/NN | unwronged_state | Whatever for? How you are is no debt of yours to me, and I'll not keep count of it.
+oathbound/NN | greeted_who | {speaker}, {post} of {place}, and my word comes with the name.

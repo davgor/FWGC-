@@ -875,3 +875,43 @@ deceiver/NN | news | I only know what's said, and what's said is that {news}.
 # ---- deceiver/NN: remembering what the player said (contract version 12) ----
 deceiver/NN | recalled | All business aside, you told me: {words}.
 deceiver/NN | recalled | You once said to me: {words}; I talk plenty, but I listen as well.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+deceiver/NN | them_who | I'm {speaker}[ {known_as}]. I {lost}, and I say it plainly, since dressing it up fools nobody.[ I mean to {after}.]
+deceiver/NN | them_who | They know me as {speaker}[ {known_as}]. I {feat}; that much is on record, and you're welcome to check it.[ I mean to {after}.]
+deceiver/NN | them_who | {speaker}[ {known_as}].[ I mean to {after}.] That's the part of me that concerns you[; the rest stays in {home}].
+deceiver/NN | them_past | I {lost}. Ask me how and you'll get the short version; the long one I keep.
+deceiver/NN | them_past | I {done}. There's more than one way to tell a thing like that, and that's mine.
+deceiver/NN | them_after | I mean to {after}, and that's no secret; I'd be a fool to make one of it.[ The {danger} stand in the way, and that's no secret either.]
+deceiver/NN | them_after | [It's for {home}, if you need a reason. ]I mean to {after}; the rest is my own affair.
+deceiver/NN | them_need | Because the right hands make all the difference, and yours look right to me. I mean to {after}[, and the {danger} won't make it easy].
+deceiver/NN | them_need | I mean to {after}, and I'd rather owe someone a favour than try it alone[ with the {danger} about].
+deceiver/NN | them_stakes | If it fails, [the {danger} have their way, and ]I find another way to {after}; there's always another way.
+deceiver/NN | them_stakes | If it fails? Then I misjudged you, which I rarely do[, and the {danger} have their way]; I'd still mean to {after}.
+deceiver/NN | them_here | I {standing}. Beyond that, my time is my own, and I keep it that way.
+deceiver/NN | them_here | I {done}; that's what folk know of me, and it's all they need to.
+deceiver/NN | them_long | It's been long enough to know who says what, and why; I {standing}.
+deceiver/NN | them_long | I couldn't give you a figure, and I'd not trust anyone who could; I {standing}.
+deceiver/NN | them_ties | {ties}. I keep everyone at the distance that suits me.
+deceiver/NN | them_ties | {ties}; I take everyone at their word, and check it all the same.
+deceiver/NN | them_plans | If I could? [Perhaps {away}, perhaps not. ]I don't lay my plans out for anyone, but I'll not leave while I mean to {after}.
+deceiver/NN | them_plans | [{home_here} is home. ]My plans change with the weather; the one that doesn't is that I mean to {after}.
+deceiver/NN | them_secret | Ask me anything else; that one I answer for nobody.
+deceiver/NN | them_secret | If I told you, it wouldn't be mine any more; I'm careful with what's mine.
+deceiver/NN | acknowledged_hardship | Ah, hard luck; I'd not wish that on anyone, and I mean it.
+deceiver/NN | acknowledged_grief | Ah, I'm sorry. There's no clever word that mends a thing like that, so I'll not reach for one.
+deceiver/NN | acknowledged_deed | Indeed? That's a useful thing to have, and a useful thing to know about you.
+deceiver/NN | acknowledged_plan | Right; I'll not pry, and a plan keeps better when fewer folk know it.
+deceiver/NN | acknowledged_kin | Ah, I'll keep that to myself, and I'd mind who else hears it, if I were you.
+deceiver/NN | acknowledged_hardship_work | Ah, then that's mine to answer for, and I'll not wriggle out of it.
+deceiver/NN | acknowledged_grief_work | Ah, I'm sorry; that came of my work, and no story I could tell would make it less true.
+deceiver/NN | acknowledged_deed_work | Good; that settles a question I'd not have asked aloud.
+deceiver/NN | greeted_finished_beside | Good to see you. I stood beside you for that one, so I needn't take anyone's word for how you did.
+deceiver/NN | greeted_finished_beside | Back again. We did that together, you and I, and I'll tell it straight to anyone who asks.
+deceiver/NN | small_talk_work_done_beside | You were there, so I'll not polish it: it was hard, and we won through. I'd not put it so plainly to anyone who wasn't.
+deceiver/NN | small_talk_work_done | I wasn't there, so your word's all I have on how it went, and I'm inclined to take it. That's rarer from me than you'd think.
+deceiver/NN | small_talk_since_work | It's held since, and I've had no cause to complain; from me, that's high praise.
+deceiver/NN | thanked_work | Think nothing of it; thank me when you've seen how it all comes out.
+deceiver/NN | offended_complaint | Mind your manners; I told you what you needed to know, and not a word of it was false.
+deceiver/NN | unwronged_state | Whatever for? Nobody owes me an apology for how they're keeping; I'd sooner have it honest than hidden.
+deceiver/NN | greeted_who | I'm {speaker}, {post} of {place}, for what that's worth to you.

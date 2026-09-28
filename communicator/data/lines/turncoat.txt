@@ -519,3 +519,42 @@ turncoat/NN | news | I'm told {news}; I'll believe it till I hear different.
 # ---- turncoat/NN: remembering what the player said (contract version 12) ----
 turncoat/NN | recalled | I've a level head, and what you told me sits in it: {words}.
 turncoat/NN | recalled | I've still got what I was told by you: {words}; figures stay with me, and so do words.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+turncoat/NN | them_who | {speaker}[ {known_as}]. I {lost}, and I didn't go down with it[; these days, I mean to {after}].
+turncoat/NN | them_who | Out of {home}, and on nobody's side but the one that makes sense: that's {speaker}[ {known_as}][, and right now sense says to {after}].
+turncoat/NN | them_past | Here's the reckoning: I {done}[, and I {lost}]. I'm still ahead of it, which is the point.
+turncoat/NN | them_past | I {lost}, and I wrote it off; mourning never balanced anything.[ For the rest, I {done}.]
+turncoat/NN | them_after | The sums favour it, so I mean to {after}[, and the {danger} are only a cost to be counted].
+turncoat/NN | them_after | It's not sentiment[, not even for {home}]; I back what adds up, and this does: I mean to {after}.
+turncoat/NN | them_need | On my own, I'd be the only one the {danger} have to beat, and that's poor arithmetic if I'm to {after}.
+turncoat/NN | them_need | Nobody sensible stands alone[, the {danger} being what they are], and I'm nothing if not sensible.
+turncoat/NN | them_stakes | Then the {danger} have their way, and I take the loss and start the sums again; one way or another, I'll {after}.
+turncoat/NN | them_stakes | If it fails? Then I cut my losses and try another way; I don't die for a losing side, but I don't give up the game either.
+turncoat/NN | them_here | I {standing}, and the rest of the day I spend working out where everyone stands.
+turncoat/NN | them_here | I keep my accounts straight and my options open, and that keeps me busy enough.
+turncoat/NN | them_long | I've watched this place long enough to know who's winning, and that's all the time I ever need; I {standing}.
+turncoat/NN | them_long | I've lost count, and I never lose count of anything.
+turncoat/NN | them_ties | As the columns read today: {ties}. I go over them every morning, the way other people pray.
+turncoat/NN | them_ties | {ties}. I watch which way they lean, and I lean first.
+turncoat/NN | them_plans | The day staying stops adding up, I'm gone, and not a day before[; for now, I mean to {after}].
+turncoat/NN | them_plans | {away}, if I could, and I'd swear it was good sense and not homesickness.
+turncoat/NN | them_plans | {home_here}'s the one account I don't close, whatever else I trade.
+turncoat/NN | them_secret | That's not for sale, and precious little of me isn't.
+turncoat/NN | them_secret | Everyone keeps something off the books, and you've not earned a look at mine.
+turncoat/NN | acknowledged_hardship | Ah. Look after yourself first, then; nobody else will do it for you, and you're worth the trouble.
+turncoat/NN | acknowledged_grief | Ah. Some losses nothing balances, and that's one; I'm sorry.
+turncoat/NN | acknowledged_deed | Is that so? Then you're worth more than you look, and I'll remember it.
+turncoat/NN | acknowledged_plan | Right. Keep a way out of it, whatever it is; plans that can't bend break.
+turncoat/NN | acknowledged_kin | Ah, your own people. Hold on to them; sides come and go, but they're yours.
+turncoat/NN | acknowledged_hardship_work | Ah, that one's on my ledger, not yours; I don't leave debts unsettled.
+turncoat/NN | acknowledged_grief_work | Ah, and it came of my work; I'm sorry for your loss. I've walked away from a good deal in my time, but I'll not walk away from that.
+turncoat/NN | acknowledged_deed_work | Good. That's useful to me right now, and it goes in your column.
+turncoat/NN | greeted_finished_beside | Well met again. We came out ahead, and I remember exactly who was standing next to me.
+turncoat/NN | small_talk_work_done_beside | You were there, so I'll not dress it up: it cost what it cost, and it was worth it. I'd have you on my side again, and I don't say that lightly.
+turncoat/NN | small_talk_work_done | I only know how it came out: on the winning side, which is the side I like. The rest happened where I couldn't see it, so it's yours to tell.
+turncoat/NN | small_talk_since_work | By my reckoning, it's gone well since that work was done. I've had no cause to change my mind about you.
+turncoat/NN | thanked_work | No need; I picked you on the arithmetic, so don't make a liar of it.
+turncoat/NN | offended_complaint | Careful; nobody knows the whole of a thing before it's done, me included, and I never pretended otherwise.
+turncoat/NN | unwronged_state | Nothing to forgive; you don't owe me a good mood. Nobody's at their best every day, me least of all.
+turncoat/NN | greeted_who | I'm {speaker}, {post} here, for as long as that makes sense.

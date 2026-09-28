@@ -637,3 +637,43 @@ hermit_sage/NN | news | I've heard {news}; what it means is another question.
 # ---- hermit_sage/NN: remembering what the player said (contract version 12) ----
 hermit_sage/NN | recalled | I've the gist of what you told me: {words}.
 hermit_sage/NN | recalled | You brought me a telling once: {words}; I've let those words settle, as I let most things.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+hermit_sage/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}, and I've told you the useful part of it.[ I mean to {after}.]
+hermit_sage/NN | them_who | {speaker}[ {known_as}]. I {lost}; what that taught me, I keep to myself.[ I mean to {after}.]
+hermit_sage/NN | them_who | {speaker}[ {known_as}]; I don't waste words on myself.[ I mean to {after}; the why is my own affair.][ {home} is home, when I'm anywhere at all.]
+hermit_sage/NN | them_past | I {done}. I learned more from that than from all the questions I've been asked since.
+hermit_sage/NN | them_past | I {lost}. It's a long sum, and I've done it more than once; it comes out the same every time.
+hermit_sage/NN | them_after | I mean to {after}; it's worth doing, and I don't say that of much.[ The {danger} would disagree, and they're wrong.]
+hermit_sage/NN | them_after | I mean to {after}. I need very little, but I need that.[ {home} is the reason, and reason enough.]
+hermit_sage/NN | them_need | Because knowing a thing and doing it are different sums. I mean to {after}, and knowing isn't enough.[ The {danger} don't care what I know.]
+hermit_sage/NN | them_need | I've reckoned the odds of doing it alone, and I don't like them. I mean to {after}.[ Not with the {danger} where they are.]
+hermit_sage/NN | them_stakes | The {danger} have their way, and that's the whole of it; I'll not add to it. I'd go on meaning to {after}, regardless.
+hermit_sage/NN | them_stakes | If it fails, I find where I went wrong and go again; one failure settles nothing. I mean to {after}.[ The {danger} don't get the last word on it.]
+hermit_sage/NN | them_here | I {standing}. Past that, I keep my own counsel, and it keeps me busy enough.
+hermit_sage/NN | them_here | I {standing}, and I think; the second takes more of me than the first.
+hermit_sage/NN | them_long | I couldn't give you a figure, and I'll not give you a guess. I {standing}.
+hermit_sage/NN | them_long | Past the point where the place has anything left to teach me; I {standing}.
+hermit_sage/NN | them_ties | {ties}. I weigh them by what they do, not by what they say.
+hermit_sage/NN | them_ties | Here's the whole of it: {ties}. I keep company sparingly, and I keep it honestly.
+hermit_sage/NN | them_plans | {away} would see me again if the reckoning came out that way; so far it hasn't.[ First I mean to {after}.]
+hermit_sage/NN | them_plans | I've everything I need in {home_here}, and moving would cost more than it gains.[ I mean to {after}; the rest can come to me.]
+hermit_sage/NN | them_secret | That's the half of the answer I keep, and I keep it for good reason.
+hermit_sage/NN | them_secret | Some questions cost more to answer than they're worth, and that's one of them.
+hermit_sage/NN | acknowledged_hardship | I see, and I'm sorry for it. I've little comfort to give, but any question you bring me, I'll answer as well as I can.
+hermit_sage/NN | acknowledged_grief | Ah, I'm sorry. All I know has never once made that any easier.
+hermit_sage/NN | acknowledged_deed | Is that so? Then you know something, which is rarer than people think.
+hermit_sage/NN | acknowledged_plan | Right. Go over it once more first; which part are you least sure of?
+hermit_sage/NN | acknowledged_kin | Aye, that's worth more than anything I could teach you. Hold on to it.
+hermit_sage/NN | acknowledged_hardship_work | Ah, and on my errand; that's a cost I didn't reckon right, and I'm sorry for it.
+hermit_sage/NN | acknowledged_grief_work | Ah, I'm sorry. It came of my work, and I'll carry that into every judgement I make from now on.
+hermit_sage/NN | acknowledged_deed_work | Is that so? Then you may be worth the work, and I don't say that lightly.
+hermit_sage/NN | greeted_finished_beside | Back again. I stood with you through the whole of it, and I've no corrections to make.
+hermit_sage/NN | small_talk_work_done_beside | I was at your side for all of it, and I've gone over every step since. You did your part as well as I did mine.
+hermit_sage/NN | small_talk_work_done | It's done, and done properly, by all I can tell. I wasn't there to see it, so I'll not add details I don't have.
+hermit_sage/NN | small_talk_since_work | Since that work was done, I've had room to think, which is all I ask of anything.
+hermit_sage/NN | thanked_work | No need; I gave it to you because the sum came out in your favour.
+hermit_sage/NN | offended_complaint | Watch your tongue; I warn of what's worth warning of, and a warning about everything would be no warning at all.
+hermit_sage/NN | unwronged_state | Whatever for? To be worn thin is a condition, not an offence.
+hermit_sage/NN | greeted_who | {speaker}, {post} here; the rest of me you'd have to earn.
+hermit_sage/NN | them_plans | I plan no further than the reckoning allows, and it allows this much: I {standing}[, and I mean to {after}].

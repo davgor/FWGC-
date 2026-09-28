@@ -873,3 +873,43 @@ trickster/NN | news | I've heard {news}; for once, I'm not making it up.
 # ---- trickster/NN: remembering what the player said (contract version 12) ----
 trickster/NN | recalled | My mouth runs most of the day, but yours got a word in: {words}.
 trickster/NN | recalled | Some of what you told me went in: {words}; I'm quicker on the uptake than I let on.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+trickster/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}, and that's one story about me that needs no embroidery.
+trickster/NN | them_who | I'm {speaker}[ {known_as}], and every word of that is true, which is more than I usually offer. I'll even tell you {home} is home, and that's true as well.
+trickster/NN | them_who | {speaker}[ {known_as}], at your service, within reason. I {lost}; that's the one thing I don't joke about.
+trickster/NN | them_past | I {lost}. Some losses aren't worth the theatre, and that's one of them.
+trickster/NN | them_past | I {done}, and you're welcome to check. The rest of my past is my stock in trade, and I don't give samples.
+trickster/NN | them_after | I mean to {after}. As for {home}, it's home, and I've a soft spot for it that I'll deny if you repeat it.
+trickster/NN | them_after | I mean to {after}[, whatever the {danger} think of it]. Why? Because nobody expects it of me, and I do love being unexpected.
+trickster/NN | them_need | The {danger} can't be talked round, and talking round is what I do best; I mean to {after}, so that's where you come in.
+trickster/NN | them_need | Even the best plan needs a second pair of hands[, with the {danger} about]. I mean to {after}, and I'd rather share the credit than lose the game.
+trickster/NN | them_stakes | Why, the {danger} have their way, and I go looking for another angle; I always find one, and I mean to {after}.
+trickster/NN | them_stakes | Then I've lost a bet, and I don't lose many. I'll still mean to {after}[, and the {danger} will have me to deal with].
+trickster/NN | them_here | I {standing}, officially; unofficially, I listen, and you'd be amazed what people say near someone who looks busy.
+trickster/NN | them_here | I {standing}, and nobody suspects half of what I do besides, which is how I like it.
+trickster/NN | them_long | Not so long that anyone's counting, and I'd rather keep it that way; I {standing}.
+trickster/NN | them_long | Ask me that on a day I'm feeling honest.[ For now, I {standing}, and that much is true.]
+trickster/NN | them_ties | {ties}. I keep them guessing; it's how I show I care.
+trickster/NN | them_ties | Here's the cast: {ties}. I trust them exactly as far as it suits me, which is further than you'd think.
+trickster/NN | them_plans | Some night I'll slip off home to {away} and let everyone wonder where I'd gone. First, though, I mean to {after}, and I never walk out on a job half done.
+trickster/NN | them_plans | And miss the look on everyone's face when I {after}? {home_here} is home; I'm staying for the show.
+trickster/NN | them_plans | What comes next? I {standing}, I mean to {after}, and the rest I'll make up as I go; it's worked so far.
+trickster/NN | them_secret | I've plenty, and not one of them is for sale today.
+trickster/NN | them_secret | Now that would be telling, and I'd be a poor sort of me if I told. You'll not get it by asking nicely.
+trickster/NN | acknowledged_hardship | Ah, that's a rotten hand to be dealt, and I'm sorry for it, truly. Rest; I'll not try to sell you anything till you're back on your feet.
+trickster/NN | acknowledged_grief | Ah. I'm sorry for your loss, truly, and there's no act in that; some things even I don't play with.
+trickster/NN | acknowledged_deed | Is that so? Then you can do what I can only talk about, and I'll not pretend I'm not impressed.
+trickster/NN | acknowledged_plan | Right, and if anyone asks what you're up to, I never heard a word.
+trickster/NN | acknowledged_kin | Aye, people of your own are worth more than any bargain. Don't tell anyone I said so.
+trickster/NN | acknowledged_hardship_work | Ah, then I owe you, and for once I'll not try to talk my way out of it. I'm sorry.
+trickster/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and it was my work that cost it. There's no clever answer for that, and I'll not pretend to have one.
+trickster/NN | acknowledged_deed_work | Good; I was hoping someone like that would walk in, and here you are.
+trickster/NN | greeted_finished_beside | Well met again. We pulled it off between us, and I've a story about it that's only half exaggerated.
+trickster/NN | small_talk_work_done_beside | You were there, so I can't even improve on it for you. It's done, and we did it, and I'll be telling it for a good while.
+trickster/NN | small_talk_work_done | It's done, and I missed the whole show, more's the pity. Tell it me straight, and I'll only embroider it a little when I pass it on.
+trickster/NN | small_talk_since_work | I've had less need to lie since, which is almost restful. I'll be back to my old self soon enough.
+trickster/NN | thanked_work | My pleasure, though thanks before the deal's closed make me nervous; it's usually me saying them.
+trickster/NN | offended_complaint | Careful; if I'd known more, you'd have had it, since there's no profit for me in you falling on your face.
+trickster/NN | unwronged_state | What for? I've seen people at their worst, and you're nowhere near it, so don't give it another thought.
+trickster/NN | greeted_who | {speaker}, {post} here, and I'll let you decide whether that's good news.

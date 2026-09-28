@@ -873,3 +873,42 @@ mastermind/NN | news | I've heard {news}; I'll plan as though it's true.
 # ---- mastermind/NN: remembering what the player said (contract version 12) ----
 mastermind/NN | recalled | My thoughts are in good order, with what you told me in its place: {words}.
 mastermind/NN | recalled | What I heard from you: {words}.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+mastermind/NN | them_who | I'm {speaker}[ {known_as}]. I {lost}, and I've kept a second plan for everything since; the first is to {after}.
+mastermind/NN | them_who | I'm {speaker}[ {known_as}]. I've thought my way to the end of most things and a little past it[, and I mean to {after}].[ I always know my way back to {home}, wherever a plan takes me.]
+mastermind/NN | them_past | I {lost}. I've drawn what lessons there were to draw, and I keep them where I keep my plans, out of sight.
+mastermind/NN | them_past | I {done}; that's the part anyone could see. The moves behind it I keep to myself.
+mastermind/NN | them_after | I mean to {after}. I've a second road to it if the first one closes[, and a third if the {danger} close that].
+mastermind/NN | them_after | I mean to {after}; everything else I do is a move toward that, whether it looks like one or not.[ {home} is the why of it; the how stays with me.]
+mastermind/NN | them_need | Because a plan that rests on one pair of hands has no fallback, and I don't make plans without one. I mean to {after}[, and the {danger} are the reason I want more than one way to it].
+mastermind/NN | them_need | On my own? I've worked out how that ends, and I'd rather it ended otherwise; I mean to {after}.[ The {danger} are the part of that sum I can't carry by myself.]
+mastermind/NN | them_stakes | I planned for failing before I began; whichever way it goes, I mean to {after}.[ The {danger} are in every plan I make.]
+mastermind/NN | them_stakes | If it fails, I learn which part of the plan was wrong, and the {danger} have their way only until the next one. I still mean to {after}.
+mastermind/NN | them_here | I {standing}; the rest of my time goes to thinking a few moves further on than anyone around me.
+mastermind/NN | them_here | I {done}, and whenever I'm free, I walk ground I might need one day and learn where every door leads.
+mastermind/NN | them_long | Enough time to have a plan for most of what this place can throw at me; I {standing}.
+mastermind/NN | them_long | It's been longer than any plan I made for it; I {standing}.
+mastermind/NN | them_ties | {ties}. I study that as closely as I'd study a map, and for the same reason.
+mastermind/NN | them_ties | {ties}. Whoever stands where, it all goes in the reckoning, and I weigh it again whenever anything moves.
+mastermind/NN | them_plans | I {standing}, and the plan needs me where I stand while I mean to {after}.[ What comes after is worked out already, and {away} is in it.]
+mastermind/NN | them_plans | {home_here} is my home, and every plan needs ground to fall back on; I'll not leave mine[, and from here I mean to {after}].
+mastermind/NN | them_secret | That sits behind my plans, and nobody sees behind my plans, not even the parts that don't matter.
+mastermind/NN | them_secret | I'd tell you, if telling you were part of the plan. It isn't.
+mastermind/NN | acknowledged_hardship | Ah, that's hard, and I'm sorry. When you're ready to work out what comes next, I'm better at that than most.
+mastermind/NN | acknowledged_grief | Ah, I'm sorry for your loss. There's no planning for that, whatever anyone tells you.
+mastermind/NN | acknowledged_deed | Is that so? Then you're worth more to a plan than you might think.
+mastermind/NN | acknowledged_plan | Right; have a fallback ready, and you'll see it through one way or the other.
+mastermind/NN | acknowledged_kin | Aye, keep them close; the people who know you best see the moves you can't.
+mastermind/NN | acknowledged_hardship_work | Ah, and in my work; I should have weighed that cost heavier than I did. I'm sorry for it.
+mastermind/NN | acknowledged_grief_work | Ah, and in my work; I'm sorry for your loss. No plan of mine was worth that, and I'll not pretend otherwise.
+mastermind/NN | acknowledged_deed_work | Good; that's the very thing the plan was short of.
+mastermind/NN | greeted_finished_beside | Good to see you. I planned that work, and you made the plan look better than it was, working beside me.
+mastermind/NN | greeted_finished_beside | Back again. I last saw you {since}, and I've planned with you in mind ever since we stood side by side.
+mastermind/NN | small_talk_work_done_beside | You were there with me; you saw it go as near to plan as anything does. I'd have you at my side again without a second thought.
+mastermind/NN | small_talk_work_done | It came off, which is what I planned for; how it looked out there, you'll have to tell me. Did it cost you more than you reckoned?
+mastermind/NN | small_talk_since_work | My second plans have sat gathering dust since that work was done, which is the best thing that can happen to a second plan.
+mastermind/NN | thanked_work | No need; I look after whoever carries part of my plan, and I don't do it for thanks.
+mastermind/NN | offended_complaint | Careful; if I'd known more I'd have said so, since a surprise out there costs my plan as much as it costs you.
+mastermind/NN | unwronged_state | Nothing to forgive; I plan around people as they are, not as I'd wish them to be. You'll be yourself again, and I can wait.
+mastermind/NN | greeted_who | I'm {speaker}, {post} here, and I'll hear what you want before I decide what it's worth.

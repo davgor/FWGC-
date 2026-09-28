@@ -401,3 +401,41 @@ ancient/NN | news | No need to hurry over it, but they tell me {news}.
 # ---- ancient/NN: remembering what the player said (contract version 12) ----
 ancient/NN | recalled | For all my years, my ears are sound, and you told me: {words}.
 ancient/NN | recalled | Among all I've been told, your words have kept their place: {words}.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+ancient/NN | them_who | The name is {speaker}[ {known_as}]. I mean to {after}, and I've all the time it needs[; {home} is home, and I'm slow to call anywhere that].
+ancient/NN | them_who | {speaker}[ {known_as}]. I {feat}[, and {home} is home]; the rest will keep until you've the patience to hear it.
+ancient/NN | them_past | I {lost}. I've weighed that loss as I weigh everything, slowly, and I know to the grain what it cost.
+ancient/NN | them_past | Here's what's worth your time: I {done}. Anything more, you'll have to wait for.
+ancient/NN | them_after | I mean to {after}; the {danger} will learn how patient I am.
+ancient/NN | them_after | For {home}, I mean to {after}; that's a bargain I made with myself, and I keep my bargains.
+ancient/NN | them_need | With time and nothing else in the way, I'd do it alone; the {danger} are in the way. So I bargain for hands to help me {after}.
+ancient/NN | them_need | I'll not be hurried, and the work won't always wait on me[; the {danger} see to that]. If I'm to {after}, I need someone who'll move quicker than I care to.
+ancient/NN | them_stakes | Then the {danger} have their way a while, and I begin again; a failure costs me time, and time is the one thing I never lack.
+ancient/NN | them_stakes | A loss on the ledger, then, not the end of anything. I'll still {after}, however long I'm kept waiting.
+ancient/NN | them_here | I {standing}, and I take it at my own pace; what time's left over, I keep to myself.
+ancient/NN | them_here | I {done}; that's the measure of me here, and I'll add to it when I'm ready.
+ancient/NN | them_long | I keep count of debts, not of seasons. I {standing}, and that's all the reckoning I've made of it.
+ancient/NN | them_long | Whatever it's been, it hasn't felt long to me. I {standing}.
+ancient/NN | them_ties | {ties}. That's how the ledger stands, and I keep it honest.
+ancient/NN | them_ties | {ties}. I'm slow to change my mind about anyone, for good or ill.
+ancient/NN | them_plans | [{home_here} is home, and I've no wish to leave it. ][My home is {away}, and it will keep. ]I mean to {after}, and I'll not leave that half done.
+ancient/NN | them_plans | What comes next can wait; most things can, with me. I {standing}, and the {danger} come first.
+ancient/NN | them_secret | That's not on offer, whatever you'd give for it.
+ancient/NN | them_secret | I've kept that a long while, and I can keep it a good while longer.
+ancient/NN | acknowledged_hardship | Ah, that's no small weight. It'll mend slower than you'd like, and faster than you'd fear.
+ancient/NN | acknowledged_grief | Aye, I'm sorry for your loss. Take what time the grief asks, and let no one hurry you through it.
+ancient/NN | acknowledged_deed | Is that so? I'll remember it; I remember most things worth the keeping.
+ancient/NN | acknowledged_plan | Well, don't hurry it; most plans that fail, fail for haste.
+ancient/NN | acknowledged_kin | Ah, that's worth holding on to. Your time runs quicker than mine, so hold on while you can.
+ancient/NN | acknowledged_hardship_work | Ah, and you took it in my work. That's a debt on my side now, and I've never let a debt lapse.
+ancient/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and sorrier that my work was the cause. I'll carry that, and I carry things longer than most.
+ancient/NN | acknowledged_deed_work | Good. That's worth something to me, and the work in hand could use it.
+ancient/NN | greeted_finished_beside | Good to see you. We did that work shoulder to shoulder, and I took your measure while we were at it.
+ancient/NN | small_talk_work_done_beside | You stood beside me through it, and saw what I saw. It was worth the time it took, and I don't say that of much.
+ancient/NN | small_talk_work_done | I wasn't there, so take your time over the telling; I've more time to listen than you'll ever need. It's done, and I'll remember that long after the details have gone.
+ancient/NN | small_talk_since_work | I've had one thing fewer to weigh since that work was done. I don't forget who took it off my hands.
+ancient/NN | thanked_work | No need; it's a bargain, not a kindness, and a bargain's thanked by keeping it.
+ancient/NN | offended_complaint | Careful; I weighed the work fairly when I put it to you, and I'll not be blamed for its weight now.
+ancient/NN | unwronged_state | Nothing to forgive. Take your time coming back to yourself; I can wait.
+ancient/NN | greeted_who | {speaker}, {post} here; I've time to hear you out, if you've something worth hearing.

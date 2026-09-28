@@ -52,6 +52,21 @@ voice | situation | line
   | `forgiven`, `forgiven_cold` (an apology for a wrong, taken, or said again once every wrong is forgiven; cold: the speaker is still wary or hostile after it) | |
   | `unwronged` (an apology from someone who never wronged the speaker, or to a face that does not know them) | |
   | `surroundings_told`, `safety_unsafe_told`, `safety_wary_told`, `safety_safe_told`, `about_place_told` (the answer asked again when the stranger heard all of it from the speaker lately) | as the answer's |
+  | `work_own_told`, `work_others_told` (asked for work again with nothing new to it; contract version 13) | as the answer's |
+  | `them_who` (asked who they are; contract version 13) | `{known_as}` `{home}` `{after}` `{lost}` `{feat}` |
+  | `them_past` (their past) | `{done}` `{lost}` |
+  | `them_after` (what they are after, why it matters) | `{after}` `{danger}` `{home}` |
+  | `them_need`, `them_stakes` (why they need help; what comes if the work fails) | `{after}` `{danger}` |
+  | `them_here` (their post, their days) | `{standing}` `{done}` |
+  | `them_long` (how long they have been here) | `{standing}` |
+  | `them_ties` (friends, allies, rivals) | `{ties}` |
+  | `them_plans` (whether they would leave, what comes next) | `{after}` `{standing}` `{danger}` `{away}` `{home_here}` |
+  | `them_secret` (what they fear or hide) | |
+  | `acknowledged_hardship`, `acknowledged_grief`, `acknowledged_deed`, `acknowledged_plan`, `acknowledged_kin` (what the stranger told of themself, by what it is) and `acknowledged_hardship_work`, `acknowledged_grief_work`, `acknowledged_deed_work` (in the light of the speaker's own work) | |
+  | `small_talk_work_done`, `small_talk_work_done_beside`, `small_talk_since_work` (the speaker's work the stranger finished: how it went, how it went when the speaker was there, how things have been since) | |
+  | `greeted_finished_beside` (back with the speaker's work done where they stand, beside them; contract version 14) | `{since}` |
+  | `thanked_work` (thanked for their own work while it is still to do), `offended_complaint` (a complaint about their work), `unwronged_state` (an apology for how the stranger is) | |
+  | `greeted_who` (said after a first greeting that asks who they are) | |
 
   Every situation may also use `{speaker}`, `{post}`, `{place}` and `{saying}`.
 
@@ -282,6 +297,20 @@ is fine; one that no packet the game gives can make true is never heard.
   deed read back as fact: the stranger never said it was them ("Only the talk of what you did, and
   you'd tell that better than me."). **No news** (`no_news`) is only that: not what the speaker
   thinks of it, and nothing that says the place is quiet or safe, which the packet does not say.
+- **What a hero says of themself is the blanks'** (`them_*`, contract version 13): `{after}` is a
+  verb phrase after "to", `{standing}`, `{lost}`, `{feat}` and `{done}` follow "I", `{ties}` is a
+  whole clause that may hold only allies or only rivals, `{danger}` a plural creature after "the".
+  How long they have been anywhere is never a time (`them_long`): the world does not record it.
+  What they hide stays hidden without being named (`them_secret`): no packet holds it. What comes if
+  the work fails is only what the blanks say (`them_stakes`, `them_need`): no burning city of the
+  line's own.
+- **What the stranger tells is answered in proportion** (`acknowledged_*`): a death with
+  condolence, never "that hurt"; a hurt in the speaker's service with the speaker's own debt. The
+  line never repeats or guesses the details, which it does not know: a question back must fit any
+  such telling ("What was their name?", "Is it mending?").
+- **Done beside them is spoken as by one who was there** (`_beside`): never "by the look of you".
+- **Who they are, after a greeting, never says the guess was right** (`greeted_who`): the program
+  does not know what the stranger guessed.
 - **A place line carries every blank it can.** Of the lines that fit, the fullest are said, so an
   `about_place` line without `{trades}`, `{who}`, `{around}` or `{work}` is never heard where that
   blank is filled. Nothing in it may hold only when a part is dropped or kept ("That's all I

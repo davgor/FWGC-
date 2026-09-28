@@ -991,3 +991,43 @@ reluctant_hero/NN | news | I hear {news}; don't ask me for more than that.
 # ---- reluctant_hero/NN: remembering what the player said (contract version 12) ----
 reluctant_hero/NN | recalled | I've plenty on my mind, and what you told me found room anyway: {words}.
 reluctant_hero/NN | recalled | What you had to tell me got through: {words}; tired isn't the same as deaf.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+reluctant_hero/NN | them_who | They call me {speaker}[ {known_as}, and I never asked them to]. I {feat}, and I've not had a quiet moment since.
+reluctant_hero/NN | them_who | I'm {speaker}[ {known_as}], and {home} is home. Everything else is a weight I picked up once and can't seem to set down.
+reluctant_hero/NN | them_who | {speaker}[ {known_as}], if it matters. I {lost}, and I've been carrying one thing or another ever since.
+reluctant_hero/NN | them_past | I {lost}. I'd rather not talk about it, and I'd rather not have lived it either.
+reluctant_hero/NN | them_past | I {done}. Don't ask me how it came to be me; I still haven't worked that out.
+reluctant_hero/NN | them_after | I mean to {after}, and if I didn't, I'd only lie awake wondering who would. {home} is home; that's the rest of it.
+reluctant_hero/NN | them_after | I mean to {after}[, with the {danger} in the way], and no, I don't enjoy it. It needs doing, and I'm the one standing here.
+reluctant_hero/NN | them_need | Have you seen the {danger}? They're more than one tired pair of hands can manage, and all the same, I mean to {after}.
+reluctant_hero/NN | them_need | Would you do it alone, given the choice? I mean to {after}, and I'd share the load with anyone who'd take it[, with the {danger} about].
+reluctant_hero/NN | them_stakes | The {danger} get their way, and with even less help than I have now, I'm left to {after}.
+reluctant_hero/NN | them_stakes | Then it's back on my shoulders, where everything ends up. I'll still mean to {after}[, the {danger} or no], worse luck for me.
+reluctant_hero/NN | them_here | I {standing}; that's most of it, and the rest goes on other people's problems.
+reluctant_hero/NN | them_here | Off duty? I've heard of it.[ I {standing}, and it doesn't stop because I'd like it to.]
+reluctant_hero/NN | them_long | Too long by half, and don't ask me to be more exact; I {standing}.
+reluctant_hero/NN | them_long | Since before I learned to say no, and I never did learn.[ I {standing}.]
+reluctant_hero/NN | them_ties | {ties}. I'd sooner have fewer people to worry about, but there it is.
+reluctant_hero/NN | them_ties | If you must know: {ties}. Whoever's named there is one more worry on my plate, and I carry it whether I like it or not.
+reluctant_hero/NN | them_plans | In a heartbeat, if someone took this off my hands; {away} or anywhere else would do. Nobody has, though, and I mean to {after}.
+reluctant_hero/NN | them_plans | Where would I go? {home_here} is home, so I'm stuck either way; I mean to {after}, and after that, someone else can carry it.
+reluctant_hero/NN | them_plans | More of the same, most likely: I {standing}, I mean to {after}, and I'm still waiting for someone to take a turn.
+reluctant_hero/NN | them_secret | Not a chance; I've enough on my plate without handing you a piece of me as well.
+reluctant_hero/NN | them_secret | That one's mine, and it's the only weight I'd not hand over to anyone.
+reluctant_hero/NN | acknowledged_hardship | Ah, I'm sorry; that's more than anyone should have to carry. Take the weight off, and let somebody else do the worrying for once.
+reluctant_hero/NN | acknowledged_grief | Ah, that's the worst thing anyone gets handed, and nobody ever asks for it. I'm sorry for your loss.
+reluctant_hero/NN | acknowledged_deed | Well, good for you; I'd rather hear about that than about the next thing that needs doing.
+reluctant_hero/NN | acknowledged_plan | Right, then go and do it, and try not to end up stuck with more than you meant to.
+reluctant_hero/NN | acknowledged_kin | Aye, hold on to them. They're worth more than any title anyone could hand you.
+reluctant_hero/NN | acknowledged_hardship_work | Ah, that's one more thing on my conscience, and it belongs there; it was my work. I'm sorry.
+reluctant_hero/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and it came of my work, so it's mine to carry too. I'll not set that one down.
+reluctant_hero/NN | acknowledged_deed_work | Good; then the work might go easier than I feared, and I'll take any easing I can get.
+reluctant_hero/NN | greeted_finished_beside | Welcome back. You pulled your share beside me, and that's what made it bearable.
+reluctant_hero/NN | small_talk_work_done_beside | You were there, so I'll spare us both the telling. It's done, and I'm glad it wasn't me alone for once.
+reluctant_hero/NN | small_talk_work_done | I wasn't there, so you'll have to tell me, and I'll believe you. It's done, and that's one less thing to lose sleep over.
+reluctant_hero/NN | small_talk_since_work | I've had a moment to myself since, which I never thought I'd say. Don't tell anyone, or they'll find me something else to do.
+reluctant_hero/NN | thanked_work | Don't mention it; help is worth more to me than thanks, and I'm tired enough to take either.
+reluctant_hero/NN | offended_complaint | Enough; I told you all I knew, and I never wanted any of this on your plate or mine.
+reluctant_hero/NN | unwronged_state | Whatever for? I'm tired most of the time myself, and I'd never ask anyone to apologise for it.
+reluctant_hero/NN | greeted_who | I'm {speaker}, and I'm {post} here, though I didn't volunteer for it.

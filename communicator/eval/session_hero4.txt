@@ -1,0 +1,37 @@
+# The golden benchmark's fourth session, held out: written 2026-09-28, after contracts 14 and 15 and
+# before the hero line writers' rows were merged, and before this session was ever run. Another hero,
+# another world, other words. Judged blind as the first (communicator/eval/README.md, "The hero
+# benchmark"). Each line is labelled with the act it means.
+world 13 33 30
+who hero giver 3
+
+# A first meeting.
+say hero greet | Well met. You look like you're in charge.
+say hero ask_about_them | Tell me who you are.
+say hero ask_about_them | What keeps you here?
+say hero ask_for_work | Is there anything I can help with?
+say hero ask_about_them | Why not do it yourself?
+say hero answer | My father was a soldier. I grew up on the walls.
+say hero accept_quest @own | Count me in.
+say hero ask_about_them | What if it goes badly?
+say hero thank | Thanks for taking a chance on me.
+say hero farewell | I'll be back when it's done.
+
+# Out of sight: compacted; the work is done three days on.
+compact hero
+advance 3
+resolve hero finished
+say hero greet | I'm back. We did it.
+say hero small_talk | How did it look from where you stood?
+say hero answer | I lost a friend out there.
+say hero ask_about_them | Who do you trust around here?
+say hero farewell | Rest well.
+
+# Two weeks later.
+compact hero
+advance 14
+say hero greet | Good to see you again.
+say hero small_talk | Anything new since we last spoke?
+say hero ask_about_them | Where's home for you?
+say hero ask_about_them | Would you ever give this up?
+say hero farewell | Until next time.

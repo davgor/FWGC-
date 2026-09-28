@@ -991,3 +991,45 @@ obsessed_hunter/NN | news | This is talk, not tracks: {news}.
 # ---- obsessed_hunter/NN: remembering what the player said (contract version 12) ----
 obsessed_hunter/NN | recalled | My ears keep up with my eyes; what you told me is still in my head: {words}.
 obsessed_hunter/NN | recalled | Still to hand, what you told me: {words}; I've no need to go looking for those words.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+obsessed_hunter/NN | them_who | {speaker}[ {known_as}]. I {lost}, and I've gone over that ground more times than I'd admit; now I mean to {after}.
+obsessed_hunter/NN | them_who | {speaker}[ {known_as}], with one thing in my sights: I mean to {after}. {home}'s where I'm from, and the trail's where I live.
+obsessed_hunter/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}, but that's old ground; I mean to {after}, and that's the trail I'm on.
+obsessed_hunter/NN | them_who | {speaker}[ {known_as}], and forgive me if my eyes stay on the ground while we talk. I mean to {after}, and the trail doesn't wait for introductions.
+obsessed_hunter/NN | them_past | I {lost}. I still go over it the way I'd go over a trail gone cold, looking for what I missed.
+obsessed_hunter/NN | them_past | I {done}; that's one mark on the ground, and I'm more interested in the next.
+obsessed_hunter/NN | them_after | I mean to {after}, and nothing turns me off that trail[, not the {danger} and not anyone else].
+obsessed_hunter/NN | them_after | I come from {home}, but that's not where my head is; I mean to {after}, and I think of little else.
+obsessed_hunter/NN | them_need | Because one pair of eyes sees one side of a trail; I mean to {after}, and I want the other side watched[ while the {danger} are about].
+obsessed_hunter/NN | them_need | I mean to {after}, and I can't watch the {danger} and my own trail at once.
+obsessed_hunter/NN | them_stakes | Then the {danger} have their way, and I go back to the last good sign and start over; a failure's only a false trail, and I mean to {after}.
+obsessed_hunter/NN | them_stakes | I don't let go of a thing because it slipped once; I mean to {after}[, and the {danger} won't shake me loose].
+obsessed_hunter/NN | them_here | I {standing}, and every hour I can spare goes on the ground, reading it.
+obsessed_hunter/NN | them_here | I {done}; whatever time's left over goes on reading sign, and there's always more of it than I've read.
+obsessed_hunter/NN | them_long | Enough to know this ground better than the back of my hand; I {standing}.
+obsessed_hunter/NN | them_long | More than I've kept track of, and I keep track of most things; I {standing}.
+obsessed_hunter/NN | them_long | I couldn't say; my mind's on what's ahead of me, not what's behind.
+obsessed_hunter/NN | them_ties | {ties}. I watch them the way I'd watch anything that moves.
+obsessed_hunter/NN | them_ties | {ties}; they get what attention I've got to spare, which isn't much.
+obsessed_hunter/NN | them_plans | {away} is home, when I let myself think of it, and I don't, much; first I mean to {after}.
+obsessed_hunter/NN | them_plans | I've no call to leave {home_here}; it's home, and before I think of anything else, I mean to {after}.
+obsessed_hunter/NN | them_plans | Next is what's been next all along: I mean to {after}[, and the {danger} don't change that].
+obsessed_hunter/NN | them_secret | Some tracks I cover, and that's one of them.
+obsessed_hunter/NN | them_secret | I keep my eyes on the ground and my own business behind them.
+obsessed_hunter/NN | acknowledged_hardship | Ah, I'm sorry for it. Rest before you go on; nobody reads the ground well while they're hurting.
+obsessed_hunter/NN | acknowledged_grief | Ah, I'm sorry for your loss. Some trails never go cold, and I'll not pretend that one will.
+obsessed_hunter/NN | acknowledged_deed | Is that so? Then you've been tested, and that's worth more to me than talk.
+obsessed_hunter/NN | acknowledged_plan | Right. Keep your eyes on where you're going, and read the road before you trust it.
+obsessed_hunter/NN | acknowledged_kin | Aye, that's worth keeping in mind. A head with nothing else in it runs itself ragged, and I'd know.
+obsessed_hunter/NN | acknowledged_hardship_work | Ah, that happened on my work, so it's mine to answer for; I'm sorry for it.
+obsessed_hunter/NN | acknowledged_grief_work | Ah, and on my work; I'm sorry for your loss, truly. Tell me their name; I'll not let it go cold.
+obsessed_hunter/NN | acknowledged_deed_work | Good; that's the sort of thing I want to know about a person before I trust them with anything of mine.
+obsessed_hunter/NN | greeted_finished_beside | Good to see you. You kept your eyes open beside me the whole way through, and I don't forget a pair of eyes like that.
+obsessed_hunter/NN | small_talk_work_done_beside | We had the same view of it, so I'll not tell it back to you. It's done, and I'll remember whose eyes were beside mine.
+obsessed_hunter/NN | small_talk_work_done | I know it's done, and that's all I know for certain. You're the one who walked it, so you'd read it better than me.
+obsessed_hunter/NN | small_talk_since_work | My head's clearer with that off it, and I've gone back to my own trail. Past that, I've not looked up much.
+obsessed_hunter/NN | thanked_work | No need; thanks are talk, and I trust what I can see.
+obsessed_hunter/NN | offended_complaint | Mind your manners; I gave you the work as I read it, and nobody reads every mark before they've walked the ground.
+obsessed_hunter/NN | unwronged_state | What for? I read people the way I read ground, and I'd rather have it plain than hidden.
+obsessed_hunter/NN | greeted_who | I'm {speaker}, {post} of {place}, and my mind's mostly elsewhere, so don't take it amiss.

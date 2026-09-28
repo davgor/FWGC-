@@ -642,3 +642,43 @@ incarnate/NN | news | I'll give it you as I had it, no more and no less: {news}.
 # ---- incarnate/NN: remembering what the player said (contract version 12) ----
 incarnate/NN | recalled | By nature I listen, and you told me: {words}.
 incarnate/NN | recalled | You once spoke up: {words}.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+incarnate/NN | them_who | I'm {speaker}[ {known_as}], and there's no version of me that leans. I {feat}, and I mean to {after}.
+incarnate/NN | them_who | I'm {speaker}[ {known_as}]. I {lost}, and I've given that loss its true weight and not a grain more; I mean to {after}.
+incarnate/NN | them_who | I'm {speaker}[ {known_as}], and {home} is home[; I mean to {after}]. Whatever you bring me, I'll weigh evenly.
+incarnate/NN | them_who | I'm {speaker}[ {known_as}], {post} here[, and I mean to {after}]. You can weigh me any way you like; you'll find me level.
+incarnate/NN | them_past | Here it is, with no thumb on the scale: I {done}.
+incarnate/NN | them_past | I {lost}. It counts, like everything else I've done, and I don't let it count for more.
+incarnate/NN | them_after | I mean to {after}. {home} is home, but I'd do the same for any place with as fair a claim.
+incarnate/NN | them_after | All I'm ever after is the balance put right, and for now that's to {after}[; the {danger} would tip it the other way].
+incarnate/NN | them_need | Because I mean to {after}, and I won't pretend I balance the {danger} on my own.
+incarnate/NN | them_need | Because a load that size isn't fair on one pair of shoulders, mine included: I mean to {after}[, and the {danger} stand against it].
+incarnate/NN | them_stakes | Then the {danger} have their way, and things sit tipped until someone rights them; I'll still mean to {after}.
+incarnate/NN | them_stakes | Then it's a loss, and I'll weigh it as one, no heavier than it is, and what I'm after stays the same: to {after}[, whatever the {danger} make of it].
+incarnate/NN | them_here | I {standing}, and whatever else I do, I keep my accounts square: who's owed, who owes, and what's fair between them.
+incarnate/NN | them_here | Most of what I am comes to this: I {done}. The rest I keep square, the way I keep everything.
+incarnate/NN | them_long | A while, and enough of one that the place and I have found our level; I {standing}.
+incarnate/NN | them_long | That's a count I've never kept; I keep the ones that have to balance. I {standing}.
+incarnate/NN | them_ties | {ties}. Whoever they are to me, they get the same even hand, and no more.
+incarnate/NN | them_ties | In plain words: {ties}. None of that tips me one way or the other.
+incarnate/NN | them_plans | I'd stay; {home_here} is home, but that's not what keeps me: things here still want evening, and I mean to {after}.
+incarnate/NN | them_plans | When things here sit level, I'll go where the next tilt is[, or home to {away}]; until then, I mean to {after}.
+incarnate/NN | them_secret | That stays off the scale; not everything of mine is for weighing.
+incarnate/NN | them_secret | There's a column in my ledger nobody reads but me, and it stays that way.
+incarnate/NN | acknowledged_hardship | Ah, I'm sorry; that's more than anyone's fair share. Have you somewhere to set it down a while?
+incarnate/NN | acknowledged_grief | Ah, I'm sorry for your loss. Some weights never come level, and I'll not tell you otherwise.
+incarnate/NN | acknowledged_deed | Indeed? Then that weighs in your favour, and I'll give it its due.
+incarnate/NN | acknowledged_plan | Right; may it come out even for you. What draws you to it?
+incarnate/NN | acknowledged_kin | Aye; everyone needs something on the other side of the scale, and that's a good one to have.
+incarnate/NN | acknowledged_hardship_work | Ah, that one's on my side of the ledger, not yours; I'm sorry for it, and it stays there.
+incarnate/NN | acknowledged_grief_work | Ah, I'm sorry for your loss; my work set that weight on you, and no reckoning of mine will ever balance it. What were they like?
+incarnate/NN | acknowledged_deed_work | Good; that counts for you where the work's concerned, and I count fairly.
+incarnate/NN | greeted_finished_beside | Good to see you. You held your side of it and I held mine, and that's how a thing comes out even.
+incarnate/NN | small_talk_work_done_beside | I stood in it with you, so I'll not dress it up: it pulled hard at both of us, and it came right in the end.
+incarnate/NN | small_talk_work_done | You carried it, so you'd weigh it better than I can. From here, it came out right, and that's in your column.
+incarnate/NN | small_talk_since_work | Since that work was finished, I've stood a little straighter. I keep watch on the balance all the same.
+incarnate/NN | thanked_work | Don't mention it; thanks can wait until the scale's settled.
+incarnate/NN | offended_complaint | Careful; I gave it you straight, with nothing hidden on either side, and I'll not shade it now to suit you.
+incarnate/NN | unwronged_state | Nothing to forgive. Nobody's level every day, and I don't hold it against anyone who isn't.
+incarnate/NN | greeted_who | I'm {speaker}, {post} here, and you'll find me square with you whoever you turn out to be.

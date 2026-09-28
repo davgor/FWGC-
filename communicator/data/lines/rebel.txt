@@ -873,3 +873,45 @@ rebel/NN | news | They're saying {news}; I'll not pretend otherwise.
 # ---- rebel/NN: remembering what the player said (contract version 12) ----
 rebel/NN | recalled | I bow to no one, but I heard you plainly: {words}.
 rebel/NN | recalled | You spoke for yourself once: {words}.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+rebel/NN | them_who | {speaker}[ {known_as}]. I {lost}, and it didn't put me on my knees; I mean to {after}, in the open.
+rebel/NN | them_who | {speaker}[ {known_as}], and I don't care who hears it: I mean to {after}. I'm {home}'s, and nobody else's.
+rebel/NN | them_who | The name's {speaker}[ {known_as}]. I {feat}, and I mean to {after}; say what you like of me, but never that I bowed.
+rebel/NN | them_who | {speaker}[ {known_as}], on my own feet and under nobody's crown; I mean to {after}.
+rebel/NN | them_past | I {lost}. I'll not dress it up, and I'll not hang my head over it either.
+rebel/NN | them_past | I {done}, and I'll answer for it to anyone who asks.
+rebel/NN | them_after | [The {danger} be damned; ]I mean to {after}, and I'll not bend on it for anyone.
+rebel/NN | them_after | I mean to {after}; I don't need anyone's leave to want it, and the {danger} can't give or take it.
+rebel/NN | them_need | Because a crowd that won't bow can do what one angry voice can't; I mean to {after}[, and the {danger} take more standing up to than one can manage].
+rebel/NN | them_need | I mean to {after}, and the {danger} won't wait for me to find my feet; I need hands, not permission.
+rebel/NN | them_stakes | If it fails, the {danger} have their way, and I get up and go at it again; I mean to {after}, and I don't stay down.
+rebel/NN | them_stakes | Then I've lost a fight, not the argument, and I still mean to {after}[, and the {danger} can wait their turn].
+rebel/NN | them_here | I {standing}, and I do it with my head up, whatever anyone thinks of it.
+rebel/NN | them_here | I {done}; the rest of my time goes on whatever's worth doing, and I decide what that is.
+rebel/NN | them_long | Every day of it on my feet, and none of it on my knees; I {standing}.
+rebel/NN | them_long | Too long to be anybody's guest, and not long enough to be anybody's servant; I {standing}.
+rebel/NN | them_long | I've not counted, and I'll not guess to please you.
+rebel/NN | them_ties | {ties}. They get the same from me whichever side they're on: a straight look, and never a bow.
+rebel/NN | them_ties | {ties}; I'll tell them to their face where they stand with me.
+rebel/NN | them_plans | I'll see {away} again with my head up or not at all; it's home, and I mean to {after}.
+rebel/NN | them_plans | Nobody's run me out of {home_here} yet, and nobody will; it's home, and I mean to {after}.
+rebel/NN | them_plans | I {standing} for now, and I mean to {after}; where I go from here is my choice, nobody else's.
+rebel/NN | them_secret | I'll say most things out loud, to anyone, but not that.
+rebel/NN | them_secret | That stays mine; I don't bow, and I don't bare myself either.
+rebel/NN | acknowledged_hardship | Ah, I'm sorry for it. If you can carry it upright, it weighs less that way.
+rebel/NN | acknowledged_grief | Ah, I'm sorry. Let nobody tell you how to mourn them, or for how long.
+rebel/NN | acknowledged_deed | Is that so? Then you've done something with your own hands, and that's worth more than any title.
+rebel/NN | acknowledged_plan | Right. Go at it straight, and don't wait for anyone's leave.
+rebel/NN | acknowledged_kin | Aye, that's worth something; who you'd stand up for says more about you than anything else.
+rebel/NN | acknowledged_hardship_work | Ah, and it was my work that did it; I'll not pretend otherwise, and I'm sorry for it.
+rebel/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and I'll not look away from what my work cost you. Say their name, and I'll not forget it.
+rebel/NN | acknowledged_deed_work | Good; I want people who've done things, not people who've been told to.
+rebel/NN | greeted_finished_beside | Hello again. We did that shoulder to shoulder, and I'd do it again with you tomorrow.
+rebel/NN | small_talk_work_done_beside | We went at it together and upright, and it's done. That's all the telling it needs between you and me.
+rebel/NN | small_talk_work_done | I wasn't there, so I'll not talk as if I was. It's done, and you did it; tell it how you like.
+rebel/NN | small_talk_since_work | I've one less weight on my back, and I stand the straighter for it; I'll not speak for anyone else.
+rebel/NN | thanked_work | Don't mention it; I'd rather have your hands than your thanks.
+rebel/NN | offended_complaint | Enough; I hid nothing from you, and if it went harder than it looked, we'll both carry that, not you alone.
+rebel/NN | unwronged_state | No harm done. Nobody stands straight every day, and I'd not ask it of you.
+rebel/NN | greeted_who | I'm {speaker}, {post} of {place}, and you'll not need to bow to either.

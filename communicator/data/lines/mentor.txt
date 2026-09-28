@@ -991,3 +991,42 @@ mentor/NN | news | A thing heard isn't a thing known, but I'm told {news}.
 # ---- mentor/NN: remembering what the player said (contract version 12) ----
 mentor/NN | recalled | I practise what I preach, so I listened to you: {words}.
 mentor/NN | recalled | For once I wasn't the one doing the telling; you told me: {words}.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+mentor/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}; there's a lesson in that, and you're welcome to find it yourself. I mean to {after}.
+mentor/NN | them_who | The name's {speaker}[ {known_as}]. Whoever works beside me comes away knowing more than they brought[, and I mean to {after}].[ {home} is home; ask me about it, and I'll show you how to see it for yourself.]
+mentor/NN | them_past | I {lost}. I'll not tell you what I learned from it; you'd only take my word instead of learning it yourself.
+mentor/NN | them_past | I {done}. That's the what of it; the how took longer, and it's the only part worth knowing.
+mentor/NN | them_after | I mean to {after}. Watch how I go about it, and you'll learn more than any telling could give you[; the {danger} will teach you the rest].
+mentor/NN | them_after | I mean to {after}[, for the sake of {home}]; you learn to care for a place by keeping it, not by being told to.
+mentor/NN | them_need | Because a thing done alone teaches no one, and I mean to {after}[; the {danger} are a lesson best learned with someone beside you].
+mentor/NN | them_need | I'd manage it worse alone than with someone at my side, and I've never been too proud to say so. I mean to {after}[, and the {danger} don't care how much I know].
+mentor/NN | them_stakes | Then someone learns the hard way, and I'd rather it weren't you[; the {danger} would have their way a while]. I'd not stop meaning to {after}.
+mentor/NN | them_stakes | We'd pick it apart until we knew why it failed, and the next attempt would start from there, with the {danger} none the wiser. I'd still mean to {after}.
+mentor/NN | them_here | I {standing}, and the rest of the time I answer questions, mostly by asking better ones back.
+mentor/NN | them_here | I {done}, and I keep at my own lessons in whatever time that leaves; nobody should teach what they've stopped doing.
+mentor/NN | them_long | I've answered the same questions here more times than I'd like, if that tells you anything; I {standing}.
+mentor/NN | them_long | I've been here long enough to forget what it was like not to know the place, and nobody who teaches should forget that; I {standing}.
+mentor/NN | them_ties | {ties}. Whoever's in that gets what I'd give you: a straight answer, and no more help than they need.
+mentor/NN | them_ties | {ties}. Whatever they are to me, I learn something from dealing with them.
+mentor/NN | them_plans | Wherever there's more to learn, in the end. Until then I {standing}, and I mean to {after}.[ After that, {away}, to see what it has to teach me now.]
+mentor/NN | them_plans | {home_here} is my home, and I've not finished learning from it, so I'll stay[; I mean to {after}].
+mentor/NN | them_secret | Some things you learn about a person by watching, not asking. That's one of them.
+mentor/NN | them_secret | That's not a lesson I give. Ask me something I can teach.
+mentor/NN | acknowledged_hardship | Ah, I'm sorry for it. Take whatever help comes your way; that's one lesson I learned late myself.
+mentor/NN | acknowledged_grief | Ah, I'm sorry for your loss. Nobody can teach you how to carry that; you find your own way, and it's slow.
+mentor/NN | acknowledged_deed | Is that so? Then you've learned something no one can take from you; keep sharpening it.
+mentor/NN | acknowledged_plan | Right; go to it, and keep your eyes open. The doing will teach you more than I could.
+mentor/NN | acknowledged_kin | Ah, then you had people to learn from before you ever met me. Don't forget what they taught you.
+mentor/NN | acknowledged_hardship_work | Ah, I'm sorry; that was my work, and I sent you into it. I'll see the next one I send is better warned than you were.
+mentor/NN | acknowledged_grief_work | Ah, I'm sorry for your loss; it happened under my charge, and I'll not go looking for a lesson in it, since none could be worth it.
+mentor/NN | acknowledged_deed_work | Good; then you've something to build on, and this work will show you how far it goes.
+mentor/NN | greeted_finished_beside | Good to see you. I was beside you through all of it, and you did better than I'd expected, which is saying something.
+mentor/NN | greeted_finished_beside | Well met again. I learned a thing or two watching you work beside me, which is how I like a job to go.
+mentor/NN | small_talk_work_done_beside | You were there, and so was I; you saw how it went as well as I did. What did you learn from it?
+mentor/NN | small_talk_work_done | It's done, and you did it without me at your elbow, which teaches more than any telling. Tell me what you'd do differently.
+mentor/NN | small_talk_since_work | It's gone better since that work was done; I'd call it a lesson learned on both sides.
+mentor/NN | thanked_work | No need; do it your own way rather than mine, and I'll count myself thanked.
+mentor/NN | offended_complaint | Enough; a warning wouldn't have taught you half of what that did.
+mentor/NN | unwronged_state | Nothing to forgive; nobody learns anything by pretending to be fine. Rest, and come back to it when you're ready.
+mentor/NN | greeted_who | I'm {speaker}, {post} here, and if you want answers, bring good questions.

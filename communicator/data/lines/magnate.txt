@@ -991,3 +991,42 @@ magnate/NN | news | I'd not stake much on talk, but I'm told {news}.
 # ---- magnate/NN: remembering what the player said (contract version 12) ----
 magnate/NN | recalled | I make it my business to hold on to what people tell me, yours included: {words}.
 magnate/NN | recalled | You once told me: {words}; I remember the people behind the dealings.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+magnate/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}, and I've kept that account open ever since; now I mean to {after}.
+magnate/NN | them_who | The name's {speaker}[ {known_as}]. I remember every debt, mine and everyone else's[, and I mean to {after}].[ I call {home} home, and I've never once regretted the bargain.]
+magnate/NN | them_past | I {lost}. You can replace stock and start a venture over, but not that.
+magnate/NN | them_past | I {done}, and it's booked at its true worth: no more, no less.
+magnate/NN | them_after | I mean to {after}; of every account I keep, that's the one I'll never close[, whatever the {danger} cost me].
+magnate/NN | them_after | I mean to {after}[, and {home} is why]. I haggle over everything, and I've never once haggled with myself over that.
+magnate/NN | them_need | Because I buy in what I can't make myself, and I can't make this alone. I mean to {after}[, and the {danger} are too big an order for one].
+magnate/NN | them_need | I mean to {after}, and I don't stake everything on my own hands, however good they are.[ With the {danger} about, I want the best hands I can find beside mine.]
+magnate/NN | them_stakes | Then it's a loss, and I'll book it as one; I'll still mean to {after}.[ The {danger} will have their way a while longer, and that goes on the account too.]
+magnate/NN | them_stakes | A failure sends me back to the table on worse terms, and the {danger} have their way meanwhile. I'll still mean to {after}.
+magnate/NN | them_here | I {standing}; the rest of my time goes to my books, and the books are never finished.
+magnate/NN | them_here | I {done}. When I'm not at my post, I'm listening to what people say they want, since every good trade starts there.
+magnate/NN | them_long | Enough seasons that I'd have to go back through the books to tell you; I {standing}.
+magnate/NN | them_long | I count everything but that, and I've never needed that figure; I {standing}.
+magnate/NN | them_ties | {ties}. I value that as I'd value any fair bargain: carefully, and never below what it's worth.
+magnate/NN | them_ties | {ties}. I settle in full, friend or rival, and nobody ever finds my books short.
+magnate/NN | them_plans | What comes next waits on this account: I {standing}, and I mean to {after}.[ When it's closed, {away} will see me again.]
+magnate/NN | them_plans | {home_here} is my home, and a home isn't a thing I trade, whatever's on offer elsewhere[; I'll stay, and I mean to {after}].
+magnate/NN | them_secret | That's in the private ledger, and nobody reads that one but me.
+magnate/NN | them_secret | Some things I don't put up for trade, and that's one of them.
+magnate/NN | acknowledged_hardship | Ah, that's a heavy cost to be carrying. See to yourself first; nothing else you own is worth much until you're whole.
+magnate/NN | acknowledged_grief | Ah, I'm sorry for your loss. There's no account that squares a death, and I'll not insult you by pretending there is.
+magnate/NN | acknowledged_deed | Is that so? That'll always find a buyer somewhere, and so will you.
+magnate/NN | acknowledged_plan | Right; I hope it comes out in your favour, one way or another. Know what you'll settle for before you start.
+magnate/NN | acknowledged_kin | Aye, that's worth more than most of what passes through my hands. Hold on to it.
+magnate/NN | acknowledged_hardship_work | Ah, and in my work; that cost goes on my books, not yours. I don't leave a debt like that standing.
+magnate/NN | acknowledged_grief_work | Ah, I'm sorry for your loss. A life lost on my account is one thing I'll never write off, whatever else I do.
+magnate/NN | acknowledged_deed_work | Good; that's the stock this work wants, and I know good stock when I see it.
+magnate/NN | greeted_finished_beside | Welcome back. I saw you deliver with my own eyes, standing right beside you, and that's worth more to me than any promise.
+magnate/NN | greeted_finished_beside | Back again. I last saw you {since}, and the work we did side by side is still the best entry on my books.
+magnate/NN | small_talk_work_done_beside | I was there for every step of it, and there's not a step I'd sell back.
+magnate/NN | small_talk_work_done | I wasn't there to watch it done, and I don't need to have been; I trust a sound delivery over any witness.
+magnate/NN | small_talk_since_work | It's steadier on my side of the ledger since that work was done. It was a sound investment, and I don't call many things that.
+magnate/NN | thanked_work | Don't mention it; thank me when the account is closed and we've both done well by it.
+magnate/NN | offended_complaint | Careful; I offered you the work as I found it, and I've never once passed off bad goods as sound.
+magnate/NN | unwronged_state | What for? An apology's the one thing I never ask anyone to bring me, and I'll not start with you.
+magnate/NN | greeted_who | I'm {speaker}, {post} here, and I keep an account of everyone I deal with.

@@ -523,3 +523,42 @@ tyrant/NN | news | I'm told {news}; that's the size of it.
 # ---- tyrant/NN: remembering what the player said (contract version 12) ----
 tyrant/NN | recalled | I don't waste my ears on much, but I heard you: {words}.
 tyrant/NN | recalled | What you told me: {words}; my memory answers to me, like everything else here.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+tyrant/NN | them_who | {speaker}[ {known_as}]; remember the name. I {feat}[, and I will {after}].
+tyrant/NN | them_who | You're looking at {speaker}[ {known_as}][, and I mean to {after}, whoever it inconveniences].
+tyrant/NN | them_past | I {done}, and I answer to no one for it.[ I {lost}, and I've not forgiven it.] The rest is none of your concern.
+tyrant/NN | them_past | I {lost}[, and I {done}]. I leave the mourning to people with time to waste.
+tyrant/NN | them_after | I mean to {after}, and I'll have it done whoever stands in the way[, the {danger} first among them].
+tyrant/NN | them_after | Because I said so, and because {home} is mine to answer for: I mean to {after}.
+tyrant/NN | them_need | Because even I can't be everywhere at once[, and the {danger} don't wait on my convenience]; to {after}, I need hands that do as they're told.
+tyrant/NN | them_need | I don't need anyone; I make use of people[, and the {danger} give me reason enough to make use of you].
+tyrant/NN | them_stakes | Should it fail, the {danger} have their way for a while, and I find out whose failure it was; then I get someone who won't fail me, and I {after}.
+tyrant/NN | them_stakes | It won't fail; I don't permit things to fail, and I don't permit people to either.
+tyrant/NN | them_here | I {standing}; the rest of my day goes to the people who waste it.
+tyrant/NN | them_here | There's no off duty for me, and I'd not want one.
+tyrant/NN | them_long | Too long to count, and I've better things to count; I {standing}.
+tyrant/NN | them_long | Enough to know every face here, and what each one owes me.
+tyrant/NN | them_ties | You want names? {ties}. I value them by what they're good for, and nothing else.
+tyrant/NN | them_ties | {ties}. Whatever they think of themselves, I've yet to meet my equal.
+tyrant/NN | them_plans | I'll go when I decide, and nobody decides it for me[; first, I mean to {after}].
+tyrant/NN | them_plans | To {away}, if I chose, and I'd ask nobody's leave to go.
+tyrant/NN | them_plans | {home_here} is my home, and I keep what's mine.
+tyrant/NN | them_secret | I'll answer most things, but not that, and not to you.
+tyrant/NN | them_secret | That's not yours to know, and here, I decide what's yours.
+tyrant/NN | acknowledged_hardship | Aye, that would try anyone. See to yourself; I'd rather have you whole than brave.
+tyrant/NN | acknowledged_grief | Ah. A loss like that deserves better than small words, and I'll not insult it with mine.
+tyrant/NN | acknowledged_deed | Good. Then prove it when it counts, and I'll see what you're worth.
+tyrant/NN | acknowledged_plan | Right. Do it properly, or don't do it at all.
+tyrant/NN | acknowledged_kin | Aye; look after your own. That's what strength is for, whatever anyone tells you.
+tyrant/NN | acknowledged_hardship_work | Ah; you took that doing my work, and I don't forget what my work costs the ones who do it.
+tyrant/NN | acknowledged_grief_work | Ah. A death in my service is mine to answer for, and I'll not pretend otherwise.
+tyrant/NN | acknowledged_deed_work | Good; that's what I need, and I'll hold you to every word of it.
+tyrant/NN | greeted_finished_beside | Good day. You kept up with me, and I noticed.
+tyrant/NN | small_talk_work_done_beside | You were there, so you know: it got done because I'd have it no other way. You didn't get in my way, and from me that's praise.
+tyrant/NN | small_talk_work_done | You're standing, so it can't have been as bad as all that. Tell me the rest if it's worth hearing.
+tyrant/NN | small_talk_since_work | It's all gone as I meant it to since that work was done. I don't set work that changes nothing.
+tyrant/NN | thanked_work | Don't mention it; I'll take my thanks in results.
+tyrant/NN | offended_complaint | Watch your tongue; I don't owe anyone a warning, and I don't take complaints from those I've hired.
+tyrant/NN | unwronged_state | No harm done; I've no use for apologies. Take what time you need, and then be of use.
+tyrant/NN | greeted_who | {speaker}, {post} here, and I'm not in the habit of being asked.

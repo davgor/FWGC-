@@ -894,3 +894,41 @@ beast/NN | news | Somebody said {news}; I'll not say it twice.
 # ---- beast/NN: remembering what the player said (contract version 12) ----
 beast/NN | recalled | I'm short with most folk, but I heard you out: {words}.
 beast/NN | recalled | Your words haven't left me: {words}.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+beast/NN | them_who | {speaker}[ {known_as}]. I mean to {after}, and that's enough to be going on with.[ {home} is home.]
+beast/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}; I don't talk it up, and I don't talk it down.[ I come from {home}, if it matters.]
+beast/NN | them_past | I {lost}. That's the short of it, and the short of it is all you'll get.
+beast/NN | them_past | I {done}. Don't ask me to make a song of it.
+beast/NN | them_after | I mean to {after}. The {danger} can try me.
+beast/NN | them_after | It's {home} I do it for. I mean to {after}, and I don't need more reason than that.
+beast/NN | them_need | Because I'm one, and the {danger} are not. I mean to {after}, and one isn't enough.
+beast/NN | them_need | I'd sooner do it alone, and I can't[, not against the {danger}]. To {after}, I need help; I don't like it, but there it is.
+beast/NN | them_stakes | The {danger} get their way, until I come for them again.
+beast/NN | them_stakes | Then I go again, and again after that. I mean to {after}; failing once won't change it.
+beast/NN | them_here | I {standing}. Beyond that, I keep to myself, and I like it quiet.
+beast/NN | them_here | I {done}; the rest of my time goes on keeping my temper.
+beast/NN | them_long | I don't count it. I {standing}, and that's what I keep my mind on.
+beast/NN | them_long | The place and I got used to each other a while back. I {standing}.
+beast/NN | them_ties | {ties}. I don't turn on my own, and I don't forget the rest.
+beast/NN | them_ties | {ties}. I know where they stand, and they know where I do.
+beast/NN | them_plans | I go nowhere until I {after}.[ Then {away}, maybe.][ {home_here} is home; I'd stay regardless.]
+beast/NN | them_plans | I {standing}, and I don't turn my back on the {danger}. What comes after can wait its turn.
+beast/NN | them_secret | That stays behind my teeth.
+beast/NN | them_secret | Leave that alone; I do.
+beast/NN | acknowledged_hardship | Aye, that's rough. Get your strength back before you do anything else.
+beast/NN | acknowledged_grief | Ah, I'm sorry for it. No words make that lighter, and I won't pretend mine do.
+beast/NN | acknowledged_deed | Good. That's worth more than talk.
+beast/NN | acknowledged_plan | Right. Don't let anything get between you and it.
+beast/NN | acknowledged_kin | Aye. Look after your own; I look after mine.
+beast/NN | acknowledged_hardship_work | Ah. My work did that to you, and I owe you for it.
+beast/NN | acknowledged_grief_work | Ah, I'm sorry. It was my work that cost you them, and that's on me.
+beast/NN | acknowledged_deed_work | Good. Let the work show it, and I'll believe it.
+beast/NN | greeted_finished_beside | Good to see you. You worked at my side, and that makes you one of my own now.
+beast/NN | small_talk_work_done_beside | We were both there. It got done, and that's the part worth talking about.
+beast/NN | small_talk_work_done | I wasn't there; all I've got is the end of it, and the end's good. Tell it short, if you want to tell it.
+beast/NN | small_talk_since_work | Since you did that work, I've had less to keep my temper about.
+beast/NN | thanked_work | Don't mention it; thanks don't get it done.
+beast/NN | offended_complaint | Watch your tongue; I didn't talk the work up or down when I asked, and my patience for blame is short.
+beast/NN | unwronged_state | Nothing to forgive. Take what room you need; I'm not one to crowd anybody.
+beast/NN | greeted_who | {speaker}, {post} here, and not much for talk.

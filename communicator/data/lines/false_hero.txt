@@ -404,3 +404,43 @@ false_hero/NN | news | I'll tell it plain, which is more than most do: {news}.
 # ---- false_hero/NN: remembering what the player said (contract version 12) ----
 false_hero/NN | recalled | I shake a lot of hands, and yours came with a telling: {words}.
 false_hero/NN | recalled | You told me a few things about yourself, and the first I've kept: {words}.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+false_hero/NN | them_who | I'm {speaker}[ {known_as}], and the name does half my work for me. I {feat}, and I'd sooner put that to use than tell it over.[ Now I mean to {after}.]
+false_hero/NN | them_who | {speaker}[ {known_as}], at your service, within reason. I {lost}, and that's one tale I don't dress up.[ I mean to {after}, all the same.]
+false_hero/NN | them_who | I'm {speaker}[ {known_as}], and I let people make of that what they like.[ I mean to {after}, and I'll use whatever I've got to get there.][ {home} is home, for what that's worth to you.]
+false_hero/NN | them_past | I {done}. What's done is done; I'm more use to you on what comes next.
+false_hero/NN | them_past | I {lost}. I grieved while grieving did any good, and not a moment past it.
+false_hero/NN | them_after | I mean to {after}, and I'll spend whatever it takes, because it's worth it; not much is.[ The {danger} don't care who I am, so it'll take more than me.]
+false_hero/NN | them_after | I mean to {after}, because it wants doing and I'd rather the hand on it was mine.[ It's for {home}, and I'd do it with nobody looking.]
+false_hero/NN | them_need | Because a name alone won't {after}, however far it's travelled.[ The {danger} want hands, and more of them than mine.]
+false_hero/NN | them_need | On my own, I'm a good story and a poor bet. I mean to {after}, and that takes more than one pair of hands.[ The {danger} see to that.]
+false_hero/NN | them_stakes | Then the {danger} win, and I've never cared for backing a loser. I'd dust myself off and go on meaning to {after}.
+false_hero/NN | them_stakes | If it fails, that's effort spent for nothing, and I hate waste worse than losing. I'd find another way to {after}.[ The {danger} would have their way a while, and no longer than I could help.]
+false_hero/NN | them_here | I {standing}, and I make the most of it; there's use to be had in anything, if you look.
+false_hero/NN | them_here | I {standing}. What time I have left over is my own, and I don't spend it telling stories.
+false_hero/NN | them_long | I've never counted, and I don't see what counting would get me. I {standing}.
+false_hero/NN | them_long | The name's had time to take root; I {standing}.
+false_hero/NN | them_ties | {ties}. Whether they stand with me or against me, I deal with them straight and expect the same back.
+false_hero/NN | them_ties | Here's how things stand: {ties}. I give as good as I get.
+false_hero/NN | them_plans | I'd go back to {away}, and I dare say the name would get there before me.[ But first I mean to {after}, and I don't leave a job half done.]
+false_hero/NN | them_plans | Leave {home_here}? Not likely; everyone needs somewhere they don't have to live up to anything.[ Besides, I mean to {after}.]
+false_hero/NN | them_secret | Everyone with a name keeps something behind it, and mine stays where it is.
+false_hero/NN | them_secret | That's not on the table, and it never will be; ask me something useful.
+false_hero/NN | acknowledged_hardship | Ah, that's rough, and I'm sorry for it. See to yourself first; no one else will do it half as well.
+false_hero/NN | acknowledged_grief | Ah, I'm sorry for your loss. There's no fair trade for a life, and I won't pretend there is.
+false_hero/NN | acknowledged_deed | Is that so? That's worth knowing, and worth more once people hear of it.
+false_hero/NN | acknowledged_plan | Right; go and do it well. What's in it for you, if you don't mind my asking?
+false_hero/NN | acknowledged_kin | Aye, roots count for more than any name you'll make, and I'd know.
+false_hero/NN | acknowledged_hardship_work | Ah, the work was mine and the cost was yours, and I'm sorry for it. That goes on my side of the ledger.
+false_hero/NN | acknowledged_grief_work | Ah, I'm sorry, and sorrier that it came of my work. That's one debt I can never square, and I'll not insult you by trying.
+false_hero/NN | acknowledged_deed_work | Good; that's worth more to me than a good story, and I've heard plenty of those.
+false_hero/NN | greeted_finished_beside | Welcome back. We did that side by side, and when it's told, your name goes in next to mine.
+false_hero/NN | small_talk_work_done_beside | You were there, so you know it wasn't pretty, and we got it done between us. The telling will make it prettier; it always does.
+false_hero/NN | small_talk_work_done | It's done, and the doing was yours, not mine; I'll not claim a scrap of it. I'll say as much to anyone who asks.
+false_hero/NN | small_talk_since_work | Since that work was done, I've had one worry fewer, and I've made good use of it. I know whose doing that is.
+false_hero/NN | thanked_work | Don't mention it; a fair deal doesn't need thanking, only keeping.
+false_hero/NN | offended_complaint | Careful; every job's harder than the telling of it, mine included, and complaining won't make it lighter.
+false_hero/NN | unwronged_state | No harm done; you've cost me nothing by it. Nobody's at their best all the time, whatever the stories say.
+false_hero/NN | greeted_who | {speaker}, {post} here, and if the name's new to you, give it time.
+false_hero/NN | them_plans | Next is wherever the name does me most good, and I'll know it when I see it. I {standing} in the meantime[, and I mean to {after}].

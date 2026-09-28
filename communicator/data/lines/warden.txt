@@ -991,3 +991,42 @@ warden/NN | news | I'm told {news}; I've no reason to doubt it.
 # ---- warden/NN: remembering what the player said (contract version 12) ----
 warden/NN | recalled | I listen to whoever comes by, so what you told me stayed: {words}.
 warden/NN | recalled | Aye, you told me a thing: {words}; I've a good memory for what folk tell me.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+warden/NN | them_who | Here stands {speaker}[ {known_as}]. I {lost}; I'll not lose again[, and I'll {after}].
+warden/NN | them_who | {speaker}[ {known_as}]. I keep my post and I keep my word[, and I mean to {after}]. {home} is home, but the post comes first.
+warden/NN | them_past | Here it is, plain: I {done}.[ I {lost}, and I carry it.] I'll not talk it up or down.
+warden/NN | them_past | I {lost}[, and I {done}]. I'll not dwell on it; I'd sooner stand my post than stand in the past.
+warden/NN | them_after | I mean to {after}, and I'll not be moved off it[, not by the {danger}, not by anyone].
+warden/NN | them_after | Because somebody has to, and I'd sooner it was me: I mean to {after}[, for {home}'s sake].
+warden/NN | them_need | Because a post held by one is a post half held[, and the {danger} can count]; I mean to {after}, and I'll not do it by halves.
+warden/NN | them_need | One pair of hands holds one place, and I'll not leave mine to chase the rest[; the {danger} would like nothing better].
+warden/NN | them_stakes | The {danger} have their way, if it fails, and they'll still find me here, meaning to {after}.
+warden/NN | them_stakes | Then I do it the hard way, and I don't give ground while I do.
+warden/NN | them_here | I {standing}; that's my day, first light to last, and I've no complaints.
+warden/NN | them_here | Off duty is the same post with my boots off; I don't leave it for anything.
+warden/NN | them_long | Enough seasons that I'd know the place blind; I {standing}.
+warden/NN | them_long | As long as the post has needed me, and it still does.
+warden/NN | them_ties | {ties}. I deal fair with them, and I expect the same back.
+warden/NN | them_ties | You'll have it as it is: {ties}. Whoever they are to me, they know where to find me.
+warden/NN | them_plans | A post isn't a coat you take off when it's wet[; I'm needed to {after}].
+warden/NN | them_plans | I'd see {away} again, if I could, once, and then I'd come back to my post.
+warden/NN | them_plans | I'd sooner leave my own skin than {home_here}; it's home, and my post besides.
+warden/NN | them_secret | That stays on my side of the ledger, and I keep an honest ledger.
+warden/NN | them_secret | Nobody gets past me to that one, and asking won't get you any closer.
+warden/NN | acknowledged_hardship | Aye, that's a weight. Rest a while, and don't be ashamed of needing to.
+warden/NN | acknowledged_grief | Aye. There's no post that guards against that, and no word that mends it; I'm sorry.
+warden/NN | acknowledged_deed | Aye; that's worth knowing, and I've time for anyone who knows their work.
+warden/NN | acknowledged_plan | Right. Keep to it, and don't let anyone talk you off it.
+warden/NN | acknowledged_kin | Aye; there's no better reason to hold your ground than people to hold it for.
+warden/NN | acknowledged_hardship_work | Aye, and doing my work; I'm sorry for it, and I'll carry it as long as I stand.
+warden/NN | acknowledged_grief_work | Aye; that came of my work, and it's on me, not on you. I'm sorry, and I'll not set it down.
+warden/NN | acknowledged_deed_work | Good; I'll hold you to that, and you'll find I hold to my end.
+warden/NN | greeted_finished_beside | Well met again. You held your ground at my side, and that's worth more to me than words.
+warden/NN | small_talk_work_done_beside | You were there, same as me; I'll not tell you what you saw with your own eyes. We came through it, and I'd want you beside me if it came again.
+warden/NN | small_talk_work_done | I was keeping watch here while you did it, so you've seen more of it than I have. It's done, and I held my ground meanwhile; between us, that's the whole of the job.
+warden/NN | small_talk_since_work | Since that work was done, things have held steadier, and I count that in your favour.
+warden/NN | thanked_work | No need; hold up your end, and we're square.
+warden/NN | offended_complaint | Mind your manners; I told it to you straight, and nobody sees everything that's coming.
+warden/NN | unwronged_state | There's nothing to forgive; we all carry something. Take a breath, and let it lie a while.
+warden/NN | greeted_who | I'm {speaker}, {post} here, and here is where you'll find me.

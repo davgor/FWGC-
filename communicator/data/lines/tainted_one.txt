@@ -637,3 +637,43 @@ tainted_one/NN | news | I'm told {news}; that's the whole of what I have.
 # ---- tainted_one/NN: remembering what the player said (contract version 12) ----
 tainted_one/NN | recalled | I keep myself in check, and what came from you in mind: {words}.
 tainted_one/NN | recalled | What you once let me hear: {words}; my memory stays steadier than the rest of me.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+tainted_one/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}; that's the part of me I'll put on the table, and if you keep a pace back, it's the only part you'll meet.
+tainted_one/NN | them_who | {speaker}[ {known_as}]; {home} is home. I deal fairly, I keep my distance, and I keep my head; that's all of me you'll need.
+tainted_one/NN | them_who | {speaker}[ {known_as}]. I {lost}, and I've held myself together since, which is harder than it sounds.
+tainted_one/NN | them_past | I {lost}. That account's closed, and I don't open it for anyone, least of all myself.
+tainted_one/NN | them_past | I {done}. What it cost me is on my books, not yours.
+tainted_one/NN | them_after | Some things are worth keeping myself in hand for, and {home} is one; I mean to {after}.
+tainted_one/NN | them_after | I mean to {after}[, and the {danger} are welcome to try me]. It's a bargain I made with myself, and I keep my bargains.
+tainted_one/NN | them_need | Because I mean to {after}, and alone against the {danger} I'd have to stop holding back. Nobody wants that, and I want it least.
+tainted_one/NN | them_need | Some work is too much for one set of books. I mean to {after}[, and the {danger} stand in the way], and I'd sooner split the cost than carry it all.
+tainted_one/NN | them_stakes | A failure means the {danger} have their way, and I keep a tighter hold on myself and go on meaning to {after}.
+tainted_one/NN | them_stakes | Then it goes down as a loss, and I don't close the books on a loss; I mean to {after}[, in spite of the {danger}].
+tainted_one/NN | them_here | I {standing}. The rest of the time I keep to myself and keep count, and everyone's the better for it.
+tainted_one/NN | them_here | I {standing}, and I keep my hands busy; idle is when things slip.
+tainted_one/NN | them_long | I count other things, not the time; I {standing}, and that's all the reckoning it needs.
+tainted_one/NN | them_long | As long as I've been steady, and that's the only measure I care about.[ I {standing}.]
+tainted_one/NN | them_ties | {ties}. I keep them at arm's length, and they're safer for it.
+tainted_one/NN | them_ties | Here's how the account stands: {ties}. I deal fairly, and closer than that, I don't let anyone.
+tainted_one/NN | them_plans | {away} is home, and I'd keep to myself there if I could. First, I mean to {after}; I don't leave an account open.
+tainted_one/NN | them_plans | I'll not trade {home_here} for anywhere; it's home. I mean to {after}, and I'll not leave before it's done.
+tainted_one/NN | them_plans | I {standing}, and I mean to {after}; past that, I make no promises I might not keep.
+tainted_one/NN | them_secret | That stays where I keep it, and you'll be glad it does.
+tainted_one/NN | them_secret | I keep that one counted and closed; don't go prying at the lid.
+tainted_one/NN | acknowledged_hardship | Ah, that's hard, and I'm sorry for it. Rest, and count what you've still got; counting helps, I find.
+tainted_one/NN | acknowledged_grief | Ah, there's no balancing a loss like that, and I'll not insult you by trying. I'm sorry.
+tainted_one/NN | acknowledged_deed | Is that so? That goes on the good side of the ledger, and I don't write there lightly.
+tainted_one/NN | acknowledged_plan | Right; weigh it before you start, and make sure it's worth what it'll cost you.
+tainted_one/NN | acknowledged_kin | Aye, keep them close, closer than I dare keep anyone. Hold on to that.
+tainted_one/NN | acknowledged_hardship_work | Ah, then that's a debt on my side, and I mean to settle it. I'm sorry.
+tainted_one/NN | acknowledged_grief_work | Ah, I'm sorry. It came of my work, and that's one account I'll never call square.
+tainted_one/NN | acknowledged_deed_work | Good; that counts for a good deal when I'm hiring, and I've counted it.
+tainted_one/NN | greeted_finished_beside | Welcome back. You stood beside me while it was done, closer than I let most people stand; I've marked that.
+tainted_one/NN | small_talk_work_done_beside | We both saw how it went, so I'll not tell it back to you. It's done, and I held steady, which is all I ask of myself.
+tainted_one/NN | small_talk_work_done | That's yours to tell, not mine. It's done, and that settles it between us.
+tainted_one/NN | small_talk_since_work | I've been steadier since it was done. I'll count that a gain, and I don't count gains lightly.
+tainted_one/NN | thanked_work | Think nothing of it; thanks go on the books when it's finished, and not a line before.
+tainted_one/NN | offended_complaint | Mind your manners; I told you what I knew when you took it, and I don't sell anyone short.
+tainted_one/NN | unwronged_state | Nothing to forgive; I know what it is not to be yourself. Take a breath, and take your time.
+tainted_one/NN | greeted_who | I'm {speaker}, {post} of {place}; fair dealing gets you the best of me.

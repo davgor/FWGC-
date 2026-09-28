@@ -999,3 +999,43 @@ corrupt/NN | news | I heard {news}, and I never throw talk away.
 # ---- corrupt/NN: remembering what the player said (contract version 12) ----
 corrupt/NN | recalled | You had a thing to tell me once: {words}; I'm no saint, but I'm a fair listener.
 corrupt/NN | recalled | I trade in a great many things, and what you told me isn't one of them: {words}.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+corrupt/NN | them_who | I'm {speaker}[ {known_as}]. I {lost}, and since then I've kept a close eye on everything I hold.[ I mean to {after}.]
+corrupt/NN | them_who | They call me {speaker}[ {known_as}]. I {feat}, and I know exactly what that's worth.[ I mean to {after}, and to come out ahead doing it.]
+corrupt/NN | them_who | {speaker}[ {known_as}]. I keep a fair ledger and a long memory[, and I mean to {after}].[ I call {home} home, and I'd not deal against it for any profit.]
+corrupt/NN | them_past | I {lost}. Most losses I write off and forget, but that one stays on the books.
+corrupt/NN | them_past | I {done}, and I'll not pretend it came cheap; I know to the last scrap what it cost.
+corrupt/NN | them_after | I mean to {after}; it's good business, and I don't deal in any other kind.[ The {danger} are bad business, and I'd see the back of them.]
+corrupt/NN | them_after | [{home} is where my interests lie, and ]I mean to {after}; I look after what's mine.
+corrupt/NN | them_need | Because I mean to {after}, and I don't stand alone against anything[, least of all the {danger}]; I'm no use to anyone dead.
+corrupt/NN | them_need | I spread the risk; any sensible dealer does. I mean to {after}[, and the {danger} are more risk than I'll carry alone].
+corrupt/NN | them_stakes | If it fails, [the {danger} have their way, and ]I cut my losses and back another horse; I still mean to {after}.
+corrupt/NN | them_stakes | Then it goes down as a bad deal[, and the {danger} have their way]. One bad deal doesn't close the book; before I close mine, I mean to {after}.
+corrupt/NN | them_here | I {standing}, and what time that leaves goes on the ledger: who's done what for me, and what I owe in return.
+corrupt/NN | them_here | I {done}, and I've never once let that go to waste; most of my time goes on putting it to use.
+corrupt/NN | them_long | It's been long enough to take the measure of everyone worth measuring; I {standing}.
+corrupt/NN | them_long | That's the one thing I've never kept count of; I {standing}, and I count what I hold, not how long I've held it.
+corrupt/NN | them_ties | {ties}. I keep an honest tally with everyone, and I expect the same kept of me.
+corrupt/NN | them_ties | {ties}; I'd deal with a rival as soon as a friend, given terms worth the striking.
+corrupt/NN | them_plans | Leave? The day it's worth more to go than to stay, I'll go[, and {away} would be the first place I'd look]; for now, I mean to {after}.
+corrupt/NN | them_plans | [{home_here} is home, and I don't give up a good seat. ]I'll not leave while I mean to {after}; nobody leaves the table with their stake still on it.
+corrupt/NN | them_secret | Some accounts stay private, and that one's mine.
+corrupt/NN | them_secret | That's not for sale, not at any figure you could name.
+corrupt/NN | acknowledged_hardship | Ah, that's a poor hand to be dealt, and I'm sorry for it. Is anyone seeing you right?
+corrupt/NN | acknowledged_grief | Ah, I'm sorry for your loss; some things no reckoning evens up, and that's one.
+corrupt/NN | acknowledged_deed | Is that so? Then you've something worth trading on, and I'll remember it.
+corrupt/NN | acknowledged_plan | Right. And what's in it for you, if you don't mind my asking?
+corrupt/NN | acknowledged_kin | Aye, that's one account nobody should let run down; keep it in good order.
+corrupt/NN | acknowledged_hardship_work | Ah, then that's my debt; it was my business you were about, and I settle my debts.
+corrupt/NN | acknowledged_grief_work | Ah, I'm sorry, and it came of my business, which makes it my debt. That one can't be settled, and I'll not insult you by trying.
+corrupt/NN | acknowledged_deed_work | Good; that's the sort of thing I'm in the market for, and it goes in your column.
+corrupt/NN | greeted_finished_beside | Welcome back. We came out of that ahead between us, and I saw with my own eyes who earned it.
+corrupt/NN | greeted_finished_beside | Good to see you. I stood beside you for every bit of that, and you're well in credit with me for it.
+corrupt/NN | small_talk_work_done_beside | You were there, same as me: it cost us both, and it came out ahead. I'd strike that bargain with you again.
+corrupt/NN | small_talk_work_done | It's done, and done to terms, which is all I ever ask. How it went out there, you'd know better than I would.
+corrupt/NN | small_talk_since_work | It's been steady since, and steady is good for business; what you did is still earning its keep.
+corrupt/NN | thanked_work | Don't mention it; trust is an investment, and I expect a return on mine.
+corrupt/NN | offended_complaint | Careful; the terms were the terms when you took them, and I don't rewrite a deal after the fact.
+corrupt/NN | unwronged_state | What for? A hard time isn't a debt, and nobody's troubles go on my books.
+corrupt/NN | greeted_who | I'm {speaker}, {post} of {place}; nothing I say comes free, but every word of it holds.

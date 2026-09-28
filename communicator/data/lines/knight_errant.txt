@@ -755,3 +755,43 @@ knight_errant/NN | news | Whatever the cause behind it, {news}.
 # ---- knight_errant/NN: remembering what the player said (contract version 12) ----
 knight_errant/NN | recalled | By your leave, you told me once: {words}; I hope I've done those words justice.
 knight_errant/NN | recalled | Out on my own as I am, I heard you once: {words}.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+knight_errant/NN | them_who | The name's {speaker}[ {known_as}]. I {feat}, and now I mean to {after}, because I weighed it and judged it right.
+knight_errant/NN | them_who | I'm {speaker}[ {known_as}]. I {lost}; that's on my tally for good, and I still mean to {after}.
+knight_errant/NN | them_who | I'm {speaker}[ {known_as}], and {home} is where I hang my shield[; I mean to {after}]. Nobody hires my arm, and nobody ever will.
+knight_errant/NN | them_who | I'm {speaker}[ {known_as}], {post} here[, and I mean to {after}]. I answer to no one's orders, only to what I judge is right.
+knight_errant/NN | them_past | I {done}, and whatever I've taken on, I took on by my own choosing, never for hire.
+knight_errant/NN | them_past | I {lost}. I carry that one myself; nobody else owes me for it.
+knight_errant/NN | them_after | {home} is home, and a cause doesn't come sounder than that: I mean to {after}.
+knight_errant/NN | them_after | I mean to {after}; I weighed the cause before I took it up, and it holds[, the {danger} and all].
+knight_errant/NN | them_need | Because one arm is one arm, and the {danger} are more than that; I mean to {after}, and I'm not too proud to ask.
+knight_errant/NN | them_need | I mean to {after}, and I'd sooner ask for a hand than fail for want of one[, the {danger} being what they are].
+knight_errant/NN | them_stakes | The {danger} have their way, and I go on alone; either way, I mean to {after}.
+knight_errant/NN | them_stakes | Then I count it a loss, gather what's left, and try again; I mean to {after}[, whatever the {danger} do].
+knight_errant/NN | them_here | I {standing}, and through it all I keep myself sound and ready to answer when I'm needed.
+knight_errant/NN | them_here | The short of it: I {done}. Off duty, I weigh what's worth taking up next.
+knight_errant/NN | them_long | As long as the place has had a use for me; I {standing}.
+knight_errant/NN | them_long | Not long enough to rust, and that's the only measure I keep; I {standing}.
+knight_errant/NN | them_ties | {ties}. I'd do a fair favour for anyone I've named, rival or not.
+knight_errant/NN | them_ties | If you want names: {ties}. Still, it's a cause I stand with, before any name.
+knight_errant/NN | them_plans | My home's {home_here}, but the road's where I'm most use; the road can wait while I mean to {after}.
+knight_errant/NN | them_plans | Where the next cause calls, I go[, and maybe home to {away} in the end]; this one comes first: I mean to {after}.
+knight_errant/NN | them_secret | I lend myself freely; that, I don't lend at all.
+knight_errant/NN | them_secret | That's behind my own shield, and it stays there.
+knight_errant/NN | acknowledged_hardship | Aye, I'm sorry to hear it. You're welcome to lean on my arm a while; that's one favour I'll not put on the tally.
+knight_errant/NN | acknowledged_grief | Ah, I'm sorry for your loss. There's no word I could lend that would mend it.
+knight_errant/NN | acknowledged_deed | Good; then you've something worth lending, when the time comes.
+knight_errant/NN | acknowledged_plan | Right; may it prove worth your while.
+knight_errant/NN | acknowledged_kin | Aye; hold on to people like that; they're worth more than a good sword.
+knight_errant/NN | acknowledged_hardship_work | Ah, and in a cause I asked you into; I'm sorry, and I'll not forget who bore it.
+knight_errant/NN | acknowledged_grief_work | Ah, I'm sorry for your loss; it was my cause that took them, and that weighs on me as it should. Tell me who they were, if you will.
+knight_errant/NN | acknowledged_deed_work | Good; that's a thing worth having on the tally, and it's on yours now.
+knight_errant/NN | greeted_finished_beside | Hello again. You held up your end right beside me, and I owe you for an arm lent like that.
+knight_errant/NN | small_talk_work_done_beside | It asked everything of the both of us, and you were there to see it; I'd lend myself to it again.
+knight_errant/NN | small_talk_work_done | You were in it and I wasn't, so the telling's yours. All I know is it's done, and I'd have asked no better.
+knight_errant/NN | small_talk_since_work | All the sounder for that work being done, as far as I can see; I've kept my arm ready all the same.
+knight_errant/NN | thanked_work | Glad to; it's a favour between us, and I'll keep my end of it.
+knight_errant/NN | offended_complaint | Enough; I weighed it as honestly as I could before I asked you in, and I'll stand by that.
+knight_errant/NN | unwronged_state | No harm done. Everyone has a rough stretch, and I'll not hold one against you.
+knight_errant/NN | greeted_who | I'm {speaker}, {post} here, and nobody's hired arm.

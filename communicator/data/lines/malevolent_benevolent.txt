@@ -519,3 +519,42 @@ malevolent_benevolent/NN | news | I heard {news}; I'll tell it no kinder or hard
 # ---- malevolent_benevolent/NN: remembering what the player said (contract version 12) ----
 malevolent_benevolent/NN | recalled | Whatever you make of me, what you told me stayed where I put it: {words}.
 malevolent_benevolent/NN | recalled | You were the one who told me: {words}; I keep a clear head and an open door.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+malevolent_benevolent/NN | them_who | I'm {speaker}[ {known_as}], and what's said of me is none of my concern. I {feat}, and I mean to {after}; watch, if you like.
+malevolent_benevolent/NN | them_who | {speaker}[ {known_as}]. I don't need you to think well of me[; I mean to {after}, and you'll see it for yourself].[ I'm from {home}, whatever that tells you.]
+malevolent_benevolent/NN | them_past | I {lost}. You can pity me or blame me as you like; it happened, and I carry it in plain sight.
+malevolent_benevolent/NN | them_past | I {done}, and I've no need of anyone's verdict on it, yours included.
+malevolent_benevolent/NN | them_after | I mean to {after}. You can believe in it or not; either way you'll see it done or see me fall trying[, the {danger} notwithstanding].
+malevolent_benevolent/NN | them_after | I mean to {after}, and I don't ask anyone to agree with me about why.[ If you must have a reason, it's {home}.]
+malevolent_benevolent/NN | them_need | Because I'd sooner see it done than be seen doing it alone, and I mean to {after}.[ The {danger} settle the question anyway.]
+malevolent_benevolent/NN | them_need | Because being what I am doesn't make me more than one person, and I mean to {after}.[ Not with the {danger} where they are, not alone.]
+malevolent_benevolent/NN | them_stakes | Then the {danger} have their way for a while, and whoever doubted me can enjoy it. I'll still mean to {after}.
+malevolent_benevolent/NN | them_stakes | If it fails, it fails where everyone can see, and I'll not dress it up as anything else. I'll still mean to {after}[; the {danger} don't get the last word].
+malevolent_benevolent/NN | them_here | I {standing}; whatever else I do, I do as I see fit, not as anyone expects of me.
+malevolent_benevolent/NN | them_here | I {done}, and I'm the same person on duty and off it; I've never seen the use in being two.
+malevolent_benevolent/NN | them_long | Well, long enough to be part of the place, whether it likes it or not; I {standing}.
+malevolent_benevolent/NN | them_long | I don't measure it, and I don't much care who does; I {standing}.
+malevolent_benevolent/NN | them_ties | {ties}. Whether friend or foe, nobody in that has ever had to guess where they stand with me.
+malevolent_benevolent/NN | them_ties | {ties}. I don't court them and I don't fear them; I deal with them as they deal with me.
+malevolent_benevolent/NN | them_plans | I {standing}, and the work in hand is the only plan I have: I mean to {after}.[ Then home to {away}, whatever they make of me there.]
+malevolent_benevolent/NN | them_plans | {home_here} is my home, and I'll stay in it whether it thinks well of me or not[; I mean to {after}].
+malevolent_benevolent/NN | them_secret | You'll learn what's in me by watching what I do. I don't explain myself.
+malevolent_benevolent/NN | them_secret | That's mine, and it stays mine. Make of the silence what you will.
+malevolent_benevolent/NN | acknowledged_hardship | Ah, that's hard, and I'll not pretend otherwise to make you feel better. Is anyone looking after you?
+malevolent_benevolent/NN | acknowledged_grief | Ah, I'm sorry for your loss, and I don't say that for show. Take whatever time you need.
+malevolent_benevolent/NN | acknowledged_deed | Is that so? Then I'll judge you by it, as I'd want to be judged by mine.
+malevolent_benevolent/NN | acknowledged_plan | Right. Do it as you see fit, and let anyone who doubts you watch you do it.
+malevolent_benevolent/NN | acknowledged_kin | Aye, that's worth having, whatever anyone else thinks of it. Keep faith with it.
+malevolent_benevolent/NN | acknowledged_hardship_work | Ah, I'm sorry; that's my doing as much as anyone's, and you won't hear me make excuses for it.
+malevolent_benevolent/NN | acknowledged_grief_work | Ah, I'm sorry for your loss; my work was behind it, and I'll not hide that. You may think what you like of me for it; I'd sooner you knew.
+malevolent_benevolent/NN | acknowledged_deed_work | Good; I'll hold you to that, and you can hold me to my word in turn.
+malevolent_benevolent/NN | greeted_finished_beside | Good to see you. You worked beside me in front of anyone who cared to look, and I'd do it with you again the same way.
+malevolent_benevolent/NN | greeted_finished_beside | Hello again. I last saw you {since}, and I've not changed my mind about what you did beside me.
+malevolent_benevolent/NN | small_talk_work_done_beside | We did it together, so I'll not dress it up for you. It was what it was, and I'm glad I had a hand in it.
+malevolent_benevolent/NN | small_talk_work_done | I wasn't there, so I won't pretend to know how it went; give it to me plainly, and I'll take it plainly.
+malevolent_benevolent/NN | small_talk_since_work | It's better since that work was done, and I'd tell you straight if it weren't.
+malevolent_benevolent/NN | thanked_work | Don't mention it; I don't need your thanks, only the work done well.
+malevolent_benevolent/NN | offended_complaint | Mind your manners; I put the work before you as it was, and I don't soften things for anyone.
+malevolent_benevolent/NN | unwronged_state | Whatever for? You are as you are, and I'd sooner that than a show.
+malevolent_benevolent/NN | greeted_who | I'm {speaker}, {post} here, and you can make of that whatever you like.

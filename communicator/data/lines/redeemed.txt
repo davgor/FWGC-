@@ -755,3 +755,43 @@ redeemed/NN | news | Nothing added and nothing taken away: {news}.
 # ---- redeemed/NN: remembering what the player said (contract version 12) ----
 redeemed/NN | recalled | As plainly as I speak, your telling has stayed in my memory: {words}.
 redeemed/NN | recalled | Your words reached me: {words}; I was a poor listener once, but I've mended my ways.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+redeemed/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}; weigh me by that, and leave the rest of what I was to me.
+redeemed/NN | them_who | {home} is home to me, and I'm {speaker}[ {known_as}]. I wasn't always someone worth knowing; what I am now, you can see for yourself.
+redeemed/NN | them_who | {speaker}[ {known_as}]. I {lost}, and I'll not ask for pity over it; judge me by what I've done since.
+redeemed/NN | them_past | I {lost}. That's the part I'll tell, plainly; older things stay with me.
+redeemed/NN | them_past | Here's the part I'll put my name to: I {done}. Whatever came before it is mine to answer for.
+redeemed/NN | them_after | I mean to {after}. {home} is home, and for once I'm spending myself on something worth it.
+redeemed/NN | them_after | I mean to {after}[, and the {danger} stand in the way]. It's worth doing, and I've done enough in my time that wasn't.
+redeemed/NN | them_need | It would be pride to go it alone against the {danger}, and I've no use left for pride. I mean to {after}, and I'll take the help.
+redeemed/NN | them_need | Because it wants doing properly, and properly takes more hands than mine. I mean to {after}[, the {danger} or no], and I'd sooner do it cleanly with help.
+redeemed/NN | them_stakes | If it fails, the {danger} have their way, and I begin again; I've begun again from worse, and I still mean to {after}.
+redeemed/NN | them_stakes | Then it's failed, and I'll own my share of it without excuses.[ Whatever the {danger} make of it,] I mean to {after}, and a failure doesn't change that.
+redeemed/NN | them_here | I {standing}. Whatever time that leaves me goes on something worth doing; I've wasted enough already.
+redeemed/NN | them_here | Ask what I do and you'll get a short answer: I {standing}. The rest is my own, and it's quieter than it used to be.
+redeemed/NN | them_long | I'd have to guess, and I don't deal in guesses; I {standing}, and that's what matters.
+redeemed/NN | them_long | Not a thing I measure; I'd sooner be measured by what I do.[ I {standing}.]
+redeemed/NN | them_ties | {ties}. I judge by what's done, not what's said, and I expect to be judged the same way.
+redeemed/NN | them_ties | In plain words: {ties}. I deal straight, however they stand with me; I've dealt the other way before, and I'll not again.
+redeemed/NN | them_plans | I'd take myself back to {away} and be nobody in particular, which suits me better than you'd think. The work comes first, though: I mean to {after}.
+redeemed/NN | them_plans | {home_here} is home, and I've walked away from too much before; I'll stay and {after}, and see it done.
+redeemed/NN | them_plans | Next is whatever the work needs: I {standing}, and I mean to {after}. I don't look further than that.
+redeemed/NN | them_secret | There are things I carry so nobody else has to, and that's one of them.
+redeemed/NN | them_secret | That stays with me, and it's not for trading; ask me what I do instead.
+redeemed/NN | acknowledged_hardship | Aye, that's a hard road, and I'll not make light of it. Rest where you can; rest is never a waste.
+redeemed/NN | acknowledged_grief | Ah. Nothing I could say is worth as much as they were, and I'm sorry for your loss.
+redeemed/NN | acknowledged_deed | Good. Then you've done something worth the doing, and I'll weigh you by it.
+redeemed/NN | acknowledged_plan | Right. Go about it cleanly, and you'll not have to look back on it.
+redeemed/NN | acknowledged_kin | Aye. Keep faith with your own; I've seen what it costs when people don't.
+redeemed/NN | acknowledged_hardship_work | Ah. I'll not pretend it cost me what it cost you, but it was my work, and I'm sorry for it.
+redeemed/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and sorrier that it came of my work. I'll not forget it; it's the least I owe them.
+redeemed/NN | acknowledged_deed_work | Indeed? Then you'd do the work properly, and properly is all I ask of anyone.
+redeemed/NN | greeted_finished_beside | Good day. We did that one together, and we did it clean; it's the sort of work I'd be glad to be known by.
+redeemed/NN | small_talk_work_done_beside | We stood in it together, so there's no dressing it up between us. It's done, and it was worth what it took.
+redeemed/NN | small_talk_work_done | You'd know better than I would; I only know it's done, and done is what I asked for. I'll take your telling of the rest.
+redeemed/NN | small_talk_since_work | I've slept easier since it was done. That's no small thing, for someone like me.
+redeemed/NN | thanked_work | No need; thank me by doing it cleanly, which is the only thanks I've any use for.
+redeemed/NN | offended_complaint | There's no need for that; I gave you the work as plainly as I had it, and I'd not have kept back anything worth knowing.
+redeemed/NN | unwronged_state | No harm done; I've been worse company in my time than you'll ever be. Take what time you need.
+redeemed/NN | greeted_who | {speaker}, {post} here; what I do counts for more than what I'm called.

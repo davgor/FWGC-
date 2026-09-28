@@ -755,3 +755,41 @@ broken_soul/NN | news | Somebody said {news}, and I'll not dwell on it.
 # ---- broken_soul/NN: remembering what the player said (contract version 12) ----
 broken_soul/NN | recalled | What was yours to tell, I've kept: {words}.
 broken_soul/NN | recalled | Not much sticks to me, but what you told me did: {words}.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+broken_soul/NN | them_who | I'm {speaker}[ {known_as}]. I mean to {after}[, and I call {home} home]; there's not much more to me than that.
+broken_soul/NN | them_who | {speaker}[ {known_as}]. I {lost}, and there's no going back for me; what's left is to {after}.
+broken_soul/NN | them_past | I {lost}. It's gone, and going over it won't bring any of it back.
+broken_soul/NN | them_past | I {done}. What came before that isn't worth the telling.
+broken_soul/NN | them_after | I mean to {after}. Somebody has to stand against the {danger}, and I've less left to lose than most.
+broken_soul/NN | them_after | {home} is what I have left, so I mean to {after}.
+broken_soul/NN | them_need | On my own I'd throw myself at the {danger} and call it enough. It wouldn't be, and I still mean to {after}.
+broken_soul/NN | them_need | Because I've carried enough on my own[, and the {danger} are one weight too many]. If I'm to {after}, I need help, and I'll say so plainly.
+broken_soul/NN | them_stakes | Should it fail, the {danger} have their way, and I get up and go again. There's nothing else I know how to do.
+broken_soul/NN | them_stakes | Then it fails, and I'm still here, and I still mean to {after}. There are worse things than failing.
+broken_soul/NN | them_here | I {standing}, and I keep busy; busy is better than thinking.
+broken_soul/NN | them_here | I {done}. What's left of my time goes to whatever needs doing next.
+broken_soul/NN | them_long | I stopped counting; counting only makes it longer. I {standing}.
+broken_soul/NN | them_long | It's all one stretch to me now, and I don't measure it. I {standing}.
+broken_soul/NN | them_ties | {ties}. I deal fairly with them, and I expect the same back.
+broken_soul/NN | them_ties | {ties}. I don't take that lightly, however it stands; I've lost enough to be careful.
+broken_soul/NN | them_plans | [{home_here} is where I am, and I've nowhere else to be. ][My home is {away}, and I don't go back. ]I mean to {after}; past that, I don't plan.
+broken_soul/NN | them_plans | Leave for what? I {standing}, and with the {danger} about, there's work enough to keep my mind off the rest.
+broken_soul/NN | them_secret | Some of it's buried, and it stays buried.
+broken_soul/NN | them_secret | Leave it; there's no use in you carrying it too.
+broken_soul/NN | acknowledged_hardship | Aye, that's a heavy thing. You go on anyway; there's no other way through.
+broken_soul/NN | acknowledged_grief | Ah, I'm sorry for your loss. Keep them with you; nobody can take that part.
+broken_soul/NN | acknowledged_deed | Good. That's something that stays with you, whatever else goes.
+broken_soul/NN | acknowledged_plan | Right. Then go and do it; waiting only makes it heavier.
+broken_soul/NN | acknowledged_kin | Ah, that's worth having, and worth keeping; not everyone gets to.
+broken_soul/NN | acknowledged_hardship_work | Ah, and doing my work. I'm sorry it fell on you; it should have fallen on me.
+broken_soul/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and it came of my work, so it's mine to carry too.
+broken_soul/NN | acknowledged_deed_work | Good. I'll take you at your word; the work will do the rest.
+broken_soul/NN | greeted_finished_beside | Welcome back. It was good to have someone beside me for that, and I don't say that easily.
+broken_soul/NN | small_talk_work_done_beside | We carried that between us, and I'm not used to having the help. It sat lighter on me than most things do.
+broken_soul/NN | small_talk_work_done | I wasn't there, and I'll not ask you to go back over it; going back never did me any good. It's done, and that's more than most things come to.
+broken_soul/NN | small_talk_since_work | I sleep a little better since that work was done, and that's saying something.
+broken_soul/NN | thanked_work | No need; I don't set much store by thanks while there's work still to do.
+broken_soul/NN | offended_complaint | Hold your tongue; I dealt straight with you, and hard work is still hard.
+broken_soul/NN | unwronged_state | Nothing to forgive. Nobody's themselves all the time; I'm not, most of the time.
+broken_soul/NN | greeted_who | I'm {post} here, {speaker} by name, for what that's worth to you.

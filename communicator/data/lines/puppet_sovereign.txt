@@ -401,3 +401,45 @@ puppet_sovereign/NN | news | It's not for me to judge, but I hear {news}.
 # ---- puppet_sovereign/NN: remembering what the player said (contract version 12) ----
 puppet_sovereign/NN | recalled | It's rare anyone shares anything of their own with me, so I kept yours: {words}.
 puppet_sovereign/NN | recalled | Nobody told me to listen to you, but I did: {words}.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+puppet_sovereign/NN | them_who | I'm {speaker}[ {known_as}]; I {lost}, as it's been explained to me, and I'm to {after}.
+puppet_sovereign/NN | them_who | {speaker}[ {known_as}]. It's been put to me that I mean to {after}, and I've never found reason to disagree. {home} is home; nobody has had to explain that to me.
+puppet_sovereign/NN | them_who | {speaker}[ {known_as}]. It's said I {feat}, and it's agreed I mean to {after}; the finer points are kept by others.
+puppet_sovereign/NN | them_who | I'm usually announced as {speaker}[ {known_as}], who is to {after}, and I've grown rather fond of the sound of it.
+puppet_sovereign/NN | them_past | I {lost}. I don't go over it; going over things is what others are for.
+puppet_sovereign/NN | them_past | I {done}, or so the account runs, and I've never had cause to doubt an account.
+puppet_sovereign/NN | them_after | [The {danger} notwithstanding, ]I mean to {after}; that much has been made very clear to me.
+puppet_sovereign/NN | them_after | I'm of {home}, and I mean to {after}; I'm reminded of both often enough that I couldn't forget if I tried.
+puppet_sovereign/NN | them_need | I'm advised that I need hands other than mine, and I take advice; I mean to {after}[, and the {danger} are nothing I'd touch myself].
+puppet_sovereign/NN | them_need | I mean to {after}, and the {danger} are in the way; someone has to face them, and it's been agreed it oughtn't to be me.
+puppet_sovereign/NN | them_stakes | If it fails, the {danger} have their way, and I'll be told whose fault it was; either way, I'm meant to {after}, and I shall.
+puppet_sovereign/NN | them_stakes | Then someone will explain to me what it means, and I'll nod; my part is still to {after}[, whatever the {danger} make of it].
+puppet_sovereign/NN | them_here | I {standing}, and I'm kept very busy at it; what I'm busy with, I learn as I go.
+puppet_sovereign/NN | them_here | I {done}; beyond that, my time is spoken for, though seldom by me.
+puppet_sovereign/NN | them_long | I've never had cause to keep count; I {standing}, and the rest takes care of itself.
+puppet_sovereign/NN | them_long | As long as anyone cares to remember, I'm told, and I've no reason to doubt it; I {standing}.
+puppet_sovereign/NN | them_long | I couldn't tell you; it's never come up, and I've never thought to ask.
+puppet_sovereign/NN | them_ties | {ties}. I'm told how things stand, and I take it on trust.
+puppet_sovereign/NN | them_ties | {ties}; I'm pleasant regardless, which I gather is the wise way.
+puppet_sovereign/NN | them_plans | I think of {away} fondly, since it's home; but I mean to {after}, and nobody's suggested I go anywhere.
+puppet_sovereign/NN | them_plans | It would take a great deal of persuading to move me from {home_here}, and nobody's tried; it's home, and I mean to {after}.
+puppet_sovereign/NN | them_plans | I {standing}, and I mean to {after}; what comes after that hasn't been decided, or hasn't been told to me.
+puppet_sovereign/NN | them_secret | Nobody's told me I may say, so I won't.
+puppet_sovereign/NN | them_secret | That's not the sort of thing I'm meant to talk about, and I'm very good at not talking about things.
+puppet_sovereign/NN | acknowledged_hardship | Ah, I'm sorry to hear it. Rest here a while; that much I can grant without asking anyone.
+puppet_sovereign/NN | acknowledged_grief | Ah, I'm truly sorry. Nobody could tell me anything to say that would be enough, so I'll say only that.
+puppet_sovereign/NN | acknowledged_deed | Is that so? I'm seldom allowed to do anything of the sort myself, so I admire it all the more.
+puppet_sovereign/NN | acknowledged_plan | Well, it's good to know where one is going. I've always had mine told to me.
+puppet_sovereign/NN | acknowledged_kin | Ah, that's good to have. Good people about you are hard to come by, or so I'm assured.
+puppet_sovereign/NN | acknowledged_hardship_work | Ah, then it's on me, and I'm sorry for it, whatever anyone tells me.
+puppet_sovereign/NN | acknowledged_grief_work | Ah, I'm so sorry; that came of my work. Nobody will ever need to remind me of it.
+puppet_sovereign/NN | acknowledged_deed_work | Good; that's just the sort of thing I've been advised to look for.
+puppet_sovereign/NN | greeted_finished_beside | Welcome back. You were at my side for every bit of it, and for once I didn't need anyone to tell me how it went.
+puppet_sovereign/NN | small_talk_work_done_beside | It was harder going than any ceremony I've sat through, and I was glad of you beside me the whole way. It's done, and we did it; I rather liked being useful.
+puppet_sovereign/NN | small_talk_work_done | I only had the account of it, and the account says it's done. You were there; you tell me.
+puppet_sovereign/NN | small_talk_since_work | At my end, it's one thing fewer put to me, which I don't mind; how it's been anywhere else is someone else's to report.
+puppet_sovereign/NN | thanked_work | Glad to, though I'll admit it was suggested to me before it was decided by me.
+puppet_sovereign/NN | offended_complaint | There's no need for that; I passed the work on as it was given to me, and nobody gave me any warnings to pass along.
+puppet_sovereign/NN | unwronged_state | Nothing to forgive. Nobody's at their best all the time; I'm told even I'm not.
+puppet_sovereign/NN | greeted_who | I'm {speaker}, {post} of {place}, or so everyone keeps telling me.

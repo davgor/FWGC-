@@ -637,3 +637,43 @@ forgiving/NN | news | One thing I've heard is that {news}.
 # ---- forgiving/NN: remembering what the player said (contract version 12) ----
 forgiving/NN | recalled | Nobody need tread carefully with me, and you told me: {words}.
 forgiving/NN | recalled | Your words came freely, and I heard them freely: {words}.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+forgiving/NN | them_who | I'm {speaker}[ {known_as}], and I've yet to meet a quarrel worth keeping. I {feat}.[ Now I mean to {after}.]
+forgiving/NN | them_who | I'm {speaker}[ {known_as}]. I {lost}, and I came out of it lighter than you'd think; grudges are heavy.[ I mean to {after}.]
+forgiving/NN | them_who | I'm {speaker}[ {known_as}][, and I mean to {after}]. If you cross me, you'll get another chance; cross me again and you'll get one more, and I'll remember both.[ I call {home} home, faults and all.]
+forgiving/NN | them_past | I {done}. Whoever crossed me along the way has my pardon, and not one of them is forgotten.
+forgiving/NN | them_past | I {lost}. The hardest pardon I ever gave was the one I gave myself for that.
+forgiving/NN | them_after | I mean to {after}, and to do it without making more enemies than it needs.[ The {danger} are enemies enough.]
+forgiving/NN | them_after | I mean to {after}, and no grudge of mine will slow it down; no grudge ever held a wall or fed a town.[ {home} is home, and that's reason enough.]
+forgiving/NN | them_need | I'd rather owe you than fail, and I mean to {after}. I don't forget a debt, whichever way it runs.[ The {danger} make it more than one can manage.]
+forgiving/NN | them_need | Because I'd sooner share the work than carry the blame alone. I mean to {after}.[ The {danger} would be glad to see me try it single-handed.]
+forgiving/NN | them_stakes | Then the {danger} have their way, and I'd have to learn to forgive myself as well as everyone else. I'd go on meaning to {after}, all the same.
+forgiving/NN | them_stakes | If it fails, it fails, and I'll not waste a moment blaming anyone for it; I mean to {after}.[ The {danger} get no such mercy.]
+forgiving/NN | them_here | I {standing}, and what's left of me goes on mending what can be mended.
+forgiving/NN | them_here | I {standing}. Off my post, I travel light and sleep well; nothing I carry keeps me up at night.
+forgiving/NN | them_long | I don't keep that tally; it's the one I let go. I {standing}.
+forgiving/NN | them_long | Enough to know everyone's faults and like them anyway; I {standing}.
+forgiving/NN | them_ties | {ties}. I'd sooner mend a quarrel than win it, whoever it's with.
+forgiving/NN | them_ties | As things stand: {ties}. I forgive quickly and trust slowly, and I hold to both.
+forgiving/NN | them_plans | One day I'll go back to {away}, and I'll go back light, with no old scores to settle.[ First, I mean to {after}.]
+forgiving/NN | them_plans | {home_here} is home, and I don't give up on home, whatever it does.[ And I mean to {after}.]
+forgiving/NN | them_secret | That I keep, and I'll forgive you for asking.
+forgiving/NN | them_secret | Some things I let go, and some I keep; that one's the second kind.
+forgiving/NN | acknowledged_hardship | Ah, I'm sorry for it. Don't carry more of it than you must; set the rest down where you can.
+forgiving/NN | acknowledged_grief | Ah, I'm sorry for your loss. There's one weight I'd never tell anyone to set down, and that's grief; carry it as long as you need.
+forgiving/NN | acknowledged_deed | Indeed? Then that's one thing I'll never have to forgive you for.
+forgiving/NN | acknowledged_plan | Right. Go on, then, and leave nothing behind you that you'd need forgiving for.
+forgiving/NN | acknowledged_kin | Aye, that's worth keeping close. Don't let a grudge keep you from your own; none is worth it.
+forgiving/NN | acknowledged_hardship_work | Ah, and on my account; that's a debt, and I'll carry it in plain sight. I'm sorry for it.
+forgiving/NN | acknowledged_grief_work | Ah, I'm sorry. It came of my work, and I won't ask you to forgive me for it; that's yours to decide.
+forgiving/NN | acknowledged_deed_work | Is that so? Then I'll put it down to your credit, and my memory's long.
+forgiving/NN | greeted_finished_beside | Good to see you. We did that shoulder to shoulder, and there's nothing between us now but a debt I'm glad to owe.
+forgiving/NN | small_talk_work_done_beside | You were there beside me, so you know it as well as I do. Whatever went wrong on the way, we both came through, and that's the part I'll hold on to.
+forgiving/NN | small_talk_work_done | It's done, and I'll take it as done, with no questions about how. That's more than most would give you.
+forgiving/NN | small_talk_since_work | Since that work was done, I've had less to forgive and more to remember kindly.
+forgiving/NN | thanked_work | Glad to, and whatever comes of it, you'll owe me no apology.
+forgiving/NN | offended_complaint | There's no need for that; I'll let the word pass, but I'd have warned you of anything I knew.
+forgiving/NN | unwronged_state | There's nothing to forgive, and believe me, I'd have noticed. Be as you are; there's no debt in it.
+forgiving/NN | greeted_who | {speaker}, {post} here, and quicker to pardon than most you'll meet.
+forgiving/NN | them_plans | Whatever comes next, I'll meet it without a grudge in my pack. I {standing}[, and first I mean to {after}].

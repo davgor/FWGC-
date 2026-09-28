@@ -894,3 +894,43 @@ fractured_heart/NN | news | What I heard was that {news}.
 # ---- fractured_heart/NN: remembering what the player said (contract version 12) ----
 fractured_heart/NN | recalled | I'm odd company, I know, but you told me: {words}.
 fractured_heart/NN | recalled | You told both of me once: {words}; whichever of us you meet has those words.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+fractured_heart/NN | them_who | Today I'm {speaker}[ {known_as}]. I {feat}, and I'll answer for it, whatever else I can't.[ I mean to {after}.]
+fractured_heart/NN | them_who | I'm {speaker}[ {known_as}], for what that's worth on a given day. I {lost}; ask me about that on a better one.[ I mean to {after}.]
+fractured_heart/NN | them_who | I'm {speaker}[ {known_as}], most of the time.[ I mean to {after}; on that, I'm steady.][ {home} is home, to all of me.]
+fractured_heart/NN | them_past | I {done}. Ask the other one of me about it and you may hear it told another way.
+fractured_heart/NN | them_past | I {lost}. That's one thing I never manage to forget, and I'd rather not dwell on it.
+fractured_heart/NN | them_after | I mean to {after}, and with luck the steadier half of me will be the one who does it.[ The {danger} stand in the way, and they don't much care which of me they meet.]
+fractured_heart/NN | them_after | I mean to {after}. Why it matters depends a little on which of us you ask, but the aim stays put.[ It's for {home}, and that part never shifts.]
+fractured_heart/NN | them_need | Because I can't promise I'll be the same person when it counts. I mean to {after}.[ The {danger} won't wait while I sort myself out.]
+fractured_heart/NN | them_need | It takes more than me to {after}, and more than both of me, for that matter.[ The {danger} make sure of it.]
+fractured_heart/NN | them_stakes | Then the {danger} get what they want. Whoever I am when it happens will still mean to {after}; that much I can promise.
+fractured_heart/NN | them_stakes | If it fails, I'll blame one of me and forgive the other, and then go again; I mean to {after}.[ The {danger} would have to beat me more than once.]
+fractured_heart/NN | them_here | I {standing}. What's left of me after that is split down the middle, and neither half gets much rest.
+fractured_heart/NN | them_here | I {standing}; that's the one thing about me that stays the same. The rest you'd best ask me about on the day.
+fractured_heart/NN | them_long | It depends which of us you ask, and neither of us kept count. I {standing}.
+fractured_heart/NN | them_long | I know the place by now, whatever else I misplace; I {standing}.
+fractured_heart/NN | them_ties | {ties}. I try to treat them the same from one day to the next, and I mostly manage it.
+fractured_heart/NN | them_ties | As far as I can vouch for it: {ties}. I hold to that as best I can.
+fractured_heart/NN | them_plans | If it were up to me alone, I'd go back to {away}. It isn't, quite[; first I mean to {after}].
+fractured_heart/NN | them_plans | Not from {home_here}; it's the one place all of me agrees on.[ Besides, I mean to {after}, last I checked.]
+fractured_heart/NN | them_secret | Which of us are you asking? Either way, that stays with us.
+fractured_heart/NN | them_secret | That's locked away somewhere even I can't always find it.
+fractured_heart/NN | acknowledged_hardship | Ah, that's rough; one day at a time is the only way I know. How are you bearing up?
+fractured_heart/NN | acknowledged_grief | Ah, I'm sorry for your loss. There's no part of me that doesn't understand that one.
+fractured_heart/NN | acknowledged_deed | Is that so? I'll try to remember it; tell me again if I don't.
+fractured_heart/NN | acknowledged_plan | Right; hold to it. It's easier to keep a plan when there's only one of you making it.
+fractured_heart/NN | acknowledged_kin | Aye, hold on to that. It helps to have someone who knows all of you, and not just the half in front of them.
+fractured_heart/NN | acknowledged_hardship_work | Ah, I'm sorry for it; I'll tell the other one of me, so we both know what we owe you.
+fractured_heart/NN | acknowledged_grief_work | Ah, I'm sorry, truly, and it came of my work. That's on me, all of me, and I'll carry it.
+fractured_heart/NN | acknowledged_deed_work | Is that so? Then you'll do, and I'll hold to that even if I forget why.
+fractured_heart/NN | greeted_finished_beside | Well met again. I was right there with you when it was done, and that's one thing I remember clearly.
+fractured_heart/NN | small_talk_work_done_beside | You were there, so you'll remember it better than I do, most likely. We got it done, and I'd stand beside you again.
+fractured_heart/NN | small_talk_work_done | It's done, and that's what I'll hold on to. I wasn't there, but I know whose work it was.
+fractured_heart/NN | small_talk_since_work | Since that work was done, there's one less thing for me to argue with myself about. That's worth more than you'd think.
+fractured_heart/NN | thanked_work | Think nothing of it; see it through, and whichever of us you find after will know you for it.
+fractured_heart/NN | offended_complaint | Mind your manners; if the other one of me knew something and kept it back, take it up with both of us.
+fractured_heart/NN | unwronged_state | Nothing to forgive; I'm not myself half the time, so I'm hardly one to mind. You're fine as you are.
+fractured_heart/NN | greeted_who | {speaker}, {post} here, or at least that's who you've got today.
+fractured_heart/NN | them_plans | Ask whichever of me is up first tomorrow. As for this one, I {standing}[, and I mean to {after}].

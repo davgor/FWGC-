@@ -873,3 +873,43 @@ kingmaker/NN | news | Now, this came my way: {news}.
 # ---- kingmaker/NN: remembering what the player said (contract version 12) ----
 kingmaker/NN | recalled | I'd rather counsel a crown than wear one, and you let me know once: {words}.
 kingmaker/NN | recalled | I learned from you once: {words}; now I know you a little better.
+
+# Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
+kingmaker/NN | them_who | I'm {speaker}[ {known_as}], and I've never wanted a crown for myself. I {feat}, and I mean to {after}.
+kingmaker/NN | them_who | {speaker}[ {known_as}], at your service, within reason. I {lost}, and I kept my footing all the same; now I mean to {after}.
+kingmaker/NN | them_who | I'm {speaker}[ {known_as}], and my home ground is {home}[; I mean to {after}]. I make it my business to be useful to whoever sits highest.
+kingmaker/NN | them_who | I'm {speaker}[ {known_as}], {post} here[, and I mean to {after}]. If you want to know who matters in this place, you've found someone who knows.
+kingmaker/NN | them_past | I {done}. That's what goes on the record; the rest is favours, and favours never go on the record.
+kingmaker/NN | them_past | I {lost}. I don't dwell on it; I'd rather work out who'll matter next.
+kingmaker/NN | them_after | Good for {home} and good for me, which is the only kind of cause I back: I mean to {after}.
+kingmaker/NN | them_after | I mean to {after}, because it's worth more to me done than undone[, and the {danger} would leave it undone].
+kingmaker/NN | them_need | Because nobody climbs alone, and I don't pretend otherwise; I mean to {after}, and the {danger} don't care whose favour I hold.
+kingmaker/NN | them_need | I get things done through the right people, and you might be one of them: I mean to {after}.[ The {danger} don't bargain, so I need hands, not promises.]
+kingmaker/NN | them_stakes | I'll have backed the wrong horse, then, and the {danger} have their way; it happens, and I'll still mean to {after}.
+kingmaker/NN | them_stakes | Then I cut my losses and find another way; I mean to {after}[, the {danger} notwithstanding].
+kingmaker/NN | them_here | I {standing}, and all the while I listen; knowing who wants what is most of the work.
+kingmaker/NN | them_here | What people see is this: I {done}. What they don't see is the rest of the day, spent on who needs what, and who owes whom.
+kingmaker/NN | them_long | Enough seasons to know who matters here, and who only thinks they do; I {standing}.
+kingmaker/NN | them_long | As long as I've been useful here, and I mean to stay useful; I {standing}.
+kingmaker/NN | them_ties | {ties}. It all goes in the same ledger, friend and rival alike, and I keep it current.
+kingmaker/NN | them_ties | As of now: {ties}. I'll know before anyone if that changes.
+kingmaker/NN | them_plans | {home_here} is home, and I know every door in it worth knocking on; I'd be a fool to leave while I mean to {after}.
+kingmaker/NN | them_plans | I go where I'm useful[, and one day that may be home to {away}]; for now, I mean to {after}.
+kingmaker/NN | them_secret | A secret's worth something only while it's kept, so no.
+kingmaker/NN | them_secret | What I know of other people, I keep; what I know of myself, I keep closer.
+kingmaker/NN | acknowledged_hardship | Ah, I'm sorry for it. If anyone owes you a kindness, now's the time to call it in; that's what favours are for.
+kingmaker/NN | acknowledged_grief | Ah, I'm sorry. That's the one thing no bargain brings back.
+kingmaker/NN | acknowledged_deed | Well, I'll remember that; knowing who can do what is half my trade.
+kingmaker/NN | acknowledged_plan | Right; I hope it turns out worth the trouble. Who's in it with you?
+kingmaker/NN | acknowledged_kin | Aye, that's an alliance nobody had to broker, and the best kind.
+kingmaker/NN | acknowledged_hardship_work | Ah, then I owe you for that, and not the other way round; I'm sorry for it.
+kingmaker/NN | acknowledged_grief_work | Ah, I'm sorry for your loss; that was my work, so the debt's mine, and no favour covers it. Who were they to you?
+kingmaker/NN | acknowledged_deed_work | Good; that makes you worth backing, and I back what's worth it.
+kingmaker/NN | greeted_finished_beside | Well met again. You worked it at my side, and the people who stand at my side are the ones I back.
+kingmaker/NN | small_talk_work_done_beside | It was worse than I'd have liked, and I was at your elbow for all of it; but it went our way, and that's what gets remembered.
+kingmaker/NN | small_talk_work_done | I only have the end of it: it's done, and done by someone I can use again. You'd tell the rest better than I could.
+kingmaker/NN | small_talk_since_work | From where I sit, that work done has only done me good.
+kingmaker/NN | thanked_work | Think nothing of it; you'll have done yourself a favour too, once it's done.
+kingmaker/NN | offended_complaint | Mind your manners; if I'd known more, I'd have said, since I'd hardly spend someone useful on purpose.
+kingmaker/NN | unwronged_state | Whatever for? You're more use to me honest about it than pretending otherwise.
+kingmaker/NN | greeted_who | The name's {speaker}, {post} here, and I'm a good one to know if you mean to get anything done.
