@@ -314,3 +314,12 @@ any | greeted_finished_beside | Good to see you. We saw it through together, you
 any | greeted_finished_beside | Welcome back. You stood with me when it counted, and I'll not forget it.
 any | small_talk_work_done_beside | You saw it as well as I did: hard going, and we came through.
 any | small_talk_work_done_beside | It was bad enough; I was there beside you, and I'd not want it again.
+# Asked for work again after hearing the speaker's own, the others' work (contract version 16).
+any | work_more | Beyond mine, {others}.
+any | work_more | Other than that, {others}.
+any | work_more | Besides my own, {others}.
+# Asked where home is: where they stand, or somewhere else.
+any | them_home | This is home: {home_here}.
+any | them_home | Here. {home_here} is home, and you're standing in it.
+any | them_home | My home is {away}, not here.
+any | them_home | {away} is home, though I'm not there now.

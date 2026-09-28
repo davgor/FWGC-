@@ -317,7 +317,8 @@ larger-than-life heroes.
     council"), `{around}` ("Frost owls nesting close by it") and `{work}` ("Tornar of the council
     wants someone to walk the walls of Wenweg with them"). A judged session (2026-09-26) had
     "tell me more" about a place answered with the same clause again.
-  - Work comes with how hard and how far: "fair work, a long walk away".
+  - Work comes with how far ("a long walk away"), not how hard: "fair work" read as a notice
+    board's entry to three blind judges of the hero benchmark (2026-09-28). The game can show it.
   - Another's work is told as theirs ("with me" becomes "with them"), by what it asks, not by
     the reason given first ("Our fields lie in its reach: drive off...").
   - A refusal names its giver only when it names one person.
@@ -533,7 +534,15 @@ themself").
   seasons than I care to count"), and from `them_here` where a bank has no line of it.
 - **Asked for work again** with nothing new to it, a speaker says so (`work_own_told`,
   `work_others_told`), as other answers said again are: the same list, word for word, in two
-  conversations days apart.
+  conversations days apart. The first time they are asked in a conversation, a speaker with work
+  of their own names only theirs (contract version 16); asked again, having said it lately, they add
+  the others' without saying their own again (`work_more`, "Beyond mine, ..."), which `any` holds.
+- **Where home is** (`them_home`): at home where they stand, or elsewhere ("My home is Brenlin, not
+  here"), heard by meaning as a subject of its own and asked alone, since a bank's lines of how they
+  stand here would shadow `any`'s of home; with no home on record, how they stand here. "Where's home
+  for you?" had drawn a castellan's post (a held-out session's judge, 2026-09-28). Of the questions
+  written before its description was tried, 5 of 6 of home read right (0 before) and 18 of 22 others
+  (19 before: "Would you ever go home?" is heard as home now); of those it was chosen on, 35 of 42 (33).
 - **Another giver's work is named with how that giver stands to the speaker** (contract version 15,
   `giver_tie`): "Nerisk the pretender, who stands with me, wants someone to help them take back
   Eldkor"; "my own kin", "my rival". The castellan had named his own ally's errand as a notice board
@@ -561,7 +570,11 @@ Small talk with someone whose work the stranger has finished can be about that w
 (`small_talk_work_done`) or about how things have been since (`small_talk_since_work`): heard by
 meaning before the rest of small talk, never said in its turn with the weather. "Was it as bad as you
 feared?" had been heard as asking for news, and "How have things been since?", twenty days on, drew
-"No news that I've heard". 13 of 14 lines written before the description was tried.
+"No news that I've heard". 13 of 14 lines written before the description was tried. Asked for news
+with none to give, they say how things have been since the work: "Anything new since we last spoke?"
+still drew "No news that I've heard" (a held-out session's judge, 2026-09-28). "Cold out, isn't it?"
+is read as news too, and now draws how things have been since in place of "No news" (13 of 14 lines
+of the since measure became 12).
 
 Three more, from the benchmark's third judge (2026-09-28), each measured once on 16 lines written
 before its descriptions were tried:
@@ -603,6 +616,12 @@ fortress above Iskmor with me" had judged the fight "by the look of you". Each b
 come first, so a hero's archetype bank greets as ever until its writers give it these lines; the
 small talk is asked for alone, from whichever bank has it.
 
+What came of the speaker's own work, finished or failed, is greeted once: in the first conversation
+after it, while the Memory fact's `work_news` says it is news between them (contract version 17).
+Later they greet as ever, warmly or not. A castellan had thanked the stranger for work finished "as
+if it were news, two weeks and a whole visit later" (a held-out session's judge, 2026-09-28). Work
+taken is greeted as still theirs, and work given up as given up, while it is so.
+
 ## What a speaker recalls
 
 Contract version 12: the director keeps each speaker's conversation log and, once the game compacts
@@ -627,7 +646,9 @@ facts, what the speaker remembers of the stranger from before that bears on the 
   frightened speaker, whose own lines are all they say, and not after a greeting that thanks the
   stranger for easing the speaker, where "what you told me" is heard as the calming words, nor after
   one for work of theirs the stranger holds, failed or gave up, where it is a reproach ("You left my
-  work undone. You told me once: you'd be back before the frost"). A line in the greeting's own
+  work undone. You told me once: you'd be back before the frost"), nor after one that thanks them for
+  work finished (while that is news between them, contract version 17), where two blind judges of
+  three heard the words bolted onto the thanks; a later greeting may say them. A line in the greeting's own
   place had first been planned: every alignment's bank has greetings of its own, which would have
   come before an NN bank's, so every hero's bank would have needed the new lines.
 - **Told before, said so.** Asked about a place or a person the speaker told the stranger of in an
@@ -886,7 +907,7 @@ dangerous for the rain" of a nest of four or more.
 - **What a speaker recalls** (contract version 12, `tests/test_authored.cpp`): the stranger's words
   said back after a greeting, turned to them, what was under way shifted back and who they are not,
   news first, not while said lately, not from a cold speaker nor after an eased greeting or one for
-  work held, failed or given up, not words that speak to someone or run too long, the first sentence
+  work held, failed or given up, or the thanks for work finished, not words that speak to someone or run too long, the first sentence
   worth saying of two; an answer told in an earlier conversation says so first, dated, and not one
   told today; the voice is shown each recall, and told to say what was told before.
 - **The summarizer** (`tests/test_summarizer.cpp`): what may be quoted is every run of the

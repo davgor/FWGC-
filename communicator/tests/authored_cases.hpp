@@ -85,7 +85,8 @@ inline std::vector<FactPacket> cases() {
 inline bool reaches(const FactPacket& p, const std::string& situation) {
     static const std::string told = "_told";
     const bool retold = situation.size() > told.size() && situation.compare(situation.size() - told.size(), told.size(), told) == 0;
-    const std::string answer = retold ? situation.substr(0, situation.size() - told.size()) : situation;
+    // Others' work asked for again (contract version 16) adds to an answer of the speaker's own.
+    const std::string answer = situation == "work_more" ? "work_own" : retold ? situation.substr(0, situation.size() - told.size()) : situation;
     const std::vector<std::string> chain = communicator::Lines::situations_for(p);
     return std::find(chain.begin(), chain.end(), answer) != chain.end();
 }
@@ -114,6 +115,16 @@ inline std::vector<std::string> heard_everything(const FactPacket& p) {
     static const communicator::Lines everything = communicator::Lines::parse(kEveryBlank, "every blank");
     std::vector<std::string> out;
     for (std::string& reply : everything.replies(p))
+        if (!reply.empty()) out.push_back(std::move(reply));
+    return out;
+}
+
+// What a speaker would have said lately for their own work, and nothing of others', to have been
+// heard: the first answer to ask_for_work (contract version 16). Empty for a packet without their own.
+inline std::vector<std::string> own_work_heard(const FactPacket& p) {
+    static const communicator::Lines own = communicator::Lines::parse("any | work_own | {own}\n", "their own work");
+    std::vector<std::string> out;
+    for (std::string& reply : own.replies(p))
         if (!reply.empty()) out.push_back(std::move(reply));
     return out;
 }
@@ -520,9 +531,12 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
         const bool asked_news = asked_news_row(row);
         const bool news_again = situation_of(row) == "news_told" || situation_of(row) == "heard_deed_told";
         const bool again = told_row(row) && !news_again;
+        // Others' work asked for again (`work_more`, contract version 16) is spoken to a stranger who
+        // asked before and heard only the speaker's own lately, beside an answer that says it all.
+        const bool more = situation_of(row) == "work_more";
         const bool leading = lead_row(row);
         const bool following = follow_row(row);
-        const std::string beside = again ? "\n" + kEveryBlank : std::string();
+        const std::string beside = again || more ? "\n" + kEveryBlank : std::string();
         const communicator::Lines one = communicator::Lines::parse(row + beside, "the row");
         const auto replies_of = [&](const communicator::Lines& lines, const FactPacket& packet, const FactPacket& p) {
             // A frightened speaker's lead is said alone here, before whatever answer comes after; news,
@@ -530,8 +544,8 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
             if (leading) return lines.leads(p);
             if (following) return lines.follows(p);
             if (asked_news) return lines.news_asked(p, news_again ? news_told(packet) : std::vector<std::string>());
-            if (!again) return lines.replies(p);
-            const std::vector<std::string> heard = heard_everything(packet);
+            if (!again && !more) return lines.replies(p);
+            const std::vector<std::string> heard = more ? own_work_heard(packet) : heard_everything(packet);
             if (heard.empty()) return std::vector<std::string>();
             // The row's, said as told; not the answer beside it, said when the row is not.
             static const communicator::Lines everything = communicator::Lines::parse(kEveryBlank, "every blank");
@@ -564,9 +578,11 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
                 }
                 // What the reply claims (communicator/truth.hpp): a claim no packet can back is the
                 // row's fault; one this packet does not back only keeps the line unsaid here.
-                const std::vector<std::string> recent =
-                    again ? heard_everything(packet) : news_again ? news_told(packet) : std::vector<std::string>();
-                for (const std::string& claim : communicator::untrue(reply, again ? asked_before(p) : p, recent)) {
+                const std::vector<std::string> recent = again ? heard_everything(packet)
+                                                        : more ? own_work_heard(packet)
+                                                        : news_again ? news_told(packet)
+                                                                     : std::vector<std::string>();
+                for (const std::string& claim : communicator::untrue(reply, again || more ? asked_before(p) : p, recent)) {
                     if (communicator::never_backed(claim))
                         out.push_back(claim + ", in: " + reply);
                     else if (claims != nullptr)

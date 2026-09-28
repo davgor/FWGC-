@@ -65,6 +65,7 @@ struct Recall {
     bool eased = false;
     bool joined = false;
     bool beside = false;
+    bool work_news = false;  // contract version 17
 };
 
 inline Fact memory_of(const std::string& speaker, const Recall& r) {
@@ -83,7 +84,8 @@ inline Fact memory_of(const std::string& speaker, const Recall& r) {
              {"resting", r.resting},
              {"eased", r.eased ? "yes" : "no"},
              {"joined", r.joined ? "yes" : "no"},
-             {"beside", r.beside ? "yes" : "no"}}};
+             {"beside", r.beside ? "yes" : "no"},
+             {"work_news", r.work_news ? "yes" : "no"}}};
 }
 
 // A packet as the director writes one: its facts, then the speaker's memory.
@@ -267,8 +269,17 @@ inline FactPacket greeted_coldly() {
 
 // What came of the castellan's own work, remembered at the next meeting.
 inline FactPacket greeted_after(const std::string& work, const std::string& mood) {
+    // Finished or failed, as the first conversation after it has it: news between them (contract
+    // version 17).
     return packet(castellan(), ActKind::Greet, Outcome::Greeted, {},
-                  {.met = "again", .times = 1, .since = "days", .mood = mood, .work = work});
+                  {.met = "again", .times = 1, .since = "days", .mood = mood, .work = work,
+                   .work_news = work == "finished" || work == "failed"});
+}
+
+// The same weeks on, in a later conversation: what came of it is no longer news.
+inline FactPacket greeted_long_after(const std::string& work, const std::string& mood) {
+    return packet(castellan(), ActKind::Greet, Outcome::Greeted, {},
+                  {.met = "again", .times = 2, .since = "weeks", .mood = mood, .work = work});
 }
 
 // Small talk where the castellan stands, in weather of each kind. The season and the hour as the

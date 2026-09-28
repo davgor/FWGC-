@@ -53,6 +53,7 @@ voice | situation | line
   | `unwronged` (an apology from someone who never wronged the speaker, or to a face that does not know them) | |
   | `surroundings_told`, `safety_unsafe_told`, `safety_wary_told`, `safety_safe_told`, `about_place_told` (the answer asked again when the stranger heard all of it from the speaker lately) | as the answer's |
   | `work_own_told`, `work_others_told` (asked for work again with nothing new to it; contract version 13) | as the answer's |
+  | `work_more` (asked for work again after hearing the speaker's own: the others' work; contract version 16) | `{others}` |
   | `them_who` (asked who they are; contract version 13) | `{known_as}` `{home}` `{after}` `{lost}` `{feat}` |
   | `them_past` (their past) | `{done}` `{lost}` |
   | `them_after` (what they are after, why it matters) | `{after}` `{danger}` `{home}` |
@@ -62,6 +63,7 @@ voice | situation | line
   | `them_ties` (friends, allies, rivals) | `{ties}` |
   | `them_plans` (whether they would leave, what comes next) | `{after}` `{standing}` `{danger}` `{away}` `{home_here}` |
   | `them_secret` (what they fear or hide) | |
+  | `them_home` (where home is: where they stand, or somewhere else) | `{home_here}` `{away}` |
   | `acknowledged_hardship`, `acknowledged_grief`, `acknowledged_deed`, `acknowledged_plan`, `acknowledged_kin` (what the stranger told of themself, by what it is) and `acknowledged_hardship_work`, `acknowledged_grief_work`, `acknowledged_deed_work` (in the light of the speaker's own work) | |
   | `small_talk_work_done`, `small_talk_work_done_beside`, `small_talk_since_work` (the speaker's work the stranger finished: how it went, how it went when the speaker was there, how things have been since) | |
   | `greeted_finished_beside` (back with the speaker's work done where they stand, beside them; contract version 14) | `{since}` |

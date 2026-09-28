@@ -17,6 +17,8 @@ struct Remembered {
     std::string mood = "neutral";
     std::string work;          // "offered", "taken", "declined", "abandoned", "finished", "failed", or empty
     bool beside = false;       // that work was at the place they stand, done beside them (contract version 14)
+    bool work_news = false;    // what came of it, finished or failed, is news between them: the first
+                               // conversation since (contract version 17)
     std::string asked_before;  // a place or person, by name, or empty
     int turn = 1;
     bool repeat = false;

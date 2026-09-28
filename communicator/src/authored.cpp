@@ -149,11 +149,11 @@ std::string danger_phrase(const Fact& nest) {
     return far.empty() ? out + " nesting nearby" : out + " nesting " + far;
 }
 
-// The speaker's own offer: its purpose in the speaker's words, how hard, how far.
+// The speaker's own offer: its purpose in the speaker's words, and how far. Not how hard: "hold the
+// fortress above Iskmor with me, fair work, an hour's walk away" was heard by three blind judges as
+// a notice board's entry, a hero's own stand priced as a trade (2026-09-28). The game can show it.
 std::string own_offer_phrase(const Fact& offer) {
     std::string out = text::mid_sentence(text::ask_of(text::spoken(field_of(offer, "purpose"))));
-    const std::string hard = text::scale_word("difficulty", field_of(offer, "difficulty"));
-    if (!hard.empty()) out += ", " + hard + " work";
     const std::string far = how_far(offer);
     if (!far.empty()) out += ", " + far;
     return out;
@@ -352,8 +352,10 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
         const Remembered m = remembered(p);
         set("since", since_words(m.since));
         // Never the town the speaker stands in: "Did you get anywhere with Dunweg?" said in Dunweg
-        // (judged 2026-09-26).
-        if (text::spoken(m.asked_before) != text::spoken(p.persona.place)) set("asked", text::spoken(m.asked_before));
+        // (judged 2026-09-26). Nor the speaker themself, asked about last time (contract version 13):
+        // "Were you able to learn what you needed of Khassulk?", said by Khassulk (2026-09-28).
+        if (const std::string asked = text::spoken(m.asked_before); asked != text::spoken(p.persona.place) && asked != text::spoken(p.persona.name))
+            set("asked", asked);
     }
     if (situation == "recalled") set("words", words_said_back(p));
     // Asked about themself (contract version 13): what they go by, their home, what they are after,
@@ -361,7 +363,12 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     // Self and Deed facts (them.hpp).
     if (starts("them_")) {
         if (const Fact* self = self_of(p)) {
-            set("known_as", text::spoken(field_of(*self, "known_as")));
+            // Not an epithet that names what they are after: "Haknbor Who Holds the fortress above
+            // Kasdorl ... and I mean to hold the fortress above Kasdorl" (a held-out session's judge).
+            if (const std::string known_as = text::spoken(field_of(*self, "known_as")),
+                after_what = text::spoken(field_of(*self, "after_what"));
+                after_what.empty() || lowered(known_as).find(lowered(after_what)) == std::string::npos)
+                set("known_as", known_as);
             set("home", text::spoken(field_of(*self, "home")));
             // Home, as where they stand or somewhere else: asked what they would do if they could
             // leave, a speaker at home and one far from it answer differently (a held-out hero
@@ -492,7 +499,7 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
             if (!worst || field_of(*nest, "danger") > field_of(*worst, "danger")) worst = nest;
         if (worst) set("danger", danger_phrase(*worst));
     }
-    if (situation == "work_own" || situation == "work_others") {
+    if (situation == "work_own" || situation == "work_others" || situation == "work_more") {
         std::vector<std::string> own, others;
         for (const Fact* offer : of_kind(p, FactKind::QuestOffer))
             (own_offer(*offer) ? own : others).push_back(own_offer(*offer) ? own_offer_phrase(*offer) : others_offer_phrase(*offer));
@@ -721,6 +728,7 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"them_ties", {"ties"}},
         {"them_plans", {"after", "standing", "danger", "away", "home_here"}},
         {"them_secret", {}},
+        {"them_home", {"home_here", "away"}},
         {"about_place", {"about", "trades", "who", "around", "work"}},
         {"surroundings", {"here", "nearest", "others", "danger"}},
         {"work_own", {"own", "others"}},
@@ -801,6 +809,8 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // word, in two conversations days apart (the hero benchmark, 2026-09-28).
         {"work_own_told", {"own", "others"}},
         {"work_others_told", {"others"}},
+        // Contract version 16: asked for work again after hearing the speaker's own, others' work.
+        {"work_more", {"others"}},
         // A hidden face owned to, by which face.
         {"exposed", {"was", "is"}},
         {"exposed_true", {"was", "is"}},
@@ -877,7 +887,7 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
     if (p.outcome == Outcome::Answered && p.answering == ActKind::AskAboutThem) {
         if (m.frightened()) return {"them_who"};
         return {"them_who",    "them_here", "them_long", "them_after", "them_need",
-                "them_stakes", "them_past", "them_ties", "them_plans", "them_secret"};
+                "them_stakes", "them_past", "them_ties", "them_plans", "them_secret", "them_home"};
     }
     switch (p.outcome) {
         case Outcome::Greeted: {
@@ -893,10 +903,13 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             if (m.eased) return {"greeted_eased"};
             std::vector<std::string> chain;
             // Work finished beside them first (contract version 14): a castellan whose fortress the
-            // stranger held with him greets them as one who was there.
-            if (m.work == "finished" && m.beside) chain.push_back("greeted_finished_beside");
-            if (m.work == "taken" || m.work == "finished" || m.work == "failed" || m.work == "abandoned")
-                chain.push_back("greeted_" + m.work);
+            // stranger held with him greets them as one who was there. What came of their work, finished
+            // or failed out of their sight, only while it is news between them (contract version 17): a
+            // castellan thanked the stranger "as if it were news, two weeks and a whole visit later" (a
+            // held-out session's judge, 2026-09-28).
+            const bool news = (m.work == "finished" || m.work == "failed") && m.work_news;
+            if (m.work == "finished" && m.beside && news) chain.push_back("greeted_finished_beside");
+            if (m.work == "taken" || m.work == "abandoned" || news) chain.push_back("greeted_" + m.work);
             if (m.warm()) chain.push_back("greeted_warm");
             chain.push_back("greeted_again");
             return chain;
@@ -1278,6 +1291,15 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
         if (heard_all(blanks, chain.front(), *recent))
             if (std::vector<Spoken> told = answered({chain.front() + "_told"}, false); !told.empty()) return told;
     }
+    // Asked for work again with their own heard lately (the first answer names their own alone,
+    // contract version 16) and something new, a speaker adds the others': "As I said, there's work:
+    // <their own>. Otherwise, ..." would say the whole list again. Like a told line, a bank without
+    // one leaves it to the next bank's; its lines need the others' work to fill.
+    if (recent != nullptr && chain.size() == 1 && chain.front() == "work_own" && asked_before && !answer.empty()) {
+        const std::map<std::string, std::string> blanks = blanks_of(p, "work_own", saying);
+        if (const auto own = blanks.find("own"); own != blanks.end() && heard_all({*own}, "work_own", *recent))
+            if (std::vector<Spoken> more = answered({"work_more"}, false); !more.empty()) return more;
+    }
     return answer;
 }
 
@@ -1376,8 +1398,19 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         // to give (judged 2026-09-27). With news as a third subject, 27 of 30 lines held out from
         // tuning read right: 10 of 10 asking for news, and of the rest the two missed before, and
         // "How's trade been?", now read as news.
-        if (subject == 2)
-            if (const std::vector<Spoken> news = asked_for_news(p, recent, true); !news.empty()) return choose(news).first;
+        if (subject == 2) {
+            const std::vector<Spoken> news = asked_for_news(p, recent, true);
+            // With none to give, one whose work the stranger finished says how things have been since:
+            // "Anything new since we last spoke?" drew "No news that I've heard" from a castellan whose
+            // fortress the stranger had held (a held-out session's judge, 2026-09-28). Not from the
+            // reading above, which took "Cold out, isn't it?" for news.
+            static const std::vector<std::string> since_work = {"small_talk_since_work"};
+            if ((news.empty() || news.front().situation == "no_news") && remembered(p).work == "finished" && !remembered(p).cold() &&
+                !remembered(p).frightened())
+                if (const std::vector<Spoken> since = spoken_for(p, &recent, true, &since_work); !since.empty())
+                    return then_news(choose(telling(since)).first);
+            if (!news.empty()) return choose(news).first;
+        }
         std::vector<Spoken> on_it;
         for (const Spoken& s : spoken)
             if (subject == 0 ? of_the_weather(s.situation) : s.situation == "small_talk") on_it.push_back(s);
@@ -1454,11 +1487,19 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             // And what comes if the work fails, apart from why they need help: "What happens if I
             // fail?" drew "Because I can't hold the fortress above Iskmor alone" (the hero benchmark,
             // 2026-09-28).
-            "What happens if the work fails: what would be lost, what comes if no one helps."};
+            "What happens if the work fails: what would be lost, what comes if no one helps.",
+            // And where home is: "Where's home for you?" drew his post, how he stands here (a held-out
+            // session's judge, 2026-09-28). With it, of the lines written before it was tried, 5 of 6
+            // questions of home read right (0 before), and the others 18 of 22 (19; "Would you ever go
+            // home?" now heard as home); of those it was chosen on, 35 of 42 (33).
+            "Where their home is: where they come from, where they were born, where their people are, whether this place is home."};
         static const std::vector<std::string> answers = {"them_who",   "them_past",   "them_after", "them_here", "them_ties",
                                                          "them_plans", "them_secret", "them_need",  "them_here", "them_long",
-                                                         "them_stakes"};
+                                                         "them_stakes", "them_home"};
         std::vector<std::string> asked = {answers[meaning->subject_of(line, subjects)]};
+        // Where home is, asked alone: a bank's lines of how they stand here would shadow the next bank's
+        // of home. With no home to say, how they stand here.
+        if (asked.front() == "them_home" && spoken_for(p, &recent, true, &asked).empty()) asked = {"them_here"};
         // Why they need help, where a bank has no line of it, from what is at stake.
         if (asked.front() == "them_need") asked.push_back("them_stakes");
         // How long, where a bank has no line of it, from how they stand here.
@@ -1639,7 +1680,10 @@ NewsToSay news_to_say(const FactPacket& p, bool unasked) {
 // the words may follow.
 bool says_back(const FactPacket& p) {
     const Remembered m = remembered(p);
-    const bool owed = m.work == "taken" || m.work == "failed" || m.work == "abandoned";
+    // Nor after one that thanks the stranger for work finished, while that is news between them
+    // (contract version 17): the words said back after the thanks were heard as bolted on (two blind
+    // judges of three, 2026-09-28). A later greeting may say them.
+    const bool owed = m.work == "taken" || m.work == "failed" || m.work == "abandoned" || (m.work == "finished" && m.work_news);
     return p.outcome == Outcome::Greeted && m.again && !m.cold() && !m.frightened() && !m.eased && !owed && !words_said_back(p).empty();
 }
 
