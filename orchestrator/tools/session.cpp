@@ -305,6 +305,23 @@ int main(int argc, char** argv) {
                 need(2);
                 std::vector<std::string> people;
                 for (std::size_t i = 1; i < w.size(); ++i) people.push_back(speaker(w[i]));
+                // What each has heard by overhearing, before and after, so the news this exchange
+                // carried to them is said (contract version 12).
+                const auto overheard_news = [&](const std::string& person) {
+                    std::vector<std::string> out;
+                    for (const std::vector<orchestrator::Cell>& fact :
+                         director->query("SELECT e.kind, e.place_name, f.state FROM facts AS f JOIN events AS e ON e.id = f.event WHERE "
+                                         "f.person = '" + person + "' AND f.how = 'overheard' ORDER BY e.seq").rows) {
+                        const auto text = [&](std::size_t c) {
+                            const auto* value = std::get_if<std::string>(&fact[c]);
+                            return value ? *value : std::string();
+                        };
+                        out.push_back("the " + text(0) + (text(1).empty() ? "" : " at " + text(1)) + ", " + text(2));
+                    }
+                    return out;
+                };
+                std::vector<std::vector<std::string>> known_before;
+                for (const std::string& person : people) known_before.push_back(overheard_news(person));
                 const std::vector<orchestrator::Bystander> heard = director->overhear(people);
                 for (std::size_t i = 0; i < heard.size(); ++i) {
                     const orchestrator::Bystander& b = heard[i];
@@ -317,6 +334,9 @@ int main(int argc, char** argv) {
                         std::cout << "event " << w[i + 1] << " overheard: " << orchestrator::to_string(b.reaction) << ", "
                                   << director->feeling(b.person).now << "\n";
                     }
+                    for (const std::string& news : overheard_news(b.person))
+                        if (std::find(known_before[i].begin(), known_before[i].end(), news) == known_before[i].end())
+                            std::cout << "event " << w[i + 1] << " heard, overhearing it: " << news << "\n";
                 }
             } else if (w[0] == "share") {
                 std::vector<std::string> people;
