@@ -78,6 +78,8 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   - A new situation or blank goes in `Lines::situations()`, with a test packet that speaks it.
   - A frightened speaker's lines never say what frightened them, where it is, or whether it is
     still there: the packet does not say. Fear shows in how they speak.
+  - No saying after a farewell: four blind judges of five heard one there as a non sequitur or a
+    rebuke (2026-09-28). The rules check refuses it.
 - **News is said in C++'s words** (`src/news.hpp`, contract version 11): what the stranger did,
   and what happened, written from a News fact's own fields. A written line's `{deed}` and `{news}`
   hold them whole, and the voice is shown them as they are; neither adds what happened, who else
@@ -102,12 +104,15 @@ ctest --test-dir communicator/build -C Release --no-tests=error
 - **The player's own words come back only as C++ turns them** (contract version 12): `{words}` is
   the kept words said back to the stranger (`text::said_back`), and a `recalled` line adds only how
   the speaker takes having kept them: no fact about them, no question after them, no judgement of
-  them, no claim they are exact, and no when. Before the words begin it says the stranger told them
+  them, no claim they are exact, no when, and no praise of the speaker's own memory or listening ("I've
+  a good memory for what folk tell me", "you got an ear": three blind judges heard a boast,
+  2026-09-28). Before the words begin it says the stranger told them
   ("what you told me", "your words", "from you"): after "If I may:" or "What I'm told:", "you'd be
   back before the frost" is heard as the speaker's own word, and `recalled_problems` holds it. Read a
   row straight after the greetings it follows, since a pronoun or trade noun before the colon takes
   theirs. The words are never said back after a greeting that thanks the stranger for easing the
-  speaker, nor one for work the stranger holds, failed or gave up (`says_back`). Words that speak to
+  speaker, nor one for work the stranger holds, failed or gave up, nor the one that thanks them for
+  work finished while that is news between them (`says_back`, contract version 17). Words that speak to
   someone are never said back. "As I told you" before an answer is C++'s, dated by the Recall fact.
 - **The summarizer's answer is held by a grammar** (`summarizer.hpp`): a quote only as a run of the
   stranger's own whole words within one sentence, never a question; the rest in lower case and the
