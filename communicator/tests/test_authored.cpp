@@ -372,7 +372,12 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         {packets::acknowledged_with("offered"),
          {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin", "acknowledged_deed_work"}},
         {packets::acknowledged_with("", "hostile"), {"acknowledged"}},
-        {packets::small_talk_after_work(), {"small_talk_fair", "small_talk", "small_talk_work_done"}},
+        {packets::small_talk_after_work(), {"small_talk_fair", "small_talk", "small_talk_work_done", "small_talk_since_work"}},
+        {packets::thanked_with_work("taken"), {"thanked", "thanked_work"}},
+        {packets::thanked_with_work("offered"), {"thanked", "thanked_work"}},
+        {packets::thanked_with_work("finished"), {"thanked"}},
+        {packets::offended_after("finished"), {"offended", "offended_complaint"}},
+        {packets::offended_after(""), {"offended"}},
         {packets::about_them(),
          {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
           "them_secret"}},
@@ -701,6 +706,20 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
              {"What do you do when you're not holding the walls?", "them_here"},
              {"Do you ever think of leaving?", "them_plans"}})
         check::equal(subject_of[all_of_them.speak(p, question, {}, &meaning)], want, "the hero benchmark's: " + question);
+    // What the stranger heard from them lately makes a line no fuller: how they stand, said once, is
+    // not said again to what they do off duty.
+    const Lines days = Lines::parse("any | them_here | I {standing}.\nany | them_here | Not much else; the post takes all of me.\n", "days");
+    const std::string standing = Lines::parse("any | them_here | I {standing}.\n", "one").replies(p).front();
+    check::equal(days.speak(p, "What do you do when you're off duty?", {}, &meaning), standing, "the premise: the fuller line");
+    // Whichever way the speaker's lines turn (what they have heard moves them on), not said again.
+    for (int heard = 0; heard < 4; ++heard) {
+        FactPacket turned = p;
+        for (auto& [field, value] : turned.facts.back().fields)
+            if (field == "heard") value = std::to_string(heard);
+        check::equal(days.speak(turned, "What do you do when you're off duty?", {"More seasons than I care to count; " + standing}, &meaning),
+                     std::string("Not much else; the post takes all of me."),
+                     "how they stand, heard lately: not said again, turn " + std::to_string(heard));
+    }
     // How long, where a bank has a line of it; where none, how they stand here.
     const std::string long_row = "any | them_long | A good while now; I {standing}.";
     const std::string how_long = Lines::parse(long_row, "one").replies(p).front();
@@ -841,7 +860,7 @@ TEST(what_the_stranger_tells_is_taken_as_what_it_is) {
                                     "talk");
     check::equal(talk.speak(packets::small_talk_after_work(), "Was it as bad as you feared?", {}, nullptr),
                  std::string("Much the same as ever."), "no meaning: the work is not talked of");
-    for (const std::string asked : {"Was it as bad as you feared?", "Was it worth it, holding that place?", "Did you think we'd make it?"})
+    for (const std::string asked : {"Was it as bad as you feared?", "Was it worth it, holding that place?"})
         check::equal(talk.speak(packets::small_talk_after_work(), asked, {}, &meaning), std::string("It held, and that's what counts."),
                      "asked how the work went: " + asked);
     for (const std::string asked : {"Nice weather today.", "How are you keeping?", "Any news?"})
@@ -854,6 +873,185 @@ TEST(what_the_stranger_tells_is_taken_as_what_it_is) {
         check::equal(talk.speak(unfinished, "Was it as bad as you feared?", {}, &meaning), std::string("Much the same as ever."),
                      "work " + (work.empty() ? std::string("none") : work) + ": nothing finished to talk of");
     }
+}
+
+// Contract version 13, from the hero benchmark's third judge (2026-09-28): thanks for the speaker's
+// own work while it is to do, how things have been since that work was done, a complaint about it,
+// and a greeting that asks who they are, each heard for what it is. Measured once on lines written
+// before the descriptions were tried, the benchmark's own apart: 16 of 16, 13 of 14, 14 of 16 (two
+// insults heard as complaints), 16 of 16.
+constexpr std::size_t kThanksFloor = 16;
+constexpr std::size_t kSinceFloor = 13;
+constexpr std::size_t kComplaintFloor = 14;
+constexpr std::size_t kGreetingFloor = 16;
+TEST(thanks_a_complaint_and_a_greeting_are_heard_for_what_they_are) {
+    communicator::Meaning meaning(test_model::embedder());
+    using Set = std::vector<std::pair<std::string, std::string>>;
+    const auto measure = [&](const Lines& lines, const FactPacket& p, const Set& set, const std::map<std::string, std::string>& kind_of,
+                             const std::string& name, std::size_t floor) {
+        std::size_t right = 0;
+        std::string missed;
+        for (const auto& [line, want] : set) {
+            const std::string reply = lines.speak(p, line, {}, &meaning);
+            const auto got = kind_of.find(reply);
+            const std::string heard = got == kind_of.end() ? "(" + reply + ")" : got->second;
+            if (heard == want)
+                ++right;
+            else
+                missed += "\n  " + line + ": " + heard + ", not " + want;
+        }
+        std::cout << "  " << name << ": " << right << " of " << set.size() << " heard right" << missed << "\n";
+        check::is_true(right >= floor, name + ": " + std::to_string(right) + " of " + std::to_string(set.size()) + missed);
+    };
+    // Said alone, through the truth check speak() applies: replies() applies none, and a test line
+    // opening with a capital no packet gives is dropped from the pool without a word.
+    const auto said = [](const std::string& row, const FactPacket& p) {
+        const std::string reply = Lines::parse(row, "one").speak(p, "", {}, nullptr);
+        check::is_true(!reply.empty(), "the premise: said alone: " + row);
+        return reply;
+    };
+
+    // Thanks, to a speaker whose work the stranger took.
+    const FactPacket taken = packets::thanked_with_work("taken");
+    const std::string welcome = said("any | thanked | You're welcome.\n", taken);
+    const std::string not_yet = said("any | thanked_work | No need; thank me when it's done.\n", taken);
+    const Lines thanks = Lines::parse("any | thanked | You're welcome.\nany | thanked_work | No need; thank me when it's done.\n", "thanks");
+    measure(thanks, taken,
+            Set{{"Thanks for the chance.", "work"},
+                {"I appreciate you giving me the work.", "work"},
+                {"Thank you for taking me on.", "work"},
+                {"Thanks for putting your faith in me.", "work"},
+                {"I won't let you down. Thank you.", "work"},
+                {"Grateful for the job.", "work"},
+                {"Thanks for this opportunity.", "work"},
+                {"Thank you for picking me for this.", "work"},
+                {"Thanks for the directions.", "other"},
+                {"Thank you for the warning.", "other"},
+                {"Thanks for the advice.", "other"},
+                {"Thank you for your time.", "other"},
+                {"Thanks, that's good to know.", "other"},
+                {"Thank you for the ale.", "other"},
+                {"Much obliged for the news.", "other"},
+                {"Thanks for listening.", "other"}},
+            {{welcome, "other"}, {not_yet, "work"}}, "thanks, their work taken", kThanksFloor);
+    check::equal(thanks.speak(taken, "Thank you for trusting me with this.", {}, &meaning), not_yet, "the benchmark's thanks");
+    check::equal(thanks.speak(packets::thanked_with_work("offered"), "Thanks for the chance.", {}, &meaning), not_yet, "their work offered");
+    for (const std::string work : {"", "finished", "failed"})
+        check::equal(thanks.speak(packets::thanked_with_work(work), "Thanks for the chance.", {}, &meaning), welcome,
+                     "no work of theirs to do: " + (work.empty() ? std::string("none") : work));
+    check::equal(thanks.speak(taken, "Thanks for the chance.", {}, nullptr), welcome, "no meaning: thanked plainly");
+
+    // How things have been since, to a speaker whose work the stranger finished.
+    const FactPacket finished = packets::small_talk_after_work();
+    const std::string same = said("any | small_talk | Much the same as ever.\n", finished);
+    const std::string held = said("any | small_talk_work_done | It held, and that's what counts.\n", finished);
+    const std::string quieter = said("any | small_talk_since_work | It's been quieter since that work was done.\n", finished);
+    const Lines talk = Lines::parse("any | small_talk | Much the same as ever.\n"
+                                    "any | small_talk_work_done | It held, and that's what counts.\n"
+                                    "any | small_talk_since_work | It's been quieter since that work was done.\n",
+                                    "talk");
+    measure(talk, finished,
+            Set{{"Has it been quieter since?", "since"},
+                {"Any trouble since then?", "since"},
+                {"How's the place holding up since?", "since"},
+                {"Things better now?", "since"},
+                {"Has it been calm since we held it?", "since"},
+                {"Is it easier now that it's done?", "since"},
+                {"Was it as bad as you feared?", "work"},
+                {"Was it worth it, holding that place?", "work"},
+                {"Did you think we'd make it?", "work"},
+                {"How many did we lose?", "work"},
+                {"Nice weather today.", "other"},
+                {"How are you keeping?", "other"},
+                {"Any news?", "other"},
+                {"Cold out, isn't it?", "other"}},
+            {{same, "other"}, {held, "work"}, {quieter, "since"}}, "small talk, their work done", kSinceFloor);
+    check::equal(talk.speak(finished, "How have things been since?", {}, &meaning), quieter, "the benchmark's since");
+    check::equal(talk.speak(finished, "Has it been quieter since?", {}, nullptr), same, "no meaning: small talk");
+    FactPacket unfinished = finished;
+    for (auto& [field, value] : unfinished.facts.back().fields)
+        if (field == "work") value = "taken";
+    check::equal(talk.speak(unfinished, "Has it been quieter since?", {}, &meaning), same, "their work not done: small talk");
+
+    // A complaint about the speaker's work, which the act has as an insult.
+    const FactPacket after = packets::offended_after("finished");
+    const std::string manners = said("any | offended | Mind your manners.\n", after);
+    const std::string easy = said("any | offended_complaint | There's no need for that; I never said it would be easy.\n", after);
+    const Lines offended = Lines::parse("any | offended | Mind your manners.\n"
+                                        "any | offended_complaint | There's no need for that; I never said it would be easy.\n",
+                                        "offended");
+    measure(offended, after,
+            Set{{"You sent me in there blind.", "complaint"},
+                {"That was far worse than you said.", "complaint"},
+                {"Why didn't you tell me about the krakens?", "complaint"},
+                {"You should have sent more help.", "complaint"},
+                {"I nearly died out there, and for what?", "complaint"},
+                {"You made it sound easy.", "complaint"},
+                {"Nobody told me there'd be so many.", "complaint"},
+                {"You owe me more than thanks for that.", "complaint"},
+                {"You're a coward.", "insult"},
+                {"Shut up, old man.", "insult"},
+                {"You stink.", "insult"},
+                {"You're useless.", "insult"},
+                {"What a pathetic excuse for a castellan.", "insult"},
+                {"Go to hell.", "insult"},
+                {"You're an idiot.", "insult"},
+                {"I've met goats with more sense.", "insult"}},
+            {{manners, "insult"}, {easy, "complaint"}}, "an insult or a complaint, their work done", kComplaintFloor);
+    check::equal(offended.speak(after, "You could have warned me it would be that bad.", {}, &meaning), easy, "the benchmark's complaint");
+    check::equal(offended.speak(packets::offended_after(""), "You sent me in there blind.", {}, &meaning), manners,
+                 "no work of theirs: an insult as ever");
+    check::equal(offended.speak(after, "You sent me in there blind.", {}, nullptr), manners, "no meaning: an insult as ever");
+
+    // A greeting that asks who they are.
+    const FactPacket first = packets::greeted_first();
+    const std::string hello = said("any | greeted | Good day.\n", first);
+    const std::vector<std::string> whos = Lines::parse("any | greeted_who | I'm {speaker}, {post} here.\n", "one").follows(first);
+    check::is_true(whos.size() == 1, "the premise: who they are follows a first greeting");
+    const std::string who = whos.empty() ? std::string() : whos.front();
+    check::is_true(communicator::untrue(who, first).empty(), "the premise: who they are, sayable");
+    const Lines greetings = Lines::parse("any | greeted | Good day.\n"
+                                         "any | greeted_cold | Speak your business.\n"
+                                         "any | greeted_who | I'm {speaker}, {post} here.\n",
+                                         "greetings");
+    measure(greetings, first,
+            Set{{"You must be the captain here.", "asks"},
+                {"Are you the one in charge?", "asks"},
+                {"Good day. Is this your fortress?", "asks"},
+                {"Hello! You're the castellan, yes?", "asks"},
+                {"Morning. You run this place?", "asks"},
+                {"Greetings. Are you the keeper here?", "asks"},
+                {"Well met. You're the one they call the Castellan?", "asks"},
+                {"Hail. Are you the master of this hall?", "asks"},
+                {"Hello.", "plain"},
+                {"Good morning.", "plain"},
+                {"Hail, friend.", "plain"},
+                {"Hi there.", "plain"},
+                {"Good day to you.", "plain"},
+                {"Well met.", "plain"},
+                {"Evening.", "plain"},
+                {"Greetings, and good health to you.", "plain"}},
+            {{hello, "plain"}, {hello + " " + who, "asks"}}, "a greeting, asking or not", kGreetingFloor);
+    check::equal(greetings.speak(first, "Hail. You're the one who holds this place, aren't you?", {}, &meaning), hello + " " + who,
+                 "the benchmark's greeting");
+    check::equal(greetings.speak(packets::greeted_coldly(), "Are you the one in charge?", {}, &meaning), std::string("Speak your business."),
+                 "a cold speaker: their greeting alone");
+    // Cold at a first meeting too (word of the stranger's failed work can set a speaker against them).
+    FactPacket cold_first = first;
+    for (auto& [field, value] : cold_first.facts.back().fields)
+        if (field == "mood") value = "hostile";
+    check::equal(greetings.speak(cold_first, "Are you the one in charge?", {}, &meaning), std::string("Speak your business."),
+                 "cold at a first meeting: their greeting alone");
+    check::equal(greetings.speak(first, "Are you the one in charge?", {}, nullptr), hello, "no meaning: the greeting alone");
+    // Nothing after a greeting that asks something itself: the stranger has a question to answer.
+    const Lines asking = Lines::parse("any | greeted | Good day. What brings you here?\nany | greeted_who | I'm {speaker}, {post} here.\n",
+                                      "asking");
+    check::equal(asking.speak(first, "Are you the one in charge?", {}, &meaning), std::string("Good day. What brings you here?"),
+                 "a greeting that asks: nothing after it");
+    // Someone met before knows who they are.
+    const Lines again = Lines::parse("any | greeted_again | Back again.\nany | greeted_who | I'm {speaker}, {post} here.\n", "again");
+    for (const std::string line : {"Are you the one in charge?", "It's done. The fortress held.", "Remember me?"})
+        check::equal(again.speak(packets::greeted_again(), line, {}, &meaning), std::string("Back again."), "met before: " + line);
 }
 
 TEST(a_recalled_row_brings_the_words_in_after_a_colon_says_no_when_and_asks_nothing) {

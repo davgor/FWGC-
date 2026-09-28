@@ -1,0 +1,39 @@
+# The golden benchmark's second session, held out: written 2026-09-28, after the first session's
+# fixes and before this one was ever run, to see whether they hold for another hero, another world
+# and other words. Judged blind as the first (communicator/eval/README.md, "The hero benchmark").
+# Each line is labelled with the act it means, as the first session's are.
+world 42 33 30
+who hero giver 1
+
+# A first meeting.
+say hero greet | Good evening. Are you in charge here?
+say hero ask_about_them | Who are you, then?
+say hero ask_about_them | What brought you to this place?
+say hero small_talk | Cold enough for you?
+say hero ask_for_work | Need a hand with anything?
+say hero ask_about_them | Why does it matter to you so much?
+say hero answer | I'm a hunter by trade. I can track anything that walks.
+say hero accept_quest @own | I'll take it.
+say hero ask_about_them | And if it goes wrong?
+say hero thank | Thanks for giving me a chance.
+say hero farewell | Until then.
+
+# Out of sight: compacted; the work is done three days on.
+compact hero
+advance 3
+resolve hero finished
+say hero greet | I'm back. It's finished.
+say hero small_talk | Was it worth the trouble?
+say hero answer | My brother came with me. He didn't make it back.
+say hero ask_about_them | Who else stands with you?
+say hero apologize | Sorry, I'm not myself today.
+say hero farewell | I need some rest.
+
+# Weeks later.
+compact hero
+advance 25
+say hero greet | Do you still remember me?
+say hero small_talk | Has it been quiet since?
+say hero ask_about_them | Have you always done this?
+say hero ask_about_them | What would you do if you could leave?
+say hero farewell | Look after yourself.

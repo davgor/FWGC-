@@ -262,3 +262,20 @@ any | work_own_told | It's as I told you: {own}.[ Or else, {others}.]
 any | work_own_told | It's the same as before: my own work's still open, {own}.
 any | work_others_told | Nothing new since I told you: none of mine, and the others I named still want hands.
 any | work_others_told | As I said, nothing of mine; {others}, same as before.
+# Thanked for the work while it is still to do; how things have been since the stranger's work was
+# done; a complaint about the speaker's work; who they are, after a greeting that asks; and more to
+# say of their days than their post (contract version 13).
+any | thanked_work | No need; thank me when it's done.
+any | thanked_work | Don't mention it; see it through, and we'll both have something to be glad of.
+any | thanked_work | No need yet; save it for when the work is done.
+any | small_talk_since_work | It's been quieter since that work was done, and I'm glad of it.
+any | small_talk_since_work | It's better than it was, since you saw that work through.
+any | small_talk_since_work | It's easier, since the work was done.
+any | offended_complaint | There's no need for that; I never said it would be easy.
+any | offended_complaint | Careful; you knew it was hard work when you took it.
+any | offended_complaint | Enough; it was hard work, and you took it with your eyes open.
+any | greeted_who | I'm {speaker}, {post} here.
+any | greeted_who | The name's {speaker}; I'm {post} here.
+any | greeted_who | You're speaking to {speaker}, {post} here.
+any | them_here | Not much else; the post takes all of me.
+any | them_here | Not much that isn't the post; it takes all the time I have.

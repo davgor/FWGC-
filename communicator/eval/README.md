@@ -363,6 +363,30 @@ their own); answer what the player tells in proportion (a soldier's record while
 taken in their service, a grievance); and keep a true account of what passed (the memory kept six
 offers as told that no reply said, since a packet held eight offers and the line named three).
 
+Since then (contract version 13; a fresh judge each time):
+- The act `ask_about_them` with `any` lines only: 9 of 24, score 2, broken at turn 3.
+- Questions about the hero heard by meaning (their story, what they are after, what is at stake, how
+  long), what the player tells taken as what it is, work-done small talk, work said again as told, one
+  errand from two givers once: 16 of 24 (DODGE 4, TONE 3, CHARACTER 3, REPEAT 2, SENSE 1, MEMORY 0,
+  INVENTS 0), score 3, broken at turn 7 (a nest named again, just after small talk named it).
+- Thanks for the work, how things have been since, a complaint heard as one, who they are after a
+  greeting that asks, and nothing said again that was said lately: 16 of 24 (REPEAT 4, SENSE 3,
+  CHARACTER 1, TONE 1, DODGE 0), score 3. Every DODGE had gone; the judge heard the introduction said
+  twice (a greeting's "You're speaking to Eldsel", then "Tell me about yourself"), the kept words said
+  back in a set frame, and a hero with nothing to say of himself beyond his post. Its changes: a life
+  and views of his own, to take up what the player tells and ask back, and to know what he has told.
+
+`session_hero2.txt` is a second session, held out: another hero in another world, other words,
+written after the fixes above and before it was ever run, to see whether they hold. Its first run,
+judged blind: 11 of 22 without fault (TONE 5, DODGE 4, REPEAT 4, SENSE 3, CHARACTER 3, MEMORY 2,
+INVENTS 0), score 2, broken at turn 6, where "Why does it matter to you so much?" got back half of
+an earlier answer. They did not hold as well as on the session they were made for: a brother's
+death met as "you took that hurt in my service", "Whatever for?" to an apology two lines later, the
+death kept as "your brother came with you", and a question of what he would do if he could leave
+brushed off. Its changes: hear grief and let it shape what follows; a self beyond the work, each
+kind of question about him answered in its own way; memories kept whole and brought up for a
+reason.
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).

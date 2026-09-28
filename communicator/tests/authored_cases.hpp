@@ -191,7 +191,7 @@ inline bool follow_row(const std::string& row) {
     std::string situation = row.substr(first + 1, second - first - 1);
     situation.erase(0, situation.find_first_not_of(' '));
     while (!situation.empty() && situation.back() == ' ') situation.pop_back();
-    return situation == "heard_deed" || situation == "news" || situation == "recalled";
+    return situation == "heard_deed" || situation == "news" || situation == "recalled" || situation == "greeted_who";
 }
 
 // The situation a row is written for, trimmed; empty for a row without one.

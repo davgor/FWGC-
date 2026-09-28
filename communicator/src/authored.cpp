@@ -718,6 +718,14 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"acknowledged_deed_work", {}},
         // Small talk with someone whose work the stranger has just finished: how it went.
         {"small_talk_work_done", {}},
+        // How things have been since that work was done (speak()).
+        {"small_talk_since_work", {}},
+        // Thanked for the speaker's own work, taken or offered and still to do (speak()).
+        {"thanked_work", {}},
+        // A complaint about the speaker's work, heard as an insult: answered as a complaint (speak()).
+        {"offended_complaint", {}},
+        // Who the speaker is, said after a greeting that asks (Lines::follow's way, in speak()).
+        {"greeted_who", {}},
         {"thanked", {}},
         {"thanked_cold", {}},
         {"offended", {}},
@@ -844,7 +852,10 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             if (const std::string weather = weather_class(p); !weather.empty()) chain.push_back("small_talk_" + weather);
             chain.push_back("small_talk");
             // Their own work, finished by the stranger: how it went is theirs to talk of (speak()).
-            if (m.work == "finished") chain.push_back("small_talk_work_done");
+            if (m.work == "finished") {
+                chain.push_back("small_talk_work_done");
+                chain.push_back("small_talk_since_work");
+            }
             return chain;
         }
         case Outcome::Parted:
@@ -864,10 +875,17 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             }
         case Outcome::Thanked:
             if (m.frightened()) return frightened("thanked");
-            return {m.cold() ? "thanked_cold" : "thanked"};
-        case Outcome::Offended:
-            if (m.repeat || m.mood == "hostile") return {"offended_again", "offended"};
-            return {"offended"};
+            if (m.cold()) return {"thanked_cold"};
+            if (m.work == "taken" || m.work == "offered") return {"thanked", "thanked_work"};
+            return {"thanked"};
+        case Outcome::Offended: {
+            std::vector<std::string> chain;
+            if (m.repeat || m.mood == "hostile") chain.push_back("offended_again");
+            chain.push_back("offended");
+            if (m.work == "taken" || m.work == "finished" || m.work == "failed" || m.work == "abandoned")
+                chain.push_back("offended_complaint");
+            return chain;
+        }
         case Outcome::Exposed: {
             const std::string face = first_field(p, FactKind::Reveal, "face");
             if (face == "true" || face == "unleashed" || face == "second") return {"exposed_" + face, "exposed"};
@@ -1087,6 +1105,7 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
             const auto bank = banks_.find(voice);
             if (bank == banks_.end()) continue;
             std::vector<std::pair<std::string, Filled>> fits;
+            std::vector<std::size_t> stale;  // how many of a fit's blanks the stranger heard lately
             for (const std::string& s : chosen) {
                 const auto lines = bank->second.find(s);
                 if (lines == bank->second.end()) continue;
@@ -1117,7 +1136,20 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
                     // say, rain finds every roof" on a clear day reports no rain.
                     if (checked && !untrue(without_passing(finished(*reply, s), reply->passing), p, recent ? *recent : kNothingSaid).empty())
                         continue;
+                    // In an answer about themself (contract version 13), what the stranger heard from the
+                    // speaker lately makes a line no fuller: "I command the garrison here" answered how long
+                    // he had held it, and again what he did off the walls (the hero benchmark's third
+                    // judge, 2026-09-28).
+                    std::size_t heard_lately = 0;
+                    if (recent != nullptr && s.rfind("them_", 0) == 0)
+                        for (const std::string& name : reply->said)
+                            if (const auto b = blanks.find(name);
+                                b != blanks.end() && !b->second.empty() && std::any_of(recent->begin(), recent->end(), [&](const std::string& said) {
+                                    return lowered(said).find(lowered(b->second)) != std::string::npos;
+                                }))
+                                ++heard_lately;
                     fits.emplace_back(s, std::move(*reply));
+                    stale.push_back(heard_lately);
                 }
                 if (!fits.empty() && !pooled) break;
             }
@@ -1125,10 +1157,13 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
             // The lines that say the most of what the packet holds: a speaker who knows of a nest does
             // not leave it out for a shorter line.
             std::size_t most = 0;
-            for (const auto& [situation, f] : fits) most = std::max(most, f.said.size());
+            for (std::size_t i = 0; i < fits.size(); ++i) most = std::max(most, fits[i].second.said.size() - stale[i]);
+            // And of those, the ones that say again nothing heard lately, where there are any.
+            bool fresh = false;
+            for (std::size_t i = 0; i < fits.size(); ++i) fresh = fresh || (fits[i].second.said.size() - stale[i] == most && stale[i] == 0);
             std::vector<Spoken> out;
-            for (const auto& [situation, f] : fits)
-                if (f.said.size() == most) {
+            for (std::size_t i = 0; i < fits.size(); ++i)
+                if (const auto& [situation, f] = fits[i]; f.said.size() - stale[i] == most && (!fresh || stale[i] == 0)) {
                     Spoken said{situation, finished(f, situation), f.recalls, {}, {}, f.said};
                     // The line's own words around its passing ones: said again with another saying, or
                     // "some weeks ago" for "a few days ago", it is the same line.
@@ -1240,16 +1275,19 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     // for news and drew "Nothing's reached me" (the hero benchmark, 2026-09-28).
     if (meaning != nullptr && p.outcome == Outcome::Chatted && remembered(p).work == "finished" && !remembered(p).cold() &&
         !remembered(p).frightened() && !trimmed(line).empty()) {
+        // And how things have been since: "How have things been since?" twenty days on drew "No news
+        // that I've heard" (the third judge). Measured on 14 lines written before the description was
+        // tried: 13 right.
         static const std::vector<std::string> subjects = {
             "The work the stranger did for them: how it went, the fight, what it cost, whether it was hard.",
+            "How things have been since the work was done: quieter, calmer, better, any trouble since.",
             "The weather: rain, sun, wind, cold, heat, a storm, a fine day or a wet one.",
             "How someone is keeping: their health, their mood, their work, their day.",
             "News and rumours: what people are saying, word from elsewhere, anything that has happened."};
-        if (meaning->subject_of(line, subjects) == 0) {
-            static const std::vector<std::string> done = {"small_talk_work_done"};
-            if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &done); !on_it.empty())
+        static const std::vector<std::vector<std::string>> of_it = {{"small_talk_work_done"}, {"small_talk_since_work"}};
+        if (const std::size_t subject = meaning->subject_of(line, subjects); subject < of_it.size())
+            if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &of_it[subject]); !on_it.empty())
                 return then_news(choose(telling(on_it)).first);
-        }
     }
     // With meaning, small talk answers what the stranger's words are about: the weather's lines for
     // the weather, the rest for the speaker's own day (judged 2026-09-26: "How are things with you?"
@@ -1309,7 +1347,7 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     if (p.outcome == Outcome::Chatted) {
         std::vector<Spoken> rest;
         for (const Spoken& s : spoken)
-            if (s.situation != "small_talk_work_done") rest.push_back(s);
+            if (s.situation != "small_talk_work_done" && s.situation != "small_talk_since_work") rest.push_back(s);
         if (!rest.empty()) spoken = std::move(rest);
     }
     // Asked about themself (contract version 13), a speaker answers what was asked of them: how long
@@ -1360,6 +1398,48 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             if (const std::vector<Spoken> them = spoken_for(p, &recent, true, &who); !them.empty()) spoken = them;
         }
     }
+    // Thanked for their own work while it is still to do, a speaker says the thanks can wait: "Thank you
+    // for trusting me with this." drew "No need, it cost me nothing", thanks for a favour (the hero
+    // benchmark's third judge, 2026-09-28). Measured on 16 lines written before the descriptions were
+    // tried: 16 right.
+    if (meaning != nullptr && p.outcome == Outcome::Thanked && (remembered(p).work == "taken" || remembered(p).work == "offered") &&
+        !remembered(p).cold() && !remembered(p).frightened() && !trimmed(line).empty()) {
+        static const std::vector<std::string> subjects = {
+            "Thanks for the work: for trusting them with it, for the chance, for taking them on.",
+            "Thanks for anything else: directions, a warning, advice, news, their time, a drink."};
+        static const std::vector<std::string> for_work = {"thanked_work"};
+        if (meaning->subject_of(line, subjects) == 0)
+            if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &for_work); !on_it.empty()) spoken = on_it;
+    }
+    // A complaint about the speaker's own work, which the act has as an insult, is answered as a
+    // complaint: "You could have warned me it would be that bad." drew "Mind your manners, I've done
+    // nothing to earn that" (the third judge). Measured on 16 lines written before the descriptions
+    // were tried: 14 right ("You're a coward" and "goats with more sense" heard as complaints).
+    if (meaning != nullptr && p.outcome == Outcome::Offended && !trimmed(line).empty() &&
+        (remembered(p).work == "taken" || remembered(p).work == "finished" || remembered(p).work == "failed" ||
+         remembered(p).work == "abandoned")) {
+        static const std::vector<std::string> subjects = {
+            "A complaint about the work or what happened: you should have warned me, it was worse than you said, you sent me into danger.",
+            "An insult: rude words, mockery, calling them names, cursing them."};
+        static const std::vector<std::string> complaint = {"offended_complaint"};
+        if (meaning->subject_of(line, subjects) == 0)
+            if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &complaint); !on_it.empty()) spoken = on_it;
+    }
+    // Greeted with a question of who they are ("You're the one who holds this place, aren't you?"), a
+    // speaker says who they are after their greeting, and never that the guess was right, which they
+    // cannot know: a greeting alone gave no answer (the third judge). Measured on 16 greetings written
+    // before the descriptions were tried: 16 right. At a first meeting only: someone met before knows,
+    // and "It's done. The fortress held." and "Remember me?" were heard as asking (the benchmark).
+    std::string who;
+    if (meaning != nullptr && p.outcome == Outcome::Greeted && !remembered(p).again && !remembered(p).cold() &&
+        !remembered(p).frightened() && !trimmed(line).empty()) {
+        static const std::vector<std::string> subjects = {
+            "Asking whether they are someone: you must be the captain, are you the one in charge, is this your place.",
+            "Just a greeting: hello, good day, good morning, well met."};
+        static const std::vector<std::string> asked = {"greeted_who"};
+        if (meaning->subject_of(line, subjects) == 0)
+            if (const std::vector<Spoken> said = spoken_for(p, &recent, true, &asked); !said.empty()) who = choose(said).first;
+    }
     // And someone met before who asks to be remembered is greeted with a line that recalls the
     // meeting, how long since or what was asked then, while one has not been said lately:
     // "Remember me?" drew a bare "Hello again." in turn (2026-09-26). Measured on 12 held-out
@@ -1378,7 +1458,8 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     // A frightened speaker's answer comes after a sentence of their own (contract version 9): the
     // words of an answer are a writer's for a calm speaker, and "the words she says should be
     // panicked" (the owner, 2026-09-26).
-    const std::string reply = choose(telling(spoken)).first;
+    std::string reply = choose(telling(spoken)).first;
+    if (!who.empty() && !asks(reply)) reply += " " + who;
     const std::string before = lead(p, recent);
     return then_news(before.empty() ? reply : before + " " + reply);
 }
@@ -1493,6 +1574,9 @@ std::vector<std::string> Lines::follows(const FactPacket& p) const {
     std::vector<std::vector<std::string>> chains;
     if (!news.situation.empty()) chains.push_back({news.situation});
     if (says_back(p)) chains.push_back({"recalled"});
+    // And who they are, after a greeting that asks (speak()).
+    if (p.outcome == Outcome::Greeted && !remembered(p).again && !remembered(p).cold() && !remembered(p).frightened())
+        chains.push_back({"greeted_who"});
     for (const std::vector<std::string>& chain : chains)
         for (Spoken& s : spoken_for(p, nullptr, false, &chain)) out.push_back(std::move(s.text));
     return out;

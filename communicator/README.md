@@ -547,13 +547,36 @@ as what it is, heard by meaning: a hardship (`acknowledged_hardship`), something
 else (`acknowledged`). In the light of the speaker's own work, a hurt the stranger took doing it
 (`acknowledged_hardship_work`: work taken, finished or failed) and a deed told while the speaker is
 hiring (`acknowledged_deed_work`: work offered or taken) come first. A cold speaker takes everything
-alike. Measured on 15 lines written before the descriptions were tried: 12 right. The hero
-benchmark's judges had heard a wound in the speaker's service met with "Fair enough, I'll mark it
-down".
+alike. The descriptions are in the stranger's own voice ("I was hurt, I am sick, hungry or worn
+out..."): 14 of the first 15 lines written before any was tried, and 20 of 30 written after those
+were measured (the first wording, in the third person, read 12 of 15 and 16 of 30, a deed taking a
+hurt in a fight, the inn and a compliment). The hero benchmark's judges had heard a wound in the
+speaker's service met with "Fair enough, I'll mark it down".
 
 Small talk with someone whose work the stranger has finished can be about that work
-(`small_talk_work_done`): heard by meaning before the rest of small talk, never said in its turn
-with the weather. "Was it as bad as you feared?" had been heard as asking for news.
+(`small_talk_work_done`) or about how things have been since (`small_talk_since_work`): heard by
+meaning before the rest of small talk, never said in its turn with the weather. "Was it as bad as you
+feared?" had been heard as asking for news, and "How have things been since?", twenty days on, drew
+"No news that I've heard". 13 of 14 lines written before the description was tried.
+
+Three more, from the benchmark's third judge (2026-09-28), each measured once on 16 lines written
+before its descriptions were tried:
+- **Thanks for the work itself** while it is still to do (`thanked_work`, the speaker's work taken or
+  offered): "Thank you for trusting me with this." had drawn "No need, it cost me nothing", thanks for
+  a favour. 16 of 16.
+- **A complaint about the speaker's work** (`offended_complaint`, their work taken, finished, failed
+  or given up), which the act has as an insult, is answered as a complaint: "You could have warned me
+  it would be that bad." had drawn "Mind your manners, I've done nothing to earn that". 14 of 16: two
+  insults ("You're a coward", "goats with more sense") are heard as complaints.
+- **Who they are, after a first greeting that asks** (`greeted_who`, a sentence after the greeting,
+  as news is): "You're the one who holds this place, aren't you?" had drawn a greeting alone. It says
+  who they are, never that the guess was right, and nothing after a greeting that asks something
+  itself. At a first meeting only: "It's done. The fortress held." and "Remember me?" were heard as
+  asking. 16 of 16.
+
+And asked about themself, what the stranger heard from the speaker lately makes a line no fuller
+(`them_*`): "I command the garrison here" had answered how long he had held it, and again what he did
+off the walls.
 
 ## What a speaker recalls
 

@@ -293,6 +293,15 @@ inline FactPacket acknowledged_with(const std::string& work, const std::string& 
     return packet(castellan(), ActKind::Answer, Outcome::Acknowledged, {}, {.mood = mood, .work = work, .turn = 2});
 }
 
+// Thanks, or an insult, to a speaker whose own work stands at `work` (contract version 13).
+inline FactPacket thanked_with_work(const std::string& work) {
+    return packet(castellan(), ActKind::Thank, Outcome::Thanked, {}, {.mood = "friendly", .work = work, .turn = 3});
+}
+
+inline FactPacket offended_after(const std::string& work) {
+    return packet(castellan(), ActKind::Insult, Outcome::Offended, {}, {.mood = "wary", .work = work, .turn = 2});
+}
+
 inline FactPacket thanked(const std::string& mood = "friendly") {
     return packet(castellan(), ActKind::Thank, Outcome::Thanked, {}, {.mood = mood, .turn = 3});
 }
@@ -644,6 +653,8 @@ inline std::vector<FactPacket> conversation() {
             acknowledged(),
             acknowledged_with("taken"),
             acknowledged_with("offered"),
+            thanked_with_work("taken"),
+            offended_after("finished"),
             thanked(),
             thanked("hostile"),
             offended(false),
