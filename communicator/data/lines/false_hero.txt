@@ -402,8 +402,6 @@ false_hero/NN | news | Take it or leave it: {news}.
 false_hero/NN | news | I'll tell it plain, which is more than most do: {news}.
 
 # ---- false_hero/NN: remembering what the player said (contract version 12) ----
-false_hero/NN | recalled | I shake a lot of hands, and yours came with a telling: {words}.
-false_hero/NN | recalled | You told me a few things about yourself, and the first I've kept: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 false_hero/NN | them_who | I'm {speaker}[ {known_as}], and the name does half my work for me. I {feat}, and I'd sooner put that to use than tell it over.[ Now I mean to {after}.]
@@ -436,11 +434,34 @@ false_hero/NN | acknowledged_hardship_work | Ah, the work was mine and the cost 
 false_hero/NN | acknowledged_grief_work | Ah, I'm sorry, and sorrier that it came of my work. That's one debt I can never square, and I'll not insult you by trying.
 false_hero/NN | acknowledged_deed_work | Good; that's worth more to me than a good story, and I've heard plenty of those.
 false_hero/NN | greeted_finished_beside | Welcome back. We did that side by side, and when it's told, your name goes in next to mine.
-false_hero/NN | small_talk_work_done_beside | You were there, so you know it wasn't pretty, and we got it done between us. The telling will make it prettier; it always does.
-false_hero/NN | small_talk_work_done | It's done, and the doing was yours, not mine; I'll not claim a scrap of it. I'll say as much to anyone who asks.
-false_hero/NN | small_talk_since_work | Since that work was done, I've had one worry fewer, and I've made good use of it. I know whose doing that is.
 false_hero/NN | thanked_work | Don't mention it; a fair deal doesn't need thanking, only keeping.
 false_hero/NN | offended_complaint | Careful; every job's harder than the telling of it, mine included, and complaining won't make it lighter.
 false_hero/NN | unwronged_state | No harm done; you've cost me nothing by it. Nobody's at their best all the time, whatever the stories say.
 false_hero/NN | greeted_who | {speaker}, {post} here, and if the name's new to you, give it time.
 false_hero/NN | them_plans | Next is wherever the name does me most good, and I'll know it when I see it. I {standing} in the meantime[, and I mean to {after}].
+# Round two (2026-09-28): what five blind judges found.
+false_hero/NN | small_talk_work_done_beside | Between us, it frightened me more than my name will ever admit to, and you bore it better than I did. It was worth it, though, and I'd strike the same bargain tomorrow.
+false_hero/NN | small_talk_work_done_beside | It cost me more nerve than I had to spare, and I'd not have seen it through without you at my side. I came out of it owing you, and that's a debt I'm glad of.
+false_hero/NN | small_talk_work_done | The waiting sat worse with me than any fight I've put my name to, and I breathed again once I knew it was done. You did it without me, and I think the more of you for it.
+false_hero/NN | small_talk_work_done | When I knew it was done, I was gladder than I'd any right to be, since none of the doing was mine. It's your name that belongs on it, and I'll see it goes there.
+false_hero/NN | small_talk_since_work | The {danger} are still about, but since that work was done the post holds easier and I sleep sounder; that's a better bargain than most I've struck.
+false_hero/NN | small_talk_since_work | It's been steadier since that work was done, and for once my name's got something solid behind it. I know who I owe for that.
+false_hero/NN | recalled | I hear a lot of talk, most of it about me, but what you told me stayed with me: {words}.
+false_hero/NN | recalled | I keep most things for what they're worth to me, but I've kept your words for your sake: {words}.
+false_hero/NN | acknowledged_doubt | Aye, and I'd sooner back someone who says so than someone who swears they're fearless; the fearless are the worst bet going.
+false_hero/NN | acknowledged_doubt_work | Right; I never took you for fearless when I asked it of you, and I'd ask it again. All I want from you is your best and a straight word, not a hero out of a song.
+false_hero/NN | acknowledged_doubt_done | Ah, and the tellers always leave the fear out, more fool them. You were frightened and did it anyway, and that's the part worth telling.
+false_hero/NN | parted_work | Farewell, and good luck; may it serve you as well as my name has served me.
+false_hero/NN | forgiven_state | Let's forget it; weariness does that to the best of us, and I've been there more often than I let on. Go and rest, and don't spend another thought on it.
+false_hero/NN | them_home | {home_here} is home, and it's worth more to me than anything folk say of me.
+false_hero/NN | them_home | {away} is home. My name I'll lend to anyone who can use it; home I keep for myself.
+false_hero/NN | work_more | I've nothing more of my own to trade, but I'm not the only one with work going: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+false_hero/NN | them_after | Whatever the stories make of it, it's for {home}, and that's the one part I've never had to dress up.[ The {danger} don't listen to stories, so somebody has to turn up in person.]
+false_hero/NN | them_after | It's the one bargain I'd strike at a loss, and I don't strike many of those. The name opens doors for me; this is the one I'd walk through without it.
+false_hero/NN | them_need | The name gets there ahead of me, but it never lifts a finger once it's there.[ The {danger} want more set against them than a reputation.]
+false_hero/NN | them_need | Because I've done the sums on myself, honestly, and they come out short.[ The {danger} would find that out quicker than anyone.]
+false_hero/NN | them_stakes | If it fails, the {danger} win the hand, and every tale told about me turns out to be only a tale. I could live with losing; I'd not care to live with that.
+false_hero/NN | them_stakes | All of it: everything I've staked, and the name on top, since I never bet small when it counts.[ The {danger} would be the ones to collect.]
+false_hero/NN | them_plans | Once it's over, I'd like to be nobody in particular for a while[, back in {away}].[ For now, I {standing}, and I let the name carry what it can.]
+false_hero/NN | them_plans | Leave? Not with the job still open[, and never {home_here}; home's one bargain I'd never sell]. When it's finished, I'd square every account I've got and enjoy a clean ledger for once.

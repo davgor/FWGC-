@@ -753,8 +753,6 @@ broken_soul/NN | news | I won't dress it up: {news}, or so I'm told.
 broken_soul/NN | news | Somebody said {news}, and I'll not dwell on it.
 
 # ---- broken_soul/NN: remembering what the player said (contract version 12) ----
-broken_soul/NN | recalled | What was yours to tell, I've kept: {words}.
-broken_soul/NN | recalled | Not much sticks to me, but what you told me did: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 broken_soul/NN | them_who | I'm {speaker}[ {known_as}]. I mean to {after}[, and I call {home} home]; there's not much more to me than that.
@@ -786,10 +784,33 @@ broken_soul/NN | acknowledged_hardship_work | Ah, and doing my work. I'm sorry i
 broken_soul/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and it came of my work, so it's mine to carry too.
 broken_soul/NN | acknowledged_deed_work | Good. I'll take you at your word; the work will do the rest.
 broken_soul/NN | greeted_finished_beside | Welcome back. It was good to have someone beside me for that, and I don't say that easily.
-broken_soul/NN | small_talk_work_done_beside | We carried that between us, and I'm not used to having the help. It sat lighter on me than most things do.
-broken_soul/NN | small_talk_work_done | I wasn't there, and I'll not ask you to go back over it; going back never did me any good. It's done, and that's more than most things come to.
-broken_soul/NN | small_talk_since_work | I sleep a little better since that work was done, and that's saying something.
 broken_soul/NN | thanked_work | No need; I don't set much store by thanks while there's work still to do.
 broken_soul/NN | offended_complaint | Hold your tongue; I dealt straight with you, and hard work is still hard.
 broken_soul/NN | unwronged_state | Nothing to forgive. Nobody's themselves all the time; I'm not, most of the time.
 broken_soul/NN | greeted_who | I'm {post} here, {speaker} by name, for what that's worth to you.
+# Round two (2026-09-28): what five blind judges found.
+broken_soul/NN | small_talk_work_done_beside | It was every bit as hard as I'd braced for, and worth it anyway. You never once left me carrying more than my share, and I'm not used to that.
+broken_soul/NN | small_talk_work_done_beside | It cost me something, the way everything does now, but it was worth it. You bore it better than I did, and watching you do it kept me on my feet.
+broken_soul/NN | small_talk_work_done | I kept busy while I waited, so I'd not think about it; it didn't work, it never does. When I heard it was done, something in me eased, and I've you to thank for that.
+broken_soul/NN | small_talk_work_done | The news that it was done was the first good news I'd had in a while, and I didn't quite know what to do with it. You did right by me, more than you know.
+broken_soul/NN | small_talk_since_work | It's been steadier since the work was done; I carry one weight fewer, and I feel the difference. The {danger} are still about, but I'll take what lightness I'm given.
+broken_soul/NN | small_talk_since_work | Since the work was done, the quiet hasn't pressed on me the way it used to. That's more your doing than you'd guess.
+broken_soul/NN | recalled | Of the little I still hold on to, what you told me is part of it: {words}.
+broken_soul/NN | recalled | You told me something of your own, and I've not set it down since: {words}.
+broken_soul/NN | acknowledged_doubt | Well, I know that weight; I've doubted myself more than I can tell you and still got up each morning. You don't have to be sure of yourself to do the next thing in front of you.
+broken_soul/NN | acknowledged_doubt_work | Fair enough, and thank you for saying it plainly. I didn't ask you because I thought you were sure; I asked because I thought you'd see it through, and I still do.
+broken_soul/NN | acknowledged_doubt_done | Aye, and I know what it costs to finish a thing with fear on your back; there's no braver thing, to my mind.
+broken_soul/NN | parted_work | Take care, and may luck do better by you than it has by me.
+broken_soul/NN | forgiven_state | All right; I know what it is to be worn down to nothing, and I'll hold none of that against you. Let it go; I have.
+broken_soul/NN | them_home | {home_here} is home. I keep it close, and I don't ask much more of the world than that.
+broken_soul/NN | them_home | {away} is home, for all the good that does me here. I think of it, and then I get back to work.
+broken_soul/NN | work_more | You're owed a fair choice, so here's what else there is: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+broken_soul/NN | them_after | Not much matters to me any more, but standing against the {danger} does, a little; I hold on to what little I've got.
+broken_soul/NN | them_after | It's for {home}, and it gives me a reason to get up; I don't ask more of anything than that.
+broken_soul/NN | them_need | I've no pride left to keep me from asking, and the {danger} are more than one tired pair of hands can see off.
+broken_soul/NN | them_need | Because I'll not pretend to be more than I am[, and the {danger} would find me out quick enough]. A fair deal starts with saying what you can't do.
+broken_soul/NN | them_stakes | Then the {danger} have their way, and it's one more thing gone. I've lost enough to know I'd live through it; I'd sooner not have to.
+broken_soul/NN | them_stakes | If it fails, I'll know I had nothing left worth giving, and I'd rather not know that[; the {danger} would have their way besides].
+broken_soul/NN | them_plans | [I {standing}, and ]{home_here} is as good a place as any to be tired in. When it's done, I'll sit down for once, and I don't know what I'll do with my hands.
+broken_soul/NN | them_plans | When it's over, maybe I'll go as far as {away} and see if I can stand it, or maybe not.[ Until then, I {standing}; it's something to do.]

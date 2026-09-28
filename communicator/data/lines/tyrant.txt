@@ -521,8 +521,6 @@ tyrant/NN | news | I'd sooner deal in what's done than in talk, but I hear {news
 tyrant/NN | news | I'm told {news}; that's the size of it.
 
 # ---- tyrant/NN: remembering what the player said (contract version 12) ----
-tyrant/NN | recalled | I don't waste my ears on much, but I heard you: {words}.
-tyrant/NN | recalled | What you told me: {words}; my memory answers to me, like everything else here.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 tyrant/NN | them_who | {speaker}[ {known_as}]; remember the name. I {feat}[, and I will {after}].
@@ -555,10 +553,33 @@ tyrant/NN | acknowledged_hardship_work | Ah; you took that doing my work, and I 
 tyrant/NN | acknowledged_grief_work | Ah. A death in my service is mine to answer for, and I'll not pretend otherwise.
 tyrant/NN | acknowledged_deed_work | Good; that's what I need, and I'll hold you to every word of it.
 tyrant/NN | greeted_finished_beside | Good day. You kept up with me, and I noticed.
-tyrant/NN | small_talk_work_done_beside | You were there, so you know: it got done because I'd have it no other way. You didn't get in my way, and from me that's praise.
-tyrant/NN | small_talk_work_done | You're standing, so it can't have been as bad as all that. Tell me the rest if it's worth hearing.
-tyrant/NN | small_talk_since_work | It's all gone as I meant it to since that work was done. I don't set work that changes nothing.
 tyrant/NN | thanked_work | Don't mention it; I'll take my thanks in results.
 tyrant/NN | offended_complaint | Watch your tongue; I don't owe anyone a warning, and I don't take complaints from those I've hired.
 tyrant/NN | unwronged_state | No harm done; I've no use for apologies. Take what time you need, and then be of use.
 tyrant/NN | greeted_who | {speaker}, {post} here, and I'm not in the habit of being asked.
+# Round two (2026-09-28): what five blind judges found.
+tyrant/NN | small_talk_work_done_beside | It was closer than I'd admit to anyone else, and if you repeat it, I'll deny it. You didn't flinch, and I'd have seen it if you had.
+tyrant/NN | small_talk_work_done_beside | It was ugly, and it was worth it; I don't set my hand to anything that isn't. You earned your place beside me, so see that you keep it.
+tyrant/NN | small_talk_work_done | I don't wait on anyone as a rule, and I found myself waiting on you. You did well, and I'll only say that once.
+tyrant/NN | small_talk_work_done | I never doubted it would get done; I only doubted it would be you who did it. I was wrong, and I don't enjoy being wrong, so take that as the compliment it is.
+tyrant/NN | small_talk_since_work | I've had less to be angry about since that work was done, and I find I don't miss the anger.
+tyrant/NN | small_talk_since_work | Since you got that work done, the place has held steadier, {danger} or no {danger}, and I intend to keep it that way.
+tyrant/NN | recalled | You told me something I've not been able to set aside: {words}.
+tyrant/NN | recalled | I've given what you said more weight than I give most things: {words}.
+tyrant/NN | acknowledged_doubt | Is that so? Then keep it between us; doubt said aloud is doubt other people will use.
+tyrant/NN | acknowledged_doubt_work | Right; I don't need you fearless, I need it done. Be afraid on your own time, and do what I asked on mine.
+tyrant/NN | acknowledged_doubt_done | Well, then you've more spine than anyone who felt nothing; they never had to find any.
+tyrant/NN | parted_work | Go well; luck had better serve you properly, because I don't accept excuses from it either.
+tyrant/NN | forgiven_state | Very well; a bad day's no crime, even here. See that tomorrow's a better one.
+tyrant/NN | them_home | Mind where you tread; {home_here} is home, and I'll not have it treated carelessly.
+tyrant/NN | them_home | {away}; this is only where I'm needed, and I don't confuse the two.
+tyrant/NN | work_more | Mine not good enough for you? Then go and be someone else's problem: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+tyrant/NN | them_after | Nobody threatens {home} while I draw breath; I don't allow it. That's the whole of it.
+tyrant/NN | them_after | It needs doing, and I've the stomach for it, which is more than most. Everyone else waits to be told; I'm the one who tells.
+tyrant/NN | them_need | The {danger} kneel to nobody, and breaking them takes more hands than I'll spend of my own. I'd sooner spend yours.
+tyrant/NN | them_need | My work is to command, and a command wants hands to carry it out[; the {danger} won't go because I tell them to]. Anyone who does everything alone has only failed to find someone to order about.
+tyrant/NN | them_stakes | A failure would let the {danger} think themselves my equals, and I suffer no equals. I'd see them corrected, whoever I had to spend to do it.
+tyrant/NN | them_stakes | It would be an insult, and I let no insult stand[, least of all one from the {danger}]. I'd answer it, and I'd answer it hard.
+tyrant/NN | them_plans | I {standing}, and I've made it answer to me, as I make everything. When it's all finished, I'll want quiet, and everyone will learn to give it me.
+tyrant/NN | them_plans | Nobody will see me walk away from anything half done; that's for the beaten. Once it's finished, I might even allow myself to enjoy it.

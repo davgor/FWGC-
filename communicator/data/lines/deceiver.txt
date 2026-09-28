@@ -873,8 +873,6 @@ deceiver/NN | news | As far as talk goes, {news}.
 deceiver/NN | news | I only know what's said, and what's said is that {news}.
 
 # ---- deceiver/NN: remembering what the player said (contract version 12) ----
-deceiver/NN | recalled | All business aside, you told me: {words}.
-deceiver/NN | recalled | You once said to me: {words}; I talk plenty, but I listen as well.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 deceiver/NN | them_who | I'm {speaker}[ {known_as}]. I {lost}, and I say it plainly, since dressing it up fools nobody.[ I mean to {after}.]
@@ -908,10 +906,33 @@ deceiver/NN | acknowledged_grief_work | Ah, I'm sorry; that came of my work, and
 deceiver/NN | acknowledged_deed_work | Good; that settles a question I'd not have asked aloud.
 deceiver/NN | greeted_finished_beside | Good to see you. I stood beside you for that one, so I needn't take anyone's word for how you did.
 deceiver/NN | greeted_finished_beside | Back again. We did that together, you and I, and I'll tell it straight to anyone who asks.
-deceiver/NN | small_talk_work_done_beside | You were there, so I'll not polish it: it was hard, and we won through. I'd not put it so plainly to anyone who wasn't.
-deceiver/NN | small_talk_work_done | I wasn't there, so your word's all I have on how it went, and I'm inclined to take it. That's rarer from me than you'd think.
-deceiver/NN | small_talk_since_work | It's held since, and I've had no cause to complain; from me, that's high praise.
 deceiver/NN | thanked_work | Think nothing of it; thank me when you've seen how it all comes out.
 deceiver/NN | offended_complaint | Mind your manners; I told you what you needed to know, and not a word of it was false.
 deceiver/NN | unwronged_state | Whatever for? Nobody owes me an apology for how they're keeping; I'd sooner have it honest than hidden.
 deceiver/NN | greeted_who | I'm {speaker}, {post} of {place}, for what that's worth to you.
+# Round two (2026-09-28): what five blind judges found.
+deceiver/NN | small_talk_work_done_beside | It was worth it, though it frightened me more than I let show, and I let very little show. I'll own that to you and to nobody else.
+deceiver/NN | small_talk_work_done_beside | You bore it better than I did, and I keep a steadier face than most. I'd do it again beside you, and there's very little I'd do twice.
+deceiver/NN | small_talk_work_done | I kept a calm look while I waited, and my stomach anything but; I'd a great deal riding on you. It came off, and there's nobody I'd sooner have backed.
+deceiver/NN | small_talk_work_done | I trust very few with anything of mine, and waiting on you put every bit of that trust to the test. You held up your end, and that's a thing I keep count of.
+deceiver/NN | small_talk_since_work | The {danger} are still about, but since my work was done I've had one less thing to look over my shoulder for, and I look over it often.
+deceiver/NN | small_talk_since_work | Since you saw my work through, I've been able to think past the next move again, and that's where I'm most at ease.
+deceiver/NN | recalled | I keep most things close, and closest of all what you told me: {words}.
+deceiver/NN | recalled | Very little gets past my guard, but what you told me did: {words}.
+deceiver/NN | acknowledged_doubt | Well, I'd trust that over any boast; the ones who swear they've no doubts are lying to someone, most often themselves.
+deceiver/NN | acknowledged_doubt_work | I see; well, I don't make offers to just anyone, and I made yours with my eyes open. Do what you can, as well as you can, and I'll ask nothing more.
+deceiver/NN | acknowledged_doubt_done | Indeed, and you went through with it anyway; I'll take courage that shakes over courage that struts, every time.
+deceiver/NN | parted_work | Go well, and good luck to you; whatever else I say, that I mean.
+deceiver/NN | forgiven_state | Let's forget it; I judge folk by what they are, not by how they are on a bad day. Rest, and we'll talk when your head's clearer.
+deceiver/NN | them_home | {home_here}; that much I'll tell anyone, and it's true. It's home, and there's nowhere else I'd give the name to.
+deceiver/NN | them_home | {away} is home, and it's where I'd sooner be than anywhere I do business. Keep that to yourself, if you would.
+deceiver/NN | work_more | I'll not pretend mine's the only offer going: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+deceiver/NN | them_after | The {danger}, since you ask. They're the one thing here that can't be talked round, which makes them the one thing I take seriously.
+deceiver/NN | them_after | {home} matters to me, and you can take that one at face value; I don't hand out many like it.
+deceiver/NN | them_need | Most of my work is done with words, and the {danger} don't listen to words. For the rest, I need hands, and I choose them carefully.
+deceiver/NN | them_need | I keep an eye on everyone, out of habit[, and the {danger} want watching too]. One pair of eyes won't stretch that far, so I borrow another.
+deceiver/NN | them_stakes | Then the {danger} have their way, and I'll have been wrong in front of everyone. I don't mind being wrong; I mind being seen.
+deceiver/NN | them_stakes | If it fails, I'm out of clever answers[, and the {danger} have their way]. I'd not enjoy that; I'm used to having one more than I need.
+deceiver/NN | them_plans | [I {standing}, for now. ]When it's over, I'd like to sit somewhere I can stop watching faces, and {home_here} is the only place I'd trust to let me. Whether I'd manage it is another matter.
+deceiver/NN | them_plans | [I {standing}, for the present. ]When I go, you'll know it by the gap where I stood. Perhaps home to {away}, or perhaps that's only what I'd like you to think.

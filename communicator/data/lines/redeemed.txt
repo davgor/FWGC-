@@ -753,8 +753,6 @@ redeemed/NN | news | I'm told {news}; I'll leave it at that.
 redeemed/NN | news | Nothing added and nothing taken away: {news}.
 
 # ---- redeemed/NN: remembering what the player said (contract version 12) ----
-redeemed/NN | recalled | As plainly as I speak, your telling has stayed in my memory: {words}.
-redeemed/NN | recalled | Your words reached me: {words}; I was a poor listener once, but I've mended my ways.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 redeemed/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}; weigh me by that, and leave the rest of what I was to me.
@@ -788,10 +786,33 @@ redeemed/NN | acknowledged_hardship_work | Ah. I'll not pretend it cost me what 
 redeemed/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and sorrier that it came of my work. I'll not forget it; it's the least I owe them.
 redeemed/NN | acknowledged_deed_work | Indeed? Then you'd do the work properly, and properly is all I ask of anyone.
 redeemed/NN | greeted_finished_beside | Good day. We did that one together, and we did it clean; it's the sort of work I'd be glad to be known by.
-redeemed/NN | small_talk_work_done_beside | We stood in it together, so there's no dressing it up between us. It's done, and it was worth what it took.
-redeemed/NN | small_talk_work_done | You'd know better than I would; I only know it's done, and done is what I asked for. I'll take your telling of the rest.
-redeemed/NN | small_talk_since_work | I've slept easier since it was done. That's no small thing, for someone like me.
 redeemed/NN | thanked_work | No need; thank me by doing it cleanly, which is the only thanks I've any use for.
 redeemed/NN | offended_complaint | There's no need for that; I gave you the work as plainly as I had it, and I'd not have kept back anything worth knowing.
 redeemed/NN | unwronged_state | No harm done; I've been worse company in my time than you'll ever be. Take what time you need.
 redeemed/NN | greeted_who | {speaker}, {post} here; what I do counts for more than what I'm called.
+# Round two (2026-09-28): what five blind judges found.
+redeemed/NN | small_talk_work_done_beside | It cost me more than I let on, and it was worth all of it. You bore it well, better than I'd any right to ask, and I'd stand beside you again without a second thought.
+redeemed/NN | small_talk_work_done_beside | It was every bit as hard as I feared, and I'll not make it smaller than it was. It was worth it all the same, and there's nobody I'd sooner have had at my side.
+redeemed/NN | small_talk_work_done | The waiting was the worst of it for me; I've never been good at standing idle while someone else does what I asked. Now it's done, I'd trust you with more than most, and I don't say that lightly.
+redeemed/NN | small_talk_work_done | I'd put it in your hands, and you didn't let it fall; that did me more good than you'd guess. You've a place in my regard now that most never earn.
+redeemed/NN | small_talk_since_work | It's been steadier here since the work was done, and I've spent less of myself on worry. That's a gift I'll not waste.
+redeemed/NN | small_talk_since_work | The {danger} are still about, but I've held my post with a lighter heart since the work was done. I'll not pretend that's a small thing.
+redeemed/NN | recalled | I've let go of a good many things in my time, but I've held on to what you told me: {words}.
+redeemed/NN | recalled | Not many tell someone like me anything of their own, and you told me this: {words}.
+redeemed/NN | acknowledged_doubt | Aye, and I'd sooner hear that than a boast. What you fear counts for nothing with me; what you do when it matters is the whole of it.
+redeemed/NN | acknowledged_doubt_work | Good; I'd sooner deal with someone who knows their doubts than someone who's never met them. Give it an honest try, and I'll count that enough.
+redeemed/NN | acknowledged_doubt_done | Ah, and you did it regardless; that's the only courage I put any stock in. Anyone can be brave with nothing to fear.
+redeemed/NN | parted_work | Farewell, and good luck; I don't hand out wishes I don't mean, and I mean this one.
+redeemed/NN | forgiven_state | Very well; nobody's at their best worn down, and I'd be a poor judge if I weighed you by your worst. Rest, and come back to yourself.
+redeemed/NN | them_home | {home_here} is home, and I'd like to think I'm worthy of it now.
+redeemed/NN | them_home | {away} is home, and I try to live here in a way it would not be ashamed of.
+redeemed/NN | work_more | Other people's, then, and here it is, plainly: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+redeemed/NN | them_after | I owe {home} better than I've given it so far, and this is me making a start. It's the best use I've found for myself.
+redeemed/NN | them_after | It's clean work, start to finish, and I can't say that of everything I've put my hand to. That's why it matters: I'd like one thing I can look at straight.
+redeemed/NN | them_need | One person against the {danger} is a waste of a person, and I've wasted enough of myself already. With help, it gets done; alone, it only gets attempted.
+redeemed/NN | them_need | I'd sooner ask than fail it: asking costs me nothing I can't spare, and failing would cost a great deal more[; the {danger} would make certain of that]. It matters more to me that it's done than that I get to say I did it alone.
+redeemed/NN | them_stakes | If it fails, the {danger} go on as they please, and everything I put into it was spent for nothing. That's the one kind of waste I've no stomach left for.
+redeemed/NN | them_stakes | It would hurt, and I'd not pretend otherwise[, whatever the {danger} made of it]; what it won't do is send me back to what I was. I've come too far from that to slide back over one bad turn.
+redeemed/NN | them_plans | I {standing}, and I've no quarrel with that while there's work in it. After that, I'd want quiet, the kind a person earns rather than runs to; it sits better.
+redeemed/NN | them_plans | When it's done, I'd like a day with nothing in it to regret, and then another like it. That's as far ahead as I let myself look.

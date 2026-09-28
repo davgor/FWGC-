@@ -989,8 +989,6 @@ mentor/NN | news | Take this away and think on it: {news}.
 mentor/NN | news | A thing heard isn't a thing known, but I'm told {news}.
 
 # ---- mentor/NN: remembering what the player said (contract version 12) ----
-mentor/NN | recalled | I practise what I preach, so I listened to you: {words}.
-mentor/NN | recalled | For once I wasn't the one doing the telling; you told me: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 mentor/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}; there's a lesson in that, and you're welcome to find it yourself. I mean to {after}.
@@ -1023,10 +1021,33 @@ mentor/NN | acknowledged_grief_work | Ah, I'm sorry for your loss; it happened u
 mentor/NN | acknowledged_deed_work | Good; then you've something to build on, and this work will show you how far it goes.
 mentor/NN | greeted_finished_beside | Good to see you. I was beside you through all of it, and you did better than I'd expected, which is saying something.
 mentor/NN | greeted_finished_beside | Well met again. I learned a thing or two watching you work beside me, which is how I like a job to go.
-mentor/NN | small_talk_work_done_beside | You were there, and so was I; you saw how it went as well as I did. What did you learn from it?
-mentor/NN | small_talk_work_done | It's done, and you did it without me at your elbow, which teaches more than any telling. Tell me what you'd do differently.
-mentor/NN | small_talk_since_work | It's gone better since that work was done; I'd call it a lesson learned on both sides.
 mentor/NN | thanked_work | No need; do it your own way rather than mine, and I'll count myself thanked.
 mentor/NN | offended_complaint | Enough; a warning wouldn't have taught you half of what that did.
 mentor/NN | unwronged_state | Nothing to forgive; nobody learns anything by pretending to be fine. Rest, and come back to it when you're ready.
 mentor/NN | greeted_who | I'm {speaker}, {post} here, and if you want answers, bring good questions.
+# Round two (2026-09-28): what five blind judges found.
+mentor/NN | small_talk_work_done_beside | I'd not have told you beforehand how much it frightened me, and I only tell you now because it's done. What made it worth it, for me, was seeing you find your feet in it.
+mentor/NN | small_talk_work_done_beside | I was afraid for you more than for myself, which is the way of it when you've put someone to a hard thing. You came through it your own way, not mine, and I'd not have had it otherwise.
+mentor/NN | small_talk_work_done | I'm meant to be good at letting people go and learn for themselves, and I fretted like a beginner all the same. I've no business being as proud of you as I am, but there it is.
+mentor/NN | small_talk_work_done | Every bit of advice I held back, I went over again while I waited. You managed without any of it, and that was the whole point of holding it back.
+mentor/NN | small_talk_since_work | I've more patience for everyone with my work off my mind, and patience is what I teach worst when I'm worried.
+mentor/NN | small_talk_since_work | I'm needed less now the work I asked of you is done, which is the mark of a thing done well[; I've not stopped minding the {danger}, and I'd not teach anyone to].
+mentor/NN | recalled | I'm asked a good deal and told very little, and what you told me stood out for it: {words}.
+mentor/NN | recalled | You learn a person by what they choose to tell you, and I've come to know you a little by what you told me: {words}.
+mentor/NN | acknowledged_doubt | Good; the ones who think they've nothing to learn are the ones I can't help. What would you tell someone else who said that to you?
+mentor/NN | acknowledged_doubt_work | Aye; I offered it to the person in front of me, not the one you think you ought to be. I'll expect you to think before you act and to learn from whatever you get wrong, and nothing more.
+mentor/NN | acknowledged_doubt_done | Well, I could have taught you most things, but never that: to be afraid and do it anyway, as you did.
+mentor/NN | parted_work | Farewell, and good luck, and for once no advice to go with it.
+mentor/NN | forgiven_state | No hard feelings; everyone I've ever taught has had a day like this, and so have I. Get some rest; there's no lesson in pushing on as you are.
+mentor/NN | them_home | You're in it: {home_here}. I never had to learn to love it, and there's little else I can say that of.
+mentor/NN | them_home | It's {away}. I'd tell anyone else to stop looking back, and I've never once managed it myself.
+mentor/NN | work_more | Look further than me, then: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+mentor/NN | them_after | {home} is home, and anyone who won't stand up for their own home has nothing worth teaching. I'd like to have something worth teaching.
+mentor/NN | them_after | I've never asked anyone to do what I wouldn't, and I'll not start with this.[ The {danger} make a hard examiner.]
+mentor/NN | them_need | There's knowing how a thing is done, and there's having the hands to do it, and the {danger} want more hands than mine.
+mentor/NN | them_need | I tell anyone who'll listen that this isn't work for one, and I'd be a fraud to go at it alone myself.[ The {danger} are a poor place to prove my own advice wrong.]
+mentor/NN | them_stakes | The {danger} would go on having their way, and I'd have taught the worst lesson there is: that it can't be done.
+mentor/NN | them_stakes | It would mean my own advice had failed me, and that's the one failure I've no advice for.[ The {danger} would carry on as they please while I looked for some.]
+mentor/NN | them_plans | For now I {standing}, and I'll stay until this place can manage without me.[ Then home to {away}, the wiser for it.]
+mentor/NN | them_plans | When it's over, I'd like to sit at someone else's elbow and be the one who's taught, for once.[ {home_here} is home, and home's a fine place to be a beginner again.]

@@ -871,8 +871,6 @@ fallen_hero/NN | news | Even I hear things, and I heard {news}.
 fallen_hero/NN | news | No speeches, just what I heard: {news}.
 
 # ---- fallen_hero/NN: remembering what the player said (contract version 12) ----
-fallen_hero/NN | recalled | I'd sooner hear a thing from you than about you, and you told me: {words}.
-fallen_hero/NN | recalled | You told me once: {words}; my name's not what it was, but my manners are.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 fallen_hero/NN | them_who | I'm {speaker}[ {known_as}], for what the name still buys. I {lost}[, and I still mean to {after}].
@@ -906,10 +904,33 @@ fallen_hero/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and sorr
 fallen_hero/NN | acknowledged_deed_work | Good; the work wants what you can do, not what anyone sings about you.
 fallen_hero/NN | greeted_finished_beside | Good to see you. That work had both our hands in it, and it's the first thing in a long while I'd gladly put my name to.
 fallen_hero/NN | greeted_finished_beside | Well met again. I was there beside you, and that's one nobody can say I lost.
-fallen_hero/NN | small_talk_work_done_beside | You were there; you know it as well as I do, and better than any song would tell it. It was hard, and we did it.
-fallen_hero/NN | small_talk_work_done | I wasn't there, so I'll hear it from you, and I'll believe you over any song they make of it.
-fallen_hero/NN | small_talk_since_work | It's been better since, and I've had few enough things go right to know the difference. Whatever else goes wrong, that one held.
 fallen_hero/NN | thanked_work | No need; save your thanks until it's over, and see if you still mean them.
 fallen_hero/NN | offended_complaint | Hold your tongue; I never dressed the work up, and I'll not be blamed for what it turned out to be.
 fallen_hero/NN | unwronged_state | Nothing to forgive; nobody's at their best all the time, and I'd know.
 fallen_hero/NN | greeted_who | I'm {speaker}, {post} of {place}; whatever else you've heard of me, that's what I am now.
+# Round two (2026-09-28): what five blind judges found.
+fallen_hero/NN | small_talk_work_done_beside | It was every bit as bad as I feared, and I've learned to fear the worst; I'd not have wanted anyone else beside me for it. It was worth it, and I don't say that of much any more.
+fallen_hero/NN | small_talk_work_done_beside | From where I stood, you bore it like someone out of the old songs, and I'd know; they sang about me once. It frightened me, and little does now, but I'd face it again beside you.
+fallen_hero/NN | small_talk_work_done | There was a time folk waited on me to get a thing done; waiting on you was a new kind of hard. You did it, and did it well, and I'm glad of it, whatever my pride says.
+fallen_hero/NN | small_talk_work_done | I was half sure it would go wrong the whole while, since that's how things tend to go for me. It didn't, and you're the reason, and that's a debt I'll carry gladly.
+fallen_hero/NN | small_talk_since_work | The {danger} are still about, but since you saw my work through, I've had one thing I can point to that went right, and I've stood a little taller for it.
+fallen_hero/NN | small_talk_since_work | Since my work was done, I've slept easier than I have in a good while, and I've quit bracing for the worst at every turn.
+fallen_hero/NN | recalled | Not many trust me with anything of their own now, so what you told me has counted for a good deal: {words}.
+fallen_hero/NN | recalled | What you told me was yours to tell, and I've kept it yours: {words}.
+fallen_hero/NN | acknowledged_doubt | Aye, well, the songs are full of folk who never had a doubt in them, and I've yet to meet one outside a song. You're in better company than you think.
+fallen_hero/NN | acknowledged_doubt_work | Right; I don't ask just anyone, and I've no patience left for fools, so take the asking as my word on you. Do it as well as you're able; I'll not ask for a legend.
+fallen_hero/NN | acknowledged_doubt_done | Aye, and you went on regardless; that's the part the songs always leave out, and it's the only part that matters.
+fallen_hero/NN | parted_work | Go well, and may your luck hold better than mine did.
+fallen_hero/NN | forgiven_state | Forgiven; I've been at my lowest often enough to know nobody should be judged by it. Rest, and don't let it follow you about the way it's followed me.
+fallen_hero/NN | them_home | {home_here} is home. Whatever else I've lost, I still have that, and I'd not trade it for the name I used to have.
+fallen_hero/NN | them_home | {away} is home, and that's all I'll say of it; I'd sooner it stayed mine than became part of anyone's tale about me.
+fallen_hero/NN | work_more | There's more going than mine, and I'll not keep it from you: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+fallen_hero/NN | them_after | Everyone's decided how my story ends; the {danger} haven't, and that's a fight I can still win.
+fallen_hero/NN | them_after | For {home}, and not for any song they'd make of it. I'd do the same if nobody ever heard a word.
+fallen_hero/NN | them_need | The {danger} don't scatter at a name, and mine's not the name it was anyway. It takes hands now to do what the name used to.
+fallen_hero/NN | them_need | There was a time I'd have been too proud to ask. That time's gone, and I'll not go looking for it[, least of all against the {danger}].
+fallen_hero/NN | them_stakes | Then the {danger} have their way, and whoever sings about me gets another verse. I've given them enough to rhyme with already.
+fallen_hero/NN | them_stakes | If it fails, it'll be my own doing this time, and there'll be no telling it otherwise[; the {danger} will have their way].
+fallen_hero/NN | them_plans | When it's done, I'd like a quiet corner of {home_here} where nobody wants the story out of me, and my name left alone.[ Until then, I {standing}.]
+fallen_hero/NN | them_plans | When it's done? Maybe home to {away}, if I can get through the door before anyone asks me for the story.[ Until then, I {standing}, and I keep my head down.]

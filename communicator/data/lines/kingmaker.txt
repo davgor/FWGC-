@@ -871,8 +871,6 @@ kingmaker/NN | news | As I hear it, and I hear most things, {news}.
 kingmaker/NN | news | Now, this came my way: {news}.
 
 # ---- kingmaker/NN: remembering what the player said (contract version 12) ----
-kingmaker/NN | recalled | I'd rather counsel a crown than wear one, and you let me know once: {words}.
-kingmaker/NN | recalled | I learned from you once: {words}; now I know you a little better.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 kingmaker/NN | them_who | I'm {speaker}[ {known_as}], and I've never wanted a crown for myself. I {feat}, and I mean to {after}.
@@ -906,10 +904,33 @@ kingmaker/NN | acknowledged_hardship_work | Ah, then I owe you for that, and not
 kingmaker/NN | acknowledged_grief_work | Ah, I'm sorry for your loss; that was my work, so the debt's mine, and no favour covers it. Who were they to you?
 kingmaker/NN | acknowledged_deed_work | Good; that makes you worth backing, and I back what's worth it.
 kingmaker/NN | greeted_finished_beside | Well met again. You worked it at my side, and the people who stand at my side are the ones I back.
-kingmaker/NN | small_talk_work_done_beside | It was worse than I'd have liked, and I was at your elbow for all of it; but it went our way, and that's what gets remembered.
-kingmaker/NN | small_talk_work_done | I only have the end of it: it's done, and done by someone I can use again. You'd tell the rest better than I could.
-kingmaker/NN | small_talk_since_work | From where I sit, that work done has only done me good.
 kingmaker/NN | thanked_work | Think nothing of it; you'll have done yourself a favour too, once it's done.
 kingmaker/NN | offended_complaint | Mind your manners; if I'd known more, I'd have said, since I'd hardly spend someone useful on purpose.
 kingmaker/NN | unwronged_state | Whatever for? You're more use to me honest about it than pretending otherwise.
 kingmaker/NN | greeted_who | The name's {speaker}, {post} here, and I'm a good one to know if you mean to get anything done.
+# Round two (2026-09-28): what five blind judges found.
+kingmaker/NN | small_talk_work_done_beside | Half my mind was on the work and half on you, and I'd not have wagered on either. Now I know what you're made of, and that alone made it worth it.
+kingmaker/NN | small_talk_work_done_beside | I'm not used to a thing going harder than I'd planned, and I didn't care for it. What I learned of you along the way made up for it, and then some.
+kingmaker/NN | small_talk_work_done | I spent the waiting doing what I always do, weighing up who's worth backing, and I kept landing on you. It's done, and I'd say I read you right.
+kingmaker/NN | small_talk_work_done | The part of my trade I like least is waiting on other people's hands, and I liked it less than ever this time. When I heard it was done, I was gladder than I'd let most people see.
+kingmaker/NN | small_talk_since_work | I'll not pretend the {danger} have gone, but since that work was done I've been planning for more than just getting through. That's a luxury I owe you.
+kingmaker/NN | small_talk_since_work | A good deal steadier since you saw to that work, and a steady place is where I'm most use.
+kingmaker/NN | recalled | You're one worth knowing, and I've kept what you told me close: {words}.
+kingmaker/NN | recalled | Your words have been on my mind since, and not for any use I could make of them: {words}.
+kingmaker/NN | acknowledged_doubt | Is that so? In my experience the ones who doubt themselves come good more often than not; it's the certain ones who let me down.
+kingmaker/NN | acknowledged_doubt_work | Right; I asked it of you for your sense, not your certainty, and doubting yourself shows some. You have my backing, and I'm choosy about who gets it.
+kingmaker/NN | acknowledged_doubt_done | Ah, and still you did it, which tells me more about you than any amount of fearless talk. I remember the frightened ones who do it all the same, long after the fearless ones slip my mind.
+kingmaker/NN | parted_work | Goodbye, and may luck back you as surely as I do.
+kingmaker/NN | forgiven_state | Very well; nobody's at their best worn out, and I judge people at their best. Look after yourself; I'd rather have you rested than sorry.
+kingmaker/NN | them_home | {home_here} is home, and of everything I've backed, it's the one I'd never cut loose.
+kingmaker/NN | them_home | {away} is home. I'm useful here, but that's the one place I don't have to be useful to belong.
+kingmaker/NN | work_more | If mine's not for you, you can still make yourself useful: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+kingmaker/NN | them_after | Whoever sits highest, it's {home} I'm really working for; everyone else is a means to it.[ The {danger} don't trade in favours, so there's no talking them round.]
+kingmaker/NN | them_after | I make other people's names for them; this is the one thing I'd put my own name to. That tells you what it's worth to me.
+kingmaker/NN | them_need | Because my gift is finding the right hands, not having them all myself, and the {danger} will want every hand I can find.
+kingmaker/NN | them_need | Anyone who says they'll manage alone is lying or about to learn better, and I'm neither.[ The {danger} teach that lesson hard.]
+kingmaker/NN | them_stakes | Then the {danger} come out on top, and every favour I called in for it is wasted. I can stand losing; losing and owing, I can't abide.
+kingmaker/NN | them_stakes | My judgement, which is the only thing I've ever had worth trading.[ If the {danger} win, nobody takes my word on anyone again.]
+kingmaker/NN | them_plans | I'd let somebody else be the one everyone wants something from, for once, and sit quietly at the back[ somewhere in {away}].[ I {standing} in the meantime, and make myself useful.]
+kingmaker/NN | them_plans | While I'm useful here, I stay[; {home_here} is home, and nobody hands home ground to a rival]. What comes next is whoever rises next, and I'll be at their elbow.

@@ -517,8 +517,6 @@ malevolent_benevolent/NN | news | Whatever you think of me, this is what I heard
 malevolent_benevolent/NN | news | I heard {news}; I'll tell it no kinder or harder than that.
 
 # ---- malevolent_benevolent/NN: remembering what the player said (contract version 12) ----
-malevolent_benevolent/NN | recalled | Whatever you make of me, what you told me stayed where I put it: {words}.
-malevolent_benevolent/NN | recalled | You were the one who told me: {words}; I keep a clear head and an open door.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 malevolent_benevolent/NN | them_who | I'm {speaker}[ {known_as}], and what's said of me is none of my concern. I {feat}, and I mean to {after}; watch, if you like.
@@ -551,10 +549,33 @@ malevolent_benevolent/NN | acknowledged_grief_work | Ah, I'm sorry for your loss
 malevolent_benevolent/NN | acknowledged_deed_work | Good; I'll hold you to that, and you can hold me to my word in turn.
 malevolent_benevolent/NN | greeted_finished_beside | Good to see you. You worked beside me in front of anyone who cared to look, and I'd do it with you again the same way.
 malevolent_benevolent/NN | greeted_finished_beside | Hello again. I last saw you {since}, and I've not changed my mind about what you did beside me.
-malevolent_benevolent/NN | small_talk_work_done_beside | We did it together, so I'll not dress it up for you. It was what it was, and I'm glad I had a hand in it.
-malevolent_benevolent/NN | small_talk_work_done | I wasn't there, so I won't pretend to know how it went; give it to me plainly, and I'll take it plainly.
-malevolent_benevolent/NN | small_talk_since_work | It's better since that work was done, and I'd tell you straight if it weren't.
 malevolent_benevolent/NN | thanked_work | Don't mention it; I don't need your thanks, only the work done well.
 malevolent_benevolent/NN | offended_complaint | Mind your manners; I put the work before you as it was, and I don't soften things for anyone.
 malevolent_benevolent/NN | unwronged_state | Whatever for? You are as you are, and I'd sooner that than a show.
 malevolent_benevolent/NN | greeted_who | I'm {speaker}, {post} here, and you can make of that whatever you like.
+# Round two (2026-09-28): what five blind judges found.
+malevolent_benevolent/NN | small_talk_work_done_beside | I was afraid, and I'd think less of myself for hiding it than for feeling it. You made the fear worth having, and then some.
+malevolent_benevolent/NN | small_talk_work_done_beside | Let anyone make of it what they like; I know what it cost me, I know I'd do it again, and I know you did all I could have asked of anyone.
+malevolent_benevolent/NN | small_talk_work_done | I kept a hard face while I waited, and kept it when the news came, but the gladness under it was real.
+malevolent_benevolent/NN | small_talk_work_done | I'd sooner have gone with you than sat here guessing, and I'm a poor guesser. Whatever anyone says of you, I've my own opinion of you now, and it's a good one.
+malevolent_benevolent/NN | small_talk_since_work | I've caught myself whistling at my post with my work done, and anyone who likes may hear it.
+malevolent_benevolent/NN | small_talk_since_work | I'm the better for my work being done, plain as that[; the {danger} still being about takes nothing from it].
+malevolent_benevolent/NN | recalled | Make of me what you like, but what you told me sank deeper than it looked: {words}.
+malevolent_benevolent/NN | recalled | I'll not make a show of it, but what you told me meant something to me: {words}.
+malevolent_benevolent/NN | acknowledged_doubt | Right; nobody's ever been sure of me either, least of all me at the start. I stopped arguing with the doubt and let what I did do the talking; try it.
+malevolent_benevolent/NN | acknowledged_doubt_work | Well, doubt yourself all you like; I'd still want you for this, and I've never said a kind thing just to be kind.
+malevolent_benevolent/NN | acknowledged_doubt_done | I see; anyone who calls what you did less than brave, knowing you were afraid, can say it to my face.
+malevolent_benevolent/NN | parted_work | Take care; I'm no good at wishing people well out loud, so this will have to do: good luck.
+malevolent_benevolent/NN | forgiven_state | Forgiven; I've been taken for worse than I am often enough, and I'll not do that to you over a hard day.
+malevolent_benevolent/NN | them_home | {home_here}. I don't make speeches about it; it's home, and I'd defend it before I'd praise it.
+malevolent_benevolent/NN | them_home | Not here: {away}. I've no fine words for it, and it doesn't need any from me.
+malevolent_benevolent/NN | work_more | You'll hear the rest from me straight, whether it suits me or not: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+malevolent_benevolent/NN | them_after | Say what you like about me, but nobody will ever say I let {home} down. That's the whole of why.
+malevolent_benevolent/NN | them_after | It wants doing, and I've never minded being the one people like least for doing it.[ The {danger} can add themselves to the list.]
+malevolent_benevolent/NN | them_need | The {danger} won't be put off by a hard look, and a hard look is most of what I've got on my own. You needn't like me to stand with me; you need only stand.
+malevolent_benevolent/NN | them_need | I don't make friends easily, and I don't pretend to, so when I need a hand I ask for one outright.[ The {danger} leave no room for pride.]
+malevolent_benevolent/NN | them_stakes | The {danger} would have their way, and the blame would be mine, every scrap of it; I'd not hand any of it to anyone else.
+malevolent_benevolent/NN | them_stakes | It would hurt, whatever my face says, and my face says very little.[ Nobody would see what the {danger} had cost me.]
+malevolent_benevolent/NN | them_plans | I {standing}, and I'll not be hurried out of it or begged to stay.[ When I'm done here, {away}; it's home, and I miss it more than I let anyone see.]
+malevolent_benevolent/NN | them_plans | Once it's finished, I'd like to be left alone, and I'd count that thanks enough.[ {home_here} is home, so here is where I'd be left.]

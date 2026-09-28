@@ -892,8 +892,6 @@ beast/NN | news | I heard {news}, and that's all I'll say on it.
 beast/NN | news | Somebody said {news}; I'll not say it twice.
 
 # ---- beast/NN: remembering what the player said (contract version 12) ----
-beast/NN | recalled | I'm short with most folk, but I heard you out: {words}.
-beast/NN | recalled | Your words haven't left me: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 beast/NN | them_who | {speaker}[ {known_as}]. I mean to {after}, and that's enough to be going on with.[ {home} is home.]
@@ -925,10 +923,33 @@ beast/NN | acknowledged_hardship_work | Ah. My work did that to you, and I owe y
 beast/NN | acknowledged_grief_work | Ah, I'm sorry. It was my work that cost you them, and that's on me.
 beast/NN | acknowledged_deed_work | Good. Let the work show it, and I'll believe it.
 beast/NN | greeted_finished_beside | Good to see you. You worked at my side, and that makes you one of my own now.
-beast/NN | small_talk_work_done_beside | We were both there. It got done, and that's the part worth talking about.
-beast/NN | small_talk_work_done | I wasn't there; all I've got is the end of it, and the end's good. Tell it short, if you want to tell it.
-beast/NN | small_talk_since_work | Since you did that work, I've had less to keep my temper about.
 beast/NN | thanked_work | Don't mention it; thanks don't get it done.
 beast/NN | offended_complaint | Watch your tongue; I didn't talk the work up or down when I asked, and my patience for blame is short.
 beast/NN | unwronged_state | Nothing to forgive. Take what room you need; I'm not one to crowd anybody.
 beast/NN | greeted_who | {speaker}, {post} here, and not much for talk.
+# Round two (2026-09-28): what five blind judges found.
+beast/NN | small_talk_work_done_beside | It was hard, and it pulled at my temper the whole way through. You held steady beside me, and that made it worth the strain.
+beast/NN | small_talk_work_done_beside | It was ugly, about what my gut said it would be, and I'd take it on again tomorrow. You're good to have at my back, and I don't say that to many.
+beast/NN | small_talk_work_done | I paced like a caged thing while I waited on it. When word came that it was done, I could breathe again, and I think the better of you for it.
+beast/NN | small_talk_work_done | Not being there sat badly with me; I'm no good at standing off. It's done, and you've my respect for it.
+beast/NN | small_talk_since_work | The {danger} are still about, but I've slept easier since the work was done, and I don't sleep easy as a rule. That's your doing.
+beast/NN | small_talk_since_work | It's been quieter since the work was done, and I've had less to bite back. I'm easier to be around for it, and you've a hand in that.
+beast/NN | recalled | I've chewed on what you told me since, more than I'd let on: {words}.
+beast/NN | recalled | What you told me I've kept close, the way I keep my own: {words}.
+beast/NN | acknowledged_doubt | Right. A bit of doubt keeps you sharp, so keep it; just don't let it do your thinking for you.
+beast/NN | acknowledged_doubt_work | Aye. I asked you, and I'd ask you again; be straight with me, and don't leave it half done.
+beast/NN | acknowledged_doubt_done | Aye, and you finished it with your heart in your mouth; that's the only kind of brave I trust.
+beast/NN | parted_work | Farewell, and luck to you, every scrap I've got.
+beast/NN | forgiven_state | No hard feelings; nobody knows better than me what a frayed temper does. Go easy on yourself, and think no more of it.
+beast/NN | them_home | {home_here}. This is home, and I'd bare my teeth for it.
+beast/NN | them_home | {away} is home. I miss it, and I don't talk about it.
+beast/NN | work_more | You want more? Fine: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+beast/NN | them_after | The {danger}. I don't share a place with their kind, and I'm not the one who'll be moving.
+beast/NN | them_after | {home}. It's the one place I rest easy, and I want it left that way.
+beast/NN | them_need | On my own I'd go at the {danger} with my temper, and my temper doesn't know when to stop. I'd sooner have someone beside me with a cool head.
+beast/NN | them_need | I can't watch every side at once[, and the {danger} only need the one I'm not watching]. So I ask, and I don't ask twice.
+beast/NN | them_stakes | Then the {danger} have their way, and I stop being patient with them. Nobody wants to be about when that happens, me least of all.
+beast/NN | them_stakes | I'd have less room than I like[, and the {danger} would have the run of it]. I get short with people when I'm crowded; shorter than this.
+beast/NN | them_plans | {home_here}'s my ground, and I stay on it.[ The {danger} can do the leaving.]
+beast/NN | them_plans | When it's done, {away}, and a door I can shut.[ Until then, I {standing}, and I keep my temper.]

@@ -399,8 +399,6 @@ ancient/NN | news | I heard {news}, and I'll weigh it when I'm ready.
 ancient/NN | news | No need to hurry over it, but they tell me {news}.
 
 # ---- ancient/NN: remembering what the player said (contract version 12) ----
-ancient/NN | recalled | For all my years, my ears are sound, and you told me: {words}.
-ancient/NN | recalled | Among all I've been told, your words have kept their place: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 ancient/NN | them_who | The name is {speaker}[ {known_as}]. I mean to {after}, and I've all the time it needs[; {home} is home, and I'm slow to call anywhere that].
@@ -432,10 +430,33 @@ ancient/NN | acknowledged_hardship_work | Ah, and you took it in my work. That's
 ancient/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and sorrier that my work was the cause. I'll carry that, and I carry things longer than most.
 ancient/NN | acknowledged_deed_work | Good. That's worth something to me, and the work in hand could use it.
 ancient/NN | greeted_finished_beside | Good to see you. We did that work shoulder to shoulder, and I took your measure while we were at it.
-ancient/NN | small_talk_work_done_beside | You stood beside me through it, and saw what I saw. It was worth the time it took, and I don't say that of much.
-ancient/NN | small_talk_work_done | I wasn't there, so take your time over the telling; I've more time to listen than you'll ever need. It's done, and I'll remember that long after the details have gone.
-ancient/NN | small_talk_since_work | I've had one thing fewer to weigh since that work was done. I don't forget who took it off my hands.
 ancient/NN | thanked_work | No need; it's a bargain, not a kindness, and a bargain's thanked by keeping it.
 ancient/NN | offended_complaint | Careful; I weighed the work fairly when I put it to you, and I'll not be blamed for its weight now.
 ancient/NN | unwronged_state | Nothing to forgive. Take your time coming back to yourself; I can wait.
 ancient/NN | greeted_who | {speaker}, {post} here; I've time to hear you out, if you've something worth hearing.
+# Round two (2026-09-28): what five blind judges found.
+ancient/NN | small_talk_work_done_beside | It was harder than I let show, and I've had a long life's practice at not showing things. You stood it beside me without once flinching, and that made it worth all it cost me.
+ancient/NN | small_talk_work_done_beside | I'd reckoned it would try my patience, and it tried it harder than anything has in a good while. It was worth it all the same, and I've seldom had steadier company at my side.
+ancient/NN | small_talk_work_done | I waited on it without fretting, as I wait on everything, and the end was worth the waiting. It's raised you in my reckoning, and I'm slow to raise anyone.
+ancient/NN | small_talk_work_done | When word reached me that it was done, I let myself be glad of it, and I seldom trouble to be glad of anything. You've earned a place in my good opinion, and it'll outlast most things.
+ancient/NN | small_talk_since_work | The {danger} are still about, but I've rested easier since the work was done. I rest a great deal, so that's no small thing.
+ancient/NN | small_talk_since_work | It's been slower and quieter since the work was done, and that suits me down to the ground. I've had the stillness I like best, and I owe some of that to you.
+ancient/NN | recalled | I've turned what you told me over since, slowly, as I do with what matters: {words}.
+ancient/NN | recalled | You trusted me with your words, and I've kept them as I keep my word: {words}.
+ancient/NN | acknowledged_doubt | Ah, doubt makes people careful, and the careful last longest; I should know. Take your time, and you may surprise yourself.
+ancient/NN | acknowledged_doubt_work | Right; I weighed you before I asked, and I weigh slowly, so I'd not have asked in haste. I'll expect only that you keep your end of the bargain.
+ancient/NN | acknowledged_doubt_done | Aye, and afraid as you were, you still saw it through; I'll remember that long after the fear is forgotten.
+ancient/NN | parted_work | Go well, and good luck to you; I'd lend you some of my patience, if it could be lent.
+ancient/NN | forgiven_state | Forgiven; weariness makes poor company of anyone, and I keep no tally of it. Rest, and be easy.
+ancient/NN | them_home | {home_here} is home. I've settled into it the way stone settles, and I don't mean to shift.
+ancient/NN | them_home | {away} is home. I'm standing here, but that makes it no less home; I take the long view of such things.
+ancient/NN | work_more | There's more going than mine, and it's worth weighing all of it before you choose: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+ancient/NN | them_after | The {danger} are an account I mean to close. I close every one I open, sooner or later, and with me it's mostly later.
+ancient/NN | them_after | Take {home} and weigh it against anything you like; I've done that sum more often than you've drawn breath, and it comes out the same every time.
+ancient/NN | them_need | I could outwait the {danger}, very likely; I couldn't outfight them alone, and I've lived too long to mistake the one for the other.
+ancient/NN | them_need | My patience outlasts most things, but it can't stand in two places at once[, and the {danger} won't wait on it]. That's where you come in, if the terms suit you.
+ancient/NN | them_stakes | The {danger} would have their way, and I'd be made to sit and watch them at it. I can put up with nearly anything; I've simply no gift for liking it.
+ancient/NN | them_stakes | Then something will have got the better of me[, and the {danger} will have their way]. I'm far too old to take up losing as a habit.
+ancient/NN | them_plans | Leave {home_here}? Not I[; I {standing}, and I'm in no hurry]. Once it's settled, I'll let the seasons go by uncounted; I've a great deal of idleness owed me.
+ancient/NN | them_plans | When it's finished, I'll see {away} again, and take my time about the going; a homecoming's wasted on anyone in a hurry.[ Until then, I {standing}, as patiently as you like.]

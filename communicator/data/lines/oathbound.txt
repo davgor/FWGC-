@@ -989,8 +989,6 @@ oathbound/NN | news | I'm told {news}; that's all I'll put my word to.
 oathbound/NN | news | This much has reached me, no more and no less: {news}.
 
 # ---- oathbound/NN: remembering what the player said (contract version 12) ----
-oathbound/NN | recalled | I'm a steady sort, which is why something you said is with me yet: {words}.
-oathbound/NN | recalled | Something of yours I heard once: {words}; most folk get a nod from me, and you got an ear.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 oathbound/NN | them_who | {speaker}[ {known_as}], sworn to {after}. I {lost}, and I don't unswear.
@@ -1026,10 +1024,33 @@ oathbound/NN | acknowledged_hardship_work | Ah, that came of my work, so it goes
 oathbound/NN | acknowledged_grief_work | Ah, I'm sorry; a death on my work is a debt I'll carry as long as I carry anything. Tell me their name, and I'll keep it.
 oathbound/NN | acknowledged_deed_work | Good; I'll weigh that when I weigh you, and I weigh fairly.
 oathbound/NN | greeted_finished_beside | Well met again. You stood to it beside me, and I saw every bit of it; I'll vouch for you anywhere.
-oathbound/NN | small_talk_work_done_beside | You were at my side for it; I've nothing to tell you that you didn't see. We both gave our word to it, and we both kept it.
-oathbound/NN | small_talk_work_done | You were there and I wasn't, so you'd tell it better than I could. I know it's done, and done is what I asked.
-oathbound/NN | small_talk_since_work | It sits easier with me, having that one squared; past that, I'll swear to nothing I haven't seen.
 oathbound/NN | thanked_work | Think nothing of it; I'd sooner have a promise kept than thanks said.
 oathbound/NN | offended_complaint | Careful; I gave you the work as I had it, and if it cost more than either of us reckoned, part of that cost is mine.
 oathbound/NN | unwronged_state | Whatever for? How you are is no debt of yours to me, and I'll not keep count of it.
 oathbound/NN | greeted_who | {speaker}, {post} of {place}, and my word comes with the name.
+# Round two (2026-09-28): what five blind judges found.
+oathbound/NN | small_talk_work_done_beside | I'd sworn to myself I'd not let the fear show, and I kept that oath by a thread; yours to me, you kept without a tremor.
+oathbound/NN | small_talk_work_done_beside | I'd go through it all again for the same end; that's my word on it. Your word's as good as an oath to me after that.
+oathbound/NN | small_talk_work_done | The waiting tried my faith, and my faith isn't easily tried. It held, and you proved it right; there's no one I'd sooner call as good as their word.
+oathbound/NN | small_talk_work_done | It meant more than I can easily say, knowing it was done and knowing it was your doing. From here on, my name stands behind yours.
+oathbound/NN | small_talk_since_work | The {danger} are still about, but my word to this place has been easier kept since the work was done, and I'd swear to the difference.
+oathbound/NN | small_talk_since_work | Since the work was done, I've not once lain awake over what I've sworn to, and that's a rare thing for me.
+oathbound/NN | recalled | Nobody's had from me what you told me, nor will they: {words}.
+oathbound/NN | recalled | I know you by more than your dealings with me, since you told me: {words}.
+oathbound/NN | acknowledged_doubt | I see; in my experience it's the doubters who keep their word and the boasters who break it, so I'll think none the less of you.
+oathbound/NN | acknowledged_doubt_work | Aye; fear has never yet broken a word that was truly meant, so keep yours, and the rest will follow.
+oathbound/NN | acknowledged_doubt_done | Well, the fear was yours and so was the word you kept through it, and I know which of the two I'll remember.
+oathbound/NN | parted_work | Go well, and may luck keep its word to you better than most folk keep theirs.
+oathbound/NN | forgiven_state | All right; you've my word it's forgotten. Rest; you need that more than my pardon.
+oathbound/NN | them_home | {home_here} is home, and there's nothing I'd give my word to sooner.
+oathbound/NN | them_home | {away} is home, and it has my word wherever I stand.
+oathbound/NN | work_more | Past my own, I can point you on, and I'll point you true: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+oathbound/NN | them_after | I swore it for {home}, and I'd swear it again this moment, knowing all I know now. Some oaths you take for yourself; that one I took for a place.
+oathbound/NN | them_after | A sworn thing is the whole of a person, and I'll not be less than whole.[ The {danger} can break me, but they can't make me forsworn.]
+oathbound/NN | them_need | I swore to it; the {danger} swore nothing, and they'll not fall to one pair of hands because I gave my word.
+oathbound/NN | them_need | A promise kept too late is a promise broken, and alone I'd be too late.[ The {danger} don't wait while I catch up.]
+oathbound/NN | them_stakes | I'd be left with the {danger} unanswered and a broken oath to carry, the one weight I never learned how to bear.
+oathbound/NN | them_stakes | My word is what's at stake, and my word is all of me that's worth anything.[ If the {danger} win, they win that too.]
+oathbound/NN | them_plans | I {standing}, and I'll not think past my oath until it's kept.[ After that, {away}; that's a promise I made myself.]
+oathbound/NN | them_plans | When my oath's kept, I'd like to wake with nothing sworn, just once, to see how it feels.[ I'd want to wake in {home_here}; it's home.]

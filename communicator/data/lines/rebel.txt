@@ -871,8 +871,6 @@ rebel/NN | news | I don't wait for leave to say it: {news}.
 rebel/NN | news | They're saying {news}; I'll not pretend otherwise.
 
 # ---- rebel/NN: remembering what the player said (contract version 12) ----
-rebel/NN | recalled | I bow to no one, but I heard you plainly: {words}.
-rebel/NN | recalled | You spoke for yourself once: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 rebel/NN | them_who | {speaker}[ {known_as}]. I {lost}, and it didn't put me on my knees; I mean to {after}, in the open.
@@ -908,10 +906,33 @@ rebel/NN | acknowledged_hardship_work | Ah, and it was my work that did it; I'll
 rebel/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and I'll not look away from what my work cost you. Say their name, and I'll not forget it.
 rebel/NN | acknowledged_deed_work | Good; I want people who've done things, not people who've been told to.
 rebel/NN | greeted_finished_beside | Hello again. We did that shoulder to shoulder, and I'd do it again with you tomorrow.
-rebel/NN | small_talk_work_done_beside | We went at it together and upright, and it's done. That's all the telling it needs between you and me.
-rebel/NN | small_talk_work_done | I wasn't there, so I'll not talk as if I was. It's done, and you did it; tell it how you like.
-rebel/NN | small_talk_since_work | I've one less weight on my back, and I stand the straighter for it; I'll not speak for anyone else.
 rebel/NN | thanked_work | Don't mention it; I'd rather have your hands than your thanks.
 rebel/NN | offended_complaint | Enough; I hid nothing from you, and if it went harder than it looked, we'll both carry that, not you alone.
 rebel/NN | unwronged_state | No harm done. Nobody stands straight every day, and I'd not ask it of you.
 rebel/NN | greeted_who | I'm {speaker}, {post} of {place}, and you'll not need to bow to either.
+# Round two (2026-09-28): what five blind judges found.
+rebel/NN | small_talk_work_done_beside | It was a hard thing, and I was afraid; I'm not ashamed to own it. You never once let it bend you, and that kept me upright too.
+rebel/NN | small_talk_work_done_beside | I'll tell anyone to their face it was worth it. You chose it with nobody's hand on your back, and you're the only sort I'd ever walk behind.
+rebel/NN | small_talk_work_done | It galled me to be out of it, and I bore the waiting badly. Once it was done, I lifted my chin for you, and I lift it for few.
+rebel/NN | small_talk_work_done | Nothing's pleased me more than knowing it was done. You did it on your own feet and your own say-so, and that's the thing I respect most.
+rebel/NN | small_talk_since_work | The {danger} are still about, but I've walked the place with my head higher since the work was done.
+rebel/NN | small_talk_since_work | Since the work was done, there's been less to set my jaw against, and my fists have come unclenched for a change.
+rebel/NN | recalled | Nobody made you tell me, and what's freely told means more to me than anything dragged out: {words}.
+rebel/NN | recalled | No order's ever stuck with me, but your words have stood with me since: {words}.
+rebel/NN | acknowledged_doubt | Well, better to say it straight than to strut about hiding it. Nobody's born standing upright; you learn it by getting up.
+rebel/NN | acknowledged_doubt_work | Fair enough, and you've said it to my face, which is more than most would. Hold your head up, and that'll do for me.
+rebel/NN | acknowledged_doubt_done | Right, and still you didn't bow to it; a straight back on a frightened soul is the bravest thing I know.
+rebel/NN | parted_work | Farewell, and good luck to you, and may nothing bow your head.
+rebel/NN | forgiven_state | No hard feelings; tired knees buckle, and that's no fault of the one standing on them. Rest, and stand tall again tomorrow.
+rebel/NN | them_home | {home_here} is home, and I stand straighter in it than anywhere else.
+rebel/NN | them_home | {away} is home, and nobody had to give me leave to call it that.
+rebel/NN | work_more | I'll not tell you whose work to take; that's yours to decide: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+rebel/NN | them_after | There's one thing I'd go down on a knee for, and that's {home}, and it's never once asked me to.
+rebel/NN | them_after | Because the day I stop standing for something, I'm only standing, and I'd sooner fall.[ The {danger} would sooner I didn't stand at all; they'll be disappointed.]
+rebel/NN | them_need | Anyone can stand alone; standing alone and winning is another matter, and the {danger} don't lose to pride.
+rebel/NN | them_need | I don't take orders, so I don't give them; I can only ask, and I'm asking.[ Against the {danger}, I'd take a friend over a follower.]
+rebel/NN | them_stakes | I'd have handed the {danger} the one thing I never give anyone: the last word.
+rebel/NN | them_stakes | A failure would have my name on it and nobody else's, and I'd wear it in the open like everything else.[ The {danger} might have their way, but never an apology from me.]
+rebel/NN | them_plans | Today I {standing}, and I'll promise nothing past today; promises about tomorrow are how people end up kneeling.[ {away} is home, and nobody has ever talked me out of saying so.]
+rebel/NN | them_plans | When it's done, I'll sit down, just once, because I chose to and not because I was knocked there.[ {home_here} is home, and I'll do my sitting in it.]

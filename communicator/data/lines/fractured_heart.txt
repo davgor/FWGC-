@@ -892,8 +892,6 @@ fractured_heart/NN | news | Today, at least, I remember hearing {news}.
 fractured_heart/NN | news | What I heard was that {news}.
 
 # ---- fractured_heart/NN: remembering what the player said (contract version 12) ----
-fractured_heart/NN | recalled | I'm odd company, I know, but you told me: {words}.
-fractured_heart/NN | recalled | You told both of me once: {words}; whichever of us you meet has those words.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 fractured_heart/NN | them_who | Today I'm {speaker}[ {known_as}]. I {feat}, and I'll answer for it, whatever else I can't.[ I mean to {after}.]
@@ -926,11 +924,34 @@ fractured_heart/NN | acknowledged_hardship_work | Ah, I'm sorry for it; I'll tel
 fractured_heart/NN | acknowledged_grief_work | Ah, I'm sorry, truly, and it came of my work. That's on me, all of me, and I'll carry it.
 fractured_heart/NN | acknowledged_deed_work | Is that so? Then you'll do, and I'll hold to that even if I forget why.
 fractured_heart/NN | greeted_finished_beside | Well met again. I was right there with you when it was done, and that's one thing I remember clearly.
-fractured_heart/NN | small_talk_work_done_beside | You were there, so you'll remember it better than I do, most likely. We got it done, and I'd stand beside you again.
-fractured_heart/NN | small_talk_work_done | It's done, and that's what I'll hold on to. I wasn't there, but I know whose work it was.
-fractured_heart/NN | small_talk_since_work | Since that work was done, there's one less thing for me to argue with myself about. That's worth more than you'd think.
 fractured_heart/NN | thanked_work | Think nothing of it; see it through, and whichever of us you find after will know you for it.
 fractured_heart/NN | offended_complaint | Mind your manners; if the other one of me knew something and kept it back, take it up with both of us.
 fractured_heart/NN | unwronged_state | Nothing to forgive; I'm not myself half the time, so I'm hardly one to mind. You're fine as you are.
 fractured_heart/NN | greeted_who | {speaker}, {post} here, or at least that's who you've got today.
 fractured_heart/NN | them_plans | Ask whichever of me is up first tomorrow. As for this one, I {standing}[, and I mean to {after}].
+# Round two (2026-09-28): what five blind judges found.
+fractured_heart/NN | small_talk_work_done_beside | Both halves of me were frightened, and that's the one thing they never argue over. I'd not have held together through it without you beside me, and I'll say so plainly.
+fractured_heart/NN | small_talk_work_done_beside | It was worth it, whichever half of me you ask, though it cost me more than I showed. You were the steadier of us, and I'll hold on to that when I can't hold on to much else.
+fractured_heart/NN | small_talk_work_done | One half of me fretted the whole time, and the other kept telling it to hush; neither was much use to you. When I knew it was done, I was glad right through, and I think the better of you for it.
+fractured_heart/NN | small_talk_work_done | The news that it was done did more for me than anything has in a good while, and I've needed it. You did it without me there, and whichever of me you meet will trust you for it.
+fractured_heart/NN | small_talk_since_work | The {danger} are still out there, but since that work was done the post's been easier to hold, and I've held together better for it.
+fractured_heart/NN | small_talk_since_work | There's been less noise in my head since that work was done, and less around me, and both halves of me get some sleep now.
+fractured_heart/NN | recalled | What you told me mattered to you, so it matters to all of me: {words}.
+fractured_heart/NN | recalled | I've kept your words where both halves of me can find them: {words}.
+fractured_heart/NN | acknowledged_doubt | Aye, I know the feeling; half of me doubts everything, and the other half gets on with it regardless. Let your doubts talk all they like, provided they don't do the deciding.
+fractured_heart/NN | acknowledged_doubt_work | Right; I asked it of you with the whole of me, not just the hopeful half, and I'd ask it again. Give it what you've got; that's all either of me expects.
+fractured_heart/NN | acknowledged_doubt_done | Aye, frightened as you were, you went on; I know something about keeping on when half of you wants to stop. That's courage, the real kind, and all of me says so.
+fractured_heart/NN | parted_work | Go well, and good luck from both of me; we don't often agree, but we agree on that.
+fractured_heart/NN | forgiven_state | All right; weariness and grief make someone else of anybody, and I of all people won't hold that against you. Rest; whoever you are tomorrow will thank you for it.
+fractured_heart/NN | them_home | {home_here} is home; when I'm in pieces, it's what holds them together.
+fractured_heart/NN | them_home | {away} is home. Half of me misses it, and the other half won't admit that it does.
+fractured_heart/NN | work_more | Nothing more from me, whichever of me you ask, but {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+fractured_heart/NN | them_after | Because even when I don't know myself, I know {home}.[ Either of me could face the {danger}, and both would know what for.]
+fractured_heart/NN | them_after | It's the one thing the two of me never argue over. Everything else is up for debate, depending on who's awake.
+fractured_heart/NN | them_need | Because the {danger} won't wait for my steadier half to turn up, and I need someone beside me who's the same every time I look.
+fractured_heart/NN | them_need | Half of me forgets what the other half promised, and this can't hang on whichever half remembers.[ The {danger} would find the gap between us soon enough.]
+fractured_heart/NN | them_stakes | Then the {danger} get the last word, and both halves of me lose the one thing they share. I'd not like to meet whoever I'd be after that.
+fractured_heart/NN | them_stakes | My word, to begin with; one of me gave it, and the other has to keep it.[ The {danger} would make liars of us both.]
+fractured_heart/NN | them_plans | When the dust settles, all I want is to wake up as whoever I was when I lay down[, home in {away}].[ For now, I {standing}, as steady as I get.]
+fractured_heart/NN | them_plans | Neither of me goes anywhere till it's quiet[, and {home_here} is home to both of us]. Once it is, I might finally get properly acquainted with myself.

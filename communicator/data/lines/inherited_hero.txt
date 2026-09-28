@@ -402,8 +402,6 @@ inherited_hero/NN | news | No dressing it up: {news}.
 inherited_hero/NN | news | The last I heard, {news}.
 
 # ---- inherited_hero/NN: remembering what the player said (contract version 12) ----
-inherited_hero/NN | recalled | My aim was handed to me, but what you told me I came by myself: {words}.
-inherited_hero/NN | recalled | You were telling me once: {words}; I listened closer than I looked.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 inherited_hero/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}, and I mean to {after}; that aim was handed down to me, and I keep it where it was set.
@@ -437,10 +435,33 @@ inherited_hero/NN | acknowledged_hardship_work | Ah, then that's a cost I put on
 inherited_hero/NN | acknowledged_grief_work | Ah, I'm sorry; that's a loss I had a hand in, and it's mine to carry as much as yours.
 inherited_hero/NN | acknowledged_deed_work | Good; that's worth something to me, and it goes down in your favour.
 inherited_hero/NN | greeted_finished_beside | Welcome back. You put your back into it right beside me, and I counted every bit of it in your favour.
-inherited_hero/NN | small_talk_work_done_beside | It took more out of us both than I'd bargained for, and you saw every bit of it. Still, it came out worth the spending.
-inherited_hero/NN | small_talk_work_done | I wasn't there, so you'd know the cost of it better than me. From here, it looks worth what it took.
-inherited_hero/NN | small_talk_since_work | That work's off the tally, and I've one less thing to carry for it. I call that a good trade.
 inherited_hero/NN | thanked_work | No need; a deal's thanked when it's closed, not before.
 inherited_hero/NN | offended_complaint | There's no need for that; I gave you all I knew of it, and hiding any of it would have cost me as much as you.
 inherited_hero/NN | unwronged_state | There's nothing to forgive. How you are is your own business, and it takes nothing from me.
 inherited_hero/NN | greeted_who | {speaker}, {post} here, carrying an aim I was handed and counting what it costs.
+# Round two (2026-09-28): what five blind judges found.
+inherited_hero/NN | small_talk_work_done_beside | I've run the count on it since, and it cost me more than I'd bargained for. It's still the best spending I've ever done, with you beside me for it.
+inherited_hero/NN | small_talk_work_done_beside | The whole way through I was afraid I was spending you on a load that was never yours to carry. You carried it as if it were, and I'll not forget that.
+inherited_hero/NN | small_talk_work_done | I spent the time it took reckoning up what I'd lose if it went wrong, and that cost me more than the work would have. When I knew it was done, the whole count came out in your favour.
+inherited_hero/NN | small_talk_work_done | I wasn't there to see what it cost you, but I know what it would have cost me left undone. You spent yourself on something that was mine to shoulder, and I don't take that lightly.
+inherited_hero/NN | small_talk_since_work | The {danger} are still about, but since that work was done this place costs me less to hold, and that's a saving I feel every day.
+inherited_hero/NN | small_talk_since_work | Less to fear and less to reckon with since that work came good, and more of me left over for what I'm after.
+inherited_hero/NN | recalled | I don't carry much that isn't mine to carry, but I've carried your words: {words}.
+inherited_hero/NN | recalled | I've counted what you told me among the things that matter: {words}.
+inherited_hero/NN | acknowledged_doubt | Right; nobody starts with more than they were handed, and nobody's count is settled at the start. What would it cost you never to try?
+inherited_hero/NN | acknowledged_doubt_work | Aye, and it doesn't change my count; I asked it of you with my eyes open. You'll not come out behind with me for saying so.
+inherited_hero/NN | acknowledged_doubt_done | I see; so it cost you fear as well as sweat, and you spent both and got it done. That's the kind of spending I respect most.
+inherited_hero/NN | parted_work | Take care, and good luck; I don't spend my hopes freely, and I've spent them on you.
+inherited_hero/NN | forgiven_state | Let's forget it; anyone runs short when they're worn thin. Take what rest you can, and you'll find you've more left to spend than you think.
+inherited_hero/NN | them_home | {home_here} is home. Whatever it costs me, I've never once found it too dear.
+inherited_hero/NN | them_home | {away} is home, and nothing I've gained anywhere else comes close to it.
+inherited_hero/NN | work_more | If it's not mine you want, here's the rest, and I've nothing riding on any of it: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+inherited_hero/NN | them_after | It came to me along with {home}, and I've never once been tempted to give either back.[ The {danger} came in the same bundle, and those I'd give back gladly.]
+inherited_hero/NN | them_after | I didn't choose it, so I've had to work out for myself whether it's worth what it costs. I have, and it is.
+inherited_hero/NN | them_need | Because the {danger} don't care whose aim it is, and alone I'm a loss waiting to be tallied.
+inherited_hero/NN | them_need | Nothing that's handed down was ever meant for one pair of hands; that's how it outlasts whoever's holding it.[ The {danger} are no job for one.]
+inherited_hero/NN | them_stakes | If it fails, the {danger} carry the day, and I'd have to sit down and total what it cost me. I'd not care to see that figure.
+inherited_hero/NN | them_stakes | It's not only mine to lose; it was trusted to me, and I'd be the one who set it down.[ Nobody would come out ahead but the {danger}.]
+inherited_hero/NN | them_plans | I'd[ go back to {away} and] find out what I'd have chosen for myself, if anyone had ever asked me; that's for after.[ For now, I {standing}, and count the cost.]
+inherited_hero/NN | them_plans | Not with the account still open[, and {home_here} is home besides]; I don't walk off from a debt half settled.

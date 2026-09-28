@@ -399,8 +399,6 @@ puppet_sovereign/NN | news | I only repeat what I'm given: {news}.
 puppet_sovereign/NN | news | It's not for me to judge, but I hear {news}.
 
 # ---- puppet_sovereign/NN: remembering what the player said (contract version 12) ----
-puppet_sovereign/NN | recalled | It's rare anyone shares anything of their own with me, so I kept yours: {words}.
-puppet_sovereign/NN | recalled | Nobody told me to listen to you, but I did: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 puppet_sovereign/NN | them_who | I'm {speaker}[ {known_as}]; I {lost}, as it's been explained to me, and I'm to {after}.
@@ -436,10 +434,33 @@ puppet_sovereign/NN | acknowledged_hardship_work | Ah, then it's on me, and I'm 
 puppet_sovereign/NN | acknowledged_grief_work | Ah, I'm so sorry; that came of my work. Nobody will ever need to remind me of it.
 puppet_sovereign/NN | acknowledged_deed_work | Good; that's just the sort of thing I've been advised to look for.
 puppet_sovereign/NN | greeted_finished_beside | Welcome back. You were at my side for every bit of it, and for once I didn't need anyone to tell me how it went.
-puppet_sovereign/NN | small_talk_work_done_beside | It was harder going than any ceremony I've sat through, and I was glad of you beside me the whole way. It's done, and we did it; I rather liked being useful.
-puppet_sovereign/NN | small_talk_work_done | I only had the account of it, and the account says it's done. You were there; you tell me.
-puppet_sovereign/NN | small_talk_since_work | At my end, it's one thing fewer put to me, which I don't mind; how it's been anywhere else is someone else's to report.
 puppet_sovereign/NN | thanked_work | Glad to, though I'll admit it was suggested to me before it was decided by me.
 puppet_sovereign/NN | offended_complaint | There's no need for that; I passed the work on as it was given to me, and nobody gave me any warnings to pass along.
 puppet_sovereign/NN | unwronged_state | Nothing to forgive. Nobody's at their best all the time; I'm told even I'm not.
 puppet_sovereign/NN | greeted_who | I'm {speaker}, {post} of {place}, or so everyone keeps telling me.
+# Round two (2026-09-28): what five blind judges found.
+puppet_sovereign/NN | small_talk_work_done_beside | I was frightened half out of my wits, and I'd no one's instructions to hide behind. You were steadier than anyone I've ever had at my elbow, and I'd have you there over the lot of them.
+puppet_sovereign/NN | small_talk_work_done_beside | My own view, not one I was handed, is that it was worth it; standing beside you, I found I had a few of those.
+puppet_sovereign/NN | small_talk_work_done | I waited, which is most of what I'm allowed to do, and I did it badly. I was so pleased when it was done that I forgot to wait to be told how to feel about it.
+puppet_sovereign/NN | small_talk_work_done | It's the one piece of news I've ever been given that nobody needed to explain to me. I'm proud to have had my name anywhere near it, and prouder of you.
+puppet_sovereign/NN | small_talk_since_work | The {danger} are still about, I'm told, but there's been less brought to me to fret over since the work was done, and less for anyone to wake me about.
+puppet_sovereign/NN | small_talk_since_work | It's been calmer since the work was done, and I've been let to sit easy, which is the part of the post I'm best at.
+puppet_sovereign/NN | recalled | Everything else is brought to me by advisers; your words you brought yourself: {words}.
+puppet_sovereign/NN | recalled | Most words spoken to me were written by someone else first; yours were your own: {words}.
+puppet_sovereign/NN | acknowledged_doubt | Well, I've been advised that doubt is unbecoming, but I've never seen certainty do anyone much good either. Most people are only guessing, I've found, and the best of them admit it.
+puppet_sovereign/NN | acknowledged_doubt_work | Right; I chose you myself, which I seldom get to do, and I'll not unchoose you over a doubt. I'll expect you to try, which is all anyone's ever expected of me.
+puppet_sovereign/NN | acknowledged_doubt_done | Ah, I'm forever being told what courage looks like, and you've given me a truer picture than any of them: afraid, and going on regardless.
+puppet_sovereign/NN | parted_work | Goodbye, and good luck; I'd wish it you even if nobody had told me to.
+puppet_sovereign/NN | forgiven_state | Very well; everyone's out of sorts now and then, and by all accounts I'm worse than most. Rest, and we'll pretend it never happened.
+puppet_sovereign/NN | them_home | {home_here} is home, and I'm fond of it, which I'm assured is only fitting.
+puppet_sovereign/NN | them_home | {away} is home, and I miss it more than anyone's thought to ask.
+puppet_sovereign/NN | work_more | As for the rest, this is what reaches me: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+puppet_sovereign/NN | them_after | Most of what I have was handed to me; {home} is the one thing I'd have chosen for myself, had anyone asked.
+puppet_sovereign/NN | them_after | I'm told it matters a great deal, and for once I'd have said so without being told.[ The {danger} I understand perfectly well by myself.]
+puppet_sovereign/NN | them_need | The {danger} want more than a pair of hands that mostly sign things, and mine mostly sign things.
+puppet_sovereign/NN | them_need | I've never done a thing entirely by myself, and I'd hardly know how to begin.[ The {danger} don't seem the place to learn.]
+puppet_sovereign/NN | them_stakes | Then the {danger} have their way, and for once nobody will need to tell me how to feel about it.
+puppet_sovereign/NN | them_stakes | It would be the first thing ever truly laid at my door, and I'd rather it had been something else.[ It would be my name beside the {danger} in every account of it.]
+puppet_sovereign/NN | them_plans | At present I {standing}, and I expect that will go on until someone says otherwise.[ If I had my way, and I seldom do, I'd see {away} again.]
+puppet_sovereign/NN | them_plans | When it's over, and if it's ever up to me, I'd spend a whole morning deciding something for myself, anything at all.[ I'd spend it in {home_here}; it's home, and nobody could say I oughtn't.]

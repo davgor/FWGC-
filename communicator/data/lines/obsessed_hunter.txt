@@ -989,8 +989,6 @@ obsessed_hunter/NN | news | For whatever talk is worth, {news}.
 obsessed_hunter/NN | news | This is talk, not tracks: {news}.
 
 # ---- obsessed_hunter/NN: remembering what the player said (contract version 12) ----
-obsessed_hunter/NN | recalled | My ears keep up with my eyes; what you told me is still in my head: {words}.
-obsessed_hunter/NN | recalled | Still to hand, what you told me: {words}; I've no need to go looking for those words.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 obsessed_hunter/NN | them_who | {speaker}[ {known_as}]. I {lost}, and I've gone over that ground more times than I'd admit; now I mean to {after}.
@@ -1026,10 +1024,33 @@ obsessed_hunter/NN | acknowledged_hardship_work | Ah, that happened on my work, 
 obsessed_hunter/NN | acknowledged_grief_work | Ah, and on my work; I'm sorry for your loss, truly. Tell me their name; I'll not let it go cold.
 obsessed_hunter/NN | acknowledged_deed_work | Good; that's the sort of thing I want to know about a person before I trust them with anything of mine.
 obsessed_hunter/NN | greeted_finished_beside | Good to see you. You kept your eyes open beside me the whole way through, and I don't forget a pair of eyes like that.
-obsessed_hunter/NN | small_talk_work_done_beside | We had the same view of it, so I'll not tell it back to you. It's done, and I'll remember whose eyes were beside mine.
-obsessed_hunter/NN | small_talk_work_done | I know it's done, and that's all I know for certain. You're the one who walked it, so you'd read it better than me.
-obsessed_hunter/NN | small_talk_since_work | My head's clearer with that off it, and I've gone back to my own trail. Past that, I've not looked up much.
 obsessed_hunter/NN | thanked_work | No need; thanks are talk, and I trust what I can see.
 obsessed_hunter/NN | offended_complaint | Mind your manners; I gave you the work as I read it, and nobody reads every mark before they've walked the ground.
 obsessed_hunter/NN | unwronged_state | What for? I read people the way I read ground, and I'd rather have it plain than hidden.
 obsessed_hunter/NN | greeted_who | I'm {speaker}, {post} of {place}, and my mind's mostly elsewhere, so don't take it amiss.
+# Round two (2026-09-28): what five blind judges found.
+obsessed_hunter/NN | small_talk_work_done_beside | My heart was in my mouth from start to finish; it was as hard going as anything I've followed. Not once did you give me cause to look round for you, and I've tracked with few I could say that of.
+obsessed_hunter/NN | small_talk_work_done_beside | It ran true to the end, and every aching bit of me knows what it took. I'd trust you at my back anywhere after that.
+obsessed_hunter/NN | small_talk_work_done | I can't read ground I'm not standing on, and not knowing gnawed at me the whole while. Then it was done, and that was like picking up a trail I'd thought lost.
+obsessed_hunter/NN | small_talk_work_done | It went where I couldn't see it, and I trust little I haven't seen; but I trusted you, and you've proved me right.
+obsessed_hunter/NN | small_talk_since_work | The {danger} are still about, but since the work was done my eyes have gone back to my own trail, which is where they want to be.
+obsessed_hunter/NN | small_talk_since_work | My head's been quieter since the work was done, and a quiet head sees further; I'm the sharper for it.
+obsessed_hunter/NN | recalled | It hasn't gone cold, what you told me: {words}.
+obsessed_hunter/NN | recalled | Other folk I read by their tracks, but you gave me your own words: {words}.
+obsessed_hunter/NN | acknowledged_doubt | Ah, then watch more than you act, to begin with; nobody reads ground right the first time out. Is it the doing you doubt, or yourself?
+obsessed_hunter/NN | acknowledged_doubt_work | I see; you've just told me plainly how you stand, and that's the first thing I'd have asked of you.
+obsessed_hunter/NN | acknowledged_doubt_done | Aye, and fear that doesn't freeze the feet only sharpens a person; yours kept moving, and I've marked that.
+obsessed_hunter/NN | parted_work | Take care, and may luck never lose your scent.
+obsessed_hunter/NN | forgiven_state | Forgiven; weariness blurs anyone's eyes, and mine are no exception. Rest them, and let it lie.
+obsessed_hunter/NN | them_home | {home_here} is home, and its ground is the one I never tire of reading.
+obsessed_hunter/NN | them_home | {away} is home, and there's no ground I'd sooner have under my feet.
+obsessed_hunter/NN | work_more | Mine's the one trail I'm on; past it, {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+obsessed_hunter/NN | them_after | I set out for {home}'s sake, and I'll not turn back with nothing to show for it. A reason's for the start of a hunt; after that it's all eyes and feet.
+obsessed_hunter/NN | them_after | Because I don't know how to stop once I've started, and I've started.[ The {danger} stand in the way, and I don't go round.]
+obsessed_hunter/NN | them_need | I see most of what there is to see, but never what's behind me, and the {danger} don't much care which way I'm facing.
+obsessed_hunter/NN | them_need | On a trail I forget to eat, to sleep and to look round, and someone ought to remember for me.[ The {danger} wouldn't forgive a lapse like that.]
+obsessed_hunter/NN | them_stakes | The {danger} get their way, and I'll know I had it in my sights and missed. I'd not sleep much after that.
+obsessed_hunter/NN | them_stakes | If I lose it, I'll be hearing it in every quiet moment for as long as I've ears.[ And the {danger} go on as they please.]
+obsessed_hunter/NN | them_plans | For the moment I {standing}, and I'm not looking past the next sign.[ If the trail ever ends, it can end at {away}; that's home.]
+obsessed_hunter/NN | them_plans | If it ever ends, I'd like to sit and look at nothing in particular, and not read a thing into it.[ {home_here} would do for that; it's home.]

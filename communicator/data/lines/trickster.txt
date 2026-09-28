@@ -871,8 +871,6 @@ trickster/NN | news | Remember who told you: {news}.
 trickster/NN | news | I've heard {news}; for once, I'm not making it up.
 
 # ---- trickster/NN: remembering what the player said (contract version 12) ----
-trickster/NN | recalled | My mouth runs most of the day, but yours got a word in: {words}.
-trickster/NN | recalled | Some of what you told me went in: {words}; I'm quicker on the uptake than I let on.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 trickster/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}, and that's one story about me that needs no embroidery.
@@ -906,10 +904,33 @@ trickster/NN | acknowledged_hardship_work | Ah, then I owe you, and for once I'l
 trickster/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and it was my work that cost it. There's no clever answer for that, and I'll not pretend to have one.
 trickster/NN | acknowledged_deed_work | Good; I was hoping someone like that would walk in, and here you are.
 trickster/NN | greeted_finished_beside | Well met again. We pulled it off between us, and I've a story about it that's only half exaggerated.
-trickster/NN | small_talk_work_done_beside | You were there, so I can't even improve on it for you. It's done, and we did it, and I'll be telling it for a good while.
-trickster/NN | small_talk_work_done | It's done, and I missed the whole show, more's the pity. Tell it me straight, and I'll only embroider it a little when I pass it on.
-trickster/NN | small_talk_since_work | I've had less need to lie since, which is almost restful. I'll be back to my old self soon enough.
 trickster/NN | thanked_work | My pleasure, though thanks before the deal's closed make me nervous; it's usually me saying them.
 trickster/NN | offended_complaint | Careful; if I'd known more, you'd have had it, since there's no profit for me in you falling on your face.
 trickster/NN | unwronged_state | What for? I've seen people at their worst, and you're nowhere near it, so don't give it another thought.
 trickster/NN | greeted_who | {speaker}, {post} here, and I'll let you decide whether that's good news.
+# Round two (2026-09-28): what five blind judges found.
+trickster/NN | small_talk_work_done_beside | I'll tell it straight, for once: it was worse than I'd feared, and I'd feared plenty behind the grin. You came through it better than I did, and that's no flattery; I save flattery for people I'm cheating.
+trickster/NN | small_talk_work_done_beside | It was worth it, and I don't hand that word out cheaply. What I'll remember is you keeping your nerve while I was busy pretending to keep mine.
+trickster/NN | small_talk_work_done | I missed it, and for once I wasn't off somewhere clever; I was waiting and chewing my nails like anyone else. When I knew it was done, I laughed out loud, and I don't laugh for nothing.
+trickster/NN | small_talk_work_done | I'd have bet on you, and I don't bet on much, so I'm as pleased with myself as I am with you. You've more backbone than I have, and I'll only say so the once, so enjoy it.
+trickster/NN | small_talk_since_work | Since the work was done, I've slept like someone with a clear conscience, which is a novelty for me. I'm enjoying it while it lasts.
+trickster/NN | small_talk_since_work | The {danger} are still about, but I've breathed easier since the work was done, and I look over my shoulder half as often. For me, that's as near to peace as it gets.
+trickster/NN | recalled | Most of what I hear, I pass along sooner or later, but not what you told me: {words}.
+trickster/NN | recalled | I make light of nearly everything, and what you told me is the exception: {words}.
+trickster/NN | acknowledged_doubt | Well, most who swagger are bluffing, and I should know, since I do it for a living. Keep your doubt; it keeps you honest, and honest is rarer than brave.
+trickster/NN | acknowledged_doubt_work | Fair enough; I picked you, and I'm rarely wrong about people, so I'll back my judgement over your doubts.
+trickster/NN | acknowledged_doubt_done | Ah, the ones who say they weren't frightened are lying, and I'd know a liar when I hear one. You were frightened and did it anyway, which is braver than any trick I've ever pulled.
+trickster/NN | parted_work | Farewell, and all the luck in the world; I'd steal you some more if I knew where it was kept.
+trickster/NN | forgiven_state | Forgiven, and no trick in it; I've been far worse company with far less excuse. Get some rest, and I'll pretend I never noticed.
+trickster/NN | them_home | {home_here} is home, and I'd not swap it for any place I've ever talked my way into.
+trickster/NN | them_home | {away} is home, and it's the one thing about me I'd never bargain away.
+trickster/NN | work_more | Still hungry? Then here's what else I've picked up, and I'll not even ask a favour for it: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+trickster/NN | them_after | The {danger} think they've had the last word, and I've never let anyone have the last word in my life. That's the whole of it.
+trickster/NN | them_after | It's the one game I play with no card up my sleeve, and I'm finding I rather like the feel of it. Don't spread that about; I've a name to keep up.
+trickster/NN | them_need | Every trick worth pulling needs one hand the {danger} are watching and one they aren't. Mine are both spoken for, so you see my difficulty.
+trickster/NN | them_need | It'd make a better story alone, and a much shorter one[; the {danger} would write the ending]. I'd rather a longer tale, with someone beside me to argue over how it went.
+trickster/NN | them_stakes | Then the {danger} get to tell it their way, with me as the fool of the piece. I've been called plenty, but never a fool, and I'd like to keep it that way.
+trickster/NN | them_stakes | I'd have to find out what I'm like when I lose, and I've dodged that lesson my whole life[; the {danger} would be only too glad to teach it]. I'm told it builds character; I've never wanted any.
+trickster/NN | them_plans | Right now I {standing}, and it suits me better than anyone suspects. When the curtain comes down, I'd like one quiet spell with nobody to fool, just to see who I am when I'm not performing.
+trickster/NN | them_plans | After all this, I'd like to sit somewhere comfortable and tell the whole thing badly. Everyone deserves an audience that can't check the details.

@@ -997,8 +997,6 @@ corrupt/NN | news | They're saying {news}; what it's worth depends on who's aski
 corrupt/NN | news | I heard {news}, and I never throw talk away.
 
 # ---- corrupt/NN: remembering what the player said (contract version 12) ----
-corrupt/NN | recalled | You had a thing to tell me once: {words}; I'm no saint, but I'm a fair listener.
-corrupt/NN | recalled | I trade in a great many things, and what you told me isn't one of them: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 corrupt/NN | them_who | I'm {speaker}[ {known_as}]. I {lost}, and since then I've kept a close eye on everything I hold.[ I mean to {after}.]
@@ -1032,10 +1030,33 @@ corrupt/NN | acknowledged_grief_work | Ah, I'm sorry, and it came of my business
 corrupt/NN | acknowledged_deed_work | Good; that's the sort of thing I'm in the market for, and it goes in your column.
 corrupt/NN | greeted_finished_beside | Welcome back. We came out of that ahead between us, and I saw with my own eyes who earned it.
 corrupt/NN | greeted_finished_beside | Good to see you. I stood beside you for every bit of that, and you're well in credit with me for it.
-corrupt/NN | small_talk_work_done_beside | You were there, same as me: it cost us both, and it came out ahead. I'd strike that bargain with you again.
-corrupt/NN | small_talk_work_done | It's done, and done to terms, which is all I ever ask. How it went out there, you'd know better than I would.
-corrupt/NN | small_talk_since_work | It's been steady since, and steady is good for business; what you did is still earning its keep.
 corrupt/NN | thanked_work | Don't mention it; trust is an investment, and I expect a return on mine.
 corrupt/NN | offended_complaint | Careful; the terms were the terms when you took them, and I don't rewrite a deal after the fact.
 corrupt/NN | unwronged_state | What for? A hard time isn't a debt, and nobody's troubles go on my books.
 corrupt/NN | greeted_who | I'm {speaker}, {post} of {place}; nothing I say comes free, but every word of it holds.
+# Round two (2026-09-28): what five blind judges found.
+corrupt/NN | small_talk_work_done_beside | It was worse than I'd bargained for, and I don't stick my neck out for much; I'd not have stuck it out beside anyone else. It was worth it all the same, and I've done the reckoning.
+corrupt/NN | small_talk_work_done_beside | I watched you the way I watch anything I've staked on, and you were worth the stake twice over. For my own part, I was more frightened than I'd admit to anyone but you.
+corrupt/NN | small_talk_work_done | I don't like my business in anyone's hands but mine, and the waiting sat on me like a bad debt. It came out right, and it came out right because of you; I don't say that of many.
+corrupt/NN | small_talk_work_done | I spent the whole of it counting what I stood to lose, and I don't frighten easily. You brought it off, and I'll not forget whose hands did it.
+corrupt/NN | small_talk_since_work | The {danger} are still about, but since you saw my business through, I sleep like someone whose accounts are in order.
+corrupt/NN | small_talk_since_work | Since you saw my business through, I've had a steadier hand and an easier mind, and I count that a better return than most I see.
+corrupt/NN | recalled | I put a figure on most of what I'm told, but never on your words: {words}.
+corrupt/NN | recalled | What you told me has stayed with me, and not for any use I could make of it: {words}.
+corrupt/NN | acknowledged_doubt | Ah, that's an honest count, and I trust an honest count over any boast I've ever been sold. Nobody's worth much before they're tried, and plenty turn out worth a great deal after.
+corrupt/NN | acknowledged_doubt_work | Right; I weighed you up before I made the offer, and I don't back bad bets. Give it all you've got, and that's the whole of what I'll ask.
+corrupt/NN | acknowledged_doubt_done | Aye, and you saw it through all the same; that's the only kind of courage worth anything to me.
+corrupt/NN | parted_work | Take care, and may your luck prove as sound as my judgement of you.
+corrupt/NN | forgiven_state | All right; I've been worn to my last nerve myself, and I'd not want it counted against me. Rest, and look after yourself; you're more to me than a line in a ledger.
+corrupt/NN | them_home | {home_here} is home, and it's the one thing I'd never put up for trade. I've haggled over most things in my time, but not that.
+corrupt/NN | them_home | {away} is home; I deal wherever the dealing's good, but home was never part of the dealing.
+corrupt/NN | work_more | If you're shopping around, there's other business going: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+corrupt/NN | them_after | Everyone's in it for something; I'm only the one who says so. What's bad for this place is bad for me, and the {danger} have never once made me an offer.
+corrupt/NN | them_after | Every dealer needs a table to sit at, and {home} is mine; I'll not have it kicked over.
+corrupt/NN | them_need | I'm a dealer, not a fighter, and the {danger} want fighting. Nobody who's any good at dealing does the work they're worst at themselves.
+corrupt/NN | them_need | Do everything yourself and you end up holding everything, the blame included[, and the {danger} would hand me plenty of that].
+corrupt/NN | them_stakes | Then the {danger} have their way, and I'm the dealer who picked the wrong side. Nobody trusts one of those, and I'd not trust me either.
+corrupt/NN | them_stakes | If it fails, I've lost a round[ to the {danger}], and nobody takes two rounds off me running. Whatever it takes, the next deal comes out mine.
+corrupt/NN | them_plans | Leave {home_here}? Not while I'm ahead[; I {standing}, and that's worth more than it looks]. When it's over, I'll tot up what I came out with and enjoy every line of it.
+corrupt/NN | them_plans | When it's over, I'll go home to {away} and be pleasant to everyone, just to see what it's like to want nothing from anybody.[ Until then, I {standing}, and I make the most of it.]

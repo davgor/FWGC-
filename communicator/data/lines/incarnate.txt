@@ -640,8 +640,6 @@ incarnate/NN | news | I'll not tip it either way; I only heard {news}.
 incarnate/NN | news | I'll give it you as I had it, no more and no less: {news}.
 
 # ---- incarnate/NN: remembering what the player said (contract version 12) ----
-incarnate/NN | recalled | By nature I listen, and you told me: {words}.
-incarnate/NN | recalled | You once spoke up: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 incarnate/NN | them_who | I'm {speaker}[ {known_as}], and there's no version of me that leans. I {feat}, and I mean to {after}.
@@ -675,10 +673,33 @@ incarnate/NN | acknowledged_hardship_work | Ah, that one's on my side of the led
 incarnate/NN | acknowledged_grief_work | Ah, I'm sorry for your loss; my work set that weight on you, and no reckoning of mine will ever balance it. What were they like?
 incarnate/NN | acknowledged_deed_work | Good; that counts for you where the work's concerned, and I count fairly.
 incarnate/NN | greeted_finished_beside | Good to see you. You held your side of it and I held mine, and that's how a thing comes out even.
-incarnate/NN | small_talk_work_done_beside | I stood in it with you, so I'll not dress it up: it pulled hard at both of us, and it came right in the end.
-incarnate/NN | small_talk_work_done | You carried it, so you'd weigh it better than I can. From here, it came out right, and that's in your column.
-incarnate/NN | small_talk_since_work | Since that work was finished, I've stood a little straighter. I keep watch on the balance all the same.
 incarnate/NN | thanked_work | Don't mention it; thanks can wait until the scale's settled.
 incarnate/NN | offended_complaint | Careful; I gave it you straight, with nothing hidden on either side, and I'll not shade it now to suit you.
 incarnate/NN | unwronged_state | Nothing to forgive. Nobody's level every day, and I don't hold it against anyone who isn't.
 incarnate/NN | greeted_who | I'm {speaker}, {post} here, and you'll find me square with you whoever you turn out to be.
+# Round two (2026-09-28): what five blind judges found.
+incarnate/NN | small_talk_work_done_beside | I asked you for a fair share of it and you gave me a full one, and I felt the difference. I've weighed what it took out of me against the good of it, and the good comes out heavier.
+incarnate/NN | small_talk_work_done_beside | I'll tell you plainly: it cost me more than I'd hoped, and less than I'd feared. The part I'll keep is that you matched me, step for step, the whole way through.
+incarnate/NN | small_talk_work_done | The waiting was harder on me than the work itself would have been, I think. When I knew it was done, I breathed easier than I had in a good while, and I put that down to you.
+incarnate/NN | small_talk_work_done | All I had from where I stood was my own reckoning of you, and it said you'd do. You did better than that, and I'll give you full credit for it.
+incarnate/NN | small_talk_since_work | The {danger} haven't gone anywhere, but since that work was done things here sit in balance again, and I sleep the better for it.
+incarnate/NN | small_talk_since_work | I've been easier in myself since the work was seen to; for once, nothing here pulls on me harder than it ought to.
+incarnate/NN | recalled | I've given your words their full weight since: {words}.
+incarnate/NN | recalled | What you told me still counts with me: {words}.
+incarnate/NN | acknowledged_doubt | Well, you've weighed yourself honestly, and most folk tip that scale to one side or the other. Tell me what you're afraid of, and we'll see whether it weighs what you think it does.
+incarnate/NN | acknowledged_doubt_work | Right; a doubt weighs nothing on my scale until it changes what you do, and I don't expect it will. You'll get a fair judgement from me either way.
+incarnate/NN | acknowledged_doubt_done | Right, and you did it anyway, with the fear pulling at you; that's courage, weighed honestly. I think the better of you for owning it now.
+incarnate/NN | parted_work | Go well; I don't lean, but I'll not mind at all if luck leans your way.
+incarnate/NN | forgiven_state | All right; whatever's weighing on you, I'll not set it against you. Rest when you can; you've carried it far enough.
+incarnate/NN | them_home | {home_here} is home. I'm fond of it, but it gets the same fair measure from me as anywhere else.
+incarnate/NN | them_home | {away} is home. I think of it fondly, and I weigh it fairly, the same as I do everything.
+incarnate/NN | work_more | Past mine, I'll give you the others straight, and you can do your own weighing: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+incarnate/NN | them_after | {home} is where I'd put my weight, if I leaned anywhere, and I'm not given to leaning.[ The {danger} tip things one way; I'm the weight on the other side.]
+incarnate/NN | them_after | Because I feel a tilt in things the way other people feel the cold, and this one won't let me rest.
+incarnate/NN | them_need | Because my side of the scale is light, and the {danger} won't wait for it to fill.
+incarnate/NN | them_need | I'd sooner not be the only judge of it; fairness wants a second pair of eyes, and I'm fair even about myself.[ With the {danger} in the balance, I'll not risk a slip.]
+incarnate/NN | them_stakes | If it fails, the {danger} tip it their way, and I'd have to look at a crooked thing and call it the way of the world. I've never once managed that.
+incarnate/NN | them_stakes | All the weight I've got; I've put every bit of it on this.[ If the {danger} win, it all comes down on their side and stays there.]
+incarnate/NN | them_plans | To stand still, once it's evened out, and feel nothing pulling at me either way[, back in {away}].[ Until then, I {standing}, and lean neither way.]
+incarnate/NN | them_plans | I'd not walk away from a crooked scale[, least of all in {home_here}].[ Not while the {danger} lean on it.]

@@ -635,8 +635,6 @@ hermit_sage/NN | news | The sum of what I've heard is that {news}.
 hermit_sage/NN | news | I've heard {news}; what it means is another question.
 
 # ---- hermit_sage/NN: remembering what the player said (contract version 12) ----
-hermit_sage/NN | recalled | I've the gist of what you told me: {words}.
-hermit_sage/NN | recalled | You brought me a telling once: {words}; I've let those words settle, as I let most things.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 hermit_sage/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}, and I've told you the useful part of it.[ I mean to {after}.]
@@ -669,11 +667,34 @@ hermit_sage/NN | acknowledged_hardship_work | Ah, and on my errand; that's a cos
 hermit_sage/NN | acknowledged_grief_work | Ah, I'm sorry. It came of my work, and I'll carry that into every judgement I make from now on.
 hermit_sage/NN | acknowledged_deed_work | Is that so? Then you may be worth the work, and I don't say that lightly.
 hermit_sage/NN | greeted_finished_beside | Back again. I stood with you through the whole of it, and I've no corrections to make.
-hermit_sage/NN | small_talk_work_done_beside | I was at your side for all of it, and I've gone over every step since. You did your part as well as I did mine.
-hermit_sage/NN | small_talk_work_done | It's done, and done properly, by all I can tell. I wasn't there to see it, so I'll not add details I don't have.
-hermit_sage/NN | small_talk_since_work | Since that work was done, I've had room to think, which is all I ask of anything.
 hermit_sage/NN | thanked_work | No need; I gave it to you because the sum came out in your favour.
 hermit_sage/NN | offended_complaint | Watch your tongue; I warn of what's worth warning of, and a warning about everything would be no warning at all.
 hermit_sage/NN | unwronged_state | Whatever for? To be worn thin is a condition, not an offence.
 hermit_sage/NN | greeted_who | {speaker}, {post} here; the rest of me you'd have to earn.
 hermit_sage/NN | them_plans | I plan no further than the reckoning allows, and it allows this much: I {standing}[, and I mean to {after}].
+# Round two (2026-09-28): what five blind judges found.
+hermit_sage/NN | small_talk_work_done_beside | It cost me more than I'd allowed for, and it was worth every bit of that. You carried your end of it, which is more than most manage.
+hermit_sage/NN | small_talk_work_done_beside | I'll not pretend I wasn't afraid; I was, and I'd reckoned I would be. What I hadn't reckoned on was how well you'd bear it at my side, and that's the part I've kept.
+hermit_sage/NN | small_talk_work_done | All I could do was sit and weigh the odds, and I've never cared for sums I've no hand in. Once I knew it was done, I stopped reckoning and thought the better of you.
+hermit_sage/NN | small_talk_work_done | I kept my own counsel the whole while and liked none of what it told me. You proved my counsel wrong, and I'll count on you from now on.
+hermit_sage/NN | small_talk_since_work | The post takes less of me since that work was done, though the {danger} are still about, and I've my thoughts to myself again.
+hermit_sage/NN | small_talk_since_work | Since that work was done, I sleep the night through, and I reckon that the best of the bargain.
+hermit_sage/NN | recalled | Your words have come to mind more than once, unbidden: {words}.
+hermit_sage/NN | recalled | What you told me has weighed with me more than most of what I hear: {words}.
+hermit_sage/NN | acknowledged_doubt | Well, I'd trust your doubt over most people's certainty; it means you've done some of the reckoning already. The rest you'll only learn by doing.
+hermit_sage/NN | acknowledged_doubt_work | I see; I asked it of you with that already in the sum, since nobody worth asking is ever certain. Do what you can; that's all I've reckoned on.
+hermit_sage/NN | acknowledged_doubt_done | Aye, and that's the part I count highest: you were afraid, and you did it all the same. A fearless deed counts for little beside that.
+hermit_sage/NN | parted_work | Goodbye, and good luck; I don't set much store by luck, but I'd not have you short of it.
+hermit_sage/NN | forgiven_state | Very well; a tired or grieving head does poor sums, and I'd not mark anyone down for them. Take some rest, and think on nothing for a while.
+hermit_sage/NN | them_home | {home_here}, where you stand. I've reckoned it against everywhere else, and it comes out ahead every time.
+hermit_sage/NN | them_home | {away} is home. I reckon most things over and over, but never that one.
+hermit_sage/NN | work_more | That's all of mine, but I know of others: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+hermit_sage/NN | them_after | I've put that question to myself more often than you have, and it always comes down to {home}.[ The {danger} settle whatever doubt was left over.]
+hermit_sage/NN | them_after | I've thrown out most of what people think matters, and kept very little. This is part of the little.
+hermit_sage/NN | them_need | I keep my own company by choice, and I'd keep it now if the sum allowed. It doesn't, not with the {danger} in it.
+hermit_sage/NN | them_need | It costs me more to ask than you'd think, so you may take it that I've no better choice.[ The {danger} left me none.]
+hermit_sage/NN | them_stakes | Then I was right about the risk and wrong about everything else, and the {danger} are left to do as they like. I'd sooner have been wrong about the risk.
+hermit_sage/NN | them_stakes | More than I care to put a figure on, and I put a figure on nearly everything.[ Leave it to the {danger}, and they'll settle the sum their own way.]
+hermit_sage/NN | them_plans | Nothing grand: a quiet room[ back in {away}] with no questions in it, once there's nothing left to weigh.[ In the meantime, I {standing}.]
+hermit_sage/NN | them_plans | I'll stay while there's still a sum to settle here[; {home_here} asks nothing of me, which is all I ask of a place]. What comes after, I'll reckon when there's an after to reckon.

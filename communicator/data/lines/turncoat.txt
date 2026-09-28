@@ -517,8 +517,6 @@ turncoat/NN | news | Nothing stays put, and what I hear now is that {news}.
 turncoat/NN | news | I'm told {news}; I'll believe it till I hear different.
 
 # ---- turncoat/NN: remembering what the player said (contract version 12) ----
-turncoat/NN | recalled | I've a level head, and what you told me sits in it: {words}.
-turncoat/NN | recalled | I've still got what I was told by you: {words}; figures stay with me, and so do words.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 turncoat/NN | them_who | {speaker}[ {known_as}]. I {lost}, and I didn't go down with it[; these days, I mean to {after}].
@@ -551,10 +549,33 @@ turncoat/NN | acknowledged_hardship_work | Ah, that one's on my ledger, not your
 turncoat/NN | acknowledged_grief_work | Ah, and it came of my work; I'm sorry for your loss. I've walked away from a good deal in my time, but I'll not walk away from that.
 turncoat/NN | acknowledged_deed_work | Good. That's useful to me right now, and it goes in your column.
 turncoat/NN | greeted_finished_beside | Well met again. We came out ahead, and I remember exactly who was standing next to me.
-turncoat/NN | small_talk_work_done_beside | You were there, so I'll not dress it up: it cost what it cost, and it was worth it. I'd have you on my side again, and I don't say that lightly.
-turncoat/NN | small_talk_work_done | I only know how it came out: on the winning side, which is the side I like. The rest happened where I couldn't see it, so it's yours to tell.
-turncoat/NN | small_talk_since_work | By my reckoning, it's gone well since that work was done. I've had no cause to change my mind about you.
 turncoat/NN | thanked_work | No need; I picked you on the arithmetic, so don't make a liar of it.
 turncoat/NN | offended_complaint | Careful; nobody knows the whole of a thing before it's done, me included, and I never pretended otherwise.
 turncoat/NN | unwronged_state | Nothing to forgive; you don't owe me a good mood. Nobody's at their best every day, me least of all.
 turncoat/NN | greeted_who | I'm {speaker}, {post} here, for as long as that makes sense.
+# Round two (2026-09-28): what five blind judges found.
+turncoat/NN | small_talk_work_done_beside | I'll own it: I did the sums on running more than once, and each time you were the reason they came out for staying. Every bit worth it, which is more than I can say for most sides I've stood on.
+turncoat/NN | small_talk_work_done_beside | From where I stood, you never once looked for the way out, and I'm always looking for it. I've moved you up my list for that.
+turncoat/NN | small_talk_work_done | I spent the waiting working out where I'd stand if it went wrong, and I've never been gladder to have wasted the effort. You've come out of it in my good column, and it's not a crowded one.
+turncoat/NN | small_talk_work_done | I only had the news of it, and it was the best news I've had in a while. I chose you, and I like being proved right more than almost anything.
+turncoat/NN | small_talk_since_work | It's been steadier since you saw that work through, and my reckoning's never looked so tidy.
+turncoat/NN | small_talk_since_work | The {danger} are still about, but since that work was done I've stopped keeping a foot out the door.
+turncoat/NN | recalled | Whatever side I'm on, your words have held their place with me: {words}.
+turncoat/NN | recalled | I've kept what you told me in my reckoning of you: {words}.
+turncoat/NN | acknowledged_doubt | Ah, doubt keeps people alive long enough to get good at things, and I've plenty of it myself. Where do you think you'd fall short?
+turncoat/NN | acknowledged_doubt_work | Fair enough; I've backed you, and I don't back anyone I expect to lose. If you want out, tell me straight, so I can make other arrangements.
+turncoat/NN | acknowledged_doubt_done | Ah, then it counts double in my book, and I don't hand out doubles lightly. You did it scared, and that's the kind of nerve I trust.
+turncoat/NN | parted_work | Take care, and good luck; I'd like to stay on your side, so do me the favour of coming out ahead.
+turncoat/NN | forgiven_state | No hard feelings; I don't keep count of anyone's worst days, and I keep count of nearly everything.
+turncoat/NN | them_home | {home_here}'s home, and I'd like to think I'd stay even if staying stopped making sense; I've never had to find out.
+turncoat/NN | them_home | The sums keep me here, but they've no say in what I call home, and that's {away}.
+turncoat/NN | work_more | You're right to weigh your options; I always do. Here's what else is going: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+turncoat/NN | them_after | {home} is the one sum I never bother to work out, and I'd thank you not to ask why. Everything else I'm doing adds up; that one doesn't have to.
+turncoat/NN | them_after | It's the side I'd back, and I only ever stand where I'd back. The whole trick is being there before it's won; latecomers get the leftovers.
+turncoat/NN | them_need | Right now the {danger} have more on their side than I have on mine, and I never take a fight I'm down in. I even the numbers first, and you're how I even them.
+turncoat/NN | them_need | One name in a column is easy to strike out; a handful takes some doing[, even for the {danger}]. I'd rather be part of a handful.
+turncoat/NN | them_stakes | If the {danger} come out on top, I'm caught on the losing side, and I've gone to some lengths never to be there. I'd sooner not learn how I take it.
+turncoat/NN | them_stakes | Everything I've put in goes down as a loss, and I hate a loss more than I've ever hated anyone[; the {danger} would be the only ones up on it].
+turncoat/NN | them_plans | Today I {standing}, because today that adds up. When it's all won, I'd want a long sit somewhere nobody's choosing sides, just to hear what that sounds like.
+turncoat/NN | them_plans | Once it's done, I'd like to wake up just once without checking who's winning. Nobody believes me when I say that, and I don't blame them.

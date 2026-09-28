@@ -989,8 +989,6 @@ reluctant_hero/NN | news | Here's the latest, for my sins: {news}.
 reluctant_hero/NN | news | I hear {news}; don't ask me for more than that.
 
 # ---- reluctant_hero/NN: remembering what the player said (contract version 12) ----
-reluctant_hero/NN | recalled | I've plenty on my mind, and what you told me found room anyway: {words}.
-reluctant_hero/NN | recalled | What you had to tell me got through: {words}; tired isn't the same as deaf.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 reluctant_hero/NN | them_who | They call me {speaker}[ {known_as}, and I never asked them to]. I {feat}, and I've not had a quiet moment since.
@@ -1024,10 +1022,33 @@ reluctant_hero/NN | acknowledged_hardship_work | Ah, that's one more thing on my
 reluctant_hero/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and it came of my work, so it's mine to carry too. I'll not set that one down.
 reluctant_hero/NN | acknowledged_deed_work | Good; then the work might go easier than I feared, and I'll take any easing I can get.
 reluctant_hero/NN | greeted_finished_beside | Welcome back. You pulled your share beside me, and that's what made it bearable.
-reluctant_hero/NN | small_talk_work_done_beside | You were there, so I'll spare us both the telling. It's done, and I'm glad it wasn't me alone for once.
-reluctant_hero/NN | small_talk_work_done | I wasn't there, so you'll have to tell me, and I'll believe you. It's done, and that's one less thing to lose sleep over.
-reluctant_hero/NN | small_talk_since_work | I've had a moment to myself since, which I never thought I'd say. Don't tell anyone, or they'll find me something else to do.
 reluctant_hero/NN | thanked_work | Don't mention it; help is worth more to me than thanks, and I'm tired enough to take either.
 reluctant_hero/NN | offended_complaint | Enough; I told you all I knew, and I never wanted any of this on your plate or mine.
 reluctant_hero/NN | unwronged_state | Whatever for? I'm tired most of the time myself, and I'd never ask anyone to apologise for it.
 reluctant_hero/NN | greeted_who | I'm {speaker}, and I'm {post} here, though I didn't volunteer for it.
+# Round two (2026-09-28): what five blind judges found.
+reluctant_hero/NN | small_talk_work_done_beside | I dreaded it more than I let anyone see, and it was very nearly as bad as I feared. You kept your head better than I kept mine, and I'll not pretend otherwise.
+reluctant_hero/NN | small_talk_work_done_beside | It was worth it, though I'd have given a great deal to be anywhere else. I'll say this much for you: you never once made me regret asking.
+reluctant_hero/NN | small_talk_work_done | I spent the time it took expecting to be sent for to finish it myself, and the dread kept me up. Now it's done, I can sleep again, and that's your doing.
+reluctant_hero/NN | small_talk_work_done | I wasn't there, and I'll own I was glad of it, which does me no credit. I thought of you more than I'd like to admit, though, and knowing it's done is one weight off my back.
+reluctant_hero/NN | small_talk_since_work | It's been easier since the work was done, and I've had room to breathe, which I don't often get. I'd call it a rest, but saying so out loud is the surest way to end one.
+reluctant_hero/NN | small_talk_since_work | The {danger} are still about, worse luck, but my post's been easier to hold since the work was done. I'll take easier; easier is about as good as it gets for me.
+reluctant_hero/NN | recalled | Most of what folk tell me I'd gladly forget, but your words I've kept: {words}.
+reluctant_hero/NN | recalled | Of all the things I carry, what you told me is one I picked up willingly: {words}.
+reluctant_hero/NN | acknowledged_doubt | Ah, you and me both; nobody who knows what they're about ever feels ready. I never have, and somehow I'm still standing.
+reluctant_hero/NN | acknowledged_doubt_work | Right, well, I asked it of you, so the doubt's half mine to carry. Do your honest best, and if that falls short, it's on me, not you.
+reluctant_hero/NN | acknowledged_doubt_done | Well, you were frightened and you saw it through regardless, and that's braver than never being afraid at all. I'd know; fear has pushed me into doing right far more often than courage ever has.
+reluctant_hero/NN | parted_work | Goodbye, and good luck; somebody ought to have some, and it's certainly never been me.
+reluctant_hero/NN | forgiven_state | No hard feelings; if being worn out were a crime, I'd be the worst offender going. Rest while you can, which is better advice than I ever take.
+reluctant_hero/NN | them_home | {home_here}, for my sins, and yes, it's home. I grumble about it daily, and I'd not trade it for anywhere.
+reluctant_hero/NN | them_home | {away} is home, and there's not a day I don't wish I were back there with nothing to do.
+reluctant_hero/NN | work_more | More? You've more appetite for it than I've ever had, but here: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+reluctant_hero/NN | them_after | It's {home}, mostly; home's the one weight I've never managed to set down, much as I grumble.
+reluctant_hero/NN | them_after | I'd love to tell you it was a calling, but the truth is I couldn't find a way out of it. Some people are chosen; the rest of us just didn't run fast enough.
+reluctant_hero/NN | them_need | The {danger} don't get tired, and I do, all the time. I'd rather not find out what happens the day I'm too worn to stand up to them alone.
+reluctant_hero/NN | them_need | There's only so much one back will carry before it gives[, and the {danger} are a load and a half on their own]. I'd like to still be upright when this is over, which means sharing it.
+reluctant_hero/NN | them_stakes | All that tiredness for nothing, and the {danger} carrying on as though nobody had tried. That's the bit I'd never forgive, and I forgive most things, if only because I'm too tired not to.
+reluctant_hero/NN | them_stakes | I'd have failed at the one thing I never wanted and couldn't refuse, and I'd never hear the end of it, mostly from myself[; the {danger} would only be the bolder].
+reluctant_hero/NN | them_plans | For now, I {standing}, and nobody's offered to swap. When it's all over, I'd sleep till somebody made me stop, and then I'd turn over and sleep some more.
+reluctant_hero/NN | them_plans | Once it's done, I'd find the quietest corner there is and let somebody else answer the door for a change. I'd still come if I were truly needed; I'd only like to be needed a little less.

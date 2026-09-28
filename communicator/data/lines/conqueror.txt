@@ -989,8 +989,6 @@ conqueror/NN | news | Somebody said {news}; talk is cheap until it proves out.
 conqueror/NN | news | Mind, I gather {news}, and I like to know how the ground lies.
 
 # ---- conqueror/NN: remembering what the player said (contract version 12) ----
-conqueror/NN | recalled | By listening I've outlasted rivals, and I listened to you: {words}.
-conqueror/NN | recalled | Of your own accord, you told me: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 conqueror/NN | them_who | {speaker}[ {known_as}]. I mean to {after}, and after that, whatever else is worth the taking.[ {home} is home, and not for the taking.]
@@ -1022,10 +1020,33 @@ conqueror/NN | acknowledged_hardship_work | Ah, and in my work. That's on my boo
 conqueror/NN | acknowledged_grief_work | Ah, I'm sorry for your loss. It came of my work, and no gain of mine will ever balance it.
 conqueror/NN | acknowledged_deed_work | Good. I've a use for that, if it holds up.
 conqueror/NN | greeted_finished_beside | Good to see you. I watched you hold your own beside me, and I've marked you down as someone worth keeping close.
-conqueror/NN | small_talk_work_done_beside | We stood on the same ground through it, you and I. It cost what it cost, and we came out ahead.
-conqueror/NN | small_talk_work_done | I wasn't there, so tell me what it cost; I never count a gain until I know that.
-conqueror/NN | small_talk_since_work | Since then? That work's been on the gains side of my books, and it's stayed there.
 conqueror/NN | thanked_work | No need; it's no favour, it's a wager on you, and I don't like losing wagers.
 conqueror/NN | offended_complaint | Watch your tongue; nothing worth having comes cheap, and I'd not insult you by pretending otherwise.
 conqueror/NN | unwronged_state | No harm done. Nobody marches forever without flagging; take the time you need.
 conqueror/NN | greeted_who | I'm {speaker}, {post} here, and I mean to be more than that.
+# Round two (2026-09-28): what five blind judges found.
+conqueror/NN | small_talk_work_done_beside | It came dearer than I'd reckoned, and I reckon costs better than most. It was worth it all the same, and you carried your share like someone I'd trust with ground of my own.
+conqueror/NN | small_talk_work_done_beside | It was as bad as I'd feared, and I'd still call it well spent. You stood by me as if the stakes were your own, and I don't forget who does that.
+conqueror/NN | small_talk_work_done | I don't like waiting on what I can't see, and I waited on this with my jaw set. Once it was done, I counted it among my better gains, and you with it.
+conqueror/NN | small_talk_work_done | I'd staked something on you, and hearing it was done told me I'd staked well. It came out right in your hands, and I'll remember whose hands they were.
+conqueror/NN | small_talk_since_work | The {danger} are still about, but my hold here sits easier since the work was done, and I feel that gain every morning.
+conqueror/NN | small_talk_since_work | My footing's been firmer since the work was done, and firm footing is what I build on. I've had room to look further ahead than I could before.
+conqueror/NN | recalled | What you told me counts for a good deal in my measure of you: {words}.
+conqueror/NN | recalled | You gave me your words, and I've held them as I'd hold ground: {words}.
+conqueror/NN | acknowledged_doubt | Well, whoever doubts counts the cost, and whoever counts the cost is the one left holding the field. You'll outgrow the doubt; keep the counting.
+conqueror/NN | acknowledged_doubt_work | Indeed; I don't choose people lightly, and I chose you. See that you prove me right; that's all I'll ask.
+conqueror/NN | acknowledged_doubt_done | Aye; fear and all, you got it done, and that's worth more to me than nerve that's never been tried. I'd take one of you over a company who've never been afraid.
+conqueror/NN | parted_work | Goodbye, and good luck; I want luck on my side, and just now that means on yours.
+conqueror/NN | forgiven_state | No hard feelings; I judge people at their best, not worn to a thread. Rest; I've more use for you rested than sorry.
+conqueror/NN | them_home | {home_here} is home, and I measure everything else against it.
+conqueror/NN | them_home | {away} is home. Wherever I stand, I stand for it.
+conqueror/NN | work_more | Mine's not the only offer on the field: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+conqueror/NN | them_after | The {danger} are sitting on ground I've a use for. I don't leave good ground to whatever happens to be squatting on it.
+conqueror/NN | them_after | {home} is where I count everything else from. Anyone who can't hold their own doorstep is a joke, not a threat, and I don't mean to be a joke.
+conqueror/NN | them_need | One blade can win a fight with the {danger}; keeping what's won takes more than one, and I've no interest in anything I can't keep.
+conqueror/NN | them_need | I could do it alone and spend everything I've got on it[, with the {danger} about], and then I'd have nothing left for what comes next. I never spend all of anything.
+conqueror/NN | them_stakes | Then the {danger} have their way, and anyone watching learns I can be beaten. That's the dearer loss, and it's the one I won't allow.
+conqueror/NN | them_stakes | If it fails, I've given up ground[ to the {danger}], and ground given up is always harder to take back than it was to hold.
+conqueror/NN | them_plans | Leave {home_here}? I don't give up what I hold[, least of all to the {danger}]. When it's done, I'll stand still for once and look at what's mine, instead of at what isn't yet.
+conqueror/NN | them_plans | Once it's settled, I'd want {away} to hear of it; that's worth nearly as much to me as going back.[ Until then, I {standing}, and I'm watching.]

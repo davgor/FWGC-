@@ -747,8 +747,6 @@ zealot/NN | news | I'll not add to it, and I'll not doubt it: {news}.
 zealot/NN | news | As sure as I pray, I heard that {news}.
 
 # ---- zealot/NN: remembering what the player said (contract version 12) ----
-zealot/NN | recalled | I do nothing by halves, and I didn't half-listen to you: {words}.
-zealot/NN | recalled | What you shared with me has stayed: {words}; I don't let my ears go idle.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 zealot/NN | them_who | My name is {speaker}[ {known_as}]. I {feat}, and I've prayed over it[; now I'm set to {after}, and I don't waver].
@@ -781,10 +779,33 @@ zealot/NN | acknowledged_hardship_work | Ah, and for my work; what it cost you i
 zealot/NN | acknowledged_grief_work | Ah, and it was my work that asked it; I'm grieved. I'll answer for that before the faith, and I'll not look away.
 zealot/NN | acknowledged_deed_work | Good; faith sends the right hands when they're needed, and yours may be those.
 zealot/NN | greeted_finished_beside | Welcome back. We came through it side by side, and I've thanked faith for you since.
-zealot/NN | small_talk_work_done_beside | You were beside me, so you know as well as I do: it wasn't luck that brought us through. It was faith, and it was you.
-zealot/NN | small_talk_work_done | It's done, and by the look of you it asked a great deal; faith honours work like that, in its own way.
-zealot/NN | small_talk_since_work | I've given thanks for that work every morning since it was done, and things have gone the better for it.
 zealot/NN | thanked_work | No need; thank faith for it, not me, and let the work be your prayer.
 zealot/NN | offended_complaint | Hold your tongue; faith never promised anyone an easy road, and neither did I.
 zealot/NN | unwronged_state | Whatever for? Nobody's asked to carry more than they can; rest, and pray if it helps.
 zealot/NN | greeted_who | {speaker}, {post} here, and faithful before all else.
+# Round two (2026-09-28): what five blind judges found.
+zealot/NN | small_talk_work_done_beside | I prayed through all of it, and not all of those prayers were brave ones. It was worth every one of them.
+zealot/NN | small_talk_work_done_beside | It was a harder test than I'd have chosen, and you bore it like a believer, whatever it is you believe.
+zealot/NN | small_talk_work_done | I kept a vigil for you while you were gone, and it's been answered. I'll not forget whose hands faith worked through.
+zealot/NN | small_talk_work_done | I'll confess the waiting let doubt in, and I'm ashamed of that now. You gave me one less thing to doubt, and I thank you for it.
+zealot/NN | small_talk_since_work | I've done more thanking than asking since that work was done, and I'd near forgotten how that feels.
+zealot/NN | small_talk_since_work | I still pray about the {danger}, but since that work was done I pray about them less and sleep more.
+zealot/NN | recalled | Your words went into my prayers, and they've stayed there: {words}.
+zealot/NN | recalled | You shared something with me that I hold as close as my vows: {words}.
+zealot/NN | acknowledged_doubt | Well, I've had doubt kneel beside me more often than I'd like, and it's never once been right about me. Don't let yours tell you what you're worth.
+zealot/NN | acknowledged_doubt_work | Indeed, and faith has never asked for the certain, only the willing. Be willing, and let faith see to the rest.
+zealot/NN | acknowledged_doubt_done | Ah, then that's what faith looks like from the inside: afraid, and doing it regardless. I'll not hear you call it anything less.
+zealot/NN | parted_work | Farewell, and good luck; I've asked faith to look to you, and it seldom refuses me.
+zealot/NN | forgiven_state | Forgiven; a heavy heart is no sin, and what's done under one is barely a sin at all. Rest, and put the weight down.
+zealot/NN | them_home | {home_here}; it's home, and every prayer I say starts with it.
+zealot/NN | them_home | {away} is home, and I've left it in faith's keeping while I'm here.
+zealot/NN | work_more | There's more than one calling in this world, and I'll not keep you from the others: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+zealot/NN | them_after | {home} is where my prayers begin, and where they'll end. What I'm about is prayer with its sleeves rolled up.
+zealot/NN | them_after | It was put in front of me, and I've never believed anything is put in front of anyone by accident. That's why it matters: it's mine to answer for.
+zealot/NN | them_need | The {danger} would make a martyr of anyone who went at them alone, and a martyr finishes nothing. I'd sooner have help and see the thing done.
+zealot/NN | them_need | I'd be a poor believer if I thought I was enough on my own[; the {danger} would soon teach me otherwise]. A faith that trusts only itself is pride in a clean robe.
+zealot/NN | them_stakes | It would leave the {danger} unanswered, and every wrong left unanswered weighs on the faithful. I'd carry that like a stone for as long as I breathe.
+zealot/NN | them_stakes | I'd have to ask in prayer where I fell short, and I dread that answer more than any enemy[, the {danger} included].
+zealot/NN | them_plans | I {standing}, and I count it a blessing, whatever it looks like from outside. When it's finished, I'd want the quiet that only comes after a thing well done.
+zealot/NN | them_plans | When it's all done, I'd like to say one prayer that asks for nothing, only gives thanks. I've never managed it yet; there's always been something left to ask.

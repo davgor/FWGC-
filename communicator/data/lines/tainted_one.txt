@@ -635,8 +635,6 @@ tainted_one/NN | news | I've no stake in it either way, but they're saying {news
 tainted_one/NN | news | I'm told {news}; that's the whole of what I have.
 
 # ---- tainted_one/NN: remembering what the player said (contract version 12) ----
-tainted_one/NN | recalled | I keep myself in check, and what came from you in mind: {words}.
-tainted_one/NN | recalled | What you once let me hear: {words}; my memory stays steadier than the rest of me.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 tainted_one/NN | them_who | I'm {speaker}[ {known_as}]. I {feat}; that's the part of me I'll put on the table, and if you keep a pace back, it's the only part you'll meet.
@@ -670,10 +668,33 @@ tainted_one/NN | acknowledged_hardship_work | Ah, then that's a debt on my side,
 tainted_one/NN | acknowledged_grief_work | Ah, I'm sorry. It came of my work, and that's one account I'll never call square.
 tainted_one/NN | acknowledged_deed_work | Good; that counts for a good deal when I'm hiring, and I've counted it.
 tainted_one/NN | greeted_finished_beside | Welcome back. You stood beside me while it was done, closer than I let most people stand; I've marked that.
-tainted_one/NN | small_talk_work_done_beside | We both saw how it went, so I'll not tell it back to you. It's done, and I held steady, which is all I ask of myself.
-tainted_one/NN | small_talk_work_done | That's yours to tell, not mine. It's done, and that settles it between us.
-tainted_one/NN | small_talk_since_work | I've been steadier since it was done. I'll count that a gain, and I don't count gains lightly.
 tainted_one/NN | thanked_work | Think nothing of it; thanks go on the books when it's finished, and not a line before.
 tainted_one/NN | offended_complaint | Mind your manners; I told you what I knew when you took it, and I don't sell anyone short.
 tainted_one/NN | unwronged_state | Nothing to forgive; I know what it is not to be yourself. Take a breath, and take your time.
 tainted_one/NN | greeted_who | I'm {speaker}, {post} of {place}; fair dealing gets you the best of me.
+# Round two (2026-09-28): what five blind judges found.
+tainted_one/NN | small_talk_work_done_beside | It was as hard as I feared, and harder on me than I let show; holding myself steady was the worst of it. You bore your share and more, and I count myself in your debt for it.
+tainted_one/NN | small_talk_work_done_beside | It was worth it; I weighed the cost the whole way through, and it came out in our favour. You gave me nothing to worry about but myself, and from me that's rare praise.
+tainted_one/NN | small_talk_work_done | I kept count of every moment you were gone, which is what I do when there's nothing else I can do. When I knew it was done, I could breathe again, and I've you to thank for it.
+tainted_one/NN | small_talk_work_done | I don't wait well; with nothing for my hands to do, I have to watch myself all the closer, and I did. You saw it through, and from where I stood, that was worth every moment of the wait.
+tainted_one/NN | small_talk_since_work | Since the work was done, this place has been the easier to keep, and I've been the easier to live with. On my books, that's as good a trade as I've made.
+tainted_one/NN | small_talk_since_work | The {danger} are still about, but it's been steadier here since the work was done. I've let my guard down a notch, and I don't do that lightly.
+tainted_one/NN | recalled | You told me this and asked nothing for it, and I've held it the dearer for that: {words}.
+tainted_one/NN | recalled | What you told me was yours to tell, and I've kept it as yours, not mine to spend: {words}.
+tainted_one/NN | acknowledged_doubt | I see. There's no shame in it; a fear kept in hand is worth more than a courage let loose, and I'd know.
+tainted_one/NN | acknowledged_doubt_work | Indeed. Then here's my side of the bargain: I'll not hold your doubt against you, so long as you give the work all you've got.
+tainted_one/NN | acknowledged_doubt_done | Ah, then you were afraid and did it anyway, and I know better than most what it takes to hold yourself together like that. There's nothing I'd count higher.
+tainted_one/NN | parted_work | Take care, and good luck to you; I don't put much trust in luck, but I'll make an exception for yours.
+tainted_one/NN | forgiven_state | Let's forget it; everyone slips when they're worn thin, and I'd be a hypocrite to make anything of it. Rest, and you'll be yourself again soon enough.
+tainted_one/NN | them_home | {home_here} is home. It's the one thing I let myself hold close.
+tainted_one/NN | them_home | {away} is home, and I hold it the way I hold everything I care for: at arm's length, where it's safe from me.
+tainted_one/NN | work_more | If you've room on your books for more, {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+tainted_one/NN | them_after | There's nothing I keep a tighter grip on myself for than {home}.
+tainted_one/NN | them_after | It gives what's in me something useful to push against, and I'd rather that than let it find its own work. That's why it matters, and that's as far into it as I'll go.
+tainted_one/NN | them_need | The {danger} mean close work, and I keep clear of close work, for everyone's sake. With others at my side, I can stay a pace back from the worst of it.
+tainted_one/NN | them_need | Every pair of hands has a limit to what it should be trusted with, and I know where mine is[; the {danger} would push me past it]. I'd rather share the work than find out what's on the other side of that line.
+tainted_one/NN | them_stakes | Then nobody calls the {danger} to account, and I'd be tempted to do it myself, without holding back. I'd rather it never came to that; so would you.
+tainted_one/NN | them_stakes | It's after a loss that a grip like mine is likeliest to slip, and I know it. I'd have to watch myself more closely than ever[, with the {danger} still about].
+tainted_one/NN | them_plans | At present, I {standing}, and I keep everyone at a careful distance. When it's settled, I'd like to set the counting down for a while and see if I still know how.
+tainted_one/NN | them_plans | I'd close the books on it first, and then find somewhere with nobody near enough to worry about. That's no hardship for me; it's the closest thing to rest I know.

@@ -753,8 +753,6 @@ knight_errant/NN | news | Here's how it was told to me: {news}.
 knight_errant/NN | news | Whatever the cause behind it, {news}.
 
 # ---- knight_errant/NN: remembering what the player said (contract version 12) ----
-knight_errant/NN | recalled | By your leave, you told me once: {words}; I hope I've done those words justice.
-knight_errant/NN | recalled | Out on my own as I am, I heard you once: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 knight_errant/NN | them_who | The name's {speaker}[ {known_as}]. I {feat}, and now I mean to {after}, because I weighed it and judged it right.
@@ -788,10 +786,33 @@ knight_errant/NN | acknowledged_hardship_work | Ah, and in a cause I asked you i
 knight_errant/NN | acknowledged_grief_work | Ah, I'm sorry for your loss; it was my cause that took them, and that weighs on me as it should. Tell me who they were, if you will.
 knight_errant/NN | acknowledged_deed_work | Good; that's a thing worth having on the tally, and it's on yours now.
 knight_errant/NN | greeted_finished_beside | Hello again. You held up your end right beside me, and I owe you for an arm lent like that.
-knight_errant/NN | small_talk_work_done_beside | It asked everything of the both of us, and you were there to see it; I'd lend myself to it again.
-knight_errant/NN | small_talk_work_done | You were in it and I wasn't, so the telling's yours. All I know is it's done, and I'd have asked no better.
-knight_errant/NN | small_talk_since_work | All the sounder for that work being done, as far as I can see; I've kept my arm ready all the same.
 knight_errant/NN | thanked_work | Glad to; it's a favour between us, and I'll keep my end of it.
 knight_errant/NN | offended_complaint | Enough; I weighed it as honestly as I could before I asked you in, and I'll stand by that.
 knight_errant/NN | unwronged_state | No harm done. Everyone has a rough stretch, and I'll not hold one against you.
 knight_errant/NN | greeted_who | I'm {speaker}, {post} here, and nobody's hired arm.
+# Round two (2026-09-28): what five blind judges found.
+knight_errant/NN | small_talk_work_done_beside | It was a heavier cause in the doing than in the weighing, and I felt it. It was worth all it took, and I'd not have traded your arm beside mine for any other.
+knight_errant/NN | small_talk_work_done_beside | I was afraid for the both of us, and I'll own it. You gave the cause as much as I did, and that's a debt I'll carry gladly.
+knight_errant/NN | small_talk_work_done | It sat badly with me, leaving the lifting to another arm, and I'll not pretend it didn't. When I knew it was done, I put it on the tally as a favour I'll be proud to owe.
+knight_errant/NN | small_talk_work_done | I couldn't lend myself to it, so I spent the waiting weighing the cause again, and it held every time. It's done now, and I'd stand beside you in any cause I'd judged sound.
+knight_errant/NN | small_talk_since_work | There are still {danger} about, but this place sits sounder since that work was done, and so do I.
+knight_errant/NN | small_talk_since_work | Since that work was finished, I've been choosing my causes again instead of having them choose me, and I know who I owe that to.
+knight_errant/NN | recalled | What you told me has ridden with me since: {words}.
+knight_errant/NN | recalled | Your words have stayed as close to me as my own shield: {words}.
+knight_errant/NN | acknowledged_doubt | Aye, well, I'd trust an honest doubt over any swagger. No arm's sure of itself until it's been lent once; what is it you're most afraid of?
+knight_errant/NN | acknowledged_doubt_work | Fair enough; I judged you worth asking before I asked, and saying that aloud doesn't change my judgement. Whatever comes of it, you'll not hear a hard word from me for trying.
+knight_errant/NN | acknowledged_doubt_done | Aye, and you lent yourself to it anyway, fear and all. I'd set that on the tally above any brave face I've seen.
+knight_errant/NN | parted_work | Farewell, and good luck; I'd not have asked just anyone into my cause.
+knight_errant/NN | forgiven_state | Forgiven; a weary arm swings wide, and I'll not count the swing against you. Get your strength back; that's the only favour I'll ask of you.
+knight_errant/NN | them_home | {home_here} is home. I weigh every cause before I take it up, but this one I'd take up without weighing.
+knight_errant/NN | them_home | I go wherever a cause is worth it, but {away} is home, and my heart stays there.
+knight_errant/NN | work_more | Mine aside, these want a hand too, and it's your arm to lend: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+knight_errant/NN | them_after | It's the one favour I'll never put on the tally, because it's for {home}.[ Against the {danger}, my arm's not lent; it's given.]
+knight_errant/NN | them_after | Because nobody ordered me to it and nobody owes me for it; I chose it, and a cause I choose, I finish.
+knight_errant/NN | them_need | I lend my arm often enough to know when a job wants more than one, and the {danger} want a good deal more.
+knight_errant/NN | them_need | Because a cause worth taking up is worth more than one arm, and I'd sooner owe a favour than fall short.[ The {danger} call for more than one shield.]
+knight_errant/NN | them_stakes | Then the {danger} win the field, and I'd carry that on my shield where everyone could see it. I'd not hide it; that's not how I keep a tally.
+knight_errant/NN | them_stakes | Everything I've lent it, and I don't lend by halves.[ The {danger} keep no tally, and they give nothing back.]
+knight_errant/NN | them_plans | When it's done, I'd hang up my shield for a while and let the road do without me[, back in {away}].[ Until then, I {standing}, and the shield stays on my arm.]
+knight_errant/NN | them_plans | Not while anything's owed on either side; I leave no road with a debt behind me.[ {home_here} is home, and home's the last place I'd walk out on.]

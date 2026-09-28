@@ -871,8 +871,6 @@ mastermind/NN | news | If what reaches me is right, {news}.
 mastermind/NN | news | I've heard {news}; I'll plan as though it's true.
 
 # ---- mastermind/NN: remembering what the player said (contract version 12) ----
-mastermind/NN | recalled | My thoughts are in good order, with what you told me in its place: {words}.
-mastermind/NN | recalled | What I heard from you: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 mastermind/NN | them_who | I'm {speaker}[ {known_as}]. I {lost}, and I've kept a second plan for everything since; the first is to {after}.
@@ -905,10 +903,33 @@ mastermind/NN | acknowledged_grief_work | Ah, and in my work; I'm sorry for your
 mastermind/NN | acknowledged_deed_work | Good; that's the very thing the plan was short of.
 mastermind/NN | greeted_finished_beside | Good to see you. I planned that work, and you made the plan look better than it was, working beside me.
 mastermind/NN | greeted_finished_beside | Back again. I last saw you {since}, and I've planned with you in mind ever since we stood side by side.
-mastermind/NN | small_talk_work_done_beside | You were there with me; you saw it go as near to plan as anything does. I'd have you at my side again without a second thought.
-mastermind/NN | small_talk_work_done | It came off, which is what I planned for; how it looked out there, you'll have to tell me. Did it cost you more than you reckoned?
-mastermind/NN | small_talk_since_work | My second plans have sat gathering dust since that work was done, which is the best thing that can happen to a second plan.
 mastermind/NN | thanked_work | No need; I look after whoever carries part of my plan, and I don't do it for thanks.
 mastermind/NN | offended_complaint | Careful; if I'd known more I'd have said so, since a surprise out there costs my plan as much as it costs you.
 mastermind/NN | unwronged_state | Nothing to forgive; I plan around people as they are, not as I'd wish them to be. You'll be yourself again, and I can wait.
 mastermind/NN | greeted_who | I'm {speaker}, {post} here, and I'll hear what you want before I decide what it's worth.
+# Round two (2026-09-28): what five blind judges found.
+mastermind/NN | small_talk_work_done_beside | I'd braced for far worse than it was, and I stayed braced from start to end. You were the one part of it I couldn't plan, and you turned out the soundest.
+mastermind/NN | small_talk_work_done_beside | I could see every way it might go wrong, and I felt each one tie a knot in my stomach. I'd take every one of those knots again for the way you stood up to it.
+mastermind/NN | small_talk_work_done | I'm used to seeing a few moves ahead, and waiting on you I couldn't see the next one, which I didn't enjoy. It came off, and you're now on the short list of people I don't keep a second plan for.
+mastermind/NN | small_talk_work_done | I planned it and then had to let go of it, and letting go is the one part of planning I've never learned to like. Whatever you did, it came out as well as any plan of mine could have made it.
+mastermind/NN | small_talk_since_work | I've let a good many fallbacks go since my work came off, and not missed a single one.
+mastermind/NN | small_talk_since_work | The place asks fewer questions of my plans now my work's done[, though the {danger} keep their place in every one of them].
+mastermind/NN | recalled | I turn most things I hear into a move, but I've left what you told me as it was: {words}.
+mastermind/NN | recalled | My head's mostly plans, but there's a corner of it kept for what you told me: {words}.
+mastermind/NN | acknowledged_doubt | I see; then you've done what most never manage: found where you're weak before it found you. A weakness you've counted is one you can allow for; it's the ones nobody owns up to that ruin things.
+mastermind/NN | acknowledged_doubt_work | Fair enough; the plan was never built on your being fearless, only on your being in it. Keep to your part, and tell me the moment anything doesn't add up.
+mastermind/NN | acknowledged_doubt_done | Ah, then you did it with the fear running alongside you the whole way; that's a harder sum than doing it fearless, and you made it come out.
+mastermind/NN | parted_work | Go well; I've planned for everything but luck, so I'll wish you all of it.
+mastermind/NN | forgiven_state | All right; nobody plans well carrying what you are, and I'll not hold you to it. Rest; the board will keep.
+mastermind/NN | them_home | {home_here}, this very place. I'd stake anything else I have before I'd stake it.
+mastermind/NN | them_home | {away}. I keep it out of my plans, where nothing can go wrong with it.
+mastermind/NN | work_more | There are other moves open to you than mine: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+mastermind/NN | them_after | {home} is the one piece on the board I'd never give up, whatever it might win me. Every other piece I'd trade for the right advantage.
+mastermind/NN | them_after | I go where things are decided, and by my reckoning they're decided here.[ The {danger} are what I'm reckoning against.]
+mastermind/NN | them_need | I can plan for the {danger} down to the last move, but a plan is only ink until someone carries it out, and I can't be everywhere it needs carrying.
+mastermind/NN | them_need | I see further ahead than most, which is how I know exactly where my own reach runs out.[ The {danger} are past it.]
+mastermind/NN | them_stakes | I'd have been outthought by the {danger}, and I'd take that harder than any beating.
+mastermind/NN | them_stakes | I always have another plan, so a failure costs me time more than anything, and time is the one thing no plan wins back.[ The {danger} would put it to better use than I'd like.]
+mastermind/NN | them_plans | For now I {standing}; what comes after I keep to myself, since a plan said aloud is half spent.[ This much you can have: {away} is home.]
+mastermind/NN | them_plans | After it's over, I'd like to sit still and not work out what anyone's about to do, if I still remember how.[ I'd do it in {home_here}; it's home, and I know every way out of it.]

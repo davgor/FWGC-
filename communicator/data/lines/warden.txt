@@ -989,8 +989,6 @@ warden/NN | news | Since you're here, you may as well have it: {news}.
 warden/NN | news | I'm told {news}; I've no reason to doubt it.
 
 # ---- warden/NN: remembering what the player said (contract version 12) ----
-warden/NN | recalled | I listen to whoever comes by, so what you told me stayed: {words}.
-warden/NN | recalled | Aye, you told me a thing: {words}; I've a good memory for what folk tell me.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 warden/NN | them_who | Here stands {speaker}[ {known_as}]. I {lost}; I'll not lose again[, and I'll {after}].
@@ -1023,10 +1021,33 @@ warden/NN | acknowledged_hardship_work | Aye, and doing my work; I'm sorry for i
 warden/NN | acknowledged_grief_work | Aye; that came of my work, and it's on me, not on you. I'm sorry, and I'll not set it down.
 warden/NN | acknowledged_deed_work | Good; I'll hold you to that, and you'll find I hold to my end.
 warden/NN | greeted_finished_beside | Well met again. You held your ground at my side, and that's worth more to me than words.
-warden/NN | small_talk_work_done_beside | You were there, same as me; I'll not tell you what you saw with your own eyes. We came through it, and I'd want you beside me if it came again.
-warden/NN | small_talk_work_done | I was keeping watch here while you did it, so you've seen more of it than I have. It's done, and I held my ground meanwhile; between us, that's the whole of the job.
-warden/NN | small_talk_since_work | Since that work was done, things have held steadier, and I count that in your favour.
 warden/NN | thanked_work | No need; hold up your end, and we're square.
 warden/NN | offended_complaint | Mind your manners; I told it to you straight, and nobody sees everything that's coming.
 warden/NN | unwronged_state | There's nothing to forgive; we all carry something. Take a breath, and let it lie a while.
 warden/NN | greeted_who | I'm {speaker}, {post} here, and here is where you'll find me.
+# Round two (2026-09-28): what five blind judges found.
+warden/NN | small_talk_work_done_beside | I don't frighten easily, and I was frightened; that's the plain truth of it. I'd not undo a moment of it, all the same.
+warden/NN | small_talk_work_done_beside | It took everything I had to give, and you gave as much, which is all I ever ask of anyone. I'll count myself lucky if I'm ever beside you again.
+warden/NN | small_talk_work_done | I kept my place and waited on word of you, and the waiting wore on me harder than I'd have guessed. You dealt fair by me, and I'll deal the same by you.
+warden/NN | small_talk_work_done | When word came it was done, I let out a breath I'd been holding since you set off. I'd taken you for someone who keeps their word, and you've shown me right.
+warden/NN | small_talk_since_work | The post's been easier to hold since that work was done, and I've had the sleep to prove it.
+warden/NN | small_talk_since_work | I've stood easier since you saw that work through, though the {danger} are still about.
+warden/NN | recalled | What you told me has stood my watches with me since: {words}.
+warden/NN | recalled | I took it as trust when you told me, and I've held it that way: {words}.
+warden/NN | acknowledged_doubt | Fair enough; I think the better of you for owning it, and it's the ones who swear they're ready that I keep an eye on.
+warden/NN | acknowledged_doubt_work | Aye, and I asked you all the same, which should tell you what I make of you. Do your honest best, and I'll count it enough.
+warden/NN | acknowledged_doubt_done | Ah, and you saw it through regardless; I'll take a shaking hand that holds over a steady one that doesn't.
+warden/NN | parted_work | Goodbye, and luck to you; if it's owed to anyone, it's owed to you.
+warden/NN | forgiven_state | All right; nobody keeps a good watch when they're worn down, so think no more of it.
+warden/NN | them_home | I've never wanted any other ground under my feet than {home_here}; it's home.
+warden/NN | them_home | Mine's {away}, and I'll not pretend otherwise just because I'm standing here.
+warden/NN | work_more | It's only right you hear the rest, so here it is, as far as I know it: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+warden/NN | them_after | {home} is home, and I'd put myself between it and anything at all without stopping to ask what it was. That's all it's ever needed from me, and all I've ever wanted to give it.
+warden/NN | them_after | Some people are made for going places; I'm made for staying put, and this is where staying put counts. That's why it matters to me.
+warden/NN | them_need | Even the best watch has to blink, and the {danger} only need the one blink. I'd want another pair of eyes on it while mine are shut.
+warden/NN | them_need | There's no shame in asking for help at a post; the shame's in losing one for want of asking[, and the {danger} would be glad of that].
+warden/NN | them_stakes | Then the {danger} walk where I meant to stand, and there's no wound I'd take harder. I'll give up my breath before I give up that ground.
+warden/NN | them_stakes | It would mean everyone counting on me to stand was counting wrong[, and the {danger} would have proved it]. I'll not have that; I'll hold on past the point of sense first.
+warden/NN | them_plans | Whatever comes next, I {standing} until it comes. When it's all done, I'd like to sleep a night through without an ear cocked for trouble.
+warden/NN | them_plans | Not while there's anything left to hold. Once there isn't, I'd like to sit with my back to a wall I don't have to watch, and let the quiet do the watching.

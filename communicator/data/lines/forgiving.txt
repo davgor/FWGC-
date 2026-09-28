@@ -635,8 +635,6 @@ forgiving/NN | news | I'm passing it on straight, as I heard it: {news}.
 forgiving/NN | news | One thing I've heard is that {news}.
 
 # ---- forgiving/NN: remembering what the player said (contract version 12) ----
-forgiving/NN | recalled | Nobody need tread carefully with me, and you told me: {words}.
-forgiving/NN | recalled | Your words came freely, and I heard them freely: {words}.
 
 # Contract version 13-14: a hero's own lines (who they are, what they tell, the work beside them).
 forgiving/NN | them_who | I'm {speaker}[ {known_as}], and I've yet to meet a quarrel worth keeping. I {feat}.[ Now I mean to {after}.]
@@ -669,11 +667,34 @@ forgiving/NN | acknowledged_hardship_work | Ah, and on my account; that's a debt
 forgiving/NN | acknowledged_grief_work | Ah, I'm sorry. It came of my work, and I won't ask you to forgive me for it; that's yours to decide.
 forgiving/NN | acknowledged_deed_work | Is that so? Then I'll put it down to your credit, and my memory's long.
 forgiving/NN | greeted_finished_beside | Good to see you. We did that shoulder to shoulder, and there's nothing between us now but a debt I'm glad to owe.
-forgiving/NN | small_talk_work_done_beside | You were there beside me, so you know it as well as I do. Whatever went wrong on the way, we both came through, and that's the part I'll hold on to.
-forgiving/NN | small_talk_work_done | It's done, and I'll take it as done, with no questions about how. That's more than most would give you.
-forgiving/NN | small_talk_since_work | Since that work was done, I've had less to forgive and more to remember kindly.
 forgiving/NN | thanked_work | Glad to, and whatever comes of it, you'll owe me no apology.
 forgiving/NN | offended_complaint | There's no need for that; I'll let the word pass, but I'd have warned you of anything I knew.
 forgiving/NN | unwronged_state | There's nothing to forgive, and believe me, I'd have noticed. Be as you are; there's no debt in it.
 forgiving/NN | greeted_who | {speaker}, {post} here, and quicker to pardon than most you'll meet.
 forgiving/NN | them_plans | Whatever comes next, I'll meet it without a grudge in my pack. I {standing}[, and first I mean to {after}].
+# Round two (2026-09-28): what five blind judges found.
+forgiving/NN | small_talk_work_done_beside | As bad as I feared, and then some, but I've forgiven it that already. What I'll keep is having you beside me for it, and how you bore it.
+forgiving/NN | small_talk_work_done_beside | It was hard on me, I'll own that, and worth every bit of it. I'd braced myself to forgive whatever came of it, and you gave me nothing to forgive.
+forgiving/NN | small_talk_work_done | The waiting weighed on me more than the work would have, and I set it down gladly once I knew it was done. I spend most of my breath on pardons, so it's a rare pleasure to spend some on thanks.
+forgiving/NN | small_talk_work_done | When I knew it was done, I let go of a worry I'd carried longer than I like to admit. You've my trust for it, and that comes to me a good deal slower than a pardon.
+forgiving/NN | small_talk_since_work | I lie down with less on my mind since that work was done, though the {danger} are still about, and I sleep the easier for it.
+forgiving/NN | small_talk_since_work | Since that work was done, the post sits lighter on me than it has in a good while. That's your doing, and I keep a thing like that where I can find it.
+forgiving/NN | recalled | I set most things down, but your words I've carried: {words}.
+forgiving/NN | recalled | You trusted me with your words, and I've not taken that lightly: {words}.
+forgiving/NN | acknowledged_doubt | Aye, and there's no shame in it; the ones I worry for are those who can't forgive themselves a stumble. You can start by forgiving yourself the doubt.
+forgiving/NN | acknowledged_doubt_work | I see; knowing that, I'd still ask it of you. Give it your best, and whatever comes of it, you'll never need my pardon for trying.
+forgiving/NN | acknowledged_doubt_done | Ah, and you had that fear with you the whole while and did it anyway; I know of no heavier load, nor any better borne. That's courage, and I'll not forget it.
+forgiving/NN | parted_work | Take care, and good luck; may you go into it light, with nothing between us left unforgiven.
+forgiving/NN | forgiven_state | No hard feelings; you're worn thin, and I'd not add a grudge to the weight you're under. Get some rest.
+forgiving/NN | them_home | {home_here} is home, the very ground you're on, and the one thing I'd never forgive myself for giving up.
+forgiving/NN | them_home | {away} is home. I carry as little as I can, but I carry that.
+forgiving/NN | work_more | I've nothing more of my own, and I'll bear no grudge if you look elsewhere: {others}.
+# Round three (2026-09-28): answers that do not say the aim again.
+forgiving/NN | them_after | It's for {home}, and I'd forgive the place anything, which is how I know it's mine.[ The {danger} are the one thing I keep no pardon for.]
+forgiving/NN | them_after | Because I've let go of nearly everything else, and a person has to keep hold of something. This is what I kept.
+forgiving/NN | them_need | I can hand out pardons on my own, but this takes more than one pair of hands.[ The {danger} are more than one person's quarrel.]
+forgiving/NN | them_need | Because I can always settle a debt, and a failure I'd carry for good; I know which weighs less.[ Against the {danger}, I'll take the debt every time.]
+forgiving/NN | them_stakes | If it fails, the {danger} go on as they please, and that's one debt nobody ever settles. I'd carry it, and I carry very little.
+forgiving/NN | them_stakes | It's the one quarrel there's no mending afterwards.[ The {danger} don't apologise, and they don't take apologies either.]
+forgiving/NN | them_plans | What I'd want after is a quiet spell with nothing to forgive and nobody forgiving me[, somewhere in {away}].[ Until then, I {standing}, and hold nothing against the place.]
+forgiving/NN | them_plans | Not while there's anything left to mend[, and not after either; {home_here} is home, and I've made my peace with all of it]. Once it's mended, I'd close every account I hold and start clean.
