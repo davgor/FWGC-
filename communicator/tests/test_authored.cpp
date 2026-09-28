@@ -360,17 +360,19 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         {packets::parted_coldly(), {"parted_cold"}},
         {packets::forgiven("neutral"), {"forgiven"}},
         {packets::forgiven("hostile"), {"forgiven_cold"}},
-        {packets::unwronged(), {"unwronged"}},
+        {packets::unwronged(), {"unwronged", "unwronged_state"}},
         {packets::about_the_town(), {"about_place"}},
-        {packets::acknowledged(), {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin"}},
+        {packets::acknowledged(),
+         {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin", "acknowledged_grief"}},
         {packets::acknowledged_with("taken"),
-         {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin",
-          "acknowledged_hardship_work", "acknowledged_deed_work"}},
+         {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin", "acknowledged_grief",
+          "acknowledged_hardship_work", "acknowledged_grief_work", "acknowledged_deed_work"}},
         {packets::acknowledged_with("finished"),
-         {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin",
-          "acknowledged_hardship_work"}},
+         {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin", "acknowledged_grief",
+          "acknowledged_hardship_work", "acknowledged_grief_work"}},
         {packets::acknowledged_with("offered"),
-         {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin", "acknowledged_deed_work"}},
+         {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin", "acknowledged_grief",
+          "acknowledged_deed_work"}},
         {packets::acknowledged_with("", "hostile"), {"acknowledged"}},
         {packets::small_talk_after_work(), {"small_talk_fair", "small_talk", "small_talk_work_done", "small_talk_since_work"}},
         {packets::thanked_with_work("taken"), {"thanked", "thanked_work"}},
@@ -510,6 +512,14 @@ TEST(the_strangers_own_words_are_said_back_after_a_greeting_now_and_then) {
     // Of two sentences, the first of three words or more.
     check::equal(lines.speak(packets::greeted_remembering("Yes. I'm headed for the coast. My ship sails at dawn."), "Hello!"),
                  std::string("Hello again. You told me once: you were headed for the coast."), "the first sentence worth saying back");
+    // A next sentence that leans on the first goes with it: alone, the first told the least of it.
+    check::equal(lines.speak(packets::greeted_remembering("My brother came with me. He didn't make it back."), "Hello!"),
+                 std::string("Hello again. You told me once: your brother came with you; he didn't make it back."),
+                 "a sentence that leans on the first, with it");
+    check::equal(lines.speak(packets::greeted_remembering(
+                                 "My brother came with me to the fortress above the river. He never came home again after that night."),
+                             "Hello!"),
+                 std::string("Hello again."), "the two too long together: none");
     // Nor words too long for a line to carry.
     check::equal(lines.speak(packets::greeted_remembering(
                                  "My sister keeps the mill at the ford below the old bridge where the river bends toward the hills."),
@@ -720,6 +730,14 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
                      std::string("Not much else; the post takes all of me."),
                      "how they stand, heard lately: not said again, turn " + std::to_string(heard));
     }
+    // Home, where they stand or elsewhere: what they would do if they could leave is answered from it.
+    const Lines leaving = Lines::parse("any | them_plans | If I could? I'd go home to {away}.\n"
+                                       "any | them_plans | If I could? {home_here} is my home.\n",
+                                       "leaving");
+    check::equal(leaving.speak(p, "What would you do if you could leave?", {}, &meaning), std::string("If I could? Wenweg is my home."),
+                 "at home");
+    check::equal(leaving.speak(packets::about_them_far_from_home(), "What would you do if you could leave?", {}, &meaning),
+                 std::string("If I could? I'd go home to Linbrig."), "far from home");
     // How long, where a bank has a line of it; where none, how they stand here.
     const std::string long_row = "any | them_long | A good while now; I {standing}.";
     const std::string how_long = Lines::parse(long_row, "one").replies(p).front();
@@ -737,6 +755,7 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
 // tried, four in all, and chose nothing).
 constexpr std::size_t kToldFloor = 14;
 constexpr std::size_t kToldLaterFloor = 20;
+constexpr std::size_t kGriefFloor = 12;
 // Contract version 13: what the stranger tells of themself is taken as what it is, heard by meaning (a
 // hardship, something they did, a plan, their people, anything else), and small talk with someone whose
 // work they just finished can be about that work. Measured on 15 lines written before the descriptions
@@ -747,7 +766,8 @@ TEST(what_the_stranger_tells_is_taken_as_what_it_is) {
         {"acknowledged_hardship", "Ah, that's hard."},   {"acknowledged_deed", "Is that so? No small thing."},
         {"acknowledged_plan", "Right, go well."},        {"acknowledged_kin", "Aye, good to have them."},
         {"acknowledged", "I see."},                       {"acknowledged_hardship_work", "Ah, and on my account."},
-        {"acknowledged_deed_work", "Good; the work needs that."}};
+        {"acknowledged_deed_work", "Good; the work needs that."}, {"acknowledged_grief", "Ah, I'm sorry for your loss."},
+        {"acknowledged_grief_work", "Ah, and in my service; I'm sorry."}};
     std::string bank;
     std::map<std::string, std::string> kind_of;
     const FactPacket p = packets::acknowledged();
@@ -757,7 +777,7 @@ TEST(what_the_stranger_tells_is_taken_as_what_it_is) {
     }
     const Lines lines = Lines::parse(bank, "test");
     const std::vector<std::pair<std::string, std::string>> told = {
-        {"I lost my brother to the fever last spring.", "acknowledged_hardship"},
+        {"I lost my brother to the fever last spring.", "acknowledged_grief"},
         {"I'm exhausted, I haven't slept in days.", "acknowledged_hardship"},
         {"My leg's been broken since the fall.", "acknowledged_hardship"},
         {"I've been a smith for twenty years.", "acknowledged_deed"},
@@ -788,7 +808,7 @@ TEST(what_the_stranger_tells_is_taken_as_what_it_is) {
     // The later 30, and the benchmark's own lines apart from them.
     const std::vector<std::pair<std::string, std::string>> later = {
         {"Took an arrow in the shoulder on the road here.", "acknowledged_hardship"},
-        {"We buried my father last winter.", "acknowledged_hardship"},
+        {"We buried my father last winter.", "acknowledged_grief"},
         {"I haven't had a proper meal in a week.", "acknowledged_hardship"},
         {"I sailed with the coast fleet for ten years.", "acknowledged_deed"},
         {"I've tracked wolves through these hills since I was a boy.", "acknowledged_deed"},
@@ -838,7 +858,38 @@ TEST(what_the_stranger_tells_is_taken_as_what_it_is) {
     check::equal(lines.speak(packets::acknowledged_with("", "hostile"), "I lost my brother to the fever last spring.", {}, &meaning),
                  std::string("I see."), "a cold speaker takes it plainly");
     // In the light of the speaker's own work: a hurt taken doing it, a deed told while they hire.
-    const std::string hurt = "I lost my brother to the fever last spring.", deed = "I fought at the siege of the old keep.";
+    // Grief apart (contract version 13, a held-out hero session): 12 lines written before it was
+    // tried, six deaths and six other hardships, and the sessions' own.
+    std::size_t grief_right = 0;
+    std::string grief_missed;
+    for (const auto& [line, want] : std::vector<std::pair<std::string, std::string>>{
+             {"My wife died in the winter.", "acknowledged_grief"},
+             {"My son didn't come home from the war.", "acknowledged_grief"},
+             {"I buried my best friend on the road here.", "acknowledged_grief"},
+             {"My mother passed last month.", "acknowledged_grief"},
+             {"We lost my uncle to the plague.", "acknowledged_grief"},
+             {"My sister was killed in the raid.", "acknowledged_grief"},
+             {"I broke my hand in the fall.", "acknowledged_hardship"},
+             {"I've had a fever for days.", "acknowledged_hardship"},
+             {"Our farm burned down.", "acknowledged_hardship"},
+             {"I'm cold and I haven't eaten.", "acknowledged_hardship"},
+             {"Bandits took everything I had.", "acknowledged_hardship"},
+             {"My back's been bad since the mines.", "acknowledged_hardship"}}) {
+        const std::string reply = lines.speak(p, line, {}, &meaning);
+        const auto got = kind_of.find(reply);
+        const std::string heard = got == kind_of.end() ? "(" + reply + ")" : got->second;
+        if (heard == want)
+            ++grief_right;
+        else
+            grief_missed += "\n  " + line + ": " + heard + ", not " + want;
+    }
+    std::cout << "  grief or hardship: " << grief_right << " of 12 taken right" << grief_missed << "\n";
+    check::is_true(grief_right >= kGriefFloor, std::to_string(grief_right) + " of 12" + grief_missed);
+    const std::string brother = "My brother came with me. He didn't make it back.";
+    check::equal(kind_of[lines.speak(p, brother, {}, &meaning)], std::string("acknowledged_grief"), "the held-out session's death");
+    check::equal(lines.speak(packets::acknowledged_with("finished"), brother, {}, &meaning), std::string("Ah, and in my service; I'm sorry."),
+                 "a death in the speaker's service");
+    const std::string hurt = "My leg's been broken since the fall.", deed = "I fought at the siege of the old keep.";
     check::equal(kind_of[lines.speak(p, hurt, {}, &meaning)], std::string("acknowledged_hardship"), "the premise: a hardship");
     check::equal(kind_of[lines.speak(p, deed, {}, &meaning)], std::string("acknowledged_deed"), "the premise: a deed");
     for (const std::string work : {"taken", "finished", "failed"})
@@ -1052,6 +1103,52 @@ TEST(thanks_a_complaint_and_a_greeting_are_heard_for_what_they_are) {
     const Lines again = Lines::parse("any | greeted_again | Back again.\nany | greeted_who | I'm {speaker}, {post} here.\n", "again");
     for (const std::string line : {"Are you the one in charge?", "It's done. The fortress held.", "Remember me?"})
         check::equal(again.speak(packets::greeted_again(), line, {}, &meaning), std::string("Back again."), "met before: " + line);
+}
+
+// Contract version 13: an apology for how the stranger is, not for a wrong, met as that (a held-out
+// hero session, 2026-09-28: "Whatever for? You have done me no wrong" two lines after a death).
+// Measured once on 16 lines written before the descriptions were tried: 14 right.
+constexpr std::size_t kSorryFloor = 14;
+TEST(an_apology_for_how_one_is_is_met_as_that) {
+    communicator::Meaning meaning(test_model::embedder());
+    const FactPacket p = packets::unwronged();
+    const Lines lines = Lines::parse("any | unwronged | What for? You've done me no wrong.\n"
+                                     "any | unwronged_state | Nothing to forgive; you've reason enough to be.\n",
+                                     "sorry");
+    const std::string wrong = Lines::parse("any | unwronged | What for? You've done me no wrong.\n", "one").speak(p, "", {}, nullptr);
+    const std::string state = Lines::parse("any | unwronged_state | Nothing to forgive; you've reason enough to be.\n", "one").speak(p, "", {}, nullptr);
+    check::is_true(!wrong.empty() && !state.empty(), "the premise: both said alone");
+    const std::vector<std::pair<std::string, std::string>> sorry = {
+        {"Sorry, I'm not myself today.", "state"},
+        {"Forgive me, I'm tired.", "state"},
+        {"Sorry, I'm in a foul mood.", "state"},
+        {"Excuse me, I've had a long day.", "state"},
+        {"Sorry, I'm not good company right now.", "state"},
+        {"Pardon me, I'm still shaken.", "state"},
+        {"Sorry if I'm short with you; it's been hard.", "state"},
+        {"Forgive my mood.", "state"},
+        {"Sorry for what I said earlier.", "wrong"},
+        {"I apologise for barging in.", "wrong"},
+        {"Sorry I took so long.", "wrong"},
+        {"Forgive me for doubting you.", "wrong"},
+        {"I'm sorry I was rude.", "wrong"},
+        {"Sorry about the mess.", "wrong"},
+        {"My apologies for interrupting.", "wrong"},
+        {"Sorry, I shouldn't have said that.", "wrong"}};
+    std::size_t right = 0;
+    std::string missed;
+    for (const auto& [line, want] : sorry) {
+        const std::string reply = lines.speak(p, line, {}, &meaning);
+        const std::string heard = reply == state ? "state" : reply == wrong ? "wrong" : "(" + reply + ")";
+        if (heard == want)
+            ++right;
+        else
+            missed += "\n  " + line + ": " + heard + ", not " + want;
+    }
+    std::cout << "  an apology: " << right << " of " << sorry.size() << " heard right" << missed << "\n";
+    check::is_true(right >= kSorryFloor, std::to_string(right) + " of " + std::to_string(sorry.size()) + missed);
+    check::equal(lines.speak(p, "Sorry. I'm just tired.", {}, &meaning), state, "the benchmark's apology");
+    check::equal(lines.speak(p, "Sorry, I'm not myself today.", {}, nullptr), wrong, "no meaning: as ever");
 }
 
 TEST(a_recalled_row_brings_the_words_in_after_a_colon_says_no_when_and_asks_nothing) {

@@ -387,6 +387,17 @@ brushed off. Its changes: hear grief and let it shape what follows; a self beyon
 kind of question about him answered in its own way; memories kept whole and brought up for a
 reason.
 
+After the fixes drawn from it (grief, an apology for how one is, why it matters, whether he would
+leave, words said back whole), the first session judged again: 16 of 24 (SENSE 4, DODGE 2, REPEAT 2,
+TONE 2, CHARACTER 1), score 3, "a low one", broken at turn 2. Three judges running, the first
+session holds at 16 of 24 while its faults move. `session_hero3.txt` is a third session, held out,
+written after those fixes and before it was ever run: 9 of 21 (DODGE 6, REPEAT 5, MEMORY 3,
+CHARACTER 3, TONE 3, SENSE 1, INVENTS 0), score 2, broken at turn 4, where "What are you trying to
+do out here?" got turn 2's sentence again. Every judge's first change is the same: answer what the
+player actually said rather than the kind of line it was, and ask back; then a self and a present
+to talk from (a past, views of the people he names, news between visits), and his own part in
+shared events (he offered the work "with me", then learned how it went "by the look of you").
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).

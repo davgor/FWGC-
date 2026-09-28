@@ -292,14 +292,38 @@ std::string words_said_back(const FactPacket& p) {
         return words;
     };
     const std::string& words = said->words;
-    for (std::size_t from = 0; from < words.size();) {
+    // Where the sentence begun at `from` ends: at its stop, or at the end of the words.
+    const auto sentence_end = [&](std::size_t from) {
         std::size_t end = from;
         while (end < words.size() && !((words[end] == '.' || words[end] == '!' || words[end] == '?') &&
                                        (end + 1 == words.size() || words[end + 1] == ' ')))
             ++end;
-        const std::string sentence = trimmed(std::string_view(words).substr(from, end + 1 - from));
+        return end;
+    };
+    // Whether a sentence leans on the one before it: it opens with a word that points back.
+    const auto leans = [](const std::string& sentence) {
+        static const std::set<std::string> back = {"he", "she", "it", "they", "his", "her", "its", "their", "that", "this"};
+        std::string first;
+        for (const char c : sentence) {
+            if (!std::isalpha(static_cast<unsigned char>(c))) break;
+            first += static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+        }
+        return back.count(first) != 0;
+    };
+    for (std::size_t from = 0; from < words.size();) {
+        const std::size_t end = sentence_end(from);
+        std::string sentence = trimmed(std::string_view(words).substr(from, end + 1 - from));
         from = end + 1;
         if (count(sentence) < kLeastWords) continue;
+        // A next sentence that leans on this one goes with it, or nothing is said: alone, the first
+        // told the least of it ("My brother came with me. He didn't make it back." came back as "your
+        // brother came with you"; a held-out hero session, 2026-09-28).
+        if (from < words.size())
+            if (std::string next = trimmed(std::string_view(words).substr(from, sentence_end(from) + 1 - from)); leans(next)) {
+                while (!sentence.empty() && (sentence.back() == '.' || sentence.back() == '!')) sentence.pop_back();
+                next[0] = static_cast<char>(std::tolower(static_cast<unsigned char>(next[0])));
+                sentence += "; " + next;
+            }
         const std::string back = text::said_back(sentence);
         return !back.empty() && count(back) <= kMostWords ? back : std::string();
     }
@@ -335,6 +359,15 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
         if (const Fact* self = self_of(p)) {
             set("known_as", text::spoken(field_of(*self, "known_as")));
             set("home", text::spoken(field_of(*self, "home")));
+            // Home, as where they stand or somewhere else: asked what they would do if they could
+            // leave, a speaker at home and one far from it answer differently (a held-out hero
+            // session, 2026-09-28: the question brushed off with what they are after).
+            if (const std::string home = text::spoken(field_of(*self, "home")); !home.empty()) {
+                if (home == text::spoken(field_of(*self, "at")))
+                    set("home_here", home);
+                else
+                    set("away", home);
+            }
             set("after", after_words(*self));
             set("standing", standing_words(*self));
             set("lost", lost_words(*self));
@@ -664,15 +697,15 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // Contract version 13: asked about themself, by what the stranger asked of them (chosen by
         // meaning in speak()): who they are, what they did or lost, what they are after, how they stand
         // here, who stands with them, whether they would leave, and what they keep to themselves.
-        {"them_who", {"known_as", "home"}},
+        {"them_who", {"known_as", "home", "after"}},
         {"them_past", {"done", "lost"}},
-        {"them_after", {"after", "danger"}},
+        {"them_after", {"after", "danger", "home"}},
         {"them_need", {"after", "danger"}},
         {"them_stakes", {"after", "danger"}},
         {"them_here", {"standing", "done"}},
         {"them_long", {"standing"}},
         {"them_ties", {"ties"}},
-        {"them_plans", {"after", "standing", "danger"}},
+        {"them_plans", {"after", "standing", "danger", "away", "home_here"}},
         {"them_secret", {}},
         {"about_place", {"about", "trades", "who", "around", "work"}},
         {"surroundings", {"here", "nearest", "others", "danger"}},
@@ -715,6 +748,11 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // In the light of the speaker's own work: a hurt the stranger took doing it, and a deed told
         // while the speaker is hiring.
         {"acknowledged_hardship_work", {}},
+        // A death told, and one told to the speaker whose work it came of.
+        {"acknowledged_grief", {}},
+        {"acknowledged_grief_work", {}},
+        // An apology for how the stranger is (tired, not themself), not for a wrong (speak()).
+        {"unwronged_state", {}},
         {"acknowledged_deed_work", {}},
         // Small talk with someone whose work the stranger has just finished: how it went.
         {"small_talk_work_done", {}},
@@ -867,9 +905,12 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             // everything alike.
             if (m.cold()) return {"acknowledged"};
             {
-                std::vector<std::string> chain = {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan",
-                                                  "acknowledged_kin"};
-                if (m.work == "taken" || m.work == "finished" || m.work == "failed") chain.push_back("acknowledged_hardship_work");
+                std::vector<std::string> chain = {"acknowledged",      "acknowledged_hardship", "acknowledged_deed",
+                                                  "acknowledged_plan", "acknowledged_kin",      "acknowledged_grief"};
+                if (m.work == "taken" || m.work == "finished" || m.work == "failed") {
+                    chain.push_back("acknowledged_hardship_work");
+                    chain.push_back("acknowledged_grief_work");
+                }
                 if (m.work == "offered" || m.work == "taken") chain.push_back("acknowledged_deed_work");
                 return chain;
             }
@@ -898,7 +939,7 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             // As a cold greeting: a bank without a cold line leaves it to the next bank's.
             return {m.cold() ? "forgiven_cold" : "forgiven"};
         case Outcome::Unwronged:
-            return {"unwronged"};
+            return {"unwronged", "unwronged_state"};
         case Outcome::Calmed:
             return {"calmed"};
         case Outcome::StillAfraid:
@@ -1321,14 +1362,18 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         // In the stranger's own voice: told of in the third person, "a deed" took a hurt taken in a
         // fight, the inn and a compliment (8 of 15 lines written after the first 15 were measured;
         // 10 of 15 so).
+        // A death apart from other hardship: a brother who "didn't make it back" was met with "you took
+        // that hurt in my service" (a held-out hero session, 2026-09-28). With grief its own: 12 of 12
+        // lines written before it was tried, and the 45 before unchanged.
         static const std::vector<std::string> told = {
-            "I was hurt, I am sick, hungry or worn out, someone I loved died, I lost my home or everything I had.",
+            "Someone I loved died: my brother, my wife, my child, a friend; they were killed, never came back, we buried them.",
+            "I was hurt, I am sick, hungry or worn out, I lost my home or everything I had.",
             "I know a trade, I have worked at a craft for years, I fought in a battle, I am skilled at something.",
             "I am going somewhere next, I mean to do something, I plan to settle or to travel.",
             "My family: my mother, father, brother, sister, wife, husband, children, friends, where I grew up.",
             "A passing remark: the weather, the road, the inn, the food, an opinion, a compliment, yes or no."};
-        static const std::vector<std::string> taken = {"acknowledged_hardship", "acknowledged_deed", "acknowledged_plan",
-                                                       "acknowledged_kin", "acknowledged"};
+        static const std::vector<std::string> taken = {"acknowledged_grief", "acknowledged_hardship", "acknowledged_deed",
+                                                       "acknowledged_plan",  "acknowledged_kin",      "acknowledged"};
         const std::string kind = taken[meaning->subject_of(line, told)];
         // In the light of the speaker's own work: a hurt the stranger took doing it is theirs to be
         // sorry for ("I nearly lost my arm on the second night", told the one whose work it was), and
@@ -1336,8 +1381,8 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         // hiring soldiers). Both from the hero benchmark's judges, 2026-09-28.
         const std::string work = remembered(p).work;
         std::vector<std::string> as;
-        if (kind == "acknowledged_hardship" && (work == "taken" || work == "finished" || work == "failed"))
-            as.push_back("acknowledged_hardship_work");
+        if ((kind == "acknowledged_hardship" || kind == "acknowledged_grief") && (work == "taken" || work == "finished" || work == "failed"))
+            as.push_back(kind + "_work");
         if (kind == "acknowledged_deed" && (work == "offered" || work == "taken")) as.push_back("acknowledged_deed_work");
         as.push_back(kind);
         if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &as); !on_it.empty()) spoken = on_it;
@@ -1424,6 +1469,18 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         static const std::vector<std::string> complaint = {"offended_complaint"};
         if (meaning->subject_of(line, subjects) == 0)
             if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &complaint); !on_it.empty()) spoken = on_it;
+    }
+    // An apology for how the stranger is, not for a wrong, is met as that: "Sorry, I'm not myself
+    // today." two lines after a brother's death drew "Whatever for? You have done me no wrong" (a
+    // held-out hero session, 2026-09-28). Measured on 16 lines written before the descriptions were
+    // tried: 14 right.
+    if (meaning != nullptr && p.outcome == Outcome::Unwronged && !trimmed(line).empty()) {
+        static const std::vector<std::string> subjects = {
+            "Sorry for how I am: tired, not myself, in a bad mood, upset, grieving.",
+            "Sorry for something I did or said: for being rude, for a mistake, for interrupting, for being late."};
+        static const std::vector<std::string> state = {"unwronged_state"};
+        if (meaning->subject_of(line, subjects) == 0)
+            if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &state); !on_it.empty()) spoken = on_it;
     }
     // Greeted with a question of who they are ("You're the one who holds this place, aren't you?"), a
     // speaker says who they are after their greeting, and never that the guess was right, which they

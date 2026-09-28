@@ -578,6 +578,19 @@ And asked about themself, what the stranger heard from the speaker lately makes 
 (`them_*`): "I command the garrison here" had answered how long he had held it, and again what he did
 off the walls.
 
+From the held-out session's judge (2026-09-28), each classifier measured once on lines written
+before its descriptions were tried:
+- **Grief apart from other hardship** (`acknowledged_grief`, and `acknowledged_grief_work` for a
+  death that came of the speaker's own work): a brother who "didn't make it back" had been met with
+  "you took that hurt in my service". 12 of 12, six deaths and six other hardships, and the 45 lines
+  before unchanged. Some reactions ask back ("What was their name?", "Was it long ago?").
+- **An apology for how the stranger is** (`unwronged_state`): "Sorry, I'm not myself today." two
+  lines after a death had drawn "Whatever for? You have done me no wrong". 14 of 16.
+- **Who they are, with what they are after** (`them_who`), and **why it matters, from their home**
+  (`them_after`, `{home}`).
+- **Whether they would leave, from where their home is**: `{home_here}` when they stand at home,
+  `{away}` when home is elsewhere ("If I could? I'd go home to Linbrig").
+
 ## What a speaker recalls
 
 Contract version 12: the director keeps each speaker's conversation log and, once the game compacts
@@ -595,7 +608,9 @@ facts, what the speaker remembers of the stranger from before that bears on the 
   so), while who or what they are stays as it is ("you're Aldric", "you are a smith"); the first
   word lowered when any sentence may begin with it, the end stop dropped. The voice's line turns
   them the same way, to "they" (`text::of_them`). Of words that run to more than one sentence, the
-  first of three words or more; none past fourteen words; and none that speak to someone ("I owe you
+  first of three words or more, with the next when it leans on it ("My brother came with me. He
+  didn't make it back." as "your brother came with you; he didn't make it back": alone, the first had
+  kept the least of it); none past fourteen words; and none that speak to someone ("I owe you
   my life"), which said back would turn about. Not while said lately (`recent`), not from a cold or
   frightened speaker, whose own lines are all they say, and not after a greeting that thanks the
   stranger for easing the speaker, where "what you told me" is heard as the calming words, nor after

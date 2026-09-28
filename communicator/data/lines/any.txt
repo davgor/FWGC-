@@ -215,7 +215,7 @@ any | them_after | What I'm after is plain enough: I mean to {after}.
 any | them_past | I {lost}.
 any | them_past | I {done}.
 any | them_ties | {ties}.
-any | them_ties | As for who stands where: {ties}.
+any | them_ties | Few enough: {ties}.
 any | them_plans | Leave? Not while I mean to {after}.
 any | them_plans | I'll stay while I mean to {after}.
 any | them_secret | That's mine to keep.
@@ -247,7 +247,7 @@ any | them_stakes | If it goes wrong, I'll still mean to {after}; it will only c
 any | them_here | There's little else to me; I {standing}, and that fills the time.
 any | them_here | Most of the time, I {standing}; that's the whole of it.
 any | acknowledged_hardship_work | Ah, and on my account; I'm sorry it cost you that.
-any | acknowledged_hardship_work | Well, you took that hurt in my service, and I'll not forget it.
+any | acknowledged_hardship_work | Well, whatever it cost you, it cost you in my service, and I'll not forget it.
 any | acknowledged_deed_work | Is that so? Then you're the kind I had in mind for the work.
 any | acknowledged_deed_work | Good; that's the kind of hand the work needs.
 # How long they have been here: the world does not say, so no line claims a time.
@@ -279,3 +279,29 @@ any | greeted_who | The name's {speaker}; I'm {post} here.
 any | greeted_who | You're speaking to {speaker}, {post} here.
 any | them_here | Not much else; the post takes all of me.
 any | them_here | Not much that isn't the post; it takes all the time I have.
+# Why their work matters to them, from their home; and reactions that ask back (contract version 13).
+any | them_after | {home} is my home, and I mean to {after}.
+any | them_after | It's for {home}; I mean to {after}, and the {danger} would have it otherwise.
+any | acknowledged_hardship | Ah, that's a hard thing. Was it long ago?
+any | acknowledged_hardship | Ah, I'm sorry for it. Is there anyone to see to you?
+any | acknowledged_hardship_work | Ah, and on my account; I'm sorry it cost you that. Is there anything I can do?
+any | acknowledged_deed | Is that so? How did you come to it?
+any | acknowledged_plan | Right, go carefully. What takes you there?
+any | acknowledged_kin | Aye, that's good to hear. Do you see them often?
+# Who they are, with what they are after; and whether they would leave, from where their home is
+# (contract version 13).
+any | them_who | They call me {speaker}[ {known_as}]; I call {home} home, and I mean to {after}.
+any | them_who | I'm {speaker}[ {known_as}], of {home}, and I mean to {after}.
+any | them_plans | If I could? I'd go home to {away}, I think; but not while I mean to {after}.
+any | them_plans | If I could? {home_here} is my home, and I'd not know where else to go.
+any | them_plans | Leave {home_here}? It's my home; I'll not leave it while I mean to {after}.
+# A death told, heard as grief, and one that came of the speaker's own work; an apology for how the
+# stranger is, not for a wrong (contract version 13).
+any | acknowledged_grief | Ah, I'm sorry for your loss. That's a heavy thing to carry.
+any | acknowledged_grief | Ah, I'm sorry. What was their name?
+any | acknowledged_grief | Aye, I'm sorry for it; no one should have to carry that.
+any | acknowledged_grief_work | Ah, and in my service; I'm sorry for your loss, and I'll not forget what it cost you.
+any | acknowledged_grief_work | Ah, I'm sorry, and in my service. What was their name?
+any | unwronged_state | There's nothing to forgive; you've had a hard road.
+any | unwronged_state | Nothing to forgive; you've reason enough to be.
+any | unwronged_state | No harm done; rest, and you'll be yourself again.

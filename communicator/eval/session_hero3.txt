@@ -1,0 +1,38 @@
+# The golden benchmark's third session, held out: written 2026-09-28, after the fixes drawn from the
+# second session (which is no longer held out), and before this one was ever run. Another hero,
+# another world, other words. Judged blind as the first (communicator/eval/README.md, "The hero
+# benchmark"). Each line is labelled with the act it means.
+world 7 33 30
+who hero giver 2
+
+# A first meeting.
+say hero greet | Morning. Is this your post?
+say hero ask_about_them | What's your name?
+say hero small_talk | Busy day?
+say hero ask_about_them | What are you trying to do out here?
+say hero ask_for_work | I could use the work. Anything going?
+say hero ask_about_them | Why can't you handle it yourself?
+say hero answer | I've never been much of a fighter, but I'm quick.
+say hero accept_quest @own | Fine, I'm in.
+say hero thank | I appreciate the trust.
+say hero farewell | See you soon.
+
+# Out of sight: compacted; the work is done four days on.
+compact hero
+advance 4
+resolve hero finished
+say hero greet | Hello again. It's done.
+say hero small_talk | Was it worth all that?
+say hero answer | We lost two good people out there.
+say hero insult | You never said there'd be so many of them.
+say hero apologize | Sorry. It's been a long few days.
+say hero farewell | I'll be at the inn.
+
+# A month later.
+compact hero
+advance 30
+say hero greet | It's been a while.
+say hero small_talk | Anything changed since?
+say hero ask_about_them | Who are your enemies?
+say hero ask_about_them | Do you ever miss home?
+say hero farewell | Stay safe.

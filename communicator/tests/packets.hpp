@@ -620,6 +620,16 @@ inline FactPacket about_them() {
                     {{"creature", "Frost owls"}, {"danger", "2"}, {"family", "fantastic"}, {"range", "close"}}}});
 }
 
+// Asked about themself, a hero far from home: the castellan's record with home elsewhere.
+inline FactPacket about_them_far_from_home() {
+    FactPacket p = about_them();
+    for (Fact& f : p.facts)
+        if (f.kind == FactKind::Self)
+            for (auto& [field, value] : f.fields)
+                if (field == "home") value = "Linbrig";
+    return p;
+}
+
 // Small talk with the castellan once the stranger has finished his work.
 inline FactPacket small_talk_after_work() {
     return packet(castellan(), ActKind::SmallTalk, Outcome::Chatted,
@@ -630,6 +640,7 @@ inline FactPacket small_talk_after_work() {
 
 inline std::vector<FactPacket> conversation() {
     return {about_them(),
+            about_them_far_from_home(),
             small_talk_after_work(),
             greeted_first(),
             greeted_again(),
