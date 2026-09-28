@@ -96,6 +96,30 @@ TEST(the_strangers_words_choose_what_small_talk_is_about) {
         }
 }
 
+// How they are keeping is answered from their day, not the season or the hour, where a line can:
+// "Busy day?" drew "It's the turn of the season already" twice (the hero benchmark's judges,
+// 2026-09-28).
+TEST(asked_how_they_keep_small_talk_answers_from_their_day) {
+    const Lines lines = Lines::parse("any | small_talk | It's {season} already; the year goes quickly.\n"
+                                     "any | small_talk | I'm busy as ever; the post never sleeps.\n"
+                                     "any | small_talk | Well enough this {time}, thank you.\n",
+                                     "test");
+    std::set<std::string> in_turn;
+    for (int heard = 0; heard < 3; ++heard) in_turn.insert(lines.speak(chat(heard), "Busy today?"));
+    check::equal(in_turn.size(), std::size_t(3), "the premise: in turn, the season and the hour to a question of their day");
+    Meaning meaning(test_model::embedder());
+    for (const std::string asked : {"Busy today?", "How are you keeping these days?"})
+        for (int heard = 0; heard < 3; ++heard)
+            check::equal(lines.speak(chat(heard), asked, {}, &meaning), std::string("I'm busy as ever; the post never sleeps."),
+                         "\"" + asked + "\": their day");
+    const Lines seasons = Lines::parse("any | small_talk_fair | It's clear and bright; not a cloud in the sky.\n"
+                                       "any | small_talk | It's {season} already; the year goes quickly.\n",
+                                       "test");
+    for (int heard = 0; heard < 3; ++heard)
+        check::equal(seasons.speak(chat(heard), "Busy today?", {}, &meaning), std::string("It's deep winter already; the year goes quickly."),
+                     "no line of their day without the season: the season, and not the weather");
+}
+
 TEST(asked_for_news_small_talk_answers_with_it) {
     // "Any news?" drew the morning light from a speaker with news to give (judged 2026-09-27).
     const Lines lines = Lines::parse("any | small_talk_fair | It's dry and fair, for {season}.\n"

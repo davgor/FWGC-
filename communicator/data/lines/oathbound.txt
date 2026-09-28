@@ -1011,7 +1011,7 @@ oathbound/NN | them_long | As long as it's taken, and I'll stay as long as it ta
 oathbound/NN | them_long | Since before you'd have thought to ask; I {standing}, and a sworn thing doesn't wear out.
 oathbound/NN | them_long | I've not kept count of that, and I keep count of nearly everything.
 oathbound/NN | them_ties | {ties}. Where I've given my word, it holds, and where I haven't, I keep watch.
-oathbound/NN | them_ties | {ties}; with each of them, I keep the account straight.
+oathbound/NN | them_ties | {ties}, and whatever I have sworn to them, I keep.
 oathbound/NN | them_plans | My home is {away}, and it can wait; a promise can't. I mean to {after}, and I'll go when it's kept, not before.
 oathbound/NN | them_plans | I'd not leave {home_here} even if I could; it's home, and I mean to {after}, and I don't walk away from a sworn thing.
 oathbound/NN | them_plans | What comes next is what I swore to: I mean to {after}[, and the {danger} can make of that what they like].

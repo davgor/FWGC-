@@ -1455,6 +1455,17 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         std::vector<Spoken> on_it;
         for (const Spoken& s : spoken)
             if (subject == 0 ? of_the_weather(s.situation) : s.situation == "small_talk") on_it.push_back(s);
+        // How they are keeping is answered from their day, not the season or the hour, where a line can:
+        // "Busy day?" drew "It's the turn of the season already" twice (the hero benchmark's judges,
+        // 2026-09-28).
+        if (subject == 1) {
+            const std::string season = first_field(p, FactKind::Chat, "season"), time = first_field(p, FactKind::Chat, "time");
+            std::vector<Spoken> their_day;
+            for (const Spoken& s : on_it)
+                if ((season.empty() || s.text.find(season) == std::string::npos) && (time.empty() || s.text.find(time) == std::string::npos))
+                    their_day.push_back(s);
+            if (!their_day.empty()) on_it = std::move(their_day);
+        }
         if (!on_it.empty()) spoken = std::move(on_it);
     }
     // What the stranger tells of themself is taken as what it is (contract version 13): a wound in the
