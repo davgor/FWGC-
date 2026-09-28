@@ -91,6 +91,14 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   director's: these only choose among it. What the stranger did is said to them as their deed
   (`heard_deed`), never handed to them as news, and never read back as fact once told: they never
   said it was them.
+- **What a speaker says of themself is said in C++'s words** (`src/them.hpp`, contract version 13):
+  what they are after, how they stand, a city lost, a deed, their ties, written from the Self, Deed
+  and Person facts' own fields. A written line's `them_*` blanks hold them whole, and a field the
+  words do not know says nothing. The card's secrets are in no packet: `them_secret` lines keep back
+  in character without naming what. How long they have been anywhere is never a time (`them_long`),
+  since the world does not record it. What they stand against (`{danger}` in `them_*`) is named
+  without how far, which small talk and "is it safe" say: said with it, one conversation heard the
+  same nest four times.
 - **The player's own words come back only as C++ turns them** (contract version 12): `{words}` is
   the kept words said back to the stranger (`text::said_back`), and a `recalled` line adds only how
   the speaker takes having kept them: no fact about them, no question after them, no judgement of

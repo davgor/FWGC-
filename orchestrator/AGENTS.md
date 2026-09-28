@@ -36,6 +36,9 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
     face of the day;
   - a card's voice (`manner`, `voice`, `toward_player`, `line`, `never`), never its secrets
     (`lies`, `belief`, `wants`, `fears`, `tells`);
+  - of themself (`ask_about_them`, contract version 13), the world's public record of them, never
+    the card's: a hero's epithet, fame, home, presence, claim, a city lost, deeds and ties; a mask
+    still worn, only its trade and where it stands; a roster person, their post and place;
   - a hook's stated purpose, never its actual effect or whether the purpose is true;
   - places and people within reach, and a hero's rivals, kin and allies wherever they stand;
   - a refusal's reason in the director's own words, never the generator's message, which names
