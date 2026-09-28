@@ -1,0 +1,48 @@
+# The golden benchmark: a sustained conversation with a hero (the owner, 2026-09-27: "I do eventually
+# want to get to a point in the communicator where they are able to sustain a real-ish conversation.
+# Particularly though heroes. So thats the golden benchmark to hit.").
+#
+# One hero who gives work, over three visits with compactions between: met, asked who they are and
+# why they hold what they hold, their work taken; back with it done, told what it cost; back again
+# weeks later. The player's lines are fixed: they are what a player would say, whatever the director
+# and the communicator can do with them today. Each is labelled with the act the interpreter would
+# read it as today; when an act that fits a line better is added, its label changes and the line
+# stays. A blind judge reads the transcript (communicator/eval/README.md, "The hero benchmark").
+# orchestrator_session plays it; communicator_eval --session speaks it.
+world 99 33 30
+who hero giver 0
+
+# A first meeting.
+say hero greet | Hail. You're the one who holds this place, aren't you?
+say hero ask_about_person hero | Tell me about yourself.
+say hero small_talk | How long have you held it?
+say hero small_talk | Quiet day?
+say hero ask_for_work | I'm looking for work. Anything you need done?
+say hero small_talk | Why do you need help holding it?
+say hero ask_safety | What's out there that I should worry about?
+say hero answer | I've done some soldiering. Held a bridge in the south for a winter once.
+say hero accept_quest @own | All right. I'll do it.
+say hero small_talk | What happens if I fail?
+say hero thank | Thank you for trusting me with this.
+say hero farewell | I'll see you when it's done.
+
+# Out of sight: compacted; the work is done two days on.
+compact hero
+advance 2
+resolve hero finished
+say hero greet | It's done. The fortress held.
+say hero small_talk | Was it as bad as you feared?
+say hero answer | I nearly lost my arm on the second night.
+say hero ask_for_work | Is there more I can do?
+say hero insult | You could have warned me it would be that bad.
+say hero apologize | Sorry. I'm just tired.
+say hero farewell | I'll rest a while. Goodbye.
+
+# Weeks later.
+compact hero
+advance 20
+say hero greet | Remember me?
+say hero small_talk | How have things been since?
+say hero ask_about_person hero | What do you do when you're not holding the walls?
+say hero small_talk | Do you ever think of leaving?
+say hero farewell | Take care of yourself.

@@ -324,6 +324,41 @@ the director's rules keep without it (the stranger's answers, whole): how many o
 keeping each finds, how many of its quotes are worth nothing, and how many of the logs with nothing
 worth keeping it keeps empty. The measures are in the communicator README, "The summarizer".
 
+## The hero benchmark: session_hero.txt
+
+The owner, 2026-09-27: "I do eventually want to get to a point in the communicator where they are
+able to sustain a real-ish conversation. Particularly though heroes. So thats the golden benchmark to
+hit." `session_hero.txt` is that benchmark: one hero who gives work, met three times with compactions
+between. The player asks who they are, how long they have held their seat, why they need help, what
+happens if the work fails; tells them of their own soldiering; takes the work; comes back with it
+done and an arm nearly lost; complains, apologises; comes back weeks later and asks what they do off
+the walls and whether they would ever leave. The player's lines are fixed: they are what a player
+would say, whatever the director and the communicator can do with them. Each is labelled with the
+act the interpreter would read it as today, and when an act that fits a line better is added, its
+label changes and the line stays.
+
+It is played and spoken as the other sessions are, and read by a blind judge, a fresh one each time,
+who is told only what the transcript shows (`judge_hero.md`, word for word). Besides SENSE, MEMORY, REPEAT, INVENTS and TONE, the judge
+marks DODGE (a reply that does not engage with what the player actually said: a question about the
+character answered with the weather, a story of hardship met with a shrug) and CHARACTER (not the
+same person, or not a hero), and gives three things more: the turn where it first stops feeling like
+a conversation with a person, a score from 1 (a vending machine) through 3 (a character with set
+answers that sometimes land) to 5 (a person you could keep talking to), and the three changes that
+would most improve it.
+
+**The benchmark to hit:** 22 of 24 replies without fault, a score of 4 or more, and no turn where the
+illusion breaks.
+
+**Where it stands** (the written lines chosen by meaning, 2026-09-28, the first judge): 10 of 24
+without fault (DODGE 10, SENSE 8, REPEAT 2, MEMORY 1, CHARACTER 1, TONE 1, INVENTS 0); score 2; the
+illusion breaks at turn 3, "How long have you held it?", heard as small talk and answered with a
+proverb. The judge: "He stays himself ... He also remembers things ... But what works is almost all
+transaction", "He never reads as a hero either: no history, no deeds, no stakes". Its three changes:
+hear and answer the questions asked about the hero and the work (a history, the stakes, opinions of
+their own); answer what the player tells in proportion (a soldier's record while recruiting, a wound
+taken in their service, a grievance); and keep a true account of what passed (the memory kept six
+offers as told that no reply said, since a packet held eight offers and the line named three).
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).
