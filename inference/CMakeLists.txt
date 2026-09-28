@@ -54,13 +54,9 @@ else()
   set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 endif()
 
-include(FetchContent)
-FetchContent_Declare(llama_cpp
-  URL https://codeload.github.com/ggml-org/llama.cpp/tar.gz/refs/tags/v0.5.0
-  URL_HASH SHA256=fef9ed754f4e031fb5c663c29260feda4ebc241abb68d64a81c0f1df5f1748e2
-  DOWNLOAD_EXTRACT_TIMESTAMP TRUE
-  SYSTEM
-)
+# llama.cpp v0.5.0, as dependencies.json names it (its source, size and hash), from the shared cache.
+include(${CMAKE_CURRENT_LIST_DIR}/../dependencies.cmake)
+fwgc_dependency(llama_cpp SYSTEM)
 FetchContent_MakeAvailable(llama_cpp)
 
 # This component's C++20 is set only now, after llama.cpp's targets exist: llama.cpp is written

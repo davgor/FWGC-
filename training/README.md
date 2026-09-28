@@ -29,7 +29,9 @@ ships: the runtime loads the result as a GGUF through llama.cpp, like any model.
    compared with a base quantized the same way.
 
 ```bash
-python -m venv training/.venv            # then install as requirements.txt says
+python -m venv training/.venv
+training/.venv/Scripts/python -m pip install --require-hashes -r training/requirements.txt
+training/.venv/Scripts/python -m pip install --no-deps <llama.cpp source>/gguf-py
 training/.venv/Scripts/python training/make_pairs.py --session-tool <orchestrator_session.exe> \
     --eval <communicator_eval.exe> --lines communicator/data/lines --eval-lines communicator/eval/lines.txt \
     --out training/data --worlds 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115

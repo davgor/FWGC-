@@ -24,7 +24,8 @@ The tests generate the seed-42 size-33 world, small and large, and the seed-99 s
 which holds every kind of hidden face. They take about two and a half minutes on this machine
 (measured 2026-09-27; the suite before the brain database took two). The same build makes
 `fwgc_director.dll`, the C interface below, and `orchestrator_c_tests`, which hold it to the
-director in about forty seconds more. The build fetches SQLite's source by URL and hash.
+director in about forty seconds more. The build fetches SQLite's source as `../dependencies.json`
+names it, through the shared cache (`../dependencies.cmake`).
 
 ## What it does
 
@@ -225,7 +226,7 @@ player brought about; small talk the newest at the place they stand; an answer a
 two there; about a person, one about them. Nobody says anything they have not heard.
 
 **The brain database.** One SQLite database in memory per director (SQLite 3.53.4, fetched at
-build time by URL and hash; public domain). The game reads it with SQL, `query(sql)` and
+build time as `../dependencies.json` names it; public domain). The game reads it with SQL, `query(sql)` and
 `fwgc_query`; only the director writes it, through its recorded inputs. A save does not hold it:
 replaying the inputs writes it again, row for row (tested table by table).
 

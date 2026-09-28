@@ -15,9 +15,10 @@ cmake --build inference/build --config Release
 ctest --test-dir inference/build -C Release --no-tests=error
 ```
 
-The first configure downloads **llama.cpp v0.5.0**, the source archive from
-`codeload.github.com/ggml-org/llama.cpp` (37,561,391 bytes). `CMakeLists.txt` pins it by
-SHA-256, so a different archive fails the build.
+The first configure on a machine downloads **llama.cpp v0.5.0**, the source archive from
+`codeload.github.com/ggml-org/llama.cpp` (37,561,391 bytes), into the shared cache every build
+uses (`../dependencies.cmake`). `../dependencies.json` pins it by SHA-256, so a different archive
+fails the build.
 
 Only the library is built:
 - no tools, server, examples or tests of llama.cpp's own;
@@ -40,10 +41,11 @@ keeps `models/` out of git.
 | Licence | Apache-2.0 |
 
 ```bash
-curl -L -o inference/models/qwen2.5-0.5b-instruct-q4_0.gguf \
-  https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/main/qwen2.5-0.5b-instruct-q4_0.gguf
-sha256sum inference/models/qwen2.5-0.5b-instruct-q4_0.gguf
+cmake -DONLY=qwen2_5_0_5b_instruct_q4_0 -P dependencies.cmake   # from the repository root
 ```
+
+That fetches it into `inference/models/` and checks its SHA-256; `-DWITH=models` fetches every
+model below that `../dependencies.json` names, and `-DVERIFY=ON` checks the ones on disk.
 
 `FWGC_TEST_MODEL` points the tests at another copy. Without a model, every test that needs one
 **fails** and says how to get it; none is skipped.
