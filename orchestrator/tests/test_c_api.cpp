@@ -257,8 +257,8 @@ void same_acquaintance(const Handle& h, const Director& d, const std::string& sp
     const fwg::JsonValue j = fwg::parse_json(text);
     const auto& [conversations, talking, last_day, since, turn, disposition, thanked, calmed, eased_day, said, heard,
                  grievances, forgiven, asked_now, asked_before, work, exposed, finished_covert, heard_truth,
-                 seen_unleashed, seen_second, days_met, works_finished] = *known;
-    check::equal(j.size(), std::size_t(23), what + ": every field of the acquaintance");
+                 seen_unleashed, seen_second, days_met, works_finished, work_news_in] = *known;
+    check::equal(j.size(), std::size_t(24), what + ": every field of the acquaintance");
     check::equal(j.at("conversations").as_int(), std::int64_t(conversations), what + " conversations");
     check::equal(j.at("talking").as_bool(), talking, what + " talking");
     check::is_true(j.at("last_day").as_float() == last_day, what + " last_day");
@@ -290,6 +290,7 @@ void same_acquaintance(const Handle& h, const Director& d, const std::string& sp
     check::equal(j.at("seen_second").as_bool(), seen_second, what + " seen_second");
     check::equal(j.at("days_met").as_int(), std::int64_t(days_met), what + " days_met");
     check::equal(j.at("works_finished").as_int(), std::int64_t(works_finished), what + " works_finished");
+    check::equal(j.at("work_news_in").as_int(), std::int64_t(work_news_in), what + " work_news_in");
 }
 
 // Memories as the interface writes them, held to the director's, field for field.

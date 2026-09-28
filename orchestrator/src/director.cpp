@@ -317,6 +317,7 @@ Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool r
                 {"since", recognised && again ? a.since : std::string()},
                 {"mood", recognised ? mood_of(a.disposition) : std::string("hostile")},
                 {"work", recognised ? a.work : std::string()},
+                {"work_news", recognised && a.work_news_in != 0 && a.conversations == a.work_news_in ? "yes" : "no"},
                 {"beside", recognised && beside ? "yes" : "no"},
                 {"asked_before", recognised ? a.asked_before : std::string()},
                 {"turn", std::to_string(a.turn)},
@@ -954,6 +955,10 @@ void Director::resolve(const std::string& quest_id, bool completed) {
     if (const fwg::HeroQuestHook* hook = hook_of(world_, quest_id); hook && !hook->giver_uid.empty()) {
         Acquaintance& giver = acquainted_[hook->giver_uid];
         giver.work = completed ? "finished" : "failed";
+        // News between them in the next conversation to begin, and only that one (contract version 17): a
+        // castellan thanked the player for work finished "as if it were news, two weeks and a whole visit
+        // later" (a held-out session's judge, 2026-09-28).
+        giver.work_news_in = giver.conversations + 1;
         regard(giver, completed ? kWorkFinished : kWorkFailed);
         if (completed) ++giver.works_finished;
         if (completed && hook->unwitting) giver.finished_covert = true;

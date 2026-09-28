@@ -411,6 +411,8 @@ TEST(a_speaker_who_is_gone_refuses_by_name) {
     check::is_true(!p.persona.name.empty(), "the premise: the one gone has a name");
     check::equal(*of_kind(p, FactKind::Reason).front()->field("reason"), p.persona.name + " is gone", "gone, by name");
     check::equal(*of_kind(p, FactKind::Reason).front()->field("why"), std::string("gone"), "the kind of refusal");
+    // Never spoken to, in no conversation: nothing is news between them (contract version 17).
+    check::equal(*of_kind(p, FactKind::Memory).front()->field("work_news"), std::string("no"), "no news between strangers");
 }
 
 TEST(what_a_speaker_describes_is_real_and_within_reach) {

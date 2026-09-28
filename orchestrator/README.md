@@ -104,7 +104,10 @@ about its speaker:
   (contract version 6): what a speaker says to it can differ each time;
 - `mood`, from "hostile" to "warm": thanks (once a conversation) and taking or finishing the
   speaker's work raise it; insults, giving work up and failing it lower it;
-- `work`, the player's latest dealing with the speaker's own work;
+- `work`, the player's latest dealing with the speaker's own work, and `work_news` (contract
+  version 17): "yes" in the first conversation to begin after that work was finished or failed,
+  when what came of it is news between them, and "no" after (a castellan had thanked the player
+  for work finished "as if it were news, two weeks and a whole visit later");
 - `asked_before`, the place or person the player asked about in their last conversation, by
   name (contract version 7: before it, what was last asked in any earlier one);
 - `exposed`, once the player has made the speaker own to a hidden face;

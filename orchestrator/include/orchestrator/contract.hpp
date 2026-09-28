@@ -41,7 +41,9 @@ namespace orchestrator {
 //     when that giver is tied to the speaker.
 // 16: a speaker with work of their own names only theirs the first time they are asked for work in
 //     a conversation, and others' too when asked again.
-inline constexpr int kContractVersion = 16;
+// 17: the Memory fact's `work_news`: "yes" in the first conversation to begin after the speaker's own
+//     work was finished or failed, when what came of it is news between them.
+inline constexpr int kContractVersion = 17;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.

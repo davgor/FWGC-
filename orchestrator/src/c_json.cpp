@@ -166,7 +166,7 @@ fwg::JsonValue packet_json(const FactPacket& packet) {
 fwg::JsonValue acquaintance_json(const Director::Acquaintance& acquaintance) {
     const auto& [conversations, talking, last_day, since, turn, disposition, thanked, calmed, eased_day, said, heard,
                  grievances, forgiven, asked_now, asked_before, work, exposed, finished_covert, heard_truth,
-                 seen_unleashed, seen_second, days_met, works_finished] = acquaintance;
+                 seen_unleashed, seen_second, days_met, works_finished, work_news_in] = acquaintance;
     fwg::JsonValue acts = fwg::JsonValue::array();
     for (const auto& [kind, target] : said) {
         fwg::JsonValue pair = fwg::JsonValue::array();
@@ -202,6 +202,7 @@ fwg::JsonValue acquaintance_json(const Director::Acquaintance& acquaintance) {
     out.set("seen_second", seen_second);
     out.set("days_met", days_met);
     out.set("works_finished", works_finished);
+    out.set("work_news_in", work_news_in);
     return out;
 }
 

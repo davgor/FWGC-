@@ -498,6 +498,40 @@ TEST(a_giver_remembers_work_finished_or_failed) {
     check::equal(d.inputs().size(), inputs, "a caller's mistake records nothing");
 }
 
+// Contract version 17: what came of the speaker's own work is news in the first conversation to begin
+// after it, and only in that one: a castellan thanked the player for work finished "as if it were news,
+// two weeks and a whole visit later" (a held-out session's judge, 2026-09-28). By the conversations, not
+// the days: no time passes here.
+TEST(what_came_of_their_work_is_news_in_the_next_conversation_only) {
+    Director d(faced_world());
+    const std::vector<std::string> all = givers();
+    for (const bool completed : {true, false}) {
+        const std::string& giver = all[completed ? 0 : 1];
+        const std::vector<std::string> offers = own_offers(d, giver);
+        check::is_true(!offers.empty(), "the premise: an offer of their own");
+        const FactPacket took = d.respond(giver, {ActKind::AcceptQuest, offers.front()});
+        check::is_true(took.outcome == Outcome::Accepted, "the premise: taken");
+        check::equal(memory(took)["work_news"], std::string("no"), "taken before them: no news");
+        d.resolve(offers.front(), completed);
+        const std::string state = completed ? "finished" : "failed";
+        Memory m = memory(d.respond(giver, {ActKind::SmallTalk, ""}));
+        check::is_true(m["work"] == state && m["work_news"] == "no", "resolved while they talked: not news in that conversation");
+        (void)d.respond(giver, {ActKind::Farewell, ""});
+        m = memory(d.respond(giver, {ActKind::Greet, ""}));
+        check::is_true(m["work"] == state && m["work_news"] == "yes", state + ": news in the next conversation");
+        check::equal(memory(d.respond(giver, {ActKind::SmallTalk, ""}))["work_news"], std::string("yes"), "for the whole of it");
+        (void)d.respond(giver, {ActKind::Farewell, ""});
+        m = memory(d.respond(giver, {ActKind::Greet, ""}));
+        check::is_true(m["work"] == state && m["work_news"] == "no", state + ": not in the one after");
+        (void)d.respond(giver, {ActKind::Farewell, ""});
+    }
+    // Replayed, the same.
+    Director again = orchestrator::replay(faced_world(), d.inputs());
+    for (const bool completed : {true, false})
+        check::equal(again.acquaintance(all[completed ? 0 : 1])->work_news_in, d.acquaintance(all[completed ? 0 : 1])->work_news_in,
+                     "replay rebuilds it");
+}
+
 // The site a hero holds (their presence), empty for anyone else.
 std::string site_held(const fwg::World& world, const std::string& uid) {
     for (const fwg::Hero& h : world.heroes.people)
@@ -891,6 +925,23 @@ TEST(a_beast_is_unleashed_about_the_full_moon_and_owns_to_it_after) {
                        value(reveal[0], "is") == unleashed.apparent_role,
                    "the face it owns to");
     check::is_true(owned.persona.face.empty(), "and stays calm while it does");
+}
+
+// A face that does not know the player has no news of their work for them either (contract version 17).
+TEST(a_face_that_knows_nobody_has_no_news_of_their_work) {
+    const fwg::World& w = faced_world();
+    const fwg::Hero& beast = *heroes_with("calm", "unleashed").front();
+    Director d(w);
+    advance_to_a_day(d, [&](double day) { return !full_moon_near(w, day); }, "a day far from the full moon");
+    const std::vector<std::string> offers = own_offers(d, beast.uid);
+    check::is_true(!offers.empty(), "the premise: work of the beast's own");
+    check::is_true(d.respond(beast.uid, {ActKind::AcceptQuest, offers.front()}).outcome == Outcome::Accepted, "the premise: taken");
+    d.resolve(offers.front(), true);
+    advance_to_a_day(d, [&](double day) { return fwg::moon_phase_on(w, day)->full; }, "the full moon");
+    const FactPacket p = d.respond(beast.uid, {ActKind::Greet, ""});
+    check::equal(p.persona.face, std::string("unleashed"), "the premise: unleashed, in the next conversation");
+    const Memory raging = memory(p);
+    check::is_true(raging.at("work").empty() && raging.at("work_news") == "no", "no work of theirs, and no news of it");
 }
 
 TEST(a_fractured_heart_shows_each_face_on_its_own_days) {

@@ -303,6 +303,8 @@ public:
         bool seen_second = false;      // met a fractured heart's second face
         int days_met = 0;              // calendar days on which a conversation began
         int works_finished = 0;        // the speaker's own work the player finished, ever (only heroes give work)
+        int work_news_in = 0;          // the conversation in which what came of their work is news: the first
+                                       // to begin after it was finished or failed; 0 for none
     };
     // Nullptr for someone the session holds nothing of: never spoken to, never dealt with, never
     // told the truth of.
