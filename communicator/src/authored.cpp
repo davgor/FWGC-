@@ -1547,7 +1547,9 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     // words of an answer are a writer's for a calm speaker, and "the words she says should be
     // panicked" (the owner, 2026-09-26).
     std::string reply = choose(telling(spoken)).first;
-    if (!who.empty() && !asks(reply)) reply += " " + who;
+    // Nor after a greeting that names them already ("Hello. I'm {speaker}; if we've business..."): the
+    // name twice in one breath (two writers, 2026-09-28).
+    if (!who.empty() && !asks(reply) && reply.find(text::spoken(p.persona.name)) == std::string::npos) reply += " " + who;
     const std::string before = lead(p, recent);
     return then_news(before.empty() ? reply : before + " " + reply);
 }

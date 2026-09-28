@@ -239,10 +239,10 @@ any | them_here | It's been long enough to know every stone of the place; I {sta
 
 # What is at stake in their work, and more of their days; a hurt the stranger took in the speaker's
 # work, and a deed told while the speaker is hiring (contract version 13).
-any | them_need | Because I can't {after} alone, not with the {danger} about.
+any | them_need | Because I can't do it alone, not with the {danger} about, and I mean to {after}.
 any | them_stakes | If it fails, the {danger} have their way, and I'll still mean to {after}.
-any | them_need | No one could {after} alone, and the {danger} know it.
-any | them_need | Because no one can {after} alone.
+any | them_need | No one could do it alone, and the {danger} know it; all the same, I mean to {after}.
+any | them_need | Because no one can do it alone, and I mean to {after}.
 any | them_stakes | If it goes wrong, I'll still mean to {after}; it will only cost more.
 any | them_here | There's little else to me; I {standing}, and that fills the time.
 any | them_here | Most of the time, I {standing}; that's the whole of it.
@@ -256,8 +256,8 @@ any | them_long | A good while now; long enough that I {standing} without thinki
 any | them_long | More seasons than I care to count; I {standing}.
 # Why they need help apart from what comes if it fails; and asked for work again with nothing new,
 # the answer said again as told (contract version 13).
-any | them_stakes | If it fails? The {danger} won't wait while I look for another pair of hands; I'll {after} alone if I must.
-any | them_stakes | Then I go on without you; I mean to {after} whatever it costs.
+any | them_stakes | If it fails? The {danger} won't wait while I look for another pair of hands; alone if I must, I'll {after}.
+any | them_stakes | Then I go on without you; whatever it costs, I mean to {after}.
 any | work_own_told | It's as I told you: {own}.[ Or else, {others}.]
 any | work_own_told | It's the same as before: my own work's still open, {own}.
 any | work_others_told | Nothing new since I told you: none of mine, and the others I named still want hands.
@@ -291,7 +291,7 @@ any | acknowledged_kin | Aye, that's good to hear. Do you see them often?
 # Who they are, with what they are after; and whether they would leave, from where their home is
 # (contract version 13).
 any | them_who | They call me {speaker}[ {known_as}]; I call {home} home, and I mean to {after}.
-any | them_who | I'm {speaker}[ {known_as}], of {home}, and I mean to {after}.
+any | them_who | I'm {speaker}[ {known_as}], and I mean to {after}.
 any | them_plans | If I could? I'd go home to {away}, I think; but not while I mean to {after}.
 any | them_plans | If I could? {home_here} is my home, and I'd not know where else to go.
 any | them_plans | Leave {home_here}? It's my home; I'll not leave it while I mean to {after}.

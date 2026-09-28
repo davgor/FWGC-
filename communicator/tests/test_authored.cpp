@@ -1129,6 +1129,10 @@ TEST(thanks_a_complaint_and_a_greeting_are_heard_for_what_they_are) {
                                       "asking");
     check::equal(asking.speak(first, "Are you the one in charge?", {}, &meaning), std::string("Good day. What brings you here?"),
                  "a greeting that asks: nothing after it");
+    // Nor after a greeting that names them already.
+    const Lines named = Lines::parse("any | greeted | Hello. I'm {speaker}.\nany | greeted_who | I'm {speaker}, {post} here.\n", "named");
+    check::equal(named.speak(first, "Are you the one in charge?", {}, &meaning), std::string("Hello. I'm Selbren."),
+                 "a greeting that names them: nothing after it");
     // Someone met before knows who they are.
     const Lines again = Lines::parse("any | greeted_again | Back again.\nany | greeted_who | I'm {speaker}, {post} here.\n", "again");
     for (const std::string line : {"Are you the one in charge?", "It's done. The fortress held.", "Remember me?"})
