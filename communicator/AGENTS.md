@@ -91,6 +91,15 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   director's: these only choose among it. What the stranger did is said to them as their deed
   (`heard_deed`), never handed to them as news, and never read back as fact once told: they never
   said it was them.
+- **The player's own words come back only as C++ turns them** (contract version 12): `{words}` is
+  the kept words said back to the stranger (`text::said_back`), and a `recalled` line adds only how
+  the speaker takes having kept them: no fact about them, no question after them, no judgement of
+  them, and no when. Words that speak to someone are never said back. "As I told you" before an
+  answer is C++'s, dated by the Recall fact.
+- **The summarizer's answer is held by a grammar** (`summarizer.hpp`): a quote only as a run of the
+  stranger's own whole words within one sentence, never a question; the rest in lower case and the
+  log's own capitalised words. The director checks it again; a change to what may be quoted comes
+  with `communicator_eval --summarize` before and after.
 - **Every reply passes the truth check before it is shown** (`truth.hpp`, `untrue()`).
   `Lines::speak` checks written lines as it chooses them, and says the next line when one fails;
   whatever joins the communicator to the game checks a voice reply and shows the written line

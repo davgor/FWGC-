@@ -44,6 +44,13 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
 
   Every fact names the world id it came from. A test guards each of these; keep them, and prove a
   new one by switching the rule off and watching its test fail.
+- **A log becomes long memory only through `compact()`, and only the game calls it** (README
+  "Short and long memory"). Nothing here compacts of itself, on a timer or a count. Outcomes handed
+  to it are data: each quote is found word for word in the stranger's own lines, each name in the
+  log, and what fails is refused and said; deeds, work, what is open and what became of work come
+  from the director's own state, never from them. They are recorded with the compaction, so replay
+  runs nothing that wrote them. These docs name no model: what writes a summary is the
+  communicator's.
 - **The brain database is the director's to write and the game's to read** (`src/brains.cpp`,
   README "News, and the brain database").
   - Only the director's recorded inputs write it, so replay writes it again row for row; a test
