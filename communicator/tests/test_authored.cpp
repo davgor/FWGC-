@@ -438,6 +438,11 @@ TEST(the_strangers_own_words_are_said_back_after_a_greeting_now_and_then) {
     const Lines lines = Lines::parse("any | recalled | You told me once: {words}.\n"
                                      "any | greeted_again | Hello again.\n"
                                      "any | greeted_cold | What now.\n"
+                                     "any | greeted_eased | Good to see you; I've you to thank for my nerve.\n"
+                                     "any | greeted_taken | Back again. The work is still yours.\n"
+                                     "any | greeted_finished | Welcome back. You did good work.\n"
+                                     "any | greeted_failed | Hello again. It went badly, then.\n"
+                                     "any | greeted_abandoned | Back again. You left my work undone.\n"
                                      "any | heard_deed | You're the one who {deed}, aren't you?\n",
                                      "test");
     const FactPacket remembering = packets::greeted_remembering();
@@ -457,6 +462,26 @@ TEST(the_strangers_own_words_are_said_back_after_a_greeting_now_and_then) {
     FactPacket cold = packets::greeted_remembering();
     cold.facts.back() = packets::memory_of(cold.speaker, {.met = "again", .times = 1, .since = "days", .mood = "hostile"});
     check::equal(lines.speak(cold, "Hello!"), std::string("What now."), "nothing said back by a cold speaker");
+    // Nor after a greeting that thanks the stranger for easing them, which would take "what you told
+    // me" for the calming words.
+    FactPacket eased = packets::greeted_remembering();
+    eased.facts.back() = packets::memory_of(eased.speaker, {.met = "again", .times = 1, .since = "days", .eased = true});
+    check::equal(lines.speak(eased, "Hello!"), std::string("Good to see you; I've you to thank for my nerve."), "nothing said back after an eased greeting");
+    // Nor after a greeting for work of theirs the stranger holds, failed or gave up, which would make it
+    // a reproach; after work finished, as after any other greeting.
+    for (const auto& [work, greeting] : std::vector<std::pair<std::string, std::string>>{
+             {"taken", "Back again. The work is still yours."},
+             {"failed", "Hello again. It went badly, then."},
+             {"abandoned", "Back again. You left my work undone."}}) {
+        FactPacket after = packets::greeted_remembering();
+        after.facts.back() = packets::memory_of(after.speaker, {.met = "again", .times = 1, .since = "days", .work = work});
+        check::equal(lines.speak(after, "Hello!"), greeting, "nothing said back after work " + work);
+    }
+    FactPacket finished = packets::greeted_remembering();
+    finished.facts.back() = packets::memory_of(finished.speaker, {.met = "again", .times = 1, .since = "days", .work = "finished"});
+    check::equal(lines.speak(finished, "Hello!"),
+                 std::string("Welcome back. You did good work. You told me once: your sister keeps the mill at the ford."),
+                 "said back after work finished");
     // Words that speak to someone would turn about, said back: none is said.
     check::equal(lines.speak(packets::greeted_remembering("I owe you my life."), "Hello!"), std::string("Hello again."),
                  "words to the speaker are not said back");
@@ -485,6 +510,34 @@ TEST(a_recalled_row_brings_the_words_in_after_a_colon_says_no_when_and_asks_noth
     check::is_true(fails("any | recalled | You told me the other day: {words}.", "says when"), "the other day");
     check::is_true(fails("any | recalled | Is she well, the one you told me of: {words}?", "asks after the words"), "a question");
     check::is_true(fails("any | recalled | You told me once: {words}; is that still so?", "asks after the words"), "a question after");
+    // The words are the stranger's before they begin.
+    check::is_true(fails("any | recalled | If I may: {words}.", "not the stranger's"), "if I may");
+    check::is_true(fails("any | recalled | I kept this: {words}; you told me so.", "not the stranger's"), "told only after the words");
+    for (const std::string row : {"any | recalled | What I'm told stays with me: {words}.", "any | recalled | I keep what's said to me: {words}.",
+                                  "any | recalled | Quiet's good for keeping what you're told: {words}.",
+                                  "any | recalled | What you are told here stays here: {words}.",
+                                  "any | recalled | At a bedside you learn to keep what folk tell you: {words}."})
+        check::is_true(fails(row, "not the stranger's"), "told, but not by them: " + row);
+    for (const std::string row : {"any | recalled | You gave me this once: {words}.", "any | recalled | I've kept your words: {words}.",
+                                  "any | recalled | I had it from you once: {words}.", "any | recalled | What you were saying went in: {words}.",
+                                  "any | recalled | Hear your own words from me: {words}.",
+                                  "any | recalled | Of all I hear, I kept yours: {words}."})
+        check::is_true(row_problems(row).empty(), "told before the words: " + row);
+}
+
+TEST(a_line_writes_the_first_person_as_a_capital) {
+    using authored_cases::row_problems;
+    const auto says = [](const std::string& row, const std::string& what) {
+        const std::vector<std::string> problems = row_problems(row);
+        return std::any_of(problems.begin(), problems.end(), [&](const std::string& p) { return p.find(what) != std::string::npos; });
+    };
+    check::is_true(says("any | safety_unsafe | No. There are {danger}, and that's reason enough.[ And i'd keep clear of {worst}.]",
+                        "\"i'd\": I is written as a capital"),
+                   "i'd");
+    check::is_true(says("any | small_talk | Well, i think it will hold.", "\"i\": I is written as a capital"), "i");
+    check::is_true(!says("any | safety_unsafe | No. There are {danger}, and that's reason enough.[ And I'd keep clear of {worst}.]",
+                         "I is written as a capital"),
+                   "the control: I'd");
 }
 
 TEST(words_are_said_back_to_the_one_who_said_them) {

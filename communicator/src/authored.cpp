@@ -1287,10 +1287,17 @@ NewsToSay news_to_say(const FactPacket& p, bool unasked) {
 }
 
 // Whether a greeting may end with the stranger's own words said back (contract version 12): to someone
-// met before, from a speaker neither cold nor frightened, who kept words that can be said back.
+// met before, from a speaker neither cold nor frightened, who kept words that can be said back. Not
+// after a greeting that thanks the stranger for easing them: "What you told me..." is heard as the
+// calming words (four refuters of the written lines, 2026-09-27). Nor after one for work of theirs the
+// stranger holds, failed or gave up: "You left my work undone. You told me once: you'd be back before
+// the frost" is a reproach, as it is after "...still not done; I've noticed.", and a boast said back
+// after "It went badly, then." is sarcasm (refuters, the same day). Work finished is thanked, and
+// the words may follow.
 bool says_back(const FactPacket& p) {
     const Remembered m = remembered(p);
-    return p.outcome == Outcome::Greeted && m.again && !m.cold() && !m.frightened() && !words_said_back(p).empty();
+    const bool owed = m.work == "taken" || m.work == "failed" || m.work == "abandoned";
+    return p.outcome == Outcome::Greeted && m.again && !m.cold() && !m.frightened() && !m.eased && !owed && !words_said_back(p).empty();
 }
 
 // Whether the speaker said this news lately, however they put it: "You're the one who helped Wenweg

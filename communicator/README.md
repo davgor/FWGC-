@@ -509,19 +509,21 @@ facts, what the speaker remembers of the stranger from before that bears on the 
   may end with what the stranger once told the speaker of themselves: a `recalled` line after it, a
   sentence of its own ("You told me once: your sister keeps the mill at the ford; I've not
   forgotten."), from the first of the speaker's banks that has one, as news is. `{words}` is the
-  kept words turned to the stranger in C++ (`text::said_back`): I, me, my, we, us and our in
-  every form become yours ("I am" agreeing as "you are", "I was" as "you were"), and what was under
-  way or to come is shifted back, as words told days before are ("I'm on my way" as "you were on
-  your way", "I'll be back" as "you'd be back"; a judge heard "you're on your way", three days on,
-  as still so), while who or what they are stays as it is ("you're Aldric", "you are a smith"); the
-  first word lowered when any sentence may begin with it, the end stop dropped. The voice's line
-  turns them the same way, to "they" (`text::of_them`). Of words that run to more
-  than one sentence, the first of three words or more; none past fourteen words; and none that
-  speak to someone ("I owe you my life"), which said back would turn about. Not while said lately
-  (`recent`), and not from a cold or frightened speaker, whose own lines are all they say. A line
-  in the greeting's own place had first been planned: every alignment's bank has greetings of its
-  own, which would have come before an NN bank's, so every hero's bank would have needed the new
-  lines.
+  kept words turned to the stranger in C++ (`text::said_back`): I, me, my, we, us and our in every
+  form become yours ("I am" agreeing as "you are", "I was" as "you were"), and what was under way or
+  to come is shifted back, as words told days before are ("I'm on my way" as "you were on your way",
+  "I'll be back" as "you'd be back"; a judge heard "you're on your way", three days on, as still
+  so), while who or what they are stays as it is ("you're Aldric", "you are a smith"); the first
+  word lowered when any sentence may begin with it, the end stop dropped. The voice's line turns
+  them the same way, to "they" (`text::of_them`). Of words that run to more than one sentence, the
+  first of three words or more; none past fourteen words; and none that speak to someone ("I owe you
+  my life"), which said back would turn about. Not while said lately (`recent`), not from a cold or
+  frightened speaker, whose own lines are all they say, and not after a greeting that thanks the
+  stranger for easing the speaker, where "what you told me" is heard as the calming words, nor after
+  one for work of theirs the stranger holds, failed or gave up, where it is a reproach ("You left my
+  work undone. You told me once: you'd be back before the frost"). A line in the greeting's own
+  place had first been planned: every alignment's bank has greetings of its own, which would have
+  come before an NN bank's, so every hero's bank would have needed the new lines.
 - **Told before, said so.** Asked about a place or a person the speaker told the stranger of in an
   earlier conversation (a Recall fact `told`, not today's), the answer opens "As I told you a few
   days ago, ...", dated as the Recall fact dates it, the line's first word lowered as "As I said"
@@ -565,6 +567,11 @@ would keep and four with nothing (Qwen3-4B, 8 threads, CPU, about 10 s a log):
 | summarizer, first prompt | 16 of 17 | 7 of 24 | 1 of 4 |
 | second: wider word limits, the stranger "they", an example that keeps nothing | 14 of 17 | 8 of 21 | 2 of 4 |
 | third, as built: a quote within one sentence, never a question | 13 of 17 | 6 of 20 | 3 of 4 |
+
+On the GPU (an RTX 5080 Laptop, Vulkan, every layer offloaded) the third takes about half a second
+a log, 0.15 to 2.4 s, after 7 s for the first while the backend warms up: 16 s for all sixteen
+against about 180 s on the CPU. GPU arithmetic moves greedy answers slightly: it found 12 of 17,
+with 7 of 20 worth nothing (2026-09-27).
 
 The third keeps the fewest worthless quotes, and none can be a question: the first two quoted "Is
 it safe to travel" and "Any work going", which said back would be "You told me once: is it safe to
@@ -771,11 +778,11 @@ dangerous for the rain" of a nest of four or more.
   backed; the stranger's words from before, by a Recall fact that kept them, and "as I told you",
   dated, by one that told them; dated news counting no time out, in every band.
 - **What a speaker recalls** (contract version 12, `tests/test_authored.cpp`): the stranger's words
-  said back after a greeting, turned to them, what was under way shifted back and who they are
-  not, news first, not while said lately, not from a cold
-  speaker, not words that speak to someone or run too long, the first sentence worth saying of
-  two; an answer told in an earlier conversation says so first, dated, and not one told today; the
-  voice is shown each recall, and told to say what was told before.
+  said back after a greeting, turned to them, what was under way shifted back and who they are not,
+  news first, not while said lately, not from a cold speaker nor after an eased greeting or one for
+  work held, failed or given up, not words that speak to someone or run too long, the first sentence
+  worth saying of two; an answer told in an earlier conversation says so first, dated, and not one
+  told today; the voice is shown each recall, and told to say what was told before.
 - **The summarizer** (`tests/test_summarizer.cpp`): what may be quoted is every run of the
   stranger's own whole words within a sentence, never the one who answered, never a question, never
   with its stop or a quote mark; told to summarize an untidy log, the free model quotes words the

@@ -257,11 +257,46 @@ inline std::vector<std::string> news_blank_problems(const std::string& line) {
     return out;
 }
 
+// Whether `lead`, in lower case, says that the words after it are the stranger's, told by them: "you"
+// with a word of telling after it ("you told me", "what you said", "you let me know"), or "your
+// words", "yours", "from you", "by you", "heard you", "listened to you". Said after "If I may:" or
+// "I kept this:", "you'd be back before the frost" is heard as the speaker's own assurance, and a
+// fragment ("to the coast, by the high road") as nonsense; after "what I'm told" or "what's said to
+// me", as word that reached the speaker about the stranger; after "keeping what you're told", as the
+// speaker telling them (refuters, 2026-09-27).
+inline bool marks_them_as_told(const std::string& lead) {
+    static const std::vector<std::string> telling = {"told", "tell",      "telling", "said",    "saying", "spoke",
+                                                     "mentioned", "informed", "stated", "passed", "shared", "gave",
+                                                     "left", "let"};
+    std::vector<std::string> words;
+    std::string word;
+    for (const char c : lead + " ") {
+        if (std::isalpha(static_cast<unsigned char>(c)) || c == '\'') {
+            word += c;
+        } else if (!word.empty()) {
+            words.push_back(word);
+            word.clear();
+        }
+    }
+    for (std::size_t i = 0; i < words.size(); ++i) {
+        if (words[i] == "yours") return true;
+        // "you" as the one who told: not "you are told", nor "you learn" as anyone does.
+        if (words[i] != "you" || (i + 1 < words.size() && (words[i + 1] == "are" || words[i + 1] == "learn"))) continue;
+        for (std::size_t j = i + 1; j < words.size(); ++j)
+            if (std::find(telling.begin(), telling.end(), words[j]) != telling.end()) return true;
+    }
+    for (const std::string phrase : {"your words", "your own words", "your telling", "from you", "by you", "heard you", "listened to you",
+                                     "listen to you"})
+        if (lead.find(phrase) != std::string::npos) return true;
+    return false;
+}
+
 // What is wrong with a `recalled` row (contract version 12): `{words}` may be a fragment ("to the
 // coast, by the high road"), so only a colon brings it in, never "that" or a sentence of its own; and
 // the line never says when the words were said, which may have been several visits back, and never
 // asks after them ("Is she well, the one you told me of: ..."), which would need what the words do
-// not hold. Writers found the checker let all of it through (2026-09-27).
+// not hold. Writers found the checker let all of it through (2026-09-27). And before the words begin,
+// the line says they are the stranger's (`marks_them_as_told`).
 inline std::vector<std::string> recalled_problems(const std::string& line) {
     std::vector<std::string> out;
     if (line.find('?') != std::string::npos) out.push_back("asks after the words: a recalled line is never a question");
@@ -275,6 +310,8 @@ inline std::vector<std::string> recalled_problems(const std::string& line) {
     for (const std::string when : {"last time", "the other day", "last we", "yesterday", "since we", "you always", "earlier today",
                                    "days ago", "weeks ago", "months ago", "years ago"})
         if (lower.find(when) != std::string::npos) out.push_back("says when, which the words may not have been: \"" + when + "\"");
+    if (const std::size_t at = lower.find("{words}"); at != std::string::npos && !marks_them_as_told(lower.substr(0, at)))
+        out.push_back("the words are not the stranger's before they begin: say they told it (\"what you told me\")");
     return out;
 }
 
@@ -408,6 +445,22 @@ inline const std::string kTestSaying = "the well remembers who dug it";
 // breaks a rule, quoted with the rule, and each claim no packet could back (communicator/truth.hpp).
 // Empty when the row is sound. With `claims`, the claims a case's packet does not back are added
 // to it: they keep the line unsaid for such a packet, and are not the row's fault.
+// The first person written in lower case ("i", "i'd", "i'm"...): "And i'd keep off {worst}" stood in
+// four banks, which no check read (a writer, 2026-09-28).
+inline std::vector<std::string> lowercase_i(const std::string& line) {
+    std::vector<std::string> out;
+    std::string word;
+    for (const char c : line + " ") {
+        if (std::isalpha(static_cast<unsigned char>(c)) || c == '\'') {
+            word += c;
+        } else {
+            if (word == "i" || word == "i'd" || word == "i'm" || word == "i've" || word == "i'll") out.push_back(word);
+            word.clear();
+        }
+    }
+    return out;
+}
+
 inline std::vector<std::string> row_problems(const std::string& row, std::vector<std::string>* claims = nullptr) {
     std::vector<std::string> out;
     const std::size_t first_bar = row.find('|');
@@ -454,6 +507,7 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
         // season". Every other article before a blank is caught in the replies, where it misfits.
         for (const std::string before : {"this {season}", "This {season}", "that {season}", "That {season}"})
             if (line.find(before) != std::string::npos) out.push_back("\"" + before + "\": the turn of the season is a season");
+        for (const std::string& word : lowercase_i(line)) out.push_back("\"" + word + "\": I is written as a capital");
     }
     try {
         // A row for an answer said again is spoken to a stranger who asked before and heard all of
