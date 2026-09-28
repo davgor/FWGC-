@@ -20,6 +20,10 @@ if(NOT CMAKE_SCRIPT_MODE_FILE)
   include(FetchContent)
 endif()
 
+# The manifest, beside this file. The functions find it from their own file, never from a variable:
+# include_guard runs this file's top level once, in the first includer's directory scope, and a
+# sibling component's build (the communicator's adds inference and the orchestrator) would not see
+# a variable set there.
 set(FWGC_DEPENDENCIES_JSON "${CMAKE_CURRENT_LIST_DIR}/dependencies.json")
 set(FWGC_REPOSITORY_ROOT "${CMAKE_CURRENT_LIST_DIR}")
 
@@ -40,14 +44,14 @@ endfunction()
 
 # The manifest's entries, by index.
 function(_fwgc_dependency_count out)
-  file(READ "${FWGC_DEPENDENCIES_JSON}" json)
+  file(READ "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/dependencies.json" json)
   string(JSON count LENGTH "${json}" dependencies)
   set(${out} ${count} PARENT_SCOPE)
 endfunction()
 
 # One field of entry `index` (empty when the entry has none).
 function(_fwgc_dependency_field index key out)
-  file(READ "${FWGC_DEPENDENCIES_JSON}" json)
+  file(READ "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/dependencies.json" json)
   string(JSON value ERROR_VARIABLE missing GET "${json}" dependencies ${index} ${key})
   if(missing)
     set(value "")
