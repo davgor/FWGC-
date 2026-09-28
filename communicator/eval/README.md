@@ -376,6 +376,14 @@ Since then (contract version 13; a fresh judge each time):
   back in a set frame, and a hero with nothing to say of himself beyond his post. Its changes: a life
   and views of his own, to take up what the player tells and ask back, and to know what he has told.
 
+With `--voice-model PATH` a session is spoken by the model voice, the written line said where the
+truth check refuses its reply, as a game would; which spoke goes to stderr, so a judge reads the
+transcript blind. The fine-tuned Qwen3-4B voice (training/) on the first session, 2026-09-28: all 24
+of its replies passed the truth check, and a blind judge found 10 of 24 without fault (DODGE 10,
+SENSE 10, REPEAT 7), score 2, against the written lines' 16 of 24, score 3. It sees the packet and
+the player's line, never what it said before, so it gave its introduction to five different
+questions, and it met "I nearly lost my arm" with "Good, that's the sort of answer I like".
+
 `session_hero2.txt` is a second session, held out: another hero in another world, other words,
 written after the fixes above and before it was ever run, to see whether they hold. Its first run,
 judged blind: 11 of 22 without fault (TONE 5, DODGE 4, REPEAT 4, SENSE 3, CHARACTER 3, MEMORY 2,

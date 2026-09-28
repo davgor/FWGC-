@@ -3,7 +3,7 @@
 //   communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH] [--voice-key KEY]
 //                     [--post POST] [--limit N] [--threads N] [--gpu-layers N]
 //   communicator_eval --check-lines PATH
-//   communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--gpu-layers N]
+//   communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--voice-model PATH] [--gpu-layers N]
 //   communicator_eval --summarize LOGS [--model PATH] [--threads N] [--gpu-layers N]
 //
 // --summarize reads conversation logs a person would remember something of (summarize.txt in this
@@ -531,9 +531,12 @@ constexpr std::size_t kLately = 32;
 // A session the orchestrator's session tool played, spoken with written lines: each turn's player
 // line and the speaker's reply, the time passing between, and a note of how the game read the line
 // and what the speaker remembered (for a reader; never said). Each speaker is handed their own last
-// reply, as a game hands it. With `meaning`, the player's words choose among the lines.
+// reply, as a game hands it. With `meaning`, the player's words choose among the lines. With `voice`,
+// the model speaks each turn, and where the truth check finds a claim its packet and what the
+// speaker said lately do not back, the written line is said instead, as README.md tells a game to
+// do; why goes to stderr, so a blind reader of the transcript is not told which spoke.
 void session_eval(const std::string& path, const communicator::Lines& written, communicator::Meaning* meaning,
-                  std::ostream* pairs) {
+                  std::ostream* pairs, communicator::Voice* voice = nullptr) {
     std::ifstream in(path, std::ios::binary);
     if (!in) throw std::runtime_error("no session at " + path);
     std::stringstream text;
@@ -545,7 +548,9 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
     bool in_packet = false;
     int turn = 0;
     double seconds = 0.0, slowest = 0.0;
-    std::cout << "\n## Session (written lines" << (meaning ? ", chosen by meaning" : "") << ")\n";
+    std::cout << "\n## Session (" << (voice ? "the voice, written lines where it is untrue" : "written lines")
+              << (meaning ? ", chosen by meaning" : "") << ")\n";
+    int voiced = 0, refused = 0;
     for (std::string row; std::getline(rows, row);) {
         if (!row.empty() && row.back() == '\r') row.pop_back();
         if (in_packet) {
@@ -566,7 +571,19 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
             // What the speaker said lately is part of what they remember: an answer they gave all of
             // lately is said again as told, and the note says so.
             const bool told = written.told(p, lately);
-            const std::string reply = written.speak(p, line, lately, meaning);
+            std::string reply = written.speak(p, line, lately, meaning);
+            if (voice) {
+                const communicator::Reply spoken = voice->speak(p, line);
+                const std::vector<std::string> wrong = communicator::untrue(spoken.text, p, lately);
+                if (!spoken.text.empty() && wrong.empty()) {
+                    reply = spoken.text;
+                    ++voiced;
+                } else {
+                    ++refused;
+                    std::cerr << "turn " << turn + 1 << ": the voice's reply was not said ("
+                              << (wrong.empty() ? std::string("empty") : wrong.front()) << "): " << spoken.text << "\n";
+                }
+            }
             const double took = std::chrono::duration<double>(std::chrono::steady_clock::now() - started).count();
             seconds += took;
             slowest = std::max(slowest, took);
@@ -603,8 +620,9 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
             block = row + "\n";
         }
     }
-    if (meaning && turn > 0)
+    if (meaning && turn > 0 && !voice)
         std::cout << "\nchoosing by meaning: " << seconds / turn << " s a turn on average, " << slowest << " s at most\n";
+    if (voice) std::cerr << voiced << " replies the voice's, " << refused << " written where the voice's was untrue or empty\n";
 }
 
 // One log of summarize.txt: who remembers it, its lines, which of the stranger's lines answered a
@@ -836,7 +854,7 @@ int main(int argc, char** argv) {
     if (model_path.empty()) model_path = COMMUNICATOR_TEST_MODEL;
     std::string lines = std::string(COMMUNICATOR_EVAL_DIR) + "/lines.txt";
     std::string voice = std::string(COMMUNICATOR_EVAL_DIR) + "/voice.txt";
-    std::string authored, voice_key, post, check, session, meaning_path, export_pairs, summarize;
+    std::string authored, voice_key, post, check, session, meaning_path, export_pairs, summarize, voice_model;
     std::size_t limit = 0;
     inference::ModelOptions options;
     for (int i = 1; i < argc; ++i) {
@@ -855,6 +873,7 @@ int main(int argc, char** argv) {
         else if (arg == "--session") session = value();
         else if (arg == "--export-pairs") export_pairs = value();
         else if (arg == "--meaning") meaning_path = value();
+        else if (arg == "--voice-model") voice_model = value();
         else if (arg == "--summarize") summarize = value();
         else if (arg == "--limit") limit = static_cast<std::size_t>(std::stoul(value()));
         else if (arg == "--threads") options.threads = std::stoi(value());
@@ -863,7 +882,7 @@ int main(int argc, char** argv) {
             std::cerr << "usage: communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH]"
                          " [--voice-key KEY] [--post POST] [--limit N] [--threads N] [--gpu-layers N]\n"
                          "       communicator_eval --check-lines PATH\n"
-                         "       communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--gpu-layers N]\n"
+                         "       communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--voice-model PATH] [--gpu-layers N]\n"
                          "       communicator_eval --summarize LOGS [--model PATH] [--threads N] [--gpu-layers N]\n";
             return 2;
         }
@@ -889,7 +908,14 @@ int main(int argc, char** argv) {
                 pairs.open(export_pairs, std::ios::binary);
                 if (!pairs) throw std::runtime_error("cannot write " + export_pairs);
             }
-            session_eval(session, written, meaning ? &*meaning : nullptr, export_pairs.empty() ? nullptr : &pairs);
+            std::unique_ptr<inference::Model> speaker;
+            std::optional<communicator::Voice> speaking;
+            if (!voice_model.empty()) {
+                speaker = inference::Model::load(voice_model, options);
+                speaking.emplace(*speaker);
+                std::cerr << "voice: " << voice_model << " on " << speaker->device() << "\n";
+            }
+            session_eval(session, written, meaning ? &*meaning : nullptr, export_pairs.empty() ? nullptr : &pairs, speaking ? &*speaking : nullptr);
             return 0;
         }
         std::unique_ptr<inference::Model> model = inference::Model::load(model_path, options);
