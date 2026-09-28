@@ -64,6 +64,7 @@ struct Recall {
     std::string resting = "calm";
     bool eased = false;
     bool joined = false;
+    bool beside = false;
 };
 
 inline Fact memory_of(const std::string& speaker, const Recall& r) {
@@ -81,7 +82,8 @@ inline Fact memory_of(const std::string& speaker, const Recall& r) {
              {"feeling", r.feeling},
              {"resting", r.resting},
              {"eased", r.eased ? "yes" : "no"},
-             {"joined", r.joined ? "yes" : "no"}}};
+             {"joined", r.joined ? "yes" : "no"},
+             {"beside", r.beside ? "yes" : "no"}}};
 }
 
 // A packet as the director writes one: its facts, then the speaker's memory.
@@ -630,6 +632,13 @@ inline FactPacket about_them_far_from_home() {
     return p;
 }
 
+// The same, work the stranger did beside the speaker, where they stand (contract version 14).
+inline FactPacket beside(FactPacket p) {
+    for (auto& [field, value] : p.facts.back().fields)
+        if (field == "beside") value = "yes";
+    return p;
+}
+
 // Small talk with the castellan once the stranger has finished his work.
 inline FactPacket small_talk_after_work() {
     return packet(castellan(), ActKind::SmallTalk, Outcome::Chatted,
@@ -642,6 +651,8 @@ inline std::vector<FactPacket> conversation() {
     return {about_them(),
             about_them_far_from_home(),
             small_talk_after_work(),
+            beside(small_talk_after_work()),
+            beside(greeted_after("finished", "warm")),
             greeted_first(),
             greeted_again(),
             greeted_warmly(),

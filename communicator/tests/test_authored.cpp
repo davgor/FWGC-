@@ -375,6 +375,11 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
           "acknowledged_deed_work"}},
         {packets::acknowledged_with("", "hostile"), {"acknowledged"}},
         {packets::small_talk_after_work(), {"small_talk_fair", "small_talk", "small_talk_work_done", "small_talk_since_work"}},
+        {packets::beside(packets::small_talk_after_work()),
+         {"small_talk_fair", "small_talk", "small_talk_work_done_beside", "small_talk_work_done", "small_talk_since_work"}},
+        {packets::beside(packets::greeted_after("finished", "warm")),
+         {"greeted_finished_beside", "greeted_finished", "greeted_warm", "greeted_again"}},
+        {packets::beside(packets::greeted_after("taken", "friendly")), {"greeted_taken", "greeted_warm", "greeted_again"}},
         {packets::thanked_with_work("taken"), {"thanked", "thanked_work"}},
         {packets::thanked_with_work("offered"), {"thanked", "thanked_work"}},
         {packets::thanked_with_work("finished"), {"thanked"}},
@@ -730,6 +735,19 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
                      std::string("Not much else; the post takes all of me."),
                      "how they stand, heard lately: not said again, turn " + std::to_string(heard));
     }
+    // Who they are, with a loss or a feat of their own: not their post again.
+    const Lines story = Lines::parse("any | them_who | I'm {speaker}[ {known_as}].\n"
+                                     "any | them_who | I'm {speaker}. I {lost}, and I mean to {after}.\n"
+                                     "any | them_who | I'm {speaker}; I {feat}, and I mean to {after}.\n",
+                                     "story");
+    for (int heard = 0; heard < 4; ++heard) {
+        FactPacket turned = p;
+        for (auto& [field, value] : turned.facts.back().fields)
+            if (field == "heard") value = std::to_string(heard);
+        const std::string told = story.speak(turned, "Tell me about yourself.", {}, &meaning);
+        check::is_true(told.find("Brenlin") != std::string::npos && told.find("command the fortress") == std::string::npos,
+                       "who they are, with their story: " + told);
+    }
     // Home, where they stand or elsewhere: what they would do if they could leave is answered from it.
     const Lines leaving = Lines::parse("any | them_plans | If I could? I'd go home to {away}.\n"
                                        "any | them_plans | If I could? {home_here} is my home.\n",
@@ -1018,6 +1036,18 @@ TEST(thanks_a_complaint_and_a_greeting_are_heard_for_what_they_are) {
                 {"Cold out, isn't it?", "other"}},
             {{same, "other"}, {held, "work"}, {quieter, "since"}}, "small talk, their work done", kSinceFloor);
     check::equal(talk.speak(finished, "How have things been since?", {}, &meaning), quieter, "the benchmark's since");
+    // Done beside them (contract version 14): talked of as one who was there, and where a bank has no
+    // line of it, as ever.
+    const Lines there = Lines::parse("any | small_talk | Much the same as ever.\n"
+                                     "any | small_talk_work_done | It held, and that's what counts.\n"
+                                     "any | small_talk_work_done_beside | You saw it as well as I did.\n",
+                                     "there");
+    check::equal(there.speak(packets::beside(finished), "Was it as bad as you feared?", {}, &meaning), std::string("You saw it as well as I did."),
+                 "work done beside them");
+    check::equal(there.speak(finished, "Was it as bad as you feared?", {}, &meaning), held, "not beside them");
+    check::equal(talk.speak(packets::beside(finished), "Was it as bad as you feared?", {}, &meaning), held, "no line of it: as ever");
+    check::equal(there.speak(packets::beside(finished), "Nice weather today.", {}, nullptr), std::string("Much the same as ever."),
+                 "never in its turn with the weather");
     check::equal(talk.speak(finished, "Has it been quieter since?", {}, nullptr), same, "no meaning: small talk");
     FactPacket unfinished = finished;
     for (auto& [field, value] : unfinished.facts.back().fields)

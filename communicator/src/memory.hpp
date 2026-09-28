@@ -16,6 +16,7 @@ struct Remembered {
     std::string since;         // "today", "yesterday", "days", "weeks", "months", "years"; empty the first time
     std::string mood = "neutral";
     std::string work;          // "offered", "taken", "declined", "abandoned", "finished", "failed", or empty
+    bool beside = false;       // that work was at the place they stand, done beside them (contract version 14)
     std::string asked_before;  // a place or person, by name, or empty
     int turn = 1;
     bool repeat = false;

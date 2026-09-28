@@ -27,6 +27,7 @@ Remembered remembered(const orchestrator::FactPacket& packet) {
         out.since = text("since");
         if (!text("mood").empty()) out.mood = text("mood");
         out.work = text("work");
+        out.beside = text("beside") == "yes";
         out.asked_before = text("asked_before");
         out.turn = number(fact.field("turn"));
         out.repeat = text("repeat") == "yes";

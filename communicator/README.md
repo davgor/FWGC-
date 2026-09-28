@@ -586,10 +586,18 @@ before its descriptions were tried:
   before unchanged. Some reactions ask back ("What was their name?", "Was it long ago?").
 - **An apology for how the stranger is** (`unwronged_state`): "Sorry, I'm not myself today." two
   lines after a death had drawn "Whatever for? You have done me no wrong". 14 of 16.
-- **Who they are, with what they are after** (`them_who`), and **why it matters, from their home**
-  (`them_after`, `{home}`).
+- **Who they are, with what they are after** (`them_who`), and a city they lost or a feat of their
+  own (`{lost}`, `{feat}`: a deed that is not the post they keep, which their standing says already);
+  and **why it matters, from their home** (`them_after`, `{home}`).
 - **Whether they would leave, from where their home is**: `{home_here}` when they stand at home,
   `{away}` when home is elsewhere ("If I could? I'd go home to Linbrig").
+
+Work done beside the speaker (contract version 14, the Memory fact's `beside`: their own work at the
+site they hold or where they stand) is greeted (`greeted_finished_beside`) and talked of
+(`small_talk_work_done_beside`) as by one who was there: a castellan who offered the work "Hold the
+fortress above Iskmor with me" had judged the fight "by the look of you". Each bank's own greetings
+come first, so a hero's archetype bank greets as ever until its writers give it these lines; the
+small talk is asked for alone, from whichever bank has it.
 
 ## What a speaker recalls
 

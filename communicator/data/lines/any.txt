@@ -305,3 +305,12 @@ any | acknowledged_grief_work | Ah, I'm sorry, and in my service. What was their
 any | unwronged_state | There's nothing to forgive; you've had a hard road.
 any | unwronged_state | Nothing to forgive; you've reason enough to be.
 any | unwronged_state | No harm done; rest, and you'll be yourself again.
+# Who they are, with a city they lost or a feat of their own (contract version 13).
+any | them_who | I'm {speaker}[ {known_as}]. I {lost}, and I mean to {after}.
+any | them_who | They call me {speaker}[ {known_as}]; I {feat}, and I mean to {after}.
+# Work done beside the speaker, where they stand: greeted and talked of as one who was there
+# (contract version 14).
+any | greeted_finished_beside | Good to see you. We saw it through together, you and I, and I'll not forget it.
+any | greeted_finished_beside | Welcome back. You stood with me when it counted, and I'll not forget it.
+any | small_talk_work_done_beside | You saw it as well as I did: hard going, and we came through.
+any | small_talk_work_done_beside | It was bad enough; I was there beside you, and I'd not want it again.

@@ -377,6 +377,16 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
                 set("done", std::move(done));
                 break;
             }
+        // A feat: a deed that is not the post they keep, which their standing says already ("command
+        // the fortress of Iskmor" beside "command the garrison here"). Who they are says it, so a hero
+        // is more than their post (the hero benchmark's judges, 2026-09-28: "no hero behind the
+        // title").
+        for (const Fact* deed : deeds_of(p))
+            if (field_of(*deed, "part") != "keeper")
+                if (std::string feat = done_words(*deed); !feat.empty()) {
+                    set("feat", std::move(feat));
+                    break;
+                }
         set("ties", ties_words(p));
         // What they stand against, by name alone: with how far, "the Abyssal krakens nesting an
         // hour's walk away" came back in four answers of one conversation (the hero benchmark,
@@ -697,7 +707,7 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // Contract version 13: asked about themself, by what the stranger asked of them (chosen by
         // meaning in speak()): who they are, what they did or lost, what they are after, how they stand
         // here, who stands with them, whether they would leave, and what they keep to themselves.
-        {"them_who", {"known_as", "home", "after"}},
+        {"them_who", {"known_as", "home", "after", "lost", "feat"}},
         {"them_past", {"done", "lost"}},
         {"them_after", {"after", "danger", "home"}},
         {"them_need", {"after", "danger"}},
@@ -730,6 +740,8 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"greeted_cold", {}},
         {"greeted_taken", {"since"}},
         {"greeted_finished", {"since"}},
+        // Contract version 14: their own work, finished where they stand, beside them.
+        {"greeted_finished_beside", {"since"}},
         {"greeted_failed", {"since"}},
         {"greeted_abandoned", {"since"}},
         // Small talk, by the weather where the speaker stands.
@@ -756,6 +768,8 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"acknowledged_deed_work", {}},
         // Small talk with someone whose work the stranger has just finished: how it went.
         {"small_talk_work_done", {}},
+        // And talked of as one who was there, when it was done beside them (contract version 14).
+        {"small_talk_work_done_beside", {}},
         // How things have been since that work was done (speak()).
         {"small_talk_since_work", {}},
         // Thanked for the speaker's own work, taken or offered and still to do (speak()).
@@ -874,6 +888,9 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             // plain greeting ignored "Feeling better?" (judged 2026-09-26).
             if (m.eased) return {"greeted_eased"};
             std::vector<std::string> chain;
+            // Work finished beside them first (contract version 14): a castellan whose fortress the
+            // stranger held with him greets them as one who was there.
+            if (m.work == "finished" && m.beside) chain.push_back("greeted_finished_beside");
             if (m.work == "taken" || m.work == "finished" || m.work == "failed" || m.work == "abandoned")
                 chain.push_back("greeted_" + m.work);
             if (m.warm()) chain.push_back("greeted_warm");
@@ -891,6 +908,7 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             chain.push_back("small_talk");
             // Their own work, finished by the stranger: how it went is theirs to talk of (speak()).
             if (m.work == "finished") {
+                if (m.beside) chain.push_back("small_talk_work_done_beside");
                 chain.push_back("small_talk_work_done");
                 chain.push_back("small_talk_since_work");
             }
@@ -1326,9 +1344,16 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             "How someone is keeping: their health, their mood, their work, their day.",
             "News and rumours: what people are saying, word from elsewhere, anything that has happened."};
         static const std::vector<std::vector<std::string>> of_it = {{"small_talk_work_done"}, {"small_talk_since_work"}};
-        if (const std::size_t subject = meaning->subject_of(line, subjects); subject < of_it.size())
-            if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &of_it[subject]); !on_it.empty())
-                return then_news(choose(telling(on_it)).first);
+        // Done beside them, they talk of it as one who was there: "It was bad enough, by the look of
+        // you" had come from a castellan who offered the work "with me" (contract version 14). Its
+        // lines first and alone, since small talk pools the lines of the situations it is asked for.
+        static const std::vector<std::string> done_beside = {"small_talk_work_done_beside"};
+        if (const std::size_t subject = meaning->subject_of(line, subjects); subject < of_it.size()) {
+            std::vector<Spoken> on_it;
+            if (subject == 0 && remembered(p).beside) on_it = spoken_for(p, &recent, true, &done_beside);
+            if (on_it.empty()) on_it = spoken_for(p, &recent, true, &of_it[subject]);
+            if (!on_it.empty()) return then_news(choose(telling(on_it)).first);
+        }
     }
     // With meaning, small talk answers what the stranger's words are about: the weather's lines for
     // the weather, the rest for the speaker's own day (judged 2026-09-26: "How are things with you?"
@@ -1392,7 +1417,9 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     if (p.outcome == Outcome::Chatted) {
         std::vector<Spoken> rest;
         for (const Spoken& s : spoken)
-            if (s.situation != "small_talk_work_done" && s.situation != "small_talk_since_work") rest.push_back(s);
+            if (s.situation != "small_talk_work_done" && s.situation != "small_talk_work_done_beside" &&
+                s.situation != "small_talk_since_work")
+                rest.push_back(s);
         if (!rest.empty()) spoken = std::move(rest);
     }
     // Asked about themself (contract version 13), a speaker answers what was asked of them: how long
