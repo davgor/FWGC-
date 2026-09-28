@@ -188,13 +188,12 @@ FWGC_API fwgc_status fwgc_report_event(fwgc_director* director, const char* site
 FWGC_API fwgc_status fwgc_words(fwgc_director* director, const char* line, const char* reply) FWGC_NOEXCEPT;
 /* `person`'s conversation log made into long memory, and cleared: the only way a log becomes long
  * memory, and nothing calls it but the game (someone despawned, a time skip, whoever
- * active_short lists). A conversation under way with them ends. `outcomes` (NULL for none) is what
- * a summary of the log (the communicator's summarizer writes one), as JSON: {"said": [{"quote":
- * "...", "about": "..."}], "last": "..."};
- * each quote kept must be the stranger's own words, word for word in the log, and a name the log
- * does not hold is refused. Outcomes that are not that JSON are refused (FWGC_BAD_ARGUMENT) and
- * nothing changes. What it did, as JSON in *json (may be NULL): {"kept": [memories, as
- * fwgc_memories writes them], "refused": ["why", ...], "cleared": exchanges}. */
+ * active_short lists). A conversation under way with them ends. `outcomes` (NULL for none) is a
+ * summary of the log written elsewhere, as JSON: {"said": [{"quote": "...", "about": "..."}],
+ * "last": "..."}; each quote kept must be the stranger's own words, word for word in the log, and a
+ * name the log does not hold is refused. Outcomes that are not that JSON are refused
+ * (FWGC_BAD_ARGUMENT) and nothing changes. What it did, as JSON in *json (may be NULL): {"kept":
+ * [memories, as fwgc_memories writes them], "refused": ["why", ...], "cleared": exchanges}. */
 FWGC_API fwgc_status fwgc_compact(fwgc_director* director, const char* person, const char* outcomes,
                                   char** json) FWGC_NOEXCEPT;
 

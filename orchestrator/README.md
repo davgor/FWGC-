@@ -312,7 +312,7 @@ start only if the log holds it; `last` is at most 300 bytes and kept beside the 
 never in place of it. Whatever fails is refused, and `compact` says why. Outcomes that are not that
 JSON are refused before anything changes. Deeds, what is open, and what became of work never come
 from outcomes handed in. They are recorded with the compaction, so replay never needs whatever
-wrote them. The communicator's summarizer, a model reading the log, is the next part of this slice.
+wrote them. What writes such a summary is the communicator's, and the next part of this slice.
 
 **Recall facts.** A packet carries what the speaker remembers that bears on the act, from their
 long memory and their log together, so nothing waits on a compaction: a greeting what they last
@@ -523,9 +523,9 @@ switched each rule off in a scratch build.
 
 ## Not in this slice
 
-- The communicator's half of slice 15: the summarizer (a model reading a log and writing
-  `compact`'s outcomes), Recall said in the written lines and the voice, and the truth check for
-  it. An event's memory written by a model and checked is not built.
+- The communicator's half of slice 15: what writes `compact`'s outcomes from a log, Recall said in
+  the written lines and the voice, and the truth check for it. An event's memory written from the
+  event log and checked is not built.
 - Heroes' brains and `promoteNPC` (slice 16): a roster person made a full hero, through a
   generator verb.
 - News of someone gone. The board closes work when its giver is gone, but no test world's giver
