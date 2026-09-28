@@ -1695,6 +1695,26 @@ TEST(a_place_is_told_with_what_else_the_speaker_knows_of_it) {
                  "nothing more to say");
 }
 
+// Contract version 15: another giver's work says how that giver stands to the speaker.
+TEST(another_givers_work_is_named_with_how_they_stand_to_the_speaker) {
+    const Lines lines = Lines::parse("any | work_own | There's work: {own}.[ Otherwise, {others}.]\n", "work");
+    FactPacket p = packets::work();
+    const std::string plain = lines.speak(p, "Any work?");
+    check::is_true(plain.find("Halbrann the pretender wants someone to help them take back Linbrig") != std::string::npos,
+                   "the premise: the giver named plainly: " + plain);
+    for (const auto& [tie, said] : std::vector<std::pair<std::string, std::string>>{
+             {"ally", "Halbrann the pretender, who stands with me, wants someone to help them take back Linbrig"},
+             {"kin", "Halbrann the pretender, my own kin, wants someone to help them take back Linbrig"},
+             {"rival", "Halbrann the pretender, my rival, wants someone to help them take back Linbrig"}}) {
+        FactPacket tied = p;
+        for (Fact& f : tied.facts)
+            if (f.kind == FactKind::QuestOffer && f.subject == packets::kBrokeredOffer) f.fields.emplace_back("giver_tie", tie);
+        const std::string reply = lines.speak(tied, "Any work?");
+        check::is_true(reply.find(said) != std::string::npos, tie + ": " + reply);
+        check::is_true(communicator::untrue(reply, tied).empty(), tie + ": nothing untrue in it");
+    }
+}
+
 // Contract version 13: asked for work again with nothing new to it, a speaker says so (the hero
 // benchmark, 2026-09-28: one list, word for word, in two conversations days apart).
 TEST(work_asked_for_again_with_nothing_new_is_said_as_told) {

@@ -95,7 +95,9 @@ std::string fact_line(const Fact& fact, const FactPacket& packet) {
             // Not the days the offer stands: read as how long the work takes however it was put
             // ("948 days left", "to be done within", "the offer stands for"; judged 2026-09-24).
             // The game can show a deadline; the voice does not say it.
-            const std::vector<std::string> rest = phrases(fact, {"giver", "giver_role", "from_speaker", "purpose", "days_left"});
+            // Nor the giver's tie to the speaker (contract version 15), which the written lines say: the
+            // voice's prompts stay as they were.
+            const std::vector<std::string> rest = phrases(fact, {"giver", "giver_role", "from_speaker", "purpose", "days_left", "giver_tie"});
             return line + (rest.empty() ? "" : " (" + join(rest, "; ") + ")");
         }
         case FactKind::QuestState:

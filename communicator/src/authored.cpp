@@ -167,6 +167,10 @@ std::string others_offer_phrase(const Fact& offer) {
     if (who.empty()) who = "someone";
     const std::string role = text::spaced(text::spoken(field_of(offer, "giver_role")));
     if (!role.empty()) who += (bodies.count(role) ? " of the " : " the ") + role;
+    // How they stand to the speaker (contract version 15): "Nerisk the pretender, who stands with me".
+    static const std::map<std::string, std::string, std::less<>> ties = {
+        {"ally", ", who stands with me,"}, {"kin", ", my own kin,"}, {"rival", ", my rival,"}};
+    if (const auto tie = ties.find(field_of(offer, "giver_tie")); tie != ties.end()) who += tie->second;
     const std::string purpose = text::retold(text::mid_sentence(text::ask_of(text::spoken(field_of(offer, "purpose")))));
     return purpose.empty() ? who + " is hiring" : who + " wants someone to " + purpose;
 }

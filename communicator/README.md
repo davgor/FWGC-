@@ -534,6 +534,10 @@ themself").
 - **Asked for work again** with nothing new to it, a speaker says so (`work_own_told`,
   `work_others_told`), as other answers said again are: the same list, word for word, in two
   conversations days apart.
+- **Another giver's work is named with how that giver stands to the speaker** (contract version 15,
+  `giver_tie`): "Nerisk the pretender, who stands with me, wants someone to help them take back
+  Eldkor"; "my own kin", "my rival". The castellan had named his own ally's errand as a notice board
+  would. The voice is not shown the tie: its prompts are as they were.
 - **The interpreter** offers the act only for a line that speaks to the speaker ("you", "your",
   "yourself", "u", "ur", "ye", "thee" and their forms). Offered on every line, it cost Qwen3-4B 5 of
   the 313 lines it read right and the test model 9; offered so, 1 and none (246 -> 245, 110 -> 113).
