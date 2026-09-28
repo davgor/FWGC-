@@ -94,8 +94,13 @@ ctest --test-dir communicator/build -C Release --no-tests=error
 - **The player's own words come back only as C++ turns them** (contract version 12): `{words}` is
   the kept words said back to the stranger (`text::said_back`), and a `recalled` line adds only how
   the speaker takes having kept them: no fact about them, no question after them, no judgement of
-  them, and no when. Words that speak to someone are never said back. "As I told you" before an
-  answer is C++'s, dated by the Recall fact.
+  them, no claim they are exact, and no when. Before the words begin it says the stranger told them
+  ("what you told me", "your words", "from you"): after "If I may:" or "What I'm told:", "you'd be
+  back before the frost" is heard as the speaker's own word, and `recalled_problems` holds it. Read a
+  row straight after the greetings it follows, since a pronoun or trade noun before the colon takes
+  theirs. The words are never said back after a greeting that thanks the stranger for easing the
+  speaker, nor one for work the stranger holds, failed or gave up (`says_back`). Words that speak to
+  someone are never said back. "As I told you" before an answer is C++'s, dated by the Recall fact.
 - **The summarizer's answer is held by a grammar** (`summarizer.hpp`): a quote only as a run of the
   stranger's own whole words within one sentence, never a question; the rest in lower case and the
   log's own capitalised words. The director checks it again; a change to what may be quoted comes
