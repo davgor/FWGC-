@@ -836,27 +836,27 @@ post:animal_keeper | denied | No; I muck out and I feed, and that's all.
 post:animal_keeper | denied | You're mistaken; I'm what I look like, muck and all.
 post:animal_keeper | denied_again | No, and asking twice won't make me any more interesting.
 # ---- sayings ----
-post:farmer | parted | Take care, and don't tread on anything green[; as we say, {saying}].
+post:farmer | parted | Take care, and don't tread on anything green.
 post:farmer | small_talk | The weeds come up and I pull them out; one of us will tire first.[ As the old ones had it, {saying}.]
-post:farm_hand | parted | Go well, and pardon the muck on me[; as the saying goes, {saying}].
+post:farm_hand | parted | Go well, and pardon the muck on me.
 post:farm_hand | small_talk | Nothing new; the muck's still there and so am I.[ As my people put it, {saying}.]
-post:well_keeper | parted | Goodbye, and leave the rope as you found it[; as we say, {saying}].
+post:well_keeper | parted | Goodbye, and leave the rope as you found it.
 post:well_keeper | small_talk | Everything sound, from the rope to the bucket, and the water's sweet.[ As the old ones had it, {saying}.]
-post:carter | parted | Go well, and may your axle hold[; as we say, {saying}].
+post:carter | parted | Go well, and may your axle hold.
 post:carter | small_talk | The wheels turn and the loads get where they're going; that'll do me.[ As my people put it, {saying}.]
-post:fisher | parted | Goodbye, then[; as we say, {saying}].
+post:fisher | parted | Goodbye, then.
 post:fisher | small_talk | Some days they bite, some days I mend nets.[ As the old ones had it, {saying}.]
-post:boatman | parted | Farewell, and keep one eye on the water[; as the saying goes, {saying}].
+post:boatman | parted | Farewell, and keep one eye on the water.
 post:boatman | small_talk | Across and back, across and back, and nobody's gone in yet.[ As my people put it, {saying}.]
-post:hauler | parted | Farewell, and never lift what you can drag[; as we say, {saying}].
+post:hauler | parted | Farewell, and never lift what you can drag.
 post:hauler | small_talk | Hm, heavy, same as every day, and nothing I couldn't shift.[ As the old ones had it, {saying}.]
-post:water_carrier | parted | Farewell, and never waste a drop someone carried up for you[; as we say, {saying}].
+post:water_carrier | parted | Farewell, and never waste a drop someone carried up for you.
 post:water_carrier | small_talk | Every stair twice over, and my shoulders feel each one.[ As my people put it, {saying}.]
-post:water_keeper | parted | Safe travels, and keep your water covered[; as the old ones had it, {saying}].
+post:water_keeper | parted | Safe travels, and keep your water covered.
 post:water_keeper | small_talk | All the channels running and the levels where they should be.[ As we say, {saying}.]
-post:horse_keeper | parted | Go well, and sit easy in the saddle[; as we say, {saying}].
+post:horse_keeper | parted | Go well, and sit easy in the saddle.
 post:horse_keeper | small_talk | First the horses, then the harness, then me, if there's any day left.[ As my people put it, {saying}.]
-post:animal_keeper | parted | Goodbye, and don't feed anything that isn't yours[; as the saying goes, {saying}].
+post:animal_keeper | parted | Goodbye, and don't feed anything that isn't yours.
 post:animal_keeper | small_talk | Nothing stays fed for long in this yard, and nothing stays clean.[ As the old ones had it, {saying}.]
 # ---- depth ----
 post:farmer | greeted_again | Welcome back; you'll not mind if I keep hoeing.

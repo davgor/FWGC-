@@ -703,23 +703,23 @@ post:clerk | denied | I don't know what you mean; there's nothing to me but ink.
 post:clerk | denied_again | No, and I'll put it in writing if I must.
 
 # ---- sayings ----
-post:storekeeper | parted | Take care, and keep your own stores dry[; as we say, {saying}].
+post:storekeeper | parted | Take care, and keep your own stores dry.
 post:storekeeper | small_talk | Not a sack gone soft and not a bin gone damp, and I mean to keep it so.[ As my people put it, {saying}.]
-post:porter | parted | Go well, and let someone else carry the heavy end[; as the saying goes, {saying}].
+post:porter | parted | Go well, and let someone else carry the heavy end.
 post:porter | small_talk | My back's grumbling, which means it's an ordinary day.[ As we say, {saying}.]
-post:merchant | parted | Take care, and never accept the first offer anyone makes you[; as we say, {saying}].
+post:merchant | parted | Take care, and never accept the first offer anyone makes you.
 post:merchant | small_talk | Some deals won, some lost, and every one of them argued to the last.[ As my people put it, {saying}.]
-post:market_steward | parted | Goodbye, and trade fair wherever you go[; as the saying goes, {saying}].
+post:market_steward | parted | Goodbye, and trade fair wherever you go.
 post:market_steward | small_talk | Nobody came to blows, and the measures stayed honest; I'll take that.[ As we say, {saying}.]
-post:cargo_clerk | parted | Goodbye, and weigh your words as carefully as I weigh loads[; as we say, {saying}].
+post:cargo_clerk | parted | Goodbye, and weigh your words as carefully as I weigh loads.
 post:cargo_clerk | small_talk | All weighed, all written down, and the ledger balances to the ounce.[ As my people put it, {saying}.]
-post:fuel_handler | parted | Take care, and keep a good fire going wherever you end up[; as we say, {saying}].
+post:fuel_handler | parted | Take care, and keep a good fire going wherever you end up.
 post:fuel_handler | small_talk | Nothing but soot and shovelling, and my chest rattling along with it.[ As the old ones had it, {saying}.]
-post:toll_clerk | parted | Farewell, and next time have your business ready before you reach me[; as the saying goes, {saying}].
+post:toll_clerk | parted | Farewell, and next time have your business ready before you reach me.
 post:toll_clerk | small_talk | Every cart counted, and every driver certain they're the exception.[ As we say, {saying}.]
-post:treasurer | parted | Go well, and keep your keys close[; as the old ones had it, {saying}].
+post:treasurer | parted | Go well, and keep your keys close.
 post:treasurer | small_talk | Quite in order, thank you: the tallies agree and the locks hold.[ As we say, {saying}.]
-post:clerk | parted | Goodbye, and keep your papers where you can find them[; as we say, {saying}].
+post:clerk | parted | Goodbye, and keep your papers where you can find them.
 post:clerk | small_talk | Behind, as ever, and catching up one page at a time.[ As my people put it, {saying}.]
 
 # ---- depth ----

@@ -506,15 +506,15 @@ forgiving/LG | denied | I don't know what you mean, and I will not pretend to.
 forgiving/LG | denied_again | That's not so, and I give you my word on it.
 
 # ---- sayings ----
-forgiving/NN | parted | Safe travels, and remember a pardon from me still goes in the ledger[; as we say, {saying}].
+forgiving/NN | parted | Safe travels, and remember a pardon from me still goes in the ledger.
 forgiving/NN | small_talk | Most of my day goes on settling who owes whom, and then letting it go.[ As we say, {saying}.]
-forgiving/NG | parted | Farewell, and if someone wrongs you, try forgiving them first[; as my people say, {saying}].
+forgiving/NG | parted | Farewell, and if someone wrongs you, try forgiving them first.
 forgiving/NG | small_talk | I've spent the day patching things up between people, and I think it held.[ As the old ones had it, {saying}.]
-forgiving/LN | parted | Goodbye, and keep a clean record, for it is easier than mending a stained one[; as my people have it, {saying}].
+forgiving/LN | parted | Goodbye, and keep a clean record, for it is easier than mending a stained one.
 forgiving/LN | small_talk | My hours are given to hearings and pardons, each in its proper order.[ There is an old saying among my people: {saying}.]
-forgiving/CN | parted | Safe travels, and if you meet someone who's wronged you, surprise them[; ha, and as we say, {saying}].
+forgiving/CN | parted | Safe travels, and if you meet someone who's wronged you, surprise them.
 forgiving/CN | small_talk | Nobody's needed forgiving today, which is a shame, I was in the mood.[ As my people say, {saying}.]
-forgiving/LG | parted | Goodbye, and may you be forgiven as freely as you forgive[; as my people have long said, {saying}].
+forgiving/LG | parted | Goodbye, and may you be forgiven as freely as you forgive.
 forgiving/LG | small_talk | Much of my day goes to hearing people out, and there is no work I would rather do.[ There is a saying among my people I hold dear: {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----

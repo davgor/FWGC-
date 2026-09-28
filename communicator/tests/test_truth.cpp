@@ -170,6 +170,11 @@ TEST(as_i_told_you_needs_something_told) {
                    "their own work, said lately");
     check::is_true(flags(again, own, "something told before, which the speaker has not said", {"I'm Selbren, castellan here."}),
                    "their own name is not their work");
+    // What they are after, told lately (contract version 13): "... above Iskmor, as I said" (2026-09-28).
+    const FactPacket them = packets::about_them();
+    const std::string aim = "I mean to hold the fortress above Wenweg, as I said.";
+    check::is_true(flags(aim, them, "something told before, which the speaker has not said"), "what they are after, nothing said lately");
+    check::is_true(clean(aim, them, {"I'm Selbren, and I mean to hold the fortress above Wenweg."}), "what they are after, said lately");
 }
 
 TEST(the_strangers_words_and_what_was_told_before_are_the_memorys) {

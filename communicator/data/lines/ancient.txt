@@ -304,11 +304,11 @@ ancient/NN | denied | You have the wrong one; I'm exactly what I look like.
 ancient/NN | denied_again | That's not so, and asking twice won't make it so.
 
 # ---- sayings ----
-ancient/CE | parted | Take care, whoever you were[; my people have a saying, and they never tire of it: {saying}].
+ancient/CE | parted | Take care, whoever you were.
 ancient/CE | small_talk | Today? Nothing worth remembering, and I've had a great deal of practice at forgetting[; as my people say, and I can't seem to forget it, {saying}].
-ancient/LN | parted | Goodbye; whenever you return, my word will stand exactly where I left it[; as my people have always held, {saying}].
+ancient/LN | parted | Goodbye; whenever you return, my word will stand exactly where I left it.
 ancient/LN | small_talk | Much is in hand, as ever, and each part of it will be done in its proper time and not before.[ As my people have said for longer than I can cite, {saying}.]
-ancient/NN | parted | Go well, and don't spend yourself on anything that isn't worth it[; as my people have it, {saying}].
+ancient/NN | parted | Go well, and don't spend yourself on anything that isn't worth it.
 ancient/NN | small_talk | Some work's done, some isn't, and all of it will keep till I get to it.[ As my people put it, {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----

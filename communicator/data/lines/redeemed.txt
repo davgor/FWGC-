@@ -607,17 +607,17 @@ redeemed/CG | denied | You have the wrong one, sorry, truly.
 redeemed/CG | denied_again | I don't know what you mean, and I'd rather you stopped asking.
 
 # ---- sayings ----
-redeemed/NN | parted | Goodbye, and do things the clean way, it costs less in the end[; as we say, {saying}].
+redeemed/NN | parted | Goodbye, and do things the clean way, it costs less in the end.
 redeemed/NN | small_talk | Nothing I'll regret tomorrow, which is more than I used to manage.[ As the old ones had it, {saying}.]
-redeemed/NG | parted | Go well, and take the long way round if the short one's crooked[; as my people say, {saying}].
+redeemed/NG | parted | Go well, and take the long way round if the short one's crooked.
 redeemed/NG | small_talk | Good, I think; I helped where I could today, and did no harm doing it.[ As we say, {saying}.]
-redeemed/LN | parted | Take care, and keep your dealings in the open[; as it has long been said, {saying}].
+redeemed/LN | parted | Take care, and keep your dealings in the open.
 redeemed/LN | small_talk | Each day I give an honest account of myself, and today's account is a fair one.[ As my people have always held, {saying}.]
-redeemed/LG | parted | Farewell, and may your path stay in the light[; as my people have long said, {saying}].
+redeemed/LG | parted | Farewell, and may your path stay in the light.
 redeemed/LG | small_talk | My day has gone to honest work, done in plain sight, and I am the better for it.[ As the old ones had it, {saying}.]
-redeemed/CN | parted | Safe travels, and forget my face, it's a kindness[; as we say, more or less, {saying}].
+redeemed/CN | parted | Safe travels, and forget my face, it's a kindness.
 redeemed/CN | small_talk | Oh, nothing, nothing at all, and certainly nothing good that anyone could trace to me.[ As my people say, {saying}.]
-redeemed/CG | parted | Goodbye, and be gentle with yourself, and with everyone else too[; oh, and, as we say, {saying}].
+redeemed/CG | parted | Goodbye, and be gentle with yourself, and with everyone else too.
 redeemed/CG | small_talk | Good, quiet, useful, nobody the wiser, perfect.[ As we say, {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----

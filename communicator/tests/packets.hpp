@@ -184,6 +184,11 @@ inline FactPacket abandoned(const std::string& quest = kOwnOffer) {
 
 inline FactPacket parted() { return packet(castellan(), ActKind::Farewell, Outcome::Parted); }
 
+// A farewell to someone who holds the speaker's work, still to do.
+inline FactPacket parted_holding_work() {
+    return packet(castellan(), ActKind::Farewell, Outcome::Parted, {}, {.met = "again", .times = 1, .since = "days", .mood = "friendly", .work = "taken"});
+}
+
 inline FactPacket not_understood() { return packet(gate_captain(), ActKind::NoAct, Outcome::NotUnderstood); }
 
 // The gate captain's view from the fortress: another hamlet of Wenweg is the nearest there.
@@ -658,10 +663,19 @@ inline FactPacket small_talk_after_work() {
                   {.met = "again", .times = 1, .since = "days", .mood = "warm", .work = "finished"});
 }
 
+// The same with the worst nest near, as small talk carries it: how things have been since may name it.
+inline FactPacket small_talk_after_work_near() {
+    FactPacket p = small_talk_after_work();
+    p.facts.insert(p.facts.end() - 1, {FactKind::Danger, "nest-hippogryphs-179",
+                                       {{"creature", "Hippogryphs"}, {"danger", "3"}, {"family", "fantastic"}, {"range", "walk"}}});
+    return p;
+}
+
 inline std::vector<FactPacket> conversation() {
     return {about_them(),
             about_them_far_from_home(),
             small_talk_after_work(),
+            small_talk_after_work_near(),
             beside(small_talk_after_work()),
             beside(greeted_after("finished", "warm")),
             greeted_first(),
@@ -678,6 +692,7 @@ inline std::vector<FactPacket> conversation() {
             small_talk("fair", "still", "hostile"),
             small_talk("fair", "breezy", "friendly", "the turn of the season", "afternoon"),
             parted_coldly(),
+            parted_holding_work(),
             forgiven("neutral"),
             forgiven("hostile"),
             unwronged(),
@@ -686,6 +701,7 @@ inline std::vector<FactPacket> conversation() {
             acknowledged(),
             acknowledged_with("taken"),
             acknowledged_with("offered"),
+            acknowledged_with("finished"),
             thanked_with_work("taken"),
             offended_after("finished"),
             thanked(),

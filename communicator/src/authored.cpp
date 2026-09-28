@@ -407,7 +407,10 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     if (starts("small_talk")) {
         set("season", first_field(p, FactKind::Chat, "season"));
         set("time", first_field(p, FactKind::Chat, "time"));
-        if (const Fact* nest = worst_nest(p)) set("danger", danger_phrase(*nest));
+        // How things have been since the work names the nest as a thing still about, by name alone: how
+        // far is small talk's to say.
+        if (const Fact* nest = worst_nest(p))
+            set("danger", situation == "small_talk_since_work" ? text::spoken(field_of(*nest, "creature")) : danger_phrase(*nest));
     }
     if (starts("exposed")) {
         set("was", text::spaced(text::spoken(first_field(p, FactKind::Reveal, "was"))));
@@ -676,6 +679,25 @@ bool heard_all(const std::map<std::string, std::string>& blanks, const std::stri
     return any;
 }
 
+// `reply` with ", as I said" after `words` where it says them again and the stranger heard them from the
+// speaker lately; as it is otherwise, and where it says so already. Before a comma or a stop it stands
+// alone ("above Iskmor, as I said, or die owing"; "above Iskmor, as I said."), before a word it takes a
+// comma after too.
+std::string marked_as_said(std::string reply, const std::string& words, const std::vector<std::string>& recent) {
+    if (words.empty()) return reply;
+    const std::string lower = lowered(reply);
+    if (lower.find("as i said") != std::string::npos || lower.find("told you") != std::string::npos) return reply;
+    const std::string wanted = lowered(words);
+    const std::size_t at = lower.find(wanted);
+    if (at == std::string::npos) return reply;
+    if (std::none_of(recent.begin(), recent.end(), [&](const std::string& said) { return lowered(said).find(wanted) != std::string::npos; }))
+        return reply;
+    const std::size_t end = at + words.size();
+    const bool stop = end >= reply.size() || std::string(",.;:!?").find(reply[end]) != std::string::npos;
+    reply.insert(end, stop ? ", as I said" : ", as I said,");
+    return reply;
+}
+
 // Whether a line addresses the one spoken to as a stranger: "Hello, stranger", "Go well, good
 // stranger". Said to someone met before, it reads as a speaker who has forgotten them (judged
 // 2026-09-26: "Mind your manners, stranger" two lines after "Welcome back"). The word in other
@@ -775,15 +797,24 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // A death told, and one told to the speaker whose work it came of.
         {"acknowledged_grief", {}},
         {"acknowledged_grief_work", {}},
-        // An apology for how the stranger is (tired, not themself), not for a wrong (speak()).
+        // An apology for how the stranger is (tired, not themself), not for a wrong (speak()); and once
+        // there is a wrong to forgive.
         {"unwronged_state", {}},
+        {"forgiven_state", {}},
+        // A farewell to someone with the speaker's work to do.
+        {"parted_work", {}},
         {"acknowledged_deed_work", {}},
+        // Their doubt of themself (untried, afraid of failing), told while the speaker's work is to
+        // do, and once it is done.
+        {"acknowledged_doubt", {}},
+        {"acknowledged_doubt_work", {}},
+        {"acknowledged_doubt_done", {}},
         // Small talk with someone whose work the stranger has just finished: how it went.
         {"small_talk_work_done", {}},
         // And talked of as one who was there, when it was done beside them (contract version 14).
         {"small_talk_work_done_beside", {}},
         // How things have been since that work was done (speak()).
-        {"small_talk_since_work", {}},
+        {"small_talk_since_work", {"danger"}},
         // Thanked for the speaker's own work, taken or offered and still to do (speak()).
         {"thanked_work", {}},
         // A complaint about the speaker's work, heard as an insult: answered as a complaint (speak()).
@@ -932,21 +963,29 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             return chain;
         }
         case Outcome::Parted:
-            // The same: a bank without a cold farewell does not part warmly for a cold speaker.
+            // The same: a bank without a cold farewell does not part warmly for a cold speaker. Seeing
+            // off someone with their work to do, luck (speak()).
             if (m.frightened()) return frightened("parted");
-            return {m.cold() ? "parted_cold" : "parted"};
+            if (m.cold()) return {"parted_cold"};
+            if (m.work == "taken") return {"parted", "parted_work"};
+            return {"parted"};
         case Outcome::Acknowledged:
             // What the stranger tells, taken as what it is by meaning in speak(); a cold speaker takes
             // everything alike.
             if (m.cold()) return {"acknowledged"};
             {
                 std::vector<std::string> chain = {"acknowledged",      "acknowledged_hardship", "acknowledged_deed",
-                                                  "acknowledged_plan", "acknowledged_kin",      "acknowledged_grief"};
+                                                  "acknowledged_plan", "acknowledged_kin",      "acknowledged_grief",
+                                                  "acknowledged_doubt"};
                 if (m.work == "taken" || m.work == "finished" || m.work == "failed") {
                     chain.push_back("acknowledged_hardship_work");
                     chain.push_back("acknowledged_grief_work");
                 }
-                if (m.work == "offered" || m.work == "taken") chain.push_back("acknowledged_deed_work");
+                if (m.work == "offered" || m.work == "taken") {
+                    chain.push_back("acknowledged_deed_work");
+                    chain.push_back("acknowledged_doubt_work");
+                }
+                if (m.work == "finished") chain.push_back("acknowledged_doubt_done");
                 return chain;
             }
         case Outcome::Thanked:
@@ -971,8 +1010,10 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             if (m.repeat) return {"denied_again", "denied"};
             return {"denied"};
         case Outcome::Forgiven:
-            // As a cold greeting: a bank without a cold line leaves it to the next bank's.
-            return {m.cold() ? "forgiven_cold" : "forgiven"};
+            // As a cold greeting: a bank without a cold line leaves it to the next bank's. An apology
+            // for how the stranger is, heard by meaning (speak()).
+            if (m.cold()) return {"forgiven_cold"};
+            return {"forgiven", "forgiven_state"};
         case Outcome::Unwronged:
             return {"unwronged", "unwronged_state"};
         case Outcome::Calmed:
@@ -1431,10 +1472,15 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             "Someone I loved died: my brother, my wife, my child, a friend; they were killed, never came back, we buried them.",
             "I was hurt, I am sick, hungry or worn out, I lost my home or everything I had.",
             "I know a trade, I have worked at a craft for years, I fought in a battle, I am skilled at something.",
+            // Doubt of themself apart from what they can do: "I've never fought anything bigger than a
+            // wolf" was met with "Good; I'll hold you to that", as a boast (a held-out session's judge,
+            // 2026-09-28). One wording tried once: 10 of 12 lines written before it read right (0
+            // before), and the 57 before unchanged (46).
+            "I am not much of a fighter, I have never done this before, I am afraid I will fail, I doubt I am good enough.",
             "I am going somewhere next, I mean to do something, I plan to settle or to travel.",
             "My family: my mother, father, brother, sister, wife, husband, children, friends, where I grew up.",
             "A passing remark: the weather, the road, the inn, the food, an opinion, a compliment, yes or no."};
-        static const std::vector<std::string> taken = {"acknowledged_grief", "acknowledged_hardship", "acknowledged_deed",
+        static const std::vector<std::string> taken = {"acknowledged_grief", "acknowledged_hardship", "acknowledged_deed", "acknowledged_doubt",
                                                        "acknowledged_plan",  "acknowledged_kin",      "acknowledged"};
         const std::string kind = taken[meaning->subject_of(line, told)];
         // In the light of the speaker's own work: a hurt the stranger took doing it is theirs to be
@@ -1446,6 +1492,10 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         if ((kind == "acknowledged_hardship" || kind == "acknowledged_grief") && (work == "taken" || work == "finished" || work == "failed"))
             as.push_back(kind + "_work");
         if (kind == "acknowledged_deed" && (work == "offered" || work == "taken")) as.push_back("acknowledged_deed_work");
+        // Doubt told before the speaker's work is done is answered as the one who asked it of them; told
+        // once it is done, as fear they stood through.
+        if (kind == "acknowledged_doubt" && (work == "offered" || work == "taken")) as.push_back("acknowledged_doubt_work");
+        if (kind == "acknowledged_doubt" && work == "finished") as.push_back("acknowledged_doubt_done");
         as.push_back(kind);
         if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &as); !on_it.empty()) spoken = on_it;
     }
@@ -1546,13 +1596,26 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     // today." two lines after a brother's death drew "Whatever for? You have done me no wrong" (a
     // held-out hero session, 2026-09-28). Measured on 16 lines written before the descriptions were
     // tried: 14 right.
-    if (meaning != nullptr && p.outcome == Outcome::Unwronged && !trimmed(line).empty()) {
+    // So too once there is something to forgive: "Sorry. I'm just tired." after a complaint drew "Apology
+    // accepted; we're square", a receipt (the hero benchmark's judge, 2026-09-28).
+    if (meaning != nullptr && (p.outcome == Outcome::Unwronged || (p.outcome == Outcome::Forgiven && !remembered(p).cold())) &&
+        !trimmed(line).empty()) {
         static const std::vector<std::string> subjects = {
             "Sorry for how I am: tired, not myself, in a bad mood, upset, grieving.",
             "Sorry for something I did or said: for being rude, for a mistake, for interrupting, for being late."};
         static const std::vector<std::string> state = {"unwronged_state"};
+        static const std::vector<std::string> forgiven_state = {"forgiven_state"};
         if (meaning->subject_of(line, subjects) == 0)
-            if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &state); !on_it.empty()) spoken = on_it;
+            if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, p.outcome == Outcome::Forgiven ? &forgiven_state : &state);
+                !on_it.empty())
+                spoken = on_it;
+    }
+    // Seen off with their work to do, the stranger is wished luck: "Wish me luck." drew "Goodbye, and don't
+    // be a stranger" (a held-out hero session's judge, 2026-09-28). Asked alone, since a bank's own
+    // farewells would shadow `any`'s.
+    if (p.outcome == Outcome::Parted && remembered(p).work == "taken" && !remembered(p).cold() && !remembered(p).frightened()) {
+        static const std::vector<std::string> luck = {"parted_work"};
+        if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &luck); !on_it.empty()) spoken = on_it;
     }
     // Greeted with a question of who they are ("You're the one who holds this place, aren't you?"), a
     // speaker says who they are after their greeting, and never that the guess was right, which they
@@ -1588,6 +1651,12 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     // words of an answer are a writer's for a calm speaker, and "the words she says should be
     // panicked" (the owner, 2026-09-26).
     std::string reply = choose(telling(spoken)).first;
+    // Asked about themself, what they are after said again is marked as said: "hold the fortress above
+    // Iskmor" came back five times in one conversation, "delivered again" where a person would build on it
+    // ("the krakens, as I said"; the hero benchmark's judges, 2026-09-28). In place, after the words said
+    // again: before the line, "As I said, because ..." read badly.
+    if (p.outcome == Outcome::Answered && p.answering == ActKind::AskAboutThem)
+        reply = marked_as_said(reply, blanks_of(p, "them_after", "")["after"], recent);
     // Nor after a greeting that names them already ("Hello. I'm {speaker}; if we've business..."): the
     // name twice in one breath (two writers, 2026-09-28).
     if (!who.empty() && !asks(reply) && reply.find(text::spoken(p.persona.name)) == std::string::npos) reply += " " + who;

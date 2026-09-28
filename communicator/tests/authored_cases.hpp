@@ -521,6 +521,10 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
         for (const std::string before : {"this {season}", "This {season}", "that {season}", "That {season}"})
             if (line.find(before) != std::string::npos) out.push_back("\"" + before + "\": the turn of the season is a season");
         for (const std::string& word : lowercase_i(line)) out.push_back("\"" + word + "\": I is written as a capital");
+        // No saying after a farewell: blind judges of four hero sessions of five heard it as a non
+        // sequitur or a rebuke ("Safe travels; as we say, hold your tongue on thin ice", 2026-09-28).
+        if ((situation == "parted" || situation == "parted_cold") && line.find("{saying}") != std::string::npos)
+            out.push_back("a saying after a farewell: heard as a non sequitur");
     }
     try {
         // A row for an answer said again is spoken to a stranger who asked before and heard all of

@@ -469,17 +469,17 @@ post:scribe | denied | You have the wrong one; I'm ink and paper, nothing more.
 post:scribe | denied_again | No, and I've pages waiting.
 
 # ---- sayings ----
-post:administrator | parted | Take care, and bring it in writing next time[; as we say, {saying}].
+post:administrator | parted | Take care, and bring it in writing next time.
 post:administrator | small_talk | More to sign than there are hours to sign it in, as usual.[ As the saying goes, {saying}.]
-post:court_clerk | parted | Go well, and say nothing you'd not want read back to you[; as the saying goes, {saying}].
+post:court_clerk | parted | Go well, and say nothing you'd not want read back to you.
 post:court_clerk | small_talk | Not a word missed, and every word set down as it was said.[ As we say, {saying}.]
-post:magistrate | parted | Goodbye, and may you never stand before me[; as the old saying has it, {saying}].
+post:magistrate | parted | Goodbye, and may you never stand before me.
 post:magistrate | small_talk | Both sides are always in the right, to hear them tell it; weighing them is my day's work.[ As we say, {saying}.]
-post:teacher | parted | Farewell, and mind your manners[; as they told me when I was small, {saying}].
+post:teacher | parted | Farewell, and mind your manners.
 post:teacher | small_talk | Half of them listen and the rest pretend to, which is about the usual.[ As we say, {saying}.]
-post:librarian | parted | Farewell, and bring back anything you borrow[; as we say, {saying}].
+post:librarian | parted | Farewell, and bring back anything you borrow.
 post:librarian | small_talk | Every book in its place and not a voice raised; I ask for nothing more.[ As the old ones had it, {saying}.]
-post:scribe | parted | Take care, and don't jog anyone's elbow on your way[; as we say, {saying}].
+post:scribe | parted | Take care, and don't jog anyone's elbow on your way.
 post:scribe | small_talk | So far not a blot, and my hand aches only a little.[ As my people put it, {saying}.]
 
 # ---- depth ----

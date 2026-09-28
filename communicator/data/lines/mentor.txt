@@ -809,21 +809,21 @@ mentor/NE | denied | You're mistaken, and I've no time for your theories.
 mentor/NE | denied_again | That's not so, and you're wasting both our time.
 
 # ---- sayings ----
-mentor/NN | parted | Goodbye, and keep what's useful[; as we say, {saying}].
+mentor/NN | parted | Goodbye, and keep what's useful.
 mentor/NN | small_talk | Much as ever; everyone wants answers, and I'd rather they worked them out.[ As the old ones had it, {saying}.]
-mentor/LN | parted | Take care, and hold to what is proper[; as it is said among my people, {saying}].
+mentor/LN | parted | Take care, and hold to what is proper.
 mentor/LN | small_talk | Each day is a lesson, for those willing to be tested by it.[ As it was said to me in my youth, {saying}.]
-mentor/NG | parted | Go well, and be careful with yourself[; as we say at home, {saying}].
+mentor/NG | parted | Go well, and be careful with yourself.
 mentor/NG | small_talk | Most of my day goes on other people's troubles, and I don't mind a bit.[ As my people say, {saying}.]
-mentor/CN | parted | Take care, or don't, your call[; and, how does it go, {saying}].
+mentor/CN | parted | Take care, or don't, your call.
 mentor/CN | small_talk | Nothing much; somebody always needs a shove, and I'm happy to oblige.[ As we say, or near enough, {saying}.]
-mentor/LG | parted | Goodbye, and may you find what you are looking for[; as my people have long said, {saying}].
+mentor/LG | parted | Goodbye, and may you find what you are looking for.
 mentor/LG | small_talk | My work asks patience of me, and I try to give it gladly.[ As the old ones had it, {saying}.]
-mentor/LE | parted | Goodbye, and do try to be a credit to the time I have spent on you[; as my people say, {saying}].
+mentor/LE | parted | Goodbye, and do try to be a credit to the time I have spent on you.
 mentor/LE | small_talk | Since you ask, the day has been tolerable, though I have no leisure for idle talk.[ As the saying goes, {saying}.]
-mentor/CG | parted | Safe travels, and chin up[; oh, and as we say, {saying}].
+mentor/CG | parted | Safe travels, and chin up.
 mentor/CG | small_talk | Oh, you know, a bit of pushing, a bit of catching, the usual.[ And, as we always say, {saying}.]
-mentor/NE | parted | Take care, since you're no use to me hurt[; as we say, {saying}].
+mentor/NE | parted | Take care, since you're no use to me hurt.
 mentor/NE | small_talk | Another day of fools, which is to say an ordinary one.[ As my people say, {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----

@@ -537,6 +537,11 @@ themself").
   conversations days apart. The first time they are asked in a conversation, a speaker with work
   of their own names only theirs (contract version 16); asked again, having said it lately, they add
   the others' without saying their own again (`work_more`, "Beyond mine, ..."), which `any` holds.
+- **What they are after, said again, is marked as said** in place, after the words: "I'll still
+  hold the fortress above Iskmor, as I said, or die owing". It came back five times in one
+  conversation, "delivered again" where a person would build on it (the judges of the hero sessions,
+  2026-09-28). Before the line, "As I said, because ..." read badly. The truth check holds "as I
+  said" to what they are after said lately, as to anything else.
 - **Where home is** (`them_home`): at home where they stand, or elsewhere ("My home is Brenlin, not
   here"), heard by meaning as a subject of its own and asked alone, since a bank's lines of how they
   stand here would shadow `any`'s of home; with no home on record, how they stand here. "Where's home
@@ -602,7 +607,25 @@ before its descriptions were tried:
   "you took that hurt in my service". 12 of 12, six deaths and six other hardships, and the 45 lines
   before unchanged. Some reactions ask back ("What was their name?", "Was it long ago?").
 - **An apology for how the stranger is** (`unwronged_state`): "Sorry, I'm not myself today." two
-  lines after a death had drawn "Whatever for? You have done me no wrong". 14 of 16.
+  lines after a death had drawn "Whatever for? You have done me no wrong". 14 of 16. The same once
+  there is a wrong to forgive (`forgiven_state`): "Sorry. I'm just tired." after a complaint had drawn
+  "Apology accepted; we're square", a receipt.
+
+From the judges of all five hero sessions (2026-09-28):
+- **Doubt of themself** (`acknowledged_doubt`; `_work` while the speaker's work is offered or taken,
+  `_done` once it is done, fear they stood through): "I've never fought anything bigger than a wolf"
+  had been met with "Good; I'll hold you to that", as a boast, in two sessions. One description,
+  tried once: 10 of 12 lines written before it read right (0 before), and the 57 lines of the other
+  reactions unchanged.
+- **Luck at a farewell** to someone with the speaker's work to do (`parted_work`), asked alone, since
+  a bank's own farewells would shadow `any`'s: "Wish me luck." had drawn "Goodbye, and don't be a
+  stranger".
+- **No saying after a farewell**: four judges of five heard the proverb there as a non sequitur or a
+  rebuke ("Safe travels; as we say, hold your tongue on thin ice"). The 286 farewell rows that had
+  one keep the rest of their line; small talk keeps its sayings.
+- **How things have been since** may name the worst nest near, by name alone (`{danger}`, "the
+  Hippogryphs are still about"), and not while said lately: "It sits easier with me, having that one
+  squared" had said nothing to four judges.
 - **Who they are, with what they are after** (`them_who`), and a city they lost or a feat of their
   own (`{lost}`, `{feat}`: a deed that is not the post they keep, which their standing says already);
   and **why it matters, from their home** (`them_after`, `{home}`).

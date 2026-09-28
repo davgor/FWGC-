@@ -511,15 +511,15 @@ incarnate/NN | denied | You're mistaken, plain and simple.
 incarnate/NN | denied_again | No, and asking twice won't change the answer.
 
 # ---- sayings ----
-incarnate/LE | parted | Goodbye, and take nothing I did not give you[; as my people have it, {saying}].
+incarnate/LE | parted | Goodbye, and take nothing I did not give you.
 incarnate/LE | small_talk | The day has yielded what I required of it, as days generally do.[ My people have a saying, and I have never had cause to doubt it: {saying}.]
-incarnate/LG | parted | Take care, and should you need me, you have only to ask[; as my people say, {saying}].
+incarnate/LG | parted | Take care, and should you need me, you have only to ask.
 incarnate/LG | small_talk | Today has asked a great deal of me, and I have given it gladly.[ As the old saying of my people goes, {saying}.]
-incarnate/CG | parted | Farewell, and be kind out there, but never meek[; oh, and as my people say, {saying}].
+incarnate/CG | parted | Farewell, and be kind out there, but never meek.
 incarnate/CG | small_talk | Up to my elbows in other people's troubles, and happy there, honestly.[ As my lot say, {saying}.]
-incarnate/CE | parted | Go well, and come back with something I want[; and do remember what my people say: {saying}].
+incarnate/CE | parted | Go well, and come back with something I want.
 incarnate/CE | small_talk | Nothing today has been worth the having, and I've looked, believe me.[ My people have a saying, not that I listen: {saying}.]
-incarnate/NN | parted | Take care, and keep your ledger as clean as I keep mine[; as we say, {saying}].
+incarnate/NN | parted | Take care, and keep your ledger as clean as I keep mine.
 incarnate/NN | small_talk | No better or worse than most days, and I'll settle for that.[ As the saying goes, {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----

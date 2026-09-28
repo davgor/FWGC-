@@ -708,19 +708,19 @@ rebel/NE | denied | Nonsense; you're seeing what suits you.
 rebel/NE | denied_again | That's not so, and I'll not answer it a third time.
 
 # ---- sayings ----
-rebel/NN | parted | Goodbye, and keep your head up[; as we say, {saying}].
+rebel/NN | parted | Goodbye, and keep your head up.
 rebel/NN | small_talk | Nobody's made me bow today, and nobody will tomorrow.[ As the old ones had it, {saying}.]
-rebel/LN | parted | Take care, and give your loyalty only where it has been earned[; as it has long been said, {saying}].
+rebel/LN | parted | Take care, and give your loyalty only where it has been earned.
 rebel/LN | small_talk | Much of my day is spent in deliberation, which is slow, and rightly so.[ As my people have always held, {saying}.]
-rebel/NG | parted | Goodbye, and be kind to whoever you meet, whoever they serve[; as my people say, {saying}].
+rebel/NG | parted | Goodbye, and be kind to whoever you meet, whoever they serve.
 rebel/NG | small_talk | Well enough; I spend my days hearing people out, and they're worth hearing.[ As we say, {saying}.]
-rebel/CN | parted | Safe travels, and never trust anyone who likes giving orders[; as we say, roughly, {saying}].
+rebel/CN | parted | Safe travels, and never trust anyone who likes giving orders.
 rebel/CN | small_talk | Nothing much, sharpening things, ignoring things, you know.[ As my people say, and they're not wrong, {saying}.]
-rebel/CG | parted | Go well, and no bowing, promise me[; oh, and, as we say, {saying}].
+rebel/CG | parted | Go well, and no bowing, promise me.
 rebel/CG | small_talk | Good, tired, happy, all three, and there's always someone worth helping.[ And, you know what we say, {saying}.]
-rebel/LG | parted | Safe travels, and may you meet with fair dealing wherever you go[; as my people have long said, {saying}].
+rebel/LG | parted | Safe travels, and may you meet with fair dealing wherever you go.
 rebel/LG | small_talk | Some days the work is slow, and today was one, but it is honest work.[ As the old ones had it, {saying}.]
-rebel/NE | parted | Take care, and choose your side before it's chosen for you[; as we say, {saying}].
+rebel/NE | parted | Take care, and choose your side before it's chosen for you.
 rebel/NE | small_talk | Everything's moving my way, slowly, and I'm in no hurry.[ As my people say, {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----

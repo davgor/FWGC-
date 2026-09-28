@@ -729,19 +729,19 @@ beast/NN | exposed_unleashed | Fine. You saw what you saw, and it was me.
 beast/NN | exposed_unleashed | Yes, it was me. Now you know; don't make it bigger than it is.
 
 # ---- sayings ----
-beast/CE | parted | Goodbye; walk, don't run, it only excites me[; as my people say, bless them, {saying}].
+beast/CE | parted | Goodbye; walk, don't run, it only excites me.
 beast/CE | small_talk | Today's been boring, and boring puts me in the mood for breaking things[; my lot have a saying, not that I listen: {saying}].
-beast/CG | parted | Safe travels, and, sorry, one last thing: eat something before you go[; as my people say, and they're not wrong, {saying}].
+beast/CG | parted | Safe travels, and, sorry, one last thing: eat something before you go.
 beast/CG | small_talk | Nobody's needed a thumping yet today, and I'm glad of it, honestly.[ As we say, {saying}.]
-beast/CN | parted | Goodbye, then; we're square, you and me, and I like it that way[; as my people put it, more or less, {saying}].
+beast/CN | parted | Goodbye, then; we're square, you and me, and I like it that way.
 beast/CN | small_talk | One slow day after another, and my fists itching for something to do.[ Still, as my lot say, {saying}.]
-beast/LG | parted | Farewell, and may you meet no one who gives me cause to lose my temper[; as my people rightly say, {saying}].
+beast/LG | parted | Farewell, and may you meet no one who gives me cause to lose my temper.
 beast/LG | small_talk | All has gone by the rules today, and I have kept to every one of them; I trust your day has been as orderly.[ As my people have long said, {saying}.]
-beast/LN | parted | Safe travels, and keep to your bounds as I keep to mine[; as my people have it, {saying}].
+beast/LN | parted | Safe travels, and keep to your bounds as I keep to mine.
 beast/LN | small_talk | Nothing has stirred the worst of me today, and I have given it no leave to stir.[ As my people have long held, {saying}.]
-beast/NG | parted | Farewell, and keep out of harm's way; I'd much rather hear you're well than hear who hurt you[; as my people say, {saying}].
+beast/NG | parted | Farewell, and keep out of harm's way; I'd much rather hear you're well than hear who hurt you.
 beast/NG | small_talk | Not bad, so long as everyone round here is all right, and as far as I can tell, they are.[ As we say, {saying}.]
-beast/NN | parted | Go well, and keep your temper; I'll keep mine[; as my people say, {saying}].
+beast/NN | parted | Go well, and keep your temper; I'll keep mine.
 beast/NN | small_talk | Much the same as ever: work, food, and nobody poking at me.[ As my people put it, {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----

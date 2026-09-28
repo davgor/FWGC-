@@ -102,9 +102,9 @@ any | denied_again | No, and I'll not say it again.
 any | denied_again | Nonsense, and that's the end of it.
 
 # ---- With a saying of the speaker's people (contract version 5): left out for a people with none --
-any | parted | Take care[; as my people say, {saying}].
-any | parted | Goodbye, then[, and remember what we say: {saying}].
-any | parted | Safe travels, and mind how you go[; as we say, {saying}].
+any | parted | Take care.
+any | parted | Goodbye, then.
+any | parted | Safe travels, and mind how you go.
 any | small_talk | Can't complain.[ As we say, {saying}.]
 any | small_talk | The work goes on.[ As my people say, {saying}.]
 any | small_talk | Nothing much to tell.[ Still, as we say, {saying}.]
@@ -323,3 +323,19 @@ any | them_home | This is home: {home_here}.
 any | them_home | Here. {home_here} is home, and you're standing in it.
 any | them_home | My home is {away}, not here.
 any | them_home | {away} is home, though I'm not there now.
+# Doubt of themself the stranger tells (untried, afraid of failing): before the speaker's work is done,
+# and once it is, as fear they stood through.
+any | acknowledged_doubt | Well, everyone starts somewhere.
+any | acknowledged_doubt | Ah, nobody's born knowing it; you'll learn.
+any | acknowledged_doubt_work | Right; then keep your head and learn quickly, since nobody starts out knowing it.
+any | acknowledged_doubt_work | Good that you said it; I'd sooner know it now than find it out later.
+any | acknowledged_doubt_done | Ah, you were afraid and you stood anyway; that's all courage ever is.
+any | acknowledged_doubt_done | Aye, then you know what it cost to stand, and you stood.
+# A farewell to someone with the speaker's work to do: luck, and nothing said of who goes or what it is like.
+any | parted_work | Go well, and luck go with you; I'll be here when it's done.
+any | parted_work | Take care, and good luck with it; I'll want to hear how it went.
+any | parted_work | Goodbye, and good luck; I'll be waiting to hear how it goes.
+# An apology for how the stranger is (tired, not themself), once there is a wrong to forgive.
+any | forgiven_state | All right; you're tired, and you've earned it. Get some rest.
+any | forgiven_state | Let's forget it; rest, and we'll say no more of it.
+any | forgiven_state | No hard feelings; the road wears on anyone.

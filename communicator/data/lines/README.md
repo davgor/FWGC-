@@ -65,9 +65,11 @@ voice | situation | line
   | `them_secret` (what they fear or hide) | |
   | `them_home` (where home is: where they stand, or somewhere else) | `{home_here}` `{away}` |
   | `acknowledged_hardship`, `acknowledged_grief`, `acknowledged_deed`, `acknowledged_plan`, `acknowledged_kin` (what the stranger told of themself, by what it is) and `acknowledged_hardship_work`, `acknowledged_grief_work`, `acknowledged_deed_work` (in the light of the speaker's own work) | |
-  | `small_talk_work_done`, `small_talk_work_done_beside`, `small_talk_since_work` (the speaker's work the stranger finished: how it went, how it went when the speaker was there, how things have been since) | |
+  | `acknowledged_doubt` (the stranger's doubt of themself: untried, afraid of failing), `acknowledged_doubt_work` (told while the speaker's work is offered or taken), `acknowledged_doubt_done` (told once it is done: fear they stood through) | |
+  | `small_talk_work_done`, `small_talk_work_done_beside`, `small_talk_since_work` (the speaker's work the stranger finished: how it went, how it went when the speaker was there, how things have been since) | `small_talk_since_work`: `{danger}`, the worst nest near by name alone ("the {danger} are still about") |
   | `greeted_finished_beside` (back with the speaker's work done where they stand, beside them; contract version 14) | `{since}` |
-  | `thanked_work` (thanked for their own work while it is still to do), `offended_complaint` (a complaint about their work), `unwronged_state` (an apology for how the stranger is) | |
+  | `thanked_work` (thanked for their own work while it is still to do), `offended_complaint` (a complaint about their work), `unwronged_state` (an apology for how the stranger is), `forgiven_state` (the same, once there is a wrong to forgive) | |
+  | `parted_work` (a farewell to someone with the speaker's work to do: luck, never what the work is like or who goes) | |
   | `greeted_who` (said after a first greeting that asks who they are) | |
 
   Every situation may also use `{speaker}`, `{post}`, `{place}` and `{saying}`.
@@ -81,7 +83,9 @@ voice | situation | line
   bracket that closes its part. `sayings.txt` holds twelve peoples' banks, 24 sayings each. A saying's first
   word takes a capital where it opens a sentence, so it is one a sentence may begin with
   (`common_capitals()`: "the", "no", "never"...), and a saying is a general truth, never a fact
-  of the world.
+  of the world. No saying after a farewell (`parted`, `parted_cold`): blind judges of four hero
+  sessions of five heard one there as a non sequitur or a rebuke ("Safe travels; as we say, hold your
+  tongue on thin ice", 2026-09-28).
 
   A packet's situations come closest first, and a bank answers from the first it has a line
   for: a warm greeting to someone met before is `greeted_warm`, then `greeted_again`; what came

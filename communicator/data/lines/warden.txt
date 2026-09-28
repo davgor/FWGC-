@@ -809,21 +809,21 @@ warden/LE | denied | That's not so; I am exactly what my office makes me.
 warden/LE | denied_again | No, and asking twice does not oblige me to answer twice.
 
 # ---- sayings ----
-warden/LN | parted | Safe travels, and keep your word where you give it[; as we say, {saying}].
+warden/LN | parted | Safe travels, and keep your word where you give it.
 warden/LN | small_talk | Nothing out of order today, and that's how I like it.[ As the old ones had it, {saying}.]
-warden/NN | parted | Farewell, and deal fair with whoever you meet[; as my people say, {saying}].
+warden/NN | parted | Farewell, and deal fair with whoever you meet.
 warden/NN | small_talk | Some days are all comings and goings, and this has been one of them.[ As we say, {saying}.]
-warden/NG | parted | Goodbye, and you'll be welcome back, whichever way you're headed[; as we say, {saying}].
+warden/NG | parted | Goodbye, and you'll be welcome back, whichever way you're headed.
 warden/NG | small_talk | Every face that comes by has a story, and I try to hear a bit of each.[ As my people say, {saying}.]
-warden/CN | parted | Goodbye, and wherever you end up standing, stand like you mean it[; as we say, roughly, {saying}].
+warden/CN | parted | Goodbye, and wherever you end up standing, stand like you mean it.
 warden/CN | small_talk | All boring today, nobody tried anything, and I'm almost offended.[ As my people say, give or take, {saying}.]
-warden/LG | parted | Take care, and may every door you come to open to you[; as my people have long said, {saying}].
+warden/LG | parted | Take care, and may every door you come to open to you.
 warden/LG | small_talk | No one has been turned away today, and that is a good day by any reckoning.[ As the old ones had it, {saying}.]
-warden/CG | parted | Safe travels, and wherever you're going, someone should be glad to see you[; oh, and, as we say, {saying}].
+warden/CG | parted | Safe travels, and wherever you're going, someone should be glad to see you.
 warden/CG | small_talk | Half the world's come through here today, or it feels like it, and I loved every minute.[ As we always say, {saying}.]
-warden/NE | parted | Farewell, and remember I look after my own, and you're not one of them[; as we say, {saying}].
+warden/NE | parted | Farewell, and remember I look after my own, and you're not one of them.
 warden/NE | small_talk | Another day holding the line, and another day fed for it, which is all I'm here for.[ As my people say, {saying}.]
-warden/LE | parted | Safe travels, and do not expect me to come looking for you[; as my people have it, {saying}].
+warden/LE | parted | Safe travels, and do not expect me to come looking for you.
 warden/LE | small_talk | Nothing of note, which in my position is the highest praise a day can earn.[ As the saying goes, {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----

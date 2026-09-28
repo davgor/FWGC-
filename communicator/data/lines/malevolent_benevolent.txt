@@ -405,13 +405,13 @@ malevolent_benevolent/NN | denied | You have the wrong one; I deal as I am, and 
 malevolent_benevolent/NN | denied_again | That's not so, and asking again won't get you a different answer.
 
 # ---- sayings ----
-malevolent_benevolent/NE | parted | Take care; I'll have a use for you sooner or later[; as my people say, {saying}].
+malevolent_benevolent/NE | parted | Take care; I'll have a use for you sooner or later.
 malevolent_benevolent/NE | small_talk | Everyone's been doing my work today without being asked, which is how it goes with me.[ As we say, {saying}.]
-malevolent_benevolent/LE | parted | Safe travels, and mind the law wherever you go, for it minds you[; as my people have it, {saying}].
+malevolent_benevolent/LE | parted | Safe travels, and mind the law wherever you go, for it minds you.
 malevolent_benevolent/LE | small_talk | Today I have been petitioned, flattered and obeyed, in that order.[ There is a saying among my people, and I have no quarrel with it: {saying}.]
-malevolent_benevolent/NG | parted | Goodbye, and trust what people do over what they say, me included[; as my people put it, {saying}].
+malevolent_benevolent/NG | parted | Goodbye, and trust what people do over what they say, me included.
 malevolent_benevolent/NG | small_talk | A long day, and a good one; nobody thanked me, and nobody needed to.[ As the old ones had it, {saying}.]
-malevolent_benevolent/NN | parted | Farewell; like me or don't, the door's open either way[; as my people say, {saying}].
+malevolent_benevolent/NN | parted | Farewell; like me or don't, the door's open either way.
 malevolent_benevolent/NN | small_talk | The usual: work to do, and people making up their minds about me while I do it.[ As we say, {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----

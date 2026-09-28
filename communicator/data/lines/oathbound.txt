@@ -809,21 +809,21 @@ oathbound/LE | denied | You have the wrong one, and I will not dignify the rest.
 oathbound/LE | denied_again | That's not so, and I will not answer it a third time.
 
 # ---- sayings ----
-oathbound/NN | parted | Farewell, and keep your accounts square[; as we say, {saying}].
+oathbound/NN | parted | Farewell, and keep your accounts square.
 oathbound/NN | small_talk | Nothing broken, nothing owed, and that's a good day by my count.[ As the old ones had it, {saying}.]
-oathbound/LN | parted | Take care, and weigh your words before you give them[; as it has long been said, {saying}].
+oathbound/LN | parted | Take care, and weigh your words before you give them.
 oathbound/LN | small_talk | My word stands today as it stood yesterday, and I ask no more of any day.[ As my people have always held, {saying}.]
-oathbound/NG | parted | Goodbye, and I hope the road's kind to you[; as my people say, {saying}].
+oathbound/NG | parted | Goodbye, and I hope the road's kind to you.
 oathbound/NG | small_talk | A quiet day, and a quiet day means nobody's in trouble.[ As we say, {saying}.]
-oathbound/CN | parted | Goodbye, and keep your promises, the spirit of them anyway[; as we say, more or less, {saying}].
+oathbound/CN | parted | Goodbye, and keep your promises, the spirit of them anyway.
 oathbound/CN | small_talk | Oh, bending my word a little, never breaking it, same as always.[ As my people say, give or take, {saying}.]
-oathbound/LG | parted | Go well, and may you find shelter on the road[; as my people have long said, {saying}].
+oathbound/LG | parted | Go well, and may you find shelter on the road.
 oathbound/LG | small_talk | Every day without harm to anyone is a good day, and this one has been good so far.[ As the old ones had it, {saying}.]
-oathbound/CG | parted | Safe travels, and if anyone needs a hand, lend one[; and, you know what we say, {saying}].
+oathbound/CG | parted | Safe travels, and if anyone needs a hand, lend one.
 oathbound/CG | small_talk | Nobody's told me what I can't do yet today, so it's going beautifully.[ As we say, {saying}.]
-oathbound/NE | parted | Take care, and mind the wording of anything you swear to[; as my people say, {saying}].
+oathbound/NE | parted | Take care, and mind the wording of anything you swear to.
 oathbound/NE | small_talk | The day's gone my way, and days generally do when you choose your words with care.[ As we say, and for once it's true, {saying}.]
-oathbound/LE | parted | Take care, and remember that every word you give can be held against you[; as my people have it, {saying}].
+oathbound/LE | parted | Take care, and remember that every word you give can be held against you.
 oathbound/LE | small_talk | Nothing I have sworn forbids me a pleasant day, and so I was having one, until now.[ As the saying goes, {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
@@ -1011,7 +1011,7 @@ oathbound/NN | them_long | As long as it's taken, and I'll stay as long as it ta
 oathbound/NN | them_long | Since before you'd have thought to ask; I {standing}, and a sworn thing doesn't wear out.
 oathbound/NN | them_long | I've not kept count of that, and I keep count of nearly everything.
 oathbound/NN | them_ties | {ties}. Where I've given my word, it holds, and where I haven't, I keep watch.
-oathbound/NN | them_ties | {ties}; whatever they are to me, the account between us stays straight.
+oathbound/NN | them_ties | {ties}; with each of them, I keep the account straight.
 oathbound/NN | them_plans | My home is {away}, and it can wait; a promise can't. I mean to {after}, and I'll go when it's kept, not before.
 oathbound/NN | them_plans | I'd not leave {home_here} even if I could; it's home, and I mean to {after}, and I don't walk away from a sworn thing.
 oathbound/NN | them_plans | What comes next is what I swore to: I mean to {after}[, and the {danger} can make of that what they like].

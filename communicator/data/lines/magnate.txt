@@ -809,21 +809,21 @@ magnate/NE | denied | What are you on about; drop it.
 magnate/NE | denied_again | That's not so, and I'm done answering it.
 
 # ---- sayings ----
-magnate/NN | parted | Goodbye, and don't sell anything you'll want back[; as my people say, {saying}].
+magnate/NN | parted | Goodbye, and don't sell anything you'll want back.
 magnate/NN | small_talk | Some days the ledger smiles at me, and today was one of them.[ As we say, {saying}.]
-magnate/LN | parted | Take care, and read every agreement before you put your name to it[; as my people have it, {saying}].
+magnate/LN | parted | Take care, and read every agreement before you put your name to it.
 magnate/LN | small_talk | The accounts are in order and the terms are kept, which makes for a good day by any measure.[ There is a saying among my people, and I find it sound: {saying}.]
-magnate/NG | parted | Safe travels, and share your bread with whoever's short of it[; as my people say, {saying}].
+magnate/NG | parted | Safe travels, and share your bread with whoever's short of it.
 magnate/NG | small_talk | I count a day good if nobody went short in it, and I'm still counting this one.[ As the old ones had it, {saying}.]
-magnate/LG | parted | Take care, and never let hunger drive your bargains for you[; as the old saying goes among my people, {saying}].
+magnate/LG | parted | Take care, and never let hunger drive your bargains for you.
 magnate/LG | small_talk | All day it has been fair measures and honest terms, and I would ask no better of it.[ As my people have long said, {saying}.]
-magnate/CN | parted | Goodbye, and if the market turns, turn with it[; oh, and as my lot say, {saying}].
+magnate/CN | parted | Goodbye, and if the market turns, turn with it.
 magnate/CN | small_talk | Every day's a gamble, and today I'm ahead, I think, I'll check.[ As my people say, {saying}.]
-magnate/CG | parted | Farewell, and if you've more than you need, you know what to do with it[; and as my people say, {saying}].
+magnate/CG | parted | Farewell, and if you've more than you need, you know what to do with it.
 magnate/CG | small_talk | Oh, the day's been a scramble, buying where it's cheap and sending it where it's needed.[ As they told me when I was small, {saying}.]
-magnate/LE | parted | Take care, and do keep your stores full, for empty ones are so easily bought[; as my people have it, {saying}].
+magnate/LE | parted | Take care, and do keep your stores full, for empty ones are so easily bought.
 magnate/LE | small_talk | Every agreement I sign today will be worth more to me tomorrow, which is rather the point of them.[ My people have a saying, one of the few I have found worth keeping: {saying}.]
-magnate/NE | parted | Go well, and stay out of debt, or at least out of mine[; as my people say, {saying}].
+magnate/NE | parted | Go well, and stay out of debt, or at least out of mine.
 magnate/NE | small_talk | Someone always has to sell, and I'm always there when they do.[ As we say, {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----

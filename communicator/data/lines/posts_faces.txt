@@ -939,27 +939,27 @@ post:dread | denied | You're mistaken; there is no other face, and this one shou
 post:dread | denied_again | That's not so, and I tire of saying it.
 
 # ---- sayings ----
-post:sovereign | parted | Take care, and do not squander the time I gave you[; as my people say, {saying}].
+post:sovereign | parted | Take care, and do not squander the time I gave you.
 post:sovereign | small_talk | All that is mine is in order, and I intend it to stay so.[ As we say, {saying}.]
-post:champion | parted | Farewell, and don't let anyone tell you you're beaten[; as we say, {saying}].
+post:champion | parted | Farewell, and don't let anyone tell you you're beaten.
 post:champion | small_talk | Never better, though a sword arm gets restless on a quiet day.[ As my people put it, {saying}.]
-post:pretender | parted | Go well, and choose your side before others choose it for you[; as my people say, {saying}].
+post:pretender | parted | Go well, and choose your side before others choose it for you.
 post:pretender | small_talk | Well enough, and I'll be better once my claim is heard.[ As we say, {saying}.]
-post:domain_holder | parted | Safe travels, and leave every gate as you found it[; as we say, {saying}].
+post:domain_holder | parted | Safe travels, and leave every gate as you found it.
 post:domain_holder | small_talk | Each fence stands and each stone sits where it should, and that is all I ask.[ As the old ones had it, {saying}.]
-post:magister | parted | Go well, and try not to be wrong about anything important[; as my people put it, {saying}].
+post:magister | parted | Go well, and try not to be wrong about anything important.
 post:magister | small_talk | Quite productive, thank you; there is always someone else's error to correct.[ As the proverb has it, {saying}.]
-post:charcoal burner | parted | Farewell, and don't go poking at fires that aren't yours[; as we say, {saying}].
+post:charcoal burner | parted | Farewell, and don't go poking at fires that aren't yours.
 post:charcoal burner | small_talk | All I do is sit and watch a stack smoulder, and I do it well.[ As the old ones had it, {saying}.]
-post:hermit | parted | Farewell, and I'll not see you out[; as the old ones had it, {saying}].
+post:hermit | parted | Farewell, and I'll not see you out.
 post:hermit | small_talk | Nothing much happens out here, and that is the whole point.[ As the saying goes, {saying}.]
-post:shepherd | parted | Go well, and don't stray[; as we say, {saying}].
+post:shepherd | parted | Go well, and don't stray.
 post:shepherd | small_talk | Every head accounted for, and not one of them grateful.[ As my people put it, {saying}.]
-post:pilgrim | parted | Farewell, and may you find what you're looking for[; as my people say, {saying}].
+post:pilgrim | parted | Farewell, and may you find what you're looking for.
 post:pilgrim | small_talk | Every step's a small prayer, and I've taken a good many of them.[ As the old ones had it, {saying}.]
-post:midwife | parted | Go well, and keep your hands clean[; as they told me when I was small, {saying}].
+post:midwife | parted | Go well, and keep your hands clean.
 post:midwife | small_talk | I'm tired to the bone, but it's the good sort of tired.[ As we say, {saying}.]
-post:dread | parted | Goodbye, for now[; as the old ones had it, {saying}].
+post:dread | parted | Goodbye, for now.
 post:dread | small_talk | Nothing troubles my days; I am what troubles other people's.[ As my people say, {saying}.]
 
 # ---- depth ----

@@ -760,25 +760,25 @@ post:postern_guard | denied | No; I mind a door, and that's all I mind.
 post:postern_guard | denied | I don't know what you mean; I keep the little door, no more.
 post:postern_guard | denied_again | That's not so, however you whisper it.
 # ---- sayings ----
-post:watch_guard | parted | Farewell, and keep your nose clean[; as we say, {saying}].
+post:watch_guard | parted | Farewell, and keep your nose clean.
 post:watch_guard | small_talk | Both my boots a little thinner, and nobody's started anything yet.[ As the saying goes, {saying}.]
-post:gate_guard | parted | Take care, and give me no cause to stop you next time[; as we say, {saying}].
+post:gate_guard | parted | Take care, and give me no cause to stop you next time.
 post:gate_guard | small_talk | In and out, all day long, and every one of them asked their business.[ As my people put it, {saying}.]
-post:soldier | parted | Go well, and keep in step[; as the saying goes, {saying}].
+post:soldier | parted | Go well, and keep in step.
 post:soldier | small_talk | Up at the call and standing where I'm put, same as ever.[ As the old ones had it, {saying}.]
-post:tower_watch | parted | Take care, and stop for a word again sometime[; as the old ones had it, {saying}].
+post:tower_watch | parted | Take care, and stop for a word again sometime.
 post:tower_watch | small_talk | Much the same view as ever, and I've studied every bit of it twice.[ As we say, {saying}.]
-post:garrison_trooper | parted | Go well, and if there's any trouble out there, send it my way[; as we say, {saying}].
+post:garrison_trooper | parted | Go well, and if there's any trouble out there, send it my way.
 post:garrison_trooper | small_talk | Nothing to do but polish what's already polished.[ As my people put it, {saying}.]
-post:keep_guard | parted | Safe travels, and may you never need the door I keep[; as the old ones had it, {saying}].
+post:keep_guard | parted | Safe travels, and may you never need the door I keep.
 post:keep_guard | small_talk | My door is shut and my watch is kept, as they should be.[ As we say, {saying}.]
-post:lookout | parted | Go well, and give the wall a wave as you pass[; as we say, {saying}].
+post:lookout | parted | Go well, and give the wall a wave as you pass.
 post:lookout | small_talk | Not a thing gets past me up here, and I've been looking all day.[ As my people put it, {saying}.]
-post:jailer | parted | Go well, and never let me see you in irons[; as the saying goes, {saying}].
+post:jailer | parted | Go well, and never let me see you in irons.
 post:jailer | small_talk | Nobody out who should be in, and that's my whole day.[ As the old ones had it, {saying}.]
-post:watch_officer | parted | Safe travels, and let someone else's watch have the trouble[; as we say, {saying}].
+post:watch_officer | parted | Safe travels, and let someone else's watch have the trouble.
 post:watch_officer | small_talk | Too much on my desk and too few hands to share it with; the usual.[ As the saying goes, {saying}.]
-post:postern_guard | parted | Farewell, and softly on your way[; as we say, {saying}].
+post:postern_guard | parted | Farewell, and softly on your way.
 post:postern_guard | small_talk | Nobody comes round this side much, and that suits the door and me.[ As the old ones had it, {saying}.]
 # ---- depth ----
 post:watch_guard | greeted_again | Good day. I had you on my rounds {since}, and here you are again.

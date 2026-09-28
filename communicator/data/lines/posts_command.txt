@@ -727,23 +727,23 @@ post:steward | denied | You're mistaken; my affairs are as orderly as my books.
 post:steward | denied_again | That's not so, and I'll not discuss it further.
 
 # ---- sayings ----
-post:commander | parted | Safe travels, and choose your fights with care[; as the old ones had it, {saying}].
+post:commander | parted | Safe travels, and choose your fights with care.
 post:commander | small_talk | Once the orders are given, the rest is waiting.[ As we say, {saying}.]
-post:sergeant | parted | Go well, and stand up straight while you're at it[; as the saying goes, {saying}].
+post:sergeant | parted | Go well, and stand up straight while you're at it.
 post:sergeant | small_talk | My throat's raw and the recruits are still hopeless; an ordinary day, then.[ As we say, {saying}.]
-post:garrison_officer | parted | Safe travels, and keep your papers in order[; as we say, {saying}].
+post:garrison_officer | parted | Safe travels, and keep your papers in order.
 post:garrison_officer | small_talk | All present and accounted for, which is all I ask of a day.[ As the saying goes, {saying}.]
-post:quartermaster | parted | Farewell, and I'll be counting after you've gone[; as we say, {saying}].
+post:quartermaster | parted | Farewell, and I'll be counting after you've gone.
 post:quartermaster | small_talk | Nothing's missing, and I mean to keep it that way.[ As my people put it, {saying}.]
-post:armorer | parted | Safe travels, and let your mail take the blows, not you[; as we say, {saying}].
+post:armorer | parted | Safe travels, and let your mail take the blows, not you.
 post:armorer | small_talk | My thumbs are sore from rivets, which means the work's going well.[ As the old ones had it, {saying}.]
-post:equipment_keeper | parted | Goodbye, and keep a bucket handy wherever you sleep[; as the saying goes, {saying}].
+post:equipment_keeper | parted | Goodbye, and keep a bucket handy wherever you sleep.
 post:equipment_keeper | small_talk | Every bucket's full and every ladder's sound; that's a day well spent.[ As we say, {saying}.]
-post:hall_attendant | parted | Take care, and mind the benches on your way out[; as we say, {saying}].
+post:hall_attendant | parted | Take care, and mind the benches on your way out.
 post:hall_attendant | small_talk | Up and down the hall, laying and clearing, and back to the start.[ As my people put it, {saying}.]
-post:chaplain | parted | Take care, and carry your burdens lightly[; as the old ones had it, {saying}].
+post:chaplain | parted | Take care, and carry your burdens lightly.
 post:chaplain | small_talk | Some days I have a full chapel, and some days only the candles; I tend both.[ As we say, {saying}.]
-post:steward | parted | Farewell, and keep your own accounts as well as I keep mine[; as we say, {saying}].
+post:steward | parted | Farewell, and keep your own accounts as well as I keep mine.
 post:steward | small_talk | Everyone's fed and housed, and the lists still balance, which is all a day needs.[ As the saying goes, {saying}.]
 
 # ---- depth ----

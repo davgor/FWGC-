@@ -729,19 +729,19 @@ fractured_heart/NN | exposed_second | So you know. There are two of us in here, 
 fractured_heart/NN | exposed_second | You've found me out. Some days I'm not me, and I'll not pretend otherwise now you know.
 
 # ---- sayings ----
-fractured_heart/CG | parted | Safe travels, and I promise I'll remember you[; oh, and as my people say, {saying}].
+fractured_heart/CG | parted | Safe travels, and I promise I'll remember you.
 fractured_heart/CG | small_talk | Half of today I can't account for, and the other half was lovely.[ As they told me when I was small, {saying}.]
-fractured_heart/CN | parted | Safe travels, and don't hold me to anything[; here's one from my people instead, free: {saying}].
+fractured_heart/CN | parted | Safe travels, and don't hold me to anything.
 fractured_heart/CN | small_talk | Today I'm open to offers, same as yesterday, and the day before, if that was me.[ As my lot say, {saying}.]
-fractured_heart/LE | parted | Go well, and see that you keep your word as scrupulously as I keep mine[; as my people have it, {saying}].
+fractured_heart/LE | parted | Go well, and see that you keep your word as scrupulously as I keep mine.
 fractured_heart/LE | small_talk | Today has gone to keeping the promises made in my name, several of which I would never have made myself.[ My people have a saying, and I have found it sound: {saying}.]
-fractured_heart/LN | parted | Take care; my word is good, whichever day you find me[; as my people put it, {saying}].
+fractured_heart/LN | parted | Take care; my word is good, whichever day you find me.
 fractured_heart/LN | small_talk | The day's business has gone as agreed, which is all I ask of any day.[ There is an old saying among my people: {saying}.]
-fractured_heart/NE | parted | Go well, and don't take me for the forgetful one[; as my people say, {saying}].
+fractured_heart/NE | parted | Go well, and don't take me for the forgetful one.
 fractured_heart/NE | small_talk | Today gave me plenty to remember, and I forget nothing.[ As the saying goes, {saying}.]
-fractured_heart/NG | parted | Goodbye, and forgive me anything I've forgotten[; as the old ones had it, {saying}].
+fractured_heart/NG | parted | Goodbye, and forgive me anything I've forgotten.
 fractured_heart/NG | small_talk | Today's been kind to me, as far as I remember it, and I hope I was kind back.[ As my people say, {saying}.]
-fractured_heart/NN | parted | Farewell, and if I don't know you next time, don't take it personally[; as we say, {saying}].
+fractured_heart/NN | parted | Farewell, and if I don't know you next time, don't take it personally.
 fractured_heart/NN | small_talk | Some days go smoother than others, and this one's gone smooth enough.[ As we say, {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----

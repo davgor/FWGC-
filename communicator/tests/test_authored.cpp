@@ -98,12 +98,15 @@ TEST(the_rule_checks_catch_what_they_check) {
     check::is_true(!row_problems("any | parted | Farewell, and give Wenweg my regards.").empty(), "a town the line writes itself");
     check::is_true(row_problems("any | parted | Farewell, and give {place} my regards.").empty(), "the town as a blank passes");
     check::is_true(row_problems("any | declined | Suit yourself, then.").empty(), "an outcome's opening is the program's own");
-    // A saying is dropped in too: left out, "Go well." is sound; said, a second sentence is not.
-    check::is_true(row_problems("any | parted | Go well[; as we say, {saying}].").empty(), "a saying that continues the sentence");
-    check::is_true(!row_problems("any | parted | Go well.[ As we say, {saying}.]").empty(),
-                   "a farewell of one sentence may not add a second, even an optional one");
-    check::is_true(!row_problems("any | parted | Go well[; as we say, {saying}], and good luck.").empty(), "a saying ends its sentence");
+    // A saying is dropped in too: left out, "Suit yourself." is sound; said, a second sentence is not.
+    check::is_true(row_problems("any | small_talk | Much as ever[; as we say, {saying}].").empty(), "a saying that continues the sentence");
+    check::is_true(!row_problems("any | declined | Suit yourself.[ As we say, {saying}.]").empty(),
+                   "an answer of one sentence may not add a second, even an optional one");
+    check::is_true(!row_problems("any | small_talk | Much as ever[; as we say, {saying}], and no worse.").empty(), "a saying ends its sentence");
     check::is_true(row_problems("any | small_talk | Much as ever.[ As we say, {saying}.]").empty(), "its stop inside the part");
+    // And none after a farewell, where four blind judges of five heard it as a non sequitur (2026-09-28).
+    check::is_true(row_problems("any | parted | Go well.").empty(), "the premise: a farewell");
+    check::is_true(!row_problems("any | parted | Go well[; as we say, {saying}].").empty(), "no saying after a farewell");
     // Where news goes in a line (contract version 11; writers found these let through, 2026-09-27):
     // {news} may open with "you" or a name, and {deed} is what the stranger did.
     check::is_true(row_problems("any | news | The word is {news}.").empty(), "the premise: news after words of the line's own");
@@ -364,21 +367,23 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         {packets::small_talk("fair", "still", "hostile"), {"small_talk_cold"}},
         {packets::parted(), {"parted"}},
         {packets::parted_coldly(), {"parted_cold"}},
-        {packets::forgiven("neutral"), {"forgiven"}},
+        {packets::forgiven("neutral"), {"forgiven", "forgiven_state"}},
+        {packets::parted_holding_work(), {"parted", "parted_work"}},
         {packets::forgiven("hostile"), {"forgiven_cold"}},
         {packets::unwronged(), {"unwronged", "unwronged_state"}},
         {packets::about_the_town(), {"about_place"}},
         {packets::acknowledged(),
-         {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin", "acknowledged_grief"}},
+         {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin", "acknowledged_grief",
+          "acknowledged_doubt"}},
         {packets::acknowledged_with("taken"),
          {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin", "acknowledged_grief",
-          "acknowledged_hardship_work", "acknowledged_grief_work", "acknowledged_deed_work"}},
+          "acknowledged_doubt", "acknowledged_hardship_work", "acknowledged_grief_work", "acknowledged_deed_work", "acknowledged_doubt_work"}},
         {packets::acknowledged_with("finished"),
          {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin", "acknowledged_grief",
-          "acknowledged_hardship_work", "acknowledged_grief_work"}},
+          "acknowledged_doubt", "acknowledged_hardship_work", "acknowledged_grief_work", "acknowledged_doubt_done"}},
         {packets::acknowledged_with("offered"),
          {"acknowledged", "acknowledged_hardship", "acknowledged_deed", "acknowledged_plan", "acknowledged_kin", "acknowledged_grief",
-          "acknowledged_deed_work"}},
+          "acknowledged_doubt", "acknowledged_deed_work", "acknowledged_doubt_work"}},
         {packets::acknowledged_with("", "hostile"), {"acknowledged"}},
         {packets::small_talk_after_work(), {"small_talk_fair", "small_talk", "small_talk_work_done", "small_talk_since_work"}},
         {packets::beside(packets::small_talk_after_work()),
@@ -817,6 +822,24 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
         check::equal(longer.speak(p, question, {}, &meaning), how_long, "how long: " + question);
         check::equal(subject_of[lines.speak(p, question, {}, &meaning)], std::string("them_here"), "no line of it: " + question);
     }
+    // What they are after, heard from them lately, is marked as said where it is said again: "hold the
+    // fortress above Iskmor" came back five times in one conversation (the hero benchmark's judges,
+    // 2026-09-28).
+    const Lines aims = Lines::parse("any | them_after | I mean to {after}.\n", "aims");
+    const std::string aim = aims.speak(p, "What are you trying to do?", {}, &meaning);
+    check::equal(aim, std::string("I mean to hold the fortress above Wenweg."), "the premise: said as it comes, heard nothing lately");
+    check::equal(aims.speak(p, "What are you trying to do?", {aim}, &meaning), std::string("I mean to hold the fortress above Wenweg, as I said."),
+                 "heard lately: before a stop");
+    const Lines fuller = Lines::parse("any | them_after | I mean to {after} and nothing less, and the {danger} would have it otherwise.\n", "fuller");
+    check::equal(fuller.speak(p, "What are you trying to do?", {aim}, &meaning),
+                 std::string("I mean to hold the fortress above Wenweg, as I said, and nothing less, and the Frost owls would have it otherwise."),
+                 "heard lately: before a word");
+    check::equal(fuller.speak(p, "What are you trying to do?", {"I hold the fortress above Linbrig."}, &meaning),
+                 std::string("I mean to hold the fortress above Wenweg and nothing less, and the Frost owls would have it otherwise."),
+                 "something else heard: as it comes");
+    const Lines marked = Lines::parse("any | them_after | As I said, I mean to {after}.\n", "marked");
+    check::equal(marked.speak(p, "What are you trying to do?", {aim}, &meaning), std::string("As I said, I mean to hold the fortress above Wenweg."),
+                 "a line that says so already: once");
 }
 
 // Where home is (`them_home`), asked alone: the speaker's own bank's lines of how they stand here would
@@ -854,6 +877,10 @@ TEST(asked_where_home_is_they_say_where_home_is) {
 constexpr std::size_t kToldFloor = 14;
 constexpr std::size_t kToldLaterFloor = 20;
 constexpr std::size_t kGriefFloor = 12;
+// Doubt of themself (untried, afraid of failing), apart from what they can do: "I've never fought
+// anything bigger than a wolf" had been met as a boast (a held-out hero session, 2026-09-28). One wording
+// tried once: 10 of 12 lines written before it, and the 57 above unchanged.
+constexpr std::size_t kDoubtFloor = 10;
 // Contract version 13: what the stranger tells of themself is taken as what it is, heard by meaning (a
 // hardship, something they did, a plan, their people, anything else), and small talk with someone whose
 // work they just finished can be about that work. Measured on 15 lines written before the descriptions
@@ -865,7 +892,8 @@ TEST(what_the_stranger_tells_is_taken_as_what_it_is) {
         {"acknowledged_plan", "Right, go well."},        {"acknowledged_kin", "Aye, good to have them."},
         {"acknowledged", "I see."},                       {"acknowledged_hardship_work", "Ah, and on my account."},
         {"acknowledged_deed_work", "Good; the work needs that."}, {"acknowledged_grief", "Ah, I'm sorry for your loss."},
-        {"acknowledged_grief_work", "Ah, and in my service; I'm sorry."}};
+        {"acknowledged_grief_work", "Ah, and in my service; I'm sorry."}, {"acknowledged_doubt", "Everyone starts somewhere."},
+        {"acknowledged_doubt_work", "Then keep your head."},     {"acknowledged_doubt_done", "And you stood anyway."}};
     std::string bank;
     std::map<std::string, std::string> kind_of;
     const FactPacket p = packets::acknowledged();
@@ -983,6 +1011,32 @@ TEST(what_the_stranger_tells_is_taken_as_what_it_is) {
     }
     std::cout << "  grief or hardship: " << grief_right << " of 12 taken right" << grief_missed << "\n";
     check::is_true(grief_right >= kGriefFloor, std::to_string(grief_right) + " of 12" + grief_missed);
+    // Doubt of themself, apart from what they can do: 12 lines written before its one wording was tried.
+    std::size_t doubt_right = 0;
+    std::string doubt_missed;
+    for (const std::string doubt : {"I'm not much of a fighter, to be honest.", "I've never held a sword in anger.",
+                                    "I'm scared I'll let you down.", "I don't know if I'm good enough for this.",
+                                    "I've only ever worked a farm.", "Truth is, I'm no soldier.", "I get nervous when it comes to a fight.",
+                                    "I'm not as strong as I look.", "I've never done anything like this before.", "I'm new to all this.",
+                                    "My hands shake when it comes to blows.", "I've no real training."}) {
+        const std::string heard = kind_of[lines.speak(p, doubt, {}, &meaning)];
+        if (heard == "acknowledged_doubt")
+            ++doubt_right;
+        else
+            doubt_missed += "\n  " + std::string(doubt) + ": " + heard + ", not acknowledged_doubt";
+    }
+    std::cout << "  doubt: " << doubt_right << " of 12 taken right" << doubt_missed << "\n";
+    check::is_true(doubt_right >= kDoubtFloor, std::to_string(doubt_right) + " of 12" + doubt_missed);
+    // Told while the speaker's work is to do, answered as the one who asked it; once done, as fear stood through.
+    const std::string wolf = "I've never been much of a fighter, but I'm quick.";
+    check::equal(kind_of[lines.speak(p, wolf, {}, &meaning)], std::string("acknowledged_doubt"), "the premise: a session's doubt");
+    for (const std::string work : {"offered", "taken"})
+        check::equal(lines.speak(packets::acknowledged_with(work), wolf, {}, &meaning), std::string("Then keep your head."), "doubt, their work " + work);
+    check::equal(lines.speak(packets::acknowledged_with("finished"), wolf, {}, &meaning), std::string("And you stood anyway."),
+                 "doubt, their work done");
+    for (const std::string work : {"", "failed", "abandoned"})
+        check::equal(lines.speak(packets::acknowledged_with(work), wolf, {}, &meaning), std::string("Everyone starts somewhere."),
+                     "doubt, their work " + (work.empty() ? std::string("none") : work));
     const std::string brother = "My brother came with me. He didn't make it back.";
     check::equal(kind_of[lines.speak(p, brother, {}, &meaning)], std::string("acknowledged_grief"), "the held-out session's death");
     check::equal(lines.speak(packets::acknowledged_with("finished"), brother, {}, &meaning), std::string("Ah, and in my service; I'm sorry."),
@@ -1121,6 +1175,16 @@ TEST(thanks_a_complaint_and_a_greeting_are_heard_for_what_they_are) {
                 {"Cold out, isn't it?", "other"}},
             {{same, "other"}, {held, "work"}, {quieter, "since"}}, "small talk, their work done", kSinceFloor);
     check::equal(talk.speak(finished, "How have things been since?", {}, &meaning), quieter, "the benchmark's since");
+    // How things have been since may name the worst nest near, as small talk does, and not while said
+    // lately: "It sits easier with me, having that one squared" had said nothing (the judges, 2026-09-28).
+    const Lines since = Lines::parse("any | small_talk | Much the same as ever.\n"
+                                     "any | small_talk_since_work | It's been quieter since, though the {danger} are still about.\n",
+                                     "since");
+    check::equal(since.speak(packets::small_talk_after_work_near(), "How have things been since?", {}, &meaning),
+                 std::string("It's been quieter since, though the Hippogryphs are still about."), "the nest near, named");
+    check::equal(since.speak(packets::small_talk_after_work_near(), "How have things been since?", {"Mind the Hippogryphs."}, &meaning), same,
+                 "the nest said lately: not again");
+    check::equal(since.speak(finished, "How have things been since?", {}, &meaning), same, "no nest near: not that line");
     // Asked for news with none to give, how things have been since: "Anything new since we last spoke?"
     // drew "No news that I've heard" (a held-out session's judge, 2026-09-28). With news, the news; and
     // with their work not done, that there is none.
@@ -1286,6 +1350,40 @@ TEST(an_apology_for_how_one_is_is_met_as_that) {
     check::is_true(right >= kSorryFloor, std::to_string(right) + " of " + std::to_string(sorry.size()) + missed);
     check::equal(lines.speak(p, "Sorry. I'm just tired.", {}, &meaning), state, "the benchmark's apology");
     check::equal(lines.speak(p, "Sorry, I'm not myself today.", {}, nullptr), wrong, "no meaning: as ever");
+    // The same once there is something to forgive: "Sorry. I'm just tired." after a complaint had drawn
+    // "Apology accepted; we're square" (the benchmark's judge, 2026-09-28). Not from a speaker still cold.
+    const Lines forgiving = Lines::parse("any | forgiven | Apology accepted.\n"
+                                         "any | forgiven_state | All right; get some rest.\n"
+                                         "any | forgiven_cold | We'll see.\n",
+                                         "forgiving");
+    const FactPacket forgiven = packets::forgiven("neutral");
+    check::equal(forgiving.speak(forgiven, "Sorry. I'm just tired.", {}, &meaning), std::string("All right; get some rest."), "forgiven, tired");
+    check::equal(forgiving.speak(forgiven, "Sorry for what I said earlier.", {}, &meaning), std::string("Apology accepted."), "forgiven, a wrong");
+    check::equal(forgiving.speak(packets::forgiven("hostile"), "Sorry. I'm just tired.", {}, &meaning), std::string("We'll see."),
+                 "still cold: as a cold speaker");
+    check::equal(forgiving.speak(forgiven, "Sorry. I'm just tired.", {}, nullptr), std::string("Apology accepted."), "no meaning: as ever");
+}
+
+// Seen off with the speaker's work to do, the stranger is wished luck, from whichever bank has it: "Wish
+// me luck." had drawn "Goodbye, and don't be a stranger" (a held-out hero session's judge, 2026-09-28).
+TEST(a_farewell_to_one_with_the_speakers_work_to_do_wishes_them_luck) {
+    const Lines lines = Lines::parse("warden/LN | parted | Farewell, and keep your word.\n"
+                                     "any | parted | Take care.\n"
+                                     "any | parted_work | Go well, and good luck with it.\n"
+                                     "any | parted_cold | Go, then.\n",
+                                     "luck");
+    const auto parting = [](const std::string& work, const std::string& mood) {
+        FactPacket p = packets::parted();
+        p.facts.back() = packets::memory_of(p.speaker, {.met = "again", .times = 1, .since = "days", .mood = mood, .work = work});
+        return p;
+    };
+    check::equal(packets::parted().persona.voice_key, std::string("warden/LN"), "the premise: their own bank has a farewell");
+    check::equal(lines.speak(parting("taken", "friendly"), "Wish me luck."), std::string("Go well, and good luck with it."),
+                 "their work to do: luck, though their own bank has none");
+    for (const std::string work : {"", "offered", "finished", "failed", "abandoned"})
+        check::equal(lines.speak(parting(work, "friendly"), "Wish me luck."), std::string("Farewell, and keep your word."),
+                     "their work " + (work.empty() ? std::string("none") : work) + ": as ever");
+    check::equal(lines.speak(parting("taken", "hostile"), "Wish me luck."), std::string("Go, then."), "a cold speaker as a cold one");
 }
 
 TEST(a_recalled_row_brings_the_words_in_after_a_colon_says_no_when_and_asks_nothing) {

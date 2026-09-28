@@ -710,19 +710,19 @@ deceiver/NN | exposed_true | Fine; you've seen it, so there's no sense denying i
 deceiver/NN | exposed_true | Very well. The {was} was the face; the {is} is the one underneath, and it's the one you'll deal with.
 
 # ---- sayings ----
-deceiver/CG | parted | Goodbye, and if anything I told you doesn't add up yet, it will, I promise[; as my people say, {saying}].
+deceiver/CG | parted | Goodbye, and if anything I told you doesn't add up yet, it will, I promise.
 deceiver/CG | small_talk | Half of it I can't tell you, sorry, and the other half would bore you, honestly.[ As we say, {saying}.]
-deceiver/CN | parted | Safe travels, and if you hear a different story about me, well, you heard mine first[; as my people say, {saying}].
+deceiver/CN | parted | Safe travels, and if you hear a different story about me, well, you heard mine first.
 deceiver/CN | small_talk | Either splendid or dreadful, whichever makes the better story, and today it's splendid.[ As my lot say, {saying}.]
-deceiver/LG | parted | Goodbye, and rest easy; everything I told you was true, in every word that matters[; as my people have long said, {saying}].
+deceiver/LG | parted | Goodbye, and rest easy; everything I told you was true, in every word that matters.
 deceiver/LG | small_talk | All has been well today, in every way that need concern you, and I say so in perfect truth.[ As my people rightly say, {saying}.]
-deceiver/LN | parted | Take care, and read what is written, not what you hoped was written[; as my people say, and I quote them exactly, {saying}].
+deceiver/LN | parted | Take care, and read what is written, not what you hoped was written.
 deceiver/LN | small_talk | My affairs are in order, in every particular I am obliged to mention.[ As my people have it, precisely, {saying}.]
-deceiver/NE | parted | Safe travels, and sleep well; you'll want your strength[; as my people say, {saying}].
+deceiver/NE | parted | Safe travels, and sleep well; you'll want your strength.
 deceiver/NE | small_talk | Everything's coming along nicely, you included.[ As we say, {saying}.]
-deceiver/NG | parted | Farewell, and try not to fret; whatever it is, it's likely smaller than you think[; as my people say, {saying}].
+deceiver/NG | parted | Farewell, and try not to fret; whatever it is, it's likely smaller than you think.
 deceiver/NG | small_talk | All's well, as far as you need know, and I'd tell you if it weren't.[ As we say, {saying}.]
-deceiver/NN | parted | Safe travels, and trust what you can check; the rest is just talk[; as my people say, {saying}].
+deceiver/NN | parted | Safe travels, and trust what you can check; the rest is just talk.
 deceiver/NN | small_talk | Few surprises today, and none of them for me.[ As my people put it, {saying}.]
 
 # ---- Saying sorry, and more about a place (contract version 8) ----

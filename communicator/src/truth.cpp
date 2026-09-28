@@ -10,6 +10,7 @@
 #include "news.hpp"
 #include "reply_shape.hpp"
 #include "text.hpp"
+#include "them.hpp"
 
 namespace communicator {
 
@@ -387,6 +388,11 @@ void told(const std::string& said, const FactPacket& p, const std::vector<std::s
         if (fact.kind == FactKind::News)
             for (const std::string& form : news_forms(fact, text::spoken(p.persona.name), text::spoken(p.persona.place)))
                 words.push_back(lowered(form));
+    // What they are after, told lately (contract version 13, them.hpp): "I mean to hold the fortress above
+    // Iskmor, as I said".
+    for (const Fact& fact : p.facts)
+        if (fact.kind == FactKind::Self)
+            if (const std::string after = lowered(after_words(fact)); !after.empty()) words.push_back(after);
     for (const std::string& reply : recent) {
         const std::string earlier = lowered(reply);
         for (const std::string& word : words)
