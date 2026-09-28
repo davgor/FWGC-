@@ -472,7 +472,7 @@ TEST(the_strangers_own_words_are_said_back_after_a_greeting_now_and_then) {
                    "what follow could say, for the rules");
 }
 
-TEST(a_recalled_row_brings_the_words_in_after_a_colon_and_says_no_when) {
+TEST(a_recalled_row_brings_the_words_in_after_a_colon_says_no_when_and_asks_nothing) {
     using authored_cases::row_problems;
     const auto fails = [](const std::string& row, const std::string& says) {
         const std::vector<std::string> problems = row_problems(row);
@@ -483,6 +483,8 @@ TEST(a_recalled_row_brings_the_words_in_after_a_colon_and_says_no_when) {
     check::is_true(fails("any | recalled | {words}, you told me once.", "not after a colon"), "{words} opening the line");
     check::is_true(fails("any | recalled | Last time you told me: {words}.", "says when"), "last time");
     check::is_true(fails("any | recalled | You told me the other day: {words}.", "says when"), "the other day");
+    check::is_true(fails("any | recalled | Is she well, the one you told me of: {words}?", "asks after the words"), "a question");
+    check::is_true(fails("any | recalled | You told me once: {words}; is that still so?", "asks after the words"), "a question after");
 }
 
 TEST(words_are_said_back_to_the_one_who_said_them) {

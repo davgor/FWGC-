@@ -259,10 +259,12 @@ inline std::vector<std::string> news_blank_problems(const std::string& line) {
 
 // What is wrong with a `recalled` row (contract version 12): `{words}` may be a fragment ("to the
 // coast, by the high road"), so only a colon brings it in, never "that" or a sentence of its own; and
-// the line never says when the words were said, which may have been several visits back. A writer
-// found the checker let all of it through (2026-09-27).
+// the line never says when the words were said, which may have been several visits back, and never
+// asks after them ("Is she well, the one you told me of: ..."), which would need what the words do
+// not hold. Writers found the checker let all of it through (2026-09-27).
 inline std::vector<std::string> recalled_problems(const std::string& line) {
     std::vector<std::string> out;
+    if (line.find('?') != std::string::npos) out.push_back("asks after the words: a recalled line is never a question");
     for (std::size_t at = line.find("{words}"); at != std::string::npos; at = line.find("{words}", at + 1)) {
         std::string lead = line.substr(0, at);
         while (!lead.empty() && (lead.back() == ' ' || lead.back() == '[')) lead.pop_back();
