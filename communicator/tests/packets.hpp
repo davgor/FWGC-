@@ -641,8 +641,10 @@ inline std::vector<FactPacket> conversation() {
             small_talk_with_word_of("given_up", true),
             small_talk_with_word_of("asked", false),
             about_the_town_with_news(),
-            // Contract version 12.
+            // Contract version 12: the words kept a clause, a fragment, and opening with a name.
             greeted_remembering(),
+            greeted_remembering("To the coast, by the high road."),
+            greeted_remembering("Dunmoor is where I was born."),
             about_the_town_told()};
 }
 

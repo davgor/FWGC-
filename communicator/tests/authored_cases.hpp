@@ -257,6 +257,25 @@ inline std::vector<std::string> news_blank_problems(const std::string& line) {
     return out;
 }
 
+// What is wrong with a `recalled` row (contract version 12): `{words}` may be a fragment ("to the
+// coast, by the high road"), so only a colon brings it in, never "that" or a sentence of its own; and
+// the line never says when the words were said, which may have been several visits back. A writer
+// found the checker let all of it through (2026-09-27).
+inline std::vector<std::string> recalled_problems(const std::string& line) {
+    std::vector<std::string> out;
+    for (std::size_t at = line.find("{words}"); at != std::string::npos; at = line.find("{words}", at + 1)) {
+        std::string lead = line.substr(0, at);
+        while (!lead.empty() && (lead.back() == ' ' || lead.back() == '[')) lead.pop_back();
+        if (lead.empty() || lead.back() != ':') out.push_back("{words} not after a colon: the words may be a fragment");
+    }
+    std::string lower = line;
+    for (char& c : lower) c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+    for (const std::string when : {"last time", "the other day", "last we", "yesterday", "since we", "you always", "earlier today",
+                                   "days ago", "weeks ago", "months ago", "years ago"})
+        if (lower.find(when) != std::string::npos) out.push_back("says when, which the words may not have been: \"" + when + "\"");
+    return out;
+}
+
 // `p` spoken by someone the row's bank answers for: a hero with that voice key, someone at that
 // post, or, for "any", the packet's own speaker.
 inline FactPacket as_voiced_by(FactPacket p, const std::string& voice) {
@@ -427,6 +446,8 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
         for (const std::string& capital : own_capitals(line, openings))
             out.push_back("a capital the line writes itself: " + capital);
         for (const std::string& problem : news_blank_problems(line)) out.push_back(problem);
+        if (situation == "recalled")
+            for (const std::string& problem : recalled_problems(line)) out.push_back(problem);
         // "The turn of the season" is a season: "this {season}" would say "this the turn of the
         // season". Every other article before a blank is caught in the replies, where it misfits.
         for (const std::string before : {"this {season}", "This {season}", "that {season}", "That {season}"})
