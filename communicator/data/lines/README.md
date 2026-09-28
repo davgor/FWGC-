@@ -246,8 +246,9 @@ is fine; one that no packet the game gives can make true is never heard.
   the answer to come. Never what the one asked said or could not say, nor who that was: the packet
   names neither. No acquaintance with either of them, and no "again".
 - **News is the blank's, never the line's.** `{deed}` and `{news}` hold all that happened, in C++'s
-  words; a line says only how the speaker takes it ("You're the one who {deed}, aren't you?", "The
-  word is {news}."). Never what the speaker thinks it means, who else was there, or what comes of
+  words, and when ("helped us hold a few days back"); a line says only how the speaker takes it
+  ("You're the one who {deed}, aren't you?", "The word is {news}."), and never a time of its own
+  ("just yesterday"), which would say it twice or say it wrong. Never what the speaker thinks it means, who else was there, or what comes of
   it: the packet says none of that. `{news}` may open with a name or with "you", so it never opens
   a sentence and never follows "you" ("They say you {news}" says "you you"); `{deed}` is what the
   stranger did, so it follows "you", "who" or "you that", with nothing between ("you would {deed}"

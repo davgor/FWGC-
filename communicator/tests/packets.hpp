@@ -493,7 +493,7 @@ inline Fact news_of_work(const std::string& state, bool players) {
              {"purpose", "Stand with Wenweg when they come for it."},
              {"giver", "Halbrann"},
              {"player", players ? "yes" : "no"},
-             {"since", "days"},
+             {"since", "yesterday"},  // fresh: talk of the town, brought up by every speaker
              {"how", "word"}}};
 }
 

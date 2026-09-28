@@ -108,7 +108,7 @@ TEST(asked_for_news_small_talk_answers_with_it) {
                                      "test");
     Meaning meaning(test_model::embedder());
     const FactPacket heard = packets::small_talk_with_news();
-    const std::string deed = "They say you beat off the threat at the fortress.";
+    const std::string deed = "They say you beat off the threat at the fortress today.";
     check::equal(lines.speak(heard, "Nice weather.", {}, &meaning), "It's dry and fair, for deep winter. " + deed,
                  "the premise: of the weather, the weather, then what the stranger did");
     const FactPacket others = packets::small_talk_with_word_of("asked", false);
@@ -195,7 +195,7 @@ TEST(asked_to_be_remembered_a_speaker_recalls_the_meeting) {
     FactPacket heard = greeting(0);
     heard.facts.insert(heard.facts.end() - 1, packets::news_of_work("finished", true));
     check::equal(with_news.speak(heard, "Remember me?", {}, &meaning),
-                 std::string("Back again. I saw you some weeks ago. You're the one who helped us hold, aren't you?"),
+                 std::string("Back again. I saw you some weeks ago. You're the one who helped us hold yesterday, aren't you?"),
                  "the meeting recalled, then what they heard");
 }
 

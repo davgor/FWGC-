@@ -306,7 +306,7 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
         if (const Fact* heard = news_to_pass_on(p, greeting)) {
             const std::string self = text::spoken(p.persona.name);
             const std::string here = text::spoken(p.persona.place);
-            set(greeting ? "deed" : "news", greeting ? deed_words(*heard, self, here) : news_words(*heard, self, "you", here));
+            set(greeting ? "deed" : "news", greeting ? dated_deed_words(*heard, self, here) : dated_news_words(*heard, self, "you", here));
         }
     }
     if (starts("safety_")) {
@@ -1186,22 +1186,23 @@ std::string Lines::lead(const FactPacket& p, const std::vector<std::string>& rec
 namespace {
 
 // The news a speaker's follow line would say (contract version 11): the situation it is said in
-// ("heard_deed" after a greeting, "news" otherwise), and every way the speaker may have put it
-// already (news_forms). Empty when there is none to say. None from a frightened or a cold speaker,
-// whose own lines are all they say.
+// ("heard_deed" for what the stranger did, "news" for what others did), and every way the speaker
+// may have put it already (news_forms). Empty when there is none to say. None from a frightened or
+// a cold speaker, whose own lines are all they say. `unasked`: said of the speaker's own accord,
+// so only news they bring up (brought_up: the fresher, the likelier).
 struct NewsToSay {
     std::string situation;
     std::vector<std::string> forms;
 };
 
-NewsToSay news_to_say(const FactPacket& p) {
+NewsToSay news_to_say(const FactPacket& p, bool unasked) {
     const Remembered m = remembered(p);
     if (m.frightened() || m.cold()) return {};
     const bool about = p.outcome == Outcome::Answered && (p.answering == ActKind::AskAboutPlace || p.answering == ActKind::AskAboutPerson);
     const bool greeting = p.outcome == Outcome::Greeted;
     if (!greeting && !about && p.outcome != Outcome::Chatted) return {};
     const Fact* heard = news_to_pass_on(p, greeting);
-    if (!heard) return {};
+    if (!heard || (unasked && !brought_up(*heard, p))) return {};
     const std::string self = text::spoken(p.persona.name);
     const std::string here = text::spoken(p.persona.place);
     // What the stranger did is said to them as their deed, whatever came before: "Here's something
@@ -1224,7 +1225,9 @@ bool told_lately(const NewsToSay& news, const std::vector<std::string>& recent) 
 }  // namespace
 
 std::vector<std::string> Lines::follows(const FactPacket& p) const {
-    const NewsToSay news = news_to_say(p);
+    // Every line follow() could say, brought up or not: whether a speaker brings news up is theirs to
+    // decide each time; the lines are held to the rules whatever.
+    const NewsToSay news = news_to_say(p, false);
     if (news.situation.empty()) return {};
     const std::vector<std::string> chain = {news.situation};
     std::vector<std::string> out;
@@ -1235,7 +1238,7 @@ std::vector<std::string> Lines::follows(const FactPacket& p) const {
 std::vector<Lines::Spoken> Lines::asked_for_news(const FactPacket& p, const std::vector<std::string>& recent, bool checked) const {
     const Remembered m = remembered(p);
     if (p.outcome != Outcome::Chatted || m.frightened() || m.cold()) return {};
-    const NewsToSay news = news_to_say(p);
+    const NewsToSay news = news_to_say(p, false);  // asked: whatever its age
     // Told lately, the news is not read back as fact: of the stranger's own deed, the speaker talks of
     // the talk ("Only the talk of what you did, and you'd tell that better than me."), since the
     // stranger never said whether it was them; "As I said, you helped the fortress hold." was the
@@ -1253,7 +1256,7 @@ std::vector<std::string> Lines::news_asked(const FactPacket& p, const std::vecto
 }
 
 std::string Lines::follow(const FactPacket& p, const std::vector<std::string>& recent) const {
-    const NewsToSay news = news_to_say(p);
+    const NewsToSay news = news_to_say(p, true);
     if (news.situation.empty() || told_lately(news, recent)) return {};
     const std::vector<std::string> chain = {news.situation};
     const std::vector<Spoken> lines = spoken_for(p, &recent, true, &chain);

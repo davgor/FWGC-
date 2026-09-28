@@ -537,7 +537,16 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
     counted(said, packet, out);
     ranges(said, packet, out);
     dangers(said, packet, out);
-    since(said, packet, out);
+    // A News fact's own dated words ("you helped us hold a few days back") say when the news came
+    // about, backed by the fact, not when the speaker last met the stranger.
+    std::string undated = said;
+    for (const Fact& fact : packet.facts)
+        if (fact.kind == FactKind::News) {
+            const std::string self = text::spoken(packet.persona.name), here = text::spoken(packet.persona.place);
+            for (const std::string& words : {dated_news_words(fact, self, "you", here), dated_deed_words(fact, self, here)})
+                if (!words.empty()) blank(undated, lowered(words));
+        }
+    since(undated, packet, out);
     met(said, packet, out);
     told(said, packet, recent, out);
     work(said, packet, out);

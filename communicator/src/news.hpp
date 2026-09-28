@@ -29,6 +29,23 @@ std::string deed_words(const orchestrator::Fact& news, const std::string& self, 
 std::string news_words(const orchestrator::Fact& news, const std::string& self, std::string_view stranger = "you",
                        std::string_view here = {});
 
+// The same, dated, as they are said: with when the state came about, from the News fact's calendar
+// band ("helped us hold a few days back", "Orlan beat off the threat here yesterday"; "today",
+// "yesterday", "a few days back", "some weeks back", "months back", "years back"). A standing state
+// is not dated: work still asked for, withdrawn or past doing, and who someone turned out to be.
+// The owner, 2026-09-27: "Lets date the news".
+std::string dated_deed_words(const orchestrator::Fact& news, const std::string& self, std::string_view here = {});
+std::string dated_news_words(const orchestrator::Fact& news, const std::string& self, std::string_view stranger = "you",
+                             std::string_view here = {});
+
+// Whether the speaker of `packet` brings `news` up unasked, by how old it is: "relevant news is the
+// talk of the town, old news is less likely to pop up" (the owner, 2026-09-27). Today's and
+// yesterday's always; this week's by about one speaker in two; the last two months' by one in five;
+// older, never unasked. In an answer about its place or person, a band fresher. The same speaker
+// decides the same way for the same news: a hash of who and which event, never a roll. Asked for
+// news, a speaker tells it whatever its age.
+bool brought_up(const orchestrator::Fact& news, const orchestrator::FactPacket& packet);
+
 // Every way the speaker may have put this news already, to the stranger: what happened, what the
 // stranger did, and, for work asked for, what its giver asked (as an answer about a place or a
 // request for work lists it). News said lately in any of them is not said again.

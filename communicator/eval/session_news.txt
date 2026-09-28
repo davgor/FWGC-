@@ -3,12 +3,15 @@
 # game's cron job shares the news, and the giver's neighbours have heard: they greet the player as
 # the one who did it, and bring it up. Someone standing far off has not heard. Then a scare where
 # the neighbours stand: the player talks one down, the game reports the threat beaten by the player,
-# news goes round again, and a neighbour says so in small talk. orchestrator_session plays it
-# (tools/session.cpp says how a script reads); communicator_eval --session speaks it.
+# news goes round again, and a neighbour says so in small talk. Weeks on, another neighbour, who
+# has told nobody, does not bring the old news up, and tells it, dated, when asked.
+# orchestrator_session plays it (tools/session.cpp says how a script reads); communicator_eval
+# --session speaks it.
 world 99 33 30
 who giver giver 0
 who neighbour near giver 0
 who other near giver 1
+who later near giver 2
 who far townsfolk 40
 
 # Before anything happens: nothing heard.
@@ -53,3 +56,10 @@ report neighbour beaten player
 share
 say other small_talk | Quite a day!
 say other farewell | Look after yourself.
+
+# Weeks on: old news is not the talk of the town, but asked for, it is told, dated.
+advance 20
+share
+say later greet | Good day.
+say later small_talk | Any news?
+say later farewell | Take care.

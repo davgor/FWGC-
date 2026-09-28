@@ -455,6 +455,18 @@ Iskmor" is "the fortress" in Iskmor), their own place as "here", and a defence o
 Nothing is said of the speaker's own work, of themself or of what they did, which their own lines
 say ("They finished the work you gave them").
 
+News is dated as it is said, from the News fact's calendar band: "helped us hold a few days back",
+"Orlan beat off the threat here yesterday" (today, yesterday, a few days back, some weeks back,
+months back, years back). What still holds is not dated: work still asked for, withdrawn or past
+doing, and who someone turned out to be. The owner, 2026-09-27: "Lets date the news, so relevant
+news is the talk of the town, old news is less likely to pop up." So a speaker brings news up
+unasked by its age (`brought_up`): today's and yesterday's always, this week's by about one
+speaker in two, the last two months' by one in five, older never. In an answer about its place or
+person, a band fresher. The same speaker decides the same way for the same news: a hash of who and
+which event, never a roll. Asked for news ("Any news?"), a speaker tells it whatever its age,
+dated. The truth check reads a News fact's own dated words as the news's date, not as when the
+speaker last met the stranger.
+
 - **Which news** (`news_to_pass_on`): the first of the packet's News facts, in the director's order,
   that has words, and that the speaker heard: what happened to them (the News fact's `how`
   "there": frightened there, talked down there) is theirs to say in their own lines, never as

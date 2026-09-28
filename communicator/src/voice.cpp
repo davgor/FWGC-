@@ -136,7 +136,7 @@ std::string fact_line(const Fact& fact, const FactPacket& packet) {
             // work an answer about a place lists already.
             if (!may_pass_on(fact, packet)) return {};
             const std::string words =
-                news_words(fact, text::spoken(packet.persona.name), "the stranger", text::spoken(packet.persona.place));
+                dated_news_words(fact, text::spoken(packet.persona.name), "the stranger", text::spoken(packet.persona.place));
             return "- News you have heard: " + words + " (word of it reached you).";
         }
     }
@@ -147,7 +147,10 @@ std::string fact_line(const Fact& fact, const FactPacket& packet) {
 // what the stranger did, to a greeting; what happened, otherwise. Not a frightened or a cold speaker.
 bool passes_on_news(const FactPacket& packet, bool of_the_stranger) {
     if (remembered(packet).frightened() || remembered(packet).cold()) return false;
-    return news_to_pass_on(packet, of_the_stranger) != nullptr;
+    // Only news the speaker brings up unasked, as the written lines do: old news is shown as a fact,
+    // and told only if asked.
+    const orchestrator::Fact* news = news_to_pass_on(packet, of_the_stranger);
+    return news != nullptr && brought_up(*news, packet);
 }
 
 // What the speaker remembers of the stranger, as lines: nothing on a first meeting with nothing

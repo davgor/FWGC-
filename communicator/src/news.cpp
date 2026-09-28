@@ -1,6 +1,8 @@
 #include "news.hpp"
 
+#include <algorithm>
 #include <cctype>
+#include <cstdint>
 
 #include "text.hpp"
 
@@ -142,6 +144,61 @@ std::string news_words(const Fact& news, const std::string& self, std::string_vi
         return {};
     }
     return {};
+}
+
+namespace {
+
+// When a News fact's state came about, as words that end a clause, from its calendar band.
+std::string when_words(const Fact& news) {
+    const std::string since = said(news, "since");
+    if (since == "today") return "today";
+    if (since == "yesterday") return "yesterday";
+    if (since == "days") return "a few days back";
+    if (since == "weeks") return "some weeks back";
+    if (since == "months") return "months back";
+    if (since == "years") return "years back";
+    return {};
+}
+
+// Whether words for this state say when it came about: a deed done, a scare and how it ended, a
+// call for help nobody answered; not work still asked for, withdrawn or past doing, and not who
+// someone turned out to be, which still holds.
+std::string with_when(std::string words, const Fact& news, bool deed) {
+    const std::string event = said(news, "event");
+    const bool dated = event == "scare" || (event == "work" && (deed || said(news, "state") == "lapsed")) || (event == "exposed" && deed);
+    const std::string when = when_words(news);
+    return words.empty() || !dated || when.empty() ? words : words + " " + when;
+}
+
+}  // namespace
+
+std::string dated_deed_words(const Fact& news, const std::string& self, std::string_view here) {
+    return with_when(deed_words(news, self, here), news, true);
+}
+
+std::string dated_news_words(const Fact& news, const std::string& self, std::string_view stranger, std::string_view here) {
+    return with_when(news_words(news, self, stranger, here), news, !deed_words(news, self, here).empty());
+}
+
+bool brought_up(const Fact& news, const orchestrator::FactPacket& packet) {
+    using orchestrator::ActKind;
+    static const std::vector<std::string> kBands = {"today", "yesterday", "days", "weeks", "months", "years"};
+    const auto band = std::find(kBands.begin(), kBands.end(), said(news, "since"));
+    if (band == kBands.end()) return true;  // undated: as fresh
+    auto age = static_cast<int>(band - kBands.begin());
+    // Asked about its place or its person, a speaker looks a band further back.
+    const bool about = packet.outcome == orchestrator::Outcome::Answered &&
+                       (packet.answering == ActKind::AskAboutPlace || packet.answering == ActKind::AskAboutPerson);
+    if (about) age = std::max(0, age - 1);
+    if (age <= 1) return true;
+    if (age >= 4) return false;
+    // The same speaker decides the same way for the same news: a hash, never a roll (FNV-1a).
+    std::uint64_t hash = 1469598103934665603ull;
+    for (const char c : packet.speaker + "|" + news.subject) {
+        hash ^= static_cast<unsigned char>(c);
+        hash *= 1099511628211ull;
+    }
+    return age == 2 ? hash % 2 == 0 : hash % 5 == 0;
 }
 
 std::vector<std::string> news_forms(const Fact& news, const std::string& self, std::string_view here) {
