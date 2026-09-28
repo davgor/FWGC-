@@ -1,0 +1,22 @@
+# The manifest's entries, each at the line of its name and each with one fault, so switching off
+# any one check loses its line: no hash; MD5; a size of none; a name given twice (the second); a
+# component nobody declared; plain http; no day of approval; no licence; a lock with a requirement
+# pip cannot check; a model with nowhere to go. good_src (the first) and manual_ok are clean.
+deps dependencies.json:22
+deps dependencies.json:39
+deps dependencies.json:57
+deps dependencies.json:75
+deps dependencies.json:93
+deps dependencies.json:111
+deps dependencies.json:129
+deps dependencies.json:144
+deps dependencies.json:158
+deps dependencies.json:173
+# The build: a name the manifest lacks, then four ways to fetch around it (one in lower case). A
+# comment naming FetchContent_Declare, fwgc_dependency(good_src), file(READ) and
+# FetchContent_MakeAvailable are clean.
+deps inference/CMakeLists.txt:3
+deps inference/CMakeLists.txt:4
+deps inference/CMakeLists.txt:5
+deps inference/CMakeLists.txt:6
+deps inference/CMakeLists.txt:7

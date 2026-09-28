@@ -1,0 +1,1 @@
+# A manifest with every kind of entry, as it should be, and a build fetching through the helper.

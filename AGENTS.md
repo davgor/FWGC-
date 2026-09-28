@@ -149,5 +149,17 @@ Rules for particular commits:
   of the seed goes into a world document.
 - **Local only.** No network, telemetry or online dependency in anything that ships. Dev tooling
   may use the network.
+- **Every dependency is in [`dependencies.json`](dependencies.json).** Whatever the repository
+  fetches from outside (a source archive, a model, a Python package, an installer) is named there
+  with its source, its exact bytes and hash, its licence and what that obliges, its users, whether
+  it ships, and the day the owner approved it; nothing fetched is committed. A build fetches only
+  through `dependencies.cmake`'s `fwgc_dependency()`, from the shared hash-checked cache: never
+  `FetchContent_Declare`, `ExternalProject_Add` or `file(DOWNLOAD)` of its own, and never a
+  hand-set `FETCHCONTENT_SOURCE_DIR_<NAME>`, which skips the hash. Python installs from a
+  hash-locked requirements file. A new dependency, or a new version of one, needs the owner's
+  approval of the file, its source and its size, and lands in the manifest in the commit that
+  first uses it. The layer checker holds the manifest and every CMake file to this (`deps`).
+  `dependencies.cmake` only fetches and checks files: no compile flags, targets or sources shared
+  between components ever go in it, or it becomes the shared layer G4 forbids.
 - **No rewards.** Quests are an anchor, a verb and a difficulty from 1 to 5. The game prices
   rewards, and the generator never emits loot, XP or rewards.

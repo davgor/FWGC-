@@ -1,0 +1,3 @@
+# a lock: one requirement with its hash (clean), one without
+good==1.0 --hash=sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+bad==2.0

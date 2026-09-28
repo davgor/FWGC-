@@ -12,7 +12,7 @@ namespace layers {
 
 struct Finding {
     std::string rule;  // edge, api-include, api-function, api-namespace, api-adl, api-list,
-                       // vocab, lang, no-code, http, path-text, top-level
+                       // vocab, lang, no-code, http, path-text, top-level, deps
     std::string path;  // relative to the root, '/'-separated
     int line = 0;      // 0: the finding is about the path, not a line in it
     std::string message;

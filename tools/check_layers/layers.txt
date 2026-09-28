@@ -93,3 +93,9 @@ deny-link    runtime CURL::libcurl libcurl curl cpr cpr::cpr httplib httplib::ht
 
 # ---- The viewer reads the generator through fwg.exe and its documents only -----------------------
 deny-path-text viewer generator/src generator/include generator/data generator/tools
+
+# ---- Dependencies (ruled 2026-09-27) --------------------------------------------------------------
+# Everything fetched from outside is named in the manifest, with its exact bytes, its licence and
+# the owner's approval, and a build fetches only through the helper's fwgc_dependency(): no
+# FetchContent_Declare, ExternalProject_Add or file(DOWNLOAD) of its own.
+dependency-manifest dependencies.json dependencies.cmake

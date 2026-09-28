@@ -1,0 +1,206 @@
+{
+  "dependencies": [
+    {
+      "name": "good_src",
+      "what": "a clean control: every field as it should be",
+      "version": "1.0",
+      "kind": "source",
+      "fetch": "build",
+      "url": "https://example.com/good.zip",
+      "file": "good.zip",
+      "bytes": 1234,
+      "hash": "SHA256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "licence": "MIT",
+      "obligations": "None.",
+      "used_by": [
+        "inference"
+      ],
+      "ships": "yes",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "nohash",
+      "what": "fetched without saying which bytes",
+      "version": "1.0",
+      "kind": "source",
+      "fetch": "build",
+      "url": "https://example.com/nohash.zip",
+      "file": "nohash.zip",
+      "bytes": 10,
+      "licence": "MIT",
+      "obligations": "None.",
+      "used_by": [
+        "inference"
+      ],
+      "ships": "yes",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "badalgo",
+      "what": "a hash no longer trusted",
+      "version": "1.0",
+      "kind": "source",
+      "fetch": "build",
+      "url": "https://example.com/badalgo.zip",
+      "file": "badalgo.zip",
+      "bytes": 1,
+      "hash": "MD5=0123456789abcdef0123456789abcdef",
+      "licence": "MIT",
+      "obligations": "None.",
+      "used_by": [
+        "inference"
+      ],
+      "ships": "yes",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "nosize",
+      "what": "a size of none",
+      "version": "1.0",
+      "kind": "source",
+      "fetch": "build",
+      "url": "https://example.com/nosize.zip",
+      "file": "nosize.zip",
+      "bytes": 0,
+      "hash": "SHA256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "licence": "MIT",
+      "obligations": "None.",
+      "used_by": [
+        "inference"
+      ],
+      "ships": "yes",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "good_src",
+      "what": "the same name again",
+      "version": "2.0",
+      "kind": "source",
+      "fetch": "build",
+      "url": "https://example.com/good2.zip",
+      "file": "good2.zip",
+      "bytes": 1,
+      "hash": "SHA256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "licence": "MIT",
+      "obligations": "None.",
+      "used_by": [
+        "inference"
+      ],
+      "ships": "yes",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "nobody",
+      "what": "used by a component that does not exist",
+      "version": "1.0",
+      "kind": "source",
+      "fetch": "build",
+      "url": "https://example.com/nobody.zip",
+      "file": "nobody.zip",
+      "bytes": 1,
+      "hash": "SHA256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "licence": "MIT",
+      "obligations": "None.",
+      "used_by": [
+        "nosuchcomponent"
+      ],
+      "ships": "yes",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "plainhttp",
+      "what": "fetched over plain http",
+      "version": "1.0",
+      "kind": "source",
+      "fetch": "build",
+      "url": "http://example.com/plain.zip",
+      "file": "plain.zip",
+      "bytes": 1,
+      "hash": "SHA256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "licence": "MIT",
+      "obligations": "None.",
+      "used_by": [
+        "inference"
+      ],
+      "ships": "yes",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "undated",
+      "what": "approved on no day",
+      "version": "1.0",
+      "kind": "installer",
+      "fetch": "manual",
+      "url": "https://example.com/setup",
+      "obligations": "None.",
+      "used_by": [
+        "inference"
+      ],
+      "ships": "no",
+      "approved": "the owner",
+      "licence": "Apache-2.0"
+    },
+    {
+      "name": "nolicence",
+      "what": "under no licence it names",
+      "version": "1.0",
+      "kind": "installer",
+      "fetch": "manual",
+      "url": "https://example.com/setup2",
+      "obligations": "None.",
+      "used_by": [
+        "inference"
+      ],
+      "ships": "no",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "pipper",
+      "what": "a lock with a requirement pip cannot check",
+      "version": "1.0",
+      "kind": "python",
+      "fetch": "pip",
+      "lock": "tools/requirements.txt",
+      "licence": "MIT",
+      "obligations": "None.",
+      "used_by": [
+        "tools"
+      ],
+      "ships": "no",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "toolnodest",
+      "what": "a model with nowhere to go",
+      "version": "1.0",
+      "kind": "model",
+      "fetch": "tool",
+      "url": "https://example.com/model.gguf",
+      "file": "model.gguf",
+      "bytes": 99,
+      "hash": "SHA3_256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "licence": "Apache-2.0",
+      "obligations": "None.",
+      "used_by": [
+        "inference"
+      ],
+      "ships": "no",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "manual_ok",
+      "what": "a clean control: an installer a person runs",
+      "version": "1.0",
+      "kind": "installer",
+      "fetch": "manual",
+      "url": "https://example.com/sdk",
+      "licence": "Apache-2.0",
+      "obligations": "None.",
+      "used_by": [
+        "inference"
+      ],
+      "ships": "no",
+      "approved": "2026-09-24, the owner"
+    }
+  ]
+}

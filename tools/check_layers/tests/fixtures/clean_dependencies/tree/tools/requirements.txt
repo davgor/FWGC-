@@ -1,0 +1,3 @@
+# every requirement with its hash
+good==1.0 --hash=sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+torch @ https://example.com/torch.whl --hash=sha256:abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789

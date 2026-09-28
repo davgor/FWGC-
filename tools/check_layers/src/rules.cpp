@@ -180,6 +180,11 @@ Rules parse_rules(std::string_view text, const std::string& source) {
             need(3);
             if (w[1] != "runtime") throw RulesError(where + "deny-link applies to 'runtime' only");
             for (const std::string& p : rest(2)) rules.runtime_deny_links.insert(lower(p));
+        } else if (d == "dependency-manifest") {
+            if (w.size() != 3) throw RulesError(where + "dependency-manifest <manifest.json> <helper.cmake>");
+            if (!rules.dependency_manifest.empty()) throw RulesError(where + "dependency-manifest is given twice");
+            rules.dependency_manifest = w[1];
+            rules.dependency_helper = w[2];
         } else {
             throw RulesError(where + "unknown directive '" + d + "'");
         }

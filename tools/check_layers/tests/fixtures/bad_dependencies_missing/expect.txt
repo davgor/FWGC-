@@ -1,0 +1,3 @@
+# layers.txt names a manifest and a helper, and the tree holds neither.
+deps dependencies.json
+deps dependencies.cmake

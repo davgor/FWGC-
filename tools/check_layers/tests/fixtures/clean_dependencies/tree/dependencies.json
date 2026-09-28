@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "dependencies": [
+    {
+      "name": "engine",
+      "what": "a build's source",
+      "version": "v1",
+      "kind": "source",
+      "fetch": "build",
+      "url": "https://example.com/engine.tar.gz",
+      "file": "engine.tar.gz",
+      "bytes": 37561391,
+      "hash": "SHA256=fef9ed754f4e031fb5c663c29260feda4ebc241abb68d64a81c0f1df5f1748e2",
+      "licence": "MIT",
+      "obligations": "Its notice goes with the game.",
+      "used_by": ["inference", "tools"],
+      "ships": "yes",
+      "approved": "2026-09-24, the owner"
+    },
+    {
+      "name": "db",
+      "what": "a second, hashed with SHA3-256",
+      "version": "3",
+      "kind": "source",
+      "fetch": "build",
+      "url": "https://example.com/db.zip",
+      "file": "db.zip",
+      "bytes": 2946650,
+      "hash": "SHA3_256=628a44cfe82c66aed1ccbbe85a562d2e33ebe64b3288981ed76285612227934e",
+      "licence": "Public domain",
+      "obligations": "None.",
+      "used_by": ["orchestrator"],
+      "ships": "yes",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "weights",
+      "what": "a model in several files",
+      "version": "revision abc",
+      "kind": "model",
+      "fetch": "tool",
+      "url": "https://example.com/weights/",
+      "dest": "inference/models/weights",
+      "files": [
+        {"file": "a.safetensors", "bytes": 10, "hash": "SHA256=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"},
+        {"file": "b.json", "bytes": 20, "hash": "SHA256=abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789"}
+      ],
+      "licence": "Apache-2.0",
+      "obligations": "None.",
+      "used_by": ["inference"],
+      "ships": "planned",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "wheels",
+      "what": "a hash-locked set of Python packages",
+      "version": "as locked",
+      "kind": "python",
+      "fetch": "pip",
+      "lock": "tools/requirements.txt",
+      "url": "https://pypi.org/simple/",
+      "licence": "Their own",
+      "obligations": "None.",
+      "used_by": ["tools"],
+      "ships": "no",
+      "approved": "2026-09-27, the owner"
+    },
+    {
+      "name": "sdk",
+      "what": "an installer a person runs",
+      "version": "1.4",
+      "kind": "installer",
+      "fetch": "manual",
+      "url": "https://example.com/sdk",
+      "licence": "Apache-2.0",
+      "obligations": "None.",
+      "used_by": ["inference"],
+      "ships": "no",
+      "approved": "2026-09-24, the owner, who ran it"
+    }
+  ]
+}

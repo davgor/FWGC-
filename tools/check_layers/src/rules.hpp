@@ -44,6 +44,11 @@ struct Rules {
     std::set<std::string> non_cpp_ext;  // ".py", ... (lower case, with the dot)
     std::vector<std::string> runtime_deny_includes;
     std::set<std::string> runtime_deny_links;  // lower case
+    // dependency-manifest <manifest> <helper>: everything fetched from outside is named in the
+    // manifest (JSON, at the root), and a build fetches only through the helper's
+    // fwgc_dependency(). Empty when layers.txt has no such line.
+    std::string dependency_manifest;
+    std::string dependency_helper;
 
     const Component* find(std::string_view name) const;
     const Component* by_folder(std::string_view folder) const;

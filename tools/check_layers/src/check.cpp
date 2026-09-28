@@ -6,6 +6,7 @@
 #include <sstream>
 #include <tuple>
 
+#include "json.hpp"
 #include "lex.hpp"
 
 namespace fs = std::filesystem;
@@ -133,6 +134,7 @@ public:
     std::vector<Finding> run() {
         walk();
         check_top_level();
+        if (!in_.rules.dependency_manifest.empty()) check_manifest();
         load_sources();
         for (const Component& c : in_.rules.components)
             if (!c.api_list.empty()) check_api_list(c);
@@ -151,6 +153,7 @@ private:
     std::map<std::string, std::set<std::string>> self_declared_;    // component -> names it declares
     std::map<std::string, std::set<std::string>> internal_;         // component -> ns-scope functions
     std::map<std::string, std::set<std::string>> forwarded_;        // api forwarder -> declarations
+    std::set<std::string> build_dependencies_;                      // manifest names a build may fetch
 
     void add(std::string rule, std::string path, int line, std::string message) {
         out_.push_back({std::move(rule), std::move(path), line, std::move(message)});
@@ -209,6 +212,150 @@ private:
                 add("top-level", d + "/", 0,
                     "undeclared top-level folder: declare it as a component in tools/check_layers/layers.txt, "
                     "in a commit of its own, before adding it");
+        }
+    }
+
+    // The dependency manifest: every entry says what it is, where it comes from, exactly which bytes
+    // (size and hash), its licence, who uses it, whether it ships, and when the owner approved it.
+    // A problem is reported at the line of the entry's name.
+    void check_manifest() {
+        using json::Value;
+        const std::string& rel = in_.rules.dependency_manifest;
+        std::error_code ec;
+        if (!in_.rules.dependency_helper.empty() && !fs::is_regular_file(in_.root / native(in_.rules.dependency_helper), ec))
+            add("deps", in_.rules.dependency_helper, 0, "the fetch helper layers.txt names is missing");
+        std::string text;
+        try {
+            text = read_file(in_.root / native(rel));
+        } catch (const std::exception&) {
+            add("deps", rel, 0, "the dependency manifest layers.txt names is missing");
+            return;
+        }
+        Value doc;
+        try {
+            doc = json::parse(text);
+        } catch (const json::Error& e) {
+            add("deps", rel, 0, std::string("not JSON: ") + e.what());
+            return;
+        }
+        const Value* list = doc.get("dependencies");
+        if (list == nullptr || !list->is(Value::Type::Array)) {
+            add("deps", rel, 0, "names no 'dependencies' list");
+            return;
+        }
+        std::set<std::string> names;
+        std::map<std::string, int> seen;  // entries so far by name: the nth is at the nth mention
+        for (const Value& entry : list->items) check_dependency(rel, text, entry, names, seen);
+    }
+
+    static bool valid_hash(const std::string& hash) {
+        static const std::map<std::string, std::size_t> kHexDigits = {
+            {"SHA256", 64}, {"SHA384", 96}, {"SHA512", 128}, {"SHA3_256", 64}, {"SHA3_384", 96}, {"SHA3_512", 128}};
+        const std::size_t eq = hash.find('=');
+        if (eq == std::string::npos) return false;
+        const auto algorithm = kHexDigits.find(hash.substr(0, eq));
+        const std::string hex = hash.substr(eq + 1);
+        return algorithm != kHexDigits.end() && hex.size() == algorithm->second &&
+               std::all_of(hex.begin(), hex.end(), [](char c) { return std::isxdigit(static_cast<unsigned char>(c)) != 0; });
+    }
+
+    static bool positive_integer(const json::Value* v) {
+        return v != nullptr && v->is(json::Value::Type::Number) && !v->text.empty() &&
+               std::all_of(v->text.begin(), v->text.end(), [](char c) { return c >= '0' && c <= '9'; }) &&
+               v->text.find_first_not_of('0') != std::string::npos;
+    }
+
+    void check_dependency(const std::string& rel, const std::string& text, const json::Value& entry, std::set<std::string>& names,
+                          std::map<std::string, int>& seen) {
+        using json::Value;
+        const auto str = [&](const char* key) {
+            const Value* v = entry.get(key);
+            return v != nullptr && v->is(Value::Type::String) ? v->text : std::string();
+        };
+        const std::string name = str("name");
+        // The line of this entry's name: its nth mention, when it is the nth entry by that name.
+        int line = 0;
+        if (!name.empty()) {
+            const int nth = seen[name]++;
+            for (const std::string& spelled : {"\"name\": \"" + name + "\"", "\"name\":\"" + name + "\""}) {
+                std::size_t at = text.find(spelled);
+                for (int k = 0; k < nth && at != std::string::npos; ++k) at = text.find(spelled, at + 1);
+                if (line == 0 && at != std::string::npos) line = line_of(text, at);
+            }
+        }
+        const std::string who = name.empty() ? std::string("an entry") : "'" + name + "'";
+        const auto problem = [&](const std::string& message) { add("deps", rel, line, who + ": " + message); };
+        if (!entry.is(Value::Type::Object)) {
+            problem("is not an object");
+            return;
+        }
+        const bool name_ok = !name.empty() && std::all_of(name.begin(), name.end(), [](char c) {
+            return (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '_';
+        });
+        if (!name_ok) problem("needs a 'name' of lower-case letters, digits and '_'");
+        else if (!names.insert(name).second) problem("is named twice");
+        for (const char* key : {"what", "version", "kind", "fetch", "licence", "obligations", "ships", "approved"})
+            if (str(key).empty()) problem(std::string("needs '") + key + "'");
+        static const std::set<std::string> kKinds = {"source", "model", "python", "installer"};
+        static const std::set<std::string> kFetches = {"build", "tool", "pip", "manual"};
+        static const std::set<std::string> kShips = {"yes", "no", "planned"};
+        if (!str("kind").empty() && !kKinds.count(str("kind"))) problem("kind is source, model, python or installer");
+        if (!str("fetch").empty() && !kFetches.count(str("fetch"))) problem("fetch is build, tool, pip or manual");
+        if (!str("ships").empty() && !kShips.count(str("ships"))) problem("ships is yes, no or planned");
+        // Approved on a day: the owner's approval of the file, its source and its size.
+        const std::string approved = str("approved");
+        const bool dated = approved.size() >= 10 && approved[4] == '-' && approved[7] == '-' &&
+                           std::all_of(approved.begin(), approved.begin() + 10, [](char c) { return c == '-' || std::isdigit(static_cast<unsigned char>(c)); });
+        if (!approved.empty() && !dated) problem("'approved' opens with the day the owner approved it (YYYY-MM-DD)");
+        const Value* users = entry.get("used_by");
+        if (users == nullptr || !users->is(Value::Type::Array) || users->items.empty()) {
+            problem("needs 'used_by', the components that use it");
+        } else {
+            for (const Value& u : users->items)
+                if (!u.is(Value::Type::String) || !in_.rules.find(u.text))
+                    problem("'used_by' names '" + u.text + "', which layers.txt declares no component by");
+        }
+        const std::string fetch = str("fetch");
+        if (fetch == "build" || fetch == "tool") {
+            if (str("url").rfind("https://", 0) != 0) problem("needs an https 'url'");
+            const Value* files = entry.get("files");
+            const auto check_file_entry = [&](const Value& f, const std::string& where) {
+                const Value* file = f.get("file");
+                if (file == nullptr || !file->is(Value::Type::String) || file->text.empty()) problem(where + "needs 'file'");
+                if (!positive_integer(f.get("bytes"))) problem(where + "needs 'bytes', its exact size");
+                const Value* hash = f.get("hash");
+                if (hash == nullptr || !hash->is(Value::Type::String) || !valid_hash(hash->text))
+                    problem(where + "needs 'hash' as ALGORITHM=hex (SHA256, SHA3_256, ...), in full");
+            };
+            if (files != nullptr) {
+                if (!files->is(Value::Type::Array) || files->items.empty()) problem("'files' is a list of files");
+                else
+                    for (const Value& f : files->items) check_file_entry(f, "a file of its 'files' ");
+            } else {
+                check_file_entry(entry, "");
+            }
+            if (fetch == "tool" && str("dest").empty()) problem("a tool fetch needs 'dest', where in the tree it goes");
+            if (fetch == "build" && name_ok) build_dependencies_.insert(name);
+        } else if (fetch == "pip") {
+            // Every requirement in the lock carries a hash, so pip --require-hashes installs it.
+            const std::string lock = str("lock");
+            std::string locked;
+            try {
+                locked = lock.empty() ? std::string() : read_file(in_.root / native(lock));
+            } catch (const std::exception&) {
+                problem("its lock file '" + lock + "' is missing");
+            }
+            if (lock.empty()) problem("a pip fetch needs 'lock', its hash-locked requirements file");
+            std::istringstream lines(locked);
+            std::string requirement;
+            while (std::getline(lines, requirement)) {
+                const std::size_t first = requirement.find_first_not_of(" \t\r");
+                if (first == std::string::npos || requirement[first] == '#' || requirement[first] == '-') continue;
+                if (requirement.find("--hash=") == std::string::npos)
+                    problem("'" + lock + "' holds a requirement without a hash: " + requirement.substr(first, 60));
+            }
+        } else if (fetch == "manual") {
+            if (str("url").empty()) problem("needs 'url', where a person gets it");
         }
     }
 
@@ -495,6 +642,23 @@ private:
                 if (in_.rules.runtime_deny_links.count(lower(w.text)))
                     add("http", rel, line_of(code, w.offset),
                         "links " + w.text + ": runtime components ship fully local and link no network library");
+        // A build fetches only through the manifest's helper, and only what the manifest names.
+        if (!in_.rules.dependency_manifest.empty()) {
+            const std::string& manifest = in_.rules.dependency_manifest;
+            for (std::size_t i = 0; i < words.size(); ++i) {
+                const std::string command = lower(words[i].text);
+                const bool fetches = command == "fetchcontent_declare" || command == "fetchcontent_populate" ||
+                                     command == "externalproject_add" ||
+                                     (command == "file" && i + 1 < words.size() && words[i + 1].text == "DOWNLOAD");
+                if (fetches)
+                    add("deps", rel, line_of(code, words[i].offset),
+                        words[i].text + " fetches outside " + manifest + ": name the file there (the owner approves each) and fetch it with " +
+                            in_.rules.dependency_helper + "'s fwgc_dependency()");
+                if (command == "fwgc_dependency" && i + 1 < words.size() && !build_dependencies_.count(words[i + 1].text))
+                    add("deps", rel, line_of(code, words[i].offset),
+                        "fwgc_dependency(" + words[i + 1].text + "): " + manifest + " names no build dependency by that name");
+            }
+        }
     }
 
     void check_path_text(const Component& c, const std::string& rel) {

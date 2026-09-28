@@ -20,9 +20,10 @@ ctest --test-dir inference/build -C Release --no-tests=error
 - **Local only.** The runtime opens no network connection. llama.cpp is built without its tools,
   server or HTTPS support. Anything that would fetch a model at run time is out: a model is a
   local file.
-- **llama.cpp is pinned by hash.** Moving to a new release changes the URL and the SHA-256 in
-  `CMakeLists.txt` together. It lands in a commit of its own, with the tests run against the new
-  release, since its API changes between releases.
+- **llama.cpp is pinned by hash** in `../dependencies.json` (`llama_cpp`), fetched through the
+  shared cache. Moving to a new release changes its version, URL, file, bytes and SHA-256 there
+  together, with the owner's approval. It lands in a commit of its own, with the tests run against
+  the new release, since its API changes between releases.
 - **The public header shows none of llama.cpp,** and `inference` links it privately. Keep
   llama.cpp's types out of `include/`.
 - **A GPU build loads its backends at run time; the program links no GPU API.** Linked in,
@@ -33,7 +34,9 @@ ctest --test-dir inference/build -C Release --no-tests=error
   backend beside the runtime or named by `GGML_BACKEND_PATH`. The runtime unloads every one but
   the CPU and Vulkan, and `a_backend_the_runtime_does_not_ship_is_unloaded` guards that. A new
   backend (CUDA, say) joins that list on purpose, in the same commit as its test.
-- **Models are downloaded, never committed.** `models/` is ignored. A new model is named in the
-  README with its source, size, SHA-256 and licence, and the owner approves every download.
+- **Models are downloaded, never committed.** `models/` is ignored. A new model is named in
+  `../dependencies.json` (and the README) with its source, size, SHA-256 and licence, and the
+  owner approves every download; `cmake -DWITH=models -P dependencies.cmake` fetches and checks
+  them.
 - **Tests fail loudly without their model**, never skip. They assert properties (grammar-held
   output, reproducibility, whole-character streaming, refusals), not a model's exact prose.
