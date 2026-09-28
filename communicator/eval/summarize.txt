@@ -1,0 +1,160 @@
+# Conversation logs for `communicator_eval --summarize` (summarizer.hpp): what a person would remember
+# of each. `log WHO` opens one, named as the summarizer is told ("Dornwen, the innkeeper"); each line
+# after is `stranger | words`, `answer | words` (the stranger answering a question of the speaker's:
+# what the director's rules keep whole without a summary), or `NAME | words` for the one who replied;
+# `keep | words` is a run of the stranger's words a person would remember, found when a quote holds it
+# or it holds the quote; `end` closes the log. Written 2026-09-27 for slice 15, before any run.
+
+# An answer holding something of the stranger: the rules find it too.
+log Dornwen, the innkeeper
+stranger | Evening. Is there a bed going?
+Dornwen | One, under the eaves. Where have you come from, then?
+answer | From the salt marshes. My mother still keeps the ferry there.
+Dornwen | A long road. Supper's at dusk.
+stranger | Thank you.
+keep | My mother still keeps the ferry there
+end
+
+# Something of themselves said in passing, not in answer: the rules miss it.
+log Fersel, the gate captain
+stranger | Cold one today.
+Fersel | Colder on the wall, I promise you.
+stranger | I used to stand a wall myself, before my knee gave out.
+Fersel | Then you know the job.
+stranger | What's around here?
+Fersel | The hamlet close by, and the old works an hour off.
+keep | I used to stand a wall myself, before my knee gave out
+end
+
+# Nothing of themselves at all: places and work.
+log Selbren, the castellan
+stranger | What's around here?
+Selbren | The hamlet of Wenweg, close by, and the burnt works an hour's walk away.
+stranger | Is it safe to travel?
+Selbren | Not safe. Keep off the pass.
+stranger | Any work going?
+Selbren | Hold the fortress with me, if you've the stomach.
+end
+
+# Rude, and nothing of themselves.
+log Brenna, the smith
+stranger | Out of my way, old woman.
+Brenna | Mind your tongue in my forge.
+stranger | Your iron's rubbish anyway.
+Brenna | Then buy elsewhere.
+end
+
+# An answer that says where they are going.
+log Holt, the ferryman
+stranger | Good morning.
+Holt | Morning. Crossing, or just looking at the water?
+answer | Crossing. I'm bound for the coast to take ship for the islands.
+Holt | Tide turns at noon.
+keep | I'm bound for the coast to take ship for the islands
+end
+
+# Several things of themselves, one in an answer, one not.
+log Maren, the healer
+stranger | My hand's been bad since the fall.
+Maren | Let me see. How did you fall?
+answer | Off a roof. I was a thatcher until this spring.
+Maren | It's healing crooked. Rest it.
+stranger | I can't rest it. I've three children to feed and their father's gone.
+Maren | Then come back in a week, and I'll look again.
+keep | My hand's been bad since the fall
+keep | I was a thatcher until this spring
+keep | I've three children to feed and their father's gone
+end
+
+# A long line with one thing worth keeping in it.
+log Tornar, of the council
+stranger | I heard the walls needed walking, and I'm handy with a spear, and to be honest I need the work, since I lost everything when the river took my farm last winter.
+Tornar | Then walk the walls with me tonight.
+stranger | I will.
+keep | I lost everything when the river took my farm last winter
+end
+
+# Their name, and where they are from.
+log Dornwen, the innkeeper
+stranger | Hello. I'm Aldric, from Harrowmere.
+Dornwen | Welcome, Aldric. First time in Torhas?
+answer | Yes.
+Dornwen | Then mind the steps; they're steep.
+keep | I'm Aldric, from Harrowmere
+end
+
+# Nothing but a greeting and a farewell.
+log Fersel, the gate captain
+stranger | Hello.
+Fersel | Hello yourself.
+stranger | Goodbye.
+Fersel | Go well.
+end
+
+# Something of themselves inside a question.
+log Holt, the ferryman
+stranger | Have you seen my brother come through? Tall, red hair, carries a lute.
+Holt | Not this week.
+stranger | He left home in the spring and we've had no word since.
+Holt | I'll keep an eye out.
+keep | Have you seen my brother come through
+keep | He left home in the spring and we've had no word since
+end
+
+# Why they want the work.
+log Selbren, the castellan
+stranger | Any work going?
+Selbren | Hold the fortress with me.
+stranger | I'll do it. I need the pay for my daughter's wedding.
+Selbren | Then we understand each other.
+keep | I need the pay for my daughter's wedding
+end
+
+# A promise they made.
+log Maren, the healer
+stranger | Thank you for patching me up.
+Maren | Keep it clean.
+stranger | When I'm back from the mines I'll bring you something for your trouble.
+Maren | Just come back whole.
+keep | When I'm back from the mines I'll bring you something for your trouble
+end
+
+# Several answers; only one of them is anything of theirs.
+log Brenna, the smith
+stranger | Can you mend this blade?
+Brenna | Where did you get it? It's old work.
+answer | It was my grandfather's. He carried it at the siege of Linbrig.
+Brenna | Then it's worth mending. Leave it till evening.
+stranger | How much work is it?
+Brenna | Is the edge chipped or bent?
+answer | Chipped.
+Brenna | Then it's a morning's work.
+keep | It was my grandfather's
+keep | He carried it at the siege of Linbrig
+end
+
+# An answer of a single word, which is nothing to keep.
+log Holt, the ferryman
+stranger | Is the ferry running?
+Holt | It is. Crossing?
+answer | Yes.
+Holt | Step aboard, then.
+end
+
+# A boast.
+log Tornar, of the council
+stranger | You'll want me on the walls. I slew a wyvern with nothing but a boat hook once.
+Tornar | Did you now.
+stranger | Ask anyone in Dunmoor.
+keep | I slew a wyvern with nothing but a boat hook once
+end
+
+# What frightens them.
+log Maren, the healer
+stranger | Is there anything for sleep? I haven't slept since the burning at Ostwall.
+Maren | You were there?
+answer | I was. I still smell the smoke.
+Maren | A little valerian, then, and don't take more than I give you.
+keep | I haven't slept since the burning at Ostwall
+keep | I still smell the smoke
+end

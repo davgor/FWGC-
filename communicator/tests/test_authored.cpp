@@ -432,6 +432,83 @@ TEST(a_greeting_remembers_when_and_what) {
     check::equal(talk.replies(packets::small_talk("clear", "still")).size(), std::size_t(2), "the season silences no line");
 }
 
+TEST(the_strangers_own_words_are_said_back_after_a_greeting_now_and_then) {
+    // Contract version 12: what the stranger once told the speaker of themselves, kept word for word,
+    // said back to them as theirs, a sentence after the greeting.
+    const Lines lines = Lines::parse("any | recalled | You told me once: {words}.\n"
+                                     "any | greeted_again | Hello again.\n"
+                                     "any | greeted_cold | What now.\n"
+                                     "any | heard_deed | You're the one who {deed}, aren't you?\n",
+                                     "test");
+    const FactPacket remembering = packets::greeted_remembering();
+    check::equal(lines.speak(remembering, "Hello!"), std::string("Hello again. You told me once: your sister keeps the mill at the ford."),
+                 "their words, turned to them, after the greeting");
+    check::equal(lines.speak(packets::greeted_again(), "Hello!"), std::string("Hello again."), "the control: none kept, none said back");
+    // Not while said lately: now and then, not every greeting.
+    const std::vector<std::string> recent = {"Hello again. You told me once: your sister keeps the mill at the ford."};
+    check::equal(lines.speak(remembering, "Hello!", recent), std::string("Hello again."), "said lately, not again");
+    // News to tell comes first.
+    FactPacket with_news = packets::greeted_remembering();
+    with_news.facts.insert(with_news.facts.end() - 1, packets::news_of_work("finished", true));
+    const std::string told = lines.speak(with_news, "Hello!");
+    check::is_true(told.rfind("Hello again. You're the one who", 0) == 0 && told.find("told me once") == std::string::npos,
+                   "news first: " + told);
+    // A cold speaker says only their cold greeting.
+    FactPacket cold = packets::greeted_remembering();
+    cold.facts.back() = packets::memory_of(cold.speaker, {.met = "again", .times = 1, .since = "days", .mood = "hostile"});
+    check::equal(lines.speak(cold, "Hello!"), std::string("What now."), "nothing said back by a cold speaker");
+    // Words that speak to someone would turn about, said back: none is said.
+    check::equal(lines.speak(packets::greeted_remembering("I owe you my life."), "Hello!"), std::string("Hello again."),
+                 "words to the speaker are not said back");
+    // Of two sentences, the first of three words or more.
+    check::equal(lines.speak(packets::greeted_remembering("Yes. I'm headed for the coast. My ship sails at dawn."), "Hello!"),
+                 std::string("Hello again. You told me once: you're headed for the coast."), "the first sentence worth saying back");
+    // Nor words too long for a line to carry.
+    check::equal(lines.speak(packets::greeted_remembering(
+                                 "My sister keeps the mill at the ford below the old bridge where the river bends toward the hills."),
+                             "Hello!"),
+                 std::string("Hello again."), "words too long to say back");
+    check::is_true(lines.follows(remembering) == std::vector<std::string>{"You told me once: your sister keeps the mill at the ford."},
+                   "what follow could say, for the rules");
+}
+
+TEST(words_are_said_back_to_the_one_who_said_them) {
+    using communicator::text::of_them;
+    using communicator::text::said_back;
+    check::equal(said_back("My sister keeps the mill at the ford."), std::string("your sister keeps the mill at the ford"), "my");
+    check::equal(said_back("I am a smith, and I was a soldier!"), std::string("you are a smith, and you were a soldier"), "I am, I was");
+    check::equal(said_back("We lost our farm to the flood."), std::string("you lost your farm to the flood"), "we, our");
+    check::equal(said_back("I'm headed to Dunmoor, to find my brother."), std::string("you're headed to Dunmoor, to find your brother"),
+                 "I'm, and a name keeps its capital");
+    check::equal(said_back("Dunmoor is where I was born."), std::string("Dunmoor is where you were born"), "a name opening them");
+    check::equal(said_back("To the coast."), std::string("to the coast"), "a word any sentence begins with, lowered");
+    check::equal(said_back("I owe you my life."), std::string(), "words to someone are never turned about");
+    check::equal(of_them("My sister keeps the mill."), std::string("their sister keeps the mill"), "told of them");
+    check::equal(of_them("I am a smith, and I owe you my life."), std::string("they are a smith, and they owe you their life"),
+                 "told of them, the speaker still you");
+}
+
+TEST(an_answer_told_in_an_earlier_conversation_says_so_first) {
+    // Contract version 12: asked of a place the speaker told the stranger of before, they say when.
+    const Lines lines = Lines::parse("any | about_place | That's {about}.\n", "test");
+    const std::string plain = first(lines.replies(packets::about_the_town()));
+    check::is_true(plain.rfind("That's Wenweg", 0) == 0, "the premise: the plain answer: " + plain);
+    check::equal(first(lines.replies(packets::about_the_town_told())), "As I told you some weeks ago, that's" + plain.substr(6),
+                 "told some weeks ago, said first, the line's first word lowered");
+    check::equal(first(lines.replies(packets::about_the_town_told("days"))), "As I told you a few days ago, that's" + plain.substr(6),
+                 "a few days ago");
+    check::equal(first(lines.replies(packets::about_the_town_told("today"))), plain, "told today: heard lately, not said so here");
+    // Asked twice in this conversation, the speaker says so as they always have.
+    FactPacket twice = packets::about_the_town_told();
+    twice.facts.back() = packets::memory_of(twice.speaker, {.turn = 2, .repeat = true});
+    const std::string again = first(lines.replies(twice));
+    check::is_true(again.rfind("As I told you some weeks ago", 0) != 0 && again.find(", that's Wenweg") != std::string::npos,
+                   "asked twice now, the lead for that: " + again);
+    // It is held to the truth: backed by what the speaker remembers telling.
+    check::is_true(communicator::untrue(first(lines.replies(packets::about_the_town_told())), packets::about_the_town_told()).empty(),
+                   "a told lead the truth check backs");
+}
+
 TEST(asked_twice_a_speaker_says_so_before_saying_it_again) {
     const Lines lines = Lines::parse("any | surroundings | The nearest is {nearest}.\n", "test");
     const std::string once = first(lines.replies(packets::surroundings()));

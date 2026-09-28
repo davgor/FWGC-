@@ -310,6 +310,20 @@ not know, a neighbour who knows no more and stays out, frightened neighbours cal
 said to them, and someone talked down who remembers it the next day. A bystander's turn shows as
 "Overheard, the player to NAME: ...", the words they answer.
 
+## Memory across compactions: session_memory.txt and summarize.txt
+
+`session_memory.txt` (contract version 12) is a session across compactions: a townsperson told
+something of the stranger, compacted (the session tool's `compact`), met days later; then the
+owner's example, a villager who overhears the stranger greeted by a giver for work done, compacted,
+met again. `--session` speaks it as the other sessions are.
+
+`summarize.txt` holds 16 conversation logs, each labelled with the runs of the stranger's words a
+person would remember of it (four with none), written before any run. `communicator_eval --summarize
+summarize.txt --model PATH` has the summarizer write each one's outcomes and prints them beside what
+the director's rules keep without it (the stranger's answers, whole): how many of the runs worth
+keeping each finds, how many of its quotes are worth nothing, and how many of the logs with nothing
+worth keeping it keeps empty. The measures are in the communicator README, "The summarizer".
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).

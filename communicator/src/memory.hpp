@@ -3,6 +3,8 @@
 #pragma once
 
 #include <string>
+#include <string_view>
+#include <vector>
 
 #include "orchestrator/contract.hpp"
 
@@ -32,6 +34,26 @@ struct Remembered {
 
 // The packet's Memory fact, read; a first meeting, neutral, when it carries none.
 Remembered remembered(const orchestrator::FactPacket& packet);
+
+// One thing the speaker remembers of the stranger from before (contract version 12, a Recall fact):
+// what the stranger asked them, what they told the stranger, what the stranger did, work of theirs
+// the stranger holds, the stranger's own words, what they last spoke of.
+struct Recall {
+    std::string subject;
+    std::string memory;  // "asked", "told", "did", "open", "said", "last"
+    std::string act;
+    std::string about;   // by name, as the speaker says it
+    int times = 0;
+    std::string since;   // when it last was, in the Memory fact's bands
+    std::string first;   // when it first was
+    std::string words;   // the stranger's own words, for "said"
+};
+
+// The packet's Recall facts, in its order.
+std::vector<Recall> recalls(const orchestrator::FactPacket& packet);
+
+// The first of `all` that is a `memory`, or nullptr.
+const Recall* recall_of(const std::vector<Recall>& all, std::string_view memory);
 
 // How long ago, as a speaker says it: "earlier today", "yesterday", "a few days ago", "some
 // weeks ago", "some months ago", "years ago". Empty for a band the contract does not publish.

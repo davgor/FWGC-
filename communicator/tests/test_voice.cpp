@@ -245,6 +245,20 @@ TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
                    "joined: said first");
     check::is_true(prompt_of(voice, packets::surroundings(), "What's around?").find("came over unasked") == std::string::npos,
                    "the control");
+    // Contract version 12: what the speaker recalls of the stranger, the stranger's words told of
+    // them, and a telling before said first.
+    const std::string remembering = prompt_of(voice, packets::greeted_remembering(), "Hello again!");
+    check::is_true(remembering.find("Something they once told you of themselves: their sister keeps the mill at the ford.") !=
+                       std::string::npos,
+                   "their words, told of them");
+    check::is_true(prompt_of(voice, packets::greeted_again(), "Hello again!").find("once told you") == std::string::npos, "the control");
+    const std::string told = prompt_of(voice, packets::about_the_town_told(), "Tell me of Wenweg.");
+    for (const std::string said : {"You told them of it before, some weeks ago.", "They have asked you of this before.",
+                                   "Say you told them of it before, then tell them what you know of it"})
+        check::is_true(told.find(said) != std::string::npos, "recalled: " + said);
+    check::is_true(prompt_of(voice, packets::about_the_town_told("today"), "Tell me of Wenweg.").find("Say you told them") ==
+                       std::string::npos,
+                   "told today: nothing to say of it");
     const std::string town = prompt_of(voice, packets::about_the_town(), "Tell me more.");
     for (const std::string said : {"trades: administrator, smith, officiant", "- Tornar:", "- Danger near that place: Frost owls nesting: ",
                                    "; close by, from that place"})

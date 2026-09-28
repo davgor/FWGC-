@@ -542,6 +542,40 @@ inline FactPacket about_the_town_with_news() {
     return p;
 }
 
+// ---- Contract version 12: what the speaker recalls of the stranger ------------------------------
+
+// A Recall fact, as the director writes one.
+inline Fact recall_fact(const std::string& subject, const std::string& memory, const std::string& act, const std::string& about,
+                        int times, const std::string& since, const std::string& first, const std::string& words = "") {
+    return {FactKind::Recall,
+            subject,
+            {{"memory", memory},
+             {"act", act},
+             {"about", about},
+             {"times", std::to_string(times)},
+             {"since", since},
+             {"first", first},
+             {"words", words}}};
+}
+
+// Met again, remembering what the stranger once told them of themselves: `words`, as they said them.
+inline FactPacket greeted_remembering(const std::string& words = "My sister keeps the mill at the ford.") {
+    const std::string self = castellan().uid;
+    return packet(castellan(), ActKind::Greet, Outcome::Greeted,
+                  {recall_fact(self, "last", "answer", "", 1, "days", "days"), recall_fact(self, "said", "said", "", 1, "days", "days", words)},
+                  {.met = "again", .times = 1, .since = "days"});
+}
+
+// Asked about the town again, having asked of it and been told of it `since` before.
+inline FactPacket about_the_town_told(const std::string& since = "weeks") {
+    FactPacket p = about_the_town();
+    const std::string town = p.facts.front().subject;
+    p.facts.insert(p.facts.end() - 1, recall_fact(town, "asked", "ask_about_place", "Wenweg", 1, since, since));
+    p.facts.insert(p.facts.end() - 1, recall_fact(town, "told", "place", "Wenweg", 1, since, since));
+    p.facts.back() = memory_of(p.speaker, {.met = "again", .times = 1, .since = since});
+    return p;
+}
+
 // Every conversation packet, for the tests and the written lines' rules.
 inline std::vector<FactPacket> conversation() {
     return {greeted_first(),
@@ -606,7 +640,10 @@ inline std::vector<FactPacket> conversation() {
             small_talk_with_word_of("failed", true),
             small_talk_with_word_of("given_up", true),
             small_talk_with_word_of("asked", false),
-            about_the_town_with_news()};
+            about_the_town_with_news(),
+            // Contract version 12.
+            greeted_remembering(),
+            about_the_town_told()};
 }
 
 }  // namespace packets

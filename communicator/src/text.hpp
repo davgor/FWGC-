@@ -50,4 +50,15 @@ std::string mid_sentence(std::string text);
 // A giver's words retold by someone else: "with me" is "with them" in another's mouth.
 std::string retold(const std::string& text);
 
+// The stranger's own words, said back to them in mid-sentence: "My sister keeps the mill." ->
+// "your sister keeps the mill"; I, me, my, we, us, our and their forms turned to the stranger's
+// (with "I am" and "I was" agreeing), the first word lowered when any sentence may begin with it,
+// the end stop dropped. Empty when the words speak to someone ("you", "your", "thee"), which said
+// back would turn about.
+std::string said_back(const std::string& words);
+
+// The same words as the speaker is told of them, in the third person: "My sister keeps the mill."
+// -> "their sister keeps the mill". Never empty for words that are not.
+std::string of_them(const std::string& words);
+
 }  // namespace communicator::text

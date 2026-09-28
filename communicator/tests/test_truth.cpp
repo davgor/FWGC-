@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "check.hpp"
+#include "news.hpp"
 #include "packets.hpp"
 #include "text.hpp"
 
@@ -154,6 +155,65 @@ TEST(as_i_told_you_needs_something_told) {
                          "something told before, which the speaker has not said"),
                    "as before, never met");
     check::is_true(clean("Keep off the hospice; take that exactly as I said it.", safety), "as I said it");
+}
+
+TEST(the_strangers_words_and_what_was_told_before_are_the_memorys) {
+    // Contract version 12: "you told me" only where the speaker kept the stranger's words.
+    const std::string words = "Hello again. You told me once: your sister keeps the mill at the ford.";
+    check::is_true(clean(words, packets::greeted_remembering()), "the stranger's words, kept");
+    check::is_true(flags(words, packets::greeted_again(), "the stranger's own words, which the speaker's memory does not hold"),
+                   "none kept");
+    check::is_true(flags("Good day. Last time you said you'd be back.", packets::greeted_again(),
+                         "the stranger's own words, which the speaker's memory does not hold"),
+                   "last time you said, none kept");
+    check::is_true(flags("Good day. I remember what you told me: the mill.", packets::greeted_again(),
+                         "the stranger's own words, which the speaker's memory does not hold"),
+                   "what you told me, none kept");
+    // Words of what the stranger says now claim nothing kept.
+    check::is_true(clean("Good day. As you say, the weather holds.", packets::greeted_again()), "what they say now");
+    check::is_true(clean("Thank you. I'm glad you said yes.", packets::accepted()), "the yes just said");
+    check::is_true(clean("A pity, but you told me straight, and that counts.", packets::abandoned()), "told straight, just now");
+    check::is_true(clean("Good to see you. You did what you said you would.", packets::greeted_after("finished", "warm")),
+                   "what they said they would do, done");
+    // "As I told you", backed by telling the stranger of it before, when the Recall fact says.
+    const FactPacket told = packets::about_the_town_told();
+    const std::string lead = "As I told you some weeks ago, that's Wenweg, right here.";
+    check::is_true(clean(lead, told), "told some weeks ago, as remembered");
+    check::is_true(flags(lead, packets::about_the_town(), "something told before, which the speaker has not said"),
+                   "the control: nothing told");
+    check::is_true(flags("As I told you yesterday, that's Wenweg, right here.", told,
+                         "when they met, which the speaker's memory does not say"),
+                   "told yesterday, which the Recall fact does not say");
+    // Told a few days ago, by a speaker who met the stranger yesterday: backed, and nothing counted.
+    FactPacket days = packets::about_the_town_told("days");
+    days.facts.back() = packets::memory_of(days.speaker, {.met = "again", .times = 2, .since = "yesterday"});
+    check::is_true(clean("As I told you a few days ago, that's Wenweg, right here.", days),
+                   "a few days ago, as the Recall fact says it: " + (communicator::untrue("As I told you a few days ago, that's Wenweg, right here.", days).empty()
+                                                                         ? std::string()
+                                                                         : communicator::untrue("As I told you a few days ago, that's Wenweg, right here.", days).front()));
+    check::is_true(flags("I told you three days ago.", days, "a distance or a time counted out"), "a time counted out, still");
+}
+
+TEST(dated_news_counts_no_time_out_in_any_band) {
+    // "Helped Wenweg hold a few days back" says when, as the News fact dates it: read as a time
+    // counted out, it had silenced every dated line of news in that band (2026-09-27).
+    for (const std::string since : {"today", "yesterday", "days", "weeks", "months", "years"}) {
+        FactPacket heard = packets::greeted_having_heard();
+        for (Fact& f : heard.facts)
+            if (f.kind == FactKind::News)
+                for (auto& [key, value] : f.fields)
+                    if (key == "since") value = since;
+        const Fact* news = nullptr;
+        for (const Fact& f : heard.facts)
+            if (f.kind == FactKind::News) news = &f;
+        check::is_true(news != nullptr, "the premise: news");
+        const std::string deed = communicator::dated_deed_words(*news, communicator::text::spoken(heard.persona.name),
+                                                                communicator::text::spoken(heard.persona.place));
+        check::is_true(!deed.empty(), "the premise: words for the deed");
+        const std::string line = "Hello. You're the one who " + deed + ", aren't you?";
+        const std::vector<std::string> problems = communicator::untrue(line, heard);
+        check::is_true(problems.empty(), since + ": " + line + (problems.empty() ? std::string() : " -- " + problems.front()));
+    }
 }
 
 TEST(the_speakers_own_work_is_the_memorys) {

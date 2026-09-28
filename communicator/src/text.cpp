@@ -2,8 +2,11 @@
 
 #include <algorithm>
 #include <map>
+#include <set>
+#include <vector>
 
 #include "communicator/error.hpp"
+#include "communicator/voice.hpp"
 
 namespace communicator::text {
 
@@ -135,5 +138,68 @@ std::string retold(const std::string& text) {
     flush();
     return out;
 }
+
+namespace {
+
+// The stranger's own words with the first person turned: to the stranger ("you") or about them
+// ("they"). Empty, turned to the stranger, when they speak to someone.
+std::string turned(const std::string& words, bool to_them) {
+    static const std::map<std::string, std::string> to_you = {
+        {"i", "you"},       {"me", "you"},      {"my", "your"},       {"mine", "yours"},    {"myself", "yourself"},
+        {"we", "you"},      {"us", "you"},      {"our", "your"},      {"ours", "yours"},    {"ourselves", "yourselves"},
+        {"i'm", "you're"},  {"i've", "you've"}, {"i'll", "you'll"},   {"i'd", "you'd"},     {"we're", "you're"},
+        {"we've", "you've"}, {"we'll", "you'll"}, {"we'd", "you'd"}};
+    static const std::map<std::string, std::string> about_them = {
+        {"i", "they"},        {"me", "them"},       {"my", "their"},      {"mine", "theirs"},   {"myself", "themselves"},
+        {"we", "they"},       {"us", "them"},       {"our", "their"},     {"ours", "theirs"},   {"ourselves", "themselves"},
+        {"i'm", "they're"},   {"i've", "they've"},  {"i'll", "they'll"},  {"i'd", "they'd"},    {"we're", "they're"},
+        {"we've", "they've"}, {"we'll", "they'll"}, {"we'd", "they'd"}};
+    static const std::map<std::string, std::string> agreeing = {{"am", "are"}, {"was", "were"}};
+    static const std::set<std::string> addressing = {"you",     "your", "yours", "yourself", "yourselves", "you're", "you've",
+                                                     "you'll",  "you'd", "ye",    "thee",     "thou",       "thy",    "thine"};
+    const std::map<std::string, std::string>& turns = to_them ? about_them : to_you;
+    std::string text = one_line(plain_punctuation(words));
+    while (!text.empty() && (text.back() == '.' || text.back() == '!' || text.back() == '?' || text.back() == ' ')) text.pop_back();
+    std::string out, word;
+    bool subject = false;  // the word before was "I": "am" and "was" agree with "you" and "they"
+    bool first = true;
+    bool refused = false;
+    const auto flush = [&] {
+        if (word.empty()) return;
+        std::string lower = word;
+        for (char& c : lower) c = static_cast<char>(c >= 'A' && c <= 'Z' ? c - 'A' + 'a' : c);
+        if (!to_them && addressing.count(lower)) refused = true;
+        std::string said = word;
+        if (const auto turn = turns.find(lower); turn != turns.end()) {
+            said = turn->second;
+        } else if (const auto agree = agreeing.find(lower); subject && agree != agreeing.end()) {
+            said = agree->second;
+        } else if (first) {
+            // A word any sentence may begin with is lowered; a name keeps its capital.
+            const std::vector<std::string>& common = common_capitals();
+            if (std::find(common.begin(), common.end(), word) != common.end()) said = lower;
+        }
+        subject = lower == "i";
+        first = false;
+        out += said;
+        word.clear();
+    };
+    for (const char c : text) {
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '\'' || static_cast<unsigned char>(c) >= 0x80) {
+            word += c;
+        } else {
+            flush();
+            out += c;
+        }
+    }
+    flush();
+    return refused ? std::string() : out;
+}
+
+}  // namespace
+
+std::string said_back(const std::string& words) { return turned(words, false); }
+
+std::string of_them(const std::string& words) { return turned(words, true); }
 
 }  // namespace communicator::text

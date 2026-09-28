@@ -499,6 +499,76 @@ speaker last met the stranger.
   news follow them.
 - **The truth check** holds what the voice says of news to the News facts (below).
 
+## What a speaker recalls
+
+Contract version 12: the director keeps each speaker's conversation log and, once the game compacts
+it, their long memory (orchestrator/README.md, "Short and long memory"); a packet carries Recall
+facts, what the speaker remembers of the stranger from before that bears on the act.
+
+- **The stranger's own words, said back.** A greeting to someone met before, with no news to tell,
+  may end with what the stranger once told the speaker of themselves: a `recalled` line after it, a
+  sentence of its own ("You told me once: your sister keeps the mill at the ford; I've not
+  forgotten."), from the first of the speaker's banks that has one, as news is. `{words}` is the
+  kept words turned to the stranger in C++ (`text::said_back`): I, me, my, we, us and our in
+  every form become yours ("I am" agreeing as "you are", "I was" as "you were"), the first word
+  lowered when any sentence may begin with it, the end stop dropped. Of words that run to more
+  than one sentence, the first of three words or more; none past fourteen words; and none that
+  speak to someone ("I owe you my life"), which said back would turn about. Not while said lately
+  (`recent`), and not from a cold or frightened speaker, whose own lines are all they say. A line
+  in the greeting's own place had first been planned: every alignment's bank has greetings of its
+  own, which would have come before an NN bank's, so every hero's bank would have needed the new
+  lines.
+- **Told before, said so.** Asked about a place or a person the speaker told the stranger of in an
+  earlier conversation (a Recall fact `told`, not today's), the answer opens "As I told you a few
+  days ago, ...", dated as the Recall fact dates it, the line's first word lowered as "As I said"
+  lowers it. Not before a told line, which says so itself, nor in place of "As I said" for a
+  question asked twice in one conversation.
+- **The voice** is told what bears on its reply: what they last spoke of, the stranger's words as
+  told of them ("Something they once told you of themselves: their sister keeps the mill at the
+  ford."), the work of theirs the stranger holds, that the stranger asked of this before, that the
+  speaker told them of it and when, and what came of the speaker's work before. Told of it before,
+  it is told to say so, in what just happened. Packets without Recall facts make the same prompts
+  as before: the eval's 62 voice cases came out word for word as before, on Qwen3-4B, 8 threads
+  (2026-09-27). Its two new cases: greeted with the words kept, "Welcome back. The mill at the
+  ford still stands, and your sister tends it well." (it recalls, and invents that the mill still
+  stands; before, it invented a shadow seen at the keep); asked of a place told before, "I've told
+  you of Wenweg before..." (before, it invented what Wenweg is like).
+- **The truth check** holds these to the Recall facts (below).
+
+## The summarizer
+
+`communicator/summarizer.hpp`: what writes the outcomes the director's `compact` takes, when the
+game has a model to spare (compaction is the game's to call, at a despawn or a time skip: run it
+off the game thread). The owner asked for compaction like Claude's own, "done via the function",
+with short memory "a full conversation log" and long memory "the outcomes of the short, much like
+how people record things into long term" (2026-09-27).
+
+A model reads the log (who said what, as the game read it from the director's `exchanges`) and
+answers in a grammar: up to five things the stranger said of themselves, each a run of two to twenty
+whole words within one sentence of one of the stranger's own lines, never a question, with a few
+lower-case words on what it is about; and one sentence on what they last spoke of, in lower-case
+words and the log's own capitalised words. The director checks every word again when it compacts,
+and keeps deeds, work and what is open by its own rules: a summary adds quotes and a sentence, and
+decides nothing. Without one, the director's rules keep the stranger's answers to the speaker's
+questions whole.
+
+Measured on `eval/summarize.txt`, 16 labelled logs with 17 runs of the stranger's words a person
+would keep and four with nothing (Qwen3-4B, 8 threads, CPU, about 10 s a log):
+
+| | runs worth keeping found | quotes worth nothing | logs with nothing, kept empty |
+|---|---|---|---|
+| the rules alone (answers whole) | 6 of 17 | 3 of 8 | 3 of 4 |
+| summarizer, first prompt | 16 of 17 | 7 of 24 | 1 of 4 |
+| second: wider word limits, the stranger "they", an example that keeps nothing | 14 of 17 | 8 of 21 | 2 of 4 |
+| third, as built: a quote within one sentence, never a question | 13 of 17 | 6 of 20 | 3 of 4 |
+
+The third keeps the fewest worthless quotes, and none can be a question: the first two quoted "Is
+it safe to travel" and "Any work going", which said back would be "You told me once: is it safe to
+travel". The second prompt's word limits came first: capped at ten words, the model glued the last
+two ("physicallimit", "thewalls"), as a grammar's barred words invite compounds. Its sentences of
+what was last spoken of stopped inventing ("She remembered the weight of the hand, the silence after
+the words" became "They spoke of the burning at Ostwall and still smelling the smoke").
+
 ## The truth check
 
 `communicator/truth.hpp`. `untrue(reply, packet, recent)` reads a reply for the claims its speaker
@@ -541,7 +611,14 @@ what they are saying isn't BS" (2026-09-26).
   none is read as news. No news ("nothing's reached me", "no news") is said only by someone with
   none to pass on. News of what came of work at the stranger's hands backs saying so: "They say you
   failed Halbrann" had been refused as the speaker's own work (writers found it, 2026-09-27). News
-  told lately backs "as I said".
+  told lately backs "as I said". A News fact's dated words ("a few days back") are neither when they
+  met nor a time counted out: read as "few days", they had silenced every dated line of news in that
+  band, found when a villager's news went unsaid in the memory session (2026-09-27).
+- **What the speaker recalls** (contract version 12): words that point back at the stranger's own
+  words ("you told me once", "last time you said", "what you told me:") need words the speaker
+  kept, a Recall fact `said`; "I'm glad you said so" and "you told me straight" are of what was just
+  said, and claim nothing (the first list read 115 sound rows so). "As I told you" is backed by a
+  Recall fact `told`, and "told you a few days ago" dated by it, not by when they last met.
 
 `never_backed()` names the kinds no packet can back: an acquaintance, and a distance or a time
 counted out. A written line with one is wrong wherever it is said, and the rules test fails it.
@@ -687,7 +764,19 @@ dangerous for the rain" of a nest of four or more.
   wishes, invitations and telling again left alone; "as I told you" by what was asked twice or
   said lately; the work, by the memory and the work in hand; being talked down and overhearing, by
   the memory; a verdict's words; small talk's weather, time and season; an acquaintance, never
-  backed.
+  backed; the stranger's words from before, by a Recall fact that kept them, and "as I told you",
+  dated, by one that told them; dated news counting no time out, in every band.
+- **What a speaker recalls** (contract version 12, `tests/test_authored.cpp`): the stranger's words
+  said back after a greeting, turned to them, news first, not while said lately, not from a cold
+  speaker, not words that speak to someone or run too long, the first sentence worth saying of
+  two; an answer told in an earlier conversation says so first, dated, and not one told today; the
+  voice is shown each recall, and told to say what was told before.
+- **The summarizer** (`tests/test_summarizer.cpp`): what may be quoted is every run of the
+  stranger's own whole words within a sentence, never the one who answered, never a question, never
+  with its stop or a quote mark; told to summarize an untidy log, the free model quotes words the
+  stranger never said so (it tidies them), and held, every quote is the stranger's own, the
+  sentence of what they last spoke of names only what the log does, and the same log gives the same
+  summary.
 
 A mutation pass switched off each of these in a scratch copy, one at a time, and a test failed
 every time (see the commit that added this component).

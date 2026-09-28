@@ -68,3 +68,6 @@ joined_surroundings | What's around here?
 greeted_having_heard | Hello there.
 small_talk_with_news | Quiet day, isn't it?
 about_town_with_news | Tell me about Wenweg.
+# Contract version 12: what the speaker recalls of the stranger. After the 62 above, so they still compare.
+greeted_remembering | Hello again!
+about_town_told | Tell me about Wenweg again.

@@ -39,6 +39,7 @@ constexpr std::string_view kEased = "being talked down, which the speaker's memo
 constexpr std::string_view kOverheard = "overhearing the stranger, which the speaker's memory does not hold";
 constexpr std::string_view kNews = "news the speaker has not heard";
 constexpr std::string_view kNoNews = "no news, from a speaker who has heard some";
+constexpr std::string_view kSaid = "the stranger's own words, which the speaker's memory does not hold";
 
 std::string lowered(std::string_view text) {
     std::string out(text);
@@ -363,6 +364,8 @@ void told(const std::string& said, const FactPacket& p, const std::vector<std::s
     }
     const Remembered m = remembered(p);
     if (claimed.empty() || m.repeat || (claimed == "as before" && m.again)) return;
+    // Told in an earlier conversation, as the speaker remembers (contract version 12, a Recall fact).
+    if (recall_of(recalls(p), "told") != nullptr) return;
     std::vector<std::string> words;
     for (const Fact& fact : p.facts)
         for (const std::string key : {"name", "of", "creature"})
@@ -481,6 +484,18 @@ void eased_or_overheard(const std::string& said, const FactPacket& p, std::vecto
             if (says(said, phrase)) add(out, kOverheard, phrase);
 }
 
+// The stranger's own words from before (contract version 12), only where the speaker kept some: words
+// that point back past this exchange ("you told me once", "last time you said", "what you told me:").
+// "I'm glad you said so" and "you told me straight" are of what the stranger just said: the first
+// list read 115 sound rows so (2026-09-27).
+void said_before(const std::string& said, const FactPacket& p, std::vector<std::string>& out) {
+    if (recall_of(recalls(p), "said") != nullptr) return;
+    for (const std::string phrase : {"you told me once", "you once told me", "you told me before", "you told me last time",
+                                     "last time you told me", "you said once", "you once said", "you said before", "you said last time",
+                                     "last time you said", "you told me:", "you said:", "you once mentioned", "you mentioned once"})
+        if (says(said, phrase)) add(out, kSaid, phrase);
+}
+
 // News (contract version 11), only with a News fact: words that pass on what is said about only
 // where the packet holds news, and words that say what is said of the stranger only where it holds
 // news of what they did. "Word is" only opening a sentence: "my word is given" is a promise, not
@@ -534,11 +549,12 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
     const std::string reply = text::plain_punctuation(typed);
     const std::string said = lowered(reply);
     names(reply, packet, out);
-    counted(said, packet, out);
     ranges(said, packet, out);
     dangers(said, packet, out);
     // A News fact's own dated words ("you helped us hold a few days back") say when the news came
-    // about, backed by the fact, not when the speaker last met the stranger.
+    // about, backed by the fact: not when the speaker last met the stranger, and no time counted out.
+    // Read as counted, "a few days back" had silenced every dated line of news in that band (the
+    // memory session, 2026-09-27).
     std::string undated = said;
     for (const Fact& fact : packet.facts)
         if (fact.kind == FactKind::News) {
@@ -546,6 +562,12 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
             for (const std::string& words : {dated_news_words(fact, self, "you", here), dated_deed_words(fact, self, here)})
                 if (!words.empty()) blank(undated, lowered(words));
         }
+    // "As I told you a few days ago" says when the speaker told it, backed by a Recall fact, not when
+    // they last met.
+    for (const Recall& r : recalls(packet))
+        if (r.memory == "told")
+            if (const std::string when = since_words(r.since); !when.empty()) blank(undated, "told you " + when);
+    counted(undated, packet, out);
     since(undated, packet, out);
     met(said, packet, out);
     told(said, packet, recent, out);
@@ -555,6 +577,7 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
     acquaintance(said, out);
     eased_or_overheard(said, packet, out);
     heard(said, reply, packet, out);
+    said_before(said, packet, out);
     return out;
 }
 

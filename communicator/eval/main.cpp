@@ -4,6 +4,13 @@
 //                     [--post POST] [--limit N] [--threads N] [--gpu-layers N]
 //   communicator_eval --check-lines PATH
 //   communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--gpu-layers N]
+//   communicator_eval --summarize LOGS [--model PATH] [--threads N] [--gpu-layers N]
+//
+// --summarize reads conversation logs a person would remember something of (summarize.txt in this
+// folder: who remembers, each line, and the runs of the stranger's words a person would keep), has
+// the model summarize each (communicator/summarizer.hpp), and prints what it kept beside what the
+// director's rules keep without it (the stranger's answers, whole): how many of the runs worth
+// keeping each finds, and how many quotes of neither.
 //
 // --session speaks a session the orchestrator's session tool played (orchestrator_session writes
 // its packets as text) with written lines, and prints it as a transcript a person or a judge can
@@ -46,6 +53,7 @@
 #include "communicator/interpreter.hpp"
 #include "communicator/known.hpp"
 #include "communicator/meaning.hpp"
+#include "communicator/summarizer.hpp"
 #include "communicator/truth.hpp"
 #include "authored_cases.hpp"
 #include "communicator/voice.hpp"
@@ -156,7 +164,10 @@ std::map<std::string, std::function<FactPacket()>> voice_packets() {
             // Contract version 11: news.
             {"greeted_having_heard", packets::greeted_having_heard},
             {"small_talk_with_news", packets::small_talk_with_news},
-            {"about_town_with_news", packets::about_the_town_with_news}};
+            {"about_town_with_news", packets::about_the_town_with_news},
+            // Contract version 12: what the speaker recalls of the stranger.
+            {"greeted_remembering", [] { return packets::greeted_remembering(); }},
+            {"about_town_told", [] { return packets::about_the_town_told(); }}};
 }
 
 std::optional<Kind> target_kind(ActKind kind) {
@@ -596,6 +607,129 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
         std::cout << "\nchoosing by meaning: " << seconds / turn << " s a turn on average, " << slowest << " s at most\n";
 }
 
+// One log of summarize.txt: who remembers it, its lines, which of the stranger's lines answered a
+// question of theirs (what the director's rules keep), and the runs worth keeping.
+struct LabelledLog {
+    std::string person;
+    std::vector<communicator::LogLine> lines;
+    std::vector<std::string> answers;
+    std::vector<std::string> keep;
+    int number = 0;
+};
+
+std::vector<LabelledLog> labelled_logs(const std::string& path) {
+    std::ifstream in(path, std::ios::binary);
+    if (!in) throw std::runtime_error("cannot read " + path);
+    std::vector<LabelledLog> out;
+    std::optional<LabelledLog> open;
+    int number = 0;
+    for (std::string row; std::getline(in, row);) {
+        ++number;
+        if (!row.empty() && row.back() == '\r') row.pop_back();
+        if (row.empty() || row[0] == '#') continue;
+        const std::string where = path + ":" + std::to_string(number) + ": ";
+        if (row.rfind("log ", 0) == 0) {
+            if (open) throw std::runtime_error(where + "a log inside another");
+            open.emplace();
+            open->person = row.substr(4);
+            open->number = number;
+            continue;
+        }
+        if (!open) throw std::runtime_error(where + "a line outside a log");
+        if (row == "end") {
+            out.push_back(std::move(*open));
+            open.reset();
+            continue;
+        }
+        const std::size_t bar = row.find(" | ");
+        if (bar == std::string::npos) throw std::runtime_error(where + "a line is `who | words`");
+        const std::string who = row.substr(0, bar), words = row.substr(bar + 3);
+        if (who == "keep") {
+            open->keep.push_back(words);
+        } else if (who == "stranger" || who == "answer") {
+            open->lines.push_back({"", words});
+            if (who == "answer") open->answers.push_back(words);
+        } else {
+            open->lines.push_back({who, words});
+        }
+    }
+    if (open) throw std::runtime_error(path + ": a log with no end");
+    return out;
+}
+
+// The quotes of a summary, as its grammar writes them: {"quote": "..."}, never holding a quote mark.
+std::vector<std::string> quotes_of(const std::string& summary) {
+    std::vector<std::string> out;
+    const std::string mark = "{\"quote\": \"";
+    for (std::size_t at = summary.find(mark); at != std::string::npos; at = summary.find(mark, at + 1)) {
+        const std::size_t from = at + mark.size();
+        const std::size_t to = summary.find('"', from);
+        if (to == std::string::npos) break;
+        out.push_back(summary.substr(from, to - from));
+    }
+    return out;
+}
+
+// How many of `keep` some quote finds (either holds the other whole), and how many quotes find none.
+std::pair<std::size_t, std::size_t> scored(const std::vector<std::string>& quotes, const std::vector<std::string>& keep) {
+    const auto overlap = [](const std::string& a, const std::string& b) {
+        return a.find(b) != std::string::npos || b.find(a) != std::string::npos;
+    };
+    std::size_t found = 0, junk = 0;
+    for (const std::string& k : keep)
+        if (std::any_of(quotes.begin(), quotes.end(), [&](const std::string& q) { return overlap(q, k); })) ++found;
+    for (const std::string& q : quotes)
+        if (std::none_of(keep.begin(), keep.end(), [&](const std::string& k) { return overlap(q, k); })) ++junk;
+    return {found, junk};
+}
+
+void summarize_eval(inference::Model& model, const std::string& path) {
+    const std::vector<LabelledLog> logs = labelled_logs(path);
+    const communicator::Summarizer summarizer(model);
+    std::size_t keeps = 0, model_found = 0, model_junk = 0, model_quotes = 0, rules_found = 0, rules_junk = 0, rules_quotes = 0;
+    std::size_t empty_logs = 0, model_empty = 0, rules_empty = 0;
+    double seconds = 0.0, slowest = 0.0;
+    std::cout << "\n## the summarizer (" << logs.size() << " logs)\n";
+    for (const LabelledLog& log : logs) {
+        const auto started = Clock::now();
+        const std::string summary = summarizer.summarize(log.person, log.lines);
+        const double took = std::chrono::duration<double>(Clock::now() - started).count();
+        seconds += took;
+        slowest = std::max(slowest, took);
+        const std::vector<std::string> quotes = quotes_of(summary);
+        // The rules keep the stranger's answers whole, the latest five, as the director does.
+        std::vector<std::string> rules;
+        for (const std::string& answer : log.answers) {
+            std::string kept = answer;
+            while (!kept.empty() && (kept.back() == ' ')) kept.pop_back();
+            if (!kept.empty() && kept.size() <= 240) rules.push_back(kept);
+        }
+        if (rules.size() > 5) rules.erase(rules.begin(), rules.end() - 5);
+        const auto [found, junk] = scored(quotes, log.keep);
+        const auto [by_rules, rules_off] = scored(rules, log.keep);
+        keeps += log.keep.size();
+        model_found += found;
+        model_junk += junk;
+        model_quotes += quotes.size();
+        rules_found += by_rules;
+        rules_junk += rules_off;
+        rules_quotes += rules.size();
+        if (log.keep.empty()) {
+            ++empty_logs;
+            model_empty += quotes.empty() ? 1 : 0;
+            rules_empty += rules.empty() ? 1 : 0;
+        }
+        std::cout << "\nlog " << log.person << " (line " << log.number << "): " << summary << "\n  kept " << found << " of "
+                  << log.keep.size() << ", " << junk << " of " << quotes.size() << " quotes worth nothing; the rules " << by_rules
+                  << " of " << log.keep.size() << ", " << rules_off << " of " << rules.size() << "; " << took << " s\n";
+    }
+    std::cout << "\nsummarizer: runs worth keeping found " << model_found << " of " << keeps << "; quotes worth nothing " << model_junk
+              << " of " << model_quotes << "; logs with nothing worth keeping kept empty " << model_empty << " of " << empty_logs
+              << "\nrules (answers whole): found " << rules_found << " of " << keeps << "; quotes worth nothing " << rules_junk << " of "
+              << rules_quotes << "; logs with nothing worth keeping kept empty " << rules_empty << " of " << empty_logs
+              << "\ntime: " << seconds << " s in all, slowest " << slowest << " s\n";
+}
+
 void voice_eval(inference::Model& model, const std::string& path, const communicator::Lines* written,
                 const std::string& voice_key, const std::string& post) {
     communicator::Voice voice(model);
@@ -702,7 +836,7 @@ int main(int argc, char** argv) {
     if (model_path.empty()) model_path = COMMUNICATOR_TEST_MODEL;
     std::string lines = std::string(COMMUNICATOR_EVAL_DIR) + "/lines.txt";
     std::string voice = std::string(COMMUNICATOR_EVAL_DIR) + "/voice.txt";
-    std::string authored, voice_key, post, check, session, meaning_path, export_pairs;
+    std::string authored, voice_key, post, check, session, meaning_path, export_pairs, summarize;
     std::size_t limit = 0;
     inference::ModelOptions options;
     for (int i = 1; i < argc; ++i) {
@@ -721,6 +855,7 @@ int main(int argc, char** argv) {
         else if (arg == "--session") session = value();
         else if (arg == "--export-pairs") export_pairs = value();
         else if (arg == "--meaning") meaning_path = value();
+        else if (arg == "--summarize") summarize = value();
         else if (arg == "--limit") limit = static_cast<std::size_t>(std::stoul(value()));
         else if (arg == "--threads") options.threads = std::stoi(value());
         else if (arg == "--gpu-layers") options.gpu_layers = std::stoi(value());
@@ -728,7 +863,8 @@ int main(int argc, char** argv) {
             std::cerr << "usage: communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH]"
                          " [--voice-key KEY] [--post POST] [--limit N] [--threads N] [--gpu-layers N]\n"
                          "       communicator_eval --check-lines PATH\n"
-                         "       communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--gpu-layers N]\n";
+                         "       communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--gpu-layers N]\n"
+                         "       communicator_eval --summarize LOGS [--model PATH] [--threads N] [--gpu-layers N]\n";
             return 2;
         }
     }
@@ -759,6 +895,10 @@ int main(int argc, char** argv) {
         std::unique_ptr<inference::Model> model = inference::Model::load(model_path, options);
         std::cout << "# communicator_eval\n\nmodel: " << model_path << "\nthreads: " << options.threads
                   << "\ndevice: " << model->device() << "\n";
+        if (!summarize.empty()) {
+            summarize_eval(*model, summarize);
+            return 0;
+        }
         if (!lines.empty()) interpreter_eval(*model, lines, limit);
         if (!voice.empty()) {
             std::optional<communicator::Lines> written;

@@ -6,7 +6,8 @@
 // keeps it). untrue() reads the reply for the claims a speaker can make without the packet's
 // ground, and returns one problem for each: a name no fact gives, a distance or a time no fact
 // holds ("three days' march"), a danger word no place or nest has, when they met or whether they
-// have, "as I told you" with nothing told, what came of the speaker's own work, a verdict's words
+// have, "as I told you" with nothing told, "you told me" with none of the stranger's words kept,
+// what came of the speaker's own work, a verdict's words
 // against the verdict, the weather, the time of day or the season against what the packet says of
 // them, and an acquaintance with someone the packet only names. It is deterministic: no model
 // reads the reply.

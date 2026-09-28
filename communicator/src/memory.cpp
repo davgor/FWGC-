@@ -41,6 +41,34 @@ Remembered remembered(const orchestrator::FactPacket& packet) {
     return out;
 }
 
+std::vector<Recall> recalls(const orchestrator::FactPacket& packet) {
+    std::vector<Recall> out;
+    for (const orchestrator::Fact& fact : packet.facts) {
+        if (fact.kind != orchestrator::FactKind::Recall) continue;
+        const auto text = [&](std::string_view key) {
+            const std::string* value = fact.field(key);
+            return value ? *value : std::string();
+        };
+        Recall r;
+        r.subject = fact.subject;
+        r.memory = text("memory");
+        r.act = text("act");
+        r.about = text("about");
+        r.times = number(fact.field("times"));
+        r.since = text("since");
+        r.first = text("first");
+        r.words = text("words");
+        out.push_back(std::move(r));
+    }
+    return out;
+}
+
+const Recall* recall_of(const std::vector<Recall>& all, std::string_view memory) {
+    for (const Recall& r : all)
+        if (r.memory == memory) return &r;
+    return nullptr;
+}
+
 std::string since_words(const std::string& since) {
     if (since == "today") return "earlier today";
     if (since == "yesterday") return "yesterday";

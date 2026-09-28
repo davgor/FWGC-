@@ -185,7 +185,38 @@ std::vector<std::string> memory_lines(const FactPacket& packet) {
     // happened, not a memory: "lately" would claim an easing before it.
     if (m.eased && packet.outcome != Outcome::Calmed)
         out.push_back("The stranger talked you down from your fear lately; you are steadier for it.");
+    // What they remember of the stranger from before that bears on this (contract version 12): the
+    // stranger's own words as told of them, and never when for what they last spoke of or asked, which
+    // the truth check holds to when they last met.
+    for (const Recall& r : recalls(packet)) {
+        const std::string about = text::spoken(r.about);
+        if (r.memory == "last" && !about.empty()) {
+            out.push_back("The last thing you spoke of with them was " + about + ".");
+        } else if (r.memory == "said") {
+            if (const std::string words = text::of_them(r.words); !words.empty())
+                out.push_back("Something they once told you of themselves: " + words + ".");
+        } else if (r.memory == "open" && !about.empty()) {
+            out.push_back("The work of yours they hold is to " + text::mid_sentence(text::ask_of(about)) + ".");
+        } else if (r.memory == "asked") {
+            out.push_back(r.times > 1 ? "They have asked you of this more than once before." : "They have asked you of this before.");
+        } else if (r.memory == "told") {
+            const std::string when = since_words(r.since);
+            out.push_back("You told them of it before" + (when.empty() ? std::string() : ", " + when) + ".");
+        } else if (r.memory == "did" && !about.empty()) {
+            const std::string what = r.act == "finished" ? "finished" : r.act == "failed" ? "failed" : r.act == "given_up" ? "gave up" : "";
+            if (!what.empty()) out.push_back("Before this, they " + what + " work of yours: to " + text::mid_sentence(text::ask_of(about)) + ".");
+        }
+    }
     return out;
+}
+
+// Whether the speaker told the stranger of what they ask about in an earlier conversation, not
+// today's (contract version 12): the written lines say so first ("As I told you a few days ago"),
+// and so must the voice.
+bool told_before(const FactPacket& packet) {
+    const std::vector<Recall> all = recalls(packet);
+    const Recall* told = recall_of(all, "told");
+    return told != nullptr && told->since != "today" && !since_words(told->since).empty();
 }
 
 // What the speaker is to do, given what the director made of the stranger's words.
@@ -197,13 +228,18 @@ std::string what_happened(const FactPacket& packet) {
                     return "The stranger asked what is around. Tell them of a few of the places above, the nearest first, and "
                            "warn them of any danger.";
                 case ActKind::AskAboutPlace:
-                    // News a reply must show goes in what just happened (contract version 11).
-                    return std::string("The stranger asked about the place above. Tell them what you know of it") +
+                    // News a reply must show goes in what just happened (contract version 11), and so
+                    // does having told them of it before (contract version 12).
+                    return std::string("The stranger asked about the place above. ") +
+                           (told_before(packet) ? "Say you told them of it before, then tell them what you know of it"
+                                                : "Tell them what you know of it") +
                            (passes_on_news(packet, false) ? ", and the news of it above." : ".");
                 case ActKind::AskAboutPerson:
                     if (!packet.facts.empty() && packet.facts.front().subject == packet.speaker)
                         return "The stranger asked who you are. Tell them.";
-                    return std::string("The stranger asked about the person above. Tell them what you know of them") +
+                    return std::string("The stranger asked about the person above. ") +
+                           (told_before(packet) ? "Say you told them of them before, then tell them what you know of them"
+                                                : "Tell them what you know of them") +
                            (passes_on_news(packet, false) ? ", and the news of them above." : ".");
                 case ActKind::AskSafety:
                     return "The stranger asked whether it is safe here. Say plainly first whether it is, then name the worst "

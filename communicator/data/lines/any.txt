@@ -197,3 +197,8 @@ any | news_told | Nothing more than I told you: {news}.
 any | no_news | Nothing's reached me.
 any | no_news | No news that I've heard.
 any | no_news | I've not heard a thing.
+# Contract version 12: the stranger's own words, kept, said back after a greeting ({words}: "your sister
+# keeps the mill at the ford").
+any | recalled | You told me once: {words}; I've not forgotten.
+any | recalled | I remember what you told me: {words}.
+any | recalled | I've thought on what you told me: {words}.
