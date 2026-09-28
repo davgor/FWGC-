@@ -177,7 +177,10 @@ TEST(asking_a_giver_for_work_names_their_own_offers_first) {
 TEST(an_offer_carries_only_what_its_giver_would_say) {
     // Never the hook's actual effect, and never whether the stated purpose is the true one.
     const std::set<std::string> allowed = {"giver", "giver_role", "from_speaker", "verb", "purpose",
-                                           "difficulty", "where", "range", "days_left", "marker", "marker_node"};
+                                           "difficulty", "where", "range", "days_left", "marker", "marker_node",
+                                           // How another giver stands to the speaker (contract version 15): public, as
+                                           // a hero's ties are.
+                                           "giver_tie"};
     Director d(month_old());
     std::set<std::string> givers;
     for (const fwg::QuestRow& q : board(month_old(), fwg::QuestState::Offered))

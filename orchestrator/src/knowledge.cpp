@@ -165,6 +165,15 @@ std::string place_label(const Fact& place) {
 
 const fwg::Hero* hero_of(const Speaker& speaker) { return std::get_if<fwg::Hero>(&speaker.document.person); }
 
+std::vector<std::pair<std::string, std::string>> ties_of(const fwg::Hero& hero) {
+    std::vector<std::pair<std::string, std::string>> out;
+    for (const auto& [tie, uids] : {std::pair<std::string, const std::vector<std::string>*>{"rival", &hero.rivals},
+                                    {"kin", &hero.kin},
+                                    {"ally", &hero.allies}})
+        for (const std::string& uid : *uids) out.emplace_back(tie, uid);
+    return out;
+}
+
 void show_face(Speaker& speaker, const fwg::Hero& hero, const fwg::HeroFace& face) {
     Persona& persona = speaker.persona;
     persona.name = face.name;
@@ -448,16 +457,13 @@ std::vector<Fact> self_facts(const fwg::World& world, const Speaker& speaker, bo
             for (Fact& deed : deeds)
                 if (deed.subject == hero->lost->ruin_id && deed.field("place") == nullptr)
                     deed.fields.insert(deed.fields.begin() + 2, {"place", hero->lost->name});
-        for (const auto& [tie, uids] : {std::pair<std::string, const std::vector<std::string>*>{"rival", &hero->rivals},
-                                        {"kin", &hero->kin},
-                                        {"ally", &hero->allies}})
-            for (const std::string& uid : *uids) {
-                if (ties.size() == kTiesNamed) break;
-                if (std::optional<KnownPerson> person = person_fact(world, uid)) {
-                    person->fact.fields.emplace_back("tie", tie);
-                    ties.push_back(std::move(person->fact));
-                }
+        for (const auto& [tie, uid] : ties_of(*hero)) {
+            if (ties.size() == kTiesNamed) break;
+            if (std::optional<KnownPerson> person = person_fact(world, uid)) {
+                person->fact.fields.emplace_back("tie", tie);
+                ties.push_back(std::move(person->fact));
             }
+        }
     } else if (const auto* dread = std::get_if<fwg::HeroDread>(&speaker.document.person); dread && whole_story) {
         add("fame", dread->tier);
         deeds_of(dread->deeds);

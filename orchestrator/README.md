@@ -353,6 +353,10 @@ stand: the world keeps no story of them. The owner's golden benchmark (`communic
 session_hero.txt`, 2026-09-27) is a sustained conversation with a hero; its first judge heard the
 hero unable to say how long they had held their fortress.
 
+Another giver's work, named in an answer to ask_for_work, says how that giver stands to the
+speaker (contract version 15, `giver_tie`: rival, kin or ally), from the speaker's hero record: the
+castellan had named his own ally's work "with no view on either".
+
 Work done beside the speaker (contract version 14): the Memory fact's `beside` is "yes" when the
 speaker's own work the stranger last dealt with (taken, finished, failed or given up) is anchored at
 the place the speaker stands, work "with me". It is read from the board each time, so nothing new is

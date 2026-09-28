@@ -155,6 +155,16 @@ bool worked_beside(const fwg::World& world, const knowledge::Speaker& s, const s
     return false;
 }
 
+// How a giver stands to the speaker, when the speaker is a hero tied to them: "rival", "kin" or
+// "ally"; empty otherwise (contract version 15).
+std::string tie_to(const knowledge::Speaker& s, const std::string& giver) {
+    const fwg::Hero* hero = knowledge::hero_of(s);
+    if (!hero) return {};
+    for (const auto& [tie, uid] : knowledge::ties_of(*hero))
+        if (uid == giver) return tie;
+    return {};
+}
+
 struct Offer {
     fwg::QuestRow row;
     bool own = false;
@@ -1257,6 +1267,11 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
                 if (!offer.own && others++ >= kOthersNamed) continue;
                 purposes.insert(purpose);
                 p.facts.push_back(offer_fact(world_, offer, places, today));
+                // Another giver's work, with how they stand to the speaker (contract version 15): the
+                // castellan named his own ally's work as a notice board would (the hero benchmark's
+                // judges, 2026-09-28: "no view on either").
+                if (!offer.own && offer.row.giver_uid)
+                    if (const std::string tie = tie_to(s, *offer.row.giver_uid); !tie.empty()) p.facts.back().fields.emplace_back("giver_tie", tie);
                 if (offer.own && a.work.empty()) a.work = "offered";
             }
             return finish(std::move(p));

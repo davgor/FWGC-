@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "check.hpp"
+#include "knowledge.hpp"
 #include "fwg/api/quests.hpp"
 #include "fwg/api/read.hpp"
 #include "fwg/api/serialize.hpp"
@@ -548,6 +549,46 @@ TEST(work_done_where_its_giver_stands_was_done_beside_them) {
     check::is_true(beside > 0 && apart > 0 && held > 0 && node_only > 0,
                    "the premise: work at a site the giver holds but does not stand on, where they stand but hold nothing, and "
                    "elsewhere (" + std::to_string(held) + ", " + std::to_string(node_only) + ", " + std::to_string(apart) + ")");
+}
+
+// A hero's ties, as a hero and another giver's work both name them: rivals, kin, then allies, each in
+// the record's order. On a record built for it, since no hero of the test world has kin among the
+// ties it names.
+TEST(a_heros_ties_are_rivals_then_kin_then_allies) {
+    fwg::Hero hero;
+    hero.allies = {"ally-1", "ally-2"};
+    hero.kin = {"kin-1"};
+    hero.rivals = {"rival-1"};
+    const std::vector<std::pair<std::string, std::string>> expected = {
+        {"rival", "rival-1"}, {"kin", "kin-1"}, {"ally", "ally-1"}, {"ally", "ally-2"}};
+    check::is_true(orchestrator::knowledge::ties_of(hero) == expected, "rivals, kin, then allies, each named for what they are");
+}
+
+// Contract version 15: another giver's work, with how that giver stands to the speaker.
+TEST(another_givers_work_says_how_they_stand_to_the_speaker) {
+    Director d(faced_world());
+    std::map<std::string, std::string> giver_of;  // a quest, its giver
+    for (const fwg::QuestRow& q : quest_board(d.world(), fwg::QuestState::Offered))
+        if (q.giver_uid) giver_of[q.quest_id] = *q.giver_uid;
+    std::size_t tied = 0, untied = 0;
+    for (const fwg::Hero& h : d.world().heroes.people) {
+        if (h.status != "living" || !node_of(d.world(), h.uid)) continue;
+        const FactPacket p = d.respond(h.uid, {ActKind::AskForWork, ""});
+        for (const Fact& f : facts_of(p, FactKind::QuestOffer)) {
+            const std::string giver = giver_of[f.subject];
+            std::string expected;
+            if (std::find(h.rivals.begin(), h.rivals.end(), giver) != h.rivals.end()) expected = "rival";
+            else if (std::find(h.kin.begin(), h.kin.end(), giver) != h.kin.end()) expected = "kin";
+            else if (std::find(h.allies.begin(), h.allies.end(), giver) != h.allies.end()) expected = "ally";
+            if (value(f, "from_speaker") == "yes") expected.clear();
+            const std::string* tie = f.field("giver_tie");
+            check::equal(tie ? *tie : std::string(), expected, h.uid + ": " + f.subject);
+            ++(expected.empty() ? untied : tied);
+        }
+        (void)d.respond(h.uid, {ActKind::Farewell, ""});
+    }
+    check::is_true(tied > 0 && untied > 0, "the premise: others' work from givers tied to the speaker, and from others (" +
+                                               std::to_string(tied) + ", " + std::to_string(untied) + ")");
 }
 
 // Nor is someone else's work at the place they stand theirs.
