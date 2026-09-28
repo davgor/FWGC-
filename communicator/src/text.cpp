@@ -141,59 +141,88 @@ std::string retold(const std::string& text) {
 
 namespace {
 
+std::string lowered_word(const std::string& word) {
+    std::string lower = word;
+    for (char& c : lower) c = static_cast<char>(c >= 'A' && c <= 'Z' ? c - 'A' + 'a' : c);
+    return lower;
+}
+
+// Whether `next` makes what comes before it a plan or a thing under way: "on my way", "headed for",
+// "looking for". Said back days later such a thing is past ("you were on your way"); who someone is
+// stays as it is ("you're Aldric").
+bool under_way(const std::string& next) {
+    static const std::set<std::string> words = {"on", "off", "headed", "bound", "after", "back", "away", "out", "about"};
+    return words.count(next) != 0 || (next.size() > 4 && next.compare(next.size() - 3, 3, "ing") == 0);
+}
+
 // The stranger's own words with the first person turned: to the stranger ("you") or about them
-// ("they"). Empty, turned to the stranger, when they speak to someone.
+// ("they"), what was under way or to come shifted back, as words told days before are ("I'm on my
+// way" as "you were on your way", "I'll be back" as "you'd be back"; a judge heard "you're on your
+// way" three days on as still true, 2026-09-27). Empty, turned to the stranger, when they speak to
+// someone.
 std::string turned(const std::string& words, bool to_them) {
     static const std::map<std::string, std::string> to_you = {
         {"i", "you"},       {"me", "you"},      {"my", "your"},       {"mine", "yours"},    {"myself", "yourself"},
         {"we", "you"},      {"us", "you"},      {"our", "your"},      {"ours", "yours"},    {"ourselves", "yourselves"},
-        {"i'm", "you're"},  {"i've", "you've"}, {"i'll", "you'll"},   {"i'd", "you'd"},     {"we're", "you're"},
-        {"we've", "you've"}, {"we'll", "you'll"}, {"we'd", "you'd"}};
+        {"i'm", "you're"},  {"i've", "you've"}, {"i'll", "you'd"},    {"i'd", "you'd"},     {"we're", "you're"},
+        {"we've", "you've"}, {"we'll", "you'd"}, {"we'd", "you'd"}};
     static const std::map<std::string, std::string> about_them = {
         {"i", "they"},        {"me", "them"},       {"my", "their"},      {"mine", "theirs"},   {"myself", "themselves"},
         {"we", "they"},       {"us", "them"},       {"our", "their"},     {"ours", "theirs"},   {"ourselves", "themselves"},
-        {"i'm", "they're"},   {"i've", "they've"},  {"i'll", "they'll"},  {"i'd", "they'd"},    {"we're", "they're"},
-        {"we've", "they've"}, {"we'll", "they'll"}, {"we'd", "they'd"}};
-    static const std::map<std::string, std::string> agreeing = {{"am", "are"}, {"was", "were"}};
+        {"i'm", "they're"},   {"i've", "they've"},  {"i'll", "they'd"},   {"i'd", "they'd"},    {"we're", "they're"},
+        {"we've", "they've"}, {"we'll", "they'd"},  {"we'd", "they'd"}};
     static const std::set<std::string> addressing = {"you",     "your", "yours", "yourself", "yourselves", "you're", "you've",
                                                      "you'll",  "you'd", "ye",    "thee",     "thou",       "thy",    "thine"};
     const std::map<std::string, std::string>& turns = to_them ? about_them : to_you;
+    const std::string were = to_them ? "they were" : "you were";
     std::string text = one_line(plain_punctuation(words));
     while (!text.empty() && (text.back() == '.' || text.back() == '!' || text.back() == '?' || text.back() == ' ')) text.pop_back();
-    std::string out, word;
-    bool subject = false;  // the word before was "I": "am" and "was" agree with "you" and "they"
-    bool first = true;
-    bool refused = false;
-    const auto flush = [&] {
-        if (word.empty()) return;
-        std::string lower = word;
-        for (char& c : lower) c = static_cast<char>(c >= 'A' && c <= 'Z' ? c - 'A' + 'a' : c);
-        if (!to_them && addressing.count(lower)) refused = true;
-        std::string said = word;
-        if (const auto turn = turns.find(lower); turn != turns.end()) {
-            said = turn->second;
-        } else if (const auto agree = agreeing.find(lower); subject && agree != agreeing.end()) {
-            said = agree->second;
-        } else if (first) {
-            // A word any sentence may begin with is lowered; a name keeps its capital.
-            const std::vector<std::string>& common = common_capitals();
-            if (std::find(common.begin(), common.end(), word) != common.end()) said = lower;
-        }
-        subject = lower == "i";
-        first = false;
-        out += said;
-        word.clear();
-    };
+    // The words, and what stands between them.
+    std::vector<std::string> pieces;
+    std::vector<std::size_t> word_at;  // which pieces are words
+    std::string word, between;
     for (const char c : text) {
         if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '\'' || static_cast<unsigned char>(c) >= 0x80) {
+            if (!between.empty()) pieces.push_back(std::move(between)), between.clear();
             word += c;
         } else {
-            flush();
-            out += c;
+            if (!word.empty()) word_at.push_back(pieces.size()), pieces.push_back(std::move(word)), word.clear();
+            between += c;
         }
     }
-    flush();
-    return refused ? std::string() : out;
+    if (!word.empty()) word_at.push_back(pieces.size()), pieces.push_back(std::move(word));
+    if (!between.empty()) pieces.push_back(std::move(between));
+    // Each word as said, lowered, read before any is turned.
+    std::vector<std::string> said;
+    for (const std::size_t at : word_at) said.push_back(lowered_word(pieces[at]));
+    const auto word_after = [&](std::size_t k) { return k + 1 < said.size() ? said[k + 1] : std::string(); };
+    bool refused = false;
+    for (std::size_t k = 0; k < word_at.size(); ++k) {
+        std::string& piece = pieces[word_at[k]];
+        const std::string& lower = said[k];
+        const std::string before = k > 0 ? said[k - 1] : std::string();
+        const bool subject = before == "i" || before == "we";
+        if (!to_them && addressing.count(lower)) refused = true;
+        if ((lower == "i'm" || lower == "we're") && under_way(word_after(k))) {
+            piece = were;
+        } else if (const auto turn = turns.find(lower); turn != turns.end()) {
+            piece = turn->second;
+        } else if (subject && (lower == "am" || lower == "are")) {
+            piece = under_way(word_after(k)) ? "were" : "are";
+        } else if (subject && lower == "was") {
+            piece = "were";
+        } else if (subject && lower == "will") {
+            piece = "would";
+        } else if (k == 0) {
+            // A word any sentence may begin with is lowered; a name keeps its capital.
+            const std::vector<std::string>& common = common_capitals();
+            if (std::find(common.begin(), common.end(), piece) != common.end()) piece = lower;
+        }
+    }
+    if (refused) return {};
+    std::string out;
+    for (const std::string& piece : pieces) out += piece;
+    return out;
 }
 
 }  // namespace

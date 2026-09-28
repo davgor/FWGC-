@@ -462,7 +462,7 @@ TEST(the_strangers_own_words_are_said_back_after_a_greeting_now_and_then) {
                  "words to the speaker are not said back");
     // Of two sentences, the first of three words or more.
     check::equal(lines.speak(packets::greeted_remembering("Yes. I'm headed for the coast. My ship sails at dawn."), "Hello!"),
-                 std::string("Hello again. You told me once: you're headed for the coast."), "the first sentence worth saying back");
+                 std::string("Hello again. You told me once: you were headed for the coast."), "the first sentence worth saying back");
     // Nor words too long for a line to carry.
     check::equal(lines.speak(packets::greeted_remembering(
                                  "My sister keeps the mill at the ford below the old bridge where the river bends toward the hills."),
@@ -491,14 +491,23 @@ TEST(words_are_said_back_to_the_one_who_said_them) {
     check::equal(said_back("My sister keeps the mill at the ford."), std::string("your sister keeps the mill at the ford"), "my");
     check::equal(said_back("I am a smith, and I was a soldier!"), std::string("you are a smith, and you were a soldier"), "I am, I was");
     check::equal(said_back("We lost our farm to the flood."), std::string("you lost your farm to the flood"), "we, our");
-    check::equal(said_back("I'm headed to Dunmoor, to find my brother."), std::string("you're headed to Dunmoor, to find your brother"),
+    check::equal(said_back("I'm headed to Dunmoor, to find my brother."), std::string("you were headed to Dunmoor, to find your brother"),
                  "I'm, and a name keeps its capital");
     check::equal(said_back("Dunmoor is where I was born."), std::string("Dunmoor is where you were born"), "a name opening them");
     check::equal(said_back("To the coast."), std::string("to the coast"), "a word any sentence begins with, lowered");
     check::equal(said_back("I owe you my life."), std::string(), "words to someone are never turned about");
+    // What was under way or to come is shifted back, as words told days before are; who they are is not.
+    check::equal(said_back("I'm on my way to see my sister."), std::string("you were on your way to see your sister"), "under way");
+    check::equal(said_back("I am looking for my brother."), std::string("you were looking for your brother"), "I am looking");
+    check::equal(said_back("I'll be back before the frost."), std::string("you'd be back before the frost"), "I'll");
+    check::equal(said_back("We will rebuild the mill."), std::string("you would rebuild the mill"), "we will");
+    check::equal(said_back("I'm Aldric, from Harrowmere."), std::string("you're Aldric, from Harrowmere"), "who they are, as it is");
+    check::equal(said_back("I am a smith."), std::string("you are a smith"), "what they are, as it is");
     check::equal(of_them("My sister keeps the mill."), std::string("their sister keeps the mill"), "told of them");
     check::equal(of_them("I am a smith, and I owe you my life."), std::string("they are a smith, and they owe you their life"),
                  "told of them, the speaker still you");
+    check::equal(of_them("I'm on my way, and I'll be back."), std::string("they were on their way, and they'd be back"),
+                 "told of them, shifted back");
 }
 
 TEST(an_answer_told_in_an_earlier_conversation_says_so_first) {
