@@ -2602,6 +2602,8 @@ void hero_deeds(JsonWriter& json, const std::vector<HeroDeed>& deeds) {
         }
         if (d.has_tier) integer(json, "tier", d.tier);
         if (!d.reason.empty()) text(json, "reason", d.reason);
+        text(json, "scope", d.scope);  // heroes version 4
+        flag(json, "known_for", d.known_for);
         json.end_object();
     }
     json.end_array();

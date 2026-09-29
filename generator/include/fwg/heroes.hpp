@@ -37,8 +37,9 @@ namespace fwg {
 // derived fields (verb, difficulty, target_node, unsited_reason) to every hook, so a
 // consumer can tell a world whose hooks can be priced from one whose hooks cannot. 3 gives a
 // castellan a past: the wars their city fought in their lifetime as deeds, and `tenure_years`,
-// `served_at`, `served_as` and `liege_uid`.
-inline constexpr int kHeroesVersion = 3;
+// `served_at`, `served_as` and `liege_uid`. 4 gives every deed its `scope`, how far word of it went,
+// and marks the one each record is known for (`known_for`).
+inline constexpr int kHeroesVersion = 4;
 
 // ---------------------------------------------------------------------------
 // The authored catalogue, generated from data/hero-*.json into
@@ -244,6 +245,10 @@ struct HeroFameTuning {
     double legendary_floor, renowned_floor;  // a DESCENDING ladder, walked top-down
 };
 const HeroFameTuning& hero_fame_tuning();
+// How far word of a deed went (heroes version 4), from its own fame: "local" under the renowned floor,
+// "regional" under the legendary one, "realm" at or past it. Nothing wider: no deed of fifty worlds reached
+// twice the legendary floor (2026-09-29).
+std::string hero_deed_scope(double fame);
 // An unknown seat weighs 1.0. `librarian` is in the table and unreachable: no city class
 // declares that seat, so nothing can ever be seated in it.
 double hero_seat_weight(std::string_view seat);
@@ -623,6 +628,13 @@ struct HeroDeed {
     int tier = 0;
     bool has_tier = false;
     std::string reason;  // founding and shrine deeds
+    // How far word of the deed went (heroes version 4): its own weight in the fame formula, times the
+    // reach of the one who did it, against the fame floors: "local" under the renowned floor,
+    // "regional" under the legendary one, "realm" at or past it. And whether it is
+    // the deed they are known for: their widest, the first of equals in the order the deeds were
+    // written. Exactly one of a record's deeds is, when it has any.
+    std::string scope;
+    bool known_for = false;
 };
 
 struct HeroLogEntry {

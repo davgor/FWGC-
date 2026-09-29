@@ -908,10 +908,10 @@ TEST(every_hero_branch_carries_the_reference_keys) {
     same_keys(*find_by(people, "role", "champion"), person_keys({"nest_name"}), "champion");
     same_keys(*find_by(people, "role", "harbourmaster"), person_keys({"routes"}), "harbourmaster");
     same_keys(find_by(people, "role", "warlord")->at("deeds").items.at(0),
-              {"age", "defeated_class", "defeated_name", "defeated_uid", "event_id", "event_kind", "kind", "role"},
+              {"age", "defeated_class", "defeated_name", "defeated_uid", "event_id", "event_kind", "kind", "known_for", "role", "scope"},
               "a warlord's war deed");
     same_keys(find_by(people, "role", "sovereign")->at("deeds").items.at(0),
-              {"age", "event_id", "event_kind", "kind", "opponent_uid", "role"}, "a war deed with an opponent");
+              {"age", "event_id", "event_kind", "kind", "known_for", "opponent_uid", "role", "scope"}, "a war deed with an opponent");
     same_keys(find_by(people, "role", "warlord")->at("defeated").items.at(0), {"kind", "name", "uid", "war_id"},
               "a warlord's defeated city");
     same_keys(find_by(people, "role", "pretender")->at("lost"),
@@ -935,7 +935,7 @@ TEST(every_hero_branch_carries_the_reference_keys) {
                "persona", "log", "situation", "seed", "selectable"},
               "a Dread");
     same_keys(heroes.at("dreads").items.at(0).at("deeds").items.at(0),
-              {"age", "cause", "city_class", "city_name", "event_id", "event_kind", "role"}, "a Dread's ruin");
+              {"age", "cause", "city_class", "city_name", "event_id", "event_kind", "known_for", "role", "scope"}, "a Dread's ruin");
     // A candidate with no deeds names no event and no age -- null, not absent.
     const Json& roll = heroes.at("rolls").items.at(0);
     check::is_true(roll.at("event_id").type == Json::Type::Null && roll.at("age").type == Json::Type::Null,

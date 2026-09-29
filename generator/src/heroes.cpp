@@ -1519,30 +1519,25 @@ void place_people(Ctx& ctx, std::vector<Hero>& people, std::vector<HeroCamp>& ca
 // Fame: deed magnitude times stake reach, from numbers the world already carries.
 // ---------------------------------------------------------------------------
 
+// One deed's weight in a person's fame. `lost_class` is the class of the city they lost, or "small".
+double deed_magnitude(const HeroDeed& deed, const std::string& lost_class) {
+    if (deed.event_kind == "ruin" && deed.role == "heir") return class_weight(lost_class);
+    if (deed.event_kind == "ruin" && (deed.role == "actual" || deed.role == "keeper" || deed.role == "credited"))
+        return (deed.role == "actual" ? 1.0 : 0.5) * class_weight(lost_class);
+    if (deed.event_kind == "war" && deed.role == "credited")
+        return war_weight(deed.kind) * class_weight(deed.defeated_class.empty() ? "small" : deed.defeated_class);
+    if (deed.event_kind == "war") return 0.5 * war_weight(deed.kind);
+    if (deed.event_kind == "nest") return 0.6 * static_cast<double>(deed.has_tier ? deed.tier : 1);
+    if (deed.event_kind == "founding") return 1.5;
+    bool known = false;
+    const double weight = site_weight(deed.event_kind, known);
+    return known ? weight : 0.0;
+}
+
 double person_magnitude(const Hero& person) {
     const std::string lost_class = person.lost.has_value() ? person.lost->city_class : "small";
     double total = 0.0;
-    for (const HeroDeed& deed : person.deeds) {
-        if (deed.event_kind == "ruin" && deed.role == "heir") {
-            total += class_weight(lost_class);
-        } else if (deed.event_kind == "ruin" &&
-                   (deed.role == "actual" || deed.role == "keeper" || deed.role == "credited")) {
-            total += (deed.role == "actual" ? 1.0 : 0.5) * class_weight(lost_class);
-        } else if (deed.event_kind == "war" && deed.role == "credited") {
-            total += war_weight(deed.kind) *
-                     class_weight(deed.defeated_class.empty() ? "small" : deed.defeated_class);
-        } else if (deed.event_kind == "war") {
-            total += 0.5 * war_weight(deed.kind);
-        } else if (deed.event_kind == "nest") {
-            total += 0.6 * static_cast<double>(deed.has_tier ? deed.tier : 1);
-        } else if (deed.event_kind == "founding") {
-            total += 1.5;
-        } else {
-            bool known = false;
-            const double weight = site_weight(deed.event_kind, known);
-            if (known) total += weight;
-        }
-    }
+    for (const HeroDeed& deed : person.deeds) total += deed_magnitude(deed, lost_class);
     // ALWAYS the capital weight. The reference reads `person['home'].get('city_class',
     // 'capital')` and a home reference carries only {kind, uid, name}, so the default is
     // the only branch that can ever fire -- a sovereign of a medium seat would still
@@ -1572,6 +1567,23 @@ std::string fame_tier(double value) {
     if (value >= fame.legendary_floor) return "legendary";
     if (value >= fame.renowned_floor) return "renowned";
     return "notable";
+}
+
+// Every deed's scope, and the one its doer is known for: the widest, the first of equals.
+template <typename Weight>
+void mark_deeds(std::vector<HeroDeed>& deeds, double reach, const Weight& weight) {
+    std::size_t widest = deeds.size();
+    double most = -1.0;
+    for (std::size_t i = 0; i < deeds.size(); ++i) {
+        const double value = round3(weight(deeds[i]) * (1.0 + reach));
+        deeds[i].scope = hero_deed_scope(value);
+        deeds[i].known_for = false;
+        if (value > most) {
+            most = value;
+            widest = i;
+        }
+    }
+    if (widest < deeds.size()) deeds[widest].known_for = true;
 }
 
 // ---------------------------------------------------------------------------
@@ -2967,6 +2979,13 @@ void finish_dread(Ctx& ctx, HeroDread& dread) {
 
 }  // namespace
 
+std::string hero_deed_scope(double fame) {
+    const HeroFameTuning& tuning = hero_fame_tuning();
+    if (fame >= tuning.legendary_floor) return "realm";
+    if (fame >= tuning.renowned_floor) return "regional";
+    return "local";
+}
+
 // ---------------------------------------------------------------------------
 // Published helpers.
 // ---------------------------------------------------------------------------
@@ -3309,8 +3328,11 @@ HeroesBlock resolve_heroes(const HeroesRequest& request) {
     });
 
     for (Hero& person : people) {
-        person.fame = round3(person_magnitude(person) * (1.0 + person_reach(ctx, person, realms, realm_index)));
+        const double reach = person_reach(ctx, person, realms, realm_index);
+        person.fame = round3(person_magnitude(person) * (1.0 + reach));
         person.tier = fame_tier(person.fame);
+        const std::string lost_class = person.lost.has_value() ? person.lost->city_class : "small";
+        mark_deeds(person.deeds, reach, [&](const HeroDeed& deed) { return deed_magnitude(deed, lost_class); });
         if (person.tier == "renowned" || person.tier == "legendary") person.features.insert("fame:renowned");
         if (person.tier == "legendary") person.features.insert("fame:legendary");
         // Where the person stands, as a globe direction, for the opposing-node lookup only.
@@ -3398,6 +3420,9 @@ HeroesBlock resolve_heroes(const HeroesRequest& request) {
                                  : hero_fame_tuning().legend_reach;
         dread.fame = round3(magnitude * (1.0 + reach));
         dread.tier = fame_tier(dread.fame);
+        mark_deeds(dread.deeds, reach, [&](const HeroDeed& deed) {
+            return 0.6 * static_cast<double>(dread.nest_tier) * class_weight(deed.city_class.empty() ? "small" : deed.city_class);
+        });
         if (dread.tier == "renowned" || dread.tier == "legendary") dread.features.insert("fame:renowned");
         if (dread.tier == "legendary") dread.features.insert("fame:legendary");
         finish_dread(ctx, dread);

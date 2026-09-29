@@ -816,6 +816,78 @@ TEST(raising_the_stake_raises_the_fame) {
     check::is_true(high > low, "raising the tier of the beast raises its fame");
 }
 
+// Heroes version 4: every deed says how far word of it went, from its own weight in the fame formula times
+// the reach of the one who did it, on the fame floors; and each record with deeds is known for one, its
+// widest, the first of equals. The owner, 2026-09-29: "the scope of the heroes deeds needs to be included,
+// and scaled based on their notoriety".
+TEST(every_deed_says_how_far_word_of_it_went_and_one_is_known) {
+    const HeroFameTuning& fame = hero_fame_tuning();
+    check::equal(hero_deed_scope(fame.renowned_floor - 0.001), std::string("local"), "under the renowned floor: local");
+    check::equal(hero_deed_scope(fame.renowned_floor), std::string("regional"), "at it: regional");
+    check::equal(hero_deed_scope(fame.legendary_floor - 0.001), std::string("regional"), "under the legendary floor");
+    check::equal(hero_deed_scope(fame.legendary_floor), std::string("realm"), "at it: the realm");
+    check::equal(hero_deed_scope(100.0 * fame.legendary_floor), std::string("realm"), "and nothing wider");
+    const std::map<std::string, int> width = {{"local", 0}, {"regional", 1}, {"realm", 2}};
+    Bench bench;
+    std::size_t records = 0;
+    std::set<std::string> seen;
+    const auto hold = [&](const std::vector<HeroDeed>& deeds, const std::string& who) {
+        if (deeds.empty()) return;
+        ++records;
+        std::size_t known = 0;
+        int widest = -1;
+        for (const HeroDeed& deed : deeds) {
+            check::is_true(width.count(deed.scope) == 1, "a scope of the three: " + who + " " + deed.scope);
+            widest = std::max(widest, width.at(deed.scope));
+            seen.insert(deed.scope);
+        }
+        for (std::size_t i = 0; i < deeds.size(); ++i) {
+            if (!deeds[i].known_for) continue;
+            ++known;
+            check::equal(width.at(deeds[i].scope), widest, "known for the widest: " + who);
+            for (std::size_t j = 0; j < i; ++j)
+                check::is_true(width.at(deeds[j].scope) < widest || deeds[j].scope == deeds[i].scope,
+                               "no earlier deed wider: " + who);
+        }
+        check::equal(known, std::size_t{1}, "known for one deed: " + who);
+    };
+    // A record with one deed, and no seat that adds to its fame, is as famous as that deed: its fame is the
+    // deed's own weight times its reach, so the deed reaches as far as the fame's scope says. With more, no
+    // one deed reaches further than all of them together.
+    std::size_t single = 0;
+    const auto as_famous = [&](const std::vector<HeroDeed>& deeds, double fame, const std::string& who) {
+        if (deeds.size() == 1) {
+            ++single;
+            check::equal(deeds.front().scope, hero_deed_scope(fame), "one deed, as far as the fame: " + who);
+        }
+        for (const HeroDeed& deed : deeds)
+            check::is_true(width.at(deed.scope) <= width.at(hero_deed_scope(fame)), "no deed past the fame: " + who);
+    };
+    // The bench's ruins as they are, then as capitals: a city's class weighs in a ruin's deeds and a dread's.
+    std::size_t capital_dreads = 0;
+    for (const bool capitals : {false, true})
+        for (int seed = 1; seed <= 12; ++seed) {
+            HeroesRequest request = bench.request;
+            request.seed = static_cast<std::uint64_t>(seed);
+            if (capitals)
+                for (auto& ruin : request.ruins) ruin.city_class = "capital";
+            const HeroesBlock block = resolve_heroes(request);
+            for (const Hero& person : block.people) {
+                hold(person.deeds, person.uid);
+                if (person.role != "sovereign" && person.role != "council") as_famous(person.deeds, person.fame, person.uid);
+            }
+            for (const HeroDread& dread : block.dreads) {
+                hold(dread.deeds, dread.uid);
+                as_famous(dread.deeds, dread.fame, dread.uid);
+                if (capitals && dread.deeds.size() == 1) ++capital_dreads;
+            }
+        }
+    check::is_true(capital_dreads > 0, "the premise: a dread that ruined a capital, with one deed");
+    check::is_true(records > 20, "the premise: records with deeds, " + std::to_string(records));
+    check::is_true(single > 10, "the premise: records with one deed, " + std::to_string(single));
+    check::is_true(seen.count("local") == 1 && seen.size() >= 2, "more than one scope on the bench");
+}
+
 TEST(every_precipitation_role_has_a_diagnostics_row_whether_or_not_it_fired) {
     Bench bench;
     HeroesBlock block = resolve_heroes(bench.request);
