@@ -438,3 +438,8 @@ any | ask_name | What do they call you?
 any | ask_name | And what should I call you?
 any | ask_name | Who might you be, then?
 any | ask_name | What's your name, stranger?
+# A hero's question for the name, passed over in the stranger's next line: said once, after that reply;
+# one sentence, never a question again.
+any | name_dodged | You've not given me your name, mind.
+any | name_dodged | And I still don't know what to call you.
+any | name_dodged | You never did say what I should call you.

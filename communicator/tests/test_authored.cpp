@@ -2650,7 +2650,9 @@ TEST(the_strangers_name_is_taken_said_back_and_asked_for) {
                                      "any | heard_deed | You're the one who {deed}.\n"
                                      "any | named | You'd be {player}, if I heard right.\n"
                                      "any | ask_name | What do they call you?\n"
-                                     "any | greeted_who | I'm {speaker}, {post} here.\n",
+                                     "any | greeted_who | I'm {speaker}, {post} here.\n"
+                                     "any | thanked | Think nothing of it.\n"
+                                     "any | name_dodged | You've not given me your name, mind.\n",
                                      "names");
     const auto with = [](FactPacket p, const std::string& field, const std::string& value) {
         for (auto& [key, was] : p.facts.back().fields)
@@ -2709,6 +2711,17 @@ TEST(the_strangers_name_is_taken_said_back_and_asked_for) {
                    "the news, then the question: " + asked);
     const std::string named = lines.speak(with(with(heard, "called", "Aldric"), "called_how", "word"), "Hello.");
     check::is_true(named.rfind("Well met. You'd be Aldric, if I heard right. You're the one who ", 0) == 0, "the name, then the news: " + named);
+    // Their question for it passed over, once, after the next reply.
+    const std::vector<std::string> asked_it = {"Well met. What do they call you?"};
+    check::equal(lines.speak(packets::thanked(), "Thanks.", asked_it), std::string("Think nothing of it. You've not given me your name, mind."),
+                 "the question passed over: said after the next reply");
+    check::equal(lines.speak(packets::thanked(), "Thanks.", {"Well met. What do they call you?", "Think nothing of it."}),
+                 std::string("Think nothing of it."), "once: not when it was not the last reply that asked");
+    check::equal(lines.speak(with(with(packets::thanked(), "called", "Aldric"), "called_how", "told"), "Thanks.", asked_it),
+                 std::string("Think nothing of it."), "not with a name known");
+    FactPacket roster_thanked = packets::thanked();
+    roster_thanked.persona = packets::gate_captain();
+    check::equal(lines.speak(roster_thanked, "Thanks.", asked_it), std::string("Think nothing of it."), "not from a roster person");
 }
 
 // Contract version 23: an apology for how the stranger is, in the light of a loss or a hardship they told

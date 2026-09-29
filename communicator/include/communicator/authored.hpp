@@ -176,6 +176,12 @@ private:
     std::vector<Spoken> first_meeting_lines(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent,
                                             bool checked, std::string_view line) const;
 
+    // A hero's question for the stranger's name, put in their last reply (`recent`'s latest) and not answered
+    // (contract version 24): a `name_dodged` line, said once after the next reply. Empty when it was answered,
+    // with a name known, from a speaker cold or frightened, and after a reply that names the stranger.
+    std::vector<Spoken> name_dodged_lines(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent,
+                                          bool checked) const;
+
     // Adds the rows of `text` to the banks; `source` names it in an error.
     void read(std::string_view text, const std::string& source);
 

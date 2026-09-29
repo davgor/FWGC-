@@ -369,7 +369,7 @@ oathbound/LE | not_understood | What do you mean, and choose your words with mor
 oathbound/LE | not_understood | I'm not sure what you mean, and I suspect you do not know either.
 
 # ---- oathbound/NN: conversation ----
-oathbound/NN | greeted | Hello. Say what you're after, and what it's worth to you.
+oathbound/NN | greeted | Hello. Say what brings you, plainly, and I'll answer the same way.
 oathbound/NN | greeted | Well met. What can you do for me, or I for you?
 oathbound/NN | greeted | Good day. I deal plainly, and I expect the same.
 oathbound/NN | greeted_again | Hello again.[ Did asking after {asked} get you anywhere?]

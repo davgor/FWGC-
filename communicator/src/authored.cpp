@@ -1065,6 +1065,8 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"renamed", {"player", "player_other"}},
         {"named", {"player"}},
         {"ask_name", {}},
+        // A hero's question for the name, passed over in the stranger's next line: said once, after that reply.
+        {"name_dodged", {}},
         // Contract version 5: a people's sayings, in the bank `saying:<people>`. Never a reply of
         // its own: a line says one through {saying}.
         {"saying", {}},
@@ -2091,8 +2093,9 @@ std::vector<std::string> Lines::follows(const FactPacket& p) const {
     for (Spoken& s : account_lines(p, nullptr, false)) out.push_back(std::move(s.text));
     // And a question of theirs never answered (contract version 21).
     for (Spoken& s : asked_again_lines(p, nullptr, false)) out.push_back(std::move(s.text));
-    // And a first meeting's name (contract version 24).
+    // And a first meeting's name (contract version 24), and a question for it passed over.
     for (Spoken& s : first_meeting_lines(p, nullptr, false, {})) out.push_back(std::move(s.text));
+    for (Spoken& s : name_dodged_lines(p, nullptr, false)) out.push_back(std::move(s.text));
     return out;
 }
 
@@ -2150,7 +2153,15 @@ std::string Lines::follow(const FactPacket& p, const std::vector<std::string>& r
     // A first meeting's name (contract version 24): the name heard of them before any news, so the news is
     // theirs; a hero's question for it after, since nothing follows a question.
     const std::vector<Spoken> met = first_meeting_lines(p, &recent, true, line);
-    if (met.empty()) return after;
+    if (met.empty()) {
+        // Their question for the name, just passed over (contract version 24): "asks the player's name, which is
+        // never answered and never asked again" (two of the golden benchmark's judges, 2026-09-29). Once, after
+        // this reply; a question left unanswered at parting is the director's to carry to a later greeting.
+        const std::vector<Spoken> dodged = name_dodged_lines(p, &recent, true);
+        if (dodged.empty()) return after;
+        const std::string said = dodged[static_cast<std::size_t>(stable_hash(p.speaker + "|dodged") % dodged.size())].text;
+        return after.empty() ? said : after.back() == '?' ? after : after + " " + said;
+    }
     const std::size_t n = met.size();
     const std::string said = met[static_cast<std::size_t>(stable_hash(p.speaker + "|name") % n)].text;
     if (after.empty()) return said;
@@ -2166,6 +2177,22 @@ std::vector<Lines::Spoken> Lines::first_meeting_lines(const FactPacket& p, const
     if (!m.called.empty()) return spoken_for(p, recent, checked, &named);
     if (p.persona.voice_key.empty() || name_given(line).has_value()) return {};
     return spoken_for(p, recent, checked, &ask);
+}
+
+std::vector<Lines::Spoken> Lines::name_dodged_lines(const FactPacket& p, const std::vector<std::string>* recent, bool checked) const {
+    const Remembered m = remembered(p);
+    // Nor after a refusal, whose reply ends on who to see.
+    if (p.persona.voice_key.empty() || !m.called.empty() || m.cold() || m.frightened() || p.outcome == Outcome::Introduced ||
+        p.outcome == Outcome::Known || p.outcome == Outcome::Renamed || p.outcome == Outcome::Refused)
+        return {};
+    static const std::vector<std::string> dodged = {"name_dodged"};
+    if (recent == nullptr) return checked ? std::vector<Spoken>{} : spoken_for(p, nullptr, false, &dodged);  // follows(): every one
+    if (recent->empty()) return {};
+    static const std::vector<std::string> ask = {"ask_name"};
+    const std::vector<Spoken> asks = spoken_for(p, nullptr, false, &ask);
+    const std::string& last = recent->back();
+    if (std::none_of(asks.begin(), asks.end(), [&](const Spoken& s) { return last.find(s.text) != std::string::npos; })) return {};
+    return spoken_for(p, recent, checked, &dodged);
 }
 
 std::string Lines::follow_on(const FactPacket& p, const std::vector<std::string>& recent, Meaning* meaning) const {

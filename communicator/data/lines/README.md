@@ -87,6 +87,7 @@ voice | situation | line
   | `renamed` (the stranger gave another name than the one the speaker knew them by, which the speaker may have heard rather than been told) | `{player}` (the new name), `{player_other}` (the one they had) |
   | `named` (said after a greeting at a first meeting, by someone who heard the stranger's name before they met, by word or overheard: one sentence, never a question) | `{player}` |
   | `ask_name` (said after a greeting at a first meeting, by a hero who knows no name for the stranger: one whole question, which is kept and asked again once if it gets no answer) | |
+  | `name_dodged` (a hero's question for the name, passed over in the stranger's next line: said once, after that reply; one sentence, no question) | |
 
   Every situation may also use `{speaker}`, `{post}` and `{place}`.
 
