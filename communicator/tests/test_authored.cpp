@@ -1484,6 +1484,9 @@ TEST(thanks_a_complaint_and_a_greeting_are_heard_for_what_they_are) {
 // hero session, 2026-09-28: "Whatever for? You have done me no wrong" two lines after a death).
 // Measured once on 16 lines written before the descriptions were tried: 14 right.
 constexpr std::size_t kSorryFloor = 14;
+// Twelve more, held out (2026-09-29): 10 with the wording kept; one that named long days and hard times took
+// the first 16 from 14 to 12, and lost "Sorry, I'm not myself today", and was not kept.
+constexpr std::size_t kSorryLaterFloor = 10;
 TEST(an_apology_for_how_one_is_is_met_as_that) {
     communicator::Meaning meaning(test_model::embedder());
     const FactPacket p = packets::unwronged();
@@ -1522,6 +1525,27 @@ TEST(an_apology_for_how_one_is_is_met_as_that) {
     }
     std::cout << "  an apology: " << right << " of " << sorry.size() << " heard right" << missed << "\n";
     check::is_true(right >= kSorryFloor, std::to_string(right) + " of " + std::to_string(sorry.size()) + missed);
+    // Twelve more, written 2026-09-29 before any other wording was tried, after "Sorry. It's been a long few
+    // days." was heard as an apology for a wrong (the benchmark's third session).
+    const std::vector<std::pair<std::string, std::string>> later = {
+        {"Sorry, it's been a rough week.", "state"},       {"Forgive me, I haven't slept.", "state"},
+        {"Apologies, my head's all over the place.", "state"}, {"Sorry, I'm a bit on edge.", "state"},
+        {"Excuse my temper; the road was long.", "state"}, {"Sorry, I'm worn thin.", "state"},
+        {"Sorry for snapping at you earlier.", "wrong"},   {"Apologies for the trouble I caused.", "wrong"},
+        {"Sorry I didn't come sooner.", "wrong"},          {"Forgive me for asking so many questions.", "wrong"},
+        {"Sorry, I didn't mean to offend.", "wrong"},      {"My mistake, I should have listened.", "wrong"}};
+    std::size_t later_right = 0;
+    std::string later_missed;
+    for (const auto& [line, want] : later) {
+        const std::string reply = lines.speak(p, line, {}, &meaning);
+        const std::string heard = reply == state ? "state" : reply == wrong ? "wrong" : "(" + reply + ")";
+        if (heard == want)
+            ++later_right;
+        else
+            later_missed += "\n  " + line + ": " + heard + ", not " + want;
+    }
+    std::cout << "  an apology, the later 12: " << later_right << " of " << later.size() << " heard right" << later_missed << "\n";
+    check::is_true(later_right >= kSorryLaterFloor, std::to_string(later_right) + " of 12" + later_missed);
     check::equal(lines.speak(p, "Sorry. I'm just tired.", {}, &meaning), state, "the benchmark's apology");
     check::equal(lines.speak(p, "Sorry, I'm not myself today.", {}, nullptr), wrong, "no meaning: as ever");
     // The same once there is something to forgive: "Sorry. I'm just tired." after a complaint had drawn
