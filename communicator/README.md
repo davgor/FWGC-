@@ -545,7 +545,10 @@ hero's own side of a fight (2026-09-29).
   sovereign's lost fight in the speaker's own town as hearsay he would not vouch for.
 - **Their own is their side of it** (`own_deed_words`), in the first person, never as news: "we held the
   fortress against the glacier dragons a few days back"; "we" for a place held or assaulted, "I" for a
-  hunt. The director puts a hero's newest deed in their greetings, small talk and answers about
+  hunt. Every deed since the stranger last saw them (contract version 29) is told as one account, in the
+  order they came (`own_story_words`): "we fought the leviathan at the fortress and lost twice, then we held
+  it against them a few days back". Told only the newest, a castellan who had lost twice and then held gave
+  the hold alone (round 31's judges). The director puts a hero's newest deed in their greetings, small talk and answers about
   themself, and the written lines say it after small talk, before any news of others, and after a greeting
   to someone met before once what the stranger told them has been said back (at "Remember me?", round 30's
   judges missed the arm and the brother where the fortress held had taken their place)

@@ -634,6 +634,8 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
                                              dated_own_deed_words(fact, self, here)})
                 if (!words.empty()) blank(undated, lowered(words));
         }
+    // And their deeds since, told as one account, "twice" and all (contract version 29).
+    if (const std::string story = own_story_words(packet, true); !story.empty()) blank(undated, lowered(story));
     // "As I told you a few days ago" says when the speaker told it, backed by a Recall fact, not when
     // they last met.
     for (const Recall& r : recalls(packet))

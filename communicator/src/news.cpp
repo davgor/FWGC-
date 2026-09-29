@@ -205,28 +205,78 @@ std::string dated_deed_words(const Fact& news, const std::string& self, std::str
     return with_when(deed_words(news, self, here), news, true);
 }
 
-std::string own_deed_words(const Fact& news, const std::string& self, std::string_view here) {
+namespace {
+
+// One of the speaker's own deeds in the first person (own_deed_words); told after another in the same breath, its
+// foe said as "them" and its place as "it" or "there" when the deed before named them.
+std::string own_deed_clause(const Fact& news, const std::string& self, std::string_view here, bool foe_again, bool place_again) {
     if (news.kind != FactKind::News || self.empty() || said(news, "event") != "hero" || said(news, "person") != self) return {};
     const std::string verb = said(news, "verb");
     const std::string place = said(news, "place");
     const std::string against = said(news, "against");
     const bool won = said(news, "state") == "won";
     const bool there = !here.empty() && place == here;
+    const std::string foe = foe_again ? std::string("them") : against;
     if (verb == "defended" && !place.empty()) {
-        if (won) return "we held " + (there ? std::string("the line here") : named(place, here)) + (against.empty() ? "" : " against " + against);
-        if (against.empty()) return "we lost a fight " + (there ? std::string("here") : "at " + named(place, here));
-        return "we fought " + against + " " + (there ? std::string("here") : "at " + named(place, here)) + " and lost";
+        if (won)
+            return "we held " + (there ? std::string("the line here") : place_again ? std::string("it") : named(place, here)) +
+                   (against.empty() ? "" : " against " + foe);
+        const std::string at = there ? std::string("here") : place_again ? std::string("there") : "at " + named(place, here);
+        if (against.empty()) return "we lost a fight " + at;
+        return "we fought " + foe + " " + at + " and lost";
     }
-    if (verb == "hunted" && !against.empty()) return won ? "I hunted down " + against : "I went after " + against + " and was beaten back";
+    if (verb == "hunted" && !against.empty())
+        return won ? (foe_again ? std::string("I hunted them down") : "I hunted down " + against) : "I went after " + foe + " and was beaten back";
     if (verb == "assaulted" && !place.empty()) {
-        if (won) return "we took " + named(place, here) + (against.empty() ? "" : " from " + against);
-        return "we were thrown back from " + named(place, here) + (against.empty() ? "" : " by " + against);
+        const std::string ruin = place_again ? std::string("it") : named(place, here);
+        if (won) return "we took " + ruin + (against.empty() ? "" : " from " + foe);
+        return "we were thrown back from " + ruin + (against.empty() ? "" : " by " + foe);
     }
     return {};
 }
 
+}  // namespace
+
+std::string own_deed_words(const Fact& news, const std::string& self, std::string_view here) {
+    return own_deed_clause(news, self, here, false, false);
+}
+
 std::string dated_own_deed_words(const Fact& news, const std::string& self, std::string_view here) {
     return with_when(own_deed_words(news, self, here), news, true);
+}
+
+std::string own_story_words(const orchestrator::FactPacket& packet, bool dated) {
+    const std::string self = text::spoken(packet.persona.name);
+    const std::string here = text::spoken(packet.persona.place);
+    std::vector<const Fact*> deeds;  // oldest first: the director gives them newest first
+    for (const Fact& f : packet.facts)
+        if (!own_deed_words(f, self, here).empty()) deeds.insert(deeds.begin(), &f);
+    if (deeds.empty()) return {};
+    // The same deed again, one after another, is counted: "we fought them at the fortress and lost twice".
+    const auto same = [](const Fact& a, const Fact& b) {
+        for (const std::string_view key : {"verb", "place", "against", "state"})
+            if (said(a, key) != said(b, key)) return false;
+        return true;
+    };
+    std::vector<std::pair<const Fact*, int>> runs;
+    for (const Fact* deed : deeds) {
+        if (!runs.empty() && same(*runs.back().first, *deed))
+            ++runs.back().second;
+        else
+            runs.emplace_back(deed, 1);
+    }
+    std::string out;
+    for (std::size_t i = 0; i < runs.size(); ++i) {
+        const Fact& deed = *runs[i].first;
+        const bool foe_again = i > 0 && !said(deed, "against").empty() && said(deed, "against") == said(*runs[i - 1].first, "against");
+        const bool place_again = i > 0 && !said(deed, "place").empty() && said(deed, "place") == said(*runs[i - 1].first, "place");
+        std::string clause = own_deed_clause(deed, self, here, foe_again, place_again);
+        if (runs[i].second == 2) clause += " twice";
+        if (runs[i].second > 2) clause += " three times";
+        out += i == 0 ? clause : ", then " + clause;
+    }
+    // Dated as the newest of them was.
+    return dated ? with_when(out, *deeds.back(), true) : out;
 }
 
 const Fact* own_deed_of(const orchestrator::FactPacket& packet) {

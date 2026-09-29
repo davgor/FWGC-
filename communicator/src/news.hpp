@@ -46,6 +46,13 @@ std::string dated_news_words(const orchestrator::Fact& news, const std::string& 
 std::string own_deed_words(const orchestrator::Fact& news, const std::string& self, std::string_view here = {});
 std::string dated_own_deed_words(const orchestrator::Fact& news, const std::string& self, std::string_view here = {});
 
+// Every one of the speaker's own deeds the packet holds (contract version 29: all since the stranger last saw them,
+// newest first), told as one account in the order they came, the same deed again counted, a foe or place named
+// before said again as "them" and "it" or "there": "we fought the leviathan at the fortress and lost twice, then we
+// held it against them". Dated, as the newest was. Empty when the packet holds none. Told only the newest, a
+// castellan who had lost twice and then held gave the hold alone (the golden benchmark's round 31).
+std::string own_story_words(const orchestrator::FactPacket& packet, bool dated);
+
 // The News fact of the speaker's own newest deed (contract version 26), or null: the first of the packet's
 // that own_deed_words can say.
 const orchestrator::Fact* own_deed_of(const orchestrator::FactPacket& packet);

@@ -463,7 +463,7 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     // fights lately.
     if (starts("own_deed") || situation == "them_fought")
         if (const Fact* own = own_deed_of(p))
-            set("own_deed", dated_own_deed_words(*own, text::spoken(p.persona.name), text::spoken(p.persona.place)));
+            set("own_deed", own_story_words(p, true));
     if (starts("safety_")) {
         // The director names the places a verdict rests on first (orchestrator/contract.hpp).
         const std::vector<const Fact*> named = of_kind(p, FactKind::Place);
@@ -1701,7 +1701,7 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     // not once lain awake over what I've sworn to" (2026-09-29).
     const Fact* fought = memory.cold() || memory.frightened() ? nullptr : own_deed_of(p);
     const std::string fought_words =
-        fought ? own_deed_words(*fought, text::spoken(p.persona.name), text::spoken(p.persona.place)) : std::string();
+        fought ? own_story_words(p, false) : std::string();
     const bool fought_said = !fought_words.empty() && own_deed_said(p, fought_words, recent);
     const auto fought_lines = [&]() -> std::vector<Spoken> {
         if (fought_words.empty()) return {};
@@ -1914,7 +1914,7 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         // Told in this conversation already, as one who told it: "Since you ask: we fought the horizon eyes at the
         // fortress and lost today" had come two turns after the greeting said it word for word (round 31's reading).
         if (asked.front() == "them_fought" &&
-            own_deed_said(p, own_deed_words(*own_deed_of(p), text::spoken(p.persona.name), text::spoken(p.persona.place)), recent))
+            own_deed_said(p, own_story_words(p, false), recent))
             asked = {"them_fought_again"};
         // How long they have held their post, and where they served before it, where the Self fact says
         // (contract version 19): asked alone, as home is, since a bank's lines of how long without the years
@@ -2194,7 +2194,7 @@ OwnDeed own_deed_to_say(const FactPacket& p, bool unasked) {
     const Fact* own = own_deed_of(p);
     if (own == nullptr || (unasked && !brought_up(*own, p))) return {};
     return {field_of(*own, "state") == "won" ? "own_deed_won" : "own_deed_lost",
-            own_deed_words(*own, text::spoken(p.persona.name), text::spoken(p.persona.place))};
+            own_story_words(p, false)};
 }
 
 // Whether a greeting may end with the stranger's own words said back (contract version 12): to someone

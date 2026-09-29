@@ -542,6 +542,45 @@ TEST(a_heros_deed_is_news_to_others_and_their_own_to_tell) {
     FactPacket nothing_kept = packets::greeted_after_own_deed("won");
     check::equal(back.speak(nothing_kept, "Remember me?"),
                  std::string("Good day. It came to steel: we held the fortress against the glacier dragons today."), "nothing kept: the fight");
+    // Every deed since the last meeting, told as one account in the order they came (contract version 29): told only
+    // the newest, a castellan who had lost twice and then held gave the hold alone (the golden benchmark's round 31).
+    const auto deed_of = [](const std::string& id, const std::string& state, const std::string& since, const std::string& against) {
+        Fact f = packets::news_of_a_heros_deed("defended", state, "there");
+        f.subject = id;
+        for (auto& [key, value] : f.fields) {
+            if (key == "since") value = since;
+            if (key == "against") value = against;
+        }
+        return f;
+    };
+    const auto story_of = [&](std::vector<Fact> newest_first) {
+        FactPacket p = remembering(packets::greeted_after_own_deed("won"), {.met = "again", .times = 1, .since = "months"});
+        std::erase_if(p.facts, [](const Fact& f) { return f.kind == FactKind::News; });
+        p.facts.insert(p.facts.end() - 1, newest_first.begin(), newest_first.end());
+        return p;
+    };
+    const FactPacket lost_twice_then_held = story_of({deed_of("event-3", "won", "days", "the glacier dragons"),
+                                                      deed_of("event-2", "lost", "weeks", "the glacier dragons"),
+                                                      deed_of("event-1", "lost", "weeks", "the glacier dragons")});
+    check::equal(communicator::own_story_words(lost_twice_then_held, true),
+                 std::string("we fought the glacier dragons at the fortress and lost twice, then we held it against them a few days back"),
+                 "lost twice, then held: one account, the same deed counted, dated as the newest");
+    check::equal(communicator::own_story_words(story_of({deed_of("event-2", "won", "days", "the glacier dragons"),
+                                                         deed_of("event-1", "lost", "weeks", "the frost owls")}),
+                                               false),
+                 std::string("we fought the frost owls at the fortress and lost, then we held it against the glacier dragons"),
+                 "another foe named again, the same place as it");
+    check::equal(communicator::own_story_words(story_of({deed_of("event-1", "lost", "days", "the glacier dragons")}), true),
+                 std::string("we fought the glacier dragons at the fortress and lost a few days back"), "one deed: as ever");
+    check::equal(communicator::own_story_words(packets::small_talk_with_a_heros_deed(), true), std::string(), "none of theirs: nothing");
+    const std::string whole = back.speak(lost_twice_then_held, "Hello again.");
+    check::equal(whole,
+                 std::string("Good day. It came to steel: we fought the glacier dragons at the fortress and lost twice, then we held it against "
+                             "them a few days back."),
+                 "said after the greeting, as the newest went");
+    check::is_true(communicator::untrue(whole, lost_twice_then_held, {}).empty(),
+                   "the account's words are backed, its date and count no time counted out: " +
+                       (communicator::untrue(whole, lost_twice_then_held, {}).empty() ? std::string() : communicator::untrue(whole, lost_twice_then_held, {}).front()));
     // Heard of by someone else: news, in the third person. A stranger's deed is told only when asked for news;
     // someone of theirs is brought up as what they are to the speaker (contract version 28), a rival's as news.
     // Passed on as it came, strangers' fights were bulletins of names no one knew, and a sovereign's lost fight
