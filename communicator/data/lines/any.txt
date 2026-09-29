@@ -218,6 +218,19 @@ any | took_vengeful | I'll not wait for them to come again; I'll go to them.
 any | took_vindicated | It went as I said it would.
 any | took_vindicated | Those who doubted me can keep their doubts now.
 any | took_vindicated | I knew we had it in us.
+# And of a place they held (a deed defended), theirs to keep: what it does to what they keep, said as a feeling.
+any | took_humbled_held | It was mine to keep, and I'll own how it went.
+any | took_humbled_held | I keep that place, and I kept it poorly; that sits with me.
+any | took_embittered_held | I keep that place for people who'll never know what it costs.
+any | took_embittered_held | It's hardened me; I keep it, but I expect nothing for it now.
+any | took_resolved_held | It's mine to keep, and I'll keep it yet.
+any | took_resolved_held | They'll come again, and it'll still be mine to keep when they do.
+any | took_grieving_held | It was mine to keep, and what it cost sits heavy with me.
+any | took_grieving_held | I keep that place still, but the cost of it doesn't leave me.
+any | took_vengeful_held | I'll not wait here for them to come again; I mean to go to them.
+any | took_vengeful_held | It's mine to keep, and I'll keep it by going after them.
+any | took_vindicated_held | It held, as I knew it would.
+any | took_vindicated_held | It's mine to keep, and I kept it; let that be the answer to anyone who doubted.
 # How things have been since, from one who has fought since and told of it lately: the fight not said again.
 any | small_talk_since_fought_won | It's been busy since that fight.
 any | small_talk_since_fought_won | It's gone better than it might have, since that fight.
@@ -250,6 +263,10 @@ any | news_told | Nothing more than I told you: {news}.
 any | no_news | Nothing's reached me.
 any | no_news | No news that I've heard.
 any | no_news | I've not heard a thing.
+# Asked for news with none to give but their own fight, told in this conversation: nothing past it.
+any | no_news_but_fought | Nothing past the fighting I told you of.
+any | no_news_but_fought | Only what I told you of the fighting, and you've heard that.
+any | no_news_but_fought | Nothing new since I told you how the fighting went.
 # Contract version 12: the stranger's own words, kept, said back after a greeting ({words}: "your sister
 # keeps the mill at the ford").
 any | recalled | You told me once: {words}; I've not forgotten.

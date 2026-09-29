@@ -572,6 +572,12 @@ hero's own side of a fight (2026-09-29).
   after the fight asked of (`took_humbled`, `took_embittered`, `took_resolved`, `took_grieving`,
   `took_vengeful`, `took_vindicated`: "I keep going over what I did wrong."), from whichever bank has one,
   said as a feeling that adds nothing that happened; the account alone before they have taken it any way.
+  Of a place they held, theirs to keep (a deed defended), it is said of that first (`took_<reaction>_held`: "It's
+  mine to keep, and I'll keep it yet."): round 32's judges heard a loss at the post a castellan swore to keep,
+  followed by "I've learned from it", as a bulletin that touched nothing he had sworn.
+- **Asked for news with nothing past their own fight,** told in this conversation, they say there is nothing past
+  it (`no_news_but_fought`: "Nothing past the fighting I told you of."), never the fight again as how things have
+  been: "What news?" one line after the account drew "It's been busy since that fight", read as the fight retold.
   The voice is told it after the deed ("How you took it: it humbled you; you own your part in it.",
   `took_words`); a packet without one is put as before.
 - **The voice** is told it as "What you did yourself: ..."; the truth check lets "we held the", "we

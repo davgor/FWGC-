@@ -1510,7 +1510,8 @@ TEST(thanks_a_complaint_and_a_greeting_are_heard_for_what_they_are) {
                                             "any | small_talk_since_fought_lost | It's been hard since that fight.\n"
                                             "any | own_deed_lost | It went badly: {own_deed}.\n"
                                             "any | no_news | No news that I've heard.\n"
-                                            "any | took_humbled | I keep going over what I did wrong.\n",
+                                            "any | took_humbled | I keep going over what I did wrong.\n"
+                                            "any | no_news_but_fought | Nothing past the fighting I told you of.\n",
                                             "fought, taken");
     FactPacket taken_lost = lost;
     for (Fact& f : taken_lost.facts)
@@ -1521,6 +1522,11 @@ TEST(thanks_a_complaint_and_a_greeting_are_heard_for_what_they_are) {
                  "what news: the same");
     check::equal(fought_taken.speak(second_turn(taken_lost), "How have things been since?", {"Good day. " + told}, &meaning),
                  std::string("It's been hard since that fight."), "said this conversation: as one who told it, nothing more");
+    // Asked for news with nothing past the fight told this conversation: nothing past it, never the fight again.
+    check::equal(fought_taken.speak(second_turn(taken_lost), "What news?", {"Good day. " + told}, &meaning),
+                 std::string("Nothing past the fighting I told you of."), "what news, the fight told: nothing past it");
+    check::equal(fought_taken.speak(second_turn(packets::small_talk_after_work()), "What news?", {}, &meaning),
+                 std::string("It's been quieter since that work was done."), "no fight of theirs: how things have been since, never the fighting");
     check::equal(fought.speak(second_turn(lost), "Anything new since we last spoke?", {told}, &meaning),
                  std::string("It's been hard since that fight."), "what news, the fight said this conversation and none else: as one who told it");
     FactPacket lost_and_news = lost;
@@ -2947,6 +2953,23 @@ TEST(how_a_hero_took_their_deed_follows_their_account_of_it) {
                  alone + " I mean to go after them myself.", "vengeful, after the account");
     check::equal(lines.follow(packets::greeted_after_own_deed("lost", "grieving"), {}, nullptr, "Hello again."), alone,
                  "no line of how: the account alone");
+    // Of a place they held, theirs to keep, said of that first where a bank has it; a hunt as ever.
+    const Lines held = Lines::parse("any | greeted | Well met.\n"
+                                    "any | own_deed_lost | It went badly: {own_deed}.\n"
+                                    "any | took_humbled | I keep going over what I did wrong.\n"
+                                    "any | took_humbled_held | It was mine to keep, and I'll own how it went.\n",
+                                    "held");
+    check::equal(held.follow(packets::greeted_after_own_deed("lost", "humbled"), {}, nullptr, "Hello again."),
+                 alone + " It was mine to keep, and I'll own how it went.", "a place held: said of that");
+    FactPacket hunt = packets::greeted_after_own_deed("lost", "humbled");
+    for (Fact& f : hunt.facts)
+        if (f.kind == FactKind::News)
+            for (auto& [key, value] : f.fields)
+                if (key == "verb") value = "hunted";
+    const std::string hunted = held.follow(hunt, {}, nullptr, "Hello again.");
+    const std::string plain = " I keep going over what I did wrong.";
+    check::is_true(hunted.size() > plain.size() && hunted.compare(hunted.size() - plain.size(), plain.size(), plain) == 0,
+                   "a hunt: as ever: " + hunted);
 }
 
 // How it went for them in the work the stranger did beside them (contract version 31), asked of while its account rides:

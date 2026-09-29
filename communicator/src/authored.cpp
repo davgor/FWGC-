@@ -1105,12 +1105,22 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"took_grieving", {}},
         {"took_vengeful", {}},
         {"took_vindicated", {}},
+        // And of a place they held, theirs to keep (a deed "defended"), asked alone first: what it does to what they keep.
+        {"took_humbled_held", {}},
+        {"took_embittered_held", {}},
+        {"took_resolved_held", {}},
+        {"took_grieving_held", {}},
+        {"took_vengeful_held", {}},
+        {"took_vindicated_held", {}},
         // Small talk that asks for news, read by meaning (Lines::speak): what the stranger did, told
         // lately, as the talk of it, never read back as fact; others' news told lately, said again as
         // told; or none heard. News not yet told is a `heard_deed` or `news` line, said alone.
         {"heard_deed_told", {"deed"}},
         {"news_told", {"news"}},
         {"no_news", {}},
+        // Contract version 29: asked for news with none to give but their own fight, told in this conversation:
+        // nothing past that fight ("Only that fight, and you've heard it."), never the fight again.
+        {"no_news_but_fought", {}},
         // Contract version 12: the stranger's own words the speaker kept (a Recall fact `said`), said
         // back after a greeting to someone met before, when there is no news to tell (Lines::follow).
         {"recalled", {"words"}},
@@ -1815,6 +1825,13 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             // fortress the stranger had held (a held-out session's judge, 2026-09-28). Not from the
             // reading above, which took "Cold out, isn't it?" for news. Fought since, as one who told it.
             static const std::vector<std::string> since_work = {"small_talk_since_work"};
+            // Their own fight told in this conversation and nothing else to give: nothing past that fight, never the
+            // fight again as how things have been. "What news?" one line after "we fought the leviathan ... then we held
+            // it" drew "It's been busy since that fight", read as the fight retold (the golden benchmark's round 32).
+            static const std::vector<std::string> but_fought = {"no_news_but_fought"};
+            if (none && fought_said && !remembered(p).cold() && !remembered(p).frightened())
+                if (const std::vector<Spoken> told = spoken_for(p, &recent, true, &but_fought); !told.empty())
+                    return choose(telling(told)).first;
             if (none && remembered(p).work == "finished" && !remembered(p).cold() && !remembered(p).frightened()) {
                 std::vector<Spoken> since = fought_lines();
                 if (since.empty()) since = spoken_for(p, &recent, true, &since_work);
@@ -2290,8 +2307,10 @@ std::vector<std::string> Lines::follows(const FactPacket& p) const {
     if (!news.situation.empty()) chains.push_back({news.situation});
     if (const OwnDeed own = own_deed_to_say(p, false); !own.situation.empty()) {
         chains.push_back({own.situation});
-        if (const Fact* deed = own_deed_of(p); deed != nullptr && !field_of(*deed, "took_it").empty())
+        if (const Fact* deed = own_deed_of(p); deed != nullptr && !field_of(*deed, "took_it").empty()) {
             chains.push_back({"took_" + field_of(*deed, "took_it")});
+            if (field_of(*deed, "verb") == "defended") chains.push_back({"took_" + field_of(*deed, "took_it") + "_held"});
+        }
     }
     if (says_back(p))
         for (const std::string kind : {"recalled", "recalled_grief", "recalled_hardship", "recalled_doubt"}) chains.push_back({kind});
@@ -2346,6 +2365,13 @@ std::vector<Lines::Spoken> Lines::took_lines(const FactPacket& p, const std::vec
     if (own == nullptr) return {};
     const std::string took = field_of(*own, "took_it");
     if (took.empty()) return {};
+    // A place they held, theirs to keep: how they took it said of that, asked alone first. Said of nothing, a lost
+    // fight at the post a castellan swore to keep read as a bulletin: "what it does to the oath he called
+    // unbearable to break" (the golden benchmark's round 32).
+    if (field_of(*own, "verb") == "defended") {
+        const std::vector<std::string> held = {"took_" + took + "_held"};
+        if (std::vector<Spoken> lines = spoken_for(p, recent, checked, &held); !lines.empty()) return lines;
+    }
     const std::vector<std::string> chain = {"took_" + took};
     return spoken_for(p, recent, checked, &chain);
 }
@@ -2368,6 +2394,11 @@ std::vector<Lines::Spoken> Lines::asked_for_news(const FactPacket& p, const std:
 std::vector<std::string> Lines::news_asked(const FactPacket& p, const std::vector<std::string>& recent) const {
     std::vector<std::string> out;
     for (Spoken& s : asked_for_news(p, recent, false)) out.push_back(std::move(s.text));
+    // And nothing past their own fight, told (speak()), for a speaker with one.
+    if (p.outcome == Outcome::Chatted && own_deed_of(p) != nullptr && !remembered(p).cold() && !remembered(p).frightened()) {
+        static const std::vector<std::string> but_fought = {"no_news_but_fought"};
+        for (Spoken& s : spoken_for(p, &recent, false, &but_fought)) out.push_back(std::move(s.text));
+    }
     return out;
 }
 

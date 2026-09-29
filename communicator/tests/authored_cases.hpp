@@ -222,10 +222,10 @@ inline std::string situation_of(const std::string& row) {
 }
 
 // Whether a row answers small talk that asks for news with news told lately or none ("news_told",
-// "heard_deed_told", "no_news"; Lines::news_asked).
+// "heard_deed_told", "no_news", "no_news_but_fought"; Lines::news_asked).
 inline bool asked_news_row(const std::string& row) {
     const std::string situation = situation_of(row);
-    return situation == "news_told" || situation == "heard_deed_told" || situation == "no_news";
+    return situation == "news_told" || situation == "heard_deed_told" || situation == "no_news" || situation == "no_news_but_fought";
 }
 
 // What a speaker said lately for the news `p` would pass on to have been told: its words, as a
