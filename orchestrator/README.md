@@ -342,15 +342,18 @@ a line of their log in the world's words, their fame and band recomputed.
   hero). It is recorded, and replay calls it again. A hero acts at most once a call, and again only a week
   after they last did; the first time each is due falls on a day of that week their own seed picks, so
   heroes do not all act at once.
-- **Who, and what.** A living hero of one face whose claim is to hold or protect a place defends it (where
-  they stand, when that is a city, hamlet, fortress or ruin, else their home city) against the worst nest
-  within 5 km of it, and does nothing when none is near; one sworn to kill a nest hunts it; one who would
-  retake a ruin assaults it, against the worst nest near it if any. A hero of more than one face (a mask,
+- **Who, and what.** A living hero of one face whose claim is to hold or protect a place defends it (their
+  presence, when that is a city, hamlet, fortress or ruin, else their home city) against the worst nest
+  within 5 km of where the world's reads have them stand, the threat they speak of (a castellan stands in
+  their home city by the reads, not at the fortress they hold), and does nothing when none is near; one sworn to kill a nest hunts it; one who would
+  retake a ruin assaults it, against the worst nest near it if any; taken, the ruin is where they stand
+  after (their presence, "warding"), and they hold it from then on as any place held. A hero of more than one face (a mask,
   a beast, a fractured heart) does not act yet.
 - **How it goes.** Their chance is their fame's band (notable 45%, renowned 60%, legendary 75%), 8 points
   less for each step of the danger above 3 and more for each below, 15 less for an assault, never past
   90% (the least it can be is 14%). The draw is a hash of their seed, the day and the action, so a save
-  replays it (`src/hero_direction.hpp`). Over four weeks of a size-33 world (seed 99), deeds with the
+  replays it (`src/hero_direction.hpp`). Heroes defending one place against one foe on the same call
+  fight one fight: the first in the world's order draws, and the rest share how it went. Over four weeks of a size-33 world (seed 99), deeds with the
   better chance went their way more often. More heroes due than the world's verb takes in one call (64)
   are written in batches.
 - **Their side of it.** A hero's own newest deed rides in their greetings, small talk and answers about

@@ -63,10 +63,12 @@ bool one_face(const fwg::Hero& hero) {
     return !(has("public") && has("true")) && !(has("calm") && has("unleashed")) && !(has("first") && has("second"));
 }
 
-// Where a site stands: a roster site's node, else the place the read names.
+// Where a site stands: a roster site's node, a ruin's, else the place the read names.
 std::optional<int> node_of(const fwg::World& world, const std::string& site) {
     for (const fwg::NpcSite& row : world.npcs.sites)
         if (row.uid == site) return row.node;
+    for (const fwg::Ruin& ruin : world.ruins)
+        if (ruin.uid == site) return ruin.node;
     fwg::PlaceReadRequest request;
     request.place_id = site;
     try {
@@ -74,6 +76,13 @@ std::optional<int> node_of(const fwg::World& world, const std::string& site) {
     } catch (const fwg::WorldTimeError&) {
         return std::nullopt;
     }
+}
+
+// Where the world's reads have a person stand: their anchor's node.
+std::optional<int> anchor_of(const fwg::World& world, const std::string& uid) {
+    fwg::PersonReadRequest who;
+    who.uid = uid;
+    return fwg::read_person(world, who).person.anchor.node;
 }
 
 // The worst nest within 5 km of `node`, the nearest of equals: the oracle, by the near read itself.
@@ -120,6 +129,8 @@ TEST(a_hero_acts_by_their_claim_against_what_is_near) {
     const Weeks& w = weeks();
     check::is_true(!w.done.empty(), "the premise: heroes acted in four weeks");
     std::map<std::string, std::size_t> by_action;
+    std::size_t apart = 0;  // deeds where the hero stands elsewhere than what they hold
+    std::set<std::string> took;  // heroes who took the ruin they would retake
     for (const HeroDone& done : w.done) {
         const fwg::Hero& hero = hero_in(month_on(), done.hero);
         check::is_true(hero.status == "living" && one_face(hero), "a living hero of one face: " + done.hero);
@@ -132,13 +143,22 @@ TEST(a_hero_acts_by_their_claim_against_what_is_near) {
             check::equal(done.place, stands ? hero.presence->uid : hero.home->uid, "where they stand, else home: " + done.hero);
             const std::optional<int> node = node_of(month_on(), done.place);
             check::is_true(node.has_value(), "a place the world names: " + done.place);
-            const std::optional<fwg::NearNestRow> nest = worst_near(month_on(), *node);
-            check::is_true(nest.has_value() && nest->id == done.against, "the worst nest within 5 km: " + done.against);
+            // The threat near where the world has them stand (their anchor, as the reads give it), else near
+            // what they hold.
+            const std::optional<int> anchor = anchor_of(month_on(), done.hero);
+            const std::optional<fwg::NearNestRow> nest = worst_near(month_on(), anchor ? *anchor : *node);
+            check::is_true(nest.has_value() && nest->id == done.against, "the worst nest within 5 km of where they stand: " + done.against);
+            if (anchor && *anchor != *node) ++apart;
         } else if (verb == "kill") {
             check::is_true(done.action == "hunted" && done.against == hero.claim.target_uid, "sworn to kill, they hunt it: " + done.hero);
+        } else if (took.count(done.hero)) {
+            // A ruin taken is theirs to hold: defended from then on, where they stand now.
+            check::is_true(verb == "retake" && done.action == "defended" && done.place == hero.claim.target_uid,
+                           "a ruin retaken, they hold it: " + done.hero);
         } else {
             check::is_true(verb == "retake" && done.action == "assaulted" && done.place == hero.claim.target_uid,
                            "to retake a ruin, they assault it: " + done.hero);
+            if (done.outcome == "won") took.insert(done.hero);
         }
         check::is_true(done.outcome == "won" || done.outcome == "lost", "won or lost");
         // The world keeps it: their deed and their log's line.
@@ -147,18 +167,55 @@ TEST(a_hero_acts_by_their_claim_against_what_is_near) {
                        "the log keeps it: " + done.text);
     }
     check::is_true(by_action["defended"] > 0, "the premise: someone defended a place");
+    // A ruin taken is where they stand after, warding it.
+    check::is_true(!took.empty(), "the premise: a pretender took the ruin they would retake");
+    for (const std::string& uid : took) {
+        const fwg::Hero& now = hero_in(w.director.world(), uid);
+        check::is_true(now.presence && now.presence->uid == now.claim.target_uid && now.presence->situation == "warding",
+                       "at the ruin taken, warding it: " + uid);
+    }
+    // One fight at a place: heroes defending it against one foe on one call share how it went.
+    std::size_t shared = 0;
+    for (const std::vector<HeroDone>& call : w.by_call) {
+        std::map<std::string, std::string> fights;
+        for (const HeroDone& done : call) {
+            if (done.action != "defended") continue;
+            const auto [at, fresh] = fights.emplace(done.place + "|" + done.against, done.outcome);
+            if (!fresh) {
+                ++shared;
+                check::equal(done.outcome, at->second, "one fight, one outcome, at " + done.place);
+            }
+        }
+    }
+    check::is_true(shared > 0, "the premise: two heroes defended one place against one foe on one call");
+    check::is_true(apart > 0, "the premise: a hero who stands elsewhere than what they defend, a castellan in their city");
     // Nobody with nothing near acts: every hero holding a place with no nest within 5 km of it stays still.
     std::size_t quiet = 0;
     for (const fwg::Hero& hero : month_on().heroes.people) {
         if (hero.status != "living" || !one_face(hero) || (hero.claim.verb != "hold" && hero.claim.verb != "protect")) continue;
-        const std::string site = hero.presence ? hero.presence->uid : std::string();
-        const std::optional<int> node = site.empty() ? std::nullopt : node_of(month_on(), site);
+        const std::optional<int> node = anchor_of(month_on(), hero.uid);
         if (!node || worst_near(month_on(), *node)) continue;
         ++quiet;
         check::is_true(std::none_of(w.done.begin(), w.done.end(), [&](const HeroDone& d) { return d.hero == hero.uid; }),
                        "nothing near, nothing done: " + hero.uid);
     }
     (void)quiet;  // a world where every holder has a nest near proves the rest, not this
+    // And every one with a nest near who holds a place the world can find acts in four weeks: a domain holder
+    // warding a ruin among them, whose ruin no roster site names.
+    std::size_t holders = 0, at_ruins = 0;
+    for (const fwg::Hero& hero : month_on().heroes.people) {
+        if (hero.status != "living" || !one_face(hero) || (hero.claim.verb != "hold" && hero.claim.verb != "protect")) continue;
+        const bool placed = hero.presence && (hero.presence->site_kind == "city" || hero.presence->site_kind == "hamlet" ||
+                                              hero.presence->site_kind == "fortress" || hero.presence->site_kind == "ruin");
+        const std::string site = placed ? hero.presence->uid : hero.home ? hero.home->uid : std::string();
+        const std::optional<int> anchor = anchor_of(month_on(), hero.uid);
+        if (site.empty() || !node_of(month_on(), site) || !anchor || !worst_near(month_on(), *anchor)) continue;
+        ++holders;
+        at_ruins += placed && hero.presence->site_kind == "ruin" ? 1 : 0;
+        check::is_true(std::any_of(w.done.begin(), w.done.end(), [&](const HeroDone& d) { return d.hero == hero.uid; }),
+                       "a threat near, they act: " + hero.uid);
+    }
+    check::is_true(holders > 0 && at_ruins > 0, "the premise: holders with a threat near, one warding a ruin");
 }
 
 // A hero acts at most once a call and a week after they last did; heroes named are the only ones who act;
@@ -424,8 +481,17 @@ TEST(news_of_a_heros_deed_and_replay) {
             if (one.action == "defended") done.push_back(one);
     }
     check::is_true(!done.empty(), "the premise: a place defended");
-    const HeroDone& deed = done.front();
     (void)d.share({});
+    // A place people live: someone of the roster there heard it.
+    const auto lived_in = std::find_if(done.begin(), done.end(), [&](const HeroDone& one) {
+        for (const std::string& uid : d.related(one.event).knows)
+            for (const fwg::NpcPerson& p : d.world().npcs.people)
+                if (p.uid == uid && !p.is_cast && p.alive) return true;
+        return false;
+    });
+    check::is_true(lived_in != done.end(), "the premise: a place defended where people live");
+    if (lived_in == done.end()) return;
+    const HeroDone& deed = *lived_in;
     // Someone who stands where it happened, asked for small talk, passes it on.
     const std::vector<Event> events = d.events();
     const auto event = std::find_if(events.begin(), events.end(), [&](const Event& e) { return e.id == deed.event; });

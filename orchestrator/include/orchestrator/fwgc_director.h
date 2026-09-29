@@ -200,7 +200,7 @@ FWGC_API fwgc_status fwgc_overhear(fwgc_director* director, const char* const* p
 FWGC_API fwgc_status fwgc_share(fwgc_director* director, const char* const* people, size_t count,
                                 char** json) FWGC_NOEXCEPT;
 /* Heroes act (contract version 26): each of the `count` heroes named (0 for every hero) who is due acts
- * by their claim -- defends what they hold against the worst nest within 5 km of it, hunts the nest they
+ * by their claim -- defends what they hold against the worst nest within 5 km of where they stand, hunts the nest they
  * are sworn to kill, assaults the ruin they would retake -- at most once a call and a week after they last
  * did; how it goes is their fame's chance against the danger, drawn from their seed and the day, so a
  * save replays it. The world records each deed; each is an event people hear of at the next fwgc_share.

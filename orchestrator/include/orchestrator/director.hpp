@@ -465,7 +465,7 @@ public:
     //
     // The game calls direct_heroes when it likes (as it calls share), and each hero who is due acts by
     // their claim: one who holds or protects a place defends it against the worst nest within 5 km of
-    // it; one sworn to kill a nest hunts it; one who would retake a ruin assaults it. A hero acts at
+    // where the world's reads have them stand; one sworn to kill a nest hunts it; one who would retake a ruin assaults it. A hero acts at
     // most once a call, and again only a week after they last did; the first time each is due falls on
     // a day of that week their own seed picks, so heroes do not all act at once. How it goes is their
     // chance, from their fame's band against the danger they face, against a draw hashed from their

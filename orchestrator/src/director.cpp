@@ -2100,14 +2100,17 @@ std::vector<HeroDone> Director::direct_heroes(const std::vector<std::string>& he
         std::optional<int> node;  // where it happens
     };
     std::vector<Plan> plans;
+    std::map<std::string, std::string> fights;  // a place and a foe -> how the fight there went, this call
     for (const fwg::Hero& hero : world_.heroes.people) {
         if (!named.empty() && !named.count(hero.uid)) continue;
         // A legend is a hero gone, as the liveness below has it: only the present act.
         if (faces_of(hero) != Faces::One) continue;
         const auto someone = everyone.people.find(hero.uid);
         if (someone == everyone.people.end() || !someone->second.present) continue;
-        const std::string& verb = hero.claim.verb;
+        std::string verb = hero.claim.verb;
         if (verb != "hold" && verb != "protect" && verb != "kill" && verb != "retake") continue;
+        // A ruin retaken is theirs to hold: where they stand now, defended as any place held is.
+        if (verb == "retake" && hero.presence && hero.presence->uid == hero.claim.target_uid) verb = "hold";
         // Due a week after they last acted; first, on a day of the week their own seed picks.
         auto due = hero_due_.find(hero.uid);
         if (due == hero_due_.end())
@@ -2138,8 +2141,16 @@ std::vector<HeroDone> Director::direct_heroes(const std::vector<std::string>& he
         if (verb == "hold" || verb == "protect") {
             if (site.empty()) continue;
             plan.node = node_of_site(world_, site);
+            // A ruin held (one retaken) stands where the ruin does.
+            if (!plan.node)
+                for (const fwg::Ruin& ruin : world_.ruins)
+                    if (ruin.uid == site) plan.node = ruin.node;
             if (!plan.node) continue;
-            const std::optional<std::pair<std::string, int>> nest = worst_near(*plan.node);
+            // The threat is the one they know and speak of: the worst near where the world has them stand
+            // (a castellan stands in their home city by the reads, not at the fortress they hold), else near
+            // what they hold. Searched from the fortress, 11 of 12 worlds' first castellans never acted.
+            const std::optional<int> stands = someone->second.node ? someone->second.node : plan.node;
+            const std::optional<std::pair<std::string, int>> nest = worst_near(*stands);
             if (!nest) continue;  // nothing threatens what they hold
             plan.entry.action = "defended";
             plan.entry.place_uid = site;
@@ -2166,8 +2177,22 @@ std::vector<HeroDone> Director::direct_heroes(const std::vector<std::string>& he
                 danger = nest->second;
             }
         }
-        plan.entry.outcome =
-            direction::hero_draw(hero.seed, today, plan.entry.action) < direction::hero_chance(hero.tier, danger, assault) ? "won" : "lost";
+        // One fight at a place: heroes defending it against the same foe on the same call share how it went,
+        // the first in the world's order drawing for all. Drawn apart, a sovereign was driven from their
+        // city by the horizon eyes while a magistrate of it held the city against them, the same day.
+        const std::string fight = plan.entry.action == "defended" ? plan.entry.place_uid + "|" + plan.entry.against_uid : std::string();
+        if (const auto same = fights.find(fight); !fight.empty() && same != fights.end()) {
+            plan.entry.outcome = same->second;
+        } else {
+            plan.entry.outcome =
+                direction::hero_draw(hero.seed, today, plan.entry.action) < direction::hero_chance(hero.tier, danger, assault) ? "won" : "lost";
+            if (!fight.empty()) fights.emplace(fight, plan.entry.outcome);
+        }
+        // A ruin taken is where they stand after, holding it.
+        if (assault && plan.entry.outcome == "won") {
+            plan.entry.moved_to_uid = plan.entry.place_uid;
+            plan.entry.moved_to_situation = "warding";
+        }
         due->second = std::floor(today) + direction::kHeroSpanDays;
         plans.push_back(std::move(plan));
     }
