@@ -3,6 +3,7 @@
 // earlier include fails here rather than in the first consumer.
 #include "fwg/api/ages.hpp"
 #include "fwg/api/capabilities.hpp"
+#include "fwg/api/hero_action.hpp"
 #include "fwg/api/json_value.hpp"
 #include "fwg/api/nomad_api.hpp"
 #include "fwg/api/option_ids.hpp"
@@ -36,6 +37,32 @@ TEST(every_published_option_resolves_by_its_own_name_through_the_api) {
         check::equal(std::string(fwg::option_spec(*option).name), std::string(spec.name),
                      "the spec found by name");
     }
+}
+
+// What a hero did, recorded through the API alone (heroes version 5): a castellan holds their fortress
+// against a nest, and the world gains the deed and the operation.
+TEST(a_hero_action_is_recorded_through_the_api) {
+    fwg::Request request;
+    request.seed = 42;
+    request.size = 17;
+    const fwg::World world = fwg::generate(fwg::resolve(request));
+    const fwg::Hero* castellan = nullptr;
+    for (const fwg::Hero& hero : world.heroes.people)
+        if (castellan == nullptr && hero.role == "castellan" && hero.status == "living" && hero.presence) castellan = &hero;
+    check::is_true(castellan != nullptr && !world.beast_nests.sites.empty(), "the premise: a castellan and a nest");
+    if (castellan == nullptr || world.beast_nests.sites.empty()) return;
+    fwg::HeroActionRequest action;
+    fwg::HeroActionEntry entry;
+    entry.uid = castellan->uid;
+    entry.action = "defended";
+    entry.outcome = "won";
+    entry.place_uid = castellan->presence->uid;
+    entry.against_uid = world.beast_nests.sites.front().id;
+    entry.day = fwg::world_clock_of(world).day;
+    action.actions.push_back(entry);
+    const fwg::HeroActionResult result = fwg::hero_action_request(world, action);
+    check::equal(result.actions.size(), std::size_t{1}, "one action written");
+    check::equal(result.world.history.operations.size(), world.history.operations.size() + 1, "and logged");
 }
 
 TEST(the_weather_at_a_moment_reads_through_the_api) {
