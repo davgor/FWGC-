@@ -2279,7 +2279,8 @@ std::vector<Remembered> Director::remembered(const std::string& person, const st
     for (std::size_t i = answers.size() > kMostQuotes ? answers.size() - kMostQuotes : 0; i < answers.size(); ++i)
         fold_in(all, one("said", "", "said", "", answers[i]->day, trimmed(answers[i]->line)));
     // The speaker's own questions (contract version 21): one the stranger's next line to them in that
-    // conversation did not answer (an `answer`) is kept, to be asked again once; one answered is settled.
+    // conversation did not answer (an `answer`, or a name they give: contract version 24) is kept, to be
+    // asked again once; one answered is settled.
     // A question carried again counts as asked twice, so no greeting carries it a third time. One asked
     // in this conversation (`last_before`) is not kept yet: it is asked again in a later one.
     for (std::size_t i = 0; i < log.size(); ++i) {
@@ -2293,7 +2294,8 @@ std::vector<Remembered> Director::remembered(const std::string& person, const st
         const Logged* next = nullptr;
         for (std::size_t j = i + 1; j < log.size() && next == nullptr; ++j)
             if (log[j].heard_from.empty()) next = &log[j];
-        const bool answered = next != nullptr && next->conversation == x.conversation && next->act == "answer";
+        const bool answered =
+            next != nullptr && next->conversation == x.conversation && (next->act == "answer" || next->act == "introduce");
         for (const std::set<std::string>* asked : {&fresh, &again})
             for (const std::string& words : *asked) {
                 const auto same = [&](const Remembered& r) { return r.memory == "question" && r.words == words; };

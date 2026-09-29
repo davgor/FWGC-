@@ -691,6 +691,15 @@ TEST(a_question_never_answered_is_asked_again_once) {
     (void)d.respond(other, {ActKind::Farewell, ""});
     (void)d.compact(other, "");
     check::equal(count_of(d.memories(other), "question"), std::size_t{0}, "answered: nothing to ask again");
+    // Answered with a name (contract version 24): settled too.
+    const std::string named = townsperson(2);
+    (void)d.respond(named, {ActKind::Greet, ""});
+    d.words("Good day.", "Good day. What do they call you?", "What do they call you?");
+    (void)d.respond(named, {ActKind::Introduce, "Aldric"});
+    d.words("Aldric.", "Aldric, then.");
+    (void)d.respond(named, {ActKind::Farewell, ""});
+    (void)d.compact(named, "");
+    check::equal(count_of(d.memories(named), "question"), std::size_t{0}, "a name given answers it");
     // Replayed, the same.
     Director replayed = orchestrator::replay(memory_world(), d.inputs());
     same_tables(d, replayed, {"exchanges", "exchange_facts", "memories"});

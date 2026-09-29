@@ -356,7 +356,8 @@ director's own state, never the log's, and so is what became of work. `last` is 
 hero's question left hanging: "Lets get it fixed"). `words(line, reply, asked)` also takes the
 question in the reply the speaker would have answered, as the game's communicator marks it, word
 for word as the reply says it: the log keeps it (`exchanges.asked`). If the stranger's next line to
-them in that conversation is not an answer (`answer`), it is a `question` memory; if it is, the
+them in that conversation is not an answer (`answer`, or since contract version 24 a name they give,
+`introduce`: "What do they call you?" answered "Aldric"), it is a `question` memory; if it is, the
 question is settled. A greeting in a later conversation carries the latest such question as a
 Recall fact, once: the greeting's exchange keeps that it carried it (`exchange_facts`, kind
 `recall`), so it counts as asked twice and no later greeting carries it again, compacted or not. The

@@ -458,8 +458,8 @@ public:
     // was gone, or has been compacted since) are recorded and kept nowhere. `asked` (contract version
     // 21): the question in the reply the speaker would have answered, as the game's communicator marks
     // it, word for word as the reply says it, or empty; the log of the one who answered keeps it, and a
-    // compaction keeps it when the stranger's next line to them did not answer it (an `answer`), to
-    // be asked again once. Throws Error when nothing has been said yet, for words that are not UTF-8
+    // compaction keeps it when the stranger's next line to them did not answer it (an `answer`, or a
+    // name they give: `introduce`, contract version 24), to be asked again once. Throws Error when nothing has been said yet, for words that are not UTF-8
     // or longer than 4,000 bytes, and for a question longer than 240 bytes or not in the reply.
     void words(const std::string& line, const std::string& reply, const std::string& asked = "");
 
