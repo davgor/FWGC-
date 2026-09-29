@@ -41,6 +41,7 @@ constexpr std::string_view kOverheard = "overhearing the stranger, which the spe
 constexpr std::string_view kNews = "news the speaker has not heard";
 constexpr std::string_view kNoNews = "no news, from a speaker who has heard some";
 constexpr std::string_view kSaid = "the stranger's own words, which the speaker's memory does not hold";
+constexpr std::string_view kAccount = "how the work went, which no account the packet holds says";
 
 std::string lowered(std::string_view text) {
     std::string out(text);
@@ -518,6 +519,17 @@ void said_before(const std::string& said, const FactPacket& p, std::vector<std::
 // where the packet holds news, and words that say what is said of the stranger only where it holds
 // news of what they did. "Word is" only opening a sentence: "my word is given" is a promise, not
 // news. "You're the one who" is left alone: "you're the one who talked me down" is the memory's.
+// How the speaker's own work went (contract version 20): what it cost and the stranger's part, said in
+// C++'s words only with the Account fact that holds them. Its own words, as a line fills them, are blanked
+// first; any such phrase left over the account does not say.
+void account(const std::string& said, const FactPacket& p, std::vector<std::string>& out) {
+    std::string text = said;
+    if (const Fact* told = account_of(p))
+        if (const std::string words = account_words(*told, remembered(p).beside); !words.empty()) blank(text, lowered(words));
+    for (const std::string& phrase : account_phrases())
+        if (says(text, phrase)) add(out, kAccount, phrase);
+}
+
 void heard(const std::string& said, const std::string& reply, const FactPacket& p, std::vector<std::string>& out) {
     bool any = false, theirs = false;
     for (const Fact& fact : p.facts)
@@ -600,6 +612,7 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
     eased_or_overheard(said, packet, out);
     heard(said, reply, packet, out);
     said_before(said, packet, out);
+    account(said, packet, out);
     return out;
 }
 

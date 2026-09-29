@@ -22,6 +22,8 @@ say hero farewell | Until then.
 compact hero
 advance 3
 resolve hero finished
+# The game's account of how it went (contract version 20).
+account hero @nest many few fought
 say hero greet | I'm back. It's finished.
 say hero small_talk | Was it worth the trouble?
 say hero answer | My brother came with me. He didn't make it back.

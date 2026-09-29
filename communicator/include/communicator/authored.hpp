@@ -143,6 +143,13 @@ private:
     std::vector<Spoken> spoken_for(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent = nullptr,
                                    bool checked = false, const std::vector<std::string>* only = nullptr) const;
 
+    // How the speaker's own work went (contract version 20): an `account` line, or `account_heard` for work
+    // not done beside them, of whichever bank has one, its {account} C++'s words from the Account fact.
+    // Empty without one, for a frightened or a cold speaker, and while the speaker said it lately
+    // (`recent`). `checked` as for spoken_for().
+    std::vector<Spoken> account_lines(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent,
+                                      bool checked) const;
+
     // news_asked(), each as Spoken; `checked` as for spoken_for().
     std::vector<Spoken> asked_for_news(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent,
                                        bool checked) const;

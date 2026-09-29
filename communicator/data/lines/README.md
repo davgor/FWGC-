@@ -77,6 +77,7 @@ voice | situation | line
   | `them_past_none` (asked about their past with none on record: no city lost, no deed but the post they keep, nowhere served before it; nothing worth the telling, never a past made up) | |
   | `them_long_known` (how long a castellan has held their post, on record since contract version 19) | `{held_for}` ("ten years and more", after "for" or "held it"), `{standing}` |
   | `them_past_served` (where a castellan served before their post, contract version 19) | `{served}` (after "I": "served as a sergeant in the garrison of Iskmor"), `{done}`, `{lost}` |
+  | `account` (how the speaker's own work went, done beside them, said after the reply: one sentence; contract version 20), `account_heard` (the same, done out of their sight) | `{account}` (a whole clause list after a colon: "Abyssal krakens came at us, more than I'd have liked; we lost a few good people, and you held when it counted"; it may open with a creature's name or with "we", so it never opens a line) |
   | `recalled_grief`, `recalled_hardship`, `recalled_doubt` (the stranger's words said back as what they were: a loss, a hardship, fear they came through with the speaker's work done; one sentence, the recalled rules, and `recalled_hardship` alone may ask, "is it any easier now?") | `{words}` |
   | `greeted_who` (said after a first greeting that asks who they are) | |
 

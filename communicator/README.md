@@ -570,6 +570,20 @@ themself").
   "yourself", "u", "ur", "ye", "thee" and their forms). Offered on every line, it cost Qwen3-4B 5 of
   the 313 lines it read right and the test model 9; offered so, 1 and none (246 -> 245, 110 -> 113).
   Of 14 new questions about the speaker Qwen3-4B read 13 right; the test model, 1.
+- **How their work went** (contract version 20; the owner, 2026-09-28, on an account of shared work:
+  "Agreed"). The game reports how work the player finished or failed went (`fwgc_account`), and its
+  giver's greetings and small talk carry an Account fact while that work's end is their latest
+  dealing with the stranger. It is said in C++'s words (`account_words`, them.hpp): what came and how
+  many, what it cost, the stranger's part ("Abyssal krakens came at us, more than I'd have liked; we
+  lost a few good people, and you held when it counted"), as one who was there where the work was
+  done beside them (the Memory fact's `beside`: "came at us", "we lost"), and as told to them where it
+  was not ("came", "a few were lost"). It follows the reply, a sentence of its own in a line of
+  whichever bank has one (`account`, `account_heard`, `{account}`): after a greeting while what came
+  of the work is news between them, and after small talk of the work ("Was it as bad as you
+  feared?"), in place of news and never after a question; not while the speaker said it lately, and
+  not from a speaker frightened or cold. Four of six judges of the golden benchmark had stopped
+  believing in the hero where he had nothing to say of work done beside him. The voice is shown it
+  ("- How your work went, the stranger beside you: ..."); prompts without it are unchanged.
 
 ## What the stranger tells
 
@@ -873,6 +887,10 @@ what they are saying isn't BS" (2026-09-26).
   kept, a Recall fact `said`; "I'm glad you said so" and "you told me straight" are of what was just
   said, and claim nothing (the first list read 115 sound rows so). "As I told you" is backed by a
   Recall fact `told`, and "told you a few days ago" dated by it, not by when they last met.
+- **How the work went is the account's** (contract version 20): what it cost ("we lost too many",
+  "a few were lost") and the stranger's part ("you held when it counted", "you took a wound for it"),
+  in the account's own words, need the Account fact that holds them; the account as a line fills it
+  is its own backing.
 
 `never_backed()` names the kinds no packet can back: an acquaintance, and a distance or a time
 counted out. A written line with one is wrong wherever it is said, and the rules test fails it.

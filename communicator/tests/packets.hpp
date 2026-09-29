@@ -692,6 +692,15 @@ inline FactPacket about_a_castellan_second_elsewhere() {
     return p;
 }
 
+// Asked about themself, a hero whose record says nothing of how they stand where they are: the post they
+// keep is how they stand (`them_here`'s {done}).
+inline FactPacket about_them_unplaced() {
+    FactPacket p = about_them();
+    for (Fact& f : p.facts)
+        if (f.kind == FactKind::Self) std::erase_if(f.fields, [](const auto& field) { return field.first == "stands"; });
+    return p;
+}
+
 // Asked about themself, a hero far from home: the castellan's record with home elsewhere.
 inline FactPacket about_them_far_from_home() {
     FactPacket p = about_them();
@@ -725,9 +734,24 @@ inline FactPacket small_talk_after_work_near() {
     return p;
 }
 
+// Contract version 20: the game's account of the castellan's work, as he has it once it is done: Frost
+// owls, more than he'd have liked, a few lost, and the stranger held when it counted. `as` "person": what
+// came was Ulknord, and a few came with him.
+inline FactPacket with_account(FactPacket p, const std::string& as = "nest") {
+    Fact told{FactKind::Account, kOwnOffer, {{"outcome", "finished"}}};
+    if (as == "person")
+        told.fields.insert(told.fields.end(), {{"came", "Ulknord"}, {"came_as", "person"}, {"many", "few"}});
+    else
+        told.fields.insert(told.fields.end(), {{"came", "Frost owls"}, {"came_as", "nest"}, {"many", "many"}});
+    told.fields.insert(told.fields.end(), {{"cost", "few"}, {"part", "held"}});
+    p.facts.insert(p.facts.end() - 1, std::move(told));
+    return p;
+}
+
 inline std::vector<FactPacket> conversation() {
     return {about_them(),
             about_them_far_from_home(),
+            about_them_unplaced(),
             about_them_without_rivals(),
             about_them_without_a_past(),
             about_a_castellan_with_a_past(),
@@ -744,6 +768,10 @@ inline std::vector<FactPacket> conversation() {
             greeted_after("finished", "warm"),
             greeted_after("failed", "neutral"),
             greeted_after("abandoned", "neutral"),
+            with_account(greeted_after("finished", "warm")),
+            with_account(beside(greeted_after("finished", "warm")), "person"),
+            with_account(small_talk_after_work()),
+            with_account(beside(small_talk_after_work())),
             small_talk("clear", "breezy"),
             small_talk("unsettled", "windy"),
             small_talk("stormy", "a gale"),

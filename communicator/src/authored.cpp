@@ -359,6 +359,9 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
             set("asked", asked);
     }
     if (situation.rfind("recalled", 0) == 0) set("words", words_said_back(p));
+    // How their work went (contract version 20), in C++'s words from the Account fact (them.hpp).
+    if (situation == "account" || situation == "account_heard")
+        if (const Fact* told = account_of(p)) set("account", account_words(*told, remembered(p).beside));
     // Asked about themself (contract version 13): what they go by, their home, what they are after,
     // how they stand here, a city lost, a deed, who stands with them, in words C++ writes from the
     // Self and Deed facts (them.hpp).
@@ -395,6 +398,11 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
         const bool stands = out.count("standing") != 0;
         for (const Fact* deed : deeds_of(p))
             if (stands && field_of(*deed, "part") == "keeper") {
+                continue;
+            } else if (situation == "them_here" && field_of(*deed, "part") != "keeper") {
+                // How they stand here is their post, never a past feat: with a castellan's war on record
+                // (contract version 19), "What do you do when you're not holding the walls?" drew "I won a
+                // war between realms, and the rest of my time goes on keeping my accounts square".
                 continue;
             } else if (std::string done = done_words(*deed); !done.empty()) {
                 set("done", std::move(done));
@@ -835,6 +843,11 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // and of a past without where they served, would shadow the next bank's that say them.
         {"them_long_known", {"held_for", "standing"}},
         {"them_past_served", {"served", "done", "lost"}},
+        // Contract version 20: how the speaker's own work went, said after a greeting while it is news
+        // between them, and after small talk of it: `account` where they were there, `account_heard` where
+        // it was done out of their sight.
+        {"account", {"account"}},
+        {"account_heard", {"account"}},
         {"about_place", {"about", "trades", "who", "around", "work"}},
         {"surroundings", {"here", "nearest", "others", "danger"}},
         {"work_own", {"own", "others"}},
@@ -1546,6 +1559,15 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             std::vector<Spoken> on_it;
             if (subject == 0 && remembered(p).beside) on_it = spoken_for(p, &recent, true, &done_beside);
             if (on_it.empty()) on_it = spoken_for(p, &recent, true, &of_it[subject]);
+            // Asked how the work went, they tell it after their line (contract version 20), when they have
+            // not told it lately: in place of news, and never after a question.
+            if (const std::vector<Spoken> told = subject == 0 ? account_lines(p, &recent, true) : std::vector<Spoken>{};
+                !on_it.empty() && !told.empty()) {
+                std::vector<Spoken> statements;
+                for (const Spoken& s : on_it)
+                    if (!asks(s.text)) statements.push_back(s);
+                if (!statements.empty()) return choose(statements).first + " " + choose(told).first;
+            }
             if (!on_it.empty()) return then_news(choose(telling(on_it)).first);
         }
     }
@@ -1948,7 +1970,23 @@ std::vector<std::string> Lines::follows(const FactPacket& p) const {
         chains.push_back({"greeted_who"});
     for (const std::vector<std::string>& chain : chains)
         for (Spoken& s : spoken_for(p, nullptr, false, &chain)) out.push_back(std::move(s.text));
+    // And how their work went (contract version 20).
+    for (Spoken& s : account_lines(p, nullptr, false)) out.push_back(std::move(s.text));
     return out;
+}
+
+std::vector<Lines::Spoken> Lines::account_lines(const FactPacket& p, const std::vector<std::string>* recent, bool checked) const {
+    const Remembered m = remembered(p);
+    const Fact* told = account_of(p);
+    if (told == nullptr || m.frightened() || m.cold()) return {};
+    const std::string words = account_words(*told, m.beside);
+    if (words.empty()) return {};
+    // Not while they said it lately: the whole account, word for word, in anything said.
+    if (recent != nullptr &&
+        std::any_of(recent->begin(), recent->end(), [&](const std::string& said) { return lowered(said).find(lowered(words)) != std::string::npos; }))
+        return {};
+    const std::vector<std::string> chain = {m.beside ? "account" : "account_heard"};
+    return spoken_for(p, recent, checked, &chain);
 }
 
 std::vector<Lines::Spoken> Lines::asked_for_news(const FactPacket& p, const std::vector<std::string>& recent, bool checked) const {
@@ -1979,6 +2017,11 @@ std::string Lines::follow(const FactPacket& p, const std::vector<std::string>& r
                                    static_cast<std::size_t>(std::max(0, remembered(p).heard)) % n) % n;
         return lines[start].text;
     };
+    // How their own work went (contract version 20), after a greeting while what came of it is news
+    // between them: four of six judges of the golden benchmark stopped believing in the hero where he
+    // had nothing to say of work done beside him.
+    if (p.outcome == Outcome::Greeted && remembered(p).work_news)
+        if (const std::vector<Spoken> lines = account_lines(p, &recent, true); !lines.empty()) return in_turn(lines, "|account");
     const NewsToSay news = news_to_say(p, true);
     if (!news.situation.empty() && !told_lately(news, recent)) {
         const std::vector<std::string> chain = {news.situation};

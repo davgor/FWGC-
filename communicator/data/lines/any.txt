@@ -378,3 +378,13 @@ any | them_long_known | This post has been mine for {held_for}.
 any | them_past_served | Before this post I {served}[, and I {done}].
 any | them_past_served | I {served}, before this post was mine.[ And I {done}.]
 any | them_past_served | Before this I {served}.[ I {done}, too.]
+# How the speaker's own work went (contract version 20), in C++'s words from the game's account, said
+# after a greeting while it is news between them and after small talk of it: `account` where the
+# speaker was there, `account_heard` where the work was done out of their sight. One sentence, adding
+# nothing the account does not say.
+any | account | I'll not forget that fight: {account}.
+any | account | I've gone over it since: {account}.
+any | account | Now that it's done, I can say it plainly: {account}.
+any | account_heard | I heard how it went: {account}.
+any | account_heard | I know how it went: {account}.
+any | account_heard | So I'm told: {account}.

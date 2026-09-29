@@ -165,6 +165,15 @@ std::string fact_line(const Fact& fact, const FactPacket& packet) {
             return {};
         case FactKind::Recall:
             return {};  // said apart, as what the speaker remembers (memory_lines)
+        case FactKind::Account: {
+            // Contract version 20: how the speaker's own work went, as the game reported it, in C++'s words
+            // (them.hpp), never fields for a model to make a story of.
+            const bool beside = remembered(packet).beside;
+            const std::string words = account_words(fact, beside);
+            if (words.empty()) return {};
+            return std::string(beside ? "- How your work went, the stranger beside you: " : "- How your work went, as it was told to you: ") +
+                   words + ".";
+        }
     }
     return {};
 }

@@ -21,6 +21,8 @@ say hero farewell | Wish me luck.
 compact hero
 advance 2
 resolve hero finished
+# The game's account of how it went (contract version 20).
+account hero @nest horde none held
 say hero greet | It's done, and I'm still breathing.
 say hero small_talk | Tell me how it went on your side.
 say hero answer | I was more frightened than I've ever been.

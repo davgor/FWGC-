@@ -11,6 +11,7 @@
 #include "news.hpp"
 #include "packets.hpp"
 #include "text.hpp"
+#include "them.hpp"
 
 namespace {
 
@@ -320,4 +321,21 @@ TEST(a_castellans_years_at_the_post_are_the_self_facts) {
     check::is_true(clean("I've held it a few years.", packets::about_a_castellan_second_elsewhere()), "a few years, as the record has it");
     check::is_true(clean("Before this post I was second in command at the fortress above Mokdorl.", packets::about_a_castellan_second_elsewhere()),
                    "where they served: the Self fact's name");
+}
+
+// How the speaker's own work went (contract version 20): what it cost and the stranger's part are claims
+// only the Account fact that holds them backs, in its own words.
+TEST(how_the_work_went_is_the_accounts) {
+    const FactPacket told = packets::with_account(packets::greeted_after("finished", "warm"));
+    const Fact* account = communicator::account_of(told);
+    check::is_true(account != nullptr, "the premise: an account");
+    const std::string words = communicator::account_words(*account, false);
+    check::is_true(clean("Welcome back. I heard how it went: " + words + ".", told), "the account, as it holds it: " + words);
+    check::is_true(flags("Welcome back; you held when it counted.", packets::greeted_after("finished", "warm"),
+                         "how the work went, which no account the packet holds says"),
+                   "the control: no account");
+    check::is_true(flags("Welcome back; you took a wound for it.", told, "how the work went, which no account the packet holds says"),
+                   "a part the account does not hold");
+    check::is_true(flags("I heard how it went: we lost too many.", told, "how the work went, which no account the packet holds says"),
+                   "a cost the account does not hold");
 }

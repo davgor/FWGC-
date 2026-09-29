@@ -47,6 +47,20 @@ std::string held_words(const orchestrator::Fact& self);
 // Mokdorl". Empty when the Self fact does not say.
 std::string served_words(const orchestrator::Fact& self);
 
+// How the speaker's own work went (contract version 20), in C++'s words from an Account fact: what came
+// and how many, what it cost, the stranger's part, as one clause list ("Abyssal krakens came at us, more
+// than I'd have liked; we lost a few good people, and you held when it counted"). `beside`: the work was
+// done where the speaker stands (the Memory fact's `beside`), so they were there: "came at us", "we
+// lost"; otherwise "came", "were lost". Empty when the fact says nothing the words know.
+std::string account_words(const orchestrator::Fact& account, bool beside);
+
+// The phrases account_words() says of what the work cost and of the stranger's part: claims no reply
+// makes without the Account fact that holds them (truth.hpp).
+const std::vector<std::string>& account_phrases();
+
+// The packet's Account fact, or nullptr.
+const orchestrator::Fact* account_of(const orchestrator::FactPacket& packet);
+
 // When they were born, against the world's latest age: "this age", "the last age", "ages ago",
 // as the Self fact has it. Empty when it does not say.
 std::string born_words(const orchestrator::Fact& self);

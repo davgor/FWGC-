@@ -315,6 +315,16 @@ TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
                            .find("; you have held your post a few years; before it you were second in command at the fortress above Mokdorl.") !=
                        std::string::npos,
                    "second at another fortress");
+    // How their work went (contract version 20), in C++'s words: as told to them, or as one who was there.
+    const std::string accounted = prompt_of(voice, packets::with_account(packets::greeted_after("finished", "warm")), "I'm back.");
+    check::is_true(accounted.find("- How your work went, as it was told to you: Frost owls came, more than I'd have liked; a few were lost, and "
+                             "you held when it counted.") != std::string::npos,
+                   "the account, told to them");
+    const std::string there = prompt_of(voice, packets::with_account(packets::beside(packets::greeted_after("finished", "warm"))), "I'm back.");
+    check::is_true(there.find("- How your work went, the stranger beside you: Frost owls came at us") != std::string::npos,
+                   "the account, as one who was there");
+    check::is_true(prompt_of(voice, packets::greeted_after("finished", "warm"), "I'm back.").find("How your work went") == std::string::npos,
+                   "the control: no account, no line");
 }
 
 TEST(work_from_others_is_never_offered_as_the_speakers_own) {

@@ -21,6 +21,8 @@ say hero farewell | See you soon.
 compact hero
 advance 4
 resolve hero finished
+# The game's account of how it went (contract version 20).
+account hero - many few held
 say hero greet | Hello again. It's done.
 say hero small_talk | Was it worth all that?
 say hero answer | We lost two good people out there.

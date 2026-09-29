@@ -819,11 +819,14 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
                      std::string("Not much else; the post takes all of me."),
                      "how they stand, heard lately: not said again, turn " + std::to_string(heard));
     }
-    // What they did is not the post they keep where how they stand says it already: "I command the fortress
-    // of Iskmor", asked what he did off the walls, was his post again after "I command the garrison here"
-    // (the hero benchmark's judge, 2026-09-28). With nothing of how they stand, the post is what they did.
+    // How they stand here is not the post they keep again where how they stand says it already: "I command the
+    // fortress of Iskmor", asked what he did off the walls, was his post again after "I command the garrison
+    // here" (the hero benchmark's judge, 2026-09-28). Nor a past feat in its place: with a castellan's war on
+    // record (contract version 19), the same question drew "I won a war between realms, and the rest of my
+    // time goes on keeping my accounts square" (2026-09-28). With nothing of how they stand, the post is what
+    // they do.
     const Lines did = Lines::parse("any | them_here | I {done}.\n", "did");
-    check::equal(did.replies(p).front(), std::string("I stood for Brenlin when it fell, in the last age."), "a deed, not the post");
+    check::is_true(did.replies(p).empty(), "how they stand said by their standing: neither the post again nor a past feat");
     FactPacket unplaced = p;
     for (Fact& f : unplaced.facts)
         if (f.kind == FactKind::Self) std::erase_if(f.fields, [](const auto& field) { return field.first == "stands"; });
@@ -1031,6 +1034,13 @@ TEST(a_castellan_says_how_long_they_have_held_it_and_where_they_served) {
                  std::string("I've held this post ten years and more."), "the years, heard lately");
     check::equal(again.speak(sworn, "Where were you before all this?", {"I served as a sergeant in the garrison of Wenweg, once."}, &meaning),
                  std::string("Before this post I served as a sergeant in the garrison of Wenweg."), "where they served, heard lately");
+    // How they stand here is their post, never their war: "What do you do when you're not holding the walls?" drew "I won a war
+    // between realms, and the rest of my time goes on keeping my accounts square" (the benchmark, 2026-09-28).
+    const Lines here = Lines::parse("any | them_here | I {standing}.\n"
+                                    "any | them_here | I {standing}; I {done}, and that's my day.\n",
+                                    "here");
+    check::equal(here.speak(sworn, "What do you do when you're not holding the walls?", {}, &meaning), std::string("I command the garrison here."),
+                 "their days: their post, not their war");
 }
 
 // Measured once, never tuned to. The first 15: 12 right with the descriptions first written, 14 with
@@ -2515,4 +2525,50 @@ TEST(a_bad_lines_file_is_refused) {
     check::equal(Lines::parse("# a comment\n\n  \nany | parted | Farewell.\n", "test").size(), std::size_t(1), "comments and blanks");
     check::equal(Lines::parse("\xEF\xBB\xBF# a comment\nany | parted | Farewell.\r\n", "test").size(), std::size_t(1),
                  "a byte-order mark and a CRLF");
+}
+
+// Contract version 20: how the speaker's own work went, as the game reported it, told after a greeting
+// while it is news between them and after small talk of it, in C++'s words; not while said lately, nor in
+// small talk of anything else. Four of six judges of the golden benchmark stopped believing in the hero
+// where he had nothing to say of work done beside him.
+TEST(a_giver_tells_how_their_work_went) {
+    communicator::Meaning meaning(test_model::embedder());
+    const Lines lines = Lines::parse("any | greeted_finished | Welcome back.\n"
+                                     "any | greeted_finished_beside | You held with me.\n"
+                                     "any | greeted_warm | Good to see you.\n"
+                                     "any | greeted_again | Hello again.\n"
+                                     "any | account | I'll not forget that fight: {account}.\n"
+                                     "any | account_heard | I heard how it went: {account}.\n"
+                                     "any | small_talk_work_done | It was worse than I feared.\n"
+                                     "any | small_talk_work_done_beside | It was worse than I feared, and I was there.\n"
+                                     "any | small_talk_fair | A fine day.\n"
+                                     "any | small_talk | It's quiet enough.\n"
+                                     "any | small_talk_since_work | It's been quieter since.\n",
+                                     "account");
+    const std::string heard = "I heard how it went: Frost owls came, more than I'd have liked; a few were lost, and you held when it counted.";
+    const std::string there =
+        "I'll not forget that fight: Ulknord came at us, with a few at their back; we lost a few good people, and you held when it counted.";
+    const FactPacket greeted = packets::with_account(packets::greeted_after("finished", "warm"));
+    check::equal(lines.speak(greeted, "I'm back. It's done.", {}, &meaning), "Welcome back. " + heard, "a greeting while it is news: the account");
+    check::equal(lines.speak(packets::with_account(packets::beside(packets::greeted_after("finished", "warm")), "person"), "I'm back.", {}, &meaning),
+                 "You held with me. " + there, "done beside them: as one who was there");
+    check::equal(lines.speak(greeted, "I'm back. It's done.", {"Welcome back. " + heard}, &meaning), std::string("Welcome back."),
+                 "said lately: not again");
+    check::equal(lines.speak(packets::greeted_after("finished", "warm"), "I'm back. It's done.", {}, &meaning), std::string("Welcome back."),
+                 "the control: no account, nothing told");
+    check::equal(lines.speak(packets::with_account(packets::greeted_long_after("finished", "warm")), "Hello again.", {}, &meaning),
+                 std::string("Good to see you."), "no longer news: not told unasked");
+    // Asked how it went, in small talk: told after the line, whenever it was done.
+    const FactPacket talk = packets::with_account(packets::small_talk_after_work());
+    check::equal(lines.speak(talk, "Was it as bad as you feared?", {}, &meaning), "It was worse than I feared. " + heard, "small talk of the work: told");
+    check::equal(lines.speak(talk, "Was it as bad as you feared?", {"Welcome back. " + heard}, &meaning), std::string("It was worse than I feared."),
+                 "small talk of the work, told lately: not again");
+    check::equal(lines.speak(talk, "Lovely weather today.", {}, &meaning), std::string("A fine day."), "small talk of the weather: not told");
+    check::equal(lines.speak(talk, "How have things been since?", {}, &meaning), std::string("It's been quieter since."),
+                 "how things have been since: not told");
+    // Cold or frightened, they tell nothing of it.
+    FactPacket frightened = greeted;
+    for (auto& [field, value] : frightened.facts.back().fields)
+        if (field == "feeling") value = "afraid";
+    check::is_true(lines.follow(frightened, {}, &meaning).empty(), "frightened: nothing told");
 }

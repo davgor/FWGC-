@@ -30,6 +30,8 @@ say hero farewell | I'll see you when it's done.
 compact hero
 advance 2
 resolve hero finished
+# The game's account of how it went (contract version 20).
+account hero @nest many few hurt
 say hero greet | It's done. The fortress held.
 say hero small_talk | Was it as bad as you feared?
 say hero answer | I nearly lost my arm on the second night.

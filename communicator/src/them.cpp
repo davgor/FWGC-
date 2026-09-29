@@ -47,6 +47,18 @@ std::string joined_names(const std::vector<std::string>& names) {
     return out;
 }
 
+// The stranger's part in the speaker's work, as the game reported it (contract version 20); empty for a
+// part the words do not know.
+std::string part_words(const std::string& part) {
+    static const std::map<std::string, std::string, std::less<>> parts = {{"fought", "you stood and fought"},
+                                                                          {"led", "you led the rest"},
+                                                                          {"turned", "you turned the fight"},
+                                                                          {"held", "you held when it counted"},
+                                                                          {"hurt", "you took a wound for it"}};
+    const auto found = parts.find(part);
+    return found == parts.end() ? std::string() : found->second;
+}
+
 }  // namespace
 
 std::string after_words(const Fact& self) {
@@ -142,6 +154,55 @@ std::string served_words(const Fact& self) {
     if (as == "second" && at.rfind("the fortress", 0) == 0) return "was second in command at " + at;
     if (as == "soldier" || as == "sergeant") return "served as a " + as + " in " + at;
     return {};
+}
+
+std::string account_words(const Fact& account, bool beside) {
+    std::vector<std::string> clauses;
+    const std::string came = name_of(account, "came");
+    const std::string many = field_of(account, "many");
+    const std::string at = beside ? " at us" : "";
+    if (!came.empty() && field_of(account, "came_as") == "person") {
+        static const std::map<std::string, std::string, std::less<>> with = {
+            {"one", " alone"},
+            {"few", ", with a few at their back"},
+            {"many", ", with more at their back than I'd have liked"},
+            {"horde", ", with more at their back than anyone could count"}};
+        const auto w = with.find(many);
+        clauses.push_back(came + " came" + at + (w == with.end() ? std::string() : w->second));
+    } else if (!came.empty()) {
+        // A nest's creature, as the world names them: "Abyssal krakens".
+        static const std::map<std::string, std::string, std::less<>> how_many = {
+            {"few", ", a few of them"}, {"many", ", more than I'd have liked"}, {"horde", ", more than anyone could count"}};
+        const auto h = how_many.find(many);
+        clauses.push_back(many == "one" ? "one of the " + came + " came" + at
+                                        : came + " came" + at + (h == how_many.end() ? std::string() : h->second));
+    }
+    static const std::map<std::string, std::pair<std::string, std::string>, std::less<>> costs = {
+        {"none", {"we lost no one", "no one was lost"}},
+        {"few", {"we lost a few good people", "a few were lost"}},
+        {"many", {"we lost too many", "too many were lost"}}};
+    if (const auto cost = costs.find(field_of(account, "cost")); cost != costs.end())
+        clauses.push_back(beside ? cost->second.first : cost->second.second);
+    std::string out;
+    for (std::size_t i = 0; i < clauses.size(); ++i) out += (i == 0 ? "" : "; ") + clauses[i];
+    if (const std::string part = part_words(field_of(account, "part")); !part.empty()) out += (out.empty() ? "" : ", and ") + part;
+    return out;
+}
+
+const std::vector<std::string>& account_phrases() {
+    static const std::vector<std::string> phrases = [] {
+        std::vector<std::string> out = {"we lost no one",  "we lost a few good people", "we lost too many",
+                                        "no one was lost", "a few were lost",           "too many were lost"};
+        for (const std::string part : {"fought", "led", "turned", "held", "hurt"}) out.push_back(part_words(part));
+        return out;
+    }();
+    return phrases;
+}
+
+const Fact* account_of(const FactPacket& packet) {
+    for (const Fact& f : packet.facts)
+        if (f.kind == FactKind::Account) return &f;
+    return nullptr;
 }
 
 std::string ties_words(const FactPacket& packet) {

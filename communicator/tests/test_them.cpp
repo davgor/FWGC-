@@ -174,3 +174,47 @@ TEST(the_sovereign_they_are_sworn_to_is_said_first_of_their_ties) {
     check::equal(ties_words(sworn_only), std::string("I'm sworn to Brenbrann"), "sworn alone");
     check::equal(communicator::foes_words(sworn_only), std::string(), "a liege is no rival");
 }
+
+// How the speaker's own work went (contract version 20), in C++'s words from the game's account: what came
+// and how many, what it cost, the stranger's part; "at us" and "we lost" where the speaker was there.
+TEST(an_account_of_the_work_is_said_from_its_fields) {
+    using communicator::account_words;
+    const auto account = [](std::vector<std::pair<std::string, std::string>> fields) {
+        Fact f{FactKind::Account, "hook-1", {{"outcome", "finished"}}};
+        for (auto& field : fields) f.fields.push_back(std::move(field));
+        return f;
+    };
+    const Fact whole = account({{"came", "Abyssal krakens"}, {"came_as", "nest"}, {"many", "many"}, {"cost", "few"}, {"part", "held"}});
+    check::equal(account_words(whole, true),
+                 std::string("Abyssal krakens came at us, more than I'd have liked; we lost a few good people, and you held when it counted"),
+                 "there: all of it");
+    check::equal(account_words(whole, false),
+                 std::string("Abyssal krakens came, more than I'd have liked; a few were lost, and you held when it counted"),
+                 "not there: came, and were lost");
+    for (const auto& [many, said] : std::vector<std::pair<std::string, std::string>>{
+             {"one", "one of the Abyssal krakens came at us"},
+             {"few", "Abyssal krakens came at us, a few of them"},
+             {"horde", "Abyssal krakens came at us, more than anyone could count"},
+             {"", "Abyssal krakens came at us"}})
+        check::equal(account_words(account({{"came", "Abyssal krakens"}, {"came_as", "nest"}, {"many", many}}), true), said,
+                     "a nest, how many: " + many);
+    for (const auto& [many, said] : std::vector<std::pair<std::string, std::string>>{
+             {"one", "Ulknord came at us alone"},
+             {"few", "Ulknord came at us, with a few at their back"},
+             {"many", "Ulknord came at us, with more at their back than I'd have liked"},
+             {"horde", "Ulknord came at us, with more at their back than anyone could count"}})
+        check::equal(account_words(account({{"came", "Ulknord"}, {"came_as", "person"}, {"many", many}}), true), said,
+                     "a person, how many: " + many);
+    for (const auto& [part, said] : std::vector<std::pair<std::string, std::string>>{{"fought", "you stood and fought"},
+                                                                                     {"led", "you led the rest"},
+                                                                                     {"turned", "you turned the fight"},
+                                                                                     {"held", "you held when it counted"},
+                                                                                     {"hurt", "you took a wound for it"}})
+        check::equal(account_words(account({{"part", part}}), true), said, "the part alone: " + part);
+    check::equal(account_words(account({{"cost", "none"}, {"part", "fought"}}), true), std::string("we lost no one, and you stood and fought"),
+                 "what it cost, and the part");
+    check::equal(account_words(account({{"cost", "many"}}), false), std::string("too many were lost"), "the cost alone, not there");
+    check::equal(account_words(account({{"cost", "some"}, {"part", "won"}, {"many", "lots"}}), true), std::string(),
+                 "words the account's words do not know: nothing made up");
+    check::equal(account_words(account({}), true), std::string(), "an account that says nothing");
+}
