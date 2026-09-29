@@ -30,6 +30,11 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
   Nothing is remembered or felt that replay cannot rebuild: a new thing to remember comes from an
   input the session records (a fright, a gathering, an overhearing, an act), and a test replays
   it. Time eases fear by the world's clock, never by the wall's.
+- **The player's name is only ever one the player gave** (contract version 24): told to the
+  speaker, overheard, or carried with word of work the player did for someone they told. Nothing
+  here makes one up or takes one from elsewhere, and a name spreads as it was given, a lie as a
+  lie; the owner ruled it so (README "The player's name"). A new way a name travels comes from a
+  recorded input, with a test that replays it.
 - **Disclose only what the speaker would say:**
   - the face the rules bring out, never a hidden face before then: a mask until the player
     exposes it with cause, a beast's calm face but on the full moon's days, a fractured heart's
