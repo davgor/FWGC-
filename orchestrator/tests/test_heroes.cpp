@@ -341,7 +341,15 @@ TEST(a_heros_chance_is_their_band_against_the_danger_and_the_draw_is_even) {
 TEST(a_heros_deed_goes_their_way_more_often_the_better_their_chance) {
     const Weeks& w = weeks();
     std::size_t won = 0, lost = 0, strong = 0, strong_won = 0, weak = 0, weak_won = 0;
-    for (const HeroDone& done : w.done) {
+    // Only deeds that drew for themselves: the rest of a fight share the first defender's draw (contract version 29),
+    // whatever their own chance.
+    std::vector<HeroDone> drew;
+    for (const std::vector<HeroDone>& call : w.by_call) {
+        std::set<std::string> fought;
+        for (const HeroDone& done : call)
+            if (done.action != "defended" || fought.insert(done.against).second) drew.push_back(done);
+    }
+    for (const HeroDone& done : drew) {
         (done.outcome == "won" ? won : lost) += 1;
         const fwg::Hero& hero = hero_in(month_on(), done.hero);
         int danger = 3;
@@ -526,6 +534,38 @@ TEST(a_hero_tells_their_own_deed) {
     const FactPacket since = d.respond(deed.hero, {ActKind::Greet, ""});
     check::is_true(std::any_of(since.facts.begin(), since.facts.end(), [&](const Fact& f) { return f.kind == FactKind::News && f.subject == next; }),
                    "a deed since the last meeting rides");
+    // Every deed since the last meeting rides, newest first (contract version 29): told only the newest, a castellan
+    // who had lost twice and then held gave the hold alone (the golden benchmark's round 31).
+    (void)d.respond(deed.hero, {ActKind::Farewell, ""});
+    std::vector<std::string> later_deeds;  // oldest first
+    for (int day = 0; day < 16 && later_deeds.size() < 2; ++day) {
+        d.advance(1.0);
+        for (const HeroDone& one : d.direct_heroes({deed.hero})) later_deeds.push_back(one.event);
+    }
+    check::equal(later_deeds.size(), std::size_t{2}, "the premise: two deeds in two weeks");
+    const FactPacket two = d.respond(deed.hero, {ActKind::Greet, ""});
+    std::vector<std::string> own_news;
+    for (const Fact& f : two.facts)
+        if (f.kind == FactKind::News && f.field("person") && *f.field("person") == two.persona.name) own_news.push_back(f.subject);
+    check::is_true(own_news == std::vector<std::string>{later_deeds.back(), later_deeds.front()},
+                   "both deeds since, newest first, and none from before: " + std::to_string(own_news.size()));
+    // At a first meeting, the newest alone.
+    Director fresh(month_on());
+    std::map<std::string, std::vector<std::string>> deeds_of;  // oldest first
+    for (int day = 0; day < 16; ++day) {
+        if (day > 0) fresh.advance(1.0);
+        for (const HeroDone& one : fresh.direct_heroes({})) deeds_of[one.hero].push_back(one.event);
+    }
+    const auto twice = std::find_if(deeds_of.begin(), deeds_of.end(), [](const auto& entry) { return entry.second.size() >= 2; });
+    check::is_true(twice != deeds_of.end(), "the premise: a hero who acted twice before any meeting");
+    if (twice != deeds_of.end()) {
+        const FactPacket met = fresh.respond(twice->first, {ActKind::Greet, ""});
+        std::vector<std::string> theirs;
+        for (const Fact& f : met.facts)
+            if (f.kind == FactKind::News && f.field("person") && *f.field("person") == met.persona.name) theirs.push_back(f.subject);
+        check::is_true(theirs == std::vector<std::string>{twice->second.back()}, "a first meeting: the newest alone, of " +
+                                                                                     std::to_string(twice->second.size()));
+    }
     // Replayed, when each last met the stranger is folded again from the inputs: the same deeds ride.
     Director replayed = orchestrator::replay(month_on(), d.inputs());
     const auto news_in = [](const FactPacket& p) {
@@ -557,23 +597,28 @@ TEST(heroes_in_one_fight_were_there_for_each_others_part) {
             w.director.query("SELECT how FROM facts WHERE person = '" + person + "' AND event = '" + event + "'");
         return rows.rows.empty() ? std::string() : std::get<std::string>(rows.rows.front().front());
     };
-    std::size_t together = 0, apart = 0;
+    std::size_t together = 0, apart = 0, places = 0;
     for (const std::vector<HeroDone>& call : w.by_call)
         for (std::size_t i = 0; i < call.size(); ++i)
             for (std::size_t j = 0; j < call.size(); ++j) {
                 if (i == j) continue;
                 const HeroDone& one = call[i];
                 const HeroDone& other = call[j];
-                if (one.action == "defended" && other.action == "defended" && one.place == other.place && one.against == other.against) {
+                if (one.action == "defended" && other.action == "defended" && one.against == other.against) {
                     ++together;
                     check::equal(how(one.hero, other.event), std::string("there"), one.hero + " was there for " + other.hero + "'s part");
-                } else if (one.place != other.place) {
+                    check::equal(one.outcome, other.outcome, "one fight, one outcome: " + one.hero + " and " + other.hero);
+                    if (one.place != other.place) ++places;
+                } else if (one.against != other.against) {
                     ++apart;
-                    check::is_true(how(one.hero, other.event) != "there", one.hero + " was not there for " + other.hero + "'s fight elsewhere");
+                    check::is_true(how(one.hero, other.event) != "there", one.hero + " was not there for " + other.hero + "'s fight with another foe");
                 }
             }
     check::is_true(together > 0, "the premise: two heroes fought one fight");
-    check::is_true(apart > 0, "the premise: heroes fought apart on one call");
+    // One foe's fight wherever each stands (contract version 29): a town and the fortress above it, fought apart by
+    // place, were one foe's two fights that a judge read as one told twice (the golden benchmark's round 31).
+    check::is_true(places > 0, "the premise: heroes in one fight stood at different places");
+    check::is_true(apart > 0, "the premise: heroes fought other foes on one call");
 }
 
 // A hero's deed told to someone they are tied to names the tie (contract version 28): their sovereign, or a

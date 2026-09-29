@@ -333,7 +333,8 @@ their land, even if they have never met them." The generator gives every deed it
 
 ## Heroes' deeds
 
-Contract version 26 (27: when a hero waits, and which deed rides), C interface 9, schema 6. The owner,
+Contract version 26 (27 to 29: when a hero waits, which deeds ride, who a hero is to the hearer, one fight to
+a foe), C interface 9, schema 6. The owner,
 2026-09-29: "the director needs to be managing the
 heroes movements, actions, and success rates." The director decides what heroes do and how it goes; the
 world records it through the generator's logged verb (`hero_action_request`, heroes version 5): their deed,
@@ -355,15 +356,18 @@ a line of their log in the world's words, their fame and band recomputed.
 - **How it goes.** Their chance is their fame's band (notable 45%, renowned 60%, legendary 75%), 8 points
   less for each step of the danger above 3 and more for each below, 15 less for an assault, never past
   90% (the least it can be is 14%). The draw is a hash of their seed, the day and the action, so a save
-  replays it (`src/hero_direction.hpp`). Heroes defending one place against one foe on the same call
-  fight one fight: the first in the world's order draws, and the rest share how it went. Over four weeks of a size-33 world (seed 99), deeds with the
-  better chance went their way more often. More heroes due than the world's verb takes in one call (64)
+  replays it (`src/hero_direction.hpp`). Heroes defending against one foe on the same call fight one fight,
+  wherever each of them stands (contract version 29; before, one place): the first in the world's order
+  draws, and the rest share how it went. A town and the fortress above it fought apart had read as one foe's
+  fight told twice. Over four weeks of a size-33 world (seed 99), deeds with the better chance went their
+  way more often. More heroes due than the world's verb takes in one call (64)
   are written in batches.
-- **Their side of it.** A hero's own newest deed rides in their greetings, small talk and answers about
-  themself, a News fact they know by being there, while it is newer than their last meeting with the
-  stranger (any, at a first meeting; contract version 27): one from before then was theirs to tell then.
-  Told at a second visit, a fight lost before the first had read as the fight the player had just won
-  beside them.
+- **Their side of it.** A hero's own deeds ride in their greetings, small talk and answers about themself,
+  News facts they know by being there: every one since their last meeting with the stranger, up to three,
+  newest first (contract version 29), and at a first meeting the newest (contract version 27). One from
+  before the last meeting was theirs to tell then: told at a second visit, a fight lost before the first
+  had read as the fight the player had just won beside them. Told only the newest, a castellan who had lost
+  twice and then held gave the hold alone.
 - **Word of it.** Each deed is an event of kind "hero" (its `verb` the action, its state "won" or "lost",
   `against` and `against_name` what they faced, `scope` how far word of the deed goes). The hero knows it at
   once; at a share, whoever stands where it happened hears it, and so do the hero's rivals, kin and allies

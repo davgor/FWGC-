@@ -2197,10 +2197,12 @@ std::vector<HeroDone> Director::direct_heroes(const std::vector<std::string>& he
                 danger = nest->second;
             }
         }
-        // One fight at a place: heroes defending it against the same foe on the same call share how it went,
-        // the first in the world's order drawing for all. Drawn apart, a sovereign was driven from their
-        // city by the horizon eyes while a magistrate of it held the city against them, the same day.
-        const std::string fight = plan.entry.action == "defended" ? plan.entry.place_uid + "|" + plan.entry.against_uid : std::string();
+        // One fight against one foe (contract version 29): heroes defending against the same foe on the same call,
+        // wherever each of them stands, share how it went, the first in the world's order drawing for all. Drawn
+        // apart, a sovereign was driven from their city by the horizon eyes while a magistrate of it held the city
+        // against them, the same day; and a town and the fortress above it, fought apart by place, were one foe's
+        // two fights that a judge read as one told twice (the golden benchmark's round 31).
+        const std::string fight = plan.entry.action == "defended" && !plan.entry.against_uid.empty() ? plan.entry.against_uid : std::string();
         if (const auto same = fights.find(fight); !fight.empty() && same != fights.end()) {
             plan.entry.outcome = same->second;
         } else {
@@ -2261,7 +2263,7 @@ std::vector<HeroDone> Director::direct_heroes(const std::vector<std::string>& he
             e.scope = report.scope;
             const std::string id = make_event(e);
             learn(plan.entry.uid, id, e.state, today, "there");
-            if (plan.entry.action == "defended") fought[plan.entry.place_uid + "|" + plan.entry.against_uid].emplace_back(plan.entry.uid, id);
+            if (plan.entry.action == "defended" && !plan.entry.against_uid.empty()) fought[plan.entry.against_uid].emplace_back(plan.entry.uid, id);
             out.push_back(HeroDone{plan.entry.uid, plan.entry.action, plan.entry.outcome, plan.entry.place_uid,
                                    plan.entry.against_uid, today, id, report.text});
         }
@@ -2283,18 +2285,24 @@ void Director::own_deed(const std::string& speaker, FactPacket& p) const {
     // Newer than their last meeting with the stranger, when they met before (contract version 27): a deed from
     // before then was theirs to tell then. Told at a second visit, a fight lost before the first read as the
     // fight the player had just won beside them (2026-09-29).
+    // Every one since then, newest first, up to three (contract version 29): told only the newest, a castellan who
+    // had lost twice and then held since the stranger's last visit gave the hold alone (the golden benchmark's
+    // round 31). At a first meeting, the newest.
     const auto before = met_before_.find(speaker);
-    for (Fact& told : news(speaker, speaker, std::nullopt, 4)) {
+    std::size_t told_of = 0;
+    for (Fact& told : news(speaker, speaker, std::nullopt, 12)) {
         const std::string* event = told.field("event");
         if (event == nullptr || *event != "hero") continue;
         if (before != met_before_.end()) {
             brains::Statement when(brains_.handle(), "SELECT day FROM events WHERE id = ?1");
             when.text(1, told.subject);
             if (!when.step() || when.real(0) <= before->second) return;
+        } else if (told_of == 1) {
+            return;
         }
         if (std::none_of(p.facts.begin(), p.facts.end(), [&](const Fact& f) { return f.kind == FactKind::News && f.subject == told.subject; }))
             p.facts.push_back(std::move(told));
-        return;
+        if (++told_of == direction::kOwnDeedsSince) return;
     }
 }
 

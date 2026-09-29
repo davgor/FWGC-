@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
 #include <cstdint>
 #include <string>
 
@@ -13,6 +14,8 @@ namespace orchestrator::direction {
 inline constexpr double kHeroSpanDays = 7.0;
 // The nests a hero defends a place against: the worst within this of it.
 inline constexpr double kHeroThreatM = 5000.0;
+// The most of a hero's own deeds since the stranger last saw them that ride in their packets (contract version 29).
+inline constexpr std::size_t kOwnDeedsSince = 3;
 
 // The chance a hero's deed goes their way: their fame's band (notable 45%, renowned 60%, legendary 75%)
 // against the danger they face (1 to 5), 8 points a step from 3, 15 less for an assault on a ruin; never
