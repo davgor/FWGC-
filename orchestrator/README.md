@@ -297,7 +297,7 @@ the `conversation` and `turn`, the `day`, the `act` and its `target`, `about` (w
 name, as the speaker says it), the `outcome`, and `joined` for a bystander's answer; and in
 `exchange_facts` what the reply named (a place, a person, work, a nest: `kind`, `subject`, `about`).
 A bystander who overheard it keeps it too: `heard_from` the one spoken to, `of_exchange` that row,
-`conversation` 0. `words(line, reply)` hands over the player's line and the reply as the game showed
+`conversation` 0. `words(line, reply, asked)` hands over the player's line and the reply as the game showed
 them, once a reply is shown (after `respond`, and after `overhear` for a joiner's): the log of the
 one who answered keeps them, and those who overheard it. The director reads no meaning into the
 words; they are there for the game, the communicator, and whatever summarizes a log. Someone gone
@@ -325,12 +325,24 @@ long memory is the outcomes, by these rules, from the log and the director's own
 | `overheard` | whom they overheard the stranger talking with | the one spoken to; the act |
 | `open` | work of theirs the stranger holds and has not done | the quest; `taken` |
 | `last` | what they last spoke of: the latest exchange that named something, else the latest that was more than a greeting, a farewell or a line not understood | its target; its act |
+| `question` | a question they asked the stranger that the stranger's next line to them, in that conversation, did not answer (contract version 21; `words` the question) | none; `asked` |
 
 Each keeps `about` (by name), `times`, `first_day`, `last_day`, `words`, `source` ("rules", or
 "given" from outcomes handed in) and `seq` (the order kept). A memory of what came up before is brought up to date,
 keeping when it first was: asked again, it counts once more; work taken and since finished is
 remembered finished, from when it was taken (as the one who gave it knows it). What is open is the
 director's own state, never the log's, and so is what became of work. `last` is replaced.
+
+**Their own questions** (contract version 21, schema 4, C interface 6; the owner, 2026-09-28, of a
+hero's question left hanging: "Lets get it fixed"). `words(line, reply, asked)` also takes the
+question in the reply the speaker would have answered, as the game's communicator marks it, word
+for word as the reply says it: the log keeps it (`exchanges.asked`). If the stranger's next line to
+them in that conversation is not an answer (`answer`), it is a `question` memory; if it is, the
+question is settled. A greeting in a later conversation carries the latest such question as a
+Recall fact, once: the greeting's exchange keeps that it carried it (`exchange_facts`, kind
+`recall`), so it counts as asked twice and no later greeting carries it again, compacted or not. The
+director reads no meaning into the question: which one is worth an answer is the communicator's to
+say, and the director only holds it to the reply's own words.
 
 **What a summary may add.** `outcomes`, when not empty, is a summary of the log written elsewhere, as JSON:
 `{"said": [{"quote": "...", "about": "..."}], "last": "..."}`. Its quotes stand in for the rules':

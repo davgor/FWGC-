@@ -351,10 +351,11 @@ FWGC_API fwgc_status fwgc_report_event(fwgc_director* director, const char* site
     });
 }
 
-FWGC_API fwgc_status fwgc_words(fwgc_director* director, const char* line, const char* reply) noexcept {
+FWGC_API fwgc_status fwgc_words(fwgc_director* director, const char* line, const char* reply, const char* asked) noexcept {
     return enter(director, true, false, [&]() -> fwgc_status {
         c_need(director, "director");
-        director->director.words(orchestrator::c_api::optional_text(line, "line"), orchestrator::c_api::optional_text(reply, "reply"));
+        director->director.words(orchestrator::c_api::optional_text(line, "line"), orchestrator::c_api::optional_text(reply, "reply"),
+                                 orchestrator::c_api::optional_text(asked, "asked"));
         return FWGC_OK;
     });
 }

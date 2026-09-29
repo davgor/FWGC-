@@ -50,7 +50,10 @@ namespace orchestrator {
 //     sworn to, and Deed facts for the wars their city fought in their lifetime.
 // 20: an Account fact: how the speaker's own work went, as the game reported it (Director::account):
 //     what came, how many, what it cost, and the stranger's part.
-inline constexpr int kContractVersion = 20;
+// 21: the Recall memory "question": a question the speaker asked the stranger that the stranger never
+//     answered, its words as the speaker asked it; a greeting carries it once, in a later
+//     conversation.
+inline constexpr int kContractVersion = 21;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -277,17 +280,21 @@ std::string_view to_string(FactKind kind);
 //   finished, failed or gave up the speaker's
 //   work; thanked, insulted, apologised; talked them down), "open" (the speaker's work the stranger
 //   holds and has not done), "said" (the stranger's own words, kept word for word), "last" (what
-//   they last spoke of, in an earlier conversation);
+//   they last spoke of, in an earlier conversation), "question" (contract version 21: a question the
+//   speaker asked the stranger in an earlier conversation that the stranger's next line did not
+//   answer, `words` as the speaker asked it);
 // - `act`: what was done, by the contract's names: an act ("ask_about_place"), an outcome ("taken",
 //   "finished", "thanked"), or "said";
 // - `about`: what it concerns, by name as the speaker says it; empty for a memory of no one thing;
 // - `times`: how many times, as digits;
 // - `since`: when it last was, in the Memory fact's calendar bands; `first`: when it first was;
 // - `words`: the stranger's words for "said", and for "last" what the speaker kept of it, when a
-//   summary handed to the compaction held it and C++ checked it; empty otherwise.
-// A greeting carries what they last spoke of, the work the stranger holds, and the stranger's
-// latest kept words (at most one each); an answer about a place or a person what was asked and told
-// of it before; asking for work what came of the speaker's work before and what is open.
+//   summary handed to the compaction held it and C++ checked it; the speaker's own question for
+//   "question"; empty otherwise.
+// A greeting carries what they last spoke of, the work the stranger holds, the stranger's latest kept
+// words, and the latest question of theirs the stranger never answered, until a greeting has carried
+// it once (at most one each); an answer about a place or a person what was asked and told of it
+// before; asking for work what came of the speaker's work before and what is open.
 //
 // A Self fact, its subject the speaker: what they would say of themself when asked (ask_about_them,
 // contract version 13). Public only: never a card's belief, wants, fears, tells or lies; and only for

@@ -136,7 +136,8 @@ CREATE TABLE exchanges (
   of_exchange INTEGER,
   joined INTEGER NOT NULL,
   line TEXT,
-  reply TEXT
+  reply TEXT,
+  asked TEXT
 );
 CREATE INDEX exchanges_person ON exchanges (person, id);
 CREATE INDEX exchanges_of ON exchanges (of_exchange);
@@ -167,7 +168,7 @@ CREATE INDEX memories_seq ON memories (person, seq);
 CREATE VIEW active_short AS
   SELECT person, count(*) AS exchanges, min(day) AS since_day, max(day) AS last_day
   FROM exchanges GROUP BY person;
-PRAGMA user_version = 3;
+PRAGMA user_version = 4;
 )sql";
 
 [[noreturn]] void failed(sqlite3* db, const std::string& what) {

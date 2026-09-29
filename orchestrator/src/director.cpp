@@ -2074,6 +2074,14 @@ std::int64_t Director::log_exchange(const std::string& person, const Acquaintanc
         brains::Statement insert(h, "INSERT INTO exchange_facts (exchange, seq, kind, subject, about) VALUES (?1, ?2, ?3, ?4, ?5)");
         insert.integer(1, id).integer(2, ++seq).text(3, to_string(fact.kind)).text(4, fact.subject).text(5, called(fact)).run();
     }
+    // A question of theirs the stranger never answered, carried again (contract version 21): kept with the
+    // exchange, so no later greeting carries it a third time.
+    for (const Fact& fact : packet.facts)
+        if (const std::string* memory = fact.field("memory"); fact.kind == FactKind::Recall && memory && *memory == "question") {
+            const std::string* asked = fact.field("words");
+            brains::Statement insert(h, "INSERT INTO exchange_facts (exchange, seq, kind, subject, about) VALUES (?1, ?2, ?3, ?4, ?5)");
+            insert.integer(1, id).integer(2, ++seq).text(3, "recall").text(4, fact.subject).text(5, asked ? *asked : std::string()).run();
+        }
     transaction.commit();
     return id;
 }
@@ -2104,8 +2112,8 @@ std::vector<Director::Logged> Director::log_of(const std::string& person) const 
     std::vector<Logged> out;
     {
         brains::Statement rows(h,
-                               "SELECT id, conversation, day, act, target, about, outcome, heard_from, line, reply FROM exchanges WHERE "
-                               "person = ?1 ORDER BY id");
+                               "SELECT id, conversation, day, act, target, about, outcome, heard_from, line, reply, asked FROM exchanges "
+                               "WHERE person = ?1 ORDER BY id");
         rows.text(1, person);
         while (rows.step()) {
             Logged x;
@@ -2119,6 +2127,7 @@ std::vector<Director::Logged> Director::log_of(const std::string& person) const 
             x.heard_from = rows.text(7);
             x.line = rows.text(8);
             x.reply = rows.text(9);
+            x.asked = rows.text(10);
             out.push_back(std::move(x));
         }
     }
@@ -2208,6 +2217,38 @@ std::vector<Remembered> Director::remembered(const std::string& person, const st
     }
     for (std::size_t i = answers.size() > kMostQuotes ? answers.size() - kMostQuotes : 0; i < answers.size(); ++i)
         fold_in(all, one("said", "", "said", "", answers[i]->day, trimmed(answers[i]->line)));
+    // The speaker's own questions (contract version 21): one the stranger's next line to them in that
+    // conversation did not answer (an `answer`) is kept, to be asked again once; one answered is settled.
+    // A question carried again counts as asked twice, so no greeting carries it a third time. One asked
+    // in this conversation (`last_before`) is not kept yet: it is asked again in a later one.
+    for (std::size_t i = 0; i < log.size(); ++i) {
+        const Logged& x = log[i];
+        if (!x.heard_from.empty()) continue;
+        std::set<std::string> fresh, again;
+        for (const Named& n : x.named)
+            if (n.kind == "recall" && !n.about.empty()) again.insert(n.about);
+        if (!x.asked.empty() && !again.count(x.asked) && (last_before == 0 || x.conversation < last_before)) fresh.insert(x.asked);
+        if (fresh.empty() && again.empty()) continue;
+        const Logged* next = nullptr;
+        for (std::size_t j = i + 1; j < log.size() && next == nullptr; ++j)
+            if (log[j].heard_from.empty()) next = &log[j];
+        const bool answered = next != nullptr && next->conversation == x.conversation && next->act == "answer";
+        for (const std::set<std::string>* asked : {&fresh, &again})
+            for (const std::string& words : *asked) {
+                const auto same = [&](const Remembered& r) { return r.memory == "question" && r.words == words; };
+                if (answered) {
+                    all.erase(std::remove_if(all.begin(), all.end(), same), all.end());
+                } else if (asked == &fresh) {
+                    fold_in(all, one("question", "", "asked", "", x.day, words));
+                } else {
+                    for (Remembered& r : all)
+                        if (same(r)) {
+                            r.times = std::max(r.times, 2);
+                            r.last_day = std::max(r.last_day, x.day);
+                        }
+                }
+            }
+    }
     if (const Logged* last = last_named ? last_named : last_spoken) {
         all.erase(std::remove_if(all.begin(), all.end(), [](const Remembered& r) { return r.memory == "last"; }), all.end());
         all.push_back(one("last", last->target, last->act, last->about, last->day, ""));
@@ -2302,6 +2343,8 @@ std::vector<Fact> Director::recall(const std::string& speaker, const DialogueAct
         say(latest([](const Remembered& r) { return r.memory == "last"; }, 1));
         say(latest([](const Remembered& r) { return r.memory == "open"; }, 1));
         say(latest([](const Remembered& r) { return r.memory == "said"; }, 1));
+        // A question of theirs never answered, until a greeting has carried it once (contract version 21).
+        say(latest([](const Remembered& r) { return r.memory == "question" && r.times == 1; }, 1));
     } else if (asked) {
         say(latest([&](const Remembered& r) { return r.memory == "asked" && r.subject == act.target; }, 1));
         say(latest([&](const Remembered& r) { return r.memory == "told" && r.subject == act.target; }, 1));
@@ -2310,18 +2353,6 @@ std::vector<Fact> Director::recall(const std::string& speaker, const DialogueAct
         say(latest([](const Remembered& r) { return r.memory == "open"; }, 2));
     }
     return out;
-}
-
-void Director::words(const std::string& line, const std::string& reply) {
-    if (!last_) throw Error("words: nothing has been said yet");
-    if (line.size() > kMaxWordsBytes || reply.size() > kMaxWordsBytes)
-        throw Error("words: a line or a reply is at most " + std::to_string(kMaxWordsBytes) + " bytes");
-    if (!is_utf8(line) || !is_utf8(reply)) throw Error("words: the line and the reply must be UTF-8");
-    if (last_logged_ > 0) {
-        brains::Statement update(brains_.handle(), "UPDATE exchanges SET line = ?2, reply = ?3 WHERE id = ?1 OR of_exchange = ?1");
-        update.integer(1, last_logged_).text(2, line).text(3, reply).run();
-    }
-    inputs_.push_back(Words{line, reply});
 }
 
 namespace {
@@ -2339,6 +2370,25 @@ bool quoted_whole(const std::string& line, const std::string& quote) {
 }
 
 }  // namespace
+
+void Director::words(const std::string& line, const std::string& reply, const std::string& asked) {
+    if (!last_) throw Error("words: nothing has been said yet");
+    if (line.size() > kMaxWordsBytes || reply.size() > kMaxWordsBytes)
+        throw Error("words: a line or a reply is at most " + std::to_string(kMaxWordsBytes) + " bytes");
+    if (!is_utf8(line) || !is_utf8(reply) || !is_utf8(asked)) throw Error("words: the line, the reply and the question must be UTF-8");
+    // The question the reply asked worth an answer (contract version 21): the reply's own words.
+    if (asked.size() > kMaxQuoteBytes) throw Error("words: a question is at most " + std::to_string(kMaxQuoteBytes) + " bytes");
+    if (!asked.empty() && (trimmed(asked) != asked || !quoted_whole(reply, asked)))
+        throw Error("words: the question is not the reply's own words: '" + asked + "'");
+    if (last_logged_ > 0) {
+        brains::Statement update(brains_.handle(), "UPDATE exchanges SET line = ?2, reply = ?3 WHERE id = ?1 OR of_exchange = ?1");
+        update.integer(1, last_logged_).text(2, line).text(3, reply).run();
+        // Asked of the stranger by the one who answered, not by those who overheard it.
+        brains::Statement question(brains_.handle(), "UPDATE exchanges SET asked = ?2 WHERE id = ?1");
+        question.integer(1, last_logged_).text_or_null(2, asked).run();
+    }
+    inputs_.push_back(Words{line, reply, asked});
+}
 
 Compacted Director::compact(const std::string& person, const std::string& outcomes) {
     if (!names_a_person(world_, person)) throw Error("compact: the world names no person '" + person + "'");
@@ -2601,7 +2651,7 @@ Director replay(fwg::World start, const std::vector<Input>& inputs) {
                        [&](const Overhear& overheard) { (void)director.overhear(overheard.people); },
                        [&](const Share& shared) { (void)director.share(shared.people); },
                        [&](const Report& report) { director.report_event(report.site, report.outcome, report.by); },
-                       [&](const Words& said) { director.words(said.line, said.reply); },
+                       [&](const Words& said) { director.words(said.line, said.reply, said.asked); },
                        [&](const Compact& compacted) { (void)director.compact(compacted.person, compacted.outcomes); },
                        [&](const Account& told) { director.account(told.quest_id, told.came, told.many, told.cost, told.part); },
                    },

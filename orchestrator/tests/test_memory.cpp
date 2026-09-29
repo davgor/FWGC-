@@ -635,6 +635,67 @@ TEST(a_bystander_never_hears_an_older_state_than_they_know) {
     check::equal(known(work.second), std::string("finished/word"), "overhearing it called taken, the other still knows it finished");
 }
 
+// Contract version 21: a question the speaker asked, which the stranger's next line did not answer, is kept
+// and asked again once, at a greeting in a later conversation; one answered is settled. The judges of the
+// golden benchmark asked for it three times: a hero's own question left hanging was never raised again.
+TEST(a_question_never_answered_is_asked_again_once) {
+    const std::string speaker = townsperson(0);
+    const std::string other = townsperson(1);
+    const std::string asked = "What brings you here?";
+    const auto question_in = [](const FactPacket& p) {
+        const std::map<std::string, Fact> recall = recalled(p);
+        const auto found = recall.find("question");
+        return found == recall.end() ? std::string() : value(found->second, "words");
+    };
+    Director d(memory_world());
+    // Refused, and nothing recorded: a question the reply does not hold, one too long, one not UTF-8.
+    (void)d.respond(speaker, {ActKind::Greet, ""});
+    const std::size_t inputs = d.inputs().size();
+    check::throws([&] { d.words("Hello.", "Hello, stranger.", asked); }, "a question the reply does not hold");
+    check::throws([&] { d.words("Hello.", "Hello. " + std::string(241, 'a') + "?", std::string(241, 'a') + "?"); }, "a question too long");
+    check::throws([&] { d.words("Hello.", "Hello. \xC3\x28?", "\xC3\x28?"); }, "a question not UTF-8");
+    check::equal(d.inputs().size(), inputs, "nothing recorded");
+    d.words("Hello.", "Hello, stranger. " + asked, asked);
+    check::equal(rows(d, "SELECT asked FROM exchanges WHERE person = " + quoted(speaker) + " ORDER BY id DESC LIMIT 1").at(0).at(0), asked,
+                 "the log keeps the question with its exchange");
+    // Not answered: small talk next. Greeted again in the same conversation, it is not asked yet.
+    (void)d.respond(speaker, {ActKind::SmallTalk, ""});
+    d.words("Fine weather.", "It is that.");
+    check::equal(question_in(d.respond(speaker, {ActKind::Greet, ""})), std::string(), "in the same conversation: not asked again yet");
+    (void)d.respond(speaker, {ActKind::Farewell, ""});
+    // Kept at compaction.
+    (void)d.compact(speaker, "");
+    const std::vector<Remembered> kept = d.memories(speaker);
+    const Remembered* question = find_memory(kept, "question", "");
+    check::is_true(question && question->words == asked && question->times == 1, "kept: the question, as asked");
+    // A greeting in a later conversation carries it; then no greeting carries it again, compacted or not.
+    d.advance(1.0);
+    const FactPacket again = d.respond(speaker, {ActKind::Greet, ""});
+    check::equal(question_in(again), asked, "a later greeting: asked again");
+    d.words("Hello again.", "Welcome back. You never did say. " + asked, "");
+    (void)d.respond(speaker, {ActKind::SmallTalk, ""});
+    (void)d.respond(speaker, {ActKind::Farewell, ""});
+    check::equal(question_in(d.respond(speaker, {ActKind::Greet, ""})), std::string(), "the next greeting: not a third time");
+    (void)d.respond(speaker, {ActKind::Farewell, ""});
+    (void)d.compact(speaker, "");
+    const std::vector<Remembered> twice = d.memories(speaker);
+    const Remembered* still = find_memory(twice, "question", "");
+    check::is_true(still && still->times == 2, "kept as asked twice");
+    d.advance(1.0);
+    check::equal(question_in(d.respond(speaker, {ActKind::Greet, ""})), std::string(), "after the compaction: not a third time either");
+    // Answered by the stranger's next line: settled, and nothing kept.
+    (void)d.respond(other, {ActKind::Greet, ""});
+    d.words("Good day.", "Good day. Who sent you to me?", "Who sent you to me?");
+    (void)d.respond(other, {ActKind::Answer, ""});
+    d.words("Nobody; I came of my own accord.", "Fair enough.");
+    (void)d.respond(other, {ActKind::Farewell, ""});
+    (void)d.compact(other, "");
+    check::equal(count_of(d.memories(other), "question"), std::size_t{0}, "answered: nothing to ask again");
+    // Replayed, the same.
+    Director replayed = orchestrator::replay(memory_world(), d.inputs());
+    same_tables(d, replayed, {"exchanges", "exchange_facts", "memories"});
+}
+
 TEST(replay_rebuilds_the_log_and_long_memory_row_for_row) {
     const Work work = open_work();
     const std::string outcomes = R"({"said": [{"quote": "I will see it done", "about": "the work"}], "last": "They took the work on."})";

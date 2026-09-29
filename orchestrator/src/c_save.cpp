@@ -103,10 +103,11 @@ fwg::JsonValue input_json(const Input& input) {
                 return keyed("report", std::move(body));
             },
             [](const Words& words) {
-                const auto& [line, reply] = words;
+                const auto& [line, reply, asked] = words;
                 fwg::JsonValue body = fwg::JsonValue::object();
                 body.set("line", line);
                 body.set("reply", reply);
+                body.set("asked", asked);
                 return keyed("words", std::move(body));
             },
             [](const Compact& compact) {
@@ -227,8 +228,8 @@ Input input_from(const fwg::JsonValue& item) {
         return Report{text_at(body, "site", kind), text_at(body, "outcome", kind), text_at(body, "by", kind)};
     }
     if (kind == "words") {
-        exactly(body, {"line", "reply"}, "words");
-        return Words{text_at(body, "line", kind), text_at(body, "reply", kind)};
+        exactly(body, {"line", "reply", "asked"}, "words");
+        return Words{text_at(body, "line", kind), text_at(body, "reply", kind), text_at(body, "asked", kind)};
     }
     if (kind == "compact") {
         exactly(body, {"person", "outcomes"}, "compact");

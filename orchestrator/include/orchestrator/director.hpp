@@ -83,10 +83,12 @@ struct Report {
     std::string outcome;
     std::string by;
 };
-// The words of the exchange just made, as the game showed it: the player's line and the reply.
+// The words of the exchange just made, as the game showed it: the player's line and the reply, and the
+// question in the reply worth an answer, or empty (contract version 21).
 struct Words {
     std::string line;
     std::string reply;
+    std::string asked;
 };
 // A person's conversation log made into long memory; `outcomes` a summary of it handed in (JSON), or
 // empty for the rules alone.
@@ -199,7 +201,7 @@ struct Related {
 // brain database's `memories`. README.md, "Short and long memory", says what each memory holds.
 struct Remembered {
     std::string person;
-    std::string memory;    // "asked", "told", "did", "open", "said", "overheard", "last"
+    std::string memory;    // "asked", "told", "did", "open", "said", "overheard", "last", "question"
     std::string subject;   // what it is about: a place id, a person uid, a quest id; empty for none
     std::string act;       // what was done, by the contract's names
     std::string about;     // what it concerns, by name as the speaker says it
@@ -449,9 +451,13 @@ public:
     // -- after respond() its reply, after overhear() the reply of whoever joined in. The log of the
     // one who answered keeps them, and so do the logs of those who overheard it. The director keeps
     // the text and reads no meaning into it. Words for an exchange no log holds (the one spoken to
-    // was gone, or has been compacted since) are recorded and kept nowhere. Throws Error when
-    // nothing has been said yet, and for words that are not UTF-8 or longer than 4,000 bytes.
-    void words(const std::string& line, const std::string& reply);
+    // was gone, or has been compacted since) are recorded and kept nowhere. `asked` (contract version
+    // 21): the question in the reply the speaker would have answered, as the game's communicator marks
+    // it, word for word as the reply says it, or empty; the log of the one who answered keeps it, and a
+    // compaction keeps it when the stranger's next line to them did not answer it (an `answer`), to
+    // be asked again once. Throws Error when nothing has been said yet, for words that are not UTF-8
+    // or longer than 4,000 bytes, and for a question longer than 240 bytes or not in the reply.
+    void words(const std::string& line, const std::string& reply, const std::string& asked = "");
 
     // `person`'s conversation log made into long memory, and cleared, as a conversation is compacted
     // into what matters of it: the only way a log becomes long memory, and nothing here calls it of
@@ -582,6 +588,7 @@ private:
         std::string act, target, about, outcome;
         std::string heard_from;  // the one the stranger spoke to, for an exchange overheard
         std::string line, reply;
+        std::string asked;  // the question in the reply worth an answer (contract version 21), or empty
         std::vector<Named> named;
     };
     std::vector<Logged> log_of(const std::string& person) const;

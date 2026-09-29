@@ -48,8 +48,10 @@ extern "C" {
  * 2: the brain database (fwgc_query), news (fwgc_share, fwgc_related, fwgc_report_event).
  * 3: short and long memory (fwgc_words, fwgc_compact, fwgc_memories); the database's schema 2.
  * 4: the act "complain" and its outcome "heard" (contract version 18).
- * 5: fwgc_account, and the Account fact it gives (contract version 20); the database's schema 3. */
-#define FWGC_API_VERSION 5
+ * 5: fwgc_account, and the Account fact it gives (contract version 20); the database's schema 3.
+ * 6: fwgc_words takes the question the reply asked worth an answer (contract version 21); the
+ *    database's schema 4 (exchanges.asked). */
+#define FWGC_API_VERSION 6
 
 typedef struct fwgc_director fwgc_director;
 
@@ -195,9 +197,12 @@ FWGC_API fwgc_status fwgc_report_event(fwgc_director* director, const char* site
 /* The words of the exchange just made, as the game showed them: the player's `line` and the `reply`
  * (NULL for none), each at most 4,000 bytes. Call it once a reply is shown: after fwgc_respond for
  * its reply, after fwgc_overhear for a joiner's. The log of the one who answered keeps them, and
- * the logs of those who overheard it; the director reads no meaning into them. Refused before
- * anything is said. */
-FWGC_API fwgc_status fwgc_words(fwgc_director* director, const char* line, const char* reply) FWGC_NOEXCEPT;
+ * the logs of those who overheard it; the director reads no meaning into them. `asked` (NULL for
+ * none, contract version 21): the question in the reply the speaker would have answered, as the
+ * communicator marks it, word for word as the reply says it and at most 240 bytes; a compaction keeps
+ * it when the player's next line to them did not answer it, and a later greeting carries it once, to
+ * be asked again. Refused before anything is said, and for a question not in the reply. */
+FWGC_API fwgc_status fwgc_words(fwgc_director* director, const char* line, const char* reply, const char* asked) FWGC_NOEXCEPT;
 /* `person`'s conversation log made into long memory, and cleared: the only way a log becomes long
  * memory, and nothing calls it but the game (someone despawned, a time skip, whoever
  * active_short lists). A conversation under way with them ends. `outcomes` (NULL for none) is a

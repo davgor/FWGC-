@@ -551,9 +551,9 @@ public:
         same_brains(c_, cpp_, "report");
         compare("report");
     }
-    void words(const std::string& line, const std::string& reply) {
-        succeeded(fwgc_words(c_.get(), line.c_str(), reply.c_str()), "fwgc_words");
-        cpp_.words(line, reply);
+    void words(const std::string& line, const std::string& reply, const std::string& asked = "") {
+        succeeded(fwgc_words(c_.get(), line.c_str(), reply.c_str(), asked.empty() ? nullptr : asked.c_str()), "fwgc_words");
+        cpp_.words(line, reply, asked);
         compare("words");
     }
     orchestrator::Compacted compact(const std::string& person, const std::string& outcomes) {
@@ -594,7 +594,7 @@ void play(Lockstep& both) {
     const Players& p = players();
     both.advance(30.0);
     both.say(p.giver1, "greet");
-    both.words("Good day to you.", "And to you, stranger.");
+    both.words("Good day to you.", "And to you, stranger. What brings you here?", "What brings you here?");
     both.say(p.giver1, "ask_for_work");
     both.say(p.giver1, "decline_quest", p.quest1);
     const FactPacket taken_on = both.say(p.giver1, "accept_quest", p.quest1);
@@ -692,7 +692,7 @@ TEST(the_contract_describes_itself) {
     succeeded(fwgc_contract_json(&json), "fwgc_contract_json");
     const fwg::JsonValue contract = fwg::parse_json(taken(json));
     keys_are(contract, {"contract_version", "brains_schema", "acts", "outcomes", "fact_kinds", "doing"}, "the contract");
-    check::equal(contract.at("brains_schema").as_int(), std::int64_t{3}, "the brain database's schema");
+    check::equal(contract.at("brains_schema").as_int(), std::int64_t{4}, "the brain database's schema");
     check::equal(contract.at("contract_version").as_int(), std::int64_t(orchestrator::kContractVersion), "its version");
     const fwg::JsonValue& acts = contract.at("acts");
     check::equal(acts.size(), std::size_t(orchestrator::kActCount), "every act");
@@ -927,8 +927,9 @@ TEST(a_callers_mistake_is_refused_and_records_nothing) {
         check::equal(fwgc_report_event(h.get(), p.site.c_str(), "beaten", text), FWGC_BAD_ARGUMENT, "a doer not UTF-8");
         const char* named[] = {text};
         check::equal(fwgc_share(h.get(), named, 1, &out), FWGC_BAD_ARGUMENT, "someone to share with not UTF-8");
-        check::equal(fwgc_words(h.get(), text, "a reply"), FWGC_BAD_ARGUMENT, "a line not UTF-8");
-        check::equal(fwgc_words(h.get(), "a line", text), FWGC_BAD_ARGUMENT, "a reply not UTF-8");
+        check::equal(fwgc_words(h.get(), text, "a reply", nullptr), FWGC_BAD_ARGUMENT, "a line not UTF-8");
+        check::equal(fwgc_words(h.get(), "a line", text, nullptr), FWGC_BAD_ARGUMENT, "a reply not UTF-8");
+        check::equal(fwgc_words(h.get(), "a line", "a reply", text), FWGC_BAD_ARGUMENT, "a question not UTF-8");
         check::equal(fwgc_compact(h.get(), text, nullptr, &out), FWGC_BAD_ARGUMENT, "someone compacted not UTF-8");
         check::equal(fwgc_compact(h.get(), p.smith.c_str(), text, &out), FWGC_BAD_ARGUMENT, "outcomes not UTF-8");
         check::equal(fwgc_memories(h.get(), text, &out), FWGC_BAD_ARGUMENT, "someone remembering not UTF-8");
@@ -971,7 +972,7 @@ TEST(a_callers_mistake_is_refused_and_records_nothing) {
     const char* nobody[] = {"npc-nobody-at-all"};
     check::equal(fwgc_share(h.get(), nobody, 1, &out), FWGC_BAD_ARGUMENT, "sharing with nobody");
     check::equal(fwgc_share(h.get(), nullptr, 1, &out), FWGC_BAD_ARGUMENT, "no list to share with");
-    check::equal(fwgc_words(h.get(), "a line", "a reply"), FWGC_BAD_ARGUMENT, "words, with nothing said");
+    check::equal(fwgc_words(h.get(), "a line", "a reply", nullptr), FWGC_BAD_ARGUMENT, "words, with nothing said");
     check::equal(fwgc_compact(h.get(), "npc-nobody-at-all", nullptr, &out), FWGC_BAD_ARGUMENT, "compacting nobody");
     check::equal(fwgc_compact(h.get(), nullptr, nullptr, &out), FWGC_BAD_ARGUMENT, "compacting no one");
     for (const char* outcomes : {"not json", "[]", "{\"said\": 3}", "{\"said\": [{\"quote\": 3}]}", "{\"said\": [{\"words\": \"x\"}]}",
