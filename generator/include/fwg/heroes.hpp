@@ -35,8 +35,10 @@ namespace fwg {
 
 // Stamped into every block. The reference is at 2, which added the quest contract's
 // derived fields (verb, difficulty, target_node, unsited_reason) to every hook, so a
-// consumer can tell a world whose hooks can be priced from one whose hooks cannot.
-inline constexpr int kHeroesVersion = 2;
+// consumer can tell a world whose hooks can be priced from one whose hooks cannot. 3 gives a
+// castellan a past: the wars their city fought in their lifetime as deeds, and `tenure_years`,
+// `served_at`, `served_as` and `liege_uid`.
+inline constexpr int kHeroesVersion = 3;
 
 // ---------------------------------------------------------------------------
 // The authored catalogue, generated from data/hero-*.json into
@@ -696,6 +698,12 @@ struct Hero {
     int routes = 0;
     bool has_routes = false;
     std::string god_id, diaspora_reason, mother_civilization_id;
+    // A castellan's past (heroes version 3): how many years they have held their post; where they
+    // served before it (a site's name) and as what ("soldier", "sergeant", or "second" to another
+    // fortress's castellan); and the realm's sovereign they are sworn to. Zero and empty for everyone
+    // else.
+    int tenure_years = 0;
+    std::string served_at, served_as, liege_uid;
 
     // --- construction scratch, not part of the exported record ---
     //

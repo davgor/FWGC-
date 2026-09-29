@@ -1216,6 +1216,35 @@ void run_countryside_well(Ctx& ctx, const std::map<std::string, std::size_t>& by
         deed.role = "keeper";
         p.deeds.push_back(deed);
         p.claim = {"hold", key, site_name};
+        // A past of their own (heroes version 3; the owner, 2026-09-28: "Yup lets add one in"): a
+        // castellan's record had held only the post, so "How long have you held it?" and "What were
+        // you before this?" had nothing to answer from. The wars their city fought in their lifetime,
+        // which they fought in; how long they have held the post, and where they served before it,
+        // from a stream of their own; and the realm's sovereign they are sworn to. The fortress deed
+        // stays first, since the roll and the ledger read it.
+        for (HeroDeed& war : war_deeds_of(city.war_history))
+            if (war.age >= p.born_age) p.deeds.push_back(std::move(war));
+        Rng past = stream(ctx.req->seed, "hero-past-" + p.uid);
+        p.tenure_years = static_cast<int>(past.randint(3, 28));
+        std::vector<const HeroCity*> other_forts;  // the garrison cities of the realm's other fortresses
+        for (const HeroFortress& other : ctx.req->fortresses) {
+            if (other.id == fortress.id) continue;
+            auto held = ctx.city_by_id.find(other.core_id);
+            if (held == ctx.city_by_id.end() || p.realm_uid.empty()) continue;
+            if (realm_uid_of(by_city, realms, held->second->uid) == p.realm_uid) other_forts.push_back(held->second);
+        }
+        const bool elsewhere = !other_forts.empty() && past.random() < 0.5;
+        if (elsewhere) {
+            const HeroCity* before = other_forts[static_cast<std::size_t>(past.below(other_forts.size()))];
+            p.served_at = "the fortress above " + hero_short_name(before->name);
+            p.served_as = "second";
+        } else {
+            const bool sergeant = past.random() < 0.5;
+            p.served_at = "the garrison of " + hero_short_name(city.name);
+            p.served_as = sergeant ? "sergeant" : "soldier";
+        }
+        if (auto sworn = by_city.find(city.uid); sworn != by_city.end() && realms[sworn->second].sovereign_uid != p.uid)
+            p.liege_uid = realms[sworn->second].sovereign_uid;
         p.features = {"role:castellan", "order:member", "warden:post"};
         if (pressed) p.features.insert("fortress:pressed");
         const double value = w.castellan_base + (pressed ? w.castellan_pressed_bonus : 0.0) +
@@ -1853,6 +1882,12 @@ std::vector<HeroLogEntry> person_log(const Ctx& ctx, const Hero& person) {
         } else if (deed.event_kind == "fortress") {
             entries.push_back(log_entry(deed, "Commands " + person.site_name + ", on the road to " +
                                                   home_name + "."));
+        } else if (person.role == "castellan" && deed.event_kind == "war") {
+            // Heroes version 3: a war their city fought in their lifetime.
+            const bool vowel = !deed.kind.empty() && std::string("aeiou").find(deed.kind[0]) != std::string::npos;
+            entries.push_back(log_entry(deed, "Fought for " + home_name + " in " + (vowel ? "an " : "a ") + deed.kind +
+                                                  " war, which " + home_name +
+                                                  (deed.role == "credited" ? " won." : " lost.")));
         } else if (deed.event_kind == "port") {
             entries.push_back(log_entry(deed, "Runs " + person.site_name + "; every hull bound for " +
                                                   home_name + " pays its due."));

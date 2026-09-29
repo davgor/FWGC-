@@ -538,6 +538,61 @@ TEST(a_countryside_person_is_keyed_on_the_terrain_node_in_all_four_places) {
     check::is_true(found > 0, "the countryside well produced someone to key");
 }
 
+// A castellan has a past of their own (heroes version 3): the wars their city fought in their lifetime,
+// how long they have held the post, where they served before it and as what, and the realm's sovereign
+// they are sworn to. The fortress deed stays first: the roll and the ledger read it.
+TEST(a_castellan_has_a_past_of_their_own) {
+    // The bench, with a war its capital fought in this age, a second fortress in its realm, and one at
+    // Corry, which is in no realm: the castellans of the realm may have fought the war, or served at
+    // the realm's other fortress before their own, never at one outside it.
+    Bench bench;
+    bench.request.cities[0].war_history.push_back(war_row("war-2", bench.request.final_age, "victor", "international", "city-3"));
+    bench.request.fortresses.push_back({"fortress-3", "c2", 32, 5, 4, 5.0});
+    bench.request.fortresses.push_back({"fortress-4", "c3", 33, 5, 2, 5.0});
+    int castellans = 0, sworn = 0, elsewhere = 0, at_home = 0, warred = 0;
+    for (const HeroesBlock& block : band(bench)) {
+        std::map<std::string, const HeroRealm*> realm_of;
+        for (const HeroRealm& realm : block.realms) realm_of[realm.uid] = &realm;
+        for (const Hero& person : block.people) {
+            if (person.role != "castellan") continue;
+            ++castellans;
+            check::equal(person.deeds.front().event_kind, std::string("fortress"), "the fortress deed first: " + person.uid);
+            check::is_true(person.tenure_years >= 3 && person.tenure_years <= 28,
+                           "years held, from three to twenty-eight: " + std::to_string(person.tenure_years));
+            if (person.served_as == "second") {
+                ++elsewhere;
+                check::is_true(person.served_at.rfind("the fortress above ", 0) == 0, "second at another fortress: " + person.served_at);
+                check::is_true(person.served_at.find("Corry") == std::string::npos, "never at a fortress outside their realm: " + person.served_at);
+            } else {
+                ++at_home;
+                check::is_true(person.served_as == "soldier" || person.served_as == "sergeant", "in the ranks: " + person.served_as);
+                check::is_true(person.served_at.rfind("the garrison of ", 0) == 0, "in their own city's garrison: " + person.served_at);
+            }
+            const auto realm = realm_of.find(person.realm_uid);
+            if (realm != realm_of.end() && !realm->second->sovereign_uid.empty() && realm->second->sovereign_uid != person.uid) {
+                check::equal(person.liege_uid, realm->second->sovereign_uid, "sworn to the realm's sovereign: " + person.uid);
+                ++sworn;
+            } else {
+                check::equal(person.liege_uid, std::string(), "no sovereign, no liege: " + person.uid);
+            }
+            std::size_t wars = 0, war_lines = 0;
+            for (const HeroDeed& deed : person.deeds)
+                if (deed.event_kind == "war") {
+                    ++wars;
+                    check::is_true(deed.age >= person.born_age, "a war in their lifetime: " + deed.event_id);
+                }
+            for (const HeroLogEntry& entry : person.log)
+                if (entry.event_kind == "war") ++war_lines;
+            check::equal(war_lines, wars, "a line of their log for each war: " + person.uid);
+            if (wars > 0) ++warred;
+        }
+    }
+    check::is_true(castellans > 0 && sworn > 0 && elsewhere > 0 && at_home > 0 && warred > 0,
+                   "the premise: castellans of every kind of past (" + std::to_string(castellans) + " castellans, " +
+                       std::to_string(sworn) + " sworn, " + std::to_string(elsewhere) + " second elsewhere, " +
+                       std::to_string(at_home) + " from their own garrison, " + std::to_string(warred) + " at war)");
+}
+
 TEST(every_quest_hook_carries_a_known_verb_and_a_banded_difficulty) {
     Bench bench;
     std::set<int> difficulties;

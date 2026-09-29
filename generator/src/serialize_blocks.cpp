@@ -2739,6 +2739,12 @@ void hero_person(JsonWriter& json, const Hero& h) {
         text(json, "diaspora_reason", h.diaspora_reason);
         text_or_null(json, "mother_civilization_id", h.mother_civilization_id);
     }
+    if (h.role == "castellan") {  // a castellan's past (heroes version 3)
+        integer(json, "tenure_years", h.tenure_years);
+        text_or_null(json, "served_at", h.served_at);
+        text_or_null(json, "served_as", h.served_as);
+        text_or_null(json, "liege_uid", h.liege_uid);
+    }
     json.end_object();
 }
 
