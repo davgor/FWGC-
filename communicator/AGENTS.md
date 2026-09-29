@@ -78,8 +78,9 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   - A new situation or blank goes in `Lines::situations()`, with a test packet that speaks it.
   - A frightened speaker's lines never say what frightened them, where it is, or whether it is
     still there: the packet does not say. Fear shows in how they speak.
-  - No saying after a farewell: four blind judges of five heard one there as a non sequitur or a
-    rebuke (2026-09-28). The rules check refuses it.
+  - No saying in a line: four blind judges of five heard one after a farewell as a non sequitur or a
+    rebuke, and after small talk both the hero benchmark reached were faulted; the owner, 2026-09-28:
+    "Drop em". The rules check refuses `{saying}` in any row.
   - No question after an apology for how the stranger is (`unwronged_state`): "Whatever for?", two
     turns after a brother's death, took the stranger's state as having no cause (2026-09-28). The
     rules check refuses it.
