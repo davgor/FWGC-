@@ -549,12 +549,15 @@ void asked_again(const std::string& said, const FactPacket& p, std::vector<std::
 // The speaker's own sovereign (contract version 25): "our sovereign" needs a Person fact that says so, or the
 // liege a castellan is sworn to (contract version 19).
 void sovereign(const std::string& said, const FactPacket& p, std::vector<std::string>& out) {
-    for (const Fact& fact : p.facts)
+    for (const Fact& fact : p.facts) {
         if (fact.kind == FactKind::Person) {
             const std::string* theirs = fact.field("sovereign");
             const std::string* tie = fact.field("tie");
             if ((theirs && *theirs == "yes") || (tie && *tie == "liege")) return;
         }
+        // News of their sovereign's deed (contract version 28).
+        if (fact.kind == FactKind::News && field_of(fact, "tie") == "sovereign") return;
+    }
     for (const std::string phrase : {"our sovereign", "my sovereign", "our king", "our queen", "my king", "my queen"})
         if (says(said, phrase)) add(out, kSovereign, phrase);
 }

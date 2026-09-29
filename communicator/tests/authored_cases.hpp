@@ -205,7 +205,8 @@ inline bool follow_row(const std::string& row) {
     while (!situation.empty() && situation.back() == ' ') situation.pop_back();
     return situation == "heard_deed" || situation == "news" || situation.rfind("recalled", 0) == 0 || situation == "greeted_who" ||
            situation == "account" || situation == "account_heard" || situation == "asked_again" || situation == "named" ||
-           situation == "ask_name" || situation == "name_dodged" || situation == "own_deed_won" || situation == "own_deed_lost";
+           situation == "ask_name" || situation == "name_dodged" || situation == "own_deed_won" || situation == "own_deed_lost" ||
+           situation == "news_ours_won" || situation == "news_ours_lost";
 }
 
 // The situation a row is written for, trimmed; empty for a row without one.

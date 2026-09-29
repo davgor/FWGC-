@@ -207,6 +207,14 @@ any | small_talk_since_fought_lost | Not well. You've heard the worst of it.
 any | news | The word is {news}.
 any | news | Some are saying {news}.
 any | news | I heard that {news}.
+# Contract version 28: a deed of someone of theirs (their sovereign, an ally, their kin), as what it is to them,
+# never hearsay ({news}: "our sovereign Krumnord fought the basilisks here and lost").
+any | news_ours_won | Good news, for once: {news}.
+any | news_ours_won | Something to be glad of: {news}.
+any | news_ours_won | It did me good to hear it: {news}.
+any | news_ours_lost | It sits badly with me: {news}.
+any | news_ours_lost | It's hard news, and not easy to say: {news}.
+any | news_ours_lost | I've not stopped turning it over: {news}.
 
 # Small talk that asks for news ("Any news?"), read by meaning. News not told yet is a heard_deed
 # or news line above, said alone. Told lately: what the stranger did, as the talk of it, never
@@ -386,6 +394,13 @@ any | them_foes | {foes}, and I don't forget it.
 any | them_foes | {foes}; there's no love lost between us, and I'll not pretend otherwise.
 any | them_foes_none | None I'd name; the {danger} are enemy enough.
 any | them_foes_none | No rival I'd name to you, and I'd sooner keep it that way.
+# Contract version 26: their fights lately, asked of them: their own newest deed ({own_deed}, C++'s words), or that
+# they have not had to fight.
+any | them_fought | It came to a fight: {own_deed}.
+any | them_fought | I'll tell it plain: {own_deed}.
+any | them_fought | Since you ask: {own_deed}.
+any | them_fought_none | Not lately, no; I've not had to draw steel.
+any | them_fought_none | No, not of late; I've had no fight of my own.
 # How things have been since, with the nest still about; and answers about themself that do not say the
 # aim again, said once the stranger has heard it (round three, 2026-09-28).
 any | small_talk_since_work | It's been quieter since, though the {danger} are still about; I'll take quieter.

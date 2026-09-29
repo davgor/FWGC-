@@ -409,18 +409,22 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         {packets::offended_after(""), {"offended"}},
         {packets::about_them(),
          {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
-          "them_secret", "them_home", "them_foes"}},
+          "them_secret", "them_home", "them_foes", "them_fought_none"}},
+        // Their fights lately (contract version 26): their own deed, when it rides.
+        {packets::about_them_after_a_fight(),
+         {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
+          "them_secret", "them_home", "them_foes", "them_fought"}},
         {packets::about_them_without_rivals(),
          {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
-          "them_secret", "them_home", "them_foes_none"}},
+          "them_secret", "them_home", "them_foes_none", "them_fought_none"}},
         // A castellan's past (contract version 19): how long, and where they served, last.
         {packets::about_a_castellan_with_a_past(),
          {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
-          "them_secret", "them_home", "them_foes", "them_long_known", "them_past_served"}},
+          "them_secret", "them_home", "them_foes", "them_fought_none", "them_long_known", "them_past_served"}},
         // Where they served is a past of its own, with no deed or city lost beside it.
         {packets::about_a_castellan_second_elsewhere(),
          {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
-          "them_secret", "them_home", "them_foes", "them_long_known", "them_past_served"}},
+          "them_secret", "them_home", "them_foes", "them_fought_none", "them_long_known", "them_past_served"}},
         {packets::thanked(), {"thanked"}},
         {packets::thanked("hostile"), {"thanked_cold"}},
         {packets::offended(false), {"offended"}},
@@ -603,6 +607,13 @@ constexpr std::size_t kAboutThemFloor = 28;
 constexpr std::size_t kAboutThemLaterFloor = 20;
 // Six questions of home, written before any description of it was tried: 5 right (0 without it).
 constexpr std::size_t kAboutThemHomeFloor = 5;
+// Their fights lately (contract version 26): eight questions the description was chosen on (2026-09-29), of four
+// wordings that read alike: 8 right. Heard among every subject, "Did you fight in the war?" and "Were you ever at
+// war?" went to it; a second hearing between a fight lately and a war long ago gives them back to their past, and
+// the sets above read as before (28, 20, 5, and 11 of who stands against them). Then six written before any
+// wording was tried: 6 right, on their first run (a first held-out set tends to flatter).
+constexpr std::size_t kFoughtFloor = 8;
+constexpr std::size_t kFoughtHeldFloor = 6;
 // Twelve questions of who stands against them or with them, written before the two were told apart: 7
 // right with them apart (3 before); 11 once who is against them was said more fully.
 constexpr std::size_t kFoesFloor = 11;
@@ -812,6 +823,41 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
     std::cout << "  about themself, home: " << home_right << " of 6 heard right" << home_missed << "\n";
     check::is_true(home_right >= kAboutThemHomeFloor, std::to_string(home_right) + " of 6" + home_missed);
     check::equal(subject_of[homely.speak(p, "Where's home for you?", {}, &meaning)], std::string("them_home"), "the held-out session's");
+    // Their fights lately (contract version 26): "Have you had to fight since I left?" had drawn his old rank, and "How
+    // did it go for you?" his creed (the golden benchmark's held-out eighth session, 2026-09-29). Asked with a fight of
+    // theirs since, the fight; with none, that there was none, never who they are.
+    const std::string fought_row = "any | them_fought | It came to a fight: {own_deed}.\n";
+    const std::string no_fight_row = "any | them_fought_none | Not lately, no.\n";
+    const FactPacket after_fight = packets::about_them_after_a_fight();
+    const Lines fighting = Lines::parse(every + home_row + fought_row + no_fight_row, "fighting");
+    subject_of[Lines::parse(fought_row, "one").replies(after_fight).front()] = "them_fought";
+    subject_of[Lines::parse(no_fight_row, "one").replies(p).front()] = "them_fought_none";
+    const auto fights_heard = [&](const std::vector<std::string>& questions, const std::string& set) {
+        std::size_t right = 0;
+        std::string missed;
+        for (const std::string& question : questions) {
+            const auto got = subject_of.find(fighting.speak(after_fight, question, {}, &meaning));
+            const std::string heard = got == subject_of.end() ? "?" : got->second;
+            if (heard == "them_fought")
+                ++right;
+            else
+                missed += "\n  " + question + ": " + heard + ", not them_fought";
+        }
+        std::cout << "  about themself, fights lately (" << set << "): " << right << " of " << questions.size() << " heard right" << missed << "\n";
+        return right;
+    };
+    const std::size_t fought_dev = fights_heard({"Have you had to fight since I left?", "Any fighting lately?", "Have the beasts come back since?",
+                                                 "Did anything attack while I was away?", "How did the last fight go?",
+                                                 "Have you seen any action lately?", "Were you attacked again?",
+                                                 "Did you have to hold the walls this week?"},
+                                                "the eight chosen on");
+    check::is_true(fought_dev >= kFoughtFloor, std::to_string(fought_dev) + " of 8");
+    const std::size_t fought_held = fights_heard({"Has there been trouble at the walls?", "Did they come at you again?",
+                                                  "Have you been in any fights lately?", "How did you fare in the last attack?",
+                                                  "Did you lose anyone in the fighting?", "Has the fortress been tested since?"},
+                                                 "six held out");
+    check::is_true(fought_held >= kFoughtHeldFloor, std::to_string(fought_held) + " of 6");
+    check::equal(fighting.speak(p, "Have you had to fight since I left?", {}, &meaning), std::string("Not lately, no."), "no fight since: none");
     // What the stranger heard from them lately makes a line no fuller: how they stand, said once, is
     // not said again to what they do off duty.
     const Lines days = Lines::parse("any | them_here | I {standing}.\nany | them_here | Not much else; the post takes all of me.\n", "days");

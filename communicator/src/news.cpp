@@ -133,22 +133,30 @@ std::string news_words(const Fact& news, const std::string& self, std::string_vi
         return person + ", who passed for " + a(was) + ", is " + a(is);
     }
     if (event == "hero" && !person.empty()) {
-        // A hero's deed (contract version 26), as word of it goes round: who did what, against what.
+        // A hero's deed (contract version 26), as word of it goes round: who did what, against what; and who they
+        // are to the speaker, when they are someone of theirs (contract version 28). A sovereign's lost fight in
+        // the speaker's own town, told by name alone, was a stranger's (the golden benchmark's round 30).
+        const std::string tie = said(news, "tie");
+        const std::string who = tie == "sovereign" ? "our sovereign " + person
+                                : tie == "ally"    ? person + ", who stands with me,"
+                                : tie == "kin"     ? person + ", my own kin,"
+                                : tie == "rival"   ? person + ", no friend of mine,"
+                                                   : person;
         const std::string verb = said(news, "verb");
         const std::string against = said(news, "against");
         const bool won = state == "won";
         const bool there = !here.empty() && place == here;
         if (verb == "defended" && !place.empty()) {
-            if (won) return person + " held " + (there ? "the line here" : named(place, here)) + (against.empty() ? "" : " against " + against);
+            if (won) return who + " held " + (there ? "the line here" : named(place, here)) + (against.empty() ? "" : " against " + against);
             // A fight lost where they still stand: never driven from it.
-            if (against.empty()) return person + " lost a fight " + (there ? std::string("here") : "at " + named(place, here));
-            return person + " fought " + against + " " + (there ? std::string("here") : "at " + named(place, here)) + " and lost";
+            if (against.empty()) return who + " lost a fight " + (there ? std::string("here") : "at " + named(place, here));
+            return who + " fought " + against + " " + (there ? std::string("here") : "at " + named(place, here)) + " and lost";
         }
         if (verb == "hunted" && !against.empty())
-            return won ? person + " hunted down " + against : person + " went after " + against + " and was beaten back";
+            return won ? who + " hunted down " + against : who + " went after " + against + " and was beaten back";
         if (verb == "assaulted" && !place.empty()) {
-            if (won) return person + " took " + named(place, here) + (against.empty() ? "" : " from " + against);
-            return person + " was thrown back from " + named(place, here) + (against.empty() ? "" : " by " + against);
+            if (won) return who + " took " + named(place, here) + (against.empty() ? "" : " from " + against);
+            return who + " was thrown back from " + named(place, here) + (against.empty() ? "" : " by " + against);
         }
         return {};
     }
@@ -245,6 +253,10 @@ bool brought_up(const Fact& news, const orchestrator::FactPacket& packet) {
     const bool about = packet.outcome == orchestrator::Outcome::Answered &&
                        (packet.answering == ActKind::AskAboutPlace || packet.answering == ActKind::AskAboutPerson);
     const bool own = !own_deed_words(news, text::spoken(packet.persona.name), text::spoken(packet.persona.place)).empty();
+    // Another hero's deed, of someone who is nothing to the speaker, is not brought up unasked (contract version
+    // 28): asked for news, it is told. Brought up, strangers' fights came as bulletins of names no one knew, and
+    // one was taken for the speaker's own side of a fight (the golden benchmark's round 30).
+    if (!own && !about && said(news, "event") == "hero" && said(news, "tie").empty()) return false;
     if (about || own) age = std::max(0, age - 1);
     if (age <= 1) return true;
     if (age >= 4) return false;

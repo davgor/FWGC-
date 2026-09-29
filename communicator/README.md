@@ -534,12 +534,21 @@ hero's own side of a fight (2026-09-29).
   the glacier dragons", "... fought ... at ... and lost" (a fight lost where they still stand, never driven
   from it), "hunted down ...", "went after ... and was beaten back", "took the ruins of Linbrig from ...",
   "was thrown back from ... by ...", dated as news is, and "held the line here" where the speaker stands.
-  Passed on as other news is.
+- **Whose deed it is to them** (contract version 28, the News fact's `tie`): someone of theirs is said as
+  what they are to the speaker ("our sovereign Krumnord", "Borleg, who stands with me,", "Borleg, my own
+  kin,", "Borleg, no friend of mine,"), and their sovereign's, an ally's or kin's deed in lines of their own
+  (`news_ours_won`, `news_ours_lost`: "It sits badly with me: {news}."), never hearsay; a rival's is news
+  as other news is. A stranger's deed is not brought up unasked (`brought_up`), only told when asked for
+  news. A fight the speaker was in is never news to them (the director has them know it by being there).
+  Passed on as it came, round 30's judges heard strangers' fights as bulletins of names no one knew, and a
+  sovereign's lost fight in the speaker's own town as hearsay he would not vouch for.
 - **Their own is their side of it** (`own_deed_words`), in the first person, never as news: "we held the
   fortress against the glacier dragons a few days back"; "we" for a place held or assaulted, "I" for a
   hunt. The director puts a hero's newest deed in their greetings, small talk and answers about
-  themself, and the written lines say it after a greeting to someone met before or small talk, before any
-  news of others (`own_deed_won`, `own_deed_lost`: "It came to steel: {own_deed}."), brought up by how
+  themself, and the written lines say it after small talk, before any news of others, and after a greeting
+  to someone met before once what the stranger told them has been said back (at "Remember me?", round 30's
+  judges missed the arm and the brother where the fortress held had taken their place)
+  (`own_deed_won`, `own_deed_lost`: "It came to steel: {own_deed}."), brought up by how
   fresh it is, a band fresher than news of others (what they did stays with them longer), not from a
   cold or frightened speaker, and not while said in this conversation: the director carries it only while
   it is newer than the last meeting (contract version 27), and a castellan who holds their fortress each
@@ -550,11 +559,14 @@ hero's own side of a fight (2026-09-29).
   `small_talk_since_fought_lost`: "It's been hard since that fight."), never the quiet the since-work
   lines speak of. A castellan who had fought and lost at their fortress six days before had answered
   "How have things been since?" with a night's sleep untroubled (2026-09-29).
+- **Asked of their fights lately** ("Have you had to fight since I left?"), heard by meaning among what
+  they are asked of themself: the fight (`them_fought`, "It came to a fight: {own_deed}."), or that they
+  have had none (`them_fought_none`), never who they are or their old rank in its place.
 - **The voice** is told it as "What you did yourself: ..."; the truth check lets "we held the", "we
   fought the", "we lost a fight", "I hunted down", "we were thrown back" and the like be said only with a
   News fact of the speaker's own deed, reads its dated words as the deed's date and not a time counted
   out (read as counted, "a few days back" had kept every fight of that band unsaid), and backs "as I
-  said" with it told lately.
+  said" with it told lately. "Our sovereign" is backed by news of theirs as by a Person fact.
 
 ## What a speaker says of themself
 

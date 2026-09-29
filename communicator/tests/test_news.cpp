@@ -500,8 +500,11 @@ TEST(a_heros_deed_is_news_to_others_and_their_own_to_tell) {
         }
         return count;
     };
-    const int heard_days = bringing_up(packets::small_talk_with_a_heros_deed(), "days");
-    check::is_true(heard_days > 70 && heard_days < 130, "another's, a few days back: about one in two, " + std::to_string(heard_days) + " of 200");
+    const int heard_days = bringing_up(packets::small_talk_with_a_heros_deed("ally"), "days");
+    check::is_true(heard_days > 70 && heard_days < 130, "an ally's, a few days back: about one in two, " + std::to_string(heard_days) + " of 200");
+    // A stranger's deed is never brought up unasked (contract version 28), however fresh.
+    check::equal(bringing_up(packets::small_talk_with_a_heros_deed(), "today"), 0, "a stranger's, today: never unasked");
+    check::equal(bringing_up(packets::small_talk_with_a_heros_deed("rival"), "today"), 200, "a rival's, today: every speaker");
     check::equal(bringing_up(packets::greeted_after_own_deed("lost"), "days"), 200, "their own, a few days back: every hero");
     const int own_weeks = bringing_up(packets::greeted_after_own_deed("lost"), "weeks");
     check::is_true(own_weeks > 70 && own_weeks < 130, "their own, some weeks back: about one in two, " + std::to_string(own_weeks) + " of 200");
@@ -509,9 +512,72 @@ TEST(a_heros_deed_is_news_to_others_and_their_own_to_tell) {
     check::equal(lines.speak(aged(packets::greeted_after_own_deed("lost"), "days"), "Hello."),
                  std::string("Good day. It went badly: we fought the glacier dragons at the fortress and lost a few days back."),
                  "a fight a few days back, said");
-    // Heard of by someone else: news, in the third person.
-    check::equal(lines.speak(packets::small_talk_with_a_heros_deed(), "Fine day."),
-                 std::string("Fine weather. The word is Selbren held the line here against the glacier dragons today."), "word of it");
+    // Met again, with words of the stranger's kept, a greeting says those back before any fight of theirs, and
+    // small talk tells the fight: at "Remember me?", the fortress held had taken the place of the arm and the
+    // brother, what earlier rounds' judges had praised most (the golden benchmark's round 30).
+    const Lines back = Lines::parse("any | greeted_again | Good day.\n"
+                                    "any | small_talk | Fine weather.\n"
+                                    "any | own_deed_won | It came to steel: {own_deed}.\n"
+                                    "any | recalled | You told me once: {words}.\n",
+                                    "back");
+    FactPacket kept = packets::greeted_remembering();
+    kept.facts.insert(kept.facts.end() - 1, packets::news_of_a_heros_deed("defended", "won", "there"));
+    const std::string remembered = back.speak(kept, "Remember me?");
+    check::is_true(remembered.rfind("Good day. You told me once: ", 0) == 0 && remembered.find("steel") == std::string::npos,
+                   "the words said back, not the fight: " + remembered);
+    FactPacket then_talk = remembering(kept, {.met = "again", .times = 1, .since = "days", .turn = 2});
+    then_talk.answering = ActKind::SmallTalk;
+    then_talk.outcome = Outcome::Chatted;
+    check::equal(back.speak(then_talk, "How have things been?", {remembered}),
+                 std::string("Fine weather. It came to steel: we held the fortress against the glacier dragons today."), "the fight in small talk");
+    FactPacket nothing_kept = packets::greeted_after_own_deed("won");
+    check::equal(back.speak(nothing_kept, "Remember me?"),
+                 std::string("Good day. It came to steel: we held the fortress against the glacier dragons today."), "nothing kept: the fight");
+    // Heard of by someone else: news, in the third person. A stranger's deed is told only when asked for news;
+    // someone of theirs is brought up as what they are to the speaker (contract version 28), a rival's as news.
+    // Passed on as it came, strangers' fights were bulletins of names no one knew, and a sovereign's lost fight
+    // hearsay the speaker would not vouch for (the golden benchmark's round 30).
+    const Lines hearing = Lines::parse("any | small_talk | Fine weather.\n"
+                                     "any | news | The word is {news}.\n"
+                                     "any | news_ours_won | Good news, for once: {news}.\n"
+                                     "any | news_ours_lost | It sits badly with me: {news}.\n",
+                                     "heard");
+    check::equal(hearing.speak(packets::small_talk_with_a_heros_deed(), "Fine day."), std::string("Fine weather."), "a stranger's: not brought up");
+    const std::vector<std::string> told = hearing.news_asked(packets::small_talk_with_a_heros_deed(), {});
+    check::is_true(told.size() == 1 && told.front() == "The word is Selbren held the line here against the glacier dragons today.",
+                   "a stranger's, asked for news: told: " + (told.empty() ? std::string("none") : told.front()));
+    check::equal(hearing.speak(packets::small_talk_with_a_heros_deed("sovereign"), "Fine day."),
+                 std::string("Fine weather. Good news, for once: our sovereign Selbren held the line here against the glacier dragons today."),
+                 "their sovereign's");
+    check::equal(hearing.speak(packets::small_talk_with_a_heros_deed("ally", "lost"), "Fine day."),
+                 std::string("Fine weather. It sits badly with me: Selbren, who stands with me, fought the glacier dragons here and lost today."),
+                 "an ally's, lost");
+    check::equal(hearing.speak(packets::small_talk_with_a_heros_deed("kin"), "Fine day."),
+                 std::string("Fine weather. Good news, for once: Selbren, my own kin, held the line here against the glacier dragons today."),
+                 "their kin's");
+    check::equal(hearing.speak(packets::small_talk_with_a_heros_deed("rival"), "Fine day."),
+                 std::string("Fine weather. The word is Selbren, no friend of mine, held the line here against the glacier dragons today."),
+                 "a rival's, as news");
+    const std::vector<std::string> told_ours = hearing.news_asked(packets::small_talk_with_a_heros_deed("sovereign"), {});
+    check::is_true(told_ours.size() == 1 && told_ours.front().rfind("Good news, for once: our sovereign Selbren", 0) == 0,
+                   "their sovereign's, asked for news: " + (told_ours.empty() ? std::string("none") : told_ours.front()));
+    // Told lately and asked for again, said again as told, as other news is.
+    const Lines retold = Lines::parse("any | news_ours_won | Good news, for once: {news}.\n"
+                                      "any | news_told | As I said, {news}.\n",
+                                      "retold");
+    const std::vector<std::string> again = retold.news_asked(packets::small_talk_with_a_heros_deed("sovereign"), told_ours);
+    check::is_true(again.size() == 1 && again.front().rfind("As I said, our sovereign Selbren", 0) == 0,
+                   "their sovereign's, told lately: as told: " + (again.empty() ? std::string("none") : again.front()));
+    // "Our sovereign" is backed by news of theirs, as by a Person fact.
+    const auto flags_sovereign = [](const std::string& reply, const FactPacket& p) {
+        for (const std::string& problem : communicator::untrue(reply, p, {}))
+            if (problem.rfind("a sovereign of the speaker's own", 0) == 0) return true;
+        return false;
+    };
+    check::is_true(!flags_sovereign("Good news, for once: our sovereign Selbren held the line here.", packets::small_talk_with_a_heros_deed("sovereign")),
+                   "our sovereign, with news of them");
+    check::is_true(flags_sovereign("Good news, for once: our sovereign Selbren held the line here.", packets::small_talk_with_a_heros_deed("ally")),
+                   "the premise: our sovereign, with an ally's news");
     // The voice is shown their own deed as theirs, and another's as news.
     const auto system_of = [](const FactPacket& p) { return communicator::Voice::messages(p, "Hello.").front().content; };
     const std::string own = system_of(packets::greeted_after_own_deed("won"));

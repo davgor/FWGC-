@@ -608,11 +608,14 @@ inline FactPacket greeted_after_own_deed(const std::string& state) {
                   {.met = "again", .times = 1, .since = "days"});
 }
 
-// Small talk from the gate captain, who heard of Selbren's deed.
-inline FactPacket small_talk_with_a_heros_deed() {
+// Small talk from the gate captain, who heard of Selbren's deed; `tie` how Selbren stands to them (contract
+// version 28): "sovereign", "ally", "kin", "rival", or nothing.
+inline FactPacket small_talk_with_a_heros_deed(const std::string& tie = "", const std::string& state = "won") {
     FactPacket p = packet(gate_captain(), ActKind::SmallTalk, Outcome::Chatted,
                           {{FactKind::Chat, gate_captain().uid, {{"weather", "clear"}, {"wind", "still"}, {"season", "summer"}, {"time", "morning"}}}});
-    p.facts.insert(p.facts.end() - 1, news_of_a_heros_deed("defended", "won", "word"));  // the Memory fact stays last
+    Fact deed = news_of_a_heros_deed("defended", state, "word");
+    if (!tie.empty()) deed.fields.emplace_back("tie", tie);
+    p.facts.insert(p.facts.end() - 1, std::move(deed));  // the Memory fact stays last
     return p;
 }
 
@@ -694,6 +697,17 @@ inline FactPacket about_them() {
                     {{"name", "Ulknord"}, {"role", "warlord"}, {"status", "about"}, {"tie", "rival"}}},
                    {FactKind::Danger, "nest-frost-owls-212",
                     {{"creature", "Frost owls"}, {"danger", "2"}, {"family", "fantastic"}, {"range", "close"}}}});
+}
+
+// Asked about themself after a fight of their own since the stranger was last here (contract version 26): the
+// deed rides, theirs, a few days back.
+inline FactPacket about_them_after_a_fight(const std::string& state = "lost") {
+    FactPacket p = about_them();
+    Fact deed = news_of_a_heros_deed("defended", state, "there");
+    for (auto& [key, value] : deed.fields)
+        if (key == "since") value = "days";
+    p.facts.insert(p.facts.end() - 1, std::move(deed));
+    return p;
 }
 
 // Asked about themself, with no rival on record: an ally, and nobody against them.
@@ -872,6 +886,8 @@ inline std::vector<FactPacket> conversation() {
             greeted_after_own_deed("won"),
             greeted_after_own_deed("lost"),
             small_talk_with_a_heros_deed(),
+            small_talk_with_a_heros_deed("sovereign"),
+            small_talk_with_a_heros_deed("ally", "lost"),
             about_a_famous_hero(),
             about_the_sovereign(),
             introduced(),
@@ -886,6 +902,8 @@ inline std::vector<FactPacket> conversation() {
             about_them_far_from_home(),
             about_them_unplaced(),
             about_them_without_rivals(),
+            about_them_after_a_fight(),
+            about_them_after_a_fight("won"),
             about_them_without_a_past(),
             about_a_castellan_with_a_past(),
             about_a_castellan_second_elsewhere(),
