@@ -35,6 +35,12 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
   here makes one up or takes one from elsewhere, and a name spreads as it was given, a lie as a
   lie; the owner ruled it so (README "The player's name"). A new way a name travels comes from a
   recorded input, with a test that replays it.
+- **Heroes act only at the game's call** (contract version 26, `direct_heroes`, README "Heroes' deeds"):
+  the director decides what a hero does and how it goes, and the world records it through the
+  generator's logged verb, never by hand. How it goes is a hash of the hero's seed, the day and the
+  deed, never a roll, so replay acts the same. A new action, a new rule of chance, or anything that
+  follows from an outcome (how a hero takes it) comes with a test that replays it, and a number the
+  chance is held to binds on some deed or is not kept.
 - **Disclose only what the speaker would say:**
   - the face the rules bring out, never a hidden face before then: a mask until the player
     exposes it with cause, a beast's calm face but on the full moon's days, a fractured heart's
