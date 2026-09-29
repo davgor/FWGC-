@@ -482,6 +482,15 @@ without something new to say: a self beyond the post (every benchmark hero is a 
 record holds only the post), an account of the work they shared and news between visits, and threads
 kept (what the stranger told him used, his own words and questions remembered, questions of his own).
 
+Then 4c219e9 (the stranger's words said back as what they were; their past and who is against them
+described more fully; no past on record; luck to both; no saying of strangers to the stranger), six
+fresh judges: sessions 1-5 15, 15, 12, 17 and 13 (72 of 106; 68 before), session 6 13 of 21 (15
+before), every score 3. The changed turns were mostly judged OK ("the high point" for a fall asked
+after; "luck to us both" for work shared), others faulted instead: 85 of 127 over the six against 83,
+within what the judges' own noise moves. What they fault now, beyond the three changes above: a
+complaint after a loss met as an insult ("Careful; ..."), since the act is an insult to the director;
+"There's little to tell" from a hero; a proverb after small talk (both times the only one reached).
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).
