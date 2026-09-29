@@ -1217,8 +1217,7 @@ void run_countryside_well(Ctx& ctx, const std::map<std::string, std::size_t>& by
         p.deeds.push_back(deed);
         p.claim = {"hold", key, site_name};
         // A past of their own (heroes version 3; the owner, 2026-09-28: "Yup lets add one in"): a
-        // castellan's record had held only the post, so "How long have you held it?" and "What were
-        // you before this?" had nothing to answer from. The wars their city fought in their lifetime,
+        // castellan's record had held only the post. The wars their city fought in their lifetime,
         // which they fought in; how long they have held the post, and where they served before it,
         // from a stream of their own; and the realm's sovereign they are sworn to. The fortress deed
         // stays first, since the roll and the ledger read it.
