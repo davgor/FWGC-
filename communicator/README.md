@@ -666,8 +666,8 @@ facts, what the speaker remembers of the stranger from before that bears on the 
   may end with what the stranger once told the speaker of themselves: a `recalled` line after it, a
   sentence of its own ("You told me once: your sister keeps the mill at the ford; I've not
   forgotten."), from the first of the speaker's banks that has one, as news is. `{words}` is the
-  kept words turned to the stranger in C++ (`text::said_back`): I, me, my, we, us and our in every
-  form become yours ("I am" agreeing as "you are", "I was" as "you were"), and what was under way or
+  kept words turned to the stranger in C++ (`text::said_back`): I, me and my in every form become
+  yours ("I am" agreeing as "you are", "I was" as "you were"), and what was under way or
   to come is shifted back, as words told days before are ("I'm on my way" as "you were on your way",
   "I'll be back" as "you'd be back"; a judge heard "you're on your way", three days on, as still
   so), while who or what they are stays as it is ("you're Aldric", "you are a smith"); the first
@@ -675,8 +675,11 @@ facts, what the speaker remembers of the stranger from before that bears on the 
   them the same way, to "they" (`text::of_them`). Of words that run to more than one sentence, the
   first of three words or more, with the next when it leans on it ("My brother came with me. He
   didn't make it back." as "your brother came with you; he didn't make it back": alone, the first had
-  kept the least of it); none past fourteen words; and none that speak to someone ("I owe you
-  my life"), which said back would turn about. Not while said lately (`recent`), not from a cold or
+  kept the least of it); none past fourteen words; none that speak to someone ("I owe you
+  my life"), which said back would turn about; and none in words of "we" ("We lost two good people
+  out there"), since whether the speaker was one of them the words do not say: said back as "you
+  lost two good people", two judges heard a loss the stranger had shared handed back to them alone.
+  The voice is still shown them, turned to "they". Not while said lately (`recent`), not from a cold or
   frightened speaker, whose own lines are all they say, and not after a greeting that thanks the
   stranger for easing the speaker, where "what you told me" is heard as the calming words, nor after
   one for work of theirs the stranger holds, failed or gave up, where it is a reproach ("You left my
@@ -941,7 +944,8 @@ dangerous for the rain" of a nest of four or more.
 - **What a speaker recalls** (contract version 12, `tests/test_authored.cpp`): the stranger's words
   said back after a greeting, turned to them, what was under way shifted back and who they are not,
   news first, not while said lately, not from a cold speaker nor after an eased greeting or one for
-  work held, failed or given up, or the thanks for work finished, not words that speak to someone or run too long, the first sentence
+  work held, failed or given up, or the thanks for work finished, not words that speak to someone,
+  words of "we", or words that run too long, the first sentence
   worth saying of two; an answer told in an earlier conversation says so first, dated, and not one
   told today; the voice is shown each recall, and told to say what was told before.
 - **The summarizer** (`tests/test_summarizer.cpp`): what may be quoted is every run of the

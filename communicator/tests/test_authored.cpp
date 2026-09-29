@@ -1491,7 +1491,10 @@ TEST(words_are_said_back_to_the_one_who_said_them) {
     using communicator::text::said_back;
     check::equal(said_back("My sister keeps the mill at the ford."), std::string("your sister keeps the mill at the ford"), "my");
     check::equal(said_back("I am a smith, and I was a soldier!"), std::string("you are a smith, and you were a soldier"), "I am, I was");
-    check::equal(said_back("We lost our farm to the flood."), std::string("you lost your farm to the flood"), "we, our");
+    // Words of "we" are not said back: whether the speaker was one of them they do not say ("We lost two
+    // good people out there" came back as "you lost", a loss the speaker had called their own).
+    check::equal(said_back("We lost our farm to the flood."), std::string(), "we, our: not said back");
+    check::equal(said_back("I lost my farm to the flood."), std::string("you lost your farm to the flood"), "the control: I, my");
     check::equal(said_back("I'm headed to Dunmoor, to find my brother."), std::string("you were headed to Dunmoor, to find your brother"),
                  "I'm, and a name keeps its capital");
     check::equal(said_back("Dunmoor is where I was born."), std::string("Dunmoor is where you were born"), "a name opening them");
@@ -1501,7 +1504,8 @@ TEST(words_are_said_back_to_the_one_who_said_them) {
     check::equal(said_back("I'm on my way to see my sister."), std::string("you were on your way to see your sister"), "under way");
     check::equal(said_back("I am looking for my brother."), std::string("you were looking for your brother"), "I am looking");
     check::equal(said_back("I'll be back before the frost."), std::string("you'd be back before the frost"), "I'll");
-    check::equal(said_back("We will rebuild the mill."), std::string("you would rebuild the mill"), "we will");
+    check::equal(said_back("I will rebuild the mill."), std::string("you would rebuild the mill"), "I will");
+    check::equal(said_back("Nobody helped us."), std::string(), "us: not said back");
     check::equal(said_back("I'm Aldric, from Harrowmere."), std::string("you're Aldric, from Harrowmere"), "who they are, as it is");
     check::equal(said_back("I am a smith."), std::string("you are a smith"), "what they are, as it is");
     check::equal(of_them("My sister keeps the mill."), std::string("their sister keeps the mill"), "told of them");

@@ -159,13 +159,11 @@ bool under_way(const std::string& next) {
 // ("they"), what was under way or to come shifted back, as words told days before are ("I'm on my
 // way" as "you were on your way", "I'll be back" as "you'd be back"; a judge heard "you're on your
 // way" three days on as still true, 2026-09-27). Empty, turned to the stranger, when they speak to
-// someone.
+// someone or of "we".
 std::string turned(const std::string& words, bool to_them) {
     static const std::map<std::string, std::string> to_you = {
-        {"i", "you"},       {"me", "you"},      {"my", "your"},       {"mine", "yours"},    {"myself", "yourself"},
-        {"we", "you"},      {"us", "you"},      {"our", "your"},      {"ours", "yours"},    {"ourselves", "yourselves"},
-        {"i'm", "you're"},  {"i've", "you've"}, {"i'll", "you'd"},    {"i'd", "you'd"},     {"we're", "you're"},
-        {"we've", "you've"}, {"we'll", "you'd"}, {"we'd", "you'd"}};
+        {"i", "you"},      {"me", "you"},      {"my", "your"},  {"mine", "yours"}, {"myself", "yourself"},
+        {"i'm", "you're"}, {"i've", "you've"}, {"i'll", "you'd"}, {"i'd", "you'd"}};
     static const std::map<std::string, std::string> about_them = {
         {"i", "they"},        {"me", "them"},       {"my", "their"},      {"mine", "theirs"},   {"myself", "themselves"},
         {"we", "they"},       {"us", "them"},       {"our", "their"},     {"ours", "theirs"},   {"ourselves", "themselves"},
@@ -173,6 +171,10 @@ std::string turned(const std::string& words, bool to_them) {
         {"we've", "they've"}, {"we'll", "they'd"},  {"we'd", "they'd"}};
     static const std::set<std::string> addressing = {"you",     "your", "yours", "yourself", "yourselves", "you're", "you've",
                                                      "you'll",  "you'd", "ye",    "thee",     "thou",       "thy",    "thine"};
+    // Nor words of "we": whether the speaker was one of them the words do not say, and "We lost two good
+    // people out there", said back as "you lost two good people", took a loss the speaker had called
+    // their own and handed it back (two judges of one hero session, 2026-09-28).
+    static const std::set<std::string> plural = {"we", "us", "our", "ours", "ourselves", "we're", "we've", "we'll", "we'd"};
     const std::map<std::string, std::string>& turns = to_them ? about_them : to_you;
     const std::string were = to_them ? "they were" : "you were";
     std::string text = one_line(plain_punctuation(words));
@@ -202,7 +204,7 @@ std::string turned(const std::string& words, bool to_them) {
         const std::string& lower = said[k];
         const std::string before = k > 0 ? said[k - 1] : std::string();
         const bool subject = before == "i" || before == "we";
-        if (!to_them && addressing.count(lower)) refused = true;
+        if (!to_them && (addressing.count(lower) || plural.count(lower))) refused = true;
         if ((lower == "i'm" || lower == "we're") && under_way(word_after(k))) {
             piece = were;
         } else if (const auto turn = turns.find(lower); turn != turns.end()) {
