@@ -220,6 +220,16 @@ std::vector<std::string> memory_lines(const FactPacket& packet) {
     // happened, not a memory: "lately" would claim an easing before it.
     if (m.eased && packet.outcome != Outcome::Calmed)
         out.push_back("The stranger talked you down from your fear lately; you are steadier for it.");
+    // The name they know the stranger by (contract version 24), and how; said by the outcome itself when
+    // it is this reply's news.
+    const bool naming = packet.outcome == Outcome::Introduced || packet.outcome == Outcome::Known || packet.outcome == Outcome::Renamed;
+    if (!m.called.empty() && !naming) {
+        const std::string how = m.called_how == "word"        ? " (you heard it with word of what they did)"
+                                : m.called_how == "overheard" ? " (you overheard them give it)"
+                                                              : "";
+        out.push_back("You know the stranger as " + text::spoken(m.called) + how + ".");
+        if (!m.called_other.empty()) out.push_back("You have also heard them called " + text::spoken(m.called_other) + ".");
+    }
     // What they remember of the stranger from before that bears on this (contract version 12): the
     // stranger's own words as told of them, and never when for what they last spoke of or asked, which
     // the truth check holds to when they last met.
@@ -362,6 +372,18 @@ std::string what_happened(const FactPacket& packet) {
         case Outcome::Heard:
             return "The stranger complained about you or your work, and you take it as fair: answer the complaint, without "
                    "taking offence.";
+        // 24: the stranger's name.
+        case Outcome::Introduced: {
+            const std::string name = text::spoken(remembered(packet).called);
+            if (name.empty()) return "The stranger told you a name. Take it, as you take them.";
+            return "The stranger told you their name: " + name + ". Take it, as you take them.";
+        }
+        case Outcome::Known:
+            return "The stranger told you their name, " + text::spoken(remembered(packet).called) +
+                   ", and you knew them by it already. Say so.";
+        case Outcome::Renamed:
+            return "The stranger told you their name is " + text::spoken(remembered(packet).called) + ", but you knew them as " +
+                   text::spoken(remembered(packet).called_other) + ". Say so.";
     }
     return {};
 }

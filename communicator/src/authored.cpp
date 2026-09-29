@@ -17,6 +17,7 @@
 #include "communicator/truth.hpp"
 #include "communicator/voice.hpp"
 #include "memory.hpp"
+#include "mention.hpp"
 #include "news.hpp"
 #include "them.hpp"
 #include "reply_shape.hpp"
@@ -346,6 +347,13 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     set("post", text::spaced(text::spoken(p.persona.role)));
     set("place", text::spoken(p.persona.place));
     set("saying", saying);
+    // The name the speaker knows the stranger by, and another they had (contract version 24).
+    if (situation == "introduced" || situation == "introduced_cold" || situation == "introduced_afraid" || situation == "known" ||
+        situation == "renamed" || situation == "named") {
+        const Remembered m = remembered(p);
+        set("player", text::spoken(m.called));
+        if (situation == "renamed") set("player_other", text::spoken(m.called_other));
+    }
 
     // What the speaker remembers, for a greeting: when they last met, what was asked then.
     const auto starts = [&](std::string_view prefix) { return situation.rfind(prefix, 0) == 0; };
@@ -812,6 +820,35 @@ std::string without_passing(std::string text, const std::vector<std::string>& pa
     return text;
 }
 
+// The stranger's name said to them in a reply's first sentence (contract version 24): "Back again,
+// Aldric.", "Farewell, Aldric, and keep out of trouble." At the first sentence's end when it is six words
+// or fewer with no comma; or after its first few words when "and" or "but" follows a comma there. Not
+// where the reply says the name already, nor after a word of address ("Welcome back, friend."). Where
+// neither fits, a greeting (`leads`) opens with the name, a sentence of its own ("Maren. Good to see you,
+// you've been worth my time."): a reunion without it was "a line any quest-giver could say" (the held-out
+// name session's judge, 2026-09-29). Otherwise the reply as it was.
+std::string with_name(const std::string& reply, const std::string& name, bool leads) {
+    if (name.empty() || reply.find(name) != std::string::npos) return reply;
+    const std::string led = leads ? name + ". " + reply : reply;
+    const std::size_t end = reply.find_first_of(".!?");
+    if (end == std::string::npos || end == 0) return led;
+    const std::string first = reply.substr(0, end);
+    const auto words_in = [](const std::string& text) {
+        std::size_t n = text.empty() ? 0 : 1;
+        for (const char c : text)
+            if (c == ' ') ++n;
+        return n;
+    };
+    const std::size_t comma = first.find(',');
+    if (comma == std::string::npos) {
+        if (first.find_first_of(";:") != std::string::npos || words_in(first) > 6) return led;
+        return first + ", " + name + reply.substr(end);
+    }
+    const std::string after = first.substr(comma + 1);
+    if (words_in(first.substr(0, comma)) > 4 || (after.rfind(" and ", 0) != 0 && after.rfind(" but ", 0) != 0)) return led;
+    return reply.substr(0, comma) + ", " + name + reply.substr(comma);
+}
+
 bool addresses_a_stranger(const std::string& line) {
     static const std::string word = "stranger";
     std::string lower = line;
@@ -1016,6 +1053,18 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"recalled_grief", {"words"}},
         {"recalled_hardship", {"words"}},
         {"recalled_doubt", {"words"}},
+        // Contract version 24: the stranger's name. Told it, the speaker takes it ({player}: the name they
+        // know them by now); told it again, knew it; told another, takes the new one ({player_other}: the
+        // one they had). Said after a greeting at a first meeting: the name heard of them before they met
+        // (`named`, by word of their deed or overheard), or a hero asking it (`ask_name`, a question worth
+        // an answer, kept by contract version 21 if it gets none).
+        {"introduced", {"player"}},
+        {"introduced_cold", {"player"}},
+        {"introduced_afraid", {"player"}},
+        {"known", {"player"}},
+        {"renamed", {"player", "player_other"}},
+        {"named", {"player"}},
+        {"ask_name", {}},
         // Contract version 5: a people's sayings, in the bank `saying:<people>`. Never a reply of
         // its own: a line says one through {saying}.
         {"saying", {}},
@@ -1161,6 +1210,16 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             // A complaint heard out (contract version 18): a speaker cold to the stranger took it as an
             // insult, so no chain crosses to their lines.
             return {"heard"};
+        case Outcome::Introduced:
+            // The stranger's name (contract version 24), taken as the speaker takes them: a frightened or a
+            // cold speaker's own lines only, as a greeting's are.
+            if (m.frightened()) return {"introduced_afraid"};
+            if (m.cold()) return {"introduced_cold"};
+            return {"introduced"};
+        case Outcome::Known:
+            return {"known"};
+        case Outcome::Renamed:
+            return {"renamed"};
         default: {
             std::string one = single_situation(p);
             if (one.empty()) return {};
@@ -1228,6 +1287,9 @@ std::string Lines::single_situation(const FactPacket& p) {
         case Outcome::StillAfraid:
         case Outcome::NotAfraid:
         case Outcome::Heard:
+        case Outcome::Introduced:
+        case Outcome::Known:
+        case Outcome::Renamed:
             break;  // situations_for chains these
     }
     return {};
@@ -1390,8 +1452,9 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
                                         [&](const std::string& said) { return said.find(danger->second) != std::string::npos; }))
                             blanks.erase(danger);
                 for (const std::string& line : lines->second) {
-                    // No one met before is a stranger any more.
-                    if (memory.again && addresses_a_stranger(line)) continue;
+                    // No one met before is a stranger any more, nor anyone whose name the speaker knows
+                    // (contract version 24).
+                    if ((memory.again || !memory.called.empty()) && addresses_a_stranger(line)) continue;
                     std::optional<Filled> reply = filled(line, blanks, s, s.rfind("them_", 0) == 0 ? recent : nullptr);
                     if (!reply) continue;
                     // Nor is a line said that claims what the speaker has no ground for. Its passing
@@ -1518,6 +1581,14 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     // same line of each every time; 2026-09-26). The second is whether it was said lately.
     const auto heard = static_cast<std::size_t>(std::max(0, remembered(p).heard));
     const std::uint64_t order = stable_hash(p.speaker + "|" + situation(p));
+    // The stranger's name, said to them in a greeting to someone met before and in a farewell, where the
+    // speaker knows it (contract version 24): "Back again, Aldric." Not from a frightened speaker.
+    const Remembered memory = remembered(p);
+    const auto named = [&](const std::string& reply) {
+        const bool greeting = p.outcome == Outcome::Greeted && memory.again;
+        return (greeting || p.outcome == Outcome::Parted) && !memory.frightened() ? with_name(reply, text::spoken(memory.called), greeting)
+                                                                                  : reply;
+    };
     // A line said lately is one of `recent` with its text, or, for a line with passing words (a
     // saying, how long since, the season...), with its own words before and after them: those change
     // from one saying to the next, and the line with others was heard as the same line again
@@ -1549,7 +1620,7 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     // but never after a question the stranger has yet to answer: "Here for a fitting, or just talk?
     // So you're the one who helped the fortress of Iskmor hold." (judged 2026-09-27). With news to
     // tell, a line that asks is said only where every line does, and the news then waits.
-    const std::string after = follow(p, recent, meaning);
+    const std::string after = follow(p, recent, meaning, line);
     const auto asks = [](const std::string& said) { return !said.empty() && said.back() == '?'; };
     const auto then_news = [&](const std::string& reply) { return after.empty() || asks(reply) ? reply : reply + " " + after; };
     const auto telling = [&](const std::vector<Spoken>& lines) {
@@ -1854,6 +1925,16 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         if (meaning->subject_of(line, subjects) == 0)
             if (const std::vector<Spoken> said = spoken_for(p, &recent, true, &asked); !said.empty()) who = choose(said).first;
     }
+    // Told the stranger's name at a first meeting (contract version 24), a speaker gives their own, as after a
+    // greeting that asks who they are: "Maren. And you?" had drawn "Maren, then. Good to know you." (the held-out
+    // name session, 2026-09-29). Not when they said it lately, nor from a cold or frightened speaker, nor from a
+    // face that keeps no name.
+    if (p.outcome == Outcome::Introduced && !memory.called.empty() && !memory.again && !memory.cold() && !memory.frightened()) {
+        const std::string self = text::spoken(p.persona.name);
+        static const std::vector<std::string> asked = {"greeted_who"};
+        if (std::none_of(recent.begin(), recent.end(), [&](const std::string& said) { return said.find(self) != std::string::npos; }))
+            if (const std::vector<Spoken> said = spoken_for(p, &recent, true, &asked); !said.empty()) who = choose(said).first;
+    }
     // And someone met before who asks to be remembered is greeted with a line that recalls the
     // meeting, how long since or what was asked then, while one has not been said lately:
     // "Remember me?" drew a bare "Hello again." in turn (2026-09-26). Measured on 12 held-out
@@ -1867,12 +1948,12 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         for (const Spoken& s : spoken)
             if (s.recalls) recalling.push_back(s);
         if (!recalling.empty() && meaning->subject_of(line, subjects) == 0)
-            if (auto [reply, said_lately] = choose(telling(recalling)); !said_lately) return then_news(reply);
+            if (auto [reply, said_lately] = choose(telling(recalling)); !said_lately) return then_news(named(reply));
     }
     // A frightened speaker's answer comes after a sentence of their own (contract version 9): the
     // words of an answer are a writer's for a calm speaker, and "the words she says should be
     // panicked" (the owner, 2026-09-26).
-    std::string reply = choose(telling(spoken)).first;
+    std::string reply = named(choose(telling(spoken)).first);
     // The worst nest, named again in "is it safe" or "what is around" just after small talk named it, is
     // marked as said: "the krakens come back word for word from turn 4, as if new" (the hero benchmark's
     // judge, 2026-09-28). Not what they are after, asked about themself: marked there, "as I said" came
@@ -2000,8 +2081,9 @@ std::vector<std::string> Lines::follows(const FactPacket& p) const {
     if (!news.situation.empty()) chains.push_back({news.situation});
     if (says_back(p))
         for (const std::string kind : {"recalled", "recalled_grief", "recalled_hardship", "recalled_doubt"}) chains.push_back({kind});
-    // And who they are, after a greeting that asks (speak()).
-    if (p.outcome == Outcome::Greeted && !remembered(p).again && !remembered(p).cold() && !remembered(p).frightened())
+    // And who they are, after a greeting that asks, and told the stranger's name at a first meeting (speak()).
+    if ((p.outcome == Outcome::Greeted || p.outcome == Outcome::Introduced) && !remembered(p).again && !remembered(p).cold() &&
+        !remembered(p).frightened())
         chains.push_back({"greeted_who"});
     for (const std::vector<std::string>& chain : chains)
         for (Spoken& s : spoken_for(p, nullptr, false, &chain)) out.push_back(std::move(s.text));
@@ -2009,6 +2091,8 @@ std::vector<std::string> Lines::follows(const FactPacket& p) const {
     for (Spoken& s : account_lines(p, nullptr, false)) out.push_back(std::move(s.text));
     // And a question of theirs never answered (contract version 21).
     for (Spoken& s : asked_again_lines(p, nullptr, false)) out.push_back(std::move(s.text));
+    // And a first meeting's name (contract version 24).
+    for (Spoken& s : first_meeting_lines(p, nullptr, false, {})) out.push_back(std::move(s.text));
     return out;
 }
 
@@ -2061,7 +2145,30 @@ std::vector<std::string> Lines::news_asked(const FactPacket& p, const std::vecto
     return out;
 }
 
-std::string Lines::follow(const FactPacket& p, const std::vector<std::string>& recent, Meaning* meaning) const {
+std::string Lines::follow(const FactPacket& p, const std::vector<std::string>& recent, Meaning* meaning, std::string_view line) const {
+    const std::string after = follow_on(p, recent, meaning);
+    // A first meeting's name (contract version 24): the name heard of them before any news, so the news is
+    // theirs; a hero's question for it after, since nothing follows a question.
+    const std::vector<Spoken> met = first_meeting_lines(p, &recent, true, line);
+    if (met.empty()) return after;
+    const std::size_t n = met.size();
+    const std::string said = met[static_cast<std::size_t>(stable_hash(p.speaker + "|name") % n)].text;
+    if (after.empty()) return said;
+    if (met.front().situation == "named") return said + " " + after;
+    return after.back() == '?' ? after : after + " " + said;
+}
+
+std::vector<Lines::Spoken> Lines::first_meeting_lines(const FactPacket& p, const std::vector<std::string>* recent, bool checked,
+                                                      std::string_view line) const {
+    const Remembered m = remembered(p);
+    if (p.outcome != Outcome::Greeted || m.again || m.cold() || m.frightened() || m.turn > 1) return {};
+    static const std::vector<std::string> named = {"named"}, ask = {"ask_name"};
+    if (!m.called.empty()) return spoken_for(p, recent, checked, &named);
+    if (p.persona.voice_key.empty() || name_given(line).has_value()) return {};
+    return spoken_for(p, recent, checked, &ask);
+}
+
+std::string Lines::follow_on(const FactPacket& p, const std::vector<std::string>& recent, Meaning* meaning) const {
     // In turn by what the speaker has heard, as a lead is.
     const auto in_turn = [&](const std::vector<Spoken>& lines, const std::string& seed) {
         const std::size_t n = lines.size();

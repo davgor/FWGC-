@@ -121,6 +121,21 @@ is the target, and the model is not asked. Case does not matter, nor do curly qu
 in brackets: "Hakndum" names "Hakndum (Age 2)". The longest name said wins, and a tie is left to
 the model.
 
+**The stranger's own name is theirs, never the model's** (contract version 24). `introduce` is
+offered only for a line that gives a name, which C++ finds in the player's own words (`name_given`,
+`src/mention.hpp`): after "my name is", "call me", "I go by", "they know me as" and a few other
+languages' ("me llamo"); after "I'm" or "I am", words written with capitals (in a line all in lower
+case, the words up to the next mark); before "is my name", "'s the name" or ", at your service";
+after "it's me,"; a name set right ("Hadrick, not Harrick.", after the speaker said Harrick); and,
+when the speaker's last words asked who they are ("And you are?", "State your name.", "Halt. Who
+approaches?"), a run of words between marks that is a name and nothing else, after words that say
+nothing ("Fine. Tamsin Reed."), the fullest of several ("Varne. Hesketh Varne."). Its words are the
+target, each word's first letter raised ("brenna" is Brenna) but "of" and "the" inside it as written,
+a leading "the" or "a" dropped, at most 60 bytes: the model only says whether the line is an
+introduction, and no question asks it for the name. "I'm tired", "call me a fool", "don't call me
+that", "I'm Selbren's man", "I'm a Cooper" and "Nobody important" give none. The player may lie; the
+director keeps what they said. A name given with a request is the request, since a line is one act.
+
 `Known` labels things the way a player would say them:
 - a place by its name, or as "the hamlet of X" when it has none;
 - a person by their public name;
@@ -826,6 +841,57 @@ facts, what the speaker remembers of the stranger from before that bears on the 
   you of Wenweg before..." (before, it invented what Wenweg is like).
 - **The truth check** holds these to the Recall facts (below).
 
+## The stranger's name
+
+Contract version 24; the owner, 2026-09-29: "they only know when the player tells them, and again the
+player may lie", or by word of it. The director keeps the name each speaker knows the stranger by
+(orchestrator/README.md, "The player's name"), and every packet's Memory fact says it: `called`, how
+they came by it (`called_how`: told, word, overheard), and another they also know (`called_other`).
+
+- **Told it** (`introduce`), the speaker takes it, saying it back as they take the stranger:
+  `introduced` ("Maren, then. Good to know you."), `introduced_cold` from a wary or hostile speaker,
+  `introduced_afraid` from a frightened one; a line without `{player}` for a face that keeps no name.
+  At a first meeting they give their own name after it, a `greeted_who` line, unless they said it
+  lately: "Maren. And you?" had drawn only "Maren, then. Good to know you.", where the held-out name
+  session's judge first stopped believing (2026-09-29). Told the same again, `known`: known, never
+  remembered, since a name heard by word is known at a first meeting. Told another, `renamed`: the new
+  one and the one they had ("So it's Wren now, not Maren.").
+- **Said to them.** Knowing it, a speaker says it in a greeting to someone met before and in a farewell,
+  in the line's first sentence where its words leave room (C++, `with_name`): at its end when it is six
+  words or fewer with no comma ("Back again, Maren."), or before a comma that "and" or "but" follows
+  ("Go well, Maren, and luck to the both of us."); never beside a word of address ("Welcome back,
+  friend."). A greeting with no room opens with it, a sentence of its own ("Maren. Good to see you,
+  you've been worth my time."): a reunion without it read as "a line any quest-giver could say". Not
+  from a frightened speaker, whose words are their own, and no line calls someone known by name a
+  stranger.
+- **At a first meeting**, a speaker who heard the name before they met (by word of the stranger's deed,
+  or overheard) says so after the greeting and before any news: `named` ("You'd be Maren, I think.
+  You're the one who helped the fortress hold."). A hero who knows none asks for it after the greeting
+  and any news, one whole question (`ask_name`: "What do they call you?"), unless the stranger's words
+  gave it; only on the conversation's first turn, and not from a speaker cold or frightened. A question
+  worth an answer: the director keeps it if none comes, and a name given answers it.
+- **The voice** is told the name they know and how ("You know the stranger as Maren (you heard it with
+  word of what they did)."), and told one, what just happened says it instead; packets without a name
+  make the same prompts as before. The name is the packet's own word, so the grammar and the truth check
+  let it be said, as they let nothing unnamed be.
+- **Measured:** on the GPU, 8 threads (2026-09-29), Qwen3-4B read the eval's 368 earlier lines
+  exactly as before (285 fully right, the same misses, 0 unsafe) and 24 of 24 new introductions, name
+  and all; the test model 121 of the 368 (120 before; no new miss, the same 3 unsafe) and 7 of 24. The
+  finder was then measured on lines four separate sessions wrote from the eval's README alone, seeing
+  no code, each set once before the finder was changed for it: Qwen3-4B read 17 of 30 introductions
+  right, then 17 of 34, 20 of 35 and 25 of 35, 0 unsafe throughout (the test model 2 or 3 of 35: it
+  takes most for greetings or questions about someone). About half of the last set's misses are the
+  model's choice with the name found ("Bonjour ! Je m'appelle Oriane. Et vous ?" read as a greeting);
+  the rest are names the finder does not reach ("Put it down as Orla Penhallow.", "Nell Ashby. I crew
+  the boats out of Strandbrig."). Across the four, the finder gave a wrong name five times: a word
+  short ("Brother Oddo of the Grey", "Varne" for "Varne. Hesketh Varne."), an interjection ("Ugh"), an
+  accent left in lower case, and a nickname the line mentions ("Hesk"), the first four since fixed;
+  and one line that gives none was read as one ("just a tinker, captain", since closed). All four sets
+  are in `eval/lines.txt` now. The voice's 64 eval cases gave the same replies, word for word, on the
+  test model. The held-out name session (`session_hero7.txt`), judged blind on its first run: 10 of 17
+  replies without fault, score 3, the illusion broken at turn 2, "Maren. And you?" answered without
+  the speaker's own name, which they now give.
+
 ## The summarizer
 
 `communicator/summarizer.hpp`: what writes the outcomes the director's `compact` takes, when the
@@ -961,6 +1027,9 @@ dangerous for the rain" of a nest of four or more.
 - **The acts are the contract's own,** under the contract's names.
 - **A name said outright wins over the model's guess.** In the test, the model alone picks the
   wrong one of two people.
+- **A name the player gives is their own words** (contract version 24): found by C++ as 110 lines
+  expect (63 written before the code ran, the rest from the held-out sets once read), and never asked
+  of a model; the act is offered only where a line gives one, and read, it carries exactly that name.
 - **Taking or giving up work comes with a question,** and no other act does.
 - **What the player knows:**
   - within a packet, the nearest comes first; across packets, the latest;
@@ -1247,7 +1316,8 @@ fine-tuned voice (the plan's "Building our own model").
   (`eval/README.md`).
 - **Names no packet gave.** "Castle Grey" can only become `no_act`. Looking a player's words up in
   the world needs a director read, which comes first as an orchestrator slice.
-- **The player's own name.** No packet holds it, so the voice cannot say it.
+- **A name with a request.** A line is one act, so "I'm Aldric, any work going?" asks for work and the
+  name is not kept; the game could send the name as an act of its own first.
 - **Memory beyond the last reply.** There is also no prompt caching: the interpreter re-reads its
   examples on every call.
 - **Names as the world gives them.** City names carry their age ("Wenweg (Age 2)"). The voice

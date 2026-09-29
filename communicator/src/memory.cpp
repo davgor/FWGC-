@@ -38,6 +38,9 @@ Remembered remembered(const orchestrator::FactPacket& packet) {
         if (!text("resting").empty()) out.resting = text("resting");
         out.eased = text("eased") == "yes";
         out.joined = text("joined") == "yes";
+        out.called = text("called");
+        out.called_how = text("called_how");
+        out.called_other = text("called_other");
         break;
     }
     return out;

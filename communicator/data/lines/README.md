@@ -81,7 +81,12 @@ voice | situation | line
   | `asked_again` (a question of the speaker's the stranger never answered, asked again after a greeting in a later conversation: a sentence that says so, then `{question}` as its own sentence, which must end the line; contract version 21) | `{question}` (the speaker's own question, whole, with its capital and its question mark) |
   | `account` (how the speaker's own work went, done beside them, said after the reply: one sentence; contract version 20), `account_heard` (the same, done out of their sight) | `{account}` (a whole clause list after a colon: "Abyssal krakens came at us, more than I'd have liked; we lost a few good people, and you held when it counted"; it may open with a creature's name or with "we", so it never opens a line) |
   | `recalled_grief`, `recalled_hardship`, `recalled_doubt` (the stranger's words said back as what they were: a loss, a hardship, fear they came through with the speaker's work done; one sentence, the recalled rules, and `recalled_hardship` alone may ask, "is it any easier now?") | `{words}` |
-  | `greeted_who` (said after a first greeting that asks who they are) | |
+  | `greeted_who` (said after a first greeting that asks who they are, and after the stranger gives their name at a first meeting) | |
+  | `introduced` (the stranger gave a name the speaker did not know them by: said back, or taken; a line without `{player}` for a face that keeps none), `introduced_cold` (by a wary or hostile speaker), `introduced_afraid` (by a frightened one); contract version 24 | `{player}` (the name, as the stranger gave it) |
+  | `known` (the stranger gave the name the speaker already knew them by: known, never remembered, since a name heard by word is known at a first meeting) | `{player}` |
+  | `renamed` (the stranger gave another name than the one the speaker knew them by, which the speaker may have heard rather than been told) | `{player}` (the new name), `{player_other}` (the one they had) |
+  | `named` (said after a greeting at a first meeting, by someone who heard the stranger's name before they met, by word or overheard: one sentence, never a question) | `{player}` |
+  | `ask_name` (said after a greeting at a first meeting, by a hero who knows no name for the stranger: one whole question, which is kept and asked again once if it gets no answer) | |
 
   Every situation may also use `{speaker}`, `{post}` and `{place}`.
 

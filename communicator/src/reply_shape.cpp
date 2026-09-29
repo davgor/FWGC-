@@ -192,7 +192,25 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
             shape.openings = {"That's fair", "Fair enough", "I hear you", "Maybe so", "You may be right", "I know"};
             shape.sentences = 2;
             break;
+        // 24: the stranger's name. Told it, the speaker says it back or takes it; told it again, knew it;
+        // told another, takes the new one. The name opens a reply as well as any word: it is the packet's.
+        case Outcome::Introduced:
+            shape.openings = {"Well met", "Good to know you", "A good name", "I'll remember it", "So be it"};
+            shape.sentences = 2;
+            break;
+        // Known, never remembered: a name heard by word is known at a first meeting too.
+        case Outcome::Known:
+            shape.openings = {"I know", "I know it", "I have it", "Yes", "I know the name"};
+            shape.sentences = 1;
+            break;
+        case Outcome::Renamed:
+            shape.openings = {"Another name", "So it's", "Is it now", "That's not the name I had", "I had you down as"};
+            shape.sentences = 2;
+            break;
     }
+    if ((packet.outcome == Outcome::Introduced || packet.outcome == Outcome::Known || packet.outcome == Outcome::Renamed) &&
+        !memory.called.empty())
+        shape.openings.push_back(text::spoken(memory.called));
     return shape;
 }
 

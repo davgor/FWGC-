@@ -74,6 +74,9 @@ void check_well_formed(const Interpretation& it, const Known& known, const std::
     if (const std::optional<Kind> kind = target_kind(it.act.kind))
         check::equal(known.resolve(*kind, it.label).value_or("(none)"), it.act.target,
                      "the target is what the player was told of, of the act's kind, for: " + line);
+    // A name the player gives (contract version 24) is the line's own words, as C++ found them.
+    if (it.act.kind == ActKind::Introduce)
+        check::equal(it.act.target, communicator::name_given(line).value_or("(none)"), "the name is the line's, for: " + line);
     if (it.meant) {
         check::is_true(it.act.kind == ActKind::NoAct, "a meant act leaves no_act, for: " + line);
         check::is_true(orchestrator::act_needs_target(*it.meant), "only an act with a target is meant, for: " + line);
@@ -179,7 +182,7 @@ TEST(the_acts_offered_are_the_contracts_own) {
     Interpreter interpreter(test_model::model());
     Known known = told();
     known.learn(packets::accepted());  // something held, to abandon
-    const Question q = interpreter.act_question("Hello. Who are you?", known, "Have you come far?", true, true);
+    const Question q = interpreter.act_question("Hello, I'm Aldric. Who are you?", known, "Have you come far?", true, true);
     const std::string prompt = all_of(q);
     for (int i = 0; i < orchestrator::kActCount; ++i) {
         const std::string name(orchestrator::to_string(static_cast<ActKind>(i)));
@@ -198,6 +201,9 @@ TEST(the_acts_offered_are_the_contracts_own) {
     check::is_true(all_of(unasked).find("- ask_about_them:") == std::string::npos, "nor in the prompt");
     // Nor a complaint with none of the speaker's work between them (contract version 18).
     check::is_true(unasked.grammar.find("\"complain\"") == std::string::npos, "no complaint without their work between them");
+    // Nor a name in a line that gives none (contract version 24).
+    check::is_true(unasked.grammar.find("\"introduce\"") == std::string::npos, "no introduction in a line without a name");
+    check::is_true(all_of(unasked).find("- introduce:") == std::string::npos, "nor in the prompt");
     check::is_true(all_of(unasked).find("- complain:") == std::string::npos, "nor in the prompt");
 }
 
@@ -242,6 +248,161 @@ TEST(a_name_said_outright_is_the_target) {
                                 {{orchestrator::FactKind::Place, "city-a", {{"kind", "city"}, {"name", "Kelevmar (Age 1)"}}},
                                  {orchestrator::FactKind::Place, "city-b", {{"kind", "city"}, {"name", "Kelevmar (Age 2)"}}}}));
     check::is_true(!communicator::named_outright(Kind::Place, twins, "Tell me of Kelevmar."), "two of one name: not outright");
+}
+
+// Contract version 24: the name a player gives is found by C++ in their own words, never asked of a
+// model, and the act is offered only for a line that gives one. The cases were written before the code
+// ran (the eval's lines for the act, and more); the eval measures lines held out from it.
+TEST(a_name_given_is_the_players_own_words) {
+    struct Case {
+        std::string line, last_reply, name;  // an empty name: the line gives none
+    };
+    const std::vector<Case> cases = {
+        // Said outright, however it is put.
+        {"I'm Aldric, by the way.", "", "Aldric"},
+        {"My name is Brenna.", "", "Brenna"},
+        {"Name's Corwin.", "", "Corwin"},
+        {"Call me Wren.", "", "Wren"},
+        {"Hello, I'm Mira of Halden.", "", "Mira of Halden"},
+        {"they call me red", "", "Red"},
+        {"I go by Sable these days.", "", "Sable"},
+        {"The name's Harrow. What's yours?", "", "Harrow"},
+        {"im aldric", "", "Aldric"},
+        {"Aldric's the name.", "", "Aldric"},
+        {"aldric is my name", "", "Aldric"},
+        {"Brenna Holt is my name.", "", "Brenna Holt"},
+        {"You can call me Brenna Holt.", "", "Brenna Holt"},
+        {"I am Sir Aldric of the Vale.", "", "Sir Aldric of the Vale"},
+        {"Folk around here know me as Hollis.", "", "Hollis"},
+        {"I'm Brenna, remember?", "", "Brenna"},
+        {"I'm Halbrann.", "", "Halbrann"},  // perhaps a lie, and a name the speaker knows: still theirs to give
+        {"Greetings. I am Idris, a traveller from the south.", "", "Idris"},
+        {"my names brenna", "", "Brenna"},
+        {"My real name is Brenna.", "", "Brenna"},
+        {"Actually, call me Wren.", "", "Wren"},
+        {"I'm Aldric, and I'm looking for work.", "", "Aldric"},  // which act it is stays the model's to read
+        {"Don't call me Aldric, call me Wren.", "", "Wren"},
+        {"My name isn't Aldric, it's Brenna.", "", "Brenna"},
+        {"They call me the Butcher of Linbrig.", "", "Butcher of Linbrig"},
+        {"call me old bram", "", "Old Bram"},
+        {"I'm Will.", "", "Will"},
+        {"I'm \xC3\x86rin.", "", "\xC3\x86rin"},
+        {"Hi, I'm new. Name's Corwin.", "", "Corwin"},
+        {"I\xE2\x80\x99m Aldric.", "", "Aldric"},  // a phone's apostrophe
+        // Alone, when the speaker asked.
+        {"Aldric.", "Who might you be?", "Aldric"},
+        {"brenna", "And you are?", "Brenna"},
+        {"Just Tomas.", "What should I call you?", "Tomas"},
+        {"Corwin Ashe.", "Name?", "Corwin Ashe"},
+        {"Mira. And you?", "Who are you, then?", "Mira"},
+        {"Aldric, son of Brann.", "And you are?", "Aldric"},
+        {"\"Aldric\"", "Your name, stranger?", "Aldric"},
+        // From the first held-out lines (a separate session's, 2026-09-29), kept once they had been read: asked
+        // outright without a question, a courtesy after the name, a capital word that never begins one inside
+        // it, "it's" or "... it is" when asked, "Me? Just", and another language's "my name is".
+        {"Emrys Coldwater.", "State your name and business.", "Emrys Coldwater"},
+        {"It's Ysolt Marrable.", "You're back, and in one piece. I never did get your name.", "Ysolt Marrable"},
+        {"Captain Orla Rusk, at your service.", "", "Captain Orla Rusk"},
+        {"Mira Ashcombe-Tull, pleased to make your acquaintance.", "", "Mira Ashcombe-Tull"},
+        {"I am Brother Oddo of the Grey Well.", "", "Brother Oddo of the Grey Well"},
+        {"Call me what you like, so long as it's not late for supper. Ha! No, it's Gethin.", "What do I call you, then?", "Gethin"},
+        {"Well now, that's a long story, but Idony it is.", "And who might you be?", "Idony"},
+        {"Me? Just Lark.", "You've a name, I suppose?", "Lark"},
+        {"Hola, me llamo Itzel.", "", "Itzel"},
+        {"I'm Aldric From Linbrig.", "", "Aldric"},  // a small word written with a capital ends it
+        // From the second held-out lines, kept once read: a short question of who, orders and remarks that ask,
+        // more words that say nothing first, a lower-case name to the next mark, a name set right, "it's me",
+        // another language's "I am".
+        {"Jory Ash-Hollow, on foot and alone.", "Halt. Who approaches?", "Jory Ash-Hollow"},
+        {"Magister Pellam Oxley, scholar.", "Identify yourself, traveller.", "Magister Pellam Oxley"},
+        {"Fine. Tamsin Reed.", "Everyone who comes through this gate gives a name.", "Tamsin Reed"},
+        {"oh right lol, it's gil", "You've not said who you are.", "Gil"},
+        {"Only Nessa Lowe, from down the valley.", "Who's there? Who are you?", "Nessa Lowe"},
+        {"oh hey, i'm tobias fenwick marr, the one holding the fortress with you", "", "Tobias Fenwick Marr"},
+        {"Hadrick, not Harrick. Easy mistake.", "Good to see you again, Master Harrick.", "Hadrick"},
+        {"Selbren, it's me, Halbrann. You know me.", "", "Halbrann"},
+        {"Piacere, sono Corvina.", "", "Corvina"},
+        // From the third held-out lines, kept once read: a name as a sentence of its own when asked, the fullest of
+        // several; lower-case names holding "of the"; "Name and business."; a name set right after "it's"; a name
+        // then the same asked back; a lower-case accented letter raised; the fuller name said again.
+        {"Your new best friend. Kidding! Fenwick Moss.", "And who might you be?", "Fenwick Moss"},
+        {"Varne. Hesketh Varne.", "I don't think I ever had your name.", "Hesketh Varne"},
+        {"Of course. Hildegard Ormsby.", "You came back. Remind me of your name.", "Hildegard Ormsby"},
+        {"ugh, fine. skarn. happy now?", "State your name.", "Skarn"},
+        {"Idris Callow. Headed up to the hospice before the snow comes.", "Name and business.", "Idris Callow"},
+        {"i am maelis of the nine bells, sworn to no lord", "", "Maelis of the Nine Bells"},
+        {"they call me the ashen wanderer", "What do they call you?", "Ashen Wanderer"},
+        {"It's Tolvin, not Tolvar.", "Tolvar, was it? Wait by the wall.", "Tolvin"},
+        {"Isak Brennard. And yours, captain?", "", "Isak Brennard"},
+        {"ich bin \xC3\xA4gidius", "", "\xC3\x84gidius"},
+        {"the name's kip. kip bramblewood. what's yours?", "", "Kip Bramblewood"},
+        // From the fourth held-out lines, kept once read: "its me", and greetings and words of address never names.
+        {"yo castellan, its me, pip", "", "Pip"},
+        {"Greetings. Aldric.", "Who goes there?", "Aldric"},
+        // None given.
+        {"I'm looking for work.", "", ""},
+        {"I'm sorry about earlier.", "", ""},
+        {"Call me a fool, but is it safe out there?", "", ""},
+        {"Just a traveller.", "Who might you be?", ""},
+        {"Nobody important.", "And you are?", ""},
+        {"Whatever you like.", "What should I call you?", ""},
+        {"Does it matter?", "Who are you?", ""},
+        {"None of your business.", "What's your name?", ""},
+        {"What's your name?", "", ""},
+        {"Is Halbrann a friend of yours?", "", ""},
+        {"Aldric sent me.", "", ""},
+        {"Aldric.", "", ""},  // nobody asked: a name alone could be anyone's
+        {"Aldric.", "The road is long.", ""},
+        {"I'm tired, it's been a long road.", "", ""},
+        {"im new here", "", ""},
+        {"i am hungry", "", ""},
+        {"i'm will", "", ""},
+        {"Call me when the gate opens.", "", ""},
+        {"Don't call me that.", "", ""},
+        {"I'm Selbren's man.", "", ""},
+        {"I'm Brenna Holt's daughter.", "", ""},
+        {"Your name's Selbren, isn't it?", "", ""},
+        {"Your name is Selbren?", "", ""},
+        {"What is my name?", "", ""},
+        {"I'm 42.", "", ""},
+        {"Well met, at your service.", "", ""},
+        {"So it is.", "What's your name?", ""},
+        {"Your name's known here.", "", ""},
+        {"I'm a Cooper. Barrels, mostly.", "What's your trade, then?", ""},
+        {"Aldric.", "Who sent you to me, and why?", ""},
+        {"im pretty sure", "", ""},
+        {"It's me.", "", ""},
+        {"Hadrick, not Harrick.", "Good to see you again.", ""},
+        {"call me a liar", "", ""},
+        {"Kidding!", "And who might you be?", ""},
+        {"It's Hakndum I asked about, not Nerstrann.", "", ""},
+        {"just a tinker, captain. nobody important", "Halt! Who goes there?", ""},
+        {"Greetings.", "Who goes there?", ""},
+        {"I'm thirsty, is there an inn?", "", ""},
+        {"Halbrann sent me.", "Who are you?", ""},
+        {"My name is " + std::string(61, 'a') + ".", "", ""},  // past the director's 60 bytes
+    };
+    for (const Case& c : cases)
+        check::equal(communicator::name_given(c.line, c.last_reply).value_or(""), c.name,
+                     c.line + (c.last_reply.empty() ? "" : "  (after: " + c.last_reply + ")"));
+    // A long name is cut at a word, within the director's bound.
+    const std::optional<std::string> long_name = communicator::name_given("My name is Aldric Brennan Corwin Ashe Holt Sable Wren.");
+    check::is_true(long_name && long_name->size() <= 60 && long_name->rfind("Aldric Brennan", 0) == 0, "a long name cut at a word");
+}
+
+TEST(a_name_given_is_the_target_and_never_the_models) {
+    // The name is C++'s, so no question asks the model for it; the act is offered only where a name was
+    // given, and read, it carries that name whatever else the line says.
+    Interpreter interpreter(test_model::model());
+    const Known known = told();
+    check::throws([&] { (void)interpreter.target_question(ActKind::Introduce, "I'm Aldric.", known); }, "no model question for a name");
+    const Question q = interpreter.act_question("Well met. The name's Harrow.", known);
+    check::is_true(q.grammar.find("\"introduce\"") != std::string::npos, "offered where a name is given");
+    for (const std::string line : {"Well met. The name's Harrow.", "My name is Brenna.", "Call me Wren.", "I'm Aldric, by the way."}) {
+        const Interpretation it = interpreter.interpret(line, known);
+        check_well_formed(it, known, line);
+        if (it.act.kind == ActKind::Introduce) check::is_true(it.confirm.empty(), "no question before a name: " + line);
+    }
 }
 
 TEST(a_name_said_outright_is_taken_over_the_models_guess) {

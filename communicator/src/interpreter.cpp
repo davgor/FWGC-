@@ -32,6 +32,9 @@ struct ActText {
     std::string_view meaning;
     std::array<Example, 2> examples;  // up to two; an empty line is none
     std::string_view pointing;         // for the target question: what the line does
+    // The target is the line's own words, found by C++ and never asked of the model: the name the
+    // player gives (contract version 24, name_given()).
+    bool said = false;
 };
 
 // In the contract's order (a check below holds it there). The model is shown them in kShown's.
@@ -76,6 +79,8 @@ constexpr std::array<ActText, orchestrator::kActCount> kActs = {{
      {{{"", "How long have you held this place?"}, {"", "What brought you out here?"}}}, ""},
     {ActKind::Complain, std::nullopt, "complains about them or their work: it was worse than they said, they should have warned them",
      {{{"", "That job was far worse than you let on."}, {"", "You should have told me it was that dangerous."}}}, ""},
+    {ActKind::Introduce, std::nullopt, "tells them their own name: I'm..., my name is..., call me..., or gives it when asked who they are",
+     {{{"", "My name's Hedda, by the way."}, {"And you are?", "Osric."}}}, "", true},
 }};
 
 const ActText& text_of(ActKind kind) { return kActs[static_cast<std::size_t>(kind)]; }
@@ -89,7 +94,8 @@ constexpr std::array<ActKind, orchestrator::kActCount> kShown = {
     ActKind::AcceptQuest,     ActKind::DeclineQuest,  ActKind::AbandonQuest,   ActKind::Farewell,
     ActKind::Greet,           ActKind::SmallTalk,     ActKind::Answer,         ActKind::Thank,
     ActKind::Insult,          ActKind::AskSafety,     ActKind::Confront,       ActKind::Apologize,
-    ActKind::Calm,            ActKind::AskAboutThem,  ActKind::Complain,       ActKind::NoAct};
+    ActKind::Calm,            ActKind::AskAboutThem,  ActKind::Complain,       ActKind::Introduce,
+    ActKind::NoAct};
 
 // Whether an act can be put to the model: it takes no target, or there is something to point at;
 // an answer only to a question, when the speaker's last words asked one; and calming words only to
@@ -124,6 +130,8 @@ bool offered(const ActText& act, const Known& known, std::string_view line, std:
     // act cost the test model 9 of the 313 lines it had read right, and Qwen3-4B 5; listed only for a
     // line that speaks to them, none and 1 (110 -> 113, 246 -> 245; 2026-09-28).
     if (act.kind == ActKind::AskAboutThem) return addresses_them(line);
+    // A name the player gives (contract version 24), only in a line that gives one.
+    if (act.said) return name_given(line, last_reply).has_value();
     return !act.target || !known.nameable(*act.target, 1).empty();
 }
 
@@ -207,7 +215,7 @@ Interpreter::Interpreter(inference::Model& model) : model_(model) {
     std::set<ActKind> shown;
     for (std::size_t i = 0; i < kActs.size(); ++i) {
         const ActKind kind = static_cast<ActKind>(i);
-        if (kActs[i].kind != kind || orchestrator::act_needs_target(kind) != kActs[i].target.has_value())
+        if (kActs[i].kind != kind || orchestrator::act_needs_target(kind) != (kActs[i].target.has_value() || kActs[i].said))
             throw Error("the interpreter's act table disagrees with the orchestrator's contract at " +
                         std::string(orchestrator::to_string(kind)));
         shown.insert(kShown[i]);
@@ -249,7 +257,8 @@ Question Interpreter::act_question(std::string_view line, const Known& known, st
 
 Question Interpreter::target_question(ActKind act, std::string_view line, const Known& known, std::string_view last_reply) const {
     const ActText& text = text_of(act);
-    if (!text.target) throw Error(std::string(orchestrator::to_string(act)) + " takes no target");
+    if (!text.target)
+        throw Error(std::string(orchestrator::to_string(act)) + (text.said ? "'s target is the line's own words" : " takes no target"));
     const std::string none(kNotListed);
     std::string listed;
     std::vector<std::string> labels;
@@ -303,6 +312,11 @@ Interpretation Interpreter::interpret(std::string_view line, const Known& known,
     Interpretation out;
     out.act.kind = *kind;
     const ActText& act = text_of(*kind);
+    // The name the player gives is their own words, as C++ found them (offered() found one).
+    if (act.said) {
+        out.act.target = out.label = *name_given(line, last_reply);
+        return out;
+    }
     if (!act.target) return out;
 
     // A name said outright is the target; the model is asked only when none is.

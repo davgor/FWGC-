@@ -55,6 +55,10 @@ std::vector<std::pair<FactPacket, std::string>> outcome_cases() {
         {packets::denied(false), "You're not what you seem."},
         // Contract version 18: a complaint heard out.
         {packets::heard(), "That job was far worse than you let on."},
+        // Contract version 24: the stranger's name.
+        {packets::introduced(), "I'm Aldric."},
+        {packets::known_name(), "I'm Aldric."},
+        {packets::renamed(), "Call me Brenna."},
     };
 }
 
@@ -232,6 +236,20 @@ TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
         for (const std::string key : {"met:", "times:", "asked_before", "verdict", "repeat:", "exposed:", "mood:", "feeling:", "resting:"})
             check::is_true(prompt.find(key) == std::string::npos, "no key " + key + " in the prompt for " + p.persona.name);
     }
+    // The stranger's name (contract version 24): known, and how; told it, what just happened says it.
+    const std::string by_name = prompt_of(voice, packets::greeted_again_named(), "Hello.");
+    check::is_true(by_name.find("You know the stranger as Aldric.") != std::string::npos, "the name they know: " + by_name);
+    check::is_true(prompt_of(voice, packets::greeted_first_named(), "Hello.").find("You know the stranger as Aldric (you heard it with word "
+                                                                                   "of what they did).") != std::string::npos,
+                   "by word");
+    check::is_true(prompt_of(voice, packets::greeted_again(), "Hello.").find("You know the stranger as") == std::string::npos,
+                   "no name, none said");
+    const std::string introduced = prompt_of(voice, packets::introduced(), "I'm Aldric.");
+    check::is_true(introduced.find("The stranger told you their name: Aldric.") != std::string::npos && introduced.find("You know the stranger as") == std::string::npos,
+                   "told it: what just happened says it, once");
+    check::is_true(prompt_of(voice, packets::renamed(), "Call me Brenna.").find("their name is Brenna, but you knew them as Aldric") !=
+                       std::string::npos,
+                   "another: and the one they had");
     const std::string chat = prompt_of(voice, packets::small_talk("stormy", "a gale"), "Foul weather.");
     check::is_true(chat.find("weather: stormy; wind: a gale; season: deep winter; time: evening") != std::string::npos,
                    "the weather here and now");
@@ -418,11 +436,12 @@ TEST(a_short_answer_stays_one_sentence) {
     }
     check::is_true(longest_free > 1, "the premise: free, some reply runs on: " + longest_reply);
     // Held, the model says one sentence where there is little to say: not knowing, refusing,
-    // declining, giving up, parting, not following. A refusal's closing is C++'s, and comes after.
+    // declining, giving up, parting, not following, a name known already (contract version 24). A
+    // refusal's closing is C++'s, and comes after.
     using orchestrator::Outcome;
     const std::set<Outcome> short_ones = {Outcome::Unknown,       Outcome::Refused, Outcome::Declined, Outcome::Abandoned,
                                           Outcome::Parted,        Outcome::NotUnderstood, Outcome::Thanked, Outcome::Offended,
-                                          Outcome::Denied};
+                                          Outcome::Denied,        Outcome::Known};
     for (const auto& [packet, line] : cases) {
         const communicator::ReplyShape shape = communicator::reply_shape(packet);
         check::equal(shape.sentences == 1, short_ones.count(packet.outcome) == 1,

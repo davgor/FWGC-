@@ -92,7 +92,7 @@ context | last_reply | line | act | target | tags
 - **act:** the act the director should answer, by the contract's name.
 - **target:** the label of the thing meant, exactly as `Known` names it. `?` marks a name no
   packet gave; it is read right as `no_act` with `meant` set to the act. `-` marks an act
-  without a target.
+  without a target. For `introduce`, the name the player gives (rule 13).
 - **tags:** comma-separated. The vocabulary is clear, typo, slang, short, long, rambling,
   context, multi, hostile, offtopic, unnamed, partial, foreign, polite and command.
   - `unnamed` marks exactly the cases whose target is `?`.
@@ -142,6 +142,14 @@ context | last_reply | line | act | target | tags
       down, you fool" is `insult`.
 12. **Everything else is `no_act`:** demands and orders, nonsense, questions no act answers,
     bargaining, and attempts to instruct the model.
+13. **Their own name** (contract version 24): giving it, "I'm Aldric", "my name is Brenna", "call me
+    Wren", "Aldric's the name", or a name alone when `last_reply` asked who they are, is `introduce`,
+    its target the name as the player gave it, each word's first letter raised ("brenna" is
+    `Brenna`) but the small words inside it ("of", "the", "de") as the player wrote them
+    (`Kestrel the Quiet`), a leading "the" or "a" dropped, and nothing of the words around it
+    ("Only Nessa Lowe" is `Nessa Lowe`). A name given with a request is the request, as a
+    greeting is; with a greeting, thanks or a question about the speaker, it is `introduce`. A name
+    the context knows ("I'm Halbrann") is `introduce` still: the player may lie.
 
 ### Contexts
 

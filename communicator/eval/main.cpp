@@ -264,8 +264,10 @@ void interpreter_eval(inference::Model& model, const std::string& path, std::siz
             continue;
         }
         const std::optional<Kind> kind = target_kind(*expected);
+        // A name the player gives (contract version 24) is their own words: its target is the name as read.
+        const bool said = *expected == ActKind::Introduce;
         const bool unnamed = target == "?";
-        if (kind.has_value() != !target.empty() || (kind && !unnamed && !k->second.resolve(*kind, target))) {
+        if ((kind.has_value() || said) != !target.empty() || (said && unnamed) || (kind && !unnamed && !k->second.resolve(*kind, target))) {
             std::cout << "BAD ROW " << where << ": the target does not fit the act or the context: " << target << "\n";
             ++bad_rows;
             continue;
@@ -279,7 +281,7 @@ void interpreter_eval(inference::Model& model, const std::string& path, std::siz
 
         // An unnamed target is read right as no_act, meaning the act; a named one needs its label.
         const bool act_right = unnamed ? it.act.kind == ActKind::NoAct && it.meant == expected : it.act.kind == *expected;
-        const bool right = act_right && (unnamed || !kind || it.label == target);
+        const bool right = act_right && (unnamed || (!kind && !said) || it.label == target);
         acts_right += act_right;
         fully_right += right;
         auto& tally = by_act[act_name + (unnamed ? " (unnamed)" : "")];

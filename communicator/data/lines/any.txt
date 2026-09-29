@@ -402,3 +402,39 @@ any | unwronged_state_hardship | No harm done; you've had a hard road of it.
 any | forgiven_state_grief | Let's forget it; not after what you've lost.
 any | forgiven_state_grief | No hard feelings; grief sharpens anyone's tongue.
 any | forgiven_state_hardship | All right; you've been through enough, and I'll not hold a sharp word against you.
+# The stranger's name (contract version 24). Told it, the speaker takes it, saying it back ({player}:
+# the name they know the stranger by now); a cold speaker, curtly; a frightened one, as frightened. Told
+# it again, they knew it. Told another, they take the new one and say the one they had ({player_other}),
+# which they may have heard rather than been told. A line without {player} for a face that keeps nothing.
+# A name known is never remembered: one heard by word is known at a first meeting.
+any | introduced | {player}. I'll remember it.
+any | introduced | {player}, then. Good to know you.
+any | introduced | Well met, {player}.
+any | introduced | Good to know you, {player}.
+any | introduced | I'll remember it, {player}.
+any | introduced | A good name. I'll remember it.
+any | introduced | So be it.
+any | introduced_cold | {player}. I'll remember it.
+any | introduced_cold | So be it, {player}.
+any | introduced_cold | {player}. I'll not forget it.
+any | introduced_afraid | {player}. Yes, well met.
+any | introduced_afraid | Good to know you, {player}. Forgive me, I'm not myself.
+any | known | I know, {player}.
+any | known | I know the name, {player}.
+any | known | I have it, {player}.
+any | known | {player}, yes; I know.
+any | renamed | {player}, is it? I had you down as {player_other}.
+any | renamed | Is it now? I had you down as {player_other}.
+any | renamed | So it's {player} now, not {player_other}.
+any | renamed | Another name. I had you as {player_other}, not {player}.
+any | renamed | That's not the name I had. It was {player_other}, last I knew.
+# Said after a greeting at a first meeting (contract version 24): the stranger's name, heard before they
+# met, by word of what they did or overheard, one sentence, never a question; and from a hero who knows
+# no name, a question for it, whole, since a question left unanswered is kept and asked again once.
+any | named | You'd be {player}, if I heard right.
+any | named | You'd be {player}, I think.
+any | named | I know the name {player}, if you're who I think.
+any | ask_name | What do they call you?
+any | ask_name | And what should I call you?
+any | ask_name | Who might you be, then?
+any | ask_name | What's your name, stranger?

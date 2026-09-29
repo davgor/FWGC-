@@ -66,6 +66,7 @@ struct Recall {
     bool joined = false;
     bool beside = false;
     bool work_news = false;  // contract version 17
+    std::string called, called_how, called_other;  // contract version 24
 };
 
 inline Fact memory_of(const std::string& speaker, const Recall& r) {
@@ -85,7 +86,10 @@ inline Fact memory_of(const std::string& speaker, const Recall& r) {
              {"eased", r.eased ? "yes" : "no"},
              {"joined", r.joined ? "yes" : "no"},
              {"beside", r.beside ? "yes" : "no"},
-             {"work_news", r.work_news ? "yes" : "no"}}};
+             {"work_news", r.work_news ? "yes" : "no"},
+             {"called", r.called},
+             {"called_how", r.called_how},
+             {"called_other", r.called_other}}};
 }
 
 // A packet as the director writes one: its facts, then the speaker's memory.
@@ -764,8 +768,51 @@ inline FactPacket with_account(FactPacket p, const std::string& as = "nest") {
     return p;
 }
 
+// ---- Contract version 24: the stranger's name ------------------------------------------------
+
+// Told a name: taken, by a speaker cold to the stranger, by a frightened one; told it again; told another.
+inline FactPacket introduced(const std::string& mood = "neutral", const std::string& feeling = "calm") {
+    return packet(castellan(), ActKind::Introduce, Outcome::Introduced, {},
+                  {.mood = mood, .turn = 2, .feeling = feeling, .called = "Aldric", .called_how = "told"});
+}
+
+inline FactPacket known_name() {
+    return packet(castellan(), ActKind::Introduce, Outcome::Known, {},
+                  {.met = "again", .times = 1, .since = "days", .turn = 2, .called = "Aldric", .called_how = "told"});
+}
+
+inline FactPacket renamed() {
+    return packet(castellan(), ActKind::Introduce, Outcome::Renamed, {},
+                  {.met = "again", .times = 1, .since = "days", .turn = 2, .called = "Brenna", .called_how = "told",
+                   .called_other = "Aldric"});
+}
+
+// Greeted at a first meeting by someone who heard the stranger's name: by word of their deed, or overheard.
+inline FactPacket greeted_first_named(const std::string& how = "word") {
+    return packet(castellan(), ActKind::Greet, Outcome::Greeted, {}, {.called = "Aldric", .called_how = how});
+}
+
+// Greeted and seen off by someone who knows the name.
+inline FactPacket greeted_again_named() {
+    return packet(castellan(), ActKind::Greet, Outcome::Greeted, {},
+                  {.met = "again", .times = 1, .since = "days", .called = "Aldric", .called_how = "told"});
+}
+
+inline FactPacket parted_named() {
+    return packet(castellan(), ActKind::Farewell, Outcome::Parted, {}, {.turn = 3, .called = "Aldric", .called_how = "told"});
+}
+
 inline std::vector<FactPacket> conversation() {
     return {about_them(),
+            introduced(),
+            introduced("hostile"),
+            introduced("neutral", "afraid"),
+            known_name(),
+            renamed(),
+            greeted_first_named(),
+            greeted_first_named("overheard"),
+            greeted_again_named(),
+            parted_named(),
             about_them_far_from_home(),
             about_them_unplaced(),
             about_them_without_rivals(),

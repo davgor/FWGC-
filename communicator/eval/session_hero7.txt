@@ -1,0 +1,40 @@
+# The golden benchmark's seventh session, held out: the stranger's name (contract version 24). Written
+# 2026-09-29, before it was ever run. Another world, its first hero who gives work, and someone who stands
+# where the hero does. The stranger gives a name when asked, is heard of by it, and later gives the hero
+# another. Each line is labelled with the act it means.
+world 5 33 30
+who hero giver 0
+who local near hero 0
+
+# A first meeting: the hero asks who the stranger is.
+say hero greet | Good evening.
+say hero introduce =Maren | Maren. And you?
+say hero small_talk | Busy night?
+say hero ask_for_work | I could use some work, if you have any.
+say hero accept_quest @own | I'll take it.
+say hero farewell | Good night, then.
+
+# Out of sight: compacted; the work is done three days on, and word of it goes round.
+compact hero
+advance 3
+resolve hero finished
+# The game's account of how it went (contract version 20).
+account hero - few none fought
+share
+say hero greet | It's done.
+say hero small_talk | Was it what you feared?
+say hero farewell | Take care of yourself.
+
+# Someone at the hero's post, who has only heard of the stranger.
+say local greet | Hello there.
+say local small_talk | Quiet evening.
+say local farewell | Goodbye.
+
+# Weeks later, the stranger comes back under another name.
+compact hero
+advance 12
+say hero greet | Hello again.
+say hero introduce =Wren | You can call me Wren, by the way.
+say hero small_talk | How have things been?
+say hero introduce =Wren | Wren. Like I said.
+say hero farewell | Until next time.

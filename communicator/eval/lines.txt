@@ -386,3 +386,248 @@ castellan-worked | - | Thanks again for the work. | thank | - | polite
 castellan-worked | - | How have you been since? | small_talk | - | clear
 castellan-held-worked | - | Is it safe on the roads out there? | ask_safety | - | clear
 castellan-worked | - | I'm sorry I snapped at you. | apologize | - | clear
+# Contract version 24: the player gives their name (2026-09-29, by Claude, written before the act was
+# built or measured). The target is the name as they gave it, its first letters raised; a name given
+# with a request is the request, as a greeting is.
+castellan | - | I'm Aldric, by the way. | introduce | Aldric | clear
+castellan | - | My name is Brenna. | introduce | Brenna | clear
+gate | - | Name's Corwin. | introduce | Corwin | clear,short
+inn | - | Call me Wren. | introduce | Wren | clear,short
+opening | - | Hello, I'm Mira of Halden. | introduce | Mira of Halden | clear
+castellan | Who might you be? | Aldric. | introduce | Aldric | short,context
+castellan | And you are? | brenna | introduce | Brenna | typo,short,context
+gate | What should I call you? | Just Tomas. | introduce | Tomas | short,context
+inn | - | they call me red | introduce | Red | typo
+castellan | - | I go by Sable these days. | introduce | Sable | clear
+opening | - | The name's Harrow. What's yours? | introduce | Harrow | clear,multi
+castellan | - | im aldric | introduce | Aldric | typo,short
+inn | - | Aldric's the name. | introduce | Aldric | clear
+castellan | - | You can call me Brenna Holt. | introduce | Brenna Holt | clear
+gate | - | I am Sir Aldric of the Vale. | introduce | Sir Aldric of the Vale | clear
+castellan | - | Folk around here know me as Hollis. | introduce | Hollis | clear
+castellan-held | - | I'm Brenna, remember? | introduce | Brenna | clear
+castellan | - | I'm Halbrann. | introduce | Halbrann | clear
+opening | - | Greetings. I am Idris, a traveller from the south. | introduce | Idris | clear,multi
+gate | Name? | Corwin Ashe. | introduce | Corwin Ashe | short,context
+castellan | - | my names brenna | introduce | Brenna | typo
+castellan-worked | - | My real name is Brenna. | introduce | Brenna | clear
+inn | - | Actually, call me Wren. | introduce | Wren | clear
+castellan | Who are you, then? | Mira. And you? | introduce | Mira | short,context,multi
+castellan | - | I'm Aldric, and I'm looking for work. | ask_for_work | - | multi
+castellan | - | I'm looking for work. | ask_for_work | - | clear
+castellan | - | I'm sorry about earlier. | apologize | - | clear
+castellan | - | Call me a fool, but is it safe out there? | ask_safety | - | clear
+castellan | Who might you be? | Just a traveller. | answer | - | short,context
+castellan | And you are? | Nobody important. | answer | - | short,context
+castellan | What should I call you? | Whatever you like. | answer | - | short,context
+castellan | - | What's your name? | ask_about_them | - | clear
+castellan | - | Is Halbrann a friend of yours? | ask_about_person | Halbrann | clear
+castellan | - | Aldric sent me. | no_act | - | clear
+castellan | - | I'm tired, it's been a long road. | small_talk | - | clear
+inn | - | im new here | small_talk | - | typo,short
+gate | - | Call me when the gate opens. | no_act | - | command
+# ---- names, the first held-out set: written 2026-09-29 by a second, separate Claude session: names
+# (contract version 24) from eval/README.md alone, seeing no code; measured once before the name finder
+# was changed for it, then kept here.
+opening | - | Hello there! I'm Wystan. | introduce | Wystan | clear,multi,short
+castellan | - | Good day to you, castellan. My name is Corwin Hale, and it's an honour to meet you. | introduce | Corwin Hale | polite,multi
+gate | State your name and business. | Emrys Coldwater. | introduce | Emrys Coldwater | context,short
+inn | What name shall I put in the ledger? | jory hollin | introduce | Jory Hollin | context,typo,short
+castellan | - | heya im cobb | introduce | Cobb | slang,typo,short
+inn | And who might you be? | Well now, that's a long story. My mother named me after her aunt, and her aunt was named for some saint nobody remembers any more, and I never much cared for it, but Idony it is. | introduce | Idony | rambling,long
+castellan | And who are you supposed to be? | Skarn. What of it? | introduce | Skarn | context,hostile,short
+gate | - | I'm Varga, and that's all you're getting out of me. | introduce | Varga | hostile
+opening | - | Real name's a mouthful. Just call me Pip. | introduce | Pip | multi
+inn | - | Call me the Magpie. Everyone does. | introduce | Magpie | multi
+castellan | - | Captain Orla Rusk, at your service. | introduce | Captain Orla Rusk | polite
+castellan-held | - | I am Brother Oddo of the Grey Well. | introduce | Brother Oddo of the Grey Well | clear
+castellan | Who's asking? | Idrin of Carrowmere. | introduce | Idrin of Carrowmere | context,short
+inn | - | Mira Ashcombe-Tull, pleased to make your acquaintance. | introduce | Mira Ashcombe-Tull | polite
+gate | - | I'm Tol'veth. And you are? | introduce | Tol'veth | multi
+opening | - | Hola, me llamo Itzel. | introduce | Itzel | foreign,short
+inn | - | You can call me Venla Härkäpää. | introduce | Venla Härkäpää | clear
+castellan | Well met, Tamsin. Welcome to Wenweg. | It's Tamzin, actually. With a zed. | introduce | Tamzin | context,multi
+gate | You may pass, Master Holloway. | Holloway isn't my real name. It's Bram Tessick. | introduce | Bram Tessick | multi
+castellan | - | Halbrann's the name. I believe I'm expected. | introduce | Halbrann | multi
+castellan-afraid | W-who's there? Who are you? | Kenver. Just a traveller. | introduce | Kenver | context,multi
+castellan-worked | You're back, and in one piece. I never did get your name. | It's Ysolt Marrable. | introduce | Ysolt Marrable | context,short
+castellan-held | What do I call you, then? | Call me what you like, so long as it's not late for supper. Ha! No, it's Gethin. | introduce | Gethin | multi
+inn | - | Good evening! I'm Liesel Amberly, just in on the coach road. You must be the innkeeper? | introduce | Liesel Amberly | polite,multi
+gate | - | Thanks for letting me through. I'm Oswin Fenn, by the way. | introduce | Oswin Fenn | polite,multi
+castellan | - | my nmae is dagny blackwood | introduce | Dagny Blackwood | typo
+inn | - | Oh, what a road that was. The cart lost a wheel two days back, I've walked since dawn, my boots are ruined, and where are my manners, I'm Hesper Quill. | introduce | Hesper Quill | rambling,long
+gate | Halt! Who goes there? | I'm Hobb the Tall. | introduce | Hobb the Tall | clear,short
+castellan-held | You've a name, I suppose? | Me? Just Lark. | introduce | Lark | context,short
+gate | - | sup. name's dax | introduce | Dax | slang,typo,short
+castellan | - | I'm lost. What's around here? | ask_surroundings | - | clear,multi
+inn | - | I'm sorry I lost my temper with you earlier. | apologize | - | clear
+castellan-afraid | - | I'm not going to hurt you, I promise. | calm | - | clear
+gate | - | Call me a coward, but are the roads safe these days? | ask_safety | - | clear
+castellan | - | Call me crazy, but I don't think you're a castellan at all. | confront | - | clear
+castellan-held | - | I'm looking for Halbrann. Where would I find him? | ask_about_person | Halbrann | multi
+inn | - | Have you seen a woman called Maren Ashby come through here? | ask_about_person | ? | unnamed
+opening | - | I'm curious, what do folk call you? | ask_about_them | - | clear
+gate | What's your name, traveller? | I'd rather keep my name to myself, if it's all the same to you. | answer | - | context,polite
+castellan | Who sent you up to the fortress? | Halbrann. | answer | - | context,short
+inn | What's your trade, then? | I'm a smith. | answer | - | context,short
+gate | - | Morning, Fersel! | greet | - | short
+castellan-worked | - | You might have warned me, Selbren. Half of it was nothing like you said. | complain | - | multi
+inn | - | Your name's mud in this town, you crooked old goat. | insult | - | hostile
+castellan | - | Which way to Nerstrann? A carter called Wenlo said you'd know. | ask_about_place | Nerstrann (Age 1) | partial,multi
+# ---- names, the second held-out set: the same, by another session, measured once before the finder was
+# changed for it. Three targets are relabelled to rule 13 as it now reads (the small words inside a name as
+# the player wrote them): its writer had raised them ("Kestrel The Quiet").
+castellan-held-worked | - | Good evening, castellan. Call me Tessaly Rhune. | introduce | Tessaly Rhune | clear,polite
+opening | Who goes there? | Ruan Tolley, a traveller. | introduce | Ruan Tolley | context,short
+gate | Name yourself. | Oriel. | introduce | Oriel | context,short
+castellan | I don't believe I caught your name. | Emric Wick, sir. | introduce | Emric Wick | context,short,polite
+castellan-held | And you are? | Dame Hester Coyle, if we're being proper. | introduce | Dame Hester Coyle | context,polite
+inn | - | hey im pim | introduce | Pim | slang,short
+castellan | - | Well met, castellan. They call me Kestrel the Quiet. | introduce | Kestrel the Quiet | polite
+gate | Halt. Who approaches? | Jory Ash-Hollow, on foot and alone. | introduce | Jory Ash-Hollow | context
+castellan | - | I am Sir Oswin Dray, knight errant. Well met. | introduce | Sir Oswin Dray | polite
+inn | Haven't seen you in here before. What do they call you? | Most folk call me Rook. | introduce | Rook | clear
+castellan-held | - | oh hey, i'm tobias fenwick marr, the one holding the fortress with you | introduce | Tobias Fenwick Marr | slang
+gate | - | Hail, captian! Name's Ulric Stonebreaker, out of the nothern hills. | introduce | Ulric Stonebreaker | typo,polite
+opening | - | hello there! i'm Ka'rith :) | introduce | Ka'rith | slang,short
+castellan | Your name, stranger? | Ysmay D'Arvell. | introduce | Ysmay D'Arvell | context,short
+castellan-afraid | Who's there? Who are you? | Only Nessa Lowe, from down the valley. | introduce | Nessa Lowe | context
+castellan-worked | - | We never did trade names, did we? I go by the Grey Wanderer. | introduce | Grey Wanderer | clear
+inn | - | hi!! my name is sefa, i just got in on the coach from strandbrig | introduce | Sefa | slang
+gate | Speak your name. | its Ebbe Half-Hand. whos asking | introduce | Ebbe Half-Hand | context,typo,multi
+castellan | - | Selbren, is it? I'm Cato Pryor. How long have you held this place? | introduce | Cato Pryor | multi
+inn | - | Garet Thorne, at your service, and thank you for keeping the fire going. | introduce | Garet Thorne | polite,multi
+castellan-held | Good to see you again, Master Harrick. | Hadrick, not Harrick. Easy mistake. | introduce | Hadrick | context,short
+castellan | - | Selbren, it's me, Halbrann. You know me. | introduce | Halbrann | clear
+opening | - | Bonjour, je m'appelle Liriane. | introduce | Liriane | foreign,short
+inn | - | hola, me llamo Terevo y vengo de muy lejos | introduce | Terevo | foreign
+gate | - | Guten Tag. Ich heiße Anselm Graubart. | introduce | Anselm Graubart | foreign
+castellan-held | - | Piacere, sono Corvina. | introduce | Corvina | foreign,polite,short
+castellan | - | Long climb up here. My knees have had it and my horse threw a shoe on the way, but here I am. Aurel Candlish, for what it's worth. Pleased to finally meet you. | introduce | Aurel Candlish | long,rambling
+inn | - | ok so ive been on the road three weeks, lost my purse at a ford, slept in a ditch twice and honestly im just glad to see a roof. anyway im jessamy, hi | introduce | Jessamy | long,rambling,slang
+castellan | - | I am Maeve of Clan Dunrach, and I greet you, castellan. | introduce | Maeve of Clan Dunrach | polite
+gate | Identify yourself, traveller. | Magister Pellam Oxley, scholar. | introduce | Magister Pellam Oxley | context
+castellan | Who's asking? | Aldo of Brackenford. | introduce | Aldo of Brackenford | context,short
+inn | - | helo ther, Bastin's teh name. nice to meat you | introduce | Bastin | typo
+gate | Everyone who comes through this gate gives a name. | Fine. Tamsin Reed. | introduce | Tamsin Reed | context,short
+opening | You've not said who you are. | oh right lol, it's gil | introduce | Gil | context,slang,short
+castellan | - | Good morrow, Castellan Selbren. | greet | - | clear,polite,short
+opening | - | What do folk call you, then? | ask_about_them | - | clear,short
+inn | - | ¿Cómo te llamas? | ask_about_them | - | foreign,short
+castellan | - | I'm looking for Halbrann. Where might I find them? | ask_about_person | Halbrann | clear
+gate | State your name and business. | My name's my own affair. As for business, I'm only passing through. | answer | - | context
+opening | And who might you be? | nobody important | answer | - | context,short
+inn | And who's that with you? | That's my sister, Maelis. She doesn't say much. | answer | - | context
+castellan | - | I'm soaked to the bone. Does it ever stop raining up here? | small_talk | - | clear
+gate | What's your trade, then? | I'm a Cooper. Barrels, mostly. | answer | - | context,short
+castellan | - | Name's Corwin Ashby. What can you tell me about the burnt works? | ask_about_place | the burnt works | multi
+inn | - | I'm off to Dunfor at first light. What's it like there? | ask_about_place | Dunfor (Age 2) | partial
+gate | - | call me old-fashioned, but i do like a proper stone wall. this one's a beauty | small_talk | - | slang
+castellan-worked | - | You nearly got me killed, and my name's mud down in the hamlet now. You should have warned me. | complain | - | clear
+castellan | - | Name your price for holding the fortress, and I'll think it over. | no_act | - | command
+castellan | - | They ought to call you Selbren the Spineless. | insult | - | hostile
+castellan | Who are you, then? | I'm Halbrann's cousin, up from the coast. | answer | - | context
+# ---- names, the third held-out set: the same, by a third session, measured once before the finder was
+# changed for it.
+castellan | - | Good evening, castellan. I am Lady Isolde Vantreux. | introduce | Lady Isolde Vantreux | polite,multi
+castellan | - | my nmae is ondine | introduce | Ondine | typo,short
+castellan | - | Came up from Hakndum this morning and my feet are in ribbons. Name's Oswy. | introduce | Oswy | multi
+castellan | And who might you be? | Your new best friend. Kidding! Fenwick Moss. | introduce | Fenwick Moss | context
+castellan | - | Three days on the road, two of them in the rain, a mule that bit me twice and a ferryman who charged double because he could. Anyway. I'm Petronella Vask. | introduce | Petronella Vask | long,rambling
+castellan | - | Zel'Tharion is my name. I have walked far to stand before the castellan of Wenweg. | introduce | Zel'Tharion | clear
+castellan | - | I'm the hero of this story, obviously. Name's Beck. | introduce | Beck | multi
+castellan | - | Bonjour ! Je m'appelle Aurélie de Montclair. | introduce | Aurélie de Montclair | foreign,polite,multi
+castellan | Who are you, then? | Halbrann. | introduce | Halbrann | context,short
+castellan-held | - | I'm Tamsin. | introduce | Tamsin | clear,short
+castellan-held | - | i am maelis of the nine bells, sworn to no lord | introduce | Maelis of the Nine Bells | clear
+castellan-held | - | Thanks for taking me on. I'm Orla, by the way. | introduce | Orla | polite,multi
+castellan-afraid | Who's there? Stay back! | Only Brisca. A traveller. | introduce | Brisca | context,short
+castellan-worked | I don't think I ever had your name. | Varne. Hesketh Varne. | introduce | Hesketh Varne | context,short
+castellan-worked | - | Selbren! It's me, Cadoc Wynn. I took your work a while back. | introduce | Cadoc Wynn | multi
+castellan-held-worked | You came back. Remind me of your name. | Of course. Hildegard Ormsby. | introduce | Hildegard Ormsby | context,polite
+gate | Halt! Who goes there? | Anne-Maud Fairweather. | introduce | Anne-Maud Fairweather | context,short
+gate | Name and business. | Idris Callow. Headed up to the hospice before the snow comes. | introduce | Idris Callow | context,multi
+gate | Stand where you are. Who are you? | Sir Edmer Holloway, knight errant of no fixed abode. | introduce | Sir Edmer Holloway | context
+gate | - | Isak Brennard. And yours, captain? | introduce | Isak Brennard | polite,multi
+gate | State your name. | ugh, fine. skarn. happy now? | introduce | Skarn | context,hostile,short
+gate | - | ich bin ägidius | introduce | Ägidius | foreign,short
+gate | Tolvar, was it? Wait by the wall. | It's Tolvin, not Tolvar. | introduce | Tolvin | context,short
+inn | And you are? | oh, me? hollin brask | introduce | Hollin Brask | context,short
+inn | - | me llamo joaquín | introduce | Joaquín | foreign,short
+inn | Welcome back, Mirabel. | its mirabelle. two Ls | introduce | Mirabelle | context,typo,short
+inn | Name for the ledger? | dornwen | introduce | Dornwen | context,short
+inn | - | I'm Gideon Marsh. Kept bees down south till the blight took the hives, and I've been walking ever since. Can't say I miss the stings. | introduce | Gideon Marsh | long,rambling
+inn | - | Brody O'Dairne's the name. | introduce | Brody O'Dairne | clear,short
+inn | - | I go by Thistle round here. | introduce | Thistle | clear,short
+opening | - | Call me Rook. | introduce | Rook | clear,short
+opening | - | the name's kip. kip bramblewood. what's yours? | introduce | Kip Bramblewood | multi
+opening | - | Name's Fersel, same as yours, funny enough. | introduce | Fersel | clear
+opening | What do they call you? | they call me the ashen wanderer | introduce | Ashen Wanderer | clear
+opening | - | hi!! im zeph :) | introduce | Zeph | typo,slang,short
+castellan | - | name's ottilie. how do i get to the burnt works? | ask_about_place | the burnt works | multi
+castellan | - | I'm looking for Halbrann. Where would he be? | ask_about_person | Halbrann | clear
+castellan | - | Call me a coward, but is it safe around here after dark? | ask_safety | - | clear
+castellan | - | That's not your real name, is it? You're no castellan, Selbren. | confront | - | clear
+castellan | - | It's Hakndum I asked about, not Nerstrann. What's it like? | ask_about_place | Hakndum (Age 2) | partial
+castellan-held | - | I'm afraid I must be off. Farewell, Selbren. | farewell | - | polite
+castellan-afraid | - | It's me, it's only me. You're safe now, nobody's going to hurt you. | calm | - | clear
+castellan-worked | - | I'm lucky I've still got both legs after that job. You told me it was simple. | complain | - | clear
+gate | - | What should I call you, captain? | ask_about_them | - | clear,polite
+gate | - | Morning, Captain. | greet | - | clear,short
+gate | Halt! Who goes there? | A friend. Just a traveller, alone. | answer | - | context
+gate | - | i'm lost. what's around here? | ask_surroundings | - | short
+inn | - | I'm Corvin Hale, and I'm after work. Anything going? | ask_for_work | - | multi
+inn | - | Thank you, Dornwen. | thank | - | clear,short,polite
+opening | What's your trade? | I'm a smith. | answer | - | context,short
+# ---- names, the fourth held-out set: the same, by a fourth session, measured once before the finder was
+# changed for it.
+castellan | - | hail castellan, im garrick of the marsh | introduce | Garrick of the Marsh | typo
+castellan | Before we go any further, what's your name? | Halbrann. | introduce | Halbrann | context, short
+castellan | Who sent you up here? | Halbrann. | answer | - | context, short
+castellan | - | I'm Fenna. And you are? | introduce | Fenna | multi, short
+castellan | - | Ysolde is the name. I don't give it lightly. | introduce | Ysolde | clear
+castellan | - | hail and well met castellan! i am theodric, second son of a second son, and i have walked many a long mile to stand before you this day | introduce | Theodric | long, polite
+castellan | - | yo castellan, its me, pip | introduce | Pip | slang, typo, short
+castellan | Forgive me, I didn't catch your name. | Corra. | introduce | Corra | context, short
+castellan | You there. Your name. | ugh. vetch. happy now? | introduce | Vetch | context, hostile, short
+castellan | And what do they call you? | I'd sooner keep my name to myself, castellan. | answer | - | context, polite
+castellan | - | Name's Tarrant. Got any work going? | ask_for_work | - | multi
+castellan | - | im looking for halbrann, any idea where? | ask_about_person | Halbrann | typo
+castellan | - | call me crazy but is it safe round here after dark | ask_safety | - | slang
+castellan | - | Good morrow, Castellan Selbren! | greet | - | clear, polite
+castellan-held | - | Selbren, I don't think I ever gave you my name. It's Anselm. | introduce | Anselm | clear
+castellan-held | Then I'll hold you to it. What name shall I put it under? | Put it down as Orla Penhallow. | introduce | Orla Penhallow | context
+castellan-held | - | They call me the Grey Heron, on account of the legs. | introduce | Grey Heron | clear
+castellan-afraid | Who's that? Name yourself! | Brisa. Just Brisa. | introduce | Brisa | context, short
+castellan-afraid | - | My name is Ulric Stane. I've come up from the hamlet. | introduce | Ulric Stane | clear
+castellan-afraid | - | I'm here now. You're safe, nobody's getting past me. | calm | - | clear
+castellan-worked | Good work out there, Hesk. | Hesketh. Only my mother calls me Hesk. | introduce | Hesketh | context
+castellan-worked | - | Thank you for the work. I'm Myrrin, if no one told you. | introduce | Myrrin | multi, polite
+castellan-held-worked | You're holding the fortress with me, and I still don't know what to call you. | Call me Rook. Everyone does. | introduce | Rook | clear
+gate | Halt! Who goes there? | Tamsin Varrow, a friend to the fortress. | introduce | Tamsin Varrow | context
+gate | Halt! Who goes there? | just a tinker, captain. nobody important | answer | - | context
+gate | State your name and your business. | Caddock, drover. Bringing hides up for the garrison. | introduce | Caddock | context
+gate | - | Name's Fersel. Same as yours, funny old world. | introduce | Fersel | clear
+gate | On your way then, Marek. | Mirek, captain. Not Marek. | introduce | Mirek | context, short
+gate | Name? | its wynne. w y n n e | introduce | Wynne | context, short, typo
+gate | - | Jehanne de Vaux, at your service, captain. | introduce | Jehanne de Vaux | polite
+gate | Hold there. Who are you? | Hallo! Ich heiße Ansgar Wendt. | introduce | Ansgar Wendt | foreign
+gate | - | Captain, is it safe on the road up to the hospice? | ask_about_place | the hospice on the Wenweg (Age 2) pass | partial
+gate | - | I'm Frozen. Is it always this cold up on the wall? | small_talk | - | typo
+gate | - | Right, I'm off. Mind the gate, Fersel. | farewell | - | clear
+inn | - | evening. names oswin | introduce | Oswin | short, typo
+inn | Don't think I've seen you in here before. Got a name? | Merrow. Merrow Quaile. | introduce | Merrow Quaile | context, short
+inn | - | Thanks for the ale. I'm Idrys, by the way. | introduce | Idrys | multi, polite
+inn | - | Evening, innkeeper. Pellam, from over the hills. And who might you be? | introduce | Pellam | multi, polite
+inn | Back again, Tobin? The usual? | toben. with an e. not tobin | introduce | Toben | context, short
+inn | And who are you when you're at home? | Maelis. M-A-E-L-I-S. Folk always get it wrong. | introduce | Maelis | context
+inn | - | so i finally made it, three days on foot from dunfor and my boots are done for, anyway im sorrel, nice to meet you | introduce | Sorrel | rambling, long, typo
+inn | - | Nell Ashby. I crew the boats out of Strandbrig. | introduce | Nell Ashby | clear
+inn | - | I'm Mekmoh's nephew. Is he about tonight? | ask_about_person | ? | unnamed
+inn | - | Its Strandbrig im after, which road do i take | ask_about_place | Strandbrig | typo
+inn | - | Name your price for a bed tonight. | no_act | - | command
+opening | Who are you, then? | Hollis | introduce | Hollis | context, short
+opening | - | Stabby McStabface. Pleased to meet you. | introduce | Stabby McStabface | clear
+opening | - | Bonjour ! Je m'appelle Oriane. Et vous ? | introduce | Oriane | foreign, multi
+opening | And you are? | oh sorry! im lisbet | introduce | Lisbet | context, short, typo
+opening | - | whats ur name? | ask_about_them | - | slang, short, typo

@@ -28,6 +28,10 @@ struct Remembered {
     std::string resting = "calm";  // how they feel when nothing frightens them
     bool eased = false;   // the player eased their fear within the last two days (contract version 10)
     bool joined = false;  // they overheard the player and joined in unasked
+    // The name they know the stranger by, as it was given, perhaps a lie (contract version 24); how they
+    // came by it: "told", "word" (with word of the stranger's deed), "overheard"; and another name they
+    // also know them by, when two differ. Empty when they know none.
+    std::string called, called_how, called_other;
 
     bool warm() const { return mood == "warm" || mood == "friendly"; }
     bool cold() const { return mood == "wary" || mood == "hostile"; }

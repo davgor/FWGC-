@@ -2628,6 +2628,89 @@ TEST(a_question_never_answered_is_asked_again_after_a_greeting) {
     check::is_true(lines.follow(chat).empty(), "small talk: not asked");
 }
 
+// Contract version 24: the stranger's name. Told it, the speaker takes it and says it back, as they take the
+// stranger; told it again, knew it; told another, says the one they had. Knowing it, they say it in a
+// greeting to someone met before and in a farewell where the line's first words leave room, and no line
+// calls them a stranger. At a first meeting, a name heard of them before comes after the greeting and
+// before any news; a hero who knows none asks for it, after any news, unless the stranger's words gave it.
+TEST(the_strangers_name_is_taken_said_back_and_asked_for) {
+    const Lines lines = Lines::parse("any | introduced | {player}. I'll remember it.\n"
+                                     "any | introduced | So be it.\n"
+                                     "any | introduced_cold | So be it, {player}.\n"
+                                     "any | introduced_afraid | {player}. Yes, well met.\n"
+                                     "any | known | I know, {player}.\n"
+                                     "any | renamed | {player}, is it? I had you down as {player_other}.\n"
+                                     "any | greeted | Well met.\n"
+                                     "any | greeted_cold | Keep back.\n"
+                                     "any | greeted_afraid | Oh. You again.\n"
+                                     "any | greeted_again | Back again.\n"
+                                     "any | greeted_warm | Good to see you, you've been worth my time.\n"
+                                     "any | parted | Farewell, and keep out of trouble.\n"
+                                     "any | parted | Go well, stranger.\n"
+                                     "any | heard_deed | You're the one who {deed}.\n"
+                                     "any | named | You'd be {player}, if I heard right.\n"
+                                     "any | ask_name | What do they call you?\n"
+                                     "any | greeted_who | I'm {speaker}, {post} here.\n",
+                                     "names");
+    const auto with = [](FactPacket p, const std::string& field, const std::string& value) {
+        for (auto& [key, was] : p.facts.back().fields)
+            if (key == field) was = value;
+        return p;
+    };
+    // Told, by how the speaker takes them.
+    check::equal(lines.speak(packets::introduced(), "I'm Aldric."), std::string("Aldric. I'll remember it. I'm Selbren, castellan here."),
+                 "said back, the fuller line, and their own name given at a first meeting");
+    check::equal(lines.speak(packets::introduced(), "I'm Aldric.", {"Hello. I'm Selbren, castellan here."}),
+                 std::string("Aldric. I'll remember it."), "not their own name again, said lately");
+    check::equal(lines.speak(packets::introduced("hostile"), "I'm Aldric."), std::string("So be it, Aldric."), "a cold speaker's own line");
+    check::equal(lines.speak(packets::introduced("neutral", "afraid"), "I'm Aldric."), std::string("Aldric. Yes, well met."),
+                 "a frightened speaker's own line");
+    check::equal(lines.speak(packets::known_name(), "I'm Aldric."), std::string("I know, Aldric."), "told again: known");
+    check::equal(lines.speak(packets::renamed(), "Call me Brenna."), std::string("Brenna, is it? I had you down as Aldric."),
+                 "another: and the one they had");
+    check::equal(lines.speak(with(with(packets::introduced(), "called", ""), "called_how", ""), "I'm Aldric."), std::string("So be it."),
+                 "a face that keeps nothing: no name said");
+    // Said to them, knowing it: at a greeting of someone met before, and a farewell.
+    check::equal(lines.speak(packets::greeted_again_named(), "Hello."), std::string("Back again, Aldric."), "a greeting, by name");
+    check::equal(lines.speak(packets::greeted_again(), "Hello."), std::string("Back again."), "the control: no name known");
+    check::equal(lines.speak(with(packets::greeted_again_named(), "mood", "warm"), "Hello."),
+                 std::string("Aldric. Good to see you, you've been worth my time."), "a greeting with no room for it opens with it");
+    check::equal(lines.speak(with(packets::greeted_again_named(), "mood", "hostile"), "Hello."), std::string("Keep back, Aldric."),
+                 "coldly, by name");
+    check::equal(lines.speak(with(packets::greeted_again_named(), "feeling", "afraid"), "Hello."), std::string("Oh. You again."),
+                 "not from a frightened speaker");
+    check::equal(lines.speak(packets::parted_named(), "Bye."), std::string("Farewell, Aldric, and keep out of trouble."),
+                 "a farewell, by name");
+    check::equal(Lines::parse("any | parted | Take care, you're more use to me alive.\n", "no room").speak(packets::parted_named(), "Bye."),
+                 std::string("Take care, you're more use to me alive."), "a farewell with no room for it: as it was");
+    const std::vector<std::string> unnamed = lines.replies(packets::parted());
+    check::is_true(std::find(unnamed.begin(), unnamed.end(), "Go well, stranger.") != unnamed.end(), "the premise: a stranger is one");
+    const std::vector<std::string> known = lines.replies(packets::parted_named());
+    check::is_true(std::find(known.begin(), known.end(), "Go well, stranger.") == known.end(), "no stranger, known by name");
+    // At a first meeting.
+    check::equal(lines.speak(packets::greeted_first_named(), "Hello."), std::string("Well met. You'd be Aldric, if I heard right."),
+                 "a name heard before: said after the greeting");
+    check::equal(lines.speak(packets::greeted_first_named("overheard"), "Hello."), std::string("Well met. You'd be Aldric, if I heard right."),
+                 "or overheard");
+    check::equal(lines.speak(packets::greeted_first(), "Hello."), std::string("Well met. What do they call you?"), "a hero asks it");
+    check::equal(lines.speak(packets::greeted_first(), "Hello, I'm Aldric."), std::string("Well met."), "not when the stranger said it");
+    FactPacket roster = packets::greeted_first();
+    roster.persona = packets::gate_captain();
+    check::equal(lines.speak(roster, "Hello."), std::string("Well met."), "a roster person does not ask");
+    check::equal(lines.speak(with(packets::greeted_first(), "turn", "3"), "Hello."), std::string("Well met."), "nor later in a conversation");
+    check::equal(lines.speak(with(packets::greeted_first(), "mood", "hostile"), "Hello."), std::string("Keep back."),
+                 "nor a cold speaker");
+    // With news: the name before it, the question after it.
+    FactPacket heard = packets::greeted_having_heard();
+    heard.persona = packets::castellan();
+    const std::string asked = lines.speak(heard, "Hello.");
+    check::is_true(asked.rfind("Well met. You're the one who ", 0) == 0 && asked.size() > 23 &&
+                       asked.compare(asked.size() - 23, 23, " What do they call you?") == 0,
+                   "the news, then the question: " + asked);
+    const std::string named = lines.speak(with(with(heard, "called", "Aldric"), "called_how", "word"), "Hello.");
+    check::is_true(named.rfind("Well met. You'd be Aldric, if I heard right. You're the one who ", 0) == 0, "the name, then the news: " + named);
+}
+
 // Contract version 23: an apology for how the stranger is, in the light of a loss or a hardship they told
 // earlier in this conversation. "Sorry, I'm not myself today", two lines after a brother's death, drew a
 // stock "nothing to forgive" (three of the golden benchmark's judges, 2026-09-29).

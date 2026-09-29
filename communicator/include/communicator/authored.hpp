@@ -104,9 +104,12 @@ public:
     // With no news to tell, a greeting to someone met before may end
     // with the stranger's own words said back (a `recalled` line, contract version 12); with
     // `meaning`, as what they were: a loss (`recalled_grief`), a hardship (`recalled_hardship`), or
-    // fear they have come through, their work done (`recalled_doubt`).
+    // fear they have come through, their work done (`recalled_doubt`). At a first meeting (contract
+    // version 24), a greeting from someone who heard the stranger's name ends with it (a `named` line,
+    // before any news), and one from a hero who knows none asks it (an `ask_name` line, after any news),
+    // unless `line`, the stranger's words, gave it.
     std::string follow(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent = {},
-                       Meaning* meaning = nullptr) const;
+                       Meaning* meaning = nullptr, std::string_view line = {}) const;
 
     // Every line follow() could choose from, filled, as leads() lists every lead.
     std::vector<std::string> follows(const orchestrator::FactPacket& packet) const;
@@ -162,6 +165,16 @@ private:
     // news_asked(), each as Spoken; `checked` as for spoken_for().
     std::vector<Spoken> asked_for_news(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent,
                                        bool checked) const;
+
+    // follow() before a first meeting's name: what the speaker says after their reply of their own work,
+    // their question, news, or the stranger's words.
+    std::string follow_on(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent, Meaning* meaning) const;
+
+    // A first meeting's name (contract version 24), after a greeting on its first turn from a speaker neither
+    // cold nor frightened: `named` lines when they know the stranger's name, else `ask_name` lines from a hero
+    // (a voice key) when `line` gave none. `checked` as for spoken_for().
+    std::vector<Spoken> first_meeting_lines(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent,
+                                            bool checked, std::string_view line) const;
 
     // Adds the rows of `text` to the banks; `source` names it in an error.
     void read(std::string_view text, const std::string& source);
