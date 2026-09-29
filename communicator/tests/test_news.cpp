@@ -502,8 +502,17 @@ TEST(a_heros_deed_is_news_to_others_and_their_own_to_tell) {
     };
     const int heard_days = bringing_up(packets::small_talk_with_a_heros_deed("ally"), "days");
     check::is_true(heard_days > 70 && heard_days < 130, "an ally's, a few days back: about one in two, " + std::to_string(heard_days) + " of 200");
-    // A stranger's deed is never brought up unasked (contract version 28), however fresh.
-    check::equal(bringing_up(packets::small_talk_with_a_heros_deed(), "today"), 0, "a stranger's, today: never unasked");
+    // A stranger's deed elsewhere is never brought up unasked (contract version 28), however fresh; one in the
+    // speaker's own place is theirs to speak of.
+    const auto elsewhere = [](FactPacket p) {
+        for (Fact& f : p.facts)
+            if (f.kind == FactKind::News)
+                for (auto& [key, value] : f.fields)
+                    if (key == "place") value = "the fortress of Torhas";
+        return p;
+    };
+    check::equal(bringing_up(elsewhere(packets::small_talk_with_a_heros_deed()), "today"), 0, "a stranger's elsewhere, today: never unasked");
+    check::equal(bringing_up(packets::small_talk_with_a_heros_deed(), "today"), 200, "a stranger's in the speaker's own place: every speaker");
     check::equal(bringing_up(packets::small_talk_with_a_heros_deed("rival"), "today"), 200, "a rival's, today: every speaker");
     check::equal(bringing_up(packets::greeted_after_own_deed("lost"), "days"), 200, "their own, a few days back: every hero");
     const int own_weeks = bringing_up(packets::greeted_after_own_deed("lost"), "weeks");
@@ -542,10 +551,16 @@ TEST(a_heros_deed_is_news_to_others_and_their_own_to_tell) {
                                      "any | news_ours_won | Good news, for once: {news}.\n"
                                      "any | news_ours_lost | It sits badly with me: {news}.\n",
                                      "heard");
-    check::equal(hearing.speak(packets::small_talk_with_a_heros_deed(), "Fine day."), std::string("Fine weather."), "a stranger's: not brought up");
-    const std::vector<std::string> told = hearing.news_asked(packets::small_talk_with_a_heros_deed(), {});
-    check::is_true(told.size() == 1 && told.front() == "The word is Selbren held the line here against the glacier dragons today.",
-                   "a stranger's, asked for news: told: " + (told.empty() ? std::string("none") : told.front()));
+    check::equal(hearing.speak(elsewhere(packets::small_talk_with_a_heros_deed()), "Fine day."), std::string("Fine weather."),
+                 "a stranger's elsewhere: not brought up");
+    const std::vector<std::string> told = hearing.news_asked(elsewhere(packets::small_talk_with_a_heros_deed()), {});
+    check::is_true(told.size() == 1 && told.front() == "The word is Selbren held the fortress of Torhas against the glacier dragons today.",
+                   "a stranger's elsewhere, asked for news: told: " + (told.empty() ? std::string("none") : told.front()));
+    // In the speaker's own place, a fight is theirs to speak of, whoever fought it: "I'm told ... that's all I'll put
+    // my word to" of a fight at a castellan's own post (round 30's judges).
+    check::equal(hearing.speak(packets::small_talk_with_a_heros_deed(), "Fine day."),
+                 std::string("Fine weather. Good news, for once: Selbren held the line here against the glacier dragons today."),
+                 "a stranger's in the speaker's own place: theirs");
     check::equal(hearing.speak(packets::small_talk_with_a_heros_deed("sovereign"), "Fine day."),
                  std::string("Fine weather. Good news, for once: our sovereign Selbren held the line here against the glacier dragons today."),
                  "their sovereign's");

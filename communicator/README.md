@@ -537,9 +537,10 @@ hero's own side of a fight (2026-09-29).
 - **Whose deed it is to them** (contract version 28, the News fact's `tie`): someone of theirs is said as
   what they are to the speaker ("our sovereign Krumnord", "Borleg, who stands with me,", "Borleg, my own
   kin,", "Borleg, no friend of mine,"), and their sovereign's, an ally's or kin's deed in lines of their own
-  (`news_ours_won`, `news_ours_lost`: "It sits badly with me: {news}."), never hearsay; a rival's is news
-  as other news is. A stranger's deed is not brought up unasked (`brought_up`), only told when asked for
-  news. A fight the speaker was in is never news to them (the director has them know it by being there).
+  (`news_ours_won`, `news_ours_lost`: "It sits badly with me: {news}."), never hearsay, and so is anyone's
+  fought in the speaker's own place; a rival's is news as other news is. A stranger's deed elsewhere is not
+  brought up unasked (`brought_up`), only told when asked for news. A fight the speaker was in is never news
+  to them (the director has them know it by being there).
   Passed on as it came, round 30's judges heard strangers' fights as bulletins of names no one knew, and a
   sovereign's lost fight in the speaker's own town as hearsay he would not vouch for.
 - **Their own is their side of it** (`own_deed_words`), in the first person, never as news: "we held the
@@ -560,8 +561,9 @@ hero's own side of a fight (2026-09-29).
   lines speak of. A castellan who had fought and lost at their fortress six days before had answered
   "How have things been since?" with a night's sleep untroubled (2026-09-29).
 - **Asked of their fights lately** ("Have you had to fight since I left?"), heard by meaning among what
-  they are asked of themself: the fight (`them_fought`, "It came to a fight: {own_deed}."), or that they
-  have had none (`them_fought_none`), never who they are or their old rank in its place.
+  they are asked of themself: the fight (`them_fought`, "It came to a fight: {own_deed}."), as one who told
+  it when it was said in this conversation already (`them_fought_again`, "Only the one I told you of."), or
+  that they have had none (`them_fought_none`), never who they are or their old rank in its place.
 - **The voice** is told it as "What you did yourself: ..."; the truth check lets "we held the", "we
   fought the", "we lost a fight", "I hunted down", "we were thrown back" and the like be said only with a
   News fact of the speaker's own deed, reads its dated words as the deed's date and not a time counted

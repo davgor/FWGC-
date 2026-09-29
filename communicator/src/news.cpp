@@ -253,10 +253,13 @@ bool brought_up(const Fact& news, const orchestrator::FactPacket& packet) {
     const bool about = packet.outcome == orchestrator::Outcome::Answered &&
                        (packet.answering == ActKind::AskAboutPlace || packet.answering == ActKind::AskAboutPerson);
     const bool own = !own_deed_words(news, text::spoken(packet.persona.name), text::spoken(packet.persona.place)).empty();
-    // Another hero's deed, of someone who is nothing to the speaker, is not brought up unasked (contract version
-    // 28): asked for news, it is told. Brought up, strangers' fights came as bulletins of names no one knew, and
-    // one was taken for the speaker's own side of a fight (the golden benchmark's round 30).
-    if (!own && !about && said(news, "event") == "hero" && said(news, "tie").empty()) return false;
+    // Another hero's deed, of someone who is nothing to the speaker and elsewhere, is not brought up unasked
+    // (contract version 28): asked for news, it is told. Brought up, strangers' fights came as bulletins of names no
+    // one knew, and one was taken for the speaker's own side of a fight (the golden benchmark's round 30). A fight
+    // in the speaker's own place is theirs to speak of, whoever fought it.
+    if (!own && !about && said(news, "event") == "hero" && said(news, "tie").empty() &&
+        said(news, "place") != text::spoken(packet.persona.place))
+        return false;
     if (about || own) age = std::max(0, age - 1);
     if (age <= 1) return true;
     if (age >= 4) return false;

@@ -917,6 +917,7 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // that they have not had to fight since.
         {"them_fought", {"own_deed"}},
         {"them_fought_none", {}},
+        {"them_fought_again", {}},
         // Contract version 19: a castellan's past. How long they have held their post, and where they
         // served before it, each asked alone (speak()), since a bank's lines of how long without the years,
         // and of a past without where they served, would shadow the next bank's that say them.
@@ -1137,6 +1138,8 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
                                           has_past(p) ? "them_past" : "them_past_none", "them_ties", "them_plans", "them_secret", "them_home",
                                           foes_words(p).empty() ? "them_foes_none" : "them_foes",
                                           own_deed_of(p) != nullptr ? "them_fought" : "them_fought_none"};
+        // Their fight told in this conversation already, answered as told (speak()).
+        if (own_deed_of(p) != nullptr) chain.push_back("them_fought_again");
         // A castellan's past (contract version 19), last: speak() asks each alone, when what was asked is it.
         const std::map<std::string, std::string> known = blanks_of(p, "them_past", "");
         if (known.count("held_for")) chain.push_back("them_long_known");
@@ -1908,6 +1911,11 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         // Their fights lately: their own newest deed, which rides only while newer than the stranger's last visit
         // (contract version 27); with none, that they have not had to fight, never who they are in its place.
         if (asked.front() == "them_fought" && own_deed_of(p) == nullptr) asked = {"them_fought_none"};
+        // Told in this conversation already, as one who told it: "Since you ask: we fought the horizon eyes at the
+        // fortress and lost today" had come two turns after the greeting said it word for word (round 31's reading).
+        if (asked.front() == "them_fought" &&
+            own_deed_said(p, own_deed_words(*own_deed_of(p), text::spoken(p.persona.name), text::spoken(p.persona.place)), recent))
+            asked = {"them_fought_again"};
         // How long they have held their post, and where they served before it, where the Self fact says
         // (contract version 19): asked alone, as home is, since a bank's lines of how long without the years
         // would shadow the next bank's with them. With no line of it, as before.
@@ -2157,10 +2165,13 @@ NewsToSay news_to_say(const FactPacket& p, bool unasked) {
     // that isn't in any lesson: you helped us hold" hands a man his own deed as news (a writer, and
     // the second judge, 2026-09-27). `news` lines say what others did.
     const bool theirs = greeting || !deed_words(*heard, self, here).empty();
-    // A deed of someone of theirs (contract version 28): their sovereign, an ally, their kin. Not hearsay, and
-    // not said as if it were nothing to them: "I'll not vouch for more than the hearing of it" of their own
-    // sovereign's lost fight in their own town (the golden benchmark's round 30). A rival's is news as ever.
-    if (const std::string tie = field_of(*heard, "tie"); !theirs && field_of(*heard, "event") == "hero" && !tie.empty() && tie != "rival")
+    // A deed of someone of theirs (contract version 28): their sovereign, an ally, their kin; or anyone's, fought in
+    // the speaker's own place. Not hearsay, and not said as if it were nothing to them: "I'll not vouch for more than
+    // the hearing of it" of their own sovereign's lost fight in their own town, and "I'm told ... that's all I'll put
+    // my word to" of a fight at a castellan's own post (the golden benchmark's round 30). A rival's is news as ever.
+    const std::string tie = field_of(*heard, "tie");
+    const bool ours = tie == "sovereign" || tie == "ally" || tie == "kin" || (tie.empty() && field_of(*heard, "place") == here);
+    if (!theirs && field_of(*heard, "event") == "hero" && ours)
         return {field_of(*heard, "state") == "won" ? "news_ours_won" : "news_ours_lost", news_forms(*heard, self, here)};
     return {theirs ? "heard_deed" : "news", news_forms(*heard, self, here)};
 }

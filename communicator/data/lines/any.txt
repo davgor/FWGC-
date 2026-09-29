@@ -399,6 +399,8 @@ any | them_foes_none | No rival I'd name to you, and I'd sooner keep it that way
 any | them_fought | It came to a fight: {own_deed}.
 any | them_fought | I'll tell it plain: {own_deed}.
 any | them_fought | Since you ask: {own_deed}.
+any | them_fought_again | As I said; that one fight, and it was enough.
+any | them_fought_again | Only the one I told you of.
 any | them_fought_none | Not lately, no; I've not had to draw steel.
 any | them_fought_none | No, not of late; I've had no fight of my own.
 # How things have been since, with the nest still about; and answers about themself that do not say the

@@ -413,7 +413,7 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         // Their fights lately (contract version 26): their own deed, when it rides.
         {packets::about_them_after_a_fight(),
          {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
-          "them_secret", "them_home", "them_foes", "them_fought"}},
+          "them_secret", "them_home", "them_foes", "them_fought", "them_fought_again"}},
         {packets::about_them_without_rivals(),
          {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
           "them_secret", "them_home", "them_foes_none", "them_fought_none"}},
@@ -858,6 +858,17 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
                                                  "six held out");
     check::is_true(fought_held >= kFoughtHeldFloor, std::to_string(fought_held) + " of 6");
     check::equal(fighting.speak(p, "Have you had to fight since I left?", {}, &meaning), std::string("Not lately, no."), "no fight since: none");
+    // Told in this conversation already, as told: "Since you ask: we fought ..." had come two turns after the
+    // greeting said it word for word (round 31's reading, 2026-09-29).
+    const Lines again_told = Lines::parse(every + fought_row + no_fight_row + "any | them_fought_again | Only the one I told you of.\n", "again");
+    FactPacket later_turn = after_fight;
+    for (auto& [field, value] : later_turn.facts.back().fields)
+        if (field == "turn") value = "2";
+    const std::string greeting_said = "Welcome back. It went badly: we fought the glacier dragons at the fortress and lost a few days back.";
+    check::equal(again_told.speak(later_turn, "Have you had to fight since I left?", {greeting_said}, &meaning),
+                 std::string("Only the one I told you of."), "told this conversation: as told");
+    check::equal(subject_of[again_told.speak(after_fight, "Have you had to fight since I left?", {}, &meaning)], std::string("them_fought"),
+                 "not told: the fight");
     // What the stranger heard from them lately makes a line no fuller: how they stand, said once, is
     // not said again to what they do off duty.
     const Lines days = Lines::parse("any | them_here | I {standing}.\nany | them_here | Not much else; the post takes all of me.\n", "days");
