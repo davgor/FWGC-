@@ -20,6 +20,7 @@
 #include "packets.hpp"
 #include "reply_shape.hpp"
 #include "rules.hpp"
+#include "them.hpp"
 
 namespace {
 
@@ -2946,4 +2947,67 @@ TEST(how_a_hero_took_their_deed_follows_their_account_of_it) {
                  alone + " I mean to go after them myself.", "vengeful, after the account");
     check::equal(lines.follow(packets::greeted_after_own_deed("lost", "grieving"), {}, nullptr, "Hello again."), alone,
                  "no line of how: the account alone");
+}
+
+// How it went for them in the work the stranger did beside them (contract version 31), asked of while its account rides:
+// the account from their side, or, told it lately, what it cost them, said as told; other questions as ever, and none
+// of it without an account. "How did it go for you, while I was out there?" had drawn how they spend their time, three
+// rounds of the golden benchmark running. Both sets of questions were written before the description was tried.
+TEST(how_it_went_for_them_is_their_side_of_the_work) {
+    communicator::Meaning meaning(test_model::embedder());
+    const Lines lines = Lines::parse("any | them_who | I'm {speaker}, {known_as}.\n"
+                                     "any | them_here | I {standing}.\n"
+                                     "any | them_long | Long enough to stop counting.\n"
+                                     "any | them_after | I mean to {after}.\n"
+                                     "any | them_shared | For my part, {account}.\n"
+                                     "any | them_shared_costly | It cost us, as I said.\n"
+                                     "any | them_shared_clean | It went better than I'd feared.\n",
+                                     "shared");
+    const FactPacket after = packets::about_them_after_the_work();
+    const Fact* account = nullptr;
+    for (const Fact& f : after.facts)
+        if (f.kind == FactKind::Account) account = &f;
+    check::is_true(account != nullptr, "the premise: the account rides");
+    if (account == nullptr) return;
+    const std::string words = communicator::account_words(*account, true);
+    const std::string side = "For my part, " + words + ".";
+    const auto heard = [&](const std::vector<std::string>& questions, const std::string& set) {
+        std::size_t right = 0;
+        std::string missed;
+        for (const std::string& question : questions) {
+            const std::string reply = lines.speak(after, question, {}, &meaning);
+            if (reply == side)
+                ++right;
+            else
+                missed += "\n  " + question + ": " + reply;
+        }
+        std::cout << "  how it went for them (" << set << "): " << right << " of " << questions.size() << " heard right" << missed << "\n";
+        return right;
+    };
+    const std::size_t dev = heard({"How did it go for you?", "How did it go for you, while I was out there?", "How did you fare?",
+                                   "Was it hard on you?", "How was it for you back there?", "Did it go well for you?"},
+                                  "six chosen on");
+    check::is_true(dev >= 5, std::to_string(dev) + " of 6");
+    const std::size_t held = heard({"And how did you come through it?", "Were you hurt at all?", "What was it like for you?",
+                                    "How did the fighting go on your side?", "Did you get through it all right?",
+                                    "How are you holding up after that?"},
+                                   "six held out");
+    check::is_true(held >= 4, std::to_string(held) + " of 6");
+    // Other questions as ever, the account riding or not.
+    const FactPacket plain = packets::about_them();
+    for (const std::string question : {"How long have you held it?", "Who are you?", "What are you trying to do?"})
+        check::equal(lines.speak(after, question, {}, &meaning), lines.speak(plain, question, {}, &meaning), "as ever: " + question);
+    // Told the account lately, what it cost them, as told: some lost, or none.
+    check::equal(lines.speak(after, "How did it go for you?", {"Good to see you. " + words + "."}, &meaning), std::string("It cost us, as I said."),
+                 "told lately, lost some: as told");
+    const FactPacket clean = packets::about_them_after_the_work("none");
+    const Fact* clean_account = nullptr;
+    for (const Fact& f : clean.facts)
+        if (f.kind == FactKind::Account) clean_account = &f;
+    check::is_true(clean_account != nullptr, "the premise: the account rides");
+    if (clean_account == nullptr) return;
+    check::equal(lines.speak(clean, "How did it go for you?", {"Good to see you. " + communicator::account_words(*clean_account, true) + "."}, &meaning),
+                 std::string("It went better than I'd feared."), "told lately, lost none: as told");
+    // Without an account, not this.
+    check::is_true(lines.speak(plain, "How did it go for you, while I was out there?", {}, &meaning) != side, "no account: not the work's");
 }

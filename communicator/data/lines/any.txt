@@ -423,6 +423,17 @@ any | them_fought | Since you ask: {own_deed}.
 any | them_fought_again | As I said; that one fight, and it was enough.
 any | them_fought_again | Only the one I told you of.
 any | them_fought_none | Not lately, no; I've not had to draw steel.
+# Contract version 31: how it went for them in the work the stranger did beside them, asked of: the account from
+# their side ({account}: "Frost owls came at us, more than I'd have liked; we lost a few good people, and you
+# held when it counted"), or told it lately, what it cost them, said as told.
+any | them_shared | For my part, {account}.
+any | them_shared | From where I stood: {account}.
+any | them_shared_costly | It cost us, as I said, and I'll carry that a while; but I'd sooner have had you there than not.
+any | them_shared_costly | It went better for having you there, and worse for what it cost.
+any | them_shared_costly | It cost more than I wanted it to, and I'd stand there again with you beside me.
+any | them_shared_clean | It went better than I'd feared, with you there.
+any | them_shared_clean | It went well enough; I'd sooner have had you there than not.
+any | them_shared_clean | It was easier than it had any right to be, with you beside me.
 any | them_fought_none | No, not of late; I've had no fight of my own.
 # How things have been since, with the nest still about; and answers about themself that do not say the
 # aim again, said once the stranger has heard it (round three, 2026-09-28).

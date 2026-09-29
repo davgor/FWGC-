@@ -827,6 +827,17 @@ inline FactPacket with_account(FactPacket p, const std::string& as = "nest") {
     return p;
 }
 
+// Asked about themself once the stranger's work beside them is done (contract version 31): the game's account rides,
+// `cost` what it cost them ("few", or "none").
+inline FactPacket about_them_after_the_work(const std::string& cost = "few") {
+    FactPacket p = with_account(beside(about_them()));
+    for (Fact& f : p.facts)
+        if (f.kind == FactKind::Account)
+            for (auto& [key, value] : f.fields)
+                if (key == "cost") value = cost;
+    return p;
+}
+
 // ---- Contract version 25: fame -----------------------------------------------------------------
 
 // Asked about a hero known by a deed: Halbrann, who stood for Brenlin when it fell, told all through the realm.
@@ -936,6 +947,8 @@ inline std::vector<FactPacket> conversation() {
             apology_after("My brother came with me. He didn't make it back.", Outcome::Forgiven),
             with_account(beside(greeted_after("finished", "warm")), "person"),
             with_account(small_talk_after_work()),
+            about_them_after_the_work(),
+            about_them_after_the_work("none"),
             with_account(beside(small_talk_after_work())),
             small_talk("clear", "breezy"),
             small_talk("unsettled", "windy"),

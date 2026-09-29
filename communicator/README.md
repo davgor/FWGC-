@@ -657,6 +657,15 @@ themself").
   not from a speaker frightened or cold. Four of six judges of the golden benchmark had stopped
   believing in the hero where he had nothing to say of work done beside him. The voice is shown it
   ("- How your work went, the stranger beside you: ..."); prompts without it are unchanged.
+- **How it went for them** (contract version 31: the director puts the Account fact in answers about
+  themself too). Asked of the work done beside them ("How did it go for you, while I was out there?"),
+  heard by meaning as a subject offered only while the account rides, they give their side of it
+  (`them_shared`, "For my part, {account}."), or, told it lately, what it cost them, as one who told it:
+  lost some (`them_shared_costly`, "It went better for having you there, and worse for what it cost.") or
+  none (`them_shared_clean`), never the account again. It had drawn how they spend their time, three
+  rounds of the golden benchmark running. Of questions written before the description was tried, 6 of 6
+  it was chosen on and 5 of 6 held out ("How did the fighting go on your side?" heard as who they are);
+  others asked with the account riding are answered as ever.
 
 ## What the stranger tells
 

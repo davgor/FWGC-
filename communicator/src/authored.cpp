@@ -368,7 +368,7 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     }
     if (situation.rfind("recalled", 0) == 0) set("words", words_said_back(p));
     // How their work went (contract version 20), in C++'s words from the Account fact (them.hpp).
-    if (situation == "account" || situation == "account_heard")
+    if (situation == "account" || situation == "account_heard" || situation == "them_shared")
         if (const Fact* told = account_of(p)) set("account", account_words(*told, remembered(p).beside));
     // Their own question, as they asked it (contract version 21).
     if (situation == "asked_again")
@@ -594,6 +594,14 @@ bool said_today(const FactPacket& p) {
 bool has_past(const FactPacket& p) {
     const std::map<std::string, std::string> past = blanks_of(p, "them_past", "");
     return past.count("done") != 0 || past.count("lost") != 0 || past.count("served") != 0;
+}
+
+// Whether the work the stranger did beside them cost them some, as the game's account has it (contract version 31).
+bool shared_cost(const FactPacket& p) {
+    const Fact* told = account_of(p);
+    if (told == nullptr) return false;
+    const std::string cost = field_of(*told, "cost");
+    return cost == "few" || cost == "many";
 }
 
 // A line filled from a packet: its text, and which of its situation's blanks it says, each once
@@ -918,6 +926,12 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"them_fought", {"own_deed"}},
         {"them_fought_none", {}},
         {"them_fought_again", {}},
+        // Contract version 31: how it went for them in the work the stranger did beside them, asked of them ("How did
+        // it go for you?"): the account from their side ({account}), or, told it lately, what it cost them, said as
+        // told: lost some (`them_shared_costly`) or none, or not said (`them_shared_clean`).
+        {"them_shared", {"account"}},
+        {"them_shared_costly", {}},
+        {"them_shared_clean", {}},
         // Contract version 19: a castellan's past. How long they have held their post, and where they
         // served before it, each asked alone (speak()), since a bank's lines of how long without the years,
         // and of a past without where they served, would shadow the next bank's that say them.
@@ -1148,6 +1162,11 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
                                           own_deed_of(p) != nullptr ? "them_fought" : "them_fought_none"};
         // Their fight told in this conversation already, answered as told (speak()).
         if (own_deed_of(p) != nullptr) chain.push_back("them_fought_again");
+        // How the work beside them went for them (contract version 31), asked of: speak() asks it alone.
+        if (m.beside && account_of(p) != nullptr) {
+            chain.push_back("them_shared");
+            chain.push_back(shared_cost(p) ? "them_shared_costly" : "them_shared_clean");
+        }
         // A castellan's past (contract version 19), last: speak() asks each alone, when what was asked is it.
         const std::map<std::string, std::string> known = blanks_of(p, "them_past", "");
         if (known.count("held_for")) chain.push_back("them_long_known");
@@ -1902,7 +1921,25 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         static const std::vector<std::string> answers = {"them_who",   "them_past",   "them_after", "them_here", "them_ties",
                                                          "them_plans", "them_secret", "them_need",  "them_here", "them_long",
                                                          "them_stakes", "them_home",  "them_foes",  "them_fought"};
-        std::vector<std::string> asked = {answers[meaning->subject_of(line, subjects)]};
+        // And how it went for them in the work the stranger did beside them (contract version 31), heard only while its
+        // account rides: "How did it go for you, while I was out there?" had drawn how they spend their time, three
+        // rounds of the golden benchmark running (round 32's ninth session).
+        std::vector<std::string> offered = subjects, answered = answers;
+        if (remembered(p).beside && account_of(p) != nullptr) {
+            offered.push_back("How it went for them in the work the stranger did beside them: how did it go for you, how did you fare, "
+                              "was it hard on you.");
+            answered.push_back("them_shared");
+        }
+        std::vector<std::string> asked = {answered[meaning->subject_of(line, offered)]};
+        // Told the account lately (a greeting says it while it is news), how it went for them is what it cost them, said
+        // as told, never the account again; else the account from their side.
+        if (asked.front() == "them_shared") {
+            const std::string words = account_words(*account_of(p), true);
+            const bool told = words.empty() || std::any_of(recent.begin(), recent.end(), [&](const std::string& said) {
+                                  return lowered(said).find(lowered(words)) != std::string::npos;
+                              });
+            if (told) asked = {shared_cost(p) ? "them_shared_costly" : "them_shared_clean"};
+        }
         // A fight lately, told from their past by a second hearing between the two alone: heard among every
         // subject, "Did you fight in the war?" and "Were you ever at war?" had gone to their fights lately.
         if (asked.front() == "them_fought") {
