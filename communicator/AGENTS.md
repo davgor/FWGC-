@@ -102,7 +102,9 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   and Person facts' own fields. A written line's `them_*` blanks hold them whole, and a field the
   words do not know says nothing. The card's secrets are in no packet: `them_secret` lines keep back
   in character without naming what. How long they have been anywhere is never a time (`them_long`),
-  since the world does not record it. What they stand against (`{danger}` in `them_*`) is named
+  since the world does not record it; a castellan's years at their post, which it does (contract
+  version 19), are said only as C++'s `{held_for}` (`them_long_known`), which the truth check reads as
+  the Self fact's own and no other count of years. What they stand against (`{danger}` in `them_*`) is named
   without how far, which small talk and "is it safe" say: said with it, one conversation heard the
   same nest four times.
 - **The player's own words come back only as C++ turns them** (contract version 12): `{words}` is
