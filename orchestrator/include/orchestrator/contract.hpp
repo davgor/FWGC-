@@ -71,7 +71,9 @@ namespace orchestrator {
 //     of them stands.
 // 30: how a hero takes what befell them: Director::reaction_brief, a ReactionBrief that is never a packet (what a
 //     picker reads to choose), and Director::react; the hero's own deed News carries `took_it`.
-inline constexpr int kContractVersion = 30;
+// 31: an answer about themself (ask_about_them) carries the Account fact while their work's end is their latest
+//     dealing with the stranger, as a greeting and small talk do.
+inline constexpr int kContractVersion = 31;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.

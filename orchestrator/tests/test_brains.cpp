@@ -730,9 +730,10 @@ TEST(an_account_of_work_done_is_kept_and_its_giver_tells_it) {
     std::string row;
     for (const Cell& cell : kept.rows.at(0)) row += cell_text(cell) + "|";
     check::equal(row, first + "|" + nest.id + "|nest|" + std::string(nest.name) + "|many|few|held|", "the account, as reported");
-    // Its giver tells it, greeting the player and making small talk; nobody else does.
+    // Its giver tells it, greeting the player, making small talk and asked about themself (contract version 31);
+    // nobody else does.
     const auto account_in = [&](const FactPacket& p) { return facts_of(p, FactKind::Account); };
-    for (const ActKind act : {ActKind::Greet, ActKind::SmallTalk}) {
+    for (const ActKind act : {ActKind::Greet, ActKind::SmallTalk, ActKind::AskAboutThem}) {
         const std::vector<Fact> told = account_in(d.respond(giver, {act, ""}));
         check::is_true(told.size() == 1 && told[0].subject == first, "the giver's account, of that work");
         if (told.size() == 1) {
@@ -754,6 +755,7 @@ TEST(an_account_of_work_done_is_kept_and_its_giver_tells_it) {
     const FactPacket taken = d.respond(giver, {ActKind::AcceptQuest, second});
     check::is_true(taken.outcome == Outcome::Accepted, "the premise: the second piece of work taken");
     check::is_true(account_in(d.respond(giver, {ActKind::Greet, ""})).empty(), "work taken again: the account of the last is not told");
+    check::is_true(account_in(d.respond(giver, {ActKind::AskAboutThem, ""})).empty(), "nor asked about themself");
     // That work failed, and the game gave no account of it: the first one's is not told in its place.
     d.resolve(second, false);
     check::is_true(account_in(d.respond(giver, {ActKind::Greet, ""})).empty(), "the latest work's end has no account: none told");

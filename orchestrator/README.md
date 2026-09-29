@@ -280,7 +280,9 @@ world nor anyone's regard: how the work came out already did, through `resolve`.
 replay keeps it.
 
 The giver tells it. While the end of that work is their latest dealing with the player, their
-greetings and small talk carry an Account fact (contract.hpp lists its fields): the account of the
+greetings and small talk carry an Account fact (contract.hpp lists its fields), and so do their answers
+about themself (contract version 31: "How did it go for you?" after the work had drawn how they spend
+their time, three rounds of the golden benchmark running): the account of the
 last of their work the player finished or failed, never an older one's in its place. Taking up
 their next work ends it. Nobody else is given it: news of the work travels as its event does, and
 the account is the giver's own.

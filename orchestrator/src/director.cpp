@@ -1454,6 +1454,11 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& sa
             // against, why they need help, what comes if they fail (the hero benchmark's second judge,
             // 2026-09-28: "not even what the fortress is held against").
             if (const std::vector<Fact> dangers = knowledge::dangers_near(world_, s); !dangers.empty()) p.facts.push_back(dangers.front());
+            // How their own work went, while its end is their latest dealing with the player, as a greeting has it
+            // (contract version 31): "How did it go for you?" after the work had drawn how they spend their time,
+            // three rounds of the golden benchmark running (round 32's ninth session).
+            if (recognised && (a.work == "finished" || a.work == "failed"))
+                if (std::optional<Fact> told = account_of(speaker_uid)) p.facts.push_back(std::move(*told));
             own_deed(speaker_uid, p);
             a.asked_now = s.persona.name;
             return finish(std::move(p));
