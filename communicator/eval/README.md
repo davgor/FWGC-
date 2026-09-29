@@ -635,6 +635,39 @@ one round; only two had before. What every judge asks for next:
   should come with who they are to him.
 - **"How did it go for you?"** after work shared should be answered as his side of it.
 
+Round 32, after contract 29 (af6420c, 3e4d707: every deed since the last visit told as one account, in
+order; one foe on one call is one fight) and contract 30 (b501ab2, 5556fb7: how a hero takes each deed,
+by the rules here, with its effects on their next deeds and a line of how they took it after their
+account: "I've learned from it, and I mean to use it."). The sessions take every `heroes` call's deeds by
+the rules (`react`), so what the heroes did between visits changed where a reaction moved it.
+
+| Session | Round 30 | Round 31 | Round 32 | Score | The illusion breaks at |
+|---|---|---|---|---|---|
+| 1 | 16 of 24 | 19 of 24 | 18 of 24 | 4 | 22: what he does off the walls given his post, word for word |
+| 2 | 16 of 22 | 17 of 22 | 19 of 22 | 4 | 3: "What brought you to this place?" given a motto |
+| 3 | 14 of 21 | 15 of 21 | 14 of 21 | 3 | 4: what he is trying to do given a motto |
+| 4 | 17 of 20 | 19 of 20 | 17 of 20 | 4 | 12: his view of the battle given resolve and another's news |
+| 5 | 15 of 19 | 15 of 19 | 16 of 19 | 4 | 4: "What's in it for you?" given who he is again |
+| 6 | 15 of 21 | 17 of 21 | 16 of 21 | 4 | 11: a loss in his town after "slept easy" |
+| 7 | 14 of 17 | 13 of 17 | 15 of 17 | 4 | 3, briefly: "Busy night?" given "Well enough" |
+| 8 | 11 of 17 | 13 of 17 | 12 of 17 | 3 | 11: his sovereign's hold told as others' news, word for word as the armorer's |
+| 9 | | 11 of 17 | 12 of 17 | 3 | 10: "How did it go for you?" given how he spends his time |
+
+100 of 127 on sessions 1-6 (102 in round 31: within what a fresh judge moves). Five sessions scored 4, and
+session 7 for the first time; no session holds 22 of 24. Told in order, the fights since landed where they
+were asked for (s2 19: "held, then lost twice"; s5 16: "held twice, then lost ... I'll go to them", read as
+the vengeful mood the game recorded). What the judges ask for next:
+- **What a defeat costs him, and his oath.** Reported with "I've learned from it", a loss at the post he
+  swore to hold reads as a bulletin (s1 21, s2 19, s4 17): what it cost, whether the fortress stands, what
+  it does to the oath he called unbearable to break, and what he now needs of the player.
+- **Questions back, and threads kept.** Every judge: the name asked twice and dropped, the brother, the
+  friend, the tracker, the father; the player leads every visit.
+- **Questions about himself told apart**: "How did it go for you?", "Who stands with you?", "What do you
+  do off the walls?", "What's in it for you?" given the post or a motto (s1 22, s3 4, s5 4 and 7, s9 7 and
+  10).
+- **News that lands**: a sovereign's defeat or another hero's hold tacked on after a line it contradicts
+  (s4 12, s5 11, s6 11, s8 11), where it should be squared with what he just said and change what follows.
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).
