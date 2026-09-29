@@ -77,7 +77,13 @@ voice | situation | line
   | `recalled_grief`, `recalled_hardship`, `recalled_doubt` (the stranger's words said back as what they were: a loss, a hardship, fear they came through with the speaker's work done; one sentence, the recalled rules, and `recalled_hardship` alone may ask, "is it any easier now?") | `{words}` |
   | `greeted_who` (said after a first greeting that asks who they are) | |
 
-  Every situation may also use `{speaker}`, `{post}`, `{place}` and `{saying}`.
+  Every situation may also use `{speaker}`, `{post}` and `{place}`.
+
+- **No line says a saying** (the owner, 2026-09-28: "Drop em, willing to bet it gets weird"): after a
+  farewell four blind judges of five heard one as a non sequitur or a rebuke, and after small talk both
+  that the hero benchmark reached were faulted. The 290 rows that had one keep the rest of their line,
+  and the rules check refuses `{saying}` in any row. The peoples' banks and the blank stay, as below,
+  for a use that fits.
 
 - **Sayings** (contract version 5): a bank `saying:<people>` (`saying:human_cold`) holds that
   people's sayings, one per row, in the situation `saying`. `{saying}` is one of the speaker's own

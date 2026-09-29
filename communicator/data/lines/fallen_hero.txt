@@ -709,19 +709,19 @@ fallen_hero/LG | denied_again | That's not so, and I ask you, as courteously as 
 
 # ---- sayings ----
 fallen_hero/NN | parted | Safe travels, and keep your own count of what you've done; nobody else keeps it straight.
-fallen_hero/NN | small_talk | Few songs in a day like mine, and that suits me fine.[ As my people put it, {saying}.]
+fallen_hero/NN | small_talk | Few songs in a day like mine, and that suits me fine.
 fallen_hero/LN | parted | Goodbye, and hold to your standing, whatever else gives way.
-fallen_hero/LN | small_talk | Everything that was mine to do today was done correctly, and I cannot answer for the rest.[ As the saying among my people goes, {saying}.]
+fallen_hero/LN | small_talk | Everything that was mine to do today was done correctly, and I cannot answer for the rest.
 fallen_hero/NG | parted | Safe travels, and don't be brave where it doesn't count; save it for where it does.
-fallen_hero/NG | small_talk | Only small work today, and I've come round to liking small work.[ As we say, {saying}.]
+fallen_hero/NG | small_talk | Only small work today, and I've come round to liking small work.
 fallen_hero/CN | parted | Farewell, and if anyone's hiring a sword, you know where mine is.
-fallen_hero/CN | small_talk | Another day of not much, and I've half a mind to drink to it.[ As my lot say, {saying}.]
+fallen_hero/CN | small_talk | Another day of not much, and I've half a mind to drink to it.
 fallen_hero/LE | parted | Safe travels, and choose your side before it is chosen for you.
-fallen_hero/LE | small_talk | Each thing today has been done as befits my rank, and I would accept nothing less.[ As my people have long held, {saying}.]
+fallen_hero/LE | small_talk | Each thing today has been done as befits my rank, and I would accept nothing less.
 fallen_hero/NE | parted | Go well, and don't get noble on me; it never ends well.
-fallen_hero/NE | small_talk | Every day on the winning side is a good one, and today was no different.[ As we say, {saying}.]
+fallen_hero/NE | small_talk | Every day on the winning side is a good one, and today was no different.
 fallen_hero/LG | parted | Take care, and do not let anyone tell you the rules will save you; people save people.
-fallen_hero/LG | small_talk | My day has been a quiet one, and I find I no longer mind that as I once did.[ As my people have long said, {saying}.]
+fallen_hero/LG | small_talk | My day has been a quiet one, and I find I no longer mind that as I once did.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- fallen_hero/NN ----

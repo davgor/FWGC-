@@ -308,11 +308,11 @@ false_hero/NN | exposed_true | So you know. The {was} is finished, then; I'm the
 
 # ---- sayings ----
 false_hero/CG | parted | Farewell, and if my name gets you a bed or a meal anywhere, use it, that's what it's for.
-false_hero/CG | small_talk | Half the day shaking hands and smiling, and the other half trying to make the smiling worth something.[ As we say, {saying}.]
+false_hero/CG | small_talk | Half the day shaking hands and smiling, and the other half trying to make the smiling worth something.
 false_hero/LE | parted | Safe travels, and remember that what is written is what happened.
-false_hero/LE | small_talk | All that was said of me today accords with the record, which is as it should be.[ As the saying among my people goes, {saying}.]
+false_hero/LE | small_talk | All that was said of me today accords with the record, which is as it should be.
 false_hero/NN | parted | Goodbye, and let them believe whatever helps you; it's cheaper than arguing.
-false_hero/NN | small_talk | Half want the story, half want a hand, and I give each of them what it's worth.[ As my people put it, {saying}.]
+false_hero/NN | small_talk | Half want the story, half want a hand, and I give each of them what it's worth.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- false_hero/CG ----

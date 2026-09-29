@@ -116,9 +116,9 @@ post:innkeeper | denied | You're mistaken; I pour ale and make up beds, and that
 post:innkeeper | denied_again | No, and asking again won't change it.
 # ---- sayings ----
 post:gate_captain | parted | Farewell, and keep your eyes open.
-post:gate_captain | small_talk | The gate's manned, and I'm the one manning it.[ As the saying goes, {saying}.]
+post:gate_captain | small_talk | The gate's manned, and I'm the one manning it.
 post:innkeeper | parted | Goodbye, and don't be a stranger.
-post:innkeeper | small_talk | Oh, rushed off my feet, but I'd not have it any other way.[ As my people put it, {saying}.]
+post:innkeeper | small_talk | Oh, rushed off my feet, but I'd not have it any other way.
 # ---- depth ----
 post:gate_captain | greeted_again | Well met again. I last had eyes on you {since}.
 post:gate_captain | greeted_again | Welcome back. The gate's where it was, and so am I.

@@ -608,17 +608,17 @@ broken_soul/NN | denied_again | That's not so, and asking again won't make it so
 
 # ---- sayings ----
 broken_soul/NG | parted | Farewell, and hold on to what you've got; nothing stays put for long.
-broken_soul/NG | small_talk | Today nobody needed pulling out of anything, and I don't know what to do with my hands.[ As we say, {saying}.]
+broken_soul/NG | small_talk | Today nobody needed pulling out of anything, and I don't know what to do with my hands.
 broken_soul/LG | parted | Goodbye, and forgive me if I hurry you; I cannot rest while anything is left unsettled.
-broken_soul/LG | small_talk | Every hour today has gone to settling what is owed, and I would not have it spent otherwise.[ As my people have long said, {saying}.]
+broken_soul/LG | small_talk | Every hour today has gone to settling what is owed, and I would not have it spent otherwise.
 broken_soul/LE | parted | Take care; I would not have you lost out of turn.
-broken_soul/LE | small_talk | Everything proceeds as I intend, which is more than most people can say of their day.[ As my people have it, {saying}.]
+broken_soul/LE | small_talk | Everything proceeds as I intend, which is more than most people can say of their day.
 broken_soul/CG | parted | Goodbye, and mind the ones nobody else is minding.
-broken_soul/CG | small_talk | Too many people needing a hand, and only two of mine to go round, sorry, I'm rambling.[ Well, as we say, {saying}.]
+broken_soul/CG | small_talk | Too many people needing a hand, and only two of mine to go round, sorry, I'm rambling.
 broken_soul/NE | parted | Take care of your own; nobody else will, least of all me.
-broken_soul/NE | small_talk | Nothing's gone wrong for me today, so it's gone wrong for somebody else.[ My people have a saying, not that it ever helped anyone: {saying}.]
+broken_soul/NE | small_talk | Nothing's gone wrong for me today, so it's gone wrong for somebody else.
 broken_soul/NN | parted | Safe travels, and don't carry more than you can use.
-broken_soul/NN | small_talk | Enough work to keep my mind off things, and that's all I ask of a day.[ As my people put it, {saying}.]
+broken_soul/NN | small_talk | Enough work to keep my mind off things, and that's all I ask of a day.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- broken_soul/NG ----

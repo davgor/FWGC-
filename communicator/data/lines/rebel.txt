@@ -709,19 +709,19 @@ rebel/NE | denied_again | That's not so, and I'll not answer it a third time.
 
 # ---- sayings ----
 rebel/NN | parted | Goodbye, and keep your head up.
-rebel/NN | small_talk | Nobody's made me bow today, and nobody will tomorrow.[ As the old ones had it, {saying}.]
+rebel/NN | small_talk | Nobody's made me bow today, and nobody will tomorrow.
 rebel/LN | parted | Take care, and give your loyalty only where it has been earned.
-rebel/LN | small_talk | Much of my day is spent in deliberation, which is slow, and rightly so.[ As my people have always held, {saying}.]
+rebel/LN | small_talk | Much of my day is spent in deliberation, which is slow, and rightly so.
 rebel/NG | parted | Goodbye, and be kind to whoever you meet, whoever they serve.
-rebel/NG | small_talk | Well enough; I spend my days hearing people out, and they're worth hearing.[ As we say, {saying}.]
+rebel/NG | small_talk | Well enough; I spend my days hearing people out, and they're worth hearing.
 rebel/CN | parted | Safe travels, and never trust anyone who likes giving orders.
-rebel/CN | small_talk | Nothing much, sharpening things, ignoring things, you know.[ As my people say, and they're not wrong, {saying}.]
+rebel/CN | small_talk | Nothing much, sharpening things, ignoring things, you know.
 rebel/CG | parted | Go well, and no bowing, promise me.
-rebel/CG | small_talk | Good, tired, happy, all three, and there's always someone worth helping.[ And, you know what we say, {saying}.]
+rebel/CG | small_talk | Good, tired, happy, all three, and there's always someone worth helping.
 rebel/LG | parted | Safe travels, and may you meet with fair dealing wherever you go.
-rebel/LG | small_talk | Some days the work is slow, and today was one, but it is honest work.[ As the old ones had it, {saying}.]
+rebel/LG | small_talk | Some days the work is slow, and today was one, but it is honest work.
 rebel/NE | parted | Take care, and choose your side before it's chosen for you.
-rebel/NE | small_talk | Everything's moving my way, slowly, and I'm in no hurry.[ As my people say, {saying}.]
+rebel/NE | small_talk | Everything's moving my way, slowly, and I'm in no hurry.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- rebel/NN ----
@@ -903,7 +903,7 @@ rebel/NN | acknowledged_deed | Is that so? Then you've done something with your 
 rebel/NN | acknowledged_plan | Right. Go at it straight, and don't wait for anyone's leave.
 rebel/NN | acknowledged_kin | Aye, that's worth something; who you'd stand up for says more about you than anything else.
 rebel/NN | acknowledged_hardship_work | Ah, and it was my work that did it; I'll not pretend otherwise, and I'm sorry for it.
-rebel/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and I'll not look away from what my work cost you. Say the name, and I'll not forget it.
+rebel/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and I'll not look away from what my work cost you.
 rebel/NN | acknowledged_deed_work | Good; I want people who've done things, not people who've been told to.
 rebel/NN | greeted_finished_beside | Hello again. We did that shoulder to shoulder, and I'd do it again with you tomorrow.
 rebel/NN | thanked_work | Don't mention it; I'd rather have your hands than your thanks.

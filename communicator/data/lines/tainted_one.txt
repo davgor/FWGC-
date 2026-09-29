@@ -507,15 +507,15 @@ tainted_one/CG | denied_again | That's not so, and I'll keep saying it, cheerful
 
 # ---- sayings ----
 tainted_one/NN | parted | Take care, and keep a little distance from trouble.
-tainted_one/NN | small_talk | Nothing's slipped today, and I'll count that a fair trade for the effort.[ As the old ones had it, {saying}.]
+tainted_one/NN | small_talk | Nothing's slipped today, and I'll count that a fair trade for the effort.
 tainted_one/LN | parted | Goodbye, and may everything you carry be accounted for.
-tainted_one/LN | small_talk | Everything has been counted twice today, and all of it came out even.[ As my people have always held, {saying}.]
+tainted_one/LN | small_talk | Everything has been counted twice today, and all of it came out even.
 tainted_one/NG | parted | Go well, and thank you for not minding the distance.
-tainted_one/NG | small_talk | Nobody's had to be warned off today, which makes it a good one.[ As we say, {saying}.]
+tainted_one/NG | small_talk | Nobody's had to be warned off today, which makes it a good one.
 tainted_one/CN | parted | Goodbye, and be nice to people, it's safer, trust me.
-tainted_one/CN | small_talk | Fine, bored, nobody's earned it today, which is probably for the best.[ As my people say, {saying}.]
+tainted_one/CN | small_talk | Fine, bored, nobody's earned it today, which is probably for the best.
 tainted_one/CG | parted | Safe travels, and mind yourself, I'd hate for anything to happen to you.
-tainted_one/CG | small_talk | Oh, a good day, nobody hurt, nobody shouted at, well, hardly anybody.[ And, you know what we say, {saying}.]
+tainted_one/CG | small_talk | Oh, a good day, nobody hurt, nobody shouted at, well, hardly anybody.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- tainted_one/NN ----

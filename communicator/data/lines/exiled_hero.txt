@@ -810,21 +810,21 @@ exiled_hero/NE | denied_again | You have the wrong one, and you're starting to b
 
 # ---- sayings ----
 exiled_hero/NN | parted | Goodbye, and make yourself useful wherever you end up; it's the quickest way to belong.
-exiled_hero/NN | small_talk | Some days I build and some days I bargain, and today was both.[ As my people put it, {saying}.]
+exiled_hero/NN | small_talk | Some days I build and some days I bargain, and today was both.
 exiled_hero/NG | parted | Take care, and if you ever need somewhere to land, this is it.
-exiled_hero/NG | small_talk | Still room for a few more, and I'd sooner fill it than keep it.[ As we say, {saying}.]
+exiled_hero/NG | small_talk | Still room for a few more, and I'd sooner fill it than keep it.
 exiled_hero/LN | parted | Goodbye, and look forward, not back; nothing behind you can be amended.
-exiled_hero/LN | small_talk | Every stone laid and every clause agreed is one more thing that cannot be taken from us.[ As the saying goes among my people, {saying}.]
+exiled_hero/LN | small_talk | Every stone laid and every clause agreed is one more thing that cannot be taken from us.
 exiled_hero/LG | parted | Safe travels, and remember that there is a place for you here, by right and not by favour.
-exiled_hero/LG | small_talk | Whoever comes to us, I would sooner find them room than a reason to refuse them.[ As my people rightly say, {saying}.]
+exiled_hero/LG | small_talk | Whoever comes to us, I would sooner find them room than a reason to refuse them.
 exiled_hero/CN | parted | Goodbye, and if you run into anyone interesting, introduce us; I collect them.
-exiled_hero/CN | small_talk | Several favours called in, a few more handed out, and I'm still ahead, just.[ As my lot say, {saying}.]
+exiled_hero/CN | small_talk | Several favours called in, a few more handed out, and I'm still ahead, just.
 exiled_hero/CG | parted | Go well, and say my name wherever you're stuck; somebody usually owes me a kindness.
-exiled_hero/CG | small_talk | Someone new at the door again today, and, ha, I've yet to mind it.[ As we say, {saying}.]
+exiled_hero/CG | small_talk | Someone new at the door again today, and, ha, I've yet to mind it.
 exiled_hero/LE | parted | Take care whose neighbour you become.
-exiled_hero/LE | small_talk | Our own are provided for, and our neighbours may shift for themselves.[ As we have always held, {saying}.]
+exiled_hero/LE | small_talk | Our own are provided for, and our neighbours may shift for themselves.
 exiled_hero/NE | parted | Safe travels, and don't settle anywhere near mine.
-exiled_hero/NE | small_talk | Nobody's troubled my people today, and anyone who tries will regret it.[ As we say, {saying}.]
+exiled_hero/NE | small_talk | Nobody's troubled my people today, and anyone who tries will regret it.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- exiled_hero/NN ----

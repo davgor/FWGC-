@@ -308,11 +308,11 @@ inherited_hero/NN | denied_again | You're mistaken, and you're wasting both our 
 
 # ---- sayings ----
 inherited_hero/LE | parted | Goodbye; I keep what I am handed, quarrels included.
-inherited_hero/LE | small_talk | Today has gone by the forms I was given, and I have altered none of them.[ My people have a saying, and I keep it as faithfully as the rest: {saying}.]
+inherited_hero/LE | small_talk | Today has gone by the forms I was given, and I have altered none of them.
 inherited_hero/NG | parted | Go well, and look out for the ones nobody else looks out for.
-inherited_hero/NG | small_talk | Most of my day goes on the people I was left to look after, and I'd not have it otherwise.[ As the old ones had it, {saying}.]
+inherited_hero/NG | small_talk | Most of my day goes on the people I was left to look after, and I'd not have it otherwise.
 inherited_hero/NN | parted | Safe travels, and don't sell yourself cheap to anyone, me included.
-inherited_hero/NN | small_talk | Half the day went on the aim I was handed, and half on what it costs to chase it.[ As we say, {saying}.]
+inherited_hero/NN | small_talk | Half the day went on the aim I was handed, and half on what it costs to chase it.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- inherited_hero/LE ----

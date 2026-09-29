@@ -709,19 +709,19 @@ trickster/NE | denied_again | Nonsense, and you're starting to bore me.
 
 # ---- sayings ----
 trickster/NN | parted | Farewell, and trust me exactly as far as it suits you.
-trickster/NN | small_talk | Good enough; I've heard a few things today I wasn't meant to, and that's never wasted.[ As the old ones had it, {saying}.]
+trickster/NN | small_talk | Good enough; I've heard a few things today I wasn't meant to, and that's never wasted.
 trickster/LN | parted | Take care, and should anyone promise you anything, ask for it in writing.
-trickster/LN | small_talk | Much of my day goes on phrasing things so politely that no one notices they are insults.[ As my people have always held, {saying}.]
+trickster/LN | small_talk | Much of my day goes on phrasing things so politely that no one notices they are insults.
 trickster/CN | parted | Goodbye, and take a bow on your way out, go on, nobody's watching.
-trickster/CN | small_talk | Nothing stolen, nothing staged, nothing at all, and I'm bored senseless.[ As my people say, roughly, {saying}.]
+trickster/CN | small_talk | Nothing stolen, nothing staged, nothing at all, and I'm bored senseless.
 trickster/NG | parted | Farewell, and look after your things, and other people's too.
-trickster/NG | small_talk | Good, thank you; whatever I borrow goes back with a little extra, and I sleep well for it.[ As we say, {saying}.]
+trickster/NG | small_talk | Good, thank you; whatever I borrow goes back with a little extra, and I sleep well for it.
 trickster/LG | parted | Goodbye, and should anyone wrong you, remember that the law has more than one door.
-trickster/LG | small_talk | Most of my days go to petitions for those who cannot write their own, and I would not change it.[ As the old ones had it, {saying}.]
+trickster/LG | small_talk | Most of my days go to petitions for those who cannot write their own, and I would not change it.
 trickster/CG | parted | Safe travels, and smile, it confuses people.
-trickster/CG | small_talk | A little mischief, a little mending, the usual, and nobody's worse off for it.[ As we always say, {saying}.]
+trickster/CG | small_talk | A little mischief, a little mending, the usual, and nobody's worse off for it.
 trickster/NE | parted | Safe travels, and do stay on my good side, it's the warmer one.
-trickster/NE | small_talk | Nothing much; I'm polishing a joke, and the ending is the best part.[ As my people say, {saying}.]
+trickster/NE | small_talk | Nothing much; I'm polishing a joke, and the ending is the best part.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- trickster/NN ----

@@ -602,17 +602,17 @@ zealot/CG | denied_again | That's not so, and I'll say it as often as you ask.
 
 # ---- sayings ----
 zealot/NN | parted | Safe travels, and say your prayers before you need them.
-zealot/NN | small_talk | Some prayer, a lot of work, and no room left for doubt; a good day, then.[ As the old ones had it, {saying}.]
+zealot/NN | small_talk | Some prayer, a lot of work, and no room left for doubt; a good day, then.
 zealot/LN | parted | Goodbye, and let no one lead you astray.
-zealot/LN | small_talk | Every question I have asked today has been answered truthfully, so far as I can judge.[ As my people have always held, {saying}.]
+zealot/LN | small_talk | Every question I have asked today has been answered truthfully, so far as I can judge.
 zealot/NG | parted | Farewell, and be gentle with anyone who's hurting.
-zealot/NG | small_talk | Good, thank you; nobody's gone hungry near me today, and that's a prayer answered.[ As we say, {saying}.]
+zealot/NG | small_talk | Good, thank you; nobody's gone hungry near me today, and that's a prayer answered.
 zealot/LG | parted | Take care, and may you find bread and kindness wherever you stop.
-zealot/LG | small_talk | Each day brings someone in need to my door, and each day I am glad to open it.[ As the old ones had it, {saying}.]
+zealot/LG | small_talk | Each day brings someone in need to my door, and each day I am glad to open it.
 zealot/CN | parted | Goodbye - and listen for the spirit, it's louder than you'd think.
-zealot/CN | small_talk | Oh, visions, crowds, hymns - the spirit never lets me sit down.[ As we say, more or less, {saying}.]
+zealot/CN | small_talk | Oh, visions, crowds, hymns - the spirit never lets me sit down.
 zealot/CG | parted | Safe travels - eat something, sing something, and don't you dare lose heart.
-zealot/CG | small_talk | A good day - the spirit's up and there's a song in me yet.[ As we always say, {saying}.]
+zealot/CG | small_talk | A good day - the spirit's up and there's a song in me yet.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- zealot/NN ----
@@ -771,7 +771,7 @@ zealot/NN | them_plans | {home_here} is home, and I was put here for a reason; I
 zealot/NN | them_secret | That's between me and my prayers, and it stays there.
 zealot/NN | them_secret | I'll share my faith with anyone; that, I share with no one.
 zealot/NN | acknowledged_hardship | Ah, then you'll be in my prayers, and you'd do well to pray too; it holds when little else does.
-zealot/NN | acknowledged_grief | Ah, I'm grieved to hear it. Tell me the name, and I'll say it in my prayers.
+zealot/NN | acknowledged_grief | Ah, I'm grieved to hear it. They'll be in my prayers tonight.
 zealot/NN | acknowledged_deed | Indeed? A gift is only wasted when it sits idle, and yours hasn't.
 zealot/NN | acknowledged_plan | Right; go with faith, and it'll go with you.
 zealot/NN | acknowledged_kin | Aye; hold them close, pray for them, and let them pray for you.

@@ -98,13 +98,14 @@ TEST(the_rule_checks_catch_what_they_check) {
     check::is_true(!row_problems("any | parted | Farewell, and give Wenweg my regards.").empty(), "a town the line writes itself");
     check::is_true(row_problems("any | parted | Farewell, and give {place} my regards.").empty(), "the town as a blank passes");
     check::is_true(row_problems("any | declined | Suit yourself, then.").empty(), "an outcome's opening is the program's own");
-    // A saying is dropped in too: left out, "Suit yourself." is sound; said, a second sentence is not.
-    check::is_true(row_problems("any | small_talk | Much as ever[; as we say, {saying}].").empty(), "a saying that continues the sentence");
-    check::is_true(!row_problems("any | declined | Suit yourself.[ As we say, {saying}.]").empty(),
+    // An answer of one sentence may not add a second, even an optional one.
+    check::is_true(row_problems("any | declined | Suit yourself[, says the {post}].").empty(), "the premise: an optional part");
+    check::is_true(!row_problems("any | declined | Suit yourself.[ The {post} has spoken.]").empty(),
                    "an answer of one sentence may not add a second, even an optional one");
-    check::is_true(!row_problems("any | small_talk | Much as ever[; as we say, {saying}], and no worse.").empty(), "a saying ends its sentence");
-    check::is_true(row_problems("any | small_talk | Much as ever.[ As we say, {saying}.]").empty(), "its stop inside the part");
-    // And none after a farewell, where four blind judges of five heard it as a non sequitur (2026-09-28).
+    // No saying in a line: after a farewell four blind judges of five heard one as a non sequitur, and
+    // after small talk both the benchmark reached were faulted; the owner: "Drop em" (2026-09-28).
+    check::is_true(row_problems("any | small_talk | Much as ever.").empty(), "the premise: small talk");
+    check::is_true(!row_problems("any | small_talk | Much as ever[; as we say, {saying}].").empty(), "no saying after small talk");
     check::is_true(row_problems("any | parted | Go well.").empty(), "the premise: a farewell");
     check::is_true(!row_problems("any | parted | Go well[; as we say, {saying}].").empty(), "no saying after a farewell");
     // An apology for how the stranger is is met without a question (a hero session's judge, 2026-09-28).

@@ -810,21 +810,21 @@ obsessed_hunter/NE | denied_again | That's not so, and you're wasting both our t
 
 # ---- sayings ----
 obsessed_hunter/NN | parted | Safe travels, and trust your eyes over your ears.
-obsessed_hunter/NN | small_talk | Nothing new to follow yet, so I'm reading old ground again.[ As the old ones had it, {saying}.]
+obsessed_hunter/NN | small_talk | Nothing new to follow yet, so I'm reading old ground again.
 obsessed_hunter/LN | parted | Take care, and keep a record of what you see.
-obsessed_hunter/LN | small_talk | Everything is proceeding in its proper order, and I intend to keep it so.[ As it has long been said, {saying}.]
+obsessed_hunter/LN | small_talk | Everything is proceeding in its proper order, and I intend to keep it so.
 obsessed_hunter/NG | parted | Farewell, and don't travel alone if you can help it.
-obsessed_hunter/NG | small_talk | No fresh signs, and nobody hurt, so I'll call it a good day.[ As we say, {saying}.]
+obsessed_hunter/NG | small_talk | No fresh signs, and nobody hurt, so I'll call it a good day.
 obsessed_hunter/CN | parted | Goodbye, and if anything follows you, lead it my way.
-obsessed_hunter/CN | small_talk | Oh, sniffing about, sleeping badly, the usual.[ As my people put it, roughly, {saying}.]
+obsessed_hunter/CN | small_talk | Oh, sniffing about, sleeping badly, the usual.
 obsessed_hunter/LG | parted | Goodbye, and may you have no cause to call on me.
-obsessed_hunter/LG | small_talk | My search continues, slowly and in good order, and no one has come to harm by it.[ As my people have long said, {saying}.]
+obsessed_hunter/LG | small_talk | My search continues, slowly and in good order, and no one has come to harm by it.
 obsessed_hunter/CG | parted | Farewell, and shout if you need me.
-obsessed_hunter/CG | small_talk | Never enough hands, never enough hours, and I wouldn't swap it.[ As we say, {saying}.]
+obsessed_hunter/CG | small_talk | Never enough hands, never enough hours, and I wouldn't swap it.
 obsessed_hunter/LE | parted | Take care, and do keep out of my way.
-obsessed_hunter/LE | small_talk | Nothing has bested me today, and nothing will.[ As the saying goes, {saying}.]
+obsessed_hunter/LE | small_talk | Nothing has bested me today, and nothing will.
 obsessed_hunter/NE | parted | Go well, and leave my quarry to me.
-obsessed_hunter/NE | small_talk | Another day on the trail, and another day nearer settling the score.[ As my people say, {saying}.]
+obsessed_hunter/NE | small_talk | Another day on the trail, and another day nearer settling the score.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- obsessed_hunter/NN ----
@@ -1021,7 +1021,7 @@ obsessed_hunter/NN | acknowledged_deed | Is that so? Then you've been tested, an
 obsessed_hunter/NN | acknowledged_plan | Right. Keep your eyes on where you're going, and read the road before you trust it.
 obsessed_hunter/NN | acknowledged_kin | Aye, that's worth keeping in mind. A head with nothing else in it runs itself ragged, and I'd know.
 obsessed_hunter/NN | acknowledged_hardship_work | Ah, that happened on my work, so it's mine to answer for; I'm sorry for it.
-obsessed_hunter/NN | acknowledged_grief_work | Ah, and on my work; I'm sorry for your loss, truly. Tell me the name; I'll not let it go cold.
+obsessed_hunter/NN | acknowledged_grief_work | Ah, and on my work; I'm sorry for your loss, truly.
 obsessed_hunter/NN | acknowledged_deed_work | Good; that's the sort of thing I want to know about a person before I trust them with anything of mine.
 obsessed_hunter/NN | greeted_finished_beside | Good to see you. You kept your eyes open beside me the whole way through, and I don't forget a pair of eyes like that.
 obsessed_hunter/NN | thanked_work | No need; thanks are talk, and I trust what I can see.

@@ -410,13 +410,13 @@ tyrant/NE | denied_again | What are you on about, asking me that twice?
 
 # ---- sayings ----
 tyrant/LN | parted | Goodbye, and give the law no reason to learn your name.
-tyrant/LN | small_talk | Everything that ought to be recorded has been recorded, and that is a good day's work.[ As my people have always held, {saying}.]
+tyrant/LN | small_talk | Everything that ought to be recorded has been recorded, and that is a good day's work.
 tyrant/NN | parted | Farewell, and get things done, whoever grumbles.
-tyrant/NN | small_talk | Nobody's argued with me yet today, so it's going well.[ As the old ones had it, {saying}.]
+tyrant/NN | small_talk | Nobody's argued with me yet today, so it's going well.
 tyrant/LE | parted | Take care, and do remember that I forget nothing.
-tyrant/LE | small_talk | All day I have been obeyed, and I find it never grows tiresome.[ As the saying goes, {saying}.]
+tyrant/LE | small_talk | All day I have been obeyed, and I find it never grows tiresome.
 tyrant/NE | parted | Go well, and remember who let you leave.
-tyrant/NE | small_talk | Most people have done as they're told today, and the rest will learn.[ As my people say, {saying}.]
+tyrant/NE | small_talk | Most people have done as they're told today, and the rest will learn.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- tyrant/LN ----

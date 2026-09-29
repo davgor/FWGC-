@@ -638,7 +638,8 @@ From the judges of all five hero sessions (2026-09-28):
   work "with me" forget he was going too (four judges of five).
 - **No saying after a farewell**: four judges of five heard the proverb there as a non sequitur or a
   rebuke ("Safe travels; as we say, hold your tongue on thin ice"). The 286 farewell rows that had
-  one keep the rest of their line; small talk keeps its sayings.
+  one keep the rest of their line. Later the same night the owner dropped them from small talk too
+  ("Drop em, willing to bet it gets weird"): no line says one now, and the rules check refuses them.
 - **How things have been since** may name the worst nest near, by name alone (`{danger}`, "the
   Hippogryphs are still about"), and not while said lately: "It sits easier with me, having that one
   squared" had said nothing to four judges.

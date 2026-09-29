@@ -810,21 +810,21 @@ oathbound/LE | denied_again | That's not so, and I will not answer it a third ti
 
 # ---- sayings ----
 oathbound/NN | parted | Farewell, and keep your accounts square.
-oathbound/NN | small_talk | Nothing broken, nothing owed, and that's a good day by my count.[ As the old ones had it, {saying}.]
+oathbound/NN | small_talk | Nothing broken, nothing owed, and that's a good day by my count.
 oathbound/LN | parted | Take care, and weigh your words before you give them.
-oathbound/LN | small_talk | My word stands today as it stood yesterday, and I ask no more of any day.[ As my people have always held, {saying}.]
+oathbound/LN | small_talk | My word stands today as it stood yesterday, and I ask no more of any day.
 oathbound/NG | parted | Goodbye, and I hope the road's kind to you.
-oathbound/NG | small_talk | A quiet day, and a quiet day means nobody's in trouble.[ As we say, {saying}.]
+oathbound/NG | small_talk | A quiet day, and a quiet day means nobody's in trouble.
 oathbound/CN | parted | Goodbye, and keep your promises, the spirit of them anyway.
-oathbound/CN | small_talk | Oh, bending my word a little, never breaking it, same as always.[ As my people say, give or take, {saying}.]
+oathbound/CN | small_talk | Oh, bending my word a little, never breaking it, same as always.
 oathbound/LG | parted | Go well, and may you find shelter on the road.
-oathbound/LG | small_talk | Every day without harm to anyone is a good day, and this one has been good so far.[ As the old ones had it, {saying}.]
+oathbound/LG | small_talk | Every day without harm to anyone is a good day, and this one has been good so far.
 oathbound/CG | parted | Safe travels, and if anyone needs a hand, lend one.
-oathbound/CG | small_talk | Nobody's told me what I can't do yet today, so it's going beautifully.[ As we say, {saying}.]
+oathbound/CG | small_talk | Nobody's told me what I can't do yet today, so it's going beautifully.
 oathbound/NE | parted | Take care, and mind the wording of anything you swear to.
-oathbound/NE | small_talk | The day's gone my way, and days generally do when you choose your words with care.[ As we say, and for once it's true, {saying}.]
+oathbound/NE | small_talk | The day's gone my way, and days generally do when you choose your words with care.
 oathbound/LE | parted | Take care, and remember that every word you give can be held against you.
-oathbound/LE | small_talk | Nothing I have sworn forbids me a pleasant day, and so I was having one, until now.[ As the saying goes, {saying}.]
+oathbound/LE | small_talk | Nothing I have sworn forbids me a pleasant day, and so I was having one, until now.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- oathbound/NN ----
@@ -1021,7 +1021,7 @@ oathbound/NN | acknowledged_deed | Is that so? Then you've something to your nam
 oathbound/NN | acknowledged_plan | Right. Is that a promise to yourself, or only a plan?
 oathbound/NN | acknowledged_kin | Aye, and good. A person should know what they're bound to, and who.
 oathbound/NN | acknowledged_hardship_work | Ah, that came of my work, so it goes on my side of the account, not yours; I'm sorry for it.
-oathbound/NN | acknowledged_grief_work | Ah, I'm sorry; a death on my work is a debt I'll carry as long as I carry anything. Tell me the name, and I'll keep it.
+oathbound/NN | acknowledged_grief_work | Ah, I'm sorry; a death on my work is a debt I'll carry as long as I carry anything.
 oathbound/NN | acknowledged_deed_work | Good; that's the kind of hand the work needs, and it counts for more with me than any promise.
 oathbound/NN | greeted_finished_beside | Well met again. You stood to it beside me, and I saw every bit of it; I'll vouch for you anywhere.
 oathbound/NN | thanked_work | Think nothing of it; I'd sooner have a promise kept than thanks said.

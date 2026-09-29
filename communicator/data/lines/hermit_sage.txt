@@ -507,15 +507,15 @@ hermit_sage/CN | denied_again | No, and it didn't improve with repeating.
 
 # ---- sayings ----
 hermit_sage/NN | parted | Goodbye, and weigh what you heard before you use it.
-hermit_sage/NN | small_talk | Most of today's questions weren't worth the asking, but one or two were.[ As we say, {saying}.]
+hermit_sage/NN | small_talk | Most of today's questions weren't worth the asking, but one or two were.
 hermit_sage/NG | parted | Goodbye, and mind how you go; I'd like to hear how you get on.
-hermit_sage/NG | small_talk | A quiet day, mostly, and quiet suits me; I hope yours has been kind.[ As the old ones had it, {saying}.]
+hermit_sage/NG | small_talk | A quiet day, mostly, and quiet suits me; I hope yours has been kind.
 hermit_sage/LN | parted | Take care, and put your next question properly.
-hermit_sage/LN | small_talk | My teaching keeps its proper hours, and so do I.[ There is a saying among my people, and a sound one: {saying}.]
+hermit_sage/LN | small_talk | My teaching keeps its proper hours, and so do I.
 hermit_sage/CG | parted | Safe travels, and ask everyone everything, it's the only way to learn.
-hermit_sage/CG | small_talk | Today I've been nosy and helpful in about equal measure, which is my favourite kind of day.[ As my lot say, {saying}.]
+hermit_sage/CG | small_talk | Today I've been nosy and helpful in about equal measure, which is my favourite kind of day.
 hermit_sage/CN | parted | Take care, and bring back something I don't already know.
-hermit_sage/CN | small_talk | Half the day gone, and nothing worth teaching in it, until you, maybe.[ As we say, {saying}.]
+hermit_sage/CN | small_talk | Half the day gone, and nothing worth teaching in it, until you, maybe.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- hermit_sage/NN ----

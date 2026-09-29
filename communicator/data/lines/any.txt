@@ -105,13 +105,13 @@ any | denied_again | Nonsense, and that's the end of it.
 any | parted | Take care.
 any | parted | Goodbye, then.
 any | parted | Safe travels, and mind how you go.
-any | small_talk | Can't complain.[ As we say, {saying}.]
-any | small_talk | The work goes on.[ As my people say, {saying}.]
-any | small_talk | Nothing much to tell.[ Still, as we say, {saying}.]
-any | thanked | No need[; as we say, {saying}].
-any | thanked | Don't mention it[; as my people say, {saying}].
-any | acknowledged | Is that so?[ Well, as we say, {saying}.]
-any | acknowledged | Ah, I see.[ As my people say, {saying}.]
+any | small_talk | Can't complain.
+any | small_talk | The work goes on.
+any | small_talk | Nothing much to tell.
+any | thanked | No need.
+any | thanked | Don't mention it.
+any | acknowledged | Is that so?
+any | acknowledged | Ah, I see.
 
 # ---- Saying sorry (contract version 8) ---------------------------------------------------------
 any | forgiven | Very well; we'll say no more of it.

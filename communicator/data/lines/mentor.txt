@@ -810,21 +810,21 @@ mentor/NE | denied_again | That's not so, and you're wasting both our time.
 
 # ---- sayings ----
 mentor/NN | parted | Goodbye, and keep what's useful.
-mentor/NN | small_talk | Much as ever; everyone wants answers, and I'd rather they worked them out.[ As the old ones had it, {saying}.]
+mentor/NN | small_talk | Much as ever; everyone wants answers, and I'd rather they worked them out.
 mentor/LN | parted | Take care, and hold to what is proper.
-mentor/LN | small_talk | Each day is a lesson, for those willing to be tested by it.[ As it was said to me in my youth, {saying}.]
+mentor/LN | small_talk | Each day is a lesson, for those willing to be tested by it.
 mentor/NG | parted | Go well, and be careful with yourself.
-mentor/NG | small_talk | Most of my day goes on other people's troubles, and I don't mind a bit.[ As my people say, {saying}.]
+mentor/NG | small_talk | Most of my day goes on other people's troubles, and I don't mind a bit.
 mentor/CN | parted | Take care, or don't, your call.
-mentor/CN | small_talk | Nothing much; somebody always needs a shove, and I'm happy to oblige.[ As we say, or near enough, {saying}.]
+mentor/CN | small_talk | Nothing much; somebody always needs a shove, and I'm happy to oblige.
 mentor/LG | parted | Goodbye, and may you find what you are looking for.
-mentor/LG | small_talk | My work asks patience of me, and I try to give it gladly.[ As the old ones had it, {saying}.]
+mentor/LG | small_talk | My work asks patience of me, and I try to give it gladly.
 mentor/LE | parted | Goodbye, and do try to be a credit to the time I have spent on you.
-mentor/LE | small_talk | Since you ask, the day has been tolerable, though I have no leisure for idle talk.[ As the saying goes, {saying}.]
+mentor/LE | small_talk | Since you ask, the day has been tolerable, though I have no leisure for idle talk.
 mentor/CG | parted | Safe travels, and chin up.
-mentor/CG | small_talk | Oh, you know, a bit of pushing, a bit of catching, the usual.[ And, as we always say, {saying}.]
+mentor/CG | small_talk | Oh, you know, a bit of pushing, a bit of catching, the usual.
 mentor/NE | parted | Take care, since you're no use to me hurt.
-mentor/NE | small_talk | Another day of fools, which is to say an ordinary one.[ As my people say, {saying}.]
+mentor/NE | small_talk | Another day of fools, which is to say an ordinary one.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- mentor/NN ----

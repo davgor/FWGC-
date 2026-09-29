@@ -782,25 +782,25 @@ post:sanitation_worker | denied_again | You have the wrong one, and that's twice
 
 # ---- sayings ----
 post:caretaker | parted | Goodbye, and try not to track anything in next time.
-post:caretaker | small_talk | Nobody's noticed me all day, which means the floors are clean.[ As the saying goes, {saying}.]
+post:caretaker | small_talk | Nobody's noticed me all day, which means the floors are clean.
 post:officiant | parted | Take care, and carry a little of the quiet with you.
-post:officiant | small_talk | My days keep their own order, and I keep to it.[ As the old ones had it, {saying}.]
+post:officiant | small_talk | My days keep their own order, and I keep to it.
 post:groundskeeper | parted | Go well, and stay on the right side of the turf.
-post:groundskeeper | small_talk | Only me and the spade, and the spade doesn't grumble.[ As the old ones had it, {saying}.]
+post:groundskeeper | small_talk | Only me and the spade, and the spade doesn't grumble.
 post:care_assistant | parted | Go well, and keep yourself out of my beds.
-post:care_assistant | small_talk | More beds to strip and more pans to empty; there's no bottom to it.[ As my people put it, {saying}.]
+post:care_assistant | small_talk | More beds to strip and more pans to empty; there's no bottom to it.
 post:healer | parted | Farewell, and keep all your blood on the inside.
-post:healer | small_talk | Always someone to stitch, and never quite enough hands.[ As we say, {saying}.]
+post:healer | small_talk | Always someone to stitch, and never quite enough hands.
 post:apothecary | parted | Goodbye, and measure twice before you swallow once.
-post:apothecary | small_talk | Each jar in its place and each label true, as they should be.[ As we say, {saying}.]
+post:apothecary | small_talk | Each jar in its place and each label true, as they should be.
 post:herbalist | parted | Take care, and don't pick anything you can't name.
-post:herbalist | small_talk | My back aches, my knees ache, and the beds look better for it.[ As my people say, {saying}.]
+post:herbalist | small_talk | My back aches, my knees ache, and the beds look better for it.
 post:researcher | parted | Go well, and keep your eyes open and your notes tidy.
-post:researcher | small_talk | Whatever I try, the flasks have their own opinion.[ As the saying goes, {saying}.]
+post:researcher | small_talk | Whatever I try, the flasks have their own opinion.
 post:astronomer | parted | Take care, and forgive the yawning.
-post:astronomer | small_talk | Half asleep, as usual; my days are only the gaps between nights.[ As the old ones had it, {saying}.]
+post:astronomer | small_talk | Half asleep, as usual; my days are only the gaps between nights.
 post:sanitation_worker | parted | Take care, and don't hold your nose on my account.
-post:sanitation_worker | small_talk | Somebody has to shift it, and somebody always turns out to be me.[ As my people put it, {saying}.]
+post:sanitation_worker | small_talk | Somebody has to shift it, and somebody always turns out to be me.
 
 # ---- depth ----
 post:caretaker | greeted_again | Good day. You were in {since}; I've swept that floor a dozen times since.

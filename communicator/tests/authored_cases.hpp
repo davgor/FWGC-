@@ -453,9 +453,6 @@ inline std::vector<std::string> saying_problems(const std::string& voice, const 
     return out;
 }
 
-// A saying of the kind a people's bank holds, dropped into every row that says one.
-inline const std::string kTestSaying = "the well remembers who dug it";
-
 // What is wrong with one row, tried alone against every case as its bank's speaker: a row the
 // loader refuses, a row no packet speaks, a capital the line writes itself, each reply that
 // breaks a rule, quoted with the rule, and each claim no packet could back (communicator/truth.hpp).
@@ -524,10 +521,11 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
         for (const std::string before : {"this {season}", "This {season}", "that {season}", "That {season}"})
             if (line.find(before) != std::string::npos) out.push_back("\"" + before + "\": the turn of the season is a season");
         for (const std::string& word : lowercase_i(line)) out.push_back("\"" + word + "\": I is written as a capital");
-        // No saying after a farewell: blind judges of four hero sessions of five heard it as a non
-        // sequitur or a rebuke ("Safe travels; as we say, hold your tongue on thin ice", 2026-09-28).
-        if ((situation == "parted" || situation == "parted_cold") && line.find("{saying}") != std::string::npos)
-            out.push_back("a saying after a farewell: heard as a non sequitur");
+        // No saying in a line: blind judges of four hero sessions of five heard one after a farewell as a
+        // non sequitur or a rebuke ("Safe travels; as we say, hold your tongue on thin ice"), and both
+        // after small talk that the benchmark reached; the owner, 2026-09-28: "Drop em, willing to bet it
+        // gets weird."
+        if (line.find("{saying}") != std::string::npos) out.push_back("a saying in a line: heard as a non sequitur");
         // An apology for how the stranger is, not for a wrong, is not met with a question: "Whatever for?",
         // two turns after the stranger told of a brother's death, took their state as having no cause (a
         // hero session's judge, 2026-09-28).
@@ -603,24 +601,6 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
             }
         }
         if (spoken == 0) out.push_back("no test packet speaks it");
-        // A saying ends its sentence: it has no stop of its own, and words after it read as its own.
-        for (std::size_t at = row.find("{saying}"); at != std::string::npos; at = row.find("{saying}", at + 1)) {
-            std::size_t next = at + std::string("{saying}").size();
-            while (next < row.size() && row[next] == ']') ++next;
-            if (next >= row.size() || std::string(".!?").find(row[next]) == std::string::npos)
-                out.push_back("a saying ends its sentence, its stop straight after it");
-        }
-        // A row that says a saying, said once more by a speaker whose people has one: the test
-        // packets' speakers have none, so without this the saying is always left out.
-        if (row.find("{saying}") != std::string::npos) {
-            const communicator::Lines with = communicator::Lines::parse(row + beside + "\nsaying:test | saying | " + kTestSaying, "the row");
-            for (FactPacket packet : cases()) {
-                packet.persona.people = "test";
-                const FactPacket p = as_voiced_by(packet, voice_of(row));
-                for (const std::string& reply : replies_of(with, packet, p))
-                    for (const std::string& broken : broken_rules(reply, p, !following)) out.push_back(broken + ", in: " + reply);
-            }
-        }
     } catch (const std::exception& e) {
         out.push_back(std::string("refused: ") + e.what());
     }

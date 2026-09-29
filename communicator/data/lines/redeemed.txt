@@ -608,17 +608,17 @@ redeemed/CG | denied_again | I don't know what you mean, and I'd rather you stop
 
 # ---- sayings ----
 redeemed/NN | parted | Goodbye, and do things the clean way, it costs less in the end.
-redeemed/NN | small_talk | Nothing I'll regret tomorrow, which is more than I used to manage.[ As the old ones had it, {saying}.]
+redeemed/NN | small_talk | Nothing I'll regret tomorrow, which is more than I used to manage.
 redeemed/NG | parted | Go well, and take the long way round if the short one's crooked.
-redeemed/NG | small_talk | Good, I think; I helped where I could today, and did no harm doing it.[ As we say, {saying}.]
+redeemed/NG | small_talk | Good, I think; I helped where I could today, and did no harm doing it.
 redeemed/LN | parted | Take care, and keep your dealings in the open.
-redeemed/LN | small_talk | Each day I give an honest account of myself, and today's account is a fair one.[ As my people have always held, {saying}.]
+redeemed/LN | small_talk | Each day I give an honest account of myself, and today's account is a fair one.
 redeemed/LG | parted | Farewell, and may your path stay in the light.
-redeemed/LG | small_talk | My day has gone to honest work, done in plain sight, and I am the better for it.[ As the old ones had it, {saying}.]
+redeemed/LG | small_talk | My day has gone to honest work, done in plain sight, and I am the better for it.
 redeemed/CN | parted | Safe travels, and forget my face, it's a kindness.
-redeemed/CN | small_talk | Oh, nothing, nothing at all, and certainly nothing good that anyone could trace to me.[ As my people say, {saying}.]
+redeemed/CN | small_talk | Oh, nothing, nothing at all, and certainly nothing good that anyone could trace to me.
 redeemed/CG | parted | Goodbye, and be gentle with yourself, and with everyone else too.
-redeemed/CG | small_talk | Good, quiet, useful, nobody the wiser, perfect.[ As we say, {saying}.]
+redeemed/CG | small_talk | Good, quiet, useful, nobody the wiser, perfect.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- redeemed/NN ----

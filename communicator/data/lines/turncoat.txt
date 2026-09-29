@@ -406,13 +406,13 @@ turncoat/NG | denied_again | I don't know what you mean, and asking again won't 
 
 # ---- sayings ----
 turncoat/LN | parted | Take care, and read the terms of any cause before you join it.
-turncoat/LN | small_talk | Every arrangement I have made still holds, my own terms included.[ As my people have always held, {saying}.]
+turncoat/LN | small_talk | Every arrangement I have made still holds, my own terms included.
 turncoat/NN | parted | Safe travels, and don't get too attached to anything.
-turncoat/NN | small_talk | Good, so far; everyone I've backed is still winning, and I'm keeping an eye on them.[ As the old ones had it, {saying}.]
+turncoat/NN | small_talk | Good, so far; everyone I've backed is still winning, and I'm keeping an eye on them.
 turncoat/LE | parted | Take care, and do choose your friends by their prospects.
-turncoat/LE | small_talk | Nothing troubles me today; I am, as ever, on the side that is winning.[ As the saying goes, {saying}.]
+turncoat/LE | small_talk | Nothing troubles me today; I am, as ever, on the side that is winning.
 turncoat/NG | parted | Safe travels, and if you find you're on the wrong side, it's never too late to cross over.
-turncoat/NG | small_talk | Much easier these days; I can look people in the eye, and I like the people I'm looking at.[ As we say, {saying}.]
+turncoat/NG | small_talk | Much easier these days; I can look people in the eye, and I like the people I'm looking at.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- turncoat/LN ----

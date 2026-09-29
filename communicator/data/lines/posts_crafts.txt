@@ -782,25 +782,25 @@ post:cart_handler | denied_again | No, and that's the last I'll say on it.
 
 # ---- sayings ----
 post:smith | parted | Goodbye, and keep clear of the sparks on your way out.
-post:smith | small_talk | The iron's behaving and so is the forge; I'll not complain.[ As the old ones had it, {saying}.]
+post:smith | small_talk | The iron's behaving and so is the forge; I'll not complain.
 post:carpenter | parted | Goodbye, and watch for nails underfoot.
-post:carpenter | small_talk | Everything true and square, so far; I'll take that.[ As my people put it, {saying}.]
+post:carpenter | small_talk | Everything true and square, so far; I'll take that.
 post:mason | parted | Take care, and don't lean on anything still setting.
-post:mason | small_talk | One stone, then the next; there's no hurrying either.[ As the old ones had it, {saying}.]
+post:mason | small_talk | One stone, then the next; there's no hurrying either.
 post:maintenance_laborer | parted | Go well, and tell me if you see anything leaking.
-post:maintenance_laborer | small_talk | For every leak I stop, another starts; that's the whole of the job.[ As my people put it, {saying}.]
+post:maintenance_laborer | small_talk | For every leak I stop, another starts; that's the whole of the job.
 post:apprentice | parted | Go well, and wish me luck with the sweeping.
-post:apprentice | small_talk | Still learning, mostly by getting things wrong first.[ As they told me when I was small, {saying}.]
+post:apprentice | small_talk | Still learning, mostly by getting things wrong first.
 post:textile_worker | parted | Goodbye, and mind your sleeves on the pins.
-post:textile_worker | small_talk | My fingers know the way by now, which leaves my head free to wander.[ As my people put it, {saying}.]
+post:textile_worker | small_talk | My fingers know the way by now, which leaves my head free to wander.
 post:furnace_worker | parted | Farewell, and keep well back from anything that glows.
-post:furnace_worker | small_talk | All it ever does is eat, and all I ever do is feed it.[ As we say, {saying}.]
+post:furnace_worker | small_talk | All it ever does is eat, and all I ever do is feed it.
 post:ore_handler | parted | Farewell.
-post:ore_handler | small_talk | Less heap, more ache.[ As my people put it, {saying}.]
+post:ore_handler | small_talk | Less heap, more ache.
 post:farrier | parted | Goodbye, and gently past the stalls.
-post:farrier | small_talk | Nobody's kicked me yet, which is as good as it gets.[ As the old ones had it, {saying}.]
+post:farrier | small_talk | Nobody's kicked me yet, which is as good as it gets.
 post:cart_handler | parted | Safe travels, and give a loaded cart the whole road.
-post:cart_handler | small_talk | Up to my elbows in grease, and the wheels still squeal.[ As my people put it, {saying}.]
+post:cart_handler | small_talk | Up to my elbows in grease, and the wheels still squeal.
 
 # ---- depth ----
 post:smith | greeted_again | Well met again; you were at my door {since}, and I've burnt a heap of charcoal since.

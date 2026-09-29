@@ -305,11 +305,11 @@ puppet_sovereign/NN | denied_again | That's not so, and asking twice won't chang
 
 # ---- sayings ----
 puppet_sovereign/LE | parted | Goodbye, and do remember to bow on your way out.
-puppet_sovereign/LE | small_talk | Every hour of my day has its ceremony, and I am told I perform them admirably.[ As the old ones had it, {saying}.]
+puppet_sovereign/LE | small_talk | Every hour of my day has its ceremony, and I am told I perform them admirably.
 puppet_sovereign/NG | parted | Farewell, and I hope someone looks after you as well as they look after me.
-puppet_sovereign/NG | small_talk | Much better, now someone's asked me something I can answer for myself.[ As my people say, {saying}.]
+puppet_sovereign/NG | small_talk | Much better, now someone's asked me something I can answer for myself.
 puppet_sovereign/NN | parted | Go well, and if anyone asks, I said nothing.
-puppet_sovereign/NN | small_talk | Nothing's gone wrong that anyone's blamed on me, so I'd call it a good day.[ As the old ones had it, {saying}.]
+puppet_sovereign/NN | small_talk | Nothing's gone wrong that anyone's blamed on me, so I'd call it a good day.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- puppet_sovereign/LE ----

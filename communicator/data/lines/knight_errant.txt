@@ -608,17 +608,17 @@ knight_errant/LG | denied_again | No; I have answered you honestly, and my answe
 
 # ---- sayings ----
 knight_errant/NN | parted | Goodbye, and remember a favour's a debt with better manners.
-knight_errant/NN | small_talk | Nothing today worth lending my arm to, which suits me fine.[ As we say, {saying}.]
+knight_errant/NN | small_talk | Nothing today worth lending my arm to, which suits me fine.
 knight_errant/LN | parted | Take care, and hold to whatever you have sworn.
-knight_errant/LN | small_talk | Today has asked nothing of me that honour does not allow, and I am glad of it.[ As the old saying of my people has it, {saying}.]
+knight_errant/LN | small_talk | Today has asked nothing of me that honour does not allow, and I am glad of it.
 knight_errant/NG | parted | Goodbye, and don't let anyone tell you a good deed needs a reason.
-knight_errant/NG | small_talk | A good day, mostly; I was some use to someone, and that's all I ask of one.[ As the old ones had it, {saying}.]
+knight_errant/NG | small_talk | A good day, mostly; I was some use to someone, and that's all I ask of one.
 knight_errant/CN | parted | Go well - and if someone's kind to you out there, stick with them.
-knight_errant/CN | small_talk | Nobody's been kind enough today to be worth following - you might be, though.[ As my people say, {saying}.]
+knight_errant/CN | small_talk | Nobody's been kind enough today to be worth following - you might be, though.
 knight_errant/CG | parted | Take care - and if you find a cause worth the trouble, save me a place in it.
-knight_errant/CG | small_talk | Half the day helping, half the day being thanked for it - awful, the thanking.[ As they told me when I was small, {saying}.]
+knight_errant/CG | small_talk | Half the day helping, half the day being thanked for it - awful, the thanking.
 knight_errant/LG | parted | Goodbye, and may you never need my arm, though it is yours if you do.
-knight_errant/LG | small_talk | Each day asks something of my arm and my word, and each day shall have both.[ As my people have long said, {saying}.]
+knight_errant/LG | small_talk | Each day asks something of my arm and my word, and each day shall have both.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- knight_errant/NN ----

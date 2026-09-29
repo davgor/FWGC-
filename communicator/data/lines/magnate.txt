@@ -810,21 +810,21 @@ magnate/NE | denied_again | That's not so, and I'm done answering it.
 
 # ---- sayings ----
 magnate/NN | parted | Goodbye, and don't sell anything you'll want back.
-magnate/NN | small_talk | Some days the ledger smiles at me, and today was one of them.[ As we say, {saying}.]
+magnate/NN | small_talk | Some days the ledger smiles at me, and today was one of them.
 magnate/LN | parted | Take care, and read every agreement before you put your name to it.
-magnate/LN | small_talk | The accounts are in order and the terms are kept, which makes for a good day by any measure.[ There is a saying among my people, and I find it sound: {saying}.]
+magnate/LN | small_talk | The accounts are in order and the terms are kept, which makes for a good day by any measure.
 magnate/NG | parted | Safe travels, and share your bread with whoever's short of it.
-magnate/NG | small_talk | I count a day good if nobody went short in it, and I'm still counting this one.[ As the old ones had it, {saying}.]
+magnate/NG | small_talk | I count a day good if nobody went short in it, and I'm still counting this one.
 magnate/LG | parted | Take care, and never let hunger drive your bargains for you.
-magnate/LG | small_talk | All day it has been fair measures and honest terms, and I would ask no better of it.[ As my people have long said, {saying}.]
+magnate/LG | small_talk | All day it has been fair measures and honest terms, and I would ask no better of it.
 magnate/CN | parted | Goodbye, and if the market turns, turn with it.
-magnate/CN | small_talk | Every day's a gamble, and today I'm ahead, I think, I'll check.[ As my people say, {saying}.]
+magnate/CN | small_talk | Every day's a gamble, and today I'm ahead, I think, I'll check.
 magnate/CG | parted | Farewell, and if you've more than you need, you know what to do with it.
-magnate/CG | small_talk | Oh, the day's been a scramble, buying where it's cheap and sending it where it's needed.[ As they told me when I was small, {saying}.]
+magnate/CG | small_talk | Oh, the day's been a scramble, buying where it's cheap and sending it where it's needed.
 magnate/LE | parted | Take care, and do keep your stores full, for empty ones are so easily bought.
-magnate/LE | small_talk | Every agreement I sign today will be worth more to me tomorrow, which is rather the point of them.[ My people have a saying, one of the few I have found worth keeping: {saying}.]
+magnate/LE | small_talk | Every agreement I sign today will be worth more to me tomorrow, which is rather the point of them.
 magnate/NE | parted | Go well, and stay out of debt, or at least out of mine.
-magnate/NE | small_talk | Someone always has to sell, and I'm always there when they do.[ As we say, {saying}.]
+magnate/NE | small_talk | Someone always has to sell, and I'm always there when they do.
 
 # ---- Saying sorry, and more about a place (contract version 8) ----
 # ---- magnate/NN ----
