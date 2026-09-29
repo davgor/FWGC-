@@ -252,6 +252,17 @@ FWGC_API fwgc_status fwgc_resolve(fwgc_director* director, const char* quest_id,
     });
 }
 
+FWGC_API fwgc_status fwgc_account(fwgc_director* director, const char* quest_id, const char* came, const char* many,
+                                  const char* cost, const char* part) noexcept {
+    return enter(director, true, false, [&]() -> fwgc_status {
+        c_need(director, "director");
+        director->director.account(orchestrator::c_api::required_text(quest_id, "quest_id"), orchestrator::c_api::optional_text(came, "came"),
+                                   orchestrator::c_api::optional_text(many, "many"), orchestrator::c_api::optional_text(cost, "cost"),
+                                   orchestrator::c_api::optional_text(part, "part"));
+        return FWGC_OK;
+    });
+}
+
 FWGC_API fwgc_status fwgc_hold(fwgc_director* director, const char* person, double minutes) noexcept {
     return enter(director, true, false, [&]() -> fwgc_status {
         c_need(director, "director");

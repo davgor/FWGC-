@@ -94,7 +94,16 @@ struct Compact {
     std::string person;
     std::string outcomes;
 };
-using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather, Overhear, Share, Report, Words, Compact>;
+// How work the player finished or failed went, as the game saw it (contract version 20): what came (a
+// nest id or a person uid, or empty), how many, what it cost, and the player's part; any may be empty.
+struct Account {
+    std::string quest_id;
+    std::string came;
+    std::string many;
+    std::string cost;
+    std::string part;
+};
+using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather, Overhear, Share, Report, Words, Compact, Account>;
 
 // What someone who overheard the player made of it.
 enum class Overheard { stays_out, calmed, joins };
@@ -270,6 +279,18 @@ public:
     // fwg::advance_world_time's resolutions with no time passing. The giver remembers it.
     // Throws Error for work the world does not hold open, or holds but not taken.
     void resolve(const std::string& quest_id, bool completed);
+
+    // The game reports how work the player finished or failed went (contract version 20): `came`, what
+    // came (a nest id, a person uid, or empty); `many`, how many ("one", "few", "many", "horde", or
+    // empty); `cost`, what it cost those who stood there ("none", "few", "many" lost, or empty); `part`,
+    // the player's ("fought", "led", "turned", "held", "hurt", or empty). Kept on the work's event (the
+    // brain database's `accounts`): the giver tells it, from an Account fact in their greetings and
+    // small talk while that work's end is their latest dealing with the player. A later account of the
+    // same work replaces it. Changes neither the world nor anyone's regard. Throws Error for work the
+    // player has not finished or failed, a nest or person the world does not name, and a word off its
+    // list, and then changes nothing.
+    void account(const std::string& quest_id, const std::string& came, const std::string& many, const std::string& cost,
+                 const std::string& part);
 
     // One act from the player to `speaker`, a person uid. Accepting or abandoning a quest
     // changes the world; nothing else here does, though every act changes what the speaker
@@ -533,6 +554,9 @@ private:
     // the events whose state they know the player brought about; with a person uid, the events
     // about that person; with `about` empty, the events at `node`.
     std::vector<Fact> news(const std::string& speaker, const std::string& about, std::optional<int> node, std::size_t most) const;
+    // How `giver`'s own work went (contract version 20), as an Account fact: the last of theirs the
+    // player finished or failed, when the game gave an account of it; nullopt for none.
+    std::optional<Fact> account_of(const std::string& giver) const;
 
     // ---- short and long memory ---------------------------------------------------------------------
     // Rows made: each exchange logged and each memory kept is numbered in the order made, never

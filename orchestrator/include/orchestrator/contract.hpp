@@ -48,7 +48,9 @@ namespace orchestrator {
 // 19: a castellan's past (the generator's heroes version 3): the Self fact's `held_years`,
 //     `served_at` and `served_as`, a Person fact marked `tie` "liege" for the sovereign they are
 //     sworn to, and Deed facts for the wars their city fought in their lifetime.
-inline constexpr int kContractVersion = 19;
+// 20: an Account fact: how the speaker's own work went, as the game reported it (Director::account):
+//     what came, how many, what it cost, and the stranger's part.
+inline constexpr int kContractVersion = 20;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -155,10 +157,11 @@ enum class FactKind : int {
     Reveal,
     News,
     Recall,
-    Self,  // 13
-    Deed,  // 13
+    Self,     // 13
+    Deed,     // 13
+    Account,  // 20
 };
-inline constexpr int kFactKindCount = static_cast<int>(FactKind::Deed) + 1;
+inline constexpr int kFactKindCount = static_cast<int>(FactKind::Account) + 1;
 
 std::string_view to_string(FactKind kind);
 
@@ -315,8 +318,22 @@ std::string_view to_string(FactKind kind);
 // - `when`.
 // Asked about themself, a speaker answers with a Self fact, their Deed facts, and a Person fact for
 // the sovereign they are sworn to and each of their rivals, kin and allies (at most three, in that
-// order), marked `tie`: "liege" (contract version 19), "rival", "kin", "ally"; and the worst nest near where they stand, a Danger fact, as small talk has it: what they
-// stand against. Nothing of their work: what they would say of that is asked for (ask_for_work).
+// order), marked `tie`: "liege" (contract version 19), "rival", "kin", "ally"; and the worst nest
+// near where they stand, a Danger fact, as small talk has it: what they stand against. Nothing of
+// their work: what they would say of that is asked for (ask_for_work).
+//
+// An Account fact, its subject the quest id (contract version 20): how the speaker's own work went,
+// the last of theirs the stranger finished or failed, as the game reported it (Director::account).
+// Every field is optional; the game says what it knows:
+// - `outcome`: "finished" or "failed";
+// - `came`: what came, by name: a nest's creature ("Abyssal krakens"), or a person's name;
+// - `came_as`: "nest" or "person";
+// - `many`: how many came: "one", "few", "many", "horde";
+// - `cost`: what it cost those who stood there: "none", "few", "many" lost;
+// - `part`: the stranger's part: "fought", "led", "turned" (turned the fight), "held" (held when it
+//   counted), "hurt" (took a wound).
+// A greeting and small talk carry it, while the speaker's latest dealing with the stranger is that
+// work's end.
 struct Fact {
     FactKind kind = FactKind::Place;
     std::string subject;

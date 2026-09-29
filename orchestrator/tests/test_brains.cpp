@@ -617,6 +617,9 @@ TEST(replay_rebuilds_the_brains_table_by_table) {
     Director d(w);
     take(d, work);
     d.resolve(work.quest, true);
+    // And the game's account of it (contract version 20).
+    check::is_true(!w.beast_nests.sites.empty(), "the premise: a nest");
+    d.account(work.quest, w.beast_nests.sites.front().id, "few", "none", "fought");
     d.fright(there[0]->uid, 2);
     d.advance(20.0 / 1440.0);
     (void)d.respond(there[0]->uid, {ActKind::Calm, ""});
@@ -627,7 +630,8 @@ TEST(replay_rebuilds_the_brains_table_by_table) {
     (void)d.respond(there[1]->uid, {ActKind::Greet, ""});
     Director again = orchestrator::replay(w, d.inputs());
     for (const std::string& table :
-         {"people", "places", "work", "relationships", "events", "event_states", "facts", "exchanges", "exchange_facts", "memories"}) {
+         {"people", "places", "work", "relationships", "events", "event_states", "facts", "accounts", "exchanges",
+          "exchange_facts", "memories"}) {
         const QueryResult live = d.query("SELECT * FROM " + table + " ORDER BY 1, 2");
         const QueryResult replayed = again.query("SELECT * FROM " + table + " ORDER BY 1, 2");
         check::equal(replayed.rows.size(), live.rows.size(), table + " rows");
@@ -679,4 +683,83 @@ TEST(share_tells_only_the_people_it_names) {
     for (const orchestrator::Learned& one : learned) check::equal(one.person, there[0]->uid, "and only they do");
     check::equal(scalar(d, "SELECT COUNT(*) FROM facts WHERE person = '" + there[1]->uid + "'"), std::int64_t{0},
                  "the one not named hears nothing");
+}
+
+// Contract version 20: the game's account of work the player finished or failed, kept on the work's
+// event, and told by its giver while that work's end is their latest dealing with the player.
+TEST(an_account_of_work_done_is_kept_and_its_giver_tells_it) {
+    const fwg::World& w = brains_world();
+    // A giver with two pieces of work, so the player can take up the second once the first is done.
+    std::map<std::string, std::vector<std::string>> by_giver;
+    for (const Work& work : open_works(w)) by_giver[work.giver].push_back(work.quest);
+    std::string giver;
+    for (const auto& [who, quests] : by_giver)
+        if (quests.size() >= 2 && giver.empty()) giver = who;
+    check::is_true(!giver.empty() && !w.beast_nests.sites.empty(), "the premise: a giver with two pieces of work, and a nest");
+    const std::string first = by_giver[giver][0], second = by_giver[giver][1];
+    const fwg::NestSite& nest = w.beast_nests.sites.front();
+    Work work;
+    for (const Work& one : open_works(w))
+        if (one.quest == first) work = one;
+    Director d(w);
+    const auto refused = [&](const std::string& quest, const std::string& came, const std::string& many, const std::string& cost,
+                             const std::string& part, const std::string& why) {
+        const std::size_t inputs = d.inputs().size();
+        bool threw = false;
+        try {
+            d.account(quest, came, many, cost, part);
+        } catch (const orchestrator::Error&) {
+            threw = true;
+        }
+        check::is_true(threw && d.inputs().size() == inputs, "refused, and nothing recorded: " + why);
+    };
+    refused(first, nest.id, "many", "few", "held", "work never taken");
+    take(d, work);
+    refused(first, nest.id, "many", "few", "held", "work taken, not done");
+    d.resolve(first, true);
+    for (const auto& [many, cost, part, why] : std::vector<std::array<std::string, 4>>{{"lots", "few", "held", "a count off the list"},
+                                                                                      {"many", "some", "held", "a cost off the list"},
+                                                                                      {"many", "few", "won", "a part off the list"}})
+        refused(first, nest.id, many, cost, part, why);
+    refused(first, "nest-that-is-nowhere", "many", "few", "held", "a nest the world does not name");
+    refused("work-that-is-nowhere", nest.id, "many", "few", "held", "work the world does not hold");
+    check::equal(scalar(d, "SELECT COUNT(*) FROM accounts"), std::int64_t{0}, "nothing kept of what was refused");
+    d.account(first, nest.id, "many", "few", "held");
+    const QueryResult kept = d.query("SELECT quest_id, came, came_as, came_name, many, cost, part FROM accounts");
+    check::equal(kept.rows.size(), std::size_t{1}, "one account");
+    std::string row;
+    for (const Cell& cell : kept.rows.at(0)) row += cell_text(cell) + "|";
+    check::equal(row, first + "|" + nest.id + "|nest|" + std::string(nest.name) + "|many|few|held|", "the account, as reported");
+    // Its giver tells it, greeting the player and making small talk; nobody else does.
+    const auto account_in = [&](const FactPacket& p) { return facts_of(p, FactKind::Account); };
+    for (const ActKind act : {ActKind::Greet, ActKind::SmallTalk}) {
+        const std::vector<Fact> told = account_in(d.respond(giver, {act, ""}));
+        check::is_true(told.size() == 1 && told[0].subject == first, "the giver's account, of that work");
+        if (told.size() == 1) {
+            std::string fields;
+            for (const auto& [key, v] : told[0].fields) fields += key + "=" + v + ";";
+            check::equal(fields, "outcome=finished;came=" + std::string(nest.name) + ";came_as=nest;many=many;cost=few;part=held;",
+                         "what came, how many, what it cost, the player's part");
+        }
+    }
+    check::is_true(account_in(d.respond(work.neighbour, {ActKind::Greet, ""})).empty(), "someone standing with the giver: none");
+    // Told again, the later account replaces the earlier; what it leaves out is not said.
+    d.account(first, "", "", "", "hurt");
+    const std::vector<Fact> again = account_in(d.respond(giver, {ActKind::Greet, ""}));
+    check::is_true(again.size() == 1 && again[0].fields.size() == 2 && value(again[0], "part") == "hurt" && again[0].field("came") == nullptr,
+                   "the later account alone");
+    check::equal(scalar(d, "SELECT COUNT(*) FROM accounts"), std::int64_t{1}, "still one account of the work");
+    // Taking up their next work, the last one's end is no longer their latest dealing with the player.
+    (void)d.respond(giver, {ActKind::AskForWork, ""});
+    const FactPacket taken = d.respond(giver, {ActKind::AcceptQuest, second});
+    check::is_true(taken.outcome == Outcome::Accepted, "the premise: the second piece of work taken");
+    check::is_true(account_in(d.respond(giver, {ActKind::Greet, ""})).empty(), "work taken again: the account of the last is not told");
+    // That work failed, and the game gave no account of it: the first one's is not told in its place.
+    d.resolve(second, false);
+    check::is_true(account_in(d.respond(giver, {ActKind::Greet, ""})).empty(), "the latest work's end has no account: none told");
+    // Replayed, the same account.
+    const Director replayed = orchestrator::replay(w, d.inputs());
+    const QueryResult live = d.query("SELECT * FROM accounts ORDER BY 1");
+    const QueryResult other = replayed.query("SELECT * FROM accounts ORDER BY 1");
+    check::is_true(live.rows == other.rows && live.rows.size() == 1, "replay keeps the account");
 }

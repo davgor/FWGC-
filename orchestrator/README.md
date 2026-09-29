@@ -250,6 +250,7 @@ replaying the inputs writes it again, row for row (tested table by table).
 | `events` | every event: `id`, `seq`, `kind`, `day`, the `place` it is about (`place_name`, `about_node`), the `node` word starts from, whom it concerns (`person`, `person_name`), work's `quest_id`, `verb`, `purpose` and `difficulty`, an exposure's `was` and `revealed`, `player`, and its latest `state`, `state_day` and `actor` |
 | `event_states` | each state an event has been in, in order: `event`, `seq`, `state`, `day`, `actor` |
 | `facts` | who has heard what: `person`, `event`, the `state` they know, the `day` they learned it, `how` ("there", "word", or "overheard") |
+| `accounts` | the game's account of work the player finished or failed (schema 3; [below](#an-account-of-the-work)): `event`, `quest_id`, the `day` it was given, what `came` (its id, `came_as` "nest" or "person", `came_name`), `many`, `cost`, `part` |
 | `news` (a view) | facts joined to their events |
 | `exchanges` | each person's conversation log, since they were last compacted (below) |
 | `exchange_facts` | what each exchange's reply named |
@@ -262,6 +263,27 @@ reads: a write, a second statement, a pragma, a transaction, a file attached, is
 statement that runs past about a second's work or answers more than 100,000 rows. Nothing a query
 does is recorded, and none can change what the director decides. The schema's version is
 `brains_schema` in `fwgc_contract_json`.
+
+## An account of the work
+
+Contract version 20, schema 3, C interface 5. The owner agreed (2026-09-28) that the game should
+report how the fight went, and the hero tell it: four of six judges of the golden benchmark had
+stopped believing in the hero where he had nothing to say of work done beside him. The director
+knows only that work was finished or failed; the game saw how.
+
+`account(quest_id, came, many, cost, part)` (`fwgc_account`), once work is finished or failed:
+what came (a nest id or a person uid, so a speaker can name it), how many ("one", "few", "many",
+"horde"), what it cost those who stood there ("none", "few", "many" lost), and the player's part
+("fought", "led", "turned", "held", "hurt"). Each may be left out. It is kept on the work's event,
+a row of `accounts`, and a later account of the same work replaces it. It changes neither the
+world nor anyone's regard: how the work came out already did, through `resolve`. Recorded, so
+replay keeps it.
+
+The giver tells it. While the end of that work is their latest dealing with the player, their
+greetings and small talk carry an Account fact (contract.hpp lists its fields): the account of the
+last of their work the player finished or failed, never an older one's in its place. Taking up
+their next work ends it. Nobody else is given it: news of the work travels as its event does, and
+the account is the giver's own.
 
 ## Short and long memory
 
@@ -473,7 +495,7 @@ holds it to the director, with its import library in `lib/`; `cmake --install` l
   `fwg.exe --request` reads); time (`fwgc_advance`, `fwgc_clock`); acts by name (`fwgc_respond`,
   its packet as JSON for the game and in the contract's text form for the communicator);
   who overheard it (`fwgc_overhear`, each bystander's reaction and a joiner's reply); work
-  (`fwgc_resolve`); feelings (`fwgc_fright`, `fwgc_gather`, `fwgc_feeling`); days
+  (`fwgc_resolve`, and `fwgc_account`, how it went); feelings (`fwgc_fright`, `fwgc_gather`, `fwgc_feeling`); days
   (`fwgc_hold`, `fwgc_positions`, `fwgc_whereabouts_of`, `fwgc_whereabouts_at`, `fwgc_day_of`,
   `fwgc_roster`); what a speaker remembers (`fwgc_acquaintance`, `fwgc_memories`); the log's
   words and compaction (`fwgc_words`, `fwgc_compact`); news (`fwgc_share`, the cron
@@ -526,7 +548,9 @@ frighten a speaker (`fright NAME LEVEL`), gather speakers (`gather NAME...`), le
 (`minutes N`), name someone standing where another speaker stands (`who NAME near OTHER N`), ask
 about a place any earlier packet named by saying its name (`@said`), report who overheard the
 last exchange (`overhear NAME...`), a joiner's reply written as their turn, and compact a speaker's
-log (`compact NAME [FILE]`, FILE outcomes as compact takes them), what it kept written out. Every line said is
+log (`compact NAME [FILE]`, FILE outcomes as compact takes them), what it kept written out, and give
+the game's account of work done (`account NAME CAME MANY COST PART`, CAME `@nest` for the nest the
+latest packet named). Every line said is
 handed over as the exchange's words (the replies are spoken later, by the communicator). It is a
 measuring tool; nothing a game ships.
 

@@ -30,7 +30,7 @@ struct Brains::Handle {
 namespace brains {
 
 // The schema's version: bumped with any change to a table or view a game may read.
-inline constexpr int kSchemaVersion = 2;
+inline constexpr int kSchemaVersion = 3;
 
 // A game's query stops after this many of SQLite's steps (about a second's work) and when it
 // answers more rows than this.

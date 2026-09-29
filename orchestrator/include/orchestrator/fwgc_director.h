@@ -47,8 +47,9 @@ extern "C" {
  * fwgc_api_version() == FWGC_API_VERSION before its first call.
  * 2: the brain database (fwgc_query), news (fwgc_share, fwgc_related, fwgc_report_event).
  * 3: short and long memory (fwgc_words, fwgc_compact, fwgc_memories); the database's schema 2.
- * 4: the act "complain" and its outcome "heard" (contract version 18). */
-#define FWGC_API_VERSION 4
+ * 4: the act "complain" and its outcome "heard" (contract version 18).
+ * 5: fwgc_account, and the Account fact it gives (contract version 20); the database's schema 3. */
+#define FWGC_API_VERSION 5
 
 typedef struct fwgc_director fwgc_director;
 
@@ -154,6 +155,16 @@ FWGC_API fwgc_status fwgc_respond(fwgc_director* director, const char* speaker, 
                                   char** packet_json, char** packet_text) FWGC_NOEXCEPT;
 /* The player finished (`completed` 1) or failed (0) work they took. */
 FWGC_API fwgc_status fwgc_resolve(fwgc_director* director, const char* quest_id, int32_t completed) FWGC_NOEXCEPT;
+/* How work the player finished or failed went, as the game saw it: `came`, what came (a nest id or a
+ * person uid); `many`, how many ("one", "few", "many", "horde"); `cost`, what it cost those who stood
+ * there ("none", "few", "many" lost); `part`, the player's ("fought", "led", "turned", "held", "hurt").
+ * Any of the four may be NULL for not said. Kept on the work's event (the database's `accounts`);
+ * its giver tells it, from an Account fact in their greetings and small talk while that work's end
+ * is their latest dealing with the player. A later account of the same work replaces it. Refused
+ * (FWGC_BAD_ARGUMENT) for work the player has not finished or failed, a nest or person the world
+ * does not name, and a word off its list. */
+FWGC_API fwgc_status fwgc_account(fwgc_director* director, const char* quest_id, const char* came, const char* many,
+                                  const char* cost, const char* part) FWGC_NOEXCEPT;
 /* The game kept `person` where they stood for `minutes` (more than 0, at most a day) from now. */
 FWGC_API fwgc_status fwgc_hold(fwgc_director* director, const char* person, double minutes) FWGC_NOEXCEPT;
 /* Something frightened `person`: `level` 1 uneasy, 2 afraid, 3 panicked. */

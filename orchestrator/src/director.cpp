@@ -671,6 +671,13 @@ const fwg::NpcPerson* post_with_a_day(const fwg::World& world, const std::string
     return nullptr;
 }
 
+// A beast nest by its id, or nullptr.
+const fwg::NestSite* nest_of(const fwg::World& world, const std::string& id) {
+    for (const fwg::NestSite& site : world.beast_nests.sites)
+        if (site.id == id) return &site;
+    return nullptr;
+}
+
 bool names_a_person(const fwg::World& world, const std::string& uid) {
     fwg::PersonReadRequest request;
     request.uid = uid;
@@ -967,6 +974,47 @@ void Director::resolve(const std::string& quest_id, bool completed) {
     inputs_.push_back(Resolve{quest_id, completed});
 }
 
+void Director::account(const std::string& quest_id, const std::string& came, const std::string& many, const std::string& cost,
+                       const std::string& part) {
+    static const std::set<std::string, std::less<>> manys = {"", "one", "few", "many", "horde"};
+    static const std::set<std::string, std::less<>> costs = {"", "none", "few", "many"};
+    static const std::set<std::string, std::less<>> parts = {"", "fought", "led", "turned", "held", "hurt"};
+    if (!manys.count(many)) throw Error("account: how many came is \"one\", \"few\", \"many\", \"horde\" or nothing, not '" + many + "'");
+    if (!costs.count(cost)) throw Error("account: what it cost is \"none\", \"few\", \"many\" or nothing, not '" + cost + "'");
+    if (!parts.count(part))
+        throw Error("account: the player's part is \"fought\", \"led\", \"turned\", \"held\", \"hurt\" or nothing, not '" + part + "'");
+    // The work's event, as the player left it: finished or failed.
+    std::string event;
+    {
+        brains::Statement find(brains_.handle(),
+                               "SELECT id FROM events WHERE kind = 'work' AND quest_id = ?1 AND state IN ('finished', 'failed') AND "
+                               "actor = 'player'");
+        find.text(1, quest_id);
+        if (find.step()) event = find.text(0);
+    }
+    if (event.empty()) throw Error("account: no work '" + quest_id + "' the player finished or failed");
+    // What came, as a speaker names it: a nest by its creature, a person by the name a stranger knows.
+    std::string came_as, came_name;
+    if (!came.empty()) {
+        if (const fwg::NestSite* nest = nest_of(world_, came)) {
+            came_as = "nest";
+            came_name = std::string(nest->name);
+        } else if (names_a_person(world_, came)) {
+            came_as = "person";
+            came_name = name_of(world_, came);
+        }
+        if (came_name.empty()) throw Error("account: the world names no nest or person '" + came + "'");
+    }
+    brains::Statement put(brains_.handle(),
+                          "INSERT INTO accounts (event, quest_id, day, came, came_as, came_name, many, cost, part) VALUES (?1, ?2, ?3, "
+                          "?4, ?5, ?6, ?7, ?8, ?9) ON CONFLICT (event) DO UPDATE SET day = excluded.day, came = excluded.came, "
+                          "came_as = excluded.came_as, came_name = excluded.came_name, many = excluded.many, cost = excluded.cost, "
+                          "part = excluded.part");
+    put.text(1, event).text(2, quest_id).real(3, fwg::world_clock_of(world_).day).text_or_null(4, came).text_or_null(5, came_as);
+    put.text_or_null(6, came_name).text_or_null(7, many).text_or_null(8, cost).text_or_null(9, part).run();
+    inputs_.push_back(Account{quest_id, came, many, cost, part});
+}
+
 FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& act) { return reply(speaker_uid, act, false); }
 
 FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& act, bool joined) {
@@ -1071,6 +1119,10 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
             // player has nothing to say of them.
             if (recognised)
                 for (Fact& told : news(speaker_uid, "player", std::nullopt, 1)) p.facts.push_back(std::move(told));
+            // How their own work went, while its end is their latest dealing with the player (contract
+            // version 20).
+            if (recognised && (a.work == "finished" || a.work == "failed"))
+                if (std::optional<Fact> told = account_of(speaker_uid)) p.facts.push_back(std::move(*told));
             return finish(std::move(p));
         }
 
@@ -1155,6 +1207,9 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
             // And the latest news of where they stand, if they have heard any.
             if (s.node)
                 for (Fact& told : news(speaker_uid, "", s.node, 1)) p.facts.push_back(std::move(told));
+            // How their own work went, as a greeting has it (contract version 20).
+            if (recognised && (a.work == "finished" || a.work == "failed"))
+                if (std::optional<Fact> told = account_of(speaker_uid)) p.facts.push_back(std::move(*told));
             return finish(std::move(p));
         }
 
@@ -1981,6 +2036,21 @@ std::vector<Fact> Director::news(const std::string& speaker, const std::string& 
     return out;
 }
 
+std::optional<Fact> Director::account_of(const std::string& giver) const {
+    brains::Statement read(brains_.handle(),
+                           "SELECT e.quest_id, e.state, a.event, a.came_as, a.came_name, a.many, a.cost, a.part FROM events AS e LEFT "
+                           "JOIN accounts AS a ON a.event = e.id WHERE e.kind = 'work' AND e.person = ?1 AND e.state IN ('finished', "
+                           "'failed') AND e.actor = 'player' ORDER BY e.state_day DESC, e.seq DESC LIMIT 1");
+    read.text(1, giver);
+    // The last of their work the player finished or failed; told only when the game gave an account of
+    // that one, never an older one's in its place.
+    if (!read.step() || read.null(2)) return std::nullopt;
+    Fact f{FactKind::Account, read.text(0), {{"outcome", read.text(1)}}};
+    for (const auto& [column, key] : {std::pair{4, "came"}, {3, "came_as"}, {5, "many"}, {6, "cost"}, {7, "part"}})
+        if (std::string value = read.text(column); !value.empty()) f.fields.emplace_back(key, std::move(value));
+    return f;
+}
+
 // ---- short and long memory ----------------------------------------------------------------------
 
 std::int64_t Director::log_exchange(const std::string& person, const Acquaintance& a, const DialogueAct& act, const FactPacket& packet,
@@ -2533,6 +2603,7 @@ Director replay(fwg::World start, const std::vector<Input>& inputs) {
                        [&](const Report& report) { director.report_event(report.site, report.outcome, report.by); },
                        [&](const Words& said) { director.words(said.line, said.reply); },
                        [&](const Compact& compacted) { (void)director.compact(compacted.person, compacted.outcomes); },
+                       [&](const Account& told) { director.account(told.quest_id, told.came, told.many, told.cost, told.part); },
                    },
                    input);
     }

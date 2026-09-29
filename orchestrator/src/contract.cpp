@@ -20,7 +20,7 @@ constexpr std::array<std::string_view, kOutcomeCount> kOutcomeNames = {
 
 constexpr std::array<std::string_view, kFactKindCount> kFactNames = {
     "place", "person", "quest_offer", "quest_state", "danger", "reason", "memory", "chat", "safety", "reveal", "news", "recall",
-    "self",  "deed"};
+    "self",  "deed",   "account"};
 
 }  // namespace
 

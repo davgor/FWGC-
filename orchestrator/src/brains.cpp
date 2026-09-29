@@ -11,8 +11,8 @@ namespace {
 
 // The tables a game reads (README.md, "The brain database"). `people`, `places`, `work` and
 // `relationships` are copies the director writes afresh before a query when what they copy has
-// changed; `events`, `event_states`, `facts`, `exchanges` (with `exchange_facts`) and `memories` are
-// the brains themselves, written by the inputs.
+// changed; `events`, `event_states`, `facts`, `accounts`, `exchanges` (with `exchange_facts`) and
+// `memories` are the brains themselves, written by the inputs.
 constexpr const char* kSchema = R"sql(
 CREATE TABLE people (
   uid TEXT PRIMARY KEY,
@@ -107,6 +107,17 @@ CREATE TABLE facts (
   PRIMARY KEY (person, event)
 ) WITHOUT ROWID;
 CREATE INDEX facts_event ON facts (event);
+CREATE TABLE accounts (
+  event TEXT PRIMARY KEY,
+  quest_id TEXT NOT NULL,
+  day REAL NOT NULL,
+  came TEXT,
+  came_as TEXT,
+  came_name TEXT,
+  many TEXT,
+  cost TEXT,
+  part TEXT
+) WITHOUT ROWID;
 CREATE VIEW news AS
   SELECT f.person, f.event, e.kind, f.state, f.day AS learned, f.how, e.place, e.place_name, e.node,
          e.person AS about, e.player
@@ -156,7 +167,7 @@ CREATE INDEX memories_seq ON memories (person, seq);
 CREATE VIEW active_short AS
   SELECT person, count(*) AS exchanges, min(day) AS since_day, max(day) AS last_day
   FROM exchanges GROUP BY person;
-PRAGMA user_version = 2;
+PRAGMA user_version = 3;
 )sql";
 
 [[noreturn]] void failed(sqlite3* db, const std::string& what) {

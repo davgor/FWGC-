@@ -24,6 +24,10 @@
 //                                   speaker's NAME
 //   advance DAYS                    time passes
 //   resolve NAME finished|failed    the game reports the work taken from NAME
+//   account NAME CAME MANY COST PART  the game says how the work taken from NAME went: CAME @nest (the
+//                                   first nest named by the latest packet to name any), a speaker's
+//                                   NAME, or -; MANY one, few, many, horde; COST none, few, many;
+//                                   PART fought, led, turned, held, hurt; - for any not said
 //   fullmoon                        time passes to the middle of the next full-moon day
 //   calmday                         time passes to the middle of the next day at least two days
 //                                   from a full moon
@@ -187,6 +191,7 @@ int main(int argc, char** argv) {
     std::map<std::string, std::string> speakers;           // name -> uid
     std::map<std::string, std::string> own_offer, held;    // name -> quest id
     std::vector<std::string> named;  // the places the latest packet to name any named
+    std::vector<std::string> nests;  // the nests the latest packet to name any named
     std::map<std::string, std::string> names;  // every place name any packet gave, lowered -> uid
     std::string last_line;  // what the player said last, which a bystander who joins answers
     int number = 0;
@@ -209,6 +214,10 @@ int main(int argc, char** argv) {
                         if (const std::string* name = f.field("name")) names[lowered(*name)] = f.subject;
                     }
                 if (!places.empty()) named = std::move(places);
+                std::vector<std::string> dangers;
+                for (const Fact& f : p.facts)
+                    if (f.kind == FactKind::Danger) dangers.push_back(f.subject);
+                if (!dangers.empty()) nests = std::move(dangers);
             };
             const auto speaker = [&](const std::string& name) {
                 const auto found = speakers.find(name);
@@ -289,6 +298,20 @@ int main(int argc, char** argv) {
                 if (!held.count(w[1])) throw Failure(where + "no work taken from " + w[1]);
                 director->resolve(held.at(w[1]), w[2] == "finished");
                 std::cout << "event the work taken from " << w[1] << " is " << (w[2] == "finished" ? "finished" : "failed") << "\n";
+            } else if (w[0] == "account") {
+                need(6);
+                if (!held.count(w[1])) throw Failure(where + "no work taken from " + w[1]);
+                const auto said = [](const std::string& word) { return word == "-" ? std::string() : word; };
+                std::string came;
+                if (w[2] == "@nest") {
+                    if (nests.empty()) throw Failure(where + "no nest named yet");
+                    came = nests.front();
+                } else if (w[2] != "-") {
+                    came = speaker(w[2]);
+                }
+                director->account(held.at(w[1]), came, said(w[3]), said(w[4]), said(w[5]));
+                std::cout << "event the game's account of the work taken from " << w[1] << ": " << w[2] << " " << w[3] << " " << w[4] << " "
+                          << w[5] << "\n";
             } else if (w[0] == "fright") {
                 need(3);
                 director->fright(speaker(w[1]), std::stoi(w[2]));

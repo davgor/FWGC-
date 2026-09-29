@@ -402,7 +402,8 @@ const Players& players() {
 // and the same rows, cell for cell.
 void same_brains(const Handle& h, const Director& d, const std::string& what) {
     for (const char* table :
-         {"people", "places", "work", "relationships", "events", "event_states", "facts", "exchanges", "exchange_facts", "memories"}) {
+         {"people", "places", "work", "relationships", "events", "event_states", "facts", "accounts", "exchanges",
+          "exchange_facts", "memories"}) {
         const std::string sql = std::string("SELECT * FROM ") + table + " ORDER BY 1, 2";
         char* json = nullptr;
         succeeded(fwgc_query(h.get(), sql.c_str(), &json), what + ": fwgc_query " + table);
@@ -469,6 +470,14 @@ public:
         succeeded(fwgc_resolve(c_.get(), quest.c_str(), completed ? 1 : 0), "fwgc_resolve");
         cpp_.resolve(quest, completed);
         compare("resolve");
+    }
+    void account(const std::string& quest, const std::string& came, const std::string& many, const std::string& cost,
+                 const std::string& part) {
+        const auto given = [](const std::string& text) { return text.empty() ? nullptr : text.c_str(); };
+        succeeded(fwgc_account(c_.get(), quest.c_str(), given(came), given(many), given(cost), given(part)), "fwgc_account");
+        cpp_.account(quest, came, many, cost, part);
+        same_brains(c_, cpp_, "account");
+        compare("account");
     }
     void hold(const std::string& person, double minutes) {
         succeeded(fwgc_hold(c_.get(), person.c_str(), minutes), "fwgc_hold");
@@ -591,6 +600,13 @@ void play(Lockstep& both) {
     const FactPacket taken_on = both.say(p.giver1, "accept_quest", p.quest1);
     check::is_true(taken_on.outcome == orchestrator::Outcome::Accepted, "the premise: the first offer taken");
     both.resolve(p.quest1, true);
+    // The game's account of it (contract version 20), and its giver telling it.
+    const std::vector<fwg::NestSite>& nests = both.director().world().beast_nests.sites;
+    check::is_true(!nests.empty(), "the premise: a nest");
+    both.account(p.quest1, nests.front().id, "many", "", "held");
+    const FactPacket told = both.say(p.giver1, "greet");
+    check::is_true(std::any_of(told.facts.begin(), told.facts.end(), [](const orchestrator::Fact& f) { return f.kind == orchestrator::FactKind::Account; }),
+                   "an Account fact through the dll");
     both.say(p.giver2, "accept_quest", p.quest2);
     both.say(p.giver2, "abandon_quest", p.quest2);
     const FactPacket around = both.say(p.smith, "ask_surroundings");
@@ -676,7 +692,7 @@ TEST(the_contract_describes_itself) {
     succeeded(fwgc_contract_json(&json), "fwgc_contract_json");
     const fwg::JsonValue contract = fwg::parse_json(taken(json));
     keys_are(contract, {"contract_version", "brains_schema", "acts", "outcomes", "fact_kinds", "doing"}, "the contract");
-    check::equal(contract.at("brains_schema").as_int(), std::int64_t{2}, "the brain database's schema");
+    check::equal(contract.at("brains_schema").as_int(), std::int64_t{3}, "the brain database's schema");
     check::equal(contract.at("contract_version").as_int(), std::int64_t(orchestrator::kContractVersion), "its version");
     const fwg::JsonValue& acts = contract.at("acts");
     check::equal(acts.size(), std::size_t(orchestrator::kActCount), "every act");
@@ -890,6 +906,12 @@ TEST(a_callers_mistake_is_refused_and_records_nothing) {
         check::equal(fwgc_respond(h.get(), p.smith.c_str(), "ask_about_place", text, &out, nullptr), FWGC_BAD_ARGUMENT,
                      "a target not UTF-8");
         check::equal(fwgc_resolve(h.get(), text, 1), FWGC_BAD_ARGUMENT, "a quest not UTF-8");
+        for (int i = 0; i < 5; ++i) {
+            const char* given[5] = {"work-1", nullptr, nullptr, nullptr, nullptr};
+            given[i] = text;
+            check::equal(fwgc_account(h.get(), given[0], given[1], given[2], given[3], given[4]), FWGC_BAD_ARGUMENT,
+                         "an account's word not UTF-8");
+        }
         check::equal(fwgc_hold(h.get(), text, 5.0), FWGC_BAD_ARGUMENT, "a person held not UTF-8");
         check::equal(fwgc_fright(h.get(), text, 1), FWGC_BAD_ARGUMENT, "a person frightened not UTF-8");
         const char* people[] = {p.smith.c_str(), text};
@@ -931,6 +953,8 @@ TEST(a_callers_mistake_is_refused_and_records_nothing) {
     check::equal(fwgc_hold(h.get(), p.smith.c_str(), 1441.0), FWGC_BAD_ARGUMENT, "a hold of more than a day");
     check::equal(fwgc_fright(h.get(), p.smith.c_str(), 4), FWGC_BAD_ARGUMENT, "a fright off the ladder");
     check::equal(fwgc_resolve(h.get(), "no-such-work", 1), FWGC_BAD_ARGUMENT, "work never taken");
+    check::equal(fwgc_account(h.get(), "no-such-work", nullptr, "many", nullptr, nullptr), FWGC_BAD_ARGUMENT, "an account of work never done");
+    check::equal(fwgc_account(h.get(), nullptr, nullptr, nullptr, nullptr, nullptr), FWGC_BAD_ARGUMENT, "an account of no work");
     check::equal(fwgc_gather(h.get(), nullptr, 2), FWGC_BAD_ARGUMENT, "no list of people");
     check::equal(fwgc_day_of(h.get(), p.smith.c_str(), std::numeric_limits<double>::infinity(), nullptr, 0, &count),
                  FWGC_BAD_ARGUMENT, "a day that is not a day");
