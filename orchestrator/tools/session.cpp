@@ -42,6 +42,11 @@
 //   heroes [NAME...]                these heroes, or every hero when none are named, act if due
 //                                   (contract version 26); what a speaker did written as an event in
 //                                   the world's words, and the rest of the world's heroes counted
+//   briefs                          what a picker would be shown for each deed of the last `heroes`
+//                                   not yet taken, written as text (orchestrator::brief_text)
+//   react [NAME [REACTION]]         how heroes took what they did at the last `heroes` (contract
+//                                   version 30): NAME's deeds, as REACTION or by the rules; with no
+//                                   NAME, every hero's by the rules, as a game with no picker would
 //   report NAME OUTCOME [BY]        the game says how a threat where NAME stands ended: beaten,
 //                                   lost or passed; BY player, a speaker's NAME, or nobody
 //   sql QUERY                       read the brain database; each row written as an event
@@ -198,6 +203,7 @@ int main(int argc, char** argv) {
     std::vector<std::string> nests;  // the nests the latest packet to name any named
     std::map<std::string, std::string> names;  // every place name any packet gave, lowered -> uid
     std::string last_line;  // what the player said last, which a bystander who joins answers
+    std::vector<orchestrator::HeroDone> last_done;  // what heroes did at the last `heroes`
     int number = 0;
     try {
         for (std::string raw; std::getline(in, raw);) {
@@ -377,7 +383,8 @@ int main(int argc, char** argv) {
                 for (std::size_t i = 1; i < w.size(); ++i) heroes.push_back(speaker(w[i]));
                 // What the session's own speakers did, in the world's words; the rest of the world's heroes counted.
                 std::size_t others = 0;
-                for (const orchestrator::HeroDone& done : director->direct_heroes(heroes)) {
+                last_done = director->direct_heroes(heroes);
+                for (const orchestrator::HeroDone& done : last_done) {
                     const auto alias = std::find_if(speakers.begin(), speakers.end(), [&](const auto& s) { return s.second == done.hero; });
                     if (alias == speakers.end())
                         ++others;
@@ -385,6 +392,35 @@ int main(int argc, char** argv) {
                         std::cout << "event " << alias->first << " acted: " << done.text << "\n";
                 }
                 if (others > 0) std::cout << "event " << others << (others == 1 ? " other hero acted" : " other heroes acted") << "\n";
+            } else if (w[0] == "briefs") {
+                // What a picker would be shown for each deed of the last `heroes` not yet taken, as text
+                // (orchestrator::brief_text), for a measure of the picker to read.
+                const std::vector<orchestrator::Event> events = director->events();
+                for (const orchestrator::HeroDone& done : last_done) {
+                    const auto e = std::find_if(events.begin(), events.end(), [&](const orchestrator::Event& one) { return one.id == done.event; });
+                    if (e != events.end() && e->reaction.empty()) std::cout << orchestrator::brief_text(director->reaction_brief(done.hero, done.event));
+                }
+            } else if (w[0] == "react") {
+                std::optional<std::string> only;
+                std::optional<orchestrator::Reaction> as;
+                if (w.size() > 1) only = speaker(w[1]);
+                if (w.size() > 2) {
+                    as = orchestrator::reaction_named(w[2]);
+                    if (!as) throw Failure(where + "no reaction called " + w[2]);
+                }
+                std::size_t others = 0, took = 0;
+                for (const orchestrator::HeroDone& done : last_done) {
+                    if (only && done.hero != *only) continue;
+                    const orchestrator::Reaction taken = director->react(done.hero, done.event, as);
+                    ++took;
+                    const auto alias = std::find_if(speakers.begin(), speakers.end(), [&](const auto& s) { return s.second == done.hero; });
+                    if (alias == speakers.end())
+                        ++others;
+                    else
+                        std::cout << "event " << alias->first << " took it: " << orchestrator::to_string(taken) << "\n";
+                }
+                if (only && took == 0) throw Failure(where + w[1] + " did nothing at the last heroes");
+                if (others > 0) std::cout << "event " << others << (others == 1 ? " other hero took theirs" : " other heroes took theirs") << "\n";
             } else if (w[0] == "report") {
                 need(3);
                 const fwg::World& world = director->world();

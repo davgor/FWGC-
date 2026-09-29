@@ -57,8 +57,10 @@ extern "C" {
  * 8: fame (contract version 25): "ask_about_person" takes "=" and the words the player named someone by,
  *    which the director looks up; an answer about a person carries their fame and known deed.
  * 9: heroes' deeds (contract version 26): fwgc_direct_heroes; News of a hero's deed; the database's
- *    schema 6 (events.against, events.against_name, events.scope). */
-#define FWGC_API_VERSION 9
+ *    schema 6 (events.against, events.against_name, events.scope).
+ * 10: how a hero takes their deed (contract version 30): fwgc_reaction_brief, fwgc_react; the contract's
+ *    "reactions"; the database's schema 7 (events.deed, events.reaction). */
+#define FWGC_API_VERSION 10
 
 typedef struct fwgc_director fwgc_director;
 
@@ -208,6 +210,22 @@ FWGC_API fwgc_status fwgc_share(fwgc_director* director, const char* const* peop
  * "text"}]. May be NULL. */
 FWGC_API fwgc_status fwgc_direct_heroes(fwgc_director* director, const char* const* heroes, size_t count,
                                         char** json) FWGC_NOEXCEPT;
+/* What a picker is shown to choose how `hero` takes their deed `event` (an event fwgc_direct_heroes answered;
+ * contract version 30), as JSON in *json: {"hero", "event", "name", "archetype", "alignment", "code", "manner",
+ * "voice", "toward_player", "line", "never": [...], "deed", "outcome", "open": [...]}: the card's public part, as
+ * a packet's persona has it, never what the card keeps back. "open" names the reactions open to how the deed went.
+ * Refused for an event that is none of the hero's deeds, and a deed they took already. */
+FWGC_API fwgc_status fwgc_reaction_brief(const fwgc_director* director, const char* hero, const char* event,
+                                         char** json) FWGC_NOEXCEPT;
+/* How `hero` takes their deed `event`: `reaction` one the brief holds open ("humbled", "embittered", "resolved",
+ * "vindicated", "grieving", "vengeful"), or NULL for the rules' pick by their alignment. Applied at once and
+ * recorded, so a save replays it without asking again: embittered, a step toward evil, which the world records,
+ * and their persona and voice follow; resolved, a better chance at their next deed; grieving, their next week sat
+ * out; vengeful, their next deed goes after this one's foe; humbled and vindicated, only how they speak of it. Their
+ * own News of the deed says how they took it (`took_it`). The reaction applied, as JSON in *json: {"reaction"}. May
+ * be NULL. Refused as fwgc_reaction_brief is, and for a reaction not open. */
+FWGC_API fwgc_status fwgc_react(fwgc_director* director, const char* hero, const char* event, const char* reaction,
+                                char** json) FWGC_NOEXCEPT;
 /* How a threat at `site` (a place id or a roster site's uid) ended: `outcome` "beaten", "lost" or
  * "passed"; `by` "player", a person uid, or NULL for no one. It moves the scare there (frights
  * within the last day) or makes one; people hear of it at the next fwgc_share. */

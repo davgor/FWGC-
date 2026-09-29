@@ -17,14 +17,18 @@ inline constexpr double kHeroThreatM = 5000.0;
 // The most of a hero's own deeds since the stranger last saw them that ride in their packets (contract version 29).
 inline constexpr std::size_t kOwnDeedsSince = 3;
 
+// How much better a hero's chance is at their next deed after they took one resolved (contract version 30).
+inline constexpr double kResolvedEdge = 0.1;
+
 // The chance a hero's deed goes their way: their fame's band (notable 45%, renowned 60%, legendary 75%)
-// against the danger they face (1 to 5), 8 points a step from 3, 15 less for an assault on a ruin; never
-// past 90%. The least it can be is 14%, a notable hero's assault against danger 5.
-inline double hero_chance(const std::string& band, int danger, bool assault) {
+// against the danger they face (1 to 5), 8 points a step from 3, 15 less for an assault on a ruin, and
+// `edge` more when they took their last deed resolved; never past 90%. The least it can be is 14%, a notable
+// hero's assault against danger 5.
+inline double hero_chance(const std::string& band, int danger, bool assault, double edge) {
     double chance = band == "legendary" ? 0.75 : band == "renowned" ? 0.6 : 0.45;
     chance -= 0.08 * static_cast<double>(danger - 3);
     if (assault) chance -= 0.15;
-    return std::min(chance, 0.9);
+    return std::min(chance + edge, 0.9);
 }
 
 // A draw in [0, 1) from a hero's own seed, the day and what they do: a hash (splitmix64's finish), so the

@@ -1,5 +1,6 @@
 #include "orchestrator/contract.hpp"
 
+#include <algorithm>
 #include <array>
 #include <stdexcept>
 
@@ -256,6 +257,128 @@ std::vector<FactPacket> packets_from_text(std::string_view text) {
     }
     if (open) throw std::invalid_argument("packet text: a packet with no end");
     return out;
+}
+
+namespace {
+
+constexpr std::array<std::string_view, kReactionCount> kReactionNames = {"humbled", "embittered", "resolved", "vindicated", "grieving", "vengeful"};
+
+}  // namespace
+
+std::string_view to_string(Reaction reaction) { return kReactionNames[static_cast<std::size_t>(reaction)]; }
+
+std::optional<Reaction> reaction_named(std::string_view name) {
+    for (std::size_t i = 0; i < kReactionNames.size(); ++i)
+        if (kReactionNames[i] == name) return static_cast<Reaction>(i);
+    return std::nullopt;
+}
+
+std::string brief_text(const ReactionBrief& brief) {
+    std::string out = "brief " + std::to_string(kContractVersion) + "\n";
+    const auto line = [&](std::string_view key, std::string_view value) { out += std::string(key) + " " + escaped(value) + "\n"; };
+    line("hero", brief.hero);
+    line("event_id", brief.event);  // never "event": a session tool's own lines begin so
+    line("name", brief.name);
+    line("archetype", brief.archetype);
+    line("alignment", brief.alignment);
+    line("code", brief.code);
+    line("manner", brief.manner);
+    line("voice", brief.voice);
+    line("toward_player", brief.toward_player);
+    line("line", brief.line);
+    for (const std::string& never : brief.never) line("never", never);
+    line("deed", brief.deed);
+    line("outcome", brief.outcome);
+    for (const Reaction reaction : brief.open) line("open", to_string(reaction));
+    return out + "end\n";
+}
+
+std::vector<ReactionBrief> briefs_from_text(std::string_view text) {
+    std::vector<ReactionBrief> out;
+    std::optional<ReactionBrief> open;
+    std::size_t number = 0;
+    std::size_t start = 0;
+    while (start <= text.size()) {
+        const std::size_t newline = text.find('\n', start);
+        std::string_view row = text.substr(start, newline == std::string_view::npos ? std::string_view::npos : newline - start);
+        start = newline == std::string_view::npos ? text.size() + 1 : newline + 1;
+        ++number;
+        if (!row.empty() && row.back() == '\r') row.remove_suffix(1);
+        const auto refuse = [&](const std::string& why) {
+            throw std::invalid_argument("brief text, line " + std::to_string(number) + ": " + why);
+        };
+        const auto [key, rest] = split_first(row);
+        if (!open) {
+            if (key == "brief") open.emplace();
+            continue;
+        }
+        ReactionBrief& b = *open;
+        const std::string value = unescaped(rest);
+        if (key == "end") {
+            out.push_back(std::move(b));
+            open.reset();
+        } else if (key == "hero") {
+            b.hero = value;
+        } else if (key == "event_id") {
+            b.event = value;
+        } else if (key == "name") {
+            b.name = value;
+        } else if (key == "archetype") {
+            b.archetype = value;
+        } else if (key == "alignment") {
+            b.alignment = value;
+        } else if (key == "code") {
+            b.code = value;
+        } else if (key == "manner") {
+            b.manner = value;
+        } else if (key == "voice") {
+            b.voice = value;
+        } else if (key == "toward_player") {
+            b.toward_player = value;
+        } else if (key == "line") {
+            b.line = value;
+        } else if (key == "never") {
+            b.never.push_back(value);
+        } else if (key == "deed") {
+            b.deed = value;
+        } else if (key == "outcome") {
+            b.outcome = value;
+        } else if (key == "open") {
+            const std::optional<Reaction> reaction = reaction_named(value);
+            if (!reaction) refuse("no reaction called " + value);
+            b.open.push_back(*reaction);
+        } else {
+            refuse("no brief line called " + std::string(key));
+        }
+    }
+    if (open) throw std::invalid_argument("brief text: a brief with no end");
+    return out;
+}
+
+std::vector<Reaction> reactions_open(std::string_view outcome) {
+    if (outcome == "lost") return {Reaction::Humbled, Reaction::Embittered, Reaction::Resolved, Reaction::Grieving, Reaction::Vengeful};
+    if (outcome == "won") return {Reaction::Resolved, Reaction::Vindicated};
+    return {};
+}
+
+namespace {
+
+Reaction reaction_by_alignment(const ReactionBrief& brief) {
+    const char law = brief.code.size() == 2 ? brief.code[0] : 'N';
+    const char good = brief.code.size() == 2 ? brief.code[1] : 'N';
+    if (brief.outcome == "won") return law == 'C' || good == 'E' ? Reaction::Vindicated : Reaction::Resolved;
+    if (good == 'E') return Reaction::Vengeful;
+    if (good == 'G') return Reaction::Resolved;
+    if (law == 'L') return Reaction::Humbled;
+    if (law == 'C') return Reaction::Embittered;
+    return Reaction::Resolved;
+}
+
+}  // namespace
+
+Reaction reaction_by_rules(const ReactionBrief& brief) {
+    const Reaction pick = reaction_by_alignment(brief);
+    return std::find(brief.open.begin(), brief.open.end(), pick) != brief.open.end() ? pick : Reaction::Resolved;
 }
 
 }  // namespace orchestrator

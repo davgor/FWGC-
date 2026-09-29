@@ -48,6 +48,12 @@ fwg::JsonValue related_json(const Related& related);
 // What heroes did at the game's call (contract version 26): [{"hero", "action", "outcome", "place", "against",
 // "day", "event", "text"}].
 fwg::JsonValue heroes_done_json(const std::vector<HeroDone>& done);
+// What a picker is shown to choose how a hero takes a deed (contract version 30): {"hero", "event", "name",
+// "archetype", "alignment", "code", "manner", "voice", "toward_player", "line", "never": [...], "deed",
+// "outcome", "open": [...]}.
+fwg::JsonValue reaction_brief_json(const ReactionBrief& brief);
+// A reaction by name, or BadArgument.
+Reaction reaction_of(const std::string& name);
 fwg::JsonValue contract_json();
 // Every roster post `positions` lists, by index, with what the game shows and places them by.
 fwg::JsonValue roster_json(const fwg::World& world, const std::vector<Position>& positions);

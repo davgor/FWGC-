@@ -358,6 +358,38 @@ FWGC_API fwgc_status fwgc_direct_heroes(fwgc_director* director, const char* con
     });
 }
 
+FWGC_API fwgc_status fwgc_reaction_brief(const fwgc_director* director, const char* hero, const char* event, char** json) noexcept {
+    return enter(director, false, false, [&]() -> fwgc_status {
+        c_need(director, "director");
+        c_need(json, "json");
+        *json = nullptr;
+        const orchestrator::ReactionBrief brief = director->director.reaction_brief(orchestrator::c_api::required_text(hero, "hero"),
+                                                                                    orchestrator::c_api::required_text(event, "event"));
+        *json = orchestrator::c_api::handed_over(orchestrator::c_api::dumped(orchestrator::c_api::reaction_brief_json(brief)));
+        return FWGC_OK;
+    });
+}
+
+FWGC_API fwgc_status fwgc_react(fwgc_director* director, const char* hero, const char* event, const char* reaction,
+                                char** json_out) noexcept {
+    if (json_out != nullptr) *json_out = nullptr;
+    return enter(director, true, false, [&]() -> fwgc_status {
+        c_need(director, "director");
+        const std::string hero_uid = orchestrator::c_api::required_text(hero, "hero");
+        const std::string event_id = orchestrator::c_api::required_text(event, "event");
+        std::optional<orchestrator::Reaction> chosen;
+        if (reaction != nullptr) chosen = orchestrator::c_api::reaction_of(orchestrator::c_api::required_text(reaction, "reaction"));
+        const orchestrator::Reaction applied = director->director.react(hero_uid, event_id, chosen);
+        // Recorded now; what follows only hands the answer over.
+        if (json_out != nullptr) {
+            fwg::JsonValue out = fwg::JsonValue::object();
+            out.set("reaction", std::string(orchestrator::to_string(applied)));
+            *json_out = orchestrator::c_api::handed_over(orchestrator::c_api::dumped(out));
+        }
+        return FWGC_OK;
+    });
+}
+
 FWGC_API fwgc_status fwgc_report_event(fwgc_director* director, const char* site, const char* outcome, const char* by) noexcept {
     return enter(director, true, false, [&]() -> fwgc_status {
         c_need(director, "director");

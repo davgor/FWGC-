@@ -91,7 +91,9 @@ CREATE TABLE events (
   player_name TEXT,
   against TEXT,
   against_name TEXT,
-  scope TEXT
+  scope TEXT,
+  deed TEXT,
+  reaction TEXT
 ) WITHOUT ROWID;
 CREATE INDEX events_node ON events (node);
 CREATE INDEX events_about ON events (about_node);

@@ -247,7 +247,7 @@ replaying the inputs writes it again, row for row (tested table by table).
 | `places` | every city, hamlet, fortress and key location: `id` (as a packet names it), `kind`, `name`, `node` |
 | `work` | the quest board as it stands: `quest_id`, `giver`, `verb`, `purpose` (as stated), `anchor`, `node`, `difficulty`, `state` (as its event says it), `offered_day`, `expires_day`, `closed_day`, `closed_reason` |
 | `relationships` | each person the player has dealt with: `conversations`, `talking`, `last_day`, `regard` (-3 to 3), `mood`, `work`, `grievances`, `forgiven`, `asked_before`, `exposed`, `eased_day`, `days_met`, `exchanges`, `works_finished`, `standing` |
-| `events` | every event: `id`, `seq`, `kind`, `day`, the `place` it is about (`place_name`, `about_node`), the `node` word starts from, whom it concerns (`person`, `person_name`), work's `quest_id`, `verb`, `purpose` and `difficulty`, an exposure's `was` and `revealed`, `player`, its latest `state`, `state_day` and `actor`, the name work the player did went by (`player_name`, schema 5), and a hero's deed's foe and reach (`against`, `against_name`, `scope`, schema 6) |
+| `events` | every event: `id`, `seq`, `kind`, `day`, the `place` it is about (`place_name`, `about_node`), the `node` word starts from, whom it concerns (`person`, `person_name`), work's `quest_id`, `verb`, `purpose` and `difficulty`, an exposure's `was` and `revealed`, `player`, its latest `state`, `state_day` and `actor`, the name work the player did went by (`player_name`, schema 5), a hero's deed's foe and reach (`against`, `against_name`, `scope`, schema 6), and the world's id of the deed and how the hero took it (`deed`, `reaction`, schema 7) |
 | `event_states` | each state an event has been in, in order: `event`, `seq`, `state`, `day`, `actor` |
 | `facts` | who has heard what: `person`, `event`, the `state` they know, the `day` they learned it, `how` ("there", "word", or "overheard") |
 | `accounts` | the game's account of work the player finished or failed (schema 3; [below](#an-account-of-the-work)): `event`, `quest_id`, the `day` it was given, what `came` (its id, `came_as` "nest" or "person", `came_name`), `many`, `cost`, `part` |
@@ -381,6 +381,41 @@ a line of their log in the world's words, their fame and band recomputed.
   (contract version 28), so none hears another's as word: heard as word, a castellan's own lost fight had
   come back to him as a stranger's rumour.
 - `fwgc_direct_heroes` answers what each did as JSON; the session tool's `heroes` command calls it.
+
+## How a hero takes their deed
+
+Contract version 30, C interface 10, schema 7. The owner, 2026-09-29: "Let the LLM interpret the outcome, based
+on the heroes personality, and based on the outcome ... a prideful hero might turn down a darker path after being
+humbled, or a wiser hero might see this as a way to learn where they messed up." Asked, the owner ruled that a
+reaction has small effects and moves a hero's alignment ("Also alignment drift"), and that what picks may read the
+card's hidden part too ("Hidden card parts too"); that one waits on the owner's change to the disclosure rule
+(AGENTS.md), so the brief carries the public part alone.
+
+- **The brief.** `reaction_brief(hero, event)`, for a deed `direct_heroes` answered: the hero as a stranger knows
+  them, their archetype and alignment, their card's public part (`manner`, `voice`, `toward_player`, `line`,
+  `never`), never what it keeps back, the deed in the world's words, how it went, and the
+  reactions open to that: after a loss humbled, embittered, resolved, grieving or vengeful; after a win resolved
+  or vindicated; vengeance only after a deed that had a foe (a ruin assaulted with no nest near had none). It is
+  never a packet: nothing a speaker is handed carries it. Refused for an
+  event that is none of the hero's deeds, and a deed taken already.
+- **The pick, and the rules.** The communicator's picker reads the brief and chooses among what is open; the game
+  hands the choice to `react(hero, event, reaction)`. With none, the rules pick by alignment: after a win,
+  vindicated for the chaotic or the evil, resolved for the rest; after a loss, vengeful for the evil, resolved
+  for the good, and for the neutral of heart humbled if lawful, embittered if chaotic, resolved if neither; a
+  pick not open is resolved instead. Grieving is a picker's alone. A deed is taken once.
+- **What it does,** at once. Embittered: a step toward evil through the world's verb (`hero_shift_request`,
+  heroes version 6), so their alignment, card, persona and face are as they now are and they speak from that
+  bank, with a line of their log after the deed ("Hardened after the fight at ..."). Resolved: 10 points more
+  on the chance of their next deed, never past 90%, spent by it. Grieving: their next week sat out. Vengeful:
+  their next deed hunts the foe of this one wherever it is, whatever their claim, and the one after is the deed
+  it put off. Humbled and vindicated: only how they speak of it.
+- **Recorded** as the reaction applied (`React`), so replay applies the same and no picker runs on a load. Kept on
+  the deed's event (`reaction`).
+- **Said.** The hero's own News fact of the deed carries `took_it`, how they took it; nobody else's does: those who
+  heard of the fight know how it went, not what it did to them.
+- `fwgc_reaction_brief` and `fwgc_react`; `fwgc_contract_json` names the reactions. `brief_text` writes a brief as
+  text, as `packet_text` writes a packet, and `briefs_from_text` reads it back. The session tool's `briefs` writes
+  those of the last `heroes` call, and `react` takes its deeds by the rules, or one speaker's as a reaction named.
 
 ## Short and long memory
 
@@ -617,12 +652,13 @@ holds it to the director, with its import library in `lib/`; `cmake --install` l
   (`fwgc_resolve`, and `fwgc_account`, how it went); feelings (`fwgc_fright`, `fwgc_gather`, `fwgc_feeling`); days
   (`fwgc_hold`, `fwgc_positions`, `fwgc_whereabouts_of`, `fwgc_whereabouts_at`, `fwgc_day_of`,
   `fwgc_roster`); what a speaker remembers (`fwgc_acquaintance`, `fwgc_memories`); the log's
-  words and compaction (`fwgc_words`, `fwgc_compact`); news (`fwgc_share`, the cron
+  words and compaction (`fwgc_words`, `fwgc_compact`); heroes (`fwgc_direct_heroes`, and how one
+  took a deed: `fwgc_reaction_brief`, `fwgc_react`); news (`fwgc_share`, the cron
   job, who heard what back as JSON; `fwgc_report_event`, how a threat ended; `fwgc_related`, who
   knows an event); the brain database (`fwgc_query`, read-only SQL, rows back as JSON); the world
   document (`fwgc_world_json`, for drawing the world only: it holds what speakers keep back); and
   `fwgc_contract_json`, every act (whether it needs a target, whether it changes the world),
-  outcome and fact kind by name, and the brain database's schema version.
+  outcome, fact kind and reaction by name, and the brain database's schema version.
 - **Saves.** `fwgc_save` writes the request, the digest of the world it made, every input, and a
   check: the clock and the count of the world's logged operations after them. `fwgc_restore`
   makes the world again, compares the digest, replays, compares the check, and refuses
@@ -669,7 +705,8 @@ about a place any earlier packet named by saying its name (`@said`), report who 
 last exchange (`overhear NAME...`), a joiner's reply written as their turn, and compact a speaker's
 log (`compact NAME [FILE]`, FILE outcomes as compact takes them), what it kept written out, and give
 the game's account of work done (`account NAME CAME MANY COST PART`, CAME `@nest` for the nest the
-latest packet named). Every line said is
+latest packet named), write what a picker would be shown of each deed of the last `heroes` (`briefs`), and say
+how heroes took them (`react [NAME [REACTION]]`, by the rules or as named). Every line said is
 handed over as the exchange's words (the replies are spoken later, by the communicator). It is a
 measuring tool; nothing a game ships.
 
@@ -705,7 +742,8 @@ switched each rule off in a scratch build.
   face, else the first, else the calm one) unless the rules above bring another out. A mask's true
   face never shows before it is exposed, and no persona says there is anything behind a mask.
 - **What a card keeps back.** The persona passes `manner`, `voice`, `toward_player`, `line` and the
-  `never` list. It does not pass `lies`, `belief`, `wants`, `fears` or `tells`.
+  `never` list. It does not pass `lies`, `belief`, `wants`, `fears` or `tells`, and neither does a reaction
+  brief; of a brief only the reaction chosen reaches a packet, as the hero's own `took_it`.
 - **A hook's actual effect, or whether its stated purpose is true.** Offers carry a fixed set of
   fields; `unwitting` is not one of them.
 - **Places beyond reach.**
@@ -723,8 +761,8 @@ switched each rule off in a scratch build.
   so the planned `gone` event had nothing to be tested against. The work's own event still moves to
   `giver_gone`.
 - Pacing: the director's build-up, peak and relax, and gameplay events in. Heroes' deeds (above) are
-  built; how a hero takes what came of one (humbled, embittered, resolved...), wounds and deaths, and heroes
-  moving between places are not.
+  built, and so is how a hero takes what came of one; wounds and deaths, and heroes moving between places of
+  their own will, are not.
 - Days for heroes, dreads and villains; rest days; days that change with the weather or the
   season; and a speaker saying what they are about, or that they are late.
 - The acts `trade`, `persuade`, `threaten`, `bribe`.

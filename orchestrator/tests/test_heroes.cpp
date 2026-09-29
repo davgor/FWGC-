@@ -312,14 +312,17 @@ TEST(a_heros_chance_is_their_band_against_the_danger_and_the_draw_is_even) {
     using orchestrator::direction::hero_chance;
     using orchestrator::direction::hero_draw;
     const auto near = [](double a, double b) { return std::abs(a - b) < 1e-9; };
-    check::is_true(near(hero_chance("notable", 3, false), 0.45), "notable");
-    check::is_true(near(hero_chance("renowned", 3, false), 0.60), "renowned");
-    check::is_true(near(hero_chance("legendary", 3, false), 0.75), "legendary");
-    check::is_true(near(hero_chance("notable", 5, false), 0.29), "a worse danger, less");
-    check::is_true(near(hero_chance("notable", 1, false), 0.61), "a lesser one, more");
-    check::is_true(near(hero_chance("renowned", 4, true), 0.37), "an assault, 15 less");
-    check::is_true(near(hero_chance("legendary", 1, false), 0.9), "never past 90%");
-    check::is_true(near(hero_chance("notable", 5, true), 0.14), "the least it can be");
+    check::is_true(near(hero_chance("notable", 3, false, 0.0), 0.45), "notable");
+    check::is_true(near(hero_chance("renowned", 3, false, 0.0), 0.60), "renowned");
+    check::is_true(near(hero_chance("legendary", 3, false, 0.0), 0.75), "legendary");
+    check::is_true(near(hero_chance("notable", 5, false, 0.0), 0.29), "a worse danger, less");
+    check::is_true(near(hero_chance("notable", 1, false, 0.0), 0.61), "a lesser one, more");
+    check::is_true(near(hero_chance("renowned", 4, true, 0.0), 0.37), "an assault, 15 less");
+    check::is_true(near(hero_chance("legendary", 1, false, 0.0), 0.9), "never past 90%");
+    check::is_true(near(hero_chance("notable", 5, true, 0.0), 0.14), "the least it can be");
+    // Resolved after their last deed (contract version 30): 10 points more, still never past 90%.
+    check::is_true(near(hero_chance("notable", 3, false, orchestrator::direction::kResolvedEdge), 0.55), "resolved, 10 more");
+    check::is_true(near(hero_chance("legendary", 2, false, orchestrator::direction::kResolvedEdge), 0.9), "resolved, never past 90%");
     check::equal(hero_draw(12345, 40.25, "defended"), hero_draw(12345, 40.75, "defended"), "the same day draws the same");
     check::is_true(hero_draw(12345, 40.25, "defended") != hero_draw(12345, 41.25, "defended"), "another day, another draw");
     check::is_true(hero_draw(12345, 40.25, "defended") != hero_draw(12345, 40.25, "hunted"), "another deed, another draw");
@@ -733,5 +736,295 @@ TEST(news_of_a_heros_deed_and_replay) {
     check::equal(replayed.size(), events.size(), "the same events");
     for (std::size_t i = 0; i < events.size() && i < replayed.size(); ++i)
         check::is_true(replayed[i].id == events[i].id && replayed[i].state == events[i].state && replayed[i].against == events[i].against,
+                       "event " + events[i].id);
+}
+
+// ---- How a hero takes their deed (contract version 30) --------------------------------------------------------
+
+namespace {
+
+using orchestrator::Reaction;
+using orchestrator::ReactionBrief;
+
+// The deeds of the four weeks' last week: each hero's newest, their next due within the week after.
+std::vector<HeroDone> last_week(const Weeks& w) {
+    std::vector<HeroDone> out;
+    for (std::size_t k = w.by_call.size() - 7; k < w.by_call.size(); ++k) out.insert(out.end(), w.by_call[k].begin(), w.by_call[k].end());
+    return out;
+}
+
+// A copy of the four weeks' director with each of `deeds` taken as `reaction`, called once a day for `days` more:
+// each reacting hero's deeds after, in order.
+struct Went {
+    Director director;
+    std::map<std::string, std::vector<HeroDone>> next;
+};
+
+Went taken_then(const std::vector<HeroDone>& deeds, Reaction reaction, int days) {
+    Went out{weeks().director, {}};
+    for (const HeroDone& deed : deeds) check::is_true(out.director.react(deed.hero, deed.event, reaction) == reaction, "taken as asked");
+    std::set<std::string> reacting;
+    for (const HeroDone& deed : deeds) reacting.insert(deed.hero);
+    for (int day = 0; day < days; ++day) {
+        out.director.advance(1.0);
+        for (const HeroDone& one : out.director.direct_heroes({}))
+            if (reacting.count(one.hero)) out.next[one.hero].push_back(one);
+    }
+    return out;
+}
+
+std::vector<HeroDone> lost_with_a_foe(const std::vector<HeroDone>& deeds) {
+    std::vector<HeroDone> out;
+    for (const HeroDone& deed : deeds)
+        if (deed.outcome == "lost" && !deed.against.empty()) out.push_back(deed);
+    return out;
+}
+
+const Event& event_of(const std::vector<Event>& events, const std::string& id) {
+    for (const Event& e : events)
+        if (e.id == id) return e;
+    check::fail("an event " + id);
+}
+
+}  // namespace
+
+// What a picker is shown: the card's public part, never what it keeps back, the deed in the world's words, how it
+// went, and the reactions open to that; refused for what is none of the hero's deeds, and for someone who is no hero.
+TEST(a_reaction_brief_holds_the_card_the_deed_and_what_is_open) {
+    const Weeks& w = weeks();
+    const auto lost = std::find_if(w.done.begin(), w.done.end(), [](const HeroDone& d) { return d.outcome == "lost" && !d.against.empty(); });
+    const auto won = std::find_if(w.done.begin(), w.done.end(), [](const HeroDone& d) { return d.outcome == "won"; });
+    check::is_true(lost != w.done.end() && won != w.done.end(), "the premise: a deed lost against a foe, and a deed won");
+    if (lost == w.done.end() || won == w.done.end()) return;
+    for (const HeroDone& done : {*lost, *won}) {
+        const ReactionBrief brief = w.director.reaction_brief(done.hero, done.event);
+        const fwg::Hero& hero = hero_in(w.director.world(), done.hero);
+        check::equal(brief.hero, done.hero, "the hero");
+        check::equal(brief.event, done.event, "the deed's event");
+        check::is_true(!brief.name.empty(), "named");
+        check::equal(brief.archetype, hero.archetype, "their archetype");
+        check::equal(brief.code, hero.alignment.code, "their alignment's letters");
+        check::equal(brief.alignment, hero.alignment.label, "and as the world says it");
+        check::is_true(brief.manner == hero.persona.manner && brief.voice == hero.persona.voice &&
+                           brief.toward_player == hero.persona.toward_player && brief.line == hero.persona.line && brief.never == hero.persona.never,
+                       "the card's public part");
+        // Never what the card keeps back.
+        const fwg::HeroPersona& card = hero.persona;
+        check::is_true(!card.belief.empty() && !card.wants.empty() && !card.fears.empty(), "the premise: a card that keeps something back");
+        std::string said = brief.name + "|" + brief.manner + "|" + brief.voice + "|" + brief.toward_player + "|" + brief.line + "|" + brief.deed;
+        for (const std::string& never : brief.never) said += "|" + never;
+        for (const std::string* kept : {&card.belief, &card.wants, &card.fears, &card.lies, &card.tells})
+            check::is_true(kept->empty() || said.find(*kept) == std::string::npos, "what the card keeps back stays out: " + *kept);
+        check::equal(brief.deed, done.text, "the deed in the world's words");
+        check::equal(brief.outcome, done.outcome, "how it went");
+        check::is_true(brief.open == orchestrator::reactions_open(done.outcome), "what is open to how it went: " + done.outcome);
+    }
+    // Vengeance goes after a foe: a ruin assaulted with none near had none, and none is open.
+    const auto no_foe = std::find_if(w.done.begin(), w.done.end(), [](const HeroDone& d) { return d.outcome == "lost" && d.against.empty(); });
+    if (no_foe != w.done.end()) {
+        const ReactionBrief brief = w.director.reaction_brief(no_foe->hero, no_foe->event);
+        check::is_true(std::find(brief.open.begin(), brief.open.end(), Reaction::Vengeful) == brief.open.end() && brief.open.size() == 4,
+                       "no foe, no vengeance");
+    }
+    // Refused: an event that is none, another's deed, an event of another kind, a uid that is no hero.
+    check::throws([&] { (void)w.director.reaction_brief(lost->hero, "event-999999"); }, "an event that is none");
+    const auto other = std::find_if(w.done.begin(), w.done.end(), [&](const HeroDone& d) { return d.hero != lost->hero; });
+    check::is_true(other != w.done.end(), "the premise: another hero's deed");
+    check::throws([&] { (void)w.director.reaction_brief(lost->hero, other->event); }, "another's deed");
+    const std::vector<Event> events = w.director.events();
+    const auto work = std::find_if(events.begin(), events.end(), [](const Event& e) { return e.kind == "work"; });
+    check::is_true(work != events.end(), "the premise: an event of work");
+    check::throws([&] { (void)w.director.reaction_brief(work->person, work->id); }, "an event that is no deed");
+    check::throws([&] { (void)w.director.reaction_brief("hero-nobody", lost->event); }, "a uid that is no hero");
+}
+
+// A hero takes a deed once: as picked, when the reaction is open to how it went, or by the rules; it is kept on the
+// deed's event; a reaction not open is refused and nothing is kept.
+TEST(a_hero_takes_a_deed_once_as_picked_or_by_the_rules) {
+    const Weeks& w = weeks();
+    const auto lost = std::find_if(w.done.begin(), w.done.end(), [](const HeroDone& d) { return d.outcome == "lost" && !d.against.empty(); });
+    const auto won = std::find_if(w.done.begin(), w.done.end(), [](const HeroDone& d) { return d.outcome == "won"; });
+    check::is_true(lost != w.done.end() && won != w.done.end(), "the premise: a deed lost against a foe, and a deed won");
+    if (lost == w.done.end() || won == w.done.end()) return;
+    Director d = w.director;
+    const std::size_t inputs = d.inputs().size();
+    check::throws([&] { (void)d.react(won->hero, won->event, Reaction::Humbled); }, "humbled is not open to a deed won");
+    check::throws([&] { (void)d.react(won->hero, won->event, Reaction::Vengeful); }, "nor vengeance");
+    check::equal(d.inputs().size(), inputs, "refused, nothing kept");
+    check::is_true(event_of(d.events(), won->event).reaction.empty(), "the deed not taken");
+    // By the rules.
+    const ReactionBrief brief = d.reaction_brief(won->hero, won->event);
+    const Reaction ruled = d.react(won->hero, won->event);
+    check::is_true(ruled == orchestrator::reaction_by_rules(brief), "the rules' pick");
+    check::equal(event_of(d.events(), won->event).reaction, std::string(orchestrator::to_string(ruled)), "kept on the deed's event");
+    check::equal(d.inputs().size(), inputs + 1, "recorded");
+    check::is_true(std::holds_alternative<orchestrator::React>(d.inputs().back()) &&
+                       std::get<orchestrator::React>(d.inputs().back()).reaction == ruled,
+                   "recorded as applied, so replay needs no pick");
+    // Once.
+    check::throws([&] { (void)d.react(won->hero, won->event, Reaction::Resolved); }, "taken already");
+    check::throws([&] { (void)d.reaction_brief(won->hero, won->event); }, "and no brief for it after");
+    // As picked.
+    check::is_true(d.react(lost->hero, lost->event, Reaction::Grieving) == Reaction::Grieving, "grieving, as picked");
+    check::equal(event_of(d.events(), lost->event).reaction, std::string("grieving"), "kept");
+}
+
+// Embittered after a loss: a step toward evil through the world's verb, so their card, persona and voice are theirs
+// as they now are; a line of their log after the deed.
+TEST(an_embittered_hero_steps_toward_evil_and_speaks_as_they_now_are) {
+    const Weeks& w = weeks();
+    // A hero a step carries across a boundary, so what they speak from changes: the first of the deeds lost whose
+    // hero's letters the step changes, found by taking each so in a copy.
+    std::optional<HeroDone> crossing;
+    std::size_t tried = 0;
+    for (const HeroDone& deed : w.done) {
+        if (deed.outcome != "lost" || tried == 12 || crossing) continue;
+        ++tried;
+        Director trial = w.director;
+        const std::string code = hero_in(trial.world(), deed.hero).alignment.code;
+        (void)trial.react(deed.hero, deed.event, Reaction::Embittered);
+        if (hero_in(trial.world(), deed.hero).alignment.code != code) crossing = deed;
+    }
+    check::is_true(crossing.has_value(), "the premise: a hero a step carries across a boundary, of " + std::to_string(tried) + " tried");
+    if (!crossing) return;
+    const HeroDone& deed = *crossing;
+    Director d = w.director;
+    const fwg::Hero was = hero_in(d.world(), deed.hero);
+    const std::string key_was = d.respond(deed.hero, {ActKind::Greet, ""}).persona.voice_key;
+    check::is_true(d.react(deed.hero, deed.event, Reaction::Embittered) == Reaction::Embittered, "embittered");
+    const fwg::Hero& now = hero_in(d.world(), deed.hero);
+    check::is_true(std::abs(now.alignment.good - std::max(-1.0, was.alignment.good - fwg::kHeroShiftStep)) < 2e-3,
+                   "a step toward evil: " + std::to_string(was.alignment.good) + " to " + std::to_string(now.alignment.good));
+    check::is_true(std::abs(now.alignment.law - was.alignment.law) < 1e-9, "law as it was");
+    check::is_true(!event_of(d.events(), deed.event).deed.empty(), "the premise: the deed's event names the world's deed");
+    check::is_true(!now.log.empty() && now.log.back().event_kind == "shift" && now.log.back().event_id == event_of(d.events(), deed.event).deed,
+                   "a line of their log after the deed");
+    // Across a boundary, they speak from another bank.
+    const FactPacket after = d.respond(deed.hero, {ActKind::SmallTalk, ""});
+    check::equal(after.persona.voice_key, now.archetype + "/" + now.alignment.code, "speaks from the bank of who they now are");
+    check::is_true(after.persona.voice_key != key_was, "not the one they spoke from before: " + key_was);
+    check::is_true(after.persona.manner == now.persona.manner && after.persona.line == now.persona.line, "and with the card as it now reads");
+}
+
+// Resolved: a better chance at their next deed, and only that one. Held against the same days taken humbled, which
+// changes nothing but speech: no next deed went worse, and some went better.
+TEST(a_resolved_hero_has_a_better_chance_at_their_next_deed) {
+    const std::vector<HeroDone> deeds = lost_with_a_foe(last_week(weeks()));
+    check::is_true(deeds.size() >= 5, "the premise: deeds lost in the last week: " + std::to_string(deeds.size()));
+    const Went humbled = taken_then(deeds, Reaction::Humbled, 16);
+    const Went resolved = taken_then(deeds, Reaction::Resolved, 16);
+    std::size_t better = 0, compared = 0, after_that = 0;
+    for (const HeroDone& deed : deeds) {
+        const auto h = humbled.next.find(deed.hero);
+        const auto r = resolved.next.find(deed.hero);
+        if (h == humbled.next.end() || r == resolved.next.end()) continue;
+        ++compared;
+        const HeroDone& before = h->second.front();
+        const HeroDone& after = r->second.front();
+        check::is_true(before.day == after.day && before.action == after.action && before.against == after.against, "the same deed: " + deed.hero);
+        check::is_true(!(before.outcome == "won" && after.outcome == "lost"), "no worse for being resolved: " + deed.hero);
+        if (before.outcome == "lost" && after.outcome == "won") ++better;
+        // Spent by it: where it turned nothing, the deed after goes as it would have.
+        if (before.outcome == after.outcome && h->second.size() > 1 && r->second.size() > 1) {
+            ++after_that;
+            check::equal(r->second[1].outcome, h->second[1].outcome, "the deed after, as without it: " + deed.hero);
+        }
+    }
+    check::is_true(compared == deeds.size(), "each acted again within the week: " + std::to_string(compared) + " of " + std::to_string(deeds.size()));
+    check::is_true(better > 0, "the premise: the better chance turned a deed");
+    check::is_true(after_that > 0, "the premise: a deed after the next");
+}
+
+// Grieving: their next week sat out. Held against the same days taken humbled, their next deed comes a week later.
+TEST(a_grieving_hero_sits_out_their_next_week) {
+    const std::vector<HeroDone> deeds = lost_with_a_foe(last_week(weeks()));
+    check::is_true(!deeds.empty(), "the premise: deeds lost in the last week");
+    const Went humbled = taken_then(deeds, Reaction::Humbled, 16);
+    const Went grieving = taken_then(deeds, Reaction::Grieving, 16);
+    for (const HeroDone& deed : deeds) {
+        const auto h = humbled.next.find(deed.hero);
+        const auto g = grieving.next.find(deed.hero);
+        check::is_true(h != humbled.next.end() && g != grieving.next.end(), "acted again in sixteen days: " + deed.hero);
+        if (h == humbled.next.end() || g == grieving.next.end()) continue;
+        check::is_true(std::abs(g->second.front().day - (h->second.front().day + 7.0)) < 1e-9,
+                       "a week later: " + std::to_string(h->second.front().day) + " and " + std::to_string(g->second.front().day));
+    }
+}
+
+// Vengeful: their next deed goes after the foe of the one they took so, wherever it is; the one after is the deed it
+// put off, by their claim again (a pretender who hunted instead of assaulting their ruin assaults it then).
+TEST(a_vengeful_hero_goes_after_that_foe_next) {
+    const std::vector<HeroDone> deeds = lost_with_a_foe(last_week(weeks()));
+    check::is_true(!deeds.empty(), "the premise: deeds lost in the last week");
+    const Went humbled = taken_then(deeds, Reaction::Humbled, 16);
+    const Went vengeful = taken_then(deeds, Reaction::Vengeful, 16);
+    std::size_t changed = 0;
+    for (const HeroDone& deed : deeds) {
+        const auto h = humbled.next.find(deed.hero);
+        const auto v = vengeful.next.find(deed.hero);
+        check::is_true(h != humbled.next.end() && v != vengeful.next.end() && v->second.size() >= 2 && h->second.size() >= 2,
+                       "acted twice more in sixteen days: " + deed.hero);
+        if (h == humbled.next.end() || v == vengeful.next.end() || v->second.size() < 2 || h->second.size() < 2) continue;
+        check::is_true(v->second[0].action == "hunted" && v->second[0].against == deed.against && v->second[0].place.empty(),
+                       "hunts the foe that beat them: " + deed.hero + " " + v->second[0].action + " " + v->second[0].against);
+        changed += h->second[0].action != "hunted" ? 1 : 0;
+        check::is_true(v->second[1].action == h->second[0].action && v->second[1].place == h->second[0].place,
+                       "then the deed it put off: " + deed.hero + " " + v->second[1].action + " at " + v->second[1].place);
+    }
+    check::is_true(changed > 0, "the premise: a hero who would not have hunted it");
+}
+
+// A hero's own News of a deed says how they took it; no one else's does. Replay applies every reaction again, and
+// with it what followed, without a pick.
+TEST(a_hero_tells_how_they_took_it_and_replay_takes_it_the_same) {
+    const std::vector<HeroDone> deeds = lost_with_a_foe(last_week(weeks()));
+    check::is_true(deeds.size() >= 4, "the premise: four deeds lost in the last week");
+    if (deeds.size() < 4) return;
+    Director d = weeks().director;
+    const std::vector<Reaction> taken = {Reaction::Embittered, Reaction::Resolved, Reaction::Grieving, Reaction::Vengeful};
+    for (std::size_t i = 0; i < deeds.size(); ++i)
+        (void)d.react(deeds[i].hero, deeds[i].event, i < taken.size() ? taken[i] : Reaction::Humbled);
+    // Their own News, at a first meeting: their newest deed, and how they took it.
+    for (std::size_t i = 0; i < taken.size(); ++i) {
+        const FactPacket greeted = d.respond(deeds[i].hero, {ActKind::Greet, ""});
+        const auto own = std::find_if(greeted.facts.begin(), greeted.facts.end(),
+                                      [&](const Fact& f) { return f.kind == FactKind::News && f.subject == deeds[i].event; });
+        check::is_true(own != greeted.facts.end(), "the premise: their deed in their greeting: " + deeds[i].hero);
+        if (own == greeted.facts.end()) continue;
+        check::equal(own->field("took_it") ? *own->field("took_it") : std::string(), std::string(orchestrator::to_string(taken[i])),
+                     "how they took it: " + deeds[i].hero);
+        // What the card keeps back is in no line of the packet, how they took it said or not.
+        const fwg::HeroPersona& card = hero_in(d.world(), deeds[i].hero).persona;
+        const std::string text = orchestrator::packet_text(greeted);
+        for (const std::string* kept : {&card.belief, &card.wants, &card.fears, &card.lies, &card.tells})
+            check::is_true(kept->empty() || text.find(*kept) == std::string::npos, "the card's kept-back part stays back: " + deeds[i].hero);
+    }
+    // Word of it: those who heard say what happened, never how the hero took it.
+    (void)d.share({});
+    std::size_t heard = 0;
+    for (const HeroDone& deed : deeds)
+        for (const std::string& uid : d.related(deed.event).knows) {
+            if (uid == deed.hero || heard > 12) continue;
+            const FactPacket p = d.respond(uid, {ActKind::AskAboutPerson, deed.hero});
+            for (const Fact& f : p.facts)
+                if (f.kind == FactKind::News && f.subject == deed.event) {
+                    ++heard;
+                    check::is_true(f.field("took_it") == nullptr, "not theirs to know: " + uid);
+                }
+        }
+    check::is_true(heard > 0, "the premise: someone else told of one of the deeds");
+    // What followed, and replay.
+    for (int day = 0; day < 16; ++day) {
+        d.advance(1.0);
+        (void)d.direct_heroes({});
+    }
+    Director again = orchestrator::replay(month_on(), d.inputs());
+    check::equal(json_of(again.world()), json_of(d.world()), "the same world");
+    const std::vector<Event> events = d.events();
+    const std::vector<Event> replayed = again.events();
+    check::equal(replayed.size(), events.size(), "the same events");
+    for (std::size_t i = 0; i < events.size() && i < replayed.size(); ++i)
+        check::is_true(replayed[i].id == events[i].id && replayed[i].state == events[i].state && replayed[i].deed == events[i].deed &&
+                           replayed[i].reaction == events[i].reaction && replayed[i].verb == events[i].verb && replayed[i].day == events[i].day,
                        "event " + events[i].id);
 }

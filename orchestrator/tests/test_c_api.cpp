@@ -570,6 +570,37 @@ public:
         compare("direct_heroes");
         return cpp;
     }
+    // A hero's brief read, then their reaction applied (contract version 30), `reaction` or the rules' pick.
+    orchestrator::Reaction react(const std::string& hero, const std::string& event, std::optional<orchestrator::Reaction> reaction) {
+        char* json = nullptr;
+        succeeded(fwgc_reaction_brief(c_.get(), hero.c_str(), event.c_str(), &json), "fwgc_reaction_brief");
+        const fwg::JsonValue read = fwg::parse_json(taken(json));
+        keys_are(read, {"hero", "event", "name", "archetype", "alignment", "code", "manner", "voice", "toward_player", "line", "never", "deed",
+                        "outcome", "open"},
+                 "a reaction brief");
+        const orchestrator::ReactionBrief brief = cpp_.reaction_brief(hero, event);
+        const auto& [b_hero, b_event, name, archetype, alignment, code, manner, voice, toward_player, line, never, deed, outcome, open] = brief;
+        for (const auto& [key, want] : {std::pair<const char*, const std::string*>{"hero", &b_hero}, {"event", &b_event}, {"name", &name},
+                                        {"archetype", &archetype}, {"alignment", &alignment}, {"code", &code}, {"manner", &manner},
+                                        {"voice", &voice}, {"toward_player", &toward_player}, {"line", &line}, {"deed", &deed},
+                                        {"outcome", &outcome}})
+            check::equal(read.at(key).as_string(), *want, std::string("reaction brief: ") + key);
+        check::equal(read.at("never").size(), never.size(), "reaction brief: never");
+        for (std::size_t i = 0; i < never.size() && i < read.at("never").size(); ++i)
+            check::equal(read.at("never").at(i).as_string(), never[i], "reaction brief: never, in order");
+        check::equal(read.at("open").size(), open.size(), "reaction brief: open");
+        for (std::size_t i = 0; i < open.size() && i < read.at("open").size(); ++i)
+            check::equal(read.at("open").at(i).as_string(), std::string(orchestrator::to_string(open[i])), "reaction brief: open, in order");
+        const std::string named = reaction ? std::string(orchestrator::to_string(*reaction)) : std::string();
+        succeeded(fwgc_react(c_.get(), hero.c_str(), event.c_str(), reaction ? named.c_str() : nullptr, &json), "fwgc_react");
+        const orchestrator::Reaction cpp = cpp_.react(hero, event, reaction);
+        const fwg::JsonValue done = fwg::parse_json(taken(json));
+        keys_are(done, {"reaction"}, "a reaction");
+        check::equal(done.at("reaction").as_string(), std::string(orchestrator::to_string(cpp)), "react: the same");
+        same_brains(c_, cpp_, "react");
+        compare("react");
+        return cpp;
+    }
     void report_event(const std::string& site, const std::string& outcome, const std::string& by) {
         succeeded(fwgc_report_event(c_.get(), site.c_str(), outcome.c_str(), by.empty() ? nullptr : by.c_str()), "fwgc_report_event");
         cpp_.report_event(site, outcome, by);
@@ -691,7 +722,14 @@ void play(Lockstep& both) {
     // The game says the threat there was beaten, and news goes round: to the smith alone, then all.
     both.report_event(p.site, "beaten", "player");
     // Heroes act at the game's call (contract version 26): those due on the first call.
-    check::is_true(!both.direct_heroes({}).empty(), "the premise: a hero acts");
+    const std::vector<orchestrator::HeroDone> acted = both.direct_heroes({});
+    check::is_true(!acted.empty(), "the premise: a hero acts");
+    // How they took it (contract version 30): the first by the rules; a deed lost, embittered, which the world records.
+    const auto lost = std::find_if(acted.begin() + 1, acted.end(), [](const orchestrator::HeroDone& d) { return d.outcome == "lost"; });
+    check::is_true(lost != acted.end(), "the premise: another deed, lost");
+    (void)both.react(acted.front().hero, acted.front().event, std::nullopt);
+    if (lost != acted.end())
+        check::is_true(both.react(lost->hero, lost->event, orchestrator::Reaction::Embittered) == orchestrator::Reaction::Embittered, "embittered");
     const std::vector<orchestrator::Learned> smith_heard = both.share({p.smith});
     check::is_true(!smith_heard.empty(), "the premise: the smith hears something");
     both.share({});
@@ -724,8 +762,13 @@ TEST(the_contract_describes_itself) {
     char* json = nullptr;
     succeeded(fwgc_contract_json(&json), "fwgc_contract_json");
     const fwg::JsonValue contract = fwg::parse_json(taken(json));
-    keys_are(contract, {"contract_version", "brains_schema", "acts", "outcomes", "fact_kinds", "doing"}, "the contract");
-    check::equal(contract.at("brains_schema").as_int(), std::int64_t{6}, "the brain database's schema");
+    keys_are(contract, {"contract_version", "brains_schema", "acts", "outcomes", "fact_kinds", "doing", "reactions"}, "the contract");
+    check::equal(contract.at("brains_schema").as_int(), std::int64_t{7}, "the brain database's schema");
+    const fwg::JsonValue& reactions = contract.at("reactions");
+    check::equal(reactions.size(), std::size_t(orchestrator::kReactionCount), "every reaction");
+    for (int i = 0; i < orchestrator::kReactionCount && static_cast<std::size_t>(i) < reactions.size(); ++i)
+        check::equal(reactions.at(static_cast<std::size_t>(i)).as_string(),
+                     std::string(orchestrator::to_string(static_cast<orchestrator::Reaction>(i))), "a reaction's name, in order");
     check::equal(contract.at("contract_version").as_int(), std::int64_t(orchestrator::kContractVersion), "its version");
     const fwg::JsonValue& acts = contract.at("acts");
     check::equal(acts.size(), std::size_t(orchestrator::kActCount), "every act");
@@ -961,6 +1004,11 @@ TEST(a_callers_mistake_is_refused_and_records_nothing) {
         const char* named[] = {text};
         check::equal(fwgc_share(h.get(), named, 1, &out), FWGC_BAD_ARGUMENT, "someone to share with not UTF-8");
         check::equal(fwgc_direct_heroes(h.get(), named, 1, &out), FWGC_BAD_ARGUMENT, "a hero to direct not UTF-8");
+        check::equal(fwgc_reaction_brief(h.get(), text, "event-1", &out), FWGC_BAD_ARGUMENT, "a hero's brief, the hero not UTF-8");
+        check::equal(fwgc_reaction_brief(h.get(), "hero-x", text, &out), FWGC_BAD_ARGUMENT, "a hero's brief, the deed not UTF-8");
+        check::equal(fwgc_react(h.get(), text, "event-1", nullptr, &out), FWGC_BAD_ARGUMENT, "a hero reacting not UTF-8");
+        check::equal(fwgc_react(h.get(), "hero-x", text, nullptr, &out), FWGC_BAD_ARGUMENT, "a deed reacted to not UTF-8");
+        check::equal(fwgc_react(h.get(), "hero-x", "event-1", text, &out), FWGC_BAD_ARGUMENT, "a reaction not UTF-8");
         check::equal(fwgc_words(h.get(), text, "a reply", nullptr), FWGC_BAD_ARGUMENT, "a line not UTF-8");
         check::equal(fwgc_words(h.get(), "a line", text, nullptr), FWGC_BAD_ARGUMENT, "a reply not UTF-8");
         check::equal(fwgc_words(h.get(), "a line", "a reply", text), FWGC_BAD_ARGUMENT, "a question not UTF-8");
@@ -1009,6 +1057,12 @@ TEST(a_callers_mistake_is_refused_and_records_nothing) {
     const char* no_hero[] = {"hero-nobody-at-all"};
     check::equal(fwgc_direct_heroes(h.get(), no_hero, 1, &out), FWGC_BAD_ARGUMENT, "directing a hero nobody is");
     check::equal(fwgc_direct_heroes(h.get(), nullptr, 1, &out), FWGC_BAD_ARGUMENT, "no list of heroes");
+    check::equal(fwgc_reaction_brief(h.get(), "hero-nobody-at-all", "event-1", &out), FWGC_BAD_ARGUMENT, "a brief for a hero nobody is");
+    check::equal(fwgc_reaction_brief(h.get(), p.giver1.c_str(), "event-none", &out), FWGC_BAD_ARGUMENT, "a brief for a deed there is none of");
+    check::equal(fwgc_reaction_brief(h.get(), p.giver1.c_str(), "event-none", nullptr), FWGC_BAD_ARGUMENT, "nowhere to put the brief");
+    check::equal(fwgc_react(h.get(), p.giver1.c_str(), "event-none", nullptr, &out), FWGC_BAD_ARGUMENT, "a deed there is none of");
+    check::equal(fwgc_react(h.get(), p.giver1.c_str(), "event-none", "furious", &out), FWGC_BAD_ARGUMENT, "a reaction with no name");
+    check::equal(fwgc_react(h.get(), nullptr, "event-none", nullptr, &out), FWGC_BAD_ARGUMENT, "no hero");
     check::equal(fwgc_words(h.get(), "a line", "a reply", nullptr), FWGC_BAD_ARGUMENT, "words, with nothing said");
     check::equal(fwgc_compact(h.get(), "npc-nobody-at-all", nullptr, &out), FWGC_BAD_ARGUMENT, "compacting nobody");
     check::equal(fwgc_compact(h.get(), nullptr, nullptr, &out), FWGC_BAD_ARGUMENT, "compacting no one");

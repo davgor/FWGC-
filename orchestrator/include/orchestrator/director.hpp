@@ -110,7 +110,13 @@ struct Account {
 struct Direct {
     std::vector<std::string> heroes;
 };
-using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather, Overhear, Share, Report, Words, Compact, Account, Direct>;
+// How a hero took one of their deeds (contract version 30): the reaction a picker chose, or the rules did, as applied.
+struct React {
+    std::string hero;
+    std::string event;
+    Reaction reaction = Reaction::Resolved;
+};
+using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather, Overhear, Share, Report, Words, Compact, Account, Direct, React>;
 
 // What a hero did at the director's call (contract version 26): what, where, against what, how it went,
 // on what day, the event it made, and the line the world's log keeps of it.
@@ -207,6 +213,10 @@ struct Event {
     std::string against;
     std::string against_name;
     std::string scope;
+    // A hero's deed: its id in the world's record ("action-3"), and how the hero took it (contract version 30), empty
+    // until they have.
+    std::string deed;
+    std::string reaction;
 };
 
 // Someone who heard an event's state, as share() reports it.
@@ -477,6 +487,19 @@ public:
     // order. Throws Error for a uid that names no hero.
     std::vector<HeroDone> direct_heroes(const std::vector<std::string>& heroes);
 
+    // What a picker is shown to choose how `hero` takes their deed `event` (contract version 30): their card's public
+    // part, what they did in the world's words, how it went, and the reactions open to that. Throws Error when
+    // `event` is none of their deeds, or when they took it already.
+    ReactionBrief reaction_brief(const std::string& hero, const std::string& event) const;
+
+    // How `hero` takes their deed `event`: `reaction`, one open to how it went, or with none the rules' pick
+    // (reaction_by_rules). Applied at once. Embittered: a step toward evil, through the world's verb
+    // (hero_shift_request), so their persona and voice follow. Resolved: a better chance at their next deed.
+    // Grieving: their next week sat out. Vengeful: their next deed goes after the foe of this one. Humbled and
+    // vindicated: nothing but how they speak of it. Recorded, so replay applies the same without a picker. Throws
+    // Error as reaction_brief does, and for a reaction not open to how the deed went.
+    Reaction react(const std::string& hero, const std::string& event, std::optional<Reaction> reaction = std::nullopt);
+
     // The game's read of the brain database: one SQL statement that only reads, its rows back.
     // Throws Error for anything else -- a write, a second statement, a pragma, a file attached --
     // and for a statement that runs too long or answers too many rows.
@@ -568,6 +591,10 @@ private:
     // For each speaker met before, the world day of the last act to them before the conversation under way or
     // last had (contract version 27): a hero's own deed rides in their packets only when newer.
     std::map<std::string, double> met_before_;
+    // What a hero's reaction left for their next deed (contract version 30): a better chance (resolved), and the foe
+    // to go after (vengeful). Each is spent by that deed.
+    std::map<std::string, double> edge_;
+    std::map<std::string, std::string> quarry_;
     // Bumped when the world changes, and when anyone's standing with the player may have: the
     // database's copies of the world's people, places and work, and of every acquaintance, are
     // written again before a query reads them only when these moved.

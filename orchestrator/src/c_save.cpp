@@ -14,7 +14,7 @@ namespace {
 
 // Every input kind has its key here, and replay() its call. A new one stops the build until it
 // has both, and its fwgc_ function and a test.
-static_assert(std::variant_size_v<Input> == 13,
+static_assert(std::variant_size_v<Input> == 14,
               "a new Input kind needs its save key (c_save.cpp), its fwgc_ function (c_api.cpp) and a test "
               "(tests/test_c_api.cpp)");
 
@@ -101,6 +101,14 @@ fwg::JsonValue input_json(const Input& input) {
                 fwg::JsonValue body = fwg::JsonValue::object();
                 body.set("heroes", std::move(names));
                 return keyed("direct", std::move(body));
+            },
+            [](const React& react) {
+                const auto& [hero, event, reaction] = react;
+                fwg::JsonValue body = fwg::JsonValue::object();
+                body.set("hero", hero);
+                body.set("event", event);
+                body.set("reaction", std::string(to_string(reaction)));
+                return keyed("react", std::move(body));
             },
             [](const Report& report) {
                 const auto& [site, outcome, by] = report;
@@ -235,6 +243,13 @@ Input input_from(const fwg::JsonValue& item) {
     if (kind == "direct") {
         exactly(body, {"heroes"}, "direct");
         return Direct{people_at(body, kind, "heroes")};
+    }
+    if (kind == "react") {
+        exactly(body, {"hero", "event", "reaction"}, "react");
+        const std::string name = text_at(body, "reaction", kind);
+        const std::optional<Reaction> reaction = reaction_named(name);
+        if (!reaction) refuse("a reaction this library does not know: '" + name + "'");
+        return React{text_at(body, "hero", kind), text_at(body, "event", kind), *reaction};
     }
     if (kind == "report") {
         exactly(body, {"site", "outcome", "by"}, "report");

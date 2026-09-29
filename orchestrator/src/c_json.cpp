@@ -326,6 +326,34 @@ fwg::JsonValue heroes_done_json(const std::vector<HeroDone>& done) {
     return out;
 }
 
+fwg::JsonValue reaction_brief_json(const ReactionBrief& brief) {
+    const auto& [hero, event, name, archetype, alignment, code, manner, voice, toward_player, line, never, deed, outcome, open] = brief;
+    fwg::JsonValue out = fwg::JsonValue::object();
+    out.set("hero", hero);
+    out.set("event", event);
+    out.set("name", name);
+    out.set("archetype", archetype);
+    out.set("alignment", alignment);
+    out.set("code", code);
+    out.set("manner", manner);
+    out.set("voice", voice);
+    out.set("toward_player", toward_player);
+    out.set("line", line);
+    out.set("never", strings(never));
+    out.set("deed", deed);
+    out.set("outcome", outcome);
+    fwg::JsonValue names = fwg::JsonValue::array();
+    for (const Reaction reaction : open) names.push_back(std::string(orchestrator::to_string(reaction)));
+    out.set("open", std::move(names));
+    return out;
+}
+
+Reaction reaction_of(const std::string& name) {
+    const std::optional<Reaction> reaction = reaction_named(name);
+    if (!reaction) throw BadArgument("the contract has no reaction named '" + name + "'");
+    return *reaction;
+}
+
 fwg::JsonValue related_json(const Related& related) {
     const auto& [knows, would_learn] = related;
     fwg::JsonValue out = fwg::JsonValue::object();
@@ -355,6 +383,8 @@ fwg::JsonValue contract_json() {
         one.set("code", doing_code(d));
         doing.push_back(std::move(one));
     }
+    fwg::JsonValue reactions = fwg::JsonValue::array();
+    for (int i = 0; i < kReactionCount; ++i) reactions.push_back(std::string(orchestrator::to_string(static_cast<Reaction>(i))));
     fwg::JsonValue out = fwg::JsonValue::object();
     out.set("contract_version", kContractVersion);
     out.set("brains_schema", brains::kSchemaVersion);
@@ -362,6 +392,7 @@ fwg::JsonValue contract_json() {
     out.set("outcomes", std::move(outcomes));
     out.set("fact_kinds", std::move(kinds));
     out.set("doing", std::move(doing));
+    out.set("reactions", std::move(reactions));
     return out;
 }
 

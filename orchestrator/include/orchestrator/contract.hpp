@@ -69,7 +69,9 @@ namespace orchestrator {
 // 29: a hero's own deeds since their last meeting with the stranger ride in their packets, up to three, newest first
 //     (at a first meeting, the newest); heroes defending against one foe on one call fight one fight, wherever each
 //     of them stands.
-inline constexpr int kContractVersion = 29;
+// 30: how a hero takes what befell them: Director::reaction_brief, a ReactionBrief that is never a packet (what a
+//     picker reads to choose), and Director::react; the hero's own deed News carries `took_it`.
+inline constexpr int kContractVersion = 30;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -455,5 +457,48 @@ std::string packet_text(const FactPacket& packet);
 // Every packet in `text`, in order; lines outside a packet are left alone. Throws
 // std::invalid_argument, naming the line, for a packet it cannot read.
 std::vector<FactPacket> packets_from_text(std::string_view text);
+
+// ---- Contract version 30: how a hero takes what befell them --------------------------------------------------
+
+// How a hero takes one of their deeds, a closed set. A model picks one of those open to how the deed went, or the
+// rules do (reaction_by_rules), and the director applies it (Director::react).
+enum class Reaction : int { Humbled = 0, Embittered, Resolved, Vindicated, Grieving, Vengeful };
+inline constexpr int kReactionCount = static_cast<int>(Reaction::Vengeful) + 1;
+std::string_view to_string(Reaction reaction);
+std::optional<Reaction> reaction_named(std::string_view name);
+
+// What a picker is shown to choose how a hero takes one of their deeds (Director::reaction_brief): the card's public
+// part, as a packet's persona has it, never what the card keeps back. Never a speech packet.
+struct ReactionBrief {
+    std::string hero;   // the hero's uid, handed back with the pick
+    std::string event;  // the deed's event id, handed back with the pick
+    std::string name;   // the hero as a stranger knows them
+    std::string archetype;
+    std::string alignment;  // its label ("Lawful Neutral")
+    std::string code;       // its two letters ("LN")
+    std::string manner, voice, toward_player, line;  // the card's public part
+    std::vector<std::string> never;
+    std::string deed;       // what they did, in the world's words ("Fought the basilisks at the fortress above Mekkadr, and lost.")
+    std::string outcome;    // "won" or "lost"
+    // The reactions open to it, in the set's order: those open to how it went, less vengeance for a deed that had
+    // no foe to go after.
+    std::vector<Reaction> open;
+};
+
+// The reactions open to a deed that went `outcome`: lost, humbled, embittered, resolved, grieving or vengeful; won,
+// vindicated or resolved. Nothing for any other word.
+std::vector<Reaction> reactions_open(std::string_view outcome);
+
+// A brief as text, one field a line, as packet_text writes a packet ("brief 30", "hero ...", "event_id ...", ...,
+// "end"), for a tool to hand a brief on; and every brief in `text`, in order, lines outside a brief left alone.
+// Throws std::invalid_argument, naming the line, for a brief it cannot read.
+std::string brief_text(const ReactionBrief& brief);
+std::vector<ReactionBrief> briefs_from_text(std::string_view text);
+
+// How a hero takes a deed with no picker, by their alignment (its code's letters, law then good). Won: vindicated for
+// the chaotic or the evil, resolved for the rest. Lost: vengeful for the evil, resolved for the good; for the
+// neutral of heart, humbled if lawful, embittered if chaotic, resolved if neither. Grieving is a picker's alone. A
+// pick the brief does not hold open is resolved instead.
+Reaction reaction_by_rules(const ReactionBrief& brief);
 
 }  // namespace orchestrator

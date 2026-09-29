@@ -94,3 +94,84 @@ TEST(a_fact_finds_its_fields_by_key) {
     check::is_true(f.field("name") && *f.field("name") == "Mekkadr", "a present field");
     check::is_true(f.field("distance") == nullptr, "an absent one is nullptr");
 }
+
+// Contract version 30: how a hero takes a deed. Every reaction's name reads back; what is open follows how the deed
+// went; the rules pick by alignment, and only among what is open.
+TEST(every_reaction_has_a_name_of_its_own_and_reads_back) {
+    std::set<std::string_view> names;
+    for (int i = 0; i < kReactionCount; ++i) {
+        const auto reaction = static_cast<Reaction>(i);
+        const std::optional<Reaction> back = reaction_named(to_string(reaction));
+        check::is_true(back.has_value() && *back == reaction, "round trip of " + std::string(to_string(reaction)));
+        names.insert(to_string(reaction));
+    }
+    check::equal(names.size(), static_cast<std::size_t>(kReactionCount), "a name of its own for every reaction");
+    check::is_true(names.count("humbled") == 1 && names.count("vengeful") == 1, "the first and the last named");
+    check::is_true(!reaction_named("furious").has_value() && !reaction_named("").has_value(), "nothing else reads as one");
+}
+
+TEST(a_brief_comes_back_whole_from_its_text) {
+    ReactionBrief brief;
+    brief.hero = "hero-castellan-1";
+    brief.event = "event-7";
+    brief.name = "Selbren";
+    brief.archetype = "warden";
+    brief.alignment = "Lawful Neutral";
+    brief.code = "LN";
+    brief.manner = "Speaks little.\nAnd plainly.";
+    brief.voice = "clipped \\ dry";
+    brief.toward_player = "wary";
+    brief.line = "Third night this month.";
+    brief.never = {"beg", "lie to an ally"};
+    brief.deed = "Was driven from the fortress above Mekkadr by the basilisks.";
+    brief.outcome = "lost";
+    brief.open = reactions_open("lost");
+    const std::string text = "noise before\n" + brief_text(brief) + "between\n" + brief_text(brief);
+    const std::vector<ReactionBrief> back = briefs_from_text(text);
+    check::equal(back.size(), std::size_t{2}, "both briefs, the lines between left alone");
+    for (const ReactionBrief& one : back)
+        check::is_true(one.hero == brief.hero && one.event == brief.event && one.name == brief.name && one.archetype == brief.archetype &&
+                           one.alignment == brief.alignment && one.code == brief.code && one.manner == brief.manner &&
+                           one.voice == brief.voice && one.toward_player == brief.toward_player && one.line == brief.line &&
+                           one.never == brief.never && one.deed == brief.deed && one.outcome == brief.outcome && one.open == brief.open,
+                       "every field as it was, a line break and a backslash too");
+    for (const std::string bad : {"brief 30\nopen furious\nend\n", "brief 30\nweapon sword\nend\n", "brief 30\nhero x\n"})
+        check::throws([&] { (void)briefs_from_text(bad); }, "refused: " + bad);
+}
+
+TEST(the_reactions_open_follow_how_the_deed_went) {
+    check::is_true(reactions_open("lost") == std::vector<Reaction>{Reaction::Humbled, Reaction::Embittered, Reaction::Resolved,
+                                                                   Reaction::Grieving, Reaction::Vengeful},
+                   "a deed lost");
+    check::is_true(reactions_open("won") == std::vector<Reaction>{Reaction::Resolved, Reaction::Vindicated}, "a deed won");
+    check::is_true(reactions_open("draw").empty() && reactions_open("").empty(), "nothing for any other word");
+}
+
+TEST(the_rules_pick_by_alignment_among_what_is_open) {
+    const auto pick = [](const std::string& code, const std::string& outcome) {
+        ReactionBrief brief;
+        brief.code = code;
+        brief.outcome = outcome;
+        brief.open = reactions_open(outcome);
+        return reaction_by_rules(brief);
+    };
+    // Won: vindicated for the chaotic or the evil, resolved for the rest.
+    for (const std::string code : {"CG", "CN", "CE", "NE", "LE"}) check::is_true(pick(code, "won") == Reaction::Vindicated, "won, " + code);
+    for (const std::string code : {"LG", "LN", "NG", "NN"}) check::is_true(pick(code, "won") == Reaction::Resolved, "won, " + code);
+    // Lost: vengeful for the evil, resolved for the good; the neutral of heart humbled if lawful, embittered if
+    // chaotic, resolved if neither.
+    for (const std::string code : {"LE", "NE", "CE"}) check::is_true(pick(code, "lost") == Reaction::Vengeful, "lost, " + code);
+    for (const std::string code : {"LG", "NG", "CG"}) check::is_true(pick(code, "lost") == Reaction::Resolved, "lost, " + code);
+    check::is_true(pick("LN", "lost") == Reaction::Humbled, "lost, LN");
+    check::is_true(pick("CN", "lost") == Reaction::Embittered, "lost, CN");
+    check::is_true(pick("NN", "lost") == Reaction::Resolved, "lost, NN");
+    // Grieving is a picker's alone.
+    for (const std::string code : {"LG", "NG", "CG", "LN", "NN", "CN", "LE", "NE", "CE"})
+        for (const std::string outcome : {"won", "lost"}) check::is_true(pick(code, outcome) != Reaction::Grieving, "never grieving");
+    // A pick the brief does not hold open is resolved instead: vengeance with no foe to go after.
+    ReactionBrief no_foe;
+    no_foe.code = "CE";
+    no_foe.outcome = "lost";
+    no_foe.open = {Reaction::Humbled, Reaction::Embittered, Reaction::Resolved, Reaction::Grieving};
+    check::is_true(reaction_by_rules(no_foe) == Reaction::Resolved, "vengeance not open, resolved");
+}
