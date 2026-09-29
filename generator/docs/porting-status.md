@@ -47,6 +47,7 @@ Each takes the world by const reference and returns a new one; each appends to
 | Found a player settlement; raise a band | `terrain_settlement_api`, `terrain_nomad_api` | **wired** |
 | Read/select queries (blocks, near, place, person, quests, plus a local patch read and a near-read category filter the reference lacks); person state | `terrain_read_select`, `terrain_read`, `terrain_person_state`, `terrain_person_api` | **wired** |
 | Weather at a moment (`weather_report`, `weather_sample`, `weather_at`, `weather_field`): a read keyed on the absolute hour that records and changes nothing; `fwg weather` on the CLI, writing the `fwg.weather` document (`write_weather_json`). See ruling 7 | none: this port's own | **wired** |
+| What a hero did after the world was made (`hero_action_request`, heroes version 5): a deed and a log line in the world's words, fame and band recomputed by generation's formula (`hero_fame_of`), scopes re-marked, where they stand after; logged as a `hero` operation. It records; it decides nothing | none: this port's own | **wired** |
 | Product package: asset list, capabilities, controls, coordinates, taxonomy, world handles, counter kernel, hero guild, height-tile documents, CLI commands | `fantasy_world_generator`, `terrain_detail.export_height_tile` | **wired** |
 
 ## The world document

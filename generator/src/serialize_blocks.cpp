@@ -2604,6 +2604,16 @@ void hero_deeds(JsonWriter& json, const std::vector<HeroDeed>& deeds) {
         if (!d.reason.empty()) text(json, "reason", d.reason);
         text(json, "scope", d.scope);  // heroes version 4
         flag(json, "known_for", d.known_for);
+        // What a hero did after the world was made (heroes version 5): only on those deeds.
+        if (!d.place_uid.empty()) {
+            text(json, "place_uid", d.place_uid);
+            text(json, "place_name", d.place_name);
+        }
+        if (!d.against_uid.empty()) {
+            text(json, "against_uid", d.against_uid);
+            text(json, "against_name", d.against_name);
+        }
+        if (d.has_day) real(json, "day", d.day);
         json.end_object();
     }
     json.end_array();
@@ -4435,6 +4445,32 @@ void history_operation(JsonWriter& json, const PersonOperation& op) {
         text(json, "status", to_string(c.status));
         text(json, "reason", c.reason);
         real(json, "day", c.day);
+        json.end_object();
+    }
+    json.end_array();
+    json.end_object();
+}
+
+// The hero-action route's entry (hero_action.hpp): the actions that applied, as the request
+// said them.
+void history_operation(JsonWriter& json, const HeroOperation& op) {
+    json.begin_object();
+    integer(json, "api_version", op.api_version);
+    text(json, "kind", "hero");
+    json.key("actions");
+    json.begin_array();
+    for (const HeroActionEntry& a : op.actions) {
+        json.begin_object();
+        text(json, "uid", a.uid);
+        text(json, "action", a.action);
+        text(json, "outcome", a.outcome);
+        text(json, "place_uid", a.place_uid);
+        text(json, "against_uid", a.against_uid);
+        real(json, "day", a.day);
+        if (!a.moved_to_uid.empty()) {
+            text(json, "moved_to_uid", a.moved_to_uid);
+            text(json, "moved_to_situation", a.moved_to_situation);
+        }
         json.end_object();
     }
     json.end_array();

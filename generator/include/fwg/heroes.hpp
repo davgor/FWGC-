@@ -38,8 +38,10 @@ namespace fwg {
 // consumer can tell a world whose hooks can be priced from one whose hooks cannot. 3 gives a
 // castellan a past: the wars their city fought in their lifetime as deeds, and `tenure_years`,
 // `served_at`, `served_as` and `liege_uid`. 4 gives every deed its `scope`, how far word of it went,
-// and marks the one each record is known for (`known_for`).
-inline constexpr int kHeroesVersion = 4;
+// and marks the one each record is known for (`known_for`). 5: a hero's record can hold what they did
+// after the world was made (hero_action.hpp): a deed of event_kind "action", with where, against whom
+// or what, and the day. A world as generated holds none.
+inline constexpr int kHeroesVersion = 5;
 
 // ---------------------------------------------------------------------------
 // The authored catalogue, generated from data/hero-*.json into
@@ -617,7 +619,7 @@ struct HeroFace {
 };
 
 struct HeroDeed {
-    std::string event_kind;  // ruin | war | nest | founding | hamlet | fortress | port | shrine
+    std::string event_kind;  // ruin | war | nest | founding | hamlet | fortress | port | shrine | action
     std::string event_id;
     int age = 0;
     std::string role;  // heir | actual | keeper | credited | victim
@@ -635,6 +637,13 @@ struct HeroDeed {
     // written. Exactly one of a record's deeds is, when it has any.
     std::string scope;
     bool known_for = false;
+    // What a hero did after the world was made (heroes version 5, hero_action.hpp): event_kind "action",
+    // `kind` the action (defended, hunted, assaulted), `role` "credited" when it went their way and
+    // "victim" when it did not, `tier` the danger of what they faced; where it was done and against whom
+    // or what, by the world's ids and names, and the day. Empty for every deed a world is generated with.
+    std::string place_uid, place_name, against_uid, against_name;
+    double day = 0.0;
+    bool has_day = false;
 };
 
 struct HeroLogEntry {
@@ -1011,5 +1020,16 @@ HeroesBlock resolve_heroes(const HeroesRequest& request);
 // This is the whole point of the design and it must survive the port. A revision that
 // raises yields `{version, status: "failed", error}` and the world still returns.
 HeroesBlock attach_heroes(const HeroesRequest& request);
+
+// A person's fame as the record now stands (heroes version 5), by the formula generation uses: their
+// deeds' weight and their seat's, times their reach, which is their home city's class (`home_class`:
+// small, medium, capital) and their realm's size (`realm_cities`, 1 for none), or a legend's reach with
+// no home. For a record as generated it is the record's own `fame`.
+double hero_fame_of(const Hero& person, std::string_view home_class, std::size_t realm_cities);
+// The band a fame falls in: notable, renowned or legendary.
+std::string hero_fame_band(double fame);
+// Every deed's scope, and the one the person is known for, marked again for that reach (heroes version
+// 4's rule).
+void hero_mark_deeds(Hero& person, std::string_view home_class, std::size_t realm_cities);
 
 }  // namespace fwg

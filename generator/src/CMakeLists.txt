@@ -66,6 +66,7 @@
   options.cpp
   patch.cpp
   person_state.cpp
+  hero_action.cpp
   random.cpp
   read.cpp
   read_select.cpp

@@ -1528,6 +1528,10 @@ double deed_magnitude(const HeroDeed& deed, const std::string& lost_class) {
         return war_weight(deed.kind) * class_weight(deed.defeated_class.empty() ? "small" : deed.defeated_class);
     if (deed.event_kind == "war") return 0.5 * war_weight(deed.kind);
     if (deed.event_kind == "nest") return 0.6 * static_cast<double>(deed.has_tier ? deed.tier : 1);
+    // What a hero did after the world was made (heroes version 5): a nest's weight when it went their way,
+    // a third of it when it did not.
+    if (deed.event_kind == "action")
+        return (deed.role == "credited" ? 0.6 : 0.2) * static_cast<double>(deed.has_tier ? deed.tier : 1);
     if (deed.event_kind == "founding") return 1.5;
     bool known = false;
     const double weight = site_weight(deed.event_kind, known);
@@ -1550,16 +1554,22 @@ double person_magnitude(const Hero& person) {
     return total;
 }
 
+// How far a person's name reaches: their home city's class and their realm's size, or a legend's reach
+// with no home. The one formula for generation and for a record changed after it.
+double home_reach(bool has_home, std::string_view home_class, std::size_t realm_cities) {
+    if (!has_home) return hero_fame_tuning().legend_reach;
+    return class_weight(home_class) + 0.25 * static_cast<double>(realm_cities);
+}
+
 double person_reach(const Ctx& ctx, const Hero& person, const std::vector<HeroRealm>& realms,
                     const std::map<std::string, std::size_t>& realm_index) {
-    const HeroFameTuning& fame = hero_fame_tuning();
-    if (!person.home.has_value()) return fame.legend_reach;
-    auto city = ctx.city_by_uid.find(person.home->uid);
-    const std::string klass = city != ctx.city_by_uid.end() ? city->second->city_class : "small";
+    std::string klass = "small";
+    if (person.home.has_value())
+        if (auto city = ctx.city_by_uid.find(person.home->uid); city != ctx.city_by_uid.end()) klass = city->second->city_class;
     std::size_t cities = 1;
     auto realm = realm_index.find(person.realm_uid);
     if (realm != realm_index.end()) cities = realms[realm->second].city_uids.size();
-    return class_weight(klass) + 0.25 * static_cast<double>(cities);
+    return home_reach(person.home.has_value(), klass, cities);
 }
 
 std::string fame_tier(double value) {
@@ -2984,6 +2994,18 @@ std::string hero_deed_scope(double fame) {
     if (fame >= tuning.legendary_floor) return "realm";
     if (fame >= tuning.renowned_floor) return "regional";
     return "local";
+}
+
+double hero_fame_of(const Hero& person, std::string_view home_class, std::size_t realm_cities) {
+    return round3(person_magnitude(person) * (1.0 + home_reach(person.home.has_value(), home_class, realm_cities)));
+}
+
+std::string hero_fame_band(double fame) { return fame_tier(fame); }
+
+void hero_mark_deeds(Hero& person, std::string_view home_class, std::size_t realm_cities) {
+    const std::string lost_class = person.lost.has_value() ? person.lost->city_class : "small";
+    mark_deeds(person.deeds, home_reach(person.home.has_value(), home_class, realm_cities),
+               [&](const HeroDeed& deed) { return deed_magnitude(deed, lost_class); });
 }
 
 // ---------------------------------------------------------------------------
