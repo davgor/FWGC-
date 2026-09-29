@@ -247,7 +247,7 @@ replaying the inputs writes it again, row for row (tested table by table).
 | `places` | every city, hamlet, fortress and key location: `id` (as a packet names it), `kind`, `name`, `node` |
 | `work` | the quest board as it stands: `quest_id`, `giver`, `verb`, `purpose` (as stated), `anchor`, `node`, `difficulty`, `state` (as its event says it), `offered_day`, `expires_day`, `closed_day`, `closed_reason` |
 | `relationships` | each person the player has dealt with: `conversations`, `talking`, `last_day`, `regard` (-3 to 3), `mood`, `work`, `grievances`, `forgiven`, `asked_before`, `exposed`, `eased_day`, `days_met`, `exchanges`, `works_finished`, `standing` |
-| `events` | every event: `id`, `seq`, `kind`, `day`, the `place` it is about (`place_name`, `about_node`), the `node` word starts from, whom it concerns (`person`, `person_name`), work's `quest_id`, `verb`, `purpose` and `difficulty`, an exposure's `was` and `revealed`, `player`, and its latest `state`, `state_day` and `actor` |
+| `events` | every event: `id`, `seq`, `kind`, `day`, the `place` it is about (`place_name`, `about_node`), the `node` word starts from, whom it concerns (`person`, `person_name`), work's `quest_id`, `verb`, `purpose` and `difficulty`, an exposure's `was` and `revealed`, `player`, its latest `state`, `state_day` and `actor`, the name work the player did went by (`player_name`, schema 5), and a hero's deed's foe and reach (`against`, `against_name`, `scope`, schema 6) |
 | `event_states` | each state an event has been in, in order: `event`, `seq`, `state`, `day`, `actor` |
 | `facts` | who has heard what: `person`, `event`, the `state` they know, the `day` they learned it, `how` ("there", "word", or "overheard") |
 | `accounts` | the game's account of work the player finished or failed (schema 3; [below](#an-account-of-the-work)): `event`, `quest_id`, the `day` it was given, what `came` (its id, `came_as` "nest" or "person", `came_name`), `many`, `cost`, `part` |
@@ -330,6 +330,38 @@ their land, even if they have never met them." The generator gives every deed it
   hold, the first the speaker knows. None known, and the answer is Unknown: a king named is never taken for
   the speaker's own. The act is recorded as looked up, the person's id in place of the words, so replay looks
   nothing up.
+
+## Heroes' deeds
+
+Contract version 26, C interface 9, schema 6. The owner, 2026-09-29: "the director needs to be managing the
+heroes movements, actions, and success rates." The director decides what heroes do and how it goes; the
+world records it through the generator's logged verb (`hero_action_request`, heroes version 5): their deed,
+a line of their log in the world's words, their fame and band recomputed.
+
+- **When.** The game calls `direct_heroes` when it likes, as it calls `share`, naming heroes or none (every
+  hero). It is recorded, and replay calls it again. A hero acts at most once a call, and again only a week
+  after they last did; the first time each is due falls on a day of that week their own seed picks, so
+  heroes do not all act at once.
+- **Who, and what.** A living hero of one face whose claim is to hold or protect a place defends it (where
+  they stand, when that is a city, hamlet, fortress or ruin, else their home city) against the worst nest
+  within 5 km of it, and does nothing when none is near; one sworn to kill a nest hunts it; one who would
+  retake a ruin assaults it, against the worst nest near it if any. A hero of more than one face (a mask,
+  a beast, a fractured heart) does not act yet.
+- **How it goes.** Their chance is their fame's band (notable 45%, renowned 60%, legendary 75%), 8 points
+  less for each step of the danger above 3 and more for each below, 15 less for an assault, never past
+  90% (the least it can be is 14%). The draw is a hash of their seed, the day and the action, so a save
+  replays it (`src/hero_direction.hpp`). Over four weeks of a size-33 world (seed 99), deeds with the
+  better chance went their way more often. More heroes due than the world's verb takes in one call (64)
+  are written in batches.
+- **Their side of it.** A hero's own newest deed rides in their greetings, small talk and answers about
+  themself, a News fact they know by being there.
+- **Word of it.** Each deed is an event of kind "hero" (its `verb` the action, its state "won" or "lost",
+  `against` and `against_name` what they faced, `scope` how far word of the deed goes). The hero knows it at
+  once; at a share, whoever stands where it happened hears it, and so do the hero's rivals, kin and allies
+  wherever they are; word then travels as other news does, 20 km for a deed that went no further than
+  where it was done, 40 km for a regional one and 60 km for one known through a realm. A News fact of
+  event "hero" says who (`person`), what (`verb`), against what (`against`), and how it went.
+- `fwgc_direct_heroes` answers what each did as JSON; the session tool's `heroes` command calls it.
 
 ## Short and long memory
 
@@ -671,7 +703,9 @@ switched each rule off in a scratch build.
   goes in three years of its time (seed 99, size 33, measured 2026-09-27: every piece of work lapsed),
   so the planned `gone` event had nothing to be tested against. The work's own event still moves to
   `giver_gone`.
-- Pacing and hero direction: the director's build-up, peak and relax, and gameplay events in.
+- Pacing: the director's build-up, peak and relax, and gameplay events in. Heroes' deeds (above) are
+  built; how a hero takes what came of one (humbled, embittered, resolved...), wounds and deaths, and heroes
+  moving between places are not.
 - Days for heroes, dreads and villains; rest days; days that change with the weather or the
   season; and a speaker saying what they are about, or that they are late.
 - The acts `trade`, `persuade`, `threaten`, `bribe`.

@@ -341,6 +341,23 @@ FWGC_API fwgc_status fwgc_share(fwgc_director* director, const char* const* peop
     });
 }
 
+FWGC_API fwgc_status fwgc_direct_heroes(fwgc_director* director, const char* const* heroes, size_t count, char** json_out) noexcept {
+    if (json_out != nullptr) *json_out = nullptr;
+    return enter(director, true, false, [&]() -> fwgc_status {
+        c_need(director, "director");
+        if (count > 0) c_need(heroes, "heroes");
+        std::vector<std::string> names;
+        names.reserve(count);
+        for (size_t i = 0; i < count; ++i)
+            names.push_back(orchestrator::c_api::required_text(heroes[i], "heroes[" + std::to_string(i) + "]"));
+        const std::vector<orchestrator::HeroDone> done = director->director.direct_heroes(names);
+        // Recorded now; what follows only hands the answer over.
+        if (json_out != nullptr)
+            *json_out = orchestrator::c_api::handed_over(orchestrator::c_api::dumped(orchestrator::c_api::heroes_done_json(done)));
+        return FWGC_OK;
+    });
+}
+
 FWGC_API fwgc_status fwgc_report_event(fwgc_director* director, const char* site, const char* outcome, const char* by) noexcept {
     return enter(director, true, false, [&]() -> fwgc_status {
         c_need(director, "director");

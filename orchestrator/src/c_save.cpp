@@ -14,7 +14,7 @@ namespace {
 
 // Every input kind has its key here, and replay() its call. A new one stops the build until it
 // has both, and its fwgc_ function and a test.
-static_assert(std::variant_size_v<Input> == 12,
+static_assert(std::variant_size_v<Input> == 13,
               "a new Input kind needs its save key (c_save.cpp), its fwgc_ function (c_api.cpp) and a test "
               "(tests/test_c_api.cpp)");
 
@@ -93,6 +93,14 @@ fwg::JsonValue input_json(const Input& input) {
                 fwg::JsonValue body = fwg::JsonValue::object();
                 body.set("people", std::move(names));
                 return keyed("share", std::move(body));
+            },
+            [](const Direct& direct) {
+                const auto& [heroes] = direct;
+                fwg::JsonValue names = fwg::JsonValue::array();
+                for (const std::string& name : heroes) names.push_back(name);
+                fwg::JsonValue body = fwg::JsonValue::object();
+                body.set("heroes", std::move(names));
+                return keyed("direct", std::move(body));
             },
             [](const Report& report) {
                 const auto& [site, outcome, by] = report;
@@ -174,12 +182,13 @@ int small_integer_at(const fwg::JsonValue& object, std::string_view key, std::st
 }
 
 // A list of uids, strictly.
-std::vector<std::string> people_at(const fwg::JsonValue& body, std::string_view what) {
-    const fwg::JsonValue& people = body.at("people");
-    if (!people.is_array()) refuse(std::string(what) + ".people is not a list");
+std::vector<std::string> people_at(const fwg::JsonValue& body, std::string_view what, std::string_view key = "people") {
+    const fwg::JsonValue& people = body.at(std::string(key));
+    const std::string where = std::string(what) + "." + std::string(key);
+    if (!people.is_array()) refuse(where + " is not a list");
     std::vector<std::string> out;
     for (const fwg::JsonValue& person : people.as_array()) {
-        if (!person.is_string() || !is_utf8(person.as_string())) refuse(std::string(what) + ".people holds something not text");
+        if (!person.is_string() || !is_utf8(person.as_string())) refuse(where + " holds something not text");
         out.push_back(person.as_string());
     }
     return out;
@@ -222,6 +231,10 @@ Input input_from(const fwg::JsonValue& item) {
     if (kind == "share") {
         exactly(body, {"people"}, "share");
         return Share{people_at(body, kind)};
+    }
+    if (kind == "direct") {
+        exactly(body, {"heroes"}, "direct");
+        return Direct{people_at(body, kind, "heroes")};
     }
     if (kind == "report") {
         exactly(body, {"site", "outcome", "by"}, "report");

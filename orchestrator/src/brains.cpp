@@ -88,7 +88,10 @@ CREATE TABLE events (
   state TEXT NOT NULL,
   state_day REAL NOT NULL,
   actor TEXT,
-  player_name TEXT
+  player_name TEXT,
+  against TEXT,
+  against_name TEXT,
+  scope TEXT
 ) WITHOUT ROWID;
 CREATE INDEX events_node ON events (node);
 CREATE INDEX events_about ON events (about_node);

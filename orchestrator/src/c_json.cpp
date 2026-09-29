@@ -308,6 +308,24 @@ fwg::JsonValue learned_json(const std::vector<Learned>& learned) {
     return out;
 }
 
+fwg::JsonValue heroes_done_json(const std::vector<HeroDone>& done) {
+    fwg::JsonValue out = fwg::JsonValue::array();
+    for (const HeroDone& one : done) {
+        const auto& [hero, action, outcome, place, against, day, event, text] = one;
+        fwg::JsonValue item = fwg::JsonValue::object();
+        item.set("hero", hero);
+        item.set("action", action);
+        item.set("outcome", outcome);
+        item.set("place", place);
+        item.set("against", against);
+        item.set("day", day);
+        item.set("event", event);
+        item.set("text", text);
+        out.push_back(std::move(item));
+    }
+    return out;
+}
+
 fwg::JsonValue related_json(const Related& related) {
     const auto& [knows, would_learn] = related;
     fwg::JsonValue out = fwg::JsonValue::object();

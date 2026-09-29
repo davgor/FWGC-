@@ -548,6 +548,28 @@ public:
         compare("share");
         return cpp;
     }
+    std::vector<orchestrator::HeroDone> direct_heroes(const std::vector<std::string>& heroes) {
+        std::vector<const char*> names;
+        for (const std::string& hero : heroes) names.push_back(hero.c_str());
+        char* json = nullptr;
+        succeeded(fwgc_direct_heroes(c_.get(), names.empty() ? nullptr : names.data(), names.size(), &json), "fwgc_direct_heroes");
+        const std::vector<orchestrator::HeroDone> cpp = cpp_.direct_heroes(heroes);
+        const fwg::JsonValue done = fwg::parse_json(taken(json));
+        check::equal(done.size(), cpp.size(), "direct_heroes: who acted");
+        for (std::size_t i = 0; i < cpp.size() && i < done.size(); ++i) {
+            const auto& [hero, action, outcome, place, against, day, event, text] = cpp[i];
+            keys_are(done.at(i), {"hero", "action", "outcome", "place", "against", "day", "event", "text"}, "one who acted");
+            const fwg::JsonValue& one = done.at(i);
+            check::is_true(one.at("hero").as_string() == hero && one.at("action").as_string() == action &&
+                               one.at("outcome").as_string() == outcome && one.at("place").as_string() == place &&
+                               one.at("against").as_string() == against && one.at("day").as_float() == day &&
+                               one.at("event").as_string() == event && one.at("text").as_string() == text,
+                           "direct_heroes: the same, in the same order");
+        }
+        same_brains(c_, cpp_, "direct_heroes");
+        compare("direct_heroes");
+        return cpp;
+    }
     void report_event(const std::string& site, const std::string& outcome, const std::string& by) {
         succeeded(fwgc_report_event(c_.get(), site.c_str(), outcome.c_str(), by.empty() ? nullptr : by.c_str()), "fwgc_report_event");
         cpp_.report_event(site, outcome, by);
@@ -668,6 +690,8 @@ void play(Lockstep& both) {
     check::is_true(heard.size() == 1 && heard[0].reaction == orchestrator::Overheard::calmed, "the premise: the smith eased with them");
     // The game says the threat there was beaten, and news goes round: to the smith alone, then all.
     both.report_event(p.site, "beaten", "player");
+    // Heroes act at the game's call (contract version 26): those due on the first call.
+    check::is_true(!both.direct_heroes({}).empty(), "the premise: a hero acts");
     const std::vector<orchestrator::Learned> smith_heard = both.share({p.smith});
     check::is_true(!smith_heard.empty(), "the premise: the smith hears something");
     both.share({});
@@ -701,7 +725,7 @@ TEST(the_contract_describes_itself) {
     succeeded(fwgc_contract_json(&json), "fwgc_contract_json");
     const fwg::JsonValue contract = fwg::parse_json(taken(json));
     keys_are(contract, {"contract_version", "brains_schema", "acts", "outcomes", "fact_kinds", "doing"}, "the contract");
-    check::equal(contract.at("brains_schema").as_int(), std::int64_t{5}, "the brain database's schema");
+    check::equal(contract.at("brains_schema").as_int(), std::int64_t{6}, "the brain database's schema");
     check::equal(contract.at("contract_version").as_int(), std::int64_t(orchestrator::kContractVersion), "its version");
     const fwg::JsonValue& acts = contract.at("acts");
     check::equal(acts.size(), std::size_t(orchestrator::kActCount), "every act");
@@ -936,6 +960,7 @@ TEST(a_callers_mistake_is_refused_and_records_nothing) {
         check::equal(fwgc_report_event(h.get(), p.site.c_str(), "beaten", text), FWGC_BAD_ARGUMENT, "a doer not UTF-8");
         const char* named[] = {text};
         check::equal(fwgc_share(h.get(), named, 1, &out), FWGC_BAD_ARGUMENT, "someone to share with not UTF-8");
+        check::equal(fwgc_direct_heroes(h.get(), named, 1, &out), FWGC_BAD_ARGUMENT, "a hero to direct not UTF-8");
         check::equal(fwgc_words(h.get(), text, "a reply", nullptr), FWGC_BAD_ARGUMENT, "a line not UTF-8");
         check::equal(fwgc_words(h.get(), "a line", text, nullptr), FWGC_BAD_ARGUMENT, "a reply not UTF-8");
         check::equal(fwgc_words(h.get(), "a line", "a reply", text), FWGC_BAD_ARGUMENT, "a question not UTF-8");
@@ -981,6 +1006,9 @@ TEST(a_callers_mistake_is_refused_and_records_nothing) {
     const char* nobody[] = {"npc-nobody-at-all"};
     check::equal(fwgc_share(h.get(), nobody, 1, &out), FWGC_BAD_ARGUMENT, "sharing with nobody");
     check::equal(fwgc_share(h.get(), nullptr, 1, &out), FWGC_BAD_ARGUMENT, "no list to share with");
+    const char* no_hero[] = {"hero-nobody-at-all"};
+    check::equal(fwgc_direct_heroes(h.get(), no_hero, 1, &out), FWGC_BAD_ARGUMENT, "directing a hero nobody is");
+    check::equal(fwgc_direct_heroes(h.get(), nullptr, 1, &out), FWGC_BAD_ARGUMENT, "no list of heroes");
     check::equal(fwgc_words(h.get(), "a line", "a reply", nullptr), FWGC_BAD_ARGUMENT, "words, with nothing said");
     check::equal(fwgc_compact(h.get(), "npc-nobody-at-all", nullptr, &out), FWGC_BAD_ARGUMENT, "compacting nobody");
     check::equal(fwgc_compact(h.get(), nullptr, nullptr, &out), FWGC_BAD_ARGUMENT, "compacting no one");

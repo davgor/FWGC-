@@ -45,6 +45,9 @@ fwg::JsonValue query_json(const QueryResult& result);
 fwg::JsonValue learned_json(const std::vector<Learned>& learned);
 // {"knows": [...], "would_learn": [...]}
 fwg::JsonValue related_json(const Related& related);
+// What heroes did at the game's call (contract version 26): [{"hero", "action", "outcome", "place", "against",
+// "day", "event", "text"}].
+fwg::JsonValue heroes_done_json(const std::vector<HeroDone>& done);
 fwg::JsonValue contract_json();
 // Every roster post `positions` lists, by index, with what the game shows and places them by.
 fwg::JsonValue roster_json(const fwg::World& world, const std::vector<Position>& positions);

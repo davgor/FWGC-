@@ -55,8 +55,10 @@ extern "C" {
  *    and the outcomes "introduced", "known" and "renamed"; fwgc_acquaintance's `called`, `called_how` and
  *    `called_other`; the database's schema 5 (relationships.called..., events.player_name).
  * 8: fame (contract version 25): "ask_about_person" takes "=" and the words the player named someone by,
- *    which the director looks up; an answer about a person carries their fame and known deed. */
-#define FWGC_API_VERSION 8
+ *    which the director looks up; an answer about a person carries their fame and known deed.
+ * 9: heroes' deeds (contract version 26): fwgc_direct_heroes; News of a hero's deed; the database's
+ *    schema 6 (events.against, events.against_name, events.scope). */
+#define FWGC_API_VERSION 9
 
 typedef struct fwgc_director fwgc_director;
 
@@ -197,6 +199,15 @@ FWGC_API fwgc_status fwgc_overhear(fwgc_director* director, const char* const* p
  * [{"person", "event", "state"}]. May be NULL. */
 FWGC_API fwgc_status fwgc_share(fwgc_director* director, const char* const* people, size_t count,
                                 char** json) FWGC_NOEXCEPT;
+/* Heroes act (contract version 26): each of the `count` heroes named (0 for every hero) who is due acts
+ * by their claim -- defends what they hold against the worst nest within 5 km of it, hunts the nest they
+ * are sworn to kill, assaults the ruin they would retake -- at most once a call and a week after they last
+ * did; how it goes is their fame's chance against the danger, drawn from their seed and the day, so a
+ * save replays it. The world records each deed; each is an event people hear of at the next fwgc_share.
+ * What each did, as JSON in *json: [{"hero", "action", "outcome", "place", "against", "day", "event",
+ * "text"}]. May be NULL. */
+FWGC_API fwgc_status fwgc_direct_heroes(fwgc_director* director, const char* const* heroes, size_t count,
+                                        char** json) FWGC_NOEXCEPT;
 /* How a threat at `site` (a place id or a roster site's uid) ended: `outcome` "beaten", "lost" or
  * "passed"; `by` "player", a person uid, or NULL for no one. It moves the scare there (frights
  * within the last day) or makes one; people hear of it at the next fwgc_share. */

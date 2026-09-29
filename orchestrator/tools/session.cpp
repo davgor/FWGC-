@@ -39,6 +39,8 @@
 //   overhear NAME...                these speakers overheard the last `say`: each is calmed by it,
 //                                   joins in (their reply is written as their turn), or stays out
 //   share [NAME...]                 news reaches these speakers, or everyone when none are named
+//   heroes [NAME...]                these heroes, or every hero when none are named, act if due
+//                                   (contract version 26); what each did written as an event
 //   report NAME OUTCOME [BY]        the game says how a threat where NAME stands ended: beaten,
 //                                   lost or passed; BY player, a speaker's NAME, or nobody
 //   sql QUERY                       read the brain database; each row written as an event
@@ -369,6 +371,11 @@ int main(int argc, char** argv) {
                 for (std::size_t i = 1; i < w.size(); ++i) people.push_back(speaker(w[i]));
                 const std::vector<orchestrator::Learned> learned = director->share(people);
                 std::cout << "event news goes round: " << learned.size() << " heard something\n";
+            } else if (w[0] == "heroes") {
+                std::vector<std::string> heroes;
+                for (std::size_t i = 1; i < w.size(); ++i) heroes.push_back(speaker(w[i]));
+                for (const orchestrator::HeroDone& done : director->direct_heroes(heroes))
+                    std::cout << "event a hero acted: " << done.hero << " " << done.action << ", " << done.outcome << ": " << done.text << "\n";
             } else if (w[0] == "report") {
                 need(3);
                 const fwg::World& world = director->world();

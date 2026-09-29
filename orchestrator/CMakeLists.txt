@@ -76,6 +76,7 @@ if(ORCHESTRATOR_BUILD_TESTS)
     tests/test_schedule.cpp
     tests/test_brains.cpp
     tests/test_memory.cpp
+    tests/test_heroes.cpp
   )
   target_link_libraries(orchestrator_tests PRIVATE orchestrator)
   # The schedule is tested on its own too, without a world: its header is the library's own.

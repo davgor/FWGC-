@@ -105,7 +105,25 @@ struct Account {
     std::string cost;
     std::string part;
 };
-using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather, Overhear, Share, Report, Words, Compact, Account>;
+// The game's call for heroes to act (contract version 26): the heroes named, or every hero when none
+// is, each who is due.
+struct Direct {
+    std::vector<std::string> heroes;
+};
+using Input = std::variant<Advance, Say, Resolve, Hold, Fright, Gather, Overhear, Share, Report, Words, Compact, Account, Direct>;
+
+// What a hero did at the director's call (contract version 26): what, where, against what, how it went,
+// on what day, the event it made, and the line the world's log keeps of it.
+struct HeroDone {
+    std::string hero;
+    std::string action;   // "defended" | "hunted" | "assaulted"
+    std::string outcome;  // "won" | "lost"
+    std::string place;    // the site it was at, by its id; empty for none
+    std::string against;  // the nest, dread or hero they faced, by id; empty for none
+    double day = 0.0;
+    std::string event;
+    std::string text;
+};
 
 // What someone who overheard the player made of it.
 enum class Overheard { stays_out, calmed, joins };
@@ -164,7 +182,7 @@ private:
 // the newer state knows the event by it.
 struct Event {
     std::string id;         // "event-1", "event-2", ... in the order made
-    std::string kind;       // "work", "exposed", "scare"
+    std::string kind;       // "work", "exposed", "scare", "hero"
     double day = 0.0;       // when it began
     std::string place;      // the place it is about, by the id a packet names it by; empty for none
     std::string place_name; // as a speaker says it
@@ -183,6 +201,12 @@ struct Event {
     double state_day = 0.0; // since when
     std::string actor;      // who brought the latest state about: "player", a person uid, or empty
     std::string player_name;  // work the player had a part in: the name its giver knew them by (contract 24)
+    // A hero's deed (contract version 26): what they faced, by id and as a speaker says it, and how far
+    // word of the deed goes ("local", "regional", "realm"). `person` is the hero, `verb` what they did,
+    // the state how it went ("won", "lost").
+    std::string against;
+    std::string against_name;
+    std::string scope;
 };
 
 // Someone who heard an event's state, as share() reports it.
@@ -437,6 +461,22 @@ public:
     // those three, a place the world does not name, or a `by` it does not.
     void report_event(const std::string& site, const std::string& outcome, const std::string& by);
 
+    // ---- heroes' deeds (contract version 26) --------------------------------------------------------
+    //
+    // The game calls direct_heroes when it likes (as it calls share), and each hero who is due acts by
+    // their claim: one who holds or protects a place defends it against the worst nest within 5 km of
+    // it; one sworn to kill a nest hunts it; one who would retake a ruin assaults it. A hero acts at
+    // most once a call, and again only a week after they last did; the first time each is due falls on
+    // a day of that week their own seed picks, so heroes do not all act at once. How it goes is their
+    // chance, from their fame's band against the danger they face, against a draw hashed from their
+    // seed and the day: nothing random, so replay acts the same. What they did is written into the
+    // world through the generator's logged verb (their deed, their log, their fame), and made an event
+    // of kind "hero": known at once to the hero, heard where it happened, as far as the deed's scope
+    // carries, and by the hero's rivals, kin and allies wherever they are. README.md, "Heroes' deeds".
+    // `heroes` names whom to direct (none: everyone). Returns what each who acted did, in the world's
+    // order. Throws Error for a uid that names no hero.
+    std::vector<HeroDone> direct_heroes(const std::vector<std::string>& heroes);
+
     // The game's read of the brain database: one SQL statement that only reads, its rows back.
     // Throws Error for anything else -- a write, a second statement, a pragma, a file attached --
     // and for a statement that runs too long or answers too many rows.
@@ -522,6 +562,9 @@ private:
     // ---- the brain database ----------------------------------------------------------------------
     Brains brains_;
     int events_made_ = 0;
+    // The day each hero is next due to act (contract version 26), set when first considered and moved
+    // a week on each time they act.
+    std::map<std::string, double> hero_due_;
     // Bumped when the world changes, and when anyone's standing with the player may have: the
     // database's copies of the world's people, places and work, and of every acquaintance, are
     // written again before a query reads them only when these moved.
@@ -567,6 +610,9 @@ private:
     // the events whose state they know the player brought about; with a person uid, the events
     // about that person; with `about` empty, the events at `node`.
     std::vector<Fact> news(const std::string& speaker, const std::string& about, std::optional<int> node, std::size_t most) const;
+    // A hero's own newest deed (contract version 26), as a News fact, unless `p` carries it already: their
+    // side of it, for their greetings, small talk and answers about themself.
+    void own_deed(const std::string& speaker, FactPacket& p) const;
     // How `giver`'s own work went (contract version 20), as an Account fact: the last of theirs the
     // player finished or failed, when the game gave an account of it; nullopt for none.
     std::optional<Fact> account_of(const std::string& giver) const;

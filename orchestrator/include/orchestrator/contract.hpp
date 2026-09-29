@@ -60,7 +60,9 @@ namespace orchestrator {
 // 25: fame. A speaker knows their realm's sovereign and heroes whose known deed's word reaches them; an answer
 //     about a person carries their `fame`, `sovereign` when they are the speaker's own, and a Deed fact of the
 //     deed they are known for, with its `scope`; ask_about_person's target may be "=" and the player's words.
-inline constexpr int kContractVersion = 25;
+// 26: heroes' deeds. A News fact of event "hero": what a hero did at the director's call, how it went, and
+//     against what.
+inline constexpr int kContractVersion = 26;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -290,15 +292,19 @@ std::string_view to_string(FactKind kind);
 // A News fact, its subject the event's id: something that happened, at the state the speaker knows
 // it by, which may be older than its latest.
 // - `event`: what kind of thing: "work" (a piece of work on the board), "exposed" (someone's hidden
-//   face brought out), "scare" (frights at a place, and how the threat ended);
+//   face brought out), "scare" (frights at a place, and how the threat ended), "hero" (what a hero did,
+//   contract version 26);
 // - `state`: work "asked", "taken", "finished", "failed", "given_up", "lapsed", "withdrawn",
 //   "giver_gone", "target_gone"; exposed "exposed"; scare "frightened", "calmed", "beaten", "lost",
-//   "passed";
+//   "passed"; hero "won", "lost";
 // - `place`: where, by name; absent where no place is named;
 // - `verb`, `purpose`, `giver`: work only: what the giver asks, why they say they ask it (never
 //   what it is really for), and who gives it, by name;
 // - `person`, `was`, `is`: exposed only: whom, by the name a stranger knew them by; the role the
 //   face they showed claimed, and the role of the face now out;
+// - `person`, `verb`, `against` (contract version 26): hero only: the hero, by the name a stranger knew
+//   them by; what they did ("defended" a place, "hunted" a nest, "assaulted" a ruin); what they faced, by
+//   name ("the glacier dragons"), absent when nothing stood against them;
 // - `player`: "yes" when the player brought this state about, else "no";
 // - `by`: a scare's end: "player", or the name of whoever else brought it about; absent otherwise;
 // - `since`: when this state came about, in the Memory fact's calendar bands;
@@ -307,7 +313,9 @@ std::string_view to_string(FactKind kind);
 //   giver knew the player by, which travels with word of it; absent when the giver knew none.
 // A greeting carries the newest event whose state the speaker knows the player brought about; small
 // talk the newest they know of at the place they stand; an answer about a place up to two about it;
-// an answer about a person one about them. At most those, and none the speaker has not heard.
+// an answer about a person one about them. At most those, and none the speaker has not heard. A hero's
+// greeting, small talk and answer about themself carry their own newest deed too (contract version 26):
+// their side of it.
 //
 // A Recall fact, its subject what is remembered (a place id, a person uid, a quest id; the speaker's
 // own uid for a memory of no one thing): something the speaker remembers of the stranger from

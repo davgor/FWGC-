@@ -12,6 +12,8 @@
 #include <tuple>
 
 #include "brains.hpp"
+#include "hero_direction.hpp"
+#include "fwg/api/hero_action.hpp"
 #include "fwg/api/json_value.hpp"
 #include "fwg/api/quests.hpp"
 #include "fwg/api/read.hpp"
@@ -751,7 +753,7 @@ constexpr int kHeardBadly = -1;
 
 constexpr const char* kEventColumns =
     "id, kind, day, place, place_name, node, about_node, person, person_name, quest_id, verb, purpose, difficulty, was, "
-    "revealed, player, state, state_day, actor, player_name";
+    "revealed, player, state, state_day, actor, player_name, against, against_name, scope";
 
 Event event_from(const brains::Statement& row) {
     Event e;
@@ -775,6 +777,9 @@ Event event_from(const brains::Statement& row) {
     e.state_day = row.real(17);
     e.actor = row.text(18);
     e.player_name = row.text(19);
+    e.against = row.text(20);
+    e.against_name = row.text(21);
+    e.scope = row.text(22);
     return e;
 }
 
@@ -814,11 +819,15 @@ double word_reach(const Event& e) {
                    : 0.0;
     if (e.kind == "exposed") return kExposedWordM;
     if (e.kind == "scare") return e.state == "beaten" || e.state == "lost" ? kThreatWordM : 0.0;
+    // A hero's deed (contract version 26): as far as its scope, a threat's word for one that went no
+    // further than where it was done, a region's width, a legend's reach through a realm.
+    if (e.kind == "hero") return e.scope == "realm" ? knowledge::kLegendaryReachM : e.scope == "regional" ? knowledge::kRegionalFameM : kThreatWordM;
     return 0.0;
 }
 
-// Word of someone's hidden face reaches those tied to them wherever they are.
-bool ties_carry(const Event& e) { return e.kind == "exposed"; }
+// Word of someone's hidden face, or of a hero's deed, reaches those tied to them wherever they are.
+bool ties_carry(const Event& e) { return e.kind == "exposed" || e.kind == "hero"; }
+
 
 int regard_from_word(const Event& e) {
     if (e.kind == "work") {
@@ -1150,6 +1159,8 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& sa
             // version 20).
             if (recognised && (a.work == "finished" || a.work == "failed"))
                 if (std::optional<Fact> told = account_of(speaker_uid)) p.facts.push_back(std::move(*told));
+            // A hero's own newest deed, their side of it (contract version 26).
+            own_deed(speaker_uid, p);
             return finish(std::move(p));
         }
 
@@ -1260,6 +1271,7 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& sa
             // How their own work went, as a greeting has it (contract version 20).
             if (recognised && (a.work == "finished" || a.work == "failed"))
                 if (std::optional<Fact> told = account_of(speaker_uid)) p.facts.push_back(std::move(*told));
+            own_deed(speaker_uid, p);
             return finish(std::move(p));
         }
 
@@ -1427,6 +1439,7 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& sa
             // against, why they need help, what comes if they fail (the hero benchmark's second judge,
             // 2026-09-28: "not even what the fortress is held against").
             if (const std::vector<Fact> dangers = knowledge::dangers_near(world_, s); !dangers.empty()) p.facts.push_back(dangers.front());
+            own_deed(speaker_uid, p);
             a.asked_now = s.persona.name;
             return finish(std::move(p));
         }
@@ -1767,14 +1780,16 @@ std::string Director::make_event(const Event& e) {
     const std::string id = "event-" + std::to_string(++events_made_);
     brains::Statement insert(brains_.handle(),
                              "INSERT INTO events (id, seq, kind, day, place, place_name, node, about_node, person, person_name, "
-                             "quest_id, verb, purpose, difficulty, was, revealed, player, state, state_day, actor) VALUES (?1, ?2, "
-                             "?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19, ?20)");
+                             "quest_id, verb, purpose, difficulty, was, revealed, player, state, state_day, actor, against, "
+                             "against_name, scope) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, "
+                             "?17, ?18, ?19, ?20, ?21, ?22, ?23)");
     insert.text(1, id).integer(2, events_made_).text(3, e.kind).real(4, e.day).text_or_null(5, e.place).text_or_null(6, e.place_name);
     insert.maybe(7, e.node).maybe(8, e.about_node).text_or_null(9, e.person).text_or_null(10, e.person_name);
     insert.text_or_null(11, e.quest_id).text_or_null(12, e.verb).text_or_null(13, e.purpose);
     if (e.difficulty > 0) insert.integer(14, e.difficulty);
     insert.text_or_null(15, e.was).text_or_null(16, e.revealed).integer(17, e.player ? 1 : 0).text(18, e.state);
     insert.real(19, e.state_day).text_or_null(20, e.actor);
+    insert.text_or_null(21, e.against).text_or_null(22, e.against_name).text_or_null(23, e.scope);
     insert.run();
     brains::Statement first(brains_.handle(), "INSERT INTO event_states (event, seq, state, day, actor) VALUES (?1, 1, ?2, ?3, ?4)");
     first.text(1, id).text(2, e.state).real(3, e.state_day).text_or_null(4, e.actor).run();
@@ -2070,11 +2085,162 @@ void Director::report_event(const std::string& site, const std::string& outcome,
     inputs_.push_back(Report{site, outcome, by});
 }
 
+std::vector<HeroDone> Director::direct_heroes(const std::vector<std::string>& heroes) {
+    for (const std::string& uid : heroes)
+        if (std::none_of(world_.heroes.people.begin(), world_.heroes.people.end(), [&](const fwg::Hero& h) { return h.uid == uid; }))
+            throw Error("direct_heroes: the world names no hero '" + uid + "'");
+    const std::set<std::string> named(heroes.begin(), heroes.end());
+    const double today = fwg::world_clock_of(world_).day;
+    const Population& everyone = population();
+
+    // Who acts, what they do, and how it goes: decided before the world is asked to record any of it.
+    struct Plan {
+        const fwg::Hero* hero = nullptr;
+        fwg::HeroActionEntry entry;
+        std::optional<int> node;  // where it happens
+    };
+    std::vector<Plan> plans;
+    for (const fwg::Hero& hero : world_.heroes.people) {
+        if (!named.empty() && !named.count(hero.uid)) continue;
+        // A legend is a hero gone, as the liveness below has it: only the present act.
+        if (faces_of(hero) != Faces::One) continue;
+        const auto someone = everyone.people.find(hero.uid);
+        if (someone == everyone.people.end() || !someone->second.present) continue;
+        const std::string& verb = hero.claim.verb;
+        if (verb != "hold" && verb != "protect" && verb != "kill" && verb != "retake") continue;
+        // Due a week after they last acted; first, on a day of the week their own seed picks.
+        auto due = hero_due_.find(hero.uid);
+        if (due == hero_due_.end())
+            due = hero_due_.emplace(hero.uid, std::floor(today) + static_cast<double>(hero.seed % static_cast<std::uint32_t>(direction::kHeroSpanDays)))
+                      .first;
+        if (today < due->second) continue;
+
+        Plan plan;
+        plan.hero = &hero;
+        plan.entry.uid = hero.uid;
+        plan.entry.day = today;
+        int danger = 3;
+        bool assault = false;
+        // The worst nest within reach of a place, if any: what a hero there stands against.
+        const auto worst_near = [&](int node) -> std::optional<std::pair<std::string, int>> {
+            const std::vector<Fact> nests = knowledge::nests_around(world_, node, direction::kHeroThreatM, 1);
+            if (nests.empty()) return std::nullopt;
+            const std::string* tier = nests.front().field("danger");
+            return std::make_pair(nests.front().subject, tier ? std::stoi(*tier) : 3);
+        };
+        // Where they stand, when the world can name it as a place; else their home city.
+        std::string site;
+        if (hero.presence && (hero.presence->site_kind == "city" || hero.presence->site_kind == "hamlet" ||
+                              hero.presence->site_kind == "fortress" || hero.presence->site_kind == "ruin"))
+            site = hero.presence->uid;
+        else if (hero.home)
+            site = hero.home->uid;
+        if (verb == "hold" || verb == "protect") {
+            if (site.empty()) continue;
+            plan.node = node_of_site(world_, site);
+            if (!plan.node) continue;
+            const std::optional<std::pair<std::string, int>> nest = worst_near(*plan.node);
+            if (!nest) continue;  // nothing threatens what they hold
+            plan.entry.action = "defended";
+            plan.entry.place_uid = site;
+            plan.entry.against_uid = nest->first;
+            danger = nest->second;
+        } else if (verb == "kill") {
+            const auto quarry = std::find_if(world_.beast_nests.sites.begin(), world_.beast_nests.sites.end(),
+                                             [&](const fwg::NestSite& n) { return n.id == hero.claim.target_uid; });
+            if (quarry == world_.beast_nests.sites.end()) continue;
+            plan.entry.action = "hunted";
+            plan.entry.against_uid = quarry->id;
+            danger = quarry->tier;
+            plan.node = quarry->node;
+        } else {
+            const auto ruin = std::find_if(world_.ruins.begin(), world_.ruins.end(),
+                                           [&](const fwg::Ruin& r) { return r.uid == hero.claim.target_uid; });
+            if (ruin == world_.ruins.end()) continue;
+            plan.entry.action = "assaulted";
+            plan.entry.place_uid = ruin->uid;
+            plan.node = ruin->node;
+            assault = true;
+            if (const std::optional<std::pair<std::string, int>> nest = worst_near(ruin->node)) {
+                plan.entry.against_uid = nest->first;
+                danger = nest->second;
+            }
+        }
+        plan.entry.outcome =
+            direction::hero_draw(hero.seed, today, plan.entry.action) < direction::hero_chance(hero.tier, danger, assault) ? "won" : "lost";
+        due->second = std::floor(today) + direction::kHeroSpanDays;
+        plans.push_back(std::move(plan));
+    }
+
+    std::vector<HeroDone> out;
+    if (!plans.empty()) {
+        // Written in batches the verb takes (kMaxHeroActions a call): after a long gap every hero may be due
+        // at once, and a mutant's run of 78 found the one call refused.
+        std::vector<fwg::HeroActionReport> reports;
+        for (std::size_t from = 0; from < plans.size(); from += fwg::kMaxHeroActions) {
+            fwg::HeroActionRequest request;
+            for (std::size_t i = from; i < std::min(plans.size(), from + fwg::kMaxHeroActions); ++i) request.actions.push_back(plans[i].entry);
+            fwg::HeroActionResult batch = [&] {
+                try {
+                    return fwg::hero_action_request(world_, request);
+                } catch (const fwg::WorldTimeError& refusal) {
+                    throw Error(std::string("direct_heroes: the world refused what a hero did: ") + refusal.what());
+                }
+            }();
+            world_ = std::move(batch.world);
+            reports.insert(reports.end(), batch.actions.begin(), batch.actions.end());
+        }
+        ++world_changes_;
+        brains::Transaction transaction(brains_.handle());
+        for (std::size_t i = 0; i < plans.size(); ++i) {
+            const Plan& plan = plans[i];
+            const fwg::HeroActionReport& report = reports[i];
+            Event e;
+            e.kind = "hero";
+            e.day = today;
+            e.node = plan.node;
+            e.about_node = plan.node;
+            place_on(world_, plan.node, e);
+            e.person = plan.entry.uid;
+            e.person_name = name_of(world_, plan.entry.uid);
+            e.verb = plan.entry.action;
+            e.state = plan.entry.outcome;
+            e.state_day = today;
+            e.actor = plan.entry.uid;
+            e.against = plan.entry.against_uid;
+            for (const fwg::Hero& hero : world_.heroes.people)
+                if (hero.uid == plan.entry.uid)
+                    for (const fwg::HeroDeed& deed : hero.deeds)
+                        if (deed.event_id == report.event_id) e.against_name = deed.against_name;
+            e.scope = report.scope;
+            const std::string id = make_event(e);
+            learn(plan.entry.uid, id, e.state, today, "there");
+            out.push_back(HeroDone{plan.entry.uid, plan.entry.action, plan.entry.outcome, plan.entry.place_uid,
+                                   plan.entry.against_uid, today, id, report.text});
+        }
+        transaction.commit();
+        ++acquaintance_changes_;
+    }
+    inputs_.push_back(Direct{heroes});
+    return out;
+}
+
+void Director::own_deed(const std::string& speaker, FactPacket& p) const {
+    for (Fact& told : news(speaker, speaker, std::nullopt, 4)) {
+        const std::string* event = told.field("event");
+        if (event == nullptr || *event != "hero") continue;
+        if (std::none_of(p.facts.begin(), p.facts.end(), [&](const Fact& f) { return f.kind == FactKind::News && f.subject == told.subject; }))
+            p.facts.push_back(std::move(told));
+        return;
+    }
+}
+
 std::vector<Fact> Director::news(const std::string& speaker, const std::string& about, std::optional<int> node,
                                  std::size_t most) const {
     std::string sql = std::string("SELECT ") +
                       "e.id, e.kind, e.day, e.place, e.place_name, e.node, e.about_node, e.person, e.person_name, e.quest_id, "
-                      "e.verb, e.purpose, e.difficulty, e.was, e.revealed, e.player, f.state, s.day, s.actor, f.how, e.player_name "
+                      "e.verb, e.purpose, e.difficulty, e.was, e.revealed, e.player, f.state, s.day, s.actor, f.how, e.player_name, "
+                      "e.against_name "
                       "FROM facts AS f JOIN events AS e ON e.id = f.event JOIN event_states AS s ON s.event = f.event AND "
                       "s.state = f.state WHERE f.person = ?1 AND ";
     if (about == "player")
@@ -2104,6 +2270,11 @@ std::vector<Fact> Director::news(const std::string& speaker, const std::string& 
             if (const std::string verb = read.text(10); !verb.empty()) f.fields.emplace_back("verb", verb);
             if (const std::string purpose = read.text(11); !purpose.empty()) f.fields.emplace_back("purpose", purpose);
             if (const std::string giver = read.text(8); !giver.empty()) f.fields.emplace_back("giver", giver);
+        } else if (kind == "hero") {
+            // A hero's deed (contract version 26): who, what they did, against what.
+            if (const std::string person = read.text(8); !person.empty()) f.fields.emplace_back("person", person);
+            if (const std::string verb = read.text(10); !verb.empty()) f.fields.emplace_back("verb", verb);
+            if (const std::string against = read.text(21); !against.empty()) f.fields.emplace_back("against", against);
         } else if (kind == "exposed" || kind == "gone") {
             if (const std::string person = read.text(8); !person.empty()) f.fields.emplace_back("person", person);
             if (kind == "exposed") {
@@ -2768,6 +2939,7 @@ Director replay(fwg::World start, const std::vector<Input>& inputs) {
                        [&](const Words& said) { director.words(said.line, said.reply, said.asked); },
                        [&](const Compact& compacted) { (void)director.compact(compacted.person, compacted.outcomes); },
                        [&](const Account& told) { director.account(told.quest_id, told.came, told.many, told.cost, told.part); },
+                       [&](const Direct& directed) { (void)director.direct_heroes(directed.heroes); },
                    },
                    input);
     }
