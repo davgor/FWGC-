@@ -25,7 +25,9 @@ std::string lost_words(const orchestrator::Fact& self);
 
 // A part they had in something, as words that follow "I": "command the fortress above Iskmor",
 // "stood for Brenlin when it fell", "speak for the farmstead below Dunweg", "won a war between
-// realms, in the last age". Empty for a deed these words cannot say.
+// realms, in the last age", and against whom where the Deed fact says (contract version 22): "won a war
+// between realms against Linbrig", "lost a war among our own to Brenlin". Empty for a deed these words
+// cannot say.
 std::string done_words(const orchestrator::Fact& deed);
 
 // Who stands with them, and against them: "Iskgraf and Nerisk stand with me", "Ulknord is my

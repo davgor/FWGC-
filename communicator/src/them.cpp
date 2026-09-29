@@ -109,6 +109,13 @@ std::string done_words(const Fact& deed) {
             {"international", " between realms"}, {"regional", " with our neighbours"}, {"civil", " among our own"}};
         const auto r = reach.find(field_of(deed, "war"));
         const std::string between = r == reach.end() ? std::string() : r->second;
+        // Against whom (contract version 22), by the city's name, one since fallen by the name it had: "won a
+        // war between realms against Linbrig", "lost a war among our own to Brenlin".
+        if (const std::string against = city_of(name_of(deed, "against")); !against.empty()) {
+            if (part == "credited") return "won a war" + between + " against " + against + when;
+            if (part == "victim") return "lost a war" + between + " to " + against + when;
+            return {};
+        }
         if (part == "credited") return "won a war" + between + when;
         if (part == "victim") return "lost a war" + between + when;
         return {};
@@ -215,7 +222,7 @@ std::string ties_words(const FactPacket& packet) {
         if (tie == "ally") allies.push_back(name);
         if (tie == "rival") rivals.push_back(name);
         if (tie == "kin") kin.push_back(name);
-        if (tie == "liege") lieges.push_back(name);
+        if (tie == "liege") lieges.push_back(field_of(f, "role") == "sovereign" ? name + ", our sovereign" : name);
     }
     std::vector<std::string> parts;
     // The sovereign they are sworn to (contract version 19), first.

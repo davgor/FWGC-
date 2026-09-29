@@ -99,6 +99,18 @@ TEST(a_deed_is_said_by_its_kind_and_part_and_a_past_one_says_when) {
                  "a war won, this age");
     check::equal(done_words(deed("war", "victim", "", "the last age", "civil")), std::string("lost a war among our own, in the last age"),
                  "a war lost, then");
+    // Against whom (contract version 22).
+    const auto against = [&](const std::string& part, const std::string& when, const std::string& city) {
+        Fact f = deed("war", part, "", when, "international");
+        f.fields.emplace_back("against", city);
+        return f;
+    };
+    check::equal(done_words(against("credited", "this age", "Linbrig (Age 2)")), std::string("won a war between realms against Linbrig"),
+                 "a war won, against whom");
+    check::equal(done_words(against("victim", "the last age", "Linbrig (Age 1)")),
+                 std::string("lost a war between realms to Linbrig, in the last age"), "a war lost, then, against whom");
+    check::equal(done_words(against("credited", "ages ago", "the ruins of Brenlin")),
+                 std::string("won a war between realms against Brenlin, ages ago"), "a city since fallen, by the name it had");
     check::equal(done_words(deed("ruin", "credited", "", "the last age")), std::string(), "no place, no words");
     check::equal(done_words(deed("market", "keeper", "Wenweg", "this age")), std::string(), "a kind the words do not know");
 }
@@ -168,10 +180,10 @@ TEST(the_sovereign_they_are_sworn_to_is_said_first_of_their_ties) {
     FactPacket p;
     p.facts.push_back({FactKind::Person, "hero-sovereign", {{"name", "Brenbrann"}, {"role", "sovereign"}, {"tie", "liege"}}});
     p.facts.push_back({FactKind::Person, "hero-c", {{"name", "Ulknord"}, {"role", "warlord"}, {"tie", "rival"}}});
-    check::equal(ties_words(p), std::string("I'm sworn to Brenbrann; Ulknord is my rival"), "sworn, then the rival");
+    check::equal(ties_words(p), std::string("I'm sworn to Brenbrann, our sovereign; Ulknord is my rival"), "sworn, then the rival");
     FactPacket sworn_only;
     sworn_only.facts.push_back(p.facts.front());
-    check::equal(ties_words(sworn_only), std::string("I'm sworn to Brenbrann"), "sworn alone");
+    check::equal(ties_words(sworn_only), std::string("I'm sworn to Brenbrann, our sovereign"), "sworn alone");
     check::equal(communicator::foes_words(sworn_only), std::string(), "a liege is no rival");
 }
 

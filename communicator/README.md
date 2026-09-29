@@ -714,12 +714,15 @@ From the sixth round's judges (2026-09-28, six sessions, the sixth held out):
   fortress above Mokdorl"), each asked alone, as home is, since a bank's lines of how long without the
   years would shadow `any`'s with them; with no line of it, as before. Said again though heard lately:
   they are what was asked. Where they served is a past of its own, so `them_past_none` is for those
-  with none. The sovereign they are sworn to is first of their ties ("I'm sworn to Brenbrann") and
+  with none. The sovereign they are sworn to is first of their ties ("I'm sworn to Brenbrann, our
+  sovereign") and
   named so in another giver's work ("Brenbrann the sovereign, whom I serve, wants someone to ...").
   The truth check reads the years as the Self fact's own, not a time counted out, and the voice is
   shown both ("you have held your post ten years and more; before it you served as a sergeant in the
   garrison of Iskmor"): prompts without them are unchanged. "How long have you held it?" had drawn "long
-  enough that I've stopped counting" (the benchmark's first judge).
+  enough that I've stopped counting" (the benchmark's first judge). A war says whom it was against
+  (contract version 22): "won a war between realms against Linbrig", "lost a war among our own to
+  Brenlin", a city since fallen by the name it had; "what war, against whom" was a judge's first ask.
 - **Luck to both** (`parted_work_beside`) at a farewell with the speaker's own work to do beside them
   (contract version 14's `beside`): luck to the stranger alone had sent them off by themself on work
   offered "with me".
