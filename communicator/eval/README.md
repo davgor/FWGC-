@@ -587,6 +587,40 @@ edges, and the judges fault every one:
 - **A lost fight is only reported.** It touches nothing he has sworn, and only his newest deed is told
   where he fought three times.
 
+Round 31, after round 30's fixes: contract 28 (bc3c518) gives a hero's deed its `tie` to the one who hears
+it, and has heroes who fought one fight know it by being there. The communicator (7b002fa, aec5d27,
+766cd5f) says others' deeds as what their heroes are to the speaker ("our sovereign Krumnord"), a fight
+in the speaker's own place as theirs and never hearsay, and a stranger's deed elsewhere only when asked.
+It says back what the stranger told before its own deed at a greeting, and answers "Have you had to fight
+since I left?" from the fight. `session_hero8.txt` is a dev session from here. `session_hero9.txt` is a
+ninth, held out: written after round 30's judges and before those fixes, never run before this round. It
+has another world's first hero who gives work, a story the player tells, and two returns, one asking to
+be remembered and one asking what happened in their absence.
+
+| Session | Round 29 | Round 30 | Round 31 | Score | The illusion breaks at |
+|---|---|---|---|---|---|
+| 1 | 15 of 24 | 16 of 24 | 19 of 24 | 4 | 7: places read out as a data row |
+| 2 | 17 of 22 | 16 of 22 | 17 of 22 | 4 | 3: "What brought you to this place?" given a motto |
+| 3 | 16 of 21 | 14 of 21 | 15 of 21 | 3 | 3: "Busy day?" given "I'm well" |
+| 4 | 19 of 20 | 17 of 20 | 19 of 20 | 4 | 12: his side of the fight given a vow and another's hold |
+| 5 | 15 of 19 | 15 of 19 | 15 of 19 | 3 | 11: his sovereign's defeat as an aside |
+| 6 | 18 of 21 | 15 of 21 | 17 of 21 | 4 | 11: a loss in his town after "slept easy" |
+| 7 | 13 of 17 | 14 of 17 | 13 of 17 | 3 | 3: "Busy night?" given his motto |
+| 8 | | 11 of 17 | 13 of 17 | 3 | 11: his sovereign's fights read as his own told twice |
+| 9 (first run) | | | 11 of 17 | 3 | 10: "How did it go for you?" given how he spends his time |
+
+102 of 127 on sessions 1-6, a new high (93 and 100 in the two rounds before). Four sessions scored 4 in
+one round; only two had before. What every judge asks for next:
+- **His own story since the last visit, told as his, in order.** For example, lost twice then held.
+  What it cost, what it does to what he swore, what he means to do, and what he needs of the player.
+  Only his newest deed is told.
+- **Questions back, and threads kept.** The name he asked for and dropped, the brother or friend, the
+  trade the player named.
+- **News that fits the moment.** Fights at one place by the same foe on one day should be one account:
+  a castellan's fortress and his town are two fights by the director's rule of one place, one foe. A name
+  should come with who they are to him.
+- **"How did it go for you?"** after work shared should be answered as his side of it.
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).

@@ -1,0 +1,54 @@
+# The golden benchmark's ninth session, held out: written 2026-09-29, after round 30's judges and before
+# the fixes they asked for, and never run before it is judged. Another world, its first hero who gives
+# work. Heroes act as days pass. The player tells the hero something of their own, takes the work, and
+# comes back twice: asking to be remembered, and asking what happened while they were away. Each line is
+# labelled with the act it means.
+world 3 33 30
+who hero giver 0
+
+# The game calls on heroes to act as days pass (contract version 26): today, each day of a short gap,
+# each week of a long one; word of what they did goes round before each return.
+heroes
+
+# A first meeting.
+say hero greet | Good morning. Is this where I find the one in command?
+say hero ask_about_them | Who are you?
+say hero small_talk | Cold wind today.
+say hero ask_for_work | I'm looking for work. What have you got?
+say hero answer | I lost my farm to raiders last spring. I've nothing left to lose.
+say hero accept_quest @own | I'll take it.
+say hero ask_about_them | Who else is standing with you?
+say hero farewell | I'll be back soon.
+
+# Out of sight: compacted; heroes called each day; the work is done four days on.
+compact hero
+advance 1
+heroes
+advance 1
+heroes
+advance 1
+heroes
+advance 1
+heroes
+share
+resolve hero finished
+account hero @nest many few fought
+say hero greet | It's done. Do you remember me?
+say hero ask_about_them | How did it go for you, while I was out there?
+say hero small_talk | Any word from the town?
+say hero farewell | I need to rest.
+
+# Three weeks later, heroes called each week.
+compact hero
+advance 7
+heroes
+advance 7
+heroes
+advance 7
+heroes
+share
+say hero greet | Hello again. It's been a while.
+say hero ask_about_them | Did you have to fight while I was gone?
+say hero small_talk | What news?
+say hero ask_about_them | Who do you answer to?
+say hero farewell | Stay safe.
