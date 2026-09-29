@@ -62,7 +62,9 @@ namespace orchestrator {
 //     deed they are known for, with its `scope`; ask_about_person's target may be "=" and the player's words.
 // 26: heroes' deeds. A News fact of event "hero": what a hero did at the director's call, how it went, and
 //     against what.
-inline constexpr int kContractVersion = 26;
+// 27: a hero's own deed rides in their packets only when newer than their last meeting with the stranger (any,
+//     at a first); a hero whose own work the player holds does not act until it is resolved.
+inline constexpr int kContractVersion = 27;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.

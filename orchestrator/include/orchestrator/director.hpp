@@ -565,6 +565,9 @@ private:
     // The day each hero is next due to act (contract version 26), set when first considered and moved
     // a week on each time they act.
     std::map<std::string, double> hero_due_;
+    // For each speaker met before, the world day of the last act to them before the conversation under way or
+    // last had (contract version 27): a hero's own deed rides in their packets only when newer.
+    std::map<std::string, double> met_before_;
     // Bumped when the world changes, and when anyone's standing with the player may have: the
     // database's copies of the world's people, places and work, and of every acquaintance, are
     // written again before a query reads them only when these moved.

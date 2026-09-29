@@ -40,7 +40,8 @@
 //                                   joins in (their reply is written as their turn), or stays out
 //   share [NAME...]                 news reaches these speakers, or everyone when none are named
 //   heroes [NAME...]                these heroes, or every hero when none are named, act if due
-//                                   (contract version 26); what each did written as an event
+//                                   (contract version 26); what a speaker did written as an event in
+//                                   the world's words, and the rest of the world's heroes counted
 //   report NAME OUTCOME [BY]        the game says how a threat where NAME stands ended: beaten,
 //                                   lost or passed; BY player, a speaker's NAME, or nobody
 //   sql QUERY                       read the brain database; each row written as an event
@@ -374,8 +375,16 @@ int main(int argc, char** argv) {
             } else if (w[0] == "heroes") {
                 std::vector<std::string> heroes;
                 for (std::size_t i = 1; i < w.size(); ++i) heroes.push_back(speaker(w[i]));
-                for (const orchestrator::HeroDone& done : director->direct_heroes(heroes))
-                    std::cout << "event a hero acted: " << done.hero << " " << done.action << ", " << done.outcome << ": " << done.text << "\n";
+                // What the session's own speakers did, in the world's words; the rest of the world's heroes counted.
+                std::size_t others = 0;
+                for (const orchestrator::HeroDone& done : director->direct_heroes(heroes)) {
+                    const auto alias = std::find_if(speakers.begin(), speakers.end(), [&](const auto& s) { return s.second == done.hero; });
+                    if (alias == speakers.end())
+                        ++others;
+                    else
+                        std::cout << "event " << alias->first << " acted: " << done.text << "\n";
+                }
+                if (others > 0) std::cout << "event " << others << (others == 1 ? " other hero acted" : " other heroes acted") << "\n";
             } else if (w[0] == "report") {
                 need(3);
                 const fwg::World& world = director->world();

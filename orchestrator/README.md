@@ -333,7 +333,8 @@ their land, even if they have never met them." The generator gives every deed it
 
 ## Heroes' deeds
 
-Contract version 26, C interface 9, schema 6. The owner, 2026-09-29: "the director needs to be managing the
+Contract version 26 (27: when a hero waits, and which deed rides), C interface 9, schema 6. The owner,
+2026-09-29: "the director needs to be managing the
 heroes movements, actions, and success rates." The director decides what heroes do and how it goes; the
 world records it through the generator's logged verb (`hero_action_request`, heroes version 5): their deed,
 a line of their log in the world's words, their fame and band recomputed.
@@ -348,7 +349,9 @@ a line of their log in the world's words, their fame and band recomputed.
   their home city by the reads, not at the fortress they hold), and does nothing when none is near; one sworn to kill a nest hunts it; one who would
   retake a ruin assaults it, against the worst nest near it if any; taken, the ruin is where they stand
   after (their presence, "warding"), and they hold it from then on as any place held. A hero of more than one face (a mask,
-  a beast, a fractured heart) does not act yet.
+  a beast, a fractured heart) does not act yet. A hero whose own work the player holds waits on it, keeping
+  their day of the week: that work is their fight, and the game says how it went (`resolve`). Drawn apart,
+  a castellan held their fortress on the day the player, holding it with them, came back to say it was done.
 - **How it goes.** Their chance is their fame's band (notable 45%, renowned 60%, legendary 75%), 8 points
   less for each step of the danger above 3 and more for each below, 15 less for an assault, never past
   90% (the least it can be is 14%). The draw is a hash of their seed, the day and the action, so a save
@@ -357,7 +360,10 @@ a line of their log in the world's words, their fame and band recomputed.
   better chance went their way more often. More heroes due than the world's verb takes in one call (64)
   are written in batches.
 - **Their side of it.** A hero's own newest deed rides in their greetings, small talk and answers about
-  themself, a News fact they know by being there.
+  themself, a News fact they know by being there, while it is newer than their last meeting with the
+  stranger (any, at a first meeting; contract version 27): one from before then was theirs to tell then.
+  Told at a second visit, a fight lost before the first had read as the fight the player had just won
+  beside them.
 - **Word of it.** Each deed is an event of kind "hero" (its `verb` the action, its state "won" or "lost",
   `against` and `against_name` what they faced, `scope` how far word of the deed goes). The hero knows it at
   once; at a share, whoever stands where it happened hears it, and so do the hero's rivals, kin and allies

@@ -1087,6 +1087,7 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& sa
     if (!a.talking) {
         // A calendar day met on: the first conversation's, and any later one's on another day.
         if (a.conversations == 0 || std::floor(today) != std::floor(a.last_day)) ++a.days_met;
+        if (a.conversations > 0) met_before_[speaker_uid] = a.last_day;
         ++a.conversations;
         a.since = a.conversations > 1 ? since_band(today, a.last_day) : std::string();
         a.turn = 0;
@@ -2101,6 +2102,13 @@ std::vector<HeroDone> Director::direct_heroes(const std::vector<std::string>& he
     };
     std::vector<Plan> plans;
     std::map<std::string, std::string> fights;  // a place and a foe -> how the fight there went, this call
+    // A hero whose own work the player holds waits on it: that work is their fight, and the game says how it
+    // went (resolve). Drawn apart, a castellan held their fortress against the basilisks on the day the player,
+    // holding it with them, came back to say it was done, and the one fight was told twice (2026-09-29).
+    std::set<std::string> waiting;
+    if (const std::optional<std::vector<fwg::QuestRow>> taken = board(world_, fwg::QuestState::Taken))
+        for (const fwg::QuestRow& row : *taken)
+            if (row.giver_uid) waiting.insert(*row.giver_uid);
     for (const fwg::Hero& hero : world_.heroes.people) {
         if (!named.empty() && !named.count(hero.uid)) continue;
         // A legend is a hero gone, as the liveness below has it: only the present act.
@@ -2116,7 +2124,7 @@ std::vector<HeroDone> Director::direct_heroes(const std::vector<std::string>& he
         if (due == hero_due_.end())
             due = hero_due_.emplace(hero.uid, std::floor(today) + static_cast<double>(hero.seed % static_cast<std::uint32_t>(direction::kHeroSpanDays)))
                       .first;
-        if (today < due->second) continue;
+        if (today < due->second || waiting.count(hero.uid)) continue;  // waiting keeps their day of the week
 
         Plan plan;
         plan.hero = &hero;
@@ -2251,9 +2259,18 @@ std::vector<HeroDone> Director::direct_heroes(const std::vector<std::string>& he
 }
 
 void Director::own_deed(const std::string& speaker, FactPacket& p) const {
+    // Newer than their last meeting with the stranger, when they met before (contract version 27): a deed from
+    // before then was theirs to tell then. Told at a second visit, a fight lost before the first read as the
+    // fight the player had just won beside them (2026-09-29).
+    const auto before = met_before_.find(speaker);
     for (Fact& told : news(speaker, speaker, std::nullopt, 4)) {
         const std::string* event = told.field("event");
         if (event == nullptr || *event != "hero") continue;
+        if (before != met_before_.end()) {
+            brains::Statement when(brains_.handle(), "SELECT day FROM events WHERE id = ?1");
+            when.text(1, told.subject);
+            if (!when.step() || when.real(0) <= before->second) return;
+        }
         if (std::none_of(p.facts.begin(), p.facts.end(), [&](const Fact& f) { return f.kind == FactKind::News && f.subject == told.subject; }))
             p.facts.push_back(std::move(told));
         return;

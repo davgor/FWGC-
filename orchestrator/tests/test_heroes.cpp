@@ -248,6 +248,45 @@ TEST(a_hero_acts_once_a_week_and_only_when_called) {
     check::throws([&] { (void)d.direct_heroes({"hero-nobody"}); }, "a uid that names no hero");
 }
 
+// A hero whose own work the player holds waits on it: that work is their fight, and the game says how it went.
+// Drawn apart, a castellan held their fortress against the basilisks on the day the player, holding it with
+// them, came back to say it was done, and the one fight was told twice (2026-09-29). Waiting keeps their day.
+TEST(a_hero_whose_work_the_player_holds_waits_on_it) {
+    const Weeks& w = weeks();
+    // The premise: a hero who first acted after the first call of a week called each day, and gives work of
+    // their own; one who acted at the first call is due again at once however their day is kept.
+    Director probe(month_on());
+    std::string giver, quest;
+    std::size_t acted = 0;
+    for (std::size_t k = 1; k < 7 && giver.empty(); ++k)
+        for (const HeroDone& one : w.by_call[k]) {
+            const FactPacket asked = probe.respond(one.hero, {ActKind::AskForWork, ""});
+            for (const Fact& f : asked.facts)
+                if (giver.empty() && f.kind == FactKind::QuestOffer && f.field("from_speaker") && *f.field("from_speaker") == "yes") {
+                    giver = one.hero;
+                    quest = f.subject;
+                    acted = k;
+                }
+            if (!giver.empty()) break;
+        }
+    check::is_true(!giver.empty(), "the premise: a hero who first acted after the first day gives work of their own");
+    if (giver.empty()) return;
+    Director d(month_on());
+    (void)d.respond(giver, {ActKind::AskForWork, ""});
+    check::is_true(d.respond(giver, {ActKind::AcceptQuest, quest}).outcome == orchestrator::Outcome::Accepted, "the work taken");
+    for (std::size_t k = 0; k <= acted; ++k) {
+        if (k > 0) d.advance(1.0);
+        for (const HeroDone& one : d.direct_heroes({}))
+            check::is_true(one.hero != giver, "waits on the work the player holds, the day they would have acted: " + std::to_string(k));
+    }
+    // Once the game says how it went, they act at the next call, due since.
+    d.resolve(quest, true);
+    d.advance(1.0);
+    const std::vector<HeroDone> after = d.direct_heroes({});
+    check::is_true(std::any_of(after.begin(), after.end(), [&](const HeroDone& one) { return one.hero == giver; }),
+                   "acts at the next call once the work is done");
+}
+
 // After a gap longer than a week every hero is due at once, more than the world's verb takes in one call:
 // all of them act, each once, and each has their event.
 TEST(every_hero_due_acts_though_more_than_one_call_of_the_verb_holds) {
@@ -424,6 +463,14 @@ TEST(a_hero_tells_their_own_deed) {
     check::is_true(defended != done.end(), "the premise: a hero whose deed was where they stand");
     if (defended == done.end()) return;
     const HeroDone& deed = *defended;
+    // Another who acted at that call, met at once, the fight just before the meeting.
+    const auto at_once = std::find_if(done.begin(), done.end(), [&](const HeroDone& one) { return one.hero != deed.hero; });
+    check::is_true(at_once != done.end(), "the premise: another hero acted at that call");
+    if (at_once == done.end()) return;
+    (void)d.respond(at_once->hero, {ActKind::Greet, ""});
+    (void)d.respond(at_once->hero, {ActKind::Farewell, ""});
+    // Met first the day after, any deed of theirs is theirs to tell.
+    d.advance(1.0);
     for (const ActKind kind : {ActKind::Greet, ActKind::SmallTalk, ActKind::AskAboutThem}) {
         const FactPacket p = d.respond(deed.hero, {kind, ""});
         const auto own = std::find_if(p.facts.begin(), p.facts.end(),
@@ -436,8 +483,8 @@ TEST(a_hero_tells_their_own_deed) {
         check::equal(std::count_if(p.facts.begin(), p.facts.end(), [&](const Fact& f) { return f.subject == deed.event; }),
                      std::ptrdiff_t{1}, "once");
     }
-    // Their work finished by the player a day after the fight, newer news of them: still the fight is their
-    // own deed to tell, never the work.
+    // Their work finished by the player at that first meeting, a day after the fight, newer news of them: still
+    // the fight is their own deed to tell, never the work.
     std::string giver, quest;
     for (const HeroDone& one : done) {
         const FactPacket asked = d.respond(one.hero, {ActKind::AskForWork, ""});
@@ -453,13 +500,43 @@ TEST(a_hero_tells_their_own_deed) {
         for (const HeroDone& one : done)
             if (one.hero == giver) fight = one.event;
         (void)d.respond(giver, {ActKind::AcceptQuest, quest});
-        d.advance(1.0);
         d.resolve(quest, true);
-        const FactPacket p = d.respond(giver, {ActKind::Greet, ""});
+        const FactPacket p = d.respond(giver, {ActKind::SmallTalk, ""});
         check::is_true(std::any_of(p.facts.begin(), p.facts.end(), [&](const Fact& f) { return f.kind == FactKind::News && f.subject == fight; }),
                        "their fight, though their work is newer news");
     }
     check::is_true(!giver.empty(), "the premise: a hero who acted gives work of their own");
+    // Met again, a deed from before their last meeting was theirs to tell then (contract version 27): told at a
+    // second visit, a fight lost before the first read as the fight the player had just won beside them. A
+    // deed since then rides.
+    d.advance(1.0);
+    const FactPacket later = d.respond(deed.hero, {ActKind::Greet, ""});
+    check::is_true(std::none_of(later.facts.begin(), later.facts.end(), [&](const Fact& f) { return f.subject == deed.event; }),
+                   "a deed from before the last meeting: not again");
+    const FactPacket again = d.respond(at_once->hero, {ActKind::Greet, ""});
+    check::is_true(std::none_of(again.facts.begin(), again.facts.end(), [&](const Fact& f) { return f.subject == at_once->event; }),
+                   "a deed the moment before the last meeting: not again");
+    (void)d.respond(deed.hero, {ActKind::Farewell, ""});
+    std::string next;
+    for (int day = 0; day < 8 && next.empty(); ++day) {
+        d.advance(1.0);
+        for (const HeroDone& one : d.direct_heroes({deed.hero})) next = one.event;
+    }
+    check::is_true(!next.empty(), "the premise: they act again within the week");
+    const FactPacket since = d.respond(deed.hero, {ActKind::Greet, ""});
+    check::is_true(std::any_of(since.facts.begin(), since.facts.end(), [&](const Fact& f) { return f.kind == FactKind::News && f.subject == next; }),
+                   "a deed since the last meeting rides");
+    // Replayed, when each last met the stranger is folded again from the inputs: the same deeds ride.
+    Director replayed = orchestrator::replay(month_on(), d.inputs());
+    const auto news_in = [](const FactPacket& p) {
+        std::vector<std::string> out;
+        for (const Fact& f : p.facts)
+            if (f.kind == FactKind::News) out.push_back(f.subject);
+        return out;
+    };
+    for (const std::string& who : {deed.hero, at_once->hero})
+        check::is_true(news_in(d.respond(who, {ActKind::SmallTalk, ""})) == news_in(replayed.respond(who, {ActKind::SmallTalk, ""})),
+                       "replayed, the same news rides: " + who);
     // Another hero's deed is never theirs to tell as their own.
     for (const HeroDone& other : done)
         if (other.hero != deed.hero) {
