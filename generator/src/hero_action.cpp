@@ -97,7 +97,8 @@ std::string line_of(const std::string& action, bool won, const std::optional<Pla
     const std::string who = foe ? foe->name : std::string();
     if (action == "defended") {
         if (won) return "Held " + where + (who.empty() ? "" : " against " + who) + ".";
-        return "Was driven from " + where + (who.empty() ? "" : " by " + who) + ".";
+        // A fight lost at a place they still hold: never "driven from" it, as they stand there after.
+        return who.empty() ? "Lost a fight at " + where + "." : "Fought " + who + " at " + where + ", and lost.";
     }
     if (action == "hunted") {
         if (won) return "Hunted down " + who + (where.empty() ? "" : " near " + where) + ".";

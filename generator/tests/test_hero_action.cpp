@@ -197,7 +197,7 @@ TEST(hero_action_a_fight_lost_weighs_a_third_of_one_won) {
     const HeroActionResult lost_result = act(world, {defended(castellan, nest.id, "lost", today)});
     const Hero& lost = hero_in(lost_result.world, castellan.uid);
     check::equal(lost.deeds.back().role, std::string("victim"), "it went against them");
-    check::equal(lost.log.back().text, "Was driven from " + lost.deeds.back().place_name + " by " + lost.deeds.back().against_name + ".",
+    check::equal(lost.log.back().text, "Fought " + lost.deeds.back().against_name + " at " + lost.deeds.back().place_name + ", and lost.",
                  "the line of a fight lost");
     const double gain_won = won.fame - castellan.fame, gain_lost = lost.fame - castellan.fame;
     check::is_true(gain_lost > 0.0 && std::abs(gain_won - 3.0 * gain_lost) < 0.01,
@@ -228,6 +228,11 @@ TEST(hero_action_each_action_is_said_in_its_own_words) {
     check::equal(after.log.back().text, "Assaulted the ruins of " + world.ruins.front().name + " and was thrown back.",
                  "an assault lost, against no one named");
     check::is_true(!after.deeds.back().has_tier, "no foe, no tier");
+    // A place defended and lost is a fight lost there, never the place: they still stand in it.
+    HeroActionEntry held_on = defended(castellan, "", "lost", today);
+    const HeroActionResult lost_there = act(world, {held_on});
+    check::equal(hero_in(lost_there.world, castellan.uid).log.back().text,
+                 "Lost a fight at " + hero_in(lost_there.world, castellan.uid).deeds.back().place_name + ".", "a fight lost, no foe named");
     // In order: numbered across the world, the second seeing the first's fame; a later call goes on counting.
     check::equal(result.actions[0].event_id, std::string("action-1"), "the first");
     check::equal(result.actions[1].event_id, std::string("action-2"), "the second");
