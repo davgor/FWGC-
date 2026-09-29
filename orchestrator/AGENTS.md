@@ -40,6 +40,8 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
     the card's: a hero's epithet, fame, home, presence, claim, a city lost, deeds and ties; a mask
     still worn, only its trade and where it stands; a roster person, their post and place;
   - a hook's stated purpose, never its actual effect or whether the purpose is true;
+  - how their own work went (contract version 20), as the game's account has it, to its giver alone
+    and only while that work's end is their latest dealing with the player;
   - places and people within reach, and a hero's rivals, kin and allies wherever they stand;
   - a refusal's reason in the director's own words, never the generator's message, which names
     quests by id and lists work the speaker does not know of;

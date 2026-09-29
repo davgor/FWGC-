@@ -106,7 +106,13 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   version 19), are said only as C++'s `{held_for}` (`them_long_known`), which the truth check reads as
   the Self fact's own and no other count of years. What they stand against (`{danger}` in `them_*`) is named
   without how far, which small talk and "is it safe" say: said with it, one conversation heard the
-  same nest four times.
+  same nest four times. How they stand here (`them_here`) is their post, never a past feat in its
+  place.
+- **How the speaker's own work went is said in C++'s words** (`account_words`, contract version 20),
+  from the Account fact the game's account gave: what came and how many, what it cost, the stranger's
+  part. An `account` line's `{account}` holds it whole, after a colon, and adds nothing of what
+  happened, who else was there, or what comes of it. The truth check holds what it cost and the
+  stranger's part to the Account fact, in its own words.
 - **The player's own words come back only as C++ turns them** (contract version 12): `{words}` is
   the kept words said back to the stranger (`text::said_back`), and a `recalled` line adds only how
   the speaker takes having kept them: no fact about them, no question after them (but "is it any
