@@ -369,7 +369,13 @@ a line of their log in the world's words, their fame and band recomputed.
   once; at a share, whoever stands where it happened hears it, and so do the hero's rivals, kin and allies
   wherever they are; word then travels as other news does, 20 km for a deed that went no further than
   where it was done, 40 km for a regional one and 60 km for one known through a realm. A News fact of
-  event "hero" says who (`person`), what (`verb`), against what (`against`), and how it went.
+  event "hero" says who (`person`), what (`verb`), against what (`against`), and how it went; and, for
+  another hero's deed, how that hero stands to the one who heard it (`tie`, contract version 28): "sovereign"
+  for the sovereign of their realm (a castellan's liege is theirs), else "rival", "kin" or "ally". Passed on
+  with no tie, a sovereign's lost fight in the hearer's own town was hearsay he would not vouch for.
+- **One fight, known together.** Heroes who fought one fight know each other's part of it by being there
+  (contract version 28), so none hears another's as word: heard as word, a castellan's own lost fight had
+  come back to him as a stranger's rumour.
 - `fwgc_direct_heroes` answers what each did as JSON; the session tool's `heroes` command calls it.
 
 ## Short and long memory

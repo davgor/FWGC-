@@ -64,7 +64,9 @@ namespace orchestrator {
 //     against what.
 // 27: a hero's own deed rides in their packets only when newer than their last meeting with the stranger (any,
 //     at a first); a hero whose own work the player holds does not act until it is resolved.
-inline constexpr int kContractVersion = 27;
+// 28: a News fact of another hero's deed carries their `tie` to the speaker ("sovereign", "ally", "kin",
+//     "rival"); heroes who fought one fight know each other's part of it by being there (`how` "there").
+inline constexpr int kContractVersion = 28;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.

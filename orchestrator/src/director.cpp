@@ -170,6 +170,18 @@ std::string tie_to(const knowledge::Speaker& s, const std::string& giver) {
     return {};
 }
 
+// How a hero whose deed is news stands to the one who heard it (contract version 28): "sovereign" for the
+// sovereign of their realm (a castellan's liege is theirs, so found here first), else a tie of the hearer's as
+// a hero ("rival", "kin", "ally"); empty for a stranger. Passed on with no tie, a sovereign's lost fight in the
+// hearer's own town was hearsay he would not vouch for (the golden benchmark's round 30, 2026-09-29).
+std::string news_tie(const fwg::World& world, const std::string& hearer, const std::string& hero) {
+    const std::optional<knowledge::Speaker> s = knowledge::speaker(world, hearer);
+    if (!s) return {};
+    if (const std::string realm = knowledge::realm_of(world, *s); !realm.empty() && knowledge::sovereign_of(world, realm) == hero)
+        return "sovereign";
+    return tie_to(*s, hero);
+}
+
 struct Offer {
     fwg::QuestRow row;
     bool own = false;
@@ -2225,6 +2237,7 @@ std::vector<HeroDone> Director::direct_heroes(const std::vector<std::string>& he
         }
         ++world_changes_;
         brains::Transaction transaction(brains_.handle());
+        std::map<std::string, std::vector<std::pair<std::string, std::string>>> fought;  // a fight -> each hero in it and their event
         for (std::size_t i = 0; i < plans.size(); ++i) {
             const Plan& plan = plans[i];
             const fwg::HeroActionReport& report = reports[i];
@@ -2248,9 +2261,17 @@ std::vector<HeroDone> Director::direct_heroes(const std::vector<std::string>& he
             e.scope = report.scope;
             const std::string id = make_event(e);
             learn(plan.entry.uid, id, e.state, today, "there");
+            if (plan.entry.action == "defended") fought[plan.entry.place_uid + "|" + plan.entry.against_uid].emplace_back(plan.entry.uid, id);
             out.push_back(HeroDone{plan.entry.uid, plan.entry.action, plan.entry.outcome, plan.entry.place_uid,
                                    plan.entry.against_uid, today, id, report.text});
         }
+        // Heroes who fought one fight were there for each other's part of it (contract version 28), so none hears
+        // another's as word. Heard as word, a castellan's own lost fight came back to him as a stranger's rumour
+        // (the golden benchmark's held-out eighth session, 2026-09-29).
+        for (const auto& [fight, in_it] : fought)
+            for (const auto& one : in_it)
+                for (const auto& [other, event] : in_it)
+                    if (other != one.first) learn(one.first, event, fights.at(fight), today, "there");
         transaction.commit();
         ++acquaintance_changes_;
     }
@@ -2317,6 +2338,9 @@ std::vector<Fact> Director::news(const std::string& speaker, const std::string& 
             if (const std::string person = read.text(8); !person.empty()) f.fields.emplace_back("person", person);
             if (const std::string verb = read.text(10); !verb.empty()) f.fields.emplace_back("verb", verb);
             if (const std::string against = read.text(21); !against.empty()) f.fields.emplace_back("against", against);
+            // How they stand to the one who heard it (contract version 28): their sovereign, or a tie of theirs.
+            if (const std::string hero = read.text(7); hero != speaker)
+                if (const std::string tie = news_tie(world_, speaker, hero); !tie.empty()) f.fields.emplace_back("tie", tie);
         } else if (kind == "exposed" || kind == "gone") {
             if (const std::string person = read.text(8); !person.empty()) f.fields.emplace_back("person", person);
             if (kind == "exposed") {

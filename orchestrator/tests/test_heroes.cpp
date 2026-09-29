@@ -547,6 +547,95 @@ TEST(a_hero_tells_their_own_deed) {
         }
 }
 
+// Heroes who fought one fight were there for each other's part of it (contract version 28): none hears another's
+// as word. Heard as word, a castellan's own lost fight came back to him as a stranger's rumour (the golden
+// benchmark's held-out eighth session, 2026-09-29). Heroes who fought apart were not.
+TEST(heroes_in_one_fight_were_there_for_each_others_part) {
+    const Weeks& w = weeks();
+    const auto how = [&](const std::string& person, const std::string& event) {
+        const orchestrator::QueryResult rows =
+            w.director.query("SELECT how FROM facts WHERE person = '" + person + "' AND event = '" + event + "'");
+        return rows.rows.empty() ? std::string() : std::get<std::string>(rows.rows.front().front());
+    };
+    std::size_t together = 0, apart = 0;
+    for (const std::vector<HeroDone>& call : w.by_call)
+        for (std::size_t i = 0; i < call.size(); ++i)
+            for (std::size_t j = 0; j < call.size(); ++j) {
+                if (i == j) continue;
+                const HeroDone& one = call[i];
+                const HeroDone& other = call[j];
+                if (one.action == "defended" && other.action == "defended" && one.place == other.place && one.against == other.against) {
+                    ++together;
+                    check::equal(how(one.hero, other.event), std::string("there"), one.hero + " was there for " + other.hero + "'s part");
+                } else if (one.place != other.place) {
+                    ++apart;
+                    check::is_true(how(one.hero, other.event) != "there", one.hero + " was not there for " + other.hero + "'s fight elsewhere");
+                }
+            }
+    check::is_true(together > 0, "the premise: two heroes fought one fight");
+    check::is_true(apart > 0, "the premise: heroes fought apart on one call");
+}
+
+// A hero's deed told to someone they are tied to names the tie (contract version 28): their sovereign, or a
+// rival, kin or ally of theirs. Passed on with no tie, a sovereign's lost fight in the hearer's own town was
+// hearsay he would not vouch for (the golden benchmark's round 30). Told to a stranger, none.
+TEST(news_of_a_heros_deed_says_how_they_stand_to_the_hearer) {
+    Director d(month_on());
+    std::vector<HeroDone> done;
+    for (int day = 0; day < 8; ++day) {
+        if (day > 0) d.advance(1.0);
+        for (const HeroDone& one : d.direct_heroes({})) done.push_back(one);
+    }
+    (void)d.share({});
+    // How a hero stands to another by the world's own records: the sovereign of their realm first (a castellan's
+    // liege is theirs), then a rival, kin or ally.
+    const auto sovereign_of = [&](const fwg::Hero& h) -> std::string {
+        if (h.realm_uid.empty()) return {};
+        for (const fwg::HeroRealm& realm : d.world().heroes.realms)
+            if (realm.uid == h.realm_uid) return realm.sovereign_uid;
+        return {};
+    };
+    const auto oracle = [&](const fwg::Hero& hearer, const std::string& hero) -> std::string {
+        if (hearer.liege_uid == hero || sovereign_of(hearer) == hero) return "sovereign";
+        for (const auto& [tie, list] : {std::pair<std::string, const std::vector<std::string>*>{"rival", &hearer.rivals},
+                                        {"kin", &hearer.kin},
+                                        {"ally", &hearer.allies}})
+            if (std::find(list->begin(), list->end(), hero) != list->end()) return tie;
+        return {};
+    };
+    std::set<std::string> ties;
+    std::size_t strangers = 0;
+    for (const HeroDone& deed : done) {
+        const fwg::Hero& hero = hero_in(d.world(), deed.hero);
+        if (!one_face(hero)) continue;
+        for (const std::string& uid : d.related(deed.event).knows) {
+            if (uid == deed.hero) continue;
+            const auto hearer = std::find_if(d.world().heroes.people.begin(), d.world().heroes.people.end(),
+                                             [&](const fwg::Hero& h) { return h.uid == uid; });
+            if (hearer == d.world().heroes.people.end() || !one_face(*hearer) || hearer->status == "legend") continue;
+            const std::string expected = oracle(*hearer, deed.hero);
+            if (expected.empty() && strangers >= 3) continue;
+            const FactPacket p = d.respond(uid, {ActKind::AskAboutPerson, deed.hero});
+            for (const Fact& f : p.facts)
+                if (f.kind == FactKind::News && f.subject == deed.event) {
+                    const std::string* tie = f.field("tie");
+                    // The oracle knows ties by the records alone; a stranger by them may still share a realm
+                    // whose sovereign the deed's hero is.
+                    if (!expected.empty()) {
+                        check::equal(tie ? *tie : std::string(), expected, "the tie of " + uid + " to " + deed.hero);
+                        ties.insert(expected);
+                    } else {
+                        check::is_true(tie == nullptr || (*tie == "sovereign" && hero.role == "sovereign"),
+                                       "no tie by the records, none said: " + uid + " to " + deed.hero + ": " + (tie ? *tie : std::string()));
+                        if (tie == nullptr) ++strangers;
+                    }
+                }
+        }
+    }
+    check::is_true(!ties.empty(), "the premise: a deed told to someone tied to its hero");
+    check::is_true(strangers > 0, "the premise: a deed told to a stranger");
+}
+
 // What someone who heard says: a News fact of event "hero", the hero by name, what they did, how it went,
 // against what; and replay makes the same world and the same events.
 TEST(news_of_a_heros_deed_and_replay) {
