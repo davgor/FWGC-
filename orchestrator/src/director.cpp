@@ -85,6 +85,8 @@ constexpr std::size_t kMaxWordsBytes = 4000;
 // most, and what they last spoke of this long at most.
 constexpr std::size_t kMostQuotes = 5;
 constexpr std::size_t kMaxQuoteBytes = 240;
+// The longest name the player may give (contract version 24).
+constexpr std::size_t kMaxNameBytes = 60;
 constexpr std::size_t kMaxLastBytes = 300;
 // The longest outcomes handed in may be, in bytes: many times what the most they may keep takes.
 constexpr std::size_t kMaxOutcomesBytes = 16000;
@@ -328,7 +330,10 @@ Fact memory_fact(const std::string& uid, const Director::Acquaintance& a, bool r
                 {"resting", std::string(kFearWords[static_cast<std::size_t>(resting)])},
                 {"eased", recognised && eased ? "yes" : "no"},
                 {"joined", joined ? "yes" : "no"},
-                {"standing", standing}};
+                {"standing", standing},
+                {"called", recognised ? a.called : std::string()},
+                {"called_how", recognised ? a.called_how : std::string()},
+                {"called_other", recognised ? a.called_other : std::string()}};
     return f;
 }
 
@@ -745,7 +750,7 @@ constexpr int kHeardBadly = -1;
 
 constexpr const char* kEventColumns =
     "id, kind, day, place, place_name, node, about_node, person, person_name, quest_id, verb, purpose, difficulty, was, "
-    "revealed, player, state, state_day, actor";
+    "revealed, player, state, state_day, actor, player_name";
 
 Event event_from(const brains::Statement& row) {
     Event e;
@@ -768,6 +773,7 @@ Event event_from(const brains::Statement& row) {
     e.state = row.text(16);
     e.state_day = row.real(17);
     e.actor = row.text(18);
+    e.player_name = row.text(19);
     return e;
 }
 
@@ -1020,6 +1026,12 @@ FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& 
 FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& act, bool joined) {
     if (act_needs_target(act.kind) && act.target.empty())
         throw Error("respond: " + std::string(to_string(act.kind)) + " needs a target");
+    // A name the player gives (contract version 24): their own words, checked before anything changes.
+    if (act.kind == ActKind::Introduce) {
+        const std::string name = trimmed(act.target);
+        if (name.empty() || name.size() > kMaxNameBytes || !is_utf8(name) || name.find_first_of("\r\n") != std::string::npos)
+            throw Error("respond: a name is 1 to " + std::to_string(kMaxNameBytes) + " bytes of UTF-8 on one line");
+    }
     std::optional<Speaker> found = knowledge::speaker(world_, speaker_uid);
     if (!found) throw Error("respond: the world names no person '" + speaker_uid + "'");
     Speaker& s = *found;
@@ -1139,6 +1151,29 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
             // A grievance, kept at what it cost: at the bottom of the scale an insult costs less.
             a.grievances.push_back(regard(a, kInsulted));
             return finish(packet_for(s, act, Outcome::Offended));
+
+        case ActKind::Introduce: {
+            // The name the player gives (contract version 24), as they said it: perhaps a lie. Told another
+            // than the one they knew, the speaker keeps both. A face that does not know the player keeps
+            // nothing of it.
+            const std::string name = trimmed(act.target);
+            if (!recognised) return finish(packet_for(s, act, Outcome::Introduced));
+            if (a.called == name) {
+                a.called_how = "told";
+                return finish(packet_for(s, act, Outcome::Known));
+            }
+            const Outcome outcome = a.called.empty() ? Outcome::Introduced : Outcome::Renamed;
+            if (!a.called.empty()) a.called_other = a.called;
+            if (a.called_other == name) a.called_other.clear();
+            a.called = name;
+            a.called_how = "told";
+            // Word of their work the player had a part in now carries it, where it carried none.
+            brains::Statement named(brains_.handle(),
+                                    "UPDATE events SET player_name = ?2 WHERE kind = 'work' AND person = ?1 AND player = 1 AND "
+                                    "player_name IS NULL");
+            named.text(1, speaker_uid).text(2, name).run();
+            return finish(packet_for(s, act, outcome));
+        }
 
         case ActKind::Complain:
             // A complaint about the speaker or their work is heard out, and costs nothing: "You never
@@ -1662,6 +1697,9 @@ std::vector<Bystander> Director::overhear(const std::vector<std::string>& people
         const auto found = fears_.find(uid);
         const bool threat = found != fears_.end() && found->second.threat_day >= 0.0 &&
                             (today - found->second.threat_day) * kMinutesPerDay < kThreatMinutes;
+        // A name the player gave, overheard (contract version 24).
+        if (uid != heard.speaker && s->present && heard.act.kind == ActKind::Introduce)
+            learn_name(uid, trimmed(heard.act.target), "overheard");
         if (uid == heard.speaker || !s->present) {
             // The one spoken to heard nothing new; someone gone hears nothing at all.
         } else if (heard.act.kind == ActKind::Calm && heard.outcome == Outcome::Calmed) {
@@ -1732,8 +1770,22 @@ void Director::learn(const std::string& person, const std::string& event, const 
     upsert.text(1, person).text(2, event).text(3, state).real(4, day).text(5, how).run();
 }
 
+void Director::learn_name(const std::string& person, const std::string& name, const std::string& how) {
+    if (name.empty()) return;
+    Acquaintance& a = acquainted_[person];
+    if (a.called.empty()) {
+        a.called = name;
+        a.called_how = how;
+    } else if (a.called != name) {
+        a.called_other = name;
+    }
+    ++acquaintance_changes_;
+}
+
 void Director::hear(const std::string& person, const Event& e, double day, const std::string& how) {
     learn(person, e.id, e.state, day, how);
+    // The player's name, with word of their deed (contract version 24): only ever a name they gave someone.
+    if (e.actor == "player" && !e.player_name.empty()) learn_name(person, e.player_name, how == "overheard" ? "overheard" : "word");
     const int moves = regard_from_word(e);
     if (moves == 0) return;
     // Only for what happened where they live, or to someone they are tied to.
@@ -1795,6 +1847,12 @@ void Director::note_board() {
         if (was == now) continue;
         const double day = row.closed_day.value_or(today);
         move_event(id, now, day, players_work(now) ? "player" : "");
+        // The name the giver knows the player by goes with word of it (contract version 24).
+        if (players_work(now) && !giver.empty())
+            if (const auto knows = acquainted_.find(giver); knows != acquainted_.end() && !knows->second.called.empty()) {
+                brains::Statement named(brains_.handle(), "UPDATE events SET player_name = ?2 WHERE id = ?1 AND player_name IS NULL");
+                named.text(1, id).text(2, knows->second.called).run();
+            }
         if (!giver.empty() && now != "giver_gone") learn(giver, id, now, today, "there");
     }
     transaction.commit();
@@ -1987,7 +2045,7 @@ std::vector<Fact> Director::news(const std::string& speaker, const std::string& 
                                  std::size_t most) const {
     std::string sql = std::string("SELECT ") +
                       "e.id, e.kind, e.day, e.place, e.place_name, e.node, e.about_node, e.person, e.person_name, e.quest_id, "
-                      "e.verb, e.purpose, e.difficulty, e.was, e.revealed, e.player, f.state, s.day, s.actor, f.how "
+                      "e.verb, e.purpose, e.difficulty, e.was, e.revealed, e.player, f.state, s.day, s.actor, f.how, e.player_name "
                       "FROM facts AS f JOIN events AS e ON e.id = f.event JOIN event_states AS s ON s.event = f.event AND "
                       "s.state = f.state WHERE f.person = ?1 AND ";
     if (about == "player")
@@ -2025,6 +2083,9 @@ std::vector<Fact> Director::news(const std::string& speaker, const std::string& 
             }
         }
         f.fields.emplace_back("player", actor == "player" ? "yes" : "no");
+        // The name the player went by there (contract version 24).
+        if (actor == "player" && kind == "work")
+            if (const std::string called = read.text(20); !called.empty()) f.fields.emplace_back("called", called);
         if (kind == "scare" && (state == "beaten" || state == "lost" || state == "passed") && !actor.empty()) {
             const std::string by = actor == "player" ? actor : name_of(world_, actor);
             if (!by.empty()) f.fields.emplace_back("by", by);
@@ -2626,7 +2687,8 @@ void Director::mirror() const {
             brains::Statement insert(h,
                                      "INSERT INTO relationships (person, conversations, talking, last_day, regard, mood, work, "
                                      "grievances, forgiven, asked_before, exposed, eased_day, days_met, exchanges, works_finished, "
-                                     "standing) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16)");
+                                     "standing, called, called_how, called_other) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, "
+                                     "?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19)");
             insert.text(1, uid).integer(2, a.conversations).integer(3, a.talking ? 1 : 0).real(4, a.last_day);
             insert.integer(5, a.disposition).text(6, mood_of(a.disposition)).text(7, a.work);
             insert.integer(8, static_cast<std::int64_t>(a.grievances.size())).integer(9, a.forgiven).text(10, a.asked_before);
@@ -2637,6 +2699,7 @@ void Director::mirror() const {
             const auto known = everyone.people.find(uid);
             insert.integer(13, a.days_met).integer(14, exchanges).integer(15, a.works_finished);
             insert.text(16, standing_of(a, known != everyone.people.end() && known->second.kind != "roster"));
+            insert.text_or_null(17, a.called).text_or_null(18, a.called_how).text_or_null(19, a.called_other);
             insert.run();
         }
     }

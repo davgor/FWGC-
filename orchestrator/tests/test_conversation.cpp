@@ -1054,7 +1054,7 @@ TEST(every_packet_carries_one_memory_of_its_speaker) {
         {ActKind::Answer, ""},        {ActKind::Thank, ""},            {ActKind::Insult, ""},
         {ActKind::Confront, ""},      {ActKind::NoAct, ""},            {ActKind::AskAboutPlace, "no-such-place"},
         {ActKind::Apologize, ""},     {ActKind::Calm, ""},             {ActKind::AskAboutThem, ""},
-        {ActKind::Complain, ""},      {ActKind::Farewell, ""}};
+        {ActKind::Complain, ""},      {ActKind::Introduce, "Aldric"},  {ActKind::Farewell, ""}};
     std::set<ActKind> kinds;
     int turn = 1;  // own_offers asked once already
     for (const auto& [kind, target] : acts) {

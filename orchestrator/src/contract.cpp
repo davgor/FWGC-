@@ -11,12 +11,12 @@ constexpr std::array<std::string_view, kActCount> kActNames = {
     "ask_surroundings", "ask_about_place", "ask_about_person", "ask_for_work", "accept_quest", "decline_quest",
     "abandon_quest",    "farewell",        "no_act",           "greet",        "small_talk",   "answer",
     "thank",            "insult",          "ask_safety",       "confront",     "apologize",    "calm",
-    "ask_about_them",   "complain"};
+    "ask_about_them",   "complain",        "introduce"};
 
 constexpr std::array<std::string_view, kOutcomeCount> kOutcomeNames = {
     "answered", "accepted", "declined",     "abandoned", "unknown",  "refused",  "parted",
     "not_understood", "greeted", "chatted", "acknowledged", "thanked", "offended", "exposed", "denied",
-    "forgiven", "unwronged", "calmed", "still_afraid", "not_afraid", "heard"};
+    "forgiven", "unwronged", "calmed", "still_afraid", "not_afraid", "heard", "introduced", "known", "renamed"};
 
 constexpr std::array<std::string_view, kFactKindCount> kFactNames = {
     "place", "person", "quest_offer", "quest_state", "danger", "reason", "memory", "chat", "safety", "reveal", "news", "recall",
@@ -39,6 +39,7 @@ bool act_needs_target(ActKind kind) {
         case ActKind::AcceptQuest:
         case ActKind::DeclineQuest:
         case ActKind::AbandonQuest:
+        case ActKind::Introduce:
             return true;
         case ActKind::AskSurroundings:
         case ActKind::AskForWork:
@@ -83,6 +84,7 @@ bool act_changes_world(ActKind kind) {
         case ActKind::Calm:
         case ActKind::AskAboutThem:
         case ActKind::Complain:
+        case ActKind::Introduce:
             return false;
     }
     return false;

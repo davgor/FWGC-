@@ -728,6 +728,72 @@ TEST(an_apology_carries_the_strangers_latest_words_of_this_conversation) {
     check::equal(said_in(d.respond(speaker, {ActKind::Apologize, ""})), std::string(), "a later conversation: not that one's words");
 }
 
+// Contract version 24: the player's name is only ever one they said. Told, the speaker knows them by it
+// (perhaps a lie); told the same, known; told another, they keep both. Word of work the player did for a
+// giver who knew a name carries it to whoever hears; an introduction overheard is learned too.
+TEST(the_players_name_is_what_they_said_and_travels_with_word) {
+    const Work work = open_work();
+    const auto memory_of = [](const FactPacket& p) {
+        const std::vector<Fact> memory = facts_of(p, FactKind::Memory);
+        if (memory.size() != 1) check::fail("one Memory fact");
+        return memory.front();
+    };
+    Director d(memory_world());
+    // No name, one too long, one on two lines: refused, and nothing recorded.
+    (void)d.respond(work.giver, {ActKind::Greet, ""});
+    const std::size_t inputs = d.inputs().size();
+    const int turn = d.acquaintance(work.giver)->turn;
+    check::throws([&] { (void)d.respond(work.giver, {ActKind::Introduce, "   "}); }, "no name");
+    check::throws([&] { (void)d.respond(work.giver, {ActKind::Introduce, std::string(61, 'a')}); }, "a name too long");
+    check::throws([&] { (void)d.respond(work.giver, {ActKind::Introduce, "Al\nric"}); }, "a name on two lines");
+    check::equal(d.inputs().size(), inputs, "nothing recorded");
+    check::equal(d.acquaintance(work.giver)->turn, turn, "and nothing changed");
+    check::equal(value(memory_of(d.respond(work.giver, {ActKind::SmallTalk, ""})), "called"), std::string(), "no name yet");
+    // Told.
+    const FactPacket told = d.respond(work.giver, {ActKind::Introduce, " Aldric "});
+    check::is_true(told.outcome == Outcome::Introduced, "a name they did not know: introduced");
+    check::equal(value(memory_of(told), "called"), std::string("Aldric"), "known by it, trimmed");
+    check::equal(value(memory_of(told), "called_how"), std::string("told"), "told");
+    check::equal(value(memory_of(told), "called_other"), std::string(), "no other");
+    check::is_true(d.respond(work.giver, {ActKind::Introduce, "Aldric"}).outcome == Outcome::Known, "the same again: known");
+    const FactPacket other = d.respond(work.giver, {ActKind::Introduce, "Brenna"});
+    check::is_true(other.outcome == Outcome::Renamed, "another: renamed");
+    check::equal(value(memory_of(other), "called"), std::string("Brenna"), "known by the new one");
+    check::equal(value(memory_of(other), "called_other"), std::string("Aldric"), "and the old kept");
+    check::equal(value(memory_of(d.respond(work.giver, {ActKind::Greet, ""})), "called"), std::string("Brenna"), "a greeting says it");
+    const std::vector<std::string> row =
+        rows(d, "SELECT called, called_how, called_other FROM relationships WHERE person = " + quoted(work.giver)).at(0);
+    check::equal(row.at(0) + "|" + row.at(1) + "|" + row.at(2), std::string("Brenna|told|Aldric"), "the database says it");
+    // Word: the giver knows Brenna; work done for them carries the name to whoever hears of it.
+    take(d, work);
+    d.resolve(work.quest, true);
+    check::is_true(d.acquaintance(work.second) == nullptr || d.acquaintance(work.second)->called.empty(), "the premise: unknown to the second");
+    (void)d.share({work.second});
+    const Director::Acquaintance* heard = d.acquaintance(work.second);
+    check::is_true(heard != nullptr && heard->called == "Brenna" && heard->called_how == "word", "the name, by word of the deed");
+    const FactPacket greeted = d.respond(work.second, {ActKind::Greet, ""});
+    bool carried = false;
+    for (const Fact& f : facts_of(greeted, FactKind::News))
+        if (f.field("called") && *f.field("called") == "Brenna") carried = true;
+    check::is_true(carried, "news of the deed says the name the giver knew");
+    check::equal(value(memory_of(greeted), "called_how"), std::string("word"), "known by word");
+    // Overheard: the neighbour is told another name, and the second, standing by, hears it.
+    (void)d.respond(work.neighbour, {ActKind::Introduce, "Cyril"});
+    (void)d.overhear({work.second});
+    check::equal(d.acquaintance(work.second)->called, std::string("Brenna"), "the name they had stays theirs");
+    check::equal(d.acquaintance(work.second)->called_other, std::string("Cyril"), "and the one overheard is the other");
+    // Replayed, the same.
+    Director again = orchestrator::replay(memory_world(), d.inputs());
+    for (const std::string& who : {work.giver, work.second, work.neighbour}) {
+        const Director::Acquaintance* live = d.acquaintance(who);
+        const Director::Acquaintance* replayed = again.acquaintance(who);
+        check::is_true(live && replayed && live->called == replayed->called && live->called_how == replayed->called_how &&
+                           live->called_other == replayed->called_other,
+                       "replay keeps what " + who + " knows the player by");
+    }
+    same_tables(d, again, {"relationships", "events"});
+}
+
 TEST(replay_rebuilds_the_log_and_long_memory_row_for_row) {
     const Work work = open_work();
     const std::string outcomes = R"({"said": [{"quote": "I will see it done", "about": "the work"}], "last": "They took the work on."})";

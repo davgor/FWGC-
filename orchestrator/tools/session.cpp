@@ -20,7 +20,8 @@
 //                                   (the first place named by the latest packet to name any),
 //                                   @said (the place, of those any packet named, whose name LINE
 //                                   says), @own (the first of NAME's own offers the player was
-//                                   told of), @held (the work taken from NAME), or another
+//                                   told of), @held (the work taken from NAME), =TEXT (the text
+//                                   itself: the name the player gives, for introduce), or another
 //                                   speaker's NAME
 //   advance DAYS                    time passes
 //   resolve NAME finished|failed    the game reports the work taken from NAME
@@ -273,6 +274,8 @@ int main(int argc, char** argv) {
                         target = own_offer.count(name) ? own_offer.at(name) : std::string();
                     } else if (t == "@held") {
                         target = held.count(name) ? held.at(name) : std::string();
+                    } else if (t.size() > 1 && t[0] == '=') {
+                        target = t.substr(1);
                     } else {
                         target = speaker(t);
                     }

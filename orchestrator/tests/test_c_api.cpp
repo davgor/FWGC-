@@ -257,8 +257,8 @@ void same_acquaintance(const Handle& h, const Director& d, const std::string& sp
     const fwg::JsonValue j = fwg::parse_json(text);
     const auto& [conversations, talking, last_day, since, turn, disposition, thanked, calmed, eased_day, said, heard,
                  grievances, forgiven, asked_now, asked_before, work, exposed, finished_covert, heard_truth,
-                 seen_unleashed, seen_second, days_met, works_finished, work_news_in] = *known;
-    check::equal(j.size(), std::size_t(24), what + ": every field of the acquaintance");
+                 seen_unleashed, seen_second, days_met, works_finished, work_news_in, called, called_how, called_other] = *known;
+    check::equal(j.size(), std::size_t(27), what + ": every field of the acquaintance");
     check::equal(j.at("conversations").as_int(), std::int64_t(conversations), what + " conversations");
     check::equal(j.at("talking").as_bool(), talking, what + " talking");
     check::is_true(j.at("last_day").as_float() == last_day, what + " last_day");
@@ -291,6 +291,9 @@ void same_acquaintance(const Handle& h, const Director& d, const std::string& sp
     check::equal(j.at("days_met").as_int(), std::int64_t(days_met), what + " days_met");
     check::equal(j.at("works_finished").as_int(), std::int64_t(works_finished), what + " works_finished");
     check::equal(j.at("work_news_in").as_int(), std::int64_t(work_news_in), what + " work_news_in");
+    check::equal(j.at("called").as_string(), called, what + " called");
+    check::equal(j.at("called_how").as_string(), called_how, what + " called_how");
+    check::equal(j.at("called_other").as_string(), called_other, what + " called_other");
 }
 
 // Memories as the interface writes them, held to the director's, field for field.
@@ -595,6 +598,9 @@ void play(Lockstep& both) {
     both.advance(30.0);
     both.say(p.giver1, "greet");
     both.words("Good day to you.", "And to you, stranger. What brings you here?", "What brings you here?");
+    // The player's name (contract version 24), given through the DLL.
+    const FactPacket named = both.say(p.giver1, "introduce", "Aldric");
+    check::is_true(named.outcome == orchestrator::Outcome::Introduced, "the premise: a name given");
     both.say(p.giver1, "ask_for_work");
     both.say(p.giver1, "decline_quest", p.quest1);
     const FactPacket taken_on = both.say(p.giver1, "accept_quest", p.quest1);
@@ -692,7 +698,7 @@ TEST(the_contract_describes_itself) {
     succeeded(fwgc_contract_json(&json), "fwgc_contract_json");
     const fwg::JsonValue contract = fwg::parse_json(taken(json));
     keys_are(contract, {"contract_version", "brains_schema", "acts", "outcomes", "fact_kinds", "doing"}, "the contract");
-    check::equal(contract.at("brains_schema").as_int(), std::int64_t{4}, "the brain database's schema");
+    check::equal(contract.at("brains_schema").as_int(), std::int64_t{5}, "the brain database's schema");
     check::equal(contract.at("contract_version").as_int(), std::int64_t(orchestrator::kContractVersion), "its version");
     const fwg::JsonValue& acts = contract.at("acts");
     check::equal(acts.size(), std::size_t(orchestrator::kActCount), "every act");

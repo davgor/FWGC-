@@ -182,6 +182,7 @@ struct Event {
     std::string state;      // its latest state
     double state_day = 0.0; // since when
     std::string actor;      // who brought the latest state about: "player", a person uid, or empty
+    std::string player_name;  // work the player had a part in: the name its giver knew them by (contract 24)
 };
 
 // Someone who heard an event's state, as share() reports it.
@@ -328,6 +329,9 @@ public:
         int works_finished = 0;        // the speaker's own work the player finished, ever (only heroes give work)
         int work_news_in = 0;          // the conversation in which what came of their work is news: the first
                                        // to begin after it was finished or failed; 0 for none
+        std::string called;            // the name they know the player by, as given (contract version 24)
+        std::string called_how;        // "told", "word", "overheard"
+        std::string called_other;      // another name they also know the player by, when two differ
     };
     // Nullptr for someone the session holds nothing of: never spoken to, never dealt with, never
     // told the truth of.
@@ -550,6 +554,9 @@ private:
     void move_event(const std::string& id, const std::string& state, double day, const std::string& actor);
     // `person` knows `event` at `state`, learned on `day`, `how` "there", "word" or "overheard".
     void learn(const std::string& person, const std::string& event, const std::string& state, double day, const std::string& how);
+    // `person` learns the player's name, `how` ("told", "word", "overheard"): the name they know them by
+    // when they knew none, else another they know them by when it differs (contract version 24).
+    void learn_name(const std::string& person, const std::string& name, const std::string& how);
     // `person` hears of `e` at the state it carries, `how`: they know it by that state now, and take
     // the player better or worse for it when it happened where they live or to someone they are
     // tied to.

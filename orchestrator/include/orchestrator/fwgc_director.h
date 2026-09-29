@@ -50,8 +50,11 @@ extern "C" {
  * 4: the act "complain" and its outcome "heard" (contract version 18).
  * 5: fwgc_account, and the Account fact it gives (contract version 20); the database's schema 3.
  * 6: fwgc_words takes the question the reply asked worth an answer (contract version 21); the
- *    database's schema 4 (exchanges.asked). */
-#define FWGC_API_VERSION 6
+ *    database's schema 4 (exchanges.asked).
+ * 7: the player's name (contract version 24): the act "introduce", its target the name the player gives,
+ *    and the outcomes "introduced", "known" and "renamed"; fwgc_acquaintance's `called`, `called_how` and
+ *    `called_other`; the database's schema 5 (relationships.called..., events.player_name). */
+#define FWGC_API_VERSION 7
 
 typedef struct fwgc_director fwgc_director;
 
@@ -150,7 +153,8 @@ FWGC_API fwgc_status fwgc_clock(const fwgc_director* director, double* day) FWGC
 /* Time passes: `days` of it, zero or more and less than an age. Every conversation ends. */
 FWGC_API fwgc_status fwgc_advance(fwgc_director* director, double days) FWGC_NOEXCEPT;
 /* The player makes `act` (by name: "greet", "ask_about_place", ...) to `speaker`, a person uid;
- * `target` (NULL for none) is a place id, person uid or quest id for the acts that need one.
+ * `target` (NULL for none) is a place id, person uid or quest id for the acts that need one, and for
+ * "introduce" the name the player gives, as they said it (1 to 60 bytes).
  * The answer is a packet: as JSON in *packet_json, and in the contract's text form (what the
  * communicator reads) in *packet_text. Either may be NULL. */
 FWGC_API fwgc_status fwgc_respond(fwgc_director* director, const char* speaker, const char* act, const char* target,

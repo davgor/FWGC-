@@ -55,7 +55,9 @@ namespace orchestrator {
 //     conversation.
 // 22: a war Deed fact's `against`: the city fought, by name.
 // 23: an apology carries the stranger's latest words of this conversation, a Recall fact "said".
-inline constexpr int kContractVersion = 23;
+// 24: the player's name: the act introduce and its outcomes introduced, known and renamed; the Memory
+//     fact's `called`, `called_how` and `called_other`; a News fact of the player's deed carries `called`.
+inline constexpr int kContractVersion = 24;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -87,8 +89,10 @@ enum class ActKind : int {
     // 18.
     Complain,  // a complaint about the speaker or their work: you could have warned me, it was worse
                // than you said
+    // 24.
+    Introduce,  // target: the name the player gives, as they said it (not an id): perhaps a lie
 };
-inline constexpr int kActCount = static_cast<int>(ActKind::Complain) + 1;
+inline constexpr int kActCount = static_cast<int>(ActKind::Introduce) + 1;
 
 std::string_view to_string(ActKind kind);
 std::optional<ActKind> act_kind(std::string_view name);  // nullopt for a name not in the set
@@ -101,7 +105,7 @@ bool act_changes_world(ActKind kind);
 
 struct DialogueAct {
     ActKind kind = ActKind::NoAct;
-    std::string target;  // empty unless act_needs_target(kind)
+    std::string target;  // empty unless act_needs_target(kind); an id, but the name the player gives for introduce
 };
 
 enum class Outcome : int {
@@ -140,8 +144,13 @@ enum class Outcome : int {
     // 18: a complaint.
     Heard,  // the speaker hears it out, and thinks no less of the player for it. From a speaker cold
             // to the player, or a face that does not know them, a complaint is Offended, as an insult
+    // 24: the player's name.
+    Introduced,  // a name the speaker did not know them by: they know them by it now
+    Known,       // the name the speaker already knew them by
+    Renamed,     // another name than the one the speaker knew them by: they know them by the new one, and
+                 // keep the old as the Memory fact's `called_other`
 };
-inline constexpr int kOutcomeCount = static_cast<int>(Outcome::Heard) + 1;
+inline constexpr int kOutcomeCount = static_cast<int>(Outcome::Renamed) + 1;
 
 std::string_view to_string(Outcome outcome);
 
@@ -214,7 +223,11 @@ std::string_view to_string(FactKind kind);
 // - `standing`: how far the stranger and the speaker have come, never falling: "stranger" before
 //   they first spoke, "acquainted" after, "regular" once they have talked on three different days,
 //   "favourite" at ten days and thirty exchanges, the most a roster person comes to; "hero" for a
-//   hero, a dread or a villain, whatever came before.
+//   hero, a dread or a villain, whatever came before;
+// - `called` (contract version 24): the name the speaker knows the player by, as it was given, perhaps a
+//   lie; empty when they know none. `called_how`: "told" (the player told them), "word" (it came with
+//   word of the player's deed), "overheard" (they heard the player give it to someone else).
+//   `called_other`: another name they also know the player by, when two differ; empty otherwise.
 // A conversation ends at a farewell, when time passes, or when the player turns to someone
 // else. A face that does not recognise the player (a beast unleashed) gives a first meeting and
 // a hostile mood.
@@ -268,7 +281,9 @@ std::string_view to_string(FactKind kind);
 // - `player`: "yes" when the player brought this state about, else "no";
 // - `by`: a scare's end: "player", or the name of whoever else brought it about; absent otherwise;
 // - `since`: when this state came about, in the Memory fact's calendar bands;
-// - `how`: "there" when the speaker saw it or it happened to them, "word" when they heard it.
+// - `how`: "there" when the speaker saw it or it happened to them, "word" when they heard it;
+// - `called` (contract version 24): of work the player finished, failed, gave up or took, the name its
+//   giver knew the player by, which travels with word of it; absent when the giver knew none.
 // A greeting carries the newest event whose state the speaker knows the player brought about; small
 // talk the newest they know of at the place they stand; an answer about a place up to two about it;
 // an answer about a person one about them. At most those, and none the speaker has not heard.

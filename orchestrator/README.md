@@ -285,6 +285,25 @@ last of their work the player finished or failed, never an older one's in its pl
 their next work ends it. Nobody else is given it: news of the work travels as its event does, and
 the account is the giver's own.
 
+## The player's name
+
+Contract version 24, schema 5, C interface 7. The owner, 2026-09-29: "2 paths for learning. Either by
+name, so if the players name is passed around in the facts tree that the NPC or hero knows about, then
+it gets added. Otherwise, they only know when the player tells them, and again the player may lie."
+Asked where a name in the facts tree comes from: only ever one the player said, so a lie spreads as one.
+
+- **Told.** The act `introduce`, its target the name as the player gave it (1 to 60 bytes of UTF-8 on
+  one line, trimmed; refused otherwise, and nothing changes). A name the speaker did not know them by is
+  `introduced`; the same again, `known`; another, `renamed`: they know them by the new one and keep the
+  old. A face that does not know the player keeps nothing of it.
+- **By word.** Work the player takes, finishes, fails or gives up carries the name its giver knows them
+  by (`events.player_name`, set when the player moves it and when the giver is told a name later), and
+  whoever hears of it learns the name with it, unless they know one; a News fact of the player's deed
+  says it (`called`). Someone told one name who hears another keeps both.
+- **Overheard.** Those who overhear the player give a name learn it.
+- The Memory fact's `called`, `called_how` ("told", "word", "overheard") and `called_other` say it in
+  every packet; `relationships` holds them for the game's queries, and fwgc_acquaintance's JSON too.
+
 ## Short and long memory
 
 Contract version 12, schema 2, C interface 3. The owner, on compaction: "It should mirror what

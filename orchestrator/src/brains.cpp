@@ -62,7 +62,10 @@ CREATE TABLE relationships (
   days_met INTEGER NOT NULL,
   exchanges INTEGER NOT NULL,
   works_finished INTEGER NOT NULL,
-  standing TEXT NOT NULL
+  standing TEXT NOT NULL,
+  called TEXT,
+  called_how TEXT,
+  called_other TEXT
 ) WITHOUT ROWID;
 CREATE TABLE events (
   id TEXT PRIMARY KEY,
@@ -84,7 +87,8 @@ CREATE TABLE events (
   player INTEGER NOT NULL,
   state TEXT NOT NULL,
   state_day REAL NOT NULL,
-  actor TEXT
+  actor TEXT,
+  player_name TEXT
 ) WITHOUT ROWID;
 CREATE INDEX events_node ON events (node);
 CREATE INDEX events_about ON events (about_node);
@@ -168,7 +172,7 @@ CREATE INDEX memories_seq ON memories (person, seq);
 CREATE VIEW active_short AS
   SELECT person, count(*) AS exchanges, min(day) AS since_day, max(day) AS last_day
   FROM exchanges GROUP BY person;
-PRAGMA user_version = 4;
+PRAGMA user_version = 5;
 )sql";
 
 [[noreturn]] void failed(sqlite3* db, const std::string& what) {
