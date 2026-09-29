@@ -393,3 +393,12 @@ any | account_heard | So I'm told: {account}.
 any | asked_again | You never did answer me, last time. {question}
 any | asked_again | I asked you once and never had an answer. {question}
 any | asked_again | There's a thing you never did tell me. {question}
+# An apology for how the stranger is, in the light of a loss or a hardship they told earlier in this
+# conversation (contract version 23): never a question, never a wrong to forgive.
+any | unwronged_state_grief | Nothing to forgive; not after what you've lost.
+any | unwronged_state_grief | There's nothing to forgive; grief sits how it likes, and it's welcome here.
+any | unwronged_state_hardship | Nothing to forgive; you've been through enough.
+any | unwronged_state_hardship | No harm done; you've had a hard road of it.
+any | forgiven_state_grief | Let's forget it; not after what you've lost.
+any | forgiven_state_grief | No hard feelings; grief sharpens anyone's tongue.
+any | forgiven_state_hardship | All right; you've been through enough, and I'll not hold a sharp word against you.

@@ -604,6 +604,14 @@ inline FactPacket greeted_remembering(const std::string& words = "My sister keep
                   {.met = "again", .times = 1, .since = "days"});
 }
 
+// An apology with the stranger's latest words of this conversation (contract version 23): nothing to
+// forgive, or, with `outcome` Forgiven, a wrong forgiven.
+inline FactPacket apology_after(const std::string& words, Outcome outcome = Outcome::Unwronged) {
+    const std::string self = castellan().uid;
+    return packet(castellan(), ActKind::Apologize, outcome, {recall_fact(self, "said", "said", "", 1, "today", "today", words)},
+                  {.met = "again", .times = 1, .since = "days"});
+}
+
 // Greeted in a later conversation, with a question of the castellan's the stranger never answered
 // (contract version 21).
 inline FactPacket greeted_with_a_question(const std::string& question = "Who were they to you?") {
@@ -778,6 +786,8 @@ inline std::vector<FactPacket> conversation() {
             greeted_after("abandoned", "neutral"),
             with_account(greeted_after("finished", "warm")),
             greeted_with_a_question(),
+            apology_after("My brother came with me. He didn't make it back."),
+            apology_after("My brother came with me. He didn't make it back.", Outcome::Forgiven),
             with_account(beside(greeted_after("finished", "warm")), "person"),
             with_account(small_talk_after_work()),
             with_account(beside(small_talk_after_work())),

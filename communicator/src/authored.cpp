@@ -562,6 +562,15 @@ std::string told_kind(Meaning& meaning, std::string_view words) {
     return kinds[meaning.subject_of(words, told)];
 }
 
+// Whether the packet carries the stranger's words of this conversation (contract version 23): an apology's
+// Recall fact `said`, since today.
+bool said_today(const FactPacket& p) {
+    const std::vector<Recall> all = recalls(p);
+    const Recall* said = recall_of(all, "said");
+    return said != nullptr && said->since == "today" && !said->words.empty() &&
+           (p.outcome == Outcome::Unwronged || p.outcome == Outcome::Forgiven);
+}
+
 // Whether the speaker has a past to tell of themself (contract version 13): a deed that is not the post
 // their standing says, a city lost, or where they served before it (contract version 19).
 bool has_past(const FactPacket& p) {
@@ -904,6 +913,12 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // there is a wrong to forgive.
         {"unwronged_state", {}},
         {"forgiven_state", {}},
+        // Contract version 23: the same, in the light of a loss or a hardship the stranger told earlier in this
+        // conversation.
+        {"unwronged_state_grief", {}},
+        {"unwronged_state_hardship", {}},
+        {"forgiven_state_grief", {}},
+        {"forgiven_state_hardship", {}},
         // A farewell to someone with the speaker's work to do.
         {"parted_work", {}},
         {"parted_returned", {}},
@@ -1129,9 +1144,11 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             // As a cold greeting: a bank without a cold line leaves it to the next bank's. An apology
             // for how the stranger is, heard by meaning (speak()).
             if (m.cold()) return {"forgiven_cold"};
-            return {"forgiven", "forgiven_state"};
+            return said_today(p) ? std::vector<std::string>{"forgiven", "forgiven_state", "forgiven_state_grief", "forgiven_state_hardship"}
+                                 : std::vector<std::string>{"forgiven", "forgiven_state"};
         case Outcome::Unwronged:
-            return {"unwronged", "unwronged_state"};
+            return said_today(p) ? std::vector<std::string>{"unwronged", "unwronged_state", "unwronged_state_grief", "unwronged_state_hardship"}
+                                 : std::vector<std::string>{"unwronged", "unwronged_state"};
         case Outcome::Calmed:
             return {"calmed"};
         case Outcome::StillAfraid:
@@ -1780,10 +1797,22 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             "Sorry for something I did or said: for being rude, for a mistake, for interrupting, for being late."};
         static const std::vector<std::string> state = {"unwronged_state"};
         static const std::vector<std::string> forgiven_state = {"forgiven_state"};
-        if (meaning->subject_of(line, subjects) == 0)
-            if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, p.outcome == Outcome::Forgiven ? &forgiven_state : &state);
-                !on_it.empty())
-                spoken = on_it;
+        if (meaning->subject_of(line, subjects) == 0) {
+            const std::vector<std::string>& base = p.outcome == Outcome::Forgiven ? forgiven_state : state;
+            // In the light of a loss or a hardship the stranger told earlier in this conversation (contract
+            // version 23): "Sorry, I'm not myself today", two lines after a brother's death, drew a stock
+            // "nothing to forgive" (three of the golden benchmark's judges, 2026-09-29). Asked alone, as luck is.
+            std::vector<Spoken> on_it;
+            if (said_today(p)) {
+                const std::vector<Recall> all = recalls(p);
+                if (const std::string kind = told_kind(*meaning, recall_of(all, "said")->words); kind == "_grief" || kind == "_hardship") {
+                    const std::vector<std::string> lit = {base.front() + kind};
+                    on_it = spoken_for(p, &recent, true, &lit);
+                }
+            }
+            if (on_it.empty()) on_it = spoken_for(p, &recent, true, &base);
+            if (!on_it.empty()) spoken = on_it;
+        }
     }
     // Seen off with their work to do, the stranger is wished luck: "Wish me luck." drew "Goodbye, and don't
     // be a stranger" (a held-out hero session's judge, 2026-09-28). Asked alone, since a bank's own

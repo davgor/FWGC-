@@ -2603,3 +2603,42 @@ TEST(a_question_never_answered_is_asked_again_after_a_greeting) {
                    "the premise: the line is true to this packet");
     check::is_true(lines.follow(chat).empty(), "small talk: not asked");
 }
+
+// Contract version 23: an apology for how the stranger is, in the light of a loss or a hardship they told
+// earlier in this conversation. "Sorry, I'm not myself today", two lines after a brother's death, drew a
+// stock "nothing to forgive" (three of the golden benchmark's judges, 2026-09-29).
+TEST(an_apology_for_how_one_is_is_heard_in_the_light_of_what_they_told) {
+    communicator::Meaning meaning(test_model::embedder());
+    const Lines lines = Lines::parse("any | unwronged_state | Nothing to forgive; how you are is your own.\n"
+                                     "any | unwronged_state_grief | Nothing to forgive; not after what you've lost.\n"
+                                     "any | unwronged_state_hardship | Nothing to forgive; you've been through enough.\n"
+                                     "any | forgiven_state | All right; let it go.\n"
+                                     "any | forgiven_state_grief | Let's forget it; not after what you've lost.\n",
+                                     "sorry");
+    const std::string sorry = "Sorry, I'm not myself today.";
+    check::equal(lines.speak(packets::apology_after("My brother came with me. He didn't make it back."), sorry, {}, &meaning),
+                 std::string("Nothing to forgive; not after what you've lost."), "after a death");
+    check::equal(lines.speak(packets::apology_after("I nearly lost my arm on the second night."), sorry, {}, &meaning),
+                 std::string("Nothing to forgive; you've been through enough."), "after a hurt");
+    check::equal(lines.speak(packets::apology_after("I was a smith once, in the south."), sorry, {}, &meaning),
+                 std::string("Nothing to forgive; how you are is your own."), "after a passing remark: as before");
+    check::equal(lines.speak(packets::unwronged(), sorry, {}, &meaning), std::string("Nothing to forgive; how you are is your own."), "nothing told: as before");
+    // Words from another day are not what the apology follows.
+    FactPacket earlier = packets::apology_after("My brother came with me. He didn't make it back.");
+    for (Fact& f : earlier.facts)
+        if (f.kind == FactKind::Recall)
+            for (auto& [key, value] : f.fields)
+                if (key == "since" || key == "first") value = "days";
+    check::equal(lines.speak(earlier, sorry, {}, &meaning), std::string("Nothing to forgive; how you are is your own."),
+                 "told days ago: as before");
+    check::equal(lines.speak(packets::apology_after("My brother came with me. He didn't make it back.", Outcome::Forgiven), sorry, {}, &meaning),
+                 std::string("Let's forget it; not after what you've lost."), "forgiven, after a death");
+    check::equal(lines.speak(packets::apology_after("I nearly lost my arm on the second night.", Outcome::Forgiven), sorry, {}, &meaning),
+                 std::string("All right; let it go."), "forgiven, after a hurt, with no line of it: as before");
+    // An apology for a wrong is not heard in that light.
+    const Lines wronged = Lines::parse("any | unwronged | Nothing to forgive; you've done me no wrong.\n"
+                                       "any | unwronged_state_grief | Nothing to forgive; not after what you've lost.\n",
+                                       "wronged");
+    check::equal(wronged.speak(packets::apology_after("My brother came with me. He didn't make it back."), "Sorry for being rude earlier.", {}, &meaning),
+                 std::string("Nothing to forgive; you've done me no wrong."), "an apology for a wrong: as ever");
+}

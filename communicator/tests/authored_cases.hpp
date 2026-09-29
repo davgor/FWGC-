@@ -533,7 +533,7 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
         // An apology for how the stranger is, not for a wrong, is not met with a question: "Whatever for?",
         // two turns after the stranger told of a brother's death, took their state as having no cause (a
         // hero session's judge, 2026-09-28).
-        if (situation == "unwronged_state" && (line.rfind("What for", 0) == 0 || line.rfind("Whatever for", 0) == 0))
+        if (situation.rfind("unwronged_state", 0) == 0 && (line.rfind("What for", 0) == 0 || line.rfind("Whatever for", 0) == 0))
             out.push_back("a question after an apology for how the stranger is: heard as if it had no cause");
     }
     try {

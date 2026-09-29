@@ -758,6 +758,13 @@ Contract version 12: the director keeps each speaker's conversation log and, onc
 it, their long memory (orchestrator/README.md, "Short and long memory"); a packet carries Recall
 facts, what the speaker remembers of the stranger from before that bears on the act.
 
+- **An apology for how the stranger is, heard in the light of what they just told** (contract version
+  23): an apology's packet carries the stranger's latest words of this conversation (a Recall fact
+  `said`, since today), and taken as a loss or a hardship by meaning (`told_kind`, as said-back words
+  are), the reply says so: `unwronged_state_grief` ("Nothing to forgive; not after what you've lost."),
+  `unwronged_state_hardship`, `forgiven_state_grief`, `forgiven_state_hardship`, asked alone; with no
+  line of it, or anything else told, as before. "Sorry, I'm not myself today", two lines after a
+  brother's death, had drawn a stock "nothing to forgive" from three judges' heroes.
 - **Their own questions, asked again once** (contract version 21; the owner, of a hero's question left
   hanging: "Lets get it fixed"). `question_to_keep(reply, meaning)` (`asked.hpp`) says which question
   of a reply is worth an answer, for the game to hand the director with the reply's words
