@@ -201,10 +201,10 @@ struct CleanseOperation {
 // One line of the log every API after generation appends to, in call order: an age
 // advance, a corruption, a cleanse, a summons or a departure, a span of time, a batch of
 // quest actions, a player's founding, a band raised on request, a batch of person-state
-// changes (person_state.hpp), or what heroes did (hero_action.hpp).
+// changes (person_state.hpp), what heroes did, or how their alignment moved after it (hero_action.hpp).
 using HistoryOperation = std::variant<AgeOperation, CorruptionOperation, CleanseOperation, VisitationOperation,
                                       TimeOperationRecord, QuestOperationRecord, SettlementOperation,
-                                      NomadOperation, PersonOperation, HeroOperation>;
+                                      NomadOperation, PersonOperation, HeroOperation, HeroShiftOperation>;
 
 struct WorldHistory {
     int version = kHistoryVersion;

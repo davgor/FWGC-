@@ -54,4 +54,39 @@ struct HeroActionResult {
 // other. Everything is judged before anything is written.
 HeroActionResult hero_action_request(const World& world, const HeroActionRequest& request);
 
+// ---- How a hero's alignment moved after a deed of theirs (heroes version 6) ---------------------
+//
+// Whatever decides how a hero takes what befell them does so outside the world; this verb records what
+// it made of them. For each shift, in order: their alignment moved along each axis, clamped to -1..1 and
+// recorded as generation records one (hero_alignment_record), their persona and their one face composed
+// again from their card for the alignment they now have (compose_persona), and a line of their log in the
+// world's words after the deed it came after. Nothing else is touched. A call appends one
+// HeroShiftOperation to history.operations.
+
+inline constexpr std::size_t kMaxHeroShifts = 64;
+
+struct HeroShiftRequest {
+    int api_version = kHeroShiftApiVersion;
+    std::vector<HeroShiftEntry> shifts;  // applied in order, 1 .. kMaxHeroShifts
+};
+
+// One shift as the call wrote it.
+struct HeroShiftReport {
+    std::string uid;
+    std::string code_before, code_after;  // their alignment's two letters before and after ("LN", "NE", ...)
+    std::string text;                     // the log's line
+};
+
+struct HeroShiftResult {
+    World world;
+    std::vector<HeroShiftReport> shifts;
+};
+
+// Refused, naming the field (WorldTimeError), when: api_version is not this build's; there is no shift or
+// more than kMaxHeroShifts; the world has no heroes block, or it failed; a uid names no hero, a legend, a
+// hero of more than one face, or one whose archetype has no card; an axis moved past kHeroShiftStep either
+// way, not a finite number, or both axes still; an after_event_id that is none of the hero's action deeds;
+// a day before the founding or past the clock. Everything is judged before anything is written.
+HeroShiftResult hero_shift_request(const World& world, const HeroShiftRequest& request);
+
 }  // namespace fwg

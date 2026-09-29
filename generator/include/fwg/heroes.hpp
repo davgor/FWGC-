@@ -40,8 +40,10 @@ namespace fwg {
 // `served_at`, `served_as` and `liege_uid`. 4 gives every deed its `scope`, how far word of it went,
 // and marks the one each record is known for (`known_for`). 5: a hero's record can hold what they did
 // after the world was made (hero_action.hpp): a deed of event_kind "action", with where, against whom
-// or what, and the day. A world as generated holds none.
-inline constexpr int kHeroesVersion = 5;
+// or what, and the day. A world as generated holds none. 6: a hero's alignment can move after such a deed
+// (hero_shift_request): their alignment, persona and face as they now are, and a line of their log of
+// event_kind "shift" after the deed. A world as generated holds none either.
+inline constexpr int kHeroesVersion = 6;
 
 // ---------------------------------------------------------------------------
 // The authored catalogue, generated from data/hero-*.json into

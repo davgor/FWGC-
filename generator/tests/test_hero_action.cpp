@@ -347,3 +347,200 @@ TEST(hero_action_what_the_world_cannot_hold_is_refused) {
     check::throws([&] { (void)act(world, {good, bad}); }, "judged whole before anything is written");
     check::equal(act(world, {good}).actions.front().event_id, std::string("action-1"), "and the world counts none");
 }
+
+// ---- How a hero's alignment moved after a deed of theirs (hero_shift_request) -----------------------------------
+
+namespace {
+
+HeroShiftResult shift(const World& world, std::vector<HeroShiftEntry> entries) {
+    HeroShiftRequest request;
+    request.shifts = std::move(entries);
+    return hero_shift_request(world, request);
+}
+
+HeroShiftEntry shifted(const Hero& hero, const std::string& after, double law, double good, double day) {
+    HeroShiftEntry entry;
+    entry.uid = hero.uid;
+    entry.law = law;
+    entry.good = good;
+    entry.after_event_id = after;
+    entry.day = day;
+    return entry;
+}
+
+bool same_persona(const HeroPersona& a, const HeroPersona& b) {
+    return a.archetype == b.archetype && a.belief == b.belief && a.wants == b.wants && a.fears == b.fears && a.tells == b.tells &&
+           a.mechanic == b.mechanic && a.manner == b.manner && a.voice == b.voice && a.lies == b.lies && a.toward_player == b.toward_player &&
+           a.cornered == b.cornered && a.never == b.never && a.line == b.line;
+}
+
+}  // namespace
+
+// A castellan who lost a fight, hardened after it: a step toward evil, their persona and their face composed again
+// from their card for the alignment they now have, a line of their log after the deed, one operation logged,
+// nothing else touched, and the caller's world untouched.
+TEST(hero_shift_a_hero_hardened_after_a_fight) {
+    const World& world = genesis();
+    // A castellan a step carries across a boundary, so what is composed again for it differs from what they had.
+    const Hero* near = nullptr;
+    for (const Hero& hero : world.heroes.people)
+        if (!near && hero.role == "castellan" && hero.status == "living" && hero.faces.size() == 1 && hero.presence &&
+            hero.presence->site_kind == "fortress" &&
+            hero_alignment_record(hero.alignment.law, std::clamp(hero.alignment.good - kHeroShiftStep, -1.0, 1.0)).code != hero.alignment.code)
+            near = &hero;
+    check::is_true(near != nullptr, "the premise: a castellan a step carries across a boundary");
+    if (near == nullptr) return;
+    const Hero& castellan = *near;
+    const double today = world_clock_of(world).day;
+    const HeroActionResult fought = act(world, {defended(castellan, a_nest(world, 5).id, "lost", today)});
+    const std::string deed_id = fought.actions.front().event_id;
+    const std::string before_json = json_of(fought.world);
+    const HeroShiftResult result = shift(fought.world, {shifted(castellan, deed_id, 0.0, -kHeroShiftStep, today)});
+    check::equal(json_of(fought.world), before_json, "the caller's world is untouched");
+
+    const Hero& was = hero_in(fought.world, castellan.uid);
+    const Hero& now = hero_in(result.world, castellan.uid);
+    check::is_true(std::abs(now.alignment.good - std::max(-1.0, was.alignment.good - kHeroShiftStep)) < 1e-3,
+                   "a step toward evil: " + std::to_string(was.alignment.good) + " to " + std::to_string(now.alignment.good));
+    check::is_true(std::abs(now.alignment.law - was.alignment.law) < 1e-3, "law as it was");
+    check::is_true(same_persona(now.persona, compose_persona(*hero_archetype_card(now.archetype), now.alignment)),
+                   "their persona composed again from their card for the alignment they now have");
+    check::is_true(now.alignment.code != was.alignment.code && !same_persona(now.persona, was.persona),
+                   "the premise: across a boundary, another persona: " + was.alignment.code + " to " + now.alignment.code);
+    check::equal(now.faces.size(), std::size_t{1}, "one face");
+    check::equal(now.faces.front().alignment.code, now.alignment.code, "their face moved with them");
+    check::is_true(same_persona(now.faces.front().persona, now.persona), "and speaks as they now do");
+    check::equal(now.log.size(), was.log.size() + 1, "one line more");
+    check::equal(now.log.back().event_kind, std::string("shift"), "a shift");
+    check::equal(now.log.back().event_id, deed_id, "after that deed");
+    check::is_true(now.log.back().text.rfind("Hardened after the fight at ", 0) == 0, "in the world's words: " + now.log.back().text);
+    check::equal(now.deeds.size(), was.deeds.size(), "no deed more");
+    check::equal(now.fame, was.fame, "their fame as it was");
+    check::equal(result.shifts.front().code_before, was.alignment.code, "reported as they were");
+    check::equal(result.shifts.front().code_after, now.alignment.code, "and as they are");
+    check::equal(result.world.history.operations.size(), fought.world.history.operations.size() + 1, "one operation more");
+    const auto* op = std::get_if<HeroShiftOperation>(&result.world.history.operations.back());
+    check::is_true(op != nullptr && op->shifts.size() == 1 && op->shifts.front().uid == castellan.uid && op->shifts.front().after_event_id == deed_id,
+                   "the shift as the request said it");
+    const std::string written = json_of(result.world);
+    check::is_true(written.find("\"kind\":\"hero shift\"") != std::string::npos && written.find("\"after_event_id\":\"" + deed_id + "\"") != std::string::npos,
+                   "and the document says it");
+    std::size_t others = 0;
+    for (const Hero& other : fought.world.heroes.people)
+        if (other.uid != castellan.uid) {
+            const Hero& same = hero_in(result.world, other.uid);
+            check::is_true(same.alignment.code == other.alignment.code && same_persona(same.persona, other.persona) &&
+                               same.log.size() == other.log.size(),
+                           "another hero as they were: " + other.uid);
+            ++others;
+        }
+    check::is_true(others > 0, "the premise: other heroes");
+    // The same request, the same world.
+    check::equal(json_of(shift(fought.world, {shifted(castellan, deed_id, 0.0, -kHeroShiftStep, today)}).world), json_of(result.world),
+                 "the same request, the same world");
+}
+
+// A step at most moves a hero across one boundary of their alignment, never two; two in one call move them from
+// where the first left them; each axis stops at the end of its scale.
+TEST(hero_shift_steps_are_bounded_and_follow_one_another) {
+    const World& world = genesis();
+    const Hero& castellan = a_castellan(world);
+    const double today = world_clock_of(world).day;
+    const HeroActionResult fought = act(world, {defended(castellan, a_nest(world, 5).id, "lost", today)});
+    const std::string deed_id = fought.actions.front().event_id;
+    const Hero& was = hero_in(fought.world, castellan.uid);
+    const HeroShiftResult twice =
+        shift(fought.world, {shifted(castellan, deed_id, 0.0, -kHeroShiftStep, today), shifted(castellan, deed_id, 0.0, -kHeroShiftStep, today)});
+    const Hero& now = hero_in(twice.world, castellan.uid);
+    check::is_true(std::abs(now.alignment.good - std::max(-1.0, was.alignment.good - 2 * kHeroShiftStep)) < 2e-3, "two steps, one after the other");
+    check::equal(twice.shifts.back().code_before, twice.shifts.front().code_after, "the second from where the first left them");
+    check::equal(now.log.size(), was.log.size() + 2, "a line each");
+    // Every one-faced hero's good letter moves at most one place a step: G to N, N to E, never G to E.
+    std::size_t moved = 0;
+    for (const Hero& hero : world.heroes.people) {
+        if (hero.faces.size() != 1 || hero.status == "legend" || hero_archetype_card(hero.archetype) == nullptr) continue;
+        const HeroAlignment one = hero_alignment_record(hero.alignment.law, std::clamp(hero.alignment.good - kHeroShiftStep, -1.0, 1.0));
+        const std::string order = "GNE";
+        const std::size_t from = order.find(hero.alignment.code.back()), to = order.find(one.code.back());
+        check::is_true(from != std::string::npos && to != std::string::npos && to - from <= 1, "one boundary at most: " + hero.uid);
+        moved += to != from ? 1 : 0;
+    }
+    check::is_true(moved > 0, "the premise: a step carried someone across a boundary");
+    // To the end of the scale and no further.
+    HeroShiftRequest many;
+    for (int i = 0; i < 8; ++i) many.shifts.push_back(shifted(castellan, deed_id, 0.0, -kHeroShiftStep, today));
+    check::equal(hero_in(hero_shift_request(fought.world, many).world, castellan.uid).alignment.good, -1.0, "stopped at the end of the scale");
+}
+
+// What the world cannot hold is refused, and nothing is written when any shift is refused.
+TEST(hero_shift_what_the_world_cannot_hold_is_refused) {
+    const World& world = genesis();
+    const Hero& castellan = a_castellan(world);
+    const double today = world_clock_of(world).day;
+    const HeroActionResult fought = act(world, {defended(castellan, a_nest(world, 5).id, "lost", today)});
+    const std::string deed_id = fought.actions.front().event_id;
+    const HeroShiftEntry good = shifted(castellan, deed_id, 0.0, -kHeroShiftStep, today);
+    // Refused for the field that is wrong: a legend or a hero of two faces holds no deed done since the world was
+    // made either, and a refusal of that deed instead would pass over a guard that is gone.
+    const auto refused = [&](HeroShiftEntry entry, const std::string& what, const std::string& field) {
+        try {
+            (void)shift(fought.world, {entry});
+        } catch (const WorldTimeError& error) {
+            check::equal(error.field(), field, what + ", refused for it");
+            return;
+        }
+        check::fail(what + " was not refused");
+    };
+    HeroShiftEntry e = good;
+    e.uid = "hero-nobody";
+    check::throws([&] { (void)shift(fought.world, {e}); }, "a uid no hero has");
+    // A legend of one face and a card, so only their being a legend stands in the way.
+    const auto legend = std::find_if(world.heroes.people.begin(), world.heroes.people.end(), [](const Hero& h) {
+        return h.status == "legend" && h.faces.size() == 1 && hero_archetype_card(h.archetype) != nullptr;
+    });
+    check::is_true(legend != world.heroes.people.end(), "the premise: a legend of one face");
+    e = good;
+    e.uid = legend->uid;
+    refused(e, "a legend", "shifts[0].uid");
+    const auto faced = std::find_if(world.heroes.people.begin(), world.heroes.people.end(),
+                                    [](const Hero& h) { return h.faces.size() > 1 && h.status != "legend"; });
+    check::is_true(faced != world.heroes.people.end(), "the premise: a hero of more than one face");
+    e = good;
+    e.uid = faced->uid;
+    refused(e, "a hero of more than one face", "shifts[0].uid");
+    e = good;
+    e.good = -(kHeroShiftStep + 0.01);
+    refused(e, "past a step toward evil", "shifts[0].good");
+    e = good;
+    e.law = kHeroShiftStep + 0.01;
+    refused(e, "past a step toward law", "shifts[0].law");
+    e = good;
+    e.good = std::nan("");
+    refused(e, "not a number", "shifts[0].good");
+    e = good;
+    e.good = 0.0;
+    refused(e, "no move at all", "shifts[0].good");
+    e = good;
+    e.after_event_id = "action-999";
+    refused(e, "no such deed", "shifts[0].after_event_id");
+    e = good;
+    e.after_event_id = castellan.deeds.front().event_id;
+    refused(e, "a deed of generation, not one done since", "shifts[0].after_event_id");
+    e = good;
+    e.day = -1.0;
+    refused(e, "a day before the founding", "shifts[0].day");
+    e = good;
+    e.day = today + 1.0;
+    refused(e, "a day past the clock", "shifts[0].day");
+    HeroShiftRequest request;
+    check::throws([&] { (void)hero_shift_request(fought.world, request); }, "no shift");
+    request.shifts.assign(kMaxHeroShifts + 1, good);
+    check::throws([&] { (void)hero_shift_request(fought.world, request); }, "too many");
+    request.shifts.assign(1, good);
+    request.api_version = kHeroShiftApiVersion + 1;
+    check::throws([&] { (void)hero_shift_request(fought.world, request); }, "another api version");
+    HeroShiftEntry bad = good;
+    bad.good = 0.0;
+    check::throws([&] { (void)shift(fought.world, {good, bad}); }, "judged whole before anything is written");
+    check::throws([&] { (void)shift(world, {good}); }, "a deed the world does not hold yet");
+}

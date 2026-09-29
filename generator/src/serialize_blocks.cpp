@@ -4477,6 +4477,26 @@ void history_operation(JsonWriter& json, const HeroOperation& op) {
     json.end_object();
 }
 
+// The hero-shift route's entry (hero_action.hpp): the shifts that applied, as the request said them.
+void history_operation(JsonWriter& json, const HeroShiftOperation& op) {
+    json.begin_object();
+    integer(json, "api_version", op.api_version);
+    text(json, "kind", "hero shift");
+    json.key("shifts");
+    json.begin_array();
+    for (const HeroShiftEntry& s : op.shifts) {
+        json.begin_object();
+        text(json, "uid", s.uid);
+        real(json, "law", s.law);
+        real(json, "good", s.good);
+        text(json, "after_event_id", s.after_event_id);
+        real(json, "day", s.day);
+        json.end_object();
+    }
+    json.end_array();
+    json.end_object();
+}
+
 void write_history(JsonWriter& json, const WorldHistory& h) {
     json.begin_object();
     integer(json, "version", h.version);

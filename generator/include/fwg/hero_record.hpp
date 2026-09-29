@@ -35,4 +35,24 @@ struct HeroOperation {
     std::vector<HeroActionEntry> actions;
 };
 
+inline constexpr int kHeroShiftApiVersion = 1;
+// The most one shift moves a hero along an axis: the pole cut's own size (hero_alignment_record puts the poles
+// past 0.34 either way), half the neutral band, so one step can carry someone across a boundary and never across
+// two.
+inline constexpr double kHeroShiftStep = 0.34;
+
+// A hero's alignment moved after a deed of theirs, as the request said it and the log keeps it.
+struct HeroShiftEntry {
+    std::string uid;               // the hero, of one face
+    double law = 0.0, good = 0.0;  // along each axis, each at most kHeroShiftStep either way, not both zero
+    std::string after_event_id;    // the deed of theirs it came after: one of their "action" deeds
+    double day = 0.0;              // at or after the founding, never past the clock
+};
+
+// The hero-shift route's entry: api_version, kind "hero shift", the shifts as they applied, in call order.
+struct HeroShiftOperation {
+    int api_version = kHeroShiftApiVersion;
+    std::vector<HeroShiftEntry> shifts;
+};
+
 }  // namespace fwg

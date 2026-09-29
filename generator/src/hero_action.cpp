@@ -257,4 +257,106 @@ HeroActionResult hero_action_request(const World& world, const HeroActionRequest
     return result;
 }
 
+namespace {
+
+std::string shift_field(std::size_t index, std::string_view name) {
+    return "shifts[" + std::to_string(index) + "]." + std::string(name);
+}
+
+// The log's line for a shift: which way they moved, after which fight.
+std::string shift_line(const HeroShiftEntry& entry, const HeroDeed& deed) {
+    const std::string turned = entry.good < 0.0   ? "Hardened"
+                               : entry.good > 0.0 ? "Softened"
+                               : entry.law > 0.0  ? "Grew stricter"
+                                                  : "Grew less bound by rule";
+    const std::string after = !deed.place_name.empty()     ? "the fight at " + deed.place_name
+                              : !deed.against_name.empty() ? "the fight against " + deed.against_name
+                                                           : std::string("that fight");
+    return turned + " after " + after + ".";
+}
+
+}  // namespace
+
+HeroShiftResult hero_shift_request(const World& world, const HeroShiftRequest& request) {
+    if (request.api_version != kHeroShiftApiVersion) throw refuse::unsupported_api(request.api_version, kHeroShiftApiVersion);
+    if (request.shifts.empty()) throw refuse::out_of_range("shifts", 0.0, 1.0, static_cast<double>(kMaxHeroShifts), "");
+    if (request.shifts.size() > kMaxHeroShifts)
+        throw refuse::over_capacity("shifts", request.shifts.size(), kMaxHeroShifts, "hero shift");
+    if (!world.has_heroes || world.heroes.status != "ok")
+        throw refuse::missing_block("heroes", "This world carries no heroes to change: the cast is written at generation, "
+                                              "and a world whose heroes package failed has none.");
+    const double today = world_clock_of(world).day;
+
+    struct Shift {
+        const HeroShiftEntry* entry = nullptr;
+        std::size_t hero = 0;  // index into heroes.people
+        const HeroArchetypeCard* card = nullptr;
+        std::size_t deed = 0;  // index into their deeds
+    };
+    std::vector<Shift> judged;
+    for (std::size_t i = 0; i < request.shifts.size(); ++i) {
+        const HeroShiftEntry& entry = request.shifts[i];
+        const auto hero = std::find_if(world.heroes.people.begin(), world.heroes.people.end(),
+                                       [&](const Hero& h) { return h.uid == entry.uid; });
+        if (hero == world.heroes.people.end()) {
+            std::vector<std::string> uids;
+            for (const Hero& h : world.heroes.people) uids.push_back(h.uid);
+            throw refuse::unknown_name(entry.uid, uids, "hero");
+        }
+        if (hero->status == "legend")
+            throw refuse::refused_by_world(shift_field(i, "uid"), entry.uid, "A legend's heart moves in stories only, not in the world.", {});
+        if (hero->faces.size() != 1)
+            throw refuse::refused_by_world(shift_field(i, "uid"), entry.uid,
+                                           "A hero of more than one face shows the world one and hides another; neither moves here.", {});
+        Shift s;
+        s.entry = &entry;
+        s.hero = static_cast<std::size_t>(hero - world.heroes.people.begin());
+        s.card = hero_archetype_card(hero->archetype);
+        if (s.card == nullptr)
+            throw refuse::refused_by_world(shift_field(i, "uid"), entry.uid, "No card is known for this hero's archetype.", {});
+        for (const auto& [axis, value] : {std::pair<std::string_view, double>{"law", entry.law}, {"good", entry.good}})
+            if (!std::isfinite(value) || std::abs(value) > kHeroShiftStep + 1e-9)
+                throw refuse::out_of_range(shift_field(i, axis), value, -kHeroShiftStep, kHeroShiftStep, "");
+        if (entry.law == 0.0 && entry.good == 0.0)
+            throw refuse::refused_by_world(shift_field(i, "good"), "0", "A shift moves them along one axis at least.", {});
+        const auto deed = std::find_if(hero->deeds.begin(), hero->deeds.end(), [&](const HeroDeed& d) {
+            return d.event_kind == "action" && d.event_id == entry.after_event_id;
+        });
+        if (deed == hero->deeds.end())
+            throw refuse::refused_by_world(shift_field(i, "after_event_id"), entry.after_event_id,
+                                           "None of this hero's deeds since the world was made has that id.", {});
+        s.deed = static_cast<std::size_t>(deed - hero->deeds.begin());
+        if (!std::isfinite(entry.day) || entry.day < 0.0 || entry.day > today + 1e-9)
+            throw refuse::out_of_range(shift_field(i, "day"), entry.day, 0.0, today, "days");
+        judged.push_back(s);
+    }
+
+    // Written to a private copy, in order: a later shift of the same hero moves them from where the earlier left them.
+    HeroShiftResult result{world, {}};
+    const auto age = static_cast<int>(world_clock_of(world).age);
+    HeroShiftOperation operation;
+    for (const Shift& s : judged) {
+        Hero& hero = result.world.heroes.people[s.hero];
+        HeroShiftReport report;
+        report.uid = hero.uid;
+        report.code_before = hero.alignment.code;
+        // The record stops each axis at the end of its scale.
+        HeroAlignment moved = hero_alignment_record(hero.alignment.law + s.entry->law, hero.alignment.good + s.entry->good);
+        moved.has_drift = hero.alignment.has_drift;
+        moved.drift = hero.alignment.drift;
+        hero.alignment = moved;
+        hero.persona = compose_persona(*s.card, moved);
+        hero.faces.front().alignment = moved;
+        hero.faces.front().persona = hero.persona;
+        const std::string text = shift_line(*s.entry, hero.deeds[s.deed]);
+        hero.log.push_back(HeroLogEntry{age, "shift", s.entry->after_event_id, "changed", text});
+        report.code_after = moved.code;
+        report.text = text;
+        result.shifts.push_back(std::move(report));
+        operation.shifts.push_back(*s.entry);
+    }
+    result.world.history.operations.push_back(std::move(operation));
+    return result;
+}
+
 }  // namespace fwg
