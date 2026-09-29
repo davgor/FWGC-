@@ -392,6 +392,10 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
           "acknowledged_doubt", "acknowledged_deed_work", "acknowledged_doubt_work"}},
         {packets::acknowledged_with("", "hostile"), {"acknowledged"}},
         {packets::small_talk_after_work(), {"small_talk_fair", "small_talk", "small_talk_work_done", "small_talk_since_work"}},
+        {packets::small_talk_after_work_and_a_fight("won"),
+         {"small_talk_fair", "small_talk", "small_talk_work_done", "small_talk_since_work", "small_talk_since_fought_won"}},
+        {packets::small_talk_after_work_and_a_fight("lost"),
+         {"small_talk_fair", "small_talk", "small_talk_work_done", "small_talk_since_work", "small_talk_since_fought_lost"}},
         {packets::beside(packets::small_talk_after_work()),
          {"small_talk_fair", "small_talk", "small_talk_work_done_beside", "small_talk_work_done", "small_talk_since_work"}},
         {packets::beside(packets::greeted_after("finished", "warm")),
@@ -1397,6 +1401,56 @@ TEST(thanks_a_complaint_and_a_greeting_are_heard_for_what_they_are) {
     for (auto& [field, value] : unfinished.facts.back().fields)
         if (field == "work") value = "taken";
     check::equal(talk.speak(unfinished, "Has it been quieter since?", {}, &meaning), same, "their work not done: small talk");
+    // Fought since they last met (a hero's own deed rides only while newer, contract version 27): how things
+    // have been since, and the first news, is that fight, never the quiet: a castellan who had fought and lost
+    // at their fortress six days before answered "How have things been since?" with a night's sleep untroubled
+    // (2026-09-29). Said earlier in this conversation, as one who told it.
+    const auto second_turn = [](FactPacket p) {
+        for (auto& [field, value] : p.facts.back().fields)
+            if (field == "turn") value = "2";
+        return p;
+    };
+    const Lines fought = Lines::parse("any | small_talk | Much the same as ever.\n"
+                                      "any | small_talk_since_work | It's been quieter since that work was done.\n"
+                                      "any | small_talk_since_fought_won | It's been busy since that fight.\n"
+                                      "any | small_talk_since_fought_lost | It's been hard since that fight.\n"
+                                      "any | own_deed_won | It came to steel: {own_deed}.\n"
+                                      "any | own_deed_lost | It went badly: {own_deed}.\n"
+                                      "any | no_news | No news that I've heard.\n"
+                                      "any | news | The word is {news}.\n"
+                                      "any | small_talk_cold | What of it.\n",
+                                      "fought");
+    const FactPacket lost = packets::small_talk_after_work_and_a_fight("lost");
+    const std::string told = "It went badly: we fought the glacier dragons at the fortress and lost a few days back.";
+    check::equal(fought.speak(lost, "How have things been since?", {}, &meaning), told, "since: the fight, told once");
+    check::equal(fought.speak(second_turn(lost), "How have things been since?", {"Good day. " + told}, &meaning),
+                 std::string("It's been hard since that fight."), "since, the fight said this conversation: as one who told it");
+    check::equal(fought.speak(lost, "How have things been since?", {"Good day. " + told}, &meaning), told,
+                 "the same words said at an earlier meeting: another fight, told");
+    check::equal(fought.speak(second_turn(packets::small_talk_after_work_and_a_fight("won")), "How have things been since?",
+                              {"Good day. It came to steel: we held the fortress against the glacier dragons a few days back."}, &meaning),
+                 std::string("It's been busy since that fight."), "a fight won, said this conversation");
+    check::equal(fought.speak(lost, "Anything new since we last spoke?", {}, &meaning), told, "what news: the fight");
+    check::equal(fought.speak(second_turn(lost), "Anything new since we last spoke?", {told}, &meaning),
+                 std::string("It's been hard since that fight."), "what news, the fight said this conversation and none else: as one who told it");
+    FactPacket lost_and_news = lost;
+    lost_and_news.facts.insert(lost_and_news.facts.end() - 1, packets::news_of_a_scare("beaten", "Orlan"));
+    const std::string both = fought.speak(lost_and_news, "Anything new since we last spoke?", {}, &meaning);
+    check::is_true(both.rfind(told + " The word is ", 0) == 0, "what news: the fight, then others': " + both);
+    // At a first meeting, any fight of theirs is news to the stranger.
+    FactPacket met_first = lost;
+    met_first.facts.back() = packets::memory_of(met_first.speaker, {});
+    check::equal(fought.speak(met_first, "Any news?", {}, &meaning), told, "what news at a first meeting: the fight");
+    FactPacket cold = lost;
+    cold.facts.back() = packets::memory_of(cold.speaker, {.met = "again", .times = 1, .since = "days", .mood = "hostile", .work = "finished"});
+    check::equal(fought.speak(cold, "Any news?", {}, &meaning), std::string("What of it."), "not from a cold speaker");
+    // And never in its turn with the weather, whoever speaks.
+    for (int i = 0; i < 8; ++i) {
+        FactPacket weather = lost;
+        weather.speaker = "hero-castellan-" + std::to_string(i);
+        const std::string reply = fought.speak(weather, "Nice weather today.", {told}, nullptr);
+        check::is_true(reply.rfind("Much the same as ever.", 0) == 0, "the weather, as ever: " + reply);
+    }
 
     // A complaint about the speaker's work, which the act has as an insult.
     const FactPacket after = packets::offended_after("finished");

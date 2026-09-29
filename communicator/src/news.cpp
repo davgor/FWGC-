@@ -140,7 +140,9 @@ std::string news_words(const Fact& news, const std::string& self, std::string_vi
         const bool there = !here.empty() && place == here;
         if (verb == "defended" && !place.empty()) {
             if (won) return person + " held " + (there ? "the line here" : named(place, here)) + (against.empty() ? "" : " against " + against);
-            return person + " was driven " + (there ? "off here" : "from " + named(place, here)) + (against.empty() ? "" : " by " + against);
+            // A fight lost where they still stand: never driven from it.
+            if (against.empty()) return person + " lost a fight " + (there ? std::string("here") : "at " + named(place, here));
+            return person + " fought " + against + " " + (there ? std::string("here") : "at " + named(place, here)) + " and lost";
         }
         if (verb == "hunted" && !against.empty())
             return won ? person + " hunted down " + against : person + " went after " + against + " and was beaten back";
@@ -204,7 +206,8 @@ std::string own_deed_words(const Fact& news, const std::string& self, std::strin
     const bool there = !here.empty() && place == here;
     if (verb == "defended" && !place.empty()) {
         if (won) return "we held " + (there ? std::string("the line here") : named(place, here)) + (against.empty() ? "" : " against " + against);
-        return "we were driven " + (there ? std::string("off here") : "from " + named(place, here)) + (against.empty() ? "" : " by " + against);
+        if (against.empty()) return "we lost a fight " + (there ? std::string("here") : "at " + named(place, here));
+        return "we fought " + against + " " + (there ? std::string("here") : "at " + named(place, here)) + " and lost";
     }
     if (verb == "hunted" && !against.empty()) return won ? "I hunted down " + against : "I went after " + against + " and was beaten back";
     if (verb == "assaulted" && !place.empty()) {
@@ -236,10 +239,13 @@ bool brought_up(const Fact& news, const orchestrator::FactPacket& packet) {
     const auto band = std::find(kBands.begin(), kBands.end(), said(news, "since"));
     if (band == kBands.end()) return true;  // undated: as fresh
     auto age = static_cast<int>(band - kBands.begin());
-    // Asked about its place or its person, a speaker looks a band further back.
+    // Asked about its place or its person, a speaker looks a band further back; and a hero's own deed stays
+    // with them a band longer than what they heard of others (contract version 26): a castellan who had
+    // fought and lost at their fortress six days before said nothing of it, and passed on another's news.
     const bool about = packet.outcome == orchestrator::Outcome::Answered &&
                        (packet.answering == ActKind::AskAboutPlace || packet.answering == ActKind::AskAboutPerson);
-    if (about) age = std::max(0, age - 1);
+    const bool own = !own_deed_words(news, text::spoken(packet.persona.name), text::spoken(packet.persona.place)).empty();
+    if (about || own) age = std::max(0, age - 1);
     if (age <= 1) return true;
     if (age >= 4) return false;
     // The same speaker decides the same way for the same news: a hash, never a roll (FNV-1a).

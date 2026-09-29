@@ -197,6 +197,13 @@ any | own_deed_won | There's been fighting: {own_deed}.
 any | own_deed_lost | It went badly: {own_deed}.
 any | own_deed_lost | I'll not dress it up: {own_deed}.
 any | own_deed_lost | You'll hear it anyway, so from me: {own_deed}.
+# How things have been since, from one who has fought since and told of it lately: the fight not said again.
+any | small_talk_since_fought_won | It's been busy since that fight.
+any | small_talk_since_fought_won | It's gone better than it might have, since that fight.
+any | small_talk_since_fought_won | It was loud for a while, but it went our way.
+any | small_talk_since_fought_lost | It's been hard since that fight.
+any | small_talk_since_fought_lost | No easier, with that fight behind us.
+any | small_talk_since_fought_lost | Not well. You've heard the worst of it.
 any | news | The word is {news}.
 any | news | Some are saying {news}.
 any | news | I heard that {news}.

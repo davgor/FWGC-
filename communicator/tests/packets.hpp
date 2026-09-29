@@ -602,9 +602,10 @@ inline Fact news_of_a_heros_deed(const std::string& verb, const std::string& sta
              {"how", how}}};
 }
 
-// A greeting from Selbren, who did it: their own deed, their side of it.
+// A greeting from Selbren, who did it, to a stranger met a few days before: their own deed, their side of it.
 inline FactPacket greeted_after_own_deed(const std::string& state) {
-    return packet(castellan(), ActKind::Greet, Outcome::Greeted, {news_of_a_heros_deed("defended", state, "there")});
+    return packet(castellan(), ActKind::Greet, Outcome::Greeted, {news_of_a_heros_deed("defended", state, "there")},
+                  {.met = "again", .times = 1, .since = "days"});
 }
 
 // Small talk from the gate captain, who heard of Selbren's deed.
@@ -785,6 +786,17 @@ inline FactPacket small_talk_after_work_near() {
     return p;
 }
 
+// The same from a castellan who has fought since they last met (contract version 26): their own deed, a few
+// days back, as they last met a few days back.
+inline FactPacket small_talk_after_work_and_a_fight(const std::string& state) {
+    FactPacket p = small_talk_after_work();
+    Fact deed = news_of_a_heros_deed("defended", state, "there");
+    for (auto& [key, value] : deed.fields)
+        if (key == "since") value = "days";
+    p.facts.insert(p.facts.end() - 1, std::move(deed));
+    return p;
+}
+
 // Contract version 20: the game's account of the castellan's work, as he has it once it is done: Frost
 // owls, more than he'd have liked, a few lost, and the stranger held when it counted. `as` "person": what
 // came was Ulknord, and a few came with him.
@@ -879,6 +891,8 @@ inline std::vector<FactPacket> conversation() {
             about_a_castellan_second_elsewhere(),
             small_talk_after_work(),
             small_talk_after_work_near(),
+            small_talk_after_work_and_a_fight("won"),
+            small_talk_after_work_and_a_fight("lost"),
             beside(small_talk_after_work()),
             beside(greeted_after("finished", "warm")),
             greeted_first(),

@@ -531,18 +531,30 @@ deed is news of event "hero". Every judge of the golden benchmark asked for news
 hero's own side of a fight (2026-09-29).
 
 - **Heard of, it is news** in C++'s words (`news_words`): "Selbren held the fortress of Wenweg against
-  the glacier dragons", "... was driven from ... by ...", "hunted down ...", "went after ... and was
-  beaten back", "took the ruins of Linbrig from ...", "was thrown back from ... by ...", dated as news is,
-  and "held the line here" where the speaker stands. Passed on as other news is.
+  the glacier dragons", "... fought ... at ... and lost" (a fight lost where they still stand, never driven
+  from it), "hunted down ...", "went after ... and was beaten back", "took the ruins of Linbrig from ...",
+  "was thrown back from ... by ...", dated as news is, and "held the line here" where the speaker stands.
+  Passed on as other news is.
 - **Their own is their side of it** (`own_deed_words`), in the first person, never as news: "we held the
   fortress against the glacier dragons a few days back"; "we" for a place held or assaulted, "I" for a
   hunt. The director puts a hero's newest deed in their greetings, small talk and answers about
-  themself, and the written lines say it after a greeting or small talk, before any news of others
-  (`own_deed_won`, `own_deed_lost`: "It came to steel: {own_deed}."), brought up by how fresh it is, not
-  from a cold or frightened speaker, and not while said lately.
-- **The voice** is told it as "What you did yourself: ..."; the truth check lets "we held the", "I
-  hunted down", "we were thrown back" and the like be said only with a News fact of the speaker's own
-  deed.
+  themself, and the written lines say it after a greeting to someone met before or small talk, before any
+  news of others (`own_deed_won`, `own_deed_lost`: "It came to steel: {own_deed}."), brought up by how
+  fresh it is, a band fresher than news of others (what they did stays with them longer), not from a
+  cold or frightened speaker, and not while said in this conversation: the director carries it only while
+  it is newer than the last meeting (contract version 27), and a castellan who holds their fortress each
+  week says each hold alike, so words heard at an earlier meeting are of another deed. A first greeting,
+  which says who they are and asks the stranger's name, leaves it to small talk.
+- **Fought since the last meeting**, the fight is how things have been since and the first news they give
+  (`speak()`): told if not said lately, and if it was, as one who told it (`small_talk_since_fought_won`,
+  `small_talk_since_fought_lost`: "It's been hard since that fight."), never the quiet the since-work
+  lines speak of. A castellan who had fought and lost at their fortress six days before had answered
+  "How have things been since?" with a night's sleep untroubled (2026-09-29).
+- **The voice** is told it as "What you did yourself: ..."; the truth check lets "we held the", "we
+  fought the", "we lost a fight", "I hunted down", "we were thrown back" and the like be said only with a
+  News fact of the speaker's own deed, reads its dated words as the deed's date and not a time counted
+  out (read as counted, "a few days back" had kept every fight of that band unsaid), and backs "as I
+  said" with it told lately.
 
 ## What a speaker says of themself
 

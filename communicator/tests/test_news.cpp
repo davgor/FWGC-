@@ -405,7 +405,7 @@ TEST(a_heros_deed_is_news_to_others_and_their_own_to_tell) {
     check::equal(news_words(deed("defended", "won", "word"), ""), std::string("Selbren held the fortress of Wenweg against the glacier dragons"),
                  "held");
     check::equal(news_words(deed("defended", "lost", "word"), ""),
-                 std::string("Selbren was driven from the fortress of Wenweg by the glacier dragons"), "driven off");
+                 std::string("Selbren fought the glacier dragons at the fortress of Wenweg and lost"), "a fight lost there, not the place");
     check::equal(news_words(deed("defended", "won", "word"), "", "you", "the fortress of Wenweg"),
                  std::string("Selbren held the line here against the glacier dragons"), "held, where the speaker stands");
     check::equal(news_words(deed("defended", "won", "word"), "", "you", "Wenweg"),
@@ -423,7 +423,7 @@ TEST(a_heros_deed_is_news_to_others_and_their_own_to_tell) {
     check::equal(own_deed_words(deed("defended", "won", "there"), "Selbren"),
                  std::string("we held the fortress of Wenweg against the glacier dragons"), "we held");
     check::equal(own_deed_words(deed("defended", "lost", "there"), "Selbren", "the fortress of Wenweg"),
-                 std::string("we were driven off here by the glacier dragons"), "driven off here");
+                 std::string("we fought the glacier dragons here and lost"), "a fight lost here");
     check::equal(own_deed_words(deed("hunted", "won", "there"), "Selbren"), std::string("I hunted down the glacier dragons"), "I hunted");
     check::equal(own_deed_words(deed("hunted", "lost", "there"), "Selbren"),
                  std::string("I went after the glacier dragons and was beaten back"), "beaten back");
@@ -434,22 +434,81 @@ TEST(a_heros_deed_is_news_to_others_and_their_own_to_tell) {
     check::equal(dated_own_deed_words(deed("defended", "won", "there"), "Selbren"),
                  std::string("we held the fortress of Wenweg against the glacier dragons today"), "dated");
     check::equal(own_deed_words(deed("defended", "won", "word"), "Fersel"), std::string(), "not another's deed");
-    // Said after the greeting by the hero, once; not by a cold speaker.
+    // A fight lost with no foe named: lost there, never the place.
+    Fact foeless = deed("defended", "lost", "there");
+    foeless.fields.erase(std::find_if(foeless.fields.begin(), foeless.fields.end(), [](const auto& f) { return f.first == "against"; }));
+    check::equal(own_deed_words(foeless, "Selbren"), std::string("we lost a fight at the fortress of Wenweg"), "our fight lost, no foe named");
+    Fact heard_foeless = foeless;
+    for (auto& [key, value] : heard_foeless.fields)
+        if (key == "how") value = "word";
+    check::equal(news_words(heard_foeless, "", "you", "the fortress of Wenweg"), std::string("Selbren lost a fight here"),
+                 "theirs, heard of, here");
+    // Said after the greeting by the hero, once; not by a cold speaker, nor after a first greeting.
     const Lines lines = Lines::parse("any | greeted | Good day.\n"
+                                     "any | greeted_again | Good day.\n"
                                      "any | greeted_cold | What now.\n"
                                      "any | small_talk | Fine weather.\n"
                                      "any | own_deed_won | It came to steel: {own_deed}.\n"
                                      "any | own_deed_lost | It went badly: {own_deed}.\n"
                                      "any | news | The word is {news}.\n",
                                      "deeds");
+    const auto aged = [](FactPacket p, const std::string& since) {
+        for (Fact& f : p.facts)
+            if (f.kind == FactKind::News)
+                for (auto& [key, value] : f.fields)
+                    if (key == "since") value = since;
+        return p;
+    };
+    const auto remembering = [](FactPacket p, const packets::Recall& r) {
+        p.facts.back() = packets::memory_of(p.speaker, r);
+        return p;
+    };
     const std::string held = lines.speak(packets::greeted_after_own_deed("won"), "Hello.");
     check::equal(held, std::string("Good day. It came to steel: we held the fortress against the glacier dragons today."), "their side of it");
     check::equal(lines.speak(packets::greeted_after_own_deed("lost"), "Hello."),
-                 std::string("Good day. It went badly: we were driven from the fortress by the glacier dragons today."), "and when it went badly");
-    check::equal(lines.speak(packets::greeted_after_own_deed("won"), "Hello.", {held}), std::string("Good day."), "not while said lately");
-    FactPacket cold = packets::greeted_after_own_deed("won");
-    cold.facts.back() = packets::memory_of(cold.speaker, {.mood = "hostile"});
-    check::equal(lines.speak(cold, "Hello."), std::string("What now."), "not from a cold speaker");
+                 std::string("Good day. It went badly: we fought the glacier dragons at the fortress and lost today."), "and when it went badly");
+    check::equal(lines.speak(remembering(packets::greeted_after_own_deed("won"), {.met = "again", .times = 1, .since = "days", .turn = 2}),
+                             "Hello.", {held}),
+                 std::string("Good day."), "not while said lately, in this conversation");
+    // Said in the same words at a meeting before, it is another deed: the director carries one only while it is
+    // newer than the last meeting (contract version 27). A castellan who holds their fortress each week says
+    // each hold alike, and one told three weeks before had kept the three since unsaid.
+    check::equal(lines.speak(packets::greeted_after_own_deed("won"), "Hello.", {held}), held, "the same words at the last meeting: another deed");
+    const std::string then = "Good day. It came to steel: we held the fortress against the glacier dragons a few days back.";
+    check::equal(lines.speak(aged(packets::greeted_after_own_deed("won"), "days"), "Hello.", {then}), then,
+                 "the same words at the last meeting, in the same band: another deed");
+    check::equal(lines.speak(remembering(packets::greeted_after_own_deed("won"), {.met = "again", .times = 1, .since = "days", .mood = "hostile"}),
+                             "Hello."),
+                 std::string("What now."), "not from a cold speaker");
+    // A first greeting says who they are and asks the stranger's name; their fight waits for small talk.
+    check::equal(lines.speak(remembering(packets::greeted_after_own_deed("won"), {}), "Hello."), std::string("Good day."),
+                 "not after a first greeting");
+    FactPacket first_talk = remembering(packets::greeted_after_own_deed("won"), {});
+    first_talk.answering = ActKind::SmallTalk;
+    first_talk.outcome = Outcome::Chatted;
+    check::equal(lines.speak(first_talk, "Quiet day?"),
+                 std::string("Fine weather. It came to steel: we held the fortress against the glacier dragons today."), "in small talk, at a first meeting");
+    const auto bringing_up = [&](FactPacket p, const std::string& since) {
+        p = aged(std::move(p), since);
+        const Fact* news = nullptr;
+        for (const Fact& f : p.facts)
+            if (f.kind == FactKind::News) news = &f;
+        int count = 0;
+        for (int i = 0; i < 200; ++i) {
+            p.speaker = "npc-hero-" + std::to_string(i);
+            if (communicator::brought_up(*news, p)) ++count;
+        }
+        return count;
+    };
+    const int heard_days = bringing_up(packets::small_talk_with_a_heros_deed(), "days");
+    check::is_true(heard_days > 70 && heard_days < 130, "another's, a few days back: about one in two, " + std::to_string(heard_days) + " of 200");
+    check::equal(bringing_up(packets::greeted_after_own_deed("lost"), "days"), 200, "their own, a few days back: every hero");
+    const int own_weeks = bringing_up(packets::greeted_after_own_deed("lost"), "weeks");
+    check::is_true(own_weeks > 70 && own_weeks < 130, "their own, some weeks back: about one in two, " + std::to_string(own_weeks) + " of 200");
+    check::equal(bringing_up(packets::greeted_after_own_deed("won"), "years"), 0, "their own, years back: never unasked");
+    check::equal(lines.speak(aged(packets::greeted_after_own_deed("lost"), "days"), "Hello."),
+                 std::string("Good day. It went badly: we fought the glacier dragons at the fortress and lost a few days back."),
+                 "a fight a few days back, said");
     // Heard of by someone else: news, in the third person.
     check::equal(lines.speak(packets::small_talk_with_a_heros_deed(), "Fine day."),
                  std::string("Fine weather. The word is Selbren held the line here against the glacier dragons today."), "word of it");
@@ -471,5 +530,32 @@ TEST(a_heros_deed_is_news_to_others_and_their_own_to_tell) {
     check::is_true(!flags_own(held, packets::greeted_after_own_deed("won")), "theirs: true");
     check::is_true(flags_own("We held the fortress against them, a few days back.", packets::greeted_first()), "none of theirs: untrue");
     check::is_true(flags_own("I hunted down the beasts myself.", packets::small_talk_with_a_heros_deed()), "another's deed is not theirs");
+    check::is_true(flags_own("We fought the glacier dragons and lost.", packets::greeted_first()), "a fight lost, none of theirs: untrue");
+    check::is_true(flags_own("We lost a fight at the fortress.", packets::greeted_first()), "a fight lost, no foe, none of theirs: untrue");
+    check::is_true(!flags_own("It went badly: we fought the glacier dragons at the fortress and lost today.",
+                              packets::greeted_after_own_deed("lost")),
+                   "theirs, lost: true");
     check::is_true(!flags_own("We held a feast for the harvest.", packets::greeted_first()), "a feast is no fight");
+    // Their own deed's dated words are backed in every band they are dated in: read as a counted time,
+    // "a few days back" had silenced every hero's own fight of that band (2026-09-29).
+    const std::vector<std::pair<std::string, std::string>> bands = {{"today", "today"},       {"yesterday", "yesterday"},
+                                                                    {"days", "a few days back"}, {"weeks", "some weeks back"},
+                                                                    {"months", "months back"},   {"years", "years back"}};
+    for (const auto& [since, when] : bands) {
+        const std::string reply = "Good day. It went badly: we fought the glacier dragons at the fortress and lost " + when + ".";
+        const std::vector<std::string> wrong = communicator::untrue(reply, aged(packets::greeted_after_own_deed("lost"), since), {});
+        check::is_true(wrong.empty(), "their own fight, " + since + ": " + (wrong.empty() ? std::string("backed") : wrong.front()));
+    }
+    check::is_true(!communicator::untrue("We rested a few days back.", aged(packets::greeted_after_own_deed("lost"), "days"), {}).empty(),
+                   "the premise: a few days, not the deed's words, is a time counted out");
+    // "As I said" after telling of their own fight is backed by it.
+    const auto flags_told = [](const std::string& reply, const FactPacket& p, const std::vector<std::string>& recent) {
+        for (const std::string& problem : communicator::untrue(reply, p, recent))
+            if (problem.rfind("something told before", 0) == 0) return true;
+        return false;
+    };
+    const FactPacket lost_days = aged(packets::greeted_after_own_deed("lost"), "days");
+    check::is_true(flags_told("Hard, as I said.", lost_days, {}), "the premise: as I said, with nothing said");
+    check::is_true(!flags_told("Hard, as I said.", lost_days, {"It went badly: we fought the glacier dragons at the fortress and lost a few days back."}),
+                   "as I said, of their own fight told lately");
 }

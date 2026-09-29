@@ -858,6 +858,17 @@ std::string with_name(const std::string& reply, const std::string& name, bool le
     return reply.substr(0, comma) + ", " + name + reply.substr(comma);
 }
 
+// Whether the speaker said their own deed, in `words` however it was dated, in this conversation: newer than
+// their last meeting with the stranger (contract version 27), it was never said before it. Looked for in all
+// they said lately, a hold told three weeks before had kept the three since unsaid: a castellan who holds their
+// fortress each week says each hold in the same words (2026-09-29).
+bool own_deed_said(const FactPacket& p, const std::string& words, const std::vector<std::string>& recent) {
+    const auto here = static_cast<std::size_t>(std::max(0, remembered(p).turn - 1));
+    const std::size_t from = recent.size() > here ? recent.size() - here : 0;
+    return std::any_of(recent.begin() + static_cast<std::ptrdiff_t>(from), recent.end(),
+                       [&](const std::string& said) { return said.find(words) != std::string::npos; });
+}
+
 bool addresses_a_stranger(const std::string& line) {
     static const std::string word = "stranger";
     std::string lower = line;
@@ -986,6 +997,9 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"small_talk_work_done_beside", {}},
         // How things have been since that work was done (speak()).
         {"small_talk_since_work", {"danger"}},
+        // And from one who has fought since and said so lately, won or lost (contract version 26, speak()).
+        {"small_talk_since_fought_won", {}},
+        {"small_talk_since_fought_lost", {}},
         // Thanked for the speaker's own work, taken or offered and still to do (speak()).
         {"thanked_work", {}},
         // A complaint about the speaker's work, heard as an insult: answered as a complaint (speak()).
@@ -1169,6 +1183,11 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
                 if (m.beside) chain.push_back("small_talk_work_done_beside");
                 chain.push_back("small_talk_work_done");
                 chain.push_back("small_talk_since_work");
+                // Fought since (a hero's own deed rides only while newer than their last meeting with the
+                // stranger, contract version 27), and said so lately: how things have been since, as one who
+                // has told it (speak()).
+                if (const Fact* fought = own_deed_of(p))
+                    chain.push_back(field_of(*fought, "state") == "won" ? "small_talk_since_fought_won" : "small_talk_since_fought_lost");
             }
             return chain;
         }
@@ -1661,6 +1680,22 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             if (!asks(s.text)) statements.push_back(s);
         return statements.empty() ? lines : statements;
     };
+    // A fight of their own since they last met (a hero's own deed rides only while newer than that meeting, any
+    // at a first: contract version 27) is how things have been since, and the first news they give, never the
+    // quiet the since-work lines speak of: told, if they have not said it in this conversation, and if they
+    // have, how things have been as one who told it ("It's been hard since that fight."). A castellan who had
+    // fought and lost at their fortress six days before had answered "How have things been since?" with "I've
+    // not once lain awake over what I've sworn to" (2026-09-29).
+    const Fact* fought = memory.cold() || memory.frightened() ? nullptr : own_deed_of(p);
+    const std::string fought_words =
+        fought ? own_deed_words(*fought, text::spoken(p.persona.name), text::spoken(p.persona.place)) : std::string();
+    const bool fought_said = !fought_words.empty() && own_deed_said(p, fought_words, recent);
+    const auto fought_lines = [&]() -> std::vector<Spoken> {
+        if (fought_words.empty()) return {};
+        const std::string state = field_of(*fought, "state") == "won" ? "won" : "lost";
+        const std::vector<std::string> chain = {fought_said ? "small_talk_since_fought_" + state : "own_deed_" + state};
+        return spoken_for(p, &recent, true, &chain);
+    };
     // Small talk with someone whose work the stranger has just finished, about that work, is about how
     // it went, and is heard before anything else: "Was it as bad as you feared?" was heard as asking
     // for news and drew "Nothing's reached me" (the hero benchmark, 2026-09-28).
@@ -1681,6 +1716,12 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         // lines first and alone, since small talk pools the lines of the situations it is asked for.
         static const std::vector<std::string> done_beside = {"small_talk_work_done_beside"};
         if (const std::size_t subject = meaning->subject_of(line, subjects); subject < of_it.size()) {
+            if (subject == 1)
+                if (const std::vector<Spoken> since = fought_lines(); !since.empty()) {
+                    const std::string reply = choose(telling(since)).first;
+                    // The follow would tell the fight too while it is unsaid: once.
+                    return !fought_said && after.find(fought_words) != std::string::npos ? reply : then_news(reply);
+                }
             std::vector<Spoken> on_it;
             if (subject == 0 && remembered(p).beside) on_it = spoken_for(p, &recent, true, &done_beside);
             if (on_it.empty()) on_it = spoken_for(p, &recent, true, &of_it[subject]);
@@ -1715,15 +1756,21 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         // "How's trade been?", now read as news.
         if (subject == 2) {
             const std::vector<Spoken> news = asked_for_news(p, recent, true);
+            const bool none = news.empty() || news.front().situation == "no_news";
+            // Their own fight since, unsaid, is the first news they give, before any of others.
+            if (!fought_said)
+                if (const std::vector<Spoken> own = fought_lines(); !own.empty())
+                    return none ? choose(own).first : choose(own).first + " " + choose(news).first;
             // With none to give, one whose work the stranger finished says how things have been since:
             // "Anything new since we last spoke?" drew "No news that I've heard" from a castellan whose
             // fortress the stranger had held (a held-out session's judge, 2026-09-28). Not from the
-            // reading above, which took "Cold out, isn't it?" for news.
+            // reading above, which took "Cold out, isn't it?" for news. Fought since, as one who told it.
             static const std::vector<std::string> since_work = {"small_talk_since_work"};
-            if ((news.empty() || news.front().situation == "no_news") && remembered(p).work == "finished" && !remembered(p).cold() &&
-                !remembered(p).frightened())
-                if (const std::vector<Spoken> since = spoken_for(p, &recent, true, &since_work); !since.empty())
-                    return then_news(choose(telling(since)).first);
+            if (none && remembered(p).work == "finished" && !remembered(p).cold() && !remembered(p).frightened()) {
+                std::vector<Spoken> since = fought_lines();
+                if (since.empty()) since = spoken_for(p, &recent, true, &since_work);
+                if (!since.empty()) return then_news(choose(telling(since)).first);
+            }
             if (!news.empty()) return choose(news).first;
         }
         std::vector<Spoken> on_it;
@@ -1770,7 +1817,8 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         std::vector<Spoken> rest;
         for (const Spoken& s : spoken)
             if (s.situation != "small_talk_work_done" && s.situation != "small_talk_work_done_beside" &&
-                s.situation != "small_talk_since_work")
+                s.situation != "small_talk_since_work" && s.situation != "small_talk_since_fought_won" &&
+                s.situation != "small_talk_since_fought_lost")
                 rest.push_back(s);
         if (!rest.empty()) spoken = std::move(rest);
     }
@@ -2100,6 +2148,9 @@ struct OwnDeed {
 OwnDeed own_deed_to_say(const FactPacket& p, bool unasked) {
     const Remembered m = remembered(p);
     if (m.frightened() || m.cold() || (p.outcome != Outcome::Greeted && p.outcome != Outcome::Chatted)) return {};
+    // Not after a first greeting, which says who they are and asks the stranger's name: a castellan's fight
+    // lost that day, said between the two, was one thing too many (2026-09-29). Small talk may bring it up.
+    if (p.outcome == Outcome::Greeted && !m.again) return {};
     const Fact* own = own_deed_of(p);
     if (own == nullptr || (unasked && !brought_up(*own, p))) return {};
     return {field_of(*own, "state") == "won" ? "own_deed_won" : "own_deed_lost",
@@ -2277,9 +2328,7 @@ std::string Lines::follow_on(const FactPacket& p, const std::vector<std::string>
     // Their own newest deed, their side of it (contract version 26): every judge of the golden benchmark
     // asked for news between visits and the hero's own side of a fight (2026-09-29). Before others' news,
     // and not while said lately, however it was put.
-    if (const OwnDeed own = own_deed_to_say(p, true);
-        !own.situation.empty() &&
-        std::none_of(recent.begin(), recent.end(), [&](const std::string& said) { return said.find(own.words) != std::string::npos; })) {
+    if (const OwnDeed own = own_deed_to_say(p, true); !own.situation.empty() && !own_deed_said(p, own.words, recent)) {
         const std::vector<std::string> chain = {own.situation};
         if (const std::vector<Spoken> lines = spoken_for(p, &recent, true, &chain); !lines.empty()) return in_turn(lines, "|own");
     }

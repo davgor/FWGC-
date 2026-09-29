@@ -387,11 +387,15 @@ void told(const std::string& said, const FactPacket& p, const std::vector<std::s
             words.push_back(giver);
         }
     }
-    // News told lately, in any of the ways the speaker may have put it (news.hpp).
+    // News told lately, in any of the ways the speaker may have put it (news.hpp), and a fight of their own
+    // (contract version 26).
     for (const Fact& fact : p.facts)
-        if (fact.kind == FactKind::News)
+        if (fact.kind == FactKind::News) {
             for (const std::string& form : news_forms(fact, text::spoken(p.persona.name), text::spoken(p.persona.place)))
                 words.push_back(lowered(form));
+            if (const std::string own = own_deed_words(fact, text::spoken(p.persona.name), text::spoken(p.persona.place)); !own.empty())
+                words.push_back(lowered(own));
+        }
     // What they are after, told lately (contract version 13, them.hpp): "I mean to hold the fortress above
     // Iskmor, as I said".
     for (const Fact& fact : p.facts)
@@ -559,8 +563,8 @@ void sovereign(const std::string& said, const FactPacket& p, std::vector<std::st
 // were thrown back" need a News fact of their own deed, as own_deed_words says them.
 void own_deed(const std::string& said, const FactPacket& p, std::vector<std::string>& out) {
     if (own_deed_of(p) != nullptr) return;
-    for (const std::string phrase : {"we held the", "we held off", "we were driven", "i hunted down", "i went after", "we took the",
-                                     "we were thrown back"})
+    for (const std::string phrase : {"we held the", "we held off", "we fought the", "we lost a fight", "i hunted down",
+                                     "i went after", "we took the", "we were thrown back"})
         if (says(said, phrase)) add(out, kOwnDeed, phrase);
 }
 
@@ -618,12 +622,13 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
     // A News fact's own dated words ("you helped us hold a few days back") say when the news came
     // about, backed by the fact: not when the speaker last met the stranger, and no time counted out.
     // Read as counted, "a few days back" had silenced every dated line of news in that band (the
-    // memory session, 2026-09-27).
+    // memory session, 2026-09-27), and then every hero's own fight of a few days back (2026-09-29).
     std::string undated = said;
     for (const Fact& fact : packet.facts)
         if (fact.kind == FactKind::News) {
             const std::string self = text::spoken(packet.persona.name), here = text::spoken(packet.persona.place);
-            for (const std::string& words : {dated_news_words(fact, self, "you", here), dated_deed_words(fact, self, here)})
+            for (const std::string& words : {dated_news_words(fact, self, "you", here), dated_deed_words(fact, self, here),
+                                             dated_own_deed_words(fact, self, here)})
                 if (!words.empty()) blank(undated, lowered(words));
         }
     // "As I told you a few days ago" says when the speaker told it, backed by a Recall fact, not when
