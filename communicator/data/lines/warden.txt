@@ -1022,7 +1022,7 @@ warden/NN | acknowledged_grief_work | Aye; that came of my work, and it's on me,
 warden/NN | acknowledged_deed_work | Good; I'll hold you to that, and you'll find I hold to my end.
 warden/NN | greeted_finished_beside | Well met again. You held your ground at my side, and that's worth more to me than words.
 warden/NN | thanked_work | No need; hold up your end, and we're square.
-warden/NN | offended_complaint | Mind your manners; I told it to you straight, and nobody sees everything that's coming.
+warden/NN | offended_complaint | There's no need for that; I gave it to you as I had it, and nobody sees everything that's coming.
 warden/NN | unwronged_state | There's nothing to forgive; we all carry something. Take a breath, and let it lie a while.
 warden/NN | greeted_who | I'm {speaker}, {post} here, and here is where you'll find me.
 # Round two (2026-09-28): what five blind judges found.

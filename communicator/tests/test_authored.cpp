@@ -845,6 +845,19 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
                  "heard it all lately: the part left out, the line that says nothing again");
     check::equal(needing.speak(p, "Why do you need help?", {aim}, &meaning), std::string("I'd be too late alone. The Frost owls don't wait."),
                  "heard only the aim: the nest, not the aim");
+    // A line the stranger heard whole lately is no choice while another fits, though it says nothing heard
+    // lately and the other does: "A sworn thing is the whole of a person" came back three answers after it
+    // was said (a hero session, 2026-09-28).
+    const Lines sworn = Lines::parse("any | them_after | A sworn thing is the whole of a person.[ The {danger} can't make me forsworn.]\n"
+                                     "any | them_after | {home} is home, and I'd swear for it again.\n",
+                                     "sworn");
+    const std::string sworn_first = "A sworn thing is the whole of a person. The Frost owls can't make me forsworn.";
+    check::equal(sworn.speak(p, "Why does it matter to you so much?", {aim}, &meaning), sworn_first,
+                 "the premise: the line that says nothing heard lately, the nest in it new");
+    check::equal(sworn.speak(p, "Why does it matter to you so much?", {aim, sworn_first}, &meaning),
+                 std::string("Wenweg is home, and I'd swear for it again."), "said whole lately: the other line");
+    check::equal(sworn.speak(p, "Why does it matter to you so much?", {aim, sworn_first, "Wenweg is home, and I'd swear for it again."}, &meaning),
+                 std::string("A sworn thing is the whole of a person."), "both said lately: as ever, the one saying nothing again");
     const Lines meant = Lines::parse("any | them_after | I mean to {after}[ as the {post} here].\n", "meant");
     check::equal(meant.speak(p, "What are you trying to do?", {aim}, &meaning),
                  std::string("I mean to hold the fortress above Wenweg as the castellan here."), "a part that says nothing counted: kept");
@@ -2101,7 +2114,9 @@ TEST(an_answer_heard_lately_is_said_again_as_told) {
                    "told, though the other places were never listed");
     // With no told line in any bank (a library written before them), the answer is said as ever, the nest
     // heard lately marked as said.
-    const Lines older = Lines::parse("any | safety_unsafe | Not safe. Keep clear of {worst}.[ Mind the {danger}.]\n", "test");
+    const Lines older = Lines::parse("any | safety_unsafe | Not safe. Keep clear of {worst}.[ Mind the {danger}.]\n"
+                                     "any | safety_unsafe | Not safe.\n",
+                                     "test");
     check::equal(older.speak(again, "Is it still safe?", {whole}),
                  "Not safe. Keep clear of " + hospice + ". Mind the Glacier dragons nesting an hour's walk away, as I said.",
                  "no told line anywhere: the answer as ever");

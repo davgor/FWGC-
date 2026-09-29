@@ -1291,16 +1291,32 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
                 if (!fits.empty() && !pooled) break;
             }
             if (fits.empty()) continue;
+            // Asked about themself, a line the stranger heard whole from the speaker lately is no choice while
+            // another fits: narrowed to the one line that said nothing heard lately, "A sworn thing is the whole
+            // of a person" came back three answers after it was said (a hero session, 2026-09-28).
+            std::vector<bool> repeated(fits.size(), false);
+            if (recent != nullptr)
+                for (std::size_t i = 0; i < fits.size(); ++i)
+                    if (fits[i].first.rfind("them_", 0) == 0) {
+                        const std::string text = finished(fits[i].second, fits[i].first);
+                        repeated[i] = text.size() >= 24 && std::any_of(recent->begin(), recent->end(), [&](const std::string& said) {
+                                          return said.find(text) != std::string::npos;
+                                      });
+                    }
+            const bool any_new = std::find(repeated.begin(), repeated.end(), false) != repeated.end();
+            const auto choice = [&](std::size_t i) { return !any_new || !repeated[i]; };
             // The lines that say the most of what the packet holds: a speaker who knows of a nest does
             // not leave it out for a shorter line.
             std::size_t most = 0;
-            for (std::size_t i = 0; i < fits.size(); ++i) most = std::max(most, fits[i].second.said.size() - stale[i]);
+            for (std::size_t i = 0; i < fits.size(); ++i)
+                if (choice(i)) most = std::max(most, fits[i].second.said.size() - stale[i]);
             // And of those, the ones that say again nothing heard lately, where there are any.
             bool fresh = false;
-            for (std::size_t i = 0; i < fits.size(); ++i) fresh = fresh || (fits[i].second.said.size() - stale[i] == most && stale[i] == 0);
+            for (std::size_t i = 0; i < fits.size(); ++i)
+                fresh = fresh || (choice(i) && fits[i].second.said.size() - stale[i] == most && stale[i] == 0);
             std::vector<Spoken> out;
             for (std::size_t i = 0; i < fits.size(); ++i)
-                if (const auto& [situation, f] = fits[i]; f.said.size() - stale[i] == most && (!fresh || stale[i] == 0)) {
+                if (const auto& [situation, f] = fits[i]; choice(i) && f.said.size() - stale[i] == most && (!fresh || stale[i] == 0)) {
                     Spoken said{situation, finished(f, situation), f.recalls, {}, {}, f.said};
                     // The line's own words around its passing ones: said again with another saying, or
                     // "some weeks ago" for "a few days ago", it is the same line.

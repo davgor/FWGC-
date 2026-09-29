@@ -1035,7 +1035,7 @@ oathbound/NN | small_talk_work_done | The waiting tried my faith, and my faith i
 oathbound/NN | small_talk_work_done | It meant more than I can easily say, knowing it was done and knowing it was your doing. From here on, my name stands behind yours.
 oathbound/NN | small_talk_since_work | The {danger} are still about, but my word to this place has been easier kept since the work was done, and I'd swear to the difference.
 oathbound/NN | small_talk_since_work | Since the work was done, I've not once lain awake over what I've sworn to, and that's a rare thing for me.
-oathbound/NN | recalled | Nobody's had from me what you told me, nor will they: {words}.
+oathbound/NN | recalled | I've held what you told me as I'd hold an oath: {words}.
 oathbound/NN | recalled | I know you by more than your dealings with me, since you told me: {words}.
 oathbound/NN | acknowledged_doubt | I see; in my experience it's the doubters who keep their word and the boasters who break it, so I'll think none the less of you.
 oathbound/NN | acknowledged_doubt_work | Aye; fear has never yet broken a word that was truly meant, so keep yours, and the rest will follow.
