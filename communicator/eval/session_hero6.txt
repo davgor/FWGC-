@@ -1,0 +1,38 @@
+# The golden benchmark's sixth session, held out: written 2026-09-28, after every earlier session had
+# been fixed against (so none is held out any more) and before this one was ever run. Another world,
+# the first hero there who gives work, other words. Judged blind as the first (communicator/eval/README.md,
+# "The hero benchmark"). Each line is labelled with the act it means.
+world 64 33 30
+who hero giver 0
+
+# A first meeting.
+say hero greet | Evening. Are you the one they send people to?
+say hero ask_about_them | What should I call you?
+say hero small_talk | Long day?
+say hero ask_for_work | I'm between jobs. Got anything for me?
+say hero ask_about_them | Why can't anyone here do it?
+say hero answer | I served two winters as a caravan guard.
+say hero accept_quest @own | All right, count me in.
+say hero ask_about_them | What happens to you if this fails?
+say hero farewell | I'll be off, then.
+
+# Out of sight: compacted; the work is done three days on.
+compact hero
+advance 3
+resolve hero finished
+say hero greet | That's taken care of.
+say hero small_talk | Did it go the way you hoped?
+say hero answer | I took a bad fall on the way back.
+say hero insult | You might have told me how far it was.
+say hero apologize | I'm sorry. I'm sore and short-tempered.
+say hero ask_about_them | Who's on your side around here?
+say hero farewell | Look after yourself.
+
+# Some weeks later.
+compact hero
+advance 18
+say hero greet | Hey. Do you know me still?
+say hero small_talk | How've you been keeping?
+say hero ask_about_them | Where were you before all this?
+say hero ask_about_them | Anyone out to get you?
+say hero farewell | Goodbye for now.

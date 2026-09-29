@@ -435,6 +435,53 @@ were there, I've nothing to tell you", in all five; a saying after a farewell in
 been since" saying nothing in four; the stranger's words said back as a boast of memory in three;
 doubt met as a boast in two.
 
+Judged again after 5ebff84, five fresh judges: 11, 6, 12, 11 and 8 (13) of the same turns; "as I said"
+had become a catchphrase in four of five. Then 84db6aa (the nest alone said "as I said"; a part heard
+lately left out; no line said whole lately about themself; who stands against them) and a second
+writer round for the 32 hero banks (the shared work in each hero's own voice, how things have been
+since, the stranger's words kept without boasting, answers about themself without the aim: 768 rows):
+
+| Session | After 5ebff84 | After 84db6aa and the rows | Score | The illusion breaks at |
+|---|---|---|---|---|
+| 1 | 11 of 24 | 17 of 24 | 3 | 6: "Why do you need help?" given a saying about promises |
+| 2 | 6 of 22 | 11 of 22 | 3 | 7: "I'm a tracker" given "I'll weigh that when I weigh you" |
+| 3 | 12 of 21 | 12 of 21 | 3 | 3: "Busy day?" given "I'm well, thank you for asking" |
+| 4 | 11 of 20 | 15 of 20 | 3 | 12: nothing of the fight they shared |
+| 5 | 8 of 19 (13) | 14 of 19 | 3 | 4: "What's in it for you?" given turn 2's aim again |
+
+69 of 106 against 50 and 48 in the two rounds before: past what the judges' own noise moves. What
+they fault now: questions about him that need what he does not have (how long, why he needs help, why
+nobody else helps, what's in it for him, what brought him here, whether he has always done this)
+answered with his post or his oath (one oathbound hero's word or oath in 13 of 22 replies); what the
+stranger tells of themself (a tracker, a bridge held through a winter) met with a nod that would fit
+anything; a loss told two turns before forgotten ("Whatever for?"); the shared work with no account of
+what happened in it; a "take care" not returned; "we" said back as "you" (06b12db: words of "we" are
+no longer said back); and he never asks anything back.
+
+Then 43fc0a9 (what was asked said again though heard lately; no deed that is the post; a farewell's
+wish returned; no question after an apology for how one is; the rows the judges faulted), judged by
+six fresh judges. `session_hero6.txt` is a sixth session, held out: written after every earlier one
+had been fixed against, and never run before this round.
+
+| Session | Before | After 43fc0a9 | Score | The illusion breaks at |
+|---|---|---|---|---|
+| 1 | 17 of 24 | 16 of 24 | 3 | 7: "Not safe" and a place read out as a data row |
+| 2 | 11 of 22 | 11 of 22 | 3 | 3: "What brought you to this place?" given a creed |
+| 3 | 12 of 21 | 12 of 21 | 3 | 3: "Busy day?" given "I'm well, thank you for asking" |
+| 4 | 15 of 20 | 15 of 20 | 3 | 12: nothing of the fight they shared |
+| 5 | 14 of 19 | 14 of 19 | 3 | 4: "What's in it for you?" given turn 2's aim again |
+| 6 (first run) | | 15 of 21 | 3 | 18: a saying about strangers tacked onto small talk |
+
+68 of 106 on the five known sessions (69 before), and the held-out sixth 15 of 21: flat. The turns
+the round was for were fixed (why he needs help and what is at stake name the threat; the reaction to
+what the stranger can do ties it to the work; the rebuff and the quest-board offer are gone), and
+the judges faulted others instead, two of them new rows ("Take care yourself" heard as a word missing;
+"Take care, and the same to you" as stock). The count sits at about two replies in three, the score at
+3, and every judge's three changes are now the same three, none of which a written line can give
+without something new to say: a self beyond the post (every benchmark hero is a castellan whose
+record holds only the post), an account of the work they shared and news between visits, and threads
+kept (what the stranger told him used, his own words and questions remembered, questions of his own).
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).
