@@ -167,6 +167,8 @@ const fwg::Hero* hero_of(const Speaker& speaker) { return std::get_if<fwg::Hero>
 
 std::vector<std::pair<std::string, std::string>> ties_of(const fwg::Hero& hero) {
     std::vector<std::pair<std::string, std::string>> out;
+    // The sovereign a castellan is sworn to (contract version 19), first.
+    if (!hero.liege_uid.empty()) out.emplace_back("liege", hero.liege_uid);
     for (const auto& [tie, uids] : {std::pair<std::string, const std::vector<std::string>*>{"rival", &hero.rivals},
                                     {"kin", &hero.kin},
                                     {"ally", &hero.allies}})
@@ -450,6 +452,11 @@ std::vector<Fact> self_facts(const fwg::World& world, const Speaker& speaker, bo
             add("lost_when", age_band(world, hero->lost->destroyed_age));
         }
         add("since", age_band(world, hero->born_age));
+        // A castellan's past (contract version 19): the generator's record of them had held only the
+        // post, and "How long have you held it?" had nothing to answer from.
+        if (hero->tenure_years > 0) add("held_years", std::to_string(hero->tenure_years));
+        add("served_at", hero->served_at);
+        add("served_as", hero->served_as);
         deeds_of(hero->deeds);
         // A deed at the city they lost is known by that city's name: its ruin is no place the world's
         // blocks name, and "stood for Brenlin" says what "stood for its ruin" would not.

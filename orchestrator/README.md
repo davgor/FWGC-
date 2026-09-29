@@ -359,8 +359,15 @@ stand: the world keeps no story of them. The owner's golden benchmark (`communic
 session_hero.txt`, 2026-09-27) is a sustained conversation with a hero; its first judge heard the
 hero unable to say how long they had held their fortress.
 
+A castellan has a past (contract version 19, the generator's heroes version 3; the owner,
+2026-09-28: "Yup lets add one in"): the Self fact's `held_years` (their years at the post, as
+digits), `served_at` and `served_as` (where they served before it, and as a soldier, a sergeant, or
+second to another fortress's castellan); the sovereign they are sworn to, a Person fact marked
+`tie` "liege", first of their ties; and Deed facts for the wars their city fought in their
+lifetime. Every castellan of the benchmark's six worlds had held only their post.
+
 Another giver's work, named in an answer to ask_for_work, says how that giver stands to the
-speaker (contract version 15, `giver_tie`: rival, kin or ally), from the speaker's hero record: the
+speaker (contract version 15, `giver_tie`: rival, kin or ally; liege since 19), from the speaker's hero record: the
 castellan had named his own ally's work "with no view on either".
 
 Work done beside the speaker (contract version 14): the Memory fact's `beside` is "yes" when the

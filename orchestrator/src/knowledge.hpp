@@ -61,8 +61,9 @@ std::optional<Speaker> speaker(const fwg::World& world, const std::string& uid);
 // A hero's record, when the speaker is one; nullptr otherwise.
 const fwg::Hero* hero_of(const Speaker& speaker);
 
-// A hero's ties, each with how they stand to the hero ("rival", "kin", "ally"): rivals, then kin,
-// then allies, each in the record's own order. The one place a tie is named, for what a hero says of
+// A hero's ties, each with how they stand to the hero ("liege", "rival", "kin", "ally"): the sovereign
+// a castellan is sworn to (contract version 19), then rivals, then kin, then allies, each in the record's
+// own order. The one place a tie is named, for what a hero says of
 // themself and for another giver's work in their list.
 std::vector<std::pair<std::string, std::string>> ties_of(const fwg::Hero& hero);
 

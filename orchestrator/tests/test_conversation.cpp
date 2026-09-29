@@ -1601,6 +1601,36 @@ TEST(asked_about_themself_a_hero_tells_their_story_and_keeps_their_secrets) {
                  "the same next packet, replayed");
 }
 
+// Contract version 19: a castellan's past (the generator's heroes version 3): how long they have held
+// their post, where they served before it and as what, and the sovereign they are sworn to, first of
+// their ties. Anyone else has none of it.
+TEST(asked_about_themself_a_castellan_tells_their_past) {
+    const fwg::World& w = faced_world();
+    const fwg::Hero* castellan = nullptr;
+    const fwg::Hero* other = nullptr;
+    for (const fwg::Hero& h : w.heroes.people) {
+        if (h.status != "living" || h.faces.size() != 1 || !node_of(w, h.uid)) continue;
+        if (!castellan && h.role == "castellan" && !h.liege_uid.empty()) castellan = &h;
+        if (!other && h.role != "castellan") other = &h;
+    }
+    check::is_true(castellan != nullptr && other != nullptr, "the premise: a castellan sworn to a sovereign, and another hero");
+    Director d(w);
+    const FactPacket p = d.respond(castellan->uid, {ActKind::AskAboutThem, ""});
+    const std::vector<Fact> self = facts_of(p, FactKind::Self);
+    check::is_true(self.size() == 1, "one Self fact");
+    const Fact& me = self.front();
+    check::equal(value(me, "held_years"), std::to_string(castellan->tenure_years), "their years at the post, as digits");
+    check::equal(value(me, "served_at"), castellan->served_at, "where they served before it");
+    check::equal(value(me, "served_as"), castellan->served_as, "and as what");
+    const std::vector<Fact> people = facts_of(p, FactKind::Person);
+    const auto liege = std::find_if(people.begin(), people.end(), [](const Fact& f) { return f.field("tie") && *f.field("tie") == "liege"; });
+    check::is_true(liege != people.end() && liege->subject == castellan->liege_uid, "the sovereign they are sworn to, marked liege");
+    check::is_true(people.front().subject == castellan->liege_uid, "first of their ties");
+    const std::vector<Fact> theirs = facts_of(d.respond(other->uid, {ActKind::AskAboutThem, ""}), FactKind::Self);
+    check::is_true(theirs.size() == 1 && theirs.front().field("held_years") == nullptr && theirs.front().field("served_at") == nullptr,
+                   "another hero: none of it");
+}
+
 // A mask still worn says only what its cover would: its trade and where it stands. Exposed, it tells
 // the story of the one behind it.
 TEST(a_mask_says_only_its_trade_until_it_comes_off) {

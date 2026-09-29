@@ -37,7 +37,7 @@ namespace orchestrator {
 //     most two others', one errand from two givers once.
 // 14: the Memory fact's `beside`: "yes" when the speaker's own work the stranger last dealt with is
 //     at the place the speaker stands (work "with me", done beside them).
-// 15: an answer to ask_for_work gives another giver's offer `giver_tie` ("rival", "kin", "ally")
+// 15: an answer to ask_for_work gives another giver's offer `giver_tie` ("rival", "kin", "ally"; "liege" since 19)
 //     when that giver is tied to the speaker.
 // 16: a speaker with work of their own names only theirs the first time they are asked for work in
 //     a conversation, and others' too when asked again.
@@ -45,7 +45,10 @@ namespace orchestrator {
 //     work was finished or failed, when what came of it is news between them.
 // 18: the act complain and its outcome heard: a complaint about the speaker or their work, which
 //     costs no regard and leaves no grievance, where an insult does both.
-inline constexpr int kContractVersion = 18;
+// 19: a castellan's past (the generator's heroes version 3): the Self fact's `held_years`,
+//     `served_at` and `served_as`, a Person fact marked `tie` "liege" for the sovereign they are
+//     sworn to, and Deed facts for the wars their city fought in their lifetime.
+inline constexpr int kContractVersion = 19;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -297,7 +300,10 @@ std::string_view to_string(FactKind kind);
 //   "protect", "kill", "convert") and its object by name;
 // - `lost`, `lost_to`, `lost_when`: a city they lost, by name; what took it: "war", "dragon",
 //   "monster", "magic" (their own), "radiance"; and when;
-// - `since`: when they were born.
+// - `since`: when they were born;
+// - `held_years`, `served_at`, `served_as` (contract version 19): a castellan's years at their post, as
+//   digits; where they served before it, by name; and as what: "soldier", "sergeant", or "second" to
+//   the castellan there.
 // `lost_when`, `since` and a Deed's `when` are "this age", "the last age" or "ages ago", against the
 // world's latest age.
 // A Deed fact, its subject the event's id: a part they had in something that happened, from the
@@ -308,8 +314,8 @@ std::string_view to_string(FactKind kind);
 // - `war`: a war's reach, "international", "regional" or "civil"; war deeds only;
 // - `when`.
 // Asked about themself, a speaker answers with a Self fact, their Deed facts, and a Person fact for
-// each of their rivals, kin and allies (at most three, rivals first), marked `tie`: "rival", "kin",
-// "ally"; and the worst nest near where they stand, a Danger fact, as small talk has it: what they
+// the sovereign they are sworn to and each of their rivals, kin and allies (at most three, in that
+// order), marked `tie`: "liege" (contract version 19), "rival", "kin", "ally"; and the worst nest near where they stand, a Danger fact, as small talk has it: what they
 // stand against. Nothing of their work: what they would say of that is asked for (ask_for_work).
 struct Fact {
     FactKind kind = FactKind::Place;
