@@ -148,8 +148,12 @@ std::string fact_line(const Fact& fact, const FactPacket& packet) {
             // work an answer about a place lists already.
             // Their own deed as a hero (contract version 26), their side of it, in the first person.
             if (const std::string own = dated_own_deed_words(fact, text::spoken(packet.persona.name), text::spoken(packet.persona.place));
-                !own.empty())
-                return "- What you did yourself: " + own + ".";
+                !own.empty()) {
+                // How they took it (contract version 30), when they have: a feeling to speak from, never an event.
+                const std::string* took_it = fact.field("took_it");
+                const std::string took = took_words(took_it ? *took_it : std::string());
+                return "- What you did yourself: " + own + "." + (took.empty() ? std::string() : " How you took it: " + took + ".");
+            }
             if (!may_pass_on(fact, packet)) return {};
             const std::string words =
                 dated_news_words(fact, text::spoken(packet.persona.name), "the stranger", text::spoken(packet.persona.place));

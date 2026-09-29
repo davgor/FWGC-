@@ -14,6 +14,7 @@
 #include "check.hpp"
 #include "communicator/error.hpp"
 #include "model.hpp"
+#include "news.hpp"
 #include "packets.hpp"
 #include "reply_shape.hpp"
 #include "rules.hpp"
@@ -737,4 +738,26 @@ TEST(what_the_voice_cannot_read_is_refused) {
                   "a line past the limit");
     check::throws([] { Voice(test_model::model(), {0, 0.0f, 0}); }, "no tokens to speak with");
     check::throws([] { Voice(test_model::model(), {64, -1.0f, 0}); }, "a negative temperature");
+}
+
+// How a hero took their own deed (contract version 30), as a feeling to speak from, beside the deed: said when their
+// News of it says `took_it`, and nothing of it otherwise, so a packet without one is put as before.
+TEST(the_voice_is_told_how_a_hero_took_their_deed) {
+    const std::string took = [] {
+        std::string out;
+        for (const inference::Message& m : Voice::messages(packets::greeted_after_own_deed("lost", "humbled"), "Well met.")) out += m.content;
+        return out;
+    }();
+    check::is_true(took.find("How you took it: it humbled you; you own your part in it.") != std::string::npos, "how they took it");
+    std::string plain;
+    for (const inference::Message& m : Voice::messages(packets::greeted_after_own_deed("lost"), "Well met.")) plain += m.content;
+    check::is_true(plain.find("How you took it") == std::string::npos, "nothing, taken no way yet");
+    std::string before = took;
+    const std::size_t at = before.find(" How you took it: it humbled you; you own your part in it.");
+    check::is_true(at != std::string::npos, "the premise: said as its own sentence after the deed");
+    before.erase(at, std::string(" How you took it: it humbled you; you own your part in it.").size());
+    check::equal(before, plain, "and the rest as before");
+    for (const std::string reaction : {"humbled", "embittered", "resolved", "grieving", "vengeful", "vindicated"})
+        check::is_true(!communicator::took_words(reaction).empty(), "words for " + reaction);
+    check::equal(communicator::took_words("furious"), std::string(), "none for anything else");
 }

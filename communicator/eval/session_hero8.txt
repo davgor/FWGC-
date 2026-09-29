@@ -7,7 +7,9 @@ who hero giver 0
 who local near hero 0
 
 # A first meeting. The game has called on heroes once already today.
+# Each hero takes what they did by the rules (contract version 30): the session tool runs no picker.
 heroes
+react
 say hero greet | Well met.
 say hero ask_about_them | What keeps you here?
 say hero small_talk | Anything stirring out there?
@@ -20,8 +22,10 @@ say hero farewell | I'll be back when it's done.
 compact hero
 advance 5
 heroes
+react
 advance 5
 heroes
+react
 share
 resolve hero finished
 account hero - few none fought
@@ -37,8 +41,10 @@ say hero farewell | Rest well.
 compact hero
 advance 10
 heroes
+react
 advance 10
 heroes
+react
 share
 say hero greet | Hello again.
 say hero small_talk | What news?

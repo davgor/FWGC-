@@ -344,6 +344,20 @@ the director's rules keep without it (the stranger's answers, whole): how many o
 keeping each finds, how many of its quotes are worth nothing, and how many of the logs with nothing
 worth keeping it keeps empty. The measures are in the communicator README, "The summarizer".
 
+## How a hero takes a deed: react.txt and react_held.txt
+
+Contract version 30. Each file holds 40 heroes' deeds as the reaction picker is shown them
+(`orchestrator::brief_text`), written by `orchestrator_session`'s `briefs` over six worlds (seeds 99, 42,
+7, 13, 21 and 64, size 33, a month on, heroes called daily for a week, each deed taken by the rules) and
+drawn at random from 151 kinds of archetype, alignment and outcome, the held-out set of kinds the first
+does not hold. After each brief, `accept` names the reactions a reader judged fitting for that hero and
+that deed, and `best` the one that fits best; each set had its own reader, shown only the briefs and what
+each reaction means, before any prompt was tried. `communicator_eval --react react.txt --model PATH`
+prints each pick beside the director's rules' pick (`reaction_by_rules`) and how many of each fit and are
+the best. A change to the picker's question is tried on `react.txt`; `react_held.txt` is run once it is
+chosen. The measures are in the communicator README, "The reaction picker". Both readers found resolved
+fitting for most heroes: a picker that always says it fits 32 of the first 40, which is the floor.
+
 ## The hero benchmark: session_hero.txt
 
 The owner, 2026-09-27: "I do eventually want to get to a point in the communicator where they are

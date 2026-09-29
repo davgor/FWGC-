@@ -170,6 +170,11 @@ private:
     // their question, news, or the stranger's words.
     std::string follow_on(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent, Meaning* meaning) const;
 
+    // How the speaker took their own newest deed (contract version 30), said after their account of it: a
+    // `took_<reaction>` line of whichever bank has one, by the News fact's `took_it`. Empty when they have taken
+    // it no way yet or there is no line of it. `checked` as for spoken_for().
+    std::vector<Spoken> took_lines(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent, bool checked) const;
+
     // A first meeting's name (contract version 24), after a greeting on its first turn from a speaker neither
     // cold nor frightened: `named` lines when they know the stranger's name, else `ask_name` lines from a hero
     // (a voice key) when `line` gave none. `checked` as for spoken_for().

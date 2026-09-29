@@ -197,6 +197,27 @@ any | own_deed_won | There's been fighting: {own_deed}.
 any | own_deed_lost | It went badly: {own_deed}.
 any | own_deed_lost | I'll not dress it up: {own_deed}.
 any | own_deed_lost | You'll hear it anyway, so from me: {own_deed}.
+# Contract version 30: how they took their own newest deed, said after their account of it. Resolved follows a
+# fight won or lost; vindicated only one won; humbled, embittered, grieving and vengeful only one lost. The account
+# names the fight, so these name nothing.
+any | took_humbled | I keep going over what I did wrong.
+any | took_humbled | That one's on me, and I know it.
+any | took_humbled | I've been asking myself where I went wrong.
+any | took_embittered | I'm done expecting anything of anyone.
+any | took_embittered | It's hardened me; I'll not pretend otherwise.
+any | took_embittered | Don't ask me to be gracious about it.
+any | took_resolved | There'll be a next time, and we'll be readier for it.
+any | took_resolved | I've learned from it, and I mean to use it.
+any | took_resolved | We'll need to be sharper still, and we will be.
+any | took_grieving | It sits heavy with me still.
+any | took_grieving | I've not had the heart for much since.
+any | took_grieving | Some days it's all I think about.
+any | took_vengeful | I mean to go after them myself, and soon.
+any | took_vengeful | They'll answer for it; I'll see to that.
+any | took_vengeful | I'll not wait for them to come again; I'll go to them.
+any | took_vindicated | It went as I said it would.
+any | took_vindicated | Those who doubted me can keep their doubts now.
+any | took_vindicated | I knew we had it in us.
 # How things have been since, from one who has fought since and told of it lately: the fight not said again.
 any | small_talk_since_fought_won | It's been busy since that fight.
 any | small_talk_since_fought_won | It's gone better than it might have, since that fight.

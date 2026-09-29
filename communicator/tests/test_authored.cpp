@@ -869,6 +869,21 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
                  std::string("Only the one I told you of."), "told this conversation: as told");
     check::equal(subject_of[again_told.speak(after_fight, "Have you had to fight since I left?", {}, &meaning)], std::string("them_fought"),
                  "not told: the fight");
+    // How they took it (contract version 30), after the fight told; nothing of it before they have taken it any way.
+    FactPacket taken = after_fight;
+    for (Fact& f : taken.facts)
+        if (f.kind == FactKind::News) f.fields.emplace_back("took_it", "vengeful");
+    const Lines vengeful =
+        Lines::parse(every + home_row + fought_row + no_fight_row + "any | took_vengeful | I mean to go after them myself.\n", "took");
+    const std::string fought_and_took = vengeful.speak(taken, "Have you had to fight since I left?", {}, &meaning);
+    const std::string took_said = " I mean to go after them myself.";
+    check::is_true(fought_and_took.rfind("It came to a fight: ", 0) == 0 && fought_and_took.size() > took_said.size() &&
+                       fought_and_took.compare(fought_and_took.size() - took_said.size(), took_said.size(), took_said) == 0,
+                   "the fight, then how they took it: " + fought_and_took);
+    check::equal(vengeful.speak(after_fight, "Have you had to fight since I left?", {}, &meaning),
+                 fighting.speak(after_fight, "Have you had to fight since I left?", {}, &meaning), "not taken yet: the fight alone");
+    check::equal(vengeful.speak(taken, "Where's home for you?", {}, &meaning), fighting.speak(taken, "Where's home for you?", {}, &meaning),
+                 "asked of something else: no word of how they took the fight");
     // What the stranger heard from them lately makes a line no fuller: how they stand, said once, is
     // not said again to what they do off duty.
     const Lines days = Lines::parse("any | them_here | I {standing}.\nany | them_here | Not much else; the post takes all of me.\n", "days");
@@ -1488,6 +1503,23 @@ TEST(thanks_a_complaint_and_a_greeting_are_heard_for_what_they_are) {
                               {"Good day. It came to steel: we held the fortress against the glacier dragons a few days back."}, &meaning),
                  std::string("It's been busy since that fight."), "a fight won, said this conversation");
     check::equal(fought.speak(lost, "Anything new since we last spoke?", {}, &meaning), told, "what news: the fight");
+    // How they took it (contract version 30), after the fight told, and not after it said as one who told it.
+    const Lines fought_taken = Lines::parse("any | small_talk | Much the same as ever.\n"
+                                            "any | small_talk_since_work | It's been quieter since that work was done.\n"
+                                            "any | small_talk_since_fought_lost | It's been hard since that fight.\n"
+                                            "any | own_deed_lost | It went badly: {own_deed}.\n"
+                                            "any | no_news | No news that I've heard.\n"
+                                            "any | took_humbled | I keep going over what I did wrong.\n",
+                                            "fought, taken");
+    FactPacket taken_lost = lost;
+    for (Fact& f : taken_lost.facts)
+        if (f.kind == FactKind::News) f.fields.emplace_back("took_it", "humbled");
+    check::equal(fought_taken.speak(taken_lost, "How have things been since?", {}, &meaning), told + " I keep going over what I did wrong.",
+                 "since: the fight, then how they took it");
+    check::equal(fought_taken.speak(taken_lost, "Anything new since we last spoke?", {}, &meaning), told + " I keep going over what I did wrong.",
+                 "what news: the same");
+    check::equal(fought_taken.speak(second_turn(taken_lost), "How have things been since?", {"Good day. " + told}, &meaning),
+                 std::string("It's been hard since that fight."), "said this conversation: as one who told it, nothing more");
     check::equal(fought.speak(second_turn(lost), "Anything new since we last spoke?", {told}, &meaning),
                  std::string("It's been hard since that fight."), "what news, the fight said this conversation and none else: as one who told it");
     FactPacket lost_and_news = lost;
@@ -2895,4 +2927,23 @@ TEST(an_apology_for_how_one_is_is_heard_in_the_light_of_what_they_told) {
                                        "wronged");
     check::equal(wronged.speak(packets::apology_after("My brother came with me. He didn't make it back."), "Sorry for being rude earlier.", {}, &meaning),
                  std::string("Nothing to forgive; you've done me no wrong."), "an apology for a wrong: as ever");
+}
+
+// How a hero took their own newest deed (contract version 30), said after their account of it at a greeting: by their
+// News of it (`took_it`), from whichever bank has a line of it; the account alone before they have taken it any way,
+// or when no bank has a line of how.
+TEST(how_a_hero_took_their_deed_follows_their_account_of_it) {
+    const Lines lines = Lines::parse("any | greeted | Well met.\n"
+                                     "any | own_deed_lost | It went badly: {own_deed}.\n"
+                                     "any | took_humbled | I keep going over what I did wrong.\n"
+                                     "any | took_vengeful | I mean to go after them myself.\n",
+                                     "took");
+    const std::string alone = lines.follow(packets::greeted_after_own_deed("lost"), {}, nullptr, "Hello again.");
+    check::is_true(alone.rfind("It went badly: ", 0) == 0, "the premise: the account after a greeting: " + alone);
+    check::equal(lines.follow(packets::greeted_after_own_deed("lost", "humbled"), {}, nullptr, "Hello again."),
+                 alone + " I keep going over what I did wrong.", "humbled, after the account");
+    check::equal(lines.follow(packets::greeted_after_own_deed("lost", "vengeful"), {}, nullptr, "Hello again."),
+                 alone + " I mean to go after them myself.", "vengeful, after the account");
+    check::equal(lines.follow(packets::greeted_after_own_deed("lost", "grieving"), {}, nullptr, "Hello again."), alone,
+                 "no line of how: the account alone");
 }

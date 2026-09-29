@@ -14,7 +14,9 @@ who hero giver 0
 
 # The game calls on heroes to act as days pass (contract version 26): today, each day of a short gap,
 # each week of a long one; word of what they did goes round before each return.
+# Each hero takes what they did by the rules (contract version 30): the session tool runs no picker.
 heroes
+react
 
 # A first meeting.
 say hero greet | Hail. You're the one who holds this place, aren't you?
@@ -34,8 +36,10 @@ say hero farewell | I'll see you when it's done.
 compact hero
 advance 1
 heroes
+react
 advance 1
 heroes
+react
 share
 resolve hero finished
 # The game's account of how it went (contract version 20).
@@ -52,10 +56,13 @@ say hero farewell | I'll rest a while. Goodbye.
 compact hero
 advance 7
 heroes
+react
 advance 7
 heroes
+react
 advance 6
 heroes
+react
 share
 say hero greet | Remember me?
 say hero small_talk | How have things been since?

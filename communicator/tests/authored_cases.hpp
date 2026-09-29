@@ -195,7 +195,8 @@ inline bool lead_row(const std::string& row) {
 
 // Whether a row is said after a reply (Lines::follow): news ("heard_deed", "news"), the stranger's own
 // words said back after a greeting ("recalled"), or how the speaker's work went ("account",
-// "account_heard", contract version 20); said alone, after whatever reply comes before it.
+// "account_heard", contract version 20), or how the speaker took their own deed ("took_...", contract version 30);
+// said alone, after whatever reply comes before it.
 inline bool follow_row(const std::string& row) {
     const std::size_t first = row.find('|');
     const std::size_t second = first == std::string::npos ? first : row.find('|', first + 1);
@@ -206,7 +207,7 @@ inline bool follow_row(const std::string& row) {
     return situation == "heard_deed" || situation == "news" || situation.rfind("recalled", 0) == 0 || situation == "greeted_who" ||
            situation == "account" || situation == "account_heard" || situation == "asked_again" || situation == "named" ||
            situation == "ask_name" || situation == "name_dodged" || situation == "own_deed_won" || situation == "own_deed_lost" ||
-           situation == "news_ours_won" || situation == "news_ours_lost";
+           situation == "news_ours_won" || situation == "news_ours_lost" || situation.rfind("took_", 0) == 0;
 }
 
 // The situation a row is written for, trimmed; empty for a row without one.

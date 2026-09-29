@@ -57,6 +57,11 @@ std::string own_story_words(const orchestrator::FactPacket& packet, bool dated);
 // that own_deed_words can say.
 const orchestrator::Fact* own_deed_of(const orchestrator::FactPacket& packet);
 
+// How the speaker took a deed of theirs (contract version 30), by a News fact's `took_it`, in the second person, for
+// the voice to speak from: "it humbled you; you own your part in it". A feeling, never an event: nothing in it
+// happened. Empty for anything but a reaction's name.
+std::string took_words(std::string_view reaction);
+
 // Whether the speaker of `packet` brings `news` up unasked, by how old it is: "relevant news is the
 // talk of the town, old news is less likely to pop up" (the owner, 2026-09-27). Today's and
 // yesterday's always; this week's by about one speaker in two; the last two months' by one in five;

@@ -5,6 +5,12 @@
 //   communicator_eval --check-lines PATH
 //   communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--voice-model PATH [--voice-alone]] [--gpu-layers N]
 //   communicator_eval --summarize LOGS [--model PATH] [--threads N] [--gpu-layers N]
+//   communicator_eval --react BRIEFS [--model PATH] [--threads N] [--gpu-layers N]
+//
+// --react reads heroes' deeds as a picker is shown them (orchestrator::brief_text; react.txt in this folder), each
+// with an `accept` line of the reactions a reader judged fitting for that hero and that deed and a `best` line of the
+// one that fits best, has the model pick how each hero takes theirs (communicator/reaction.hpp), and prints each pick
+// beside the director's rules' pick (orchestrator::reaction_by_rules): how many of each fit, and are the best.
 //
 // --summarize reads conversation logs a person would remember something of (summarize.txt in this
 // folder: who remembers, each line, and the runs of the stranger's words a person would keep), has
@@ -53,6 +59,7 @@
 #include "communicator/interpreter.hpp"
 #include "communicator/known.hpp"
 #include "communicator/meaning.hpp"
+#include "communicator/reaction.hpp"
 #include "communicator/summarizer.hpp"
 #include "communicator/truth.hpp"
 #include "authored_cases.hpp"
@@ -773,6 +780,107 @@ void summarize_eval(inference::Model& model, const std::string& path) {
               << "\ntime: " << seconds << " s in all, slowest " << slowest << " s\n";
 }
 
+// A brief (orchestrator::brief_text), the reactions a reader judged fitting for it (its `accept` line), and the one
+// that fits best (its `best` line).
+struct LabelledBrief {
+    orchestrator::ReactionBrief brief;
+    std::set<std::string> accept;
+    std::string best;
+    int number = 0;
+};
+
+std::vector<LabelledBrief> labelled_briefs(const std::string& path) {
+    std::ifstream in(path, std::ios::binary);
+    if (!in) throw std::runtime_error("cannot read " + path);
+    std::vector<LabelledBrief> out;
+    std::string block;
+    int number = 0, opened = 0;
+    for (std::string row; std::getline(in, row);) {
+        ++number;
+        if (!row.empty() && row.back() == '\r') row.pop_back();
+        const std::string where = path + ":" + std::to_string(number) + ": ";
+        if (!block.empty()) {
+            block += row + "\n";
+            if (row == "end") {
+                const std::vector<orchestrator::ReactionBrief> read = orchestrator::briefs_from_text(block);
+                if (read.size() != 1) throw std::runtime_error(where + "a brief that does not read as one");
+                out.push_back({read.front(), {}, {}, opened});
+                block.clear();
+            }
+            continue;
+        }
+        if (row.empty() || row[0] == '#') continue;
+        if (row.rfind("brief ", 0) == 0) {
+            block = row + "\n";
+            opened = number;
+            continue;
+        }
+        if (row.rfind("accept ", 0) == 0) {
+            if (out.empty() || !out.back().accept.empty()) throw std::runtime_error(where + "an accept line with no brief before it");
+            std::istringstream words(row.substr(7));
+            for (std::string word; words >> word;) {
+                if (!orchestrator::reaction_named(word)) throw std::runtime_error(where + "no reaction called " + word);
+                out.back().accept.insert(word);
+            }
+            continue;
+        }
+        if (row.rfind("best ", 0) == 0) {
+            if (out.empty() || out.back().accept.count(row.substr(5)) == 0 || !out.back().best.empty())
+                throw std::runtime_error(where + "a best line that is not one of its brief's accepted");
+            out.back().best = row.substr(5);
+            continue;
+        }
+        throw std::runtime_error(where + "a line outside a brief: " + row);
+    }
+    if (!block.empty()) throw std::runtime_error(path + ": a brief with no end");
+    return out;
+}
+
+void react_eval(inference::Model& model, const std::string& path) {
+    const std::vector<LabelledBrief> cases = labelled_briefs(path);
+    const communicator::ReactionPicker picker(model);
+    std::size_t labelled = 0, model_right = 0, rules_right = 0, both = 0, bested = 0, model_best = 0, rules_best = 0;
+    std::map<std::string, std::size_t> model_picks, rules_picks;
+    double seconds = 0.0, slowest = 0.0;
+    std::cout << "\n## the reaction picker (" << cases.size() << " briefs)\n\n";
+    for (const LabelledBrief& one : cases) {
+        const auto started = Clock::now();
+        const std::string picked(orchestrator::to_string(picker.pick(one.brief)));
+        const double took = std::chrono::duration<double>(Clock::now() - started).count();
+        seconds += took;
+        slowest = std::max(slowest, took);
+        const std::string ruled(orchestrator::to_string(orchestrator::reaction_by_rules(one.brief)));
+        ++model_picks[picked];
+        ++rules_picks[ruled];
+        std::string accepted;
+        for (const std::string& a : one.accept) accepted += (accepted.empty() ? "" : " ") + a;
+        const bool m = one.accept.count(picked) > 0, r = one.accept.count(ruled) > 0;
+        if (!one.accept.empty()) {
+            ++labelled;
+            model_right += m ? 1 : 0;
+            rules_right += r ? 1 : 0;
+            both += m && r ? 1 : 0;
+        }
+        if (!one.best.empty()) {
+            ++bested;
+            model_best += picked == one.best ? 1 : 0;
+            rules_best += ruled == one.best ? 1 : 0;
+        }
+        std::cout << "- " << path << ":" << one.number << " " << one.brief.name << ", " << one.brief.archetype << "/" << one.brief.code << ", "
+                  << one.brief.outcome << ": " << one.brief.deed << "\n    model " << picked << (one.accept.empty() ? "" : m ? " (fits)" : " (not)")
+                  << "; rules " << ruled << (one.accept.empty() ? "" : r ? " (fits)" : " (not)") << "; fitting: " << accepted << "\n";
+    }
+    const auto spread = [](const std::map<std::string, std::size_t>& picks) {
+        std::string out;
+        for (const auto& [name, count] : picks) out += (out.empty() ? "" : ", ") + name + " " + std::to_string(count);
+        return out;
+    };
+    std::cout << "\npicker: fitting " << model_right << " of " << labelled << ", best " << model_best << " of " << bested
+              << "\nrules: fitting " << rules_right << " of " << labelled << ", best " << rules_best << " of " << bested
+              << "\nboth: " << both << "\npicker's picks: " << spread(model_picks) << "\nrules' picks: " << spread(rules_picks)
+              << "\ntime: " << seconds << " s in all, slowest " << slowest << " s\n";
+}
+
 void voice_eval(inference::Model& model, const std::string& path, const communicator::Lines* written,
                 const std::string& voice_key, const std::string& post) {
     communicator::Voice voice(model);
@@ -879,7 +987,7 @@ int main(int argc, char** argv) {
     if (model_path.empty()) model_path = COMMUNICATOR_TEST_MODEL;
     std::string lines = std::string(COMMUNICATOR_EVAL_DIR) + "/lines.txt";
     std::string voice = std::string(COMMUNICATOR_EVAL_DIR) + "/voice.txt";
-    std::string authored, voice_key, post, check, session, meaning_path, export_pairs, summarize, voice_model;
+    std::string authored, voice_key, post, check, session, meaning_path, export_pairs, summarize, voice_model, react;
     bool voice_alone = false;
     std::size_t limit = 0;
     inference::ModelOptions options;
@@ -902,6 +1010,7 @@ int main(int argc, char** argv) {
         else if (arg == "--voice-model") voice_model = value();
         else if (arg == "--voice-alone") voice_alone = true;
         else if (arg == "--summarize") summarize = value();
+        else if (arg == "--react") react = value();
         else if (arg == "--limit") limit = static_cast<std::size_t>(std::stoul(value()));
         else if (arg == "--threads") options.threads = std::stoi(value());
         else if (arg == "--gpu-layers") options.gpu_layers = std::stoi(value());
@@ -911,7 +1020,8 @@ int main(int argc, char** argv) {
                          "       communicator_eval --check-lines PATH\n"
                          "       communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--voice-model PATH [--voice-alone]]"
                          " [--gpu-layers N]\n"
-                         "       communicator_eval --summarize LOGS [--model PATH] [--threads N] [--gpu-layers N]\n";
+                         "       communicator_eval --summarize LOGS [--model PATH] [--threads N] [--gpu-layers N]\n"
+                         "       communicator_eval --react BRIEFS [--model PATH] [--threads N] [--gpu-layers N]\n";
             return 2;
         }
     }
@@ -952,6 +1062,10 @@ int main(int argc, char** argv) {
                   << "\ndevice: " << model->device() << "\n";
         if (!summarize.empty()) {
             summarize_eval(*model, summarize);
+            return 0;
+        }
+        if (!react.empty()) {
+            react_eval(*model, react);
             return 0;
         }
         if (!lines.empty()) interpreter_eval(*model, lines, limit);

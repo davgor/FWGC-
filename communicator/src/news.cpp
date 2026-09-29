@@ -287,6 +287,16 @@ const Fact* own_deed_of(const orchestrator::FactPacket& packet) {
     return nullptr;
 }
 
+std::string took_words(std::string_view reaction) {
+    if (reaction == "humbled") return "it humbled you; you own your part in it";
+    if (reaction == "embittered") return "it embittered you; you blame others for it, and it has hardened you";
+    if (reaction == "resolved") return "it steeled you; you mean to learn from it and do better";
+    if (reaction == "grieving") return "it grieves you; you mourn what it cost";
+    if (reaction == "vengeful") return "you want the foe that beat you, and mean to go after them";
+    if (reaction == "vindicated") return "it proved you right; you are surer of yourself for it";
+    return {};
+}
+
 std::string dated_news_words(const Fact& news, const std::string& self, std::string_view stranger, std::string_view here) {
     return with_when(news_words(news, self, stranger, here), news, !deed_words(news, self, here).empty());
 }

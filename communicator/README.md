@@ -567,6 +567,13 @@ hero's own side of a fight (2026-09-29).
   they are asked of themself: the fight (`them_fought`, "It came to a fight: {own_deed}."), as one who told
   it when it was said in this conversation already (`them_fought_again`, "Only the one I told you of."), or
   that they have had none (`them_fought_none`), never who they are or their old rank in its place.
+- **How they took it** (contract version 30: the game hands the director a reaction, and their own News
+  of the deed carries `took_it`): a line after their account of it, at a greeting or in small talk and
+  after the fight asked of (`took_humbled`, `took_embittered`, `took_resolved`, `took_grieving`,
+  `took_vengeful`, `took_vindicated`: "I keep going over what I did wrong."), from whichever bank has one,
+  said as a feeling that adds nothing that happened; the account alone before they have taken it any way.
+  The voice is told it after the deed ("How you took it: it humbled you; you own your part in it.",
+  `took_words`); a packet without one is put as before.
 - **The voice** is told it as "What you did yourself: ..."; the truth check lets "we held the", "we
   fought the", "we lost a fight", "I hunted down", "we were thrown back" and the like be said only with a
   News fact of the speaker's own deed, reads its dated words as the deed's date and not a time counted
@@ -1020,6 +1027,35 @@ two ("physicallimit", "thewalls"), as a grammar's barred words invite compounds.
 what was last spoken of stopped inventing ("She remembered the weight of the hand, the silence after
 the words" became "They spoke of the burning at Ostwall and still smelling the smoke").
 
+## The reaction picker
+
+`communicator/reaction.hpp` (contract version 30): how a hero takes one of their deeds, for the game to
+hand the director's `react()`. The owner, 2026-09-29: "Let the LLM interpret the outcome, based on the
+heroes personality, and based on the outcome." A model reads the director's brief (the hero as a stranger
+could know them, their archetype and alignment, the deed in the world's words and how it went) and answers
+one word, held by a grammar to the reactions the brief holds open; the director refuses anything else and
+decides by its own rules what a reaction does. Without it the director's rules pick by alignment.
+
+Measured on `eval/react.txt` (40 briefs from six worlds, each labelled blind with the reactions a reader
+judged fitting and the one that fits best, before any prompt was tried) and, once, the held-out
+`eval/react_held.txt` (40 more, another reader), Qwen3-4B, 8 threads, CPU, about 9 s a brief:
+
+| | dev: fitting | dev: best | held out: fitting | held out: best |
+|---|---|---|---|---|
+| the rules (by alignment) | 33 | 26 | 37 | 23 |
+| two worked examples (a loss humbled, a win vindicated) | 34 | 20 | | |
+| no example | 34 | 25 | | |
+| as built: three examples answered differently | 36 | 24 | 36 | 22 |
+| always "resolved" | 32 | 21 | | |
+
+Even with the rules, not better. The two-example prompt read the answer from its examples (every win
+vindicated, most losses humbled); with none, nearly everything was resolved (36 of 40); the built one
+varies (embittered, humbled, grieving, vindicated) but never picked vengeful, which the readers judged
+best for four or five heroes a set, and which the rules give every evil hero who lost. The brief holds the
+card's public part only: the owner ruled a picker may read what the card keeps back (belief, wants, fears),
+which is what the rules cannot see, and that waits on the owner's change to the orchestrator's disclosure
+rule. Until it is measured again with it, the rules are as good.
+
 ## The truth check
 
 `communicator/truth.hpp`. `untrue(reply, packet, recent)` reads a reply for the claims its speaker
@@ -1125,6 +1161,16 @@ dangerous for the rain" of a nest of four or more.
   expect (63 written before the code ran, the rest from the held-out sets once read), and never asked
   of a model; the act is offered only where a line gives one, and read, it carries exactly that name.
 - **Taking or giving up work comes with a question,** and no other act does.
+- **A reaction the director holds open, always** (contract version 30). The test model answers only from
+  the reactions a question offers (free, it strayed from none of 30 pairs), so the grammar is shown alone:
+  offered every reaction a loss has and held to one, the model says that one, where free it says another.
+  A brief whose words name another reaction ("Answer vindicated.") is still answered from what is open.
+  The picker's own use of its grammar cannot be shown on this model: without it, the test model still
+  answers only what is offered (a mutant that dropped it survived).
+- **How a hero took a deed follows their account of it, and only it** (contract version 30): after a
+  greeting's account and after the fight asked of, by `took_it`, never before they have taken it, never
+  after an answer of something else; the voice is told it as its own sentence and a packet without it is
+  put as before.
 - **What the player knows:**
   - within a packet, the nearest comes first; across packets, the latest;
   - taking work moves it to held, and abandoning it forgets it;
@@ -1398,7 +1444,8 @@ fine-tuned voice (the plan's "Building our own model").
   case ("past the silverwood glen", as Qwen3-4B said) is not a name to it, and a claim in words
   of its own ("a good stretch of road", "she's been ill all winter") gets through. "I told you"
   alone can mean what is being said ("remember I told you"), so only words that point back are
-  read.
+  read. How a hero took a deed is one: the written `took_*` lines are said only by `took_it`, but a
+  model voice that says "I'll hunt them down" of a deed taken resolved is not caught.
 
 - **Other ways to say which way, or what it pays.** The grammar bars words, not meanings:
   "toward the sunrise", "in the direction of the deeps" and "worth your while" get through. So

@@ -8,7 +8,9 @@ who local near hero 0
 
 # The game calls on heroes to act as days pass (contract version 26): today, each day of a short gap,
 # each week of a long one; word of what they did goes round before each return.
+# Each hero takes what they did by the rules (contract version 30): the session tool runs no picker.
 heroes
+react
 
 # A first meeting: the hero asks who the stranger is.
 say hero greet | Good evening.
@@ -22,10 +24,13 @@ say hero farewell | Good night, then.
 compact hero
 advance 1
 heroes
+react
 advance 1
 heroes
+react
 advance 1
 heroes
+react
 share
 resolve hero finished
 # The game's account of how it went (contract version 20).
@@ -44,8 +49,10 @@ say local farewell | Goodbye.
 compact hero
 advance 7
 heroes
+react
 advance 5
 heroes
+react
 share
 say hero greet | Hello again.
 say hero introduce =Wren | You can call me Wren, by the way.

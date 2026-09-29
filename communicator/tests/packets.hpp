@@ -602,10 +602,12 @@ inline Fact news_of_a_heros_deed(const std::string& verb, const std::string& sta
              {"how", how}}};
 }
 
-// A greeting from Selbren, who did it, to a stranger met a few days before: their own deed, their side of it.
-inline FactPacket greeted_after_own_deed(const std::string& state) {
-    return packet(castellan(), ActKind::Greet, Outcome::Greeted, {news_of_a_heros_deed("defended", state, "there")},
-                  {.met = "again", .times = 1, .since = "days"});
+// A greeting from Selbren, who did it, to a stranger met a few days before: their own deed, their side of it; and
+// how they took it, when `took` names a reaction (contract version 30).
+inline FactPacket greeted_after_own_deed(const std::string& state, const std::string& took = "") {
+    Fact deed = news_of_a_heros_deed("defended", state, "there");
+    if (!took.empty()) deed.fields.emplace_back("took_it", took);
+    return packet(castellan(), ActKind::Greet, Outcome::Greeted, {deed}, {.met = "again", .times = 1, .since = "days"});
 }
 
 // Small talk from the gate captain, who heard of Selbren's deed; `tie` how Selbren stands to them (contract
@@ -885,6 +887,13 @@ inline std::vector<FactPacket> conversation() {
     return {about_them(),
             greeted_after_own_deed("won"),
             greeted_after_own_deed("lost"),
+            greeted_after_own_deed("won", "resolved"),
+            greeted_after_own_deed("won", "vindicated"),
+            greeted_after_own_deed("lost", "humbled"),
+            greeted_after_own_deed("lost", "embittered"),
+            greeted_after_own_deed("lost", "resolved"),
+            greeted_after_own_deed("lost", "grieving"),
+            greeted_after_own_deed("lost", "vengeful"),
             small_talk_with_a_heros_deed(),
             small_talk_with_a_heros_deed("sovereign"),
             small_talk_with_a_heros_deed("ally", "lost"),

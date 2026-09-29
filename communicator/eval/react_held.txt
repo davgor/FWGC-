@@ -1,0 +1,1037 @@
+# Heroes' deeds as the reaction picker is shown them (contract version 30; communicator_eval --react), drawn as
+# react.txt's were, of kinds it does not hold, and labelled blind by another reader. Held out: run once a change
+# to the picker's question is chosen on react.txt, never tuned on.
+
+# 1
+brief 30
+hero hero-sovereign-surface-city-2-735-human_heartland
+event_id event-274
+name Korsel
+archetype conqueror
+alignment Neutral Good
+code NG
+manner Liberates as it annexes; the conquered eat better than before.
+voice Plain and situational; register follows the room. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Judges the player by usefulness and keeps the ledger current.
+line You'll keep your laws, your gods and your granaries. You'll lose your war. That's the whole offer.
+never accept a peace that leaves a rival crowned
+never spend more than the goal is worth
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Fought the whirlpool elementals at Eldnord (Age 2), and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept humbled resolved
+best resolved
+
+# 2
+brief 30
+hero hero-sovereign-surface-city-0-683-hill_dwarf
+event_id event-405
+name Solkgond
+archetype conqueror
+alignment Lawful Evil
+code LE
+manner Conquest by treaty, marriage and siege in that order; every surrender is kept. The one peace is their peace; dissent is a border to close.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Contempt under courtesy, or open contempt when courtesy stops paying.
+toward_player Uses first and discards when spent. Proves the player's standing before trusting them with anything that matters.
+line Kingdoms are kindling. I'm just the one honest enough to bring the torch.
+never accept a peace that leaves a rival crowned
+never break a sworn word
+never act outside the office they hold
+never sacrifice self for another
+never let a slight go unanswered
+deed Held Tormek against the burrow hulks.
+outcome won
+open resolved
+open vindicated
+end
+accept vindicated
+best vindicated
+
+# 3
+brief 30
+hero hero-sovereign-surface-city-1-369-human_rainforest
+event_id event-316
+name Grafbrand
+archetype conqueror
+alignment Chaotic Neutral
+code CN
+manner Conquest by charisma and sudden strikes; borders redrawn on a whim.
+voice Fragments, nicknames, interruptions; changes register mid-sentence and enjoys it. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Loyal to the person, never to the cause the person serves.
+line You'll keep your laws, your gods and your granaries. You'll lose your war. That's the whole offer.
+never accept a peace that leaves a rival crowned
+never obey an order they did not choose
+never abandon a personal loyalty for a rule
+never cruelty for its own sake
+deed Fought the kraken at Grafkor (Age 1), and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept resolved vengeful
+best vengeful
+
+# 4
+brief 30
+hero hero-pretender-surface-city-0-548-elf
+event_id event-232
+name Naurhela
+archetype broken_soul
+alignment Lawful Evil
+code LE
+manner The list is a ledger, settled in order. Makes the world share the loss.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Contempt under courtesy, or open contempt when courtesy stops paying.
+toward_player Uses first and discards when spent. Proves the player's standing before trusting them with anything that matters.
+line Room to move.
+never return to ordinary life
+never break a sworn word
+never act outside the office they hold
+never sacrifice self for another
+never let a slight go unanswered
+deed Assaulted the ruins of Gondmar and was thrown back by the tidal leviathans.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept embittered vengeful
+best vengeful
+
+# 5
+brief 30
+hero hero-domain-surface-city-0-508-human_rainforest
+event_id event-344
+name Brandbren
+archetype warden
+alignment Chaotic Neutral
+code CN
+manner The line is wherever they are standing.
+voice Fragments, nicknames, interruptions; changes register mid-sentence and enjoys it. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Loyal to the person, never to the cause the person serves.
+line Third night this month it's tested the ward. You want through? You're coming back with a message.
+never leave the post
+never obey an order they did not choose
+never abandon a personal loyalty for a rule
+never cruelty for its own sake
+deed Held the ruins of Verwen against the shipbreaker crabs.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best vindicated
+
+# 6
+brief 30
+hero hero-pretender-surface-city-0-662-human_heartland
+event_id event-374
+name Halsel
+archetype broken_soul
+alignment Lawful Good
+code LG
+manner The list is a ledger, settled in order. Saves others from the same loss, recklessly.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Proves the player's standing before trusting them with anything that matters.
+line Do you know what's left when the last thing burns? Room to carry someone else out.
+never return to ordinary life
+never break a sworn word
+never act outside the office they hold
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Assaulted the ruins of Selpor and was thrown back by the devouring tide.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept resolved grieving
+best resolved
+
+# 7
+brief 30
+hero hero-reeve-hamlet-node-557
+event_id event-415
+name Nartor
+archetype reluctant_hero
+alignment Chaotic Neutral
+code CN
+manner Does it their own way, grumbling.
+voice Fragments, nicknames, interruptions; changes register mid-sentence and enjoys it. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Loyal to the person, never to the cause the person serves.
+line Fine. But when this is done, someone else has the sword.
+never abandon people who depend on them
+never obey an order they did not choose
+never abandon a personal loyalty for a rule
+never cruelty for its own sake
+deed Held the farmstead below Angbral against the sea serpents.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best resolved
+
+# 8
+brief 30
+hero hero-sovereign-surface-city-0-629-human_large_island
+event_id event-299
+name Grafser
+archetype conqueror
+alignment Chaotic Good
+code CG
+manner Conquest by charisma and sudden strikes; borders redrawn on a whim. Liberates as it annexes; the conquered eat better than before.
+voice Fragments, nicknames, interruptions; changes register mid-sentence and enjoys it. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Loyal to the person, never to the cause the person serves.
+line You'll keep your laws, your gods and your granaries. You'll lose your war. That's the whole offer.
+never accept a peace that leaves a rival crowned
+never obey an order they did not choose
+never abandon a personal loyalty for a rule
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Fought the kraken at Wenbrig, and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept humbled resolved vengeful
+best resolved
+
+# 9
+brief 30
+hero hero-council-surface-city-0-498-human_desert-chaplain
+event_id event-443
+name Sirafros
+archetype forgiving
+alignment True Neutral
+code NN
+manner Neither law nor morality pulls harder than the other; the archetype shows almost unmodified.
+voice Plain and situational; register follows the room. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Judges the player by usefulness and keeps the ledger current.
+line You'll always get one more chance. That's the point of me.
+never kill a surrendered foe
+never spend more than the goal is worth
+never cruelty for its own sake
+deed Fought the sea serpents at Strandkanat, and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept humbled resolved
+best resolved
+
+# 10
+brief 30
+hero hero-castellan-fortress-node-596
+event_id event-436
+name Froswen
+archetype warden
+alignment Lawful Neutral
+code LN
+manner The watch rota is sacred.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Proves the player's standing before trusting them with anything that matters.
+line Third night this month it's tested the ward. You want through? You're coming back with a message.
+never leave the post
+never break a sworn word
+never act outside the office they hold
+never cruelty for its own sake
+deed Fought the sea serpents at the fortress above Fenpor, and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept humbled resolved
+best resolved
+
+# 11
+brief 30
+hero hero-sovereign-surface-city-0-455-human_rainforest
+event_id event-305
+name Grafwen
+archetype conqueror
+alignment Lawful Neutral
+code LN
+manner Conquest by treaty, marriage and siege in that order; every surrender is kept.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Proves the player's standing before trusting them with anything that matters.
+line You'll keep your laws, your gods and your granaries. You'll lose your war. That's the whole offer.
+never accept a peace that leaves a rival crowned
+never break a sworn word
+never act outside the office they hold
+never cruelty for its own sake
+deed Held Nordpor against the sea serpents.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best vindicated
+
+# 12
+brief 30
+hero hero-council-surface-city-0-804-frosthold_dwarf-chaplain
+event_id event-265
+name Sirnmoq
+archetype forgiving
+alignment Neutral Evil
+code NE
+manner Forgives because a debtor is worth more than a corpse.
+voice Plain and situational; register follows the room. Contempt under courtesy, or open contempt when courtesy stops paying.
+toward_player Uses first and discards when spent. Judges the player by usefulness and keeps the ledger current.
+line Of course you're pardoned. Now you owe me, and everyone knows it.
+never kill a surrendered foe
+never spend more than the goal is worth
+never sacrifice self for another
+never let a slight go unanswered
+deed Fought the abyssal krakens at Borgkodr, and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept embittered vengeful
+best embittered
+
+# 13
+brief 30
+hero hero-council-surface-city-2-477-human_heartland-magistrate
+event_id event-413
+name Linbrand
+archetype oathbound
+alignment Lawful Neutral
+code LN
+manner Keeps the oath's letter.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Proves the player's standing before trusting them with anything that matters.
+line I would spare you if the vow allowed one word of mercy. It does not.
+never reinterpret the oath to escape it
+never break a sworn word
+never act outside the office they hold
+never cruelty for its own sake
+deed Fought the sea serpents at Froskor (Age 2), and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept humbled resolved
+best resolved
+
+# 14
+brief 30
+hero hero-pretender-surface-city-0-671-gnome
+event_id event-362
+name Ulkbarg
+archetype exiled_hero
+alignment Chaotic Neutral
+code CN
+manner Builds a network of friends instead of walls.
+voice Fragments, nicknames, interruptions; changes register mid-sentence and enjoys it. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Loyal to the person, never to the cause the person serves.
+line Everything I have left is behind me now, and it needs a wall.
+never sell out the new home to buy back the old
+never obey an order they did not choose
+never abandon a personal loyalty for a rule
+never cruelty for its own sake
+deed Took the ruins of Durldorl.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best vindicated
+
+# 15
+brief 30
+hero hero-castellan-fortress-node-108
+event_id event-261
+name Legsulk
+archetype rebel
+alignment True Neutral
+code NN
+manner Neither law nor morality pulls harder than the other; the archetype shows almost unmodified.
+voice Plain and situational; register follows the room. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Judges the player by usefulness and keeps the ledger current.
+line We don't have an army. We have everyone he's stepped on.
+never bow
+never spend more than the goal is worth
+never cruelty for its own sake
+deed Held the fortress above Bargok against the forest dragons.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best vindicated
+
+# 16
+brief 30
+hero hero-pretender-surface-city-0-231-elf
+event_id event-258
+name Andakelev
+archetype exiled_hero
+alignment True Neutral
+code NN
+manner Neither law nor morality pulls harder than the other; the archetype shows almost unmodified.
+voice Plain and situational; register follows the room. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Judges the player by usefulness and keeps the ledger current.
+line Everything I have left is behind me now, and it needs a wall.
+never sell out the new home to buy back the old
+never spend more than the goal is worth
+never cruelty for its own sake
+deed Assaulted the ruins of Lainael and was thrown back by the elder sky serpents.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept humbled resolved
+best resolved
+
+# 17
+brief 30
+hero hero-castellan-fortress-node-146
+event_id event-390
+name Tormoq
+archetype warden
+alignment Neutral Evil
+code NE
+manner The line keeps the thing in, and the wardens fed.
+voice Plain and situational; register follows the room. Contempt under courtesy, or open contempt when courtesy stops paying.
+toward_player Uses first and discards when spent. Judges the player by usefulness and keeps the ledger current.
+line Nothing gets past me. That includes you, unless you've brought something it likes.
+never leave the post
+never spend more than the goal is worth
+never sacrifice self for another
+never let a slight go unanswered
+deed Held the fortress above Hoknkodr against the siege tortoises.
+outcome won
+open resolved
+open vindicated
+end
+accept vindicated
+best vindicated
+
+# 18
+brief 30
+hero hero-council-surface-city-0-531-human_rainforest-chaplain
+event_id event-356
+name Nerfen
+archetype oathbound
+alignment Chaotic Neutral
+code CN
+manner Keeps the oath's spirit, reinterpreted freely but never abandoned.
+voice Fragments, nicknames, interruptions; changes register mid-sentence and enjoys it. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Loyal to the person, never to the cause the person serves.
+line I would spare you if the vow allowed one word of mercy. It does not.
+never reinterpret the oath to escape it
+never obey an order they did not choose
+never abandon a personal loyalty for a rule
+never cruelty for its own sake
+deed Held Grafen against the shipbreaker crabs.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best vindicated
+
+# 19
+brief 30
+hero hero-pretender-surface-city-0-580-gnome
+event_id event-338
+name Nordspril
+archetype exiled_hero
+alignment Chaotic Good
+code CG
+manner Builds a network of friends instead of walls. Shelters other exiles, whoever they are.
+voice Fragments, nicknames, interruptions; changes register mid-sentence and enjoys it. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Loyal to the person, never to the cause the person serves.
+line Everything I have left is behind me now, and it needs a wall.
+never sell out the new home to buy back the old
+never obey an order they did not choose
+never abandon a personal loyalty for a rule
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Took the ruins of Legsirl from the gate colossi.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best resolved
+
+# 20
+brief 30
+hero hero-pretender-surface-city-0-267-hill_dwarf
+event_id event-292
+name Melolk
+archetype redeemed
+alignment Neutral Good
+code NG
+manner Refuses every dark shortcut.
+voice Plain and situational; register follows the room. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Judges the player by usefulness and keeps the ledger current.
+line Don't thank me for this. Just make sure it was necessary.
+never return to the old cause for gain
+never spend more than the goal is worth
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Took the ruins of Olkgold from the behemoths.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved
+best resolved
+
+# 21
+brief 30
+hero hero-keeper-shrine-ruin-surface-city-0-157-human_cold
+event_id event-398
+name Brannfros
+archetype zealot
+alignment Neutral Good
+code NG
+manner Converts by feeding and healing.
+voice Plain and situational; register follows the room. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Judges the player by usefulness and keeps the ledger current.
+line I've doubted. That's how I know doubt's the enemy. Sit, eat, I'll show you.
+never tolerate blasphemy
+never spend more than the goal is worth
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Fought the glacier dragons at Graflin (Age 2), and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept humbled resolved
+best resolved
+
+# 22
+brief 30
+hero hero-domain-surface-city-0-379-human_heartland
+event_id event-343
+name Brenbrand
+archetype oathbound
+alignment True Neutral
+code NN
+manner Neither law nor morality pulls harder than the other; the archetype shows almost unmodified.
+voice Plain and situational; register follows the room. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Judges the player by usefulness and keeps the ledger current.
+line I would spare you if the vow allowed one word of mercy. It does not.
+never reinterpret the oath to escape it
+never spend more than the goal is worth
+never cruelty for its own sake
+deed Fought the chain hydras at the ruins of Verdun, and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept humbled resolved
+best resolved
+
+# 23
+brief 30
+hero hero-sovereign-surface-city-0-792-gnome
+event_id event-380
+name Legnar
+archetype incarnate
+alignment Chaotic Good
+code CG
+manner Every act is a rebellion. Every act is a kindness, however hard.
+voice Fragments, nicknames, interruptions; changes register mid-sentence and enjoys it. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Loyal to the person, never to the cause the person serves.
+line It isn't that I won't. There's no version of me that could.
+never act outside the corner, even to win
+never obey an order they did not choose
+never abandon a personal loyalty for a rule
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Held Sirlbod against the abyssal krakens.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best vindicated
+
+# 24
+brief 30
+hero hero-reeve-hamlet-node-222
+event_id event-315
+name Torspril
+archetype reluctant_hero
+alignment Chaotic Good
+code CG
+manner Does it their own way, grumbling. Cannot walk past the helpless.
+voice Fragments, nicknames, interruptions; changes register mid-sentence and enjoys it. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Loyal to the person, never to the cause the person serves.
+line Fine. But when this is done, someone else has the sword.
+never abandon people who depend on them
+never obey an order they did not choose
+never abandon a personal loyalty for a rule
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Held the farmstead below Narak against the rocs.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best resolved
+
+# 25
+brief 30
+hero hero-reeve-hamlet-node-682
+event_id event-244
+name Legdurl
+archetype reluctant_hero
+alignment Chaotic Neutral
+code CN
+manner Does it their own way, grumbling.
+voice Fragments, nicknames, interruptions; changes register mid-sentence and enjoys it. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Loyal to the person, never to the cause the person serves.
+line Fine. But when this is done, someone else has the sword.
+never abandon people who depend on them
+never obey an order they did not choose
+never abandon a personal loyalty for a rule
+never cruelty for its own sake
+deed Fought the shipbreaker crabs at the farmstead below Ulkmek, and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept embittered resolved
+best resolved
+
+# 26
+brief 30
+hero hero-pretender-surface-city-0-336-elf
+event_id event-251
+name Nauranda
+archetype broken_soul
+alignment Lawful Good
+code LG
+manner The list is a ledger, settled in order. Saves others from the same loss, recklessly.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Proves the player's standing before trusting them with anything that matters.
+line Do you know what's left when the last thing burns? Room to carry someone else out.
+never return to ordinary life
+never break a sworn word
+never act outside the office they hold
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Took the ruins of Kelevsila from the the wild hunt.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved
+best resolved
+
+# 27
+brief 30
+hero hero-pretender-surface-city-0-327-hill_dwarf
+event_id event-240
+name Angolk
+archetype exiled_hero
+alignment Lawful Neutral
+code LN
+manner Builds walls and charters for the new settlement.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Proves the player's standing before trusting them with anything that matters.
+line Everything I have left is behind me now, and it needs a wall.
+never sell out the new home to buy back the old
+never break a sworn word
+never act outside the office they hold
+never cruelty for its own sake
+deed Took the ruins of Narbod.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best resolved
+
+# 28
+brief 30
+hero hero-pretender-surface-city-0-83-human_cold
+event_id event-389
+name Brannner
+archetype redeemed
+alignment Lawful Good
+code LG
+manner Submits to judgement and serves the sentence in public. Refuses every dark shortcut.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Proves the player's standing before trusting them with anything that matters.
+line Don't thank me for this. Just make sure it was necessary.
+never return to the old cause for gain
+never break a sworn word
+never act outside the office they hold
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Assaulted the ruins of Halbrig and was thrown back by the deep-sea dragons.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept humbled resolved
+best humbled
+
+# 29
+brief 30
+hero hero-council-surface-city-2-237-human_cold-magistrate
+event_id event-344
+name Wensel
+archetype corrupt
+alignment Lawful Neutral
+code LN
+manner Corruption through contract and fee.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Proves the player's standing before trusting them with anything that matters.
+line This one's at cost. The orphanage doesn't run on prayers.
+never die for anything
+never break a sworn word
+never act outside the office they hold
+never cruelty for its own sake
+deed Fought the whirlpool elementals at Eldfen (Age 2), and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept embittered resolved
+best embittered
+
+# 30
+brief 30
+hero hero-council-surface-city-0-182-frosthold_dwarf-magistrate
+event_id event-442
+name Mekong
+archetype corrupt
+alignment Neutral Evil
+code NE
+manner Sells the city short.
+voice Plain and situational; register follows the room. Contempt under courtesy, or open contempt when courtesy stops paying.
+toward_player Uses first and discards when spent. Judges the player by usefulness and keeps the ledger current.
+line I like you. So this one's at cost. Next time we talk about interest.
+never die for anything
+never spend more than the goal is worth
+never sacrifice self for another
+never let a slight go unanswered
+deed Fought the horizon eyes at Guntmek, and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept embittered vengeful
+best embittered
+
+# 31
+brief 30
+hero hero-reeve-hamlet-node-874
+event_id event-243
+name Nortor
+archetype obsessed_hunter
+alignment Lawful Evil
+code LE
+manner A warrant, a method, a schedule. Hunts because it beat them.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Contempt under courtesy, or open contempt when courtesy stops paying.
+toward_player Uses first and discards when spent. Proves the player's standing before trusting them with anything that matters.
+line Show me. Everything else can burn.
+never let the Dread go
+never break a sworn word
+never act outside the office they hold
+never sacrifice self for another
+never let a slight go unanswered
+deed Fought the crystal dragons at the farmstead below Nordbrol, and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept embittered resolved vengeful
+best vengeful
+
+# 32
+brief 30
+hero hero-champion-surface-city-0-87-frosthold_dwarf
+event_id event-289
+name Moqkrum
+archetype knight_errant
+alignment Lawful Evil
+code LE
+manner Follows the old code to the letter. Serves any cause that lets the order's name be feared again.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Contempt under courtesy, or open contempt when courtesy stops paying.
+toward_player Uses first and discards when spent. Proves the player's standing before trusting them with anything that matters.
+line The order's dead. Its name isn't. I rent it out.
+never fight for pay alone
+never break a sworn word
+never act outside the office they hold
+never sacrifice self for another
+never let a slight go unanswered
+deed Hunted the dragon turtles, and was beaten back.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept embittered resolved vengeful
+best vengeful
+
+# 33
+brief 30
+hero hero-pretender-surface-city-0-655-gnome
+event_id event-362
+name Ulhakn
+archetype broken_soul
+alignment Chaotic Good
+code CG
+manner Whoever is nearest to the wound today. Saves others from the same loss, recklessly.
+voice Fragments, nicknames, interruptions; changes register mid-sentence and enjoys it. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Loyal to the person, never to the cause the person serves.
+line Do you know what's left when the last thing burns? Room to carry someone else out.
+never return to ordinary life
+never obey an order they did not choose
+never abandon a personal loyalty for a rule
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Assaulted the ruins of Mekbod and was thrown back by the living dunes.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept resolved grieving
+best grieving
+
+# 34
+brief 30
+hero hero-warlord-2-surface-city-0-804-frosthold_dwarf
+event_id event-255
+name Krumsirn
+archetype malevolent_benevolent
+alignment Lawful Evil
+code LE
+manner Builds churches, or courts. Does not need to be served; will be anyway.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Contempt under courtesy, or open contempt when courtesy stops paying.
+toward_player Uses first and discards when spent. Proves the player's standing before trusting them with anything that matters.
+line I don't need you to serve me. You will, but I don't need it.
+never compromise the moral pole
+never break a sworn word
+never act outside the office they hold
+never sacrifice self for another
+never let a slight go unanswered
+deed Held Borgkodr against the abyssal krakens.
+outcome won
+open resolved
+open vindicated
+end
+accept vindicated
+best vindicated
+
+# 35
+brief 30
+hero hero-council-surface-city-0-754-dwarf-mage
+event_id event-357
+name Ulksulk
+archetype mastermind
+alignment Lawful Neutral
+code LN
+manner Plans inside institutions.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Proves the player's standing before trusting them with anything that matters.
+line You did exactly what I hoped. I keep hope and plan separate.
+never act without a fallback
+never break a sworn word
+never act outside the office they hold
+never cruelty for its own sake
+deed Fought the behemoths at Ulkbarg, and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept resolved
+best resolved
+
+# 36
+brief 30
+hero hero-castellan-fortress-node-559
+event_id event-398
+name Angkrum
+archetype oathbound
+alignment True Neutral
+code NN
+manner Neither law nor morality pulls harder than the other; the archetype shows almost unmodified.
+voice Plain and situational; register follows the room. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Judges the player by usefulness and keeps the ledger current.
+line I would spare you if the vow allowed one word of mercy. It does not.
+never reinterpret the oath to escape it
+never spend more than the goal is worth
+never cruelty for its own sake
+deed Held the fortress above Angbral against the sea serpents.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best resolved
+
+# 37
+brief 30
+hero hero-council-surface-city-1-763-human_cold-magistrate
+event_id event-394
+name Froslin
+archetype corrupt
+alignment True Neutral
+code NN
+manner Neither law nor morality pulls harder than the other; the archetype shows almost unmodified.
+voice Plain and situational; register follows the room. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Judges the player by usefulness and keeps the ledger current.
+line This one's at cost. The orphanage doesn't run on prayers.
+never die for anything
+never spend more than the goal is worth
+never cruelty for its own sake
+deed Fought the abyssal krakens at Brennord (Age 1), and lost.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept embittered resolved
+best embittered
+
+# 38
+brief 30
+hero hero-domain-surface-city-0-370-hill_dwarf
+event_id event-215
+name Borgond
+archetype warden
+alignment Neutral Good
+code NG
+manner Lets refugees through, both ways.
+voice Plain and situational; register follows the room. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Judges the player by usefulness and keeps the ledger current.
+line Third night this month it's tested the ward. You want through? You're coming back with a message.
+never leave the post
+never spend more than the goal is worth
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Held the ruins of Bargborn against the shipbreaker crabs.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best resolved
+
+# 39
+brief 30
+hero hero-council-surface-city-0-233-dwarf-mage
+event_id event-210
+name Durnmokh
+archetype mastermind
+alignment Lawful Neutral
+code LN
+manner Plans inside institutions.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Direct and self-interested without malice.
+toward_player Offers a fair trade and expects the same. Proves the player's standing before trusting them with anything that matters.
+line You did exactly what I hoped. I keep hope and plan separate.
+never act without a fallback
+never break a sworn word
+never act outside the office they hold
+never cruelty for its own sake
+deed Held Mekkadr against the basilisks.
+outcome won
+open resolved
+open vindicated
+end
+accept resolved vindicated
+best vindicated
+
+# 40
+brief 30
+hero hero-champion-surface-city-0-711-dwarf
+event_id event-410
+name Legnar
+archetype oathbound
+alignment Lawful Good
+code LG
+manner Keeps the oath's letter. The oath is a shield held over others.
+voice Complete sentences, titles and forms of address, precedent and oaths cited when pressed. Asks after others, uses names, apologises when they mean it.
+toward_player Helps first and asks later. Proves the player's standing before trusting them with anything that matters.
+line I would spare you if the vow allowed one word of mercy. It does not.
+never reinterpret the oath to escape it
+never break a sworn word
+never act outside the office they hold
+never harm an innocent to advance the claim
+never leave the helpless behind
+deed Hunted the folded leviathans, and was beaten back.
+outcome lost
+open humbled
+open embittered
+open resolved
+open grieving
+open vengeful
+end
+accept humbled resolved
+best resolved
