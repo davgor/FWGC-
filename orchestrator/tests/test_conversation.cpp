@@ -1631,6 +1631,40 @@ TEST(asked_about_themself_a_castellan_tells_their_past) {
                    "another hero: none of it");
 }
 
+// Contract version 22: a war deed says whom the war was against, by the city's name: "what war, against
+// whom" was a judge's first ask of a castellan whose record says he won one (2026-09-29).
+TEST(a_war_deed_says_whom_it_was_against) {
+    const fwg::World& w = faced_world();
+    const fwg::Hero* fought = nullptr;
+    const fwg::HeroDeed* war = nullptr;
+    for (const fwg::Hero& h : w.heroes.people) {
+        if (fought || h.status != "living" || h.faces.size() != 1 || !node_of(w, h.uid)) continue;
+        for (const fwg::HeroDeed& d : h.deeds)
+            if (d.event_kind == "war" && !d.opponent_uid.empty() && !war) {
+                fought = &h;
+                war = &d;
+            }
+    }
+    check::is_true(fought != nullptr && war != nullptr, "the premise: a living hero with a war against a city");
+    std::string city;
+    for (const auto& site : w.settlements.sites)
+        if (site.uid == war->opponent_uid) city = site.name;
+    for (const auto& ruin : w.ruins)
+        if (ruin.uid == war->opponent_uid) city = "the ruins of " + ruin.name;
+    check::is_true(!city.empty(), "the premise: the city fought is one the world names");
+    Director d(w);
+    const FactPacket p = d.respond(fought->uid, {ActKind::AskAboutThem, ""});
+    bool said = false;
+    for (const Fact& f : facts_of(p, FactKind::Deed))
+        if (f.subject == war->event_id) {
+            said = true;
+            check::equal(value(f, "against"), city, "the city fought, by name");
+        }
+    check::is_true(said, "the premise: the war among the deeds said");
+    for (const Fact& f : facts_of(p, FactKind::Deed))
+        if (value(f, "deed") != "war") check::is_true(f.field("against") == nullptr, "no other deed says against whom");
+}
+
 // A mask still worn says only what its cover would: its trade and where it stands. Exposed, it tells
 // the story of the one behind it.
 TEST(a_mask_says_only_its_trade_until_it_comes_off) {

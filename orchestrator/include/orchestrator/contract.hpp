@@ -53,7 +53,8 @@ namespace orchestrator {
 // 21: the Recall memory "question": a question the speaker asked the stranger that the stranger never
 //     answered, its words as the speaker asked it; a greeting carries it once, in a later
 //     conversation.
-inline constexpr int kContractVersion = 21;
+// 22: a war Deed fact's `against`: the city fought, by name.
+inline constexpr int kContractVersion = 22;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -322,6 +323,8 @@ std::string_view to_string(FactKind kind);
 // - `part`: "heir", "actual", "keeper", "credited", "victim";
 // - `place`: where, by name, when the world names it;
 // - `war`: a war's reach, "international", "regional" or "civil"; war deeds only;
+// - `against`: the city fought, by name ("the ruins of" one since fallen); war deeds only (contract
+//   version 22);
 // - `when`.
 // Asked about themself, a speaker answers with a Self fact, their Deed facts, and a Person fact for
 // the sovereign they are sworn to and each of their rivals, kin and allies (at most three, in that

@@ -433,6 +433,10 @@ std::vector<Fact> self_facts(const fwg::World& world, const Speaker& speaker, bo
                 deed.fields.emplace_back("place", d.city_name);
             }
             if (d.event_kind == "war" && !d.kind.empty()) deed.fields.emplace_back("war", d.kind);
+            // Whom the war was against (contract version 22): "what war, against whom" was a judge's first
+            // ask of a castellan whose record says he won one (the golden benchmark, 2026-09-29).
+            if (d.event_kind == "war")
+                if (const std::optional<std::string> against = anchor_name(world, d.opponent_uid)) deed.fields.emplace_back("against", *against);
             deed.fields.emplace_back("when", age_band(world, d.age));
             deeds.push_back(std::move(deed));
         }

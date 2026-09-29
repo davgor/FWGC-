@@ -398,7 +398,10 @@ A castellan has a past (contract version 19, the generator's heroes version 3; t
 digits), `served_at` and `served_as` (where they served before it, and as a soldier, a sergeant, or
 second to another fortress's castellan); the sovereign they are sworn to, a Person fact marked
 `tie` "liege", first of their ties; and Deed facts for the wars their city fought in their
-lifetime. Every castellan of the benchmark's six worlds had held only their post.
+lifetime. Every castellan of the benchmark's six worlds had held only their post. A war deed says
+whom it was against (contract version 22, `against`: the city fought, by name, "the ruins of" one
+since fallen): "what war, against whom" was a judge's first ask of a castellan whose record says he
+won one (2026-09-29).
 
 Another giver's work, named in an answer to ask_for_work, says how that giver stands to the
 speaker (contract version 15, `giver_tie`: rival, kin or ally; liege since 19), from the speaker's hero record: the
