@@ -129,6 +129,12 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   someone are never said back, nor words of "we": whether the speaker was one of them the words do not
   say, and "you lost two good people" handed a shared loss back (two judges, 2026-09-28). "As I told
   you" before an answer is C++'s, dated by the Recall fact.
+- **The stranger's name is only ever their own words** (contract version 24). `name_given`
+  (`src/mention.hpp`) finds it in the player's line, and no model is asked for it: the interpreter's
+  model only says whether the line is an introduction. A reply says a name only as the Memory fact
+  holds it, through `{player}` and `{player_other}` or C++'s `with_name` in a greeting or a farewell,
+  never a name of the model's or the writer's. A new way to find a name comes with its cases, and a
+  measure on lines held out from it.
 - **A question the speaker asked is kept only as the reply said it** (contract version 21):
   `question_to_keep` takes the reply's last question, word for word, and keeps it only when its shape
   asks a fact (three words or more, no tag after a clause) and the embedding hears one that stays true;
@@ -149,8 +155,9 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   each wrong read.
 - **An act is offered to the model only where it can apply:** an answer after a question, calming
   words to a frightened speaker, a complaint where the speaker's own work is between them (contract
-  version 18). A listed act costs a small model on every line: offered to everyone, `calm` took the
-  test model from 112 lines of 310 read right to 79 (2026-09-26).
+  version 18), a name where the line gives one (contract version 24). A listed act costs a small
+  model on every line: offered to everyone, `calm` took the test model from 112 lines of 310 read
+  right to 79 (2026-09-26).
 - **A world-changing act is confirmed before it reaches the director.** Whatever joins the
   communicator to the director (the game, a binding) asks `Interpretation::confirm` and hands on
   the act only on yes. A reply's shape (`reply_shape()`) states the outcome first; an outcome
