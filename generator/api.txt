@@ -32,6 +32,7 @@ found_settlement      settlement_api
 raise_band            nomad_api
 person_state_request  person_state
 hero_action_request   hero_action
+hero_shift_request    hero_action
 
 # What a world can be asked without changing it.
 age_order             ages

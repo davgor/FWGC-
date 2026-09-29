@@ -63,6 +63,17 @@ TEST(a_hero_action_is_recorded_through_the_api) {
     const fwg::HeroActionResult result = fwg::hero_action_request(world, action);
     check::equal(result.actions.size(), std::size_t{1}, "one action written");
     check::equal(result.world.history.operations.size(), world.history.operations.size() + 1, "and logged");
+    // How their alignment moved after it, through the API alone (heroes version 6): a step toward evil.
+    fwg::HeroShiftRequest shift;
+    fwg::HeroShiftEntry moved;
+    moved.uid = castellan->uid;
+    moved.good = -fwg::kHeroShiftStep;
+    moved.after_event_id = result.actions.front().event_id;
+    moved.day = entry.day;
+    shift.shifts.push_back(moved);
+    const fwg::HeroShiftResult hardened = fwg::hero_shift_request(result.world, shift);
+    check::equal(hardened.shifts.size(), std::size_t{1}, "one shift written");
+    check::equal(hardened.world.history.operations.size(), result.world.history.operations.size() + 1, "and logged");
 }
 
 TEST(the_weather_at_a_moment_reads_through_the_api) {
