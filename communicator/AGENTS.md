@@ -152,6 +152,15 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   stranger's own whole words within one sentence, never a question; the rest in lower case and the
   log's own capitalised words. The director checks it again; a change to what may be quoted comes
   with `communicator_eval --summarize` before and after.
+- **The reaction picker only chooses among what the director holds open** (`reaction.hpp`, contract
+  version 30): how a hero takes a deed, as the owner ruled a model should ("Let the LLM interpret the
+  outcome, based on the heroes personality", 2026-09-29), one word of the brief's `open` held by a
+  grammar. The director refuses anything else and decides by its own rules what a reaction does; the
+  picker reads the brief and nothing more. A change to its question comes with `communicator_eval
+  --react` before and after, on briefs a reader labelled before the change was tried, and a set held out.
+- **How a hero took a deed is said as a feeling, never an event** (contract version 30): the `took_*`
+  lines and the voice's words for `took_it` (`took_words`) say how the hero stands toward their own newest
+  deed, after their account of it, and add nothing that happened, no one lost, helped or blamed by name.
 - **Every reply passes the truth check before it is shown** (`truth.hpp`, `untrue()`).
   `Lines::speak` checks written lines as it chooses them, and says the next line when one fails;
   whatever joins the communicator to the game checks a voice reply and shows the written line
