@@ -55,7 +55,11 @@ player's line --Interpreter--> DialogueAct --Director::respond--> FactPacket --V
    changes the world (`orchestrator::act_changes_world`). For those acts, the game asks the
    question in `confirm` ("Take on this work?", with `label` beneath it), and the act goes to
    `Director::respond` only on yes. A misread line then costs a question, never a quest.
-4. **`Voice::speak(packet, line, on_piece)`** streams the reply, piece by piece. Or
+4. **`Voice::speak(packet, line, on_piece, said_so_far)`** streams the reply, piece by piece.
+   `said_so_far` is this conversation's exchanges before the line (the stranger's lines and the
+   replies shown), which the game keeps and begins again with each conversation: the voice is shown
+   the last eight as the turns they were, and told to say nothing it said there again; with none, the
+   prompt is as it always was (the owner, 2026-09-28: "Yes they should"). Or
    **`Lines::speak(packet, line, previous)`** gives a written one ([Written lines](#written-lines)).
 5. **Before a voice reply is shown, the game checks it** with `communicator::untrue(reply, packet,
    recent)` ([The truth check](#the-truth-check)), and on any problem shows the written line

@@ -26,6 +26,15 @@ struct VoiceOptions {
     std::uint32_t seed = 0;    // used when temperature > 0
 };
 
+// One exchange of the conversation so far: what the stranger said, and the reply they were shown.
+struct Exchange {
+    std::string line;
+    std::string reply;
+};
+
+// How many of a conversation's exchanges the voice is shown, the latest: room in the prompt to spare.
+inline constexpr std::size_t kExchangesShown = 8;
+
 struct Reply {
     std::string text;
     int tokens = 0;
@@ -40,14 +49,18 @@ public:
     explicit Voice(inference::Model& model, VoiceOptions options = {});
 
     // The speaker's reply to `line`, saying what `packet` holds. Each piece goes to `on_piece`
-    // as it comes, in whole UTF-8 characters; returning false stops. Throws Error for a packet
-    // of another contract version or a line past kMaxLineBytes.
+    // as it comes, in whole UTF-8 characters; returning false stops. `said_so_far` is this
+    // conversation's exchanges before `line`, oldest first, as the game kept them: the voice is
+    // shown the last kExchangesShown, as the turns they were, and told to say nothing again. Empty
+    // at a conversation's first turn, and then the prompt is as it always was. Throws Error for a
+    // packet of another contract version or a line past kMaxLineBytes.
     Reply speak(const orchestrator::FactPacket& packet, std::string_view line,
-                const std::function<bool(std::string_view)>& on_piece = {});
+                const std::function<bool(std::string_view)>& on_piece = {}, const std::vector<Exchange>& said_so_far = {});
 
     // What speak() puts to the model, and the grammar it holds the reply to: for a log, a test,
     // or a training pair. Neither needs a model.
-    static std::vector<inference::Message> messages(const orchestrator::FactPacket& packet, std::string_view line);
+    static std::vector<inference::Message> messages(const orchestrator::FactPacket& packet, std::string_view line,
+                                                    const std::vector<Exchange>& said_so_far = {});
     static std::string grammar(const orchestrator::FactPacket& packet);
 
 private:

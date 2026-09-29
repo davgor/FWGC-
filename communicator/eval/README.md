@@ -389,6 +389,17 @@ SENSE 10, REPEAT 7), score 2, against the written lines' 16 of 24, score 3. It s
 the player's line, never what it said before, so it gave its introduction to five different
 questions, and it met "I nearly lost my arm" with "Good, that's the sort of answer I like".
 
+Since then the voice is shown the conversation so far (`Voice::speak`'s `said_so_far`; the session
+keeps each speaker's, begun again at a conversation's first turn; `--voice-alone` shows it none).
+The six sessions spoken by the same voice both ways and judged by twelve fresh judges (2026-09-28):
+with the conversation 46 of 127 replies without fault, 140 faults, 26 of them repeats; without it
+43 of 127, 198 faults, 50 repeats; every score 2. Shown what it said, it stopped giving its
+introduction to every question about itself, and the faults a reply carries fell by a third, but
+most replies still carry one: answers with nothing in them ("Nothing's out of order"), a clerk's or
+a shopkeeper's manner, and the sayings it learned from rows that had them. The written lines, judged
+the same night: 85 of 127, score 3. The 64 voice cases, with no conversation, give the same replies
+as before the change.
+
 `session_hero2.txt` is a second session, held out: another hero in another world, other words,
 written after the fixes above and before it was ever run, to see whether they hold. Its first run,
 judged blind: 11 of 22 without fault (TONE 5, DODGE 4, REPEAT 4, SENSE 3, CHARACTER 3, MEMORY 2,

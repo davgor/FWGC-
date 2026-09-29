@@ -3,7 +3,7 @@
 //   communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH] [--voice-key KEY]
 //                     [--post POST] [--limit N] [--threads N] [--gpu-layers N]
 //   communicator_eval --check-lines PATH
-//   communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--voice-model PATH] [--gpu-layers N]
+//   communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--voice-model PATH [--voice-alone]] [--gpu-layers N]
 //   communicator_eval --summarize LOGS [--model PATH] [--threads N] [--gpu-layers N]
 //
 // --summarize reads conversation logs a person would remember something of (summarize.txt in this
@@ -511,6 +511,14 @@ std::string json_string(std::string_view text) {
 
 // What a packet's speaker remembers, as a note for a reader (never said): "met again, 1 before,
 // days; friendly; their work: taken; asked about the burnt works last time".
+// This packet's turn in its conversation, from its Memory fact: 1 at a conversation's first.
+int memory_turn(const FactPacket& p) {
+    for (const orchestrator::Fact& f : p.facts)
+        if (f.kind == orchestrator::FactKind::Memory)
+            if (const std::string* turn = f.field("turn")) return std::atoi(turn->c_str());
+    return 1;
+}
+
 std::string memory_note(const FactPacket& p) {
     for (const orchestrator::Fact& f : p.facts) {
         if (f.kind != orchestrator::FactKind::Memory) continue;
@@ -542,15 +550,18 @@ constexpr std::size_t kLately = 32;
 // the model speaks each turn, and where the truth check finds a claim its packet and what the
 // speaker said lately do not back, the written line is said instead, as README.md tells a game to
 // do; why goes to stderr, so a blind reader of the transcript is not told which spoke.
+// The voice is shown the conversation so far, begun again at a conversation's first turn, as a game
+// keeps it; `alone`, it is shown nothing of it, as before.
 void session_eval(const std::string& path, const communicator::Lines& written, communicator::Meaning* meaning,
-                  std::ostream* pairs, communicator::Voice* voice = nullptr) {
+                  std::ostream* pairs, communicator::Voice* voice = nullptr, bool alone = false) {
     std::ifstream in(path, std::ios::binary);
     if (!in) throw std::runtime_error("no session at " + path);
     std::stringstream text;
     text << in.rdbuf();
     std::istringstream rows(text.str());
-    // What each speaker said lately, as a game keeps it for them.
+    // What each speaker said lately, as a game keeps it for them; and their conversation so far.
     std::map<std::string, std::vector<std::string>> said_lately;
+    std::map<std::string, std::vector<communicator::Exchange>> conversation;
     std::string name, line, block, shown_speaker, spoken_to;
     bool in_packet = false;
     int turn = 0;
@@ -575,12 +586,14 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
             shown_speaker = who;
             const auto started = std::chrono::steady_clock::now();
             std::vector<std::string>& lately = said_lately[p.speaker];
+            std::vector<communicator::Exchange>& so_far = conversation[p.speaker];
+            if (memory_turn(p) == 1) so_far.clear();
             // What the speaker said lately is part of what they remember: an answer they gave all of
             // lately is said again as told, and the note says so.
             const bool told = written.told(p, lately);
             std::string reply = written.speak(p, line, lately, meaning);
             if (voice) {
-                const communicator::Reply spoken = voice->speak(p, line);
+                const communicator::Reply spoken = voice->speak(p, line, {}, alone ? std::vector<communicator::Exchange>() : so_far);
                 const std::vector<std::string> wrong = communicator::untrue(spoken.text, p, lately);
                 if (!spoken.text.empty() && wrong.empty()) {
                     reply = spoken.text;
@@ -596,6 +609,7 @@ void session_eval(const std::string& path, const communicator::Lines& written, c
             slowest = std::max(slowest, took);
             lately.push_back(reply);
             if (lately.size() > kLately) lately.erase(lately.begin());
+            so_far.push_back({line, reply});
             // A training pair: the voice's own messages for this turn, and the written reply.
             if (pairs && !reply.empty()) {
                 const std::vector<inference::Message> messages = communicator::Voice::messages(p, line);
@@ -862,6 +876,7 @@ int main(int argc, char** argv) {
     std::string lines = std::string(COMMUNICATOR_EVAL_DIR) + "/lines.txt";
     std::string voice = std::string(COMMUNICATOR_EVAL_DIR) + "/voice.txt";
     std::string authored, voice_key, post, check, session, meaning_path, export_pairs, summarize, voice_model;
+    bool voice_alone = false;
     std::size_t limit = 0;
     inference::ModelOptions options;
     for (int i = 1; i < argc; ++i) {
@@ -881,6 +896,7 @@ int main(int argc, char** argv) {
         else if (arg == "--export-pairs") export_pairs = value();
         else if (arg == "--meaning") meaning_path = value();
         else if (arg == "--voice-model") voice_model = value();
+        else if (arg == "--voice-alone") voice_alone = true;
         else if (arg == "--summarize") summarize = value();
         else if (arg == "--limit") limit = static_cast<std::size_t>(std::stoul(value()));
         else if (arg == "--threads") options.threads = std::stoi(value());
@@ -889,7 +905,8 @@ int main(int argc, char** argv) {
             std::cerr << "usage: communicator_eval [--model PATH] [--lines PATH] [--voice PATH] [--authored PATH]"
                          " [--voice-key KEY] [--post POST] [--limit N] [--threads N] [--gpu-layers N]\n"
                          "       communicator_eval --check-lines PATH\n"
-                         "       communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--voice-model PATH] [--gpu-layers N]\n"
+                         "       communicator_eval --session PACKETS [--authored PATH] [--meaning PATH] [--voice-model PATH [--voice-alone]]"
+                         " [--gpu-layers N]\n"
                          "       communicator_eval --summarize LOGS [--model PATH] [--threads N] [--gpu-layers N]\n";
             return 2;
         }
@@ -922,7 +939,8 @@ int main(int argc, char** argv) {
                 speaking.emplace(*speaker);
                 std::cerr << "voice: " << voice_model << " on " << speaker->device() << "\n";
             }
-            session_eval(session, written, meaning ? &*meaning : nullptr, export_pairs.empty() ? nullptr : &pairs, speaking ? &*speaking : nullptr);
+            session_eval(session, written, meaning ? &*meaning : nullptr, export_pairs.empty() ? nullptr : &pairs, speaking ? &*speaking : nullptr,
+                         voice_alone);
             return 0;
         }
         std::unique_ptr<inference::Model> model = inference::Model::load(model_path, options);

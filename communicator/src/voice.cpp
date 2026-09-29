@@ -480,7 +480,7 @@ Voice::Voice(inference::Model& model, VoiceOptions options) : model_(model), opt
         throw Error("temperature must be a finite number, zero or more");
 }
 
-std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::string_view line) {
+std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::string_view line, const std::vector<Exchange>& said_so_far) {
     check_version(packet);
     const orchestrator::Persona& p = packet.persona;
     const std::string name = text::spoken(p.name), role = text::spaced(text::spoken(p.role)), place = text::spoken(p.place);
@@ -523,7 +523,21 @@ std::vector<inference::Message> Voice::messages(const FactPacket& packet, std::s
     system += "Reply as " + (name.empty() ? std::string("yourself") : name) + ", " + length +
               " of spoken words. Speak of no person or place that is not named above, and say nothing of pay. Say how far "
               "the places above are only in the words given, never which way: you know no directions.";
-    return {{"system", system}, {"user", text::one_line(line)}};
+    // The conversation so far, as the turns it was: the stranger's lines and what they were shown. Never
+    // shown what it had said, the voice said its introduction again to every question about itself
+    // (the hero benchmark, 2026-09-28); the owner, asked whether it should see the conversation: "Yes
+    // they should." With none, the messages are as they always were.
+    std::vector<inference::Message> out = {{"system", system}};
+    if (!said_so_far.empty()) {
+        out.front().content += " You have spoken with them already in this conversation: say nothing you said there again.";
+        const std::size_t from = said_so_far.size() > kExchangesShown ? said_so_far.size() - kExchangesShown : 0;
+        for (std::size_t i = from; i < said_so_far.size(); ++i) {
+            out.push_back({"user", text::one_line(said_so_far[i].line)});
+            out.push_back({"assistant", text::one_line(said_so_far[i].reply)});
+        }
+    }
+    out.push_back({"user", text::one_line(line)});
+    return out;
 }
 
 std::string Voice::grammar(const FactPacket& packet) {
@@ -596,14 +610,15 @@ std::string Voice::grammar(const FactPacket& packet) {
     return g;
 }
 
-Reply Voice::speak(const FactPacket& packet, std::string_view line, const std::function<bool(std::string_view)>& on_piece) {
+Reply Voice::speak(const FactPacket& packet, std::string_view line, const std::function<bool(std::string_view)>& on_piece,
+                   const std::vector<Exchange>& said_so_far) {
     text::check_line(line);
     inference::Sampling sampling;
     sampling.max_tokens = options_.max_tokens;
     sampling.temperature = options_.temperature;
     sampling.seed = options_.seed;
     sampling.grammar = grammar(packet);
-    const inference::Completion c = model_.complete(model_.chat_prompt(messages(packet, line)), sampling, on_piece);
+    const inference::Completion c = model_.complete(model_.chat_prompt(messages(packet, line, said_so_far)), sampling, on_piece);
     return Reply{c.text, c.tokens, c.stopped_at_end, c.stopped_by_caller};
 }
 

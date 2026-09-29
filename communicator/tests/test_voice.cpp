@@ -185,6 +185,34 @@ TEST(the_prompt_carries_the_persona_and_every_fact_as_it_is_said) {
                    "the post as words, not a key: " + gate.substr(0, 80));
 }
 
+// The conversation so far, as the turns it was: never shown what it had said, the voice said its
+// introduction again to every question about itself (the hero benchmark, 2026-09-28). With none, the
+// messages are as they always were; with some, the last kExchangesShown before the stranger's line,
+// and the speaker told to say nothing again.
+TEST(the_voice_is_shown_the_conversation_so_far) {
+    using communicator::Exchange;
+    const FactPacket p = packets::about_them();
+    const std::vector<inference::Message> alone = Voice::messages(p, "How long have you held it?");
+    check::equal(alone.size(), std::size_t{2}, "no conversation: the system and the stranger's line");
+    check::is_true(alone.front().role == "system" && alone.back().role == "user" && alone.back().content == "How long have you held it?",
+                   "the premise: as they always were");
+    const std::vector<Exchange> so_far = {{"Hail.", "Well met. I'm Selbren."}, {"Tell me about yourself.", "I hold the fortress."}};
+    const std::vector<inference::Message> with = Voice::messages(p, "How long have you held it?", so_far);
+    check::equal(with.size(), std::size_t{6}, "the system, two turns each way, and the stranger's line");
+    check::is_true(with[1].role == "user" && with[1].content == "Hail." && with[2].role == "assistant" &&
+                       with[2].content == "Well met. I'm Selbren." && with[3].content == "Tell me about yourself." &&
+                       with[4].content == "I hold the fortress." && with[5].role == "user" && with[5].content == "How long have you held it?",
+                   "the turns as they were, oldest first, the stranger's line last");
+    check::equal(with.front().content.substr(0, alone.front().content.size()), alone.front().content, "the same system text before it");
+    check::is_true(with.front().content.find("say nothing you said there again") != std::string::npos, "told not to say it again");
+    std::vector<Exchange> long_talk;
+    for (std::size_t i = 0; i < communicator::kExchangesShown + 3; ++i)
+        long_talk.push_back({"Line " + std::to_string(i) + ".", "Reply " + std::to_string(i) + "."});
+    const std::vector<inference::Message> bounded = Voice::messages(p, "And now?", long_talk);
+    check::equal(bounded.size(), 2 + 2 * communicator::kExchangesShown, "only the last few turns");
+    check::equal(bounded[1].content, std::string("Line 3."), "the latest of them, the oldest dropped");
+}
+
 TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
     Voice voice(test_model::model());
     const std::string first = prompt_of(voice, packets::greeted_first(), "Hello!");
