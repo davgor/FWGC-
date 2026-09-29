@@ -48,6 +48,12 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
   - how their own work went (contract version 20), as the game's account has it, to its giver alone
     and only while that work's end is their latest dealing with the player;
   - places and people within reach, and a hero's rivals, kin and allies wherever they stand;
+  - by fame (contract version 25), their own realm's sovereign wherever they stand, and a hero whose
+    known deed's word reaches them (through the hero's realm; a region's width about where the hero
+    stands), with that one deed and how far word of it went, never a mask's. Someone asked of by the
+    player's words is looked up only among those the speaker knows: a king named is that king, never
+    taken for the speaker's own. A width or a rule of fame comes with a world where it binds, or it
+    is not added: a "world" scope no deed of fifty worlds reached was left out;
   - a refusal's reason in the director's own words, never the generator's message, which names
     quests by id and lists work the speaker does not know of;
   - a `voice_key` for the face shown, never for a mask still worn.
