@@ -696,6 +696,38 @@ TEST(a_question_never_answered_is_asked_again_once) {
     same_tables(d, replayed, {"exchanges", "exchange_facts", "memories"});
 }
 
+// Contract version 23: an apology carries the stranger's latest words of this conversation, their last
+// answer, so "Sorry, I'm not myself today" two lines after a brother's death is heard in its light. Not
+// words of an earlier conversation, and none without an answer.
+TEST(an_apology_carries_the_strangers_latest_words_of_this_conversation) {
+    const std::string speaker = townsperson(0);
+    const std::string brother = "My brother came with me. He didn't make it back.";
+    const auto said_in = [](const FactPacket& p) {
+        const std::map<std::string, Fact> recall = recalled(p);
+        const auto found = recall.find("said");
+        return found == recall.end() ? std::string() : value(found->second, "words");
+    };
+    Director d(memory_world());
+    (void)d.respond(speaker, {ActKind::Greet, ""});
+    d.words("Hello.", "Hello.");
+    check::equal(said_in(d.respond(speaker, {ActKind::Apologize, ""})), std::string(), "no answer yet: none");
+    d.words("Sorry, I'm not myself today.", "No need.");
+    (void)d.respond(speaker, {ActKind::Answer, ""});
+    d.words("I was a smith once.", "Were you now.");
+    (void)d.respond(speaker, {ActKind::Answer, ""});
+    d.words(brother, "I'm sorry.");
+    (void)d.respond(speaker, {ActKind::SmallTalk, ""});
+    d.words("Cold, isn't it?", "It is.");
+    const FactPacket sorry = d.respond(speaker, {ActKind::Apologize, ""});
+    check::equal(said_in(sorry), brother, "their latest answer, word for word");
+    for (const Fact& f : sorry.facts)
+        if (f.kind == FactKind::Recall) check::equal(value(f, "since"), std::string("today"), "said today");
+    (void)d.respond(speaker, {ActKind::Farewell, ""});
+    d.advance(1.0);
+    (void)d.respond(speaker, {ActKind::Greet, ""});
+    check::equal(said_in(d.respond(speaker, {ActKind::Apologize, ""})), std::string(), "a later conversation: not that one's words");
+}
+
 TEST(replay_rebuilds_the_log_and_long_memory_row_for_row) {
     const Work work = open_work();
     const std::string outcomes = R"({"said": [{"quote": "I will see it done", "about": "the work"}], "last": "They took the work on."})";

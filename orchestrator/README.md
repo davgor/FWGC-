@@ -344,6 +344,12 @@ Recall fact, once: the greeting's exchange keeps that it carried it (`exchange_f
 director reads no meaning into the question: which one is worth an answer is the communicator's to
 say, and the director only holds it to the reply's own words.
 
+**An apology in the light of what was said** (contract version 23). An apology carries the stranger's
+latest words of this conversation, their last answer to the speaker, as a Recall fact `said`: "Sorry,
+I'm not myself today", two lines after a brother's death, drew a stock "nothing to forgive" from three
+blind judges' heroes. Words of an earlier conversation are not carried: they are not what the apology
+follows.
+
 **What a summary may add.** `outcomes`, when not empty, is a summary of the log written elsewhere, as JSON:
 `{"said": [{"quote": "...", "about": "..."}], "last": "..."}`. Its quotes stand in for the rules':
 each must be the stranger's own words, found word for word in a line of the log and cut at no

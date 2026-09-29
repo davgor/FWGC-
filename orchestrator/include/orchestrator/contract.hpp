@@ -54,7 +54,8 @@ namespace orchestrator {
 //     answered, its words as the speaker asked it; a greeting carries it once, in a later
 //     conversation.
 // 22: a war Deed fact's `against`: the city fought, by name.
-inline constexpr int kContractVersion = 22;
+// 23: an apology carries the stranger's latest words of this conversation, a Recall fact "said".
+inline constexpr int kContractVersion = 23;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -295,7 +296,9 @@ std::string_view to_string(FactKind kind);
 // A greeting carries what they last spoke of, the work the stranger holds, the stranger's latest kept
 // words, and the latest question of theirs the stranger never answered, until a greeting has carried
 // it once (at most one each); an answer about a place or a person what was asked and told of it
-// before; asking for work what came of the speaker's work before and what is open.
+// before; asking for work what came of the speaker's work before and what is open; an apology the
+// stranger's latest words in this conversation, their last answer to the speaker, as "said" (contract
+// version 23): "Sorry, I'm not myself today" two lines after a brother's death is heard in its light.
 //
 // A Self fact, its subject the speaker: what they would say of themself when asked (ask_about_them,
 // contract version 13). Public only: never a card's belief, wants, fears, tells or lies; and only for

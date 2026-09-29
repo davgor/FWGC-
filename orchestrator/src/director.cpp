@@ -2312,9 +2312,29 @@ std::vector<Fact> Director::recall(const std::string& speaker, const DialogueAct
     const bool greeting = act.kind == ActKind::Greet;
     const bool asked = act.kind == ActKind::AskAboutPlace || act.kind == ActKind::AskAboutPerson;
     const bool work = act.kind == ActKind::AskForWork;
+    const auto met = acquainted_.find(speaker);
+    // An apology (contract version 23): the stranger's latest words in this conversation, their last answer
+    // to the speaker. "Sorry, I'm not myself today", two lines after a brother's death, drew a stock
+    // "nothing to forgive" (the golden benchmark's judges, 2026-09-29).
+    if (act.kind == ActKind::Apologize) {
+        const int now = met == acquainted_.end() ? 0 : met->second.conversations;
+        const std::vector<Logged> log = log_of(speaker);
+        for (auto x = log.rbegin(); x != log.rend(); ++x)
+            if (x->heard_from.empty() && x->conversation == now && x->act == "answer" && !trimmed(x->line).empty() &&
+                trimmed(x->line).size() <= kMaxQuoteBytes)
+                return {Fact{FactKind::Recall,
+                             speaker,
+                             {{"memory", "said"},
+                              {"act", "said"},
+                              {"about", ""},
+                              {"times", "1"},
+                              {"since", since_band(today, x->day)},
+                              {"first", since_band(today, x->day)},
+                              {"words", trimmed(x->line)}}}};
+        return {};
+    }
     if (!greeting && !asked && !work) return {};
     // What they last spoke of is from before this conversation.
-    const auto met = acquainted_.find(speaker);
     const std::vector<Remembered> all =
         remembered(speaker, log_of(speaker), true, met == acquainted_.end() ? 0 : std::max(1, met->second.conversations));
     // The latest `most` of those `take` passes, latest first.
