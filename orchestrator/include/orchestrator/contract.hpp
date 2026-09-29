@@ -460,8 +460,8 @@ std::vector<FactPacket> packets_from_text(std::string_view text);
 
 // ---- Contract version 30: how a hero takes what befell them --------------------------------------------------
 
-// How a hero takes one of their deeds, a closed set. A model picks one of those open to how the deed went, or the
-// rules do (reaction_by_rules), and the director applies it (Director::react).
+// How a hero takes one of their deeds, a closed set. A picker outside the director chooses one of those open to how
+// the deed went, or the rules do (reaction_by_rules), and the director applies it (Director::react).
 enum class Reaction : int { Humbled = 0, Embittered, Resolved, Vindicated, Grieving, Vengeful };
 inline constexpr int kReactionCount = static_cast<int>(Reaction::Vengeful) + 1;
 std::string_view to_string(Reaction reaction);
