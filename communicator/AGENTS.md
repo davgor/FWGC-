@@ -135,6 +135,11 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   holds it, through `{player}` and `{player_other}` or C++'s `with_name` in a greeting or a farewell,
   never a name of the model's or the writer's. A new way to find a name comes with its cases, and a
   measure on lines held out from it.
+- **Whom the player asks after is their own words** (contract version 25). `person_asked`
+  (`src/mention.hpp`) finds them, and the director looks them up: a name said is that person, a king
+  named never "the king", and no model writes the words. What a hero is known for, and how far word of
+  it went, are said in C++'s words (`known_for_words`, `far_words`), and "our sovereign" only of one the
+  packet marks as the speaker's own.
 - **A question the speaker asked is kept only as the reply said it** (contract version 21):
   `question_to_keep` takes the reply's last question, word for word, and keeps it only when its shape
   asks a fact (three words or more, no tag after a clause) and the embedding hears one that stays true;
@@ -155,7 +160,8 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   each wrong read.
 - **An act is offered to the model only where it can apply:** an answer after a question, calming
   words to a frightened speaker, a complaint where the speaker's own work is between them (contract
-  version 18), a name where the line gives one (contract version 24). A listed act costs a small
+  version 18), a name where the line gives one (contract version 24), a person asked after by name
+  or title where the line asks after one (contract version 25). A listed act costs a small
   model on every line: offered to everyone, `calm` took the test model from 112 lines of 310 read
   right to 79 (2026-09-26).
 - **A world-changing act is confirmed before it reaches the director.** Whatever joins the
