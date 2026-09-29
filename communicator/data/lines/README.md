@@ -27,6 +27,7 @@ voice | situation | line
   |---|---|
   | `about_self` | |
   | `about_person` | `{name}` `{role}` `{where}` |
+  | `own_deed_won`, `own_deed_lost` (what the speaker did as a hero, their side of it, after a greeting or in small talk; contract version 26) | `{own_deed}`: the deed in the first person, dated, after a colon or a comma ("we held the fortress against the glacier dragons a few days back", "I hunted down the storm dragons") |
   | `about_person_known` (someone known by what they did; contract version 25), `about_person_sovereign` (the speaker's own sovereign) | `{name}` `{role}` `{where}`, `{known_for}` (words after their name: "won a war between realms against Linbrig", "is the heir of Brenlin"), `{far}` (after "told": "all through these parts", "all through the realm"; empty for word that went no further) |
   | `about_place` | `{about}` `{trades}` `{who}` `{around}` `{work}` |
   | `surroundings` | `{here}` `{nearest}` `{others}` `{danger}` |

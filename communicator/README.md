@@ -524,6 +524,26 @@ speaker last met the stranger.
   news follow them.
 - **The truth check** holds what the voice says of news to the News facts (below).
 
+### Heroes' deeds
+
+Contract version 26: the director has heroes act (orchestrator/README.md, "Heroes' deeds"), and each
+deed is news of event "hero". Every judge of the golden benchmark asked for news between visits and the
+hero's own side of a fight (2026-09-29).
+
+- **Heard of, it is news** in C++'s words (`news_words`): "Selbren held the fortress of Wenweg against
+  the glacier dragons", "... was driven from ... by ...", "hunted down ...", "went after ... and was
+  beaten back", "took the ruins of Linbrig from ...", "was thrown back from ... by ...", dated as news is,
+  and "held the line here" where the speaker stands. Passed on as other news is.
+- **Their own is their side of it** (`own_deed_words`), in the first person, never as news: "we held the
+  fortress against the glacier dragons a few days back"; "we" for a place held or assaulted, "I" for a
+  hunt. The director puts a hero's newest deed in their greetings, small talk and answers about
+  themself, and the written lines say it after a greeting or small talk, before any news of others
+  (`own_deed_won`, `own_deed_lost`: "It came to steel: {own_deed}."), brought up by how fresh it is, not
+  from a cold or frightened speaker, and not while said lately.
+- **The voice** is told it as "What you did yourself: ..."; the truth check lets "we held the", "I
+  hunted down", "we were thrown back" and the like be said only with a News fact of the speaker's own
+  deed.
+
 ## What a speaker says of themself
 
 Contract version 13. The owner's golden benchmark is a sustained conversation with a hero

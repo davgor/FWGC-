@@ -38,6 +38,18 @@ std::string dated_deed_words(const orchestrator::Fact& news, const std::string& 
 std::string dated_news_words(const orchestrator::Fact& news, const std::string& self, std::string_view stranger = "you",
                              std::string_view here = {});
 
+// What the speaker themself did as a hero (contract version 26), in the first person, their side of it:
+// "we held the fortress above Wenweg against the glacier dragons", "we were driven off here by the frost
+// wyrms", "I hunted down the storm dragons", "we were thrown back from the ruins of Linbrig". A place held
+// or assaulted is "we", a hunt "I". Empty unless the News fact is of a hero's deed and `self` names its
+// hero. `here` as for deed_words. Dated as news is, from its calendar band.
+std::string own_deed_words(const orchestrator::Fact& news, const std::string& self, std::string_view here = {});
+std::string dated_own_deed_words(const orchestrator::Fact& news, const std::string& self, std::string_view here = {});
+
+// The News fact of the speaker's own newest deed (contract version 26), or null: the first of the packet's
+// that own_deed_words can say.
+const orchestrator::Fact* own_deed_of(const orchestrator::FactPacket& packet);
+
 // Whether the speaker of `packet` brings `news` up unasked, by how old it is: "relevant news is the
 // talk of the town, old news is less likely to pop up" (the owner, 2026-09-27). Today's and
 // yesterday's always; this week's by about one speaker in two; the last two months' by one in five;

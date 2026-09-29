@@ -146,6 +146,10 @@ std::string fact_line(const Fact& fact, const FactPacket& packet) {
             // In C++'s words (news.hpp), never the fields for a model to make a story of; and only
             // news the written lines may pass on (may_pass_on): heard, not the speaker's own, and not
             // work an answer about a place lists already.
+            // Their own deed as a hero (contract version 26), their side of it, in the first person.
+            if (const std::string own = dated_own_deed_words(fact, text::spoken(packet.persona.name), text::spoken(packet.persona.place));
+                !own.empty())
+                return "- What you did yourself: " + own + ".";
             if (!may_pass_on(fact, packet)) return {};
             const std::string words =
                 dated_news_words(fact, text::spoken(packet.persona.name), "the stranger", text::spoken(packet.persona.place));

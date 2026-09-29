@@ -189,6 +189,14 @@ any | joined_lead | Forgive me for butting in; I heard what you asked.
 any | heard_deed | You're the one who {deed}, aren't you?
 any | heard_deed | So you're the one who {deed}.
 any | heard_deed | They say you {deed}.
+# Contract version 26: what the speaker did as a hero, their side of it, after a greeting or in small talk
+# ({own_deed}: "we held the fortress against the glacier dragons a few days back"; "I hunted down ...").
+any | own_deed_won | It came to steel: {own_deed}.
+any | own_deed_won | For what it's worth, {own_deed}.
+any | own_deed_won | There's been fighting: {own_deed}.
+any | own_deed_lost | It went badly: {own_deed}.
+any | own_deed_lost | I'll not dress it up: {own_deed}.
+any | own_deed_lost | You'll hear it anyway, so from me: {own_deed}.
 any | news | The word is {news}.
 any | news | Some are saying {news}.
 any | news | I heard that {news}.

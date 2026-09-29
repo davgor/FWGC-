@@ -459,6 +459,10 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
             set(greeting ? "deed" : "news", greeting ? dated_deed_words(*heard, self, here) : dated_news_words(*heard, self, "you", here));
         }
     }
+    // Their own newest deed, their side of it (contract version 26), in C++'s words (news.hpp).
+    if (starts("own_deed"))
+        if (const Fact* own = own_deed_of(p))
+            set("own_deed", dated_own_deed_words(*own, text::spoken(p.persona.name), text::spoken(p.persona.place)));
     if (starts("safety_")) {
         // The director names the places a verdict rests on first (orchestrator/contract.hpp).
         const std::vector<const Fact*> named = of_kind(p, FactKind::Place);
@@ -1051,6 +1055,10 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // place or a person.
         {"heard_deed", {"deed"}},
         {"news", {"news"}},
+        // Contract version 26: what the speaker did as a hero, their side of it, said after a greeting or
+        // in small talk ({own_deed}: "we held the fortress against the glacier dragons a few days back").
+        {"own_deed_won", {"own_deed"}},
+        {"own_deed_lost", {"own_deed"}},
         // Small talk that asks for news, read by meaning (Lines::speak): what the stranger did, told
         // lately, as the talk of it, never read back as fact; others' news told lately, said again as
         // told; or none heard. News not yet told is a `heard_deed` or `news` line, said alone.
@@ -2080,6 +2088,24 @@ NewsToSay news_to_say(const FactPacket& p, bool unasked) {
     return {theirs ? "heard_deed" : "news", news_forms(*heard, self, here)};
 }
 
+// The speaker's own newest deed a follow line would say (contract version 26): its situation
+// ("own_deed_won", "own_deed_lost") and its words undated, or nothing. After a greeting or in small talk,
+// from a speaker neither cold nor frightened. `unasked`: only one they bring up, by how fresh it is, as
+// news (brought_up).
+struct OwnDeed {
+    std::string situation;
+    std::string words;
+};
+
+OwnDeed own_deed_to_say(const FactPacket& p, bool unasked) {
+    const Remembered m = remembered(p);
+    if (m.frightened() || m.cold() || (p.outcome != Outcome::Greeted && p.outcome != Outcome::Chatted)) return {};
+    const Fact* own = own_deed_of(p);
+    if (own == nullptr || (unasked && !brought_up(*own, p))) return {};
+    return {field_of(*own, "state") == "won" ? "own_deed_won" : "own_deed_lost",
+            own_deed_words(*own, text::spoken(p.persona.name), text::spoken(p.persona.place))};
+}
+
 // Whether a greeting may end with the stranger's own words said back (contract version 12): to someone
 // met before, from a speaker neither cold nor frightened, who kept words that can be said back. Not
 // after a greeting that thanks the stranger for easing them: "What you told me..." is heard as the
@@ -2117,6 +2143,7 @@ std::vector<std::string> Lines::follows(const FactPacket& p) const {
     const NewsToSay news = news_to_say(p, false);
     std::vector<std::vector<std::string>> chains;
     if (!news.situation.empty()) chains.push_back({news.situation});
+    if (const OwnDeed own = own_deed_to_say(p, false); !own.situation.empty()) chains.push_back({own.situation});
     if (says_back(p))
         for (const std::string kind : {"recalled", "recalled_grief", "recalled_hardship", "recalled_doubt"}) chains.push_back({kind});
     // And who they are, after a greeting that asks, and told the stranger's name at a first meeting (speak()).
@@ -2247,6 +2274,15 @@ std::string Lines::follow_on(const FactPacket& p, const std::vector<std::string>
     // A question of theirs the stranger never answered, asked again once, after a greeting in a later
     // conversation (contract version 21): the owner, of a hero's question left hanging, "Lets get it fixed".
     if (const std::vector<Spoken> lines = asked_again_lines(p, &recent, true); !lines.empty()) return in_turn(lines, "|asked");
+    // Their own newest deed, their side of it (contract version 26): every judge of the golden benchmark
+    // asked for news between visits and the hero's own side of a fight (2026-09-29). Before others' news,
+    // and not while said lately, however it was put.
+    if (const OwnDeed own = own_deed_to_say(p, true);
+        !own.situation.empty() &&
+        std::none_of(recent.begin(), recent.end(), [&](const std::string& said) { return said.find(own.words) != std::string::npos; })) {
+        const std::vector<std::string> chain = {own.situation};
+        if (const std::vector<Spoken> lines = spoken_for(p, &recent, true, &chain); !lines.empty()) return in_turn(lines, "|own");
+    }
     const NewsToSay news = news_to_say(p, true);
     if (!news.situation.empty() && !told_lately(news, recent)) {
         const std::vector<std::string> chain = {news.situation};

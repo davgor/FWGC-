@@ -391,3 +391,85 @@ TEST(news_is_claimed_only_with_a_news_fact) {
     check::is_true(!flags_news("You're the one who talked me down.", none), "a memory, not news");
     check::is_true(!flags_news("I heard you ask; I'll keep it short.", none), "hearing what was asked");
 }
+
+// Contract version 26: a hero's deed. Word of it said by those who heard it, in C++'s words; the hero's own
+// told after their greeting or in small talk, in the first person, their side of it; never as news to
+// themself, and not while said lately.
+TEST(a_heros_deed_is_news_to_others_and_their_own_to_tell) {
+    using communicator::dated_news_words;
+    using communicator::dated_own_deed_words;
+    using communicator::news_words;
+    using communicator::own_deed_words;
+    const auto deed = packets::news_of_a_heros_deed;
+    // As word of it goes round.
+    check::equal(news_words(deed("defended", "won", "word"), ""), std::string("Selbren held the fortress of Wenweg against the glacier dragons"),
+                 "held");
+    check::equal(news_words(deed("defended", "lost", "word"), ""),
+                 std::string("Selbren was driven from the fortress of Wenweg by the glacier dragons"), "driven off");
+    check::equal(news_words(deed("defended", "won", "word"), "", "you", "the fortress of Wenweg"),
+                 std::string("Selbren held the line here against the glacier dragons"), "held, where the speaker stands");
+    check::equal(news_words(deed("defended", "won", "word"), "", "you", "Wenweg"),
+                 std::string("Selbren held the fortress against the glacier dragons"), "held, in the town the fortress is of");
+    check::equal(news_words(deed("hunted", "won", "word"), ""), std::string("Selbren hunted down the glacier dragons"), "a hunt won");
+    check::equal(news_words(deed("hunted", "lost", "word"), ""), std::string("Selbren went after the glacier dragons and was beaten back"),
+                 "a hunt lost");
+    check::equal(news_words(deed("assaulted", "won", "word"), ""), std::string("Selbren took the ruins of Linbrig from the glacier dragons"),
+                 "an assault won");
+    check::equal(news_words(deed("assaulted", "lost", "word"), ""),
+                 std::string("Selbren was thrown back from the ruins of Linbrig by the glacier dragons"), "an assault lost");
+    check::equal(dated_news_words(deed("hunted", "won", "word"), ""), std::string("Selbren hunted down the glacier dragons today"), "dated");
+    check::equal(news_words(deed("defended", "won", "there"), "Selbren"), std::string(), "never as news to the hero themself");
+    // Their own, in the first person.
+    check::equal(own_deed_words(deed("defended", "won", "there"), "Selbren"),
+                 std::string("we held the fortress of Wenweg against the glacier dragons"), "we held");
+    check::equal(own_deed_words(deed("defended", "lost", "there"), "Selbren", "the fortress of Wenweg"),
+                 std::string("we were driven off here by the glacier dragons"), "driven off here");
+    check::equal(own_deed_words(deed("hunted", "won", "there"), "Selbren"), std::string("I hunted down the glacier dragons"), "I hunted");
+    check::equal(own_deed_words(deed("hunted", "lost", "there"), "Selbren"),
+                 std::string("I went after the glacier dragons and was beaten back"), "beaten back");
+    check::equal(own_deed_words(deed("assaulted", "won", "there"), "Selbren"),
+                 std::string("we took the ruins of Linbrig from the glacier dragons"), "we took");
+    check::equal(own_deed_words(deed("assaulted", "lost", "there"), "Selbren"),
+                 std::string("we were thrown back from the ruins of Linbrig by the glacier dragons"), "thrown back");
+    check::equal(dated_own_deed_words(deed("defended", "won", "there"), "Selbren"),
+                 std::string("we held the fortress of Wenweg against the glacier dragons today"), "dated");
+    check::equal(own_deed_words(deed("defended", "won", "word"), "Fersel"), std::string(), "not another's deed");
+    // Said after the greeting by the hero, once; not by a cold speaker.
+    const Lines lines = Lines::parse("any | greeted | Good day.\n"
+                                     "any | greeted_cold | What now.\n"
+                                     "any | small_talk | Fine weather.\n"
+                                     "any | own_deed_won | It came to steel: {own_deed}.\n"
+                                     "any | own_deed_lost | It went badly: {own_deed}.\n"
+                                     "any | news | The word is {news}.\n",
+                                     "deeds");
+    const std::string held = lines.speak(packets::greeted_after_own_deed("won"), "Hello.");
+    check::equal(held, std::string("Good day. It came to steel: we held the fortress against the glacier dragons today."), "their side of it");
+    check::equal(lines.speak(packets::greeted_after_own_deed("lost"), "Hello."),
+                 std::string("Good day. It went badly: we were driven from the fortress by the glacier dragons today."), "and when it went badly");
+    check::equal(lines.speak(packets::greeted_after_own_deed("won"), "Hello.", {held}), std::string("Good day."), "not while said lately");
+    FactPacket cold = packets::greeted_after_own_deed("won");
+    cold.facts.back() = packets::memory_of(cold.speaker, {.mood = "hostile"});
+    check::equal(lines.speak(cold, "Hello."), std::string("What now."), "not from a cold speaker");
+    // Heard of by someone else: news, in the third person.
+    check::equal(lines.speak(packets::small_talk_with_a_heros_deed(), "Fine day."),
+                 std::string("Fine weather. The word is Selbren held the line here against the glacier dragons today."), "word of it");
+    // The voice is shown their own deed as theirs, and another's as news.
+    const auto system_of = [](const FactPacket& p) { return communicator::Voice::messages(p, "Hello.").front().content; };
+    const std::string own = system_of(packets::greeted_after_own_deed("won"));
+    check::is_true(own.find("- What you did yourself: we held the fortress against the glacier dragons today.") != std::string::npos,
+                   "their own, to the voice: " + own);
+    check::is_true(own.find("News you have heard") == std::string::npos, "not as news");
+    const std::string heard = system_of(packets::small_talk_with_a_heros_deed());
+    check::is_true(heard.find("- News you have heard: Selbren held the line here against the glacier dragons today") != std::string::npos,
+                   "another's, as news: " + heard);
+    // Claimed only with their own deed in the packet: the truth check.
+    const auto flags_own = [](const std::string& reply, const FactPacket& p) {
+        for (const std::string& problem : communicator::untrue(reply, p, {}))
+            if (problem.rfind("a fight of the speaker's own", 0) == 0) return true;
+        return false;
+    };
+    check::is_true(!flags_own(held, packets::greeted_after_own_deed("won")), "theirs: true");
+    check::is_true(flags_own("We held the fortress against them, a few days back.", packets::greeted_first()), "none of theirs: untrue");
+    check::is_true(flags_own("I hunted down the beasts myself.", packets::small_talk_with_a_heros_deed()), "another's deed is not theirs");
+    check::is_true(!flags_own("We held a feast for the harvest.", packets::greeted_first()), "a feast is no fight");
+}

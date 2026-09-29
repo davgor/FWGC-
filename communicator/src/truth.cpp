@@ -44,6 +44,7 @@ constexpr std::string_view kSaid = "the stranger's own words, which the speaker'
 constexpr std::string_view kAccount = "how the work went, which no account the packet holds says";
 constexpr std::string_view kAskedAgain = "a question of the speaker's never answered, which the speaker's memory does not hold";
 constexpr std::string_view kSovereign = "a sovereign of the speaker's own, which no fact says";
+constexpr std::string_view kOwnDeed = "a fight of the speaker's own, which no News fact of theirs says";
 
 std::string lowered(std::string_view text) {
     std::string out(text);
@@ -554,6 +555,15 @@ void sovereign(const std::string& said, const FactPacket& p, std::vector<std::st
         if (says(said, phrase)) add(out, kSovereign, phrase);
 }
 
+// A fight of the speaker's own as a hero (contract version 26): "we held the fortress", "I hunted down", "we
+// were thrown back" need a News fact of their own deed, as own_deed_words says them.
+void own_deed(const std::string& said, const FactPacket& p, std::vector<std::string>& out) {
+    if (own_deed_of(p) != nullptr) return;
+    for (const std::string phrase : {"we held the", "we held off", "we were driven", "i hunted down", "i went after", "we took the",
+                                     "we were thrown back"})
+        if (says(said, phrase)) add(out, kOwnDeed, phrase);
+}
+
 void heard(const std::string& said, const std::string& reply, const FactPacket& p, std::vector<std::string>& out) {
     bool any = false, theirs = false;
     for (const Fact& fact : p.facts)
@@ -639,6 +649,7 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
     account(said, packet, out);
     asked_again(said, packet, out);
     sovereign(said, packet, out);
+    own_deed(said, packet, out);
     return out;
 }
 

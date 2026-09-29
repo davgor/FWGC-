@@ -584,6 +584,37 @@ inline FactPacket about_the_town_with_news() {
     return p;
 }
 
+// ---- Contract version 26: heroes' deeds ---------------------------------------------------------
+
+// News of what Selbren did (`verb` defended, hunted, assaulted; `state` won or lost) against the glacier
+// dragons, today: heard by word, or theirs, being there.
+inline Fact news_of_a_heros_deed(const std::string& verb, const std::string& state, const std::string& how) {
+    return {FactKind::News,
+            "event-40",
+            {{"event", "hero"},
+             {"state", state},
+             {"place", verb == "assaulted" ? "the ruins of Linbrig" : "the fortress of Wenweg"},
+             {"person", "Selbren"},
+             {"verb", verb},
+             {"against", "the glacier dragons"},
+             {"player", "no"},
+             {"since", "today"},
+             {"how", how}}};
+}
+
+// A greeting from Selbren, who did it: their own deed, their side of it.
+inline FactPacket greeted_after_own_deed(const std::string& state) {
+    return packet(castellan(), ActKind::Greet, Outcome::Greeted, {news_of_a_heros_deed("defended", state, "there")});
+}
+
+// Small talk from the gate captain, who heard of Selbren's deed.
+inline FactPacket small_talk_with_a_heros_deed() {
+    FactPacket p = packet(gate_captain(), ActKind::SmallTalk, Outcome::Chatted,
+                          {{FactKind::Chat, gate_captain().uid, {{"weather", "clear"}, {"wind", "still"}, {"season", "summer"}, {"time", "morning"}}}});
+    p.facts.insert(p.facts.end() - 1, news_of_a_heros_deed("defended", "won", "word"));  // the Memory fact stays last
+    return p;
+}
+
 // ---- Contract version 12: what the speaker recalls of the stranger ------------------------------
 
 // A Recall fact, as the director writes one.
@@ -826,6 +857,9 @@ inline FactPacket parted_named() {
 
 inline std::vector<FactPacket> conversation() {
     return {about_them(),
+            greeted_after_own_deed("won"),
+            greeted_after_own_deed("lost"),
+            small_talk_with_a_heros_deed(),
             about_a_famous_hero(),
             about_the_sovereign(),
             introduced(),

@@ -132,6 +132,24 @@ std::string news_words(const Fact& news, const std::string& self, std::string_vi
         if (is.empty() || was.empty() || is == was) return person + " is not what they seemed";
         return person + ", who passed for " + a(was) + ", is " + a(is);
     }
+    if (event == "hero" && !person.empty()) {
+        // A hero's deed (contract version 26), as word of it goes round: who did what, against what.
+        const std::string verb = said(news, "verb");
+        const std::string against = said(news, "against");
+        const bool won = state == "won";
+        const bool there = !here.empty() && place == here;
+        if (verb == "defended" && !place.empty()) {
+            if (won) return person + " held " + (there ? "the line here" : named(place, here)) + (against.empty() ? "" : " against " + against);
+            return person + " was driven " + (there ? "off here" : "from " + named(place, here)) + (against.empty() ? "" : " by " + against);
+        }
+        if (verb == "hunted" && !against.empty())
+            return won ? person + " hunted down " + against : person + " went after " + against + " and was beaten back";
+        if (verb == "assaulted" && !place.empty()) {
+            if (won) return person + " took " + named(place, here) + (against.empty() ? "" : " from " + against);
+            return person + " was thrown back from " + named(place, here) + (against.empty() ? "" : " by " + against);
+        }
+        return {};
+    }
     if (event == "scare" && !place.empty()) {
         if (state == "frightened") return "there was a scare " + at(place, here);
         if (state == "beaten") {
@@ -165,7 +183,8 @@ std::string when_words(const Fact& news) {
 // someone turned out to be, which still holds.
 std::string with_when(std::string words, const Fact& news, bool deed) {
     const std::string event = said(news, "event");
-    const bool dated = event == "scare" || (event == "work" && (deed || said(news, "state") == "lapsed")) || (event == "exposed" && deed);
+    const bool dated = event == "scare" || event == "hero" || (event == "work" && (deed || said(news, "state") == "lapsed")) ||
+                       (event == "exposed" && deed);
     const std::string when = when_words(news);
     return words.empty() || !dated || when.empty() ? words : words + " " + when;
 }
@@ -174,6 +193,37 @@ std::string with_when(std::string words, const Fact& news, bool deed) {
 
 std::string dated_deed_words(const Fact& news, const std::string& self, std::string_view here) {
     return with_when(deed_words(news, self, here), news, true);
+}
+
+std::string own_deed_words(const Fact& news, const std::string& self, std::string_view here) {
+    if (news.kind != FactKind::News || self.empty() || said(news, "event") != "hero" || said(news, "person") != self) return {};
+    const std::string verb = said(news, "verb");
+    const std::string place = said(news, "place");
+    const std::string against = said(news, "against");
+    const bool won = said(news, "state") == "won";
+    const bool there = !here.empty() && place == here;
+    if (verb == "defended" && !place.empty()) {
+        if (won) return "we held " + (there ? std::string("the line here") : named(place, here)) + (against.empty() ? "" : " against " + against);
+        return "we were driven " + (there ? std::string("off here") : "from " + named(place, here)) + (against.empty() ? "" : " by " + against);
+    }
+    if (verb == "hunted" && !against.empty()) return won ? "I hunted down " + against : "I went after " + against + " and was beaten back";
+    if (verb == "assaulted" && !place.empty()) {
+        if (won) return "we took " + named(place, here) + (against.empty() ? "" : " from " + against);
+        return "we were thrown back from " + named(place, here) + (against.empty() ? "" : " by " + against);
+    }
+    return {};
+}
+
+std::string dated_own_deed_words(const Fact& news, const std::string& self, std::string_view here) {
+    return with_when(own_deed_words(news, self, here), news, true);
+}
+
+const Fact* own_deed_of(const orchestrator::FactPacket& packet) {
+    const std::string self = text::spoken(packet.persona.name);
+    const std::string here = text::spoken(packet.persona.place);
+    for (const Fact& f : packet.facts)
+        if (!own_deed_words(f, self, here).empty()) return &f;
+    return nullptr;
 }
 
 std::string dated_news_words(const Fact& news, const std::string& self, std::string_view stranger, std::string_view here) {
