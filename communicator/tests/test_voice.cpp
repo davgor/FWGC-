@@ -325,6 +325,10 @@ TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
                    "the account, as one who was there");
     check::is_true(prompt_of(voice, packets::greeted_after("finished", "warm"), "I'm back.").find("How your work went") == std::string::npos,
                    "the control: no account, no line");
+    // A question of theirs never answered (contract version 21), to ask again.
+    check::is_true(prompt_of(voice, packets::greeted_with_a_question(), "Hello.")
+                           .find("You once asked them this, and they never answered: Who were they to you?") != std::string::npos,
+                   "the question, as they asked it");
 }
 
 TEST(work_from_others_is_never_offered_as_the_speakers_own) {

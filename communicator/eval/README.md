@@ -507,6 +507,21 @@ within what the judges' own noise moves. What they fault now, beyond the three c
 complaint after a loss met as an insult ("Careful; ..."), since the act is an insult to the director;
 "There's little to tell" from a hero; a proverb after small talk (both times the only one reached).
 
+Then the owner's rulings on those (2026-09-28): sayings dropped (64aa14b), a complaint heard out
+(contract 18), a castellan's past (the generator's heroes version 3, contract 19, 2f5e8e9: years at the
+post, where they served before it, the sovereign they are sworn to, a war in their lifetime), and the
+game's account of the work (contract 20, 60075ed: every session's `resolve` is followed by an `account`
+chosen to fit what the player says after it; session 3's names nothing that came, since no packet had
+named a nest by then). Six fresh judges: sessions 1-5 18, 18, 14, 18 and 15 (83 of 106; 72 before),
+session 6 15 of 21 (13 before): 98 of 127 over the six against 85, past what the judges' own noise
+moves. Every score 3, three of them "the top of 3". What they credit: the account told as a shared
+memory ("turns a three-fact account of the fight into a believable shared memory"), the years and the
+service ("I served as a sergeant in the garrison of Taurmar, before this post was mine"), the brother
+and the arm remembered weeks on. What every judge still asks for: questions of his own (he asks almost
+nothing, never the stranger's name), a self beyond the oath (what the war was, who the liege is to
+him, a deed), his own side of the fight and news between visits (hero direction), and hearing a line
+in the light of what was just said ("I'm not myself today" two turns after a brother's death).
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).

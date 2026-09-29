@@ -204,7 +204,7 @@ inline bool follow_row(const std::string& row) {
     situation.erase(0, situation.find_first_not_of(' '));
     while (!situation.empty() && situation.back() == ' ') situation.pop_back();
     return situation == "heard_deed" || situation == "news" || situation.rfind("recalled", 0) == 0 || situation == "greeted_who" ||
-           situation == "account" || situation == "account_heard";
+           situation == "account" || situation == "account_heard" || situation == "asked_again";
 }
 
 // The situation a row is written for, trimmed; empty for a row without one.
@@ -347,7 +347,9 @@ inline FactPacket as_voiced_by(FactPacket p, const std::string& voice) {
 
 // Every rule of the voice's that `reply` breaks, as spoken for `p`. `shaped`: whether the reply is
 // the packet's own, held to its outcome's opening, closing and length; news said after it is not.
-inline std::vector<std::string> broken_rules(const std::string& reply, const FactPacket& p, bool shaped = true) {
+// `unshaped`: how many sentences a line said after the reply may be: one, but two for a question asked again
+// (`asked_again`), which is its own sentence, word for word as first asked.
+inline std::vector<std::string> broken_rules(const std::string& reply, const FactPacket& p, bool shaped = true, int unshaped = 1) {
     std::vector<std::string> out;
     // Round brackets too: nobody says one (a writer found them let through, 2026-09-27).
     if (reply.find_first_of("{}[]()") != std::string::npos) out.push_back("a blank or a bracket left in");
@@ -365,7 +367,7 @@ inline std::vector<std::string> broken_rules(const std::string& reply, const Fac
         shape.openings.clear();
         shape.closing.clear();
         shape.closing_after_name.clear();
-        shape.sentences = 1;
+        shape.sentences = unshaped;
     }
     std::string own = reply;
     if (!shape.closing.empty()) {
@@ -571,7 +573,8 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
                 ++spoken;
                 // News said after a reply is one sentence of its own, held to every rule but the
                 // reply's shape.
-                for (const std::string& broken : broken_rules(reply, p, !following)) out.push_back(broken + ", in: " + reply);
+                for (const std::string& broken : broken_rules(reply, p, !following, situation_of(row) == "asked_again" ? 2 : 1))
+                    out.push_back(broken + ", in: " + reply);
                 // A lead goes before an answer the program adds: one sentence, and no question.
                 if (leading && (rules::sentences_in(reply) != 1 || reply.back() == '?'))
                     out.push_back("a lead is one sentence, not a question, in: " + reply);

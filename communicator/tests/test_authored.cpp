@@ -2572,3 +2572,34 @@ TEST(a_giver_tells_how_their_work_went) {
         if (field == "feeling") value = "afraid";
     check::is_true(lines.follow(frightened, {}, &meaning).empty(), "frightened: nothing told");
 }
+
+// Contract version 21: a question of theirs the stranger never answered is asked again once, after a greeting
+// in a later conversation, whole, as they asked it; not while they asked it lately, nor from a speaker
+// frightened or cold. The owner, of a hero's question left hanging: "Lets get it fixed".
+TEST(a_question_never_answered_is_asked_again_after_a_greeting) {
+    const Lines lines = Lines::parse("any | greeted_again | Hello again.\n"
+                                     "any | asked_again | You never did answer me, last time. {question}\n",
+                                     "asked");
+    const FactPacket asked = packets::greeted_with_a_question();
+    check::equal(lines.speak(asked, "Hello."), std::string("Hello again. You never did answer me, last time. Who were they to you?"),
+                 "asked again, whole");
+    check::equal(lines.speak(asked, "Hello.", {"You never did answer me, last time. Who were they to you?"}), std::string("Hello again."),
+                 "asked lately: not again");
+    check::equal(lines.speak(packets::greeted_again(), "Hello."), std::string("Hello again."), "the control: none to ask");
+    FactPacket cold = asked;
+    for (auto& [field, value] : cold.facts.back().fields)
+        if (field == "mood") value = "hostile";
+    check::is_true(lines.follow(cold).empty(), "cold: not asked");
+    FactPacket frightened = asked;
+    for (auto& [field, value] : frightened.facts.back().fields)
+        if (field == "feeling") value = "afraid";
+    check::is_true(lines.follow(frightened).empty(), "frightened: not asked");
+    // After a greeting only: the director carries it there, and anywhere else it would break into talk of
+    // something else.
+    // Met before, so nothing but the outcome keeps it unsaid: "last time" to a first meeting is untrue anyway.
+    FactPacket chat = packets::small_talk_after_work();
+    chat.facts.insert(chat.facts.end() - 1, asked.facts.front());
+    check::is_true(communicator::untrue("You never did answer me, last time. Who were they to you?", chat).empty(),
+                   "the premise: the line is true to this packet");
+    check::is_true(lines.follow(chat).empty(), "small talk: not asked");
+}

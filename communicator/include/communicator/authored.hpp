@@ -99,7 +99,9 @@ public:
     // or such an answer (a `news` line, "The word is {news}."). speak() puts it last, but never after
     // a reply that asks the stranger something. Empty when the packet carries no news the speaker
     // would give (news_to_pass_on), for a frightened or a cold speaker, and for news told in
-    // `recent` in any of its forms. With no news to tell, a greeting to someone met before may end
+    // `recent` in any of its forms. After a greeting, how the speaker's own work went comes first (an
+    // `account` line, contract version 20), then a question of theirs never answered (`asked_again`, 21).
+    // With no news to tell, a greeting to someone met before may end
     // with the stranger's own words said back (a `recalled` line, contract version 12); with
     // `meaning`, as what they were: a loss (`recalled_grief`), a hardship (`recalled_hardship`), or
     // fear they have come through, their work done (`recalled_doubt`).
@@ -149,6 +151,13 @@ private:
     // (`recent`). `checked` as for spoken_for().
     std::vector<Spoken> account_lines(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent,
                                       bool checked) const;
+
+    // A question of the speaker's the stranger never answered, asked again after a greeting (contract version
+    // 21): an `asked_again` line of whichever bank has one, its {question} the Recall fact's words, whole.
+    // Empty without one, for any outcome but a greeting, for a frightened or a cold speaker, and while the
+    // speaker asked it lately (`recent`). `checked` as for spoken_for().
+    std::vector<Spoken> asked_again_lines(const orchestrator::FactPacket& packet, const std::vector<std::string>* recent,
+                                          bool checked) const;
 
     // news_asked(), each as Spoken; `checked` as for spoken_for().
     std::vector<Spoken> asked_for_news(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent,

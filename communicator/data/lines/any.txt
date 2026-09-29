@@ -388,3 +388,8 @@ any | account | Now that it's done, I can say it plainly: {account}.
 any | account_heard | I heard how it went: {account}.
 any | account_heard | I know how it went: {account}.
 any | account_heard | So I'm told: {account}.
+# A question of the speaker's the stranger never answered, asked again once, after a greeting in a later
+# conversation (contract version 21): {question} is their own question, whole, as they asked it.
+any | asked_again | You never did answer me, last time. {question}
+any | asked_again | I asked you once and never had an answer. {question}
+any | asked_again | There's a thing you never did tell me. {question}

@@ -42,6 +42,7 @@ constexpr std::string_view kNews = "news the speaker has not heard";
 constexpr std::string_view kNoNews = "no news, from a speaker who has heard some";
 constexpr std::string_view kSaid = "the stranger's own words, which the speaker's memory does not hold";
 constexpr std::string_view kAccount = "how the work went, which no account the packet holds says";
+constexpr std::string_view kAskedAgain = "a question of the speaker's never answered, which the speaker's memory does not hold";
 
 std::string lowered(std::string_view text) {
     std::string out(text);
@@ -530,6 +531,15 @@ void account(const std::string& said, const FactPacket& p, std::vector<std::stri
         if (says(text, phrase)) add(out, kAccount, phrase);
 }
 
+// A question of theirs the stranger never answered (contract version 21): saying so needs the Recall fact
+// that holds it.
+void asked_again(const std::string& said, const FactPacket& p, std::vector<std::string>& out) {
+    const std::vector<Recall> all = recalls(p);
+    if (recall_of(all, "question") != nullptr) return;
+    for (const std::string phrase : {"you never did answer", "you never answered me", "never had an answer", "you never did tell me"})
+        if (says(said, phrase)) add(out, kAskedAgain, phrase);
+}
+
 void heard(const std::string& said, const std::string& reply, const FactPacket& p, std::vector<std::string>& out) {
     bool any = false, theirs = false;
     for (const Fact& fact : p.facts)
@@ -613,6 +623,7 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
     heard(said, reply, packet, out);
     said_before(said, packet, out);
     account(said, packet, out);
+    asked_again(said, packet, out);
     return out;
 }
 

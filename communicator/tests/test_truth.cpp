@@ -339,3 +339,12 @@ TEST(how_the_work_went_is_the_accounts) {
     check::is_true(flags("I heard how it went: we lost too many.", told, "how the work went, which no account the packet holds says"),
                    "a cost the account does not hold");
 }
+
+// A question of theirs never answered (contract version 21): saying so needs the Recall fact that holds it.
+TEST(a_question_never_answered_is_the_memorys) {
+    check::is_true(clean("Hello again. You never did answer me, last time. Who were they to you?", packets::greeted_with_a_question()),
+                   "backed by the Recall fact");
+    check::is_true(flags("Hello again. You never did answer me, last time. Who were they to you?", packets::greeted_again(),
+                         "a question of the speaker's never answered, which the speaker's memory does not hold"),
+                   "the control: none held");
+}

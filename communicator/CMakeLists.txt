@@ -39,6 +39,7 @@ else()
 endif()
 
 add_library(communicator STATIC
+  src/asked.cpp
   src/authored.cpp
   src/gbnf.cpp
   src/interpreter.cpp
@@ -66,6 +67,7 @@ if(COMMUNICATOR_BUILD_TESTS)
   enable_testing()
   add_executable(communicator_tests
     tests/main.cpp
+    tests/test_asked.cpp
     tests/test_authored.cpp
     tests/test_known.cpp
     tests/test_interpreter.cpp

@@ -362,6 +362,9 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     // How their work went (contract version 20), in C++'s words from the Account fact (them.hpp).
     if (situation == "account" || situation == "account_heard")
         if (const Fact* told = account_of(p)) set("account", account_words(*told, remembered(p).beside));
+    // Their own question, as they asked it (contract version 21).
+    if (situation == "asked_again")
+        if (const std::vector<Recall> all = recalls(p); const Recall* asked = recall_of(all, "question")) set("question", asked->words);
     // Asked about themself (contract version 13): what they go by, their home, what they are after,
     // how they stand here, a city lost, a deed, who stands with them, in words C++ writes from the
     // Self and Deed facts (them.hpp).
@@ -848,6 +851,9 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // it was done out of their sight.
         {"account", {"account"}},
         {"account_heard", {"account"}},
+        // Contract version 21: a question of theirs the stranger never answered, asked again once, after a
+        // greeting in a later conversation: {question}, the speaker's own words, whole.
+        {"asked_again", {"question"}},
         {"about_place", {"about", "trades", "who", "around", "work"}},
         {"surroundings", {"here", "nearest", "others", "danger"}},
         {"work_own", {"own", "others"}},
@@ -1972,7 +1978,24 @@ std::vector<std::string> Lines::follows(const FactPacket& p) const {
         for (Spoken& s : spoken_for(p, nullptr, false, &chain)) out.push_back(std::move(s.text));
     // And how their work went (contract version 20).
     for (Spoken& s : account_lines(p, nullptr, false)) out.push_back(std::move(s.text));
+    // And a question of theirs never answered (contract version 21).
+    for (Spoken& s : asked_again_lines(p, nullptr, false)) out.push_back(std::move(s.text));
     return out;
+}
+
+std::vector<Lines::Spoken> Lines::asked_again_lines(const FactPacket& p, const std::vector<std::string>* recent, bool checked) const {
+    const Remembered m = remembered(p);
+    if (p.outcome != Outcome::Greeted || m.frightened() || m.cold()) return {};
+    const std::vector<Recall> all = recalls(p);
+    const Recall* asked = recall_of(all, "question");
+    if (asked == nullptr || asked->words.empty()) return {};
+    // Not while they asked it lately.
+    if (recent != nullptr && std::any_of(recent->begin(), recent->end(), [&](const std::string& said) {
+            return said.find(asked->words) != std::string::npos;
+        }))
+        return {};
+    const std::vector<std::string> chain = {"asked_again"};
+    return spoken_for(p, recent, checked, &chain);
 }
 
 std::vector<Lines::Spoken> Lines::account_lines(const FactPacket& p, const std::vector<std::string>* recent, bool checked) const {
@@ -2022,6 +2045,9 @@ std::string Lines::follow(const FactPacket& p, const std::vector<std::string>& r
     // had nothing to say of work done beside him.
     if (p.outcome == Outcome::Greeted && remembered(p).work_news)
         if (const std::vector<Spoken> lines = account_lines(p, &recent, true); !lines.empty()) return in_turn(lines, "|account");
+    // A question of theirs the stranger never answered, asked again once, after a greeting in a later
+    // conversation (contract version 21): the owner, of a hero's question left hanging, "Lets get it fixed".
+    if (const std::vector<Spoken> lines = asked_again_lines(p, &recent, true); !lines.empty()) return in_turn(lines, "|asked");
     const NewsToSay news = news_to_say(p, true);
     if (!news.situation.empty() && !told_lately(news, recent)) {
         const std::vector<std::string> chain = {news.situation};

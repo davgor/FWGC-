@@ -755,6 +755,24 @@ Contract version 12: the director keeps each speaker's conversation log and, onc
 it, their long memory (orchestrator/README.md, "Short and long memory"); a packet carries Recall
 facts, what the speaker remembers of the stranger from before that bears on the act.
 
+- **Their own questions, asked again once** (contract version 21; the owner, of a hero's question left
+  hanging: "Lets get it fixed"). `question_to_keep(reply, meaning)` (`asked.hpp`) says which question
+  of a reply is worth an answer, for the game to hand the director with the reply's words
+  (`fwgc_words`'s `asked`): the reply's last question, word for word, unless its shape says it asks no
+  fact (under three words, "Leave?", "Still here?"; a tag after a clause, "Mind the Frost owls, won't
+  you?"), and then by meaning, a fact of the stranger's that stays true ("Who were they to you?",
+  "What brings you here?") against one of this moment ("Are you well?", "What'll it be?"). Of 20
+  questions it chose on and 40 held out, labelled before any wording was tried, it reads 17 and 38,
+  and every miss is a question worth asking again left out, never one kept that should not be. The
+  director keeps a question the stranger's next line did not answer, and a greeting in a later
+  conversation carries it once: an `asked_again` line after the greeting ("You never did answer me,
+  last time. Who were they to you?"), its `{question}` the speaker's own words, whole and a sentence
+  of its own, so the reply's question is the one first asked and the director counts it as asked
+  again. Not while asked lately, not from a speaker frightened or cold; after how their own work
+  went, before news. The truth check holds "you never did answer" and its like to the Recall fact,
+  and the voice is told it ("You once asked them this, and they never answered: ..."). The benchmark
+  cannot show it: its session tool never hands the director the replies.
+
 - **The stranger's own words, said back.** A greeting to someone met before, with no news to tell,
   may end with what the stranger once told the speaker of themselves: a `recalled` line after it, a
   sentence of its own ("You told me once: your sister keeps the mill at the ford; I've not

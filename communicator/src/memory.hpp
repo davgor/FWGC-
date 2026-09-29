@@ -43,13 +43,13 @@ Remembered remembered(const orchestrator::FactPacket& packet);
 // the stranger holds, the stranger's own words, what they last spoke of.
 struct Recall {
     std::string subject;
-    std::string memory;  // "asked", "told", "did", "open", "said", "last"
+    std::string memory;  // "asked", "told", "did", "open", "said", "last", "question" (contract version 21)
     std::string act;
     std::string about;   // by name, as the speaker says it
     int times = 0;
     std::string since;   // when it last was, in the Memory fact's bands
     std::string first;   // when it first was
-    std::string words;   // the stranger's own words, for "said"
+    std::string words;   // the stranger's own words, for "said"; the speaker's own question, for "question"
 };
 
 // The packet's Recall facts, in its order.

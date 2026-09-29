@@ -604,6 +604,14 @@ inline FactPacket greeted_remembering(const std::string& words = "My sister keep
                   {.met = "again", .times = 1, .since = "days"});
 }
 
+// Greeted in a later conversation, with a question of the castellan's the stranger never answered
+// (contract version 21).
+inline FactPacket greeted_with_a_question(const std::string& question = "Who were they to you?") {
+    const std::string self = castellan().uid;
+    return packet(castellan(), ActKind::Greet, Outcome::Greeted, {recall_fact(self, "question", "asked", "", 1, "days", "days", question)},
+                  {.met = "again", .times = 1, .since = "days"});
+}
+
 // Asked about the town again, having asked of it and been told of it `since` before.
 inline FactPacket about_the_town_told(const std::string& since = "weeks") {
     FactPacket p = about_the_town();
@@ -769,6 +777,7 @@ inline std::vector<FactPacket> conversation() {
             greeted_after("failed", "neutral"),
             greeted_after("abandoned", "neutral"),
             with_account(greeted_after("finished", "warm")),
+            greeted_with_a_question(),
             with_account(beside(greeted_after("finished", "warm")), "person"),
             with_account(small_talk_after_work()),
             with_account(beside(small_talk_after_work())),

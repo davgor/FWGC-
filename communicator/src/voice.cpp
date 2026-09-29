@@ -232,6 +232,9 @@ std::vector<std::string> memory_lines(const FactPacket& packet) {
                 out.push_back("Something they once told you of themselves: " + words + ".");
         } else if (r.memory == "open" && !about.empty()) {
             out.push_back("The work of yours they hold is to " + text::mid_sentence(text::ask_of(about)) + ".");
+        } else if (r.memory == "question" && !r.words.empty()) {
+            // Contract version 21: a question of theirs never answered, to ask again.
+            out.push_back("You once asked them this, and they never answered: " + r.words);
         } else if (r.memory == "asked") {
             out.push_back(r.times > 1 ? "They have asked you of this more than once before." : "They have asked you of this before.");
         } else if (r.memory == "told") {
