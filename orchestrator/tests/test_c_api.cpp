@@ -601,6 +601,9 @@ void play(Lockstep& both) {
     // The player's name (contract version 24), given through the DLL.
     const FactPacket named = both.say(p.giver1, "introduce", "Aldric");
     check::is_true(named.outcome == orchestrator::Outcome::Introduced, "the premise: a name given");
+    // Someone asked of by the player's words (contract version 25), through the DLL: a name nobody bears.
+    check::is_true(both.say(p.giver1, "ask_about_person", "=Nobody Of Nowhere").outcome == orchestrator::Outcome::Unknown,
+                   "a name nobody bears, looked up"); 
     both.say(p.giver1, "ask_for_work");
     both.say(p.giver1, "decline_quest", p.quest1);
     const FactPacket taken_on = both.say(p.giver1, "accept_quest", p.quest1);

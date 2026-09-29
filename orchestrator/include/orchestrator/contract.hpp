@@ -57,7 +57,10 @@ namespace orchestrator {
 // 23: an apology carries the stranger's latest words of this conversation, a Recall fact "said".
 // 24: the player's name: the act introduce and its outcomes introduced, known and renamed; the Memory
 //     fact's `called`, `called_how` and `called_other`; a News fact of the player's deed carries `called`.
-inline constexpr int kContractVersion = 24;
+// 25: fame. A speaker knows their realm's sovereign and heroes whose known deed's word reaches them; an answer
+//     about a person carries their `fame`, `sovereign` when they are the speaker's own, and a Deed fact of the
+//     deed they are known for, with its `scope`; ask_about_person's target may be "=" and the player's words.
+inline constexpr int kContractVersion = 25;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -105,7 +108,10 @@ bool act_changes_world(ActKind kind);
 
 struct DialogueAct {
     ActKind kind = ActKind::NoAct;
-    std::string target;  // empty unless act_needs_target(kind); an id, but the name the player gives for introduce
+    // Empty unless act_needs_target(kind); an id, but the name the player gives for introduce, and for
+    // ask_about_person, an id or "=" and the words the player named someone by (contract version 25: "=the
+    // king", "=Aldomir"), which the director looks up among the people the speaker knows.
+    std::string target;
 };
 
 enum class Outcome : int {
@@ -245,6 +251,21 @@ std::string_view to_string(FactKind kind);
 // A Person fact carries `hides`, "yes", when the speaker knows that person is not what they
 // seem: a rival, kin or ally of a hero whose public face is a mask. It is how a player learns a
 // mask is one.
+//
+// Fame (contract version 25). A speaker knows, never having met them, the sovereign of their own
+// realm and a hero whose known deed's word reaches them: through the hero's realm to anyone of it,
+// and through a region, or past a realm's borders, to anyone within a region's width of where the
+// hero stands. An answer about a person who is a hero with one face carries in the Person fact:
+// - `fame`: their band, "notable", "renowned" or "legendary";
+// - `sovereign`: "yes" when they are the sovereign of the speaker's own realm;
+// and after it a Deed fact of the deed they are known for (the Self answer's fields), with its
+// `scope`: how far word of it went, "local", "regional" or "realm". Asked by the words the
+// player said ("=the king"), the director looks them up: words that ask for a sovereign ("king",
+// "queen", "sovereign", "monarch", "ruler", "emperor", "empress", "rules") name the sovereign of a
+// realm they name by its own name or a city's ("=the queen of Linbrig"), else, when they are a title
+// and nothing more, the speaker's own; other words, and a title with a name ("=King Harwin"), the
+// first hero and then roster person whose name's every word they hold, case aside, whom the speaker
+// knows. None, and the answer is Unknown; the act is recorded as looked up.
 //
 // A Chat fact: `weather` ("clear", "fair", "unsettled", "stormy", "a great storm"), `wind`
 // ("still", "breezy", "windy", "a gale"), `season` ("deep winter", "winter", "the turn of the

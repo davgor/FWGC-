@@ -68,6 +68,42 @@ double reach_ceiling_km(const fwg::World& world) {
     return world.effective.globe_radius * fwg::kNearRadiusFraction / 1000.0;
 }
 
+// A large world: its near read's ceiling (47.75 km) passes a region's width, as far as a renowned hero's own
+// reach (40 km), which passes a city dweller's reach (20 km), so every width fame is told by shows in one read.
+// Seed 18: a hero known through a realm of five cities 89 km across, where most realms are a city or two.
+const fwg::World& wide() {
+    static const fwg::World world = [] {
+        fwg::Request request;
+        request.seed = 18;
+        request.size = 33;
+        request.world_size = fwg::parse_world_size("large");
+        return fwg::generate(fwg::resolve(request));
+    }();
+    return world;
+}
+
+// How far each place stands from `node`, in metres, by the near read out to the ceiling, keyed by the node it
+// stands on; `node` itself at 0. A node missing stands past the ceiling. Of two places on one node, the
+// nearer: a city is measured from where it stands, a hamlet from its node's cell, and the director counts a
+// node as within a width when any place on it is.
+std::map<int, double> place_metres(const fwg::World& world, int node) {
+    fwg::NearReadRequest near;
+    near.node = node;
+    near.radius_m = reach_ceiling_km(world) * 1000.0;
+    near.categories = std::vector<std::string>{"settlements", "hamlets", "fortresses", "key_locations"};
+    const fwg::NearRead read = fwg::read_near(world, near);
+    std::map<int, double> out = {{node, 0.0}};
+    const auto keep = [&](const auto& rows) {
+        for (const auto& r : rows)
+            if (const auto [at, fresh] = out.emplace(r.node, r.distance_m); !fresh) at->second = std::min(at->second, r.distance_m);
+    };
+    keep(read.near.settlements);
+    keep(read.near.hamlets);
+    keep(read.near.fortresses);
+    keep(read.near.key_locations);
+    return out;
+}
+
 // How far each place and nest stands from `speaker`, in metres, by the near read out to the
 // ceiling: the oracle a packet's rough `range` is checked against, since the packet itself no
 // longer says metres. Keyed by the ids facts use as subjects.
@@ -137,6 +173,49 @@ std::string a_broker(bool in_a_city = false) {
         if (node && giver_nodes.count(*node)) return p.uid;
     }
     check::fail("the premise: some roster person stands where a giver stands");
+}
+
+// The realm whose cities hold a roster person's site, read off the world's records (contract version 25's
+// oracle): a city by its uid, a hamlet or a fortress by the city it belongs to.
+std::string realm_of_roster(const fwg::World& world, const fwg::NpcPerson& person) {
+    if (!person.site_uid) return {};
+    std::string city = *person.site_uid;
+    for (const std::vector<fwg::RuralSite>* list : {&world.humans.hamlets, &world.humans.fortresses})
+        for (const fwg::RuralSite& rural : *list)
+            if (rural.uid == city)
+                for (const auto& settlement : world.settlements.sites)
+                    if (settlement.id == rural.core_id) city = settlement.uid;
+    for (const fwg::HeroRealm& realm : world.heroes.realms)
+        if (std::find(realm.city_uids.begin(), realm.city_uids.end(), city) != realm.city_uids.end()) return realm.uid;
+    return {};
+}
+
+const fwg::NpcPerson& roster_person(const fwg::World& world, const std::string& uid) {
+    for (const fwg::NpcPerson& p : world.npcs.people)
+        if (p.uid == uid) return p;
+    check::fail("a roster person " + uid);
+}
+
+std::string sovereign_of(const fwg::World& world, const std::string& realm) {
+    for (const fwg::HeroRealm& r : world.heroes.realms)
+        if (r.uid == realm) return r.sovereign_uid;
+    return {};
+}
+
+const fwg::HeroDeed* known_deed_of(const fwg::Hero& hero) {
+    for (const fwg::HeroDeed& deed : hero.deeds)
+        if (deed.known_for) return &deed;
+    return nullptr;
+}
+
+// Whether a roster person knows `hero` by fame, never having met them, on a world whose ceiling is their
+// reach, and so is a region's width: their realm's sovereign, or a hero whose known deed's word went through
+// the person's own realm.
+bool famous_to(const fwg::World& world, const std::string& roster, const fwg::Hero& hero) {
+    const std::string realm = realm_of_roster(world, roster_person(world, roster));
+    if (!realm.empty() && sovereign_of(world, realm) == hero.uid) return true;
+    const fwg::HeroDeed* deed = known_deed_of(hero);
+    return deed != nullptr && deed->scope == "realm" && !realm.empty() && realm == hero.realm_uid;
 }
 
 std::vector<const Fact*> of_kind(const FactPacket& p, FactKind kind) {
@@ -519,13 +598,21 @@ TEST(a_speaker_knows_the_people_where_they_stand_and_not_the_far_off) {
     for (const auto& r : read.near.hamlets) in_reach.insert(r.node);
     for (const auto& r : read.near.fortresses) in_reach.insert(r.node);
     for (const auto& r : read.near.key_locations) in_reach.insert(r.node);
-    std::size_t known = 0, unknown = 0;
+    std::size_t known = 0, unknown = 0, famous = 0;
     for (const fwg::Hero& hero : w.heroes.people) {
         fwg::PersonReadRequest request;
         request.uid = hero.uid;
         const std::optional<int> node = fwg::read_person(w, request).person.anchor.node;
         if (!node) continue;
         const FactPacket p = d.respond(broker, {ActKind::AskAboutPerson, hero.uid});
+        // Known by fame beyond reach (contract version 25): the broker's own sovereign, or a hero whose known
+        // deed's word went through the broker's realm. A region's width clamps to the ceiling, which is the
+        // reach, on this world.
+        if (!in_reach.count(*node) && famous_to(w, broker, hero)) {
+            check::is_true(p.outcome == Outcome::Answered, hero.uid + " is known by fame beyond reach");
+            ++famous;
+            continue;
+        }
         if (in_reach.count(*node)) {
             check::is_true(p.outcome == Outcome::Answered, hero.uid + " stands within reach");
             check::equal(p.facts.front().subject, hero.uid, "the person asked about");
@@ -537,6 +624,265 @@ TEST(a_speaker_knows_the_people_where_they_stand_and_not_the_far_off) {
         }
     }
     check::is_true(known > 0 && unknown > 0, "the premise: located heroes both within and beyond reach");
+    (void)famous;  // how many, the fame test's to require: this broker's realm may have no famous far off
+}
+
+// Contract version 25: fame. "A common NPC should know the legendary heroes or kings in their land, even if
+// they have never met them" (the owner, 2026-09-29). A roster person knows their realm's sovereign wherever
+// the sovereign stands, and says so, with the deed word of them goes with; asked for "the king", they name
+// their own; asked by a name no packet gave, they look it up among those they know; a far sovereign of
+// another realm they do not know.
+TEST(a_speaker_knows_their_sovereign_and_whom_word_of_a_deed_reaches) {
+    const fwg::World& w = month_old();
+    Director d(w);
+    const auto located = [&](const std::string& uid) {
+        fwg::PersonReadRequest who;
+        who.uid = uid;
+        return fwg::read_person(w, who).person.anchor.node;
+    };
+    const auto reach_of = [&](int node) {
+        fwg::NearReadRequest near;
+        near.node = node;
+        near.radius_m = reach_ceiling_km(w) * 1000.0;
+        near.categories = std::vector<std::string>{"settlements", "hamlets", "fortresses", "key_locations"};
+        const fwg::NearRead read = fwg::read_near(w, near);
+        std::set<int> out = {node};
+        for (const auto& r : read.near.settlements) out.insert(r.node);
+        for (const auto& r : read.near.hamlets) out.insert(r.node);
+        for (const auto& r : read.near.fortresses) out.insert(r.node);
+        for (const auto& r : read.near.key_locations) out.insert(r.node);
+        return out;
+    };
+    // A city dweller of a realm with a sovereign, standing beyond their reach; another realm's sovereign beyond
+    // their reach too.
+    std::map<std::string, const fwg::Hero*> heroes;
+    for (const fwg::Hero& hero : w.heroes.people) heroes.emplace(hero.uid, &hero);
+    std::string dweller, own, far;
+    for (const fwg::NpcPerson& person : w.npcs.people) {
+        if (!person.alive || person.is_cast || !person.site_kind || *person.site_kind != "city") continue;
+        const std::string realm = realm_of_roster(w, person);
+        const std::string sovereign = sovereign_of(w, realm);
+        if (sovereign.empty() || sovereign == person.uid || !heroes.count(sovereign)) continue;
+        const std::optional<int> here = npc_node(w, person);
+        if (!here) continue;
+        const std::set<int> reach = reach_of(*here);
+        const std::optional<int> theirs = located(sovereign);
+        if (!theirs || reach.count(*theirs)) continue;  // their own sovereign beyond their reach: known by fame alone
+        for (const fwg::Hero& hero : w.heroes.people) {
+            if (hero.role != "sovereign" || hero.uid == sovereign || hero.realm_uid == realm) continue;
+            const std::optional<int> there = located(hero.uid);
+            if (!there || reach.count(*there)) continue;
+            dweller = person.uid;
+            own = sovereign;
+            far = hero.uid;
+            break;
+        }
+        if (!dweller.empty()) break;
+    }
+    check::is_true(!dweller.empty(), "the premise: a city dweller, their sovereign beyond reach, and another realm's too");
+    const fwg::Hero* sovereign = heroes.at(own);
+    // Their own sovereign: known, and said to be theirs, with fame and the deed they are known for, if any.
+    const FactPacket asked = d.respond(dweller, {ActKind::AskAboutPerson, own});
+    check::is_true(asked.outcome == Outcome::Answered, "their own sovereign is known");
+    const Fact& person = asked.facts.front();
+    check::equal(person.subject, own, "the sovereign asked about");
+    check::equal(person.field("sovereign") ? *person.field("sovereign") : std::string(), std::string("yes"), "said to be theirs");
+    check::equal(person.field("fame") ? *person.field("fame") : std::string(), sovereign->tier, "with their fame");
+    const auto said_deed = [&](const FactPacket& p, const fwg::Hero& hero, const std::string& who) {
+        const std::vector<const Fact*> deeds = of_kind(p, FactKind::Deed);
+        const fwg::HeroDeed* known = known_deed_of(hero);
+        if (known == nullptr) {
+            check::is_true(deeds.empty(), "no deed for one with none: " + who);
+            return;
+        }
+        check::equal(deeds.size(), std::size_t{1}, "the deed they are known for: " + who);
+        check::equal(deeds.front()->subject, known->event_id, "that deed: " + who);
+        const std::string* scope = deeds.front()->field("scope");
+        check::equal(scope ? *scope : std::string("(none)"), known->scope, "with how far word of it went: " + who);
+    };
+    said_deed(asked, *sovereign, own);
+    // Any hero of one face known for a deed, asked of by someone who stands where they stand: the same.
+    std::size_t deeds_said = 0;
+    for (const fwg::Hero& hero : w.heroes.people) {
+        if (deeds_said >= 3 || hero.faces.size() > 1 || known_deed_of(hero) == nullptr) continue;
+        const std::optional<int> there = located(hero.uid);
+        if (!there) continue;
+        for (const fwg::NpcPerson& p : w.npcs.people) {
+            if (!p.alive || p.is_cast || npc_node(w, p) != there) continue;
+            const FactPacket about = d.respond(p.uid, {ActKind::AskAboutPerson, hero.uid});
+            check::is_true(about.outcome == Outcome::Answered, hero.uid + ", where they stand, is known");
+            check::equal(about.facts.front().field("fame") ? *about.facts.front().field("fame") : std::string(), hero.tier,
+                         "their fame: " + hero.uid);
+            said_deed(about, hero, hero.uid);
+            ++deeds_said;
+            break;
+        }
+    }
+    check::is_true(deeds_said > 0, "the premise: heroes known for a deed, and someone where they stand");
+    // Another realm's, beyond reach, of no wide fame: not known.
+    check::is_true(d.respond(dweller, {ActKind::AskAboutPerson, far}).outcome == Outcome::Unknown,
+                   "another realm's sovereign, beyond their reach, which on this world is a region's width");
+    // Asked for the king: their own.
+    const FactPacket king = d.respond(dweller, {ActKind::AskAboutPerson, "=the king"});
+    check::is_true(king.outcome == Outcome::Answered && king.facts.front().subject == own, "the king is their own sovereign");
+    // By a name no packet gave: the sovereign's own name; a name nobody bears.
+    const FactPacket by_name = d.respond(dweller, {ActKind::AskAboutPerson, "=" + sovereign->name});
+    check::is_true(by_name.outcome == Outcome::Answered && by_name.facts.front().subject == own, "their sovereign by name");
+    check::is_true(d.respond(dweller, {ActKind::AskAboutPerson, "=Gandalf the Grey"}).outcome == Outcome::Unknown, "a name nobody bears");
+    check::throws([&] { (void)d.respond(dweller, {ActKind::AskAboutPerson, "=  "}); }, "no words");
+    // A king named is that king, never taken for their own: the far one, whom they do not know.
+    check::is_true(d.respond(dweller, {ActKind::AskAboutPerson, "=King " + heroes.at(far)->name}).outcome == Outcome::Unknown,
+                   "another realm's king, by name: not known, and not their own");
+    // A realm named by a city of it: its sovereign. Of the dweller's own realm, their own.
+    const auto city_of = [&](const std::string& realm_uid) {
+        for (const fwg::HeroRealm& realm : w.heroes.realms)
+            if (realm.uid == realm_uid)
+                for (const auto& site : w.settlements.sites)
+                    if (!realm.city_uids.empty() && site.uid == realm.city_uids.front()) return site.name;
+        check::fail("a city of " + realm_uid);
+    };
+    const std::string home_realm = realm_of_roster(w, roster_person(w, dweller));
+    const FactPacket of_home = d.respond(dweller, {ActKind::AskAboutPerson, "=the king of " + city_of(home_realm)});
+    check::is_true(of_home.outcome == Outcome::Answered && of_home.facts.front().subject == own, "the king of their own city: theirs");
+    // Another realm's sovereign who stands within someone's reach: known, by the realm's city and by name.
+    std::string near_one, neighbour, neighbours_realm;
+    for (const fwg::NpcPerson& p : w.npcs.people) {
+        if (!p.alive || p.is_cast || !p.site_kind || *p.site_kind != "city") continue;
+        const std::optional<int> here = npc_node(w, p);
+        if (!here) continue;
+        const std::string realm = realm_of_roster(w, p);
+        const std::set<int> reach = reach_of(*here);
+        for (const fwg::HeroRealm& other : w.heroes.realms) {
+            if (other.uid == realm || other.sovereign_uid.empty() || other.city_uids.empty()) continue;
+            const std::optional<int> there = located(other.sovereign_uid);
+            if (!there || !reach.count(*there)) continue;
+            near_one = p.uid;
+            neighbour = other.sovereign_uid;
+            neighbours_realm = other.uid;
+            break;
+        }
+        if (!near_one.empty()) break;
+    }
+    check::is_true(!near_one.empty(), "the premise: someone with another realm's sovereign in reach");
+    const FactPacket of_theirs = d.respond(near_one, {ActKind::AskAboutPerson, "=the queen of " + city_of(neighbours_realm)});
+    check::is_true(of_theirs.outcome == Outcome::Answered && of_theirs.facts.front().subject == neighbour,
+                   "the sovereign of a realm named by its city");
+    const FactPacket by_title = d.respond(near_one, {ActKind::AskAboutPerson, "=King " + heroes.at(neighbour)->name});
+    check::is_true(by_title.outcome == Outcome::Answered && by_title.facts.front().subject == neighbour, "a king by name");
+    // Replayed, the same.
+    Director again = orchestrator::replay(month_old(), d.inputs());
+    const FactPacket replayed = again.respond(dweller, {ActKind::AskAboutPerson, "=the king"});
+    check::equal(text_of(replayed), text_of(d.respond(dweller, {ActKind::AskAboutPerson, "=the king"})), "replay says the same");
+}
+
+namespace {
+
+// The heroes whose known deed's word went `scope`, with where each stands.
+std::vector<std::pair<int, const fwg::Hero*>> known_through(const fwg::World& world, const std::string& scope) {
+    std::vector<std::pair<int, const fwg::Hero*>> out;
+    for (const fwg::Hero& hero : world.heroes.people) {
+        const fwg::HeroDeed* deed = known_deed_of(hero);
+        if (deed == nullptr || deed->scope != scope) continue;
+        fwg::PersonReadRequest who;
+        who.uid = hero.uid;
+        if (const std::optional<int> node = fwg::read_person(world, who).person.anchor.node) out.emplace_back(*node, &hero);
+    }
+    return out;
+}
+
+// A region's width, as far as a renowned hero's own reach; and a roster person's own reach, by where they live.
+constexpr double kRegionM = 40000.0;
+double roster_reach_m(const fwg::NpcPerson& person) { return person.site_kind && *person.site_kind == "city" ? 20000.0 : 10000.0; }
+
+}  // namespace
+
+// Contract version 25, on the wide world: a hero whose known deed's word went through a region is known to a
+// city dweller beyond their own reach but within a region's width of where the hero stands, and not past it,
+// where the near read still reaches or beyond it.
+TEST(word_of_a_regional_deed_carries_a_regions_width) {
+    const fwg::World& w = wide();
+    Director d(w);
+    check::is_true(reach_ceiling_km(w) * 1000.0 > kRegionM + 1000.0, "the premise: the near read reaches past a region's width");
+    const std::vector<std::pair<int, const fwg::Hero*>> regional = known_through(w, "regional");
+    check::is_true(!regional.empty(), "the premise: heroes known through a region");
+    std::size_t within = 0, past = 0, out_of_sight = 0;
+    for (const fwg::NpcPerson& person : w.npcs.people) {
+        if (within >= 3 && past >= 3 && out_of_sight >= 3) break;
+        if (!person.alive || person.is_cast || !person.site_kind || *person.site_kind != "city") continue;
+        const std::optional<int> here = npc_node(w, person);
+        if (!here) continue;
+        const std::string sovereign = sovereign_of(w, realm_of_roster(w, person));
+        const std::map<int, double> metres = place_metres(w, *here);
+        for (const auto& [node, hero] : regional) {
+            if (hero->uid == sovereign) continue;
+            const auto m = metres.find(node);
+            const double far = m == metres.end() ? 1e12 : m->second;
+            if (far > roster_reach_m(person) + 50.0 && far < kRegionM - 50.0 && within < 3) {
+                check::is_true(d.respond(person.uid, {ActKind::AskAboutPerson, hero->uid}).outcome == Outcome::Answered,
+                               hero->uid + " at " + std::to_string(far) + " m: within a region's width, known");
+                ++within;
+            } else if (m != metres.end() && far > kRegionM + 50.0 && past < 3) {
+                check::is_true(d.respond(person.uid, {ActKind::AskAboutPerson, hero->uid}).outcome == Outcome::Unknown,
+                               hero->uid + " at " + std::to_string(far) + " m: past a region's width, not known");
+                ++past;
+            } else if (m == metres.end() && out_of_sight < 3) {
+                check::is_true(d.respond(person.uid, {ActKind::AskAboutPerson, hero->uid}).outcome == Outcome::Unknown,
+                               hero->uid + " beyond the near read, not known");
+                ++out_of_sight;
+            }
+        }
+    }
+    check::is_true(within > 0 && past > 0 && out_of_sight > 0,
+                   "the premise: regional heroes within a region's width, past it inside the near read, and beyond it");
+}
+
+// Contract version 25, on the wide world: word of a realm's deed goes all through the hero's realm, however far
+// from where they stand, and a region's width past its borders, but no further. Candidates are found from where
+// each hero stands and confirmed from where each person stands, as the director reads it.
+TEST(word_of_a_realms_deed_goes_through_the_realm_and_a_regions_width_past_it) {
+    const fwg::World& w = wide();
+    Director d(w);
+    const std::vector<std::pair<int, const fwg::Hero*>> famous = known_through(w, "realm");
+    check::is_true(!famous.empty(), "the premise: heroes known through their realm");
+    std::size_t through = 0, past_border = 0, beyond = 0;
+    for (const auto& [node, hero] : famous) {
+        const std::map<int, double> around = place_metres(w, node);
+        for (const fwg::NpcPerson& person : w.npcs.people) {
+            if (through >= 3 && past_border >= 3 && beyond >= 3) break;
+            if (!person.alive || person.is_cast) continue;
+            const std::optional<int> here = npc_node(w, person);
+            if (!here) continue;
+            const std::string realm = realm_of_roster(w, person);
+            if (hero->uid == sovereign_of(w, realm)) continue;
+            const bool same = !realm.empty() && realm == hero->realm_uid;
+            const auto a = around.find(*here);
+            const double rough = a == around.end() ? 1e12 : a->second;
+            const bool wanted = (same && rough > kRegionM + 50.0 && through < 3) ||
+                                (!same && rough > roster_reach_m(person) + 50.0 && rough < kRegionM - 50.0 && past_border < 3) ||
+                                (!same && rough > kRegionM + 50.0 && beyond < 3);
+            if (!wanted) continue;
+            const std::map<int, double> theirs = place_metres(w, *here);
+            const auto t = theirs.find(node);
+            const double far = t == theirs.end() ? 1e12 : t->second;
+            if (far <= roster_reach_m(person) + 50.0) continue;
+            const FactPacket p = d.respond(person.uid, {ActKind::AskAboutPerson, hero->uid});
+            const std::string where = hero->uid + " at " + std::to_string(far) + " m from " + person.uid;
+            if (same && far > kRegionM + 50.0 && through < 3) {
+                check::is_true(p.outcome == Outcome::Answered, where + ": of their realm, past a region's width, known");
+                ++through;
+            } else if (!same && far < kRegionM - 50.0 && past_border < 3) {
+                check::is_true(p.outcome == Outcome::Answered, where + ": outside their realm, within a region's width, known");
+                ++past_border;
+            } else if (!same && far > kRegionM + 50.0 && beyond < 3) {
+                check::is_true(p.outcome == Outcome::Unknown, where + ": outside their realm, past a region's width, not known");
+                ++beyond;
+            }
+        }
+    }
+    check::is_true(through > 0 && past_border > 0 && beyond > 0,
+                   "the premise: people of a famous hero's realm past a region's width, and of others within it and past it (" +
+                       std::to_string(famous.size()) + " heroes: " + std::to_string(through) + ", " + std::to_string(past_border) +
+                       ", " + std::to_string(beyond) + ")");
 }
 
 TEST(an_offer_names_its_anchor_itself_and_not_what_stands_beside_it) {

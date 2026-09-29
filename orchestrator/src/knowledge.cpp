@@ -1,6 +1,7 @@
 #include "knowledge.hpp"
 
 #include <algorithm>
+#include <cctype>
 #include <type_traits>
 #include <variant>
 
@@ -164,6 +165,117 @@ std::string place_label(const Fact& place) {
 }
 
 const fwg::Hero* hero_of(const Speaker& speaker) { return std::get_if<fwg::Hero>(&speaker.document.person); }
+
+namespace {
+
+// The realm whose cities hold `site`: a city by its own uid, a hamlet or a fortress by the city it belongs to.
+std::string realm_of_site(const fwg::World& world, const std::string& site) {
+    std::string city = site;
+    for (const std::vector<fwg::RuralSite>* list : {&world.humans.hamlets, &world.humans.fortresses})
+        for (const fwg::RuralSite& rural : *list)
+            if (rural.uid == site || rural.id == site)
+                for (const auto& settlement : world.settlements.sites)
+                    if (settlement.id == rural.core_id) city = settlement.uid;
+    for (const fwg::HeroRealm& realm : world.heroes.realms)
+        if (std::find(realm.city_uids.begin(), realm.city_uids.end(), city) != realm.city_uids.end()) return realm.uid;
+    return {};
+}
+
+// The words of `text` in lower case, letters and digits only.
+std::vector<std::string> lower_words(const std::string& text) {
+    std::vector<std::string> out;
+    std::string word;
+    for (const char c : text + " ") {
+        const auto u = static_cast<unsigned char>(c);
+        if (std::isalnum(u) || u >= 0x80 || c == '\'') {
+            word += static_cast<char>(std::tolower(u));
+        } else if (!word.empty()) {
+            out.push_back(word);
+            word.clear();
+        }
+    }
+    return out;
+}
+
+}  // namespace
+
+std::string realm_of(const fwg::World& world, const Speaker& speaker) {
+    if (const fwg::Hero* hero = hero_of(speaker)) {
+        if (!hero->realm_uid.empty()) return hero->realm_uid;
+        return hero->home ? realm_of_site(world, hero->home->uid) : std::string();
+    }
+    const auto* roster = std::get_if<fwg::NpcPerson>(&speaker.document.person);
+    return roster != nullptr && roster->site_uid ? realm_of_site(world, *roster->site_uid) : std::string();
+}
+
+std::string sovereign_of(const fwg::World& world, const std::string& realm_uid) {
+    for (const fwg::HeroRealm& realm : world.heroes.realms)
+        if (realm.uid == realm_uid) return realm.sovereign_uid;
+    return {};
+}
+
+const fwg::HeroDeed* known_deed(const fwg::Hero& hero) {
+    for (const fwg::HeroDeed& deed : hero.deeds)
+        if (deed.known_for) return &deed;
+    return nullptr;
+}
+
+bool known_by_fame(const fwg::World& world, const Speaker& speaker, const fwg::Hero& hero, std::optional<int> hero_node) {
+    const std::string realm = realm_of(world, speaker);
+    if (!realm.empty() && sovereign_of(world, realm) == hero.uid) return true;
+    const fwg::HeroDeed* deed = known_deed(hero);
+    if (deed == nullptr) return false;
+    if (deed->scope == "realm" && !realm.empty() && realm == hero.realm_uid) return true;
+    if ((deed->scope != "regional" && deed->scope != "realm") || !speaker.node || !hero_node) return false;
+    if (*speaker.node == *hero_node) return true;
+    const std::optional<fwg::NearRead> read =
+        bounded_near(world, *speaker.node, std::min(kRegionalFameM, near_ceiling(world)), kPlaceCategories);
+    if (!read) return false;
+    const auto at = [&](const auto& rows) {
+        return std::any_of(rows.begin(), rows.end(), [&](const auto& row) { return row.node == *hero_node; });
+    };
+    return at(read->near.settlements) || at(read->near.hamlets) || at(read->near.fortresses) || at(read->near.key_locations);
+}
+
+std::vector<std::string> people_named(const fwg::World& world, const Speaker& speaker, const std::string& words) {
+    const std::vector<std::string> said = lower_words(words);
+    const auto says = [&](const std::string& word) { return std::find(said.begin(), said.end(), word) != said.end(); };
+    const auto named = [&](const std::string& name) {
+        const std::vector<std::string> own = lower_words(name);
+        return !own.empty() && std::all_of(own.begin(), own.end(), says);
+    };
+    static const std::vector<std::string> crowned = {"king", "queen", "sovereign", "monarch", "ruler", "emperor", "empress", "rules"};
+    if (std::any_of(crowned.begin(), crowned.end(), says)) {
+        // A realm's sovereign, the realm named by its own name or a city of it: "the queen of Linbrig".
+        for (const fwg::HeroRealm& realm : world.heroes.realms) {
+            if (realm.sovereign_uid.empty()) continue;
+            bool of_it = named(realm.name);
+            for (const auto& city : world.settlements.sites)
+                if (!of_it && std::find(realm.city_uids.begin(), realm.city_uids.end(), city.uid) != realm.city_uids.end())
+                    of_it = named(city.name);
+            if (of_it) return {realm.sovereign_uid};
+        }
+        // A title and nothing more ("the king", "who rules here"): the speaker's own. Any other word is a name,
+        // "King Harwin", looked up as one below.
+        static const std::vector<std::string> titled = {"the",  "a",    "an",  "your", "our",  "my",    "this", "these", "here", "of",
+                                                        "land", "lands", "realm", "who", "is",  "rule",  "over", "in",   "at",   "now",
+                                                        "old",  "young", "new",   "good", "great"};
+        const bool only_a_title = std::all_of(said.begin(), said.end(), [&](const std::string& word) {
+            return std::find(crowned.begin(), crowned.end(), word) != crowned.end() ||
+                   std::find(titled.begin(), titled.end(), word) != titled.end();
+        });
+        if (only_a_title) {
+            const std::string sovereign = sovereign_of(world, realm_of(world, speaker));
+            return sovereign.empty() ? std::vector<std::string>{} : std::vector<std::string>{sovereign};
+        }
+    }
+    std::vector<std::string> out;
+    for (const fwg::Hero& hero : world.heroes.people)
+        if (hero.uid != speaker.uid && named(hero.name)) out.push_back(hero.uid);
+    for (const fwg::NpcPerson& person : world.npcs.people)
+        if (person.uid != speaker.uid && !person.is_cast && person.name && named(*person.name)) out.push_back(person.uid);
+    return out;
+}
 
 std::vector<std::pair<std::string, std::string>> ties_of(const fwg::Hero& hero) {
     std::vector<std::pair<std::string, std::string>> out;
@@ -412,6 +524,22 @@ std::string loss_word(const std::string& cause) {
 
 }  // namespace
 
+Fact deed_fact(const fwg::World& world, const fwg::HeroDeed& d) {
+    Fact deed{FactKind::Deed, d.event_id, {{"deed", d.event_kind}, {"part", d.role}}};
+    if (const std::optional<std::string> place = anchor_name(world, d.event_id)) {
+        deed.fields.emplace_back("place", *place);
+    } else if (!d.city_name.empty()) {
+        deed.fields.emplace_back("place", d.city_name);
+    }
+    if (d.event_kind == "war" && !d.kind.empty()) deed.fields.emplace_back("war", d.kind);
+    // Whom the war was against (contract version 22): "what war, against whom" was a judge's first ask of a
+    // castellan whose record says he won one (the golden benchmark, 2026-09-29).
+    if (d.event_kind == "war")
+        if (const std::optional<std::string> against = anchor_name(world, d.opponent_uid)) deed.fields.emplace_back("against", *against);
+    deed.fields.emplace_back("when", age_band(world, d.age));
+    return deed;
+}
+
 std::vector<Fact> self_facts(const fwg::World& world, const Speaker& speaker, bool whole_story) {
     Fact self{FactKind::Self, speaker.uid, {}};
     const auto add = [&](const char* key, const std::string& value) {
@@ -426,19 +554,7 @@ std::vector<Fact> self_facts(const fwg::World& world, const Speaker& speaker, bo
         std::stable_sort(all.begin(), all.end(), [](const fwg::HeroDeed& a, const fwg::HeroDeed& b) { return a.age > b.age; });
         for (const fwg::HeroDeed& d : all) {
             if (deeds.size() == kDeedsNamed) break;
-            Fact deed{FactKind::Deed, d.event_id, {{"deed", d.event_kind}, {"part", d.role}}};
-            if (const std::optional<std::string> place = anchor_name(world, d.event_id)) {
-                deed.fields.emplace_back("place", *place);
-            } else if (!d.city_name.empty()) {
-                deed.fields.emplace_back("place", d.city_name);
-            }
-            if (d.event_kind == "war" && !d.kind.empty()) deed.fields.emplace_back("war", d.kind);
-            // Whom the war was against (contract version 22): "what war, against whom" was a judge's first
-            // ask of a castellan whose record says he won one (the golden benchmark, 2026-09-29).
-            if (d.event_kind == "war")
-                if (const std::optional<std::string> against = anchor_name(world, d.opponent_uid)) deed.fields.emplace_back("against", *against);
-            deed.fields.emplace_back("when", age_band(world, d.age));
-            deeds.push_back(std::move(deed));
+            deeds.push_back(deed_fact(world, d));
         }
     };
     if (const fwg::Hero* hero = hero_of(speaker); hero && whole_story) {

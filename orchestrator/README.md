@@ -304,6 +304,33 @@ Asked where a name in the facts tree comes from: only ever one the player said, 
 - The Memory fact's `called`, `called_how` ("told", "word", "overheard") and `called_other` say it in
   every packet; `relationships` holds them for the game's queries, and fwgc_acquaintance's JSON too.
 
+## Fame
+
+Contract version 25. The owner, 2026-09-29: "the scope of the heroes deeds needs to be included, and
+scaled based on their notoriety. For example a common NPC should know the legendary heroes or kings in
+their land, even if they have never met them." The generator gives every deed its `scope` (heroes version
+4): its own weight in the fame formula times the reach of the one who did it, on the fame floors, "local",
+"regional" or "realm"; and marks the deed each record is known for, its widest.
+
+- **Who knows whom by fame.** Beyond ties and reach, a speaker knows the sovereign of their own realm
+  wherever the sovereign stands, and a hero whose known deed's word reaches them: through the hero's
+  realm, to anyone of it; through a region, to anyone within 40 km of where the hero stands, as far as a
+  renowned hero's own reach (`kRegionalFameM`, clamped to the near read's ceiling as every reach is: on a
+  small world it is a city dweller's reach, and only a large world's ceiling, 47.75 km, passes it). Word
+  that went through a realm went a region's width past its borders too. A roster person's realm is the one
+  whose cities hold their site, a hamlet or a fortress by the city it belongs to; a hero's is their own,
+  else their home city's.
+- **What they say.** An answer about a hero with one face carries their `fame` band, `sovereign` "yes"
+  when they are the speaker's own, and a Deed fact of the deed they are known for with its `scope`. A mask
+  says none of it: its deeds are the true face's.
+- **Asked by the player's words.** ask_about_person's target may be "=" and the words the player named
+  someone by: "=the king" (a title and nothing more names the speaker's own sovereign), "=the queen of
+  Linbrig" (a realm's sovereign, the realm named by its own name or a city's), or a name no packet gave,
+  "=King Harwin" among them, looked up among heroes and then roster people whose name's every word the words
+  hold, the first the speaker knows. None known, and the answer is Unknown: a king named is never taken for
+  the speaker's own. The act is recorded as looked up, the person's id in place of the words, so replay looks
+  nothing up.
+
 ## Short and long memory
 
 Contract version 12, schema 2, C interface 3. The owner, on compaction: "It should mirror what

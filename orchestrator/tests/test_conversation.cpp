@@ -910,6 +910,8 @@ TEST(a_masks_rival_or_kin_tells_the_player_what_it_hides) {
     check::is_true(plain.outcome == Outcome::Answered, "the premise: the stranger knows of the mask");
     const std::vector<Fact> seen = facts_of(plain, FactKind::Person);
     check::is_true(!seen.empty() && seen.front().field("hides") == nullptr, "a stranger knows no more than the mask");
+    // Nor any fame of the true face's (contract version 25): no band, no deed.
+    check::is_true(seen.front().field("fame") == nullptr && facts_of(plain, FactKind::Deed).empty(), "a mask carries no fame");
     check::is_true(other.respond(mask, {ActKind::Confront, ""}).outcome == Outcome::Denied, "and gives no cause");
 }
 

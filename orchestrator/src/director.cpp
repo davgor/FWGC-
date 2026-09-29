@@ -651,8 +651,9 @@ constexpr double kMinutesPerDay = 1440.0;
 bool has_a_day(const fwg::NpcPerson& p) { return !p.is_cast && p.alive && p.site_uid && !p.plot_id.empty(); }
 
 // Whether `s` knows the person `target`: their rival, kin or ally, wherever they are; else someone
-// standing where the speaker stands, or somewhere within the speaker's reach. The one rule for an
-// answer about a person and for a bystander who could give one.
+// standing where the speaker stands, or somewhere within the speaker's reach; else a hero they know by
+// fame (contract version 25): their realm's sovereign, or one whose known deed's word reaches them. The one
+// rule for an answer about a person and for a bystander who could give one.
 bool knows_person(const fwg::World& world, knowledge::Speaker& s, const std::string& target) {
     const std::optional<knowledge::KnownPerson> person = knowledge::person_fact(world, target);
     if (!person || !person->node) return false;
@@ -665,7 +666,7 @@ bool knows_person(const fwg::World& world, knowledge::Speaker& s, const std::str
     if (s.node && *person->node == *s.node) return true;
     for (const KnownPlace& place : knowledge::places_in_reach(world, s))
         if (place.node == *person->node) return true;
-    return false;
+    return asked != nullptr && knowledge::known_by_fame(world, s, *asked, person->node);
 }
 
 // The roster post with a day that `uid` names, or nullptr.
@@ -1023,9 +1024,10 @@ void Director::account(const std::string& quest_id, const std::string& came, con
 
 FactPacket Director::respond(const std::string& speaker_uid, const DialogueAct& act) { return reply(speaker_uid, act, false); }
 
-FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& act, bool joined) {
-    if (act_needs_target(act.kind) && act.target.empty())
-        throw Error("respond: " + std::string(to_string(act.kind)) + " needs a target");
+FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& said, bool joined) {
+    if (act_needs_target(said.kind) && said.target.empty())
+        throw Error("respond: " + std::string(to_string(said.kind)) + " needs a target");
+    DialogueAct act = said;
     // A name the player gives (contract version 24): their own words, checked before anything changes.
     if (act.kind == ActKind::Introduce) {
         const std::string name = trimmed(act.target);
@@ -1035,6 +1037,19 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
     std::optional<Speaker> found = knowledge::speaker(world_, speaker_uid);
     if (!found) throw Error("respond: the world names no person '" + speaker_uid + "'");
     Speaker& s = *found;
+    // A person asked of by the words the player said (contract version 25): "the king", a name no packet gave.
+    // The first of those they name whom the speaker knows; none, and the target names no one, so the answer
+    // is that they know of no such person. What is recorded is the act as looked up, so replay asks no words.
+    if (act.kind == ActKind::AskAboutPerson && act.target.front() == '=') {
+        const std::string words = trimmed(act.target.substr(1));
+        if (words.empty() || words.size() > kMaxNameBytes || !is_utf8(words) || words.find_first_of("\r\n") != std::string::npos)
+            throw Error("respond: a person asked of by name is 1 to " + std::to_string(kMaxNameBytes) + " bytes of UTF-8 on one line");
+        for (const std::string& uid : knowledge::people_named(world_, s, words))
+            if (knows_person(world_, s, uid)) {
+                act.target = uid;
+                break;
+            }
+    }
     const double today = fwg::world_clock_of(world_).day;
     Acquaintance& a = acquainted_[speaker_uid];
 
@@ -1349,9 +1364,23 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
                 person->fact.fields.emplace_back("hides", "yes");
                 acquainted_[act.target].heard_truth = true;
             }
+            // What they are known for (contract version 25): their fame, whether they are the speaker's own
+            // sovereign, and the deed word of them goes with. Not of a face that is not their own.
+            const fwg::HeroDeed* known = nullptr;
+            if (asked && faces_of(*asked) == Faces::One) {
+                if (!asked->tier.empty()) person->fact.fields.emplace_back("fame", asked->tier);
+                if (const std::string realm = knowledge::realm_of(world_, s); !realm.empty() && knowledge::sovereign_of(world_, realm) == act.target)
+                    person->fact.fields.emplace_back("sovereign", "yes");
+                known = knowledge::known_deed(*asked);
+            }
             FactPacket p = packet_for(s, act, Outcome::Answered);
             if (const std::string* name = person->fact.field("name")) a.asked_now = *name;
             p.facts.push_back(person->fact);
+            if (known != nullptr) {
+                Fact deed = knowledge::deed_fact(world_, *known);
+                deed.fields.emplace_back("scope", known->scope);
+                p.facts.push_back(std::move(deed));
+            }
             for (Fact& told : news(speaker_uid, act.target, std::nullopt, 1)) p.facts.push_back(std::move(told));
             return finish(std::move(p));
         }

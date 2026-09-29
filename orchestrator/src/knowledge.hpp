@@ -61,6 +61,40 @@ std::optional<Speaker> speaker(const fwg::World& world, const std::string& uid);
 // A hero's record, when the speaker is one; nullptr otherwise.
 const fwg::Hero* hero_of(const Speaker& speaker);
 
+// Contract version 25: fame. The realm a speaker belongs to: a hero's own, else the realm of the city their
+// home is; a roster person's, the realm whose cities hold their site, a hamlet or a fortress by the city it
+// belongs to. Empty for none.
+std::string realm_of(const fwg::World& world, const Speaker& speaker);
+
+// A realm's sovereign, or empty: about one realm in ten has none.
+std::string sovereign_of(const fwg::World& world, const std::string& realm_uid);
+
+// The deed a hero is known for (heroes version 4), or nullptr for a record with none.
+const fwg::HeroDeed* known_deed(const fwg::Hero& hero);
+
+// How far a hero's name carries from where they stand when their known deed went through a region: as far as a
+// renowned hero's own knowledge reaches, since a deed of renown is a regional one; clamped, as every reach is,
+// to the near read's ceiling, which only a large world's passes. Tunable.
+inline constexpr double kRegionalFameM = kRenownedReachM;
+
+// Whether `speaker` knows `hero` by fame, never having met them: the sovereign of their own realm ("a common
+// NPC should know the legendary heroes or kings in their land, even if they have never met them": the owner,
+// 2026-09-29), and a hero whose known deed's word reaches them: through the hero's realm, to anyone of it;
+// through a region, to anyone within kRegionalFameM of where the hero stands (`hero_node`). Word that went
+// through a realm went at least as far as a region's does, past its borders too.
+bool known_by_fame(const fwg::World& world, const Speaker& speaker, const fwg::Hero& hero, std::optional<int> hero_node);
+
+// A Deed fact of one of a hero's deeds (contract version 13's fields): what, their part, where, the war's kind
+// and whom it was against, when.
+Fact deed_fact(const fwg::World& world, const fwg::HeroDeed& deed);
+
+// The people the words a player said name (contract version 25), in the world's order. Words that ask for a
+// sovereign ("king", "queen", "rules"...) name a realm's: the realm whose own name or a city's the words hold
+// ("the queen of Linbrig"), else, for a title and nothing more ("the king", "who rules here"), `speaker`'s own.
+// Otherwise, and for a title with a name ("King Harwin"), every hero, then every roster person, whose name's
+// every word the said words hold, case aside. The caller keeps the first the speaker knows.
+std::vector<std::string> people_named(const fwg::World& world, const Speaker& speaker, const std::string& words);
+
 // A hero's ties, each with how they stand to the hero ("liege", "rival", "kin", "ally"): the sovereign
 // a castellan is sworn to (contract version 19), then rivals, then kin, then allies, each in the record's
 // own order. The one place a tie is named, for what a hero says of

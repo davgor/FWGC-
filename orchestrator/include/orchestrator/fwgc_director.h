@@ -53,8 +53,10 @@ extern "C" {
  *    database's schema 4 (exchanges.asked).
  * 7: the player's name (contract version 24): the act "introduce", its target the name the player gives,
  *    and the outcomes "introduced", "known" and "renamed"; fwgc_acquaintance's `called`, `called_how` and
- *    `called_other`; the database's schema 5 (relationships.called..., events.player_name). */
-#define FWGC_API_VERSION 7
+ *    `called_other`; the database's schema 5 (relationships.called..., events.player_name).
+ * 8: fame (contract version 25): "ask_about_person" takes "=" and the words the player named someone by,
+ *    which the director looks up; an answer about a person carries their fame and known deed. */
+#define FWGC_API_VERSION 8
 
 typedef struct fwgc_director fwgc_director;
 
@@ -154,7 +156,9 @@ FWGC_API fwgc_status fwgc_clock(const fwgc_director* director, double* day) FWGC
 FWGC_API fwgc_status fwgc_advance(fwgc_director* director, double days) FWGC_NOEXCEPT;
 /* The player makes `act` (by name: "greet", "ask_about_place", ...) to `speaker`, a person uid;
  * `target` (NULL for none) is a place id, person uid or quest id for the acts that need one, and for
- * "introduce" the name the player gives, as they said it (1 to 60 bytes).
+ * "introduce" the name the player gives, as they said it (1 to 60 bytes). For "ask_about_person" it may
+ * instead be "=" and the words the player named someone by ("=the king", "=Aldomir"; 1 to 60 bytes), which
+ * the director looks up among the people the speaker knows (contract version 25).
  * The answer is a packet: as JSON in *packet_json, and in the contract's text form (what the
  * communicator reads) in *packet_text. Either may be NULL. */
 FWGC_API fwgc_status fwgc_respond(fwgc_director* director, const char* speaker, const char* act, const char* target,
