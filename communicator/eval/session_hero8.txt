@@ -1,0 +1,46 @@
+# The golden benchmark's eighth session, held out: heroes' deeds (contract version 26). Written
+# 2026-09-29, before it was ever run. Another world, its first hero who gives work, and someone who
+# stands where the hero does. Between visits the game calls on heroes to act, as it would each few days:
+# news of what the hero did, and the hero's own side of it. Each line is labelled with the act it means.
+world 11 33 30
+who hero giver 0
+who local near hero 0
+
+# A first meeting. The game has called on heroes once already today.
+heroes
+say hero greet | Well met.
+say hero ask_about_them | What keeps you here?
+say hero small_talk | Anything stirring out there?
+say hero ask_for_work | Do you need a hand with anything?
+say hero accept_quest @own | Count me in.
+say hero farewell | I'll be back when it's done.
+
+# Out of sight: compacted; ten days pass with heroes called along the way, and word goes round. The work
+# is done.
+compact hero
+advance 5
+heroes
+advance 5
+heroes
+share
+resolve hero finished
+account hero - few none fought
+say local greet | Hello.
+say local small_talk | Heard anything lately?
+say local farewell | Farewell.
+say hero greet | I'm back. It's done.
+say hero small_talk | I heard there was fighting here while I was away.
+say hero ask_about_them | How did it go for you?
+say hero farewell | Rest well.
+
+# Weeks later, heroes called along the way again.
+compact hero
+advance 10
+heroes
+advance 10
+heroes
+share
+say hero greet | Hello again.
+say hero small_talk | What news?
+say hero ask_about_them | Have you had to fight since I left?
+say hero farewell | Until next time.

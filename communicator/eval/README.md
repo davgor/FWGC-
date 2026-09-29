@@ -544,6 +544,49 @@ pointed at the nest), a self beyond the oath (a deed, views on the people he nam
 the fight and news between visits (hero direction), and his own words kept (he told the distance, then
 conceded he never had).
 
+Then the owner's rulings of 2026-09-29: the player's name (contract 24), fame (contract 25) and hero
+direction (contract 26). `session_hero7.txt` is a seventh session, held out, written for the name before
+it was built: a hero and someone at his post, a name given, word of the player's deed carrying it, a
+second name given later. Its first run, 10 of 17 and score 3, broke at turn 2 ("Maren. And you?" got no
+name back); fixed after, and it is a dev session from then on. With the name and before its fixes
+(round 28), sessions 1-6 went to 90 of 127, the change's own faults; after them and fame (round 29), 100
+of 127 (15, 17, 16, 19, 15, 18) and session 7 13 of 17, session 4 the second score 4. Every judge's first
+two asks: news and a present between visits, and his own side of the fight beyond the tally.
+
+Round 30 is the first with heroes acting between visits (contract 27): sessions 1-7 call `heroes` before
+the first meeting, each day of the short gap and each week of the long one, with a `share` before each
+return. Their first visits are unchanged, and in sessions 3 and 7 no threat is near enough for the hero
+to act at all. `session_hero8.txt` is an eighth session, held out, written for hero direction before it
+was built: a hero who gives work, someone at his place, a return after ten days of heroes acting and
+another after twenty. The transcripts were read before any judge. Five faults were found that way and
+fixed first (368e8be, e958a18): a lost fight refused by the truth check, "how have things been since"
+answered with quiet after a fight, a fight told twice when the hero fought beside the player's work, a
+fight from before the first meeting told at the second, and a deed crowded into a first greeting.
+
+| Session | Round 29 | Round 30 | Score | The illusion breaks at |
+|---|---|---|---|---|
+| 1 | 15 of 24 | 16 of 24 | 3 | 20-22: "Remember me?" with nothing of the arm; a lost fight as news; hearsay of his own post |
+| 2 | 17 of 22 | 16 of 22 | 3 | 18: "Do you still remember me?" with nothing of the brother |
+| 3 | 16 of 21 | 14 of 21 | 3 | 3: "Busy day?" given "I'm well"; the hero never acts, so nothing changed here |
+| 4 | 19 of 20 | 17 of 20 | 3 | 12: a rumour of a fight at his own post, "today" |
+| 5 | 15 of 19 | 15 of 19 | 3 | 11: a stranger's lost fight given as "how it came to me" |
+| 6 | 18 of 21 | 15 of 21 | 3 | 11: a stranger's loss to his sworn enemy "here", tacked on flat |
+| 7 | 13 of 17 | 14 of 17 | 3 | 3: "Busy night?" given his motto |
+| 8 (first run) | | 11 of 17 | 3 | 11: his own fight at his post, as the armorer's hearsay |
+
+93 of 127 on sessions 1-6 against 100. The news between visits the judges asked for arrived with rough
+edges, and the judges fault every one:
+- **Other heroes' fights at the speaker's own place come as hearsay** ("I'm told Wenisk held the line
+  here ...; that's all I'll put my word to"). A stranger's name comes with no introduction and no
+  reaction, and twice the name was his own sovereign's. In session 8 the stranger's lost fight was the
+  very fight the hero was in: heroes defending one place against one foe share one fight.
+- **His own deed displaced what the stranger told him.** After "Remember me?" the arm and the brother
+  gave way to the fortress held, where earlier rounds' judges had praised them most.
+- **Questions about what happened** ("How did it go for you?", "Have you had to fight since I left?")
+  got his creed or his old rank.
+- **A lost fight is only reported.** It touches nothing he has sworn, and only his newest deed is told
+  where he fought three times.
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).

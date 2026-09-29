@@ -5,6 +5,10 @@
 world 42 33 30
 who hero giver 1
 
+# The game calls on heroes to act as days pass (contract version 26): today, each day of a short gap,
+# each week of a long one; word of what they did goes round before each return.
+heroes
+
 # A first meeting.
 say hero greet | Good evening. Are you in charge here?
 say hero ask_about_them | Who are you, then?
@@ -20,7 +24,13 @@ say hero farewell | Until then.
 
 # Out of sight: compacted; the work is done three days on.
 compact hero
-advance 3
+advance 1
+heroes
+advance 1
+heroes
+advance 1
+heroes
+share
 resolve hero finished
 # The game's account of how it went (contract version 20).
 account hero @nest many few fought
@@ -33,7 +43,15 @@ say hero farewell | I need some rest.
 
 # Weeks later.
 compact hero
-advance 25
+advance 7
+heroes
+advance 7
+heroes
+advance 7
+heroes
+advance 4
+heroes
+share
 say hero greet | Do you still remember me?
 say hero small_talk | Has it been quiet since?
 say hero ask_about_them | Have you always done this?
