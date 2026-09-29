@@ -2170,7 +2170,7 @@ NewsToSay news_to_say(const FactPacket& p, bool unasked) {
     // the hearing of it" of their own sovereign's lost fight in their own town, and "I'm told ... that's all I'll put
     // my word to" of a fight at a castellan's own post (the golden benchmark's round 30). A rival's is news as ever.
     const std::string tie = field_of(*heard, "tie");
-    const bool ours = tie == "sovereign" || tie == "ally" || tie == "kin" || (tie.empty() && field_of(*heard, "place") == here);
+    const bool ours = tie == "sovereign" || tie == "ally" || tie == "kin" || (tie.empty() && text::spoken(field_of(*heard, "place")) == here);
     if (!theirs && field_of(*heard, "event") == "hero" && ours)
         return {field_of(*heard, "state") == "won" ? "news_ours_won" : "news_ours_lost", news_forms(*heard, self, here)};
     return {theirs ? "heard_deed" : "news", news_forms(*heard, self, here)};

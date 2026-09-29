@@ -561,6 +561,17 @@ TEST(a_heros_deed_is_news_to_others_and_their_own_to_tell) {
     check::equal(hearing.speak(packets::small_talk_with_a_heros_deed(), "Fine day."),
                  std::string("Fine weather. Good news, for once: Selbren held the line here against the glacier dragons today."),
                  "a stranger's in the speaker's own place: theirs");
+    // Named as the director names places, with the age they were built in: "Kasdorl (Age 2)" was not the speaker's
+    // own "Kasdorl" until both were spoken (round 31's reading, 2026-09-29).
+    FactPacket with_ages = packets::small_talk_with_a_heros_deed();
+    with_ages.persona.place += " (Age 2)";
+    for (Fact& f : with_ages.facts)
+        if (f.kind == FactKind::News)
+            for (auto& [key, value] : f.fields)
+                if (key == "place") value += " (Age 2)";
+    check::equal(hearing.speak(with_ages, "Fine day."),
+                 std::string("Fine weather. Good news, for once: Selbren held the line here against the glacier dragons today."),
+                 "the speaker's own place, named with its age: theirs");
     check::equal(hearing.speak(packets::small_talk_with_a_heros_deed("sovereign"), "Fine day."),
                  std::string("Fine weather. Good news, for once: our sovereign Selbren held the line here against the glacier dragons today."),
                  "their sovereign's");
