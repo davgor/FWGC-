@@ -96,7 +96,9 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   lines skip, gave work to the wrong giver (2026-09-27). What the speaker knows stays the
   director's: these only choose among it. What the stranger did is said to them as their deed
   (`heard_deed`), never handed to them as news, and never read back as fact once told: they never
-  said it was them.
+  said it was them. A hero's deed (contract version 26) is news to others and
+  their own side to the hero, in the first person (`own_deed_words`), never news to themself; a claim
+  of a fight of the speaker's own needs their own deed in the packet (the truth check).
 - **What a speaker says of themself is said in C++'s words** (`src/them.hpp`, contract version 13):
   what they are after, how they stand, a city lost, a deed, their ties, written from the Self, Deed
   and Person facts' own fields. A written line's `them_*` blanks hold them whole, and a field the
