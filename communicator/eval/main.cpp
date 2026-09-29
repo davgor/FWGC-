@@ -279,8 +279,10 @@ void interpreter_eval(inference::Model& model, const std::string& path, std::siz
         seconds += took;
         slowest = std::max(slowest, took);
 
-        // An unnamed target is read right as no_act, meaning the act; a named one needs its label.
-        const bool act_right = unnamed ? it.act.kind == ActKind::NoAct && it.meant == expected : it.act.kind == *expected;
+        // An unnamed target is read right as no_act, meaning the act, or as the act with the player's words for
+        // the director to look up (contract version 25: "=Gandalf"); a named one needs its label.
+        const bool looked_up = it.act.kind == *expected && !it.act.target.empty() && it.act.target.front() == '=';
+        const bool act_right = unnamed ? (it.act.kind == ActKind::NoAct && it.meant == expected) || looked_up : it.act.kind == *expected;
         const bool right = act_right && (unnamed || (!kind && !said) || it.label == target);
         acts_right += act_right;
         fully_right += right;

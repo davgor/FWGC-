@@ -412,6 +412,12 @@ std::string name_before(const std::vector<Token>& t, std::size_t end, bool lower
     return name_at(words, 0, lower_line ? Case::Alone : Case::Capital);
 }
 
+// The words that ask after a sovereign by title (contract version 25).
+const std::set<std::string, std::less<>>& crowned() {
+    static const std::set<std::string, std::less<>> words = {"king", "queen", "sovereign", "monarch", "ruler", "emperor", "empress", "rules"};
+    return words;
+}
+
 }  // namespace
 
 std::optional<Referent> named_outright(Kind kind, const Known& known, std::string_view line) {
@@ -517,6 +523,40 @@ std::optional<std::string> name_given(std::string_view line, std::string_view la
         if (std::string name = name_only(t, begin, end, lower_line); words_in(name) > words_in(best)) best = std::move(name);
     if (best.empty()) return std::nullopt;
     return best;
+}
+
+bool asks_after_a_sovereign(std::string_view line) {
+    for (const Token& t : tokens_of(line))
+        if (t.word && crowned().count(t.lower) != 0) return true;
+    return false;
+}
+
+std::optional<std::string> person_asked(std::string_view line) {
+    const std::vector<Token> t = tokens_of(line);
+    static const std::vector<std::vector<std::string_view>> cues = {
+        {"who", "is"}, {"who's"}, {"who", "was"}, {"tell", "me", "about"}, {"tell", "me", "of"}, {"what", "about"}, {"what", "of"},
+        {"heard", "of"}, {"know", "of"}, {"know", "about"}, {"do", "you", "know"}, {"have", "you", "met"}, {"you", "know"}};
+    for (std::size_t at = 0; at < t.size(); ++at)
+        for (const std::vector<std::string_view>& cue : cues) {
+            if (at + cue.size() > t.size()) continue;
+            bool here = true;
+            for (std::size_t i = 0; i < cue.size() && here; ++i) here = t[at + i].word && t[at + i].lower == cue[i];
+            if (!here) continue;
+            // Past a leading "the" or "old" written small: "Who is the Grey Wanderer?", "Tell me about old Bram".
+            std::size_t k = at + cue.size();
+            if (k < t.size() && t[k].word && !t[k].capital && (t[k].lower == "the" || t[k].lower == "old")) ++k;
+            if (std::string name = name_at(t, k, Case::Capital); !name.empty()) return name;
+        }
+    // A sovereign by title, with no name: of a place named after it ("the king of Linbrig", "who rules
+    // Linbrig"), else the speaker's own ("the king"). A name said wins, above: "King Harwin" is Harwin.
+    if (!asks_after_a_sovereign(line)) return std::nullopt;
+    for (std::size_t at = 0; at < t.size(); ++at) {
+        if (!t[at].word || crowned().count(t[at].lower) == 0) continue;
+        std::size_t k = at + 1;
+        if (k < t.size() && t[k].word && (t[k].lower == "of" || t[k].lower == "over" || t[k].lower == "in")) ++k;
+        if (std::string place = name_at(t, k, Case::Capital); !place.empty()) return "the king of " + place;
+    }
+    return std::string("the king");
 }
 
 }  // namespace communicator

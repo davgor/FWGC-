@@ -236,6 +236,13 @@ TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
         for (const std::string key : {"met:", "times:", "asked_before", "verdict", "repeat:", "exposed:", "mood:", "feeling:", "resting:"})
             check::is_true(prompt.find(key) == std::string::npos, "no key " + key + " in the prompt for " + p.persona.name);
     }
+    // Fame (contract version 25): the speaker's own sovereign, and what they are known for, said of them.
+    const std::string sovereign = prompt_of(voice, packets::about_the_sovereign(), "Who is Aldomir?");
+    check::is_true(sovereign.find("legendary; your own sovereign") != std::string::npos, "their fame, and theirs: " + sovereign);
+    check::is_true(sovereign.find("What Aldomir is known for: Aldomir won a war between realms against Linbrig, told all through these parts.") !=
+                       std::string::npos,
+                   "the deed, said of them");
+    check::is_true(sovereign.find("your own past") == std::string::npos, "never as the speaker's own");
     // The stranger's name (contract version 24): known, and how; told it, what just happened says it.
     const std::string by_name = prompt_of(voice, packets::greeted_again_named(), "Hello.");
     check::is_true(by_name.find("You know the stranger as Aldric.") != std::string::npos, "the name they know: " + by_name);

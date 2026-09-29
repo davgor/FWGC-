@@ -430,6 +430,9 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         {packets::exposed_heart(), {"exposed_second", "exposed"}},
         {packets::denied(false), {"denied"}},
         {packets::denied(true), {"denied_again", "denied"}},
+        // Contract version 25: someone known by what they did, and the speaker's own sovereign.
+        {packets::about_a_famous_hero(), {"about_person", "about_person_known"}},
+        {packets::about_the_sovereign(), {"about_person", "about_person_known", "about_person_sovereign"}},
     };
     for (const auto& [p, chain] : expected) {
         const Chain got = Lines::situations_for(p);
@@ -2722,6 +2725,26 @@ TEST(the_strangers_name_is_taken_said_back_and_asked_for) {
     FactPacket roster_thanked = packets::thanked();
     roster_thanked.persona = packets::gate_captain();
     check::equal(lines.speak(roster_thanked, "Thanks.", asked_it), std::string("Think nothing of it."), "not from a roster person");
+}
+
+// Contract version 25: someone known by what they did is said to be, in C++'s words, and the speaker's own
+// sovereign as theirs; asked alone first, so a bank's plain lines of a person do not shadow them. "Our
+// sovereign" is said only of one the packet says is.
+TEST(someone_known_by_a_deed_is_said_to_be_and_a_sovereign_as_ours) {
+    const Lines lines = Lines::parse("any | about_person | That's {name}, the {role}, at {where}.\n"
+                                     "any | about_person_known | You'll have heard of {name}: the {role} who {known_for}.\n"
+                                     "any | about_person_sovereign | {name} is our sovereign.[ They say {name} {known_for}.]\n"
+                                     "warden/LN | about_person | {name}? The {role}, at {where}.\n",
+                                     "fame");
+    check::equal(lines.speak(packets::about_a_famous_hero(), "Who is Halbrann?"),
+                 std::string("You'll have heard of Halbrann: the pretender who stood for Brenlin when it fell, in the last age."),
+                 "known by the deed, past the warden's own plain line");
+    check::equal(lines.speak(packets::about_the_sovereign(), "Who is Aldomir?"),
+                 std::string("Aldomir is our sovereign. They say Aldomir won a war between realms against Linbrig."), "their own sovereign");
+    check::equal(lines.speak(about_halbrann(), "Who is Halbrann?"), std::string("Halbrann? The pretender, at the ruins of Linbrig."),
+                 "the control: known by no deed, the bank's own plain line");
+    check::is_true(!communicator::untrue("Halbrann is our sovereign.", packets::about_a_famous_hero()).empty(), "not theirs: untrue");
+    check::is_true(communicator::untrue("Aldomir is our sovereign.", packets::about_the_sovereign()).empty(), "theirs: true");
 }
 
 // Contract version 23: an apology for how the stranger is, in the light of a loss or a hardship they told

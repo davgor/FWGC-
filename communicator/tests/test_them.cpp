@@ -115,6 +115,32 @@ TEST(a_deed_is_said_by_its_kind_and_part_and_a_past_one_says_when) {
     check::equal(done_words(deed("market", "keeper", "Wenweg", "this age")), std::string(), "a kind the words do not know");
 }
 
+// Contract version 25: what someone else is known for, said of them: the verb agrees, and a war was with their
+// neighbours or among their own, never ours; and how far word of it went.
+TEST(what_someone_else_is_known_for_is_said_of_them) {
+    using communicator::known_for_words;
+    check::equal(known_for_words(deed("fortress", "keeper", "the fortress of Iskmor (Age 1)", "this age")),
+                 std::string("commands the fortress of Iskmor"), "a keeper, of another");
+    check::equal(known_for_words(deed("hamlet", "keeper", "the farmstead below Dunweg (Age 2)", "this age")),
+                 std::string("speaks for the farmstead below Dunweg"), "a reeve");
+    check::equal(known_for_words(deed("ruin", "heir", "Eldkor", "the last age")), std::string("is the heir of Eldkor"), "an heir");
+    check::equal(known_for_words(deed("ruin", "credited", "the ruins of Brenlin", "the last age")),
+                 std::string("stood for Brenlin when it fell, in the last age"), "the past as it was");
+    check::equal(known_for_words(deed("war", "victim", "", "this age", "civil")), std::string("lost a war among their own"), "their own");
+    check::equal(known_for_words(deed("war", "credited", "", "this age", "regional")), std::string("won a war with their neighbours"),
+                 "their neighbours");
+    check::equal(known_for_words(deed("market", "keeper", "Wenweg", "this age")), std::string(), "a kind the words do not know");
+    const auto scoped = [&](const std::string& scope) {
+        Fact f = deed("fortress", "keeper", "the fortress of Iskmor (Age 1)", "this age");
+        f.fields.emplace_back("scope", scope);
+        return communicator::far_words(f);
+    };
+    check::equal(scoped("local"), std::string(), "no further than where it was done: nothing");
+    check::equal(scoped("regional"), std::string("all through these parts"), "a region");
+    check::equal(scoped("realm"), std::string("all through the realm"), "the realm");
+    check::equal(scoped("everywhere"), std::string(), "a scope the words do not know: nothing");
+}
+
 TEST(ties_are_said_by_name_allies_first) {
     using communicator::ties_words;
     FactPacket p;

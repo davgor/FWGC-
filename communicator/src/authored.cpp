@@ -469,10 +469,15 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
     }
 
     const std::vector<const Fact*> people = of_kind(p, FactKind::Person);
-    if (situation == "about_person" && !people.empty()) {
+    if (situation.rfind("about_person", 0) == 0 && !people.empty()) {
         set("name", text::spoken(field_of(*people.front(), "name")));
         set("role", text::spaced(text::spoken(field_of(*people.front(), "role"))));
         set("where", text::spoken(field_of(*people.front(), "where")));
+        // What they are known for, and how far word of it went (contract version 25), in C++'s words.
+        if (const std::vector<const Fact*> deeds = of_kind(p, FactKind::Deed); !deeds.empty()) {
+            set("known_for", known_for_words(*deeds.front()));
+            set("far", far_words(*deeds.front()));
+        }
     }
     // Whose the work is: the one person the refusal names.
     if ((situation == "refused_give" || situation == "refused_release") && people.size() == 1)
@@ -868,6 +873,11 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
     static const std::map<std::string, std::vector<std::string>> table = {
         {"about_self", {}},
         {"about_person", {"name", "role", "where"}},
+        // Contract version 25: someone known by what they did ({known_for}: "won a war between realms against
+        // Linbrig"; {far}: how far word of it went, "all through the realm"), and the speaker's own sovereign.
+        // Asked alone (speak()), since a bank's plain lines of a person would shadow the next bank's of these.
+        {"about_person_known", {"name", "role", "where", "known_for", "far"}},
+        {"about_person_sovereign", {"name", "role", "where", "known_for", "far"}},
         // Contract version 13: asked about themself, by what the stranger asked of them (chosen by
         // meaning in speak()): who they are, what they did or lost, what they are after, how they stand
         // here, who stands with them, whether they would leave, and what they keep to themselves.
@@ -1099,6 +1109,17 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
         const std::map<std::string, std::string> known = blanks_of(p, "them_past", "");
         if (known.count("held_for")) chain.push_back("them_long_known");
         if (known.count("served")) chain.push_back("them_past_served");
+        return chain;
+    }
+    // Asked about someone (contract version 25): their plain lines, then the lines of what they are known for
+    // and of the speaker's own sovereign, which speak() asks alone first.
+    if (p.outcome == Outcome::Answered && p.answering == ActKind::AskAboutPerson) {
+        const std::vector<const Fact*> people = of_kind(p, FactKind::Person);
+        if (people.empty()) return {};
+        if (people.front()->subject == p.speaker) return {"about_self"};
+        std::vector<std::string> chain = {"about_person"};
+        if (!of_kind(p, FactKind::Deed).empty()) chain.push_back("about_person_known");
+        if (field_of(*people.front(), "sovereign") == "yes") chain.push_back("about_person_sovereign");
         return chain;
     }
     switch (p.outcome) {
@@ -1828,6 +1849,21 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         } else {
             static const std::vector<std::string> who = {"them_who"};
             if (const std::vector<Spoken> them = spoken_for(p, &recent, true, &who); !them.empty()) spoken = them;
+        }
+    }
+    // Asked about someone known by what they did, or the speaker's own sovereign (contract version 25): those
+    // lines alone first, from whichever bank has them, since a bank's plain lines of a person would shadow the
+    // next bank's.
+    if (p.outcome == Outcome::Answered && p.answering == ActKind::AskAboutPerson) {
+        const std::vector<const Fact*> people = of_kind(p, FactKind::Person);
+        const bool theirs = !people.empty() && field_of(*people.front(), "sovereign") == "yes";
+        for (const std::string alone : {theirs ? "about_person_sovereign" : "", "about_person_known"}) {
+            if (alone.empty()) continue;
+            const std::vector<std::string> only = {alone};
+            if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &only); !on_it.empty()) {
+                spoken = on_it;
+                break;
+            }
         }
     }
     // Thanked for their own work while it is still to do, a speaker says the thanks can wait: "Thank you

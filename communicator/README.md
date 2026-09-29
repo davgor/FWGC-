@@ -113,8 +113,10 @@ It asks the model two questions, and a grammar holds each answer:
 2. **Which target, for an act that takes one.** The model sees six known things of the act's
    kind, most likely first (those sharing the most words with the line and the last reply),
    and `(not listed)`.
-   - `(not listed)` means the player named something no packet did ("Who is Gandalf?"). The act
-     becomes `no_act`, and `meant` says what they meant.
+   - `(not listed)` means the player named something no packet did ("Who is Gandalf?"). For a
+     person, the words they named them by go to the director to look up instead (contract version
+     25, "Fame"): `ask_about_person` with the target "=Gandalf". Otherwise the act becomes
+     `no_act`, and `meant` says what they meant.
 
 **A name said outright needs no guess.** If the line holds a known label's words whole, that label
 is the target, and the model is not asked. Case does not matter, nor do curly quotes, nor a part
@@ -892,6 +894,44 @@ they came by it (`called_how`: told, word, overheard), and another they also kno
   replies without fault, score 3, the illusion broken at turn 2, "Maren. And you?" answered without
   the speaker's own name, which they now give.
 
+## Fame
+
+Contract version 25; the owner, 2026-09-29: "a common NPC should know the legendary heroes or kings in
+their land, even if they have never met them." Who knows whom by fame is the director's
+(orchestrator/README.md, "Fame"). An answer about a hero carries their `fame`, `sovereign` "yes" when
+they are the speaker's own, and a Deed fact of the deed they are known for, with how far word of it
+went (`scope`: local, regional, realm).
+
+- **Asked by the player's own words.** `person_asked` (`src/mention.hpp`) finds whom a line asks after:
+  a name written with capitals after "who is", "tell me about", "heard of", "do you know" and their like
+  ("Who is Aldomir the Bold?", "Have you heard of King Harwin?"); else, for a line that asks after a
+  sovereign by title, "the king of" a place named after the title ("Who rules Linbrig?"), or "the king"
+  ("Who rules here?", "Tell me about your queen."). For such a line `ask_about_person` is offered though
+  no packet named anyone. A line that asks after a sovereign is looked up outright; otherwise the model
+  picks among those the player was told of, and when it answers `(not listed)` the words go instead:
+  `ask_about_person` with the target "=" and the words, which the director looks up among the people
+  the speaker knows. A king named is never taken for the speaker's own, and nobody known is Unknown.
+- **Said in C++'s words** (`src/them.hpp`): what someone is known for, said of them (`known_for_words`:
+  "won a war with their neighbours", "is the heir of Brenlin"), and how far word of it went (`far_words`:
+  "all through these parts", "all through the realm"; nothing for word that went no further). The
+  situations `about_person_known` (`{known_for}`, `{far}`) and `about_person_sovereign` are asked alone
+  before `about_person`, so a bank's plain line of a person does not shadow them: "You'll have heard of
+  Halbrann: the pretender who stood for Brenlin when it fell, in the last age."; "Aldomir is our
+  sovereign."
+- **The truth check** lets "our sovereign", "our king", "my queen" and the like be said only with a
+  Person fact the packet marks as the speaker's own sovereign, or their liege.
+- **The voice** is told a person's fame and that they are the speaker's own sovereign on the Person line,
+  and the deed as "What Aldomir is known for: Aldomir won a war between realms against Linbrig, told all
+  through these parts."; packets without them make the same prompts as before.
+- **Measured** on the GPU, 8 threads (2026-09-29), the whole eval. Qwen3-4B read the 587 earlier rows
+  457 fully right (458 before): "Tell me about Linbrig." at a first meeting, where nothing is known, is
+  now looked up as a person, whom the director will not know. Nine rows written before the lookup was
+  measured: 6 right before and after, the same three missed by the act the model picks ("Who's the
+  sovereign here?" read as `confront`). 0 unsafe. Ten rows that ask after someone no packet named now
+  reach the director as the player's words, where before they were `no_act`. The test model: 150 and 4
+  (151 and 3 before: "Tell me about your queen." is looked up by title, where it named the innkeeper),
+  the same 3 unsafe. The voice's 64 cases gave the same replies, word for word, on the test model.
+
 ## The summarizer
 
 `communicator/summarizer.hpp`: what writes the outcomes the director's `compact` takes, when the
@@ -1023,7 +1063,12 @@ dangerous for the rain" of a nest of four or more.
   an act the contract lacks, the free model does. Held, it cannot.
 - **A target is something the player was told of, of the act's kind.** Told to copy a place
   into a person question, the free model does. Held, it cannot.
-- **Nothing known, no target.** With nothing to point at, no act that takes a target is offered.
+- **Nothing known, no target.** With nothing to point at, no act that takes a target is offered, but
+  `ask_about_person` for a line that asks after someone by name or title, whose target is then the
+  line's own words to look up, never an id.
+- **Whom a line asks after is its own words** (contract version 25): `person_asked` finds them as 19
+  lines expect, a named king is that king and never "the king", and a line asking after a sovereign is
+  looked up by its title without asking the model.
 - **The acts are the contract's own,** under the contract's names.
 - **A name said outright wins over the model's guess.** In the test, the model alone picks the
   wrong one of two people.
@@ -1135,6 +1180,11 @@ dangerous for the rain" of a nest of four or more.
   the memory; a verdict's words; small talk's weather, time and season; an acquaintance, never
   backed; the stranger's words from before, by a Recall fact that kept them, and "as I told you",
   dated, by one that told them; dated news counting no time out, in every band.
+- **Fame** (contract version 25, `tests/test_authored.cpp`, `tests/test_them.cpp`): someone known by a
+  deed is said to be, in C++'s words, before a bank's own plain line of them; the speaker's own
+  sovereign is "our sovereign", and nobody else is (the truth check); what someone is known for is said
+  of them, a war with their neighbours or among their own, never ours; how far word went, and nothing
+  for a scope the words do not know.
 - **What a speaker recalls** (contract version 12, `tests/test_authored.cpp`): the stranger's words
   said back after a greeting, turned to them, what was under way shifted back and who they are not,
   news first, not while said lately, not from a cold speaker nor after an eased greeting or one for

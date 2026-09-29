@@ -768,6 +768,28 @@ inline FactPacket with_account(FactPacket p, const std::string& as = "nest") {
     return p;
 }
 
+// ---- Contract version 25: fame -----------------------------------------------------------------
+
+// Asked about a hero known by a deed: Halbrann, who stood for Brenlin when it fell, told all through the realm.
+inline FactPacket about_a_famous_hero() {
+    return packet(castellan(), ActKind::AskAboutPerson, Outcome::Answered,
+                  {{FactKind::Person, "hero-pretender-surface-city-0-243-human_cold",
+                    {{"name", "Halbrann"}, {"role", "pretender"}, {"where", "the ruins of Linbrig"}, {"status", "about"}, {"fame", "renowned"}}},
+                   {FactKind::Deed, "ruin-brenlin",
+                    {{"deed", "ruin"}, {"part", "credited"}, {"place", "the ruins of Brenlin"}, {"when", "the last age"}, {"scope", "realm"}}}});
+}
+
+// Asked about the speaker's own sovereign, known all through these parts for a war won.
+inline FactPacket about_the_sovereign() {
+    return packet(gate_captain(), ActKind::AskAboutPerson, Outcome::Answered,
+                  {{FactKind::Person, "hero-sovereign-surface-city-0-178-human_cold",
+                    {{"name", "Aldomir"}, {"role", "sovereign"}, {"where", "Wenweg"}, {"status", "about"}, {"fame", "legendary"},
+                     {"sovereign", "yes"}}},
+                   {FactKind::Deed, "war-9",
+                    {{"deed", "war"}, {"part", "credited"}, {"war", "international"}, {"against", "Linbrig"}, {"when", "this age"},
+                     {"scope", "regional"}}}});
+}
+
 // ---- Contract version 24: the stranger's name ------------------------------------------------
 
 // Told a name: taken, by a speaker cold to the stranger, by a frightened one; told it again; told another.
@@ -804,6 +826,8 @@ inline FactPacket parted_named() {
 
 inline std::vector<FactPacket> conversation() {
     return {about_them(),
+            about_a_famous_hero(),
+            about_the_sovereign(),
             introduced(),
             introduced("hostile"),
             introduced("neutral", "afraid"),

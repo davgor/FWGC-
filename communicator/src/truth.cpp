@@ -43,6 +43,7 @@ constexpr std::string_view kNoNews = "no news, from a speaker who has heard some
 constexpr std::string_view kSaid = "the stranger's own words, which the speaker's memory does not hold";
 constexpr std::string_view kAccount = "how the work went, which no account the packet holds says";
 constexpr std::string_view kAskedAgain = "a question of the speaker's never answered, which the speaker's memory does not hold";
+constexpr std::string_view kSovereign = "a sovereign of the speaker's own, which no fact says";
 
 std::string lowered(std::string_view text) {
     std::string out(text);
@@ -540,6 +541,19 @@ void asked_again(const std::string& said, const FactPacket& p, std::vector<std::
         if (says(said, phrase)) add(out, kAskedAgain, phrase);
 }
 
+// The speaker's own sovereign (contract version 25): "our sovereign" needs a Person fact that says so, or the
+// liege a castellan is sworn to (contract version 19).
+void sovereign(const std::string& said, const FactPacket& p, std::vector<std::string>& out) {
+    for (const Fact& fact : p.facts)
+        if (fact.kind == FactKind::Person) {
+            const std::string* theirs = fact.field("sovereign");
+            const std::string* tie = fact.field("tie");
+            if ((theirs && *theirs == "yes") || (tie && *tie == "liege")) return;
+        }
+    for (const std::string phrase : {"our sovereign", "my sovereign", "our king", "our queen", "my king", "my queen"})
+        if (says(said, phrase)) add(out, kSovereign, phrase);
+}
+
 void heard(const std::string& said, const std::string& reply, const FactPacket& p, std::vector<std::string>& out) {
     bool any = false, theirs = false;
     for (const Fact& fact : p.facts)
@@ -624,6 +638,7 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
     said_before(said, packet, out);
     account(said, packet, out);
     asked_again(said, packet, out);
+    sovereign(said, packet, out);
     return out;
 }
 

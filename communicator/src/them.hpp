@@ -30,6 +30,17 @@ std::string lost_words(const orchestrator::Fact& self);
 // cannot say.
 std::string done_words(const orchestrator::Fact& deed);
 
+// Contract version 25: what someone else is known for, as words that follow their name: "won a war between
+// realms against Linbrig", "commands the fortress above Iskmor", "is the heir of Brenlin", "stood for Brenlin
+// when it fell". The same deeds as done_words(), said of another: their neighbours, not ours. Empty for a
+// deed these words cannot say.
+std::string known_for_words(const orchestrator::Fact& deed);
+
+// How far word of a deed went (a Deed fact's `scope`), as words after "told": "all through these parts",
+// "all through the realm"; empty for word that went no further than where it was done, or a scope these words
+// do not know.
+std::string far_words(const orchestrator::Fact& deed);
+
 // Who stands with them, and against them: "Iskgraf and Nerisk stand with me", "Ulknord is my
 // rival". From the packet's Person facts marked `tie`; empty when there are none.
 std::string ties_words(const orchestrator::FactPacket& packet);

@@ -27,6 +27,7 @@ voice | situation | line
   |---|---|
   | `about_self` | |
   | `about_person` | `{name}` `{role}` `{where}` |
+  | `about_person_known` (someone known by what they did; contract version 25), `about_person_sovereign` (the speaker's own sovereign) | `{name}` `{role}` `{where}`, `{known_for}` (words after their name: "won a war between realms against Linbrig", "is the heir of Brenlin"), `{far}` (after "told": "all through these parts", "all through the realm"; empty for word that went no further) |
   | `about_place` | `{about}` `{trades}` `{who}` `{around}` `{work}` |
   | `surroundings` | `{here}` `{nearest}` `{others}` `{danger}` |
   | `work_own` | `{own}` `{others}` |

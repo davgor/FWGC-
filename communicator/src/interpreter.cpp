@@ -132,6 +132,8 @@ bool offered(const ActText& act, const Known& known, std::string_view line, std:
     if (act.kind == ActKind::AskAboutThem) return addresses_them(line);
     // A name the player gives (contract version 24), only in a line that gives one.
     if (act.said) return name_given(line, last_reply).has_value();
+    // Someone asked of by title or by a name no packet gave (contract version 25), for the director to look up.
+    if (act.kind == ActKind::AskAboutPerson && person_asked(line).has_value()) return true;
     return !act.target || !known.nameable(*act.target, 1).empty();
 }
 
@@ -319,13 +321,25 @@ Interpretation Interpreter::interpret(std::string_view line, const Known& known,
     }
     if (!act.target) return out;
 
+    // Someone asked of by the player's own words (contract version 25): a line that asks after a sovereign,
+    // outright, by the name or the title it says; a name no packet gave, when the model finds none of those
+    // told of. The director looks the words up.
+    const std::optional<std::string> asked_of = *kind == ActKind::AskAboutPerson ? person_asked(line) : std::nullopt;
+    const auto look_up = [&](const std::string& words) {
+        out.act.target = "=" + words;
+        out.label = words;
+        return out;
+    };
+    if (asked_of && asks_after_a_sovereign(line)) return look_up(*asked_of);
     // A name said outright is the target; the model is asked only when none is.
     if (const std::optional<Referent> named = named_outright(*act.target, known, line)) {
         out.act.target = named->id;
         out.label = named->label;
     } else {
-        const std::string label = ask(target_question(*kind, line, known, last_reply));
+        const std::string label = known.nameable(*act.target, 1).empty() ? std::string(kNotListed)
+                                                                          : ask(target_question(*kind, line, known, last_reply));
         if (label == kNotListed) {
+            if (asked_of) return look_up(*asked_of);
             out.meant = *kind;
             out.act.kind = ActKind::NoAct;
             return out;

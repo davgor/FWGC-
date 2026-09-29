@@ -25,4 +25,15 @@ std::optional<Referent> named_outright(Kind kind, const Known& known, std::strin
 // Selbren's man", "Nobody important".
 std::optional<std::string> name_given(std::string_view line, std::string_view last_reply = {});
 
+// Whom `line` asks about, in its own words, for the director to look up (contract version 25): a name
+// written with capitals after "who is", "tell me about", "heard of", "do you know" and their like ("Who is
+// Aldomir the Bold?", "Have you heard of King Harwin?"); else, for a line that asks after a sovereign by
+// title, "the king of" a place named after the title ("Who is the king of Linbrig?", "Who rules Linbrig?"),
+// or "the king" ("Who rules here?", "Tell me about your queen."). nullopt when it asks after no one.
+std::optional<std::string> person_asked(std::string_view line);
+
+// Whether `line` asks after a sovereign: "king", "queen", "sovereign", "monarch", "ruler", "emperor",
+// "empress", or who "rules".
+bool asks_after_a_sovereign(std::string_view line);
+
 }  // namespace communicator

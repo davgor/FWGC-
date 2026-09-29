@@ -141,6 +141,31 @@ std::string done_words(const Fact& deed) {
     return {};
 }
 
+std::string known_for_words(const Fact& deed) {
+    std::string words = done_words(deed);
+    if (words.empty()) return {};
+    // Said of another: the verb agrees with them, and a war was with their neighbours or among their own.
+    static const std::vector<std::pair<std::string, std::string>> of_another = {
+        {"command ", "commands "}, {"speak for ", "speaks for "}, {"run ", "runs "}, {"tend ", "tends "},
+        {"keep watch over ", "keeps watch over "}, {"am the heir of ", "is the heir of "}};
+    for (const auto& [mine, theirs] : of_another)
+        if (words.rfind(mine, 0) == 0) {
+            words = theirs + words.substr(mine.size());
+            break;
+        }
+    for (const auto& [mine, theirs] :
+         {std::pair<std::string, std::string>{" with our neighbours", " with their neighbours"}, {" among our own", " among their own"}})
+        if (const std::size_t at = words.find(mine); at != std::string::npos) words.replace(at, mine.size(), theirs);
+    return words;
+}
+
+std::string far_words(const Fact& deed) {
+    const std::string scope = field_of(deed, "scope");
+    if (scope == "regional") return "all through these parts";
+    if (scope == "realm") return "all through the realm";
+    return {};
+}
+
 std::string held_words(const Fact& self) {
     const std::string years = field_of(self, "held_years");
     if (years.empty() || years.find_first_not_of("0123456789") != std::string::npos || years.size() > 4) return {};

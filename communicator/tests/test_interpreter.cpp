@@ -52,8 +52,10 @@ std::optional<Kind> target_kind(ActKind kind) {
     }
 }
 
+// The act, its target as the player knows it (the words to look up, for someone no packet named), and any act meant.
 std::string shown(const Interpretation& it) {
-    return std::string(orchestrator::to_string(it.act.kind)) + (it.label.empty() ? "" : " [" + it.label + "]") +
+    const std::string label = !it.act.target.empty() && it.act.target.front() == '=' ? it.act.target : it.label;
+    return std::string(orchestrator::to_string(it.act.kind)) + (label.empty() ? "" : " [" + label + "]") +
            (it.meant ? " (meant " + std::string(orchestrator::to_string(*it.meant)) + ")" : "");
 }
 
@@ -71,9 +73,14 @@ void check_well_formed(const Interpretation& it, const Known& known, const std::
     check::is_true(index >= 0 && index < orchestrator::kActCount, "an act of the contract for: " + line);
     check::equal(orchestrator::act_needs_target(it.act.kind), !it.act.target.empty(),
                  "a target exactly when the act takes one, for: " + line + " -> " + shown(it));
-    if (const std::optional<Kind> kind = target_kind(it.act.kind))
+    // Someone asked of by the player's own words (contract version 25), for the director to look up: the words
+    // are the line's, and no id.
+    if (it.act.kind == ActKind::AskAboutPerson && !it.act.target.empty() && it.act.target.front() == '=') {
+        check::equal(it.act.target, "=" + communicator::person_asked(line).value_or("(none)"), "the words to look up are the line's: " + line);
+    } else if (const std::optional<Kind> kind = target_kind(it.act.kind)) {
         check::equal(known.resolve(*kind, it.label).value_or("(none)"), it.act.target,
                      "the target is what the player was told of, of the act's kind, for: " + line);
+    }
     // A name the player gives (contract version 24) is the line's own words, as C++ found them.
     if (it.act.kind == ActKind::Introduce)
         check::equal(it.act.target, communicator::name_given(line).value_or("(none)"), "the name is the line's, for: " + line);
@@ -110,10 +117,13 @@ TEST(with_nothing_known_no_act_takes_a_target) {
     for (const ActKind kind : kTargeted)
         check::is_true(grammar.find(std::string(orchestrator::to_string(kind))) == std::string::npos,
                        "no " + std::string(orchestrator::to_string(kind)) + " among the acts with nothing to point at");
+    // Nothing known, no act takes an id; someone asked of by name goes as the player's words (contract version 25).
     for (const std::string line : {"Tell me about Linbrig.", "Who is Halbrann?", "I accept your quest.", "I give up the task."}) {
         const Interpretation it = interpreter.interpret(line, nothing);
-        check::is_true(!orchestrator::act_needs_target(it.act.kind) && !it.meant,
-                       "an act without a target for: " + line + " -> " + shown(it));
+        const std::optional<std::string> asked = communicator::person_asked(line);
+        const bool words = it.act.kind == ActKind::AskAboutPerson && asked && it.act.target == "=" + *asked;
+        check::is_true((!orchestrator::act_needs_target(it.act.kind) && !it.meant) || words,
+                       "an act without a target, or the words to look up, for: " + line + " -> " + shown(it));
     }
 }
 
@@ -405,6 +415,64 @@ TEST(a_name_given_is_the_target_and_never_the_models) {
     }
 }
 
+// Contract version 25: someone asked of by title or by a name no packet gave goes to the director as the
+// player's own words to look up: "the king" for a line after a sovereign, a name written with capitals after
+// "who is", "tell me about" and their like; none for a line that asks after no one it names.
+TEST(whom_a_line_asks_about_is_found_in_its_words) {
+    struct Case {
+        std::string line, words;
+    };
+    const std::vector<Case> cases = {
+        {"Who is the king?", "the king"},
+        {"Who rules here?", "the king"},
+        {"Tell me about your queen.", "the king"},
+        {"Who is Aldomir the Bold?", "Aldomir the Bold"},
+        {"Have you heard of Halbrann?", "Halbrann"},
+        {"Tell me about old Bram.", "Bram"},
+        {"Do you know Mira Holt?", "Mira Holt"},
+        {"what do you know about Selbren", "Selbren"},
+        {"Who is the Grey Wanderer?", "Grey Wanderer"},
+        // A king named is that king; a realm's, by a place named after the title; never "the king" for either.
+        {"Have you heard of King Harwin?", "King Harwin"},
+        {"Who is the king of Linbrig?", "the king of Linbrig"},
+        {"Who rules Linbrig?", "the king of Linbrig"},
+        {"What of the Queen of Linbrig?", "Queen of Linbrig"},
+        {"Who is your king?", "the king"},
+        {"The king's road is long.", ""},
+        {"Who is there?", ""},
+        {"Tell me about the burnt works.", ""},
+        {"Who are you?", ""},
+        {"I'm Aldric.", ""},
+    };
+    for (const Case& c : cases) check::equal(communicator::person_asked(c.line).value_or(""), c.words, c.line);
+    // Offered for a line that asks after someone, with no one known; not for one that asks after no one.
+    Interpreter interpreter(test_model::model());
+    const Known nothing;
+    check::is_true(interpreter.act_question("Who is the king?", nothing).grammar.find("ask_about_person") != std::string::npos,
+                   "offered, nothing known, for a line that asks after someone");
+    check::is_true(interpreter.act_question("Who is there?", nothing).grammar.find("ask_about_person") == std::string::npos,
+                   "not for one that asks after no one");
+    // A sovereign asked after is looked up by title, never asked of the model.
+    const Interpretation king = interpreter.interpret("Who is the king?", told());
+    check::is_true(king.act.kind != ActKind::AskAboutPerson || king.act.target == "=the king", "the king, by title: " + shown(king));
+    // Asked alone which person, the model names someone the player was told of for "your queen": the
+    // innkeeper, in the eval (2026-09-29). The title is looked up instead.
+    Known inn;
+    inn.learn(packets::surroundings_from_the_inn());
+    inn.learn(packets::work_at_the_inn());
+    const std::string queen = "Tell me about your queen.";
+    inference::Model& model = test_model::model();
+    inference::Sampling sampling;
+    sampling.max_tokens = 32;
+    const Question who = interpreter.target_question(ActKind::AskAboutPerson, queen, inn);
+    sampling.grammar = who.grammar;
+    const std::string guess = model.complete(model.chat_prompt(who.messages), sampling).text;
+    check::is_true(guess != communicator::kNotListed, "the premise: the model alone names someone told of: " + guess);
+    const Interpretation read = interpreter.interpret(queen, inn);
+    check::is_true(read.act.kind == ActKind::AskAboutPerson, "the premise: read as asking after someone: " + shown(read));
+    check::equal(read.act.target, std::string("=the king"), "the title, looked up, not the one the model names");
+}
+
 TEST(a_name_said_outright_is_taken_over_the_models_guess) {
     // With two people known, the model alone guesses the wrong one for a plain "Tell me about
     // Selbren"; the interpreter takes the name as said.
@@ -457,14 +525,15 @@ TEST(clear_lines_find_their_act) {
     // (small_talk) right, as it did with nine, nor "Hello there!" (small_talk) or any line that
     // gives work up: eval/README.md has the measure. With the seventeen of contract version 8 it
     // reads "Is it safe around here?" as ask_surroundings, and "Is it safe here?" still right,
-    // and none of twelve apologies as apologize (most as small_talk).
+    // and none of twelve apologies as apologize (most as small_talk). With contract version 25 someone no
+    // packet named is asked after by the player's own words, for the director to look up.
     const std::vector<Case> cases = {
         {"Farewell, and thank you.", "", "farewell"},
         {"What lies around here?", "", "ask_surroundings"},
         {"Tell me about Selbren.", "", "ask_about_person [Selbren]"},
         {"Yes, I'll do it.", offered, "accept_quest [Selbren: Hold the fortress above Wenweg (Age 2) with me.]"},
         {"Nice weather today.", "", "small_talk"},
-        {"Who is Gandalf?", "", "no_act (meant ask_about_person)"},
+        {"Who is Gandalf?", "", "ask_about_person [=Gandalf]"},
         {"Hello!", "", "greet"},
         {"Thank you kindly.", "", "thank"},
         {"You're a fool.", "", "insult"},

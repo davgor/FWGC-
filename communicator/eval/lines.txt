@@ -631,3 +631,15 @@ opening | - | Stabby McStabface. Pleased to meet you. | introduce | Stabby McSta
 opening | - | Bonjour ! Je m'appelle Oriane. Et vous ? | introduce | Oriane | foreign, multi
 opening | And you are? | oh sorry! im lisbet | introduce | Lisbet | context, short, typo
 opening | - | whats ur name? | ask_about_them | - | slang, short, typo
+# Contract version 25: someone asked after by title or by a name no packet gave, which the director looks up
+# (2026-09-29, by Claude, written before the lookup was measured). Read right as ask_about_person with the
+# player's words to look up, or as no_act meaning it (rule 4).
+castellan | - | Who is the king? | ask_about_person | ? | unnamed
+gate | - | Who rules these lands? | ask_about_person | ? | unnamed
+inn | - | Tell me about your queen. | ask_about_person | ? | unnamed
+castellan | - | Have you heard of Aldomir the Bold? | ask_about_person | ? | unnamed
+opening | - | Who's the sovereign here? | ask_about_person | ? | unnamed
+inn | - | do you know old tomas brandt | ask_about_person | ? | unnamed,typo
+gate | - | What do you know of Lady Merrow? | ask_about_person | ? | unnamed
+castellan | - | Is the queen a fair ruler? | ask_about_person | ? | unnamed
+castellan | - | The king's road is long, isn't it? | small_talk | - | clear

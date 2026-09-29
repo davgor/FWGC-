@@ -4,6 +4,15 @@
 any | about_self | I'm {speaker}, {post} of {place}.
 any | about_self | I'm {speaker}.
 any | about_person | That's {name}, the {role}, at {where}.
+# Contract version 25: someone known by what they did ({known_for}, words after their name), and how far word
+# of it went ({far}, after "told"); and the speaker's own sovereign.
+any | about_person_known | That's {name}, the {role}. They say {name} {known_for}[, and that's told {far}].
+any | about_person_known | You'll have heard of {name}: the {role} who {known_for}.
+any | about_person_known | {name}, the {role}, at {where}; {name} {known_for}[, and it's told {far}].
+any | about_person_sovereign | {name} is our sovereign.[ They say {name} {known_for}.]
+any | about_person_sovereign | That's {name}, our sovereign, and they say {name} {known_for}[, told {far}].
+any | about_person_sovereign | Our sovereign, {name}, the one who {known_for}.
+any | about_person_sovereign | {name}? Our sovereign, at {where}.
 any | about_place | That's {about}.
 any | about_place | That's {about}.[ There's {trades} there.][ You'll find {who} there.][ Mind the {around}.][ {work}.]
 any | surroundings | This is {here}, and the nearest is {nearest}.[ Then there's {others}.][ Watch for the {danger}.]

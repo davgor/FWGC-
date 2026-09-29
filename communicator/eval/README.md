@@ -91,7 +91,8 @@ context | last_reply | line | act | target | tags
 - **line:** what the player types.
 - **act:** the act the director should answer, by the contract's name.
 - **target:** the label of the thing meant, exactly as `Known` names it. `?` marks a name no
-  packet gave; it is read right as `no_act` with `meant` set to the act. `-` marks an act
+  packet gave; it is read right as `no_act` with `meant` set to the act, or for a person as
+  `ask_about_person` with the player's words to look up (rule 4). `-` marks an act
   without a target. For `introduce`, the name the player gives (rule 13).
 - **tags:** comma-separated. The vocabulary is clear, typo, slang, short, long, rambling,
   context, multi, hostile, offtopic, unnamed, partial, foreign, polite and command.
@@ -111,7 +112,9 @@ context | last_reply | line | act | target | tags
    not named, is `ask_surroundings`. Whether it is safe around here, or on the roads, and what
    to beware of, is `ask_safety`.
 4. **Names no packet gave:** a place or person the context never named has target `?`. A giver
-   named only in a piece of work is not a known person.
+   named only in a piece of work is not a known person. Since contract version 25 a person asked
+   after this way ("Who is Gandalf?", "Who is the king?") is read right as `no_act` meaning
+   `ask_about_person`, or as `ask_about_person` with the player's words for the director to look up.
 5. "Who are you?" was `ask_about_person` with the speaker until contract version 13; now see 8.
 6. **Taking work:** saying yes to work is `accept_quest`, for the work the line names or the
    work just offered in `last_reply`. A line that could mean several pieces of work, with

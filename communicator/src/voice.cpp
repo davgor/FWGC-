@@ -78,8 +78,14 @@ std::string fact_line(const Fact& fact, const FactPacket& packet) {
     switch (fact.kind) {
         case FactKind::Place:
             return "- " + text::spoken(label_of(fact)) + ": " + join(phrases(fact, {"name", "of"}), "; ");
-        case FactKind::Person:
-            return "- " + text::spoken(label_of(fact)) + ": " + join(phrases(fact, {"name"}), "; ");
+        case FactKind::Person: {
+            // Their fame and whether they are the speaker's own sovereign (contract version 25), in words; a
+            // Person fact without them gives the line as before.
+            std::vector<std::string> about = phrases(fact, {"name", "fame", "sovereign"});
+            if (const std::string fame = value_of(fact, "fame"); !fame.empty()) about.push_back(fame);
+            if (value_of(fact, "sovereign") == "yes") about.push_back("your own sovereign");
+            return "- " + text::spoken(label_of(fact)) + ": " + join(about, "; ");
+        }
         case FactKind::QuestOffer: {
             std::string line;
             if (value_of(fact, "from_speaker") == "yes") {
@@ -161,6 +167,15 @@ std::string fact_line(const Fact& fact, const FactPacket& packet) {
             return about.empty() ? std::string() : "- Yourself: " + join(about, "; ") + ".";
         }
         case FactKind::Deed:
+            // Asked about someone else (contract version 25), the deed is theirs, the one word of them goes with.
+            if (packet.outcome == Outcome::Answered && packet.answering == orchestrator::ActKind::AskAboutPerson) {
+                std::string who;
+                for (const Fact& f : packet.facts)
+                    if (f.kind == FactKind::Person && who.empty()) who = text::spoken(value_of(f, "name"));
+                const std::string known = known_for_words(fact), far = far_words(fact);
+                if (known.empty() || who.empty()) return {};
+                return "- What " + who + " is known for: " + who + " " + known + (far.empty() ? "" : ", told " + far) + ".";
+            }
             if (const std::string done = done_words(fact); !done.empty()) return "- Something of your own past: you " + after_you(done) + ".";
             return {};
         case FactKind::Recall:
