@@ -357,7 +357,7 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
         if (const std::string asked = text::spoken(m.asked_before); asked != text::spoken(p.persona.place) && asked != text::spoken(p.persona.name))
             set("asked", asked);
     }
-    if (situation == "recalled") set("words", words_said_back(p));
+    if (situation.rfind("recalled", 0) == 0) set("words", words_said_back(p));
     // Asked about themself (contract version 13): what they go by, their home, what they are after,
     // how they stand here, a city lost, a deed, who stands with them, in words C++ writes from the
     // Self and Deed facts (them.hpp).
@@ -518,6 +518,38 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
         if (!others.empty()) set("others", joined(others, ", ", ", and "));
     }
     return out;
+}
+
+// What the stranger told of themself is, heard by meaning (contract version 13), as the suffix of the
+// situations that take it: "_grief", "_hardship", "_deed", "_doubt", "_plan", "_kin", or "" for a
+// passing remark. In the stranger's own voice: told of in the third person, "a deed" took a hurt taken
+// in a fight, the inn and a compliment (8 of 15 lines written after the first 15 were measured; 10 of
+// 15 so).
+std::string told_kind(Meaning& meaning, std::string_view words) {
+    static const std::vector<std::string> told = {
+        // A death apart from other hardship: a brother who "didn't make it back" was met with "you took
+        // that hurt in my service" (a held-out hero session, 2026-09-28). With grief its own: 12 of 12
+        // lines written before it was tried, and the 45 before unchanged.
+        "Someone I loved died: my brother, my wife, my child, a friend; they were killed, never came back, we buried them.",
+        "I was hurt, I am sick, hungry or worn out, I lost my home or everything I had.",
+        "I know a trade, I have worked at a craft for years, I fought in a battle, I am skilled at something.",
+        // Doubt of themself apart from what they can do: "I've never fought anything bigger than a wolf"
+        // was met with "Good; I'll hold you to that", as a boast (a held-out session's judge,
+        // 2026-09-28). One wording tried once: 10 of 12 lines written before it read right (0 before),
+        // and the 57 before unchanged (46).
+        "I am not much of a fighter, I have never done this before, I am afraid I will fail, I doubt I am good enough.",
+        "I am going somewhere next, I mean to do something, I plan to settle or to travel.",
+        "My family: my mother, father, brother, sister, wife, husband, children, friends, where I grew up.",
+        "A passing remark: the weather, the road, the inn, the food, an opinion, a compliment, yes or no."};
+    static const std::vector<std::string> kinds = {"_grief", "_hardship", "_deed", "_doubt", "_plan", "_kin", ""};
+    return kinds[meaning.subject_of(words, told)];
+}
+
+// Whether the speaker has a past to tell of themself (contract version 13): a deed that is not the post
+// their standing says, or a city lost.
+bool has_past(const FactPacket& p) {
+    const std::map<std::string, std::string> past = blanks_of(p, "them_past", "");
+    return past.count("done") != 0 || past.count("lost") != 0;
 }
 
 // A line filled from a packet: its text, and which of its situation's blanks it says, each once
@@ -788,6 +820,7 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // on record, that there are none they would name.
         {"them_foes", {"foes", "danger"}},
         {"them_foes_none", {"danger"}},
+        {"them_past_none", {}},
         {"about_place", {"about", "trades", "who", "around", "work"}},
         {"surroundings", {"here", "nearest", "others", "danger"}},
         {"work_own", {"own", "others"}},
@@ -841,6 +874,7 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // A farewell to someone with the speaker's work to do.
         {"parted_work", {}},
         {"parted_returned", {}},
+        {"parted_work_beside", {}},
         {"acknowledged_deed_work", {}},
         // Their doubt of themself (untried, afraid of failing), told while the speaker's work is to
         // do, and once it is done.
@@ -930,6 +964,9 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         // Contract version 12: the stranger's own words the speaker kept (a Recall fact `said`), said
         // back after a greeting to someone met before, when there is no news to tell (Lines::follow).
         {"recalled", {"words"}},
+        {"recalled_grief", {"words"}},
+        {"recalled_hardship", {"words"}},
+        {"recalled_doubt", {"words"}},
         // Contract version 5: a people's sayings, in the bank `saying:<people>`. Never a reply of
         // its own: a line says one through {saying}.
         {"saying", {}},
@@ -956,7 +993,7 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
     if (p.outcome == Outcome::Answered && p.answering == ActKind::AskAboutThem) {
         if (m.frightened()) return {"them_who"};
         return {"them_who",    "them_here",   "them_long",  "them_after",  "them_need", "them_stakes",
-                "them_past",   "them_ties",   "them_plans", "them_secret", "them_home",
+                has_past(p) ? "them_past" : "them_past_none", "them_ties", "them_plans", "them_secret", "them_home",
                 foes_words(p).empty() ? "them_foes_none" : "them_foes"};
     }
     switch (p.outcome) {
@@ -1006,6 +1043,7 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             // off someone with their work to do, luck (speak()).
             if (m.frightened()) return frightened("parted");
             if (m.cold()) return {"parted_cold"};
+            if (m.work == "taken" && m.beside) return {"parted", "parted_work", "parted_work_beside"};
             if (m.work == "taken") return {"parted", "parted_work"};
             return {"parted", "parted_returned"};
         case Outcome::Acknowledged:
@@ -1209,13 +1247,21 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
     const std::vector<std::string> chain = only ? *only : situations_for(p);
     if (chain.empty()) return {};
     const ReplyShape shape = reply_shape(p);
-    // One of the speaker's people's sayings, the same all turn, another the next.
+    // One of the speaker's people's sayings, the same all turn, another the next. Not one of strangers or
+    // guests, said to the stranger by someone not cold to them: "those who sing the old songs to strangers
+    // weaken the weave", after small talk, was where a judge stopped hearing a person (2026-09-28).
     std::string saying;
     if (const auto people = banks_.find("saying:" + p.persona.people); !p.persona.people.empty() && people != banks_.end())
-        if (const auto said = people->second.find("saying"); said != people->second.end() && !said->second.empty())
-            saying = said->second[static_cast<std::size_t>(stable_hash(p.speaker + "|" + std::to_string(remembered(p).turn) + "|" +
+        if (const auto said = people->second.find("saying"); said != people->second.end()) {
+            std::vector<const std::string*> sayable;
+            for (const std::string& s : said->second)
+                if (remembered(p).cold() || (lowered(s).find("stranger") == std::string::npos && lowered(s).find("guest") == std::string::npos))
+                    sayable.push_back(&s);
+            if (!sayable.empty())
+                saying = *sayable[static_cast<std::size_t>(stable_hash(p.speaker + "|" + std::to_string(remembered(p).turn) + "|" +
                                                                        std::to_string(remembered(p).times)) %
-                                                           said->second.size())];
+                                                           sayable.size())];
+        }
     std::vector<std::string> voices;
     if (!p.persona.voice_key.empty()) {
         voices.push_back(p.persona.voice_key);
@@ -1272,7 +1318,7 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
                 // (judged 2026-09-26). An answer about what is near says it whatever was said before.
                 // The stranger's words said back once in a while, not in every greeting: not while the
                 // speaker said them lately.
-                if (recent != nullptr && s == "recalled")
+                if (recent != nullptr && s.rfind("recalled", 0) == 0)
                     if (const auto words = blanks.find("words"); words != blanks.end())
                         if (std::any_of(recent->begin(), recent->end(),
                                         [&](const std::string& said) { return lowered(said).find(lowered(words->second)) != std::string::npos; }))
@@ -1442,7 +1488,7 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     // but never after a question the stranger has yet to answer: "Here for a fitting, or just talk?
     // So you're the one who helped the fortress of Iskmor hold." (judged 2026-09-27). With news to
     // tell, a line that asks is said only where every line does, and the news then waits.
-    const std::string after = follow(p, recent);
+    const std::string after = follow(p, recent, meaning);
     const auto asks = [](const std::string& said) { return !said.empty() && said.back() == '?'; };
     const auto then_news = [&](const std::string& reply) { return after.empty() || asks(reply) ? reply : reply + " " + after; };
     const auto telling = [&](const std::vector<Spoken>& lines) {
@@ -1529,27 +1575,7 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     // soldier's record told to one hiring soldiers as "That's worth knowing" (the hero benchmark's
     // judges, 2026-09-28).
     if (meaning != nullptr && p.outcome == Outcome::Acknowledged && !trimmed(line).empty() && !remembered(p).cold()) {
-        // In the stranger's own voice: told of in the third person, "a deed" took a hurt taken in a
-        // fight, the inn and a compliment (8 of 15 lines written after the first 15 were measured;
-        // 10 of 15 so).
-        // A death apart from other hardship: a brother who "didn't make it back" was met with "you took
-        // that hurt in my service" (a held-out hero session, 2026-09-28). With grief its own: 12 of 12
-        // lines written before it was tried, and the 45 before unchanged.
-        static const std::vector<std::string> told = {
-            "Someone I loved died: my brother, my wife, my child, a friend; they were killed, never came back, we buried them.",
-            "I was hurt, I am sick, hungry or worn out, I lost my home or everything I had.",
-            "I know a trade, I have worked at a craft for years, I fought in a battle, I am skilled at something.",
-            // Doubt of themself apart from what they can do: "I've never fought anything bigger than a
-            // wolf" was met with "Good; I'll hold you to that", as a boast (a held-out session's judge,
-            // 2026-09-28). One wording tried once: 10 of 12 lines written before it read right (0
-            // before), and the 57 before unchanged (46).
-            "I am not much of a fighter, I have never done this before, I am afraid I will fail, I doubt I am good enough.",
-            "I am going somewhere next, I mean to do something, I plan to settle or to travel.",
-            "My family: my mother, father, brother, sister, wife, husband, children, friends, where I grew up.",
-            "A passing remark: the weather, the road, the inn, the food, an opinion, a compliment, yes or no."};
-        static const std::vector<std::string> taken = {"acknowledged_grief", "acknowledged_hardship", "acknowledged_deed", "acknowledged_doubt",
-                                                       "acknowledged_plan",  "acknowledged_kin",      "acknowledged"};
-        const std::string kind = taken[meaning->subject_of(line, told)];
+        const std::string kind = "acknowledged" + told_kind(*meaning, line);
         // In the light of the speaker's own work: a hurt the stranger took doing it is theirs to be
         // sorry for ("I nearly lost my arm on the second night", told the one whose work it was), and
         // a deed told while they are hiring is one the work wants (a soldier's record told to one
@@ -1584,7 +1610,12 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         !remembered(p).frightened()) {
         static const std::vector<std::string> subjects = {
             "Who they are: their name, what they are called, what they do, where they come from.",
-            "Their past: what they did, what happened to them, what they lost, a city that fell.",
+            // Their past, and who is against them (last), each said more fully: "Where were you before all
+            // this?" had drawn how long, and "Anyone out to get you?" why they need help (a held-out
+            // hero session, 2026-09-28). Chosen of four wordings on the 107 questions of the test's sets
+            // and the benchmark's (90 right before, 94 after); then 36 written before any was tried, three
+            // to a subject: 30 right before, 33 after.
+            "Their past: what they did before, where they were before this, what happened to them, what they lost, a city that fell.",
             "What they are after: their aim, their purpose, why they are here, what they want done, what is at stake.",
             "How they stand here: how long they have been here, their post, their place, their home.",
             "Their friends and allies: who is on their side.",
@@ -1614,7 +1645,7 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             // an ally, twice (a hero session's judges, 2026-09-28). With the two apart, of the lines written
             // before they were tried, 7 of 12 read right (3 before), and the 22 others unchanged (18); of
             // those they were chosen on, 36 of 43 (33).
-            "Their enemies and rivals: who is against them."};
+            "Their enemies and rivals: who is against them, who wants them gone or dead, who works against them."};
         static const std::vector<std::string> answers = {"them_who",   "them_past",   "them_after", "them_here", "them_ties",
                                                          "them_plans", "them_secret", "them_need",  "them_here", "them_long",
                                                          "them_stakes", "them_home",  "them_foes"};
@@ -1628,6 +1659,11 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
             asked = {foes_words(p).empty() ? "them_foes_none" : "them_foes"};
             if (spoken_for(p, &recent, true, &asked).empty()) asked = {"them_ties"};
         }
+        // Their past, with none on record (a castellan's may be only the post they keep): that there is
+        // nothing worth the telling, never who they are again in its place. "Where were you before all
+        // this?" had drawn how long, then his post, a fourth time (a held-out hero session, 2026-09-28).
+        // With no line of it, who they are, as ever.
+        if (asked.front() == "them_past" && !has_past(p)) asked = {"them_past_none"};
         // Why they need help, where a bank has no line of it, from what is at stake.
         if (asked.front() == "them_need") asked.push_back("them_stakes");
         // How long, where a bank has no line of it, from how they stand here.
@@ -1694,6 +1730,12 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     if (p.outcome == Outcome::Parted && remembered(p).work == "taken" && !remembered(p).cold() && !remembered(p).frightened()) {
         static const std::vector<std::string> luck = {"parted_work"};
         if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &luck); !on_it.empty()) spoken = on_it;
+        // Their work done beside them (contract version 14), luck to them both: wished to the stranger
+        // alone, it sent them off by themself on work offered "with me" (the hero benchmark's judges,
+        // 2026-09-28).
+        static const std::vector<std::string> both = {"parted_work_beside"};
+        if (remembered(p).beside)
+            if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &both); !on_it.empty()) spoken = on_it;
     }
     // A farewell that wishes the speaker well is wished back: "Look after yourself." drew "Farewell, and
     // may no one come to harm for want of your help" (a hero session's judge, 2026-09-28). Asked alone, as
@@ -1866,7 +1908,8 @@ std::vector<std::string> Lines::follows(const FactPacket& p) const {
     const NewsToSay news = news_to_say(p, false);
     std::vector<std::vector<std::string>> chains;
     if (!news.situation.empty()) chains.push_back({news.situation});
-    if (says_back(p)) chains.push_back({"recalled"});
+    if (says_back(p))
+        for (const std::string kind : {"recalled", "recalled_grief", "recalled_hardship", "recalled_doubt"}) chains.push_back({kind});
     // And who they are, after a greeting that asks (speak()).
     if (p.outcome == Outcome::Greeted && !remembered(p).again && !remembered(p).cold() && !remembered(p).frightened())
         chains.push_back({"greeted_who"});
@@ -1895,7 +1938,7 @@ std::vector<std::string> Lines::news_asked(const FactPacket& p, const std::vecto
     return out;
 }
 
-std::string Lines::follow(const FactPacket& p, const std::vector<std::string>& recent) const {
+std::string Lines::follow(const FactPacket& p, const std::vector<std::string>& recent, Meaning* meaning) const {
     // In turn by what the speaker has heard, as a lead is.
     const auto in_turn = [&](const std::vector<Spoken>& lines, const std::string& seed) {
         const std::size_t n = lines.size();
@@ -1911,6 +1954,21 @@ std::string Lines::follow(const FactPacket& p, const std::vector<std::string>& r
     // No news to tell: a greeting to someone met before may end with what they once said of themselves
     // (contract version 12), in a line of whichever bank has one, as news is; not while said lately.
     if (!says_back(p)) return {};
+    // Said back as what they were, heard by meaning: a loss grieved still, a hardship hoped easier, fear
+    // the stranger has come through (their work done) taken as that. Recited alone, "I've held what you
+    // told me as I'd hold an oath: you nearly lost your arm on the second night" was a note read out
+    // where a person would ask after the arm (three blind judges, 2026-09-28). Asked alone, as luck is,
+    // from whichever bank has it; otherwise as ever.
+    if (meaning != nullptr) {
+        const std::vector<Recall> all = recalls(p);
+        if (const Recall* said = recall_of(all, "said")) {
+            const std::string kind = told_kind(*meaning, said->words);
+            if (kind == "_grief" || kind == "_hardship" || (kind == "_doubt" && remembered(p).work == "finished")) {
+                const std::vector<std::string> as = {"recalled" + kind};
+                if (const std::vector<Spoken> lines = spoken_for(p, &recent, true, &as); !lines.empty()) return in_turn(lines, "|recalled");
+            }
+        }
+    }
     const std::vector<std::string> chain = {"recalled"};
     const std::vector<Spoken> lines = spoken_for(p, &recent, true, &chain);
     return lines.empty() ? std::string() : in_turn(lines, "|recalled");

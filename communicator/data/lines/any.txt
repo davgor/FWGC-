@@ -202,6 +202,12 @@ any | no_news | I've not heard a thing.
 any | recalled | You told me once: {words}; I've not forgotten.
 any | recalled | I remember what you told me: {words}.
 any | recalled | I've thought on what you told me: {words}.
+any | recalled_grief | I've not forgotten what you told me: {words}; I'm sorry for it still.
+any | recalled_grief | What you told me stayed with me: {words}; I think of it still.
+any | recalled_hardship | I've kept what you told me: {words}; is it any easier now?
+any | recalled_hardship | You told me: {words}; I hope it's easier now.
+any | recalled_doubt | I've kept what you told me: {words}; you came through it all the same.
+any | recalled_doubt | You told me: {words}; you stood to it anyway, and I've not forgotten that.
 
 # Contract version 13: asked about themself, by what the stranger asked of them (a writer's round per
 # bank to come). Every name comes through a blank: what they go by, their home, what they are after,
@@ -338,7 +344,12 @@ any | parted_work | Goodbye, and good luck to you.
 any | parted_returned | Take care, and the same to you.
 any | parted_returned | Go well, and you look after yourself too.
 any | parted_returned | Farewell, and the same back to you.
-any | parted_returned | Take care yourself, and go well.
+any | parted_returned | Take care of yourself, and go well.
+any | parted_work_beside | Go well, and luck to the both of us.
+any | parted_work_beside | Goodbye for now; we'll want our luck, the pair of us.
+any | parted_work_beside | Farewell for now, and luck to us both.
+any | them_past_none | Nothing worth the telling; whatever I was before, this is what I am now.
+any | them_past_none | There's little to tell; I'd sooner hear yours.
 # An apology for how the stranger is (tired, not themself), once there is a wrong to forgive.
 any | forgiven_state | All right; you're tired, and you've earned it. Get some rest.
 any | forgiven_state | Let's forget it; rest, and we'll say no more of it.

@@ -72,6 +72,9 @@ voice | situation | line
   | `thanked_work` (thanked for their own work while it is still to do), `offended_complaint` (a complaint about their work), `unwronged_state` (an apology for how the stranger is: never opened with a question, "Whatever for?", which took a grieving stranger's state as having no cause), `forgiven_state` (the same, once there is a wrong to forgive) | |
   | `parted_work` (a farewell to someone with the speaker's work to do: luck, never what the work is like or who goes) | |
   | `parted_returned` (a farewell that wishes the speaker well, wished back: "Take care, and the same to you") | |
+  | `parted_work_beside` (a farewell with the speaker's own work to do beside them, contract version 14's `beside`: luck to them both, since the work was offered "with me") | |
+  | `them_past_none` (asked about their past with none on record: no city lost, no deed but the post they keep; nothing worth the telling, never a past made up) | |
+  | `recalled_grief`, `recalled_hardship`, `recalled_doubt` (the stranger's words said back as what they were: a loss, a hardship, fear they came through with the speaker's work done; one sentence, the recalled rules, and `recalled_hardship` alone may ask, "is it any easier now?") | `{words}` |
   | `greeted_who` (said after a first greeting that asks who they are) | |
 
   Every situation may also use `{speaker}`, `{post}`, `{place}` and `{saying}`.
@@ -87,7 +90,9 @@ voice | situation | line
   (`common_capitals()`: "the", "no", "never"...), and a saying is a general truth, never a fact
   of the world. No saying after a farewell (`parted`, `parted_cold`): blind judges of four hero
   sessions of five heard one there as a non sequitur or a rebuke ("Safe travels; as we say, hold your
-  tongue on thin ice", 2026-09-28).
+  tongue on thin ice", 2026-09-28). A saying that speaks of strangers or guests is never chosen for a
+  speaker who is not cold to the stranger: said to one, "if a stranger smiles, watch their hands" is a
+  jab (the engine skips it; the row may stay).
 
   A packet's situations come closest first, and a bank answers from the first it has a line
   for: a warm greeting to someone met before is `greeted_warm`, then `greeted_again`; what came

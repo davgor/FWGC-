@@ -645,6 +645,17 @@ inline FactPacket about_them_without_rivals() {
     return p;
 }
 
+// Asked about themself, with no past on record: no city lost, and no deed but the post they keep, which
+// their standing says (every benchmark hero's record, 2026-09-28).
+inline FactPacket about_them_without_a_past() {
+    FactPacket p = about_them();
+    std::erase_if(p.facts, [](const Fact& f) { return f.kind == FactKind::Deed && f.field("part") && *f.field("part") != "keeper"; });
+    for (Fact& f : p.facts)
+        if (f.kind == FactKind::Self)
+            std::erase_if(f.fields, [](const auto& field) { return field.first.rfind("lost", 0) == 0; });
+    return p;
+}
+
 // Asked about themself, a hero far from home: the castellan's record with home elsewhere.
 inline FactPacket about_them_far_from_home() {
     FactPacket p = about_them();
@@ -682,6 +693,7 @@ inline std::vector<FactPacket> conversation() {
     return {about_them(),
             about_them_far_from_home(),
             about_them_without_rivals(),
+            about_them_without_a_past(),
             small_talk_after_work(),
             small_talk_after_work_near(),
             beside(small_talk_after_work()),
@@ -701,6 +713,7 @@ inline std::vector<FactPacket> conversation() {
             small_talk("fair", "breezy", "friendly", "the turn of the season", "afternoon"),
             parted_coldly(),
             parted_holding_work(),
+            beside(parted_holding_work()),
             forgiven("neutral"),
             forgiven("hostile"),
             unwronged(),

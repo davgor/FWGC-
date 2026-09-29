@@ -572,19 +572,23 @@ TEST(the_strangers_own_words_are_said_back_after_a_greeting_now_and_then) {
 // 21 held out, 19 right with seven descriptions; two more (what is at stake, their days) added after
 // the hero benchmark, then 14 more questions written before those were tried: 29 of 35 with them, 28
 // without, and 10 of the fresh 14 with them, 9 without. The misses are near ones ("Where did you come
-// from before this?" as who they are, "Are you staying long?" as how they stand here).
-constexpr std::size_t kAboutThemFloor = 29;
+// from before this?" as who they are, "Are you staying long?" as how they stand here). 28 since their
+// past and who is against them were said more fully (2026-09-28): "What are you fighting for?" is now
+// heard as who they fight, while 36 questions written before those wordings were tried went 30 -> 33
+// right, and the twelve of who stands against them 7 -> 11.
+constexpr std::size_t kAboutThemFloor = 28;
 // Four more subjects after the hero benchmark's second and third runs (why they need help, how long,
 // what comes if the work fails, and their days asked as the stranger asks), then 22 questions written
 // before any wording of them was tried, two or more to a subject: 20 right, the wordings chosen on the
 // 35 above and the benchmark's own six (the 22's numbers were seen for five wordings tried). The six:
-// 6 of 6. Then a twelfth, where home is (2026-09-28): 19, "Would you ever go home?" heard as home.
-constexpr std::size_t kAboutThemLaterFloor = 19;
+// 6 of 6. Then a twelfth, where home is (2026-09-28): 19, "Would you ever go home?" heard as home. 20
+// once their past and who is against them were said more fully.
+constexpr std::size_t kAboutThemLaterFloor = 20;
 // Six questions of home, written before any description of it was tried: 5 right (0 without it).
 constexpr std::size_t kAboutThemHomeFloor = 5;
 // Twelve questions of who stands against them or with them, written before the two were told apart: 7
-// right with them apart (3 before).
-constexpr std::size_t kFoesFloor = 7;
+// right with them apart (3 before); 11 once who is against them was said more fully.
+constexpr std::size_t kFoesFloor = 11;
 // Farewells that wish the speaker well, told from farewells and no more: the hero benchmark's fifteen,
 // 13 right ("I need some rest." and "Wish me luck." heard as wishes), and sixteen written before the
 // descriptions were tried, 15 right ("Don't let them wear you down. Goodbye." heard as a farewell alone).
@@ -685,6 +689,14 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
     check::equal(subject_of[lines.speak(p, "What happened to your city?", {}, &meaning)], std::string("them_past"), "the premise: their past");
     check::equal(subject_of[lines.speak(plain, "What happened to your city?", {}, &meaning)], std::string("them_who"),
                  "nothing of their past to say: who they are");
+    // With a line for no past on record, that one: "Where were you before all this?" had drawn how long,
+    // then his post, a fourth time (a held-out hero session, 2026-09-28). Their past on record, as ever.
+    const std::string none_row = "any | them_past_none | Nothing worth the telling.\n";
+    const Lines pastless = Lines::parse(bank + none_row, "pastless");
+    check::equal(pastless.speak(packets::about_them_without_a_past(), "Where were you before all this?", {}, &meaning),
+                 std::string("Nothing worth the telling."), "no past on record: nothing worth the telling");
+    check::equal(subject_of[pastless.speak(p, "What happened to your city?", {}, &meaning)], std::string("them_past"),
+                 "a past on record: their past");
     // Who they are, from whichever bank has it: not the speaker's own bank's first line of something else.
     const Lines banks = Lines::parse("warden/LN | them_here | I {standing}, as ever.\n" + bank, "banks");
     check::equal(banks.speak(plain, "What happened to your city?", {}, &meaning), who_line,
@@ -1475,6 +1487,16 @@ TEST(a_farewell_to_one_with_the_speakers_work_to_do_wishes_them_luck) {
         check::equal(lines.speak(parting(work, "friendly"), "Wish me luck."), std::string("Farewell, and keep your word."),
                      "their work " + (work.empty() ? std::string("none") : work) + ": as ever");
     check::equal(lines.speak(parting("taken", "hostile"), "Wish me luck."), std::string("Go, then."), "a cold speaker as a cold one");
+    // Their work done beside them (contract version 14), luck to them both: wished to the stranger alone, it
+    // sent them off by themself on work offered "with me" (the hero benchmark's judges, 2026-09-28).
+    const Lines both = Lines::parse("warden/LN | parted | Farewell, and keep your word.\n"
+                                    "any | parted_work | Go well, and good luck with it.\n"
+                                    "any | parted_work_beside | Go well, and luck to the both of us.\n",
+                                    "both");
+    check::equal(both.speak(packets::beside(parting("taken", "friendly")), "Wish me luck."), std::string("Go well, and luck to the both of us."),
+                 "their work beside them: luck to them both");
+    check::equal(both.speak(parting("taken", "friendly"), "Wish me luck."), std::string("Go well, and good luck with it."),
+                 "not beside them: luck to the stranger");
 }
 
 // A farewell that wishes the speaker well is wished back, from whichever bank has it: "Look after
@@ -1597,6 +1619,48 @@ TEST(a_line_writes_the_first_person_as_a_capital) {
     check::is_true(!says("any | safety_unsafe | No. There are {danger}, and that's reason enough.[ And I'd keep clear of {worst}.]",
                          "I is written as a capital"),
                    "the control: I'd");
+}
+
+// Said back as what they were, heard by meaning: a loss grieved still, a hardship hoped easier, fear the
+// stranger has come through (their work done) taken as that; anything else as ever. Recited alone, "you
+// nearly lost your arm on the second night" was a note read out where a person would ask after the arm
+// (three blind judges, 2026-09-28).
+TEST(the_strangers_words_are_said_back_as_what_they_were) {
+    communicator::Meaning meaning(test_model::embedder());
+    const Lines lines = Lines::parse("any | greeted_again | Hello again.\n"
+                                     "any | greeted_finished | Welcome back.\n"
+                                     "any | recalled | You told me once: {words}.\n"
+                                     "any | recalled_grief | I've not forgotten what you told me: {words}; I'm sorry for it still.\n"
+                                     "any | recalled_hardship | I've kept what you told me: {words}; is it any easier now?\n"
+                                     "any | recalled_doubt | I've kept what you told me: {words}; you came through it all the same.\n",
+                                     "kinds");
+    const auto back = [&](const std::string& words, const std::string& work, communicator::Meaning* by) {
+        FactPacket p = packets::greeted_remembering(words);
+        if (!work.empty()) p.facts.back() = packets::memory_of(p.speaker, {.met = "again", .times = 1, .since = "days", .work = work});
+        return lines.speak(p, "Hello!", {}, by);
+    };
+    check::equal(back("My brother came with me. He didn't make it back.", "", &meaning),
+                 std::string("Hello again. I've not forgotten what you told me: your brother came with you; he didn't make it back; I'm "
+                             "sorry for it still."),
+                 "a loss");
+    check::equal(back("I nearly lost my arm on the second night.", "", &meaning),
+                 std::string("Hello again. I've kept what you told me: you nearly lost your arm on the second night; is it any easier now?"),
+                 "a hardship");
+    check::equal(back("I was more frightened than I've ever been.", "finished", &meaning),
+                 std::string("Hello again. I've kept what you told me: you were more frightened than you've ever been; you came through it "
+                             "all the same."),
+                 "fear, their work done (and greeted as ever, its news told before)");
+    check::equal(back("I've never fought anything bigger than a wolf.", "", &meaning),
+                 std::string("Hello again. You told me once: you've never fought anything bigger than a wolf."), "fear, nothing done: as ever");
+    check::equal(back("My sister keeps the mill at the ford.", "", &meaning),
+                 std::string("Hello again. You told me once: your sister keeps the mill at the ford."), "anything else: as ever");
+    check::equal(back("My brother came with me. He didn't make it back.", "", nullptr),
+                 std::string("Hello again. You told me once: your brother came with you; he didn't make it back."), "no meaning: as ever");
+    // Not while said lately, in whichever way.
+    const std::vector<std::string> recent = {
+        "Hello again. I've not forgotten what you told me: your brother came with you; he didn't make it back; I'm sorry for it still."};
+    check::equal(lines.speak(packets::greeted_remembering("My brother came with me. He didn't make it back."), "Hello!", recent, &meaning),
+                 std::string("Hello again."), "said lately: not again");
 }
 
 TEST(words_are_said_back_to_the_one_who_said_them) {
@@ -1743,6 +1807,23 @@ TEST(a_saying_is_of_the_speakers_own_people) {
                                        "test");
     check::equal(first(opening.replies(as_of("human_cold"))), std::string("Farewell. The cold keeps what the warm forgets."),
                  "a capital where a sentence begins");
+    // Not a saying of strangers or guests, said to the stranger by someone not cold to them: "those who
+    // sing the old songs to strangers weaken the weave" was where a judge stopped hearing a person.
+    const Lines wary = Lines::parse("saying:human_cold | saying | watch a stranger for a winter before you share the fire\n"
+                                    "saying:human_cold | saying | beware the guest who counts the pillars\n"
+                                    "any | small_talk | Much as ever.[ {saying}.]\n"
+                                    "any | small_talk_cold | Much as ever.[ {saying}.]\n",
+                                    "wary");
+    for (const std::string mood : {"neutral", "friendly", "warm"}) {
+        FactPacket p = packets::small_talk("clear", "still", mood);
+        p.persona.people = "human_cold";
+        check::equal(first(wary.replies(p)), std::string("Much as ever."), "not cold (" + mood + "): no saying of strangers");
+    }
+    FactPacket hostile = packets::small_talk("clear", "still", "hostile");
+    hostile.persona.people = "human_cold";
+    const std::string said_cold = first(wary.replies(hostile));
+    check::is_true(said_cold.find("stranger") != std::string::npos || said_cold.find("guest") != std::string::npos,
+                   "cold: theirs to say: " + said_cold);
 }
 
 TEST(a_line_said_with_another_saying_is_the_same_line_again) {

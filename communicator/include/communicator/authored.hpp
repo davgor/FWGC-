@@ -99,8 +99,12 @@ public:
     // or such an answer (a `news` line, "The word is {news}."). speak() puts it last, but never after
     // a reply that asks the stranger something. Empty when the packet carries no news the speaker
     // would give (news_to_pass_on), for a frightened or a cold speaker, and for news told in
-    // `recent` in any of its forms.
-    std::string follow(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent = {}) const;
+    // `recent` in any of its forms. With no news to tell, a greeting to someone met before may end
+    // with the stranger's own words said back (a `recalled` line, contract version 12); with
+    // `meaning`, as what they were: a loss (`recalled_grief`), a hardship (`recalled_hardship`), or
+    // fear they have come through, their work done (`recalled_doubt`).
+    std::string follow(const orchestrator::FactPacket& packet, const std::vector<std::string>& recent = {},
+                       Meaning* meaning = nullptr) const;
 
     // Every line follow() could choose from, filled, as leads() lists every lead.
     std::vector<std::string> follows(const orchestrator::FactPacket& packet) const;

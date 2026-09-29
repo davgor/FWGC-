@@ -202,7 +202,7 @@ inline bool follow_row(const std::string& row) {
     std::string situation = row.substr(first + 1, second - first - 1);
     situation.erase(0, situation.find_first_not_of(' '));
     while (!situation.empty() && situation.back() == ' ') situation.pop_back();
-    return situation == "heard_deed" || situation == "news" || situation == "recalled" || situation == "greeted_who";
+    return situation == "heard_deed" || situation == "news" || situation.rfind("recalled", 0) == 0 || situation == "greeted_who";
 }
 
 // The situation a row is written for, trimmed; empty for a row without one.
@@ -310,9 +310,12 @@ inline bool marks_them_as_told(const std::string& lead) {
 // asks after them ("Is she well, the one you told me of: ..."), which would need what the words do
 // not hold. Writers found the checker let all of it through (2026-09-27). And before the words begin,
 // the line says they are the stranger's (`marks_them_as_told`).
-inline std::vector<std::string> recalled_problems(const std::string& line) {
+// `situation`: a hardship said back may ask whether it is easier now, which fits any hardship; no other
+// line asks, since a question fits only what the words are about.
+inline std::vector<std::string> recalled_problems(const std::string& line, const std::string& situation = "recalled") {
     std::vector<std::string> out;
-    if (line.find('?') != std::string::npos) out.push_back("asks after the words: a recalled line is never a question");
+    if (line.find('?') != std::string::npos && situation != "recalled_hardship")
+        out.push_back("asks after the words: a recalled line is never a question");
     for (std::size_t at = line.find("{words}"); at != std::string::npos; at = line.find("{words}", at + 1)) {
         std::string lead = line.substr(0, at);
         while (!lead.empty() && (lead.back() == ' ' || lead.back() == '[')) lead.pop_back();
@@ -514,8 +517,8 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
         for (const std::string& capital : own_capitals(line, openings))
             out.push_back("a capital the line writes itself: " + capital);
         for (const std::string& problem : news_blank_problems(line)) out.push_back(problem);
-        if (situation == "recalled")
-            for (const std::string& problem : recalled_problems(line)) out.push_back(problem);
+        if (situation.rfind("recalled", 0) == 0)
+            for (const std::string& problem : recalled_problems(line, situation)) out.push_back(problem);
         // "The turn of the season" is a season: "this {season}" would say "this the turn of the
         // season". Every other article before a blank is caught in the replies, where it misfits.
         for (const std::string before : {"this {season}", "This {season}", "that {season}", "That {season}"})

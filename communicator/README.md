@@ -663,6 +663,32 @@ From the judges of the fifth round (2026-09-28):
   `unwronged_state` row that opens with one; the eleven that did were rewritten.
 - **Words of "we" are not said back** (above, "The stranger's own words, said back").
 
+From the sixth round's judges (2026-09-28, six sessions, the sixth held out):
+- **Their past and who is against them are said more fully** among the descriptions a question about
+  themself is heard by: "Where were you before all this?" had drawn how long, and "Anyone out to get
+  you?" why they need help. Chosen of four wordings on 107 questions of the test's sets and the
+  benchmark's (90 right, then 94); then 36 written before any wording was tried, three to a subject:
+  30 right before, 33 after. The test's first 35 lose one ("What are you fighting for?" is heard as
+  who they fight), the later 22 gain one (20) and the twelve of who stands against them go 7 to 11.
+- **No past on record** (`them_past_none`): asked about their past with no city lost and no deed but
+  the post they keep (every benchmark hero's record), a speaker says there is nothing worth the
+  telling, never who they are again in its place; with no line of it, who they are, as ever.
+- **Luck to both** (`parted_work_beside`) at a farewell with the speaker's own work to do beside them
+  (contract version 14's `beside`): luck to the stranger alone had sent them off by themself on work
+  offered "with me".
+- **No saying of strangers or guests to the stranger** from a speaker not cold to them ("those who
+  sing the old songs to strangers weaken the weave", after small talk, was where a judge stopped
+  hearing a person); a cold speaker may still say one.
+- **The stranger's words said back as what they were** (`recalled_grief`, `recalled_hardship`,
+  `recalled_doubt`), heard by meaning with the descriptions that take what the stranger tells
+  (`told_kind`): a loss grieved still ("...; I'm sorry for it still"), a hardship hoped easier ("...;
+  is it any easier now?", the one recalled line that may ask, since the question fits any hardship),
+  and fear the stranger has come through, their work done ("...; you came through it all the
+  same"); anything else, and without `meaning`, as ever. One sentence, asked alone as luck is, `any`'s
+  until the banks have their own. Recited alone, "I've held what you told me as I'd hold an oath: you
+  nearly lost your arm on the second night" was a note read out where a person would ask after the
+  arm (three judges of six).
+
 Work done beside the speaker (contract version 14, the Memory fact's `beside`: their own work at the
 site they hold or where they stand) is greeted (`greeted_finished_beside`) and talked of
 (`small_talk_work_done_beside`) as by one who was there: a castellan who offered the work "Hold the

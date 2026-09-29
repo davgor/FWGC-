@@ -122,7 +122,7 @@ oathbound/NG | refused_release | I won't, not while {giver} has your word.
 oathbound/NG | refused_release | I cannot, that promise isn't mine to lift.
 oathbound/NG | refused | No, {reason}, and I'm sorry for it.
 oathbound/NG | refused | I can't, {reason}, much as I'd like to.
-oathbound/NG | accepted | Thank you. That's a kindness, and I mean that.
+oathbound/NG | accepted | Thank you. I'll not forget who stood up when I asked.
 oathbound/NG | accepted | Good, I'll remember you took this on.
 oathbound/NG | accepted | Done, and gladly. That's settled between us, then.
 oathbound/NG | declined | Fair enough, you know your own mind best.
@@ -1022,7 +1022,7 @@ oathbound/NN | acknowledged_plan | Right. Is that a promise to yourself, or only
 oathbound/NN | acknowledged_kin | Aye, and good. A person should know what they're bound to, and who.
 oathbound/NN | acknowledged_hardship_work | Ah, that came of my work, so it goes on my side of the account, not yours; I'm sorry for it.
 oathbound/NN | acknowledged_grief_work | Ah, I'm sorry; a death on my work is a debt I'll carry as long as I carry anything. Tell me the name, and I'll keep it.
-oathbound/NN | acknowledged_deed_work | Good; that's the kind of hand the work needs, and I'd sooner have it than any promise.
+oathbound/NN | acknowledged_deed_work | Good; that's the kind of hand the work needs, and it counts for more with me than any promise.
 oathbound/NN | greeted_finished_beside | Well met again. You stood to it beside me, and I saw every bit of it; I'll vouch for you anywhere.
 oathbound/NN | thanked_work | Think nothing of it; I'd sooner have a promise kept than thanks said.
 oathbound/NN | offended_complaint | Careful; I gave you the work as I had it, and if it cost more than either of us reckoned, part of that cost is mine.
