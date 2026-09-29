@@ -1,6 +1,8 @@
 // What a speaker says of themself (contract version 13): the words C++ says a Self fact and a Deed
 // fact in, from their own fields, with the names the facts hold and no other. No model.
 #include <string>
+#include <utility>
+#include <vector>
 
 #include "check.hpp"
 #include "them.hpp"
@@ -120,4 +122,55 @@ TEST(ties_are_said_by_name_allies_first) {
     FactPacket allies_only;
     allies_only.facts.push_back({FactKind::Person, "hero-a", {{"name", "Iskgraf"}, {"role", "pretender"}, {"tie", "ally"}}});
     check::equal(foes_words(allies_only), std::string(), "allies only: no rival said");
+}
+
+// A castellan's past (contract version 19): how long they have held their post, in bands a person would say
+// ("the better part of ten years"), and where they served before it, and as what.
+TEST(a_castellans_years_and_former_service_are_said_from_their_fields) {
+    using communicator::held_words;
+    using communicator::served_words;
+    const auto with = [](std::vector<std::pair<std::string, std::string>> fields) {
+        Fact f = castellan();
+        for (auto& field : fields) f.fields.push_back(std::move(field));
+        return f;
+    };
+    for (const auto& [years, said] : std::vector<std::pair<std::string, std::string>>{{"1", "a few years"},
+                                                                                      {"5", "a few years"},
+                                                                                      {"6", "the better part of ten years"},
+                                                                                      {"9", "the better part of ten years"},
+                                                                                      {"10", "ten years and more"},
+                                                                                      {"14", "ten years and more"},
+                                                                                      {"15", "near on twenty years"},
+                                                                                      {"19", "near on twenty years"},
+                                                                                      {"20", "twenty years and more"},
+                                                                                      {"24", "twenty years and more"},
+                                                                                      {"25", "near on thirty years"},
+                                                                                      {"28", "near on thirty years"}})
+        check::equal(held_words(with({{"held_years", years}})), said, years + " years");
+    for (const std::string odd : {"0", "-3", "twelve", "", "12345"})
+        check::equal(held_words(with({{"held_years", odd}})), std::string(), "not a count of years: " + odd);
+    check::equal(held_words(castellan()), std::string(), "none on record, nothing said");
+    check::equal(served_words(with({{"served_at", "the garrison of Iskmor (Age 1)"}, {"served_as", "soldier"}})),
+                 std::string("served as a soldier in the garrison of Iskmor"), "a soldier of the garrison");
+    check::equal(served_words(with({{"served_at", "the garrison of Iskmor (Age 1)"}, {"served_as", "sergeant"}})),
+                 std::string("served as a sergeant in the garrison of Iskmor"), "a sergeant");
+    check::equal(served_words(with({{"served_at", "the fortress above Mokdorl (Age 1)"}, {"served_as", "second"}})),
+                 std::string("was second in command at the fortress above Mokdorl"), "second at another fortress");
+    check::equal(served_words(with({{"served_at", "the garrison of Iskmor (Age 1)"}, {"served_as", "second"}})), std::string(),
+                 "second, but not at a fortress: nothing made up");
+    check::equal(served_words(with({{"served_at", "the garrison of Iskmor (Age 1)"}, {"served_as", "cook"}})), std::string(),
+                 "a part the words do not know");
+    check::equal(served_words(castellan()), std::string(), "none on record, nothing said");
+}
+
+TEST(the_sovereign_they_are_sworn_to_is_said_first_of_their_ties) {
+    using communicator::ties_words;
+    FactPacket p;
+    p.facts.push_back({FactKind::Person, "hero-sovereign", {{"name", "Brenbrann"}, {"role", "sovereign"}, {"tie", "liege"}}});
+    p.facts.push_back({FactKind::Person, "hero-c", {{"name", "Ulknord"}, {"role", "warlord"}, {"tie", "rival"}}});
+    check::equal(ties_words(p), std::string("I'm sworn to Brenbrann; Ulknord is my rival"), "sworn, then the rival");
+    FactPacket sworn_only;
+    sworn_only.facts.push_back(p.facts.front());
+    check::equal(ties_words(sworn_only), std::string("I'm sworn to Brenbrann"), "sworn alone");
+    check::equal(communicator::foes_words(sworn_only), std::string(), "a liege is no rival");
 }

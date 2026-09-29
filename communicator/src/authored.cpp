@@ -167,9 +167,10 @@ std::string others_offer_phrase(const Fact& offer) {
     if (who.empty()) who = "someone";
     const std::string role = text::spaced(text::spoken(field_of(offer, "giver_role")));
     if (!role.empty()) who += (bodies.count(role) ? " of the " : " the ") + role;
-    // How they stand to the speaker (contract version 15): "Nerisk the pretender, who stands with me".
+    // How they stand to the speaker (contract version 15): "Nerisk the pretender, who stands with me"; the
+    // sovereign a castellan is sworn to since contract version 19.
     static const std::map<std::string, std::string, std::less<>> ties = {
-        {"ally", ", who stands with me,"}, {"kin", ", my own kin,"}, {"rival", ", my rival,"}};
+        {"ally", ", who stands with me,"}, {"kin", ", my own kin,"}, {"rival", ", my rival,"}, {"liege", ", whom I serve,"}};
     if (const auto tie = ties.find(field_of(offer, "giver_tie")); tie != ties.end()) who += tie->second;
     const std::string purpose = text::retold(text::mid_sentence(text::ask_of(text::spoken(field_of(offer, "purpose")))));
     return purpose.empty() ? who + " is hiring" : who + " wants someone to " + purpose;
@@ -382,6 +383,11 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
             set("after", after_words(*self));
             set("standing", standing_words(*self));
             set("lost", lost_words(*self));
+            // A castellan's past (contract version 19): how long they have held their post, and where
+            // they served before it. "How long have you held it?" had only "long enough that I've
+            // stopped counting" to answer with (the hero benchmark's first judge, 2026-09-28).
+            set("held_for", held_words(*self));
+            set("served", served_words(*self));
         }
         // A deed they did: not the post they keep where how they stand says it already. "I command the
         // fortress of Iskmor", asked what he did off the walls, was his post again after "I command the
@@ -546,10 +552,10 @@ std::string told_kind(Meaning& meaning, std::string_view words) {
 }
 
 // Whether the speaker has a past to tell of themself (contract version 13): a deed that is not the post
-// their standing says, or a city lost.
+// their standing says, a city lost, or where they served before it (contract version 19).
 bool has_past(const FactPacket& p) {
     const std::map<std::string, std::string> past = blanks_of(p, "them_past", "");
-    return past.count("done") != 0 || past.count("lost") != 0;
+    return past.count("done") != 0 || past.count("lost") != 0 || past.count("served") != 0;
 }
 
 // A line filled from a packet: its text, and which of its situation's blanks it says, each once
@@ -591,6 +597,9 @@ std::optional<Filled> fill_blanks(std::string_view text, const std::map<std::str
 // no answer to anything but itself.
 bool answers_it(const std::string& situation, const std::string& blank) {
     if (blank == "danger") return situation == "them_need" || situation == "them_stakes" || situation == "them_foes_none";
+    // How long they have held their post, and where they served before it (contract version 19).
+    if (blank == "held_for") return situation == "them_long_known";
+    if (blank == "served") return situation == "them_past_served";
     return blank == "foes" && situation == "them_foes";
 }
 
@@ -821,6 +830,11 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"them_foes", {"foes", "danger"}},
         {"them_foes_none", {"danger"}},
         {"them_past_none", {}},
+        // Contract version 19: a castellan's past. How long they have held their post, and where they
+        // served before it, each asked alone (speak()), since a bank's lines of how long without the years,
+        // and of a past without where they served, would shadow the next bank's that say them.
+        {"them_long_known", {"held_for", "standing"}},
+        {"them_past_served", {"served", "done", "lost"}},
         {"about_place", {"about", "trades", "who", "around", "work"}},
         {"surroundings", {"here", "nearest", "others", "danger"}},
         {"work_own", {"own", "others"}},
@@ -993,9 +1007,14 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
     // and no more, their fear first (lead()): left out, they had nothing to say at all.
     if (p.outcome == Outcome::Answered && p.answering == ActKind::AskAboutThem) {
         if (m.frightened()) return {"them_who"};
-        return {"them_who",    "them_here",   "them_long",  "them_after",  "them_need", "them_stakes",
-                has_past(p) ? "them_past" : "them_past_none", "them_ties", "them_plans", "them_secret", "them_home",
-                foes_words(p).empty() ? "them_foes_none" : "them_foes"};
+        std::vector<std::string> chain = {"them_who",    "them_here",   "them_long",  "them_after",  "them_need", "them_stakes",
+                                          has_past(p) ? "them_past" : "them_past_none", "them_ties", "them_plans", "them_secret", "them_home",
+                                          foes_words(p).empty() ? "them_foes_none" : "them_foes"};
+        // A castellan's past (contract version 19), last: speak() asks each alone, when what was asked is it.
+        const std::map<std::string, std::string> known = blanks_of(p, "them_past", "");
+        if (known.count("held_for")) chain.push_back("them_long_known");
+        if (known.count("served")) chain.push_back("them_past_served");
+        return chain;
     }
     switch (p.outcome) {
         case Outcome::Greeted: {
@@ -1670,6 +1689,14 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
         // this?" had drawn how long, then his post, a fourth time (a held-out hero session, 2026-09-28).
         // With no line of it, who they are, as ever.
         if (asked.front() == "them_past" && !has_past(p)) asked = {"them_past_none"};
+        // How long they have held their post, and where they served before it, where the Self fact says
+        // (contract version 19): asked alone, as home is, since a bank's lines of how long without the years
+        // would shadow the next bank's with them. With no line of it, as before.
+        static const std::map<std::string, std::string> known = {{"them_long", "them_long_known"}, {"them_past", "them_past_served"}};
+        if (const auto k = known.find(asked.front()); k != known.end()) {
+            const std::vector<std::string> alone = {k->second};
+            if (!spoken_for(p, &recent, true, &alone).empty()) asked = alone;
+        }
         // Why they need help, where a bank has no line of it, from what is at stake.
         if (asked.front() == "them_need") asked.push_back("them_stakes");
         // How long, where a bank has no line of it, from how they stand here.

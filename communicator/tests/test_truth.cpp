@@ -306,3 +306,18 @@ TEST(being_talked_down_and_overhearing_are_the_memorys) {
                    "asked, not joined");
     check::is_true(clean("Only what I overhear with my head down.", packets::surroundings()), "hearing things in general claims nothing");
 }
+
+// How long a castellan has held their post (contract version 19), in C++'s words from the Self fact: the
+// record's, not a time counted out. Not another count of years, and not for one whose record says none.
+TEST(a_castellans_years_at_the_post_are_the_self_facts) {
+    const FactPacket sworn = packets::about_a_castellan_with_a_past();
+    check::is_true(clean("I command the garrison here, and have for ten years and more.", sworn), "the Self fact's years");
+    check::is_true(flags("I command the garrison here, and have for twenty years and more.", sworn, "a distance or a time counted out"),
+                   "not its years");
+    check::is_true(flags("I command the garrison here, and have for ten years and more.", packets::about_them_without_a_past(),
+                         "a distance or a time counted out"),
+                   "the control: no years on record");
+    check::is_true(clean("I've held it a few years.", packets::about_a_castellan_second_elsewhere()), "a few years, as the record has it");
+    check::is_true(clean("Before this post I was second in command at the fortress above Mokdorl.", packets::about_a_castellan_second_elsewhere()),
+                   "where they served: the Self fact's name");
+}

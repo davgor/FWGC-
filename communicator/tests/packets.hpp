@@ -662,6 +662,36 @@ inline FactPacket about_them_without_a_past() {
     return p;
 }
 
+// Asked about themself, a castellan with a past (contract version 19): twelve years at the post, a sergeant
+// of the garrison before it, sworn to the realm's sovereign, and a war their city won in their lifetime.
+inline FactPacket about_a_castellan_with_a_past() {
+    FactPacket p = about_them_without_a_past();
+    for (Fact& f : p.facts)
+        if (f.kind == FactKind::Self) {
+            f.fields.emplace_back("held_years", "12");
+            f.fields.emplace_back("served_at", "the garrison of Wenweg (Age 2)");
+            f.fields.emplace_back("served_as", "sergeant");
+        }
+    const auto first_person = std::find_if(p.facts.begin(), p.facts.end(), [](const Fact& f) { return f.kind == FactKind::Person; });
+    const auto sworn = p.facts.insert(first_person, {FactKind::Person, "hero-sovereign-surface-city-2-212-human_cold",
+                                                     {{"name", "Brenbrann"}, {"role", "sovereign"}, {"status", "about"}, {"tie", "liege"}}});
+    p.facts.insert(sworn, {FactKind::Deed, "war-3",
+                           {{"deed", "war"}, {"part", "credited"}, {"war", "international"}, {"place", "Wenweg (Age 2)"}, {"when", "this age"}}});
+    return p;
+}
+
+// The same castellan a few years at the post, second in command at another fortress before it, and no war.
+inline FactPacket about_a_castellan_second_elsewhere() {
+    FactPacket p = about_them_without_a_past();
+    for (Fact& f : p.facts)
+        if (f.kind == FactKind::Self) {
+            f.fields.emplace_back("held_years", "3");
+            f.fields.emplace_back("served_at", "the fortress above Mokdorl (Age 2)");
+            f.fields.emplace_back("served_as", "second");
+        }
+    return p;
+}
+
 // Asked about themself, a hero far from home: the castellan's record with home elsewhere.
 inline FactPacket about_them_far_from_home() {
     FactPacket p = about_them();
@@ -700,6 +730,8 @@ inline std::vector<FactPacket> conversation() {
             about_them_far_from_home(),
             about_them_without_rivals(),
             about_them_without_a_past(),
+            about_a_castellan_with_a_past(),
+            about_a_castellan_second_elsewhere(),
             small_talk_after_work(),
             small_talk_after_work_near(),
             beside(small_talk_after_work()),

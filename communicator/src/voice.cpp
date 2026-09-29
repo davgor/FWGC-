@@ -154,6 +154,10 @@ std::string fact_line(const Fact& fact, const FactPacket& packet) {
             if (const std::string stand = standing_words(fact); !stand.empty()) about.push_back("you " + after_you(stand));
             if (const std::string after = after_words(fact); !after.empty()) about.push_back("you mean to " + after);
             if (const std::string lost = lost_words(fact); !lost.empty()) about.push_back("you " + lost);
+            // A castellan's past (contract version 19). A Self fact without it gives the line as before.
+            if (const std::string held = held_words(fact); !held.empty()) about.push_back("you have held your post " + held);
+            if (const std::string served = served_words(fact); !served.empty())
+                about.push_back("before it you " + (served.rfind("was ", 0) == 0 ? "were " + served.substr(4) : served));
             return about.empty() ? std::string() : "- Yourself: " + join(about, "; ") + ".";
         }
         case FactKind::Deed:

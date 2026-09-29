@@ -36,6 +36,17 @@ std::string ties_words(const orchestrator::FactPacket& packet);
 // when the packet names no rival.
 std::string foes_words(const orchestrator::FactPacket& packet);
 
+// How long a castellan has held their post (contract version 19), as words that follow "I've held it":
+// "a few years", "the better part of ten years", "ten years and more", "near on twenty years",
+// "twenty years and more", "near on thirty years". Empty when the Self fact does not say. Counted, but
+// the Self fact's own: the truth check reads them as backed.
+std::string held_words(const orchestrator::Fact& self);
+
+// Where a castellan served before their post, and as what (contract version 19), as words that follow
+// "I": "served as a soldier in the garrison of Iskmor", "was second in command at the fortress above
+// Mokdorl". Empty when the Self fact does not say.
+std::string served_words(const orchestrator::Fact& self);
+
 // When they were born, against the world's latest age: "this age", "the last age", "ages ago",
 // as the Self fact has it. Empty when it does not say.
 std::string born_words(const orchestrator::Fact& self);

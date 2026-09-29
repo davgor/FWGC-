@@ -409,6 +409,14 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         {packets::about_them_without_rivals(),
          {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
           "them_secret", "them_home", "them_foes_none"}},
+        // A castellan's past (contract version 19): how long, and where they served, last.
+        {packets::about_a_castellan_with_a_past(),
+         {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
+          "them_secret", "them_home", "them_foes", "them_long_known", "them_past_served"}},
+        // Where they served is a past of its own, with no deed or city lost beside it.
+        {packets::about_a_castellan_second_elsewhere(),
+         {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",
+          "them_secret", "them_home", "them_foes", "them_long_known", "them_past_served"}},
         {packets::thanked(), {"thanked"}},
         {packets::thanked("hostile"), {"thanked_cold"}},
         {packets::offended(false), {"offended"}},
@@ -972,6 +980,57 @@ TEST(asked_where_home_is_they_say_where_home_is) {
                  "no home on record: how they stand here, from their own bank");
     check::equal(lines.speak(home, "Is this your post?", {}, &meaning), std::string("I command the garrison here, as ever."),
                  "their post: how they stand here, as ever");
+}
+
+// A castellan's past (contract version 19): how long they have held their post, and where they served
+// before it, each asked alone, as home is: their own bank's lines of how long without the years, and of a
+// past without where they served, would shadow `any`'s with them. "How long have you held it?" had drawn
+// "long enough that I've stopped counting" (the hero benchmark's first judge, 2026-09-28). Without them on
+// record, as before.
+TEST(a_castellan_says_how_long_they_have_held_it_and_where_they_served) {
+    communicator::Meaning meaning(test_model::embedder());
+    const Lines lines = Lines::parse("warden/LN | them_long | It's been long enough that I've stopped counting; I {standing}.\n"
+                                     "warden/LN | them_past | I {done}.\n"
+                                     "any | them_who | I'm {speaker}.\n"
+                                     "any | them_long_known | I've held this post {held_for}.\n"
+                                     "any | them_past_served | Before this post I {served}.\n"
+                                     "any | them_past_none | Nothing worth the telling.\n",
+                                     "castellan");
+    const FactPacket sworn = packets::about_a_castellan_with_a_past();
+    check::equal(sworn.persona.voice_key, std::string("warden/LN"), "the premise: the speaker's own bank has how long and a past without them");
+    check::equal(lines.speak(sworn, "How long have you held it?", {}, &meaning), std::string("I've held this post ten years and more."),
+                 "how long: the years");
+    check::equal(lines.speak(sworn, "Where were you before all this?", {}, &meaning),
+                 std::string("Before this post I served as a sergeant in the garrison of Wenweg."), "before: where they served");
+    const FactPacket second = packets::about_a_castellan_second_elsewhere();
+    check::equal(lines.speak(second, "How long have you held it?", {}, &meaning), std::string("I've held this post a few years."),
+                 "a few years");
+    check::equal(lines.speak(second, "Where were you before all this?", {}, &meaning),
+                 std::string("Before this post I was second in command at the fortress above Mokdorl."), "second at another fortress");
+    const FactPacket pastless = packets::about_them_without_a_past();
+    check::equal(lines.speak(pastless, "How long have you held it?", {}, &meaning),
+                 std::string("It's been long enough that I've stopped counting; I command the garrison here."), "no years on record: as before");
+    check::equal(lines.speak(pastless, "Where were you before all this?", {}, &meaning), std::string("Nothing worth the telling."),
+                 "no past on record: as before");
+    // No line of it in any bank: as before, from their own bank.
+    const Lines older = Lines::parse("warden/LN | them_long | It's been long enough that I've stopped counting; I {standing}.\n"
+                                     "warden/LN | them_past | I {done}.\n"
+                                     "any | them_who | I'm {speaker}.\n",
+                                     "older");
+    check::equal(older.speak(sworn, "How long have you held it?", {}, &meaning),
+                 std::string("It's been long enough that I've stopped counting; I command the garrison here."), "no line of the years: as before");
+    check::equal(older.speak(sworn, "Where were you before all this?", {}, &meaning), std::string("I won a war between realms."),
+                 "no line of where they served: their deed, as before");
+    // Asked again, the years and where they served are said again though heard lately: they are what was asked.
+    const Lines again = Lines::parse("any | them_long_known | I've held this post {held_for}.\n"
+                                     "any | them_long_known | It's been long enough, now.\n"
+                                     "any | them_past_served | Before this post I {served}.\n"
+                                     "any | them_past_served | There's little worth the telling.\n",
+                                     "again");
+    check::equal(again.speak(sworn, "How long have you held it?", {"It's been ten years and more now."}, &meaning),
+                 std::string("I've held this post ten years and more."), "the years, heard lately");
+    check::equal(again.speak(sworn, "Where were you before all this?", {"I served as a sergeant in the garrison of Wenweg, once."}, &meaning),
+                 std::string("Before this post I served as a sergeant in the garrison of Wenweg."), "where they served, heard lately");
 }
 
 // Measured once, never tuned to. The first 15: 12 right with the descriptions first written, 14 with
@@ -2185,7 +2244,9 @@ TEST(another_givers_work_is_named_with_how_they_stand_to_the_speaker) {
     for (const auto& [tie, said] : std::vector<std::pair<std::string, std::string>>{
              {"ally", "Halbrann the pretender, who stands with me, wants someone to help them take back Linbrig"},
              {"kin", "Halbrann the pretender, my own kin, wants someone to help them take back Linbrig"},
-             {"rival", "Halbrann the pretender, my rival, wants someone to help them take back Linbrig"}}) {
+             {"rival", "Halbrann the pretender, my rival, wants someone to help them take back Linbrig"},
+             // The sovereign a castellan is sworn to (contract version 19).
+             {"liege", "Halbrann the pretender, whom I serve, wants someone to help them take back Linbrig"}}) {
         FactPacket tied = p;
         for (Fact& f : tied.facts)
             if (f.kind == FactKind::QuestOffer && f.subject == packets::kBrokeredOffer) f.fields.emplace_back("giver_tie", tie);

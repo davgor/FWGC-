@@ -122,8 +122,30 @@ std::string done_words(const Fact& deed) {
     return {};
 }
 
+std::string held_words(const Fact& self) {
+    const std::string years = field_of(self, "held_years");
+    if (years.empty() || years.find_first_not_of("0123456789") != std::string::npos || years.size() > 4) return {};
+    const int n = std::stoi(years);
+    if (n < 1) return {};
+    if (n <= 5) return "a few years";
+    if (n <= 9) return "the better part of ten years";
+    if (n <= 14) return "ten years and more";
+    if (n <= 19) return "near on twenty years";
+    if (n <= 24) return "twenty years and more";
+    return "near on thirty years";
+}
+
+std::string served_words(const Fact& self) {
+    const std::string at = name_of(self, "served_at");
+    const std::string as = field_of(self, "served_as");
+    if (at.empty()) return {};
+    if (as == "second" && at.rfind("the fortress", 0) == 0) return "was second in command at " + at;
+    if (as == "soldier" || as == "sergeant") return "served as a " + as + " in " + at;
+    return {};
+}
+
 std::string ties_words(const FactPacket& packet) {
-    std::vector<std::string> allies, rivals, kin;
+    std::vector<std::string> allies, rivals, kin, lieges;
     for (const Fact& f : packet.facts) {
         if (f.kind != FactKind::Person) continue;
         const std::string tie = field_of(f, "tie");
@@ -132,8 +154,11 @@ std::string ties_words(const FactPacket& packet) {
         if (tie == "ally") allies.push_back(name);
         if (tie == "rival") rivals.push_back(name);
         if (tie == "kin") kin.push_back(name);
+        if (tie == "liege") lieges.push_back(name);
     }
     std::vector<std::string> parts;
+    // The sovereign they are sworn to (contract version 19), first.
+    if (!lieges.empty()) parts.push_back("I'm sworn to " + joined_names(lieges));
     if (!allies.empty()) parts.push_back(joined_names(allies) + (allies.size() == 1 ? " stands with me" : " stand with me"));
     if (!kin.empty()) parts.push_back(joined_names(kin) + (kin.size() == 1 ? " is my kin" : " are my kin"));
     if (!rivals.empty()) parts.push_back(joined_names(rivals) + (rivals.size() == 1 ? " is my rival" : " are my rivals"));

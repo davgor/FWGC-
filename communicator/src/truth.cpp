@@ -585,6 +585,10 @@ std::vector<std::string> untrue(std::string_view typed, const FactPacket& packet
     for (const Recall& r : recalls(packet))
         if (r.memory == "told")
             if (const std::string when = since_words(r.since); !when.empty()) blank(undated, "told you " + when);
+    // How long a castellan has held their post (contract version 19), in C++'s words from the Self fact
+    // ("the better part of ten years"): the record's, not a time counted out.
+    if (const Fact* self = self_of(packet))
+        if (const std::string held = held_words(*self); !held.empty()) blank(undated, lowered(held));
     counted(undated, packet, out);
     since(undated, packet, out);
     met(said, packet, out);

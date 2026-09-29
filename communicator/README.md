@@ -538,7 +538,8 @@ themself").
   one conversation heard "the Abyssal krakens nesting an hour's walk away" four times). A bank with no
   line of the one asked answers from the next: need, stakes, what they are after. **How long**
   (`them_long`), which the world does not record, is said as someone who has stopped counting ("More
-  seasons than I care to count"), and from `them_here` where a bank has no line of it.
+  seasons than I care to count"), and from `them_here` where a bank has no line of it; a castellan's
+  years at the post are on record since contract version 19 (below).
 - **Asked for work again** with nothing new to it, a speaker says so (`work_own_told`,
   `work_others_told`), as other answers said again are: the same list, word for word, in two
   conversations days apart. The first time they are asked in a conversation, a speaker with work
@@ -691,6 +692,20 @@ From the sixth round's judges (2026-09-28, six sessions, the sixth held out):
 - **No past on record** (`them_past_none`): asked about their past with no city lost and no deed but
   the post they keep (every benchmark hero's record), a speaker says there is nothing worth the
   telling, never who they are again in its place; with no line of it, who they are, as ever.
+- **A castellan's past** (contract version 19; the owner, 2026-09-28: "Yup lets add one in"): how long
+  they have held their post (`them_long_known`, `{held_for}`: C++'s words for the Self fact's years, "a
+  few years", "the better part of ten years", "ten years and more", "near on twenty years", "twenty
+  years and more", "near on thirty years") and where they served before it (`them_past_served`,
+  `{served}` after "I": "served as a sergeant in the garrison of Iskmor", "was second in command at the
+  fortress above Mokdorl"), each asked alone, as home is, since a bank's lines of how long without the
+  years would shadow `any`'s with them; with no line of it, as before. Said again though heard lately:
+  they are what was asked. Where they served is a past of its own, so `them_past_none` is for those
+  with none. The sovereign they are sworn to is first of their ties ("I'm sworn to Brenbrann") and
+  named so in another giver's work ("Brenbrann the sovereign, whom I serve, wants someone to ...").
+  The truth check reads the years as the Self fact's own, not a time counted out, and the voice is
+  shown both ("you have held your post ten years and more; before it you served as a sergeant in the
+  garrison of Iskmor"): prompts without them are unchanged. "How long have you held it?" had drawn "long
+  enough that I've stopped counting" (the benchmark's first judge).
 - **Luck to both** (`parted_work_beside`) at a farewell with the speaker's own work to do beside them
   (contract version 14's `beside`): luck to the stranger alone had sent them off by themself on work
   offered "with me".

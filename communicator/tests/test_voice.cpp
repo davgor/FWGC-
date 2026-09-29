@@ -304,6 +304,17 @@ TEST(the_prompt_says_what_the_speaker_remembers_and_the_new_facts_in_words) {
                                    "The stranger asked about you. Answer what they asked"})
         check::is_true(them.find(said) != std::string::npos, "about themself: " + said);
     check::is_true(prompt_of(voice, packets::about_self(), "Who are you?").find("Yourself:") == std::string::npos, "the control");
+    // A castellan's past (contract version 19): the years at the post and where they served before it, in
+    // C++'s words; the sovereign as a tie. A Self fact without them gives the line as it was (above).
+    const std::string sworn = prompt_of(voice, packets::about_a_castellan_with_a_past(), "How long have you held it?");
+    for (const std::string said : {"; you have held your post ten years and more; before it you served as a sergeant in the garrison of Wenweg.",
+                                   "- Something of your own past: you won a war between realms.",
+                                   "- Brenbrann: role: sovereign; status: about; tie: liege"})
+        check::is_true(sworn.find(said) != std::string::npos, "a castellan's past: " + said);
+    check::is_true(prompt_of(voice, packets::about_a_castellan_second_elsewhere(), "Where were you before?")
+                           .find("; you have held your post a few years; before it you were second in command at the fortress above Mokdorl.") !=
+                       std::string::npos,
+                   "second at another fortress");
 }
 
 TEST(work_from_others_is_never_offered_as_the_speakers_own) {

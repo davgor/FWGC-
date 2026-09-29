@@ -74,7 +74,9 @@ voice | situation | line
   | `parted_returned` (a farewell that wishes the speaker well, wished back: "Take care, and the same to you") | |
   | `heard` (a complaint about the speaker or their work, heard out: contract version 18's `complain` and `heard`; opens as fair, "That's fair", "Maybe so", "I hear you", never a rebuke) | |
   | `parted_work_beside` (a farewell with the speaker's own work to do beside them, contract version 14's `beside`: luck to them both, since the work was offered "with me") | |
-  | `them_past_none` (asked about their past with none on record: no city lost, no deed but the post they keep; nothing worth the telling, never a past made up) | |
+  | `them_past_none` (asked about their past with none on record: no city lost, no deed but the post they keep, nowhere served before it; nothing worth the telling, never a past made up) | |
+  | `them_long_known` (how long a castellan has held their post, on record since contract version 19) | `{held_for}` ("ten years and more", after "for" or "held it"), `{standing}` |
+  | `them_past_served` (where a castellan served before their post, contract version 19) | `{served}` (after "I": "served as a sergeant in the garrison of Iskmor"), `{done}`, `{lost}` |
   | `recalled_grief`, `recalled_hardship`, `recalled_doubt` (the stranger's words said back as what they were: a loss, a hardship, fear they came through with the speaker's work done; one sentence, the recalled rules, and `recalled_hardship` alone may ask, "is it any easier now?") | `{words}` |
   | `greeted_who` (said after a first greeting that asks who they are) | |
 
@@ -320,7 +322,9 @@ is fine; one that no packet the game gives can make true is never heard.
 - **What a hero says of themself is the blanks'** (`them_*`, contract version 13): `{after}` is a
   verb phrase after "to", `{standing}`, `{lost}`, `{feat}` and `{done}` follow "I", `{ties}` is a
   whole clause that may hold only allies or only rivals, `{danger}` a plural creature after "the".
-  How long they have been anywhere is never a time (`them_long`): the world does not record it.
+  How long they have been anywhere is never a time (`them_long`): the world does not record it. A
+  castellan's years at their post are `{held_for}` (`them_long_known`), C++'s words from their record,
+  and never a count of the line's own.
   What they hide stays hidden without being named (`them_secret`): no packet holds it. What comes if
   the work fails is only what the blanks say (`them_stakes`, `them_need`): no burning city of the
   line's own.

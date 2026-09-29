@@ -369,3 +369,12 @@ any | them_after | {home} is home, and that's reason enough to stand here.
 any | them_need | No one holds a place alone[ against the {danger}].
 any | them_stakes | Then the {danger} have their way, and I'd not like to see it.
 any | them_plans | When it's done, I'd like some quiet[ in {home_here}].
+# A castellan's past (contract version 19): how long they have held their post, and where they served
+# before it, in C++'s words from the Self fact; what they did beside it only when it is on record.
+any | them_long_known | I've held this post {held_for}.
+any | them_long_known | I {standing}, and have for {held_for}.
+any | them_long_known | It's been {held_for} now, and I {standing} still.
+any | them_long_known | This post has been mine for {held_for}.
+any | them_past_served | Before this post I {served}[, and I {done}].
+any | them_past_served | I {served}, before this post was mine.[ And I {done}.]
+any | them_past_served | Before this I {served}.[ I {done}, too.]
