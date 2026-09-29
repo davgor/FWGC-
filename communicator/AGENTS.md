@@ -80,6 +80,9 @@ ctest --test-dir communicator/build -C Release --no-tests=error
     still there: the packet does not say. Fear shows in how they speak.
   - No saying after a farewell: four blind judges of five heard one there as a non sequitur or a
     rebuke (2026-09-28). The rules check refuses it.
+  - No question after an apology for how the stranger is (`unwronged_state`): "Whatever for?", two
+    turns after a brother's death, took the stranger's state as having no cause (2026-09-28). The
+    rules check refuses it.
 - **News is said in C++'s words** (`src/news.hpp`, contract version 11): what the stranger did,
   and what happened, written from a News fact's own fields. A written line's `{deed}` and `{news}`
   hold them whole, and the voice is shown them as they are; neither adds what happened, who else
@@ -113,7 +116,9 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   theirs. The words are never said back after a greeting that thanks the stranger for easing the
   speaker, nor one for work the stranger holds, failed or gave up, nor the one that thanks them for
   work finished while that is news between them (`says_back`, contract version 17). Words that speak to
-  someone are never said back. "As I told you" before an answer is C++'s, dated by the Recall fact.
+  someone are never said back, nor words of "we": whether the speaker was one of them the words do not
+  say, and "you lost two good people" handed a shared loss back (two judges, 2026-09-28). "As I told
+  you" before an answer is C++'s, dated by the Recall fact.
 - **The summarizer's answer is held by a grammar** (`summarizer.hpp`): a quote only as a run of the
   stranger's own whole words within one sentence, never a question; the rest in lower case and the
   log's own capitalised words. The director checks it again; a change to what may be quoted comes
