@@ -106,7 +106,8 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   same nest four times.
 - **The player's own words come back only as C++ turns them** (contract version 12): `{words}` is
   the kept words said back to the stranger (`text::said_back`), and a `recalled` line adds only how
-  the speaker takes having kept them: no fact about them, no question after them, no judgement of
+  the speaker takes having kept them: no fact about them, no question after them (but "is it any
+  easier now?" after a hardship, `recalled_hardship`, which fits any), no judgement of
   them, no claim they are exact, no when, and no praise of the speaker's own memory or listening ("I've
   a good memory for what folk tell me", "you got an ear": three blind judges heard a boast,
   2026-09-28). Before the words begin it says the stranger told them
