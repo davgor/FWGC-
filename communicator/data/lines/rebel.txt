@@ -908,6 +908,7 @@ rebel/NN | acknowledged_deed_work | Good; I want people who've done things, not 
 rebel/NN | greeted_finished_beside | Hello again. We did that shoulder to shoulder, and I'd do it again with you tomorrow.
 rebel/NN | thanked_work | Don't mention it; I'd rather have your hands than your thanks.
 rebel/NN | offended_complaint | Enough; I hid nothing from you, and if it went harder than it looked, we'll both carry that, not you alone.
+rebel/NN | heard | That's fair; I hid nothing from you, and if it went harder than it looked, we'll both carry that, not you alone.
 rebel/NN | unwronged_state | No harm done. Nobody stands straight every day, and I'd not ask it of you.
 rebel/NN | greeted_who | I'm {speaker}, {post} of {place}, and you'll not need to bow to either.
 # Round two (2026-09-28): what five blind judges found.

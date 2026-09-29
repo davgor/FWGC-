@@ -906,6 +906,7 @@ trickster/NN | acknowledged_deed_work | Good; I was hoping someone like that wou
 trickster/NN | greeted_finished_beside | Well met again. We pulled it off between us, and I've a story about it that's only half exaggerated.
 trickster/NN | thanked_work | My pleasure, though thanks before the deal's closed make me nervous; it's usually me saying them.
 trickster/NN | offended_complaint | Careful; if I'd known more, you'd have had it, since there's no profit for me in you falling on your face.
+trickster/NN | heard | Fair enough; if I'd known more, you'd have had it, since there's no profit for me in you falling on your face.
 trickster/NN | unwronged_state | No harm done; I've seen people at their worst, and you're nowhere near it, so don't give it another thought.
 trickster/NN | greeted_who | {speaker}, {post} here, and I'll let you decide whether that's good news.
 # Round two (2026-09-28): what five blind judges found.

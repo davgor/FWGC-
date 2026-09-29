@@ -905,6 +905,7 @@ mastermind/NN | greeted_finished_beside | Good to see you. I planned that work, 
 mastermind/NN | greeted_finished_beside | Back again. I last saw you {since}, and I've planned with you in mind ever since we stood side by side.
 mastermind/NN | thanked_work | No need; I look after whoever carries part of my plan, and I don't do it for thanks.
 mastermind/NN | offended_complaint | Careful; if I'd known more I'd have said so, since a surprise out there costs my plan as much as it costs you.
+mastermind/NN | heard | That's fair; if I'd known more I'd have said so, since a surprise out there costs my plan as much as it costs you.
 mastermind/NN | unwronged_state | Nothing to forgive; I plan around people as they are, not as I'd wish them to be. You'll be yourself again, and I can wait.
 mastermind/NN | greeted_who | I'm {speaker}, {post} here, and I'll hear what you want before I decide what it's worth.
 # Round two (2026-09-28): what five blind judges found.

@@ -906,6 +906,7 @@ fallen_hero/NN | greeted_finished_beside | Good to see you. That work had both o
 fallen_hero/NN | greeted_finished_beside | Well met again. I was there beside you, and that's one nobody can say I lost.
 fallen_hero/NN | thanked_work | No need; save your thanks until it's over, and see if you still mean them.
 fallen_hero/NN | offended_complaint | Hold your tongue; I never dressed the work up, and I'll not be blamed for what it turned out to be.
+fallen_hero/NN | heard | I hear you; I never dressed the work up, but I never saw the whole of it either.
 fallen_hero/NN | unwronged_state | Nothing to forgive; nobody's at their best all the time, and I'd know.
 fallen_hero/NN | greeted_who | I'm {speaker}, {post} of {place}; whatever else you've heard of me, that's what I am now.
 # Round two (2026-09-28): what five blind judges found.

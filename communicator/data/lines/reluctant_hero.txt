@@ -1024,6 +1024,7 @@ reluctant_hero/NN | acknowledged_deed_work | Good; then the work might go easier
 reluctant_hero/NN | greeted_finished_beside | Welcome back. You pulled your share beside me, and that's what made it bearable.
 reluctant_hero/NN | thanked_work | Don't mention it; help is worth more to me than thanks, and I'm tired enough to take either.
 reluctant_hero/NN | offended_complaint | Enough; I told you all I knew, and I never wanted any of this on your plate or mine.
+reluctant_hero/NN | heard | I know; I told you all I knew, and I never wanted any of this on your plate or mine.
 reluctant_hero/NN | unwronged_state | There's nothing to forgive. I'm not at my best most days myself, and I'd never ask anyone to apologise for it.
 reluctant_hero/NN | greeted_who | I'm {speaker}, and I'm {post} here, though I didn't volunteer for it.
 # Round two (2026-09-28): what five blind judges found.

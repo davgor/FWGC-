@@ -401,6 +401,7 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         {packets::thanked_with_work("offered"), {"thanked", "thanked_work"}},
         {packets::thanked_with_work("finished"), {"thanked"}},
         {packets::offended_after("finished"), {"offended", "offended_complaint"}},
+        {packets::heard(), {"heard"}},
         {packets::offended_after(""), {"offended"}},
         {packets::about_them(),
          {"them_who", "them_here", "them_long", "them_after", "them_need", "them_stakes", "them_past", "them_ties", "them_plans",

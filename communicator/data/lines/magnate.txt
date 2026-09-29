@@ -1023,6 +1023,7 @@ magnate/NN | greeted_finished_beside | Welcome back. I saw you deliver with my o
 magnate/NN | greeted_finished_beside | Back again. I last saw you {since}, and the work we did side by side is still the best entry on my books.
 magnate/NN | thanked_work | Don't mention it; thank me when the account is closed and we've both done well by it.
 magnate/NN | offended_complaint | Careful; I offered you the work as I found it, and I've never once passed off bad goods as sound.
+magnate/NN | heard | Fair enough; I offered you the work as I found it, and it turned out costlier than it looked.
 magnate/NN | unwronged_state | Nothing to forgive; an apology's the one thing I never ask anyone to bring me, and I'll not start with you.
 magnate/NN | greeted_who | I'm {speaker}, {post} here, and I keep an account of everyone I deal with.
 # Round two (2026-09-28): what five blind judges found.

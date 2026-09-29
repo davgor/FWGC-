@@ -891,6 +891,7 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"thanked_work", {}},
         // A complaint about the speaker's work, heard as an insult: answered as a complaint (speak()).
         {"offended_complaint", {}},
+        {"heard", {}},
         // Who the speaker is, said after a greeting that asks (Lines::follow's way, in speak()).
         {"greeted_who", {}},
         {"thanked", {}},
@@ -1101,6 +1102,10 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             // The same: a bank's plain line may deny ever being afraid ("the shake's from the hammer,
             // not from nerves"), which the stranger who talked them down knows is untrue.
             return {m.eased ? "not_afraid_eased" : "not_afraid"};
+        case Outcome::Heard:
+            // A complaint heard out (contract version 18): a speaker cold to the stranger took it as an
+            // insult, so no chain crosses to their lines.
+            return {"heard"};
         default: {
             std::string one = single_situation(p);
             if (one.empty()) return {};
@@ -1167,6 +1172,7 @@ std::string Lines::single_situation(const FactPacket& p) {
         case Outcome::Calmed:
         case Outcome::StillAfraid:
         case Outcome::NotAfraid:
+        case Outcome::Heard:
             break;  // situations_for chains these
     }
     return {};

@@ -1023,6 +1023,7 @@ warden/NN | acknowledged_deed_work | Good; the work needs hands like that, and I
 warden/NN | greeted_finished_beside | Well met again. You held your ground at my side, and that's worth more to me than words.
 warden/NN | thanked_work | No need; hold up your end, and we're square.
 warden/NN | offended_complaint | There's no need for that; I gave it to you as I had it, and nobody sees everything that's coming.
+warden/NN | heard | That's fair; I gave it to you as I had it, and nobody sees everything that's coming.
 warden/NN | unwronged_state | There's nothing to forgive; we all carry something. Take a breath, and let it lie a while.
 warden/NN | greeted_who | I'm {speaker}, {post} here, and here is where you'll find me.
 # Round two (2026-09-28): what five blind judges found.

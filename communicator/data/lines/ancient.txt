@@ -432,6 +432,7 @@ ancient/NN | acknowledged_deed_work | Good. That's worth something to me, and th
 ancient/NN | greeted_finished_beside | Good to see you. We did that work shoulder to shoulder, and I took your measure while we were at it.
 ancient/NN | thanked_work | No need; it's a bargain, not a kindness, and a bargain's thanked by keeping it.
 ancient/NN | offended_complaint | Careful; I weighed the work fairly when I put it to you, and I'll not be blamed for its weight now.
+ancient/NN | heard | Fair enough; I weighed the work as fairly as I could when I put it to you, and its weight was more than either of us knew.
 ancient/NN | unwronged_state | Nothing to forgive. Take your time coming back to yourself; I can wait.
 ancient/NN | greeted_who | {speaker}, {post} here; I've time to hear you out, if you've something worth hearing.
 # Round two (2026-09-28): what five blind judges found.

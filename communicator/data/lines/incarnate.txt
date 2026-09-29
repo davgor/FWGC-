@@ -675,6 +675,7 @@ incarnate/NN | acknowledged_deed_work | Good; that counts for you where the work
 incarnate/NN | greeted_finished_beside | Good to see you. You held your side of it and I held mine, and that's how a thing comes out even.
 incarnate/NN | thanked_work | Don't mention it; thanks can wait until the scale's settled.
 incarnate/NN | offended_complaint | Careful; I gave it you straight, with nothing hidden on either side, and I'll not shade it now to suit you.
+incarnate/NN | heard | That's fair; I gave it you straight, with nothing hidden, and still it was more than I knew.
 incarnate/NN | unwronged_state | Nothing to forgive. Nobody's level every day, and I don't hold it against anyone who isn't.
 incarnate/NN | greeted_who | I'm {speaker}, {post} here, and you'll find me square with you whoever you turn out to be.
 # Round two (2026-09-28): what five blind judges found.

@@ -551,6 +551,7 @@ turncoat/NN | acknowledged_deed_work | Good. That's useful to me right now, and 
 turncoat/NN | greeted_finished_beside | Well met again. We came out ahead, and I remember exactly who was standing next to me.
 turncoat/NN | thanked_work | No need; I picked you on the arithmetic, so don't make a liar of it.
 turncoat/NN | offended_complaint | Careful; nobody knows the whole of a thing before it's done, me included, and I never pretended otherwise.
+turncoat/NN | heard | Maybe so; nobody knows the whole of a thing before it's done, me included.
 turncoat/NN | unwronged_state | Nothing to forgive; you don't owe me a good mood. Nobody's at their best every day, me least of all.
 turncoat/NN | greeted_who | I'm {speaker}, {post} here, for as long as that makes sense.
 # Round two (2026-09-28): what five blind judges found.

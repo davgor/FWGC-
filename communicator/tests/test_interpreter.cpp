@@ -175,11 +175,11 @@ TEST(an_act_that_changes_the_world_comes_with_a_question) {
 TEST(the_acts_offered_are_the_contracts_own) {
     // Every act of the contract, by the contract's own name, is offered once there is something
     // of every kind to point at, a question from the speaker to answer, a frightened speaker to
-    // calm, and a line that speaks to them.
+    // calm, a line that speaks to them, and the speaker's own work between them.
     Interpreter interpreter(test_model::model());
     Known known = told();
     known.learn(packets::accepted());  // something held, to abandon
-    const Question q = interpreter.act_question("Hello. Who are you?", known, "Have you come far?", true);
+    const Question q = interpreter.act_question("Hello. Who are you?", known, "Have you come far?", true, true);
     const std::string prompt = all_of(q);
     for (int i = 0; i < orchestrator::kActCount; ++i) {
         const std::string name(orchestrator::to_string(static_cast<ActKind>(i)));
@@ -196,6 +196,9 @@ TEST(the_acts_offered_are_the_contracts_own) {
     // Nor a question about the speaker in a line that does not speak to them.
     check::is_true(unasked.grammar.find("\"ask_about_them\"") == std::string::npos, "no question about them in a line not to them");
     check::is_true(all_of(unasked).find("- ask_about_them:") == std::string::npos, "nor in the prompt");
+    // Nor a complaint with none of the speaker's work between them (contract version 18).
+    check::is_true(unasked.grammar.find("\"complain\"") == std::string::npos, "no complaint without their work between them");
+    check::is_true(all_of(unasked).find("- complain:") == std::string::npos, "nor in the prompt");
 }
 
 TEST(a_target_is_asked_among_the_likeliest_few_and_none) {

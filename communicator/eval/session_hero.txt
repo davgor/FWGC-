@@ -34,7 +34,7 @@ say hero greet | It's done. The fortress held.
 say hero small_talk | Was it as bad as you feared?
 say hero answer | I nearly lost my arm on the second night.
 say hero ask_for_work | Is there more I can do?
-say hero insult | You could have warned me it would be that bad.
+say hero complain | You could have warned me it would be that bad.
 say hero apologize | Sorry. I'm just tired.
 say hero farewell | I'll rest a while. Goodbye.
 

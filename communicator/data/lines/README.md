@@ -72,6 +72,7 @@ voice | situation | line
   | `thanked_work` (thanked for their own work while it is still to do), `offended_complaint` (a complaint about their work), `unwronged_state` (an apology for how the stranger is: never opened with a question, "Whatever for?", which took a grieving stranger's state as having no cause), `forgiven_state` (the same, once there is a wrong to forgive) | |
   | `parted_work` (a farewell to someone with the speaker's work to do: luck, never what the work is like or who goes) | |
   | `parted_returned` (a farewell that wishes the speaker well, wished back: "Take care, and the same to you") | |
+  | `heard` (a complaint about the speaker or their work, heard out: contract version 18's `complain` and `heard`; opens as fair, "That's fair", "Maybe so", "I hear you", never a rebuke) | |
   | `parted_work_beside` (a farewell with the speaker's own work to do beside them, contract version 14's `beside`: luck to them both, since the work was offered "with me") | |
   | `them_past_none` (asked about their past with none on record: no city lost, no deed but the post they keep; nothing worth the telling, never a past made up) | |
   | `recalled_grief`, `recalled_hardship`, `recalled_doubt` (the stranger's words said back as what they were: a loss, a hardship, fear they came through with the speaker's work done; one sentence, the recalled rules, and `recalled_hardship` alone may ask, "is it any easier now?") | `{words}` |

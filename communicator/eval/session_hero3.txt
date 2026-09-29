@@ -24,7 +24,7 @@ resolve hero finished
 say hero greet | Hello again. It's done.
 say hero small_talk | Was it worth all that?
 say hero answer | We lost two good people out there.
-say hero insult | You never said there'd be so many of them.
+say hero complain | You never said there'd be so many of them.
 say hero apologize | Sorry. It's been a long few days.
 say hero farewell | I'll be at the inn.
 

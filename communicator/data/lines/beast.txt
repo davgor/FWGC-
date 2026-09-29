@@ -925,6 +925,7 @@ beast/NN | acknowledged_deed_work | Good. Let the work show it, and I'll believe
 beast/NN | greeted_finished_beside | Good to see you. You worked at my side, and that makes you one of my own now.
 beast/NN | thanked_work | Don't mention it; thanks don't get it done.
 beast/NN | offended_complaint | Watch your tongue; I didn't talk the work up or down when I asked, and my patience for blame is short.
+beast/NN | heard | Maybe so; I didn't talk the work up or down when I asked, and it bit harder than I knew.
 beast/NN | unwronged_state | Nothing to forgive. Take what room you need; I'm not one to crowd anybody.
 beast/NN | greeted_who | {speaker}, {post} here, and not much for talk.
 # Round two (2026-09-28): what five blind judges found.

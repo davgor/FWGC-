@@ -84,7 +84,9 @@ context | last_reply | line | act | target | tags
 
 - **context:** what the player has been told (below). A context ending `-afraid`
   (`castellan-afraid`) is the same with its speaker frightened: only then is `calm` offered
-  (contract version 9).
+  (contract version 9). One ending `-worked` (`castellan-worked`, `castellan-held-worked`) has the
+  speaker's own work between them, taken or done: only then is `complain` offered (contract version
+  18).
 - **last_reply:** what the speaker said just before, or `-`.
 - **line:** what the player types.
 - **act:** the act the director should answer, by the contract's name.
@@ -128,6 +130,9 @@ context | last_reply | line | act | target | tags
     - talk for its own sake -- how the speaker is, the weather, the day, their trade, a remark
       about the place -- is `small_talk`;
     - an insult, or a threat, is `insult`;
+    - a complaint about the speaker or their work -- it was worse than they said, they should
+      have warned -- is `complain` (contract version 18), where their work is between them
+      (`-worked`); name-calling and threats there are `insult` still;
     - telling the speaker they are not what they seem is `confront`;
     - answering a question the speaker just asked (`last_reply`) is `answer`, unless the line
       takes or turns down work, or leaves. A line that follows no question is not an answer.

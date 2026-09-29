@@ -53,6 +53,8 @@ std::vector<std::pair<FactPacket, std::string>> outcome_cases() {
         {packets::safety_unsafe(), "Is it safe out there?"},
         {packets::exposed_mask(), "I know you're no midwife."},
         {packets::denied(false), "You're not what you seem."},
+        // Contract version 18: a complaint heard out.
+        {packets::heard(), "That job was far worse than you let on."},
     };
 }
 

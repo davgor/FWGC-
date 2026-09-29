@@ -186,6 +186,12 @@ ReplyShape reply_shape(const orchestrator::FactPacket& packet) {
                 shape.openings = {"I'm not afraid", "I'm fine", "I'm all right", "There's no need", "Who said I was afraid"};
             shape.sentences = 1;
             break;
+        // 18: a complaint heard out, never a rebuke: "Careful; ..." to a grieving ally was faulted by
+        // three blind judges of six (2026-09-28).
+        case Outcome::Heard:
+            shape.openings = {"That's fair", "Fair enough", "I hear you", "Maybe so", "You may be right", "I know"};
+            shape.sentences = 2;
+            break;
     }
     return shape;
 }

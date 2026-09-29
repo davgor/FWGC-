@@ -59,14 +59,18 @@ public:
     // offer is an acceptance. `frightened`: the speaker is afraid or panicking, as their last
     // packet's Memory fact says (contract version 9); only then are calming words an act of their
     // own, as an answer is only to a question. Greedy, so the same line, knowledge, reply and
-    // feeling give the same act. Throws Error for a line or a reply past kMaxLineBytes.
-    Interpretation interpret(std::string_view line, const Known& known, std::string_view last_reply = {}, bool frightened = false);
+    // feeling give the same act. `worked_for`: the speaker's own work is between them, taken, finished,
+    // failed or given up, as their last packet's Memory fact says (contract version 18); only then is a
+    // complaint an act of its own. Throws Error for a line or a reply past kMaxLineBytes.
+    Interpretation interpret(std::string_view line, const Known& known, std::string_view last_reply = {}, bool frightened = false,
+                             bool worked_for = false);
 
     // The questions interpret() puts to the model, for a log or a test: which act the line is,
     // and, for an act that takes a target, which known thing of its kind it points at. The
     // candidates come most likely first: those sharing the most words with the line, and with
     // the last reply.
-    Question act_question(std::string_view line, const Known& known, std::string_view last_reply = {}, bool frightened = false) const;
+    Question act_question(std::string_view line, const Known& known, std::string_view last_reply = {}, bool frightened = false,
+                          bool worked_for = false) const;
     Question target_question(orchestrator::ActKind act, std::string_view line, const Known& known,
                              std::string_view last_reply = {}) const;
 

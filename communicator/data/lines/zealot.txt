@@ -781,6 +781,7 @@ zealot/NN | acknowledged_deed_work | Good; faith sends the right hands when they
 zealot/NN | greeted_finished_beside | Welcome back. We came through it side by side, and I've thanked faith for you since.
 zealot/NN | thanked_work | No need; thank faith for it, not me, and let the work be your prayer.
 zealot/NN | offended_complaint | Hold your tongue; faith never promised anyone an easy road, and neither did I.
+zealot/NN | heard | I know; faith never promised anyone an easy road, and neither did I, but I'm sorry for the one you walked.
 zealot/NN | unwronged_state | Nothing to forgive; nobody's asked to carry more than they can, so rest, and pray if it helps.
 zealot/NN | greeted_who | {speaker}, {post} here, and faithful before all else.
 # Round two (2026-09-28): what five blind judges found.

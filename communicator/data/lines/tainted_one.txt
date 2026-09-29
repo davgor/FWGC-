@@ -670,6 +670,7 @@ tainted_one/NN | acknowledged_deed_work | Good; that counts for a good deal when
 tainted_one/NN | greeted_finished_beside | Welcome back. You stood beside me while it was done, closer than I let most people stand; I've marked that.
 tainted_one/NN | thanked_work | Think nothing of it; thanks go on the books when it's finished, and not a line before.
 tainted_one/NN | offended_complaint | Mind your manners; I told you what I knew when you took it, and I don't sell anyone short.
+tainted_one/NN | heard | Maybe so; I told you what I knew when you took it, and it wasn't enough.
 tainted_one/NN | unwronged_state | Nothing to forgive; I know what it is not to be yourself. Take a breath, and take your time.
 tainted_one/NN | greeted_who | I'm {speaker}, {post} of {place}; fair dealing gets you the best of me.
 # Round two (2026-09-28): what five blind judges found.

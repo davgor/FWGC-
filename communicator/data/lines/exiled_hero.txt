@@ -1024,6 +1024,7 @@ exiled_hero/NN | greeted_finished_beside | Well met again. We held together when
 exiled_hero/NN | greeted_finished_beside | Hello again. That work had us side by side, and it never once asked where either of us came from.
 exiled_hero/NN | thanked_work | Glad to; the work needs doing, and I'd sooner it went to hands I trust.
 exiled_hero/NN | offended_complaint | Enough; I told you all I knew when I asked, and I'd have told you more if I'd had it.
+exiled_hero/NN | heard | That's fair; I told you all I knew when I asked, and I'd have told you more if I'd had it.
 exiled_hero/NN | unwronged_state | No harm done. You're welcome here as you are, and that's how I'd want to be taken myself.
 exiled_hero/NN | greeted_who | {speaker}, {post} of {place}; judge me by the work, not by the road that brought me.
 # Round two (2026-09-28): what five blind judges found.

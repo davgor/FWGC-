@@ -437,6 +437,7 @@ inherited_hero/NN | acknowledged_deed_work | Good; that's worth something to me,
 inherited_hero/NN | greeted_finished_beside | Welcome back. You put your back into it right beside me, and I counted every bit of it in your favour.
 inherited_hero/NN | thanked_work | No need; a deal's thanked when it's closed, not before.
 inherited_hero/NN | offended_complaint | There's no need for that; I gave you all I knew of it, and hiding any of it would have cost me as much as you.
+inherited_hero/NN | heard | I hear you; I gave you all I knew of it, and it wasn't enough.
 inherited_hero/NN | unwronged_state | There's nothing to forgive. How you are is your own business, and it takes nothing from me.
 inherited_hero/NN | greeted_who | {speaker}, {post} here, carrying an aim I was handed and counting what it costs.
 # Round two (2026-09-28): what five blind judges found.

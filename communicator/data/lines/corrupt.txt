@@ -1032,6 +1032,7 @@ corrupt/NN | greeted_finished_beside | Welcome back. We came out of that ahead b
 corrupt/NN | greeted_finished_beside | Good to see you. I stood beside you for every bit of that, and you're well in credit with me for it.
 corrupt/NN | thanked_work | Don't mention it; trust is an investment, and I expect a return on mine.
 corrupt/NN | offended_complaint | Careful; the terms were the terms when you took them, and I don't rewrite a deal after the fact.
+corrupt/NN | heard | Maybe so; the terms were the terms when you took them, but I'll grant they didn't cover all of it.
 corrupt/NN | unwronged_state | Nothing to forgive; a hard time isn't a debt, and nobody's troubles go on my books.
 corrupt/NN | greeted_who | I'm {speaker}, {post} of {place}; nothing I say comes free, but every word of it holds.
 # Round two (2026-09-28): what five blind judges found.

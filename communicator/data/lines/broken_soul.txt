@@ -786,6 +786,7 @@ broken_soul/NN | acknowledged_deed_work | Good. I'll take you at your word; the 
 broken_soul/NN | greeted_finished_beside | Welcome back. It was good to have someone beside me for that, and I don't say that easily.
 broken_soul/NN | thanked_work | No need; I don't set much store by thanks while there's work still to do.
 broken_soul/NN | offended_complaint | Hold your tongue; I dealt straight with you, and hard work is still hard.
+broken_soul/NN | heard | I know; I dealt straight with you, and hard work is still hard, and I'm sorry it fell on you.
 broken_soul/NN | unwronged_state | Nothing to forgive. Nobody's themselves all the time; I'm not, most of the time.
 broken_soul/NN | greeted_who | I'm {post} here, {speaker} by name, for what that's worth to you.
 # Round two (2026-09-28): what five blind judges found.

@@ -926,6 +926,7 @@ fractured_heart/NN | acknowledged_deed_work | Is that so? Then you'll do, and I'
 fractured_heart/NN | greeted_finished_beside | Well met again. I was right there with you when it was done, and that's one thing I remember clearly.
 fractured_heart/NN | thanked_work | Think nothing of it; see it through, and whichever of us you find after will know you for it.
 fractured_heart/NN | offended_complaint | Mind your manners; if the other one of me knew something and kept it back, take it up with both of us.
+fractured_heart/NN | heard | Maybe so; if the other one of me knew something and kept it back, I'm sorry for both of us.
 fractured_heart/NN | unwronged_state | Nothing to forgive; I'm not myself half the time, so I'm hardly one to mind. You're fine as you are.
 fractured_heart/NN | greeted_who | {speaker}, {post} here, or at least that's who you've got today.
 fractured_heart/NN | them_plans | Ask whichever of me is up first tomorrow. As for this one, I {standing}[, and I mean to {after}].

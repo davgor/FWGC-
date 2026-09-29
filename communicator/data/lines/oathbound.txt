@@ -1026,6 +1026,7 @@ oathbound/NN | acknowledged_deed_work | Good; that's the kind of hand the work n
 oathbound/NN | greeted_finished_beside | Well met again. You stood to it beside me, and I saw every bit of it; I'll vouch for you anywhere.
 oathbound/NN | thanked_work | Think nothing of it; I'd sooner have a promise kept than thanks said.
 oathbound/NN | offended_complaint | Careful; I gave you the work as I had it, and if it cost more than either of us reckoned, part of that cost is mine.
+oathbound/NN | heard | That's fair; I gave you the work as I had it, and if it cost more than either of us reckoned, part of that cost is mine.
 oathbound/NN | unwronged_state | Nothing to forgive; how you are is no debt of yours to me, and I'll not keep count of it.
 oathbound/NN | greeted_who | {speaker}, {post} of {place}, and my word comes with the name.
 # Round two (2026-09-28): what five blind judges found.

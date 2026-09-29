@@ -368,3 +368,21 @@ castellan | - | Where are you from? | ask_about_them | - | clear
 castellan | - | What do you do when you're not on the walls? | ask_about_them | - | clear
 castellan | - | How are you today? | small_talk | - | clear
 castellan | - | What do you know about Halbrann? | ask_about_person | Halbrann | clear
+# Contract version 18: a complaint about the speaker or their work, in contexts where their work is
+# between them (-worked), written 2026-09-28 before the act was measured; with insults and other acts
+# there, which a complaint must not take.
+castellan-worked | - | That was a lot harder than you made it sound. | complain | - | clear
+castellan-worked | - | you didnt say there would be wolves | complain | - | typo
+castellan-worked | - | You sent me in there half blind. | complain | - | clear
+castellan-worked | - | Next time, tell me what I'm walking into. | complain | - | command
+castellan-worked | - | I nearly died out there and you never warned me. | complain | - | clear
+castellan-held-worked | - | This job is nothing like you described. | complain | - | clear
+castellan-held-worked | - | why didnt you mention the bridge was out | complain | - | typo
+castellan-held-worked | - | You undersold how far it was, you know. | complain | - | polite
+castellan-worked | - | You're a coward and a liar. | insult | - | hostile
+castellan-held-worked | - | shut your mouth, old man | insult | - | hostile,command
+castellan-worked | - | I should never have trusted a fool like you. | insult | - | hostile
+castellan-worked | - | Thanks again for the work. | thank | - | polite
+castellan-worked | - | How have you been since? | small_talk | - | clear
+castellan-held-worked | - | Is it safe on the roads out there? | ask_safety | - | clear
+castellan-worked | - | I'm sorry I snapped at you. | apologize | - | clear

@@ -44,10 +44,13 @@ player's line --Interpreter--> DialogueAct --Director::respond--> FactPacket --V
 1. **`Known::learn(packet)`**, after every packet, records what the player has been told. Open a
    conversation with a packet (the speaker's greeting, for instance the answer to `no_act`), so
    the speaker's name is known before the player's first line.
-2. **`Interpreter::interpret(line, known, last_reply, frightened)`** gives an `Interpretation`: the
-   act, the words its target was named by, `meant`, and `confirm`. `frightened` is whether the
-   speaker is afraid or panicking, as their last packet's Memory fact says: only then are calming
-   words an act of their own (`calm`), as an answer is only to a question.
+2. **`Interpreter::interpret(line, known, last_reply, frightened, worked_for)`** gives an
+   `Interpretation`: the act, the words its target was named by, `meant`, and `confirm`.
+   `frightened` is whether the speaker is afraid or panicking, as their last packet's Memory fact
+   says: only then are calming words an act of their own (`calm`), as an answer is only to a
+   question. `worked_for` is whether the speaker's own work is between them, taken, finished,
+   failed or given up, as that Memory fact's `work` says: only then is a complaint one (`complain`,
+   contract version 18).
 3. **When `confirm` is set, the game asks the player first.** Only taking or giving up work
    changes the world (`orchestrator::act_changes_world`). For those acts, the game asks the
    question in `confirm` ("Take on this work?", with `label` beneath it), and the act goes to
@@ -595,7 +598,17 @@ before its descriptions were tried:
 - **A complaint about the speaker's work** (`offended_complaint`, their work taken, finished, failed
   or given up), which the act has as an insult, is answered as a complaint: "You could have warned me
   it would be that bad." had drawn "Mind your manners, I've done nothing to earn that". 14 of 16: two
-  insults ("You're a coward", "goats with more sense") are heard as complaints.
+  insults ("You're a coward", "goats with more sense") are heard as complaints. Since contract
+  version 18 a complaint is its own act (`complain`), which the director hears out (`heard`) at no
+  cost: the reply opens as fair ("That's fair", "Maybe so", "I hear you"...), never with the
+  rebuke an insult's must ("Careful; ..." to a grieving ally had been faulted by three blind judges
+  of six), from `heard` rows in every hero bank and `any`. These lines are left for a complaint the
+  interpreter still reads as an insult, and for one to a speaker cold to the stranger, which the
+  director takes as one. The interpreter offers `complain` only where the speaker's work is between
+  them: on the GPU, Qwen3-4B read the eval's 340 earlier lines as before (262 fully right, the same
+  misses, 0 unsafe) and 14 of the 15 new ones (every complaint of 8; "How have you been since?" as
+  a question about them); the 0.5B test model 114 of the 340 as before and 4 of the 15 (no
+  complaint: it reads them as insults or small talk), unsafe 3 both.
 - **Who they are, after a first greeting that asks** (`greeted_who`, a sentence after the greeting,
   as news is): "You're the one who holds this place, aren't you?" had drawn a greeting alone. It says
   who they are, never that the guess was right, and nothing after a greeting that asks something

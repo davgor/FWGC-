@@ -23,7 +23,7 @@ resolve hero finished
 say hero greet | That's taken care of.
 say hero small_talk | Did it go the way you hoped?
 say hero answer | I took a bad fall on the way back.
-say hero insult | You might have told me how far it was.
+say hero complain | You might have told me how far it was.
 say hero apologize | I'm sorry. I'm sore and short-tempered.
 say hero ask_about_them | Who's on your side around here?
 say hero farewell | Look after yourself.

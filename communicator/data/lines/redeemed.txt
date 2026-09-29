@@ -788,6 +788,7 @@ redeemed/NN | acknowledged_deed_work | Indeed? Then you'd do the work properly, 
 redeemed/NN | greeted_finished_beside | Good day. We did that one together, and we did it clean; it's the sort of work I'd be glad to be known by.
 redeemed/NN | thanked_work | No need; thank me by doing it cleanly, which is the only thanks I've any use for.
 redeemed/NN | offended_complaint | There's no need for that; I gave you the work as plainly as I had it, and I'd not have kept back anything worth knowing.
+redeemed/NN | heard | I know; I gave you the work as plainly as I had it, and I'm sorry it wasn't the whole of it.
 redeemed/NN | unwronged_state | No harm done; I've been worse company in my time than you'll ever be. Take what time you need.
 redeemed/NN | greeted_who | {speaker}, {post} here; what I do counts for more than what I'm called.
 # Round two (2026-09-28): what five blind judges found.

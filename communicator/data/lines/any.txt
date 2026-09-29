@@ -278,6 +278,9 @@ any | small_talk_since_work | It's been quieter since that work was done, and I'
 any | small_talk_since_work | It's better than it was, since you saw that work through.
 any | small_talk_since_work | It's easier, since the work was done.
 any | offended_complaint | There's no need for that; I never said it would be easy.
+any | heard | That's fair; I never said it would be easy, and it was harder than that.
+any | heard | Fair enough; it was harder than it looked, and I'm sorry it fell on you.
+any | heard | I hear you; nobody sees everything that's coming, me least of all.
 any | offended_complaint | Careful; you knew it was hard work when you took it.
 any | offended_complaint | Enough; it was hard work, and you took it with your eyes open.
 any | greeted_who | I'm {speaker}, {post} here.

@@ -1023,6 +1023,7 @@ mentor/NN | greeted_finished_beside | Good to see you. I was beside you through 
 mentor/NN | greeted_finished_beside | Well met again. I learned a thing or two watching you work beside me, which is how I like a job to go.
 mentor/NN | thanked_work | No need; do it your own way rather than mine, and I'll count myself thanked.
 mentor/NN | offended_complaint | Enough; a warning wouldn't have taught you half of what that did.
+mentor/NN | heard | I know; a warning would have been kinder, though it wouldn't have taught you half of what that did.
 mentor/NN | unwronged_state | Nothing to forgive; nobody learns anything by pretending to be fine. Rest, and come back to it when you're ready.
 mentor/NN | greeted_who | I'm {speaker}, {post} here, and if you want answers, bring good questions.
 # Round two (2026-09-28): what five blind judges found.

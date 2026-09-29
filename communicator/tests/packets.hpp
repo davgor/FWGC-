@@ -320,6 +320,12 @@ inline FactPacket offended_after(const std::string& work) {
     return packet(castellan(), ActKind::Insult, Outcome::Offended, {}, {.mood = "wary", .work = work, .turn = 2});
 }
 
+// A complaint about the castellan's work, heard out (contract version 18).
+inline FactPacket heard(const std::string& work = "finished") {
+    return packet(castellan(), ActKind::Complain, Outcome::Heard, {},
+                  {.met = "again", .times = 1, .since = "days", .mood = "friendly", .work = work, .turn = 2});
+}
+
 inline FactPacket thanked(const std::string& mood = "friendly") {
     return packet(castellan(), ActKind::Thank, Outcome::Thanked, {}, {.mood = mood, .turn = 3});
 }
@@ -729,6 +735,7 @@ inline std::vector<FactPacket> conversation() {
             thanked("hostile"),
             offended(false),
             offended(true),
+            heard(),
             safety_unsafe(),
             safety_wary(),
             safety_safe(),

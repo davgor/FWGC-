@@ -343,6 +343,9 @@ std::string what_happened(const FactPacket& packet) {
                 return "The stranger tried to calm you again, but they talked you down lately and you are all right now. "
                        "Thank them for it, and say you are steady.";
             return "The stranger tried to calm you, but you are not afraid. Say so.";
+        case Outcome::Heard:
+            return "The stranger complained about you or your work, and you take it as fair: answer the complaint, without "
+                   "taking offence.";
     }
     return {};
 }

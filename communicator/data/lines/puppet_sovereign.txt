@@ -436,6 +436,7 @@ puppet_sovereign/NN | acknowledged_deed_work | Good; that's just the sort of thi
 puppet_sovereign/NN | greeted_finished_beside | Welcome back. You were at my side for every bit of it, and for once I didn't need anyone to tell me how it went.
 puppet_sovereign/NN | thanked_work | Glad to, though I'll admit it was suggested to me before it was decided by me.
 puppet_sovereign/NN | offended_complaint | There's no need for that; I passed the work on as it was given to me, and nobody gave me any warnings to pass along.
+puppet_sovereign/NN | heard | I hear you; I passed the work on as it was given to me, and nobody gave me any warnings to pass along.
 puppet_sovereign/NN | unwronged_state | Nothing to forgive. Nobody's at their best all the time; I'm told even I'm not.
 puppet_sovereign/NN | greeted_who | I'm {speaker}, {post} of {place}, or so everyone keeps telling me.
 # Round two (2026-09-28): what five blind judges found.

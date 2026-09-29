@@ -246,10 +246,17 @@ void interpreter_eval(inference::Model& model, const std::string& path, std::siz
         const std::string& context = cells[0];
         const std::string &last_reply = cells[1], &line = cells[2], &act_name = cells[3], &target = cells[4], &tags = cells[5];
         const std::string where = path + ":" + std::to_string(number);
-        // A context ending "-afraid" is its speaker frightened: calming words are offered.
-        static const std::string afraid = "-afraid";
-        const bool frightened = context.size() > afraid.size() && context.compare(context.size() - afraid.size(), afraid.size(), afraid) == 0;
-        const auto k = known.find(frightened ? context.substr(0, context.size() - afraid.size()) : context);
+        // A context ending "-afraid" is its speaker frightened: calming words are offered. One ending
+        // "-worked" has the speaker's own work between them (contract version 18): a complaint is offered.
+        const auto ends = [&](const std::string& suffix) {
+            return context.size() > suffix.size() && context.compare(context.size() - suffix.size(), suffix.size(), suffix) == 0;
+        };
+        static const std::string afraid = "-afraid", worked = "-worked";
+        const bool frightened = ends(afraid);
+        const bool worked_for = ends(worked);
+        const auto k = known.find(frightened ? context.substr(0, context.size() - afraid.size())
+                                  : worked_for ? context.substr(0, context.size() - worked.size())
+                                               : context);
         const std::optional<ActKind> expected = orchestrator::act_kind(act_name);
         if (k == known.end() || !expected) {
             std::cout << "BAD ROW " << where << ": context or act unknown\n";
@@ -265,7 +272,7 @@ void interpreter_eval(inference::Model& model, const std::string& path, std::siz
         }
         ++cases;
         const Clock::time_point start = Clock::now();
-        const Interpretation it = interpreter.interpret(line, k->second, last_reply, frightened);
+        const Interpretation it = interpreter.interpret(line, k->second, last_reply, frightened, worked_for);
         const double took = std::chrono::duration<double>(Clock::now() - start).count();
         seconds += took;
         slowest = std::max(slowest, took);

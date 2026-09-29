@@ -436,6 +436,7 @@ false_hero/NN | acknowledged_deed_work | Good; that's worth more to me than a go
 false_hero/NN | greeted_finished_beside | Welcome back. We did that side by side, and when it's told, your name goes in next to mine.
 false_hero/NN | thanked_work | Don't mention it; a fair deal doesn't need thanking, only keeping.
 false_hero/NN | offended_complaint | Careful; every job's harder than the telling of it, mine included, and complaining won't make it lighter.
+false_hero/NN | heard | Maybe so; every job's harder than the telling of it, mine included.
 false_hero/NN | unwronged_state | No harm done; you've cost me nothing by it. Nobody's at their best all the time, whatever the stories say.
 false_hero/NN | greeted_who | {speaker}, {post} here, and if the name's new to you, give it time.
 false_hero/NN | them_plans | Next is wherever the name does me most good, and I'll know it when I see it. I {standing} in the meantime[, and I mean to {after}].

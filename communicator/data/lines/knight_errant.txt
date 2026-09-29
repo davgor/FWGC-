@@ -788,6 +788,7 @@ knight_errant/NN | acknowledged_deed_work | Good; that's a thing worth having on
 knight_errant/NN | greeted_finished_beside | Hello again. You held up your end right beside me, and I owe you for an arm lent like that.
 knight_errant/NN | thanked_work | Glad to; it's a favour between us, and I'll keep my end of it.
 knight_errant/NN | offended_complaint | Enough; I weighed it as honestly as I could before I asked you in, and I'll stand by that.
+knight_errant/NN | heard | That's fair; I weighed it as honestly as I could before I asked you in, and I weighed it short.
 knight_errant/NN | unwronged_state | No harm done. Everyone has a rough stretch, and I'll not hold one against you.
 knight_errant/NN | greeted_who | I'm {speaker}, {post} here, and nobody's hired arm.
 # Round two (2026-09-28): what five blind judges found.

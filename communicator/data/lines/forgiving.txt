@@ -669,6 +669,7 @@ forgiving/NN | acknowledged_deed_work | Is that so? Then I'll put it down to you
 forgiving/NN | greeted_finished_beside | Good to see you. We did that shoulder to shoulder, and there's nothing between us now but a debt I'm glad to owe.
 forgiving/NN | thanked_work | Glad to, and whatever comes of it, you'll owe me no apology.
 forgiving/NN | offended_complaint | There's no need for that; I'll let the word pass, but I'd have warned you of anything I knew.
+forgiving/NN | heard | That's fair; I'd have warned you of anything I knew, and I'm sorry I knew so little.
 forgiving/NN | unwronged_state | There's nothing to forgive, and believe me, I'd have noticed. Be as you are; there's no debt in it.
 forgiving/NN | greeted_who | {speaker}, {post} here, and quicker to pardon than most you'll meet.
 forgiving/NN | them_plans | Whatever comes next, I'll meet it without a grudge in my pack. I {standing}[, and first I mean to {after}].

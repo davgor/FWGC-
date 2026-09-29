@@ -555,6 +555,7 @@ tyrant/NN | acknowledged_deed_work | Good; that's what I need, and I'll hold you
 tyrant/NN | greeted_finished_beside | Good day. You kept up with me, and I noticed.
 tyrant/NN | thanked_work | Don't mention it; I'll take my thanks in results.
 tyrant/NN | offended_complaint | Watch your tongue; I don't owe anyone a warning, and I don't take complaints from those I've hired.
+tyrant/NN | heard | Maybe so; I owe nobody a warning, but I'll grant this one went hard.
 tyrant/NN | unwronged_state | No harm done; I've no use for apologies. Take what time you need, and then be of use.
 tyrant/NN | greeted_who | {speaker}, {post} here, and I'm not in the habit of being asked.
 # Round two (2026-09-28): what five blind judges found.

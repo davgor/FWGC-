@@ -1026,6 +1026,7 @@ obsessed_hunter/NN | acknowledged_deed_work | Good; that's the sort of thing I w
 obsessed_hunter/NN | greeted_finished_beside | Good to see you. You kept your eyes open beside me the whole way through, and I don't forget a pair of eyes like that.
 obsessed_hunter/NN | thanked_work | No need; thanks are talk, and I trust what I can see.
 obsessed_hunter/NN | offended_complaint | Mind your manners; I gave you the work as I read it, and nobody reads every mark before they've walked the ground.
+obsessed_hunter/NN | heard | Fair enough; I gave you the work as I read it, and nobody reads every mark before they've walked the ground.
 obsessed_hunter/NN | unwronged_state | No harm done; I read people the way I read ground, and I'd rather have it plain than hidden.
 obsessed_hunter/NN | greeted_who | I'm {speaker}, {post} of {place}, and my mind's mostly elsewhere, so don't take it amiss.
 # Round two (2026-09-28): what five blind judges found.
