@@ -906,7 +906,7 @@ kingmaker/NN | acknowledged_deed_work | Good; that makes you worth backing, and 
 kingmaker/NN | greeted_finished_beside | Well met again. You worked it at my side, and the people who stand at my side are the ones I back.
 kingmaker/NN | thanked_work | Think nothing of it; you'll have done yourself a favour too, once it's done.
 kingmaker/NN | offended_complaint | Mind your manners; if I'd known more, I'd have said, since I'd hardly spend someone useful on purpose.
-kingmaker/NN | unwronged_state | Whatever for? You're more use to me honest about it than pretending otherwise.
+kingmaker/NN | unwronged_state | No harm done; you're more use to me honest about it than pretending otherwise.
 kingmaker/NN | greeted_who | The name's {speaker}, {post} here, and I'm a good one to know if you mean to get anything done.
 # Round two (2026-09-28): what five blind judges found.
 kingmaker/NN | small_talk_work_done_beside | Half my mind was on the work and half on you, and I'd not have wagered on either. Now I know what you're made of, and that alone made it worth it.

@@ -107,6 +107,11 @@ TEST(the_rule_checks_catch_what_they_check) {
     // And none after a farewell, where four blind judges of five heard it as a non sequitur (2026-09-28).
     check::is_true(row_problems("any | parted | Go well.").empty(), "the premise: a farewell");
     check::is_true(!row_problems("any | parted | Go well[; as we say, {saying}].").empty(), "no saying after a farewell");
+    // An apology for how the stranger is is met without a question (a hero session's judge, 2026-09-28).
+    check::is_true(row_problems("any | unwronged_state | Nothing to forgive; you owe me nothing for how you are.").empty(),
+                   "the premise: an apology for how one is, met");
+    check::is_true(!row_problems("any | unwronged_state | Whatever for? You owe me nothing for how you are.").empty(),
+                   "no question after an apology for how one is");
     // Where news goes in a line (contract version 11; writers found these let through, 2026-09-27):
     // {news} may open with "you" or a name, and {deed} is what the stranger did.
     check::is_true(row_problems("any | news | The word is {news}.").empty(), "the premise: news after words of the line's own");
@@ -365,7 +370,7 @@ TEST(a_conversation_situation_is_read_from_the_packet_and_what_is_remembered) {
         {packets::small_talk("stormy", "a gale"), {"small_talk_storm", "small_talk"}},
         {packets::small_talk("fair", "a gale"), {"small_talk_storm", "small_talk"}},
         {packets::small_talk("fair", "still", "hostile"), {"small_talk_cold"}},
-        {packets::parted(), {"parted"}},
+        {packets::parted(), {"parted", "parted_returned"}},
         {packets::parted_coldly(), {"parted_cold"}},
         {packets::forgiven("neutral"), {"forgiven", "forgiven_state"}},
         {packets::parted_holding_work(), {"parted", "parted_work"}},
@@ -580,6 +585,11 @@ constexpr std::size_t kAboutThemHomeFloor = 5;
 // Twelve questions of who stands against them or with them, written before the two were told apart: 7
 // right with them apart (3 before).
 constexpr std::size_t kFoesFloor = 7;
+// Farewells that wish the speaker well, told from farewells and no more: the hero benchmark's fifteen,
+// 13 right ("I need some rest." and "Wish me luck." heard as wishes), and sixteen written before the
+// descriptions were tried, 15 right ("Don't let them wear you down. Goodbye." heard as a farewell alone).
+constexpr std::size_t kReturnedBenchFloor = 13;
+constexpr std::size_t kReturnedFloor = 15;
 // Contract version 13: asked about themself, a speaker answers what was asked of them, heard by
 // meaning among seven subjects (Lines::speak): who they are, their past, what they are after, how
 // they stand here, who stands with them, whether they would leave, and what they keep to themselves.
@@ -787,6 +797,15 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
                      std::string("Not much else; the post takes all of me."),
                      "how they stand, heard lately: not said again, turn " + std::to_string(heard));
     }
+    // What they did is not the post they keep where how they stand says it already: "I command the fortress
+    // of Iskmor", asked what he did off the walls, was his post again after "I command the garrison here"
+    // (the hero benchmark's judge, 2026-09-28). With nothing of how they stand, the post is what they did.
+    const Lines did = Lines::parse("any | them_here | I {done}.\n", "did");
+    check::equal(did.replies(p).front(), std::string("I stood for Brenlin when it fell, in the last age."), "a deed, not the post");
+    FactPacket unplaced = p;
+    for (Fact& f : unplaced.facts)
+        if (f.kind == FactKind::Self) std::erase_if(f.fields, [](const auto& field) { return field.first == "stands"; });
+    check::equal(did.replies(unplaced).front(), std::string("I command the fortress of Wenweg."), "nothing of how they stand: the post they keep");
     // Who they are, with a loss or a feat of their own: not their post again.
     const Lines story = Lines::parse("any | them_who | I'm {speaker}[ {known_as}].\n"
                                      "any | them_who | I'm {speaker}. I {lost}, and I mean to {after}.\n"
@@ -834,17 +853,25 @@ TEST(asked_about_themself_they_answer_what_was_asked) {
     const std::string aim = aims.speak(p, "What are you trying to do?", {}, &meaning);
     check::equal(aim, std::string("I mean to hold the fortress above Wenweg."), "the premise: said as it comes, heard nothing lately");
     check::equal(aims.speak(p, "What are you trying to do?", {aim}, &meaning), aim, "heard lately: as it comes");
-    // An optional part saying only what the stranger heard lately is left out, and the line is then the
-    // freshest: "... alone I'd be too late.[ The {danger} don't wait.]" (the hero banks' third writers).
+    // Why they need help is answered by what they stand against, said again though heard lately; the aim
+    // heard lately makes a line no fuller. With the krakens left out as heard, "A promise kept too late is a
+    // promise broken, and alone I'd be too late" was a saying that would fit any job (the hero benchmark's
+    // judge, 2026-09-28).
     const Lines needing = Lines::parse("any | them_need | I mean to {after}, and the {danger} stand in the way.\n"
                                        "any | them_need | I'd be too late alone.[ The {danger} don't wait.]\n",
                                        "needing");
     const std::string both = "I mean to hold the fortress above Wenweg, and the Frost owls stand in the way.";
+    const std::string nest_again = "I'd be too late alone. The Frost owls don't wait.";
     check::equal(needing.speak(p, "Why do you need help?", {}, &meaning), both, "heard nothing lately: the fullest line");
-    check::equal(needing.speak(p, "Why do you need help?", {both}, &meaning), std::string("I'd be too late alone."),
-                 "heard it all lately: the part left out, the line that says nothing again");
-    check::equal(needing.speak(p, "Why do you need help?", {aim}, &meaning), std::string("I'd be too late alone. The Frost owls don't wait."),
-                 "heard only the aim: the nest, not the aim");
+    check::equal(needing.speak(p, "Why do you need help?", {both}, &meaning), nest_again,
+                 "heard it all lately: the nest said again, the aim not");
+    check::equal(needing.speak(p, "Why do you need help?", {aim}, &meaning), nest_again, "heard only the aim: the nest, not the aim");
+    const std::string warned = "Mind the Frost owls nesting a long walk away.";
+    const Lines alone = Lines::parse("any | them_need | No one holds a place alone.\n"
+                                     "any | them_need | No one holds a place alone against the {danger}.\n",
+                                     "alone");
+    check::equal(alone.speak(p, "Why do you need help?", {warned}, &meaning),
+                 std::string("No one holds a place alone against the Frost owls."), "the nest heard lately: still the fuller line");
     // A line the stranger heard whole lately is no choice while another fits, though it says nothing heard
     // lately and the other does: "A sworn thing is the whole of a person" came back three answers after it
     // was said (a hero session, 2026-09-28).
@@ -881,6 +908,13 @@ TEST(asked_who_stands_against_them_they_name_their_rivals_or_none) {
     check::equal(lines.speak(rivals, "Who are your friends?", {}, &meaning), with, "who stands with them, as ever");
     const Lines ties_only = Lines::parse("warden/LN | them_who | I'm {speaker}.\nwarden/LN | them_ties | {ties}, as ever.\n", "ties");
     check::equal(ties_only.speak(rivals, "Who are your enemies?", {}, &meaning), with, "no line of it: who stands with them, not who they are");
+    // With none on record, what they stand against is the answer, said again though heard lately.
+    const Lines against_nest = Lines::parse("any | them_foes_none | None I'd name; only the {danger}.\n"
+                                            "any | them_foes_none | None I'd name.\n",
+                                            "against the nest");
+    check::equal(against_nest.speak(packets::about_them_without_rivals(), "Who are your enemies?", {"Mind the Frost owls nesting close by."},
+                                    &meaning),
+                 std::string("None I'd name; only the Frost owls."), "none on record, the nest heard lately: the nest");
     // Twelve written before the two were told apart, six of each.
     std::size_t right = 0;
     std::string missed;
@@ -1441,6 +1475,85 @@ TEST(a_farewell_to_one_with_the_speakers_work_to_do_wishes_them_luck) {
         check::equal(lines.speak(parting(work, "friendly"), "Wish me luck."), std::string("Farewell, and keep your word."),
                      "their work " + (work.empty() ? std::string("none") : work) + ": as ever");
     check::equal(lines.speak(parting("taken", "hostile"), "Wish me luck."), std::string("Go, then."), "a cold speaker as a cold one");
+}
+
+// A farewell that wishes the speaker well is wished back, from whichever bank has it: "Look after
+// yourself." had drawn "Farewell, and may no one come to harm for want of your help" (a hero session's
+// judge, 2026-09-28). Not in place of luck, nor from a cold speaker.
+TEST(a_farewell_that_wishes_them_well_is_wished_back) {
+    communicator::Meaning meaning(test_model::embedder());
+    const Lines lines = Lines::parse("warden/LN | parted | Farewell, and keep your word.\n"
+                                     "any | parted_work | Go well, and good luck with it.\n"
+                                     "any | parted_returned | Take care, and the same to you.\n"
+                                     "any | parted_cold | Go, then.\n",
+                                     "returned");
+    const auto parting = [](const std::string& work, const std::string& mood) {
+        FactPacket p = packets::parted();
+        p.facts.back() = packets::memory_of(p.speaker, {.met = "again", .times = 1, .since = "days", .mood = mood, .work = work});
+        return p;
+    };
+    const std::string back = "Take care, and the same to you.";
+    const std::string as_ever = "Farewell, and keep your word.";
+    check::equal(lines.speak(parting("finished", "warm"), "Take care of yourself.", {}, &meaning), back,
+                 "wished well: wished back, though their own bank has none");
+    check::equal(lines.speak(parting("finished", "warm"), "Until next time.", {}, &meaning), as_ever, "a farewell and no more: as ever");
+    check::equal(lines.speak(parting("finished", "warm"), "Take care of yourself.", {}, nullptr), as_ever, "no meaning: as ever");
+    check::equal(lines.speak(parting("taken", "friendly"), "Take care of yourself.", {}, &meaning), std::string("Go well, and good luck with it."),
+                 "their work to do: luck");
+    check::equal(lines.speak(parting("finished", "hostile"), "Take care of yourself.", {}, &meaning), std::string("Go, then."),
+                 "a cold speaker as a cold one");
+    const auto heard_right = [&](const std::vector<std::pair<std::string, bool>>& farewells, std::string& missed) {
+        std::size_t right = 0;
+        for (const auto& [farewell, wishes] : farewells) {
+            const std::string reply = lines.speak(parting("finished", "warm"), farewell, {}, &meaning);
+            if ((reply == back) == wishes)
+                ++right;
+            else
+                missed += "\n  " + farewell + ": " + reply;
+        }
+        return right;
+    };
+    // The hero benchmark's own fifteen farewells, five that wish the speaker well.
+    std::string bench_missed;
+    const std::size_t bench = heard_right({{"Take care of yourself.", true},
+                                           {"Look after yourself.", true},
+                                           {"Stay safe.", true},
+                                           {"Rest well.", true},
+                                           {"Be well.", true},
+                                           {"I'll see you when it's done.", false},
+                                           {"I'll rest a while. Goodbye.", false},
+                                           {"Until then.", false},
+                                           {"I need some rest.", false},
+                                           {"See you soon.", false},
+                                           {"I'll be at the inn.", false},
+                                           {"I'll be back when it's done.", false},
+                                           {"Until next time.", false},
+                                           {"I'll come by again.", false},
+                                           {"Wish me luck.", false}},
+                                          bench_missed);
+    std::cout << "  farewells that wish them well, the benchmark's: " << bench << " of 15 heard right" << bench_missed << "\n";
+    // Sixteen written before the descriptions were tried, eight of each.
+    std::string missed;
+    const std::size_t right = heard_right({{"Look after yourself out here.", true},
+                                           {"Stay safe, all right?", true},
+                                           {"Mind yourself on those walls.", true},
+                                           {"Keep well until I'm back.", true},
+                                           {"Take good care of yourself.", true},
+                                           {"Don't let them wear you down. Goodbye.", true},
+                                           {"Be safe, friend.", true},
+                                           {"I hope the winter's kind to you.", true},
+                                           {"Right, I'm off.", false},
+                                           {"Goodbye for now.", false},
+                                           {"I'll head out, then.", false},
+                                           {"See you around.", false},
+                                           {"That's all I needed. Bye.", false},
+                                           {"I should go.", false},
+                                           {"Later.", false},
+                                           {"I'll let you get back to it.", false}},
+                                          missed);
+    std::cout << "  farewells that wish them well, held out: " << right << " of 16 heard right" << missed << "\n";
+    check::is_true(bench >= kReturnedBenchFloor, std::to_string(bench) + " of 15" + bench_missed);
+    check::is_true(right >= kReturnedFloor, std::to_string(right) + " of 16" + missed);
 }
 
 TEST(a_recalled_row_brings_the_words_in_after_a_colon_says_no_when_and_asks_nothing) {

@@ -903,7 +903,7 @@ rebel/NN | acknowledged_deed | Is that so? Then you've done something with your 
 rebel/NN | acknowledged_plan | Right. Go at it straight, and don't wait for anyone's leave.
 rebel/NN | acknowledged_kin | Aye, that's worth something; who you'd stand up for says more about you than anything else.
 rebel/NN | acknowledged_hardship_work | Ah, and it was my work that did it; I'll not pretend otherwise, and I'm sorry for it.
-rebel/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and I'll not look away from what my work cost you. Say their name, and I'll not forget it.
+rebel/NN | acknowledged_grief_work | Ah, I'm sorry for your loss, and I'll not look away from what my work cost you. Say the name, and I'll not forget it.
 rebel/NN | acknowledged_deed_work | Good; I want people who've done things, not people who've been told to.
 rebel/NN | greeted_finished_beside | Hello again. We did that shoulder to shoulder, and I'd do it again with you tomorrow.
 rebel/NN | thanked_work | Don't mention it; I'd rather have your hands than your thanks.

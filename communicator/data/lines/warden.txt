@@ -62,7 +62,7 @@ warden/NN | surroundings | What's nearest is {nearest}.[ Then {others}.][ Don't 
 warden/NN | surroundings | The nearest to you is {nearest}[, and after it, {others}].[ Keep an eye out for the {danger}.]
 warden/NN | work_own | There's work going, if you want it: {own}.[ If that's not for you, {others}.]
 warden/NN | work_own | Since you're asking, here's one: {own}.[ Besides that, {others}.]
-warden/NN | work_own | Right, this one's mine to hand out: {own}.[ If not, {others}.]
+warden/NN | work_own | Right, I could use you: {own}.[ If not, {others}.]
 warden/NN | work_others | None of my own, but {others}.
 warden/NN | work_others | Your best bet's elsewhere: {others}.
 warden/NN | work_none | Nothing doing, and nobody I know is hiring either.
@@ -88,7 +88,7 @@ warden/NN | abandoned | So be it, I'll mark it down and find someone else.
 warden/NN | abandoned | Then it's done, and no hard feelings; it happens.
 warden/NN | parted | Take care, you've been easy to deal with.
 warden/NN | parted | Goodbye, and don't be a stranger.
-warden/NN | parted | Go well, and mind your own business, it's the safest kind.
+warden/NN | parted | Go well, and keep your eyes open on the road.
 warden/NN | not_understood | I don't follow, say that again, plainer.
 warden/NN | not_understood | That's beyond me, so give it to me in fewer words.
 warden/NN | not_understood | What do you mean, exactly?
@@ -1019,7 +1019,7 @@ warden/NN | acknowledged_plan | Right. Keep to it, and don't let anyone talk you
 warden/NN | acknowledged_kin | Aye; there's no better reason to hold your ground than people to hold it for.
 warden/NN | acknowledged_hardship_work | Aye, and doing my work; I'm sorry for it, and I'll carry it as long as I stand.
 warden/NN | acknowledged_grief_work | Aye; that came of my work, and it's on me, not on you. I'm sorry, and I'll not set it down.
-warden/NN | acknowledged_deed_work | Good; I'll hold you to that, and you'll find I hold to my end.
+warden/NN | acknowledged_deed_work | Good; the work needs hands like that, and I'll not forget you have them.
 warden/NN | greeted_finished_beside | Well met again. You held your ground at my side, and that's worth more to me than words.
 warden/NN | thanked_work | No need; hold up your end, and we're square.
 warden/NN | offended_complaint | There's no need for that; I gave it to you as I had it, and nobody sees everything that's coming.

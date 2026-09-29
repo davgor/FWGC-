@@ -771,7 +771,7 @@ zealot/NN | them_plans | {home_here} is home, and I was put here for a reason; I
 zealot/NN | them_secret | That's between me and my prayers, and it stays there.
 zealot/NN | them_secret | I'll share my faith with anyone; that, I share with no one.
 zealot/NN | acknowledged_hardship | Ah, then you'll be in my prayers, and you'd do well to pray too; it holds when little else does.
-zealot/NN | acknowledged_grief | Ah, I'm grieved to hear it. Tell me their name, and I'll say it in my prayers.
+zealot/NN | acknowledged_grief | Ah, I'm grieved to hear it. Tell me the name, and I'll say it in my prayers.
 zealot/NN | acknowledged_deed | Indeed? A gift is only wasted when it sits idle, and yours hasn't.
 zealot/NN | acknowledged_plan | Right; go with faith, and it'll go with you.
 zealot/NN | acknowledged_kin | Aye; hold them close, pray for them, and let them pray for you.
@@ -781,7 +781,7 @@ zealot/NN | acknowledged_deed_work | Good; faith sends the right hands when they
 zealot/NN | greeted_finished_beside | Welcome back. We came through it side by side, and I've thanked faith for you since.
 zealot/NN | thanked_work | No need; thank faith for it, not me, and let the work be your prayer.
 zealot/NN | offended_complaint | Hold your tongue; faith never promised anyone an easy road, and neither did I.
-zealot/NN | unwronged_state | Whatever for? Nobody's asked to carry more than they can; rest, and pray if it helps.
+zealot/NN | unwronged_state | Nothing to forgive; nobody's asked to carry more than they can, so rest, and pray if it helps.
 zealot/NN | greeted_who | {speaker}, {post} here, and faithful before all else.
 # Round two (2026-09-28): what five blind judges found.
 zealot/NN | small_talk_work_done_beside | I prayed through all of it, and not all of those prayers were brave ones. It was worth every one of them.

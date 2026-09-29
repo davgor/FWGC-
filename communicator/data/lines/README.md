@@ -69,8 +69,9 @@ voice | situation | line
   | `acknowledged_doubt` (the stranger's doubt of themself: untried, afraid of failing), `acknowledged_doubt_work` (told while the speaker's work is offered or taken), `acknowledged_doubt_done` (told once it is done: fear they stood through) | |
   | `small_talk_work_done`, `small_talk_work_done_beside`, `small_talk_since_work` (the speaker's work the stranger finished: how it went, how it went when the speaker was there, how things have been since) | `small_talk_since_work`: `{danger}`, the worst nest near by name alone ("the {danger} are still about") |
   | `greeted_finished_beside` (back with the speaker's work done where they stand, beside them; contract version 14) | `{since}` |
-  | `thanked_work` (thanked for their own work while it is still to do), `offended_complaint` (a complaint about their work), `unwronged_state` (an apology for how the stranger is), `forgiven_state` (the same, once there is a wrong to forgive) | |
+  | `thanked_work` (thanked for their own work while it is still to do), `offended_complaint` (a complaint about their work), `unwronged_state` (an apology for how the stranger is: never opened with a question, "Whatever for?", which took a grieving stranger's state as having no cause), `forgiven_state` (the same, once there is a wrong to forgive) | |
   | `parted_work` (a farewell to someone with the speaker's work to do: luck, never what the work is like or who goes) | |
+  | `parted_returned` (a farewell that wishes the speaker well, wished back: "Take care, and the same to you") | |
   | `greeted_who` (said after a first greeting that asks who they are) | |
 
   Every situation may also use `{speaker}`, `{post}`, `{place}` and `{saying}`.

@@ -669,7 +669,7 @@ hermit_sage/NN | acknowledged_deed_work | Is that so? Then you may be worth the 
 hermit_sage/NN | greeted_finished_beside | Back again. I stood with you through the whole of it, and I've no corrections to make.
 hermit_sage/NN | thanked_work | No need; I gave it to you because the sum came out in your favour.
 hermit_sage/NN | offended_complaint | Watch your tongue; I warn of what's worth warning of, and a warning about everything would be no warning at all.
-hermit_sage/NN | unwronged_state | Whatever for? To be worn thin is a condition, not an offence.
+hermit_sage/NN | unwronged_state | Nothing to forgive. To be worn thin is a condition, not an offence.
 hermit_sage/NN | greeted_who | {speaker}, {post} here; the rest of me you'd have to earn.
 hermit_sage/NN | them_plans | I plan no further than the reckoning allows, and it allows this much: I {standing}[, and I mean to {after}].
 # Round two (2026-09-28): what five blind judges found.

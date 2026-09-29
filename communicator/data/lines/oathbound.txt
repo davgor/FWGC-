@@ -1021,15 +1021,15 @@ oathbound/NN | acknowledged_deed | Is that so? Then you've something to your nam
 oathbound/NN | acknowledged_plan | Right. Is that a promise to yourself, or only a plan?
 oathbound/NN | acknowledged_kin | Aye, and good. A person should know what they're bound to, and who.
 oathbound/NN | acknowledged_hardship_work | Ah, that came of my work, so it goes on my side of the account, not yours; I'm sorry for it.
-oathbound/NN | acknowledged_grief_work | Ah, I'm sorry; a death on my work is a debt I'll carry as long as I carry anything. Tell me their name, and I'll keep it.
-oathbound/NN | acknowledged_deed_work | Good; I'll weigh that when I weigh you, and I weigh fairly.
+oathbound/NN | acknowledged_grief_work | Ah, I'm sorry; a death on my work is a debt I'll carry as long as I carry anything. Tell me the name, and I'll keep it.
+oathbound/NN | acknowledged_deed_work | Good; that's the kind of hand the work needs, and I'd sooner have it than any promise.
 oathbound/NN | greeted_finished_beside | Well met again. You stood to it beside me, and I saw every bit of it; I'll vouch for you anywhere.
 oathbound/NN | thanked_work | Think nothing of it; I'd sooner have a promise kept than thanks said.
 oathbound/NN | offended_complaint | Careful; I gave you the work as I had it, and if it cost more than either of us reckoned, part of that cost is mine.
-oathbound/NN | unwronged_state | Whatever for? How you are is no debt of yours to me, and I'll not keep count of it.
+oathbound/NN | unwronged_state | Nothing to forgive; how you are is no debt of yours to me, and I'll not keep count of it.
 oathbound/NN | greeted_who | {speaker}, {post} of {place}, and my word comes with the name.
 # Round two (2026-09-28): what five blind judges found.
-oathbound/NN | small_talk_work_done_beside | I'd sworn to myself I'd not let the fear show, and I kept that oath by a thread; yours to me, you kept without a tremor.
+oathbound/NN | small_talk_work_done_beside | I'd sworn to myself I'd not let the fear show, and I kept that oath by a thread; you kept yours to me, and I saw it.
 oathbound/NN | small_talk_work_done_beside | I'd go through it all again for the same end; that's my word on it. Your word's as good as an oath to me after that.
 oathbound/NN | small_talk_work_done | The waiting tried my faith, and my faith isn't easily tried. It held, and you proved it right; there's no one I'd sooner call as good as their word.
 oathbound/NN | small_talk_work_done | It meant more than I can easily say, knowing it was done and knowing it was your doing. From here on, my name stands behind yours.

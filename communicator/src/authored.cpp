@@ -383,8 +383,14 @@ std::map<std::string, std::string> blanks_of(const FactPacket& p, const std::str
             set("standing", standing_words(*self));
             set("lost", lost_words(*self));
         }
+        // A deed they did: not the post they keep where how they stand says it already. "I command the
+        // fortress of Iskmor", asked what he did off the walls, was his post again after "I command the
+        // garrison here" (the hero benchmark's judge, 2026-09-28).
+        const bool stands = out.count("standing") != 0;
         for (const Fact* deed : deeds_of(p))
-            if (std::string done = done_words(*deed); !done.empty()) {
+            if (stands && field_of(*deed, "part") == "keeper") {
+                continue;
+            } else if (std::string done = done_words(*deed); !done.empty()) {
                 set("done", std::move(done));
                 break;
             }
@@ -546,18 +552,30 @@ std::optional<Filled> fill_blanks(std::string_view text, const std::map<std::str
     return out;
 }
 
+// Whether `blank` is what a question about themself, answered in `situation`, asked for: said again
+// though the stranger heard it lately. Why they need help is what they stand against, and with the krakens
+// left out as heard, "A promise kept too late is a promise broken, and alone I'd be too late" was a saying
+// that would fit any job (the hero benchmark's judge, 2026-09-28). What they are after, heard lately, is
+// no answer to anything but itself.
+bool answers_it(const std::string& situation, const std::string& blank) {
+    if (blank == "danger") return situation == "them_need" || situation == "them_stakes" || situation == "them_foes_none";
+    return blank == "foes" && situation == "them_foes";
+}
+
 // `line`, written for `situation`, with its blanks filled, or nothing when the packet cannot fill
 // one. An optional part, in [brackets], is left out whole when the packet cannot fill a blank in it.
 std::optional<Filled> filled(const std::string& line, const std::map<std::string, std::string>& blanks, const std::string& situation,
                              const std::vector<std::string>* heard_lately = nullptr) {
     // With `heard_lately`, an optional part is left out, too, when all it says the stranger heard from the
-    // speaker lately: asked about themself, "... alone I'd be too late.[ The {danger} don't wait.]" says
-    // the nest again where the line's own words said something new (the hero banks' third writers, 2026-09-28).
+    // speaker lately, and none of it is what was asked: asked what they are after, "...[ The {danger} can't
+    // make me forsworn.]" says the nest again where the line's own words said something new (the hero banks'
+    // third writers, 2026-09-28).
     const auto all_heard = [&](const Filled& part) {
         if (heard_lately == nullptr || part.said.empty()) return false;
         return std::all_of(part.said.begin(), part.said.end(), [&](const std::string& name) {
             const auto b = blanks.find(name);
-            return b != blanks.end() && std::any_of(heard_lately->begin(), heard_lately->end(), [&](const std::string& said) {
+            return b != blanks.end() && !answers_it(situation, name) &&
+                   std::any_of(heard_lately->begin(), heard_lately->end(), [&](const std::string& said) {
                        return lowered(said).find(lowered(b->second)) != std::string::npos;
                    });
         });
@@ -822,6 +840,7 @@ const std::map<std::string, std::vector<std::string>>& Lines::situations() {
         {"forgiven_state", {}},
         // A farewell to someone with the speaker's work to do.
         {"parted_work", {}},
+        {"parted_returned", {}},
         {"acknowledged_deed_work", {}},
         // Their doubt of themself (untried, afraid of failing), told while the speaker's work is to
         // do, and once it is done.
@@ -988,7 +1007,7 @@ std::vector<std::string> Lines::situations_for(const FactPacket& p) {
             if (m.frightened()) return frightened("parted");
             if (m.cold()) return {"parted_cold"};
             if (m.work == "taken") return {"parted", "parted_work"};
-            return {"parted"};
+            return {"parted", "parted_returned"};
         case Outcome::Acknowledged:
             // What the stranger tells, taken as what it is by meaning in speak(); a cold speaker takes
             // everything alike.
@@ -1274,14 +1293,15 @@ std::vector<Lines::Spoken> Lines::spoken_for(const FactPacket& p, const std::vec
                     if (checked && !untrue(without_passing(finished(*reply, s), reply->passing), p, recent ? *recent : kNothingSaid).empty())
                         continue;
                     // In an answer about themself (contract version 13), what the stranger heard from the
-                    // speaker lately makes a line no fuller: "I command the garrison here" answered how long
-                    // he had held it, and again what he did off the walls (the hero benchmark's third
-                    // judge, 2026-09-28).
+                    // speaker lately makes a line no fuller, unless it is what was asked: "I command the
+                    // garrison here" answered how long he had held it, and again what he did off the walls
+                    // (the hero benchmark's third judge, 2026-09-28).
                     std::size_t heard_lately = 0;
                     if (recent != nullptr && s.rfind("them_", 0) == 0)
                         for (const std::string& name : reply->said)
                             if (const auto b = blanks.find(name);
-                                b != blanks.end() && !b->second.empty() && std::any_of(recent->begin(), recent->end(), [&](const std::string& said) {
+                                b != blanks.end() && !b->second.empty() && !answers_it(s, name) &&
+                                std::any_of(recent->begin(), recent->end(), [&](const std::string& said) {
                                     return lowered(said).find(lowered(b->second)) != std::string::npos;
                                 }))
                                 ++heard_lately;
@@ -1674,6 +1694,18 @@ std::string Lines::speak(const FactPacket& p, std::string_view line, const std::
     if (p.outcome == Outcome::Parted && remembered(p).work == "taken" && !remembered(p).cold() && !remembered(p).frightened()) {
         static const std::vector<std::string> luck = {"parted_work"};
         if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &luck); !on_it.empty()) spoken = on_it;
+    }
+    // A farewell that wishes the speaker well is wished back: "Look after yourself." drew "Farewell, and
+    // may no one come to harm for want of your help" (a hero session's judge, 2026-09-28). Asked alone, as
+    // luck is, and not in its place.
+    if (meaning != nullptr && p.outcome == Outcome::Parted && remembered(p).work != "taken" && !remembered(p).cold() &&
+        !remembered(p).frightened() && !trimmed(line).empty()) {
+        static const std::vector<std::string> subjects = {
+            "A farewell that wishes them well: take care of yourself, stay safe, be well, look after yourself.",
+            "Just a farewell: goodbye, I'm off, see you, until next time, I'll be back."};
+        static const std::vector<std::string> returned = {"parted_returned"};
+        if (meaning->subject_of(line, subjects) == 0)
+            if (const std::vector<Spoken> on_it = spoken_for(p, &recent, true, &returned); !on_it.empty()) spoken = on_it;
     }
     // Greeted with a question of who they are ("You're the one who holds this place, aren't you?"), a
     // speaker says who they are after their greeting, and never that the guess was right, which they

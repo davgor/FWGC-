@@ -608,7 +608,12 @@ off the walls. An optional part whose every blank the stranger heard lately is l
 says nothing again and is the freshest there is: of 64 rows for what a hero is after, none answered
 without saying it, every judge heard the aim five times in a conversation, and the rows written to
 answer from home, the nest and their standing instead held the nest in brackets (the hero banks'
-third round of writers, 2026-09-28).
+third round of writers, 2026-09-28). Not what was asked, though: what they stand against, asked why
+they need help, what comes if the work fails, or who is against them with no rival on record, and
+their rivals, asked who is against them, are said again however lately heard (`answers_it`). With the
+krakens left out as heard, "A promise kept too late is a promise broken, and alone I'd be too late"
+was a saying that would fit any job (the fifth round's judge). What they are after is not among them:
+said again, it was the repeat every judge heard.
 
 From the held-out session's judge (2026-09-28), each classifier measured once on lines written
 before its descriptions were tried:
@@ -642,6 +647,21 @@ From the judges of all five hero sessions (2026-09-28):
   and **why it matters, from their home** (`them_after`, `{home}`).
 - **Whether they would leave, from where their home is**: `{home_here}` when they stand at home,
   `{away}` when home is elsewhere ("If I could? I'd go home to Linbrig").
+
+From the judges of the fifth round (2026-09-28):
+- **What they did** (`{done}`) is not the post they keep where how they stand says it already:
+  "I command the fortress of Iskmor", asked what he did off the walls, was his post again after "I
+  command the garrison here". With nothing of how they stand, the post is what they did.
+- **A farewell that wishes the speaker well is wished back** (`parted_returned`), asked alone as luck
+  is and never in its place, nor from a cold or frightened speaker: "Look after yourself." had drawn
+  "Farewell, and may no one come to harm for want of your help". Told by meaning from a farewell and
+  no more: 15 of 16 written before the descriptions were tried ("Don't let them wear you down.
+  Goodbye." heard as a farewell alone), and 13 of the benchmark's 15 ("I need some rest." and "Wish me
+  luck." heard as wishes).
+- **An apology for how the stranger is is met without a question**: "Whatever for?", two turns after
+  a brother's death, took the stranger's state as having no cause. The rules check refuses an
+  `unwronged_state` row that opens with one; the eleven that did were rewritten.
+- **Words of "we" are not said back** (above, "The stranger's own words, said back").
 
 Work done beside the speaker (contract version 14, the Memory fact's `beside`: their own work at the
 site they hold or where they stand) is greeted (`greeted_finished_beside`) and talked of

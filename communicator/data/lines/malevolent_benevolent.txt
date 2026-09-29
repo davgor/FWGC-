@@ -551,7 +551,7 @@ malevolent_benevolent/NN | greeted_finished_beside | Good to see you. You worked
 malevolent_benevolent/NN | greeted_finished_beside | Hello again. I last saw you {since}, and I've not changed my mind about what you did beside me.
 malevolent_benevolent/NN | thanked_work | Don't mention it; I don't need your thanks, only the work done well.
 malevolent_benevolent/NN | offended_complaint | Mind your manners; I put the work before you as it was, and I don't soften things for anyone.
-malevolent_benevolent/NN | unwronged_state | Whatever for? You are as you are, and I'd sooner that than a show.
+malevolent_benevolent/NN | unwronged_state | There's nothing to forgive. You are as you are, and I'd sooner that than a show.
 malevolent_benevolent/NN | greeted_who | I'm {speaker}, {post} here, and you can make of that whatever you like.
 # Round two (2026-09-28): what five blind judges found.
 malevolent_benevolent/NN | small_talk_work_done_beside | I was afraid, and I'd think less of myself for hiding it than for feeling it. You made the fear worth having, and then some.

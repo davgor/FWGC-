@@ -298,10 +298,10 @@ any | them_plans | Leave {home_here}? It's my home; I'll not leave it while I me
 # A death told, heard as grief, and one that came of the speaker's own work; an apology for how the
 # stranger is, not for a wrong (contract version 13).
 any | acknowledged_grief | Ah, I'm sorry for your loss. That's a heavy thing to carry.
-any | acknowledged_grief | Ah, I'm sorry. What was their name?
+any | acknowledged_grief | Ah, I'm sorry. Will you tell me the name?
 any | acknowledged_grief | Aye, I'm sorry for it; no one should have to carry that.
 any | acknowledged_grief_work | Ah, and in my service; I'm sorry for your loss, and I'll not forget what it cost you.
-any | acknowledged_grief_work | Ah, I'm sorry, and in my service. What was their name?
+any | acknowledged_grief_work | Ah, I'm sorry, and in my service. Will you tell me the name?
 any | unwronged_state | There's nothing to forgive; you've had a hard road.
 any | unwronged_state | Nothing to forgive; you've reason enough to be.
 any | unwronged_state | No harm done; rest, and you'll be yourself again.
@@ -335,6 +335,10 @@ any | acknowledged_doubt_done | Aye, then you know what it cost to stand, and yo
 any | parted_work | Go well, and luck go with you.
 any | parted_work | Take care, and may your nerve hold when it counts.
 any | parted_work | Goodbye, and good luck to you.
+any | parted_returned | Take care, and the same to you.
+any | parted_returned | Go well, and you look after yourself too.
+any | parted_returned | Farewell, and the same back to you.
+any | parted_returned | Take care yourself, and go well.
 # An apology for how the stranger is (tired, not themself), once there is a wrong to forgive.
 any | forgiven_state | All right; you're tired, and you've earned it. Get some rest.
 any | forgiven_state | Let's forget it; rest, and we'll say no more of it.

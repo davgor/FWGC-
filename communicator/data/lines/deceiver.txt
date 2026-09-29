@@ -908,7 +908,7 @@ deceiver/NN | greeted_finished_beside | Good to see you. I stood beside you for 
 deceiver/NN | greeted_finished_beside | Back again. We did that together, you and I, and I'll tell it straight to anyone who asks.
 deceiver/NN | thanked_work | Think nothing of it; thank me when you've seen how it all comes out.
 deceiver/NN | offended_complaint | Mind your manners; I told you what you needed to know, and not a word of it was false.
-deceiver/NN | unwronged_state | Whatever for? Nobody owes me an apology for how they're keeping; I'd sooner have it honest than hidden.
+deceiver/NN | unwronged_state | There's nothing to forgive. Nobody owes me an apology for how they're keeping; I'd sooner have it honest than hidden.
 deceiver/NN | greeted_who | I'm {speaker}, {post} of {place}, for what that's worth to you.
 # Round two (2026-09-28): what five blind judges found.
 deceiver/NN | small_talk_work_done_beside | It was worth it, though it frightened me more than I let show, and I let very little show. I'll own that to you and to nobody else.

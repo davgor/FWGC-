@@ -525,6 +525,11 @@ inline std::vector<std::string> row_problems(const std::string& row, std::vector
         // sequitur or a rebuke ("Safe travels; as we say, hold your tongue on thin ice", 2026-09-28).
         if ((situation == "parted" || situation == "parted_cold") && line.find("{saying}") != std::string::npos)
             out.push_back("a saying after a farewell: heard as a non sequitur");
+        // An apology for how the stranger is, not for a wrong, is not met with a question: "Whatever for?",
+        // two turns after the stranger told of a brother's death, took their state as having no cause (a
+        // hero session's judge, 2026-09-28).
+        if (situation == "unwronged_state" && (line.rfind("What for", 0) == 0 || line.rfind("Whatever for", 0) == 0))
+            out.push_back("a question after an apology for how the stranger is: heard as if it had no cause");
     }
     try {
         // A row for an answer said again is spoken to a stranger who asked before and heard all of
