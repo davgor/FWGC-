@@ -1088,6 +1088,15 @@ FactPacket Director::reply(const std::string& speaker_uid, const DialogueAct& ac
             a.grievances.push_back(regard(a, kInsulted));
             return finish(packet_for(s, act, Outcome::Offended));
 
+        case ActKind::Complain:
+            // A complaint about the speaker or their work is heard out, and costs nothing: "You never
+            // said there'd be so many of them", taken as an insult, had a castellan bristle at a
+            // grieving ally (three blind judges of six, 2026-09-28). From one the speaker is cold to,
+            // or a face that does not know them, it is taken as an insult is.
+            if (recognised && a.disposition >= 0) return finish(packet_for(s, act, Outcome::Heard));
+            a.grievances.push_back(regard(a, kInsulted));
+            return finish(packet_for(s, act, Outcome::Offended));
+
         case ActKind::Apologize: {
             // An apology eases the latest grievance and gives back what it cost, so an insult and
             // an apology leave the speaker where they were. Said again once every one is

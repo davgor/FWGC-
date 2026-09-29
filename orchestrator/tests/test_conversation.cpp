@@ -398,6 +398,31 @@ TEST(an_apology_eases_the_latest_grievance_and_gives_back_what_it_cost) {
     check::is_true(d.respond(y, {ActKind::Apologize, ""}).outcome == Outcome::Unwronged, "never wronged: nothing to forgive");
 }
 
+// Contract version 18: a complaint about the speaker or their work is heard out and costs nothing, so an
+// apology after it has nothing to forgive; from one the speaker is cold to it is taken as an insult.
+TEST(a_complaint_is_heard_out_and_costs_nothing) {
+    Director d(faced_world());
+    const std::string x = townsfolk(1).front();
+    const auto said = [&](ActKind kind) { return d.respond(x, {kind, ""}); };
+    check::equal(memory(said(ActKind::Greet))["mood"], std::string("neutral"), "the premise: neutral");
+    FactPacket p = said(ActKind::Complain);
+    check::is_true(p.outcome == Outcome::Heard, "heard out");
+    check::equal(memory(p)["mood"], std::string("neutral"), "and nothing moves");
+    p = said(ActKind::Apologize);
+    check::is_true(p.outcome == Outcome::Unwronged, "an apology after it: nothing to forgive");
+    check::equal(memory(said(ActKind::Thank))["mood"], std::string("friendly"), "the premise: thanked");
+    p = said(ActKind::Complain);
+    check::is_true(p.outcome == Outcome::Heard && memory(p)["mood"] == "friendly", "from a friend: heard, and still friendly");
+    // The control: an insult costs what it always did.
+    check::equal(memory(said(ActKind::Insult))["mood"], std::string("wary"), "the control: an insult lowers it");
+    // Cold to the stranger, a complaint is taken as an insult is: offended, and a grievance to forgive.
+    p = said(ActKind::Complain);
+    check::is_true(p.outcome == Outcome::Offended, "from one they are cold to: offended");
+    check::equal(memory(p)["mood"], std::string("hostile"), "and it costs as an insult does");
+    p = said(ActKind::Apologize);
+    check::is_true(p.outcome == Outcome::Forgiven && memory(p)["mood"] == "wary", "a grievance, forgiven: back where it was");
+}
+
 TEST(giving_up_the_speakers_own_work_is_a_grievance_too) {
     Director d(faced_world());
     const std::string g = givers().front();
@@ -1029,7 +1054,7 @@ TEST(every_packet_carries_one_memory_of_its_speaker) {
         {ActKind::Answer, ""},        {ActKind::Thank, ""},            {ActKind::Insult, ""},
         {ActKind::Confront, ""},      {ActKind::NoAct, ""},            {ActKind::AskAboutPlace, "no-such-place"},
         {ActKind::Apologize, ""},     {ActKind::Calm, ""},             {ActKind::AskAboutThem, ""},
-        {ActKind::Farewell, ""}};
+        {ActKind::Complain, ""},      {ActKind::Farewell, ""}};
     std::set<ActKind> kinds;
     int turn = 1;  // own_offers asked once already
     for (const auto& [kind, target] : acts) {

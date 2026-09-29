@@ -57,11 +57,12 @@ dread, a roster NPC or a villain.
 | `decline_quest` | Nothing changes. |
 | `abandon_quest` | Released, if the speaker gave it. |
 | `answer`, `thank`, `insult` | `acknowledged`, `thanked`, `offended`: the speaker remembers. |
+| `complain` | `heard` (contract version 18): a complaint about the speaker or their work is heard out and costs nothing; from one the speaker is cold to, or a face that does not know them, `offended`, as an insult. |
 | `confront` | `exposed`, with a Reveal fact, when the speaker hides a face and the player has cause to say so; `denied` otherwise. |
 | `farewell`, `no_act` | `parted`, `not_understood`: nothing said, the world untouched. |
 
 Every packet also carries one Memory fact (below). Only `accept_quest` and `abandon_quest` change
-the world, and `act_changes_world(kind)` in the contract says so. A test grants all sixteen acts
+the world, and `act_changes_world(kind)` in the contract says so. A test grants every act
 in turn and checks that the world document changes on exactly those two. A game confirms such an
 act with the player before handing it over, so a misread line costs a question, never a quest.
 
@@ -103,7 +104,7 @@ about its speaker:
 - `heard`, how many times before the player made this act to the speaker, in any conversation
   (contract version 6): what a speaker says to it can differ each time;
 - `mood`, from "hostile" to "warm": thanks (once a conversation) and taking or finishing the
-  speaker's work raise it; insults, giving work up and failing it lower it;
+  speaker's work raise it; insults, giving work up and failing it lower it (a complaint does not);
 - `work`, the player's latest dealing with the speaker's own work, and `work_news` (contract
   version 17): "yes" in the first conversation to begin after that work was finished or failed,
   when what came of it is news between them, and "no" after (a castellan had thanked the player
@@ -129,7 +130,9 @@ insult costs less. `apologize` eases the latest and gives back what it cost (`Fo
 insult and an apology leave the speaker where they were. Said again once every one is forgiven,
 it is taken again and moves nothing (`Forgiven` too: "nothing to forgive" would deny the wrong).
 From someone who never wronged the speaker, or to a face that does not know the player (a beast
-unleashed), there is nothing to forgive (`Unwronged`).
+unleashed), there is nothing to forgive (`Unwronged`): a complaint heard out (`complain`, contract
+version 18) is no wrong, and "You never said there'd be so many of them", taken as an insult, had a
+castellan bristle at a grieving ally (three blind judges of six, 2026-09-28).
 
 ## Feelings
 

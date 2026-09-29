@@ -46,8 +46,9 @@ extern "C" {
 /* The interface's version, bumped whenever a function, struct or code changes. A game checks
  * fwgc_api_version() == FWGC_API_VERSION before its first call.
  * 2: the brain database (fwgc_query), news (fwgc_share, fwgc_related, fwgc_report_event).
- * 3: short and long memory (fwgc_words, fwgc_compact, fwgc_memories); the database's schema 2. */
-#define FWGC_API_VERSION 3
+ * 3: short and long memory (fwgc_words, fwgc_compact, fwgc_memories); the database's schema 2.
+ * 4: the act "complain" and its outcome "heard" (contract version 18). */
+#define FWGC_API_VERSION 4
 
 typedef struct fwgc_director fwgc_director;
 

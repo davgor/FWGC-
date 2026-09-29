@@ -43,7 +43,9 @@ namespace orchestrator {
 //     a conversation, and others' too when asked again.
 // 17: the Memory fact's `work_news`: "yes" in the first conversation to begin after the speaker's own
 //     work was finished or failed, when what came of it is news between them.
-inline constexpr int kContractVersion = 17;
+// 18: the act complain and its outcome heard: a complaint about the speaker or their work, which
+//     costs no regard and leaves no grievance, where an insult does both.
+inline constexpr int kContractVersion = 18;
 
 // What the player attempts, as the interpreter classifies it. A closed set: anything the
 // interpreter cannot place is NoAct, and the speaker answers in character without acting.
@@ -72,8 +74,11 @@ enum class ActKind : int {
     // 13.
     AskAboutThem,  // the speaker themself, beyond their name: how long, why, what they are after, what
                    // they did or lost, who stands with them, whether they would leave
+    // 18.
+    Complain,  // a complaint about the speaker or their work: you could have warned me, it was worse
+               // than you said
 };
-inline constexpr int kActCount = static_cast<int>(ActKind::AskAboutThem) + 1;
+inline constexpr int kActCount = static_cast<int>(ActKind::Complain) + 1;
 
 std::string_view to_string(ActKind kind);
 std::optional<ActKind> act_kind(std::string_view name);  // nullopt for a name not in the set
@@ -122,8 +127,11 @@ enum class Outcome : int {
     StillAfraid,  // afraid, and not eased: what frightens them is still there, or they do not trust
                   // the one soothing them
     NotAfraid,    // nothing to ease: the speaker feels as they do at rest
+    // 18: a complaint.
+    Heard,  // the speaker hears it out, and thinks no less of the player for it. From a speaker cold
+            // to the player, or a face that does not know them, a complaint is Offended, as an insult
 };
-inline constexpr int kOutcomeCount = static_cast<int>(Outcome::NotAfraid) + 1;
+inline constexpr int kOutcomeCount = static_cast<int>(Outcome::Heard) + 1;
 
 std::string_view to_string(Outcome outcome);
 
@@ -171,7 +179,7 @@ std::string_view to_string(FactKind kind);
 //   "yesterday", "days" (under a week), "weeks" (under 60 days), "months" (under two years),
 //   "years"; empty the first time;
 // - `mood`: how the speaker takes the player: "warm", "friendly", "neutral", "wary", "hostile".
-//   Thanks and finished work raise it; insults and abandoned work lower it;
+//   Thanks and finished work raise it; insults and abandoned work lower it, a complaint does not;
 // - `work`: the player's latest dealing with the speaker's own work: "offered", "taken",
 //   "declined", "abandoned", "finished", "failed"; empty when there is none;
 // - `asked_before`: the place or person the player last asked this speaker about in their last

@@ -627,7 +627,7 @@ void play(Lockstep& both) {
     const FactPacket about = both.say(p.giver1, "ask_about_them");
     check::is_true(std::any_of(about.facts.begin(), about.facts.end(), [](const orchestrator::Fact& f) { return f.kind == orchestrator::FactKind::Self; }),
                    "a Self fact through the dll");
-    for (const char* act : {"small_talk", "thank", "insult", "apologize", "ask_safety", "answer", "confront", "no_act"}) {
+    for (const char* act : {"small_talk", "thank", "insult", "apologize", "complain", "ask_safety", "answer", "confront", "no_act"}) {
         both.say(p.smith, act);
         if (std::string_view(act) == "answer") both.words("My sister keeps the mill at the ford.", "Does she now.");
     }
