@@ -40,7 +40,12 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
   generator's logged verb, never by hand. How it goes is a hash of the hero's seed, the day and the
   deed, never a roll, so replay acts the same. A new action, a new rule of chance, or anything that
   follows from an outcome (how a hero takes it) comes with a test that replays it, and a number the
-  chance is held to binds on some deed or is not kept.
+  chance is held to binds on some deed or is not kept. How a hero takes a deed (contract version 30,
+  README "How a hero takes their deed") comes in only by `react`, the game's call: one of a closed set,
+  refused unless open to how the deed went, what it does decided here by rule, and recorded as applied,
+  so replay runs no picker; with none handed in, the rules pick. What it does to the world goes through
+  the generator's verb (`hero_shift_request`), and what it does to their next deed is folded from the
+  recorded inputs, as everything here is.
 - **Disclose only what the speaker would say:**
   - the face the rules bring out, never a hidden face before then: a mask until the player
     exposes it with cause, a beast's calm face but on the full moon's days, a fractured heart's
