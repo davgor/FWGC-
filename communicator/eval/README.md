@@ -522,6 +522,17 @@ nothing, never the stranger's name), a self beyond the oath (what the war was, w
 him, a deed), his own side of the fight and news between visits (hero direction), and hearing a line
 in the light of what was just said ("I'm not myself today" two turns after a brother's death).
 
+Then from those asks: a war said against whom and the liege as "our sovereign" (contract 22, f140eea),
+and an apology heard in the light of a loss told earlier that conversation (contract 23, 04db258).
+Six fresh judges: sessions 1-5 17, 17, 14, 18 and 16 (82 of 106), session 6 16 of 21: 98 of 127, as
+before. The turns these were for were judged OK ("Reads the apology as grief without being told. The
+most human line."), and fresh judges faulted others: within what their noise moves. Session 1 was the
+first scored 4 ("a low one"); the rest 3, most "high". Every judge's asks are now the same four, none
+of them a line's to give: questions of his own and uptake of what the stranger told (the hunter never
+pointed at the nest), a self beyond the oath (a deed, views on the people he names), his own side of
+the fight and news between visits (hero direction), and his own words kept (he told the distance, then
+conceded he never had).
+
 ## voice.txt
 
 `packet | line`. The packet names are in `main.cpp` (`voice_packets`).
