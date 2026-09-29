@@ -129,6 +129,12 @@ ctest --test-dir communicator/build -C Release --no-tests=error
   someone are never said back, nor words of "we": whether the speaker was one of them the words do not
   say, and "you lost two good people" handed a shared loss back (two judges, 2026-09-28). "As I told
   you" before an answer is C++'s, dated by the Recall fact.
+- **A question the speaker asked is kept only as the reply said it** (contract version 21):
+  `question_to_keep` takes the reply's last question, word for word, and keeps it only when its shape
+  asks a fact (three words or more, no tag after a clause) and the embedding hears one that stays true;
+  a change to what it keeps comes with its measure on the held-out questions (`test_asked.cpp`). Asked
+  again, it is said whole, a sentence of its own (`asked_again`), so the question a reply is heard to
+  ask is the one first asked, and the director counts it as asked twice, never as another.
 - **The summarizer's answer is held by a grammar** (`summarizer.hpp`): a quote only as a run of the
   stranger's own whole words within one sentence, never a question; the rest in lower case and the
   log's own capitalised words. The director checks it again; a change to what may be quoted comes

@@ -55,7 +55,9 @@ ctest --test-dir orchestrator/build -C Release --no-tests=error
   log, and what fails is refused and said; deeds, work, what is open and what became of work come
   from the director's own state, never from them. They are recorded with the compaction, so replay
   runs nothing that wrote them. These docs name no model: what writes a summary is the
-  communicator's.
+  communicator's. A question the speaker asked (contract version 21) is the game's to mark with the
+  words, held word for word to the reply; whether it was answered is the stranger's next act, never
+  a reading of any words, and a greeting carries it again once, which the log records.
 - **The brain database is the director's to write and the game's to read** (`src/brains.cpp`,
   README "News, and the brain database").
   - Only the director's recorded inputs write it, so replay writes it again row for row; a test
